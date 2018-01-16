@@ -6,6 +6,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\ymca_cdn_sync\SyncException;
 use GuzzleHttp\Client;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Class Fetcher.
@@ -128,11 +129,18 @@ class Fetcher implements FetcherInterface {
         $this->dataServicePassword,
       ],
     ];
-
+    $today = new DrupalDateTime();
+    $today = $today->format('Y-m-d');
     // @todo Make this XML from array. Possibly move to config.
     // @todo Make iterator if there is more item per page.
     $max_count = 10000;
-    $options['body'] = "<CL_GetProductListingInput><ProductClassCode>RS</ProductClassCode><AvailableToOrdersFlag>true</AvailableToOrdersFlag></CL_GetProductListingInput>";
+    $options['body'] = "<CL_GetProductListingInput>
+      <ProductClassCode>RS</ProductClassCode>
+      <AvailableToOrdersFlag>true</AvailableToOrdersFlag>
+      <EcommerceFlag>true</EcommerceFlag>
+      <EcommerceBeginDate>$today</EcommerceBeginDate>
+      <EcommerceEndDate>$today</EcommerceEndDate>
+    </CL_GetProductListingInput>";
 
     try {
       $endpoint = $this->dataServiceUrl . '/CL_GetProductListing';
