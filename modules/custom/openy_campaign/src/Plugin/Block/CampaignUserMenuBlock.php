@@ -8,6 +8,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\Core\Url;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Drupal\openy_campaign\OpenYLocaleDate;
 
 /**
  * Provides a Campaign user menu block.
@@ -104,7 +105,23 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       $campaignRegistrationEndDate = new \DateTime($campaign->get('field_campaign_reg_end_date')->getString());
       $currentDate = new \DateTime();
 
-      if ($currentDate >= $campaignStartDate && $currentDate <= $campaignEndDate) {
+      // Get localized versions of our times.
+      $campaignTimezone = new \DateTime($campaign->get('field_campaign_timezone')->getString());
+      $campaignTimezone = $campaignTimezone->getTimezone();
+
+      $localeCampaignStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString());
+      $localeCampaignStart->convertTimezone($campaignTimezone);
+
+      $localeCampaignEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_end_date')->getString());
+      $localeCampaignEnd->convertTimezone($campaignTimezone);
+
+      $localeRegistrationStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_start_date')->getString());
+      $localeRegistrationStart->convertTimezone($campaignTimezone);
+
+      $localeRegistrationEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_end_date')->getString());
+      $localeRegistrationEnd->convertTimezone($campaignTimezone);
+
+      if ($localeCampaignStart->dateExpired() && !$localeCampaignEnd->dateExpired()) {
         $build['login'] = [
           '#type' => 'link',
           '#title' => $this->t('Sign in'),
