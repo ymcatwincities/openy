@@ -394,8 +394,7 @@ function openy_campaign_form_node_campaign_edit_form_alter(&$form, \Drupal\Core\
       'field_campaign_start_date', 'field_campaign_end_date'];
     foreach ($field_names as $field_name) {
       $date = $form[$field_name]['widget'][0]['value']['#default_value'];
-      $locale_date = new OpenYLocaleDate();
-      $locale_date->setDateFromFormat($date->format('c'));
+      $locale_date = OpenYLocaleDate::createDateFromFormat($date->format('c'));
       $converted_date = $locale_date->convertTimezone($timezone_dtz);
       $form[$field_name]['widget'][0]['value']['#default_value'] = \Drupal\Core\Datetime\DrupalDateTime::createFromDateTime($converted_date);
     }
@@ -566,10 +565,9 @@ function openy_campaign_campaign_menu_field_submit(&$form, \Drupal\Core\Form\For
         'field_campaign_start_date', 'field_campaign_end_date'];
       foreach ($field_names as $field_name) {
         $date = $form_state->getValue($field_name)[0]['value'];
-        $locale_date = new OpenYLocaleDate();
-        $locale_date->setDateFromFormat($date->format('c'));
+        $locale_date = OpenYLocaleDate::createDateFromFormat($date->format('c'));
         $locale_date->setDateByTimezone($timezone_dtz);
-        $campaign->set($field_name, date('Y-m-d\TH:i:s', $locale_date->getDate()->getTimestamp()));
+        $campaign->set($field_name, date('Y-m-d\TH:i:s', $locale_date->getTimestamp()));
         $campaign->setNewRevision(FALSE);
         $campaign->save();
       }

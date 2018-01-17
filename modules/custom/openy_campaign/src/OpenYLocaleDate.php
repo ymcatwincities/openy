@@ -11,7 +11,6 @@ namespace Drupal\openy_campaign;
 use \DateTime;
 use \DateTimeZone;
 use Drupal\Core\Render\Element\Date;
-use Drupal\Core\TypedData\DataReferenceDefinition;
 
 class OpenYLocaleDate {
 
@@ -19,8 +18,8 @@ class OpenYLocaleDate {
   protected $siteTimezone;
   protected $convertedTimezone;
 
-  function __construct(DateTime $date = NULL) {
-    $this->setDateFromDateTime($date);
+  function __construct(DateTime $date = NULL, DateTimeZone $timezone = NULL) {
+    $this->setDateFromDateTime($date, $timezone);
     $this->siteTimezone = date_default_timezone_get();
   }
 
@@ -138,6 +137,48 @@ class OpenYLocaleDate {
     $this->date = new DateTime('now');
     $this->date->setTimestamp($timestamp);
     $this->date->setTimezone($dateTimeZone);
+  }
+
+  /**
+   * Creates a new OpenYLocaleDate from a formatted date string.
+   *
+   * @param string $date
+   * @param \DateTimeZone|null $dateTimeZone
+   *
+   * @return \Drupal\openy_campaign\OpenYLocaleDate
+   */
+  public static function createDateFromFormat(string $date = 'now', DateTimeZone $dateTimeZone = NULL): OpenYLocaleDate {
+    $openYLocaleDate = new OpenYLocaleDate();
+    $openYLocaleDate->setDateFromFormat($date, $dateTimeZone);
+    return $openYLocaleDate;
+  }
+
+  /**
+   * Creates a new OpenYLocaleDate from a timestamp.
+   *
+   * @param string $timestamp
+   * @param \DateTimeZone|null $dateTimeZone
+   *
+   * @return \Drupal\openy_campaign\OpenYLocaleDate
+   */
+  public static function createDateFromTimestamp(string $timestamp, DateTimeZone $dateTimeZone = NULL): OpenYLocaleDate {
+    $openYLocaleDate = new OpenYLocaleDate();
+    $openYLocaleDate->setDateFromTimeStamp($timestamp, $dateTimeZone);
+    return $openYLocaleDate;
+  }
+
+  /**
+   * Creates a new OpenYLocaleDate from a DateTime object.
+   *
+   * @param \DateTime $dateTime
+   * @param \DateTimeZone|null $dateTimeZone
+   *
+   * @return \Drupal\openy_campaign\OpenYLocaleDate
+   */
+  public static function createDateFromDateTime(DateTime $dateTime, DateTimeZone $dateTimeZone = NULL): OpenYLocaleDate {
+    $openYLocaleDate = new OpenYLocaleDate();
+    $openYLocaleDate->setDateFromDateTime($dateTime, $dateTimeZone);
+    return $openYLocaleDate;
   }
 
 }

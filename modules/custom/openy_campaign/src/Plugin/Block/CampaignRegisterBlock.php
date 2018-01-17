@@ -87,12 +87,6 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     /** @var Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
-    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
-    $campaignRegistrationStartDate = new \DateTime($campaign->get('field_campaign_reg_start_date')->getString());
-    $campaignRegistrationEndDate = new \DateTime($campaign->get('field_campaign_reg_end_date')->getString());
-    $currentDate = new \DateTime();
-
     $block['#cache']['max-age'] = 0;
 
     $activeRegistration = TRUE;
@@ -101,20 +95,16 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     $campaignTimezone = new \DateTime($campaign->get('field_campaign_timezone')->getString());
     $campaignTimezone = $campaignTimezone->getTimezone();
 
-    $localeCampaignStart = new OpenYLocaleDate();
-    $localeCampaignStart->setDateFromFormat($campaign->get('field_campaign_start_date')->getString());
+    $localeCampaignStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString());
     $localeCampaignStart->convertTimezone($campaignTimezone);
 
-    $localeCampaignEnd = new OpenYLocaleDate();
-    $localeCampaignEnd->setDateFromFormat($campaign->get('field_campaign_end_date')->getString());
+    $localeCampaignEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_end_date')->getString());
     $localeCampaignEnd->convertTimezone($campaignTimezone);
 
-    $localeRegistrationStart = new OpenYLocaleDate();
-    $localeRegistrationStart->setDateFromFormat($campaign->get('field_campaign_reg_start_date')->getString());
+    $localeRegistrationStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_start_date')->getString());
     $localeRegistrationStart->convertTimezone($campaignTimezone);
 
-    $localeRegistrationEnd = new OpenYLocaleDate();
-    $localeRegistrationEnd->setDateFromFormat($campaign->get('field_campaign_reg_end_date')->getString());
+    $localeRegistrationEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_end_date')->getString());
     $localeRegistrationEnd->convertTimezone($campaignTimezone);
 
     // Define if we need to show register block or not.
