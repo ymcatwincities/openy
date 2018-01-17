@@ -22,6 +22,19 @@
     @media (min-width: 768px) {
       margin: 0 45px 15px;
     }
+    a {
+      text-decoration: none;
+      &:after {
+        margin-left: 5px;
+        color: #0089d0;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\f138";
+      }
+    }
   }
   .richtext {
     padding: 0 25px 0;
