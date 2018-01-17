@@ -26,9 +26,11 @@
 
   #date-select-wrapper {
     float: left;
-    width: 50%;
     position: relative;
-
+    width: 100%;
+    @media screen and (min-width: 992px) {
+      width: 50%;
+    }
     &:before {
       background-color: $grey1;
       border-radius: 5px;
@@ -58,8 +60,10 @@
   }
   #class-select-wrapper {
     float: left;
-    width: 50%;
-
+    width: 100%;
+    @media screen and (min-width: 992px) {
+      width: 50%;
+    }
     label {
       display: none;
     }
@@ -315,7 +319,9 @@ body.node--type-location {
       display: none !important;
     }
     #date-select-wrapper {
-      padding-right: 30px;
+      @media screen and (min-width: 992px) {
+        padding-right: 30px;
+      }
     }
   }
 }
