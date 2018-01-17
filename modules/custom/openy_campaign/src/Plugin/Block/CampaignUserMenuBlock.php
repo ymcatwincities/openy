@@ -99,8 +99,6 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       ];
     }
     else {
-      $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-      $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
       $campaignRegistrationStartDate = new \DateTime($campaign->get('field_campaign_reg_start_date')->getString());
       $campaignRegistrationEndDate = new \DateTime($campaign->get('field_campaign_reg_end_date')->getString());
       $currentDate = new \DateTime();

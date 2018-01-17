@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Drupal\openy_campaign\OpenYLocaleDate;
 
 /**
  * Form for the Member Login popup.
@@ -195,8 +196,8 @@ class MemberLoginForm extends FormBase {
       }
 
       // Login before Campaign start
-      $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-      if ($campaignStartDate > new \DateTime()) {
+      $localeCampaignStartDate = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString());
+      if (!$localeCampaignStartDate->dateExpired()) {
         $msgNotStarted = $config->get('error_login_checkins_not_started');
         $modalMessage = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
         // Get message from Campaign node
@@ -251,11 +252,10 @@ class MemberLoginForm extends FormBase {
    */
   protected function checkCampaignPeriod(Node $campaign) {
     /** @var Node $campaign Campaign node. */
-    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
-    $currentDate = new \DateTime();
+    $localeCampaignStartDate = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString());
+    $localeCampaignEndDate = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_end_date')->getString());
 
-    return $currentDate >= $campaignStartDate && $currentDate <= $campaignEndDate;
+    return $localeCampaignStartDate->dateExpired() && !$localeCampaignEndDate->dateExpired();
   }
 
 }
