@@ -6,16 +6,16 @@ Drupal.behaviors.campaignCountdown = {
         jQuery('.countdown').html('');
 
         // Parse campaign end registration date to the Date object
-        var dateObj = moment(settings.campaignSettings.endRegDate);
+        var dateObj = moment(settings.campaignSettings.endRegDate + '.0000Z');
         var campaignRegEndDate = new Date(dateObj);
 
         simplyCountdown('.countdown', {
-            year: campaignRegEndDate.getUTCFullYear(), // required
-            month: campaignRegEndDate.getUTCMonth() + 1, // required
-            day: campaignRegEndDate.getUTCDate(), // required
-            hours: 0, // Default is 0 [0-23] integer
-            minutes: 0, // Default is 0 [0-59] integer
-            seconds: 0, // Default is 0 [0-59] integer
+            year: campaignRegEndDate.getFullYear(), // required
+            month: campaignRegEndDate.getMonth() + 1, // required
+            day: campaignRegEndDate.getDate(), // required
+            hours: campaignRegEndDate.getHours(), // Default is 0 [0-23] integer
+            minutes: campaignRegEndDate.getMinutes(), // Default is 0 [0-59] integer
+            seconds: campaignRegEndDate.getSeconds(), // Default is 0 [0-59] integer
             words: { //words displayed into the countdown
                 days: 'day',
                 hours: 'hour',
@@ -27,7 +27,7 @@ Drupal.behaviors.campaignCountdown = {
             inline: false, //set to true to get an inline basic countdown like : 24 days, 4 hours, 2 minutes, 5 seconds
             inlineClass: 'simply-countdown-inline', //inline css span class in case of inline = true
             // in case of inline set to false
-            enableUtc: true,
+            enableUtc: false,
             onEnd: function () {
                 // your code
                 return;

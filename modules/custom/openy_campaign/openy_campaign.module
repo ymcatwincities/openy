@@ -12,6 +12,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Drupal\openy_campaign\OpenYLocaleDate;
 
 define('CAMPAIGN_MENU_PAGES_MAX', 5);
 define('CAMPAIGN_THEME', 'openy_campaign_theme');
@@ -385,6 +386,20 @@ function openy_campaign_form_node_campaign_form_alter(&$form, \Drupal\Core\Form\
  * Implements hook_form_FORM_ID_alter().
  */
 function openy_campaign_form_node_campaign_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $timezone = $form['field_campaign_timezone']['widget'][0]['value']['#default_value'];
+  $site_timezone = date_default_timezone_get();
+  if ($timezone != $site_timezone) {
+    $timezone_dtz = new DateTimeZone($timezone);
+    $field_names = ['field_campaign_reg_start_date', 'field_campaign_reg_end_date',
+      'field_campaign_start_date', 'field_campaign_end_date'];
+    foreach ($field_names as $field_name) {
+      $date = $form[$field_name]['widget'][0]['value']['#default_value'];
+      $locale_date = new OpenYLocaleDate();
+      $locale_date->setDateFromFormat($date->format('c'));
+      $converted_date = $locale_date->convertTimezone($timezone_dtz);
+      $form[$field_name]['widget'][0]['value']['#default_value'] = \Drupal\Core\Datetime\DrupalDateTime::createFromDateTime($converted_date);
+    }
+  }
   openy_campaign_campaign_menu_field_render($form, $form_state);
 }
 
@@ -539,6 +554,24 @@ function openy_campaign_campaign_menu_field_submit(&$form, \Drupal\Core\Form\For
       if ($campaignPage->hasField('field_campaign_parent')) {
         $campaignPage->set('field_campaign_parent', $campaign);
         $campaignPage->save();
+      }
+    }
+    // Store the registration dates using the correct timezone.
+    $timezone = $form_state->getValue('field_campaign_timezone')[0]['value'];
+    $site_timezone = date_default_timezone_get();
+    if ($timezone != $site_timezone) {
+      // Get the timezone and original utc date, and deduct the offset.
+      $timezone_dtz = new DateTimeZone($timezone);
+      $field_names = ['field_campaign_reg_start_date', 'field_campaign_reg_end_date',
+        'field_campaign_start_date', 'field_campaign_end_date'];
+      foreach ($field_names as $field_name) {
+        $date = $form_state->getValue($field_name)[0]['value'];
+        $locale_date = new OpenYLocaleDate();
+        $locale_date->setDateFromFormat($date->format('c'));
+        $locale_date->setDateByTimezone($timezone_dtz);
+        $campaign->set($field_name, date('Y-m-d\TH:i:s', $locale_date->getDate()->getTimestamp()));
+        $campaign->setNewRevision(FALSE);
+        $campaign->save();
       }
     }
   }

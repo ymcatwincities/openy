@@ -5,11 +5,15 @@ namespace Drupal\openy_campaign\Plugin\Block;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
+use Drupal\locale\Form\LocaleSettingsForm;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberCheckin;
+use Drupal\webform\Plugin\WebformElement\DateTime;
+use function GuzzleHttp\Psr7\str;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
+use Drupal\openy_campaign\OpenYLocaleDate;
 
 /**
  * Provides a 'Register' block.
@@ -90,21 +94,33 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     $currentDate = new \DateTime();
 
     $block['#cache']['max-age'] = 0;
-    //if ($currentDate >= $campaignEndDate) {
-      //return $block;
-    //}
 
     $activeRegistration = TRUE;
 
-    /*if ($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) {
-      $activeRegistration = TRUE;
-    }*/
+    // Get localized versions of our times.
+    $campaignTimezone = new \DateTime($campaign->get('field_campaign_timezone')->getString());
+    $campaignTimezone = $campaignTimezone->getTimezone();
+
+    $localeCampaignStart = new OpenYLocaleDate();
+    $localeCampaignStart->setDateFromFormat($campaign->get('field_campaign_start_date')->getString());
+    $localeCampaignStart->convertTimezone($campaignTimezone);
+
+    $localeCampaignEnd = new OpenYLocaleDate();
+    $localeCampaignEnd->setDateFromFormat($campaign->get('field_campaign_end_date')->getString());
+    $localeCampaignEnd->convertTimezone($campaignTimezone);
+
+    $localeRegistrationStart = new OpenYLocaleDate();
+    $localeRegistrationStart->setDateFromFormat($campaign->get('field_campaign_reg_start_date')->getString());
+    $localeRegistrationStart->convertTimezone($campaignTimezone);
+
+    $localeRegistrationEnd = new OpenYLocaleDate();
+    $localeRegistrationEnd->setDateFromFormat($campaign->get('field_campaign_reg_end_date')->getString());
+    $localeRegistrationEnd->convertTimezone($campaignTimezone);
 
     // Define if we need to show register block or not.
-    if ($currentDate <= $campaignRegistrationStartDate || $currentDate >= $campaignEndDate) {
+    if (!$localeCampaignStart->dateHasPassed() || $localeRegistrationEnd->dateHasPassed()) {
       $activeRegistration = FALSE;
     }
-
 
     $block = [
       '#theme' => 'openy_campaign_campaign_register',
@@ -143,8 +159,8 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
         && !(MemberCampaign::isLoggedIn($campaign->id()))
         && $currentNodeType !== 'campaign_page') {
 
-      if (($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) ||
-        ($currentDate >= $campaignStartDate && $currentDate <= $campaignEndDate)
+      if (($localeRegistrationStart->dateHasPassed() && !$localeRegistrationEnd->dateHasPassed()) ||
+        ($localeCampaignStart->dateHasPassed() && !$localeCampaignEnd->dateHasPassed())
       ) {
         // Show Register block form
         $form = $this->formBuilder->getForm(
