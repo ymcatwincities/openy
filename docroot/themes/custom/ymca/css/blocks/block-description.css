@@ -10,48 +10,44 @@
   background-color: #f8f8f8;
   border-top: 2px solid #c6168d;
   box-shadow: 0px 0px 15px #d8d8d8;
-  padding: 30px 25px;
   margin-bottom: 10px;
   width: 100%;
 }
 @media (min-width: 768px) {
   .block-description--text {
     margin: 0 15px 40px;
-    padding: 35px 35px 45px 45px;
   }
 }
 .block-description--text h2 {
   text-transform: uppercase;
   font-family: Cachet;
-  margin: 0 0 15px;
+  margin: 0;
   font-size: 20px;
+  padding: 30px 25px;
+  color: #0089d0;
 }
 @media (min-width: 768px) {
   .block-description--text h2 {
-    font-size: 20px;
+    padding: 30px 35px 30px 45px;
   }
 }
-@media (min-width: 1024px) {
-  .block-description--text h2 {
-    font-size: 20px;
-  }
+.block-description--text h2:after {
+  margin-left: 10px;
+  color: #0089d0;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f138";
 }
-.block-description--text h2.with-icon {
-  padding-left: 28px;
+.block-description--text .promo-text {
+  padding: 0 25px 30px;
 }
 @media (min-width: 768px) {
-  .block-description--text h2.with-icon {
-    padding-left: 32px;
+  .block-description--text .promo-text {
+    padding: 0 35px 35px 45px;
   }
-}
-@media (min-width: 1024px) {
-  .block-description--text h2.with-icon {
-    padding-left: 40px;
-  }
-}
-.block-description--text h2 a:after {
-  text-transform: none;
-  margin-left: 3px;
 }
 .block-description--text h4 {
   font-family: Cachet;
