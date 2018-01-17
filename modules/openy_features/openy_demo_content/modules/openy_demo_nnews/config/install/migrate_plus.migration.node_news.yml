@@ -19,6 +19,7 @@ source:
       related: null
       image: 1
       promote: 1
+      addthis: 1
       body: >
         <p>Fall has just arrived, but it is never too early to think about Camp
         for 2018. Since your child had the #BestSummerEver, what better time to
@@ -32,6 +33,7 @@ source:
       related: null
       image: 2
       promote: 0
+      addthis: 1
       body: >
         <ul>
         	<li><em>Only one in three lower income youth participate in out-of-school time or
@@ -83,6 +85,7 @@ source:
       related: null
       image: 3
       promote: 0
+      addthis: 1
       body: >
         <p>By Glen Gunderson</p>
         <p>Like many of you, my mind is spinning because of international, national and local events
@@ -127,6 +130,7 @@ source:
       related: null
       image: 4
       promote: 1
+      addthis: 1
       body: >
         <p>For many kids, summer is considered to be a magical time. Summer means potential, energy and time
         for unstructured play. Magnify that magic with Y summer camp programs!</p>
@@ -165,6 +169,7 @@ source:
       related: null
       image: 5
       promote: 1
+      addthis: 1
       body: >
         <p>Spending time around water can be relaxing and so much fun, but without the proper training,
         water can be deadly. Learning water safety skills can serve kids for their whole lives. Whether
@@ -194,6 +199,7 @@ source:
       related: null
       image: 6
       promote: 0
+      addthis: 1
       body: >
         <p><strong>September 15 to October 15 celebrate LatinX Heritage Month with the YMCA. Join free events across
         Greater Seattle.</strong></p>
@@ -226,6 +232,7 @@ source:
       related: null
       image: 7
       promote: 0
+      addthis: 1
       body: >
         <h3>Breathe, Stretch, Re-charge</h3>
         <p>Join instructor Jenny Leung as she helps you use yoga as a therapeutic antidote to stress: slowing
@@ -262,6 +269,10 @@ process:
     -
       plugin: get
       source: promote
+  addthis:
+    -
+      plugin: get
+      source: addthis
   uid:
     -
       plugin: default_value
