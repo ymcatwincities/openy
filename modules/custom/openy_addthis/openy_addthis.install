@@ -21,7 +21,6 @@ function openy_addthis_uninstall() {
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
 
-
 /**
  * Add news to the list of content types.
  */
