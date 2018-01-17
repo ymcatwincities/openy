@@ -108,7 +108,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     $localeRegistrationEnd->convertTimezone($campaignTimezone);
 
     // Define if we need to show register block or not.
-    if (!$localeCampaignStart->dateHasPassed() || $localeRegistrationEnd->dateHasPassed()) {
+    if (!$localeCampaignStart->dateExpired() || $localeRegistrationEnd->dateExpired()) {
       $activeRegistration = FALSE;
     }
 
@@ -149,8 +149,8 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
         && !(MemberCampaign::isLoggedIn($campaign->id()))
         && $currentNodeType !== 'campaign_page') {
 
-      if (($localeRegistrationStart->dateHasPassed() && !$localeRegistrationEnd->dateHasPassed()) ||
-        ($localeCampaignStart->dateHasPassed() && !$localeCampaignEnd->dateHasPassed())
+      if (($localeRegistrationStart->dateExpired() && !$localeRegistrationEnd->dateExpired()) ||
+        ($localeCampaignStart->dateExpired() && !$localeCampaignEnd->dateExpired())
       ) {
         // Show Register block form
         $form = $this->formBuilder->getForm(

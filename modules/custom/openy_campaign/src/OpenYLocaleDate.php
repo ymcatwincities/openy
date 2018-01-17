@@ -41,15 +41,11 @@ class OpenYLocaleDate {
   }
 
   /**
-   * Returns whether or not the date has passed from the current time.
-   *
-   * We need to go through an awkward process of converting to and from
-   * the timezone due to issues with UTC and locales. This puts all dates
-   * essentially as UTC.
+   * Returns whether or not the current time has superseded the locale date.
    *
    * @return bool
    */
-  public function dateHasPassed(): bool {
+  public function dateExpired(): bool {
     $fromTimeZone = !empty($this->convertedTimezone) ? $this->convertedTimezone : new DateTimeZone($this->siteTimezone);
     $localeCurrent = new OpenYLocaleDate();
     $localeCurrent->setDateByTimezone(new DateTimeZone($this->siteTimezone));
