@@ -74,15 +74,24 @@
 <section{{ attributes.addClass(classes) }} style="{{ background_style|replace({'color_bottom': colors.bottom, 'color_top': colors.top}) }}">
   <div class="container title-container">
     <div class="row">
+      <div class="hidden-sm col-sm-6 header-button content-prgf-image">
+          {{ content.field_prgf_content_image }}
+      </div>
       <div class="col-sm-6 header-copy">
+        {% if content.field_prgf_link.0['#url'] is not empty %}
         <h1 class="banner-title">
-          {{ content.field_prgf_headline }}
+          <a href="{{ content.field_prgf_link.0['#url']|render }}">
+          {{ content.field_prgf_headline|raw|render|striptags }}
+          </a>
         </h1>
+        {% else %}
+          <h1 class="banner-title">{{ content.field_prgf_headline|raw|render|striptags }}</h1>
+        {% endif %}
         <article class="richtext">
           {{ content.field_prgf_description }}
         </article>
       </div>
-      <div class="col-sm-6 header-button content-prgf-image">
+      <div class="hidden-xs col-sm-6 header-button content-prgf-image">
         {{ content.field_prgf_content_image }}
       </div>
     </div>

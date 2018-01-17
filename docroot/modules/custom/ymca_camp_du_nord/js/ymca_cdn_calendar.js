@@ -288,9 +288,18 @@
         cdn_change_village_capacity(val_v, val_c);
       });
 
-      $('.cdn-village-teaser:eq(0)').addClass('active');
-      $('.cdn-calendar:eq(0)').addClass('active');
-      $('.cdn-village-teaser').on('click', function() {
+      // Show active cabin.
+      var q_cid = getParameterByName('cid', window.location.search);
+      if (q_cid) {
+        $('.cdn-village-teaser[data-index="' + q_cid + '"]').addClass('active');
+        $('.cdn-calendar[data-index="' + q_cid + '"]').addClass('active');
+      }
+      else {
+        $('.cdn-village-teaser:eq(0)').addClass('active');
+        $('.cdn-calendar:eq(0)').addClass('active');
+      }
+      // Part of functionality without page reload (uncomment for using).
+      /*$('.cdn-village-teaser').on('click', function() {
         var index = $(this).data('index');
         $('.cdn-calendar, .cdn-village-footer-bar').removeClass('active').addClass('not-active');
         $('.cdn-calendar[data-index="' + index + '"]').addClass('active').removeClass('not-active');
@@ -307,7 +316,7 @@
         var index = $(this).parents('.cdn-calendar').data('index');
         $(this).parents('.cdn-calendar').removeClass('active').addClass('not-active');
         $('.cdn-village-teaser[data-index="' + index + '"]').removeClass('active').addClass('not-active');
-      });
+      });*/
       // Panorama handler.
       $('.panorama-wrapper .open-panorama').on('click', function (e) {
         e.preventDefault();

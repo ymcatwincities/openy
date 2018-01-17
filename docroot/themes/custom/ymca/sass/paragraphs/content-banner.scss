@@ -5,9 +5,10 @@
 .content-banner {
   background: $grey1;
   box-shadow: 0 0 15px #d8d8d8;
-  margin: 0 0 10px;
+  margin: 10px 0;
+  border-top: 2px solid #c6168d;
   @media (min-width: 768px) {
-    margin: 0 0 40px;
+    margin: 40px 0;
   }
   &.page-title {
     &:before {
@@ -20,6 +21,19 @@
     margin: 0 25px 15px;
     @media (min-width: 768px) {
       margin: 0 45px 15px;
+    }
+    a {
+      text-decoration: none;
+      &:after {
+        margin-left: 5px;
+        color: #0089d0;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\f138";
+      }
     }
   }
   .richtext {
