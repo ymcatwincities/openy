@@ -7,6 +7,7 @@ use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
@@ -217,16 +218,12 @@ class MemberRegisterForm extends FormBase {
 
     // Registration attempt for already registered member.
     if ($memberCampaignID) {
-      $msgAlreadyRegistered = $config->get('error_register_already_registered');
+      /*$msgAlreadyRegistered = $config->get('error_register_already_registered');
       $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
       // Get error from Campaign node
       if (!empty($campaign->field_reg_already_registered->value)) {
         $errorAlreadyRegistered = check_markup($campaign->field_reg_already_registered->value, $campaign->field_reg_already_registered->format);
-      }
-
-      $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
-
-      return;
+      }*/
     }
 
     /** @var Member $member Load or create Temporary Member object. Will be saved by submit. */
@@ -314,6 +311,47 @@ class MemberRegisterForm extends FormBase {
     // Rebuild form for step 2 and 3
     if ($step == 2 ||
       ($step == 3 && ($triggering_element['#name'] == 'submit_change' || empty($email)))) {
+
+      // If a member already exists, log them in here.
+      $campaignID = $form_state->getValue('campaign_id');
+      $membershipID = $form_state->getValue('membership_id');
+      if ($memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID)) {
+        $response = new AjaxResponse();
+        $config = $this->config('openy_campaign.general_settings');
+        $storage = $form_state->getStorage();
+
+        /** @var Node $campaign Campaign object. */
+        $campaign = $storage['campaign'];
+        $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+        // If Campaign is not started
+        if ($campaignStartDate >= new \DateTime()) {
+          $msgNotStarted = $config->get('error_register_checkins_not_started');
+          //TODO: use hook_theme instead of inline template.
+          $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
+          $modalTitle = t('Thank you!');
+        }
+        else {
+          MemberCampaign::login($membershipID, $campaignID);
+          $msgSuccess = $config->get('successful_login');
+          $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
+          //TODO: use hook_theme instead of inline template.
+          $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
+          $modalTitle = t('Thank you!');
+        }
+        $modalPopup = [
+          '#theme' => 'openy_campaign_popup',
+          '#form' => [
+            '#markup' => $wrappedModalMessage,
+          ]
+        ];
+        // Add an AJAX command to open a modal dialog with the form as the content.
+        $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
+        $response->addCommand(new InvokeCommand('#openy_campaign_popup', 'closeDialogByClick'));
+        // Close dialog and redirect to Campaign main page
+        $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
+        return $response;
+      }
+
       // Rebuild form with new $form and $form_state values.
       $new_form = \Drupal::formBuilder()
           ->rebuildForm($this->getFormId(), $form_state, $form);
