@@ -32,6 +32,7 @@ dependencies:
   - serialization
   - taxonomy
   - text
+  - tzfield
   - user
   - views
   - views_data_export
