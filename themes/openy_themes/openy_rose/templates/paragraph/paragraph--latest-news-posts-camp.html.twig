@@ -50,5 +50,5 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 {% endif %}
 <div{{ attributes.addClass(classes) }}>
   <h2 class="h1">{{ title }}</h2>
-  {{ content }}
+  {{ content|without('field_prgf_title') }}
 </div>
