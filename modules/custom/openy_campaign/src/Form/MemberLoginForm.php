@@ -8,6 +8,7 @@ use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
+use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\OpenYLocaleDate;
 
@@ -105,6 +106,21 @@ class MemberLoginForm extends FormBase {
 
     /** @var Node $campaign Current campaign. */
     $campaign = Node::load($campaignID);
+
+    // Don't allow inactive members to login.
+    $member = Member::loadMemberFromCRMData($membershipID);
+    $isInactiveMember = empty($member->order_number->value);
+    if ($isInactiveMember) {
+      $msgMemberInactive = $config->get('error_msg_member_is_inactive');
+      $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
+      // Get error from Campaign node
+      if (!empty($campaign->field_error_member_is_inactive->value)) {
+        $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
+      }
+
+      $form_state->setErrorByName('membership_id', $errorMemberInactive);
+      return;
+    }
 
     $msgMembershipId = $config->get('error_msg_membership_id');
     $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
