@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_reg_end_date
     - field.field.node.campaign.field_campaign_reg_start_date
     - field.field.node.campaign.field_campaign_start_date
+    - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_winners_prizes
     - field.field.node.campaign.field_enable_visits_goal
     - field.field.node.campaign.field_error_default
@@ -220,6 +221,13 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_campaign_timezone:
+    weight: 143
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
     region: content
   field_campaign_winners_prizes:
     type: entity_reference_revisions_entity_view
