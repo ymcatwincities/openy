@@ -82,10 +82,10 @@
         <header id="page-head" class="page-head">
 
             {% include directory ~ '/templates/page/_includes/page--header--top-navs.html.twig' %}
-            {{ page.header }}
 
         </header>
         <main role="main" class="container">
+            {{ page.header }}
             {{ page.breadcrumb }}
             {{ page.highlighted }}
             {{ page.help }}
