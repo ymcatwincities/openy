@@ -54,6 +54,16 @@ class MemberRegistrationPortalForm extends FormBase {
       '#required' => TRUE,
     ];
 
+    // The members email address.
+    $form['membership_email'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Membership Email Address (optional)'),
+      '#default_value' => '',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => FALSE,
+    ];
+
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => t('Register'),
@@ -68,6 +78,7 @@ class MemberRegistrationPortalForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
+    $membershipEmail = $form_state->getValue('membership_email');
 
     /** @var Node $campaign Current campaign. */
     $campaign = Node::load($campaignID);
@@ -102,7 +113,19 @@ class MemberRegistrationPortalForm extends FormBase {
       return;
     }
 
-    // User is inactive if he does not have an active order number.
+    // If the membership email field is empty, get the value from the member
+    // object instead.
+    $membershipEmail = empty($membershipEmail) ? $member->getPersonifyEmail() : $membershipEmail;
+    // If we have no membership email, prompt the user to enter one.
+    if (empty($membershipEmail)) {
+      $msgEmptyMemberEmail = $config->get('error_msg_empty_member_email');
+      $msgEmptyMemberEmail = check_markup($msgEmptyMemberEmail['value'], $msgEmptyMemberEmail['format']);
+      $form_state->setErrorByName('membership_email', $msgEmptyMemberEmail);
+      return;
+    }
+    $member->setEmail($membershipEmail);
+    $member->save();
+
     $isInactiveMember = empty($member->order_number->value);
     if ($isInactiveMember) {
       $msgMemberInactive = $config->get('error_msg_member_is_inactive');
@@ -141,6 +164,7 @@ class MemberRegistrationPortalForm extends FormBase {
       'member' => $member,
       'campaign' => $campaign,
       'member_campaign' => $memberCampaign,
+      'membership_email' => $membershipEmail,
     ]);
   }
 
