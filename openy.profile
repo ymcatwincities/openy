@@ -7,6 +7,7 @@
 
 use Drupal\openy\Form\ContentSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
+use Drupal\openy\Form\UploadFontMessageForm;
 
 /**
  * Implements hook_install_tasks().
@@ -36,6 +37,12 @@ function openy_install_tasks() {
       'display' => TRUE,
       'type' => 'form',
       'function' => ThirdPartyServicesForm::class,
+    ],
+    'openy_upload_font_message' => [
+      'display_name' => t('Upload font info'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => UploadFontMessageForm::class,
     ],
   ];
 }
