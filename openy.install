@@ -459,6 +459,7 @@ function openy_update_8035() {
     ]);
   }
 }
+
 /**
  * Enable Amenities related modules.
  */
@@ -529,4 +530,37 @@ function openy_update_8041() {
 function openy_update_8042() {
   // Enable modules.
   \Drupal::service('module_installer')->install(['crop', 'focal_point'], TRUE);
+}
+
+/**
+ * Enable Contrib modules for local video player.
+ */
+function openy_update_8043() {
+  // Enable modules.
+  $modules = [
+    'media_entity_video',
+    'video',
+    'videojs',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable local video player related modules.
+ */
+function openy_update_8044() {
+  // Enable modules.
+  $modules = [
+    'openy_media_local_video',
+    'openy_prgf_video_player',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
 }

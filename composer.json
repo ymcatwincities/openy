@@ -153,6 +153,9 @@
             "drupal/views_field_formatter": {
                 "2874811 - Add option to show/hide empty views": "https://www.drupal.org/files/issues/Option-added-to-hide-empty-views-2874811.patch"
             },
+            "drupal/videojs": {
+                "2799029 - Dead code in VideoJsPlayerFormatter::isApplicable() & VideoJsPlayerListFormatter::isApplicable()": "https://www.drupal.org/files/issues/videojs-isapplicable.patch"
+            },
             "drupal/core": {
                 "2346893 - Fix duplicate AJAX wrapper around a file field issue": "https://www.drupal.org/files/issues/2346893-233.patch"
             }
@@ -226,6 +229,9 @@
         "drupal/lndr": "1.11",
         "doctrine/inflector": "1.1.*",
         "drupal/crop": "1.3",
-        "drupal/focal_point": "1.0-beta5"
+        "drupal/focal_point": "1.0-beta5",
+        "drupal/media_entity_video": "1.0-beta2",
+        "drupal/video": "1.2",
+        "drupal/videojs": "1.0"
     }
 }
