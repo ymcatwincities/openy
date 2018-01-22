@@ -16,7 +16,7 @@ field_name: field_prgf_video
 entity_type: paragraph
 bundle: video_player
 label: 'Video'
-description: 'Type here name of local video to use play in video player embedded on page'
+description: 'Type here name of uploaded local video to use play in video player embedded on page'
 required: true
 translatable: false
 default_value: {  }
