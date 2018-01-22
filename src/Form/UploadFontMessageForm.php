@@ -25,11 +25,13 @@ class UploadFontMessageForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
     $base_url = $GLOBALS['base_url'];
-    $form['#title'] = $this->t('Upload Font Warning');
+    $form['#title'] = $this->t('How to upload Cachet fonts');
 
     $form['updatefont']['markup'] = [
       '#type' => 'markup',
-      '#markup' => $this->t('To use Cachet fonts on the OpenY website go to the <a href=\'@config_url\'>OpenY Font Settings page</a> and upload the fonts files there.<img src="../profiles/contrib/openy/src/Form/uploadfont.png">', ['@config_url' => "$base_url/admin/config/user-interface/fonts"]),
+      '#markup' => $this->t('By default free Verdana fonts are used. While paid Cachet fonts are recommended by YMCA Branding Guide. 
+To use Cachet fonts on the OpenY website go to the <a href=\'@config_url\'>OpenY Font Settings page</a> and upload the font files there.
+<img src="../profiles/contrib/openy/src/Form/uploadfont.png">', ['@config_url' => "$base_url/admin/config/user-interface/fonts"]),
     ];
 
     $form['actions'] = [
