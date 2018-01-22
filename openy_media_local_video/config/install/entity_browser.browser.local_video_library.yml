@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - media_entity.bundle.video_local
+  module:
+    - dropzonejs_eb_widget
+    - media_entity
+name: local_video_library
+label: 'Local Video Library'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  9fb81a40-c7ee-40b0-b8c0-b20b248590bb:
+    settings:
+      media_entity_bundle: video_local
+      upload_location: 'public://[date:custom:Y]-[date:custom:m]'
+      dropzone_description: 'Drop files here to upload them'
+      max_filesize: 100M
+      extensions: 'mp4 webm ogg ogv'
+      submit_text: 'Select entities'
+    uuid: 9fb81a40-c7ee-40b0-b8c0-b20b248590bb
+    weight: -10
+    label: 'Upload video'
+    id: dropzonejs_media_entity
