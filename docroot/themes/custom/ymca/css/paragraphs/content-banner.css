@@ -14,12 +14,13 @@
 }
 .content-banner .banner-title {
   color: #424242;
-  font-size: 30px;
+  font-size: 20px;
   margin: 0 25px 15px;
 }
 @media (min-width: 768px) {
   .content-banner .banner-title {
     margin: 0 45px 15px;
+    font-size: 30px;
   }
 }
 .content-banner .banner-title a {
@@ -74,6 +75,9 @@
   .content-banner .content-prgf-image {
     padding-right: 100px;
   }
+}
+.content-banner .content-prgf-image img {
+  width: 100%;
 }
 .content-banner .content-prgf-image figure {
   position: relative;
