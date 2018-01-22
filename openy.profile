@@ -39,7 +39,7 @@ function openy_install_tasks() {
       'function' => ThirdPartyServicesForm::class,
     ],
     'openy_upload_font_message' => [
-      'display_name' => t('Upload font info'),
+      'display_name' => t('Read font info'),
       'display' => TRUE,
       'type' => 'form',
       'function' => UploadFontMessageForm::class,
