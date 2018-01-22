@@ -4,14 +4,3 @@
  * @file
  * Implement install hooks for module.
  */
-
-/**
- * Update paragraph label.
- */
-function openy_prgf_video_player_update_8001() {
-  $module = 'openy_prgf_video_player';
-  $bundle = 'video_player';
-  $config = drupal_get_path('module', $module) . '/config/install/paragraphs.paragraphs_type.' . $bundle . '.yml';
-  $config_importer = \Drupal::service('config_import.param_updater');
-  $config_importer->update($config, 'paragraphs.paragraphs_type.' . $bundle, 'label');
-}

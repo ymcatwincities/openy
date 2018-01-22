@@ -2,4 +2,4 @@ langcode: en
 status: true
 dependencies: {  }
 id: video_player
-label: 'Video player for local video asset (Dallas)'
+label: 'Video player for local video asset'
