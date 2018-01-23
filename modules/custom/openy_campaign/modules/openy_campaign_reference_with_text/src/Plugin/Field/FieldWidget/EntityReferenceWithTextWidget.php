@@ -63,9 +63,9 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
       '#type' => 'tableselect',
       '#header' => $header,
       '#options' => $data,
-      '#element_validate' => [
+      /*'#element_validate' => [
         [static::class, 'validate'],
-      ],
+      ],*/
     );
 
     //return ['value' => $element];
@@ -77,12 +77,8 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
    * Validate the color text field.
    */
   public static function validate($element, FormStateInterface $form_state) {
-    $value = $element['#value'];
-    kint($value);
-    exit;
-    /*kint($value);
-    kint($form_state->getUserInput());
-    exit;*/
+    //$value = $element['#value'];
+
     /*if (strlen($value) == 0) {
       $form_state->setValueForElement($element, '');
       return;
