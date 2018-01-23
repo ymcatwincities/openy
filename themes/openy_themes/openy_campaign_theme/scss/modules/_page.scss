@@ -476,6 +476,20 @@ body {
   }
 }
 
+.path-members-list {
+  background-color: $white;
+  #views-exposed-form-campaign-members-members-list-block {
+    margin-bottom: 3rem;
+    .form-item, .form-actions {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  table {
+    width: 100%;
+  }
+}
+
 
 a:active, a:focus,
 div:active, div:focus,

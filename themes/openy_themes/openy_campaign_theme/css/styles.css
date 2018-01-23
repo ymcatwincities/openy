@@ -878,6 +878,20 @@ body {
   padding-left: 70px;
 }
 
+.path-members-list {
+  background-color: #fff;
+}
+.path-members-list #views-exposed-form-campaign-members-members-list-block {
+  margin-bottom: 3rem;
+}
+.path-members-list #views-exposed-form-campaign-members-members-list-block .form-item, .path-members-list #views-exposed-form-campaign-members-members-list-block .form-actions {
+  display: inline-block;
+  vertical-align: middle;
+}
+.path-members-list table {
+  width: 100%;
+}
+
 a:active, a:focus,
 div:active, div:focus,
 button:active, button:focus {
