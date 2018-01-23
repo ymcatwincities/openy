@@ -147,6 +147,8 @@ openy_campaign.member-registration-portal:
     _title: 'Simplified Team Member Registration Portal'
   requirements:
     _permission: 'access content'
+  options:
+    no_cache: TRUE
 
 # Campaign Member registration/login popup
 openy_campaign.member-action:
