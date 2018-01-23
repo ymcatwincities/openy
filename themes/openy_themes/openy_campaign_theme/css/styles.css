@@ -892,6 +892,10 @@ body {
   width: 100%;
 }
 
+.path-team-member-registration {
+  background-color: #fff;
+}
+
 a:active, a:focus,
 div:active, div:focus,
 button:active, button:focus {
