@@ -189,6 +189,26 @@ openy_campaign.campaign_games:
   requirements:
     _permission: 'access content'
 
+# List of Members for Team Members visitors
+openy_campaign.team_member.list:
+  path: '/members-list'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\TeamMemberUIController::showMembers'
+    _title: 'Members List'
+  requirements:
+    _permission: 'access content'
+
+# Edit email form
+openy_campaign.team_member.edit_form:
+  path: '/members-list/{member_id}'
+  defaults:
+    _form: '\Drupal\openy_campaign\Form\MemberEmailEditForm'
+    _title: 'Check Email Form'
+  requirements:
+    _permission: 'access content'
+    member_id: ^[0-9]+
+  options:
+    no_cache: TRUE
 
 # Reports.
 openy_campaign.campaign_game_results:
