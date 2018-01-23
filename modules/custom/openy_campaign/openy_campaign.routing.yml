@@ -190,6 +190,7 @@ openy_campaign.campaign_games:
     _permission: 'access content'
 
 # List of Members for Team Members visitors
+# @TODO Access check
 openy_campaign.team_member.list:
   path: '/members-list'
   defaults:
@@ -199,6 +200,7 @@ openy_campaign.team_member.list:
     _permission: 'access content'
 
 # Edit email form
+# @TODO Access check
 openy_campaign.team_member.edit_form:
   path: '/members-list/{member_id}'
   defaults:
