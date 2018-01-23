@@ -7191,6 +7191,25 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
+.paragraph--type--prgf-location-finder .views-element-container {
+  padding: 0;
+}
+.paragraph--type--prgf-location-finder .views-element-container .locations-list {
+  padding: 20px 0;
+}
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .label-for-field-location-fax,
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .label-for-field-location-phone {
+  text-transform: lowercase;
+  display: inline;
+}
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .field-location-fax,
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .field-location-phone {
+  display: inline;
+}
+.paragraph--type--prgf-location-finder .views-element-container .locations-list h1 {
+  color: #636466 !important;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
