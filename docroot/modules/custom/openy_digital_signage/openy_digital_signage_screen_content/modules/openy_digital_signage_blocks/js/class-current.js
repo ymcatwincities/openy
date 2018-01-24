@@ -212,6 +212,7 @@
         }
         self.updateProgressBars();
       }
+      self.classNameFontResize($activeClass);
     };
 
     /**
@@ -316,6 +317,30 @@
     this.updateContext = function (context) {
       this.context = context;
       self = this;
+    };
+
+    /**
+     *  Resize font size for the class name.
+     *
+     * @param activeClass
+     *   Active class.
+     */
+    this.classNameFontResize = function (activeClass) {
+      var countdown_is_visible = parseFloat($('.class-time-countdown', activeClass).css('opacity'));
+      var height_percent = countdown_is_visible == 0 ? 31 : 27;
+      var size = parseInt($('.class-name', activeClass).css('font-size').slice(0, -2));
+      var class_height = activeClass.height();
+      var class_name_height = $('.class-name', activeClass).height();
+      var percent = Math.round((class_name_height * 100) / class_height);
+      var i = 0;
+      do {
+        size -=1;
+        $('.class-name', activeClass).css('font-size', size);
+        class_name_height = $('.class-name', activeClass).height();
+        percent = Math.round((class_name_height * 100) / class_height);
+        i++;
+      }
+      while (percent > height_percent && i < 30);
     };
 
     return this;
