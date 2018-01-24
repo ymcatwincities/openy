@@ -125,6 +125,13 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'template' => 'games/flip-cards',
     ],
 
+    // Scorecard.
+    'openy_campaign_scorecard' => [
+      'variables' => [
+        'result' => NULL,
+      ],
+      'template' => 'openy-campaign-scorecard',
+    ],
   ];
 }
 
