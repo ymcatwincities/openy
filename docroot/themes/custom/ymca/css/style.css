@@ -12099,7 +12099,7 @@ tr:nth-last-child(3) .atcb-list {
   margin-bottom: 10px;
   width: 100%;
 }
-@media (min-width: 48em) {
+@media (min-width: 33.75em) {
   .block-description--text {
     margin: 0 15px 40px;
   }
@@ -12157,7 +12157,7 @@ tr:nth-last-child(3) .atcb-list {
   float: left;
   width: auto;
 }
-@media (min-width: 48em) {
+@media (min-width: 33.75em) {
   .block-description--text .fa {
     font-size: 26px;
     max-height: 26px;
@@ -12182,7 +12182,7 @@ tr:nth-last-child(3) .atcb-list {
   max-width: 24px;
   width: auto;
 }
-@media (min-width: 48em) {
+@media (min-width: 33.75em) {
   .block-description--text .field-icon img {
     max-height: 28px;
     max-width: 28px;
@@ -12203,7 +12203,7 @@ tr:nth-last-child(3) .atcb-list {
 .block-description--text .content {
   margin: 0 0 10px 0;
 }
-@media (min-width: 48em) {
+@media (min-width: 33.75em) {
   .block-description--text .field-sb-body {
     font-size: 15px;
     line-height: 1.46667;
@@ -12215,7 +12215,7 @@ tr:nth-last-child(3) .atcb-list {
 .block-description--2 .block-description--text:nth-child(2) {
   margin-right: 0;
 }
-@media (min-width: 48em) {
+@media (min-width: 33.75em) {
   .block-description--2 .block-description--text {
     width: calc(100% / 2 - 15px);
   }
@@ -12247,7 +12247,7 @@ tr:nth-last-child(3) .atcb-list {
     flex-wrap: wrap;
   }
 }
-@media (min-width: 48em) {
+@media (min-width: 33.75em) {
   .block-description--4 .block-description--text {
     width: calc(100% / 4 - 30px);
   }
@@ -12769,12 +12769,13 @@ body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tic
 }
 .content-banner .banner-title {
   color: #424242;
-  font-size: 30px;
+  font-size: 20px;
   margin: 0 25px 15px;
 }
 @media (min-width: 768px) {
   .content-banner .banner-title {
     margin: 0 45px 15px;
+    font-size: 30px;
   }
 }
 .content-banner .banner-title a {
@@ -12829,6 +12830,9 @@ body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tic
   .content-banner .content-prgf-image {
     padding-right: 100px;
   }
+}
+.content-banner .content-prgf-image img {
+  width: 100%;
 }
 .content-banner .content-prgf-image figure {
   position: relative;
