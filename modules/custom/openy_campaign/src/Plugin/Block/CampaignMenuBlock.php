@@ -4,6 +4,7 @@ namespace Drupal\openy_campaign\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\node\NodeTypeInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -61,6 +62,10 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
     $noCache = ['#cache' => ['max-age' => 0]];
     // Extract Campaign node from route.
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
+
+    if ($campaign instanceof NodeTypeInterface !== TRUE) {
+      return $noCache;
+    }
 
     // There is no campaign associated with the node or empty campaign menu.
     if (!$links = $this->campaignMenuService->getNodeCampaignMenu($campaign)) {
