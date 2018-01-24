@@ -55,14 +55,7 @@
   {% else %}
     {% for item in items %}
       <div{{ attributes.addClass(classes) }}>
-        {% if item.content.field_sb_link.0['#url'] is not empty %}
-          <h2><a href="{{ item.content.field_sb_link.0['#url']|render }}">
-            {{ item.content.field_sb_title|raw|render|striptags }}
-          </a></h2>
-        {% else %}
-          <h2>{{ item.content.field_sb_title|raw|render|striptags }}</h2>
-        {% endif %}
-        {{ item.content|without('field_sb_title', 'field_sb_link') }}
+        {{ item.content }}
       </div>
     {% endfor %}
   {% endif %}
