@@ -775,7 +775,14 @@ class AddToCart implements AddToCartInterface {
         $this->dataServicePassword,
       ],
     ];
-    $options['body'] = "<CL_GetProductListingInput><ProductClassCode>RESERVATIONS</ProductClassCode><AvailableToOrdersFlag>true</AvailableToOrdersFlag></CL_GetProductListingInput>";
+    $today = new DrupalDateTime();
+    $today = $today->format('Y-m-d');
+    $options['body'] = "<CL_GetProductListingInput>
+      <ProductClassCode>RESERVATIONS</ProductClassCode>
+      <AvailableToOrdersFlag>true</AvailableToOrdersFlag>
+      <EcommerceBeginDate>$today</EcommerceBeginDate>
+      <EcommerceEndDate>$today</EcommerceEndDate>
+      </CL_GetProductListingInput>";
     try {
       $options['timeout'] = 90;
       $endpoint = $this->dataServiceUrl . '/CL_GetProductListing';
