@@ -9,6 +9,8 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\openy_popups\Form\ClassBranchesForm;
+use Drupal\openy_session_instance\SessionInstanceManager;
 use Drupal\taxonomy\Entity\Term;
 use League\Csv\Writer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -43,6 +45,13 @@ class CampaignReportsController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
+   * The SessionInstanceManager.
+   *
+   * @var \Drupal\openy_session_instance\SessionInstanceManagerInterface
+   */
+  protected $sessionInstanceManager;
+
+  /**
    * The CampaignReportsController constructor.
    *
    * @param FormBuilder $formBuilder
@@ -51,11 +60,14 @@ class CampaignReportsController extends ControllerBase {
    *   The database connection service.
    * @param EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager service.
+   * @param SessionInstanceManager $session_instance_manager
+   *   The SessionInstanceManager.
    */
-  public function __construct(FormBuilder $formBuilder, Connection $connection, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(FormBuilder $formBuilder, Connection $connection, EntityTypeManagerInterface $entityTypeManager, SessionInstanceManager $sessionInstanceManager) {
     $this->formBuilder = $formBuilder;
     $this->connection = $connection;
     $this->entityTypeManager = $entityTypeManager;
+    $this->sessionInstanceManager = $sessionInstanceManager;
   }
 
   /**
@@ -70,7 +82,8 @@ class CampaignReportsController extends ControllerBase {
     return new static(
       $container->get('form_builder'),
       $container->get('database'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('session_instance.manager')
     );
   }
 
@@ -373,4 +386,132 @@ class CampaignReportsController extends ControllerBase {
     return $response;
   }
 
+  /*** Live Scoreboard controller.
+   * @param \Drupal\node\NodeInterface $node
+   *
+   * @return bool
+   */
+  public function generateLiveScorecard(NodeInterface $node) {
+    if ($node->bundle() != 'campaign') {
+      return FALSE;
+    }
+
+    $branches_list = ClassBranchesForm::getBranchesList($node, $this->sessionInstanceManager);
+
+    $nids = \Drupal::entityQuery('node')->condition('type','branch')->execute();
+    $nodes =  \Drupal\node\Entity\Node::loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $branches_list['branch'][$node->id()] = $node->id();
+      $result['branches'][$node->id()]['title'] = $node->label();
+    }
+    $targets = $this->getTargets($branches_list['branch'], $node);
+
+    $result['registration']['early'] = [];
+    $result['registration']['challenge'] = [];
+    $result['utilization'] = [];
+
+   /* $result['total']['target'] = 0;
+    $result['total']['registration_goal'] = 0;
+    $result['total']['actual'] = 0;
+    $result['total']['of_members'] = 0;
+    $result['total']['of_goal'] = 0;*/
+
+    foreach ($targets as $id => $target) {
+      $result['branches'][$id]['target'] = $target;
+
+      // Early registration calculation
+      $goal = number_format((float)$target * 0.05);
+      $result['registration']['early'][$id]['registration_goal'] = $goal;
+
+      $actual = number_format(rand(1, $goal * 2));
+      $result['registration']['early'][$id]['actual'] = $actual;
+
+      $of_members = number_format($actual/$targets[$id] * 100, 1);
+      $result['registration']['early'][$id]['of_members'] = $of_members;
+
+      $of_goal = number_format($actual/$goal * 100, 1);
+      $result['registration']['early'][$id]['of_goal'] = $of_goal;
+
+      // Total Early registration calculation
+      $result['total']['target'] += $target;
+      $result['total']['registration_goal'] += $goal;
+      $result['total']['actual'] += $actual;
+      $result['total']['of_members'] += $of_members;
+      $result['total']['of_goal'] += $of_goal;
+
+      // Challenge registration calculation
+      $result['registration']['challenge'][$id]['registration_goal'] = $goal;
+
+      $reg_actual = $actual + rand(1, $goal * 2);
+      $result['registration']['challenge'][$id]['actual'] = $reg_actual;
+
+      $reg_of_member = number_format($reg_actual/$target * 100, 1);
+      $result['registration']['challenge'][$id]['of_members'] = $reg_of_member;
+
+      $reg_of_goal = number_format($reg_actual/$goal * 100, 1);
+      $result['registration']['challenge'][$id]['of_goal'] = $reg_of_goal;
+
+      $result['total']['reg_registration_goal'] += $goal;
+      $result['total']['reg_actual'] += $reg_actual;
+      $result['total']['reg_of_members'] += $reg_of_member;
+      $result['total']['reg_of_goal'] += $reg_of_goal;
+
+      // Utilization calculation
+      $util_goal = number_format($goal * 0.45);
+      $result['utilization'][$id]['goal']  = $util_goal;
+
+      $util_actual = rand(1, $util_goal);
+      $result['utilization'][$id]['actual'] = $util_actual;
+
+      $util_of_member = number_format($util_actual/$reg_actual * 100,1);
+      $result['utilization'][$id]['of_members'] = $util_of_member;
+
+      $util_of_goal = number_format($util_actual/$util_goal * 100, 1);
+      $result['utilization'][$id]['of_goal'] = $util_of_goal;
+
+      //Utilization total
+      $result['total']['util_registration_goal'] += $util_goal;
+      $result['total']['util_actual'] += $util_actual;
+      $result['total']['util_of_members'] += $util_of_member;
+      $result['total']['util_of_goal'] += $util_of_goal;
+
+    }
+    $result['total']['of_members'] = number_format($result['total']['of_members']/count($targets), 1);
+    $result['total']['of_goal'] = number_format($result['total']['of_goal']/count($targets), 1);
+    $result['total']['reg_of_members'] = number_format($result['total']['reg_of_members']/count($targets), 1);
+    $result['total']['reg_of_goal'] = number_format($result['total']['reg_of_goal']/count($targets), 1);
+    $result['total']['util_of_members'] = number_format($result['total']['util_of_members']/count($targets), 1);
+    $result['total']['util_of_goal'] = number_format($result['total']['util_of_goal']/count($targets), 1);
+
+    $build = [
+      '#theme' => 'openy_campaign_scorecard',
+      '#result' => $result
+    ];
+
+    return $build;
+  }
+
+  /**
+   * Fake generation of targets.
+   * @param $branches_list
+   * @param $campaign
+   *
+   * @return array
+   */
+  public function getTargets($branches_list, $campaign) {
+    $targets = [];
+    $cid = 'openy_campaign:branch_targets:' . $campaign->id();
+
+    if ($cache = \Drupal::cache()->get($cid)) {
+      $targets = $cache->data;
+    }
+    else {
+      foreach ($branches_list as $branch_id => $branch) {
+        $targets[$branch_id] = rand(1000, 10000);
+      }
+      \Drupal::cache()->set($cid, $targets);
+    }
+
+    return $targets;
+  }
 }
