@@ -386,37 +386,28 @@ class CampaignReportsController extends ControllerBase {
     return $response;
   }
 
-  /*** Live Scoreboard controller.
+  /**
+   * * Live Scoreboard controller.
    * @param \Drupal\node\NodeInterface $node
    *
-   * @return bool
+   * @return array|bool
    */
   public function generateLiveScorecard(NodeInterface $node) {
     if ($node->bundle() != 'campaign') {
       return FALSE;
     }
 
-    $branches_list = ClassBranchesForm::getBranchesList($node, $this->sessionInstanceManager);
-
-    $nids = \Drupal::entityQuery('node')->condition('type','branch')->execute();
-    $nodes =  \Drupal\node\Entity\Node::loadMultiple($nids);
-    foreach ($nodes as $node) {
-      $branches_list['branch'][$node->id()] = $node->id();
-      $result['branches'][$node->id()]['title'] = $node->label();
-    }
-    $targets = $this->getTargets($branches_list['branch'], $node);
+    $branches = $this->getCampaignBranches($node);
+    $targets = $this->getTargets($branches, $node);
 
     $result['registration']['early'] = [];
     $result['registration']['challenge'] = [];
     $result['utilization'] = [];
 
-   /* $result['total']['target'] = 0;
-    $result['total']['registration_goal'] = 0;
-    $result['total']['actual'] = 0;
-    $result['total']['of_members'] = 0;
-    $result['total']['of_goal'] = 0;*/
-
-    foreach ($targets as $id => $target) {
+    foreach ($branches as $id => $branch) {
+      $result['branches'][$id]['nid'] = $branch->personify_branch;
+      $result['branches'][$id]['title'] = $branch->title;
+      $target = $targets[$id];
       $result['branches'][$id]['target'] = $target;
 
       // Early registration calculation
@@ -493,6 +484,7 @@ class CampaignReportsController extends ControllerBase {
 
   /**
    * Fake generation of targets.
+   *
    * @param $branches_list
    * @param $campaign
    *
@@ -513,5 +505,28 @@ class CampaignReportsController extends ControllerBase {
     }
 
     return $targets;
+  }
+
+  /**
+   * Get selected Branches from current campaign.
+   *
+   * @param $node
+   */
+  public function getCampaignBranches($node) {
+    $branchIds = $node->get('field_campaign_branches')->getValue();
+    foreach ($branchIds as $branchId) {
+      $ids[] = $branchId['target_id'];
+    }
+
+    $connection  = \Drupal::database();
+    $query = $connection->select('openy_campaign_mapping_branch', 'b');
+    $query->fields('b', ['personify_branch', 'branch']);
+    $query->join('node_field_data', 'n', 'n.nid = b.branch');
+    $query->fields('n', ['title']);
+    $query->condition('b.branch', $ids, 'IN');
+
+    $result = $query->execute()->fetchAllAssoc('branch');
+
+    return $result;
   }
 }
