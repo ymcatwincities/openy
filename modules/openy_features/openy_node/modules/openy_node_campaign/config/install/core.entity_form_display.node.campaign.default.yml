@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.campaign.field_activities_options
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
     - field.field.node.campaign.field_campaign_branches
@@ -67,7 +68,7 @@ third_party_settings:
         - field_campaign_payment_types
         - group_age_range
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: fieldset
       format_settings:
         id: ''
@@ -112,7 +113,7 @@ third_party_settings:
         - field_goal_check_ins_start_date
         - field_goal_check_ins_end_date
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         label: 'Visits goal'
@@ -128,7 +129,7 @@ third_party_settings:
         - group_registration_messages
         - group_general_messages
       parent_name: ''
-      weight: 16
+      weight: 17
       format_type: fieldset
       format_settings:
         id: ''
@@ -245,6 +246,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  field_activities_options:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
   field_campaign_age_maximum:
     weight: 27
     settings:
@@ -281,7 +288,7 @@ content:
     type: number
     region: content
   field_campaign_fitness_category:
-    weight: 14
+    weight: 15
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -392,7 +399,7 @@ content:
     region: content
   field_campaign_winners_prizes:
     type: entity_reference_paragraphs
-    weight: 15
+    weight: 16
     settings:
       title: Paragraph
       title_plural: Paragraphs
