@@ -396,7 +396,44 @@ class CampaignReportsController extends ControllerBase {
     if ($node->bundle() != 'campaign') {
       return FALSE;
     }
+//kint($node);
+    $early_start = $node->get('field_campaign_reg_start_date')->getValue();
 
+    //2018-01-08T00:00:00
+
+    $earlyStartDateTime = new \DateTime($early_start[0]['value']);
+    $earlyStartDateTime->getTimestamp();
+
+    $early_end = $node->get('field_campaign_reg_end_date')->getValue();
+    $earlyEndDateTime = new \DateTime($early_end[0]['value']);
+
+    $connection  = \Drupal::database();
+    $query = $connection->select('openy_campaign_member_campaign', 'cm');
+    //$query->addExpression('count(id)');
+    $query->fields('cm', ['id']);
+
+    $group = $query->andConditionGroup()
+    ->condition('cm.campaign', $node->id(), '=')
+    ->condition('cm.created', $earlyStartDateTime->getTimestamp(), '=>')
+    ->condition('cm.created', $earlyEndDateTime->getTimestamp(), '<=');
+    $query->conditions($group);
+
+    //kint($earlyStartDateTime->getTimestamp());
+    //kint($earlyEndDateTime->getTimestamp());
+    $result = $query->execute();
+
+    /*kint($result);
+    exit;*/
+    //'field_campaign_reg_start_date'
+    //'field_campaign_reg_end_date'
+
+    //'field_campaign_start_date'
+    //'field_campaign_end_date'
+
+    //'field_goal_check_ins_start_date'
+    //'field_goal_check_ins_end_date'
+
+    //'field_utilization_activities'
     $branches = $this->getCampaignBranches($node);
     $targets = $this->getTargets($branches, $node);
 
