@@ -126,7 +126,8 @@ class OpenYScheduleManager implements OpenYScheduleManagerInterface {
         $from_ts = strtotime($from);
         $to_ts = strtotime($to);
       }
-      $schedule[$from] = [
+      $type = $schedule_item->get(show_date)->value ? 'regular' : 'override';
+      $schedule[$from . '-' . $type] = [
         'item' => $schedule_item,
         'from' => $from,
         'to' => $to,
