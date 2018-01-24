@@ -241,6 +241,30 @@ class CdnFormFull extends FormBase {
       ->get('cdn_prs_product')
       ->condition('field_cdn_prd_start_date', '%' . $query['arrival_date'] . '%', 'LIKE')
       ->execute();
+    // Try to iterate range if start date is not available.
+    if (empty($cdn_product_ids)) {
+      $arrival_date = new \DateTime($query['arrival_date']);
+      $departure_date = new \DateTime($query['departure_date']);
+      for ($i = 0; $i < $query['range']; $i++) {
+        // @todo: limit to past dates.
+        $arrival_date->modify('- 1 day');
+        $departure_date->modify('+ 1 day');
+      }
+      $period = new \DatePeriod(
+        $arrival_date,
+        new \DateInterval('P1D'),
+        $departure_date
+      );
+      foreach ($period as $date) {
+        if (!empty($cdn_product_ids)) {
+          continue;
+        }
+        $cdn_product_ids = $this->entityQuery
+          ->get('cdn_prs_product')
+          ->condition('field_cdn_prd_start_date', '%' . $date->format('Y-m-d') . '%', 'LIKE')
+          ->execute();
+      }
+    }
     $formatted_results = '<div class="container">' . $this->t('Please select another village, change capacity or date range to see if there are other cabins available.') . '</div>';
     if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')->loadMultiple($cdn_product_ids)) {
       if ($query['village'] !== 'all' || $query['capacity'] !== 'all') {
@@ -418,11 +442,11 @@ class CdnFormFull extends FormBase {
         $total_capacity = $cabin_url = $image = $panorama = $description = '';
         foreach ($mappings as $mapping) {
           $cid = $mapping->field_cdn_prd_cabin_id->value;
+          $cabin_url_query = $query;
+          $cabin_url_query['cid'] = $cid;
+          $cabin_url_query['show'] = 'all';
           $cabin_url = Url::fromUri('internal:/camps/camp_du_nord/search/form', [
-            'query' => [
-              'cid' => $mapping->field_cdn_prd_cabin_id->value,
-              'show' => 'all',
-            ]
+            'query' => $cabin_url_query,
           ]);
           $description = !$mapping->field_cdn_prd_cabin_desc->isEmpty() ? $mapping->field_cdn_prd_cabin_desc->view('default') : '';
           $panorama = !$mapping->field_cdn_prd_panorama->isEmpty() ? $mapping->field_cdn_prd_panorama->view('default') : '';
@@ -555,12 +579,10 @@ class CdnFormFull extends FormBase {
     foreach ($view->result as $row) {
       $product_ids[] = !$row->_entity->field_cdn_prd_id->isEmpty() ? $row->_entity->field_cdn_prd_id->value : '';
     }
-    \Drupal\Component\Utility\Timer::start('test1');
     // Check availability for given products.
     if (!empty($product_ids)) {
       $products = \Drupal::service('ymca_cdn_sync.add_to_cart')->checkProductAvailability($product_ids);
     }
-    $value =  \Drupal\Component\Utility\Timer::read('test1');
     foreach ($view->result as $row) {
       $entity = $row->_entity;
       $cid = !$entity->field_cdn_prd_cabin_id->isEmpty() ? $entity->field_cdn_prd_cabin_id->value : '';
