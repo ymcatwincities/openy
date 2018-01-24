@@ -79,11 +79,11 @@
       </div>
       <div class="col-sm-6 header-copy">
         {% if content.field_prgf_link.0['#url'] is not empty %}
-        <h1 class="banner-title">
+        <h2 class="banner-title">
           <a href="{{ content.field_prgf_link.0['#url']|render }}">
           {{ content.field_prgf_headline|raw|render|striptags }}
           </a>
-        </h1>
+        </h2>
         {% else %}
           <h1 class="banner-title">{{ content.field_prgf_headline|raw|render|striptags }}</h1>
         {% endif %}
