@@ -45,11 +45,12 @@
     <tbody class="table-hover">
 
     {% for id, branch in result.branches %}
+
         {% set early = result.registration.early[id] %}
         {% set challenge = result.registration.challenge[id] %}
         {% set util = result.utilization[id] %}
       <tr>
-        <td class="bold" align="center">{{ id }}</td>
+        <td class="bold" align="center">{{ branch.nid }}</td>
         <td class="bold" align="center">{{ branch.title }}</td>
         <td align="right">{{ branch.target }}</td>
         <th class="separator"></th>
@@ -82,6 +83,7 @@
           {% endif %}
         <td align="right" class="{{ class }} bold">{{ util.of_goal }}%</td>
       </tr>
+
     {% endfor %}
     </tbody>
     <tfoot>
