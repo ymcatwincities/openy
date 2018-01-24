@@ -25,10 +25,8 @@
         if (!(Drupal.openyDigitalSignageBlocks.currentClass instanceof OpenYDigitalSignageBlockClassCurrent)) {
           Drupal.openyDigitalSignageBlocks.currentClass = new OpenYDigitalSignageBlockClassCurrent(this);
         }
-        if (Drupal.openyDigitalSignageBlocks.currentClass.isActive()) {
-          Drupal.openyDigitalSignageBlocks.currentClass.deactivate();
-          Drupal.openyDigitalSignageBlocks.currentClass.updateContext(this);
-        }
+        Drupal.openyDigitalSignageBlocks.currentClass.deactivate();
+        Drupal.openyDigitalSignageBlocks.currentClass.updateContext(this);
         Drupal.openyDigitalSignageBlocks.currentClass.init();
       });
     }
@@ -136,6 +134,10 @@
     this.needsActiveClassActualization = function (classes) {
       var $activeClassContainer = $('.active-classes .class-active', self.context);
       var $activeClass = $('.class', $activeClassContainer);
+      // @todo this is not ok. find out a better solution.
+      if (!classes.last) {
+        return true;
+      }
       if (!$activeClass.size() || $activeClass.data('from') != classes.last.data('from')) {
         return true;
       }
@@ -212,7 +214,9 @@
         }
         self.updateProgressBars();
       }
-      self.classNameFontResize($activeClass);
+      if ($activeClass.length > 0) {
+        self.classNameFontResize($activeClass);
+      }
     };
 
     /**
