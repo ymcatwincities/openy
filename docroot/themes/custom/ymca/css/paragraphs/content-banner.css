@@ -1,11 +1,12 @@
 .content-banner {
   background: #f8f8f8;
   box-shadow: 0 0 15px #d8d8d8;
-  margin: 0 0 10px;
+  margin: 10px 0;
+  border-top: 2px solid #c6168d;
 }
 @media (min-width: 768px) {
   .content-banner {
-    margin: 0 0 40px;
+    margin: 40px 0;
   }
 }
 .content-banner.page-title:before {
@@ -13,13 +14,27 @@
 }
 .content-banner .banner-title {
   color: #424242;
-  font-size: 30px;
+  font-size: 20px;
   margin: 0 25px 15px;
 }
 @media (min-width: 768px) {
   .content-banner .banner-title {
     margin: 0 45px 15px;
+    font-size: 30px;
   }
+}
+.content-banner .banner-title a {
+  text-decoration: none;
+}
+.content-banner .banner-title a:after {
+  margin-left: 5px;
+  color: #0089d0;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f138";
 }
 .content-banner .richtext {
   padding: 0 25px 0;
@@ -60,6 +75,9 @@
   .content-banner .content-prgf-image {
     padding-right: 100px;
   }
+}
+.content-banner .content-prgf-image img {
+  width: 100%;
 }
 .content-banner .content-prgf-image figure {
   position: relative;

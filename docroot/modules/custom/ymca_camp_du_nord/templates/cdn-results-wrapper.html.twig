@@ -24,27 +24,25 @@
 </div>
 <div class="cdn-village-calendars">
   <div class="container">
-  {% for key, teaser in teasers %}
+  {% for key, data in teasers %}
     <div class="cdn-calendar" data-index="{{ key }}">
       <div class="main-description">
-        <a href="#" class="close-cal">x</a>
-        <a href="#" class="view"><i class="fa fa-eye" aria-hidden="true"></i></a>
-        <h2 class="title">{{ teaser.teaser['#title'] }}</h2>
-        <div class="description">{{ teaser.teaser['#description'] }}</div>
-        {% if teaser.teaser['#panorama'] is not empty %}
+        <h2 class="title">{{ data.teaser.teaser['#title'] }}</h2>
+        <div class="description">{{ data.teaser.teaser['#description'] }}</div>
+        {% if data.teaser.teaser['#panorama'] is not empty %}
         <div class="panorama-wrapper">
           <a class="open-panorama">{{ 'View panorama'|t }}<i class="fa fa-eye"></i></a>
           <div class="panorama">
-          {{ teaser.teaser['#panorama'] }}
+          {{ data.teaser.teaser['#panorama'] }}
           </div>
         </div>
         {% endif %}
         <p><strong>{{ 'Please select check in through check out dates*'|t }}</strong></p>
       </div>
       <div class="cdn-calendar-list">
-        {{ teaser.calendar.list }}
+        {{ data.calendar.list }}
       </div>
-      {{ teaser.calendar.calendar }}
+      {{ data.calendar.calendar }}
     </div>
   {% endfor %}
   </div>
