@@ -3725,134 +3725,6 @@ html.js .branch__updates_queue__button {
   color: #c6168d;
 }
 
-.form__locations {
-  background-color: #ebebeb;
-  height: 92px;
-  display: table;
-  width: 100%;
-  padding: 35px 0px 17px;
-}
-@media (min-width: 992px) {
-  .form__locations {
-    padding: 35px 25px 17px;
-  }
-}
-@media (min-width: 768px) {
-  .form__locations .form-group {
-    margin-bottom: 0px;
-  }
-}
-.form__locations label {
-  text-transform: none;
-  padding: 6px 8px;
-  left: -1px;
-  margin: 10px 10px 0 0;
-}
-@media (min-width: 992px) {
-  .form__locations label {
-    left: -20px;
-    margin: 0 10px 0 0;
-  }
-}
-.form__locations input[type="checkbox"] {
-  margin: 0 10px 0px 0;
-  vertical-align: middle;
-}
-.form__locations .btn-group-justified {
-  border-spacing: 1px;
-  margin: -1px -1px 5px 1px;
-  min-width: 234px;
-}
-@media (min-width: 992px) {
-  .form__locations .btn-group-justified {
-    border-spacing: 10px;
-    margin: -10px -10px -10px 10px;
-  }
-}
-@media (min-width: 0) and (max-width: 30em) {
-  .form__locations .zip-code,
-  .form__locations .distance {
-    display: none;
-  }
-}
-
-.tag_filters img {
-  margin: -2px 0 0 3px;
-  width: 13px;
-}
-
-.locations-list {
-  margin: -20px;
-}
-.locations-list .views-row__wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  min-height: 100%;
-}
-.locations-list .views-row {
-  display: flex;
-  flex-basis: 100%;
-}
-@media (min-width: 600px) and (max-width: 1025px) {
-  .locations-list .views-row {
-    flex-basis: 50%;
-  }
-}
-@media (min-width: 1025px) {
-  .locations-list .views-row {
-    flex-basis: 33.33%;
-  }
-}
-.locations-list .views-row .node--view-mode-teaser {
-  flex-basis: 100%;
-  align-self: stretch;
-}
-.locations-list header h1,
-.locations-list header h2,
-.locations-list header h2.h1 {
-  font-size: 36px;
-  padding-left: 20px;
-  padding-bottom: 0px;
-  clear: both;
-  margin-top: 0;
-  font-weight: bold;
-}
-.locations-list h1.color-purple, .locations-list h1.description.purple, .locations-list .paragraph.featured-content h1.description, .paragraph.featured-content .locations-list h1.description,
-.locations-list h2.color-purple,
-.locations-list h2.description.purple,
-.locations-list .paragraph.featured-content h2.description,
-.paragraph.featured-content .locations-list h2.description {
-  color: #5c2e91;
-}
-.locations-list .field_location_state {
-  float: right;
-  margin-right: -20px;
-  margin-top: -20px;
-  padding: 5px;
-  font-size: 10px;
-  color: #231f20;
-  width: 100px;
-  height: 32px;
-  vertical-align: bottom;
-  background: #fcaf17;
-  line-height: 1.2;
-  font-style: italic;
-}
-.locations-list .field_location_state .fa {
-  color: white;
-  height: 32px;
-  float: left;
-  font-size: 16px;
-  padding-right: 6px;
-}
-.locations-list .field_location_state span {
-  display: block;
-}
-.locations-list .field-branch-hours h4 {
-  font-size: 14px;
-}
-
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
 .node--type-branch.node--view-mode-sidebar-teaser,
@@ -7189,6 +7061,150 @@ article .node--view-mode-flexible-content h2 a span {
     margin-top: 25px;
     margin-bottom: 25px;
   }
+}
+
+.paragraph--type--prgf-location-finder .views-element-container {
+  padding: 0;
+}
+.paragraph--type--prgf-location-finder .views-element-container .locations-list {
+  padding: 20px 0;
+}
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .label-for-field-location-fax,
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .label-for-field-location-phone {
+  text-transform: lowercase;
+  display: inline;
+}
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .field-location-fax,
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .field-location-phone {
+  display: inline;
+}
+
+.form__locations {
+  background-color: #ebebeb;
+  height: 92px;
+  display: table;
+  width: 100%;
+  padding: 35px 0px 17px;
+}
+@media (min-width: 992px) {
+  .form__locations {
+    padding: 35px 25px 17px;
+  }
+}
+@media (min-width: 768px) {
+  .form__locations .form-group {
+    margin-bottom: 0px;
+  }
+}
+.form__locations label {
+  text-transform: none;
+  padding: 6px 8px;
+  left: -1px;
+  margin: 10px 10px 0 0;
+}
+@media (min-width: 992px) {
+  .form__locations label {
+    left: -20px;
+    margin: 0 10px 0 0;
+  }
+}
+.form__locations input[type="checkbox"] {
+  margin: 0 10px 0px 0;
+  vertical-align: middle;
+}
+.form__locations .btn-group-justified {
+  border-spacing: 1px;
+  margin: -1px -1px 5px 1px;
+  min-width: 234px;
+}
+@media (min-width: 992px) {
+  .form__locations .btn-group-justified {
+    border-spacing: 10px;
+    margin: -10px -10px -10px 10px;
+  }
+}
+@media (min-width: 0) and (max-width: 30em) {
+  .form__locations .zip-code,
+  .form__locations .distance {
+    display: none;
+  }
+}
+
+.locations-list {
+  margin: -20px;
+}
+.locations-list .views-row__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  min-height: 100%;
+}
+.locations-list .views-row {
+  display: flex;
+  flex-basis: 100%;
+}
+@media (min-width: 600px) and (max-width: 1025px) {
+  .locations-list .views-row {
+    flex-basis: 50%;
+  }
+}
+@media (min-width: 1025px) {
+  .locations-list .views-row {
+    flex-basis: 33.33%;
+  }
+}
+.locations-list .views-row .node--view-mode-teaser {
+  flex-basis: 100%;
+  align-self: stretch;
+}
+.locations-list header h1,
+.locations-list header h2,
+.locations-list header h2.h1 {
+  font-size: 36px;
+  padding-left: 20px;
+  padding-bottom: 0px;
+  clear: both;
+  margin-top: 0;
+  font-weight: bold;
+}
+.locations-list h1.color-purple, .locations-list h1.description.purple, .locations-list .paragraph.featured-content h1.description, .paragraph.featured-content .locations-list h1.description,
+.locations-list h2.color-purple,
+.locations-list h2.description.purple,
+.locations-list .paragraph.featured-content h2.description,
+.paragraph.featured-content .locations-list h2.description {
+  color: #5c2e91;
+}
+.locations-list .field_location_state {
+  float: right;
+  margin-right: -20px;
+  margin-top: -20px;
+  padding: 5px;
+  font-size: 10px;
+  color: #231f20;
+  width: 100px;
+  height: 32px;
+  vertical-align: bottom;
+  background: #fcaf17;
+  line-height: 1.2;
+  font-style: italic;
+}
+.locations-list .field_location_state .fa {
+  color: white;
+  height: 32px;
+  float: left;
+  font-size: 16px;
+  padding-right: 6px;
+}
+.locations-list .field_location_state span {
+  display: block;
+}
+.locations-list .field-branch-hours h4 {
+  font-size: 14px;
+}
+
+.tag_filters img {
+  margin: -2px 0 0 3px;
+  width: 13px;
 }
 
 .paragraph-1c-wrapper {
