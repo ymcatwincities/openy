@@ -288,6 +288,54 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
   }
   $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
 
+  // Render needed paragraphs if it was set in Campaign page
+  if ($node->getType() == 'campaign_page' && $variables['view_mode'] == 'full') {
+    $parentCampaignField = $node->get('field_campaign_parent')->getValue();
+    if (!empty($parentCampaignField)) {
+      /** @var \Drupal\node\Entity\Node $parentCampaign */
+      $parentCampaign = \Drupal\node\Entity\Node::load($parentCampaignField[0]['target_id']);
+      // Get all enabled activities list
+      $activitiesOptionsField = $parentCampaign->get('field_activities_options')->getValue();
+      $activitiesOptions = [];
+      foreach ($activitiesOptionsField as $op) {
+        $activitiesOptions[] = $op['value'];
+      }
+
+      // Check if we need to show every paragraph field
+      foreach ($variables['content']['field_content'] as $i => $item) {
+        if (!is_numeric($i)) {
+          continue;
+        }
+        /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+        $paragraph = $item['#paragraph'];
+        if (!empty($activitiesOptions) && $paragraph instanceof \Drupal\paragraphs\ParagraphInterface === TRUE) {
+          // Activity Tracking 'field_prgf_campaign_activity'
+          if ($paragraph->getType() == 'campaign_activity' && !in_array('field_prgf_campaign_activity', $activitiesOptions)) {
+            $variables['content']['field_content'][$i] = [
+              '#markup' => '',
+            ];
+          }
+          // Visits 'field_prgf_activity_visits' and Game 'field_prgf_campaign_game'
+          if ($paragraph->getType() == 'campaign_activity_menu') {
+            $checkFields = [
+              'field_prgf_activity_visits',
+              'field_prgf_campaign_game',
+            ];
+            $skipFields = array_diff($checkFields, $activitiesOptions);
+            if (!empty($skipFields)) {
+              $newParagraph = clone $paragraph;
+              foreach ($skipFields as $field) {
+                $newParagraph->set($field, []);
+              }
+
+              $variables['content']['field_content'][$i]['#paragraph'] = $newParagraph;
+            }
+          }
+        }
+      }
+    }
+  }
+
   // Check if user is allowed to enter the page.
   if (!$campaignMenuService->checkPermissions($node)) {
     // TODO: open login popup.
