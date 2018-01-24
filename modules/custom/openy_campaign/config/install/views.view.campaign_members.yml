@@ -2234,7 +2234,7 @@ display:
           relationship: member
           group_type: group
           admin_label: ''
-          label: 'Member ID'
+          label: 'Membership ID'
           exclude: false
           alter:
             alter_text: false
