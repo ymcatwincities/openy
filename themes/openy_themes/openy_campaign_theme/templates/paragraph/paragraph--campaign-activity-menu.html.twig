@@ -41,12 +41,20 @@
   <div{{ attributes.addClass(classes) }}>
     <div class="row"> <h2> {{ content.field_prgf_campaign_menu_title }} </h2></div>
     <div class="row">
-      <div class="col-md-6 activity-tracking-menu-columns left">
-        {{ content.field_prgf_activity_visits }}
-      </div>
-      <div class="col-md-6 activity-tracking-menu-columns right">
-        {{ content.field_prgf_campaign_game }}
-      </div>
+      {% if content.field_prgf_activity_visits|render|striptags|trim is not empty
+            and content.field_prgf_campaign_game|render|striptags|trim is not empty %}
+        <div class="col-md-6 activity-tracking-menu-columns left">
+          {{ content.field_prgf_activity_visits }}
+        </div>
+        <div class="col-md-6 activity-tracking-menu-columns right">
+          {{ content.field_prgf_campaign_game }}
+        </div>
+      {% else %}
+        <div class="col-md-12 activity-tracking-menu-columns">
+          {{ content.field_prgf_activity_visits }}
+          {{ content.field_prgf_campaign_game }}
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>

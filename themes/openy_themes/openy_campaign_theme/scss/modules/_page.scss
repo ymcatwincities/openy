@@ -23,7 +23,9 @@ body {
 }
 
 .page-node-type-campaign-page,
-.path-campaign-game {
+.path-campaign-game,
+.path-team-member-registration,
+.path-members-list {
   main[role="main"] {
     background-color: #ffffff;
     padding-left: 0px;
@@ -83,7 +85,9 @@ body {
   }
 }
 
-.page-node-type-campaign {
+.page-node-type-campaign,
+.path-team-member-registration,
+.path-members-list {
   .wrapper-field-content {
     background: #fff;
   }
@@ -476,6 +480,24 @@ body {
   }
 }
 
+.path-team-member-registration,
+.path-members-list {
+  main[role="main"] {
+    margin-top: 70px;
+  }
+}
+.path-members-list {
+  #views-exposed-form-campaign-members-members-list-block {
+    margin-bottom: 3rem;
+    .form-item, .form-actions {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  table {
+    width: 100%;
+  }
+}
 
 a:active, a:focus,
 div:active, div:focus,

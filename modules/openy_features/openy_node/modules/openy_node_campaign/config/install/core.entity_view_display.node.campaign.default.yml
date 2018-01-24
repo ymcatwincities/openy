@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.campaign.field_activities_options
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
     - field.field.node.campaign.field_campaign_branches
@@ -56,6 +57,7 @@ dependencies:
     - options
     - text
     - user
+    - views_field_formatter
 id: node.campaign.default
 targetEntityType: node
 bundle: campaign
@@ -63,14 +65,24 @@ mode: default
 content:
   addthis:
     label: hidden
-    type: string
-    weight: 100
+    type: views_field_formatter
+    weight: 3
     region: content
     settings:
-      link_to_entity: false
+      view: ''
+      arguments:
+        field_value:
+          checked: true
+        entity_id:
+          checked: true
+        delta:
+          checked: true
+      hide_empty: false
+      multiple: false
+      implode_character: ''
     third_party_settings: {  }
   field_campaign_age_maximum:
-    weight: 106
+    weight: 8
     label: above
     settings:
       link_to_entity: false
@@ -78,7 +90,7 @@ content:
     type: string
     region: content
   field_campaign_age_minimum:
-    weight: 105
+    weight: 7
     label: above
     settings:
       link_to_entity: false
@@ -86,7 +98,7 @@ content:
     type: string
     region: content
   field_campaign_branches:
-    weight: 102
+    weight: 4
     label: above
     settings:
       link: true
@@ -94,7 +106,7 @@ content:
     type: entity_reference_label
     region: content
   field_campaign_end_date:
-    weight: 109
+    weight: 11
     label: above
     settings:
       format_type: medium
@@ -103,7 +115,7 @@ content:
     type: datetime_default
     region: content
   field_campaign_expected_visits:
-    weight: 115
+    weight: 18
     label: above
     settings:
       thousand_separator: ''
@@ -112,7 +124,7 @@ content:
     type: number_integer
     region: content
   field_campaign_fitness_category:
-    weight: 107
+    weight: 9
     label: above
     settings:
       link: true
@@ -120,21 +132,21 @@ content:
     type: entity_reference_label
     region: content
   field_campaign_game_description:
-    weight: 140
+    weight: 39
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_campaign_game_short_info:
-    weight: 139
+    weight: 38
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_campaign_game_title:
-    weight: 137
+    weight: 37
     label: above
     settings:
       link_to_entity: false
@@ -142,7 +154,7 @@ content:
     type: string
     region: content
   field_campaign_image:
-    weight: 37
+    weight: 2
     label: hidden
     settings:
       image_style: ''
@@ -150,14 +162,14 @@ content:
     type: image_url
     region: content
   field_campaign_membership_u_t:
-    weight: 103
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
   field_campaign_menu:
-    weight: 135
+    weight: 35
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -171,7 +183,7 @@ content:
     type: entity_reference_entity_id
     region: content
   field_campaign_palette:
-    weight: 141
+    weight: 40
     label: above
     settings:
       link_to_entity: false
@@ -179,14 +191,14 @@ content:
     type: string
     region: content
   field_campaign_payment_types:
-    weight: 104
+    weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
   field_campaign_prize_coefficient:
-    weight: 116
+    weight: 20
     label: above
     settings:
       thousand_separator: ''
@@ -197,7 +209,7 @@ content:
     type: number_decimal
     region: content
   field_campaign_prize_nowin:
-    weight: 114
+    weight: 17
     label: above
     settings:
       link_to_entity: false
@@ -206,7 +218,7 @@ content:
     region: content
   field_campaign_prizes:
     type: entity_reference_revisions_entity_view
-    weight: 113
+    weight: 15
     label: above
     settings:
       view_mode: default
@@ -214,7 +226,7 @@ content:
     third_party_settings: {  }
     region: content
   field_campaign_start_date:
-    weight: 108
+    weight: 10
     label: above
     settings:
       format_type: medium
@@ -223,7 +235,7 @@ content:
     type: datetime_default
     region: content
   field_campaign_timezone:
-    weight: 143
+    weight: 42
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -231,7 +243,7 @@ content:
     region: content
   field_campaign_winners_prizes:
     type: entity_reference_revisions_entity_view
-    weight: 133
+    weight: 33
     label: above
     settings:
       view_mode: default
@@ -239,7 +251,7 @@ content:
     third_party_settings: {  }
     region: content
   field_enable_visits_goal:
-    weight: 142
+    weight: 41
     label: above
     settings:
       format: default
@@ -249,35 +261,35 @@ content:
     type: boolean
     region: content
   field_error_default:
-    weight: 126
+    weight: 30
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_error_member_is_inactive:
-    weight: 124
+    weight: 28
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_error_membership_id:
-    weight: 123
+    weight: 27
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_error_target_audience:
-    weight: 125
+    weight: 29
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_flip_cards_cover_image:
-    weight: 136
+    weight: 36
     label: above
     settings:
       image_style: ''
@@ -286,7 +298,7 @@ content:
     type: image
     region: content
   field_goal_check_ins_end_date:
-    weight: 111
+    weight: 13
     label: above
     settings:
       format_type: medium
@@ -295,7 +307,7 @@ content:
     type: datetime_default
     region: content
   field_goal_check_ins_start_date:
-    weight: 110
+    weight: 12
     label: above
     settings:
       format_type: medium
@@ -304,7 +316,7 @@ content:
     type: datetime_default
     region: content
   field_limit_visits_goal:
-    weight: 112
+    weight: 14
     label: above
     settings:
       thousand_separator: ''
@@ -313,21 +325,21 @@ content:
     type: number_integer
     region: content
   field_login_checkins_not_started:
-    weight: 117
+    weight: 21
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_login_not_registered:
-    weight: 118
+    weight: 22
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_min_visits_goal:
-    weight: 132
+    weight: 32
     label: above
     settings:
       thousand_separator: ''
@@ -343,42 +355,42 @@ content:
     type: entity_reference_entity_id
     region: content
   field_reg_already_registered:
-    weight: 121
+    weight: 25
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_reg_checkins_not_started:
-    weight: 120
+    weight: 24
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_register_form_text:
-    weight: 127
+    weight: 31
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_successful_login:
-    weight: 119
+    weight: 23
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_successful_registration:
-    weight: 122
+    weight: 26
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_token_check_back_date:
-    weight: 114
+    weight: 16
     label: above
     settings:
       link_to_entity: false
@@ -386,7 +398,7 @@ content:
     type: string
     region: content
   field_token_login_link_text:
-    weight: 115
+    weight: 19
     label: above
     settings:
       link_to_entity: false
@@ -394,13 +406,14 @@ content:
     type: string
     region: content
   field_ways_to_earn_entries:
-    weight: 134
+    weight: 34
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
     region: content
 hidden:
+  field_activities_options: true
   field_campaign_reg_end_date: true
   field_campaign_reg_start_date: true
   field_pause_campaign: true
