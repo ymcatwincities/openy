@@ -616,5 +616,7 @@ function openy_campaign_preprocess_block__system_branding_block(&$variables) {
   /** @var \Drupal\Node\Entity\Node $campaign */
   $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
 
-  $variables['url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $campaign->id()]);
+  if (!empty($campaign)) {
+    $variables['url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $campaign->id()]);
+  }
 }
