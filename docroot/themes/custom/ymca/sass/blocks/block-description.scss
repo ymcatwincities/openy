@@ -15,7 +15,7 @@
     margin-bottom: 10px;
     width: 100%;
 
-    @include breakpoint($screen-tablet) {
+    @include breakpoint(540px) {
       margin: 0 15px 40px;
     }
 
@@ -26,7 +26,7 @@
       font-size: 20px;
       padding: 30px 25px;
       color: #0089d0;
-      @include breakpoint($screen-tablet) {
+      @include breakpoint(768px) {
         padding: 30px 35px 30px 45px;
       }
       &:after {
@@ -42,7 +42,7 @@
     }
     .promo-text {
       padding: 0 25px 30px;
-      @include breakpoint($screen-tablet) {
+      @include breakpoint(768px) {
         padding: 0 35px 35px 45px;
       }
     }
@@ -68,7 +68,7 @@
       max-width: 24px;
       float: left;
       width: auto;
-      @include breakpoint($screen-tablet) {
+      @include breakpoint(540px) {
         font-size: 26px;
         max-height: 26px;
         max-width: 26px;
@@ -89,7 +89,7 @@
         max-height: 24px;
         max-width: 24px;
         width: auto;
-        @include breakpoint($screen-tablet) {
+        @include breakpoint(540px) {
           max-height: 28px;
           max-width: 28px;
         }
@@ -116,7 +116,7 @@
 
 
     .field-sb-body {
-      @include breakpoint($screen-tablet) {
+      @include breakpoint(540px) {
         font-size: 15px;
         line-height: lh(22, 15);
       }
@@ -131,7 +131,7 @@
       &:nth-child(2) {
         margin-right: 0;
       }
-      @include breakpoint($screen-tablet) {
+      @include breakpoint(540px) {
         width: calc(100% / 2 - 15px);
       }
     }
@@ -166,7 +166,7 @@
       }
     }
     .block-description--text {
-      @include breakpoint($screen-tablet) {
+      @include breakpoint(540px) {
         width: calc(100% / 4 - 30px);
       }
     }

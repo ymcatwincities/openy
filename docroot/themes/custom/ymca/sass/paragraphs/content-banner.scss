@@ -17,10 +17,11 @@
   }
   .banner-title {
     color: $grey7;
-    font-size: 30px;
+    font-size: 20px;
     margin: 0 25px 15px;
     @media (min-width: 768px) {
       margin: 0 45px 15px;
+      font-size: 30px;
     }
     a {
       text-decoration: none;
@@ -68,6 +69,9 @@
     }
     @media (min-width: 1200px) {
       padding-right: 100px;
+    }
+    img {
+      width: 100%;
     }
     figure {
       position: relative;
