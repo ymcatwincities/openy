@@ -400,14 +400,18 @@ body {
 }
 
 .page-node-type-campaign-page main[role="main"],
-.path-campaign-game main[role="main"] {
+.path-campaign-game main[role="main"],
+.path-team-member-registration main[role="main"],
+.path-members-list main[role="main"] {
   background-color: #ffffff;
   padding-left: 0px;
   padding-right: 0px;
   margin: 0 auto;
 }
 .page-node-type-campaign-page main[role="main"] .layout-content,
-.path-campaign-game main[role="main"] .layout-content {
+.path-campaign-game main[role="main"] .layout-content,
+.path-team-member-registration main[role="main"] .layout-content,
+.path-members-list main[role="main"] .layout-content {
   background-color: inherit;
   position: relative;
   margin-bottom: 100px;
@@ -415,7 +419,9 @@ body {
 }
 @media (min-width: 20em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
-  .path-campaign-game main[role="main"] .layout-content {
+  .path-campaign-game main[role="main"] .layout-content,
+  .path-team-member-registration main[role="main"] .layout-content,
+  .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 0px;
@@ -425,7 +431,9 @@ body {
 }
 @media (min-width: 48em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
-  .path-campaign-game main[role="main"] .layout-content {
+  .path-campaign-game main[role="main"] .layout-content,
+  .path-team-member-registration main[role="main"] .layout-content,
+  .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: -550px;
@@ -435,7 +443,9 @@ body {
 }
 @media (min-width: 62em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
-  .path-campaign-game main[role="main"] .layout-content {
+  .path-campaign-game main[role="main"] .layout-content,
+  .path-team-member-registration main[role="main"] .layout-content,
+  .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: -400px;
@@ -445,7 +455,9 @@ body {
 }
 @media (min-width: 75em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
-  .path-campaign-game main[role="main"] .layout-content {
+  .path-campaign-game main[role="main"] .layout-content,
+  .path-team-member-registration main[role="main"] .layout-content,
+  .path-members-list main[role="main"] .layout-content {
     margin-left: 125px;
     margin-right: 125px;
     margin-top: -400px;
@@ -454,49 +466,67 @@ body {
   }
 }
 .page-node-type-campaign-page main[role="main"] .layout-content h1,
-.path-campaign-game main[role="main"] .layout-content h1 {
+.path-campaign-game main[role="main"] .layout-content h1,
+.path-team-member-registration main[role="main"] .layout-content h1,
+.path-members-list main[role="main"] .layout-content h1 {
   text-transform: uppercase;
   text-align: center;
 }
 @media (min-width: 20em) {
   .page-node-type-campaign-page main[role="main"] .layout-content h1,
-  .path-campaign-game main[role="main"] .layout-content h1 {
+  .path-campaign-game main[role="main"] .layout-content h1,
+  .path-team-member-registration main[role="main"] .layout-content h1,
+  .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 30px;
     margin-bottom: 30px;
   }
 }
 @media (min-width: 62em) {
   .page-node-type-campaign-page main[role="main"] .layout-content h1,
-  .path-campaign-game main[role="main"] .layout-content h1 {
+  .path-campaign-game main[role="main"] .layout-content h1,
+  .path-team-member-registration main[role="main"] .layout-content h1,
+  .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 60px;
     margin-bottom: 70px;
   }
 }
 .page-node-type-campaign-page main[role="main"] .layout-content .main-region,
-.path-campaign-game main[role="main"] .layout-content .main-region {
+.path-campaign-game main[role="main"] .layout-content .main-region,
+.path-team-member-registration main[role="main"] .layout-content .main-region,
+.path-members-list main[role="main"] .layout-content .main-region {
   padding: 0px;
 }
 
-.page-node-type-campaign .wrapper-field-content {
+.page-node-type-campaign .wrapper-field-content,
+.path-team-member-registration .wrapper-field-content,
+.path-members-list .wrapper-field-content {
   background: #fff;
 }
-.page-node-type-campaign main[role="main"] {
+.page-node-type-campaign main[role="main"],
+.path-team-member-registration main[role="main"],
+.path-members-list main[role="main"] {
   background-color: #ffffff;
   padding-left: 0px;
   padding-right: 0px;
   margin: 0 auto;
 }
-.page-node-type-campaign main[role="main"] .container {
+.page-node-type-campaign main[role="main"] .container,
+.path-team-member-registration main[role="main"] .container,
+.path-members-list main[role="main"] .container {
   padding: 0px;
 }
-.page-node-type-campaign main[role="main"] .layout-content {
+.page-node-type-campaign main[role="main"] .layout-content,
+.path-team-member-registration main[role="main"] .layout-content,
+.path-members-list main[role="main"] .layout-content {
   background-color: inherit;
   position: relative;
   margin-bottom: 100px;
   min-height: 500px;
 }
 @media (min-width: 20em) {
-  .page-node-type-campaign main[role="main"] .layout-content {
+  .page-node-type-campaign main[role="main"] .layout-content,
+  .path-team-member-registration main[role="main"] .layout-content,
+  .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 0px;
@@ -505,7 +535,9 @@ body {
   }
 }
 @media (min-width: 48em) {
-  .page-node-type-campaign main[role="main"] .layout-content {
+  .page-node-type-campaign main[role="main"] .layout-content,
+  .path-team-member-registration main[role="main"] .layout-content,
+  .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 0px;
@@ -514,7 +546,9 @@ body {
   }
 }
 @media (min-width: 62em) {
-  .page-node-type-campaign main[role="main"] .layout-content {
+  .page-node-type-campaign main[role="main"] .layout-content,
+  .path-team-member-registration main[role="main"] .layout-content,
+  .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 0px;
@@ -523,7 +557,9 @@ body {
   }
 }
 @media (min-width: 75em) {
-  .page-node-type-campaign main[role="main"] .layout-content {
+  .page-node-type-campaign main[role="main"] .layout-content,
+  .path-team-member-registration main[role="main"] .layout-content,
+  .path-members-list main[role="main"] .layout-content {
     margin-left: 125px;
     margin-right: 125px;
     margin-top: 0px;
@@ -531,23 +567,31 @@ body {
     box-shadow: 10px 20px 115px 10px;
   }
 }
-.page-node-type-campaign main[role="main"] .layout-content h1 {
+.page-node-type-campaign main[role="main"] .layout-content h1,
+.path-team-member-registration main[role="main"] .layout-content h1,
+.path-members-list main[role="main"] .layout-content h1 {
   text-transform: uppercase;
   text-align: center;
 }
 @media (min-width: 20em) {
-  .page-node-type-campaign main[role="main"] .layout-content h1 {
+  .page-node-type-campaign main[role="main"] .layout-content h1,
+  .path-team-member-registration main[role="main"] .layout-content h1,
+  .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 30px;
     margin-bottom: 30px;
   }
 }
 @media (min-width: 62em) {
-  .page-node-type-campaign main[role="main"] .layout-content h1 {
+  .page-node-type-campaign main[role="main"] .layout-content h1,
+  .path-team-member-registration main[role="main"] .layout-content h1,
+  .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 60px;
     margin-bottom: 70px;
   }
 }
-.page-node-type-campaign main[role="main"] .layout-content .main-region {
+.page-node-type-campaign main[role="main"] .layout-content .main-region,
+.path-team-member-registration main[role="main"] .layout-content .main-region,
+.path-members-list main[role="main"] .layout-content .main-region {
   padding: 0px;
 }
 
@@ -878,9 +922,11 @@ body {
   padding-left: 70px;
 }
 
-.path-members-list {
-  background-color: #fff;
+.path-team-member-registration main[role="main"],
+.path-members-list main[role="main"] {
+  margin-top: 70px;
 }
+
 .path-members-list #views-exposed-form-campaign-members-members-list-block {
   margin-bottom: 3rem;
 }
@@ -890,10 +936,6 @@ body {
 }
 .path-members-list table {
   width: 100%;
-}
-
-.path-team-member-registration {
-  background-color: #fff;
 }
 
 a:active, a:focus,
