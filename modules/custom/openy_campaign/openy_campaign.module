@@ -11,6 +11,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\openy_campaign\Controller\CampaignWinnerStreamController;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\OpenYLocaleDate;
 
@@ -55,6 +56,13 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
         'text' => NULL,
       ],
       'template' => 'openy-campaign-register-text',
+    ],
+    // Winner Stream
+    'openy_campaign_winner_stream' => [
+      'variables' => [
+        'winners' => [],
+        'colors' => [],
+      ]
     ],
     // Winners block text
     'openy_campaign_winners' => [
@@ -285,6 +293,20 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
       $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($requestLandingPage);
       $variables['content']['landing_page'] = $build;
     }
+
+  }
+  if ($node->getType() == 'campaign_page' && $variables['view_mode'] == 'full') {
+    // Get the goal
+    $campaign = $campaignMenuService->getNodeCampaignNode($node);
+    $winners = $campaignMenuService->getWinnerStream($campaign);
+    $palette = $campaignMenuService->getCampaignPalette($campaign);
+    $theme = [
+      '#theme' => 'openy_campaign_winner_stream',
+      '#winners' => $winners,
+      '#colors' => $palette['colors'],
+    ];
+    $variables['content']['winner_stream'] = $theme;
+    $variables['#attached']['library'][] = 'openy_campaign/campaign_winner_stream';
   }
   $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
 

@@ -1,0 +1,20 @@
+{% if winners is not empty %}
+<div id="campaign-winner-stream" style="background-color: {{ colors.maindark }};">
+    <div class="wrapper">
+        <div class="marquee" data-duration="8000">
+            <!-- winners -->
+            {% for winner in winners %}
+            <i class="fa fa-star" aria-hidden="true" style="color: {{ colors.mainlight }}"></i>
+            <span class="prefix" style="color: {{ colors.mainlight }};">{% trans %} Lucky Winner: {% endtrans %}</span>
+            <span class="winner-name">{{ winner.first_name }} {% if winner.last_name is not empty %}{{ winner.last_name }}.{% endif %}</span>
+            <span class="time" style="background-color: {{ colors.mainmedium }};">{{ winner.created }}</span>
+            <span class="spacer"></span>
+            {% endfor %}
+            <!-- /winners -->
+        </div>
+        <div class="close" style="background-color: {{ colors.mainmedium }};">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+    </div>
+</div>
+{% endif %}

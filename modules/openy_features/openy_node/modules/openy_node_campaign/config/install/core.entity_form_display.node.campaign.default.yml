@@ -23,7 +23,9 @@ dependencies:
     - field.field.node.campaign.field_campaign_reg_end_date
     - field.field.node.campaign.field_campaign_reg_start_date
     - field.field.node.campaign.field_campaign_start_date
+    - field.field.node.campaign.field_campaign_stream_type
     - field.field.node.campaign.field_campaign_timezone
+    - field.field.node.campaign.field_campaign_winner_stream
     - field.field.node.campaign.field_campaign_winners_prizes
     - field.field.node.campaign.field_enable_visits_goal
     - field.field.node.campaign.field_error_default
@@ -206,7 +208,7 @@ third_party_settings:
         - field_ways_to_earn_entries
         - field_flip_cards_cover_image
       parent_name: ''
-      weight: 18
+      weight: 17
       format_type: details
       format_settings:
         id: ''
@@ -384,11 +386,24 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_campaign_stream_type:
+    weight: 18
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_campaign_timezone:
     weight: 21
     settings: {  }
     third_party_settings: {  }
     type: tzfield_default
+    region: content
+  field_campaign_winner_stream:
+    weight: 19
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_campaign_winners_prizes:
     type: entity_reference_paragraphs

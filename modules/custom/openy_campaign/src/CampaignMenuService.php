@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Render\RendererInterface;
@@ -306,4 +307,135 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     }
     return FALSE;
   }
+
+
+  /**
+   * Gets the color scheme for a campaign node.
+   *
+   * @param \Drupal\node\Entity\Node $node
+   *
+   * @return array
+   */
+  public function getCampaignPalette(Node $node) {
+    $palette = [];
+    $campaign = $this->getNodeCampaignNode($node);
+    $scheme_id = $campaign->get('field_campaign_palette')->getString();
+    $color_info = color_get_info(OPENY_THEME);
+    if (!empty($color_info['schemes'][$scheme_id])) {
+      $palette = $color_info['schemes'][$scheme_id];
+    }
+    return $palette;
+  }
+
+  /**
+   * Gets the active winner stream for display on each campaign and landing
+   * page.
+   *
+   * @param Node $campaign
+   *
+   * @return array
+   */
+  public function getWinnerStream(Node $campaign) {
+    $winners = [];
+    $isActive = $campaign->get('field_campaign_winner_stream')->getString();
+    $streamType = $campaign->get('field_campaign_stream_type')->getString();
+    if ($isActive) {
+      switch ($streamType) {
+        case 'all':
+          $winners = $this->getWinnersOfType('instant', $campaign->id());
+          break;
+        case 'instant':
+          $winners = $this->getWinnersOfType('instant', $campaign->id());
+          break;
+        case 'visit':
+          break;
+        default:
+          break;
+      }
+    }
+    return $winners;
+  }
+
+  /**
+   *
+   *
+   * @param string $type
+   * @param string $node_id
+   *
+   * @return array|\Drupal\views\ResultRow[]
+   */
+  public function getWinnersOfType(string $type, string $node_id) {
+    $result = [];
+    switch ($type) {
+      case 'instant':
+        $connection = \Drupal::service('database');
+        /** @var \Drupal\Core\Database\Query\Select $query */
+        $query = $connection->select('openy_campaign_member_game', 'g');
+        $query->join('openy_campaign_member', 'm', 'g.member = m.id');
+        $query->condition('g.result', '%SORRY%', 'NOT LIKE');
+        $query->condition('g.result', '%Did not win%', 'NOT LIKE');
+        $query->fields('g', ['created']);
+        $query->fields('m', ['first_name', 'last_name']);
+        $query->orderBy('g.created', 'ASC');
+        $query->range(0, 50);
+        $results = $query->execute()->fetchAll();
+        if (count($results)) {
+          $result = array_merge($result, $results);
+        }
+        break;
+      case 'visit':
+      default:
+        $connection = \Drupal::service('database');
+        /** @var \Drupal\Core\Database\Query\Select $query */
+        $query = $connection->select('openy_campaign_member_game', 'g');
+        $query->join('openy_campaign_member', 'm', 'g.member = m.id');
+        $query->condition('g.result', '%SORRY%', 'NOT LIKE');
+        $query->condition('g.result', '%Did not win%', 'NOT LIKE');
+        $query->fields('g', ['created']);
+        $query->fields('m', ['first_name', 'last_name']);
+        $query->orderBy('g.created', 'ASC');
+        $query->range(0, 50);
+        $results = $query->execute()->fetchAll();
+        if (count($results)) {
+          $result = array_merge($result, $results);
+        }
+        break;
+    }
+    foreach ($result as &$row) {
+      if (isset($row->last_name)) {
+        $row->last_name = substr($row->last_name, 0, 1);
+      }
+      $row->created = $this->timeAgo($row->created);
+    }
+    return $result;
+  }
+
+  /**
+   * Returns a string date comparison in the format "1 day ago" etc.
+   *
+   * @param string $timestamp
+   *
+   * @return string
+   */
+  public function timeAgo(string $timestamp){
+    $now = new \DateTime("now");
+    $date = new \DateTime();
+    $date->setTimestamp($timestamp);
+    $datediff = date_diff($now, $date);
+    $message = '';
+    $components = [
+      ['y', 'year', 'years'], ['m', 'month', 'months'],
+      ['d', 'day', 'days'], ['h', 'hour', 'hours'],
+      ['i', 'minute', 'minutes'], ['s', 'second', 'seconds'],
+    ];
+    foreach ($components as $component) {
+      if ($datediff->{$component[0]} > 0) {
+        $message = $datediff->{$component[0]} . ' '
+          . ($datediff->{$component[0]} > 1 ? t($component[2]) : $component[1]);
+        break;
+      }
+    }
+    return !empty($message) ? $message. ' ' . t('ago') : '';
+  }
+
 }
