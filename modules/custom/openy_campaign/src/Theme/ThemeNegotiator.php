@@ -4,6 +4,7 @@ namespace Drupal\openy_campaign\Theme;
 
 use Drupal\Core\Theme\ThemeNegotiatorInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
 
 class ThemeNegotiator implements ThemeNegotiatorInterface {
 
@@ -11,18 +12,21 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
    * {@inheritdoc}
    */
   public function applies(RouteMatchInterface $route_match) {
+    $customRoutes = [
+      'openy_campaign.campaign_game',
+      'openy_campaign.team_member.list',
+      'openy_campaign.team_member.edit_form',
+      'openy_campaign.member-registration-portal',
+    ];
 
-    $possible_routes = array(
-      'entity.node.canonical',
-      'openy_campaign.campaign_game'
-    );
+    $possible_routes = $customRoutes + ['entity.node.canonical'];
 
     if (in_array($route_match->getRouteName(), $possible_routes)) {
       $node = $route_match->getParameter('node');
 
       if (
-        $route_match->getRouteName() === 'openy_campaign.campaign_game' ||
-        in_array($node->getType(), ['campaign', 'campaign_page'])
+        in_array($route_match->getRouteName(), $customRoutes) ||
+        ($node instanceof NodeInterface === TRUE && in_array($node->getType(), ['campaign', 'campaign_page']))
       ) {
         return TRUE;
       }
