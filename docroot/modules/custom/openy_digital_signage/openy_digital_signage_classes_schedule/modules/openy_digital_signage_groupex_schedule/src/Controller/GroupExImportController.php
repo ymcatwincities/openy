@@ -112,7 +112,7 @@ class GroupExImportController extends ControllerBase {
     if (!isset($context['sandbox']['max'])) {
       $context['results']['to_be_deleted'] = [];
       $date = new \DateTime();
-      $date->setTimestamp(REQUEST_TIME);
+      $date->setTime(0, 0, 0);
       $context['sandbox']['datetime'] = $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
 
       $query = \Drupal::entityQuery('openy_ds_classes_groupex_session')
@@ -139,11 +139,12 @@ class GroupExImportController extends ControllerBase {
     foreach ($entities as $entity) {
       $id = $entity->groupex_id->value;
       $location = $entity->location->target_id;
-      $loc = \Drupal::service('ymca_mappings.location_repository')->findByLocationId($location);
+      $loc = \Drupal::service('ymca_mappings.location_repository')
+        ->findByLocationId($location);
       if (!isset($context['results']['feeds'][$loc->id()][$id])) {
-        $context['results']['to_be_deleted'][] = $id;
+        $context['results']['to_be_deleted'][] = $entity->id();
       }
-      $context['sandbox']['current'] = $id;
+      $context['sandbox']['current'] = $entity->id();
       $context['sandbox']['progress']++;
     }
 
@@ -173,9 +174,19 @@ class GroupExImportController extends ControllerBase {
     }
 
     $ids = array_splice($context['results']['to_be_deleted'], 0, 10);
-    $storage = \Drupal::entityTypeManager()->getStorage('openy_ds_classes_groupex_session');
+    $entity_manager = \Drupal::entityTypeManager();
+    $storage = $entity_manager->getStorage('openy_ds_classes_groupex_session');
+    $class_storage = $entity_manager->getStorage('openy_ds_classes_session');
     $entities = $storage->loadMultiple($ids);
-    $storage->delete($entities);
+    foreach ($entities as $entity) {
+      $class = $class_storage->loadByProperties([
+        'source_id' => $entity->groupex_id->value,
+      ]);
+      if (!empty($class)) {
+        $class = reset($class);
+        $class->delete();
+      }
+    }
 
     $context['sandbox']['progress'] += count($ids);
 
