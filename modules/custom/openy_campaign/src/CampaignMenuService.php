@@ -8,7 +8,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
-use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Render\RendererInterface;
@@ -331,15 +330,77 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     return !empty($campaigns) ? $campaigns : NULL;
   }
 
+  /**
+   * Get achieved Visit Goal members by branch.
+   *
+   * @param \Drupal\node\NodeInterface $campaign Campaign node entity.
+   * @param int $branchId Optional: calculate winners per branch. Branch ID to calculate winners for.
+   * @param array $alreadyWinners Optional: exclude already defined winners.
+   *
+   * @return array
+   *    Array with winners MemberCampaign ids.
+   */
+  public function getVisitsGoalWinners($campaign, $branchId = NULL, $alreadyWinners = []) {
+    $goalWinners = [];
+
+    // Get all enabled activities list
+    $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
+
+    // For disabled Visits Goal activity
+    if (!in_array('field_prgf_activity_visits', $activitiesOptions)) {
+      return $goalWinners;
+    }
+
+    /** @var Node $campaign */
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
+    $minVisitsGoal = !empty($campaign->field_min_visits_goal->value) ? $campaign->field_min_visits_goal->value : 0;
+
+    $connection = \Drupal::service('database');
+    // Get visits
+    /** @var \Drupal\Core\Database\Query\Select $query */
+    $query = $connection->select('openy_campaign_member_checkin', 'ch');
+    $query->join('openy_campaign_member', 'm', 'm.id = ch.member');
+    $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
+
+    $query->addField('mc', 'id', 'member_campaign');
+
+    $query->condition('ch.date', $campaignStartDate->format('U'), '>=');
+    $query->condition('ch.date', $campaignEndDate->format('U'), '<');
+    if (!empty($branchId)) {
+      $query->condition('m.branch', $branchId);
+    }
+    $query->condition('m.is_employee', FALSE);
+    $query->condition('mc.campaign', $campaign->id());
+
+    $query->groupBy('ch.member');
+    $query->groupBy('mc.id');
+    $query->groupBy('mc.goal');
+
+    $query->having('COUNT(ch.id) >= mc.goal AND COUNT(ch.id) > :minGoal', [':minGoal' => $minVisitsGoal]);
+
+    $query->orderRandom();
+
+    $results = $query->execute()->fetchAll();
+
+    foreach ($results as $item) {
+      $memberCampaignId = $item->member_campaign;
+      if (!in_array($memberCampaignId, $alreadyWinners)) {
+        $goalWinners[] = $memberCampaignId;
+      }
+    }
+
+    return $goalWinners;
+  }
 
   /**
    * Gets the color scheme for a campaign node.
    *
-   * @param \Drupal\node\Entity\Node $node
+   * @param \Drupal\node\NodeInterface $node
    *
    * @return array
    */
-  public function getCampaignPalette(Node $node) {
+  public function getCampaignPalette(\Drupal\node\NodeInterface $node) {
     $palette = [];
     $campaign = $this->getNodeCampaignNode($node);
     $scheme_id = $campaign->get('field_campaign_palette')->getString();
@@ -351,43 +412,44 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   }
 
   /**
-   * Gets the active winner stream for display on each campaign and landing
-   * page.
+   * Gets the active winner stream for display on each campaign and landing page.
    *
-   * @param Node $campaign
+   * @param \Drupal\node\NodeInterface $campaign
    *
    * @return array
    */
-  public function getWinnerStream(Node $campaign) {
+  public function getWinnerStream(\Drupal\node\NodeInterface $campaign) {
     $winners = [];
-    $isActive = $campaign->get('field_campaign_winner_stream')->getString();
     $streamType = $campaign->get('field_campaign_stream_type')->getString();
-    if ($isActive) {
-      switch ($streamType) {
-        case 'all':
-          $winners = $this->getWinnersOfType('instant', $campaign->id());
-          break;
-        case 'instant':
-          $winners = $this->getWinnersOfType('instant', $campaign->id());
-          break;
-        case 'visit':
-          break;
-        default:
-          break;
-      }
+    switch ($streamType) {
+      case 'all':
+        $instantWinners = $this->getWinnersOfType('instant', $campaign->id());
+        $visitGoalAchived = $this->getWinnersOfType('visit', $campaign->id());
+
+        $winners = array_merge($instantWinners, $visitGoalAchived);
+        shuffle($winners);
+        break;
+      case 'instant':
+        $winners = $this->getWinnersOfType('instant', $campaign->id());
+        break;
+      case 'visit':
+        $winners = $this->getWinnersOfType('visit', $campaign->id());
+        break;
+      default:
+        break;
     }
     return $winners;
   }
 
   /**
-   *
+   * Helper function to get winners by type.
    *
    * @param string $type
    * @param string $node_id
    *
    * @return array|\Drupal\views\ResultRow[]
    */
-  public function getWinnersOfType(string $type, string $node_id) {
+  private function getWinnersOfType($type, $node_id) {
     $result = [];
     switch ($type) {
       case 'instant':
@@ -395,40 +457,43 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         /** @var \Drupal\Core\Database\Query\Select $query */
         $query = $connection->select('openy_campaign_member_game', 'g');
         $query->join('openy_campaign_member', 'm', 'g.member = m.id');
+        $query->join('openy_campaign_member_campaign', 'mc', 'mc.member = m.id');
+        $query->condition('mc.campaign', $node_id);
         $query->condition('g.result', '%SORRY%', 'NOT LIKE');
         $query->condition('g.result', '%Did not win%', 'NOT LIKE');
         $query->fields('g', ['created']);
         $query->fields('m', ['first_name', 'last_name']);
         $query->orderBy('g.created', 'ASC');
         $query->range(0, 50);
-        $results = $query->execute()->fetchAll();
-        if (count($results)) {
-          $result = array_merge($result, $results);
-        }
+        $result = $query->execute()->fetchAll();
         break;
       case 'visit':
-      default:
-        $connection = \Drupal::service('database');
-        /** @var \Drupal\Core\Database\Query\Select $query */
-        $query = $connection->select('openy_campaign_member_game', 'g');
-        $query->join('openy_campaign_member', 'm', 'g.member = m.id');
-        $query->condition('g.result', '%SORRY%', 'NOT LIKE');
-        $query->condition('g.result', '%Did not win%', 'NOT LIKE');
-        $query->fields('g', ['created']);
-        $query->fields('m', ['first_name', 'last_name']);
-        $query->orderBy('g.created', 'ASC');
-        $query->range(0, 50);
-        $results = $query->execute()->fetchAll();
-        if (count($results)) {
-          $result = array_merge($result, $results);
+        $campaign = $this->entityTypeManager->getStorage('node')->load($node_id);
+        // Calculate visit goal winners
+        $achievedMemberCampaignIds = $this->getVisitsGoalWinners($campaign);
+        // Load needed information
+        if (!empty($achievedMemberCampaignIds)) {
+          $connection = \Drupal::service('database');
+          /** @var \Drupal\Core\Database\Query\Select $query */
+          $query = $connection->select('openy_campaign_member_campaign', 'mc');
+          $query->condition('mc.id', $achievedMemberCampaignIds, 'IN');
+          $query->join('openy_campaign_member', 'm', 'mc.member = m.id');
+          $query->fields('m', ['first_name', 'last_name']);
+          $query->range(0, 50);
+          $result = $query->execute()->fetchAll();
         }
         break;
     }
-    foreach ($result as &$row) {
-      if (isset($row->last_name)) {
-        $row->last_name = substr($row->last_name, 0, 1);
+    if (count($result)) {
+      foreach ($result as &$row) {
+        if (isset($row->last_name)) {
+          $row->last_name = substr($row->last_name, 0, 1);
+        }
+        if (isset($row->created)) {
+          $row->created = $this->timeAgo($row->created);
+        }
+        $row->type = $type;
       }
-      $row->created = $this->timeAgo($row->created);
     }
     return $result;
   }
@@ -440,7 +505,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *
    * @return string
    */
-  public function timeAgo(string $timestamp){
+  private function timeAgo($timestamp){
     $now = new \DateTime("now");
     $date = new \DateTime();
     $date->setTimestamp($timestamp);

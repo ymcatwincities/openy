@@ -16,7 +16,7 @@ field_name: field_campaign_stream_type
 entity_type: node
 bundle: campaign
 label: 'Winner Stream Type'
-description: ''
+description: 'Choose "- None -" to hide Winners Stream'
 required: false
 translatable: false
 default_value:
