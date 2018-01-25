@@ -84,9 +84,17 @@ class ActivityTrackingController extends ControllerBase {
       $memberCampaign = MemberCampaign::load($memberCampaignId);
       $campaignId = $memberCampaign->getCampaign()->id();
       $campaign = Node::load($campaignId);
-      $campaignActivities = $campaign->get('field_utilization_activity')->value;
-      if (in_array('tracking', $campaignActivities)) {
-        $loadedEntity = CampaignUtilizationActivitiy::loadBy('member_campaign', $memberCampaignId);
+      $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
+      $activities = [];
+      foreach ($utilizationActivities as $utilizationActivity) {
+        $activities[] = $utilizationActivity['value'];
+      }
+
+      if (in_array('tracking', $activities)) {
+        $loadedEntity = \Drupal::entityQuery('openy_campaign_util_activity')
+          ->condition('member_campaign', $memberCampaignId)
+          ->execute();
+
         if (empty($loadedEntity)) {
           $preparedActivityData = [
             'member_campaign' => $memberCampaignId,

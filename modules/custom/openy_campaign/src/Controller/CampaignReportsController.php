@@ -9,6 +9,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\openy_campaign\Entity\CampaignUtilizationActivitiy;
 use Drupal\openy_campaign\OpenYLocaleDate;
 use Drupal\openy_campaign\RegularUpdater;
 use Drupal\openy_popups\Form\ClassBranchesForm;
