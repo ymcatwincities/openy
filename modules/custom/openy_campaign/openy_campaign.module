@@ -310,6 +310,50 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
   }
   $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
 
+  // Render needed paragraphs if it was set in Campaign page
+  if ($node->getType() == 'campaign_page' && $variables['view_mode'] == 'full') {
+    $parentCampaignField = $node->get('field_campaign_parent')->getValue();
+    if (!empty($parentCampaignField)) {
+      /** @var \Drupal\node\Entity\Node $parentCampaign */
+      $parentCampaign = \Drupal\node\Entity\Node::load($parentCampaignField[0]['target_id']);
+      // Get all enabled activities list
+      $activitiesOptions = openy_campaign_get_enabled_activities($parentCampaign);
+
+      // Check if we need to show every paragraph field
+      foreach ($variables['content']['field_content'] as $i => $item) {
+        if (!is_numeric($i)) {
+          continue;
+        }
+        /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+        $paragraph = $item['#paragraph'];
+        if (!empty($activitiesOptions) && $paragraph instanceof \Drupal\paragraphs\ParagraphInterface === TRUE) {
+          // Activity Tracking 'field_prgf_campaign_activity'
+          if ($paragraph->getType() == 'campaign_activity' && !in_array('field_prgf_campaign_activity', $activitiesOptions)) {
+            $variables['content']['field_content'][$i] = [
+              '#markup' => '',
+            ];
+          }
+          // Visits 'field_prgf_activity_visits' and Game 'field_prgf_campaign_game'
+          if ($paragraph->getType() == 'campaign_activity_menu') {
+            $checkFields = [
+              'field_prgf_activity_visits',
+              'field_prgf_campaign_game',
+            ];
+            $skipFields = array_diff($checkFields, $activitiesOptions);
+            if (!empty($skipFields)) {
+              $newParagraph = clone $paragraph;
+              foreach ($skipFields as $field) {
+                $newParagraph->set($field, []);
+              }
+
+              $variables['content']['field_content'][$i]['#paragraph'] = $newParagraph;
+            }
+          }
+        }
+      }
+    }
+  }
+
   // Check if user is allowed to enter the page.
   if (!$campaignMenuService->checkPermissions($node)) {
     // TODO: open login popup.
@@ -346,6 +390,32 @@ function openy_campaign_form_openy_campaign_member_edit_form_alter(&$form, \Drup
   ];
   foreach ($readonlyFields as $field) {
     $form[$field]['widget'][0]['value']['#attributes'] = ['readonly' => 'readonly'];
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Change views exposed filter form.
+ */
+function openy_campaign_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // Change texfield filter item to select in Campaign Members view Members List Block
+  if ($form['#id'] == 'views-exposed-form-campaign-members-members-list-block' && isset($form['campaign'])) {
+    $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
+    $campaigns = $campaignMenuService->getActiveCampaigns();
+    $options = [];
+    foreach ($campaigns as $item) {
+      /** @var \Drupal\node\Entity\Node $item */
+      $options[$item->id()] = $item->getTitle();
+    }
+
+    $default = !empty($form_state->getValue('campaign')) ? $form_state->getValue('campaign') : current($campaigns)->id();
+    $form['campaign']['#type'] = 'select';
+    $form['campaign']['#size'] = NULL;
+    $form['campaign']['#options'] = $options;
+    $form['campaign']['#default_value'] = $default;
+
+    $form['#action'] = '/members-list';
   }
 }
 
@@ -597,6 +667,18 @@ function openy_campaign_campaign_menu_field_submit(&$form, \Drupal\Core\Form\For
   }
 }
 
+function openy_campaign_preprocess_block__system_branding_block(&$variables) {
+  // Get node from current page URL and check referenced campaign.
+  /** @var \Drupal\Node\Entity\Node $campaign */
+  $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
+
+  if (!empty($campaign)) {
+    $variables['url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $campaign->id()]);
+  }
+}
+
+//------------- HELPER FUNCTIONS ---------------
+
 /**
  * Manually create checkin. To be used for testing.
  *
@@ -633,10 +715,20 @@ function openy_campaign_clean_personify_email($email) {
   return $email;
 }
 
-function openy_campaign_preprocess_block__system_branding_block(&$variables) {
-  // Get node from current page URL and check referenced campaign.
-  /** @var \Drupal\Node\Entity\Node $campaign */
-  $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
+/**
+ * Get list of enabled activities for selected Campaign.
+ *
+ * @param $campaign \Drupal\node\Entity\Node
+ *
+ * @return array
+ */
+function openy_campaign_get_enabled_activities($campaign) {
+  $activitiesOptions = [];
 
-  $variables['url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $campaign->id()]);
+  $activitiesOptionsField = $campaign->get('field_activities_options')->getValue();
+  foreach ($activitiesOptionsField as $op) {
+    $activitiesOptions[] = $op['value'];
+  }
+
+  return $activitiesOptions;
 }

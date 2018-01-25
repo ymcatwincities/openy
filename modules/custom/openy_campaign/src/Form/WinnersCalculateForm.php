@@ -95,7 +95,10 @@ class WinnersCalculateForm extends FormBase {
       '#multiple' => TRUE,
     ];
 
-    $enableVisitsGoal = $campaign->field_enable_visits_goal->value;
+    // Get all enabled activities list
+    $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
+
+    $enableVisitsGoal = in_array('field_prgf_activity_visits', $activitiesOptions) ? TRUE : FALSE;
     $form['generate']['visits_goal'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Run Visit Goal Random Drawing'),
@@ -391,8 +394,11 @@ class WinnersCalculateForm extends FormBase {
   private static function getVisitsGoalWinners($campaign, $branchId, &$alreadyWinners) {
     $goalWinners = [];
 
-    $enableVisitsGoal = $campaign->field_enable_visits_goal->value;
-    if (!$enableVisitsGoal) {
+    // Get all enabled activities list
+    $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
+
+    // For disabled Visits Goal activity
+    if (!in_array('field_prgf_activity_visits', $activitiesOptions)) {
       return $goalWinners;
     }
 

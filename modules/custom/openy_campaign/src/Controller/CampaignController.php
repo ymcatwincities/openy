@@ -7,12 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\Core\Form\FormBuilder;
-use Drupal\Core\Ajax\OpenModalDialogCommand;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\node\Entity\Node;
-use Drupal\openy_campaign\Entity\MemberCampaign;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\Core\Url;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 

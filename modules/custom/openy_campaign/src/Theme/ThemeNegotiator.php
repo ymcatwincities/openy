@@ -12,6 +12,15 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
    */
   public function applies(RouteMatchInterface $route_match) {
 
+    $custom_page_routes = [
+      'openy_campaign.team_member.list',
+      'openy_campaign.team_member.edit_form',
+      'openy_campaign.member-registration-portal',
+    ];
+    if (in_array($route_match->getRouteName(), $custom_page_routes)) {
+      return TRUE;
+    }
+
     $possible_routes = array(
       'entity.node.canonical',
       'openy_campaign.campaign_game'

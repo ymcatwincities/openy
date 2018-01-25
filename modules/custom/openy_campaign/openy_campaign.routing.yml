@@ -147,6 +147,8 @@ openy_campaign.member-registration-portal:
     _title: 'Simplified Team Member Registration Portal'
   requirements:
     _permission: 'access content'
+  options:
+    no_cache: TRUE
 
 # Campaign Member registration/login popup
 openy_campaign.member-action:
@@ -189,6 +191,28 @@ openy_campaign.campaign_games:
   requirements:
     _permission: 'access content'
 
+# List of Members for Team Members visitors
+# @TODO Access check
+openy_campaign.team_member.list:
+  path: '/members-list'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\TeamMemberUIController::showMembers'
+    _title: 'Members List'
+  requirements:
+    _permission: 'access content'
+
+# Edit email form
+# @TODO Access check
+openy_campaign.team_member.edit_form:
+  path: '/members-list/{member_id}'
+  defaults:
+    _form: '\Drupal\openy_campaign\Form\MemberEmailEditForm'
+    _title: 'Check Email Form'
+  requirements:
+    _permission: 'access content'
+    member_id: ^[0-9]+
+  options:
+    no_cache: TRUE
 
 # Reports.
 openy_campaign.campaign_game_results:
