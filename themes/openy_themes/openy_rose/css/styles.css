@@ -2241,6 +2241,25 @@ body {
   }
 }
 
+.paragraph--type--video-player .field-media-local-video {
+  padding: 20px;
+}
+
+.sidebar-region .video-js {
+  width: 100% !important;
+  height: 270px !important;
+}
+.sidebar-region .video-js.vjs-fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+  padding-top: 0 !important;
+}
+
+.vjs-tech {
+  width: 100% !important;
+  height: 100% !important;
+}
+
 .site-alert {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   width: 100%;
