@@ -10,6 +10,7 @@ use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\openy_campaign\OpenYLocaleDate;
+use Drupal\openy_campaign\RegularUpdater;
 use Drupal\openy_popups\Form\ClassBranchesForm;
 use Drupal\openy_session_instance\SessionInstanceManager;
 use Drupal\taxonomy\Entity\Term;
@@ -420,6 +421,8 @@ class CampaignReportsController extends ControllerBase {
     $result['dates']['registration_end'] = $localeRegistrationEnd->getDate()->format('m/d');
     $result['dates']['campaign_start'] = $localeCampaignStart->getDate()->format('m/d');
     $result['dates']['campaign_end'] = $localeCampaignEnd->getDate()->format('m/d');
+
+    // Current dates. + labels with dates.
     $localTime = OpenYLocaleDate::createDateFromFormat(date('c'));
     $localTime->convertTimezone($campaignTimezone);
 
@@ -437,11 +440,9 @@ class CampaignReportsController extends ControllerBase {
       $actual_campaign_date = $localTime->getDate()->format('m/d');
     }
 
-
     $result['dates']['actual_date'] = $localTime->getDate()->format('m/d');
     $result['dates']['actual_early_date'] = $actual_early_date;
     $result['dates']['actual_campaign_date'] = $actual_campaign_date;
-
 
     // Get branches for current campaign.
     // @todo get data from new widget. Get Branches and TARGET.
