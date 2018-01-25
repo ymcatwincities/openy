@@ -176,10 +176,19 @@ class PersonifyImportController extends ControllerBase {
 
     $ids = array_splice($context['results']['to_be_deleted'], 0, 10);
     if (!empty($ids)) {
-      $storage = \Drupal::entityTypeManager()
-        ->getStorage('openy_ds_class_personify_session');
+      $entity_manager = \Drupal::entityTypeManager();
+      $storage = $entity_manager->getStorage('openy_ds_class_personify_session');
+      $class_storage = $entity_manager->getStorage('openy_ds_classes_session');
       $entities = $storage->loadMultiple($ids);
-      $storage->delete($entities);
+      foreach ($entities as $entity) {
+        $class = $class_storage->loadByProperties([
+          'source_id' => $entity->personify_id->value,
+        ]);
+        if (!empty($class)) {
+          $class = reset($class);
+          $class->delete();
+        }
+      }
     }
 
     $context['sandbox']['progress'] += count($ids);
