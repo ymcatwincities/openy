@@ -16,7 +16,7 @@ field_name: field_media_local_video
 entity_type: media
 bundle: video_local
 label: 'Local Video'
-description: 'Please upload a video'
+description: 'Please upload a video.'
 required: true
 translatable: false
 default_value: {  }

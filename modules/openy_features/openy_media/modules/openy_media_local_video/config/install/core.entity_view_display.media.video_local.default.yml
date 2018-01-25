@@ -15,8 +15,8 @@ content:
     weight: 0
     label: hidden
     settings:
-      width: '230'
-      height: '170'
+      width: '640'
+      height: '480'
       controls: '1'
       preload: none
       autoplay: 0
