@@ -200,7 +200,7 @@ function openy_digital_signage_screen_preprocess_page__screen_content(&$variable
  * Implements hook_ds_version().
  */
 function openy_digital_signage_screen_ds_version() {
-  return '0.0.1';
+  return '0.0.2';
 }
 
 /**

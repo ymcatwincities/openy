@@ -25,10 +25,8 @@
         if (!(Drupal.openyDigitalSignageBlocks.currentClass instanceof OpenYDigitalSignageBlockClassCurrent)) {
           Drupal.openyDigitalSignageBlocks.currentClass = new OpenYDigitalSignageBlockClassCurrent(this);
         }
-        if (Drupal.openyDigitalSignageBlocks.currentClass.isActive()) {
-          Drupal.openyDigitalSignageBlocks.currentClass.deactivate();
-          Drupal.openyDigitalSignageBlocks.currentClass.updateContext(this);
-        }
+        Drupal.openyDigitalSignageBlocks.currentClass.deactivate();
+        Drupal.openyDigitalSignageBlocks.currentClass.updateContext(this);
         Drupal.openyDigitalSignageBlocks.currentClass.init();
       });
     }
@@ -136,6 +134,10 @@
     this.needsActiveClassActualization = function (classes) {
       var $activeClassContainer = $('.active-classes .class-active', self.context);
       var $activeClass = $('.class', $activeClassContainer);
+      // @todo this is not ok. find out a better solution.
+      if (!classes.last) {
+        return true;
+      }
       if (!$activeClass.size() || $activeClass.data('from') != classes.last.data('from')) {
         return true;
       }
@@ -211,6 +213,9 @@
           $activeClasses.addClass('has-class-awaiting');
         }
         self.updateProgressBars();
+      }
+      if ($activeClass.length > 0) {
+        self.classNameFontResize($activeClass);
       }
     };
 
@@ -291,7 +296,7 @@
       self.blockObject.deactivate = self.deactivate;
       if (self.blockObject.isActive() || $(self.context).parents('.screen').size() === 0) {
         self.activate();
-        if ($('.active-classes .class-active .class', self.context).length == 0) {
+        if ($('.active-classes .class-active .class', self.context).length === 0) {
           self.actualizeActiveClasses(self.getCurrentAndNext());
         }
       }
@@ -304,7 +309,7 @@
      *   Status.
      */
     this.isActive = function () {
-      return self.activated != 0;
+      return self.activated !== 0;
     };
 
     /**
@@ -316,6 +321,30 @@
     this.updateContext = function (context) {
       this.context = context;
       self = this;
+    };
+
+    /**
+     *  Resize font size for the class name.
+     *
+     * @param activeClass
+     *   Active class.
+     */
+    this.classNameFontResize = function (activeClass) {
+      var countdown_is_visible = parseFloat($('.class-time-countdown', activeClass).css('opacity'));
+      var height_percent = countdown_is_visible === 0 ? 31 : 27;
+      var size = parseInt($('.class-name', activeClass).css('font-size').slice(0, -2));
+      var class_height = activeClass.height();
+      var class_name_height = $('.class-name', activeClass).height();
+      var percent = Math.round((class_name_height * 100) / class_height);
+      var i = 0;
+      do {
+        size -=1;
+        $('.class-name', activeClass).css('font-size', size);
+        class_name_height = $('.class-name', activeClass).height();
+        percent = Math.round((class_name_height * 100) / class_height);
+        i++;
+      }
+      while (percent > height_percent && i < 30);
     };
 
     return this;

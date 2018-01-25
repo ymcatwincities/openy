@@ -79,6 +79,7 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
       ->condition('date_time.value', $period_to, '<=')
       ->condition('date_time.end_value', $period_from, '>=')
       ->condition('overridden', FALSE)
+      ->condition('status', TRUE)
       ->sort('date_time.value');
     if (!$results = $eq->execute()) {
       $eq = $this->storage->getQuery();
@@ -88,6 +89,17 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
         ->sort('date_time.value')
         ->range(0, 1);
       $results = $eq->execute();
+    }
+    // @todo Get the first session for the next day.
+    $eq = $this->storage->getQuery();
+    $eq->condition('room', $room_id)
+      ->condition('date_time.value', $period_to, '>=')
+      ->condition('overridden', FALSE)
+      ->sort('date_time.value')
+      ->range(0, 1);
+    $next = $eq->execute();
+    if ($next) {
+      $results = array_merge($results, $next);
     }
 
     $class_sessions = $this->storage->loadMultiple($results);

@@ -42,6 +42,7 @@ class OpenYSessionsGroupExCron extends OpenYSessionsCronImporterAbstract {
     // Update run time.
     $config = $this->configFactory->getEditable('openy_digital_signage_groupex_schedule.cron_settings');
     $config->set('last_run', REQUEST_TIME);
+    $config->save();
   }
 
 }

@@ -4973,3 +4973,16 @@ function ymca_master_update_8230() {
     ]
   );
 }
+
+/**
+ * Update Digital Signage Configs.
+ */
+function ymca_master_update_8231() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'openy_digital_signage_classes_schedule.cron_settings',
+    ]
+  );
+}

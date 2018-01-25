@@ -146,12 +146,14 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
     $to_be_deleted = [];
 
     $date = new \DateTime();
-    $date->setTimestamp(REQUEST_TIME);
+    $date->setTime(0, 0, 0);
     $formatted = $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
 
+    /* @var \Drupal\ymca_mappings\Entity\Mapping $location */
+    $location = $this->locationRepository->load($location_id);
     $storage = $this->entityTypeManager->getStorage('openy_ds_classes_groupex_session');
     $query = $storage->getQuery()
-      ->condition('location', $location_id)
+      ->condition('location', $location->get('field_location_ref')->target_id)
       ->condition('date_time.value', $formatted, '>');
 
     $ids = $query->execute();
@@ -159,9 +161,8 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
     while ($part = array_splice($ids, 0, 10)) {
       $entities = $storage->loadMultiple($part);
       foreach ($entities as $entity) {
-        $id = $entity->groupex_id->value;
-        if (!isset($feed[$id])) {
-          $to_be_deleted[] = $id;
+        if (!isset($feed[$entity->groupex_id->value])) {
+          $to_be_deleted[] = $entity->id();
         }
       }
     }
@@ -178,7 +179,16 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
       if (!$entities = $storage->loadMultiple($part)) {
         continue;
       }
-      $storage->delete($entities);
+      $class_storage = $this->entityTypeManager->getStorage('openy_ds_classes_session');
+      foreach ($entities as $entity) {
+        $class = $class_storage->loadByProperties([
+          'source_id' => $entity->groupex_id->value,
+        ]);
+        if (!empty($class)) {
+          $class = reset($class);
+          $class->delete();
+        }
+      }
     }
   }
 
