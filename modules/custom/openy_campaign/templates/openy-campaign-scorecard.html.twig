@@ -15,31 +15,31 @@
       <th class="green">Branch</th>
       <th class="green">Target</th>
       <th class="separator"></th>
-      <th class="blue" colspan="4" align="center">EARLY REG (12/1 - 12/4)</th>
+      <th class="blue" colspan="4" align="center">EARLY REG ({{ result.dates.registration_start }} - {{ result.dates.registration_end }})</th>
       <th class="separator"></th>
-      <th class="blue" colspan="4" align="center">EARLY REG + CHALLENGE (12/1 - 12/18)</th>
+      <th class="blue" colspan="4" align="center">EARLY REG + CHALLENGE ({{ result.dates.registration_start }} - {{ result.dates.campaign_end }})</th>
       <th class="separator"></th>
-      <th class="violet" colspan="4" align="center"> CHALLENGE (12/5 - 12/18)</th>
+      <th class="violet" colspan="4" align="center"> CHALLENGE ({{ result.dates.campaign_start }} - {{ result.dates.campaign_end }})</th>
     </tr>
     <tr>
       <th class="green-text">#</th>
       <th class="green-text">Name</th>
       <th class="green-text">Members&nbsp;1</th>
       <th class="separator"></th>
-      <th class="blue-text grey">REGISTRATION GOAL (5%)</th>
-      <th class="blue-text">ACTUAL As&nbsp;of&nbsp;12/4&nbsp;at 11:59pm</th>
+      <th class="blue-text grey">REGISTRATION GOAL ({{ result.goals.registration_goal }}%)</th>
+      <th class="blue-text">ACTUAL As&nbsp;of&nbsp;{{ result.dates.actual_early_date }}</th>
       <th class="blue-text"> % OF MEMBERS </th>
       <th class="blue-text">% TO GOAL</th>
       <th class="separator"></th>
-      <th class="blue-text grey">REGISTRATION GOAL (5%)</th>
-      <th class="blue-text">ACTUAL As&nbsp;of&nbsp;12/17</th>
+      <th class="blue-text grey">REGISTRATION GOAL ({{ result.goals.registration_goal }}%)</th>
+      <th class="blue-text">ACTUAL As&nbsp;of&nbsp;{{ result.dates.actual_campaign_date }}</th>
       <th class="blue-text"> % OF MEMBERS </th>
       <th class="blue-text">% TO GOAL</th>
       <th class="separator"></th>
-      <th class="violet-text grey">UTILIZATION GOAL (45%)</th>
-      <th class="violet-text">ACTUAL As&nbsp;of&nbsp;12/17</th>
-      <th class="violet-text grey">%&nbsp;OF REGISTERED MEMBERS&nbsp;3</th>
-      <th class="violet-text grey">%&nbsp;TO&nbsp;GOAL Set&nbsp;7/31&nbsp;3</th>
+      <th class="violet-text grey">UTILIZATION GOAL ({{ result.goals.utilization_goal }}%)</th>
+      <th class="violet-text">ACTUAL As&nbsp;of&nbsp;{{ result.dates.actual_campaign_date }}</th>
+      <th class="violet-text grey">%&nbsp;OF REGISTERED MEMBERS</th>
+      <th class="violet-text grey">%&nbsp;TO&nbsp;GOAL Set&nbsp{{ result.dates.actual_date }}</th>
     </tr>
     </thead>
     <tbody class="table-hover">

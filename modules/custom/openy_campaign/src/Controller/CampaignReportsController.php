@@ -416,6 +416,33 @@ class CampaignReportsController extends ControllerBase {
     $localeRegistrationEnd = OpenYLocaleDate::createDateFromFormat($node->get('field_campaign_reg_end_date')->getString());
     $localeRegistrationEnd->convertTimezone($campaignTimezone);
 
+    $result['dates']['registration_start'] = $localeRegistrationStart->getDate()->format('m/d');
+    $result['dates']['registration_end'] = $localeRegistrationEnd->getDate()->format('m/d');
+    $result['dates']['campaign_start'] = $localeCampaignStart->getDate()->format('m/d');
+    $result['dates']['campaign_end'] = $localeCampaignEnd->getDate()->format('m/d');
+    $localTime = OpenYLocaleDate::createDateFromFormat(date('c'));
+    $localTime->convertTimezone($campaignTimezone);
+
+    if ($localTime > $localeRegistrationEnd) {
+      $actual_early_date = $localeRegistrationEnd->getDate()->format('m/d') . ' at ' . $localeRegistrationEnd->getDate()->format('h:ia');
+    }
+    else {
+      $actual_early_date = $localTime->getDate()->format('m/d');
+    }
+
+    if ($localTime > $localeCampaignEnd) {
+      $actual_campaign_date = $localeCampaignEnd->getDate()->format('m/d') . ' at ' . $localeCampaignEnd->getDate()->format('h:ia');
+    }
+    else {
+      $actual_campaign_date = $localTime->getDate()->format('m/d');
+    }
+
+
+    $result['dates']['actual_date'] = $localTime->getDate()->format('m/d');
+    $result['dates']['actual_early_date'] = $actual_early_date;
+    $result['dates']['actual_campaign_date'] = $actual_campaign_date;
+
+
     // Get branches for current campaign.
     // @todo get data from new widget. Get Branches and TARGET.
     $branches = $this->getCampaignBranches($node);
@@ -436,6 +463,13 @@ class CampaignReportsController extends ControllerBase {
     $result['registration']['challenge'] = [];
     $result['utilization'] = [];
 
+    $register_goal = $node->get('field_campaign_registration_goal')->getValue();
+    $utilization_goal = $node->get('field_campaign_utilization_goal')->getValue();
+    $registerGoal = !empty($register_goal) ? $register_goal[0]['value'] : 5;
+    $utilizationGoal = !empty($utilization_goal) ? $utilization_goal[0]['value'] : 45;
+    $result['goals']['registration_goal'] = $registerGoal;
+    $result['goals']['utilization_goal'] = $utilizationGoal;
+
     foreach ($branches as $id => $branch) {
       $result['branches'][$id]['nid'] = $branch->personify_branch;
       $result['branches'][$id]['title'] = $branch->title;
@@ -443,7 +477,7 @@ class CampaignReportsController extends ControllerBase {
       $result['branches'][$id]['target'] = $target;
 
       // Early registration calculation
-      $goal = number_format($target * 0.05);
+      $goal = number_format($target * $registerGoal/100);
       $result['registration']['early'][$id]['registration_goal'] = $goal;
 
       $actual = $earlyActualMembers[$id]->count_id;
@@ -480,7 +514,7 @@ class CampaignReportsController extends ControllerBase {
       $result['total']['reg_of_goal'] += $reg_of_goal;
 
       // Utilization calculation
-      $util_goal = number_format($goal * 0.45);
+      $util_goal = number_format($goal * $utilizationGoal/100);
       $result['utilization'][$id]['goal']  = $util_goal;
 
       $util_actual = rand(1, $util_goal);
