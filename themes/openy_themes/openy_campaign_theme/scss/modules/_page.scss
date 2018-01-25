@@ -506,3 +506,51 @@ button:active, button:focus {
   border: none;
   -moz-outline-style: none
 }
+
+#campaign-winner-stream {
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  z-index: 9;
+  position: fixed;
+  background: white;
+  min-height: 80px;
+  .wrapper {
+    height: 80px;
+    padding-top: 24px;
+    .marquee {
+      font-size: 24px;
+      span {
+        display: inline-block;
+      }
+      .winner-name {
+        color: #fff;
+      }
+      .spacer {
+        width: 120px;
+      }
+      .time {
+        font-size: 14px;
+        color: #fff;
+        padding: 0 5px;
+        border-radius: 5px;
+        vertical-align: middle;
+      }
+    }
+    .close {
+      top: 0;
+      right: 0;
+      height: 100%;
+      opacity: 1;
+      position: absolute;
+      i {
+        top: 20px;
+        color: #fff;
+        margin: 0 26px;
+        position: relative;
+        font-size: 40px;
+        font-weight: 400;
+      }
+    }
+  }
+}
