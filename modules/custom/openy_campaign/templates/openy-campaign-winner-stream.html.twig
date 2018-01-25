@@ -4,11 +4,16 @@
         <div class="marquee" data-duration="8000">
             <!-- winners -->
             {% for winner in winners %}
-            <i class="fa fa-star" aria-hidden="true" style="color: {{ colors.mainlight }}"></i>
-            <span class="prefix" style="color: {{ colors.mainlight }};">{% trans %} Lucky Winner: {% endtrans %}</span>
-            <span class="winner-name">{{ winner.first_name }} {% if winner.last_name is not empty %}{{ winner.last_name }}.{% endif %}</span>
-            <span class="time" style="background-color: {{ colors.mainmedium }};">{{ winner.created }}</span>
-            <span class="spacer"></span>
+                <i class="fa fa-star" aria-hidden="true" style="color: {{ colors.mainlight }}"></i>
+                <span class="winner-name">{{ winner.first_name }} {% if winner.last_name is not empty %}{{ winner.last_name }}.{% endif %}</span>
+                <span class="prefix" style="color: {{ colors.mainlight }};">
+                    {% if winner.type == 'instant' %}
+                        {% trans %} Prize Won {% endtrans %}
+                    {% else %}
+                        {% trans %} Achieved Visit Goal {% endtrans %}
+                    {% endif %}
+                </span>
+                <span class="spacer"></span>
             {% endfor %}
             <!-- /winners -->
         </div>

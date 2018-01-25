@@ -232,6 +232,8 @@ class WinnersCalculateForm extends FormBase {
 
     $winnerIDs = $query->execute()->fetchCol();
 
+    drupal_set_message(serialize($winnerIDs));
+
     /** @var \Drupal\Core\Entity\EntityStorageInterface $storage */
     $storage = \Drupal::service('entity_type.manager')->getStorage('openy_campaign_winner');
     $winners = $storage->loadMultiple($winnerIDs);
@@ -288,7 +290,9 @@ class WinnersCalculateForm extends FormBase {
     // Calculate winners by Visits goal.
     $goalWinners = [];
     if ($isVisitsGoal) {
-      $goalWinnersIds = self::getVisitsGoalWinners($campaign, $branchId, $alreadyWinners);
+      /** @var \Drupal\openy_campaign\CampaignMenuService $campaignMenuService */
+      $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
+      $goalWinnersIds = $campaignMenuService->getVisitsGoalWinners($campaign, $branchId, $alreadyWinners);
       // Create Winner entity. If winner defined by Visits goal without activity - set Activity = 0
       foreach ($places as $place) {
         $goalWinnerId = array_shift($goalWinnersIds);
@@ -382,63 +386,6 @@ class WinnersCalculateForm extends FormBase {
     }
 
     return $resultInfo;
-  }
-
-  /**
-   * @param Node $campaign Campaign node entity.
-   * @param int $branchId Branch ID to calculate winners for.
-   * @param array $alreadyWinners Already defined winners.
-   *
-   * @return array
-   */
-  private static function getVisitsGoalWinners($campaign, $branchId, &$alreadyWinners) {
-    $goalWinners = [];
-
-    // Get all enabled activities list
-    $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
-
-    // For disabled Visits Goal activity
-    if (!in_array('field_prgf_activity_visits', $activitiesOptions)) {
-      return $goalWinners;
-    }
-
-    /** @var Node $campaign */
-    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
-
-    $connection = \Drupal::service('database');
-    // Get visits
-    /** @var \Drupal\Core\Database\Query\Select $query */
-    $query = $connection->select('openy_campaign_member_checkin', 'ch');
-    $query->join('openy_campaign_member', 'm', 'm.id = ch.member');
-    $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
-
-    $query->addField('mc', 'id', 'member_campaign');
-
-    $query->condition('ch.date', $campaignStartDate->format('U'), '>=');
-    $query->condition('ch.date', $campaignEndDate->format('U'), '<');
-    $query->condition('m.branch', $branchId);
-    $query->condition('m.is_employee', FALSE);
-    $query->condition('mc.campaign', $campaign->id());
-
-    $query->groupBy('ch.member');
-    $query->groupBy('mc.id');
-    $query->groupBy('mc.goal');
-
-    $query->having('COUNT(ch.id) >= mc.goal');
-
-    $query->orderRandom();
-
-    $results = $query->execute()->fetchAll();
-
-    foreach ($results as $item) {
-      $memberCampaignId = $item->member_campaign;
-      if (!in_array($memberCampaignId, $alreadyWinners)) {
-        $goalWinners[] = $memberCampaignId;
-      }
-    }
-
-    return $goalWinners;
   }
 
   /**

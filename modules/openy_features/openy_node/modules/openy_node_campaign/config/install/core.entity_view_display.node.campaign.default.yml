@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.campaign.field_activities_options
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
     - field.field.node.campaign.field_campaign_branches
@@ -23,11 +24,8 @@ dependencies:
     - field.field.node.campaign.field_campaign_reg_end_date
     - field.field.node.campaign.field_campaign_reg_start_date
     - field.field.node.campaign.field_campaign_start_date
-    - field.field.node.campaign.field_campaign_stream_type
     - field.field.node.campaign.field_campaign_timezone
-    - field.field.node.campaign.field_campaign_winner_stream
     - field.field.node.campaign.field_campaign_winners_prizes
-    - field.field.node.campaign.field_enable_visits_goal
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -210,7 +208,7 @@ content:
     type: number_decimal
     region: content
   field_campaign_prize_nowin:
-    weight: 16
+    weight: 17
     label: above
     settings:
       link_to_entity: false
@@ -242,16 +240,6 @@ content:
     third_party_settings: {  }
     type: basic_string
     region: content
-  field_campaign_winner_stream:
-    weight: 43
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
   field_campaign_winners_prizes:
     type: entity_reference_revisions_entity_view
     weight: 33
@@ -260,16 +248,6 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    region: content
-  field_enable_visits_goal:
-    weight: 41
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
     region: content
   field_error_default:
     weight: 30
@@ -401,7 +379,7 @@ content:
     type: text_default
     region: content
   field_token_check_back_date:
-    weight: 17
+    weight: 16
     label: above
     settings:
       link_to_entity: false
@@ -424,9 +402,9 @@ content:
     type: list_default
     region: content
 hidden:
+  field_activities_options: true
   field_campaign_reg_end_date: true
   field_campaign_reg_start_date: true
-  field_campaign_stream_type: true
   field_pause_campaign: true
   field_token_register_link_text: true
   langcode: true

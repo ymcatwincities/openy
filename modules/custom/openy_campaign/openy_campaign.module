@@ -284,41 +284,40 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
     return;
   }
 
-  $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
-  // Find which published Campaign page needs to be rendered on Campaign page.
-  if ($node->getType() == 'campaign' && $variables['view_mode'] == 'full') {
-    $requestLandingPage = $campaignMenuService->getActiveCampaignPage($node);
+  $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
 
+  /** @var \Drupal\openy_campaign\CampaignMenuService $campaignMenuService */
+  $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
+
+  // Campaign node type
+  if ($node->getType() == 'campaign' && $variables['view_mode'] == 'full') {
+    // Find which published Campaign page needs to be rendered on Campaign page.
+    $requestLandingPage = $campaignMenuService->getActiveCampaignPage($node);
     if (!empty($requestLandingPage)) {
       $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($requestLandingPage);
       $variables['content']['landing_page'] = $build;
     }
 
   }
+
+  // Campaign Page node type
   if ($node->getType() == 'campaign_page' && $variables['view_mode'] == 'full') {
-    // Get the goal
+    // Get referenced Campaign node for the node.
     $campaign = $campaignMenuService->getNodeCampaignNode($node);
-    $winners = $campaignMenuService->getWinnerStream($campaign);
-    $palette = $campaignMenuService->getCampaignPalette($campaign);
-    $theme = [
-      '#theme' => 'openy_campaign_winner_stream',
-      '#winners' => $winners,
-      '#colors' => $palette['colors'],
-    ];
-    $variables['content']['winner_stream'] = $theme;
-    $variables['#attached']['library'][] = 'openy_campaign/campaign_winner_stream';
-  }
-  $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
+    if (!empty($campaign)) {
+      // Draw Winners stream
+      $winners = $campaignMenuService->getWinnerStream($campaign);
+      $palette = $campaignMenuService->getCampaignPalette($campaign);
+      $theme = [
+        '#theme' => 'openy_campaign_winner_stream',
+        '#winners' => $winners,
+        '#colors' => $palette['colors'],
+      ];
+      $variables['content']['winner_stream'] = $theme;
+      $variables['#attached']['library'][] = 'openy_campaign/campaign_winner_stream';
 
-  // Render needed paragraphs if it was set in Campaign page
-  if ($node->getType() == 'campaign_page' && $variables['view_mode'] == 'full') {
-    $parentCampaignField = $node->get('field_campaign_parent')->getValue();
-    if (!empty($parentCampaignField)) {
-      /** @var \Drupal\node\Entity\Node $parentCampaign */
-      $parentCampaign = \Drupal\node\Entity\Node::load($parentCampaignField[0]['target_id']);
-      // Get all enabled activities list
-      $activitiesOptions = openy_campaign_get_enabled_activities($parentCampaign);
-
+      // Render needed paragraphs if it was set in Campaign page
+      $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
       // Check if we need to show every paragraph field
       foreach ($variables['content']['field_content'] as $i => $item) {
         if (!is_numeric($i)) {
@@ -345,7 +344,6 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
               foreach ($skipFields as $field) {
                 $newParagraph->set($field, []);
               }
-
               $variables['content']['field_content'][$i]['#paragraph'] = $newParagraph;
             }
           }
@@ -718,7 +716,7 @@ function openy_campaign_clean_personify_email($email) {
 /**
  * Get list of enabled activities for selected Campaign.
  *
- * @param $campaign \Drupal\node\Entity\Node
+ * @param $campaign \Drupal\node\NodeInterface
  *
  * @return array
  */
