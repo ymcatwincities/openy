@@ -277,4 +277,18 @@ class LocationMappingRepository {
     return FALSE;
   }
 
+  /**
+   * Loads one or more entities.
+   *
+   * @param array $mapping_ids
+   *   An array of entity IDs, or NULL to load all entities.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface[]
+   *   An array of entity objects indexed by their IDs. Returns an empty array
+   *   if no matching entities are found.
+   */
+  public function loadMultiple($mapping_ids) {
+    return $this->storage->loadMultiple($mapping_ids);
+  }
+
 }
