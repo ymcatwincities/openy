@@ -280,7 +280,7 @@ class LocationMappingRepository {
   /**
    * Loads one or more entities.
    *
-   * @param $mapping_ids
+   * @param array $mapping_ids
    *   An array of entity IDs, or NULL to load all entities.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
