@@ -2,11 +2,15 @@
 
 namespace Drupal\openy_campaign\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
+use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Drupal\openy_campaign\RegularUpdater;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form controller for the Simplified Team Member Registration Portal form.
@@ -14,6 +18,55 @@ use Drupal\openy_campaign\Entity\MemberCampaign;
  * @ingroup openy_campaign_member
  */
 class MemberRegistrationPortalForm extends FormBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Regular updater service.
+   *
+   * @var \Drupal\openy_campaign\RegularUpdater
+   */
+  protected $regularUpdater;
+
+  /**
+   * The Campaign menu service.
+   *
+   * @var \Drupal\openy_campaign\CampaignMenuServiceInterface
+   */
+  protected $campaignMenuService;
+
+  /**
+   * Team Member Registration Portal form constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\openy_campaign\RegularUpdater $regular_updater
+   *   Regular updater service.
+   * @param CampaignMenuServiceInterface $campaign_menu_service
+   *   The Campaign menu service.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, RegularUpdater $regular_updater,
+                              CampaignMenuServiceInterface $campaign_menu_service) {
+    $this->entityTypeManager = $entity_type_manager;
+    $this->regularUpdater = $regular_updater;
+    $this->campaignMenuService = $campaign_menu_service;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager'),
+      $container->get('openy_campaign.regular_updater'),
+      $container->get('openy_campaign.campaign_menu_handler')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -26,11 +79,7 @@ class MemberRegistrationPortalForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $campaignIds = \Drupal::entityQuery('node')
-      ->condition('type', 'campaign')
-      ->condition('status', TRUE)
-      ->execute();
-    $campaigns = Node::loadMultiple($campaignIds);
+    $campaigns = $this->campaignMenuService->getActiveCampaigns();
     $options = [];
     foreach ($campaigns as $item) {
       /** @var Node $item */
@@ -183,11 +232,7 @@ class MemberRegistrationPortalForm extends FormBase {
     $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
     $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
 
-    // Get visits history from CRM for the past Campaign dates.
-    /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
-    $regularUpdater = \Drupal::service('openy_campaign.regular_updater');
-
-    // Get visits history from Campaign start to yesterday date.
+    // Get visits history from CRM for the past Campaign dates - from Campaign start to yesterday date.
     $dateFrom = $campaignStartDate->setTime(0, 0, 0);
     $dateTo = new \DateTime();
     $dateTo->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
@@ -197,7 +242,7 @@ class MemberRegistrationPortalForm extends FormBase {
       'start_date' => $dateFrom,
       'end_date' => $campaignEndDate,
     ];
-    $regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
+    $this->regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
     // If the member has not previously registered, there will be a basic message "This member is now registered".
     drupal_set_message(t('This member is now registered'), 'status', TRUE);
@@ -214,7 +259,7 @@ class MemberRegistrationPortalForm extends FormBase {
     $membershipID = $form_state->getValue('membership_id');
 
     /** @var Node $campaign Current campaign. */
-    $campaign = Node::load($campaignID);
+    $campaign = $this->entityTypeManager->getStorage('node')->load($campaignID);
 
     $config = $this->config('openy_campaign.general_settings');
     $errorDefault = $config->get('error_msg_default');

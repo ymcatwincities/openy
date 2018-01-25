@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeInterface;
@@ -305,5 +306,27 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       break;
     }
     return FALSE;
+  }
+
+  /**
+   * Get all active Campaign nodes.
+   */
+  public function getActiveCampaigns() {
+    // @TODO check timezone
+    $timezone = drupal_get_user_timezone();
+    $dt = new \DateTime('now', new \DateTimezone($timezone));
+    $dt->setTimezone(new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+    $now = DrupalDateTime::createFromDateTime($dt);
+
+    $campaignIds = $this->entityTypeManager->getStorage('node')->getQuery()
+      ->condition('type', 'campaign')
+      ->condition('status', TRUE)
+      ->condition('field_campaign_start_date', $now->format(DATETIME_DATETIME_STORAGE_FORMAT), '<=')
+      ->condition('field_campaign_end_date', $now->format(DATETIME_DATETIME_STORAGE_FORMAT), '>=')
+      ->sort('created', 'DESC')
+      ->execute();
+    $campaigns = $this->entityTypeManager->getStorage('node')->loadMultiple($campaignIds);
+
+    return !empty($campaigns) ? $campaigns : NULL;
   }
 }
