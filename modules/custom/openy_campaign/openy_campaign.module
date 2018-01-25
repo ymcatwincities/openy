@@ -376,6 +376,32 @@ function openy_campaign_form_openy_campaign_member_edit_form_alter(&$form, \Drup
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Change views exposed filter form.
+ */
+function openy_campaign_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // Change texfield filter item to select in Campaign Members view Members List Block
+  if ($form['#id'] == 'views-exposed-form-campaign-members-members-list-block' && isset($form['campaign'])) {
+    $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
+    $campaigns = $campaignMenuService->getActiveCampaigns();
+    $options = [];
+    foreach ($campaigns as $item) {
+      /** @var \Drupal\node\Entity\Node $item */
+      $options[$item->id()] = $item->getTitle();
+    }
+
+    $default = !empty($form_state->getValue('campaign')) ? $form_state->getValue('campaign') : current($campaigns)->id();
+    $form['campaign']['#type'] = 'select';
+    $form['campaign']['#size'] = NULL;
+    $form['campaign']['#options'] = $options;
+    $form['campaign']['#default_value'] = $default;
+
+    $form['#action'] = '/members-list';
+  }
+}
+
+/**
  * Implements hook_field_widget_form_alter().
  */
 function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
