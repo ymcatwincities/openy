@@ -296,7 +296,7 @@
       self.blockObject.deactivate = self.deactivate;
       if (self.blockObject.isActive() || $(self.context).parents('.screen').size() === 0) {
         self.activate();
-        if ($('.active-classes .class-active .class', self.context).length == 0) {
+        if ($('.active-classes .class-active .class', self.context).length === 0) {
           self.actualizeActiveClasses(self.getCurrentAndNext());
         }
       }
@@ -309,7 +309,7 @@
      *   Status.
      */
     this.isActive = function () {
-      return self.activated != 0;
+      return self.activated !== 0;
     };
 
     /**
@@ -331,7 +331,7 @@
      */
     this.classNameFontResize = function (activeClass) {
       var countdown_is_visible = parseFloat($('.class-time-countdown', activeClass).css('opacity'));
-      var height_percent = countdown_is_visible == 0 ? 31 : 27;
+      var height_percent = countdown_is_visible === 0 ? 31 : 27;
       var size = parseInt($('.class-name', activeClass).css('font-size').slice(0, -2));
       var class_height = activeClass.height();
       var class_name_height = $('.class-name', activeClass).height();
