@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Cachet W01 Book";
-  src: url("/profiles/contrib/openy/themes/openy_themes/openy_campaign_theme/fonts/CachetBook.ttf");
+  src: url("../fonts/CachetBook.ttf");
 }
 body {
   color: #636466;

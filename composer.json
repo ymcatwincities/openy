@@ -234,6 +234,7 @@
         "drupal/views_data_export": "^1.0@alpha",
         "drupal/views_field_formatter": "1.5",
         "drupal/lndr": "1.0",
-        "doctrine/inflector": "1.1.*"
+        "doctrine/inflector": "1.1.*",
+        "drupal/tzfield": "1.x-dev"
     }
 }

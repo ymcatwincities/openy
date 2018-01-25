@@ -7,6 +7,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\locale\Form\LocaleSettingsForm;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeTypeInterface;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberCheckin;
 use Drupal\webform\Plugin\WebformElement\DateTime;
@@ -88,6 +89,10 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
     $block['#cache']['max-age'] = 0;
+
+    if ($campaign instanceof NodeTypeInterface !== TRUE) {
+      return $block;
+    }
 
     $activeRegistration = TRUE;
 
