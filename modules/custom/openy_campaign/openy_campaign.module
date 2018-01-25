@@ -295,11 +295,7 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
       /** @var \Drupal\node\Entity\Node $parentCampaign */
       $parentCampaign = \Drupal\node\Entity\Node::load($parentCampaignField[0]['target_id']);
       // Get all enabled activities list
-      $activitiesOptionsField = $parentCampaign->get('field_activities_options')->getValue();
-      $activitiesOptions = [];
-      foreach ($activitiesOptionsField as $op) {
-        $activitiesOptions[] = $op['value'];
-      }
+      $activitiesOptions = openy_campaign_get_enabled_activities($parentCampaign);
 
       // Check if we need to show every paragraph field
       foreach ($variables['content']['field_content'] as $i => $item) {
@@ -649,6 +645,18 @@ function openy_campaign_campaign_menu_field_submit(&$form, \Drupal\Core\Form\For
   }
 }
 
+function openy_campaign_preprocess_block__system_branding_block(&$variables) {
+  // Get node from current page URL and check referenced campaign.
+  /** @var \Drupal\Node\Entity\Node $campaign */
+  $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
+
+  if (!empty($campaign)) {
+    $variables['url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $campaign->id()]);
+  }
+}
+
+//------------- HELPER FUNCTIONS ---------------
+
 /**
  * Manually create checkin. To be used for testing.
  *
@@ -685,12 +693,20 @@ function openy_campaign_clean_personify_email($email) {
   return $email;
 }
 
-function openy_campaign_preprocess_block__system_branding_block(&$variables) {
-  // Get node from current page URL and check referenced campaign.
-  /** @var \Drupal\Node\Entity\Node $campaign */
-  $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
+/**
+ * Get list of enabled activities for selected Campaign.
+ *
+ * @param $campaign \Drupal\node\Entity\Node
+ *
+ * @return array
+ */
+function openy_campaign_get_enabled_activities($campaign) {
+  $activitiesOptions = [];
 
-  if (!empty($campaign)) {
-    $variables['url'] = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $campaign->id()]);
+  $activitiesOptionsField = $campaign->get('field_activities_options')->getValue();
+  foreach ($activitiesOptionsField as $op) {
+    $activitiesOptions[] = $op['value'];
   }
+
+  return $activitiesOptions;
 }

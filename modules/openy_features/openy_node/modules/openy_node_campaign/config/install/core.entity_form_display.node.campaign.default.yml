@@ -26,7 +26,6 @@ dependencies:
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_winners_prizes
-    - field.field.node.campaign.field_enable_visits_goal
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -408,13 +407,6 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    region: content
-  field_enable_visits_goal:
-    weight: 56
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
     region: content
   field_error_default:
     weight: 40
