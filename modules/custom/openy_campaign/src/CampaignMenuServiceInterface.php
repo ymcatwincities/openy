@@ -40,4 +40,12 @@ interface CampaignMenuServiceInterface {
    */
   public function getNodeCampaignMenu(NodeInterface $node);
 
+  /**
+   * Get all active Campaign nodes.
+   *
+   * @return array|null
+   *   Array Campaign nodes or null
+   */
+  public function getActiveCampaigns();
+
 }

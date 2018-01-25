@@ -215,9 +215,11 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     /** @var Node $campaign Current campaign */
     $campaign = $this->getCampaign();
 
-    $enableVisitsGoal = $campaign->field_enable_visits_goal->value;
+    // Get all enabled activities list
+    $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
 
-    if (!$enableVisitsGoal) {
+    // For disabled Visits Goal activity
+    if (!in_array('field_prgf_activity_visits', $activitiesOptions)) {
       $this->setGoal(0);
       return TRUE;
     }

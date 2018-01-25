@@ -24,9 +24,9 @@ dependencies:
     - field.field.node.campaign.field_campaign_reg_end_date
     - field.field.node.campaign.field_campaign_reg_start_date
     - field.field.node.campaign.field_campaign_start_date
+    - field.field.node.campaign.field_campaign_stream_type
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_winners_prizes
-    - field.field.node.campaign.field_enable_visits_goal
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -107,7 +107,6 @@ third_party_settings:
       label: 'Campaign dates'
     group_visits_goal:
       children:
-        - field_enable_visits_goal
         - field_min_visits_goal
         - field_limit_visits_goal
         - field_goal_check_ins_start_date
@@ -129,7 +128,7 @@ third_party_settings:
         - group_registration_messages
         - group_general_messages
       parent_name: ''
-      weight: 17
+      weight: 19
       format_type: fieldset
       format_settings:
         id: ''
@@ -207,7 +206,7 @@ third_party_settings:
         - field_ways_to_earn_entries
         - field_flip_cards_cover_image
       parent_name: ''
-      weight: 18
+      weight: 20
       format_type: details
       format_settings:
         id: ''
@@ -391,6 +390,12 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_campaign_stream_type:
+    type: options_select
+    weight: 18
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_campaign_timezone:
     weight: 21
     settings: {  }
@@ -408,13 +413,6 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
-    region: content
-  field_enable_visits_goal:
-    weight: 56
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
     region: content
   field_error_default:
     weight: 40
