@@ -5,6 +5,11 @@ game_magic_ball:
   js:
     js/games/magic-ball.js: {}
 
+campaign_winner_stream:
+  js:
+    js/libs/jquery.marquee.min.js: {}
+    js/marquee.js: {}
+
 game_scratchcard:
   css:
     theme:
