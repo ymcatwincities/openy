@@ -9,6 +9,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\openy_campaign\OpenYLocaleDate;
 use Drupal\openy_popups\Form\ClassBranchesForm;
 use Drupal\openy_session_instance\SessionInstanceManager;
 use Drupal\taxonomy\Entity\Term;
@@ -396,47 +397,41 @@ class CampaignReportsController extends ControllerBase {
     if ($node->bundle() != 'campaign') {
       return FALSE;
     }
-//kint($node);
-    $early_start = $node->get('field_campaign_reg_start_date')->getValue();
 
-    //2018-01-08T00:00:00
+    // Prepare dates of campaign.
+    $campaignTimezone = new \DateTime($node->get('field_campaign_timezone')->getString());
+    $campaignTimezone = $campaignTimezone->getTimezone();
 
-    $earlyStartDateTime = new \DateTime($early_start[0]['value']);
-    $earlyStartDateTime->getTimestamp();
+    // All time of campaign.
+    $localeCampaignStart = OpenYLocaleDate::createDateFromFormat($node->get('field_campaign_start_date')->getString());
+    $localeCampaignStart->convertTimezone($campaignTimezone);
 
-    $early_end = $node->get('field_campaign_reg_end_date')->getValue();
-    $earlyEndDateTime = new \DateTime($early_end[0]['value']);
+    $localeCampaignEnd = OpenYLocaleDate::createDateFromFormat($node->get('field_campaign_end_date')->getString());
+    $localeCampaignEnd->convertTimezone($campaignTimezone);
 
-    $connection  = \Drupal::database();
-    $query = $connection->select('openy_campaign_member_campaign', 'cm');
-    //$query->addExpression('count(id)');
-    $query->fields('cm', ['id']);
+    // Time of early registration.
+    $localeRegistrationStart = OpenYLocaleDate::createDateFromFormat($node->get('field_campaign_reg_start_date')->getString());
+    $localeRegistrationStart->convertTimezone($campaignTimezone);
 
-    $group = $query->andConditionGroup()
-    ->condition('cm.campaign', $node->id(), '=')
-    ->condition('cm.created', $earlyStartDateTime->getTimestamp(), '=>')
-    ->condition('cm.created', $earlyEndDateTime->getTimestamp(), '<=');
-    $query->conditions($group);
+    $localeRegistrationEnd = OpenYLocaleDate::createDateFromFormat($node->get('field_campaign_reg_end_date')->getString());
+    $localeRegistrationEnd->convertTimezone($campaignTimezone);
 
-    //kint($earlyStartDateTime->getTimestamp());
-    //kint($earlyEndDateTime->getTimestamp());
-    $result = $query->execute();
-
-    /*kint($result);
-    exit;*/
-    //'field_campaign_reg_start_date'
-    //'field_campaign_reg_end_date'
-
-    //'field_campaign_start_date'
-    //'field_campaign_end_date'
-
-    //'field_goal_check_ins_start_date'
-    //'field_goal_check_ins_end_date'
-
-    //'field_utilization_activities'
+    // Get branches for current campaign.
+    // @todo get data from new widget. Get Branches and TARGET.
     $branches = $this->getCampaignBranches($node);
+    $branchIds = [];
+    foreach ($branches as $branch) {
+      $branchIds[] = $branch->branch;
+    }
+
+    // Calculate registered members by branch, Early registration and During all campain.
+    $earlyActualMembers = $this->calculateRegisteredMembersByBranch($node, $branchIds, $localeRegistrationStart->getTimestamp(), $localeRegistrationEnd->getTimestamp());
+    $challengeRegistrationOfMembers = $this->calculateRegisteredMembersByBranch($node, $branchIds, $localeRegistrationStart->getTimestamp(), $localeCampaignEnd->getTimestamp());
+
+    // @todo remove fake Targets generation.
     $targets = $this->getTargets($branches, $node);
 
+    // Prepare render array.
     $result['registration']['early'] = [];
     $result['registration']['challenge'] = [];
     $result['utilization'] = [];
@@ -448,10 +443,10 @@ class CampaignReportsController extends ControllerBase {
       $result['branches'][$id]['target'] = $target;
 
       // Early registration calculation
-      $goal = number_format((float)$target * 0.05);
+      $goal = number_format($target * 0.05);
       $result['registration']['early'][$id]['registration_goal'] = $goal;
 
-      $actual = number_format(rand(1, $goal * 2));
+      $actual = $earlyActualMembers[$id]->count_id;
       $result['registration']['early'][$id]['actual'] = $actual;
 
       $of_members = number_format($actual/$targets[$id] * 100, 1);
@@ -470,7 +465,7 @@ class CampaignReportsController extends ControllerBase {
       // Challenge registration calculation
       $result['registration']['challenge'][$id]['registration_goal'] = $goal;
 
-      $reg_actual = $actual + rand(1, $goal * 2);
+      $reg_actual = $challengeRegistrationOfMembers[$id]->count_id;
       $result['registration']['challenge'][$id]['actual'] = $reg_actual;
 
       $reg_of_member = number_format($reg_actual/$target * 100, 1);
@@ -504,6 +499,7 @@ class CampaignReportsController extends ControllerBase {
       $result['total']['util_of_goal'] += $util_of_goal;
 
     }
+
     $result['total']['of_members'] = number_format($result['total']['of_members']/count($targets), 1);
     $result['total']['of_goal'] = number_format($result['total']['of_goal']/count($targets), 1);
     $result['total']['reg_of_members'] = number_format($result['total']['reg_of_members']/count($targets), 1);
@@ -564,6 +560,32 @@ class CampaignReportsController extends ControllerBase {
 
     $result = $query->execute()->fetchAllAssoc('branch');
 
+    return $result;
+  }
+
+
+  /**
+   * Get Count of registered users by branches for campaign.
+   *
+   * @param $node
+   * @param $branches
+   * @param $dateStart
+   * @param $dateEnd
+   *
+   * @return mixed
+   */
+  public function calculateRegisteredMembersByBranch($node, $branches, $dateStart, $dateEnd) {
+    $connection = \Drupal::database();
+    $query = $connection->select('openy_campaign_member', 'cm');
+    $query->leftJoin('openy_campaign_member_campaign', 'mc', 'mc.member = cm.id');
+    $query->addExpression('COUNT(cm.id)', 'count_id');
+    $query->fields('cm', array('branch'));
+    $query->condition('cm.branch', $branches, 'IN');
+    $query->condition('mc.campaign', $node->id(), '=');
+    $query->condition('mc.created', [$dateStart, $dateEnd], 'BETWEEN');
+    $query->groupBy('cm.branch');
+
+    $result = $query->execute()->fetchAllAssoc('branch');
     return $result;
   }
 }
