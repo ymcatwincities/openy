@@ -162,11 +162,16 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
     if (empty($locations)) {
       return $to_be_deleted;
     }
+    $location_entities = $this->locationRepository->loadMultiple($locations);
+    $location_nodes = [];
+    foreach ($location_entities as $map_entity) {
+      $location_nodes[] = $map_entity->get('field_location_ref')->target_id;
+    }
 
     $storage = $this->entityTypeManager->getStorage('openy_ds_class_personify_session');
 
     $query = $storage->getQuery()
-      ->condition('location', array_values($locations), 'IN')
+      ->condition('location', array_values($location_nodes), 'IN')
       ->condition('date.value', $formatted, '<')
       ->condition('date.end_value', $formatted, '>');
     $ids = $query->execute();
@@ -194,7 +199,16 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
       if (!$entities = $storage->loadMultiple($part)) {
         continue;
       }
-      $storage->delete($entities);
+      $class_storage = $this->entityTypeManager->getStorage('openy_ds_classes_session');
+      foreach ($entities as $entity) {
+        $class = $class_storage->loadByProperties([
+          'source_id' => $entity->personify_id->value,
+        ]);
+        if (!empty($class)) {
+          $class = reset($class);
+          $class->delete();
+        }
+      }
     }
   }
 
