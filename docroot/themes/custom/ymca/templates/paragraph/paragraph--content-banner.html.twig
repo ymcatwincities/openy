@@ -35,16 +35,7 @@
  *
  * @ingroup themeable
  */
-
- {%
-  set colors = {
-    bottom: content.field_prgf_color.0|render|striptags|trim,
-    top   : content.field_prgf_color.1|render|striptags|trim}
-  }
-%}
 #}
-
-
 
 {%
   set colors = {
@@ -74,9 +65,15 @@
 <section{{ attributes.addClass(classes) }} style="{{ background_style|replace({'color_bottom': colors.bottom, 'color_top': colors.top}) }}">
   <div class="container title-container">
     <div class="row">
+      {% if content.field_prgf_link.0['#url'] is not empty %}
+        <a href="{{ content.field_prgf_link.0['#url']|render }}">
+      {% endif %}
       <div class="hidden-sm col-sm-6 header-button content-prgf-image">
-          {{ content.field_prgf_content_image }}
+        {{ content.field_prgf_content_image }}
       </div>
+      {% if content.field_prgf_link.0['#url'] is not empty %}
+        </a>
+      {% endif %}
       <div class="col-sm-6 header-copy">
         {% if content.field_prgf_link.0['#url'] is not empty %}
         <h2 class="banner-title">
@@ -91,9 +88,15 @@
           {{ content.field_prgf_description }}
         </article>
       </div>
-      <div class="hidden-xs col-sm-6 header-button content-prgf-image">
-        {{ content.field_prgf_content_image }}
-      </div>
+      {% if content.field_prgf_link.0['#url'] is not empty %}
+        <a href="{{ content.field_prgf_link.0['#url']|render }}">
+      {% endif %}
+        <div class="hidden-xs col-sm-6 header-button content-prgf-image">
+          {{ content.field_prgf_content_image }}
+        </div>
+      {% if content.field_prgf_link.0['#url'] is not empty %}
+        </a>
+      {% endif %}
     </div>
   </div>
 </section>
