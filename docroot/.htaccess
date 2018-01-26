@@ -1070,6 +1070,64 @@ RewriteRule ^$ https://www.ymcamn.org/suppliers? [L,R=301]
 RewriteCond %{REQUEST_URI} ^/(march|ygames)
 RewriteRule ^(.*)$ /challenge [L,R=301]
 
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca => https://www.ymcamn.org/locations/dayton_y
+RewriteRule ^locations/minneapolis_downtown_ymca$ /locations/dayton_y? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/schedules => https://www.ymcamn.org/locations/dayton_y/schedules
+RewriteRule ^locations/minneapolis_downtown_ymca/schedules$ /locations/dayton_y/schedules? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/kid__teen_activities => https://www.ymcamn.org/locations/dayton_y/kid_teen_activities
+RewriteRule ^locations/minneapolis_downtown_ymca/kid__teen_activities$ /locations/dayton_y/kid_teen_activities? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/kid__teen_activities/teen_leadership => https://www.ymcamn.org/locations/dayton_y/kid_teen_activities/teen_leadership
+RewriteRule ^locations/minneapolis_downtown_ymca/kid__teen_activities/teen_leadership$ /locations/dayton_y/kid_teen_activities/teen_leadership? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/health__fitness => https://www.ymcamn.org/locations/dayton_y/health_fitness
+RewriteRule ^locations/minneapolis_downtown_ymca/health__fitness$ /locations/dayton_y/health_fitness? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/health__fitness/free_group_exercise_classes => https://www.ymcamn.org/locations/dayton_y/health_fitness/free_group_exercise_classes
+RewriteRule ^locations/minneapolis_downtown_ymca/health__fitness/free_group_exercise_classes$ /locations/dayton_y/health_fitness/free_group_exercise_classes? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/health__fitness/group_training_specialty_programs => https://www.ymcamn.org/locations/dayton_y/health_fitness/group_training_specialty_programs
+RewriteRule ^locations/minneapolis_downtown_ymca/health__fitness/group_training_specialty_programs$ /locations/dayton_y/health_fitness/group_training_specialty_programs? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/health__fitness/personal_training => https://www.ymcamn.org/locations/dayton_y/health_fitness/personal_training
+RewriteRule ^locations/minneapolis_downtown_ymca/health__fitness/personal_training$ /locations/dayton_y/health_fitness/personal_training? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/health__fitness/personal_training/joel_bertram => https://www.ymcamn.org/locations/dayton_y/health_fitness/personal_training/joel_bertram
+RewriteRule ^locations/minneapolis_downtown_ymca/health__fitness/personal_training/joel_bertram$ /locations/dayton_y/health_fitness/personal_training/joel_bertram? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/health__fitness/personal_training/chad_johnson => https://www.ymcamn.org/locations/dayton_y/health_fitness/personal_training/chad_johnson
+RewriteRule ^locations/minneapolis_downtown_ymca/health__fitness/personal_training/chad_johnson$ /locations/dayton_y/health_fitness/personal_training/chad_johnson? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/health__fitness/foreverwell => https://www.ymcamn.org/locations/dayton_y/health_fitness/foreverwell
+RewriteRule ^locations/minneapolis_downtown_ymca/health__fitness/foreverwell$ /locations/dayton_y/health_fitness/foreverwell? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/swim_lessons__aquatics => https://www.ymcamn.org/locations/dayton_y/swim_lessons_aquatics
+RewriteRule ^locations/minneapolis_downtown_ymca/swim_lessons__aquatics$ /locations/dayton_y/swim_lessons_aquatics? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/about => https://www.ymcamn.org/locations/dayton_y/about
+RewriteRule ^locations/minneapolis_downtown_ymca/about$ /locations/dayton_y/about? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/about/photo_gallery => https://www.ymcamn.org/locations/dayton_y/about
+RewriteRule ^locations/minneapolis_downtown_ymca/about/photo_gallery$ /locations/dayton_y/about? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/about/amenities => https://www.ymcamn.org/locations/dayton_y/about/amenities
+RewriteRule ^locations/minneapolis_downtown_ymca/about/amenities$ /locations/dayton_y/about/amenities? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/about/careers => https://www.ymcamn.org/locations/dayton_y/about/careers
+RewriteRule ^locations/minneapolis_downtown_ymca/about/careers$ /locations/dayton_y/about/careers? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/about/volunteer => https://www.ymcamn.org/locations/dayton_y/about/volunteer
+RewriteRule ^locations/minneapolis_downtown_ymca/about/volunteer$ /locations/dayton_y/about/volunteer? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/about/news__events => https://www.ymcamn.org/locations/dayton_y/about/news__events
+RewriteRule ^locations/minneapolis_downtown_ymca/about/news__events$ /locations/dayton_y/about/news__events? [L,R=301]
+
+# 301 --- https://www.ymcamn.org/locations/minneapolis_downtown_ymca/about/new_site => https://www.ymcamn.org/locations/dayton_y/about/new_downtown_location
+RewriteRule ^locations/minneapolis_downtown_ymca/about/new_site$ /locations/dayton_y/about/new_downtown_location? [L,R=301]
+
+
   # 301 --- For all redwing containing hosts redirect to pages without .htm extension
   RewriteCond %{HTTP_HOST} redwing
   RewriteRule ^(.*)\.htm$ /$1 [R=301,L]
