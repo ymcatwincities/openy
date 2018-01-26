@@ -2,7 +2,6 @@
 
 namespace Drupal\openy_campaign\Form;
 
-use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
@@ -166,11 +165,11 @@ class WinnersBlockForm extends FormBase {
     $campaign = NULL;
     $campaignBranches = [];
     if (!empty($campaignId)) {
-      /** @var Node $campaign Campaign node. */
-      $campaign = Node::load($campaignId);
-      foreach ($campaign->field_campaign_branches as $branch) {
-        $campaignBranches[] = $branch->entity->id();
-
+      /** @var \Drupal\node\Entity\Node $campaign Campaign node. */
+      $campaign = $this->entityTypeManager->getStorage('node')->load($campaignId);
+      $branchesField = $campaign->get('field_campaign_branch_target')->getValue();
+      foreach ($branchesField as $branchItem) {
+        $campaignBranches[] = $branchItem['target_id'];
       }
     }
     /** @var \Drupal\node\Entity\Node $branch */
@@ -229,8 +228,8 @@ class WinnersBlockForm extends FormBase {
    * @return array
    */
   private function getCampaignPrizes($campaignId) {
-    /** @var Node $campaign Campaign node. */
-    $campaign = Node::load($campaignId);
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node. */
+    $campaign = $this->entityTypeManager->getStorage('node')->load($campaignId);
 
     $prizes = [];
     foreach ($campaign->field_campaign_winners_prizes as $item) {

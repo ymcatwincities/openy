@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
     - field.field.node.campaign.field_campaign_branch_target
-    - field.field.node.campaign.field_campaign_branches
     - field.field.node.campaign.field_campaign_end_date
     - field.field.node.campaign.field_campaign_expected_visits
     - field.field.node.campaign.field_campaign_fitness_category
@@ -30,7 +29,6 @@ dependencies:
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
-    - field.field.node.campaign.field_enable_visits_goal
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -59,7 +57,6 @@ dependencies:
     - datetime
     - entity_reference_revisions
     - image
-    - openy_campaign_reference_with_text
     - options
     - text
     - user
@@ -91,21 +88,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-    region: content
-  field_campaign_branch_target:
-    weight: 144
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: entity_reference_with_text_formatter
-    region: content
-  field_campaign_branches:
-    weight: 102
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   field_campaign_end_date:
     weight: 109
@@ -406,12 +388,12 @@ content:
     region: content
 hidden:
   field_activities_options: true
+  field_campaign_branch_target: true
   field_campaign_reg_end_date: true
   field_campaign_reg_start_date: true
   field_campaign_registration_goal: true
   field_campaign_stream_type: true
   field_campaign_utilization_goal: true
-  field_enable_visits_goal: true
   field_pause_campaign: true
   field_token_register_link_text: true
   field_utilization_activities: true
