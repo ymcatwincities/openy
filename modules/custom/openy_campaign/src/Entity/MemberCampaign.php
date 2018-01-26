@@ -6,7 +6,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\node\NodeInterface;
-use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\MemberCampaignInterface;
 use Drupal\openy_campaign\MemberInterface;
 
@@ -212,7 +211,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
      * Needs actual data in order to proceed.
      */
 
-    /** @var Node $campaign Current campaign */
+    /** @var \Drupal\node\Entity\Node $campaign Current campaign */
     $campaign = $this->getCampaign();
 
     // Get all enabled activities list
@@ -267,7 +266,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     $errorMessages = [];
 
     // @TODO: Enable validation after CRM is updated.
-    return [];
+    return $this->validateMemberBranch();
 
     // Age is in the range from Target Audience Setting from Campaign.
     $validateAge = $this->validateMemberAge();
@@ -300,9 +299,9 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @return array Array with status and error message.
    */
   private function validateMemberAge() {
-    /** @var Node $campaign Campaign node object. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
-    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Temporary Member object. Will be saved by submit. */
     $member = $this->getMember();
 
     $minAge = $campaign->get('field_campaign_age_minimum')->value;
@@ -330,9 +329,9 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @return array Array with status and error message.
    */
   private function validateMemberUnitType() {
-    /** @var Node $campaign Campaign node object. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
-    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Temporary Member object. Will be saved by submit. */
     $member = $this->getMember();
 
     $campaignMemberUnitTypes = $campaign->get('field_campaign_membership_u_t')->getString();
@@ -351,15 +350,20 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @return array Array with status and error message.
    */
   private function validateMemberBranch() {
-    /** @var Node $campaign Campaign node object. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
-    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Temporary Member object. Will be saved by submit. */
     $member = $this->getMember();
 
-    $campaignBranches = $campaign->get('field_campaign_branches')->getString();
+    $branchesField = $campaign->get('field_campaign_branch_target')->getValue();
+    $campaignBranches = [];
+    foreach ($branchesField as $branch) {
+      $campaignBranches[] = $branch['target_id'];
+    }
+
     $memberBranch = $member->getBranchId();
 
-    if (in_array($memberBranch, explode(', ', $campaignBranches))) {
+    if (in_array($memberBranch, $campaignBranches)) {
       return ['status' => TRUE, 'error' => ''];
     }
 
@@ -372,9 +376,9 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @return array Array with status and error message.
    */
   private function validateMemberPaymentType() {
-    /** @var Node $campaign Campaign node object. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
-    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Temporary Member object. Will be saved by submit. */
     $member = $this->getMember();
 
     $campaignPaymentTypes = $campaign->get('field_campaign_payment_types')->getString();
@@ -411,14 +415,14 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   /**
    * Create MemberCampaign entity.
    *
-   * @param $member Member Member entity.
-   * @param $campaign Node Campaign node.
+   * @param $member \Drupal\openy_campaign\Entity\Member Member entity.
+   * @param $campaign \Drupal\node\Entity\Node Campaign node.
    *
    * @return bool | \Drupal\openy_campaign\Entity\MemberCampaign
    *   FALSE or MemberCampaign entity
    */
   public static function createMemberCampaign($member, $campaign) {
-    /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign object. Will be saved later. */
+    /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign object. Will be saved later. */
     $memberCampaign = \Drupal::entityTypeManager()
       ->getStorage('openy_campaign_member_campaign')
       ->create([
