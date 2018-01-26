@@ -32,6 +32,7 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
     foreach ($items as $item) {
       $selectedValues[$item->target_id] = $item->value;
     }
+
     $options = $this->getOptions($items->getEntity());
 
     $header = array(
@@ -48,7 +49,9 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
           'target' => [
             'data' => [
               '#type' => 'textfield',
-              '#default_value' => isset($selectedValues[$id]) ?
+              '#default_value' => !empty($selectedValues[$id]) ?
+                $selectedValues[$id] : NULL,
+              '#value' => !empty($selectedValues[$id]) ?
                 $selectedValues[$id] : NULL,
               '#placeholder' => t('Target'),
               '#name' => 'branch_target_for_' . $id,
