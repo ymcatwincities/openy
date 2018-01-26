@@ -9,10 +9,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\openy_campaign\Entity\CampaignUtilizationActivitiy;
 use Drupal\openy_campaign\OpenYLocaleDate;
-use Drupal\openy_campaign\RegularUpdater;
-use Drupal\openy_popups\Form\ClassBranchesForm;
 use Drupal\openy_session_instance\SessionInstanceManager;
 use Drupal\taxonomy\Entity\Term;
 use League\Csv\Writer;
@@ -579,9 +576,7 @@ class CampaignReportsController extends ControllerBase {
     }
 
     if (!empty($ids)) {
-      $connection  = \Drupal::database();
-
-      $query = $connection->select('openy_campaign_util_activity', 'ua');
+      $query = $this->connection->select('openy_campaign_util_activity', 'ua');
 
       $query->leftJoin('openy_campaign_member_campaign', 'mc', 'ua.member_campaign = mc.id');
       $query->leftJoin('openy_campaign_member', 'cm', 'mc.member = cm.id');
@@ -597,7 +592,6 @@ class CampaignReportsController extends ControllerBase {
         else {
           $counter[$item->branch] = 1;
         }
-
       }
 
       return $counter;
@@ -631,8 +625,7 @@ class CampaignReportsController extends ControllerBase {
     }
 
     if (!empty($ids)) {
-      $connection  = \Drupal::database();
-      $query = $connection->select('openy_campaign_mapping_branch', 'b');
+      $query = $this->connection->select('openy_campaign_mapping_branch', 'b');
       $query->fields('b', ['personify_branch', 'branch']);
       $query->join('node_field_data', 'n', 'n.nid = b.branch');
       $query->fields('n', ['title']);
@@ -659,8 +652,7 @@ class CampaignReportsController extends ControllerBase {
    * @return mixed
    */
   public function calculateRegisteredMembersByBranch($node, $branches, $dateStart, $dateEnd) {
-    $connection = \Drupal::database();
-    $query = $connection->select('openy_campaign_member', 'cm');
+    $query = $this->connection->select('openy_campaign_member', 'cm');
     $query->leftJoin('openy_campaign_member_campaign', 'mc', 'mc.member = cm.id');
     $query->addExpression('COUNT(cm.id)', 'count_id');
     $query->fields('cm', array('branch'));

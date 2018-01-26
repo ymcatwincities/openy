@@ -80,3 +80,7 @@ instant_game_loose_title:
   value: 'Sorry not this time'
 instant_game_loose_title:
   value: 'Congratulations'
+stream_text_game:
+  value: 'Prize Won'
+stream_text_visits:
+  value: 'Achieved Visit Goal'

@@ -408,7 +408,7 @@ function openy_campaign_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\
   if ($form['#id'] == 'views-exposed-form-campaign-members-members-list-block' && isset($form['campaign'])) {
     $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
     $campaigns = $campaignMenuService->getActiveCampaigns();
-    $options = [];
+    $options = ['' => 'All'];
     foreach ($campaigns as $item) {
       /** @var \Drupal\node\Entity\Node $item */
       $options[$item->id()] = $item->getTitle();

@@ -11,6 +11,8 @@ use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Class CampaignMenuService.
@@ -48,6 +50,20 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   protected $renderer;
 
   /**
+   * The Database service.
+   *
+   * @var Connection
+   */
+  protected $connection;
+
+  /**
+   * The config factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Constructs a new CampaignMenuService.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -58,12 +74,20 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *   The current route match.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
+   * @param Connection $connection
+   *   The database connection service.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ContainerInterface $container, RouteMatchInterface $route_match, RendererInterface $renderer) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ContainerInterface $container,
+                              RouteMatchInterface $route_match, RendererInterface $renderer,
+                              Connection $connection, ConfigFactoryInterface $config_factory) {
     $this->entityTypeManager = $entity_type_manager;
     $this->container = $container;
     $this->routeMatch = $route_match;
     $this->renderer = $renderer;
+    $this->connection = $connection;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -356,10 +380,9 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
     $minVisitsGoal = !empty($campaign->field_min_visits_goal->value) ? $campaign->field_min_visits_goal->value : 0;
 
-    $connection = \Drupal::service('database');
     // Get visits
     /** @var \Drupal\Core\Database\Query\Select $query */
-    $query = $connection->select('openy_campaign_member_checkin', 'ch');
+    $query = $this->connection->select('openy_campaign_member_checkin', 'ch');
     $query->join('openy_campaign_member', 'm', 'm.id = ch.member');
     $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
 
@@ -451,11 +474,12 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    */
   private function getWinnersOfType($type, $node_id) {
     $result = [];
+    $streamText = '';
+    $config = $this->configFactory->get('openy_campaign.general_settings');
     switch ($type) {
       case 'instant':
-        $connection = \Drupal::service('database');
         /** @var \Drupal\Core\Database\Query\Select $query */
-        $query = $connection->select('openy_campaign_member_game', 'g');
+        $query = $this->connection->select('openy_campaign_member_game', 'g');
         $query->join('openy_campaign_member', 'm', 'g.member = m.id');
         $query->join('openy_campaign_member_campaign', 'mc', 'mc.member = m.id');
         $query->condition('mc.campaign', $node_id);
@@ -466,6 +490,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         $query->orderBy('g.created', 'ASC');
         $query->range(0, 50);
         $result = $query->execute()->fetchAll();
+        $streamText = $config->get('stream_text_game');
         break;
       case 'visit':
         $campaign = $this->entityTypeManager->getStorage('node')->load($node_id);
@@ -473,14 +498,14 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         $achievedMemberCampaignIds = $this->getVisitsGoalWinners($campaign);
         // Load needed information
         if (!empty($achievedMemberCampaignIds)) {
-          $connection = \Drupal::service('database');
           /** @var \Drupal\Core\Database\Query\Select $query */
-          $query = $connection->select('openy_campaign_member_campaign', 'mc');
+          $query = $this->connection->select('openy_campaign_member_campaign', 'mc');
           $query->condition('mc.id', $achievedMemberCampaignIds, 'IN');
           $query->join('openy_campaign_member', 'm', 'mc.member = m.id');
           $query->fields('m', ['first_name', 'last_name']);
           $query->range(0, 50);
           $result = $query->execute()->fetchAll();
+          $streamText = $config->get('stream_text_visits');
         }
         break;
     }
@@ -492,7 +517,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         if (isset($row->created)) {
           $row->created = $this->timeAgo($row->created);
         }
-        $row->type = $type;
+        $row->stream_text = $streamText;
       }
     }
     return $result;

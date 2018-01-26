@@ -283,7 +283,7 @@ openy_campaign.campaign_reports_activities:
     _node_operation_route: TRUE
 
 openy_campaign.campaign_reports_live_scorecard:
-  path: '/node/{node}/campaign/scorecard'
+  path: '/node/{node}/campaign/reports/scorecard'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::generateLiveScorecard'
   requirements:
