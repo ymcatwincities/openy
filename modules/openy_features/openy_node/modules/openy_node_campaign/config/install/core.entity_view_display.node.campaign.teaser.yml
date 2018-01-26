@@ -3,9 +3,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.campaign.field_activities_options
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
-    - field.field.node.campaign.field_campaign_branches
+    - field.field.node.campaign.field_campaign_branch_target
     - field.field.node.campaign.field_campaign_end_date
     - field.field.node.campaign.field_campaign_expected_visits
     - field.field.node.campaign.field_campaign_fitness_category
@@ -21,7 +22,13 @@ dependencies:
     - field.field.node.campaign.field_campaign_prize_coefficient
     - field.field.node.campaign.field_campaign_prize_nowin
     - field.field.node.campaign.field_campaign_prizes
+    - field.field.node.campaign.field_campaign_reg_end_date
+    - field.field.node.campaign.field_campaign_reg_start_date
+    - field.field.node.campaign.field_campaign_registration_goal
     - field.field.node.campaign.field_campaign_start_date
+    - field.field.node.campaign.field_campaign_stream_type
+    - field.field.node.campaign.field_campaign_timezone
+    - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
@@ -44,6 +51,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - node.type.campaign
   module:
@@ -65,9 +73,10 @@ content:
     weight: 100
     region: content
 hidden:
+  field_activities_options: true
   field_campaign_age_maximum: true
   field_campaign_age_minimum: true
-  field_campaign_branches: true
+  field_campaign_branch_target: true
   field_campaign_end_date: true
   field_campaign_expected_visits: true
   field_campaign_fitness_category: true
@@ -83,7 +92,13 @@ hidden:
   field_campaign_prize_coefficient: true
   field_campaign_prize_nowin: true
   field_campaign_prizes: true
+  field_campaign_reg_end_date: true
+  field_campaign_reg_start_date: true
+  field_campaign_registration_goal: true
   field_campaign_start_date: true
+  field_campaign_stream_type: true
+  field_campaign_timezone: true
+  field_campaign_utilization_goal: true
   field_campaign_winners_prizes: true
   field_error_default: true
   field_error_member_is_inactive: true
@@ -106,5 +121,6 @@ hidden:
   field_token_check_back_date: true
   field_token_login_link_text: true
   field_token_register_link_text: true
+  field_utilization_activities: true
   field_ways_to_earn_entries: true
   langcode: true
