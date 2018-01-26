@@ -69,7 +69,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   /**
    * Get campaign node from current page URL.
    *
-   * @return bool|\Drupal\Node\Entity\Node
+   * @return bool|\Drupal\node\NodeInterface
    */
   public function getCampaignNodeFromRoute() {
     $node = $this->routeMatch->getParameter('node');
@@ -79,12 +79,12 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       if (is_null($campaignId)) {
         $campaignId = $this->container->get('request_stack')->getCurrentRequest()->get('campaign_id');
       }
-      $node = !empty($campaignId) ? Node::load($campaignId) : FALSE;
+      $node = !empty($campaignId) ? $this->entityTypeManager->getStorage('node')->load($campaignId) : FALSE;
     }
     if (empty($node)) {
       return FALSE;
     }
-    /** @var \Drupal\Node\Entity\Node $campaign */
+    /** @var \Drupal\node\NodeInterface $campaign */
     $campaign = $this->getNodeCampaignNode($node);
 
     return !empty($campaign) && ($campaign->getType() == 'campaign') ? $campaign : FALSE;

@@ -266,7 +266,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     $errorMessages = [];
 
     // @TODO: Enable validation after CRM is updated.
-    return $this->validateMemberBranch();
+    return [];
 
     // Age is in the range from Target Audience Setting from Campaign.
     $validateAge = $this->validateMemberAge();
