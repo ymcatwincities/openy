@@ -32,7 +32,7 @@
         var slick = self.parents('.slick__slider').first();
         // Remove dismissed alerts.
         if ($.inArray(nid, dismissed) != -1) {
-          if (slick.size() > 0) {
+          if (slick.length > 0) {
             slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index());
           }
           else {
@@ -40,7 +40,7 @@
           }
         }
         $('.site-alert__dismiss', self).on('click', function () {
-          if (slick.size() > 0) {
+          if (slick.length > 0) {
             slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index());
           }
           else {
