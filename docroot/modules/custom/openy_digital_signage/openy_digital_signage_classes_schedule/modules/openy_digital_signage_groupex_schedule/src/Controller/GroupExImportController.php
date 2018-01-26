@@ -141,7 +141,7 @@ class GroupExImportController extends ControllerBase {
       $location = $entity->location->target_id;
       $loc = \Drupal::service('ymca_mappings.location_repository')
         ->findByLocationId($location);
-      if (!isset($context['results']['feeds'][$loc->id()][$id])) {
+      if (!$loc || !isset($context['results']['feeds'][$loc->id()][$id])) {
         $context['results']['to_be_deleted'][] = $entity->id();
       }
       $context['sandbox']['current'] = $entity->id();
