@@ -144,7 +144,7 @@ class PersonifyImportController extends ControllerBase {
       if (!isset($context['results']['feed'][$id])) {
         $context['results']['to_be_deleted'][] = $entity->id();
       }
-      $context['sandbox']['current'] = $id;
+      $context['sandbox']['current'] = $entity->id();
       $context['sandbox']['progress']++;
     }
 
