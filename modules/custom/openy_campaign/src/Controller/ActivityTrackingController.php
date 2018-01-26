@@ -3,6 +3,8 @@
 namespace Drupal\openy_campaign\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\node\Entity\Node;
+use Drupal\openy_campaign\Entity\CampaignUtilizationActivitiy;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
@@ -76,9 +78,33 @@ class ActivityTrackingController extends ControllerBase {
       ];
 
       $activity = MemberCampaignActivity::create($preparedData);
-
       $activity->save();
 
+      // Mark user for activate utilization activity.
+      $memberCampaign = MemberCampaign::load($memberCampaignId);
+      $campaignId = $memberCampaign->getCampaign()->id();
+      $campaign = Node::load($campaignId);
+      $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
+      $activities = [];
+      foreach ($utilizationActivities as $utilizationActivity) {
+        $activities[] = $utilizationActivity['value'];
+      }
+
+      if (in_array('tracking', $activities)) {
+        $loadedEntity = \Drupal::entityQuery('openy_campaign_util_activity')
+          ->condition('member_campaign', $memberCampaignId)
+          ->execute();
+
+        if (empty($loadedEntity)) {
+          $preparedActivityData = [
+            'member_campaign' => $memberCampaignId,
+            'created' => time(),
+            'activity_type' => 'tracking'
+          ];
+          $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
+          $campaignUtilizationActivity->save();
+        }
+      }
     }
     return new AjaxResponse();
 
