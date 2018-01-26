@@ -523,9 +523,8 @@ class CampaignReportsController extends ControllerBase {
         $util_goal = number_format($goal * $utilizationGoal/100);
         $result['utilization'][$id]['goal']  = $util_goal;
 
-        //$util_actual = $this->getCampaignUtilizationActivitiesByBranches($node);
-
-        $util_actual = rand(1, 10);
+        $util_actual = $this->getCampaignUtilizationActivitiesByBranches($node);
+        $util_actual = isset($util_actual[$id]) ? $util_actual[$id] : 0;
         $result['utilization'][$id]['actual'] = $util_actual;
 
         if (!empty($reg_actual)) {
@@ -583,13 +582,26 @@ class CampaignReportsController extends ControllerBase {
       $connection  = \Drupal::database();
 
       $query = $connection->select('openy_campaign_util_activity', 'ua');
-      $query->fields('ua.id');
-      $query->join('openy_campaign_member_campaign', 'mc', 'ua.member_campaign = mc.id');
-      $query->join('openy_campaign_member', 'cm', 'mc.member = cm.id');
-      $query->condition('mc.campaign', $node->id());
-      $query->condition('cm.branch', $ids, 'IN');
+
+      $query->leftJoin('openy_campaign_member_campaign', 'mc', 'ua.member_campaign = mc.id');
+      $query->leftJoin('openy_campaign_member', 'cm', 'mc.member = cm.id');
+      $query->fields('cm', array('branch'));
+      $query->fields('ua', array('id'));
       $result = $query->execute()->fetchAll();
-      return $result;
+
+      $counter = [];
+      foreach ($result as $item) {
+        if (isset($counter[$item->branch])) {
+          $counter[$item->branch] ++;
+        }
+        else {
+          $counter[$item->branch] = 1;
+        }
+
+      }
+
+      return $counter;
+
     }
     return [];
 
