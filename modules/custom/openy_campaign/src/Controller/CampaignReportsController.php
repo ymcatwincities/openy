@@ -482,7 +482,7 @@ class CampaignReportsController extends ControllerBase {
       $goal = number_format($target * $registerGoal/100);
       $result['registration']['early'][$id]['registration_goal'] = $goal;
 
-      $actual = $earlyActualMembers[$id]->count_id;
+      $actual = !empty($earlyActualMembers[$id]->count_id) ? $earlyActualMembers[$id]->count_id : 0;
       $result['registration']['early'][$id]['actual'] = $actual;
 
       $of_members = number_format($actual/$targets[$id] * 100, 1);
@@ -501,7 +501,7 @@ class CampaignReportsController extends ControllerBase {
       // Challenge registration calculation
       $result['registration']['challenge'][$id]['registration_goal'] = $goal;
 
-      $reg_actual = $challengeRegistrationOfMembers[$id]->count_id;
+      $reg_actual = !empty($challengeRegistrationOfMembers[$id]->count_id) ? $challengeRegistrationOfMembers[$id]->count_id : 0;
       $result['registration']['challenge'][$id]['actual'] = $reg_actual;
 
       $reg_of_member = number_format($reg_actual/$target * 100, 1);
@@ -522,7 +522,13 @@ class CampaignReportsController extends ControllerBase {
       $util_actual = rand(1, $util_goal);
       $result['utilization'][$id]['actual'] = $util_actual;
 
-      $util_of_member = number_format($util_actual/$reg_actual * 100,1);
+      if (!empty($reg_actual)) {
+        $util_of_member = number_format($util_actual/$reg_actual * 100,1);
+      }
+      else {
+        $util_of_member = 0;
+      }
+
       $result['utilization'][$id]['of_members'] = $util_of_member;
 
       $util_of_goal = number_format($util_actual/$util_goal * 100, 1);
@@ -568,7 +574,7 @@ class CampaignReportsController extends ControllerBase {
     }
     else {
       foreach ($branches_list as $branch_id => $branch) {
-        $targets[$branch_id] = rand(1000, 10000);
+        $targets[$branch_id] = rand(500, 5000);
       }
       \Drupal::cache()->set($cid, $targets);
     }
@@ -622,6 +628,7 @@ class CampaignReportsController extends ControllerBase {
     $query->groupBy('cm.branch');
 
     $result = $query->execute()->fetchAllAssoc('branch');
+
     return $result;
   }
 }

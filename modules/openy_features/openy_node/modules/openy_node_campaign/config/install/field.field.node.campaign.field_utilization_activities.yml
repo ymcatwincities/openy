@@ -16,8 +16,8 @@ field_name: field_utilization_activities
 entity_type: node
 bundle: campaign
 label: 'Utilization activities'
-description: 'Select user activities, which user should do for attending the campaign'
-required: true
+description: ''
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''

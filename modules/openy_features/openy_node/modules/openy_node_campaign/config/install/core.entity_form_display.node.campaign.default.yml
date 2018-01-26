@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.campaign.field_activities_options
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
     - field.field.node.campaign.field_campaign_branches
@@ -22,11 +23,9 @@ dependencies:
     - field.field.node.campaign.field_campaign_prizes
     - field.field.node.campaign.field_campaign_reg_end_date
     - field.field.node.campaign.field_campaign_reg_start_date
-    - field.field.node.campaign.field_campaign_registration_goal
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_stream_type
     - field.field.node.campaign.field_campaign_timezone
-    - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
@@ -49,7 +48,6 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
-    - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - image.style.thumbnail
     - node.type.campaign
@@ -70,7 +68,7 @@ third_party_settings:
         - field_campaign_payment_types
         - group_age_range
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: fieldset
       format_settings:
         id: ''
@@ -114,7 +112,7 @@ third_party_settings:
         - field_goal_check_ins_start_date
         - field_goal_check_ins_end_date
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         label: 'Visits goal'
@@ -130,7 +128,7 @@ third_party_settings:
         - group_registration_messages
         - group_general_messages
       parent_name: ''
-      weight: 16
+      weight: 18
       format_type: fieldset
       format_settings:
         id: ''
@@ -208,7 +206,7 @@ third_party_settings:
         - field_ways_to_earn_entries
         - field_flip_cards_cover_image
       parent_name: ''
-      weight: 20
+      weight: 19
       format_type: details
       format_settings:
         id: ''
@@ -229,31 +227,6 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Campaign Pages'
-    group_utilization_activities:
-      children:
-        - field_utilization_activities
-      parent_name: ''
-      weight: 20
-      format_type: fieldset
-      format_settings:
-        id: utilization-activities
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Utilization activities'
-    group_campaign_goals:
-      children:
-        - field_campaign_registration_goal
-        - field_campaign_utilization_goal
-      parent_name: ''
-      weight: 20
-      format_type: fieldset
-      format_settings:
-        id: ''
-        classes: ''
-        description: ''
-        required_fields: true
-      label: 'Campaign Goals'
 id: node.campaign.default
 targetEntityType: node
 bundle: campaign
@@ -272,6 +245,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  field_activities_options:
+    type: options_buttons
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_campaign_age_maximum:
     weight: 27
     settings:
@@ -308,7 +287,7 @@ content:
     type: number
     region: content
   field_campaign_fitness_category:
-    weight: 14
+    weight: 15
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -405,14 +384,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_campaign_registration_goal:
-    weight: 62
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_campaign_start_date:
     weight: 19
     settings: {  }
@@ -421,7 +392,7 @@ content:
     region: content
   field_campaign_stream_type:
     type: options_select
-    weight: 18
+    weight: 17
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -431,17 +402,9 @@ content:
     third_party_settings: {  }
     type: tzfield_default
     region: content
-  field_campaign_utilization_goal:
-    weight: 63
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-    region: content
   field_campaign_winners_prizes:
     type: entity_reference_paragraphs
-    weight: 15
+    weight: 16
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -613,12 +576,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_utilization_activities:
-    weight: 61
-    settings: {  }
-    third_party_settings: {  }
-    type: options_select
-    region: content
   field_ways_to_earn_entries:
     weight: 54
     settings: {  }
