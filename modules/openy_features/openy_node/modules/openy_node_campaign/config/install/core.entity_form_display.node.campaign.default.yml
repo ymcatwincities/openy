@@ -5,6 +5,7 @@ dependencies:
     - field.field.node.campaign.field_activities_options
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
+    - field.field.node.campaign.field_campaign_branch_target
     - field.field.node.campaign.field_campaign_branches
     - field.field.node.campaign.field_campaign_end_date
     - field.field.node.campaign.field_campaign_expected_visits
@@ -23,10 +24,13 @@ dependencies:
     - field.field.node.campaign.field_campaign_prizes
     - field.field.node.campaign.field_campaign_reg_end_date
     - field.field.node.campaign.field_campaign_reg_start_date
+    - field.field.node.campaign.field_campaign_registration_goal
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_stream_type
     - field.field.node.campaign.field_campaign_timezone
+    - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
+    - field.field.node.campaign.field_enable_visits_goal
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -48,6 +52,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - image.style.thumbnail
     - node.type.campaign
@@ -55,6 +60,7 @@ dependencies:
     - datetime
     - field_group
     - image
+    - openy_campaign_reference_with_text
     - paragraphs
     - path
     - text
@@ -266,6 +272,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_campaign_branch_target:
+    weight: 61
+    settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_with_text_widget
     region: content
   field_campaign_branches:
     weight: 13
@@ -628,5 +640,9 @@ content:
 hidden:
   field_campaign_menu: true
   field_campaign_palette: true
+  field_campaign_registration_goal: true
+  field_campaign_utilization_goal: true
+  field_enable_visits_goal: true
+  field_utilization_activities: true
   publish_on: true
   unpublish_on: true
