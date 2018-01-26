@@ -23,7 +23,13 @@ class EnabledModulesResource extends ResourceBase {
    * @return \Drupal\rest\ResourceResponse
    */
   public function get() {
-    $response = ['message' => 'Hello, this is a rest service'];
+    $moduleHandler = \Drupal::service('module_handler');
+    $moduleHandler->loadAll();
+    $enabledModules = [];
+    foreach ($moduleHandler->getModuleList() as $name => $data) {
+      $enabledModules[] = $name;
+    }
+    $response = ['enabled_modules' => $enabledModules];
     return new ResourceResponse($response);
   }
 
