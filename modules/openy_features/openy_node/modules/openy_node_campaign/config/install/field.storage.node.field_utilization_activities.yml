@@ -11,14 +11,11 @@ type: list_string
 settings:
   allowed_values:
     -
-      value: '1'
-      label: 'Registering for the promotion'
+      value: tracking
+      label: 'Track activity'
     -
-      value: '2'
-      label: 'Daily check-in to branch'
-    -
-      value: '3'
-      label: 'Recording activity'
+      value: visiting
+      label: 'Visit branch'
   allowed_values_function: ''
 module: options
 locked: false

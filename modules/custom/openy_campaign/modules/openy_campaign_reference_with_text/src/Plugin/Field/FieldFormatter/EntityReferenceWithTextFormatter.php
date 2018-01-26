@@ -15,10 +15,10 @@ use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
  * Plugin implementation of the 'entity_reference_with_text_formatter' formatter.
  *
  * @FieldFormatter(
- *   id = "entity_reference_with_text_formatter_1",
+ *   id = "entity_reference_with_text_formatter",
  *   label = @Translation("Entity Reference With Text formatter"),
  *   field_types = {
- *     "entity_reference_with_text_1"
+ *     "entity_reference_with_text"
  *   }
  * )
  */
