@@ -7,12 +7,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilder;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\openy_campaign\Entity\CampaignUtilizationActivitiy;
 use Drupal\openy_campaign\OpenYLocaleDate;
-use Drupal\openy_campaign\RegularUpdater;
-use Drupal\openy_popups\Form\ClassBranchesForm;
 use Drupal\openy_session_instance\SessionInstanceManager;
 use Drupal\taxonomy\Entity\Term;
 use League\Csv\Writer;
@@ -238,7 +234,7 @@ class CampaignReportsController extends ControllerBase {
    */
   private function getSummary($node) {
     if (!($node instanceof NodeInterface)) {
-      $node = Node::load($node);
+      $node = $this->entityTypeManager->getStorage('node')->load($node);
     }
 
     $registeredMembers = $this->calculateRegisteredMembers($node);
@@ -585,16 +581,15 @@ class CampaignReportsController extends ControllerBase {
   /**
    * Get selected Branches from current campaign.
    *
-   * @param $node
+   * @param \Drupal\node\NodeInterface $node
    */
   public function getCampaignBranches($node) {
-    $branchIds = $node->get('field_campaign_branches')->getValue();
+    $branchIds = $node->get('field_campaign_branch_target')->getValue();
     foreach ($branchIds as $branchId) {
       $ids[] = $branchId['target_id'];
     }
 
-    $connection  = \Drupal::database();
-    $query = $connection->select('openy_campaign_mapping_branch', 'b');
+    $query = $this->connection->select('openy_campaign_mapping_branch', 'b');
     $query->fields('b', ['personify_branch', 'branch']);
     $query->join('node_field_data', 'n', 'n.nid = b.branch');
     $query->fields('n', ['title']);
@@ -617,8 +612,7 @@ class CampaignReportsController extends ControllerBase {
    * @return mixed
    */
   public function calculateRegisteredMembersByBranch($node, $branches, $dateStart, $dateEnd) {
-    $connection = \Drupal::database();
-    $query = $connection->select('openy_campaign_member', 'cm');
+    $query = $this->connection->select('openy_campaign_member', 'cm');
     $query->leftJoin('openy_campaign_member_campaign', 'mc', 'mc.member = cm.id');
     $query->addExpression('COUNT(cm.id)', 'count_id');
     $query->fields('cm', array('branch'));
