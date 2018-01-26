@@ -5,13 +5,9 @@ namespace Drupal\openy_campaign\Plugin\Block;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
-use Drupal\locale\Form\LocaleSettingsForm;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeTypeInterface;
 use Drupal\openy_campaign\Entity\MemberCampaign;
-use Drupal\openy_campaign\Entity\MemberCheckin;
-use Drupal\webform\Plugin\WebformElement\DateTime;
-use function GuzzleHttp\Psr7\str;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\openy_campaign\OpenYLocaleDate;
@@ -90,7 +86,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
 
     $block['#cache']['max-age'] = 0;
 
-    if ($campaign instanceof NodeTypeInterface !== TRUE) {
+    if ($campaign instanceof Node !== TRUE) {
       return $block;
     }
 
