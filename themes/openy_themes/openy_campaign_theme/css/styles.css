@@ -1781,6 +1781,83 @@ footer .container .footer__nav nav ul > li a {
   padding-top: 20px;
 }
 
+.campaign-scorecard table thead th {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 10px;
+}
+.campaign-scorecard table tfoot td {
+  text-align: right;
+}
+.campaign-scorecard table th[align="center"],
+.campaign-scorecard table td[align="center"] {
+  text-align: center;
+}
+.campaign-scorecard table th[align="right"],
+.campaign-scorecard table td[align="right"] {
+  text-align: right;
+}
+.campaign-scorecard table td, .campaign-scorecard table th {
+  padding: 2px 5px;
+  font-size: 11px;
+  min-width: 40px;
+}
+.campaign-scorecard table td.separator, .campaign-scorecard table th.separator {
+  min-width: 20px;
+  width: 30px;
+  background: #fff;
+  border: none;
+}
+.campaign-scorecard table td.green, .campaign-scorecard table th.green {
+  background: #01A490;
+  color: #fff;
+}
+.campaign-scorecard table td.blue, .campaign-scorecard table th.blue {
+  background: #0060af;
+  color: #fff;
+}
+.campaign-scorecard table td.violet, .campaign-scorecard table th.violet {
+  background: #92278f;
+  color: #fff;
+}
+.campaign-scorecard table td.dark-green, .campaign-scorecard table th.dark-green {
+  background: #01A490;
+}
+.campaign-scorecard table td.orange, .campaign-scorecard table th.orange {
+  background: #fcaf17;
+}
+.campaign-scorecard table td.grey, .campaign-scorecard table th.grey {
+  background: #DADADA;
+}
+.campaign-scorecard table td.green-text, .campaign-scorecard table th.green-text {
+  color: #01A490;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.campaign-scorecard table td.blue-text, .campaign-scorecard table th.blue-text {
+  color: #0060af;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.campaign-scorecard table td.violet-text, .campaign-scorecard table th.violet-text {
+  color: #92278f;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.campaign-scorecard table td.blue-outline, .campaign-scorecard table th.blue-outline {
+  color: #0060af;
+  background: #fff;
+  border: 1px solid #0060af;
+}
+.campaign-scorecard table td.violet-outline, .campaign-scorecard table th.violet-outline {
+  color: #92278f;
+  background: #fff;
+  border: 1px solid #92278f;
+}
+.campaign-scorecard table td.bold, .campaign-scorecard table th.bold {
+  font-weight: bold;
+}
+
 a:focus,
 .dropdown-toggle:focus,
 .carousel-control:focus,

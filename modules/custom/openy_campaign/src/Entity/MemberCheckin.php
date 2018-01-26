@@ -111,6 +111,28 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
           $isAllowedToCreateAnEntry = TRUE;
           break;
         }
+
+        $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
+        $activities = [];
+        foreach ($utilizationActivities as $utilizationActivity) {
+          $activities[] = $utilizationActivity['value'];
+        }
+
+        if (in_array('visiting', $activities)) {
+          $loadedEntity = \Drupal::entityQuery('openy_campaign_util_activity')
+            ->condition('member_campaign', $campaignMemberId)
+            ->execute();
+
+          if (empty($loadedEntity)) {
+            $preparedActivityData = [
+              'member_campaign' => $campaignMemberId,
+              'created' => time(),
+              'activity_type' => 'visiting'
+            ];
+            $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
+            $campaignUtilizationActivity->save();
+          }
+        }
       }
 
       if ($isAllowedToCreateAnEntry) {
