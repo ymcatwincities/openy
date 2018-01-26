@@ -1,4 +1,5 @@
 <div class="campaign-scorecard">
+  {% if result.empty is not defined or result.empty|length == 0 %}
   <table>
     <thead>
     <tr>
@@ -107,4 +108,7 @@
     </tr>
     </tfoot>
   </table>
+  {% else %}
+    <h2>{{ result.empty }}</h2>
+  {% endif %}
 </div>
