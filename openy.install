@@ -530,32 +530,3 @@ function openy_update_8042() {
   // Enable modules.
   \Drupal::service('module_installer')->install(['crop', 'focal_point'], TRUE);
 }
-
-/**
- * Enable and import demo Campaign page.
- */
-function openy_update_8038() {
-  // Enable module.
-  \Drupal::service('module_installer')->install([
-    'openy_demo_ncampaign',
-  ], TRUE);
-
-  // Run openy_demo_node_landing & openy_demo_node_membership migrations.
-  $importer = \Drupal::service('openy_migrate.importer');
-  $importer->import('openy_demo_node_campaign_page');
-  $importer->import('openy_demo_node_campaign');
-}
-
-/**
- * Enable and import demo Interstitial page.
- */
-function openy_update_8039() {
-  // Enable module.
-  \Drupal::service('module_installer')->install([
-    'openy_demo_ninterstitial',
-  ], TRUE);
-
-  // Run migration.
-  $importer = \Drupal::service('openy_migrate.importer');
-  $importer->import('openy_demo_node_interstitial_page');
-}

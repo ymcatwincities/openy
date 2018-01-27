@@ -7,7 +7,6 @@ projects[config_update] = 1.5
 projects[entity] = 1.0-beta1
 projects[datalayer][subdir] = contrib
 projects[datalayer][version] = 1.x-dev
-projects[datalayer][patch][] = "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
 projects[media_entity] = 1.x-dev
 projects[media_entity_image] = 1.x-dev
 projects[media_entity_document] = 1.x-dev
