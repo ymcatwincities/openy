@@ -4,7 +4,6 @@ dependencies:
   module:
     - node
     - taxonomy
-    - openy_txnm_amenities
 id: node.field_location_amenities
 field_name: field_location_amenities
 entity_type: node

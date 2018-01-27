@@ -378,7 +378,10 @@ class GroupexFormFull extends GroupexFormBase {
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
-      ]
+      ],
+      '#attributes' => [
+        'class' => ['btn'],
+      ],
     ];
 
     $form['groupex_pdf_link'] = [
@@ -407,7 +410,6 @@ class GroupexFormFull extends GroupexFormBase {
           'class' => [
             'btn',
             'btn-default',
-            'btn-xs',
             'pdf-link',
           ],
         ],
@@ -502,7 +504,6 @@ class GroupexFormFull extends GroupexFormBase {
         'class' => [
           'btn',
           'btn-default',
-          'btn-xs',
           'pdf-link',
         ],
       ],
@@ -531,7 +532,7 @@ class GroupexFormFull extends GroupexFormBase {
     $location = !empty($values['location_select']) ? $values['location_select'] : $values['location'];
     $filter_date = !empty($values['date_select']) ? $values['date_select'] : $values['date'];
     if (isset($user_input['date_select']) && $user_input['date_select'] != $filter_date) {
-      $filter_date == $user_input;
+      $filter_date = $user_input;
     }
     $class = !empty($values['class_select']) ? $values['class_select'] : 'any';
     if ($class == 'any' && empty($user_input['class_select']) && is_numeric($query['class'])) {
@@ -587,7 +588,7 @@ class GroupexFormFull extends GroupexFormBase {
     }
 
     // Remove instructor parameter in case of no instructor selected.
-    if ($parameters['instructor'] == 'any') {
+    if (isset($parameters['instructor']) && $parameters['instructor'] == 'any') {
       unset($parameters['instructor']);
     }
 
