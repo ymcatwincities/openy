@@ -206,7 +206,6 @@
 
         @include breakpoint($screen-lg-desktop) {
           display: block;
-          min-height: 134px;
         }
       }
 
@@ -236,7 +235,7 @@
       padding-bottom: 25px;
 
       @include breakpoint($screen-lg-desktop) {
-        padding: 10px 25px 25px 25px;
+        padding: 10px 18px 25px 18px;
       }
 
       &:hover,
@@ -265,7 +264,7 @@
         background: $dark-blue;
 
         @include breakpoint($screen-lg-desktop) {
-          padding: 10px 24px 24px 24px;
+          padding: 10px 17px 24px 17px;
         }
       }
     }

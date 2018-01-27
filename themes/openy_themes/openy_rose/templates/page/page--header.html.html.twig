@@ -56,10 +56,10 @@
  * @see html.html.twig
  */
 #}
-<div class="layout-container {{ camp_class }}">
+<div class="layout-container {{ layout_class }}">
 
   <div class="top-navs navbar-fixed-top visible-xs visible-sm" data-spy="affix" data-offset-top="1">
-    <nav class="nav-global navbar-default navbar">
+    <div class="nav-global navbar-default navbar">
       <div class="container">
         <div class="row">
           <div class="page-head__logo">
@@ -76,10 +76,10 @@
           </button>
         </div>
       </div>
-    </nav>
+    </div>
   </div>
 
-  <div id="sidebar" class="sidebar sidebar-left collapse width">
+  <div id="sidebar" class="sidebar sidebar-left collapse width" aria-hidden="true">
     <div class="col-xs-12 page-head__main-menu nav-home">
       {{ page.mobile_menu.mainnavigation }}
     </div>
@@ -88,7 +88,7 @@
   <div class="viewport">
     <header id="page-head" class="page-head">
       <div class="top-navs navbar-fixed-top hidden-xs hidden-sm" data-spy="affix" data-offset-top="1">
-        <nav class="nav-global navbar-ymcags navbar">
+        <div class="nav-global navbar-ymcags navbar">
           <div class="container">
             <div class="row">
               <div class="page-head__logo">
@@ -128,7 +128,7 @@
             </div>
 
           </div>
-        </nav>
+        </div>
       </div>
     </header>
 

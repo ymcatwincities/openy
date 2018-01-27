@@ -68,7 +68,7 @@
   {% if not settings.unslick %}
     </div>
     {% block slick_arrow %}
-      <nav{{ arrow_attributes.addClass(arrow_classes) }}>
+      <div{{ arrow_attributes.addClass(arrow_classes) }}>
         <a href="#" data-role="none" class="slick-prev slick-arrow" role="button" aria-disabled="false">Previous</a>
         {% if arrow_down_attributes is defined %}
           <button{{ arrow_down_attributes.addClass('slick-down')
@@ -77,7 +77,7 @@
             .setAttribute('data-offset', settings.downArrowOffset) }}></button>
         {% endif %}
         <a href="#" data-role="none" class="slick-next slick-arrow" role="button" aria-disabled="false">Next</a>
-      </nav>
+      </div>
     {% endblock %}
   {% endif %}
 </div>

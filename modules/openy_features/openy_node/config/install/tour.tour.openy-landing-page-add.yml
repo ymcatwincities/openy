@@ -31,7 +31,7 @@ tips:
     id: layout
     plugin: text
     label: 'Layout Drop'
-    body: 'Here a user can decide the page layout one column full width, one or two column or two column with a sidebar. [openy_tour:click:.field--name-field-header-content]'
+    body: 'Here a user can decide the page layout one column full width, one or two columns or two columns with a sidebar. [openy_tour:click:.field--name-field-header-content]'
     location: bottom
     weight: 3
     attributes:

@@ -186,3 +186,77 @@ function openy_node_landing_update_8007() {
     'third_party_settings.field_group.group_header_area.format_settings.description'
   );
 }
+
+/**
+ * Update sidebar option text.
+ */
+function openy_node_landing_update_8008() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_landing');
+  $config .= '/config/install/';
+  $config .= 'field.storage.node.field_lp_layout.yml';
+  $config_importer->update(
+    $config,
+    'field.storage.node.field_lp_layout',
+    'settings.allowed_values'
+  );
+}
+
+/**
+ * Update OpenY landing node feature configs.
+ */
+function openy_node_landing_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.landing_page.default' => [
+      'content',
+    ],
+    'core.entity_view_display.node.landing_page.default' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.node.landing_page.full' => [
+      'dependencies.config',
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.node.landing_page.teaser' => [
+      'dependencies.config',
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+* Update feature configs for Drupal Core upgrade.
+ */
+function openy_node_landing_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.landing_page.default' => [
+      'content.langcode',
+      'content.status',
+      'content.addthis',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

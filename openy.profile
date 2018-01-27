@@ -7,6 +7,7 @@
 
 use Drupal\openy\Form\ContentSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
+use Drupal\openy\Form\UploadFontMessageForm;
 
 /**
  * Implements hook_install_tasks().
@@ -37,6 +38,12 @@ function openy_install_tasks() {
       'type' => 'form',
       'function' => ThirdPartyServicesForm::class,
     ],
+    'openy_upload_font_message' => [
+      'display_name' => t('Read font info'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => UploadFontMessageForm::class,
+    ],
   ];
 }
 
@@ -63,8 +70,14 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_tblog' => [
         'openy_demo_taxonomy_term_blog_category',
       ],
+      'openy_demo_tnews' => [
+        'openy_demo_taxonomy_term_news_category',
+      ],
       'openy_demo_tfacility' => [
         'openy_demo_taxonomy_term_facility_type',
+      ],
+      'openy_demo_tamenities' => [
+        'openy_demo_taxonomy_term_amenities',
       ],
       'openy_demo_bfooter' => [
         'openy_demo_block_content_footer',
@@ -73,6 +86,12 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_block_microsites_menu',
       ],
       'openy_demo_addthis' => [],
+      'openy_demo_bsimple' => [
+        'openy_demo_block_content_simple',
+      ],
+      'openy_demo_bamenities' => [
+        'openy_demo_block_content_amenities',
+      ],
     ],
     'alerts' => [
       'openy_demo_nalert' => [
@@ -93,6 +112,13 @@ function openy_demo_content_configs_map($key = NULL) {
     'blog' => [
       'openy_demo_nblog' => [
         'openy_demo_node_blog',
+      ],
+    ],
+    'news' => [
+      'openy_demo_nnews' => [
+        'openy_demo_node_news',
+        'openy_demo_news_landing',
+        'openy_demo_menu_link_footer_news',
       ],
     ],
     'facility' => [
@@ -383,4 +409,17 @@ function openy_enable_module($module_name) {
 function openy_import_migration($migration_id) {
   $importer = \Drupal::service('openy_migrate.importer');
   $importer->import($migration_id);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter.
+ *
+ * This will change the description text for the site slogan field.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ */
+function openy_form_system_site_information_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['site_information']['site_slogan']['#description'] = t("This will display your association name in the header as per Y USA brand guidelines. Try to use less than 27 characters. The text may get cut off on smaller devices.");
 }

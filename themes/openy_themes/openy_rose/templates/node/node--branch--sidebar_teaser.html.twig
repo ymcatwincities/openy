@@ -87,7 +87,7 @@
   {% set title_url = url %}
 {% endif %}
 
-<article{{ attributes.addClass(classes) }}>
+<div{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if not page %}
     <div class="associated-branch-title">
@@ -105,4 +105,4 @@
     {{ content|without('field_location_area', 'field_location_state') }}
   </div>
 
-</article>
+</div>

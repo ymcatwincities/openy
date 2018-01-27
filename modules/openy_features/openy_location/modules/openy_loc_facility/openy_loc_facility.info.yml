@@ -10,7 +10,6 @@ dependencies:
   - field
   - field_group
   - geolocation
-  - rabbit_hole
   - link
   - menu_ui
   - metatag
@@ -21,6 +20,8 @@ dependencies:
   - paragraphs
   - path
   - pathauto
+  - rabbit_hole
+  - scheduler
   - taxonomy
   - telephone
   - user

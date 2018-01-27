@@ -141,9 +141,17 @@ function openy_rose_preprocess_input(array &$variables) {
 /**
  * Implements hook_preprocess_field().
  */
-function openy_rose_preprocess_field__node__field_location_directions(array &$variables) {
-  // Change link title to Directions.
-  $variables['items'][0]['content']['#title'] = t('Directions');
+function openy_rose_preprocess_field(array &$variables) {
+  switch ($variables['entity_type']) {
+    // Logic for node.
+    case 'node':
+      // Check if exist sidebar field.
+      $variables['wrapper_tag'] = $variables['field_name'] == 'field_sidebar_content' ? 'aside' : 'section';
+      break;
+    default:
+      $variables['wrapper_tag'] = 'div';
+      break;
+  }
 }
 
 /**
@@ -357,6 +365,13 @@ function openy_rose_preprocess_html(&$variables) {
       }
     }
   }
+  // Get title from node or page.
+  if (isset($variables['node'])) {
+    $variables['title'] = $variables['node']->title->value;
+  }
+  else {
+    $variables['title'] = $variables['page']['#title'];
+  }
 }
 
 /**
@@ -366,4 +381,11 @@ function openy_rose_theme_suggestions_form_alter(array &$suggestions, array $var
   if (isset($variables['element']['#form_id'])) {
     array_push($suggestions, 'form__' . $variables['element']['#form_id']);
   }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function openy_rose_preprocess_block(&$variables) {
+  $variables['base_path'] = base_path();
 }

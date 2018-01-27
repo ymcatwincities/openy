@@ -6,6 +6,7 @@
  */
 
 use Drupal\openy_group_schedules\GroupexScheduleFetcher;
+use Drupal\Component\Utility\Xss;
 
 /**
  * Implements hook_theme().
@@ -241,10 +242,13 @@ function openy_group_schedules_schedule_table_layout(array $schedule) {
       $class_item = reset($day['classes']);
       if ($class_item) {
         $class = $class_item['#class'];
+        // Allow iframe tag in description to embed video.
+        $allowed_tags = array_merge(Xss::getAdminTagList(), ['iframe']);
         $prefix = [
           [
             '#type' => 'container',
             '#markup' => $class['description'],
+            '#allowed_tags' => $allowed_tags,
             '#attributes' => [
               'class' => ['class-description'],
             ],
@@ -258,6 +262,19 @@ function openy_group_schedules_schedule_table_layout(array $schedule) {
         }
       }
     }
+  }
+
+  // Show help text in case of there is no prefix and there are results.
+  if (empty($prefix)) {
+    $prefix = [
+      [
+        '#type' => 'container',
+        '#markup' => '<p>Please note, you may search by class or instructor by clicking on the links in class cards.</p>',
+        '#attributes' => [
+          'class' => ['class-description'],
+        ],
+      ],
+    ];
   }
 
   // Output schedule by type.

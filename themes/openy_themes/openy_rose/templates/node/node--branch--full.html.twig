@@ -86,10 +86,10 @@ set classes = [
 {% set fax_suffix = content.field_location_fax.0['#title'] ? '(fax)'|t %}
 
 {# Branch header #}
-<article{{ attributes.addClass('branch-header') }}>
-  <div class="hidden-xs desktop">
+<div{{ attributes.addClass('branch-header') }}>
+  <section class="hidden-xs desktop">
     <div class="container">
-      <div class="row branch-header-inner branch-info" data-branch-name="{{ node.label }}">
+      <address class="row branch-header-inner branch-info" data-branch-name="{{ node.label }}">
         <div class="column col-sm-3 col-md-2 branch-header__item">
           <h4>{{ 'WELCOME TO THE'|t }}</h4>
           <p>{{ label }}</p>
@@ -112,12 +112,12 @@ set classes = [
           {# @see openy_branch_selector module #}
           {{ content.openy_branch_selector }}
         </div>
-      </div>
+      </address>
     </div>
-  </div>
+  </section>
 
-  <div class="hidden-sm hidden-md hidden-lg mobile">
-    <div class="container">
+  <blockquote class="hidden-sm hidden-md hidden-lg mobile">
+    <address class="container">
       <div class="row">
         <div class="col-xs-12">
           <h4>{{ 'WELCOME TO THE'|t }}</h4>
@@ -149,10 +149,12 @@ set classes = [
           {{ content.openy_branch_selector }}
         </div>
       </div>
-    </div>
-  </div>
-</article>
-{{ content.field_header_content }}
+    </address>
+  </blockquote>
+</div>
+<header>
+  {{ content.field_header_content }}
+</header>
 
 {# Branch content #}
 <div class="container">
@@ -160,6 +162,7 @@ set classes = [
     <div class="main-region col-sm-12">
       <div class="branch-content">
         <article{{ attributes.addClass(classes) }}>
+          <h2 class="visually-hidden">{{ node.label }}</h2>
           <div{{ content_attributes.addClass('node__content') }}>
             {{ content.field_content }}
           </div>

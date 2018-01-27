@@ -1,7 +1,7 @@
 /**
  * @file main.js
  */
-(function ($, Drupal, drupalSettings) {
+(function ($, window, Drupal, drupalSettings) {
 
   "use strict";
 
@@ -63,8 +63,7 @@
 
         this.tags = {};
         // @todo make this configurable, to allow override default tags.
-        this.default_tags = ['YMCA', 'Camps'];
-
+        this.default_tags = drupalSettings.openyMapSettings.default_tags;
         this.init_map();
         this.init_tags();
         this.init_map_locations();
@@ -723,7 +722,7 @@
         var $self = $(this);
         for (var i = 0; i < data.length; i++) {
           if (typeof(data[i]) !== 'undefined' && $self.find('.location-item--title')[0].innerText !== 'undefined') {
-            if ($self.find('.location-item--title')[0].innerText == data[i].name) {
+            if ($.trim($self.find('.location-item--title')[0].innerText).toLowerCase() == $.trim(data[i].name).toLocaleLowerCase()) {
               data[i].element = {};
               data[i].element = $self.parent();
             }
@@ -753,4 +752,4 @@
     }
   };
 
-}(jQuery, Drupal, drupalSettings));
+}) (jQuery, window, Drupal, drupalSettings);

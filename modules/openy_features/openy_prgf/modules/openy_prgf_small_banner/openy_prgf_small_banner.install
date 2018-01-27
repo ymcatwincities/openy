@@ -6,6 +6,22 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_prgf_small_banner_dependencies() {
+  $dependencies['openy_prgf_small_banner'] = [
+    8004 => [
+      'openy_media_image' => 8004,
+    ],
+    8006 => [
+      'openy' => 8042,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Update Paragraph Small Banner with field_prgf_description.
  */
 function openy_prgf_small_banner_update_8001() {
@@ -88,4 +104,56 @@ function openy_prgf_small_banner_update_8003() {
     'field.field.paragraph.small_banner.field_prgf_description',
     'dependencies.module'
   );
+}
+
+/**
+ * Update entity reference for field image.
+ */
+function openy_prgf_small_banner_update_8004() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_small_banner');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.paragraph.small_banner.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.paragraph.small_banner.default',
+    'content'
+  );
+}
+
+/**
+ * Update OpenY paragraph small banner feature configs for Blazy support.
+ */
+function openy_prgf_small_banner_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_small_banner') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.prgf_small_banner',
+    'field.field.paragraph.small_banner.field_prgf_description',
+    'paragraphs.paragraphs_type.small_banner.yml',
+  ]);
+}
+
+/**
+ * Update OpenY paragraph small banner feature config for Focal Point support.
+ */
+function openy_prgf_small_banner_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_small_banner') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'image.style.prgf_small_banner' =>[
+      'dependencies',
+      'effects',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }

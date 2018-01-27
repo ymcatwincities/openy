@@ -44,14 +44,14 @@
 ] %}
 
 {% for item in items %}
-  <div{{ attributes.addClass(classes) }}>
+  <aside{{ attributes.addClass(classes) }}>
     <h2>
       {{ 'Related content'|t }}
     </h2>
     <div class="description">
       <h3> {{ item.content }} </h3>
     </div>
-  </div>
+  </aside>
 {% endfor %}
 
 

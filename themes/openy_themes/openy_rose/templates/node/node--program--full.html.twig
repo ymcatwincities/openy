@@ -116,11 +116,13 @@
       </div>
 
       {# Program sidebar #}
+      {% if content.field_sidebar_content.0 %}
       <div class="sidebar-region col-sm-4">
-        <article class="program-sidebar">
+        <div class="program-sidebar">
           {{ content.field_sidebar_content }}
-        </article>
+        </div>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>

@@ -244,3 +244,54 @@ function openy_node_class_update_8008() {
     \Drupal::service('pathauto.generator')->updateEntityAlias($entity, 'update');
   }
 }
+
+/**
+ * Update OpenY class node feature configs.
+ */
+function openy_node_class_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.class.default' => [
+      'content',
+    ],
+    'core.entity_view_display.node.class.default' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.class.teaser' => [
+      'dependencies.config',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs for Drupal Core upgrade.
+ */
+function openy_node_class_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.class.default' => [
+      'content.langcode',
+      'content.status',
+      'content.addthis',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

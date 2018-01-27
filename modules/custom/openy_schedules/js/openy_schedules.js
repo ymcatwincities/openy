@@ -28,6 +28,10 @@
       ) {
         params.push(key + '=' + parameters[key]);
       }
+      // Handle the display.
+      if (key === 'display' && parameters[key] !== 0 && parameters[key] !== null) {
+        params.push(key + '=' + parameters[key]);
+      }
     }
     history.replaceState({}, '', window.location.pathname + '?' + params.join('&'));
   };
@@ -58,15 +62,17 @@
 
   Drupal.behaviors.openy_schedules = {
     attach: function(context, settings) {
-      $('.openy-schedules-search-form .js-form-item-date input').datepicker({
-        onSelect: function(dateText, ins) {
-          $(this)
-            .parents('.openy-schedules-search-form')
-            .each(function() {
-              var form = $(this);
-              form.find('.js-form-submit').trigger('click');
-              form.find('.js-form-type-select select').attr('readonly', true);
-            });
+      // Makes all select elements read-only when the Week View checkbox state is changed.
+      var form = $('.openy-schedules-search-form');
+      form.find('.js-form-item-display input')
+        .on('change', function() {
+          form.find('.js-form-type-select select').attr('readonly', true);
+        });
+
+      form.find(':input.openy-schedule-datepicker').datepicker({
+        onClose: function(dateText, inst) {
+          // Make all form elements readonly. AJAX will remove this attribute.
+          form.find(':input').attr('readonly', true);
         }
       });
 
@@ -76,6 +82,7 @@
           if (settings.data !== undefined && settings.data.match('form_id=openy_schedules_search_form')) {
             var form = $('.openy-schedules-search-form');
             form.find('.js-form-type-select select').removeAttr('readonly');
+            form.find(':input.openy-schedule-datepicker').removeAttr('readonly');
             form.find('.filters-container').addClass('hidden');
             if (form.find('.filter').length !== 0) {
               form.find('.filters-container').removeClass('hidden');
