@@ -47,9 +47,7 @@ set classes = [
 %}
 <div{{ attributes.addClass(classes) }}>
   <a href="{{ content.field_prgf_link.0['#url'] }}">
-    <h2>
-      {{ content.field_prgf_title }}
-    </h2>
+    {{ content.field_prgf_title }}
     <div class="quote">
       {% include active_theme_path() ~ '/img/icons/quote_purple.svg' %}
       {{ content.field_prgf_headline }}

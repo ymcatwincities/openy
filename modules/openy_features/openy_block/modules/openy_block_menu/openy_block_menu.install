@@ -9,15 +9,26 @@
  * Import color and text color fields for block menu.
  */
 function openy_block_menu_update_8001() {
-  $config_importer = \Drupal::service('config_import.importer');
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_block_menu') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'field.field.block_content.menu_block.field_menu_block_color',
-      'field.field.block_content.menu_block.field_menu_block_text_color',
-      'field.storage.block_content.field_menu_block_color',
-      'field.storage.block_content.field_menu_block_text_color',
-      'core.entity_form_display.block_content.menu_block.default',
-      'core.entity_view_display.block_content.menu_block.default',
-    ]);
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+}
+
+/**
+ * Update configs for Drupal Core upgrade.
+ */
+function openy_block_menu_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_block_menu') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.block_content.menu_block.default' => [
+      'content.langcode',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }

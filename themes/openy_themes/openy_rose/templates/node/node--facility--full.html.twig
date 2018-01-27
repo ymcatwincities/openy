@@ -85,7 +85,7 @@ set classes = [
 {% set directions_title = content.field_location_directions.0['#title'] %}
 {% set directions_url = content.field_location_directions.0['#url'] %}
 
-<div class="container two-columns-container">
+<article class="container two-columns-container">
   <div class="row">
     <div class="col-sm-12">
       <h1{{ title_attributes.addClass('node-title') }}>{{ label }}</h1>
@@ -97,7 +97,7 @@ set classes = [
           {{ content.field_content }}
       </div>
       <div class="sidebar-region col-sm-4">
-        <article{{ attributes.addClass(classes) }}>
+        <aside{{ attributes.addClass(classes) }}>
           <div class="row">
             <div class="col-xs-12">
               <div class="sidebar-card">
@@ -117,8 +117,8 @@ set classes = [
             {{ content.field_facility_loc }}
           {% endif %}
           {{ content.field_sidebar_content }}
-        </article>
+        </aside>
       </div>
     </div>
   </div>
-</div>
+</article>

@@ -10,6 +10,7 @@
 @import 'base/fonts';
 @import 'base/typography';
 @import 'base/utilities';
+@import 'base/decor';
 
 // Modules
 @import 'modules/page';
@@ -24,6 +25,7 @@
 @import 'modules/branch';
 @import 'modules/slick';
 @import 'modules/blog';
+@import 'modules/news';
 @import 'modules/class';
 @import 'modules/schedules';
 @import 'modules/dialog';
@@ -41,6 +43,14 @@
 @import 'modules/programs';
 @import 'modules/microsites';
 @import 'modules/addthis';
+@import 'modules/block-description';
+@import 'modules/columns';
+@import 'modules/simple_content';
+@import 'modules/location';
+// Paragraphs
+@import 'paragraphs/1c';
+@import 'paragraphs/amenities';
+@import 'paragraphs/lto';
 
 // Global state classes
 @import 'state/state';

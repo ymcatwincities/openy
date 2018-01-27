@@ -27,9 +27,23 @@ source:
       area: 1
       prgf_blog_branch: 1
       prgf_gallery: 1
+      amnts_ids:
+        - 4
+        - 5
+        - 6
+        - 7
+        - 9
+        - 10
+        - 15
+        - 18
+        - 22
+        - 23
+        - 24
+        - 25
+        - 26
       content_ids:
         -
-          content_id: branch_upper_grid_1
+          content_id: branch_3c_1
         -
           content_id: blog_branch_1
         -
@@ -53,9 +67,20 @@ source:
       area: 2
       prgf_blog_branch: 2
       prgf_gallery: 2
+      amnts_ids:
+        - 3
+        - 4
+        - 7
+        - 9
+        - 10
+        - 15
+        - 16
+        - 22
+        - 23
+        - 24
       content_ids:
         -
-          content_id: branch_upper_grid_2
+          content_id: branch_3c_2
         -
           content_id: blog_branch_2
         -
@@ -79,9 +104,27 @@ source:
       area: 3
       prgf_blog_branch: 3
       prgf_gallery: 3
+      amnts_ids:
+      - 2
+      - 3
+      - 4
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      - 14
+      - 17
+      - 18
+      - 20
+      - 22
+      - 24
+      - 26
       content_ids:
         -
-          content_id: branch_upper_grid_3
+          content_id: branch_3c_3
         -
           content_id: blog_branch_3
         -
@@ -105,9 +148,14 @@ source:
       area: 4
       prgf_blog_branch: 4
       prgf_gallery: 4
+      amnts_ids:
+        - 1
+        - 4
+        - 9
+        - 22
       content_ids:
         -
-          content_id: branch_upper_grid_4
+          content_id: branch_3c_4
         -
           content_id: blog_branch_4
         -
@@ -183,6 +231,11 @@ process:
       plugin: migration
       migration: openy_demo_taxonomy_term_area
       source: area
+  field_location_amenities:
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_amenities
+      source: amnts_ids
   field_content:
       plugin: iterator
       source: content_ids
@@ -193,6 +246,7 @@ process:
             - openy_demo_prgf_blog_branch
             - openy_demo_prgf_grid_content
             - openy_demo_prgf_group_schedules
+            - openy_demo_prgf_3c_branch
           source: content_id
         target_revision_id:
           plugin: migration
@@ -200,6 +254,7 @@ process:
             - openy_demo_prgf_blog_branch
             - openy_demo_prgf_grid_content
             - openy_demo_prgf_group_schedules
+            - openy_demo_prgf_3c_branch
           source: content_id
   field_header_content/target_id:
     -
@@ -216,8 +271,10 @@ destination:
 migration_dependencies:
   required:
     - openy_demo_taxonomy_term_area
+    - openy_demo_taxonomy_term_amenities
     - openy_demo_prgf_gallery
     - openy_demo_prgf_blog_branch
     - openy_demo_prgf_grid_content
     - openy_demo_prgf_group_schedules
+    - openy_demo_prgf_3c_branch
   optional: {  }

@@ -10,20 +10,24 @@
  */
 #}
 <div class="card-wrapper">
-  <div class="time">
-    <span class="icon icon-clock"></span>{{ class.time }}  <span class="duration">{{ class.duration }}</span>
-  </div>
   <div class="card">
     <h3>
       {% if 'class' in used_filters %}
         {{ class.name|raw }}
       {% else %}
-        <span class="fa fa-link" aria-hidden=true></span>&nbsp;<a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a>
+        <span class="fa fa-link" aria-hidden="true"></span>&nbsp;<a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a>
       {% endif %}
     </h3>
+    <div class="time">
+      {% if class.time == '12:00am' %}
+        <span class="icon icon-clock"></span>All Day
+      {% else %}
+        <span class="icon icon-clock"></span>{{ class.time }}  <span class="duration">{{ class.duration }}</span>
+      {% endif %}
+    </div>
     <p>{{ class.studio }}</p>
     <div class="instructor">
-      <span class="fa fa-link" aria-hidden=true></span><span class="fa fa-user"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
+      <span class="fa fa-link" aria-hidden="true"></span><span class="fa fa-user" aria-hidden="true"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
     </div>
   </div>
   <div class="ical">

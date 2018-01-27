@@ -50,15 +50,15 @@ process:
   uuid: code
   info: description
   field_menu_block_links:
-      plugin: iterator
-      source: links
-      process:
-        uri:
-          plugin: get
-          source: uri
-        title:
-          plugin: get
-          source: title
+    plugin: iterator
+    source: links
+    process:
+      uri:
+        plugin: get
+        source: uri
+      title:
+        plugin: get
+        source: title
   field_menu_block_color:
     plugin: iterator
     source: color_ids
@@ -68,8 +68,8 @@ process:
         migration: openy_demo_taxonomy_term_color
         source: color_id
   field_menu_block_text_color:
-      plugin: migration
-      migration: openy_demo_taxonomy_term_color
-      source: text_color
+    plugin: migration
+    migration: openy_demo_taxonomy_term_color
+    source: text_color
 destination:
   plugin: entity:block_content

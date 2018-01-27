@@ -27,7 +27,7 @@ function openy_tour_tokens($type, $tokens, array $data, array $options, Bubbleab
   $replacements = [];
   if ($type == 'openy_tour') {
     foreach ($tokens as $name => $original) {
-      list($token_name, $selector) = explode(':', $name);
+      list($token_name, $selector) = explode(':', $name, 2);
       if (!empty($selector)) {
         switch ($token_name) {
           case 'click':
@@ -52,5 +52,7 @@ function openy_tour_page_attachments_alter(array &$attachments) {
  * Implements hook_js_alter().
  */
 function openy_tour_js_alter(&$javascript, AttachedAssetsInterface $assets) {
-  $javascript['core/modules/tour/js/tour.js']['data'] = drupal_get_path('module', 'openy_tour') . '/js/tour.js';
+  if (isset($javascript['core/modules/tour/js/tour.js'])) {
+    $javascript['core/modules/tour/js/tour.js']['data'] = drupal_get_path('module', 'openy_tour') . '/js/tour.js';
+  }
 }

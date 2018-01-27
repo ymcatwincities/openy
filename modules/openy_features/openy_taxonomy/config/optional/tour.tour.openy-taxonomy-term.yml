@@ -37,7 +37,7 @@ tips:
     id: term-relations
     plugin: text
     label: 'Term relations'
-    body: 'In the relations drop down a user can select the parent of the term they are creating. The Root specifies the top level of the Vocabulary.'
+    body: 'In the relations drop down a user can select the parent of the term they are creating. The Root specifies the top level of the Vocabulary. [openy_tour:click:.color_picker]'
     weight: 4
     attributes:
       data-id: 'edit-relations'
@@ -45,7 +45,7 @@ tips:
     id: term-color
     plugin: text
     label: 'Term color'
-    body: 'In the color widget you can specify color. This field is specific for "Color" vocabulary and won`t be available in other taxonomy vocabularies. [openy_tour:click:Open color picker:edit-field-color-0-value]'
+    body: 'In the color widget you can specify color. This field is specific for "Color" vocabulary and won`t be available in other taxonomy vocabularies.'
     location: top
     weight: 5
     attributes:

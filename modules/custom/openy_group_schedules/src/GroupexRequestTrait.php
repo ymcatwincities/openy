@@ -70,6 +70,10 @@ trait GroupexRequestTrait {
    *   Data, NULL on failure.
    */
   protected function request(array $options, $defaults = TRUE) {
+    $st = & drupal_static(md5(json_encode(array_merge($options, (array)$defaults))));
+    if ($st) {
+      return $st;
+    }
     $status = \Drupal::config('groupex_form_cache.settings')->get('status');
 
     $all_options = $options;
@@ -80,7 +84,10 @@ trait GroupexRequestTrait {
     // Try to use cached data.
     if ($status == TRUE) {
       $manager = \Drupal::service('groupex_form_cache.manager');
-      if ($data = $manager->getCache($all_options)) {
+      $data = $manager->getCache($all_options);
+      // Empty array should be a valid cache, but FALSE no.
+      if (FALSE !== $data) {
+        $st = $data;
         return $data;
       }
     }
@@ -90,10 +97,10 @@ trait GroupexRequestTrait {
       $body = $response->getBody();
       $data = json_decode($body->getContents());
 
-      if ($status == TRUE && !empty($manager) && !empty($data)) {
-        $manager->setCache($all_options, $data);
+      if ($status == TRUE) {
+        $manager->setCache($all_options, (array) $data);
       }
-
+      $st = $data;
       return $data;
     }
     catch (\Exception $e) {

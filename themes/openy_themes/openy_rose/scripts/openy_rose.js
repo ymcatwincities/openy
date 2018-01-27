@@ -28,7 +28,8 @@
               .next('.viewport')
               .addBack()
               .removeClass('out')
-              .addClass('collapsing-in');
+              .addClass('collapsing-in')
+              .removeAttr('aria-hidden');
 
             current_scroll = $(window).scrollTop();
             $('.nav-global').css({
@@ -43,7 +44,8 @@
               .next('.viewport')
               .addBack()
               .removeClass('collapsing-in')
-              .addClass('in');
+              .addClass('in')
+              .removeAttr('aria-hidden');
 
             var body = $('body');
 
@@ -60,7 +62,9 @@
               .next('.viewport')
               .addBack()
               .removeClass('in')
-              .addClass('collapsing-out');
+              .addClass('collapsing-out')
+              .attr('aria-hidden', 'true');
+
 
             $(window).scrollTop(current_scroll);
 
@@ -111,10 +115,10 @@
     }
   };
 
-  // Horisontal scroll for camp menu.
+  // Horizontal scroll for camp menu.
   Drupal.behaviors.scrollableList = {
     attach: function (context, settings) {
-      $('.camp-menu-wrapper').once().each(function () {
+      $('.camp-menu-wrapper', context).once().each(function () {
         var $this = $(this),
             $list = $this.find('ul'),
             $items = $list.find('li'),
@@ -128,7 +132,11 @@
 
           $list.css('width', listWidth + listPadding + "px");
 
-          var scroll = new IScroll($this.find('.columns')[0], {
+          var columns = $this.find('.columns');
+          if (columns.length == 0) {
+            return;
+          }
+          var scroll = new IScroll(columns[0], {
             scrollX: true,
             scrollY: false,
             momentum: false,
@@ -140,7 +148,7 @@
 
           // GRADIENT BEHAVIOUR SCRIPT.
           var obj = $('.camp-menu');
-          var objWrap = $this.find('.columns').append('<div class="columns-gradient gradient-right" onclick="void(0)"></div>');
+          var objWrap = columns.append('<div class="columns-gradient gradient-right" onclick="void(0)"></div>');
           objWrap = document.querySelector('.columns-gradient');
           var sliderLength = listWidth - objWrap.offsetWidth + 40;
           var firstGap = 20;

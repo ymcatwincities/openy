@@ -7,7 +7,6 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\groupex_form_cache\Entity\GroupexFormCache;
 use Drupal\Core\Logger\LoggerChannelFactory;
-use Drupal\Core\Logger\LoggerChannel;
 use Drupal\openy_socrates\OpenyCronServiceInterface;
 use Drupal\openy_group_schedules\GroupexRequestTrait;
 
@@ -72,8 +71,27 @@ class GroupexFormCacheWarmer implements OpenyCronServiceInterface {
    * Warm up simple elements.
    */
   private function simpleWarmUp() {
-    $this->request(['locations' => TRUE]);
-    $this->request(['classes' => TRUE]);
+    // Warm up frequent requests.
+    $this->request(['query' => ['classes' => TRUE]]);
+    $locations = $this->request(['query' => ['locations' => TRUE]]);
+
+    // Warm up cache for current day for all locations.
+    $timezone = new \DateTimeZone($this->configFactory->get('system.date')->get('timezone')['default']);
+    $datetime = new \DateTime('today midnight', $timezone);
+    $start = $datetime->getTimestamp();
+    $end = $datetime->add(new \DateInterval('P1D'))->getTimestamp();
+    foreach ($locations as $location) {
+      $options = [
+        'query' => [
+          'schedule' => TRUE,
+          'desc' => "true",
+          'location' => [(string) $location->id],
+          'start' => $start,
+          'end' => $end,
+        ]
+      ];
+      $this->request($options);
+    }
   }
 
   /**
@@ -85,7 +103,12 @@ class GroupexFormCacheWarmer implements OpenyCronServiceInterface {
     }
 
     // Loop over each cache entity.
+    $this->logger->info('Starting warming up %count cache entities.', ['%count' => count($result)]);
+    krsort($result);
     foreach ($result as $item) {
+      // Let's protect GroupEx servers.
+      sleep(1);
+
       if (!$entity = GroupexFormCache::load($item)) {
         continue;
       }
