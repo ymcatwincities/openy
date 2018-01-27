@@ -69,7 +69,7 @@ Feature: Branch Content type
       | Latitude       | 47.293433      |
       | Longitude      | -122.238717    |
       | Phone          | +1234567890    |
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Branch Branch One has been created."
 
   Scenario: I see appropriate content on branch

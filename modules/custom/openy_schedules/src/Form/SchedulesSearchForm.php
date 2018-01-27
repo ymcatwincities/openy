@@ -109,6 +109,8 @@ class SchedulesSearchForm extends FormBase {
     $this->logger = $logger_factory->get('openy_schedules');
     $this->setRequestStack($request_stack);
     $this->node = $this->getRequest()->get('node');
+    // Invoke hook_openy_schedule_search_form_states_pre_build_alter to changing init field value.
+    \Drupal::moduleHandler()->alter('openy_schedule_search_form_states_pre_build', $state);
     $this->state = $state;
   }
 
@@ -444,15 +446,20 @@ class SchedulesSearchForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Date'),
       '#default_value' => isset($values['date']) ? $values['date'] : '',
+      '#attributes' => [
+        'class' => ['openy-schedule-datepicker'],
+      ],
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
         'wrapper' => 'schedules-search-form-wrapper',
-        'event' => 'keyup',
+        'event' => 'change',
         'method' => 'replace',
         'effect' => 'fade',
         'progress' => [
           'type' => 'throbber',
         ],
+        // Do not focus current input element after ajax finish.
+        'disable-refocus' => TRUE,
       ],
     ];
 
@@ -477,6 +484,7 @@ class SchedulesSearchForm extends FormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Weekly View'),
       '#default_value' => isset($values['display']) ? $values['display'] : 0,
+      '#title_display' => 'before',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
         'wrapper' => 'schedules-search-form-wrapper',
@@ -786,7 +794,7 @@ class SchedulesSearchForm extends FormBase {
     // Format for weekly view.
     if (!empty($parameters['display'])) {
       $conditions['from'] = strtotime($parameters['date'] . 'T00:00:00');
-      $conditions['to'] = strtotime($parameters['date'] . 'T00:00:00 + 6 days');
+      $conditions['to'] = strtotime($parameters['date'] . 'T23:59:59 + 6 days');
     }
     else {
       $date_string = $parameters['date'] . ' 00:00:00';
@@ -810,7 +818,7 @@ class SchedulesSearchForm extends FormBase {
     $session_instances = $this->getSessions($parameters);
     $content = [];
     $title_date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date']);
-    $title_date_week_to = DrupalDateTime::createFromTimestamp(strtotime($parameters['date'] . 'T00:00:00 + 6 days'));
+    $title_date_week_to = DrupalDateTime::createFromTimestamp(strtotime($parameters['date'] . 'T23:59:59 + 6 days'));
     $title_date_week_from = $title_date->format('n/j/Y');
     $title_date_week_to = $title_date_week_to->format('n/j/Y');
     $title_date = $title_date->format('F j, Y');
@@ -848,7 +856,7 @@ class SchedulesSearchForm extends FormBase {
       if ($ticket_required_items = $session->field_session_ticket->getValue()) {
         $ticket_required = (int) reset($ticket_required_items)['value'];
       }
-      if ($parameters['display'] && !is_null($parameters['display'])) {
+      if (isset($parameters['display']) && $parameters['display']) {
         $timestamp = DrupalDateTime::createFromTimestamp($session_instance->getTimestamp());
         $day = $timestamp->format('D n/j/Y');
         $time_from = $timestamp->format('g:i a');
@@ -865,7 +873,7 @@ class SchedulesSearchForm extends FormBase {
         }
         $title_results = $title_results_week;
 
-        $content[$day][$time] = [
+        $content[$day][$class->id() . '--' . $time] = [
           'label' => $class->getTitle(),
           'time' => $time,
           'time_from' => $session_instance->getTimestamp(),
@@ -910,7 +918,7 @@ class SchedulesSearchForm extends FormBase {
         ];
       }
 
-      $form['#cache']['tags'] = is_array($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
+      $form['#cache']['tags'] = isset($form['#cache']['tags']) && is_array($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
       $form['#cache']['tags'] = $form['#cache']['tags'] + $session_instance->getCacheTags();
     }
 
@@ -940,7 +948,7 @@ class SchedulesSearchForm extends FormBase {
     $alerts = self::buildAlerts($parameters);
     $branch_hours = $this->buildBranchHours($form, $parameters);
     $response = new AjaxResponse();
-    $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper #edit-selects', $form['selects']));
+    $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .selects-container', $form['selects']));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .results', $formatted_results));
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .filters-container', $filters));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .alerts-wrapper', $alerts));

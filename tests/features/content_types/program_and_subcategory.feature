@@ -45,7 +45,7 @@ Feature: Program and Subcategory pages
     And I fill in the following:
       | Description | Program suggests fitness classes for all ages. |
     And I press "Add Categories Listing" in the "content_area"
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Program Behat Fitness has been created."
 
     Given I am logged in as a user with the "Editor" role
@@ -56,7 +56,7 @@ Feature: Program and Subcategory pages
     And I fill media field "edit-field-category-image-target-id" with "media:1"
     And I fill in the following:
       | Description | Program suggests fitness classes for all ages. |
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Program Subcategory Behat Personal Training has been created."
 
     When I go to "/programs/behat-fitness"

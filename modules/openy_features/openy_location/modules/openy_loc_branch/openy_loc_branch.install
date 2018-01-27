@@ -22,6 +22,9 @@ function openy_loc_branch_update_dependencies() {
     8006 => [
       'openy_node' => 8004,
     ],
+    8010 => [
+      'openy' => 8034,
+    ],
     8011 => [
       'openy' => 8037,
     ],
@@ -234,16 +237,22 @@ function openy_loc_branch_update_8008() {
  * Show directions and fax in full view mode.
  */
 function openy_loc_branch_update_8009() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_loc_branch');
-  $config .= '/config/install/';
-  $config .= 'core.entity_view_display.node.branch.full.yml';
-  $config_importer->update(
-    $config,
-    'core.entity_view_display.node.branch.full',
-    'content',
-    'hidden'
-  );
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.branch.full' => [
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }
 
 /**
@@ -260,7 +269,7 @@ function openy_loc_branch_update_8010() {
 
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.branch.default' =>[
+    'core.entity_form_display.node.branch.default' => [
       'dependencies.config',
       'content',
     ],
@@ -297,14 +306,128 @@ function openy_loc_branch_update_8011() {
  * Show directions and fax in full view mode.
  */
 function openy_loc_branch_update_8012() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_loc_branch');
-  $config .= '/config/install/';
-  $config .= 'core.entity_view_display.node.branch.full.yml';
-  $config_importer->update(
-    $config,
-    'core.entity_view_display.node.branch.full',
-    'content',
-    'hidden'
-  );
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_location_amenities',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.branch.full' => [
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Fixing configs.
+ */
+function openy_loc_branch_update_8013() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_location_amenities',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.branch.default' => [
+      'dependencies.module',
+      'content',
+    ],
+    'core.entity_view_display.node.branch.default' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.branch.full' => [
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update OpenY branch location paragraph feature configs.
+ */
+function openy_loc_branch_update_8014() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.branch.class_location' => [
+      'dependencies.config',
+      'hidden',
+    ],
+    'core.entity_view_display.node.branch.default' => [
+      'dependencies.config',
+      'hidden',
+    ],
+    'core.entity_view_display.node.branch.full' => [
+      'dependencies.config',
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.node.branch.sidebar_teaser' => [
+      'dependencies.config',
+      'hidden',
+    ],
+    'core.entity_view_display.node.branch.teaser' => [
+      'dependencies.config',
+      'hidden',
+    ],
+    'field.storage.node.field_location_amenities' => [
+      'dependencies.module'
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs for Drupal Core upgrade.
+ */
+function openy_loc_branch_update_8015() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.branch.default' => [
+      'content.langcode',
+      'content.status',
+      'content.addthis',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }

@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * @file
+ * OpenY Paragraph Gallery install file.
+ */
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function openy_prgf_gallery_dependencies() {
+  $dependencies['openy_prgf_gallery'] = [
+    8001 => [
+      'openy_media_image' => 8004,
+    ],
+    8004 => [
+      'openy' => 8042,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
+ * Update entity reference for field image.
+ */
+function openy_prgf_gallery_update_8001() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_gallery');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.paragraph.gallery.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.paragraph.gallery.default',
+    'content'
+  );
+}
+
+/**
+ * Update OpenY gallery paragraph feature configs.
+ */
+function openy_prgf_gallery_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.gallery.default' => [
+      'content',
+    ],
+    'core.entity_view_display.media.image.prgf_gallery' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.paragraph.gallery.default' => [
+      'content',
+    ],
+    'paragraphs.paragraphs_type.gallery' => [
+      'behavior_plugins',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update OpenY paragraph gallery feature configs for Blazy support.
+ */
+function openy_prgf_gallery_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.prgf_gallery',
+  ]);
+}
+
+/**
+ * Update OpenY paragraph gallery feature config for Focal Point support.
+ */
+function openy_prgf_gallery_update_8004() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'image.style.prgf_gallery' =>[
+      'dependencies',
+      'effects',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
