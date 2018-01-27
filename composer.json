@@ -145,16 +145,6 @@
             "drupal/entity_embed": {
                 "2511404 - Image entities/fields embedded using Entity Embed cannot be linked in CKEditor": "https://www.drupal.org/files/issues/entity_embed_links-2511404-31.patch"
             },
-            "drupal/entity_clone": {
-                "2800203 - Event dispatcher for clone events": "https://www.drupal.org/files/issues/event_dispatcher_for-2800203-10.patch",
-                "2908414 - Error on abort and redirects - one patch to solve everything": "https://www.drupal.org/files/issues/entity_clone-redirect_and_abort_issue-2908414-2-d8.patch"
-            },
-            "drupal/confi": {
-                "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
-            },
-            "drupal/datalayer": {
-                "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
-            },
             "drupal/plugin": {
                 "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/plugin_2647312_20.patch"
             },
