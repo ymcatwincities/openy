@@ -248,8 +248,13 @@ class MemberRegisterForm extends FormBase {
       return;
     }
 
+    $registrationType = 'site';
+    // Check if we are need to output the mobile version.
+    if (!empty($_GET['mobile'])) {
+      $registrationType = 'mobile';
+    }
     /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
-    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign);
+    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, $registrationType);
     if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
       $form_state->setErrorByName('membership_id', $errorDefault);
 
@@ -354,7 +359,7 @@ class MemberRegisterForm extends FormBase {
 
       // Rebuild form with new $form and $form_state values.
       $new_form = \Drupal::formBuilder()
-          ->rebuildForm($this->getFormId(), $form_state, $form);
+        ->rebuildForm($this->getFormId(), $form_state, $form);
 
       // Refreshing form.
       $response->addCommand(new ReplaceCommand('#' . static::$containerId, $new_form));
