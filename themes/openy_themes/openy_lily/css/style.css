@@ -5,7 +5,7 @@ body {
 }
 
 h1, .h1, h2, .h2, h3, h4, h5, h6 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 
 h1,
@@ -187,7 +187,7 @@ body {
   }
 }
 .footer .footer__brand {
-  background: url("../logo.svg?iefix") no-repeat 0 0;
+  background: url("../logo.png?iefix") no-repeat 0 0;
   background-size: contain;
   display: block;
   height: 56px;
@@ -225,7 +225,7 @@ body {
   padding: 0;
 }
 .footer .footer__nav nav ul li a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 20px;
   text-transform: uppercase;
   line-height: 22px;
@@ -302,7 +302,7 @@ body {
   max-width: 400px;
 }
 .footer .footer__social form label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #fff;
   font-size: 20px;
   line-height: 25px;
@@ -417,7 +417,7 @@ body {
   }
 }
 .is-camp .page-head__top-menu a, .page-head__top-menu a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 16px;
   font-style: normal;
   font-stretch: normal;
@@ -438,7 +438,7 @@ body {
   overflow: visible;
 }
 .is-camp .page-head__main-menu a, .page-head__main-menu a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 18px;
   font-weight: 500;
   font-style: normal;
@@ -1053,7 +1053,7 @@ body {
 }
 
 .btn, .button {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   background-image: none;
   border-radius: 0;
   border: none;
@@ -1114,7 +1114,7 @@ body {
   padding: 15px 0;
 }
 .yamlform-submission-guest-pass-form-form label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 18px;
   line-height: 23px;
 }
@@ -1547,7 +1547,7 @@ body {
   }
 }
 .paragraph-gallery .cta-group-wrapper .cta-group .text {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 18px;
   line-height: 22px;
   margin-bottom: 15px;
@@ -1646,7 +1646,7 @@ body {
 }
 .story-card .quote {
   color: #5c2e91;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 30px;
   line-height: 38px;
   letter-spacing: -1px;
@@ -1758,7 +1758,7 @@ body {
   }
 }
 .banner-title {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #fff;
   font-size: 32px;
   line-height: 36px;
@@ -1778,7 +1778,7 @@ body {
   }
 }
 .banner-description {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #fff;
   font-size: 18px;
   font-style: normal;
@@ -1927,7 +1927,7 @@ body {
 }
 
 .description.purple, .paragraph.featured-content .description {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   padding-bottom: 1em;
   font-size: 20px;
   max-width: 840px;
@@ -1961,7 +1961,7 @@ body {
 }
 .paragraph.featured-content .wrapper-field-prgf-clm-description h3 {
   font-size: 20px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .paragraph.featured-content center {
   margin-top: 1em;
@@ -2131,7 +2131,7 @@ body {
 .paragraph--type--classes-listing-filters .js-form-type-select label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -2143,7 +2143,7 @@ body {
 .paragraph--type--classes-listing-filters .js-form-type-select select {
   text-transform: uppercase;
   color: #4f4f4f;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .paragraph--type--classes-listing-filters .form-actions {
   margin-top: 10px;
@@ -2155,7 +2155,7 @@ body {
 }
 
 .site-alert {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   width: 100%;
 }
 .site-alert__wrapper {
@@ -2351,7 +2351,7 @@ body {
 .program-header .description {
   font-size: 18px;
   line-height: 27px;
-  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Medium", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 @media (min-width: 48em) {
   .program-header .description {
@@ -2583,7 +2583,7 @@ body {
 .sub-category-classes-view .js-form-type-select label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -2595,7 +2595,7 @@ body {
 .sub-category-classes-view .js-form-type-select select {
   text-transform: uppercase;
   color: #4f4f4f;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .sub-category-classes-view .selects-container hr {
   border-color: #636466;
@@ -2650,7 +2650,7 @@ body {
   }
 }
 .sub-category-classes-view .filters-container .reset-wrapper .clear {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   background: none;
   border: none;
   color: #0089d0;
@@ -2678,7 +2678,7 @@ body {
   }
 }
 .sub-category-classes-view .filters-wrapper .label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   display: block;
   font-size: 14px;
@@ -2696,7 +2696,7 @@ body {
   display: inline-block;
 }
 .sub-category-classes-view .filters-wrapper .filters .filter {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   background: #fff;
   border-radius: 4px;
   color: #00aeef;
@@ -2734,7 +2734,7 @@ body {
   }
 }
 .sub-category-classes-view .activity-group h2 {
-  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Medium", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 30px;
   line-height: 1.6;
   letter-spacing: -0.8px;
@@ -2757,7 +2757,7 @@ body {
   color: #333333;
 }
 .sub-category-classes-view .activity-group .views-field-title {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 22px;
   line-height: 1;
   color: #0089d0;
@@ -2888,13 +2888,13 @@ body {
   }
 }
 .branch-header .desktop .column .field-phone a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .branch-header .desktop .column .ygs-branch-selector {
   margin-top: 22px;
 }
 .branch-header .desktop .column .ygs-branch-selector a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .branch-header .desktop h4 {
   font-size: 16px;
@@ -2906,7 +2906,7 @@ body {
   font-size: 16px;
   line-height: 1.1;
   margin: 0;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 @media (min-width: 48em) and (max-width: 62em) {
   .branch-header .desktop p {
@@ -2936,7 +2936,7 @@ body {
   white-space: nowrap;
 }
 .branch-header .desktop .today-hours .dropdown-toggle {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   position: relative;
   z-index: 0;
 }
@@ -3009,7 +3009,7 @@ body {
 .branch-header .mobile p {
   font-size: 16px;
   line-height: 1.1;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   margin: 0 0 5px;
 }
 .branch-header .mobile a {
@@ -3064,10 +3064,10 @@ body {
   font-size: 16px;
   line-height: 1.1;
   margin: 0;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .branch-header .mobile .ui-tabs .today-hours {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .branch-header .mobile .ui-tabs .today-hours .today {
   margin-right: 10px;
@@ -3111,7 +3111,7 @@ body {
 }
 .branch-header .mobile #save-location a {
   color: #fff;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .branch-header .field-location-fax {
   display: inline;
@@ -3248,7 +3248,7 @@ html.js .branch__updates_queue__button {
 .ygs-branch-sessions-form label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -3288,7 +3288,7 @@ html.js .branch__updates_queue__button {
 .ygs-branch-sessions-form .js-form-type-select select {
   text-transform: uppercase;
   color: #4f4f4f;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .ygs-branch-sessions-form .form-item-when-day {
   display: inline-block;
@@ -3413,7 +3413,7 @@ html.js .branch__updates_queue__button {
   }
 }
 .ygs-branch-sessions-form .filters-main-wrapper .reset-wrapper .clear {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   background: none;
   border: none;
   color: #0089d0;
@@ -3441,7 +3441,7 @@ html.js .branch__updates_queue__button {
   }
 }
 .ygs-branch-sessions-form .filters-wrapper .label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   display: block;
   font-size: 14px;
@@ -3459,7 +3459,7 @@ html.js .branch__updates_queue__button {
   display: inline-block;
 }
 .ygs-branch-sessions-form .filters-wrapper .filters .filter {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   background: #fff;
   border-radius: 4px;
   color: #00aeef;
@@ -3501,7 +3501,7 @@ html.js .branch__updates_queue__button {
   padding: 0;
 }
 .branch-sessions-group h3 {
-  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Medium", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 30px;
   line-height: 1.6;
   letter-spacing: -0.8px;
@@ -3563,7 +3563,7 @@ html.js .branch__updates_queue__button {
   color: #333333;
 }
 .branch-sessions-group .group_time {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   background: #fff;
   border-bottom: 1px solid #c6168d;
   color: #5c2e91;
@@ -3831,7 +3831,7 @@ html.js .branch__updates_queue__button {
 .node--type-branch.node--view-mode-class-location .location-item--title,
 .node--type-camp.node--view-mode-teaser .location-item--title {
   font-size: 22px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-weight: bold;
 }
 .marker_tooltip .node--type-facility.node--view-mode-teaser .location-item--title, .marker_tooltip
@@ -3944,7 +3944,7 @@ html.js .branch__updates_queue__button {
 .node--view-mode-full.node--type-facility .associated-branch-title {
   display: inline-block;
   font-size: 22px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-weight: bold;
   margin: 20px 0 33px;
   line-height: 1.1;
@@ -4331,7 +4331,7 @@ html.js .branch__updates_queue__button {
 }
 .blog-more-teaser label {
   display: block;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .blog-more-teaser .form-item-combine label {
   border: 0;
@@ -4344,7 +4344,7 @@ html.js .branch__updates_queue__button {
   width: 1px;
 }
 .blog-more-teaser select {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .blog-more-teaser .form-text {
   width: 100%;
@@ -4363,7 +4363,7 @@ html.js .branch__updates_queue__button {
   border: solid 1px #636466;
   font-size: 16px;
   font-weight: 600;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   text-transform: uppercase;
 }
 .blog-more-teaser .no-results {
@@ -4427,7 +4427,7 @@ html.js .branch__updates_queue__button {
   white-space: normal;
 }
 .class-page-schedule .starting-from {
-  font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Bold", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   margin-bottom: 15px;
   font-size: 16px;
 }
@@ -4441,14 +4441,14 @@ html.js .branch__updates_queue__button {
   margin-bottom: 15px;
 }
 .class-page-schedule .tier-prices .tier-price {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
 .class-page-schedule .ticket {
   color: #5c2e91;
   margin-top: 10px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
@@ -4456,7 +4456,7 @@ html.js .branch__updates_queue__button {
 .class_price,
 .class_time,
 .class_days {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
@@ -4466,7 +4466,7 @@ html.js .branch__updates_queue__button {
 }
 
 .node--type-class.node--view-mode-teaser h2, .node--type-class.node--view-mode-teaser h3 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 22px;
   line-height: 1;
   color: #0089d0;
@@ -4482,7 +4482,7 @@ html.js .branch__updates_queue__button {
 }
 
 .class-page-other-sessions .session .name {
-  font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Bold", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 
 .class__session-instances .class__session-instances-list,
@@ -4495,7 +4495,7 @@ html.js .branch__updates_queue__button {
 .class__session-instance,
 .flexreg__teaser {
   border-bottom: 1px solid #eeeeee;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .class__session-instance td,
 .flexreg__teaser td {
@@ -4503,7 +4503,7 @@ html.js .branch__updates_queue__button {
 }
 .class__session-instance .name,
 .flexreg__teaser .name {
-  font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Bold", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .class__session-instance .description,
 .flexreg__teaser .description {
@@ -4526,7 +4526,7 @@ html.js .branch__updates_queue__button {
 .flexreg__teaser .register a {
   color: #4f4f4f;
   text-decoration: underline;
-  font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Bold", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 
 .table-sessions {
@@ -4603,7 +4603,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .js-form-type-select label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -4615,7 +4615,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .js-form-type-select select {
   text-transform: uppercase;
   color: #4f4f4f;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 #schedules-search-form-wrapper .js-form-type-select.form-item-location {
   padding: 15px 0 25px;
@@ -4654,7 +4654,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .js-form-type-textfield label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -4666,7 +4666,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .js-form-type-textfield input {
   text-transform: uppercase;
   color: #4f4f4f;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   width: 100%;
 }
 #schedules-search-form-wrapper .js-form-type-textfield .hasDatepicker {
@@ -4690,7 +4690,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .form-item-display label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -4755,7 +4755,7 @@ html.js .branch__updates_queue__button {
   }
 }
 #schedules-search-form-wrapper .filters-container .reset-wrapper .clear {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   background: none;
   border: none;
   color: #0089d0;
@@ -4783,7 +4783,7 @@ html.js .branch__updates_queue__button {
   }
 }
 #schedules-search-form-wrapper .filters-wrapper .label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   display: block;
   font-size: 14px;
@@ -4801,7 +4801,7 @@ html.js .branch__updates_queue__button {
   display: inline-block;
 }
 #schedules-search-form-wrapper .filters-wrapper .filters .filter {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   background: #fff;
   border-radius: 4px;
   color: #00aeef;
@@ -4862,7 +4862,7 @@ html.js .branch__updates_queue__button {
   font-style: normal;
 }
 #schedules-search-listing-wrapper .results .group_time {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #5c2e91;
   font-size: 18px;
   margin-bottom: 10px;
@@ -4984,7 +4984,7 @@ html.js .branch__updates_queue__button {
   display: block;
 }
 #schedules-search-listing-wrapper .results .views-row h3 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 22px;
   line-height: 1;
   color: #0089d0;
@@ -5066,7 +5066,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-listing-wrapper .branch-hours-wrapper .card p {
   font-size: 30px;
   line-height: 1.15;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 #schedules-search-listing-wrapper .branch-hours-wrapper .col-sm-2 h4 {
   font-size: 14px;
@@ -5109,7 +5109,7 @@ html.js .branch__updates_queue__button {
 }
 #group-ex-results .caption,
 .groupex-results .caption {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   letter-spacing: -0.8px;
   color: #5c2e91;
   font-size: 30px;
@@ -5152,7 +5152,7 @@ html.js .branch__updates_queue__button {
 }
 #group-ex-results .time,
 .groupex-results .time {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #5c2e91;
   font-size: 18px;
 }
@@ -5188,7 +5188,7 @@ html.js .branch__updates_queue__button {
 }
 #group-ex-results .card h3,
 .groupex-results .card h3 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #0089d0;
   font-size: 22px;
   letter-spacing: -0.8px;
@@ -5235,7 +5235,7 @@ html.js .branch__updates_queue__button {
   color: #c6168d;
   font-size: 18px;
 }
-.groupex-form-full .js-webform-radios {
+.groupex-form-full .js-form-type-radios {
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
@@ -5250,7 +5250,7 @@ html.js .branch__updates_queue__button {
   -o-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-.groupex-form-full .js-webform-radios .js-form-type-radio {
+.groupex-form-full .js-form-type-radios .js-form-type-radio {
   flex-basis: 100%;
   padding-right: 15px;
   margin: 0 0 10px;
@@ -5259,26 +5259,21 @@ html.js .branch__updates_queue__button {
   line-height: 20px;
 }
 @media (min-width: 48em) {
-  .groupex-form-full .js-webform-radios .js-form-type-radio {
+  .groupex-form-full .js-form-type-radios .js-form-type-radio {
     flex-basis: 50%;
   }
 }
-@media (min-width: 62em) {
-  .groupex-form-full .js-webform-radios .js-form-type-radio {
-    flex-basis: 33%;
-  }
-}
-.groupex-form-full .js-webform-radios .js-form-type-radio label {
+.groupex-form-full .js-form-type-radios .js-form-type-radio label {
   font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
   font-size: 15px;
   margin: 0 0 0 7px;
   vertical-align: top;
 }
-.groupex-form-full .js-webform-radios .js-form-type-radio input {
+.groupex-form-full .js-form-type-radios .js-form-type-radio input {
   margin: 0;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 11px;
   vertical-align: top;
 }
 .groupex-form-full .top-form-wrapper {
@@ -5302,7 +5297,7 @@ html.js .branch__updates_queue__button {
   background-repeat: no-repeat;
   background-color: #fff;
   padding-right: 25px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #4f4f4f;
   font-size: 14px;
   text-transform: uppercase;
@@ -5323,6 +5318,9 @@ html.js .branch__updates_queue__button {
 .groupex-form-full .top-form-wrapper #date-select-wrapper {
   max-width: 220px;
 }
+.groupex-form-full .top-form-wrapper #submit-wrapper {
+  display: none !important;
+}
 @media (min-width: 48em) {
   .groupex-form-full .top-form-wrapper #submit-wrapper {
     margin: 46px 30px 0 0;
@@ -5341,6 +5339,9 @@ html.js .branch__updates_queue__button {
     margin-top: 46px;
   }
 }
+.groupex-form-full .top-form-wrapper .groupex-pdf-link-container {
+  float: right;
+}
 @media (min-width: 48em) {
   .groupex-form-full .top-form-wrapper .groupex-pdf-link-container {
     margin-top: 46px;
@@ -5357,7 +5358,7 @@ html.js .branch__updates_queue__button {
   }
 }
 .groupex-form-full .top-form-wrapper .groupex-pdf-link-container a {
-  color: #fff;
+  padding: 12px 15px;
 }
 .groupex-form-full .groupex-results {
   clear: both;
@@ -5381,9 +5382,6 @@ html.js .branch__updates_queue__button {
 }
 .groupex-form-full.branch-specific-form .class-description {
   display: block;
-}
-.groupex-form-full #submit-wrapper {
-  display: block !important;
 }
 
 iframe#ga_iframe {
@@ -5608,7 +5606,7 @@ body .branch-popup + .ui-widget-overlay {
   margin: 0;
   font-weight: normal;
   line-height: inherit;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 @media (min-width: 48em) {
   .modal-body .fieldset-legend {
@@ -5616,7 +5614,7 @@ body .branch-popup + .ui-widget-overlay {
   }
 }
 .modal-body .button {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   height: 40px;
   float: right;
   padding: 10px 20px;
@@ -5799,11 +5797,69 @@ a[href="#step2"] {
 #membership-calc-wrapper .complete-registration {
   background-color: #5c2e91;
 }
+#membership-calc-wrapper .calc-summary {
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+}
+#membership-calc-wrapper .calc-summary .calc-summary-col {
+  border-bottom: 1px solid #333333;
+  flex-basis: calc(100% - 15px);
+  padding-bottom: 15px;
+}
+@media (min-width: 48em) {
+  #membership-calc-wrapper .calc-summary .calc-summary-col {
+    margin: 0 15px 0 0;
+  }
+}
+@media (min-width: 48em) {
+  #membership-calc-wrapper .calc-summary .calc-summary-col:nth-child(2) {
+    margin: 0 0 0 15px;
+  }
+}
+#membership-calc-wrapper .calc-summary .calc-summary-col img {
+  height: 200px;
+  max-width: 100%;
+}
+@media (min-width: 48em) {
+  #membership-calc-wrapper .calc-summary .calc-summary-col {
+    flex-basis: calc(50% - 15px);
+  }
+}
+#membership-calc-wrapper .calc-summary .price {
+  margin-top: 15px;
+  word-break: break-word;
+}
+#membership-calc-wrapper .calc-summary .price .monthly_rate {
+  color: #5c2e91;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0;
+  font-family: "Cachet W01 Medium", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
+}
+#membership-calc-wrapper .calc-summary a.card {
+  color: #636466;
+  display: inline-block;
+  padding: 1px 15px 15px;
+  text-decoration: none;
+  text-align: center;
+  margin-bottom: 15px;
+  vertical-align: top;
+}
+@media (min-width: 48em) {
+  #membership-calc-wrapper .calc-summary a.card {
+    width: 45%;
+  }
+}
+#membership-calc-wrapper .calc-summary a.card.chosen {
+  background-color: #ebebeb;
+  outline: none;
+}
 
 #membership-calc-wrapper .nav-pills {
   display: table;
   width: 100%;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   overflow: hidden;
   margin-bottom: 20px;
   font-size: 13px;
@@ -6027,7 +6083,7 @@ a[href="#step2"] {
   list-style: none;
 }
 .camp-menu__item a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   line-height: 50px;
   line-height: 5rem;
   padding: 0 15px;
@@ -6103,7 +6159,7 @@ a[href="#step2"] {
   padding-left: 0;
 }
 .user-login label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   display: inline-block;
   max-width: 100%;
   margin-bottom: 10px;
@@ -6152,7 +6208,7 @@ a[href="#step2"] {
   list-style: none;
 }
 .openy-page-tabs > ul li {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   display: inline-block;
   font-size: 16px;
   line-height: 17px;
@@ -6170,7 +6226,7 @@ a[href="#step2"] {
   border-right: solid 1px #00aeef;
 }
 .openy-page-tabs > ul li a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   display: block;
   padding: 9px;
   text-decoration: none;
@@ -6302,7 +6358,7 @@ html.js .flag-waiting .flag-throbber {
 }
 
 .status-message ul, .status-message p {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   margin: 0 auto;
   padding: 20px;
   color: #fff;
@@ -6373,7 +6429,7 @@ html.js .flag-waiting .flag-throbber {
   border: none;
   color: #5c2e91;
   font-size: 36px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .programs-search-block-form fieldset .js-webform-radios {
   display: -webkit-flex;
@@ -6423,13 +6479,13 @@ html.js .flag-waiting .flag-throbber {
   font-size: 24px;
   color: #c6168d;
   margin: 40px 0 0;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .programs-search-block-form .result a {
   color: #c6168d;
   text-decoration: underline;
   font-style: normal;
-  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Medium", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .programs-search-block-form .result a em {
   font-style: normal;
@@ -6468,7 +6524,7 @@ html.js .flag-waiting .flag-throbber {
   }
 }
 .wrapper-field-menu-block-links .field-menu-block-links a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: inherit;
   text-transform: uppercase;
   font-size: 14px;
@@ -6518,7 +6574,7 @@ html.js .flag-waiting .flag-throbber {
   }
 }
 .block-description--text h4 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 26px;
   line-height: lh(30, 26);
   color: #5c2e91;
@@ -6639,7 +6695,7 @@ html.js .flag-waiting .flag-throbber {
   width: 100%;
 }
 .block-description--3 .block-description--text h2 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   margin-top: 0px;
   font-size: 22px;
   color: #636466;
@@ -6704,7 +6760,7 @@ html.js .flag-waiting .flag-throbber {
   margin-bottom: 0;
 }
 .block-description--4 .field-prgf-description {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 20px;
   line-height: 1.4;
   color: #5c2e91;
@@ -6713,7 +6769,7 @@ html.js .flag-waiting .flag-throbber {
   padding: 0 15px;
 }
 .block-description--4 .block-description--text h4 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 22px;
   color: #636466;
   text-align: left;
@@ -6811,7 +6867,7 @@ article .node--view-mode-flexible-content h2 a span {
   padding-bottom: 30px;
 }
 .paragraph-1c-wrapper .field-prgf-1c-title {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-weight: normal;
   font-size: 28px;
   color: #636466;
@@ -6825,7 +6881,7 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .paragraph-1c-wrapper .field-prgf-1c-description {
   color: #5c2e91;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   font-size: 20px;
   line-height: 1.45em;
 }
@@ -6861,7 +6917,7 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .paragraph--type--all-amenities .field-field-prgf-amnts-view .views-field-title a {
   color: #fff;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
 }
 .paragraph--type--all-amenities .views-field-field-location-amenities ul {
   list-style: none;
@@ -6892,27 +6948,27 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--all-amenities .views-element-container form {
   margin-bottom: 1em;
 }
-.paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+.paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
   -webkit-columns: 2;
   -moz-columns: 2;
   columns: 2;
 }
 @media (max-width: 480px) {
-  .paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+  .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
     -webkit-columns: 1;
     -moz-columns: 1;
     columns: 1;
   }
 }
 @media (min-width: 768px) {
-  .paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+  .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
     -webkit-columns: 2;
     -moz-columns: 2;
     columns: 2;
   }
 }
 @media (min-width: 992px) {
-  .paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+  .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
     -webkit-columns: 4;
     -moz-columns: 4;
     columns: 4;
@@ -6974,7 +7030,7 @@ article .node--view-mode-flexible-content h2 a span {
   margin: -20px 0 40px;
 }
 .paragraph--type--lto .field-lto-title {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #fff;
   font-size: 36px;
 }
@@ -6990,7 +7046,7 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 .paragraph--type--lto .field-lto-subtitle {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   color: #fff;
   font-size: 20px;
 }
@@ -7031,7 +7087,7 @@ article .node--view-mode-flexible-content h2 a span {
   display: block;
   padding: 12px;
   color: white;
-  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Medium", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
   text-transform: uppercase;
 }
 .wrapper-field-bottom-content .paragraph--type--lto {
@@ -7873,7 +7929,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   border: none;
 }
 
-.pink-button, [data-drupal-selector="edit-cancel"],
+.pink-button, .groupex-form-full .top-form-wrapper .groupex-pdf-link-container a, [data-drupal-selector="edit-cancel"],
 [data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, .edit-registration-actions .fieldset-wrapper a.button, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .button, [data-drupal-selector="edit-add-to-cart"],
@@ -7896,7 +7952,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   vertical-align: middle;
   cursor: pointer;
 }
-.pink-button:hover, [data-drupal-selector="edit-cancel"]:hover,
+.pink-button:hover, .groupex-form-full .top-form-wrapper .groupex-pdf-link-container a:hover, [data-drupal-selector="edit-cancel"]:hover,
 [data-drupal-selector="edit-submit"]:hover,
 [data-drupal-selector="edit-login"]:hover,
 [data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .edit-registration-actions .fieldset-wrapper a.button:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .button:hover, [data-drupal-selector="edit-add-to-cart"]:hover,
@@ -10819,7 +10875,7 @@ body.path-search #block-mainpagecontent li {
 .navbar-default .navbar-nav > li.is-active > a {
   border-top: 2px solid #aa228d;
   background-color: #fff;
-  color: #555;
+  color: #555555;
 }
 
 .gsa_results_wrapper ol {
@@ -12567,7 +12623,7 @@ a.sports-icon.floor-hockey {
   display: block;
   visibility: visible;
   width: 66%;
-  height: 101%;
+  height: 100%;
   background: #434343;
   content: '';
   -webkit-transform: skew(-20deg);

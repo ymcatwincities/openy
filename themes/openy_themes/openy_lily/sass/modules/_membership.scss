@@ -103,6 +103,58 @@ a[href="#step2"] {
   .complete-registration {
     background-color: $purple;
   }
+  .calc-summary {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    .calc-summary-col {
+      border-bottom: 1px solid $darker-grey;
+      flex-basis: calc(100% - 15px);
+      padding-bottom: 15px;
+      @include breakpoint($screen-tablet) {
+        margin: 0 15px 0 0;
+      }
+      &:nth-child(2) {
+        @include breakpoint($screen-tablet) {
+          margin: 0 0 0 15px;
+        }
+      }
+      img {
+        height: 200px;
+        max-width: 100%;
+      }
+      @include breakpoint($screen-tablet) {
+        flex-basis: calc(50% - 15px);
+      }
+    }
+    .price {
+      margin-top: 15px;
+      word-break: break-word;
+      .monthly_rate {
+        color: $purple;
+        font-size: 22px;
+        font-weight: bold;
+        margin: 10px 0;
+        @include cachet-medium();
+      }
+    }
+    a.card {
+      color: $default-grey;
+      display: inline-block;
+      padding: 1px 15px 15px;
+      text-decoration: none;
+      text-align: center;
+      margin-bottom: 15px;
+      vertical-align: top;
+      @include breakpoint($screen-tablet) {
+        width: 45%;
+      }
+      &.chosen {
+        background-color: $lighter-grey;
+        outline: none;
+      }
+    }
+  }
 }
 
 #membership-calc-wrapper .nav-pills {
