@@ -10,6 +10,10 @@ services:
     class: Drupal\openy_campaign\RegularUpdater
     arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@queue']
 
+  openy_campaign.generate_campaign_scorecard:
+    class: Drupal\openy_campaign\CampaignScorecardService
+    arguments: ['@database', '@service_container']
+
   theme.negotiator.openy_campaign:
     class: Drupal\openy_campaign\Theme\ThemeNegotiator
     tags:

@@ -141,6 +141,10 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['registration_type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Registration Type'))
+      ->setDescription(t('The place where the individual was registered.'));
+
     return $fields;
   }
 
@@ -193,6 +197,21 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    */
   public function setGoal($goal) {
     $this->set('goal', $goal);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRegistrationType() {
+    return $this->get('registration_type')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRegistrationType($registrationType) {
+    $this->set('registration_type', $registrationType);
     return $this;
   }
 
@@ -285,10 +304,10 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $errorMessages[] = $validateMemberBranch['error'];
     }
     // Payment type is of the selected in the Target Audience Setting from Campaign.
-//    $validateMemberPaymentType = $this->validateMemberPaymentType();
-//    if (!$validateMemberPaymentType['status']) {
-//      $errorMessages[] = $validateMemberPaymentType['error'];
-//    }
+    //    $validateMemberPaymentType = $this->validateMemberPaymentType();
+    //    if (!$validateMemberPaymentType['status']) {
+    //      $errorMessages[] = $validateMemberPaymentType['error'];
+    //    }
 
     return $errorMessages;
   }
@@ -415,19 +434,22 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   /**
    * Create MemberCampaign entity.
    *
-   * @param $member \Drupal\openy_campaign\Entity\Member Member entity.
-   * @param $campaign \Drupal\node\Entity\Node Campaign node.
+   * @param \Drupal\openy_campaign\Entity\Member $member Member entity.
+   * @param \Drupal\node\Entity\Node $campaign Campaign node.
+   * @param string $registrationType
    *
    * @return bool | \Drupal\openy_campaign\Entity\MemberCampaign
    *   FALSE or MemberCampaign entity
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
-  public static function createMemberCampaign($member, $campaign) {
+  public static function createMemberCampaign($member, $campaign, $registrationType = 'site') {
     /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign object. Will be saved later. */
     $memberCampaign = \Drupal::entityTypeManager()
       ->getStorage('openy_campaign_member_campaign')
       ->create([
         'campaign' => $campaign,
         'member' => $member,
+        'registration_type' => $registrationType,
       ]);
 
     if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {

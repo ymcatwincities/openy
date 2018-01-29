@@ -2,6 +2,9 @@
 
 namespace Drupal\openy_campaign\Form;
 
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -11,6 +14,7 @@ use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\RegularUpdater;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\openy_campaign\Controller\CampaignReportsController;
 
 /**
  * Form controller for the Simplified Team Member Registration Portal form.
@@ -113,13 +117,39 @@ class MemberRegistrationPortalForm extends FormBase {
     ];
 
     if ($step == 1) {
-      // Select Campaign to assign Member
-      $form['campaign_id'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Select Campaign'),
-        '#options' => $options,
-      ];
+      $currentRoute = \Drupal::routeMatch()->getRouteName();
+      if (!empty($form_state->getValue('campaign_id'))) {
+        $default_campaign = $form_state->getValue('campaign_id');
+      }
+      else {
+        $default_campaign = key($options);
+      }
+      if ($currentRoute == 'openy_campaign.member-registration-portal') {
+        $form['#attached']['library'][] = 'openy_campaign/campaign_scorecard';
+        $form['campaign_id'] = [
+          '#type' => 'select',
+          '#title' => $this->t('Select Campaign'),
+          '#options' => $options,
+          '#default_value' => $default_campaign,
+        ];
 
+        $generator = \Drupal::service('openy_campaign.generate_campaign_scorecard');
+        $scorecard = $generator->generateLiveScorecard(Node::load($default_campaign));
+
+        $form['scorecard'] = [
+          '#markup' => '<div id="scorecard-wrapper">' . render($scorecard) . '</div>',
+          '#weight' => 100500,
+        ];
+      }
+
+      else {
+        // Select Campaign to assign Member
+        $form['campaign_id'] = [
+          '#type' => 'select',
+          '#title' => $this->t('Select Campaign'),
+          '#options' => $options,
+        ];
+      }
       // The id on the membership card.
       $form['membership_id'] = [
         '#type' => 'textfield',
@@ -299,7 +329,7 @@ class MemberRegistrationPortalForm extends FormBase {
     }
 
     /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
-    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign);
+    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, 'portal');
     if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
       $form_state->setErrorByName('membership_id', $errorDefault);
 
