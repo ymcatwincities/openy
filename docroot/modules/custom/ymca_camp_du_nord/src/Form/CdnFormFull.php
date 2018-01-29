@@ -486,6 +486,7 @@ class CdnFormFull extends FormBase {
       }
 
       $first = '';
+      $skip = FALSE;
       foreach ($cabins as $cabin) {
         $product = $cabin['start_product'];
         // Fill all the cabins with data.
@@ -497,10 +498,15 @@ class CdnFormFull extends FormBase {
           $first = $product->field_cdn_prd_cabin_id->value;
         }
         if (empty($this->state['cid']) && $product->field_cdn_prd_cabin_id->value !== $first) {
-          continue;
+          $skip = TRUE;
         }
         // Use chosen cabin.
         if (!empty($this->state['cid']) && $this->state['cid'] !== 'all' && $product->field_cdn_prd_cabin_id->value !== $this->state['cid']) {
+          $skip = TRUE;
+        }
+        if ($skip) {
+          $teasers[$product->field_cdn_prd_cabin_id->value]['teaser']['teaser']['#panorama'] = '';
+          $teasers[$product->field_cdn_prd_cabin_id->value]['teaser']['teaser']['#description'] = '';
           continue;
         }
         $code = $product->field_cdn_prd_code->value;
