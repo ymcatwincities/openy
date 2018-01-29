@@ -299,7 +299,7 @@ class MemberRegistrationPortalForm extends FormBase {
     }
 
     /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
-    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign);
+    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, 'portal');
     if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
       $form_state->setErrorByName('membership_id', $errorDefault);
 
