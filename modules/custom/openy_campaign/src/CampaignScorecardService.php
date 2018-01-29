@@ -215,7 +215,7 @@ class CampaignScorecardService {
       $result['total']['util_of_goal'] = number_format($result['total']['util_of_goal']/count($targets), 1);
     }
     else {
-      $result['empty'] = $this->t('Campaign @campaign has no active branches. Please edit current campaign', ['@campaign' => $node->label()]);
+      $result['empty'] = t('Campaign @campaign has no active branches. Please edit current campaign', ['@campaign' => $node->label()]);
     }
     $build = [
       '#theme' => 'openy_campaign_scorecard',
