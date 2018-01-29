@@ -23,6 +23,7 @@ function ymca_membership_theme($existing, $type, $theme, $path) {
         'block_become_a_member' => '',
         'block_ready_started' => '',
         'form' => '',
+        'base_path' => '',
       ],
       'template' => 'membership-page',
     ],

@@ -39,6 +39,7 @@ class YMCAMembershipPage extends ControllerBase {
       '#block_become_a_member' => $block_become_a_member,
       '#block_ready_started' => $block_ready_started,
       '#form' => $form,
+      '#base_path' => base_path(),
       '#theme' => 'membership_page',
       '#cache' => [
         'max-age' => 0,
