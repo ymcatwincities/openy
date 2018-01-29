@@ -819,6 +819,30 @@ function openy_lily_preprocess_form(&$variables) {
 }
 
 /**
+ * Prepares variables for radios templates.
+ *
+ * Default template: radios.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #options, #description, #required,
+ *     #attributes, #children.
+ */
+function openy_lily_preprocess_radios(&$variables) {
+  $element = $variables['element'];
+  $variables['attributes'] = [];
+  if (isset($element['#id'])) {
+    $variables['attributes']['id'] = $element['#id'];
+  }
+  if (isset($element['#attributes']['title'])) {
+    $variables['attributes']['title'] = $element['#attributes']['title'];
+  }
+  $variables['children'] = $element['#children'];
+  $variables['attributes']['class'][] = 'js-form-type-radios';
+}
+
+/**
  * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_file_link(&$variables) {

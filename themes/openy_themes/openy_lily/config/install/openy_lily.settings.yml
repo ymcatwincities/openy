@@ -26,7 +26,8 @@ header_buttons_color2_camps: '#2fb998'
 camps_links_color: '#01a490'
 camps_links_color_hover: ''
 logo:
-  use_default: 1
+  use_default: 0
+  path: profiles/contrib/openy/themes/openy_themes/openy_lily/logo.png
 openy_rose_footer_logo: {  }
 favicon:
   use_default: 1

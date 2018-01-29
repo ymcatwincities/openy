@@ -636,7 +636,7 @@
     color: $pink;
     font-size: 18px;
   }
-  .js-webform-radios {
+  .js-form-type-radios {
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -660,9 +660,6 @@
       @include breakpoint($screen-tablet) {
         flex-basis: 50%;
       }
-      @include breakpoint($screen-desktop) {
-        flex-basis: 33%;
-      }
       label {
         @include helvetica-neue();
         font-size: 15px;
@@ -673,7 +670,7 @@
         margin: 0;
         position: absolute;
         left: 0;
-        top: 0;
+        top: 11px;
         vertical-align: top;
       }
     }
@@ -718,6 +715,7 @@
       max-width: 220px;
     }
     #submit-wrapper {
+      display: none !important;
       @include breakpoint($screen-tablet) {
         margin: 46px 30px 0 0;
       }
@@ -732,6 +730,7 @@
       }
     }
     .groupex-pdf-link-container {
+      float: right;
       @include breakpoint($screen-tablet) {
         margin-top: 46px;
       }
@@ -742,7 +741,8 @@
         margin-top: 46px;
       }
       a {
-        color: #fff;
+        @extend .pink-button;
+        padding: 12px 15px;
       }
     }
   }
@@ -770,9 +770,6 @@
     .class-description {
       display: block;
     }
-  }
-  #submit-wrapper {
-    display: block !important;
   }
 }
 
