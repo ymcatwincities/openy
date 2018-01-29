@@ -71,11 +71,27 @@ interface MemberCampaignInterface extends ContentEntityInterface {
    * Sets the visit goal for MemberCampaign.
    *
    * @param int $goal
-   *   The campaign object.
    *
    * @return \Drupal\openy_campaign\MemberCampaignInterface
    *   The called member entity.
    */
   public function setGoal($goal);
+
+  /**
+   * Returns the registration type.
+   *
+   * @return string
+   */
+  public function getRegistrationType();
+
+  /**
+   * Sets the registration type for MemberCampaign.
+   *
+   * @param string $registrationType
+   *
+   * @return \Drupal\openy_campaign\MemberCampaignInterface
+   *   The called member entity.
+   */
+  public function setRegistrationType($registrationType);
 
 }
