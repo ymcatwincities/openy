@@ -24,6 +24,7 @@ content:
       muted: 0
     third_party_settings: {  }
     type: videojs_player_list
+    region: content
 hidden:
   created: true
   langcode: true

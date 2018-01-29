@@ -26,6 +26,12 @@ widgets:
       dropzone_description: 'Drop files here to upload them'
       max_filesize: 100M
       extensions: 'mp4 webm ogg ogv'
+      clientside_resize: false
+      resize_width: null
+      resize_height: null
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
       submit_text: 'Select entities'
     uuid: 9fb81a40-c7ee-40b0-b8c0-b20b248590bb
     weight: -10

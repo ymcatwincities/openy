@@ -5,7 +5,9 @@ core: 8.x
 package: OpenY
 dependencies:
   - datalayer
+  - entity_browser
   - field
   - media_entity
+  - openy_media_local_video
   - paragraphs
 version: 8.x-1.1

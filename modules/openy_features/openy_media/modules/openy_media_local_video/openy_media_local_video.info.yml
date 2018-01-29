@@ -14,7 +14,9 @@ dependencies:
   - language
   - media_entity
   - media_entity_video
+  - openy_media
+  - path
+  - taxonomy
   - user
   - video
   - videojs
-version: 8.x-1.0
