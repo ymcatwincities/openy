@@ -2,7 +2,6 @@
 
 namespace Drupal\openy_campaign\Form;
 
-use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Winner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -75,13 +74,13 @@ class WinnersCalculateForm extends FormBase {
       '#open' => FALSE,
     ];
 
-    /** @var Node $campaign */
+    /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = \Drupal::routeMatch()->getParameter('node');
     $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
     if (!empty($form_state->getValue('field_campaign_fitness_category'))) {
       $activitiesVoc = $form_state->getValue('field_campaign_fitness_category')[0]['target_id'];
     }
-    $activitiesTree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($activitiesVoc, 0, 1);
+    $activitiesTree = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree($activitiesVoc, 0, 1);
     $options = [];
     foreach ($activitiesTree as $item) {
       $options[$item->tid] = $item->name;
@@ -123,8 +122,8 @@ class WinnersCalculateForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $campaignId = $form_state->getValue('campaign_id');
-    /** @var Node $campaign */
-    $campaign = Node::load($campaignId);
+    /** @var \Drupal\node\Entity\Node $campaign */
+    $campaign = $this->entityTypeManager->getStorage('node')->load($campaignId);
 
     // Get all branches.
     $values = [
@@ -323,7 +322,7 @@ class WinnersCalculateForm extends FormBase {
   /**
    * Get all needed data for current campaign
    *
-   * @param Node $campaign Campaign node entity.
+   * @param \Drupal\node\Entity\Node $campaign Campaign node entity.
    * @param int $branchId Branch ID to calculate winners for.
    * @param array $activities Array of arrays with all activities for current Campaign.
    *    Key - parent activity, value - array of child ones.
