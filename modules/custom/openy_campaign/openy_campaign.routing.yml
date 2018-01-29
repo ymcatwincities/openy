@@ -289,3 +289,12 @@ openy_campaign.campaign_reports_live_scorecard:
   requirements:
     #_permission: 'administer retention campaign'
     _permission: 'view retention campaign reports'
+
+
+openy_campaign.ajax_campaign_scorecard:
+  path: '/ajaxCallback/campaignScorecard/{node}'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::ajaxCallbackGenerateLiveScorecard'
+  requirements:
+    #_permission: 'administer retention campaign'
+    _permission: 'view retention campaign reports'
