@@ -473,6 +473,7 @@ class CdnFormFull extends FormBase {
             'teaser' => [
               '#theme' => 'cdn_village_teaser',
               '#title' => $mapping->getName(),
+              '#village_id' => $this->getVillageByCabinId($cid),
               '#description' => $description,
               '#panorama' => $panorama,
               '#image' => $image,
@@ -486,8 +487,8 @@ class CdnFormFull extends FormBase {
       }
 
       $first = '';
-      $skip = FALSE;
       foreach ($cabins as $cabin) {
+        $skip = FALSE;
         $product = $cabin['start_product'];
         // Fill all the cabins with data.
         $teasers[$product->field_cdn_prd_cabin_id->value] = [
