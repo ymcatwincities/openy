@@ -473,6 +473,7 @@ class CdnFormFull extends FormBase {
             'teaser' => [
               '#theme' => 'cdn_village_teaser',
               '#title' => $mapping->getName(),
+              '#village_id' => $this->getVillageByCabinId($cid),
               '#description' => $description,
               '#panorama' => $panorama,
               '#image' => $image,
