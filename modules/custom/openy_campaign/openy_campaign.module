@@ -289,6 +289,9 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
     return;
   }
 
+  // Add classes for Campaign and Campaign Pages
+  $variables['attributes']['class'][] = $node->bundle() . ' node-' . $node->id();
+
   $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
 
   /** @var \Drupal\openy_campaign\CampaignMenuService $campaignMenuService */

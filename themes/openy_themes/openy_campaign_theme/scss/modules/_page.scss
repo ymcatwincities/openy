@@ -499,6 +499,45 @@ body {
   }
 }
 
+.node-422 {
+  li a {
+    font-size: 18px;
+  }
+  @include breakpoint($screen-phone) {
+    .label-for-field-prgf-activity-visits {
+      padding: 0 15px 15px;
+      h4 {
+        text-align: center;
+        font-size: 28px !important;
+        font-weight: 400;
+        line-height: 40px;
+      }
+    }
+    .field-prgf-activity-visits {
+      padding: 0 15px;
+    }
+  }
+  @include breakpoint($screen-lg-desktop) {
+    .field-content {
+      display: inline-block;
+      width: 50%;
+      float: left;
+    }
+    .label-for-field-prgf-activity-visits {
+      padding: 0 10px 32px 10px;
+      h4 {
+        text-align: center;
+        font-size: 40px !important;
+        font-weight: 400;
+        line-height: 57px;
+      }
+    }
+    .columns .paragraph-container {
+      padding: 0;
+    }
+  }
+}
+
 a:active, a:focus,
 div:active, div:focus,
 button:active, button:focus {
