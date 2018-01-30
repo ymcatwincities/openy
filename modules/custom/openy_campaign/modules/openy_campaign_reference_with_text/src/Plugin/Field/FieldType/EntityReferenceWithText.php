@@ -8,11 +8,14 @@
 namespace Drupal\openy_campaign_reference_with_text\Plugin\Field\FieldType;
 
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\TypedData\EntityDataDefinition;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Field\Plugin\Field\FieldType\EntityReferenceItem;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
+use Drupal\Core\TypedData\DataReferenceDefinition;
 use Drupal\Core\TypedData\DataReferenceTargetDefinition;
 
 /**
@@ -43,14 +46,29 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
+    $settings = $field_definition->getSettings();
+    $target_type_info = \Drupal::entityManager()->getDefinition($settings['target_type']);
+
     // Add our properties.
     $properties['target_id'] = DataReferenceTargetDefinition::create('integer')
-      ->setLabel(t('Branch Id'))
-      ->setDescription(t('Selected Branch'));
+      ->setLabel(t('Target Id'))
+      ->setDescription(t('Selected Entity'));
 
     $properties['value'] = DataDefinition::create('string')
-      ->setLabel(t('Target'))
-      ->setDescription(t('Target number'));
+      ->setLabel(t('Total number'))
+      ->setDescription(t('Total number'));
+
+    $properties['entity'] = DataReferenceDefinition::create('entity')
+      ->setLabel($target_type_info->getLabel())
+      ->setDescription(new TranslatableMarkup('The referenced entity'))
+      // The entity object is computed out of the entity ID.
+      ->setComputed(TRUE)
+      ->setReadOnly(FALSE)
+      ->setTargetDefinition(EntityDataDefinition::create($settings['target_type']))
+      // We can add a constraint for the target entity type. The list of
+      // referenceable bundles is a field setting, so the corresponding
+      // constraint is added dynamically in ::getConstraints().
+      ->addConstraint('EntityType', $settings['target_type']);
 
     return $properties;
 
