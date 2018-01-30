@@ -246,8 +246,8 @@
       function cdn_change_village_capacity(val_v, val_c) {
         $('.cdn-village-teaser, .cdn-calendar, .cdn-no-results').hide();
         if (val_v !== 'all' || val_c !== 'all') {
-          $('.cdn-calendar-list-row').each(function () {
-            var i = $(this).parents('.cdn-calendar').data('index');
+          $('.cdn-village-teaser').each(function () {
+            var i = $(this).data('index');
             // Filter only by village.
             if (val_v !== 'all' && val_c === 'all') {
               if ($(this).data('village_id') * 1 === val_v * 1) {
