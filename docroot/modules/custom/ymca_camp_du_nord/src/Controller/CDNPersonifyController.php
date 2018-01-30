@@ -120,6 +120,9 @@ class CDNPersonifyController extends ControllerBase {
     return [
       '#theme' => 'cdn_confirmation_page',
       '#data' => $query,
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 
