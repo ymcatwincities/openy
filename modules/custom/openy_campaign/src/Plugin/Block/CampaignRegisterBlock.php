@@ -23,6 +23,7 @@ use Drupal\openy_campaign\OpenYLocaleDate;
 class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   protected $request_stack;
+
   /**
    * Form builder.
    *
@@ -80,7 +81,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    */
   public function build() {
     // Get campaign node from current page URL
-    /** @var Node $campaign */
+    /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
     $block['#cache']['max-age'] = 0;
@@ -130,7 +131,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     ];
 
     /**
-     * @var Node $currentNode
+     * @var \Drupal\node\Entity\Node $currentNode
      */
     $currentNode= $this->request_stack->getCurrentRequest()->get('node');
 
@@ -144,7 +145,8 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
         && !(MemberCampaign::isLoggedIn($campaign->id()))
         && $currentNodeType !== 'campaign_page') {
 
-      if (1
+      if (($localeRegistrationStart->dateExpired() && !$localeRegistrationEnd->dateExpired()) ||
+        ($localeCampaignStart->dateExpired() && !$localeCampaignEnd->dateExpired())
       ) {
         // Show Register block form
         $form = $this->formBuilder->getForm(
