@@ -122,10 +122,17 @@ class MemberRegistrationPortalForm extends FormBase {
     $form['#suffix'] = '</div>';
 
     $form['link'] = [
-      '#title' => $this->t('Members List'),
+      '#title' => $this->t('Members List >>>'),
       '#type' => 'link',
       '#url' => Url::fromRoute('openy_campaign.team_member.list'),
       '#weight' => 0,
+      '#attributes' => [
+        'class' => [
+          'align-right',
+        ],
+      ],
+      '#prefix' => '<div class="row">',
+      '#suffix' => '</div>',
     ];
 
     $membership_id = $form_state->get('membership_id');
