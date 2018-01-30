@@ -6,7 +6,6 @@ use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\node\Entity\Node;
-use Drupal\node\NodeTypeInterface;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
@@ -24,6 +23,7 @@ use Drupal\openy_campaign\OpenYLocaleDate;
 class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   protected $request_stack;
+
   /**
    * Form builder.
    *
@@ -81,7 +81,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    */
   public function build() {
     // Get campaign node from current page URL
-    /** @var Node $campaign */
+    /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
     $block['#cache']['max-age'] = 0;
@@ -92,24 +92,19 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
 
     $activeRegistration = TRUE;
 
-    // Get localized versions of our times.
-    $campaignTimezone = new \DateTime($campaign->get('field_campaign_timezone')->getString());
-    $campaignTimezone = $campaignTimezone->getTimezone();
+    // Get site timezone
+    $config = \Drupal::config('system.date');
+    $configSiteDefaultTimezone = !empty($config->get('timezone.default')) ? $config->get('timezone.default') : date_default_timezone_get();
+    $siteDefaultTimezone = new \DateTimeZone($configSiteDefaultTimezone);
 
-    $localeCampaignStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString());
-    $localeCampaignStart->convertTimezone($campaignTimezone);
-
-    $localeCampaignEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_end_date')->getString());
-    $localeCampaignEnd->convertTimezone($campaignTimezone);
-
-    $localeRegistrationStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_start_date')->getString());
-    $localeRegistrationStart->convertTimezone($campaignTimezone);
-
-    $localeRegistrationEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_end_date')->getString());
-    $localeRegistrationEnd->convertTimezone($campaignTimezone);
+    // Get localized versions of Campaign dates. Convert it to site timezone to compare with current date.
+    $localeCampaignStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString(), $siteDefaultTimezone);
+    $localeCampaignEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_end_date')->getString(), $siteDefaultTimezone);
+    $localeRegistrationEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_end_date')->getString(), $siteDefaultTimezone);
+    $localeRegistrationStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_start_date')->getString(), $siteDefaultTimezone);
 
     // Define if we need to show register block or not.
-    if (!$localeCampaignStart->dateExpired() || $localeRegistrationEnd->dateExpired()) {
+    if ($localeCampaignStart->dateExpired() || $localeRegistrationEnd->dateExpired()) {
       $activeRegistration = FALSE;
     }
 
@@ -121,10 +116,10 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
         ],
         'drupalSettings' => [
           'campaignSettings' => [
-            'startDate' => $campaign->get('field_campaign_start_date')->value,
-            'endDate' => $campaign->get('field_campaign_end_date')->value,
-            'startRegDate' => $campaign->get('field_campaign_reg_start_date')->value,
-            'endRegDate' => $campaign->get('field_campaign_reg_end_date')->value
+            'startDate' => $localeCampaignStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT),
+            'endDate' => $localeCampaignEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT),
+            'startRegDate' => $localeRegistrationStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT),
+            'endRegDate' => $localeRegistrationEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT),
           ]
         ]
       ],
@@ -136,7 +131,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     ];
 
     /**
-     * @var Node $currentNode
+     * @var \Drupal\node\Entity\Node $currentNode
      */
     $currentNode= $this->request_stack->getCurrentRequest()->get('node');
 

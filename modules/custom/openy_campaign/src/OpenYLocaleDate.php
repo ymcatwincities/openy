@@ -10,7 +10,6 @@ namespace Drupal\openy_campaign;
 
 use \DateTime;
 use \DateTimeZone;
-use Drupal\Core\Render\Element\Date;
 
 class OpenYLocaleDate {
 
@@ -73,7 +72,7 @@ class OpenYLocaleDate {
     $toTimezone = !empty($toTimezone) ? $toTimezone : new DateTimeZone($this->siteTimezone);
     $this->convertedTimezone = $fromTimezone;
     $new_date = new DateTime();
-    $timestamp = $this->getDate()->getTimestamp() - $toTimezone->getOffset($this->getDate()) + $fromTimezone->getOffset($this->getDate());
+    $timestamp = $this->getDate()->getTimestamp() + $fromTimezone->getOffset($this->getDate());
     $new_date->setTimestamp($timestamp);
     $new_date->setTimezone($toTimezone);
     $this->date = $new_date;
