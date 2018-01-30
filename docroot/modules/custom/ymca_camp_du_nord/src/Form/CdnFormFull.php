@@ -486,8 +486,8 @@ class CdnFormFull extends FormBase {
       }
 
       $first = '';
-      $skip = FALSE;
       foreach ($cabins as $cabin) {
+        $skip = FALSE;
         $product = $cabin['start_product'];
         // Fill all the cabins with data.
         $teasers[$product->field_cdn_prd_cabin_id->value] = [
