@@ -37,7 +37,7 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
 
     $header = array(
       'branch' => t('Branch'),
-      'target' => t('Target'),
+      'target' => t('Total Members'),
     );
 
     foreach ($options as $id => $option) {
@@ -53,8 +53,9 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
                 $selectedValues[$id] : NULL,
               '#value' => !empty($selectedValues[$id]) ?
                 $selectedValues[$id] : NULL,
-              '#placeholder' => t('Target'),
+              '#placeholder' => t('Total Members'),
               '#name' => 'branch_target_for_' . $id,
+              '#size' => 15,
             ],
           ],
         ];
