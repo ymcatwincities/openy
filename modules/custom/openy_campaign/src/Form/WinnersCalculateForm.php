@@ -126,11 +126,11 @@ class WinnersCalculateForm extends FormBase {
     $campaign = $this->entityTypeManager->getStorage('node')->load($campaignId);
 
     // Get all branches.
-    $values = [
-      'type' => 'branch',
-      'status' => 1,
-    ];
-    $branches = $this->entityTypeManager->getListBuilder('node')->getStorage()->loadByProperties($values);
+    $branches = [];
+    $branchTargets = $campaign->get('field_campaign_branch_target')->getValue();
+    foreach ($branchTargets as $branchTarget) {
+      $branches[$branchTarget['target_id']] = $branchTarget['value'];
+    }
 
     // Get all needed activities grouped by it's parent item.
     $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
@@ -230,8 +230,6 @@ class WinnersCalculateForm extends FormBase {
     $query->condition('mc.campaign', $campaignId);
 
     $winnerIDs = $query->execute()->fetchCol();
-
-    drupal_set_message(serialize($winnerIDs));
 
     /** @var \Drupal\Core\Entity\EntityStorageInterface $storage */
     $storage = \Drupal::service('entity_type.manager')->getStorage('openy_campaign_winner');

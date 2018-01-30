@@ -108,14 +108,44 @@ class WinnersBlockForm extends FormBase {
     $winners = $this->getCampaignWinners($campaignId, $branchId);
     $prizes = $this->getCampaignPrizes($campaignId);
 
-    $output = [];
+    // Group prizes by titles and select all winners for these titles.
+    // This grouping is needed if the campaign has several identical prizes.
+    $prizesMap = [];
+    $winnersMap = [];
     foreach ($prizes as $place => $prize) {
+      $prizesMap[$prize['title']] = [
+        'title' => $prize['title'],
+        'description' => $prize['text'],
+        'winners' => [],
+      ];
       if (!empty($winners[$place])) {
+        foreach ($winners[$place] as $winner) {
+          $winnersMap[$prize['title']][] = $winner;
+        }
+      }
+    }
+
+    // Sort all winners alphabetically.
+    foreach ($winnersMap as &$winners) {
+      usort($winners, function ($a, $b) {
+        return strcmp($a['name'], $b['name']);
+      });
+    }
+
+    foreach ($prizesMap as $key => $prize) {
+      if (!empty($winnersMap[$key])) {
+        $prizesMap[$key]['winners'] = $winnersMap[$key];
+      }
+    }
+
+    $output = [];
+    foreach ($prizesMap as $key => $prize) {
+      if (!empty($prize['winners'])) {
         $output[] = [
           '#theme' => 'openy_campaign_winners',
           '#title' => $prize['title'],
-          '#prize' => $prize['text'],
-          '#winners' => $winners[$place],
+          '#prize' => $prize['description'],
+          '#winners' => $prize['winners'],
         ];
       }
     }
