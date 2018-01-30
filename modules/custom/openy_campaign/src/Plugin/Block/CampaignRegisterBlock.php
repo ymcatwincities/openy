@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Plugin\Block;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
@@ -10,6 +11,7 @@ use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\openy_campaign\OpenYLocaleDate;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides a 'Register' block.
@@ -22,6 +24,11 @@ use Drupal\openy_campaign\OpenYLocaleDate;
  */
 class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
+  /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
   protected $request_stack;
 
   /**
@@ -39,6 +46,13 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
   protected $campaignMenuService;
 
   /**
+   * The config factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Constructs a new Block instance.
    *
    * @param array $configuration
@@ -49,15 +63,23 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    *   The plugin implementation definition.
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
+   *   The Campaign menu service.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition,
                               FormBuilderInterface $formBuilder,
                               CampaignMenuServiceInterface $campaign_menu_service,
-                              $request_stack) {
+                              RequestStack $request_stack,
+                              ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
     $this->campaignMenuService = $campaign_menu_service;
     $this->request_stack = $request_stack;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -72,7 +94,8 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       $plugin_definition,
       $container->get('form_builder'),
       $container->get('openy_campaign.campaign_menu_handler'),
-      $container->get('request_stack')
+      $container->get('request_stack'),
+      $container->get('config.factory')
     );
   }
 
@@ -93,7 +116,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     $activeRegistration = TRUE;
 
     // Get site timezone
-    $config = \Drupal::config('system.date');
+    $config = $this->configFactory->get('system.date');
     $configSiteDefaultTimezone = !empty($config->get('timezone.default')) ? $config->get('timezone.default') : date_default_timezone_get();
     $siteDefaultTimezone = new \DateTimeZone($configSiteDefaultTimezone);
 

@@ -7,6 +7,7 @@ use Drupal\views\ViewExecutableFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
+use Drupal\Core\Url;
 
 /**
  * Class TeamMemberUIController to show page with UI for Team members.
@@ -80,6 +81,11 @@ class TeamMemberUIController extends ControllerBase {
     }
 
     $build = [
+      'link' => [
+        '#type' => 'link',
+        '#title' => $this->t('Registration Portal'),
+        '#url' => Url::fromRoute('openy_campaign.member-registration-portal'),
+      ],
       'view' => $view->render(),
     ];
 
