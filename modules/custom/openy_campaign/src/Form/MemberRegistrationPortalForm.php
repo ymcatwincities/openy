@@ -105,6 +105,8 @@ class MemberRegistrationPortalForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['#cache'] = ['max-age' => 0];
+
     $campaigns = $this->campaignMenuService->getActiveCampaigns();
     $options = [];
     foreach ($campaigns as $item) {
@@ -112,7 +114,9 @@ class MemberRegistrationPortalForm extends FormBase {
       $options[$item->id()] = $item->getTitle();
     }
 
-    $form['#cache'] = ['max-age' => 0];
+    if (empty($options)) {
+      return $form;
+    }
 
     $form['#prefix'] = '<div class="container">';
     $form['#suffix'] = '</div>';
@@ -147,30 +151,26 @@ class MemberRegistrationPortalForm extends FormBase {
 
     if ($step == 1) {
       $currentRoute = $this->routeMatch->getRouteName();
-      if (!empty($form_state->getValue('campaign_id'))) {
-        $default_campaign = $form_state->getValue('campaign_id');
-      }
-      else {
-        $default_campaign = key($options);
-      }
       if ($currentRoute == 'openy_campaign.member-registration-portal') {
-        $form['#attached']['library'][] = 'openy_campaign/campaign_scorecard';
-        $form['campaign_id'] = [
-          '#type' => 'select',
-          '#title' => $this->t('Select Campaign'),
-          '#options' => $options,
-          '#default_value' => $default_campaign,
-        ];
+        $defaultCampaignID = (!empty($form_state->getValue('campaign_id'))) ? $form_state->getValue('campaign_id') : key($options);
+        $defaultCampaign = $this->entityTypeManager->getStorage('node')->load($defaultCampaignID);
 
-        $campaignNode = $this->entityTypeManager->getStorage('node')->load($default_campaign);
-        $scorecard = $this->campaignScorecardService->generateLiveScorecard($campaignNode);
+        if ($defaultCampaign instanceof \Drupal\node\Entity\Node === TRUE) {
+          $form['#attached']['library'][] = 'openy_campaign/campaign_scorecard';
+          $form['campaign_id'] = [
+            '#type' => 'select',
+            '#title' => $this->t('Select Campaign'),
+            '#options' => $options,
+            '#default_value' => $defaultCampaign->id(),
+          ];
+          $scorecard = $this->campaignScorecardService->generateLiveScorecard($defaultCampaign);
 
-        $form['scorecard'] = [
-          '#markup' => '<div id="scorecard-wrapper">' . render($scorecard) . '</div>',
-          '#weight' => 100500,
-        ];
+          $form['scorecard'] = [
+            '#markup' => '<div id="scorecard-wrapper">' . render($scorecard) . '</div>',
+            '#weight' => 100500,
+          ];
+        }
       }
-
       else {
         // Select Campaign to assign Member
         $form['campaign_id'] = [
