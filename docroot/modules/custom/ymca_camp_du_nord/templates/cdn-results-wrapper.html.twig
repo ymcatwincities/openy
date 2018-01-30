@@ -14,9 +14,9 @@
 <div class="cdn-village-teasers">
   <div class="container">
     <div class="row">
-    {% for key, teaser in teasers %}
-      <div class="cdn-village-teaser" data-index="{{ key }}">
-      {{ teaser.teaser }}
+    {% for key, data in teasers %}
+      <div class="cdn-village-teaser" data-index="{{ key }}" data-total_capacity="{{ data.teaser.teaser['#capacity'] }}" data-village_id="{{ data.teaser.teaser['#village_id'] }}">
+      {{ data.teaser.teaser }}
       </div>
     {% endfor %}
     </div>
