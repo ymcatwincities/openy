@@ -83,8 +83,15 @@ class TeamMemberUIController extends ControllerBase {
     $build = [
       'link' => [
         '#type' => 'link',
-        '#title' => $this->t('Registration Portal'),
+        '#title' => $this->t('Registration Portal >>>'),
         '#url' => Url::fromRoute('openy_campaign.member-registration-portal'),
+        '#attributes' => [
+          'class' => [
+            'align-right',
+          ],
+        ],
+        '#prefix' => '<div class="row">',
+        '#suffix' => '</div>',
       ],
       'view' => $view->render(),
     ];
