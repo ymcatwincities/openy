@@ -56,3 +56,7 @@ description: fix composer_manager fails on composer drupal-update command
 patch: docroot/modules/patches/2857270.patch
 drupal.org issue: https://www.drupal.org/project/datalayer/issues/2857270#comment-12393678
 description: Entity reference field selected causing Fatal Error
+
+patch: docroot/modules/patches/core.acquia.block_content.diff
+acquia ticket: https://insight.acquia.com/support/tickets/644913#comment-457855935107 + https://insight.acquia.com/support/tickets/655770
+description: Fix for cache load for content blocks
