@@ -218,12 +218,15 @@ class MemberRegisterForm extends FormBase {
 
     // Registration attempt for already registered member.
     if ($memberCampaignID) {
-      /*$msgAlreadyRegistered = $config->get('error_register_already_registered');
+      $msgAlreadyRegistered = $config->get('error_register_already_registered');
       $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
       // Get error from Campaign node
       if (!empty($campaign->field_reg_already_registered->value)) {
         $errorAlreadyRegistered = check_markup($campaign->field_reg_already_registered->value, $campaign->field_reg_already_registered->format);
-      }*/
+      }
+
+      $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
+      return;
     }
 
     /** @var Member $member Load or create Temporary Member object. Will be saved by submit. */
