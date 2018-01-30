@@ -218,6 +218,14 @@ p {
   width: 70%;
 }
 
+@media (min-width: 75em) {
+  .paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
+    margin-bottom: 50px;
+  }
+  .paragraph-background-container .title, .paragraph--type--campaign-winners .winners-branches-select .title {
+    margin-bottom: 50px;
+  }
+}
 .paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
   padding: 0 20px;
 }
@@ -289,7 +297,7 @@ p {
 @media (min-width: 75em) {
   .columns .paragraph-container .block-description--text {
     display: table-cell;
-    padding: 25px 10px 40px 10px;
+    padding: 0px 10px 40px 10px;
   }
 }
 
@@ -300,7 +308,7 @@ p {
 }
 @media (min-width: 75em) {
   .page-node-type-campaign .columns .paragraph-container {
-    padding: 50px 125px;
+    padding: 0px 50px;
   }
 }
 
