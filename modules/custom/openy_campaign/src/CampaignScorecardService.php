@@ -179,7 +179,13 @@ class CampaignScorecardService {
         $result['total']['reg_of_goal'] += $reg_of_goal;
 
         // Utilization calculation
-        $util_goal = number_format($goal * $utilizationGoal/100);
+        if ($reg_actual >= $goal) {
+          $util_goal = number_format($reg_actual * $utilizationGoal/100);
+        }
+        else {
+          $util_goal = number_format($goal * $utilizationGoal/100);
+        }
+
         $result['utilization'][$id]['goal']  = $util_goal;
 
         $util_actual = $this->getCampaignUtilizationActivitiesByBranches($node);
