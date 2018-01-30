@@ -59,6 +59,15 @@
 }
 
 // Background container prgf type styles.
+@include breakpoint($screen-lg-desktop) {
+  .paragraph-background-container {
+    margin-bottom: 50px;
+    .title {
+      margin-bottom: 50px;
+    }
+  }
+}
+
 .paragraph-background-container {
   padding: 0 20px;
   .field-inner-paragraph {
@@ -144,7 +153,7 @@
   @include breakpoint($screen-lg-desktop) {
     .block-description--text {
       display: table-cell;
-      padding: 25px 10px 40px 10px;
+      padding: 0px 10px 40px 10px;
     }
   }
 }
@@ -156,7 +165,7 @@
       padding: 30px 15px;
     }
     @include breakpoint($screen-lg-desktop) {
-      padding: 50px 125px;
+      padding: 0px 50px;
     }
   }
 }
