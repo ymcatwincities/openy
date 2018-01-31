@@ -1,4 +1,4 @@
-    {
+{
     "name": "ymcatwincities/openy",
     "description": "OpenY distribution",
     "type": "drupal-profile",
@@ -144,9 +144,6 @@
             },
             "drupal/entity_embed": {
                 "2511404 - Image entities/fields embedded using Entity Embed cannot be linked in CKEditor": "https://www.drupal.org/files/issues/entity_embed_links-2511404-31.patch"
-            },
-            "drupal/datalayer": {
-                "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
             },
             "drupal/plugin": {
                 "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/plugin_2647312_20.patch"
