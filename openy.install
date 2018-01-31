@@ -530,3 +530,19 @@ function openy_update_8042() {
   // Enable modules.
   \Drupal::service('module_installer')->install(['crop', 'focal_point'], TRUE);
 }
+
+/**
+ * Enable easy_breadcrumb module and paragraph.
+ */
+function openy_update_8043() {
+  // Enable modules.
+  $modules = [
+    'easy_breadcrumb',
+    'openy_prgf_breadcrumbs',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
