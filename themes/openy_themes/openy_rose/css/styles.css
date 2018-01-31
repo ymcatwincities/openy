@@ -2246,13 +2246,48 @@ body {
 }
 
 .sidebar-region .video-js {
-  width: 100% !important;
-  height: 270px !important;
+  width: 300px !important;
+  height: 200px !important;
+}
+@media (min-width: 30em) and (max-width: 61.9375em) {
+  .sidebar-region .video-js {
+    width: 180px !important;
+    height: 120px !important;
+  }
+}
+@media (min-width: 62em) {
+  .sidebar-region .video-js {
+    width: 300px !important;
+    height: 200px !important;
+  }
 }
 .sidebar-region .video-js.vjs-fullscreen {
   width: 100% !important;
   height: 100% !important;
   padding-top: 0 !important;
+}
+
+.video-js {
+  width: 300px !important;
+  height: 200px !important;
+}
+@media (min-width: 30em) {
+  .video-js {
+    width: 320px !important;
+    height: 240px !important;
+  }
+}
+@media (min-width: 48em) {
+  .video-js {
+    width: 400px !important;
+    height: 300px !important;
+  }
+}
+@media (min-width: 62em) {
+  .video-js {
+    width: 640px !important;
+    height: 480px !important;
+  }
 }
 
 .vjs-tech {
