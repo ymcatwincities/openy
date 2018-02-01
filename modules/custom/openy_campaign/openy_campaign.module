@@ -240,7 +240,10 @@ function openy_campaign_tokens($type, $tokens, array $data, array $options, \Dru
           $userData = MemberCampaign::getMemberCampaignData($campaign->id());
           $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
           $memberCampaign = MemberCampaign::load($memberCampaignID);
-          $goal = !empty($memberCampaign->getGoal()) ? $memberCampaign->getGoal() : 0;
+          if (!empty($memberCampaign)) {
+            $goal = (int) $memberCampaign->getGoal();
+          }
+
         }
 
         $replacements[$original] = $goal;
