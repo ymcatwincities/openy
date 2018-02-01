@@ -7368,6 +7368,36 @@ article .node--view-mode-flexible-content h2 a span {
   font-family: Verdana, sans-serif;
 }
 
+.paragraph--type--easy-breadcrumb {
+  margin: 0 0 30px 20px;
+  padding: 24px 0;
+}
+@media (max-width: 480px) {
+  .paragraph--type--easy-breadcrumb {
+    display: none;
+  }
+}
+.paragraph--type--easy-breadcrumb ol {
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+.paragraph--type--easy-breadcrumb ol li {
+  color: #000;
+  display: inline-block;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.88;
+  padding-right: 12px;
+}
+.paragraph--type--easy-breadcrumb ol li:not(:last-child):after {
+  content: '/';
+  padding-left: 12px;
+}
+.paragraph--type--easy-breadcrumb ol a {
+  color: #337ab7;
+}
+
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
