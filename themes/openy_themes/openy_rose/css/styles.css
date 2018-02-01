@@ -4201,17 +4201,30 @@ html.js .branch__updates_queue__button {
 }
 .node--type-blog.node--view-mode-teaser {
   margin: auto;
-  max-width: 373px;
-  width: 100%;
+}
+@media (min-width: 30em) {
+  .node--type-blog.node--view-mode-teaser {
+    max-width: 373px;
+    width: 100%;
+  }
 }
 .node--type-blog.node--view-mode-teaser .inner-wrapper {
-  margin: 15px 0;
+  height: 190px;
+  width: 228px;
+  margin: 15px auto;
   position: relative;
   overflow: hidden;
+}
+@media (min-width: 30em) {
+  .node--type-blog.node--view-mode-teaser .inner-wrapper {
+    height: 288px;
+    width: auto;
+  }
 }
 @media (min-width: 48em) {
   .node--type-blog.node--view-mode-teaser .inner-wrapper {
     height: 288px;
+    width: auto;
   }
 }
 @media (min-width: 62em) {
@@ -4242,9 +4255,14 @@ html.js .branch__updates_queue__button {
   font-weight: 500;
 }
 .node--type-blog.node--view-mode-teaser .blog-heading h3 {
-  font-size: 28px;
+  font-size: 22px;
   margin-top: 0;
   margin-bottom: 20px;
+}
+@media (min-width: 30em) {
+  .node--type-blog.node--view-mode-teaser .blog-heading h3 {
+    font-size: 28px;
+  }
 }
 .node--type-blog.node--view-mode-teaser a {
   color: inherit;
