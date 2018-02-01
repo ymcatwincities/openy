@@ -104,9 +104,14 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
       $msgMyVisits = $config->get('track_activity_my_visits');
       $msgMyVisits = check_markup($msgMyVisits['value'], $msgMyVisits['format']);
 
+      $goal = 0;
+      if (!empty($memberCampaign)) {
+        $goal = (int)$memberCampaign->getGoal();
+      }
+
       $block['goal_block'] = [
         '#theme' => 'openy_campaign_visits_goal',
-        '#goal' => !empty($memberCampaign->getGoal()) ? $memberCampaign->getGoal() : 0,
+        '#goal' => $goal,
         '#goal_message' => $msgMyVisits,
         '#current' => count($currentCheckins),
       ];
