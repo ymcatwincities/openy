@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.promo_text.field_description
+    - field.field.paragraph.promo_text.field_sidebar
+    - paragraphs.paragraphs_type.promo_text
+  module:
+    - text
+id: paragraph.promo_text.default
+targetEntityType: paragraph
+bundle: promo_text
+mode: default
+content:
+  field_description:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_sidebar:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
