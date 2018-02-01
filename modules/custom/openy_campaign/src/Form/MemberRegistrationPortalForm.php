@@ -107,17 +107,6 @@ class MemberRegistrationPortalForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#cache'] = ['max-age' => 0];
 
-    $campaigns = $this->campaignMenuService->getActiveCampaigns();
-    $options = [];
-    foreach ($campaigns as $item) {
-      /** @var \Drupal\node\Entity\Node $item */
-      $options[$item->id()] = $item->getTitle();
-    }
-
-    if (empty($options)) {
-      return $form;
-    }
-
     $form['#prefix'] = '<div class="container">';
     $form['#suffix'] = '</div>';
 
@@ -134,6 +123,21 @@ class MemberRegistrationPortalForm extends FormBase {
       '#prefix' => '<div class="row">',
       '#suffix' => '</div>',
     ];
+
+    $campaigns = $this->campaignMenuService->getActiveCampaigns();
+    if (empty($campaigns)) {
+      $form['empty'] = [
+        '#markup' => $this->t('There is no active campaigns.'),
+      ];
+
+      return $form;
+    }
+
+    $options = [];
+    foreach ($campaigns as $item) {
+      /** @var \Drupal\node\Entity\Node $item */
+      $options[$item->id()] = $item->getTitle();
+    }
 
     $membership_id = $form_state->get('membership_id');
     $personify_email = $form_state->getTemporaryValue('personify_email');

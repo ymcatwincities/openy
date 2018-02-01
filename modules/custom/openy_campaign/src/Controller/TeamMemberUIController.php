@@ -68,15 +68,14 @@ class TeamMemberUIController extends ControllerBase {
    * @return array Render array
    */
   public function showMembers() {
-    $campaigns = $this->campaignMenuService->getActiveCampaigns();
-    $defaultCampaign = current($campaigns);
-
     $entityView = $this->entityTypeManager->getStorage('view')->load('campaign_members');
     /** @var \Drupal\views\ViewExecutable $view */
     $view = $this->viewsExecutableFactory->get($entityView);
     $view->setDisplay('members_list_block');
 
-    if (empty($view->getExposedInput())) {
+    $campaigns = $this->campaignMenuService->getActiveCampaigns();
+    if (empty($view->getExposedInput()) && !empty($campaigns)) {
+      $defaultCampaign = current($campaigns);
       $view->setExposedInput(['campaign' => $defaultCampaign->id()]);
     }
 
