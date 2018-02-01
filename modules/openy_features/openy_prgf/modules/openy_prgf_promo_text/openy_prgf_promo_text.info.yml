@@ -1,0 +1,10 @@
+name: 'OpenY Paragraph Promo Text'
+description: 'OpenY Paragraph Promo Text.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - datalayer
+  - field
+  - paragraphs
+  - text

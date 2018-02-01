@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_prgf_promo_text.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_prgf_promo_text_theme() {
+  return [
+    'paragraph__promo_text' => [
+      'base hook' => 'paragraph',
+    ],
+  ];
+}
