@@ -4209,8 +4209,8 @@ html.js .branch__updates_queue__button {
   }
 }
 .node--type-blog.node--view-mode-teaser .inner-wrapper {
-  height: 190px;
-  width: 228px;
+  height: 240px;
+  width: 288px;
   margin: 15px auto;
   position: relative;
   overflow: hidden;
