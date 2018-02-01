@@ -1,6 +1,6 @@
 langcode: en
 status: true
 dependencies: {  }
-id: easy_breadcrumbs
-label: 'Easy Breadcrumbs'
+id: easy_breadcrumb
+label: 'Easy Breadcrumb'
 behavior_plugins: {  }
