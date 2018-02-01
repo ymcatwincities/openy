@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_block
+    - paragraphs.paragraphs_type.easy_breadcrumb
+  module:
+    - datalayer
+    - plugin
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_prgf_block
+id: paragraph.easy_breadcrumb.field_prgf_block
+field_name: field_prgf_block
+entity_type: paragraph
+bundle: easy_breadcrumb
+label: 'Breadcrumbs Block'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    plugin_id: system_breadcrumb_block
+    plugin_configuration:
+      id: system_breadcrumb_block
+      label: Breadcrumbs
+      provider: system
+      label_display: '0'
+    plugin_configuration_schema_id: block.settings.system_breadcrumb_block
+default_value_callback: ''
+settings: {  }
+field_type: 'plugin:block'

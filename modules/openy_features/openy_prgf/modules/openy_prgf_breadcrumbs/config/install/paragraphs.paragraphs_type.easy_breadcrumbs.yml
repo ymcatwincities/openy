@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: easy_breadcrumbs
+label: 'Easy Breadcrumbs'
+behavior_plugins: {  }
