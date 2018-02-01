@@ -35,7 +35,7 @@
       <th class="blue-text"> % OF MEMBERS </th>
       <th class="blue-text">% TO GOAL</th>
       <th class="separator"></th>
-      <th class="violet-text grey">UTILIZATION GOAL ({{ result.goals.utilization_goal }}%)</th>
+      <th class="violet-text grey">UTILIZATION GOAL* ({{ result.goals.utilization_goal }}%)</th>
       <th class="violet-text">ACTUAL As&nbsp;of&nbsp;{{ result.dates.actual_campaign_date }}</th>
       <th class="violet-text grey">%&nbsp;OF REGISTERED MEMBERS</th>
       <th class="violet-text grey">%&nbsp;TO&nbsp;GOAL Set&nbsp;{{ result.dates.actual_date }}</th>
@@ -87,7 +87,6 @@
     </tbody>
     <tfoot>
     <tr>
-
       <td class="green" align="right" colspan="2">ASSOCIATION&nbsp;TOTAL:</td>
       <td class="green" align="right">{{ result.total.target }}</td>
       <th class="separator"></th>
@@ -108,6 +107,9 @@
     </tr>
     </tfoot>
   </table>
+  <div class="small">
+    Utilization goals were set based on the greater of either: (1) original registration goal, or (2) actual registered members by close of early-registration; meaning utilization goals do not take into account those members that registered after the close of early-registration.  Thus explaining how we could have only lower percentage of total registered members achieve their goal, but still exceed our “% to Goal” metric.
+  </div>
   {% else %}
     <h2>{{ result.empty }}</h2>
   {% endif %}
