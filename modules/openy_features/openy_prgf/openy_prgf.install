@@ -91,7 +91,6 @@ function openy_prgf_update_8005() {
  */
 function openy_prgf_update_8006() {
   \Drupal::service('module_installer')->install([
-    'openy_prgf_featured_highlights',
     'openy_prgf_promo_text',
   ]);
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
