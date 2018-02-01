@@ -16,7 +16,7 @@ field_name: field_prgf_video
 entity_type: paragraph
 bundle: video_player
 label: 'Local video'
-description: 'Type here name of uploaded local video to use play in video player embedded on page. New video should be uploaded at <a href="/media/add/video_local">Add Local Video Page</a>.'
+description: 'Upload video file to play in video player embedded on page.'
 required: true
 translatable: false
 default_value: {  }
