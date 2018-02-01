@@ -2859,7 +2859,7 @@ body {
   display: none;
 }
 .branch-header .desktop {
-  background-color: #c6168d;
+  background-color: #5c2e91;
   color: #fff;
   padding: 15px 0;
   min-height: 70px;
@@ -4483,6 +4483,15 @@ html.js .branch__updates_queue__button {
 
 .class-page-other-sessions .session .name {
   font-family: "Cachet W01 Bold", Arial, Helvetica, 'Ubuntu Condensed', sans-serif;
+}
+.class-page-other-sessions td {
+  color: #333333;
+}
+.class-page-other-sessions .age-range {
+  color: #5c2e91;
+}
+.class-page-other-sessions .class__session-instance:nth-child(odd) td {
+  background-color: #ebebeb;
 }
 
 .class__session-instances .class__session-instances-list,
@@ -7750,6 +7759,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
   border: 1px solid rgba(0, 0, 0, 0.15);
   box-shadow: none;
   border-radius: 0;
+  overflow-y: auto;
 }
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav.row-level-2 li {
   width: 100%;

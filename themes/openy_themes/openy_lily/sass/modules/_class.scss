@@ -112,6 +112,17 @@
       @include cachet-bold();
     }
   }
+  td {
+    color: $darker-grey;
+  }
+  .age-range {
+    color: $purple;
+  }
+  .class__session-instance:nth-child(odd) {
+    td {
+      background-color: $lighter-grey;
+    }
+  }
 }
 
 .class__session-instances,

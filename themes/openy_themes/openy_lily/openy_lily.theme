@@ -401,14 +401,14 @@ function openy_lily_preprocess_page(&$variables) {
   $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
 
   // Set custom theme variables for page when they are set.
-  $image_fields = \Drupal::config('openy_lily.settings')->get('openy_lily_image_fields');
-
-  foreach ($image_fields as $image_template_variable => $theme_setting_key) {
-    $fid = theme_get_setting($theme_setting_key);
-    if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
-      $file = File::load(reset($fid));
-      if ($file !== NULL) {
-        $variables[$image_template_variable] = $file->getFileUri();
+  if ($image_fields = \Drupal::config('openy_lily.settings')->get('openy_lily_image_fields')) {
+    foreach ($image_fields as $image_template_variable => $theme_setting_key) {
+      $fid = theme_get_setting($theme_setting_key);
+      if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
+        $file = File::load(reset($fid));
+        if ($file !== NULL) {
+          $variables[$image_template_variable] = $file->getFileUri();
+        }
       }
     }
   }
