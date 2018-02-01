@@ -34,6 +34,21 @@ function openy_prgf_classes_listing_form_views_exposed_form_alter(&$form, FormSt
       }
     }
 
+    /**
+     * Check status of the program nodes. The VERF module doesn't do this. :(
+     */
+    $program_ids = array_keys($form['program']['#options']);
+    foreach($program_ids as $id) {
+      if(is_numeric($id)) {
+        $query = \Drupal::entityQuery('node');
+        $query->condition('status', 1);
+        $query->condition('nid', $id);
+        if (!$result = $query->execute()) {
+          unset($form['program']['#options'][$id]);
+        }
+      }
+    }
+
     $form['#attributes']['class'][] = 'container';
     $form['#attached']['library'][] = 'openy_prgf_classes_listing/openy_classes_listing';
   }
