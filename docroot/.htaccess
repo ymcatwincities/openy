@@ -1244,6 +1244,9 @@ RewriteRule ^locations/minneapolis_downtown_ymca/about/new_site$ /locations/dayt
       # Force proxies to cache gzipped & non-gzipped css/js files separately.
       Header append Vary Accept-Encoding
     </FilesMatch>
+    <FilesMatch "\.(eot|ttf|otf|woff)">
+      Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
   </IfModule>
 </IfModule>
 
