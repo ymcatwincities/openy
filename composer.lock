@@ -3747,7 +3747,8 @@
                 },
                 "patches_applied": {
                     "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch",
-                    "2880544 - The theme implementations may not be rendered until all modules are loaded": "https://www.drupal.org/files/issues/theme-implementations-exception-2880544.patch"
+                    "2880544 - The theme implementations may not be rendered until all modules are loaded": "https://www.drupal.org/files/issues/theme-implementations-exception-2880544.patch",
+                    "2937058 - Clear cache performance improvement": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
