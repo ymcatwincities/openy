@@ -131,6 +131,15 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       $activeRegistration = FALSE;
     }
 
+    $utcCampaignStart = $localeCampaignStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $utcCampaignEnd = $localeCampaignEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $utcCampaignRegStart = $localeRegistrationStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $utcCampaignRegEnd = $localeRegistrationEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
+
+    $campaignTimezone = new \DateTimeZone($campaign->get('field_campaign_timezone')->getString());
+    $startDateCampaignTz = $localeCampaignStart->convertTimezone($campaignTimezone);
+    $endDateCampaignTz = $localeCampaignEnd->convertTimezone($campaignTimezone);
+
     $block = [
       '#theme' => 'openy_campaign_campaign_register',
       '#attached' => [
@@ -139,13 +148,15 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
         ],
         'drupalSettings' => [
           'campaignSettings' => [
-            'startDate' => $localeCampaignStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT),
-            'endDate' => $localeCampaignEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT),
-            'startRegDate' => $localeRegistrationStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT),
-            'endRegDate' => $localeRegistrationEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT),
+            'startDate' => $utcCampaignStart,
+            'endDate' => $utcCampaignEnd,
+            'startRegDate' => $utcCampaignRegStart,
+            'endRegDate' => $utcCampaignRegEnd,
           ]
         ]
       ],
+      '#campaignDates' => $startDateCampaignTz->format('F') . ' ' . $startDateCampaignTz->format('d') . ' - ' .
+        $endDateCampaignTz->format('d') . ', ' . $endDateCampaignTz->format('Y'),
       '#campaign' => $campaign,
       '#activeRegistration' => $activeRegistration,
       '#cache' => [

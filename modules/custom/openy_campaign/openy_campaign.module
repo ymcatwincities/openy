@@ -35,6 +35,7 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'variables' => [
         'base_path' => base_path(),
         'campaign' => NULL,
+        'campaignDates' => NULL,
         'activeRegistration' => NULL,
         'form' => NULL,
         'page_simplify_header' => FALSE

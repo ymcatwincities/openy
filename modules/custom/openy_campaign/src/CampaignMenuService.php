@@ -336,10 +336,9 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    * Get all active Campaign nodes.
    */
   public function getActiveCampaigns() {
-    // @TODO check timezone with OpenYLocaleDate from CampaignRegisterBlock
-    $timezone = drupal_get_user_timezone();
-    $dt = new \DateTime('now', new \DateTimezone($timezone));
-    $dt->setTimezone(new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+    // All dates store in database in UTC timezone
+    // Get current datetime in UTC timezone
+    $dt = new \DateTime('now', new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
     $now = DrupalDateTime::createFromDateTime($dt);
 
     $campaignIds = $this->entityTypeManager->getStorage('node')->getQuery()
