@@ -2,19 +2,16 @@
 
 namespace Drupal\openy_campaign\Plugin\Block;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
-use Drupal\locale\Form\LocaleSettingsForm;
 use Drupal\node\Entity\Node;
-use Drupal\node\NodeTypeInterface;
 use Drupal\openy_campaign\Entity\MemberCampaign;
-use Drupal\openy_campaign\Entity\MemberCheckin;
-use Drupal\webform\Plugin\WebformElement\DateTime;
-use function GuzzleHttp\Psr7\str;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\openy_campaign\OpenYLocaleDate;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides a 'Register' block.
@@ -27,7 +24,13 @@ use Drupal\openy_campaign\OpenYLocaleDate;
  */
 class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
+  /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
   protected $request_stack;
+
   /**
    * Form builder.
    *
@@ -43,6 +46,13 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
   protected $campaignMenuService;
 
   /**
+   * The config factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Constructs a new Block instance.
    *
    * @param array $configuration
@@ -53,30 +63,42 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    *   The plugin implementation definition.
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
+   *   The Campaign menu service.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition,
-                              FormBuilderInterface $formBuilder,
-                              CampaignMenuServiceInterface $campaign_menu_service,
-                              $request_stack) {
+  public function __construct(array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    FormBuilderInterface $formBuilder,
+    CampaignMenuServiceInterface $campaign_menu_service,
+    RequestStack $request_stack,
+    ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
     $this->campaignMenuService = $campaign_menu_service;
     $this->request_stack = $request_stack;
+    $this->configFactory = $config_factory;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration,
-                                $plugin_id, $plugin_definition) {
-
+  public static function create(ContainerInterface $container,
+    array $configuration,
+    $plugin_id,
+    $plugin_definition) {
     return new static(
       $configuration,
       $plugin_id,
       $plugin_definition,
       $container->get('form_builder'),
       $container->get('openy_campaign.campaign_menu_handler'),
-      $container->get('request_stack')
+      $container->get('request_stack'),
+      $container->get('config.factory')
     );
   }
 
@@ -84,38 +106,42 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function build() {
-    // Get campaign node from current page URL
-    /** @var Node $campaign */
+    // Get campaign node from current page URL.
+    /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
     $block['#cache']['max-age'] = 0;
 
-    if ($campaign instanceof NodeTypeInterface !== TRUE) {
+    if ($campaign instanceof Node !== TRUE) {
       return $block;
     }
 
     $activeRegistration = TRUE;
 
-    // Get localized versions of our times.
-    $campaignTimezone = new \DateTime($campaign->get('field_campaign_timezone')->getString());
-    $campaignTimezone = $campaignTimezone->getTimezone();
+    // Get site timezone.
+    $config = $this->configFactory->get('system.date');
+    $configSiteDefaultTimezone = !empty($config->get('timezone.default')) ? $config->get('timezone.default') : date_default_timezone_get();
+    $siteDefaultTimezone = new \DateTimeZone($configSiteDefaultTimezone);
 
-    $localeCampaignStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString());
-    $localeCampaignStart->convertTimezone($campaignTimezone);
-
-    $localeCampaignEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_end_date')->getString());
-    $localeCampaignEnd->convertTimezone($campaignTimezone);
-
-    $localeRegistrationStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_start_date')->getString());
-    $localeRegistrationStart->convertTimezone($campaignTimezone);
-
-    $localeRegistrationEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_end_date')->getString());
-    $localeRegistrationEnd->convertTimezone($campaignTimezone);
+    // Get localized versions of Campaign dates. Convert it to site timezone to compare with current date.
+    $localeCampaignStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString(), $siteDefaultTimezone);
+    $localeCampaignEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_end_date')->getString(), $siteDefaultTimezone);
+    $localeRegistrationEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_end_date')->getString(), $siteDefaultTimezone);
+    $localeRegistrationStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_start_date')->getString(), $siteDefaultTimezone);
 
     // Define if we need to show register block or not.
-    if (!$localeCampaignStart->dateExpired() || $localeRegistrationEnd->dateExpired()) {
+    if ($localeCampaignStart->dateExpired() || $localeRegistrationEnd->dateExpired()) {
       $activeRegistration = FALSE;
     }
+
+    $utcCampaignStart = $localeCampaignStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $utcCampaignEnd = $localeCampaignEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $utcCampaignRegStart = $localeRegistrationStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $utcCampaignRegEnd = $localeRegistrationEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
+
+    $campaignTimezone = new \DateTimeZone($campaign->get('field_campaign_timezone')->getString());
+    $startDateCampaignTz = $localeCampaignStart->convertTimezone($campaignTimezone);
+    $endDateCampaignTz = $localeCampaignEnd->convertTimezone($campaignTimezone);
 
     $block = [
       '#theme' => 'openy_campaign_campaign_register',
@@ -125,13 +151,15 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
         ],
         'drupalSettings' => [
           'campaignSettings' => [
-            'startDate' => $campaign->get('field_campaign_start_date')->value,
-            'endDate' => $campaign->get('field_campaign_end_date')->value,
-            'startRegDate' => $campaign->get('field_campaign_reg_start_date')->value,
-            'endRegDate' => $campaign->get('field_campaign_reg_end_date')->value
+            'startDate' => $utcCampaignStart,
+            'endDate' => $utcCampaignEnd,
+            'startRegDate' => $utcCampaignRegStart,
+            'endRegDate' => $utcCampaignRegEnd,
           ]
         ]
       ],
+      '#campaignDates' => $startDateCampaignTz->format('F') . ' ' . $startDateCampaignTz->format('d') . ' - ' .
+      $endDateCampaignTz->format('d') . ', ' . $endDateCampaignTz->format('Y'),
       '#campaign' => $campaign,
       '#activeRegistration' => $activeRegistration,
       '#cache' => [
@@ -140,11 +168,11 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     ];
 
     /**
-     * @var Node $currentNode
+     * @var \Drupal\node\Entity\Node $currentNode
      */
-    $currentNode= $this->request_stack->getCurrentRequest()->get('node');
+    $currentNode = $this->request_stack->getCurrentRequest()->get('node');
 
-    if(empty($currentNode)) {
+    if (empty($currentNode)) {
       return $block;
     }
 
@@ -157,7 +185,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       if (($localeRegistrationStart->dateExpired() && !$localeRegistrationEnd->dateExpired()) ||
         ($localeCampaignStart->dateExpired() && !$localeCampaignEnd->dateExpired())
       ) {
-        // Show Register block form
+        // Show Register block form.
         $form = $this->formBuilder->getForm(
           'Drupal\openy_campaign\Form\MemberRegistrationSimpleForm',
           $campaign->id()
@@ -171,4 +199,5 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     }
     return $block;
   }
+
 }

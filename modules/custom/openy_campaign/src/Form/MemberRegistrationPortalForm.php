@@ -2,11 +2,14 @@
 
 namespace Drupal\openy_campaign\Form;
 
+use Drupal\node\Entity\Node;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\node\Entity\Node;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
+use Drupal\openy_campaign\CampaignScorecardService;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\RegularUpdater;
@@ -41,20 +44,43 @@ class MemberRegistrationPortalForm extends FormBase {
   protected $campaignMenuService;
 
   /**
+   * The Campaign Scorecard service.
+   *
+   * @var \Drupal\openy_campaign\CampaignScorecardService
+   */
+  protected $campaignScorecardService;
+
+  /**
+   * The current route match.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $routeMatch;
+
+  /**
    * Team Member Registration Portal form constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\openy_campaign\RegularUpdater $regular_updater
    *   Regular updater service.
-   * @param CampaignMenuServiceInterface $campaign_menu_service
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
    *   The Campaign menu service.
+   * @param \Drupal\openy_campaign\CampaignScorecardService $campaign_scorecard_service
+   *   The Campaign Scorecard service.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   *   The current route match.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, RegularUpdater $regular_updater,
-                              CampaignMenuServiceInterface $campaign_menu_service) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager,
+    RegularUpdater $regular_updater,
+    CampaignMenuServiceInterface $campaign_menu_service,
+    CampaignScorecardService $campaign_scorecard_service,
+    RouteMatchInterface $route_match) {
     $this->entityTypeManager = $entity_type_manager;
     $this->regularUpdater = $regular_updater;
     $this->campaignMenuService = $campaign_menu_service;
+    $this->campaignScorecardService = $campaign_scorecard_service;
+    $this->routeMatch = $route_match;
   }
 
   /**
@@ -64,7 +90,9 @@ class MemberRegistrationPortalForm extends FormBase {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('openy_campaign.regular_updater'),
-      $container->get('openy_campaign.campaign_menu_handler')
+      $container->get('openy_campaign.campaign_menu_handler'),
+      $container->get('openy_campaign.generate_campaign_scorecard'),
+      $container->get('current_route_match')
     );
   }
 
@@ -79,17 +107,39 @@ class MemberRegistrationPortalForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $campaigns = $this->campaignMenuService->getActiveCampaigns();
-    $options = [];
-    foreach ($campaigns as $item) {
-      /** @var Node $item */
-      $options[$item->id()] = $item->getTitle();
-    }
-
     $form['#cache'] = ['max-age' => 0];
 
     $form['#prefix'] = '<div class="container">';
     $form['#suffix'] = '</div>';
+
+    $form['link'] = [
+      '#title' => $this->t('Members List >>>'),
+      '#type' => 'link',
+      '#url' => Url::fromRoute('openy_campaign.team_member.list'),
+      '#weight' => 0,
+      '#attributes' => [
+        'class' => [
+          'align-right',
+        ],
+      ],
+      '#prefix' => '<div class="row">',
+      '#suffix' => '</div>',
+    ];
+
+    $campaigns = $this->campaignMenuService->getActiveCampaigns();
+    if (empty($campaigns)) {
+      $form['empty'] = [
+        '#markup' => $this->t('There is no active campaigns.'),
+      ];
+
+      return $form;
+    }
+
+    $options = [];
+    foreach ($campaigns as $item) {
+      /** @var \Drupal\node\Entity\Node $item */
+      $options[$item->id()] = $item->getTitle();
+    }
 
     $membership_id = $form_state->get('membership_id');
     $personify_email = $form_state->getTemporaryValue('personify_email');
@@ -97,7 +147,7 @@ class MemberRegistrationPortalForm extends FormBase {
 
     // Determine step of the form - which screen to show.
     // 1 - select Campaign and enter Member ID;
-    // 2 - confirm email address from Personify or change it. Register member;
+    // 2 - confirm email address from Personify or change it. Register member.
     if ($step_value) {
       $step = $step_value;
     }
@@ -113,13 +163,35 @@ class MemberRegistrationPortalForm extends FormBase {
     ];
 
     if ($step == 1) {
-      // Select Campaign to assign Member
-      $form['campaign_id'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Select Campaign'),
-        '#options' => $options,
-      ];
+      $currentRoute = $this->routeMatch->getRouteName();
+      if ($currentRoute == 'openy_campaign.member-registration-portal') {
+        $defaultCampaignID = (!empty($form_state->getValue('campaign_id'))) ? $form_state->getValue('campaign_id') : key($options);
+        $defaultCampaign = $this->entityTypeManager->getStorage('node')->load($defaultCampaignID);
 
+        if ($defaultCampaign instanceof Node === TRUE) {
+          $form['#attached']['library'][] = 'openy_campaign/campaign_scorecard';
+          $form['campaign_id'] = [
+            '#type' => 'select',
+            '#title' => $this->t('Select Campaign'),
+            '#options' => $options,
+            '#default_value' => $defaultCampaign->id(),
+          ];
+          $scorecard = $this->campaignScorecardService->generateLiveScorecard($defaultCampaign);
+
+          $form['scorecard'] = [
+            '#markup' => '<div id="scorecard-wrapper">' . render($scorecard) . '</div>',
+            '#weight' => 100500,
+          ];
+        }
+      }
+      else {
+        // Select Campaign to assign Member.
+        $form['campaign_id'] = [
+          '#type' => 'select',
+          '#title' => $this->t('Select Campaign'),
+          '#options' => $options,
+        ];
+      }
       // The id on the membership card.
       $form['membership_id'] = [
         '#type' => 'textfield',
@@ -134,7 +206,8 @@ class MemberRegistrationPortalForm extends FormBase {
         '#type' => 'submit',
         '#value' => t('Continue'),
       ];
-    } else {
+    }
+    else {
       // The members email address.
       $form['membership_email'] = [
         '#type' => 'textfield',
@@ -173,7 +246,7 @@ class MemberRegistrationPortalForm extends FormBase {
       $config = $this->config('openy_campaign.general_settings');
       $storage = $form_state->getStorage();
 
-      /** @var Member $member Member object. */
+      /** @var \Drupal\openy_campaign\Entity\Member $member Member object. */
       $member = $storage['member'];
       $campaign = $storage['campaign'];
       $memberCampaign = $storage['member_campaign'];
@@ -212,22 +285,22 @@ class MemberRegistrationPortalForm extends FormBase {
 
     // Save Member entity.
     if (!empty($storage['member'])) {
-      /** @var Member $member Member object. */
+      /** @var \Drupal\openy_campaign\Entity\Member $member Member object. */
       $member = $storage['member'];
       $member->save();
     }
 
     // Save MemberCampaign entity.
     if (!empty($storage['member_campaign'])) {
-      /** @var MemberCampaign $memberCampaign MemberCampaign object. */
+      /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign MemberCampaign object. */
       $memberCampaign = $storage['member_campaign'];
-      // define visits goal
+      // Define visits goal.
       $memberCampaign->defineGoal();
 
       $memberCampaign->save();
     }
 
-    /** @var Node $campaign Campaign object. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign object. */
     $campaign = $storage['campaign'];
     $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
     $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
@@ -249,26 +322,28 @@ class MemberRegistrationPortalForm extends FormBase {
   }
 
   /**
-   * Step 1 form validations
+   * Step 1 form validations.
    *
    * @param array $form
    * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   private function stepOneValidation(array &$form, FormStateInterface $form_state) {
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
 
-    /** @var Node $campaign Current campaign. */
+    /** @var \Drupal\node\Entity\Node $campaign Current campaign. */
     $campaign = $this->entityTypeManager->getStorage('node')->load($campaignID);
 
     $config = $this->config('openy_campaign.general_settings');
     $errorDefault = $config->get('error_msg_default');
-    // Get error from Campaign node
+    // Get error from Campaign node.
     if (!empty($campaign->field_error_default->value)) {
       $errorDefault = check_markup($campaign->field_error_default->value, $campaign->field_error_default->format);
     }
 
-    // Check MemberCampaign entity
+    // Check MemberCampaign entity.
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
 
     // If the member is already registered, there will be a basic error message “This member has already registered”.
@@ -277,7 +352,7 @@ class MemberRegistrationPortalForm extends FormBase {
       return;
     }
 
-    /** @var Member $member Load or create Temporary Member entity. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Load or create Temporary Member entity. Will be saved by submit. */
     $member = Member::loadMemberFromCRMData($membershipID);
     if (($member instanceof Member === FALSE) || empty($member)) {
       $form_state->setErrorByName('membership_id', $errorDefault);
@@ -289,7 +364,7 @@ class MemberRegistrationPortalForm extends FormBase {
     if ($isInactiveMember) {
       $msgMemberInactive = $config->get('error_msg_member_is_inactive');
       $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
-      // Get error from Campaign node
+      // Get error from Campaign node.
       if (!empty($campaign->field_error_member_is_inactive->value)) {
         $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
       }
@@ -298,8 +373,8 @@ class MemberRegistrationPortalForm extends FormBase {
       return;
     }
 
-    /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
-    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign);
+    /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
+    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, 'portal');
     if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
       $form_state->setErrorByName('membership_id', $errorDefault);
 
@@ -309,7 +384,7 @@ class MemberRegistrationPortalForm extends FormBase {
     // Check Target Audience Settings from Campaign.
     $validateAudienceErrorMessages = $memberCampaign->validateTargetAudienceSettings();
 
-    // Member is ineligible due to the Target Audience Setting
+    // Member is ineligible due to the Target Audience Setting.
     if (!empty($validateAudienceErrorMessages)) {
       $errorText = implode('<br>', $validateAudienceErrorMessages);
       $form_state->setErrorByName('membership_id',

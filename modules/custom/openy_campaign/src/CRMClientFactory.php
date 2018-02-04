@@ -4,12 +4,14 @@ namespace Drupal\openy_campaign;
 
 use Symfony\Component\Console\Exception\LogicException;
 
-
 /**
  * Factory to get the class to connect to CRM system i.e. Personify.
  */
 class CRMClientFactory {
 
+  /**
+   * Get CRM client from the configuration.
+   */
   public function getClient() {
     $clientKey = \Drupal::config('openy_campaign.settings')->get('client');
 

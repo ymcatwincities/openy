@@ -39,7 +39,9 @@
 
 <div class="paragraph-container">
   <div{{ attributes.addClass(classes) }}>
-    <div class="row"> <h2> {{ content.field_prgf_campaign_menu_title }} </h2></div>
+      {% if content.field_prgf_campaign_menu_title|render|striptags|trim is not empty %}
+        <div class="row"><h2>{{ content.field_prgf_campaign_menu_title }}</h2></div>
+      {% endif %}
     <div class="row">
       {% if content.field_prgf_activity_visits|render|striptags|trim is not empty
             and content.field_prgf_campaign_game|render|striptags|trim is not empty %}

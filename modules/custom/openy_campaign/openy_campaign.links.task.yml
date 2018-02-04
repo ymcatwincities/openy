@@ -67,3 +67,9 @@ openy_campaign.campaign_reports_activities:
   base_route: entity.node.canonical
   title: 'Reports: Activities'
   weight: 70
+
+openy_campaign.campaign_reports_live_scorecard:
+  route_name: openy_campaign.campaign_reports_live_scorecard
+  base_route: entity.node.canonical
+  title: 'Reports: Score Card'
+  weight: 80

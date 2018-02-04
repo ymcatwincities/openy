@@ -82,15 +82,13 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
     $block = [];
     $block['#cache']['max-age'] = 0;
 
-
-    // get current member
+    // Get current member
     // get current campaign
     // check number of games available
     // show form with button
-    // on submit, direct to game page
+    // on submit, direct to game page.
 
-
-    // Get campaign node from current page
+    // Get campaign node from current page.
     /** @var \Drupal\Node\Entity\Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 

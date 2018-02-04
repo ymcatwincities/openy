@@ -41,7 +41,7 @@ class MemberRegisterForm extends FormBase {
       '#weight' => -10,
     ];
 
-    // Set Campaign ID from URL
+    // Set Campaign ID from URL.
     $form['campaign_id'] = [
       '#type' => 'hidden',
       '#value' => $campaign_id,
@@ -91,7 +91,7 @@ class MemberRegisterForm extends FormBase {
           [$this, 'elementValidateRequired'],
         ],
       ];
-      // Member ID text
+      // Member ID text.
       $settings = $this->config('openy_campaign.general_settings');
       $msgMemberIdText = $settings->get('register_form_text');
       $memberIdText = check_markup($msgMemberIdText['value'], $msgMemberIdText['format']);
@@ -188,20 +188,20 @@ class MemberRegisterForm extends FormBase {
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
 
-    /** @var Node $campaign */
+    /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = Node::load($campaignID);
 
     $config = $this->config('openy_campaign.general_settings');
     $msgDefault = $config->get('error_msg_default');
     $errorDefault = check_markup($msgDefault['value'], $msgDefault['format']);
-    // Get error from Campaign node
+    // Get error from Campaign node.
     if (!empty($campaign->field_error_default->value)) {
       $errorDefault = check_markup($campaign->field_error_default->value, $campaign->field_error_default->format);
     }
 
     $msgMembershipId = $config->get('error_msg_membership_id');
     $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
-    // Get error from Campaign node
+    // Get error from Campaign node.
     if (!empty($campaign->field_error_membership_id->value)) {
       $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
     }
@@ -213,20 +213,23 @@ class MemberRegisterForm extends FormBase {
       return;
     }*/
 
-    // Check MemberCampaign entity
+    // Check MemberCampaign entity.
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
 
     // Registration attempt for already registered member.
     if ($memberCampaignID) {
-      /*$msgAlreadyRegistered = $config->get('error_register_already_registered');
+      $msgAlreadyRegistered = $config->get('error_register_already_registered');
       $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
-      // Get error from Campaign node
+      // Get error from Campaign node.
       if (!empty($campaign->field_reg_already_registered->value)) {
         $errorAlreadyRegistered = check_markup($campaign->field_reg_already_registered->value, $campaign->field_reg_already_registered->format);
-      }*/
+      }
+
+      $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
+      return;
     }
 
-    /** @var Member $member Load or create Temporary Member object. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Load or create Temporary Member object. Will be saved by submit. */
     $member = Member::loadMemberFromCRMData($membershipID);
     if (($member instanceof Member === FALSE) || empty($member)) {
       $form_state->setErrorByName('membership_id', $errorMembershipId);
@@ -239,7 +242,7 @@ class MemberRegisterForm extends FormBase {
     if ($isInactiveMember) {
       $msgMemberInactive = $config->get('error_msg_member_is_inactive');
       $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
-      // Get error from Campaign node
+      // Get error from Campaign node.
       if (!empty($campaign->field_error_member_is_inactive->value)) {
         $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
       }
@@ -248,8 +251,13 @@ class MemberRegisterForm extends FormBase {
       return;
     }
 
-    /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
-    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign);
+    $registrationType = 'site';
+    // Check if we are need to output the mobile version.
+    if (!empty($_GET['mobile'])) {
+      $registrationType = 'mobile';
+    }
+    /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
+    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, $registrationType);
     if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
       $form_state->setErrorByName('membership_id', $errorDefault);
 
@@ -259,12 +267,12 @@ class MemberRegisterForm extends FormBase {
     // Check Target Audience Settings from Campaign.
     $validateAudienceErrorMessages = $memberCampaign->validateTargetAudienceSettings();
 
-    // Member is ineligible due to the Target Audience Setting
+    // Member is ineligible due to the Target Audience Setting.
     if (!empty($validateAudienceErrorMessages)) {
       $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
       $msgValue = implode('<br/>', $validateAudienceErrorMessages);
       $errorAudience = check_markup($msgValue . $msgAudienceMessages['value'], $msgAudienceMessages['format']);
-      // Get error from Campaign node
+      // Get error from Campaign node.
       if (!empty($campaign->field_error_target_audience->value)) {
         $errorAudience = check_markup($msgValue . $campaign->field_error_target_audience->value, $campaign->field_error_target_audience->format);
       }
@@ -288,7 +296,8 @@ class MemberRegisterForm extends FormBase {
       $form_state->setTemporaryValue('personify_email', $personifyEmail);
 
       $form_state->setValue('step', $step + 1);
-    } else {
+    }
+    else {
       $form_state->setValue('step', 3);
     }
   }
@@ -308,7 +317,7 @@ class MemberRegisterForm extends FormBase {
     $triggering_element = $form_state->getTriggeringElement();
     $email = $form_state->getValue('email');
 
-    // Rebuild form for step 2 and 3
+    // Rebuild form for step 2 and 3.
     if ($step == 2 ||
       ($step == 3 && ($triggering_element['#name'] == 'submit_change' || empty($email)))) {
 
@@ -320,13 +329,13 @@ class MemberRegisterForm extends FormBase {
         $config = $this->config('openy_campaign.general_settings');
         $storage = $form_state->getStorage();
 
-        /** @var Node $campaign Campaign object. */
+        /** @var \Drupal\node\Entity\Node $campaign Campaign object. */
         $campaign = $storage['campaign'];
         $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-        // If Campaign is not started
+        // If Campaign is not started.
         if ($campaignStartDate >= new \DateTime()) {
           $msgNotStarted = $config->get('error_register_checkins_not_started');
-          //TODO: use hook_theme instead of inline template.
+          // TODO: use hook_theme instead of inline template.
           $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
           $modalTitle = t('Thank you!');
         }
@@ -334,7 +343,7 @@ class MemberRegisterForm extends FormBase {
           MemberCampaign::login($membershipID, $campaignID);
           $msgSuccess = $config->get('successful_login');
           $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
-          //TODO: use hook_theme instead of inline template.
+          // TODO: use hook_theme instead of inline template.
           $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
           $modalTitle = t('Thank you!');
         }
@@ -347,14 +356,14 @@ class MemberRegisterForm extends FormBase {
         // Add an AJAX command to open a modal dialog with the form as the content.
         $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
         $response->addCommand(new InvokeCommand('#openy_campaign_popup', 'closeDialogByClick'));
-        // Close dialog and redirect to Campaign main page
+        // Close dialog and redirect to Campaign main page.
         $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
         return $response;
       }
 
       // Rebuild form with new $form and $form_state values.
       $new_form = \Drupal::formBuilder()
-          ->rebuildForm($this->getFormId(), $form_state, $form);
+        ->rebuildForm($this->getFormId(), $form_state, $form);
 
       // Refreshing form.
       $response->addCommand(new ReplaceCommand('#' . static::$containerId, $new_form));
@@ -369,26 +378,26 @@ class MemberRegisterForm extends FormBase {
       return $response;
     }
 
-    // Registration handler
+    // Registration handler.
     if ($step > 2 && $triggering_element['#name'] == 'submit_ok') {
       $storage = $form_state->getStorage();
 
-      /** @var Node $campaign Campaign object. */
+      /** @var \Drupal\node\Entity\Node $campaign Campaign object. */
       $campaign = $storage['campaign'];
       $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
       $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
 
-      /** @var Member $member Member entity. */
+      /** @var \Drupal\openy_campaign\Entity\Member $member Member entity. */
       $member = $storage['member'];
-      // Update email
+      // Update email.
       if (!empty($form_state->getValue('email'))) {
         $member->setEmail($form_state->getValue('email'));
       }
       $member->save();
 
-      /** @var MemberCampaign $memberCampaign MemberCampaign entity. */
+      /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign MemberCampaign entity. */
       $memberCampaign = $storage['member_campaign'];
-      // Define visits goal
+      // Define visits goal.
       $memberCampaign->defineGoal();
       $memberCampaign->save();
 
@@ -408,27 +417,27 @@ class MemberRegisterForm extends FormBase {
       ];
       $regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
-      // Get default values from settings
+      // Get default values from settings.
       $config = $this->config('openy_campaign.general_settings');
 
       $msgSuccess = $config->get('successful_registration');
       $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
-      // Get message from Campaign node
+      // Get message from Campaign node.
       if (!empty($campaign->field_successful_registration->value)) {
         $modalMessage = check_markup($campaign->field_successful_registration->value, $campaign->field_successful_registration->format);
       }
 
-      // If Campaign is not started
+      // If Campaign is not started.
       if ($campaignStartDate >= new \DateTime()) {
         $msgNotStarted = $config->get('error_register_checkins_not_started');
         $modalMessage = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
-        // Get message from Campaign node
+        // Get message from Campaign node.
         if (!empty($campaign->field_reg_checkins_not_started->value)) {
           $modalMessage = check_markup($campaign->field_reg_checkins_not_started->value, $campaign->field_reg_checkins_not_started->format);
         }
       }
 
-      //TODO: use hook_theme instead of inline template.
+      // TODO: use hook_theme instead of inline template.
       $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
       $response->addCommand(new ReplaceCommand('#' . static::$containerId, $wrappedModalMessage));
       $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialogByClick'));
@@ -462,12 +471,13 @@ class MemberRegisterForm extends FormBase {
   /**
    * Check if now is Checkings period of Campaign.
    *
-   * @param $campaign Node Campaign node
+   * @param $campaign
+   *   Node Campaign node
    *
    * @return bool
    */
   protected function checkCampaignPeriod(Node $campaign) {
-    /** @var Node $campaign Campaign node. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node. */
     $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
     $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
     $currentDate = new \DateTime();

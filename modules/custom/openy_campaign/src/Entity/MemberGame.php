@@ -84,7 +84,6 @@ class MemberGame extends ContentEntityBase implements MemberCampaignActivityInte
       ->setLabel(t('Event date'))
       ->setDescription(t('The timestamp for the day when an event generated the chance.'));
 
-
     return $fields;
   }
 

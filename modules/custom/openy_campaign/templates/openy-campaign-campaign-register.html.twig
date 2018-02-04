@@ -16,15 +16,8 @@
         <div class="content">
             <h1>{{ campaign.title.value }} </h1>
             {% if activeRegistration %}
-
-                <h2 class="finish-date">
-                {{ campaign.field_campaign_start_date.value|date('F') }}
-                {{ campaign.field_campaign_start_date.value|date('d') }} -
-                {{ campaign.field_campaign_end_date.value|date('d') }} ,
-                {{ campaign.field_campaign_end_date.value|date('Y') }}
-            </h2>
-
-            <div id="countDown" class="countdown"></div>
+                <h2 class="finish-date">{{ campaignDates }}</h2>
+                <div id="countDown" class="countdown"></div>
             {% endif %}
             {{ form }}
         </div>

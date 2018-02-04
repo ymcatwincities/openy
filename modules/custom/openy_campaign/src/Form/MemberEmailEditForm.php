@@ -24,7 +24,7 @@ class MemberEmailEditForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $member_id = NULL) {
-    /** @var Member $member */
+    /** @var \Drupal\openy_campaign\Entity\Member $member */
     $member = Member::load($member_id);
 
     $form['#prefix'] = '<div class="container">';

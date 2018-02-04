@@ -2,20 +2,21 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_campaign_branches
+    - field.storage.node.field_campaign_branch_target
     - node.type.branch
     - node.type.campaign
   module:
     - datalayer
+    - openy_campaign_reference_with_text
 third_party_settings:
   datalayer:
     expose: 0
-    label: field_campaign_branches
-id: node.campaign.field_campaign_branches
-field_name: field_campaign_branches
+    label: field_campaign_branch_target
+id: node.campaign.field_campaign_branch_target
+field_name: field_campaign_branch_target
 entity_type: node
 bundle: campaign
-label: Branches
+label: 'Campaign Branch Target'
 description: ''
 required: false
 translatable: false
@@ -29,6 +30,6 @@ settings:
     sort:
       field: title
       direction: ASC
-    auto_create: false
+    auto_create: 0
     auto_create_bundle: ''
-field_type: entity_reference
+field_type: entity_reference_with_text

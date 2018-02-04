@@ -37,7 +37,7 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param CampaignMenuServiceInterface $campaign_menu_service
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
    *   The Campaign menu service.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, CampaignMenuServiceInterface $campaign_menu_service) {
@@ -72,16 +72,16 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       return $build;
     }
 
-    // For logged in members
+    // For logged in members.
     if (MemberCampaign::isLoggedIn($campaign->id())) {
       $userData = MemberCampaign::getMemberCampaignData($campaign->id());
       $fullName = !empty($userData['full_name']) ? $userData['full_name'] : $this->t('Team member');
 
       $build['full_name'] = [
         '#markup' => '<div id="dropdownUsername" class="member-full-name dropdown-toggle" 
-             role="button" aria-haspopup="true" aria-expanded="false" 
-             data-toggle="dropdown">'.
-            '<i class="fa fa-user-o" aria-hidden="true"></i>' . $fullName . '</div>' ,
+          role="button" aria-haspopup="true" aria-expanded="false" 
+          data-toggle="dropdown">
+          <i class="fa fa-user-o" aria-hidden="true"></i>' . $fullName . '</div>' ,
       ];
 
       $build['logout'] = [
@@ -132,7 +132,7 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
           ],
         ];
       }
-      else if ($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) {
+      elseif ($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) {
         $build['register'] = [
           '#type' => 'link',
           '#title' => $this->t('Register'),
@@ -159,4 +159,5 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
 
     return $build;
   }
+
 }

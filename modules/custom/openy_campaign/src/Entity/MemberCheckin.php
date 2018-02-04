@@ -62,7 +62,8 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
   /**
    * Get Member check-ins for a period.
    *
-   * @param int $memberId Member id
+   * @param int $memberId
+   *   Member id.
    * @param \DateTime $startDate
    * @param \DateTime $endDate
    *
@@ -75,7 +76,6 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
       ->condition('date', $endDate->format('U'), '<')
       ->execute();
   }
-
 
   /**
    * Create Game opportunity while checkin record is created.
@@ -110,6 +110,28 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
         if ($item['value'] == MemberGame::TYPE_CHECKIN) {
           $isAllowedToCreateAnEntry = TRUE;
           break;
+        }
+
+        $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
+        $activities = [];
+        foreach ($utilizationActivities as $utilizationActivity) {
+          $activities[] = $utilizationActivity['value'];
+        }
+
+        if (in_array('visiting', $activities)) {
+          $loadedEntity = \Drupal::entityQuery('openy_campaign_util_activity')
+            ->condition('member_campaign', $campaignMemberId)
+            ->execute();
+
+          if (empty($loadedEntity)) {
+            $preparedActivityData = [
+              'member_campaign' => $campaignMemberId,
+              'created' => time(),
+              'activity_type' => 'visiting'
+            ];
+            $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
+            $campaignUtilizationActivity->save();
+          }
         }
       }
 

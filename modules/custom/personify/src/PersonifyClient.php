@@ -14,6 +14,9 @@ class PersonifyClient implements CRMClientInterface {
   protected $username;
   protected $password;
 
+  /**
+   * Client constructor.
+   */
   public function __construct() {
     $this->endpoint = Settings::get('personify_endpoint');
     $this->username = Settings::get('personify_username');
@@ -24,6 +27,12 @@ class PersonifyClient implements CRMClientInterface {
     }
   }
 
+  /**
+   * @param $method
+   * @param $json
+   *
+   * @return array|mixed
+   */
   protected function doAPIcall($method, $json) {
     $client = \Drupal::httpClient();
     $options = [
@@ -40,7 +49,7 @@ class PersonifyClient implements CRMClientInterface {
       $endpoint = $this->endpoint . $method;
       $response = $client->request('POST', $endpoint, $options);
       if ($response->getStatusCode() != '200') {
-        throw new \LogicException(t('API Method %method is failed.', array('%method' => $method)));
+        throw new \LogicException(t('API Method %method is failed.', ['%method' => $method]));
       }
       $body = $response->getBody();
       $content = $body->getContents();

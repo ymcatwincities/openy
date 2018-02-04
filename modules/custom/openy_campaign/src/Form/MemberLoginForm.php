@@ -39,13 +39,13 @@ class MemberLoginForm extends FormBase {
       '#weight' => -10,
     ];
 
-    // Set Campaign ID from URL
+    // Set Campaign ID from URL.
     $form['campaign_id'] = [
       '#type' => 'hidden',
       '#value' => $campaign_id,
     ];
 
-    // Set Landing page ID to change URL
+    // Set Landing page ID to change URL.
     $form['landing_page_id'] = [
       '#type' => 'hidden',
       '#value' => $landing_page_id,
@@ -67,7 +67,7 @@ class MemberLoginForm extends FormBase {
         [$this, 'elementValidateRequired'],
       ],
     ];
-    // Member ID text
+    // Member ID text.
     $settings = $this->config('openy_campaign.general_settings');
     $msgMemberIdText = $settings->get('register_form_text');
     $memberIdText = check_markup($msgMemberIdText['value'], $msgMemberIdText['format']);
@@ -104,7 +104,7 @@ class MemberLoginForm extends FormBase {
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
 
-    /** @var Node $campaign Current campaign. */
+    /** @var \Drupal\node\Entity\Node $campaign Current campaign. */
     $campaign = Node::load($campaignID);
 
     // Don't allow inactive members to login.
@@ -113,7 +113,7 @@ class MemberLoginForm extends FormBase {
     if ($isInactiveMember) {
       $msgMemberInactive = $config->get('error_msg_member_is_inactive');
       $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
-      // Get error from Campaign node
+      // Get error from Campaign node.
       if (!empty($campaign->field_error_member_is_inactive->value)) {
         $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
       }
@@ -124,7 +124,7 @@ class MemberLoginForm extends FormBase {
 
     $msgMembershipId = $config->get('error_msg_membership_id');
     $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
-    // Get error from Campaign node
+    // Get error from Campaign node.
     if (!empty($campaign->field_error_membership_id->value)) {
       $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
     }
@@ -132,12 +132,12 @@ class MemberLoginForm extends FormBase {
     // TODO Add check length of $membershipID
     // Check correct Membership ID
     /*if (!is_numeric($membershipID)) {
-      $form_state->setErrorByName('membership_id', $errorMembershipId);
+    $form_state->setErrorByName('membership_id', $errorMembershipId);
 
-      return;
+    return;
     }*/
 
-    // Check MemberCampaign entity
+    // Check MemberCampaign entity.
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
 
     $isCampaignPeriod = $this->checkCampaignPeriod($campaign);
@@ -145,16 +145,17 @@ class MemberLoginForm extends FormBase {
     // If the member is already registered previously.
     if ($memberCampaignID) {
       if ($isCampaignPeriod) {
-        // Login member - set SESSION
+        // Login member - set SESSION.
         MemberCampaign::login($membershipID, $campaignID);
         $form_state->setStorage([
           'status' => 'loggedin',
           'campaign' => $campaign,
         ]);
-      } else {
+      }
+      else {
         $msgNotStarted = $config->get('error_login_checkins_not_started');
         $errorNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
-        // Get error from Campaign node
+        // Get error from Campaign node.
         if (!empty($campaign->field_login_checkins_not_started->value)) {
           $errorNotStarted = check_markup($campaign->field_login_checkins_not_started->value, $campaign->field_login_checkins_not_started->format);
         }
@@ -168,7 +169,7 @@ class MemberLoginForm extends FormBase {
     // For not registered users.
     $msgNotRegistered = $config->get('error_login_not_registered');
     $errorNotRegistered = check_markup($msgNotRegistered['value'], $msgNotRegistered['format']);
-    // Get error from Campaign node
+    // Get error from Campaign node.
     if (!empty($campaign->field_login_not_registered->value)) {
       $errorNotRegistered = check_markup($campaign->field_login_not_registered->value, $campaign->field_login_not_registered->format);
     }
@@ -198,25 +199,25 @@ class MemberLoginForm extends FormBase {
 
     // For existed and logged in during validation members. All other cases were checked during validation.
     if ($storage['status'] === 'loggedin') {
-      /** @var Node $campaign Campaign object. */
+      /** @var \Drupal\node\Entity\Node $campaign Campaign object. */
       $campaign = $storage['campaign'];
 
-      // Get default values from settings
+      // Get default values from settings.
       $config = $this->config('openy_campaign.general_settings');
 
       $msgSuccess = $config->get('successful_login');
       $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
-      // Get message from Campaign node
+      // Get message from Campaign node.
       if (!empty($campaign->field_successful_login->value)) {
         $modalMessage = check_markup($campaign->field_successful_login->value, $campaign->field_successful_login->format);
       }
 
-      // Login before Campaign start
+      // Login before Campaign start.
       $localeCampaignStartDate = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString());
       if (!$localeCampaignStartDate->dateExpired()) {
         $msgNotStarted = $config->get('error_login_checkins_not_started');
         $modalMessage = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
-        // Get message from Campaign node
+        // Get message from Campaign node.
         if (!empty($campaign->field_login_checkins_not_started->value)) {
           $modalMessage = check_markup($campaign->field_login_checkins_not_started->value, $campaign->field_login_checkins_not_started->format);
         }
@@ -262,12 +263,13 @@ class MemberLoginForm extends FormBase {
   /**
    * Check if now is Checkings period of Campaign.
    *
-   * @param $campaign Node Campaign node
+   * @param $campaign
+   *   Node Campaign node
    *
    * @return bool
    */
   protected function checkCampaignPeriod(Node $campaign) {
-    /** @var Node $campaign Campaign node. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node. */
     $localeCampaignStartDate = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString());
     $localeCampaignEndDate = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_end_date')->getString());
 

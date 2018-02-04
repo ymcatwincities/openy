@@ -21,7 +21,7 @@ class GameBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $unplayedGames = NULL) {
-    // Get default values from settings
+    // Get default values from settings.
     $config = \Drupal::config('openy_campaign.general_settings');
 
     $msgGameNoGames = $config->get('track_activity_game_no_games');
@@ -71,7 +71,6 @@ class GameBlockForm extends FormBase {
       '#value' => $this->t('Play instant-win game now!'),
     ];
 
-
     return $form;
   }
 
@@ -92,8 +91,8 @@ class GameBlockForm extends FormBase {
     /** @var \Drupal\Node\Entity\Node $campaign */
     $campaign = $game->member->entity->campaign->entity;
 
-    $form_state->setRedirect('openy_campaign.campaign_game', [ 'uuid' => $game->uuid()], [
-      'query'=> ['campaign_id' => $campaign->id()]
+    $form_state->setRedirect('openy_campaign.campaign_game', ['uuid' => $game->uuid()], [
+      'query' => ['campaign_id' => $campaign->id()]
     ]);
   }
 

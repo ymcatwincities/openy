@@ -41,7 +41,7 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
    * {@inheritdoc}
    */
   public function processItem($data) {
-    // Get info from CRM
+    // Get info from CRM.
     /** @var $client \Drupal\openy_campaign\CRMClientInterface */
     $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
 

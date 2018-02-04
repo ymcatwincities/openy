@@ -90,22 +90,22 @@ class Mapping extends ContentEntityBase {
       ->setDescription(t('Member branch name from the site.'))
       ->setSetting('target_type', 'node')
       ->setSetting('handler', 'default')
-      ->setSetting('handler_settings',['target_bundles'=>['branch' => 'branch']] )
-      ->setDisplayOptions('view', array(
+      ->setSetting('handler_settings', ['target_bundles' => ['branch' => 'branch']])
+      ->setDisplayOptions('view', [
         'label'  => 'inline',
         'type'   => 'branch',
         'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type'     => 'entity_reference_autocomplete',
         'weight'   => -5,
-        'settings' => array(
+        'settings' => [
           'match_operator'    => 'CONTAINS',
           'size'              => '60',
           'autocomplete_type' => 'tags',
           'placeholder'       => '',
-        ),
-      ))
+        ],
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -148,6 +148,13 @@ class Mapping extends ContentEntityBase {
     return $this->set('branch', $target_id);
   }
 
+  /**
+   * Get Branch node ID by the Personify ID.
+   *
+   * @param $personify_branch
+   *
+   * @return int
+   */
   public static function getBranchByPersonifyId($personify_branch) {
     $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
@@ -158,5 +165,5 @@ class Mapping extends ContentEntityBase {
 
     return $result;
   }
-  
+
 }

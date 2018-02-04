@@ -29,7 +29,6 @@ class ActivityTrackingModalForm extends FormBase {
    */
   protected $entityTypeManager;
 
-
   /**
    * CalcBlockForm constructor.
    *
@@ -65,10 +64,8 @@ class ActivityTrackingModalForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $date = NULL, $memberCampaignId = NULL, $topTermId = NULL) {
 
-
     $term = Term::load($topTermId);
     $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
-
 
     $form['#prefix'] = '<div class="activity_tracking_form_wrapper">';
     $form['#suffix'] = '</div>';
@@ -80,7 +77,7 @@ class ActivityTrackingModalForm extends FormBase {
     ];
 
     $options = [];
-    /** @var Term $term */
+    /** @var \Drupal\taxonomy\Entity\Term $term */
     foreach ($childTerms as $term) {
       $options[$term->id()] = $term->getName();
     }
@@ -91,7 +88,7 @@ class ActivityTrackingModalForm extends FormBase {
 
     $existingActivitiesEntities = $this->entityTypeManager->getStorage('openy_campaign_memb_camp_actv')->loadMultiple($existingActivitiesIds);
     $default_values = [];
-    /** @var MemberCampaignActivity $activity */
+    /** @var \Drupal\openy_campaign\Entity\MemberCampaignActivity $activity */
     foreach ($existingActivitiesEntities as $activity) {
       $default_values[$activity->activity->entity->id()] = $activity->activity->entity->id();
     }
@@ -100,7 +97,7 @@ class ActivityTrackingModalForm extends FormBase {
       '#type' => 'checkboxes',
       '#options' => $options,
       '#default_value' => $default_values,
-      '#validated' => true,
+      '#validated' => TRUE,
     ];
 
     $form['member_campaign_id'] = [
@@ -115,8 +112,6 @@ class ActivityTrackingModalForm extends FormBase {
 
     return $form;
   }
-
-
 
   /**
    * {@inheritdoc}
