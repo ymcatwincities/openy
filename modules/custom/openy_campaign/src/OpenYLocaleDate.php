@@ -1,30 +1,31 @@
 <?php
 
-/**
- * @file
- * This file is to be used for Locale date conversions and dates that need
- * to be changed in and out via timezones.
- */
-
 namespace Drupal\openy_campaign;
 
-use \DateTime;
-use \DateTimeZone;
+use DateTime;
+use DateTimeZone;
 
+/**
+ * Converts DateTime to the date accounting the timezone.
+ */
 class OpenYLocaleDate {
 
   protected $date;
   protected $siteTimezone;
   protected $convertedTimezone;
 
-  function __construct(DateTime $date = NULL, DateTimeZone $timezone = NULL) {
+  /**
+   * @param \DateTime|null $date
+   * @param \DateTimeZone|null $timezone
+   */
+  public function __construct(DateTime $date = NULL, DateTimeZone $timezone = NULL) {
     $this->setDateFromDateTime($date, $timezone);
     $this->siteTimezone = date_default_timezone_get();
   }
 
-
   /**
    * Returns the datetime object.
+   *
    * @return \DateTime
    */
   public function getDate(): DateTime {
@@ -33,6 +34,7 @@ class OpenYLocaleDate {
 
   /**
    * Returns the datetime timestamp.
+   *
    * @return int
    */
   public function getTimestamp(): int {
@@ -52,7 +54,6 @@ class OpenYLocaleDate {
     return $localeCurrent->getDate() >= $this->getDate();
   }
 
-
   /**
    * Sets the utc date from one timezone to another, defaulting to site default.
    *
@@ -61,10 +62,10 @@ class OpenYLocaleDate {
    * any timezone.
    *
    * @param \DateTimeZone $fromTimezone
-   *  The timezone to convert the UTC date from.
+   *   The timezone to convert the UTC date from.
    *
    * @param \DateTimeZone|null $toTimezone
-   *  The timezone to convert the UTC date to.
+   *   The timezone to convert the UTC date to.
    *
    * @return \DateTime
    */
@@ -83,7 +84,7 @@ class OpenYLocaleDate {
    * Update the date with the offset from a given timezone.
    *
    * @param $timezone
-   *  Can be either a string or a DateTimeZone object.
+   *   Can be either a string or a DateTimeZone object.
    */
   public function setDateByTimezone($timezone) {
     if (is_string($timezone)) {
@@ -99,7 +100,7 @@ class OpenYLocaleDate {
   /**
    * Sets the date from a datetime object.
    *
-   * @param \DateTime|NULL $date
+   * @param \DateTime|null $date
    * @param \DateTimeZone|null $dateTimeZone
    */
   public function setDateFromDateTime(DateTime $date = NULL, DateTimeZone $dateTimeZone = NULL) {

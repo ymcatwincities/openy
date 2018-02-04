@@ -44,7 +44,7 @@ class CampaignWinnersBlock extends BlockBase implements ContainerFactoryPluginIn
    *   The plugin implementation definition.
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
-   * @param CampaignMenuServiceInterface $campaign_menu_service
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
    *   The Campaign menu service.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, CampaignMenuServiceInterface $campaign_menu_service) {
@@ -73,14 +73,14 @@ class CampaignWinnersBlock extends BlockBase implements ContainerFactoryPluginIn
     $block = [];
     $block['#cache']['max-age'] = 0;
 
-    // Get campaign node from current page URL
+    // Get campaign node from current page URL.
     /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
     if (empty($campaign)) {
       return $block;
     }
 
-    // Show Winners block form
+    // Show Winners block form.
     $form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\WinnersBlockForm', $campaign->id());
     $block['form'] = $form;
 

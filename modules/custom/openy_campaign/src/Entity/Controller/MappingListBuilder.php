@@ -41,10 +41,10 @@ class MappingListBuilder extends EntityListBuilder {
     if (!empty($entity->branch->entity->field_location_area->target_id)) {
       $regionTid = $entity->branch->entity->field_location_area->target_id;
       $row['region'] = Term::load($regionTid)->getName();
-    } else {
+    }
+    else {
       $row['region'] = '';
     }
-
 
     return $row + parent::buildRow($entity);
   }

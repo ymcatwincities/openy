@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\openy_campaign_reference_with_text\Plugin\Field\FieldType\EntityReferenceWithText.
- */
-
 namespace Drupal\openy_campaign_reference_with_text\Plugin\Field\FieldType;
 
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -30,7 +25,8 @@ use Drupal\Core\TypedData\DataReferenceTargetDefinition;
  *   list_class = "\Drupal\Core\Field\EntityReferenceFieldItemList"
  * )
  */
-class EntityReferenceWithText extends EntityReferenceItem implements FieldItemInterface  {
+class EntityReferenceWithText extends EntityReferenceItem implements FieldItemInterface {
+
   /**
    * {@inheritdoc}
    */
@@ -41,7 +37,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
       'case_sensitive' => FALSE,
     ] + parent::defaultStorageSettings();
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -84,14 +80,12 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
     $columns = [
       'target_id' => [
         'description' => 'The ID of the target entity.',
-        //'type' => 'varchar_ascii',
         'type' => 'int',
         // If the target entities act as bundles for another entity type,
         // their IDs should not exceed the maximum length for bundles.
         'length' => $target_type_info->getBundleOf() ? EntityTypeInterface::BUNDLE_MAX_LENGTH : 255,
       ],
     ];
-
 
     $columns['value'] = [
       'type' => 'varchar',
@@ -108,7 +102,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
 
     return $schema;
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -139,7 +133,6 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
 
     return empty($target_id) || empty($value);
   }
-  
 
   /**
    * {@inheritdoc}
@@ -147,4 +140,5 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
   public static function getPreconfiguredOptions() {
     return [];
   }
+
 }

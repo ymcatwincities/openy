@@ -189,16 +189,16 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setLabel(t('Birthday'))
       ->setDescription(t('The date of birth.'))
       ->setSetting('datetime_type', 'date')
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'datetime',
         'weight' => -2,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'label' => 'above',
         'type' => 'datetime',
         'weight' => -2,
-      ))
+      ])
       ->setRequired(TRUE)
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
@@ -227,22 +227,22 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDescription(t('Member branch ID.'))
       ->setSetting('target_type', 'node')
       ->setSetting('handler', 'default')
-      ->setSetting('handler_settings',['target_bundles'=>['branch' => 'branch']] )
-      ->setDisplayOptions('view', array(
+      ->setSetting('handler_settings', ['target_bundles' => ['branch' => 'branch']])
+      ->setDisplayOptions('view', [
         'label'  => 'hidden',
         'type'   => 'branch',
         'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type'     => 'entity_reference_autocomplete',
         'weight'   => -5,
-        'settings' => array(
+        'settings' => [
           'match_operator'    => 'CONTAINS',
           'size'              => '60',
           'autocomplete_type' => 'tags',
           'placeholder'       => '',
-        ),
-      ))
+        ],
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -289,7 +289,6 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
-
 
     $fields['member_unit_type'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Member unit type'))
@@ -507,7 +506,8 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * Load Member from CRM values.
    *
-   * @param $membershipID int Membership ID.
+   * @param $membershipID
+   *   int Membership ID.
    *
    * @return bool | \Drupal\openy_campaign\Entity\Member
    *   FALSE or Member object.
@@ -524,14 +524,14 @@ class Member extends ContentEntityBase implements MemberInterface {
       return FALSE;
     }
 
-    // Get info from CRM
+    // Get info from CRM.
     $email = openy_campaign_clean_personify_email($resultsCRM->PrimaryEmail);
     if (!empty($resultsCRM->BirthDate)) {
       $birthdate = new \DateTime($resultsCRM->BirthDate);
       $birthdate = $birthdate->format('Y-m-d');
     }
 
-    // Find branch from Mapping entity. It connects Branch ID from CRM and Branch node on the site
+    // Find branch from Mapping entity. It connects Branch ID from CRM and Branch node on the site.
     $branch = Mapping::getBranchByPersonifyId($resultsCRM->BranchId);
 
     // Transform ProductCode into MemberUnitType.
@@ -545,7 +545,7 @@ class Member extends ContentEntityBase implements MemberInterface {
         /** var \Drupal\Core\Field\FieldDefinitionInterface $field_definition */
         $membershipUnitTypesSettings = $field_definition->getSettings();
         $allowedValues = array_map(
-          function($v) {
+          function ($v) {
             return strtolower($v);
           },
           array_keys($membershipUnitTypesSettings['allowed_values'])
@@ -563,7 +563,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       }
     }
 
-    // Create Member entity
+    // Create Member entity.
     $memberValues = [
       'membership_id' => $membershipID,
       'personify_id' => $resultsCRM->MasterCustomerId,
@@ -572,11 +572,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       'first_name' => $resultsCRM->FirstName,
       'last_name' => $resultsCRM->LastName,
       'is_employee' => !empty($resultsCRM->ProductCode) && strpos($resultsCRM->ProductCode, 'STAFF'),
-      'birth_date' => (isset($birthdate)) ? $birthdate : NULL, // '1970-08-20' | '1950-10-02T00:00:00' - string with Birthday year
-      // Add these fields to CRM API
-      'branch' => !empty($branch) ? $branch : '', // 2 - target_id for node type Branch
+      'birth_date' => (isset($birthdate)) ? $birthdate : NULL,
+      // Add these fields to CRM API.
+      'branch' => !empty($branch) ? $branch : '',
       'order_number' => $resultsCRM->OrderNumber,
-      'payment_type' => '', // FP, P3
+      'payment_type' => '',
       'member_unit_type' => $productCode,
     ];
 
@@ -588,7 +588,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       $memberID = reset($result);
       $member = Member::load($memberID);
 
-      // Update Member entity with values from CRM
+      // Update Member entity with values from CRM.
       foreach ($memberValues as $field => $value) {
         $member->set($field, $value);
       }
@@ -603,5 +603,5 @@ class Member extends ContentEntityBase implements MemberInterface {
 
     return $member;
   }
-  
+
 }

@@ -32,7 +32,7 @@ interface MemberCampaignInterface extends ContentEntityInterface {
   /**
    * Sets the campaign of the user.
    *
-   * @param NodeInterface $campaign
+   * @param \Drupal\node\NodeInterface $campaign
    *   The campaign object.
    *
    * @return \Drupal\openy_campaign\MemberCampaignInterface
@@ -43,7 +43,7 @@ interface MemberCampaignInterface extends ContentEntityInterface {
   /**
    * Returns the member object.
    *
-   * @return Member
+   * @return \Drupal\openy_campaign\Entity\Member
    *   The member object.
    */
   public function getMember();
@@ -51,8 +51,7 @@ interface MemberCampaignInterface extends ContentEntityInterface {
   /**
    * Sets the member object.
    *
-   * @param MemberInterface $member
-   *   The member.
+   * @param \Drupal\openy_campaign\MemberInterface $member
    *
    * @return \Drupal\openy_campaign\MemberInterface
    *   The called member entity.

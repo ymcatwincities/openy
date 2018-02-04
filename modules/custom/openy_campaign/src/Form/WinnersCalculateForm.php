@@ -94,7 +94,7 @@ class WinnersCalculateForm extends FormBase {
       '#multiple' => TRUE,
     ];
 
-    // Get all enabled activities list
+    // Get all enabled activities list.
     $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
 
     $enableVisitsGoal = in_array('field_prgf_activity_visits', $activitiesOptions) ? TRUE : FALSE;
@@ -135,30 +135,31 @@ class WinnersCalculateForm extends FormBase {
     // Get all needed activities grouped by it's parent item.
     $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
     $activitiesTree = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree($activitiesVoc, 0);
-    // Get excluded terms
+    // Get excluded terms.
     $excludedTids = $form_state->getValue('excluded_activities');
 
     $excluded = [];
     foreach ($excludedTids as $value) {
       $excluded[] = $value;
     }
-    // Collect activities
+    // Collect activities.
     $activities = [];
     foreach ($activitiesTree as $item) {
       $parent = isset($item->parents[0]) ? $item->parents[0] : '';
-      // Exclude terms from 'excluded_activities'
+      // Exclude terms from 'excluded_activities'.
       if (in_array($item->tid, $excluded) || in_array($parent, $excluded)) {
         continue;
       }
 
       if (empty($parent)) {
         $activities[$item->tid][] = $item->tid;
-      } else {
+      }
+      else {
         $activities[$parent][] = $item->tid;
       }
     }
 
-    // Get all places to determinate winners. Example: [1, 2, 3, 4]
+    // Get all places to determinate winners. Example: [1, 2, 3, 4].
     $places = [];
     foreach ($campaign->field_campaign_winners_prizes as $item) {
       /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
@@ -168,7 +169,7 @@ class WinnersCalculateForm extends FormBase {
       }
     }
 
-    // Define should we calculate winners for Visits goal
+    // Define should we calculate winners for Visits goal.
     $isVisitsGoal = !empty($form_state->getValue('visits_goal')) ? TRUE : FALSE;
 
     $operations = [
@@ -194,7 +195,7 @@ class WinnersCalculateForm extends FormBase {
    * @return mixed
    */
   private static function getRandomWinner(&$data, &$alreadyWinners) {
-    // Randomize array
+    // Randomize array.
     shuffle($data);
 
     $memberCampaignItem = array_shift($data);
@@ -213,8 +214,10 @@ class WinnersCalculateForm extends FormBase {
   /**
    * Delete current Campaign winners.
    *
-   * @param int $campaignId Campaign node ID
-   * @param bool $isAll Should we delete all winners or only winners with defined activity
+   * @param int $campaignId
+   *   Campaign node ID.
+   * @param bool $isAll
+   *   Should we delete all winners or only winners with defined activity.
    */
   public static function deleteWinners($campaignId, $isAll = TRUE) {
     $connection = \Drupal::service('database');
@@ -223,7 +226,7 @@ class WinnersCalculateForm extends FormBase {
     $query->fields('w', ['id']);
     $query->join('openy_campaign_member_campaign', 'mc', 'w.member_campaign = mc.id');
 
-    // Delete only winners with defined activity
+    // Delete only winners with defined activity.
     if (!$isAll) {
       $query->condition('w.activity', 0, '!=');
     }
@@ -257,15 +260,15 @@ class WinnersCalculateForm extends FormBase {
     $activities = $context['sandbox']['activities'];
     $places = $context['sandbox']['places'];
 
-    // Get all member campaigns for this branch
+    // Get all member campaigns for this branch.
     $memberCampaignsInfo = self::getInfoByBranch($campaign, $branchId, $activities);
 
     $alreadyWinners = [];
 
     $activityWinners = [];
-    // Assign places
+    // Assign places.
     foreach ($places as $place) {
-      // Calculate winners per activity
+      // Calculate winners per activity.
       foreach ($memberCampaignsInfo as $category => $data) {
         if (empty($data)) {
           break;
@@ -290,7 +293,7 @@ class WinnersCalculateForm extends FormBase {
       /** @var \Drupal\openy_campaign\CampaignMenuService $campaignMenuService */
       $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
       $goalWinnersIds = $campaignMenuService->getVisitsGoalWinners($campaign, $branchId, $alreadyWinners);
-      // Create Winner entity. If winner defined by Visits goal without activity - set Activity = 0
+      // Create Winner entity. If winner defined by Visits goal without activity - set Activity = 0.
       foreach ($places as $place) {
         $goalWinnerId = array_shift($goalWinnersIds);
         $goalWinners[] = [
@@ -318,12 +321,15 @@ class WinnersCalculateForm extends FormBase {
   }
 
   /**
-   * Get all needed data for current campaign
+   * Get all needed data for current campaign.
    *
-   * @param \Drupal\node\Entity\Node $campaign Campaign node entity.
-   * @param int $branchId Branch ID to calculate winners for.
-   * @param array $activities Array of arrays with all activities for current Campaign.
-   *    Key - parent activity, value - array of child ones.
+   * @param \Drupal\node\Entity\Node $campaign
+   *   Campaign node entity.
+   * @param int $branchId
+   *   Branch ID to calculate winners for.
+   * @param array $activities
+   *   Array of arrays with all activities for current Campaign.
+   *   Key - parent activity, value - array of child ones.
    *
    * @return array
    */
@@ -364,15 +370,15 @@ class WinnersCalculateForm extends FormBase {
       }
     }
 
-    // Get main activity for each MemberCampaign and collect result array
+    // Get main activity for each MemberCampaign and collect result array.
     $resultInfo = [];
     foreach ($memberCampaignsInfo as &$mcData) {
-      // Get only members who tracked activities on site
+      // Get only members who tracked activities on site.
       if (!empty($mcData['activity_visits'])) {
         $mcData['main_activity'] = array_search(max($mcData['activity_visits']), $mcData['activity_visits']);
       }
 
-      // Collect result array grouped by activity
+      // Collect result array grouped by activity.
       if (!empty($mcData['activity_visits'])) {
         foreach ($mcData['activity_visits'] as $cat => $count) {
           if ($count > 0) {
@@ -397,4 +403,5 @@ class WinnersCalculateForm extends FormBase {
     }
     drupal_set_message($message);
   }
+
 }

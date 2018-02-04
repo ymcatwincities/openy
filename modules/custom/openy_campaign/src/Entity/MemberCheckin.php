@@ -62,7 +62,8 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
   /**
    * Get Member check-ins for a period.
    *
-   * @param int $memberId Member id
+   * @param int $memberId
+   *   Member id.
    * @param \DateTime $startDate
    * @param \DateTime $endDate
    *
@@ -75,7 +76,6 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
       ->condition('date', $endDate->format('U'), '<')
       ->execute();
   }
-
 
   /**
    * Create Game opportunity while checkin record is created.

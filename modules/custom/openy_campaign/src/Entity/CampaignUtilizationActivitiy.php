@@ -67,26 +67,25 @@ class CampaignUtilizationActivitiy extends ContentEntityBase implements Campaign
       ->setDescription(t('The id of the Member_Campaign entity. Start typing member campaign name.'))
       ->setSetting('target_type', 'node')
       ->setSetting('handler', 'default')
-      ->setSetting('handler_settings',['target_bundles'=>['member_campaign' => 'member_campaign']] )
-      ->setDisplayOptions('view', array(
+      ->setSetting('handler_settings', ['target_bundles' => ['member_campaign' => 'member_campaign']])
+      ->setDisplayOptions('view', [
         'label'  => 'hidden',
         'type'   => 'member_campaign',
         'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type'     => 'entity_reference_autocomplete',
         'weight'   => 5,
-        'settings' => array(
+        'settings' => [
           'match_operator'    => 'CONTAINS',
           'size'              => '60',
           'autocomplete_type' => 'tags',
           'placeholder'       => '',
-        ),
-      ))
+        ],
+      ])
       ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
-
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
@@ -95,7 +94,6 @@ class CampaignUtilizationActivitiy extends ContentEntityBase implements Campaign
     $fields['activity_type'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Activity Type'))
       ->setDescription(t('The Activity type.'));
-
 
     return $fields;
   }

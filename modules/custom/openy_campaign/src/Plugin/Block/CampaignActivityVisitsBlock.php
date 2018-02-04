@@ -74,20 +74,20 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
     $block = [];
     $block['#cache']['max-age'] = 0;
 
-    // Get campaign node from current page URL
-    /** @var Node $campaign */
+    // Get campaign node from current page URL.
+    /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
     if (empty($campaign)) {
       return $block;
     }
 
-    // Get all enabled activities list
+    // Get all enabled activities list.
     $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
 
     $enableVisitsGoal = in_array('field_prgf_activity_visits', $activitiesOptions) ? TRUE : FALSE;
 
     if ($enableVisitsGoal && MemberCampaign::isLoggedIn($campaign->id())) {
-      // Show Visits goal block
+      // Show Visits goal block.
       $userData = MemberCampaign::getMemberCampaignData($campaign->id());
       $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
       $memberCampaign = MemberCampaign::load($memberCampaignID);
@@ -98,7 +98,7 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
       $yesterday->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
       $currentCheckins = MemberCheckin::getFacilityCheckIns($userData['member_id'], $campaignStartDate, $yesterday);
 
-      // Get default values from settings
+      // Get default values from settings.
       $config = \Drupal::config('openy_campaign.general_settings');
 
       $msgMyVisits = $config->get('track_activity_my_visits');
@@ -106,7 +106,7 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
 
       $goal = 0;
       if (!empty($memberCampaign)) {
-        $goal = (int)$memberCampaign->getGoal();
+        $goal = (int) $memberCampaign->getGoal();
       }
 
       $block['goal_block'] = [

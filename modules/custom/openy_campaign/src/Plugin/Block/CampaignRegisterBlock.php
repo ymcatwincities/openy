@@ -70,11 +70,13 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition,
-                              FormBuilderInterface $formBuilder,
-                              CampaignMenuServiceInterface $campaign_menu_service,
-                              RequestStack $request_stack,
-                              ConfigFactoryInterface $config_factory) {
+  public function __construct(array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    FormBuilderInterface $formBuilder,
+    CampaignMenuServiceInterface $campaign_menu_service,
+    RequestStack $request_stack,
+    ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
     $this->campaignMenuService = $campaign_menu_service;
@@ -85,9 +87,10 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration,
-                                $plugin_id, $plugin_definition) {
-
+  public static function create(ContainerInterface $container,
+    array $configuration,
+    $plugin_id,
+    $plugin_definition) {
     return new static(
       $configuration,
       $plugin_id,
@@ -103,7 +106,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function build() {
-    // Get campaign node from current page URL
+    // Get campaign node from current page URL.
     /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
@@ -115,7 +118,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
 
     $activeRegistration = TRUE;
 
-    // Get site timezone
+    // Get site timezone.
     $config = $this->configFactory->get('system.date');
     $configSiteDefaultTimezone = !empty($config->get('timezone.default')) ? $config->get('timezone.default') : date_default_timezone_get();
     $siteDefaultTimezone = new \DateTimeZone($configSiteDefaultTimezone);
@@ -156,7 +159,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
         ]
       ],
       '#campaignDates' => $startDateCampaignTz->format('F') . ' ' . $startDateCampaignTz->format('d') . ' - ' .
-        $endDateCampaignTz->format('d') . ', ' . $endDateCampaignTz->format('Y'),
+      $endDateCampaignTz->format('d') . ', ' . $endDateCampaignTz->format('Y'),
       '#campaign' => $campaign,
       '#activeRegistration' => $activeRegistration,
       '#cache' => [
@@ -167,9 +170,9 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     /**
      * @var \Drupal\node\Entity\Node $currentNode
      */
-    $currentNode= $this->request_stack->getCurrentRequest()->get('node');
+    $currentNode = $this->request_stack->getCurrentRequest()->get('node');
 
-    if(empty($currentNode)) {
+    if (empty($currentNode)) {
       return $block;
     }
 
@@ -182,7 +185,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       if (($localeRegistrationStart->dateExpired() && !$localeRegistrationEnd->dateExpired()) ||
         ($localeCampaignStart->dateExpired() && !$localeCampaignEnd->dateExpired())
       ) {
-        // Show Register block form
+        // Show Register block form.
         $form = $this->formBuilder->getForm(
           'Drupal\openy_campaign\Form\MemberRegistrationSimpleForm',
           $campaign->id()
@@ -196,4 +199,5 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     }
     return $block;
   }
+
 }

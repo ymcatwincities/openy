@@ -32,7 +32,7 @@ interface CampaignUtilizationActivityInterface extends ContentEntityInterface {
   /**
    * Sets the campaign of the user.
    *
-   * @param MemberCampaign $memberCampaign
+   * @param \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign
    *   The campaign object.
    *
    * @return \Drupal\openy_campaign\MemberCampaignInterface
@@ -49,7 +49,6 @@ interface CampaignUtilizationActivityInterface extends ContentEntityInterface {
 
   /**
    * @return mixed
-   *
    */
   public function getCreated();
 

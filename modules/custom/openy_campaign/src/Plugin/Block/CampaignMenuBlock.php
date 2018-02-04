@@ -35,7 +35,7 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param CampaignMenuServiceInterface $campaign_menu_service
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
    *   The Campaign menu service.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, CampaignMenuServiceInterface $campaign_menu_service) {

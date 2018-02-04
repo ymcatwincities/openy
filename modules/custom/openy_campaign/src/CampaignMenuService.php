@@ -52,7 +52,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   /**
    * The Database service.
    *
-   * @var Connection
+   * @var \Drupal\Core\Database\Connection
    */
   protected $connection;
 
@@ -74,14 +74,17 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *   The current route match.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
-   * @param Connection $connection
+   * @param \Drupal\Core\Database\Connection $connection
    *   The database connection service.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ContainerInterface $container,
-                              RouteMatchInterface $route_match, RendererInterface $renderer,
-                              Connection $connection, ConfigFactoryInterface $config_factory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager,
+    ContainerInterface $container,
+    RouteMatchInterface $route_match,
+    RendererInterface $renderer,
+    Connection $connection,
+    ConfigFactoryInterface $config_factory) {
     $this->entityTypeManager = $entity_type_manager;
     $this->container = $container;
     $this->routeMatch = $route_match;
@@ -97,7 +100,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    */
   public function getCampaignNodeFromRoute() {
     $node = $this->routeMatch->getParameter('node');
-    // For custom routes - get campaign_id
+    // For custom routes - get campaign_id.
     if ($node instanceof NodeInterface !== TRUE) {
       $campaignId = $this->routeMatch->getParameter('campaign_id');
       if (is_null($campaignId)) {
@@ -137,7 +140,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       }
     }
 
-    // Get Campaign node with reference to given Landing page node
+    // Get Campaign node with reference to given Landing page node.
     $entity_query_service = $this->container->get('entity.query');
     /** @var \Drupal\Core\Entity\Query\QueryInterface $query */
     $query = $entity_query_service->get('node')
@@ -148,7 +151,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       ->condition('field_pause_landing_page', $node->id());
     $nids = $query->condition($orGroup)->execute();
 
-    /** @var NodeInterface $campaign */
+    /** @var \Drupal\node\NodeInterface $campaign */
     $campaign = $this->entityTypeManager->getStorage('node')->load(reset($nids));
 
     return $campaign;
@@ -181,7 +184,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *   Array of menu links.
    */
   private function getCampaignNodeCampaignMenu(NodeInterface $campaign) {
-    /** @var Node $campaign */
+    /** @var \Drupal\node\Entity\Node $campaign */
     if ($campaign->bundle() != 'campaign') {
       return [];
     }
@@ -196,7 +199,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       return [];
     }
 
-    /** @var Node $landingPage */
+    /** @var \Drupal\node\Entity\Node $landingPage */
     $landingPage = $this->getActiveCampaignPage($campaign);
 
     if (empty($landingPage)) {
@@ -239,12 +242,13 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   /**
    * Get Campaign page referenced in Campaign node.
    *
-   * @param \Drupal\node\NodeInterface $campaign Campaign node.
+   * @param \Drupal\node\NodeInterface $campaign
+   *   Campaign node.
    *
    * @return mixed Published campaign page or FALSE if there is no published referenced campaign page.
    */
   public function getActiveCampaignPage($campaign) {
-    // Check if Campaign is Paused
+    // Check if Campaign is Paused.
     $isPaused = $campaign->get('field_pause_campaign')->value;
     $fieldPauseLandingPage = $campaign->get('field_pause_landing_page')->getValue();
     $landingPageIds = [];
@@ -258,9 +262,9 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       }
     }
 
-    // Load Landing page and check if it's published
+    // Load Landing page and check if it's published.
     $landingPages = Node::loadMultiple($landingPageIds);
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     foreach ($landingPages as $node) {
       if ($node->isPublished()) {
         $publishedPages[] = $node;
@@ -278,18 +282,21 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   /**
    * Check permissions of the current page.
    *
-   * @param \Drupal\node\Entity\Node $node Campaign/Campaign Page node.
+   * @param \Drupal\node\Entity\Node $node
+   *   Campaign/Campaign Page node.
    *
-   * @return boolean
+   * @return bool
    */
   public function checkPermissions($node) {
     switch ($node->getType()) {
       case 'campaign':
         $campaign = $node;
         break;
+
       case 'campaign_page':
         $campaign = $this->getCampaignNodeFromRoute();
         break;
+
       default:
         return FALSE;
     }
@@ -337,14 +344,14 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    */
   public function getActiveCampaigns() {
     // All dates store in database in UTC timezone
-    // Get current datetime in UTC timezone
+    // Get current datetime in UTC timezone.
     $dt = new \DateTime('now', new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
     $now = DrupalDateTime::createFromDateTime($dt);
 
     $campaignIds = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'campaign')
       ->condition('status', TRUE)
-//      ->condition('field_campaign_reg_start_date', $now->format(DATETIME_DATETIME_STORAGE_FORMAT), '<=')
+    // ->condition('field_campaign_reg_start_date', $now->format(DATETIME_DATETIME_STORAGE_FORMAT), '<=')
       ->condition('field_campaign_end_date', $now->format(DATETIME_DATETIME_STORAGE_FORMAT), '>=')
       ->sort('created', 'DESC')
       ->execute();
@@ -356,30 +363,33 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   /**
    * Get achieved Visit Goal members by branch.
    *
-   * @param \Drupal\node\NodeInterface $campaign Campaign node entity.
-   * @param int $branchId Optional: calculate winners per branch. Branch ID to calculate winners for.
-   * @param array $alreadyWinners Optional: exclude already defined winners.
+   * @param \Drupal\node\NodeInterface $campaign
+   *   Campaign node entity.
+   * @param int $branchId
+   *   Optional: calculate winners per branch. Branch ID to calculate winners for.
+   * @param array $alreadyWinners
+   *   Optional: exclude already defined winners.
    *
    * @return array
-   *    Array with winners MemberCampaign ids.
+   *   Array with winners MemberCampaign ids.
    */
   public function getVisitsGoalWinners($campaign, $branchId = NULL, $alreadyWinners = []) {
     $goalWinners = [];
 
-    // Get all enabled activities list
+    // Get all enabled activities list.
     $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
 
-    // For disabled Visits Goal activity
+    // For disabled Visits Goal activity.
     if (!in_array('field_prgf_activity_visits', $activitiesOptions)) {
       return $goalWinners;
     }
 
-    /** @var Node $campaign */
+    /** @var \Drupal\node\Entity\Node $campaign */
     $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
     $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
     $minVisitsGoal = !empty($campaign->field_min_visits_goal->value) ? $campaign->field_min_visits_goal->value : 0;
 
-    // Get visits
+    // Get visits.
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $this->connection->select('openy_campaign_member_checkin', 'ch');
     $query->join('openy_campaign_member', 'm', 'm.id = ch.member');
@@ -422,7 +432,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *
    * @return array
    */
-  public function getCampaignPalette(\Drupal\node\NodeInterface $node) {
+  public function getCampaignPalette(NodeInterface $node) {
     $palette = [];
     $campaign = $this->getNodeCampaignNode($node);
     $scheme_id = $campaign->get('field_campaign_palette')->getString();
@@ -440,7 +450,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *
    * @return array
    */
-  public function getWinnerStream(\Drupal\node\NodeInterface $campaign) {
+  public function getWinnerStream(NodeInterface $campaign) {
     $winners = [];
     $streamType = $campaign->get('field_campaign_stream_type')->getString();
     switch ($streamType) {
@@ -451,12 +461,15 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         $winners = array_merge($instantWinners, $visitGoalAchived);
         shuffle($winners);
         break;
+
       case 'instant':
         $winners = $this->getWinnersOfType('instant', $campaign->id());
         break;
+
       case 'visit':
         $winners = $this->getWinnersOfType('visit', $campaign->id());
         break;
+
       default:
         break;
     }
@@ -491,11 +504,12 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         $result = $query->execute()->fetchAll();
         $streamText = $config->get('stream_text_game');
         break;
+
       case 'visit':
         $campaign = $this->entityTypeManager->getStorage('node')->load($node_id);
-        // Calculate visit goal winners
+        // Calculate visit goal winners.
         $achievedMemberCampaignIds = $this->getVisitsGoalWinners($campaign);
-        // Load needed information
+        // Load needed information.
         if (!empty($achievedMemberCampaignIds)) {
           /** @var \Drupal\Core\Database\Query\Select $query */
           $query = $this->connection->select('openy_campaign_member_campaign', 'mc');
@@ -529,7 +543,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *
    * @return string
    */
-  private function timeAgo($timestamp){
+  private function timeAgo($timestamp) {
     $now = new \DateTime("now");
     $date = new \DateTime();
     $date->setTimestamp($timestamp);
@@ -547,7 +561,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         break;
       }
     }
-    return !empty($message) ? $message. ' ' . t('ago') : '';
+    return !empty($message) ? $message . ' ' . t('ago') : '';
   }
 
 }

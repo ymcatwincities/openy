@@ -1,7 +1,4 @@
 <?php
-/**
- *
- */
 
 namespace Drupal\openy_campaign\Entity;
 
@@ -71,11 +68,14 @@ class MemberCampaignActivity extends ContentEntityBase implements MemberCampaign
   }
 
   /**
-   * Get Existing Activities
+   * Get Existing Activities.
    *
-   * @param int $memberCampaignId MemberCampaign entity ID
-   * @param \DateTime $date Date
-   * @param array $activityIds Activities IDs
+   * @param int $memberCampaignId
+   *   MemberCampaign entity ID.
+   * @param \DateTime $date
+   *   Date.
+   * @param array $activityIds
+   *   Activities IDs.
    *
    * @return array|int
    */
@@ -87,6 +87,9 @@ class MemberCampaignActivity extends ContentEntityBase implements MemberCampaign
       ->execute();
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function save() {
     $return = parent::save();
     /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign */
@@ -139,5 +142,5 @@ class MemberCampaignActivity extends ContentEntityBase implements MemberCampaign
     return $return;
 
   }
-  
+
 }
