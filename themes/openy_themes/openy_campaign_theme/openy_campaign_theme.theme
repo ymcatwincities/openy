@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Prepares variables for paragraph templates.
  *
@@ -40,25 +39,3 @@ function openy_campaign_theme_preprocess_html(&$variables) {
 
   $variables['page_css'] = '<link href="' . $cssUrl . '" type="text/css" rel="stylesheet"/>';
 }
-//
-//function openy_campaign_theme_preprocess_node(&$variables) {
-//  // Get campaign node from current page URL.
-//  /** @var \Drupal\node\Entity\Node $campaign */
-//  $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
-//  if (empty($campaign)) {
-//    return;
-//  }
-//  // Define if we need to show register block or not.
-//  $variables['page_simplify_header'] = FALSE;
-//  $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-//  $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
-//  $campaignRegistrationStartDate = new \DateTime($campaign->get('field_campaign_reg_start_date')->getString());
-//  $campaignRegistrationEndDate = new \DateTime($campaign->get('field_campaign_reg_end_date')->getString());
-//  $currentDate = new \DateTime();
-//
-//  if ($currentDate <= $campaignRegistrationStartDate || $currentDate >= $campaignEndDate) {
-//    $variables['page_simplify_header'] = TRUE;
-//  }
-//
-//  $variables['#cache']['max-age'] = 0;
-//}

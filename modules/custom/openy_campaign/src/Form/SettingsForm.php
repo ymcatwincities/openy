@@ -30,7 +30,7 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('openy_campaign.general_settings');
 
-    // Total amount of visitors taken from the CRM
+    // Total amount of visitors taken from the CRM.
     $form['total_amount_of_visitors'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Total amount of visitors'),
@@ -39,7 +39,7 @@ class SettingsForm extends ConfigFormBase {
       This value should be taken from the CRM. It is used for the analytics.'),
     ];
 
-    // Winners Stream
+    // Winners Stream.
     $form['stream'] = [
       '#type' => 'details',
       '#title' => $this->t('Winners Stream text'),
@@ -56,7 +56,7 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('stream_text_visits'),
     ];
 
-    // Login error messages
+    // Login error messages.
     $form['login_messages'] = [
       '#type' => 'details',
       '#title' => $this->t('Login error messages'),
@@ -89,7 +89,7 @@ class SettingsForm extends ConfigFormBase {
         Example: Thank you for logging in!'),
     ];
 
-    // Registration only messages
+    // Registration only messages.
     $form['reg_messages'] = [
       '#type' => 'details',
       '#title' => $this->t('Registration error messages'),
@@ -122,7 +122,7 @@ class SettingsForm extends ConfigFormBase {
         Example: Thank you for registering. Now you can sign in!'),
     ];
 
-    // General messages
+    // General messages.
     $form['general_messages'] = [
       '#type' => 'details',
       '#title' => $this->t('General error messages'),
@@ -176,7 +176,7 @@ class SettingsForm extends ConfigFormBase {
         Example: Something went wrong. Please contact our customer service center at 612-230-9622.'),
     ];
 
-    // Tracking Activity page messages
+    // Tracking Activity page messages.
     $form['activity_messages'] = [
       '#type' => 'details',
       '#title' => $this->t('Tracking Activity page messages'),
@@ -264,29 +264,29 @@ class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('openy_campaign.general_settings');
-    // Total amount of visitors taken from the CRM
-    $config->set('total_amount_of_visitors', (int)$form_state->getValue('total_amount_of_visitors'));
-    // Login only messages
+    // Total amount of visitors taken from the CRM.
+    $config->set('total_amount_of_visitors', (int) $form_state->getValue('total_amount_of_visitors'));
+    // Login only messages.
     $config->set('error_login_checkins_not_started', $form_state->getValue('error_login_checkins_not_started'));
     $config->set('error_login_not_registered', $form_state->getValue('error_login_not_registered'));
     $config->set('successful_login', $form_state->getValue('successful_login'));
-    // Registration only messages
+    // Registration only messages.
     $config->set('error_register_checkins_not_started', $form_state->getValue('error_register_checkins_not_started'));
     $config->set('error_register_already_registered', $form_state->getValue('error_register_already_registered'));
     $config->set('successful_registration', $form_state->getValue('successful_registration'));
-    // General messages
+    // General messages.
     $config->set('error_msg_membership_id', $form_state->getValue('error_msg_membership_id'));
     $config->set('error_msg_member_is_inactive', $form_state->getValue('error_msg_member_is_inactive'));
     $config->set('error_msg_empty_member_email', $form_state->getValue('error_msg_empty_member_email'));
     $config->set('error_msg_target_audience_settings', $form_state->getValue('error_msg_target_audience_settings'));
     $config->set('error_msg_default', $form_state->getValue('error_msg_default'));
     $config->set('register_form_text', $form_state->getValue('register_form_text'));
-    // Tracking Activity page messages
+    // Tracking Activity page messages.
     $config->set('track_activity_my_visits', $form_state->getValue('track_activity_my_visits'));
     $config->set('track_activity_game_no_games', $form_state->getValue('track_activity_game_no_games'));
     $config->set('track_activity_game_games_remaining_one', $form_state->getValue('track_activity_game_games_remaining_one'));
     $config->set('track_activity_game_games_remaining_multiple', $form_state->getValue('track_activity_game_games_remaining_multiple'));
-    // Winners Stream text
+    // Winners Stream text.
     $config->set('stream_text_game', $form_state->getValue('stream_text_game'));
     $config->set('stream_text_visits', $form_state->getValue('stream_text_visits'));
     // Instant Game messages.

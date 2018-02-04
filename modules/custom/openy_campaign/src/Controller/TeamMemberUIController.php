@@ -45,8 +45,9 @@ class TeamMemberUIController extends ControllerBase {
    * @param \Drupal\views\ViewExecutableFactory $views_executable_factory
    *   ViewExecutableFactory service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, CampaignMenuServiceInterface $campaign_menu_service,
-                              ViewExecutableFactory $views_executable_factory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager,
+    CampaignMenuServiceInterface $campaign_menu_service,
+    ViewExecutableFactory $views_executable_factory) {
     $this->entityTypeManager = $entity_type_manager;
     $this->campaignMenuService = $campaign_menu_service;
     $this->viewsExecutableFactory = $views_executable_factory;
@@ -62,6 +63,7 @@ class TeamMemberUIController extends ControllerBase {
       $container->get('views.executable')
     );
   }
+
   /**
    * Render view block to show all members table.
    *

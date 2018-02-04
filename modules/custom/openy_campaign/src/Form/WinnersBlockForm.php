@@ -64,7 +64,7 @@ class WinnersBlockForm extends FormBase {
     // Disable caching on this form.
     $form_state->setCached(FALSE);
 
-    // Get all regions - branches
+    // Get all regions - branches.
     $branches = $this->getBranches($campaignId);
 
     $selected = !empty($form_state->getValue('branch')) ? $form_state->getValue('branch') : $branches['default'];
@@ -90,14 +90,14 @@ class WinnersBlockForm extends FormBase {
     $form['winners'] = [
       '#prefix' => '<div id="winners-block-wrapper">',
       '#suffix' => '</div>',
-      '#markup' =>  $winnersBlock,
+      '#markup' => $winnersBlock,
     ];
 
     return $form;
   }
 
   /**
-   * Render Winners Block
+   * Render Winners Block.
    *
    * @param $campaignId
    * @param $branchId
@@ -155,6 +155,9 @@ class WinnersBlockForm extends FormBase {
     return $render;
   }
 
+  /**
+   * AJAX Callback for the winners list.
+   */
   public function ajaxWinnersCallback($form, $form_state) {
     return $form['winners'];
   }
@@ -174,9 +177,10 @@ class WinnersBlockForm extends FormBase {
   }
 
   /**
-   * Get all available branches
+   * Get all available branches.
    *
    * @param int $campaignId
+   *
    * @return \Drupal\Core\Entity\EntityInterface[]
    */
   private function getBranches($campaignId = NULL) {
@@ -187,7 +191,7 @@ class WinnersBlockForm extends FormBase {
     $query = $this->entityTypeManager->getStorage('node')->getQuery();
     $nids = $query->condition('type', 'branch')
       ->condition('status', '1')
-      ->sort('title' , 'ASC')
+      ->sort('title', 'ASC')
       ->execute();
     $branches = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
 

@@ -51,8 +51,10 @@ class MemberRegisterLoginController extends ControllerBase {
   /**
    * Callback for opening the modal form.
    *
-   * @param string $action Member action: 'login' or 'registration'.
-   * @param string $campaign_id Campaign node ID.
+   * @param string $action
+   *   Member action: 'login' or 'registration'.
+   * @param string $campaign_id
+   *   Campaign node ID.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse | \Symfony\Component\HttpFoundation\RedirectResponse
    */
@@ -67,15 +69,15 @@ class MemberRegisterLoginController extends ControllerBase {
 
     $response = new AjaxResponse();
 
-    // Don't show popup for already logged in members
+    // Don't show popup for already logged in members.
     if (MemberCampaign::isLoggedIn($campaign_id)) {
       return $response;
     }
 
-    // Registration
+    // Registration.
     $formArg = 'Drupal\openy_campaign\Form\MemberRegisterForm';
     $modalTitle = $this->t('Registration');
-    // Login
+    // Login.
     if ($action == 'login') {
       $modalTitle = $this->t('Sign in');
       $formArg = 'Drupal\openy_campaign\Form\MemberLoginForm';
@@ -95,14 +97,15 @@ class MemberRegisterLoginController extends ControllerBase {
   /**
    * Callback for logout link.
    *
-   * @param string $campaign_id Campaign node ID.
+   * @param string $campaign_id
+   *   Campaign node ID.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
    */
   public function logout($campaign_id = NULL) {
     $response = new AjaxResponse();
 
-    // Logout member - clear Campaign ID from SESSION
+    // Logout member - clear Campaign ID from SESSION.
     MemberCampaign::logout($campaign_id);
 
     $logoutTitle = $this->t('Thank you!');
@@ -110,7 +113,7 @@ class MemberRegisterLoginController extends ControllerBase {
 
     $response->addCommand(new OpenModalDialogCommand($logoutTitle, $logoutMessage, ['width' => 800]));
 
-    // Close dialog and redirect ot Campaign main page
+    // Close dialog and redirect ot Campaign main page.
     $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
 
     return $response;

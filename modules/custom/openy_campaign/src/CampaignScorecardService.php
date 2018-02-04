@@ -16,7 +16,7 @@ class CampaignScorecardService {
   /**
    * The Database service.
    *
-   * @var Connection
+   * @var \Drupal\Core\Database\Connection
    */
   protected $connection;
 
@@ -27,7 +27,10 @@ class CampaignScorecardService {
    */
   protected $container;
 
-
+  /**
+   * @param \Drupal\Core\Database\Connection $connection
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   */
   public function __construct(Connection $connection, ContainerInterface $container) {
     $this->connection = $connection;
     $this->container = $container;
@@ -49,7 +52,8 @@ class CampaignScorecardService {
   }
 
   /**
-   * * Live Scoreboard controller.
+   * Live Scoreboard generation.
+   *
    * @param \Drupal\node\Entity\Node $node
    *
    * @return array|bool
@@ -140,37 +144,37 @@ class CampaignScorecardService {
         $target = $targets[$id];
         $result['branches'][$id]['target'] = $target;
 
-        // Early registration calculation
-        $goal = number_format($target * $registerGoal/100);
+        // Early registration calculation.
+        $goal = number_format($target * $registerGoal / 100);
 
         $result['registration']['early'][$id]['registration_goal'] = $goal;
 
         $actual = !empty($earlyActualMembers[$id]->count_id) ? $earlyActualMembers[$id]->count_id : 0;
         $result['registration']['early'][$id]['actual'] = $actual;
 
-        $of_members = number_format($actual/$targets[$id] * 100, 1);
+        $of_members = number_format($actual / $targets[$id] * 100, 1);
         $result['registration']['early'][$id]['of_members'] = $of_members;
 
-        $of_goal = number_format($actual/$goal * 100, 1);
+        $of_goal = number_format($actual / $goal * 100, 1);
         $result['registration']['early'][$id]['of_goal'] = $of_goal;
 
-        // Total Early registration calculation
+        // Total Early registration calculation.
         $result['total']['target'] += $target;
         $result['total']['registration_goal'] += $goal;
         $result['total']['actual'] += $actual;
         $result['total']['of_members'] += $of_members;
         $result['total']['of_goal'] += $of_goal;
 
-        // Challenge registration calculation
+        // Challenge registration calculation.
         $result['registration']['challenge'][$id]['registration_goal'] = $goal;
 
         $reg_actual = !empty($challengeRegistrationOfMembers[$id]->count_id) ? $challengeRegistrationOfMembers[$id]->count_id : 0;
         $result['registration']['challenge'][$id]['actual'] = $reg_actual;
 
-        $reg_of_member = number_format($reg_actual/$target * 100, 1);
+        $reg_of_member = number_format($reg_actual / $target * 100, 1);
         $result['registration']['challenge'][$id]['of_members'] = $reg_of_member;
 
-        $reg_of_goal = number_format($reg_actual/$goal * 100, 1);
+        $reg_of_goal = number_format($reg_actual / $goal * 100, 1);
         $result['registration']['challenge'][$id]['of_goal'] = $reg_of_goal;
 
         $result['total']['reg_registration_goal'] += $goal;
@@ -178,22 +182,22 @@ class CampaignScorecardService {
         $result['total']['reg_of_members'] += $reg_of_member;
         $result['total']['reg_of_goal'] += $reg_of_goal;
 
-        // Utilization calculation
+        // Utilization calculation.
         if ($reg_actual >= $goal) {
-          $util_goal = number_format($reg_actual * $utilizationGoal/100);
+          $util_goal = number_format($reg_actual * $utilizationGoal / 100);
         }
         else {
-          $util_goal = number_format($goal * $utilizationGoal/100);
+          $util_goal = number_format($goal * $utilizationGoal / 100);
         }
 
-        $result['utilization'][$id]['goal']  = $util_goal;
+        $result['utilization'][$id]['goal'] = $util_goal;
 
         $util_actual = $this->getCampaignUtilizationActivitiesByBranches($node);
         $util_actual = isset($util_actual[$id]) ? $util_actual[$id] : 0;
         $result['utilization'][$id]['actual'] = $util_actual;
 
         if (!empty($reg_actual)) {
-          $util_of_member = number_format($util_actual/$reg_actual * 100,1);
+          $util_of_member = number_format($util_actual / $reg_actual * 100, 1);
         }
         else {
           $util_of_member = 0;
@@ -201,11 +205,11 @@ class CampaignScorecardService {
 
         $result['utilization'][$id]['of_members'] = $util_of_member;
 
-        $util_of_goal = number_format($util_actual/$util_goal * 100, 1);
+        $util_of_goal = number_format($util_actual / $util_goal * 100, 1);
 
         $result['utilization'][$id]['of_goal'] = $util_of_goal;
 
-        //Utilization total
+        // Utilization total.
         $result['total']['util_registration_goal'] += $util_goal;
         $result['total']['util_actual'] += $util_actual;
         $result['total']['util_of_members'] += $util_of_member;
@@ -213,12 +217,12 @@ class CampaignScorecardService {
 
       }
 
-      $result['total']['of_members'] = number_format($result['total']['of_members']/count($targets), 1);
-      $result['total']['of_goal'] = number_format($result['total']['of_goal']/count($targets), 1);
-      $result['total']['reg_of_members'] = number_format($result['total']['reg_of_members']/count($targets), 1);
-      $result['total']['reg_of_goal'] = number_format($result['total']['reg_of_goal']/count($targets), 1);
-      $result['total']['util_of_members'] = number_format($result['total']['util_of_members']/count($targets), 1);
-      $result['total']['util_of_goal'] = number_format($result['total']['util_of_goal']/count($targets), 1);
+      $result['total']['of_members'] = number_format($result['total']['of_members'] / count($targets), 1);
+      $result['total']['of_goal'] = number_format($result['total']['of_goal'] / count($targets), 1);
+      $result['total']['reg_of_members'] = number_format($result['total']['reg_of_members'] / count($targets), 1);
+      $result['total']['reg_of_goal'] = number_format($result['total']['reg_of_goal'] / count($targets), 1);
+      $result['total']['util_of_members'] = number_format($result['total']['util_of_members'] / count($targets), 1);
+      $result['total']['util_of_goal'] = number_format($result['total']['util_of_goal'] / count($targets), 1);
     }
     else {
       $result['empty'] = t('Campaign @campaign has no active branches. Please edit current campaign', ['@campaign' => $node->label()]);
@@ -248,14 +252,14 @@ class CampaignScorecardService {
 
       $query->leftJoin('openy_campaign_member_campaign', 'mc', 'ua.member_campaign = mc.id');
       $query->leftJoin('openy_campaign_member', 'cm', 'mc.member = cm.id');
-      $query->fields('cm', array('branch'));
-      $query->fields('ua', array('id'));
+      $query->fields('cm', ['branch']);
+      $query->fields('ua', ['id']);
       $result = $query->execute()->fetchAll();
 
       $counter = [];
       foreach ($result as $item) {
         if (isset($counter[$item->branch])) {
-          $counter[$item->branch] ++;
+          $counter[$item->branch]++;
         }
         else {
           $counter[$item->branch] = 1;
@@ -308,7 +312,6 @@ class CampaignScorecardService {
     return $output;
   }
 
-
   /**
    * Get Count of registered users by branches for campaign.
    *
@@ -323,7 +326,7 @@ class CampaignScorecardService {
     $query = $this->connection->select('openy_campaign_member', 'cm');
     $query->leftJoin('openy_campaign_member_campaign', 'mc', 'mc.member = cm.id');
     $query->addExpression('COUNT(cm.id)', 'count_id');
-    $query->fields('cm', array('branch'));
+    $query->fields('cm', ['branch']);
     $query->condition('cm.branch', $branches, 'IN');
     $query->condition('mc.campaign', $node->id(), '=');
     $query->condition('mc.created', [$dateStart, $dateEnd], 'BETWEEN');

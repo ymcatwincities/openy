@@ -10,14 +10,12 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\openy_campaign\OpenYLocaleDate;
 use Drupal\openy_session_instance\SessionInstanceManager;
 use Drupal\taxonomy\Entity\Term;
 use League\Csv\Writer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\Response;
-
 
 /**
  * Class CampaignReportsController.
@@ -27,21 +25,21 @@ class CampaignReportsController extends ControllerBase {
   /**
    * The form builder.
    *
-   * @var FormBuilder
+   * @var \Drupal\Core\Form\FormBuilder
    */
   protected $formBuilder;
 
   /**
    * The Database service.
    *
-   * @var Connection
+   * @var \Drupal\Core\Database\Connection
    */
   protected $connection;
 
   /**
    * The entity type manager service.
    *
-   * @var EntityTypeManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
@@ -55,14 +53,13 @@ class CampaignReportsController extends ControllerBase {
   /**
    * The CampaignReportsController constructor.
    *
-   * @param FormBuilder $formBuilder
+   * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
-   * @param Connection $connection
+   * @param \Drupal\Core\Database\Connection $connection
    *   The database connection service.
-   * @param EntityTypeManagerInterface $entityTypeManager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager service.
-   * @param SessionInstanceManager $session_instance_manager
-   *   The SessionInstanceManager.
+   * @param \Drupal\openy_session_instance\SessionInstanceManager $sessionInstanceManager
    */
   public function __construct(FormBuilder $formBuilder, Connection $connection, EntityTypeManagerInterface $entityTypeManager, SessionInstanceManager $sessionInstanceManager) {
     $this->formBuilder = $formBuilder;
@@ -147,7 +144,7 @@ class CampaignReportsController extends ControllerBase {
     ];
 
     foreach ($summary['activities']['categories'] as $activity) {
-      /** @var Term $term */
+      /** @var \Drupal\taxonomy\Entity\Term $term */
       $term = $activity['term'];
 
       $build['activities']['category_' . $term->id()]['subcategories'] = [
@@ -157,7 +154,7 @@ class CampaignReportsController extends ControllerBase {
       $subcategoriesForm = &$build['activities']['category_' . $term->id()]['subcategories'];
 
       foreach ($activity['subcategories'] as $subcategory) {
-        /** @var Term $subTerm */
+        /** @var \Drupal\taxonomy\Entity\Term $subTerm */
         $subTerm = $subcategory['term'];
         $subcategoriesForm['subcategory_' . $subTerm->id()] = [
           '#type' => 'textfield',
@@ -177,6 +174,13 @@ class CampaignReportsController extends ControllerBase {
     return $build;
   }
 
+  /**
+   * Generate Summary Members CSV.
+   *
+   * @param \Drupal\node\NodeInterface|int $node
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
   public function generateSummaryMembersCsv($node) {
     $summary = $this->getSummary($node);
 
@@ -195,6 +199,13 @@ class CampaignReportsController extends ControllerBase {
     return $this->createCsvResponse($fileName, $header, $records);
   }
 
+  /**
+   * Generate Summary Activities CSV.
+   *
+   * @param \Drupal\node\NodeInterface|int $node
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   */
   public function generateSummaryActivitiesCsv($node) {
     $summary = $this->getSummary($node);
 
@@ -208,13 +219,13 @@ class CampaignReportsController extends ControllerBase {
     $records = [];
 
     foreach ($summary['activities']['categories'] as $activity) {
-      /** @var Term $term */
+      /** @var \Drupal\taxonomy\Entity\Term $term */
       $term = $activity['term'];
 
       $records[] = [$term->getName(), '', $activity['amount'], ''];
 
       foreach ($activity['subcategories'] as $subcategory) {
-        /** @var Term $subTerm */
+        /** @var \Drupal\taxonomy\Entity\Term $subTerm */
         $subTerm = $subcategory['term'];
 
         $records[] = ['', $subTerm->getName(), '', $subcategory['amount']];
@@ -230,6 +241,8 @@ class CampaignReportsController extends ControllerBase {
   }
 
   /**
+   * Get summary by the node.
+   *
    * @param \Drupal\node\NodeInterface|int $node
    *
    * @return array Render array
@@ -257,6 +270,8 @@ class CampaignReportsController extends ControllerBase {
   }
 
   /**
+   * Render activities report.
+   *
    * @param \Drupal\node\NodeInterface $node
    *
    * @return array Render array
@@ -269,9 +284,8 @@ class CampaignReportsController extends ControllerBase {
     return $build;
   }
 
-
   /**
-   * Get an amount of registered members.
+   * Get an amount of the registered members.
    *
    * @param \Drupal\node\NodeInterface $node
    *
@@ -286,7 +300,7 @@ class CampaignReportsController extends ControllerBase {
     $query = $query->countQuery();
     $amount = $query->execute()->fetchField();
 
-    return (int)$amount;
+    return (int) $amount;
   }
 
   /**
@@ -299,7 +313,7 @@ class CampaignReportsController extends ControllerBase {
     $config = $this->config('openy_campaign.general_settings');
     $amount = $config->get('total_amount_of_visitors');
 
-    return (int)$amount;
+    return (int) $amount;
   }
 
   /**
@@ -337,7 +351,7 @@ class CampaignReportsController extends ControllerBase {
       // Fetch category.
       $ancestors = $this->entityTypeManager->getStorage("taxonomy_term")->loadAllParents($subcategory->id());
       $ancestors = array_reverse($ancestors);
-      /** @var Term $category */
+      /** @var \Drupal\taxonomy\Entity\Term $category */
       $category = reset($ancestors);
 
       // Calculate amount of activities in the category.
@@ -367,10 +381,12 @@ class CampaignReportsController extends ControllerBase {
   }
 
   /**
+   * Generate CSV file.
+   *
    * @param $fileName
    * @param $header
    * @param $records
-   * @return Response
+   * @return \Symfony\Component\HttpFoundation\Response
    */
   private function createCsvResponse($fileName, $header, $records) {
     $csv = Writer::createFromString('');
@@ -388,7 +404,8 @@ class CampaignReportsController extends ControllerBase {
   }
 
   /**
-   * * Live Scoreboard controller.
+   * Live Scoreboard controller.
+   *
    * @param \Drupal\node\Entity\Node $node
    *
    * @return array|bool
@@ -400,11 +417,14 @@ class CampaignReportsController extends ControllerBase {
     return $result;
   }
 
-
+  /**
+   * AJAX callback for the different campaigns.
+   */
   public function ajaxCallbackGenerateLiveScorecard($node) {
     $node = Node::load($node);
     $result = \Drupal::service('openy_campaign.generate_campaign_scorecard')->generateLiveScorecard($node);
     $renderer = \Drupal::service('renderer');
     return new Response($renderer->render($result));
   }
+
 }

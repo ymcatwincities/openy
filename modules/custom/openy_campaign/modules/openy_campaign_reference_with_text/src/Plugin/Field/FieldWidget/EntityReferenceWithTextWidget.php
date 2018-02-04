@@ -35,10 +35,10 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
 
     $options = $this->getOptions($items->getEntity());
 
-    $header = array(
+    $header = [
       'branch' => t('Branch'),
       'target' => t('Total Members'),
-    );
+    ];
 
     foreach ($options as $id => $option) {
 
@@ -50,9 +50,9 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
             'data' => [
               '#type' => 'textfield',
               '#default_value' => !empty($selectedValues[$id]) ?
-                $selectedValues[$id] : NULL,
+              $selectedValues[$id] : NULL,
               '#value' => !empty($selectedValues[$id]) ?
-                $selectedValues[$id] : NULL,
+              $selectedValues[$id] : NULL,
               '#placeholder' => t('Total Members'),
               '#name' => 'branch_target_for_' . $id,
               '#size' => 15,
@@ -61,12 +61,12 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
         ];
     }
 
-    $element['branch_target'] = array(
+    $element['branch_target'] = [
       '#type' => 'tableselect',
       '#header' => $header,
       '#options' => $data,
       '#default_value' => $selectedValues,
-    );
+    ];
 
     return $element;
   }
@@ -99,4 +99,5 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
 
     return $values;
   }
+
 }

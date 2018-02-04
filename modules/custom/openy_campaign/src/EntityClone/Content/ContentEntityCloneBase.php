@@ -49,4 +49,5 @@ class ContentEntityCloneBase extends EntityCloneContentBase {
     $clonedEntity->save();
     return $clonedEntity;
   }
+
 }

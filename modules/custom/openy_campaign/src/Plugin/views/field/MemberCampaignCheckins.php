@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\d8views\Plugin\views\field\MemberCampaignCheckins
- */
-
 namespace Drupal\openy_campaign\Plugin\views\field;
 
 use Drupal\openy_campaign\Entity\MemberCampaign;
@@ -35,7 +30,8 @@ class MemberCampaignCheckins extends FieldPluginBase {
     /** @var \Drupal\openy_campaign\Entity\MemberCampaign $entity */
     if ($values->_entity instanceof MemberCampaign) {
       $entity = $values->_entity;
-    } else {
+    }
+    else {
       $relationship_entities = $values->_relationship_entities;
       $entity = $relationship_entities['member_campaign'];
     }
@@ -46,7 +42,7 @@ class MemberCampaignCheckins extends FieldPluginBase {
     if (empty($member)) {
       return 0;
     }
-    
+
     /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $entity->getCampaign();
 
@@ -63,4 +59,5 @@ class MemberCampaignCheckins extends FieldPluginBase {
     return count($facilityCheckInIds);
 
   }
+
 }

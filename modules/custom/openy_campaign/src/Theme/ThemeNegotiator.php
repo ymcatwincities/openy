@@ -5,6 +5,9 @@ namespace Drupal\openy_campaign\Theme;
 use Drupal\Core\Theme\ThemeNegotiatorInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
+/**
+ * {@inheritdoc}
+ */
 class ThemeNegotiator implements ThemeNegotiatorInterface {
 
   /**
@@ -22,10 +25,10 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
       return TRUE;
     }
 
-    $possible_routes = array(
+    $possible_routes = [
       'entity.node.canonical',
       'openy_campaign.campaign_game'
-    );
+    ];
 
     if (in_array($route_match->getRouteName(), $possible_routes)) {
       $node = $route_match->getParameter('node');
@@ -62,4 +65,5 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
     // Here return the actual theme name.
     return CAMPAIGN_THEME;
   }
+
 }

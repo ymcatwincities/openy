@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Controller;
 
+use Drupal\openy_campaign\Form\WinnersCalculateForm;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
@@ -9,7 +10,6 @@ use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\Core\Form\FormBuilder;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
-
 
 /**
  * Class CampaignController.
@@ -35,7 +35,7 @@ class CampaignController extends ControllerBase {
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
-   * @param CampaignMenuServiceInterface $campaign_menu_service
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
    *   The Campaign menu service.
    */
   public function __construct(FormBuilder $formBuilder, CampaignMenuServiceInterface $campaign_menu_service) {
@@ -78,7 +78,7 @@ class CampaignController extends ControllerBase {
    */
   public function showWinners(NodeInterface $node) {
     $winnersList = views_embed_view('campaign_winners', 'campaign_winners_page', $node->id());
-    $winnersCalculateForm = \Drupal::formBuilder()->getForm(\Drupal\openy_campaign\Form\WinnersCalculateForm::class, $node->id());
+    $winnersCalculateForm = \Drupal::formBuilder()->getForm(WinnersCalculateForm::class, $node->id());
 
     $build = [
       'view' => $winnersList,
@@ -115,4 +115,5 @@ class CampaignController extends ControllerBase {
   public function campaignPagesReportsAccess(NodeInterface $node, AccountInterface $account) {
     return AccessResult::allowedIf($account->hasPermission('view retention campaign reports') && $node->getType() == 'campaign');
   }
+
 }

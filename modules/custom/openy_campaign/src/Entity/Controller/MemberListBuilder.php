@@ -46,7 +46,7 @@ class MemberListBuilder extends EntityListBuilder {
     $branch = $entity->branch->entity;
     $row['region'] = '';
     if (!empty($branch)) {
-      /** @var Term $locationName */
+      /** @var \Drupal\taxonomy\Entity\Term $locationName */
       $locationName = Term::load($branch->field_location_area->target_id);
       $region = !empty($locationName) ? ' (' . $locationName->getName() . ')' : '';
       $row['region'] = $branch->getTitle() . $region;
@@ -55,13 +55,13 @@ class MemberListBuilder extends EntityListBuilder {
     $row['membership_id'] = $entity->getMemberId();
     $row['is_employee'] = $entity->isMemberEmployee() ? $this->t('Yes') : $this->t('No');
 
-    // Get Checkins from MemberCheckin entity
+    // Get Checkins from MemberCheckin entity.
     $memberCheckins = \Drupal::entityQuery('openy_campaign_member_checkin')
       ->condition('member', $entity->id())
       ->execute();
     $row['checkins'] = count($memberCheckins);
 
-    // Get Campaign titles list for this Member
+    // Get Campaign titles list for this Member.
     $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $connection->select('openy_campaign_member', 'm');
