@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: campaign_moderator
+label: 'Campaign moderator'
+weight: 5
+is_admin: null

@@ -1,0 +1,5 @@
+openy_interstitial:
+  js:
+    js/openy-interstitial.js: {}
+  dependencies:
+    - core/drupalSettings

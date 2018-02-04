@@ -1,0 +1,7 @@
+backend:
+  version: VERSION
+  js:
+    js/backend.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

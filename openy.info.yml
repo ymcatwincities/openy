@@ -150,6 +150,7 @@ dependencies:
   - openy_prgf_embedded_groupexpro_schedule
   - openy_prgf_pgm_reg
   - openy_prgf_webform
+  - openy_prgf_campaign
   - openy_node_activity
   - openy_node_class
   - openy_node_session
@@ -192,6 +193,9 @@ dependencies:
   - openy_calc
   - openy_data_wrapper
   - logger_entity
+  - openy_campaign
+  - personify
+  - openy_interstitial
 
 themes:
   - bartik

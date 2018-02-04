@@ -1,0 +1,7 @@
+name: 'OpenY Taxonomy Fitness Category'
+description: 'OpenY Taxonomy Fitness Category'
+type: module
+core: 8.x
+dependencies:
+  - language
+  - taxonomy

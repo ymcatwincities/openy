@@ -1,0 +1,182 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncampaign
+id: openy_demo_node_campaign_page
+migration_tags: {  }
+migration_group: openy_demo_ncampaign
+label: 'Create demo campaign page nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: challenge_yourself_preview
+      title: 'Challenge Yourself Preview'
+      alias: '/challenge-yourself-coming'
+      publish_date: '-1 month'
+      unpublish_date: '-3 weeks'
+      publish_status: 0
+      content_ids:
+        -
+          content_id: challenge_yourself_preview_simple
+    -
+      id: challenge_yourself_registration_open
+      title: 'Challenge Yourself Register'
+      alias: '/challenge-yourself-register'
+      publish_date: '-3 weeks'
+      unpublish_date: '-1 week'
+      publish_status: 0
+      content_ids:
+        -
+          content_id: challenge_yourself_registration_open_simple
+    -
+      id: challenge_yourself_started
+      title: 'Challenge Yourself Started'
+      alias: '/challenge-yourself-started'
+      publish_date: '-1 week'
+      unpublish_date: '+3 weeks'
+      publish_status: 1
+      header_content_ids:
+        -
+          header_content_id: lp_campaign_menu_1
+      content_ids:
+        -
+          content_id: challenge_yourself_started_simple
+    -
+      id: challenge_yourself_completed
+      title: 'Challenge Yourself Winners'
+      alias: '/challenge-yourself-winners'
+      publish_date: '+3 weeks'
+      unpublish_date: '+1 month'
+      publish_status: 0
+      content_ids:
+        -
+          content_id: challenge_yourself_completed_simple
+        -
+          content_id: challenge_yourself_campaign_winners
+    -
+      id: challenge_yourself_rules
+      title: 'Challenge Yourself Rules and Prizes'
+      alias: '/challenge-yourself-rules'
+      header_content_ids:
+        -
+          header_content_id: lp_campaign_menu_2
+      content_ids:
+        -
+          content_id: challenge_yourself_rules_simple
+    -
+      id: challenge_yourself_pause
+      title: 'Challenge Yourself Campaign Paused'
+      alias: '/challenge-yourself-paused'
+      content_ids:
+        -
+          content_id: challenge_yourself_pause_simple
+    -
+      id: challenge_yourself_my_progress
+      title: 'Challenge Yourself My Progress'
+      alias: '/challenge-yourself-my-progress'
+      header_content_ids:
+        -
+          header_content_id: lp_campaign_menu_3
+      content_ids:
+        -
+          content_id: challenge_yourself_campaign_game
+        -
+          content_id: challenge_yourself_campaign_activity
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    -
+      plugin: get
+      source: publish_status
+    -
+      plugin: default_value
+      default_value: 1
+  publish_on:
+    -
+      plugin: get
+      source: publish_date
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: default_value
+      default_value: null
+  unpublish_on:
+    -
+      plugin: get
+      source: unpublish_date
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: default_value
+      default_value: null
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias:
+    plugin: get
+    source: alias
+  field_lp_layout:
+    plugin: default_value
+    default_value: one_column
+  field_header_content:
+    plugin: iterator
+    source: header_content_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_campaign_menu
+        source: header_content_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_banner
+          - openy_demo_lp_paragraph_campaign_menu
+        source: header_content_id
+  field_content:
+    plugin: iterator
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_simple
+          - openy_demo_lp_paragraph_campaign_activity
+          - openy_demo_lp_paragraph_campaign_game
+          - openy_demo_lp_paragraph_campaign_winners
+        source: content_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_simple
+          - openy_demo_lp_paragraph_campaign_activity
+          - openy_demo_lp_paragraph_campaign_game
+          - openy_demo_lp_paragraph_campaign_winners
+        source: content_id
+destination:
+  plugin: 'entity:node'
+  default_bundle: campaign_page
+migration_dependencies:
+  required:
+    - openy_demo_lp_paragraph_simple
+    - openy_demo_lp_paragraph_campaign_activity
+    - openy_demo_lp_paragraph_campaign_menu
+    - openy_demo_lp_paragraph_campaign_game
+    - openy_demo_lp_paragraph_campaign_winners
+  optional:
+    - openy_demo_node_blog
