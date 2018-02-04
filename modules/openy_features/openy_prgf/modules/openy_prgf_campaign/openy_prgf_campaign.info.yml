@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Campaign'
+description: 'Paragraphs related to Campaign'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - datalayer
+  - field
+  - openy_campaign
+  - paragraphs
+  - plugin

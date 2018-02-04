@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_bottom_content
     - node.type.landing_page
   module:
+    - datalayer
     - entity_reference_revisions
 third_party_settings:
   datalayer:
