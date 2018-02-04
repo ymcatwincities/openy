@@ -15,4 +15,3 @@ global-styling:
     - core/jquery.ui.widget
     - core/drupal
     - core/drupalSettings
-
