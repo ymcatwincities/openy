@@ -65,7 +65,7 @@
 }
 
 .flip-cards .card .back {
-  background: #F47920;
+  background: #f47920;
   transform: rotateY( 180deg );
   -webkit-transform: rotateY( 180deg );
   border: 2px solid #eee;
@@ -75,15 +75,15 @@
 }
 
 .flip-cards .card.flipped .front {
-    z-index: 1;
+  z-index: 1;
 }
 
 .flip-cards .card.flipped .back {
-    z-index: 2;
+  z-index: 2;
 }
 
 .flip-cards .card .back.winner {
-  background: #01A490;
+  background: #01a490;
 }
 
 

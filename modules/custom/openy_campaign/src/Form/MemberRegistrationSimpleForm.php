@@ -4,6 +4,9 @@ namespace Drupal\openy_campaign\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * MemberRegistrationSimpleForm.
+ */
 class MemberRegistrationSimpleForm extends MemberRegisterForm {
 
   protected static $containerId = 'openy_campaign_register_form';

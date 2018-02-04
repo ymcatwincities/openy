@@ -53,3 +53,9 @@ activityTracking:
   dependencies:
     - core/jquery
     - openy_campaign/slick_carousel
+
+campaign_scorecard:
+  js:
+    js/campaignScorecard.js: {}
+  dependencies:
+    - core/jquery

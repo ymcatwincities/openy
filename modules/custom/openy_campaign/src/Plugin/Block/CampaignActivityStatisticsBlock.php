@@ -47,7 +47,6 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    */
   protected $entityTypeManager;
 
-
   /**
    * Constructs a new Block instance.
    *
@@ -87,8 +86,8 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
   public function build() {
     $block['#cache']['max-age'] = 0;
 
-    // Get campaign node from current page URL
-    /** @var Node $campaign */
+    // Get campaign node from current page URL.
+    /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
     if (empty($campaign) || !MemberCampaign::isLoggedIn($campaign->id())) {
@@ -100,14 +99,14 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     $memberCampaignData = MemberCampaign::getMemberCampaignData($campaignId);
     $membershipId = $memberCampaignData['membership_id'];
 
-    // Get MemberCampaign ID
+    // Get MemberCampaign ID.
     $memberCampaignId = MemberCampaign::findMemberCampaign($membershipId, $campaignId);
     if (!$memberCampaignId) {
       return [];
     }
 
     $activities = [];
-    /** @var Node $campaign */
+    /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = Node::load($campaignId);
 
     /** @var \Drupal\taxonomy\Entity\Vocabulary $vocabulary */
@@ -148,7 +147,6 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     while ($end->format('U') > $start->format('U') && $stopper < 100) {
       $key = $start->format('Y-m-d');
 
-
       $disabled = FALSE;
       if (\Drupal::time()->getRequestTime() < $start->format('U')) {
         $disabled = TRUE;
@@ -162,13 +160,13 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
 
       /**
        * @var int $tid Term ID
-       * @var Term $term
+       * @var \Drupal\taxonomy\Entity\Term $term
        */
       foreach ($terms as $tid => $term) {
 
         $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($vocabulary->id(), $tid, 1, TRUE);
         $childTermIds = [];
-        /** @var Term $childTerm */
+        /** @var \Drupal\taxonomy\Entity\Term $childTerm */
         foreach ($childTerms as $childTerm) {
           $childTermIds[] = $childTerm->id();
         }
@@ -188,7 +186,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
           ];
         }
         else {
-          $form_class =  ('Drupal\openy_campaign\Form\ActivityTrackingModalForm');
+          $form_class = ('Drupal\openy_campaign\Form\ActivityTrackingModalForm');
 
           $activityTrackingForm = \Drupal::formBuilder()->getForm(
             $form_class,
@@ -198,7 +196,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
           );
 
           $activities[$key][$tid] = $activityTrackingForm;
-          $activities[$key][$tid]['#prefix'] .= '<span class="activity-name '. str_replace(' ', '', $cleanName). '">'. $cleanName . '</span>';
+          $activities[$key][$tid]['#prefix'] .= '<span class="activity-name ' . str_replace(' ', '', $cleanName) . '">' . $cleanName . '</span>';
         }
       }
 
@@ -207,7 +205,6 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
 
     $block['#activities'] = $activities;
     $block['#theme'] = 'openy_campaign_activity_block';
-
 
     $block['#attached'] = [
       'library' => [

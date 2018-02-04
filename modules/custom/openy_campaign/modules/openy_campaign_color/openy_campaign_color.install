@@ -3,14 +3,13 @@
 /**
  * @file
  * Provides install, update, and uninstall functions.
- *
  */
 
 /**
  * Implements hook_requirements().
  */
 function openy_campaign_color_requirements($phase) {
-  $requirements = array();
+  $requirements = [];
 
   if ($phase == 'runtime' || $phase == 'update' || $phase == 'install') {
     // Adapted from system_requirements().
@@ -32,33 +31,33 @@ function openy_campaign_color_requirements($phase) {
       }
 
       if (!$is_directory) {
-        $error = t('The directory %directory does not exist.', array('%directory' => $path));
+        $error = t('The directory %directory does not exist.', ['%directory' => $path]);
         $description = t('An automated attempt to create the directory failed, possibly due to a permissions problem. Create the directory and make it writable.');
         $value = t('Does not exist');
       }
       else {
-        $error = t('The directory %directory is not writable.', array('%directory' => $path));
+        $error = t('The directory %directory is not writable.', ['%directory' => $path]);
         $description = t('An automated attempt to make the directory writable failed, possibly due to a permissions problem. Make the directory writable.');
         $value = t('Not writable');
       }
       if ($phase == 'install') {
-        $description .= t(' For more information, see INSTALL.txt or the <a href=":handbook_url">online handbook</a>.', array(':handbook_url' => 'https://www.drupal.org/server-permissions'));
+        $description .= t(' For more information, see INSTALL.txt or the <a href=":handbook_url">online handbook</a>.', [':handbook_url' => 'https://www.drupal.org/server-permissions']);
         $value = '';
       }
-      $description = array(
+      $description = [
         '#type' => 'inline_template',
         '#template' => '{{ error }} {{ description }}',
-        '#context' => array(
+        '#context' => [
           'error' => $error,
           'description' => $description,
-        ),
-      );
-      $requirements['openy_campaign_color_snippet_directory'] = array(
+        ],
+      ];
+      $requirements['openy_campaign_color_snippet_directory'] = [
         'title' => t('OpenY Campaign Color snippet directory'),
         'description' => $description,
         'severity' => REQUIREMENT_ERROR,
         'value' => $value,
-      );
+      ];
     }
   }
   return $requirements;

@@ -14,7 +14,9 @@ use Drupal\node\NodeInterface;
  */
 class GameController extends ControllerBase {
 
-  //static $gamesList = ['magic_ball', 'scratchcard', 'flip_cards'];
+  /**
+   * Possible games list: ['magic_ball', 'scratchcard', 'flip_cards'].
+   */
 
   static $gamesList = ['flip_cards'];
   /**
@@ -99,7 +101,7 @@ class GameController extends ControllerBase {
     $result = $gameResult['result'];
 
     // Output different messages.
-    // Get default values from settings
+    // Get default values from settings.
     $config = \Drupal::config('openy_campaign.general_settings');
     $messageNumber = mt_rand(1, 5);
     $message = $config->get('instant_game_' . ($isWinner ? 'win' : 'loose') . '_message_' . $messageNumber);
@@ -148,6 +150,13 @@ class GameController extends ControllerBase {
     return $build;
   }
 
+  /**
+   * Draw instant-win game result.
+   *
+   * @param $uuid
+   *
+   * @return array
+   */
   private function generateGameResult($uuid) {
     /** @var \Drupal\openy_campaign\Entity\MemberGame $game */
     $game = $this->entityRepository->loadEntityByUuid('openy_campaign_member_game', $uuid);
@@ -212,7 +221,7 @@ class GameController extends ControllerBase {
       'expected' => $expected,
       'coeff' => $coefficient,
       'ranges' => array_map(function ($item) {
-        return $item['min'] . '-' . $item['max'] . ':' . substr($item['description'],0, 10);
+        return $item['min'] . '-' . $item['max'] . ':' . substr($item['description'], 0, 10);
       }, $ranges),
     ]);
 
@@ -225,9 +234,6 @@ class GameController extends ControllerBase {
       'is_winner' => $isWinner,
       'result' => $result,
     ];
-
-
-
 
   }
 

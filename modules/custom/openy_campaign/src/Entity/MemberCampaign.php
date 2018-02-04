@@ -6,7 +6,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\node\NodeInterface;
-use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\MemberCampaignInterface;
 use Drupal\openy_campaign\MemberInterface;
 
@@ -71,22 +70,22 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       ->setDescription(t('The id of the Campaign entity. Start typing Campaign name.'))
       ->setSetting('target_type', 'node')
       ->setSetting('handler', 'default')
-      ->setSetting('handler_settings',['target_bundles'=>['campaign' => 'campaign']] )
-      ->setDisplayOptions('view', array(
+      ->setSetting('handler_settings', ['target_bundles' => ['campaign' => 'campaign']])
+      ->setDisplayOptions('view', [
         'label'  => 'hidden',
         'type'   => 'campaign',
         'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type'     => 'entity_reference_autocomplete',
         'weight'   => 5,
-        'settings' => array(
+        'settings' => [
           'match_operator'    => 'CONTAINS',
           'size'              => '60',
           'autocomplete_type' => 'tags',
           'placeholder'       => '',
-        ),
-      ))
+        ],
+      ])
       ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
@@ -96,21 +95,21 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       ->setLabel(t('Member'))
       ->setDescription(t('The id of the Member entity. Start typing Membership ID.'))
       ->setSettings(['target_type' => 'openy_campaign_member'])
-      ->setDisplayOptions('view', array(
+      ->setDisplayOptions('view', [
         'label'  => 'hidden',
         'type'   => 'openy_campaign_member',
         'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type'     => 'entity_reference_autocomplete',
         'weight'   => 5,
-        'settings' => array(
+        'settings' => [
           'match_operator'    => 'CONTAINS',
           'size'              => '60',
           'autocomplete_type' => 'tags',
           'placeholder'       => '',
-        ),
-      ))
+        ],
+      ])
       ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
@@ -141,6 +140,10 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       ->setDefaultValue(0)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
+
+    $fields['registration_type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Registration Type'))
+      ->setDescription(t('The place where the individual was registered.'));
 
     return $fields;
   }
@@ -198,6 +201,21 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getRegistrationType() {
+    return $this->get('registration_type')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRegistrationType($registrationType) {
+    $this->set('registration_type', $registrationType);
+    return $this;
+  }
+
+  /**
    * Set the Goal for the MemberCampaign.
    *
    * @return bool
@@ -212,13 +230,13 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
      * Needs actual data in order to proceed.
      */
 
-    /** @var Node $campaign Current campaign */
+    /** @var \Drupal\node\Entity\Node $campaign Current campaign */
     $campaign = $this->getCampaign();
 
-    // Get all enabled activities list
+    // Get all enabled activities list.
     $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
 
-    // For disabled Visits Goal activity
+    // For disabled Visits Goal activity.
     if (!in_array('field_prgf_activity_visits', $activitiesOptions)) {
       $this->setGoal(0);
       return TRUE;
@@ -237,12 +255,12 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
 
     /** @var $client \Drupal\openy_campaign\CRMClientInterface */
     $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
-    // Get total visits from CRM
+    // Get total visits from CRM.
     $results = $client->getVisitCountByDate($member->getPersonifyId(), $from, $to);
 
     $visitsNumber = $results->TotalVisits;
 
-    // Visits goal will be between these 2 values
+    // Visits goal will be between these 2 values.
     $maxVisitsGoal = $campaign->field_limit_visits_goal->value;
     $minVisitsGoal = $campaign->field_min_visits_goal->value;
 
@@ -286,10 +304,10 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $errorMessages[] = $validateMemberBranch['error'];
     }
     // Payment type is of the selected in the Target Audience Setting from Campaign.
-//    $validateMemberPaymentType = $this->validateMemberPaymentType();
-//    if (!$validateMemberPaymentType['status']) {
-//      $errorMessages[] = $validateMemberPaymentType['error'];
-//    }
+    //    $validateMemberPaymentType = $this->validateMemberPaymentType();
+    //    if (!$validateMemberPaymentType['status']) {
+    //      $errorMessages[] = $validateMemberPaymentType['error'];
+    //    }
 
     return $errorMessages;
   }
@@ -300,9 +318,9 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @return array Array with status and error message.
    */
   private function validateMemberAge() {
-    /** @var Node $campaign Campaign node object. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
-    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Temporary Member object. Will be saved by submit. */
     $member = $this->getMember();
 
     $minAge = $campaign->get('field_campaign_age_minimum')->value;
@@ -330,9 +348,9 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @return array Array with status and error message.
    */
   private function validateMemberUnitType() {
-    /** @var Node $campaign Campaign node object. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
-    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Temporary Member object. Will be saved by submit. */
     $member = $this->getMember();
 
     $campaignMemberUnitTypes = $campaign->get('field_campaign_membership_u_t')->getString();
@@ -351,15 +369,20 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @return array Array with status and error message.
    */
   private function validateMemberBranch() {
-    /** @var Node $campaign Campaign node object. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
-    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Temporary Member object. Will be saved by submit. */
     $member = $this->getMember();
 
-    $campaignBranches = $campaign->get('field_campaign_branches')->getString();
+    $branchesField = $campaign->get('field_campaign_branch_target')->getValue();
+    $campaignBranches = [];
+    foreach ($branchesField as $branch) {
+      $campaignBranches[] = $branch['target_id'];
+    }
+
     $memberBranch = $member->getBranchId();
 
-    if (in_array($memberBranch, explode(', ', $campaignBranches))) {
+    if (in_array($memberBranch, $campaignBranches)) {
       return ['status' => TRUE, 'error' => ''];
     }
 
@@ -372,9 +395,9 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @return array Array with status and error message.
    */
   private function validateMemberPaymentType() {
-    /** @var Node $campaign Campaign node object. */
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
-    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    /** @var \Drupal\openy_campaign\Entity\Member $member Temporary Member object. Will be saved by submit. */
     $member = $this->getMember();
 
     $campaignPaymentTypes = $campaign->get('field_campaign_payment_types')->getString();
@@ -390,8 +413,10 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   /**
    * Find MemberCampaign ID if it already exists.
    *
-   * @param $membershipID int Membership ID.
-   * @param $campaignID int Campaign node ID.
+   * @param $membershipID
+   *   int Membership ID.
+   * @param $campaignID
+   *   int Campaign node ID.
    *
    * @return int | bool MemberCampaign ID or FALSE
    */
@@ -411,19 +436,25 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   /**
    * Create MemberCampaign entity.
    *
-   * @param $member Member Member entity.
-   * @param $campaign Node Campaign node.
+   * @param \Drupal\openy_campaign\Entity\Member $member
+   *   Member entity.
+   * @param \Drupal\node\Entity\Node $campaign
+   *   Campaign node.
+   * @param string $registrationType
    *
    * @return bool | \Drupal\openy_campaign\Entity\MemberCampaign
    *   FALSE or MemberCampaign entity
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
-  public static function createMemberCampaign($member, $campaign) {
-    /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign object. Will be saved later. */
+  public static function createMemberCampaign($member, $campaign, $registrationType = 'site') {
+    /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign object. Will be saved later. */
     $memberCampaign = \Drupal::entityTypeManager()
       ->getStorage('openy_campaign_member_campaign')
       ->create([
         'campaign' => $campaign,
         'member' => $member,
+        'registration_type' => $registrationType,
       ]);
 
     if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
@@ -439,8 +470,10 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   /**
    * Login member by Campaign ID. Save it to SESSION.
    *
-   * @param $membershipID int Membership card number.
-   * @param $campaignID int Campaign node ID.
+   * @param $membershipID
+   *   int Membership card number.
+   * @param $campaignID
+   *   int Campaign node ID.
    */
   public static function login($membershipID, $campaignID) {
     $campaignIDs = [];
@@ -459,7 +492,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $memberIDs = $openyCampaignSession['member_ids'];
     }
 
-    // Add new Campaign ID, MembershipID and Full name to SESSION
+    // Add new Campaign ID, MembershipID and Full name to SESSION.
     if (!in_array($campaignID, $campaignIDs) || !in_array($membershipID, $membershipIDs)) {
       // Load Member by unique Membership ID.
       $query = \Drupal::entityQuery('openy_campaign_member')
@@ -488,7 +521,8 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   /**
    * Logout member by Campaign ID. Delete it from SESSION.
    *
-   * @param $campaignID int Campaign node ID.
+   * @param $campaignID
+   *   int Campaign node ID.
    */
   public static function logout($campaignID) {
     $campaignIDs = [];
@@ -507,7 +541,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $memberIDs = $openyCampaignSession['member_ids'];
     }
 
-    // Delete Campaign ID, Membership ID, internal Member ID and Full name from SESSION
+    // Delete Campaign ID, Membership ID, internal Member ID and Full name from SESSION.
     if (in_array($campaignID, $campaignIDs)) {
       $newCampaignIDs = array_diff($campaignIDs, [$campaignID]);
 
@@ -532,7 +566,8 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   /**
    * Check if member already logged in for this Campaign.
    *
-   * @param $campaignID int Campaign node ID.
+   * @param $campaignID
+   *   int Campaign node ID.
    *
    * @return bool
    */
@@ -551,7 +586,8 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   /**
    * Get campaign ids, membership id and full name from SESSION.
    *
-   * @param int $campaignId Campaign node ID.
+   * @param int $campaignId
+   *   Campaign node ID.
    *
    * @return array MemberCampaign data from SESSION.
    */
@@ -578,6 +614,9 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function save() {
     $return = parent::save();
 

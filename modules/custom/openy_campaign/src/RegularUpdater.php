@@ -64,16 +64,17 @@ class RegularUpdater {
    *
    * @param \DateTime $dateFrom
    * @param \DateTime $dateTo
-   * @param array $membersData Array of items with needed data: Member ID,
-   *   Master Customer ID, Start date, End date to get visits
+   * @param array $membersData
+   *   Array of items with needed data: Member ID,
+   *   Master Customer ID, Start date, End date to get visits.
    */
   public function createQueue(\DateTime $dateFrom, \DateTime $dateTo, $membersData = []) {
-    // If Member doesn't specified - get all Member ID, Campaign start, Campaign end to receive visits from CRM
+    // If Member doesn't specified - get all Member ID, Campaign start, Campaign end to receive visits from CRM.
     if (empty($membersData)) {
       $membersData = $this->getAllMembersDataForQueue();
     }
 
-    // Collect all Master Customer Ids if yesterday date is in the range of Member dates
+    // Collect all Master Customer Ids if yesterday date is in the range of Member dates.
     $masterCustomerIds = [];
     $memberIds = [];
     foreach ($membersData as $item) {
@@ -109,7 +110,7 @@ class RegularUpdater {
           $memberID = $memberIds[$masterCustomerID];
           $data['items'][$memberID] = $masterCustomerID;
         }
-        // Add data to queue
+        // Add data to queue.
         $queue->createItem($data);
       }
     }
@@ -144,9 +145,9 @@ class RegularUpdater {
     $membersData = [];
     foreach ($resArray as $item) {
       $startDate = \DateTime::createFromFormat('Y-m-d\TH:i:s', $item->start_date);
-      $endDate = \DateTime::createFromFormat('Y-m-d\TH:i:s',$item->end_date);
+      $endDate = \DateTime::createFromFormat('Y-m-d\TH:i:s', $item->end_date);
 
-      // Expand Member dates to fit all active campaigns
+      // Expand Member dates to fit all active campaigns.
       if (in_array($item->member_id, array_keys($membersData))) {
         $startDate = $membersData[$item->member_id]['start_date'] > $startDate ? $startDate : $membersData[$item->member_id]['start_date'];
         $endDate = $membersData[$item->member_id]['end_date'] < $endDate ? $endDate : $membersData[$item->member_id]['end_date'];

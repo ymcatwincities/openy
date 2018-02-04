@@ -4,7 +4,7 @@ namespace Drupal\openy_campaign\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\node\NodeTypeInterface;
+use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -35,7 +35,7 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param CampaignMenuServiceInterface $campaign_menu_service
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
    *   The Campaign menu service.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, CampaignMenuServiceInterface $campaign_menu_service) {
@@ -63,7 +63,7 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
     // Extract Campaign node from route.
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
-    if ($campaign instanceof NodeTypeInterface !== TRUE) {
+    if ($campaign instanceof Node !== TRUE) {
       return $noCache;
     }
 

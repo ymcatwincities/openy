@@ -218,6 +218,14 @@ p {
   width: 70%;
 }
 
+@media (min-width: 75em) {
+  .paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
+    margin-bottom: 50px;
+  }
+  .paragraph-background-container .title, .paragraph--type--campaign-winners .winners-branches-select .title {
+    margin-bottom: 50px;
+  }
+}
 .paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
   padding: 0 20px;
 }
@@ -289,7 +297,7 @@ p {
 @media (min-width: 75em) {
   .columns .paragraph-container .block-description--text {
     display: table-cell;
-    padding: 25px 10px 40px 10px;
+    padding: 0px 10px 40px 10px;
   }
 }
 
@@ -300,7 +308,7 @@ p {
 }
 @media (min-width: 75em) {
   .page-node-type-campaign .columns .paragraph-container {
-    padding: 50px 125px;
+    padding: 0px 50px;
   }
 }
 
@@ -936,6 +944,43 @@ body {
 }
 .path-members-list table {
   width: 100%;
+}
+
+.node-422 li a {
+  font-size: 18px;
+}
+@media (min-width: 20em) {
+  .node-422 .label-for-field-prgf-activity-visits {
+    padding: 0 15px 15px;
+  }
+  .node-422 .label-for-field-prgf-activity-visits h4 {
+    text-align: center;
+    font-size: 28px !important;
+    font-weight: 400;
+    line-height: 40px;
+  }
+  .node-422 .field-prgf-activity-visits {
+    padding: 0 15px;
+  }
+}
+@media (min-width: 75em) {
+  .node-422 .field-content {
+    display: inline-block;
+    width: 50%;
+    float: left;
+  }
+  .node-422 .label-for-field-prgf-activity-visits {
+    padding: 0 10px 32px 10px;
+  }
+  .node-422 .label-for-field-prgf-activity-visits h4 {
+    text-align: center;
+    font-size: 40px !important;
+    font-weight: 400;
+    line-height: 57px;
+  }
+  .node-422 .columns .paragraph-container {
+    padding: 0;
+  }
 }
 
 a:active, a:focus,
@@ -1779,6 +1824,83 @@ footer .container .footer__nav nav ul > li a {
 
 #block-openy-campaign-theme-tabs {
   padding-top: 20px;
+}
+
+.campaign-scorecard table thead th {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 10px;
+}
+.campaign-scorecard table tfoot td {
+  text-align: right;
+}
+.campaign-scorecard table th[align="center"],
+.campaign-scorecard table td[align="center"] {
+  text-align: center;
+}
+.campaign-scorecard table th[align="right"],
+.campaign-scorecard table td[align="right"] {
+  text-align: right;
+}
+.campaign-scorecard table td, .campaign-scorecard table th {
+  padding: 2px 5px;
+  font-size: 11px;
+  min-width: 40px;
+}
+.campaign-scorecard table td.separator, .campaign-scorecard table th.separator {
+  min-width: 20px;
+  width: 30px;
+  background: #fff;
+  border: none;
+}
+.campaign-scorecard table td.green, .campaign-scorecard table th.green {
+  background: #01A490;
+  color: #fff;
+}
+.campaign-scorecard table td.blue, .campaign-scorecard table th.blue {
+  background: #0060af;
+  color: #fff;
+}
+.campaign-scorecard table td.violet, .campaign-scorecard table th.violet {
+  background: #92278f;
+  color: #fff;
+}
+.campaign-scorecard table td.dark-green, .campaign-scorecard table th.dark-green {
+  background: #01A490;
+}
+.campaign-scorecard table td.orange, .campaign-scorecard table th.orange {
+  background: #fcaf17;
+}
+.campaign-scorecard table td.grey, .campaign-scorecard table th.grey {
+  background: #DADADA;
+}
+.campaign-scorecard table td.green-text, .campaign-scorecard table th.green-text {
+  color: #01A490;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.campaign-scorecard table td.blue-text, .campaign-scorecard table th.blue-text {
+  color: #0060af;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.campaign-scorecard table td.violet-text, .campaign-scorecard table th.violet-text {
+  color: #92278f;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.campaign-scorecard table td.blue-outline, .campaign-scorecard table th.blue-outline {
+  color: #0060af;
+  background: #fff;
+  border: 1px solid #0060af;
+}
+.campaign-scorecard table td.violet-outline, .campaign-scorecard table th.violet-outline {
+  color: #92278f;
+  background: #fff;
+  border: 1px solid #92278f;
+}
+.campaign-scorecard table td.bold, .campaign-scorecard table th.bold {
+  font-weight: bold;
 }
 
 a:focus,

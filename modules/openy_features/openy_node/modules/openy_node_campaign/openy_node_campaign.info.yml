@@ -19,6 +19,7 @@ dependencies:
   - menu_ui
   - node
   - openy_campaign
+  - openy_campaign_reference_with_text
   - openy_loc_branch
   - openy_node_campaign_page
   - openy_node_landing

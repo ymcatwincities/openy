@@ -281,3 +281,20 @@ openy_campaign.campaign_reports_activities:
     _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
+
+openy_campaign.campaign_reports_live_scorecard:
+  path: '/node/{node}/campaign/reports/scorecard'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::generateLiveScorecard'
+  requirements:
+    #_permission: 'administer retention campaign'
+    _permission: 'view retention campaign reports'
+
+
+openy_campaign.ajax_campaign_scorecard:
+  path: '/ajaxCallback/campaignScorecard/{node}'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::ajaxCallbackGenerateLiveScorecard'
+  requirements:
+    #_permission: 'administer retention campaign'
+    _permission: 'view retention campaign reports'

@@ -2,7 +2,6 @@
 
 namespace Drupal\openy_campaign\Form;
 
-use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
@@ -65,7 +64,7 @@ class WinnersBlockForm extends FormBase {
     // Disable caching on this form.
     $form_state->setCached(FALSE);
 
-    // Get all regions - branches
+    // Get all regions - branches.
     $branches = $this->getBranches($campaignId);
 
     $selected = !empty($form_state->getValue('branch')) ? $form_state->getValue('branch') : $branches['default'];
@@ -91,14 +90,14 @@ class WinnersBlockForm extends FormBase {
     $form['winners'] = [
       '#prefix' => '<div id="winners-block-wrapper">',
       '#suffix' => '</div>',
-      '#markup' =>  $winnersBlock,
+      '#markup' => $winnersBlock,
     ];
 
     return $form;
   }
 
   /**
-   * Render Winners Block
+   * Render Winners Block.
    *
    * @param $campaignId
    * @param $branchId
@@ -109,14 +108,44 @@ class WinnersBlockForm extends FormBase {
     $winners = $this->getCampaignWinners($campaignId, $branchId);
     $prizes = $this->getCampaignPrizes($campaignId);
 
-    $output = [];
+    // Group prizes by titles and select all winners for these titles.
+    // This grouping is needed if the campaign has several identical prizes.
+    $prizesMap = [];
+    $winnersMap = [];
     foreach ($prizes as $place => $prize) {
+      $prizesMap[$prize['title']] = [
+        'title' => $prize['title'],
+        'description' => $prize['text'],
+        'winners' => [],
+      ];
       if (!empty($winners[$place])) {
+        foreach ($winners[$place] as $winner) {
+          $winnersMap[$prize['title']][] = $winner;
+        }
+      }
+    }
+
+    // Sort all winners alphabetically.
+    foreach ($winnersMap as &$winners) {
+      usort($winners, function ($a, $b) {
+        return strcmp($a['name'], $b['name']);
+      });
+    }
+
+    foreach ($prizesMap as $key => $prize) {
+      if (!empty($winnersMap[$key])) {
+        $prizesMap[$key]['winners'] = $winnersMap[$key];
+      }
+    }
+
+    $output = [];
+    foreach ($prizesMap as $key => $prize) {
+      if (!empty($prize['winners'])) {
         $output[] = [
           '#theme' => 'openy_campaign_winners',
           '#title' => $prize['title'],
-          '#prize' => $prize['text'],
-          '#winners' => $winners[$place],
+          '#prize' => $prize['description'],
+          '#winners' => $prize['winners'],
         ];
       }
     }
@@ -126,6 +155,9 @@ class WinnersBlockForm extends FormBase {
     return $render;
   }
 
+  /**
+   * AJAX Callback for the winners list.
+   */
   public function ajaxWinnersCallback($form, $form_state) {
     return $form['winners'];
   }
@@ -145,9 +177,10 @@ class WinnersBlockForm extends FormBase {
   }
 
   /**
-   * Get all available branches
+   * Get all available branches.
    *
    * @param int $campaignId
+   *
    * @return \Drupal\Core\Entity\EntityInterface[]
    */
   private function getBranches($campaignId = NULL) {
@@ -158,7 +191,7 @@ class WinnersBlockForm extends FormBase {
     $query = $this->entityTypeManager->getStorage('node')->getQuery();
     $nids = $query->condition('type', 'branch')
       ->condition('status', '1')
-      ->sort('title' , 'ASC')
+      ->sort('title', 'ASC')
       ->execute();
     $branches = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
 
@@ -166,11 +199,11 @@ class WinnersBlockForm extends FormBase {
     $campaign = NULL;
     $campaignBranches = [];
     if (!empty($campaignId)) {
-      /** @var Node $campaign Campaign node. */
-      $campaign = Node::load($campaignId);
-      foreach ($campaign->field_campaign_branches as $branch) {
-        $campaignBranches[] = $branch->entity->id();
-
+      /** @var \Drupal\node\Entity\Node $campaign Campaign node. */
+      $campaign = $this->entityTypeManager->getStorage('node')->load($campaignId);
+      $branchesField = $campaign->get('field_campaign_branch_target')->getValue();
+      foreach ($branchesField as $branchItem) {
+        $campaignBranches[] = $branchItem['target_id'];
       }
     }
     /** @var \Drupal\node\Entity\Node $branch */
@@ -229,8 +262,8 @@ class WinnersBlockForm extends FormBase {
    * @return array
    */
   private function getCampaignPrizes($campaignId) {
-    /** @var Node $campaign Campaign node. */
-    $campaign = Node::load($campaignId);
+    /** @var \Drupal\node\Entity\Node $campaign Campaign node. */
+    $campaign = $this->entityTypeManager->getStorage('node')->load($campaignId);
 
     $prizes = [];
     foreach ($campaign->field_campaign_winners_prizes as $item) {
