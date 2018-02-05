@@ -546,3 +546,15 @@ function openy_update_8043() {
     ]);
   }
 }
+
+/**
+ * Add breadcrumbs block to Breadcrumb region.
+ */
+function openy_update_8044() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'block.block.breadcrumbs',
+  ]);
+}
