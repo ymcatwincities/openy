@@ -7368,21 +7368,21 @@ article .node--view-mode-flexible-content h2 a span {
   font-family: Verdana, sans-serif;
 }
 
-.paragraph--type--easy-breadcrumb {
+.breadcrumbs {
   margin: 0 0 30px 20px;
   padding: 24px 0;
 }
 @media (max-width: 480px) {
-  .paragraph--type--easy-breadcrumb {
+  .breadcrumbs {
     display: none;
   }
 }
-.paragraph--type--easy-breadcrumb ol {
+.breadcrumbs ol {
   list-style: none;
   margin-bottom: 0;
   padding-left: 0;
 }
-.paragraph--type--easy-breadcrumb ol li {
+.breadcrumbs ol li {
   color: #000;
   display: inline-block;
   font-family: "Cachet W01 Book", Verdana, sans-serif;
@@ -7390,11 +7390,11 @@ article .node--view-mode-flexible-content h2 a span {
   line-height: 1.88;
   padding-right: 12px;
 }
-.paragraph--type--easy-breadcrumb ol li:not(:last-child):after {
+.breadcrumbs ol li:not(:last-child):after {
   content: '/';
   padding-left: 12px;
 }
-.paragraph--type--easy-breadcrumb ol a {
+.breadcrumbs ol a {
   color: #337ab7;
 }
 
