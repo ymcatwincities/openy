@@ -1,6 +1,6 @@
 .breadcrumbs {
-  margin: 0 0 30px 20px;
-  padding: 24px 0;
+  padding: 3px 0;
+  background-color: $darker-grey;
 
   @media (max-width: $screen-xs-min) {
     display: none;
@@ -12,7 +12,7 @@
     padding-left: 0;
 
     li {
-      color: $gray-base;
+      color: $light-grey;
       display: inline-block;
       @include cachet;
       font-size: 16px;
@@ -26,7 +26,7 @@
     }
 
     a {
-      color: $link-color;
+      color: $white;
     }
   }
 }

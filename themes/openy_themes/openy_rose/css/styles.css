@@ -7369,8 +7369,8 @@ article .node--view-mode-flexible-content h2 a span {
 }
 
 .breadcrumbs {
-  margin: 0 0 30px 20px;
-  padding: 24px 0;
+  padding: 3px 0;
+  background-color: #333333;
 }
 @media (max-width: 480px) {
   .breadcrumbs {
@@ -7383,7 +7383,7 @@ article .node--view-mode-flexible-content h2 a span {
   padding-left: 0;
 }
 .breadcrumbs ol li {
-  color: #000;
+  color: #ccc;
   display: inline-block;
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 16px;
@@ -7395,7 +7395,7 @@ article .node--view-mode-flexible-content h2 a span {
   padding-left: 12px;
 }
 .breadcrumbs ol a {
-  color: #337ab7;
+  color: #fff;
 }
 
 .paragraph--type--lto {
