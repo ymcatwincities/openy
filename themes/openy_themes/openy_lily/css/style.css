@@ -4577,6 +4577,10 @@ html.js .branch__updates_queue__button {
   margin-bottom: -15px;
 }
 
+.class-content .sidebar-region {
+  margin-top: 25px;
+}
+
 #schedules-search-form-wrapper .controls-wrapper {
   padding-top: 9px;
   padding-bottom: 9px;
@@ -5577,6 +5581,9 @@ body .branch-popup .ui-dialog-content .form-item-branch {
 body .branch-popup .ui-dialog-content .form-item-branch:hover {
   background-color: #ebebeb;
 }
+body .branch-popup .ui-dialog-content .form-item-branch:first-child {
+  width: 100%;
+}
 body .branch-popup .ui-dialog-content .form-item-branch input {
   margin: 7px 0 0 0;
   position: absolute;
@@ -5587,6 +5594,7 @@ body .branch-popup .ui-dialog-content .form-item-branch label {
   font-size: 14px;
   margin: 0;
   padding-left: 20px;
+  font-weight: bold;
 }
 @media (min-width: 62em) {
   body .branch-popup .ui-dialog-content .branch-popup-map {
@@ -6954,6 +6962,13 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--all-amenities .views-element-container legend {
   color: #636466;
 }
+.paragraph--type--all-amenities .views-element-container legend span {
+  border-bottom: 1px solid #ccc;
+  color: #636466;
+  text-transform: none;
+  display: block;
+  margin: 20px 0;
+}
 .paragraph--type--all-amenities .views-element-container form {
   margin-bottom: 1em;
 }
@@ -7500,6 +7515,11 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
 #side-area ul li .dropdown-menu.open li.menu-item-online-store---rewards a {
   white-space: initial;
 }
+@media (min-width: 0) and (max-width: 62em) {
+  #side-area .section-icon {
+    display: none;
+  }
+}
 
 .viewport {
   position: static;
@@ -7510,7 +7530,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
   z-index: 95;
 }
 .path-frontpage .viewport #main {
-  background: #e5e5e5;
+  background: #fff;
 }
 .viewport.expanded-mobile:after {
   opacity: 1;
@@ -7748,6 +7768,9 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 }
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav li.nav-level-3 {
   float: none;
+}
+header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav li.nav-level-3 ul {
+  display: none;
 }
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav.nav-level-1 {
   text-align: center;
