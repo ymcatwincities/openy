@@ -6,7 +6,7 @@
  */
 
 /**
- * Update config for the image style after pinpoint support was added.
+ * Update config for the image style after focal point support was added.
  */
 function openy_node_news_update_8001() {
   $config_dir = drupal_get_path('module', 'openy_node_news') . '/config/install/';
