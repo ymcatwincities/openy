@@ -162,6 +162,11 @@ body {
       }
     }
   }
+  .section-icon {
+    @include breakpoint (0 $tablet-start) {
+      display: none;
+    }
+  }
 }
 
 .viewport {
@@ -171,7 +176,7 @@ body {
     position: relative;
     z-index: 95;
     .path-frontpage & {
-      background: #e5e5e5;
+      background: $white;
     }
   }
   &.expanded-mobile {
@@ -384,6 +389,9 @@ header#page-head {
               }
               &.nav-level-3 {
                 float: none;
+                ul {
+                  display: none;
+                }
               }
             }
             &.nav-level-1 {

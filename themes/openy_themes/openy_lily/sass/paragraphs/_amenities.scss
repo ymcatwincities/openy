@@ -58,6 +58,13 @@
     margin: 0 15px 40px;
     legend {
       color: $default-grey;
+      span {
+        border-bottom: 1px solid #ccc;
+        color: $default-grey;
+        text-transform: none;
+        display: block;
+        margin: 20px 0;
+      }
     }
     form {
       margin-bottom: 1em;
