@@ -4445,14 +4445,41 @@ html.js .branch__updates_queue__button {
 }
 .node--type-news.node--view-mode-teaser {
   margin: auto;
-  max-width: 373px;
-  width: 100%;
+}
+@media (min-width: 30em) {
+  .node--type-news.node--view-mode-teaser {
+    max-width: 373px;
+    width: 100%;
+  }
 }
 .node--type-news.node--view-mode-teaser .inner-wrapper {
-  margin: 15px 0;
+  height: 240px;
+  width: 288px;
+  margin: 15px auto;
   position: relative;
   overflow: hidden;
-  height: 250px;
+}
+@media (min-width: 30em) {
+  .node--type-news.node--view-mode-teaser .inner-wrapper {
+    height: 288px;
+    width: auto;
+  }
+}
+@media (min-width: 48em) {
+  .node--type-news.node--view-mode-teaser .inner-wrapper {
+    height: 288px;
+    width: auto;
+  }
+}
+@media (min-width: 62em) {
+  .node--type-news.node--view-mode-teaser .inner-wrapper {
+    height: 245px;
+  }
+}
+@media (min-width: 75em) {
+  .node--type-news.node--view-mode-teaser .inner-wrapper {
+    height: 300px;
+  }
 }
 .node--type-news.node--view-mode-teaser img {
   height: auto;
