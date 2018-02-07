@@ -422,6 +422,23 @@
   }
 }
 
+.paragraph--type--banner {
+  @include breakpoint($screen-desktop) {
+    height: 600px;
+  }
+
+  img.media__element {
+    @include breakpoint($screen-desktop) {
+      bottom: -100%;
+      top: -100%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      position: absolute;
+    }
+  }
+}
+
 .banner {
   background-color: $yet-another-green;
   overflow: hidden;
@@ -446,7 +463,16 @@
       width: calc(50% + #{ceil($container-large-desktop/6 - $grid-gutter-width)});
     }
 
-    img {
+    .media--image {
+      @include breakpoint($screen-desktop) {
+        height: 600px;
+        overflow: hidden;
+        padding-bottom: 0 !important;
+        position: relative;
+      }
+    }
+
+    img.media__element {
       width: 100% !important;
       height: auto !important;
 
@@ -571,7 +597,11 @@
   &--type--latest-blog-posts,
   &--type--blog-posts-listing,
   &--type--latest-blog-posts-branch,
-  &--type--latest-blog-posts-camp {
+  &--type--latest-blog-posts-camp,
+  &--type--latest-news-posts,
+  &--type--news-posts-listing,
+  &--type--latest-news-posts-branch,
+  &--type--latest-news-posts-camp {
     .h1 {
       margin-bottom: 10px;
       font-size: $h1-size;
@@ -584,7 +614,8 @@
       margin-bottom: 30px;
     }
     @include breakpoint($screen-sm) {
-      .blog-more-teaser-results-wrapper {
+      .blog-more-teaser-results-wrapper,
+      .news-more-teaser-results-wrapper {
         margin-left: -15px;
         margin-right: -15px;
       }
@@ -835,6 +866,26 @@
   }
   @include breakpoint($screen-sm) {
     .description {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
+}
+
+.paragraph--type--blog-posts-listing,
+.paragraph--type--latest-blog-posts,
+.paragraph--type--latest-blog-posts-camp,
+.paragraph--type--latest-blog-posts-branch,
+.paragraph--type--news-posts-listing,
+.paragraph--type--latest-news-posts,
+.paragraph--type--latest-news-posts-camp,
+.paragraph--type--latest-news-posts-branch {
+  .views-exposed-form {
+    margin-bottom: 30px;
+  }
+  @include breakpoint($screen-sm) {
+    .blog-more-teaser-results-wrapper,
+    .news-more-teaser-results-wrapper {
       margin-left: -15px;
       margin-right: -15px;
     }

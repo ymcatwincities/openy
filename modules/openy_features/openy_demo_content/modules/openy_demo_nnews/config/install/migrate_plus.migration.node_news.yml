@@ -1,0 +1,314 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_node_news
+id: openy_demo_node_news
+migration_tags:
+  - 'OpenY Demo News'
+migration_group: openy_demo_nnews
+label: 'Import demo news posts'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Summer Day Camp 2018'
+      created: '2017-04-27 8:00am'
+      category: 1
+      related: null
+      image: 1
+      promote: 1
+      addthis: 1
+      body: >
+        <p>Fall has just arrived, but it is never too early to think about Camp
+        for 2018. Since your child had the #BestSummerEver, what better time to
+        reserve your spot for next year. Monthly installment plan option is
+        available.</p>
+    -
+      id: 2
+      title: 'YMCA Provides Safe Spaces Outside of School'
+      created: '2017-04-27 8:01am'
+      category: 1
+      related: null
+      image: 2
+      promote: 0
+      addthis: 1
+      body: >
+        <ul>
+        	<li><em>Only one in three lower income youth participate in out-of-school time or
+        	expanded learning programs in St. Paul and Minneapolis, according to Youthprise.</em></li>
+        	<li><em>Youthprise also reports that approximately 33 percent – more than 250,000 – of
+        	all Minnesota children not currently enrolled in out-of-school opportunities would be
+        	likely to participate if a program were available in their community.</em></li>
+        	<li><em>According to the U.S. Department of Education, Minnesota ranks among the bottom
+        	five of all 50 states for graduation rates among non-white students.</em></li>
+        </ul>
+        <p>The YMCA of the Greater Twin Cities, a leading nonprofit dedicated to strengthening
+        communities through youth development, healthy living and social responsibility,
+        creates safe, engaging spaces for young people to learn and grow outside of school.</p>
+        <p>Studies show that more than 250,000 kids in Minnesota would participate in out-of-school
+        activities if a program were available in their community. The Y strives to meet this need
+        by developing enrichment programs that meet young people in their schools or in their
+        homes.&nbsp;</p>
+        <p>“The YMCA is committed to expanding outside its four walls to reach young people where
+        they are,” said Glen Gunderson, president and CEO of the Y. “Access is a key factor to
+        keeping our youth safe and engaged outside of school, and the Y removes barriers so that
+        all in our community can participate.”</p>
+        <p>Gunderson added that the Y team designs programs that are flexible and can meet the needs
+        of specific communities. YMCA out-of-school education and enrichment programs are found in
+        Y facilities, schools, apartment complexes, mobile home communities and more, and include
+        the following opportunities:</p>
+        <ul>
+        	<li>Educational support, including homework help and targeted reading, math or science
+        	activities to increase achievement and confidence</li>
+        	<li>Enrichment activities like art, dance, music and more</li>
+        	<li>Career pathways and leadership development opportunities through YMCA Teen
+        	Thrive programming</li>
+        	<li>Programs like Beacons in Minneapolis or School Success in St. Paul that bring before
+        	and after school programs directly to students’ schools, free of charge</li>
+        	<li>On-campus programming at the University YMCA to engage with students across a variety
+        	of academic and cultural backgrounds at the University of Minnesota and to build connections
+        	with community schools</li>
+        </ul>
+        <p>See how Suzie has experienced the power of the Beacons program to build young leaders
+        throughout its 20 years in the Twin Cities, and how she has grown from student to program
+        director – <a href="https://youtu.be/xGKzTXM2acE">Beacons Network: 20 Years of Helping
+        Young People Thrive</a>.</p>
+        <p>Because the Y is a leading nonprofit committed to helping all learn, grow and thrive,
+        financial assistance is available based on need.</p>
+    -
+      id: 3
+      title: 'Resolve to Be Light in This Darkness'
+      created: '2017-04-27 8:02am'
+      category: 2
+      related: null
+      image: 3
+      promote: 0
+      addthis: 1
+      body: >
+        <p>By Glen Gunderson</p>
+        <p>Like many of you, my mind is spinning because of international, national and local events
+        that have centered around racism, from the repeal of the Deferred Action for Childhood
+        Arrivals (DACA), to the violence in Charlottesville, Virginia, to the bombing of the Dar Al-Farooq
+        Islamic Center in Bloomington.</p>
+        <p>It seems as if racial issues crop up on a near daily basis.</p>
+        <p>But I was heartened and inspired by a note from Kevin Washington, the president and CEO of YMCA
+        of the USA. He reminded the Y family that we “resolve to be light in this darkness” and that we stand
+        in opposition to hate, racism and white supremacist ideology.&nbsp;</p>
+        <p>“As an organization and as individuals privileged to play this vital role, we have an obligation
+        to be purposely and fully inclusive, across all dimensions of diversity,” Kevin wrote. “We should
+        never accommodate or legitimize hate, but we should continue to build bridges with reasonable people
+        who challenge us to consider other perspectives. Unity requires all of us—For a better us.”</p>
+        <p>I am proud of the work the Y does every day to bring groups together, build bridges of understanding
+        and brighten people’s lives. As I visited our many youth programs this summer, I saw firsthand how
+        intentional we are to teach our future generations — from all racial, cultural and socio-economic
+        backgrounds — how to learn, grow and thrive together in a safe environment.<br />
+        &nbsp;<br />
+        In the words of President Franklin D. Roosevelt, we cannot always build a future for our youth, but
+        we can always build our youth for the future. In our YMCA programs, we are instilling the Y’s core
+        values of caring, honesty, responsibility and respect. This is the foundation upon which we are
+        preparing our youth to be the best they can be – leader, parent, neighbor, citizen.<br />
+        &nbsp;<br />
+        I know my own perspective, my worldview, is tainted by white privilege. I have never worried about
+        how I may be treated when stopped by a police officer. I have not experienced biases that impact
+        whether I will be hired, promoted or given a raise. I have never lost sleep over whether my children
+        will be given a fair chance in life. As a servant to our Twin Cities community, I try to see through
+        a different lens, void of white privilege.&nbsp;</p>
+        <p>And what I see is not pretty.</p>
+        <p>As we start a new school year, please keep pushing our youth to try new things, learn more about
+        the world and people around them. To embrace similarities, with empathy and humility. And yet just
+        as importantly, celebrate differences. To be kind and gracious, never mean or selfish.&nbsp;</p>
+        <p>That starts with us being a light and investing in them. Thank you for making a difference and
+        preparing our youth to enjoy a world where racism no longer exists – that is our hope we must
+        strive for every day.</p>
+    -
+      id: 4
+      title: 'What Kids Gain From Summer Camp'
+      created: '2017-04-27 8:03am'
+      category: 1
+      related: null
+      image: 4
+      promote: 1
+      addthis: 1
+      body: >
+        <p>For many kids, summer is considered to be a magical time. Summer means potential, energy and time
+        for unstructured play. Magnify that magic with Y summer camp programs!</p>
+        <p>The Y is one of the largest providers of camp programs with over 1,850 day camps across the country.
+        Many Y programs promote learning lifelong skills, developing character and making friends, but camp
+        is a very special environment.</p>
+        <p>There are so many reasons for kids to attend camp. Here are just a few things your child can
+        gain from camp:</p>
+        <ul>
+          <li><strong>Trying New Things:</strong> Exploring your backyard, neighborhood or city is fun and
+          important, but there are lots of games and activities at camp that you just can’t do at home!
+          Kids get to try things like backpacking, river rafting and fishing.</li>
+          <li><strong>Meeting New People:</strong> Kids get to meet campers from all over. The special
+          environment of camp where kids are stretching and growing creates camaraderie and leads to meaningful
+          friendships.</li>
+          <li><strong>Challenging Themselves:</strong> Not everything at camp will be easy! By enduring setbacks
+          and pushing themselves in a nourishing environment, kids gain resilience and experience the reward of
+          achieving something.</li>
+          <li><strong>Appreciating Nature:</strong> It can be great to take a break from what’s familiar, your
+          family, friends and neighborhood to get back in touch with yourself and enjoy nature!</li>
+          <li><strong>Learning New Skills:</strong> Not only will kids learn how to do new activities and sports
+          such as music, creative writing or mountain climbing, living with a group of new people will teach them
+          life skills like independence, cooperation and tolerance.</li>
+          <li><strong>Being Active:</strong> Getting out and exploring with all the games and excursions at camp is
+          a great way to have fun while exercising and healthier alternative to hanging out at home all summer.</li>
+          <li><strong>Having Fun:</strong> Of course, the most important part about coming to camp is having fun!
+          We offer a variety of outdoor & wilderness, day and overnight camps to choose from. Whatever their
+          interest, whether it be creative writing, river rafting, music, backpacking or climbing, we’ve got a camp
+          for that!</li>
+        </ul>
+    -
+      id: 5
+      title: 'Water Safety at the Y'
+      created: '2017-04-27 8:04am'
+      category: 3
+      related: null
+      image: 5
+      promote: 1
+      addthis: 1
+      body: >
+        <p>Spending time around water can be relaxing and so much fun, but without the proper training,
+        water can be deadly. Learning water safety skills can serve kids for their whole lives. Whether
+        on camping trips, pool parties or trips to the beach, when kids are prepared, the chance of
+        accident decreases significantly.</p>
+        <p><strong>We can prevent accidental deaths</strong></p>
+        <p>According to the Centers for Disease Control, about ten people die everyday as a result of
+        drowning. So many of those accidental deaths are preventable. With the right skills, individuals
+        can be empowered to protect themselves around water, but also know the signs to look for when
+        somebody else is struggling in the water.</p>
+        <p><strong>The earlier the better</strong></p>
+        <p>The longer you wait to educate your child about swimming and water safety, the harder it becomes.
+        Younger kids are happy to jump right into swimming, but as kids get older, without skills they tend
+        to build fearful aversion to the water which leaves them at a higher risk for water danger.</p>
+        <p>Swimming is the pinnacle of fun for a lot of kids, but without a solid safety foundation, it is
+        rife with danger. The YMCA’s Safety Around Water program wants to keep swimming fun by teaching
+        essential water safety skills, including how personal water safety and skills to help others
+        in the water.</p>
+        <p>Safety Around Water is a free six week course at Meredith Mathews East Madison YMCA.</p>
+        <p>This vital course is open to anyone in the community who wants their children to learn how to
+        be safe in and around water!</p>
+    -
+      id: 6
+      title: 'Celebrate LatinX Heritage Month'
+      created: '2017-04-27 8:05am'
+      category: 4
+      related: null
+      image: 6
+      promote: 0
+      addthis: 1
+      body: >
+        <p><strong>September 15 to October 15 celebrate LatinX Heritage Month with the YMCA. Join free events across
+        Greater Seattle.</strong></p>
+        <p>National LatinX Heritage Month is celebrated each year from September 15 to October 15. It
+        celebrates the culture and recognizes the contributions made by those whose ancestors came from Mexico,
+        Central America, the Caribbean, South America and Spain.</p>
+        <p>You may know this month as Hispanic or Latino/Latina Heritage Month. We are using LatinX to be more
+        inclusive and relevant in our communities that identify outside of the gender binary.</p>
+        <br />
+        <p><strong>Did you know: LatinX Facts & Figures</strong></p>
+        <p>55 million - the Hispanic population of the United States as of July 1, 2014, making people of
+        Hispanic origin the nation's largest ethnic or race minority. Hispanics constituted 17 percent of
+        the nation's total population. In addition, there are 3.7 million residents of Puerto Rico, a U.S.
+        territory.</p>
+        <p>64% - the percentage of people of LatinX origin in the United States who were of Mexican
+        background in 2013. Another 9.5 percent were of Puerto Rican background, 3.7 percent Cuban, 3.7
+        percent Salvadoran, 3.3 percent Dominican and 2.4 percent Guatemalan. The remainder were from other
+        Central American, South American or other LatinX origin.</p>
+        <p>16 - The number of states with at least a half-million LatinX residents as of 2014: Arizona,
+        California, Colorado, Florida, Georgia, Illinois, Massachusetts, Nevada, New Jersey, New Mexico,
+        New York, North Carolina, Pennsylvania, Texas, Virginia and Washington. Eight states have over a
+        million LatinX residents.</p>
+        <p>2.3 million - the number of LatinX-owned businesses in 2007.</p>
+        <p>$350.7 billion - Receipts generated by Latinx-owned businesses in 2007.</p>
+    -
+      id: 7
+      title: 'Yoga for Stress Resilience'
+      created: '2017-04-27 8:06am'
+      category: 5
+      related: null
+      image: 7
+      promote: 0
+      addthis: 1
+      body: >
+        <h3>Breathe, Stretch, Re-charge</h3>
+        <p>Join instructor Jenny Leung as she helps you use yoga as a therapeutic antidote to stress: slowing
+        down, doing less, and open to receiving. The practice of restorative yoga allows the release of
+        mental, physical and emotional exhaustion, tension and patterning, thus building resilience on all
+        levels. She will be helping you gently stretch the body in active postures before settling into passive
+        restorative poses fully supported by props all within a still, quiet, and warm environment.</p>
+        <p>This series will address ways to:</p>
+        <ul>
+          <li>Release muscle tension</li>
+          <li>Quiet the mind</li>
+          <li>Balance the nervous system</li>
+          <li>Promote restful sleep</li>
+          <li>Build mental, emotional and physical resilience</li>
+        </ul>
+        <p>All levels, including beginners new to yoga, welcome.</p>
+  ids:
+    id:
+      type: integer
+process:
+  title:
+    -
+      plugin: get
+      source: title
+  type:
+    -
+      plugin: default_value
+      default_value: news
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  promote:
+    -
+      plugin: get
+      source: promote
+  addthis:
+    -
+      plugin: get
+      source: addthis
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  created:
+    -
+      plugin: callback
+      callable: strtotime
+      source: created
+  field_news_description/value:
+    -
+      plugin: get
+      source: body
+  field_news_description/format:
+    -
+      plugin: default_value
+      default_value: full_html
+  field_news_category:
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_news_category
+      source: category
+  field_news_related:
+    -
+      plugin: migration
+      migration: openy_demo_node_news
+      source: related
+  field_news_image:
+    -
+      plugin: migration
+      migration: openy_demo_nnews_media_image
+      source: image
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - openy_demo_taxonomy_term_news_category
+    - openy_demo_nnews_media_image
+  optional: {  }
