@@ -22,7 +22,7 @@
         transition: background-color .35s ease, box-shadow .35s ease, color .35s ease;
 
         &:hover {
-          background-color: #FFF;
+          background-color: $white;
         }
       }
     }
@@ -31,9 +31,9 @@
 
 .navbar-default .navbar-nav > li > a.is-active,
 .navbar-default .navbar-nav > li.is-active > a {
-  border-top: 2px solid #aa228d;
-  background-color: #fff;
-  color: #555555;
+  border-top: 2px solid $extra-pink1;
+  background-color: $white;
+  color: $extra-grey1;
 }
 
 .gsa_results_wrapper ol {
@@ -359,8 +359,8 @@ ul.linklist {
 }
 
 p.legend {
-  border-bottom: 1px solid #e5e5e5;
-  color: #a2a2a2;
+  border-bottom: 1px solid $extra-grey3;
+  color: $extra-grey2;
   font-size: 12px;
   font-weight: bold;
   line-height: 1em;
@@ -381,7 +381,7 @@ p.legend {
 #modal.annual-report-modal {
 
   .modal-header {
-    background: #92288d;
+    background: $dark-magenta;
     border-radius: 0;
     padding: 17px 50px 15px;
 
@@ -402,7 +402,7 @@ p.legend {
       }
       .modal-close {
         background: none;
-        color: #fff;
+        color: $white;
         font-family: "Cachet", Verdana, Geneva, sans-serif;
         font-weight: bold;
         right: 10px;
@@ -430,7 +430,7 @@ p.legend {
   }
 
   p {
-    color: #777;
+    color: $extra-grey4;
     font-size: 15px;
     line-height: 25px;
     margin-bottom: 25px;
@@ -438,14 +438,14 @@ p.legend {
 
   .blue_quote,
   .purple_quote {
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid $extra-grey3;
     font-size: 20px;
     line-height: 28px;
     padding: 60px 0 40px 23px;
     margin-bottom: 40px;
 
     .sign {
-      color: #a7a7a7;
+      color: $extra-grey5;
       font-style: italic;
 
       p {
@@ -455,18 +455,18 @@ p.legend {
       }
 
       p:first-child {
-        color: #424242;
+        color: $dark-grey;
         margin-top: 30px;
       }
     }
   }
   .blue_quote {
     background: url('../img/quote_blue.png') no-repeat 0 0;
-    color: #0889cd;
+    color: $blue;
   }
   .purple_quote {
     background: url('../img/quote_purple.png') no-repeat 0 0;
-    color: #92288d;
+    color: $dark-magenta;
   }
   iframe {
     margin: 40px 0;
@@ -479,8 +479,8 @@ p.legend {
   }
   th,
   .heading-row td {
-    background: #0889cd;
-    color: #fff;
+    background: $blue;
+    color: $white;
   }
   tr.total td {
     font-weight: bold;
@@ -517,14 +517,14 @@ p.legend {
     left: 5% !important;
   }
   .ui-dialog-titlebar {
-    background: #92288d;
+    background: $dark-magenta;
     border: 0;
     border-radius: 0;
     font-family: "Cachet", Verdana, Geneva, sans-serif;
     position: relative;
     padding: 17px 50px 15px;
     .ui-dialog-title {
-      color: white;
+      color: $white;
       font-size: 30px;
       text-transform: uppercase;
       font-weight: normal;
@@ -542,7 +542,7 @@ p.legend {
       position: absolute;
       &::before {
         content: "X";
-        color: #fff;
+        color: $white;
         font-family: "Cachet", Verdana, Geneva, sans-serif;
         font-weight: bold;
         text-decoration: none;
@@ -677,15 +677,15 @@ body .ajax-progress-throbber {
 
   .row {
     h3 {
-      color: #fff;
+      color: $white;
       font-size: 30px;
       line-height: 40px;
-      text-shadow: 1px 1px 4px #000;
+      text-shadow: 1px 1px 4px $black;
       margin: 0 0 10px;
     }
 
     h4 {
-      color: #fff;
+      color: $white;
       font-size: 18px;
       margin: 0 0 20px;
     }
