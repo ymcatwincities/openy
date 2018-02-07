@@ -533,9 +533,37 @@ function openy_update_8042() {
 }
 
 /**
- * Enable Contrib modules for local video player.
+ * Enable easy_breadcrumb module and paragraph.
  */
 function openy_update_8043() {
+  // Enable modules.
+  $modules = [
+    'easy_breadcrumb',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Add breadcrumbs block to Breadcrumb region and set easy_breadcrumb settings.
+ */
+function openy_update_8044() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'block.block.breadcrumbs',
+    'easy_breadcrumb.settings',
+  ]);
+}
+
+/**
+ * Enable Contrib modules for local video player.
+ */
+function openy_update_8045() {
   // Enable modules.
   $modules = [
     'media_entity_video',
@@ -552,7 +580,7 @@ function openy_update_8043() {
 /**
  * Enable local video player related modules.
  */
-function openy_update_8044() {
+function openy_update_8046() {
   // Enable modules.
   $modules = [
     'openy_media_local_video',

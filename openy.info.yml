@@ -99,6 +99,7 @@ dependencies:
   - videojs
   - video
   - media_entity_video
+  - easy_breadcrumb
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
