@@ -35,7 +35,7 @@ h1,
     font-size: 48px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   h1,
   .h1 {
     font-size: 48px;
@@ -60,7 +60,7 @@ h1,
     font-size: 36px !important;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   h2,
   .h2 {
     font-size: 36px !important;
@@ -88,7 +88,7 @@ h1,
     margin-bottom: 30px  !important;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   h4 {
     font-size: 24px !important;
     margin-top: 30px  !important;
@@ -114,7 +114,7 @@ p {
     font-size: 18px !important;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   p {
     font-size: 18px !important;
   }
