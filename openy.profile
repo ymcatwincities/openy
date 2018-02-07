@@ -7,6 +7,7 @@
 
 use Drupal\openy\Form\ContentSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
+use Drupal\openy\Form\UploadFontMessageForm;
 
 /**
  * Implements hook_install_tasks().
@@ -37,6 +38,12 @@ function openy_install_tasks() {
       'type' => 'form',
       'function' => ThirdPartyServicesForm::class,
     ],
+    'openy_upload_font_message' => [
+      'display_name' => t('Read font info'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => UploadFontMessageForm::class,
+    ],
   ];
 }
 
@@ -62,6 +69,9 @@ function openy_demo_content_configs_map($key = NULL) {
       ],
       'openy_demo_tblog' => [
         'openy_demo_taxonomy_term_blog_category',
+      ],
+      'openy_demo_tnews' => [
+        'openy_demo_taxonomy_term_news_category',
       ],
       'openy_demo_tfacility' => [
         'openy_demo_taxonomy_term_facility_type',
@@ -102,6 +112,13 @@ function openy_demo_content_configs_map($key = NULL) {
     'blog' => [
       'openy_demo_nblog' => [
         'openy_demo_node_blog',
+      ],
+    ],
+    'news' => [
+      'openy_demo_nnews' => [
+        'openy_demo_node_news',
+        'openy_demo_news_landing',
+        'openy_demo_menu_link_footer_news',
       ],
     ],
     'facility' => [
