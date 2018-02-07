@@ -945,6 +945,9 @@ body {
 .path-members-list table {
   width: 100%;
 }
+.path-members-list table td {
+  padding: 0 7px;
+}
 
 .node-422 li a {
   font-size: 18px;
