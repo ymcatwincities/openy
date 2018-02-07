@@ -401,14 +401,14 @@ function openy_lily_preprocess_page(&$variables) {
   $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
 
   // Set custom theme variables for page when they are set.
-  $image_fields = \Drupal::config('openy_lily.settings')->get('openy_lily_image_fields');
-
-  foreach ($image_fields as $image_template_variable => $theme_setting_key) {
-    $fid = theme_get_setting($theme_setting_key);
-    if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
-      $file = File::load(reset($fid));
-      if ($file !== NULL) {
-        $variables[$image_template_variable] = $file->getFileUri();
+  if ($image_fields = \Drupal::config('openy_lily.settings')->get('openy_lily_image_fields')) {
+    foreach ($image_fields as $image_template_variable => $theme_setting_key) {
+      $fid = theme_get_setting($theme_setting_key);
+      if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
+        $file = File::load(reset($fid));
+        if ($file !== NULL) {
+          $variables[$image_template_variable] = $file->getFileUri();
+        }
       }
     }
   }
@@ -816,6 +816,30 @@ function openy_lily_preprocess_form(&$variables) {
   if ($element['#form_id'] == 'user_login_form' || $element['#form_id'] == 'user_pass') {
     $variables['attributes']['class'][] = 'container';
   }
+}
+
+/**
+ * Prepares variables for radios templates.
+ *
+ * Default template: radios.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #options, #description, #required,
+ *     #attributes, #children.
+ */
+function openy_lily_preprocess_radios(&$variables) {
+  $element = $variables['element'];
+  $variables['attributes'] = [];
+  if (isset($element['#id'])) {
+    $variables['attributes']['id'] = $element['#id'];
+  }
+  if (isset($element['#attributes']['title'])) {
+    $variables['attributes']['title'] = $element['#attributes']['title'];
+  }
+  $variables['children'] = $element['#children'];
+  $variables['attributes']['class'][] = 'js-form-type-radios';
 }
 
 /**
