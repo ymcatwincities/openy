@@ -123,13 +123,11 @@
         {% endif %}
 
         {% block primary_menu %}
-          {% if site_section_bundle not in ['location', 'camp'] %}
-            <div class="nav-wrapper">
-              <div class="main-nav" data-spy="affix" data-offset-top="10">
-                {{ page.primary_menu }}
-              </div>
+          <div class="nav-wrapper">
+            <div class="main-nav" data-spy="affix" data-offset-top="10">
+              {{ page.primary_menu }}
             </div>
-          {% endif %}
+          </div>
         {% endblock %}
       </div>
     </header>{# /.page-head #}
