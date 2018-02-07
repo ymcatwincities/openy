@@ -1,51 +1,15 @@
-# Default features.
 features:
+  node_user_picture: true
   comment_user_picture: true
   comment_user_verification: true
-  favicon: 1
-  logo: true
-  name: true
-  node_user_picture: true
-  slogan: true
-links_color: ''
-links_color_hover: ''
-header_background_color_base: '#0060af'
-header_sub_background_color: 'rgba(0,96,175,0.95)'
-header_background_color_locations: '#434343'
-header_sub_background_color_locations: 'rgba(90,43,139,0.93)'
-header_background_color_camps: '#434343'
-header_sub_background_color_camps: 'rgba(244,121,32,0.93)'
-header_home_button_bg_color: '#0f74c7'
-header_home_button_border_color: '#0a5696'
-header_buttons_color1_base: '#9c1f7b'
-header_buttons_color2_base: '#b92f9e'
-header_buttons_color1_locations: '#9c1f7b'
-header_buttons_color2_locations: '#b92f9e'
-header_buttons_color1_camps: '#019c86'
-header_buttons_color2_camps: '#2fb998'
-camps_links_color: '#01a490'
-camps_links_color_hover: ''
+  favicon: true
 logo:
   use_default: 0
   path: profiles/contrib/openy/themes/openy_themes/openy_lily/logo.png
-openy_rose_footer_logo: {  }
 favicon:
-  use_default: 1
-  path: ''
-openy_rose_camp_section_logo: {  }
-openy_rose_camp_footer_logo: {  }
-openy_rose_camp_favicon: {  }
-logo_camps: {  }
-openy_lily_favicon_default: {  }
-openy_lily_favicon_camp: {  }
-openy_lily_favicon_location: {  }
-header_search: 1
-hide_mobile_sign_button: 0
-locations_path: '/locations'
-membership_path: ''
-# OpenY Rose theme image_template_variable: theme_setting_key configuration.
-openy_rose_image_fields:
-  footer_logo: openy_rose_footer_logo
-  camp_section_logo: openy_rose_camp_section_logo
-  camp_footer_logo: openy_rose_camp_footer_logo
-  camp_favicon: openy_rose_camp_favicon
+  use_default: true
+openy_lily_camp_section_logo: {  }
+openy_lily_camp_favicon: {  }
+openy_lily_image_fields:
+  camp_section_logo: openy_lily_camp_section_logo
+  camp_favicon: openy_lily_camp_favicon
