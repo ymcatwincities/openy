@@ -35,7 +35,7 @@ h1,
     font-size: 48px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   h1,
   .h1 {
     font-size: 48px;
@@ -60,7 +60,7 @@ h1,
     font-size: 36px !important;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   h2,
   .h2 {
     font-size: 36px !important;
@@ -88,7 +88,7 @@ h1,
     margin-bottom: 30px  !important;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   h4 {
     font-size: 24px !important;
     margin-top: 30px  !important;
@@ -114,7 +114,7 @@ p {
     font-size: 18px !important;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   p {
     font-size: 18px !important;
   }
@@ -218,7 +218,7 @@ p {
   width: 70%;
 }
 
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
     margin-bottom: 50px;
   }
@@ -294,7 +294,7 @@ p {
     display: table-cell;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .columns .paragraph-container .block-description--text {
     display: table-cell;
     padding: 0px 10px 40px 10px;
@@ -306,7 +306,7 @@ p {
     padding: 30px 15px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .page-node-type-campaign .columns .paragraph-container {
     padding: 0px 50px;
   }
@@ -327,7 +327,7 @@ p {
     margin-left: -15px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .page-node-type-campaign-page .paragraph-background-container, .page-node-type-campaign-page .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .page-node-type-campaign-page .winners-branches-select,
   .path-campaign-game .paragraph-background-container,
   .path-campaign-game .paragraph--type--campaign-winners .winners-branches-select,
@@ -400,7 +400,7 @@ body {
     width: 100%;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .container {
     width: 100%;
     max-width: 1400px;
@@ -461,7 +461,7 @@ body {
     box-shadow: 10px 20px 115px 10px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
   .path-campaign-game main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
@@ -564,7 +564,7 @@ body {
     box-shadow: 10px 20px 115px 10px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .page-node-type-campaign main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
@@ -751,7 +751,7 @@ body {
     padding-right: 0px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity-tracking-menu-columns.left {
     padding-right: 53px;
   }
@@ -764,7 +764,7 @@ body {
     padding-left: 0px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity-tracking-menu-columns.right h4 {
     padding-left: 60px;
   }
@@ -775,7 +775,7 @@ body {
     border-left: none;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity-tracking-menu-columns.right .field-prgf-campaign-game {
     padding-left: 60px;
     border-left: 1px solid;
@@ -963,7 +963,7 @@ body {
     padding: 0 15px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .node-422 .field-content {
     display: inline-block;
     width: 50%;
@@ -1358,7 +1358,7 @@ footer .container .footer__nav nav ul > li a {
     flex-direction: row;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .category-data form .fieldgroup .form-checkboxes {
     flex-direction: row;
   }
@@ -1388,7 +1388,7 @@ footer .container .footer__nav nav ul > li a {
     width: 30%;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .category-data form .fieldgroup .form-checkboxes .form-item {
     float: left;
     width: 32%;
@@ -1404,7 +1404,7 @@ footer .container .footer__nav nav ul > li a {
     margin-right: 0px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity-data {
     margin-left: 85px;
     margin-right: 85px;
@@ -1439,7 +1439,7 @@ footer .container .footer__nav nav ul > li a {
     font-size: 9px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity-data .categories ul li {
     height: 200px;
     font-size: 22px;
@@ -1459,7 +1459,7 @@ footer .container .footer__nav nav ul > li a {
     padding-top: 38px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity-data .categories ul li.Aquatics {
     background-position: center 50px;
     background-size: auto;
@@ -1490,7 +1490,7 @@ footer .container .footer__nav nav ul > li a {
     background-size: 35px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity-data .categories ul li.Fitness {
     background-position: center 50px;
     background-size: auto;
@@ -1520,7 +1520,7 @@ footer .container .footer__nav nav ul > li a {
     background-size: 35px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity-data .categories ul li.Community {
     background-position: center 50px;
     background-size: auto;
@@ -1544,7 +1544,7 @@ footer .container .footer__nav nav ul > li a {
     background-size: 35px;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity-data .categories ul li.GroupExercise {
     background-position: center 50px;
     background-size: auto;
@@ -1565,7 +1565,7 @@ footer .container .footer__nav nav ul > li a {
     padding: 0 70px !important;
   }
 }
-@media (min-width: 75em) {
+@media (min-width: 80.625em) {
   .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
     padding: 0 130px !important;
   }
