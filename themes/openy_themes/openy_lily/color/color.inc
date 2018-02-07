@@ -101,7 +101,7 @@ $info = [
 
   // Copy the logo file from the theme. Color module forces this behavior.
   'copy' => [
-    'logo.svg',
+    'logo.png',
   ],
 
   // Preview files.

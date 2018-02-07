@@ -67,6 +67,7 @@ projects[views_field_formatter] = 1.5
 projects[lndr] = 1.11
 projects[crop] = 1.3
 projects[focal_point] = 1.0-beta5
+projects[easy_breadcrumb] = 1.6
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip

@@ -160,7 +160,6 @@
     @include breakpoint($screen-lg) {
       margin-bottom: 0;
       img {
-        max-width: 260px;
         height: auto;
       }
     }

@@ -112,6 +112,17 @@
       @include cachet-bold();
     }
   }
+  td {
+    color: $darker-grey;
+  }
+  .age-range {
+    color: $purple;
+  }
+  .class__session-instance:nth-child(odd) {
+    td {
+      background-color: $lighter-grey;
+    }
+  }
 }
 
 .class__session-instances,
@@ -198,5 +209,11 @@
       font-size: 28px;
       margin-bottom: -15px;
     }
+  }
+}
+
+.class-content {
+  .sidebar-region {
+    margin-top: 25px;
   }
 }
