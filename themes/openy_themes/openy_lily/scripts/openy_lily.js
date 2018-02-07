@@ -155,6 +155,16 @@
   };
 
   /**
+   * Dynamic max-height for main menu submenus.
+   */
+  Drupal.behaviors.openy_lily_main_menu_submenu_height = {
+    attach: function (context, settings) {
+      var h = $(window).height();
+      $('.main-nav .dropdown-menu.row-level-2', context).css('max-height', h - 250 + 'px');
+    }
+  };
+
+  /**
    * Scroll to next button.
    */
   Drupal.behaviors.scrollToNext = {
