@@ -1,13 +1,13 @@
 @mixin cachet() {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 
 @mixin cachet-medium() {
-  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet Medium", Verdana, Geneva, sans-serif;
 }
 
 @mixin cachet-bold() {
-  font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet Bold", Verdana, Geneva, sans-serif;
 }
 
 @mixin helvetica-neue() {
