@@ -6,7 +6,7 @@
   .field-lto-title {
     @include cachet();
     color: $white;
-    font-size: 36px;
+    font-size: 32px;
 
     @media (max-width: $screen-phone) {
       margin: 0 0 0 10px;
@@ -47,7 +47,7 @@
 
   .btn {
     white-space: normal;
-    font-size: 20px;
+    font-size: 18px;
     padding: 0;
     width: 100%;
     border: 1px solid white;

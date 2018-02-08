@@ -6,10 +6,11 @@ dependencies:
     - field.field.media.image.field_media_image
     - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_tags
-    - image.style.thumbnail
+    - image.style.thumbnail_focal_point
     - media_entity.bundle.image
   module:
-    - image
+    - focal_point
+    - path
 id: media.image.default
 targetEntityType: media
 bundle: image
@@ -26,10 +27,12 @@ content:
   field_media_image:
     weight: 2
     settings:
+      preview_image_style: thumbnail_focal_point
       progress_indicator: throbber
-      preview_image_style: thumbnail
+      preview_link: true
+      offsets: '50,50'
     third_party_settings: {  }
-    type: image_image
+    type: image_focal_point
     region: content
   field_media_in_library:
     weight: 4
@@ -51,7 +54,8 @@ content:
     type: language_select
     weight: 2
     region: content
-    settings: {  }
+    settings:
+      include_locked: true
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -61,6 +65,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
   uid: true
