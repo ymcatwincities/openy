@@ -96,6 +96,7 @@ dependencies:
   - lndr
   - crop
   - focal_point
+  - easy_breadcrumb
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
