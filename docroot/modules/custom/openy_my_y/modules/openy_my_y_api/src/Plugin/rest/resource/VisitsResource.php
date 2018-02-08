@@ -5,17 +5,17 @@ use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 
 /**
- * Provides Appointments Resource.
+ * Provides Visits Resource.
  *
  * @RestResource(
- *   id = "openy_my_y_api_appointments",
- *   label = @Translation("Appointments"),
+ *   id = "openy_my_y_api_visits",
+ *   label = @Translation("Visits"),
  *   uri_paths = {
- *     "canonical" = "/openy_my_y/appointments/{uid}"
+ *     "canonical" = "/openy_my_y/visits/{uid}"
  *   }
  * )
  */
-class AppointmentsResource extends ResourceBase {
+class VisitsResource extends ResourceBase {
 
   /**
    * Responds to entity GET requests.
@@ -33,14 +33,14 @@ class AppointmentsResource extends ResourceBase {
         'SiteIDs' => [$credentials->get('site_id')],
       ],
       'ClientID' => $uid,
-      'StartDate' => date('Y-m-d', strtotime('today')),
-      'EndDate' => date('Y-m-d', strtotime("today +20 weeks")),
+      'StartDate' => date('Y-m-d', strtotime('today -2 years')),
+      'UnpaidsOnly' => FALSE,
     ];
 
     $results = [];
 
     try {
-      $result = $client->call('ClientService', 'GetClientSchedule', $request, TRUE);
+      $result = $client->call('ClientService', 'GetClientVisits', $request, TRUE);
     }
     catch (\Exception $e) {
       return new ResourceResponse([
@@ -51,7 +51,7 @@ class AppointmentsResource extends ResourceBase {
       ]);
     }
 
-    $visits = $result->GetClientScheduleResult->Visits;
+    $visits = $result->GetClientVisitsResult->Visits;
 
     // In case if there is no appointments at all.
     if (!isset($visits->Visit)) {
