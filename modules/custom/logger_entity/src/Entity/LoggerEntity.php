@@ -204,7 +204,7 @@ class LoggerEntity extends ContentEntityBase implements LoggerEntityInterface {
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Logger Entity entity.'))
       ->setSettings(array(
-        'max_length' => 50,
+        'max_length' => 250,
         'text_processing' => 0,
       ))
       ->setDefaultValue('')

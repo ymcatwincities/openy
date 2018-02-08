@@ -213,7 +213,7 @@
         border-radius: 4px;
         color: $light-blue;
         display: inline-block;
-        font-size: 14px;
+        font-size: 12px;
         height: 30px;
         line-height: 30px;
         text-transform: uppercase;
@@ -241,6 +241,13 @@
       }
     }
   }
+
+  .form-control  {
+    &[readonly], &[disabled] {
+      color: $dark_grey;
+      background: $lighter-grey;
+    }
+  }
 }
 
 #schedules-search-listing-wrapper {
@@ -253,8 +260,8 @@
       font-weight: 700;
 
       @include breakpoint($screen-sm) {
-        font-size: 44px;
-        line-height: 48px;
+        font-size: 40px;
+        line-height: 44px;
       }
       em {
         font-style: normal;
@@ -270,7 +277,7 @@
       line-height: inherit;
       font-weight: normal;
       @include breakpoint($screen-sm) {
-        font-size: 30px;
+        font-size: 28px;
       }
     }
     .schedule-sessions-group-slider {
@@ -657,7 +664,7 @@
         flex-basis: 33%;
       }
       label {
-        @include helvetica-neue();
+        font-family: Verdana, sans-serif;
         font-size: 15px;
         margin: 0 0 0 7px;
         vertical-align: top;

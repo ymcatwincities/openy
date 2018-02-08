@@ -487,3 +487,74 @@ function openy_update_8037() {
   // Enable modules.
   \Drupal::service('module_installer')->install(['openy_prgf_amenities'], TRUE);
 }
+
+/**
+ * Enable openy_code_block and openy_prgf_code_block modules.
+ */
+function openy_update_8038() {
+  $modules = [
+    'openy_code_block',
+    'openy_prgf_code_block',
+  ];
+  // Enable modules.
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Enable OpenY Block Date.
+ */
+function openy_update_8039() {
+  \Drupal::service('module_installer')->install(['openy_prgf_block_date'], TRUE);
+}
+
+/**
+ * Enable inline_form_errors Drupal Core 8.4.
+ */
+function openy_update_8040() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['inline_form_errors'], TRUE);
+}
+
+/**
+ * Enable openy_font module.
+ */
+function openy_update_8041() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['openy_font'], TRUE);
+}
+
+/**
+ * Enable crop and focal_point modules.
+ */
+function openy_update_8042() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['crop', 'focal_point'], TRUE);
+}
+
+/**
+ * Enable easy_breadcrumb module and paragraph.
+ */
+function openy_update_8043() {
+  // Enable modules.
+  $modules = [
+    'easy_breadcrumb',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Add breadcrumbs block to Breadcrumb region and set easy_breadcrumb settings.
+ */
+function openy_update_8044() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'block.block.breadcrumbs',
+    'easy_breadcrumb.settings',
+  ]);
+}
