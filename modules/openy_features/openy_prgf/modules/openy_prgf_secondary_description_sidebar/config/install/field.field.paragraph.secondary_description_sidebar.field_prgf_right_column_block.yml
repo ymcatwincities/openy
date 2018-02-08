@@ -14,7 +14,7 @@ third_party_settings:
   datalayer:
     expose: 0
     label: field_prgf_right_column_block
-id: paragraph.code.field_prgf_right_column_block
+id: paragraph.secondary_description_sidebar.field_prgf_right_column_block
 field_name: field_prgf_right_column_block
 entity_type: paragraph
 bundle: secondary_description_sidebar
