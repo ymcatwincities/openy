@@ -6,6 +6,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Facebook\Exceptions\FacebookResponseException;
 use DateTime;
 use DateTimeZone;
 
@@ -121,7 +122,20 @@ class OpenyFacebookSyncFetcher {
       foreach ($fb_objects as $fb) {
         /* @var \Facebook\Facebook $fb */
         $appid = $fb->getApp()->getId();
-        $result = $fb->sendRequest('GET', $appid . "/events", ['fields' => $fields]);
+        try {
+          $result = $fb->sendRequest('GET', $appid . "/events", ['fields' => $fields]);
+        } catch (FacebookResponseException $e) {
+          // When Graph returns an error
+          $msg = 'Facebook Graph returned an error: %msg';
+          $this->logger->error(
+            $msg,
+            [
+              '%msg' => $e->getMessage(),
+            ]
+          );
+          continue;
+        }
+
         $events = $result->getGraphEdge();
         // Array of events from all pages.
         $all_events = [];
