@@ -5,6 +5,6 @@
 
 .webform-confirmation__message {
   font-size: 22px;
-  font-family: "Cachet W01 Book",'Ubuntu Condensed',sans-serif;
+  @include cachet();
   font-weight: bold;
 }

@@ -123,7 +123,7 @@ a.sports-icon {
 .node--type-class {
   .field-class-description {
     margin-top: 30px;
-    font-family: "Cachet", Verdana, Geneva, sans-serif;
+    @include cachet();
   }
   .class__session-instances-list {
     margin-bottom: 30px;

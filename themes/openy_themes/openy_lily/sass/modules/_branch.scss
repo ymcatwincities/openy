@@ -673,7 +673,7 @@ html.js {
   }
 
   h4 {
-    font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+    @include cachet();
     font-size: 14px;
     text-transform: uppercase;
     line-height: 1.2;
