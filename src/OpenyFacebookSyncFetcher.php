@@ -124,8 +124,9 @@ class OpenyFacebookSyncFetcher {
         $appid = $fb->getApp()->getId();
         try {
           $result = $fb->sendRequest('GET', $appid . "/events", ['fields' => $fields]);
-        } catch (FacebookResponseException $e) {
-          // When Graph returns an error
+        }
+        catch (FacebookResponseException $e) {
+          // When Graph returns an error.
           $msg = 'Facebook Graph returned an error: %msg';
           $this->logger->error(
             $msg,
