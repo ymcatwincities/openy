@@ -10,8 +10,8 @@
   font-family: "Cachet Bold", Verdana, Geneva, sans-serif;
 }
 
-@mixin helvetica-neue() {
-  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+@mixin verdana() {
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 @mixin read-more-link() {

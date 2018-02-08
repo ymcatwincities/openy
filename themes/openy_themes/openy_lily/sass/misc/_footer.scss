@@ -1,3 +1,7 @@
+.pre-footer {
+  margin-top: 30px;
+}
+
 .social-disclaimer {
   .contextual-region .contextual .contextual-links li {
     width: auto;
@@ -76,7 +80,7 @@
       top: -20px;
     }
     p {
-      font-family: "Cachet", Verdana, Geneva, sans-serif;
+      @include cachet();
       display: inline-block;
       margin: 0;
       font-size: 13px;
@@ -89,14 +93,7 @@
   }
 }
 
-.footer-alerts-list {
-  margin-top: 30px;
-}
-
 .path-frontpage {
-  .footer-alerts-list {
-    margin-top: 0;
-  }
   .viewport {
     #main {
       padding-bottom: 30px;

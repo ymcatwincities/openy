@@ -344,7 +344,7 @@
 
   .field-prgf-description h2 {
     color: $purple;
-    font-family: $font-style-cachet-ubuntu;
+    @include cachet();
     font-weight: bold;
     letter-spacing: normal;
     text-transform: none;
@@ -785,7 +785,7 @@
     }
 
     h2 {
-      font-family: "Cachet W01 Book", Verdana, sans-serif;
+      @include cachet();
       font-size: 22px;
       line-height: 1;
       color: $blue;

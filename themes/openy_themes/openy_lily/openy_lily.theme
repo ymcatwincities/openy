@@ -44,6 +44,7 @@ function openy_lily_preprocess_node(&$variables) {
 function openy_lily_preprocess_node_blog(&$variables) {
   $back_link_title = t('Back to Blog');
   $variables['back_link_title'] = $back_link_title;
+  // @todo move this url out of the theme.
   $variables['back_link_path'] = Url::fromUri('internal:/blog')->toString();
 }
 
@@ -128,7 +129,7 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
   // Adds template for the membership page.
   if (is_object($node)) {
     $current_path = \Drupal::service('path.current')->getPath();
-    // @todo hardcoded alias. Move out of the theme.
+    // @todo hardcoded alias. Move it out of the theme.
     if ($current_path == 'membership') {
       array_push($suggestions, 'page__membership');
     }
@@ -852,4 +853,3 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
   // 'Separate link text and URL' format by default.
   $variables['items'][0]['content']['#url_title'] = $link_title;
 }
-
