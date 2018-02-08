@@ -17,9 +17,9 @@ fields_unset_paragraphs:
     - latest_blog_posts_camp
     - prgf_location_finder
     - prgf_location_finder_filters
-    - promo_text
     - openy_prgf_mbrshp_calc
     - membership_info
+    - secondary_description_sidebar
     - session_time
     - schedule_search_form
     - schedule_search_list
