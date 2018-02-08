@@ -34,7 +34,7 @@ widgets:
       resize_quality: !!float 1
       resize_method: contain
       thumbnail_method: contain
-      submit_text: 'Save entity'
+      submit_text: 'Save video'
       auto_select: false
     uuid: 9fb81a40-c7ee-40b0-b8c0-b20b248590bb
     weight: -10
