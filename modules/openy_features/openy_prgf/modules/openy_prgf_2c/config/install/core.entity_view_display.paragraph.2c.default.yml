@@ -15,7 +15,7 @@ content:
     weight: 0
     label: hidden
     settings:
-      view_mode: trimmed
+      view_mode: full
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
@@ -24,7 +24,7 @@ content:
     weight: 1
     label: hidden
     settings:
-      view_mode: trimmed
+      view_mode: full
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
