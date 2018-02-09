@@ -43,6 +43,7 @@ settings:
             - Blockquote
             - embed_video
             - embed_image
+            - embed_local_video
             - embed_document
         -
           name: Tools
