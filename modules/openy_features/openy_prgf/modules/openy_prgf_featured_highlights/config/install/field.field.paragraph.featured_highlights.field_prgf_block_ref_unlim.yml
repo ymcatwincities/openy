@@ -2,7 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.basic_block
+    - block_content.type.date_block
     - block_content.type.featured_highlights_block
+    - block_content.type.simple_block
     - field.storage.paragraph.field_prgf_block_ref_unlim
     - paragraphs.paragraphs_type.featured_highlights
   module:
@@ -16,7 +19,7 @@ field_name: field_prgf_block_ref_unlim
 entity_type: paragraph
 bundle: featured_highlights
 label: 'Featured Highlights block'
-description: 'Create a new one or pick up an existed Featured Highlights block.'
+description: 'Create a new one or pick up an existed blocks.'
 required: true
 translatable: true
 default_value: {  }
@@ -25,9 +28,12 @@ settings:
   handler: 'default:block_content'
   handler_settings:
     target_bundles:
+      basic_block: basic_block
+      date_block: date_block
       featured_highlights_block: featured_highlights_block
+      simple_block: simple_block
     sort:
       field: _none
-    auto_create: true
+    auto_create: false
     auto_create_bundle: featured_highlights_block
 field_type: entity_reference
