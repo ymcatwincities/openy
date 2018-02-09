@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * OpenY Node Program module file.
+ */
+
+/**
+ * Implements hook_ENTITY_TYPE_update().
+ *
+ * This will publish/unpublish category nodes when a program is updated.
+ */
+function openy_node_program_node_update(Drupal\Core\Entity\EntityInterface $entity) {
+  // Only do this for program nodes.
+  if ($entity->getType() != 'program') {
+    return;
+  }
+
+  // Published will be true, unpublished false.
+  $original_status = $entity->original->isPublished();
+  $current_status = $entity->isPublished();
+
+  // Going from published to unpublished.
+  if ($original_status && !$current_status) {
+    $categories = _openy_node_program_getcategorynodes($entity);
+
+    // Unpublish all category nodes.
+    foreach ($categories as $node) {
+      if ($node->isPublished()) {
+        $node->setPublished(false);
+        $node->save();
+      }
+    }
+  } elseif (!$original_status && $current_status) {
+    // Going from unpublished to published. We have to just publish everything.
+    $categories = _openy_node_program_getcategorynodes($entity);
+
+    // Publish all category nodes.
+    foreach ($categories as $node) {
+      if (!$node->isPublished()) {
+        $node->setPublished(true);
+        $node->save();
+      }
+    }
+  }
+
+}
+
+/**
+ * Helper function to retrieve the list of category nodes that references this
+ * program node.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The program node who's category nodes will be retrieved.
+ *
+ * @return array $categories
+ *   Array of category nodes.
+ */
+function _openy_node_program_getcategorynodes(&$entity) {
+  $program_id = $entity->id();
+
+  $connection = \Drupal::database();
+  $query_string = 'SELECT entity_id FROM {node__field_category_program} WHERE field_category_program_target_id = :id';
+  $query = $connection->query($query_string, [':id' => $program_id]);
+  $result = $query->fetchAllAssoc('entity_id');
+
+  $category_ids = array_keys($result);
+  $categories = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($category_ids);
+
+  return $categories;
+}
