@@ -7,8 +7,8 @@
     padding-bottom: 40px;
     margin: 0 auto 40px;
     @include breakpoint(768px) {
-      padding-bottom: 65px;
-      margin: 0 auto 80px;
+      padding-bottom: 15px;
+      margin: 0 auto 25px;
     }
     h2 {
       font-size: 30px;
@@ -42,11 +42,8 @@
       border-color: #dadada;
     }
     @include breakpoint(768px) {
-      width: 250px;
+      width: 245px;
       float: left;
-    }
-    @include breakpoint(1025px) {
-      width: 290px;
     }
   }
   .form-item-arrival-date {
@@ -69,12 +66,14 @@
   }
   .form-item-range {
     @include breakpoint(768px) {
+      clear: left;
       float: left;
+      margin: 0 45px 0 0;
       width: 200px;
     }
-    @include breakpoint(1025px) {
+    @include breakpoint(992px) {
+      clear: none;
       margin: 0 30px;
-      width: 250px;
     }
     label {
       font-family: "Cachet Book", Arial, sans-serif;
@@ -120,11 +119,12 @@
       line-height: inherit;
     }
     label {
-      font-size: 15px;
+      font-size: 16px;
       letter-spacing: -0.5px;
-      color: #959595;
+      color: #222;
       display: inline-block;
       font-weight: normal;
+      font-family: "Cachet Book", Arial, sans-serif;
       margin: 0 0 0 15px;
       height: 40px;
       line-height: 40px;
@@ -191,7 +191,7 @@
     }
   }
   .form-submit {
-    background: #f4791f;
+    background: #92278f;
     border: none;
     box-shadow: none;
     font-size: 18px;
@@ -203,9 +203,6 @@
       float: left;
       margin-top: 38px;
       width: 150px;
-    }
-    @include breakpoint(1024px) {
-      float: right;
     }
   }
   .cdn-results {
@@ -220,13 +217,59 @@
       .container {
         .cdn-village-teaser {
           opacity: 0.5;
-          margin-bottom: 10px;
-          @include breakpoint(768px) {
+          padding-bottom: 30px;
+          display: block;
+          @include breakpoint(415px) {
             display: inline-block;
-            padding-bottom: 30px;
-            padding-left: 15px;
-            padding-right: 15px;
-            width: 31%;
+            vertical-align: top;
+            width: 45%;
+          }
+          @include breakpoint(768px) {
+            margin-left: 15px;
+            margin-right: 15px;
+            width: 30%;
+          }
+          @include breakpoint(992px) {
+            width: 21%;
+          }
+          @include breakpoint(1024px) {
+            width: 22%;
+          }
+          &:nth-child(2n) {
+            @include breakpoint(415px) {
+              margin-right: 0;
+            }
+            @include breakpoint(768px) {
+              margin-right: 0;
+            }
+            @include breakpoint(992px) {
+              margin-right: 15px;
+            }
+          }
+          &:nth-child(1n) {
+            @include breakpoint(415px 767px) {
+              margin-left: 0;
+              margin-right: 15px;
+            }
+          }
+          &:nth-child(2n) {
+            @include breakpoint(415px 767px) {
+              margin-left: 15px;
+              margin-right: 0;
+            }
+          }
+          &:nth-child(3n) {
+            @include breakpoint(768px) {
+              margin-right: 0;
+            }
+            @include breakpoint(992px) {
+              margin-right: 15px;
+            }
+          }
+          &:nth-child(4n) {
+            @include breakpoint(992px) {
+              margin-right: 0;
+            }
           }
           &.not-active {
             opacity: 0.5 !important;
@@ -630,6 +673,9 @@
 }
 
 .cdn-village-teaser {
+  a {
+    text-decoration: none;
+  }
   .inner {
     position: relative;
     display: inline-block;
@@ -645,15 +691,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    .title {
-      font-family: "Cachet Book", Arial, sans-serif;
-      font-size: 30px;
-      letter-spacing: -0.6px;
-      color: #fff;
-      float: left;
-      line-height: 30px;
-      max-width: 270px;
-    }
     .capacity {
       float: right;
       color: #fff;
@@ -662,6 +699,16 @@
       i {
         margin-right: 5px;
       }
+    }
+  }
+  .title {
+    font-family: "Cachet Book", Arial, sans-serif;
+    font-size: 24px;
+    letter-spacing: -0.6px;
+    color: #000;
+    line-height: 30px;
+    @media (min-width: 768px) {
+      font-size: 24px;
     }
   }
 }
@@ -880,7 +927,7 @@
     background: #383838;
     padding: 50px 0 25px;
     .form-submit {
-      background: #f4791f;
+      background: #92278f;
       font-size: 15px;
       width: 100%;
       box-shadow: none;
