@@ -27,7 +27,7 @@ function openy_node_program_node_update(Drupal\Core\Entity\EntityInterface $enti
     // Unpublish all category nodes.
     foreach ($categories as $node) {
       if ($node->isPublished()) {
-        $node->setPublished(false);
+        $node->setUnPublished();
         $node->save();
       }
     }
@@ -38,7 +38,7 @@ function openy_node_program_node_update(Drupal\Core\Entity\EntityInterface $enti
     // Publish all category nodes.
     foreach ($categories as $node) {
       if (!$node->isPublished()) {
-        $node->setPublished(true);
+        $node->setPublished();
         $node->save();
       }
     }
