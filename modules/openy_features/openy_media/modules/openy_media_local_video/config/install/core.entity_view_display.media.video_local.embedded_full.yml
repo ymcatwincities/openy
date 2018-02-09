@@ -2,38 +2,35 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.media.teaser
+    - core.entity_view_mode.media.embedded_full
     - field.field.media.video_local.field_media_local_video
     - field.field.media.video_local.field_media_tags
-    - image.style.thumbnail
     - media_entity.bundle.video_local
   module:
-    - image
-id: media.video_local.teaser
+    - videojs
+id: media.video_local.embedded_full
 targetEntityType: media
 bundle: video_local
-mode: teaser
+mode: embedded_full
 content:
-  name:
-    type: string
-    weight: 1
-    region: content
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-  thumbnail:
-    type: image
+  field_media_local_video:
     weight: 0
-    region: content
     label: hidden
     settings:
-      image_style: thumbnail
-      image_link: ''
+      width: '640'
+      height: '480'
+      controls: '1'
+      preload: none
+      autoplay: 0
+      loop: 0
+      muted: 0
     third_party_settings: {  }
+    type: videojs_player_list
+    region: content
 hidden:
   created: true
-  field_media_local_video: true
   field_media_tags: true
   langcode: true
+  name: true
+  thumbnail: true
   uid: true

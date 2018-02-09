@@ -21,6 +21,7 @@ function openy_media_form_alter(array &$form, FormStateInterface $form_state, $f
     case 'entity_browser_videos_library_embed_form':
     case 'entity_browser_videos_library_form':
     case 'entity_browser_local_video_library_form':
+    case 'entity_browser_local_video_library_embed_form':
       $form['#attached']['library'][] = 'openy_media/browser';
       break;
   }

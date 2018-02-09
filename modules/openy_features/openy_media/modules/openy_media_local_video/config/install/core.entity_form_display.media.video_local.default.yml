@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.media.video_local.field_media_local_video
+    - field.field.media.video_local.field_media_tags
     - media_entity.bundle.video_local
   module:
     - path
@@ -12,14 +13,8 @@ targetEntityType: media
 bundle: video_local
 mode: default
 content:
-  created:
-    type: datetime_timestamp
-    weight: 10
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   field_media_local_video:
-    weight: 11
+    weight: 3
     settings:
       file_extensions: 'mp4 ogv webm'
       file_directory: 'video-thumbnails/[date:custom:Y]-[date:custom:m]'
@@ -29,15 +24,25 @@ content:
     third_party_settings: {  }
     type: video_upload
     region: content
+  field_media_tags:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   langcode:
     type: language_select
     weight: 2
-    settings: {  }
+    settings:
+      include_locked: true
     third_party_settings: {  }
     region: content
   name:
     type: string_textfield
-    weight: -5
+    weight: 0
     settings:
       size: 60
       placeholder: ''
@@ -45,17 +50,10 @@ content:
     region: content
   path:
     type: path
-    weight: 30
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    region: content
-hidden: {  }
+hidden:
+  created: true
+  uid: true

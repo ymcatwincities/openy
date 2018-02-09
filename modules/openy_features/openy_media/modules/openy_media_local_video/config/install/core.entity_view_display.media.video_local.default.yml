@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.media.video_local.field_media_local_video
+    - field.field.media.video_local.field_media_tags
     - media_entity.bundle.video_local
   module:
     - videojs
@@ -27,6 +28,7 @@ content:
     region: content
 hidden:
   created: true
+  field_media_tags: true
   langcode: true
   name: true
   thumbnail: true

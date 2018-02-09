@@ -7,7 +7,9 @@ dependencies:
   - crop
   - datalayer
   - dropzonejs_eb_widget
+  - embed
   - entity_browser
+  - entity_embed
   - field
   - file
   - image
@@ -20,3 +22,4 @@ dependencies:
   - user
   - video
   - videojs
+  - views
