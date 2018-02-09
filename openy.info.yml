@@ -155,7 +155,6 @@ dependencies:
   - openy_prgf_embedded_groupexpro_schedule
   - openy_prgf_pgm_reg
   - openy_prgf_webform
-  - openy_prgf_video_player
   - openy_node_activity
   - openy_node_class
   - openy_node_session

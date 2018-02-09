@@ -584,7 +584,6 @@ function openy_update_8046() {
   // Enable modules.
   $modules = [
     'openy_media_local_video',
-    'openy_prgf_video_player',
   ];
   foreach ($modules as $module) {
     \Drupal::service('module_installer')->install([
