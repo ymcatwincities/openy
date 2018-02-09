@@ -182,7 +182,9 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
         && !(MemberCampaign::isLoggedIn($campaign->id()))
         && $currentNodeType !== 'campaign_page') {
 
-      if ($localeRegistrationStart->dateExpired() && !$localeRegistrationEnd->dateExpired()) {
+      if (($localeRegistrationStart->dateExpired() && !$localeRegistrationEnd->dateExpired()) ||
+        ($localeCampaignStart->dateExpired() && !$localeCampaignEnd->dateExpired())
+      ) {
         // Show Register block form.
         $form = $this->formBuilder->getForm(
           'Drupal\openy_campaign\Form\MemberRegistrationSimpleForm',
