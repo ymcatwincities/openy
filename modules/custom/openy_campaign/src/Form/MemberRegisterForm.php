@@ -438,12 +438,33 @@ class MemberRegisterForm extends FormBase {
         if (!empty($campaign->field_reg_checkins_not_started->value)) {
           $modalMessage = check_markup($campaign->field_reg_checkins_not_started->value, $campaign->field_reg_checkins_not_started->format);
         }
+        // TODO: use hook_theme instead of inline template.
+        $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
+        $response->addCommand(new ReplaceCommand('#' . static::$containerId, $wrappedModalMessage));
+        $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialogByClick'));
+      }
+      else {
+        // Log in user instead of showing the registration success message.
+        MemberCampaign::login($memberCampaign->getId(), $memberCampaign->getCampaign()->id());
+        $msgSuccess = $config->get('successful_login');
+        $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
+        // TODO: use hook_theme instead of inline template.
+        $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
+        $modalTitle = t('Thank you!');
+
+        $modalPopup = [
+          '#theme' => 'openy_campaign_popup',
+          '#form' => [
+            '#markup' => $wrappedModalMessage,
+          ]
+        ];
+        // Add an AJAX command to open a modal dialog with the form as the content.
+        $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
+        $response->addCommand(new InvokeCommand('#openy_campaign_popup', 'closeDialogByClick'));
+        // Close dialog and redirect to Campaign main page.
+        $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
       }
 
-      // TODO: use hook_theme instead of inline template.
-      $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
-      $response->addCommand(new ReplaceCommand('#' . static::$containerId, $wrappedModalMessage));
-      $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialogByClick'));
 
       return $response;
     }
