@@ -446,7 +446,7 @@ class MemberRegisterForm extends FormBase {
       }
       else {
         // Log in user instead of showing the registration success message.
-        MemberCampaign::login($membershipID, $campaignID);
+        MemberCampaign::login($memberCampaign->getMember()->getMemberId(), $memberCampaign->getCampaign()->id());
         $msgSuccess = $config->get('successful_login');
         $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
         // TODO: use hook_theme instead of inline template.
