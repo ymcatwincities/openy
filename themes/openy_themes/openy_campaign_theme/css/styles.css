@@ -1199,18 +1199,8 @@ footer .container .footer__nav nav ul > li a {
   padding-right: 20px;
 }
 
-.top-navs,
-.sidebar,
-.navbar-default .navbar-toggle,
-.navbar-default .navbar-toggle:focus,
-.navbar-default .navbar-toggle:hover,
-.navbar-default .navbar-toggle:active {
-  background: #5c2e91;
-}
-
 .sidebar .page-head__top-menu a {
   height: 47px;
-  background-color: #7C57A7;
   width: 100%;
   padding-top: 15px;
   padding-left: 15px;
@@ -1226,7 +1216,6 @@ footer .container .footer__nav nav ul > li a {
 }
 .sidebar .page-head__main-menu .campaign-menu > li {
   height: 47px;
-  background-color: #7C57A7;
   width: 100%;
   padding-top: 15px;
   padding-left: 15px;
