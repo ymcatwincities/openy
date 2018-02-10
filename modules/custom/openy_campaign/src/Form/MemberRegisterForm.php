@@ -217,6 +217,8 @@ class MemberRegisterForm extends FormBase {
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
 
     // Registration attempt for already registered member.
+    // The validation is disabled in order to log in already registered users.
+    /*
     if ($memberCampaignID) {
       $msgAlreadyRegistered = $config->get('error_register_already_registered');
       $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
@@ -228,6 +230,7 @@ class MemberRegisterForm extends FormBase {
       $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
       return;
     }
+    */
 
     /** @var \Drupal\openy_campaign\Entity\Member $member Load or create Temporary Member object. Will be saved by submit. */
     $member = Member::loadMemberFromCRMData($membershipID);
