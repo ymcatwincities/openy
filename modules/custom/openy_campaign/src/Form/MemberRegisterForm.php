@@ -320,13 +320,14 @@ class MemberRegisterForm extends FormBase {
     $triggering_element = $form_state->getTriggeringElement();
     $email = $form_state->getValue('email');
 
+    $campaignID = $form_state->getValue('campaign_id');
+    $membershipID = $form_state->getValue('membership_id');
+
     // Rebuild form for step 2 and 3.
     if ($step == 2 ||
       ($step == 3 && ($triggering_element['#name'] == 'submit_change' || empty($email)))) {
 
       // If a member already exists, log them in here.
-      $campaignID = $form_state->getValue('campaign_id');
-      $membershipID = $form_state->getValue('membership_id');
       if ($memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID)) {
         $response = new AjaxResponse();
         $config = $this->config('openy_campaign.general_settings');
@@ -445,7 +446,7 @@ class MemberRegisterForm extends FormBase {
       }
       else {
         // Log in user instead of showing the registration success message.
-        MemberCampaign::login($memberCampaign->getId(), $memberCampaign->getCampaign()->id());
+        MemberCampaign::login($membershipID, $campaignID);
         $msgSuccess = $config->get('successful_login');
         $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
         // TODO: use hook_theme instead of inline template.
