@@ -121,3 +121,26 @@ body {
     background: #C6168D;
   }
 }
+
+// _header.scss
+.top-navs,
+.sidebar,
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active {
+  background: $purple;
+}
+
+.sidebar .page-head__top-menu {
+  a {
+    background-color: $pink;
+  }
+}
+.sidebar .page-head__main-menu {
+  .campaign-menu {
+    > li {
+      background-color: $pink;
+    }
+  }
+}
