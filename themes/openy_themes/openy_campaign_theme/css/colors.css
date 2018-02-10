@@ -239,4 +239,21 @@ body {
   background: #C6168D;
 }
 
+.top-navs,
+.sidebar,
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active {
+  background: #5c2e91;
+}
+
+.sidebar .page-head__top-menu a {
+  background-color: #c6168d;
+}
+
+.sidebar .page-head__main-menu .campaign-menu > li {
+  background-color: #c6168d;
+}
+
 /*# sourceMappingURL=colors.css.map */
