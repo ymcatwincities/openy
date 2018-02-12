@@ -94,8 +94,10 @@
     footer.find('.price').text('$' + price);
     footer.find('.nights').text(nights);
     footer.addClass('active');
+    footer.parents('.cdn-village-footer').addClass('active');
     if (nights === 0) {
       footer.addClass('not-active').removeClass('active');
+      footer.parents('.cdn-village-footer').removeClass('active');
     }
     // To do: update related desktop calendar.
   };
@@ -121,8 +123,10 @@
     footer.find('.price').text('$' + price);
     footer.find('.nights').text(nights);
     footer.addClass('active');
+    footer.parents('.cdn-village-footer').addClass('active');
     if (nights === 0) {
       footer.addClass('not-active').removeClass('active');
+      footer.parents('.cdn-village-footer').removeClass('active');
     }
     // To do: update related mobile view calendar.
   };
