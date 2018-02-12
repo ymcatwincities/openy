@@ -568,7 +568,6 @@ function openy_update_8045() {
   $modules = [
     'media_entity_video',
     'video',
-    'videojs',
   ];
   foreach ($modules as $module) {
     \Drupal::service('module_installer')->install([

@@ -96,7 +96,6 @@ dependencies:
   - lndr
   - crop
   - focal_point
-  - videojs
   - video
   - media_entity_video
   - easy_breadcrumb

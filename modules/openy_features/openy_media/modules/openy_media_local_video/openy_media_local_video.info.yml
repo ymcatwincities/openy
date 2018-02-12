@@ -21,5 +21,4 @@ dependencies:
   - taxonomy
   - user
   - video
-  - videojs
   - views

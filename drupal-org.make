@@ -67,7 +67,6 @@ projects[crop] = 1.3
 projects[focal_point] = 1.0-beta5
 projects[media_entity_video] = 1.0-beta2
 projects[video] = 1.2
-projects[videojs] = 1.0
 projects[easy_breadcrumb] = 1.6
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get

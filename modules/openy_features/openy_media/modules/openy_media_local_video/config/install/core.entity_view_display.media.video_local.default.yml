@@ -6,7 +6,7 @@ dependencies:
     - field.field.media.video_local.field_media_tags
     - media_entity.bundle.video_local
   module:
-    - videojs
+    - video
 id: media.video_local.default
 targetEntityType: media
 bundle: video_local
