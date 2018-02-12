@@ -1,6 +1,6 @@
 /**
  * @file
- * Preview for the OpenY Rose theme.
+ * Preview for the OpenY Lily theme.
  */
 (function ($, Drupal, drupalSettings) {
 

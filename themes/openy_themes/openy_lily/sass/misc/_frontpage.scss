@@ -35,7 +35,7 @@
       text-transform: uppercase;
       text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
       font-weight: bold;
-      font-family: "Cachet", Verdana, Geneva, sans-serif;
+      @include cachet();
       line-height: 1.3em;
       font-size: 54px;
       @include breakpoint ($desktop 1350px) {
@@ -152,7 +152,7 @@
       margin: 0;
       color: white;
       text-transform: uppercase;
-      font-family: "Cachet", Verdana, Geneva, sans-serif;
+      @include cachet();
       font-size: 13px;
       font-weight: normal;
       line-height: 1.428571429;

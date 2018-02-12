@@ -223,7 +223,7 @@
     line-height: 1.1em;
     margin: 20px 0 10px;
     color: white;
-    font-family: 'Cachet', Verdana, Geneva, sans-serif;
+    @include cachet();
     @include breakpoint(0 $tablet-start) {
       font-size: 40px;
     }
@@ -377,7 +377,7 @@
       }
       p {
         font-size: 24px;
-        font-family: "Cachet", Verdana, Geneva, sans-serif;
+        @include cachet();
       }
     }
   }
@@ -437,7 +437,7 @@
     color: #5e5e5e;
     font-weight: bold;
     font-size: 34px;
-    font-family: 'Cachet', Verdana, Geneva, sans-serif;
+    @include cachet();
     text-transform: uppercase;
     @include breakpoint (0 $tablet-start) {
       font-size: 28px;
@@ -468,7 +468,7 @@
       }
       a {
         font-weight: bold;
-        font-family: 'Cachet', Verdana, Geneva, sans-serif;
+        @include cachet();
       }
     }
   }
@@ -497,7 +497,7 @@
     padding: 10px 15px;
     border-bottom: 1px solid transparent;
     font-weight: bold;
-    font-family: 'Cachet', Verdana, Geneva, sans-serif;
+    @include cachet();
   }
   .field-answer {
     display: none;
