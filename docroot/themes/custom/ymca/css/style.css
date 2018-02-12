@@ -11323,12 +11323,96 @@ tr:nth-last-child(3) .atcb-list {
   display: table;
   clear: both;
 }
+.cdn-form-full .cdn-results .cdn-results-active-wrapper {
+  background: #f8f8f8;
+  padding: 30px 0 0;
+}
+.cdn-form-full .cdn-results .main-description {
+  margin: 0 0 35px;
+  position: relative;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .cdn-results .main-description {
+    margin: 0;
+  }
+}
+.cdn-form-full .cdn-results .main-description .title {
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 40px;
+  font-weight: normal;
+  color: #222222;
+  margin: 0;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .cdn-results .main-description .title {
+    margin-top: 20px;
+  }
+}
+.cdn-form-full .cdn-results .main-description .description {
+  margin-bottom: 30px;
+  font-size: 18px;
+  color: #777777;
+  line-height: 26px;
+}
+.cdn-form-full .cdn-results .main-description .panorama-wrapper .open-panorama {
+  display: inline-block;
+  border-radius: 4px;
+  background: #92278f;
+  height: 60px;
+  font-family: "Cachet Book", Arial, sans-serif;
+  line-height: 60px;
+  font-weight: bold;
+  padding: 0 20px;
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.cdn-form-full .cdn-results .main-description .panorama-wrapper .open-panorama i {
+  margin-left: 10px;
+}
+.cdn-form-full .cdn-results .main-description .panorama-wrapper .panorama {
+  height: 0;
+  overflow: hidden;
+  margin-top: 30px;
+}
+.cdn-form-full .cdn-results .main-description .view {
+  border-radius: 4px;
+  border: 2px solid #f4791f;
+  color: #f4791f;
+  display: none;
+  font-size: 27px;
+  height: 50px;
+  line-height: 55px;
+  position: absolute;
+  right: 60px;
+  text-align: center;
+  top: 10px;
+  width: 60px;
+}
+.cdn-form-full .cdn-results .main-description .close-cal {
+  color: #939393;
+  display: none;
+  font-size: 35px;
+  font-weight: normal;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 50px;
+  text-decoration: none;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .cdn-results .main-description .close-cal {
+    display: block;
+  }
+}
 .cdn-form-full .cdn-results .cdn-village-teasers {
-  padding: 0 15px 30px;
+  padding: 30px 15px 30px;
 }
 @media (min-width: 48em) {
   .cdn-form-full .cdn-results .cdn-village-teasers {
-    padding: 0 0 50px;
+    padding: 30px 0 50px;
   }
 }
 .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser {
@@ -11416,14 +11500,15 @@ tr:nth-last-child(3) .atcb-list {
   display: none;
 }
 
-.cdn-village-calendars {
-  padding-bottom: 20px;
-}
 @media (min-width: 48em) {
   .cdn-village-calendars {
     background: #f8f8f8;
-    padding-bottom: 80px;
   }
+}
+.cdn-village-calendars > p {
+  margin: 0 auto;
+  max-width: 600px;
+  margin-bottom: 4px;
 }
 .cdn-village-calendars .cdn-calendar {
   height: 0;
@@ -11440,90 +11525,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 .cdn-village-calendars .cdn-calendar.active {
   height: auto !important;
-}
-.cdn-village-calendars .cdn-calendar .main-description {
-  margin: 0 15px 35px;
-  position: relative;
-}
-@media (min-width: 48em) {
-  .cdn-village-calendars .cdn-calendar .main-description {
-    margin: 70px auto 10px;
-    max-width: 690px;
-  }
-}
-.cdn-village-calendars .cdn-calendar .main-description .title {
-  font-family: "Cachet Book", Arial, sans-serif;
-  font-size: 40px;
-  font-weight: normal;
-  color: #222222;
-  margin: 0;
-}
-@media (min-width: 48em) {
-  .cdn-village-calendars .cdn-calendar .main-description .title {
-    margin-top: 20px;
-  }
-}
-.cdn-village-calendars .cdn-calendar .main-description .description {
   margin-bottom: 30px;
-  font-size: 18px;
-  color: #777777;
-  line-height: 26px;
-}
-.cdn-village-calendars .cdn-calendar .main-description .panorama-wrapper {
-  margin: 30px 0 70px;
-}
-.cdn-village-calendars .cdn-calendar .main-description .panorama-wrapper .open-panorama {
-  display: inline-block;
-  border-radius: 4px;
-  background: #92278f;
-  height: 60px;
-  font-family: "Cachet Book", Arial, sans-serif;
-  line-height: 60px;
-  font-weight: bold;
-  padding: 0 20px;
-  color: #fff;
-  font-size: 18px;
-  text-transform: uppercase;
-}
-.cdn-village-calendars .cdn-calendar .main-description .panorama-wrapper .open-panorama i {
-  margin-left: 10px;
-}
-.cdn-village-calendars .cdn-calendar .main-description .panorama-wrapper .panorama {
-  height: 0;
-  overflow: hidden;
-  margin-top: 30px;
-}
-.cdn-village-calendars .cdn-calendar .main-description .view {
-  border-radius: 4px;
-  border: 2px solid #f4791f;
-  color: #f4791f;
-  display: none;
-  font-size: 27px;
-  height: 50px;
-  line-height: 55px;
-  position: absolute;
-  right: 60px;
-  text-align: center;
-  top: 10px;
-  width: 60px;
-}
-.cdn-village-calendars .cdn-calendar .main-description .close-cal {
-  color: #939393;
-  display: none;
-  font-size: 35px;
-  font-weight: normal;
-  height: 50px;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  top: 0;
-  width: 50px;
-  text-decoration: none;
-}
-@media (min-width: 48em) {
-  .cdn-village-calendars .cdn-calendar .main-description .close-cal {
-    display: block;
-  }
 }
 
 .cdn-calendar .views-element-container,
@@ -11534,7 +11536,7 @@ tr:nth-last-child(3) .atcb-list {
   .cdn-calendar .views-element-container,
   .paragraph--type--camp-du-nord-calendar-view .views-element-container {
     height: auto;
-    max-width: 690px;
+    max-width: 600px;
     margin: 0 auto 3px;
     border-radius: 10px;
     border: 2px solid #d8d8d8;
@@ -11547,7 +11549,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 
 .fullcalendar {
-  padding: 30px;
+  padding: 15px;
 }
 @media (min-width: 48em) {
   .fullcalendar {
@@ -11576,10 +11578,13 @@ tr:nth-last-child(3) .atcb-list {
   .fullcalendar .fc-header-toolbar {
     background-color: #f8f8f8;
     margin-bottom: 0;
-    padding: 13px 0 10px;
+    padding: 0;
     display: block;
     position: relative;
   }
+}
+.fullcalendar .fc-header-toolbar .fc-center {
+  display: none;
 }
 .fullcalendar .fc-header-toolbar .fc-center h2 {
   font-size: 20px;
@@ -11667,7 +11672,7 @@ tr:nth-last-child(3) .atcb-list {
 .fullcalendar .fc-view-container .fc-view .fc-day-top,
 .fullcalendar .fc-view-container .fc-view .fc-day-number {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   letter-spacing: -0.6px;
   text-align: left;
   color: #2f2f2f;
@@ -11732,7 +11737,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 768px) {
   .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-content {
-    margin: 8px;
+    margin: 4px;
   }
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked .fc-content {
@@ -11744,23 +11749,43 @@ tr:nth-last-child(3) .atcb-list {
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked .fc-day-number {
   padding: 18px 0;
 }
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked:hover .fc-content {
+  padding: 16px 0;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked:hover .fc-content * {
+  display: none;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked:hover .fc-content:after {
+  content: 'X';
+  font-size: 25px;
+}
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-time {
   display: none;
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-title {
   color: #959595;
-  font-size: 16px;
+  font-size: 15px;
   display: block;
   padding-bottom: 8px;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-title {
+    font-size: 13px;
+  }
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-title .q-mark {
   display: none;
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .tip-q {
   color: #959595;
-  font-size: 16px;
+  font-size: 15px;
   display: none;
   padding-bottom: 8px;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .tip-q {
+    font-size: 13px;
+  }
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .tip-q .q-mark {
   margin-left: 5px;
@@ -11773,6 +11798,11 @@ tr:nth-last-child(3) .atcb-list {
   white-space: normal;
   width: 100%;
   height: 100%;
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .tip {
+    font-size: 13px;
+  }
 }
 .fullcalendar .fc-view-container .fc-view .fc-content-skeleton {
   background: #f5f5f5;
@@ -12060,6 +12090,13 @@ tr:nth-last-child(3) .atcb-list {
     float: right;
     width: auto;
   }
+}
+
+.cdn-results .cdn-village-footer {
+  display: none;
+}
+.cdn-results .cdn-village-footer.active {
+  display: block;
 }
 
 .cdn-village-footer {
