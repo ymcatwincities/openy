@@ -19,12 +19,12 @@ content:
       width: '640'
       height: '480'
       controls: '1'
-      preload: none
+      preload: metadata
       autoplay: 0
       loop: 0
       muted: 0
     third_party_settings: {  }
-    type: videojs_player_list
+    type: video_player_list
     region: content
 hidden:
   created: true
