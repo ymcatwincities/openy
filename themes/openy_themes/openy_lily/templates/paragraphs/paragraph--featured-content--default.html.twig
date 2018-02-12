@@ -56,7 +56,7 @@ set classes = [
     For printing the columns we need access to the grid style which we don't
     have after this was converted from a field collection.
   #}
-  {{ attach_library('openy_rose/featured_slider') }}
+  {{ attach_library('openy_lily/featured_slider') }}
   <div class="{{ 'wrapper-' ~ content.field_prgf_fc_clm_description['#field_name']|clean_class}} row">
     {% if content.field_prgf_grid_style.0['#markup'] == '2' %}
       {% set item_class = 'col-xs-12 col-sm-6' %}
