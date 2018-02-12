@@ -136,6 +136,7 @@ dependencies:
   - openy_prgf_story_card
   - openy_prgf_promo_card
   - openy_prgf_featured_blogs
+  - openy_prgf_featured_highlights
   - openy_prgf_gallery
   - openy_prgf_teaser
   - openy_prgf_classes_listing

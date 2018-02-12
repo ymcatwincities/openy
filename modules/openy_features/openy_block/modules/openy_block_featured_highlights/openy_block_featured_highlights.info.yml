@@ -1,0 +1,12 @@
+name: 'OpenY Featured Highlights block'
+description: 'Implements custom block type with Featured Highlights content.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - block_content
+  - content_moderation
+  - field
+  - language
+  - link
+version: 8.x-1.0
