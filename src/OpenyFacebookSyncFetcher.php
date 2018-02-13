@@ -167,8 +167,8 @@ class OpenyFacebookSyncFetcher {
           }
           // Add app id to event data to map event with location. Owner id not always the same as app id.
           $event['host'] = [
-              'id' => $appid,
-            ];
+            'id' => $appid,
+          ];
 
           $data[] = $event;
         }
