@@ -21,7 +21,6 @@
   <div class="container">
     <div class="col-xs-12">
     {% if data %}
-      <h2>{{ data.village_name }}</h2>
       <div class="description">{{ 'You are going to book'|t }} <span class="cabin-name">"{{ data.cabin_name }}"</span> {{ 'for next dates:'|t }}</div>
       <ul>
       {% for date in data.dates %}
