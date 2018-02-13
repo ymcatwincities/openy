@@ -209,10 +209,94 @@
     padding: 15px 0 80px;
     @include clearfix();
     clear: both;
-    .cdn-village-teasers {
-      padding: 0 15px 30px;
+    .cdn-results-active-wrapper {
+      background: #f8f8f8;
+      padding: 30px 0 0;
+    }
+
+    .main-description {
+      margin: 0 0 35px;
+      position: relative;
       @include breakpoint(768px) {
-        padding: 0 0 50px;
+        margin: 0;
+      }
+      .title {
+        font-family: "Cachet Book", Arial, sans-serif;
+        font-size: 40px;
+        font-weight: normal;
+        color: #222222;
+        margin: 0;
+        @include breakpoint(768px) {
+          margin-top: 20px;
+        }
+      }
+      .description {
+        margin-bottom: 30px;
+        font-size: 18px;
+        color: #777777;
+        line-height: 26px;
+      }
+      .panorama-wrapper {
+        .open-panorama {
+          display: inline-block;
+          border-radius: 4px;
+          background: #92278f;
+          height: 60px;
+          font-family: "Cachet Book", Arial, sans-serif;
+          line-height: 60px;
+          font-weight:bold;
+          padding: 0 20px;
+          color: #fff;
+          font-size: 18px;
+          text-transform: uppercase;
+          i {
+            margin-left: 10px;
+          }
+        }
+        .panorama {
+          height: 0;
+          overflow: hidden;
+          margin-top: 30px;
+        }
+      }
+      .view {
+        border-radius: 4px;
+        border: 2px solid #f4791f;
+        color: #f4791f;
+        display: none;
+        font-size: 27px;
+        height: 50px;
+        line-height: 55px;
+        position: absolute;
+        right: 60px;
+        text-align: center;
+        top: 10px;
+        width: 60px;
+        @include breakpoint(768px) {
+
+        }
+      }
+      .close-cal {
+        color: #939393;
+        display: none;
+        font-size: 35px;
+        font-weight: normal;
+        height: 50px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 0;
+        width: 50px;
+        text-decoration: none;
+        @include breakpoint(768px) {
+          display: block;
+        }
+      }
+    }
+    .cdn-village-teasers {
+      padding: 30px 15px 30px;
+      @include breakpoint(768px) {
+        padding: 30px 0 50px;
       }
       .container {
         .cdn-village-teaser {
@@ -289,10 +373,13 @@
   display: none;
 }
 .cdn-village-calendars {
-  padding-bottom: 20px;
   @include breakpoint(768px) {
     background: #f8f8f8;
-    padding-bottom: 80px;
+  }
+  > p {
+    margin: 0 auto;
+    max-width: 600px;
+    margin-bottom: 4px;
   }
   .cdn-calendar {
     height: 0;
@@ -306,87 +393,7 @@
     }
     &.active {
       height: auto !important;
-    }
-    .main-description {
-      margin: 0 15px 35px;
-      position: relative;
-      @include breakpoint(768px) {
-        margin: 70px auto 10px;
-        max-width: 690px;
-      }
-      .title {
-        font-family: "Cachet Book", Arial, sans-serif;
-        font-size: 40px;
-        font-weight: normal;
-        color: #222222;
-        margin: 0;
-        @include breakpoint(768px) {
-          margin-top: 20px;
-        }
-      }
-      .description {
-        margin-bottom: 30px;
-        font-size: 18px;
-        color: #777777;
-        line-height: 26px;
-      }
-      .panorama-wrapper {
-        margin: 30px 0 70px;
-        .open-panorama {
-          display: inline-block;
-          border-radius: 4px;
-          background: #92278f;
-          height: 60px;
-          font-family: "Cachet Book", Arial, sans-serif;
-          line-height: 60px;
-          font-weight:bold;
-          padding: 0 20px;
-          color: #fff;
-          font-size: 18px;
-          text-transform: uppercase;
-          i {
-            margin-left: 10px;
-          }
-        }
-        .panorama {
-          height: 0;
-          overflow: hidden;
-          margin-top: 30px;
-        }
-      }
-      .view {
-        border-radius: 4px;
-        border: 2px solid #f4791f;
-        color: #f4791f;
-        display: none;
-        font-size: 27px;
-        height: 50px;
-        line-height: 55px;
-        position: absolute;
-        right: 60px;
-        text-align: center;
-        top: 10px;
-        width: 60px;
-        @include breakpoint(768px) {
-
-        }
-      }
-      .close-cal {
-        color: #939393;
-        display: none;
-        font-size: 35px;
-        font-weight: normal;
-        height: 50px;
-        position: absolute;
-        right: 0;
-        text-align: center;
-        top: 0;
-        width: 50px;
-        text-decoration: none;
-        @include breakpoint(768px) {
-          display: block;
-        }
-      }
+      margin-bottom: 30px
     }
   }
 }
@@ -395,7 +402,7 @@
   height: 0;
   @include breakpoint(768px) {
     height: auto;
-    max-width: 690px;
+    max-width: 600px;
     margin: 0 auto 3px;
     border-radius: 10px;
     border: 2px solid #d8d8d8;
@@ -406,7 +413,7 @@
   }
 }
 .fullcalendar {
-  padding: 30px;
+  padding: 15px;
   @include breakpoint(768px) {
     background-color: #f8f8f8;
     border-radius: 10px;
@@ -432,11 +439,12 @@
     @media (min-width: 768px) {
       background-color: #f8f8f8;
       margin-bottom: 0;
-      padding: 13px 0 10px;
+      padding: 0;
       display: block;
       position: relative;
     }
     .fc-center {
+      display: none;
       h2 {
         font-size: 20px;
         letter-spacing: -0.5px;
@@ -526,7 +534,7 @@
     .fc-day-top,
     .fc-day-number {
       font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-      font-size: 24px;
+      font-size: 22px;
       letter-spacing: -0.6px;
       text-align: left;
       color: #2f2f2f;
@@ -607,7 +615,7 @@
         overflow: inherit;
         border-radius: 8px;
         @media (min-width: 768px) {
-          margin: 8px;
+          margin: 4px;
         }
       }
       &.booked {
@@ -620,24 +628,44 @@
         .fc-day-number {
           padding: 18px 0;
         }
+        .fc-content {
+          position: relative;
+          &:after {
+            border-radius: 8px;
+            content: 'X';
+            font-size: 48px;
+            opacity: 0.2;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+          }
+        }
       }
       .fc-time {
         display: none;
       }
       .fc-title {
         color: #959595;
-        font-size: 16px;
+        font-size: 15px;
         display: block;
         padding-bottom: 8px;
+        @media (min-width: 768px) and (max-width: 1023px) {
+          font-size: 13px;
+        }
         .q-mark {
           display: none;
         }
       }
       .tip-q {
         color: #959595;
-        font-size: 16px;
+        font-size: 15px;
         display: none;
         padding-bottom: 8px;
+        @media (min-width: 768px) and (max-width: 1023px) {
+          font-size: 13px;
+        }
         .q-mark {
           margin-left: 5px;
         }
@@ -650,6 +678,9 @@
         white-space: normal;
         width: 100%;
         height: 100%;
+        @media (min-width: 768px) and (max-width: 1023px) {
+          font-size: 13px;
+        }
       }
     }
     .fc-content-skeleton {
@@ -771,6 +802,15 @@
       margin: 10px 0 0;
       font-size: 16px;
       color: #959595;
+    }
+    &.booked {
+      > a {
+        border-radius: 5px;
+        background-color: #d8d8d8;
+      }
+      .price {
+        visibility: hidden;
+      }
     }
   }
 }
@@ -938,7 +978,14 @@
     }
   }
 }
-
+.cdn-results {
+  .cdn-village-footer {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+}
 .cdn-village-footer {
   background: #383838;
   padding: 50px 15px 25px;
