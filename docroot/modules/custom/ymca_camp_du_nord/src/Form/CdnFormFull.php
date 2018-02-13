@@ -194,7 +194,6 @@ class CdnFormFull extends FormBase {
       '#title' => t('Capacity'),
       '#default_value' => $state['capacity'],
       '#options' => $this->capacityOptions,
-      '#suffix' => '<p class="help-tip">' . t('Please scroll down and select dates on calendar *') . '</p>',
     ];
 
     $form['results'] = [
