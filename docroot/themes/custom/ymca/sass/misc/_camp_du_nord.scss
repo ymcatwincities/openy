@@ -628,16 +628,18 @@
         .fc-day-number {
           padding: 18px 0;
         }
-        &:hover {
-          .fc-content {
-            padding: 16px 0;
-            * {
-              display: none;
-            }
-            &:after {
-              content: 'X';
-              font-size: 25px;
-            }
+        .fc-content {
+          position: relative;
+          &:after {
+            border-radius: 8px;
+            content: 'X';
+            font-size: 48px;
+            opacity: 0.2;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
           }
         }
       }
@@ -800,6 +802,11 @@
       margin: 10px 0 0;
       font-size: 16px;
       color: #959595;
+    }
+    &.booked {
+      .price {
+        visibility: hidden;
+      }
     }
   }
 }

@@ -11749,15 +11749,19 @@ tr:nth-last-child(3) .atcb-list {
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked .fc-day-number {
   padding: 18px 0;
 }
-.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked:hover .fc-content {
-  padding: 16px 0;
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked .fc-content {
+  position: relative;
 }
-.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked:hover .fc-content * {
-  display: none;
-}
-.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked:hover .fc-content:after {
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked .fc-content:after {
+  border-radius: 8px;
   content: 'X';
-  font-size: 25px;
+  font-size: 48px;
+  opacity: 0.2;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-time {
   display: none;
@@ -11932,6 +11936,9 @@ tr:nth-last-child(3) .atcb-list {
   margin: 10px 0 0;
   font-size: 16px;
   color: #959595;
+}
+.cdn-calendar-list .cdn-calendar-list-row.booked .price {
+  visibility: hidden;
 }
 
 #cdn-contact-form-wrapper {
