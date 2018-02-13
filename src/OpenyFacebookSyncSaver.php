@@ -184,7 +184,7 @@ class OpenyFacebookSyncSaver {
     $event->field_sidebar_content->setValue($sidebar_content);
 
     // Set locations reference for event.
-    $locations = $this->getLocationsByFacebookPage($event_data['owner']);
+    $locations = $this->getLocationsByFacebookPage($event_data['host']);
     if ($locations) {
       $location_value = [];
       foreach ($locations as $location) {
@@ -224,7 +224,7 @@ class OpenyFacebookSyncSaver {
     $event->set('field_event_date_range', $event_node['field_event_date_range']);
     $event->set('title', $event_node['title']);
 
-    $locations = $this->getLocationsByFacebookPage($event_data['owner']);
+    $locations = $this->getLocationsByFacebookPage($event_data['host']);
     if ($locations) {
       $location_value = [];
       foreach ($locations as $location) {
