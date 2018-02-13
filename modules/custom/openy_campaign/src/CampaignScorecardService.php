@@ -302,6 +302,7 @@ class CampaignScorecardService {
       $query->join('node_field_data', 'n', 'n.nid = b.branch');
       $query->fields('n', ['title']);
       $query->condition('b.branch', $ids, 'IN');
+      $query->orderBy('b.personify_branch');
 
       $result = $query->execute()->fetchAllAssoc('branch');
 
