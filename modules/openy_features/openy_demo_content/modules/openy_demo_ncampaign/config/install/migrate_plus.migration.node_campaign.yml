@@ -4,7 +4,6 @@ dependencies:
   enforced:
     module:
       - openy_demo_ncampaign
-      - openy_prgf_campaign_menu
 id: openy_demo_node_campaign
 migration_tags: {  }
 migration_group: openy_demo_ncampaign
