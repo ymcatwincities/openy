@@ -30,14 +30,31 @@
 
   &.node--view-mode-teaser {
     margin: auto;
-    max-width: 373px;
-    width: 100%;
+    @include breakpoint($screen-xs) {
+      max-width: 373px;
+      width: 100%;
+    }
 
     .inner-wrapper {
-      margin: 15px 0;
+      height: 240px;
+      width: 288px;
+      margin: 15px auto;
       position: relative;
       overflow: hidden;
-      height: 250px;
+      @include breakpoint($screen-xs) {
+        height: 288px;
+        width: auto;
+      }
+      @include breakpoint($screen-sm) {
+        height: 288px;
+        width: auto;
+      }
+      @include breakpoint($screen-md) {
+        height: 245px;
+      }
+      @include breakpoint($screen-lg) {
+        height: 300px;
+      }
     }
 
     img {
