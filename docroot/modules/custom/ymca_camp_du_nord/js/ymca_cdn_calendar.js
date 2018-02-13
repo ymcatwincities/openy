@@ -13,8 +13,8 @@
   Drupal.cdn = Drupal.cdn || {};
 
   Drupal.cdn.check_borders_mobile = function(cell) {
+    cell.parents('.cdn-calendar-list').find('.tip').remove();
     if (cell.parents('.cdn-calendar-list').find('a.cdn-prs-product-mobile.selected').length > 1) {
-      cell.parents('.cdn-calendar-list').find('.tip').remove();
       cell.parents('.cdn-calendar-list').find('a.last-selected').removeClass('last-selected');
       var last = cell.parents('.cdn-calendar-list').find('a.cdn-prs-product-mobile.selected:last');
       if (last.find('.tip').length === 0) {
@@ -52,6 +52,10 @@
       var day_number = $(this).find('.fc-day-number').text() * 1;
       if (list.length > 1 && $.inArray(day_number, list) !== -1 && !$(this).hasClass('selected')) {
         $(this).addClass('selected');
+        // Disallow selection if booked days in range.
+        if ($(this).hasClass('booked')) {
+          products.removeClass('selected');
+        }
       }
     });
   };
@@ -67,9 +71,17 @@
     }
     // Go through each product end ensure range is not splitted.
     products.each(function() {
+      // Disallow selection if booked days in range.
+      if ($(this).hasClass('booked')) {
+        products.removeClass('selected');
+      }
       var day_number = $(this).find('.number').text() * 1;
       if (list.length > 1 && $.inArray(day_number, list) !== -1 && !$(this).hasClass('selected')) {
         $(this).addClass('selected');
+        // Disallow selection if booked days in range.
+        if ($(this).parent().hasClass('booked')) {
+          products.removeClass('selected');
+        }
       }
     });
   };
@@ -183,7 +195,6 @@
           $(this)
             .attr('data-index', i);
           if ($(this).parents('table:eq(0)').find('tbody td:eq(' + i + ') .fc-day-number').length === 0) {
-
             if ($(this).parents('table:eq(0)').find('tbody td:eq(' + i + ') .fc-day-grid-event').length === 1) {
               var date = $(this).data('date');
               $(this)
@@ -194,11 +205,15 @@
                 .find('.fc-content')
                 .prepend('<div class="fc-day-number">' + number + '</div>');
             } else {
+              var text = '<div class="fc-day-number">' + number + '</div>';
+              if ($.inArray($(this).data('date'), settings.cdn.selected_dates) !== -1) {
+                text = '<a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-event-default cdn-prs-product fc-event-past fc-draggable 2018-02-16 booked" href="#"><div class="fc-content"><div class="fc-day-number">'+number+'</div><span class="fc-time">12a</span> <span class="fc-title"></span></div></a>';
+              }
               $(this)
                 .hide()
                 .parents('table:eq(0)')
                 .find('tbody td:eq(' + i + ')')
-                .prepend('<div class="fc-day-number">' + number + '</div>');
+                .prepend(text);
             }
           }
         });
@@ -209,7 +224,7 @@
         $(this).on('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          if ($(this).hasClass('booked')) {
+          if ($(this).parent().hasClass('booked')) {
             return;
           }
           if (!$(this).hasClass('selected')) {
