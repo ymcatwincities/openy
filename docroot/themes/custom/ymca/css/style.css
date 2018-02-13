@@ -11937,6 +11937,10 @@ tr:nth-last-child(3) .atcb-list {
   font-size: 16px;
   color: #959595;
 }
+.cdn-calendar-list .cdn-calendar-list-row.booked > a {
+  border-radius: 5px;
+  background-color: #d8d8d8;
+}
 .cdn-calendar-list .cdn-calendar-list-row.booked .price {
   visibility: hidden;
 }
