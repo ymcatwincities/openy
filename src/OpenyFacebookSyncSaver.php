@@ -88,6 +88,7 @@ class OpenyFacebookSyncSaver {
       // @todo Add setting to create nodes in certain status (published|unpublished).
       $stored_event_mappings = $this->eventMappingRepo->getByProperties([
         'field_fb_event_id' => $event['id'],
+        'field_fb_event_host_id' => $event['host']['id'],
       ]);
 
       if ($stored_event_mappings) {
