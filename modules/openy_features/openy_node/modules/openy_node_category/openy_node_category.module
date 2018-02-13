@@ -2,16 +2,16 @@
 
 /**
  * @file
- * OpenY Node Program module file.
+ * OpenY Node Category module file.
  */
 
 /**
  * Implements hook_ENTITY_TYPE_update().
  *
- * This will publish/unpublish category nodes when a program is updated.
+ * This will publish/unpublish Category nodes when a Program is updated.
  */
-function openy_node_program_node_update(Drupal\Core\Entity\EntityInterface $entity) {
-  // Only do this for program nodes.
+function openy_node_category_node_update(Drupal\Core\Entity\EntityInterface $entity) {
+  // Only do this for Program nodes.
   if ($entity->getType() != 'program') {
     return;
   }
@@ -22,9 +22,9 @@ function openy_node_program_node_update(Drupal\Core\Entity\EntityInterface $enti
 
   // Going from published to unpublished.
   if ($original_status && !$current_status) {
-    $categories = _openy_node_program_getcategorynodes($entity);
+    $categories = _openy_node_category_getcategorynodes($entity);
 
-    // Unpublish all category nodes.
+    // Unpublish all Category nodes.
     foreach ($categories as $node) {
       if ($node->isPublished()) {
         $node->setUnPublished();
@@ -33,9 +33,9 @@ function openy_node_program_node_update(Drupal\Core\Entity\EntityInterface $enti
     }
   } elseif (!$original_status && $current_status) {
     // Going from unpublished to published. We have to just publish everything.
-    $categories = _openy_node_program_getcategorynodes($entity);
+    $categories = _openy_node_category_getcategorynodes($entity);
 
-    // Publish all category nodes.
+    // Publish all Category nodes.
     foreach ($categories as $node) {
       if (!$node->isPublished()) {
         $node->setPublished();
@@ -47,22 +47,24 @@ function openy_node_program_node_update(Drupal\Core\Entity\EntityInterface $enti
 }
 
 /**
- * Helper function to retrieve the list of category nodes that references this
- * program node.
+ * Helper function to retrieve the list of Category nodes that references this
+ * Program node.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The program node who's category nodes will be retrieved.
+ *   The Program node who's Category nodes will be retrieved.
  *
  * @return array $categories
- *   Array of category nodes.
+ *   Array of Category nodes.
  */
-function _openy_node_program_getcategorynodes(&$entity) {
+function _openy_node_category_getcategorynodes(&$entity) {
   $program_id = $entity->id();
 
   $connection = \Drupal::database();
-  $query_string = 'SELECT entity_id FROM {node__field_category_program} WHERE field_category_program_target_id = :id';
-  $query = $connection->query($query_string, [':id' => $program_id]);
-  $result = $query->fetchAllAssoc('entity_id');
+
+  $query = $connection->select('node__field_category_program', 'p');
+  $query->condition('p.field_category_program_target_id', $program_id);
+  $query->addField('p', 'entity_id');
+  $result = $query->execute()->fetchAllAssoc('entity_id');
 
   $category_ids = array_keys($result);
   $categories = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($category_ids);
