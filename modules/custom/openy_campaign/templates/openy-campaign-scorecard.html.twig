@@ -57,9 +57,9 @@
         <td align="right">{{ early.actual }}</td>
         <td align="right">{{ early.of_members }}%</td>
           {% set class = '' %}
-        {% if  early.of_goal > 80 and early.of_goal <= 100  %}
+        {% if early.of_goal > 80 and early.of_goal < 100 %}
           {% set class = 'orange' %}
-        {% elseif early.of_goal > 100 %}
+        {% elseif early.of_goal >= 100 %}
           {% set class = 'dark-green' %}
         {% endif %}
         <td align="right" class="{{ class }} bold">{{ early.of_goal }}%</td>
@@ -68,7 +68,9 @@
         <td align="right">{{ challenge.actual }}</td>
         <td align="right">{{ challenge.of_members }}%</td>
           {% set class = '' %}
-          {% if  challenge.of_goal > 100  %}
+          {% if challenge.of_goal > 80 and challenge.of_goal < 100 %}
+              {% set class = 'orange' %}
+          {% elseif challenge.of_goal >= 100 %}
               {% set class = 'dark-green' %}
           {% endif %}
         <td align="right" class="{{ class }} bold">{{ challenge.of_goal }}%</td>
@@ -77,7 +79,9 @@
         <td align="right">{{ util.actual }}</td>
         <td align="right">{{ util.of_members }}%</td>
           {% set class = '' %}
-          {% if  util.of_goal > 100  %}
+          {% if util.of_goal > 80 and util.of_goal < 100 %}
+              {% set class = 'orange' %}
+          {% elseif util.of_goal >= 100 %}
               {% set class = 'dark-green' %}
           {% endif %}
         <td align="right" class="{{ class }} bold">{{ util.of_goal }}%</td>
@@ -107,6 +111,7 @@
     </tr>
     </tfoot>
   </table>
+    <br/>
   <div class="small">
     Utilization goals were set based on the greater of either: (1) original registration goal, or (2) actual registered members by close of early-registration; meaning utilization goals do not take into account those members that registered after the close of early-registration.  Thus explaining how we could have only lower percentage of total registered members achieve their goal, but still exceed our “% to Goal” metric.
   </div>

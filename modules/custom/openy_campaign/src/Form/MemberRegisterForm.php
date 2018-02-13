@@ -217,6 +217,8 @@ class MemberRegisterForm extends FormBase {
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
 
     // Registration attempt for already registered member.
+    // The validation is disabled in order to log in already registered users.
+    /*
     if ($memberCampaignID) {
       $msgAlreadyRegistered = $config->get('error_register_already_registered');
       $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
@@ -228,6 +230,7 @@ class MemberRegisterForm extends FormBase {
       $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
       return;
     }
+    */
 
     /** @var \Drupal\openy_campaign\Entity\Member $member Load or create Temporary Member object. Will be saved by submit. */
     $member = Member::loadMemberFromCRMData($membershipID);
@@ -317,13 +320,14 @@ class MemberRegisterForm extends FormBase {
     $triggering_element = $form_state->getTriggeringElement();
     $email = $form_state->getValue('email');
 
+    $campaignID = $form_state->getValue('campaign_id');
+    $membershipID = $form_state->getValue('membership_id');
+
     // Rebuild form for step 2 and 3.
     if ($step == 2 ||
       ($step == 3 && ($triggering_element['#name'] == 'submit_change' || empty($email)))) {
 
       // If a member already exists, log them in here.
-      $campaignID = $form_state->getValue('campaign_id');
-      $membershipID = $form_state->getValue('membership_id');
       if ($memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID)) {
         $response = new AjaxResponse();
         $config = $this->config('openy_campaign.general_settings');
@@ -435,12 +439,33 @@ class MemberRegisterForm extends FormBase {
         if (!empty($campaign->field_reg_checkins_not_started->value)) {
           $modalMessage = check_markup($campaign->field_reg_checkins_not_started->value, $campaign->field_reg_checkins_not_started->format);
         }
+        // TODO: use hook_theme instead of inline template.
+        $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
+        $response->addCommand(new ReplaceCommand('#' . static::$containerId, $wrappedModalMessage));
+        $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialogByClick'));
+      }
+      else {
+        // Log in user instead of showing the registration success message.
+        MemberCampaign::login($memberCampaign->getMember()->getMemberId(), $memberCampaign->getCampaign()->id());
+        $msgSuccess = $config->get('successful_login');
+        $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
+        // TODO: use hook_theme instead of inline template.
+        $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
+        $modalTitle = t('Thank you!');
+
+        $modalPopup = [
+          '#theme' => 'openy_campaign_popup',
+          '#form' => [
+            '#markup' => $wrappedModalMessage,
+          ]
+        ];
+        // Add an AJAX command to open a modal dialog with the form as the content.
+        $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
+        $response->addCommand(new InvokeCommand('#openy_campaign_popup', 'closeDialogByClick'));
+        // Close dialog and redirect to Campaign main page.
+        $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
       }
 
-      // TODO: use hook_theme instead of inline template.
-      $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
-      $response->addCommand(new ReplaceCommand('#' . static::$containerId, $wrappedModalMessage));
-      $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialogByClick'));
 
       return $response;
     }
