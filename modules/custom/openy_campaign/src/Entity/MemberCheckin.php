@@ -78,7 +78,7 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
   }
 
   /**
-   * Create Game opportunity while checkin record is created.
+   * Create Game opportunity and utilization activity while checkin record is created.
    */
   public function save() {
     $return = parent::save();
@@ -111,28 +111,6 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
           $isAllowedToCreateAnEntry = TRUE;
           break;
         }
-
-        $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
-        $activities = [];
-        foreach ($utilizationActivities as $utilizationActivity) {
-          $activities[] = $utilizationActivity['value'];
-        }
-
-        if (in_array('visiting', $activities)) {
-          $loadedEntity = \Drupal::entityQuery('openy_campaign_util_activity')
-            ->condition('member_campaign', $campaignMemberId)
-            ->execute();
-
-          if (empty($loadedEntity)) {
-            $preparedActivityData = [
-              'member_campaign' => $campaignMemberId,
-              'created' => time(),
-              'activity_type' => 'visiting'
-            ];
-            $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
-            $campaignUtilizationActivity->save();
-          }
-        }
       }
 
       if ($isAllowedToCreateAnEntry) {
@@ -142,6 +120,29 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
         ]);
 
         $game->save();
+      }
+
+      // Create an utilization activity record.
+      $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
+      $activities = [];
+      foreach ($utilizationActivities as $utilizationActivity) {
+        $activities[] = $utilizationActivity['value'];
+      }
+
+      if (in_array('visiting', $activities)) {
+        $loadedEntity = \Drupal::entityQuery('openy_campaign_util_activity')
+          ->condition('member_campaign', $campaignMemberId)
+          ->execute();
+
+        if (empty($loadedEntity)) {
+          $preparedActivityData = [
+            'member_campaign' => $campaignMemberId,
+            'created' => time(),
+            'activity_type' => 'visiting'
+          ];
+          $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
+          $campaignUtilizationActivity->save();
+        }
       }
 
     }
