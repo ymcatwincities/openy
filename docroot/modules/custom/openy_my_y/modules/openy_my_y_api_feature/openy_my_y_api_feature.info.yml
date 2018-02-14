@@ -10,5 +10,4 @@ dependencies:
   - serialization
   - user
   - ymca_page_manager
-  - openy_my_y_api
-version: 8.x-1.0
+version: 8.x-1.1
