@@ -2,22 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - media_entity.bundle.video
+    - media_entity.bundle.video_local
   module:
     - entity_embed
     - media_entity
-label: External Video
-id: embed_video
+label: Local Video
+id: embed_local_video
 type_id: entity
 type_settings:
   entity_type: media
   bundles:
-    - video
+    - video_local
   display_plugins:
     - 'view_mode:media.embedded_full'
-    - 'view_mode:media.embedded_half'
-    - 'view_mode:media.embedded_link'
-  entity_browser: videos_library_embed
+  entity_browser: local_video_library_embed
   entity_browser_settings:
     display_review: false
 icon_uuid: null
