@@ -99,12 +99,11 @@ class VisitsResource extends ResourceBase {
 
     $response->headers->add(
       [
-//        'Access-Control-Allow-Origin' => '*',
+        'Access-Control-Allow-Origin' => 'http://0.0.0.0:8080',
         'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
-//        'Access-Control-Allow-Headers' => "Authorization",
+        'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
       ]
     );
-
 
     return $response;
   }
