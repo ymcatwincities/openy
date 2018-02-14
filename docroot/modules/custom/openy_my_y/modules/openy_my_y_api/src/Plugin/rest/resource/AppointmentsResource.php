@@ -55,12 +55,22 @@ class AppointmentsResource extends ResourceBase {
 
     // In case if there is no appointments at all.
     if (!isset($visits->Visit)) {
-      return new ResourceResponse([
+      $response = new ResourceResponse([
         'status' => TRUE,
         'message' => '',
         'timestamp' => \Drupal::time()->getRequestTime(),
         'results' => [],
       ]);
+
+      $response->headers->add(
+        [
+          'Access-Control-Allow-Origin' => 'http://0.0.0.0:8080',
+          'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
+          'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
+        ]
+      );
+
+      return $response;
     }
 
     // There is only one appointment.
@@ -104,7 +114,6 @@ class AppointmentsResource extends ResourceBase {
         'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
       ]
     );
-
     return $response;
   }
 
