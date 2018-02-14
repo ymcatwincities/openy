@@ -42,6 +42,7 @@ settings:
           items:
             - Blockquote
             - embed_video
+            - embed_local_video
             - embed_image
             - embed_document
         -

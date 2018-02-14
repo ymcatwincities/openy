@@ -26,3 +26,12 @@ function openy_editor_update_8001() {
     }
   }
 }
+
+/**
+ * Update editor settings to add local video embed button.
+ */
+function openy_editor_update_8002() {
+  $config = drupal_get_path('module', 'openy_editor') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar.rows');
+}
