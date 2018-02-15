@@ -1,4 +1,3 @@
-uuid: ba26c643-825b-4910-937c-838936721369
 langcode: en
 status: true
 dependencies:
@@ -11,8 +10,6 @@ dependencies:
     - content_moderation
     - entity_browser_entity_form
     - inline_entity_form
-_core:
-  default_config_hash: EQx3cmcNEIqzrz-d3VYKYIVlXgawhch_fHYqNDipbvE
 id: paragraph.featured_highlights.default
 targetEntityType: paragraph
 bundle: featured_highlights
