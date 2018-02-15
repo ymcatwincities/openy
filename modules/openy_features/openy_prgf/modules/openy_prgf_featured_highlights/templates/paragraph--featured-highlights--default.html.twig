@@ -59,30 +59,37 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 
     {% for key, item in content.field_prgf_block_ref_unlim %}
       {% if key matches '/^\\d+$/' %}
-        {% set title = item.field_featured_hl_block_link.0['#title']|trim %}
-        {% set url = item.field_featured_hl_block_link.0['#url'] %}
-        {% set description %}
-          {{ item.field_block_content }}
-        {% endset %}
         <div class="{{ item_class }} row-eq-height">
-          <article
-              class="block featured-highlights-block {{ item['#view_mode'] ? 'block--view-mode--' ~ item['#view_mode']|clean_class }} node--type-blog node--view-mode-teaser blog-photo">
-            <a title="{{ title }}" href="{{ url }}" rel="bookmark">
-              <div class="inner-wrapper">
-                {% if item.field_featured_hl_block_image['#field_type'] %}
-                  <div class="blog-up">
-                    {{ item.field_featured_hl_block_image }}
-                  </div>
-                {% endif %}
-                <div class="blog-heading">
-                  <h3><span>{{ title }}</span></h3>
-                  <p>{{ description|striptags }}</p>
-                </div>
-              </div>
-            </a>
-          </article>
+          {{ item }}
         </div>
       {% endif %}
+
+
+        {#{% set title = item.field_featured_hl_block_link.0['#title']|trim %}#}
+        {#{% set url = item.field_featured_hl_block_link.0['#url'] %}#}
+        {#{% set description %}#}
+          {#{{ item.field_block_content }}#}
+        {#{% endset %}#}
+        {#<div class="{{ item_class }} row-eq-height">#}
+          {#<article#}
+              {#class="block featured-highlights-block {{ item['#view_mode'] ? 'block--view-mode--' ~ item['#view_mode']|clean_class }} node--type-blog node--view-mode-teaser blog-photo">#}
+            {#<a title="{{ title }}" href="{{ url }}" rel="bookmark">#}
+              {#<div class="inner-wrapper">#}
+                {#{% if item.field_featured_hl_block_image['#field_type'] %}#}
+                  {#<div class="blog-up">#}
+                    {#{{ item.field_featured_hl_block_image }}#}
+                  {#</div>#}
+                {#{% endif %}#}
+                {#<div class="blog-heading">#}
+                  {#<h3><span>{{ title }}</span></h3>#}
+                  {#<p>{{ description|striptags }}</p>#}
+                {#</div>#}
+              {#</div>#}
+            {#</a>#}
+          {#</article>#}
+        {#</div>#}
+      {#{% endif %}#}
+
     {% endfor %}
   </div>
 </div>
