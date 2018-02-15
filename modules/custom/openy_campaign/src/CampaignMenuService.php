@@ -409,7 +409,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $query->groupBy('mc.id');
     $query->groupBy('mc.goal');
 
-    $query->having('COUNT(ch.id) >= mc.goal AND COUNT(ch.id) > :minGoal', [':minGoal' => $minVisitsGoal]);
+    $query->having('COUNT(ch.id) >= mc.goal AND COUNT(ch.id) >= :minGoal', [':minGoal' => $minVisitsGoal]);
 
     $query->orderRandom();
 
@@ -459,7 +459,6 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         $visitGoalAchived = $this->getWinnersOfType('visit', $campaign->id());
 
         $winners = array_merge($instantWinners, $visitGoalAchived);
-        shuffle($winners);
         break;
 
       case 'instant':
@@ -473,6 +472,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       default:
         break;
     }
+    shuffle($winners);
     return $winners;
   }
 
