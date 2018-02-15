@@ -1,4 +1,3 @@
-uuid: 238e0fd3-04b3-4094-8b5d-2dce41237039
 langcode: en
 status: true
 dependencies:
@@ -9,8 +8,6 @@ dependencies:
     - paragraphs.paragraphs_type.featured_highlights
   module:
     - options
-_core:
-  default_config_hash: 6bz2KsbRvkKumV_GXpoPNEezba3Om46qDjORZdGfOMg
 id: paragraph.featured_highlights.default
 targetEntityType: paragraph
 bundle: featured_highlights
