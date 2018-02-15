@@ -369,11 +369,13 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *   Optional: calculate winners per branch. Branch ID to calculate winners for.
    * @param array $alreadyWinners
    *   Optional: exclude already defined winners.
+   * @param bool $withoutEmployees
+   *   Exclude staff from the calculation.
    *
    * @return array
    *   Array with winners MemberCampaign ids.
    */
-  public function getVisitsGoalWinners($campaign, $branchId = NULL, $alreadyWinners = []) {
+  public function getVisitsGoalWinners($campaign, $branchId = NULL, $alreadyWinners = [], $withoutEmployees = TRUE) {
     $goalWinners = [];
 
     // Get all enabled activities list.
@@ -386,10 +388,10 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
 
     // We need to set UTC zone as far as Drupal stores dates in UTC zone.
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString(), new \DateTimeZone('UTC'));
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString(), new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
     // The checkins are saved with 0:0:0 time.
     $campaignStartDate->setTime(0, 0, 0);
-    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString(), new \DateTimeZone('UTC'));
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString(), new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
     $minVisitsGoal = !empty($campaign->field_min_visits_goal->value) ? $campaign->field_min_visits_goal->value : 0;
 
     // Get visits.
@@ -405,7 +407,10 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     if (!empty($branchId)) {
       $query->condition('m.branch', $branchId);
     }
-    $query->condition('m.is_employee', FALSE);
+    if ($withoutEmployees) {
+      $query->condition('m.is_employee', FALSE);
+    }
+
     $query->condition('mc.campaign', $campaign->id());
 
     $query->groupBy('ch.member');
