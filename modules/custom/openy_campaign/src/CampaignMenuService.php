@@ -384,9 +384,19 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       return $goalWinners;
     }
 
+    // Get site timezone.
+    $config = $this->configFactory->get('system.date');
+    $configSiteDefaultTimezone = !empty($config->get('timezone.default')) ? $config->get('timezone.default') : date_default_timezone_get();
+    $siteDefaultTimezone = new \DateTimeZone($configSiteDefaultTimezone);
+
+
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
+    // Get localized versions of Campaign dates. Convert it to site timezone to compare with current date.
+    $localeCampaignStart = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_start_date')->getString(), $siteDefaultTimezone);
+    $localeCampaignEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_end_date')->getString(), $siteDefaultTimezone);
+
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString(), $siteDefaultTimezone);
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString(), $siteDefaultTimezone);
     $minVisitsGoal = !empty($campaign->field_min_visits_goal->value) ? $campaign->field_min_visits_goal->value : 0;
 
     // Get visits.
@@ -397,8 +407,8 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
 
     $query->addField('mc', 'id', 'member_campaign');
 
-    $query->condition('ch.date', $campaignStartDate->format('U'), '>=');
-    $query->condition('ch.date', $campaignEndDate->format('U'), '<');
+    $query->condition('ch.date', $localeCampaignStart->getTimestamp()/*$campaignStartDate->format('U')*/, '>=');
+    $query->condition('ch.date', $localeCampaignEnd->getTimestamp()/*$campaignEndDate->format('U')*/, '<');
     if (!empty($branchId)) {
       $query->condition('m.branch', $branchId);
     }
