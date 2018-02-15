@@ -95,9 +95,16 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
       ->condition('field_campaign_end_date', $formatted, '>=')
       ->execute();
 
+    // Check if the member still exists.
+    $memberId = NULL;
+    if (empty($this->get('member')->entity)) {
+      return $return;
+    }
+    $memberId = $this->get('member')->entity->id();
+
     $campaignMembers = \Drupal::entityQuery('openy_campaign_member_campaign')
       ->condition('campaign', array_values($campaigns), 'IN')
-      ->condition('member', $this->get('member')->entity->id())
+      ->condition('member', $memberId)
       ->execute();
 
     foreach (array_keys($campaignMembers) as $campaignMemberId) {
