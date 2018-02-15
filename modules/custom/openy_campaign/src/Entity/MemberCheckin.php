@@ -144,7 +144,7 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
         if (empty($loadedEntity)) {
           $preparedActivityData = [
             'member_campaign' => $campaignMemberId,
-            'created' => time(),
+            'created' => $this->get('created')->value,
             'activity_type' => 'visiting'
           ];
           $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
