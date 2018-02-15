@@ -103,7 +103,7 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
     foreach (array_keys($campaignMembers) as $campaignMemberId) {
       $isAllowedToCreateAnEntry = FALSE;
 
-      $memberCampaign = Entity::load($campaignMemberId);
+      $memberCampaign = MemberCampaign::load($campaignMemberId);
       /** @var \Drupal\node\NodeInterface $campaign */
       $campaign = $memberCampaign->getCampaign();
       foreach ($campaign->get('field_ways_to_earn_entries')->getValue() as $item) {
