@@ -409,7 +409,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $query->groupBy('mc.id');
     $query->groupBy('mc.goal');
 
-    $query->having('COUNT(ch.id) >= mc.goal AND COUNT(ch.id) >= :minGoal', [':minGoal' => $minVisitsGoal]);
+    $query->having('COUNT(ch.id) > 0 AND COUNT(ch.id) >= mc.goal AND COUNT(ch.id) >= :minGoal', [':minGoal' => $minVisitsGoal]);
 
     $query->orderRandom();
 

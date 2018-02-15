@@ -3,6 +3,7 @@
 namespace Drupal\openy_campaign\Entity;
 
 use Drupal\Core\Entity\Entity;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -84,28 +85,7 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
     $return = parent::save();
 
     // Create Game opportunity.
-    // Get the list of all active campaigns.
-    $currentDate = new DrupalDateTime('now');
-    $currentDate->setTimezone(new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
-    $formatted = $currentDate->format(DATETIME_DATETIME_STORAGE_FORMAT);
-
-    $campaigns = \Drupal::entityQuery('node')
-      ->condition('type', 'campaign')
-      ->condition('field_campaign_start_date', $formatted, '<=')
-      ->condition('field_campaign_end_date', $formatted, '>=')
-      ->execute();
-
-    // Check if the member still exists.
-    $memberId = NULL;
-    if (empty($this->get('member')->entity)) {
-      return $return;
-    }
-    $memberId = $this->get('member')->entity->id();
-
-    $campaignMembers = \Drupal::entityQuery('openy_campaign_member_campaign')
-      ->condition('campaign', array_values($campaigns), 'IN')
-      ->condition('member', $memberId)
-      ->execute();
+    $campaignMembers = $this->getActiveCampaignMembers();
 
     foreach (array_keys($campaignMembers) as $campaignMemberId) {
       $isAllowedToCreateAnEntry = FALSE;
@@ -128,6 +108,25 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
 
         $game->save();
       }
+    }
+
+    return $return;
+  }
+
+  /**
+   * {@inheritdoc}
+   * We need to create utilization goal by visits record after
+   * saving the checkin entity, because it is used in the calculation.
+   */
+  public function postSave(EntityStorageInterface $storage, $update = TRUE) {
+    parent::postSave($storage, $update);
+
+    $campaignMembers = $this->getActiveCampaignMembers();
+
+    foreach (array_keys($campaignMembers) as $campaignMemberId) {
+      $memberCampaign = MemberCampaign::load($campaignMemberId);
+      /** @var \Drupal\node\NodeInterface $campaign */
+      $campaign = $memberCampaign->getCampaign();
 
       // Create an utilization activity record.
       $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
@@ -142,19 +141,48 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
           ->execute();
 
         if (empty($loadedEntity)) {
-          $preparedActivityData = [
-            'member_campaign' => $campaignMemberId,
-            'created' => $this->get('created')->value,
-            'activity_type' => 'visiting'
-          ];
-          $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
-          $campaignUtilizationActivity->save();
+          // Create the record if the user has achieved his visit goal.
+          $achievedGoals = \Drupal::service('openy_campaign.campaign_menu_handler')->getVisitsGoalWinners($campaign);
+
+          if (in_array($campaignMemberId, $achievedGoals)) {
+            $preparedActivityData = [
+              'member_campaign' => $campaignMemberId,
+              'created' => $this->get('created')->value,
+              'activity_type' => 'visiting'
+            ];
+            $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
+            $campaignUtilizationActivity->save();
+          }
         }
       }
-
     }
+  }
 
-    return $return;
+  private function getActiveCampaignMembers() {
+    // Get the list of all active campaigns.
+    $currentDate = new DrupalDateTime('now');
+    $currentDate->setTimezone(new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
+    $formatted = $currentDate->format(DATETIME_DATETIME_STORAGE_FORMAT);
+
+    $campaigns = \Drupal::entityQuery('node')
+      ->condition('type', 'campaign')
+      ->condition('field_campaign_start_date', $formatted, '<=')
+      ->condition('field_campaign_end_date', $formatted, '>=')
+      ->execute();
+
+    // Check if the member still exists.
+    $memberId = NULL;
+    if (empty($this->get('member')->entity)) {
+      return [];
+    }
+    $memberId = $this->get('member')->entity->id();
+
+    $campaignMembers = \Drupal::entityQuery('openy_campaign_member_campaign')
+      ->condition('campaign', array_values($campaigns), 'IN')
+      ->condition('member', $memberId)
+      ->execute();
+
+    return $campaignMembers;
   }
 
 }
