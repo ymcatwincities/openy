@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\openy_my_y_api\Plugin\rest\resource;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 
@@ -80,7 +81,11 @@ class VisitsResource extends ResourceBase {
           'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
         ]
       );
-
+      $metadata = new CacheableMetadata();
+      $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
+      $response->addCacheableDependency($metadata);
+      $response->setExpires(new \DateTime());
+      $response->setMaxAge(0);
       return $response;
     }
 
@@ -125,7 +130,11 @@ class VisitsResource extends ResourceBase {
         'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
       ]
     );
-
+    $metadata = new CacheableMetadata();
+    $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
+    $response->addCacheableDependency($metadata);
+    $response->setExpires(new \DateTime());
+    $response->setMaxAge(0);
     return $response;
   }
 
