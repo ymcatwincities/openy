@@ -33,23 +33,25 @@ function openy_node_activity_node_update(Drupal\Core\Entity\EntityInterface $ent
 
   $activity_ids = _openy_node_activity_getactivitynodes($entity);
   $batch = [
-    'title' => t('Updating activities...'),
+    'title' => t('Updating @type...', ['@type' => 'activities']),
     'operations' => [
       [
-        '\Drupal\openy_node_activity\ActivityBatchUpdate::updateActivities',
+        '\Drupal\openy_node\BatchNodeUpdate::update',
         [
           $activity_ids,
           $status,
+          'activity',
         ],
       ],
     ],
-    'finished' => '\Drupal\openy_node_activity\ActivityBatchUpdate::finished',
+    'finished' => '\Drupal\openy_node\BatchNodeUpdate::finished',
   ];
   batch_set($batch);
+
 }
 
 /**
- * Helper function to retrieve the list of Activity node ids that references this
+ * Helper function to retrieve the list of Activity node ids that reference this
  * Category node.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity

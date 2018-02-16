@@ -20,41 +20,45 @@ function openy_node_category_node_update(Drupal\Core\Entity\EntityInterface $ent
   $original_status = $entity->original->isPublished();
   $current_status = $entity->isPublished();
 
-  // Going from published to unpublished.
   if ($original_status && !$current_status) {
-    $categories = _openy_node_category_getcategorynodes($entity);
-
-    // Unpublish all Category nodes.
-    foreach ($categories as $node) {
-      if ($node->isPublished()) {
-        $node->setUnPublished();
-        $node->save();
-      }
-    }
+    // Going from published to unpublished.
+    $status = false;
   } elseif (!$original_status && $current_status) {
-    // Going from unpublished to published. We have to just publish everything.
-    $categories = _openy_node_category_getcategorynodes($entity);
-
-    // Publish all Category nodes.
-    foreach ($categories as $node) {
-      if (!$node->isPublished()) {
-        $node->setPublished();
-        $node->save();
-      }
-    }
+    // Going from unpublished to published.
+    $status = true;
+  } else {
+    // Status was unchanged.
+    return;
   }
+
+  $category_ids = _openy_node_category_getcategorynodes($entity);
+  $batch = [
+    'title' => t('Updating @type...', ['@type' => 'categories']),
+    'operations' => [
+      [
+        '\Drupal\openy_node\BatchNodeUpdate::update',
+        [
+          $category_ids,
+          $status,
+          'category',
+        ],
+      ],
+    ],
+    'finished' => '\Drupal\openy_node\BatchNodeUpdate::finished',
+  ];
+  batch_set($batch);
 
 }
 
 /**
- * Helper function to retrieve the list of Category nodes that references this
+ * Helper function to retrieve the list of Category node ids that reference this
  * Program node.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The Program node who's Category nodes will be retrieved.
  *
- * @return array $categories
- *   Array of Category nodes.
+ * @return array $category_ids
+ *   Array of Category node ids.
  */
 function _openy_node_category_getcategorynodes(&$entity) {
   $program_id = $entity->id();
@@ -67,7 +71,6 @@ function _openy_node_category_getcategorynodes(&$entity) {
   $result = $query->execute()->fetchAllAssoc('entity_id');
 
   $category_ids = array_keys($result);
-  $categories = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($category_ids);
 
-  return $categories;
+  return $category_ids;
 }
