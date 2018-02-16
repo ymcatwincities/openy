@@ -69,21 +69,6 @@ function _openy_node_activity_getactivitynodes(&$entity) {
   $result = $query->execute()->fetchAllAssoc('entity_id');
 
   $activity_ids = array_keys($result);
-  //$activities = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($activity_ids);
 
   return $activity_ids;
 }
-
-
-/*$batch = array(
-  'title' => t('Updating activities...'),
-  'operations' => array(
-    array(
-      '\Drupal\batch_example\DeleteNode::deleteNodeExample',
-      array($nids)
-    ),
-  ),
-  'finished' => '\Drupal\batch_example\DeleteNode::deleteNodeExampleFinishedCallback',
-);
-batch_set($batch);
-*/
