@@ -2,7 +2,6 @@
 
 namespace Drupal\openy_my_y_api\Plugin\rest\resource;
 
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
@@ -92,13 +91,6 @@ class SessionsResource extends ResourceBase {
           'Access-Control-Allow-Origin' => $allow_origin,
           'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
           'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
-        ]
-      );
-      $response->addCacheableDependency(
-        [
-          '#cache' => [
-            'contexts' => ['headers:Origin']
-          ]
         ]
       );
       $metadata = new CacheableMetadata();
