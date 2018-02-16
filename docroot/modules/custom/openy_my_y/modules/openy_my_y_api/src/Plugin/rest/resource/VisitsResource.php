@@ -37,6 +37,17 @@ class VisitsResource extends ResourceBase {
       'UnpaidsOnly' => FALSE,
     ];
 
+    $allow_origin = 'http://0.0.0.0:8080';
+    $allowed_origins = [
+      'http://account.ymcamn.org',
+      'http://0.0.0.0:8080',
+      'https://account.ymcamn.org',
+      'https://www.ymcamn.org',
+    ];
+    if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
+      $allow_origin = $_SERVER['HTTP_ORIGIN'];
+    }
+
     $results = [];
 
     try {
@@ -64,7 +75,7 @@ class VisitsResource extends ResourceBase {
 
       $response->headers->add(
         [
-          'Access-Control-Allow-Origin' => 'http://0.0.0.0:8080',
+          'Access-Control-Allow-Origin' => $allow_origin,
           'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
           'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
         ]
@@ -109,7 +120,7 @@ class VisitsResource extends ResourceBase {
 
     $response->headers->add(
       [
-        'Access-Control-Allow-Origin' => 'http://0.0.0.0:8080',
+        'Access-Control-Allow-Origin' => $allow_origin,
         'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
         'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
       ]
