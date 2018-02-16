@@ -37,6 +37,17 @@ class AppointmentsResource extends ResourceBase {
       'EndDate' => date('Y-m-d', strtotime("today +20 weeks")),
     ];
 
+    $allow_origin = 'http://0.0.0.0:8080';
+    $allowed_origins = [
+      'http://***REMOVED***',
+      'http://0.0.0.0:8080',
+      'https://***REMOVED***',
+      'https://www.ymcamn.org',
+    ];
+    if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
+      $allow_origin = $_SERVER['HTTP_ORIGIN'];
+    }
+
     $results = [];
 
     try {
@@ -64,7 +75,7 @@ class AppointmentsResource extends ResourceBase {
 
       $response->headers->add(
         [
-          'Access-Control-Allow-Origin' => 'http://0.0.0.0:8080',
+          'Access-Control-Allow-Origin' => $allow_origin,
           'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
           'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
         ]
@@ -109,7 +120,7 @@ class AppointmentsResource extends ResourceBase {
 
     $response->headers->add(
       [
-        'Access-Control-Allow-Origin' => 'http://0.0.0.0:8080',
+        'Access-Control-Allow-Origin' => $allow_origin,
         'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
         'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
       ]
