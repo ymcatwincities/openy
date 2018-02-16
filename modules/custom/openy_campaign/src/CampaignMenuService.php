@@ -433,6 +433,57 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     return $goalWinners;
   }
 
+
+  /**
+   * Get achieved Visit Goal members by branch.
+   *
+   * @param \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign
+   *
+   * @return bool
+   */
+  public function isGoalAchieved(MemberCampaign $memberCampaign) {
+    /** @var \Drupal\node\NodeInterface $campaign */
+    $campaign = $memberCampaign->getCampaign();
+
+    // Get all enabled activities list.
+    $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
+
+    // For disabled Visits Goal activity.
+    if (!in_array('field_prgf_activity_visits', $activitiesOptions)) {
+      return FALSE;
+    }
+
+    // We need to set UTC zone as far as Drupal stores dates in UTC zone.
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString(), new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+    // The checkins are saved with 0:0:0 time.
+    $campaignStartDate->setTime(0, 0, 0);
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString(), new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+    $minVisitsGoal = !empty($campaign->field_min_visits_goal->value) ? $campaign->field_min_visits_goal->value : 0;
+
+    // Get member with achieved goal.
+    /** @var \Drupal\Core\Database\Query\Select $query */
+    $query = $this->connection->select('openy_campaign_member_checkin', 'ch');
+    $query->join('openy_campaign_member_campaign', 'mc', 'ch.member = mc.member');
+
+    $query->addField('mc', 'id', 'member_campaign');
+
+    $query->condition('ch.date', $campaignStartDate->format('U'), '>=');
+    $query->condition('ch.date', $campaignEndDate->format('U'), '<');
+
+    $query->condition('mc.id', $memberCampaign->id());
+
+    $query->groupBy('mc.goal');
+
+    $query->having('COUNT(ch.id) > 0 AND COUNT(ch.id) >= mc.goal AND COUNT(ch.id) >= :minGoal', [':minGoal' => $minVisitsGoal]);
+
+    $results = $query->execute()->fetchAll();
+    if (!empty($results)) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
   /**
    * Gets the color scheme for a campaign node.
    *
