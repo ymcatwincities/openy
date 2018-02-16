@@ -20,41 +20,43 @@ function openy_node_activity_node_update(Drupal\Core\Entity\EntityInterface $ent
   $original_status = $entity->original->isPublished();
   $current_status = $entity->isPublished();
 
-  // Going from published to unpublished.
   if ($original_status && !$current_status) {
-    $activities = _openy_node_activity_getactivitynodes($entity);
-
-    // Unpublish all Activity nodes.
-    foreach ($activities as $node) {
-      if ($node->isPublished()) {
-        $node->setUnPublished();
-        $node->save();
-      }
-    }
+    // Going from published to unpublished.
+    $status = false;
   } elseif (!$original_status && $current_status) {
-    // Going from unpublished to published. We have to just publish everything.
-    $activities = _openy_node_activity_getactivitynodes($entity);
-
-    // Publish all Activity nodes.
-    foreach ($activities as $node) {
-      if (!$node->isPublished()) {
-        $node->setPublished();
-        $node->save();
-      }
-    }
+    // Going from unpublished to published.
+    $status = true;
+  } else {
+    // Status was unchanged.
+    return;
   }
 
+  $activity_ids = _openy_node_activity_getactivitynodes($entity);
+  $batch = [
+    'title' => t('Updating activities...'),
+    'operations' => [
+      [
+        '\Drupal\openy_node_activity\ActivityBatchUpdate::updateActivities',
+        [
+          $activity_ids,
+          $status,
+        ],
+      ],
+    ],
+    'finished' => '\Drupal\openy_node_activity\ActivityBatchUpdate::finished',
+  ];
+  batch_set($batch);
 }
 
 /**
- * Helper function to retrieve the list of Activity nodes that references this
+ * Helper function to retrieve the list of Activity node ids that references this
  * Category node.
  *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  *   The Category node who's Activity nodes will be retrieved.
  *
- * @return array $activities
- *   Array of Activity nodes.
+ * @return array $activity_ids
+ *   Array of Activity node ids.
  */
 function _openy_node_activity_getactivitynodes(&$entity) {
   $category_id = $entity->id();
@@ -67,7 +69,21 @@ function _openy_node_activity_getactivitynodes(&$entity) {
   $result = $query->execute()->fetchAllAssoc('entity_id');
 
   $activity_ids = array_keys($result);
-  $activities = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($activity_ids);
+  //$activities = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($activity_ids);
 
-  return $activities;
+  return $activity_ids;
 }
+
+
+/*$batch = array(
+  'title' => t('Updating activities...'),
+  'operations' => array(
+    array(
+      '\Drupal\batch_example\DeleteNode::deleteNodeExample',
+      array($nids)
+    ),
+  ),
+  'finished' => '\Drupal\batch_example\DeleteNode::deleteNodeExampleFinishedCallback',
+);
+batch_set($batch);
+*/
