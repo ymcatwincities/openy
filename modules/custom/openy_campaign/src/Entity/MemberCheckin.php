@@ -142,9 +142,9 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
 
         if (empty($loadedEntity)) {
           // Create the record if the user has achieved his visit goal.
-          $achievedGoals = \Drupal::service('openy_campaign.campaign_menu_handler')->getVisitsGoalWinners($campaign, NULL, [], FALSE);
+          $isGoalAchieved  = \Drupal::service('openy_campaign.campaign_menu_handler')->isGoalAchieved($memberCampaign);
 
-          if (in_array($campaignMemberId, $achievedGoals)) {
+          if ($isGoalAchieved) {
             $preparedActivityData = [
               'member_campaign' => $campaignMemberId,
               'created' => $this->get('created')->value,
