@@ -2,9 +2,8 @@
 
 namespace Drupal\openy_my_y_api\Plugin\rest\resource;
 
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
+use Drupal\rest\ModifiedResourceResponse;
 
 /**
  * Provides Appointments Resource.
@@ -21,7 +20,7 @@ class AppointmentsResource extends ResourceBase {
 
   /**
    * Responds to entity GET requests.
-   * @return \Drupal\rest\ResourceResponse
+   * @return \Drupal\rest\ModifiedResourceResponse
    */
   public function get($uid = NULL) {
     /** @var \Drupal\mindbody_cache_proxy\MindbodyCacheProxy $client */
@@ -60,7 +59,7 @@ class AppointmentsResource extends ResourceBase {
         TRUE
       );
     } catch (\Exception $e) {
-      return new ResourceResponse(
+      return new ModifiedResourceResponse(
         [
           'status' => FALSE,
           'message' => $e->getMessage(),
@@ -74,7 +73,7 @@ class AppointmentsResource extends ResourceBase {
 
     // In case if there is no appointments at all.
     if (!isset($visits->Visit)) {
-      $response = new ResourceResponse(
+      $response = new ModifiedResourceResponse(
         [
           'status' => TRUE,
           'message' => '',
@@ -90,11 +89,7 @@ class AppointmentsResource extends ResourceBase {
           'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
         ]
       );
-      $metadata = new CacheableMetadata();
-      $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
-      $response->addCacheableDependency($metadata);
-      $response->setExpires(new \DateTime());
-      // $response->setMaxAge(0);
+
       return $response;
     }
 
@@ -125,7 +120,7 @@ class AppointmentsResource extends ResourceBase {
       ];
     }
 
-    $response = new ResourceResponse(
+    $response = new ModifiedResourceResponse(
       [
         'status' => TRUE,
         'message' => '',
@@ -141,11 +136,7 @@ class AppointmentsResource extends ResourceBase {
         'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
       ]
     );
-    $metadata = new CacheableMetadata();
-    $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
-    $response->addCacheableDependency($metadata);
-    $response->setExpires(new \DateTime());
-    // $response->setMaxAge(0);
+
     return $response;
   }
 

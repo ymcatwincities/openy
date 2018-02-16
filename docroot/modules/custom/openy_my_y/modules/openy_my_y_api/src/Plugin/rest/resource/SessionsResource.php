@@ -2,9 +2,8 @@
 
 namespace Drupal\openy_my_y_api\Plugin\rest\resource;
 
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
+use Drupal\rest\ModifiedResourceResponse;
 
 /**
  * Provides Sessions Resource.
@@ -21,7 +20,7 @@ class SessionsResource extends ResourceBase {
 
   /**
    * Responds to entity GET requests.
-   * @return \Drupal\rest\ResourceResponse
+   * @return \Drupal\rest\ModifiedResourceResponse
    */
   public function get($uid = NULL) {
     /** @var \Drupal\mindbody_cache_proxy\MindbodyCacheProxy $client */
@@ -63,7 +62,7 @@ class SessionsResource extends ResourceBase {
         TRUE
       );
     } catch (\Exception $e) {
-      return new ResourceResponse(
+      return new ModifiedResourceResponse(
         [
           'status' => FALSE,
           'message' => $e->getMessage(),
@@ -77,7 +76,7 @@ class SessionsResource extends ResourceBase {
 
     // In case if there is no appointments at all.
     if (!isset($sessions->ClientService)) {
-      $response = new ResourceResponse(
+      $response = new ModifiedResourceResponse(
         [
           'status' => TRUE,
           'message' => '',
@@ -93,11 +92,7 @@ class SessionsResource extends ResourceBase {
           'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
         ]
       );
-      $metadata = new CacheableMetadata();
-      $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
-      $response->addCacheableDependency($metadata);
-      $response->setExpires(new \DateTime());
-      // $response->setMaxAge(0);
+
       return $response;
     }
 
@@ -119,7 +114,7 @@ class SessionsResource extends ResourceBase {
       ];
     }
 
-    $response = new ResourceResponse(
+    $response = new ModifiedResourceResponse(
       [
         'status' => TRUE,
         'message' => '',
@@ -136,11 +131,6 @@ class SessionsResource extends ResourceBase {
       ]
     );
 
-    $metadata = new CacheableMetadata();
-    $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
-    $response->addCacheableDependency($metadata);
-    $response->setExpires(new \DateTime());
-    // $response->setMaxAge(0);
     return $response;
   }
 
