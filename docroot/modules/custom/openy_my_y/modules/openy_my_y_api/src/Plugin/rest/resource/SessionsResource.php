@@ -1,6 +1,9 @@
 <?php
 
 namespace Drupal\openy_my_y_api\Plugin\rest\resource;
+
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 
@@ -33,7 +36,7 @@ class SessionsResource extends ResourceBase {
         'SiteIDs' => [$credentials->get('site_id')],
       ],
       'ClientID' => $uid,
-      'ShowActiveOnly' => true,
+      'ShowActiveOnly' => TRUE,
       // @todo As per MB UI - ClassID is 0 by default
       'ClassID' => 0,
       // @todo Check if we need other program IDs to be included.
@@ -54,27 +57,35 @@ class SessionsResource extends ResourceBase {
     $results = [];
 
     try {
-      $result = $client->call('ClientService', 'GetClientServices', $request, FALSE);
-    }
-    catch (\Exception $e) {
-      return new ResourceResponse([
-        'status' => FALSE,
-        'message' => $e->getMessage(),
-        'timestamp' => \Drupal::time()->getRequestTime(),
-        'results' => [],
-      ]);
+      $result = $client->call(
+        'ClientService',
+        'GetClientServices',
+        $request,
+        FALSE
+      );
+    } catch (\Exception $e) {
+      return new ResourceResponse(
+        [
+          'status' => FALSE,
+          'message' => $e->getMessage(),
+          'timestamp' => \Drupal::time()->getRequestTime(),
+          'results' => [],
+        ]
+      );
     }
 
     $sessions = $result->GetClientServicesResult->ClientServices;
 
     // In case if there is no appointments at all.
     if (!isset($sessions->ClientService)) {
-      $response = new ResourceResponse([
-        'status' => TRUE,
-        'message' => '',
-        'timestamp' => \Drupal::time()->getRequestTime(),
-        'results' => [],
-      ]);
+      $response = new ResourceResponse(
+        [
+          'status' => TRUE,
+          'message' => '',
+          'timestamp' => \Drupal::time()->getRequestTime(),
+          'results' => [],
+        ]
+      );
 
       $response->headers->add(
         [
@@ -83,7 +94,18 @@ class SessionsResource extends ResourceBase {
           'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
         ]
       );
-
+      $response->addCacheableDependency(
+        [
+          '#cache' => [
+            'contexts' => ['headers:Origin']
+          ]
+        ]
+      );
+      $metadata = new CacheableMetadata();
+      $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
+      $response->addCacheableDependency($metadata);
+      $response->setExpires(new \DateTime());
+      $response->setMaxAge(0);
       return $response;
     }
 
@@ -105,12 +127,14 @@ class SessionsResource extends ResourceBase {
       ];
     }
 
-    $response = new ResourceResponse([
-      'status' => TRUE,
-      'message' => '',
-      'timestamp' => \Drupal::time()->getRequestTime(),
-      'results' => $data,
-    ]);
+    $response = new ResourceResponse(
+      [
+        'status' => TRUE,
+        'message' => '',
+        'timestamp' => \Drupal::time()->getRequestTime(),
+        'results' => $data,
+      ]
+    );
 
     $response->headers->add(
       [
@@ -119,6 +143,12 @@ class SessionsResource extends ResourceBase {
         'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
       ]
     );
+
+    $metadata = new CacheableMetadata();
+    $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
+    $response->addCacheableDependency($metadata);
+    $response->setExpires(new \DateTime());
+    $response->setMaxAge(0);
     return $response;
   }
 
