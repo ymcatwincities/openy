@@ -97,7 +97,7 @@ class SessionsResource extends ResourceBase {
       $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
       $response->addCacheableDependency($metadata);
       $response->setExpires(new \DateTime());
-      $response->setMaxAge(0);
+      // $response->setMaxAge(0);
       return $response;
     }
 
@@ -140,7 +140,7 @@ class SessionsResource extends ResourceBase {
     $metadata->addCacheContexts(['headers:Origin', 'headers:Host']);
     $response->addCacheableDependency($metadata);
     $response->setExpires(new \DateTime());
-    $response->setMaxAge(0);
+    // $response->setMaxAge(0);
     return $response;
   }
 
