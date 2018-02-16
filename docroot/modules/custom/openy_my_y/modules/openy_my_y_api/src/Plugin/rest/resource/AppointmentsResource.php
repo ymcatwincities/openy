@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\openy_my_y_api\Plugin\rest\resource;
+
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
@@ -52,27 +53,35 @@ class AppointmentsResource extends ResourceBase {
     $results = [];
 
     try {
-      $result = $client->call('ClientService', 'GetClientSchedule', $request, TRUE);
-    }
-    catch (\Exception $e) {
-      return new ResourceResponse([
-        'status' => FALSE,
-        'message' => $e->getMessage(),
-        'timestamp' => \Drupal::time()->getRequestTime(),
-        'results' => [],
-      ]);
+      $result = $client->call(
+        'ClientService',
+        'GetClientSchedule',
+        $request,
+        TRUE
+      );
+    } catch (\Exception $e) {
+      return new ResourceResponse(
+        [
+          'status' => FALSE,
+          'message' => $e->getMessage(),
+          'timestamp' => \Drupal::time()->getRequestTime(),
+          'results' => [],
+        ]
+      );
     }
 
     $visits = $result->GetClientScheduleResult->Visits;
 
     // In case if there is no appointments at all.
     if (!isset($visits->Visit)) {
-      $response = new ResourceResponse([
-        'status' => TRUE,
-        'message' => '',
-        'timestamp' => \Drupal::time()->getRequestTime(),
-        'results' => [],
-      ]);
+      $response = new ResourceResponse(
+        [
+          'status' => TRUE,
+          'message' => '',
+          'timestamp' => \Drupal::time()->getRequestTime(),
+          'results' => [],
+        ]
+      );
 
       $response->headers->add(
         [
@@ -116,12 +125,14 @@ class AppointmentsResource extends ResourceBase {
       ];
     }
 
-    $response = new ResourceResponse([
-      'status' => TRUE,
-      'message' => '',
-      'timestamp' => \Drupal::time()->getRequestTime(),
-      'results' => $data,
-    ]);
+    $response = new ResourceResponse(
+      [
+        'status' => TRUE,
+        'message' => '',
+        'timestamp' => \Drupal::time()->getRequestTime(),
+        'results' => $data,
+      ]
+    );
 
     $response->headers->add(
       [

@@ -61,7 +61,7 @@ class SessionsResource extends ResourceBase {
         'ClientService',
         'GetClientServices',
         $request,
-        FALSE
+        TRUE
       );
     } catch (\Exception $e) {
       return new ResourceResponse(
