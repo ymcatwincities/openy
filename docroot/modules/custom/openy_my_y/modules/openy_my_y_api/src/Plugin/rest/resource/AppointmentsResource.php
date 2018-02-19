@@ -1,8 +1,9 @@
 <?php
 
 namespace Drupal\openy_my_y_api\Plugin\rest\resource;
+
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
+use Drupal\rest\ModifiedResourceResponse;
 
 /**
  * Provides Appointments Resource.
@@ -19,7 +20,7 @@ class AppointmentsResource extends ResourceBase {
 
   /**
    * Responds to entity GET requests.
-   * @return \Drupal\rest\ResourceResponse
+   * @return \Drupal\rest\ModifiedResourceResponse
    */
   public function get($uid = NULL) {
     /** @var \Drupal\mindbody_cache_proxy\MindbodyCacheProxy $client */
@@ -37,34 +38,53 @@ class AppointmentsResource extends ResourceBase {
       'EndDate' => date('Y-m-d', strtotime("today +20 weeks")),
     ];
 
+    $allow_origin = 'http://0.0.0.0:8080';
+    $allowed_origins = [
+      'http://***REMOVED***',
+      'http://0.0.0.0:8080',
+      'https://***REMOVED***',
+      'https://www.ymcamn.org',
+    ];
+    if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
+      $allow_origin = $_SERVER['HTTP_ORIGIN'];
+    }
+
     $results = [];
 
     try {
-      $result = $client->call('ClientService', 'GetClientSchedule', $request, TRUE);
-    }
-    catch (\Exception $e) {
-      return new ResourceResponse([
-        'status' => FALSE,
-        'message' => $e->getMessage(),
-        'timestamp' => \Drupal::time()->getRequestTime(),
-        'results' => [],
-      ]);
+      $result = $client->call(
+        'ClientService',
+        'GetClientSchedule',
+        $request,
+        TRUE
+      );
+    } catch (\Exception $e) {
+      return new ModifiedResourceResponse(
+        [
+          'status' => FALSE,
+          'message' => $e->getMessage(),
+          'timestamp' => \Drupal::time()->getRequestTime(),
+          'results' => [],
+        ]
+      );
     }
 
     $visits = $result->GetClientScheduleResult->Visits;
 
     // In case if there is no appointments at all.
     if (!isset($visits->Visit)) {
-      $response = new ResourceResponse([
-        'status' => TRUE,
-        'message' => '',
-        'timestamp' => \Drupal::time()->getRequestTime(),
-        'results' => [],
-      ]);
+      $response = new ModifiedResourceResponse(
+        [
+          'status' => TRUE,
+          'message' => '',
+          'timestamp' => \Drupal::time()->getRequestTime(),
+          'results' => [],
+        ]
+      );
 
       $response->headers->add(
         [
-          'Access-Control-Allow-Origin' => 'http://0.0.0.0:8080',
+          'Access-Control-Allow-Origin' => $allow_origin,
           'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
           'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
         ]
@@ -100,20 +120,23 @@ class AppointmentsResource extends ResourceBase {
       ];
     }
 
-    $response = new ResourceResponse([
-      'status' => TRUE,
-      'message' => '',
-      'timestamp' => \Drupal::time()->getRequestTime(),
-      'results' => $data,
-    ]);
+    $response = new ModifiedResourceResponse(
+      [
+        'status' => TRUE,
+        'message' => '',
+        'timestamp' => \Drupal::time()->getRequestTime(),
+        'results' => $data,
+      ]
+    );
 
     $response->headers->add(
       [
-        'Access-Control-Allow-Origin' => 'http://0.0.0.0:8080',
+        'Access-Control-Allow-Origin' => $allow_origin,
         'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
         'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
       ]
     );
+
     return $response;
   }
 
