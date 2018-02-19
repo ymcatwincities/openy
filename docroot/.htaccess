@@ -1186,14 +1186,6 @@ RewriteRule ^(.*)$ /challenge [L,R=301]
       # Force proxies to cache gzipped & non-gzipped css/js files separately.
       Header append Vary Accept-Encoding
     </FilesMatch>
-
-#    RewriteCond %{REQUEST_METHOD} OPTIONS
-#    RewriteRule .* / [R=200,L]
-
-    Header always set Access-Control-Allow-Origin "http://0.0.0.0:8080"
-#    Header always set Access-Control-Allow-Methods "POST, GET, OPTIONS, PATCH, DELETE"
-    Header always set Access-Control-Allow-Headers: "Authorization, X-CSRF-Token, Content-Type"
-#    Header always set Access-Control-Allow-Credentials: "true"
   </IfModule>
 </IfModule>
 
