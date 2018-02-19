@@ -11763,6 +11763,9 @@ tr:nth-last-child(3) .atcb-list {
   top: 0;
   bottom: 0;
 }
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked.selected .tip-q {
+  display: none;
+}
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-time {
   display: none;
 }
@@ -11943,6 +11946,9 @@ tr:nth-last-child(3) .atcb-list {
 }
 .cdn-calendar-list .cdn-calendar-list-row.booked .price {
   visibility: hidden;
+}
+.cdn-calendar-list .cdn-calendar-list-row.booked.selected .tip-q {
+  display: none;
 }
 
 #cdn-contact-form-wrapper {
