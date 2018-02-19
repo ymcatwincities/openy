@@ -6,5 +6,5 @@ id: daxko
 label: Daxko
 description: 'Daxko CRM system'
 source_type: 'Use APIv2 to save categories and offerings into CSV files and then migrate from them'
-module: null
+module: openy_daxko2
 shared_configuration: null
