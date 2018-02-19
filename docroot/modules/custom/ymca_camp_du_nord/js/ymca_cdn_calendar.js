@@ -10,6 +10,17 @@
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
+  function updateQueryStringParameter(uri, key, value) {
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+      return uri.replace(re, '$1' + key + "=" + value + '$2');
+    }
+    else {
+      return uri + separator + key + "=" + value;
+    }
+  }
+
   Drupal.cdn = Drupal.cdn || {};
 
   Drupal.cdn.check_borders_mobile = function(cell) {
@@ -71,10 +82,6 @@
     }
     // Go through each product end ensure range is not splitted.
     products.each(function() {
-      // Disallow selection if booked days in range.
-      if ($(this).hasClass('booked')) {
-        products.removeClass('selected');
-      }
       var day_number = $(this).find('.number').text() * 1;
       if (list.length > 1 && $.inArray(day_number, list) !== -1 && !$(this).hasClass('selected')) {
         $(this).addClass('selected');
@@ -207,7 +214,7 @@
             } else {
               var text = '<div class="fc-day-number">' + number + '</div>';
               if ($.inArray($(this).data('date'), settings.cdn.selected_dates) !== -1) {
-                text = '<a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-event-default cdn-prs-product fc-event-past fc-draggable 2018-02-16 booked" href="#"><div class="fc-content"><div class="fc-day-number">'+number+'</div><span class="fc-time">12a</span> <span class="fc-title"></span></div></a>';
+                text = '<a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-event-default cdn-prs-product fc-event-past fc-draggable ' + settings.cdn.selected_dates[$.inArray($(this).data('date'), settings.cdn.selected_dates)] + ' booked fake-booked" href="#"><div class="fc-content"><div class="fc-day-number">'+number+'</div><span class="fc-time">12a</span> <span class="fc-title"></span></div></a>';
               }
               $(this)
                 .hide()
@@ -248,7 +255,19 @@
         $(this).on('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
+          var allowSelection = true;
           if ($(this).hasClass('booked')) {
+            allowSelection = false;
+            // Check if previous date is selected and give a chance to select booked date as checkout date.
+            var i = $(this).index('a.cdn-prs-product');
+            if (i !== 0) {
+              var target = $('a.cdn-prs-product:eq(' + (i - 1) + ')', context);
+              if (target.hasClass('selected') && !target.hasClass('booked')) {
+                allowSelection = true;
+              }
+            }
+          }
+          if (!allowSelection) {
             return;
           }
           if (!$(this).hasClass('selected')) {
@@ -263,33 +282,47 @@
       });
 
       function cdn_change_village_capacity(val_v, val_c) {
-        $('.cdn-village-teaser, .cdn-calendar, .cdn-no-results').hide();
+        $('.cdn-village-teaser, .cdn-calendar, .cdn-no-results, .cdn-results-active-wrapper').hide();
         if (val_v !== 'all' || val_c !== 'all') {
           $('.cdn-village-teaser').each(function () {
             var i = $(this).data('index');
             // Filter only by village.
             if (val_v !== 'all' && val_c === 'all') {
               if ($(this).data('village_id') * 1 === val_v * 1) {
-                $('.cdn-village-teaser[data-index="' + i + '"], .cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').show();
+                $('.cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').parents('.cdn-results-active-wrapper').show();
               }
             }
             // Filter only by capacity.
             if (val_v === 'all' && val_c !== 'all') {
               if ($(this).data('total_capacity') * 1 === val_c * 1) {
-                $('.cdn-village-teaser[data-index="' + i + '"], .cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').show();
+                $('.cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').parents('.cdn-results-active-wrapper').show();
               }
             }
             // Filter by village and capacity.
             if (val_v !== 'all' && val_c !== 'all') {
               if ($(this).data('village_id') * 1 === val_v * 1 && $(this).data('total_capacity') * 1 === val_c * 1) {
-                $('.cdn-village-teaser[data-index="' + i + '"], .cdn-calendar[data-index="' + i +'"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').show();
+                $('.cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').parents('.cdn-results-active-wrapper').show();
               }
             }
+
           });
         }
         else if (val_v === 'all' && val_c === 'all') {
           $('.cdn-village-teaser, .cdn-calendar').show();
         }
+        // Update queries with selected values.
+        $('.cdn-village-teaser > a').each(function () {
+          var q = $(this).attr('href');
+          q = updateQueryStringParameter(q, 'village', val_v);
+          q = updateQueryStringParameter(q, 'capacity', val_c);
+          $(this).attr('href', q);
+        });
         // if there are no results show a message.
         if ($('.cdn-village-teaser:visible').length === 0) {
           $('.cdn-no-results').show();

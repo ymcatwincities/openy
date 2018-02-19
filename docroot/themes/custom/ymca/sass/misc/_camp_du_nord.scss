@@ -643,6 +643,11 @@
           }
         }
       }
+      &.booked.selected {
+        .tip-q {
+          display: none;
+        }
+      }
       .fc-time {
         display: none;
       }
@@ -810,6 +815,11 @@
       }
       .price {
         visibility: hidden;
+      }
+    }
+    &.booked.selected {
+      .tip-q {
+        display: none;
       }
     }
   }
