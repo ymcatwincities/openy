@@ -101,7 +101,7 @@ class ImportForm extends FormBase {
     $after = TRUE;
     $i = 1;
 
-    $filenamePrograms = file_directory_temp() . '/programs.csv';
+    $filenamePrograms = '/tmp/programs.csv';
     unlink($filenamePrograms);
     $fp = fopen($filenamePrograms, 'w');
 
@@ -209,7 +209,7 @@ class ImportForm extends FormBase {
     fclose($fp);
 
     // Save categories CSV file.
-    $filenameCategories = file_directory_temp() . '/categories.csv';
+    $filenameCategories = '/tmp/categories.csv';
     unlink($filenameCategories);
     $fp = fopen($filenameCategories, 'w');
     foreach ($categories as $fields) {
