@@ -236,11 +236,7 @@ class CdnFormFull extends FormBase {
     $values = $form_state->getValues();
     $query = $this->state;
 
-    $cdn_product_ids = $this->entityQuery
-      ->get('cdn_prs_product')
-      ->condition('field_cdn_prd_start_date', '%' . $query['arrival_date'] . '%', 'LIKE')
-      ->execute();
-    // Try to iterate range if start date is not available.
+    // Iterate range if start date is not available.
     if (empty($cdn_product_ids)) {
       $arrival_date = new \DateTime($query['arrival_date']);
       $departure_date = new \DateTime($query['departure_date']);
@@ -319,11 +315,11 @@ class CdnFormFull extends FormBase {
     }
     // Check if arrival date less than today + 3 days.
     if ($today_modified > $arrival_date) {
-      $form_state->setErrorByName('arrival_date', t('Arrival date should not be less than today + 3 days.'));
+      $form_state->setErrorByName('arrival_date', t('Please select an arrival date at least 3 days from today which includes today.'));
     }
     // Check if arrival date less than departure.
     if ($arrival_date >= $departure_date) {
-      $form_state->setErrorByName('departure_date', t('Departure date should not be less than arrival date'));
+      $form_state->setErrorByName('departure_date', t('Please select a departure date later than arrival date.'));
     }
   }
 
