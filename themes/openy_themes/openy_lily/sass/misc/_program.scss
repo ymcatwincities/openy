@@ -3,6 +3,9 @@
     padding: 0;
     .main {
       padding: 40px 0;
+      @media (max-width: $tablet) {
+        padding: 20px 15px 5px 15px;
+      }
     }
     .image {
       margin: -130px 0 0;
