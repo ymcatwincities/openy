@@ -31,6 +31,7 @@
     <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>HR</strong></td>
   </tr>
   {% for key, row in data.rows %}
+    {% if row.name %}
     <tr>
       <td class="yptf-kr-white">{{ row.name }}</td>
       <td class="yptf-kr-lp" bgcolor="#e7d7f3">{{ row.wf_hours }}</td>
@@ -38,6 +39,7 @@
       <td class="yptf-kr-lp" bgcolor="#e7d7f3">{{ row.variance }}</td>
       <td class="yptf-kr-lp" bgcolor="#e7d7f3">{{ row.historical_hours }}</td>
     </tr>
+  {% endif %}
   {% endfor %}
   <tr>
     <td class="yptf-kr-white"><strong>{{ data.summary.name }}</strong></td>
