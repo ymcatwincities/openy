@@ -1053,12 +1053,12 @@ class YptfKronosReports {
         else {
           $msg = 'No location on site for MB location_id: %params.';
           $this->logger->notice($msg, ['%params' => $location_id]);
-//          $this->reports['messages']['error_reports']['No location mapping based on MB location ID:'][] = t(
-//            'No location on site for MB location_id: %params. Contact the FFW team.',
-//            [
-//              '%params' => print_r($location_id, TRUE),
-//            ]
-//          );
+          $this->reports['messages']['error_reports']['No location mapping based on MB location ID:'][] = t(
+            'No location on site for MB location_id: %params. Contact the FFW team.',
+            [
+              '%params' => print_r($location_id, TRUE),
+            ]
+          );
           return FALSE;
         }
         $location_name = $location->getName();
@@ -1074,6 +1074,7 @@ class YptfKronosReports {
           foreach ($data['rows'] as &$name) {
             $names[] = &$name["name"];
           }
+          natcasesort($names);
           array_multisort($names, $data['rows']);
 
           $data['summary'] = $this->reports['locations'][$location_mid];;
