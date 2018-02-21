@@ -324,14 +324,31 @@ class YptfKronosReports {
             $location_id = $mb_locations_names[trim($item['Location'])];
           }
           else {
-            $location_id = 'no location';
-            $msg = 'Failed to get locations for config %params.';
-            $this->logger->notice(
-              $msg,
-              [
-                '%params' => $staff_id,
-              ]
-            );
+            $max = ['name' => 'NULL', 'max' => 0, 'id' => NULL];
+            foreach ($mb_locations_names as $name => $id) {
+              $count = similar_text(trim($item['Location']), $name, $percentage);
+              $new_max = $count * $percentage;
+              if ($new_max > $max['max']) {
+                $max = [
+                  'name' => trim($item['Location']),
+                  'max' => $new_max,
+                  'id' => $id,
+                ];
+              }
+            }
+            if ($max['name'] && $max['id']) {
+              $location_id = $max['id'];
+            }
+            else {
+              $location_id = 'no location';
+              $msg = 'Failed to get locations for config %params.';
+              $this->logger->notice(
+                $msg,
+                [
+                  '%params' => $staff_id,
+                ]
+              );
+            }
           }
 
           !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
