@@ -30,7 +30,7 @@
     <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>VR</strong></td>
     <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>HR</strong></td>
   </tr>
-  {% for key, row in data.rows %}
+  {% for key, row in data.rows|sort %}
     {% if row.name %}
     <tr>
       <td class="yptf-kr-white">{{ row.name }}</td>
