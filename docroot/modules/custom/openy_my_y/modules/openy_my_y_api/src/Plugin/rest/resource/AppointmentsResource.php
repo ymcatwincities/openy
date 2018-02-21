@@ -2,9 +2,6 @@
 
 namespace Drupal\openy_my_y_api\Plugin\rest\resource;
 
-use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ModifiedResourceResponse;
-
 /**
  * Provides Appointments Resource.
  *
@@ -16,7 +13,7 @@ use Drupal\rest\ModifiedResourceResponse;
  *   }
  * )
  */
-class AppointmentsResource extends ResourceBase {
+class AppointmentsResource extends MyYResourceBase {
 
   /**
    * Responds to entity GET requests.
@@ -38,17 +35,6 @@ class AppointmentsResource extends ResourceBase {
       'EndDate' => date('Y-m-d', strtotime("today +20 weeks")),
     ];
 
-    $allow_origin = 'http://0.0.0.0:8080';
-    $allowed_origins = [
-      'http://***REMOVED***',
-      'http://0.0.0.0:8080',
-      'https://***REMOVED***',
-      'https://www.ymcamn.org',
-    ];
-    if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
-      $allow_origin = $_SERVER['HTTP_ORIGIN'];
-    }
-
     $results = [];
 
     try {
@@ -59,38 +45,19 @@ class AppointmentsResource extends ResourceBase {
         TRUE
       );
     } catch (\Exception $e) {
-      return new ModifiedResourceResponse(
-        [
-          'status' => FALSE,
-          'message' => $e->getMessage(),
-          'timestamp' => \Drupal::time()->getRequestTime(),
-          'results' => [],
-        ]
-      );
+      return $this->prepareResponse([
+        'status' => FALSE,
+        'message' => $e->getMessage(),
+      ]);
     }
 
     $visits = $result->GetClientScheduleResult->Visits;
 
     // In case if there is no appointments at all.
     if (!isset($visits->Visit)) {
-      $response = new ModifiedResourceResponse(
-        [
-          'status' => TRUE,
-          'message' => '',
-          'timestamp' => \Drupal::time()->getRequestTime(),
-          'results' => [],
-        ]
-      );
-
-      $response->headers->add(
-        [
-          'Access-Control-Allow-Origin' => $allow_origin,
-          'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
-          'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
-        ]
-      );
-
-      return $response;
+      return $this->prepareResponse([
+        'status' => TRUE,
+      ]);
     }
 
     // There is only one appointment.
@@ -120,24 +87,10 @@ class AppointmentsResource extends ResourceBase {
       ];
     }
 
-    $response = new ModifiedResourceResponse(
-      [
-        'status' => TRUE,
-        'message' => '',
-        'timestamp' => \Drupal::time()->getRequestTime(),
-        'results' => $data,
-      ]
-    );
-
-    $response->headers->add(
-      [
-        'Access-Control-Allow-Origin' => $allow_origin,
-        'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
-        'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
-      ]
-    );
-
-    return $response;
+    return $this->prepareResponse([
+      'status' => TRUE,
+      'results' => $data,
+    ]);
   }
 
 }
