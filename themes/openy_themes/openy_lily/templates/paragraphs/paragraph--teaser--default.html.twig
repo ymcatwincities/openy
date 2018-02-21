@@ -38,13 +38,13 @@
 #}
 {%
 set classes = [
-  'subprogram-listing-item',
-  'clearfix',
-  'row',
+'subprogram-listing-item',
+'clearfix',
+'row',
 ]
 %}
 <article{{ attributes.addClass(classes) }}>
-  <div class="col-sm-5 image">
+  <div class="col-sm-5 col-md-4 image">
     <a href="{{ content.field_prgf_link.0['#url'] }}">{{ content.field_prgf_image }}</a>
   </div>
   <div class="col-sm-7 content">

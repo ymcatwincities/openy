@@ -38,10 +38,10 @@
 #}
 {%
 set classes = [
-  'paragraph',
-  'blog-card',
-  'paragraph--type--' ~ paragraph.bundle|clean_class,
-  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+'paragraph',
+'blog-card',
+'paragraph--type--' ~ paragraph.bundle|clean_class,
+view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
 {{ attach_library('openy_lily/blog_slider') }}
