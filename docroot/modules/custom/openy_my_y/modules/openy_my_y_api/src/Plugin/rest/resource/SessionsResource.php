@@ -2,9 +2,6 @@
 
 namespace Drupal\openy_my_y_api\Plugin\rest\resource;
 
-use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ModifiedResourceResponse;
-
 /**
  * Provides Sessions Resource.
  *
@@ -16,7 +13,7 @@ use Drupal\rest\ModifiedResourceResponse;
  *   }
  * )
  */
-class SessionsResource extends ResourceBase {
+class SessionsResource extends MyYResourceBase {
 
   /**
    * Responds to entity GET requests.
@@ -41,17 +38,6 @@ class SessionsResource extends ResourceBase {
       'ProgramIDs' => [2],
     ];
 
-    $allow_origin = 'http://0.0.0.0:8080';
-    $allowed_origins = [
-      'http://***REMOVED***',
-      'http://0.0.0.0:8080',
-      'https://***REMOVED***',
-      'https://www.ymcamn.org',
-    ];
-    if (in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
-      $allow_origin = $_SERVER['HTTP_ORIGIN'];
-    }
-
     $results = [];
 
     try {
@@ -62,38 +48,19 @@ class SessionsResource extends ResourceBase {
         TRUE
       );
     } catch (\Exception $e) {
-      return new ModifiedResourceResponse(
-        [
-          'status' => FALSE,
-          'message' => $e->getMessage(),
-          'timestamp' => \Drupal::time()->getRequestTime(),
-          'results' => [],
-        ]
-      );
+      return $this->prepareResponse([
+        'status' => FALSE,
+        'message' => $e->getMessage(),
+      ]);
     }
 
     $sessions = $result->GetClientServicesResult->ClientServices;
 
     // In case if there is no appointments at all.
     if (!isset($sessions->ClientService)) {
-      $response = new ModifiedResourceResponse(
-        [
-          'status' => TRUE,
-          'message' => '',
-          'timestamp' => \Drupal::time()->getRequestTime(),
-          'results' => [],
-        ]
-      );
-
-      $response->headers->add(
-        [
-          'Access-Control-Allow-Origin' => $allow_origin,
-          'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
-          'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
-        ]
-      );
-
-      return $response;
+      return $this->prepareResponse([
+        'status' => TRUE,
+      ]);
     }
 
     // There is only one session.
@@ -114,24 +81,10 @@ class SessionsResource extends ResourceBase {
       ];
     }
 
-    $response = new ModifiedResourceResponse(
-      [
-        'status' => TRUE,
-        'message' => '',
-        'timestamp' => \Drupal::time()->getRequestTime(),
-        'results' => $data,
-      ]
-    );
-
-    $response->headers->add(
-      [
-        'Access-Control-Allow-Origin' => $allow_origin,
-        'Access-Control-Allow-Methods' => "POST, GET, OPTIONS, PATCH, DELETE",
-        'Access-Control-Allow-Headers' => "Authorization, X-CSRF-Token, Content-Type",
-      ]
-    );
-
-    return $response;
+    return $this->prepareResponse([
+      'status' => TRUE,
+      'results' => $data,
+    ]);
   }
 
 }
