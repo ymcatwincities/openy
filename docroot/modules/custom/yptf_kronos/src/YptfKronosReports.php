@@ -2,14 +2,14 @@
 
 namespace Drupal\yptf_kronos;
 
-use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Render\Renderer;
-use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\Component\Render\FormattableMarkup;
+use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 /**
  * Class YptfKronosReports.
@@ -140,7 +140,10 @@ class YptfKronosReports {
    *
    * @var array
    */
-  protected $kronosTrainingId = ['PT (small groups)', 'PT (group of 5 or more)'];
+  protected $kronosTrainingId = [
+    'PT (small groups)',
+    'PT (group of 5 or more)',
+  ];
 
   /**
    * Flag for report calculation.
@@ -210,9 +213,12 @@ class YptfKronosReports {
     $trainer_reports = [];
     $location_reports = [];
     // Get locations ref.
-    $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
+    $mapping_repository_location = \Drupal::service(
+      'ymca_mappings.location_repository'
+    );
 
-    $mb_locations = $this->configFactory->get('ymca_mindbody.trainings_mapping')->get('locations');
+    $mb_locations = $this->configFactory->get('ymca_mindbody.trainings_mapping')
+      ->get('locations');
     if (!empty($mb_locations)) {
       foreach ($mb_locations as $mbNo => $mb_location) {
         $mb_locations_names[$mb_location['label']] = $mbNo;
@@ -220,18 +226,32 @@ class YptfKronosReports {
     }
     else {
       $msg = 'Failed to get locations from config %params.';
-      $this->logger->notice($msg, [
-        '%params' => 'ymca_mindbody.trainings_mapping',
-      ]);
+      $this->logger->notice(
+        $msg,
+        [
+          '%params' => 'ymca_mindbody.trainings_mapping',
+        ]
+      );
     }
 
     if ($this->getKronosData()) {
       // Calculate Workforce Kronos data.
       foreach ($this->kronosData as $current_line => $item) {
         if (in_array($item->job, $this->kronosTrainingId)) {
-          $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
+          $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId(
+            $item->locNo
+          );
           !$location_id ? $location_reports[$item->locNo] = 'Location mapping missed. WF locNo: ' . $item->locNo : '';
-          $location_reports[$location_id]['name'] = $item->locName;
+          $loc_name = $item->locName;
+          if ($location_id) {
+            $mapping = $mapping_repository_location->findByMindBodyId(
+              $location_id
+            );
+            $loc_name = $mapping->field_location_name->value;
+          }
+
+
+          $location_reports[$location_id]['name'] = $loc_name;
           $empID = $item->empNo;
 
           if (empty($empID)) {
@@ -239,19 +259,25 @@ class YptfKronosReports {
             $empID = 'KWFC - No Staff ID for: ' . $item->lastName . ', ' . $item->firstName;
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . $empID;
           }
-          elseif (!is_array($empID) && !isset($trainer_reports[$location_id][$empID]['name'])) {
+          elseif (!is_array(
+              $empID
+            ) && !isset($trainer_reports[$location_id][$empID]['name'])) {
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName;
           }
 
           if (isset($item->totalHours)) {
             // Skip trainer calculation for multiple empIDs.
-            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['wf_hours']) ? $trainer_reports[$location_id][$empID]['wf_hours'] = 0 : '';
+            !is_array(
+              $empID
+            ) && !isset($trainer_reports[$location_id][$empID]['wf_hours']) ? $trainer_reports[$location_id][$empID]['wf_hours'] = 0 : '';
             !isset($location_reports[$location_id]['wf_hours']) && $location_reports[$location_id]['wf_hours'] = 0;
           }
 
           if (isset($item->historical)) {
             // Skip trainer calculation for multiple empIDs.
-            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['historical_hours']) ? $trainer_reports[$location_id][$empID]['historical_hours'] = 0 : '';
+            !is_array(
+              $empID
+            ) && !isset($trainer_reports[$location_id][$empID]['historical_hours']) ? $trainer_reports[$location_id][$empID]['historical_hours'] = 0 : '';
             !isset($location_reports[$location_id]['historical_hours']) ? $location_reports[$location_id]['historical_hours'] = 0 : '';
           }
           // Skip trainer calculation for multiple empIDs.
@@ -300,9 +326,12 @@ class YptfKronosReports {
           else {
             $location_id = 'no location';
             $msg = 'Failed to get locations for config %params.';
-            $this->logger->notice($msg, [
-              '%params' => $staff_id,
-            ]);
+            $this->logger->notice(
+              $msg,
+              [
+                '%params' => $staff_id,
+              ]
+            );
           }
 
           !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
@@ -337,7 +366,9 @@ class YptfKronosReports {
           $trainer['wf_hours'] = round($trainer['wf_hours'], 2);
         }
         if ($mb_flag && $wf_flag) {
-          $trainer['variance'] = round((1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100);
+          $trainer['variance'] = round(
+            (1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100
+          );
           $trainer['variance'] .= '%';
         }
 
@@ -366,17 +397,28 @@ class YptfKronosReports {
       else {
         $row['mb_hours'] = round($row['mb_hours'], 2);
         $row['wf_hours'] = round($row['wf_hours'], 2);
-        $row['variance'] = round((1 - $row['mb_hours'] / $row['wf_hours']) * 100);
+        $row['variance'] = round(
+          (1 - $row['mb_hours'] / $row['wf_hours']) * 100
+        );
         $row['variance'] .= '%';
       }
-      isset($row['wf_hours']) ? $loc_total['wf_hours'] += intval($row['wf_hours']) : '';
-      isset($row['mb_hours']) ? $loc_total['mb_hours'] += intval($row['mb_hours']) : '';
-      isset($row['historical_hours']) ? $loc_total['historical_hours'] += intval($row['historical_hours']) : '';
+      isset($row['wf_hours']) ? $loc_total['wf_hours'] += intval(
+        $row['wf_hours']
+      ) : '';
+      isset($row['mb_hours']) ? $loc_total['mb_hours'] += intval(
+        $row['mb_hours']
+      ) : '';
+      isset($row['historical_hours']) ? $loc_total['historical_hours'] += intval(
+        $row['historical_hours']
+      ) : '';
     }
     $location_reports['total']['wf_hours'] = round($loc_total['wf_hours'], 2);
     $location_reports['total']['mb_hours'] = round($loc_total['mb_hours'], 2);
     if (isset($loc_total['total']['historical_hours'])) {
-      $location_reports['total']['historical_hours'] = round($loc_total['total']['historical_hours'], 2);
+      $location_reports['total']['historical_hours'] = round(
+        $loc_total['total']['historical_hours'],
+        2
+      );
     }
     else {
       $location_reports['total']['historical_hours'] = 0;
@@ -385,7 +427,9 @@ class YptfKronosReports {
       $location_reports['total']['variance'] = '-';
     }
     else {
-      $location_reports['total']['variance'] = round((1 - $location_reports['total']['mb_hours'] / $location_reports['total']['wf_hours']) * 100);
+      $location_reports['total']['variance'] = round(
+        (1 - $location_reports['total']['mb_hours'] / $location_reports['total']['wf_hours']) * 100
+      );
       $location_reports['total']['variance'] .= '%';
     }
 
@@ -405,8 +449,11 @@ class YptfKronosReports {
         $kronos_shift_day -= 7;
       }
     }
-    $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_report_day));
-    $this->dates['StartDate']  = date('Y-m-d', strtotime($kronos_report_day . ' -13 days'));
+    $this->dates['EndDate'] = date('Y-m-d', strtotime($kronos_report_day));
+    $this->dates['StartDate'] = date(
+      'Y-m-d',
+      strtotime($kronos_report_day . ' -13 days')
+    );
   }
 
   /**
@@ -427,10 +474,17 @@ class YptfKronosReports {
     $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day));
     $kronos_data_raw = $kronos_file = '';
     foreach ($kronos_shift_days as $shift) {
-      $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
-      $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+      $kronos_file_name_date = date(
+        'Y-m-d',
+        strtotime($kronos_report_day . $shift . 'days')
+      );
+      $kronos_path_to_file = \Drupal::service('file_system')->realpath(
+        file_default_scheme() . "://"
+      );
       $kronos_file = $kronos_path_to_file . '/wf_reports/WFC_' . $kronos_file_name_date . '.json';
-      file_exists($kronos_file) ? $kronos_data_raw = file_get_contents($kronos_file) : '';
+      file_exists($kronos_file) ? $kronos_data_raw = file_get_contents(
+        $kronos_file
+      ) : '';
       if (empty($kronos_data_raw)) {
         $kronos_file = self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date . '.json';
         $kronos_data_raw = @file_get_contents($kronos_file);
@@ -443,15 +497,24 @@ class YptfKronosReports {
     if (!$kronos_data_raw) {
       $msg = 'Failed to get the data from Kronos file %file.';
       $this->logger->notice($msg, ['%file' => $kronos_file]);
-      $kronos_file_name_date2 = date('Y-m-d', strtotime($kronos_report_day . reset($kronos_shift_days) . 'days'));
-      $this->reports['messages']['error_reports']['No Kronos file for two weeks:'][] = t('Failed to get the data from Kronos file %file1 and %file2. Contact the FFW team.', [
-        '%file1' => $kronos_file,
-        '%file2' => self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date2 . '.json',
-      ]);
+      $kronos_file_name_date2 = date(
+        'Y-m-d',
+        strtotime($kronos_report_day . reset($kronos_shift_days) . 'days')
+      );
+      $this->reports['messages']['error_reports']['No Kronos file for two weeks:'][] = t(
+        'Failed to get the data from Kronos file %file1 and %file2. Contact the FFW team.',
+        [
+          '%file1' => $kronos_file,
+          '%file2' => self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date2 . '.json',
+        ]
+      );
       return $this->kronosData;
     }
-    $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_file_name_date));
-    $this->dates['StartDate']  = date('Y-m-d', strtotime($kronos_file_name_date . ' -13 days'));
+    $this->dates['EndDate'] = date('Y-m-d', strtotime($kronos_file_name_date));
+    $this->dates['StartDate'] = date(
+      'Y-m-d',
+      strtotime($kronos_file_name_date . ' -13 days')
+    );
     return $this->kronosData = json_decode($kronos_data_raw);
   }
 
@@ -474,7 +537,11 @@ class YptfKronosReports {
     $start_time_report = strtotime($this->dates['StartDate']);
     if (empty($this->dates['mbEndDate'])) {
       $this->dates['mbEndDate'] = $this->dates['EndDate'];
-      $start_time_calc = strtotime($this->dates['mbEndDate'] . ' -' . ceil(14 / $this->numberOfRequest) . ' days');
+      $start_time_calc = strtotime(
+        $this->dates['mbEndDate'] . ' -' . ceil(
+          14 / $this->numberOfRequest
+        ) . ' days'
+      );
       if ($start_time_calc > $start_time_report) {
         $this->dates['mbStartDate'] = date('Y-m-d', $start_time_calc);
       }
@@ -486,11 +553,18 @@ class YptfKronosReports {
       if (empty($this->dates['mbStartDate'])) {
         return FALSE;
       }
-      $this->dates['mbEndDate'] = date('Y-m-d', strtotime($this->dates['mbStartDate'] . ' -1 day'));
+      $this->dates['mbEndDate'] = date(
+        'Y-m-d',
+        strtotime($this->dates['mbStartDate'] . ' -1 day')
+      );
       if (strtotime($this->dates['mbEndDate']) < $start_time_report) {
         return FALSE;
       }
-      $start_time_calc = strtotime($this->dates['mbEndDate'] . ' -' . ceil(14 / $this->numberOfRequest) . ' days');
+      $start_time_calc = strtotime(
+        $this->dates['mbEndDate'] . ' -' . ceil(
+          14 / $this->numberOfRequest
+        ) . ' days'
+      );
       if ($start_time_calc > $start_time_report) {
         $this->dates['mbStartDate'] = date('Y-m-d', $start_time_calc);
       }
@@ -518,16 +592,25 @@ class YptfKronosReports {
     ];
 
     // Get MB cache for debug mode.
-    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
+    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
+      'debug'
+    );
     if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
       // New service to add.
       // Saving a file with a path.
-      $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+      $cache_dir = \Drupal::service('file_system')->realpath(
+        file_default_scheme() . "://"
+      );
       $cache_dir = $cache_dir . '/mb_reports';
       $file = $cache_dir . '/MB_' . $this->dates['EndDate'] . '.json';
       $mb_data_file = file_get_contents($file);
       if (!$mb_data_file) {
-        $result = $this->proxy->call('DataService', 'FunctionDataXml', $params, TRUE);
+        $result = $this->proxy->call(
+          'DataService',
+          'FunctionDataXml',
+          $params,
+          TRUE
+        );
         $this->mindbodyData = $result->FunctionDataXmlResult->Results;
 
         if (!file_exists($cache_dir)) {
@@ -543,25 +626,37 @@ class YptfKronosReports {
     if (empty($this->mindbodyData)) {
       try {
         // Send notifications.
-        $result = $this->proxy->call('DataService', 'FunctionDataXml', $params, TRUE);
+        $result = $this->proxy->call(
+          'DataService',
+          'FunctionDataXml',
+          $params,
+          TRUE
+        );
         $this->mindbodyData = $result->FunctionDataXmlResult->Results;
-      }
-      catch (\Exception $e) {
+      } catch (\Exception $e) {
         $msg = 'Error: %error . Failed to get the data from MindBody. Request MB params: %params.';
-        $this->logger->notice($msg, [
-          '%error' => $e->getMessage(),
-          '%params' => print_r($params, TRUE),
-        ]);
-        $this->reports['messages']['error_reports']['Failed request for MB report data:'][] = t('Error: %error . Failed to get the data from MindBody. Request MB params: %params. Contact the MindBody team.', [
-          '%error' => $e->getMessage(),
-          '%params' => print_r($params, TRUE),
-        ]);
+        $this->logger->notice(
+          $msg,
+          [
+            '%error' => $e->getMessage(),
+            '%params' => print_r($params, TRUE),
+          ]
+        );
+        $this->reports['messages']['error_reports']['Failed request for MB report data:'][] = t(
+          'Error: %error . Failed to get the data from MindBody. Request MB params: %params. Contact the MindBody team.',
+          [
+            '%error' => $e->getMessage(),
+            '%params' => print_r($params, TRUE),
+          ]
+        );
         return FALSE;
       }
 
     }
 
-    if (isset($result->Row) && !empty($result->Row) && $first_row = reset($result->Row) && !empty($first_row)) {
+    if (isset($result->Row) && !empty($result->Row) && $first_row = reset(
+          $result->Row
+        ) && !empty($first_row)) {
       $this->mindbodyData = $result->Row;
     }
     elseif (isset($result->SoapClient)) {
@@ -570,13 +665,15 @@ class YptfKronosReports {
         $encoder = new XmlEncoder();
         $data = $encoder->decode($last_response, 'xml');
         $parsed_data = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult'];
-      }
-      catch (\Exception $e) {
+      } catch (\Exception $e) {
         $msg = 'Error: %error . Failed to get SoapClient->lastResponse from MindBody request for: %params.';
-        $this->logger->notice($msg, [
-          '%error' => $e->getMessage(),
-          '%params' => $params,
-        ]);
+        $this->logger->notice(
+          $msg,
+          [
+            '%error' => $e->getMessage(),
+            '%params' => $params,
+          ]
+        );
       }
 
       if (isset($parsed_data['Status']) && $parsed_data['Status'] == 'Success') {
@@ -585,17 +682,23 @@ class YptfKronosReports {
         }
         else {
           $msg = 'Failed to get data from SoapClient->lastResponse from MindBody request for: %params.';
-          $this->logger->notice($msg, [
-            '%params' => $params,
-          ]);
+          $this->logger->notice(
+            $msg,
+            [
+              '%params' => $params,
+            ]
+          );
           return FALSE;
         }
       }
       else {
         $msg = 'Failed to get data from SoapClient->lastResponse from MindBody request for: %params.';
-        $this->logger->notice($msg, [
-          '%params' => $params,
-        ]);
+        $this->logger->notice(
+          $msg,
+          [
+            '%params' => $params,
+          ]
+        );
         return FALSE;
       }
     }
@@ -617,7 +720,9 @@ class YptfKronosReports {
       return $this->staffIDs[$staff_id];
     }
     // Get MB cache for debug mode.
-    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
+    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
+      'debug'
+    );
     if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
       if (!isset($this->staffIDs)) {
         $cache_dir = \Drupal::service('file_system')
@@ -652,22 +757,31 @@ class YptfKronosReports {
     $mb_staff_id = $mb_server_fails = FALSE;
     try {
       // Send notifications.
-      $staff_id_call = $this->proxy->call('DataService', 'FunctionDataXml', $staff_params, TRUE);
+      $staff_id_call = $this->proxy->call(
+        'DataService',
+        'FunctionDataXml',
+        $staff_params,
+        TRUE
+      );
       $mb_staff_id = $staff_id_call->FunctionDataXmlResult->Results;
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       $mb_server_fails = TRUE;
       $msg = 'Error: %error . Failed to get the Employee ID from MindBody. Request MB params: %params.';
-      $this->logger->notice($msg, [
-        '%error' => $e->getMessage(),
-        '%params' => $staff_id,
-      ]);
+      $this->logger->notice(
+        $msg,
+        [
+          '%error' => $e->getMessage(),
+          '%params' => $staff_id,
+        ]
+      );
     }
 
     if (isset($mb_staff_id->Row->EmpID) && !empty($mb_staff_id->Row->EmpID)) {
       $this->staffIDs[$staff_id] = $mb_staff_id->Row->EmpID;
       // Get MB cache for debug mode.
-      $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
+      $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
+        'debug'
+      );
       if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
         file_put_contents($file, json_encode($this->staffIDs));
       }
@@ -680,13 +794,15 @@ class YptfKronosReports {
         $encoder = new XmlEncoder();
         $data = $encoder->decode($last_response, 'xml');
         $parsed_data = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult'];
-      }
-      catch (\Exception $e) {
+      } catch (\Exception $e) {
         $msg = 'Error: %error . Failed to get SoapClient->lastResponse from MindBody request for staffID: %params.';
-        $this->logger->notice($msg, [
-          '%error' => $e->getMessage(),
-          '%params' => $staff_id,
-        ]);
+        $this->logger->notice(
+          $msg,
+          [
+            '%error' => $e->getMessage(),
+            '%params' => $staff_id,
+          ]
+        );
       }
 
       if (isset($parsed_data['Status']) && $parsed_data['Status'] == 'Success') {
@@ -695,7 +811,8 @@ class YptfKronosReports {
             $empID = $parsed_data['Results']['Row']['EmpID'];
             $this->staffIDs[$staff_id] = $empID;
             // Get MB cache for debug mode.
-            $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
+            $debug_mode = $this->configFactory->get('yptf_kronos.settings')
+              ->get('debug');
             if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
               file_put_contents($file, json_encode($this->staffIDs));
             }
@@ -728,47 +845,108 @@ class YptfKronosReports {
   public function sendReports() {
     $config = $this->configFactory->get('yptf_kronos.settings');
     $debug_mode = $config->get('debug');
-    $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
-    $report_tokens = ['leadership' => '[leadership-report]', 'pt_managers' => '[pt-manager-report]'];
+    $email_type = [
+      'leadership' => 'Leadership email',
+      'pt_managers' => 'PT managers email',
+    ];
+    $report_tokens = [
+      'leadership' => '[leadership-report]',
+      'pt_managers' => '[pt-manager-report]',
+    ];
 
     // Get settings.
     $storage = \Drupal::entityTypeManager()->getStorage('mapping');
     $lang = $this->languageManager->getCurrentLanguage()->getId();
 
     foreach ($email_type as $report_type => $data) {
-      $enabled_setting = !empty($config->get($report_type)['enabled']) ? $config->get($report_type)['enabled'] : FALSE;
-      $enabled_condition = trim(strip_tags(str_replace('&nbsp;', '', $config->get($report_type)['disabled_message']['value'])));
+      $enabled_setting = !empty(
+      $config->get(
+        $report_type
+      )['enabled']
+      ) ? $config->get($report_type)['enabled'] : FALSE;
+      $enabled_condition = trim(
+        strip_tags(
+          str_replace(
+            '&nbsp;',
+            '',
+            $config->get($report_type)['disabled_message']['value']
+          )
+        )
+      );
       $enabled_condition = $enabled_setting || !empty($enabled_condition);
-      if ($enabled_condition && !empty($config->get($report_type)['staff_type'])) {
-        $recipients = $storage->loadByProperties(['type' => 'staff', 'field_staff_type' => $config->get($report_type)['staff_type']]);
+      if ($enabled_condition && !empty(
+        $config->get(
+          $report_type
+        )['staff_type']
+        )) {
+        $recipients = $storage->loadByProperties(
+          [
+            'type' => 'staff',
+            'field_staff_type' => $config->get($report_type)['staff_type'],
+          ]
+        );
         foreach ($recipients as $index => $recipient) {
           if ($enabled_setting && !$this->reportCalculated) {
             $this->calculateReports();
           }
-          $body = $enabled_setting ? $config->get($report_type)['body']['value'] : $config->get($report_type)['disabled_message']['value'];
+          $body = $enabled_setting ? $config->get(
+            $report_type
+          )['body']['value'] : $config->get(
+            $report_type
+          )['disabled_message']['value'];
           $token = FALSE;
 
           if ($report_type == 'leadership') {
-            $token = $this->createReportTable('', $report_type, $enabled_setting);
+            $token = $this->createReportTable(
+              '',
+              $report_type,
+              $enabled_setting
+            );
           }
-          elseif (!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
-            $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type, $enabled_setting);
+          elseif (!empty(
+          $recipient->field_staff_branch->getValue()[0]['target_id']
+          )) {
+            $token = $this->createReportTable(
+              $recipient->field_staff_branch->getValue()[0]['target_id'],
+              $report_type,
+              $enabled_setting
+            );
           }
           else {
             $msg = 'PT Manager "%surname, %name" has no branch.';
-            $this->logger->notice($msg, [
-              '%surname' => $recipient->field_staff_surname->getValue()[0]['value'],
-              '%name' => $recipient->field_staff_name->getValue()[0]['value'],
-            ]);
+            $this->logger->notice(
+              $msg,
+              [
+                '%surname' => $recipient->field_staff_surname->getValue(
+                )[0]['value'],
+                '%name' => $recipient->field_staff_name->getValue()[0]['value'],
+              ]
+            );
           }
           if (!$token) {
             continue;
           }
 
-          $tokens['body'] = $enabled_setting ? str_replace($report_tokens[$report_type], $token['report'], $body) : $body;
-          $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
-          $tokens['subject'] = str_replace('[report-start-date]', date("m/d/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
-          $tokens['subject'] = str_replace('[report-end-date]', date("m/d/Y", strtotime($this->dates['EndDate'])), $tokens['subject']);
+          $tokens['body'] = $enabled_setting ? str_replace(
+            $report_tokens[$report_type],
+            $token['report'],
+            $body
+          ) : $body;
+          $tokens['subject'] = str_replace(
+            '[report-branch-name]',
+            $token['name'],
+            $config->get($report_type)['subject']
+          );
+          $tokens['subject'] = str_replace(
+            '[report-start-date]',
+            date("m/d/Y", strtotime($this->dates['StartDate'])),
+            $tokens['subject']
+          );
+          $tokens['subject'] = str_replace(
+            '[report-end-date]',
+            date("m/d/Y", strtotime($this->dates['EndDate'])),
+            $tokens['subject']
+          );
 
           // Debug Mode: Print results on screen or send to mail.
           if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'dpm')) {
@@ -780,9 +958,14 @@ class YptfKronosReports {
             $debug_email = end($debug_email);
             try {
               // Send notifications.
-              $this->mailManager->mail('yptf_kronos', 'yptf_kronos_reports', $debug_email, $lang, $tokens);
-            }
-            catch (\Exception $e) {
+              $this->mailManager->mail(
+                'yptf_kronos',
+                'yptf_kronos_reports',
+                $debug_email,
+                $lang,
+                $tokens
+              );
+            } catch (\Exception $e) {
               $msg = 'Failed to send email report. Error: %error';
               $this->logger->notice($msg, ['%error' => $e->getMessage()]);
             }
@@ -790,14 +973,22 @@ class YptfKronosReports {
           else {
             try {
               // Send notifications.
-              $this->mailManager->mail('yptf_kronos', 'yptf_kronos_reports', $recipient->field_staff_email->getValue()[0]['value'], $lang, $tokens);
-            }
-            catch (\Exception $e) {
+              $this->mailManager->mail(
+                'yptf_kronos',
+                'yptf_kronos_reports',
+                $recipient->field_staff_email->getValue()[0]['value'],
+                $lang,
+                $tokens
+              );
+            } catch (\Exception $e) {
               $msg = 'Failed to send email report. Error: %error';
               $this->logger->notice($msg, ['%error' => $e->getMessage()]);
-              $this->reports['messages']['error_reports']['Failed to send email. Email server issue:'][] = t('Failed to send email report. Error: %error . Contact the FFW team.', [
-                '%error' => print_r($e->getMessage(), TRUE),
-              ]);
+              $this->reports['messages']['error_reports']['Failed to send email. Email server issue:'][] = t(
+                'Failed to send email report. Error: %error . Contact the FFW team.',
+                [
+                  '%error' => print_r($e->getMessage(), TRUE),
+                ]
+              );
             }
           }
         }
@@ -818,8 +1009,14 @@ class YptfKronosReports {
    * @return mixed
    *   Rendered value.
    */
-  public function createReportTable($location_id, $type = 'leadership', $enabled_setting = TRUE) {
-    $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t('Branch Name');
+  public function createReportTable(
+    $location_id,
+    $type = 'leadership',
+    $enabled_setting = TRUE
+  ) {
+    $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t(
+      'Branch Name'
+    );
 
     switch ($type) {
       case "pt_managers":
@@ -828,7 +1025,9 @@ class YptfKronosReports {
         }
 
         // Get locations ref.
-        $location_repository = \Drupal::service('ymca_mappings.location_repository');
+        $location_repository = \Drupal::service(
+          'ymca_mappings.location_repository'
+        );
         $location = $location_repository->findByLocationId($location_id);
         $location = is_array($location) ? reset($location) : $location;
         if ($location) {
@@ -837,9 +1036,12 @@ class YptfKronosReports {
         else {
           $msg = 'No location on site for MB location_id: %params.';
           $this->logger->notice($msg, ['%params' => $location_id]);
-          $this->reports['messages']['error_reports']['No location mapping based on MB location ID:'][] = t('No location on site for MB location_id: %params. Contact the FFW team.', [
-            '%params' => print_r($location_id, TRUE),
-          ]);
+//          $this->reports['messages']['error_reports']['No location mapping based on MB location ID:'][] = t(
+//            'No location on site for MB location_id: %params. Contact the FFW team.',
+//            [
+//              '%params' => print_r($location_id, TRUE),
+//            ]
+//          );
           return FALSE;
         }
         $location_name = $location->getName();
@@ -862,7 +1064,9 @@ class YptfKronosReports {
           $data['messages'] = '';
           if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
             $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
-            $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')
+            $admin_emails = $config = $this->configFactory->get(
+              'yptf_kronos.settings'
+            )
               ->get('admin_emails');
             $data['admin_mail_raw'] = '';
             $data['admin_mail'] = '';
@@ -908,7 +1112,7 @@ class YptfKronosReports {
           }
           $data['summary'] = $this->reports['locations']['total'];
           $data['summary']['name'] = t('ALL BRANCHES');
-          unset($this->reports['locations']['total']);
+//          unset($this->reports['locations']['total']);
           $data['rows'] = $this->reports['locations'];
           // Sort by names.
           $names = [];
@@ -918,7 +1122,11 @@ class YptfKronosReports {
             }
             $names[] = &$name["name"];
           }
-          array_multisort($names, $data['rows']);
+          natcasesort($names);
+          array_multisort($names, $data['rows'], SORT_NATURAL);
+          foreach ($names as $id => $sortName) {
+
+          }
           $variables = [
             '#theme' => 'yptf_kronos_report',
             '#data' => $data,
@@ -938,7 +1146,9 @@ class YptfKronosReports {
    */
   public function sendErrorReports() {
     if (isset($this->reports['messages']['error_reports'])) {
-      $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')->get('admin_emails');
+      $admin_emails = $config = $this->configFactory->get(
+        'yptf_kronos.settings'
+      )->get('admin_emails');
       if (!empty($admin_emails)) {
         $admin_emails = explode(',', $admin_emails);
         foreach ($admin_emails as $index => $email) {
@@ -959,9 +1169,14 @@ class YptfKronosReports {
             }
 
             $tokens['subject'] = t('Kronos Error Reports');
-            $this->mailManager->mail('yptf_kronos', 'yptf_kronos_error_reports', $email, $lang, $tokens);
-          }
-          catch (\Exception $e) {
+            $this->mailManager->mail(
+              'yptf_kronos',
+              'yptf_kronos_error_reports',
+              $email,
+              $lang,
+              $tokens
+            );
+          } catch (\Exception $e) {
             $msg = 'Failed to send Error email report. Error: %error';
             $this->logger->notice($msg, ['%error' => $e->getMessage()]);
 
