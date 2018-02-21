@@ -385,6 +385,7 @@ body {
 @media (min-width: 62em) {
   .page-head__logo .site-logo {
     position: absolute;
+    width: 250px;
   }
 }
 .page-head__logo .site-slogan {
