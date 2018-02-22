@@ -98,29 +98,12 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
   border-bottom: inherit;
 }
 /* Branch subheader background. */
-.branch-header .desktop,
-.branch-header .desktop .today-hours .branch-hours,
-.branch-header .mobile,
-.node--type-blog.node--view-mode-teaser.blog-fuchsia .inner-wrapper,
+.is-branch .branch-header .desktop,
+.is-branch .branch-header .desktop .today-hours .branch-hours,
+.is-branch .branch-header .mobile,
+.is-branch .node--type-blog.node--view-mode-teaser.blog-fuchsia .inner-wrapper,
 #membership-calc-wrapper .nav-pills > li div {
   background-color: #5a2b8d;
-}
-/*.page-head__main-menu .nav-level-2 > a,*/
-/*.page-head__main-menu .nav-level-3 > a,*/
-/*.viewport .navbar-default .navbar-nav > li > a,*/
-/*.page-head__top-menu a,*/
-/*.page-head__main-menu a,*/
-/*.viewport .page-head__main-menu .dropdown-menu > li > a:focus,*/
-/*.viewport .page-head__main-menu .dropdown-menu > li > a:hover,*/
-/*.navbar-nav .open .dropdown-menu > li > a:hover,*/
-/*.navbar-nav .open .dropdown-menu > li > a:focus {*/
-  /*color: #fffffb;*/
-/*}*/
-.viewport .nav-level-2 > a:hover,
-.viewport .nav-level-2 > a:focus
-.viewport .page-head__main-menu .nav-level-2 > a:hover,
-.viewport .page-head__main-menu .nav-level-2 > a:focus {
-  color: #d8d8d8;
 }
 
 /* Footer background color. */
@@ -131,7 +114,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 
 /* Footer text color. */
 .footer,
-.footer .footer__nav nav ul li a
+.footer .footer__nav nav ul li a,
 #page-footer nav ul li a,
 #page-footer #block-openy-lily-footermenucenter .nav li a,
 #page-footer #block-openy-lily-footermenucenter .nav li a:hover {
@@ -234,7 +217,6 @@ body .branch-popup .ui-dialog-content h3 {
   color: #fffff8;
 }
 
-
 /* Camp specific overrides */
 
 /* Camp subheader background color. */
@@ -247,12 +229,8 @@ body .branch-popup .ui-dialog-content h3 {
 
 /* Camp link color. */
 .is-camp a,
-.is-camp .link,
-.is-camp #page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
-  color: #377bb6;
-}
-.is-camp #page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
-  border-color: #377bb6;
+.is-camp .link {
+  color: #019c85;
 }
 .is-camp .button,
 .is-camp .btn,
@@ -397,6 +375,11 @@ body .is-camp .branch-popup .ui-dialog-content h3 {
 .is-camp .viewport .nav-level-2 > a:hover,
 .is-camp .viewport .nav-level-2 > a:focus {
   background: none;
+}
+
+.is-camp #page-footer #block-openy-lily-footersocialblock ul li a.fa {
+  border-color: #019c86;
+  color: #019c86;
 }
 
 /* Color Module: Don't touch */
