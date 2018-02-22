@@ -5,6 +5,8 @@
  * Contains openy_prgf_featured_highlights.module.
  */
 
+use Drupal\Core\Render\Element;
+
 /**
  * Implements hook_theme().
  */
@@ -13,5 +15,32 @@ function openy_prgf_featured_highlights_theme() {
     'paragraph__featured_highlights__default' => [
       'base hook' => 'paragraph',
     ],
+    'openy_featured_highlights_block' => [
+      'render element' => 'elements',
+      'template' => 'openy-featured-highlights-block',
+    ],
   ];
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function openy_prgf_featured_highlights_preprocess_paragraph(&$variables) {
+  /** @var Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+  if ($paragraph->bundle() != 'featured_highlights') {
+    return;
+  }
+  foreach (Element::children($variables['content']['field_prgf_block_ref_unlim']) as $key) {
+    if (!isset($variables['content']['field_prgf_block_ref_unlim'][$key]['#block_content'])) {
+      continue;
+    }
+    /** @var Drupal\block_content\Entity\BlockContent $block */
+    $block = $variables['content']['field_prgf_block_ref_unlim'][$key]['#block_content'];
+    switch ($block->bundle()) {
+      case 'featured_highlights_block':
+        $variables['content']['field_prgf_block_ref_unlim'][$key]['#theme'] = 'openy_featured_highlights_block';
+        break;
+    }
+  }
 }
