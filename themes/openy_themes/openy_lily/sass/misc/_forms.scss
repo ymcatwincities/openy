@@ -644,7 +644,7 @@ legend {
   }
   @include breakpoint (0 $tablet-start) {
     .js-form-type-select {
-      width: 80px !important;
+      width: 110px !important;
     }
   }
   @include breakpoint (0 $tablet) {
@@ -653,6 +653,18 @@ legend {
     }
     .filters-container .container {
       padding: 0;
+    }
+  }
+  .js-form-item-date {
+    @include breakpoint (0 $tablet-start) {
+      clear: left;
+    }
+  }
+  .form-item.js-form-item-display {
+    @include breakpoint ($tablet $tablet-start) {
+      clear: none;
+      float: left;
+      margin-top: 46px;
     }
   }
 }
@@ -702,26 +714,28 @@ legend {
 
 .webform-submission-contact-add-form {
   .form-item {
-    padding: 0 15px;
-
     &.js-form-item-name {
-      padding: 0;
-
+      padding: 0 15px 0 0;
+      float: left;
+      width: 50%;
       label {
         display: block;
-        margin-left: 15px;
-      }
-
-      .form-item {
-        padding: 0 15px;
-        float: left;
-        width: 50%;
       }
     }
 
+    &.js-form-item-email {
+      padding: 0 0 0 15px;
+      float: left;
+      width: 50%;
+      label {
+        display: block;
+      }
+    }
+    &.js-form-item-subject {
+     clear: left;
+    }
     &.form-item-area-of-interest,
     &.form-item-branch,
-    &.form-item-email,
     &.form-item-phone {
       float: left;
       width: 50%;
@@ -729,14 +743,6 @@ legend {
     @include breakpoint (0 $tablet) {
       width: 100% !important;
       padding: 0 !important;
-    }
-  }
-
-  .form-actions,
-  .captcha {
-    margin-left: 15px;
-    @include breakpoint (0 $tablet) {
-      margin-left: 0
     }
   }
 }

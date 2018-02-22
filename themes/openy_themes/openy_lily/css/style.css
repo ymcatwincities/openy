@@ -4661,7 +4661,7 @@ html.js .branch__updates_queue__button {
   #schedules-search-form-wrapper .js-form-type-textfield {
     padding: 15px 0;
     margin-right: 18px;
-    width: 110px;
+    width: 120px;
   }
 }
 #schedules-search-form-wrapper .js-form-type-textfield label {
@@ -4687,33 +4687,32 @@ html.js .branch__updates_queue__button {
   padding-right: 20px;
   padding-left: 5px;
 }
-#schedules-search-form-wrapper .form-item-display {
-  float: left;
-  display: inline-block;
-  padding: 10px 0 5px;
+#schedules-search-form-wrapper .form-item.form-item-display {
+  clear: left;
+  padding: 0;
   width: 100%;
 }
 @media (min-width: 48em) {
-  #schedules-search-form-wrapper .form-item-display {
-    padding: 15px 0;
-    margin-right: 18px;
-    width: 110px;
+  #schedules-search-form-wrapper .form-item.form-item-display {
+    margin: 0;
+    width: 140px;
   }
 }
-#schedules-search-form-wrapper .form-item-display label {
+#schedules-search-form-wrapper .form-item.form-item-display label {
   font-size: 14px;
   line-height: 1.6;
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
+  display: inline-block;
 }
 @media (min-width: 48em) {
-  #schedules-search-form-wrapper .form-item-display label {
+  #schedules-search-form-wrapper .form-item.form-item-display label {
     margin-bottom: 5px;
   }
 }
-#schedules-search-form-wrapper .form-item-display input {
-  display: block;
+#schedules-search-form-wrapper .form-item.form-item-display input {
+  display: inline-block;
 }
 #schedules-search-form-wrapper .selects-container hr {
   border-color: #636466;
@@ -5644,25 +5643,25 @@ body .branch-popup + .ui-widget-overlay {
   max-width: 100%;
   height: auto;
 }
-.modal-body [class*='form-type-radio'] {
+.modal-body .js-form-type-radio {
   display: inline-block;
   padding: 15px;
 }
 @media (min-width: 48em) {
-  .modal-body [class*='form-type-radio'] {
+  .modal-body .js-form-type-radio {
     width: 50%;
   }
 }
 @media (min-width: 75em) {
-  .modal-body [class*='form-type-radio'] {
+  .modal-body .js-form-type-radio {
     width: 33.33%;
   }
 }
-.modal-body [class*='form-type-radio'] input {
+.modal-body .js-form-type-radio input {
   margin: 4px 5px 0 0;
   margin-top: 1px \9;
 }
-.modal-body [class*='form-type-radio'] label {
+.modal-body .js-form-type-radio label {
   display: inline;
 }
 
@@ -6950,30 +6949,37 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--all-amenities .views-element-container legend {
   color: #636466;
 }
+.paragraph--type--all-amenities .views-element-container legend span {
+  border-bottom: 1px solid #ccc;
+  color: #636466;
+  text-transform: none;
+  display: block;
+  margin: 20px 0;
+}
 .paragraph--type--all-amenities .views-element-container form {
   margin-bottom: 1em;
 }
-.paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+.paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
   -webkit-columns: 2;
   -moz-columns: 2;
   columns: 2;
 }
 @media (max-width: 480px) {
-  .paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+  .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
     -webkit-columns: 1;
     -moz-columns: 1;
     columns: 1;
   }
 }
 @media (min-width: 768px) {
-  .paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+  .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
     -webkit-columns: 2;
     -moz-columns: 2;
     columns: 2;
   }
 }
 @media (min-width: 992px) {
-  .paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+  .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
     -webkit-columns: 4;
     -moz-columns: 4;
     columns: 4;
@@ -8527,7 +8533,7 @@ legend {
 }
 @media (min-width: 0) and (max-width: 62em) {
   #schedules-search-form-wrapper .js-form-type-select {
-    width: 80px !important;
+    width: 110px !important;
   }
 }
 @media (min-width: 0) and (max-width: 48em) {
@@ -8536,6 +8542,18 @@ legend {
   }
   #schedules-search-form-wrapper .filters-container .container, #schedules-search-form-wrapper .filters-container .path-account .status-message, .path-account #schedules-search-form-wrapper .filters-container .status-message {
     padding: 0;
+  }
+}
+@media (min-width: 0) and (max-width: 62em) {
+  #schedules-search-form-wrapper .js-form-item-date {
+    clear: left;
+  }
+}
+@media (min-width: 48em) and (max-width: 62em) {
+  #schedules-search-form-wrapper .form-item.js-form-item-display {
+    clear: none;
+    float: left;
+    margin-top: 46px;
   }
 }
 
@@ -8566,22 +8584,26 @@ legend {
   background-color: #9c1f7b;
 }
 
-.webform-submission-contact-add-form .form-item {
-  padding: 0 15px;
-}
 .webform-submission-contact-add-form .form-item.js-form-item-name {
-  padding: 0;
-}
-.webform-submission-contact-add-form .form-item.js-form-item-name label {
-  display: block;
-  margin-left: 15px;
-}
-.webform-submission-contact-add-form .form-item.js-form-item-name .form-item {
-  padding: 0 15px;
+  padding: 0 15px 0 0;
   float: left;
   width: 50%;
 }
-.webform-submission-contact-add-form .form-item.form-item-area-of-interest, .webform-submission-contact-add-form .form-item.form-item-branch, .webform-submission-contact-add-form .form-item.form-item-email, .webform-submission-contact-add-form .form-item.form-item-phone {
+.webform-submission-contact-add-form .form-item.js-form-item-name label {
+  display: block;
+}
+.webform-submission-contact-add-form .form-item.js-form-item-email {
+  padding: 0 0 0 15px;
+  float: left;
+  width: 50%;
+}
+.webform-submission-contact-add-form .form-item.js-form-item-email label {
+  display: block;
+}
+.webform-submission-contact-add-form .form-item.js-form-item-subject {
+  clear: left;
+}
+.webform-submission-contact-add-form .form-item.form-item-area-of-interest, .webform-submission-contact-add-form .form-item.form-item-branch, .webform-submission-contact-add-form .form-item.form-item-phone {
   float: left;
   width: 50%;
 }
@@ -8589,16 +8611,6 @@ legend {
   .webform-submission-contact-add-form .form-item {
     width: 100% !important;
     padding: 0 !important;
-  }
-}
-.webform-submission-contact-add-form .form-actions,
-.webform-submission-contact-add-form .captcha {
-  margin-left: 15px;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .webform-submission-contact-add-form .form-actions,
-  .webform-submission-contact-add-form .captcha {
-    margin-left: 0;
   }
 }
 
@@ -11742,6 +11754,10 @@ a.sports-icon.floor-hockey {
 
 .addthis {
   margin-top: 20px;
+}
+
+.landing-content.one-column .subprogram-listing-item {
+  max-width: 780px;
 }
 
 .account-page-sidebar ul {

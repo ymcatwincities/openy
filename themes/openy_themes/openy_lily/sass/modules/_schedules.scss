@@ -69,7 +69,7 @@
     @include breakpoint($screen-sm) {
       padding: 15px 0;
       margin-right: 18px;
-      width: 110px;
+      width: 120px;
     }
 
     label {
@@ -96,15 +96,13 @@
       padding-left: 5px;
     }
   }
-  .form-item-display {
-    float: left;
-    display: inline-block;
-    padding: 10px 0 5px;
+  .form-item.form-item-display {
+    clear: left;
+    padding: 0;
     width: 100%;
     @include breakpoint($screen-sm) {
-      padding: 15px 0;
-      margin-right: 18px;
-      width: 110px;
+      margin: 0;
+      width: 140px;
     }
     label {
       font-size: 14px;
@@ -112,12 +110,13 @@
       @include cachet();
       color: $dark-grey;
       margin-bottom: 0;
+      display: inline-block;
       @include breakpoint($screen-sm) {
         margin-bottom: 5px;
       }
     }
     input {
-      display: block;
+      display: inline-block;
     }
   }
   .selects-container {

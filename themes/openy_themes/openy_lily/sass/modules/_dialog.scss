@@ -116,7 +116,7 @@ body .branch-popup {
     @extend .row-eq-height;
   }
 
-  [class*='form-type-radio'] {
+  .js-form-type-radio {
     display: inline-block;
     padding: 15px;
 
