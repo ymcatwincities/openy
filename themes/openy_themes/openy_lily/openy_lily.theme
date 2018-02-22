@@ -17,6 +17,7 @@ use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\block\Entity\Block;
 use Drupal\file\FileInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_preprocess_node().
@@ -367,8 +368,6 @@ function openy_lily_preprocess_page(&$variables) {
   $variables['locations_path'] = Url::fromUri('internal:/locations')
     ->toString();
 
-  $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
-
   // Set custom theme variables for page when they are set.
   if ($image_fields = \Drupal::config('openy_lily.settings')
     ->get('openy_lily_image_fields')
@@ -383,6 +382,22 @@ function openy_lily_preprocess_page(&$variables) {
       }
     }
   }
+
+  // Set special variables for Camp and Branch (Location) nodes.
+  if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
+    $node = $variables['node'];
+    /** @var Drupal\openy_loc_camp\CampService $service */
+    if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
+      if ($service->nodeHasOrIsCamp($node)) {
+        $variables['page_class'] = 'is-camp';
+      }
+      if ($node->bundle() == 'branch') {
+        $variables['page_class'] = 'is-branch';
+      }
+    }
+  }
+  // Camp logo.
+  $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
 }
 
 /**
