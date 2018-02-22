@@ -96,11 +96,15 @@ dependencies:
   - lndr
   - crop
   - focal_point
+  - video
+  - media_entity_video
+  - easy_breadcrumb
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
   - openy_media_document
   - openy_media_video
+  - openy_media_local_video
   - openy_node_mbrshp
   - openy_node
   - openy_block
@@ -134,6 +138,7 @@ dependencies:
   - openy_prgf_group_schedules
   - openy_prgf_story_card
   - openy_prgf_promo_card
+  - openy_prgf_secondary_description_sidebar
   - openy_prgf_featured_blogs
   - openy_prgf_featured_highlights
   - openy_prgf_gallery
