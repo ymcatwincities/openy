@@ -134,19 +134,14 @@
               </a>
             </div>
             <div class="hours col-lg-4 col-md-4 col-sm-4 clearfix">
-              {% if node.bundle == 'branch' %}
-                <span class="glyphicon glyphicon-time bullet"></span>
-                <span>{{ 'Today'|t }}:</span>{{ content.field_branch_hours }}
-              {% else %}
-                <a data-toggle="collapse" href="#camp-address" class="camp-address-toggle">
-                  {{ 'Camp Office'|t }}
-                  <span class="glyphicon glyphicon-chevron-down"></span>
-                </a>
-                <div id="camp-address" class="camp-address all-hours collapse">
-                  {{ address|striptags }}
-                  {{ content.field_location_phone }}
-                </div>
-              {% endif %}
+              <a data-toggle="collapse" href="#camp-address" class="camp-address-toggle">
+                {{ 'Camp Office'|t }}
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              </a>
+              <div id="camp-address" class="camp-address all-hours collapse">
+                {{ address|striptags }}
+                {{ content.field_location_phone }}
+              </div>
             </div>
           </div>
         </div>
@@ -178,11 +173,7 @@
           <div class="col-xs-12">
             <button type="button" class="btn btn-link location-hours-toggle" data-toggle="collapse" data-target="#directions-hours-mobile">
               <span class="glyphicon glyphicon-chevron-down pull-right"></span>
-              {% if node.bundle == 'branch' %}
-                {{ 'Phone, Address and Hours'|t }}
-              {% else %}
                 {{ 'Phone and Address'|t }}
-              {% endif %}
             </button>
           </div>
         </div>
@@ -208,15 +199,10 @@
             </div>
             <hr>
             <div class="hours col-lg-4 col-md-4 col-sm-4 clearfix">
-              {% if node.bundle == 'branch' %}
-                <span class="glyphicon glyphicon-time bullet"></span>
-                <span>{{ 'Today'|t }}:</span>{{ content.field_branch_hours }}
-              {% else %}
-                <div id="camp-address" class="camp-address all-hours">
-                  {{ address|striptags }}
-                  {{ content.field_location_phone }}
-                </div>
-              {% endif %}
+              <div id="camp-address" class="camp-address all-hours">
+                {{ address|striptags }}
+                {{ content.field_location_phone }}
+              </div>
             </div>
           </div>
         </div>
