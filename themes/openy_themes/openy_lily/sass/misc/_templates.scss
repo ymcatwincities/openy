@@ -136,3 +136,11 @@ a.sports-icon {
 .addthis {
   margin-top: 20px;
 }
+
+.landing-content {
+  &.one-column {
+    .subprogram-listing-item {
+      max-width: 780px;
+    }
+  }
+}

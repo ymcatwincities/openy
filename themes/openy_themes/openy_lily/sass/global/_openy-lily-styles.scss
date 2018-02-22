@@ -543,11 +543,7 @@ p.legend {
       &::before {
         content: "X";
         color: $white;
-<<<<<<< HEAD
-        font-family: "Cachet", Verdana, Geneva, sans-serif;
-=======
         @include cachet();
->>>>>>> 0fc8befb1f3ef2541d04718cedb7cdc2c6672e7a
         font-weight: bold;
         text-decoration: none;
       }
