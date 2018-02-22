@@ -90,9 +90,6 @@
       }
       .form-item {
         margin: 0 0 5px;
-        input.form-checkbox {
-
-        }
         .field-amenities-icon {
           padding: 2px;
           width: 30px;
@@ -106,7 +103,6 @@
           .term-name {
             @media (max-width: $screen-phone) {
               width: auto;
-              
               font-weight: bold;
             }
             @media (min-width: $screen-tablet) {
@@ -143,6 +139,6 @@
 .list-branch-amenities-wrapper {
   h5 {
     font-size: 15px;
-    @include helvetica-neue();
+    @include verdana();
   }
 }

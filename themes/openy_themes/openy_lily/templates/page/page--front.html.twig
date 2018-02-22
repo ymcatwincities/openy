@@ -1,15 +1,5 @@
 {% extends '@openy_lily/page/page.html.twig' %}
 
-{% block primary_menu %}
-  {% if site_section_bundle not in ['location', 'camp'] %}
-    <div class="nav-wrapper">
-      <div class="main-nav" data-spy="affix" data-offset-top="129">
-        {{ page.primary_menu }}
-      </div>
-    </div>
-  {% endif %}
-{% endblock %}
-
 {% block home_heading %}
   <section class="masthead">
     <div class="container-fluid">

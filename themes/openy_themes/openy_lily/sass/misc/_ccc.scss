@@ -74,7 +74,7 @@
       display: list-item;
       font-weight: bold;
       font-size: 18px;
-      font-family: "Cachet", Verdana, Geneva, sans-serif;
+      @include cachet();
       float: left;
       width: 80%;
     }

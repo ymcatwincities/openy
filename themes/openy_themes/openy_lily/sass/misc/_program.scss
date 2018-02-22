@@ -30,7 +30,7 @@
     .field-program-description {
       font-size: 14px;
       line-height: 20px;
-      font-family: "Cachet", Verdana, Geneva, sans-serif;
+      @include cachet();
     }
   }
 }

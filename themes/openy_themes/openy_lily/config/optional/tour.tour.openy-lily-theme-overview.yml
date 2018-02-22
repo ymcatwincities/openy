@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - openy_node
-id: openy-theme-overview
+id: openy-lily-theme-overview
 label: 'Theme Overview'
 module: openy_node
 routes:
@@ -53,12 +53,21 @@ tips:
      location: top
      attributes:
        data-id: 'edit-favicon'
+  theme-camp-settings:
+     id: theme-camp-settings
+     plugin: text
+     label: 'Camp settings'
+     body: 'Here is where you can upload the favicon and the logo for the camps pages.'
+     weight: 6
+     location: top
+     attributes:
+       data-id: 'edit-camp-section'
   theme-save-settings:
      id: theme-save-settings
      plugin: text
      label: 'Save settings'
      body: 'To commit any changes made on this page press the save button.'
-     weight: 6
+     weight: 7
      location: top
      attributes:
        data-class: 'form-submit'
@@ -67,4 +76,4 @@ tips:
      plugin: text
      label: 'Open tour'
      body: 'If you would like to open a tour on a page, where one is available, you can use "Tour" button at the top-right corner.'
-     weight: 7
+     weight: 8

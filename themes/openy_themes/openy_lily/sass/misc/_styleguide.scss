@@ -6,7 +6,7 @@ $sg-highlight-background: #f7f7f9;
 .sg-color {
   @include border-radius(3px);
   color: $white;
-  font-family: 'Cachet', Verdana, Geneva, sans-serif;
+  @include cachet();
   margin-bottom: 12px;
   min-height: 50px;
   padding: 12px;
