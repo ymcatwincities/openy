@@ -188,6 +188,7 @@
         "drupal/plugin": "2.5",
         "drupal/migrate_plus": "3.0-beta1",
         "drupal/migrate_tools": "3.0-beta1",
+        "drupal/migrate_source_csv": "2.0",
         "drupal/verf": "1.0-beta6",
         "drupal/simple_menu_icons": "1.x-dev",
         "drupal/views_infinite_scroll": "1.5",
