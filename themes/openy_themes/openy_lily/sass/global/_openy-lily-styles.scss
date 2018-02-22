@@ -301,7 +301,7 @@ body form .field--widget-boolean-checkbox {
   .read-more-wrapper a {
     color: #0089d0;
     font-size: 16px;
-    font-family: "Cachet", Verdana, Geneva, sans-serif;
+    @include cachet();
     font-weight: bold;
     text-transform: uppercase;
     -webkit-transition: color .2s ease-out;
@@ -403,7 +403,7 @@ p.legend {
       .modal-close {
         background: none;
         color: $white;
-        font-family: "Cachet", Verdana, Geneva, sans-serif;
+        @include cachet();
         font-weight: bold;
         right: 10px;
         text-decoration: none;
@@ -520,7 +520,7 @@ p.legend {
     background: $dark-magenta;
     border: 0;
     border-radius: 0;
-    font-family: "Cachet", Verdana, Geneva, sans-serif;
+    @include cachet();
     position: relative;
     padding: 17px 50px 15px;
     .ui-dialog-title {
@@ -543,7 +543,11 @@ p.legend {
       &::before {
         content: "X";
         color: $white;
+<<<<<<< HEAD
         font-family: "Cachet", Verdana, Geneva, sans-serif;
+=======
+        @include cachet();
+>>>>>>> 0fc8befb1f3ef2541d04718cedb7cdc2c6672e7a
         font-weight: bold;
         text-decoration: none;
       }

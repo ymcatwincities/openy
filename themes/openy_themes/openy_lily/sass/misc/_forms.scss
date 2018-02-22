@@ -6,7 +6,7 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-weight: bold;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  @include cachet();
   border-radius: 3px;
   line-height: 1.33;
   text-align: center;
@@ -132,11 +132,11 @@ input, textarea {
 }
 
 label {
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  @include cachet();
 }
 
 .fieldset-legend {
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  @include cachet();
   color: $purple;
   font-weight: bold;
   text-transform: uppercase;
@@ -170,7 +170,7 @@ label {
       color: #a94442;
       background-color: #f2dede;
       border: 1px solid #ebccd1;
-      font-family: "Cachet", Verdana, Geneva, sans-serif;
+      @include cachet();
     }
   }
   .path-account & {
@@ -205,14 +205,14 @@ label {
 
 .openy-ccc-login-form,
 .openy-ccc-registration-form {
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  @include cachet();
 }
 
 #edit-intro-text {
   font-size: 16px;
   line-height: 1.6em;
   color: #636466;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  @include cachet();
   font-weight: 400;
   font-style: normal;
   margin-bottom: .7em;
@@ -554,7 +554,7 @@ legend {
   padding: 13px 25px;
   font-size: 16px !important;
   border-radius: 3px;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  @include cachet();
   font-weight: bold;
   text-transform: capitalize;
 }

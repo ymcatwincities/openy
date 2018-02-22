@@ -661,7 +661,7 @@
         flex-basis: 50%;
       }
       label {
-        @include helvetica-neue();
+        @include cachet();
         font-size: 15px;
         margin: 0 0 0 7px;
         vertical-align: top;
@@ -901,7 +901,7 @@ iframe#ga_iframe {
 .atc-style-blue .atcb-item-link:active,
 .atc-style-blue .atcb-item-link:focus {
   color: #000;
-  font-family: "Verdana";
+  @include verdana();
   font-size: 14px;
   text-decoration: none;
   outline: none;

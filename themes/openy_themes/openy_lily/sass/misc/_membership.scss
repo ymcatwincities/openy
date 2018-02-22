@@ -270,7 +270,7 @@
               width: auto;
               display: inline-block;
               color: #fff;
-              font-family: 'Cachet', Verdana, Geneva, sans-serif;
+              @include cachet();
               border-radius: 4px;
               outline: 0 !important;
               position: relative;
@@ -293,7 +293,7 @@
               width: auto;
               display: inline-block;
               color: #fff;
-              font-family: 'Cachet', Verdana, Geneva, sans-serif;
+              @include cachet();
               border-radius: 4px;
               outline: 0 !important;
               position: relative;
@@ -543,7 +543,7 @@
               width: auto;
               display: inline-block;
               color: #fff;
-              font-family: 'Cachet', Verdana, Geneva, sans-serif;
+              @include cachet();
               border-radius: 4px;
               outline: 0 !important;
               position: relative;
@@ -565,7 +565,7 @@
               width: auto;
               display: inline-block;
               color: #fff;
-              font-family: 'Cachet', Verdana, Geneva, sans-serif;
+              @include cachet();
               border-radius: 4px;
               outline: 0 !important;
               position: relative;

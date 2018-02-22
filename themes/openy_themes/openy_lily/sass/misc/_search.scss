@@ -59,7 +59,7 @@ body.path-search {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     font-weight: bold;
-    font-family: 'Cachet', Verdana, Geneva, sans-serif;
+    @include cachet();
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -111,7 +111,7 @@ body.path-search {
     max-width: 430px;
     .views-field-title {
       font-size: 18px;
-      font-family: 'Cachet', Verdana, Geneva, sans-serif;
+      @include cachet();
       font-weight: bold;
       margin-top: 10px;
       margin-bottom: 10px;
