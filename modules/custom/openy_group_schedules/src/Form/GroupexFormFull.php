@@ -523,6 +523,7 @@ class GroupexFormFull extends GroupexFormBase {
     $user_input = $form_state->getUserInput();
     $values = $form_state->getValues();
     $query = $this->state;
+    $filter_date = NULL;
     if (!isset($values['location']) && is_numeric($query['location'])) {
       $values['location_select'] = $values['location'] = $query['location'];
     }
@@ -530,7 +531,9 @@ class GroupexFormFull extends GroupexFormBase {
       $values['date_select'] = $values['date'] = $query['filter_date'];
     }
     $location = !empty($values['location_select']) ? $values['location_select'] : $values['location'];
-    $filter_date = !empty($values['date_select']) ? $values['date_select'] : $values['date'];
+    if (isset($values['date'])) {
+      $filter_date = !empty($values['date_select']) ? $values['date_select'] : $values['date'];
+    }
     if (isset($user_input['date_select']) && $user_input['date_select'] != $filter_date) {
       $filter_date = $user_input;
     }
