@@ -12908,6 +12908,39 @@ a.sports-icon.floor-hockey {
   -ms-transform: skew(-30deg);
   transform: skew(-30deg);
 }
+.paragraph--type--secondary-description-sidebar h2 {
+  color: #5e5e5e;
+  font-weight: bold;
+  margin-top: 0;
+  text-transform: uppercase;
+  font-size: 34px;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
+}
+.paragraph--type--secondary-description-sidebar a {
+  font-weight: bold;
+}
+.paragraph--type--secondary-description-sidebar ul {
+  padding: 0;
+}
+.paragraph--type--secondary-description-sidebar ul li {
+  position: relative;
+  margin: 5px 0;
+  padding-left: 20px;
+  list-style: none;
+}
+.paragraph--type--secondary-description-sidebar ul li:before {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  margin-right: 8px;
+  color: #bebcbc;
+  content: '>';
+  font-family: 'YMCA';
+}
+.paragraph--type--secondary-description-sidebar ul li a {
+  font-weight: bold;
+  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+}
 .paragraph--type--secondary-description-sidebar .left {
   font-size: 18px;
   padding-left: 0;
@@ -12934,13 +12967,22 @@ a.sports-icon.floor-hockey {
     font-size: 21px;
   }
 }
-.paragraph--type--secondary-description-sidebar .right h2 {
-  color: #5e5e5e;
-  font-weight: bold;
-  margin-top: 0;
-  text-transform: uppercase;
-  font-size: 34px;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+.paragraph--type--secondary-description-sidebar .richtext .schedules:before {
+  margin-right: 5px;
+  content: 'm';
+  vertical-align: bottom;
+  text-transform: none;
+  font-weight: normal;
+  font-family: 'YMCA';
+  content: 'c';
+}
+.paragraph--type--secondary-description-sidebar .richtext .membership:before {
+  margin-right: 5px;
+  content: 'm';
+  vertical-align: bottom;
+  text-transform: none;
+  font-weight: normal;
+  font-family: 'YMCA';
 }
 
 a:focus,

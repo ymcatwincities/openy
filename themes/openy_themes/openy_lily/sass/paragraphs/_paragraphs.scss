@@ -589,6 +589,39 @@
     -ms-transform: skew(-30deg);
     transform: skew(-30deg);
   }
+  h2 {
+    color: $extra-grey6;
+    font-weight: bold;
+    margin-top: 0;
+    text-transform: uppercase;
+    font-size: 34px;
+    @include cachet();
+  }
+  a {
+    font-weight: bold;
+  }
+  ul {
+    padding: 0;
+    li {
+      position: relative;
+      margin: 5px 0;
+      padding-left: 20px;
+      list-style: none;
+      &:before {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        margin-right: 8px;
+        color: #bebcbc;
+        content: '>';
+        font-family: 'YMCA';
+      }
+      a {
+        font-weight: bold;
+        font-family: 'Cachet', Helvetica, Arial, sans-serif;
+      }
+    }
+  }
   .left {
     font-size: 18px;
     padding-left: 0;
@@ -610,13 +643,22 @@
       padding-bottom: 20px;
       font-size: 21px;
     }
-    h2 {
-      color: $extra-grey6;
-      font-weight: bold;
-      margin-top: 0;
-      text-transform: uppercase;
-      font-size: 34px;
-      @include cachet();
-    }
+  }
+  .richtext .schedules:before {
+    margin-right: 5px;
+    content: 'm';
+    vertical-align: bottom;
+    text-transform: none;
+    font-weight: normal;
+    font-family: 'YMCA';
+    content: 'c';
+  }
+  .richtext .membership:before {
+    margin-right: 5px;
+    content: 'm';
+    vertical-align: bottom;
+    text-transform: none;
+    font-weight: normal;
+    font-family: 'YMCA';
   }
 }
