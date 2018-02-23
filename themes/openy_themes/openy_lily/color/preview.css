@@ -111,14 +111,14 @@
   background-color: #f86b05;
 }
 .branch-color-preview .color-preview-branch-menu {
-  background-color: #0060ad;
+  background-color: #383838;
   color: #ffffff;
 }
 .branch-color-preview .color-preview-branch-menu .color-preview-menu-link:first-child {
   margin-left: 10px;
 }
 .branch-color-preview .color-preview-branch-menu .hover {
-  background-color: #0089d1;
+  background-color: #505050;
 }
 .branch-color-preview .color-preview-main a {
   color: #01a491;

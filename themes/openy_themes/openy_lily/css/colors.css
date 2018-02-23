@@ -1,18 +1,25 @@
 /* ---------- Color Module Styles ----------- */
+
+/* Page background color and global text color. */
 body {
-  background-color: #ffffff;
+  background-color: #fffffb;
   color: #636466;
 }
+/* Global link color. */
 a,
-.link {
+.link,
+.node--view-mode-full.node--type-facility .associated-branch-title a {
   color: #377bb5;
 }
 #page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
   color: #377bb5;
   border-color: #377bb5;
 }
+
+/* Global button background color. */
 .button,
 .btn,
+.btn-default,
 .button.blue,
 .btn.blue,
 .modal-body .button,
@@ -37,6 +44,8 @@ header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover
   background-color: #b92f9e;
   color: #fffffc;
 }
+
+/* Global Button link text color. */
 .button a,
 .btn a,
 .banner .banner-btn a,
@@ -45,11 +54,7 @@ header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover
   color: #fffffc;
 }
 
-.btn-default {
-  background-color: #b92f9e;
-  color: #fffffc;
-}
-
+/* Header background. */
 .top-navs,
 .sidebar,
 .navbar-default .navbar-toggle,
@@ -60,21 +65,25 @@ header#page-head .top-navs .nav-global {
   background-color: #f8f8f8;
 }
 
+/* Header menu link color. */
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a {
   color: #777777;
 }
+/* Header menu link hover background and text color. */
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover {
   background-color: #ffffff;
   color: #000000;
 }
 
+/* Header main menu background. */
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   background: #0060af;
   opacity: 0.95;
 }
 
+/* Header Main menu link color. */
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav li a {
-  color: #ffffff;
+  color: #fffffe;
 }
 
 .nav.dropdown-menu,
@@ -88,37 +97,24 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
   background-color: inherit;
   border-bottom: inherit;
 }
-.branch-header .desktop {
-  background-color: #c6168b;
+/* Branch subheader background. */
+.is-branch .branch-header .desktop,
+.is-branch .branch-header .desktop .today-hours .branch-hours,
+.is-branch .branch-header .mobile,
+.is-branch .node--type-blog.node--view-mode-teaser.blog-fuchsia .inner-wrapper,
+#membership-calc-wrapper .nav-pills > li div {
+  background-color: #5a2b8d;
 }
-.page-head__main-menu .nav-level-2 > a,
-.page-head__main-menu .nav-level-3 > a,
-.viewport .navbar-default .navbar-nav > li > a,
-.page-head__top-menu a,
-.page-head__main-menu a,
-.viewport .page-head__main-menu .dropdown-menu > li > a:focus,
-.viewport .page-head__main-menu .dropdown-menu > li > a:hover,
-.navbar-nav .open .dropdown-menu > li > a:hover,
-.navbar-nav .open .dropdown-menu > li > a:focus {
-  color: #fffffb;
-}
-.viewport .nav-level-2 > a:hover,
-.viewport .nav-level-2 > a:focus
-.viewport .page-head__main-menu .nav-level-2 > a:hover,
-.viewport .page-head__main-menu .nav-level-2 > a:focus {
-  color: #d8d8d8;
-}
+
+/* Footer background color. */
+#page-footer,
 .footer {
   background-color: #fffff9;
 }
-.footer,
-.footer .footer__nav nav ul li a {
-  color: #a8a8a8;
-}
 
-#page-footer {
-  background: #ffffff;
-}
+/* Footer text color. */
+.footer,
+.footer .footer__nav nav ul li a,
 #page-footer nav ul li a,
 #page-footer #block-openy-lily-footermenucenter .nav li a,
 #page-footer #block-openy-lily-footermenucenter .nav li a:hover {
@@ -178,20 +174,13 @@ body .branch-popup .ui-dialog-content h3 {
 }
 
 /* Secondary highlight color (pink.) */
-.branch-header .desktop,
-.branch-header .desktop .today-hours .branch-hours,
-.branch-header .mobile,
-.node--type-blog.node--view-mode-teaser.blog-fuchsia .inner-wrapper,
-#membership-calc-wrapper .nav-pills > li div {
-  background-color: #c6168b;
-}
 .paragraph-gallery .cta-group-wrapper .cta-group h1,
 .sub-category-classes-view .activity-group .activity-group-slider .slick-dots li.slick-active button:before,
 .branch__updates_queue .slick-dots li.slick-active button:before,
 .branch-sessions-group .branch-sessions-group-slider .slick-dots li.slick-active button:before,
 .featured-content .slick-dots li.slick-active button:before,
 #schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before {
-  color: #c6168b;
+  color: #c6168d;
 }
 .paragraph--class-content .cards > a,
 .paragraph--class-content .cards .field-collection-item.without-link,
@@ -199,27 +188,49 @@ body .branch-popup .ui-dialog-content h3 {
 .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity,
 .branch-sessions-group .views-row,
 #schedules-search-form-wrapper .results .views-row {
-  border-color: #c6168b;
+  border-color: #c6168d;
 }
 #membership-calc-wrapper .nav-pills > li div:after {
-  border-left-color: #c6168b;
+  border-left-color: #c6168d;
 }
 .branch-sessions-group .group_time {
-  border-bottom-color: #c6168b;
+  border-bottom-color: #c6168d;
+}
+
+/* Branch button color. */
+.is-branch .button,
+.is-branch .btn,
+.is-branch .button.blue,
+.is-branch .btn.blue,
+.is-branch .modal-body .button,
+.is-branch .btn-primary,
+.is-branch #banner .banner-caption .field-prgf-link a,
+.is-branch .button:hover,
+.is-branch .btn:hover,
+.is-branch .button.blue:hover,
+.is-branch .btn.blue:hover,
+.is-branch .modal-body .button:hover,
+.is-branch .btn-primary:hover,
+.is-branch .btn.white-blue:hover,
+.is-branch .white-blue.button:hover {
+  background-color: #b92f9f;
+  color: #fffff8;
 }
 
 /* Camp specific overrides */
-.is-camp {
-  background-color: #fffffe;
-  color: #636465;
+
+/* Camp subheader background color. */
+.is-camp .branch-header .desktop,
+.is-camp .branch-header .mobile,
+.is-camp .branch-header .location-details #directions-hours-mobile,
+.is-camp .camp-address.all-hours {
+  background-color: #f47520;
 }
+
+/* Camp link color. */
 .is-camp a,
 .is-camp .link {
-  color: #377bb6;
-}
-.is-camp #page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
-  color: #377bb6;
-  border-color: #377bb6;
+  color: #019c85;
 }
 .is-camp .button,
 .is-camp .btn,
@@ -239,7 +250,7 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .white-blue.button:hover,
 .is-camp #banner .banner-caption a,
 .is-camp #banner .banner-caption a:hover {
-  background-color: #1dafed;
+  background-color: #019c86;
   color: #fffff7;
 }
 .is-camp .button a,
@@ -249,32 +260,7 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .btn a:hover {
   color: #fffff7;
 }
-.is-camp .top-navs,
-.is-camp .sidebar,
-.is-camp .navbar-default .navbar-toggle,
-.is-camp .navbar-default .navbar-toggle:focus,
-.is-camp .navbar-default .navbar-toggle:hover,
-.is-camp .navbar-default .navbar-toggle:active,
-.is-camp header#page-head .top-navs .nav-global {
-  background-color: #f8f8f9;
-}
 
-
-.is-camp header#page-head .top-navs #block-openy-lily-user-menu .nav li a:not(:first-child) {
-  color: #777778;
-}
-.is-camp header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover:not(:first-child) {
-  background-color: #fffffa;
-  color: #000001;
-}
-
-.is-camp .nav.dropdown-menu,
-.is-camp .viewport .nav-level-2.open > a,
-.is-camp .viewport .nav-level-2.open > a:focus,
-.is-camp .nav > li > a:hover,
-.is-camp .nav > li > a:focus {
-  background-color: #fffffa;
-}
 .is-camp .page-head__main-menu .nav-level-2 > a,
 .is-camp .page-head__main-menu .nav-level-3 > a,
 .is-camp .viewport .navbar-default .navbar-nav > li > a,
@@ -292,44 +278,28 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .viewport .page-head__main-menu .nav-level-2 > a:focus {
   color: #d8d8d7;
 }
-.is-camp .branch-header .desktop,
-.is-camp .branch-header .mobile,
-.is-camp .branch-header .location-details #directions-hours-mobile,
-.is-camp .camp-address.all-hours {
-  background-color: #c6168c;
-}
+
 .is-camp .viewport .nav-level-2.open {
   background-color: inherit;
   border-bottom: inherit;
 }
-.is-camp footer {
-  background-color: #fffff8;
-}
-.is-camp .footer,
-.is-camp .footer .footer__nav nav ul li a {
-  color: #fffff7;
-}
 
-.is-camp #page-footer {
-  background: #fffff8;
-}
-.is-camp #page-footer nav ul li a,
-.is-camp #page-footer #block-openy-lily-footermenucenter .nav li a,
-.is-camp #page-footer #block-openy-lily-footermenucenter .nav li a:hover {
-  color: #a8a8a9;
-}
-
+/* Camp menu background color. */
 .is-camp .camp-menu-wrapper,
 .is-camp .camp-menu-wrapper a,
 .is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a,
 .is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:after {
   background-color: #383838;
 }
+
+/* Camp menu text color. */
 .is-camp .camp-menu__item a,
 .is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li:first-child a:before,
 .is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a {
   color: #fffffd;
 }
+
+/* Camp menu text hover color. */
 .is-camp .camp-menu-wrapper a:hover,
 .is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:hover,
 .is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a.active,
@@ -337,6 +307,7 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .camp-menu-wrapper .active {
   background-color: #505050;
 }
+
 .is-camp .paragraph--column-in-a-grid .fa,
 .is-camp .paragraph-gallery .item__caption,
 .is-camp .sidebar-card h2,
@@ -367,42 +338,36 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp #schedules-search-form-wrapper .results .group_time,
 .is-camp #schedules-search-form-wrapper .results .views-row .ticket,
 body .is-camp .branch-popup .ui-dialog-content h3 {
-  color: #5c2e92;
+  color: #019c87;
 }
 .node--type-camp .modal-body .button.btn-primary.btn-lg,
 .is-camp .node--type-blog.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2:after,
 .is-camp .node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up .category {
-  background-color: #5c2e92;
+  background-color: #019c87;
 }
 
-/* Location (Branch) specific overrides */
-.is-branch .location-menu-wrapper {
-  background-color: #383839;
+/* Secondary highlight color (pink.) */
+.is-camp .paragraph-gallery .cta-group-wrapper .cta-group h1,
+.is-camp .sub-category-classes-view .activity-group .activity-group-slider .slick-dots li.slick-active button:before,
+.is-camp .branch__updates_queue .slick-dots li.slick-active button:before,
+.is-camp .branch-sessions-group .branch-sessions-group-slider .slick-dots li.slick-active button:before,
+.is-camp .featured-content .slick-dots li.slick-active button:before,
+.is-camp #schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before {
+  color: #c6168e;
 }
-.is-branch .location-menu__item a {
-  color: #fffff6;
+.is-camp .paragraph--class-content .cards > a,
+.is-camp .paragraph--class-content .cards .field-collection-item.without-link,
+.is-camp .sub-category-classes-view .activity-group .teaser-row,
+.is-camp .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity,
+.is-camp .branch-sessions-group .views-row,
+.is-camp #schedules-search-form-wrapper .results .views-row {
+  border-color: #c6168e;
 }
-.is-branch .location-menu-wrapper a:hover,
-.is-branch .location-menu-wrapper .active {
-  background-color: #505051;
+.is-camp #membership-calc-wrapper .nav-pills > li div:after {
+  border-left-color: #c6168e;
 }
-.is-branch .button,
-.is-branch .btn,
-.is-branch .button.blue,
-.is-branch .btn.blue,
-.is-branch .modal-body .button,
-.is-branch .btn-primary,
-.is-branch #banner .banner-caption .field-prgf-link a,
-.is-branch .button:hover,
-.is-branch .btn:hover,
-.is-branch .button.blue:hover,
-.is-branch .btn.blue:hover,
-.is-branch .modal-body .button:hover,
-.is-branch .btn-primary:hover,
-.is-branch .btn.white-blue:hover,
-.is-branch .white-blue.button:hover {
-  background-color: #7a1f63;
-  color: #fffff5;
+.is-camp .branch-sessions-group .group_time {
+  border-bottom-color: #c6168e;
 }
 
 .viewport .nav-level-2 > a:hover,
@@ -410,6 +375,11 @@ body .is-camp .branch-popup .ui-dialog-content h3 {
 .is-camp .viewport .nav-level-2 > a:hover,
 .is-camp .viewport .nav-level-2 > a:focus {
   background: none;
+}
+
+.is-camp #page-footer #block-openy-lily-footersocialblock ul li a.fa {
+  border-color: #019c86;
+  color: #019c86;
 }
 
 /* Color Module: Don't touch */
