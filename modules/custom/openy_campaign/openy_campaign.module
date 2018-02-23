@@ -392,6 +392,17 @@ function openy_campaign_entity_type_build(array &$entity_types) {
 }
 
 /**
+ * Implements hook_entity_type_build().
+ */
+function openy_campaign_node_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
+  // Disable caching for the Campaign's pages.
+  if (in_array($entity->bundle(), ['campaign', 'campaign_page'])) {
+    $build['#cache']['max-age'] = 0;
+    \Drupal::service('page_cache_kill_switch')->trigger();
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  *
  * Forbid editing some Member entity fields from admin panel.
