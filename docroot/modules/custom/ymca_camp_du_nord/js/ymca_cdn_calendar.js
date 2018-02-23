@@ -56,6 +56,7 @@
     // Select all dates we have to join.
     var list = [];
     for (var i = first_selected; i <= last_selected; i++) {
+      // Iterate dates and fill the array.
       list.push(i);
     }
     // Go through each product end ensure range is not splitted.
@@ -179,6 +180,7 @@
   $('.fullcalendar').each(function() {
     $(this).fullCalendar({
       defaultView: 'week',
+      eventStartEditable: false,
       views: {
         week: {
           type: 'basicWeek',
@@ -267,12 +269,30 @@
               }
             }
           }
-          if (!allowSelection) {
-            return;
+          // Block select option if out of range.
+          if ($('a.cdn-prs-product.selected', context).length >= 2) {
+            var k = $(this).find('.fc-day-number').index('.fc-content-skeleton .fc-day-number'),
+                left_sibling_s = $('.fc-content-skeleton .fc-day-number:eq(' + (k - 1) + ')', context),
+                right_sibling_s = $('.fc-content-skeleton .fc-day-number:eq(' + (k + 1) + ')', context);
+            if ((left_sibling_s.length === 1 && left_sibling_s.length === 1) && left_sibling_s.parents('.selected').length === 0 && right_sibling_s.parents('.selected').length === 0) {
+              allowSelection = false;
+            }
           }
           if (!$(this).hasClass('selected')) {
+            if (!allowSelection) {
+              return;
+            }
             $(this).addClass('selected');
           } else {
+            // Check if date is not in the middle of selected range.
+            var j = $(this).index('a.cdn-prs-product');
+            if (j !== 0) {
+              var left_sibling = $('a.cdn-prs-product:eq(' + (j - 1) + ')', context),
+                  right_sibling = $('a.cdn-prs-product:eq(' + (j + 1) + ')', context);
+              if (left_sibling.hasClass('selected') && right_sibling.hasClass('selected')) {
+                return;
+              }
+            }
             $(this).removeClass('selected');
           }
           Drupal.cdn.check_borders($(this));
