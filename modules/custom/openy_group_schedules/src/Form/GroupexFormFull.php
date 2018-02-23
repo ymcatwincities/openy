@@ -426,7 +426,7 @@ class GroupexFormFull extends GroupexFormBase {
 
     $form['result'] = [
       '#prefix' => '</div><div class="groupex-results">',
-      'results' => $formatted_results,
+      '#results' => $formatted_results,
       '#suffix' => '</div>',
       '#weight' => 10,
     ];
