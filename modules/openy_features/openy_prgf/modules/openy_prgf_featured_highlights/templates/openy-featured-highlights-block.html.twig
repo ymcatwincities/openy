@@ -19,11 +19,11 @@
     class="block featured-highlights-block blog-photo">
   <a title="{{ title }}" href="{{ url }}" rel="bookmark">
     <div class="inner-wrapper">
-      {% if elements.field_featured_hl_block_image['#field_type'] %}
-        <div class="blog-up">
+      <div class="blog-up">
+        {% if elements.field_featured_hl_block_image['#field_type'] %}
           {{ elements.field_featured_hl_block_image }}
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
       <div class="blog-heading">
         <h3><span>{{ title }}</span></h3>
         <p>{{ description|striptags }}</p>
