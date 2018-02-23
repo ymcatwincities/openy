@@ -23,12 +23,12 @@
 
       // Header.
       $colorPreview.find('.color-preview-header').css('background-color', $colorPalette.find('input[name="palette[headerbg]"]').val());
-      $colorPreview.find('.color-preview-menu .hover').css('background-color', $colorPalette.find('input[name="palette[headerhover]"]').val());
-      $colorPreview.find('.color-preview-menu-link').css('color', $colorPalette.find('input[name="palette[headerlink]"]').val());
-      $colorPreview.find('.color-preview-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headerlinkhover]"]').val());
+      $colorPreview.find('.color-preview-menu .hover').css('background-color', $colorPalette.find('input[name="palette[headermenuhover]"]').val());
+      $colorPreview.find('.color-preview-menu-link').css('color', $colorPalette.find('input[name="palette[headermenulink]"]').val());
+      $colorPreview.find('.color-preview-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headermenulinkhover]"]').val());
       $colorPreview.find('.color-preview-main-menu').css('background-color', $colorPalette.find('input[name="palette[headermainmenubg]"]').val());
       $colorPreview.find('.color-preview-main-menu-link').css('color', $colorPalette.find('input[name="palette[headermainmenulink]"]').val());
-      $colorPreview.find('.color-preview-main-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headermainmenulink]"]').val());
+      $colorPreview.find('.color-preview-main-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headermenulinkhover]"]').val());
 
       // Branch subhead.
       $colorPreview.find('.color-preview-branch-subheader').css('background-color', $colorPalette.find('input[name="palette[branchsubheaderbg]"]').val());
@@ -53,9 +53,9 @@
 
       // Header.
       $branchPreview.find('.color-preview-header').css('background-color', $colorPalette.find('input[name="palette[headerbg]"]').val());
-      $branchPreview.find('.color-preview-menu .hover').css('background-color', $colorPalette.find('input[name="palette[headerhover]"]').val());
-      $branchPreview.find('.color-preview-menu .color-preview-menu-link').css('color', $colorPalette.find('input[name="palette[headerlink]"]').val());
-      $branchPreview.find('.color-preview-menu .color-preview-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headerlinkhover]"]').val());
+      $branchPreview.find('.color-preview-menu .hover').css('background-color', $colorPalette.find('input[name="palette[headermenuhover]"]').val());
+      $branchPreview.find('.color-preview-menu .color-preview-menu-link').css('color', $colorPalette.find('input[name="palette[headermenulink]"]').val());
+      $branchPreview.find('.color-preview-menu .color-preview-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headermenulinkhover]"]').val());
 
       // Branch subhead.
       $branchPreview.find('.color-preview-branch-subheader').css('background-color', $colorPalette.find('input[name="palette[branchsubheaderbg]"]').val());
@@ -66,11 +66,6 @@
       $branchPreview.find('.preview-button').css('background-color', $colorPalette.find('input[name="palette[branchbutton]"]').val());
       $branchPreview.find('.preview-button').css('color', $colorPalette.find('input[name="palette[branchbuttonlink]"]').val());
 
-      // Branch menu.
-      $branchPreview.find('.color-preview-branch-menu').css('background-color', $colorPalette.find('input[name="palette[branchmenubg]"]').val());
-      $branchPreview.find('.color-preview-branch-menu').css('color', $colorPalette.find('input[name="palette[branchmenulink]"]').val());
-      $branchPreview.find('.color-preview-branch-menu .hover').css('background-color', $colorPalette.find('input[name="palette[branchmenuhighlight]"]').val());
-
       // Footer.
       $branchPreview.find('.color-preview-footer').css('background-color', $colorPalette.find('input[name="palette[footer]"]').val());
       $branchPreview.find('.color-preview-footer').css('color', $colorPalette.find('input[name="palette[footertext]"]').val());
@@ -79,19 +74,19 @@
       var $campPreview = $form.find('.camp-color-preview');
 
       // Solid background.
-      $campPreview.css('backgroundColor', $colorPalette.find('input[name="palette[campbg]"]').val());
+      $campPreview.css('backgroundColor', $colorPalette.find('input[name="palette[bg]"]').val());
 
       // Header.
-      $campPreview.find('.color-preview-header').css('background-color', $colorPalette.find('input[name="palette[campheaderbg]"]').val());
-      $campPreview.find('.color-preview-menu .hover').css('background-color', $colorPalette.find('input[name="palette[campheaderhover]"]').val());
-      $campPreview.find('.color-preview-menu .color-preview-menu-link').css('color', $colorPalette.find('input[name="palette[campheaderlink]"]').val());
-      $campPreview.find('.color-preview-menu .color-preview-menu-link.hover').css('color', $colorPalette.find('input[name="palette[campheaderlinkhover]"]').val());
+      $campPreview.find('.color-preview-header').css('background-color', $colorPalette.find('input[name="palette[headerbg]"]').val());
+      $campPreview.find('.color-preview-menu .hover').css('background-color', $colorPalette.find('input[name="palette[headermenuhover]"]').val());
+      $campPreview.find('.color-preview-menu .color-preview-menu-link').css('color', $colorPalette.find('input[name="palette[headermenulink]"]').val());
+      $campPreview.find('.color-preview-menu .color-preview-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headermenulinkhover]"]').val());
 
-      // Branch subhead.
+      // Camp subhead.
       $campPreview.find('.color-preview-branch-subheader').css('background-color', $colorPalette.find('input[name="palette[campsubheaderbg]"]').val());
 
       // Text preview.
-      $campPreview.find('.color-preview-main').css('color', $colorPalette.find('input[name="palette[camptext]"]').val());
+      $branchPreview.find('.color-preview-main').css('color', $colorPalette.find('input[name="palette[text]"]').val());
       $campPreview.find('.color-preview-main a').css('color', $colorPalette.find('input[name="palette[camplink]"]').val());
       $campPreview.find('.preview-button').css('background-color', $colorPalette.find('input[name="palette[campbutton]"]').val());
       $campPreview.find('.preview-button').css('color', $colorPalette.find('input[name="palette[campbuttonlink]"]').val());
@@ -102,8 +97,8 @@
       $campPreview.find('.color-preview-campmenu .hover').css('background-color', $colorPalette.find('input[name="palette[campmenuhighlight]"]').val());
 
       // Footer.
-      $campPreview.find('.color-preview-footer').css('background-color', $colorPalette.find('input[name="palette[campfooter]"]').val());
-      $campPreview.find('.color-preview-footer').css('color', $colorPalette.find('input[name="palette[campfootertext]"]').val());
+      $campPreview.find('.color-preview-footer').css('background-color', $colorPalette.find('input[name="palette[footer]"]').val());
+      $campPreview.find('.color-preview-footer').css('color', $colorPalette.find('input[name="palette[footertext]"]').val());
     }
   };
 })(jQuery, Drupal, drupalSettings);

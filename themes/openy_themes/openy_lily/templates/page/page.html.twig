@@ -56,7 +56,7 @@
  * @see html.html.twig
  */
 #}
-<div class="layout-container {{ camp_class }}">
+<div class="layout-container {{ page_class }}">
 
   {% include "@openy_lily/include/sidebar-search-and-menu.html.twig" %}
   <div id="side-area">
@@ -96,7 +96,7 @@
                 <span class="icon-bar"></span>
               </button>
               {% block page_logo %}
-                {% if (camp_class == 'is-camp') and (camp_section_image is not empty) %}
+                {% if (page_class == 'is-camp') and (camp_section_image is not empty) %}
                   <div>
                     <div id="block-openy-lily-branding">
                       <a href="{{ front_page }}" title="{{ "Home"|t }}" rel="{{ "home"|t }}">
