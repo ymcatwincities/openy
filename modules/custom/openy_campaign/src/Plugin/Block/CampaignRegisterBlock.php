@@ -139,7 +139,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     $utcCampaignRegStart = $localeRegistrationStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
     $utcCampaignRegEnd = $localeRegistrationEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
 
-    $campaignTimezone = new \DateTimeZone($campaign->get('field_campaign_timezone')->getString());
+    $campaignTimezone = !empty($campaign->get('field_campaign_timezone')->getString()) ? new \DateTimeZone($campaign->get('field_campaign_timezone')->getString()) : $siteDefaultTimezone;
     $startDateCampaignTz = $localeCampaignStart->convertTimezone($campaignTimezone);
     $endDateCampaignTz = $localeCampaignEnd->convertTimezone($campaignTimezone);
 
