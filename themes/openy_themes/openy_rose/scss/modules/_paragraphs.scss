@@ -254,8 +254,8 @@
         }
 
         @include breakpoint (1024px) {
-          font-size: 46px;
-          line-height: 50px;
+          font-size: 40px;
+          line-height: 42px;
           margin: 0 0 10px;
         }
       }
@@ -267,12 +267,10 @@
         margin-bottom: 15px;
 
         @include breakpoint (768px) {
-          font-size: 20px;
           margin-bottom: 15px;
         }
 
         @include breakpoint (1024px) {
-          font-size: 20px;
           margin-bottom: 30px;
         }
 
@@ -286,10 +284,6 @@
         font-size: 18px;
         padding: 0px;
         width: 100%;
-
-        @include breakpoint (768px) {
-          font-size: 20px;
-        }
 
         a {
           display: block;
@@ -332,7 +326,7 @@
   }
 
   h2 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Verdana, sans-serif;
     text-transform: uppercase;
     color: $default-grey;
     margin: 0 0 25px;
@@ -344,7 +338,7 @@
 
   .field-prgf-description h2 {
     color: $purple;
-    font-family: $font-style-cachet-ubuntu;
+    font-family: $font-style-sans;
     font-weight: bold;
     letter-spacing: normal;
     text-transform: none;
@@ -413,7 +407,7 @@
 
   .btn {
     white-space: normal;
-    font-size: 20px;
+    font-size: 18px;
     padding: 0px;
     width: 100%;
 
@@ -424,6 +418,23 @@
       @include breakpoint ($screen-sm) {
         padding: 10px;
       }
+    }
+  }
+}
+
+.paragraph--type--banner {
+  @include breakpoint($screen-desktop) {
+    height: 600px;
+  }
+
+  img.media__element {
+    @include breakpoint($screen-desktop) {
+      bottom: -100%;
+      top: -100%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      position: absolute;
     }
   }
 }
@@ -452,7 +463,16 @@
       width: calc(50% + #{ceil($container-large-desktop/6 - $grid-gutter-width)});
     }
 
-    img {
+    .media--image {
+      @include breakpoint($screen-desktop) {
+        height: 600px;
+        overflow: hidden;
+        padding-bottom: 0 !important;
+        position: relative;
+      }
+    }
+
+    img.media__element {
       width: 100% !important;
       height: auto !important;
 
@@ -484,35 +504,35 @@
     text-transform: uppercase;
 
     @include breakpoint($screen-desktop) {
-      font-size: 48px;
-      line-height: 48px;
+      font-size: 40px;
+      line-height: 44px;
     }
 
     @include breakpoint($screen-lg-desktop) {
       font-size: 50px;
-      line-height: 50px;
+      line-height: 55px;
     }
   }
 
   &-description {
     @include cachet;
     color: $white;
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
     font-stretch: normal;
     font-weight: 500;
     line-height: 1.22;
 
     @include breakpoint($screen-tablet) {
-      font-size: 20px;
-      line-height: 25px;
+      font-size: 18px;
+      line-height: 22px;
       margin-bottom: 30px;
     }
   }
 
   .banner-btn {
     white-space: normal;
-    font-size: 20px;
+    font-size: 18px;
     padding: 0px;
     width: 100%;
 
@@ -577,7 +597,11 @@
   &--type--latest-blog-posts,
   &--type--blog-posts-listing,
   &--type--latest-blog-posts-branch,
-  &--type--latest-blog-posts-camp {
+  &--type--latest-blog-posts-camp,
+  &--type--latest-news-posts,
+  &--type--news-posts-listing,
+  &--type--latest-news-posts-branch,
+  &--type--latest-news-posts-camp {
     .h1 {
       margin-bottom: 10px;
       font-size: $h1-size;
@@ -590,7 +614,8 @@
       margin-bottom: 30px;
     }
     @include breakpoint($screen-sm) {
-      .blog-more-teaser-results-wrapper {
+      .blog-more-teaser-results-wrapper,
+      .news-more-teaser-results-wrapper {
         margin-left: -15px;
         margin-right: -15px;
       }
@@ -739,7 +764,7 @@
   }
 
   .btn a {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     line-height: normal;
     padding: 0 24px ;
@@ -847,6 +872,28 @@
   }
 }
 
+.paragraph--type--blog-posts-listing,
+.paragraph--type--latest-blog-posts,
+.paragraph--type--latest-blog-posts-camp,
+.paragraph--type--latest-blog-posts-branch,
+.paragraph--type--news-posts-listing,
+.paragraph--type--latest-news-posts,
+.paragraph--type--latest-news-posts-camp,
+.paragraph--type--latest-news-posts-branch,
+.paragraph--type--featured-news {
+  .views-exposed-form {
+    margin-bottom: 30px;
+  }
+  @include breakpoint($screen-sm) {
+    .blog-more-teaser-results-wrapper,
+    .news-more-teaser-results-wrapper,
+    .wrapper-field-fnews-posts {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
+}
+
 .paragraph--type--openy-prgf-mbrshp-calc {
   padding: 20px 0;
 }
@@ -907,3 +954,4 @@
     }
   }
 }
+

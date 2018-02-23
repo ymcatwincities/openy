@@ -19,6 +19,7 @@ fields_unset_paragraphs:
     - prgf_location_finder_filters
     - openy_prgf_mbrshp_calc
     - membership_info
+    - secondary_description_sidebar
     - session_time
     - schedule_search_form
     - schedule_search_list

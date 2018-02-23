@@ -213,3 +213,26 @@ function openy_loc_facility_update_8009() {
     }
   }
 }
+
+/**
+ * Update feature configs for Drupal Core upgrade.
+ */
+function openy_loc_facility_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.facility.default' => [
+      'content.langcode',
+      'content.status',
+      'content.addthis',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
