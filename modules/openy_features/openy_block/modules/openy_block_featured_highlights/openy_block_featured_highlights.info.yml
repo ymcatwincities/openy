@@ -6,7 +6,12 @@ package: OpenY
 dependencies:
   - block_content
   - content_moderation
+  - datalayer
+  - entity_browser
   - field
   - language
   - link
-version: 8.x-1.0
+  - media_entity
+  - openy_block
+  - openy_media_image
+  - text
