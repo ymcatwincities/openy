@@ -5,12 +5,14 @@ body {
   background-color: #fffffb;
   color: #636466;
 }
+
 /* Global link color. */
 a,
 .link,
 .node--view-mode-full.node--type-facility .associated-branch-title a {
   color: #377bb5;
 }
+
 #page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
   color: #377bb5;
   border-color: #377bb5;
@@ -69,6 +71,7 @@ header#page-head .top-navs .nav-global {
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a {
   color: #777777;
 }
+
 /* Header menu link hover background and text color. */
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover {
   background-color: #ffffff;
@@ -93,10 +96,12 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 .nav > li > a:focus {
   background-color: inherit;
 }
+
 .viewport .nav-level-2.open {
   background-color: inherit;
   border-bottom: inherit;
 }
+
 /* Branch subheader background. */
 .is-branch .branch-header .desktop,
 .is-branch .branch-header .desktop .today-hours .branch-hours,
@@ -131,7 +136,9 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 #membership-calc-wrapper .nav-pills > li:first-child div {
   background-color: #5c2e91;
 }
+
 .paragraph--column-in-a-grid .fa,
+.block-description--text .fa,
 .paragraph-gallery .item__caption,
 .sidebar-card h2,
 .story-card a,
@@ -158,17 +165,23 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 .class-page-schedule .ticket,
 #schedules-search-form-wrapper .results .group_time,
 #schedules-search-form-wrapper .results .views-row .ticket,
-body .branch-popup .ui-dialog-content h3 {
+body .branch-popup .ui-dialog-content h3,
+#group-ex-results .time, .groupex-results .time,
+#group-ex-results .card .instructor .fa, .groupex-results .card .instructor .fa,
+#group-ex-results .card .instructor .fa, .groupex-results .card .instructor a {
   color: #5c2e91;
 }
+
 #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn,
 #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button {
   box-shadow: 0 0 5px #5c2e91;
 }
+
 #membership-calc-wrapper .nav-pills > li:first-child div:after,
 #membership-calc-wrapper .nav-pills > li.active div:after {
   border-left-color: #5c2e91;
 }
+
 .story-card .quote svg {
   fill: #5c2e91;
 }
@@ -179,9 +192,15 @@ body .branch-popup .ui-dialog-content h3 {
 .branch__updates_queue .slick-dots li.slick-active button:before,
 .branch-sessions-group .branch-sessions-group-slider .slick-dots li.slick-active button:before,
 .featured-content .slick-dots li.slick-active button:before,
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before {
+#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before,
+#group-ex-results .time .duration, .groupex-results .time .duration,
+#group-ex-results .card h3 a,
+.groupex-results .card h3 a,
+#group-ex-results .card h3 .fa,
+.groupex-results .card h3 .fa {
   color: #c6168d;
 }
+
 .paragraph--class-content .cards > a,
 .paragraph--class-content .cards .field-collection-item.without-link,
 .sub-category-classes-view .activity-group .teaser-row,
@@ -190,9 +209,11 @@ body .branch-popup .ui-dialog-content h3 {
 #schedules-search-form-wrapper .results .views-row {
   border-color: #c6168d;
 }
+
 #membership-calc-wrapper .nav-pills > li div:after {
   border-left-color: #c6168d;
 }
+
 .branch-sessions-group .group_time {
   border-bottom-color: #c6168d;
 }
@@ -212,7 +233,8 @@ body .branch-popup .ui-dialog-content h3 {
 .is-branch .modal-body .button:hover,
 .is-branch .btn-primary:hover,
 .is-branch .btn.white-blue:hover,
-.is-branch .white-blue.button:hover {
+.is-branch .white-blue.button:hover,
+.groupex-form-full .top-form-wrapper .groupex-pdf-link-container a {
   background-color: #b92f9f;
   color: #fffff8;
 }
@@ -232,6 +254,7 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .link {
   color: #019c85;
 }
+
 .is-camp .button,
 .is-camp .btn,
 .is-camp .button.blue,
@@ -253,6 +276,7 @@ body .branch-popup .ui-dialog-content h3 {
   background-color: #019c86;
   color: #fffff7;
 }
+
 .is-camp .button a,
 .is-camp .btn a,
 .is-camp .banner .banner-btn a,
@@ -272,6 +296,7 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .navbar-nav .open .dropdown-menu > li > a:focus {
   color: #fffff8;
 }
+
 .is-camp .viewport .nav-level-2 > a:hover,
 .is-camp .viewport .nav-level-2 > a:focus
 .is-camp .viewport .page-head__main-menu .nav-level-2 > a:hover,
@@ -307,8 +332,13 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .camp-menu-wrapper .active {
   background-color: #505050;
 }
+.is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a.active:hover:after {
+  background-color: #505050 !important;
+}
 
+/* Camp Primary highlight color. */
 .is-camp .paragraph--column-in-a-grid .fa,
+.is-camp .block-description--text .fa,
 .is-camp .paragraph-gallery .item__caption,
 .is-camp .sidebar-card h2,
 .is-camp .story-card a,
@@ -337,24 +367,40 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .class-page-schedule .ticket,
 .is-camp #schedules-search-form-wrapper .results .group_time,
 .is-camp #schedules-search-form-wrapper .results .views-row .ticket,
-body .is-camp .branch-popup .ui-dialog-content h3 {
+body .is-camp .branch-popup .ui-dialog-content h3,
+#group-ex-results .time, .groupex-results .time,
+#group-ex-results .card .instructor .fa, .groupex-results .card .instructor .fa,
+#group-ex-results .card .instructor .fa,
+#group-ex-results .card .instructor a,
+.groupex-results .card .instructor a {
   color: #019c87;
 }
+
 .node--type-camp .modal-body .button.btn-primary.btn-lg,
 .is-camp .node--type-blog.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2:after,
 .is-camp .node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up .category {
   background-color: #019c87;
 }
 
-/* Secondary highlight color (pink.) */
+/* Camp Secondary highlight color. */
+.is-camp .branch-header .desktop,
+.is-camp .branch-header .desktop .today-hours .branch-hours,
+.is-camp .branch-header .mobile,
+.is-camp .node--type-blog.node--view-mode-teaser.blog-fuchsia .inner-wrapper,
+.is-camp #membership-calc-wrapper .nav-pills > li div {
+  background-color: #c6168e;
+}
+
 .is-camp .paragraph-gallery .cta-group-wrapper .cta-group h1,
 .is-camp .sub-category-classes-view .activity-group .activity-group-slider .slick-dots li.slick-active button:before,
 .is-camp .branch__updates_queue .slick-dots li.slick-active button:before,
 .is-camp .branch-sessions-group .branch-sessions-group-slider .slick-dots li.slick-active button:before,
 .is-camp .featured-content .slick-dots li.slick-active button:before,
-.is-camp #schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before {
+.is-camp #schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before,
+.is-camp #group-ex-results .time .duration, .groupex-results .time .duration {
   color: #c6168e;
 }
+
 .is-camp .paragraph--class-content .cards > a,
 .is-camp .paragraph--class-content .cards .field-collection-item.without-link,
 .is-camp .sub-category-classes-view .activity-group .teaser-row,
@@ -363,9 +409,11 @@ body .is-camp .branch-popup .ui-dialog-content h3 {
 .is-camp #schedules-search-form-wrapper .results .views-row {
   border-color: #c6168e;
 }
+
 .is-camp #membership-calc-wrapper .nav-pills > li div:after {
   border-left-color: #c6168e;
 }
+
 .is-camp .branch-sessions-group .group_time {
   border-bottom-color: #c6168e;
 }
@@ -386,6 +434,7 @@ body .is-camp .branch-popup .ui-dialog-content h3 {
 .site-alert__wrapper a.site-alert__dismiss {
   color: #ffffff;
 }
+
 #block-openy-lily-tabs .nav-tabs li a {
   color: #565656;
 }
