@@ -560,6 +560,109 @@
   }
 }
 
+.paragraph--type--secondary-description-sidebar {
+  background: $extra-grey3;
+  padding: 10px 0 20px 0;
+  margin-bottom: 20px;
+  color: $darker-grey;
+  font-family: $font-family-sans-serif;
+  font-weight: 200;
+  line-height: 1.4;
+  @include breakpoint ($tablet) {
+    margin-bottom: 40px;
+    padding: 0;
+  }
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 55%;
+    display: block;
+    width: 80%;
+    height: 100%;
+    background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.43), rgba(255, 255, 255, 0));
+    background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.43), rgba(255, 255, 255, 0));
+    background-image: -ms-linear-gradient(rgba(255, 255, 255, 0.43), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(rgba(255, 255, 255, 0.43), rgba(255, 255, 255, 0));
+    content: '';
+    -webkit-transform: skew(-30deg);
+    -moz-transform: skew(-30deg);
+    -ms-transform: skew(-30deg);
+    transform: skew(-30deg);
+  }
+  h2 {
+    color: $extra-grey6;
+    font-weight: bold;
+    margin-top: 0;
+    text-transform: uppercase;
+    font-size: 34px;
+    @include cachet();
+  }
+  a {
+    font-weight: bold;
+  }
+  ul {
+    padding: 0;
+    li {
+      position: relative;
+      margin: 5px 0;
+      padding-left: 20px;
+      list-style: none;
+      &:before {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        margin-right: 8px;
+        color: #bebcbc;
+        content: '>';
+        font-family: 'YMCA';
+      }
+      a {
+        font-weight: bold;
+        font-family: 'Cachet', Helvetica, Arial, sans-serif;
+      }
+    }
+  }
+  .left {
+    font-size: 18px;
+    padding-left: 0;
+    padding-right: 0;
+    @include breakpoint ($tablet) {
+      margin-bottom: 0;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      font-size: 21px;
+    }
+  }
+  .right {
+    font-size: 18px;
+    padding-left: 0;
+    padding-right: 0;
+    @include breakpoint ($tablet) {
+      margin-bottom: 0;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      font-size: 21px;
+    }
+  }
+  .richtext .schedules:before {
+    margin-right: 5px;
+    content: 'm';
+    vertical-align: bottom;
+    text-transform: none;
+    font-weight: normal;
+    font-family: 'YMCA';
+    content: 'c';
+  }
+  .richtext .membership:before {
+    margin-right: 5px;
+    content: 'm';
+    vertical-align: bottom;
+    text-transform: none;
+    font-weight: normal;
+    font-family: 'YMCA';
+  }
+}
+
 .paragraph--type--featured-highlights {
   article.featured-highlights-block {
     max-width: 100%;
