@@ -102,3 +102,20 @@ function openy_prgf_update_8006() {
     'fields_unset_paragraphs'
   );
 }
+
+/**
+ * Enable Featured Highlights paragraph module and update openy_prgf.settings.
+ */
+function openy_prgf_update_8007() {
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_featured_highlights',
+  ]);
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf');
+  $config .= '/config/install/';
+  $config .= 'openy_prgf.settings.yml';
+  $config_importer->update($config,
+    'openy_prgf.settings',
+    'fields_unset_paragraphs'
+  );
+}
