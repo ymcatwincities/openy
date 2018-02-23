@@ -587,6 +587,10 @@
             display: block;
           }
         }
+        &:focus {
+          outline: none;
+          text-decoration: none;
+        }
       }
       &.no-left-border {
         //border-top-color: #eaeaea;
