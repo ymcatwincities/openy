@@ -559,3 +559,92 @@
     margin-top: 0;
   }
 }
+
+.paragraph--type--featured-highlights {
+  article.featured-highlights-block {
+    max-width: 100%;
+    margin: auto;
+    width: 100%;
+    font-size: 15px;
+
+    a {
+      color: inherit;
+      word-break: break-word;
+      .inner-wrapper {
+        box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+        margin: 15px 0;
+        overflow: visible;
+        height: auto;
+        border: none !important;
+        background-color: rgba(255,255,255,0.61);
+        position: relative;
+        .blog-up {
+          text-align: center;
+          .field-media-image {
+            height: 210px;
+            img {
+              height: auto;
+              max-width: inherit;
+              width: 100%;
+              vertical-align: top;
+              margin: auto;
+            }
+          }
+        }
+        .blog-heading {
+          padding: 12px;
+          position: static;
+          height: auto;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -ms-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+          background-color: #F5F5F5;
+          left: 0;
+          top: 0;
+          width: 100%;
+          text-align: left;
+          font-weight: 500;
+          h2 {
+            color: #635f5f;
+            font-weight: bold;
+            margin-top: 8px;
+            font-size: 30px;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            &:after {
+              margin: 10px 10px 0;
+              display: inline-block;
+              color: white;
+              background: #b3b3b3;
+              content: "\f054";
+              text-align: center;
+              font-size: 24px;
+              font: normal normal normal 14px/1 FontAwesome;
+              -webkit-transition: all 0.5s ease;
+              -moz-transition: all 0.5s ease;
+              -ms-transition: all 0.5s ease;
+              -o-transition: all 0.5s ease;
+              transition: all 0.5s ease;
+              width: 21px;
+              height: 21px;
+              border-radius: 50%;
+              padding-top: 4px;
+              padding-left: 2px;
+              vertical-align: text-top;
+            }
+          }
+          p {
+            color: #635f5f;
+            font-size: 14px;
+            line-height: 1.62em;
+          }
+        }
+      }
+    }
+  }
+}
