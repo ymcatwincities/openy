@@ -383,9 +383,6 @@ body .is-camp .branch-popup .ui-dialog-content h3,
 }
 
 /* Camp Secondary highlight color. */
-.is-camp .branch-header .desktop,
-.is-camp .branch-header .desktop .today-hours .branch-hours,
-.is-camp .branch-header .mobile,
 .is-camp .node--type-blog.node--view-mode-teaser.blog-fuchsia .inner-wrapper,
 .is-camp #membership-calc-wrapper .nav-pills > li div {
   background-color: #c6168e;
