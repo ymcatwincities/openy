@@ -155,6 +155,7 @@ class GroupexFormFull extends GroupexFormBase {
     $formatted_results = NULL;
     $conf = $this->configFactory->get('openy_group_schedules.settings');
     $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
+    $instructors_options = [];
 
     // Get location options.
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
