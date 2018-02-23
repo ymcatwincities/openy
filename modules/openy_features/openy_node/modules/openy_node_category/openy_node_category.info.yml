@@ -10,6 +10,7 @@ dependencies:
   - entity_reference_revisions
   - field
   - field_group
+  - focal_point
   - image
   - media_entity
   - menu_ui

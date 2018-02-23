@@ -109,6 +109,8 @@ class SchedulesSearchForm extends FormBase {
     $this->logger = $logger_factory->get('openy_schedules');
     $this->setRequestStack($request_stack);
     $this->node = $this->getRequest()->get('node');
+    // Invoke hook_openy_schedule_search_form_states_pre_build_alter to changing init field value.
+    \Drupal::moduleHandler()->alter('openy_schedule_search_form_states_pre_build', $state);
     $this->state = $state;
   }
 
@@ -792,7 +794,7 @@ class SchedulesSearchForm extends FormBase {
     // Format for weekly view.
     if (!empty($parameters['display'])) {
       $conditions['from'] = strtotime($parameters['date'] . 'T00:00:00');
-      $conditions['to'] = strtotime($parameters['date'] . 'T00:00:00 + 6 days');
+      $conditions['to'] = strtotime($parameters['date'] . 'T23:59:59 + 6 days');
     }
     else {
       $date_string = $parameters['date'] . ' 00:00:00';
@@ -816,7 +818,7 @@ class SchedulesSearchForm extends FormBase {
     $session_instances = $this->getSessions($parameters);
     $content = [];
     $title_date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date']);
-    $title_date_week_to = DrupalDateTime::createFromTimestamp(strtotime($parameters['date'] . 'T00:00:00 + 6 days'));
+    $title_date_week_to = DrupalDateTime::createFromTimestamp(strtotime($parameters['date'] . 'T23:59:59 + 6 days'));
     $title_date_week_from = $title_date->format('n/j/Y');
     $title_date_week_to = $title_date_week_to->format('n/j/Y');
     $title_date = $title_date->format('F j, Y');
@@ -946,7 +948,7 @@ class SchedulesSearchForm extends FormBase {
     $alerts = self::buildAlerts($parameters);
     $branch_hours = $this->buildBranchHours($form, $parameters);
     $response = new AjaxResponse();
-    $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper #edit-selects', $form['selects']));
+    $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .selects-container', $form['selects']));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .results', $formatted_results));
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .filters-container', $filters));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .alerts-wrapper', $alerts));

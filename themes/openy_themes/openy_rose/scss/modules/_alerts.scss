@@ -9,7 +9,7 @@ $module: 'site-alert';
   }
 
   &__title {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   &__content {
@@ -19,6 +19,7 @@ $module: 'site-alert';
   }
 
   &__cta {
+    font-size: 12px;
     margin-top: 15px;
 
     @include breakpoint($screen-sm) {
@@ -93,7 +94,7 @@ $module: 'site-alert';
 
       &__content {
         display: inline;
-        font-size: 16px;
+        font-size: 14px;
 
         .field-body-no-summary {
           a {
