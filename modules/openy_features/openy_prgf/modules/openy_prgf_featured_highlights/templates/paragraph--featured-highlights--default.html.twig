@@ -43,25 +43,33 @@
 'paragraph--type--' ~ paragraph.bundle|clean_class,
 view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ] %}
+
+ {% set columns = content.field_prgf_grid_style.0['#markup'] %}
+
 <div{{ attributes.addClass(classes) }}>
   {% if content.field_prgf_title|render|trim is not empty %}
     <h2 class="h1">{{ content.field_prgf_title }}</h2>
   {% endif %}
   <div
-      class="{{ 'wrapper-' ~ content.field_prgf_block_ref_unlim['#field_name']|clean_class }} row">
-    {% if content.field_prgf_grid_style.0['#markup'] == '2' %}
+    class="{{ 'wrapper-' ~ content.field_prgf_block_ref_unlim['#field_name']|clean_class }} row">
+    {% if columns == '2' %}
       {% set item_class = 'col-xs-12 col-sm-6' %}
-    {% elseif content.field_prgf_grid_style.0['#markup'] == '3' %}
+    {% elseif columns == '3' %}
       {% set item_class = 'col-xs-12 col-sm-4' %}
-    {% elseif content.field_prgf_grid_style.0['#markup'] == '4' %}
+    {% elseif columns == '4' %}
       {% set item_class = 'col-xs-12 col-sm-3' %}
     {% endif %}
-
     {% for key, item in content.field_prgf_block_ref_unlim %}
       {% if key matches '/^\\d+$/' %}
-        <div class="{{ item_class }} row-eq-height">
+        {% if key % columns == 0 %}
+          <div class="row-eq-height">
+        {% endif %}
+        <div class="{{ item_class }}">
           {{ item }}
         </div>
+        {% if key % columns == columns - 1 or loop.last %}
+          </div>
+        {% endif %}
       {% endif %}
     {% endfor %}
   </div>
