@@ -181,6 +181,11 @@ p {
   margin: 0 auto;
   padding: 30px 0 40px 0;
 }
+@media (min-width: 20em) {
+  .paragraph--type--campaign-winners .winners-branches-select .form-item-branch {
+    width: 100%;
+  }
+}
 .paragraph--type--campaign-winners .winners-branches-select .form-item-branch label {
   color: #fff;
   text-transform: uppercase;
@@ -207,6 +212,11 @@ p {
   text-transform: uppercase;
   width: 60%;
   margin: 0 auto;
+}
+@media (min-width: 20em) {
+  .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members {
+    width: 100%;
+  }
 }
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members thead {
   font-size: 14px;
