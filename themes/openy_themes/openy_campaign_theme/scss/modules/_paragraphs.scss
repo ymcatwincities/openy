@@ -16,6 +16,9 @@
     .form-item-branch {
       text-align: center;
       width: 300px;
+      @include breakpoint($screen-phone) {
+        width: 100%;
+      }
       margin: 0 auto;
       padding: 30px 0 40px 0;
       label {
@@ -43,6 +46,11 @@
       .winners-members {
         text-transform: uppercase;
         width: 60%;
+
+        @include breakpoint($screen-phone) {
+          width: 100%;
+        }
+
         margin: 0 auto;
         thead {
           font-size: 14px;
