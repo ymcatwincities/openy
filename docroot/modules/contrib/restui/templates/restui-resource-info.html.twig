@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Default theme implementation for basic administrative info about a REST resource.
+ *
+ * Available variables:
+ * - granularity: string REST resource granularity. Either
+ *   \Drupal\rest\RestResourceConfigInterface::METHOD_GRANULARITY or
+ *   \Drupal\rest\RestResourceConfigInterface::RESOURCE_GRANULARITY.
+ * - configuration: array REST resource config.
+ *
+ * @ingroup themeable
+ */
+#}
+{% if granularity == 'resource' %}
+    <p>methods: {{ configuration.methods|join(', ') }}</br>
+        formats: {{ configuration.formats|join(', ') }}</br>
+        authentication: {{ configuration.authentication|join(', ') }}
+    </p>
+{% else %}
+    {% for method, properties in configuration %}
+        <p>{{ method }}</br>
+            formats: {{ properties.supported_formats|join(', ') }}</br>
+            authentication: {{ properties.supported_auth|join(', ') }}
+        </p>
+    {% endfor %}
+{% endif %}

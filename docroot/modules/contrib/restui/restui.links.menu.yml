@@ -1,0 +1,5 @@
+restui.list:
+  title: REST
+  description: 'Configure REST server settings.'
+  parent: system.admin_config_services
+  route_name: restui.list
