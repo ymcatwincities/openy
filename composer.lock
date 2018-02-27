@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "87182619365217c22ed4dfb7c3021848",
+    "content-hash": "2c5efafbda609788c843d435f9df8496",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1487,6 +1487,11 @@
                 "symfony/phpunit-bridge": "~3.2.8"
             },
             "type": "drupal-core",
+            "extra": {
+                "patches_applied": {
+                    "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Drupal\\Core\\": "lib/Drupal/Core",
@@ -1757,7 +1762,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/datalayer"
             },
-            "time": "2018-02-13 18:39:37"
+            "time": "2018-02-13T18:39:37+00:00"
         },
         {
             "name": "drupal/dropzonejs",
@@ -2283,7 +2288,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.5",
-                    "datestamp": "1488908583",
+                    "datestamp": "1519703584",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2591,7 +2596,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/google_tag"
             },
-            "time": "2018-01-02 23:43:05"
+            "time": "2018-01-02T23:43:05+00:00"
         },
         {
             "name": "drupal/inline_entity_form",
@@ -2764,7 +2769,7 @@
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
             },
-            "time": "2017-03-15 17:04:08"
+            "time": "2017-03-15T17:04:08+00:00"
         },
         {
             "name": "drupal/lndr",
@@ -2910,7 +2915,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/media_entity"
             },
-            "time": "2017-12-14 15:50:24"
+            "time": "2017-12-14T15:50:24+00:00"
         },
         {
             "name": "drupal/media_entity_document",
@@ -2961,7 +2966,7 @@
                 "source": "https://www.drupal.org/project/media_entity_document",
                 "issues": "https://www.drupal.org/project/issues/media_entity_document"
             },
-            "time": "2017-10-24 14:14:45"
+            "time": "2017-10-24T14:14:45+00:00"
         },
         {
             "name": "drupal/media_entity_image",
@@ -3021,7 +3026,7 @@
                 "source": "https://www.drupal.org/project/media_entity_image",
                 "issues": "https://www.drupal.org/project/issues/media_entity_image"
             },
-            "time": "2017-10-24 13:23:24"
+            "time": "2017-10-24T13:23:24+00:00"
         },
         {
             "name": "drupal/media_entity_video",
@@ -3940,7 +3945,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_menu_icons"
             },
-            "time": "2016-10-03 15:25:52"
+            "time": "2016-10-03T15:25:52+00:00"
         },
         {
             "name": "drupal/simple_sitemap",
@@ -4459,7 +4464,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/views_block_filter_block"
             },
-            "time": "2017-10-13 06:53:22"
+            "time": "2017-10-13T06:53:22+00:00"
         },
         {
             "name": "drupal/views_field_formatter",
@@ -6405,16 +6410,16 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "ed6ce7e2105c400ca10277643a8327957c0384b7"
+                "reference": "bf26aff803a11c5cc8eb7c4878a702c403ec67f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/ed6ce7e2105c400ca10277643a8327957c0384b7",
-                "reference": "ed6ce7e2105c400ca10277643a8327957c0384b7",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/bf26aff803a11c5cc8eb7c4878a702c403ec67f1",
+                "reference": "bf26aff803a11c5cc8eb7c4878a702c403ec67f1",
                 "shasum": ""
             },
             "require": {
@@ -6453,7 +6458,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2018-01-04T18:21:48+00:00"
+            "time": "2018-02-26T15:44:50+00:00"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -7179,16 +7184,16 @@
         },
         {
             "name": "consolidation/annotated-command",
-            "version": "2.8.2",
+            "version": "2.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/consolidation/annotated-command.git",
-                "reference": "e97c38717eae23a2bafcf3f09438290eee6ebeb4"
+                "reference": "8f8f5da2ca06fbd3a85f7d551c49f844b7c59437"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/e97c38717eae23a2bafcf3f09438290eee6ebeb4",
-                "reference": "e97c38717eae23a2bafcf3f09438290eee6ebeb4",
+                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/8f8f5da2ca06fbd3a85f7d551c49f844b7c59437",
+                "reference": "8f8f5da2ca06fbd3a85f7d551c49f844b7c59437",
                 "shasum": ""
             },
             "require": {
@@ -7200,6 +7205,7 @@
                 "symfony/finder": "^2.5|^3|^4"
             },
             "require-dev": {
+                "greg-1-anderson/composer-test-scenarios": "^1",
                 "phpunit/phpunit": "^4.8",
                 "satooshi/php-coveralls": "^1.0.2 | dev-master",
                 "squizlabs/php_codesniffer": "^2.7"
@@ -7226,7 +7232,7 @@
                 }
             ],
             "description": "Initialize Symfony Console commands from annotated command class methods.",
-            "time": "2017-11-29T16:23:23+00:00"
+            "time": "2018-02-23T16:32:04+00:00"
         },
         {
             "name": "consolidation/config",
@@ -7724,7 +7730,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2017-09-27 15:44:21"
+            "time": "2017-09-27T15:44:21+00:00"
         },
         {
             "name": "emuse/behat-html-formatter",

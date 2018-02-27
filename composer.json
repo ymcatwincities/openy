@@ -150,6 +150,9 @@
             },
             "drupal/views_field_formatter": {
                 "2874811 - Add option to show/hide empty views": "https://www.drupal.org/files/issues/Option-added-to-hide-empty-views-2874811.patch"
+            },
+            "drupal/core": {
+                "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch"
             }
         }
     },
