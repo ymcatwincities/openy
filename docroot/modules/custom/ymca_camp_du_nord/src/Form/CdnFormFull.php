@@ -512,9 +512,11 @@ class CdnFormFull extends FormBase {
         $departure_date = new \DateTime($query['departure_date']);
         if (!empty($query['range'])) {
           for ($i = 0; $i < $query['range']; $i++) {
-            // @todo: limit to past dates.
             $today = new DrupalDateTime();
-            $arrival_date->modify('- 1 day');
+            $range = $today->diff($arrival_date);
+            if ($range->days > 2) {
+              $arrival_date->modify('- 1 day');
+            }
             $departure_date->modify('+ 1 day');
           }
         }
@@ -667,43 +669,34 @@ class CdnFormFull extends FormBase {
         unset($dates[$i]);
       }
     }
-    foreach ($dates as $missed) {
-      $missed = DrupalDateTime::createFromFormat('Y-m-d', $missed)->setTime(0, 0);
-      $first = TRUE;
+    foreach ($period as $d) {
       $skip = FALSE;
       foreach ($builds['list'] as $key => $l) {
         $current = DrupalDateTime::createFromFormat('Y-m-d', $l['#data']['date'])->setTime(0, 0);
-        if (!$first) {
-          if ($skip) {
-            continue;
-          }
-          if ($prev_date !== $current->modify('- 1 day')) {
-            if ($missed == $current->modify('+ 2 day')) {
-              $missed_build = array([
-                '#theme' => 'cdn_results_calendar',
-                '#data' => [
-                  'id' => '0',
-                  'pid' => '0',
-                  'date' => $missed->format('Y-m-d'),
-                  'date1' => $missed->format('F'),
-                  'date2' => $missed->format('d'),
-                  'date3' => $missed->format('D'),
-                  'is_booked' => TRUE,
-                  'is_selected' => FALSE,
-                  'price' => '0',
-                  'total_capacity' => '0',
-                  'village_id' => '0',
-                ]]);
-              array_splice($builds['list'], $key + 1, 0, $missed_build);
-              $skip = TRUE;
-            }
-          }
+        if ($skip) {
+          continue;
         }
-        $first = FALSE;
-        $prev_date = $current->modify('- 1 day');
+        if ($d <= $current && in_array($d->format('Y-m-d'), $dates)) {
+          $missed_build = array([
+            '#theme' => 'cdn_results_calendar',
+            '#data' => [
+              'id' => '0',
+              'pid' => '0',
+              'date' => $d->format('Y-m-d'),
+              'date1' => $d->format('F'),
+              'date2' => $d->format('d'),
+              'date3' => $d->format('D'),
+              'is_booked' => TRUE,
+              'is_selected' => FALSE,
+              'price' => '0',
+              'total_capacity' => '0',
+              'village_id' => '0',
+            ]]);
+          array_splice($builds['list'], $key, 0, $missed_build);
+          $skip = TRUE;
+        }
       }
     }
-
     return $builds;
   }
 
