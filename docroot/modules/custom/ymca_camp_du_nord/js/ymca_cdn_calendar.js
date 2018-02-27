@@ -233,12 +233,37 @@
         $(this).on('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
+          var allowSelection = true;
           if ($(this).parent().hasClass('booked')) {
-            return;
+            allowSelection = false;
+            // Check if previous date is selected and give a chance to select booked date as checkout date.
+            var target = $(this).parent().prev();
+            if (target.length !== 0) {
+              if (target.find('a.cdn-prs-product-mobile').hasClass('selected') && !target.hasClass('booked')) {
+                allowSelection = true;
+              }
+            }
+          }
+          // Block select option if out of range.
+          if ($('a.cdn-prs-product-mobile.selected', context).length >= 2) {
+            var prev_sibling_s = $(this).parent().prev().find('a.cdn-prs-product-mobile'),
+                next_sibling_s = $(this).parent().next().find('a.cdn-prs-product-mobile');
+            if ((prev_sibling_s.length === 1 && prev_sibling_s.length === 1) && !prev_sibling_s.hasClass('selected') && !next_sibling_s.hasClass('selected')) {
+              allowSelection = false;
+            }
           }
           if (!$(this).hasClass('selected')) {
+            if (!allowSelection) {
+              return;
+            }
             $(this).addClass('selected');
           } else {
+            // Check if date is not in the middle of selected range.
+            var left_sibling = $(this).parent().prev().find('a.cdn-prs-product-mobile'),
+                right_sibling = $(this).parent().next().find('a.cdn-prs-product-mobile');
+            if (left_sibling.hasClass('selected') && right_sibling.hasClass('selected')) {
+              return;
+            }
             $(this).removeClass('selected');
           }
           Drupal.cdn.check_borders_mobile($(this));

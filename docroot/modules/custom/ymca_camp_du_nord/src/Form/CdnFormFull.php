@@ -512,9 +512,11 @@ class CdnFormFull extends FormBase {
         $departure_date = new \DateTime($query['departure_date']);
         if (!empty($query['range'])) {
           for ($i = 0; $i < $query['range']; $i++) {
-            // @todo: limit to past dates.
             $today = new DrupalDateTime();
-            $arrival_date->modify('- 1 day');
+            $range = $today->diff($arrival_date);
+            if ($range->days > 2) {
+              $arrival_date->modify('- 1 day');
+            }
             $departure_date->modify('+ 1 day');
           }
         }
@@ -540,7 +542,7 @@ class CdnFormFull extends FormBase {
           $view->preExecute();
           $view->execute();
         }
-        $calendar_list_data = $this->buildListCalendarAndFooter($view);
+        $calendar_list_data = $this->buildListCalendarAndFooter($view, $period);
         $calendar = $view->buildRenderable('embed_1', $args);
 
         $teasers[$product->field_cdn_prd_cabin_id->value] += [
@@ -569,15 +571,17 @@ class CdnFormFull extends FormBase {
    * @param array $view
    *   Fetched view with products.
    *
+   * @param object $period
+   *   Chosen dates period.
+   *
    * @return array
    *   Results render array.
    */
-  public function buildListCalendarAndFooter($view) {
+  public function buildListCalendarAndFooter($view, $period) {
     $product_ids = $builds = [];
     $total_nights = 0;
     $total_price = '';
     // Collect products ids.
-    $product_ids = [];
     foreach ($view->result as $row) {
       $product_ids[] = !$row->_entity->field_cdn_prd_id->isEmpty() ? $row->_entity->field_cdn_prd_id->value : '';
     }
@@ -609,11 +613,13 @@ class CdnFormFull extends FormBase {
       $date1 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('F');
       $date2 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('d');
       $date3 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('D');
+
       $builds['list'][] = [
         '#theme' => 'cdn_results_calendar',
         '#data' => [
           'id' => $entity->id(),
           'pid' => $pid,
+          'date' => $date,
           'date1' => $date1,
           'date2' => $date2,
           'date3' => $date3,
@@ -634,6 +640,63 @@ class CdnFormFull extends FormBase {
       'total_price' => $total_price,
       'login_url' => $login_url,
     ];
+    $builds = $this->enrichListCalendar($builds, $period);
+    return $builds;
+  }
+
+  /**
+   * Helper method to check missed days for list calendar.
+   *
+   * @param array $builds
+   *   Render array with data.
+   *
+   * @param object $period
+   *   Chosen dates period.
+   *
+   * @return array
+   *   Results render array.
+   */
+  public function enrichListCalendar($builds, $period) {
+    $dates = [];
+    foreach ($period as $d) {
+      $dates[] = $d->format('Y-m-d');
+    }
+    $dates[] = $d->modify('+ 1 day')->format('Y-m-d');
+    foreach ($builds['list'] as $key => $l) {
+      $current = $l['#data']['date'];
+      $i = array_search($current, $dates);
+      if ($i !== FALSE) {
+        unset($dates[$i]);
+      }
+    }
+    foreach ($period as $d) {
+      $skip = FALSE;
+      foreach ($builds['list'] as $key => $l) {
+        $current = DrupalDateTime::createFromFormat('Y-m-d', $l['#data']['date'])->setTime(0, 0);
+        if ($skip) {
+          continue;
+        }
+        if ($d <= $current && in_array($d->format('Y-m-d'), $dates)) {
+          $missed_build = array([
+            '#theme' => 'cdn_results_calendar',
+            '#data' => [
+              'id' => '0',
+              'pid' => '0',
+              'date' => $d->format('Y-m-d'),
+              'date1' => $d->format('F'),
+              'date2' => $d->format('d'),
+              'date3' => $d->format('D'),
+              'is_booked' => TRUE,
+              'is_selected' => FALSE,
+              'price' => '0',
+              'total_capacity' => '0',
+              'village_id' => '0',
+            ]]);
+          array_splice($builds['list'], $key, 0, $missed_build);
+          $skip = TRUE;
+        }
+      }
+    }
     return $builds;
   }
 
