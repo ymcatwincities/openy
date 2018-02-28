@@ -74,7 +74,7 @@ function openy_loc_camp_update_8002() {
     'core.entity_view_display.node.camp.full' => [
       'dependencies.config',
       'content.field_bottom_content',
-      'content.field_oy_content',
+      'content.field_content',
       'content.field_header_content',
       'content.field_location_address',
       'content.field_location_fax',
@@ -155,6 +155,136 @@ function openy_loc_camp_update_8004() {
     ],
     'field.field.node.camp.field_meta_tags' => [
       'dependencies.module',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update description for field meta tags.
+ */
+function openy_loc_camp_update_8005() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_camp');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.camp.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.camp.field_meta_tags',
+    'description'
+  );
+}
+
+/**
+ * Add help text to Header Area.
+ */
+function openy_loc_camp_update_8006() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_camp');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.node.camp.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.node.camp.default',
+    'third_party_settings.field_group.group_header_area.format_settings.description'
+  );
+}
+
+/**
+ * Show directions and fax in full view mode.
+ */
+function openy_loc_camp_update_8007() {
+  $config_dir = drupal_get_path('module', 'openy_loc_camp') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.camp.full' => [
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Fixing configs.
+ */
+function openy_loc_camp_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_loc_camp') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.camp.full' => [
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update OpenY camp location paragraph feature configs.
+ */
+function openy_loc_camp_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_loc_camp') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.camp.default' => [
+      'dependencies.module',
+      'content',
+    ],
+    'core.entity_view_display.node.camp.class_location' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.camp.default' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.camp.full' => [
+      'dependencies.module',
+    ],
+    'core.entity_view_display.node.camp.teaser' => [
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs for Drupal Core upgrade.
+ */
+function openy_loc_camp_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_loc_camp') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.camp.default' => [
+      'content.langcode',
+      'content.status',
+      'content.addthis',
     ],
   ];
 

@@ -1,0 +1,306 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nsessions
+id: openy_demo_paragraph_session_time_02
+migration_tags: {  }
+migration_group: openy_demo_nsessions
+label: 'Create Session time paragraphs for demo session nodes'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: sports_classes_and_workshops_youth_fitness_challenge
+      parent_id: sports_classes_and_workshops_youth_fitness_challenge
+      time: 12:00:00 pm
+      time_end: 1:00:00 pm
+    -
+      id: sports_classes_and_workshops_youth_homezone
+      parent_id: sports_classes_and_workshops_youth_homezone
+      time: 6:00:00 am
+      time_end: 7:00:00 am
+    -
+      id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+      parent_id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+      time: 7:00:00 am
+      time_end: 8:00:00 am
+    -
+      id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      parent_id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      time: 8:00:00 am
+      time_end: 9:00:00 am
+    -
+      id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+      parent_id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+      time: 9:00:00 am
+      time_end: 10:00:00 am
+    -
+      id: group_exercise_classes_hiit
+      parent_id: group_exercise_classes_hiit
+      time: 10:00:00 am
+      time_end: 11:00:00 am
+    -
+      id: group_exercise_classes_hiit_metabolic_conditioning
+      parent_id: group_exercise_classes_hiit_metabolic_conditioning
+      time: 11:00:00 am
+      time_end: 12:00:00 pm
+    -
+      id: group_exercise_classes_moving_for_balance_spr_2017
+      parent_id: group_exercise_classes_moving_for_balance_spr_2017
+      time: 12:00:00 pm
+      time_end: 1:00:00 pm
+    -
+      id: samll_group_training_youth_small_group_training_tween_girl_power
+      parent_id: samll_group_training_youth_small_group_training_tween_girl_power
+      time: 6:00:00 am
+      time_end: 7:00:00 am
+    -
+      id: samll_group_training_youth_small_group_training_tween_titans
+      parent_id: samll_group_training_youth_small_group_training_tween_titans
+      time: 7:00:00 am
+      time_end: 8:00:00 am
+    -
+      id: pilates_reformer_10_private_1hr_sessions
+      parent_id: pilates_reformer_10_private_1hr_sessions
+      time: 8:00:00 am
+      time_end: 9:00:00 am
+    -
+      id: private_yoga_10_1hour_sessions
+      parent_id: private_yoga_10_1hour_sessions
+      time: 9:00:00 am
+      time_end: 10:00:00 am
+    -
+      id: pilates_reformer_duet_10_1hour_sessions
+      parent_id: pilates_reformer_duet_10_1hour_sessions
+      time: 10:00:00 am
+      time_end: 11:00:00 am
+    -
+      id: partner_personal_training_1_session
+      parent_id: partner_personal_training_1_session
+      time: 11:00:00 am
+      time_end: 12:00:00 pm
+    -
+      id: health_improvement_livestrong_at_the_y
+      parent_id: health_improvement_livestrong_at_the_y
+      time: 12:00:00 pm
+      time_end: 1:00:00 pm
+    -
+      id: health_improvement_nutrition_consultation_initial
+      parent_id: health_improvement_nutrition_consultation_initial
+      time: 1:00:00 pm
+      time_end: 2:00:00 pm
+    -
+      id: health_improvement_activly_changing_together
+      parent_id: health_improvement_activly_changing_together
+      time: 2:00:00 pm
+      time_end: 3:00:00 pm
+    -
+      id: climbing_adult_rock_climbing_sept
+      parent_id: climbing_adult_rock_climbing_sept
+      time: 3:00:00 pm
+      time_end: 4:00:00 pm
+    -
+      id: climbing_adult_rock_climbing_oct
+      parent_id: climbing_adult_rock_climbing_oct
+      time: 4:00:00 pm
+      time_end: 5:00:00 pm
+    -
+      id: climbing_adult_parent_child_sept
+      parent_id: climbing_adult_parent_child_sept
+      time: 5:00:00 pm
+      time_end: 6:00:00 pm
+    -
+      id: climbing_adult_parent_child_oct
+      parent_id: climbing_adult_parent_child_oct
+      time: 6:00:00 pm
+      time_end: 7:00:00 pm
+    -
+      id: small_group_and_specialty_training_adaptive_yoga
+      parent_id: small_group_and_specialty_training_adaptive_yoga
+      time: 7:00:00 pm
+      time_end: 8:00:00 pm
+    -
+      id: small_group_and_specialty_training_pilates_reformer_level_1
+      parent_id: small_group_and_specialty_training_pilates_reformer_level_1
+      time: 8:00:00 pm
+      time_end: 9:00:00 pm
+    -
+      id: small_group_and_specialty_training_pilates_reformer_intro
+      parent_id: small_group_and_specialty_training_pilates_reformer_intro
+      time: 9:00:00 pm
+      time_end: 10:00:00 pm
+    -
+      id: small_group_and_specialty_training_pilates_reformer_level_1_2
+      parent_id: small_group_and_specialty_training_pilates_reformer_level_1_2
+      time: 12:00:00 pm
+      time_end: 1:00:00 pm
+    -
+      id: weight_loss_lose_to_win_men
+      parent_id: weight_loss_lose_to_win_men
+      time: 6:00:00 am
+      time_end: 7:00:00 am
+    -
+      id: weight_loss_lose_to_win
+      parent_id: weight_loss_lose_to_win
+      time: 7:00:00 am
+      time_end: 8:00:00 am
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_non_school_days
+      parent_id: before_after_school_child_care_2016_17_woodmoor_non_school_days
+      time: 8:00:00 am
+      time_end: 9:00:00 am
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after_plus
+      parent_id: before_after_school_child_care_2016_17_woodmoor_after_plus
+      time: 9:00:00 am
+      time_end: 10:00:00 am
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after
+      parent_id: before_after_school_child_care_2016_17_woodmoor_after
+      time: 10:00:00 am
+      time_end: 11:00:00 am
+    -
+      id: before_after_school_child_care_2016_17_sunrise_before_after
+      parent_id: before_after_school_child_care_2016_17_sunrise_before_after
+      time: 11:00:00 am
+      time_end: 12:00:00 pm
+    -
+      id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      parent_id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      time: 12:00:00 pm
+      time_end: 1:00:00 pm
+    -
+      id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      parent_id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      time: 6:00:00 am
+      time_end: 7:00:00 am
+    -
+      id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      parent_id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      time: 7:00:00 am
+      time_end: 8:00:00 am
+    -
+      id: discovery_day_camp_drop_off_kenmore_elementary_2017
+      parent_id: discovery_day_camp_drop_off_kenmore_elementary_2017
+      time: 8:00:00 am
+      time_end: 9:00:00 am
+    -
+      id: discovery_day_camp_drop_off_Northshore_ymca_2017
+      parent_id: discovery_day_camp_drop_off_Northshore_ymca_2017
+      time: 9:00:00 am
+      time_end: 10:00:00 am
+    -
+      id: bold_one_wk_expeditions_cascade_challenge
+      parent_id: bold_one_wk_expeditions_cascade_challenge
+      time: 10:00:00 am
+      time_end: 11:00:00 am
+    -
+      id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+      parent_id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+      time: 11:00:00 am
+      time_end: 12:00:00 pm
+    -
+      id: bold_one_wk_expeditions_river_and_rocks
+      parent_id: bold_one_wk_expeditions_river_and_rocks
+      time: 12:00:00 pm
+      time_end: 1:00:00 pm
+    -
+      id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+      parent_id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+      time: 1:00:00 pm
+      time_end: 2:00:00 pm
+    -
+      id: earth_service_corps_about_yesc
+      parent_id: earth_service_corps_about_yesc
+      time: 2:00:00 pm
+      time_end: 3:00:00 pm
+    -
+      id: academic_success
+      parent_id: academic_success
+      time: 3:00:00 pm
+      time_end: 6:00:00 pm
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_session_02
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  parent_field_name:
+    plugin: default_value
+    default_value: field_session_time
+  today_Y_m_d:
+    -
+      plugin: default_value
+      default_value: 'Y-m-d'
+    -
+      plugin: callback
+      callable: date
+  a_year_from_today_Y_m_d:
+    -
+      plugin: default_value
+      default_value: '+1 year'
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: date_timestamp
+      to_format: 'Y-m-d'
+  today_day_of_week_strtolower:
+    -
+      plugin: default_value
+      default_value: 'l'
+    -
+      plugin: callback
+      callable: date
+    -
+      plugin: callback
+      callable: strtolower
+  item_time:
+    plugin: format_date
+    from_format: 'g:i:s a'
+    to_format: 'H:i:s'
+    source: time
+  item_end_time:
+    plugin: format_date
+    from_format: 'g:i:s a'
+    to_format: 'H:i:s'
+    source: time_end
+  field_session_time_date/value:
+    plugin: concat
+    delimiter: 'T'
+    source:
+      - '@today_Y_m_d'
+      - '@item_time'
+  field_session_time_date/end_value:
+    plugin: concat
+    delimiter: 'T'
+    source:
+      - '@a_year_from_today_Y_m_d'
+      - '@item_end_time'
+  field_session_time_days:
+    plugin: default_value
+    source:
+      - '@today_day_of_week_strtolower'
+    default_value: NULL
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: session_time

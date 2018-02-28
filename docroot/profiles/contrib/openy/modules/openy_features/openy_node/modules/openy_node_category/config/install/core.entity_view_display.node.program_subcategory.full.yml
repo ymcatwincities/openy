@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.program_subcategory.field_category_description
     - field.field.node.program_subcategory.field_category_image
     - field.field.node.program_subcategory.field_category_program
-    - field.field.node.program_subcategory.field_oy_content
+    - field.field.node.program_subcategory.field_content
     - field.field.node.program_subcategory.field_header_content
     - field.field.node.program_subcategory.field_sidebar_content
     - node.type.program_subcategory
@@ -58,7 +58,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_label
-  field_oy_content:
+  field_content:
     weight: 3
     label: hidden
     settings:

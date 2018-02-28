@@ -35,8 +35,6 @@ class FragmentListener implements EventSubscriberInterface
     private $fragmentPath;
 
     /**
-     * Constructor.
-     *
      * @param UriSigner $signer       A UriSigner instance
      * @param string    $fragmentPath The path that triggers this listener
      */
@@ -49,9 +47,7 @@ class FragmentListener implements EventSubscriberInterface
     /**
      * Fixes request attributes when the path is '/_fragment'.
      *
-     * @param GetResponseEvent $event A GetResponseEvent instance
-     *
-     * @throws AccessDeniedHttpException if the request does not come from a trusted IP.
+     * @throws AccessDeniedHttpException if the request does not come from a trusted IP
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
@@ -101,7 +97,7 @@ class FragmentListener implements EventSubscriberInterface
      */
     protected function getLocalIpAddresses()
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.3.19 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.3.19 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         return array('127.0.0.1', 'fe80::1', '::1');
     }

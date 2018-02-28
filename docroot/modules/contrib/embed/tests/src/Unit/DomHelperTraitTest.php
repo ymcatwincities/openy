@@ -8,7 +8,7 @@ use Drupal\Tests\UnitTestCase;
 use Drupal\embed\DomHelperTrait;
 
 /**
- * Tests \Drupal\embed\DomHelperTrait
+ * Tests \Drupal\embed\DomHelperTrait.
  *
  * @group embed
  */
@@ -81,7 +81,7 @@ class DomHelperTraitTest extends UnitTestCase {
       'multiple nodes, with a text node, comment node and element node' => [
         'Second <!-- comment --> <p>third</p>',
         '<outer><test foo="bar" namespace:foo="bar">Second <!-- comment --> <p>third</p></test></outer>',
-      ]
+      ],
     ];
   }
 
@@ -120,7 +120,7 @@ class DomHelperTraitTest extends UnitTestCase {
       'multiple nodes, with a text node, comment node and element node' => [
         'Second <!-- comment --> <p>third</p>',
         '<outer>Second <!-- comment --> <p>third</p></outer>',
-      ]
+      ],
     ];
   }
 
@@ -133,11 +133,12 @@ class DomHelperTraitTest extends UnitTestCase {
 
     // Test more complex attributes with special characters.
     $string = "TEST: A <complex> 'encoded' \"JSON\" string";
-    $object = array('nested' => array('array' => true), 'string' => $string);
+    $object = ['nested' => ['array' => TRUE], 'string' => $string];
     $html = '<test data-json-string=\'' . Json::encode($string) . '\' data-json-object=\'' . Json::encode($object) . '\'></test>';
     $document = Html::load($html);
     $node = $document->getElementsByTagName('body')->item(0)->firstChild;
     $attributes = $this->getNodeAttributesAsArray($node);
     $this->assertArrayEquals(['data-json-string' => $string, 'data-json-object' => $object], $attributes);
   }
+
 }

@@ -9,6 +9,9 @@ use Drupal\webform\Ajax\WebformHtmlCommand;
 
 /**
  * Trait class for Webform Ajax support.
+ *
+ * @todo Issue #2785047: In Outside In mode, messages should appear in the off-canvas tray, not the main page.
+ * @see https://www.drupal.org/node/2785047
  */
 trait WebformEntityAjaxFormTrait {
 
@@ -24,7 +27,7 @@ trait WebformEntityAjaxFormTrait {
   /**
    * Determine if dialogs are disabled.
    *
-   * @return boolean
+   * @return bool
    *   TRUE if dialogs are disabled.
    */
   protected function isDialogDisabled() {
@@ -36,11 +39,13 @@ trait WebformEntityAjaxFormTrait {
    *
    * @param array $form
    *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   An Ajax response that replaces a form.
    */
-  protected function replaceForm(array $form) {
+  protected function replaceForm(array $form, FormStateInterface $form_state) {
     // Display messages first by prefixing it the form and setting its weight
     // to -1000.
     $form = [
@@ -53,7 +58,7 @@ trait WebformEntityAjaxFormTrait {
     // Remove wrapper.
     unset($form['#prefix'], $form['#suffix']);
 
-    $response = new AjaxResponse();
+    $response = $this->createAjaxResponse($form, $form_state);
     $response->addCommand(new WebformHtmlCommand('#' . $this->getWrapperId(), $form));
     return $response;
   }
@@ -119,7 +124,7 @@ trait WebformEntityAjaxFormTrait {
     $form = $form_builder->buildForm($form_object, $form_state);
 
     // Return replace form as response.
-    return $this->replaceForm($form);
+    return $this->replaceForm($form, $form_state);
   }
 
   /**

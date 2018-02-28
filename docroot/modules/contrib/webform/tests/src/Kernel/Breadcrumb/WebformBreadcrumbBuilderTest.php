@@ -393,7 +393,7 @@ class WebformBreadcrumbBuilderTest extends UnitTestCase {
       Link::createFromRoute('Structure', 'system.admin_structure'),
       Link::createFromRoute('Webforms', 'entity.webform.collection'),
       Link::createFromRoute($this->webform->label(), 'entity.webform.canonical', ['webform' => $this->webform->id()]),
-      Link::createFromRoute('Emails / Handlers', 'entity.webform.handlers_form', ['webform' => $this->webform->id()]),
+      Link::createFromRoute('Emails / Handlers', 'entity.webform.handlers', ['webform' => $this->webform->id()]),
     ];
     $this->assertLinks($route_match, $links);
   }

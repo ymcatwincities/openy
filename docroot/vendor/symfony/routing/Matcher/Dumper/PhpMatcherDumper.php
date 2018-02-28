@@ -63,16 +63,11 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\RequestContext;
 
 /**
- * {$options['class']}.
- *
  * This class has been auto-generated
  * by the Symfony Routing Component.
  */
 class {$options['class']} extends {$options['base_class']}
 {
-    /**
-     * Constructor.
-     */
     public function __construct(RequestContext \$context)
     {
         \$this->context = \$context;
@@ -101,10 +96,10 @@ EOF;
         $code = rtrim($this->compileRoutes($this->getRoutes(), $supportsRedirections), "\n");
 
         return <<<EOF
-    public function match(\$pathinfo)
+    public function match(\$rawPathinfo)
     {
         \$allow = array();
-        \$pathinfo = rawurldecode(\$pathinfo);
+        \$pathinfo = rawurldecode(\$rawPathinfo);
         \$context = \$this->context;
         \$request = \$this->request;
 
@@ -225,11 +220,11 @@ EOF;
         $supportsTrailingSlash = $supportsRedirections && (!$methods || in_array('HEAD', $methods));
 
         if (!count($compiledRoute->getPathVariables()) && false !== preg_match('#^(.)\^(?P<url>.*?)\$\1#', $compiledRoute->getRegex(), $m)) {
-            if ($supportsTrailingSlash && substr($m['url'], -1) === '/') {
-                $conditions[] = sprintf("rtrim(\$pathinfo, '/') === %s", var_export(rtrim(str_replace('\\', '', $m['url']), '/'), true));
+            if ($supportsTrailingSlash && '/' === substr($m['url'], -1)) {
+                $conditions[] = sprintf("%s === rtrim(\$pathinfo, '/')", var_export(rtrim(str_replace('\\', '', $m['url']), '/'), true));
                 $hasTrailingSlash = true;
             } else {
-                $conditions[] = sprintf('$pathinfo === %s', var_export(str_replace('\\', '', $m['url']), true));
+                $conditions[] = sprintf('%s === $pathinfo', var_export(str_replace('\\', '', $m['url']), true));
             }
         } else {
             if ($compiledRoute->getStaticPrefix() && $compiledRoute->getStaticPrefix() !== $parentPrefix) {
@@ -289,7 +284,7 @@ EOF;
         if ($hasTrailingSlash) {
             $code .= <<<EOF
             if (substr(\$pathinfo, -1) !== '/') {
-                return \$this->redirect(\$pathinfo.'/', '$name');
+                return \$this->redirect(\$rawPathinfo.'/', '$name');
             }
 
 
@@ -304,7 +299,7 @@ EOF;
             $code .= <<<EOF
             \$requiredSchemes = $schemes;
             if (!isset(\$requiredSchemes[\$this->context->getScheme()])) {
-                return \$this->redirect(\$pathinfo, '$name', key(\$requiredSchemes));
+                return \$this->redirect(\$rawPathinfo, '$name', key(\$requiredSchemes));
             }
 
 
@@ -376,8 +371,6 @@ EOF;
      *
      * Routes order is preserved such that traversing the tree will traverse the
      * routes in the origin order.
-     *
-     * @param DumperCollection $collection A collection of routes
      *
      * @return DumperPrefixCollection
      */

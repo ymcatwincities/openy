@@ -13,7 +13,7 @@ description: >
 package: A/B Testing
 php: 5.4
 # project: optimizely
-# version: 8.x-1.2
+# version: 8.x-3.0
 
 # The configure property specifies a route name,
 # which is defined in the .routing.yml file.
@@ -21,8 +21,8 @@ configure: optimizely.settings
 
 # files[] are no longer needed because of autoloading.
 
-# Information added by Drupal.org packaging script on 2017-02-28
-version: '8.x-1.2'
+# Information added by Drupal.org packaging script on 2017-10-07
+version: '8.x-3.0'
 core: '8.x'
 project: 'optimizely'
-datestamp: 1488253388
+datestamp: 1507339147

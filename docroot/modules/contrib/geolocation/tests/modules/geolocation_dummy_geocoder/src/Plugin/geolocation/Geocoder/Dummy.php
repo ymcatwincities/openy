@@ -38,7 +38,7 @@ class Dummy extends GeocoderBase {
   public function formAttachGeocoder(array &$render_array, $element_name) {
     $render_array['geolocation_geocoder_dummy'] = [
       '#type' => 'textfield',
-      '#description' => t('Enter one of the statically defined targets. See geolocation/Geocoder/Dummy.php.'),
+      '#description' => $this->t('Enter one of the statically defined targets. See geolocation/Geocoder/Dummy.php.'),
       '#attributes' => [
         'class' => [
           'form-autocomplete',
@@ -81,7 +81,7 @@ class Dummy extends GeocoderBase {
       $location_data = $this->geocode($input['geolocation_geocoder_dummy']);
 
       if (empty($location_data)) {
-        $form_state->setErrorByName('geolocation_geocoder_dummy', t('Failed to geocode %input.', ['%input' => $input['geolocation_geocoder_dummy']]));
+        $form_state->setErrorByName('geolocation_geocoder_dummy', $this->t('Failed to geocode %input.', ['%input' => $input['geolocation_geocoder_dummy']]));
         return FALSE;
       }
     }

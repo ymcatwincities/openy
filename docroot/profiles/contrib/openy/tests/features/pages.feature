@@ -1,19 +1,19 @@
 @openy @api
 Feature: OpenY main pages
 
-  Scenario Outline: Check all main are OK
-    When I go to "<page>"
+  Scenario: Check homepage is available
+    When I go to "/"
     Then I should get a 200 HTTP response
-    Examples:
-      | page |
-      | / |
-      | user |
 
-  @javascript
-  Scenario Outline: Check Log In text
-    When I go to "<page>"
+  Scenario: Check user page is available
+    When I go to "user"
+    Then I should get a 200 HTTP response
+
+  Scenario: Check Log In text on homepage
+    When I go to "/"
     Then I should see "Log In"
-    Examples:
-      | page |
-      | / |
-      | user |
+
+  Scenario: Check Log In text on user page
+    When I go to "user"
+    Then I should see "Log In"
+

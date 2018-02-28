@@ -46,6 +46,10 @@ Media entity:
 - [Tumblr](https://drupal.org/project/media_entity_tumblr)
 - [Facebook](https://drupal.org/project/media_entity_facebook)
 - [Audio embed field (sandbox)](https://drupal.org/sandbox/vilepickle/2784301)
+- [Flickr](https://www.drupal.org/project/media_entity_flickr)
+- [Imgur](https://www.drupal.org/project/media_entity_imgur)
+- [GoogleDocs](https://www.drupal.org/project/media_entity_googledocs)
+- [500px](https://www.drupal.org/project/media_entity_d500px)
 
 ## Other modules that integrate with media entity
 

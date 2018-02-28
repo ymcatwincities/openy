@@ -6,8 +6,8 @@ package : Fields
 dependencies:
   - drupal:field
 
-# Information added by Drupal.org packaging script on 2016-11-28
-version: '8.x-1.0-rc6'
+# Information added by Drupal.org packaging script on 2017-11-10
+version: '8.x-1.0'
 core: '8.x'
 project: 'field_group'
-datestamp: 1480365490
+datestamp: 1510352889

@@ -11,7 +11,7 @@ field_name: field_alert_description
 entity_type: node
 bundle: alert
 label: Description
-description: ''
+description: 'Textarea for the description/body with WYSIWYG, without summary.'
 required: true
 translatable: false
 default_value: {  }

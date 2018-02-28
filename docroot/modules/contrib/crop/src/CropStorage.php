@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains of \Drupal\crop\CropStorage.
- */
-
 namespace Drupal\crop;
 
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;

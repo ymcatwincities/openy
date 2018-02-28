@@ -37,7 +37,7 @@ tips:
     id: term-relations
     plugin: text
     label: 'Term relations'
-    body: 'In the relations drop down a user can select the parent of the term they are creating. The Root specifies the top level of the Vocabulary.'
+    body: 'In the relations drop down a user can select the parent of the term they are creating. The Root specifies the top level of the Vocabulary. [openy_tour:click:.color_picker]'
     weight: 4
     attributes:
       data-id: 'edit-relations'

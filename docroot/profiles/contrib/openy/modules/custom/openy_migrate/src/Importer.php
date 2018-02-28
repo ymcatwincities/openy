@@ -4,7 +4,7 @@ namespace Drupal\openy_migrate;
 
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate\Plugin\Migration;
-use Drupal\migrate\Plugin\MigrationPluginManager;
+use Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager;
 use Drupal\migrate_tools\MigrateExecutable;
 
 /**
@@ -15,20 +15,20 @@ use Drupal\migrate_tools\MigrateExecutable;
 class Importer implements ImporterInterface {
 
   /**
-   * Migration plugin manager.
+   * Migration manager.
    *
-   * @var \Drupal\migrate\Plugin\MigrationPluginManager
+   * @var \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager
    */
-  protected $migrationPluginManager;
+  protected $migrationManager;
 
   /**
    * Importer constructor.
    *
-   * @param \Drupal\migrate\Plugin\MigrationPluginManager $migrationPluginManager
-   *   Migration plugin manager.
+   * @param \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager $migrationManager
+   *   Migration manager.
    */
-  public function __construct(MigrationPluginManager $migrationPluginManager) {
-    $this->migrationPluginManager = $migrationPluginManager;
+  public function __construct(MigrationConfigEntityPluginManager $migrationManager) {
+    $this->migrationManager = $migrationManager;
   }
 
   /**
@@ -42,7 +42,7 @@ class Importer implements ImporterInterface {
     $dependencies = $migration->getMigrationDependencies();
     $required_ids = $dependencies['required'];
     if ($required_ids) {
-      $required_migrations = $this->migrationPluginManager->createInstances($required_ids);
+      $required_migrations = $this->migrationManager->createInstances($required_ids);
       array_walk($required_migrations, [$this, 'importMigration']);
     }
 
@@ -55,7 +55,7 @@ class Importer implements ImporterInterface {
    * {@inheritdoc}
    */
   public function import($migration_id) {
-    $migration = $this->migrationPluginManager->createInstance($migration_id);
+    $migration = $this->migrationManager->createInstance($migration_id);
     $this->importMigration($migration);
   }
 

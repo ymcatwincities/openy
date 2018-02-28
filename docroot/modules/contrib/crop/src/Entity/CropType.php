@@ -1,14 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\crop\Entity\CropType.
- */
-
 namespace Drupal\crop\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
-use Drupal\Core\Entity\EntityConstraintViolationList;
 use Drupal\crop\CropTypeInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 
@@ -34,8 +28,8 @@ use Symfony\Component\Validator\ConstraintViolationList;
  *     "label" = "label",
  *   },
  *   links = {
- *     "edit-form" = "/admin/structure/crop/manage/{crop_type}",
- *     "delete-form" = "/admin/structure/crop/manage/{crop_type}/delete",
+ *     "edit-form" = "/admin/config/media/crop/manage/{crop_type}",
+ *     "delete-form" = "/admin/config/media/crop/manage/{crop_type}/delete",
  *   },
  *   constraints = {
  *     "CropTypeMachineNameValidation" = {},
@@ -74,6 +68,34 @@ class CropType extends ConfigEntityBundleBase implements \IteratorAggregate, Cro
   public $aspect_ratio;
 
   /**
+   * Soft limit width in px.
+   *
+   * @var int
+   */
+  public $soft_limit_width;
+
+  /**
+   * Soft limit height in px.
+   *
+   * @var int
+   */
+  public $soft_limit_height;
+
+  /**
+   * Hard limit width in px.
+   *
+   * @var int
+   */
+  public $hard_limit_width;
+
+  /**
+   * Hard limit height in px.
+   *
+   * @var int
+   */
+  public $hard_limit_height;
+
+  /**
    * {@inheritdoc}
    */
   public function id() {
@@ -107,9 +129,31 @@ class CropType extends ConfigEntityBundleBase implements \IteratorAggregate, Cro
    */
   public static function getCropTypeNames() {
     return array_map(
-      function ($bundle_info) { return $bundle_info['label'];},
-      \Drupal::entityManager()->getBundleInfo('crop')
+      function ($bundle_info) {
+        return $bundle_info['label'];
+      },
+      \Drupal::service('entity_type.bundle.info')->getBundleInfo('crop')
     );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSoftLimit() {
+    return [
+      'width' => $this->soft_limit_width,
+      'height' => $this->soft_limit_height,
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getHardLimit() {
+    return [
+      'width' => $this->hard_limit_width,
+      'height' => $this->hard_limit_height,
+    ];
   }
 
 }

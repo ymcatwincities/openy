@@ -10,7 +10,7 @@ field_name: field_media_tags
 entity_type: media
 bundle: image
 label: 'Media Tags'
-description: ''
+description: 'Set tags for uploaded image.'
 required: false
 translatable: true
 default_value: {  }

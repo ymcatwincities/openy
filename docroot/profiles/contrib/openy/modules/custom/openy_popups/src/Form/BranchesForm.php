@@ -88,7 +88,8 @@ class BranchesForm extends FormBase {
 
     $form['branch'] = [
       '#type' => 'radios',
-      '#title' => t('Please select a location'),
+      '#prefix' => '<div class="fieldgroup form-item form-wrapper"><h2 class="fieldset-legend">' . t('Please select a location') . '</h2><div class="fieldset-wrapper">',
+      '#suffix' => '</div></div>',
       '#default_value' => $default,
       '#options' => ['All' => 'All'] + $branches_list['branch'] + $branches_list['camp'],
       '#all' => ['All' => 'All'],

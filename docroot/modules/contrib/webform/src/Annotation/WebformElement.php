@@ -60,7 +60,7 @@ class WebformElement extends Plugin {
    *
    * @var string
    */
-  public $default_key;
+  public $default_key = '';
 
   /**
    * The category in the admin UI where the webform will be listed.

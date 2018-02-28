@@ -21,14 +21,14 @@ class Label extends ContainerBase {
    */
   public function getDefaultProperties() {
     return [
-        'title' => '',
-        // General settings.
-        'description' => '',
-        // Form validation.
-        'required' => FALSE,
-        // Attributes.
-        'attributes' => [],
-      ] + $this->getDefaultBaseProperties();
+      'title' => '',
+      // General settings.
+      'description' => '',
+      // Form validation.
+      'required' => FALSE,
+      // Attributes.
+      'attributes' => [],
+    ] + $this->getDefaultBaseProperties();
   }
 
   /**

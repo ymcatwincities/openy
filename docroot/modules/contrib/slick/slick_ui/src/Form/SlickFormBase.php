@@ -6,9 +6,10 @@ use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\slick\Form\SlickAdmin;
+use Drupal\slick\Entity\Slick;
+use Drupal\slick\Form\SlickAdminInterface;
 use Drupal\slick\SlickManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides base form for a slick instance configuration form.
@@ -16,16 +17,30 @@ use Drupal\slick\SlickManagerInterface;
 abstract class SlickFormBase extends EntityForm {
 
   /**
-   * The slick service.
+   * The slick admin service.
    *
-   * @var \Drupal\slick\Form\SlickAdmin
+   * @var \Drupal\slick\Form\SlickAdminInterface
    */
   protected $admin;
 
   /**
+   * The slick manager service.
+   *
+   * @var \Drupal\slick\SlickManagerInterface
+   */
+  protected $manager;
+
+  /**
+   * The JS easing options.
+   *
+   * @var array
+   */
+  protected $jsEasingOptions;
+
+  /**
    * Constructs a SlickForm object.
    */
-  public function __construct(SlickAdmin $admin, SlickManagerInterface $manager) {
+  public function __construct(SlickAdminInterface $admin, SlickManagerInterface $manager) {
     $this->admin = $admin;
     $this->manager = $manager;
   }
@@ -38,6 +53,20 @@ abstract class SlickFormBase extends EntityForm {
       $container->get('slick.admin'),
       $container->get('slick.manager')
     );
+  }
+
+  /**
+   * Returns the slick admin service.
+   */
+  public function admin() {
+    return $this->admin;
+  }
+
+  /**
+   * Returns the slick manager service.
+   */
+  public function manager() {
+    return $this->manager;
   }
 
   /**
@@ -214,7 +243,7 @@ abstract class SlickFormBase extends EntityForm {
 
     $status        = $slick->save();
     $label         = $slick->label();
-    $edit_link     = $slick->link($this->t('Edit'));
+    $edit_link     = $slick->toLink($this->t('Edit'), 'edit-form')->toString();
     $config_prefix = $slick->getEntityType()->getConfigPrefix();
     $message       = ['@config_prefix' => $config_prefix, '%label' => $label];
 
@@ -263,8 +292,7 @@ abstract class SlickFormBase extends EntityForm {
       return;
     }
 
-    $slick    = $this->entity;
-    $defaults = $slick::defaultSettings();
+    $defaults = Slick::defaultSettings();
 
     foreach ($defaults as $name => $value) {
       if (isset($settings[$name])) {
@@ -290,10 +318,8 @@ abstract class SlickFormBase extends EntityForm {
    *   don't support pure CSS easing.
    */
   public function getJsEasingOptions() {
-    $easings = &drupal_static(__METHOD__, NULL);
-
-    if (!isset($easings)) {
-      $easings = array(
+    if (!isset($this->jsEasingOptions)) {
+      $this->jsEasingOptions = [
         'linear'           => 'Linear',
         'swing'            => 'Swing',
         'easeInQuad'       => 'easeInQuad',
@@ -326,9 +352,9 @@ abstract class SlickFormBase extends EntityForm {
         'easeInBounce'     => 'easeInBounce',
         'easeOutBounce'    => 'easeOutBounce',
         'easeInOutBounce'  => 'easeInOutBounce',
-      );
+      ];
     }
-    return $easings;
+    return $this->jsEasingOptions;
   }
 
   /**
@@ -346,7 +372,7 @@ abstract class SlickFormBase extends EntityForm {
    */
   public function getCssEasingOptions($map = FALSE) {
     $css_easings = [];
-    $available_easings = array(
+    $available_easings = [
 
       // Defaults/ Native.
       'ease'           => 'ease|ease',
@@ -380,7 +406,7 @@ abstract class SlickFormBase extends EntityForm {
       'easeInOutExpo'  => 'easeInOutExpo|cubic-bezier(1.000, 0.000, 0.000, 1.000)',
       'easeInOutCirc'  => 'easeInOutCirc|cubic-bezier(0.785, 0.135, 0.150, 0.860)',
       'easeInOutBack'  => 'easeInOutBack|cubic-bezier(0.680, -0.550, 0.265, 1.550)',
-    );
+    ];
 
     foreach ($available_easings as $key => $easing) {
       list($readable_easing, $css_easing) = array_pad(array_map('trim', explode("|", $easing, 2)), 2, NULL);

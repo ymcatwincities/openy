@@ -25,9 +25,6 @@ use Psr\Log\LoggerInterface;
  */
 class Profiler
 {
-    /**
-     * @var ProfilerStorageInterface
-     */
     private $storage;
 
     /**
@@ -35,9 +32,6 @@ class Profiler
      */
     private $collectors = array();
 
-    /**
-     * @var LoggerInterface
-     */
     private $logger;
 
     /**
@@ -45,12 +39,6 @@ class Profiler
      */
     private $enabled = true;
 
-    /**
-     * Constructor.
-     *
-     * @param ProfilerStorageInterface $storage A ProfilerStorageInterface instance
-     * @param LoggerInterface          $logger  A LoggerInterface instance
-     */
     public function __construct(ProfilerStorageInterface $storage, LoggerInterface $logger = null)
     {
         $this->storage = $storage;
@@ -75,8 +63,6 @@ class Profiler
 
     /**
      * Loads the Profile for the given Response.
-     *
-     * @param Response $response A Response instance
      *
      * @return Profile|false A Profile instance
      */
@@ -103,8 +89,6 @@ class Profiler
 
     /**
      * Saves a Profile.
-     *
-     * @param Profile $profile A Profile instance
      *
      * @return bool
      */
@@ -135,15 +119,13 @@ class Profiler
     /**
      * Exports the current profiler data.
      *
-     * @param Profile $profile A Profile instance
-     *
      * @return string The exported data
      *
      * @deprecated since Symfony 2.8, to be removed in 3.0.
      */
     public function export(Profile $profile)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         return base64_encode(serialize($profile));
     }
@@ -159,7 +141,7 @@ class Profiler
      */
     public function import($data)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         $profile = unserialize(base64_decode($data));
 
@@ -193,10 +175,6 @@ class Profiler
 
     /**
      * Collects data for the given Response.
-     *
-     * @param Request    $request   A Request instance
-     * @param Response   $response  A Response instance
-     * @param \Exception $exception An exception instance if the request threw one
      *
      * @return Profile|null A Profile instance or null if the profiler is disabled
      */
@@ -254,8 +232,6 @@ class Profiler
 
     /**
      * Adds a Collector.
-     *
-     * @param DataCollectorInterface $collector A DataCollectorInterface instance
      */
     public function add(DataCollectorInterface $collector)
     {

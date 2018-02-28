@@ -43,6 +43,9 @@ metatag.metatag_tag.twitter_cards_data2:
 metatag.metatag_tag.twitter_cards_description:
   type: label
   label: 'Twitter Cards: Description'
+metatag.metatag_tag.twitter_cards_donottrack:
+  type: label
+  label: 'Twitter Cards: Do Not Track'
 metatag.metatag_tag.twitter_cards_gallery_image0:
   type: label
   label: 'Twitter Cards: 1st gallery image'

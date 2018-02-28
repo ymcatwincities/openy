@@ -51,11 +51,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
  */
 class Container implements IntrospectableContainerInterface, ResettableContainerInterface
 {
-    /**
-     * @var ParameterBagInterface
-     */
     protected $parameterBag;
-
     protected $services = array();
     protected $methodMap = array();
     protected $aliases = array();
@@ -67,9 +63,6 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
 
     private $underscoreMap = array('_' => '', '.' => '_', '\\' => '_');
 
-    /**
-     * @param ParameterBagInterface $parameterBag A ParameterBagInterface instance
-     */
     public function __construct(ParameterBagInterface $parameterBag = null)
     {
         $this->parameterBag = $parameterBag ?: new ParameterBag();
@@ -165,7 +158,7 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
     public function set($id, $service, $scope = self::SCOPE_CONTAINER)
     {
         if (!in_array($scope, array('container', 'request')) || ('request' === $scope && 'request' !== $id)) {
-            @trigger_error('The concept of container scopes is deprecated since version 2.8 and will be removed in 3.0. Omit the third parameter.', E_USER_DEPRECATED);
+            @trigger_error('The concept of container scopes is deprecated since Symfony 2.8 and will be removed in 3.0. Omit the third parameter.', E_USER_DEPRECATED);
         }
 
         if (self::SCOPE_PROTOTYPE === $scope) {
@@ -391,7 +384,7 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
     public function enterScope($name)
     {
         if ('request' !== $name) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         if (!isset($this->scopes[$name])) {
@@ -443,7 +436,7 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
     public function leaveScope($name)
     {
         if ('request' !== $name) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         if (!isset($this->scopedServices[$name])) {
@@ -485,8 +478,6 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
     /**
      * Adds a scope to the container.
      *
-     * @param ScopeInterface $scope
-     *
      * @throws InvalidArgumentException
      *
      * @deprecated since version 2.8, to be removed in 3.0.
@@ -497,7 +488,7 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
         $parentScope = $scope->getParentName();
 
         if ('request' !== $name) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
         if (self::SCOPE_CONTAINER === $name || self::SCOPE_PROTOTYPE === $name) {
             throw new InvalidArgumentException(sprintf('The scope "%s" is reserved.', $name));
@@ -513,7 +504,7 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
         $this->scopeChildren[$name] = array();
 
         // normalize the child relations
-        while ($parentScope !== self::SCOPE_CONTAINER) {
+        while (self::SCOPE_CONTAINER !== $parentScope) {
             $this->scopeChildren[$parentScope][] = $name;
             $parentScope = $this->scopes[$parentScope];
         }
@@ -531,7 +522,7 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
     public function hasScope($name)
     {
         if ('request' !== $name) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         return isset($this->scopes[$name]);
@@ -550,7 +541,7 @@ class Container implements IntrospectableContainerInterface, ResettableContainer
      */
     public function isScopeActive($name)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         return isset($this->scopedServices[$name]);
     }

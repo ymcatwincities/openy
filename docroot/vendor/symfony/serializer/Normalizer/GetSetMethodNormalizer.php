@@ -108,7 +108,7 @@ class GetSetMethodNormalizer extends AbstractNormalizer
                 $attribute = $this->nameConverter->denormalize($attribute);
             }
 
-            $allowed = $allowedAttributes === false || in_array($attribute, $allowedAttributes);
+            $allowed = false === $allowedAttributes || in_array($attribute, $allowedAttributes);
             $ignored = in_array($attribute, $this->ignoredAttributes);
 
             if ($allowed && !$ignored) {
@@ -161,8 +161,6 @@ class GetSetMethodNormalizer extends AbstractNormalizer
 
     /**
      * Checks if a method's name is get.* or is.*, and can be called without parameters.
-     *
-     * @param \ReflectionMethod $method the method to check
      *
      * @return bool whether the method is a getter or boolean getter
      */

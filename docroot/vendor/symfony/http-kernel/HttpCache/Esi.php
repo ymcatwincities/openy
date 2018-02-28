@@ -35,8 +35,6 @@ class Esi implements SurrogateInterface
     );
 
     /**
-     * Constructor.
-     *
      * @param array $contentTypes An array of content-type that should be parsed for ESI information
      *                            (default: text/html, text/xml, application/xhtml+xml, and application/xml)
      */
@@ -63,8 +61,6 @@ class Esi implements SurrogateInterface
     /**
      * Checks that at least one surrogate has ESI/1.0 capability.
      *
-     * @param Request $request A Request instance
-     *
      * @return bool true if one surrogate has ESI/1.0 capability, false otherwise
      */
     public function hasSurrogateCapability(Request $request)
@@ -87,15 +83,13 @@ class Esi implements SurrogateInterface
      */
     public function hasSurrogateEsiCapability(Request $request)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0. Use the hasSurrogateCapability() method instead.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.6 and will be removed in 3.0. Use the hasSurrogateCapability() method instead.', E_USER_DEPRECATED);
 
         return $this->hasSurrogateCapability($request);
     }
 
     /**
      * Adds ESI/1.0 capability to the given Request.
-     *
-     * @param Request $request A Request instance
      */
     public function addSurrogateCapability(Request $request)
     {
@@ -114,7 +108,7 @@ class Esi implements SurrogateInterface
      */
     public function addSurrogateEsiCapability(Request $request)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0. Use the addSurrogateCapability() method instead.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.6 and will be removed in 3.0. Use the addSurrogateCapability() method instead.', E_USER_DEPRECATED);
 
         $this->addSurrogateCapability($request);
     }
@@ -123,8 +117,6 @@ class Esi implements SurrogateInterface
      * Adds HTTP headers to specify that the Response needs to be parsed for ESI.
      *
      * This method only adds an ESI HTTP header if the Response has some ESI tags.
-     *
-     * @param Response $response A Response instance
      */
     public function addSurrogateControl(Response $response)
     {
@@ -135,8 +127,6 @@ class Esi implements SurrogateInterface
 
     /**
      * Checks that the Response needs to be parsed for ESI tags.
-     *
-     * @param Response $response A Response instance
      *
      * @return bool true if the Response needs to be parsed, false otherwise
      */
@@ -160,7 +150,7 @@ class Esi implements SurrogateInterface
      */
     public function needsEsiParsing(Response $response)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0. Use the needsParsing() method instead.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.6 and will be removed in 3.0. Use the needsParsing() method instead.', E_USER_DEPRECATED);
 
         return $this->needsParsing($response);
     }
@@ -192,9 +182,6 @@ class Esi implements SurrogateInterface
 
     /**
      * Replaces a Response ESI tags with the included resource content.
-     *
-     * @param Request  $request  A Request instance
-     * @param Response $response A Response instance
      *
      * @return Response
      */

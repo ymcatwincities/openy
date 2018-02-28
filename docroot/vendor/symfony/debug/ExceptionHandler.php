@@ -39,7 +39,7 @@ class ExceptionHandler
     public function __construct($debug = true, $charset = null, $fileLinkFormat = null)
     {
         if (false !== strpos($charset, '%')) {
-            @trigger_error('Providing $fileLinkFormat as second argument to '.__METHOD__.' is deprecated since version 2.8 and will be unsupported in 3.0. Please provide it as third argument, after $charset.', E_USER_DEPRECATED);
+            @trigger_error('Providing $fileLinkFormat as second argument to '.__METHOD__.' is deprecated since Symfony 2.8 and will be unsupported in 3.0. Please provide it as third argument, after $charset.', E_USER_DEPRECATED);
 
             // Swap $charset and $fileLinkFormat for BC reasons
             $pivot = $fileLinkFormat;
@@ -153,8 +153,6 @@ class ExceptionHandler
      * If you have the Symfony HttpFoundation component installed,
      * this method will use it to create and send the response. If not,
      * it will fallback to plain PHP functions.
-     *
-     * @param \Exception $exception An \Exception instance
      */
     private function failSafeHandle(\Exception $exception)
     {
@@ -166,7 +164,7 @@ class ExceptionHandler
             $response = $this->createResponse($exception);
             $response->sendHeaders();
             $response->sendContent();
-            @trigger_error(sprintf("The %s::createResponse method is deprecated since 2.8 and won't be called anymore when handling an exception in 3.0.", $reflector->class), E_USER_DEPRECATED);
+            @trigger_error(sprintf("The %s::createResponse method is deprecated since Symfony 2.8 and won't be called anymore when handling an exception in 3.0.", $reflector->class), E_USER_DEPRECATED);
 
             return;
         }
@@ -210,7 +208,7 @@ class ExceptionHandler
      */
     public function createResponse($exception)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         if (!$exception instanceof FlattenException) {
             $exception = FlattenException::create($exception);
@@ -237,8 +235,6 @@ class ExceptionHandler
 
     /**
      * Gets the HTML content associated with the given exception.
-     *
-     * @param FlattenException $exception A FlattenException instance
      *
      * @return string The content as a string
      */
@@ -305,8 +301,6 @@ EOF;
 
     /**
      * Gets the stylesheet associated with the given exception.
-     *
-     * @param FlattenException $exception A FlattenException instance
      *
      * @return string The stylesheet as a string
      */
@@ -455,7 +449,7 @@ EOF;
      */
     protected static function utf8Htmlize($str)
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.7 and will be removed in 3.0.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.7 and will be removed in 3.0.', E_USER_DEPRECATED);
 
         return htmlspecialchars($str, ENT_QUOTES | (\PHP_VERSION_ID >= 50400 ? ENT_SUBSTITUTE : 0), 'UTF-8');
     }

@@ -17,22 +17,23 @@ class WebformSubmissionTest extends WebformTestBase {
    *
    * @var array
    */
-  public static $modules = ['node', 'webform'];
+  public static $modules = ['node', 'webform', 'webform_test_submissions'];
 
   /**
    * Webforms to load.
    *
    * @var array
    */
-  protected static $testWebforms = ['test_results'];
+  protected static $testWebforms = ['test_submissions'];
 
   /**
    * Tests webform submission entity.
    */
   public function testWebformSubmission() {
     /** @var \Drupal\webform\WebformInterface $webform */
+    $webform = Webform::load('test_submissions');
     /** @var \Drupal\webform\WebformSubmissionInterface[] $submissions */
-    list($webform, $submissions) = $this->createWebformWithSubmissions();
+    $submissions = array_values(\Drupal::entityTypeManager()->getStorage('webform_submission')->loadByProperties(['webform_id' => 'test_submissions']));
 
     /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
     $webform_submission = reset($submissions);
@@ -91,10 +92,11 @@ class WebformSubmissionTest extends WebformTestBase {
       'subject' => '{Original Subject}',
       'message' => '{Original Message}',
     ]);
+    $webform_submission = WebformSubmission::load($sid);
 
     // Check duplicate form title.
     $this->drupalGet("admin/structure/webform/manage/contact/submission/$sid/duplicate");
-    $this->assertRaw('Duplicate Contact: Submission #' . $sid);
+    $this->assertRaw('Duplicate Contact: Submission #' . $webform_submission->serial());
 
     // Duplicate submission.
     $this->drupalPostForm("admin/structure/webform/manage/contact/submission/$sid/duplicate", ['subject' => '{Duplicate Subject}'], t('Send message'));
@@ -104,8 +106,8 @@ class WebformSubmissionTest extends WebformTestBase {
 
     // Check duplicate submission.
     $this->assertNotEqual($sid, $duplicate_sid);
-    $this->assertEqual($duplicate_submission->getData('subject'), '{Duplicate Subject}');
-    $this->assertEqual($duplicate_submission->getData('message'), '{Original Message}');
+    $this->assertEqual($duplicate_submission->getElementData('subject'), '{Duplicate Subject}');
+    $this->assertEqual($duplicate_submission->getElementData('message'), '{Original Message}');
   }
 
 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed\EmbedCKEditorPluginBase.
- */
-
 namespace Drupal\embed;
 
 use Drupal\Component\Utility\Html;
@@ -60,7 +55,7 @@ abstract class EmbedCKEditorPluginBase extends CKEditorPluginBase implements Con
    * {@inheritdoc}
    */
   public function getButtons() {
-    $buttons = array();
+    $buttons = [];
 
     if ($ids = $this->embedButtonQuery->execute()) {
       $embed_buttons = EmbedButton::loadMultiple($ids);
@@ -85,9 +80,9 @@ abstract class EmbedCKEditorPluginBase extends CKEditorPluginBase implements Con
    * {@inheritdoc}
    */
   public function getLibraries(Editor $editor) {
-    return array(
+    return [
       'embed/embed',
-    );
+    ];
   }
 
 }

@@ -51,9 +51,9 @@ Custom dimensions and metrics
 =============================
 One example for custom dimensions tracking is the "User roles" tracking.
 
-1. In the Google Analytics Management Interface (http://www.google.com/analytics/)
-   you need to setup Dimension #1 with name e.g. "User roles". This step is
-   required. Do not miss it, please.
+1. In the Google Analytics (http://www.google.com/analytics/) Management 
+   Interface you need to setup Dimension #1 with name e.g. "User roles". This
+   step is required. Do not miss it, please.
 
 2. Enter the below configuration data into the Drupal custom dimensions settings
    form under admin/config/system/googleanalytics. You can also choose another
@@ -63,7 +63,7 @@ One example for custom dimensions tracking is the "User roles" tracking.
    Value: [current-user:role-names]
 
 More details about custom dimensions and metrics can be found in the Google API
-documentation at https://developers.google.com/analytics/devguides/collection/analyticsjs/custom-dims-mets
+documentation at https://developers.google.com/analytics/devguides/collection/analyticsjs/custom-dims-mets.
 
 Advanced Settings
 =================

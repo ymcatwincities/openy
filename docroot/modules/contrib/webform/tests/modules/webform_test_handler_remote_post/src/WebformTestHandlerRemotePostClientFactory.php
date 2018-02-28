@@ -28,7 +28,7 @@ class WebformTestHandlerRemotePostClientFactory extends ClientFactory {
         'http' => NULL,
         'https' => NULL,
         'no' => [],
-      ]
+      ],
     ];
     $config = NestedArray::mergeDeep($default_config, Settings::get('http_client_config', []), $config);
     return new WebformTestHandlerRemotePostClient($config);

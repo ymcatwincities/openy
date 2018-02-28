@@ -1,7 +1,7 @@
 name: 'OpenY Webform Demo'
-description: 'Demo webform '
+description: 'OpenY Webform Demo.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - webform
-version: 8.x-1.0

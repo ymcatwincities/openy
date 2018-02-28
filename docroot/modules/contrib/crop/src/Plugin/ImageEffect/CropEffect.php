@@ -1,17 +1,15 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\crop\Plugin\ImageEffect\CropEffect.
- */
-
 namespace Drupal\crop\Plugin\ImageEffect;
 
 use Drupal\Core\Config\Entity\ConfigEntityStorageInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Image\ImageFactory;
 use Drupal\Core\Image\ImageInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\crop\CropInterface;
 use Drupal\crop\CropStorageInterface;
+use Drupal\crop\Entity\Crop;
 use Drupal\image\ConfigurableImageEffectBase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -49,12 +47,20 @@ class CropEffect extends ConfigurableImageEffectBase implements ContainerFactory
   protected $crop;
 
   /**
+   * The image factory service.
+   *
+   * @var \Drupal\Core\Image\ImageFactory
+   */
+  protected $imageFactory;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerInterface $logger, CropStorageInterface $crop_storage, ConfigEntityStorageInterface $crop_type_storage) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerInterface $logger, CropStorageInterface $crop_storage, ConfigEntityStorageInterface $crop_type_storage, ImageFactory $image_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $logger);
     $this->storage = $crop_storage;
     $this->typeStorage = $crop_type_storage;
+    $this->imageFactory = $image_factory;
   }
 
   /**
@@ -66,8 +72,9 @@ class CropEffect extends ConfigurableImageEffectBase implements ContainerFactory
       $plugin_id,
       $plugin_definition,
       $container->get('logger.factory')->get('image'),
-      $container->get('entity.manager')->getStorage('crop'),
-      $container->get('entity.manager')->getStorage('crop_type')
+      $container->get('entity_type.manager')->getStorage('crop'),
+      $container->get('entity_type.manager')->getStorage('crop_type'),
+      $container->get('image.factory')
     );
   }
 
@@ -86,12 +93,12 @@ class CropEffect extends ConfigurableImageEffectBase implements ContainerFactory
 
       if (!$image->crop($anchor['x'], $anchor['y'], $size['width'], $size['height'])) {
         $this->logger->error('Manual image crop failed using the %toolkit toolkit on %path (%mimetype, %width x %height)', [
-            '%toolkit' => $image->getToolkitId(),
-            '%path' => $image->getSource(),
-            '%mimetype' => $image->getMimeType(),
-            '%width' => $image->getWidth(),
-            '%height' => $image->getHeight(),
-          ]
+          '%toolkit' => $image->getToolkitId(),
+          '%path' => $image->getSource(),
+          '%mimetype' => $image->getMimeType(),
+          '%width' => $image->getWidth(),
+          '%height' => $image->getHeight(),
+        ]
         );
         return FALSE;
       }
@@ -156,26 +163,33 @@ class CropEffect extends ConfigurableImageEffectBase implements ContainerFactory
    * @param ImageInterface $image
    *   Image object.
    *
-   * @return \Drupal\Core\Entity\EntityInterface|\Drupal\crop\CropInterface|FALSE
+   * @return \Drupal\Core\Entity\EntityInterface|\Drupal\crop\CropInterface|false
    *   Crop entity or FALSE if crop doesn't exist.
    */
   protected function getCrop(ImageInterface $image) {
     if (!isset($this->crop)) {
       $this->crop = FALSE;
-
-      $id = $this->storage->getQuery()
-        ->condition('uri', $image->getSource())
-        ->condition('type', $this->configuration['crop_type'])
-        ->sort('cid')
-        ->range(0, 1)
-        ->execute();
-
-      if (!empty($id) && ($crop = $this->storage->load(current($id)))) {
+      if ($crop = Crop::findCrop($image->getSource(), $this->configuration['crop_type'])) {
         $this->crop = $crop;
       }
     }
 
     return $this->crop;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function transformDimensions(array &$dimensions, $uri) {
+    $crop = Crop::findCrop($uri, $this->configuration['crop_type']);
+    if (!$crop instanceof CropInterface) {
+      return;
+    }
+    $size = $crop->size();
+
+    // The new image will have the exact dimensions defined for the crop effect.
+    $dimensions['width'] = $size['width'];
+    $dimensions['height'] = $size['height'];
   }
 
 }

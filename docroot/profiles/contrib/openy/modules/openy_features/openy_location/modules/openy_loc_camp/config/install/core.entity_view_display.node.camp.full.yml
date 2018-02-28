@@ -5,7 +5,7 @@ dependencies:
     - core.entity_view_mode.node.full
     - field.field.node.camp.field_bottom_content
     - field.field.node.camp.field_camp_menu_links
-    - field.field.node.camp.field_oy_content
+    - field.field.node.camp.field_content
     - field.field.node.camp.field_header_content
     - field.field.node.camp.field_location_address
     - field.field.node.camp.field_location_coordinates
@@ -18,6 +18,7 @@ dependencies:
   module:
     - address
     - entity_reference_revisions
+    - link
     - telephone
     - user
 id: node.camp.full
@@ -27,15 +28,15 @@ mode: full
 content:
   field_bottom_content:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 6
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     region: content
-  field_oy_content:
-    weight: 3
+  field_content:
+    weight: 4
     label: hidden
     settings:
       view_mode: default
@@ -44,7 +45,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_header_content:
-    weight: 4
+    weight: 5
     label: hidden
     settings:
       view_mode: default
@@ -59,6 +60,18 @@ content:
     third_party_settings: {  }
     type: address_plain
     region: content
+  field_location_directions:
+    type: link_separate
+    weight: 3
+    region: content
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
   field_location_fax:
     weight: 2
     label: hidden
@@ -78,7 +91,7 @@ content:
 hidden:
   field_camp_menu_links: true
   field_location_coordinates: true
-  field_location_directions: true
   field_location_email: true
   field_meta_tags: true
+  langcode: true
   links: true

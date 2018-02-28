@@ -57,14 +57,28 @@ class RevisionBasicUITest extends KernelTestBase {
 
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface $http_kernel */
     $http_kernel = \Drupal::service('http_kernel');
-    $request = Request::create($revision->url('version-history'));
+    $request = Request::create($revision->toUrl('version-history')->toString());
     $response = $http_kernel->handle($request);
     $this->assertEquals(403, $response->getStatusCode());
+
+    $role_admin = Role::create(['id' => 'test_role_admin']);
+    $role_admin->grantPermission('administer entity_test_enhanced');
+    $role_admin->save();
 
     $role = Role::create(['id' => 'test_role']);
     $role->grantPermission('view all entity_test_enhanced revisions');
     $role->grantPermission('administer entity_test_enhanced');
     $role->save();
+
+    $user_admin = User::create([
+      'name' => 'Test user admin',
+    ]);
+    $user_admin->addRole($role_admin->id());
+    \Drupal::service('account_switcher')->switchTo($user_admin);
+
+    $request = Request::create($revision->toUrl('version-history')->toString());
+    $response = $http_kernel->handle($request);
+    $this->assertEquals(200, $response->getStatusCode());
 
     $user = User::create([
       'name' => 'Test user',
@@ -72,7 +86,7 @@ class RevisionBasicUITest extends KernelTestBase {
     $user->addRole($role->id());
     \Drupal::service('account_switcher')->switchTo($user);
 
-    $request = Request::create($revision->url('version-history'));
+    $request = Request::create($revision->toUrl('version-history')->toString());
     $response = $http_kernel->handle($request);
     $this->assertEquals(200, $response->getStatusCode());
 
@@ -87,7 +101,7 @@ class RevisionBasicUITest extends KernelTestBase {
     $revision->isDefaultRevision(TRUE);
     $revision->save();
 
-    $request = Request::create($revision->url('version-history'));
+    $request = Request::create($revision->toUrl('version-history')->toString());
     $response = $http_kernel->handle($request);
     $this->assertEquals(200, $response->getStatusCode());
 
@@ -110,14 +124,28 @@ class RevisionBasicUITest extends KernelTestBase {
 
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface $http_kernel */
     $http_kernel = \Drupal::service('http_kernel');
-    $request = Request::create($revision->url('revision'));
+    $request = Request::create($revision->toUrl('revision')->toString());
     $response = $http_kernel->handle($request);
     $this->assertEquals(403, $response->getStatusCode());
+
+    $role_admin = Role::create(['id' => 'test_role_admin']);
+    $role_admin->grantPermission('administer entity_test_enhanced');
+    $role_admin->save();
 
     $role = Role::create(['id' => 'test_role']);
     $role->grantPermission('view all entity_test_enhanced revisions');
     $role->grantPermission('administer entity_test_enhanced');
     $role->save();
+
+    $user_admin = User::create([
+      'name' => 'Test user admin',
+    ]);
+    $user_admin->addRole($role_admin->id());
+    \Drupal::service('account_switcher')->switchTo($user_admin);
+
+    $request = Request::create($revision->toUrl('version-history')->toString());
+    $response = $http_kernel->handle($request);
+    $this->assertEquals(200, $response->getStatusCode());
 
     $user = User::create([
       'name' => 'Test user',
@@ -125,7 +153,7 @@ class RevisionBasicUITest extends KernelTestBase {
     $user->addRole($role->id());
     \Drupal::service('account_switcher')->switchTo($user);
 
-    $request = Request::create($revision->url('revision'));
+    $request = Request::create($revision->toUrl('revision')->toString());
     $response = $http_kernel->handle($request);
     $this->assertEquals(200, $response->getStatusCode());
     $this->assertNotContains('rev 1', $response->getContent());
@@ -156,7 +184,7 @@ class RevisionBasicUITest extends KernelTestBase {
 
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface $http_kernel */
     $http_kernel = \Drupal::service('http_kernel');
-    $request = Request::create($entity->url('revision-revert-form'));
+    $request = Request::create($entity->toUrl('revision-revert-form')->toString());
     $response = $http_kernel->handle($request);
     $this->assertEquals(200, $response->getStatusCode());
   }
