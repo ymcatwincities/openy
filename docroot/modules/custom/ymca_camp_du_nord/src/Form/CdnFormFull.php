@@ -194,7 +194,6 @@ class CdnFormFull extends FormBase {
       '#title' => t('Capacity'),
       '#default_value' => $state['capacity'],
       '#options' => $this->capacityOptions,
-      '#suffix' => '<p class="help-tip">' . t('Please scroll down and select dates on calendar *') . '</p>',
     ];
 
     $form['results'] = [
@@ -237,11 +236,7 @@ class CdnFormFull extends FormBase {
     $values = $form_state->getValues();
     $query = $this->state;
 
-    $cdn_product_ids = $this->entityQuery
-      ->get('cdn_prs_product')
-      ->condition('field_cdn_prd_start_date', '%' . $query['arrival_date'] . '%', 'LIKE')
-      ->execute();
-    // Try to iterate range if start date is not available.
+    // Iterate range if start date is not available.
     if (empty($cdn_product_ids)) {
       $arrival_date = new \DateTime($query['arrival_date']);
       $departure_date = new \DateTime($query['departure_date']);
@@ -320,11 +315,11 @@ class CdnFormFull extends FormBase {
     }
     // Check if arrival date less than today + 3 days.
     if ($today_modified > $arrival_date) {
-      $form_state->setErrorByName('arrival_date', t('Arrival date should not be less than today + 3 days.'));
+      $form_state->setErrorByName('arrival_date', t('Please select an arrival date at least 3 days from today which includes today.'));
     }
     // Check if arrival date less than departure.
     if ($arrival_date >= $departure_date) {
-      $form_state->setErrorByName('departure_date', t('Departure date should not be less than arrival date'));
+      $form_state->setErrorByName('departure_date', t('Please select a departure date later than arrival date.'));
     }
   }
 
@@ -517,9 +512,11 @@ class CdnFormFull extends FormBase {
         $departure_date = new \DateTime($query['departure_date']);
         if (!empty($query['range'])) {
           for ($i = 0; $i < $query['range']; $i++) {
-            // @todo: limit to past dates.
             $today = new DrupalDateTime();
-            $arrival_date->modify('- 1 day');
+            $range = $today->diff($arrival_date);
+            if ($range->days > 2) {
+              $arrival_date->modify('- 1 day');
+            }
             $departure_date->modify('+ 1 day');
           }
         }
@@ -545,7 +542,7 @@ class CdnFormFull extends FormBase {
           $view->preExecute();
           $view->execute();
         }
-        $calendar_list_data = $this->buildListCalendarAndFooter($view);
+        $calendar_list_data = $this->buildListCalendarAndFooter($view, $period);
         $calendar = $view->buildRenderable('embed_1', $args);
 
         $teasers[$product->field_cdn_prd_cabin_id->value] += [
@@ -574,15 +571,17 @@ class CdnFormFull extends FormBase {
    * @param array $view
    *   Fetched view with products.
    *
+   * @param object $period
+   *   Chosen dates period.
+   *
    * @return array
    *   Results render array.
    */
-  public function buildListCalendarAndFooter($view) {
+  public function buildListCalendarAndFooter($view, $period) {
     $product_ids = $builds = [];
     $total_nights = 0;
     $total_price = '';
     // Collect products ids.
-    $product_ids = [];
     foreach ($view->result as $row) {
       $product_ids[] = !$row->_entity->field_cdn_prd_id->isEmpty() ? $row->_entity->field_cdn_prd_id->value : '';
     }
@@ -614,11 +613,13 @@ class CdnFormFull extends FormBase {
       $date1 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('F');
       $date2 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('d');
       $date3 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('D');
+
       $builds['list'][] = [
         '#theme' => 'cdn_results_calendar',
         '#data' => [
           'id' => $entity->id(),
           'pid' => $pid,
+          'date' => $date,
           'date1' => $date1,
           'date2' => $date2,
           'date3' => $date3,
@@ -639,6 +640,63 @@ class CdnFormFull extends FormBase {
       'total_price' => $total_price,
       'login_url' => $login_url,
     ];
+    $builds = $this->enrichListCalendar($builds, $period);
+    return $builds;
+  }
+
+  /**
+   * Helper method to check missed days for list calendar.
+   *
+   * @param array $builds
+   *   Render array with data.
+   *
+   * @param object $period
+   *   Chosen dates period.
+   *
+   * @return array
+   *   Results render array.
+   */
+  public function enrichListCalendar($builds, $period) {
+    $dates = [];
+    foreach ($period as $d) {
+      $dates[] = $d->format('Y-m-d');
+    }
+    $dates[] = $d->modify('+ 1 day')->format('Y-m-d');
+    foreach ($builds['list'] as $key => $l) {
+      $current = $l['#data']['date'];
+      $i = array_search($current, $dates);
+      if ($i !== FALSE) {
+        unset($dates[$i]);
+      }
+    }
+    foreach ($period as $d) {
+      $skip = FALSE;
+      foreach ($builds['list'] as $key => $l) {
+        $current = DrupalDateTime::createFromFormat('Y-m-d', $l['#data']['date'])->setTime(0, 0);
+        if ($skip) {
+          continue;
+        }
+        if ($d <= $current && in_array($d->format('Y-m-d'), $dates)) {
+          $missed_build = array([
+            '#theme' => 'cdn_results_calendar',
+            '#data' => [
+              'id' => '0',
+              'pid' => '0',
+              'date' => $d->format('Y-m-d'),
+              'date1' => $d->format('F'),
+              'date2' => $d->format('d'),
+              'date3' => $d->format('D'),
+              'is_booked' => TRUE,
+              'is_selected' => FALSE,
+              'price' => '0',
+              'total_capacity' => '0',
+              'village_id' => '0',
+            ]]);
+          array_splice($builds['list'], $key, 0, $missed_build);
+          $skip = TRUE;
+        }
+      }
+    }
     return $builds;
   }
 
