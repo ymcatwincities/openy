@@ -7,8 +7,8 @@
     padding-bottom: 40px;
     margin: 0 auto 40px;
     @include breakpoint(768px) {
-      padding-bottom: 65px;
-      margin: 0 auto 80px;
+      padding-bottom: 15px;
+      margin: 0 auto 25px;
     }
     h2 {
       font-size: 30px;
@@ -42,11 +42,8 @@
       border-color: #dadada;
     }
     @include breakpoint(768px) {
-      width: 250px;
+      width: 245px;
       float: left;
-    }
-    @include breakpoint(1025px) {
-      width: 290px;
     }
   }
   .form-item-arrival-date {
@@ -69,12 +66,14 @@
   }
   .form-item-range {
     @include breakpoint(768px) {
+      clear: left;
       float: left;
+      margin: 0 45px 0 0;
       width: 200px;
     }
-    @include breakpoint(1025px) {
+    @include breakpoint(992px) {
+      clear: none;
       margin: 0 30px;
-      width: 250px;
     }
     label {
       font-family: "Cachet Book", Arial, sans-serif;
@@ -120,11 +119,12 @@
       line-height: inherit;
     }
     label {
-      font-size: 15px;
+      font-size: 16px;
       letter-spacing: -0.5px;
-      color: #959595;
+      color: #222;
       display: inline-block;
       font-weight: normal;
+      font-family: "Cachet Book", Arial, sans-serif;
       margin: 0 0 0 15px;
       height: 40px;
       line-height: 40px;
@@ -191,7 +191,7 @@
     }
   }
   .form-submit {
-    background: #f4791f;
+    background: #92278f;
     border: none;
     box-shadow: none;
     font-size: 18px;
@@ -204,72 +204,21 @@
       margin-top: 38px;
       width: 150px;
     }
-    @include breakpoint(1024px) {
-      float: right;
-    }
   }
   .cdn-results {
     padding: 15px 0 80px;
     @include clearfix();
     clear: both;
-    .cdn-village-teasers {
-      padding: 0 15px 30px;
-      @include breakpoint(768px) {
-        padding: 0 0 50px;
-      }
-      .container {
-        .cdn-village-teaser {
-          opacity: 0.5;
-          margin-bottom: 10px;
-          @include breakpoint(768px) {
-            display: inline-block;
-            padding-bottom: 30px;
-            padding-left: 15px;
-            padding-right: 15px;
-            width: 31%;
-          }
-          &.not-active {
-            opacity: 0.5 !important;
-          }
-          &.active {
-            opacity: 1 !important;
-          }
-        }
-      }
+    .cdn-results-active-wrapper {
+      background: #f8f8f8;
+      padding: 30px 0 0;
     }
-  }
-  .cdn-no-results {
-    display: none;
-  }
-}
-.paragraph--type--camp-du-nord-calendar-view {
-  display: none;
-}
-.cdn-village-calendars {
-  padding-bottom: 20px;
-  @include breakpoint(768px) {
-    background: #f8f8f8;
-    padding-bottom: 80px;
-  }
-  .cdn-calendar {
-    height: 0;
-    overflow: hidden;
-    margin: 0 -15px;
-    @include breakpoint(768px) {
-      margin: 0;
-    }
-    &.not-active {
-      height: 0 !important;
-    }
-    &.active {
-      height: auto !important;
-    }
+
     .main-description {
-      margin: 0 15px 35px;
+      margin: 0 0 35px;
       position: relative;
       @include breakpoint(768px) {
-        margin: 70px auto 10px;
-        max-width: 690px;
+        margin: 0;
       }
       .title {
         font-family: "Cachet Book", Arial, sans-serif;
@@ -288,7 +237,6 @@
         line-height: 26px;
       }
       .panorama-wrapper {
-        margin: 30px 0 70px;
         .open-panorama {
           display: inline-block;
           border-radius: 4px;
@@ -345,6 +293,108 @@
         }
       }
     }
+    .cdn-village-teasers {
+      padding: 30px 15px 30px;
+      @include breakpoint(768px) {
+        padding: 30px 0 50px;
+      }
+      .container {
+        .cdn-village-teaser {
+          opacity: 0.5;
+          padding-bottom: 30px;
+          display: block;
+          @include breakpoint(415px) {
+            display: inline-block;
+            vertical-align: top;
+            width: 45%;
+          }
+          @include breakpoint(768px) {
+            margin-left: 15px;
+            margin-right: 15px;
+            width: 30%;
+          }
+          @include breakpoint(992px) {
+            width: 21%;
+          }
+          @include breakpoint(1024px) {
+            width: 22%;
+          }
+          &:nth-child(2n) {
+            @include breakpoint(415px) {
+              margin-right: 0;
+            }
+            @include breakpoint(768px) {
+              margin-right: 0;
+            }
+            @include breakpoint(992px) {
+              margin-right: 15px;
+            }
+          }
+          &:nth-child(1n) {
+            @include breakpoint(415px 767px) {
+              margin-left: 0;
+              margin-right: 15px;
+            }
+          }
+          &:nth-child(2n) {
+            @include breakpoint(415px 767px) {
+              margin-left: 15px;
+              margin-right: 0;
+            }
+          }
+          &:nth-child(3n) {
+            @include breakpoint(768px) {
+              margin-right: 0;
+            }
+            @include breakpoint(992px) {
+              margin-right: 15px;
+            }
+          }
+          &:nth-child(4n) {
+            @include breakpoint(992px) {
+              margin-right: 0;
+            }
+          }
+          &.not-active {
+            opacity: 0.5 !important;
+          }
+          &.active {
+            opacity: 1 !important;
+          }
+        }
+      }
+    }
+  }
+  .cdn-no-results {
+    display: none;
+  }
+}
+.paragraph--type--camp-du-nord-calendar-view {
+  display: none;
+}
+.cdn-village-calendars {
+  @include breakpoint(768px) {
+    background: #f8f8f8;
+  }
+  > p {
+    margin: 0 auto;
+    max-width: 600px;
+    margin-bottom: 4px;
+  }
+  .cdn-calendar {
+    height: 0;
+    overflow: hidden;
+    margin: 0 -15px;
+    @include breakpoint(768px) {
+      margin: 0;
+    }
+    &.not-active {
+      height: 0 !important;
+    }
+    &.active {
+      height: auto !important;
+      margin-bottom: 30px
+    }
   }
 }
 .cdn-calendar .views-element-container,
@@ -352,7 +402,7 @@
   height: 0;
   @include breakpoint(768px) {
     height: auto;
-    max-width: 690px;
+    max-width: 600px;
     margin: 0 auto 3px;
     border-radius: 10px;
     border: 2px solid #d8d8d8;
@@ -363,7 +413,7 @@
   }
 }
 .fullcalendar {
-  padding: 30px;
+  padding: 15px;
   @include breakpoint(768px) {
     background-color: #f8f8f8;
     border-radius: 10px;
@@ -389,11 +439,12 @@
     @media (min-width: 768px) {
       background-color: #f8f8f8;
       margin-bottom: 0;
-      padding: 13px 0 10px;
+      padding: 0;
       display: block;
       position: relative;
     }
     .fc-center {
+      display: none;
       h2 {
         font-size: 20px;
         letter-spacing: -0.5px;
@@ -483,7 +534,7 @@
     .fc-day-top,
     .fc-day-number {
       font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-      font-size: 24px;
+      font-size: 22px;
       letter-spacing: -0.6px;
       text-align: left;
       color: #2f2f2f;
@@ -536,6 +587,10 @@
             display: block;
           }
         }
+        &:focus {
+          outline: none;
+          text-decoration: none;
+        }
       }
       &.no-left-border {
         //border-top-color: #eaeaea;
@@ -564,7 +619,7 @@
         overflow: inherit;
         border-radius: 8px;
         @media (min-width: 768px) {
-          margin: 8px;
+          margin: 4px;
         }
       }
       &.booked {
@@ -577,24 +632,49 @@
         .fc-day-number {
           padding: 18px 0;
         }
+        .fc-content {
+          position: relative;
+          &:after {
+            border-radius: 8px;
+            content: 'X';
+            font-size: 48px;
+            opacity: 0.2;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+          }
+        }
+      }
+      &.booked.selected {
+        .tip-q {
+          display: none;
+        }
       }
       .fc-time {
         display: none;
       }
       .fc-title {
         color: #959595;
-        font-size: 16px;
+        font-size: 15px;
         display: block;
         padding-bottom: 8px;
+        @media (min-width: 768px) and (max-width: 1023px) {
+          font-size: 13px;
+        }
         .q-mark {
           display: none;
         }
       }
       .tip-q {
         color: #959595;
-        font-size: 16px;
+        font-size: 15px;
         display: none;
         padding-bottom: 8px;
+        @media (min-width: 768px) and (max-width: 1023px) {
+          font-size: 13px;
+        }
         .q-mark {
           margin-left: 5px;
         }
@@ -607,6 +687,9 @@
         white-space: normal;
         width: 100%;
         height: 100%;
+        @media (min-width: 768px) and (max-width: 1023px) {
+          font-size: 13px;
+        }
       }
     }
     .fc-content-skeleton {
@@ -630,6 +713,9 @@
 }
 
 .cdn-village-teaser {
+  a {
+    text-decoration: none;
+  }
   .inner {
     position: relative;
     display: inline-block;
@@ -645,15 +731,6 @@
     bottom: 0;
     left: 0;
     right: 0;
-    .title {
-      font-family: "Cachet Book", Arial, sans-serif;
-      font-size: 30px;
-      letter-spacing: -0.6px;
-      color: #fff;
-      float: left;
-      line-height: 30px;
-      max-width: 270px;
-    }
     .capacity {
       float: right;
       color: #fff;
@@ -662,6 +739,16 @@
       i {
         margin-right: 5px;
       }
+    }
+  }
+  .title {
+    font-family: "Cachet Book", Arial, sans-serif;
+    font-size: 24px;
+    letter-spacing: -0.6px;
+    color: #000;
+    line-height: 30px;
+    @media (min-width: 768px) {
+      font-size: 24px;
     }
   }
 }
@@ -724,6 +811,20 @@
       margin: 10px 0 0;
       font-size: 16px;
       color: #959595;
+    }
+    &.booked {
+      > a {
+        border-radius: 5px;
+        background-color: #d8d8d8;
+      }
+      .price {
+        visibility: hidden;
+      }
+    }
+    &.booked.selected {
+      .tip-q {
+        display: none;
+      }
     }
   }
 }
@@ -880,7 +981,7 @@
     background: #383838;
     padding: 50px 0 25px;
     .form-submit {
-      background: #f4791f;
+      background: #92278f;
       font-size: 15px;
       width: 100%;
       box-shadow: none;
@@ -891,7 +992,14 @@
     }
   }
 }
-
+.cdn-results {
+  .cdn-village-footer {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+}
 .cdn-village-footer {
   background: #383838;
   padding: 50px 15px 25px;
