@@ -54,6 +54,10 @@ class WebformYamlTest extends UnitTestCase {
       ['array' => ['one', 'two']],
       "array:\n  - one\n  - two",
     ];
+    $tests[] = [
+      [['one' => 'One'], ['two' => 'Two']],
+      "- one: One\n- two: Two",
+    ];
     return $tests;
   }
 

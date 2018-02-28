@@ -72,6 +72,10 @@ source:
       id: 16
       name: Brown
       color: '231F20'
+    -
+      id: 17
+      name: Grey
+      color: '4f4f4f'
   ids:
     id:
       type: integer

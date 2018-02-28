@@ -38,6 +38,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -67,8 +68,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -141,6 +142,7 @@ handlers:
     label: Tomorow
     handler_id: tomorrow
     status: true
+    conditions: {  }
     weight: -49
     settings:
       states:
@@ -159,21 +161,24 @@ handlers:
       subject: default
       body: default
       excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
       send: '[webform_submission:completed:html_date]'
       days: 1
       unschedule: false
-      ignore_access: false
-      exclude_empty: true
   yesterday:
     id: scheduled_email
     label: Yesterday
     handler_id: yesterday
     status: true
+    conditions: {  }
     weight: -50
     settings:
       states:
@@ -192,21 +197,24 @@ handlers:
       subject: default
       body: default
       excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
       send: '[webform_submission:completed:html_date]'
       days: -1
       unschedule: false
-      ignore_access: false
-      exclude_empty: true
   last_year:
     id: scheduled_email
     label: 'Last year'
     handler_id: last_year
     status: true
+    conditions: {  }
     weight: -48
     settings:
       states:
@@ -225,21 +233,24 @@ handlers:
       subject: default
       body: default
       excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
       send: '2016-01-01'
       days: 0
       unschedule: false
-      ignore_access: false
-      exclude_empty: true
   broken:
     id: scheduled_email
     label: Broken
     handler_id: broken
     status: true
+    conditions: {  }
     weight: -46
     settings:
       states:
@@ -258,21 +269,24 @@ handlers:
       subject: default
       body: default
       excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
       send: '[broken]'
       days: 0
       unschedule: false
-      ignore_access: false
-      exclude_empty: true
   other:
     id: scheduled_email
     label: Other
     handler_id: other
     status: true
+    conditions: {  }
     weight: -45
     settings:
       states:
@@ -293,21 +307,24 @@ handlers:
       subject: default
       body: default
       excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
       send: '[webform_submission:values:date:html_date]'
       days: 14
       unschedule: false
-      ignore_access: false
-      exclude_empty: true
   draft_reminder:
     id: scheduled_email
     label: 'Draft reminder'
     handler_id: draft_reminder
     status: true
+    conditions: {  }
     weight: -47
     settings:
       states:
@@ -326,13 +343,15 @@ handlers:
       subject: default
       body: default
       excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
       send: '[date:html_date]'
       days: 14
       unschedule: true
-      ignore_access: false
-      exclude_empty: true

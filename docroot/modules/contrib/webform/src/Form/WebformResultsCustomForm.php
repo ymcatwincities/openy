@@ -129,8 +129,8 @@ class WebformResultsCustomForm extends FormBase {
     ];
     $form['direction'] = [
       '#type' => 'select',
-      '#field_prefix' => ' ' . $this->t('in', [], ['context' => 'Sort by {sort} in {direction} order.']) . ' ',
-      '#field_suffix' => ' ' . $this->t('order', [], ['context' => 'Sort by {sort} in {direction} order.']) . '.',
+      '#field_prefix' => ' ' . $this->t('in', [], ['context' => 'Sort by {sort} in {direction} order']) . ' ',
+      '#field_suffix' => ' ' . $this->t('order', [], ['context' => 'Sort by {sort} in {direction} order']),
       '#options' => [
         'asc' => $this->t('Ascending (ASC)'),
         'desc' => $this->t('Descending (DESC)'),
@@ -143,8 +143,8 @@ class WebformResultsCustomForm extends FormBase {
     $limit = $this->webform->getState($this->getStateKey('limit'), NULL);
     $form['limit'] = [
       '#type' => 'select',
-      '#field_prefix' => $this->t('Show', [], ['context' => 'Show {limit} results per page.']),
-      '#field_suffix' => $this->t('results per page') . '.',
+      '#field_prefix' => $this->t('Show', [], ['context' => 'Show {limit} results per page']),
+      '#field_suffix' => $this->t('results per page'),
       '#options' => [
         '20' => '20',
         '50' => '50',

@@ -9,7 +9,7 @@ field_name: field_prgf_headline
 entity_type: paragraph
 bundle: featured_content
 label: Headline
-description: ''
+description: 'Headline of the featured content.'
 required: false
 translatable: true
 default_value: {  }

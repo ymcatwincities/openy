@@ -8,6 +8,7 @@ Branch content type is used for adding Branches on the site.
 | Neighborhood | field\_location_area  | No | A taxonomy reference field using the "Area" vocabulary. |
 | Coming Soon | field\_location_state  | No | A checkbox field to determine branches in development. |
 | Temporary URL | field\_location\_temp_url  | No | A link field to provide a temporary page URL (a blog post, or smth else) if the branch is coming soon. |
+| Meta Tags  | field\_meta_tags  | No | A meta tags field allows us to provide structured metadata and Graph meta tags for Facebook, Pinterest, LinkedIn and other social networking sites. |
 | **Contact** | Field group |||
 | Address | field\_location_address | Yes | An address field that will provide the ability to add details about the locations. Details to be completed: <ul><li>Address</li><li>City</li><li>State</li><li>Zip Code</li></ul> |
 | Branch Coordinates | field_location_coordinates | No | Input for providing the latitude and longitude information. |
@@ -22,7 +23,7 @@ Branch content type is used for adding Branches on the site.
 | **Header Area** | Field group |||
 | Content | field\_header_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 | **Content Area** | Field group |||
-| Content | field_oy_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
+| Content | field_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 | **Bottom Area** | Field group|||
 | Content | field\_bottom_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 

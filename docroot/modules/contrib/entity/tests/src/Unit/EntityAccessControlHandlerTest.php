@@ -8,12 +8,14 @@ use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityPublishedInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\entity\EntityAccessControlHandler;
+use Drupal\entity\EntityPermissionProvider;
 use Drupal\Tests\UnitTestCase;
 use Drupal\user\EntityOwnerInterface;
 use Prophecy\Argument;
@@ -80,6 +82,8 @@ class EntityAccessControlHandlerTest extends UnitTestCase {
     $entity_type = $this->prophesize(ContentEntityTypeInterface::class);
     $entity_type->id()->willReturn('green_entity');
     $entity_type->getAdminPermission()->willReturn('administer green_entity');
+    $entity_type->hasHandlerClass('permission_provider')->willReturn(TRUE);
+    $entity_type->getHandlerClass('permission_provider')->willReturn(EntityPermissionProvider::class);
 
     // User with the admin permission can do anything.
     $entity = $this->buildMockEntity($entity_type->reveal());
@@ -126,6 +130,32 @@ class EntityAccessControlHandlerTest extends UnitTestCase {
     $data[] = [$entity->reveal(), 'update', $second_account->reveal(), FALSE];
     $data[] = [$entity->reveal(), 'update', $third_account->reveal(), TRUE];
 
+    // Test the unpublished permissions.
+    $entity_first_other_up = $this->buildMockEntity($entity_type->reveal(), 9999, 'first', FALSE);
+    $entity_first_own_up = $this->buildMockEntity($entity_type->reveal(), 14, 'first', FALSE);
+    $entity_first_own_bundle_up = $this->buildMockEntity($entity_type->reveal(), 15, 'first', FALSE);
+
+    $entity_second_other_up = $this->buildMockEntity($entity_type->reveal(), 9999, 'second', FALSE);
+    $entity_second_own_up = $this->buildMockEntity($entity_type->reveal(), 14, 'second', FALSE);
+    $entity_second_own_bundle_up = $this->buildMockEntity($entity_type->reveal(), 15, 'second', FALSE);
+
+    $user_view_own_up = $this->buildMockUser(14, 'view own unpublished green_entity');
+    $user_view_other = $this->buildMockUser(15, 'view green_entity');
+
+    $data['entity_first_other_up user_view_own_up'] = [$entity_first_other_up->reveal(), 'view', $user_view_own_up->reveal(), FALSE];
+    $data['entity_first_own_up user_view_own_up'] = [$entity_first_own_up->reveal(), 'view', $user_view_own_up->reveal(), TRUE];
+    $data['entity_first_own_bundle_up user_view_own_up'] = [$entity_first_own_bundle_up->reveal(), 'view', $user_view_own_up->reveal(), FALSE];
+    $data['entity_second_other_up user_view_own_up'] = [$entity_second_other_up->reveal(), 'view', $user_view_own_up->reveal(), FALSE];
+    $data['entity_second_own_up user_view_own_up'] = [$entity_second_own_up->reveal(), 'view', $user_view_own_up->reveal(), TRUE];
+    $data['entity_second_own_bundle_up user_view_own_up'] = [$entity_second_own_bundle_up->reveal(), 'view', $user_view_own_up->reveal(), FALSE];
+
+    $data['entity_first_other_up user_view_other'] = [$entity_first_other_up->reveal(), 'view', $user_view_other->reveal(), FALSE];
+    $data['entity_first_own_up user_view_other'] = [$entity_first_own_up->reveal(), 'view', $user_view_other->reveal(), FALSE];
+    $data['entity_first_own_bundle_up user_view_other'] = [$entity_first_own_bundle_up->reveal(), 'view', $user_view_other->reveal(), FALSE];
+    $data['entity_second_other_up user_view_other'] = [$entity_second_other_up->reveal(), 'view', $user_view_other->reveal(), FALSE];
+    $data['entity_second_own_up user_view_other'] = [$entity_second_own_up->reveal(), 'view', $user_view_other->reveal(), FALSE];
+    $data['entity_second_own_bundle_up user_view_other'] = [$entity_second_own_bundle_up->reveal(), 'view', $user_view_other->reveal(), FALSE];
+
     return $data;
   }
 
@@ -141,6 +171,8 @@ class EntityAccessControlHandlerTest extends UnitTestCase {
     $entity_type = $this->prophesize(ContentEntityTypeInterface::class);
     $entity_type->id()->willReturn('green_entity');
     $entity_type->getAdminPermission()->willReturn('administer green_entity');
+    $entity_type->hasHandlerClass('permission_provider')->willReturn(TRUE);
+    $entity_type->getHandlerClass('permission_provider')->willReturn(EntityPermissionProvider::class);
 
     // User with the admin permission.
     $account = $this->prophesize(AccountInterface::class);
@@ -182,16 +214,27 @@ class EntityAccessControlHandlerTest extends UnitTestCase {
    * @return \Prophecy\Prophecy\ObjectProphecy
    *   The entity mock.
    */
-  protected function buildMockEntity(EntityTypeInterface $entity_type, $owner_id = NULL) {
+  protected function buildMockEntity(EntityTypeInterface $entity_type, $owner_id = NULL, $bundle = NULL, $published = NULL) {
     $langcode = LanguageInterface::LANGCODE_NOT_SPECIFIED;
     $entity = $this->prophesize(ContentEntityInterface::class);
+    if (isset($published)) {
+      $entity->willImplement(EntityPublishedInterface::class);
+    }
     if ($owner_id) {
       $entity->willImplement(EntityOwnerInterface::class);
+    }
+    if (isset($published)) {
+      $entity->isPublished()->willReturn($published);
+    }
+    if ($owner_id) {
       $entity->getOwnerId()->willReturn($owner_id);
     }
-    $entity->bundle()->willReturn($entity_type->id());
+
+    $entity->bundle()->willReturn($bundle ?: $entity_type->id());
     $entity->isNew()->willReturn(FALSE);
     $entity->uuid()->willReturn('fake uuid');
+    $entity->id()->willReturn('fake id');
+    $entity->getRevisionId()->willReturn(NULL);
     $entity->language()->willReturn(new Language(['id' => $langcode]));
     $entity->getEntityTypeId()->willReturn($entity_type->id());
     $entity->getEntityType()->willReturn($entity_type);
@@ -199,7 +242,16 @@ class EntityAccessControlHandlerTest extends UnitTestCase {
     $entity->getCacheTags()->willReturn([]);
     $entity->getCacheMaxAge()->willReturn(Cache::PERMANENT);
 
+
     return $entity;
+  }
+
+  protected function buildMockUser($uid, $permission) {
+    $account = $this->prophesize(AccountInterface::class);
+    $account->id()->willReturn($uid);
+    $account->hasPermission($permission)->willReturn(TRUE);
+    $account->hasPermission(Argument::any())->willReturn(FALSE);
+    return $account;
   }
 
 }

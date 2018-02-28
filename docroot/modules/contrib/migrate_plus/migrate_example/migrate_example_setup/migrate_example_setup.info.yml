@@ -2,7 +2,7 @@ type: module
 name: Migrate Example Setup
 description: 'Separate site configuration for the example from the actual migration.'
 package: Migration
-# core: 8.x
+core: 8.x
 hidden: 1
 dependencies:
   - drupal:comment
@@ -10,9 +10,3 @@ dependencies:
   - drupal:text
   - drupal:options
   - drupal:taxonomy
-
-# Information added by Drupal.org packaging script on 2017-08-15
-version: '8.x-4.0-beta1+3-dev'
-core: '8.x'
-project: 'migrate_plus'
-datestamp: 1502832547

@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\Reference;
 class OpenySocratesCompilerPass implements CompilerPassInterface {
 
   const OPENYINTERFACE = 'Drupal\openy_socrates\OpenyDataServiceInterface';
+  const OPENY_CRON_INTERFACE = 'Drupal\openy_socrates\OpenyCronServiceInterface';
 
   /**
    * {@inheritdoc}
@@ -19,7 +20,7 @@ class OpenySocratesCompilerPass implements CompilerPassInterface {
   public function process(ContainerBuilder $container) {
     // TODO: Implement process() method.
     $definition = $container->getDefinition('socrates');
-    $dds = array();
+    $dds = [];
     // Retrieve registered OpenY Data Services from the container.
     // @see openy_socrates.services.yml for example of tags usages.
     $openyds = $container->findTaggedServiceIds(
@@ -38,6 +39,25 @@ class OpenySocratesCompilerPass implements CompilerPassInterface {
     }
 
     $definition->addMethodCall('collectDataServices', $dds);
+
+    // Cron implementation.
+    $openy_cron_services = $container->findTaggedServiceIds('openy_cron_service');
+
+    $openy_cron_service_instances = [];
+    foreach ($openy_cron_services as $id => $attributes) {
+      $cs_definition = $container->getDefinition($id);
+      $cs_class = $cs_definition->getClass();
+      if (!in_array(self::OPENY_CRON_INTERFACE, class_implements($cs_class))) {
+        throw new OpenySocratesException(
+          "Service $id should implement OpenyCronServiceInterface"
+        );
+      }
+
+      $periodicity = isset($attributes[0]['periodicity']) ? $attributes[0]['periodicity'] : 0;
+      $openy_cron_service_instances['cron'][$periodicity][] = new Reference($id);
+    }
+
+    $definition->addMethodCall('collectCronServices', $openy_cron_service_instances);
   }
 
 }

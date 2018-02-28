@@ -93,7 +93,7 @@ set classes = [
       <div class="row">
         <div class="col-md-8 main">
           <h1>{{ label }}</h1>
-          <h2>{{ content.field_category_program }}</h2>
+          {{ content.field_category_program }}
         </div>
         <div class="col-md-4 hidden-xs hidden-sm image">
           {{ content.field_category_image }}
@@ -110,17 +110,19 @@ set classes = [
   <div class="row">
     <div class="two-column">
       {# Category content #}
-      <div class="main-region col-sm-8">
+      <main class="main-region col-sm-8">
         {{ content.field_category_description }}
-        {{ content.field_oy_content }}
-      </div>
+        {{ content.field_content }}
+      </main>
 
       {# Category sidebar #}
+      {% if content.field_sidebar_content.0 %}
       <div class="sidebar-region col-sm-4">
-        <article class="program-sidebar program-sidebar-sub-category">
+        <div class="program-sidebar program-sidebar-sub-category">
           {{ content.field_sidebar_content }}
-        </article>
+        </div>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>

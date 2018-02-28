@@ -1,0 +1,11 @@
+name: 'OpenY Editor'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - ckeditor
+  - editor
+  - entity_embed
+  - filter
+  - token_filter
+  - colorbutton

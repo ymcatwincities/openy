@@ -16,7 +16,7 @@ field_name: field_prgf_description
 entity_type: paragraph
 bundle: small_banner
 label: Description
-description: ''
+description: 'WYSIWYG field without summary.'
 required: false
 translatable: true
 default_value: {  }

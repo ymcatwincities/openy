@@ -10,7 +10,7 @@ field_name: field_prgf_image
 entity_type: paragraph
 bundle: small_banner
 label: Image
-description: ''
+description: 'Entityreference to media image. Single value.'
 required: false
 translatable: true
 default_value: {  }

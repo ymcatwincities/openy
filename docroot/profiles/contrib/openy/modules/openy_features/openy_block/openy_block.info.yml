@@ -1,9 +1,9 @@
-name: 'OpenY block package'
-description: 'OpenY block package'
+name: 'OpenY Block Package'
+description: 'OpenY Block Package.'
 type: module
 core: 8.x
-version: 8.x-1.0
+package: OpenY
 dependencies:
-  - drupal:block_content
-  - drupal:field
-  - drupal:text
+  - block_content
+  - field
+  - text

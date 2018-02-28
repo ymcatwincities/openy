@@ -48,10 +48,10 @@ class WebformElementTermsOfServiceTest extends WebformTestBase {
     $this->assertRaw('I agree to the terms of service. (modal)');
     $this->assertRaw('I agree to the terms of service. (slideout)');
 
-    // Check default title and key.
+    // Check default title and auto incremented key.
     $this->drupalLogin($this->rootUser);
     $this->drupalGet('/admin/structure/webform/manage/test_element_terms_of_service/element/add/webform_terms_of_service');
-    $this->assertFieldByName('key', 'terms_of_service');
+    $this->assertFieldByName('key', 'terms_of_service_01');
     $this->assertFieldByName('properties[title]', 'I agree to the {terms of service}.');
   }
 

@@ -258,4 +258,78 @@ class WebformArrayHelper {
     return count($keys) === $count;
   }
 
+  /**
+   * Get duplicate values in an array.
+   *
+   * @param array $array
+   *   An array.
+   *
+   * @return array
+   *   An array container duplicate values.
+   *
+   * @see https://magp.ie/2011/02/02/find-duplicates-in-an-array-with-php/
+   */
+  public static function getDuplicates(array $array) {
+    return array_unique(array_diff_assoc($array, array_unique($array)));
+  }
+
+  /**
+   * Traverse an associative array and collect references to all key/value pairs in an associative array.
+   *
+   * @param array $build
+   *   An array.
+   *
+   * @return array
+   *   An associative array of key/value pairs by reference.
+   */
+  public static function &flattenAssoc(array &$build) {
+    $array = [];
+    $duplicate_array_keys = [];
+    self::flattenAssocRecursive($build, $array, $duplicate_array_keys);
+    return $array;
+  }
+
+  /**
+   * TTraverse an associative array and collect references to all key/value pairs in an associative array.
+   *
+   * @param array $build
+   *   An array.
+   * @param array $array
+   *   An empty array that will be populated with references to key/value pairs.
+   * @param array $duplicate_array_keys
+   *   An array used to track key/value pairs with duplicate keys.
+   */
+  protected static function flattenAssocRecursive(array &$build, array &$array, array &$duplicate_array_keys) {
+    foreach ($build as $key => &$item) {
+      // If there are duplicate array keys create an array of referenced
+      // key/value pairs.
+      if (isset($array[$key])) {
+        // If this is the second key/value pairs, we need to restructure to
+        // first key/value's reference to be an array of references.
+        if (empty($duplicate_array_keys[$key])) {
+          // Store a temporary references to the first key/value pair.
+          $first_element = &$array[$key];
+          // Use unset() to break the reference.
+          unset($array[$key]);
+          // Create an array of element references.
+          $array[$key] = [];
+          // Append the first to the array of key/value references.
+          $array[$key][] = &$first_element;
+        }
+        // Now append the current key/value pair to array of key/value pair
+        // references.
+        $array[$key][] = &$build[$key];
+        // Finally track key/value pairs with duplicate keys.
+        $duplicate_array_keys[$key] = TRUE;
+      }
+      else {
+        $array[$key] = &$build[$key];
+      }
+
+      if (is_array($item)) {
+        self::flattenAssocRecursive($item, $array, $duplicate_array_keys);
+      }
+    }
+  }
+
 }

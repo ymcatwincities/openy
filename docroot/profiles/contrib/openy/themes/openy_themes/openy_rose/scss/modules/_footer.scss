@@ -51,10 +51,9 @@
 
           a {
             @include cachet();
-            font-size: 20px;
+            font-size: 18px;
             text-transform: uppercase;
             line-height: 22px;
-            text-decoration: none;
           }
 
           ul {

@@ -24,8 +24,6 @@ class MongoDbProfilerStorage implements ProfilerStorageInterface
     private $mongo;
 
     /**
-     * Constructor.
-     *
      * @param string $dsn      A data source name
      * @param string $username Not used
      * @param string $password Not used
@@ -122,8 +120,6 @@ class MongoDbProfilerStorage implements ProfilerStorageInterface
     }
 
     /**
-     * @param array $data
-     *
      * @return Profile
      */
     protected function createProfileFromData(array $data)
@@ -205,8 +201,6 @@ class MongoDbProfilerStorage implements ProfilerStorageInterface
     }
 
     /**
-     * @param array $data
-     *
      * @return array
      */
     private function getData(array $data)
@@ -224,8 +218,6 @@ class MongoDbProfilerStorage implements ProfilerStorageInterface
     }
 
     /**
-     * @param array $data
-     *
      * @return Profile
      */
     private function getProfile(array $data)

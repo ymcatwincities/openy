@@ -89,7 +89,7 @@ $ bin/behat
   - Basic create
     ```
     Given I create "landing_page" content:
-      | KEY       | title           | field_lp_layout | field_oy_content |
+      | KEY       | title           | field_lp_layout | field_content |
       | landing_1 | Test Landing 01 | one_column      | banner1       |
       | landing_2 | Test Landing 02 | one_column      | banner2       |
     ```
@@ -99,7 +99,7 @@ $ bin/behat
       | KEY             | landing_3       | landing_4       |
       | title           | Test Landing 03 | Test Landing 04 |
       | field_lp_layout | one_column      | one_column      |
-      | field_oy_content   | banner1         | banner2         |
+      | field_content   | banner1         | banner2         |
     ```
   - Create & view immediately
     ```
@@ -107,12 +107,12 @@ $ bin/behat
       | KEY             | landing_5       |
       | title           | Test Landing 05 |
       | field_lp_layout | one_column      |
-      | field_oy_content   | banner1         |
+      | field_content   | banner1         |
     ```
   - Multiple referenced entities by key on a field.
     ```
     Given I create "landing_page" content:
-      | KEY       | title           | field_lp_layout | field_oy_content    |
+      | KEY       | title           | field_lp_layout | field_content    |
       | landing_6 | Test Landing 06 | one_column      | banner1, banner2 |
     ```
 #### Example Address and Latitude + Longitude

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed\Form\EmbedButtonForm.
- */
-
 namespace Drupal\embed\Form;
 
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
@@ -78,7 +73,7 @@ class EmbedButtonForm extends EntityForm {
       '#title' => $this->t('Label'),
       '#type' => 'textfield',
       '#default_value' => $button->label(),
-      '#description' => t('The human-readable name of this embed button. This text will be displayed when the user hovers over the CKEditor button. This name must be unique.'),
+      '#description' => $this->t('The human-readable name of this embed button. This text will be displayed when the user hovers over the CKEditor button. This name must be unique.'),
       '#required' => TRUE,
       '#size' => 30,
     ];
@@ -234,4 +229,5 @@ class EmbedButtonForm extends EntityForm {
 
     return $response;
   }
+
 }

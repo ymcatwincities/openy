@@ -16,13 +16,13 @@ required: true
 translatable: true
 default_value:
   -
-    plugin_id: 'calc_block'
+    plugin_id: calc_block
     plugin_configuration:
-      id: 'calc_block'
+      id: calc_block
       label: Block
       provider: null
       label_display: null
-    plugin_configuration_schema_id: 'block.settings.calc_block'
+    plugin_configuration_schema_id: block.settings.calc_block
 default_value_callback: ''
 settings: {  }
 field_type: 'plugin:block'

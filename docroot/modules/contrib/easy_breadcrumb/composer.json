@@ -1,0 +1,6 @@
+{
+  "name": "drupal/easy_breadcrumb",
+  "type": "drupal-module",
+  "description": "Adds configuration to the system breadcrumbs.",
+  "license": "GPL-2.0+"
+}

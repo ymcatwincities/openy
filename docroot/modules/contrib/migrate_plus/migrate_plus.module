@@ -18,24 +18,6 @@ use Drupal\migrate_plus\Event\MigratePrepareRowEvent;
 function migrate_plus_migration_plugins_alter(array &$migrations) {
   /** @var \Drupal\migrate\Plugin\MigrationInterface $migration */
   foreach ($migrations as $id => $migration) {
-    // Add the default class where empty.
-    if (empty($migration['class'])) {
-      $migrations[$id]['class'] = 'Drupal\migrate\Plugin\Migration';
-    }
-
-    // For derived configuration entity-based migrations, strip the deriver
-    // prefix so we can reference migrations by the IDs they specify (i.e.,
-    // the migration that specifies "id: temp" can be referenced as "temp"
-    // rather than "migration_config_deriver:temp").
-    $prefix = 'migration_config_deriver:';
-    if (strpos($id, $prefix) === 0) {
-      $new_id = substr($id, strlen($prefix));
-      $migrations[$new_id] = $migrations[$id];
-      unset($migrations[$id]);
-      $id = $new_id;
-    }
-
-    // Integrate shared group configuration into the migration.
     if (empty($migration['migration_group'])) {
       $migration['migration_group'] = 'default';
     }

@@ -62,8 +62,10 @@ class WebformElementManagedFilePublicTest extends WebformTestBase {
     $this->assertNoRaw('Public files upload destination is dangerous for webforms that are available to anonymous and/or untrusted users.');
     $this->assertNoFieldById('edit-properties-uri-scheme-public');
 
+    /**************************************************************************/
     // NOTE: Unable to test private file upload warning because SimpleTest
     // automatically enables private file uploads.
+    /**************************************************************************/
 
     // Check managed_file element is enabled.
     $this->drupalGet('admin/structure/webform/manage/test_element_managed_file/element/add');

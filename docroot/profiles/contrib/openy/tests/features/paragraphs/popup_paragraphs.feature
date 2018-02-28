@@ -12,7 +12,7 @@ Feature: Popups paragraphs
       | KEY             | behat_landing         |
       | title           | BEHAT LANDING         |
       | field_lp_layout | one_column            |
-      | field_oy_content   | branches_popup_all_01 |
+      | field_content   | branches_popup_all_01 |
     And I create taxonomy_term of type color:
       | KEY     | name          | field_color |
       | magenta | Behat Magenta | FF00FF      |
@@ -26,7 +26,7 @@ Feature: Popups paragraphs
       | KEY                    | behat_category        |
       | title                  | BEHAT CATEGORY        |
       | field_category_program | behat_program         |
-      | field_oy_content          | branches_popup_all_02 |
+      | field_content          | branches_popup_all_02 |
     And I create large activity content:
       | KEY                     | behat_activity |
       | title                   | BEHAT ACTIVITY |
@@ -49,7 +49,7 @@ Feature: Popups paragraphs
       | KEY                  | behat_class          |
       | title                | BEHAT CLASS          |
       | field_class_activity | behat_activity       |
-      | field_oy_content        | branches_popup_class |
+      | field_content        | branches_popup_class |
     And I create large paragraph of type session_time:
       | KEY                           | session_time_01     | session_time_02     |
       | field_session_time_date:value | 2037-04-20T12:00:00 | 2037-04-20T12:00:00 |

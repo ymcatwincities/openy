@@ -1,0 +1,11 @@
+services:
+  init_subscriber:
+    class: Drupal\easy_breadcrumb\EventSubscriber\InitSubscriber
+    tags:
+      -
+        name: event_subscriber
+  easy_breadcrumb.breadcrumb:
+    class: Drupal\easy_breadcrumb\EasyBreadcrumbBuilder
+    arguments: ['@router.request_context', '@access_manager', '@router', '@path_processor_manager', '@config.factory',  '@title_resolver', '@current_user', '@path.current', '@plugin.manager.menu.link']
+    tags:
+      - { name: breadcrumb_builder, priority: 1003 }

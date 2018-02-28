@@ -175,3 +175,28 @@
     }
   }
 }
+
+.field-prgf-title,
+.field-prgf-nu-title,
+.field-prgf-whay-title,
+.field-prgf-fc-title {
+  text-align: center;
+  width: 100%;
+  clear: both;
+
+  h2 {
+    font-weight: 600;
+    line-height: lh(30, 26);
+    color: $default-grey;
+    font-size: 38px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  &.mobile {
+    h2 {
+      font-size: 28px;
+      margin-bottom: -15px;
+    }
+  }
+}

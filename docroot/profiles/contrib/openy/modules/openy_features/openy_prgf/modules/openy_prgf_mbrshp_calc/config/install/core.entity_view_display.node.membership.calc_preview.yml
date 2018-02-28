@@ -22,6 +22,7 @@ content:
       trim_length: 250
     third_party_settings: {  }
     type: text_trimmed
+    region: content
   field_mbrshp_image:
     weight: 1
     label: hidden
@@ -30,9 +31,12 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   links:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_mbrshp_info: true
+  langcode: true

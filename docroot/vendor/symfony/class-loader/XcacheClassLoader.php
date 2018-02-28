@@ -49,17 +49,9 @@ namespace Symfony\Component\ClassLoader;
 class XcacheClassLoader
 {
     private $prefix;
-
-    /**
-     * A class loader object that implements the findFile() method.
-     *
-     * @var object
-     */
     private $decorated;
 
     /**
-     * Constructor.
-     *
      * @param string $prefix    The XCache namespace prefix to use
      * @param object $decorated A class loader object that implements the findFile() method
      *

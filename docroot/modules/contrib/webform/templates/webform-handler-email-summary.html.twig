@@ -17,6 +17,4 @@
 <b>{{ 'From:'|t }}</b> {% if settings.from_name %}{{ settings.from_name }}{% endif %} &lt;{{ settings.from_mail }}&gt;<br />
 <b>{{ 'Subject:'|t }}</b> {{ settings.subject }}<br />
 <b>{{ 'Settings:'|t }}</b> {{ settings.html ? 'HTML' : 'Plain text'|t }}{{ settings.html and settings.attachments ? '/' : '' }}{{ settings.attachments ? 'Attachments '|t : '' }}<br />
-{% if (settings.states|length > 1 or not settings.states.completed) %}
 <b>{{ 'Sent when:'|t }}</b> {{ settings.states|join('; ') }}<br />
-{% endif %}

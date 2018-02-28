@@ -119,7 +119,7 @@ interface WebformSubmissionExporterInterface {
    * @return array
    *   An associative array of export options.
    */
-  public function getValuesFromInput(array $input);
+  public function getValuesFromInput(array $values);
 
   /**
    * Execute results exporter and write export to a temp file.

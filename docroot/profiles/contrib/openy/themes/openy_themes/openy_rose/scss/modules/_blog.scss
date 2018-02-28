@@ -6,6 +6,7 @@
   }
 
   h1 {
+    font-size: 36px;
     letter-spacing: -1.2px;
     padding-bottom: 8px;
   }
@@ -30,14 +31,32 @@
 
   &.node--view-mode-teaser {
     margin: auto;
-    max-width: 373px;
-    width: 100%;
+    @include breakpoint($screen-xs) {
+      max-width: 373px;
+      width: 100%;
+    }
 
     .inner-wrapper {
-      margin: 15px 0;
+      height: 240px;
+      width: 288px;
+      margin: 15px auto;
       position: relative;
       overflow: hidden;
-      height: 250px;
+      @include breakpoint($screen-xs) {
+        height: 288px;
+        width: auto;
+      }
+      @include breakpoint($screen-sm) {
+        height: 288px;
+        width: auto;
+      }
+      @include breakpoint($screen-md) {
+        height: 245px;
+      }
+      @include breakpoint($screen-lg) {
+        height: 300px;
+      }
+
     }
 
     img {
@@ -54,30 +73,40 @@
       left: 0;
       top: 0;
       width: 100%;
+      height: 100%;
       text-align: left;
+      font-weight: 500;
 
-      h2 {
-        font-size: 32px;
+      h3 {
+        font-size: 22px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        @include breakpoint($screen-xs) {
+          font-size: 28px;
+        }
       }
     }
 
     a {
       color: inherit;
-      text-decoration: none;
       word-break: break-word;
     }
 
-    h2,
-    h4 {
+    h3,
+    .blog-category {
       color: white;
     }
 
-    h4 {
-      margin: 0;
+    .blog-category {
+      margin: 0 0 12px;
       font-size: 14px;
       line-height: 1.28;
       letter-spacing: 2px;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: Verdana, sans-serif;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      padding: 0 22px;
 
       a {
         position: relative;
@@ -85,7 +114,7 @@
       }
     }
 
-    h2 a:after {
+    h3 a:after {
       content: '';
       position: absolute;
       height: 100%;
@@ -112,8 +141,8 @@
     &.blog-story .inner-wrapper {
       border: 1px solid $light-grey;
 
-      h2,
-      h4 {
+      h3,
+      .blog-category {
         color: $purple;
       }
     }
@@ -121,21 +150,27 @@
     &.blog-news .inner-wrapper {
       border: 1px solid $light-grey;
 
-      h4 {
+      .blog-category {
         color: inherit;
       }
 
-      h2 {
+      h3 {
         color: $purple;
+      }
+    }
+
+    .story {
+      h3 {
+        overflow: hidden;
+        width: auto;
       }
     }
 
     .quote {
       float: left;
-      min-height: 360px;
 
       svg {
-        margin-top: 21px;
+        margin-top: 1px;
       }
     }
   }
@@ -153,13 +188,33 @@
 .blog-related {
   position: relative;
 
-  h2 a:after {
-    content: '';
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
+  h2 {
+    font-family: Verdana, sans-serif;
+    text-transform: uppercase;
+    color: $default-grey !important;
+    margin: 0 0 25px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.2;
+    letter-spacing: 2px;
+  }
+
+  h3 {
+    font-weight: bold;
+    font-size: 28px;
+
+    a {
+      color: inherit;
+
+      &:after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+      }
+    }
   }
 }
 
@@ -220,12 +275,18 @@
         display: table-cell;
         padding: 0 40px 0 0;
 
+        &.form-item-field-blog-location-target-id-verf {
+          width: 210px;
+        }
+
         &.form-item-field-blog-category-target-id {
-          width: 239px;
+          width: 210px;
         }
 
         &.form-item-combine {
-          padding: 0 0 0 270px;
+          input {
+            width: 100%;
+          }
         }
 
         &.form-item-related-content-titles {
@@ -234,6 +295,18 @@
 
         &.form-actions {
           padding-right: 0;
+          width: 90px;
+        }
+      }
+
+      @media (min-width: 1200px) {
+
+        &.form-item-field-blog-location-target-id-verf {
+          width: 240px;
+        }
+
+        &.form-item-field-blog-category-target-id {
+          width: 240px;
         }
       }
     }
@@ -284,7 +357,7 @@
     height: 34px;
     padding: 7px 16px;
     border: solid 1px #636466;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     @include cachet();
     text-transform: uppercase;

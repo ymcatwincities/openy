@@ -46,7 +46,7 @@ class WebformYaml {
     }
 
     // Remove return after array delimiter.
-    $yaml = preg_replace('#(\n[ ]+-)\n[ ]+#', '\1 ', $yaml);
+    $yaml = preg_replace('#((?:\n|^)[ ]*-)\n[ ]+(\w|[\'"])#', '\1 \2', $yaml);
 
     // Support YAML newlines preserved syntax via pipe (|).
     $lines = explode(PHP_EOL, $yaml);

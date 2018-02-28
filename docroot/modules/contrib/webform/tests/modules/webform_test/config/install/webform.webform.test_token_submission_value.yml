@@ -117,6 +117,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -146,8 +147,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -236,6 +237,12 @@ settings:
     <tr><th width="50%">webform_submission:total:webform:source_entity</th><td width="50%">[webform_submission:total:webform:source_entity]</td></tr>
     <tr><th width="50%">webform_submission:limit:user:source_entity</th><td width="50%">[webform_submission:limit:user:source_entity]</td></tr>
     <tr><th width="50%">webform_submission:total:user:source_entity</th><td width="50%">[webform_submission:total:user:source_entity]</td></tr>
+    </table>
+
+    <h3>removed and ignored</h3>
+    <table class="table">
+    <tr><th width="50%">webform:removed:token</th><td width="50%">[webform:removed:token]</td></tr>
+    <tr><th width="50%">ignored:token</th><td width="50%">[ignored:token]</td></tr>
     </table>
   confirmation_url: ''
   confirmation_attributes: {  }

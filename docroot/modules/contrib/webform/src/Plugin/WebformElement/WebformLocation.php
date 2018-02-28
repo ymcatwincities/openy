@@ -27,11 +27,14 @@ class WebformLocation extends WebformCompositeBase {
    */
   public function getDefaultProperties() {
     $properties = [
-      'multiple' => FALSE,
       'title' => '',
-      // General settings.
-      'description' => '',
       'default_value' => [],
+      'multiple' => FALSE,
+      // Description/Help.
+      'help' => '',
+      'description' => '',
+      'more' => '',
+      'more_title' => '',
       // Form display.
       'title_display' => '',
       'description_display' => '',
@@ -39,6 +42,8 @@ class WebformLocation extends WebformCompositeBase {
       // Form validation.
       'required' => FALSE,
       'required_error' => '',
+      // Attributes.
+      'wrapper_attributes' => [],
       // Location settings.
       'geolocation' => FALSE,
       'hidden' => FALSE,
@@ -46,13 +51,21 @@ class WebformLocation extends WebformCompositeBase {
       'api_key' => '',
       // Submission display.
       'format' => $this->getItemDefaultFormat(),
+      'format_html' => '',
+      'format_text' => '',
       'format_items' => $this->getItemsDefaultFormat(),
+      'format_items_html' => '',
+      'format_items_text' => '',
     ] + $this->getDefaultBaseProperties();
 
     $composite_elements = $this->getCompositeElements();
     foreach ($composite_elements as $composite_key => $composite_element) {
       $properties[$composite_key . '__title'] = (string) $composite_element['#title'];
-      if ($composite_key != 'value') {
+      // The value is always visible and supports a custom placeholder.
+      if ($composite_key == 'value') {
+        $properties[$composite_key . '__placeholder'] = '';
+      }
+      else {
         $properties[$composite_key . '__access'] = FALSE;
       }
     }
@@ -152,13 +165,13 @@ class WebformLocation extends WebformCompositeBase {
 
     $form['composite']['geolocation'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t("Use the browser's Geolocation as the default value."),
+      '#title' => $this->t("Use the browser's Geolocation as the default value"),
       '#description' => $this->t('The <a href="http://www.w3schools.com/html/html5_geolocation.asp">HTML Geolocation API</a> is used to get the geographical position of a user. Since this can compromise privacy, the position is not available unless the user approves it.'),
       '#return_value' => TRUE,
     ];
     $form['composite']['hidden'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t("Hide the location element and collect the browser's Geolocation in the background."),
+      '#title' => $this->t("Hide the location element and collect the browser's Geolocation in the background"),
       '#return_value' => TRUE,
       '#states' => [
         'visible' => [
@@ -187,13 +200,13 @@ class WebformLocation extends WebformCompositeBase {
     ];
     $default_api_key = \Drupal::config('webform.settings')->get('element.default_google_maps_api_key');
     if ($default_api_key) {
-      $form['composite']['api_key']['#description'] .= '<br />' . $this->t('Defaults to: %value', ['%value' => $default_api_key]);
+      $form['composite']['api_key']['#description'] .= '<br /><br />' . $this->t('Defaults to: %value', ['%value' => $default_api_key]);
     }
     else {
       $form['composite']['api_key']['#required'] = TRUE;
       if (\Drupal::currentUser()->hasPermission('administer webform')) {
-        $t_args = [':href' => UrlGenerator::fromRoute('webform.settings.elements')->toString()];
-        $form['composite']['api_key']['#description'] .= '<br />' . $this->t('You can either enter an element specific API key here or set the <a href=":href">default site-wide API key</a>.', $t_args);
+        $t_args = [':href' => UrlGenerator::fromRoute('webform.config.elements')->toString()];
+        $form['composite']['api_key']['#description'] .= '<br /><br />' . $this->t('You can either enter an element specific API key here or set the <a href=":href">default site-wide API key</a>.', $t_args);
       }
     }
 
@@ -206,7 +219,7 @@ class WebformLocation extends WebformCompositeBase {
   protected function buildCompositeElementsTable() {
     $header = [
       $this->t('Key'),
-      $this->t('Title'),
+      $this->t('Title/Placeholder'),
       $this->t('Visible'),
     ];
 
@@ -237,6 +250,13 @@ class WebformLocation extends WebformCompositeBase {
               '#placeholder' => $this->t('Enter title...'),
               '#attributes' => $attributes,
             ],
+            $composite_key . '__placeholder' => [
+              '#type' => 'textfield',
+              '#title' => $this->t('@title placeholder', $t_args),
+              '#title_display' => 'invisible',
+              '#placeholder' => $this->t('Enter placeholder...'),
+              '#attributes' => $attributes,
+            ],
           ],
         ];
       }
@@ -245,10 +265,20 @@ class WebformLocation extends WebformCompositeBase {
       }
 
       // Access.
-      $row[$composite_key . '__access'] = [
-        '#type' => 'checkbox',
-        '#return_value' => TRUE,
-      ];
+      if ($composite_key === 'value') {
+        $row[$composite_key . '__access'] = [
+          '#type' => 'checkbox',
+          '#default_value' => TRUE,
+          '#disabled' => TRUE,
+          '#access' => TRUE,
+        ];
+      }
+      else {
+        $row[$composite_key . '__access'] = [
+          '#type' => 'checkbox',
+          '#return_value' => TRUE,
+        ];
+      }
 
       $rows[$composite_key] = $row;
     }
