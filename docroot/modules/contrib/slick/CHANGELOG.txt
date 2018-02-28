@@ -1,4 +1,55 @@
 
+Slick 8.x-1.0-dev, 2017-05-26
+-----------------------------
+- Added more tests.
+- Moved Functional tests into Kernel tests.
+- Added ImageItem into SlickFormatter::getThumbnail() parameters for potential
+  lazyloaded thumbnail images reasonable for hundreds of gallery images.
+- Removed settings overrides for Slick::create().
+- Added more relevant info into slick.api.php.
+
+Slick 8.x-1.0-dev, 2017-04-27
+-----------------------------
+- Fixed for leftover t().
+- #2873222 by Munavijayalakshmi, dhruveshdtripathi: Convert module to use short
+  array syntax (new coding standard).
+- #2872871 by elimw: Slick Images Not Showing in Drupal 8.3.
+
+Slick 8.x-1.0-dev, 2017-04-08
+-----------------------------
+- Fixed for .slide__media DIV wrapper being rendered when empty at
+  slick-slide.html.twig.
+- Cleaned up README and typos.
+
+Slick 8.x-1.0-dev, 2017-03-20
+-----------------------------
+- Added a list of available skins at optionset page as planned ages ago.
+
+Slick 8.x-1.0-dev, 2017-03-15
+-----------------------------
+- #2770005 by Shreya Shetty, gausarts, Nitesh Pawar: Replaces deprecated methods
+  with new and specified return value when condition not matched in switch.
+- #2855190 by daniel.bosen: Using bower or composer to download the slick
+  library is cumbersome.
+
+Slick 8.x-1.0-dev, 2017-03-11
+-----------------------------
+- Fixed for typo in comments.
+- Added supports for programmatic options defined within skin definitions to
+  allow addition of options with other libraries integrated with Slick without
+  modifying Optionset like Zoom, Reflection, Slicebox, etc.
+
+Slick 8.x-1.0-dev, 2017-02-11
+-----------------------------
+- Fixed for Slick libraries weight regression at hook_library_info_alter().
+- Fixed for hidden form element.
+- Cleaned up debris from old approach.
+- Added dependencies to skins.
+
+Slick 8.x-1.0-dev, 2017-02-10
+-----------------------------
+- Fixed for regression with Overridables option not being respected.
+
 Slick 8.x-1.0-dev, 2017-01-24
 -----------------------------
 - #2843870 by ruslan_03492: Requirements could not be resolved to an installable
@@ -153,7 +204,7 @@ Slick 8.x-1.0-dev, 2016-08-03
 
 Slick 8.x-1.0-dev, 2016-07-14
 -----------------------------
-- Removed useles delay for an unslick since slick already kicks in.
+- Removed useless delay for an unslick since slick already kicks in.
 - #2765353 by Vinay15: Remove @file tag docblock from all the .php files.
 
 Slick 8.x-1.0-dev, 2016-06-19

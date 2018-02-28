@@ -67,7 +67,7 @@ class Definition
      */
     public function setFactory($factory)
     {
-        if (is_string($factory) && strpos($factory, '::') !== false) {
+        if (is_string($factory) && false !== strpos($factory, '::')) {
             $factory = explode('::', $factory, 2);
         }
 
@@ -98,7 +98,7 @@ class Definition
      */
     public function setFactoryClass($factoryClass)
     {
-        @trigger_error(sprintf('%s(%s) is deprecated since version 2.6 and will be removed in 3.0. Use Definition::setFactory() instead.', __METHOD__, $factoryClass), E_USER_DEPRECATED);
+        @trigger_error(sprintf('%s(%s) is deprecated since Symfony 2.6 and will be removed in 3.0. Use Definition::setFactory() instead.', __METHOD__, $factoryClass), E_USER_DEPRECATED);
 
         $this->factoryClass = $factoryClass;
 
@@ -115,7 +115,7 @@ class Definition
     public function getFactoryClass($triggerDeprecationError = true)
     {
         if ($triggerDeprecationError) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.6 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         return $this->factoryClass;
@@ -132,7 +132,7 @@ class Definition
      */
     public function setFactoryMethod($factoryMethod)
     {
-        @trigger_error(sprintf('%s(%s) is deprecated since version 2.6 and will be removed in 3.0. Use Definition::setFactory() instead.', __METHOD__, $factoryMethod), E_USER_DEPRECATED);
+        @trigger_error(sprintf('%s(%s) is deprecated since Symfony 2.6 and will be removed in 3.0. Use Definition::setFactory() instead.', __METHOD__, $factoryMethod), E_USER_DEPRECATED);
 
         $this->factoryMethod = $factoryMethod;
 
@@ -148,7 +148,7 @@ class Definition
      *
      * @return $this
      *
-     * @throws InvalidArgumentException In case the decorated service id and the new decorated service id are equals.
+     * @throws InvalidArgumentException in case the decorated service id and the new decorated service id are equals
      */
     public function setDecoratedService($id, $renamedId = null, $priority = 0)
     {
@@ -185,7 +185,7 @@ class Definition
     public function getFactoryMethod($triggerDeprecationError = true)
     {
         if ($triggerDeprecationError) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.6 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         return $this->factoryMethod;
@@ -203,7 +203,7 @@ class Definition
     public function setFactoryService($factoryService, $triggerDeprecationError = true)
     {
         if ($triggerDeprecationError) {
-            @trigger_error(sprintf('%s(%s) is deprecated since version 2.6 and will be removed in 3.0. Use Definition::setFactory() instead.', __METHOD__, $factoryService), E_USER_DEPRECATED);
+            @trigger_error(sprintf('%s(%s) is deprecated since Symfony 2.6 and will be removed in 3.0. Use Definition::setFactory() instead.', __METHOD__, $factoryService), E_USER_DEPRECATED);
         }
 
         $this->factoryService = $factoryService;
@@ -221,7 +221,7 @@ class Definition
     public function getFactoryService($triggerDeprecationError = true)
     {
         if ($triggerDeprecationError) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.6 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.6 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         return $this->factoryService;
@@ -254,8 +254,6 @@ class Definition
     /**
      * Sets the arguments to pass to the service constructor/factory method.
      *
-     * @param array $arguments An array of arguments
-     *
      * @return $this
      */
     public function setArguments(array $arguments)
@@ -267,8 +265,6 @@ class Definition
 
     /**
      * Sets the properties to define when creating the service.
-     *
-     * @param array $properties
      *
      * @return $this
      */
@@ -374,8 +370,6 @@ class Definition
     /**
      * Sets the methods to call after service initialization.
      *
-     * @param array $calls An array of method calls
-     *
      * @return $this
      */
     public function setMethodCalls(array $calls = array())
@@ -457,8 +451,6 @@ class Definition
 
     /**
      * Sets tags for this definition.
-     *
-     * @param array $tags
      *
      * @return $this
      */
@@ -604,7 +596,7 @@ class Definition
     public function setScope($scope, $triggerDeprecationError = true)
     {
         if ($triggerDeprecationError) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         if (ContainerInterface::SCOPE_PROTOTYPE === $scope) {
@@ -626,7 +618,7 @@ class Definition
     public function getScope($triggerDeprecationError = true)
     {
         if ($triggerDeprecationError) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         return $this->scope;
@@ -668,7 +660,7 @@ class Definition
     public function setSynchronized($boolean, $triggerDeprecationError = true)
     {
         if ($triggerDeprecationError) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.7 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.7 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         $this->synchronized = (bool) $boolean;
@@ -686,7 +678,7 @@ class Definition
     public function isSynchronized($triggerDeprecationError = true)
     {
         if ($triggerDeprecationError) {
-            @trigger_error('The '.__METHOD__.' method is deprecated since version 2.7 and will be removed in 3.0.', E_USER_DEPRECATED);
+            @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.7 and will be removed in 3.0.', E_USER_DEPRECATED);
         }
 
         return $this->synchronized;
@@ -777,7 +769,7 @@ class Definition
      *
      * @return $this
      *
-     * @throws InvalidArgumentException When the message template is invalid.
+     * @throws InvalidArgumentException when the message template is invalid
      */
     public function setDeprecated($status = true, $template = null)
     {

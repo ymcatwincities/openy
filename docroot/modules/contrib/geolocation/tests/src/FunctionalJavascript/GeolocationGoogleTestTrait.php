@@ -10,7 +10,7 @@ use Zumba\GastonJS\Exception\JavascriptError;
 trait GeolocationGoogleTestTrait {
 
   /**
-   * Filter the missing key GoogleMapsAPI error.
+   * Filter the missing key Google Maps API error.
    *
    * @param mixed $path
    *   Path to get.

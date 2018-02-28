@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\crop\EntityProviderBase.
- */
-
 namespace Drupal\crop;
 
 use Drupal\Core\Entity\EntityInterface;

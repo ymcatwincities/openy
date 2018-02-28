@@ -20,23 +20,11 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
  */
 class JsonDecode implements DecoderInterface
 {
-    /**
-     * Specifies if the returned result should be an associative array or a nested stdClass object hierarchy.
-     *
-     * @var bool
-     */
-    private $associative;
-
-    /**
-     * Specifies the recursion depth.
-     *
-     * @var int
-     */
-    private $recursionDepth;
-
-    private $lastError = JSON_ERROR_NONE;
-
     protected $serializer;
+
+    private $associative;
+    private $recursionDepth;
+    private $lastError = JSON_ERROR_NONE;
 
     /**
      * Constructs a new JsonDecode instance.
@@ -61,7 +49,7 @@ class JsonDecode implements DecoderInterface
      */
     public function getLastError()
     {
-        @trigger_error('The '.__METHOD__.' method is deprecated since version 2.5 and will be removed in 3.0. Catch the exception raised by the decode() method instead to get the last JSON decoding error.', E_USER_DEPRECATED);
+        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.5 and will be removed in 3.0. Catch the exception raised by the decode() method instead to get the last JSON decoding error.', E_USER_DEPRECATED);
 
         return $this->lastError;
     }
@@ -124,8 +112,6 @@ class JsonDecode implements DecoderInterface
 
     /**
      * Merges the default options of the Json Decoder with the passed context.
-     *
-     * @param array $context
      *
      * @return array
      */

@@ -129,3 +129,24 @@ Windows 7, Apache 2.2, PHP 5.4, MySQL 5.6.11
 
 - Fixed: Issue 2847940 by nehakhadke: Remove @file tag docblock from all the .php files
 
+2017 Mar 27 - 8.x-1.3
+
+- Fixed: Issue #2856506 by Znak: Deprecated methods and functions
+
+2017 May 25 - 8.x-1.4
+
+- Cleaned up code to Drupal coding standards
+
+2017 July 26 - 8.x-1.5
+
+- Fixed: Issue #2896301 by volkswagenchick: README for D8 branch could use some helpful configuration
+- Tested for Drupal 8.3.3 and PHP 7.1. No code changes.
+
+2017 Oct 04 - 8.x-1.6
+
+- Fixed: Issue #2913679: Error message for duplicate project code does not replace variables
+
+2017 Oct 06 - 8.x-3.0
+
+- Fixed: Issue 2821560: Use subdirectories for source code files
+- Started 8.x-3.x branch from 8.x-1.x branch.

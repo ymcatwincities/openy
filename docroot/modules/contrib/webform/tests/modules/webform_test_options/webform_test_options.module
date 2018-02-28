@@ -26,5 +26,7 @@ function webform_test_options_webform_options_alter(array &$options, array &$ele
       'two' => t('Two'),
       'three' => t('Three'),
     ];
+    // Set the default value to one of the added options.
+    $element['#default_value'] = 'one';
   }
 }

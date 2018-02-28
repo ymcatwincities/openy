@@ -1,16 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed\Tests\EmbedButtonEditorAccessCheckTest.
- */
-
 namespace Drupal\embed\Tests;
 
 use Drupal\editor\Entity\Editor;
 
 /**
- * Tests EmbedButtonEditorAccessCheck
+ * Tests EmbedButtonEditorAccessCheck.
  *
  * @group embed
  */

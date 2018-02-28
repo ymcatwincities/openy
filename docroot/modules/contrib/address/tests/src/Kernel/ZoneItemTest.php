@@ -11,7 +11,7 @@ use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
 /**
  * Tests the address_zone field.
  *
- * @group commerce
+ * @group address
  */
 class ZoneItemTest extends EntityKernelTestBase {
 

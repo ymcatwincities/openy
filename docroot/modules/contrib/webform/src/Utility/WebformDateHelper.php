@@ -18,8 +18,8 @@ class WebformDateHelper {
    *   (optional) The data format to use.
    * @param string $format
    *   (optional) If $type is 'custom', a PHP date format string suitable for
-   *   element to date(). Use a backslash to escape ordinary text, so it does not
-   *   get interpreted as date format characters.
+   *   element to date(). Use a backslash to escape ordinary text, so it does
+   *   not get interpreted as date format characters.
    * @param string|null $timezone
    *   (optional) Time zone identifier, as described at
    *   http://php.net/manual/timezones.php Defaults to the time zone used to

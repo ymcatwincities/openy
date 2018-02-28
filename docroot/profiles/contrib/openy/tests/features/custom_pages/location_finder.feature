@@ -41,7 +41,7 @@ Feature: Location finder
       | KEY             |
       | location_finder |
     And I create landing_page content:
-      | KEY             | title           | field_header_content | field_oy_content   |
+      | KEY             | title           | field_header_content | field_content   |
       | behat_locations | Behat Locations | finder_filters       | location_finder |
 
   @javascript

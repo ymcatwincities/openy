@@ -33,6 +33,10 @@ class WebformHandlerRemotePostTest extends WebformTestBase {
   public function testRemotePostHandler() {
     $this->drupalLogin($this->rootUser);
 
+    /**************************************************************************/
+    // POST.
+    /**************************************************************************/
+
     /** @var \Drupal\webform\WebformInterface $webform */
     $webform = Webform::load('test_handler_remote_post');
 
@@ -49,7 +53,7 @@ class WebformHandlerRemotePostTest extends WebformTestBase {
 
     // Check confirmation number is set via the
     // [webform:handler:remote_post:completed:confirmation_number] token.
-    $this->assertRaw('Your confirmation number is ' . $webform_submission->getData('confirmation_number') . '.');
+    $this->assertRaw('Your confirmation number is ' . $webform_submission->getElementData('confirmation_number') . '.');
 
     // Check custom header.
     $this->assertRaw('{&quot;custom_header&quot;:&quot;true&quot;}');
@@ -131,7 +135,26 @@ class WebformHandlerRemotePostTest extends WebformTestBase {
     $sid = $this->postSubmission($webform);
     $this->assertNull($sid);
 
-    // Get confiramtion number from JSON packet.
+    // Get confirmation number from JSON packet.
+    preg_match('/&quot;confirmation_number&quot;:&quot;([a-zA-z0-9]+)&quot;/', $this->getRawContent(), $match);
+    $this->assertRaw('Your confirmation number is ' . $match[1] . '.');
+
+    /**************************************************************************/
+    // GET.
+    /**************************************************************************/
+
+    /** @var \Drupal\webform\WebformInterface $webform */
+    $webform = Webform::load('test_handler_remote_get');
+
+    $this->postSubmission($webform);
+
+    // Check request URL contains query string.
+    $this->assertRaw("http://webform-test-handler-remote-post/completed?custom_completed=1&amp;custom_data=1&amp;response_type=200&amp;first_name=John&amp;last_name=Smith");
+
+    // Check response data.
+    $this->assertRaw("message: 'Processed completed?custom_completed=1&amp;custom_data=1&amp;response_type=200&amp;first_name=John&amp;last_name=Smith request.'");
+
+    // Get confirmation number from JSON packet.
     preg_match('/&quot;confirmation_number&quot;:&quot;([a-zA-z0-9]+)&quot;/', $this->getRawContent(), $match);
     $this->assertRaw('Your confirmation number is ' . $match[1] . '.');
   }

@@ -112,7 +112,7 @@ class WebformTestElementProperties extends WebformElementBase {
           'js-hide',
           'js-webform-test-properties-submit',
           'js-webform-novalidate',
-        ]
+        ],
       ],
     ];
 
@@ -130,7 +130,7 @@ class WebformTestElementProperties extends WebformElementBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
-  static public function testPropertiesSubmitCallback(array $form, FormStateInterface $form_state) {
+  public static function testPropertiesSubmitCallback(array $form, FormStateInterface $form_state) {
     // Get the webform test container by going up one level.
     $button = $form_state->getTriggeringElement();
     $element =& NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
@@ -159,7 +159,7 @@ class WebformTestElementProperties extends WebformElementBase {
    * @return array
    *   The properties element.
    */
-  static public function testPropertiesAjaxCallback(array $form, FormStateInterface $form_state) {
+  public static function testPropertiesAjaxCallback(array $form, FormStateInterface $form_state) {
     $button = $form_state->getTriggeringElement();
     $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
     return $element;

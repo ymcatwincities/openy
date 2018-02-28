@@ -82,6 +82,13 @@ abstract class MetaNameBase extends PluginBase {
   protected $value;
 
   /**
+   * The attribute this tag uses for the name.
+   *
+   * @var string
+   */
+  protected $name_attribute = 'name';
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition) {
@@ -180,17 +187,22 @@ abstract class MetaNameBase extends PluginBase {
     return trim($value);
   }
 
+  /**
+   * Generate the HTML tag output for a meta tag.
+   *
+   * @return array|string
+   *   A render array or an empty string.
+   */
   public function output() {
-    if (empty($this->value)) {
+    // Parse out the image URL, if needed.
+    $value = $this->parseImageURL();
+    $value = $this->tidy($value);
+
+    if (empty($value)) {
       // If there is no value, we don't want a tag output.
       $element = '';
     }
     else {
-      // Parse out the image URL, if needed.
-      $value = $this->parseImageURL();
-
-      $value = $this->tidy($value);
-
       // If tag must be secure, convert all http:// to https://.
       if ($this->secure() && strpos($value, 'http://') !== FALSE) {
         $value = str_replace('http://', 'https://', $value);
@@ -199,7 +211,7 @@ abstract class MetaNameBase extends PluginBase {
       $element = [
         '#tag' => 'meta',
         '#attributes' => [
-          'name' => $this->name,
+          $this->name_attribute => $this->name,
           'content' => $value,
         ]
       ];
@@ -239,27 +251,26 @@ abstract class MetaNameBase extends PluginBase {
         $value = str_replace('<img src="/', '<img src="' . $base_root . '/', $value);
       }
 
-      if (strip_tags($value) != $value) {
-        if ($this->multiple()) {
-          $values = explode(',', $value);
-        }
-        else {
-          $values = [$value];
-        }
-
-        // Check through the value(s) to see if there are any image tags.
-        foreach ($values as $key => $val) {
-          $matches = [];
-          preg_match('/src="([^"]*)"/', $val, $matches);
-          if (!empty($matches[1])) {
-            $values[$key] = $matches[1];
-          }
-        }
-        $value = implode(',', $values);
-
-        // Remove any HTML tags that might remain.
-        $value = strip_tags($value);
+      if ($this->multiple()) {
+        // Split the string into an array, remove empty items.
+        $values = array_filter(explode(',', $value));
       }
+      else {
+        $values = [$value];
+      }
+
+      // Check through the value(s) to see if there are any image tags.
+      foreach ($values as $key => $val) {
+        $matches = [];
+        preg_match('/src="([^"]*)"/', $val, $matches);
+        if (!empty($matches[1])) {
+          $values[$key] = $matches[1];
+        }
+      }
+      $value = implode(',', $values);
+
+      // Remove any HTML tags that might remain.
+      $value = strip_tags($value);
     }
 
     return $value;

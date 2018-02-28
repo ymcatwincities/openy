@@ -13,6 +13,7 @@ bundle: simple_block
 label: Link
 description: 'Add link to the block.'
 required: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

@@ -1,0 +1,5 @@
+langcode: en
+status: true
+dependencies: {  }
+id: latest_news_posts_camp
+label: 'Latest news posts (camp)'

@@ -23,7 +23,7 @@ class WebformThirdPartySettingsTest extends WebformTestBase {
     $this->drupalLogin($this->rootUser);
 
     // Check 'Webform: Settings' shows no modules installed.
-    $this->drupalGet('admin/structure/webform/settings');
+    $this->drupalGet('admin/structure/webform/config');
     $this->assertRaw('There are no third party settings available.');
 
     // Check 'Contact: Settings' does not show 'Third party settings'.
@@ -34,7 +34,7 @@ class WebformThirdPartySettingsTest extends WebformTestBase {
     \Drupal::service('module_installer')->install(['webform_test_third_party_settings']);
 
     // Check 'Webform: Settings' shows no modules installed.
-    $this->drupalGet('admin/structure/webform/settings');
+    $this->drupalGet('admin/structure/webform/config');
     $this->assertNoRaw('There are no third party settings available.');
 
     // Check 'Contact: Settings' shows 'Third party settings'.
@@ -45,7 +45,7 @@ class WebformThirdPartySettingsTest extends WebformTestBase {
     $edit = [
       'third_party_settings[webform_test_third_party_settings][message]' => 'Message for all webforms',
     ];
-    $this->drupalPostForm('admin/structure/webform/settings', $edit, t('Save configuration'));
+    $this->drupalPostForm('admin/structure/webform/config', $edit, t('Save configuration'));
     $this->drupalGet('webform/contact');
     $this->assertRaw('Message for all webforms');
 

@@ -12,8 +12,8 @@ use Drupal\webform\Element\WebformCompositeBase;
  *
  *
  * IMPORTANT:
- * Webform composite can not contain multiple value elements (ie checkboxes)
- * or composites (ie webform_address)
+ * Webform composite can not contain multiple value elements (i.e. checkboxes)
+ * or composites (i.e. webform_address)
  *
  * @FormElement("webform_example_composite")
  *

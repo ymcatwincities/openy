@@ -11,7 +11,7 @@
 
 namespace Symfony\Component\Routing\Matcher\Dumper;
 
-@trigger_error('The '.__NAMESPACE__.'\ApacheMatcherDumper class is deprecated since version 2.5 and will be removed in 3.0. It\'s hard to replicate the behaviour of the PHP implementation and the performance gains are minimal.', E_USER_DEPRECATED);
+@trigger_error('The '.__NAMESPACE__.'\ApacheMatcherDumper class is deprecated since Symfony 2.5 and will be removed in 3.0. It\'s hard to replicate the behaviour of the PHP implementation and the performance gains are minimal.', E_USER_DEPRECATED);
 
 use Symfony\Component\Routing\Route;
 
@@ -34,8 +34,6 @@ class ApacheMatcherDumper extends MatcherDumper
      *
      *  * script_name: The script name (app.php by default)
      *  * base_uri:    The base URI ("" by default)
-     *
-     * @param array $options An array of options
      *
      * @return string A string to be used as Apache rewrite rules
      *
@@ -191,8 +189,6 @@ class ApacheMatcherDumper extends MatcherDumper
     /**
      * Returns methods allowed for a route.
      *
-     * @param Route $route The route
-     *
      * @return array The methods
      */
     private function getRouteMethods(Route $route)
@@ -255,8 +251,6 @@ class ApacheMatcherDumper extends MatcherDumper
 
     /**
      * Normalizes an array of values.
-     *
-     * @param array $values
      *
      * @return string[]
      */

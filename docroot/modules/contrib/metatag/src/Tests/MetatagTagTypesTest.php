@@ -158,6 +158,7 @@ class MetatagTagTypesTest extends WebTestBase {
    * @todo Finish.
    */
   // public function testUrl() {
+  //   $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
   //   // Tests metatags with URLs work.
   //   $this->drupalGet($this->entity_add_path);
   //   $this->assertResponse(200);
@@ -166,7 +167,7 @@ class MetatagTagTypesTest extends WebTestBase {
   //     'user_id[0][target_id]' => 'foo (' . $this->adminUser->id() . ')',
   //     'field_metatag[0][advanced][original_source]' => 'http://example.com/foo.html',
   //   ];
-  //   $this->drupalPostForm(NULL, $edit, t('Save'));
+  //   $this->drupalPostForm(NULL, $edit, $save_label);
   //   $entities = entity_load_multiple_by_properties('entity_test', [
   //     'name' => 'UrlTags',
   //   ]);

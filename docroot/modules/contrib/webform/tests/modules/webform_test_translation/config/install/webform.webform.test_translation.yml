@@ -33,6 +33,22 @@ elements: |
     '#title': Details
     markup:
       '#markup': 'This is some HTML markup.'
+  composite:
+    '#type': webform_composite
+    '#title': Composite
+    '#element':
+      first_name:
+        '#type': textfield
+        '#title': 'First name'
+      last_name:
+        '#type': textfield
+        '#title': 'Last name'
+      age:
+        '#type': number
+        '#title': 'Age'
+        '#field_suffix': ' yrs. old'
+        '#max': 1
+        '#max': 125
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'
@@ -70,8 +86,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -144,6 +160,7 @@ handlers:
     label: 'Email confirmation'
     handler_id: email_confirmation
     status: true
+    conditions: {  }
     weight: 1
     settings:
       to_mail: default
@@ -167,3 +184,5 @@ handlers:
       return_path: ''
       ignore_access: false
       exclude_empty: true
+      sender_mail: ''
+      sender_name: ''

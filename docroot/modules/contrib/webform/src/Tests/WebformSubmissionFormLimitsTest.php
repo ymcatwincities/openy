@@ -2,6 +2,7 @@
 
 namespace Drupal\webform\Tests;
 
+use Drupal\user\Entity\Role;
 use Drupal\webform\Entity\Webform;
 
 /**
@@ -55,7 +56,7 @@ class WebformSubmissionFormLimitsTest extends WebformTestBase {
     $this->assertRaw('0 webform submission(s)');
     $this->assertRaw('4 webform limit');
 
-    $this->drupalLogin($this->normalUser);
+    $this->drupalLogin($this->ownWebformSubmissionUser);
 
     // Check that draft does not count toward limit.
     $this->postSubmission($webform_limit, [], t('Save Draft'));
@@ -69,7 +70,7 @@ class WebformSubmissionFormLimitsTest extends WebformTestBase {
     $this->assertRaw('0 webform submission(s)');
 
     // Check limit reached and webform not available for authenticated user.
-    $this->postSubmission($webform_limit);
+    $sid = $this->postSubmission($webform_limit);
     $this->drupalGet('webform/test_form_limit');
     $this->assertNoFieldByName('op', 'Submit');
     $this->assertRaw('You are only allowed to have 1 submission for this webform.');
@@ -77,6 +78,11 @@ class WebformSubmissionFormLimitsTest extends WebformTestBase {
     // Check submission limit blocks do count submission.
     $this->assertRaw('1 user submission(s)');
     $this->assertRaw('1 webform submission(s)');
+
+    // Check authenticated user can edit own submission.
+    $this->drupalGet("admin/structure/webform/manage/test_form_limit/submission/$sid/edit");
+    $this->assertNoRaw('You are only allowed to have 1 submission for this webform.');
+    $this->assertFieldByName('op', 'Save');
 
     $this->drupalLogout();
 
@@ -93,6 +99,11 @@ class WebformSubmissionFormLimitsTest extends WebformTestBase {
 
     $this->drupalLogout();
 
+    // Allow anonymous users to edit own submission.
+    $role = Role::load('anonymous');
+    $role->grantPermission('edit own webform submission');
+    $role->save();
+
     // Check webform is still available for anonymous users.
     $this->drupalGet('webform/test_form_limit');
     $this->assertFieldByName('op', 'Submit');
@@ -100,7 +111,7 @@ class WebformSubmissionFormLimitsTest extends WebformTestBase {
 
     // Add 1 more submissions as an anonymous user making the total number of
     // submissions equal to 3.
-    $this->postSubmission($webform_limit);
+    $sid = $this->postSubmission($webform_limit);
 
     // Check submission limit blocks.
     $this->assertRaw('1 user submission(s)');
@@ -110,6 +121,11 @@ class WebformSubmissionFormLimitsTest extends WebformTestBase {
     $this->drupalGet('webform/test_form_limit');
     $this->assertNoFieldByName('op', 'Submit');
     $this->assertRaw('You are only allowed to have 1 submission for this webform.');
+
+    // Check authenticated user can edit own submission.
+    $this->drupalGet("admin/structure/webform/manage/test_form_limit/submission/$sid/edit");
+    $this->assertNoRaw('You are only allowed to have 1 submission for this webform.');
+    $this->assertFieldByName('op', 'Save');
 
     // Add 1 more submissions as an root user making the total number of
     // submissions equal to 4.

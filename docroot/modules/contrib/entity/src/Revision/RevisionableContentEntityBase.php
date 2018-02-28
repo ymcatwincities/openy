@@ -3,7 +3,6 @@
 namespace Drupal\entity\Revision;
 
 use Drupal\Core\Entity\RevisionableContentEntityBase as BaseRevisionableContentEntityBase;
-use Drupal\Core\Entity\ContentEntityBase;
 
 /**
  * Improves the url route handling of core's revisionable content entity base.

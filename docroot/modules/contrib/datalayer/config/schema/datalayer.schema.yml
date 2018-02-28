@@ -47,6 +47,12 @@ datalayer.settings:
       sequence:
         type: string
         label: 'Role'
+    current_user_meta:
+      label: 'Current user meta data'
+      type: sequence
+      sequence:
+        type: string
+        label: 'Current User Meta Data'
     group:
       label: 'Include group support'
       type: boolean

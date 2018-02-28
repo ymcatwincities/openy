@@ -25,51 +25,51 @@ class GeolocationItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    return array(
-      'columns' => array(
-        'lat' => array(
+    return [
+      'columns' => [
+        'lat' => [
           'description' => 'Stores the latitude value',
           'type' => 'float',
           'size' => 'big',
           'not null' => TRUE,
-        ),
-        'lng' => array(
+        ],
+        'lng' => [
           'description' => 'Stores the longitude value',
           'type' => 'float',
           'size' => 'big',
           'not null' => TRUE,
-        ),
-        'lat_sin' => array(
+        ],
+        'lat_sin' => [
           'description' => 'Stores the sine of latitude',
           'type' => 'float',
           'size' => 'big',
           'not null' => TRUE,
-        ),
-        'lat_cos' => array(
+        ],
+        'lat_cos' => [
           'description' => 'Stores the cosine of latitude',
           'type' => 'float',
           'size' => 'big',
           'not null' => TRUE,
-        ),
-        'lng_rad' => array(
+        ],
+        'lng_rad' => [
           'description' => 'Stores the radian longitude',
           'type' => 'float',
           'size' => 'big',
           'not null' => TRUE,
-        ),
-        'data' => array(
+        ],
+        'data' => [
           'description' => 'Serialized array of geolocation meta information.',
           'type' => 'blob',
           'size' => 'big',
           'not null' => FALSE,
           'serialize' => TRUE,
-        ),
-      ),
-      'indexes' => array(
-        'lat' => array('lat'),
-        'lng' => array('lng'),
-      ),
-    );
+        ],
+      ],
+      'indexes' => [
+        'lat' => ['lat'],
+        'lng' => ['lng'],
+      ],
+    ];
   }
 
   /**

@@ -4,6 +4,7 @@ namespace Drupal\openy\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use GuzzleHttp\Exception\ClientException;
 use Drupal\Core\Database\Database;
 use Drupal\Core\Url;
 
@@ -33,14 +34,20 @@ class ThirdPartyServicesForm extends FormBase {
     $gtm_config = $config_factory->get('google_tag.settings');
     // Get Optimizely settings container.
     $optimizely_config = $config_factory->get('optimizely.settings');
-    // Get Recaptcha settings container
+    // Get Recaptcha settings container.
     $recaptcha_config = $config_factory->get('recaptcha.settings');
+    // Get AddThis settings container.
+    $addthis_config = $config_factory->get('openy_addthis.settings');
+    // Get Lndr settings container.
+    $lndr_config = $config_factory->get('lndr.settings');
+
 
     $form['#title'] = $this->t('3rd Party Services');
 
     // Google Maps API key.
     $form['google_map_api_key'] = [
       '#type' => 'textfield',
+      '#placeholder' => 'AIzaSyDIFPdDmDsBOFFZcmavCaAqHa3VNKkXLJc',
       '#title' => $this->t('Google Maps API key'),
       '#default_value' => $geo_loc_config->get('google_map_api_key'),
       '#description' => $this->t('Google Maps requires users to use a valid API key. Using the <a href="https://console.developers.google.com/apis" target="_blank">Google API Manager</a>, you can enable the <em>Google Maps JavaScript API</em>. That will create (or reuse) a <em>Browser key</em> which you can paste here.'),
@@ -69,6 +76,7 @@ class ThirdPartyServicesForm extends FormBase {
     // Optimizely ID Number.
     $form['optimizely_id'] = [
       '#type' => 'textfield',
+      '#placeholder' => 'xxxxxxxxxx',
       '#title' => $this->t('Optimizely ID Number'),
       '#default_value' => $optimizely_config->get('optimizely_id'),
       '#description' => $this->t('Your Optimizely account ID.</br>In order to use this module, you\'ll need an <a href="http://optimize.ly/OZRdc0" target="_blank">Optimizely account</a>. </br>See <a href="https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Optimizely.md" target="_blank">Open Y documentation</a> for Optimizely.'),
@@ -88,6 +96,7 @@ class ThirdPartyServicesForm extends FormBase {
     $form['recaptcha']['recaptcha_site_key'] = [
       '#default_value' => $recaptcha_config->get('site_key'),
       '#description' => $this->t('The site key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
+      '#placeholder' => '6LeQMCcUAAAAAL48HBex3MbH8UTazAH4Vr7cAHEz',
       '#maxlength' => 40,
       '#title' => $this->t('Site key'),
       '#type' => 'textfield',
@@ -97,7 +106,38 @@ class ThirdPartyServicesForm extends FormBase {
       '#default_value' => $recaptcha_config->get('secret_key'),
       '#description' => $this->t('The secret key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
       '#maxlength' => 40,
+      '#placeholder' => '6LeQMCcUAAAAAPHA6nB1Z0GLpPV8DqrIHzzaSEe6',
       '#title' => $this->t('Secret key'),
+      '#type' => 'textfield',
+    ];
+
+    $form['addthis']['public_id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('AddThis public id'),
+      '#default_value' => $addthis_config->get('public_id'),
+      '#placeholder' => 'ra-xxxxxxxxxxxxxxx',
+      '#description' => $this->t('Your AddThis public id. Example: 
+        ra-xxxxxxxxxxxxxxx. Currently we support only inline type.'),
+    ];
+
+    $form['lndr'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Lndr landing page builder'),
+      '#open' => TRUE,
+    ];
+
+    // Lndr.
+    $form['lndr']['markup'] = [
+      '#type' => 'markup',
+      '#markup' => $this->t('<p>Lndr is a simple landing page builder that let you create campaigns, events and other landing pages. To learn more, please visit <a href=":url" target="_blank">http://www.lndr.co/</a></p>', [':url' => 'http://www.lndr.co']),
+    ];
+
+    // Google Analytics Account ID.
+    $form['lndr']['lndr_api_token'] = [
+      '#default_value' => $lndr_config->get('lndr_token'),
+      '#description' => $this->t('You can find your API token under your <a href=":analytics">user profile</a>.', [':analytics' => 'https://www.lndr.co/users/edit']),
+      '#placeholder' => '',
+      '#title' => $this->t('Lndr API key'),
       '#type' => 'textfield',
     ];
 
@@ -154,12 +194,28 @@ class ThirdPartyServicesForm extends FormBase {
       $recaptcha_site_key = trim($form_state->getValue('recaptcha_site_key'));
       $recaptcha_secret_key = trim($form_state->getValue('recaptcha_secret_key'));
       if (!empty($recaptcha_site_key) && empty($recaptcha_secret_key)) {
-        //Site key is populated, secret key is not
+        //Site key is populated, secret key is not.
         $form_state->setErrorByName('recaptcha_secret_key', t('A Secret Key must be provided if a Site Key has been entered.'));
       }
       if (!empty($recaptcha_secret_key) && empty($recaptcha_site_key)) {
-        //Site key is not populated, secret key is
+        //Site key is not populated, secret key is.
         $form_state->setErrorByName('recaptcha_site_key', t('A Site Key must be provided if a Secret Key has been entered.'));
+      }
+    }
+
+    if (!empty(trim($form_state->getValue('lndr_api_token')))) {
+      // Check Lndr API token to see if it is valid.
+      try {
+        $response = \Drupal::httpClient()->request('POST', 'https://www.lndr.co/v1/validate_token', [
+          'form_params' => [
+            'token' => $form_state->getValue('lndr_api_token'),
+          ]]);
+
+        // @todo: token validation is successful. Let's store this in config.
+      }
+      catch(ClientException $e) {
+        // "You have entered an invalid API token, please copy and paste the API token from your profile in Lndr"
+        $form_state->setErrorByName('lndr_api_token', $e->getMessage());
       }
     }
   }
@@ -172,6 +228,7 @@ class ThirdPartyServicesForm extends FormBase {
     $config_factory = \Drupal::service('config.factory');
     $geo_loc_config = $config_factory->getEditable('geolocation.settings');
     $optimizely_config = $config_factory->getEditable('optimizely.settings');
+    $addthis_config = $config_factory->getEditable('openy_addthis.settings');
 
     $geo_loc_config->set('google_map_api_key', $form_state->getValue('google_map_api_key'));
     $geo_loc_config->save();
@@ -202,7 +259,7 @@ class ThirdPartyServicesForm extends FormBase {
       ->condition('oid', '1')
       ->execute();
 
-    // Set Recaptcha settings if provided
+    // Set Recaptcha settings if provided.
     if (!empty($form_state->getValue('recaptcha_site_key'))) {
       $recaptcha_config = $config_factory->getEditable('recaptcha.settings');
       $recaptcha_config
@@ -210,16 +267,27 @@ class ThirdPartyServicesForm extends FormBase {
         ->set('secret_key', $form_state->getValue('recaptcha_secret_key'))
         ->save();
       
-      //Set default captcha config to use reCaptcha
+      //Set default captcha config to use reCaptcha.
       $captcha_config = $config_factory->getEditable('captcha.settings');
       $captcha_config->set('default_validation', 'recaptcha/reCAPTCHA')
         ->save();
     } else {
-      //Set default captcha config to use image captcha
+      //Set default captcha config to use image captcha.
       $captcha_config = $config_factory->getEditable('captcha.settings');
       $captcha_config->set('default_validation', 'image_captcha/Image')
         ->save();
     }
+
+    // Set Lndr API token.
+    if (!empty($form_state->getValue('lndr_api_token'))) {
+      $lndr_config = $config_factory->getEditable('lndr.settings');
+      $lndr_config->set('lndr_token', $form_state->getValue('lndr_api_token'));
+      $lndr_config->save();
+    }
+
+    $addthis_public_id = $form_state->getValue('public_id');
+    $addthis_config->set('public_id', $addthis_public_id);
+    $addthis_config->save();
   }
 
   /**

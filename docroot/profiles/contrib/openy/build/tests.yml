@@ -12,6 +12,7 @@
     run_javascript_tests: 'yes'
     container_name: 'selenium'
     container_image: 'selenium/standalone-chrome-debug:3.3'
+    behat_runner: 'bin/behat'
 
   pre_tasks:
     - name: Wait for Selenium container to be stopped
@@ -47,12 +48,12 @@
 
     - name: Run full Behat tests
       ignore_errors: yes
-      shell: 'cd {{ behat_root }} && bin/behat'
+      shell: 'cd {{ behat_root }} && {{ behat_runner }}'
       when: run_javascript_tests == 'yes'
 
     - name: Run headless Behat tests
       ignore_errors: yes
-      shell: 'cd {{ behat_root }} && bin/behat --tags "~@javascript"'
+      shell: 'cd {{ behat_root }} && {{ behat_runner }} --tags "~@javascript"'
       when: run_javascript_tests == 'no'
 
   post_tasks:

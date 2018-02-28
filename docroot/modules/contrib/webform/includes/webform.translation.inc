@@ -150,7 +150,7 @@ function webform_lingotek_config_entity_document_upload(array &$source_data, Con
       $translation_manager = \Drupal::service('webform.translation_manager');
 
       // Replace elements with just the translatable properties
-      // (ie #title, #description, #options, etc...) so that Lingotek's
+      // (i.e. #title, #description, #options, etc...) so that Lingotek's
       // translation services can correctly translate each element.
       $translation_elements = $translation_manager->getTranslationElements($entity, $entity->language()->getId());
       $source_data['elements'] = $translation_elements;
@@ -158,7 +158,10 @@ function webform_lingotek_config_entity_document_upload(array &$source_data, Con
       // Encode all [tokens].
       $yaml = Yaml::encode($source_data);
       $yaml = preg_replace_callback(
-        '/\[([a-z][^]]+)\]/', function ($matches) {return '[***' . base64_encode($matches[1]) . '***]';},
+        '/\[([a-z][^]]+)\]/',
+        function ($matches) {
+          return '[***' . base64_encode($matches[1]) . '***]';
+        },
         $yaml
       );
       $source_data = Yaml::decode($yaml);
@@ -180,7 +183,10 @@ function webform_lingotek_config_entity_translation_presave(ConfigEntityInterfac
       // Decode all [tokens].
       $yaml = Yaml::encode($data);
       $yaml = preg_replace_callback(
-        '/\[\*\*\*([^]]+)\*\*\*\]/', function ($matches) {return '[' . base64_decode($matches[1]) . ']';},
+        '/\[\*\*\*([^]]+)\*\*\*\]/',
+        function ($matches) {
+          return '[' . base64_decode($matches[1]) . ']';
+        },
         $yaml
       );
       $data = Yaml::decode($yaml);

@@ -69,7 +69,7 @@ class MetatagToken {
     // Normalize taxonomy tokens.
     if (!empty($token_types)) {
       $token_types = array_map(function($value) {
-        return stripos($value, 'taxonomy_') === 0 ? substr($value, strlen('taoxnomy_')) : $value;
+        return stripos($value, 'taxonomy_') === 0 ? substr($value, strlen('taxonomy_')) : $value;
       }, (array) $token_types);
     }
 

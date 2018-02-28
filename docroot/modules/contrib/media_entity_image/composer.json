@@ -18,6 +18,6 @@
   ],
   "require": {
     "drupal/core": "~8.1",
-    "drupal/media_entity": "~1.0 || ~8.1.0"
+    "drupal/media_entity": "~1.0 || ~8.1.0 || ~2.0"
   }
 }

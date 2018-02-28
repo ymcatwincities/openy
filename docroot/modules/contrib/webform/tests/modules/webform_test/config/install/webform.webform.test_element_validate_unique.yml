@@ -16,21 +16,35 @@ elements: |
   unique_textfield:
     '#type': textfield
     '#title': unique_textfield
-    '#description': '#unique property is validated by single value elements'
     '#unique': true
-    '#default_value': value
-  unique_custom:
+  unique_textfield_multiple:
     '#type': textfield
-    '#title': unique_textfield
-    '#description': '#unique_error is displayed'
+    '#title': unique_textfield_multiple
     '#unique': true
-    '#unique_error': 'This is a custom unique error message.'
-    '#default_value': custom
-  unique_checkboxes:
+    '#multiple': 3
+    '#unique_error': 'unique_textfield_multiple error message.'
+  unique_user_textfield:
+    '#type': textfield
+    '#title': unique_user_textfield
+    '#unique': true
+    '#unique_user': true
+    '#unique_error': 'unique_user_textfield error message.'
+  unique_entity_textfield:
+    '#type': textfield
+    '#title': unique_entity_textfield
+    '#unique': true
+    '#unique_entity': true
+    '#unique_error': 'unique_entity_textfield error message.'
+  unique_error:
+    '#type': textfield
+    '#title': unique_error
+    '#unique': true
+    '#unique_error': 'unique_error error message.'
+  unique_ignored:
     '#type': checkboxes
-    '#title': unique_checkboxes
-    '#description': '#unique property is ignored by multiple value elements'
+    '#title': unique_ignored
     '#unique': true
+    '#unique_error': 'unique_ignored error message.'
     '#options':
       1: one
       2: two
@@ -41,6 +55,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -53,7 +68,7 @@ settings:
   form_confidential_message: ''
   form_convert_anonymous: false
   form_prepopulate: false
-  form_prepopulate_source_entity: false
+  form_prepopulate_source_entity: true
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
   form_reset: false
@@ -70,8 +85,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''

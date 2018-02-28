@@ -121,11 +121,11 @@ class MetatagConfigTranslationTest extends WebTestBase {
     // Add something to the Global config.
     $this->drupalGet('admin/config/search/metatag/global');
     $this->assertResponse(200);
-    $values = [
+    $edit = [
       'title' => 'Test title',
       'description' => 'Test description',
     ];
-    $this->drupalPostForm(NULL, $values, t('Save'));
+    $this->drupalPostForm(NULL, $edit, t('Save'));
     $this->assertResponse(200);
     $this->assertText(t('Saved the Global Metatag defaults.'));
 
@@ -141,16 +141,16 @@ class MetatagConfigTranslationTest extends WebTestBase {
     // values separately to make it easier to pinpoint where the problem is if
     // one should fail.
     $this->assertFieldByName('translation[config_names][metatag.metatag_defaults.global][tags][title]');
-    $this->assertFieldByName('translation[config_names][metatag.metatag_defaults.global][tags][title]', $values['title']);
+    $this->assertFieldByName('translation[config_names][metatag.metatag_defaults.global][tags][title]', $edit['title']);
     $this->assertFieldByName('translation[config_names][metatag.metatag_defaults.global][tags][description]');
-    $this->assertFieldByName('translation[config_names][metatag.metatag_defaults.global][tags][description]', $values['description']);
+    $this->assertFieldByName('translation[config_names][metatag.metatag_defaults.global][tags][description]', $edit['description']);
 
     // Confirm the form can be saved correctly.
-    $values = [
+    $edit = [
       'translation[config_names][metatag.metatag_defaults.global][tags][title]' => 'Le title',
       'translation[config_names][metatag.metatag_defaults.global][tags][description]' => 'Le description',
     ];
-    $this->drupalPostForm(NULL, $values, t('Save translation'));
+    $this->drupalPostForm(NULL, $edit, t('Save translation'));
     $this->assertResponse(200);
     $this->assertText(t('Successfully saved French translation'));
   }

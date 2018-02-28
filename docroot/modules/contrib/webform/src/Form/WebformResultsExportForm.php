@@ -55,7 +55,7 @@ class WebformResultsExportForm extends FormBase {
     $settings_options = $this->config('webform.settings')->get('export');
     $saved_options = $this->submissionExporter->getWebformOptions();
     $user_options = $this->submissionExporter->getValuesFromInput($form_state->getUserInput());
-    $export_options = NestedArray::mergeDeep($settings_options, $saved_options, $user_options);
+    $export_options = $user_options + $saved_options + $settings_options;
 
     // Build the webform.
     $this->submissionExporter->buildExportOptionsForm($form, $form_state, $export_options);
@@ -88,11 +88,14 @@ class WebformResultsExportForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $default_options = $this->submissionExporter->getDefaultExportOptions();
     $export_options = $this->submissionExporter->getValuesFromInput($form_state->getValues());
-
-    // Implode exclude columns.
-    $export_options['excluded_columns'] = implode(',', $export_options['excluded_columns']);
-
+    // Implode arrays.
+    foreach ($export_options as $key => $value) {
+      if (is_array($default_options[$key]) && is_array($value)) {
+        $export_options[$key] = implode(',', $value);
+      }
+    }
     if ($source_entity = $this->submissionExporter->getSourceEntity()) {
       $entity_type = $source_entity->getEntityTypeId();
       $entity_id = $source_entity->id();
