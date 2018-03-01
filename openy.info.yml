@@ -99,6 +99,7 @@ dependencies:
   - video
   - media_entity_video
   - easy_breadcrumb
+  - ckeditor_bootstrap_buttons
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image

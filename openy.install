@@ -590,3 +590,15 @@ function openy_update_8046() {
     ]);
   }
 }
+
+/**
+ * Enable CKEditor Bootstrap Buttons module and import the settings.
+ */
+function openy_update_8047() {
+  // Enable CKEditor Bootstrap Buttons module.
+  \Drupal::service('module_installer')->install(['ckeditor_bootstrap_buttons'], TRUE);
+
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
