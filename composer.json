@@ -117,8 +117,8 @@
         {
             "type": "package",
             "package": {
-                "name": "smonetti/btbutton",
-                "version": "1.0",
+                "name": "library-smonetti/btbutton",
+                "version": "1.0.1",
                 "type": "drupal-library",
                 "source": {
                     "url": "https://github.com/smonetti/btbutton",
@@ -214,7 +214,7 @@
         "library-gdsmith/jquery.easing": "1.4.1",
         "library-ckeditor/panelbutton": "4.7.0",
         "library-ckeditor/colorbutton": "4.7.0",
-        "smonetti/btbutton": "1.0",
+        "library-smonetti/btbutton": "1.0.1",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
