@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "728ca5203c28802ca14528796a363bfd",
+    "content-hash": "834eae217b79674057b016491fefe320",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5067,6 +5067,16 @@
             "type": "drupal-library"
         },
         {
+            "name": "library-smonetti/btbutton",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smonetti/btbutton",
+                "reference": "1620254d294a209bdf18cc0bc7b131d2ffaa10db"
+            },
+            "type": "drupal-library"
+        },
+        {
             "name": "masterminds/html5",
             "version": "2.3.0",
             "source": {
@@ -5275,16 +5285,6 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
-        },
-        {
-            "name": "smonetti/btbutton",
-            "version": "1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/smonetti/btbutton",
-                "reference": "1620254d294a209bdf18cc0bc7b131d2ffaa10db"
-            },
-            "type": "drupal-library"
         },
         {
             "name": "stack/builder",
