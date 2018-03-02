@@ -2,16 +2,20 @@
 
 Due to the fact OpenY is a big distribution with a large amount of modules, components, subsystems, and business 
 processes we have to ensure we are not braking major functionality during development.
+
 For the automated tests we have created [General Checks template](https://github.com/ymcatwincities/openy/blob/8.x-1.x/.github/PULL_REQUEST_TEMPLATE.md) 
 on GitHub every developer should follow to get review approval from OpenY core team.
 But General Checks are for testing functionality for the current proposed change, not for Regression Testing. 
+
 Only [Behat tests](https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Tests.md#behat) in this flow 
 are about regression testing, provided automatically on each build by OpenY community.
+
 For the release acceptance testing we need to ensure we aren't braking syste, somewhere on more global level. 
 Usually this could happen during Drupal core upgrade or/and contrib modules upgrades if included into release of OpenY.
 To increase productivity and decrease effort for manual Acceptance Testing of upcoming Release it is highly 
 important to build a plan of testing prior releasing OpenY. This plan should include functionalities that possible to have 
 regressions becuase of planned changes.
+
 For example. If the Drupal core is updated it is important to gather all Drupal core Release Notes since last release 
 core upgrade for OpenY and analyze important issues fixed. 
 Example - in case if you are doing upgrade from latest 8.4.0 to 8.4.4:
@@ -33,14 +37,16 @@ This list could be extended by analyzing some highly important parts of OpenY di
 subsystems. No need to spend the time on every module that has in dependency taxonomy, but at least one needs to be tested 
 if still working. In case if there is a Behat test, already created for the subsystem in a list, it could be skipped
 if test is not failing on a build. 
+
 How to choose one - could be random selection or one of the oldest modules in a system, because 
 there is a higher chance minor change could case regression for the module that was not updated recently. 
+
 It also makes sence to update oldest modules(contrib modules) that have dependencies from the above list, but 
 to move faster update should be initiated only if there is a security issue or module stopped working because of 
 the subsystems getting updated within an upcoming release. In case if respective module update creates more issues 
 that its old version - it is better to keep old one with fixing a regression bug instead of fighting windmills 
-with issues, introduced by new module version. Trick: usually new version of the module already contains a bug fix, 
-so adding a patch from the drupal.org to composer.json of the OpenY distribution is preffered to get distribution 
+with issues, introduced by new module version. 
+Tip: usually new version of the module already contains a bug fix, so adding a patch from the drupal.org to composer.json of the OpenY distribution is preffered to get distribution 
 released. And of cause, you need to create a follow-up task for the module to be updated after release.
 
 After creating list of modules, that probably could introduce regressions it is highly recommended to follow 
@@ -58,3 +64,6 @@ technology - it creates in-site visual guided documentation and helps to decreas
 
 And last, but not the lease - adding Behat tests to the system will do ensure functionality is tested on every pull 
 request, on every CI build in the future.
+
+### Rule
+Every release of OpenY since 8.1.9 should include list of subsystems, changed in release for the community to be aware of the possible regressions on their end.
