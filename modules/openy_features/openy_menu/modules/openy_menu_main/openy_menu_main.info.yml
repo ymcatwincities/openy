@@ -1,0 +1,11 @@
+name: 'Openy Menu Main'
+description: 'Openy Menu Main.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - block
+  - node
+  - system
+  - user
+  - views

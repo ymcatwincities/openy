@@ -1,0 +1,14 @@
+name: 'OpenY Paragraph Categories Listing'
+description: 'OpenY Paragraph Categories Listing.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - node
+  - openy_node_category
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - user
+  - views

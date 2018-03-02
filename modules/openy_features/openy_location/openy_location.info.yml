@@ -1,0 +1,15 @@
+name: 'OpenY Location Package'
+description: 'OpenY Location Package.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - address
+  - ctools
+  - field
+  - geolocation
+  - link
+  - node
+  - pathauto
+  - taxonomy
+  - telephone

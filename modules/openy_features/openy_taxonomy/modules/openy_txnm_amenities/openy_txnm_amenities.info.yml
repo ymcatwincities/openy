@@ -1,0 +1,11 @@
+name: 'OpenY Taxonomy Amenities'
+description: 'OpenY Taxonomy Amenities.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - file
+  - openy_svg_formatter
+  - path
+  - taxonomy
+  - text
