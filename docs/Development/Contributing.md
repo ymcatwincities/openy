@@ -12,6 +12,7 @@ If you have some time to make a contribution to the project, here are the steps 
 - Commit & push changes into your fork
 - Create new Pull Request. [How to create Pull Request](https://help.github.com/articles/creating-a-pull-request/).
 - Write steps for review. In this way maintainers can go through steps on build to verify your fix/feature.
+- Ensure steps for review added to AcceptanceTesting.md file in a module's/project's directory if it makes sence to check them on regular basis. Often this is needed for crucial parts of the system which is main business functionality of the component.
 - Wait for a CI build and ask maintainers for review.
 
 
