@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Promo Card'
+description: 'OpenY Paragraph Promo Card.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - link
+  - openy_prgf
+  - paragraphs
+  - text

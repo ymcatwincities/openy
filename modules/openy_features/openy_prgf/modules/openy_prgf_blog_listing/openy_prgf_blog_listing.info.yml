@@ -1,0 +1,19 @@
+name: 'OpenY Paragraph Blog Posts Listing'
+description: 'OpenY Paragraph Blog Posts Listing.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - node
+  - openy_node_blog
+  - openy_prgf
+  - openy_txnm_blog_category
+  - paragraphs
+  - plugin
+  - taxonomy
+  - text
+  - user
+  - verf
+  - views
+  - views_infinite_scroll

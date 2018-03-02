@@ -1,0 +1,12 @@
+name: 'OpenY Taxonomy Color'
+description: 'OpenY Taxonomy Color.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - jquery_colorpicker
+  - path
+  - rabbit_hole
+  - taxonomy
+  - text

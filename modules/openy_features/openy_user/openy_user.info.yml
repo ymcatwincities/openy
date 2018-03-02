@@ -1,0 +1,7 @@
+name: 'OpenY User'
+description: 'OpenY User.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - user

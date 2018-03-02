@@ -1,0 +1,15 @@
+name: 'OpenY Paragraph Package'
+description: 'Bundle of paragraph modules for OpenY, and their common configuration.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - link
+  - media_entity
+  - options
+  - paragraphs
+  - plugin
+  - taxonomy
+  - text
+  - webform

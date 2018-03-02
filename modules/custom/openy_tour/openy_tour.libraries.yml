@@ -1,0 +1,7 @@
+openy-tour:
+  version: 1.x
+  js:
+    js/openy_tour.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once

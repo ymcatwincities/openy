@@ -1,0 +1,16 @@
+name: 'OpenY Paragraph Classes Listing'
+description: 'OpenY Paragraph Classes Listing.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - node
+  - openy_node_class
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - user
+  - verf
+  - views
+  - views_block_filter_block

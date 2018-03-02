@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: banner
+label: Banner
+behavior_plugins: {  }

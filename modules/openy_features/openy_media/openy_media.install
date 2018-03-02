@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * OpenY Media install file.
+ */
+
+/**
+ * Import rabbit_hole config.
+ */
+function openy_media_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_media') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rabbit_hole.behavior_settings.taxonomy_vocabulary_media_tags',
+  ]);
+}
+
+/**
+ * Import Blazy config.
+ */
+function openy_media_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_media') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'blazy.settings',
+  ]);
+}
+
+/**
+ * Import full_without_blazy and half_without_blazy view mode configs.
+ */
+function openy_media_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_media') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_mode.media.full_without_blazy',
+    'core.entity_view_mode.media.half_without_blazy',
+  ]);
+}
