@@ -11,6 +11,7 @@
  * entities, enabling them for in-place editing.
  */
 
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -76,7 +77,7 @@ function quickedit_library_info_alter(&$libraries, $extension) {
     $theme = Drupal::config('system.theme')->get('admin');
 
     // First let the base theme modify the library, then the actual theme.
-    $alter_library = function(&$library, $theme) use (&$alter_library) {
+    $alter_library = function (&$library, $theme) use (&$alter_library) {
       if (isset($theme) && $theme_path = drupal_get_path('theme', $theme)) {
         $info = system_get_info('theme', $theme);
         // Recurse to process base theme(s) first.
@@ -128,13 +129,13 @@ function quickedit_preprocess_page_title(&$variables) {
  */
 function quickedit_preprocess_field(&$variables) {
   $variables['#cache']['contexts'][] = 'user.permissions';
-  if (!\Drupal::currentUser()->hasPermission('access in-place editing')) {
-    return;
-  }
-
   $element = $variables['element'];
   /** @var $entity \Drupal\Core\Entity\EntityInterface */
   $entity = $element['#object'];
+
+  if (!\Drupal::currentUser()->hasPermission('access in-place editing') || !_quickedit_entity_is_latest_revision($entity)) {
+    return;
+  }
 
   // Quick Edit module only supports view modes, not dynamically defined
   // "display options" (which \Drupal\Core\Field\FieldItemListInterface::view()
@@ -157,9 +158,38 @@ function quickedit_preprocess_field(&$variables) {
  */
 function quickedit_entity_view_alter(&$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
   $build['#cache']['contexts'][] = 'user.permissions';
-  if (!\Drupal::currentUser()->hasPermission('access in-place editing')) {
+  if (!\Drupal::currentUser()->hasPermission('access in-place editing') || !_quickedit_entity_is_latest_revision($entity)) {
     return;
   }
 
   $build['#attributes']['data-quickedit-entity-id'] = $entity->getEntityTypeId() . '/' . $entity->id();
+}
+
+/**
+ * Check if a loaded entity is the latest revision.
+ *
+ * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+ *   The entity to check.
+ *
+ * @return bool
+ *   TRUE if the loaded entity is the latest revision, FALSE otherwise.
+ *
+ * @todo Remove this method once better support for pending revisions is added
+ * to core https://www.drupal.org/node/2784201.
+ *
+ * @internal
+ */
+function _quickedit_entity_is_latest_revision(ContentEntityInterface $entity) {
+  if (!$entity->getEntityType()->isRevisionable() || $entity->isNew()) {
+    return TRUE;
+  }
+
+  $latest_revision = \Drupal::entityTypeManager()
+    ->getStorage($entity->getEntityTypeId())
+    ->getQuery()
+    ->latestRevision()
+    ->condition($entity->getEntityType()->getKey('id'), $entity->id())
+    ->execute();
+
+  return !empty($latest_revision) && $entity->getLoadedRevisionId() == key($latest_revision) ? TRUE : FALSE;
 }

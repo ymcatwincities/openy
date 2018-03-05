@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\Tests\taxonomy\Functional;
+
 use Drupal\Component\Utility\Unicode;
 
 use Drupal\Core\Url;
@@ -77,7 +78,7 @@ class VocabularyUiTest extends TaxonomyTestBase {
     $this->drupalPostForm('admin/structure/taxonomy/add', $edit, t('Save'));
 
     $site_name = $this->config('system.site')->get('name');
-    $this->assertTitle(t('Don\'t Panic | @site-name', ['@site-name' => $site_name]), 'The page title contains the escaped character.');
+    $this->assertTitle(t("Don't Panic | @site-name", ['@site-name' => $site_name]), 'The page title contains the escaped character.');
   }
 
   /**

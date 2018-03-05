@@ -12,7 +12,7 @@ use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
  *
  * @MigrateSource(
  *   id = "d7_taxonomy_term",
- *   source_provider = "taxonomy"
+ *   source_module = "taxonomy"
  * )
  */
 class Term extends FieldableEntity {
@@ -69,6 +69,11 @@ class Term extends FieldableEntity {
       ->execute()
       ->fetchCol();
     $row->setSourceProperty('parent', $parents);
+
+    // Determine if this is a forum container.
+    $forum_container_tids = $this->variableGet('forum_containers', []);
+    $current_tid = $row->getSourceProperty('tid');
+    $row->setSourceProperty('is_container', in_array($current_tid, $forum_container_tids));
 
     return parent::prepareRow($row);
   }

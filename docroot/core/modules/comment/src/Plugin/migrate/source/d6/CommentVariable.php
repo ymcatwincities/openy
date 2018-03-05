@@ -2,13 +2,19 @@
 
 namespace Drupal\comment\Plugin\migrate\source\d6;
 
+@trigger_error('CommentVariable is deprecated in Drupal 8.4.x and will be removed before Drupal 9.0.x. Use \Drupal\node\Plugin\migrate\source\d6\NodeType instead.', E_USER_DEPRECATED);
+
 use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
 use Drupal\migrate\Plugin\migrate\source\DummyQueryTrait;
 
 /**
  * @MigrateSource(
- *   id = "d6_comment_variable"
+ *   id = "d6_comment_variable",
+ *   source_module = "comment"
  * )
+ *
+ * @deprecated in Drupal 8.4.x, to be removed before Drupal 9.0.x. Use
+ * \Drupal\node\Plugin\migrate\source\d6\NodeType instead.
  */
 class CommentVariable extends DrupalSqlBase {
 
@@ -24,7 +30,7 @@ class CommentVariable extends DrupalSqlBase {
   /**
    * {@inheritdoc}
    */
-  public function count() {
+  public function count($refresh = FALSE) {
     return count($this->getCommentVariables());
   }
 

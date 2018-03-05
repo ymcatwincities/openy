@@ -21,7 +21,7 @@ class UrlRewritingTest extends FileTestBase {
   /**
    * Tests the rewriting of shipped file URLs by hook_file_url_alter().
    */
-  public function testShippedFileURL()  {
+  public function testShippedFileURL() {
     // Test generating a URL to a shipped file (i.e. a file that is part of
     // Drupal core, a module or a theme, for example a JavaScript file).
 
@@ -106,13 +106,13 @@ class UrlRewritingTest extends FileTestBase {
     // Shipped file.
     $filepath = 'core/assets/vendor/jquery/jquery.min.js';
     $url = file_create_url($filepath);
-    $this->assertIdentical(base_path() . $filepath, file_url_transform_relative($url));
+    $this->assertSame(base_path() . $filepath, file_url_transform_relative($url));
 
     // Managed file.
     $uri = $this->createUri();
     $url = file_create_url($uri);
     $public_directory_path = \Drupal::service('stream_wrapper_manager')->getViaScheme('public')->getDirectoryPath();
-    $this->assertIdentical(base_path() . $public_directory_path . '/' . rawurlencode(drupal_basename($uri)), file_url_transform_relative($url));
+    $this->assertSame(base_path() . $public_directory_path . '/' . rawurlencode(drupal_basename($uri)), file_url_transform_relative($url));
   }
 
 }
