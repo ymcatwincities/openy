@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\WidgetInterface.
- */
-
 namespace Drupal\entity_browser;
 
 use Drupal\Component\Plugin\ConfigurablePluginInterface;
@@ -84,13 +79,13 @@ interface WidgetInterface extends PluginInspectionInterface, ConfigurablePluginI
    *   unit.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Form state object.
-   * @param array $aditional_widget_parameters
+   * @param array $additional_widget_parameters
    *   Additional parameters that we want to pass to the widget.
    *
    * @return array
    *   Form structure.
    */
-  public function getForm(array &$original_form, FormStateInterface $form_state, array $aditional_widget_parameters);
+  public function getForm(array &$original_form, FormStateInterface $form_state, array $additional_widget_parameters);
 
   /**
    * Validates form.
@@ -113,5 +108,14 @@ interface WidgetInterface extends PluginInspectionInterface, ConfigurablePluginI
    *   Form state object.
    */
   public function submit(array &$element, array &$form, FormStateInterface $form_state);
+
+  /**
+   * Returns if widget requires JS commands support by selection display.
+   *
+   * @return bool
+   *   True is auto selection is enabled and add/remove of entities will be done
+   *   over javascript events on selection display.
+   */
+  public function requiresJsCommands();
 
 }

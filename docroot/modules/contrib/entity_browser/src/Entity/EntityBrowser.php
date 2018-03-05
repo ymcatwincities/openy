@@ -427,7 +427,7 @@ class EntityBrowser extends ConfigEntityBase implements EntityBrowserInterface, 
         'widgetSelectorCollection',
         'displayCollection',
         'selectionDisplayCollection',
-        'selectedEntities'
+        'selectedEntities',
       ]
     );
   }
@@ -435,12 +435,21 @@ class EntityBrowser extends ConfigEntityBase implements EntityBrowserInterface, 
   /**
    * {@inheritdoc}
    */
-  public function save() {
-    $return = parent::save();
+  public function postSave(EntityStorageInterface $storage, $update = TRUE) {
+    parent::postSave($storage, $update);
     // Rebuild route information when browsers that register routes
     // are created/updated.
-    \Drupal::service('router.builder')->rebuild();
-    return $return;
+    \Drupal::service('router.builder')->setRebuildNeeded();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function postDelete(EntityStorageInterface $storage, array $entities) {
+    parent::postDelete($storage, $entities);
+    // Rebuild route information when browsers that register routes
+    // are deleted.
+    \Drupal::service('router.builder')->setRebuildNeeded();
   }
 
   /**

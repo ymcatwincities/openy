@@ -1,19 +1,7 @@
-search_api.backend.plugin.search_api_solr:
-  type: mapping
+plugin.plugin_configuration.search_api_backend.search_api_solr:
+  type: config_object
   label: 'Search API Solr settings'
   mapping:
-    scheme:
-      type: string
-      label: 'The HTTP protocol to use for sending queries'
-    host:
-      type: string
-      label: 'The host name or IP of the Solr server'
-    port:
-      type: string
-      label: 'The port of the Solr server'
-    path:
-      type: string
-      label: 'The path that identifies the Solr instance to use on the server'
     excerpt:
       type: boolean
       label: 'Return an excerpt for all results'
@@ -26,59 +14,20 @@ search_api.backend.plugin.search_api_solr:
     skip_schema_check:
       type: boolean
       label: 'Skip schema verification'
-    clean_ids:
-      type: boolean
-      label: 'Switch to clean field identifiers'
     site_hash:
       type: boolean
-      label: 'Drupal site hash that can be used to identify the content in Solr.'
-    http:
-      type: mapping
-      label: 'Http Configuration'
-      mapping:
-        http_user:
-          type: string
-          label: 'Username for basic HTTP authentication'
-        http_pass:
-          type: string
-          label: 'Password for basic HTTP authentication'
-    http_user:
-      type: string
-      label: 'Username for basic HTTP authentication'
-    http_pass:
-      type: string
-      label: 'Password for basic HTTP authentication'
-    advanced:
-      type: mapping
-      label: 'Advanced config'
-      mapping:
-        excerpt:
-          type: integer
-          label: 'User to authenticate Solr with'
-        retrieve_data:
-          type: integer
-          label: 'Get data from the solr fields'
-        highlight_data:
-          type: integer
-          label: 'Highlight search string in snippets'
-        skip_schema_check:
-          type: integer
-          label: 'Do not validate if the schema is correct.'
-        solr_version:
-          type: string
-          label: 'Version of Solr that is used.'
-        http_method:
-          type: string
-          label: 'Use Get or Post for the Solr Queries'
-    solr_version:
-      type: string
-      label: 'Solr version override'
-    http_method:
-      type: string
-      label: 'The HTTP method to use for sending queries'
-    autocorrect_spell:
+      label: 'Restrict searches to current site'
+    suggest_suffix:
       type: boolean
-      label: 'Use spellcheck for autocomplete suggestions'
-    autocorrect_suggest_words:
+      label: 'Suggest endings for the currently entered word'
+    suggest_corrections:
       type: boolean
-      label: 'Suggest additional words'
+      label: 'Suggest corrections for the currently entered words'
+    suggest_words:
+      type: boolean
+      label: 'Suggest additional words the user might want to search for'
+    connector:
+      type: string
+      label: 'The connector plugin ID'
+    connector_config:
+      type: plugin.plugin_configuration.search_api_solr_connector.[%parent.connector]

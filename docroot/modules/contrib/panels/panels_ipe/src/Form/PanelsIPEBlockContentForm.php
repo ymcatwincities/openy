@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels_ipe\Form;
 
 use Drupal\block_content\BlockContentForm;

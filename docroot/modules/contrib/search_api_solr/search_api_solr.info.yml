@@ -6,8 +6,8 @@ package: Search
 dependencies:
  - search_api
 
-# Information added by Drupal.org packaging script on 2015-11-28
-version: '8.x-1.0-alpha1+3-dev'
+# Information added by Drupal.org packaging script on 2017-11-01
+version: '8.x-1.2'
 core: '8.x'
 project: 'search_api_solr'
-datestamp: 1448726041
+datestamp: 1509541996
