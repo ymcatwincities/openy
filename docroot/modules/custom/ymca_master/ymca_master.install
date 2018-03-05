@@ -4986,3 +4986,11 @@ function ymca_master_update_8231() {
     ]
   );
 }
+
+/**
+ * Install openy upgrade tool.
+ */
+function ymca_master_update_8232() {
+  \Drupal::service('module_installer')->uninstall(['ymca_entity_browser']);
+  \Drupal::service('module_installer')->install(['openy_upgrade_tool', 'rabbit_hole'], TRUE);
+}
