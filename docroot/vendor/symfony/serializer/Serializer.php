@@ -15,6 +15,8 @@ use Symfony\Component\Serializer\Encoder\ChainDecoder;
 use Symfony\Component\Serializer\Encoder\ChainEncoder;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
+use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Exception\LogicException;
@@ -54,11 +56,15 @@ class Serializer implements SerializerInterface, NormalizerInterface, Denormaliz
 
     /**
      * @var array
+     *
+     * @deprecated since 3.1 will be removed in 4.0
      */
     protected $normalizerCache = array();
 
     /**
      * @var array
+     *
+     * @deprecated since 3.1 will be removed in 4.0
      */
     protected $denormalizerCache = array();
 
@@ -67,6 +73,14 @@ class Serializer implements SerializerInterface, NormalizerInterface, Denormaliz
         foreach ($normalizers as $normalizer) {
             if ($normalizer instanceof SerializerAwareInterface) {
                 $normalizer->setSerializer($this);
+            }
+
+            if ($normalizer instanceof DenormalizerAwareInterface) {
+                $normalizer->setDenormalizer($this);
+            }
+
+            if ($normalizer instanceof NormalizerAwareInterface) {
+                $normalizer->setNormalizer($this);
             }
         }
         $this->normalizers = $normalizers;
@@ -180,7 +194,7 @@ class Serializer implements SerializerInterface, NormalizerInterface, Denormaliz
      * Returns a matching normalizer.
      *
      * @param mixed  $data   Data to get the serializer for
-     * @param string $format Format name, present to give the option to normalizers to act differently based on formats
+     * @param string $format format name, present to give the option to normalizers to act differently based on formats
      *
      * @return NormalizerInterface|null
      */
@@ -196,9 +210,9 @@ class Serializer implements SerializerInterface, NormalizerInterface, Denormaliz
     /**
      * Returns a matching denormalizer.
      *
-     * @param mixed  $data   Data to restore
-     * @param string $class  The expected class to instantiate
-     * @param string $format Format name, present to give the option to normalizers to act differently based on formats
+     * @param mixed  $data   data to restore
+     * @param string $class  the expected class to instantiate
+     * @param string $format format name, present to give the option to normalizers to act differently based on formats
      *
      * @return DenormalizerInterface|null
      */
@@ -230,9 +244,9 @@ class Serializer implements SerializerInterface, NormalizerInterface, Denormaliz
     /**
      * Denormalizes data back into an object of the given class.
      *
-     * @param mixed  $data    Data to restore
-     * @param string $class   The expected class to instantiate
-     * @param string $format  Format name, present to give the option to normalizers to act differently based on formats
+     * @param mixed  $data    data to restore
+     * @param string $class   the expected class to instantiate
+     * @param string $format  format name, present to give the option to normalizers to act differently based on formats
      * @param array  $context The context data for this particular denormalization
      *
      * @return object

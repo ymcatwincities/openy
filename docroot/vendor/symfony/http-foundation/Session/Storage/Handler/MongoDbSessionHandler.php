@@ -12,10 +12,15 @@
 namespace Symfony\Component\HttpFoundation\Session\Storage\Handler;
 
 /**
+ * MongoDB session handler.
+ *
  * @author Markus Bachmann <markus.bachmann@bachi.biz>
  */
 class MongoDbSessionHandler implements \SessionHandlerInterface
 {
+    /**
+     * @var \Mongo|\MongoClient|\MongoDB\Client
+     */
     private $mongo;
 
     /**
@@ -117,7 +122,7 @@ class MongoDbSessionHandler implements \SessionHandlerInterface
      */
     public function gc($maxlifetime)
     {
-        $methodName = $this->mongo instanceof \MongoDB\Client ? 'deleteMany' : 'remove';
+        $methodName = $this->mongo instanceof \MongoDB\Client ? 'deleteOne' : 'remove';
 
         $this->getCollection()->$methodName(array(
             $this->options['expiry_field'] => array('$lt' => $this->createDateTime()),

@@ -21,6 +21,8 @@ interface ConstraintValidatorFactoryInterface
      * Given a Constraint, this returns the ConstraintValidatorInterface
      * object that should be used to verify its validity.
      *
+     * @param Constraint $constraint The source constraint
+     *
      * @return ConstraintValidatorInterface
      */
     public function getInstance(Constraint $constraint);

@@ -29,6 +29,8 @@ class ReplaceAliasByActualDefinitionPass implements CompilerPassInterface
     /**
      * Process the Container to replace aliases with service definitions.
      *
+     * @param ContainerBuilder $container
+     *
      * @throws InvalidArgumentException if the service definition does not exist
      */
     public function process(ContainerBuilder $container)
@@ -75,7 +77,6 @@ class ReplaceAliasByActualDefinitionPass implements CompilerPassInterface
             $definition->setArguments($this->updateArgumentReferences($replacements, $definitionId, $definition->getArguments()));
             $definition->setMethodCalls($this->updateArgumentReferences($replacements, $definitionId, $definition->getMethodCalls()));
             $definition->setProperties($this->updateArgumentReferences($replacements, $definitionId, $definition->getProperties()));
-            $definition->setFactoryService($this->updateFactoryReferenceId($replacements, $definition->getFactoryService(false)), false);
             $definition->setFactory($this->updateFactoryReference($replacements, $definition->getFactory()));
         }
     }
@@ -112,23 +113,6 @@ class ReplaceAliasByActualDefinitionPass implements CompilerPassInterface
         }
 
         return $arguments;
-    }
-
-    /**
-     * Returns the updated reference for the factory service.
-     *
-     * @param array       $replacements Table of aliases to replace
-     * @param string|null $referenceId  Factory service reference identifier
-     *
-     * @return string|null
-     */
-    private function updateFactoryReferenceId(array $replacements, $referenceId)
-    {
-        if (null === $referenceId) {
-            return;
-        }
-
-        return isset($replacements[$referenceId]) ? $replacements[$referenceId] : $referenceId;
     }
 
     private function updateFactoryReference(array $replacements, $factory)

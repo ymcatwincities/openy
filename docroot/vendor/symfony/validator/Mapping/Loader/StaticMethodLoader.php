@@ -21,6 +21,11 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class StaticMethodLoader implements LoaderInterface
 {
+    /**
+     * The name of the method to call.
+     *
+     * @var string
+     */
     protected $methodName;
 
     /**

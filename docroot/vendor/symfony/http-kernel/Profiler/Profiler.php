@@ -25,6 +25,9 @@ use Psr\Log\LoggerInterface;
  */
 class Profiler
 {
+    /**
+     * @var ProfilerStorageInterface
+     */
     private $storage;
 
     /**
@@ -32,6 +35,9 @@ class Profiler
      */
     private $collectors = array();
 
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
     /**
@@ -39,6 +45,12 @@ class Profiler
      */
     private $enabled = true;
 
+    /**
+     * Constructor.
+     *
+     * @param ProfilerStorageInterface $storage A ProfilerStorageInterface instance
+     * @param LoggerInterface          $logger  A LoggerInterface instance
+     */
     public function __construct(ProfilerStorageInterface $storage, LoggerInterface $logger = null)
     {
         $this->storage = $storage;
@@ -63,6 +75,8 @@ class Profiler
 
     /**
      * Loads the Profile for the given Response.
+     *
+     * @param Response $response A Response instance
      *
      * @return Profile|false A Profile instance
      */
@@ -89,6 +103,8 @@ class Profiler
 
     /**
      * Saves a Profile.
+     *
+     * @param Profile $profile A Profile instance
      *
      * @return bool
      */
@@ -117,64 +133,31 @@ class Profiler
     }
 
     /**
-     * Exports the current profiler data.
-     *
-     * @return string The exported data
-     *
-     * @deprecated since Symfony 2.8, to be removed in 3.0.
-     */
-    public function export(Profile $profile)
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-        return base64_encode(serialize($profile));
-    }
-
-    /**
-     * Imports data into the profiler storage.
-     *
-     * @param string $data A data string as exported by the export() method
-     *
-     * @return Profile|false A Profile instance
-     *
-     * @deprecated since Symfony 2.8, to be removed in 3.0.
-     */
-    public function import($data)
-    {
-        @trigger_error('The '.__METHOD__.' method is deprecated since Symfony 2.8 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-        $profile = unserialize(base64_decode($data));
-
-        if ($this->storage->read($profile->getToken())) {
-            return false;
-        }
-
-        $this->saveProfile($profile);
-
-        return $profile;
-    }
-
-    /**
      * Finds profiler tokens for the given criteria.
      *
-     * @param string $ip     The IP
-     * @param string $url    The URL
-     * @param string $limit  The maximum number of tokens to return
-     * @param string $method The request method
-     * @param string $start  The start date to search from
-     * @param string $end    The end date to search to
+     * @param string $ip         The IP
+     * @param string $url        The URL
+     * @param string $limit      The maximum number of tokens to return
+     * @param string $method     The request method
+     * @param string $start      The start date to search from
+     * @param string $end        The end date to search to
+     * @param string $statusCode The request status code
      *
      * @return array An array of tokens
      *
      * @see http://php.net/manual/en/datetime.formats.php for the supported date/time formats
      */
-    public function find($ip, $url, $limit, $method, $start, $end)
+    public function find($ip, $url, $limit, $method, $start, $end, $statusCode = null)
     {
-        return $this->storage->find($ip, $url, $limit, $method, $this->getTimestamp($start), $this->getTimestamp($end));
+        return $this->storage->find($ip, $url, $limit, $method, $this->getTimestamp($start), $this->getTimestamp($end), $statusCode);
     }
 
     /**
      * Collects data for the given Response.
+     *
+     * @param Request    $request   A Request instance
+     * @param Response   $response  A Response instance
+     * @param \Exception $exception An exception instance if the request threw one
      *
      * @return Profile|null A Profile instance or null if the profiler is disabled
      */
@@ -232,6 +215,8 @@ class Profiler
 
     /**
      * Adds a Collector.
+     *
+     * @param DataCollectorInterface $collector A DataCollectorInterface instance
      */
     public function add(DataCollectorInterface $collector)
     {

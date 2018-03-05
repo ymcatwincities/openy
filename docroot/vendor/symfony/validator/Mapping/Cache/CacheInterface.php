@@ -38,6 +38,8 @@ interface CacheInterface
 
     /**
      * Stores a class metadata in the cache.
+     *
+     * @param ClassMetadata $metadata A Class Metadata
      */
     public function write(ClassMetadata $metadata);
 }

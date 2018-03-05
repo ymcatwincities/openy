@@ -26,6 +26,9 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  */
 class AnnotationLoader implements LoaderInterface
 {
+    /**
+     * @var Reader
+     */
     protected $reader;
 
     public function __construct(Reader $reader)
@@ -71,7 +74,6 @@ class AnnotationLoader implements LoaderInterface
                 foreach ($this->reader->getMethodAnnotations($method) as $constraint) {
                     if ($constraint instanceof Callback) {
                         $constraint->callback = $method->getName();
-                        $constraint->methods = null;
 
                         $metadata->addConstraint($constraint);
                     } elseif ($constraint instanceof Constraint) {
