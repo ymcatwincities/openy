@@ -25,6 +25,8 @@ class ValidateRequestListener implements EventSubscriberInterface
 {
     /**
      * Performs the validation.
+     *
+     * @param GetResponseEvent $event
      */
     public function onKernelRequest(GetResponseEvent $event)
     {

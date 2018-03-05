@@ -41,16 +41,14 @@ class RedirectResponse extends Response
         if (!$this->isRedirect()) {
             throw new \InvalidArgumentException(sprintf('The HTTP status code is not a redirect ("%s" given).', $status));
         }
+
+        if (301 == $status && !array_key_exists('cache-control', $headers)) {
+            $this->headers->remove('cache-control');
+        }
     }
 
     /**
-     * Factory method for chainability.
-     *
-     * @param string $url     The url to redirect to
-     * @param int    $status  The response status code
-     * @param array  $headers An array of response headers
-     *
-     * @return static
+     * {@inheritdoc}
      */
     public static function create($url = '', $status = 302, $headers = array())
     {

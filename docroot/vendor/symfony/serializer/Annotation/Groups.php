@@ -29,6 +29,8 @@ class Groups
     private $groups;
 
     /**
+     * @param array $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct(array $data)

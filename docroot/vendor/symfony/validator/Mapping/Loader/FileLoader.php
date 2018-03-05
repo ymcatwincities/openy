@@ -23,6 +23,11 @@ use Symfony\Component\Validator\Exception\MappingException;
  */
 abstract class FileLoader extends AbstractLoader
 {
+    /**
+     * The file to load.
+     *
+     * @var string
+     */
     protected $file;
 
     /**

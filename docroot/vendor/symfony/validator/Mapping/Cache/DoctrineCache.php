@@ -23,11 +23,21 @@ final class DoctrineCache implements CacheInterface
 {
     private $cache;
 
+    /**
+     * Creates a new Doctrine cache.
+     *
+     * @param Cache $cache The cache to adapt
+     */
     public function __construct(Cache $cache)
     {
         $this->cache = $cache;
     }
 
+    /**
+     * Sets the cache to adapt.
+     *
+     * @param Cache $cache The cache to adapt
+     */
     public function setCache(Cache $cache)
     {
         $this->cache = $cache;

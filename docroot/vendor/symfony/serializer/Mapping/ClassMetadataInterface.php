@@ -33,6 +33,8 @@ interface ClassMetadataInterface
 
     /**
      * Adds an {@link AttributeMetadataInterface}.
+     *
+     * @param AttributeMetadataInterface $attributeMetadata
      */
     public function addAttributeMetadata(AttributeMetadataInterface $attributeMetadata);
 
@@ -45,6 +47,8 @@ interface ClassMetadataInterface
 
     /**
      * Merges a {@link ClassMetadataInterface} in the current one.
+     *
+     * @param ClassMetadataInterface $classMetadata
      */
     public function merge(ClassMetadataInterface $classMetadata);
 

@@ -104,7 +104,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Removes a route or an array of routes by name from the collection.
      *
-     * @param string|string[] $name The route name or an array of route names
+     * @param string|array $name The route name or an array of route names
      */
     public function remove($name)
     {
@@ -116,6 +116,8 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Adds a route collection at the end of the current set by appending all
      * routes of the added collection.
+     *
+     * @param RouteCollection $collection A RouteCollection instance
      */
     public function addCollection(RouteCollection $collection)
     {
@@ -232,7 +234,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Sets the schemes (e.g. 'https') all child routes are restricted to.
      *
-     * @param string|string[] $schemes The scheme or an array of schemes
+     * @param string|array $schemes The scheme or an array of schemes
      */
     public function setSchemes($schemes)
     {
@@ -244,7 +246,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
     /**
      * Sets the HTTP methods (e.g. 'POST') all child routes are restricted to.
      *
-     * @param string|string[] $methods The method or an array of methods
+     * @param string|array $methods The method or an array of methods
      */
     public function setMethods($methods)
     {
@@ -265,6 +267,8 @@ class RouteCollection implements \IteratorAggregate, \Countable
 
     /**
      * Adds a resource for this collection.
+     *
+     * @param ResourceInterface $resource A resource instance
      */
     public function addResource(ResourceInterface $resource)
     {

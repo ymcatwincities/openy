@@ -12,8 +12,10 @@
 namespace Symfony\Component\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ExpressionLanguage;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\ExpressionLanguage\Expression;
 
 /**
  * Run this pass before passes that need to know more about the relation of
@@ -30,7 +32,9 @@ class AnalyzeServiceReferencesPass implements RepeatablePassInterface
     private $container;
     private $currentId;
     private $currentDefinition;
+    private $repeatedPass;
     private $onlyConstructorArguments;
+    private $expressionLanguage;
 
     /**
      * @param bool $onlyConstructorArguments Sets this Service Reference pass to ignore method calls
@@ -45,11 +49,13 @@ class AnalyzeServiceReferencesPass implements RepeatablePassInterface
      */
     public function setRepeatedPass(RepeatedPass $repeatedPass)
     {
-        // no-op for BC
+        $this->repeatedPass = $repeatedPass;
     }
 
     /**
      * Processes a ContainerBuilder object to populate the service reference graph.
+     *
+     * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
@@ -66,9 +72,6 @@ class AnalyzeServiceReferencesPass implements RepeatablePassInterface
             $this->currentDefinition = $definition;
 
             $this->processArguments($definition->getArguments());
-            if ($definition->getFactoryService(false)) {
-                $this->processArguments(array(new Reference($definition->getFactoryService(false))));
-            }
             if (is_array($definition->getFactory())) {
                 $this->processArguments($definition->getFactory());
             }
@@ -97,6 +100,8 @@ class AnalyzeServiceReferencesPass implements RepeatablePassInterface
         foreach ($arguments as $argument) {
             if (is_array($argument)) {
                 $this->processArguments($argument);
+            } elseif ($argument instanceof Expression) {
+                $this->getExpressionLanguage()->compile((string) $argument, array('this' => 'container'));
             } elseif ($argument instanceof Reference) {
                 $this->graph->connect(
                     $this->currentId,
@@ -112,9 +117,6 @@ class AnalyzeServiceReferencesPass implements RepeatablePassInterface
 
                 if (is_array($argument->getFactory())) {
                     $this->processArguments($argument->getFactory());
-                }
-                if ($argument->getFactoryService(false)) {
-                    $this->processArguments(array(new Reference($argument->getFactoryService(false))));
                 }
             }
         }
@@ -145,5 +147,28 @@ class AnalyzeServiceReferencesPass implements RepeatablePassInterface
         }
 
         return $id;
+    }
+
+    private function getExpressionLanguage()
+    {
+        if (null === $this->expressionLanguage) {
+            $providers = $this->container->getExpressionLanguageProviders();
+            $this->expressionLanguage = new ExpressionLanguage(null, $providers, function ($arg) {
+                if ('""' === substr_replace($arg, '', 1, -1)) {
+                    $id = stripcslashes(substr($arg, 1, -1));
+
+                    $this->graph->connect(
+                        $this->currentId,
+                        $this->currentDefinition,
+                        $this->getDefinitionId($id),
+                        $this->getDefinition($id)
+                    );
+                }
+
+                return sprintf('$this->get(%s)', $arg);
+            });
+        }
+
+        return $this->expressionLanguage;
     }
 }

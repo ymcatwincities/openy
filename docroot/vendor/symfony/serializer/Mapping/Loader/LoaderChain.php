@@ -27,6 +27,9 @@ use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
  */
 class LoaderChain implements LoaderInterface
 {
+    /**
+     * @var LoaderInterface[]
+     */
     private $loaders;
 
     /**

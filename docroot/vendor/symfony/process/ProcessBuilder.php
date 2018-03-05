@@ -15,6 +15,8 @@ use Symfony\Component\Process\Exception\InvalidArgumentException;
 use Symfony\Component\Process\Exception\LogicException;
 
 /**
+ * Process builder.
+ *
  * @author Kris Wallsmith <kris@symfony.com>
  */
 class ProcessBuilder
@@ -30,6 +32,8 @@ class ProcessBuilder
     private $outputDisabled = false;
 
     /**
+     * Constructor.
+     *
      * @param string[] $arguments An array of arguments
      */
     public function __construct(array $arguments = array())
@@ -163,13 +167,11 @@ class ProcessBuilder
     /**
      * Sets the input of the process.
      *
-     * @param mixed $input The input as a string
+     * @param resource|scalar|\Traversable|null $input The input content
      *
      * @return $this
      *
      * @throws InvalidArgumentException In case the argument is invalid
-     *
-     * Passing an object as an input is deprecated since version 2.5 and will be removed in 3.0.
      */
     public function setInput($input)
     {
@@ -265,15 +267,11 @@ class ProcessBuilder
         $arguments = array_merge($this->prefix, $this->arguments);
         $script = implode(' ', array_map(array(__NAMESPACE__.'\\ProcessUtils', 'escapeArgument'), $arguments));
 
+        $process = new Process($script, $this->cwd, $this->env, $this->input, $this->timeout, $options);
+
         if ($this->inheritEnv) {
-            // include $_ENV for BC purposes
-            $env = array_replace($_ENV, $_SERVER, $this->env);
-        } else {
-            $env = $this->env;
+            $process->inheritEnvironmentVariables();
         }
-
-        $process = new Process($script, $this->cwd, $env, $this->input, $this->timeout, $options);
-
         if ($this->outputDisabled) {
             $process->disableOutput();
         }
