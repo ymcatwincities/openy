@@ -3,14 +3,8 @@ type: module
 description: 'Translates the built-in user interface.'
 configure: locale.translate_page
 package: Multilingual
-# version: VERSION
-# core: 8.x
+version: VERSION
+core: 8.x
 dependencies:
   - language
   - file
-
-# Information added by Drupal.org packaging script on 2017-08-16
-version: '8.3.7'
-core: '8.x'
-project: 'drupal'
-datestamp: 1502903957
