@@ -34,6 +34,8 @@ use Drupal\node\NodeTypeInterface;
  *
  * @deprecated Scheduled for removal in Drupal 9.0.x.
  *   Use \Drupal\node\NodeInterface::NOT_PUBLISHED instead.
+ *
+ * @see https://www.drupal.org/node/2316145
  */
 const NODE_NOT_PUBLISHED = 0;
 
@@ -42,6 +44,8 @@ const NODE_NOT_PUBLISHED = 0;
  *
  * @deprecated Scheduled for removal in Drupal 9.0.x.
  *   Use \Drupal\node\NodeInterface::PUBLISHED instead.
+ *
+ * @see https://www.drupal.org/node/2316145
  */
 const NODE_PUBLISHED = 1;
 
@@ -50,6 +54,8 @@ const NODE_PUBLISHED = 1;
  *
  * @deprecated Scheduled for removal in Drupal 9.0.x.
  *   Use \Drupal\node\NodeInterface::NOT_PROMOTED instead.
+ *
+ * @see https://www.drupal.org/node/2316145
  */
 const NODE_NOT_PROMOTED = 0;
 
@@ -58,6 +64,8 @@ const NODE_NOT_PROMOTED = 0;
  *
  * @deprecated Scheduled for removal in Drupal 9.0.x.
  *   Use \Drupal\node\NodeInterface::PROMOTED instead.
+ *
+ * @see https://www.drupal.org/node/2316145
  */
 const NODE_PROMOTED = 1;
 
@@ -66,6 +74,8 @@ const NODE_PROMOTED = 1;
  *
  * @deprecated Scheduled for removal in Drupal 9.0.x.
  *   Use \Drupal\node\NodeInterface::NOT_STICKY instead.
+ *
+ * @see https://www.drupal.org/node/2316145
  */
 const NODE_NOT_STICKY = 0;
 
@@ -74,6 +84,8 @@ const NODE_NOT_STICKY = 0;
  *
  * @deprecated Scheduled for removal in Drupal 9.0.x.
  *   Use \Drupal\node\NodeInterface::STICKY instead.
+ *
+ * @see https://www.drupal.org/node/2316145
  */
 const NODE_STICKY = 1;
 
@@ -121,7 +133,7 @@ function node_help($route_name, RouteMatchInterface $route_match) {
     case 'entity.entity_form_display.node.default':
     case 'entity.entity_form_display.node.form_mode':
       $type = $route_match->getParameter('node_type');
-      return '<p>' . t('Content items can be edited using different form modes. Here, you can define which fields are shown and hidden when %type content is edited in each form mode, and define how the field form widgets are displayed in each form mode.', ['%type' => $type->label()]) . '</p>' ;
+      return '<p>' . t('Content items can be edited using different form modes. Here, you can define which fields are shown and hidden when %type content is edited in each form mode, and define how the field form widgets are displayed in each form mode.', ['%type' => $type->label()]) . '</p>';
 
     case 'entity.entity_view_display.node.default':
     case 'entity.entity_view_display.node.view_mode':
@@ -593,9 +605,9 @@ function template_preprocess_node(&$variables) {
   $variables['node'] = $variables['elements']['#node'];
   /** @var \Drupal\node\NodeInterface $node */
   $node = $variables['node'];
-  $variables['date'] = drupal_render($variables['elements']['created']);
+  $variables['date'] = \Drupal::service('renderer')->render($variables['elements']['created']);
   unset($variables['elements']['created']);
-  $variables['author_name'] = drupal_render($variables['elements']['uid']);
+  $variables['author_name'] = \Drupal::service('renderer')->render($variables['elements']['uid']);
   unset($variables['elements']['uid']);
 
   $variables['url'] = $node->url('canonical', [
@@ -1099,7 +1111,7 @@ function node_query_node_access_alter(AlterableInterface $query) {
   // context.
   $request = \Drupal::requestStack()->getCurrentRequest();
   $renderer = \Drupal::service('renderer');
-  if ($request->isMethodSafe() && $renderer->hasRenderContext()) {
+  if ($request->isMethodCacheable() && $renderer->hasRenderContext()) {
     $build = ['#cache' => ['contexts' => ['user.node_grants:' . $op]]];
     $renderer->render($build);
   }

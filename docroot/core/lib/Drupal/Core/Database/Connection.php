@@ -187,7 +187,7 @@ abstract class Connection {
    * @return \PDO
    *   A \PDO object.
    */
-  public static function open(array &$connection_options = []) { }
+  public static function open(array &$connection_options = []) {}
 
   /**
    * Destroys this Connection object.
@@ -503,8 +503,9 @@ abstract class Connection {
    *   A sanitized comment string.
    */
   public function makeComment($comments) {
-    if (empty($comments))
+    if (empty($comments)) {
       return '';
+    }
 
     // Flatten the array of comments.
     $comment = implode('. ', $comments);

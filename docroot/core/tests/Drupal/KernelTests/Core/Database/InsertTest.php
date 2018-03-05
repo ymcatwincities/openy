@@ -26,7 +26,7 @@ class InsertTest extends DatabaseTestBase {
     $query->execute();
 
     $num_records_after = db_query('SELECT COUNT(*) FROM {test}')->fetchField();
-    $this->assertIdentical($num_records_before + 1, (int) $num_records_after, 'Record inserts correctly.');
+    $this->assertSame($num_records_before + 1, (int) $num_records_after, 'Record inserts correctly.');
     $saved_age = db_query('SELECT age FROM {test} WHERE name = :name', [':name' => 'Yoko'])->fetchField();
     $this->assertIdentical($saved_age, '29', 'Can retrieve after inserting.');
   }
@@ -61,7 +61,7 @@ class InsertTest extends DatabaseTestBase {
     $query->execute();
 
     $num_records_after = (int) db_query('SELECT COUNT(*) FROM {test}')->fetchField();
-    $this->assertIdentical($num_records_before + 3, $num_records_after, 'Record inserts correctly.');
+    $this->assertSame($num_records_before + 3, $num_records_after, 'Record inserts correctly.');
     $saved_age = db_query('SELECT age FROM {test} WHERE name = :name', [':name' => 'Larry'])->fetchField();
     $this->assertIdentical($saved_age, '30', 'Can retrieve after inserting.');
     $saved_age = db_query('SELECT age FROM {test} WHERE name = :name', [':name' => 'Curly'])->fetchField();
@@ -84,7 +84,8 @@ class InsertTest extends DatabaseTestBase {
     ]);
     // Check how many records are queued for insertion.
     $this->assertIdentical($query->count(), 1, 'One record is queued for insertion.');
-    $query->execute();  // This should run the insert, but leave the fields intact.
+    // This should run the insert, but leave the fields intact.
+    $query->execute();
 
     // We should be able to specify values in any order if named.
     $query->values([
@@ -103,7 +104,7 @@ class InsertTest extends DatabaseTestBase {
     $query->execute();
 
     $num_records_after = db_query('SELECT COUNT(*) FROM {test}')->fetchField();
-    $this->assertIdentical((int) $num_records_before + 3, (int) $num_records_after, 'Record inserts correctly.');
+    $this->assertSame((int) $num_records_before + 3, (int) $num_records_after, 'Record inserts correctly.');
     $saved_age = db_query('SELECT age FROM {test} WHERE name = :name', [':name' => 'Larry'])->fetchField();
     $this->assertIdentical($saved_age, '30', 'Can retrieve after inserting.');
     $saved_age = db_query('SELECT age FROM {test} WHERE name = :name', [':name' => 'Curly'])->fetchField();

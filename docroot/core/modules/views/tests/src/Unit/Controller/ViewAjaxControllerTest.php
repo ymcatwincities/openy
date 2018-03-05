@@ -74,7 +74,7 @@ class ViewAjaxControllerTest extends UnitTestCase {
     $this->renderer = $this->getMock('\Drupal\Core\Render\RendererInterface');
     $this->renderer->expects($this->any())
       ->method('render')
-      ->will($this->returnCallback(function(array &$elements) {
+      ->will($this->returnCallback(function (array &$elements) {
         $elements['#attached'] = [];
         return isset($elements['#markup']) ? $elements['#markup'] : '';
       }));
@@ -344,8 +344,7 @@ class ViewAjaxControllerTest extends UnitTestCase {
     $display_handler->expects($this->never())
       ->method('setOption');
     $display_handler->expects($this->any())
-      ->method('getOption')
-      ->with('use_ajax')
+      ->method('ajaxEnabled')
       ->willReturn($use_ajax);
 
     $display_collection = $this->getMockBuilder('Drupal\views\DisplayPluginCollection')

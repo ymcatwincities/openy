@@ -2,22 +2,23 @@
 
 namespace Drupal\migrate_drupal\Plugin\migrate\cckfield;
 
-@trigger_error('CckFieldPluginBase is deprecated in Drupal 8.3.x and will be
-be removed before Drupal 9.0.x. Use \Drupal\migrate_drupal\Plugin\migrate\field\FieldPluginBase
-instead.', E_USER_DEPRECATED);
+@trigger_error('CckFieldPluginBase is deprecated in Drupal 8.3.x and will be be removed before Drupal 9.0.x. Use \Drupal\migrate_drupal\Plugin\migrate\field\FieldPluginBase instead.', E_USER_DEPRECATED);
 
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate_drupal\Plugin\migrate\field\FieldPluginBase;
+use Drupal\migrate_drupal\Plugin\MigrateCckFieldInterface;
 
 /**
  * The base class for all field plugins.
  *
- * @deprecated in Drupal 8.3.x, to be removed before Drupal 9.0.x. Use
+ * @deprecated in Drupal 8.4.x, to be removed before Drupal 9.0.x. Use
  * \Drupal\migrate_drupal\Plugin\migrate\field\FieldPluginBase instead.
+ *
+ * @see https://www.drupal.org/node/2751897
  *
  * @ingroup migration
  */
-abstract class CckFieldPluginBase extends FieldPluginBase {
+abstract class CckFieldPluginBase extends FieldPluginBase implements MigrateCckFieldInterface {
 
   /**
    * Apply any custom processing to the field bundle migrations.

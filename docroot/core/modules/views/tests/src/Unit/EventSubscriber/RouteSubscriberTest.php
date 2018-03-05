@@ -101,7 +101,7 @@ class RouteSubscriberTest extends UnitTestCase {
     // should only call the second display.
     $display_1->expects($this->once())
       ->method('collectRoutes')
-      ->willReturnCallback(function() use ($collection) {
+      ->willReturnCallback(function () use ($collection) {
         $collection->add('views.test_id.page_1', new Route('test_route', ['_controller' => 'Drupal\views\Routing\ViewPageController']));
         return ['test_id.page_1' => 'views.test_id.page_1'];
       });
@@ -111,7 +111,7 @@ class RouteSubscriberTest extends UnitTestCase {
 
     $display_2->expects($this->once())
       ->method('collectRoutes')
-      ->willReturnCallback(function() use ($collection) {
+      ->willReturnCallback(function () use ($collection) {
         $collection->add('views.test_id.page_2', new Route('test_route', ['_controller' => 'Drupal\views\Routing\ViewPageController']));
         return ['test_id.page_2' => 'views.test_id.page_2'];
       });
@@ -139,8 +139,8 @@ class RouteSubscriberTest extends UnitTestCase {
   /**
    * Sets up mocks of Views objects needed for testing.
    *
-   * @return array \Drupal\views\Plugin\views\display\DisplayRouterInterface[]|\PHPUnit_Framework_MockObject_MockObject[]
-   *   An array of two mocked view displays
+   * @return \Drupal\views\Plugin\views\display\DisplayRouterInterface[]|\PHPUnit_Framework_MockObject_MockObject[]
+   *   An array of two mocked view displays.
    */
   protected function setupMocks() {
     $executable = $this->getMockBuilder('Drupal\views\ViewExecutable')
