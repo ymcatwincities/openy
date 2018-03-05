@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\entity_browser\Plugin\views\display\EntityBrowser.
- */
-
 namespace Drupal\entity_browser\Plugin\views\display;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -31,7 +26,7 @@ use Drupal\views\Plugin\views\display\DisplayPluginBase;
 class EntityBrowser extends DisplayPluginBase {
 
   /**
-   * {@inheritdoc}.
+   * {@inheritdoc}
    */
   public function execute() {
     parent::execute();
@@ -48,6 +43,23 @@ class EntityBrowser extends DisplayPluginBase {
     // EntityBrowserForm, which breaks normal exposed form submits.
     return TRUE;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOption($option) {
+    // @todo remove upon resolution of https://www.drupal.org/node/2904798
+    // This overrides getOption() instead of ajaxEnabled() because
+    // \Drupal\views\Controller\ViewAjaxController::ajaxView() currently calls
+    // that directly.
+    if ($option == 'use_ajax') {
+      return TRUE;
+    }
+    else {
+      return parent::getOption($option);
+    }
+  }
+
 
   /**
    * {@inheritdoc}
@@ -87,15 +99,19 @@ class EntityBrowser extends DisplayPluginBase {
   }
 
   /**
-   * {@inheritdoc}.
+   * {@inheritdoc}
    */
-  function preview() {
+  public function preview() {
     return $this->execute();
   }
 
   /**
-   * Pre render callback for a view. Based on DisplayPluginBase::elementPreRender()
-   * except that we removed form part which need to handle by our own.
+   * {@inheritdoc}
+   *
+   * Pre render callback for a view.
+   *
+   * Based on DisplayPluginBase::elementPreRender() except that we removed form
+   * part which need to handle by our own.
    */
   public function elementPreRender(array $element) {
     $view = $element['#view'];
@@ -130,15 +146,21 @@ class EntityBrowser extends DisplayPluginBase {
 
   /**
    * Handles form elements on a view.
+   *
+   * @param array $render
+   *   Rendered content.
    */
-  protected function handleForm(&$render) {
+  protected function handleForm(array &$render) {
     if (!empty($this->view->field['entity_browser_select'])) {
-      $this->view->field['entity_browser_select']->viewsForm($render);
+
+      /** @var \Drupal\entity_browser\Plugin\views\field\SelectForm $select */
+      $select = $this->view->field['entity_browser_select'];
+      $select->viewsForm($render);
 
       $render['#post_render'][] = [get_class($this), 'postRender'];
       $substitutions = [];
-      foreach ($this->view->result as $row_id => $row) {
-        $form_element_row_id = $row_id;
+      foreach ($this->view->result as $row) {
+        $form_element_row_id = $select->getRowId($row);
 
         $substitutions[] = [
           'placeholder' => '<!--form-item-entity_browser_select--' . $form_element_row_id . '-->',
@@ -158,10 +180,18 @@ class EntityBrowser extends DisplayPluginBase {
    * Post render callback that moves form elements into the view.
    *
    * Form elements need to be added out of view to be correctly detected by Form
-   * API and then added into the view afterwards. Views use the same approach for
-   * bulk operations.
+   * API and then added into the view afterwards. Views use the same approach
+   * for bulk operations.
+   *
+   * @param string $content
+   *   Rendered content.
+   * @param array $element
+   *   Render array.
+   *
+   * @return string
+   *   Rendered content.
    */
-  public static function postRender($content, $element) {
+  public static function postRender($content, array $element) {
     // Placeholders and their substitutions (usually rendered form elements).
     $search = $replace = [];
 
@@ -171,7 +201,7 @@ class EntityBrowser extends DisplayPluginBase {
       $row_id = $substitution['row_id'];
 
       $search[] = $substitution['placeholder'];
-      $replace[] = isset($element[$field_name][$row_id]) ? drupal_render($element[$field_name][$row_id]) : '';
+      $replace[] = isset($element[$field_name][$row_id]) ? \Drupal::service('renderer')->render($element[$field_name][$row_id]) : '';
     }
     // Add in substitutions from hook_views_form_substitutions().
     $substitutions = \Drupal::moduleHandler()->invokeAll('views_form_substitutions');
@@ -191,4 +221,5 @@ class EntityBrowser extends DisplayPluginBase {
 
     return $content;
   }
+
 }

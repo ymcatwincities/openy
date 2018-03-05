@@ -71,33 +71,23 @@ details .messages {
 /*
  * Processors page
  */
-.search-api-stage-wrapper {
-  width: 29.5%;
-  min-width: 16em;
+
+.search-api-stage-wrapper.form-item {
   float: left;
+  box-sizing: border-box;
+  width: 32.66%;
+  min-width: 17em;
+  margin-right: 1%;
 }
 
-.search-api-stage-wrapper:nth-child(1) {
-  margin-right: .5%;
-}
-
-.search-api-stage-wrapper:nth-child(2) {
-  margin-right: .5%;
-  margin-left: .5%;
-}
-
-.search-api-stage-wrapper:nth-child(3) {
-  margin-left: .5%;
-}
-
-.search-api-stage-wrapper-postprocess {
+.search-api-stage-wrapper.form-item:last-child {
   margin-right: 0;
 }
 
 /*
  * Miscellaneous
  */
-.search-api-checkboxes-list div {
-  max-height: 12em;
+.search-api-checkboxes-list .form-checkboxes {
+  max-height: 30em;
   overflow: auto;
 }

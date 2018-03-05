@@ -6,6 +6,7 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\SubformState;
 
 /**
  * Provides a plugin selector field widget.
@@ -23,7 +24,7 @@ class PluginSelector extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+  public function formElement(FieldItemListInterface $items, $delta, array $element, array &$parent_form, FormStateInterface $complete_form_state) {
     /** @var \Drupal\plugin\Plugin\Field\FieldType\PluginCollectionItemInterface $item */
     $item = $items[$delta];
     /** @var \Drupal\plugin\PluginType\PluginTypeInterface $plugin_type */
@@ -38,7 +39,6 @@ class PluginSelector extends WidgetBase {
       '#process' => [[get_class(), 'processFormElement']],
       '#selected_plugin' => $items->isEmpty() ? NULL : $items->get($delta)->getContainedPluginInstance(),
     ];
-    $element['plugin_selector'] = static::getPluginSelector($form_state, $element)->buildSelectorForm([], $form_state);
 
     return $element;
   }
@@ -46,7 +46,7 @@ class PluginSelector extends WidgetBase {
   /**
    * Implements a #process callback.
    */
-  public static function processFormElement(array &$element, FormStateInterface $form_state, array &$form) {
+  public static function processFormElement(array &$element, FormStateInterface $complete_form_state, array &$complete_form) {
     // Store #array_parents in the form state, so we can get the elements from
     // the complete form array by using only the form state.
     $element['array_parents'] = [
@@ -54,27 +54,36 @@ class PluginSelector extends WidgetBase {
       '#value' => $element['#array_parents'],
     ];
 
+    $plugin_selector = static::getPluginSelector($complete_form_state, $element);
+    $plugin_selector_form = [];
+    $plugin_selector_form_state = SubformState::createForSubform($plugin_selector_form, $complete_form_state->getCompleteForm(), $complete_form_state);
+    $element['plugin_selector'] = $plugin_selector->buildSelectorForm($plugin_selector_form, $plugin_selector_form_state);
+
     return $element;
   }
 
   /**
    * Implements an #element_validate callback.
    */
-  public static function validateFormElement(array &$element, FormStateInterface $form_state, array &$form) {
-    $plugin_selector = static::getPluginSelector($form_state, $element);
-    $plugin_selector->validateSelectorForm($element['plugin_selector'], $form_state);
+  public static function validateFormElement(array &$element, FormStateInterface $complete_form_state, array &$complete_form) {
+    $plugin_selector = static::getPluginSelector($complete_form_state, $element);
+    $plugin_selector_form = $element['plugin_selector'];
+    $plugin_selector_form_state = SubformState::createForSubform($plugin_selector_form, $complete_form, $complete_form_state);
+    $plugin_selector->validateSelectorForm($plugin_selector_form, $plugin_selector_form_state);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+  public function massageFormValues(array $values, array $parent_form, FormStateInterface $complete_form_state) {
     $massaged_values = [];
 
     foreach ($values as $delta => $item_values) {
-      $element = NestedArray::getValue($form, array_slice($item_values['array_parents'], count($form['#array_parents'])));
-      $plugin_selector = static::getPluginSelector($form_state, $element);
-      $plugin_selector->submitSelectorForm($element['plugin_selector'], $form_state);
+      $element = NestedArray::getValue($parent_form, array_slice($item_values['array_parents'], count($parent_form['#array_parents'])));
+      $plugin_selector = static::getPluginSelector($complete_form_state, $element);
+      $plugin_selector_form = $element['plugin_selector'];
+      $plugin_selector_form_state = SubformState::createForSubform($plugin_selector_form, $complete_form_state->getCompleteForm(), $complete_form_state);
+      $plugin_selector->submitSelectorForm($plugin_selector_form, $plugin_selector_form_state);
       $massaged_values[$delta] = [
         'plugin_instance' => $plugin_selector->getSelectedPlugin(),
       ];
@@ -86,18 +95,18 @@ class PluginSelector extends WidgetBase {
   /**
    * Gets the plugin selector for a field item's elements.
    *
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   * @param \Drupal\Core\Form\FormStateInterface $complete_form_state
    * @param mixed[] $element
    *   The field widget's form elements.
    *
    * @return \Drupal\plugin\Plugin\Plugin\PluginSelector\PluginSelectorInterface
    */
-  protected static function getPluginSelector(FormStateInterface $form_state, array $element) {
+  protected static function getPluginSelector(FormStateInterface $complete_form_state, array $element) {
     /** @var \Drupal\Core\Field\FieldDefinitionInterface $field_definition */
     $field_definition = $element['#field_definition'];
     $form_state_key = sprintf('plugin_selector:%s:%d', $field_definition->getName(), $element['#delta']);
-    if ($form_state->has($form_state_key)) {
-      $plugin_selector = $form_state->get($form_state_key);
+    if ($complete_form_state->has($form_state_key)) {
+      $plugin_selector = $complete_form_state->get($form_state_key);
     }
     else {
       /** @var \Drupal\plugin\PluginType\PluginTypeManagerInterface $plugin_type_manager */
@@ -117,7 +126,7 @@ class PluginSelector extends WidgetBase {
       if ($element['#selected_plugin']) {
         $plugin_selector->setSelectedPlugin($element['#selected_plugin']);
       }
-      $form_state->set($form_state_key, $plugin_selector);
+      $complete_form_state->set($form_state_key, $plugin_selector);
     }
 
     return $plugin_selector;

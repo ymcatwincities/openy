@@ -1,6 +1,11 @@
 langcode: und
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - entity_browser_example
+  enforced:
+    module:
+      - entity_browser_example
 name: test_files1
 label: 'Test entity browser for files'
 display: modal

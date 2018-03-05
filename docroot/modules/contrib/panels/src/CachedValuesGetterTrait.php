@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels;
 
 use Drupal\user\SharedTempStoreFactory;

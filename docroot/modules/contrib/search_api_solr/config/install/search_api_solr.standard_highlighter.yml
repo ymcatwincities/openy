@@ -1,0 +1,60 @@
+# Specifies the number of characters into a document that Solr should look for
+# suitable snippets.
+maxAnalyzedChars: 51200
+# Specifies a text snippet generator for highlighted text. The standard
+# fragmenter is gap, which creates fixed-sized fragments with gaps for
+# multi-valued fields. Another option is regex, which tries to create fragments
+# that resemble a specified regular expression. This parameter accepts per-field
+# overrides.
+fragmenter: gap
+# If set to true, Solr will highlight phrase queries (and other advanced
+# position-sensitive queries) accurately. If false, the parts of the phrase will
+# be highlighted everywhere instead of only when it forms the given phrase.
+usePhraseHighlighter: true
+# If set to true, Solr will highlight wildcard queries (and other MultiTermQuery
+# subclasses). If false, they won't be highlighted at all.
+highlightMultiTerm: true
+# If true, multi-valued fields will return all values in the order they were
+# saved in the index. If false, only values that match the highlight request
+# will be returned.
+preserveMulti: false
+regex:
+  # When using the regex fragmenter (hl.fragmenter=regex), this parameter defines
+  # the factor by which the fragmenter can stray from the ideal fragment size
+  # (given by hl.fragsize) to accommodate a regular expression. For instance, a
+  # slop of 0.2 with hl.fragsize=100 should yield fragments between 80 and 120
+  # characters in length. It is usually good to provide a slightly smaller
+  # hl.fragsize value when using the regex fragmenter.
+  slop: 0.5
+  # Specifies the regular expression for fragmenting. This could be used to
+  # extract sentences.
+  pattern: blank
+  # Instructs Solr to analyze only this many characters from a field when using
+  # the regex fragmenter (after which, the fragmenter produces fixed-sized
+  # fragments). Applying a complicated regex to a huge field is computationally
+  # expensive.
+  maxAnalyzedChars: 10000
+excerpt:
+  # Specifies maximum number of highlighted snippets to generate per field. It is
+  # possible for any number of snippets from zero to this value to be generated.
+  # This parameter accepts per-field overrides.
+  snippets: 3
+  # Specifies the size, in characters, of fragments to consider for highlighting.
+  # 0 indicates that no fragmenting should be considered and the whole field value
+  # should be used. This parameter accepts per-field overrides.
+  fragsize: 70
+  # Instructs Solr to collapse contiguous fragments into a single fragment. A
+  # value of true indicates contiguous fragments will be collapsed into single
+  # fragment. This parameter accepts per-field overrides. The default value,
+  # false, is also the backward-compatible setting.
+  mergeContiguous: false
+highlight:
+  # Instructs Solr to collapse contiguous fragments into a single fragment. A
+  # value of true indicates contiguous fragments will be collapsed into single
+  # fragment. This parameter accepts per-field overrides. The default value,
+  # false, is also the backward-compatible setting.
+  mergeContiguous: false
+  # If set to true, highlights terms only if they appear in the specified field.
+  # If false, terms are highlighted in all requested fields regardless of which
+  # field matched the query.
+  requireFieldMatch: false

@@ -53,9 +53,12 @@ class WidgetsConfig extends FormBase {
     $entity_browser = $form_state->getTemporaryValue('wizard')['entity_browser'];
 
     $widgets = [];
+    $description = $this->t('The available plugins are:') . '<ul>';
     foreach ($this->widgetManager->getDefinitions() as $plugin_id => $plugin_definition) {
       $widgets[$plugin_id] = $plugin_definition['label'];
+      $description .= '<li><b>' . $plugin_definition['label'] . ':</b> ' . $plugin_definition['description'] . '</li>';
     }
+    $description .= '</ul>';
     $default_widgets = [];
     foreach ($entity_browser->getWidgets() as $widget) {
       /** @var \Drupal\entity_browser\WidgetInterface $widget */
@@ -65,10 +68,11 @@ class WidgetsConfig extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Add widget plugin'),
       '#options' => ['_none_' => '- ' . $this->t('Select a widget to add it') . ' -'] + $widgets,
+      '#description' => $description,
       '#ajax' => [
         'callback' => [get_class($this), 'tableUpdatedAjaxCallback'],
         'wrapper' => 'widgets',
-        'event' => 'change'
+        'event' => 'change',
       ],
       '#executes_submit_callback' => TRUE,
       '#submit' => [[get_class($this), 'submitAddWidget']],
@@ -94,7 +98,8 @@ class WidgetsConfig extends FormBase {
         'action' => 'order',
         'relationship' => 'sibling',
         'group' => 'variant-weight',
-      ]],
+      ],
+      ],
     ];
 
     /** @var \Drupal\entity_browser\WidgetInterface $widget */
@@ -107,7 +112,9 @@ class WidgetsConfig extends FormBase {
       $row['label'] = [
         '#type' => 'textfield',
         '#default_value' => $widget->label(),
-        '#title' => $this->t('Label'),
+        '#title' => $this->t('Label (%label)', [
+          '%label' => $widget->getPluginDefinition()['label'],
+        ]),
       ];
       $row['form'] = [];
       $row['form'] = $widget->buildConfigurationForm($row['form'], $form_state);
@@ -118,11 +125,12 @@ class WidgetsConfig extends FormBase {
         '#ajax' => [
           'callback' => [get_class($this), 'tableUpdatedAjaxCallback'],
           'wrapper' => 'widgets',
-          'event' => 'click'
+          'event' => 'click',
         ],
         '#executes_submit_callback' => TRUE,
         '#submit' => [[get_class($this), 'submitDeleteWidget']],
         '#arguments' => $uuid,
+        '#limit_validation_errors' => [],
       ];
       $row['weight'] = [
         '#type' => 'weight',
