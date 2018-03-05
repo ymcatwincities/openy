@@ -24,10 +24,26 @@ class ResponseHeaderBag extends HeaderBag
     const DISPOSITION_ATTACHMENT = 'attachment';
     const DISPOSITION_INLINE = 'inline';
 
+    /**
+     * @var array
+     */
     protected $computedCacheControl = array();
+
+    /**
+     * @var array
+     */
     protected $cookies = array();
+
+    /**
+     * @var array
+     */
     protected $headerNames = array();
 
+    /**
+     * Constructor.
+     *
+     * @param array $headers An array of HTTP headers
+     */
     public function __construct(array $headers = array())
     {
         parent::__construct($headers);
@@ -126,6 +142,11 @@ class ResponseHeaderBag extends HeaderBag
         return array_key_exists($key, $this->computedCacheControl) ? $this->computedCacheControl[$key] : null;
     }
 
+    /**
+     * Sets a cookie.
+     *
+     * @param Cookie $cookie
+     */
     public function setCookie(Cookie $cookie)
     {
         $this->cookies[$cookie->getDomain()][$cookie->getPath()][$cookie->getName()] = $cookie;
@@ -260,7 +281,7 @@ class ResponseHeaderBag extends HeaderBag
     protected function computeCacheControlValue()
     {
         if (!$this->cacheControl && !$this->has('ETag') && !$this->has('Last-Modified') && !$this->has('Expires')) {
-            return 'no-cache';
+            return 'no-cache, private';
         }
 
         if (!$this->cacheControl) {

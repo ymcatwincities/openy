@@ -63,7 +63,7 @@ class Collection extends Composite
         foreach ($this->fields as $fieldName => $field) {
             // the XmlFileLoader and YamlFileLoader pass the field Optional
             // and Required constraint as an array with exactly one element
-            if (is_array($field) && 1 == count($field)) {
+            if (is_array($field) && count($field) == 1) {
                 $this->fields[$fieldName] = $field = $field[0];
             }
 

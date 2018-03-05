@@ -48,6 +48,8 @@ class DumperPrefixCollection extends DumperCollection
     /**
      * Adds a route in the tree.
      *
+     * @param DumperRoute $route The route
+     *
      * @return self
      *
      * @throws \LogicException
