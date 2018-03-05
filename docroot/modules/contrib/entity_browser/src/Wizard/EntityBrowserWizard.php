@@ -56,6 +56,16 @@ class EntityBrowserWizard extends EntityFormWizardBase {
   /**
    * {@inheritdoc}
    */
+  public function getPreviousParameters($cached_values) {
+    $parameters = parent::getPreviousParameters($cached_values);
+    $parameters['entity_browser'] = $parameters['machine_name'];
+    unset($parameters['machine_name']);
+    return $parameters;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getWizardLabel() {
     return $this->t('Entity browser');
   }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Form\IndexBreakLockForm.
- */
-
 namespace Drupal\search_api\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;
@@ -78,7 +73,7 @@ class IndexBreakLockForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Do you want to break the lock on search index %name?', array('%name' => $this->entity->id()));
+    return $this->t('Do you want to break the lock on search index %name?', ['%name' => $this->entity->id()]);
   }
 
   /**
@@ -87,11 +82,11 @@ class IndexBreakLockForm extends EntityConfirmFormBase {
   public function getDescription() {
     $locked = $this->tempStore->getMetadata($this->entity->id());
     $account = $this->entityTypeManager->getStorage('user')->load($locked->owner);
-    $username = array(
+    $username = [
       '#theme' => 'username',
       '#account' => $account,
-    );
-    return $this->t('By breaking this lock, any unsaved changes made by @user will be lost.', array('@user' => $this->renderer->render($username)));
+    ];
+    return $this->t('By breaking this lock, any unsaved changes made by @user will be lost.', ['@user' => $this->renderer->render($username)]);
   }
 
   /**
@@ -113,7 +108,7 @@ class IndexBreakLockForm extends EntityConfirmFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     if (!$this->tempStore->getMetadata($this->entity->id())) {
-      $form['message']['#markup'] = $this->t('There is no lock on search index %name to break.', array('%name' => $this->entity->id()));
+      $form['message']['#markup'] = $this->t('There is no lock on search index %name to break.', ['%name' => $this->entity->id()]);
       return $form;
     }
     return parent::buildForm($form, $form_state);
@@ -125,7 +120,7 @@ class IndexBreakLockForm extends EntityConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->tempStore->delete($this->entity->id());
     $form_state->setRedirectUrl($this->entity->toUrl('fields'));
-    drupal_set_message($this->t('The lock has been broken and you may now edit this search index.'));
+    drupal_set_message($this->t('The lock has been broken. You may now edit this search index.'));
   }
 
 }

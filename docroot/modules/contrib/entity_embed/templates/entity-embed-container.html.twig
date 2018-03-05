@@ -6,10 +6,11 @@
  * Available variables:
  * - attributes: HTML attributes for the containing element.
  * - children: The rendered child elements of the container.
+ * - url: The (sanitized) URL to link the embedded entity to, if any.
  *
  * @see template_preprocess_entity_embed_container()
  *
  * @ingroup themeable
  */
 #}
-<article{{ attributes }}>{{ children }}</article>
+<article{{ attributes }}>{% if url %}<a href='{{ url }}' {{ url_attributes|default('') }}>{{ children }}</a>{% else %}{{ children }}{% endif %}</article>

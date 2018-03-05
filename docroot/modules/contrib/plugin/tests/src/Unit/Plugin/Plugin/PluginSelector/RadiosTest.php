@@ -4,6 +4,7 @@ namespace Drupal\Tests\plugin\Unit\Plugin\Plugin\PluginSelector;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\SubformStateInterface;
 use Drupal\Core\PageCache\ResponsePolicy\KillSwitch;
 use Drupal\plugin\Plugin\Plugin\PluginSelector\AdvancedPluginSelectorBase;
 use Drupal\plugin\Plugin\Plugin\PluginSelector\Radios;
@@ -57,14 +58,14 @@ class RadiosTest extends PluginSelectorBaseTestBase {
    * @covers ::buildSelectorForm
    */
   public function testBuildSelectorFormWithoutAvailablePlugins() {
-    $form = [];
-    $form_state = $this->getMock(FormStateInterface::class);
+    $plugin_selector_form = [];
+    $plugin_selector_form_state = $this->getMock(SubformStateInterface::class);
 
     $this->selectablePluginManager->expects($this->any())
       ->method('getDefinitions')
       ->willReturn([]);
 
-    $build = $this->sut->buildSelectorForm($form, $form_state);
+    $build = $this->sut->buildSelectorForm($plugin_selector_form, $plugin_selector_form_state);
 
     $this->assertArrayHasKey('clear', $build);
   }

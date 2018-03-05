@@ -160,6 +160,7 @@ class EntityEmbedDialog extends FormBase {
       'data-entity-embed-display' => 'entity_reference:entity_reference_entity_view',
       'data-entity-embed-display-settings' => isset($form_state->get('entity_element')['data-entity-embed-settings']) ? $form_state->get('entity_element')['data-entity-embed-settings'] : [],
     ];
+
     $form_state->set('entity_element', $entity_element);
     $entity = $this->entityTypeManager->getStorage($entity_element['data-entity-type'])
       ->loadByProperties(['uuid' => $entity_element['data-entity-uuid']]);
@@ -438,6 +439,24 @@ class EntityEmbedDialog extends FormBase {
       $display->setContextValue('entity', $entity);
       $display->setAttributes($entity_element);
       $form['attributes']['data-entity-embed-display-settings'] += $display->buildConfigurationForm($form, $form_state);
+    }
+
+    if (isset($form['attributes']['data-entity-embed-display-settings'])) {
+      if (isset($entity_element['data-entity-embed-display-settings']) && !is_array($entity_element['data-entity-embed-display-settings'])) {
+        $entity_element['data-entity-embed-display-settings'] = Json::decode($entity_element['data-entity-embed-display-settings']);
+      }
+      // Supress Drupal's "Link image to" dropdown when embedding an image,
+      // since the 'Link to' option provides this functionality.
+      if (isset($form['attributes']['data-entity-embed-display-settings']['image_link'])) {
+        $form['attributes']['data-entity-embed-display-settings']['image_link']['#type'] = 'hidden';
+        $form['attributes']['data-entity-embed-display-settings']['image_link']['#value'] = '';
+      }
+      $form['attributes']['data-entity-embed-display-settings']['link_url'] = [
+        '#title' => t('Link to'),
+        '#description' => t('The URL you would like this item to link to. Leave blank for none.'),
+        '#type' => 'textfield',
+        '#default_value' => isset($entity_element['data-entity-embed-display-settings']['link_url']) ? Html::decodeEntities($entity_element['data-entity-embed-display-settings']['link_url']) : '',
+      ];
     }
 
     // When Drupal core's filter_align is being used, the text editor may

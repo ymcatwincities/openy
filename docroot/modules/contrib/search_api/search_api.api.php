@@ -31,6 +31,22 @@ function hook_search_api_backend_info_alter(array &$backend_info) {
 }
 
 /**
+ * Alter the features a given search server supports.
+ *
+ * @param string[] $features
+ *   The features supported by the server's backend.
+ * @param \Drupal\search_api\ServerInterface $server
+ *   The search server in question.
+ *
+ * @see \Drupal\search_api\Backend\BackendSpecificInterface::getSupportedFeatures()
+ */
+function hook_search_api_server_features_alter(array &$features, \Drupal\search_api\ServerInterface $server) {
+  if ($server->getBackend() instanceof \Drupal\search_api_solr\Plugin\search_api\backend\SearchApiSolrBackend) {
+    $features[] = 'my_custom_feature';
+  }
+}
+
+/**
  * Alter the available datasources.
  *
  * Modules may implement this hook to alter the information that defines
@@ -47,7 +63,6 @@ function hook_search_api_datasource_info_alter(array &$infos) {
   // I'm a traditionalist, I want them called "nodes"!
   $infos['entity:node']['label'] = t('Node');
 }
-
 
 /**
  * Alter the available processors.
@@ -78,7 +93,50 @@ function hook_search_api_processor_info_alter(array &$processors) {
  */
 function hook_search_api_data_type_info_alter(array &$data_type_definitions) {
   if (isset($data_type_definitions['text'])) {
-    $data_type_definitions['text'] = t('Parsed text');
+    $data_type_definitions['text']['label'] = t('Parsed text');
+  }
+}
+
+/**
+ * Alter the available parse modes.
+ *
+ * @param array $parse_mode_definitions
+ *   The definitions of the data type plugins.
+ *
+ * @see \Drupal\search_api\ParseMode\ParseModePluginBase
+ */
+function hook_search_api_parse_mode_info_alter(array &$parse_mode_definitions) {
+  if (isset($parse_mode_definitions['direct'])) {
+    $parse_mode_definitions['direct']['label'] = t('Solr syntax');
+  }
+}
+
+/**
+ * Alter the tracker info.
+ *
+ * @param array $tracker_info
+ *   The Search API tracker info array, keyed by tracker ID.
+ *
+ * @see \Drupal\search_api\Tracker\TrackerPluginBase
+ */
+function hook_search_api_tracker_info_alter(array &$tracker_info) {
+  if (isset($tracker_info['default'])) {
+    $tracker_info['default']['example_original_class'] = $tracker_info['default']['class'];
+    $tracker_info['default']['class'] = '\Drupal\my_module\Plugin\search_api\tracker\MyCustomImplementationTracker';
+  }
+}
+
+/**
+ * Alter the list of known search displays.
+ *
+ * @param array $displays
+ *   The Search API display info array, keyed by display ID.
+ *
+ * @see \Drupal\search_api\Display\DisplayPluginBase
+ */
+function hook_search_api_displays_alter(array &$displays) {
+  if (isset($displays['some_key'])) {
+    $displays['some_key']['label'] = t('New label for existing Display');
   }
 }
 
@@ -87,14 +145,75 @@ function hook_search_api_data_type_info_alter(array &$data_type_definitions) {
  *
  * @param array $mapping
  *   An array mapping all known (and supported) Drupal data types to their
- *   corresponding Search API data types. Empty values mean that fields of
+ *   corresponding Search API data types. A value of FALSE means that fields of
  *   that type should be ignored by the Search API.
  *
- * @see \Drupal\search_api\Utility::getFieldTypeMapping()
+ * @see \Drupal\search_api\Utility\DataTypeHelperInterface::getFieldTypeMapping()
  */
 function hook_search_api_field_type_mapping_alter(array &$mapping) {
-  $mapping['duration_iso8601'] = NULL;
+  $mapping['duration_iso8601'] = FALSE;
   $mapping['my_new_type'] = 'string';
+}
+
+/**
+ * Alter the mapping of Search API data types to their default Views handlers.
+ *
+ * Field handlers are not determined by these simplified (Search API) types, but
+ * by their actual property data types. For altering that mapping, see
+ * hook_search_api_views_field_handler_mapping_alter().
+ *
+ * @param array $mapping
+ *   An associative array with data types as the keys and Views table data
+ *   definition items as the values. In addition to all normally defined Search
+ *   API data types, keys can also be "options" for any field with an options
+ *   list, "entity" for general entity-typed fields or "entity:ENTITY_TYPE"
+ *   (with "ENTITY_TYPE" being the machine name of an entity type) for entities
+ *   of that type.
+ */
+function hook_search_api_views_handler_mapping_alter(array &$mapping) {
+  $mapping['entity:my_entity_type'] = [
+    'argument' => [
+      'id' => 'my_entity_type',
+    ],
+    'filter' => [
+      'id' => 'my_entity_type',
+    ],
+    'sort' => [
+      'id' => 'my_entity_type',
+    ],
+  ];
+  $mapping['date']['filter']['id'] = 'my_date_filter';
+}
+
+/**
+ * Alter the mapping of property types to their default Views field handlers.
+ *
+ * This is used in the Search API Views integration to create Search
+ * API-specific field handlers for all properties of datasources and some entity
+ * types.
+ *
+ * In addition to the definition returned here, for Field API fields, the
+ * "field_name" will be set to the field's machine name.
+ *
+ * @param array $mapping
+ *   An associative array with property data types as the keys and Views field
+ *   handler definitions as the values (that is, just the inner "field" portion
+ *   of Views data definition items). In some cases the value might also be NULL
+ *   instead, to indicate that properties of this type shouldn't have field
+ *   handlers. The data types in the keys might also contain asterisks (*) as
+ *   wildcard characters. Data types with wildcards will be matched only if no
+ *   specific type exists, and longer type patterns will be tried before shorter
+ *   ones. The "*" mapping therefore is the default if no other match could be
+ *   found.
+ */
+function hook_search_api_views_field_handler_mapping_alter(array &$mapping) {
+  $mapping['field_item:string_long'] = [
+    'id' => 'example_field',
+  ];
+  $mapping['example_property_type'] = [
+    'id' => 'example_field',
+    'some_option' => 'foo',
+  ];
 }
 
 /**
@@ -113,12 +232,16 @@ function hook_search_api_field_type_mapping_alter(array &$mapping) {
  */
 function hook_search_api_index_items_alter(\Drupal\search_api\IndexInterface $index, array &$items) {
   foreach ($items as $item_id => $item) {
-    list(, $raw_id) = \Drupal\search_api\Utility::splitCombinedId($item->getId());
+    list(, $raw_id) = \Drupal\search_api\Utility\Utility::splitCombinedId($item->getId());
     if ($raw_id % 5 == 0) {
       unset($items[$item_id]);
     }
   }
-  drupal_set_message(t('Indexing items on index %index with the following IDs: @ids', array('%index' => $index->label(), '@ids' => implode(', ', array_keys($items)))));
+  $arguments = [
+    '%index' => $index->label(),
+    '@ids' => implode(', ', array_keys($items)),
+  ];
+  drupal_set_message(t('Indexing items on index %index with the following IDs: @ids', $arguments));
 }
 
 /**
@@ -155,9 +278,8 @@ function hook_search_api_query_alter(\Drupal\search_api\Query\QueryInterface &$q
   $fields = $query->getIndex()->getFields();
   foreach ($query->getIndex()->getDatasources() as $datasource_id => $datasource) {
     if ($datasource->getEntityTypeId() == 'node') {
-      $field = \Drupal\search_api\Utility::createCombinedId($datasource_id, 'nid');
-      if (isset($fields[$field])) {
-        $query->addCondition($field, 10, '<>');
+      if (isset($fields['nid'])) {
+        $query->addCondition('nid', 10, '<>');
       }
     }
   }
@@ -176,9 +298,8 @@ function hook_search_api_query_TAG_alter(\Drupal\search_api\Query\QueryInterface
   $fields = $query->getIndex()->getFields();
   foreach ($query->getIndex()->getDatasources() as $datasource_id => $datasource) {
     if ($datasource->getEntityTypeId() == 'node') {
-      $field = \Drupal\search_api\Utility::createCombinedId($datasource_id, 'nid');
-      if (isset($fields[$field])) {
-        $query->addCondition($field, 10, '<>');
+      if (isset($fields['nid'])) {
+        $query->addCondition('nid', 10, '<>');
       }
     }
   }
@@ -211,20 +332,20 @@ function hook_search_api_results_TAG_alter(\Drupal\search_api\Query\ResultSetInt
 }
 
 /**
- * React when a search index was scheduled for reindexing
+ * React when a search index was scheduled for reindexing.
  *
  * @param \Drupal\search_api\IndexInterface $index
  *   The index scheduled for reindexing.
- * @param $clear
+ * @param bool $clear
  *   Boolean indicating whether the index was also cleared.
  */
 function hook_search_api_index_reindex(\Drupal\search_api\IndexInterface $index, $clear = FALSE) {
   \Drupal\Core\Database\Database::getConnection()->insert('example_search_index_reindexed')
-    ->fields(array(
+    ->fields([
       'index' => $index->id(),
       'clear' => $clear,
-      'update_time' => REQUEST_TIME,
-    ))
+      'update_time' => \Drupal::time()->getRequestTime(),
+    ])
     ->execute();
 }
 

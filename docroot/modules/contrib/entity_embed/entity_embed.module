@@ -6,6 +6,8 @@
  * format.
  */
 
+use Drupal\Component\Utility\UrlHelper;
+
 /**
  * Implements hook_theme().
  */
@@ -31,6 +33,11 @@ function template_preprocess_entity_embed_container(&$variables) {
   $variables['element'] += ['#attributes' => []];
   $variables['attributes'] = $variables['element']['#attributes'];
   $variables['children'] = $variables['element']['#children'];
+  if(isset($variables['element']['#context']['data-entity-embed-display-settings']['link_url'])) {
+    $variables['url'] = UrlHelper::filterBadProtocol($variables['element']['#context']['data-entity-embed-display-settings']['link_url']);
+  } else {
+    $variables['url'] = '';
+  }
 }
 
 /**
