@@ -4515,7 +4515,7 @@ tbody.collapse.in {
 }
 .nav > li > a:hover, .nav > li > a:focus {
   text-decoration: none;
-  background-color: #0060af;
+  background-color: #0056A6;
 }
 .nav > li.disabled > a {
   color: #777777;
@@ -4527,7 +4527,7 @@ tbody.collapse.in {
   cursor: not-allowed;
 }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-  background-color: #0060af;
+  background-color: #0056A6;
   border-color: #337ab7;
 }
 .nav .nav-divider {
