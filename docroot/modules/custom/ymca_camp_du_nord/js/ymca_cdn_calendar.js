@@ -10,11 +10,22 @@
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
 
+  function updateQueryStringParameter(uri, key, value) {
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+      return uri.replace(re, '$1' + key + "=" + value + '$2');
+    }
+    else {
+      return uri + separator + key + "=" + value;
+    }
+  }
+
   Drupal.cdn = Drupal.cdn || {};
 
   Drupal.cdn.check_borders_mobile = function(cell) {
+    cell.parents('.cdn-calendar-list').find('.tip').remove();
     if (cell.parents('.cdn-calendar-list').find('a.cdn-prs-product-mobile.selected').length > 1) {
-      cell.parents('.cdn-calendar-list').find('.tip').remove();
       cell.parents('.cdn-calendar-list').find('a.last-selected').removeClass('last-selected');
       var last = cell.parents('.cdn-calendar-list').find('a.cdn-prs-product-mobile.selected:last');
       if (last.find('.tip').length === 0) {
@@ -52,6 +63,10 @@
       var day_number = $(this).find('.fc-day-number').text() * 1;
       if (list.length > 1 && $.inArray(day_number, list) !== -1 && !$(this).hasClass('selected')) {
         $(this).addClass('selected');
+        // Disallow selection if booked days in range.
+        if ($(this).hasClass('booked')) {
+          products.removeClass('selected');
+        }
       }
     });
   };
@@ -70,6 +85,10 @@
       var day_number = $(this).find('.number').text() * 1;
       if (list.length > 1 && $.inArray(day_number, list) !== -1 && !$(this).hasClass('selected')) {
         $(this).addClass('selected');
+        // Disallow selection if booked days in range.
+        if ($(this).parent().hasClass('booked')) {
+          products.removeClass('selected');
+        }
       }
     });
   };
@@ -94,8 +113,10 @@
     footer.find('.price').text('$' + price);
     footer.find('.nights').text(nights);
     footer.addClass('active');
+    footer.parents('.cdn-village-footer').addClass('active');
     if (nights === 0) {
       footer.addClass('not-active').removeClass('active');
+      footer.parents('.cdn-village-footer').removeClass('active');
     }
     // To do: update related desktop calendar.
   };
@@ -121,8 +142,10 @@
     footer.find('.price').text('$' + price);
     footer.find('.nights').text(nights);
     footer.addClass('active');
+    footer.parents('.cdn-village-footer').addClass('active');
     if (nights === 0) {
       footer.addClass('not-active').removeClass('active');
+      footer.parents('.cdn-village-footer').removeClass('active');
     }
     // To do: update related mobile view calendar.
   };
@@ -179,7 +202,6 @@
           $(this)
             .attr('data-index', i);
           if ($(this).parents('table:eq(0)').find('tbody td:eq(' + i + ') .fc-day-number').length === 0) {
-
             if ($(this).parents('table:eq(0)').find('tbody td:eq(' + i + ') .fc-day-grid-event').length === 1) {
               var date = $(this).data('date');
               $(this)
@@ -190,11 +212,15 @@
                 .find('.fc-content')
                 .prepend('<div class="fc-day-number">' + number + '</div>');
             } else {
+              var text = '<div class="fc-day-number">' + number + '</div>';
+              if ($.inArray($(this).data('date'), settings.cdn.selected_dates) !== -1) {
+                text = '<a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-event-default cdn-prs-product fc-event-past fc-draggable ' + settings.cdn.selected_dates[$.inArray($(this).data('date'), settings.cdn.selected_dates)] + ' booked fake-booked" href="#"><div class="fc-content"><div class="fc-day-number">'+number+'</div><span class="fc-time">12a</span> <span class="fc-title"></span></div></a>';
+              }
               $(this)
                 .hide()
                 .parents('table:eq(0)')
                 .find('tbody td:eq(' + i + ')')
-                .prepend('<div class="fc-day-number">' + number + '</div>');
+                .prepend(text);
             }
           }
         });
@@ -205,7 +231,7 @@
         $(this).on('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          if ($(this).hasClass('booked')) {
+          if ($(this).parent().hasClass('booked')) {
             return;
           }
           if (!$(this).hasClass('selected')) {
@@ -229,7 +255,19 @@
         $(this).on('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
+          var allowSelection = true;
           if ($(this).hasClass('booked')) {
+            allowSelection = false;
+            // Check if previous date is selected and give a chance to select booked date as checkout date.
+            var i = $(this).index('a.cdn-prs-product');
+            if (i !== 0) {
+              var target = $('a.cdn-prs-product:eq(' + (i - 1) + ')', context);
+              if (target.hasClass('selected') && !target.hasClass('booked')) {
+                allowSelection = true;
+              }
+            }
+          }
+          if (!allowSelection) {
             return;
           }
           if (!$(this).hasClass('selected')) {
@@ -244,33 +282,47 @@
       });
 
       function cdn_change_village_capacity(val_v, val_c) {
-        $('.cdn-village-teaser, .cdn-calendar, .cdn-no-results').hide();
+        $('.cdn-village-teaser, .cdn-calendar, .cdn-no-results, .cdn-results-active-wrapper').hide();
         if (val_v !== 'all' || val_c !== 'all') {
           $('.cdn-village-teaser').each(function () {
             var i = $(this).data('index');
             // Filter only by village.
             if (val_v !== 'all' && val_c === 'all') {
               if ($(this).data('village_id') * 1 === val_v * 1) {
-                $('.cdn-village-teaser[data-index="' + i + '"], .cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').show();
+                $('.cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').parents('.cdn-results-active-wrapper').show();
               }
             }
             // Filter only by capacity.
             if (val_v === 'all' && val_c !== 'all') {
               if ($(this).data('total_capacity') * 1 === val_c * 1) {
-                $('.cdn-village-teaser[data-index="' + i + '"], .cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').show();
+                $('.cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').parents('.cdn-results-active-wrapper').show();
               }
             }
             // Filter by village and capacity.
             if (val_v !== 'all' && val_c !== 'all') {
               if ($(this).data('village_id') * 1 === val_v * 1 && $(this).data('total_capacity') * 1 === val_c * 1) {
-                $('.cdn-village-teaser[data-index="' + i + '"], .cdn-calendar[data-index="' + i +'"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').show();
+                $('.cdn-calendar[data-index="' + i + '"]').show();
+                $('.cdn-village-teaser[data-index="' + i + '"]').parents('.cdn-results-active-wrapper').show();
               }
             }
+
           });
         }
         else if (val_v === 'all' && val_c === 'all') {
           $('.cdn-village-teaser, .cdn-calendar').show();
         }
+        // Update queries with selected values.
+        $('.cdn-village-teaser > a').each(function () {
+          var q = $(this).attr('href');
+          q = updateQueryStringParameter(q, 'village', val_v);
+          q = updateQueryStringParameter(q, 'capacity', val_c);
+          $(this).attr('href', q);
+        });
         // if there are no results show a message.
         if ($('.cdn-village-teaser:visible').length === 0) {
           $('.cdn-no-results').show();
