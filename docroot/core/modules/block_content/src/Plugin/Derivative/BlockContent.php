@@ -21,12 +21,20 @@ class BlockContent extends DeriverBase implements ContainerDeriverInterface {
   protected $connection;
 
   /**
+   * The custom block storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $blockContentStorage;
+
+  /**
    * Constructs a BlockContent object.
    *
    * @param \Drupal\Core\Database\Connection $connection
    *   The database connection.
    */
-  public function __construct(Connection $connection) {
+  public function __construct(EntityStorageInterface $block_content_storage, Connection $connection) {
+    $this->blockContentStorage = $block_content_storage;
     $this->connection = $connection;
   }
 
@@ -34,7 +42,9 @@ class BlockContent extends DeriverBase implements ContainerDeriverInterface {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, $base_plugin_id) {
+    $entity_manager = $container->get('entity.manager');
     return new static(
+      $entity_manager->getStorage('block_content'),
       $container->get('database')
     );
   }
