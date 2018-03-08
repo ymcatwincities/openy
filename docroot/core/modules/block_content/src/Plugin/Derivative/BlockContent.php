@@ -3,7 +3,6 @@
 namespace Drupal\block_content\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
-use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -12,13 +11,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Retrieves block plugin definitions for all custom blocks.
  */
 class BlockContent extends DeriverBase implements ContainerDeriverInterface {
-
-  /**
-   * The database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected $connection;
 
   /**
    * The custom block storage.
@@ -30,12 +22,11 @@ class BlockContent extends DeriverBase implements ContainerDeriverInterface {
   /**
    * Constructs a BlockContent object.
    *
-   * @param \Drupal\Core\Database\Connection $connection
-   *   The database connection.
+   * @param \Drupal\Core\Entity\EntityStorageInterface $block_content_storage
+   *   The custom block storage.
    */
-  public function __construct(EntityStorageInterface $block_content_storage, Connection $connection) {
+  public function __construct(EntityStorageInterface $block_content_storage) {
     $this->blockContentStorage = $block_content_storage;
-    $this->connection = $connection;
   }
 
   /**
@@ -44,8 +35,7 @@ class BlockContent extends DeriverBase implements ContainerDeriverInterface {
   public static function create(ContainerInterface $container, $base_plugin_id) {
     $entity_manager = $container->get('entity.manager');
     return new static(
-      $entity_manager->getStorage('block_content'),
-      $container->get('database')
+      $entity_manager->getStorage('block_content')
     );
   }
 
@@ -53,19 +43,15 @@ class BlockContent extends DeriverBase implements ContainerDeriverInterface {
    * {@inheritdoc}
    */
   public function getDerivativeDefinitions($base_plugin_definition) {
-    $query = $this->connection->select('block_content', 'bc')
-      ->fields('bc');
-    $query->addJoin('left', 'block_content_field_revision', 'f', 'f.revision_id = bc.revision_id');
-    $query->fields('f');
-    $results = $query->execute();
+    $block_contents = $this->blockContentStorage->loadMultiple();
     // Reset the discovered definitions.
     $this->derivatives = [];
     /** @var $block_content \Drupal\block_content\Entity\BlockContent */
-    foreach ($results as $block_content) {
-      $this->derivatives[$block_content->uuid] = $base_plugin_definition;
-      $this->derivatives[$block_content->uuid]['admin_label'] = $block_content->info;
-      $this->derivatives[$block_content->uuid]['config_dependencies']['content'] = [
-        "block_content:{$block_content->uuid}:{$block_content->type}"
+    foreach ($block_contents as $block_content) {
+      $this->derivatives[$block_content->uuid()] = $base_plugin_definition;
+      $this->derivatives[$block_content->uuid()]['admin_label'] = $block_content->label();
+      $this->derivatives[$block_content->uuid()]['config_dependencies']['content'] = [
+        $block_content->getConfigDependencyName()
       ];
     }
     return parent::getDerivativeDefinitions($base_plugin_definition);
