@@ -5,7 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.content_browser_preview
     - field.field.node.location.field_alert
-    - field.field.node.location.field_content
+    - field.field.node.location.field_ygtc_content
     - field.field.node.location.field_facebook_page_id
     - field.field.node.location.field_include_general_blog_posts
     - field.field.node.location.field_join_override
@@ -27,7 +27,7 @@ targetEntityType: node
 bundle: location
 mode: content_browser_preview
 content:
-  field_content:
+  field_ygtc_content:
     type: text_trimmed
     weight: 0
     label: hidden
