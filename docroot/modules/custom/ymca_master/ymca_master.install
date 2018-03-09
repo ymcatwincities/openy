@@ -4986,3 +4986,88 @@ function ymca_master_update_8231() {
     ]
   );
 }
+
+/**
+ * Create a new field field_ygtc_content.
+ */
+function ymca_master_update_8232() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_ygtc_content',
+      'field.field.node.article.field_ygtc_content',
+      'field.field.node.blog.field_ygtc_content',
+      'field.field.node.camp.field_ygtc_content',
+      'field.field.node.location.field_ygtc_content',
+      'field.field.node.product.field_ygtc_content',
+    ]
+  );
+}
+
+/**
+ * Copy content from field_content to field_ygtc_content.
+ */
+function ymca_master_update_8233() {
+  db_query("INSERT {node__field_ygtc_content} SELECT * FROM {node__field_content}");
+  db_query("INSERT {node_revision__field_ygtc_content} SELECT * FROM {node_revision__field_content}");
+}
+
+/**
+ * Replace field_content with field_ygtc_content in all related configs.
+ */
+function ymca_master_update_8234() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'core.entity_form_display.node.article.default',
+      'core.entity_form_display.node.blog.default',
+      'core.entity_form_display.node.camp.default',
+      'core.entity_form_display.node.location.default',
+      'core.entity_view_display.node.article.content_browser_preview',
+      'core.entity_view_display.node.article.default',
+      'core.entity_view_display.node.article.full',
+      'core.entity_view_display.node.article.rss',
+      'core.entity_view_display.node.article.teaser',
+      'core.entity_view_display.node.blog.camp_blog_teaser',
+      'core.entity_view_display.node.blog.content_browser_preview',
+      'core.entity_view_display.node.blog.default',
+      'core.entity_view_display.node.blog.location_blog_teaser',
+      'core.entity_view_display.node.blog.teaser',
+      'core.entity_view_display.node.camp.content_browser_preview',
+      'core.entity_view_display.node.camp.default',
+      'core.entity_view_display.node.camp.teaser',
+      'core.entity_view_display.node.location.content_browser_preview',
+      'core.entity_view_display.node.location.default',
+      'core.entity_view_display.node.location.groupex',
+      'core.entity_view_display.node.location.schedules',
+      'core.entity_view_display.node.location.teaser',
+      'core.entity_view_display.node.product.default',
+      'core.entity_view_display.node.product.teaser',
+    ]
+  );
+}
+
+/**
+ * Remove 'field_content' field from all content types.
+ */
+function ymca_master_update_8235() {
+  $bundles = ['article', 'blog', 'camp', 'location', 'product'];
+  foreach ($bundles as $bundle) {
+    $field_config = FieldConfig::loadByName('node', $bundle, 'field_content');
+
+    $field_storage = $field_config->getFieldStorageDefinition();
+    $bundles = \Drupal::entityManager()->getBundleInfo($field_config->getTargetEntityTypeId());
+    $bundle_label = $bundles[$field_config->getTargetBundle()]['label'];
+
+    if ($field_storage && !$field_storage->isLocked()) {
+      $field_config->delete();
+      \Drupal::logger('ymca_master')->info('The field %field has been deleted from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+    } else {
+      \Drupal::logger('ymca_master')->error('There was a problem removing the %field from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+    }
+  }
+  // Fields are purged on cron.
+  field_purge_batch(10);
+}
