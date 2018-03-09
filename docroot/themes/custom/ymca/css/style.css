@@ -11726,6 +11726,10 @@ tr:nth-last-child(3) .atcb-list {
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.last-selected:hover .tip {
   display: block;
 }
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.last-selected:focus {
+  outline: none;
+  text-decoration: none;
+}
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-day-number {
   padding: 10px 0 0 0;
 }

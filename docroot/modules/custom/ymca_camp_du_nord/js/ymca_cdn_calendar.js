@@ -56,6 +56,7 @@
     // Select all dates we have to join.
     var list = [];
     for (var i = first_selected; i <= last_selected; i++) {
+      // Iterate dates and fill the array.
       list.push(i);
     }
     // Go through each product end ensure range is not splitted.
@@ -179,6 +180,7 @@
   $('.fullcalendar').each(function() {
     $(this).fullCalendar({
       defaultView: 'week',
+      eventStartEditable: false,
       views: {
         week: {
           type: 'basicWeek',
@@ -231,12 +233,37 @@
         $(this).on('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
+          var allowSelection = true;
           if ($(this).parent().hasClass('booked')) {
-            return;
+            allowSelection = false;
+            // Check if previous date is selected and give a chance to select booked date as checkout date.
+            var target = $(this).parent().prev();
+            if (target.length !== 0) {
+              if (target.find('a.cdn-prs-product-mobile').hasClass('selected') && !target.hasClass('booked')) {
+                allowSelection = true;
+              }
+            }
+          }
+          // Block select option if out of range.
+          if ($('a.cdn-prs-product-mobile.selected', context).length >= 2) {
+            var prev_sibling_s = $(this).parent().prev().find('a.cdn-prs-product-mobile'),
+                next_sibling_s = $(this).parent().next().find('a.cdn-prs-product-mobile');
+            if ((prev_sibling_s.length === 1 && prev_sibling_s.length === 1) && !prev_sibling_s.hasClass('selected') && !next_sibling_s.hasClass('selected')) {
+              allowSelection = false;
+            }
           }
           if (!$(this).hasClass('selected')) {
+            if (!allowSelection) {
+              return;
+            }
             $(this).addClass('selected');
           } else {
+            // Check if date is not in the middle of selected range.
+            var left_sibling = $(this).parent().prev().find('a.cdn-prs-product-mobile'),
+                right_sibling = $(this).parent().next().find('a.cdn-prs-product-mobile');
+            if (left_sibling.hasClass('selected') && right_sibling.hasClass('selected')) {
+              return;
+            }
             $(this).removeClass('selected');
           }
           Drupal.cdn.check_borders_mobile($(this));
@@ -267,12 +294,30 @@
               }
             }
           }
-          if (!allowSelection) {
-            return;
+          // Block select option if out of range.
+          if ($('a.cdn-prs-product.selected', context).length >= 2) {
+            var k = $(this).find('.fc-day-number').index('.fc-content-skeleton .fc-day-number'),
+                left_sibling_s = $('.fc-content-skeleton .fc-day-number:eq(' + (k - 1) + ')', context),
+                right_sibling_s = $('.fc-content-skeleton .fc-day-number:eq(' + (k + 1) + ')', context);
+            if ((left_sibling_s.length === 1 && left_sibling_s.length === 1) && left_sibling_s.parents('.selected').length === 0 && right_sibling_s.parents('.selected').length === 0) {
+              allowSelection = false;
+            }
           }
           if (!$(this).hasClass('selected')) {
+            if (!allowSelection) {
+              return;
+            }
             $(this).addClass('selected');
           } else {
+            // Check if date is not in the middle of selected range.
+            var j = $(this).index('a.cdn-prs-product');
+            if (j !== 0) {
+              var left_sibling = $('a.cdn-prs-product:eq(' + (j - 1) + ')', context),
+                  right_sibling = $('a.cdn-prs-product:eq(' + (j + 1) + ')', context);
+              if (left_sibling.hasClass('selected') && right_sibling.hasClass('selected')) {
+                return;
+              }
+            }
             $(this).removeClass('selected');
           }
           Drupal.cdn.check_borders($(this));
