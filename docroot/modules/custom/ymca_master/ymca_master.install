@@ -5048,26 +5048,3 @@ function ymca_master_update_8234() {
     ]
   );
 }
-
-/**
- * Remove 'field_content' field from all content types.
- */
-function ymca_master_update_8235() {
-  $bundles = ['article', 'blog', 'camp', 'location', 'product'];
-  foreach ($bundles as $bundle) {
-    $field_config = FieldConfig::loadByName('node', $bundle, 'field_content');
-
-    $field_storage = $field_config->getFieldStorageDefinition();
-    $bundles = \Drupal::entityManager()->getBundleInfo($field_config->getTargetEntityTypeId());
-    $bundle_label = $bundles[$field_config->getTargetBundle()]['label'];
-
-    if ($field_storage && !$field_storage->isLocked()) {
-      $field_config->delete();
-      \Drupal::logger('ymca_master')->info('The field %field has been deleted from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
-    } else {
-      \Drupal::logger('ymca_master')->error('There was a problem removing the %field from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
-    }
-  }
-  // Fields are purged on cron.
-  field_purge_batch(10);
-}
