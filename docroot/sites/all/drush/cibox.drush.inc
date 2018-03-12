@@ -181,6 +181,8 @@ function drush_cibox_get_unused_content_blocks() {
   }
   $used_in_fields = array_unique(array_values($used));
 
+  print_r("\n\n\nFound blocks in fields: " . count($used_in_fields) . "\n\n\n");
+
   // All block ids.
   $cbs = db_query(
     'SELECT bc.id as id, bc.uuid as uuid, bc.type as type, bcfd.Info as title FROM block_content bc LEFT JOIN block_content_field_data bcfd ON bc.id = bcfd.id ORDER BY id DESC'
@@ -252,7 +254,7 @@ function drush_cibox_get_unused_content_blocks() {
       ) === 'migrate_') {
       continue;
     }
-    $c = db_query('SHOW COLUMNS FROM ' . $name)->fetchAllKeyed();
+    $c = db_query('SHOW COLUMNS FROM ' . $name)->fetchAllKeyed(0, 0);
 
     foreach ($c as $cname => $ctype) {
       $clean_ctype = explode('(', $ctype);
@@ -272,7 +274,7 @@ function drush_cibox_get_unused_content_blocks() {
   $csv = [];
   foreach ($cbs as $cbid => $cdata) {
     // Skip block search if it was used in fields by entity_reference.
-    if (isset($used_in_fields[$cbid])) {
+    if (in_array($cbid, $used_in_fields)) {
       continue;
     }
     $cbuuid = $cdata->uuid;
@@ -284,7 +286,7 @@ function drush_cibox_get_unused_content_blocks() {
     $csv[$cbid]['type'] = $type;
 
     print_r(
-      "Analyzing Block ID: " . $cbid . " Type: " . $type . " Title: " . $title . "\n"
+      "\nAnalyzing Block ID: " . $cbid . " Type: " . $type . " Title: " . $title
     );
 
     // Search by uuid.
@@ -314,9 +316,9 @@ function drush_cibox_get_unused_content_blocks() {
           $wheres = $topspeed + $wheres;
 
           print_r(
-            "Table with block found by uuid: $name  : $cbuuid : Used" . key(
+            "\nTable with block found by uuid: $name  : $cbuuid : Used" . key(
               $f
-            ) . " times.\n"
+            ) . " times. Skipping...\n"
           );
         }
       }
@@ -342,7 +344,11 @@ function drush_cibox_get_unused_content_blocks() {
           unset($wheres[$speedname]);
           $wheres = $topspeed + $wheres;
 
-          print_r($name . ' : ' . $cbuuid . ' : ' . key($f) . "\n");
+          print_r(
+            "\nTable with block found by uuid: $name  : $cbuuid : Used " . key(
+              $f
+            ) . " times. Skipping...\n"
+          );
         }
       }
     }
