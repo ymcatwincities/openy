@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.location.field_alert
-    - field.field.node.location.field_content
+    - field.field.node.location.field_ygtc_content
     - field.field.node.location.field_facebook_page_id
     - field.field.node.location.field_fitness_phone
     - field.field.node.location.field_include_general_blog_posts
@@ -48,7 +48,7 @@ content:
       override_labels: false
     third_party_settings: {  }
     type: inline_entity_form_complex
-  field_content:
+  field_ygtc_content:
     weight: 15
     settings:
       rows: 5
