@@ -5,7 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.article.field_alert
-    - field.field.node.article.field_content
+    - field.field.node.article.field_ygtc_content
     - field.field.node.article.field_header_button
     - field.field.node.article.field_header_image
     - field.field.node.article.field_header_variant
@@ -31,7 +31,7 @@ targetEntityType: node
 bundle: article
 mode: full
 content:
-  field_content:
+  field_ygtc_content:
     weight: 0
     label: hidden
     settings: {  }
