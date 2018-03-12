@@ -24,6 +24,24 @@ use Drupal\user\RoleInterface;
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function ymca_master_update_dependencies() {
+  $dependencies['openy_media_image'] = [
+    8001 => [
+      'ymca_master' => 8232,
+    ],
+  ];
+  $dependencies['redirect'] = [
+    8105 => [
+      'system' => 8403,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Protecting sites with a shield.
  */
 function ymca_master_update_8001() {
@@ -4988,9 +5006,14 @@ function ymca_master_update_8231() {
 }
 
 /**
- * Install openy upgrade tool.
+ * Install required openy modules.
  */
 function ymca_master_update_8232() {
-  \Drupal::service('module_installer')->uninstall(['ymca_entity_browser']);
-  \Drupal::service('module_installer')->install(['openy_upgrade_tool', 'rabbit_hole'], TRUE);
+  \Drupal::service('module_installer')->uninstall(['ymca_entity_browser'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'openy_upgrade_tool',
+    'rabbit_hole',
+    'blazy',
+  ], TRUE);
 }
+
