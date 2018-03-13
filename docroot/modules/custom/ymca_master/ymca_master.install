@@ -20,6 +20,7 @@ use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
+use Drupal\field\Entity\FieldStorageConfig;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
@@ -5071,11 +5072,55 @@ function ymca_master_update_8234() {
  * Install required openy modules.
  */
 function ymca_master_update_8235() {
-  \Drupal::service('module_installer')->uninstall(['ymca_entity_browser'], TRUE);
+  \Drupal::service('module_installer')
+    ->uninstall(['ymca_entity_browser'], TRUE);
   \Drupal::service('module_installer')->install([
     'openy_upgrade_tool',
     'rabbit_hole',
     'blazy',
+    'openy_menu',
   ], TRUE);
+
+}
+
+/**
+ * Update configs.
+ */
+function ymca_master_update_8236() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $path = 'profiles/contrib/openy/modules/openy_features/openy_node/config/install';
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_mode.node.sidebar_teaser',
+      'field.storage.node.field_content',
+      'image.style.facebook',
+      'metatag.metatag_defaults.node',
+      'tour.tour.openy-landing-page-add',
+      'tour.tour.openy-node-add',
+      'tour.tour.openy-node-overview',
+    ]
+  );
+  $path = 'profiles/contrib/openy/modules/openy_features/openy_node/modules/openy_node_landing/config/install';
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs(
+    [
+      'field.field.node.landing_page.field_content',
+      'core.entity_form_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.full',
+      'core.entity_view_display.node.landing_page.teaser',
+    ]
+  );
+
+  $path = 'profiles/contrib/openy/modules/openy_features/openy_prgf/config/install';
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs(
+    [
+      'field.storage.paragraph.field_prgf_grid_style',
+      'field.storage.paragraph.field_prgf_title',
+      'openy_prgf.settings',
+    ]
+  );
 }
 
