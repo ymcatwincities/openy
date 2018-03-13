@@ -30,7 +30,7 @@ define('YGTC_CONFDIR', 'sites/default/config/staging/');
 function ymca_master_update_dependencies() {
   $dependencies['openy_media_image'] = [
     8001 => [
-      'ymca_master' => 8235,
+      'ymca_master' => 8239,
     ],
   ];
   $dependencies['redirect'] = [
@@ -5069,9 +5069,74 @@ function ymca_master_update_8234() {
 }
 
 /**
- * Install required openy modules.
+ * Delete field_content from node entity type.
  */
 function ymca_master_update_8235() {
+  // Deleting field.
+  $bundles = ['article', 'camp', 'blog', 'location', 'product'];
+  foreach ($bundles as $bundle) {
+    if ($field_config = FieldConfig::loadByName('node', $bundle, 'field_content')) {
+      $field_config->delete();
+    }
+  }
+  // Deleting field storage.
+  if ($field_storage_config = FieldStorageConfig::loadByName('node', 'field_content')) {
+    $field_storage_config->delete();
+  }
+}
+
+/**
+ * Import field_content storage config from openy_node.
+ */
+function ymca_master_update_8236() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_content',
+    ]
+  );
+}
+
+/**
+ * Import field_content config from openy_node_landing.
+ */
+function ymca_master_update_8237() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_landing') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.landing_page.field_content',
+    ]
+  );
+}
+
+/**
+ * Copy content from field_oy_content to field_content.
+ */
+function ymca_master_update_8238() {
+  db_query("INSERT {node__field_oy_content} SELECT * FROM {node__field_content}");
+  db_query("INSERT {node_revision__field_oy_content} SELECT * FROM {node_revision__field_content}");
+}
+
+/**
+ * Delete field_oy_content from node entity type.
+ */
+function ymca_master_update_8239() {
+  // Deleting field.
+  if ($field_config = FieldConfig::loadByName('node', 'landing_page', 'field_oy_content')) {
+    $field_config->delete();
+  }
+  // Deleting field storage.
+  if ($field_storage_config = FieldStorageConfig::loadByName('node', 'field_oy_content')) {
+    $field_storage_config->delete();
+  }
+}
+
+/**
+ * Install required openy modules.
+ */
+function ymca_master_update_8240() {
   \Drupal::service('module_installer')->install([
     'openy_upgrade_tool',
     'rabbit_hole',
@@ -5083,7 +5148,7 @@ function ymca_master_update_8235() {
 /**
  * Update configs.
  */
-function ymca_master_update_8236() {
+function ymca_master_update_8241() {
   $config_importer = \Drupal::service('config_import.importer');
   $path = 'profiles/contrib/openy/modules/openy_features/openy_node/config/install';
   $config_importer->setDirectory($path);
