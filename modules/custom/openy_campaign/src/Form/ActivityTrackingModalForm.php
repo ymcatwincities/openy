@@ -6,6 +6,8 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\node\Entity\Node;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\Entity\MemberCampaignActivity;
@@ -67,6 +69,11 @@ class ActivityTrackingModalForm extends FormBase {
     $term = Term::load($topTermId);
     $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
 
+    $memberCampaign = MemberCampaign::load($memberCampaignId);
+    $campaignId = $memberCampaign->getCampaign()->id();
+    $campaign = Node::load($campaignId);
+    $enableActivitiesCounter = $campaign->field_enable_activities_counter->value;
+
     $form['#prefix'] = '<div class="activity_tracking_form_wrapper">';
     $form['#suffix'] = '</div>';
 
@@ -88,9 +95,11 @@ class ActivityTrackingModalForm extends FormBase {
 
     $existingActivitiesEntities = $this->entityTypeManager->getStorage('openy_campaign_memb_camp_actv')->loadMultiple($existingActivitiesIds);
     $default_values = [];
+    $activity_count_values = [];
     /** @var \Drupal\openy_campaign\Entity\MemberCampaignActivity $activity */
     foreach ($existingActivitiesEntities as $activity) {
-      $default_values[$activity->activity->entity->id()] = $activity->activity->entity->id();
+      $default_values[] = $activity->activity->entity->id();
+      $activity_count_values[$activity->activity->entity->id()] = $activity->count->value;
     }
     $form['activities'] = [
       '#title' => $this->t('What activities did you do?'),
@@ -100,6 +109,19 @@ class ActivityTrackingModalForm extends FormBase {
       '#validated' => TRUE,
     ];
 
+    if ($enableActivitiesCounter) {
+      $form['activities_count'] = [
+        '#type' => 'container',
+        '#tree' => TRUE,
+      ];
+      foreach (array_keys($options) as $activityId) {
+        $form['activities_count'][$activityId] = [
+          '#type' => 'textfield',
+          '#value' => floatval($activity_count_values[$activityId]) ?? 0,
+        ];
+      }
+    }
+
     $form['member_campaign_id'] = [
       '#value' => $memberCampaignId,
       '#type' => 'hidden',
@@ -107,6 +129,11 @@ class ActivityTrackingModalForm extends FormBase {
 
     $form['date'] = [
       '#value' => $date,
+      '#type' => 'hidden',
+    ];
+
+    $form['enable_activities_counter'] = [
+      '#value' => $enableActivitiesCounter,
       '#type' => 'hidden',
     ];
 

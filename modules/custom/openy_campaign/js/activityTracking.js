@@ -1,5 +1,4 @@
-Drupal.behaviors.activityTracking = {
-    attach: function (context, settings) {
+jQuery(function() {
 
         var $ = jQuery;
 
@@ -29,7 +28,7 @@ Drupal.behaviors.activityTracking = {
                         breakpoint: 1024,
                         settings: {
                             slidesToShow: 5,
-                            slidesToScroll: 3,
+                            slidesToScroll: 3
                             //infinite: true,
                         }
                     },
@@ -108,8 +107,7 @@ Drupal.behaviors.activityTracking = {
             });
         }
 
-        $('.activity-data .activity-daily-data .category-data input').on('change', function (e) {
-
+        $('.activity-data .activity-daily-data .category-data input.form-checkbox').on('change', function (e) {
             var formData = $(e.target).closest('form');
             var data = $(e.target).parents('.activity-daily-data').find('input[name="date"]').val();
 
@@ -129,5 +127,4 @@ Drupal.behaviors.activityTracking = {
             $('h3.current-month').html(currentMonth);
             openActivityData(activeDate);
         });
-    }
-}
+});

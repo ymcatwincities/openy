@@ -512,6 +512,13 @@ function openy_campaign_field_widget_form_alter(&$element, FormStateInterface $f
  */
 function openy_campaign_form_node_campaign_form_alter(&$form, FormStateInterface $form_state) {
   openy_campaign_campaign_menu_field_render($form, $form_state);
+
+  // Show "Enable Activities Counter" checkbox if only "Tracking Activity" is checked.
+  $form['field_enable_activities_counter']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
+    ]
+  ];
 }
 
 /**
@@ -536,6 +543,13 @@ function openy_campaign_form_node_campaign_edit_form_alter(&$form, FormStateInte
     }
   }
   openy_campaign_campaign_menu_field_render($form, $form_state);
+
+  // Show "Enable Activities Counter" checkbox if only "Tracking Activity" is checked.
+  $form['field_enable_activities_counter']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
+    ]
+  ];
 }
 
 /**

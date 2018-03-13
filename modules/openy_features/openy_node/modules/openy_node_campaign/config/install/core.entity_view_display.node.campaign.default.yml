@@ -29,6 +29,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
+    - field.field.node.campaign.field_enable_activities_counter
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -233,6 +234,16 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_enable_activities_counter:
+    weight: 144
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_error_default:
     weight: 126
