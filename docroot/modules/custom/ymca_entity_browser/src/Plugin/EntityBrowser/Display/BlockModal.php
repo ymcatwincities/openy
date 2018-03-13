@@ -1,36 +1,37 @@
 <?php
 
-//namespace Drupal\ymca_entity_browser\Plugin\EntityBrowser\Display;
-//
-//use Drupal\Component\Utility\Html;
-//use Drupal\Component\Uuid\UuidInterface;
-//use Drupal\Core\Config\ConfigFactory;
-//use Drupal\Core\Config\ConfigFactoryInterface;
-//use Drupal\Core\Config\ImmutableConfig;
-//use Drupal\Core\Routing\RouteMatchInterface;
-//use Drupal\Core\Url;
-//use Drupal\entity_browser\DisplayRouterInterface;
-//use Drupal\entity_browser\Events\Events;
-//use Drupal\entity_browser\Events\RegisterJSCallbacks;
-//use Drupal\entity_browser\Plugin\EntityBrowser\Display\Modal;
-//use Symfony\Component\DependencyInjection\ContainerInterface;
-//use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-//use Drupal\Core\Path\CurrentPathStack;
-//use Drupal\Core\Form\FormStateInterface;
-//use Symfony\Component\HttpFoundation\Request;
-//use Drupal\entity_browser\Events\AlterEntityBrowserDisplayData;
-//
-///**
-// * Presents entity browser in an Modal.
-// *
-// * @EntityBrowserDisplay(
-// *   id = "block_modal",
-// *   label = @Translation("Block Modal"),
-// *   description = @Translation("Displays entity browser (custom block) in a Modal."),
-// *   uses_route = TRUE
-// * )
-// */
-//class BlockModal extends Modal implements DisplayRouterInterface {
+namespace Drupal\ymca_entity_browser\Plugin\EntityBrowser\Display;
+
+use Drupal\Component\Utility\Html;
+use Drupal\Component\Uuid\UuidInterface;
+use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\ImmutableConfig;
+use Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\entity_browser\DisplayRouterInterface;
+use Drupal\entity_browser\Events\Events;
+use Drupal\entity_browser\Events\RegisterJSCallbacks;
+use Drupal\entity_browser\Plugin\EntityBrowser\Display\Modal;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Drupal\Core\Path\CurrentPathStack;
+use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Drupal\entity_browser\Events\AlterEntityBrowserDisplayData;
+
+/**
+ * Presents entity browser in an Modal.
+ *
+ * @EntityBrowserDisplay(
+ *   id = "block_modal",
+ *   label = @Translation("Block Modal"),
+ *   description = @Translation("Displays entity browser (custom block) in a Modal."),
+ *   uses_route = TRUE
+ * )
+ */
+class BlockModal extends Modal implements DisplayRouterInterface {
 //
 //  /**
 //   * Config factory.
@@ -153,4 +154,4 @@
 //    ];
 //  }
 //
-//}
+}
