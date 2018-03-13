@@ -66,38 +66,62 @@ class ActivityTrackingController extends ControllerBase {
     $dateRoute = \DateTime::createFromFormat('Y-m-d', $visit_date);
     $date = new \DateTime($dateRoute->format('d-m-Y'));
     $activityIds = $params['activities'];
+    $activities_count = $params['activities_count'] ?? [];
+
     $memberCampaignId = $params['member_campaign_id'];
 
     // Delete all records first.
-    $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, array_values($activityIds));
+    $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date);
 
     entity_delete_multiple('openy_campaign_memb_camp_actv', $existingActivityIds);
+
+    $memberCampaign = MemberCampaign::load($memberCampaignId);
+    $campaignId = $memberCampaign->getCampaign()->id();
+    $campaign = Node::load($campaignId);
+    $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
+    $allowedActivities = [];
+    foreach ($utilizationActivities as $utilizationActivity) {
+      $allowedActivities[] = $utilizationActivity['value'];
+    }
+    $saveUtilizationActivity = in_array('tracking', $allowedActivities);
+    $utilizationActivitySaved = FALSE;
 
     // Save new selection.
     $activityIds = array_filter($activityIds);
 
     foreach ($activityIds as $activityTermId) {
+      // If Activity Counter is disabled save zero value.
+      if ($campaign->field_enable_activities_counter->value) {
+        $activityCount = $activities_count[$activityTermId] ?? 0.0;
+      }
+      else {
+        $activityCount = 0.0;
+      }
+
+      // To prevent duplicate activities creation we need to check
+      // if the activity was not created earlier.
+      $query = \Drupal::entityQuery('openy_campaign_memb_camp_actv')
+        ->condition('member_campaign', $memberCampaignId)
+        ->condition('activity', $activityTermId)
+        ->condition('date', $date->format('U'))
+        ->execute();
+      if (!empty($query)) {
+        continue;
+      }
+
       $preparedData = [
         'created' => time(),
         'date' => $date->format('U'),
         'member_campaign' => $memberCampaignId,
         'activity' => $activityTermId,
+        'count' => floatval($activityCount),
       ];
 
       $activity = MemberCampaignActivity::create($preparedData);
       $activity->save();
 
       // Mark user for activate utilization activity.
-      $memberCampaign = MemberCampaign::load($memberCampaignId);
-      $campaignId = $memberCampaign->getCampaign()->id();
-      $campaign = Node::load($campaignId);
-      $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
-      $activities = [];
-      foreach ($utilizationActivities as $utilizationActivity) {
-        $activities[] = $utilizationActivity['value'];
-      }
-
-      if (in_array('tracking', $activities)) {
+      if ($saveUtilizationActivity && !$utilizationActivitySaved) {
         $loadedEntity = \Drupal::entityQuery('openy_campaign_util_activity')
           ->condition('member_campaign', $memberCampaignId)
           ->execute();
@@ -110,6 +134,8 @@ class ActivityTrackingController extends ControllerBase {
           ];
           $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
           $campaignUtilizationActivity->save();
+
+          $utilizationActivitySaved = TRUE;
         }
       }
     }
