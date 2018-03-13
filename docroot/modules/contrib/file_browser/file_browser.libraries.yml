@@ -4,6 +4,12 @@ iframe:
     theme:
       css/file_browser.iframe.css: {}
 
+dropzone_css:
+  version: VERSION
+  css:
+    theme:
+      css/file_browser.dropzone.css: {}
+
 view:
   version: VERSION
   js:
@@ -12,18 +18,11 @@ view:
     theme:
       css/file_browser.view.css: {}
   dependencies:
-    - core/jquery
     - core/drupal
+    - core/jquery
+    - core/jquery.once
     - file_browser/imagesloaded
     - file_browser/masonry
-
-entity_embed:
-  version: VERSION
-  js:
-    js/file_browser.entity_embed.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal
 
 imagesloaded:
   remote: https://github.com/desandro/imagesloaded

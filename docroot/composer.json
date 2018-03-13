@@ -120,6 +120,9 @@
       "patches": {
         "drupal/core": {
 
+        },
+        "ymcatwincities/openy": {
+          "Remove dependency to some modules": "patches/remove_dependency_to_some_modules.patch"
         }
       },
         "_readme": [
@@ -147,7 +150,9 @@
     "drupal/csv_serialization": "1.0",
     "drupal/search_api": "1.7",
     "drupal/search_api_solr": "1.2",
-    "doctrine/annotations": "1.4.0"
+    "drupal/file_browser": "1.1",
+    "doctrine/annotations": "1.4.0",
+    "drupal/console": "^1.7"
   },
   "replace": {
     "drupal/webprofiler": "8.*",

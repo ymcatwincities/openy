@@ -7,6 +7,7 @@ dependencies:
     - node.type.file_browser
   module:
     - image
+    - file_browser_example
     - text
     - user
 _core:
