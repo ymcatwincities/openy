@@ -20,6 +20,7 @@ use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
+use Drupal\field\Entity\FieldStorageConfig;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
@@ -5047,4 +5048,69 @@ function ymca_master_update_8234() {
       'core.entity_view_display.node.product.teaser',
     ]
   );
+}
+
+/**
+ * Delete field_content from node entity type.
+ */
+function ymca_master_update_8235() {
+  // Deleting field.
+  $bundles = ['article', 'camp', 'blog', 'location', 'product'];
+  foreach ($bundles as $bundle) {
+    if ($field_config = FieldConfig::loadByName('node', $bundle, 'field_content')) {
+      $field_config->delete();
+    }
+  }
+  // Deleting field storage.
+  if ($field_storage_config = FieldStorageConfig::loadByName('node', 'field_content')) {
+    $field_storage_config->delete();
+  }
+}
+
+/**
+ * Import field_content storage config from openy_node.
+ */
+function ymca_master_update_8236() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_content',
+    ]
+  );
+}
+
+/**
+ * Import field_content config from openy_node_landing.
+ */
+function ymca_master_update_8237() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_landing') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.landing_page.field_content',
+    ]
+  );
+}
+
+/**
+ * Copy content from field_oy_content to field_content.
+ */
+function ymca_master_update_8238() {
+  db_query("INSERT {node__field_oy_content} SELECT * FROM {node__field_content}");
+  db_query("INSERT {node_revision__field_oy_content} SELECT * FROM {node_revision__field_content}");
+}
+
+/**
+ * Delete field_oy_content from node entity type.
+ */
+function ymca_master_update_8239() {
+  // Deleting field.
+  if ($field_config = FieldConfig::loadByName('node', 'landing_page', 'field_oy_content')) {
+    $field_config->delete();
+  }
+  // Deleting field storage.
+  if ($field_storage_config = FieldStorageConfig::loadByName('node', 'field_oy_content')) {
+    $field_storage_config->delete();
+  }
 }
