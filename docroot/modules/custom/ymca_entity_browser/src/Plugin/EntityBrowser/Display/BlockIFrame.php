@@ -1,54 +1,54 @@
 <?php
-//
-//namespace Drupal\ymca_entity_browser\Plugin\EntityBrowser\Display;
-//
-//use Drupal\Component\Uuid\UuidInterface;
-//use Drupal\Core\Form\FormStateInterface;
-//use Drupal\Core\Path\CurrentPathStack;
-//use Drupal\Core\Routing\RouteMatchInterface;
-//use Drupal\Core\Url;
-//use Drupal\embed\EmbedButtonInterface;
-//use Drupal\embed\Entity\EmbedButton;
-//use Drupal\entity_browser\DisplayRouterInterface;
-//use Drupal\entity_browser\Events\Events;
-//use Drupal\entity_browser\Events\RegisterJSCallbacks;
-//use Drupal\entity_browser\Events\AlterEntityBrowserDisplayData;
-//use Drupal\entity_browser\Plugin\EntityBrowser\Display\IFrame;
-//use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-//use Symfony\Component\HttpFoundation\Request;
-//
-///**
-// * Presents entity browser in an iFrame.
-// *
-// * @EntityBrowserDisplay(
-// *   id = "block_iframe",
-// *   label = @Translation("iFrame (Block)"),
-// *   description = @Translation("Displays entity browser (Block) in an iFrame."),
-// *   uses_route = TRUE
-// * )
-// */
-//class BlockIFrame extends IFrame implements DisplayRouterInterface {
-//
-//  /**
-//   * BlockIFrame constructor.
-//   *
-//   * @param array $configuration
-//   *   Configuration.
-//   * @param string $plugin_id
-//   *   Plugin ID.
-//   * @param mixed $plugin_definition
-//   *   Plugin definition.
-//   * @param EventDispatcherInterface $event_dispatcher
-//   *   Event dispatcher.
-//   * @param RouteMatchInterface $current_route_match
-//   *   RouteMatchInterface.
-//   * @param UuidInterface $uuid
-//   *   UUID.
-//   * @param Request $request
-//   *   Request.
-//   * @param CurrentPathStack $current_path
-//   *   CurrentPathStack.
-//   */
+
+namespace Drupal\ymca_entity_browser\Plugin\EntityBrowser\Display;
+
+use Drupal\Component\Uuid\UuidInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Path\CurrentPathStack;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\embed\EmbedButtonInterface;
+use Drupal\embed\Entity\EmbedButton;
+use Drupal\entity_browser\DisplayRouterInterface;
+use Drupal\entity_browser\Events\Events;
+use Drupal\entity_browser\Events\RegisterJSCallbacks;
+use Drupal\entity_browser\Events\AlterEntityBrowserDisplayData;
+use Drupal\entity_browser\Plugin\EntityBrowser\Display\IFrame;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Presents entity browser in an iFrame.
+ *
+ * @EntityBrowserDisplay(
+ *   id = "block_iframe",
+ *   label = @Translation("iFrame (Block)"),
+ *   description = @Translation("Displays entity browser (Block) in an iFrame."),
+ *   uses_route = TRUE
+ * )
+ */
+class BlockIFrame extends IFrame implements DisplayRouterInterface {
+
+  /**
+   * BlockIFrame constructor.
+   *
+   * @param array $configuration
+   *   Configuration.
+   * @param string $plugin_id
+   *   Plugin ID.
+   * @param mixed $plugin_definition
+   *   Plugin definition.
+   * @param EventDispatcherInterface $event_dispatcher
+   *   Event dispatcher.
+   * @param RouteMatchInterface $current_route_match
+   *   RouteMatchInterface.
+   * @param UuidInterface $uuid
+   *   UUID.
+   * @param Request $request
+   *   Request.
+   * @param CurrentPathStack $current_path
+   *   CurrentPathStack.
+   */
 //  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $current_route_match, UuidInterface $uuid, Request $request, CurrentPathStack $current_path) {
 //    parent::__construct($configuration, $plugin_id, $plugin_definition, $event_dispatcher, $current_route_match, $uuid, $request, $current_path);
 //  }
@@ -120,5 +120,5 @@
 //      ],
 //    ];
 //  }
-//
-//}
+
+}
