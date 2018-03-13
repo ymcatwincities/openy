@@ -23,7 +23,9 @@ function cibox_drush_command() {
   $items['get-unused-content-blocks'] = [
     'description' => 'Generate CSV file for block content entities not used.',
     'options' => [],
-    'arguments' => [],
+    'arguments' => [
+      'list' => 'Comma separated list of block_content IDs to skip.',
+    ],
     // Bootstrap to DRUSH_BOOTSTAP_DRUPAL_SITE to pick the correct site.
     // Further bootstrap is done by the rebuild script.
     'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_FULL,
@@ -98,8 +100,12 @@ function drush_cibox_cache_rebuild() {
 
 }
 
-function drush_cibox_get_unused_content_blocks() {
+function drush_cibox_get_unused_content_blocks($list = '') {
 
+  $ids_to_skip = [];
+  if ($list) {
+    $ids_to_skip = explode(',', $list);
+  }
   chdir(DRUPAL_ROOT);
   // Clear the APC cache to ensure APC class loader is reset.
   if (function_exists('apc_fetch')) {
@@ -201,7 +207,14 @@ function drush_cibox_get_unused_content_blocks() {
   }
   $used_in_fields = array_unique(array_values($used));
 
+
   print_r("\n\n\nFound blocks in fields: " . count($used_in_fields) . "\n\n\n");
+  $used_in_fields = array_merge($used_in_fields, $ids_to_skip);
+  print_r(
+    "\n\n\nTotal blocks to skip from removal: " . count(
+      $used_in_fields
+    ) . "\n\n\n"
+  );
 
   // All block ids.
   $cbs = db_query(
@@ -423,22 +436,24 @@ function drush_cibox_remove_node_revisions() {
   )->fetchAllAssoc('nid');
 
   foreach ($nodes as $nid => $ndata) {
-    try {
-      $vids = \Drupal::entityTypeManager()->getStorage('node')->revisionIds(
-        node_load($nid)
-      );
-      print_r("\nProcessing node: $nid \nRemoving revisions:");
-      foreach ($vids as $vid) {
-        if ($vid == $ndata->vid) {
-          print_r(" ( skipping default: $vid ) ");
-          continue;
-        }
+
+    $vids = \Drupal::entityTypeManager()->getStorage('node')->revisionIds(
+      node_load($nid)
+    );
+    print_r("\nProcessing node: $nid \nRemoving revisions:");
+    foreach ($vids as $vid) {
+      if ($vid == $ndata->vid) {
+        print_r(" ( skipping default: $vid ) ");
+        continue;
+      }
+      try {
         \Drupal::entityTypeManager()->getStorage('node')->deleteRevision($vid);
         print_r(" $vid ");
+      } catch (Exception $e) {
+        // Latest revision will not be deleted but throws an error
+        print_r("\nError: " . $e->getMessage());
       }
-    } catch (Exception $e) {
-      // Latest revision will not be deleted but throws an error
-      print_r("Error: " . $e->getMessage());
     }
+
   }
 }
