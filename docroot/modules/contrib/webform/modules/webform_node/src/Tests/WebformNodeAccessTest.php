@@ -104,7 +104,7 @@ class WebformNodeAccessTest extends WebformNodeTestBase {
   /**
    * Tests webform node access rules.
    *
-   * @see \Drupal\webform\Tests\WebformAccessTest::testAccessRules
+   * @see \Drupal\webform\Tests\WebformEntityAccessTest::testAccessRules
    */
   public function testAccessRules() {
     $webform = Webform::load('contact');

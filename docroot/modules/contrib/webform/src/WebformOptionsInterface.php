@@ -47,6 +47,6 @@ interface WebformOptionsInterface extends ConfigEntityInterface {
    * @return array
    *   An associative array of options.
    */
-  public static function getElementOptions(array $element, $property_name = '#options');
+  public static function getElementOptions(array &$element, $property_name = '#options');
 
 }

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels\Tests;
 
 use Drupal\simpletest\WebTestBase;

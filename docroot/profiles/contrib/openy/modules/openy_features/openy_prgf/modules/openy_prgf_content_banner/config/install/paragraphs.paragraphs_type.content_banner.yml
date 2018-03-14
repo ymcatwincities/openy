@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: content_banner
-label: 'Content Banner'
-behavior_plugins: {  }

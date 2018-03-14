@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\IndexListBuilder.
- */
-
 namespace Drupal\search_api;
 
 use Drupal\Component\Utility\Html;
@@ -50,8 +45,8 @@ class IndexListBuilder extends ConfigEntityListBuilder {
   public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
     return new static(
       $entity_type,
-      $container->get('entity.manager')->getStorage($entity_type->id()),
-      $container->get('entity.manager')->getStorage('search_api_server')
+      $container->get('entity_type.manager')->getStorage($entity_type->id()),
+      $container->get('entity_type.manager')->getStorage('search_api_server')
     );
   }
 
@@ -63,16 +58,16 @@ class IndexListBuilder extends ConfigEntityListBuilder {
 
     if ($entity instanceof IndexInterface) {
       $route_parameters['search_api_index'] = $entity->id();
-      $operations['fields'] = array(
+      $operations['fields'] = [
         'title' => $this->t('Fields'),
         'weight' => 20,
         'url' => new Url('entity.search_api_index.fields', $route_parameters),
-      );
-      $operations['processors'] = array(
+      ];
+      $operations['processors'] = [
         'title' => $this->t('Processors'),
         'weight' => 30,
         'url' => new Url('entity.search_api_index.processors', $route_parameters),
-      );
+      ];
     }
 
     return $operations;
@@ -82,14 +77,14 @@ class IndexListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    return array(
+    return [
       'type' => $this->t('Type'),
       'title' => $this->t('Name'),
-      'status' => array(
+      'status' => [
         'data' => $this->t('Status'),
-        'class' => array('checkbox'),
-      ),
-    ) + parent::buildHeader();
+        'class' => ['checkbox'],
+      ],
+    ] + parent::buildHeader();
   }
 
   /**
@@ -99,43 +94,58 @@ class IndexListBuilder extends ConfigEntityListBuilder {
     /** @var \Drupal\Core\Config\Entity\ConfigEntityInterface $entity */
     $row = parent::buildRow($entity);
 
-    $status_label = $entity->status() ? $this->t('Enabled') : $this->t('Disabled');
-    $status_icon = array(
+    $status = $entity->status();
+    $status_server = TRUE;
+    $status_label = $status ? $this->t('Enabled') : $this->t('Disabled');
+
+    if ($entity instanceof ServerInterface && $entity->status() && !$entity->isAvailable()) {
+      $status = FALSE;
+      $status_server = FALSE;
+      $status_label = $this->t('Unavailable');
+    }
+
+    $status_icon = [
       '#theme' => 'image',
-      '#uri' => $entity->status() ? 'core/misc/icons/73b355/check.svg' : 'core/misc/icons/e32700/error.svg',
+      '#uri' => $status ? 'core/misc/icons/73b355/check.svg' : 'core/misc/icons/e32700/error.svg',
       '#width' => 18,
       '#height' => 18,
       '#alt' => $status_label,
       '#title' => $status_label,
-    );
+    ];
 
-    return array(
-      'data' => array(
-        'type' => array(
+    $row = [
+      'data' => [
+        'type' => [
           'data' => $entity instanceof ServerInterface ? $this->t('Server') : $this->t('Index'),
-          'class' => array('search-api-type'),
-        ),
-        'title' => array(
-          'data' => array(
-              '#type' => 'link',
-              '#title' => $entity->label(),
-              '#suffix' => '<div>' . $entity->get('description') . '</div>',
-            ) + $entity->urlInfo('canonical')->toRenderArray(),
-          'class' => array('search-api-title'),
-        ),
-        'status' => array(
+          'class' => ['search-api-type'],
+        ],
+        'title' => [
+          'data' => [
+            '#type' => 'link',
+            '#title' => $entity->label(),
+            '#suffix' => '<div>' . $entity->get('description') . '</div>',
+          ] + $entity->toUrl('canonical')->toRenderArray(),
+          'class' => ['search-api-title'],
+        ],
+        'status' => [
           'data' => $status_icon,
-          'class' => array('checkbox'),
-        ),
+          'class' => ['checkbox'],
+        ],
         'operations' => $row['operations'],
-      ),
-      'title' => $this->t('ID: @name', array('@name' => $entity->id())),
-      'class' => array(
+      ],
+      'title' => $this->t('ID: @name', ['@name' => $entity->id()]),
+      'class' => [
         Html::cleanCssIdentifier($entity->getEntityTypeId() . '-' . $entity->id()),
-        $entity->status() ? 'search-api-list-enabled' : 'search-api-list-disabled',
+        $status ? 'search-api-list-enabled' : 'search-api-list-disabled',
         $entity instanceof ServerInterface ? 'search-api-list-server' : 'search-api-list-index',
-      ),
-    );
+      ],
+    ];
+
+    if (!$status_server) {
+      $row['class'][] = 'color-error';
+    }
+
+    return $row;
   }
 
   /**
@@ -146,16 +156,16 @@ class IndexListBuilder extends ConfigEntityListBuilder {
     $list['#type'] = 'container';
     $list['#attached']['library'][] = 'search_api/drupal.search_api.admin_css';
 
-    $list['servers'] = array(
+    $list['servers'] = [
       '#type' => 'table',
       '#header' => $this->buildHeader(),
-      '#rows' => array(),
+      '#rows' => [],
       '#empty' => $entity_groups['lone_indexes'] ? '' : $this->t('There are no servers or indexes defined. For a quick start, we suggest you install the Database Search Defaults module.'),
-      '#attributes' => array(
+      '#attributes' => [
         'id' => 'search-api-entity-list',
-        'class' => array('search-api-entity-list'),
-      ),
-    );
+        'class' => ['search-api-entity-list'],
+      ],
+    ];
     foreach ($entity_groups['servers'] as $server_groups) {
       /** @var \Drupal\Core\Config\Entity\ConfigEntityInterface $entity */
       foreach ($server_groups as $entity) {
@@ -166,11 +176,11 @@ class IndexListBuilder extends ConfigEntityListBuilder {
     // Output the list of indexes without a server separately.
     if (!empty($entity_groups['lone_indexes'])) {
       $list['lone_indexes']['heading']['#markup'] = '<h3>' . $this->t('Indexes not currently associated with any server') . '</h3>';
-      $list['lone_indexes']['table'] = array(
+      $list['lone_indexes']['table'] = [
         '#type' => 'table',
         '#header' => $this->buildHeader(),
-        '#rows' => array(),
-      );
+        '#rows' => [],
+      ];
 
       foreach ($entity_groups['lone_indexes'] as $entity) {
         $list['lone_indexes']['table']['#rows'][$entity->id()] = $this->buildRow($entity);
@@ -197,11 +207,11 @@ class IndexListBuilder extends ConfigEntityListBuilder {
     $this->sortByStatusThenAlphabetically($indexes);
     $this->sortByStatusThenAlphabetically($servers);
 
-    $server_groups = array();
+    $server_groups = [];
     foreach ($servers as $server) {
-      $server_group = array(
+      $server_group = [
         'server.' . $server->id() => $server,
-      );
+      ];
 
       foreach ($server->getIndexes() as $index) {
         $server_group['index.' . $index->id()] = $index;
@@ -213,10 +223,10 @@ class IndexListBuilder extends ConfigEntityListBuilder {
       $server_groups['server.' . $server->id()] = $server_group;
     }
 
-    return array(
+    return [
       'servers' => $server_groups,
       'lone_indexes' => $indexes,
-    );
+    ];
   }
 
   /**

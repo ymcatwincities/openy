@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.9.0 - 2017-12-04
+
+### Added
+
+- [#52](https://github.com/zendframework/zend-feed/pull/52) adds support for PHP
+  7.2
+
+- [#53](https://github.com/zendframework/zend-feed/pull/53) adds a number of
+  additional aliases to the `Writer\ExtensionPluginManager` to ensure plugins
+  will be pulled as expected.
+
+- [#63](https://github.com/zendframework/zend-feed/pull/63) adds the feed title
+  to the attributes incorporated in the `FeedSet` instance, per what was already
+  documented.
+
+- [#55](https://github.com/zendframework/zend-feed/pull/55) makes two API
+  additions to the `StandaloneExtensionManager` implementations of both the reader
+  and writer subcomponents:
+
+  - `$manager->add($name, $class)` will add an extension class using the
+    provided name.
+  - `$manager->remove($name)` will remove an existing extension by the provided
+    name.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#52](https://github.com/zendframework/zend-feed/pull/52) removes support for
+  HHVM.
+
+### Fixed
+
+- [#50](https://github.com/zendframework/zend-feed/pull/50) fixes a few issues
+  in the PubSubHubbub `Subscription` model where counting was being performed on
+  uncountable data; this ensures the subcomponent will work correctly under PHP
+  7.2.
+
 ## 2.8.0 - 2017-04-02
 
 ### Added

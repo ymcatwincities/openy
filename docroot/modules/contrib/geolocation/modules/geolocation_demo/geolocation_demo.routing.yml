@@ -1,0 +1,31 @@
+geolocation_demo.widget_forms:
+  path: '/geolocation-demo/widgets'
+  defaults:
+    _controller: '\Drupal\geolocation_demo\Controller\DemoWidgetFormsController::widgets'
+    _title: 'Widgets offered by geolocation'
+  requirements:
+    _permission: 'access content'
+
+geolocation_demo.formatters:
+  path: '/geolocation-demo/formatters'
+  defaults:
+    _controller: '\Drupal\geolocation_demo\Controller\DemoFormattersController::formatters'
+    _title: 'Formatters offered by geolocation'
+  requirements:
+    _permission: 'access content'
+
+geolocation_demo.render_elements:
+  path: '/geolocation-demo/elements/render'
+  defaults:
+    _controller: '\Drupal\geolocation_demo\Controller\DemoRenderElementController::renderElementDemo'
+    _title: 'RenderElements offered by geolocation'
+  requirements:
+    _permission: 'access content'
+
+geolocation_demo.form_elements:
+  path: '/geolocation-demo/elements/form'
+  defaults:
+    _form: '\Drupal\geolocation_demo\Form\DemoFormElement'
+    _title: 'FormElements offered by geolocation'
+  requirements:
+    _permission: 'access content'

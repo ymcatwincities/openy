@@ -135,12 +135,12 @@ Option 1:
 
 Option 2:
 
-  $node = Node::create(array(
+  $node = Node::create([
     'type' => article,
     'langcode' => 'en',
     'status' => 1,
     'uid' => 1,
-  ));
+  ]);
   $node->set('title', 'Testing metatag creation');
   $node->set('field_meta_tags', serialize([
     'title' => 'Some title',

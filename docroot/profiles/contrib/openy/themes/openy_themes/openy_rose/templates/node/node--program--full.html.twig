@@ -112,15 +112,17 @@
     <div class="two-column">
       {# Program content #}
       <div class="main-region col-sm-8">
-        {{ content.field_oy_content }}
+        {{ content.field_content }}
       </div>
 
       {# Program sidebar #}
+      {% if content.field_sidebar_content.0 %}
       <div class="sidebar-region col-sm-4">
-        <article class="program-sidebar">
+        <div class="program-sidebar">
           {{ content.field_sidebar_content }}
-        </article>
+        </div>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>

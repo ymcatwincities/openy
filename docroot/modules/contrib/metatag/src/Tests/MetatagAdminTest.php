@@ -169,7 +169,6 @@ class MetatagAdminTest extends WebTestBase {
     foreach ($xpath[0]->children() as $item) {
       if (!empty($item->option)) {
         $data = (array)$item->option;
-        // $this->verbose('<pre>' . print_r($data, TRUE) . '</pre>');
         $types[$data['@attributes']['value']] = $data[0];
       }
     }

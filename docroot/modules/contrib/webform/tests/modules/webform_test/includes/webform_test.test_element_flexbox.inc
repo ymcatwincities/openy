@@ -30,9 +30,13 @@ function webform_test_test_element_flexbox() {
 
     $group = ($webform_element->isContainer($element)) ? 'containers' : 'elements';
     $left_element = $element;
-    $left_element['#title'] .= ' 01';
+    if (isset($left_element['#title'])) {
+      $left_element['#title'] .= ' 01';
+    }
     $right_element = $element;
-    $right_element['#title'] .= ' 02';
+    if (isset($right_element['#title'])) {
+      $right_element['#title'] .= ' 02';
+    }
     $data[$group]['flexbox_' . $element_type] = [
       '#type' => 'webform_flexbox',
       'flex_' . $element_type . '_left' => $left_element ,

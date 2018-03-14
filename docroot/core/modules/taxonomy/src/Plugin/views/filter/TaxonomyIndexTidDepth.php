@@ -2,6 +2,7 @@
 
 namespace Drupal\taxonomy\Plugin\views\filter;
 
+use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -54,7 +55,7 @@ class TaxonomyIndexTidDepth extends TaxonomyIndexTid {
       $operator = '=';
     }
     else {
-      $operator = 'IN';# " IN (" . implode(', ', array_fill(0, sizeof($this->value), '%d')) . ")";
+      $operator = 'IN';
     }
 
     // The normal use of ensureMyTable() here breaks Views.
@@ -72,7 +73,7 @@ class TaxonomyIndexTidDepth extends TaxonomyIndexTid {
     // Now build the subqueries.
     $subquery = db_select('taxonomy_index', 'tn');
     $subquery->addField('tn', 'nid');
-    $where = db_or()->condition('tn.tid', $this->value, $operator);
+    $where = (new Condition('OR'))->condition('tn.tid', $this->value, $operator);
     $last = "tn";
 
     if ($this->options['depth'] > 0) {

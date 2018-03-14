@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * The Easy Breadcrumb module improves the core system breadcrumbs.
+ *
+ * Easy Breadcrumb uses the URL (path alias) and the current page's title
+ * (when available) to obtain the breadcrumb's segments and its respective
+ * links. The resulting block will be something like:
+ * "Home >> Contact Us" or "Home / Contact us".
+ * Such presentation could vary depending on the configuration of the module.
+ */
+
+namespace Drupal\easy_breadcrumb;

@@ -56,7 +56,7 @@ trait WebformTermReferenceTrait {
     ];
     $form['term_reference']['breadcrumb'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Display term hierarchy using breadcrumbs.'),
+      '#title' => $this->t('Display term hierarchy using breadcrumbs'),
       '#return_value' => TRUE,
     ];
     $form['term_reference']['breadcrumb_delimiter'] = [

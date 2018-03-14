@@ -88,3 +88,151 @@ function openy_loc_facility_update_8003() {
     'dependencies.module'
   );
 }
+
+/**
+ * Update view display for facility page.
+ */
+function openy_loc_facility_update_8004() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.facility.full' => [
+      'dependencies.config',
+      'content.field_facility_loc.settings.view_mode',
+      'content.field_location_phone.label'
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update description for field meta tags.
+ */
+function openy_loc_facility_update_8005() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_facility');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.facility.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.facility.field_meta_tags',
+    'description'
+  );
+}
+
+/**
+ * Import rabbit_hole config.
+ */
+function openy_loc_facility_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rabbit_hole.behavior_settings.taxonomy_vocabulary_facility_type',
+  ]);
+}
+
+/**
+ * Show directions in full view mode.
+ */
+function openy_loc_facility_update_8007() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.facility.full' => [
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Fixing configs.
+ */
+function openy_loc_facility_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.facility.full' => [
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update OpenY facility location paragraph feature configs.
+ */
+function openy_loc_facility_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.facility.default' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_form_display.node.facility.default' => [
+      'dependencies.module',
+      'content',
+    ],
+    'core.entity_view_display.node.facility.teaser' => [
+      'dependencies.config',
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs for Drupal Core upgrade.
+ */
+function openy_loc_facility_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.facility.default' => [
+      'content.langcode',
+      'content.status',
+      'content.addthis',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

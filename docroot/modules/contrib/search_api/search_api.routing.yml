@@ -6,6 +6,15 @@ search_api.overview:
   requirements:
     _permission: 'administer search_api'
 
+search_api.execute_tasks:
+  path: '/admin/config/search/search-api/execute-tasks'
+  defaults:
+    _controller: '\Drupal\search_api\Controller\TaskController::executeTasks'
+    _title: 'Execute pending tasks'
+  requirements:
+    _permission: 'administer search_api'
+    _search_api_tasks: 'TRUE'
+
 entity.search_api_server.add_form:
   path: '/admin/config/search/search-api/add-server'
   defaults:
@@ -21,6 +30,10 @@ entity.search_api_server.canonical:
     _title: "View"
   requirements:
     _entity_access: 'search_api_server.view'
+  options:
+    parameters:
+      search_api_server:
+        with_config_overrides: TRUE
 
 entity.search_api_server.edit_form:
   path: '/admin/config/search/search-api/server/{search_api_server}/edit'
@@ -35,6 +48,10 @@ entity.search_api_server.delete_form:
     _entity_form: 'search_api_server.delete'
   requirements:
     _entity_access: 'search_api_server.delete'
+  options:
+    parameters:
+      search_api_server:
+        with_config_overrides: TRUE
 
 entity.search_api_server.enable:
   path: '/admin/config/search/search-api/server/{search_api_server}/enable'
@@ -57,6 +74,10 @@ entity.search_api_server.clear:
     _entity_form: 'search_api_server.clear'
   requirements:
     _entity_access: 'search_api_server.clear'
+  options:
+    parameters:
+      search_api_server:
+        with_config_overrides: TRUE
 
 entity.search_api_index.add_form:
   path: '/admin/config/search/search-api/add-index'
@@ -72,6 +93,10 @@ entity.search_api_index.canonical:
     _title_callback: '\Drupal\search_api\Controller\IndexController::pageTitle'
   requirements:
     _entity_access: 'search_api_index.view'
+  options:
+    parameters:
+      search_api_index:
+        with_config_overrides: TRUE
 
 entity.search_api_index.edit_form:
   path: '/admin/config/search/search-api/index/{search_api_index}/edit'
@@ -86,6 +111,10 @@ entity.search_api_index.delete_form:
     _entity_form: 'search_api_index.delete'
   requirements:
     _entity_access: 'search_api_index.delete'
+  options:
+    parameters:
+      search_api_index:
+        with_config_overrides: TRUE
 
 entity.search_api_index.enable:
   path: '/admin/config/search/search-api/index/{search_api_index}/enable'
@@ -104,10 +133,73 @@ entity.search_api_index.disable:
 
 entity.search_api_index.fields:
   path: '/admin/config/search/search-api/index/{search_api_index}/fields'
+  options:
+    parameters:
+      search_api_index:
+        tempstore: TRUE
+        type: 'entity:search_api_index'
   defaults:
     _entity_form: 'search_api_index.fields'
   requirements:
     _entity_access: 'search_api_index.fields'
+
+entity.search_api_index.add_fields:
+  path: '/admin/config/search/search-api/index/{search_api_index}/fields/add/nojs'
+  options:
+    parameters:
+      search_api_index:
+        tempstore: TRUE
+        type: 'entity:search_api_index'
+  defaults:
+    _entity_form: 'search_api_index.add_fields'
+  requirements:
+    _entity_access: 'search_api_index.fields'
+
+entity.search_api_index.add_fields_ajax:
+  path: '/admin/config/search/search-api/index/{search_api_index}/fields/add/ajax'
+  options:
+    parameters:
+      search_api_index:
+        tempstore: TRUE
+        type: 'entity:search_api_index'
+  defaults:
+    _entity_form: 'search_api_index.add_fields'
+  requirements:
+    _entity_access: 'search_api_index.fields'
+
+entity.search_api_index.field_config:
+  path: '/admin/config/search/search-api/index/{search_api_index}/fields/edit/{field_id}'
+  options:
+    parameters:
+      search_api_index:
+        tempstore: TRUE
+        type: 'entity:search_api_index'
+  defaults:
+    _title: 'Edit field'
+    _entity_form: 'search_api_index.field_config'
+  requirements:
+    _entity_access: 'search_api_index.fields'
+
+entity.search_api_index.remove_field:
+  path: '/admin/config/search/search-api/index/{search_api_index}/fields/remove/{field_id}'
+  options:
+    parameters:
+      search_api_index:
+        tempstore: TRUE
+        type: 'entity:search_api_index'
+  defaults:
+    _controller: 'Drupal\search_api\Controller\IndexController::removeField'
+  requirements:
+    _entity_access: 'search_api_index.fields'
+    _csrf_token: 'TRUE'
+
+entity.search_api_index.break_lock_form:
+  path: '/admin/config/search/search-api/index/{search_api_index}/fields/break-lock'
+  defaults:
+    _entity_form: 'search_api_index.break_lock'
+    _title: 'Break lock'
+  requirements:
+    _entity_access: 'search_api_index.break-lock'
 
 entity.search_api_index.processors:
   path: '/admin/config/search/search-api/index/{search_api_index}/processors'
@@ -122,6 +214,10 @@ entity.search_api_index.reindex:
     _entity_form: 'search_api_index.reindex'
   requirements:
     _entity_access: 'search_api_index.reindex'
+  options:
+    parameters:
+      search_api_index:
+        with_config_overrides: TRUE
 
 entity.search_api_index.clear:
   path: '/admin/config/search/search-api/index/{search_api_index}/clear'
@@ -129,3 +225,18 @@ entity.search_api_index.clear:
     _entity_form: 'search_api_index.clear'
   requirements:
     _entity_access: 'search_api_index.clear'
+  options:
+    parameters:
+      search_api_index:
+        with_config_overrides: TRUE
+
+entity.search_api_index.rebuild_tracker:
+  path: '/admin/config/search/search-api/index/{search_api_index}/rebuild-tracker'
+  defaults:
+    _entity_form: 'search_api_index.rebuild_tracker'
+  requirements:
+    _entity_access: 'search_api_index.rebuild_tracker'
+  options:
+    parameters:
+      search_api_index:
+        with_config_overrides: TRUE

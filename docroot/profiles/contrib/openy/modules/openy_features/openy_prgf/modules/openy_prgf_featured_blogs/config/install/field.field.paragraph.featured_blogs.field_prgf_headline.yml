@@ -9,7 +9,7 @@ field_name: field_prgf_headline
 entity_type: paragraph
 bundle: featured_blogs
 label: Headline
-description: ''
+description: 'Headline of the banner.'
 required: false
 translatable: true
 default_value: {  }

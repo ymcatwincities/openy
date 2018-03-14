@@ -8,6 +8,7 @@ use Drupal\Component\Utility\Xss;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
+use Drupal\webform\Plugin\WebformElement\WebformComposite;
 
 /**
  * Helper class webform element methods.
@@ -40,11 +41,34 @@ class WebformElementHelper {
   ];
 
   /**
+   * Ignored element sub properties used by composite elements.
+   *
+   * @var array
+   */
+  public static $ignoredSubProperties = [
+    // Properties that will allow code injection.
+    '#allowed_tags' => '#allowed_tags',
+    // Properties that will break webform data handling.
+    '#tree' => '#tree',
+    '#array_parents' => '#array_parents',
+    '#parents' => '#parents',
+    // Callbacks are blocked to prevent unwanted code executions.
+    '#after_build' => '#after_build',
+    '#element_validate' => '#element_validate',
+    '#post_render' => '#post_render',
+    '#pre_render' => '#pre_render',
+    '#process' => '#process',
+    '#submit' => '#submit',
+    '#validate' => '#validate',
+    '#value_callback' => '#value_callback',
+  ];
+
+  /**
    * Regular expression used to determine if sub-element property should be ignored.
    *
    * @var string
    */
-  protected static $ignoredPropertiesRegExp;
+  protected static $ignoredSubPropertiesRegExp;
 
   /**
    * Determine if a webform element's title is displayed.
@@ -118,6 +142,55 @@ class WebformElementHelper {
   }
 
   /**
+   * Enhance select menu with the Select2 or the Chosen library.
+   *
+   * Please Note: Select2 is preferred library for Webform administrative
+   * forms.
+   *
+   * @param array $element
+   *   A select element.
+   * @param bool $library
+   *   Flag to automatically detect and apply library.
+   *
+   * @return array
+   *   The select element with Select2 or Chosen class and library attached.
+   */
+  public static function enhanceSelect(array &$element, $library = FALSE) {
+    // If automatic is FALSE, look at the element's #select2 and #chosen
+    // property.
+    if (!$library) {
+      if (isset($element['#select2'])) {
+        $library = 'select2';
+      }
+      elseif (isset($element['#chosen'])) {
+        $library = 'chosen';
+      }
+    }
+
+    if ($library === FALSE) {
+      return $element;
+    }
+
+    /** @var \Drupal\webform\WebformLibrariesManagerInterface $libaries_manager */
+    $libaries_manager = \Drupal::service('webform.libraries_manager');
+
+    // Add select2 library and classes.
+    if (($library === TRUE || $library === 'select2') && $libaries_manager->isIncluded('jquery.select2')) {
+      $element['#attached']['library'][] = 'webform/webform.element.select2';
+      $element['#attributes']['class'][] = 'js-webform-select2';
+      $element['#attributes']['class'][] = 'webform-select2';
+    }
+    // Add chosen library and classes.
+    elseif (($library === TRUE || $library === 'chosen') && $libaries_manager->isIncluded('jquery.chosen')) {
+      $element['#attached']['library'][] = 'webform/webform.element.chosen';
+      $element['#attributes']['class'][] = 'js-webform-chosen';
+      $element['#attributes']['class'][] = 'webform-chosen';
+    }
+
+    return $element;
+  }
+
+  /**
    * Fix webform element #states handling.
    *
    * @param array $element
@@ -144,6 +217,11 @@ class WebformElementHelper {
     // Attach library.
     $element['#attached']['library'][] = 'core/drupal.states';
 
+    // Copy #states to #_webform_states property which can be used by the
+    // WebformSubmissionConditionsValidator.
+    // @see \Drupal\webform\WebformSubmissionConditionsValidator
+    $element['#_webform_states'] = $element['#states'];
+
     // Remove #states property to prevent nesting.
     unset($element['#states']);
   }
@@ -163,6 +241,23 @@ class WebformElementHelper {
       if (Element::property($key)) {
         if (self::isIgnoredProperty($key)) {
           $ignored_properties[$key] = $key;
+        }
+        elseif ($key == '#element' && is_array($value) && isset($element['#type']) && $element['#type'] === 'webform_composite') {
+          foreach ($value as $composite_value) {
+
+            // Multiple sub composite elements are not supported.
+            if (isset($composite_value['#multiple'])) {
+              $ignored_properties['#multiple'] = t('Custom composite sub elements do not support elements with multiple values.');
+            }
+
+            // Check that sub composite element type is supported.
+            if (isset($composite_value['#type']) && !WebformComposite::isSupportedElementType($composite_value['#type'])) {
+              $composite_type = $composite_value['#type'];
+              $ignored_properties["composite.$composite_type"] = t('Custom composite elements do not support the %type element.', ['%type' => $composite_type]);
+            }
+
+            $ignored_properties += self::getIgnoredProperties($composite_value);
+          }
         }
       }
       elseif (is_array($value)) {
@@ -205,15 +300,15 @@ class WebformElementHelper {
    * @see \Drupal\webform\Element\WebformCompositeBase::processWebformComposite
    */
   protected static function isIgnoredProperty($property) {
-    // Build cached ignored properties regular expression.
-    if (!isset(self::$ignoredPropertiesRegExp)) {
-      self::$ignoredPropertiesRegExp = '/__(' . implode('|', array_keys(WebformArrayHelper::removePrefix(self::$ignoredProperties))) . ')$/';
+    // Build cached ignored sub properties regular expression.
+    if (!isset(self::$ignoredSubPropertiesRegExp)) {
+      self::$ignoredSubPropertiesRegExp = '/__(' . implode('|', array_keys(WebformArrayHelper::removePrefix(self::$ignoredSubProperties))) . ')$/';
     }
 
     if (isset(self::$ignoredProperties[$property])) {
       return TRUE;
     }
-    elseif (strpos($property, '__') !== FALSE && preg_match(self::$ignoredPropertiesRegExp, $property)) {
+    elseif (strpos($property, '__') !== FALSE && preg_match(self::$ignoredSubPropertiesRegExp, $property)) {
       return TRUE;
     }
     else {

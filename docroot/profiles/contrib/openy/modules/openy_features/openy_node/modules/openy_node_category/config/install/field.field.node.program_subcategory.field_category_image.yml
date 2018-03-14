@@ -10,7 +10,7 @@ field_name: field_category_image
 entity_type: node
 bundle: program_subcategory
 label: Image
-description: ''
+description: 'A image field, for uploading the category image.'
 required: false
 translatable: true
 default_value: {  }

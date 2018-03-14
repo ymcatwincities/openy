@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.landing_page.field_bottom_content
-    - field.field.node.landing_page.field_oy_content
+    - field.field.node.landing_page.field_content
     - field.field.node.landing_page.field_header_content
     - field.field.node.landing_page.field_lp_layout
     - field.field.node.landing_page.field_meta_tags
@@ -27,12 +27,12 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: ''
+        description: 'Page should contain one and only one paragraph with H1 heading: Small banner, Banner, Gallery'
         required_fields: true
       label: 'Header Area'
     group_content_area:
       children:
-        - field_oy_content
+        - field_content
       parent_name: ''
       weight: 3
       format_type: tab
@@ -74,11 +74,19 @@ targetEntityType: node
 bundle: landing_page
 mode: default
 content:
+  addthis:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    region: content
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 7
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_bottom_content:
     weight: 26
     settings:
@@ -89,7 +97,8 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
-  field_oy_content:
+    region: content
+  field_content:
     weight: 11
     settings:
       title: Paragraph
@@ -99,6 +108,7 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   field_header_content:
     weight: 10
     settings:
@@ -109,16 +119,19 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   field_lp_layout:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_meta_tags:
     weight: 26
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
+    region: content
   field_sidebar_content:
     weight: 12
     settings:
@@ -129,28 +142,50 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   path:
     type: path
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 8
     third_party_settings: {  }
+    region: content
   publish_on:
     type: datetime_timestamp_no_default
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
+  scheduler_settings:
+    weight: 20
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 9
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -158,6 +193,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 6
@@ -166,9 +202,11 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   unpublish_on:
     type: datetime_timestamp_no_default
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

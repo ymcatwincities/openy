@@ -1,21 +1,21 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Plugin\search_api\processor\Transliteration.
- */
-
 namespace Drupal\search_api\Plugin\search_api\processor;
 
+use Drupal\Component\Transliteration\TransliterationInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\search_api\Processor\FieldsProcessorPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
+ * Makes searches insensitive to accents and other non-ASCII characters.
+ *
  * @SearchApiProcessor(
  *   id = "transliteration",
  *   label = @Translation("Transliteration"),
  *   description = @Translation("Makes searches insensitive to accents and other non-ASCII characters."),
  *   stages = {
+ *     "pre_index_save" = 0,
  *     "preprocess_index" = -20,
  *     "preprocess_query" = -20
  *   }
@@ -31,6 +31,13 @@ class Transliteration extends FieldsProcessorPluginBase {
   protected $transliterator;
 
   /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface|null
+   */
+  protected $languageManager;
+
+  /**
    * The language to use for transliterating.
    *
    * @var string
@@ -44,12 +51,10 @@ class Transliteration extends FieldsProcessorPluginBase {
     /** @var static $processor */
     $processor = parent::create($container, $configuration, $plugin_id, $plugin_definition);
 
-    /** @var \Drupal\Component\Transliteration\TransliterationInterface $transliterator */
-    $transliterator = $container->get('transliteration');
-    $processor->setTransliterator($transliterator);
-    /** @var \Drupal\Core\Language\LanguageManagerInterface $language_manager */
-    $language_manager = $container->get('language_manager');
-    $processor->setLangcode($language_manager->getDefaultLanguage()->getId());
+    $processor->setTransliterator($container->get('transliteration'));
+    $processor->setLanguageManager($container->get('language_manager'));
+    $langcode = $processor->getLanguageManager()->getDefaultLanguage()->getId();
+    $processor->setLangcode($langcode);
 
     return $processor;
   }
@@ -72,8 +77,31 @@ class Transliteration extends FieldsProcessorPluginBase {
    *
    * @return $this
    */
-  public function setTransliterator($transliterator) {
+  public function setTransliterator(TransliterationInterface $transliterator) {
     $this->transliterator = $transliterator;
+    return $this;
+  }
+
+  /**
+   * Retrieves the language manager.
+   *
+   * @return \Drupal\Core\Language\LanguageManagerInterface
+   *   The language manager.
+   */
+  public function getLanguageManager() {
+    return $this->languageManager ?: \Drupal::languageManager();
+  }
+
+  /**
+   * Sets the language manager.
+   *
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The new language manager.
+   *
+   * @return $this
+   */
+  public function setLanguageManager(LanguageManagerInterface $language_manager) {
+    $this->languageManager = $language_manager;
     return $this;
   }
 
@@ -84,7 +112,9 @@ class Transliteration extends FieldsProcessorPluginBase {
    *   The langcode.
    */
   public function getLangcode() {
-    return $this->langcode ?: \Drupal::languageManager()->getDefaultLanguage()->getId();
+    return $this->langcode ?: $this->getLanguageManager()
+      ->getDefaultLanguage()
+      ->getId();
   }
 
   /**

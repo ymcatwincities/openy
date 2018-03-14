@@ -63,6 +63,80 @@
   shell: "{{ php_env_vars }} drush -y rr -l {{ site_url }} || true"
   when: rebuild_registry
 
+# @todo remove following commands after deploy to production.
+- name: Updating system module
+  sudo: yes
+  shell: "drupal update:execute system"
+- name: Updating serialization module
+  sudo: yes
+  shell: "drupal update:execute serialization"
+- name: Updating syslog module
+  sudo: yes
+  shell: "drupal update:execute syslog"
+- name: Updating file module
+  sudo: yes
+  shell: "drupal update:execute file"
+- name: Updating node module
+  sudo: yes
+  shell: "drupal update:execute node"
+- name: Updating rest module
+  sudo: yes
+  shell: "drupal update:execute rest"
+- name: Updating YMCA master module
+  sudo: yes
+  shell: "drupal update:execute ymca_master"
+- name: Updating webform module
+  sudo: yes
+  shell: "drupal update:execute webform"
+- name: Updating redirect module
+  sudo: yes
+  shell: "drupal update:execute redirect"
+- name: Updating entity_browser module
+  sudo: yes
+  shell: "drupal update:execute entity_browser"
+- name: Updating file_browser module
+  sudo: yes
+  shell: "drupal update:execute file_browser"
+- name: Updating crop module
+  sudo: yes
+  shell: "drupal update:execute crop"
+- name: Updating openy_media module
+  sudo: yes
+  shell: "drupal update:execute openy_media"
+- name: Updating openy_media_document module
+  sudo: yes
+  shell: "drupal update:execute openy_media_document"
+- name: Updating openy_media_video module
+  sudo: yes
+  shell: "drupal update:execute openy_media_video"
+- name: Updating openy_node module
+  sudo: yes
+  shell: "drupal update:execute openy_node"
+- name: Updating openy_node_landing module
+  sudo: yes
+  shell: "drupal update:execute openy_node_landing"
+- name: Updating openy_txnm_color module
+  sudo: yes
+  shell: "drupal update:execute openy_txnm_color"
+- name: Updating openy_prgf_small_banner module
+  sudo: yes
+  shell: "drupal update:execute openy_prgf_small_banner"
+- name: Updating openy_prgf_simple_content module
+  sudo: yes
+  shell: "drupal update:execute openy_prgf_simple_content"
+- name: Updating openy_prgf_2c module
+  sudo: yes
+  shell: "drupal update:execute openy_prgf_2c"
+- name: Updating openy_block_custom_simple module
+  sudo: yes
+  shell: "drupal update:execute openy_block_custom_simple"
+- name: Updating openy_prgf module
+  sudo: yes
+  shell: "drupal update:execute openy_prgf"
+- name: Updating openy_media_image module
+  sudo: yes
+  shell: "drupal update:execute openy_media_image"
+# @todo remove commands above after deploy to production.
 # Update database.
 - name: Updating database
   sudo: yes

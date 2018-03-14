@@ -2,16 +2,19 @@
 
 namespace Drupal\webform_ui\Form;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\SubformState;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Url;
 use Drupal\webform\Utility\WebformDialogHelper;
 use Drupal\webform\Form\WebformDialogFormTrait;
 use Drupal\webform\Plugin\WebformElementManagerInterface;
-use Drupal\webform\WebformEntityElementsValidator;
+use Drupal\webform\Utility\WebformYaml;
+use Drupal\webform\WebformEntityElementsValidatorInterface;
 use Drupal\webform\WebformInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -121,10 +124,10 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
    *   The entity field manager.
    * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
    *   The webform element manager.
-   * @param \Drupal\webform\WebformEntityElementsValidator $elements_validator
+   * @param \Drupal\webform\WebformEntityElementsValidatorInterface $elements_validator
    *   Webform element validator.
    */
-  public function __construct(RendererInterface $renderer, EntityFieldManagerInterface $entity_field_manager, WebformElementManagerInterface $element_manager, WebformEntityElementsValidator $elements_validator) {
+  public function __construct(RendererInterface $renderer, EntityFieldManagerInterface $entity_field_manager, WebformElementManagerInterface $element_manager, WebformEntityElementsValidatorInterface $elements_validator) {
     $this->renderer = $renderer;
     $this->entityFieldManager = $entity_field_manager;
     $this->elementManager = $element_manager;
@@ -146,17 +149,22 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, WebformInterface $webform = NULL, $key = NULL, $parent_key = '') {
+  public function buildForm(array $form, FormStateInterface $form_state, WebformInterface $webform = NULL, $key = NULL, $parent_key = NULL, $type = NULL) {
+    // Override an element's default value using the $form_state.
+    if ($form_state->get('default_value')) {
+      $this->element['#default_value'] = $form_state->get('default_value');
+    }
+
     $this->webform = $webform;
     $this->key = $key;
     $this->parentKey = $parent_key;
 
-    $webform_element = $this->getWebformElement();
+    $element_plugin = $this->getWebformElementPlugin();
 
     $form['#parents'] = [];
     $form['properties'] = ['#parents' => ['properties']];
     $subform_state = SubformState::createForSubform($form['properties'], $form, $form_state);
-    $form['properties'] = $webform_element->buildConfigurationForm($form['properties'], $subform_state);
+    $form['properties'] = $element_plugin->buildConfigurationForm($form['properties'], $subform_state);
 
     // Move messages to the top of the webform.
     if (isset($form['properties']['messages'])) {
@@ -176,14 +184,14 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
       '#type' => 'item',
       '#title' => $this->t('Type'),
       'label' => [
-        '#markup' => $webform_element->getPluginLabel(),
+        '#markup' => $element_plugin->getPluginLabel(),
       ],
       '#weight' => -100,
       '#parents' => ['type'],
     ];
 
     // Set change element type.
-    if ($key && $webform_element->getRelatedTypes($this->element)) {
+    if ($key && $element_plugin->getRelatedTypes($this->element)) {
       $route_parameters = ['webform' => $webform->id(), 'key' => $key];
       if ($this->originalType) {
         $original_webform_element = $this->elementManager->createInstance($this->originalType);
@@ -211,7 +219,6 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
       $reserved_keys = ['form_build_id', 'form_token', 'form_id', 'data', 'op'];
       $reserved_keys = array_merge($reserved_keys, array_keys($this->entityFieldManager->getBaseFieldDefinitions('webform_submission')));
       $form['#attached']['drupalSettings']['webform_ui']['reserved_keys'] = $reserved_keys;
-      $form['#attached']['library'][] = 'webform_ui/webform_ui.element';
       $form['properties']['element']['key_warning'] = [
         '#type' => 'webform_message',
         '#message_type' => 'warning',
@@ -233,12 +240,10 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
       '#required' => TRUE,
       '#parents' => ['key'],
       '#disabled' => ($key) ? TRUE : FALSE,
-      // Allow key to populated using query string parameter.
-      // Use by 'Edit submit button(s)'.
-      // @see \Drupal\webform_ui\WebformUiEntityForm::editForm
-      '#default_value' => $this->getRequest()->get('key') ?: $key ?: $webform_element->getDefaultKey(),
+      '#default_value' => $key ?: $this->getDefaultKey(),
       '#weight' => -98,
     ];
+
     // Remove the key's help text (aka description) once it has been set.
     if ($key) {
       $form['properties']['element']['key']['#description'] = NULL;
@@ -255,6 +260,8 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
       $form['properties']['flex']['#access'] = FALSE;
     }
 
+    $form['#attached']['library'][] = 'webform_ui/webform_ui';
+
     // Set actions.
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
@@ -263,6 +270,9 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
       '#button_type' => 'primary',
       '#_validate_form' => TRUE,
     ];
+
+    $form = $this->buildDefaultValueForm($form, $form_state);
+
 
     return $this->buildDialogForm($form, $form_state);
   }
@@ -277,19 +287,20 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
       return;
     }
 
+    // Subform state used for validation and getting the element's properties.
     $subform_state = SubformState::createForSubform($form['properties'], $form, $form_state);
 
-    // Validate configuration webform.
-    $webform_element = $this->getWebformElement();
-    $webform_element->validateConfigurationForm($form, $subform_state);
+    // Validate configuration form.
+    $element_plugin = $this->getWebformElementPlugin();
+    $element_plugin->validateConfigurationForm($form, $subform_state);
 
-    // Get errors for element validation.
+    // Get element validation errors.
     $element_errors = $subform_state->getErrors();
     foreach ($element_errors as $element_error) {
       $form_state->setErrorByName(NULL, $element_error);
     }
 
-    // Stop validation if the element properties has any errors.
+    // Stop validation if the element's properties has any errors.
     if ($subform_state->hasAnyErrors()) {
       return;
     }
@@ -297,27 +308,20 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
     $parent_key = $form_state->getValue('parent_key');
     $key = $form_state->getValue('key');
 
-    // Make sure element key is unique for new elements.
-    if ($this instanceof WebformUiElementAddForm || $this instanceof WebformUiElementDuplicateForm) {
-      $element_flattened = $this->getWebform()->getElementsDecodedAndFlattened();
-      if (isset($element_flattened[$key])) {
-        $form_state->setErrorByName('key', $this->t('The element key is already in use. It must be unique.'));
-      }
-    }
+    // Update key for new and duplicated elements.
+    $this->key = $key;
 
-    // Set element properties.
-    $properties = $webform_element->getConfigurationFormProperties($form, $subform_state);
-    if ($key) {
-      $this->key = $key;
-      $this->webform->setElementProperties($key, $properties, $parent_key);
+    // Clone webform and add/update the element.
+    $webform = clone $this->webform;
+    $properties = $element_plugin->getConfigurationFormProperties($form, $subform_state);
+    $webform->setElementProperties($key, $properties, $parent_key);
 
-      // Validate elements.
-      if ($messages = $this->elementsValidator->validate($this->webform)) {
-        $t_args = [':href' => Url::fromRoute('entity.webform.source_form', ['webform' => $this->webform->id()])->toString()];
-        $form_state->setErrorByName('elements', $this->t('There has been error validating the elements. You may need to edit the <a href=":href">YAML source</a> to resolve the issue.', $t_args));
-        foreach ($messages as $message) {
-          drupal_set_message($message, 'error');
-        }
+    // Validate elements.
+    if ($messages = $this->elementsValidator->validate($webform)) {
+      $t_args = [':href' => Url::fromRoute('entity.webform.source_form', ['webform' => $webform->id()])->toString()];
+      $form_state->setErrorByName('elements', $this->t('There has been error validating the elements. You may need to edit the <a href=":href">YAML source</a> to resolve the issue.', $t_args));
+      foreach ($messages as $message) {
+        drupal_set_message($message, 'error');
       }
     }
   }
@@ -326,25 +330,29 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $webform_element = $this->getWebformElement();
+    $parent_key = $form_state->getValue('parent_key');
+    $key = $form_state->getValue('key');
 
-    // The webform element configuration is stored in the 'properties' key in
-    // the webform, pass that through for submission.
-    $subform_state = SubformState::createForSubform($form['properties'], $form, $form_state);
+    $element_plugin = $this->getWebformElementPlugin();
 
     // Submit element configuration.
     // Generally, elements will not be processing any submitted properties.
     // It is possible that a custom element might need to call a third-party API
     // to 'register' the element.
-    $webform_element->submitConfigurationForm($form, $subform_state);
+    $subform_state = SubformState::createForSubform($form['properties'], $form, $form_state);
+    $element_plugin->submitConfigurationForm($form, $subform_state);
 
-    // Save the webform with its updated element.
+    // Add/update the element to the webform.
+    $properties = $element_plugin->getConfigurationFormProperties($form, $subform_state);
+    $this->webform->setElementProperties($key, $properties, $parent_key);
+
+    // Save the webform.
     $this->webform->save();
 
     // Display status message.
     $properties = $form_state->getValue('properties');
     $t_args = [
-      '%title' => (!empty($properties['title'])) ? $properties['title'] : $form_state->getValue('key'),
+      '%title' => (!empty($properties['title'])) ? $properties['title'] : $key,
       '@action' => $this->action,
     ];
     drupal_set_message($this->t('%title has been @action.', $t_args));
@@ -353,28 +361,14 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
     if ($this->requestStack->getCurrentRequest()->query->get('destination')) {
       $redirect_destination = $this->getRedirectDestination();
       $destination = $redirect_destination->get();
-      $destination .= (strpos($destination, '?') !== FALSE ? '&' : '?') . 'update=' . $this->key;
+      $destination .= (strpos($destination, '?') !== FALSE ? '&' : '?') . 'update=' . $key;
       $redirect_destination->set($destination);
     }
 
     // Still set the redirect URL just to be safe.
-    $form_state->setRedirectUrl($this->webform->toUrl('edit-form', ['query' => ['update' => $this->key]]));
+    $form_state->setRedirectUrl($this->webform->toUrl('edit-form', ['query' => ['update' => $key]]));
   }
-
-  /**
-   * Determines if the webform element key already exists.
-   *
-   * @param string $key
-   *   The webform element key.
-   *
-   * @return bool
-   *   TRUE if the webform element key, FALSE otherwise.
-   */
-  public function exists($key) {
-    $elements = $this->webform->getElementsInitializedAndFlattened();
-    return (isset($elements[$key])) ? TRUE : FALSE;
-  }
-
+  
   /**
    * {@inheritdoc}
    */
@@ -387,13 +381,6 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
    */
   public function getWebform() {
     return $this->webform;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getWebformElement() {
-    return $this->elementManager->getElementInstance($this->element);
   }
 
   /**
@@ -415,6 +402,13 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
    */
   public function getParentKey() {
     return $this->parentKey;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getWebformElementPlugin() {
+    return $this->elementManager->getElementInstance($this->element);
   }
 
   /**
@@ -443,6 +437,220 @@ abstract class WebformUiElementFormBase extends FormBase implements WebformUiEle
     }
 
     return FALSE;
+  }
+
+  /****************************************************************************/
+  // Element key handling.
+  /****************************************************************************/
+  
+  /**
+   * Determines if the webform element key already exists.
+   *
+   * @param string $key
+   *   The webform element key.
+   *
+   * @return bool
+   *   TRUE if the webform element key, FALSE otherwise.
+   */
+  public function exists($key) {
+    $elements = $this->webform->getElementsInitializedAndFlattened();
+    return (isset($elements[$key])) ? TRUE : FALSE;
+  }
+
+  /**
+   * Get the default key for the current element.
+   *
+   * Default key will be auto incremented when there are  duplicate keys.
+   *
+   * @return null|string
+   *   An element's default key which will be incremented to prevent duplicate
+   *   keys.
+   */
+  protected function getDefaultKey() {
+    $element_plugin = $this->getWebformElementPlugin();
+    if (empty($element_plugin->getDefaultKey())) {
+      return NULL;
+    }
+
+    $base_key = $element_plugin->getDefaultKey();
+    $elements = $this->getWebform()->getElementsDecodedAndFlattened();
+    $increment = NULL;
+    foreach ($elements as $element_key => $element) {
+      if (strpos($element_key, $base_key) === 0) {
+        if (preg_match('/^' . $base_key . '_(\d+)$/', $element_key, $match)) {
+          $element_increment = intval($match[1]);
+          if ($element_increment > $increment) {
+            $increment = $element_increment;
+          }
+        }
+        elseif ($increment === NULL) {
+          $increment = 0;
+        }
+      }
+    }
+
+    if ($increment === NULL) {
+      return $base_key;
+    }
+    else {
+      return $base_key . '_' . str_pad(($increment + 1), 2, '0', STR_PAD_LEFT);
+    }
+  }
+
+  /****************************************************************************/
+  // Default value handling.
+  /****************************************************************************/
+
+  /**
+   * Build update default value form elements.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   The form.
+   */
+  public function buildDefaultValueForm(array &$form, FormStateInterface $form_state) {
+    if (!isset($form['properties']['default']['default_value'])) {
+      return $form;
+    }
+
+    if ($element = $form_state->get('default_value_element')) {
+      // Display the default value element.
+      $element['#webform_key'] = $this->getWebform()->id();
+      $element_plugin = $this->elementManager->getElementInstance($element);
+      $element_plugin->initialize($element);
+      $element_plugin->prepare($element);
+      $element_plugin->finalize($element);
+      $element_plugin->setDefaultValue($element);
+
+      $form['default'] = [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Default value'),
+      ];
+      $form['default']['default_value'] = $element;
+
+      // Hide properties using CSS.
+      // Using #access: FALSE is causing all properties to be lost.
+      $form['properties']['#type'] = 'container';
+      $form['properties']['#attributes']['style'] = 'display: none';
+
+      // Add tokens
+      $form['token_tree_link'] = $form['properties']['token_tree_link'];
+
+      // Disable client-side validation.
+      $form['#attributes']['novalidate'] = TRUE;
+
+      // Replace 'Save' button with 'Update default value'.
+      $form['actions']['submit'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Update default value'),
+        '#validate' => ['::validateDefaultValue'],
+        '#submit' => ['::getDefaultValue'],
+        '#button_type' => 'primary',
+      ];
+
+      if ($this->isAjax()) {
+        $form['actions']['submit']['#ajax'] = [
+          'callback' => '::submitAjaxForm',
+          'event' => 'click',
+        ];
+      }
+    }
+    else {
+      // Add 'Set default value' button.
+      $form['properties']['default']['set_default_value'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Set default value'),
+        '#submit' => ['::setDefaultValue'],
+        // Disable client-site validation to allow tokens to be posted back to
+        // server.
+        '#attributes' => ['class' => ['js-webform-novalidate']],
+        '#_validate_form' => TRUE,
+      ];
+
+      if ($this->isAjax()) {
+        $form['properties']['default']['set_default_value']['#ajax'] = [
+          'callback' => '::submitAjaxForm',
+          'event' => 'click',
+        ];
+      }
+
+      $form['#attached']['library'][] = 'webform/webform.form';
+    }
+
+    return $form;
+  }
+
+  /**
+   * Get updated default value for an element.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  public function getDefaultValue(array &$form, FormStateInterface $form_state) {
+    $default_value = $form_state->getValue('default_value');
+    $form_state->unsetValue('default_value');
+
+    // Convert composite or multiple default value array to string.
+    // @see \Drupal\webform\Plugin\WebformElementBase::setConfigurationFormDefaultValue
+    $element_plugin = $this->getWebformElementPlugin();
+    if (is_array($default_value)) {
+      if ($element_plugin->isComposite()) {
+        $default_value = WebformYaml::tidy(Yaml::encode($default_value));
+      }
+      else {
+        $default_value = implode(', ', $default_value);
+      }
+    }
+
+    $form_state->setValueForElement($form['properties']['default']['default_value'], $default_value);
+    NestedArray::setValue($form_state->getUserInput(), ['properties', 'default_value'], $default_value);
+
+    $form_state->set('active_tab', 'advanced');
+    $form_state->set('default_value_element', NULL);
+    $form_state->setRebuild(TRUE);
+  }
+
+  /**
+   * Set default value to be updated.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  public function setDefaultValue(array &$form, FormStateInterface $form_state) {
+    $element_plugin = $this->getWebformElementPlugin();
+    $subform_state = SubformState::createForSubform($form['properties'], $form, $form_state);
+    $properties = $element_plugin->getConfigurationFormProperties($form, $subform_state);
+
+    if (isset($properties['#default_value'])) {
+      // @see \Drupal\webform\Plugin\WebformElementBase::getConfigurationFormProperty
+      if ($element_plugin->hasMultipleValues($properties) && is_string($properties['#default_value'])) {
+        $properties['#default_value'] = preg_split('/\s*,\s*/', $properties['#default_value']);
+      }
+    }
+
+    $form_state->set('default_value_element', $properties);
+    $form_state->setRebuild(TRUE);
+  }
+
+  /**
+   * Default value validation handler.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  public function validateDefaultValue(array &$form, FormStateInterface $form_state) {
+    // Suppress all errors to allow for tokens to be included as the default value.
+    $form_state->clearErrors();
   }
 
 }

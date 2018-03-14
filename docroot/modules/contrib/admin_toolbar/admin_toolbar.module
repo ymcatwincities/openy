@@ -13,7 +13,7 @@ use Drupal\Core\Url;
  * Implements hook_toolbar_alter().
  */
 function admin_toolbar_toolbar_alter(&$items) {
-  $items['administration']['tray']['toolbar_administration']['#pre_render'] = array('admin_toolbar_prerender_toolbar_administration_tray');
+  $items['administration']['tray']['toolbar_administration']['#pre_render'] = ['admin_toolbar_prerender_toolbar_administration_tray'];
   $items['administration']['#attached']['library'][] = 'admin_toolbar/toolbar.tree';
 }
 
@@ -25,7 +25,7 @@ function admin_toolbar_help($route_name, RouteMatchInterface $route_match) {
     case 'help.page.admin_toolbar':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('The Admin Toolbar module enhances the <a href=":toolbar">Toolbar</a> module by providing fast access to all the administrative links at the top of your site. Admin Toolbar remains a very "lightweight" module by closely integrating with all Toolbar functionality. It can be used in conjunction with all the sub or complimentary modules, listed on <a href="https://www.drupal.org/project/admin_toolbar">Admin Toolbar</a>, for quick access to system commands such as Flush all caches, <a href=":automated_cron">Run cron</a>, Run Updates, etc... For more information, see <a href=":admin_toolbar_documentation">the online documentation for the Admin Toolbar module</a>.', array(':toolbar' => Url::fromRoute('help.page', array('name' => 'toolbar'))->toString(), ':automated_cron' => (\Drupal::moduleHandler()->moduleExists('automated_cron')) ? Url::fromRoute('help.page', array('name' => 'automated_cron'))->toString() : '#', ':admin_toolbar_documentation' => 'https://www.drupal.org/node/2713693')) . '</p>';
+      $output .= '<p>' . t('The Admin Toolbar module enhances the <a href=":toolbar">Toolbar</a> module by providing fast access to all the administrative links at the top of your site. Admin Toolbar remains a very "lightweight" module by closely integrating with all Toolbar functionality. It can be used in conjunction with all the sub or complimentary modules, listed on <a href="https://www.drupal.org/project/admin_toolbar">Admin Toolbar</a>, for quick access to system commands such as Flush all caches, <a href=":automated_cron">Run cron</a>, Run Updates, etc... For more information, see <a href=":admin_toolbar_documentation">the online documentation for the Admin Toolbar module</a>.', [':toolbar' => Url::fromRoute('help.page', ['name' => 'toolbar'])->toString(), ':automated_cron' => (\Drupal::moduleHandler()->moduleExists('automated_cron')) ? Url::fromRoute('help.page', ['name' => 'automated_cron'])->toString() : '#', ':admin_toolbar_documentation' => 'https://www.drupal.org/node/2713693']) . '</p>';
       $output .= '<h3>' . t('Uses') . '</h3>';
       $output .= '<p>' . t('The Admin Toolbar greatly improves the user experience for those who regularly interact with the Drupal Toolbar by providing fast, full access to all links in the Drupal Toolbar without having to click to get there.') . '</p>';
 
@@ -52,11 +52,11 @@ function admin_toolbar_prerender_toolbar_administration_tray(array $element) {
   $parameters = new MenuTreeParameters();
   $parameters->setRoot('system.admin')->excludeRoot()->setMaxDepth(4)->onlyEnabledLinks();
   $tree = $menu_tree->load(NULL, $parameters);
-  $manipulators = array(
-    array('callable' => 'menu.default_tree_manipulators:checkAccess'),
-    array('callable' => 'menu.default_tree_manipulators:generateIndexAndSort'),
-    array('callable' => 'toolbar_tools_menu_navigation_links'),
-  );
+  $manipulators = [
+    ['callable' => 'menu.default_tree_manipulators:checkAccess'],
+    ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
+    ['callable' => 'toolbar_tools_menu_navigation_links'],
+  ];
   $tree = $menu_tree->transform($tree, $manipulators);
   $element['administration_menu'] = $menu_tree->build($tree);
 
@@ -83,7 +83,7 @@ function toolbar_tools_menu_navigation_links(array $tree) {
     $definition = $link->getPluginDefinition();
 
     $element->options['attributes']['class'][] = 'toolbar-icon';
-    $element->options['attributes']['class'][] = 'toolbar-icon-' . strtolower(str_replace(array('.', ' ', '_'), array('-', '-', '-'), $definition['id']));
+    $element->options['attributes']['class'][] = 'toolbar-icon-' . strtolower(str_replace(['.', ' ', '_'], ['-', '-', '-'], $definition['id']));
     $element->options['attributes']['title'] = $link->getDescription();
   }
   return $tree;

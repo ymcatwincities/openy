@@ -178,7 +178,7 @@ process:
       title:
         plugin: get
         source: title
-  field_oy_content:
+  field_content:
     plugin: iterator
     source: content_ids
     process:

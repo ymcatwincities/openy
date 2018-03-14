@@ -20,6 +20,7 @@ use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use GuzzleHttp\Exception\RequestException;
+use Drupal\google_analytics\Component\Render\GoogleAnalyticsJavaScriptSnippet;
 
 /**
  * Define the default file extension list that should be tracked as download.
@@ -65,6 +66,7 @@ function google_analytics_page_attachments(array &$page) {
   $config = \Drupal::config('google_analytics.settings');
   $id = $config->get('account');
   $request = \Drupal::request();
+  $base_path = base_path();
 
   // Add module cache tags.
   $page['#cache']['tags'] = Cache::mergeTags(isset($page['#cache']['tags']) ? $page['#cache']['tags'] : [], $config->getCacheTags());
@@ -75,8 +77,10 @@ function google_analytics_page_attachments(array &$page) {
     $status = $exception->getStatusCode();
   }
   $trackable_status_codes = [
-    '403', // Forbidden
-    '404', // Not Found
+    // "Forbidden" status code.
+    '403',
+    // "Not Found" status code.
+    '404',
   ];
 
   // 1. Check if the GA account number has a valid value.
@@ -164,7 +168,7 @@ function google_analytics_page_attachments(array &$page) {
       // language code does not match its source language code.
       if ($request->attributes->has('node')) {
         $node = $request->attributes->get('node');
-        if ($node instanceof NodeInterface && \Drupal::entityTypeManager()->getTranslationFromContext($node) !== $node->getUntranslated()) {
+        if ($node instanceof NodeInterface && \Drupal::service('entity.repository')->getTranslationFromContext($node) !== $node->getUntranslated()) {
           $url_custom = Json::encode(Url::fromRoute('entity.node.canonical', ['node' => $node->id()], ['language' => $node->getUntranslated()->language()])->toString());
         }
       }
@@ -173,10 +177,22 @@ function google_analytics_page_attachments(array &$page) {
     // Track access denied (403) and file not found (404) pages.
     if ($status == '403') {
       // See http://www.google.com/support/analytics/bin/answer.py?answer=86927
-      $url_custom = '"/403.html?page=" + document.location.pathname + document.location.search + "&from=" + document.referrer';
+      $url_custom = '"' . $base_path . '403.html?page=" + document.location.pathname + document.location.search + "&from=" + document.referrer';
     }
     elseif ($status == '404') {
-      $url_custom = '"/404.html?page=" + document.location.pathname + document.location.search + "&from=" + document.referrer';
+      $url_custom = '"' . $base_path . '404.html?page=" + document.location.pathname + document.location.search + "&from=" + document.referrer';
+    }
+
+    // #2693595: User has entered an invalid login and clicked on forgot
+    // password link. This link contains the username or email address and may
+    // get send to Google if we do not override it. Override only if 'name'
+    // query param exists. Last custom url condition, this need to win.
+    //
+    // URLs to protect are:
+    // - user/password?name=username
+    // - user/password?name=foo@example.com
+    if (\Drupal::routeMatch()->getRouteName() == 'user.pass' && $request->query->has('name')) {
+      $url_custom = '"' . $base_path . 'user/password"';
     }
 
     // Add custom dimensions and metrics.
@@ -229,16 +245,15 @@ function google_analytics_page_attachments(array &$page) {
     $script .= '})(window,document,"script",';
 
     // Which version of the tracking library should be used?
-    $library_tracker_url = '//www.google-analytics.com/' . ($debug ? 'analytics_debug.js' : 'analytics.js');
-    $library_cache_url = 'http:' . $library_tracker_url;
+    $library_tracker_url = 'https://www.google-analytics.com/' . ($debug ? 'analytics_debug.js' : 'analytics.js');
 
     // Should a local cached copy of analytics.js be used?
-    if ($config->get('cache') && $url = _google_analytics_cache($library_cache_url)) {
+    if ($config->get('cache') && $url = _google_analytics_cache($library_tracker_url)) {
       // A dummy query-string is added to filenames, to gain control over
       // browser-caching. The string changes on every update or full cache
       // flush, forcing browsers to load a new copy of the files, as the
       // URL changed.
-      $query_string = '?' . \Drupal::state()->get('system.css_js_query_string') ?: '0';
+      $query_string = '?' . (\Drupal::state()->get('system.css_js_query_string') ?: '0');
 
       $script .= '"' . $url . $query_string . '"';
     }
@@ -337,7 +352,7 @@ function google_analytics_page_attachments(array &$page) {
     $page['#attached']['html_head'][] = [
       [
         '#tag' => 'script',
-        '#value' => $script,
+        '#value' => new GoogleAnalyticsJavaScriptSnippet($script),
       ],
       'google_analytics_tracking_script',
     ];
@@ -431,7 +446,7 @@ function google_analytics_cron() {
 
   // Regenerate the tracking code file every day.
   if (REQUEST_TIME - \Drupal::state()->get('google_analytics.last_cache') >= 86400 && $config->get('cache')) {
-    _google_analytics_cache('http://www.google-analytics.com/analytics.js', TRUE);
+    _google_analytics_cache('https://www.google-analytics.com/analytics.js', TRUE);
     \Drupal::state()->set('google_analytics.last_cache', REQUEST_TIME);
   }
 }
@@ -492,6 +507,10 @@ function _google_analytics_cache($location, $synchronize = FALSE) {
         if ($data_hash_local != $data_hash_remote && file_prepare_directory($path)) {
           // Save updated tracking code file to disk.
           file_unmanaged_save_data($data, $file_destination, FILE_EXISTS_REPLACE);
+          // Based on Drupal Core class AssetDumper.
+          if (extension_loaded('zlib') && \Drupal::config('system.performance')->get('js.gzip')) {
+            file_unmanaged_save_data(gzencode($data, 9, FORCE_GZIP), $file_destination . '.gz', FILE_EXISTS_REPLACE);
+          }
           \Drupal::logger('google_analytics')->info('Locally cached tracking code file has been updated.');
 
           // Change query-strings on css/js files to enforce reload for all
@@ -505,6 +524,10 @@ function _google_analytics_cache($location, $synchronize = FALSE) {
           // There is no need to flush JS here as core refreshes JS caches
           // automatically, if new files are added.
           file_unmanaged_save_data($data, $file_destination, FILE_EXISTS_REPLACE);
+          // Based on Drupal Core class AssetDumper.
+          if (extension_loaded('zlib') && \Drupal::config('system.performance')->get('js.gzip')) {
+            file_unmanaged_save_data(gzencode($data, 9, FORCE_GZIP), $file_destination . '.gz', FILE_EXISTS_REPLACE);
+          }
           \Drupal::logger('google_analytics')->info('Locally cached tracking code file has been saved.');
 
           // Return the local JS file path.
@@ -529,7 +552,7 @@ function google_analytics_clear_js_cache() {
   $path = 'public://google_analytics';
   if (file_prepare_directory($path)) {
     file_scan_directory($path, '/.*/', ['callback' => 'file_unmanaged_delete']);
-    drupal_rmdir($path);
+    \Drupal::service('file_system')->rmdir($path);
 
     // Change query-strings on css/js files to enforce reload for all users.
     _drupal_flush_css_js();

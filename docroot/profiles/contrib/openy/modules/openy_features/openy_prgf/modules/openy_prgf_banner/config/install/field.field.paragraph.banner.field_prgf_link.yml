@@ -11,7 +11,7 @@ field_name: field_prgf_link
 entity_type: paragraph
 bundle: banner
 label: Link
-description: ''
+description: 'Link field that should store internal and external links.'
 required: false
 translatable: true
 default_value: {  }

@@ -21,13 +21,14 @@ class WebformWizardPage extends Details {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    return [
-      // Page settings.
+    $properties = [
       'title' => '',
       'open' => FALSE,
       'prev_button_label' => '',
       'next_button_label' => '',
-    ];
+    ] + $this->getDefaultBaseProperties();
+    unset($properties['flex']);
+    return $properties;
   }
 
   /**
@@ -81,15 +82,19 @@ class WebformWizardPage extends Details {
     $form['wizard_page']['prev_button_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Previous page button label'),
-      '#description' => $this->t('This is used for the Next Page button on the page before this page break.') . '<br />' .
+      '#description' => $this->t('This is used for the Next Page button on the page before this page break.') . '<br /><br />' .
       $this->t('Defaults to: %value', ['%value' => $this->getDefaultSettings($webform, 'wizard_prev_button_label')]),
     ];
     $form['wizard_page']['next_button_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Next page button label'),
-      '#description' => $this->t('This is used for the Previous Page button on the page after this page break.') . '<br />' .
+      '#description' => $this->t('This is used for the Previous Page button on the page after this page break.') . '<br /><br />' .
       $this->t('Defaults to: %value', ['%value' => $this->getDefaultSettings($webform, 'wizard_next_button_label')]),
     ];
+
+    // Wizard pages only support visible or hidden state.
+    $form['conditional_logic']['states']['#multiple'] = FALSE;
+
     return $form;
   }
 
@@ -106,6 +111,23 @@ class WebformWizardPage extends Details {
    */
   protected function getDefaultSettings(WebformInterface $webform, $name) {
     return $webform->getSetting($name) ?: \Drupal::config('webform.settings')->get("settings.default_$name");
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getElementSelectorOptions(array $element) {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getElementStateOptions() {
+    return [
+      'visible' => $this->t('Visible'),
+      'invisible' => $this->t('Hidden'),
+    ];
   }
 
 }
