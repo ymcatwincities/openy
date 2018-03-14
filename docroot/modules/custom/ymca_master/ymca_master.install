@@ -5115,8 +5115,8 @@ function ymca_master_update_8237() {
  * Copy content from field_oy_content to field_content.
  */
 function ymca_master_update_8238() {
-  db_query("INSERT {node__field_oy_content} SELECT * FROM {node__field_content}");
-  db_query("INSERT {node_revision__field_oy_content} SELECT * FROM {node_revision__field_content}");
+  db_query("INSERT {node__field_content} SELECT * FROM {node__field_oy_content}");
+  db_query("INSERT {node_revision__field_content} SELECT * FROM {node_revision__field_oy_content}");
 }
 
 /**
