@@ -170,7 +170,7 @@
         .addClass('class-prev');
 
         setTimeout(function () {
-          // Slide Upcomming Class Up
+          // Slide Upcoming Class Up
           $upcomingClassContainer
           .removeClass('class-next')
           .addClass('class-active');
@@ -193,6 +193,10 @@
           }
 
           self.updateProgressBars();
+          $activeClass = $('.class-active .class', $activeClasses);
+          if ($activeClass.length > 0) {
+            self.classNameFontResize($activeClass);
+          }
         }, 3000);
       }
       else {
