@@ -46,35 +46,35 @@ class GooglePlacesAPI extends GeocoderBase {
       ],
       'component_restrictions' => [
         '#type' => 'fieldset',
-        '#title' => t("Component Restrictions"),
+        '#title' => $this->t('Component Restrictions'),
         'route' => [
           '#type' => 'textfield',
           '#default_value' => $settings['route'],
-          '#title' => t("Route"),
+          '#title' => $this->t('Route'),
           '#size' => 15,
         ],
         'locality' => [
           '#type' => 'textfield',
           '#default_value' => $settings['locality'],
-          '#title' => t("Locality"),
+          '#title' => $this->t('Locality'),
           '#size' => 15,
         ],
         'administrativeArea' => [
           '#type' => 'textfield',
           '#default_value' => $settings['administrativeArea'],
-          '#title' => t("Administrative Area"),
+          '#title' => $this->t('Administrative Area'),
           '#size' => 15,
         ],
         'postalCode' => [
           '#type' => 'textfield',
           '#default_value' => $settings['postalCode'],
-          '#title' => t("Postal code"),
+          '#title' => $this->t('Postal code'),
           '#size' => 5,
         ],
         'country' => [
           '#type' => 'textfield',
           '#default_value' => $settings['country'],
-          '#title' => t("Country"),
+          '#title' => $this->t('Country'),
           '#size' => 5,
         ],
       ],
@@ -89,7 +89,7 @@ class GooglePlacesAPI extends GeocoderBase {
 
     $render_array['geolocation_geocoder_google_places_api'] = [
       '#type' => 'textfield',
-      '#description' => t('Enter an address to filter results.'),
+      '#description' => $this->t('Enter an address to filter results.'),
       '#attributes' => [
         'class' => [
           'form-autocomplete',
@@ -161,7 +161,7 @@ class GooglePlacesAPI extends GeocoderBase {
       $location_data = $this->geocode($input['geolocation_geocoder_google_places_api']);
 
       if (empty($location_data)) {
-        $form_state->setErrorByName('geolocation_geocoder_google_places_api', t('Failed to geocode %input.', ['%input' => $input['geolocation_geocoder_google_places_api']]));
+        $form_state->setErrorByName('geolocation_geocoder_google_places_api', $this->t('Failed to geocode %input.', ['%input' => $input['geolocation_geocoder_google_places_api']]));
         return FALSE;
       }
     }
@@ -201,16 +201,23 @@ class GooglePlacesAPI extends GeocoderBase {
     }
     $request_url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' . $address;
 
-    $config = \Drupal::config('geolocation.settings');
+    $google_key = '';
 
-    if (!empty($config->get('google_map_api_key'))) {
-      $request_url .= '&key=' . $config->get('google_map_api_key');
+    if (!empty($this->geolocationSettings->get('google_map_api_server_key'))) {
+      $google_key = $this->geolocationSettings->get('google_map_api_server_key');
+    }
+    elseif (!empty($this->geolocationSettings->get('google_map_api_key'))) {
+      $google_key = $this->geolocationSettings->get('google_map_api_key');
+    }
+
+    if (!empty($google_key)) {
+      $request_url .= '&key=' . $google_key;
     }
     if (!empty($this->configuration['component_restrictions']['country'])) {
       $request_url .= '&components=country:' . $this->configuration['component_restrictions']['country'];
     }
-    if (!empty($config->get('google_map_custom_url_parameters')['language'])) {
-      $request_url .= '&language=' . $config->get('google_map_custom_url_parameters')['language'];
+    if (!empty($this->geolocationSettings->get('google_map_custom_url_parameters')['language'])) {
+      $request_url .= '&language=' . $this->geolocationSettings->get('google_map_custom_url_parameters')['language'];
     }
 
     try {
@@ -231,8 +238,8 @@ class GooglePlacesAPI extends GeocoderBase {
     try {
       $details_url = 'https://maps.googleapis.com/maps/api/place/details/json?placeid=' . $result['predictions'][0]['place_id'];
 
-      if (!empty($config->get('google_map_api_key'))) {
-        $details_url .= '&key=' . $config->get('google_map_api_key');
+      if (!empty($google_key)) {
+        $details_url .= '&key=' . $google_key;
       }
       $details = Json::decode(\Drupal::httpClient()->request('GET', $details_url)->getBody());
 

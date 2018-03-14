@@ -5,7 +5,7 @@ dependencies:
     - field.field.node.class.field_bottom_content
     - field.field.node.class.field_class_activity
     - field.field.node.class.field_class_description
-    - field.field.node.class.field_oy_content
+    - field.field.node.class.field_content
     - field.field.node.class.field_header_content
     - field.field.node.class.field_meta_tags
     - field.field.node.class.field_sidebar_content
@@ -22,7 +22,7 @@ third_party_settings:
     group_content_area:
       children:
         - field_class_description
-        - field_oy_content
+        - field_content
       parent_name: ''
       weight: 3
       format_type: tab
@@ -56,7 +56,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: ''
+        description: 'Page should contain one and only one paragraph with H1 heading: Small banner, Banner, Gallery'
         required_fields: true
       label: 'Header Area'
     group_bottom_area:
@@ -77,6 +77,13 @@ targetEntityType: node
 bundle: class
 mode: default
 content:
+  addthis:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    region: content
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 7
@@ -111,7 +118,7 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_oy_content:
+  field_content:
     weight: 10
     settings:
       title: Paragraph
@@ -150,6 +157,13 @@ content:
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   path:
     type: path
     weight: 10
@@ -168,6 +182,17 @@ content:
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
+  scheduler_settings:
+    weight: 20
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
@@ -197,4 +222,5 @@ content:
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

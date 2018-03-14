@@ -6,6 +6,7 @@ source:
   plugin: variable
   variables:
     - googleanalytics_account
+    - googleanalytics_premium
     - googleanalytics_cache
     - googleanalytics_codesnippet_after
     - googleanalytics_codesnippet_before
@@ -35,6 +36,7 @@ source:
     - googleanalytics_visibility_roles
 process:
   account: googleanalytics_account
+  premium: googleanalytics_premium
   cache: googleanalytics_cache
   'codesnippet/after': googleanalytics_codesnippet_after
   'codesnippet/before': googleanalytics_codesnippet_before

@@ -181,11 +181,12 @@ interface PluginSelectorInterface extends PluginInspectionInterface, Configurabl
   /**
    * Builds the selector form.
    *
-   * @param mixed[] $form
+   * @param mixed[] $plugin_selector_form
    *   Any suggested form elements to build upon. May be ignored.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state for $form and the return value. This often is not the
-   *   complete (global) form state.
+   * @param \Drupal\Core\Form\SubformStateInterface|\Drupal\Core\Form\FormStateInterface $plugin_selector_form_state
+   *   The form state for $plugin_selector_form and the return value. This often
+   *   is not the complete (global) form state and SHOULD be
+   *   \Drupal\Core\Form\SubformStateInterface (added in Drupal 8.2.0)
    *
    * @return mixed[]
    *   The form structure.
@@ -194,28 +195,30 @@ interface PluginSelectorInterface extends PluginInspectionInterface, Configurabl
    *   Thrown if the plugin type was not set using
    *   self::setSelectablePluginType().
    */
-  public function buildSelectorForm(array $form, FormStateInterface $form_state);
+  public function buildSelectorForm(array $plugin_selector_form, FormStateInterface $plugin_selector_form_state);
 
   /**
    * Validates the selector form.
    *
-   * @param mixed[] $form
+   * @param mixed[] $plugin_selector_form
    *   The selector form as built by static::buildSelectorForm().
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state for $form. This often is not the complete (global) form
-   *   state.
+   * @param \Drupal\Core\Form\SubformStateInterface|\Drupal\Core\Form\FormStateInterface $plugin_selector_form_state
+   *   The form state for $plugin_selector_form. This often is not the complete
+   *   (global) form state and SHOULD be \Drupal\Core\Form\SubformStateInterface
+   *   (added in Drupal 8.2.0).
    */
-  public function validateSelectorForm(array &$form, FormStateInterface $form_state);
+  public function validateSelectorForm(array &$plugin_selector_form, FormStateInterface $plugin_selector_form_state);
 
   /**
    * Submits the selector form.
    *
-   * @param mixed[] $form
+   * @param mixed[] $plugin_selector_form
    *   The selector form as built by static::buildSelectorForm().
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The form state for $form. This often is not the complete (global) form
-   *   state.
+   * @param \Drupal\Core\Form\SubformStateInterface|\Drupal\Core\Form\FormStateInterface $plugin_selector_form_state
+   *   The form state for $plugin_selector_form. This often is not the complete
+   *   (global) form state and SHOULD be \Drupal\Core\Form\SubformStateInterface
+   *   (added in Drupal 8.2.0)
    */
-  public function submitSelectorForm(array &$form, FormStateInterface $form_state);
+  public function submitSelectorForm(array &$plugin_selector_form, FormStateInterface $plugin_selector_form_state);
 
 }

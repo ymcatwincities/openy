@@ -1,10 +1,18 @@
-# Google maps geocoder function.
+# Google Maps geocoder function.
 geolocation.geocoder:
   version: 8.x-1.x
   js:
     js/geolocation-geocoder.js: {}
   dependencies:
     - core/jquery.ui.autocomplete
+
+# Geolocation views field geocoder function.
+geolocation.views.field.geocoder:
+  version: 8.x-1.x
+  js:
+    js/geolocation-views-field-geocoder.js: {}
+  dependencies:
+    - geolocation/geolocation.geocoder
 
 # Geolocation views filter geocoder function.
 geolocation.views.filter.geocoder:
@@ -31,7 +39,7 @@ geolocation.widgets.html5:
 #
 #
 
-# Geolocation Google maps API integration library.
+# Geolocation Google Maps API integration library.
 geolocation.googlemapsapi:
   version: 8.x-1.x
   dependencies:
@@ -42,18 +50,22 @@ geolocation.googlemapsapi:
   js:
     js/geolocation-google-maps-api.js: {}
 
-# Google maps geocoder function.
+# Google Maps geocoder function.
 geolocation.geocoder.googlegeocodingapi:
   version: 8.x-1.x
   js:
     js/geolocation-google-geocoding-api-geocoder.js: {}
   dependencies:
+    - core/jquery.once
     - geolocation/geolocation.geocoder
     - geolocation/geolocation.googlemapsapi
 
-# Google maps display formatter.
+# Google Maps display formatter.
 geolocation.formatter.googlemap:
   version: 8.x-1.x
+  css:
+    theme:
+      css/geolocation-formatter-map.css: {}
   js:
     js/geolocation-formatter-googlemap.js: {}
   dependencies:
@@ -86,6 +98,7 @@ geolocation.commonmap:
     - core/jquery.once
     - geolocation/geolocation.googlemapsapi
 
+# External marker clusterer.
 geolocation.markerclusterer:
   remote: https://github.com/googlemaps/js-marker-clusterer
   version: 1.x
@@ -94,4 +107,11 @@ geolocation.markerclusterer:
     url: http://www.apache.org/licenses/LICENSE-2.0
     gpl-compatible: true
   js:
-    https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js: { type: external }
+    https://cdn.rawgit.com/googlemaps/js-marker-clusterer/gh-pages/src/markerclusterer.js: { type: external }
+
+# Form element library.
+geolocation.google_map_form_element:
+  js:
+    js/geolocation-google-map-form-element.js: {}
+  dependencies:
+    - geolocation/geolocation.googlemapsapi

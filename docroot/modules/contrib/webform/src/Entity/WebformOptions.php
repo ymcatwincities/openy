@@ -21,7 +21,8 @@ use Drupal\webform\WebformOptionsInterface;
  *     "access" = "Drupal\webform\WebformOptionsAccessControlHandler",
  *     "list_builder" = "Drupal\webform\WebformOptionsListBuilder",
  *     "form" = {
- *       "default" = "Drupal\webform\WebformOptionsForm",
+ *       "add" = "Drupal\webform\WebformOptionsForm",
+ *       "edit" = "Drupal\webform\WebformOptionsForm",
  *       "duplicate" = "Drupal\webform\WebformOptionsForm",
  *       "delete" = "Drupal\Core\Entity\EntityDeleteForm",
  *     }
@@ -32,11 +33,11 @@ use Drupal\webform\WebformOptionsInterface;
  *     "label" = "label",
  *   },
  *   links = {
- *     "add-form" = "/admin/structure/webform/settings/options/add",
- *     "edit-form" = "/admin/structure/webform/settings/options/manage/{webform_options}/edit",
- *     "duplicate-form" = "/admin/structure/webform/settings/options/manage/{webform_options}/duplicate",
- *     "delete-form" = "/admin/structure/webform/settings/options/manage/{webform_options}/delete",
- *     "collection" = "/admin/structure/webform/settings/options/manage",
+ *     "add-form" = "/admin/structure/webform/config/options/add",
+ *     "edit-form" = "/admin/structure/webform/config/options/manage/{webform_options}/edit",
+ *     "duplicate-form" = "/admin/structure/webform/config/options/manage/{webform_options}/duplicate",
+ *     "delete-form" = "/admin/structure/webform/config/options/manage/{webform_options}/delete",
+ *     "collection" = "/admin/structure/webform/config/options/manage",
  *   },
  *   config_export = {
  *     "id",
@@ -169,7 +170,7 @@ class WebformOptions extends ConfigEntityBase implements WebformOptionsInterface
   /**
    * {@inheritdoc}
    */
-  public static function getElementOptions(array $element, $property_name = '#options') {
+  public static function getElementOptions(array &$element, $property_name = '#options') {
     // If element already has #options return them.
     // NOTE: Only WebformOptions can be altered. If you need to alter an
     // element's options, @see hook_webform_element_alter().
@@ -186,7 +187,7 @@ class WebformOptions extends ConfigEntityBase implements WebformOptionsInterface
     // This allows dynamic options to be overridden.
     $id = $element[$property_name];
     if ($webform_options = WebformOptions::load($id)) {
-      $options = $webform_options->getOptions();
+      $options = $webform_options->getOptions() ?: [];
     }
     else {
       $options = [];

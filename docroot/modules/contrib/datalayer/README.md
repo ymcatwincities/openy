@@ -18,11 +18,11 @@ It's critial to have easy and reliable JS access to the meta data about the page
   "userStatus": "anonymous",
   "userUid": "555",
   "entityId" : "123",
-  "entityLabel" : "My Cool Page",
+  "entityTitle" : "My Cool Page",
   "entityType" : "node",
   "entityBundle" : "article",
   "entityUid" : "555",
-  "entityLanguage" : "en",
+  "entityLangcode" : "en",
   "entityTaxonomy" : {
     "special_category" : {
       "25" : "Term Name",
@@ -35,6 +35,12 @@ It's critial to have easy and reliable JS access to the meta data about the page
   }
 }
 ```
+
+### Meta data output changes since 7.x-1.x
+
+* `entityLabel` is now `entityTitle`
+* `entityLanguage` is now `entityLangcode`
+* `entityTnid` has been removed
 
 ## Adding to the data layer
 
@@ -51,6 +57,22 @@ It will be added to the page as:
 ```json
 {
   "entityProperty": "whatever the value is"
+}
+```
+
+### Suggest current user properties
+You can easily suggest additional properties for the current user to the Data Layer module by using the `hook_datalayer_current_user_meta()` function. Example:
+```php
+function my_module_datalayer_current_user_meta() {
+  return array(
+    'timezone',
+  );
+}
+```
+If user output is enabled, it will be added to the page as:
+```json
+{
+  "userTimezone": "whatever the value is"
 }
 ```
 
@@ -71,12 +93,48 @@ function _my_module_myevent_func($argument = FALSE) {
 
 ## Alter output
 
+### Data Layer Output Keys configuration
+
+The Data Layer output keys can be customized in the Data Layer configuration page. For example, the default key `entityTitle` could be customized set to `entityLabel` to maintain compatibility with the 7.x-1.x version of this module.
+
+### Field data output configuration
+
+Entity field data can be exposed in the datalayer on a per-bundle basis. To enable the feature, check the "Include enabled field values" option available in the Data Layer configuration page.
+
+When the feature enabled, the fields can be exposed by using editing the desired field(s) of any given content type and checking the "Expose in dataLayer" option.
+
+Sample field output:
+
+```json
+{
+  "field_foobar": {
+    "value": "baz",
+    "format": "basic_html"
+  }
+}
+```
+
+### Current user meta data output configuration
+
+Meta data for the current user can be added to the datalayer. This feature can be enabled by configuring matching paths for pages current user meta data should be included on. Wildcards '*' can be used.
+
+Sample user output:
+```json
+{
+  "userRoles": [
+    "authenticated"
+  ],
+  "userAccess": "1517172411",
+  "userCreated": "1516478100"
+}
+```
+
 ### Alter available properties
 You can also alter what entity properties are available within the admin UI (add candidates) via the `hook_datalayer_meta_alter()` function. You may want to take advantage of the entity agnostic menu object loader function found within the module. For example you might want to hide author information in some special cases...
 ```php
 function my_module_datalayer_meta_alter(&$properties) {
   // Override module norm in all cases.
-  unset($properties['entityUid']);
+  unset($properties['uid']);
 
   // Specific situation alteration...
   $type = false;
@@ -94,6 +152,14 @@ function my_module_datalayer_meta_alter(&$properties) {
       }
     }
   }
+}
+```
+
+### Alter available current user meta data properties
+```php
+function my_module_datalayer_current_user_meta_alter(&$properties) {
+  // Override module norm in all cases.
+  unset($properties['roles']);
 }
 ```
 
@@ -157,4 +223,4 @@ To do this just check the box on the admin screen. If you want to more about wor
 
 ### Data Layer Helper
 To employ more complex interactions with the data you may want load the [data-layer-helper](https://github.com/google/data-layer-helper) library. It provides the ability to "process messages passed onto a dataLayer queue," meaning listen to data provided to the data layer dynamicly.
-To use, add the compiled source to the standard Drupal location of `sites/all/libraries/data-layer-helper/data-layer-helper.js` and check the box on the admin page to include it.
+To use, add the compiled source to the standard Drupal location of `libraries/data-layer-helper/dist/data-layer-helper.js` and check the box on the admin page to include it.

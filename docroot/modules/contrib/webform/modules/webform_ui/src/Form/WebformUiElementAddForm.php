@@ -14,10 +14,10 @@ class WebformUiElementAddForm extends WebformUiElementFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, WebformInterface $webform = NULL, $type = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, WebformInterface $webform = NULL, $key = NULL, $parent_key = NULL, $type = NULL) {
     $this->webform = $webform;
-    $parent_key = $this->getRequest()->get('parent');
 
+    $parent_key = $this->getRequest()->get('parent');
     if ($parent_key) {
       $parent_element = $webform->getElementDecoded($parent_key);
       if (!$parent_element) {

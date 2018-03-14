@@ -11,7 +11,7 @@ field_name: field_prgf_grid_style
 entity_type: paragraph
 bundle: featured_content
 label: Style
-description: ''
+description: 'Select list with following values: 2:2 items per row, 3:3 items per row, 4:4 items per row'
 required: true
 translatable: true
 default_value: {  }

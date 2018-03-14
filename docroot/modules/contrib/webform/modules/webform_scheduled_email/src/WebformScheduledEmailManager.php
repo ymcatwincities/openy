@@ -2,12 +2,12 @@
 
 namespace Drupal\webform_scheduled_email;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\Delete as QueryDelete;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\webform\Plugin\Field\FieldType\WebformEntityReferenceItem;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionInterface;
 use Drupal\webform\WebformTokenManagerInterface;
@@ -27,7 +27,14 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
    *
    * @var \Drupal\Core\Database\Connection
    */
-  private $database;
+  protected $database;
+
+  /**
+   * The configuration object factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
 
   /**
    * Webform storage.
@@ -62,6 +69,8 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
    *
    * @param \Drupal\Core\Database\Connection $database
    *   The database connection.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration object factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
    * @param \Psr\Log\LoggerInterface $logger
@@ -69,8 +78,9 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
    * @param \Drupal\webform\WebformTokenManagerInterface $token_manager
    *   The webform token manager.
    */
-  public function __construct(Connection $database, EntityTypeManagerInterface $entity_type_manager, LoggerInterface $logger, WebformTokenManagerInterface $token_manager) {
+  public function __construct(Connection $database, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerInterface $logger, WebformTokenManagerInterface $token_manager) {
     $this->database = $database;
+    $this->configFactory = $config_factory;
     $this->webformStorage = $entity_type_manager->getStorage('webform');
     $this->submissionStorage = $entity_type_manager->getStorage('webform_submission');
     $this->logger = $logger;
@@ -405,7 +415,12 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
   /**
    * {@inheritdoc}
    */
-  public function cron(EntityInterface $entity = NULL, $handler_id = NULL, $schedule_limit = 1000, $send_limit = 500) {
+  public function cron(EntityInterface $entity = NULL, $handler_id = NULL, $schedule_limit = 1000, $send_limit = NULL) {
+    // Get default batch email size.
+    if ($send_limit === NULL) {
+      $send_limit = $this->configFactory->get('webform.settings')->get('batch.default_batch_email_size') ?: 500;
+    }
+
     $stats = [];
     $stats += $this->cronSchedule($entity, $handler_id, $schedule_limit);
     $stats += $this->cronSend($entity, $handler_id, $send_limit);
@@ -710,8 +725,11 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
       $webform = $webform_submission->getWebform();
     }
     elseif ($entity instanceof EntityInterface) {
+      /** @var \Drupal\webform\WebformEntityReferenceManagerInterface $entity_reference_manager */
+      $entity_reference_manager = \Drupal::service('webform.entity_reference_manager');
+
       $source_entity = $entity;
-      $webform = WebformEntityReferenceItem::getEntityWebformTarget($source_entity);
+      $webform = $entity_reference_manager->getWebform($source_entity);
     }
 
     return [$webform, $webform_submission, $source_entity];

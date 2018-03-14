@@ -20,6 +20,22 @@ elements: |
       - One
       - Two
       - Three
+  webform_multiple_no_sorting:
+    '#type': webform_multiple
+    '#title': webform_multiple_no_sorting
+    '#sorting': false
+    '#default_value':
+      - One
+      - Two
+      - Three
+  webform_multiple_no_operations:
+    '#type': webform_multiple
+    '#title': webform_multiple_no_operations
+    '#operations': false
+    '#default_value':
+      - One
+      - Two
+      - Three
   webform_multiple_email_five:
     '#type': webform_multiple
     '#title': webform_multiple_email_five
@@ -160,10 +176,44 @@ elements: |
       - id: jane
         first_name: Jane
         last_name: Doe
+  webform_multiple_elements_flattened:
+    '#type': webform_multiple
+    '#title': webform_multiple_elements_flattened
+    '#header': true
+    '#element':
+      value:
+        '#type': textfield
+        '#title': value
+        '#title_display': invisible
+        '#placeholder': 'Enter value'
+        '#help': 'This is custom help text'
+      option:
+        '#type': container
+        '#title': 'text/description'
+        '#title_display': invisible
+        '#help': 'This is custom help text'
+        text:
+          '#type': textfield
+          '#title': text
+          '#title_display': invisible
+          '#placeholder': 'Enter text'
+        description:
+          '#type': textfield
+          '#title': description
+          '#title_display': invisible
+          '#placeholder': 'Enter description'
+    '#default_value':
+      - value: one
+        text: One
+        description: This is the number 1.
+      - value: two
+        text: Two
+        description: This is the number 2.
 css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -193,8 +243,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -267,5 +317,6 @@ handlers:
     label: Debug
     handler_id: debug
     status: true
+    conditions: {  }
     weight: 0
     settings: {  }

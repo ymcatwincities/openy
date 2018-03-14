@@ -63,7 +63,7 @@ Tidy YAML files
 
     # Run single tests
     cd /var/www/sites/d8_webform
-    php core/scripts/run-tests.sh --verbose --class "Drupal\webform_templates\Tests\WebformTemplatesTest"
+    php core/scripts/run-tests.sh --verbose --class "Drupal\webform\Tests\WebformSubmissionStorageTest"
 
 [PHPUnit](https://www.drupal.org/node/2116263)
      

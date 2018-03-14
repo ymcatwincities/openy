@@ -89,10 +89,25 @@ elements: |
       '#default_value':
         title: Example
         url: http://example.com
+  composite_elements_multiple:
+    '#type': details
+    '#title': 'Composite Elements Multiple'
+    '#open': true
+    link_multiple:
+      '#type': webform_link
+      '#title': 'Link multiple'
+      '#multiple': true
+      '#multiple__header': true
+      '#default_value':
+        - title: Example
+          url: http://example.com
+      '#title__help': 'This is link title help'
+      '#url__help': 'This is link url help'
 css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -122,8 +137,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -196,5 +211,6 @@ handlers:
     label: Debug
     handler_id: debug
     status: true
+    conditions: {  }
     weight: 1
     settings: {  }

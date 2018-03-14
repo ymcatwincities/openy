@@ -25,7 +25,7 @@ class AggregatorController extends ControllerBase {
    * Constructs a \Drupal\aggregator\Controller\AggregatorController object.
    *
    * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
-   *    The date formatter service.
+   *   The date formatter service.
    */
   public function __construct(DateFormatterInterface $date_formatter) {
     $this->dateFormatter = $date_formatter;
@@ -47,10 +47,7 @@ class AggregatorController extends ControllerBase {
    *   A form array as expected by drupal_render().
    */
   public function feedAdd() {
-    $feed = $this->entityManager()->getStorage('aggregator_feed')
-      ->create([
-        'refresh' => 3600,
-      ]);
+    $feed = $this->entityManager()->getStorage('aggregator_feed')->create();
     return $this->entityFormBuilder()->getForm($feed);
   }
 

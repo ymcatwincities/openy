@@ -1,11 +1,11 @@
-name: 'Openy paragraph schedule search'
-description: 'Openy paragraph schedule search.'
+name: 'OpenY Paragraph Schedule Search'
+description: 'OpenY Paragraph Schedule Search.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - field
   - openy_prgf
   - openy_schedules
   - paragraphs
   - plugin
-version: 8.x-1.0

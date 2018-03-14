@@ -11,7 +11,7 @@ field_name: field_alert_place
 entity_type: node
 bundle: alert
 label: Placement
-description: ''
+description: 'Select list field (singular) for choosing place: Header, Footer'
 required: true
 translatable: false
 default_value: {  }

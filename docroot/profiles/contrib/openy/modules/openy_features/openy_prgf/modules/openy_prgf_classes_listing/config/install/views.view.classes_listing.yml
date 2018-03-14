@@ -117,6 +117,71 @@ display:
           absolute: false
           entity_type: node
           plugin_id: node_path
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: title
+          plugin_id: field
         title_1:
           id: title_1
           table: node_field_data
@@ -201,7 +266,7 @@ display:
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
+            alt: '{{ title }} '
             rel: ''
             link_class: ''
             prefix: ''
@@ -298,7 +363,7 @@ display:
           precision: 0
           decimal: .
           format_plural: 0
-          format_plural_string: "1\x03@count"
+          format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
           entity_type: node
@@ -635,6 +700,7 @@ display:
         - 'config:core.entity_view_display.node.branch.class_location'
         - 'config:core.entity_view_display.node.branch.default'
         - 'config:core.entity_view_display.node.branch.full'
+        - 'config:core.entity_view_display.node.branch.sidebar_teaser'
         - 'config:core.entity_view_display.node.branch.teaser'
         - 'config:core.entity_view_display.node.camp.class_location'
         - 'config:core.entity_view_display.node.camp.default'
@@ -692,6 +758,7 @@ display:
         - 'config:core.entity_view_display.node.branch.class_location'
         - 'config:core.entity_view_display.node.branch.default'
         - 'config:core.entity_view_display.node.branch.full'
+        - 'config:core.entity_view_display.node.branch.sidebar_teaser'
         - 'config:core.entity_view_display.node.branch.teaser'
         - 'config:core.entity_view_display.node.camp.class_location'
         - 'config:core.entity_view_display.node.camp.default'

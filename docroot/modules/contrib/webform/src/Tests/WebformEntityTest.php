@@ -2,6 +2,8 @@
 
 namespace Drupal\webform\Tests;
 
+use Drupal\webform\Entity\Webform;
+
 /**
  * Tests for webform entity.
  *
@@ -14,14 +16,14 @@ class WebformEntityTest extends WebformTestBase {
    *
    * @var array
    */
-  public static $modules = ['node', 'webform'];
+  public static $modules = ['node', 'webform', 'webform_test_submissions'];
 
   /**
    * Webforms to load.
    *
    * @var array
    */
-  protected static $testWebforms = ['test_results'];
+  protected static $testWebforms = ['test_submissions'];
 
   /**
    * Webform submission storage.
@@ -45,7 +47,7 @@ class WebformEntityTest extends WebformTestBase {
    */
   public function testWebform() {
     /** @var \Drupal\webform\WebformInterface $webform */
-    list($webform) = $this->createWebformWithSubmissions();
+    $webform = Webform::load('test_submissions');
 
     // Check get elements.
     $elements = $webform->getElementsInitialized();

@@ -67,7 +67,6 @@
      * The event must be bound after slick being called.
      */
     function afterSlick() {
-      var me = this;
       var slick = t.slick('getSlick');
       var media = t.find('.media--player').length;
 
@@ -97,8 +96,6 @@
         t.on('click.sl', '.media__icon--close', closeOut);
         t.on('click.sl', '.media__icon--play', pause);
       }
-
-      t.trigger('afterSlick', [me, slick, slick.currentSlide]);
     }
 
     /**
@@ -181,7 +178,7 @@
     }
 
     /**
-     * Trigger pause on slick instance when media plying a video.
+     * Trigger pause on slick instance when media playing a video.
      */
     function pause() {
       t.addClass('is-paused').slick('slickPause');

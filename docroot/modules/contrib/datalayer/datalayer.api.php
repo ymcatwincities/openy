@@ -28,12 +28,37 @@ function hook_datalayer_meta() {
 }
 
 /**
+ * Provide candidate entity properties for specific entity types.
+ */
+function hook_datalayer_ENTITY_TYPE_meta() {
+  // EXAMPLE:
+  // Add your own entity property to output.
+  return [
+    'some_property',
+  ];
+}
+
+/**
  * Alter the Data Layer data before it is output to the screen.
  *
  * @param array $properties
  *   Data layer properties to output on entiity pages.
  */
 function hook_datalayer_meta_alter(array $properties) {
+  // EXAMPLE:
+  // Remove author uid if anonymous or admin.
+  if ($properties['uid'] == 0 || $properties['uid'] == 1) {
+    unset($properties['uid']);
+  }
+}
+
+/**
+ * Alter entity specific Data Layer data before it is output to the screen.
+ *
+ * @param array $properties
+ *   Data layer properties to output on entiity pages.
+ */
+function hook_datalayer_ENTITY_TYPE_meta_alter(array $properties) {
   // EXAMPLE:
   // Remove author uid if anonymous or admin.
   if ($properties['uid'] == 0 || $properties['uid'] == 1) {

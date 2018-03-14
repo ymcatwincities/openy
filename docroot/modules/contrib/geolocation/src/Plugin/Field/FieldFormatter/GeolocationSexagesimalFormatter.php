@@ -24,14 +24,14 @@ class GeolocationSexagesimalFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $element = array();
+    $element = [];
 
     foreach ($items as $delta => $item) {
-      $element[$delta] = array(
+      $element[$delta] = [
         '#theme' => 'geolocation_sexagesimal_formatter',
         '#lat' => GeolocationCore::decimalToSexagesimal($item->lat),
         '#lng' => GeolocationCore::decimalToSexagesimal($item->lng),
-      );
+      ];
     }
 
     return $element;

@@ -71,7 +71,7 @@ class WebformSubmissionNotesForm extends ContentEntityForm {
     ];
     $form['sticky'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Star/flag the status of this submission.'),
+      '#title' => $this->t('Star/flag the status of this submission'),
       '#default_value' => $webform_submission->isSticky(),
       '#return_value' => TRUE,
       '#access' => $this->isDialog() ? FALSE : TRUE,

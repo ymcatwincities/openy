@@ -1,6 +1,4 @@
 last_optimize: 0
-autocomplete_max_occurrences: 0.9
 index_prefix: ''
-http_get_max_length: 4000
 cron_action: 'spellcheck'
 site_hash: ''

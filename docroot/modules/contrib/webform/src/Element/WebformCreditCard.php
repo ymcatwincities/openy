@@ -37,6 +37,7 @@ class WebformCreditCard extends WebformCompositeBase {
       '#type' => 'select',
       '#title' => t('Type of Card'),
       '#options' => 'creditcard_codes',
+      '#empty_option' => '',
     ];
     $elements['number'] = [
       '#type' => 'webform_creditcard_number',

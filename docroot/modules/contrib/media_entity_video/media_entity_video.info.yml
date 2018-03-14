@@ -1,0 +1,13 @@
+name: Media entity video
+description: 'Media entity for video files.'
+type: module
+package: Media
+# core: 8.x
+dependencies:
+  - media_entity
+
+# Information added by Drupal.org packaging script on 2017-03-10
+version: '8.x-1.0-beta2'
+core: '8.x'
+project: 'media_entity_video'
+datestamp: 1489117087

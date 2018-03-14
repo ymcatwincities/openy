@@ -53,9 +53,9 @@ webform.settings:
         default_wizard_start_label:
           type: label
           label: 'Default wizard start label'
-        default_wizard_complete_label:
+        default_wizard_confirmation_label:
           type: label
-          label: 'Default wizard complete label'
+          label: 'Default wizard confirmation label'
         default_preview_next_button_label:
           type: label
           label: 'Default preview button label'
@@ -139,12 +139,21 @@ webform.settings:
         classes:
           type: string
           label: 'Element CSS classes'
+        horizontal_rule_classes:
+          type: string
+          label: 'Horizontal rule CSS classes'
         default_icheck:
           type: string
           label: 'Default iCheck style'
         default_description_display:
           type: string
           label: 'Default title display'
+        default_more_title:
+          type: label
+          label: 'Default more title'
+        default_section_title_tag:
+          type: label
+          label: 'Default section title tag'
         default_empty_option:
           type: boolean
           label: 'Default empty option'
@@ -223,6 +232,12 @@ webform.settings:
         default_return_path:
           type: label
           label: 'Default return path email'
+        default_sender_mail:
+          type: email
+          label: 'Default sender email'
+        default_sender_name:
+          type: label
+          label: 'Default sender name'
         default_subject:
           type: label
           label: 'Default email subject'
@@ -269,15 +284,21 @@ webform.settings:
         header_prefix_label_delimiter:
           type: string
           label: 'Column header prefix label delimiter'
-        entity_reference_format:
+        entity_reference_items:
+          type: sequence
+          label: 'Entity reference format items'
+          sequence:
+            type: string
+            label: 'Entity reference format item'
+        options_single_format:
           type: string
-          label: 'Options format'
-        options_format:
+          label: 'Options single value format'
+        options_multiple_format:
           type: string
-          label: 'Options item format'
+          label: 'Options multiple values format'
         options_item_format:
           type: string
-          label: 'Entity reference format'
+          label: 'Options item format'
         likert_answers_format:
           type: string
           label: 'Likert answers format'
@@ -310,6 +331,9 @@ webform.settings:
         default_batch_delete_size:
           type: integer
           label: 'Batch delete size'
+        default_batch_email_size:
+          type: integer
+          label: 'Batch email size'
     purge:
       type: mapping
       label: 'Purging settings'
@@ -337,9 +361,9 @@ webform.settings:
         dialog_disabled:
           type: boolean
           label: 'Disable dialogs'
-        help_menu_disabled:
+        about_disabled:
           type: boolean
-          label: 'Disable help menu'
+          label: 'Disable about'
         offcanvas_disabled:
           type: boolean
           label: 'Disable system tray'
@@ -349,6 +373,9 @@ webform.settings:
         details_save:
           type: boolean
           label: 'Save details open/close state'
+        description_help:
+          type: boolean
+          label: 'Display element description as help text (tooltip)'
     libraries:
       type: mapping
       label: 'Library settings'
@@ -359,6 +386,19 @@ webform.settings:
         cdn:
           type: boolean
           label: 'Use CDN'
+    requirements:
+      type: mapping
+      label: 'Requirements'
+      mapping:
+        cdn:
+          type: boolean
+          label: 'Check if CDN is being used for external libraries'
+        bootstrap:
+          type: boolean
+          label: 'Check if Webform Bootstrap Integration module is installed when using the Bootstrap theme'
+        spam:
+          type: boolean
+          label: 'Check if SPAM protection module is installed'
     third_party_settings:
       type: sequence
       label: 'Third party settings'
@@ -412,6 +452,9 @@ webform.webform.*:
         ajax:
           type: boolean
           label: 'Use Ajax'
+        ajax_scroll_top:
+          type: string
+          label: 'Ajax scroll top'
         page:
           type: boolean
           label: 'Enable page'
@@ -505,12 +548,15 @@ webform.webform.*:
         wizard_start_attributes:
           type: ignore
           label: 'Wizard start attributes'
-        wizard_complete:
+        wizard_confirmation:
           type: boolean
           label: 'Include confirmation page in progress'
-        wizard_complete_label:
+        wizard_confirmation_label:
           type: label
-          label: 'Wizard complete label'
+          label: 'Wizard confirmation label'
+        wizard_track:
+          type: text
+          label: 'Track wizard progress in the URL'
         preview:
           type: integer
           label: 'Enable preview page'
@@ -540,7 +586,7 @@ webform.webform.*:
           label: 'Allow users to save and finish the webform later.'
         draft_multiple:
           type: boolean
-          label: 'Allow users to save multiple drafts.'
+          label: 'Allow users to save multiple drafts'
         draft_auto_save:
           type: boolean
           label: 'Automatically save as draft when previewing and when there are validation errors.'
@@ -795,14 +841,22 @@ webform.webform.*:
         mapping:
           id:
             type: string
+            label: 'Handle plugin ID'
           handler_id:
             type: string
+            label: 'Handler instance ID'
           label:
             type: label
+            label: 'Label'
           status:
             type: boolean
+            label: 'Status'
+          conditions:
+            type: ignore
+            label: 'Conditional logic'
           weight:
             type: integer
+            label: 'Weight'
           settings:
             type: webform.handler.[%parent.id]
     third_party_settings:
@@ -863,6 +917,12 @@ webform.handler.email:
     return_path:
       type: label
       label: 'Return path email'
+    sender_mail:
+      type: email
+      label: 'Sender email'
+    sender_name:
+      type: label
+      label: 'Sender name'
     subject:
       label: 'Email subject'
       type: label
@@ -895,6 +955,9 @@ webform.handler.remote_post:
   type: mapping
   label: 'Remote Post'
   mapping:
+    method:
+      label: 'Method'
+      type: string
     type:
       label: 'Type'
       type: string
@@ -980,7 +1043,7 @@ block.settings.webform_block:
   label: 'Webforms block'
   mapping:
     webform_id:
-      type: text
+      type: string
       label: 'Webform'
     default_data:
       type: text
@@ -1009,13 +1072,13 @@ block.settings.webform_submission_limit_block:
       type: label
       label: 'Progress bar message'
     webform_id:
-      type: text
+      type: string
       label: 'Webform'
     entity_type:
-      type: text
+      type: string
       label: 'Source entity type'
     entity_id:
-      type: text
+      type: string
       label: 'Source entity id'
 
 # Schema for the configuration of the webform field type.

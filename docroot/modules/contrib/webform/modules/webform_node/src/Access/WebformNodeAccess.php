@@ -5,9 +5,8 @@ namespace Drupal\webform_node\Access;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeInterface;
-use Drupal\webform\Access\WebformAccess;
-use Drupal\webform\Plugin\Field\FieldType\WebformEntityReferenceItem;
-use Drupal\webform\WebformSubmissionForm;
+use Drupal\webform\Access\WebformEntityAccess;
+use Drupal\webform\Access\WebformSubmissionAccess;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -33,8 +32,10 @@ class WebformNodeAccess {
   public static function checkWebformResultsAccess($operation, $entity_access, NodeInterface $node, AccountInterface $account) {
     $access_result = static::checkAccess($operation, $entity_access, $node, NULL, $account);
     if ($access_result->isAllowed()) {
-      $webform_field_name = WebformEntityReferenceItem::getEntityWebformFieldName($node);
-      return WebformAccess::checkResultsAccess($node->$webform_field_name->entity, $node);
+      /** @var \Drupal\webform\WebformEntityReferenceManagerInterface $entity_reference_manager */
+      $entity_reference_manager = \Drupal::service('webform.entity_reference_manager');
+      $webform = $entity_reference_manager->getWebform($node);
+      return WebformEntityAccess::checkResultsAccess($webform, $node);
     }
     else {
       return $access_result;
@@ -62,9 +63,9 @@ class WebformNodeAccess {
       return $access_result;
     }
 
-    $webform_field_name = WebformEntityReferenceItem::getEntityWebformFieldName($node);
-    /** @var \Drupal\webform\WebformInterface $webform */
-    $webform = $node->$webform_field_name->entity;
+    /** @var \Drupal\webform\WebformEntityReferenceManagerInterface $entity_reference_manager */
+    $entity_reference_manager = \Drupal::service('webform.entity_reference_manager');
+    $webform = $entity_reference_manager->getWebform($node);
     if (!$webform->hasSubmissionLog()) {
       $access_result = AccessResult::forbidden();
     }
@@ -104,26 +105,22 @@ class WebformNodeAccess {
    *   A webform submission.
    * @param \Drupal\Core\Session\AccountInterface $account
    *   Run access checks for this account.
-   * @param string $mode
-   *   The webform display/processs mode.
-   * @param bool $resend
-   *   Flag to check resend email access.
    *
    * @return \Drupal\Core\Access\AccessResultInterface
    *   The access result.
    */
-  public static function checkWebformSubmissionAccess($operation, $entity_access, NodeInterface $node, WebformSubmissionInterface $webform_submission, AccountInterface $account, $mode = NULL, $resend = FALSE) {
+  public static function checkWebformSubmissionAccess($operation, $entity_access, NodeInterface $node, WebformSubmissionInterface $webform_submission, AccountInterface $account) {
     $access_result = static::checkAccess($operation, $entity_access, $node, $webform_submission, $account);
     if ($access_result->isForbidden()) {
       return $access_result;
     }
 
-    if ($mode === WebformSubmissionForm::DISABLE_PAGES) {
-      return WebformAccess::checkWebformWizardPagesAccess($webform_submission->getWebform());
-    }
+    switch ($operation) {
+      case 'webform_submission_edit_all':
+        return WebformSubmissionAccess::checkWizardPagesAccess($webform_submission);
 
-    if ($resend) {
-      return WebformAccess::checkEmailAccess($webform_submission, $account);
+      case 'webform_submission_resend':
+        return WebformSubmissionAccess::checkEmailAccess($webform_submission, $account);
     }
 
     return $access_result;
@@ -147,9 +144,12 @@ class WebformNodeAccess {
    *   The access result.
    */
   protected static function checkAccess($operation, $entity_access, NodeInterface $node, WebformSubmissionInterface $webform_submission = NULL, AccountInterface $account = NULL) {
-    $webform_field_name = WebformEntityReferenceItem::getEntityWebformFieldName($node);
+    /** @var \Drupal\webform\WebformEntityReferenceManagerInterface $entity_reference_manager */
+    $entity_reference_manager = \Drupal::service('webform.entity_reference_manager');
+
+    $webform = $entity_reference_manager->getWebform($node);
     // Check that the node has a valid webform reference.
-    if (!$webform_field_name || !$node->$webform_field_name->entity) {
+    if (!$webform) {
       return AccessResult::forbidden();
     }
 
@@ -167,7 +167,7 @@ class WebformNodeAccess {
     if ($entity_access) {
       // Check entity access for the webform.
       if (strpos($entity_access, 'webform.') === 0
-        && $node->$webform_field_name->entity->access(str_replace('webform.', '', $entity_access), $account)) {
+        && $webform->access(str_replace('webform.', '', $entity_access), $account)) {
         return AccessResult::allowed();
       }
       // Check entity access for the webform submission.

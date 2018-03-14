@@ -53,13 +53,13 @@ class WebformExampleCompositeTest extends WebformTestBase {
     ];
     $sid = $this->postSubmission($webform, $edit);
     $webform_submission = WebformSubmission::load($sid);
-    $this->assertEqual($webform_submission->getData('webform_example_composite'), [
+    $this->assertEqual($webform_submission->getElementData('webform_example_composite'), [
       'first_name' => 'John',
       'last_name' => 'Smith',
       'gender' => 'Male',
       'date_of_birth' => '1910-01-01',
     ]);
-    $this->assertEqual($webform_submission->getData('webform_example_composite_multiple'), [
+    $this->assertEqual($webform_submission->getElementData('webform_example_composite_multiple'), [
       [
       'first_name' => 'Jane',
       'last_name' => 'Doe',

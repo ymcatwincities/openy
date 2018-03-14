@@ -102,9 +102,9 @@ class ProximityArgument extends Formula implements ContainerFactoryPluginInterfa
     // Now that our table is secure, get our formula.
     $placeholder = $this->placeholder();
     $formula = $this->getFormula() . ' ' . $this->operator . ' ' . $placeholder;
-    $placeholders = array(
+    $placeholders = [
       $placeholder => $this->proximity,
-    );
+    ];
 
     // The addWhere function is only available for SQL queries.
     if ($this->query instanceof Sql) {
@@ -127,8 +127,8 @@ class ProximityArgument extends Formula implements ContainerFactoryPluginInterfa
       preg_match('/^([0-9\-.]+),+([0-9\-.]+)([<>=]+)([0-9.]+)(.*$)/', $this->getValue(), $values);
       // Validate and return the passed argument.
       $values = is_array($values) ? [
-        'lat' => (isset($values[1]) && ($lat = abs((int) $values[1])) && $lat >= 0 && $lat <= 90) ? floatval($values[1]) : FALSE,
-        'lng' => (isset($values[2]) && ($lng = abs((int) $values[2])) && $lng >= 0 && $lng <= 180) ? floatval($values[2]) : FALSE,
+        'lat' => (isset($values[1]) && is_numeric($values[1]) && $values[1] >= -90 && $values[1] <= 90) ? floatval($values[1]) : FALSE,
+        'lng' => (isset($values[2]) && is_numeric($values[2]) && $values[2] >= -180 && $values[2] <= 180) ? floatval($values[2]) : FALSE,
         'operator' => (isset($values[3]) && in_array($values[3], [
           '<>',
           '=',

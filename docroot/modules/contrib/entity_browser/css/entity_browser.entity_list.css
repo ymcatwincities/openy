@@ -9,16 +9,27 @@
  */
 
 .entities-list .item-container {
-    display: inline-block;
-    margin: 10px 10px 15px;
-    vertical-align: text-bottom;
+  display: inline-block;
+  margin: 10px 10px 15px;
+  vertical-align: text-bottom;
 }
 
-.entities-list .item-container > img, .entities-list .item-container > input {
-    display: block;
-    margin: 5px auto 0;
+.entities-list .item-container > img,
+.entities-list .item-container > input {
+  display: block;
+  margin: 5px auto 0;
+}
+
+.entities-list.sortable .item-container:hover {
+  cursor: move;
+  opacity: 0.6;
 }
 
 .entities-list .rendered-entity {
-    display: block;
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+.entities-list.hidden {
+  display: none;
 }

@@ -3,9 +3,7 @@
 namespace Drupal\webform_node\Tests;
 
 use Drupal\node\NodeInterface;
-use Drupal\webform\Entity\Webform;
 use Drupal\webform\Tests\WebformTestBase;
-use Drupal\webform\Plugin\Field\FieldType\WebformEntityReferenceItem;
 use Drupal\webform\WebformInterface;
 
 /**
@@ -36,9 +34,10 @@ abstract class WebformNodeTestBase extends WebformTestBase {
    * @see \Drupal\webform\Tests\WebformTestBase::postSubmission
    */
   protected function postNodeSubmission(NodeInterface $node, array $edit = [], $submit = NULL) {
-    $webform_field_name = WebformEntityReferenceItem::getEntityWebformFieldName($node);
-    $webform_id = $node->$webform_field_name->target_id;
-    $webform = Webform::load($webform_id);
+    /** @var \Drupal\webform\WebformEntityReferenceManagerInterface $entity_reference_manager */
+    $entity_reference_manager = \Drupal::service('webform.entity_reference_manager');
+
+    $webform = $entity_reference_manager->getWebform($node);
     $submit = $this->getWebformSubmitButtonLabel($webform, $submit);
     $this->drupalPostForm('node/' . $node->id(), $edit, $submit);
     return $this->getLastSubmissionId($webform);

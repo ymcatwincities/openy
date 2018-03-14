@@ -17,70 +17,70 @@ search_api.index.*:
     read_only:
       type: boolean
       label: 'Read-only'
+    field_settings:
+      type: sequence
+      label: 'Indexed fields'
+      sequence:
+        type: mapping
+        label: field
+        mapping:
+          label:
+            type: string
+            label: 'A label for the field'
+          datasource_id:
+            type: string
+            label: 'The datasource ID of the field'
+          property_path:
+            type: string
+            label: 'The property path of the field'
+          type:
+            type: string
+            label: 'The data type of the field'
+          boost:
+            type: float
+            label: 'The boost of the field'
+          configuration:
+            type: search_api.property_configuration.[%parent.property_path]
+          indexed_locked:
+            type: boolean
+            label: 'Whether the field is locked or can be removed'
+          type_locked:
+            type: boolean
+            label: 'Whether the field''s data type is locked or can be changed'
+          hidden:
+            type: boolean
+            label: 'Whether the field should appear in the UI'
+          dependencies:
+            type: config_dependencies
+            label: 'The field''s dependencies'
+    datasource_settings:
+      type: sequence
+      label: 'Datasource settings'
+      sequence:
+        type: plugin.plugin_configuration.search_api_datasource.[%key]
+        label: 'The configuration for a single datasource'
+    processor_settings:
+      type: sequence
+      label: 'Processor settings'
+      sequence:
+        type: plugin.plugin_configuration.search_api_processor.[%key]
+        label: 'The configuration for a single processor'
+    tracker_settings:
+      type: sequence
+      label: 'Tracker settings'
+      sequence:
+        type: plugin.plugin_configuration.search_api_tracker.[%key]
+        label: 'The configuration for the tracker'
     options:
       type: mapping
       label: 'Options'
       mapping:
-        fields:
-          type: sequence
-          label: 'Indexed fields'
-          sequence:
-            type: mapping
-            label: field
-            mapping:
-              type:
-                type: string
-                label: 'Type of field'
-              boost:
-                type: float
-                label: 'Boost'
-        additional fields:
-          type: sequence
-          label: 'Included additional fields'
-          sequence:
-            type: string
-            label: 'Additional field'
         cron_limit:
           type: integer
           label: 'Cron batch size'
         index_directly:
           type: boolean
           label: 'Index items immediately'
-        processors:
-          type: sequence
-          label: 'Processor settings'
-          sequence:
-            type: mapping
-            label: 'A processor'
-            mapping:
-              processor_id:
-                type: string
-                label: 'The plugin ID of the processor'
-              weights:
-                type: sequence
-                label: 'The processor''s weights for the different processing stages'
-                sequence:
-                  type: integer
-                  label: 'The processor''s weight for this stage'
-              settings:
-                type: search_api.processor.plugin.[%parent.processor_id]
-    datasources:
-      type: sequence
-      label: 'Datasource plugin IDs'
-      sequence:
-        type: string
-    datasource_configs:
-      type: sequence
-      label: 'Datasource plugin configurations'
-      sequence:
-        type: search_api.datasource.plugin.[%key]
-        label: 'Datasource plugin configuration'
-    tracker:
-      type: string
-      label: 'Tracker plugin ID'
-    tracker_config:
-      label: 'Tracker config plugin'
-      type: search_api.tracker.plugin.[%parent.tracker]
     server:
       type: string
       label: 'Server ID'
