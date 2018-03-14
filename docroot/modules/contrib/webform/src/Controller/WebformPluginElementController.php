@@ -138,8 +138,28 @@ class WebformPluginElementController extends ControllerBase implements Container
         $webform_element_plugin_definition = $this->elementManager->getDefinition($element_plugin_id);
         $webform_element_info = $webform_element->getInfo();
 
+        // Title.
+        if ($test_element_enabled) {
+          $title = [
+            'data' => [
+              '#type' => 'link',
+              '#title' => $element_plugin_id,
+              '#url' => new Url('webform.element_plugins.test', ['type' => $element_plugin_id]),
+              '#attributes' => ['class' => ['webform-form-filter-text-source']],
+            ],
+          ];
+        }
+        else {
+          $title = new FormattableMarkup('<div class="webform-form-filter-text-source">@id</div>', ['@id' => $element_plugin_id]);
+        }
+
+        // Description.
+        $description = new FormattableMarkup('<strong>@label</strong><br />@description', ['@label' => $webform_element->getPluginLabel(), '@description' => $webform_element->getPluginDescription()]);
+
+        // Parent classes.
         $parent_classes = WebformReflectionHelper::getParentClasses($webform_element, 'WebformElementBase');
 
+        // Formats.
         $default_format = $webform_element->getItemDefaultFormat();
         $format_names = array_keys($webform_element->getItemFormats());
         $formats = array_combine($format_names, $format_names);
@@ -147,10 +167,13 @@ class WebformPluginElementController extends ControllerBase implements Container
           $formats[$default_format] = '<b>' . $formats[$default_format] . '</b>';
         }
 
+        // Related types.
         $related_types = $webform_element->getRelatedTypes($element);
 
+        // Dependencies.
         $dependencies = $webform_element_plugin_definition['dependencies'];
 
+        // Webform element info.
         $webform_info_definitions = [
           'excluded' => isset($excluded_elements[$element_plugin_id]),
           'input' => $webform_element->isInput($element),
@@ -159,6 +182,7 @@ class WebformPluginElementController extends ControllerBase implements Container
           'hidden' => $webform_element->isHidden(),
           'multiple' => $webform_element->supportsMultipleValues(),
           'multiline' => $webform_element->isMultiline($element),
+          'default_key' => $webform_element_plugin_definition['default_key'],
           'states_wrapper' => $webform_element_plugin_definition['states_wrapper'],
         ];
         $webform_info = [];
@@ -166,6 +190,7 @@ class WebformPluginElementController extends ControllerBase implements Container
           $webform_info[] = '<b>' . $key . '</b>: ' . ($value ? $this->t('Yes') : $this->t('No'));
         }
 
+        // Wlement info.
         $element_info_definitions = [
           'input' => (empty($webform_element_info['#input'])) ? $this->t('No') : $this->t('Yes'),
           'theme' => (isset($webform_element_info['#theme'])) ? $webform_element_info['#theme'] : 'N/A',
@@ -176,6 +201,7 @@ class WebformPluginElementController extends ControllerBase implements Container
           $element_info[] = '<b>' . $key . '</b>: ' . $value;
         }
 
+        // Properties.
         $properties = [];
         $element_default_properties = array_keys($webform_element->getDefaultProperties());
         foreach ($element_default_properties as $key => $value) {
@@ -192,6 +218,7 @@ class WebformPluginElementController extends ControllerBase implements Container
           $properties = array_slice($properties, 0, 20) + ['...' => '...'];
         }
 
+        // Operations.
         $operations = [];
         if ($test_element_enabled) {
           $operations['test'] = [
@@ -208,8 +235,8 @@ class WebformPluginElementController extends ControllerBase implements Container
 
         $webform_form_element_rows[$element_plugin_id] = [
           'data' => [
-            new FormattableMarkup('<div class="webform-form-filter-text-source">@id</div>', ['@id' => $element_plugin_id]),
-            new FormattableMarkup('<strong>@label</strong><br />@description', ['@label' => $webform_element->getPluginLabel(), '@description' => $webform_element->getPluginDescription()]),
+            $title,
+            $description,
             ['data' => ['#markup' => implode('<br /> → ', $parent_classes)], 'nowrap' => 'nowrap'],
             ['data' => ['#markup' => implode('<br />', $webform_info)], 'nowrap' => 'nowrap'],
             ['data' => ['#markup' => implode('<br />', $element_info)], 'nowrap' => 'nowrap'],
@@ -219,7 +246,12 @@ class WebformPluginElementController extends ControllerBase implements Container
             $dependencies ? ['data' => ['#markup' => '• ' . implode('<br />• ', $dependencies)], 'nowrap' => 'nowrap'] : '',
             $element_plugin_definition['provider'],
             $webform_element_plugin_definition['provider'],
-            $operations ? ['data' => ['#type' => 'operations', '#links' => $operations]] : '',
+            $operations ? ['data' => [
+              '#type' => 'operations',
+              '#links' => $operations,
+              '#prefix' => '<div class="webform-dropbutton">',
+              '#suffix' => '</div>',
+            ]] : '',
           ],
         ];
         if (isset($excluded_elements[$element_plugin_id])) {
@@ -253,8 +285,8 @@ class WebformPluginElementController extends ControllerBase implements Container
     // Settings
     $build['settings'] = [
       '#type' => 'link',
-      '#title' => $this->t('Edit settings'),
-      '#url' => Url::fromRoute('webform.settings.elements'),
+      '#title' => $this->t('Edit configuration'),
+      '#url' => Url::fromRoute('webform.config.elements'),
       '#attributes' => ['class' => ['button', 'button--small'], 'style' => 'float: right'],
     ];
 

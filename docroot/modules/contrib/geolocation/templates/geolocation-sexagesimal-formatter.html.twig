@@ -12,4 +12,10 @@
  * @ingroup themeable
  */
 #}
-<span class="geolocation-sexagesimal">{{ lat }}, {{ lng }}</span>
+<span typeof="Place">
+    <span property="geo" typeof="GeoCoordinates">
+        <meta property="latitude" content="{{ lat }}">
+        <meta property="longitude" content="{{ lng }}">
+    </span>
+    <span class="geolocation-sexagesimal">{{ lat }}, {{ lng }}</span>
+</span>

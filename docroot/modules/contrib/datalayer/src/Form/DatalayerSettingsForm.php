@@ -4,12 +4,40 @@ namespace Drupal\datalayer\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ModuleHandler;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\taxonomy\Entity\Vocabulary;
 
 /**
  * Defines a form that configures datalayer module settings.
  */
 class DatalayerSettingsForm extends ConfigFormBase {
+
+  /**
+   * Drupal\Core\Extension\ModuleHandler definition.
+   *
+   * @var Drupal\Core\Extension\ModuleHandler
+   */
+  protected $moduleHandler;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, ModuleHandler $module_handler) {
+    parent::__construct($config_factory);
+    $this->moduleHandler = $module_handler;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('module_handler')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -35,6 +63,7 @@ class DatalayerSettingsForm extends ConfigFormBase {
       ->set('vocabs', $form_state->getValue('vocabs'))
       ->set('expose_user_details', $form_state->getValue('expose_user_details'))
       ->set('expose_user_details_roles', $form_state->getValue('expose_user_details_roles'))
+      ->set('current_user_meta', $form_state->getValue('current_user_meta'))
       ->set('expose_user_details_fields', $form_state->getValue('expose_user_details_fields'))
       ->set('entity_title', $form_state->getValue('entity_title'))
       ->set('entity_type', $form_state->getValue('entity_type'))
@@ -46,7 +75,7 @@ class DatalayerSettingsForm extends ConfigFormBase {
       ->set('key_replacements', $this->keyReplacementsToArray($form_state->getValue('key_replacements')))
       ->save();
 
-    if (\Drupal::moduleHandler()->moduleExists('group')) {
+    if ($this->moduleHandler->moduleExists('group')) {
       $config->set('group', $form_state->getValue('group'))
         ->set('group_label', $form_state->getValue('group_label'))
         ->save();
@@ -133,15 +162,26 @@ class DatalayerSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Include enabled field values'),
       '#default_value' => $datalayer_settings->get('output_fields'),
     ];
+
+    $helper = $datalayer_settings->get('lib_helper');
     $form['global']['lib_helper'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Include "data layer helper" library'),
-      '#default_value' => $datalayer_settings->get('lib_helper'),
+      '#default_value' => $helper,
       '#description' => $this->t('Provides the ability to process messages passed to the dataLayer. See: <a href=":helper">data-layer-helper</a> on GitHub.', [
         ':helper' => 'https://github.com/google/data-layer-helper',
       ]),
     ];
-    if (\Drupal::moduleHandler()->moduleExists('group')) {
+
+    $path = '/libraries/data-layer-helper/dist/data-layer-helper.js';
+    if (empty($_POST) && $helper && !file_exists(DRUPAL_ROOT . $path)) {
+      drupal_set_message($this->t('Data Layer Helper Library is enabled but the library is not installed at %filepath. See: <a href=":helper">data-layer-helper</a> on GitHub.', [
+        '%filepath' => $path,
+        ':helper' => 'https://github.com/google/data-layer-helper',
+      ]), 'warning');
+    }
+
+    if ($this->moduleHandler->moduleExists('group')) {
       $form['global']['group'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Group module support'),
@@ -249,7 +289,17 @@ class DatalayerSettingsForm extends ConfigFormBase {
       '#multiple' => TRUE,
       '#title' => $this->t('Expose user roles'),
       '#default_value' => $datalayer_settings->get('expose_user_details_roles'),
-      '#description' => $this->t('Roles that should expose active user details to the dataLayer. Leaving empty will expose to all roles.'),
+      '#description' => $this->t('Roles that should expose active user details to the dataLayer. Leaving empty will expose for all roles.'),
+    ];
+
+    // Get available meta data.
+    $current_user_meta_data = _datalayer_collect_meta_properties('current_user');
+    $form['user']['current_user_meta'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Current User Meta Data'),
+      '#default_value' => $datalayer_settings->get('current_user_meta'),
+      '#options' => array_combine($current_user_meta_data, $current_user_meta_data),
+      '#description' => $this->t('The meta data details to ouput for client-side consumption. Marking none will output everything available.'),
     ];
 
     $form['user']['expose_user_details_fields'] = [
@@ -318,7 +368,7 @@ class DatalayerSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Key for the country of the site.'),
     ];
 
-    if (\Drupal::moduleHandler()->moduleExists('group')) {
+    if ($this->moduleHandler->moduleExists('group')) {
       // Group label.
       $group_label = $datalayer_settings->get('group_label');
       $form['output']['group_label'] = [

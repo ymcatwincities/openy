@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\Tests\panels\Unit\panels_ipe;
 
 use Drupal\Component\Serialization\Json;

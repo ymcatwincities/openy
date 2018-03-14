@@ -128,6 +128,7 @@ class InfiniteScrollTest extends JavascriptTestBase {
                 'views_infinite_scroll' => $settings,
               ],
             ],
+            'use_ajax' => TRUE,
           ],
         ],
         'page_1' => [

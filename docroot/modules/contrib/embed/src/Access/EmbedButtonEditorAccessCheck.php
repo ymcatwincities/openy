@@ -68,6 +68,7 @@ class EmbedButtonEditorAccessCheck implements AccessInterface {
    *   The editor entity to check.
    *
    * @return \Drupal\Core\Access\AccessResultInterface
+   *   The access result.
    *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
    *   When the received Text Editor entity does not use CKEditor. This is

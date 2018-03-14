@@ -6,6 +6,7 @@ use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Serialization\Yaml;
+use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform\Utility\WebformYaml;
 
 /**
@@ -76,14 +77,13 @@ class WebformElementAttributes extends FormElement {
         '#other__option_delimiter' => ' ',
         '#attributes' => [
           'class' => [
-            'js-webform-select2',
-            'webform-select2',
             'js-' . $element['#id'] . '-attributes-style',
           ],
         ],
-        '#attached' => ['library' => ['webform/webform.element.select2']],
         '#default_value' => $element['#default_value']['class'],
       ];
+
+      WebformElementHelper::enhanceSelect($element['class'], TRUE);
 
       // ISSUE:
       // Nested element with #element_validate callback that alter an

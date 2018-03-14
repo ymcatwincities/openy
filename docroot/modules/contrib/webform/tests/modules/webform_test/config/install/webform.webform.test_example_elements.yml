@@ -149,6 +149,12 @@ elements: |
       '#type': webform_markup
       '#title': 'Basic HTML'
       '#description': '<b>Known Issues:</b><br /><a href="https://www.drupal.org/node/2700667">Issue #2700667: Notice: Undefined index: #type in drupal_process_states()</a>'
+    webform_horizontal_rule:
+      '#type': webform_horizontal_rule
+      '#attributes':
+        class:
+          - webform-horizontal-rule--dotted
+          - webform-horizontal-rule--thick
     webform_message:
       '#type': webform_message
       '#title': Message
@@ -376,6 +382,9 @@ elements: |
     label:
       '#type': label
       '#title': Label
+    webform_section:
+      '#type': webform_section
+      '#title': Section
   date_time_elements:
     '#type': details
     '#title': 'Date/time elements'
@@ -485,7 +494,6 @@ elements: |
     webform_term_checkboxes:
       '#type': webform_term_checkboxes
       '#title': 'Term checkboxes'
-      '#options_display': side_by_side
       '#vocabulary': tags
     webform_term_select:
       '#type': webform_term_select
@@ -511,6 +519,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -540,8 +549,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''

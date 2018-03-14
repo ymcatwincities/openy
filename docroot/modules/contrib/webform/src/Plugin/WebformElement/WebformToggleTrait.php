@@ -25,7 +25,8 @@ trait WebformToggleTrait {
       '#type' => 'fieldset',
       '#title' => $this->t('toggle settings'),
     ];
-    $form['toggle']['toggle_theme'] = [
+    $form['toggle']['toggle_container'] = $this->getFormInlineContainer();
+    $form['toggle']['toggle_container']['toggle_theme'] = [
       '#type' => 'select',
       '#title' => $this->t('Toggle theme'),
       '#options' => [
@@ -37,7 +38,7 @@ trait WebformToggleTrait {
       ],
       '#required' => TRUE,
     ];
-    $form['toggle']['toggle_size'] = [
+    $form['toggle']['toggle_container']['toggle_size'] = [
       '#type' => 'select',
       '#title' => $this->t('Toggle size'),
       '#options' => [
@@ -47,11 +48,12 @@ trait WebformToggleTrait {
       ],
       '#required' => TRUE,
     ];
-    $form['toggle']['on_text'] = [
+    $form['toggle']['toggle_text_container'] = $this->getFormInlineContainer();
+    $form['toggle']['toggle_text_container']['on_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Toggle on text'),
     ];
-    $form['toggle']['off_text'] = [
+    $form['toggle']['toggle_text_container']['off_text'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Toggle off text'),
     ];

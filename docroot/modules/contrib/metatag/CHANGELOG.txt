@@ -1,3 +1,40 @@
+Metatag 8.x-1.3, 2017-09-29
+---------------------------
+#2898975 by DamienMcKenna: Correct restui entry in composer.json.
+#2899045 by DamienMcKenna: Fixed problems in MetatagNodeTranslationTest.
+#2899234 by DamienMcKenna: Expand Devel/WebProfiler tests to make sure they work
+  when a content type and node are present.
+#2898805 by DamienMcKenna: Small improvements to the test suite, working
+  towards fixing the 8.4.x support.
+#2898805 by DamienMcKenna: Fixes to MetatagNodeTranslationTest to make it work
+  with 8.4.x.
+By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
+  testFrontPageMetatagsEnabledConfig().
+#2905925 by DamienMcKenna: The Normalizer shouldn't assume all meta tags have a
+  'content' attribute; also support the 'href' attribute.
+#2906312 by DamienMcKenna: Added the twitter:dnt meta tag.
+#2909390/2894868 by Perignon, StijnStroobants: Small typo in MetatagToken.
+#2903661 by DamienMcKenna: Don't output 403/404 page node's meta tags on
+  403/404 pages.
+#2905769 by DamienMcKenna: Improved defaults for the canonical URL meta tag.
+#2899752 by DamienMcKenna, huzooka, deepak_zyxware, samuel.mortenson, wanjee,
+  giangi.vigazzola: Creating a new field bundle inside
+  hook_entity_base_field_info_alter() is a bad idea and causes problems.
+#2906180 by John Lawter: Incorrect Wikipedia link for Advanced > Geographical
+  position.
+#2859111 by acbramley, DamienMcKenna: Remove the second canonical tag on
+  taxonomy term pages because of a bug in core.
+By DamienMcKenna: Changed codebase to only use short array syntax, fixed some
+  comments.
+#2911435 by DamienMcKenna, AdamPS: Streamline the HTML output logic.
+#2860088 by AdamPS, DamienMcKenna: Comma separated list in og:image breaks if
+  one component is empty.
+#2905769 by DamienMcKenna: Added tests for how default meta tags are displayed.
+#2872382 by Vlad_Bo, DamienMcKenna: Error if there is no node object (custom
+  node view implementation).
+#2217549 by Alan D., Kuldeep K, DamienMcKenna: Integration with the Diff module.
+
+
 Metatag 8.x-1.2, 2017-07-31
 ---------------------------
 #2882954 by DamienMcKenna: Added Devel as a test dependency.

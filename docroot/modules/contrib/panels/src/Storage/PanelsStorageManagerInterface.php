@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels\Storage;
 
 use Drupal\Core\Session\AccountInterface;

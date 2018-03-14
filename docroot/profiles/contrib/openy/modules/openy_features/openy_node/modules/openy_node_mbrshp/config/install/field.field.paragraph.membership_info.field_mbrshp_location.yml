@@ -10,7 +10,7 @@ field_name: field_mbrshp_location
 entity_type: paragraph
 bundle: membership_info
 label: Location
-description: ''
+description: 'Select list with locations (branches). Single value.'
 required: false
 translatable: true
 default_value: {  }

@@ -12,14 +12,30 @@
 
   'use strict';
 
+  var tooltipDefaultOptions = {
+    // @see https://stackoverflow.com/questions/18231315/jquery-ui-tooltip-html-with-links
+    show: null,
+    close: function (event, ui) {
+      ui.tooltip.hover(
+        function () {
+          $(this).stop(true).fadeTo(400, 1);
+        },
+        function () {
+          $(this).fadeOut("400", function () {
+            $(this).remove();
+          })
+        });
+    }
+  };
+
   // @see http://api.jqueryui.com/tooltip/
   Drupal.webform = Drupal.webform || {};
 
   Drupal.webform.tooltipElement = Drupal.webform.tooltipElement || {};
-  Drupal.webform.tooltipElement.options = Drupal.webform.tooltipElement.options || {};
+  Drupal.webform.tooltipElement.options = Drupal.webform.tooltipElement.options || tooltipDefaultOptions;
 
   Drupal.webform.tooltipLink = Drupal.webform.tooltipLink || {};
-  Drupal.webform.tooltipLink.options = Drupal.webform.tooltipLink.options || {};
+  Drupal.webform.tooltipLink.options = Drupal.webform.tooltipLink.options || tooltipDefaultOptions;
 
   /**
    * Initialize jQuery UI tooltip element support.
@@ -30,10 +46,32 @@
     attach: function (context) {
       $(context).find('.js-webform-tooltip-element').once('webform-tooltip-element').each(function () {
         var $element = $(this);
-        var $description = $element.children('.description.visually-hidden');
+
+        // Checkboxes, radios, buttons, toggles, etc... use fieldsets.
+        // @see \Drupal\webform\Plugin\WebformElement\OptionsBase::prepare
+        var $description;
+        if ($element.is('fieldset')) {
+          $description = $element.find('> .fieldset-wrapper > .field-suffix .description.visually-hidden');
+        }
+        else {
+          $description = $element.children('.description.visually-hidden');
+        }
+
+        var has_visible_input = $element.find(':input:not([type=hidden])').length;
+        var has_checkboxes_or_radios = $element.find(':checkbox, :radio').length;
+        var is_composite = $element.hasClass('form-composite');
+        var is_custom = $element.is('.js-form-type-webform-signature, .js-form-type-webform-image-select, .js-form-type-webform-mapping, .js-form-type-webform-rating, .js-form-type-datelist, .js-form-type-datetime')
+
+        var items;
+        if (has_visible_input && !has_checkboxes_or_radios && !is_composite && !is_custom) {
+          items = ':input';
+        }
+        else {
+          items = $element;
+        }
 
         var options = $.extend({
-          items: ':input',
+          items: items,
           content: $description.html()
         }, Drupal.webform.tooltipElement.options);
 

@@ -11,6 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\block\Entity\Block;
 
 /**
  * Implements hook_preprocess_node().
@@ -29,6 +30,9 @@ function openy_rose_preprocess_paragraph(array &$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['paragraph']->bundle())) {
     $function = __FUNCTION__ . '_' . $variables['paragraph']->bundle();
     $function($variables);
+  }
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    $variables['label'] = $node->title->value;
   }
 }
 
@@ -52,6 +56,17 @@ function openy_rose_theme_suggestions_page_alter(array &$suggestions, array $var
   if (isset($http_error_suggestions[$route_name])) {
     $suggestions[] = $http_error_suggestions[$route_name];
   }
+}
+
+/**
+ * Implements hook_theme_suggestions_block_alter().
+ */
+function openy_rose_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  if (!empty($variables['elements']['#id'])) {
+    $block = Block::load($variables['elements']['#id']);
+    $suggestions[] = 'block__' . $block->getRegion() . '__' . $variables['elements']['#id'];
+  }
+  return $suggestions;
 }
 
 /**
@@ -126,9 +141,17 @@ function openy_rose_preprocess_input(array &$variables) {
 /**
  * Implements hook_preprocess_field().
  */
-function openy_rose_preprocess_field__node__field_location_directions(array &$variables) {
-  // Change link title to Directions.
-  $variables['items'][0]['content']['#title'] = t('Directions');
+function openy_rose_preprocess_field(array &$variables) {
+  switch ($variables['entity_type']) {
+    // Logic for node.
+    case 'node':
+      // Check if exist sidebar field.
+      $variables['wrapper_tag'] = $variables['field_name'] == 'field_sidebar_content' ? 'aside' : 'section';
+      break;
+    default:
+      $variables['wrapper_tag'] = 'div';
+      break;
+  }
 }
 
 /**
@@ -190,14 +213,14 @@ function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInte
   // Submission handler is not working on theme form
   // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
   // Setting file usage for openy_rose theme.
-  $image_fields = theme_get_setting('openy_rose_image_fields');
-
-  foreach ($image_fields as $image_field) {
-    $fid_array = theme_get_setting($image_field);
-    if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
-      $file = File::load(reset($fid_array));
-      if ($file !== NULL) {
-        openy_rose_set_theme_file_usage($file);
+  if ($image_fields = theme_get_setting('openy_rose_image_fields')) {
+    foreach ($image_fields as $image_field) {
+      $fid_array = theme_get_setting($image_field);
+      if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
+        $file = File::load(reset($fid_array));
+        if ($file !== NULL) {
+          openy_rose_set_theme_file_usage($file);
+        }
       }
     }
   }
@@ -299,4 +322,70 @@ function openy_rose_set_theme_file_usage(FileInterface $file) {
  */
 function openy_rose_theme_suggestions_radios_alter(array &$suggestions, array $variables, $hook) {
   $suggestions[] = 'radios__' . $variables['element']['#name'];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * @param array $suggestions
+ * @param array $variables
+ * @param $hook
+ */
+function openy_rose_theme_suggestions_slick_alter(array &$suggestions, array $variables, $hook) {
+  $types = [];
+  foreach ($variables['element']['#items'] as $item) {
+    $types[] = 'slick__' . $item['slide']['#node']->bundle();
+  }
+  $suggestions += array_unique($types);
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function openy_rose_preprocess_html(&$variables) {
+  // Preprocess landing page.
+  if (!empty($variables['node_type']) && $variables['node_type'] == 'landing_page') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    // Load page header paragraphs.
+    if ($header = $node->field_header_content->getValue()) {
+      foreach ($header as $p) {
+        if ($paragraph = \Drupal::service('entity.manager')
+          ->getStorage('paragraph')
+          ->load($p['target_id'])
+        ) {
+          // Take action for microsites_menu paragraph.
+          if ($paragraph->bundle() == 'microsites_menu') {
+            // Add class to the body.
+            $variables['attributes']['class'][] = 'microsites-menu';
+            if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
+              $variables['attributes']['class'][] = 'microsites-menu--hide-main-menu';
+            }
+          }
+        }
+      }
+    }
+  }
+  // Get title from node or page.
+  if (isset($variables['node'])) {
+    $variables['title'] = $variables['node']->title->value;
+  }
+  else {
+    $variables['title'] = $variables['page']['#title'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_form_alter().
+ */
+function openy_rose_theme_suggestions_form_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#form_id'])) {
+    array_push($suggestions, 'form__' . $variables['element']['#form_id']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function openy_rose_preprocess_block(&$variables) {
+  $variables['base_path'] = base_path();
 }

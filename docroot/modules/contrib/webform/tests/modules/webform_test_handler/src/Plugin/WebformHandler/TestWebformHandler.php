@@ -88,7 +88,7 @@ class TestWebformHandler extends WebformHandlerBase {
    */
   public function confirmForm(array &$form, FormStateInterface $form_state, WebformSubmissionInterface $webform_submission) {
     drupal_set_message($this->configuration['message'], 'status', TRUE);
-    \Drupal::logger('webform.test')->notice($this->configuration['message']);
+    \Drupal::logger('webform.test_form')->notice($this->configuration['message']);
     $this->displayMessage(__FUNCTION__);
   }
 
@@ -144,6 +144,14 @@ class TestWebformHandler extends WebformHandlerBase {
   /**
    * {@inheritdoc}
    */
+  public function preprocessConfirmation(array &$variables) {
+    $this->displayMessage(__FUNCTION__);
+    $variables['message'] = '::preprocessConfirmation';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function createHandler() {
     $this->displayMessage(__FUNCTION__);
   }
@@ -193,9 +201,14 @@ class TestWebformHandler extends WebformHandlerBase {
    */
   protected function displayMessage($method_name, $context1 = NULL) {
     if (PHP_SAPI != 'cli') {
-      $t_args = ['@class_name' => get_class($this), '@method_name' => $method_name, '@context1' => $context1];
-      drupal_set_message($this->t('Invoked: @class_name:@method_name @context1', $t_args), 'status', TRUE);
-      \Drupal::logger('webform.test')->notice('Invoked: @class_name:@method_name @context1', $t_args);
+      $t_args = [
+        '@id' => $this->getHandlerId(),
+        '@class_name' => get_class($this),
+        '@method_name' => $method_name,
+        '@context1' => $context1,
+      ];
+      drupal_set_message($this->t('Invoked @id: @class_name:@method_name @context1', $t_args), 'status', TRUE);
+      \Drupal::logger('webform.test_form')->notice('Invoked: @class_name:@method_name @context1', $t_args);
     }
   }
 

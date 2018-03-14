@@ -94,9 +94,13 @@ class WebformEntityHandlersForm extends EntityForm {
 
       $row['summary'] = $handler->getSummary();
 
-      $row['status'] = [
-        'data' => ['#markup' => ($handler->isEnabled()) ? $this->t('Enabled') : $this->t('Disabled')],
-      ];
+      if ($handler->isDisabled()) {
+        $status = $this->t('Disabled');
+      }
+      else {
+        $status = ($handler->supportsConditions() && $handler->getConditions()) ? $this->t('Conditional') : $this->t('Enabled');
+      }
+      $row['status'] = ['data' => ['#markup' => $status]];
 
       $row['weight'] = [
         '#type' => 'weight',
@@ -139,6 +143,8 @@ class WebformEntityHandlersForm extends EntityForm {
       $row['operations'] = [
         '#type' => 'operations',
         '#links' => $operations,
+        '#prefix' => '<div class="webform-dropbutton">',
+        '#suffix' => '</div>',
       ];
 
       $rows[$handler_id] = $row;
@@ -170,7 +176,7 @@ class WebformEntityHandlersForm extends EntityForm {
         '#theme' => 'menu_local_action',
         '#link' => [
           'title' => $this->t('Add handler'),
-          'url' => new Url('entity.webform.handlers', ['webform' => $webform->id()]),
+          'url' => new Url('entity.webform.handler', ['webform' => $webform->id()]),
           'attributes' => WebformDialogHelper::getModalDialogAttributes(800),
         ]
       ];
@@ -235,7 +241,7 @@ class WebformEntityHandlersForm extends EntityForm {
 
     $context = [
       '@label' => $webform->label(),
-      'link' => $webform->toLink($this->t('Edit'), 'handlers-form')->toString()
+      'link' => $webform->toLink($this->t('Edit'), 'handlers')->toString()
     ];
     $this->logger('webform')->notice('Webform @label handler saved.', $context);
 

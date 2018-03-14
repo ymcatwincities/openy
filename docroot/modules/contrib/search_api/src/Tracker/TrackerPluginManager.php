@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Tracker\TrackerPluginManager.
- */
-
 namespace Drupal\search_api\Tracker;
 
 use Drupal\Component\Utility\Html;
@@ -48,7 +43,7 @@ class TrackerPluginManager extends DefaultPluginManager {
    *   their labels.
    */
   public function getOptionsList() {
-    $options = array();
+    $options = [];
     foreach ($this->getDefinitions() as $plugin_id => $plugin_definition) {
       $options[$plugin_id] = Html::escape($plugin_definition['label']);
     }

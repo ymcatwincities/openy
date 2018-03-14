@@ -10,7 +10,7 @@ field_name: field_media_tags
 entity_type: media
 bundle: document
 label: 'Media Tags'
-description: ''
+description: 'Adding Media Tags from appropriate vocabulary'
 required: false
 translatable: true
 default_value: {  }

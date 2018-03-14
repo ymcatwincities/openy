@@ -14,8 +14,4 @@ help: ''
 new_revision: false
 preview_mode: 1
 display_submitted: true
-third_party_settings:
-  menu_ui:
-    available_menus:
-      - main
-    parent: 'main:'
+third_party_settings: { }

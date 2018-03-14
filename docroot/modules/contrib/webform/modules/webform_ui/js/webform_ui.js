@@ -24,6 +24,6 @@
         $table.append($('<tfoot></tfoot>').append($tr));
       });
     }
-  }
+  };
 
 })(jQuery, Drupal, drupalSettings);

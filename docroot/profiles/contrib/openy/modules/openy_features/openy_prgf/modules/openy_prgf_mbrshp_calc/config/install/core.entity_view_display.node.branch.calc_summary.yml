@@ -3,10 +3,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.calc_summary
+    - field.field.node.branch.field_bottom_content
     - field.field.node.branch.field_branch_hours
-    - field.field.node.branch.field_oy_content
+    - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
+    - field.field.node.branch.field_location_amenities
     - field.field.node.branch.field_location_area
     - field.field.node.branch.field_location_coordinates
     - field.field.node.branch.field_location_directions
@@ -15,6 +17,7 @@ dependencies:
     - field.field.node.branch.field_location_phone
     - field.field.node.branch.field_location_state
     - field.field.node.branch.field_location_temp_url
+    - field.field.node.branch.field_meta_tags
     - node.type.branch
   module:
     - address
@@ -32,12 +35,14 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_location_address:
     weight: 0
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_plain
+    region: content
   field_location_phone:
     weight: 1
     label: above
@@ -45,9 +50,12 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
 hidden:
-  field_oy_content: true
+  field_bottom_content: true
+  field_content: true
   field_header_content: true
+  field_location_amenities: true
   field_location_area: true
   field_location_coordinates: true
   field_location_directions: true
@@ -55,4 +63,6 @@ hidden:
   field_location_fax: true
   field_location_state: true
   field_location_temp_url: true
+  field_meta_tags: true
+  langcode: true
   links: true

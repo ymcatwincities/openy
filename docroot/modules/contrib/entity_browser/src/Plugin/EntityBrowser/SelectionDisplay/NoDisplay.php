@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Contains \Drupal\entity_browser\Plugin\EntityBrowser\SelectionDisplay\NoDisplay.
- */
-
 namespace Drupal\entity_browser\Plugin\EntityBrowser\SelectionDisplay;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -15,7 +11,9 @@ use Drupal\entity_browser\SelectionDisplayBase;
  * @EntityBrowserSelectionDisplay(
  *   id = "no_display",
  *   label = @Translation("No selection display"),
- *   description = @Translation("Skips current selection display and immediately delivers selected entities.")
+ *   description = @Translation("Skips the current selection display and immediately delivers the entities selected."),
+ *   acceptPreselection = FALSE,
+ *   js_commands = FALSE
  * )
  */
 class NoDisplay extends SelectionDisplayBase {
@@ -31,7 +29,11 @@ class NoDisplay extends SelectionDisplayBase {
    * {@inheritdoc}
    */
   public function submit(array &$form, FormStateInterface $form_state) {
-    $this->selectionDone($form_state);
+    // Only finish selection if the form was submitted using main submit
+    // element. This allows widgets to build multi-step workflows.
+    if (!empty($form_state->getTriggeringElement()['#eb_widget_main_submit'])) {
+      $this->selectionDone($form_state);
+    }
   }
 
 }

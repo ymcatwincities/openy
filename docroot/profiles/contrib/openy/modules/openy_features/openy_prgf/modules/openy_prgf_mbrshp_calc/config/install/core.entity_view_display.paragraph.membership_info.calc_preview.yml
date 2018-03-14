@@ -23,6 +23,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
+    region: content
   field_mbrshp_monthly_rate:
     weight: 1
     label: inline
@@ -33,6 +34,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
+    region: content
 hidden:
   created: true
   field_mbrshp_link: true

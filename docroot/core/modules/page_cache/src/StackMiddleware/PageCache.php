@@ -133,23 +133,6 @@ class PageCache implements HttpKernelInterface {
       $response->setPrivate();
     }
 
-    // Negotiate whether to use compression.
-    if (extension_loaded('zlib') && $response->headers->get('Content-Encoding') === 'gzip') {
-      if (strpos($request->headers->get('Accept-Encoding'), 'gzip') !== FALSE) {
-        // The response content is already gzip'ed, so make sure
-        // zlib.output_compression does not compress it once more.
-        ini_set('zlib.output_compression', '0');
-      }
-      else {
-        // The client does not support compression. Decompress the content and
-        // remove the Content-Encoding header.
-        $content = $response->getContent();
-        $content = gzinflate(substr(substr($content, 10), 0, -8));
-        $response->setContent($content);
-        $response->headers->remove('Content-Encoding');
-      }
-    }
-
     // Perform HTTP revalidation.
     // @todo Use Response::isNotModified() as
     //   per https://www.drupal.org/node/2259489.
@@ -160,8 +143,10 @@ class PageCache implements HttpKernelInterface {
       $if_none_match = $request->server->has('HTTP_IF_NONE_MATCH') ? stripslashes($request->server->get('HTTP_IF_NONE_MATCH')) : FALSE;
 
       if ($if_modified_since && $if_none_match
-        && $if_none_match == $response->getEtag() // etag must match
-        && $if_modified_since == $last_modified->getTimestamp()) {  // if-modified-since must match
+        // etag must match.
+        && $if_none_match == $response->getEtag()
+        // if-modified-since must match.
+        && $if_modified_since == $last_modified->getTimestamp()) {
         $response->setStatusCode(304);
         $response->setContent(NULL);
 
@@ -180,14 +165,6 @@ class PageCache implements HttpKernelInterface {
 
   /**
    * Fetches a response from the backend and stores it in the cache.
-   *
-   * If page_compression is enabled, a gzipped version of the page is stored in
-   * the cache to avoid compressing the output on each request. The cache entry
-   * is unzipped in the relatively rare event that the page is requested by a
-   * client without gzip support.
-   *
-   * Page compression requires the PHP zlib extension
-   * (http://php.net/manual/ref.zlib.php).
    *
    * @see drupal_page_header()
    *
@@ -283,9 +260,14 @@ class PageCache implements HttpKernelInterface {
         $expire = $request_time + $cache_ttl_4xx;
       }
     }
-    else {
-      $date = $response->getExpires()->getTimestamp();
+    // The getExpires method could return NULL if Expires header is not set, so
+    // the returned value needs to be checked before calling getTimestamp.
+    elseif ($expires = $response->getExpires()) {
+      $date = $expires->getTimestamp();
       $expire = ($date > $request_time) ? $date : Cache::PERMANENT;
+    }
+    else {
+      $expire = Cache::PERMANENT;
     }
 
     if ($expire === Cache::PERMANENT || $expire > $request_time) {

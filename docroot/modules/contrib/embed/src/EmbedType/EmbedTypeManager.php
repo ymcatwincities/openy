@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed\EmbedTypeManager.
- */
-
 namespace Drupal\embed\EmbedType;
 
 use Drupal\Core\Cache\CacheBackendInterface;

@@ -6,6 +6,7 @@ dependencies:
     - field.field.block_content.file_browser.field_file_browser_reference
   module:
     - file_browser
+    - file_browser_example
 id: block_content.file_browser.default
 targetEntityType: block_content
 bundle: file_browser
@@ -15,9 +16,8 @@ content:
     weight: 0
     label: above
     settings:
-      image_style: large
       view_mode: default
       link: false
     third_party_settings: {  }
-    type: entity_reference_image
+    type: entity_reference_entity_view
 hidden: {  }

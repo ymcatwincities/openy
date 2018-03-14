@@ -10,7 +10,7 @@ use Drupal\webform\WebformSubmissionInterface;
  *
  * @WebformElement(
  *   id = "webform_example_composite",
- *   label = @Translation("Webform example element"),
+ *   label = @Translation("Webform example composite"),
  *   description = @Translation("Provides a webform element example."),
  *   category = @Translation("Example elements"),
  *   multiline = TRUE,

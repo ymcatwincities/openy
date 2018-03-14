@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed_test\Controller\EmbedTestController.
- */
-
 namespace Drupal\embed_test\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
@@ -25,7 +20,7 @@ class EmbedTestController extends ControllerBase {
       '#markup' => $text,
       '#cache' => [
         'contexts' => ['url.query_args:value'],
-      ]
+      ],
     ]);
 
     if ($text == '') {
