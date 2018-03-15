@@ -21,6 +21,7 @@ use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\block\Entity\Block;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
@@ -5184,4 +5185,128 @@ function ymca_master_update_8241() {
       'openy_prgf.settings',
     ]
   );
+}
+
+/**
+ * Install openy_node_alerts.
+ */
+function ymca_master_update_8242() {
+  \Drupal::service('module_installer')->install([
+    'openy_node_alert',
+  ], TRUE);
+}
+
+/**
+ * Install openy_lily theme.
+ */
+function ymca_master_update_8243() {
+  \Drupal::service('theme_installer')->install(['openy_lily']);
+  \Drupal::service('theme_handler')->setDefault('openy_lily');
+}
+
+/**
+ * Install openy_lily theme.
+ */
+function ymca_master_update_8246() {
+  $blockEntityManager = \Drupal::service('entity.manager')->getStorage('block');
+  $block = $blockEntityManager->create(
+    array(
+      'id'=> 'topmenu2',
+      'plugin' => 'system_menu_block:top_menu_2',
+      'theme' => 'openy_lily'
+    )
+  );
+  $block->setRegion('secondary_menu');
+  $block->save();
+}
+
+/**
+ * Fill the main menu with links.
+ */
+function ymca_master_update_8247() {
+  $menu_tree = [
+    [
+      'title' => 'Programs & Classes',
+      'uri' => '/programs_and_classes',
+      'sub' => [
+        [
+          'title' => 'Health & Fitness',
+          'uri' => '/health__fitness'
+        ],
+        [
+          'title' => 'Child Care & Prescholl',
+          'uri' => '/child_care__preschool'
+        ],
+        [
+          'title' => 'Swimming',
+          'uri' => '/swimming'
+        ],
+        [
+          'title' => 'Kids & Teens',
+          'uri' => '/kid__teen_activities'
+        ],
+        [
+          'title' => 'Camps',
+          'uri' => '/camps'
+        ],
+        [
+          'title' => 'Summer Programs',
+          'uri' => '/child_care__preschool/summer_programs/summer_at_the_y'
+        ],
+      ],
+    ],
+    [
+      'title' => 'Schedules',
+      'uri' => '/all_y_schedules',
+    ],
+    [
+      'title' => 'Locations',
+      'uri' => '/locations',
+    ],
+    [
+      'title' => 'Membership',
+      'uri' => '/membership',
+    ],
+    [
+      'title' => 'More',
+      'uri' => '/more',
+      'sub' => [
+        [
+          'title' => 'Volunteer',
+          'uri' => '/about/volunteer'
+        ],
+        [
+          'title' => 'About the Y',
+          'uri' => '/about'
+        ],
+        [
+          'title' => 'How We Help',
+          'uri' => '/our_cause/how_we_help'
+        ]
+      ]
+    ]
+  ];
+  foreach($menu_tree as $key => $menu_link) {
+    $first_level = MenuLinkContent::create([
+      'title' => $menu_link['title'],
+      'link' => ['uri' => 'internal:' . $menu_link['uri']],
+      'menu_name' => 'main',
+      'expanded' => TRUE,
+      'weight' => $key,
+    ]);
+    $first_level->save();
+    if (!empty($menu_link['sub'])) {
+      foreach ($menu_link['sub'] as $s_key => $menu_link_sub) {
+        $second_level = MenuLinkContent::create([
+          'title' => $menu_link_sub['title'],
+          'link' => ['uri' => 'internal:' . $menu_link_sub['uri']],
+          'parent' => $first_level->getPluginId(),
+          'menu_name' => 'main',
+          'expanded' => TRUE,
+          'weight' => $s_key,
+        ]);
+        $second_level->save();
+      }
+    }
+  }
 }
