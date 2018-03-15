@@ -40,6 +40,27 @@ class SettingsForm extends ConfigFormBase {
     ];
 
     // Winners Stream.
+    $form['activities_count'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Activities Counting Settings'),
+      '#open' => FALSE,
+    ];
+
+    $form['activities_count']['activities_count_max_per_entry'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Maximum count per entry'),
+      '#default_value' => $config->get('activities_count_max_per_entry'),
+      '#description' => $this->t('Maximum value allowed to enter by user.'),
+    ];
+
+    $form['activities_count']['activities_count_max_per_activity'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Maximum counter per activity'),
+      '#default_value' => $config->get('activities_count_max_per_activity'),
+      '#description' => $this->t('Maximum total value per activity allowed for one user.'),
+    ];
+
+    // Winners Stream.
     $form['stream'] = [
       '#type' => 'details',
       '#title' => $this->t('Winners Stream text'),
@@ -266,6 +287,11 @@ class SettingsForm extends ConfigFormBase {
     $config = $this->config('openy_campaign.general_settings');
     // Total amount of visitors taken from the CRM.
     $config->set('total_amount_of_visitors', (int) $form_state->getValue('total_amount_of_visitors'));
+
+    // Activities count settings.
+    $config->set('activities_count_max_per_entry', floatval($form_state->getValue('activities_count_max_per_entry')));
+    $config->set('activities_count_max_per_activity', floatval($form_state->getValue('activities_count_max_per_activity')));
+
     // Login only messages.
     $config->set('error_login_checkins_not_started', $form_state->getValue('error_login_checkins_not_started'));
     $config->set('error_login_not_registered', $form_state->getValue('error_login_not_registered'));
