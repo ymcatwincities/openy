@@ -21,13 +21,13 @@ required: true
 translatable: false
 default_value:
   -
-    plugin_id: campaign_activity_block
+    plugin_id: campaign_activity_visits_block
     plugin_configuration:
-      id: campaign_activity_block
+      id: campaign_activity_visits_block
       label: 'Campaign Activity Tracking'
       provider: openy_campaign
       label_display: '0'
-    plugin_configuration_schema_id: block.settings.campaign_activity_block
+    plugin_configuration_schema_id: block.settings.campaign_activity_visits_block
 default_value_callback: ''
 settings: {  }
 field_type: 'plugin:block'

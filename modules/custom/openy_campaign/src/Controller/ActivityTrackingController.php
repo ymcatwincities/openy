@@ -3,6 +3,7 @@
 namespace Drupal\openy_campaign\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Database\Connection;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\CampaignUtilizationActivitiy;
 use Drupal\openy_campaign\Entity\MemberCampaign;
@@ -28,14 +29,24 @@ class ActivityTrackingController extends ControllerBase {
   protected $request_stack;
 
   /**
+   * The Database service.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
    * The ModalFormExampleController constructor.
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
+   * @param \Drupal\Core\Database\Connection $connection
+   *   The database connection service.
    */
-  public function __construct(FormBuilder $formBuilder, $request_stack) {
+  public function __construct(FormBuilder $formBuilder, $request_stack, Connection $connection) {
     $this->formBuilder = $formBuilder;
     $this->request_stack = $request_stack;
+    $this->connection = $connection;
   }
 
   /**
@@ -49,7 +60,8 @@ class ActivityTrackingController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('form_builder'),
-      $container->get('request_stack')
+      $container->get('request_stack'),
+      $container->get('database')
     );
   }
 
@@ -63,8 +75,14 @@ class ActivityTrackingController extends ControllerBase {
   public function saveTrackingInfo($visit_date) {
     $params = $this->request_stack->getCurrentRequest()->request->all();
 
+    $config = $this->config('openy_campaign.general_settings');
+    $activitiesCountMaxPerEntry = $config->get('activities_count_max_per_entry');
+    $activitiesCountMaxPerActivity = $config->get('activities_count_max_per_activity');
+
+
     $dateRoute = \DateTime::createFromFormat('Y-m-d', $visit_date);
     $date = new \DateTime($dateRoute->format('d-m-Y'));
+    $dateStamp = $date->format('U');
     $activityIds = $params['activities'];
     $activities_count = $params['activities_count'] ?? [];
 
@@ -90,12 +108,34 @@ class ActivityTrackingController extends ControllerBase {
     $activityIds = array_filter($activityIds);
 
     foreach ($activityIds as $activityTermId) {
+      $activityCount = 0.0;
       // If Activity Counter is disabled save zero value.
       if ($campaign->field_enable_activities_counter->value) {
-        $activityCount = $activities_count[$activityTermId] ?? 0.0;
+        if (
+          isset($activities_count[$activityTermId]) &&
+          $activities_count[$activityTermId] > 0
+        ) {
+          $activityCount = $activities_count[$activityTermId];
+        }
       }
-      else {
-        $activityCount = 0.0;
+
+      // Validate the count value by entry and in total.
+      if ($activityCount > $activitiesCountMaxPerEntry) {
+        $activityCount = $activitiesCountMaxPerEntry;
+      }
+
+      if ($activityCount > 0) {
+        /** @var \Drupal\Core\Database\Query\Select $query */
+        $query = $this->connection->select('openy_campaign_memb_camp_actv', 'mca');
+        $query->condition('mca.member_campaign', $memberCampaignId)
+          ->condition('mca.activity', $activityTermId)
+          ->condition('mca.date', $dateStamp);
+        $query->addExpression('SUM(mca.count)', 'sum_count');
+
+        $sumCount = $query->execute()->fetchField();
+        if ($sumCount + $activityCount > $activitiesCountMaxPerActivity) {
+          $activityCount = 0.0;
+        }
       }
 
       // To prevent duplicate activities creation we need to check
@@ -103,7 +143,7 @@ class ActivityTrackingController extends ControllerBase {
       $query = \Drupal::entityQuery('openy_campaign_memb_camp_actv')
         ->condition('member_campaign', $memberCampaignId)
         ->condition('activity', $activityTermId)
-        ->condition('date', $date->format('U'))
+        ->condition('date', $dateStamp)
         ->execute();
       if (!empty($query)) {
         continue;
@@ -111,7 +151,7 @@ class ActivityTrackingController extends ControllerBase {
 
       $preparedData = [
         'created' => time(),
-        'date' => $date->format('U'),
+        'date' => $dateStamp,
         'member_campaign' => $memberCampaignId,
         'activity' => $activityTermId,
         'count' => floatval($activityCount),
