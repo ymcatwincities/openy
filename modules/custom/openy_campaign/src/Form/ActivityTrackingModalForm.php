@@ -84,9 +84,13 @@ class ActivityTrackingModalForm extends FormBase {
     ];
 
     $options = [];
+    $terms_with_counter = [];
     /** @var \Drupal\taxonomy\Entity\Term $term */
     foreach ($childTerms as $term) {
       $options[$term->id()] = $term->getName();
+      if ($term->field_enable_activities_counter->value) {
+        $terms_with_counter[] = $term->id();
+      }
     }
 
     // Build default values (already marked activities).
@@ -115,6 +119,9 @@ class ActivityTrackingModalForm extends FormBase {
         '#tree' => TRUE,
       ];
       foreach (array_keys($options) as $activityId) {
+        if (!in_array($activityId, $terms_with_counter)) {
+          continue;
+        }
         $form['activities_count'][$activityId] = [
           '#type' => 'textfield',
           '#value' => floatval($activity_count_values[$activityId]) ?? 0,
