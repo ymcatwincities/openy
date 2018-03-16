@@ -236,6 +236,83 @@ p {
   width: 70%;
 }
 
+.paragraph--type--campaign-leadership {
+  overflow: hidden;
+}
+.paragraph--type--campaign-leadership .leadership-filters {
+  overflow: hidden;
+}
+@media (min-width: 20em) {
+  .paragraph--type--campaign-leadership .leadership-filters > .form-wrapper {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph--type--campaign-leadership .leadership-filters > .form-wrapper {
+    width: 600px;
+    margin: 0 auto;
+  }
+}
+.paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
+.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 0 10px 0;
+}
+@media (min-width: 20em) {
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+    width: 300px;
+    float: left;
+  }
+}
+.paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select label,
+.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select label {
+  text-transform: uppercase;
+  font-size: 18px;
+  display: none;
+}
+.paragraph--type--campaign-leadership .leadership-members {
+  text-transform: uppercase;
+  margin: 0 auto;
+}
+@media (min-width: 20em) {
+  .paragraph--type--campaign-leadership .leadership-members {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph--type--campaign-leadership .leadership-members {
+    width: 60%;
+  }
+}
+.paragraph--type--campaign-leadership .leadership-members thead {
+  font-size: 14px;
+}
+.paragraph--type--campaign-leadership .leadership-members thead th:first-child {
+  text-align: center;
+}
+.paragraph--type--campaign-leadership .leadership-members tbody {
+  font-size: 18px;
+}
+.paragraph--type--campaign-leadership .leadership-members tbody td:first-child {
+  text-align: center;
+}
+.paragraph--type--campaign-leadership .leadership-members tbody td:nth-child(3) {
+  width: 40%;
+}
+.paragraph--type--campaign-leadership .leadership-no-results {
+  text-align: center;
+  font-size: 16px;
+}
+
 @media (min-width: 80.625em) {
   .paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
     margin-bottom: 50px;

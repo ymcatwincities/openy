@@ -60,6 +60,12 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Maximum total value per activity allowed for one user.'),
     ];
 
+    $form['activities_count']['activities_count_no_results_message'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('No results message'),
+      '#default_value' => $config->get('activities_count_no_results_message'),
+    ];
+
     // Winners Stream.
     $form['stream'] = [
       '#type' => 'details',
@@ -291,6 +297,7 @@ class SettingsForm extends ConfigFormBase {
     // Activities count settings.
     $config->set('activities_count_max_per_entry', floatval($form_state->getValue('activities_count_max_per_entry')));
     $config->set('activities_count_max_per_activity', floatval($form_state->getValue('activities_count_max_per_activity')));
+    $config->set('activities_count_no_results_message', trim($form_state->getValue('activities_count_no_results_message')));
 
     // Login only messages.
     $config->set('error_login_checkins_not_started', $form_state->getValue('error_login_checkins_not_started'));

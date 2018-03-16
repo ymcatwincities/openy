@@ -196,6 +196,10 @@ body {
   color: #c6168d;
 }
 
+.paragraph--type--campaign-leadership .leadership-members tbody td:nth-child(3) {
+  color: #c6168d;
+}
+
 .form-item input + label:hover {
   color: #C6168D;
 }
