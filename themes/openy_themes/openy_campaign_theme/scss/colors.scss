@@ -60,6 +60,16 @@ body {
   }
 }
 
+.paragraph--type--campaign-leadership {
+  .leadership-members {
+    tbody {
+      td:nth-child(3) {
+        color: $pink;
+      }
+    }
+  }
+}
+
 
 // _forms.scss
 .form-item input + label {

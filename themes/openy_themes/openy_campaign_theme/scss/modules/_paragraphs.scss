@@ -69,6 +69,76 @@
   }
 }
 
+// Campaign Leadership prgf type.
+.paragraph--type--campaign-leadership {
+  overflow: hidden;
+
+  .leadership-filters {
+    overflow: hidden;
+    &>.form-wrapper {
+      @include breakpoint($screen-phone) {
+        width: 100%;
+
+      }
+      @include breakpoint($screen-sm) {
+        width: 600px;
+        margin: 0 auto;
+      }
+    }
+    .leadership-branches-select,
+    .leadership-activities-select {
+      text-align: center;
+      justify-content: center;
+      @include breakpoint($screen-phone) {
+        width: 100%;
+
+      }
+      @include breakpoint($screen-sm) {
+        width: 300px;
+        float: left;
+      }
+      margin: 0 auto;
+      padding: 0 0 10px 0;
+      label {
+        text-transform: uppercase;
+        font-size: 18px;
+        display: none;
+      }
+
+    }
+  }
+  .leadership-members {
+    text-transform: uppercase;
+    @include breakpoint($screen-phone) {
+      width: 100%;
+    }
+    @include breakpoint($screen-sm) {
+      width: 60%;
+    }
+
+    margin: 0 auto;
+    thead {
+      font-size: 14px;
+      th:first-child {
+        text-align: center;
+      }
+    }
+    tbody {
+      font-size: 18px;
+      td:first-child {
+        text-align: center;
+      }
+      td:nth-child(3) {
+        width: 40%;
+      }
+    }
+  }
+  .leadership-no-results {
+    text-align: center;
+    font-size: 16px;
+  }
+}
+
 // Background container prgf type styles.
 @include breakpoint($screen-lg-desktop) {
   .paragraph-background-container {

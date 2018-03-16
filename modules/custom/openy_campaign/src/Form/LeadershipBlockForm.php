@@ -16,6 +16,8 @@ use Drupal\Core\Render\RendererInterface;
  */
 class LeadershipBlockForm extends FormBase {
 
+  const MAX_LEADERS = 50;
+
   /**
    * Renderer.
    *
@@ -85,11 +87,14 @@ class LeadershipBlockForm extends FormBase {
     // Get all branches.
     $branches = $this->getBranches($campaignId);
 
-    // Get all activities categories.
-    $categories = $this->getCategories($campaignId);
-
     $selectedBranch = !empty($form_state->getValue('branch')) ? $form_state->getValue('branch') : $branches['default'];
-    $form['branch'] = [
+
+    $form['filters'] = [
+      '#type' => 'container',
+      '#prefix' => '<div class="leadership-filters">',
+      '#suffix' => '</div>',
+    ];
+    $form['filters']['branch'] = [
       '#type' => 'select',
       '#title' => 'Location',
       '#options' => $branches,
@@ -102,25 +107,34 @@ class LeadershipBlockForm extends FormBase {
       '#suffix' => '</div>',
     ];
 
-    $selectedCategory = !empty($form_state->getValue('category')) ? $form_state->getValue('category') : NULL ;
-    $form['category'] = [
+    /*
+    // Get all activities categories.
+    $categories = $this->getCategories($campaignId);
+    if (empty($form_state->getValue('category'))) {
+      $selectedCategory = key($categories);
+    }
+    else {
+      $selectedCategory = $form_state->getValue('category');
+    }
+    $form['filters']['category'] = [
       '#type' => 'select',
       '#title' => 'Category',
       '#options' => $categories,
-      '#default_value' => $selectedCategory ?? $categories['default'],
+      '#default_value' => $selectedCategory,
       '#ajax' => [
-        'callback' => '::ajaxLeadershipCallback',
-        'wrapper' => 'leadership-block-wrapper',
+        'callback' => '::ajaxActivitiesCallback',
+        'wrapper' => 'leadership-activities-select',
       ],
       '#prefix' => '<div class="leadership-categories-select">',
       '#suffix' => '</div>',
-    ];
+    ];*/
 
     // Get all activities.
-    $activities = $this->getActivities($selectedCategory != 'default' ? $selectedCategory : NULL);
+    //$activities = $this->getActivities($selectedCategory != 'default' ? $selectedCategory : NULL);
+    $activities = $this->getActivities($campaignId);
 
-    $selectedActivity = !empty($form_state->getValue('activity')) ? $form_state->getValue('activity') : $activities['default'];
-    $form['activity'] = [
+    $selectedActivity = !empty($form_state->getValue('activity')) ? $form_state->getValue('activity') : '';
+    $form['filters']['activity'] = [
       '#type' => 'select',
       '#title' => 'Activity',
       '#options' => $activities,
@@ -129,7 +143,7 @@ class LeadershipBlockForm extends FormBase {
         'callback' => '::ajaxLeadershipCallback',
         'wrapper' => 'leadership-block-wrapper',
       ],
-      '#prefix' => '<div class="leadership-activities-select">',
+      '#prefix' => '<div class="leadership-activities-select" id="leadership-activities-select">',
       '#suffix' => '</div>',
     ];
 
@@ -164,10 +178,20 @@ class LeadershipBlockForm extends FormBase {
    */
   public function showLeadershipBlock($campaignId, $branchId, $activityId) {
     $leaders = $this->getCampaignLeadership($campaignId, $branchId, $activityId);
-    $output = [
-      '#theme' => 'openy_campaign_leadership',
-      '#leaders' => $leaders,
-    ];
+    if (!empty($leaders)) {
+      $output = [
+        '#theme' => 'openy_campaign_leadership',
+        '#leaders' => $leaders,
+      ];
+    }
+    else {
+      $config = $this->config('openy_campaign.general_settings');
+      $output = [
+        '#prefix' => '<div class="leadership-no-results">',
+        '#markup' => $config->get('activities_count_no_results_message'),
+        '#suffix' => '</div>',
+      ];
+    }
 
     $render = $this->renderer->render($output);
 
@@ -176,9 +200,31 @@ class LeadershipBlockForm extends FormBase {
 
   /**
    * AJAX Callback for the leadership list.
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   The portion of the render structure that will replaced.
    */
-  public function ajaxLeadershipCallback($form, $form_state) {
+  public function ajaxLeadershipCallback(array $form, FormStateInterface $form_state) {
     return $form['leadership'];
+  }
+
+  /**
+   * AJAX Callback for the leadership list.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return array
+   *   The portion of the render structure that will replaced.
+   */
+  public function ajaxActivitiesCallback(array $form, FormStateInterface $form_state) {
+    return $form['activity'];
   }
 
   /**
@@ -232,9 +278,10 @@ class LeadershipBlockForm extends FormBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   private function getCategories($campaignId) {
-    $categories = [
+    $categories = [];
+    /*$categories = [
       'default' => $this->t('Category'),
-    ];
+    ];*/
 
     /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = Node::load($campaignId);
@@ -256,30 +303,34 @@ class LeadershipBlockForm extends FormBase {
   /**
    * Get activities by the category.
    *
-   * @param int $categoryId
+   * @param int $campaignId
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
-  private function getActivities($categoryId = NULL) {
+  private function getActivities($campaignId) {
     $activities = [
       'default' => $this->t('Activity'),
     ];
 
-    if (empty($categoryId)) {
+    /*if (empty($categoryId)) {
       return $activities;
-    }
+    }*/
 
-    $topTerm = Term::load($categoryId);
+    $categories = $this->getCategories($campaignId);
 
-    $terms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($topTerm->getVocabularyId(), $categoryId, 1, TRUE);
-    /** @var \Drupal\taxonomy\Entity\Term $childTerm */
-    foreach ($terms as $term) {
-      $activities[$term->id()] = $term->getName();
+    foreach (array_keys($categories) as $categoryId) {
+      $topTerm = Term::load($categoryId);
+
+      $terms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($topTerm->getVocabularyId(), $categoryId, 1, TRUE);
+      /** @var \Drupal\taxonomy\Entity\Term $term */
+      foreach ($terms as $term) {
+        $activities[$term->id()] = $term->getName();
+      }
     }
+    asort($activities);
 
     return $activities;
-
   }
 
   /**
@@ -306,25 +357,34 @@ class LeadershipBlockForm extends FormBase {
     $query->addField('mc', 'id', 'member_campaign');
     $query->addExpression('SUM(mca.count)', 'total');
 
-    $query->groupBy('member_campaign');
+    $query->groupBy('mc.id');
+    $query->groupBy('m.id');
+    $query->groupBy('m.first_name');
+    $query->groupBy('m.last_name');
+    $query->groupBy('m.membership_id');
+
+    $query->having('SUM(mca.count) > 0');
 
     $query->orderBy('total', 'DESC');
+
+    $query->range(0, static::MAX_LEADERS);
 
     $results = $query->execute()->fetchAll();
 
     $leaders = [];
-    $place = 1;
+    $rank = 1;
     foreach ($results as $item) {
       $lastNameLetter = !empty($item->last_name) ? ' ' . strtoupper($item->last_name[0]) : '';
 
-      $leaders[$place][] = [
+      $leaders[] = [
+        'rank' => $rank,
         'member_id' => $item->id,
         'member_campaign_id' => $item->member_campaign,
-        'total' => $item->total,
+        'total' => floatval($item->total),
         'name' => $item->first_name . $lastNameLetter,
         'membership_id' => substr($item->membership_id, -4),
       ];
-      $place++;
+      $rank++;
     }
 
     return $leaders;
@@ -339,6 +399,6 @@ class LeadershipBlockForm extends FormBase {
    *   The current state of the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // TODO: Implement submitForm() method.
+
   }
 }
