@@ -3,7 +3,6 @@
 namespace Drupal\activenet;
 
 use GuzzleHttp\Client;
-// use Drupal\activenet\ActivenetClientFactory;
 
 /**
  * Class ActivenetClient.

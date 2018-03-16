@@ -5,4 +5,3 @@ activenet.settings:
     _title: 'ActiveNet settings'
   requirements:
     _permission: 'administer activenet'
-    
