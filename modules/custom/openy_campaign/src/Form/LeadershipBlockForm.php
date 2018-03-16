@@ -325,6 +325,9 @@ class LeadershipBlockForm extends FormBase {
       $terms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($topTerm->getVocabularyId(), $categoryId, 1, TRUE);
       /** @var \Drupal\taxonomy\Entity\Term $term */
       foreach ($terms as $term) {
+        if (!$term->field_enable_activities_counter->value) {
+          continue;
+        }
         $activities[$term->id()] = $term->getName();
       }
     }

@@ -10,6 +10,8 @@ use Drupal\node\Entity\Node;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Component\Utility\Unicode;
@@ -383,6 +385,68 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
     // TODO: open login popup.
   }
 
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function openy_campaign_node_presave(Node $node) {
+  if ($node->bundle() == 'campaign') {
+    // Add 'Enable Activities Counter' checkbox
+    // to the terms of the selected vocabulary.
+    $enableActivitiesCounter = $node->field_enable_activities_counter->value;
+    $activitiesVocabulary = $node->field_campaign_fitness_category->target_id;
+
+    if ($enableActivitiesCounter) {
+      // Attach additional fields to the vocabulary.
+      $entityType = 'taxonomy_term';
+
+      $fieldName = 'field_enable_activities_counter';
+      $fieldLabel = 'Enable Activities Counter';
+
+      if (is_null(FieldStorageConfig::loadByName($entityType, $fieldName))) {
+        FieldStorageConfig::create([
+          'entity_type' => $entityType,
+          'field_name' => $fieldName,
+          'cardinality' => 1,
+          'type' => 'boolean',
+        ])->save();
+      }
+
+      if (is_null(FieldConfig::loadByName($entityType, $activitiesVocabulary, $fieldName))) {
+        FieldConfig::create([
+          'field_name' => $fieldName,
+          'entity_type' => $entityType,
+          'label' => $fieldLabel,
+          'bundle' => $activitiesVocabulary,
+        ])->save();
+
+        $displayTypes = ['view', 'form'];
+        $viewMode = 'default';
+        foreach ($displayTypes as $type) {
+          $display = \Drupal::entityTypeManager()
+            ->getStorage('entity_' . $type . '_display')
+            ->load($entityType . '.' . $activitiesVocabulary . '.' . $viewMode);
+
+          if (empty($display)) {
+            $values = [
+              'targetEntityType' => $entityType,
+              'bundle' => $activitiesVocabulary,
+              'mode' => $viewMode,
+              'status' => TRUE,
+            ];
+            $display = \Drupal::entityTypeManager()
+              ->getStorage('entity_' . $type . '_display')
+              ->create($values);
+          }
+          $display->setComponent($fieldName, [
+            'type' => $type == 'view' ? 'boolean' : 'boolean_checkbox',
+            'region' => 'content',
+          ])->save();
+        }
+      }
+    }
+  }
 }
 
 /**
