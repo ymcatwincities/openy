@@ -1,0 +1,21 @@
+/* Give page */
+.path-give {
+  .hero-image {
+    .button {
+      border-radius: 4px;
+    }
+  }
+  .video-container {
+    h3 {
+      color: $darker-grey;
+    }
+  }
+  .content-cards {
+    .info .button {
+      border-radius: 4px;
+      margin-top: 14px;
+      font-size: 10px;
+      padding: 5px;
+    }
+  }
+}
