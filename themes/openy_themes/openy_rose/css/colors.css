@@ -42,7 +42,7 @@ a,
 .navbar-default .navbar-toggle:focus,
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:active {
-  background-color: #007ECA; /* Header background (headerbg) */
+  background-color: #0060af; /* Header background (headerbg) */
 }
 .nav.dropdown-menu,
 .viewport .nav-level-2.open > a,
