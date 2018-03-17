@@ -14,7 +14,7 @@
       display: block;
       padding-bottom: 9px;
       position: absolute;
-      z-index: 1001;
+      z-index: $menu-z-index;
     }
 
     .logo {
@@ -59,22 +59,12 @@
       &:hover {
         text-decoration: none;
       }
-      /*
-      @include breakpoint($screen-tablet) {
-        font-size: 14px;
-      }*/
       @include breakpoint($screen-desktop) {
         font-size: 20px;
         left: auto;
         top: 60px;
       }
 
-      span {
-        /*
-        border-bottom: 1px solid $light-blue;
-        padding: 0 5px 8px 5px;
-        */
-      }
     }
   }
 
@@ -177,7 +167,7 @@
 
     .navbar-nav>li>a {
       @include breakpoint($screen-tablet) {
-        padding-top: 11px;
+        padding-top: 9px;
       }
     }
 
@@ -333,7 +323,7 @@
       right: 0;
       bottom: 100%;
       left: -1px;
-      z-index: 1001;
+      z-index: $menu-z-index;
       display: block;
       background-color: rgba(0, 0, 0, 0);
       content: '';
@@ -436,7 +426,7 @@
   .navbar-toggle:focus,
   .navbar-toggle:hover,
   .navbar-toggle:active {
-    background-color: $light-blue;
+    background-color: $blue;
     cursor: pointer;
 
     .icon-bar {

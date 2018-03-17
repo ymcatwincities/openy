@@ -1,10 +1,7 @@
 
 .nav.dropdown-menu {
   background-color: $dark-blue;
-  //border: 1px solid $white;
-  //height: 442px;
-  //object-fit: contain;
-  //width: 1200px;
+  border: 1px solid $white;
 }
 
 .nav-home {
@@ -36,7 +33,6 @@
   overflow: hidden;
   overflow-x: hidden;
   overflow-y: auto;
-  //padding-top: 9px;
   padding-right: inherit;
   height: auto;
   background: $blue;
@@ -238,43 +234,39 @@
       padding-bottom: 10px;
 
       @include breakpoint($screen-lg-desktop) {
-        padding: 10px 25px 10px 25px;
+        padding: 10px 25px 9px 25px;
+        margin: 1px 1px 0 1px;
       }
 
       &:hover,
       &:focus {
         background: none;
-        z-index: 1001;
+        z-index: $menu-z-index;
       }
     }
 
     &.open {
       background-color: $dark-blue;
-      /*
       border-top: 1px solid $light-grey;
       border-left: 1px solid $light-grey;
       border-right: 1px solid $light-grey;
       border-bottom: 1px solid $dark-blue;
       margin-top: -1px;
-      */
 
       > .dropdown-menu {
-        margin-top: 0px;
-
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
+        margin-top: -1px;
       }
 
       > a,
       > a:focus {
         position: relative;
-        z-index: 1001;
+        z-index: $menu-z-index;
         padding: 10px 14px 10px 14px;
         background: $dark-blue;
 
         @include breakpoint($screen-lg-desktop) {
           padding: 10px 25px 10px 25px;
+          margin: 0;
         }
       }
     }
