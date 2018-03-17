@@ -49,6 +49,9 @@ process:
   parent_field_name:
     plugin: default_value
     default_value: field_content
+  field_prgf_title:
+    plugin: default_value
+    default_value: 'Blog posts (branch)'
 destination:
   plugin: 'entity:paragraph'
   default_bundle: latest_blog_posts_branch
