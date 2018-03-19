@@ -7764,6 +7764,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
   display: none;
 }
 @media (min-width: 0) and (max-width: 62em) {
+  header#page-head .top-navs #block-topmenu2,
   header#page-head .top-navs #block-anonymoususersmenu--2,
   header#page-head .top-navs #block-anonymoususersmenu,
   header#page-head .top-navs #block-openy-lily-user-menu,
@@ -7772,6 +7773,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
     display: none !important;
   }
 }
+header#page-head .top-navs #block-topmenu2 .nav li a,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a,
 header#page-head .top-navs #block-anonymoususersmenu .nav li a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a,
@@ -7787,6 +7789,7 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
+header#page-head .top-navs #block-topmenu2 .nav li a:hover,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a:hover,
 header#page-head .top-navs #block-anonymoususersmenu .nav li a:hover,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover,
@@ -7796,6 +7799,7 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a:hover {
   background-color: #fff;
   color: black;
 }
+header#page-head .top-navs #block-topmenu2 .nav li.is-active a,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li.is-active a,
 header#page-head .top-navs #block-anonymoususersmenu .nav li.is-active a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li.is-active a,
@@ -7818,6 +7822,13 @@ header#page-head .top-navs #block-cccuseraccountmenu--2 ul li:first-child .welco
   color: #777777;
   cursor: default;
 }
+header#page-head .top-navs #block-topmenu2 h2,
+header#page-head .top-navs #block-anonymoususersmenu h2,
+header#page-head .top-navs #block-anonymoususersmenu--2 h2,
+header#page-head .top-navs #block-openy-lily-user-menu h2 {
+  display: none;
+}
+header#page-head .top-navs #block-topmenu2 .nav li:first-child a,
 header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li:first-child a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a {
@@ -7833,6 +7844,7 @@ header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a {
   margin: 24px 5px 0 0;
   border-top: none;
 }
+header#page-head .top-navs #block-topmenu2 .nav li:first-child a:hover,
 header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li:first-child a:hover,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a:hover {
@@ -7882,6 +7894,7 @@ header#page-head.tiny .top-navs .nav-global .navbar-header {
 header#page-head.tiny .top-navs .nav-global .navbar-header #block-openy-lily-branding a img {
   width: 55px;
 }
+header#page-head.tiny .top-navs #block-topmenu2 li a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu li a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu--2 li a,
 header#page-head.tiny .top-navs #block-openy-lily-user-menu li a,
@@ -7889,6 +7902,7 @@ header#page-head.tiny .top-navs #block-cccuseraccountmenu li a,
 header#page-head.tiny .top-navs #block-cccuseraccountmenu--2 li a {
   line-height: 19px;
 }
+header#page-head.tiny .top-navs #block-topmenu2 ul li:first-child a,
 header#page-head.tiny .top-navs #block-openy-lily-user-menu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu--2 ul li:first-child a {
@@ -8627,10 +8641,10 @@ legend {
   padding-top: 40px;
   padding-bottom: 14px;
 }
-#page-footer #block-openy-lily-footersocialblock .field-block-content ul li {
+#page-footer #block-openy-lily-footersocialblock ul li {
   margin: 0 12px;
 }
-#page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
+#page-footer #block-openy-lily-footersocialblock ul li a {
   border: 3px solid #428bca;
   border-radius: 50%;
   width: 46px;
@@ -8643,7 +8657,7 @@ legend {
   position: relative;
   overflow: hidden;
 }
-#page-footer #block-openy-lily-footersocialblock .field-block-content ul li a:before {
+#page-footer #block-openy-lily-footersocialblock ul li a:before {
   position: absolute;
   top: 0;
   left: 0;
@@ -8651,11 +8665,30 @@ legend {
   width: 100%;
   text-align: center;
 }
+#page-footer #block-openy-lily-footersocialblock ul li a.social-icon {
+  display: inline-block;
+  font-family: FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#page-footer #block-openy-lily-footersocialblock ul li a.icon-facebook:before {
+  content: "\f09a";
+}
+#page-footer #block-openy-lily-footersocialblock ul li a.icon-twitter:before {
+  content: "\f099";
+}
+#page-footer #block-openy-lily-footersocialblock ul li a.icon-youtube:before {
+  content: "\f167";
+}
+#page-footer #block-openy-lily-footersocialblock ul li a.icon-flickr:before {
+  content: "\f16e";
+}
 @media (min-width: 0) and (max-width: 48em) {
-  #page-footer #block-openy-lily-footersocialblock .field-block-content ul li {
+  #page-footer #block-openy-lily-footersocialblock ul li {
     margin: 0 5px;
   }
-  #page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
+  #page-footer #block-openy-lily-footersocialblock ul li a {
     width: 36px;
     height: 36px;
     line-height: 30px;
@@ -8679,22 +8712,22 @@ legend {
   text-decoration: underline;
 }
 #page-footer #block-openy-lily-footercopyrightblock {
-  padding-top: 40px;
+  padding-top: 20px;
   padding-bottom: 10px;
   text-align: center;
 }
 #page-footer #block-openy-lily-footercopyrightblock .contextual {
   top: -20px;
 }
-#page-footer #block-openy-lily-footercopyrightblock p {
+#page-footer #block-openy-lily-footercopyrightblock h5, #page-footer #block-openy-lily-footercopyrightblock p {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   display: inline-block;
   margin: 0;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 20px;
   color: #a8a8a8;
 }
-#page-footer #block-openy-lily-footercopyrightblock p:first-child {
+#page-footer #block-openy-lily-footercopyrightblock h5:first-child, #page-footer #block-openy-lily-footercopyrightblock p:first-child {
   font-weight: bold;
 }
 

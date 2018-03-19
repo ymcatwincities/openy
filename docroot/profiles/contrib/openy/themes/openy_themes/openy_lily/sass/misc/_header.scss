@@ -429,6 +429,7 @@ header#page-head {
         }
       }
     }
+    #block-topmenu2,
     #block-anonymoususersmenu--2,
     #block-anonymoususersmenu,
     #block-openy-lily-user-menu,
@@ -481,9 +482,13 @@ header#page-head {
         }
       }
     }
+    #block-topmenu2,
     #block-anonymoususersmenu,
     #block-anonymoususersmenu--2,
     #block-openy-lily-user-menu {
+      h2 {
+        display: none;
+      }
       .nav {
         li {
           &:first-child {
@@ -558,6 +563,7 @@ header#page-head {
           }
         }
       }
+      #block-topmenu2,
       #block-anonymoususersmenu,
       #block-anonymoususersmenu--2,
       #block-openy-lily-user-menu,
@@ -569,6 +575,7 @@ header#page-head {
           }
         }
       }
+      #block-topmenu2,
       #block-openy-lily-user-menu,
       #block-anonymoususersmenu,
       #block-anonymoususersmenu--2 {
