@@ -14,6 +14,7 @@ global-styling:
     scripts/vendor/iscroll/iscroll.js: {}
     scripts/vendor/jquery.matchHeight/jquery.matchHeight-min.js: {}
     scripts/openy_lily.js: {}
+    scripts/legacy/ymca.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
