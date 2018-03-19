@@ -49,6 +49,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'icomoon';
+  src: url('../fonts/icomoon.eot?fmn4yo');
+  src: url('../fonts/icomoon.eot?#iefixfmn4yo') format("embedded-opentype"), url('../fonts/icomoon.woff?fmn4yo') format("woff"), url('../fonts/icomoon.ttf?fmn4yo') format("truetype"), url('../fonts/icomoon.svg?fmn4yo#icomoon') format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   @include verdana();
