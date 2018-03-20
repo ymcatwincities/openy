@@ -472,7 +472,53 @@
   .campaign-facility-access-hint-wrapper {
     margin-top: 10px;
     .campaign-facility-access-hint p {
-      font-size: 14px!important;
+      font-size: 14px !important;
+    }
+  }
+}
+
+.openy-campaign-activity-modal-form {
+  .form-checkboxes {
+    .form-item {
+      position: relative;
+      &.counted {
+        label {
+          &:before {
+            display: none;
+          }
+        }
+      }
+      .preudo-activity-counter {
+        position: absolute;
+        border: 1px solid $black;
+        right: 15px;
+        top: 20px;
+        width: 35px;
+        color: $black;
+      }
+    }
+  }
+}
+
+.openy-campaign-activity-modal-form {
+  .form-checkboxes {
+    .form-item {
+      position: relative;
+      &.counted {
+        label {
+          &:before {
+            display: none;
+          }
+        }
+      }
+      .preudo-activity-counter {
+        position: absolute;
+        border: 1px solid $black;
+        right: 15px;
+        top: 20px;
+        width: 35px;
+        color: $black;
+      }
     }
   }
 }

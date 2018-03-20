@@ -117,14 +117,23 @@ class ActivityTrackingModalForm extends FormBase {
       $form['activities_count'] = [
         '#type' => 'container',
         '#tree' => TRUE,
+        '#attributes' => array(
+          'class' => 'activities-count',
+        ),
       ];
+
       foreach (array_keys($options) as $activityId) {
         if (!in_array($activityId, $terms_with_counter)) {
           continue;
         }
         $form['activities_count'][$activityId] = [
-          '#type' => 'textfield',
+          '#type' => 'hidden',
           '#value' => floatval($activity_count_values[$activityId]) ?? 0,
+          '#attributes' => array(
+            'class' => 'count-value',
+            'data-activityId' => $activityId,
+            'data-date' => $date
+          ),
         ];
       }
     }
