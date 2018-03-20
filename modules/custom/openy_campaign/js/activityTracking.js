@@ -149,6 +149,7 @@ jQuery(function () {
                   e.preventDefault();
                   _$self.val(jQuery(this).find('.preudo-activity-counter').val());
                   relatedActivity.find('input.form-checkbox').trigger('change');
+                  jQuery(this).find('.preudo-activity-counter').blur();
                   return false;
               }
             });
