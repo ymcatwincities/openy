@@ -138,6 +138,11 @@ class ActivityTrackingModalForm extends FormBase {
       }
     }
 
+    $form['top_term_id'] = [
+      '#value' => $topTermId,
+      '#type' => 'hidden',
+    ];
+
     $form['member_campaign_id'] = [
       '#value' => $memberCampaignId,
       '#type' => 'hidden',
