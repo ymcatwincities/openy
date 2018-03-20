@@ -296,10 +296,10 @@
           }
           // Block select option if out of range.
           if ($('a.cdn-prs-product.selected', context).length >= 2) {
-            var k = $(this).find('.fc-day-number').index('.fc-content-skeleton .fc-day-number'),
-                left_sibling_s = $('.fc-content-skeleton .fc-day-number:eq(' + (k - 1) + ')', context),
-                right_sibling_s = $('.fc-content-skeleton .fc-day-number:eq(' + (k + 1) + ')', context);
-            if ((left_sibling_s.length === 1 && left_sibling_s.length === 1) && left_sibling_s.parents('.selected').length === 0 && right_sibling_s.parents('.selected').length === 0) {
+            var k = $(this).find('.fc-day-number').index('.fc-content-skeleton div.fc-day-number'),
+                left_sibling_s = $('.fc-content-skeleton div.fc-day-number:eq(' + (k - 1) + ')', context),
+                right_sibling_s = $('.fc-content-skeleton div.fc-day-number:eq(' + (k + 1) + ')', context);
+            if ((left_sibling_s.length === 1 && right_sibling_s.length === 1) && left_sibling_s.parents('.selected').length === 0 && right_sibling_s.parents('.selected').length === 0) {
               allowSelection = false;
             }
           }
