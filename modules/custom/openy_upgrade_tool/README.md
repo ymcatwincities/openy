@@ -115,6 +115,7 @@ Delete all logger entities.
 ```php
 $logger_entity_storage = \Drupal::service('entity_type.manager')->getStorage('logger_entity');
 $entities = $logger_entity_storage->loadMultiple();
-$logger_entity = array_shift($entities);
-$logger_entity->delete();
+foreach ($entities as $entity){
+  $entity->delete();
+}
 ```
