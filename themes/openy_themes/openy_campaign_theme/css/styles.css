@@ -1844,6 +1844,21 @@ footer .container .footer__nav nav ul > li a {
   font-size: 14px !important;
 }
 
+.openy-campaign-activity-modal-form .form-checkboxes .form-item {
+  position: relative;
+}
+.openy-campaign-activity-modal-form .form-checkboxes .form-item.counted label:before {
+  display: none;
+}
+.openy-campaign-activity-modal-form .form-checkboxes .form-item .preudo-activity-counter {
+  position: absolute;
+  border: 1px solid black;
+  right: 15px;
+  top: 20px;
+  width: 35px;
+  color: black;
+}
+
 .ui-dialog {
   background: transparent;
   border: none !important;
