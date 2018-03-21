@@ -248,7 +248,7 @@ class CdnFormFull extends FormBase {
       $period = new \DatePeriod(
         $arrival_date,
         new \DateInterval('P1D'),
-        $departure_date
+        $departure_date->modify('+ 1 day')
       );
       foreach ($period as $date) {
         $cdn_product_ids += $this->entityQuery
