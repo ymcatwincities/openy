@@ -4,9 +4,11 @@ namespace Drupal\openy_campaign\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\CampaignUtilizationActivitiy;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
@@ -36,17 +38,27 @@ class ActivityTrackingController extends ControllerBase {
   protected $connection;
 
   /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * The ModalFormExampleController constructor.
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
    * @param \Drupal\Core\Database\Connection $connection
    *   The database connection service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    */
-  public function __construct(FormBuilder $formBuilder, $request_stack, Connection $connection) {
+  public function __construct(FormBuilder $formBuilder, $request_stack, Connection $connection, EntityTypeManagerInterface $entity_type_manager) {
     $this->formBuilder = $formBuilder;
     $this->request_stack = $request_stack;
     $this->connection = $connection;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -61,7 +73,8 @@ class ActivityTrackingController extends ControllerBase {
     return new static(
       $container->get('form_builder'),
       $container->get('request_stack'),
-      $container->get('database')
+      $container->get('database'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -71,6 +84,7 @@ class ActivityTrackingController extends ControllerBase {
    * @param $visit_date
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function saveTrackingInfo($visit_date) {
     $params = $this->request_stack->getCurrentRequest()->request->all();
@@ -87,9 +101,18 @@ class ActivityTrackingController extends ControllerBase {
     $activities_count = $params['activities_count'] ?? [];
 
     $memberCampaignId = $params['member_campaign_id'];
+    $topTermId = $params['top_term_id'];
+
+    $term = Term::load($topTermId);
+    $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
+    $activityTerms = [];
+    /** @var \Drupal\taxonomy\Entity\Term $term */
+    foreach ($childTerms as $term) {
+      $activityTerms[] = $term->id();
+    }
 
     // Delete all records first.
-    $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date);
+    $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, $activityTerms);
 
     entity_delete_multiple('openy_campaign_memb_camp_actv', $existingActivityIds);
 
