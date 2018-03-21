@@ -11843,27 +11843,7 @@ tr:nth-last-child(3) .atcb-list {
 .cdn-village-teaser img {
   border-radius: 4px;
   max-width: 100%;
-}
-.cdn-village-teaser .info {
-  padding: 20px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.cdn-village-teaser .info:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-.cdn-village-teaser .info .capacity {
-  float: right;
-  color: #fff;
-  font-size: 20px;
-  margin-top: 4px;
-}
-.cdn-village-teaser .info .capacity i {
-  margin-right: 5px;
+  width: 100%;
 }
 .cdn-village-teaser .title {
   font-family: "Cachet Book", Arial, sans-serif;
@@ -11871,11 +11851,22 @@ tr:nth-last-child(3) .atcb-list {
   letter-spacing: -0.6px;
   color: #000;
   line-height: 30px;
+  position: relative;
+  padding-right: 45px;
 }
 @media (min-width: 768px) {
   .cdn-village-teaser .title {
     font-size: 24px;
   }
+}
+.cdn-village-teaser .title .capacity {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 20px;
+}
+.cdn-village-teaser .title .capacity i {
+  margin-right: 5px;
 }
 
 .cdn-calendar-list {

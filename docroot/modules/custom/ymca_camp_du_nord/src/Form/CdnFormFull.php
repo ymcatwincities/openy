@@ -235,7 +235,7 @@ class CdnFormFull extends FormBase {
     $user_input = $form_state->getUserInput();
     $values = $form_state->getValues();
     $query = $this->state;
-
+    $cdn_product_ids = [];
     // Iterate range if start date is not available.
     if (empty($cdn_product_ids)) {
       $arrival_date = new \DateTime($query['arrival_date']);
@@ -248,13 +248,10 @@ class CdnFormFull extends FormBase {
       $period = new \DatePeriod(
         $arrival_date,
         new \DateInterval('P1D'),
-        $departure_date
+        $departure_date->modify('+ 1 day')
       );
       foreach ($period as $date) {
-        if (!empty($cdn_product_ids)) {
-          continue;
-        }
-        $cdn_product_ids = $this->entityQuery
+        $cdn_product_ids += $this->entityQuery
           ->get('cdn_prs_product')
           ->condition('field_cdn_prd_start_date', '%' . $date->format('Y-m-d') . '%', 'LIKE')
           ->execute();
@@ -672,7 +669,7 @@ class CdnFormFull extends FormBase {
     foreach ($period as $d) {
       $skip = FALSE;
       foreach ($builds['list'] as $key => $l) {
-        $current = DrupalDateTime::createFromFormat('Y-m-d', $l['#data']['date'])->setTime(0, 0);
+        $current = \DateTime::createFromFormat('Y-m-d', $l['#data']['date'])->setTime(0, 0);
         if ($skip) {
           continue;
         }
