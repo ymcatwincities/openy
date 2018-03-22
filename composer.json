@@ -228,6 +228,7 @@
         "drupal/focal_point": "1.0-beta5",
         "drupal/media_entity_video": "1.0-beta2",
         "drupal/video": "1.2",
-        "drupal/easy_breadcrumb": "^1.6"
+        "drupal/easy_breadcrumb": "^1.6",
+        "drupal/fontyourface": "^3.2"
     }
 }

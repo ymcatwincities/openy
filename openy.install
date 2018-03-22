@@ -590,3 +590,10 @@ function openy_update_8046() {
     ]);
   }
 }
+
+/**
+ * Enable font-your-face module.
+ */
+function openy_update_8047() {
+  \Drupal::service('module_installer')->install(['fontyourface']);
+}
