@@ -99,5 +99,5 @@ libraries[colorbutton][download][url] = http://download.ckeditor.com/colorbutton
 libraries[colorbutton][destination] = libraries
 libraries[btbutton][type] = library
 libraries[btbutton][download][type] = get
-libraries[btbutton][download][url] = https://github.com/smonetti/btbutton/archive/master.zip
+libraries[btbutton][download][url] = https://github.com/smonetti/btbutton/archive/1620254d294a209bdf18cc0bc7b131d2ffaa10db.zip
 libraries[btbutton][destination] = libraries
