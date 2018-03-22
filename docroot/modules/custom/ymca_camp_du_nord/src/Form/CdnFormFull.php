@@ -300,7 +300,7 @@ class CdnFormFull extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $today = new DrupalDateTime();
-    $today_modified = new DrupalDateTime('+ 3 days');
+    $today_modified = new DrupalDateTime('+ 2 days');
     $arrival_date = $form_state->getValue('arrival_date');
     $departure_date = $form_state->getValue('departure_date');
     $arrival_date = DrupalDateTime::createFromFormat('Y-m-d', $arrival_date);
