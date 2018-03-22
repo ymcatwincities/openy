@@ -199,6 +199,7 @@ dependencies:
   - openy_calc
   - openy_data_wrapper
   - logger_entity
+  - openy_redirect
 
 themes:
   - bartik
