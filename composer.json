@@ -142,6 +142,19 @@
                     "type": "zip"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-smonetti/btbutton",
+                "version": "1.0.1",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/smonetti/btbutton",
+                    "type": "git",
+                    "reference": "1620254d294a209bdf18cc0bc7b131d2ffaa10db"
+                }
+            }
         }
     ],
     "scripts": {
