@@ -3,5 +3,11 @@ description: 'OpenY Taxonomy Fitness Category'
 type: module
 core: 8.x
 dependencies:
+  - datalayer
+  - field
+  - file
   - language
+  - openy_svg_formatter
+  - path
   - taxonomy
+  - text

@@ -446,6 +446,48 @@ function openy_campaign_node_presave(Node $node) {
         }
       }
     }
+
+    // Add "Activity Icon" on the Activities taxonomy terms.
+    $entityType = 'taxonomy_term';
+    $fieldName = 'field_activity_icon';
+    $fieldLabel = 'Activity Icon';
+
+    if (is_null(FieldConfig::loadByName($entityType, $activitiesVocabulary, $fieldName))) {
+      FieldConfig::create([
+        'field_name' => $fieldName,
+        'entity_type' => $entityType,
+        'label' => $fieldLabel,
+        'bundle' => $activitiesVocabulary,
+        'settings' => [
+          'file_extensions' => 'svg'
+        ],
+      ])->save();
+
+      $displayTypes = ['view', 'form'];
+      $viewMode = 'default';
+      foreach ($displayTypes as $type) {
+        $display = \Drupal::entityTypeManager()
+          ->getStorage('entity_' . $type . '_display')
+          ->load($entityType . '.' . $activitiesVocabulary . '.' . $viewMode);
+
+        if (empty($display)) {
+          $values = [
+            'targetEntityType' => $entityType,
+            'bundle' => $activitiesVocabulary,
+            'mode' => $viewMode,
+            'status' => TRUE,
+          ];
+          $display = \Drupal::entityTypeManager()
+            ->getStorage('entity_' . $type . '_display')
+            ->create($values);
+        }
+        $display->setComponent($fieldName, [
+          'type' => $type == 'view' ? 'openy_svg_formatter' : 'file_generic',
+          'region' => 'content',
+        ])->save();
+      }
+    }
+
   }
 }
 
