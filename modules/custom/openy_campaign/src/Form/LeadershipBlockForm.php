@@ -4,6 +4,8 @@ namespace Drupal\openy_campaign\Form;
 
 use Drupal\Core\Database\Connection;
 use Drupal\node\Entity\Node;
+use Drupal\openy_campaign\Entity\Member;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -87,7 +89,18 @@ class LeadershipBlockForm extends FormBase {
     // Get all branches.
     $branches = $this->getBranches($campaignId);
 
-    $selectedBranch = !empty($form_state->getValue('branch')) ? $form_state->getValue('branch') : $branches['default'];
+    $selectedBranch = reset(array_keys($branches));
+    if (!empty($form_state->getValue('branch'))) {
+      $selectedBranch = $form_state->getValue('branch');
+    }
+    else {
+      // Get current user branch.
+      if (MemberCampaign::isLoggedIn($campaignId)) {
+        $userData = MemberCampaign::getMemberCampaignData($campaignId);
+        $member = Member::load($userData['member_id']);
+        $selectedBranch = $member->getBranchId();
+      }
+    }
 
     $form['filters'] = [
       '#type' => 'container',
@@ -107,33 +120,13 @@ class LeadershipBlockForm extends FormBase {
       '#suffix' => '</div>',
     ];
 
-    /*
-    // Get all activities categories.
-    $categories = $this->getCategories($campaignId);
-    if (empty($form_state->getValue('category'))) {
-      $selectedCategory = key($categories);
-    }
-    else {
-      $selectedCategory = $form_state->getValue('category');
-    }
-    $form['filters']['category'] = [
-      '#type' => 'select',
-      '#title' => 'Category',
-      '#options' => $categories,
-      '#default_value' => $selectedCategory,
-      '#ajax' => [
-        'callback' => '::ajaxActivitiesCallback',
-        'wrapper' => 'leadership-activities-select',
-      ],
-      '#prefix' => '<div class="leadership-categories-select">',
-      '#suffix' => '</div>',
-    ];*/
-
-    // Get all activities.
-    //$activities = $this->getActivities($selectedCategory != 'default' ? $selectedCategory : NULL);
     $activities = $this->getActivities($campaignId);
 
-    $selectedActivity = !empty($form_state->getValue('activity')) ? $form_state->getValue('activity') : '';
+    $selectedActivity = reset(array_keys($activities));
+    if (!empty($form_state->getValue('activity'))) {
+      $selectedActivity = $form_state->getValue('activity');
+    }
+
     $form['filters']['activity'] = [
       '#type' => 'select',
       '#title' => 'Activity',
@@ -148,13 +141,8 @@ class LeadershipBlockForm extends FormBase {
     ];
 
     $leadershipBlock = '';
-    if (
-      (!empty($form_state->getValue('branch')) && $form_state->getValue('branch') != 'default') &&
-      (!empty($form_state->getValue('activity')) && $form_state->getValue('activity') != 'default')
-    ) {
-      $branchId = $form_state->getValue('branch');
-      $activityId = $form_state->getValue('activity');
-      $leadershipBlock = $this->showLeadershipBlock($campaignId, $branchId, $activityId);
+    if (!empty($selectedBranch) && !empty($selectedActivity)) {
+      $leadershipBlock = $this->showLeadershipBlock($campaignId, $selectedBranch, $selectedActivity);
     }
 
     $form['leadership'] = [
@@ -213,21 +201,6 @@ class LeadershipBlockForm extends FormBase {
   }
 
   /**
-   * AJAX Callback for the leadership list.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   *
-   * @return array
-   *   The portion of the render structure that will replaced.
-   */
-  public function ajaxActivitiesCallback(array $form, FormStateInterface $form_state) {
-    return $form['activity'];
-  }
-
-  /**
    * Get all available branches.
    *
    * @param int $campaignId
@@ -236,9 +209,7 @@ class LeadershipBlockForm extends FormBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   private function getBranches($campaignId) {
-    $locations = [
-      'default' => $this->t('Location'),
-    ];
+    $locations = [];
 
     $query = $this->entityTypeManager->getStorage('node')->getQuery();
     $nids = $query->condition('type', 'branch')
@@ -279,9 +250,6 @@ class LeadershipBlockForm extends FormBase {
    */
   private function getCategories($campaignId) {
     $categories = [];
-    /*$categories = [
-      'default' => $this->t('Category'),
-    ];*/
 
     /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = Node::load($campaignId);
@@ -309,13 +277,7 @@ class LeadershipBlockForm extends FormBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   private function getActivities($campaignId) {
-    $activities = [
-      'default' => $this->t('Activity'),
-    ];
-
-    /*if (empty($categoryId)) {
-      return $activities;
-    }*/
+    $activities = [];
 
     $categories = $this->getCategories($campaignId);
 
