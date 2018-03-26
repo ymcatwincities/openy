@@ -5185,14 +5185,34 @@ function ymca_master_update_8241() {
       'openy_prgf.settings',
     ]
   );
+
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.paragraph.small_banner.default',
+    ]
+  );
 }
 
 /**
- * Install openy_node_alerts.
+ * Install openy modules.
  */
 function ymca_master_update_8242() {
   \Drupal::service('module_installer')->install([
+    'admin_toolbar',
     'openy_node_alert',
+    'openy_prgf_banner',
+    'openy_prgf_gallery',
+    'openy_prgf_grid_content',
+    'openy_prgf_promo_card',
+    'openy_prgf_story_card',
+    'openy_prgf_webform',
+    'openy_prgf_teaser',
+    'openy_prgf_secondary_description_sidebar',
+    'openy_prgf_featured_highlights',
+    'views_infinite_scroll',
+    'verf',
   ], TRUE);
 }
 
@@ -5205,7 +5225,7 @@ function ymca_master_update_8243() {
 }
 
 /**
- * Install openy_lily theme.
+ * Create block with menu. Create default taxonomy terms for openy.
  */
 function ymca_master_update_8246() {
   $blockEntityManager = \Drupal::service('entity.manager')->getStorage('block');
@@ -5218,6 +5238,20 @@ function ymca_master_update_8246() {
   );
   $block->setRegion('secondary_menu');
   $block->save();
+
+  // Create Taxonomy terms for OpenY.
+  $importer = \Drupal::service('openy_migrate.importer');
+  $importer->import('openy_demo_taxonomy_term_color');
+
+  // Rename old paragraph type.
+  $storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
+  $paragraph_type = $storage->load('70_30_columns');
+  $paragraph_type->set('label', '[Deprecated] Secondary Description and Sidebar');
+  $paragraph_type->save();
+
+  $paragraph_type = $storage->load('content_banner');
+  $paragraph_type->set('label', '[Deprecated] Content Banner');
+  $paragraph_type->save();
 }
 
 /**
@@ -5309,4 +5343,17 @@ function ymca_master_update_8247() {
       }
     }
   }
+}
+
+/**
+ * Install openy news related modules.
+ */
+function ymca_master_update_8248() {
+  \Drupal::service('module_installer')->install([
+    'openy_node_news',
+    'openy_prgf_news_listing',
+    'openy_prgf_news_latest',
+    'openy_prgf_featured_news',
+    'openy_txnm_news_category',
+  ], TRUE);
 }
