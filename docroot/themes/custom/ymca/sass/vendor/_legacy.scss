@@ -792,6 +792,8 @@ body {
   border-color: transparent;
   border-top: 0;
   border-radius: 0;
+  height: 100px;
+  min-height: 100px;
 }
 
 .container, .padded-content-container {
@@ -906,8 +908,8 @@ body {
   box-sizing: content-box;
   margin: 5px 0 3px 0;
   margin-bottom: 5px;
-  padding: 0 0 0 30px;
-  width: 200px;
+  padding: 5px 0 0 30px;
+  width: 210px;
   height: 80%;
   background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
   background-size: contain;
@@ -1850,7 +1852,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .dock-subnav {
   .nav-home {
     position: fixed;
-    top: 51px;
+    top: 100px;
     width: 100%;
   }
   .page-middle {
@@ -1861,7 +1863,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .nav-home {
   &.fixed {
     position: fixed;
-    top: 51px;
+    top: 100px;
     bottom: auto;
     width: 100%;
   }
@@ -1873,7 +1875,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .no-touch {
   .nav-home.affix, .page_home .nav-home.affix {
     position: fixed;
-    top: 51px;
+    top: 100px;
     bottom: auto;
     width: 100%;
   }
@@ -1907,7 +1909,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .no-touch {
   .nav-location.affix, .locations-camps-template .nav-location.affix {
     position: fixed;
-    top: 51px;
+    top: 100px;
     height: 50px;
     font-size: 15px;
   }
@@ -5303,7 +5305,7 @@ a.wrapper:hover {
       }
     }
     .lt-ie9 .masthead-menu-active .page-middle {
-      margin-top: 144px;
+      margin-top: 162px;
     }
     .schedules-template .panel-group > .content-expander > .panel-heading a {
       color: #555;
@@ -5357,14 +5359,14 @@ a.wrapper:hover {
     .campaign-template .page-middle,
     .internal-template .page-middle,
     .schedules-template .page-middle {
-      margin-top: 144px;
+      margin-top: 162px;
     }
 
     .landing-template.toolbar-horizontal .page-middle,
     .campaign-template.toolbar-horizontal .page-middle,
     .internal-template.toolbar-horizontal .page-middle,
     .schedules-template.toolbar-horizontal .page-middle {
-      margin-top: 144px;
+      margin-top: 162px;
     }
 
     .landing-template.toolbar-vertical .page-middle,
