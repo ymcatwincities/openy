@@ -101,6 +101,9 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
         'current' => NULL,
         'title' => NULL,
         'goal_message' => NULL,
+        'trackActvDesc' => NULL,
+        'enActvCounter' => NULL,
+        'countedActv' => NULL,
       ],
       'template' => 'openy-campaign-visits-goal',
     ],
@@ -632,6 +635,14 @@ function openy_campaign_form_node_campaign_form_alter(&$form, FormStateInterface
       "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
     ]
   ];
+
+  // Show "Tracking activities goal description" block if only "Tracking Activity" is checked.
+  $form['field_tracking_actv_goal_desc']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
+    ]
+  ];
+
 }
 
 /**
@@ -663,6 +674,14 @@ function openy_campaign_form_node_campaign_edit_form_alter(&$form, FormStateInte
       "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
     ]
   ];
+
+  // Show "Tracking activities goal description" block if only "Tracking Activity" is checked.
+  $form['field_tracking_actv_goal_desc']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
+    ]
+  ];
+
 }
 
 /**
