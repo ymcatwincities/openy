@@ -196,7 +196,16 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
           );
 
           $activities[$key][$tid] = $activityTrackingForm;
-          $activities[$key][$tid]['#prefix'] .= '<span class="activity-name ' . str_replace(' ', '', $cleanName) . '">' . $cleanName . '</span>';
+
+          // Get term icon
+          $iconUri = $term->field_activity_icon->entity;
+          $addIconAttr = '';
+          if (!empty($iconUri)) {
+            $relativeUrl = file_url_transform_relative(file_create_url($iconUri->getFileUri()));
+            $addIconAttr = ' data-icon="' . $relativeUrl . '"';
+          }
+
+          $activities[$key][$tid]['#prefix'] .= '<span class="activity-name ' . str_replace(' ', '', $cleanName) . '"' . $addIconAttr . '>' . $cleanName . '</span>';
         }
       }
 
