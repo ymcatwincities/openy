@@ -5087,7 +5087,7 @@ function ymca_master_update_8235() {
 }
 
 /**
- * Import field_content storage config from openy_node.
+ * Import field_content storage config from openy_node. Import field_content config from openy_node_landing.
  */
 function ymca_master_update_8236() {
   $config_importer = \Drupal::service('config_import.importer');
@@ -5097,13 +5097,7 @@ function ymca_master_update_8236() {
       'field.storage.node.field_content',
     ]
   );
-}
-
-/**
- * Import field_content config from openy_node_landing.
- */
-function ymca_master_update_8237() {
-  $config_importer = \Drupal::service('config_import.importer');
+  // Import field_content config from openy_node_landing.
   $config_importer->setDirectory(drupal_get_path('module', 'openy_node_landing') . '/config/install');
   $config_importer->importConfigs(
     [
@@ -5115,7 +5109,7 @@ function ymca_master_update_8237() {
 /**
  * Copy content from field_oy_content to field_content.
  */
-function ymca_master_update_8238() {
+function ymca_master_update_8237() {
   db_query("INSERT {node__field_content} SELECT * FROM {node__field_oy_content}");
   db_query("INSERT {node_revision__field_content} SELECT * FROM {node_revision__field_oy_content}");
 }
@@ -5123,7 +5117,7 @@ function ymca_master_update_8238() {
 /**
  * Delete field_oy_content from node entity type.
  */
-function ymca_master_update_8239() {
+function ymca_master_update_8238() {
   // Deleting field.
   if ($field_config = FieldConfig::loadByName('node', 'landing_page', 'field_oy_content')) {
     $field_config->delete();
@@ -5137,7 +5131,7 @@ function ymca_master_update_8239() {
 /**
  * Install required openy modules.
  */
-function ymca_master_update_8240() {
+function ymca_master_update_8239() {
   \Drupal::service('module_installer')->install([
     'openy_upgrade_tool',
     'rabbit_hole',
@@ -5149,7 +5143,7 @@ function ymca_master_update_8240() {
 /**
  * Update configs.
  */
-function ymca_master_update_8241() {
+function ymca_master_update_8240() {
   $config_importer = \Drupal::service('config_import.importer');
   $path = 'profiles/contrib/openy/modules/openy_features/openy_node/config/install';
   $config_importer->setDirectory($path);
@@ -5197,7 +5191,7 @@ function ymca_master_update_8241() {
 /**
  * Install openy modules.
  */
-function ymca_master_update_8242() {
+function ymca_master_update_8241() {
   \Drupal::service('module_installer')->install([
     'admin_toolbar',
     'focal_point',
@@ -5213,7 +5207,7 @@ function ymca_master_update_8242() {
 /**
  * Install openy modules.
  */
-function ymca_master_update_8243() {
+function ymca_master_update_8242() {
   \Drupal::service('module_installer')->install([
     'openy_prgf_webform',
     'openy_prgf_teaser',
@@ -5227,7 +5221,7 @@ function ymca_master_update_8243() {
 /**
  * Create taxonomy terms for the Color vocabulary. Rename old paragraphs.
  */
-function ymca_master_update_8244() {
+function ymca_master_update_8243() {
   // Create Taxonomy terms for OpenY.
   \Drupal::service('module_installer')->install([
     'openy_demo_tcolor',
@@ -5248,17 +5242,13 @@ function ymca_master_update_8244() {
 }
 
 /**
- * Install openy_lily theme.
+ * Install openy_lily theme. Create block with menu. Create default taxonomy terms for openy.
  */
-function ymca_master_update_8245() {
+function ymca_master_update_8244() {
   \Drupal::service('theme_installer')->install(['openy_lily']);
   \Drupal::service('theme_handler')->setDefault('openy_lily');
-}
 
-/**
- * Create block with menu. Create default taxonomy terms for openy.
- */
-function ymca_master_update_8246() {
+  // Create block with menu. Create default taxonomy terms for openy.
   $blockEntityManager = \Drupal::service('entity.manager')->getStorage('block');
   $block = $blockEntityManager->create(
     array(
@@ -5274,7 +5264,7 @@ function ymca_master_update_8246() {
 /**
  * Fill the main menu with links.
  */
-function ymca_master_update_8247() {
+function ymca_master_update_8245() {
   $menu_tree = [
     [
       'title' => 'Programs & Classes',
@@ -5365,7 +5355,7 @@ function ymca_master_update_8247() {
 /**
  * Install openy news related modules.
  */
-function ymca_master_update_8248() {
+function ymca_master_update_8246() {
   \Drupal::service('module_installer')->install([
     'openy_node_news',
     'openy_prgf_news_listing',
