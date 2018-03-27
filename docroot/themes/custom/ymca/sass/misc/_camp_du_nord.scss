@@ -723,23 +723,7 @@
   img {
     border-radius: 4px;
     max-width: 100%;
-  }
-  .info {
-    @include clearfix();
-    padding: 20px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    .capacity {
-      float: right;
-      color: #fff;
-      font-size: 20px;
-      margin-top: 4px;
-      i {
-        margin-right: 5px;
-      }
-    }
+    width: 100%;
   }
   .title {
     font-family: "Cachet Book", Arial, sans-serif;
@@ -747,8 +731,19 @@
     letter-spacing: -0.6px;
     color: #000;
     line-height: 30px;
-    @media (min-width: 768px) {
+    position: relative;
+    padding-right: 45px;
+     @media (min-width: 768px) {
       font-size: 24px;
+    }
+    .capacity {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 20px;
+      i {
+        margin-right: 5px;
+      }
     }
   }
 }
