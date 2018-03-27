@@ -62,48 +62,57 @@ function openy_font_file_validation(FileInterface $file, $font_style) {
  */
 function openy_font_page_attachments(&$page) {
   // Without a check it will load for admin theme, as well.
-  if (\Drupal::theme()->getActiveTheme()->getName() == \Drupal::config('system.theme')->get('default')) {
+  if (\Drupal::theme()
+      ->getActiveTheme()
+      ->getName() != \Drupal::config('system.theme')->get('default')
+  ) {
+    return;
+  }
 
-    $config = \Drupal::config('openy_font.settings');
-    $css = '';
+  $config = \Drupal::config('openy_font.settings');
+  $css = '';
 
-    // Unfortunately, this can't be looped because we don't have a label for the font names.
-    $bold_settings = $config->get('cachet_bold');
-    if (!empty($bold_settings)) {
-      $bold = \Drupal\file\Entity\File::load(reset($bold_settings))->url('canonical');
-      $css .= "
+  // Unfortunately, this can't be looped because we don't have a label for the font names.
+  $bold_settings = $config->get('cachet_bold');
+  if (!empty($bold_settings)) {
+    $bold = \Drupal\file\Entity\File::load(reset($bold_settings))
+      ->url('canonical');
+    $css .= "
         @font-face {
           font-family: Cachet Bold;
           src: url($bold);
         }
       ";
-    }
-    $book_settings = $config->get('cachet_book');
-    if (!empty($book_settings)) {
-      $book = \Drupal\file\Entity\File::load(reset($book_settings))->url('canonical');
-      $css .= "
+  }
+  $book_settings = $config->get('cachet_book');
+  if (!empty($book_settings)) {
+    $book = \Drupal\file\Entity\File::load(reset($book_settings))
+      ->url('canonical');
+    $css .= "
         @font-face {
           font-family: Cachet W01 Book;
           src: url($book);
         }
       ";
-    }
-    $medium_settings = $config->get('cachet_medium');
-    if (!empty($medium_settings)) {
-      $medium = \Drupal\file\Entity\File::load(reset($medium_settings))->url('canonical');
-      $css .= "
+  }
+  $medium_settings = $config->get('cachet_medium');
+  if (!empty($medium_settings)) {
+    $medium = \Drupal\file\Entity\File::load(reset($medium_settings))
+      ->url('canonical');
+    $css .= "
         @font-face {
           font-family: Cachet Medium;
           src: url($medium);
         }
       ";
-    }
-
+  }
+  if (!empty($css)) {
     $page['#attached']['html_head'][] = [
       [
         '#tag' => 'style',
         '#value' => $css,
       ],
+      'cachet_font_styles',
     ];
   }
 }
