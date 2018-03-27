@@ -162,7 +162,7 @@
   ul {
     display: inline-block;
     width: 100%;
-    padding: 0px;
+    padding: 0;
     text-align: center;
     li {
       display: block;
@@ -178,12 +178,18 @@
       margin: 10px;
 
       @include breakpoint($screen-phone) {
-        height: 60px;
-        font-size: 9px;
+        height: 80px;
+        font-size: 10px;
+        padding-top: 50px;
+      }
+      @include breakpoint($screen-sm) {
+        height: 85px;
+        font-size: 16px;
       }
       @include breakpoint($screen-lg-desktop) {
         height: 200px;
         font-size: 22px;
+        padding-top: 115px;
       }
 
       &.active{
@@ -196,25 +202,19 @@
         @include breakpoint($screen-phone) {
           background-position: center 15px;
           background-size: 35px;
-          padding-top: 38px;
         }
         @include breakpoint($screen-lg-desktop) {
           background-position: center 50px;
           background-size: auto;
-          padding-top: 115px;
         }
-
       }
       &.Fitness {
         background-image: url('../img/fitnes.png');
         background-repeat: no-repeat;
         background-position: 70px 50px;
-
-
         @include breakpoint($screen-phone) {
           background-position: center 10px;
           background-size: 35px;
-          padding-top: 38px;
         }
         @include breakpoint($screen-sm) {
           background-position: center 10px;
@@ -227,40 +227,14 @@
         @include breakpoint($screen-lg-desktop) {
           background-position: center 50px;
           background-size: auto;
-          padding-top: 115px;
-        }
-      }
-      &.Community {
-        background-image: url('../img/community.png');
-        background-repeat: no-repeat;
-
-        @include breakpoint($screen-phone) {
-          background-position: center 5px;
-          background-size: 35px;
-          padding-top: 33px;
-        }
-        @include breakpoint($screen-sm) {
-          background-position: center 10px;
-          background-size: 35px;
-        }
-        @include breakpoint($screen-md) {
-          background-position: center 10px;
-          background-size: 35px;
-        }
-        @include breakpoint($screen-lg-desktop) {
-          background-position: center 50px;
-          background-size: auto;
-          padding-top: 115px;
         }
       }
       &.GroupExercise {
         background-image: url('../img/groupex.png');
         background-repeat: no-repeat;
-
         @include breakpoint($screen-phone) {
-          background-position: center 5px;
+          background-position: center 10px;
           background-size: 35px;
-          padding-top: 33px;
         }
         @include breakpoint($screen-sm) {
           background-position: center 10px;
@@ -269,7 +243,26 @@
         @include breakpoint($screen-lg-desktop) {
           background-position: center 50px;
           background-size: auto;
-          padding-top: 115px;
+        }
+      }
+      &.Community {
+        background-image: url('../img/community.png');
+        background-repeat: no-repeat;
+        @include breakpoint($screen-phone) {
+          background-position: center 5px;
+          background-size: 35px;
+        }
+        @include breakpoint($screen-sm) {
+          background-position: center 10px;
+          background-size: 35px;
+        }
+        @include breakpoint($screen-md) {
+          background-position: center 10px;
+          background-size: 35px;
+        }
+        @include breakpoint($screen-lg-desktop) {
+          background-position: center 50px;
+          background-size: auto;
         }
       }
     }
@@ -410,6 +403,9 @@
           text-align: center;
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
+          @include breakpoint($screen-phone) {
+            white-space: normal;
+          }
         }
       }
     }

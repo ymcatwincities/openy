@@ -1504,7 +1504,7 @@ footer .container .footer__nav nav ul > li a {
 .activity-data .categories ul {
   display: inline-block;
   width: 100%;
-  padding: 0px;
+  padding: 0;
   text-align: center;
 }
 .activity-data .categories ul li {
@@ -1522,14 +1522,22 @@ footer .container .footer__nav nav ul > li a {
 }
 @media (min-width: 20em) {
   .activity-data .categories ul li {
-    height: 60px;
-    font-size: 9px;
+    height: 80px;
+    font-size: 10px;
+    padding-top: 50px;
+  }
+}
+@media (min-width: 48em) {
+  .activity-data .categories ul li {
+    height: 85px;
+    font-size: 16px;
   }
 }
 @media (min-width: 80.625em) {
   .activity-data .categories ul li {
     height: 200px;
     font-size: 22px;
+    padding-top: 115px;
   }
 }
 .activity-data .categories ul li.active {
@@ -1543,14 +1551,12 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Aquatics {
     background-position: center 15px;
     background-size: 35px;
-    padding-top: 38px;
   }
 }
 @media (min-width: 80.625em) {
   .activity-data .categories ul li.Aquatics {
     background-position: center 50px;
     background-size: auto;
-    padding-top: 115px;
   }
 }
 .activity-data .categories ul li.Fitness {
@@ -1562,7 +1568,6 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Fitness {
     background-position: center 10px;
     background-size: 35px;
-    padding-top: 38px;
   }
 }
 @media (min-width: 48em) {
@@ -1581,7 +1586,28 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Fitness {
     background-position: center 50px;
     background-size: auto;
-    padding-top: 115px;
+  }
+}
+.activity-data .categories ul li.GroupExercise {
+  background-image: url("../img/groupex.png");
+  background-repeat: no-repeat;
+}
+@media (min-width: 20em) {
+  .activity-data .categories ul li.GroupExercise {
+    background-position: center 10px;
+    background-size: 35px;
+  }
+}
+@media (min-width: 48em) {
+  .activity-data .categories ul li.GroupExercise {
+    background-position: center 10px;
+    background-size: 35px;
+  }
+}
+@media (min-width: 80.625em) {
+  .activity-data .categories ul li.GroupExercise {
+    background-position: center 50px;
+    background-size: auto;
   }
 }
 .activity-data .categories ul li.Community {
@@ -1592,7 +1618,6 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Community {
     background-position: center 5px;
     background-size: 35px;
-    padding-top: 33px;
   }
 }
 @media (min-width: 48em) {
@@ -1611,31 +1636,6 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Community {
     background-position: center 50px;
     background-size: auto;
-    padding-top: 115px;
-  }
-}
-.activity-data .categories ul li.GroupExercise {
-  background-image: url("../img/groupex.png");
-  background-repeat: no-repeat;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 5px;
-    background-size: 35px;
-    padding-top: 33px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 50px;
-    background-size: auto;
-    padding-top: 115px;
   }
 }
 
@@ -1785,6 +1785,11 @@ footer .container .footer__nav nav ul > li a {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+@media (min-width: 20em) {
+  .calendar .month .date-data.slick-current .visits .entriesNum {
+    white-space: normal;
+  }
+}
 .calendar .month .date-data.disabled {
   color: #a9a9a9;
 }
@@ -1852,11 +1857,26 @@ footer .container .footer__nav nav ul > li a {
 }
 .openy-campaign-activity-modal-form .form-checkboxes .form-item .preudo-activity-counter {
   position: absolute;
-  border: 1px solid black;
+  border: 1px solid #000;
   right: 15px;
   top: 20px;
   width: 35px;
-  color: black;
+  color: #000;
+}
+
+.openy-campaign-activity-modal-form .form-checkboxes .form-item {
+  position: relative;
+}
+.openy-campaign-activity-modal-form .form-checkboxes .form-item.counted label:before {
+  display: none;
+}
+.openy-campaign-activity-modal-form .form-checkboxes .form-item .preudo-activity-counter {
+  position: absolute;
+  border: 1px solid #000;
+  right: 15px;
+  top: 20px;
+  width: 35px;
+  color: #000;
 }
 
 .ui-dialog {

@@ -92,8 +92,14 @@ jQuery(function () {
         $('.activity-data .categories ul').html('');
         categories.each(function (ind, val) {
             var activityName = $(val).html();
+            var icon = $(val).data('icon');
+            var iconBackground = '';
+            if (icon) {
+                iconBackground = ' style="background: #92278f url(' + icon + ') no-repeat center 10px; background-size: 35px;"';
+            }
+
             $('.activity-data .categories ul').append(
-                '<li class="' + activityName.replace(/ /g, '') + '">' + activityName + '</li>'
+                '<li class="' + activityName.replace(/ /g, '') + '"' + iconBackground + '>' + activityName + '</li>'
             );
         });
 
