@@ -5310,3 +5310,12 @@ function ymca_master_update_8247() {
     }
   }
 }
+
+/**
+ * Install openy_node_alerts.
+ */
+function ymca_master_update_8244() {
+  \Drupal::service('module_installer')->install([
+    'openy_node_alert',
+  ], TRUE);
+}
