@@ -95,7 +95,7 @@ jQuery(function () {
             var icon = $(val).data('icon');
             var iconBackground = '';
             if (icon) {
-                iconBackground = ' style="background: #92278f url(' + icon + ') no-repeat center 10px; background-size: 35px;"';
+                iconBackground = ' style="background-image: url(' + icon + ');"';
             }
 
             $('.activity-data .categories ul').append(
