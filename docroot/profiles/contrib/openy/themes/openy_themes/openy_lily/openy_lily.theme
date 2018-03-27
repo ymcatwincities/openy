@@ -40,6 +40,82 @@ function openy_lily_preprocess_node(&$variables) {
     $front_page = Drupal::config('system.site')->get('page.front');
     $variables['is_front'] = '/node/' . $variables['node']->id() == $front_page;
   }
+  $variables['date_formatted'] = \Drupal::service('date.formatter')->format($variables['node']->getCreatedTime(), 'blog_date_format');
+
+  // Passing slideshow to template.
+  if ($variables['node']->hasField('field_promo_slideshow')) {
+    /** @var \Drupal\node\Entity\Node $node */
+    $node = &$variables['node'];
+
+    if ($value = $variables['node']->field_promo_slideshow->getValue()) {
+      if ($id = $value[0]['target_id']) {
+        $promo_slideshow = \Drupal::service('dateslides.service')->getSlides($id);
+        $variables['field_promo_slideshow_referenced_items'] = $promo_slideshow;
+      }
+    }
+  }
+
+  // Article specific preprocessing.
+  if ($variables['node']->bundle() == 'article') {
+    $variables['header_image_url'] = '';
+    if ($header_image = $variables['node']->field_header_image->getValue()) {
+      $id = $header_image[0]['target_id'];
+      $file = \Drupal::entityTypeManager()->getStorage('file')->load($id);
+      $original_path = $file->getFileUri();
+      // Load style.
+      $style = \Drupal::entityTypeManager()->getStorage('image_style')->load('2013_masthead');
+      // Set up derivative file information.
+      $thumbnail = $style->buildUri($original_path);
+      // Create derivative if necessary.
+      if (!file_exists($thumbnail)) {
+        $style->createDerivative($original_path, $thumbnail);
+      }
+      $variables['header_image_url'] = file_create_url($thumbnail);
+    }
+  }
+
+  // Location specific preprocessing.
+  if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
+    // Add facebook ID to the template.
+    $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
+    // Add membership block flag.
+    if ($variables['node']->hasField('field_membership_block')) {
+      $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
+      // Display Location Membership block.
+      $membership_block_id = \Drupal::config('ymca_alters.config')->get('membership_block_id');
+      $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($membership_block_id);
+      if (!is_null($block)) {
+        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
+        $variables['membership_block'] = $view_builder->view($block);
+      }
+    }
+  }
+
+  // Blog specific preprocessing.
+  if ($variables['node']->bundle() == 'blog') {
+    $back_link_title = t('Back to Blog');
+    $back_link_path = 'blog';
+    if ($field_tags_value = $variables['node']->field_tags->getValue()) {
+      foreach ($field_tags_value as $id) {
+        if ($id['target_id'] == TERM_TID_NEWS) {
+          $back_link_title = t('Back to News');
+          $back_link_path = 'news';
+        }
+      }
+    }
+    $variables['back_link_title'] = $back_link_title;
+    $variables['back_link_path'] = \Drupal\Core\Url::fromUri('internal:/' . $back_link_path);
+    // Preprocessing for day camp news.
+    $variables['is_day_camp_news'] = FALSE;
+    if ($variables['node']->hasField('field_related_camps_locations')) {
+      $day_camp = $variables['node']->get('field_related_camps_locations');
+      if (!$day_camp->isEmpty()) {
+        $variables['is_day_camp_news'] = TRUE;
+      }
+    }
+  }
+
+  $variables['site_section_bundle'] = !empty($site_section) ? $site_section->bundle() : '';
 }
 
 /**
@@ -236,10 +312,10 @@ function openy_lily_page_attachments_alter(array &$page) {
   // related to a camp, and the custom camp favicon has been set for the theme.
 
   // Exit if not a node page, or if the 'openy_loc_camp.camp_service' is not available.
-  if (!($node = \Drupal::request()->attributes->get('node')) || !($camp_service = \Drupal::service('openy_loc_camp.camp_service'))) {
+  if (!($node = \Drupal::request()->attributes->get('node')) || !(\Drupal::hasService('openy_loc_camp.camp_service'))) {
     return;
   }
-
+  $camp_service = \Drupal::service('openy_loc_camp.camp_service');
   // Exit if not a camp or related to a camp.
   if (!$camp_service->nodeHasOrIsCamp($node)) {
     return;
@@ -390,12 +466,14 @@ function openy_lily_preprocess_page(&$variables) {
   if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
     $node = $variables['node'];
     /** @var Drupal\openy_loc_camp\CampService $service */
-    if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
-      if ($service->nodeHasOrIsCamp($node)) {
-        $variables['page_class'] = 'is-camp';
-      }
-      if ($node->bundle() == 'branch') {
-        $variables['page_class'] = 'is-branch';
+    if (\Drupal::hasService('openy_loc_camp.camp_service')) {
+      if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
+        if ($service->nodeHasOrIsCamp($node)) {
+          $variables['page_class'] = 'is-camp';
+        }
+        if ($node->bundle() == 'branch') {
+          $variables['page_class'] = 'is-branch';
+        }
       }
     }
   }

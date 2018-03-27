@@ -74,74 +74,50 @@
   ]
 %}
 {{ attach_library('classy/node') }}
-
-<section class="locations-page-under-lead-copy lead-copy">
-  <div class="container">
-    <section class="messages">
-    </section>
-    <div class="row features">
-      <div class="col-sm-push-6 col-md-push-7 col-sm-offset-1 col-md-4 col-sm-5 call-to-action lead right">
-        <article class="richtext" id="component_180969">
-          {{ content.field_camp_links }}
-        </article>
-
-      </div>
-      <div class="col-sm-pull-6 col-md-pull-5 col-md-7 col-sm-6 lead">
-        <article class="richtext" id="component_180968">
-          {{ content.field_ygtc_content }}
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
+{#{{ attach_library('ymca_alters/schedules_date') }}#}
 
 <hr>
-
-<section{{ attributes.addClass(classes) }}>
+<section class="content">
   <div class="container">
     <section class="messages">
     </section>
     <div class="row">
-      <section class="main-promos promos even-heights">
-        {{ content.field_main_promos }}
-      </section>
-    </div>
-  </div>
-</section>
+      <div class="col-sm-12 categories copy">
+        {% if empty_results %}
+          <div class="alert alert-dismissable alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ "Sorry, no classes matching the search were found."|t }}
+            {{ "Please select at least one filter option to run a search."|t }}
+          </div>
+        {% else %}
+          <div class="row result-actions">
+            <div class="col-xs-12">
+              <div class="pull-left">
+                <a class="btn-default btn" data-toggle="collapse" data-parent="#accordion" href="#collapse-refine-search">{{ "Refine your search"|t }}</a>
+              </div>
+              <div class="pull-right">
+                <a href="#print" class="btn btn-default print-page">
+                  <span class="glyphicon glyphicon-print"></span>
+                  {{ "Print"|t }}
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
 
-{% if news_events or fb_id %}
-<section class="social">
-  <div class="container">
-    <div class="row">
-      {% if news_events %}
-      <div class="col-sm-7">
-        <h2>{{ 'News &amp; Events'|t }}</h2>
-        <div id="excerpt-source">
-          {{ news_events }}
-        </div>
-      </div>
-      {% endif %}
-      {% if fb_id %}
-      <div class="col-sm-5">
-        {# Facebook Likebox initialisation code. #}
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1382702231950329";
-            fjs.parentNode.insertBefore(js, fjs);
-          }(document, 'script', 'facebook-jssdk'));
-        </script>
-        <h2>{{ 'On Facebook'|t }}</h2>
-        <div class="fb-page" data-href="https://www.facebook.com/{{ fb_id }}" data-width="500" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true">
-          <div class="fb-xfbml-parse-ignore">
-            <blockquote cite="https://www.facebook.com/{{ fb_id }}"><a href="https://www.facebook.com/{{ fb_id }}">{{ label }}</a></blockquote>
+        <div class="panel panel-default group-ex-panel">
+          <div id="collapse-refine-search" class="panel-collapse collapse {{ empty_results ? 'in' }}">
+            <div class="row">
+              <div class="panel-body">
+                {{ groupex_form_refine }}
+              </div>
+            </div>
           </div>
         </div>
+
+        {{ groupex_search_results }}
+
       </div>
-      {% endif %}
     </div>
   </div>
 </section>
-{% endif %}

@@ -13,6 +13,15 @@ global-styling:
     scripts/vendor/bootstrap.min.js: {}
     scripts/vendor/iscroll/iscroll.js: {}
     scripts/vendor/jquery.matchHeight/jquery.matchHeight-min.js: {}
+    scripts/legacy/modernizr-2.6.2-respond-1.1.0.min.js: {}
+    scripts/legacy/jquery-clockwork.min.js: {}
+    scripts/legacy/jquery-migrate.min.js: {}
+    scripts/legacy/helpful_routines.min.js: {}
+    scripts/legacy/live_components.min.js: {}
+    scripts/legacy/init-templates.js: {}
+    scripts/legacy/bootstrap.min.js: {}
+    scripts/legacy/plugins.min.js: {}
+    scripts/legacy/main.min.js: {}
     scripts/openy_lily.js: {}
     scripts/legacy/ymca.js: {}
   dependencies:
