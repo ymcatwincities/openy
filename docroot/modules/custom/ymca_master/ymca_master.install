@@ -31,7 +31,7 @@ define('YGTC_CONFDIR', 'sites/default/config/staging/');
 function ymca_master_update_dependencies() {
   $dependencies['openy_media_image'] = [
     8001 => [
-      'ymca_master' => 8239,
+      'ymca_master' => 8244,
     ],
   ];
   $dependencies['redirect'] = [
@@ -5186,7 +5186,6 @@ function ymca_master_update_8241() {
     ]
   );
 
-  $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory('sites/default/config/staging/');
   $config_importer->importConfigs(
     [
@@ -5201,25 +5200,57 @@ function ymca_master_update_8241() {
 function ymca_master_update_8242() {
   \Drupal::service('module_installer')->install([
     'admin_toolbar',
+    'focal_point',
+    'views_infinite_scroll',
+    'verf',
     'openy_node_alert',
     'openy_prgf_banner',
     'openy_prgf_gallery',
     'openy_prgf_grid_content',
-    'openy_prgf_promo_card',
-    'openy_prgf_story_card',
+  ], TRUE);
+}
+
+/**
+ * Install openy modules.
+ */
+function ymca_master_update_8243() {
+  \Drupal::service('module_installer')->install([
     'openy_prgf_webform',
     'openy_prgf_teaser',
     'openy_prgf_secondary_description_sidebar',
     'openy_prgf_featured_highlights',
-    'views_infinite_scroll',
-    'verf',
+    'openy_prgf_promo_card',
+    'openy_prgf_story_card',
   ], TRUE);
+}
+
+/**
+ * Create taxonomy terms for the Color vocabulary. Rename old paragraphs.
+ */
+function ymca_master_update_8244() {
+  // Create Taxonomy terms for OpenY.
+  \Drupal::service('module_installer')->install([
+    'openy_demo_tcolor',
+  ], TRUE);
+  /** @var \Drupal\openy_migrate\Importer $importer */
+  $importer = \Drupal::service('openy_migrate.importer');
+  $importer->import('openy_demo_taxonomy_term_color');
+
+  // Rename old paragraph type.
+  $storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
+  $paragraph_type = $storage->load('70_30_columns');
+  $paragraph_type->set('label', '[Deprecated] Secondary Description and Sidebar');
+  $paragraph_type->save();
+
+  $paragraph_type = $storage->load('content_banner');
+  $paragraph_type->set('label', '[Deprecated] Content Banner');
+  $paragraph_type->save();
 }
 
 /**
  * Install openy_lily theme.
  */
-function ymca_master_update_8243() {
+function ymca_master_update_8245() {
   \Drupal::service('theme_installer')->install(['openy_lily']);
   \Drupal::service('theme_handler')->setDefault('openy_lily');
 }
@@ -5238,20 +5269,6 @@ function ymca_master_update_8246() {
   );
   $block->setRegion('secondary_menu');
   $block->save();
-
-  // Create Taxonomy terms for OpenY.
-  $importer = \Drupal::service('openy_migrate.importer');
-  $importer->import('openy_demo_taxonomy_term_color');
-
-  // Rename old paragraph type.
-  $storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
-  $paragraph_type = $storage->load('70_30_columns');
-  $paragraph_type->set('label', '[Deprecated] Secondary Description and Sidebar');
-  $paragraph_type->save();
-
-  $paragraph_type = $storage->load('content_banner');
-  $paragraph_type->set('label', '[Deprecated] Content Banner');
-  $paragraph_type->save();
 }
 
 /**
