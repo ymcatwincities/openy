@@ -85,7 +85,35 @@
 - name: Updating dropzonejs module
   sudo: yes
   shell: "bin/drupal update:execute dropzonejs"
-- name: Updating YMCA master module
+
+- name: Updating YMCA master 8232 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8232"
+- name: Updating YMCA master 8233 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8233"
+- name: Updating YMCA master 8234 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8234"
+- name: Updating YMCA master 8235 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8235"
+- name: Updating YMCA master 8236 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8236"
+- name: Updating YMCA master 8237 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8237"
+- name: Updating YMCA master 8238 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8238"
+- name: Updating YMCA master 8239 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8239"
+- name: Updating YMCA master 8240 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8240"
+- name: Updating remaining hooks in the YMCA master module
   sudo: yes
   shell: "bin/drupal update:execute ymca_master"
 - name: Updating webform module
