@@ -82,7 +82,38 @@
 - name: Updating rest module
   sudo: yes
   shell: "bin/drupal update:execute rest"
-- name: Updating YMCA master module
+- name: Updating dropzonejs module
+  sudo: yes
+  shell: "bin/drupal update:execute dropzonejs"
+
+- name: Updating YMCA master 8232 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8232"
+- name: Updating YMCA master 8233 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8233"
+- name: Updating YMCA master 8234 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8234"
+- name: Updating YMCA master 8235 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8235"
+- name: Updating YMCA master 8236 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8236"
+- name: Updating YMCA master 8237 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8237"
+- name: Updating YMCA master 8238 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8238"
+- name: Updating YMCA master 8239 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8239"
+- name: Updating YMCA master 8240 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8240"
+- name: Updating remaining hooks in the YMCA master module
   sudo: yes
   shell: "bin/drupal update:execute ymca_master"
 - name: Updating webform module
@@ -97,6 +128,9 @@
 - name: Updating file_browser module
   sudo: yes
   shell: "bin/drupal update:execute file_browser"
+- name: Updating dropzonejs_eb_widget module
+  sudo: yes
+  shell: "bin/drupal update:execute dropzonejs_eb_widget"
 - name: Updating crop module
   sudo: yes
   shell: "bin/drupal update:execute crop"
@@ -109,6 +143,9 @@
 - name: Updating openy_media_video module
   sudo: yes
   shell: "bin/drupal update:execute openy_media_video"
+- name: Updating openy_media_image module
+  sudo: yes
+  shell: "bin/drupal update:execute openy_media_image"
 - name: Updating openy_node module
   sudo: yes
   shell: "bin/drupal update:execute openy_node"
@@ -133,9 +170,6 @@
 - name: Updating openy_prgf module
   sudo: yes
   shell: "bin/drupal update:execute openy_prgf"
-- name: Updating openy_media_image module
-  sudo: yes
-  shell: "bin/drupal update:execute openy_media_image"
 # @todo remove commands above after deploy to production.
 # Update database.
 - name: Updating database
