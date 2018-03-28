@@ -592,8 +592,11 @@ function openy_update_8046() {
 }
 
 /**
- * Enable font-your-face module.
+ * Enable font-your-face module, uninstall openy_font.
  */
 function openy_update_8047() {
   \Drupal::service('module_installer')->install(['fontyourface']);
+  if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
+    \Drupal::service('module_installer')->uninstall(['openy_font']);
+  }
 }

@@ -101,6 +101,7 @@ dependencies:
   - media_entity_video
   - easy_breadcrumb
   - fontyourface
+  - local_fonts
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
@@ -114,7 +115,6 @@ dependencies:
   - openy_block_menu
   - openy_code_block
   - openy_datalayer
-  - openy_font
   - openy_taxonomy
   - openy_txnm_amenities
   - openy_txnm_color
