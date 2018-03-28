@@ -113,6 +113,19 @@
                     "type": "zip"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-smonetti/btbutton",
+                "version": "1.0.1",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/smonetti/btbutton",
+                    "type": "git",
+                    "reference": "1620254d294a209bdf18cc0bc7b131d2ffaa10db"
+                }
+            }
         }
     ],
     "scripts": {
@@ -201,6 +214,7 @@
         "library-gdsmith/jquery.easing": "1.4.1",
         "library-ckeditor/panelbutton": "4.7.0",
         "library-ckeditor/colorbutton": "4.7.0",
+        "library-smonetti/btbutton": "1.0.1",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
@@ -228,6 +242,7 @@
         "drupal/focal_point": "1.0-beta5",
         "drupal/media_entity_video": "1.0-beta2",
         "drupal/video": "1.2",
-        "drupal/easy_breadcrumb": "^1.6"
+        "drupal/easy_breadcrumb": "^1.6",
+        "drupal/ckeditor_bootstrap_buttons": "^1.1"
     }
 }
