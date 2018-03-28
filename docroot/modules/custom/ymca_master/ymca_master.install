@@ -5351,17 +5351,3 @@ function ymca_master_update_8245() {
     }
   }
 }
-
-/**
- * Install openy news related modules.
- */
-function ymca_master_update_8246() {
-  \Drupal::service('module_installer')->install([
-    'openy_node_news',
-    'openy_prgf_news_listing',
-    'openy_prgf_news_latest',
-    'openy_prgf_featured_news',
-    'openy_txnm_news_category',
-    'openy_node_alert',
-  ], TRUE);
-}
