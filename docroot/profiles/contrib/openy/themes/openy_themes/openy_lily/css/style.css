@@ -12984,4 +12984,14 @@ span.grey-caret:after {
   text-transform: uppercase;
 }
 
+section.content {
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+@media (min-width: 768px) {
+  section.content {
+    padding-top: 40px;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */
