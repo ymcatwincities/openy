@@ -89,7 +89,7 @@ class LeadershipBlockForm extends FormBase {
     // Get all branches.
     $branches = $this->getBranches($campaignId);
 
-    $selectedBranch = reset(array_keys($branches));
+    $selectedBranch = key($branches);
     if (!empty($form_state->getValue('branch'))) {
       $selectedBranch = $form_state->getValue('branch');
     }
@@ -122,7 +122,7 @@ class LeadershipBlockForm extends FormBase {
 
     $activities = $this->getActivities($campaignId);
 
-    $selectedActivity = reset(array_keys($activities));
+    $selectedActivity = key($activities);
     if (!empty($form_state->getValue('activity'))) {
       $selectedActivity = $form_state->getValue('activity');
     }
