@@ -154,7 +154,7 @@ openy_campaign.scorecard-page:
   path: '/campaign-scorecards'
   defaults:
     _form: '\Drupal\openy_campaign\Form\ScoreCardForm'
-    _title: 'Scorecard Form'
+    _title: 'Score Card Page'
   requirements:
     _permission: 'access content'
   options:

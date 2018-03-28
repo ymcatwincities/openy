@@ -73,7 +73,6 @@ class ScorecardForm extends FormBase {
     // Render Scorecard for all Campaigns in the system.
     $campaignIds = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'campaign')
-      //->condition('status', TRUE)
       ->sort('created', 'DESC')
       ->execute();
     $campaigns = $this->entityTypeManager->getStorage('node')->loadMultiple($campaignIds);
