@@ -1,0 +1,4 @@
+services:
+  ymca_migrate_landing_page_importer:
+    class: Drupal\ymca_migrate_landing_page\MigrationImporter
+    arguments: ['@plugin.manager.config_entity_migration']
