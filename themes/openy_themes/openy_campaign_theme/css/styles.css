@@ -504,6 +504,7 @@ body {
 
 .page-node-type-campaign-page main[role="main"],
 .path-campaign-game main[role="main"],
+.path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
   background-color: #ffffff;
@@ -513,6 +514,7 @@ body {
 }
 .page-node-type-campaign-page main[role="main"] .layout-content,
 .path-campaign-game main[role="main"] .layout-content,
+.path-campaign-scorecards main[role="main"] .layout-content,
 .path-team-member-registration main[role="main"] .layout-content,
 .path-members-list main[role="main"] .layout-content {
   background-color: inherit;
@@ -523,6 +525,7 @@ body {
 @media (min-width: 20em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
   .path-campaign-game main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -535,6 +538,7 @@ body {
 @media (min-width: 48em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
   .path-campaign-game main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -547,6 +551,7 @@ body {
 @media (min-width: 62em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
   .path-campaign-game main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -559,6 +564,7 @@ body {
 @media (min-width: 80.625em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
   .path-campaign-game main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 125px;
@@ -570,6 +576,7 @@ body {
 }
 .page-node-type-campaign-page main[role="main"] .layout-content h1,
 .path-campaign-game main[role="main"] .layout-content h1,
+.path-campaign-scorecards main[role="main"] .layout-content h1,
 .path-team-member-registration main[role="main"] .layout-content h1,
 .path-members-list main[role="main"] .layout-content h1 {
   text-transform: uppercase;
@@ -578,6 +585,7 @@ body {
 @media (min-width: 20em) {
   .page-node-type-campaign-page main[role="main"] .layout-content h1,
   .path-campaign-game main[role="main"] .layout-content h1,
+  .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 30px;
@@ -587,6 +595,7 @@ body {
 @media (min-width: 62em) {
   .page-node-type-campaign-page main[role="main"] .layout-content h1,
   .path-campaign-game main[role="main"] .layout-content h1,
+  .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 60px;
@@ -595,17 +604,20 @@ body {
 }
 .page-node-type-campaign-page main[role="main"] .layout-content .main-region,
 .path-campaign-game main[role="main"] .layout-content .main-region,
+.path-campaign-scorecards main[role="main"] .layout-content .main-region,
 .path-team-member-registration main[role="main"] .layout-content .main-region,
 .path-members-list main[role="main"] .layout-content .main-region {
   padding: 0px;
 }
 
 .page-node-type-campaign .wrapper-field-content,
+.path-campaign-scorecards .wrapper-field-content,
 .path-team-member-registration .wrapper-field-content,
 .path-members-list .wrapper-field-content {
   background: #fff;
 }
 .page-node-type-campaign main[role="main"],
+.path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
   background-color: #ffffff;
@@ -614,11 +626,13 @@ body {
   margin: 0 auto;
 }
 .page-node-type-campaign main[role="main"] .container,
+.path-campaign-scorecards main[role="main"] .container,
 .path-team-member-registration main[role="main"] .container,
 .path-members-list main[role="main"] .container {
   padding: 0px;
 }
 .page-node-type-campaign main[role="main"] .layout-content,
+.path-campaign-scorecards main[role="main"] .layout-content,
 .path-team-member-registration main[role="main"] .layout-content,
 .path-members-list main[role="main"] .layout-content {
   background-color: inherit;
@@ -628,6 +642,7 @@ body {
 }
 @media (min-width: 20em) {
   .page-node-type-campaign main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -639,6 +654,7 @@ body {
 }
 @media (min-width: 48em) {
   .page-node-type-campaign main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -650,6 +666,7 @@ body {
 }
 @media (min-width: 62em) {
   .page-node-type-campaign main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -661,6 +678,7 @@ body {
 }
 @media (min-width: 80.625em) {
   .page-node-type-campaign main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 125px;
@@ -671,6 +689,7 @@ body {
   }
 }
 .page-node-type-campaign main[role="main"] .layout-content h1,
+.path-campaign-scorecards main[role="main"] .layout-content h1,
 .path-team-member-registration main[role="main"] .layout-content h1,
 .path-members-list main[role="main"] .layout-content h1 {
   text-transform: uppercase;
@@ -678,6 +697,7 @@ body {
 }
 @media (min-width: 20em) {
   .page-node-type-campaign main[role="main"] .layout-content h1,
+  .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 30px;
@@ -686,6 +706,7 @@ body {
 }
 @media (min-width: 62em) {
   .page-node-type-campaign main[role="main"] .layout-content h1,
+  .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 60px;
@@ -693,6 +714,7 @@ body {
   }
 }
 .page-node-type-campaign main[role="main"] .layout-content .main-region,
+.path-campaign-scorecards main[role="main"] .layout-content .main-region,
 .path-team-member-registration main[role="main"] .layout-content .main-region,
 .path-members-list main[role="main"] .layout-content .main-region {
   padding: 0px;
@@ -1025,6 +1047,7 @@ body {
   padding-left: 70px;
 }
 
+.path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
   margin-top: 70px;
