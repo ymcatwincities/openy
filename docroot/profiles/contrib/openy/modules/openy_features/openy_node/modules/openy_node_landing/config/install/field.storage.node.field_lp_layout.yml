@@ -25,6 +25,9 @@ settings:
     -
       value: two_column_fixed
       label: 'Two Columns with fixed sidebar (sticky at the top)'
+    -
+      value: three_columns
+      label: 'Three Columns'
   allowed_values_function: ''
 module: options
 locked: false

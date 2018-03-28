@@ -120,4 +120,9 @@
   {% include "@openy_lily/node/include/node--landing-page--two-columns-left.html.twig" %}
 {% endif %}
 
+{# Three columns #}
+{% if node.field_lp_layout.value == "three_columns"%}
+    {% include "@openy_lily/node/include/node--landing-page--three-columns.html.twig" %}
+{% endif %}
+
 {{ content.field_bottom_content }}
