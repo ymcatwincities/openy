@@ -3,6 +3,7 @@
 namespace Drupal\activenet;
 
 use GuzzleHttp\Client;
+// use Drupal\activenet\ActivenetClientFactory;
 
 /**
  * Class ActivenetClient.
@@ -86,15 +87,12 @@ class ActivenetClient extends Client implements ActivenetClientInterface {
     $suffix = '';  
 
     if (empty($args)) {
-      $args[] = [
-        'api_key' => $api_key
-      ];
+      $args[]['api_key'] = $api_key;
     }
     else {
-      $args = ['api_key', $api_key];
+      $args[0]['api_key'] = $api_key;
     }
     $suffix = '?' . http_build_query($args[0], '', '&');
-
     switch ($method) {
       case 'makeRequest':
         throw new ActivenetClientException(sprintf('Please, extend Activenet client!', $method));
@@ -108,8 +106,20 @@ class ActivenetClient extends Client implements ActivenetClientInterface {
       case 'getActivities':
         return $this->makeRequest('get', $base_uri . 'activities' . $suffix);
 
+      case 'getActivityTypes':
+        return $this->makeRequest('get', $base_uri . 'activitytypes' . $suffix);
+
+      case 'getActivityCategories':
+        return $this->makeRequest('get', $base_uri . 'activitycategories' . $suffix);
+
+      case 'getActivityOtherCategories':
+        return $this->makeRequest('get', $base_uri . 'activityothercategories' . $suffix);
+
       case 'getFlexRegPrograms':
         return $this->makeRequest('get', $base_uri . 'flexregprograms' . $suffix);
+      
+      case 'getFlexRegProgramTypes':
+        return $this->makeRequest('get', $base_uri . 'flexregprogramtypes' . $suffix);
 
       case 'getMembershipPackages':
         return $this->makeRequest('get', $base_uri . 'membershippackages' . $suffix);
@@ -119,6 +129,13 @@ class ActivenetClient extends Client implements ActivenetClientInterface {
     }
 
     throw new ActivenetClientException(sprintf('Method %s not implemented yet.', $method));
+  }
+
+  public function getActivityDetail($id){
+    $settings = \Drupal::config('activenet.settings');
+    $base_uri = $settings->get('base_uri');
+    $suffix = '?api_key=' . $settings->get('api_key');
+    return $this->makeRequest('get', $base_uri . 'activities/' . $id . $suffix);
   }
 
 }
