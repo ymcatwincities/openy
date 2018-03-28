@@ -20,6 +20,9 @@ settings:
       value: two_column
       label: 'Two Columns'
     -
+      value: two_column_left
+      label: 'Two Columns Left'
+    -
       value: two_column_fixed
       label: 'Two Columns with fixed sidebar (sticky at the top)'
   allowed_values_function: ''
