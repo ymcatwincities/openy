@@ -5351,3 +5351,20 @@ function ymca_master_update_8245() {
     }
   }
 }
+
+/**
+ * Install Block wrapper & enable new layout for lading page.
+ */
+function ymca_master_update_8246() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $path = 'profiles/contrib/openy/modules/openy_features/openy_node/modules/openy_node_landing/config/install';
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_lp_layout',
+    ]
+  );
+  \Drupal::service('module_installer')->install([
+    'ygtc_prgf_block_wrapper',
+  ], TRUE);
+}
