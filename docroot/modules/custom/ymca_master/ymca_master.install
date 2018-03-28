@@ -5362,6 +5362,11 @@ function ymca_master_update_8246() {
   $config_importer->importConfigs(
     [
       'field.storage.node.field_lp_layout',
+      'core.entity_form_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.default',
+      'field.field.node.landing_page.field_sidebar_content_extra',
+      'field.storage.node.field_lp_layout',
+      'field.storage.node.field_sidebar_content_extra',
     ]
   );
   \Drupal::service('module_installer')->install([
