@@ -150,6 +150,16 @@ openy_campaign.member-registration-portal:
   options:
     no_cache: TRUE
 
+openy_campaign.scorecard-page:
+  path: '/campaign-scorecards'
+  defaults:
+    _form: '\Drupal\openy_campaign\Form\ScoreCardForm'
+    _title: 'Scorecard Form'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE
+
 # Campaign Member registration/login popup
 openy_campaign.member-action:
   path: '/campaign/{action}/{campaign_id}'
@@ -296,5 +306,4 @@ openy_campaign.ajax_campaign_scorecard:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::ajaxCallbackGenerateLiveScorecard'
   requirements:
-    #_permission: 'administer retention campaign'
-    _permission: 'view retention campaign reports'
+    _permission: 'access content'
