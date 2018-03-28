@@ -117,3 +117,11 @@ span.grey-caret:after {
   margin-bottom: 20px;
   text-transform: uppercase;
 }
+
+section.content {
+  padding-top: 10px;
+  padding-bottom: 30px;
+  @media (min-width: 768px) {
+    padding-top: 40px;
+  }
+}
