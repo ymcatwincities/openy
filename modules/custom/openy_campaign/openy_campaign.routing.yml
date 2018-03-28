@@ -153,7 +153,7 @@ openy_campaign.member-registration-portal:
 openy_campaign.scorecard-page:
   path: '/campaign-scorecards'
   defaults:
-    _form: '\Drupal\openy_campaign\Form\ScoreCardForm'
+    _form: '\Drupal\openy_campaign\Form\ScorecardForm'
     _title: 'Score Card Page'
   requirements:
     _permission: 'access content'
