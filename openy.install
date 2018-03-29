@@ -606,6 +606,6 @@ function openy_update_8047() {
 /**
  * Enable OpenY Redirect module.
  */
-function openy_update_8047() {
+function openy_update_8048() {
   \Drupal::service('module_installer')->install(['openy_redirect']);
 }
