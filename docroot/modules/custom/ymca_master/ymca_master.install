@@ -5195,6 +5195,7 @@ function ymca_master_update_8241() {
   $config_importer->importConfigs(
     [
       'core.entity_view_display.paragraph.small_banner.default',
+      'node.type.landing_page',
     ]
   );
 }
