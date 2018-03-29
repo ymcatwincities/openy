@@ -5272,11 +5272,11 @@ function ymca_master_update_8247() {
   // Rename old paragraph type.
   $storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
   $paragraph_type = $storage->load('70_30_columns');
-  $paragraph_type->set('label', '[Deprecated] Secondary Description and Sidebar');
+  $paragraph_type->set('label', '[YGTC] Secondary Description and Sidebar');
   $paragraph_type->save();
 
   $paragraph_type = $storage->load('content_banner');
-  $paragraph_type->set('label', '[Deprecated] Content Banner');
+  $paragraph_type->set('label', '[YGTC] Content Banner');
   $paragraph_type->save();
 }
 
