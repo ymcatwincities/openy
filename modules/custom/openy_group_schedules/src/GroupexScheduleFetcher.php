@@ -406,7 +406,7 @@ class GroupexScheduleFetcher {
     $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
 
     $options['query']['start'] = $date->getTimestamp();
-    $options['query']['end'] = $date->add(new \DateInterval($interval))->getTimestamp();
+    $options['query']['end'] = $date->add(new \DateInterval($interval))->modify('-1 day')->getTimestamp();
 
     $data = $this->request($options);
 
@@ -530,35 +530,6 @@ class GroupexScheduleFetcher {
    */
   private function processData() {
     $data = $this->filteredData;
-
-    // Groupex returns invalid date for the first day of the week.
-    // Example: tue, 02, Feb; wed, 27, Jan; thu, 28, Jan.
-    // So, processing.
-    if ($this->parameters['filter_length'] == 'week') {
-      // Get current day.
-      $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
-      $current_day = $date->format('N');
-      $current_date = $date->format('j');
-
-      // Search for the day equals current.
-      foreach ($data as &$item) {
-        $item_date = DrupalDateTime::createFromTimestamp($item->timestamp, $this->timezone);
-        if ($current_date == $item_date->format('j')) {
-          unset($item);
-          continue;
-        }
-
-        if ($current_day == $item_date->format('N')) {
-          // Set proper data.
-          $item_date->sub(new \DateInterval('P7D'));
-          $full_date = $item_date->format(GroupexRequestTrait::$dateFullFormat);
-          $item->date = $full_date;
-          $item->day = $full_date;
-          $item->timestamp = $item_date->format('U');
-        }
-
-      }
-    }
 
     // Replace <span class="subbed"> with normal text.
     foreach ($data as &$item) {
