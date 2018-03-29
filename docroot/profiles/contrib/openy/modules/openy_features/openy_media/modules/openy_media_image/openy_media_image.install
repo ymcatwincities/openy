@@ -22,9 +22,10 @@ function openy_media_image_update_dependencies() {
     8007 => [
       'openy_media' => 8003,
     ],
-    8008 => [
-      'openy' => 8042,
-    ],
+    // @todo YGTC only: uncomment after release to production.
+//    8008 => [
+//      'openy' => 8042,
+//    ],
   ];
 
   $dependencies['dropzonejs_eb_widget'][8101] = array(
