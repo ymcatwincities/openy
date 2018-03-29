@@ -26,6 +26,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_registration_goal
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_stream_type
+    - field.field.node.campaign.field_campaign_technical_name
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
@@ -219,6 +220,14 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_campaign_technical_name:
+    weight: 146
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_campaign_timezone:
     weight: 143
