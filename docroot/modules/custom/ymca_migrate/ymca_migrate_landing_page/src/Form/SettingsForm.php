@@ -97,7 +97,7 @@ class SettingsForm extends FormBase {
         ],
       ],
       'finished' => [MigrationImporter::class, 'finishBatch'],
-      'title' => t('Import Sessions from GroupEx Pro'),
+      'title' => t('Migration Pages to Landing Pages'),
       'init_message' => $this->t('Starting migration Pages to Landing Pages.'),
       'progress_message' => $this->t('Migration @current node of @total.'),
       'error_message' => $this->t('Migration process has encountered an error.'),
