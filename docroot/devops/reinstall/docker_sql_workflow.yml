@@ -82,10 +82,18 @@
 - name: Updating rest module
   sudo: yes
   shell: "bin/drupal update:execute rest"
+- name: Updating entity_browser module
+  sudo: yes
+  shell: "bin/drupal update:execute entity_browser"
+- name: Updating file_browser module
+  sudo: yes
+  shell: "bin/drupal update:execute file_browser"
 - name: Updating dropzonejs module
   sudo: yes
   shell: "bin/drupal update:execute dropzonejs"
-
+- name: Updating OpenY
+  sudo: yes
+  shell: "bin/drupal update:execute openy"
 - name: Updating YMCA master 8232 module
   sudo: yes
   shell: "bin/drupal update:execute ymca_master 8232"
@@ -113,6 +121,15 @@
 - name: Updating YMCA master 8240 module
   sudo: yes
   shell: "bin/drupal update:execute ymca_master 8240"
+- name: Updating YMCA master 8241 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8241"
+- name: Updating YMCA master 8242 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8242"
+- name: Updating YMCA master 8243 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8243"
 - name: Updating remaining hooks in the YMCA master module
   sudo: yes
   shell: "bin/drupal update:execute ymca_master"
@@ -122,15 +139,6 @@
 - name: Updating redirect module
   sudo: yes
   shell: "bin/drupal update:execute redirect"
-- name: Updating entity_browser module
-  sudo: yes
-  shell: "bin/drupal update:execute entity_browser"
-- name: Updating file_browser module
-  sudo: yes
-  shell: "bin/drupal update:execute file_browser"
-- name: Updating dropzonejs_eb_widget module
-  sudo: yes
-  shell: "bin/drupal update:execute dropzonejs_eb_widget"
 - name: Updating crop module
   sudo: yes
   shell: "bin/drupal update:execute crop"
@@ -143,9 +151,6 @@
 - name: Updating openy_media_video module
   sudo: yes
   shell: "bin/drupal update:execute openy_media_video"
-- name: Updating openy_media_image module
-  sudo: yes
-  shell: "bin/drupal update:execute openy_media_image"
 - name: Updating openy_node module
   sudo: yes
   shell: "bin/drupal update:execute openy_node"
