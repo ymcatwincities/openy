@@ -82,7 +82,7 @@ class OpenySocratesFacade {
    * @param array $services
    *   Services.
    */
-  public function collectDataServices(array $services) {
+  public function collectDataServices($service, $priority) {
     $todo_services = [];
     foreach ($services as $priority => $allservices) {
       /*
