@@ -1,0 +1,8 @@
+name: YMCA Mindbody Tools
+type: module
+description: YMCA Mindbody Tools.
+core: 8.x
+package: YMCA
+version: 8.0.1
+dependencies:
+  - ymca_mindbody
