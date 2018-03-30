@@ -99,7 +99,7 @@ class SettingsForm extends FormBase {
       'finished' => [MigrationImporter::class, 'finishBatch'],
       'title' => t('Migration Pages to Landing Pages'),
       'init_message' => $this->t('Starting migration Pages to Landing Pages.'),
-      'progress_message' => $this->t('Migration @current node of @total.'),
+      'progress_message' => $this->t('Migration...'),
       'error_message' => $this->t('Migration process has encountered an error.'),
     ];
     batch_set($batch);
