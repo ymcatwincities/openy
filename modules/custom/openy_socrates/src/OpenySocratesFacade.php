@@ -84,18 +84,18 @@ class OpenySocratesFacade {
    */
   public function collectDataServices($service, $priority) {
     $todo_services = [];
-    foreach ($services as $priority => $allservices) {
+//    foreach ($services as $priority => $allservices) {
       /*
        * @var integer $key
        * @var OpenyDataServiceInterface $service
        */
-      foreach ($allservices as $key => $service) {
+//      foreach ($allservices as $key => $service) {
         foreach ($service->addDataServices($todo_services) as $method) {
           $this->services[$method][$priority] = $service;
           krsort($this->services[$method]);
         }
-      }
-    }
+//      }
+//    }
   }
 
   /**
