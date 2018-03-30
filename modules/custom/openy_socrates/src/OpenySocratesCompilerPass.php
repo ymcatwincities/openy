@@ -35,10 +35,11 @@ class OpenySocratesCompilerPass implements CompilerPassInterface {
         );
       }
       $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
-      $dds['priorities'][$priority][] = new Reference($id);
+//      $dds['priorities'][$priority][] = new Reference($id);
+      $definition->addMethodCall('collectDataServices', [new Reference($id), $priority]);
     }
 
-    $definition->addMethodCall('collectDataServices', $dds);
+
 
     // Cron implementation.
     $openy_cron_services = $container->findTaggedServiceIds('openy_cron_service');
