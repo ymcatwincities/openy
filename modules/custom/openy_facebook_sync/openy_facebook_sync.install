@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Install file.
+ */
+
+/**
+ * Pull in configuration with locations map.
+ */
+function openy_facebook_sync_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_facebook_sync') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'openy_facebook_sync.locations_map',
+    ]
+  );
+}
+
+/**
+ * Add new mapping to config.
+ */
+function openy_facebook_sync_update_8002() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_facebook_sync') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'openy_facebook_sync.locations_map',
+    ]
+  );
+}
+
+/**
+ * Remove events with empty location field and its mappings.
+ */
+function openy_facebook_sync_update_8003() {
+  // Get event nodes with empty location field.
+  $node_ids = \Drupal::entityQuery('node')
+    ->condition('status', 1)
+    ->condition('type', 'event')
+    ->condition('field_location_ref', NULL, 'IS NULL')
+    ->execute();
+  $mapping_ids = [];
+  // Get mappings for that events.
+  foreach ($node_ids as $node_id) {
+    $mapping_id = \Drupal::entityQuery('mapping')
+      ->condition('type', 'event')
+      ->condition('field_event_ref', $node_id)
+      ->execute();
+    $mapping_ids = array_merge($mapping_ids, $mapping_id);
+  }
+  // Remove nodes.
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('node');
+  $entities = $storage_handler->loadMultiple($node_ids);
+  $storage_handler->delete($entities);
+  // Remove mappings.
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('mapping');
+  $entities = $storage_handler->loadMultiple($mapping_ids);
+  $storage_handler->delete($entities);
+}
+
+/**
+ * Update locations map config for FB page with 2 locations.
+ */
+function openy_facebook_sync_update_8004() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_facebook_sync') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'openy_facebook_sync.locations_map',
+    ]
+  );
+}
+
+/**
+ * Update location app_id list for facebook sync.
+ */
+function openy_facebook_sync_update_8005() {
+  $config = drupal_get_path('module', 'openy_facebook_sync') . '/config/install/openy_facebook_sync.settings.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'openy_facebook_sync.settings', 'app_id');
+}

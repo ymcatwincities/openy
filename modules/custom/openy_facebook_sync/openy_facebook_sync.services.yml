@@ -1,0 +1,44 @@
+services:
+  openy_facebook_sync.data_handler:
+    class: Drupal\openy_facebook_sync\OpenyFacebookSyncDataHandler
+    arguments:
+      - '@session'
+  openy_facebook_sync.factory:
+    class: Drupal\openy_facebook_sync\OpenyFacebookSyncFactory
+    arguments:
+      - '@config.factory'
+      - '@logger.factory'
+      - '@openy_facebook_sync.data_handler'
+  openy_facebook_sync.syncer:
+    class: Drupal\openy_sync\Syncer
+    arguments:
+      - '@openy_facebook_sync.wrapper'
+    calls:
+      - [addStep, ['@openy_facebook_sync.fetcher', 'fetch']]
+      - [addStep, ['@openy_facebook_sync.saver', 'save']]
+    tags:
+      - { name: syncer }
+  openy_facebook_sync.wrapper:
+    class: Drupal\openy_facebook_sync\OpenyFacebookSyncWrapper
+    arguments:
+      - '@logger.channel.openy_facebook_sync'
+  openy_facebook_sync.fetcher:
+    class: Drupal\openy_facebook_sync\OpenyFacebookSyncFetcher
+    arguments:
+      - '@config.factory'
+      - '@openy_facebook_sync.wrapper'
+      - '@logger.channel.openy_facebook_sync'
+      - '@cache.data'
+      - '@openy_facebook_sync.factory'
+  openy_facebook_sync.saver:
+    class: Drupal\openy_facebook_sync\OpenyFacebookSyncSaver
+    arguments:
+      - '@openy_facebook_sync.wrapper'
+      - '@logger.channel.openy_facebook_sync'
+      - '@entity.manager'
+      - '@openy_mappings.event_repository'
+      - '@config.factory'
+  logger.channel.openy_facebook_sync:
+    parent: logger.channel_base
+    arguments:
+      - 'openy_facebook_sync'
