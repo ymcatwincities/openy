@@ -5441,7 +5441,7 @@ function ymca_master_update_8252() {
 /**
  * Install migrate module.
  */
-function ymca_master_update_8251() {
+function ymca_master_update_8253() {
   \Drupal::service('module_installer')->install([
     'ymca_migrate_landing_page',
   ], TRUE);
