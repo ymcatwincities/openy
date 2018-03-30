@@ -5,6 +5,7 @@
  * OpenY Lily Theme File.
  */
 
+/* @todo move this out of the theme */
 define('SITE_SECTION_TARGET_TYPE', 'node');
 define('TERM_TID_NEWS', 6);
 
@@ -40,6 +41,7 @@ function openy_lily_preprocess_node(&$variables) {
     $front_page = Drupal::config('system.site')->get('page.front');
     $variables['is_front'] = '/node/' . $variables['node']->id() == $front_page;
   }
+  /* @todo move this out of the theme */
   $variables['date_formatted'] = \Drupal::service('date.formatter')->format($variables['node']->getCreatedTime(), 'blog_date_format');
 
   // Passing slideshow to template.
@@ -954,6 +956,7 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
  * Implements hook_preprocess_views_view().
  */
 function openy_lily_preprocess_views_view(&$vars) {
+  /* @todo move this out ot the theme */
   if ($vars['view']->id() == 'ymca_twin_cities_blog' || $vars['view']->id() == 'ymca_twin_cities_blog_archive') {
     if ($vars['view']->current_display == 'blog_page') {
       $vars['base_path'] = base_path();
@@ -1003,6 +1006,7 @@ function openy_lily_preprocess_views_view(&$vars) {
 function openy_lily_preprocess_search_results_page(&$vars) {
   // Detect blog search form by path, because we haven't some other id.
   $current_path = \Drupal::service('path.current')->getPath();
+  /* @todo move this out ot the theme */
   if ($current_path == '/search_results' && isset($_GET['f'][0]) && $_GET['f'][0] == 'type:blog') {
     $vars['base_path'] = base_path();
     $vars['search_blog'] = TRUE;
