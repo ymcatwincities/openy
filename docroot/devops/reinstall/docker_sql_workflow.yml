@@ -142,6 +142,21 @@
 - name: Updating YMCA master 8247 module
   sudo: yes
   shell: "bin/drupal update:execute ymca_master 8247"
+- name: Updating YMCA master 8248 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8248"
+- name: Updating YMCA master 8249 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8249"
+- name: Updating YMCA master 8250 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8250"
+- name: Updating YMCA master 8251 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8251"
+- name: Updating YMCA master 8252 module
+  sudo: yes
+  shell: "bin/drupal update:execute ymca_master 8252"
 - name: Updating remaining hooks in the YMCA master module
   sudo: yes
   shell: "bin/drupal update:execute ymca_master"
