@@ -5399,4 +5399,15 @@ function ymca_master_update_8250() {
   \Drupal::service('module_installer')->install([
     'ymca_migrate_landing_page',
   ], TRUE);
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'node.type.blog',
+      'node.type.camp',
+      'node.type.location',
+      'node.type.article',
+      'node.type.product',
+    ]
+  );
 }
