@@ -26,6 +26,11 @@ bin/drupal update:execute ymca_master 8244
 bin/drupal update:execute ymca_master 8245
 bin/drupal update:execute ymca_master 8246
 bin/drupal update:execute ymca_master 8247
+bin/drupal update:execute ymca_master 8248
+bin/drupal update:execute ymca_master 8249
+bin/drupal update:execute ymca_master 8250
+bin/drupal update:execute ymca_master 8251
+bin/drupal update:execute ymca_master 8252
 bin/drupal update:execute ymca_master
 bin/drupal update:execute webform
 bin/drupal update:execute redirect
