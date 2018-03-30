@@ -64,7 +64,7 @@ class SettingsForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     if ($this->moduleConfig->get('migrate_executed')) {
-      drupal_set_message('Migration has been executed already.');
+      drupal_set_message('Migration has been executed already.', 'warning');
     }
     $form['messages'] = [
       '#theme' => 'status_messages',
@@ -79,6 +79,7 @@ class SettingsForm extends FormBase {
       $form['actions']['submit'] = [
         '#type' => 'submit',
         '#value' => $this->t('Run Import'),
+        '#disabled' => $this->moduleConfig->get('migrate_executed'),
       ];
     }
 
