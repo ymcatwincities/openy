@@ -36,8 +36,8 @@ class PriceUpdater  {
 
     $data = [];
 
-    foreach ([30, 60] as $sessionLength) {
-      foreach ([1, 4, 8, 12, 20] as $package) {
+    foreach (array_keys($prices) as $sessionLength) {
+      foreach (array_keys($prices[$sessionLength]) as $package) {
         $data[] = [
           'field_package' => $package,
           'field_session_length' => $sessionLength,
@@ -66,15 +66,15 @@ class PriceUpdater  {
             $entity->set('field_nonmember_price', $row['field_nonmember_price']);
             $entity->save();
 
-            $msg = "Updated price for product. Location ID: %d, Session Length: %d, Package: %d";
-            \Drupal::logger('openy_mindbody_tools')->info(
-              sprintf(
-                $msg,
-                $entity->field_location_ref->target_id,
-                $entity->field_session_length->value,
-                $entity->field_package->value
-              )
+            $msg = "Updated price for product ID: %d. Location ID: %d, Session Length: %d, Package: %d";
+            $msgOutput = sprintf(
+              $msg,
+              $entity->id(),
+              $entity->field_location_ref->target_id,
+              $entity->field_session_length->value,
+              $entity->field_package->value
             );
+            \Drupal::logger('openy_mindbody_tools')->info($msgOutput);
           }
         }
       }
