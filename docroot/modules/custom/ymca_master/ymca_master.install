@@ -5169,6 +5169,18 @@ function ymca_master_update_8241() {
       'tour.tour.openy-node-overview',
     ]
   );
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_lp_layout',
+      'field.storage.node.field_ygtc_related',
+      'field.field.node.landing_page.field_ygtc_related',
+      'field.field.node.landing_page.field_sidebar_content_extra',
+      'field.storage.node.field_sidebar_content_extra',
+      'core.entity_form_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.default',
+    ]
+  );
   $path = 'profiles/contrib/openy/modules/openy_features/openy_node/modules/openy_node_landing/config/install';
   $config_importer->setDirectory($path);
   $config_importer->importConfigs(
@@ -5179,16 +5191,6 @@ function ymca_master_update_8241() {
       'core.entity_view_display.node.landing_page.default',
       'core.entity_view_display.node.landing_page.full',
       'core.entity_view_display.node.landing_page.teaser',
-    ]
-  );
-  $config_importer->setDirectory(YGTC_CONFDIR);
-  $config_importer->importConfigs(
-    [
-      'field.storage.node.field_lp_layout',
-      'field.field.node.landing_page.field_sidebar_content_extra',
-      'field.storage.node.field_sidebar_content_extra',
-      'core.entity_form_display.node.landing_page.default',
-      'core.entity_view_display.node.landing_page.default',
     ]
   );
   $path = 'profiles/contrib/openy/modules/openy_features/openy_prgf/config/install';
@@ -5212,8 +5214,6 @@ function ymca_master_update_8242() {
     [
       'core.entity_view_display.paragraph.small_banner.default',
       'node.type.landing_page',
-      'field.storage.node.field_ygtc_related',
-      'field.field.node.landing_page.field_ygtc_related',
       'core.entity_form_display.node.landing_page.default',
       'core.entity_view_display.node.landing_page.default',
       'block_content.type.basic_block',
