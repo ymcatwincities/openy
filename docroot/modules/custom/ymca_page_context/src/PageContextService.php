@@ -86,6 +86,13 @@ class PageContextService {
           }
         }
       }
+      if ($node->hasField('field_ygtc_related')) {
+        if ($value = $node->field_ygtc_related->getValue()) {
+          if ($id = $value[0]['target_id']) {
+            return $this->entityTypeManager->getStorage('node')->load($id);
+          }
+        }
+      }
       if ($node->hasField('field_site_section')) {
         if ($value = $node->field_site_section->getValue()) {
           if ($id = $value[0]['target_id']) {
