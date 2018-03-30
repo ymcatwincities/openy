@@ -23,7 +23,6 @@ class MigrationImporter implements MigrationImporterInterface {
     if ($node->id() == 3) {
       return;
     }
-    $node = Node::load(733);
 
     $template = $node->get('field_template')->value;
     // Do not migrate pages which have this field and it's not empty.
@@ -39,10 +38,6 @@ class MigrationImporter implements MigrationImporterInterface {
     $node->set('field_state', 'workflow_unpublished');
     $node->path->alias = '/old' . $node->path->alias;
     $node->save();
-
-    // @todo
-    // search blocks before creating new by text / by data-entity-id
-    // menu block
 
     // Create landing page node object.
     $lp_node = Node::create([
@@ -200,22 +195,50 @@ class MigrationImporter implements MigrationImporterInterface {
       // Set paragraph to the field.
       self::addParagraphToField($lp_node, 'field_header_content', $paragraph);
     }
+    elseif (empty($node->get('field_related')->target_id)) {
+      // In case there is no reference to camp or branch then create a small
+      // banner only with page title.
+      $paragraph = Paragraph::create([
+        'type' => 'small_banner',
+        'field_prgf_color' => [
+          'target_id' => $color->id(),
+        ],
+        'field_prgf_headline' => $lp_node->getTitle(),
+      ]);
+      $paragraph->save();
+
+      // Set paragraph to the field.
+      self::addParagraphToField($lp_node, 'field_header_content', $paragraph);
+
+    }
 
     // Secondary description and sidebar.
+    self::migrateSecondarySidebar($lp_node, $node);
+  }
+
+  /**
+   * Migrate secondary sidebar to the Header Area field.
+   *
+   * @param \Drupal\node\Entity\Node $lp_node
+   *   New Landing page node.
+   * @param \Drupal\node\Entity\Node $node
+   *   Old Page node.
+   */
+  final public static function migrateSecondarySidebar(Node $lp_node, Node $node) {
     $secondary_description = $node->get('field_lead_description')->value;
     $secondary_sidebar = $node->get('field_secondary_sidebar')->value;
-    if (!empty($secondary_description) || !empty($secondary_sidebar)) {
-      // Create Secondary Description paragraph.
-      $fields = [
-        'type' => 'secondary_description_sidebar',
-        'field_prgf_right_column_block' => [
-          'value' => $secondary_sidebar,
-          'format' => $node->get('field_secondary_sidebar')->format,
-        ],
-      ];
+    if (empty($secondary_description) && empty($secondary_sidebar)) {
+      return;
+    }
+    // Create Secondary Description paragraph.
+    $fields = [
+      'type' => 'secondary_description_sidebar',
+    ];
 
-      // Secondary Description.
-      if (!empty($secondary_description)) {
+    // Secondary Description.
+    if (!empty($secondary_description)) {
+      $block_id = self::tryFindBlock($secondary_description);
+      if (!$block_id) {
         // Create block for the left column.
         $block_left = BlockContent::create([
           'type' => 'basic_block',
@@ -226,13 +249,17 @@ class MigrationImporter implements MigrationImporterInterface {
           ],
         ]);
         $block_left->save();
-        $fields['field_prgf_left_column_block'] = [
-          'target_id' => $block_left->id(),
-        ];
+        $block_id = $block_left->id();
       }
+      $fields['field_prgf_left_column_block'] = [
+        'target_id' => $block_id,
+      ];
+    }
 
-      // Secondary Sidebar
-      if (!empty($secondary_sidebar)) {
+    // Secondary Sidebar
+    if (!empty($secondary_sidebar)) {
+      $block_id = self::tryFindBlock($secondary_sidebar);
+      if (!$block_id) {
         // Create block for the right column.
         $block_right = BlockContent::create([
           'type' => 'basic_block',
@@ -243,16 +270,39 @@ class MigrationImporter implements MigrationImporterInterface {
           ],
         ]);
         $block_right->save();
-        $fields['field_prgf_right_column_block'] = [
-          'target_id' => $block_right->id(),
-        ];
+        $block_id = $block_right->id();
       }
-      $paragraph = Paragraph::create($fields);
-      $paragraph->save();
-
-      // Set paragraph to the field.
-      self::addParagraphToField($lp_node, 'field_header_content', $paragraph);
+      $fields['field_prgf_right_column_block'] = [
+        'target_id' => $block_id,
+      ];
     }
+    $paragraph = Paragraph::create($fields);
+    $paragraph->save();
+
+    // Set paragraph to the field.
+    self::addParagraphToField($lp_node, 'field_header_content', $paragraph);
+  }
+
+  /**
+   * Try to find a block with the same content.
+   *
+   * @param $block_content
+   *   Block content.
+   * @return bool|int
+   *  Block ID or FALSE.
+   */
+  final public static function tryFindBlock($block_content) {
+    $query = \Drupal::database()
+      ->select('block_content__field_block_content', 'bc')
+      ->fields('bc', ['entity_id'])
+      ->condition('bundle', 'basic_block')
+      ->condition('field_block_content_value', $block_content);
+
+    $result = $query->execute()->fetchAll();
+    if (!empty($result)) {
+      return (int) reset($_REQUEST)['entity_id'];
+    }
+    return FALSE;
   }
 
   /**
@@ -366,7 +416,7 @@ class MigrationImporter implements MigrationImporterInterface {
         ->fields('n', ['nid'])
         ->condition('type', 'article');
       $result = $query->execute();
-      $context['results']['nids'] =  array_splice($result->fetchAll(\PDO::FETCH_ASSOC), 0, 5);
+      $context['results']['nids'] = array_splice($result->fetchAll(\PDO::FETCH_ASSOC), 0, 5);
       $context['sandbox']['max'] = count($context['results']['nids']);
       $context['sandbox']['progress'] = 0;
     }
@@ -377,7 +427,7 @@ class MigrationImporter implements MigrationImporterInterface {
     foreach ($nodes as $node) {
       self::migrate($node);
     }
-    $context['sandbox']['progress'] +=1;
+    $context['sandbox']['progress'] += 1;
     $context['sandbox']['migrated'][] = $part['nid'];
 
     $context['message'] = \Drupal::translation()
@@ -417,7 +467,8 @@ class MigrationImporter implements MigrationImporterInterface {
           ->translate('Migration has been completed successfully. @nodes migrated.', [
             '@nodes' => count($results['sandbox']['migrated']),
           ]));
-        $config = \Drupal::configFactory()->getEditable('ymca_migrate_landing_page.setting');
+        $config = \Drupal::configFactory()
+          ->getEditable('ymca_migrate_landing_page.setting');
         $config->set('migrate_executed', TRUE);
         $config->save();
       }

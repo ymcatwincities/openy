@@ -5193,7 +5193,7 @@ function ymca_master_update_8241() {
 }
 
 /**
- * Update landing page configs.
+ * Update landing page configs. Rename Old basic block.
  */
 function ymca_master_update_8242() {
   $config_importer = \Drupal::service('config_import.importer');
@@ -5206,6 +5206,7 @@ function ymca_master_update_8242() {
       'field.field.node.landing_page.field_ygtc_related',
       'core.entity_form_display.node.landing_page.default',
       'core.entity_view_display.node.landing_page.default',
+      'block_content.type.basic_block',
     ]
   );
 }
@@ -5272,11 +5273,11 @@ function ymca_master_update_8247() {
   // Rename old paragraph type.
   $storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
   $paragraph_type = $storage->load('70_30_columns');
-  $paragraph_type->set('label', '[YGTC] Secondary Description and Sidebar');
+  $paragraph_type->set('label', '[YGTC] Secondary Description and Sidebar (deprecated)');
   $paragraph_type->save();
 
   $paragraph_type = $storage->load('content_banner');
-  $paragraph_type->set('label', '[YGTC] Content Banner');
+  $paragraph_type->set('label', '[YGTC] Content Banner (deprecated)');
   $paragraph_type->save();
 }
 
