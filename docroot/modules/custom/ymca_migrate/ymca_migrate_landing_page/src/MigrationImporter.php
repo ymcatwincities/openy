@@ -300,7 +300,7 @@ class MigrationImporter implements MigrationImporterInterface {
 
     $result = $query->execute()->fetchAll();
     if (!empty($result)) {
-      return (int) reset($_REQUEST)['entity_id'];
+      return (int) reset($result)->entity_id;
     }
     return FALSE;
   }
@@ -416,7 +416,7 @@ class MigrationImporter implements MigrationImporterInterface {
         ->fields('n', ['nid'])
         ->condition('type', 'article');
       $result = $query->execute();
-      $context['results']['nids'] = array_splice($result->fetchAll(\PDO::FETCH_ASSOC), 0, 5);
+      $context['results']['nids'] = array_splice($result->fetchAll(\PDO::FETCH_ASSOC), 0, 1);
       $context['sandbox']['max'] = count($context['results']['nids']);
       $context['sandbox']['progress'] = 0;
     }
@@ -428,7 +428,7 @@ class MigrationImporter implements MigrationImporterInterface {
       self::migrate($node);
     }
     $context['sandbox']['progress'] += 1;
-    $context['sandbox']['migrated'][] = $part['nid'];
+    $context['results']['migrated'][] = $nid['nid'];
 
     $context['message'] = \Drupal::translation()
       ->translate('Migrating nodes: @progress out of @total', [
@@ -464,11 +464,11 @@ class MigrationImporter implements MigrationImporterInterface {
       }
       else {
         drupal_set_message(\Drupal::translation()
-          ->translate('Migration has been completed successfully. @nodes migrated.', [
-            '@nodes' => count($results['sandbox']['migrated']),
+          ->translate('Migration has been completed successfully. @nodes nodes migrated.', [
+            '@nodes' => count($results['migrated']),
           ]));
         $config = \Drupal::configFactory()
-          ->getEditable('ymca_migrate_landing_page.setting');
+          ->getEditable('ymca_migrate_landing_page.settings');
         $config->set('migrate_executed', TRUE);
         $config->save();
       }
