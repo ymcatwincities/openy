@@ -28,7 +28,7 @@ class SettingsForm extends FormBase {
   /**
    * Migration importer.
    *
-   * @var
+   * @var \Drupal\ymca_migrate_landing_page\MigrationImporterInterface
    */
   protected $migrationImporter;
 
@@ -104,4 +104,5 @@ class SettingsForm extends FormBase {
     ];
     batch_set($batch);
   }
+
 }
