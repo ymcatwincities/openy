@@ -1,7 +1,9 @@
+uuid: b16d4ccc-8610-4a6a-85b7-2c22b0fbd75e
 langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.browse_content_modal
     - field.field.node.landing_page.field_bottom_content
     - field.field.node.landing_page.field_content
     - field.field.node.landing_page.field_header_content
@@ -9,8 +11,10 @@ dependencies:
     - field.field.node.landing_page.field_meta_tags
     - field.field.node.landing_page.field_sidebar_content
     - field.field.node.landing_page.field_sidebar_content_extra
+    - field.field.node.landing_page.field_ygtc_related
     - node.type.landing_page
   module:
+    - entity_browser
     - field_group
     - metatag
     - paragraphs
@@ -83,6 +87,8 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Sidebar Extra Area'
+_core:
+  default_config_hash: jZmNip513RjdCYkK1Z-ewv--NyZ-a2buuGs9QZKfBt4
 id: node.landing_page.default
 targetEntityType: node
 bundle: landing_page
@@ -172,6 +178,18 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+  field_ygtc_related:
+    weight: 123
+    settings:
+      entity_browser: browse_content_modal
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
     region: content
   langcode:
     type: language_select
