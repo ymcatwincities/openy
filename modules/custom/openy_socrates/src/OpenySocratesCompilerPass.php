@@ -56,6 +56,7 @@ class OpenySocratesCompilerPass implements CompilerPassInterface {
 
       $periodicity = isset($attributes[0]['periodicity']) ? $attributes[0]['periodicity'] : 0;
       $openy_cron_service_instances['cron'][$periodicity][] = new Reference($id);
+        $definition->addMethodCall('collectCronServices', [new Reference($id), 0, $periodicity]);
     }
 
     $definition->addMethodCall('collectCronServices', $openy_cron_service_instances);
