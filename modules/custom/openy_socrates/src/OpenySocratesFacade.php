@@ -104,11 +104,11 @@ class OpenySocratesFacade {
    * @param array $services
    *   Services.
    */
-  public function collectCronServices(array $services) {
+  public function collectCronServices($service, $priority, $periodicity) {
     /** @var OpenyCronServiceInterface $service */
-    foreach ($services as $periodicity => $service) {
+//    foreach ($services as $periodicity => $service) {
       $this->cronServices[$periodicity] = $service;
-    }
+//    }
   }
 
   /**
