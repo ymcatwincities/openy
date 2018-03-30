@@ -360,28 +360,28 @@ class MigrationImporter implements MigrationImporterInterface {
    *   The batch context.
    */
   public static function processBatch(&$context) {
-    if (empty($context['results']['nids'])) {
+    if (empty($context['results']['migrated'])) {
       $query = \Drupal::database()
         ->select('node', 'n')
         ->fields('n', ['nid'])
         ->condition('type', 'article');
       $result = $query->execute();
-      $context['results']['nids'] = $result->fetchAll(\PDO::FETCH_ASSOC);
+      $context['results']['nids'] =  array_splice($result->fetchAll(\PDO::FETCH_ASSOC), 0, 5);
       $context['sandbox']['max'] = count($context['results']['nids']);
       $context['sandbox']['progress'] = 0;
     }
     $part = array_splice($context['results']['nids'], 0, 1);
-    $nids = array_map(function ($item) {
-      return $item['nid'];
-    }, $part);
+    $nid = reset($part);
     $nodes = \Drupal::entityTypeManager()->getStorage('node')
-      ->loadMultiple($nids);
+      ->loadMultiple([$nid['nid']]);
     foreach ($nodes as $node) {
       self::migrate($node);
     }
+    $context['sandbox']['progress'] +=1;
+    $context['sandbox']['migrated'][] = $part['nid'];
 
     $context['message'] = \Drupal::translation()
-      ->translate('Migrating items: @progress out of @total', [
+      ->translate('Migrating nodes: @progress out of @total', [
         '@progress' => $context['sandbox']['progress'],
         '@total' => $context['sandbox']['max'],
       ]);
@@ -414,7 +414,12 @@ class MigrationImporter implements MigrationImporterInterface {
       }
       else {
         drupal_set_message(\Drupal::translation()
-          ->translate('Migration has been completed successfully.'));
+          ->translate('Migration has been completed successfully. @nodes migrated.', [
+            '@nodes' => count($results['sandbox']['migrated']),
+          ]));
+        $config = \Drupal::configFactory()->getEditable('ymca_migrate_landing_page.setting');
+        $config->set('migrate_executed', TRUE);
+        $config->save();
       }
     }
     else {
