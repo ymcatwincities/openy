@@ -5269,9 +5269,36 @@ function ymca_master_update_8246() {
 }
 
 /**
- * Create taxonomy terms for the Color vocabulary. Rename old paragraphs.
+ * Install openy modules.
  */
 function ymca_master_update_8247() {
+  \Drupal::service('module_installer')->install([
+    'openy_block_flexible_content',
+    'openy_prgf_1c',
+    'openy_tour',
+    'openy_addthis',
+    'openy_media_local_video',
+  ], TRUE);
+}
+
+/**
+ * Install openy modules.
+ */
+function ymca_master_update_8248() {
+  \Drupal::service('module_installer')->install([
+    'openy_field_holiday_hours',
+    'openy_datalayer',
+    'openy_ckeditor',
+    'openy_taxonomy',
+    'custom_formatters',
+    'openy_prgf_featured_content',
+  ], TRUE);
+}
+
+/**
+ * Create taxonomy terms for the Color vocabulary. Rename old paragraphs.
+ */
+function ymca_master_update_8249() {
   // Create Taxonomy terms for OpenY.
   \Drupal::service('module_installer')->install([
     'openy_demo_tcolor',
@@ -5294,7 +5321,7 @@ function ymca_master_update_8247() {
 /**
  * Install openy_lily theme. Create block with menu. Create default taxonomy terms for openy.
  */
-function ymca_master_update_8248() {
+function ymca_master_update_8250() {
   \Drupal::service('theme_installer')->install(['openy_lily']);
   \Drupal::service('theme_handler')->setDefault('openy_lily');
 
@@ -5314,7 +5341,7 @@ function ymca_master_update_8248() {
 /**
  * Fill the main menu with links.
  */
-function ymca_master_update_8249() {
+function ymca_master_update_8251() {
   $menu_tree = [
     [
       'title' => 'Programs & Classes',
@@ -5405,7 +5432,7 @@ function ymca_master_update_8249() {
 /**
   * Install Block wrapper.
  */
-function ymca_master_update_8250() {
+function ymca_master_update_8252() {
   \Drupal::service('module_installer')->install([
     'ygtc_prgf_block_wrapper',
   ], TRUE);
