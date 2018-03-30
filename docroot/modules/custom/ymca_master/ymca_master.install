@@ -5174,6 +5174,17 @@ function ymca_master_update_8241() {
   $config_importer->importConfigs(
     [
       'field.storage.node.field_lp_layout',
+      'field.field.node.landing_page.field_content',
+      'core.entity_form_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.full',
+      'core.entity_view_display.node.landing_page.teaser',
+    ]
+  );
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_lp_layout',
       'field.field.node.landing_page.field_sidebar_content_extra',
       'field.storage.node.field_sidebar_content_extra',
       'field.field.node.landing_page.field_content',
@@ -5183,7 +5194,6 @@ function ymca_master_update_8241() {
       'core.entity_view_display.node.landing_page.teaser',
     ]
   );
-
   $path = 'profiles/contrib/openy/modules/openy_features/openy_prgf/config/install';
   $config_importer->setDirectory($path);
   $config_importer->importConfigs(

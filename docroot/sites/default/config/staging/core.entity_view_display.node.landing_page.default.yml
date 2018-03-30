@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.landing_page.field_lp_layout
     - field.field.node.landing_page.field_meta_tags
     - field.field.node.landing_page.field_sidebar_content
+    - field.field.node.landing_page.field_sidebar_content_extra
     - node.type.landing_page
   module:
     - entity_reference_revisions
@@ -68,6 +69,15 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_sidebar_content_extra:
+    type: entity_reference_revisions_entity_view
+    weight: 106
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
     region: content
   links:
     weight: 100
