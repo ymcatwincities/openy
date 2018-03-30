@@ -4,13 +4,12 @@ namespace Drupal\openy_mindbody_tools;
 
 use Drupal\ymca_mappings\Entity\Mapping;
 
-
 /**
  * Class PriceUpdater.
  *
  * @package Drupal\openy_mindbody_tools
  */
-class PriceUpdater  {
+class PriceUpdater {
 
   /**
    * Update prices.
