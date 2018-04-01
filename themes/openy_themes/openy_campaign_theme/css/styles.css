@@ -177,9 +177,18 @@ p {
 
 .paragraph--type--campaign-winners .winners-branches-select .form-item-branch {
   text-align: center;
-  width: 300px;
   margin: 0 auto;
   padding: 30px 0 40px 0;
+}
+@media (min-width: 20em) {
+  .paragraph--type--campaign-winners .winners-branches-select .form-item-branch {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph--type--campaign-winners .winners-branches-select .form-item-branch {
+    width: 300px;
+  }
 }
 .paragraph--type--campaign-winners .winners-branches-select .form-item-branch label {
   color: #fff;
@@ -205,8 +214,17 @@ p {
 }
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members {
   text-transform: uppercase;
-  width: 60%;
   margin: 0 auto;
+}
+@media (min-width: 20em) {
+  .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members {
+    width: 60%;
+  }
 }
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members thead {
   font-size: 14px;
@@ -216,6 +234,83 @@ p {
 }
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody td:first-child {
   width: 70%;
+}
+
+.paragraph--type--campaign-leadership {
+  overflow: hidden;
+}
+.paragraph--type--campaign-leadership .leadership-filters {
+  overflow: hidden;
+}
+@media (min-width: 20em) {
+  .paragraph--type--campaign-leadership .leadership-filters > .form-wrapper {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph--type--campaign-leadership .leadership-filters > .form-wrapper {
+    width: 600px;
+    margin: 0 auto;
+  }
+}
+.paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
+.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+  text-align: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 0 10px 0;
+}
+@media (min-width: 20em) {
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+    width: 300px;
+    float: left;
+  }
+}
+.paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select label,
+.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select label {
+  text-transform: uppercase;
+  font-size: 18px;
+  display: none;
+}
+.paragraph--type--campaign-leadership .leadership-members {
+  text-transform: uppercase;
+  margin: 0 auto;
+}
+@media (min-width: 20em) {
+  .paragraph--type--campaign-leadership .leadership-members {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph--type--campaign-leadership .leadership-members {
+    width: 60%;
+  }
+}
+.paragraph--type--campaign-leadership .leadership-members thead {
+  font-size: 14px;
+}
+.paragraph--type--campaign-leadership .leadership-members thead th:first-child {
+  text-align: center;
+}
+.paragraph--type--campaign-leadership .leadership-members tbody {
+  font-size: 18px;
+}
+.paragraph--type--campaign-leadership .leadership-members tbody td:first-child {
+  text-align: center;
+}
+.paragraph--type--campaign-leadership .leadership-members tbody td:nth-child(3) {
+  width: 40%;
+}
+.paragraph--type--campaign-leadership .leadership-no-results {
+  text-align: center;
+  font-size: 16px;
 }
 
 @media (min-width: 80.625em) {
@@ -409,6 +504,7 @@ body {
 
 .page-node-type-campaign-page main[role="main"],
 .path-campaign-game main[role="main"],
+.path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
   background-color: #ffffff;
@@ -418,6 +514,7 @@ body {
 }
 .page-node-type-campaign-page main[role="main"] .layout-content,
 .path-campaign-game main[role="main"] .layout-content,
+.path-campaign-scorecards main[role="main"] .layout-content,
 .path-team-member-registration main[role="main"] .layout-content,
 .path-members-list main[role="main"] .layout-content {
   background-color: inherit;
@@ -428,6 +525,7 @@ body {
 @media (min-width: 20em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
   .path-campaign-game main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -440,6 +538,7 @@ body {
 @media (min-width: 48em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
   .path-campaign-game main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -452,6 +551,7 @@ body {
 @media (min-width: 62em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
   .path-campaign-game main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -464,6 +564,7 @@ body {
 @media (min-width: 80.625em) {
   .page-node-type-campaign-page main[role="main"] .layout-content,
   .path-campaign-game main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 125px;
@@ -475,6 +576,7 @@ body {
 }
 .page-node-type-campaign-page main[role="main"] .layout-content h1,
 .path-campaign-game main[role="main"] .layout-content h1,
+.path-campaign-scorecards main[role="main"] .layout-content h1,
 .path-team-member-registration main[role="main"] .layout-content h1,
 .path-members-list main[role="main"] .layout-content h1 {
   text-transform: uppercase;
@@ -483,6 +585,7 @@ body {
 @media (min-width: 20em) {
   .page-node-type-campaign-page main[role="main"] .layout-content h1,
   .path-campaign-game main[role="main"] .layout-content h1,
+  .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 30px;
@@ -492,6 +595,7 @@ body {
 @media (min-width: 62em) {
   .page-node-type-campaign-page main[role="main"] .layout-content h1,
   .path-campaign-game main[role="main"] .layout-content h1,
+  .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 60px;
@@ -500,17 +604,20 @@ body {
 }
 .page-node-type-campaign-page main[role="main"] .layout-content .main-region,
 .path-campaign-game main[role="main"] .layout-content .main-region,
+.path-campaign-scorecards main[role="main"] .layout-content .main-region,
 .path-team-member-registration main[role="main"] .layout-content .main-region,
 .path-members-list main[role="main"] .layout-content .main-region {
   padding: 0px;
 }
 
 .page-node-type-campaign .wrapper-field-content,
+.path-campaign-scorecards .wrapper-field-content,
 .path-team-member-registration .wrapper-field-content,
 .path-members-list .wrapper-field-content {
   background: #fff;
 }
 .page-node-type-campaign main[role="main"],
+.path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
   background-color: #ffffff;
@@ -519,11 +626,13 @@ body {
   margin: 0 auto;
 }
 .page-node-type-campaign main[role="main"] .container,
+.path-campaign-scorecards main[role="main"] .container,
 .path-team-member-registration main[role="main"] .container,
 .path-members-list main[role="main"] .container {
   padding: 0px;
 }
 .page-node-type-campaign main[role="main"] .layout-content,
+.path-campaign-scorecards main[role="main"] .layout-content,
 .path-team-member-registration main[role="main"] .layout-content,
 .path-members-list main[role="main"] .layout-content {
   background-color: inherit;
@@ -533,6 +642,7 @@ body {
 }
 @media (min-width: 20em) {
   .page-node-type-campaign main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -544,6 +654,7 @@ body {
 }
 @media (min-width: 48em) {
   .page-node-type-campaign main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -555,6 +666,7 @@ body {
 }
 @media (min-width: 62em) {
   .page-node-type-campaign main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
@@ -566,6 +678,7 @@ body {
 }
 @media (min-width: 80.625em) {
   .page-node-type-campaign main[role="main"] .layout-content,
+  .path-campaign-scorecards main[role="main"] .layout-content,
   .path-team-member-registration main[role="main"] .layout-content,
   .path-members-list main[role="main"] .layout-content {
     margin-left: 125px;
@@ -576,6 +689,7 @@ body {
   }
 }
 .page-node-type-campaign main[role="main"] .layout-content h1,
+.path-campaign-scorecards main[role="main"] .layout-content h1,
 .path-team-member-registration main[role="main"] .layout-content h1,
 .path-members-list main[role="main"] .layout-content h1 {
   text-transform: uppercase;
@@ -583,6 +697,7 @@ body {
 }
 @media (min-width: 20em) {
   .page-node-type-campaign main[role="main"] .layout-content h1,
+  .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 30px;
@@ -591,6 +706,7 @@ body {
 }
 @media (min-width: 62em) {
   .page-node-type-campaign main[role="main"] .layout-content h1,
+  .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
     margin-top: 60px;
@@ -598,6 +714,7 @@ body {
   }
 }
 .page-node-type-campaign main[role="main"] .layout-content .main-region,
+.path-campaign-scorecards main[role="main"] .layout-content .main-region,
 .path-team-member-registration main[role="main"] .layout-content .main-region,
 .path-members-list main[role="main"] .layout-content .main-region {
   padding: 0px;
@@ -930,6 +1047,7 @@ body {
   padding-left: 70px;
 }
 
+.path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
   margin-top: 70px;
@@ -1409,32 +1527,41 @@ footer .container .footer__nav nav ul > li a {
 .activity-data .categories ul {
   display: inline-block;
   width: 100%;
-  padding: 0px;
+  padding: 0;
   text-align: center;
 }
 .activity-data .categories ul li {
   display: block;
   width: calc(100%/4 - 20px);
   float: left;
-  background: #92278F;
   opacity: 0.7;
-  color: #fff;
   text-align: center;
   text-transform: uppercase;
   border-radius: 10px;
   cursor: pointer;
   margin: 10px;
+  background-position: center 10px;
+  background-repeat: no-repeat;
+  background-size: 35px;
 }
 @media (min-width: 20em) {
   .activity-data .categories ul li {
-    height: 60px;
-    font-size: 9px;
+    height: 80px;
+    font-size: 10px;
+    padding-top: 50px;
+  }
+}
+@media (min-width: 48em) {
+  .activity-data .categories ul li {
+    height: 85px;
+    font-size: 16px;
   }
 }
 @media (min-width: 80.625em) {
   .activity-data .categories ul li {
     height: 200px;
     font-size: 22px;
+    padding-top: 115px;
   }
 }
 .activity-data .categories ul li.active {
@@ -1448,14 +1575,12 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Aquatics {
     background-position: center 15px;
     background-size: 35px;
-    padding-top: 38px;
   }
 }
 @media (min-width: 80.625em) {
   .activity-data .categories ul li.Aquatics {
     background-position: center 50px;
     background-size: auto;
-    padding-top: 115px;
   }
 }
 .activity-data .categories ul li.Fitness {
@@ -1467,7 +1592,6 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Fitness {
     background-position: center 10px;
     background-size: 35px;
-    padding-top: 38px;
   }
 }
 @media (min-width: 48em) {
@@ -1486,7 +1610,28 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Fitness {
     background-position: center 50px;
     background-size: auto;
-    padding-top: 115px;
+  }
+}
+.activity-data .categories ul li.GroupExercise {
+  background-image: url("../img/groupex.png");
+  background-repeat: no-repeat;
+}
+@media (min-width: 20em) {
+  .activity-data .categories ul li.GroupExercise {
+    background-position: center 10px;
+    background-size: 35px;
+  }
+}
+@media (min-width: 48em) {
+  .activity-data .categories ul li.GroupExercise {
+    background-position: center 10px;
+    background-size: 35px;
+  }
+}
+@media (min-width: 80.625em) {
+  .activity-data .categories ul li.GroupExercise {
+    background-position: center 50px;
+    background-size: auto;
   }
 }
 .activity-data .categories ul li.Community {
@@ -1497,7 +1642,6 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Community {
     background-position: center 5px;
     background-size: 35px;
-    padding-top: 33px;
   }
 }
 @media (min-width: 48em) {
@@ -1516,31 +1660,6 @@ footer .container .footer__nav nav ul > li a {
   .activity-data .categories ul li.Community {
     background-position: center 50px;
     background-size: auto;
-    padding-top: 115px;
-  }
-}
-.activity-data .categories ul li.GroupExercise {
-  background-image: url("../img/groupex.png");
-  background-repeat: no-repeat;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 5px;
-    background-size: 35px;
-    padding-top: 33px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 50px;
-    background-size: auto;
-    padding-top: 115px;
   }
 }
 
@@ -1690,6 +1809,11 @@ footer .container .footer__nav nav ul > li a {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+@media (min-width: 20em) {
+  .calendar .month .date-data.slick-current .visits .entriesNum {
+    white-space: normal;
+  }
+}
 .calendar .month .date-data.disabled {
   color: #a9a9a9;
 }
@@ -1747,6 +1871,36 @@ footer .container .footer__nav nav ul > li a {
 }
 #modal_openy_campaign_login_form .campaign-facility-access-hint-wrapper .campaign-facility-access-hint p {
   font-size: 14px !important;
+}
+
+.openy-campaign-activity-modal-form .form-checkboxes .form-item {
+  position: relative;
+}
+.openy-campaign-activity-modal-form .form-checkboxes .form-item.counted label:before {
+  display: none;
+}
+.openy-campaign-activity-modal-form .form-checkboxes .form-item .preudo-activity-counter {
+  position: absolute;
+  border: 1px solid #000;
+  right: 15px;
+  top: 20px;
+  width: 35px;
+  color: #000;
+}
+
+.openy-campaign-activity-modal-form .form-checkboxes .form-item {
+  position: relative;
+}
+.openy-campaign-activity-modal-form .form-checkboxes .form-item.counted label:before {
+  display: none;
+}
+.openy-campaign-activity-modal-form .form-checkboxes .form-item .preudo-activity-counter {
+  position: absolute;
+  border: 1px solid #000;
+  right: 15px;
+  top: 20px;
+  width: 35px;
+  color: #000;
 }
 
 .ui-dialog {

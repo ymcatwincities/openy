@@ -64,6 +64,13 @@ class MemberCampaignActivity extends ContentEntityBase implements MemberCampaign
         'default_value' => 0,
       ]);
 
+    $fields['count'] = BaseFieldDefinition::create('decimal')
+      ->setLabel(t('Count'))
+      ->setDescription(t('Activity counter value.'))
+      ->setSettings([
+        'default_value' => 0.0,
+      ]);
+
     return $fields;
   }
 
@@ -74,17 +81,38 @@ class MemberCampaignActivity extends ContentEntityBase implements MemberCampaign
    *   MemberCampaign entity ID.
    * @param \DateTime $date
    *   Date.
-   * @param array $activityIds
+   * @param array|NULL $activityIds
    *   Activities IDs.
    *
    * @return array|int
    */
-  public static function getExistingActivities($memberCampaignId, $date, $activityIds) {
-    return \Drupal::entityQuery('openy_campaign_memb_camp_actv')
+  public static function getExistingActivities($memberCampaignId, $date, $activityIds = []) {
+    $query = \Drupal::entityQuery('openy_campaign_memb_camp_actv')
       ->condition('member_campaign', $memberCampaignId)
-      ->condition('date', $date->format('U'))
-      ->condition('activity', $activityIds, 'IN')
-      ->execute();
+      ->condition('date', $date->format('U'));
+    if (!empty($activityIds)) {
+      $query->condition('activity', $activityIds, 'IN');
+    }
+    return $query->execute();
+  }
+
+  public static function getTrackedActivities($memberCampaignId) {
+    $query = \Drupal::entityQuery('openy_campaign_memb_camp_actv')
+      ->condition('member_campaign', $memberCampaignId)
+      ->condition('count', '0', '>');
+    $activityIds = $query->execute();
+
+    $existingActivitiesEntities = \Drupal::service('entity_type.manager')->getStorage('openy_campaign_memb_camp_actv')->loadMultiple($activityIds);
+    $activity_count_values = [];
+    /** @var \Drupal\openy_campaign\Entity\MemberCampaignActivity $activity */
+    foreach ($existingActivitiesEntities as $activity) {
+      $activity_count_values[$activity->activity->entity->id()] = [
+        'name' => $activity->activity->entity->get('name')->value,
+        'desc' => $activity->activity->entity->get('description')->value,
+        'count' => $activity->count->value,
+      ];
+    }
+    return $activity_count_values;
   }
 
   /**

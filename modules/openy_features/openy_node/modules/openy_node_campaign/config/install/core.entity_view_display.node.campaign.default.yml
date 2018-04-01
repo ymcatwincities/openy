@@ -26,9 +26,11 @@ dependencies:
     - field.field.node.campaign.field_campaign_registration_goal
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_stream_type
+    - field.field.node.campaign.field_campaign_technical_name
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
+    - field.field.node.campaign.field_enable_activities_counter
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -50,6 +52,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - node.type.campaign
@@ -218,6 +221,14 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_campaign_technical_name:
+    weight: 146
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_campaign_timezone:
     weight: 143
     label: above
@@ -233,6 +244,16 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_enable_activities_counter:
+    weight: 144
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_error_default:
     weight: 126
@@ -378,6 +399,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_tracking_actv_goal_desc:
+    weight: 145
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   field_ways_to_earn_entries:
     weight: 134

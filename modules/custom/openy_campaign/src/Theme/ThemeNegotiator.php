@@ -20,6 +20,7 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
       'openy_campaign.team_member.edit_form',
       'openy_campaign.member-registration-portal',
       'openy_campaign.campaign_reports_live_scorecard',
+      'openy_campaign.scorecard-page',
     ];
     if (in_array($route_match->getRouteName(), $custom_page_routes)) {
       return TRUE;
