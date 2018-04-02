@@ -792,6 +792,8 @@ body {
   border-color: transparent;
   border-top: 0;
   border-radius: 0;
+  height: 100px;
+  min-height: 100px;
 }
 
 .container, .padded-content-container {
@@ -904,13 +906,12 @@ body {
   display: block;
   overflow: hidden;
   box-sizing: content-box;
-  margin: 5px 0 3px 0;
-  margin-top: 5px;
+  margin: 12px 0 3px 0;
   margin-bottom: 5px;
-  padding: 0 0 0 30px;
-  width: 110px;
-  height: 80%;
-  background: url(../img/ymca-logo.svg) no-repeat 12px 0;
+  padding: 5px 0 0 30px;
+  width: 220px;
+  height: 72%;
+  background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
   background-size: contain;
 }
 
@@ -1599,6 +1600,9 @@ li.current.home > a {
 }
 
 .nav-global {
+  ul {
+    line-height: 6.4em;
+  }
   .navbar-nav a {
     outline: 0 !important;
     line-height: 50px;
@@ -1851,7 +1855,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .dock-subnav {
   .nav-home {
     position: fixed;
-    top: 51px;
+    top: 100px;
     width: 100%;
   }
   .page-middle {
@@ -1862,7 +1866,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .nav-home {
   &.fixed {
     position: fixed;
-    top: 51px;
+    top: 100px;
     bottom: auto;
     width: 100%;
   }
@@ -1874,7 +1878,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .no-touch {
   .nav-home.affix, .page_home .nav-home.affix {
     position: fixed;
-    top: 51px;
+    top: 100px;
     bottom: auto;
     width: 100%;
   }
@@ -1908,7 +1912,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .no-touch {
   .nav-location.affix, .locations-camps-template .nav-location.affix {
     position: fixed;
-    top: 51px;
+    top: 100px;
     height: 50px;
     font-size: 15px;
   }
@@ -2025,7 +2029,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .ancestor-camps .navbar-brand {
-  background-image: url(../img/ymca-logo-alt.svg);
+  background-image: url(../img/ymca-logo-full-alt.svg);
 }
 
 .no-smil .ancestor-camps {
@@ -5304,7 +5308,7 @@ a.wrapper:hover {
       }
     }
     .lt-ie9 .masthead-menu-active .page-middle {
-      margin-top: 144px;
+      margin-top: 162px;
     }
     .schedules-template .panel-group > .content-expander > .panel-heading a {
       color: #555;
@@ -5358,14 +5362,14 @@ a.wrapper:hover {
     .campaign-template .page-middle,
     .internal-template .page-middle,
     .schedules-template .page-middle {
-      margin-top: 144px;
+      margin-top: 162px;
     }
 
     .landing-template.toolbar-horizontal .page-middle,
     .campaign-template.toolbar-horizontal .page-middle,
     .internal-template.toolbar-horizontal .page-middle,
     .schedules-template.toolbar-horizontal .page-middle {
-      margin-top: 144px;
+      margin-top: 162px;
     }
 
     .landing-template.toolbar-vertical .page-middle,
@@ -5456,7 +5460,7 @@ a.wrapper:hover {
       font-size: 13px;
     }
     .navbar > .container .navbar-brand {
-      margin-top: 5px;
+      margin-top: 12px;
     }
     .location-list .location:nth-child(3n+1) {
       clear: left;
@@ -5827,7 +5831,7 @@ a.wrapper:hover {
       margin-top: 20px;
     }
     .back-link {
-      margin-top: 20px;
+      margin-top: 40px;
       text-align: center;
     }
     .sidebar.collasping-in + .viewport:after {
@@ -5877,7 +5881,7 @@ a.wrapper:hover {
       text-align: center;
     }
     .navbar > .container .navbar-brand {
-      left: 50%;
+      left: 30%;
       float: none;
       margin-left: -24px;
       padding: 0;
@@ -5890,7 +5894,7 @@ a.wrapper:hover {
       padding-top: 0;
     }
     .viewport {
-      padding-top: 50px;
+      padding-top: 100px;
     }
     .collapsing-in .nav-global, .in .nav-global, .collapsing-out .nav-global {
       position: absolute;
