@@ -1,0 +1,44 @@
+{#
+/**
+ * @file
+ * Promo block template.
+ *
+ * Available variables:
+ * - header: Block header.
+ * - content: Block content.
+ * - image: Image.
+ * - link: Wrapper link url.
+ * - link_text: Wrapper link text.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% set classes = ['richtext'] %}
+{% if is_home %}
+  {% set classes = classes|merge(['col-md-4', 'col-sm-6']) %}
+{% endif %}
+
+<div{{ attributes.addClass(classes) }}>
+  {% if link %}
+    <a class="wrapper" href="{{ link }}" title="{{ link_text }}">
+      <div class="img-crop img-crop-horizontal">{{ image }}</div>
+      <h2>{{ header }}</h2>
+      <div class="promo-text">{{ content }}</div>
+    </a>
+  {% else %}
+    <div class="text-promo">
+      {{ _self.block_content(image, header, content) }}
+    </div>
+  {% endif %}
+</div>
+
+{% macro block_content(image, header, content) %}
+  {% if image[0] %}
+    <div class="img-crop img-crop-horizontal">
+      {{ image }}
+    </div>
+  {% endif %}
+  <h3>{{ header }}</h3>
+  {{ content }}
+{% endmacro %}
