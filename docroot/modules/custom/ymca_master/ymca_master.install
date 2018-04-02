@@ -5284,6 +5284,7 @@ function ymca_master_update_8247() {
  * Install openy modules.
  */
 function ymca_master_update_8248() {
+  \Drupal::configFactory()->getEditable('views.view.taxonomy_term')->delete();
   \Drupal::service('module_installer')->install([
     'openy_field_holiday_hours',
     'openy_datalayer',
