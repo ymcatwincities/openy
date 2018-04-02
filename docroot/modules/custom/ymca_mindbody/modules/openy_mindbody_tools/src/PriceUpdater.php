@@ -28,7 +28,7 @@ class PriceUpdater {
         1 => ['member' => 75, 'nonmember' => 95],
         4 => ['member' => 280, 'nonmember' => 360],
         8 => ['member' => 480, 'nonmember' => 640],
-        12 => ['member' => 700, 'nonmember' => 960],
+        12 => ['member' => 720, 'nonmember' => 960],
         20 => ['member' => 1039, 'nonmember' => 1439],
       ],
     ];
