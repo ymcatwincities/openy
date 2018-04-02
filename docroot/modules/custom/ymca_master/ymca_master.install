@@ -5277,7 +5277,6 @@ function ymca_master_update_8247() {
     'openy_prgf_1c',
     'openy_tour',
     'openy_addthis',
-    'openy_media_local_video',
   ], TRUE);
 }
 
