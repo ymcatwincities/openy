@@ -5169,10 +5169,23 @@ function ymca_master_update_8241() {
       'tour.tour.openy-node-overview',
     ]
   );
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_lp_layout',
+      'field.storage.node.field_ygtc_related',
+      'field.field.node.landing_page.field_ygtc_related',
+      'field.field.node.landing_page.field_sidebar_content_extra',
+      'field.storage.node.field_sidebar_content_extra',
+      'core.entity_form_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.default',
+    ]
+  );
   $path = 'profiles/contrib/openy/modules/openy_features/openy_node/modules/openy_node_landing/config/install';
   $config_importer->setDirectory($path);
   $config_importer->importConfigs(
     [
+      'field.storage.node.field_lp_layout',
       'field.field.node.landing_page.field_content',
       'core.entity_form_display.node.landing_page.default',
       'core.entity_view_display.node.landing_page.default',
@@ -5180,7 +5193,6 @@ function ymca_master_update_8241() {
       'core.entity_view_display.node.landing_page.teaser',
     ]
   );
-
   $path = 'profiles/contrib/openy/modules/openy_features/openy_prgf/config/install';
   $config_importer->setDirectory($path);
   $config_importer->importConfigs(
@@ -5202,8 +5214,6 @@ function ymca_master_update_8242() {
     [
       'core.entity_view_display.paragraph.small_banner.default',
       'node.type.landing_page',
-      'field.storage.node.field_ygtc_related',
-      'field.field.node.landing_page.field_ygtc_related',
       'core.entity_form_display.node.landing_page.default',
       'core.entity_view_display.node.landing_page.default',
       'block_content.type.basic_block',
@@ -5267,7 +5277,6 @@ function ymca_master_update_8247() {
     'openy_prgf_1c',
     'openy_tour',
     'openy_addthis',
-    'openy_media_local_video',
   ], TRUE);
 }
 
@@ -5275,6 +5284,7 @@ function ymca_master_update_8247() {
  * Install openy modules.
  */
 function ymca_master_update_8248() {
+  \Drupal::configFactory()->getEditable('views.view.taxonomy_term')->delete();
   \Drupal::service('module_installer')->install([
     'openy_field_holiday_hours',
     'openy_datalayer',
@@ -5420,9 +5430,18 @@ function ymca_master_update_8251() {
 }
 
 /**
- * Install migrate module.
+  * Install Block wrapper.
  */
 function ymca_master_update_8252() {
+  \Drupal::service('module_installer')->install([
+    'ygtc_prgf_block_wrapper',
+  ], TRUE);
+}
+
+/**
+ * Install migrate module.
+ */
+function ymca_master_update_8253() {
   \Drupal::service('module_installer')->install([
     'ymca_migrate_landing_page',
   ], TRUE);
