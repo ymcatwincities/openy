@@ -7,7 +7,7 @@ use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannel;
-use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\groupex_form_cache\Entity\GroupexFormCache;
 use Drupal\Component\Utility\Timer;
 
@@ -61,12 +61,12 @@ class GroupexFormCacheManager {
    *   Query factory.
    * @param ConfigFactory $config_factory
    *   Config factory.
-   * @param LoggerChannelFactory $logger_factory
+   * @param LoggerChannelFactoryInterface $logger_factory
    *   Logger factory.
    * @param EntityTypeManager $entity_type_manager
    *   Entity type manager.
    */
-  public function __construct(QueryFactory $query_factory, ConfigFactory $config_factory, LoggerChannelFactory $logger_factory, EntityTypeManager $entity_type_manager) {
+  public function __construct(QueryFactory $query_factory, ConfigFactory $config_factory, LoggerChannelFactoryInterface $logger_factory, EntityTypeManager $entity_type_manager) {
     $this->queryFactory = $query_factory;
     $this->config = $config_factory->get('groupex_form_cache.settings');
     $this->logger = $logger_factory->get(self::CHANNEL);

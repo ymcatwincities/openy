@@ -201,7 +201,7 @@ function openy_media_image_update_8007() {
 /**
  * Import OpenY media image style "Thumbnail focal point".
  */
-function openy_media_image_update_8008() {
+function openy_media_image_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
 
   // Import configuration.
@@ -229,7 +229,7 @@ function openy_media_image_update_8008() {
 /**
  * Update library view for core upgrade.
  */
-function openy_media_image_update_8009() {
+function openy_media_image_update_8008() {
   $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
   // Update multiple configurations.
   $configs = [
