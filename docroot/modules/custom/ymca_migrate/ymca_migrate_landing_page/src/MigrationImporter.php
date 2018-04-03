@@ -416,7 +416,7 @@ class MigrationImporter implements MigrationImporterInterface {
         ->fields('n', ['nid'])
         ->condition('type', 'article');
       $result = $query->execute();
-      $context['results']['nids'] = array_splice($result->fetchAll(\PDO::FETCH_ASSOC), 0, 1);
+      $context['results']['nids'] = $result->fetchAll(\PDO::FETCH_ASSOC);
       $context['sandbox']['max'] = count($context['results']['nids']);
       $context['sandbox']['progress'] = 0;
     }
