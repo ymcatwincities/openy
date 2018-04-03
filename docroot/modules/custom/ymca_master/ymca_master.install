@@ -5457,3 +5457,12 @@ function ymca_master_update_8253() {
     ]
   );
 }
+
+/**
+ * Uninstall ymca_entity_browser.
+ */
+function ymca_master_update_8254() {
+  \Drupal::service('module_installer')->uninstall([
+    'ymca_entity_browser',
+  ], TRUE);
+}
