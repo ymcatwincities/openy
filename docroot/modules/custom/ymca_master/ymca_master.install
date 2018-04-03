@@ -5466,3 +5466,16 @@ function ymca_master_update_8254() {
     'ymca_entity_browser',
   ], TRUE);
 }
+
+/**
+ * Update permissions.
+ */
+function ymca_master_update_8255() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'user.role.anonymous.yml',
+    ]
+  );
+}
