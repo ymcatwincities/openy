@@ -1981,7 +1981,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-align: center;
 }
 .page-footer.footer-themes-b .richtext h5, .page-footer.footer-themes-b .richtext p {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: Verdana,Arial,sans-serif;
   display: inline-block;
   vertical-align: top;
   margin: 0;
@@ -8895,6 +8895,10 @@ body.ancestor-camps .footer-themes-b .social-icon:hover {
   color: #01a490;
 }
 
+body {
+  font-family: Verdana,Arial,sans-serif;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
@@ -11678,7 +11682,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 .fullcalendar .fc-view-container .fc-view .fc-day-top,
 .fullcalendar .fc-view-container .fc-view .fc-day-number {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: Verdana,Arial,sans-serif;
   font-size: 22px;
   letter-spacing: -0.6px;
   text-align: left;
