@@ -5465,6 +5465,7 @@ function ymca_master_update_8254() {
   \Drupal::service('module_installer')->uninstall([
     'ymca_entity_browser',
   ], TRUE);
+  \Drupal::configFactory()->getEditable('entity_browser.browser.browse_block_modal')->delete();
 }
 
 /**
