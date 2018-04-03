@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.browse_content_modal
     - field.field.node.landing_page.field_bottom_content
     - field.field.node.landing_page.field_content
     - field.field.node.landing_page.field_header_content
@@ -14,8 +13,9 @@ dependencies:
     - field.field.node.landing_page.field_ygtc_related
     - node.type.landing_page
   module:
-    - entity_browser
+    - entity_browser_entity_form
     - field_group
+    - inline_entity_form
     - metatag
     - paragraphs
     - path
@@ -178,18 +178,21 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
   field_ygtc_related:
     weight: 123
     settings:
-      entity_browser: browse_content_modal
-      field_widget_display: label
-      field_widget_edit: true
-      field_widget_remove: true
-      selection_mode: selection_append
-      open: false
-      field_widget_display_settings: {  }
-    third_party_settings: {  }
-    type: entity_browser_entity_reference
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+      allow_new: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: browse_content_modal
+    type: inline_entity_form_complex
     region: content
   langcode:
     type: language_select
@@ -232,7 +235,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 18
+    weight: 124
     third_party_settings: {  }
     region: content
   sticky:

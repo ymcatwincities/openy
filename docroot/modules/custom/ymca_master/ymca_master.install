@@ -5457,3 +5457,26 @@ function ymca_master_update_8253() {
     ]
   );
 }
+
+/**
+ * Uninstall ymca_entity_browser.
+ */
+function ymca_master_update_8254() {
+  \Drupal::service('module_installer')->uninstall([
+    'ymca_entity_browser',
+  ], TRUE);
+  \Drupal::configFactory()->getEditable('entity_browser.browser.browse_block_modal')->delete();
+}
+
+/**
+ * Update permissions.
+ */
+function ymca_master_update_8255() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'user.role.anonymous',
+    ]
+  );
+}
