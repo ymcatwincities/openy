@@ -73,7 +73,6 @@ a,
 .viewport .nav-level-2 > a:focus,
 .viewport .page-head__main-menu .nav-level-2 > a:hover,
 .viewport .page-head__main-menu .nav-level-2 > a:focus {
-  background-color: #0060ae; /* Header menu hover (headerhover) */
   color: #fdfdfd; /* Header link hover (headerlinkhover) */
 }
 .footer {
