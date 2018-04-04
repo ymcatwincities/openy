@@ -9,6 +9,7 @@ fields_unset_paragraphs:
     - embedded_groupexpro_schedule
     - featured_blogs
     - featured_content
+    - featured_highlights
     - gallery
     - grid_columns
     - grid_content
@@ -19,6 +20,7 @@ fields_unset_paragraphs:
     - prgf_location_finder_filters
     - openy_prgf_mbrshp_calc
     - membership_info
+    - secondary_description_sidebar
     - session_time
     - schedule_search_form
     - schedule_search_list
@@ -30,6 +32,7 @@ fields_unset_paragraphs:
     - embedded_groupexpro_schedule
     - featured_blogs
     - featured_content
+    - featured_highlights
     - grid_columns
     - grid_content
     - latest_blog_posts

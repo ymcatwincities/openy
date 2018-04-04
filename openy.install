@@ -459,6 +459,7 @@ function openy_update_8035() {
     ]);
   }
 }
+
 /**
  * Enable Amenities related modules.
  */
@@ -557,4 +558,47 @@ function openy_update_8044() {
     'block.block.breadcrumbs',
     'easy_breadcrumb.settings',
   ]);
+}
+
+/**
+ * Enable Contrib modules for local video player.
+ */
+function openy_update_8045() {
+  // Enable modules.
+  $modules = [
+    'media_entity_video',
+    'video',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable local video player related modules.
+ */
+function openy_update_8046() {
+  // Enable modules.
+  $modules = [
+    'openy_media_local_video',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable CKEditor Bootstrap Buttons module and import the settings.
+ */
+function openy_update_8047() {
+  // Enable CKEditor Bootstrap Buttons module.
+  \Drupal::service('module_installer')->install(['ckeditor_bootstrap_buttons'], TRUE);
+
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
 }

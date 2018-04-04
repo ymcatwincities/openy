@@ -5,7 +5,7 @@
   Drupal.behaviors.campaignScorecard = {
     attach: function (context, settings) {
 
-      $('.path-team-member-registration select[name="campaign_id"]').once('campaignScorecard').each(function(){
+      $('.path-team-member-registration, .path-campaign-scorecards').find('select[name="campaign_id"]').once('campaignScorecard').each(function(){
         $(this).on('change', function (){
           $('#scorecard-wrapper').html('');
 
