@@ -4986,3 +4986,36 @@ function ymca_master_update_8231() {
     ]
   );
 }
+
+/**
+ * Delete old retention entities.
+ */
+function ymca_master_update_8232() {
+  $tables_to_truncate = [
+    'ymca_retention_winner',
+    'ymca_retention_member_checkin',
+    'ymca_retention_member_chance',
+    'ymca_retention_member_bonus',
+    'ymca_retention_member_activity',
+    'ymca_retention_member',
+    'tango_card_campaign',
+    'tango_card_account',
+  ];
+
+  foreach ($tables_to_truncate as $table) {
+    db_truncate($table)->execute();
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Disable old retention modules.
+ */
+function ymca_master_update_8233() {
+  \Drupal::service('module_installer')->uninstall([
+    'ymca_retention',
+    'tango_card',
+    'creditfield',
+  ]);
+}
