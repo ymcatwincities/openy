@@ -7,5 +7,6 @@ dependencies:
   - datalayer
   - field
   - openy_campaign
+  - openy_prgf
   - paragraphs
   - plugin
