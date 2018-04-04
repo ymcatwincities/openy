@@ -658,7 +658,7 @@ body {
   min-width: 11%;
   text-align: center;
   font-size: 20px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .promos a:hover, .text-promo:hover {
@@ -781,7 +781,7 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 34px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 1.1em;
 }
 
@@ -829,7 +829,7 @@ body {
   text-transform: uppercase;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 1.3em;
 }
 .masthead-brand:hover {
@@ -851,11 +851,11 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 20px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .carousel-caption p {
   font-size: 0;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .container .container, .container .padded-content-container {
@@ -977,7 +977,7 @@ body {
   text-transform: uppercase;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 1.3em;
 }
 .masthead-brand:hover {
@@ -1004,7 +1004,7 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .btn-primary:focus {
   border: 0;
@@ -1018,13 +1018,13 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .carousel-caption p {
   text-align: right;
   font-size: 20px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .carousel-control {
@@ -1049,7 +1049,7 @@ body {
   text-transform: uppercase;
   font-weight: normal;
   display: block;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   font-weight: 600;
 }
 
@@ -1064,7 +1064,7 @@ body {
   color: #5e5e5e;
   font-weight: bold;
   font-size: 34px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .nav-home .open > .dropdown-menu {
@@ -1443,7 +1443,7 @@ li.current.home > a:focus, li.current.home > a:hover {
   background: none;
   color: #2072bd;
   font-size: 22px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .nav-home .caret {
   display: none;
@@ -1689,7 +1689,7 @@ li.current.home > a:focus, li.current.home > a:hover {
   border-radius: 0;
   background: #383838;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   -webkit-transition: font-size .2s ease-out,height .2s ease-out;
   -moz-transition: font-size .2s ease-out,height .2s ease-out;
   -ms-transition: font-size .2s ease-out,height .2s ease-out;
@@ -1728,7 +1728,7 @@ li.current.home > a:focus, li.current.home > a:hover {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .masthead-carousel {
@@ -1737,7 +1737,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .nav-global .nav {
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .carousel .item {
@@ -1981,7 +1981,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-align: center;
 }
 .page-footer.footer-themes-b .richtext h5, .page-footer.footer-themes-b .richtext p {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: Verdana,Arial,sans-serif;
   display: inline-block;
   vertical-align: top;
   margin: 0;
@@ -2490,7 +2490,7 @@ a.ms-brand:hover {
   text-decoration: underline;
 }
 .footer-themes-b .nav-footer .nav > li > a {
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   font-size: 20px;
   color: #a8a8a8;
 }
@@ -2738,7 +2738,7 @@ img.alignRight {
 .back-link {
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .back-link a {
   color: #fff;
@@ -2758,7 +2758,7 @@ img.alignRight {
 }
 .lead-copy li a {
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .lead-copy li:before {
   position: absolute;
@@ -2836,7 +2836,7 @@ h2 img {
   font-size: 34px;
 }
 .social-news p {
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .social-disclaimer h5 {
@@ -3093,7 +3093,7 @@ legend small {
   border-bottom: 1px solid gray;
   font-weight: normal;
   font-size: 18px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .nav-home.nav-themes-b .nav-level-3 strong {
   border-bottom: none;
@@ -3196,7 +3196,7 @@ legend small {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .call-to-action p {
@@ -3251,7 +3251,7 @@ legend small {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .post-excerpt .btn-link:after {
   margin-left: 5px;
@@ -3767,7 +3767,7 @@ h2 a:hover {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 17px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .promos .button a:hover {
@@ -3816,7 +3816,7 @@ h2 a:hover {
   text-decoration: none;
   text-transform: uppercase;
   font-size: 26px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .promo p, .promo h3, .promo h1, .promo h2 {
@@ -4322,7 +4322,7 @@ a[href*=".pdf?"]:hover,
 
 .ancestor-camps .panel-subnav .level_4 > a, .ancestor-locations .panel-subnav .level_4 > a, .panel-subnav .level_2 > a {
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 1em;
   line-height: 1em;
 }
@@ -4673,7 +4673,7 @@ a.wrapper:hover {
 
 .nav-level-3 > li {
   font-size: 18px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .panel-subnav .dropdown .dropdown li a {
@@ -6448,7 +6448,7 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
 .button-solid-blue a {
   color: #fff;
   font-size: 24px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 32px;
   padding-right: 50px;
   padding-left: 50px;
@@ -7342,7 +7342,7 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   margin-top: 0;
   width: 100%;
   padding: 12px 20px;
@@ -7385,7 +7385,7 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   margin-top: 0;
   width: 100%;
   padding: 12px 20px;
@@ -8893,6 +8893,10 @@ body.ancestor-camps .footer-themes-b .social-icon {
 }
 body.ancestor-camps .footer-themes-b .social-icon:hover {
   color: #01a490;
+}
+
+body {
+  font-family: Verdana,Arial,sans-serif;
 }
 
 .form-item {
@@ -11678,7 +11682,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 .fullcalendar .fc-view-container .fc-view .fc-day-top,
 .fullcalendar .fc-view-container .fc-view .fc-day-number {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: Verdana,Arial,sans-serif;
   font-size: 22px;
   letter-spacing: -0.6px;
   text-align: left;
@@ -12994,7 +12998,7 @@ body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tic
   color: white;
   text-decoration: none;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   font-size: 20px;
   border-bottom: 5px solid #000;
 }
@@ -13015,7 +13019,7 @@ body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tic
   display: block;
   padding: 10px 15px;
   font-size: 18px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   text-decoration: none;
   font-weight: bold;
   color: #428bca;
