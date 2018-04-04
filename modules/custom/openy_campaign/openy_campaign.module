@@ -10,6 +10,8 @@ use Drupal\node\Entity\Node;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\paragraphs\ParagraphInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Component\Utility\Unicode;
@@ -79,6 +81,13 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'openy-campaign-winners',
     ],
+    // Winners block text.
+    'openy_campaign_leadership' => [
+      'variables' => [
+        'leaders' => [],
+      ],
+      'template' => 'openy-campaign-leadership',
+    ],
     // Activity tracking block.
     'openy_campaign_activity_block' => [
       'variables' => [
@@ -92,6 +101,9 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
         'current' => NULL,
         'title' => NULL,
         'goal_message' => NULL,
+        'trackActvDesc' => NULL,
+        'enActvCounter' => NULL,
+        'countedActv' => NULL,
       ],
       'template' => 'openy-campaign-visits-goal',
     ],
@@ -379,6 +391,110 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
 }
 
 /**
+ * Implements hook_entity_presave().
+ */
+function openy_campaign_node_presave(Node $node) {
+  if ($node->bundle() == 'campaign') {
+    // Add 'Enable Activities Counter' checkbox
+    // to the terms of the selected vocabulary.
+    $enableActivitiesCounter = $node->field_enable_activities_counter->value;
+    $activitiesVocabulary = $node->field_campaign_fitness_category->target_id;
+
+    if ($enableActivitiesCounter) {
+      // Attach additional fields to the vocabulary.
+      $entityType = 'taxonomy_term';
+
+      $fieldName = 'field_enable_activities_counter';
+      $fieldLabel = 'Enable Activities Counter';
+
+      if (is_null(FieldStorageConfig::loadByName($entityType, $fieldName))) {
+        FieldStorageConfig::create([
+          'entity_type' => $entityType,
+          'field_name' => $fieldName,
+          'cardinality' => 1,
+          'type' => 'boolean',
+        ])->save();
+      }
+
+      if (is_null(FieldConfig::loadByName($entityType, $activitiesVocabulary, $fieldName))) {
+        FieldConfig::create([
+          'field_name' => $fieldName,
+          'entity_type' => $entityType,
+          'label' => $fieldLabel,
+          'bundle' => $activitiesVocabulary,
+        ])->save();
+
+        $displayTypes = ['view', 'form'];
+        $viewMode = 'default';
+        foreach ($displayTypes as $type) {
+          $display = \Drupal::entityTypeManager()
+            ->getStorage('entity_' . $type . '_display')
+            ->load($entityType . '.' . $activitiesVocabulary . '.' . $viewMode);
+
+          if (empty($display)) {
+            $values = [
+              'targetEntityType' => $entityType,
+              'bundle' => $activitiesVocabulary,
+              'mode' => $viewMode,
+              'status' => TRUE,
+            ];
+            $display = \Drupal::entityTypeManager()
+              ->getStorage('entity_' . $type . '_display')
+              ->create($values);
+          }
+          $display->setComponent($fieldName, [
+            'type' => $type == 'view' ? 'boolean' : 'boolean_checkbox',
+            'region' => 'content',
+          ])->save();
+        }
+      }
+    }
+
+    // Add "Activity Icon" on the Activities taxonomy terms.
+    $entityType = 'taxonomy_term';
+    $fieldName = 'field_activity_icon';
+    $fieldLabel = 'Activity Icon';
+
+    if (is_null(FieldConfig::loadByName($entityType, $activitiesVocabulary, $fieldName))) {
+      FieldConfig::create([
+        'field_name' => $fieldName,
+        'entity_type' => $entityType,
+        'label' => $fieldLabel,
+        'bundle' => $activitiesVocabulary,
+        'settings' => [
+          'file_extensions' => 'svg'
+        ],
+      ])->save();
+
+      $displayTypes = ['view', 'form'];
+      $viewMode = 'default';
+      foreach ($displayTypes as $type) {
+        $display = \Drupal::entityTypeManager()
+          ->getStorage('entity_' . $type . '_display')
+          ->load($entityType . '.' . $activitiesVocabulary . '.' . $viewMode);
+
+        if (empty($display)) {
+          $values = [
+            'targetEntityType' => $entityType,
+            'bundle' => $activitiesVocabulary,
+            'mode' => $viewMode,
+            'status' => TRUE,
+          ];
+          $display = \Drupal::entityTypeManager()
+            ->getStorage('entity_' . $type . '_display')
+            ->create($values);
+        }
+        $display->setComponent($fieldName, [
+          'type' => $type == 'view' ? 'openy_svg_formatter' : 'file_generic',
+          'region' => 'content',
+        ])->save();
+      }
+    }
+
+  }
+}
+
+/**
  * Implements hook_entity_type_build().
  */
 function openy_campaign_entity_type_build(array &$entity_types) {
@@ -512,6 +628,21 @@ function openy_campaign_field_widget_form_alter(&$element, FormStateInterface $f
  */
 function openy_campaign_form_node_campaign_form_alter(&$form, FormStateInterface $form_state) {
   openy_campaign_campaign_menu_field_render($form, $form_state);
+
+  // Show "Enable Activities Counter" checkbox if only "Tracking Activity" is checked.
+  $form['field_enable_activities_counter']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
+    ]
+  ];
+
+  // Show "Tracking activities goal description" block if only "Tracking Activity" is checked.
+  $form['field_tracking_actv_goal_desc']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
+    ]
+  ];
+
 }
 
 /**
@@ -536,6 +667,21 @@ function openy_campaign_form_node_campaign_edit_form_alter(&$form, FormStateInte
     }
   }
   openy_campaign_campaign_menu_field_render($form, $form_state);
+
+  // Show "Enable Activities Counter" checkbox if only "Tracking Activity" is checked.
+  $form['field_enable_activities_counter']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
+    ]
+  ];
+
+  // Show "Tracking activities goal description" block if only "Tracking Activity" is checked.
+  $form['field_tracking_actv_goal_desc']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_activity]']" => ["checked" => TRUE],
+    ]
+  ];
+
 }
 
 /**

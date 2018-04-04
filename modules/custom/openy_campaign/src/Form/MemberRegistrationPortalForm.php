@@ -129,7 +129,7 @@ class MemberRegistrationPortalForm extends FormBase {
     $campaigns = $this->campaignMenuService->getActiveCampaigns();
     if (empty($campaigns)) {
       $form['empty'] = [
-        '#markup' => $this->t('There is no active campaigns.'),
+        '#markup' => $this->t('There are no active campaigns to register new members.'),
       ];
 
       return $form;

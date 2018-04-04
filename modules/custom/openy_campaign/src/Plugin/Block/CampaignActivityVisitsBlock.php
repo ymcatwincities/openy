@@ -10,7 +10,7 @@ use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberCheckin;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
-
+use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 /**
  * Provides a 'Activity Visits Tracking' block.
  *
@@ -109,10 +109,19 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
         $goal = (int) $memberCampaign->getGoal();
       }
 
+      if ($campaign->get('field_enable_activities_counter')->value) {
+        $desc = $campaign->get('field_tracking_actv_goal_desc')->value;
+      }
+
+      $countedActivities = MemberCampaignActivity::getTrackedActivities($memberCampaignID);
+
       $block['goal_block'] = [
         '#theme' => 'openy_campaign_visits_goal',
+        '#enActvCounter' => $campaign->get('field_enable_activities_counter')->value,
         '#goal' => $goal,
         '#goal_message' => $msgMyVisits,
+        '#trackActvDesc' => $desc,
+        '#countedActv' => $countedActivities,
         '#current' => count($currentCheckins),
       ];
     }
