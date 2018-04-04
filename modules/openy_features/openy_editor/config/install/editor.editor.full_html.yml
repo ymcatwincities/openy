@@ -53,6 +53,7 @@ settings:
             - SpecialChar
             - Maximize
             - Language
+            - btbutton
   plugins:
     language:
       language_list: un
