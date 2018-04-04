@@ -592,9 +592,21 @@ function openy_update_8046() {
 }
 
 /**
- * Enable font-your-face module.
+ * Enable CKEditor Bootstrap Buttons module and import the settings.
  */
 function openy_update_8047() {
+  // Enable CKEditor Bootstrap Buttons module.
+  \Drupal::service('module_installer')->install(['ckeditor_bootstrap_buttons'], TRUE);
+
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
+
+/**
+ * Enable font-your-face module.
+ */
+function openy_update_8048() {
   \Drupal::service('module_installer')->install(['fontyourface']);
   if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
     $message = $this->t('
