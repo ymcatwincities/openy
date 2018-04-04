@@ -5,6 +5,7 @@
 @import 'promos';
 @import 'camp_du_nord';
 @import 'modal';
+@import 'membership';
 
 /* Give page */
 .path-give {
@@ -127,4 +128,57 @@ section.content {
   @media (min-width: 768px) {
     padding-top: 40px;
   }
+}
+
+.full-width-background-container {
+  position: relative;
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.full-width-background-image {
+  top: 0;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.full-width-background-content {
+  position: relative;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.9);
+  margin: 0 auto;
+  width: 80%;
+  max-width: 748px;
+  padding: 10px 30px 30px;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(50, 50, 50, 0.5);
+  -moz-box-shadow: 0 1px 2px 0 rgba(50, 50, 50, 0.5);
+  box-shadow: 0 1px 2px 0 rgba(50, 50, 50, 0.5);
+}
+
+.ltei9 .full-width-background-content {
+  border: 1px solid #b0b0b0;
+}
+
+.full-width-background-content {
+  .panel-default {
+    &.textpander, &.content-expander {
+      background: none;
+    }
+  }
+  .textpander .panel-heading, .content-expander .panel-heading {
+    background: none;
+  }
+}
+
+.full-width-background-image > img {
+  display: none;
 }
