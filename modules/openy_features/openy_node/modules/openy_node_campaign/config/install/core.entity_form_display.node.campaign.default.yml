@@ -26,9 +26,11 @@ dependencies:
     - field.field.node.campaign.field_campaign_registration_goal
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_stream_type
+    - field.field.node.campaign.field_campaign_technical_name
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
+    - field.field.node.campaign.field_enable_activities_counter
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -50,6 +52,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - image.style.thumbnail
@@ -67,7 +70,6 @@ third_party_settings:
   field_group:
     group_target_audience_settings:
       children:
-        - field_campaign_branches
         - field_campaign_registration_goal
         - field_campaign_utilization_goal
         - field_utilization_activities
@@ -76,7 +78,7 @@ third_party_settings:
         - field_campaign_payment_types
         - group_age_range
       parent_name: ''
-      weight: 14
+      weight: 17
       format_type: fieldset
       format_settings:
         id: ''
@@ -105,7 +107,7 @@ third_party_settings:
         - field_campaign_end_date
         - field_campaign_timezone
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -120,7 +122,7 @@ third_party_settings:
         - field_goal_check_ins_start_date
         - field_goal_check_ins_end_date
       parent_name: ''
-      weight: 13
+      weight: 16
       format_type: fieldset
       format_settings:
         label: 'Visits goal'
@@ -136,7 +138,7 @@ third_party_settings:
         - group_registration_messages
         - group_general_messages
       parent_name: ''
-      weight: 18
+      weight: 21
       format_type: fieldset
       format_settings:
         id: ''
@@ -214,7 +216,7 @@ third_party_settings:
         - field_ways_to_earn_entries
         - field_flip_cards_cover_image
       parent_name: ''
-      weight: 19
+      weight: 22
       format_type: details
       format_settings:
         id: ''
@@ -227,7 +229,7 @@ third_party_settings:
         - field_campaign_pages
         - field_pause_landing_page
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         id: ''
@@ -255,7 +257,7 @@ content:
     region: content
   field_activities_options:
     type: options_buttons
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -295,7 +297,7 @@ content:
     type: number
     region: content
   field_campaign_fitness_category:
-    weight: 15
+    weight: 18
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -325,7 +327,7 @@ content:
     type: string_textfield
     region: content
   field_campaign_image:
-    weight: 8
+    weight: 9
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -408,10 +410,18 @@ content:
     region: content
   field_campaign_stream_type:
     type: options_select
-    weight: 17
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_campaign_technical_name:
+    weight: 8
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_campaign_timezone:
     weight: 21
     settings: {  }
@@ -428,7 +438,7 @@ content:
     third_party_settings: {  }
   field_campaign_winners_prizes:
     type: entity_reference_paragraphs
-    weight: 16
+    weight: 19
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -437,6 +447,13 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
+  field_enable_activities_counter:
+    weight: 14
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_error_default:
     weight: 40
@@ -521,7 +538,7 @@ content:
     type: number
     region: content
   field_pause_campaign:
-    weight: 9
+    weight: 10
     settings:
       display_label: true
     third_party_settings: {  }
@@ -600,6 +617,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_tracking_actv_goal_desc:
+    weight: 15
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_utilization_activities:
     type: options_buttons
     weight: 16
@@ -655,6 +680,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
+  url_redirects:
+    weight: 23
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_campaign_menu: true
   field_campaign_palette: true
