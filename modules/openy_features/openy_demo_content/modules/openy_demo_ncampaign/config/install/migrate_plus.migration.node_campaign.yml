@@ -16,6 +16,7 @@ source:
       title: 'Challenge yourself'
       alias: '/challenge-yourself'
       pause_page_id: challenge_yourself_pause
+      field_campaign_image: 1
       landing_page_ids:
         -
           landing_page_id: challenge_yourself_preview
@@ -64,7 +65,7 @@ process:
   field_campaign_start_date:
     -
       plugin: default_value
-      default_value: '14 September 2017'
+      default_value: '-1 month'
     -
       plugin: callback
       callable: strtotime
@@ -142,10 +143,53 @@ process:
   field_campaign_expected_visits:
       plugin: default_value
       default_value: '3500'
+  # Main campaign image field.
+  field_campaign_image:
+      -
+        plugin: migration
+        migration: openy_demo_ncampaign_media_image
+        source: image
+  # Activities handler.
+  field_activities_options:
+      plugin: default_value
+      default_value:
+        - field_prgf_campaign_activity
+  # Activities handler.
+  #field_campaign_branch_target:
+  #    plugin: default_value
+  #    default_value: '3500'
+  #field_campaign_menu:
+  #    plugin: default_value
+  #    default_value: '3500'
+  field_campaign_palette:
+      plugin: default_value
+      default_value:
+        - purpleorchid
+  # Campaign members register start date.
+  field_campaign_reg_start_date:
+      -
+        plugin: default_value
+        default_value: '-3 days'
+      -
+        plugin: callback
+        callable: strtotime
+      -
+        plugin: date_timestamp
+        to_format: 'Y-m-d\TH:i:s'
+  # Campaign members register end date.
+  field_campaign_reg_end_date:
+      plugin: default_value
+      default_value: '+12 days'
+  # Campaign timezone.
+  field_campaign_timezone:
+      plugin: default_value
+      default_value:
+        - 'America/Chicago'
 destination:
   plugin: 'entity:node'
   default_bundle: campaign
 migration_dependencies:
   required:
     - openy_demo_node_campaign_page
+    - openy_demo_ncampaign_media_image
   optional: {  }
