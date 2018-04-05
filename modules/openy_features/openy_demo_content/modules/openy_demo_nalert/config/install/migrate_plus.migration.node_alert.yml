@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - openy_node_alert
+      - openy_alerts
       - openy_demo_nlanding
 id: openy_demo_node_alert
 migration_tags: {  }

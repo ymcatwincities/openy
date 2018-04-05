@@ -35,8 +35,8 @@ function openy_install() {
   // Enable openy_user after all modules are installed.
   $module_installer->install(['openy_user'], TRUE);
 
-  // Enable openy_node_alert after openy_rose theme is enabled to place blocks.
-  $module_installer->install(['openy_node_alert'], TRUE);
+  // Enable openy_alerts after openy_rose theme is enabled to place blocks.
+  $module_installer->install(['openy_alerts'], TRUE);
 }
 
 /**
@@ -60,12 +60,12 @@ function openy_update_8001() {
  * Enable Alerts.
  */
 function openy_update_8002() {
-  if (\Drupal::service('module_handler')->moduleExists('openy_node_alert')) {
+  if (\Drupal::service('module_handler')->moduleExists('openy_alerts')) {
     return;
   }
 
   // Enable module.
-  \Drupal::service('module_installer')->install(['openy_node_alert']);
+  \Drupal::service('module_installer')->install(['openy_alerts']);
 }
 
 /**
