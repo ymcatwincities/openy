@@ -343,13 +343,30 @@ class MigrationImporter implements MigrationImporterInterface {
    *   Old Page node.
    */
   final public static function migrateSidebarArea(Node $lp_node, Node $node) {
+    $lp_layout = '';
+    $region_sn = $region_sn = 'field_sidebar_content';
     // Check is there content in the field_sidebar.
     $sidebar_content = $node->get('field_sidebar')->value;
-    if (!empty($sidebar_content)) {
-      // Change layout.
-      $lp_node->set('field_lp_layout', 'two_column');
-
-      // Create Simple content paragraph.
+    $sidebar_navigation = $node->get('field_sidebar_navigation')->value;
+    // If only sidebar navigation.
+    if ($sidebar_navigation && empty($sidebar_content)) {
+      $lp_layout = 'two_column_left';
+      $region_sn = 'field_sidebar_content';
+    }
+    // If only sidebar_content.
+    if (empty($sidebar_navigation) && $sidebar_content) {
+      $lp_layout = 'two_column';
+      $region_sc = 'field_sidebar_content';
+    }
+    // If both sidebar content and navigation.
+    if ($sidebar_navigation && !empty($sidebar_content)) {
+      $lp_layout = 'three_columns';
+      $region_sn = 'field_sidebar_content';
+      $region_sc = 'field_sidebar_content_extra';
+    }
+    $lp_node->set('field_lp_layout', $lp_layout);
+    if ($sidebar_content) {
+      // Create block wrapper paragraph.
       $paragraph = Paragraph::create([
         'type' => 'simple_content',
         'field_prgf_description' => [
@@ -358,30 +375,20 @@ class MigrationImporter implements MigrationImporterInterface {
         ],
       ]);
       $paragraph->save();
-
       // Set paragraph to the field.
-      self::addParagraphToField($lp_node, 'field_sidebar_content', $paragraph);
+      self::addParagraphToField($lp_node, $region_sc, $paragraph);
     }
-
-    $sidebar_navigation = $node->get('field_sidebar_navigation')->value;
     if ($sidebar_navigation) {
-//      @todo left column.
-//      $lp_node->set('field_lp_layout', 'two_column');
-      if (!empty($sidebar_content)) {
-        // @todo 3 columns
-//        $lp_node->set('field_lp_layout', 'two_column');
-      }
-//      // Create block wrapper paragraph.
-//      $paragraph = Paragraph::create([
-//        'type' => 'simple_content',
-//        'field_prgf_description' => [
-//          'value' => $sidebar_content,
-//          'format' => $node->get('field_sidebar')->format,
-//        ],
-//      ]);
-//      $paragraph->save();
+      // Create block wrapper paragraph.
+      $paragraph = Paragraph::create([
+        'type' => 'sidebar_menu',
+        'field_prgf_sidebar_menu_ref' => [
+          'plugin_id' => 'sidebar_navigation_block',
+        ],
+      ]);
+      $paragraph->save();
       // Set paragraph to the field.
-//      self::addParagraphToField($lp_node, 'field_sidebar_content', $paragraph);
+      self::addParagraphToField($lp_node, $region_sn, $paragraph);
     }
   }
 
