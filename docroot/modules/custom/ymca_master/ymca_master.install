@@ -5008,9 +5008,42 @@ function ymca_master_update_8231() {
 }
 
 /**
- * Create a new field field_ygtc_content.
+ * Delete old retention entities.
  */
 function ymca_master_update_8232() {
+  $tables_to_truncate = [
+    'ymca_retention_winner',
+    'ymca_retention_member_checkin',
+    'ymca_retention_member_chance',
+    'ymca_retention_member_bonus',
+    'ymca_retention_member_activity',
+    'ymca_retention_member',
+    'tango_card_campaign',
+    'tango_card_account',
+  ];
+
+  foreach ($tables_to_truncate as $table) {
+    db_truncate($table)->execute();
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Disable old retention modules.
+ */
+function ymca_master_update_8233() {
+  \Drupal::service('module_installer')->uninstall([
+    'ymca_retention',
+    'tango_card',
+    'creditfield',
+  ]);
+}
+
+/**
+ * Create a new field field_ygtc_content.
+ */
+function ymca_master_update_8234() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory('sites/default/config/staging/');
   $config_importer->importConfigs(
@@ -5028,7 +5061,7 @@ function ymca_master_update_8232() {
 /**
  * Copy content from field_content to field_ygtc_content.
  */
-function ymca_master_update_8233() {
+function ymca_master_update_8235() {
   db_query("INSERT {node__field_ygtc_content} SELECT * FROM {node__field_content}");
   db_query("INSERT {node_revision__field_ygtc_content} SELECT * FROM {node_revision__field_content}");
 }
@@ -5036,7 +5069,7 @@ function ymca_master_update_8233() {
 /**
  * Replace field_content with field_ygtc_content in all related configs.
  */
-function ymca_master_update_8234() {
+function ymca_master_update_8236() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory('sites/default/config/staging/');
   $config_importer->importConfigs(
@@ -5059,7 +5092,7 @@ function ymca_master_update_8234() {
 /**
  * Replace field_content with field_ygtc_content in all related configs.
  */
-function ymca_master_update_8235() {
+function ymca_master_update_8237() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory('sites/default/config/staging/');
   $config_importer->importConfigs(
@@ -5083,7 +5116,7 @@ function ymca_master_update_8235() {
 /**
  * Delete field_content from node entity type.
  */
-function ymca_master_update_8236() {
+function ymca_master_update_8238() {
   // Deleting field.
   $bundles = ['article', 'camp', 'blog', 'location', 'product'];
   foreach ($bundles as $bundle) {
@@ -5100,7 +5133,7 @@ function ymca_master_update_8236() {
 /**
  * Import field_content storage config from openy_node. Import field_content config from openy_node_landing.
  */
-function ymca_master_update_8237() {
+function ymca_master_update_8239() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory(drupal_get_path('module', 'openy_node') . '/config/install');
   $config_importer->importConfigs(
@@ -5120,7 +5153,7 @@ function ymca_master_update_8237() {
 /**
  * Copy content from field_oy_content to field_content.
  */
-function ymca_master_update_8238() {
+function ymca_master_update_8240() {
   db_query("INSERT {node__field_content} SELECT * FROM {node__field_oy_content}");
   db_query("INSERT {node_revision__field_content} SELECT * FROM {node_revision__field_oy_content}");
 }
@@ -5128,7 +5161,7 @@ function ymca_master_update_8238() {
 /**
  * Delete field_oy_content from node entity type.
  */
-function ymca_master_update_8239() {
+function ymca_master_update_8241() {
   // Deleting field.
   if ($field_config = FieldConfig::loadByName('node', 'landing_page', 'field_oy_content')) {
     $field_config->delete();
@@ -5142,7 +5175,7 @@ function ymca_master_update_8239() {
 /**
  * Install required openy modules.
  */
-function ymca_master_update_8240() {
+function ymca_master_update_8242() {
   \Drupal::service('module_installer')->install([
     'openy_upgrade_tool',
     'rabbit_hole',
@@ -5154,7 +5187,7 @@ function ymca_master_update_8240() {
 /**
  * Update configs.
  */
-function ymca_master_update_8241() {
+function ymca_master_update_8243() {
   $config_importer = \Drupal::service('config_import.importer');
   $path = 'profiles/contrib/openy/modules/openy_features/openy_node/config/install';
   $config_importer->setDirectory($path);
@@ -5207,7 +5240,7 @@ function ymca_master_update_8241() {
 /**
  * Update landing page configs. Rename Old basic block.
  */
-function ymca_master_update_8242() {
+function ymca_master_update_8244() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory('sites/default/config/staging/');
   $config_importer->importConfigs(
@@ -5224,7 +5257,7 @@ function ymca_master_update_8242() {
 /**
  * Install openy modules.
  */
-function ymca_master_update_8243() {
+function ymca_master_update_8245() {
   \Drupal::service('module_installer')->install([
     'admin_toolbar',
     'focal_point',
@@ -5237,7 +5270,7 @@ function ymca_master_update_8243() {
 /**
  * Install openy modules.
  */
-function ymca_master_update_8244() {
+function ymca_master_update_8246() {
   \Drupal::service('module_installer')->install([
     'openy_node_alert',
     'openy_prgf_banner',
@@ -5249,7 +5282,7 @@ function ymca_master_update_8244() {
 /**
  * Install openy modules.
  */
-function ymca_master_update_8245() {
+function ymca_master_update_8247() {
   \Drupal::service('module_installer')->install([
     'openy_prgf_webform',
     'openy_prgf_teaser',
@@ -5260,7 +5293,7 @@ function ymca_master_update_8245() {
 /**
  * Install openy modules.
  */
-function ymca_master_update_8246() {
+function ymca_master_update_8248() {
   \Drupal::service('module_installer')->install([
     'openy_prgf_featured_highlights',
     'openy_prgf_promo_card',
@@ -5271,7 +5304,7 @@ function ymca_master_update_8246() {
 /**
  * Install openy modules.
  */
-function ymca_master_update_8247() {
+function ymca_master_update_8249() {
   \Drupal::service('module_installer')->install([
     'openy_block_flexible_content',
     'openy_prgf_1c',
@@ -5283,7 +5316,7 @@ function ymca_master_update_8247() {
 /**
  * Install openy modules.
  */
-function ymca_master_update_8248() {
+function ymca_master_update_8250() {
   \Drupal::configFactory()->getEditable('views.view.taxonomy_term')->delete();
   \Drupal::service('module_installer')->install([
     'openy_field_holiday_hours',
@@ -5298,7 +5331,7 @@ function ymca_master_update_8248() {
 /**
  * Create taxonomy terms for the Color vocabulary. Rename old paragraphs.
  */
-function ymca_master_update_8249() {
+function ymca_master_update_8251() {
   // Create Taxonomy terms for OpenY.
   \Drupal::service('module_installer')->install([
     'openy_demo_tcolor',
@@ -5321,7 +5354,7 @@ function ymca_master_update_8249() {
 /**
  * Install openy_lily theme. Create block with menu. Create default taxonomy terms for openy.
  */
-function ymca_master_update_8250() {
+function ymca_master_update_8252() {
   \Drupal::service('theme_installer')->install(['openy_lily']);
   \Drupal::service('theme_handler')->setDefault('openy_lily');
 
@@ -5341,7 +5374,7 @@ function ymca_master_update_8250() {
 /**
  * Fill the main menu with links.
  */
-function ymca_master_update_8251() {
+function ymca_master_update_8253() {
   $menu_tree = [
     [
       'title' => 'Programs & Classes',
@@ -5432,7 +5465,7 @@ function ymca_master_update_8251() {
 /**
   * Install Block wrapper.
  */
-function ymca_master_update_8252() {
+function ymca_master_update_8254() {
   \Drupal::service('module_installer')->install([
     'ygtc_prgf_block_wrapper',
   ], TRUE);
@@ -5441,7 +5474,7 @@ function ymca_master_update_8252() {
 /**
  * Install migrate module.
  */
-function ymca_master_update_8253() {
+function ymca_master_update_8255() {
   \Drupal::service('module_installer')->install([
     'ymca_migrate_landing_page',
   ], TRUE);
@@ -5461,7 +5494,7 @@ function ymca_master_update_8253() {
 /**
  * Uninstall ymca_entity_browser.
  */
-function ymca_master_update_8254() {
+function ymca_master_update_8256() {
   \Drupal::service('module_installer')->uninstall([
     'ymca_entity_browser',
   ], TRUE);
@@ -5471,7 +5504,7 @@ function ymca_master_update_8254() {
 /**
  * Update permissions.
  */
-function ymca_master_update_8255() {
+function ymca_master_update_8257() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory(YGTC_CONFDIR);
   $config_importer->importConfigs(
