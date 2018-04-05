@@ -20,8 +20,8 @@ Module has hard dependencies with other modules:
   - menu_ui
   - node
   - openy_node_blog
-  - openy_node_branch
-  - openy_node_camp
+  - openy_loc_branch
+  - openy_loc_camp
   - openy_node_landing
   - openy_node_testimonial
   - options

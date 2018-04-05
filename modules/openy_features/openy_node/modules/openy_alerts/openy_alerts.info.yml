@@ -12,10 +12,10 @@ dependencies:
   - drupal:menu_ui
   - drupal:node
   - openy:openy_node_blog
-  - openy:openy_node_branch
-  - openy:openy_node_camp
+  - openy:openy_loc_branch
+  - openy:openy_loc_camp
   - openy:openy_node_landing
-  - openy:openy_node_testimonial
+#  - openy:openy_node_testimonial
   - drupal:options
   - drupal:path
   - scheduled_updates:scheduled_updates
