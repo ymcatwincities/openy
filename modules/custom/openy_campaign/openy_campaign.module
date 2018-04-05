@@ -649,7 +649,7 @@ function openy_campaign_form_node_campaign_form_alter(&$form, FormStateInterface
  * Implements hook_form_FORM_ID_alter().
  */
 function openy_campaign_form_node_campaign_edit_form_alter(&$form, FormStateInterface $form_state) {
-  $timezone = $form['field_campaign_timezone']['widget'][0]['value']['#default_value'];
+  /*$timezone = $form['field_campaign_timezone']['widget'][0]['value']['#default_value'];
   $site_timezone = date_default_timezone_get();
   if ($timezone != $site_timezone) {
     $timezone_dtz = new DateTimeZone($timezone);
@@ -665,7 +665,7 @@ function openy_campaign_form_node_campaign_edit_form_alter(&$form, FormStateInte
       $converted_date = $locale_date->getDate();
       $form[$field_name]['widget'][0]['value']['#default_value'] = DrupalDateTime::createFromDateTime($converted_date);
     }
-  }
+  }*/
   openy_campaign_campaign_menu_field_render($form, $form_state);
 
   // Show "Enable Activities Counter" checkbox if only "Tracking Activity" is checked.
