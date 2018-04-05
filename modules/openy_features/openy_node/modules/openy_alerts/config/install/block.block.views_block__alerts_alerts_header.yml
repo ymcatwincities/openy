@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.alerts
+  module:
+    - views
+  theme:
+    - ygh
+id: views_block__alerts_alerts_header
+theme: ygh
+region: header
+weight: 0
+provider: null
+plugin: 'views_block:alerts-alerts_header'
+settings:
+  id: 'views_block:alerts-alerts_header'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility: {  }

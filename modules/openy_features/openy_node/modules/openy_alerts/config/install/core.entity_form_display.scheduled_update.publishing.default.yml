@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.scheduled_update.publishing.field_status
+    - scheduled_updates.scheduled_update_type.publishing
+id: scheduled_update.publishing.default
+targetEntityType: scheduled_update
+bundle: publishing
+mode: default
+content:
+  field_status:
+    weight: -8
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+  update_timestamp:
+    type: datetime_timestamp
+    weight: -9
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

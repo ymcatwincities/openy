@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function openy_alerts_preprocess_node(&$variables) {
+  $node = $variables['node'];
+
+  if ($node->bundle() != 'alert') {
+    return;
+  }
+
+  $variables['#elements']['#attached'][] = 'openy_alerts/alerts';
+  $variables['attributes']['data-nid'] = $node->id();
+  $variation_class_array = ['site-alert'];
+  $variables['attributes']['class'][] = implode('--', $variation_class_array);
+
+  if ($node->hasField('field_alert_place')) {
+    if ($values = $node->field_alert_place->getValue()) {
+      $variables['placement'] = $values['0']['value'];
+      $variation_class_array[] = $variables['placement'];
+      $variables['attributes']['class'][] = implode('--', $variation_class_array);
+    }
+  }
+
+  if ($node->hasField('field_alert_color')) {
+    if ($values = $node->field_alert_color->getValue()) {
+      $variables['color'] = $values['0']['value'];
+      $variation_class_array[] = $variables['color'];
+      $variables['attributes']['class'][] = implode('--', $variation_class_array);
+    }
+  }
+}

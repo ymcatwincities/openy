@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.modal_alert
+    - field.field.node.alert.field_alert_belongs
+    - field.field.node.alert.field_alert_body
+    - field.field.node.alert.field_alert_color
+    - field.field.node.alert.field_alert_link
+    - field.field.node.alert.field_alert_place
+    - field.field.node.alert.scheduled_status
+    - node.type.alert
+  module:
+    - link
+    - text
+    - user
+id: node.alert.modal_alert
+targetEntityType: node
+bundle: alert
+mode: modal_alert
+content:
+  field_alert_body:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_alert_link:
+    type: link
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+hidden:
+  field_alert_belongs: true
+  field_alert_color: true
+  field_alert_place: true
+  langcode: true
+  links: true
+  scheduled_status: true

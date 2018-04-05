@@ -1,0 +1,26 @@
+name: 'OpenY Alerts'
+description: 'Provide alerts for OpenY.'
+type: module
+core: 8.x
+dependencies:
+  - drupal:block
+  - drupal:content_moderation
+  - drupal:field
+  - inline_entity_form:inline_entity_form
+  - drupal:language
+  - drupal:link
+  - drupal:menu_ui
+  - drupal:node
+  - openy:openy_node_blog
+  - openy:openy_node_branch
+  - openy:openy_node_camp
+  - openy:openy_node_landing
+  - openy:openy_node_testimonial
+  - drupal:options
+  - drupal:path
+  - scheduled_updates:scheduled_updates
+  - slick_views:slick_views
+  - drupal:text
+  - drupal:user
+  - drupal:views
+version: 8.x-1.2  
