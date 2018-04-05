@@ -192,7 +192,20 @@
     }
 
     .nav-level-1.navbar-nav {
-      margin-left: 72px;
+      margin-left: 120px;
+    }
+
+    .nav-level-2 {
+      &:first-child a {
+        padding-left: 0;
+      }
+      > a {
+        @include breakpoint($screen-lg-desktop) {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+
+      }
     }
 
     .nav-level-3 {
@@ -251,7 +264,7 @@
       border-left: 1px solid $light-grey;
       border-right: 1px solid $light-grey;
       border-bottom: 1px solid $dark-blue;
-      margin-top: -1px;
+      margin-top: -2px;
 
       > .dropdown-menu {
         margin-top: -1px;
@@ -267,6 +280,7 @@
         @include breakpoint($screen-lg-desktop) {
           padding: 10px 25px 10px 25px;
           margin: 0;
+          top: 1px;
         }
       }
     }
