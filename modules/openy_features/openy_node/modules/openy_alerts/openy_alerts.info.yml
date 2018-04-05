@@ -18,7 +18,7 @@ dependencies:
 #  - openy:openy_node_testimonial
   - drupal:options
   - drupal:path
-  - scheduled_updates:scheduled_updates
+#  - scheduled_updates:scheduled_updates
   - slick_views:slick_views
   - drupal:text
   - drupal:user
