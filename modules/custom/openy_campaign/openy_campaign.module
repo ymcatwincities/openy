@@ -713,6 +713,7 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
     }
     $campaignMenu = $campaign->get('field_campaign_menu')->getValue();
 
+
     if (!empty($campaignMenu)) {
       $campaignMenu = unserialize($campaign->field_campaign_menu->value);
     }

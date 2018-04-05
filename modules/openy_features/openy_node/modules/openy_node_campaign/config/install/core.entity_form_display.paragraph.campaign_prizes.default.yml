@@ -5,6 +5,8 @@ dependencies:
     - field.field.paragraph.campaign_prizes.field_prgf_prize_amount
     - field.field.paragraph.campaign_prizes.field_prgf_prize_description
     - paragraphs.paragraphs_type.campaign_prizes
+  module:
+    - content_moderation
 id: paragraph.campaign_prizes.default
 targetEntityType: paragraph
 bundle: campaign_prizes
@@ -25,6 +27,12 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
 hidden:
   created: true
   status: true

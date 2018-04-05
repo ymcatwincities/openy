@@ -30,6 +30,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
+    - field.field.node.campaign.field_enable_activities_counter
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -51,6 +52,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - node.type.campaign
@@ -100,6 +102,7 @@ hidden:
   field_campaign_timezone: true
   field_campaign_utilization_goal: true
   field_campaign_winners_prizes: true
+  field_enable_activities_counter: true
   field_error_default: true
   field_error_member_is_inactive: true
   field_error_membership_id: true
@@ -121,6 +124,7 @@ hidden:
   field_token_check_back_date: true
   field_token_login_link_text: true
   field_token_register_link_text: true
+  field_tracking_actv_goal_desc: true
   field_utilization_activities: true
   field_ways_to_earn_entries: true
   langcode: true
