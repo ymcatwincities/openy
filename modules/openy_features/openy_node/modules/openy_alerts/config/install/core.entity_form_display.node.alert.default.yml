@@ -1,0 +1,109 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.alert.field_alert_belongs
+    - field.field.node.alert.field_alert_body
+    - field.field.node.alert.field_alert_color
+    - field.field.node.alert.field_alert_link
+    - field.field.node.alert.field_alert_place
+    - field.field.node.alert.scheduled_status
+    - node.type.alert
+  module:
+    - content_moderation
+    - inline_entity_form
+    - link
+    - path
+    - text
+id: node.alert.default
+targetEntityType: node
+bundle: alert
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+  field_alert_belongs:
+    type: entity_reference_autocomplete_tags
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_alert_body:
+    weight: 9
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_alert_color:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_alert_link:
+    weight: 8
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_alert_place:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  langcode:
+    type: language_select
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    third_party_settings: {  }
+  scheduled_status:
+    type: inline_entity_form_complex
+    weight: 12
+    settings:
+      override_labels: true
+      label_singular: Status
+      label_plural: Statuss
+      allow_new: true
+      match_operator: CONTAINS
+      allow_existing: false
+      form_mode: default
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
