@@ -108,3 +108,14 @@ $logger_entity = array_shift($entities);
 $logger_entity->set('field_config_path', '');
 $logger_entity->save();
 ```
+
+
+- **Helpful code for devel.**
+Delete all logger entities.
+```php
+$logger_entity_storage = \Drupal::service('entity_type.manager')->getStorage('logger_entity');
+$entities = $logger_entity_storage->loadMultiple();
+foreach ($entities as $entity){
+  $entity->delete();
+}
+```
