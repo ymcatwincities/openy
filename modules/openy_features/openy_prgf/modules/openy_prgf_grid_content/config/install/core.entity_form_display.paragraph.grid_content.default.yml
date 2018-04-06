@@ -18,7 +18,7 @@ content:
     settings:
       title: Columns
       title_plural: 'Grid column'
-      edit_mode: open
+      edit_mode: closed
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
