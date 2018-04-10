@@ -1,19 +1,19 @@
 langcode: en
 status: true
 dependencies:
+  module:
+    - system
   theme:
     - openy_campaign_theme
-id: openy_campaign_theme_tabs
+id: openy_campaign_theme_content
 theme: openy_campaign_theme
 region: content
-weight: -5
+weight: -8
 provider: null
-plugin: local_tasks_block
+plugin: system_main_block
 settings:
-  id: local_tasks_block
-  label: Tabs
-  provider: core
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
   label_display: '0'
-  primary: true
-  secondary: true
 visibility: {  }

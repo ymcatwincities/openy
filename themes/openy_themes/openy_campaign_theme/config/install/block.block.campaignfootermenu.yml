@@ -10,7 +10,7 @@ dependencies:
 id: campaignfootermenu
 theme: openy_campaign_theme
 region: footer_menus
-weight: -5
+weight: -11
 provider: null
 plugin: 'system_menu_block:campaign-footer-menu'
 settings:

@@ -51,7 +51,6 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
-    - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - node.type.campaign
@@ -408,7 +407,6 @@ hidden:
   field_campaign_utilization_goal: true
   field_pause_campaign: true
   field_token_register_link_text: true
-  field_tracking_actv_goal_desc: true
   field_utilization_activities: true
   langcode: true
   links: true

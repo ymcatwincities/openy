@@ -51,13 +51,11 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
-    - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - image.style.thumbnail
     - node.type.campaign
   module:
-    - content_moderation
     - datetime
     - field_group
     - image
@@ -627,12 +625,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  moderation_state:
-    type: moderation_state_default
-    weight: 100
-    settings: {  }
-    region: content
-    third_party_settings: {  }
   path:
     type: path
     weight: 7
@@ -646,13 +638,6 @@ content:
     weight: 4
     third_party_settings: {  }
     region: content
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 120
-    region: content
-    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
@@ -685,6 +670,5 @@ content:
 hidden:
   field_campaign_menu: true
   field_campaign_palette: true
-  field_tracking_actv_goal_desc: true
   publish_on: true
   unpublish_on: true

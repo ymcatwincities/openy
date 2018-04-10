@@ -7,7 +7,6 @@ dependencies:
   - better_exposed_filters
   - block
   - block_content
-  - content_moderation
   - csv_serialization
   - ctools
   - datalayer
