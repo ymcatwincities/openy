@@ -5,7 +5,7 @@ dependencies:
     - openy_campaign
   theme:
     - openy_campaign_theme
-id: campaignusermenublock_3
+id: campaignusermenublock_2
 theme: openy_campaign_theme
 region: mobile_menu
 weight: 0

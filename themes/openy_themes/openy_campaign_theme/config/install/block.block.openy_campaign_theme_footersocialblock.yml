@@ -10,7 +10,7 @@ dependencies:
 id: openy_campaign_theme_footersocialblock
 theme: openy_campaign_theme
 region: footer_social
-weight: -5
+weight: -11
 provider: null
 plugin: 'block_content:e350fe26-bc73-4c69-af18-a51a052dbcd3'
 settings:

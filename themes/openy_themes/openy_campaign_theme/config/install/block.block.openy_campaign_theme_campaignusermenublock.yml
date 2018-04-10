@@ -5,15 +5,15 @@ dependencies:
     - openy_campaign
   theme:
     - openy_campaign_theme
-id: campaignmenublock
+id: openy_campaign_theme_campaignusermenublock
 theme: openy_campaign_theme
-region: primary_menu
-weight: 0
+region: secondary_menu
+weight: -9
 provider: null
-plugin: campaign_menu_block
+plugin: campaign_user_menu_block
 settings:
-  id: campaign_menu_block
-  label: 'Campaign menu block'
+  id: campaign_user_menu_block
+  label: 'Campaign user menu block'
   provider: openy_campaign
   label_display: '0'
 visibility: {  }

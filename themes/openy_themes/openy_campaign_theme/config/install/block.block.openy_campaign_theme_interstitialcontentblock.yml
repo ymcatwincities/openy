@@ -8,7 +8,7 @@ dependencies:
 id: openy_campaign_theme_interstitialcontentblock
 theme: openy_campaign_theme
 region: content
-weight: -3
+weight: -7
 provider: null
 plugin: interstitial_content_block
 settings:
