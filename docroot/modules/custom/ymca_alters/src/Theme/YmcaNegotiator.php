@@ -12,6 +12,13 @@ use Drupal\Core\Theme\ThemeNegotiatorInterface;
 class YmcaNegotiator implements ThemeNegotiatorInterface {
 
   /**
+   * Routes array.
+   *
+   * @var array
+   */
+  protected $routes;
+
+  /**
    * The entity manager.
    *
    * @var \Drupal\Core\Entity\EntityManagerInterface
@@ -26,12 +33,19 @@ class YmcaNegotiator implements ThemeNegotiatorInterface {
    */
   public function __construct(EntityManagerInterface $entity_manager) {
     $this->entityManager = $entity_manager;
+    $this->routes = [
+      'ymca_groupex.all_schedules_search',
+      'ymca_groupex.all_schedules_search_results',
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function applies(RouteMatchInterface $route_match) {
+    if (in_array($route_match->getRouteName(), $this->routes)) {
+      return TRUE;
+    }
     if ($route_match->getRouteName() == 'entity.node.canonical' && $node = $route_match->getParameter('node')) {
       if ($node->bundle() == 'article' || $node->bundle() == 'location' || $node->bundle() == 'camp') {
         return TRUE;
