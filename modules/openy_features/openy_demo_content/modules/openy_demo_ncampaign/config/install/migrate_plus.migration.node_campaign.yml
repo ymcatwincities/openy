@@ -16,7 +16,7 @@ source:
       title: 'Challenge yourself'
       alias: '/challenge-yourself'
       pause_page_id: challenge_yourself_pause
-      field_campaign_image: 1
+      image: 1
       landing_page_ids:
         -
           landing_page_id: challenge_yourself_preview
@@ -26,6 +26,66 @@ source:
           landing_page_id: challenge_yourself_started
         -
           landing_page_id: challenge_yourself_completed
+
+      campaign_menu_data:
+        -
+          landing_page_id: challenge_yourself_started
+          links:
+            -
+              page: challenge_yourself_started
+              title: Challenge
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_rules
+              title: Detailed Rules
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_my_progress
+              title: My Progress
+              weight: 0
+              logged: 0
+        -
+          landing_page_id: challenge_yourself_preview
+          links:
+            -
+              page: challenge_yourself_preview
+              title: Pre-registration
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_rules
+              title: Detailed Rules
+              weight: 0
+              logged: 0
+        -
+          landing_page_id: challenge_yourself_preview
+          links:
+            -
+              page: challenge_yourself_preview
+              title: Pre-registration
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_rules
+              title: Detailed Rules
+              weight: 0
+              logged: 0
+
+        -
+          landing_page_id: challenge_yourself_preview
+          links:
+            -
+              page: challenge_yourself_preview
+              title: Pre-registration
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_rules
+              title: Detailed Rules
+              weight: 0
+              logged: 0
   ids:
     id:
       type: string
@@ -48,9 +108,6 @@ process:
     plugin: get
     source: alias
 
-  field_campaign_menu:
-     plugin: default_value
-     default_value: 'a:5:{i:66;a:1:{s:5:"links";a:5:{i:0;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"66";}}s:6:"weight";s:0:"";s:5:"title";s:9:"Challenge";s:6:"logged";i:0;}i:1;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:3:"398";}}s:6:"weight";s:0:"";s:5:"title";s:19:"About the Challenge";s:6:"logged";i:0;}i:2;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"70";}}s:6:"weight";s:0:"";s:5:"title";s:11:"My Progress";s:6:"logged";s:1:"1";}i:3;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"68";}}s:6:"weight";s:0:"";s:5:"title";s:14:"Detailed Rules";s:6:"logged";i:0;}i:4;a:4:{s:4:"page";N;s:6:"weight";s:0:"";s:5:"title";s:0:"";s:6:"logged";i:0;}}}i:64;a:1:{s:5:"links";a:5:{i:0;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"64";}}s:6:"weight";s:0:"";s:5:"title";s:16:"Pre-registration";s:6:"logged";i:0;}i:1;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"68";}}s:6:"weight";s:0:"";s:5:"title";s:14:"Detailed Rules";s:6:"logged";i:0;}i:2;a:4:{s:4:"page";N;s:6:"weight";s:0:"";s:5:"title";s:0:"";s:6:"logged";i:0;}i:3;a:4:{s:4:"page";N;s:6:"weight";s:0:"";s:5:"title";s:0:"";s:6:"logged";i:0;}i:4;a:4:{s:4:"page";N;s:6:"weight";s:0:"";s:5:"title";s:0:"";s:6:"logged";i:0;}}}i:65;a:1:{s:5:"links";a:5:{i:0;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"65";}}s:6:"weight";s:0:"";s:5:"title";s:8:"Register";s:6:"logged";i:0;}i:1;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:3:"398";}}s:6:"weight";s:0:"";s:5:"title";s:5:"About";s:6:"logged";i:0;}i:2;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"68";}}s:6:"weight";s:0:"";s:5:"title";s:14:"Detailed Rules";s:6:"logged";i:0;}i:3;a:4:{s:4:"page";N;s:6:"weight";s:0:"";s:5:"title";s:0:"";s:6:"logged";i:0;}i:4;a:4:{s:4:"page";N;s:6:"weight";s:0:"";s:5:"title";s:0:"";s:6:"logged";i:0;}}}i:399;a:1:{s:5:"links";a:5:{i:0;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:3:"399";}}s:6:"weight";s:1:"1";s:5:"title";s:9:"Challenge";s:6:"logged";i:0;}i:1;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"68";}}s:6:"weight";s:1:"2";s:5:"title";s:14:"Detailed Rules";s:6:"logged";i:0;}i:2;a:4:{s:4:"page";N;s:6:"weight";s:1:"3";s:5:"title";s:0:"";s:6:"logged";i:0;}i:3;a:4:{s:4:"page";N;s:6:"weight";s:1:"4";s:5:"title";s:0:"";s:6:"logged";i:0;}i:4;a:4:{s:4:"page";N;s:6:"weight";s:1:"5";s:5:"title";s:0:"";s:6:"logged";i:0;}}}i:67;a:1:{s:5:"links";a:5:{i:0;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"67";}}s:6:"weight";s:0:"";s:5:"title";s:7:"Winners";s:6:"logged";i:0;}i:1;a:4:{s:4:"page";a:1:{i:0;a:1:{s:9:"target_id";s:2:"68";}}s:6:"weight";s:0:"";s:5:"title";s:5:"Rules";s:6:"logged";i:0;}i:2;a:4:{s:4:"page";N;s:6:"weight";s:0:"";s:5:"title";s:0:"";s:6:"logged";i:0;}i:3;a:4:{s:4:"page";N;s:6:"weight";s:0:"";s:5:"title";s:0:"";s:6:"logged";i:0;}i:4;a:4:{s:4:"page";N;s:6:"weight";s:0:"";s:5:"title";s:0:"";s:6:"logged";i:0;}}}}'
 
   field_campaign_pages:
     plugin: iterator
@@ -60,6 +117,32 @@ process:
         plugin: migration
         migration: openy_demo_node_campaign_page
         source: landing_page_id
+
+
+  field_campaign_menu:
+    plugin: iterator
+    source: landing_page_ids
+    process:
+      target_id:
+        -
+          plugin: entity_lookup
+          source: landing_page_id
+        -
+          plugin: campaign_menu
+          #source: '@field_campaign_pages'
+      #lndr: landing_page_ids
+
+     #-
+      # plugin: get
+      # source: '@field_campaign_pages'
+       #plugin: migration_lookup
+       #migration: openy_demo_node_campaign_page
+       #source: landing_page_ids
+       #destination: testt
+     #-
+      # plugin: campaign_menu
+      # source: campaign_menu_data
+
   pause_target_id:
     plugin: migration
     migration: openy_demo_node_campaign_page
@@ -165,9 +248,6 @@ process:
   #field_campaign_branch_target:
   #    plugin: default_value
   #    default_value: '3500'
-  #field_campaign_menu:
-  #    plugin: default_value
-  #    default_value: '3500'
   field_campaign_palette:
       plugin: default_value
       default_value:
@@ -207,8 +287,6 @@ process:
   #  default_value:
   #    - 'America/Chicago'
 
-  #field_campaign_expected_visits - e
-  #field_campaign_fitness_category - e
   #field_flip_cards_cover_image
 
   #field_campaign_game_description
@@ -235,35 +313,24 @@ process:
   #    default_value:
   #      - 'America/Chicago'
 
-  #field_goal_check_ins_end_date - e
-  #field_goal_check_ins_start_date - e
-
   #field_error_membership_id
   #field_login_checkins_not_started
-  #field_token_login_link_text - e
   #field_successful_login
   #field_campaign_age_maximum
-  #field_limit_visits_goal - e
   #field_reg_already_registered
   #field_error_member_is_inactive
   #field_error_target_audience
   #field_login_not_registered
-  #field_campaign_membership_u_t - e
   #field_campaign_age_minimum
-  #field_min_visits_goal - e
   #field_pause_campaign
-  #field_pause_landing_page -e
-  #field_campaign_payment_types -e
   #field_campaign_prize_coefficient
   #field_campaign_prize_nowin
   #field_register_form_text
   #field_campaign_registration_goal
-  #field_token_register_link_text - e
   #field_reg_checkins_not_started
   #field_successful_registration
   #field_utilization_activities
   #field_campaign_utilization_goal
-  #field_ways_to_earn_entries - e
   #field_campaign_winners_prizes
   #field_campaign_stream_type
 

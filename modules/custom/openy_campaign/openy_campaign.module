@@ -712,8 +712,6 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
       }
     }
     $campaignMenu = $campaign->get('field_campaign_menu')->getValue();
-
-
     if (!empty($campaignMenu)) {
       $campaignMenu = unserialize($campaign->field_campaign_menu->value);
     }
@@ -812,6 +810,7 @@ function openy_campaign_campaign_menu_field_submit(&$form, FormStateInterface $f
   if (empty($campaignMenu)) {
     return;
   }
+
   /** @var Drupal\node\Entity\Node $campaign */
   if ($campaign = $form_state->getFormObject()->getEntity()) {
     $campaign->set('field_campaign_menu', serialize($campaignMenu));
