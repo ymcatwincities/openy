@@ -341,6 +341,7 @@ class MindbodyResultsController extends ControllerBase {
         'class' => [
           'use-ajax',
           'button',
+          'btn',
         ],
         'data-dialog-type' => 'modal',
         'id' => 'bookable-item-' . $query['bid'],

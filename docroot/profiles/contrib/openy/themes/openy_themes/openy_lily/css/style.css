@@ -319,12 +319,12 @@ body {
     margin-right: 20px;
   }
 }
-.footer .footer__social form .btn, .footer .footer__social form .button {
+.footer .footer__social form .btn, .footer .footer__social form .button, .footer .footer__social form .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .footer .footer__social form a {
   float: left;
   height: 40px;
 }
 @media (min-width: 0) and (max-width: 30em) {
-  .footer .footer__social form .btn, .footer .footer__social form .button {
+  .footer .footer__social form .btn, .footer .footer__social form .button, .footer .footer__social form .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .footer .footer__social form a {
     float: none;
     width: 30%;
     padding: 10px;
@@ -1052,7 +1052,7 @@ body {
   padding: 6px 12px 6px 5px;
 }
 
-.btn, .button {
+.btn, .button, .ui-widget.ui-dialog.confirmation-popup .content-button a {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   background-image: none;
   border-radius: 0;
@@ -1060,28 +1060,28 @@ body {
   text-shadow: none;
   text-transform: uppercase;
 }
-.btn.blue a, .blue.button a, .modal-body .button a {
+.btn.blue a, .blue.button a, .modal-body .button a, .modal-body .ui-widget.ui-dialog.confirmation-popup .content-button a.button a, .ui-widget.ui-dialog.confirmation-popup .content-button .modal-body a.button a, .ui-widget.ui-dialog.confirmation-popup .content-button a.blue a {
   text-decoration: none;
 }
-.btn.white-blue, .white-blue.button {
+.btn.white-blue, .white-blue.button, .ui-widget.ui-dialog.confirmation-popup .content-button a.white-blue {
   background-color: #fff;
   color: #00aeef;
   border: 1px solid #00aeef;
 }
-.btn.white-blue a, .white-blue.button a {
+.btn.white-blue a, .white-blue.button a, .ui-widget.ui-dialog.confirmation-popup .content-button a.white-blue a {
   color: #00aeef;
   text-decoration: none;
 }
-.btn.transparent-blue, .transparent-blue.button {
+.btn.transparent-blue, .transparent-blue.button, .ui-widget.ui-dialog.confirmation-popup .content-button a.transparent-blue {
   background-color: transparent;
   color: #0089d0;
   border: 1px solid #0089d0;
 }
-.btn.transparent-blue a, .transparent-blue.button a {
+.btn.transparent-blue a, .transparent-blue.button a, .ui-widget.ui-dialog.confirmation-popup .content-button a.transparent-blue a {
   color: #0089d0;
   text-decoration: none;
 }
-.btn.btn-link, .btn-link.button {
+.btn.btn-link, .btn-link.button, .ui-widget.ui-dialog.confirmation-popup .content-button a.btn-link {
   text-decoration: none;
 }
 
@@ -1569,23 +1569,23 @@ body {
     line-height: 23px;
   }
 }
-.paragraph-gallery .cta-group-wrapper .cta-group .btn, .paragraph-gallery .cta-group-wrapper .cta-group .button {
+.paragraph-gallery .cta-group-wrapper .cta-group .btn, .paragraph-gallery .cta-group-wrapper .cta-group .button, .paragraph-gallery .cta-group-wrapper .cta-group .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph-gallery .cta-group-wrapper .cta-group a {
   white-space: normal;
   font-size: 18px;
   padding: 0px;
   width: 100%;
 }
 @media (min-width: 48em) {
-  .paragraph-gallery .cta-group-wrapper .cta-group .btn, .paragraph-gallery .cta-group-wrapper .cta-group .button {
+  .paragraph-gallery .cta-group-wrapper .cta-group .btn, .paragraph-gallery .cta-group-wrapper .cta-group .button, .paragraph-gallery .cta-group-wrapper .cta-group .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph-gallery .cta-group-wrapper .cta-group a {
     font-size: 20px;
   }
 }
-.paragraph-gallery .cta-group-wrapper .cta-group .btn a, .paragraph-gallery .cta-group-wrapper .cta-group .button a {
+.paragraph-gallery .cta-group-wrapper .cta-group .btn a, .paragraph-gallery .cta-group-wrapper .cta-group .button a, .paragraph-gallery .cta-group-wrapper .cta-group .ui-widget.ui-dialog.confirmation-popup .content-button a a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph-gallery .cta-group-wrapper .cta-group a a {
   display: block;
   padding: 12px;
 }
 @media (min-width: 64.0625em) {
-  .paragraph-gallery .cta-group-wrapper .cta-group .btn a, .paragraph-gallery .cta-group-wrapper .cta-group .button a {
+  .paragraph-gallery .cta-group-wrapper .cta-group .btn a, .paragraph-gallery .cta-group-wrapper .cta-group .button a, .paragraph-gallery .cta-group-wrapper .cta-group .ui-widget.ui-dialog.confirmation-popup .content-button a a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph-gallery .cta-group-wrapper .cta-group a a {
     padding: 15px;
   }
 }
@@ -1686,18 +1686,18 @@ body {
   line-height: 1.2;
   margin: 0 0 10px;
 }
-.promo-card .btn, .promo-card .button {
+.promo-card .btn, .promo-card .button, .promo-card .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .promo-card a {
   white-space: normal;
   font-size: 20px;
   padding: 0px;
   width: 100%;
 }
-.promo-card .btn a, .promo-card .button a {
+.promo-card .btn a, .promo-card .button a, .promo-card .ui-widget.ui-dialog.confirmation-popup .content-button a a, .ui-widget.ui-dialog.confirmation-popup .content-button .promo-card a a {
   display: block;
   padding: 16px;
 }
 @media (min-width: 48em) {
-  .promo-card .btn a, .promo-card .button a {
+  .promo-card .btn a, .promo-card .button a, .promo-card .ui-widget.ui-dialog.confirmation-popup .content-button a a, .ui-widget.ui-dialog.confirmation-popup .content-button .promo-card a a {
     padding: 10px;
   }
 }
@@ -1980,19 +1980,19 @@ body {
 .paragraph.featured-content .h1 {
   padding-bottom: 4px;
 }
-.paragraph.featured-content .btn, .paragraph.featured-content .button {
+.paragraph.featured-content .btn, .paragraph.featured-content .button, .paragraph.featured-content .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph.featured-content a {
   white-space: normal;
   display: inline-block;
   width: 90%;
   padding: 15px 0;
 }
 @media (min-width: 30em) {
-  .paragraph.featured-content .btn, .paragraph.featured-content .button {
+  .paragraph.featured-content .btn, .paragraph.featured-content .button, .paragraph.featured-content .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph.featured-content a {
     width: auto;
     padding: 6px 12px;
   }
 }
-.paragraph.featured-content .btn a, .paragraph.featured-content .button a {
+.paragraph.featured-content .btn a, .paragraph.featured-content .button a, .paragraph.featured-content .ui-widget.ui-dialog.confirmation-popup .content-button a a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph.featured-content a a {
   font-size: 20px;
   font-weight: 600;
   line-height: normal;
@@ -2000,7 +2000,7 @@ body {
   display: inline-block;
 }
 @media (min-width: 30em) {
-  .paragraph.featured-content .btn a, .paragraph.featured-content .button a {
+  .paragraph.featured-content .btn a, .paragraph.featured-content .button a, .paragraph.featured-content .ui-widget.ui-dialog.confirmation-popup .content-button a a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph.featured-content a a {
     line-height: 50px;
   }
 }
@@ -2523,14 +2523,14 @@ body {
     padding-right: 0;
   }
 }
-.subprogram-listing-item .content .btn, .subprogram-listing-item .content .button {
+.subprogram-listing-item .content .btn, .subprogram-listing-item .content .button, .subprogram-listing-item .content .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .subprogram-listing-item .content a {
   display: block;
   font-size: 18px;
   padding: 12px;
   margin-top: 15px;
 }
 @media (min-width: 48em) {
-  .subprogram-listing-item .content .btn, .subprogram-listing-item .content .button {
+  .subprogram-listing-item .content .btn, .subprogram-listing-item .content .button, .subprogram-listing-item .content .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .subprogram-listing-item .content a {
     max-width: 360px;
     font-size: 20px;
     padding: 16px;
@@ -4119,7 +4119,7 @@ html.js .branch__updates_queue__button {
   font-size: 15px;
   color: #4a4a4a;
 }
-.class-page-schedule .btn, .class-page-schedule .button {
+.class-page-schedule .btn, .class-page-schedule .button, .class-page-schedule .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .class-page-schedule a {
   width: 100%;
   font-size: 20px;
   font-weight: bold;
@@ -4490,7 +4490,7 @@ a[href="#step2"] {
   position: absolute;
   width: 100%;
 }
-#membership-calc-wrapper .btn, #membership-calc-wrapper .button {
+#membership-calc-wrapper .btn, #membership-calc-wrapper .button, #membership-calc-wrapper .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button #membership-calc-wrapper a {
   line-height: 40px;
   font-size: 20px;
   font-weight: bold;
@@ -4508,7 +4508,7 @@ a[href="#step2"] {
   position: relative;
   width: 100%;
 }
-#membership-calc-wrapper .form-element-wrapper .btn, #membership-calc-wrapper .form-element-wrapper .button {
+#membership-calc-wrapper .form-element-wrapper .btn, #membership-calc-wrapper .form-element-wrapper .button, #membership-calc-wrapper .form-element-wrapper .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button #membership-calc-wrapper .form-element-wrapper a {
   display: block;
 }
 #membership-calc-wrapper input[name="type"] {
@@ -4539,7 +4539,7 @@ a[href="#step2"] {
   margin-bottom: 10px;
   width: 100%;
 }
-#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn, #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button {
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn, #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button, #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label a {
   background-color: #5c2e91;
   box-shadow: 0 0 5px #5c2e91;
 }
@@ -5530,13 +5530,13 @@ html.js .flag-waiting .flag-throbber {
   display: block;
   width: 100%;
 }
-.block-description--4 .field-prgf-4c-button .btn, .block-description--4 .field-prgf-4c-button .button {
+.block-description--4 .field-prgf-4c-button .btn, .block-description--4 .field-prgf-4c-button .button, .block-description--4 .field-prgf-4c-button .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .block-description--4 .field-prgf-4c-button a {
   font-size: 14px;
   padding-left: 20px;
   padding-right: 20px;
 }
 @media (min-width: tablet) {
-  .block-description--4 .field-prgf-4c-button .btn, .block-description--4 .field-prgf-4c-button .button {
+  .block-description--4 .field-prgf-4c-button .btn, .block-description--4 .field-prgf-4c-button .button, .block-description--4 .field-prgf-4c-button .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .block-description--4 .field-prgf-4c-button a {
     font-size: 20px;
   }
 }
@@ -5827,14 +5827,14 @@ article .node--view-mode-flexible-content h2 a span {
     padding: 10px 20px 0 20px;
   }
 }
-.paragraph--type--lto .btn, .paragraph--type--lto .button {
+.paragraph--type--lto .btn, .paragraph--type--lto .button, .paragraph--type--lto .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph--type--lto a {
   white-space: normal;
   font-size: 18px;
   padding: 0;
   width: 100%;
   border: 1px solid white;
 }
-.paragraph--type--lto .btn a, .paragraph--type--lto .button a {
+.paragraph--type--lto .btn a, .paragraph--type--lto .button a, .paragraph--type--lto .ui-widget.ui-dialog.confirmation-popup .content-button a a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph--type--lto a a {
   display: block;
   padding: 12px;
   color: white;
@@ -6707,7 +6707,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 .pink-button, [data-drupal-selector="edit-cancel"],
 [data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
-[data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, .edit-registration-actions .fieldset-wrapper a.button, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .button, [data-drupal-selector="edit-add-to-cart"],
+[data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, .edit-registration-actions .fieldset-wrapper a.button, .edit-registration-actions .fieldset-wrapper .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .edit-registration-actions .fieldset-wrapper a, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .button, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group a, [data-drupal-selector="edit-add-to-cart"],
 .remove-from-cart-button, [data-drupal-selector="edit-checkout"],
 .cart-item-remove-button,
 .cart-item-activate-coupon-button,
@@ -6730,7 +6730,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 .pink-button:hover, [data-drupal-selector="edit-cancel"]:hover,
 [data-drupal-selector="edit-submit"]:hover,
 [data-drupal-selector="edit-login"]:hover,
-[data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .edit-registration-actions .fieldset-wrapper a.button:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .button:hover, [data-drupal-selector="edit-add-to-cart"]:hover,
+[data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .edit-registration-actions .fieldset-wrapper a.button:hover, .edit-registration-actions .fieldset-wrapper .ui-widget.ui-dialog.confirmation-popup .content-button a:hover, .ui-widget.ui-dialog.confirmation-popup .content-button .edit-registration-actions .fieldset-wrapper a:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .button:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .ui-widget.ui-dialog.confirmation-popup .content-button a:hover, .ui-widget.ui-dialog.confirmation-popup .content-button .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group a:hover, [data-drupal-selector="edit-add-to-cart"]:hover,
 .remove-from-cart-button:hover, [data-drupal-selector="edit-checkout"]:hover,
 .cart-item-remove-button:hover,
 .cart-item-activate-coupon-button:hover,
@@ -6972,7 +6972,7 @@ label {
   border-top: 1px solid #ccc;
   padding-top: 20px;
 }
-.edit-registration-actions .fieldset-wrapper a.btn, .edit-registration-actions .fieldset-wrapper a.button {
+.edit-registration-actions .fieldset-wrapper a.btn, .edit-registration-actions .fieldset-wrapper a.button, .edit-registration-actions .fieldset-wrapper .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .edit-registration-actions .fieldset-wrapper a {
   margin-right: 3px !important;
   padding: 13px 25px !important;
   background-color: black !important;
@@ -6980,7 +6980,7 @@ label {
   margin-bottom: 10px;
   text-transform: capitalize;
 }
-.edit-registration-actions .fieldset-wrapper a.btn:hover, .edit-registration-actions .fieldset-wrapper a.button:hover {
+.edit-registration-actions .fieldset-wrapper a.btn:hover, .edit-registration-actions .fieldset-wrapper a.button:hover, .edit-registration-actions .fieldset-wrapper .ui-widget.ui-dialog.confirmation-popup .content-button a:hover, .ui-widget.ui-dialog.confirmation-popup .content-button .edit-registration-actions .fieldset-wrapper a:hover {
   color: white !important;
 }
 
@@ -7851,7 +7851,7 @@ article.site-alert ul li div {
   max-width: 300px;
   margin: 0 auto;
 }
-.path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .button {
+.path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .button, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group a {
   padding: 8px 12px;
 }
 .path-frontpage .masthead .find-locations .location-search .location-search-collapse.collapse {
@@ -9347,7 +9347,7 @@ nav#block-footermenuright {
   top: 130px;
 }
 
-.carousel-caption .btn, .carousel-caption .button {
+.carousel-caption .btn, .carousel-caption .button, .carousel-caption .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .carousel-caption a {
   padding: 15px 35px !important;
   font-size: 20px !important;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
@@ -10895,23 +10895,23 @@ a.sports-icon.floor-hockey {
     line-height: 23px;
   }
 }
-.paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .btn, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .button {
+.paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .btn, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .button, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group a {
   white-space: normal;
   font-size: 18px;
   padding: 0px;
   width: 100%;
 }
 @media (min-width: 48em) {
-  .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .btn, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .button {
+  .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .btn, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .button, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group a {
     font-size: 20px;
   }
 }
-.paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .btn a, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .button a {
+.paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .btn a, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .button a, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .ui-widget.ui-dialog.confirmation-popup .content-button a a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group a a {
   display: block;
   padding: 12px;
 }
 @media (min-width: 64.0625em) {
-  .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .btn a, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .button a {
+  .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .btn a, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .button a, .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .ui-widget.ui-dialog.confirmation-popup .content-button a a, .ui-widget.ui-dialog.confirmation-popup .content-button .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group a a {
     padding: 15px;
   }
 }
@@ -11608,16 +11608,22 @@ textarea:focus,
 .carousel-control:focus,
 .btn:focus,
 .button:focus,
+.ui-widget.ui-dialog.confirmation-popup .content-button a:focus,
 .btn.focus,
 .focus.button,
+.ui-widget.ui-dialog.confirmation-popup .content-button a.focus,
 .btn:active:focus,
 .button:active:focus,
+.ui-widget.ui-dialog.confirmation-popup .content-button a:active:focus,
 .btn:active.focus,
 .button:active.focus,
+.ui-widget.ui-dialog.confirmation-popup .content-button a:active.focus,
 .btn.active:focus,
 .active.button:focus,
+.ui-widget.ui-dialog.confirmation-popup .content-button a.active:focus,
 .btn.active.focus,
 .active.focus.button,
+.ui-widget.ui-dialog.confirmation-popup .content-button a.active.focus,
 .form-control:focus,
 .slick-arrow:focus:before,
 .navbar-toggle:focus {
@@ -12231,7 +12237,7 @@ input[type="checkbox"]:focus {
   position: relative;
   white-space: nowrap;
 }
-.map_controls .btn, .map_controls .button {
+.map_controls .btn, .map_controls .button, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls a {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
@@ -12251,7 +12257,7 @@ input[type="checkbox"]:focus {
   -o-user-select: none;
   user-select: none;
 }
-.map_controls .btn:hover, .map_controls .button:hover, .map_controls .btn:focus, .map_controls .button:focus {
+.map_controls .btn:hover, .map_controls .button:hover, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button a:hover, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls a:hover, .map_controls .btn:focus, .map_controls .button:focus, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button a:focus, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls a:focus {
   color: #333;
   text-decoration: none;
 }
@@ -12266,20 +12272,20 @@ input[type="checkbox"]:focus {
   background-color: #ebebeb;
   border-color: #adadad;
 }
-.map_controls .btn, .map_controls .button {
+.map_controls .btn, .map_controls .button, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls a {
   background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
   background-image: -ms-linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
   background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
 }
-.map_controls .input-group-btn > .btn, .map_controls .input-group-btn > .button {
+.map_controls .input-group-btn > .btn, .map_controls .input-group-btn > .button, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button .input-group-btn > a, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls .input-group-btn > a {
   position: relative;
 }
-.map_controls .input-group .form-control:first-child, .map_controls .input-group-addon:first-child, .map_controls .input-group-btn:first-child > .btn, .map_controls .input-group-btn:first-child > .button, .map_controls .input-group-btn:first-child > .dropdown-toggle, .map_controls .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle), .map_controls .input-group-btn:last-child > .button:not(:last-child):not(.dropdown-toggle) {
+.map_controls .input-group .form-control:first-child, .map_controls .input-group-addon:first-child, .map_controls .input-group-btn:first-child > .btn, .map_controls .input-group-btn:first-child > .button, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button .input-group-btn:first-child > a, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls .input-group-btn:first-child > a, .map_controls .input-group-btn:first-child > .dropdown-toggle, .map_controls .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle), .map_controls .input-group-btn:last-child > .button:not(:last-child):not(.dropdown-toggle), .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button .input-group-btn:last-child > a:not(:last-child):not(.dropdown-toggle), .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls .input-group-btn:last-child > a:not(:last-child):not(.dropdown-toggle) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.map_controls .input-group-btn:first-child > .btn, .map_controls .input-group-btn:first-child > .button {
+.map_controls .input-group-btn:first-child > .btn, .map_controls .input-group-btn:first-child > .button, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button .input-group-btn:first-child > a, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls .input-group-btn:first-child > a {
   margin-right: -1px;
 }
 .map_controls .btn-group, .map_controls .btn-group-vertical {
@@ -12293,16 +12299,16 @@ input[type="checkbox"]:focus {
   border-collapse: separate;
   table-layout: fixed;
 }
-.map_controls .btn-group > .btn, .map_controls .btn-group > .button, .map_controls .btn-group-vertical > .btn, .map_controls .btn-group-vertical > .button {
+.map_controls .btn-group > .btn, .map_controls .btn-group > .button, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button .btn-group > a, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls .btn-group > a, .map_controls .btn-group-vertical > .btn, .map_controls .btn-group-vertical > .button, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button .btn-group-vertical > a, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls .btn-group-vertical > a {
   position: relative;
   float: left;
 }
-.map_controls .btn-group-justified .btn, .map_controls .btn-group-justified .button {
+.map_controls .btn-group-justified .btn, .map_controls .btn-group-justified .button, .map_controls .btn-group-justified .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls .btn-group-justified a {
   display: table-cell;
   float: none;
   width: 1%;
 }
-.map_controls .btn-group > .btn:first-child, .map_controls .btn-group > .button:first-child {
+.map_controls .btn-group > .btn:first-child, .map_controls .btn-group > .button:first-child, .map_controls .ui-widget.ui-dialog.confirmation-popup .content-button .btn-group > a:first-child, .ui-widget.ui-dialog.confirmation-popup .content-button .map_controls .btn-group > a:first-child {
   margin-left: 0;
 }
 .map_controls .tag_filters input {
