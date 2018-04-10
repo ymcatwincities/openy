@@ -989,7 +989,7 @@
 
 .ui-widget.ui-dialog.confirmation-popup {
   .ui-dialog-content.ui-widget-content {
-    padding-bottom: 20px;
+    padding: 40px 60px 20px;
   }
 
   .popup-content {
@@ -1001,6 +1001,7 @@
 
     a {
       text-transform: uppercase;
+      color: #fff;
     }
   }
 }
