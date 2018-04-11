@@ -29,7 +29,7 @@ source:
 
       campaign_menu_data:
         -
-          landing_page_id: challenge_yourself_started
+          landing_page_id: challenge_yourself_preview
           links:
             -
               page: challenge_yourself_started
@@ -45,9 +45,9 @@ source:
               page: challenge_yourself_my_progress
               title: My Progress
               weight: 0
-              logged: 0
+              logged: 1
         -
-          landing_page_id: challenge_yourself_preview
+          landing_page_id: challenge_yourself_registration_open
           links:
             -
               page: challenge_yourself_preview
@@ -60,7 +60,7 @@ source:
               weight: 0
               logged: 0
         -
-          landing_page_id: challenge_yourself_preview
+          landing_page_id: challenge_yourself_started
           links:
             -
               page: challenge_yourself_preview
@@ -74,7 +74,7 @@ source:
               logged: 0
 
         -
-          landing_page_id: challenge_yourself_preview
+          landing_page_id: challenge_yourself_completed
           links:
             -
               page: challenge_yourself_preview
@@ -118,33 +118,13 @@ process:
         migration: openy_demo_node_campaign_page
         source: landing_page_id
 
-
-  #field_campaign_menu:
-  #  plugin: iterator
-  #  source: landing_page_ids
-  #  process:
-  #    target_id:
-  #      -
-  #        plugin: entity_lookup
-  #        source: landing_page_id
-  #      -
-  #        plugin: campaign_menu
-          #source: '@field_campaign_pages'
-      #lndr: landing_page_ids
-
-     #-
-      # plugin: get
-      # source: '@field_campaign_pages'
-       #plugin: migration_lookup
-       #migration: openy_demo_node_campaign_page
-       #source: landing_page_ids
-       #destination: testt
-     #-
-      # plugin: campaign_menu
-      # source: campaign_menu_data
+  field_campaign_menu:
+    plugin: campaign_menu
+    source: campaign_menu_data
+    migration: openy_demo_node_campaign_page
 
   pause_target_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_campaign_page
     source: pause_page_id
   field_pause_landing_page:
