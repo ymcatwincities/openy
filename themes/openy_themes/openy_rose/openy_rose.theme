@@ -406,10 +406,3 @@ function openy_rose_theme_suggestions_form_alter(array &$suggestions, array $var
     array_push($suggestions, 'form__' . $variables['element']['#form_id']);
   }
 }
-
-/**
- * Implements hook_preprocess_block().
- */
-function openy_rose_preprocess_block(&$variables) {
-  $variables['base_path'] = base_path();
-}
