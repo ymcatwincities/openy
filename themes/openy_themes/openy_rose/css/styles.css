@@ -368,7 +368,8 @@ body {
 }
 @media (min-width: 62em) {
   .page-head__logo .logo {
-    height: 70px;
+    height: 84px;
+    margin-top: 23px;
   }
 }
 .page-head__logo .aof {
@@ -377,15 +378,15 @@ body {
 @media (min-width: 62em) {
   .page-head__logo .aof {
     display: inline;
-    height: 33px;
-    margin-left: -22px;
-    margin-top: 35px;
+    height: 36px;
+    margin-left: -10px;
+    margin-top: 57px;
   }
 }
 @media (min-width: 62em) {
   .page-head__logo .site-logo {
     position: absolute;
-    width: 250px;
+    width: 270px;
   }
 }
 .page-head__logo .site-slogan {
@@ -408,7 +409,13 @@ body {
   .page-head__logo .site-slogan {
     font-size: 20px;
     left: auto;
-    top: 60px;
+    top: 84px;
+    right: 16px;
+  }
+}
+@media (min-width: 75em) {
+  .page-head__logo .site-slogan {
+    right: 32px;
   }
 }
 .page-head__search {
@@ -452,6 +459,11 @@ body {
   *zoom: 1;
   border-bottom: 1px solid #979797;
 }
+@media (min-width: 62em) {
+  .is-camp .page-head__top-menu .navbar-nav, .page-head__top-menu .navbar-nav {
+    margin-right: 16px;
+  }
+}
 .is-camp .page-head__top-menu .navbar-nav > li > a, .page-head__top-menu .navbar-nav > li > a {
   text-shadow: none;
 }
@@ -460,6 +472,9 @@ body {
     padding-bottom: 12px;
     padding-top: 12px;
   }
+}
+.is-camp .page-head__top-menu .navbar-nav > li:last-child > a, .page-head__top-menu .navbar-nav > li:last-child > a {
+  padding-right: 0;
 }
 .is-camp .page-head__top-menu a, .page-head__top-menu a {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
@@ -474,7 +489,7 @@ body {
   .is-camp .page-head__top-menu, .page-head__top-menu {
     border-bottom: none;
     position: absolute;
-    top: 5px;
+    top: 12px;
     right: 0;
   }
   .is-camp .page-head__top-menu a, .page-head__top-menu a {
@@ -964,7 +979,16 @@ body {
   background: none;
 }
 .viewport .page-head__main-menu .nav-level-1.navbar-nav {
-  margin-left: 72px;
+  margin-left: 120px;
+}
+.viewport .page-head__main-menu .nav-level-2:first-child a {
+  padding-left: 0;
+}
+@media (min-width: 75em) {
+  .viewport .page-head__main-menu .nav-level-2 > a {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 }
 .viewport .page-head__main-menu .nav-level-3 {
   padding-top: 25px;
@@ -1007,7 +1031,7 @@ body {
 }
 .viewport .nav-level-2 > a:hover, .viewport .nav-level-2 > a:focus {
   background: none;
-  z-index: 1001;
+  z-index: 0;
 }
 .viewport .nav-level-2.open {
   background-color: #0060af;
@@ -1015,7 +1039,7 @@ body {
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   border-bottom: 1px solid #0060af;
-  margin-top: -1px;
+  margin-top: -2px;
 }
 .viewport .nav-level-2.open > .dropdown-menu {
   margin-top: -1px;
@@ -1032,6 +1056,7 @@ body {
   .viewport .nav-level-2.open > a:focus {
     padding: 10px 25px 10px 25px;
     margin: 0;
+    top: 1px;
   }
 }
 .viewport .row-level-3,

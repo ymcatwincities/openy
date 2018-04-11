@@ -857,6 +857,9 @@ function openy_campaign_campaign_menu_field_submit(&$form, FormStateInterface $f
       ];
       foreach ($field_names as $field_name) {
         $date = $form_state->getValue($field_name)[0]['value'];
+        if (empty($date)) {
+          continue;
+        }
         $locale_date = OpenYLocaleDate::createDateFromFormat($date->format('c'));
         $locale_date->setDateByTimezone($timezone_dtz);
         $campaign->set($field_name, date('Y-m-d\TH:i:s', $locale_date->getTimestamp()));
