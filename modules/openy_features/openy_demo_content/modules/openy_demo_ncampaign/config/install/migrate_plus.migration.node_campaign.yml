@@ -119,16 +119,16 @@ process:
         source: landing_page_id
 
 
-  field_campaign_menu:
-    plugin: iterator
-    source: landing_page_ids
-    process:
-      target_id:
-        -
-          plugin: entity_lookup
-          source: landing_page_id
-        -
-          plugin: campaign_menu
+  #field_campaign_menu:
+  #  plugin: iterator
+  #  source: landing_page_ids
+  #  process:
+  #    target_id:
+  #      -
+  #        plugin: entity_lookup
+  #        source: landing_page_id
+  #      -
+  #        plugin: campaign_menu
           #source: '@field_campaign_pages'
       #lndr: landing_page_ids
 
