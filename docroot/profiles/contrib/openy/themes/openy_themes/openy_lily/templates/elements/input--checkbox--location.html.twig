@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="form-group" data-toggle="buttons">
+  <div class="inner">
+    <span class="icon icon-location2"></span>
+    <label class="control-label btn btn-default {{ attribute(attributes, 'checked') ? 'active' }}" for="{{ attributes.id }}" title="{{ attribute(element, '#title') }}">
+      <input {{ attributes }} />
+      <div class="label-wrapper"><span>{{ attribute(element, '#title') }}</span></div>
+    </label>
+  </div>
+</div>
