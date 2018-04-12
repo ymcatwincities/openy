@@ -12727,6 +12727,13 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
     padding-left: 15px;
     width: 50%;
   }
+
+  .sidebar-region-left .sidebar-promos > * {
+    float: none;
+    width: auto;
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 .wrapper, .ancestor-camps a.wrapper {
   position: relative;
@@ -12827,6 +12834,87 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   width: auto;
   vertical-align: middle;
   text-align: left;
+}
+
+.sidebar-promos .img-responsive {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+
+.sidebar-promos {
+  margin-bottom: 10px;
+}
+.sidebar-promos > * {
+  margin-bottom: 20px;
+}
+.sidebar-promos > iframe {
+  width: 100% !important;
+}
+
+.sidebar-promos .alt-promo a {
+  height: auto;
+  background: blue;
+  color: white;
+  text-align: center;
+}
+.sidebar-promos .alt-promo h2, .sidebar-promos .alt-promo p {
+  padding: 0;
+  text-align: center;
+}
+.sidebar-promos a {
+  height: auto;
+}
+
+.sidebar-promos .alt-promo a {
+  height: auto;
+  background: blue;
+  color: white;
+  text-align: center;
+}
+.sidebar-promos .alt-promo h2, .sidebar-promos .alt-promo p {
+  padding: 0;
+  text-align: center;
+}
+
+.sidebar-promos > a {
+  display: block;
+  height: auto;
+}
+
+.sidebar-promos a {
+  background: white;
+}
+
+.sidebar-promos .promo {
+  padding: 6px 0;
+  background: #0089d1;
+  color: white;
+}
+
+.sidebar-promos p.button, .sidebar-promos span.button {
+  display: block;
+  width: auto;
+  text-align: center;
+}
+
+.sidebar-promos img-crop {
+  height: auto;
+}
+.sidebar-promos .img-crop .img-responsive {
+  position: relative;
+}
+.sidebar-promos a.wrapper {
+  color: #444;
+  color: #666;
+}
+.sidebar-promos a.wrapper:hover {
+  color: #181818;
+  color: #353535;
+}
+
+.sidebar-promos .richtext a {
+  background: #f0f0f0;
 }
 
 .cdn-form-full {

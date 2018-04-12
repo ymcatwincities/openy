@@ -5513,3 +5513,17 @@ function ymca_master_update_8257() {
     ]
   );
 }
+
+/**
+ * Update configs.
+ */
+function ymca_master_update_8258() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_lp_layout',
+      'core.entity_view_display.node.landing_page.default',
+    ]
+  );
+}
