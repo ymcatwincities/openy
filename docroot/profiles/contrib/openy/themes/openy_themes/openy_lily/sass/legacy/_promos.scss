@@ -14,6 +14,12 @@
     padding-left: 15px;
     width: 50%;
   }
+  .sidebar-region-left .sidebar-promos > * {
+    float: none;
+    width: auto;
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 .wrapper, .ancestor-camps a.wrapper {
   position: relative;
@@ -100,4 +106,87 @@
   width: auto;
   vertical-align: middle;
   text-align: left;
+}
+.sidebar-promos .img-responsive {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+.sidebar-promos {
+  margin-bottom: 10px;
+  > {
+    * {
+      margin-bottom: 20px;
+    }
+    iframe {
+      width: 100% !important;
+    }
+  }
+}
+.sidebar-promos {
+  .alt-promo {
+    a {
+      height: auto;
+      background: blue;
+      color: white;
+      text-align: center;
+    }
+    h2, p {
+      padding: 0;
+      text-align: center;
+    }
+  }
+  a {
+    height: auto;
+  }
+}
+.sidebar-promos .alt-promo {
+  a {
+    height: auto;
+    background: blue;
+    color: white;
+    text-align: center;
+  }
+  h2, p {
+    padding: 0;
+    text-align: center;
+  }
+}
+.sidebar-promos > a {
+  display: block;
+  height: auto;
+}
+.sidebar-promos a {
+  background: white;
+}
+.sidebar-promos .promo {
+  padding: 6px 0;
+  background: #0089d1;
+  color: white;
+}
+.sidebar-promos {
+  p.button, span.button {
+    display: block;
+    width: auto;
+    text-align: center;
+  }
+}
+.sidebar-promos {
+  img-crop {
+    height: auto;
+  }
+  .img-crop .img-responsive {
+    position: relative;
+  }
+  a.wrapper {
+    color: #444;
+    &:hover {
+      color: #181818;
+      color: #353535;
+    }
+    color: #666;
+  }
+}
+.sidebar-promos  .richtext a {
+  background: #f0f0f0;
 }
