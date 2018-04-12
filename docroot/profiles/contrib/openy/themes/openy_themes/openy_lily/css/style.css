@@ -11490,9 +11490,6 @@ a.sports-icon.floor-hockey {
 .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-up {
   text-align: center;
 }
-.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-up .field-media-image {
-  height: 210px;
-}
 .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-up .field-media-image img {
   height: auto;
   max-width: inherit;
