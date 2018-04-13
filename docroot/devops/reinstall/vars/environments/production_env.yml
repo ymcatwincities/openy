@@ -1,6 +1,7 @@
 ---
 env:
   pre_settings: []
+  shell_commands: []
   modules: []
   drush_commands: []
   post_settings: []
