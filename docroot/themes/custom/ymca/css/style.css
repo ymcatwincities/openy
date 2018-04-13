@@ -12472,9 +12472,6 @@ body.show-new-mobile-menu .sidebar {
   border-right: none;
   width: 100% !important;
 }
-body.show-new-mobile-menu .sidebar.collapse {
-  width: 0 !important;
-}
 body.show-new-mobile-menu .sidebar .top-bar {
   background-color: #0060af;
   min-height: 60px;

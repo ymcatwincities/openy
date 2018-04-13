@@ -131,7 +131,12 @@
       $(".navbar-toggler", context).each(function () {
         $(this).on('click', function (event) {
           $(this).toggleClass('expanded-mobile');
-          $('#side-area, .viewport').toggleClass('expanded-mobile');
+          $('.viewport').toggleClass('expanded-mobile');
+        });
+      });
+      $(".sidebar-toggle", context).each(function () {
+        $(this).on('click', function (event) {
+          $('.viewport, .navbar-toggler').toggleClass('expanded-mobile');
         });
       });
     }
