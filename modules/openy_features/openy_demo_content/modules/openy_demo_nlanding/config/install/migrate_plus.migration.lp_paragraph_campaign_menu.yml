@@ -48,6 +48,12 @@ process:
   parent_field_name:
     plugin: default_value
     default_value: field_content
+  field_prgf_campaign_menu/target_id:
+    plugin: default_value
+    default_value: 'campaign_menu_block'
+  field_prgf_campaign_menu/target_revision_id:
+    plugin: default_value
+    default_value: 'campaign_menu_block'
 destination:
   plugin: 'entity:paragraph'
   default_bundle: campaign_menu
