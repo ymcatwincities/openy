@@ -48,8 +48,8 @@ old_site_db: false
 source_backup_name: latest_prod.sql.gz
 old_source_backup_name: ymca20160218.sql.gz
 # URL to the source database. Can be overridden by CI server.
-source_database: http://{{ backup_user }}:{{ backup_pass }}@178.62.224.139/backup/{{ source_backup_name }}
-old_source_db_name_url: http://{{ backup_user }}:{{ backup_pass }}@178.62.224.139/backup/{{ old_source_backup_name }}
+source_database: http://{{ backup_user }}:{{ backup_pass }}@ymca.ffwua.com/backup/{{ source_backup_name }}
+old_source_db_name_url: http://{{ backup_user }}:{{ backup_pass }}@ymca.ffwua.com/backup/{{ old_source_backup_name }}
 # Path where settings.php should be placed.
 settings_file_path: sites/default/settings.php
 settings_default_file_path: sites/default/default.settings.php
