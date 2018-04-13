@@ -36,6 +36,7 @@ class YmcaNegotiator implements ThemeNegotiatorInterface {
     $this->routes = [
       'ymca_groupex.all_schedules_search',
       'ymca_groupex.all_schedules_search_results',
+      'ymca_frontend.location_schedules',
     ];
   }
 
