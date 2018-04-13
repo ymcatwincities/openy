@@ -4,7 +4,18 @@
  * Contains sidebar search and menu that is used in mobile layout.
  */
 #}
-
+<div id="search-box" class="hidden-xs">
+  <form method="get" action="{{ base_path }}search_results">
+    <div class="form-group col-xs-12">
+      <div class="input-group">
+        <input type="text" name="search" class="form-control">
+        <span class="input-group-btn">
+          <button class="btn btn-info" type="submit">{{ "SEARCH THE Y"|t }}</button>
+        </span>
+      </div>
+    </div>
+  </form>
+</div>
 <div id="sidebar" class="sidebar sidebar-left collapse width">
   <div class="top-bar">
     <a class="home-icon" href="{{ base_path }}" title="{{ "YMCA Twin Cities"|t }}"><i class="fa fa-home" aria-hidden="true"></i></a>
