@@ -37,6 +37,12 @@ process:
   parent_type:
     plugin: default_value
     default_value: node
+  field_prgf_campaign_activity/target_id:
+    plugin: default_value
+    default_value: 'campaign_activity_visits_block'
+  field_prgf_campaign_activity/target_revision_id:
+    plugin: default_value
+    default_value: 'campaign_activity_visits_block'
   # TODO: get parent_field_name from data?
   parent_field_name:
     plugin: default_value

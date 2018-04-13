@@ -37,10 +37,17 @@ process:
   parent_type:
     plugin: default_value
     default_value: node
+  field_prgf_campaign_winners/target_id:
+    plugin: default_value
+    default_value: 'campaign_winners_block'
+  field_prgf_campaign_winners/target_revision_id:
+    plugin: default_value
+    default_value: 'campaign_winners_block'
   # TODO: get parent_field_name from data?
   parent_field_name:
     plugin: default_value
     default_value: field_content
+
 destination:
   plugin: 'entity:paragraph'
   default_bundle: campaign_winners
