@@ -761,7 +761,7 @@ body {
   position: fixed;
   top: 0;
   bottom: 0;
-  z-index: 40;
+  z-index: 1001;
   display: block !important;
   visibility: visible;
   overflow: hidden;
@@ -6302,6 +6302,7 @@ header#page-head .top-navs .nav-global {
   margin-bottom: 0;
   border-radius: 0;
   background-color: #f8f8f8;
+  min-height: 100px;
   width: 100%;
 }
 header#page-head .top-navs .nav-global .navbar-header {
@@ -6327,9 +6328,8 @@ header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
   }
   header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
     display: block !important;
-    float: right;
-    position: absolute;
-    right: 15px;
+    float: left;
+    position: relative;
     outline: 0 !important;
     margin-top: 8px;
     background: transparent;
@@ -6693,8 +6693,48 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   top: 140px !important;
 }
 
-.landing-header {
-  margin-bottom: 20px;
+.navbar-brand {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  box-sizing: content-box;
+  margin: 12px 0 5px 0;
+  padding: 5px 0 0 30px;
+  width: 220px;
+  height: 72%;
+  background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
+  background-size: contain;
+}
+@media (max-width: 991px) {
+  .navbar-brand {
+    left: 30%;
+    float: none;
+    margin-left: -24px;
+    padding: 0;
+    height: 80%;
+    background-position: left top;
+    background-size: contain;
+  }
+}
+
+.no-smil .navbar-brand {
+  padding-top: 70px !important;
+  height: 0 !important;
+  background: url(../img/ymca-logo-full.png) no-repeat;
+  background-size: contain;
+  line-height: 1em;
+  -ms-transition: padding .3s ease-out;
+}
+.no-smil .affix .navbar-brand {
+  padding-top: 70px !important;
+  background-image: url(../img/ymca-logo-full.png);
+}
+.no-smil .navbar {
+  background-color: #eeeeee;
+}
+
+.csstransitions.no-smil .affix .navbar-brand {
+  background-image: url(../img/ymca-logo-full.png);
 }
 
 .viewport .nav-level-2.open {
