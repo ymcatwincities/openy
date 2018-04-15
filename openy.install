@@ -602,3 +602,131 @@ function openy_update_8047() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
 }
+
+/**
+ * Update the configuration of the paragraph fields of OpenY nodes.
+ */
+function openy_update_8048() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+
+  $updatedFields = [
+    'openy_block_date' => [
+      'core.entity_form_display.block_content.date_block.default' => [
+        'content.field_content_date_before',
+        'content.field_content_date_between',
+        'content.field_content_date_end',
+      ],
+    ],
+    'openy_node_blog' => [
+      'core.entity_form_display.node.blog.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_loc_branch' => [
+      'core.entity_form_display.node.branch.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+      ],
+    ],
+    'openy_loc_camp' => [
+      'core.entity_form_display.node.camp.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+      ],
+    ],
+    'openy_node_class' => [
+      'core.entity_form_display.node.class.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_loc_facility' => [
+      'core.entity_form_display.node.facility.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_landing' => [
+      'core.entity_form_display.node.landing_page.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_mbrshp' => [
+      'core.entity_form_display.node.membership.default' => [
+        'content.field_mbrshp_info',
+      ],
+    ],
+    'openy_node_news' => [
+      'core.entity_form_display.node.news.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_program' => [
+      'core.entity_form_display.node.program.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_category' => [
+      'core.entity_form_display.node.program_subcategory.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_session' => [
+      'core.entity_form_display.node.session.default' => [
+        'content.field_session_time',
+      ],
+    ],
+    'openy_prgf_grid_content' => [
+      'core.entity_form_display.paragraph.grid_content.default' => [
+        'content.field_grid_columns',
+      ],
+    ],
+    'openy_txnm_blog_category' => [
+      'core.entity_form_display.taxonomy_term.blog_category.default' => [
+        'content.field_taxonomy_content',
+      ],
+    ],
+    'openy_txnm_news_category' => [
+      'core.entity_form_display.taxonomy_term.news_category.default' => [
+        'content.field_taxonomy_content',
+      ],
+    ],
+  ];
+
+  foreach ($updatedFields as $module => $configs) {
+    foreach ($configs as $config_name => $fields) {
+      foreach ($fields as $field) {
+        $config = drupal_get_path('module', $module);
+        $config .= '/config/install/';
+        $config .= $config_name . '.yml';
+        $config_importer->update($config, $config_name, $field);
+      }
+    }
+  }
+
+}
+
+/**
+ * Enable font-your-face module.
+ */
+function openy_update_8049() {
+  \Drupal::service('module_installer')->install(['fontyourface']);
+  if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
+    $message = 'OpenY Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module. 
+        Please, <a href="/admin/appearance/font/local_font_config_entity">use it</a> to add purchased fonts to the site and uninstall OpenY Font module.';
+    drupal_set_message($message, 'warning');
+  }
+}
