@@ -5884,11 +5884,11 @@ a.wrapper:hover {
       text-align: center;
     }
     .navbar > .container .navbar-brand {
-      left: 30%;
+      left: 35%;
       float: none;
       margin-left: -24px;
       padding: 0;
-      height: 80%;
+      height: 70%;
       background-position: left top;
       background-size: contain;
     }
@@ -5897,7 +5897,7 @@ a.wrapper:hover {
       padding-top: 0;
     }
     .viewport {
-      padding-top: 100px;
+      padding-top: 80px;
     }
     .collapsing-in .nav-global, .in .nav-global, .collapsing-out .nav-global {
       position: absolute;
@@ -6022,6 +6022,8 @@ a.wrapper:hover {
       width: 100%;
       top: 0;
       box-shadow: 0 0 8px -3px #000;
+      height: 80px;
+      min-height: 80px;
     }
     .navbar-fixed-top {
       position: relative;
