@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<form{{ attributes }}>
+  <fieldset>
+    <div class="col-sm-8">
+      {{ form.location }}
+    </div>
+    <div class="col-sm-3 col-sm-offset-1">
+      {{ form|without('location') }}
+    </div>
+  </fieldset>
+</form>
