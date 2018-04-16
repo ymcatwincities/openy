@@ -12,8 +12,8 @@
     attach: function (context) {
 
       // Decorate promos which were migrated as is (without entity embed).
-      var promos = $('.sidebar-promos > .richtext.original');
-      promos.each(
+      var promos = $('.sidebar-promos .richtext.original');
+      promos.once().each(
         function () {
           var el = $(this),
             links = $(this).find('a'),
