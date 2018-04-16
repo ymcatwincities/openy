@@ -69,6 +69,7 @@ projects[media_entity_video] = 1.0-beta2
 projects[video] = 1.2
 projects[easy_breadcrumb] = 1.6
 projects[ckeditor_bootstrap_buttons] = 1.1
+projects[fontyourface] = 3.2
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip
