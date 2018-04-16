@@ -1,0 +1,21 @@
+name: 'Digital Signage Promotional Block'
+description: 'Digital Signage Promotional Block.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - block_content
+  - content_moderation
+  - datalayer
+  - entity_browser
+  - field
+  - field_group
+  - media_entity
+  - metatag
+  - openy_media_image
+  - options
+  - page_manager
+  - user
+  - views
+  - ymca_page_manager
+version: 8.x-1.0
