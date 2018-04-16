@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * Search results page content template.
+ *
+ * @ingroup themeable
+ */
+#}
+{% set main_title = search_blog ? 'Search Blog'|t : 'Search Results'|t %}
+
+ {% if search_blog %}
+   {% set classes = 'copy col-sm-8 col-md-9' %}
+   {% set pager_classes = 'col-md-12' %}
+ {% else %}
+   {% set classes = 'col-sm-12 categories copy' %}
+   {% set pager_classes = 'col-md-8' %}
+{% endif %}
+<section class="page-header page-title title-only">
+  <div class="container title-container">
+    <div class="row">
+      <div class="col-sm-12 header-copy">
+        <h1>{{ main_title }}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="content">
+  <div class="container">
+    <div class="row">
+      <div class="{{ classes }}">
+        <div class="gsa_top_search_wrapper">
+          {{ search_form }}
+        </div>
+        {% if search_blog %}
+          <div class="back-to-blog hidden-xs">
+            <a href="{{ base_path ~ 'blog' }}"><i class="glyphicon glyphicon-chevron-left"></i>{{ 'Back to blog'|t }}</a>
+          </div>
+        {% endif %}
+        {{ search_results }}
+        <div class="gsa_bottom_results_nav_wrapper text-left">
+          <div class="row">
+            <div class="{{ pager_classes }}">
+              {{ pager }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if search_blog is defined and search_blog %}
+        {% include "@ymca/ymca-blocks/search-the-blog.html.twig" %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
