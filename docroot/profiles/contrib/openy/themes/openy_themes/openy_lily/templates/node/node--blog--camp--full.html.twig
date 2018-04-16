@@ -75,12 +75,6 @@
 %}
 {{ attach_library('classy/node') }}
 
-{% embed "@ymca/layout/header/header-without-image.html.twig" %}
-  {% block label_and_description %}
-    <h1>{{ label }}</h1>
-  {% endblock %}
-{% endembed %}
-
 <section {{ attributes.addClass(classes) }}>
   <div class="container">
 
@@ -88,22 +82,17 @@
     </section>
 
     <div class="row">
-      {% if not is_day_camp_news %}
-      <div class="col-sm-3 col-md-2 back-to-blog">
-        <a href="{{ back_link_path }}"><i class="glyphicon glyphicon-chevron-left"></i>{{ back_link_title }}</a>
-      </div>
-      <div class="copy col-sm-8 col-md-9">
-      {% else %}
-      <div class="copy col-sm-12 categories">
-      {% endif %}
+      <div class="copy col-sm-7 col-sm-push-5 col-md-9 col-md-push-3">
         <div class="post_display_full">
           <article class="richtext">
             {{ content.field_ygtc_content }}
           </article>
         </div>
 
-        {% include "@ymca/misc/add-this.html.twig" %}
+      </div>
 
+      <div class="hidden-xs col-sm-5 col-md-3 col-sm-pull-7 col-md-pull-9 subnav">
+        {{ sidebar_navigation }}
       </div>
     </div>
   </div>
