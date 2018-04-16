@@ -1,0 +1,12 @@
+name: 'OpenY Paragraph Location By Amenities'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - datalayer
+  - field
+  - openy_prgf
+  - openy_prgf_amenities
+  - paragraphs
+  - views
+  - views_field_formatter
