@@ -67,6 +67,14 @@ AddEncoding gzip svgz
 <IfModule !mod_rewrite.c>
   FallbackResource /index.php
 </IfModule>
+# See https://gist.github.com/jonpugh/88cfb0aad1ef18c0016486557fcb28fe 
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{QUERY_STRING} (.*)(23value|23default_value|element_parents=%23)(.*) [NC]
+  RewriteCond %{REQUEST_METHOD} POST [NC]
+  RewriteRule ^.*$  - [R=403,L]
+</IfModule>
 
 # Various rewrite rules.
 <IfModule mod_rewrite.c>
