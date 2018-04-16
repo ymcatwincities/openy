@@ -154,6 +154,7 @@ dependencies:
   - openy_prgf_blog_listing
   - openy_prgf_block_date
   - openy_prgf_loc_finder
+  - openy_prgf_location_by_amenities
   - openy_prgf_mbrshp_calc
   - openy_prgf_microsites_menu
   - openy_prgf_embedded_groupexpro_schedule
