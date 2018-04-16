@@ -5527,3 +5527,62 @@ function ymca_master_update_8258() {
     ]
   );
 }
+
+/**
+ * Change type of ds_background image.
+ */
+function ymca_master_update_8259() {
+  // Make a copy of the field.
+  $field_name = 'field_ds_background_image';
+  $db = \Drupal::database();
+
+  $db->query("SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO'");
+
+  $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
+  $db->query("CREATE TABLE copy_block_content__$field_name LIKE block_content__$field_name");
+  $db->query("INSERT INTO copy_block_content__$field_name SELECT * FROM block_content__$field_name");
+
+  // Deleting field.
+  $bundles = ['digital_signage_promotional']; // todo
+  foreach ($bundles as $bundle) {
+    if ($field_config = FieldConfig::loadByName('block_content', $bundle, $field_name)) {
+      $field_config->delete();
+    }
+  }
+  // Deleting field storage.
+  if ($field_storage_config = FieldStorageConfig::loadByName('block_content', $field_name)) {
+    $field_storage_config->delete();
+  }
+
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('modules/features/digital_signage_promotional_block/config/install');
+  $config_importer->importConfigs(
+    [
+      'block_content.type.digital_signage_promotional',
+      'core.entity_form_display.block_content.digital_signage_promotional.default',
+      'core.entity_view_display.block_content.digital_signage_promotional.default',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_color',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_image',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_position',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_scheme',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_size',
+      'field.field.block_content.digital_signage_promotional.field_ds_color_scheme',
+      'field.field.block_content.digital_signage_promotional.field_ds_headline',
+      'field.field.block_content.digital_signage_promotional.field_ds_layout',
+      'field.field.block_content.digital_signage_promotional.field_ds_message_position',
+      'field.field.block_content.digital_signage_promotional.field_ds_message',
+      'field.field.block_content.digital_signage_promotional.field_ds_subheading',
+      'field.storage.block_content.field_ds_background_color',
+      'field.storage.block_content.field_ds_background_image',
+      'field.storage.block_content.field_ds_background_position',
+      'field.storage.block_content.field_ds_background_scheme',
+      'field.storage.block_content.field_ds_background_size',
+      'field.storage.block_content.field_ds_color_scheme',
+      'field.storage.block_content.field_ds_headline',
+      'field.storage.block_content.field_ds_layout',
+      'field.storage.block_content.field_ds_message_position',
+      'field.storage.block_content.field_ds_message',
+      'field.storage.block_content.field_ds_subheading',
+    ]
+  );
+}
