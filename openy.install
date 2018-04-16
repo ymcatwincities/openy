@@ -730,3 +730,10 @@ function openy_update_8049() {
     drupal_set_message($message, 'warning');
   }
 }
+
+/**
+ * Enable CSS Editor module and import the settings.
+ */
+function openy_update_8050() {
+  \Drupal::service('module_installer')->install(['css_editor'], TRUE);
+}
