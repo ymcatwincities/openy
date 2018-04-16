@@ -326,10 +326,13 @@ class FeaturesManager implements FeaturesManagerInterface {
       // A package matches the namespace if:
       // - it's prefixed with the namespace, or
       // - it's assigned to a bundle named for the namespace, or
-      // - we're looking only for exported packages and it's not exported.
-      if (empty($namespace) || (strpos($package->getMachineName(), $namespace . '_') === 0) ||
+      // - the namespace is the default bundle and it has an empty bundle, and
+      // - we're not removing only exported packages, or
+      // - we are removing only exported packages and it's not exported.
+      if ((strpos($package->getMachineName(), $namespace . '_') === 0 ||
         ($package->getBundle() && $package->getBundle() === $namespace) ||
-        ($only_exported && $package->getStatus() === FeaturesManagerInterface::STATUS_NO_EXPORT)) {
+        ($namespace === FeaturesBundleInterface::DEFAULT_BUNDLE && empty($package->getBundle()))) &&
+        (!$only_exported || ($package->getStatus() === FeaturesManagerInterface::STATUS_NO_EXPORT))) {
         $result[$key] = $package;
       }
     }
@@ -546,25 +549,30 @@ class FeaturesManager implements FeaturesManagerInterface {
   protected function getConfigDependency(ConfigurationItem $config, $module_list = array()) {
     $dependencies = [];
     $type = $config->getType();
-    if ($type != FeaturesManagerInterface::SYSTEM_SIMPLE_CONFIG) {
-      $provider = $this->entityTypeManager->getDefinition($type)->getProvider();
-      // Ensure the provider is an installed module and not, for example, 'core'
-      if (isset($module_list[$provider])) {
-        $dependencies[] = $provider;
+
+    // For configuration in the InstallStorage::CONFIG_INSTALL_DIRECTORY
+    // directory, set any dependencies of the configuration item as package
+    // dependencies.
+    // As its name implies, the core-provided
+    // InstallStorage::CONFIG_OPTIONAL_DIRECTORY should not create
+    // dependencies.
+    if ($config->getSubdirectory() === InstallStorage::CONFIG_INSTALL_DIRECTORY) {
+      if ($type === FeaturesManagerInterface::SYSTEM_SIMPLE_CONFIG) {
+        $dependencies[] = strtok($config->getName(), '.');
+      }
+      else {
+        $dependencies[] = $this->entityTypeManager->getDefinition($type)->getProvider();
       }
 
-      // For configuration in the InstallStorage::CONFIG_INSTALL_DIRECTORY
-      // directory, set any module dependencies of the configuration item
-      // as package dependencies.
-      // As its name implies, the core-provided
-      // InstallStorage::CONFIG_OPTIONAL_DIRECTORY should not create
-      // dependencies.
-      if ($config->getSubdirectory() === InstallStorage::CONFIG_INSTALL_DIRECTORY &&
-        isset($config->getData()['dependencies']['module'])
-      ) {
+      if (isset($config->getData()['dependencies']['module'])) {
         $dependencies = array_merge($dependencies, $config->getData()['dependencies']['module']);
       }
+
+      // Only return dependencies for installed modules and not, for example,
+      // 'core'.
+      $dependencies = array_intersect($dependencies, array_keys($module_list));
     }
+
     return $dependencies;
   }
 
@@ -755,20 +763,28 @@ class FeaturesManager implements FeaturesManagerInterface {
     }
 
     $config_collection = $this->getConfigCollection();
+    $module_list = $this->moduleHandler->getModuleList();
 
     /** @var \Drupal\features\Package[] $packages */
     foreach ($packages as $package) {
       foreach ($package->getConfig() as $item_name) {
         if (!empty($config_collection[$item_name]->getData()['dependencies']['config'])) {
           foreach ($config_collection[$item_name]->getData()['dependencies']['config'] as $dependency_name) {
-            if (isset($config_collection[$dependency_name])) {
+            if (isset($config_collection[$dependency_name]) &&
+              // For configuration in the
+              // InstallStorage::CONFIG_INSTALL_DIRECTORY directory, set any
+              // package dependencies of the configuration item.
+              // As its name implies, the core-provided
+              // InstallStorage::CONFIG_OPTIONAL_DIRECTORY should not create
+              // dependencies.
+              ($config_collection[$dependency_name]->getSubdirectory() === InstallStorage::CONFIG_INSTALL_DIRECTORY)) {
               // If the required item is assigned to one of the packages, add
               // a dependency on that package.
               $dependency_set = FALSE;
               if ($dependency_package = $config_collection[$dependency_name]->getPackage()) {
                 $package_name = $bundle->getFullName($dependency_package);
                 // Package shouldn't be dependent on itself.
-                if ($package_name && array_key_exists($package_name, $packages) && $package_name != $package->getMachineName()) {
+                if ($package_name && array_key_exists($package_name, $packages) && $package_name != $package->getMachineName() && isset($module_list[$package_name])) {
                   $package->setDependencies($this->mergeUniqueItems($package->getDependencies(), [$package_name]));
                   $dependency_set = TRUE;
                 }
@@ -778,7 +794,7 @@ class FeaturesManager implements FeaturesManagerInterface {
               if (!$dependency_set && $extension_name = $config_collection[$dependency_name]->getProvider()) {
                 // No extension should depend on the install profile.
                 $package_name = $bundle->getFullName($package->getMachineName());
-                if ($extension_name != $package_name && $extension_name != $this->drupalGetProfile()) {
+                if ($extension_name != $package_name && $extension_name != $this->drupalGetProfile() && isset($module_list[$extension_name])) {
                   $package->setDependencies($this->mergeUniqueItems($package->getDependencies(), [$extension_name]));
                 }
               }
