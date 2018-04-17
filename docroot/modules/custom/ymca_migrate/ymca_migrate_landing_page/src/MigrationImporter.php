@@ -420,7 +420,7 @@ class MigrationImporter implements MigrationImporterInterface {
     if (empty($context['results']['migrated'])) {
       $query = \Drupal::entityQuery('node')
         ->condition('type', 'article')
-        ->condition('field_related', 'value', 'IS NOT NULL');
+        ->condition('field_related', 'value', 'IS NULL');
       $result = $query->execute();
       $context['results']['nids'] = $result;
       $context['sandbox']['max'] = count($context['results']['nids']);
