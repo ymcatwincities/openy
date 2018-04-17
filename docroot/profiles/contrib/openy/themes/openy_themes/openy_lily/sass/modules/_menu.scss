@@ -30,7 +30,7 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  z-index: 1001;
+  z-index: 1;
   display: block !important;
   visibility: visible;
   overflow: hidden;
@@ -290,7 +290,7 @@
 
 @include breakpoint($screen-tablet $screen-sm-max) {
   .navbar-nav > li {
-    float: none;
+    /*float: none;*/
   }
 }
 
