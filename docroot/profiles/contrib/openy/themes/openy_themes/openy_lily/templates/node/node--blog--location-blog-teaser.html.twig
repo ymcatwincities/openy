@@ -1,15 +1,13 @@
 {#
 /**
  * @file
- * YMCA's theme implementation to display a node.
+ * Location Camp Teaser template
  *
  * Available variables:
- * - node: Full node entity.
- *   - id: The node ID.
- *   - bundle: The type of the node, for example, "page" or "article".
- *   - authorid: The user ID of the node author.
- *   - createdtime: Time the node was published formatted in Unix timestamp.
- *   - changedtime: Time the node was changed formatted in Unix timestamp.
+ * - node: The node entity with limited access to object properties and methods.
+     Only "getter" methods (method names starting with "get", "has", or "is")
+     and a few common methods such as "id" and "label" are available. Calling
+     other methods (such as node.delete) will result in an exception.
  * - label: The title of the node.
  * - content: All node items. Use {{ content }} to print them all,
  *   or print a subset such as {{ content.field_example }}. Use
@@ -59,52 +57,23 @@
  *   is an administrator.
  *
  * @see template_preprocess_node()
+ *
+ * @ingroup themeable
  */
 #}
-{%
-  set classes = [
-    'content',
-    'node',
-    'node--type-' ~ node.bundle|clean_class,
-    node.isPromoted() ? 'node--promoted',
-    node.isSticky() ? 'node--sticky',
-    not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    'clearfix',
-  ]
-%}
-{{ attach_library('classy/node') }}
 
-{% embed "@ymca/layout/header/header-without-image.html.twig" %}
-  {% block label_and_description %}
-    <h1>{{ label }}</h1>
-  {% endblock %}
-{% endembed %}
+<div class="post-excerpt clearfix">
+  <div class="post-excerpt-content">
+    <h2 {{ title_attributes.addClass(['post-title']) }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
 
-<section {{ attributes.addClass(classes) }}>
-  <div class="container">
+    <article {{ content_attributes }}>
+      {{ content }}
+    </article>
 
-    <section class="messages">
-    </section>
-
-    <div class="row">
-      {% if not is_day_camp_news %}
-      <div class="col-sm-3 col-md-2 back-to-blog">
-        <a href="{{ back_link_path }}"><i class="glyphicon glyphicon-chevron-left"></i>{{ back_link_title }}</a>
-      </div>
-      <div class="copy col-sm-8 col-md-9">
-      {% else %}
-      <div class="copy col-sm-12 categories">
-      {% endif %}
-        <div class="post_display_full">
-          <article class="richtext">
-            {{ content.field_ygtc_content }}
-          </article>
-        </div>
-
-        {% include "@ymca/misc/add-this.html.twig" %}
-
-      </div>
-    </div>
+    <p class="comments_count">
+      <a href="{{ url }}" rel="bookmark" class="read-more">{{ "Continue Reading"|t }}</a>
+    </p>
   </div>
-</section>
+</div>

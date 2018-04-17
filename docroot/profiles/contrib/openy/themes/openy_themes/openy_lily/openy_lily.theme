@@ -969,7 +969,7 @@ function openy_lily_preprocess_views_view(&$vars) {
         $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
         $vars['categories'][] = $link;
         // Pass Archive block data to the Search The Blog block.
-        if ($archive_lists = ymca_get_archive_data('blog')) {
+        if ($archive_lists = openy_lily_get_archive_data('blog')) {
           $vars['archive_lists'] = $archive_lists;
         }
       }
@@ -980,7 +980,7 @@ function openy_lily_preprocess_views_view(&$vars) {
     if ($vars['view']->current_display == 'page_news') {
       $vars['base_path'] = base_path();
       // Pass Archive block data to the YMCA News Archive block.
-      if ($archive_lists = ymca_get_archive_data('news')) {
+      if ($archive_lists = openy_lily_get_archive_data('news')) {
         $vars['archive_lists'] = $archive_lists;
       }
     }
@@ -995,7 +995,7 @@ function openy_lily_preprocess_views_view(&$vars) {
       $vars['categories'][] = $link;
     }
     // Pass Archive block data to the Search The Blog block.
-    if ($archive_lists = ymca_get_archive_data('blog')) {
+    if ($archive_lists = openy_lily_get_archive_data('blog')) {
       $vars['archive_lists'] = $archive_lists;
     }
   }
@@ -1021,7 +1021,7 @@ function openy_lily_preprocess_search_results_page(&$vars) {
       $vars['categories'][] = $link;
     }
     // Pass Archive block data to the Search The Blog block.
-    if ($archive_lists = ymca_get_archive_data('blog')) {
+    if ($archive_lists = openy_lily_get_archive_data('blog')) {
       $vars['archive_lists'] = $archive_lists;
     }
   }
@@ -1030,7 +1030,7 @@ function openy_lily_preprocess_search_results_page(&$vars) {
 /**
  * Returns an array with archive list data for blog and news.
  */
-function ymca_get_archive_data($context) {
+function openy_lily_get_archive_data($context) {
   if ($context == 'news') {
     $query = \Drupal::entityQuery('node')
       ->condition('status', 1)
