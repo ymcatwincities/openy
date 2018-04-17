@@ -418,19 +418,18 @@ class MigrationImporter implements MigrationImporterInterface {
    */
   public static function processBatch(&$context) {
     if (empty($context['results']['migrated'])) {
-      $query = \Drupal::database()
-        ->select('node', 'n')
-        ->fields('n', ['nid'])
-        ->condition('type', 'article');
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'article')
+        ->condition('field_related', 'value', 'IS NOT NULL');
       $result = $query->execute();
-      $context['results']['nids'] = $result->fetchAll(\PDO::FETCH_ASSOC);
+      $context['results']['nids'] = $result;
       $context['sandbox']['max'] = count($context['results']['nids']);
       $context['sandbox']['progress'] = 0;
     }
     $part = array_splice($context['results']['nids'], 0, 1);
     $nid = reset($part);
     $nodes = \Drupal::entityTypeManager()->getStorage('node')
-      ->loadMultiple([$nid['nid']]);
+      ->loadMultiple([$nid]);
     foreach ($nodes as $node) {
       self::migrate($node);
     }
