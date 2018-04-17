@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies: {  }
+id: publishing
+label: Publishing
+update_entity_type: node
+update_types_supported:
+  - embedded
+field_map:
+  field_status: status
+update_runner:
+  id: default_embedded
+  after_run: DELETE
+  invalid_update_behavior: DELETE
+  create_revisions: BUNDLE_DEFAULT
+  update_user: USER_UPDATE_RUNNER

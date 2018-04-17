@@ -1,0 +1,45 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.scheduled_update.publishing.field_status
+    - scheduled_updates.scheduled_update_type.publishing
+  module:
+    - options
+    - user
+id: scheduled_update.publishing.default
+targetEntityType: scheduled_update
+bundle: publishing
+mode: default
+content:
+  field_status:
+    weight: 11
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  status:
+    label: hidden
+    type: list_default
+    weight: -100
+    settings: {  }
+    third_party_settings: {  }
+  update_timestamp:
+    label: hidden
+    type: timestamp
+    weight: 10
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

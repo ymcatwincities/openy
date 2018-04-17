@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.modal_alerts
+  module:
+    - rng
+    - views
+  theme:
+    - ygh
+id: views_block__modal_alerts_local
+theme: ygh
+region: pre_footer
+weight: 0
+provider: null
+plugin: 'views_block:modal_alerts-local'
+settings:
+  id: 'views_block:modal_alerts-local'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  rng_current_time:
+    id: rng_current_time
+    date: '1504792360'
+    negate: false
+    context_mapping: {  }
+  rng_rule_scheduler:
+    id: rng_rule_scheduler
+    rng_rule_component: null
+    rng_rule_scheduler: null
+    date: '1504792360'
+    negate: false
+    context_mapping: {  }
