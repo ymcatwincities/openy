@@ -10,6 +10,7 @@
 @import 'icomoon';
 @import 'sidebar';
 @import 'childcare';
+@import 'content-banner';
 
 /* Give page */
 .path-give {
@@ -251,5 +252,11 @@ section.content {
   }
   .nav-level-3 > li {
     font-weight: bold;
+  }
+}
+
+.paragraph--type--simple-content {
+  iframe {
+    width: 100% !important;
   }
 }
