@@ -195,7 +195,6 @@ header#page-head {
   @include cachet();
   @include breakpoint (0 767px) {
     position: relative;
-    z-index: 999;
   }
   .container-fluid {
     @media (min-width: 1200px) {
