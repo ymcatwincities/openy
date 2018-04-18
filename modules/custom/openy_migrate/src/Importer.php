@@ -4,7 +4,6 @@ namespace Drupal\openy_migrate;
 
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate\Plugin\Migration;
-use Drupal\migrate\Plugin\MigrationPluginManager;
 use Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager;
 use Drupal\migrate_tools\MigrateExecutable;
 
@@ -25,10 +24,10 @@ class Importer implements ImporterInterface {
   /**
    * Importer constructor.
    *
-   * @param \Drupal\migrate\Plugin\MigrationPluginManager $migrationManager
+   * @param \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager $migrationManager
    *   Migration manager.
    */
-  public function __construct(MigrationPluginManager $migrationManager) {
+  public function __construct(MigrationConfigEntityPluginManager $migrationManager) {
     $this->migrationManager = $migrationManager;
   }
 
