@@ -1,0 +1,57 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - media_entity.bundle.image
+    - views.view.file_entity_browser
+  module:
+    - dropzonejs_eb_widget
+    - media_entity
+    - views
+name: browse_files_modal
+label: 'Browse Files Modal'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: multi_step_display
+selection_display_configuration:
+  entity_type: media
+  display: label
+  display_settings: {  }
+  select_text: 'Use selected'
+  selection_hidden: false
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  333095f2-bf45-4f77-ba2a-e306ac7b4186:
+    settings:
+      form_mode: default
+      media_entity_bundle: image
+      upload_location: 'public://[date:custom:Y]-[date:custom:m]'
+      dropzone_description: 'Drop files here to upload them'
+      max_filesize: 2M
+      extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'
+      clientside_resize: false
+      resize_width: null
+      resize_height: null
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
+      submit_text: 'Select entities'
+    uuid: 333095f2-bf45-4f77-ba2a-e306ac7b4186
+    weight: 1
+    label: 'Upload files'
+    id: dropzonejs_media_entity_inline_entity_form
+  2e8c38e3-9353-4b0b-9948-86dee33ebabb:
+    settings:
+      view: file_entity_browser
+      view_display: entity_browser_1
+      submit_text: 'Select entities'
+      auto_select: false
+    uuid: 2e8c38e3-9353-4b0b-9948-86dee33ebabb
+    weight: 2
+    label: 'Files listing'
+    id: view

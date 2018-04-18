@@ -1,0 +1,16 @@
+name: 'OpenY Entity Browsers'
+description: 'OpenY entity browsers.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - dropzonejs_eb_widget
+  - entity_browser
+  - media_entity
+  - metatag
+  - openy_media_image
+  - page_manager
+  - user
+  - views
+  - ymca_page_manager
+version: 8.x-1.0
