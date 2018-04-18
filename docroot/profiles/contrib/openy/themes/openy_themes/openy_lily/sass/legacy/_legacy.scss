@@ -260,3 +260,35 @@ section.content {
     width: 100% !important;
   }
 }
+
+p.button {
+  display: inline-block;
+  border-radius: 4px;
+}
+.button a, a.button {
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  background-color: #9c1f7b;
+  background-image: -webkit-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: -moz-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: -ms-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  color: #FFF;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  white-space: nowrap;
+  font-weight: normal;
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.428571429;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+}
