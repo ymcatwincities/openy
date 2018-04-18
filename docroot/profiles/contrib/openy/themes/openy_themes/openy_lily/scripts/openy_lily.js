@@ -56,7 +56,7 @@
         $('.blog-up').matchHeight();
         $('.blog-heading').matchHeight();
       });
-      $(window).load(function () {
+      $(window).on('load', function () {
         $(".news-more-teaser, .blog-more-teaser", context).each(function () {
           $('.blog-up').matchHeight();
           $('.blog-heading').matchHeight();
