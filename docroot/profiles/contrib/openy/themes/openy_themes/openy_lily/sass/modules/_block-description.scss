@@ -1,3 +1,5 @@
+@import '../base/decor';
+
 .block-description {
   &--wrapper {
     @extend %decor--flex;
@@ -5,48 +7,61 @@
   }
 
   &--text {
-    padding: 12px 0;
-    width: calc(100% - 15px);
+    background-color: #f8f8f8;
+    border-top: 2px solid #c6168d;
+    box-shadow: 0px 0px 15px #d8d8d8;
+    margin-bottom: 10px;
+    width: 100%;
 
-    @media (min-width: $screen-tablet) {
-      margin: 0 15px;
-      padding: 24px 0;
+    @include breakpoint(540px) {
+      margin: 0 15px 40px;
     }
 
-    h2 {
-      @include breakpoint (768px) {
-        font-size: 26px;
-      }
-      @include breakpoint (1024px) {
-        font-size: 30px;
-      }
-      &.with-icon {
-        padding-left: 28px;
-        @include breakpoint (768px) {
-          padding-left: 32px;
-        }
-        @include breakpoint (1024px) {
-          padding-left: 40px;
-        }
+    h2,
+    h3 {
+      text-transform: uppercase;
+      font-family: Cachet;
+      margin: 0;
+      font-size: 20px;
+      padding: 30px 0;
+      color: #0089d0;
+      &:after {
+        margin-left: 10px;
+        color: #0089d0;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\f138";
       }
     }
-
+    .blog-heading,
+    .promo-text {
+      padding: 0 25px 30px;
+      @include breakpoint(768px) {
+        padding: 0 35px 35px 45px;
+      }
+    }
+    article {
+      a {
+        color: $default-grey;
+      }
+    }
     h4 {
-      @include cachet();
+      font-family: Cachet;
       font-size: 26px;
       line-height: lh(30, 26);
-      color: $purple;
       margin: 0 0 10px;
       vertical-align: middle;
 
-      @media (min-width: $screen-tablet) {
+      @include breakpoint(tablet) {
         font-size: 36px;
         line-height: lh(40, 36);
       }
     }
 
     .fa {
-      color: $purple;
       font-size: 24px;
       vertical-align: middle;
       margin-right: 10px;
@@ -54,12 +69,12 @@
       max-width: 24px;
       float: left;
       width: auto;
-      @media (min-width: $screen-tablet) {
+      @include breakpoint(540px) {
         font-size: 26px;
         max-height: 26px;
         max-width: 26px;
       }
-      @media (min-width: $screen-desktop) {
+      @include breakpoint(laptop) {
         font-size: 30px;
         max-height: 30px;
         max-width: 30px;
@@ -75,11 +90,11 @@
         max-height: 24px;
         max-width: 24px;
         width: auto;
-        @media (min-width: $screen-tablet) {
+        @include breakpoint(540px) {
           max-height: 28px;
           max-width: 28px;
         }
-        @media (min-width: $screen-desktop) {
+        @include breakpoint(laptop) {
           max-height: 35px;
           max-width: 35px;
         }
@@ -87,14 +102,10 @@
     }
 
     p {
-      font-size: 13px;
-      line-height: lh(20, 13);
+      font-size: 15px;
+      line-height: lh(22, 15);
       margin: 0;
-
-      @media (min-width: $screen-tablet){
-        font-size: 15px;
-        line-height: lh(22, 15);
-      }
+      color: #424242;
     }
 
     .content {
@@ -102,12 +113,11 @@
     }
 
     .field-sb-link {
-      @include read-more-link();
     }
 
 
     .field-sb-body {
-      @media (min-width: $screen-tablet) {
+      @include breakpoint(540px) {
         font-size: 15px;
         line-height: lh(22, 15);
       }
@@ -122,7 +132,7 @@
       &:nth-child(2) {
         margin-right: 0;
       }
-      @media (min-width: $screen-tablet) {
+      @include breakpoint(540px) {
         width: calc(100% / 2 - 15px);
       }
     }
@@ -130,31 +140,16 @@
 
   &--3 {
     .block-description--text {
-      border-top: 1px solid $darker-grey;
-      border-bottom: 1px solid $darker-grey;
-
-      .field-branch-am,
-      .field-sb-body {
-        padding: 15px 0;
-      }
-      .field-sb-link {
-        display: block;
-        width: 100%;
-      }
-
-      h2 {
-        @include cachet();
-        margin-top: 0px;
-        font-size: 22px;
-        color: $default-grey;
-        text-align: left;
-      }
-      border-top: 1px solid $darker-grey;
-      border-bottom: 1px solid $darker-grey;
-      @media (min-width: $screen-tablet){
+      @include breakpoint($screen-tablet) {
         width: calc(100% / 3 - 30px);
         position: relative;
-        margin-bottom: 10px;
+        .block-share {
+          margin: 0 0 20px 0;
+        }
+        .field-sb-link a {
+          position: absolute;
+          bottom:10px;
+        }
       }
     }
 
@@ -162,17 +157,17 @@
 
   &--4 {
     display: block;
-    @media (min-width: $screen-tablet) {
+    @include breakpoint($screen-tablet) {
       display: flex;
     }
-    @media (min-width: $screen-tablet) {
+    @include breakpoint($screen-tablet) {
       .wrapper {
         display: flex;
         flex-wrap: wrap;
       }
     }
     .block-description--text {
-      @media (min-width: $screen-tablet) {
+      @include breakpoint(540px) {
         width: calc(100% / 4 - 30px);
       }
     }
@@ -192,18 +187,6 @@
       .field-image {
         width: 100%;
       }
-    }
-  }
-}
-
-.block-description--wrapper--outline--top {
-  .block-description--text {
-    border-top: 1px solid $dark-grey;
-  }
-  &.paragraph-1c-wrapper {
-    border-top: 1px solid $dark-grey;
-    .field-prgf-1c-description {
-      padding-top: 24px;
     }
   }
 }
