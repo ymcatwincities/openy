@@ -82,20 +82,20 @@ class OpenySocratesFacade {
    * @param array $services
    *   Services.
    */
-  public function collectDataServices($service, $priority) {
+  public function collectDataServices(array $services) {
     $todo_services = [];
-//    foreach ($services as $priority => $allservices) {
+    foreach ($services as $priority => $allservices) {
       /*
        * @var integer $key
        * @var OpenyDataServiceInterface $service
        */
-//      foreach ($allservices as $key => $service) {
+      foreach ($allservices as $key => $service) {
         foreach ($service->addDataServices($todo_services) as $method) {
           $this->services[$method][$priority] = $service;
           krsort($this->services[$method]);
         }
-//      }
-//    }
+      }
+    }
   }
 
   /**
@@ -104,11 +104,11 @@ class OpenySocratesFacade {
    * @param array $services
    *   Services.
    */
-  public function collectCronServices($service, $priority, $periodicity) {
+  public function collectCronServices(array $services) {
     /** @var OpenyCronServiceInterface $service */
-//    foreach ($services as $periodicity => $service) {
+    foreach ($services as $periodicity => $service) {
       $this->cronServices[$periodicity] = $service;
-//    }
+    }
   }
 
   /**
