@@ -5,7 +5,10 @@ core: 8.x
 package: OpenY
 dependencies:
   - block
+  - content_moderation
+  - datalayer
   - field
+  - field_group
   - link
   - menu_ui
   - node
