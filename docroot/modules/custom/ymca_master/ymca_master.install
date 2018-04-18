@@ -5587,14 +5587,6 @@ function ymca_master_update_8259() {
     ]
   );
 
-  // Import updated entity browser.
-  $config_importer->setDirectory('modules/features/openy_entity_browsers/config/install');
-  $config_importer->importConfigs(
-    [
-      'entity_browser.browser.browse_files_modal',
-    ]
-  );
-
   // Copy backed up data to new field instance.
   $rows = $db->select("copy_block_content__$field_name", 'copy')
     ->fields('copy')
@@ -5611,7 +5603,7 @@ function ymca_master_update_8259() {
     if ($blockEntity && !in_array($blockEntity->id(), $updated)) {
       // Load appropriate image.
       /** @var \Drupal\file\FileInterface $image */
-      $image = $fileStorage->load($row->field_ds_background_image_target_id) ;
+      $image = $fileStorage->load($row->field_ds_background_image_target_id);
 
       // Create new Media entity.
       $mediaEntity = $mediaStorage->create(
@@ -5633,8 +5625,9 @@ function ymca_master_update_8259() {
 
   }
 
+  $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
+
   // Make sure that file browser is reconfigured for:
-//  block_content.digital_signage_promotional.default
 //  block_content.location_schedule.default
 //  node.article.default
 //  node.blog.default
