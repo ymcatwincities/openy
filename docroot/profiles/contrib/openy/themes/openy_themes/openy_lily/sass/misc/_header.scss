@@ -309,7 +309,7 @@ header#page-head {
         z-index: 9999;
         @include transition(top 0.2s linear);
         &.affix {
-          top: 52px;
+          top: 100px;
         }
         #block-openy-lily-main-menu {
           width: 100%;

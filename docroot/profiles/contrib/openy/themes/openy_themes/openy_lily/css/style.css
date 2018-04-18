@@ -6379,7 +6379,7 @@ header#page-head .top-navs .nav-wrapper .main-nav {
   transition: top 0.2s linear;
 }
 header#page-head .top-navs .nav-wrapper .main-nav.affix {
-  top: 52px;
+  top: 100px;
 }
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   width: 100%;
