@@ -9,6 +9,8 @@ dependencies:
     - field.field.node.alert.field_alert_link
     - field.field.node.alert.field_alert_place
     - field.field.node.alert.field_alert_text_color
+    - field.field.node.alert.field_alert_visibility_pages
+    - field.field.node.alert.field_alert_visibility_state
     - node.type.alert
   module:
     - link
@@ -20,6 +22,14 @@ targetEntityType: node
 bundle: alert
 mode: default
 content:
+  addthis:
+    label: hidden
+    type: string
+    weight: 100
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   field_alert_belongs:
     type: entity_reference_label
     weight: 7
@@ -80,6 +90,20 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
+  field_alert_visibility_pages:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_alert_visibility_state:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   links:
     weight: 0

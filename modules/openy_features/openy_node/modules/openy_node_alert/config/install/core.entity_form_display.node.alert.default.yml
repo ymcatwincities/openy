@@ -9,12 +9,31 @@ dependencies:
     - field.field.node.alert.field_alert_link
     - field.field.node.alert.field_alert_place
     - field.field.node.alert.field_alert_text_color
+    - field.field.node.alert.field_alert_visibility_pages
+    - field.field.node.alert.field_alert_visibility_state
     - node.type.alert
   module:
+    - content_moderation
+    - field_group
     - link
     - path
     - scheduler
     - text
+third_party_settings:
+  field_group:
+    group_visibility_pages:
+      children:
+        - field_alert_visibility_pages
+        - field_alert_visibility_state
+      parent_name: ''
+      weight: 20
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: false
+      label: 'Visibility pages'
 id: node.alert.default
 targetEntityType: node
 bundle: alert
@@ -24,17 +43,17 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 5
     region: content
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     region: content
   field_alert_belongs:
-    weight: 38
+    weight: 17
     settings:
       match_operator: CONTAINS
       size: 60
@@ -43,13 +62,13 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_alert_color:
-    weight: 33
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_alert_description:
-    weight: 32
+    weight: 11
     settings:
       rows: 5
       placeholder: ''
@@ -57,13 +76,13 @@ content:
     type: text_textarea
     region: content
   field_alert_icon_color:
-    weight: 35
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_alert_link:
-    weight: 37
+    weight: 16
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -71,27 +90,47 @@ content:
     type: link_default
     region: content
   field_alert_place:
-    weight: 36
+    weight: 15
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_alert_text_color:
-    weight: 34
+    weight: 13
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
+  field_alert_visibility_pages:
+    weight: 21
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_alert_visibility_state:
+    weight: 22
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
   langcode:
     type: language_select
-    weight: 2
+    weight: 1
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 18
+    settings: {  }
+    region: content
+    third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -99,35 +138,37 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 4
     third_party_settings: {  }
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     region: content
   scheduler_settings:
-    weight: 20
+    weight: 7
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 19
     third_party_settings: {  }
     region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 6
     third_party_settings: {  }
     region: content
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     settings:
       size: 60
       placeholder: ''
@@ -135,7 +176,7 @@ content:
     region: content
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 60
@@ -144,7 +185,7 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     region: content

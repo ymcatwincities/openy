@@ -21,6 +21,14 @@ targetEntityType: node
 bundle: alert
 mode: node_alert_footer
 content:
+  addthis:
+    label: hidden
+    type: string
+    weight: 100
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   field_alert_belongs:
     type: entity_reference_label
     weight: 7
