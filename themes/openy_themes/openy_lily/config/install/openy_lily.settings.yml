@@ -13,3 +13,8 @@ openy_lily_camp_favicon: {  }
 openy_lily_image_fields:
   camp_section_logo: openy_lily_camp_section_logo
   camp_favicon: openy_lily_camp_favicon
+css_enabled: 1
+css: ""
+plaintext_enabled: 0
+autopreview_enabled: 0
+preview_path: ''
