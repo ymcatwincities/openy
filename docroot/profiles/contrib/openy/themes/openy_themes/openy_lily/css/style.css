@@ -6249,7 +6249,6 @@ header#page-head:after {
 @media (min-width: 0) and (max-width: 47.9375em) {
   header#page-head {
     position: relative;
-    z-index: 999;
   }
 }
 @media (min-width: 1200px) {
