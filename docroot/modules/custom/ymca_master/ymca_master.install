@@ -5531,7 +5531,7 @@ function ymca_master_update_8258() {
 /**
  * Change type of ds_background image.
  */
-function ymca_master_update_8259() {
+function _ymca_master_update_8259() {
   // Make a copy of the field.
   $field_name = 'field_ds_background_image';
   $db = \Drupal::database();
@@ -5554,6 +5554,7 @@ function ymca_master_update_8259() {
     $field_storage_config->delete();
   }
 
+  // Import updated fields.
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory('modules/features/digital_signage_promotional_block/config/install');
   $config_importer->importConfigs(
@@ -5585,4 +5586,39 @@ function ymca_master_update_8259() {
       'field.storage.block_content.field_ds_subheading',
     ]
   );
+
+  // Import updated entity browser.
+  $config_importer->setDirectory('modules/features/openy_entity_browsers/config/install');
+  $config_importer->importConfigs(
+    [
+      'entity_browser.browser.browse_files_modal',
+    ]
+  );
+
+  // Make sure that file browser is reconfigured for:
+//  block_content.digital_signage_promotional.default
+//  block_content.location_schedule.default
+//  node.article.default
+//  node.blog.default
+}
+
+function test() {
+  $field_name = 'field_ds_background_image';
+  $db = \Drupal::database();
+
+  // Copy backed up data to new field instance.
+  $rows = $db->select("copy_block_content__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $updated = [];
+  foreach ($rows as $row) {
+    $blockEntity = \Drupal::entityTypeManager()->getStorage('block_content')->load($row->entity_id);
+    if ($blockEntity && !in_array($blockEntity->id(), $updated)) {
+      $blockEntity->set('field_ds_background_image', ['target_id' => $blockEntity->field_ds_background_image_target_id]);
+      $blockEntity->save();
+      $updated[] = $blockEntity->id();
+    }
+  }
 }
