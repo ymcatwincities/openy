@@ -5531,7 +5531,7 @@ function ymca_master_update_8258() {
 /**
  * Change type of ds_background image.
  */
-function _ymca_master_update_8259() {
+function ymca_master_update_8259() {
   // Make a copy of the field.
   $field_name = 'field_ds_background_image';
   $db = \Drupal::database();
@@ -5595,30 +5595,47 @@ function _ymca_master_update_8259() {
     ]
   );
 
-  // Make sure that file browser is reconfigured for:
-//  block_content.digital_signage_promotional.default
-//  block_content.location_schedule.default
-//  node.article.default
-//  node.blog.default
-}
-
-function test() {
-  $field_name = 'field_ds_background_image';
-  $db = \Drupal::database();
-
   // Copy backed up data to new field instance.
   $rows = $db->select("copy_block_content__$field_name", 'copy')
     ->fields('copy')
     ->execute()
     ->fetchAll();
 
+  $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
+  $fileStorage = \Drupal::entityTypeManager()->getStorage('file');
+
   $updated = [];
   foreach ($rows as $row) {
     $blockEntity = \Drupal::entityTypeManager()->getStorage('block_content')->load($row->entity_id);
+
     if ($blockEntity && !in_array($blockEntity->id(), $updated)) {
-      $blockEntity->set('field_ds_background_image', ['target_id' => $blockEntity->field_ds_background_image_target_id]);
+      // Load appropriate image.
+      /** @var \Drupal\file\FileInterface $image */
+      $image = $fileStorage->load($row->field_ds_background_image_target_id) ;
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'image',
+          'name' => $image->getFilename(),
+          'status' => TRUE,
+          'field_media_image' => [
+            'target_id' => $image->id(),
+          ]
+        ]
+      );
+      $mediaEntity->save();
+
+      $blockEntity->set('field_ds_background_image', ['target_id' => $mediaEntity->id()]);
       $blockEntity->save();
       $updated[] = $blockEntity->id();
     }
+
   }
+
+  // Make sure that file browser is reconfigured for:
+//  block_content.digital_signage_promotional.default
+//  block_content.location_schedule.default
+//  node.article.default
+//  node.blog.default
 }
