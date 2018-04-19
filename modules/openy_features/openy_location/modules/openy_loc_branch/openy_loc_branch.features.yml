@@ -1,6 +1,1 @@
-excluded:
-  - core.entity_form_display.paragraph.location_filter_by_amenities.default
-  - core.entity_view_display.paragraph.location_filter_by_amenities.default
-  - field.field.paragraph.location_filter_by_amenities.field_amenities_filter
-  - views.view.location_by_amenities
 required: true
