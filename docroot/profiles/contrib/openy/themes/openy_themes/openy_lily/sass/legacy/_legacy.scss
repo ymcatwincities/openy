@@ -11,6 +11,7 @@
 @import 'sidebar';
 @import 'childcare';
 @import 'content-banner';
+@import 'mobile_nav';
 
 /* Give page */
 .path-give {
@@ -192,6 +193,9 @@ section.content {
 .paragraph--type--sidebar-menu {
   background: #e0e0e0;
   margin: 0 0 20px;
+  @media (max-width: 767px) {
+    display: none;
+  }
   .panel-body {
     padding: 0 15px;
   }
@@ -199,9 +203,13 @@ section.content {
     .nav {
       display: none;
     }
+    a:hover, a:focus {
+      text-decoration: none;
+      background-color: #eee;
+    }
     &.open {
       background: #f5f5f5;
-      border-top: 5px solid #000;
+      /*border-top: 5px solid #000;*/
       > a {
         margin-top: -5px;
         border-top: 5px solid #000;
@@ -218,8 +226,14 @@ section.content {
         display: block;
         padding: 10px 15px 10px 25px;
       }
-      .current a {
+      .dropdown li a {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 35px;
+      }
+      .current > a {
         color: #333;
+        border: 0;
         &:after {
           position: absolute;
           top: 50%;
@@ -230,7 +244,8 @@ section.content {
           font-family: 'YMCA';
         }
       }
-      .nav {
+      > .nav,
+      .nav .open .nav {
         display: block;
       }
     }
@@ -291,4 +306,11 @@ p.button {
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
+}
+
+.landing-content {
+  padding-top: 10px;
+  @media (min-width: 768px) {
+    padding-top: 40px;
+  }
 }

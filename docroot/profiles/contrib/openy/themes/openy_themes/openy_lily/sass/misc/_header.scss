@@ -292,6 +292,11 @@ header#page-head {
         }
       }
     }
+    #block-topmenu2 {
+      .expanded-menu + .dropdown-menu {
+        display: block;
+      }
+    }
     .nav-wrapper {
       min-height: 62px;
       z-index: 998;
