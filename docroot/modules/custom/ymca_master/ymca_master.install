@@ -5529,30 +5529,16 @@ function ymca_master_update_8258() {
 }
 
 /**
- * Change type of ds_background image.
+ * Change type of field_ds_background_image.
  */
 function ymca_master_update_8259() {
-  // Make a copy of the field.
+  // Install help module.
+  \Drupal::service('module_installer')->install(['openy_tools'], TRUE);
+
+  // Remove the field.
   $field_name = 'field_ds_background_image';
-  $db = \Drupal::database();
-
-  $db->query("SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO'");
-
-  $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
-  $db->query("CREATE TABLE copy_block_content__$field_name LIKE block_content__$field_name");
-  $db->query("INSERT INTO copy_block_content__$field_name SELECT * FROM block_content__$field_name");
-
-  // Deleting field.
-  $bundles = ['digital_signage_promotional']; // todo
-  foreach ($bundles as $bundle) {
-    if ($field_config = FieldConfig::loadByName('block_content', $bundle, $field_name)) {
-      $field_config->delete();
-    }
-  }
-  // Deleting field storage.
-  if ($field_storage_config = FieldStorageConfig::loadByName('block_content', $field_name)) {
-    $field_storage_config->delete();
-  }
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('block_content', ['digital_signage_promotional'], $field_name, TRUE);
 
   // Import updated fields.
   $config_importer = \Drupal::service('config_import.importer');
@@ -5587,48 +5573,119 @@ function ymca_master_update_8259() {
     ]
   );
 
-  // Copy backed up data to new field instance.
-  $rows = $db->select("copy_block_content__$field_name", 'copy')
-    ->fields('copy')
-    ->execute()
-    ->fetchAll();
+  $db = \Drupal::database();
 
-  $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
-  $fileStorage = \Drupal::entityTypeManager()->getStorage('file');
-
-  $updated = [];
-  foreach ($rows as $row) {
-    $blockEntity = \Drupal::entityTypeManager()->getStorage('block_content')->load($row->entity_id);
-
-    if ($blockEntity && !in_array($blockEntity->id(), $updated)) {
-      // Load appropriate image.
-      /** @var \Drupal\file\FileInterface $image */
-      $image = $fileStorage->load($row->field_ds_background_image_target_id);
-
-      // Create new Media entity.
-      $mediaEntity = $mediaStorage->create(
-        [
-          'bundle' => 'image',
-          'name' => $image->getFilename(),
-          'status' => TRUE,
-          'field_media_image' => [
-            'target_id' => $image->id(),
-          ]
-        ]
-      );
-      $mediaEntity->save();
-
-      $blockEntity->set('field_ds_background_image', ['target_id' => $mediaEntity->id()]);
-      $blockEntity->save();
-      $updated[] = $blockEntity->id();
-    }
-
-  }
+//  // Copy backed up data to new field instance.
+//  $rows = $db->select("copy_block_content__$field_name", 'copy')
+//    ->fields('copy')
+//    ->execute()
+//    ->fetchAll();
+//
+//  $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
+//  $fileStorage = \Drupal::entityTypeManager()->getStorage('file');
+//
+//  $updated = [];
+//  foreach ($rows as $row) {
+//    $blockEntity = \Drupal::entityTypeManager()->getStorage('block_content')->load($row->entity_id);
+//
+//    if ($blockEntity && !in_array($blockEntity->id(), $updated)) {
+//      // Load appropriate image.
+//      /** @var \Drupal\file\FileInterface $image */
+//      $image = $fileStorage->load($row->field_ds_background_image_target_id);
+//
+//      // Create new Media entity.
+//      $mediaEntity = $mediaStorage->create(
+//        [
+//          'bundle' => 'image',
+//          'name' => $image->getFilename(),
+//          'status' => TRUE,
+//          'field_media_image' => [
+//            'target_id' => $image->id(),
+//          ]
+//        ]
+//      );
+//      $mediaEntity->save();
+//
+//      $blockEntity->set('field_ds_background_image', ['target_id' => $mediaEntity->id()]);
+//      $blockEntity->save();
+//      $updated[] = $blockEntity->id();
+//    }
+//
+//  }
 
   $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
+}
 
-  // Make sure that file browser is reconfigured for:
+/**
+ * Change type of field_schedule_documents.
+ */
+function ymca_master_update_8260() {
+  // Remove the field.
+  $field_name = 'field_schedule_documents';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('block_content', ['location_schedule'], $field_name, TRUE);
+
+  // Import updated fields.
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('modules/features/openy_location_schedule_block/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_form_display.block_content.location_schedule.default',
+      'core.entity_view_display.block_content.location_schedule.default',
+      'field.field.block_content.location_schedule.field_schedule_documents',
+      'field.storage.block_content.field_schedule_documents',
+    ]
+  );
+
+  $config_importer->setDirectory('profiles/contrib/openy/modules/openy_features/openy_media/modules/openy_media_document/config/install/');
+  $config_importer->importConfigs(
+    [
+      'entity_browser.browser.documents_library'
+    ]
+  );
+
+//  // Copy backed up data to new field instance.
+//  $db = \Drupal::database();
+//  $rows = $db->select("copy_block_content__$field_name", 'copy')
+//    ->fields('copy')
+//    ->execute()
+//    ->fetchAll();
+//
+//  $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
+//  $fileStorage = \Drupal::entityTypeManager()->getStorage('file');
+//
+//  $updated = [];
+//  foreach ($rows as $row) {
+//    $blockEntity = \Drupal::entityTypeManager()->getStorage('block_content')->load($row->entity_id);
+//
+//    if ($blockEntity && !in_array($blockEntity->id(), $updated)) {
+//      // Load appropriate image.
+//      /** @var \Drupal\file\FileInterface $image */
+//      $image = $fileStorage->load($row->field_ds_background_image_target_id);
+//
+//      // Create new Media entity.
+//      $mediaEntity = $mediaStorage->create(
+//        [
+//          'bundle' => 'image',
+//          'name' => $image->getFilename(),
+//          'status' => TRUE,
+//          'field_media_image' => [
+//            'target_id' => $image->id(),
+//          ]
+//        ]
+//      );
+//      $mediaEntity->save();
+//
+//      $blockEntity->set('field_ds_background_image', ['target_id' => $mediaEntity->id()]);
+//      $blockEntity->save();
+//      $updated[] = $blockEntity->id();
+//    }
+//
+//  }
+
+}
+
+// Make sure that file browser is reconfigured for:
 //  block_content.location_schedule.default
 //  node.article.default
 //  node.blog.default
-}
