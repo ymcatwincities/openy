@@ -341,6 +341,7 @@
   position: relative;
   @include breakpoint(0 $tablet) {
     height: auto;
+    min-height: initial;
     .container-fluid {
       padding: 0 15px;
     }
@@ -368,11 +369,15 @@
     .banner-copy {
       padding: 30px 0;
       z-index: 3;
+      @include breakpoint(0 767px) {
+        padding-top: 20px;
+        padding-bottom: 10px;
+      }
       h1 {
         color: white;
         margin-top: 0;
         @include breakpoint(0 $tablet-start) {
-          font-size: 48px;
+          font-size: 24px;
         }
       }
       p {
@@ -563,15 +568,10 @@
 .paragraph--type--secondary-description-sidebar {
   background: $extra-grey3;
   padding: 10px 0 20px 0;
-  margin-bottom: 20px;
   color: $darker-grey;
   font-family: $font-family-sans-serif;
   font-weight: 200;
   line-height: 1.4;
-  @include breakpoint ($tablet) {
-    margin-bottom: 40px;
-    padding: 0;
-  }
   &:before {
     position: absolute;
     top: 0;
