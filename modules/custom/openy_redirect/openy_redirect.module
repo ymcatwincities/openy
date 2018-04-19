@@ -22,7 +22,7 @@ function openy_redirect_entity_base_field_info(EntityTypeInterface $entity_type)
       ->setTranslatable(TRUE)
       ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
       ->setDisplayOptions('form', [
-        'type' => 'redirect',
+        'type' => 'string_textfield',
         'weight' => 30,
       ])
       ->setDisplayConfigurable('form', TRUE)
