@@ -120,6 +120,14 @@
           $('#block-openy-lily-main-menu .dropdown-toggle').removeClass('expanded-menu');
         }
       });
+      $('#block-topmenu2 .dropdown-toggle', context).each(function () {
+        var $menuItem = $("#block-openy-lily-main-menu .dropdown-toggle");
+        $(this).on('click', function (e) {
+          $(this).toggleClass('expanded-menu');
+          $($menuItem).not($(this)).removeClass('expanded-menu');
+          e.preventDefault();
+        });
+      });
     }
   };
 
