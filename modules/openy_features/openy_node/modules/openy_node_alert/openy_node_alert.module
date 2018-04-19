@@ -5,6 +5,10 @@
  * OpenY Node Alert module file.
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Component\Utility\Unicode;
+
 /**
  * Implements hook_preprocess_node().
  */
@@ -26,5 +30,33 @@ function openy_node_alert_preprocess_node(&$variables) {
       $variation_class_array[] = $variables['placement'];
       $variables['attributes']['class'][] = implode('--', $variation_class_array);
     }
+  }
+}
+
+/**
+ * Implements hook_entity_view().
+ */
+function openy_node_alert_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if ($entity->bundle() == 'alert') {
+
+    $path_matcher = \Drupal::service('path_matcher');
+    // Convert path to lowercase. This allows comparison of the same path
+    // with different case. Ex: /Page, /page, /PAGE.
+    $pages = Unicode::strtolower($this->configuration['pages']);
+    if (!$pages) {
+      return TRUE;
+    }
+
+    $request = \Drupal::requestStack()->getCurrentRequest();
+    // Compare the lowercase path alias (if any) and internal path.
+    $path = $this->currentPath->getPath($request);
+    // Do not trim a trailing slash if that is the complete path.
+    $path = $path === '/' ? $path : rtrim($path, '/');
+    $path_alias = Unicode::strtolower($this->aliasManager->getAliasByPath($path));
+    print_r($path_alias);
+    exit;
+
+    return $path_matcher->matchPath($path_alias, $pages) || (($path != $path_alias) && $this->pathMatcher->matchPath($path, $pages));
+
   }
 }
