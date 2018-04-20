@@ -343,7 +343,7 @@ class MigrationImporter implements MigrationImporterInterface {
    *   Old Page node.
    */
   final public static function migrateSidebarArea(Node $lp_node, Node $node) {
-    $lp_layout = '';
+    $lp_layout = 'one_column';
     $region_sn = $region_sn = 'field_sidebar_content';
     // Check is there content in the field_sidebar.
     $sidebar_content = $node->get('field_sidebar')->value;
