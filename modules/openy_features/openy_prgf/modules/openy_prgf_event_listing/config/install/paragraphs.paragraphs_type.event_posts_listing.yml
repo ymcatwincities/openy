@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: event_posts_listing
+label: 'Event Posts Listing'
+behavior_plugins: {  }
