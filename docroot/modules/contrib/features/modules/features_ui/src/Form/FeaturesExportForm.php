@@ -133,10 +133,7 @@ class FeaturesExportForm extends FormBase {
     // Add in un-packaged configuration items.
     $this->addUnpackaged($packages, $config_collection);
 
-    // Filter packages on bundle if selected.
-    if (!$current_bundle->isDefault()) {
-      $packages = $this->featuresManager->filterPackages($packages, $current_bundle->getMachineName(), TRUE);
-    }
+    $packages = $this->featuresManager->filterPackages($packages, $current_bundle->getMachineName());
 
     // Pass the packages and bundle data for use in the form pre_render
     // callback.

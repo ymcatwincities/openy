@@ -5528,3 +5528,163 @@ function ymca_master_update_8258() {
     ]
   );
 }
+
+/**
+ * Change type of field_ds_background_image.
+ */
+function ymca_master_update_8259() {
+  // Install help module.
+  \Drupal::service('module_installer')->install(['openy_tools'], TRUE);
+
+  // Remove the field.
+  $field_name = 'field_ds_background_image';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('block_content', ['digital_signage_promotional'], $field_name, TRUE);
+
+  // Import updated fields.
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('modules/features/digital_signage_promotional_block/config/install');
+  $config_importer->importConfigs(
+    [
+      'block_content.type.digital_signage_promotional',
+      'core.entity_form_display.block_content.digital_signage_promotional.default',
+      'core.entity_view_display.block_content.digital_signage_promotional.default',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_color',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_image',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_position',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_scheme',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_size',
+      'field.field.block_content.digital_signage_promotional.field_ds_color_scheme',
+      'field.field.block_content.digital_signage_promotional.field_ds_headline',
+      'field.field.block_content.digital_signage_promotional.field_ds_layout',
+      'field.field.block_content.digital_signage_promotional.field_ds_message_position',
+      'field.field.block_content.digital_signage_promotional.field_ds_message',
+      'field.field.block_content.digital_signage_promotional.field_ds_subheading',
+      'field.storage.block_content.field_ds_background_color',
+      'field.storage.block_content.field_ds_background_image',
+      'field.storage.block_content.field_ds_background_position',
+      'field.storage.block_content.field_ds_background_scheme',
+      'field.storage.block_content.field_ds_background_size',
+      'field.storage.block_content.field_ds_color_scheme',
+      'field.storage.block_content.field_ds_headline',
+      'field.storage.block_content.field_ds_layout',
+      'field.storage.block_content.field_ds_message_position',
+      'field.storage.block_content.field_ds_message',
+      'field.storage.block_content.field_ds_subheading',
+    ]
+  );
+
+  $db = \Drupal::database();
+
+  // Copy backed up data to new field instance.
+  $rows = $db->select("copy_block_content__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
+  $fileStorage = \Drupal::entityTypeManager()->getStorage('file');
+
+  $updated = [];
+  foreach ($rows as $row) {
+    $blockEntity = \Drupal::entityTypeManager()->getStorage('block_content')->load($row->entity_id);
+
+    if ($blockEntity && !in_array($blockEntity->id(), $updated)) {
+      // Load appropriate image.
+      /** @var \Drupal\file\FileInterface $image */
+      $image = $fileStorage->load($row->field_ds_background_image_target_id);
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'image',
+          'name' => $image->getFilename(),
+          'status' => TRUE,
+          'field_media_image' => [
+            'target_id' => $image->id(),
+          ]
+        ]
+      );
+      $mediaEntity->save();
+
+      $blockEntity->set($field_name, ['target_id' => $mediaEntity->id()]);
+      $blockEntity->save();
+      $updated[] = $blockEntity->id();
+    }
+
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
+}
+
+/**
+ * Change type of field_schedule_documents.
+ */
+function ymca_master_update_8260() {
+  // Remove the field.
+  $field_name = 'field_schedule_documents';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('block_content', ['location_schedule'], $field_name, TRUE);
+
+  // Import updated fields.
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('modules/features/openy_location_schedule_block/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_form_display.block_content.location_schedule.default',
+      'core.entity_view_display.block_content.location_schedule.default',
+      'field.field.block_content.location_schedule.field_schedule_documents',
+      'field.storage.block_content.field_schedule_documents',
+    ]
+  );
+
+  $dir = 'profiles/contrib/openy/modules/openy_features/openy_media/modules/openy_media_document/config/install/';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'entity_browser.browser.documents_library'
+    ]
+  );
+
+  // Copy backed up data to new field instance.
+  $db = \Drupal::database();
+  $rows = $db->select("copy_block_content__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
+  $fileStorage = \Drupal::entityTypeManager()->getStorage('file');
+
+  foreach ($rows as $row) {
+    $blockEntity = \Drupal::entityTypeManager()->getStorage('block_content')->load($row->entity_id);
+    if ($blockEntity) {
+      // Load appropriate image.
+      $file = $fileStorage->load($row->field_schedule_documents_target_id);
+      if (!$file) {
+        continue;
+      }
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'document',
+          'name' => $row->field_schedule_documents_description,
+          'status' => TRUE,
+          'field_media_document' => [
+            'target_id' => $file->id(),
+          ]
+        ]
+      );
+
+      $mediaEntity->save();
+
+      $referenceField = $blockEntity->get($field_name);
+      $referenceField->appendItem(['target_id' => $mediaEntity->id()]);
+
+      $blockEntity->save();
+    }
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
+}
