@@ -87,24 +87,24 @@
       if (typeof(settings.ymca_menu) !== 'undefined' && settings.ymca_menu.show_mobile_submenu) {
         $('body').addClass('show-mobile-sub-navigation');
         // Basic case, only sidebar presents.
-        if ($('.panel-subnav').length === 1 && $('.mobile-subnav').length === 0) {
-          $('<div class="mobile-subnav" />').insertAfter('.page-header');
-          $('.panel-subnav').clone(true).appendTo('.mobile-subnav');
+        if ($('.field-prgf-sidebar-menu-ref').length === 1 && $('.mobile-subnav').length === 0) {
+          $('<div class="mobile-subnav" />').insertAfter('.landing-header');
+          $('.field-prgf-sidebar-menu-ref').clone(true).appendTo('.mobile-subnav');
           $('.mobile-subnav .panel-heading a').append('<b class="caret"></b>').click(function (e) {
             e.preventDefault();
             if ($(this).hasClass('open')) {
-              $(this).removeClass('open').parents('.panel').find('.panel-body').slideUp();
+              $(this).removeClass('open').parents('.field-prgf-sidebar-menu-ref').find('.panel-body').slideUp();
             }
             else {
-              $(this).addClass('open').parents('.panel').find('.panel-body').slideDown();
+              $(this).addClass('open').parents('.field-prgf-sidebar-menu-ref').find('.panel-body').slideDown();
             }
           });
         }
         // Extended case, merge sidebar and navbar.
         if ($('.nav-location').length === 1) {
           $('.nav-location').removeClass('hidden-xs');
-          if ($('.panel-subnav').length === 1) {
-            $('.panel-subnav ul.nav:eq(0)').clone(true).appendTo('.nav-location .nav .current');
+          if ($('.field-prgf-sidebar-menu-ref').length === 1) {
+            $('.field-prgf-sidebar-menu-ref ul.nav:eq(0)').clone(true).appendTo('.nav-location .nav .current');
           }
           if ($('.nav-location a.home .name').length === 0) {
             var home = $('.nav-location a.home'),

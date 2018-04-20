@@ -195,7 +195,6 @@ header#page-head {
   @include cachet();
   @include breakpoint (0 767px) {
     position: relative;
-    z-index: 999;
   }
   .container-fluid {
     @media (min-width: 1200px) {
@@ -293,6 +292,11 @@ header#page-head {
         }
       }
     }
+    #block-topmenu2 {
+      .expanded-menu + .dropdown-menu {
+        display: block;
+      }
+    }
     .nav-wrapper {
       min-height: 62px;
       z-index: 998;
@@ -309,7 +313,7 @@ header#page-head {
         z-index: 9999;
         @include transition(top 0.2s linear);
         &.affix {
-          top: 52px;
+          top: 100px;
         }
         #block-openy-lily-main-menu {
           width: 100%;
