@@ -5687,3 +5687,20 @@ function ymca_master_update_8260() {
 
   $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
 }
+
+/**
+ * Fix browsers for blog.
+ */
+function ymca_master_update_8261() {
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $dir = 'modules/features/ygtc_blog/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'field.field.node.blog.field_related_camps_locations',
+      'field.field.node.blog.field_site_section',
+      'core.entity_form_display.node.blog.default',
+    ]
+  );
+}
