@@ -686,11 +686,11 @@ body {
   margin-top: 5px;
 }
 
-.viewport .nav-global > .container > .row, .viewport .path-account .nav-global > .status-message > .row, .path-account .viewport .nav-global > .status-message > .row, .viewport #membership-page #block-openy-lily-content .nav-global > .container > .landing-content, #membership-page #block-openy-lily-content .viewport .nav-global > .container > .landing-content, .viewport .path-account #membership-page #block-openy-lily-content .nav-global > .status-message > .landing-content, #membership-page #block-openy-lily-content .viewport .path-account .nav-global > .status-message > .landing-content, .path-account .viewport #membership-page #block-openy-lily-content .nav-global > .status-message > .landing-content, #membership-page #block-openy-lily-content .path-account .viewport .nav-global > .status-message > .landing-content {
+.viewport .nav-global > .container > .row, .viewport .path-account .nav-global > .status-message > .row, .path-account .viewport .nav-global > .status-message > .row {
   height: 100px;
   position: relative;
 }
-.viewport .nav-global > .container > .row .header-content, .viewport .path-account .nav-global > .status-message > .row .header-content, .path-account .viewport .nav-global > .status-message > .row .header-content, .viewport #membership-page #block-openy-lily-content .nav-global > .container > .landing-content .header-content, #membership-page #block-openy-lily-content .viewport .nav-global > .container > .landing-content .header-content, .viewport .path-account #membership-page #block-openy-lily-content .nav-global > .status-message > .landing-content .header-content, #membership-page #block-openy-lily-content .viewport .path-account .nav-global > .status-message > .landing-content .header-content, .path-account .viewport #membership-page #block-openy-lily-content .nav-global > .status-message > .landing-content .header-content, #membership-page #block-openy-lily-content .path-account .viewport .nav-global > .status-message > .landing-content .header-content {
+.viewport .nav-global > .container > .row .header-content, .viewport .path-account .nav-global > .status-message > .row .header-content, .path-account .viewport .nav-global > .status-message > .row .header-content {
   bottom: 0;
   position: absolute;
 }
@@ -2738,7 +2738,7 @@ body {
   color: #5c2e91;
   margin: 15px 15px 20px;
 }
-.sub-category-classes-view .activity-group .row, .sub-category-classes-view .activity-group #membership-page #block-openy-lily-content .landing-content, #membership-page #block-openy-lily-content .sub-category-classes-view .activity-group .landing-content {
+.sub-category-classes-view .activity-group .row {
   margin-bottom: 40px;
 }
 .sub-category-classes-view .activity-group .teaser-row {
@@ -3505,7 +3505,7 @@ html.js .branch__updates_queue__button {
   color: #5c2e91;
   margin: 0 15px 20px;
 }
-.branch-sessions-group .row, .branch-sessions-group #membership-page #block-openy-lily-content .landing-content, #membership-page #block-openy-lily-content .branch-sessions-group .landing-content {
+.branch-sessions-group .row {
   margin-bottom: 40px;
 }
 .branch-sessions-group .views-row {
@@ -4444,333 +4444,7 @@ body .branch-popup + .ui-widget-overlay {
   padding: 10px 0;
 }
 
-a[href="#step2"] {
-  pointer-events: none;
-}
-
-#membership-calc-wrapper img {
-  height: auto;
-  max-width: 100%;
-}
-#membership-calc-wrapper h2 {
-  font-size: 40px;
-  text-align: center;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-}
-#membership-calc-wrapper .description {
-  margin-bottom: -0.5em;
-}
-#membership-calc-wrapper legend {
-  border: none;
-  color: inherit;
-  font-size: 36px;
-}
-#membership-calc-wrapper .label-for-field-mbrshp-join-fee,
-#membership-calc-wrapper .label-for-field-mbrshp-monthly-rate {
-  float: left;
-  margin-right: 0.5em;
-}
-#membership-calc-wrapper .label-for-field-mbrshp-join-fee:after,
-#membership-calc-wrapper .label-for-field-mbrshp-monthly-rate:after {
-  content: ":";
-}
-#membership-calc-wrapper .membership-type h3 {
-  width: 100%;
-}
-#membership-calc-wrapper .membership-type label {
-  border-bottom: 1px solid #333;
-  left: 0;
-  bottom: 0;
-  display: block;
-  padding-bottom: 30px;
-  position: absolute;
-  width: 100%;
-}
-#membership-calc-wrapper .btn, #membership-calc-wrapper .button, #membership-calc-wrapper .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button #membership-calc-wrapper a {
-  line-height: 40px;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 10px 10px;
-}
-#membership-calc-wrapper .text-center {
-  margin-top: 40px;
-}
-#membership-calc-wrapper .form-element-wrapper {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  flex-direction: column;
-  position: relative;
-  width: 100%;
-}
-#membership-calc-wrapper .form-element-wrapper .btn, #membership-calc-wrapper .form-element-wrapper .button, #membership-calc-wrapper .form-element-wrapper .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button #membership-calc-wrapper .form-element-wrapper a {
-  display: block;
-}
-#membership-calc-wrapper input[name="type"] {
-  position: absolute !important;
-  clip: rect(1px, 1px, 1px, 1px);
-  overflow: hidden;
-  height: 1px;
-  width: 1px;
-  word-wrap: normal;
-}
-#membership-calc-wrapper .membership-type {
-  margin: 0 0 20px 0;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-@media (min-width: 30em) and (max-width: 48em) {
-  #membership-calc-wrapper .membership-type {
-    width: 50%;
-  }
-}
-#membership-calc-wrapper .membership-type .contextual-region {
-  position: static;
-}
-#membership-calc-wrapper .membership-type .node--view-mode-calc-preview img {
-  height: auto;
-  margin-bottom: 10px;
-  width: 100%;
-}
-#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn, #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button, #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .ui-widget.ui-dialog.confirmation-popup .content-button a, .ui-widget.ui-dialog.confirmation-popup .content-button #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label a {
-  background-color: #5c2e91;
-  box-shadow: 0 0 5px #5c2e91;
-}
-#membership-calc-wrapper .pull-left,
-#membership-calc-wrapper .pull-right {
-  margin: 20px 0 10px 0;
-}
-#membership-calc-wrapper .node--type-membership.node--view-mode-calc-preview {
-  margin-bottom: 100px;
-  width: 100%;
-}
-#membership-calc-wrapper .pull-right,
-#membership-calc-wrapper .complete-registration {
-  background-color: #5c2e91;
-}
-#membership-calc-wrapper .calc-summary {
-  display: -webkit-flex;
-  display: flex;
-  flex-wrap: wrap;
-}
-#membership-calc-wrapper .calc-summary .calc-summary-col {
-  border-bottom: 1px solid #333333;
-  flex-basis: calc(100% - 15px);
-  padding-bottom: 15px;
-}
-@media (min-width: 48em) {
-  #membership-calc-wrapper .calc-summary .calc-summary-col {
-    margin: 0 15px 0 0;
-  }
-}
-@media (min-width: 48em) {
-  #membership-calc-wrapper .calc-summary .calc-summary-col:nth-child(2) {
-    margin: 0 0 0 15px;
-  }
-}
-#membership-calc-wrapper .calc-summary .calc-summary-col img {
-  height: 200px;
-  max-width: 100%;
-}
-@media (min-width: 48em) {
-  #membership-calc-wrapper .calc-summary .calc-summary-col {
-    flex-basis: calc(50% - 15px);
-  }
-}
-#membership-calc-wrapper .calc-summary .price {
-  margin-top: 15px;
-  word-break: break-word;
-}
-#membership-calc-wrapper .calc-summary .price .monthly_rate {
-  color: #5c2e91;
-  font-size: 22px;
-  font-weight: bold;
-  margin: 10px 0;
-  font-family: "Cachet Medium", Verdana, Geneva, sans-serif;
-}
-#membership-calc-wrapper .calc-summary a.card {
-  color: #636466;
-  display: inline-block;
-  padding: 1px 15px 15px;
-  text-decoration: none;
-  text-align: center;
-  margin-bottom: 15px;
-  vertical-align: top;
-}
-@media (min-width: 48em) {
-  #membership-calc-wrapper .calc-summary a.card {
-    width: 45%;
-  }
-}
-#membership-calc-wrapper .calc-summary a.card.chosen {
-  background-color: #ebebeb;
-  outline: none;
-}
-
-#membership-calc-wrapper .nav-pills {
-  display: table;
-  width: 111%;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
-  overflow: hidden;
-  margin-bottom: 20px;
-  font-size: 13px;
-  margin: 0 -15px;
-}
-@media (min-width: 48em) {
-  #membership-calc-wrapper .nav-pills {
-    width: 100%;
-    font-size: 20px;
-    line-height: 42px;
-    margin: 0;
-  }
-}
-#membership-calc-wrapper .nav-pills > li {
-  display: table-cell;
-  float: none;
-  vertical-align: middle;
-}
-#membership-calc-wrapper .nav-pills > li:last-child a {
-  padding-left: 25px;
-  width: 100%;
-}
-#membership-calc-wrapper .nav-pills > li a {
-  text-decoration: none;
-  position: relative;
-  border-radius: 0;
-  color: #fff;
-  background-color: #92278f;
-  width: calc(100% - 30px);
-  text-align: left;
-  height: 68px;
-}
-@media (min-width: 48em) {
-  #membership-calc-wrapper .nav-pills > li a {
-    display: block;
-    white-space: nowrap;
-    text-align: center;
-    height: auto;
-  }
-}
-#membership-calc-wrapper .nav-pills > li a:before {
-  content: " ";
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 60px solid transparent;
-  border-bottom: 60px solid transparent;
-  border-left: 30px solid #fff;
-  position: absolute;
-  top: 50%;
-  margin-top: -60px;
-  margin-left: 1px;
-  left: 100%;
-  z-index: 1;
-}
-#membership-calc-wrapper .nav-pills > li a:after {
-  content: " ";
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 60px solid transparent;
-  border-bottom: 60px solid transparent;
-  border-left: 30px solid #92278f;
-  position: absolute;
-  top: 50%;
-  margin-top: -60px;
-  margin-left: -1px;
-  left: 100%;
-  z-index: 2;
-}
-#membership-calc-wrapper .nav-pills > li a .nav-pills__text {
-  position: relative;
-  z-index: 3;
-}
-#membership-calc-wrapper .nav-pills > li a[href="#step1"],
-#membership-calc-wrapper .nav-pills > li a[href="#step2"] {
-  width: calc(100% - 15px);
-  padding-left: 25px;
-}
-#membership-calc-wrapper .nav-pills > li.active a {
-  background-color: #5c2e91;
-}
-#membership-calc-wrapper .nav-pills > li.active a:after {
-  border-left: 30px solid #5c2e91;
-}
-
-.openy-map-wrapper {
-  margin-bottom: 20px;
-}
-
-.views-view-membership .field-body-no-summary {
-  font-size: 15px;
-  padding-bottom: 110px;
-}
-
-.view-mode-thumb-262-233 {
-  margin-bottom: 1em;
-}
-
-.wrapper-field-membership-info {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.form-item-location {
-  flex-basis: 25%;
-  margin-bottom: 5px;
-}
-@media (min-width: 48em) and (max-width: 62em) {
-  .form-item-location {
-    flex-basis: 33.33%;
-  }
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .form-item-location {
-    flex-basis: 100%;
-  }
-}
-.form-item-location input {
-  vertical-align: middle;
-  display: inline-block;
-  margin: 10px;
-}
-.form-item-location [class^="wrapper-"] > div {
-  display: inline-block;
-}
-.form-item-location [class^="label-"]:after {
-  content: ":";
-}
-.form-item-location .field-link {
-  display: none;
-}
-.form-item-location label {
-  max-width: calc(100% - 40px);
-  margin-bottom: 0;
-  vertical-align: middle;
-}
-
-.membership-continue {
-  display: none;
-}
-
-.price-month {
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 36px;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
-  font-weight: 500;
-  line-height: 1.1;
-  color: inherit;
-}
-
-.field-branch-hours h4 {
-  font-size: 14px;
-}
-
+/*@import 'modules/membership';*/
 .camp-menu {
   height: 50px;
   height: 5rem;
@@ -8021,847 +7695,7 @@ article.site-alert ul li div {
   color: #333;
 }
 
-#membership-calc-wrapper legend {
-  border: none;
-  color: inherit;
-  font-size: 36px;
-  margin-bottom: 30px;
-}
-#membership-calc-wrapper .register-form-loader {
-  margin-right: 3px !important;
-  padding: 13px 25px !important;
-  background-color: black !important;
-  font-size: 16px !important;
-  margin-bottom: 10px;
-  text-transform: capitalize;
-  line-height: normal;
-  border-radius: 3px;
-}
-#membership-calc-wrapper [data-drupal-selector="edit-reset-password"] {
-  line-height: normal;
-  font-weight: normal;
-  margin-top: 4px;
-}
-#membership-calc-wrapper [data-drupal-selector="edit-cancel"],
-#membership-calc-wrapper [data-drupal-selector="edit-submit"] {
-  line-height: 1.33;
-  padding: 13px 25px;
-}
-#membership-calc-wrapper .js-webform-radios .js-form-item {
-  padding: 0;
-  margin: 0 0 10px 30px;
-}
-#membership-calc-wrapper .js-webform-radios .js-form-item label {
-  font-weight: bold;
-  display: inline-block;
-  margin-top: 6px;
-}
-#membership-calc-wrapper .membership-calc-embedded > legend {
-  display: none;
-}
-#membership-calc-wrapper .membership-calc-embedded legend {
-  margin-bottom: 0;
-  font-size: 21px;
-}
-#membership-calc-wrapper .ymcali-ccc-registration-form legend {
-  margin-bottom: 0;
-  margin-left: 10px;
-}
-#membership-calc-wrapper .ymcali-ccc-registration-form legend .fieldset-legend {
-  font-size: 21px !important;
-}
-#membership-calc-wrapper .ymcali-ccc-registration-form [data-drupal-selector="edit-submit"],
-#membership-calc-wrapper .ymcali-ccc-registration-form .captcha {
-  margin-left: 10px;
-}
-#membership-calc-wrapper .ymcali-ccc-registration-form [data-drupal-selector="edit-emergency-contact"] .form-item-emergency-contact-name {
-  padding-left: 0 !important;
-}
-#membership-calc-wrapper .ymcali-ccc-registration-form .js-form-item-emergency-phone {
-  padding: 0 10px;
-}
-#membership-calc-wrapper .ymcali-ccc-registration-form [data-drupal-selector="edit-parent-information"] .form-item-parent-first-name {
-  padding-left: 0 !important;
-}
-#membership-calc-wrapper [data-drupal-selector="edit-emergency-info"] fieldset .form-item {
-  padding-left: 10px !important;
-  padding-right: 10px !important;
-  width: 47%;
-  float: left;
-  margin: 0 0 0 20px !important;
-}
-#membership-calc-wrapper [data-drupal-selector="edit-emergency-info"] fieldset .form-item label {
-  margin-top: 0;
-}
-#membership-calc-wrapper #ajax-ccc-add-family-member-form [data-drupal-selector="edit-emergency-info"] fieldset .form-item {
-  margin: 0 0 0 0 !important;
-}
-#membership-calc-wrapper #ajax-ccc-add-family-member-form [data-drupal-selector="edit-emergency-info"] fieldset .form-item-age-group {
-  padding-left: 20px !important;
-}
-#membership-calc-wrapper [data-drupal-selector="edit-add-member"] > .fieldset-wrapper {
-  margin: 0 -15px;
-}
-#membership-calc-wrapper .add-member-message {
-  padding: 0 15px;
-}
-@media (max-width: 1199px) {
-  #membership-calc-wrapper .webform-options-display-four-columns .form-checkboxes {
-    column-count: 2;
-  }
-}
-@media (max-width: 991px) {
-  #membership-calc-wrapper .webform-options-display-four-columns .form-checkboxes {
-    column-count: 2;
-  }
-}
-@media (max-width: 767px) {
-  #membership-calc-wrapper .webform-options-display-four-columns .form-checkboxes {
-    column-count: 1;
-  }
-  #membership-calc-wrapper .openy-ccc-add-family-member-form td {
-    font-size: 12px;
-    word-break: break-all;
-  }
-}
-@media (min-width: 768px) {
-  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-first-name {
-    width: 49%;
-    float: left;
-  }
-  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-last-name {
-    width: 48%;
-    margin-left: 2%;
-    display: inline-block;
-  }
-  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-card-number {
-    width: 49%;
-    float: left;
-  }
-  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-exp-month {
-    width: 16%;
-    display: inline-block;
-    margin-left: 2%;
-  }
-  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-exp-year {
-    width: 17%;
-    margin-left: 1%;
-    display: inline-block;
-  }
-  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-security-code {
-    width: 12%;
-    float: left;
-    margin-left: 2%;
-  }
-}
-#membership-calc-wrapper .i-accept {
-  width: 30%;
-  display: inline-block;
-  vertical-align: top;
-}
-#membership-calc-wrapper .initials {
-  width: 35%;
-  display: inline-block;
-}
-#membership-calc-wrapper .signature {
-  width: 49%;
-  float: left;
-}
-#membership-calc-wrapper .signature + .js-form-type-date {
-  width: 49%;
-  float: left;
-  margin-left: 2%;
-}
-#membership-calc-wrapper .js-form-type-checkbox.form-item-agreement input {
-  float: left;
-  display: block;
-}
-#membership-calc-wrapper .js-form-type-checkbox.form-item-agreement label {
-  margin-left: 25px;
-  display: block;
-}
-#membership-calc-wrapper .billing-payment-info .billing-info .form-item-state {
-  width: 49%;
-  float: left;
-}
-#membership-calc-wrapper .billing-payment-info .billing-info .form-item-zip {
-  width: 49%;
-  float: left;
-  margin-left: 2%;
-}
-#membership-calc-wrapper .payment-info .form-item-security-code {
-  float: left;
-  width: 32%;
-}
-#membership-calc-wrapper .payment-info .form-item-exp-month {
-  float: left;
-  width: 32%;
-  margin-left: 2%;
-}
-#membership-calc-wrapper .payment-info .form-item-exp-year {
-  float: left;
-  width: 32%;
-  margin-left: 2%;
-  margin-top: 24px;
-}
-#membership-calc-wrapper .free-joining-fee {
-  color: #5c2e91;
-  font-weight: bold;
-  font-size: 120%;
-  margin-bottom: 5px;
-}
-
-#ui-datepicker-div {
-  z-index: 4000 !important;
-}
-
-#membership-page {
-  position: relative;
-  z-index: 901;
-  color: #333;
-}
-#membership-page #block-openy-lily-content .landing-header:first-of-type {
-  background: url("../img/membership_b_bg_1.jpg") #f8f8f8 no-repeat center;
-  background-size: cover;
-  height: 599px;
-  text-align: center;
-}
-#membership-page #block-openy-lily-content .landing-header:first-of-type h2 {
-  color: #fff;
-  font-size: 48px;
-  margin-bottom: 27px;
-  margin-top: 90px;
-}
-#membership-page #block-openy-lily-content .landing-header:first-of-type .p1 {
-  color: #ebebeb;
-  font-size: 24px;
-  line-height: 32px;
-  margin: 0 0 30px 0;
-}
-#membership-page #block-openy-lily-content .landing-header:first-of-type .container, #membership-page #block-openy-lily-content .landing-header:first-of-type .path-account .status-message, .path-account #membership-page #block-openy-lily-content .landing-header:first-of-type .status-message {
-  width: 100% !important;
-}
-#membership-page #block-openy-lily-content .landing-header:first-of-type .buttons-wrap p {
-  font-size: 16px;
-  color: #fff;
-  max-width: 250px;
-  margin: 15px auto 0;
-  opacity: 0.5;
-}
-#membership-page #block-openy-lily-content .landing-header:first-of-type .buttons-wrap a:hover, #membership-page #block-openy-lily-content .landing-header:first-of-type .buttons-wrap a:focus {
-  text-decoration: none;
-}
-#membership-page #block-openy-lily-content .landing-header:first-of-type .buttons-wrap a.join-online-now {
-  background-color: #9c1f7b;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.7, #aa248e), to(rgba(171, 36, 144, 0)));
-  background-image: -webkit-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
-  background-image: -moz-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
-  background-image: -o-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
-  background-image: linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-  font-size: 20px;
-  line-height: 32px;
-  padding: 14px 50px;
-  margin-bottom: 20px;
-  min-width: 250px;
-  width: auto;
-  display: inline-block;
-  color: #fff;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
-  border-radius: 4px;
-  outline: 0 !important;
-  position: relative;
-  text-transform: uppercase;
-}
-#membership-page #block-openy-lily-content .landing-header:first-of-type .buttons-wrap a.try-the-y-toggle {
-  background-color: #0d63ad;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.7, #158acc), to(rgba(21, 138, 204, 0)));
-  background-image: -webkit-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
-  background-image: -moz-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
-  background-image: -o-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
-  background-image: linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-  font-size: 20px;
-  line-height: 32px;
-  padding: 14px 50px;
-  margin-bottom: 20px;
-  min-width: 250px;
-  width: auto;
-  display: inline-block;
-  color: #fff;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
-  border-radius: 4px;
-  outline: 0 !important;
-  position: relative;
-  text-transform: uppercase;
-}
-#membership-page #block-openy-lily-content .landing-header:first-of-type .bottom {
-  margin-top: 90px;
-  position: relative;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .landing-header:first-of-type {
-    background-size: 100%;
-    background-position: top;
-    position: relative;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  #membership-page #block-openy-lily-content .landing-header:first-of-type h2 {
-    font-size: 24px;
-    display: block;
-    margin: 12% 0 17%;
-    text-align: center;
-  }
-  #membership-page #block-openy-lily-content .landing-header:first-of-type .p1 {
-    color: #434334;
-    font-size: 14px;
-    line-height: 18px;
-  }
-  #membership-page #block-openy-lily-content .landing-header:first-of-type .buttons-wrap a {
-    padding: 6px 50px !important;
-    margin-bottom: 10px !important;
-  }
-  #membership-page #block-openy-lily-content .landing-header:first-of-type .buttons-wrap p {
-    font-size: 12px;
-    opacity: 1;
-    color: #434334;
-    margin: 5px auto 10px;
-  }
-  #membership-page #block-openy-lily-content .landing-header:first-of-type .bottom {
-    margin-top: 15px;
-  }
-  #membership-page #block-openy-lily-content .landing-header:first-of-type .bottom p {
-    opacity: 1 !important;
-    color: #434334 !important;
-    font-size: 12px !important;
-    max-width: 240px;
-    margin: 0 auto;
-  }
-}
-@media (min-width: 0) and (max-width: 36.25em) {
-  #membership-page #block-openy-lily-content .landing-header:first-of-type h2 {
-    margin: 9% 0 17%;
-  }
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) {
-  padding-bottom: 0;
-  float: left;
-  width: 67%;
-  display: none;
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) h2 {
-  color: #000;
-  margin-bottom: 40px;
-  font-size: 30px;
-  margin-left: 15px;
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) p {
-  text-align: right;
-  margin-right: 45px;
-  color: #333;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) {
-    width: 100%;
-    float: none;
-  }
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(2) {
-  float: right;
-  width: 30%;
-  display: none;
-  margin-top: -130px;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(2) {
-    width: 100%;
-    float: none;
-    margin-top: 15px;
-  }
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) {
-  text-align: center;
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) h2 {
-  color: black;
-  margin-bottom: 20px;
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) p {
-  font-size: 18px;
-  line-height: 26px;
-  margin-bottom: 27px;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) {
-    padding-top: 0;
-  }
-  #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) h2 {
-    margin-top: 0;
-    margin-bottom: 15px;
-  }
-  #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) p {
-    font-size: 13px;
-    line-height: 18px;
-    margin-bottom: 20px;
-  }
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div {
-  width: 25%;
-  text-align: center;
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item {
-  border: none;
-  margin: 0;
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item h2 {
-  line-height: 22px;
-  margin: 10px 0 5px;
-  float: none;
-  text-align: center;
-  max-width: 180px;
-  font-size: 18px;
-  color: #333;
-  padding: 0;
-  display: inline-block;
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item p {
-  max-width: 250px;
-  line-height: 22px;
-  margin: 0 auto;
-  font-size: 14px;
-  color: #333;
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item img {
-  float: none;
-  text-align: center;
-  max-width: 86px;
-  max-height: 60px;
-  display: inline-block;
-  margin-bottom: 18px;
-}
-#membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div:nth-of-type(5) {
-  margin-left: 12.5%;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div {
-    width: 50%;
-    margin: 0 0 25px 0 !important;
-  }
-  #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .text {
-    padding: 0;
-  }
-  #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .inner {
-    padding: 0;
-  }
-  #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .inner img {
-    height: 35px;
-    margin-bottom: 5px;
-  }
-  #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .inner h2 {
-    font-size: 15px;
-    line-height: 16px;
-    margin: 10px 0 5px;
-  }
-  #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .inner p {
-    font-size: 12px;
-    line-height: 14px;
-  }
-}
-#membership-page #block-openy-lily-content .landing-content article.webform {
-  float: left;
-  width: 70%;
-  display: none;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .landing-content article.webform {
-    width: 100%;
-    float: none;
-    padding: 0;
-    margin: 0;
-  }
-}
-#membership-page #block-openy-lily-content .landing-content article.webform form {
-  margin-top: 0;
-}
-#membership-page #block-openy-lily-content .landing-content article.webform .container, #membership-page #block-openy-lily-content .landing-content article.webform .path-account .status-message, .path-account #membership-page #block-openy-lily-content .landing-content article.webform .status-message {
-  max-width: 100%;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .landing-content article.webform .container, #membership-page #block-openy-lily-content .landing-content article.webform .path-account .status-message, .path-account #membership-page #block-openy-lily-content .landing-content article.webform .status-message {
-    padding: 0;
-  }
-}
-#membership-page #block-openy-lily-content .container, #membership-page #block-openy-lily-content .path-account .status-message, .path-account #membership-page #block-openy-lily-content .status-message {
-  width: 100%;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content {
-  margin: 0 -15px;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content .paragraph--type--simple-content {
-  padding: 0;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) {
-  text-align: center;
-  color: white;
-  background: url("../img/ymca-membership-bg-2.jpg") no-repeat center;
-  background-size: cover;
-  min-height: 436px;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) h2 {
-  margin: 38px 0 110px;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) p {
-  color: #fff;
-  font-size: 21px;
-  line-height: 29px;
-  margin-bottom: 30px;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) a:hover, #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) a:focus {
-  text-decoration: none;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) a.join-online-now {
-  background-color: #9c1f7b;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.7, #aa248e), to(rgba(171, 36, 144, 0)));
-  background-image: -webkit-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
-  background-image: -moz-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
-  background-image: -o-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
-  background-image: linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-  font-size: 20px;
-  line-height: 32px;
-  padding: 14px 50px;
-  margin-bottom: 20px;
-  min-width: 250px;
-  width: auto;
-  display: inline-block;
-  color: #fff;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
-  border-radius: 4px;
-  outline: 0 !important;
-  position: relative;
-  text-transform: uppercase;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) a.try-the-y-toggle {
-  background-color: #0d63ad;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.7, #158acc), to(rgba(21, 138, 204, 0)));
-  background-image: -webkit-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
-  background-image: -moz-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
-  background-image: -o-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
-  background-image: linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-  font-size: 20px;
-  line-height: 32px;
-  padding: 14px 50px;
-  margin-bottom: 20px;
-  min-width: 250px;
-  width: auto;
-  display: inline-block;
-  color: #fff;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
-  border-radius: 4px;
-  outline: 0 !important;
-  position: relative;
-  text-transform: uppercase;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) {
-    background-size: 100%;
-    background-position: top;
-    position: relative;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) .col-sm-6:first-child {
-    border-bottom: 1px solid #EEE;
-    margin-bottom: 15px;
-  }
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) h2 {
-    font-size: 24px;
-    display: block;
-    margin: 10% 0 17%;
-    text-align: center;
-  }
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) p {
-    color: #3a3a3a;
-    font-size: 12px;
-    line-height: 15px;
-    margin-bottom: 20px;
-  }
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) a {
-    margin-bottom: 10px;
-    text-transform: capitalize;
-    min-width: 210px;
-    padding: 4px 0 !important;
-  }
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) {
-  background: #005cab;
-  padding: 0 100px;
-  color: white;
-}
-@media (min-width: 0) and (max-width: 75em) {
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) {
-    padding: 0 15px;
-  }
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) h3 {
-  font-size: 24px;
-  text-transform: uppercase;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) h4 {
-  font-size: 20px;
-  text-transform: uppercase;
-  margin: 12px 0 4px;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) p {
-  font-size: 16px;
-  line-height: 24px;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) p a {
-  color: white;
-  text-decoration: underline;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) ul {
-  margin: 0 0 0 15px;
-  padding: 0;
-}
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) ul li {
-  font-size: 16px;
-  line-height: 24px;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) h3 {
-    font-size: 18px;
-    margin: 20px 0 5px;
-    letter-spacing: -0.5px;
-  }
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) p {
-    font-size: 12px !important;
-    line-height: 15px !important;
-    margin-bottom: 20px !important;
-  }
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) li {
-    font-size: 12px !important;
-    line-height: 15px !important;
-  }
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(2) h3 {
-    font-size: 18px;
-    margin: 20px 0 5px;
-    letter-spacing: -0.5px;
-  }
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content h2 {
-    font-size: 22px;
-  }
-  #membership-page #block-openy-lily-content p {
-    font-size: 13px;
-    line-height: 18px;
-    margin-bottom: 20px;
-  }
-}
-#membership-page #edit-date-of-birth > div {
-  float: left;
-  width: 32%;
-}
-#membership-page #edit-date-of-birth > div:nth-of-type(2) {
-  margin: 0 2%;
-}
-
-.webform-options-display-four-columns .form-checkboxes {
-  column-count: 4;
-}
-
-.openy-ccc-account-memberships-form .button.js-form-submit.form-submit {
-  margin-top: 20px;
-}
-.openy-ccc-account-memberships-form .membership-renewal-check-response {
-  margin: 20px 0;
-}
-
-.membership-application-form .form-item {
-  padding: 0 10px;
-}
-.membership-application-form .form-item-first,
-.membership-application-form .form-item-last {
-  float: left;
-  width: 45%;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form .form-item-first,
-  .membership-application-form .form-item-last {
-    float: none;
-    width: 100%;
-  }
-}
-.membership-application-form .form-item-middle {
-  float: left;
-  width: 10%;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form .form-item-middle {
-    float: none;
-    width: 100%;
-  }
-}
-.membership-application-form .form-item-emergency-contact,
-.membership-application-form .form-item-member-id,
-.membership-application-form .form-item-city,
-.membership-application-form .form-item-parent-name,
-.membership-application-form .form-item-primary-phone {
-  float: left;
-  width: 34%;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form .form-item-emergency-contact,
-  .membership-application-form .form-item-member-id,
-  .membership-application-form .form-item-city,
-  .membership-application-form .form-item-parent-name,
-  .membership-application-form .form-item-primary-phone {
-    float: none;
-    width: 100%;
-  }
-}
-.membership-application-form .form-item-relationship-2,
-.membership-application-form .form-item-relationship-1,
-.membership-application-form .form-item-phone-2,
-.membership-application-form .form-item-phone-1,
-.membership-application-form .form-item-bus-phone,
-.membership-application-form .form-item-join-date,
-.membership-application-form .form-item-expiration-date,
-.membership-application-form .form-item-cell,
-.membership-application-form .form-item-state,
-.membership-application-form .form-item-zip-code {
-  float: left;
-  width: 33%;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form .form-item-relationship-2,
-  .membership-application-form .form-item-relationship-1,
-  .membership-application-form .form-item-phone-2,
-  .membership-application-form .form-item-phone-1,
-  .membership-application-form .form-item-bus-phone,
-  .membership-application-form .form-item-join-date,
-  .membership-application-form .form-item-expiration-date,
-  .membership-application-form .form-item-cell,
-  .membership-application-form .form-item-state,
-  .membership-application-form .form-item-zip-code {
-    float: none;
-    width: 100%;
-  }
-}
-.membership-application-form .form-item-member-initials-1,
-.membership-application-form .form-item-member-initials-2,
-.membership-application-form .form-item-member-initials-3,
-.membership-application-form .form-item-member-initials-4,
-.membership-application-form .form-item-member-initials-6,
-.membership-application-form .form-item-member-initials-5 {
-  width: 150px;
-}
-.membership-application-form .form-item-email-address + fieldset,
-.membership-application-form .form-item-program-policy-signature,
-.membership-application-form .form-item-signature-of-bank-depositor-credit-card-holder,
-.membership-application-form .form-item-member-signature,
-.membership-application-form .form-item-bottom-date,
-.membership-application-form .form-item-member-print-name,
-.membership-application-form .form-item-bank-draft-signature-date,
-.membership-application-form .form-item-program-policy-date,
-.membership-application-form .form-item-electronic-signature,
-.membership-application-form .form-item-dob {
-  width: 50%;
-  float: left;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form .form-item-email-address + fieldset,
-  .membership-application-form .form-item-program-policy-signature,
-  .membership-application-form .form-item-signature-of-bank-depositor-credit-card-holder,
-  .membership-application-form .form-item-member-signature,
-  .membership-application-form .form-item-bottom-date,
-  .membership-application-form .form-item-member-print-name,
-  .membership-application-form .form-item-bank-draft-signature-date,
-  .membership-application-form .form-item-program-policy-date,
-  .membership-application-form .form-item-electronic-signature,
-  .membership-application-form .form-item-dob {
-    float: none;
-    width: 100%;
-  }
-}
-.membership-application-form .form-item-member-print-name,
-.membership-application-form .form-item-electronic-signature {
-  float: none;
-}
-.membership-application-form .form-item-dob {
-  margin-top: 50px;
-}
-.membership-application-form .form-item-dob + fieldset {
-  width: 100%;
-}
-.membership-application-form fieldset.js-webform-radios-fieldset {
-  padding: 0;
-}
-.membership-application-form .form-item-expiration-date + fieldset {
-  padding: 0 10px;
-}
-.membership-application-form .branch .form-item,
-.membership-application-form .how-did-you-hear-about .form-item,
-.membership-application-form .household-income-range .form-item,
-.membership-application-form .race-ethnicity .form-item,
-.membership-application-form .membership-category .form-item {
-  width: 30%;
-  float: left;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form .branch .form-item,
-  .membership-application-form .how-did-you-hear-about .form-item,
-  .membership-application-form .household-income-range .form-item,
-  .membership-application-form .race-ethnicity .form-item,
-  .membership-application-form .membership-category .form-item {
-    float: none;
-    width: 100%;
-  }
-}
-.membership-application-form .gender .form-item,
-.membership-application-form .type-of-membership .form-item {
-  width: 20%;
-  float: left;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form .gender .form-item,
-  .membership-application-form .type-of-membership .form-item {
-    float: none;
-    width: 100%;
-  }
-}
-.membership-application-form .credit-card-confirm .form-item {
-  width: 10%;
-  float: left;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form .credit-card-confirm .form-item {
-    float: none;
-    width: 100%;
-  }
-}
-.membership-application-form .js-webform-radios .js-form-item label {
-  margin-top: 0 !important;
-}
-.membership-application-form [data-drupal-selector="edit-privacy-policy-link"] {
-  display: block;
-  font-weight: bold;
-  margin: 25px 10px 10px;
-}
-.membership-application-form .js-form-item-confirm-checkbox label {
-  max-width: 90%;
-  vertical-align: top;
-}
-
-@media (min-width: 0) and (max-width: 48em) {
-  .ui-widget.ui-dialog .ui-dialog-content {
-    padding: 0 10px 10px;
-  }
-}
-
+/*@import 'misc/membership';*/
 .node-preview-container {
   background-color: #fff;
   bottom: 0;
@@ -9755,27 +8589,27 @@ body .ajax-progress-throbber .throbber.path-account {
   -ms-transform: skew(30deg);
   transform: skew(30deg);
 }
-.green-3-col.container .row h3, .path-account .green-3-col.status-message .row h3, .green-3-col.container #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .green-3-col.container .landing-content h3, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content h3 {
+.green-3-col.container .row h3, .path-account .green-3-col.status-message .row h3 {
   color: #fff;
 }
-.green-3-col.container .row h4, .path-account .green-3-col.status-message .row h4, .green-3-col.container #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .green-3-col.container .landing-content h4, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content h4 {
+.green-3-col.container .row h4, .path-account .green-3-col.status-message .row h4 {
   color: #006a6a;
   text-transform: uppercase;
   font-size: 18px;
 }
-.green-3-col.container .row p, .path-account .green-3-col.status-message .row p, .green-3-col.container #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .green-3-col.container .landing-content p, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content p {
+.green-3-col.container .row p, .path-account .green-3-col.status-message .row p {
   color: #fff;
   font-size: 15px;
 }
-.green-3-col.container .row ul, .path-account .green-3-col.status-message .row ul, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ul, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ul, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content ul, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content ul, .green-3-col.container .row ol, .path-account .green-3-col.status-message .row ol, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ol, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ol, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content ol, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content ol {
+.green-3-col.container .row ul, .path-account .green-3-col.status-message .row ul, .green-3-col.container .row ol, .path-account .green-3-col.status-message .row ol {
   font-size: 15px;
   padding-left: 18px;
   margin: 20px 0;
 }
-.green-3-col.container .row ul li, .path-account .green-3-col.status-message .row ul li, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ul li, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ul li, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content ul li, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content ul li, .green-3-col.container .row ol li, .path-account .green-3-col.status-message .row ol li, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ol li, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ol li, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content ol li, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content ol li {
+.green-3-col.container .row ul li, .path-account .green-3-col.status-message .row ul li, .green-3-col.container .row ol li, .path-account .green-3-col.status-message .row ol li {
   color: #fff;
 }
-.green-3-col.container .row .button a, .path-account .green-3-col.status-message .row .button a, .green-3-col.container #membership-page #block-openy-lily-content .landing-content .button a, #membership-page #block-openy-lily-content .green-3-col.container .landing-content .button a, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content .button a, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content .button a {
+.green-3-col.container .row .button a, .path-account .green-3-col.status-message .row .button a {
   box-shadow: none;
   background-color: #00aa95;
   background-image: -webkit-linear-gradient(#00aa95, #008c7a);
@@ -9786,12 +8620,12 @@ body .ajax-progress-throbber .throbber.path-account {
   font-weight: bold;
 }
 @media screen and (min-width: 992px) {
-  .green-3-col.container .row .col-md-3, .path-account .green-3-col.status-message .row .col-md-3, .green-3-col.container #membership-page #block-openy-lily-content .landing-content .col-md-3, #membership-page #block-openy-lily-content .green-3-col.container .landing-content .col-md-3, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content .col-md-3, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content .col-md-3 {
+  .green-3-col.container .row .col-md-3, .path-account .green-3-col.status-message .row .col-md-3 {
     padding: 0;
   }
 }
 @media screen and (max-width: 767px) {
-  .green-3-col.container .row .col-sm-4, .path-account .green-3-col.status-message .row .col-sm-4, .green-3-col.container #membership-page #block-openy-lily-content .landing-content .col-sm-4, #membership-page #block-openy-lily-content .green-3-col.container .landing-content .col-sm-4, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content .col-sm-4, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content .col-sm-4 {
+  .green-3-col.container .row .col-sm-4, .path-account .green-3-col.status-message .row .col-sm-4 {
     margin-bottom: 30px;
   }
 }
@@ -9806,27 +8640,27 @@ body .ajax-progress-throbber .throbber.path-account {
   margin: 50px -100px;
   padding: 50px 100px;
 }
-.sports-promo.container .row h3, .path-account .sports-promo.status-message .row h3, .sports-promo.container #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .sports-promo.container .landing-content h3, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content h3 {
+.sports-promo.container .row h3, .path-account .sports-promo.status-message .row h3 {
   color: #fff;
   font-size: 30px;
   line-height: 40px;
   text-shadow: 1px 1px 4px #231f20;
   margin: 0 0 10px;
 }
-.sports-promo.container .row h4, .path-account .sports-promo.status-message .row h4, .sports-promo.container #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .sports-promo.container .landing-content h4, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content h4 {
+.sports-promo.container .row h4, .path-account .sports-promo.status-message .row h4 {
   color: #fff;
   font-size: 18px;
   margin: 0 0 20px;
 }
-.sports-promo.container .row p, .path-account .sports-promo.status-message .row p, .sports-promo.container #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .sports-promo.container .landing-content p, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content p {
+.sports-promo.container .row p, .path-account .sports-promo.status-message .row p {
   color: #e2e2e2;
   margin: 0 0 30px;
 }
-.sports-promo.container .row .sports-icon, .path-account .sports-promo.status-message .row .sports-icon, .sports-promo.container #membership-page #block-openy-lily-content .landing-content .sports-icon, #membership-page #block-openy-lily-content .sports-promo.container .landing-content .sports-icon, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content .sports-icon, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content .sports-icon {
+.sports-promo.container .row .sports-icon, .path-account .sports-promo.status-message .row .sports-icon {
   text-align: left;
   color: #9c1f7b;
 }
-.sports-promo.container .row .description, .path-account .sports-promo.status-message .row .description, .sports-promo.container #membership-page #block-openy-lily-content .landing-content .description, #membership-page #block-openy-lily-content .sports-promo.container .landing-content .description, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content .description, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content .description {
+.sports-promo.container .row .description, .path-account .sports-promo.status-message .row .description {
   color: #9c1f7b;
   font-size: 18px;
   margin-top: 20px;
@@ -9856,18 +8690,18 @@ body .ajax-progress-throbber .throbber {
     margin: 25px -15px;
   }
 }
-.session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content h2, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content h2 {
+.session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2 {
   text-align: center;
   color: #9c1f7b;
   margin: 0 0 80px;
 }
 @media screen and (max-width: 767px) {
-  .session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content h2, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content h2 {
+  .session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2 {
     margin: 0 0 20px;
   }
 }
 @media screen and (min-width: 768px) {
-  .session_schedules .row, .session_schedules #membership-page #block-openy-lily-content .landing-content, #membership-page #block-openy-lily-content .session_schedules .landing-content {
+  .session_schedules .row {
     text-align: center;
   }
 }
@@ -9931,19 +8765,19 @@ body .ajax-progress-throbber .throbber {
     margin: 0 -15px;
   }
 }
-.clinics_schedule .container .row h2, .clinics_schedule .path-account .status-message .row h2, .path-account .clinics_schedule .status-message .row h2, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h2, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content h2, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content h2 {
+.clinics_schedule .container .row h2, .clinics_schedule .path-account .status-message .row h2, .path-account .clinics_schedule .status-message .row h2 {
   text-align: center;
   color: #0889cd;
   margin: 0 0 15px;
 }
-.clinics_schedule .container .row h3, .clinics_schedule .path-account .status-message .row h3, .path-account .clinics_schedule .status-message .row h3, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h3, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content h3, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content h3 {
+.clinics_schedule .container .row h3, .clinics_schedule .path-account .status-message .row h3, .path-account .clinics_schedule .status-message .row h3 {
   text-align: center;
   text-transform: none;
   color: #424242;
   font-size: 18px;
   margin: 0 0 15px;
 }
-.clinics_schedule .container .row h4, .clinics_schedule .path-account .status-message .row h4, .path-account .clinics_schedule .status-message .row h4, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h4, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content h4, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content h4 {
+.clinics_schedule .container .row h4, .clinics_schedule .path-account .status-message .row h4, .path-account .clinics_schedule .status-message .row h4 {
   text-align: center;
   text-transform: uppercase;
   color: #424242;
@@ -9958,11 +8792,11 @@ body .ajax-progress-throbber .throbber {
   padding: 0 10px;
 }
 @media screen and (min-width: 768px) {
-  .clinics_schedule .row, .clinics_schedule #membership-page #block-openy-lily-content .landing-content, #membership-page #block-openy-lily-content .clinics_schedule .landing-content {
+  .clinics_schedule .row {
     text-align: center;
   }
 }
-.clinics_schedule .container .row .columns, .clinics_schedule .path-account .status-message .row .columns, .path-account .clinics_schedule .status-message .row .columns, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns {
+.clinics_schedule .container .row .columns, .clinics_schedule .path-account .status-message .row .columns, .path-account .clinics_schedule .status-message .row .columns {
   display: inline-block;
   padding: 10px 30px;
   text-align: center;
@@ -9971,31 +8805,31 @@ body .ajax-progress-throbber .throbber {
   width: 100%;
 }
 @media screen and (min-width: 768px) {
-  .clinics_schedule .container .row .columns, .clinics_schedule .path-account .status-message .row .columns, .path-account .clinics_schedule .status-message .row .columns, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns {
+  .clinics_schedule .container .row .columns, .clinics_schedule .path-account .status-message .row .columns, .path-account .clinics_schedule .status-message .row .columns {
     border-right: 1px solid #e2e2e2;
     margin-bottom: 0;
     width: 33%;
     max-width: 235px;
   }
 }
-.clinics_schedule .container .row .columns:nth-last-child(1), .clinics_schedule .path-account .status-message .row .columns:nth-last-child(1), .path-account .clinics_schedule .status-message .row .columns:nth-last-child(1), .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns:nth-last-child(1), #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns:nth-last-child(1), .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns:nth-last-child(1), #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns:nth-last-child(1), .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns:nth-last-child(1), #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns:nth-last-child(1) {
+.clinics_schedule .container .row .columns:nth-last-child(1), .clinics_schedule .path-account .status-message .row .columns:nth-last-child(1), .path-account .clinics_schedule .status-message .row .columns:nth-last-child(1) {
   border: none;
 }
-.clinics_schedule .container .row .columns h5, .clinics_schedule .path-account .status-message .row .columns h5, .path-account .clinics_schedule .status-message .row .columns h5, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns h5, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns h5, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns h5, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns h5, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns h5, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns h5 {
+.clinics_schedule .container .row .columns h5, .clinics_schedule .path-account .status-message .row .columns h5, .path-account .clinics_schedule .status-message .row .columns h5 {
   color: #0889cd;
   font-size: 18px;
   font-weight: normal;
   margin: 0;
 }
-.clinics_schedule .container .row .columns .date, .clinics_schedule .path-account .status-message .row .columns .date, .path-account .clinics_schedule .status-message .row .columns .date, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns .date, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns .date, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns .date, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns .date, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns .date, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns .date {
+.clinics_schedule .container .row .columns .date, .clinics_schedule .path-account .status-message .row .columns .date, .path-account .clinics_schedule .status-message .row .columns .date {
   color: #9c1f7b;
   font-size: 18px;
 }
-.clinics_schedule .container .row .columns .date p, .clinics_schedule .path-account .status-message .row .columns .date p, .path-account .clinics_schedule .status-message .row .columns .date p, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns .date p, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns .date p, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns .date p, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns .date p, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns .date p, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns .date p {
+.clinics_schedule .container .row .columns .date p, .clinics_schedule .path-account .status-message .row .columns .date p, .path-account .clinics_schedule .status-message .row .columns .date p {
   color: #9c1f7b;
   margin: 0;
 }
-.clinics_schedule .container .row .columns .img-wrapper img, .clinics_schedule .path-account .status-message .row .columns .img-wrapper img, .path-account .clinics_schedule .status-message .row .columns .img-wrapper img, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns .img-wrapper img, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns .img-wrapper img, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns .img-wrapper img, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns .img-wrapper img, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns .img-wrapper img, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns .img-wrapper img {
+.clinics_schedule .container .row .columns .img-wrapper img, .clinics_schedule .path-account .status-message .row .columns .img-wrapper img, .path-account .clinics_schedule .status-message .row .columns .img-wrapper img {
   display: inline-block;
   margin-bottom: 20px;
 }
@@ -14208,7 +13042,7 @@ body.modal-open {
     margin-bottom: 5px;
   }
 }
-.modal-body .row, .modal-body #membership-page #block-openy-lily-content .landing-content, #membership-page #block-openy-lily-content .modal-body .landing-content {
+.modal-body .row {
   margin-left: 0;
   margin-right: 0;
 }
@@ -14506,7 +13340,7 @@ body.modal-open {
 .pricing-table .col-md-15 {
   margin-bottom: 30px;
 }
-.pricing-table .row, .pricing-table #membership-page #block-openy-lily-content .landing-content, #membership-page #block-openy-lily-content .pricing-table .landing-content {
+.pricing-table .row {
   margin-left: 0;
   margin-right: 0;
 }
@@ -15334,21 +14168,21 @@ body.modal-open {
   font-size: 14px;
   margin: 5px 0 10px;
 }
-.mindbody-search-results-content .day .group-by-date .row > div, .mindbody-search-results-content .day .group-by-date #membership-page #block-openy-lily-content .landing-content > div, #membership-page #block-openy-lily-content .mindbody-search-results-content .day .group-by-date .landing-content > div {
+.mindbody-search-results-content .day .group-by-date .row > div {
   margin-bottom: 20px;
 }
 @media screen and (min-width: 992px) and (max-width: 1399px) {
-  .mindbody-search-results-content .day .group-by-date .row > div:nth-child(3n+1), .mindbody-search-results-content .day .group-by-date #membership-page #block-openy-lily-content .landing-content > div:nth-child(3n+1), #membership-page #block-openy-lily-content .mindbody-search-results-content .day .group-by-date .landing-content > div:nth-child(3n+1) {
+  .mindbody-search-results-content .day .group-by-date .row > div:nth-child(3n+1) {
     clear: both;
   }
 }
 @media screen and (min-width: 1400px) {
-  .mindbody-search-results-content .day .group-by-date .row > div:nth-child(4n+1), .mindbody-search-results-content .day .group-by-date #membership-page #block-openy-lily-content .landing-content > div:nth-child(4n+1), #membership-page #block-openy-lily-content .mindbody-search-results-content .day .group-by-date .landing-content > div:nth-child(4n+1) {
+  .mindbody-search-results-content .day .group-by-date .row > div:nth-child(4n+1) {
     clear: both;
   }
 }
 @media screen and (min-width: 1200px) and (max-width: 1400px) {
-  .mindbody-search-results-content .day .group-by-date .row > div, .mindbody-search-results-content .day .group-by-date #membership-page #block-openy-lily-content .landing-content > div, #membership-page #block-openy-lily-content .mindbody-search-results-content .day .group-by-date .landing-content > div {
+  .mindbody-search-results-content .day .group-by-date .row > div {
     width: 33.33333333333333%;
   }
 }
@@ -16790,6 +15624,10 @@ p.button {
   .landing-content {
     padding-top: 40px;
   }
+}
+
+#membership-page {
+  color: #333;
 }
 
 /*# sourceMappingURL=style.css.map */
