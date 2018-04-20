@@ -725,3 +725,15 @@ function openy_update_8049() {
   }
 
 }
+
+/**
+ * Enable font-your-face module.
+ */
+function openy_update_8050() {
+  \Drupal::service('module_installer')->install(['fontyourface']);
+  if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
+    $message = 'OpenY Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module. 
+        Please, <a href="/admin/appearance/font/local_font_config_entity">use it</a> to add purchased fonts to the site and uninstall OpenY Font module.';
+    drupal_set_message($message, 'warning');
+  }
+}
