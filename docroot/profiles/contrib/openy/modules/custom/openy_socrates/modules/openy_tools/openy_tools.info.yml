@@ -3,3 +3,4 @@ type: module
 description: Implements various OpenY tools.
 core: 8.x
 package: OpenY
+version: 8.1.0
