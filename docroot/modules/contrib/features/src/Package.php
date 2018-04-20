@@ -235,7 +235,7 @@ class Package {
   }
 
   /**
-   * @return string[]
+   * @return string[]|bool
    */
   public function getRequired() {
     return $this->required;
@@ -245,12 +245,20 @@ class Package {
    * @return bool
    */
   public function getRequiredAll() {
+    // Mark all as required if the package is not yet exported.
+    if ($this->getStatus() === FeaturesManagerInterface::STATUS_NO_EXPORT) {
+      return TRUE;
+    }
+
+    // Mark all as required if required is TRUE.
+    if (is_bool($this->required)) {
+      return $this->required;
+    }
+
+    // Mark all as required if required contains all the exported config.
     $config_orig = $this->getConfigOrig();
-    $info = is_array($this->required) ? $this->required : array();
-    $diff = array_diff($config_orig, $info);
-    // Mark all as required if required:true, or required is empty, or
-    // if required contains all the exported config
-    return empty($diff) || empty($info);
+    $diff = array_diff($config_orig, $this->required);
+    return empty($diff);
   }
 
   /**
