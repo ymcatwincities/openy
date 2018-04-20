@@ -3,12 +3,13 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.content_browser_preview
-    - field.field.node.blog.field_ygtc_content
-    - field.field.node.blog.field_image
+    - field.field.node.blog.field_blog_meta
     - field.field.node.blog.field_related_camps_locations
     - field.field.node.blog.field_site_section
+    - field.field.node.blog.field_state
     - field.field.node.blog.field_summary
     - field.field.node.blog.field_tags
+    - field.field.node.blog.field_ygtc_content
     - node.type.blog
   module:
     - text
@@ -18,6 +19,14 @@ targetEntityType: node
 bundle: blog
 mode: content_browser_preview
 content:
+  addthis:
+    label: hidden
+    type: string
+    weight: 100
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   field_ygtc_content:
     weight: 0
     label: hidden
@@ -29,7 +38,6 @@ content:
 hidden:
   field_blog_meta: true
   field_content: true
-  field_image: true
   field_related_camps_locations: true
   field_site_section: true
   field_sitemap_exclude: true
