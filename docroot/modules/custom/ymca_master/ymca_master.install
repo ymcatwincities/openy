@@ -5731,4 +5731,49 @@ function ymca_master_update_8261() {
       'views.view.ymca_twin_cities_blog_archive',
     ]
   );
+
+  $db = \Drupal::database();
+  $entityTypeManager = \Drupal::entityTypeManager();
+  // Copy backed up data to new field instance.
+  $rows = $db->select("copy_node__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $nodeStorage = $entityTypeManager->getStorage('node');
+  $mediaStorage = $entityTypeManager->getStorage('media');
+  $fileStorage = $entityTypeManager->getStorage('file');
+
+  foreach ($rows as $row) {
+    $nodeEntity = $nodeStorage->load($row->entity_id);
+    if ($nodeEntity) {
+      // Load appropriate image.
+      $field_name_column = $field_name . '_target_id';
+      $file = $fileStorage->load($row->$field_name_column);
+      if (!$file) {
+        continue;
+      }
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'image',
+          'name' => $row->field_image_alt,
+          'status' => TRUE,
+          'field_media_image' => [
+            'target_id' => $file->id(),
+          ]
+        ]
+      );
+
+      $mediaEntity->save();
+
+      $referenceField = $nodeEntity->get($field_name);
+      $referenceField->appendItem(['target_id' => $mediaEntity->id()]);
+
+      $nodeEntity->save();
+    }
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_node__$field_name");
 }
