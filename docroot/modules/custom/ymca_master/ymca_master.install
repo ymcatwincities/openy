@@ -5685,4 +5685,5 @@ function ymca_master_update_8260() {
     }
   }
 
+  $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
 }
