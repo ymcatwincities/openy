@@ -88,7 +88,7 @@
         $('body').addClass('show-mobile-sub-navigation');
         // Basic case, only sidebar presents.
         if ($('.field-prgf-sidebar-menu-ref').length === 1 && $('.mobile-subnav').length === 0) {
-          $('<div class="mobile-subnav" />').insertAfter('.landing-header');
+          $('<div class="mobile-subnav" />').insertAfter('#small-text-banner');
           $('.field-prgf-sidebar-menu-ref').clone(true).appendTo('.mobile-subnav');
           $('.mobile-subnav .panel-heading a').append('<b class="caret"></b>').click(function (e) {
             e.preventDefault();
