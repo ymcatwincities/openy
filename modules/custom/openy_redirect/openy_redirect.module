@@ -38,9 +38,9 @@ function openy_redirect_entity_base_field_info(EntityTypeInterface $entity_type)
 function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_state) {
   
   $node = \Drupal::routeMatch()->getParameter('node');
-  $language = $node->language()->getId();
   
   if ($node instanceof \Drupal\node\NodeInterface) {
+    $language = $node->language()->getId();
     // Create the group for the redirect fields.
     $form['redirect_settings'] = [
       '#type' => 'details',
