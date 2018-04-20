@@ -262,15 +262,17 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
   $variables['screen_id'] = $variables['screen']->id();
   $variables['current_time'] = date('H', $_SERVER['REQUEST_TIME']) + (date('i', $_SERVER['REQUEST_TIME']) / 60);
 
-  // TODO: Fallback content might be empty.
-  $variables['fallback_item'] = [
-    'title' => t('Fallback content'),
-    'id' => $variables['screen']->fallback_content->entity->id(),
-    'view_link' => Url::fromRoute('screen_schedule.view_screen_content', [
-      'screen' => $variables['screen']->id(),
-      'screen_content' => $variables['screen']->fallback_content->entity->id(),
-    ])->toString(),
-  ];
+  $id = $variables['screen']->fallback_content->entity ? $variables['screen']->fallback_content->entity->id() : NULL;
+  if ($id) {
+    $variables['fallback_item'] = [
+      'title' => t('Fallback content'),
+      'id' => $variables['screen']->fallback_content->entity->id(),
+      'view_link' => Url::fromRoute('screen_schedule.view_screen_content', [
+        'screen' => $variables['screen']->id(),
+        'screen_content' => $variables['screen']->fallback_content->entity->id(),
+      ])->toString(),
+    ];
+  }
 
   $redraw_link_route_options = [
     'screen' => $variables['screen']->id(),
