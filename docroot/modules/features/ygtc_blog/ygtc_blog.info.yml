@@ -1,0 +1,27 @@
+name: 'YGTC Blog'
+description: 'YGTC blog implementation.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - content_moderation
+  - entity_browser_entity_form
+  - field
+  - file_browser
+  - image
+  - inline_entity_form
+  - language
+  - menu_ui
+  - metatag
+  - node
+  - options
+  - page_manager
+  - path
+  - scheduler
+  - taxonomy
+  - text
+  - user
+  - views
+  - workflowfield
+  - ymca_page_manager
+version: 8.x-1.0
