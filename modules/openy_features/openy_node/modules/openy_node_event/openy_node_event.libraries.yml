@@ -1,0 +1,20 @@
+atc_base:
+  css:
+    component:
+      '//addtocalendar.com/atc/1.5/atc-base.css': {type: external}
+  js:
+    '//addtocalendar.com/atc/1.5/atc.min.js': { type: external, minified: true }
+
+atc_glow_orange:
+  css:
+    component:
+      '//addtocalendar.com/atc/1.5/atc-style-glow-orange.css': {type: external}
+
+atc_blue:
+  css:
+    component:
+      '//addtocalendar.com/atc/1.5/atc-style-blue.css': {type: external}
+
+event_custom:
+  js:
+    js/openy_node_event.js: {}

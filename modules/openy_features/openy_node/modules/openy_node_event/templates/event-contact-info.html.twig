@@ -1,0 +1,9 @@
+<div class="info-col contact col-md-4">
+  {% if info.phone is not empty %}
+    <div class="contact-phone">{{ 'Tel:'|t }}<span>{{ info.phone }}</span></div>
+  {% endif %}
+  {% if info.fax is not empty %}
+    <div class="contact-fax">{{ 'Fax:'|t }}<span>{{ info.fax }}</span></div>
+  {% endif %}
+  <div class="contact-email">{{ info.email }}</div>
+</div>
