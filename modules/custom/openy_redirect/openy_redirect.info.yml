@@ -1,7 +1,6 @@
 name: Openy Redirect
 type: module
 description: Openy Redirect allows user to add redirects directly from edit page.
-version: '8.x-1.0'
 core: 8.x
 package: OpenY
 dependencies:
