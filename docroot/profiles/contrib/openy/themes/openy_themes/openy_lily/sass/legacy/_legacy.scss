@@ -11,6 +11,7 @@
 @import 'sidebar';
 @import 'childcare';
 @import 'content-banner';
+@import 'mobile_nav';
 
 /* Give page */
 .path-give {
@@ -192,6 +193,9 @@ section.content {
 .paragraph--type--sidebar-menu {
   background: #e0e0e0;
   margin: 0 0 20px;
+  @media (max-width: 767px) {
+    display: none;
+  }
   .panel-body {
     padding: 0 15px;
   }
@@ -199,9 +203,13 @@ section.content {
     .nav {
       display: none;
     }
+    a:hover, a:focus {
+      text-decoration: none;
+      background-color: #eee;
+    }
     &.open {
       background: #f5f5f5;
-      border-top: 5px solid #000;
+      /*border-top: 5px solid #000;*/
       > a {
         margin-top: -5px;
         border-top: 5px solid #000;
@@ -218,8 +226,14 @@ section.content {
         display: block;
         padding: 10px 15px 10px 25px;
       }
-      .current a {
+      .dropdown li a {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 35px;
+      }
+      .current > a {
         color: #333;
+        border: 0;
         &:after {
           position: absolute;
           top: 50%;
@@ -230,7 +244,8 @@ section.content {
           font-family: 'YMCA';
         }
       }
-      .nav {
+      > .nav,
+      .nav .open .nav {
         display: block;
       }
     }
@@ -258,5 +273,44 @@ section.content {
 .paragraph--type--simple-content {
   iframe {
     width: 100% !important;
+  }
+}
+
+p.button {
+  display: inline-block;
+  border-radius: 4px;
+}
+.button a, a.button {
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  background-color: #9c1f7b;
+  background-image: -webkit-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: -moz-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: -ms-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  color: #FFF;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  white-space: nowrap;
+  font-weight: normal;
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.428571429;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+}
+
+.landing-content {
+  padding-top: 10px;
+  @media (min-width: 768px) {
+    padding-top: 40px;
   }
 }
