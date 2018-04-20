@@ -11,7 +11,7 @@ field_name: field_ds_color_scheme
 entity_type: block_content
 bundle: digital_signage_promotional
 label: 'Headings Color scheme'
-description: ''
+description: 'Select a color scheme of the Header.'
 required: true
 translatable: false
 default_value:
