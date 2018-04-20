@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.browse_files_modal
+    - entity_browser.browser.images_library
     - field.field.node.blog.field_blog_meta
     - field.field.node.blog.field_image
     - field.field.node.blog.field_related_camps_locations
@@ -14,8 +14,8 @@ dependencies:
     - node.type.blog
   module:
     - content_moderation
+    - entity_browser
     - entity_browser_entity_form
-    - file_browser
     - inline_entity_form
     - metatag
     - path
@@ -31,36 +31,37 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 15
     region: content
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
     region: content
   field_blog_meta:
-    weight: 27
+    weight: 18
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_image:
-    weight: 7
+    weight: 9
     settings:
-      entity_browser: browse_files_modal
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      view_mode: default
-      open: 0
+      entity_browser: images_library
+      field_widget_display: rendered_entity
+      field_widget_edit: true
+      field_widget_remove: true
       selection_mode: selection_append
-      preview_image_style: thumbnail
+      field_widget_display_settings:
+        view_mode: thumbnail_for_preview
+      open: false
     third_party_settings: {  }
-    type: file_browser
+    type: entity_browser_entity_reference
     region: content
   field_related_camps_locations:
-    weight: 6
+    weight: 7
     settings:
       form_mode: default
       label_singular: ''
@@ -75,7 +76,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_site_section:
-    weight: 5
+    weight: 6
     settings:
       form_mode: default
       label_singular: ''
@@ -90,13 +91,13 @@ content:
     type: inline_entity_form_complex
     region: content
   field_state:
-    weight: 26
+    weight: 17
     settings: {  }
     third_party_settings: {  }
     type: workflow_default
     region: content
   field_summary:
-    weight: 8
+    weight: 10
     settings:
       rows: 5
       placeholder: ''
@@ -104,7 +105,7 @@ content:
     type: text_textarea
     region: content
   field_tags:
-    weight: 10
+    weight: 12
     settings:
       match_operator: CONTAINS
       size: 60
@@ -113,7 +114,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_ygtc_content:
-    weight: 9
+    weight: 11
     settings:
       rows: 5
       placeholder: ''
@@ -129,13 +130,13 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 19
     settings: {  }
     region: content
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -143,7 +144,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 3
+    weight: 4
     third_party_settings: {  }
     region: content
   publish_on:
@@ -153,7 +154,7 @@ content:
     third_party_settings: {  }
     region: content
   scheduler_settings:
-    weight: 20
+    weight: 16
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -161,14 +162,14 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 20
     third_party_settings: {  }
     region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 4
+    weight: 5
     third_party_settings: {  }
     region: content
   title:

@@ -5694,13 +5694,41 @@ function ymca_master_update_8260() {
 function ymca_master_update_8261() {
   $config_importer = \Drupal::service('config_import.importer');
 
+  // Remove the field.
+  $field_name = 'field_image';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('node', ['blog'], $field_name, TRUE);
+
   $dir = 'modules/features/ygtc_blog/config/install';
   $config_importer->setDirectory($dir);
   $config_importer->importConfigs(
     [
+      'core.base_field_override.node.blog.promote',
+      'core.entity_form_display.node.blog.default',
+      'core.entity_view_display.node.blog.camp_blog_teaser',
+      'core.entity_view_display.node.blog.content_browser_preview',
+      'core.entity_view_display.node.blog.default',
+      'core.entity_view_display.node.blog.location_blog_teaser',
+      'core.entity_view_display.node.blog.teaser',
+      'core.entity_view_mode.node.camp_blog_teaser',
+      'field.field.node.blog.field_blog_meta',
+      'field.field.node.blog.field_image',
       'field.field.node.blog.field_related_camps_locations',
       'field.field.node.blog.field_site_section',
-      'core.entity_form_display.node.blog.default',
+      'field.field.node.blog.field_state',
+      'field.field.node.blog.field_summary',
+      'field.field.node.blog.field_tags',
+      'field.field.node.blog.field_ygtc_content',
+      'field.storage.node.field_image',
+      'language.content_settings.node.blog',
+      'node.type.blog',
+      'views.view.camp_blog_listing',
+      'views.view.day_camp_news',
+      'views.view.location_blog_listing',
+      'views.view.ymca_news',
+      'views.view.ymca_news_archive',
+      'views.view.ymca_twin_cities_blog',
+      'views.view.ymca_twin_cities_blog_archive',
     ]
   );
 }
