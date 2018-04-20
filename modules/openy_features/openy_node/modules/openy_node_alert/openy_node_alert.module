@@ -5,9 +5,8 @@
  * OpenY Node Alert module file.
  */
 
-use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Component\Utility\Unicode;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_preprocess_node().
@@ -31,32 +30,64 @@ function openy_node_alert_preprocess_node(&$variables) {
       $variables['attributes']['class'][] = implode('--', $variation_class_array);
     }
   }
+
 }
 
 /**
- * Implements hook_entity_view().
+ * Implements hook_views_pre_render().
  */
-function openy_node_alert_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
-  if ($entity->bundle() == 'alert') {
+function openy_node_alert_views_pre_render(ViewExecutable $view) {
 
-    $path_matcher = \Drupal::service('path_matcher');
-    // Convert path to lowercase. This allows comparison of the same path
-    // with different case. Ex: /Page, /page, /PAGE.
-    $pages = Unicode::strtolower($this->configuration['pages']);
-    if (!$pages) {
-      return TRUE;
+  if ($view->id() == 'alerts' &&
+    ($view->current_display == 'footer_alerts'
+      || $view->current_display == 'header_alerts')
+  ) {
+
+    $rows = $view->result;
+    foreach ($rows as $rid => $row) {
+      $entity = $row->_entity;
+
+      if (!openy_node_alert_check_visibility($entity)) {
+        unset($view->result[$rid]);
+      }
     }
-
-    $request = \Drupal::requestStack()->getCurrentRequest();
-    // Compare the lowercase path alias (if any) and internal path.
-    $path = $this->currentPath->getPath($request);
-    // Do not trim a trailing slash if that is the complete path.
-    $path = $path === '/' ? $path : rtrim($path, '/');
-    $path_alias = Unicode::strtolower($this->aliasManager->getAliasByPath($path));
-    print_r($path_alias);
-    exit;
-
-    return $path_matcher->matchPath($path_alias, $pages) || (($path != $path_alias) && $this->pathMatcher->matchPath($path, $pages));
-
   }
+}
+
+/**
+ * Check visibility of alert.
+ *
+ * @param $node
+ * @return bool
+ */
+function openy_node_alert_check_visibility($node) {
+  $pages = $node->get('field_alert_visibility_pages')->value;
+  $state = $node->get('field_alert_visibility_state')->value;
+
+  $pages = Unicode::strtolower($pages);
+  $show_alert = FALSE;
+  if (!$pages) {
+    $show_alert = TRUE;
+    return $show_alert;
+  }
+
+  $path_matcher = \Drupal::service('path.matcher');
+
+  // Convert path to lowercase. This allows comparison of the same path.
+  // with different case. Ex: /Page, /page, /PAGE.
+  // Compare the lowercase path alias (if any) and internal path.
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+  $path = Unicode::strtolower($path);
+
+  // Do not trim a trailing slash if that is the complete path.
+  $path = $path === '/' ? $path : rtrim($path, '/');
+
+  if ($state == 'include' && $path_matcher->matchPath($path, $pages)) {
+    $show_alert = TRUE;
+  }
+  if ($state == 'exclude' && !$path_matcher->matchPath($path, $pages)) {
+    $show_alert = TRUE;
+  }
+  return $show_alert;
 }
