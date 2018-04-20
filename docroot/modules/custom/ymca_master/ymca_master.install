@@ -5683,12 +5683,6 @@ function ymca_master_update_8260() {
 
       $blockEntity->save();
     }
-
   }
 
 }
-
-// Make sure that file browser is reconfigured for:
-//  block_content.location_schedule.default
-//  node.article.default
-//  node.blog.default
