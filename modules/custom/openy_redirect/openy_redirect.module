@@ -36,9 +36,10 @@ function openy_redirect_entity_base_field_info(EntityTypeInterface $entity_type)
  * Implements hook_form_FORM_ID_alter() for node_form().
  */
 function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_state) {
-  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
   
   $node = \Drupal::routeMatch()->getParameter('node');
+  $language = $node->language()->getId();
+  
   if ($node instanceof \Drupal\node\NodeInterface) {
     // Create the group for the redirect fields.
     $form['redirect_settings'] = [
@@ -57,7 +58,7 @@ function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_st
     $nid = $node->id();
     $redirect_url = 'internal:/' . $node->toUrl()->getInternalPath();
 
-    $redirects = loadRedirectsByRedirectUri($redirect_url, $language);
+    $redirects = openy_redirect_load_redirects_by_redirect_uri($redirect_url, $language);
     
     $i = 0;
     /** @var Redirect $item */
@@ -88,9 +89,9 @@ function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_st
  * Custom submit to create redirects.
  */
 function openy_redirect_submit($form, FormStateInterface $form_state) {
-  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $node = \Drupal::routeMatch()->getParameter('node');
-
+  $language = $node->language()->getId();
+  
   $redirectSources = $form_state->getValue('redirect');
   
   $nid = $form_state->getValue('nid');
@@ -98,7 +99,7 @@ function openy_redirect_submit($form, FormStateInterface $form_state) {
   $node_url = $node->toUrl()->getInternalPath();
   $redirect_url = 'internal:/' . $node_url;
   // Delete all redirects for this node to save it from scratch later.
-  $redirects = loadRedirectsByRedirectUri($redirect_url, $language);
+  $redirects = openy_redirect_load_redirects_by_redirect_uri($redirect_url, $language);
   if (!empty($redirects)) {
     /** @var Redirect $item */
     foreach ($redirects as $item) {
@@ -129,7 +130,7 @@ function openy_redirect_submit($form, FormStateInterface $form_state) {
 /**
  * Helper function to find Redirects by redirect target uri.
  */
-function loadRedirectsByRedirectUri($redirect_uri, $language = Language::LANGCODE_NOT_SPECIFIED) {
+function openy_redirect_load_redirects_by_redirect_uri($redirect_uri, $language = Language::LANGCODE_NOT_SPECIFIED) {
   /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager */
   $entityTypeManager = \Drupal::service('entity_type.manager');
   $redirectIds = $entityTypeManager->getStorage('redirect')->getQuery()
