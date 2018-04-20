@@ -1,0 +1,37 @@
+// OpenY Paragraph Latest Event Posts - Upcoming events
+.paragraph--type--upcoming-events {
+  h2 {
+    display: inline-block;
+    color: $brown;
+    font-size: 30px;
+    line-height: 37px;
+    text-transform: uppercase;
+  }
+  & > .paragraph-container-wrapper > h2 {
+    padding-left: 15px;
+  }
+  .field-prgf-block {
+    display: inline-block;
+  }
+  header a {
+    display: block;
+    text-align: right;
+    padding: 0 15px;
+    @media (min-width: 570px) {
+      float: right;
+      margin-top: -34px;
+    }
+    text-transform: uppercase;
+    color: $dark-magenta;
+    @include cachet-bold();
+    &:after {
+      content: '\f105';
+      font-family: 'FontAwesome';
+      font-weight: bold;
+      padding-left: 5px;
+    }
+  }
+  .views-row {
+    margin: 30px 0;
+  }
+}
