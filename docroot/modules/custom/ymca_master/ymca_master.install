@@ -5524,6 +5524,7 @@ function ymca_master_update_8258() {
     [
       'field.storage.node.field_lp_layout',
       'core.entity_view_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.full',
     ]
   );
 }
