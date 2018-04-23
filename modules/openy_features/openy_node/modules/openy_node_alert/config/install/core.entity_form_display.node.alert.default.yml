@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.alert.field_alert_visibility_state
     - node.type.alert
   module:
-    - content_moderation
     - field_group
     - link
     - path
@@ -105,12 +104,6 @@ content:
     region: content
     settings:
       include_locked: true
-    third_party_settings: {  }
-  moderation_state:
-    type: moderation_state_default
-    weight: 18
-    settings: {  }
-    region: content
     third_party_settings: {  }
   path:
     type: path
