@@ -39,27 +39,11 @@ targetEntityType: node
 bundle: alert
 mode: default
 content:
-  addthis:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 5
-    region: content
-    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 3
     settings: {  }
     third_party_settings: {  }
-    region: content
-  field_alert_belongs:
-    weight: 17
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
     region: content
   field_alert_color:
     weight: 12
