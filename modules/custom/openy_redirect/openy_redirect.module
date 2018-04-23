@@ -10,6 +10,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\redirect\Entity\Redirect;
+use Drupal\Core\Language\Language;
 
 /**
  * Implements hook_entity_base_field_info().
@@ -38,21 +39,22 @@ function openy_redirect_entity_base_field_info(EntityTypeInterface $entity_type)
 function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_state) {
   
   $node = \Drupal::routeMatch()->getParameter('node');
+  // Create the group for the redirect fields.
+  $form['redirect_settings'] = [
+    '#type' => 'details',
+    '#title' => t('Redirects'),
+    '#open' => !empty($form['redirect']['widget'][0]['value']['#value']),
+    '#group' => 'advanced',
+    '#weight' => 30,
+  ];
+  $form['redirect']['#group'] = 'redirect_settings';
+
+  // Add custom submit to create redirects.
+  $form['actions']['submit']['#submit'][] = 'openy_redirect_submit';
   
   if ($node instanceof \Drupal\node\NodeInterface) {
     $language = $node->language()->getId();
-    // Create the group for the redirect fields.
-    $form['redirect_settings'] = [
-      '#type' => 'details',
-      '#title' => t('Redirects'),
-      '#open' => !empty($form['redirect']['widget'][0]['value']['#value']),
-      '#group' => 'advanced',
-      '#weight' => 30,
-    ];
-    $form['redirect']['#group'] = 'redirect_settings';
-
-    // Add custom submit to create redirects.
-    $form['actions']['submit']['#submit'][] = 'openy_redirect_submit';
+    
 
     // Set default values.
     $nid = $node->id();
@@ -90,11 +92,20 @@ function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_st
  */
 function openy_redirect_submit($form, FormStateInterface $form_state) {
   $node = \Drupal::routeMatch()->getParameter('node');
-  $language = $node->language()->getId();
-  
+  $language = Language::LANGCODE_NOT_SPECIFIED;
+  if ($node instanceof \Drupal\node\NodeInterface) {
+    $language = $node->language()->getId();
+  } 
+  else {
+    $nid = $form_state->getStorage()['nid'];
+    $node_storage = \Drupal::entityManager()->getStorage('node');
+
+    // Load a single node.
+    $node = $node_storage->load($nid);
+    $language = $node->language()->getId();
+  }
+
   $redirectSources = $form_state->getValue('redirect');
-  
-  $nid = $form_state->getValue('nid');
   
   $node_url = $node->toUrl()->getInternalPath();
   $redirect_url = 'internal:/' . $node_url;
@@ -110,7 +121,7 @@ function openy_redirect_submit($form, FormStateInterface $form_state) {
   /** @var \Drupal\redirect\RedirectRepository $redirect_repository */
   $redirect_repository = \Drupal::service('redirect.repository');
   foreach ($redirectSources as $item) {
-    if (!$redirect_repository->findMatchingRedirect($item['value'])) {
+    if (!$redirect_repository->findMatchingRedirect($item['value'], [], $language)) {
       if (empty(trim($item['value']))) {
         continue;
       }
