@@ -89,11 +89,10 @@ function openy_node_alert_check_visibility(\Drupal\node\NodeInterface $node) {
   // Do not trim a trailing slash if that is the complete path.
   $path = $path === '/' ? $path : rtrim($path, '/');
 
-  if ($state == 'include' && $path_matcher->matchPath($path, $pages)) {
+  $is_path_match = $path_matcher->matchPath($path, $pages);
+  if ($state == 'include' && $is_path_match || $state == 'exclude' && !$is_path_match) {
     return TRUE;
   }
-  if ($state == 'exclude' && !$path_matcher->matchPath($path, $pages)) {
-    return TRUE;
-  }
+
   return FALSE;
 }
