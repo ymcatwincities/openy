@@ -7910,9 +7910,6 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--upcoming-events > .paragraph-container-wrapper > h2 {
   padding-left: 15px;
 }
-.paragraph--type--upcoming-events .field-prgf-block {
-  display: inline-block;
-}
 .paragraph--type--upcoming-events header a {
   display: block;
   text-align: right;
