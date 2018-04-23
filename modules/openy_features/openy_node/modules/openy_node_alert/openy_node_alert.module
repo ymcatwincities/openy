@@ -47,7 +47,7 @@ function openy_node_alert_views_pre_render(ViewExecutable $view) {
     foreach ($rows as $rid => $row) {
       $entity = $row->_entity;
 
-      if (!openy_node_alert_check_visibility($entity)) {
+      if ($entity->bundle() == 'alert' && !openy_node_alert_check_visibility($entity)) {
         unset($view->result[$rid]);
       }
     }
@@ -60,15 +60,21 @@ function openy_node_alert_views_pre_render(ViewExecutable $view) {
  * @param $node
  * @return bool
  */
-function openy_node_alert_check_visibility($node) {
-  $pages = $node->get('field_alert_visibility_pages')->value;
-  $state = $node->get('field_alert_visibility_state')->value;
+function openy_node_alert_check_visibility(\Drupal\node\NodeInterface $node) {
+
+  $pages = '';
+  if ($node->hasField('field_alert_visibility_pages')) {
+    $pages = $node->get('field_alert_visibility_pages')->value;
+  }
+
+  $state = 'include';
+  if ($node->hasField('field_alert_visibility_state')) {
+    $state = $node->get('field_alert_visibility_state')->value;
+  }
 
   $pages = Unicode::strtolower($pages);
-  $show_alert = FALSE;
   if (!$pages) {
-    $show_alert = TRUE;
-    return $show_alert;
+    return TRUE;
   }
 
   $path_matcher = \Drupal::service('path.matcher');
@@ -84,10 +90,10 @@ function openy_node_alert_check_visibility($node) {
   $path = $path === '/' ? $path : rtrim($path, '/');
 
   if ($state == 'include' && $path_matcher->matchPath($path, $pages)) {
-    $show_alert = TRUE;
+    return TRUE;
   }
   if ($state == 'exclude' && !$path_matcher->matchPath($path, $pages)) {
-    $show_alert = TRUE;
+    return TRUE;
   }
-  return $show_alert;
+  return FALSE;
 }
