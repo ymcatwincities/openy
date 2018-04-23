@@ -6972,8 +6972,7 @@ article .node--view-mode-flexible-content h2 a span {
   font-family: "Cachet Bold", Verdana, Geneva, sans-serif;
   color: #fff;
   background-color: #0060af;
-  border: 4px solid #fff;
-  border-radius: 8px;
+  border: 0px solid #fff;
 }
 .node--type-event.node--view-mode-teaser .event-date-month .event-date {
   font-size: 30px;
@@ -6986,7 +6985,6 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .node--type-event.node--view-mode-teaser .field-event-image img {
   display: inline-block;
-  border-radius: 10px;
 }
 .node--type-event.node--view-mode-teaser h2 {
   margin: 10px 0 5px;
@@ -7358,17 +7356,12 @@ article .node--view-mode-flexible-content h2 a span {
   display: none;
 }
 .paragraph--type--upcoming-events h2 {
-  display: inline-block;
-  color: #231f20;
-  font-size: 30px;
-  line-height: 37px;
-  text-transform: uppercase;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: left;
 }
 .paragraph--type--upcoming-events > .paragraph-container-wrapper > h2 {
   padding-left: 15px;
-}
-.paragraph--type--upcoming-events .field-prgf-block {
-  display: inline-block;
 }
 .paragraph--type--upcoming-events header a {
   display: block;
