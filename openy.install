@@ -741,7 +741,7 @@ function openy_update_8050() {
 /**
  * Enable CSS Editor module and import the settings.
  */
-function openy_update_8050() {
+function openy_update_8051() {
   \Drupal::service('module_installer')->install(['css_editor'], TRUE);
 
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
@@ -776,4 +776,11 @@ function openy_update_8050() {
       $config_importer->update($config, $config_name, $field);
     }
   }
+}
+
+/**
+ * Enable OpenY Paragraph Location By Amenities.
+ */
+function openy_update_8052() {
+  \Drupal::service('module_installer')->install(['openy_prgf_location_by_amenities']);
 }

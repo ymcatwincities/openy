@@ -15,6 +15,7 @@ source:
       id: homepage
       title: 'OpenY'
       alias: ''
+      layout: one_column
       header_content_ids:
         -
           header_content_id: homepage_banner
@@ -29,6 +30,7 @@ source:
       id: about
       title: 'About the YMCA'
       alias: '/about'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: about_gallery
@@ -39,6 +41,7 @@ source:
       id: give
       title: 'Give'
       alias: '/give'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: give_microsites_menu
@@ -51,6 +54,7 @@ source:
       id: blog
       title: 'Blog'
       alias: '/blog'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: blog_small_banner
@@ -63,6 +67,7 @@ source:
       id: accelerator
       title: 'Accelerator'
       alias: '/accelerator'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: accelerator_gallery
@@ -77,6 +82,7 @@ source:
       id: locations
       title: 'Locations'
       alias: '/locations'
+      layout: two_column
       header_content_ids:
         -
           header_content_id: locations_small_banner
@@ -87,10 +93,14 @@ source:
       content_ids:
         -
           content_id: locations_location_finder
+      sidebar:
+        -
+          sidebar_id: locations_by_amenties
     -
       id: lp_camp_page_1
       title: 'Camp Colman page'
       alias: '/camps/camp-colman/about'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: lp_camp_menu_1
@@ -101,6 +111,7 @@ source:
       id: lp_camp_page_2
       title: 'Camp Orkila page'
       alias: '/camps/camp-orkila/about'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: lp_camp_menu_2
@@ -111,6 +122,7 @@ source:
       id: lp_camp_page_3
       title: 'Camp Terry page'
       alias: '/camps/camp-terry/about'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: lp_camp_menu_3
@@ -121,6 +133,7 @@ source:
       id: join
       title: 'Join'
       alias: '/join'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: join_gallery
@@ -131,6 +144,7 @@ source:
       id: schedules
       title: 'Schedules'
       alias: '/schedules'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: schedules_small_banner
@@ -145,6 +159,7 @@ source:
       id: group_schedules
       title: 'Group Schedules'
       alias: '/schedules/group-schedules'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: group_schedules
@@ -155,6 +170,7 @@ source:
       id: group_schedules_embedded
       title: 'Group Schedules (Embedded)'
       alias: '/schedules/group-schedules-embedded'
+      layout: one_column
       header_content_ids:
         -
           header_content_id: group_schedules_embedded
@@ -165,6 +181,7 @@ source:
       id: amenities
       title: 'Amenities at each Y'
       alias: '/amenities'
+      layout: one_column
       content_ids:
         -
           content_id: all_amenities
@@ -191,7 +208,7 @@ process:
     source: alias
   field_lp_layout:
     plugin: default_value
-    default_value: one_column
+    source: layout
   field_header_content:
     plugin: iterator
     source: header_content_ids
@@ -264,6 +281,20 @@ process:
           - openy_demo_lp_paragraph_group_schedules
           - openy_demo_lp_paragraph_all_amenities
         source: content_id
+  field_sidebar_content:
+      plugin: iterator
+      source: sidebar
+      process:
+        target_id:
+          plugin: migration
+          migration:
+            - openy_demo_lp_paragraph_loc_by_amnts
+          source: sidebar_id
+        target_revision_id:
+          plugin: migration
+          migration:
+            - openy_demo_lp_paragraph_loc_by_amnts
+          source: sidebar_id
 destination:
   plugin: 'entity:node'
   default_bundle: landing_page
@@ -291,5 +322,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_microsites_menu
     - openy_demo_lp_paragraph_all_amenities
     - openy_demo_lp_paragraph_lto
+    - openy_demo_lp_paragraph_loc_by_amnts
   optional:
     - openy_demo_node_blog

@@ -1031,7 +1031,7 @@ body {
 }
 .viewport .nav-level-2 > a:hover, .viewport .nav-level-2 > a:focus {
   background: none;
-  z-index: 0;
+  z-index: 1001;
 }
 .viewport .nav-level-2.open {
   background-color: #0060af;
@@ -7575,6 +7575,104 @@ article .node--view-mode-flexible-content h2 a span {
 .list-branch-amenities-wrapper h5 {
   font-size: 15px;
   font-family: Verdana, sans-serif;
+}
+
+.paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title {
+  font-size: 16px;
+}
+.paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title a {
+  color: #fff;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
+}
+.paragraph--type--location-filter-by-amenities .field-amenities-icon {
+  background-color: #fff;
+  border-radius: 32px;
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+}
+.paragraph--type--location-filter-by-amenities .field-amenities-icon svg * {
+  fill: #007677;
+}
+.paragraph--type--location-filter-by-amenities .views-element-container {
+  margin: 0 15px 40px;
+}
+.paragraph--type--location-filter-by-amenities .views-element-container legend {
+  color: #636466;
+}
+.paragraph--type--location-filter-by-amenities .views-element-container form {
+  margin-bottom: 1em;
+}
+.paragraph--type--location-filter-by-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  columns: 2;
+}
+@media (max-width: 480px) {
+  .paragraph--type--location-filter-by-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+    -webkit-columns: 1;
+    -moz-columns: 1;
+    columns: 1;
+  }
+}
+@media (min-width: 768px) {
+  .paragraph--type--location-filter-by-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    columns: 2;
+  }
+}
+@media (min-width: 992px) {
+  .paragraph--type--location-filter-by-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
+    -webkit-columns: 4;
+    -moz-columns: 4;
+    columns: 4;
+  }
+}
+.paragraph--type--location-filter-by-amenities .views-element-container form .form-item {
+  margin: 0 0 5px;
+}
+.paragraph--type--location-filter-by-amenities .views-element-container form .form-item .field-amenities-icon {
+  padding: 2px;
+  width: 30px;
+  height: 30px;
+  margin: 0 4px;
+}
+.paragraph--type--location-filter-by-amenities .views-element-container form .form-item label .field-amenities-icon-wrapper {
+  vertical-align: middle;
+}
+@media (max-width: 480px) {
+  .paragraph--type--location-filter-by-amenities .views-element-container form .form-item label .term-name {
+    width: auto;
+    font-weight: bold;
+  }
+}
+@media (min-width: 768px) {
+  .paragraph--type--location-filter-by-amenities .views-element-container form .form-item label .term-name {
+    width: auto;
+    font-weight: normal;
+  }
+}
+@media (min-width: 992px) {
+  .paragraph--type--location-filter-by-amenities .views-element-container form .form-item label .term-name {
+    width: 155px;
+  }
+}
+@media (min-width: 1200px) {
+  .paragraph--type--location-filter-by-amenities .views-element-container form .form-item label .term-name {
+    width: auto;
+  }
+}
+.paragraph--type--location-filter-by-amenities .views-element-container form .form-item label div {
+  display: inline-block;
+}
+.paragraph--type--location-filter-by-amenities .views-element-container form .form-item label div svg * {
+  fill: #0089d0;
+  color: #008485;
+}
+.paragraph--type--location-filter-by-amenities .views-element-container form input[type="submit"] {
+  display: none;
 }
 
 .paragraph--type--lto {
