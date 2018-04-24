@@ -730,3 +730,10 @@ function openy_update_8049() {
     drupal_set_message($message, 'warning');
   }
 }
+
+/**
+ * Enable OpenY Paragraph Location By Amenities.
+ */
+function openy_update_8050() {
+  \Drupal::service('module_installer')->install(['openy_prgf_location_by_amenities']);
+}
