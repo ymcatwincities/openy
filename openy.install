@@ -604,9 +604,16 @@ function openy_update_8047() {
 }
 
 /**
- * Update the configuration of the paragraph fields of OpenY nodes.
+ * Enable OpenY Redirect module.
  */
 function openy_update_8048() {
+  \Drupal::service('module_installer')->install(['openy_redirect']);
+}
+
+/**
+ * Update the configuration of the paragraph fields of OpenY nodes.
+ */
+function openy_update_8049() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
 
   $updatedFields = [
@@ -722,7 +729,7 @@ function openy_update_8048() {
 /**
  * Enable font-your-face module.
  */
-function openy_update_8049() {
+function openy_update_8050() {
   \Drupal::service('module_installer')->install(['fontyourface']);
   if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
     $message = 'OpenY Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module. 
