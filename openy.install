@@ -737,3 +737,43 @@ function openy_update_8050() {
     drupal_set_message($message, 'warning');
   }
 }
+
+/**
+ * Enable CSS Editor module and import the settings.
+ */
+function openy_update_8050() {
+  \Drupal::service('module_installer')->install(['css_editor'], TRUE);
+
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_manager = \Drupal::service('config.manager');
+  $config_factory = $config_manager->getConfigFactory();
+
+  $themes_list = [
+    'openy_rose',
+    'openy_lily',
+  ];
+
+  $update_fields = [
+    'css_enabled',
+    'css',
+    'plaintext_enabled',
+    'autopreview_enabled',
+    'preview_path',
+  ];
+
+  foreach ($themes_list as $theme) {
+    foreach ($update_fields as $field) {
+      $config_name = $theme . '.settings';
+      $config = drupal_get_path('theme', $theme);
+      $config .= '/config/install/';
+      $config .= $config_name . '.yml';
+
+      $configObj = $config_factory->getEditable($config_name);
+      if ($configObj->isNew() && empty($configObj->getOriginal())) {
+        continue;
+      }
+
+      $config_importer->update($config, $config_name, $field);
+    }
+  }
+}
