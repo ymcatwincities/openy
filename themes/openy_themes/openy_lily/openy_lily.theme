@@ -582,6 +582,10 @@ function openy_lily_preprocess_html(&$variables) {
   if (!is_array($variables['attributes'])) {
     $variables['attributes']->addClass($classes);
   }
+
+  if (empty($variables['node']) && !empty($node)) {
+    $variables['node'] = $node;
+  }
 }
 
 /**
