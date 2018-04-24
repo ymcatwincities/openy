@@ -796,7 +796,11 @@ function openy_update_8053() {
       'openy_node_event',
       'openy_demo_nevent',
     ];
+
     // Enable modules.
     \Drupal::service('module_installer')->install($modules, TRUE);
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_event');
+    $importer->import('openy_demo_event_landing');
   }
 }

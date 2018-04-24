@@ -15,12 +15,8 @@ source:
       id: 1
       title: 'Summer Event'
       created: '2018-04-24 8:00am'
-      start_date: 
-        date: '2018-04-24'
-        time: '10:00:00'
-      end_date: 
-        date: '2018-04-24'
-        time: '11:00:00'
+      start_date: '2018-04-24T10:00:00'
+      end_date: '2018-04-24T11:00:00'
       related: null
       image: 2
       promote: 1
@@ -41,12 +37,8 @@ source:
       id: 2
       title: 'YMCA Event'
       created: '2017-04-23 8:01am'
-      start_date: 
-        date: '2018-04-23'
-        time: '10:00:00'
-      end_date: 
-        date: '2018-04-23'
-        time: '11:00:00'
+      start_date: '2018-04-23T10:00:00'
+      end_date: '2018-04-23T11:00:00'
       related: null
       image: 4
       promote: 0
