@@ -784,3 +784,19 @@ function openy_update_8051() {
 function openy_update_8052() {
   \Drupal::service('module_installer')->install(['openy_prgf_location_by_amenities']);
 }
+
+/*
+ * Enable event module.
+ */
+function openy_update_8053() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    $modules = [
+      'openy_prgf_event_latest',
+      'openy_prgf_event_listing',
+      'openy_node_event',
+      'openy_demo_nevent',
+    ];
+    // Enable modules.
+    \Drupal::service('module_installer')->install($modules, TRUE);
+  }
+}
