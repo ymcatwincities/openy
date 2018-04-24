@@ -15,12 +15,18 @@ source:
       id: 1
       title: 'Summer Event'
       created: '2018-04-24 8:00am'
-      event_dates: '2018-04-24 10:00am'
+      start_date: 
+        date: '2018-04-24'
+        time: '10:00:00'
+      end_date: 
+        date: '2018-04-24'
+        time: '11:00:00'
       related: null
       image: 2
       promote: 1
       addthis: 1
-      body: 
+      camp: 1      
+      body: >
         <p>Ut vulputate rhoncus felis sed rhoncus. 
         In ac laoreet ex. Aliquam leo arcu, ultrices ornare felis in, rutrum varius ante. 
         Aliquam posuere velit eget ipsum vestibulum ullamcorper. 
@@ -35,12 +41,18 @@ source:
       id: 2
       title: 'YMCA Event'
       created: '2017-04-23 8:01am'
-      event_dates: '2018-04-24 9:00pm'
+      start_date: 
+        date: '2018-04-23'
+        time: '10:00:00'
+      end_date: 
+        date: '2018-04-23'
+        time: '11:00:00'
       related: null
       image: 4
       promote: 0
       addthis: 1
-      body: 
+      camp: 2      
+      body: >
         <p>Ut vulputate rhoncus felis sed rhoncus. 
         In ac laoreet ex. Aliquam leo arcu, ultrices ornare felis in, rutrum varius ante. 
         Aliquam posuere velit eget ipsum vestibulum ullamcorper. 
@@ -92,18 +104,28 @@ process:
     -
       plugin: default_value
       default_value: full_html
-  field_event_dates:
+  field_event_dates/value:
     -
-      plugin: default_value
-      default_value: ''
+      plugin: get
+      source: start_date
+  field_event_dates/end_value:
+    -
+      plugin: get
+      source: end_date
   field_event_image:
     -
       plugin: migration
       migration: openy_demo_nevent_media_image
       source: image
+  field_event_location:
+    - 
+      plugin: migration
+      migration: openy_demo_node_camp
+      source: camp
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
     - openy_demo_nevent_media_image
+    - openy_demo_node_camp
   optional: {  }

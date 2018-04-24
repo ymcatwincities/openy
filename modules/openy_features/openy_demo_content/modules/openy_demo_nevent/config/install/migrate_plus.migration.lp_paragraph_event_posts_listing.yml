@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - openy_demo_event
+      - openy_demo_nevent
 id: openy_demo_lp_paragraph_event_posts_listing
 migration_tags:
   - 'OpenY Demo Event'
