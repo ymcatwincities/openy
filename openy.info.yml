@@ -103,6 +103,7 @@ dependencies:
   - ckeditor_bootstrap_buttons
   - fontyourface
   - local_fonts
+  - css_editor
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
@@ -202,6 +203,7 @@ dependencies:
   - openy_calc
   - openy_data_wrapper
   - logger_entity
+  - openy_redirect
 
 themes:
   - bartik
