@@ -204,6 +204,7 @@ dependencies:
   - openy_data_wrapper
   - logger_entity
   - openy_redirect
+  - openy_gtranslate
 
 themes:
   - bartik
