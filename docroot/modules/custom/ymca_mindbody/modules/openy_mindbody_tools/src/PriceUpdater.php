@@ -20,16 +20,16 @@ class PriceUpdater {
       30 => [
         1 => ['member' => 50, 'nonmember' => 70],
         4 => ['member' => 180, 'nonmember' => 260],
-        8 => ['member' => 310, 'nonmember' => 470],
-        12 => ['member' => 450, 'nonmember' => 690],
-        20 => ['member' => 610, 'nonmember' => 1010],
+        8 => ['member' => 340, 'nonmember' => 500],
+        12 => ['member' => 480, 'nonmember' => 720],
+        20 => ['member' => 640, 'nonmember' => 1040],
       ],
       60 => [
         1 => ['member' => 75, 'nonmember' => 95],
         4 => ['member' => 280, 'nonmember' => 360],
-        8 => ['member' => 480, 'nonmember' => 640],
-        12 => ['member' => 720, 'nonmember' => 960],
-        20 => ['member' => 1039, 'nonmember' => 1439],
+        8 => ['member' => 540, 'nonmember' => 700],
+        12 => ['member' => 780, 'nonmember' => 1020],
+        20 => ['member' => 1099, 'nonmember' => 1499],
       ],
     ];
 
