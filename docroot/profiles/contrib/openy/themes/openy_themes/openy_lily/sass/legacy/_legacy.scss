@@ -318,3 +318,13 @@ p.button {
 #membership-page {
   color: #333;
 }
+
+body.independent-footer {
+  padding-top: 0 !important;
+  #block-openy-lily-footersocialblock {
+    display: none;
+  }
+  #page-footer {
+    padding-top: 30px;
+  }
+}
