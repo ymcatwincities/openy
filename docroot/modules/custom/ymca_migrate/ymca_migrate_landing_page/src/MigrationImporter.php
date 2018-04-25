@@ -123,6 +123,7 @@ class MigrationImporter implements MigrationImporterInterface {
         $button_url = $node->get('field_header_button')->uri;
         if (!empty($button_title) && !empty($button_url)) {
           // Create Simple content paragraph.
+          $button_url = str_replace('internal:/', base_path(), $button_url);
           $button_html = '<a class="btn" href="' . $button_url . '">' . $button_title . '</a>';
           $paragraph = Paragraph::create([
             'type' => 'simple_content',
