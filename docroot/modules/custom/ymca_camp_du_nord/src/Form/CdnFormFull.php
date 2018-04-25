@@ -7,10 +7,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
-use Drupal\Core\Ajax\InvokeCommand;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\views\Views;
@@ -117,7 +115,7 @@ class CdnFormFull extends FormBase {
       'cabin' => '',
       'cid' => '',
     ];
-    
+
     if (isset($query['cabin']) && !empty($query['cabin'])) {
       $state['cabin'] = $query['cabin'];
     }
