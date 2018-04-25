@@ -11907,6 +11907,7 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   text-transform: uppercase;
 }
 .cdn-form-full .form-item-village,
+.cdn-form-full .form-item-cabin,
 .cdn-form-full .form-item-capacity {
   border: 1px solid #dadada;
   background-color: #fff;
@@ -11915,6 +11916,7 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-item-village,
+  .cdn-form-full .form-item-cabin,
   .cdn-form-full .form-item-capacity {
     float: left;
     margin-right: 40px;
@@ -11925,6 +11927,7 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   }
 }
 .cdn-form-full .form-item-village label,
+.cdn-form-full .form-item-cabin label,
 .cdn-form-full .form-item-capacity label {
   font-size: 16px;
   letter-spacing: -0.5px;
@@ -11938,11 +11941,13 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-item-village label,
+  .cdn-form-full .form-item-cabin label,
   .cdn-form-full .form-item-capacity label {
     margin: 0 15px 0 0;
   }
 }
 .cdn-form-full .form-item-village select,
+.cdn-form-full .form-item-cabin select,
 .cdn-form-full .form-item-capacity select {
   font-size: 15px;
   letter-spacing: -0.5px;
@@ -11966,6 +11971,7 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-item-village select,
+  .cdn-form-full .form-item-cabin select,
   .cdn-form-full .form-item-capacity select {
     border: 1px solid #dadada;
     width: auto;
