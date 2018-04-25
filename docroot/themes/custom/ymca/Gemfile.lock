@@ -68,6 +68,3 @@ DEPENDENCIES
   sassy-buttons (~> 0.1.4)
   singularitygs (~> 1.4.0)
   toolkit (~> 1.0.0)
-
-BUNDLED WITH
-   1.10.6
