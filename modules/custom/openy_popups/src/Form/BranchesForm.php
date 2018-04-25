@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
+
 
 /**
  * Contribute form.
@@ -113,6 +115,7 @@ class BranchesForm extends FormBase {
     $destination['query']['location'] = $branch;
     $uri = \Drupal::request()->getUriForPath($destination['path']);
     $response = new RedirectResponse($uri . '?' . UrlHelper::buildQuery($destination['query']));
+    $response->headers->setCookie(new Cookie('openy_preferred_branch', $branch, strtotime('+1 year'), '/', null, false, false));
     $response->send();
   }
 
