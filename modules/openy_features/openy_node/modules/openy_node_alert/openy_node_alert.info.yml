@@ -6,6 +6,7 @@ package: OpenY
 dependencies:
   - block
   - field
+  - field_group
   - link
   - menu_ui
   - node
