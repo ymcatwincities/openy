@@ -113,10 +113,26 @@ class CdnFormFull extends FormBase {
       'departure_date' => isset($query['departure_date']) ? $query['departure_date'] : $default_departure_date,
       'range' => isset($query['range']) ? $query['range'] : 3,
       'capacity' => isset($query['capacity']) ? $query['capacity'] : 'all',
-      'cid' => isset($query['cid']) ? $query['cid'] : isset($query['cabin']) ? $query['cabin'] : '',
       'show' => isset($query['show']) ? $query['show'] : 'all',
-      'cabin' => isset($query['cabin']) ? $query['cabin'] : '',
+      'cabin' => '',
+      'cid' => '',
     ];
+    
+    if (isset($query['cabin']) && !empty($query['cabin'])) {
+      $state['cabin'] = $query['cabin'];
+    }
+
+    if (isset($query['cid']) && !empty($query['cid'])) {
+      $state['cid'] = $query['cid'];
+    }
+
+    if (isset($query['cid']) && empty($query['cid'])) {
+      $state['cid'] = $state['cabin'];
+    }
+
+    if (!isset($query['cid'])) {
+      $state['cid'] = $state['cabin'];
+    }
 
     $this->state = $state;
   }
