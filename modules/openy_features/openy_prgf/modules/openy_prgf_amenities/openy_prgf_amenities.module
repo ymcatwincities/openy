@@ -11,7 +11,8 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_form_FORM_ID_alter().
  */
 function openy_prgf_amenities_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if ($form['#id'] == 'views-exposed-form-branches-default') {
+  if (($form['#id'] == 'views-exposed-form-branches-default') ||
+     ($form['#id'] == 'views-exposed-form-location-by-amenities-block-1')) {
     $query = Drupal::entityQuery('taxonomy_term')
       ->condition('vid', 'amenities')
       ->sort('name');
