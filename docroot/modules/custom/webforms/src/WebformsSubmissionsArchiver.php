@@ -71,6 +71,18 @@ class WebformsSubmissionsArchiver {
   }
 
   /**
+   * Delete message.
+   *
+   * @param int $id
+   *   Message ID.
+   */
+  private function deleteMessage($id) {
+    $message = \Drupal::entityTypeManager()->getStorage('contact_message')->load($id);
+    $message->delete();
+    \Drupal::logger('webforms')->info(sprintf('The message with id %d has been deleted', $id));
+  }
+
+  /**
    * Archiving loop, should be run from cron.
    */
   public function archive() {
@@ -93,6 +105,16 @@ class WebformsSubmissionsArchiver {
     /** @var Message $entity */
     $entity = array_shift($entities);
     $form_name = $entity->bundle();
+
+    // Search if contact form exists.
+    // Remove all messages related to deleted form.
+    $form_entity = \Drupal::entityTypeManager()->getStorage('contact_form')->load($form_name);
+    if (!$form_entity) {
+      \Drupal::database()->delete('contact_message')->condition('contact_form', $form_name)->execute();
+      \Drupal::logger('webforms')->info(sprintf('The messages for deleted form %s have been deleted.', $form_name));
+      return;
+    }
+
     $created = (int) $entity->created->get(0)->getValue()['value'];
     $created_month = date('m', $created);
     $created_year = date('Y', $created);
@@ -122,9 +144,11 @@ class WebformsSubmissionsArchiver {
     if (count($month_entities) > 0) {
       /** @var ViewExecutable $get_views */
       $get_views = Views::getView('cm_archive_csv');
+
       $get_views->setArguments(
         [$form_name, implode(',', array_keys($month_ids))]
       );
+
       $out = $get_views->render('rest_export_1');
       $file = FileEntity::create(['bundle' => 'archive', 'type' => 'archive']);
       $filename = $form_name . '_' . date('Y_m_d', $start) . '_to_' . date(
