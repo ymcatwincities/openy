@@ -123,6 +123,12 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_menu_link_footer_news',
       ],
     ],
+    'event' => [
+      'openy_demo_nevent' => [
+        'openy_demo_node_event',
+        'openy_demo_event_landing',
+      ],
+    ],
     'facility' => [
       'openy_demo_nfacility' => [
         'openy_demo_node_facility',
@@ -201,14 +207,8 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_webform_content',
       ],
     ],
-    'event' => [
-      'openy_demo_nevent' => [
-        'openy_demo_node_event',
-        'openy_demo_event_landing',
-      ],
-    ],
   ];
-
+  
   return array_key_exists($key, $map) ? $map[$key] : [];
 }
 
