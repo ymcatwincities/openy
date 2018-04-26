@@ -5264,6 +5264,8 @@ function ymca_master_update_8245() {
     'views_infinite_scroll',
     'verf',
     'blazy',
+    'slick',
+    'slick_views',
   ], TRUE);
 }
 
