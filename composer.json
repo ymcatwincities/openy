@@ -172,7 +172,7 @@
     },
     "require": {
         "php": ">=5.6 <7.2",
-        "cweagans/composer-patches": "1.5.*",
+        "cweagans/composer-patches": "1.*",
         "composer/installers": "1.*",
         "drupal-composer/drupal-scaffold": "2.*",
         "drupal/core": "8.4.*",
