@@ -1,0 +1,8 @@
+translate:
+  version: 1.x
+  js:
+    js/openy_gtranslate.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
