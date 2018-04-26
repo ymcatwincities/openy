@@ -19,11 +19,14 @@ class OpenYGTranslateBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $return = [
+    $block = [
       '#theme' => 'openy_gtranslate',
       '#cache' => ['max-age' => 0],
+      '#attached' => [
+        'library' => ['openy_gtranslate/translate'],
+      ],
     ];
 
-    return $return;
+    return $block;
   }
 }

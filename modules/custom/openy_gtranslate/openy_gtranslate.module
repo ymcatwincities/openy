@@ -1,6 +1,25 @@
 <?php
 
 /**
+ * Implements hook_preprocess_menu().
+ *
+ * Add class to menu navigation items.
+ */
+function openy_gtranslate_preprocess_menu(&$vars) {
+  if (isset($vars['menu_name']) && in_array($vars['menu_name'], ['main', 'account'])) {
+    foreach ($vars['items'] as &$item) {
+      /** @var \Drupal\Core\Url $url */
+      $url = $item['url'];
+      $attr = $url->getOption('attributes');
+      if (!empty($attr['class'])) {
+        /** @var \Drupal\Core\Template\Attribute $item['attributes'] */
+        $item['attributes']->addClass($attr['class']);
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_theme().
  */
 function openy_gtranslate_theme($existing, $type, $theme, $path) {
