@@ -8,3 +8,6 @@ openy_popups.config:
     description:
       type: text
       label: 'Description'
+    location: 
+      type: text
+      label: 'Default Location'
