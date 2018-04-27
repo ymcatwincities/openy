@@ -40,6 +40,7 @@ class AutocompleteController extends ControllerBase {
         if (strpos($option_lower, $typed_string)) {
           $results[] = [
             'value' => $machine_name,
+            //'label' => $option . ' (' . $machine_name . ')',
             'label' => $option,
           ];
         }
