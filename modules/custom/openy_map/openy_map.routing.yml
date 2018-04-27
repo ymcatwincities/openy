@@ -2,6 +2,6 @@ openy_map.settings:
   path: '/admin/config/services/openy_map'
   defaults:
     _form: '\Drupal\openy_map\Form\SettingsForm'
-    _title: 'openy map settings'
+    _title: 'OpenY Map settings'
   requirements:
     _permission: 'administer openy_map'

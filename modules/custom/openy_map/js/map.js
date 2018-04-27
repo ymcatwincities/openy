@@ -62,7 +62,6 @@
         this.locate_me_el = this.map_controls_el.find('.locateme');
 
         this.tags = {};
-        // @todo make this configurable, to allow override default tags.
         this.default_tags = drupalSettings.openyMapSettings.default_tags;
         this.init_map();
         this.init_tags();

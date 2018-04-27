@@ -11,5 +11,6 @@ services:
       - '@socrates'
       - '@cache.data'
       - '@logger.channel.openy_data_wrapper'
+      - '@config.factory'
     tags:
       - { name: "openy_data_service", priority: 110 }
