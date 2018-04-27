@@ -1,0 +1,8 @@
+name: Advanced Help Block
+type: module
+description: Module for advanced help blocks which can be shown on the selected pages.
+core: 8.x
+package: Custom
+dependencies:
+  - options
+  - entity_reference

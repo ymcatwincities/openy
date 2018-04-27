@@ -1,0 +1,51 @@
+# Route name can be used in several places; e.g. links, redirects, and local
+# actions.
+entity.entity_advanced_help_block.canonical:
+  path: '/advanced_help_block/{entity_example_contact}'
+  defaults:
+    _entity_view: 'advanced_help_block'
+    _title: 'Advanced Help Block Content'
+  requirements:
+  # Calls the access controller of the entity, $operation 'view'
+    _entity_access: 'advanced_help_block.view'
+
+entity.entity_advanced_help_block.collection:
+  path: '/advanced_help_block/list'
+  defaults:
+    _entity_list: 'advanced_help_block'
+    _title: 'Advanced Help Block Content List'
+  requirements:
+  # Checks for permission directly.
+    _permission: 'administer advanced_help_block entity'
+
+entity.advanced_help_block.advanced_help_block_add:
+  path: '/advanced_help_block/add'
+  defaults:
+    _entity_form: advanced_help_block.add
+    _title: 'Add Advanced Help Block'
+  requirements:
+    _entity_create_access: 'advanced_help_block'
+
+entity.entity_advanced_help_block.edit_form:
+  path: '/advanced_help_block/{advanced_help_block}/edit'
+  defaults:
+    _entity_form: advanced_help_block.edit
+    _title: 'Edit Advanced Help Block'
+  requirements:
+    _entity_access: 'advanced_help_block.edit'
+
+entity.entity_advanced_help_block.delete_form:
+  path: '/advanced_help_block/{entity_example_contact}/delete'
+  defaults:
+    _entity_form: advanced_help_block.delete
+    _title: 'Delete Advanced Help Block'
+  requirements:
+    _entity_access: 'advanced_help_block.delete'
+
+entity.entity_advanced_help_block.advanced_help_block_settings:
+  path: 'admin/structure/advanced_help_block_settings'
+  defaults:
+    _form: '\Drupal\advanced_help_block\Form\AdvancedHelpBlocksSettingsForm'
+    _title: 'Advanced Help Block Content Settings'
+  requirements:
+    _permission: 'administer advanced_help_block entity'
