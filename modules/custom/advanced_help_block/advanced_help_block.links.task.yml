@@ -1,0 +1,21 @@
+advanced_help_block.settings_tab:
+  route_name: advanced_help_block.advanced_help_block_settings
+  title: Settings
+  base_route: advanced_help_block.advanced_help_block_settings
+
+advanced_help_block.view:
+  route_name: entity.advanced_help_block.canonical
+  base_route: entity.advanced_help_block.canonical
+  title: View
+
+advanced_help_block.page_edit:
+  route_name: entity.advanced_help_block.edit_form
+  base_route: entity.advanced_help_block.canonical
+  title: Edit
+
+advanced_help_block.delete_confirm:
+  route_name:  entity.advanced_help_block.delete_form
+  base_route:  entity.advanced_help_block.canonical
+  title: Delete
+  weight: 10
+
