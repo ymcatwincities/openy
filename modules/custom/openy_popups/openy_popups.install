@@ -1,0 +1,10 @@
+<?php
+/**
+ * Add location to the default configuration for openy_popups.module.
+ */
+function openy_popups_update_8001() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('openy_popups.settings');
+  $config->set('location', 'All');
+  $config->save(TRUE);
+}
