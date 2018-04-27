@@ -43,7 +43,7 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
           'name' => $element['container']['change']['#name'],
         ],
       ],
-      '#default_value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginId() : NULL,
+      '#default_value' => $this->getSelectedPlugin() ? $options[$this->getSelectedPlugin()->getPluginId()] : NULL,
       //'#options' => $options,
       '#required' => $this->isRequired(),
       '#title' => $this->getLabel(),
@@ -61,7 +61,7 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
           'name' => $element['container']['plugin_id']['#name'],
         ],*/
       ],
-      '#default_value' => $this->getSelectedPlugin() ? $options[$this->getSelectedPlugin()->getPluginId()] : NULL,
+      '#default_value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginDefinition()['admin_label']->render() . ' (' . $this->getSelectedPlugin()->getPluginId() . ')' : NULL,
       //'#options' => $options,
       '#required' => $this->isRequired(),
       '#title' => $this->getLabel(),
@@ -154,5 +154,17 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
     }
 
     return $options;
+  }
+
+  /**
+   * Builds the form elements for multiple plugins.
+   */
+  protected function buildMultipleAvailablePlugins(array $plugin_selector_form, FormStateInterface $plugin_selector_form_state) {
+    $plugins = $plugin_selector_form['#available_plugins'];
+
+    $plugin_selector_form['select'] = $this->buildSelector($plugin_selector_form, $plugin_selector_form_state, $plugins);
+    $plugin_selector_form['plugin_form'] = $this->buildPluginForm($plugin_selector_form, $plugin_selector_form_state);
+
+    return $plugin_selector_form;
   }
 }
