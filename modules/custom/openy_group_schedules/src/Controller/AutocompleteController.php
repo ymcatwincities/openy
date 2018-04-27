@@ -39,8 +39,8 @@ class AutocompleteController extends ControllerBase {
         $option_lower = Unicode::strtolower($option);
         if (strpos($option_lower, $typed_string)) {
           $results[] = [
-            'value' => $machine_name,
-            //'label' => $option . ' (' . $machine_name . ')',
+            // 'value' => $machine_name,
+            'value' => $option . ' (' . $machine_name . ')',
             'label' => $option,
           ];
         }
