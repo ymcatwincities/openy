@@ -194,6 +194,12 @@
 
   Drupal.behaviors.cdn = {
     attach: function(context, settings) {
+
+      // Submit form on selecting specific cabin.
+      $('#edit-cabin').once('change').on('change', function () {
+        $('#edit-submit').click();
+      });
+
       $('.fullcalendar', context).each(function() {
         // Change month based on start date.
         var date = $.fullCalendar.moment($('input[name="arrival_date"]').val());

@@ -7,10 +7,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
-use Drupal\Core\Ajax\InvokeCommand;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\views\Views;
@@ -55,6 +53,13 @@ class CdnFormFull extends FormBase {
    * @var array
    */
   protected $state;
+
+  /**
+   * Options for cabin filter.
+   *
+   * @var array
+   */
+  private $cabinOptions = [];
 
   /**
    * CdnFormFull constructor.
@@ -106,8 +111,9 @@ class CdnFormFull extends FormBase {
       'departure_date' => isset($query['departure_date']) ? $query['departure_date'] : $default_departure_date,
       'range' => isset($query['range']) ? $query['range'] : 3,
       'capacity' => isset($query['capacity']) ? $query['capacity'] : 'all',
-      'cid' => isset($query['cid']) ? $query['cid'] : '',
+      'cid' => isset($query['cid']) ? $query['cid'] : isset($query['cabin']) ? $query['cabin'] : '',
       'show' => isset($query['show']) ? $query['show'] : 'all',
+      'cabin' => isset($query['cabin']) ? $query['cabin'] : '',
     ];
 
     $this->state = $state;
@@ -181,12 +187,21 @@ class CdnFormFull extends FormBase {
       '#button_type' => 'primary',
     );
 
-    $form['village'] = [
+    $this->cabinOptions = array_merge(['' => $this->t('All')], $this->cabinOptions);
+    $form['cabin'] = [
       '#type' => 'select',
       '#prefix' => '<div class="bottom-elements-wrapper"><div class="container">',
-      '#title' => t('By village'),
+      '#title' => t('Cabin'),
+      '#default_value' => $state['cid'],
+      '#options' => $this->cabinOptions,
+    ];
+
+    $form['village'] = [
+      '#type' => 'select',
+      '#title' => t('Village'),
       '#default_value' => $state['village'],
       '#options' => $this->villageOptions,
+      '#access' => !$state['cabin'] ? TRUE : FALSE,
     ];
 
     $form['capacity'] = [
@@ -194,6 +209,7 @@ class CdnFormFull extends FormBase {
       '#title' => t('Capacity'),
       '#default_value' => $state['capacity'],
       '#options' => $this->capacityOptions,
+      '#access' => !$state['cabin'] ? TRUE : FALSE,
     ];
 
     $form['results'] = [
@@ -233,7 +249,6 @@ class CdnFormFull extends FormBase {
    */
   public function buildResults(array &$form, FormStateInterface $form_state) {
     $user_input = $form_state->getUserInput();
-    $values = $form_state->getValues();
     $query = $this->state;
     $cdn_product_ids = [];
     // Iterate range if start date is not available.
@@ -292,6 +307,7 @@ class CdnFormFull extends FormBase {
         $formatted_results = $this->buildResultsLayout($cdn_products, $query, $user_input);
       }
     }
+
     return $formatted_results;
   }
 
@@ -433,6 +449,11 @@ class CdnFormFull extends FormBase {
       if ($mappings = $this->entityTypeManager->getStorage('mapping')->loadMultiple($mapping_ids)) {
         $total_capacity = $cabin_url = $image = $panorama = $description = '';
         foreach ($mappings as $mapping) {
+
+          $cabinId = $mapping->field_cdn_prd_cabin_id->value;
+          $cabinName = $mapping->getName();
+          $this->cabinOptions[$cabinId] = $cabinName;
+
           $cid = $mapping->field_cdn_prd_cabin_id->value;
           $cabin_url_query = $query;
           $cabin_url_query['cid'] = $cid;
@@ -479,29 +500,34 @@ class CdnFormFull extends FormBase {
       }
 
       $first = '';
+      $teasers = [];
       foreach ($cabins as $cabin) {
-        $skip = FALSE;
+        $addPanoramaAndDescription = FALSE;
         $product = $cabin['start_product'];
+
         // Fill all the cabins with data.
         $teasers[$product->field_cdn_prd_cabin_id->value] = [
           'teaser' => $cabins[$product->field_cdn_prd_cabin_id->value],
         ];
+
         // Use first product if cid is not provided.
         if (empty($this->state['cid']) && empty($first)) {
           $first = $product->field_cdn_prd_cabin_id->value;
         }
         if (empty($this->state['cid']) && $product->field_cdn_prd_cabin_id->value !== $first) {
-          $skip = TRUE;
+          $addPanoramaAndDescription = TRUE;
         }
         // Use chosen cabin.
         if (!empty($this->state['cid']) && $this->state['cid'] !== 'all' && $product->field_cdn_prd_cabin_id->value !== $this->state['cid']) {
-          $skip = TRUE;
+          $addPanoramaAndDescription = TRUE;
         }
-        if ($skip) {
+
+        if ($addPanoramaAndDescription) {
           $teasers[$product->field_cdn_prd_cabin_id->value]['teaser']['teaser']['#panorama'] = '';
           $teasers[$product->field_cdn_prd_cabin_id->value]['teaser']['teaser']['#description'] = '';
           continue;
         }
+
         $code = $product->field_cdn_prd_code->value;
         $code = substr($code, 0, 14);
         $arrival_date = new \DateTime($query['arrival_date']);
@@ -549,6 +575,11 @@ class CdnFormFull extends FormBase {
           ],
           'footer' => $calendar_list_data['footer'],
         ];
+      }
+
+      // Keep only single selected cabin.
+      if ($this->state['cabin']) {
+        $teasers = [$this->state['cabin'] => $teasers[$this->state['cabin']]];
       }
 
       $results = [
