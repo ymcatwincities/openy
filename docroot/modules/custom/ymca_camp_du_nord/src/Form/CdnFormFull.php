@@ -117,7 +117,23 @@ class CdnFormFull extends FormBase {
       'cabin' => '',
       'cid' => '',
     ];
-    
+
+    if (isset($query['cabin']) && !empty($query['cabin'])) {
+      $state['cabin'] = $query['cabin'];
+    }
+
+    if (isset($query['cid']) && !empty($query['cid'])) {
+      $state['cid'] = $query['cid'];
+    }
+
+    if (isset($query['cid']) && empty($query['cid'])) {
+      $state['cid'] = $state['cabin'];
+    }
+
+    if (!isset($query['cid'])) {
+      $state['cid'] = $state['cabin'];
+    }
+
     if (isset($query['cabin']) && !empty($query['cabin'])) {
       $state['cabin'] = $query['cabin'];
     }
