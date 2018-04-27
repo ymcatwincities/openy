@@ -10254,8 +10254,12 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   font-size: 15px;
   margin-bottom: 15px;
 }
-.location-schedules-content article ul li:before,
-#block-schedulesrightblocks article ul li:before {
+.location-schedules-content article ul:not(.schedule) li:before,
+.location-schedules-content article .schedule li article div:before,
+.location-schedules-content article .schedule li span:before,
+#block-schedulesrightblocks article ul:not(.schedule) li:before,
+#block-schedulesrightblocks article .schedule li article div:before,
+#block-schedulesrightblocks article .schedule li span:before {
   content: "\f105";
   color: #777;
   font-family: icomoon;

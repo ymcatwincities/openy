@@ -346,20 +346,23 @@ body.node--type-location {
     ul {
       margin: 25px 0 30px;
       padding: 0;
-
       li {
         list-style: none;
         font-size: 15px;
         margin-bottom: 15px;
+      }
+    }
 
-        &:before {
-          content: "\f105";
-          color: $grey5;
-          font-family: icomoon;
-          list-style: none;
-          margin-right: 14px;
-          font-weight: bold;
-        }
+    ul:not(.schedule) li,
+    .schedule li  article div,
+    .schedule li span {
+      &:before {
+        content: "\f105";
+        color: $grey5;
+        font-family: icomoon;
+        list-style: none;
+        margin-right: 14px;
+        font-weight: bold;
       }
     }
   }
