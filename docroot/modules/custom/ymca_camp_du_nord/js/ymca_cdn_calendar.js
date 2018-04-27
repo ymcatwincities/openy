@@ -49,46 +49,122 @@
     }
   };
 
-  Drupal.cdn.validate_range = function(cell) {
-    var products = cell.parents('.fc-view').find('a.cdn-prs-product'),
-        first_selected = cell.parents('.fc-view').find('a.selected:first').find('.fc-day-number').text() * 1,
-        last_selected = cell.parents('.fc-view').find('a.selected:last').find('.fc-day-number').text() * 1;
-    // Select all dates we have to join.
-    var list = [];
-    for (var i = first_selected; i <= last_selected; i++) {
-      // Iterate dates and fill the array.
-      list.push(i);
+  /**
+   * Extract date object from element.
+   *
+   * @param element
+   * @returns {Date}
+   *   Date object.
+   */
+  function getDateFromCell(element) {
+    if (element.attr('class') === undefined) {
+      return null;
     }
+
+    var classes = element.attr('class').split(" ");
+
+    // Find class similar to date. Ex. 2018-04-30.
+    var currentYear = new Date().getFullYear();
+    var dateClasses = classes.filter(function (item) {
+      if (item.substring(0, 4) == currentYear) {
+        return true;
+      }
+
+      if (item.substring(0, 4) == currentYear + 1) {
+        return true;
+      }
+    });
+
+    return new Date(dateClasses[0]);
+  }
+
+  /**
+   * Get string date from Date object.
+   *
+   * @param date
+   * @returns {string}
+   */
+  function getStringFromDate(date) {
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth()+1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
+    return year + "-" + month + "-" + day;
+  }
+
+  Drupal.cdn.validate_range = function(cell) {
+    var products = cell.parents('.fc-view').find('a.cdn-prs-product');
+
+    var selectedDateFirst = getDateFromCell(cell.parents('.fc-view').find('a.selected:first'));
+    var selectedDateLast = getDateFromCell(cell.parents('.fc-view').find('a.selected:last'));
+
+    // Select all dates we have to join.
+    // @todo Refactor to the function.
+    var list = [];
+    var iterateDate = selectedDateFirst;
+    if (iterateDate === null) {
+      return;
+    }
+
+    var iterateDateTime = iterateDate.getTime();
+    var selectedDateLastTime = selectedDateLast.getTime();
+    while (iterateDateTime <= selectedDateLastTime) {
+      iterateDate = new Date(iterateDateTime);
+      var iterateUTCDate = iterateDate.getUTCDate();
+      list.push(getStringFromDate(iterateDate));
+      iterateDate.setUTCDate(iterateUTCDate + 1);
+      iterateDateTime = iterateDate.getTime();
+    }
+
     // Go through each product end ensure range is not splitted.
     products.each(function() {
-      var day_number = $(this).find('.fc-day-number').text() * 1;
-      if (list.length > 1 && $.inArray(day_number, list) !== -1 && !$(this).hasClass('selected')) {
+      var iterateDate = getDateFromCell($(this));
+      var iterateClass = getStringFromDate(iterateDate);
+      if (list.length > 1 && $.inArray(iterateClass, list) !== -1 && !$(this).hasClass('selected') ) {
         $(this).addClass('selected');
         // Disallow selection if booked days in range.
         if ($(this).hasClass('booked')) {
-          products.removeClass('selected');
+          $(this).removeClass('selected');
         }
       }
     });
+
   };
 
   Drupal.cdn.validate_range_mobile = function(cell) {
-    var products = cell.parents('.cdn-calendar-list').find('a.cdn-prs-product-mobile'),
-      first_selected = cell.parents('.cdn-calendar-list').find('a.selected:first').find('.number').text() * 1,
-      last_selected = cell.parents('.cdn-calendar-list').find('a.selected:last').find('.number').text() * 1;
+    var products = cell.parents('.cdn-calendar-list').find('a.cdn-prs-product-mobile');
+
+    var selectedDateFirst = getDateFromCell(cell.parents('.cdn-calendar-list').find('a.selected:first'));
+    var selectedDateLast = getDateFromCell(cell.parents('.cdn-calendar-list').find('a.selected:last'));
+
     // Select all dates we have to join.
     var list = [];
-    for (var i = first_selected; i <= last_selected; i++) {
-      list.push(i);
+    var iterateDate = selectedDateFirst;
+    if (iterateDate === null) {
+      return;
     }
+
+    // Select all dates we have to join.
+    // @todo Refactor to the function.
+    var iterateDateTime = iterateDate.getTime();
+    var selectedDateLastTime = selectedDateLast.getTime();
+    while (iterateDateTime <= selectedDateLastTime) {
+      iterateDate = new Date(iterateDateTime);
+      var iterateUTCDate = iterateDate.getUTCDate();
+      list.push(getStringFromDate(iterateDate));
+      iterateDate.setUTCDate(iterateUTCDate + 1);
+      iterateDateTime = iterateDate.getTime();
+    }
+
     // Go through each product end ensure range is not splitted.
     products.each(function() {
-      var day_number = $(this).find('.number').text() * 1;
-      if (list.length > 1 && $.inArray(day_number, list) !== -1 && !$(this).hasClass('selected')) {
+      var iterateDate = getDateFromCell($(this));
+      var iterateClass = getStringFromDate(iterateDate);
+      if (list.length > 1 && $.inArray(iterateClass, list) !== -1 && !$(this).hasClass('selected') ) {
         $(this).addClass('selected');
+
         // Disallow selection if booked days in range.
         if ($(this).parent().hasClass('booked')) {
-          products.removeClass('selected');
+          $(this).removeClass('selected');
         }
       }
     });
