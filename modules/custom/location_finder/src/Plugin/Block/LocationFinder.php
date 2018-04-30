@@ -4,6 +4,7 @@ namespace Drupal\location_finder\Plugin\Block;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
+use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 
@@ -70,35 +71,32 @@ class LocationFinder extends BlockBase implements ContainerFactoryPluginInterfac
   public function build() {
     // Location view
     $locationsView = 'locations';
-    // Default view displays from OpenY profile content types
-    $displayIds = [
-      'locations_branches_block',
-      'locations_camps_block',
-      'locations_facilities_block',
-    ];
+    $locationDisplay = 'locations_block';
 
-    // For new displays
+    // Render Locations block display with changed arguments
     $activeTypes = array_keys($this->configFactory->get('openy_map.settings')->get('active_types'));
-    // TODO Dependency Injection
-    $view = \Drupal\views\Entity\View::load($locationsView);
-    $displays = $view->get('display');
-    foreach ($displays as $id => $item) {
-      if ($item['display_plugin'] == 'block' && !in_array($id, $displayIds)) {
-        foreach ($activeTypes as $type) {
-          if (strpos($id, $type) !== FALSE) {
-            $displayIds[] = $id;
-          }
-        }
-      }
-    }
-
+    $blockLabels = $this->configFactory->get('openy_map.settings')->get('block_labels');
     $render = [];
-    foreach ($displayIds as $display) {
-      $render[] = [
-        '#type' => 'view',
-        '#name' => $locationsView,
-        '#display_id' => $display,
+    foreach ($activeTypes as $type) {
+      $view = Views::getView($locationsView);
+      $view->setDisplay($locationDisplay);
+      $view->setArguments([$type]);
+      $options = [
+        'id' => 'area_text_custom',
+        'table' => 'views',
+        'field' => 'area_text_custom',
+        'relationship' => 'none',
+        'group_type' => 'none',
+        'admin_label' => '',
+        'empty' => FALSE,
+        'tokenize' => FALSE,
+        'content' => '<h2 class="location-title h1 color-purple" style="">' . $blockLabels[$type] . '</h2>',
+        'plugin_id' => 'text_custom',
       ];
+      $view->setHandler($locationDisplay, 'header', 'area_text_custom', $options);
+      $view->preExecute();
+      $view->execute();
+      $render[] = $view->buildRenderable($locationDisplay, [$type]);
     }
     return $render;
   }
