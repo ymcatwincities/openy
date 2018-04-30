@@ -103,8 +103,13 @@ class SettingsForm extends ConfigFormBase {
         ];
         $form[$id][$id . '_label'] = [
           '#type' => 'textfield',
-          '#title' => t('Label to show on Locations list page:'),
+          '#title' => t('Locations filters label to show on Locations filters under the map:'),
           '#default_value' => !empty($config->get('type_labels')[$id]) ? $config->get('type_labels')[$id] : $label,
+        ];
+        $form[$id][$id . '_block_label'] = [
+          '#type' => 'textfield',
+          '#title' => t('Location block header to show on Locations list:'),
+          '#default_value' => !empty($config->get('block_labels')[$id]) ? $config->get('block_labels')[$id] : $label,
         ];
         $form[$id][$id . '_active'] = [
           '#type' => 'checkbox',
@@ -142,13 +147,14 @@ class SettingsForm extends ConfigFormBase {
     $config = $this->config('openy_map.settings');
 
     $nodeTypes = $this->openyMapManager->getLocationNodeTypes();
-    $default_tags = $active_types = $type_labels = $type_icons = [];
+    $default_tags = $active_types = $type_labels = $block_labels = $type_icons = [];
     /** @var \Drupal\node\Entity\NodeType $nodeType */
     foreach ($nodeTypes as $nodeType) {
       $id = $nodeType->id();
       $label = !empty($form_state->getValue($id . '_label')) ?
         $form_state->getValue($id . '_label') : $nodeType->label();
 
+      $block_labels[$id] = !empty($form_state->getValue($id . '_block_label')) ? $form_state->getValue($id . '_block_label') : $label;
       $default_tags[$id] = !empty($form_state->getValue($id . '_default')) ? $label : '';
       $active_types[$id] = !empty($form_state->getValue($id . '_active')) ? $label : '';
       $type_labels[$id] = $label;
@@ -158,6 +164,7 @@ class SettingsForm extends ConfigFormBase {
     $config->set('default_tags', $default_tags);
     $config->set('active_types', $active_types);
     $config->set('type_labels', $type_labels);
+    $config->set('block_labels', $block_labels);
     $config->set('type_icons', $type_icons);
     $config->save();
 

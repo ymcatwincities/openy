@@ -2,6 +2,10 @@ default_tags:
   branch: 'YMCA'
   camp: 'Camps'
   facility: ''
+block_labels:
+  branch: 'YMCAs'
+  camp: 'Camps'
+  facility: 'Facilities'
 type_labels:
   branch: 'YMCA'
   camp: 'Camps'
