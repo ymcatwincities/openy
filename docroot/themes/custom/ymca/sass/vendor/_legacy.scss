@@ -1770,7 +1770,7 @@ li.current.home > a {
   border: 0;
   border-left: 0;
   border-radius: 0;
-  background: #383838;
+  background: #383838 !important;
   font-size: 16px;
   font-family: 'Cachet', Verdana, Arial, sans-serif;
   -webkit-transition: font-size .2s ease-out,height .2s ease-out;
@@ -2897,6 +2897,7 @@ img {
   text-transform: uppercase;
   font-weight: bold;
   font-family: 'Cachet', Verdana, Arial, sans-serif;
+  padding-top: 40px;
   a {
     color: #fff;
     color: rgba(255, 255, 255, 0.7);
