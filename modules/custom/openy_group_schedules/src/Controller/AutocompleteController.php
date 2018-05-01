@@ -23,7 +23,7 @@ class AutocompleteController extends ControllerBase {
       $blockManager = \Drupal::service('plugin.manager.block');
       $contextRepository = \Drupal::service('context.repository');
 
-      // Get blocks definition
+      // Get blocks definition.
       $definitions = $blockManager->getDefinitionsForContexts($contextRepository->getAvailableContexts());
       $options = [];
       foreach ($definitions as $machine_name => $definition) {
@@ -34,12 +34,10 @@ class AutocompleteController extends ControllerBase {
       $typed_string = Unicode::strtolower(array_pop($typed_string));
       // @todo: Apply logic for generating results based on typed_string and other
       // arguments passed.
-
       foreach ($options as $machine_name => $option) {
         $option_lower = Unicode::strtolower($option);
         if (strpos($option_lower, $typed_string)) {
           $results[] = [
-            // 'value' => $machine_name,
             'value' => $option . ' (' . $machine_name . ')',
             'label' => $option,
           ];

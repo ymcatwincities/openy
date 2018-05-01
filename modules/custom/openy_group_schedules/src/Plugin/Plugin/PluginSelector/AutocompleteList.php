@@ -30,39 +30,27 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
    */
   protected function buildSelector(array $root_element, FormStateInterface $form_state, array $plugins) {
     $element = parent::buildSelector($root_element, $form_state, $plugins);
-
-    /** @var \Drupal\Component\Plugin\PluginInspectionInterface[] $plugins */
-
-    $options = $this->buildOptionsLevel($this->buildPluginHierarchy($this->selectablePluginDiscovery));
+    // $element['container']['plugin_id'] = [
+    //   '#default_value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginId() : NULL,
+    //   '#value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginId() : NULL,
+    //   '#required' => $this->isRequired(),
+    //   '#title' => $this->getLabel(),
+    //   '#description' => $this->getDescription(),
+    //   '#type' => 'textfield',
+    // ];
     $element['container']['plugin_id'] = [
       '#ajax' => [
         'callback' => [$this, 'ajaxRebuildForm'],
         'effect' => 'fade',
-        'event' => 'change',
-        'trigger_as' => [
-          'name' => $element['container']['change']['#name'],
+        'event' => 'autocompleteclose',
+        '#limit_validation_errors' => [
+          [
+            $root_element['#parents'], ['select', 'plugin_id'],
+          ],
         ],
+        '#submit' => [[get_class(), 'rebuildForm']],
       ],
-      '#default_value' => $this->getSelectedPlugin() ? $options[$this->getSelectedPlugin()->getPluginId()] : NULL,
-      //'#options' => $options,
-      '#required' => $this->isRequired(),
-      '#title' => $this->getLabel(),
-      '#description' => $this->getDescription(),
-      '#type' => 'textfield',
-      //'#autocomplete_route_name' => 'openy_group_schedules.autocomplete',
-      //'#autocomplete_route_parameters' => [],
-    ];
-    $element['container']['plugin_name'] = [
-      '#ajax' => [
-        'callback' => [$this, 'ajaxChangeHiddenFields'],
-        'effect' => 'fade',
-        'event' => 'change',
-        /*'trigger_as' => [
-          'name' => $element['container']['plugin_id']['#name'],
-        ],*/
-      ],
-      '#default_value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginDefinition()['admin_label']->render() . ' (' . $this->getSelectedPlugin()->getPluginId() . ')' : NULL,
-      //'#options' => $options,
+      '#default_value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginDefinition()['admin_label'] . ' (' . $this->getSelectedPlugin()->getPluginId() . ')' : NULL,
       '#required' => $this->isRequired(),
       '#title' => $this->getLabel(),
       '#description' => $this->getDescription(),
@@ -77,58 +65,15 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
   /**
    * Implements form AJAX callback.
    */
-  public function ajaxChangeHiddenFields(array &$complete_form, FormStateInterface $complete_form_state) {
+  // public static function ajaxRebuildForm(array &$complete_form, FormStateInterface $complete_form_state) {
+  //   $response = parent::ajaxRebuildForm($complete_form, $complete_form_state);
+  //   $triggering_element = $complete_form_state->getTriggeringElement();
+  //   $form_parents = array_slice($triggering_element['#array_parents'], 0, -1);
+  //   $root_element = NestedArray::getValue($complete_form, $form_parents);
+  //   $response->addCommand(new ReplaceCommand(sprintf('[data-drupal-selector="%s"]', $root_element['#attributes']['data-drupal-selector']), $root_element));
 
-    $triggering_element = $complete_form_state->getTriggeringElement();
-    $triggered_value = $triggering_element['#value'];
-
-    $form_parents = array_slice($triggering_element['#array_parents'], 0, -1);
-    $form_parents[] = 'plugin_id';
-
-    $element = NestedArray::getValue($complete_form, $form_parents);
-    $element->setValue($triggered_value);
-
-    $response = new AjaxResponse();
-    $response->addCommand(new DataCommand('input[data-drupal-selector="edit-field-header-content-0-subform-field-prgf-schedules-ref-0-plugin-selector-container-select-container-plugin-id"]', 'value', $triggered_value));
-    $response->addCommand(new ChangedCommand('input[data-drupal-selector="edit-field-header-content-0-subform-field-prgf-schedules-ref-0-plugin-selector-container-select-container-plugin-id"]'));
-
-
-    $response->addCommand(new AlertCommand('input[data-drupal-selector="edit-field-header-content-0-subform-field-prgf-schedules-ref-0-plugin-selector-container-select-container-plugin-id"]'));
-    return $response;
-    //print '<pre>' . print_r($root_element, 1) . '</pre>' ;
-
-    /** @var AjaxResponse $response */
-    $response = new AjaxResponse();
-    $response->addCommand(new AlertCommand(t($triggered_value)));
-
-
-    return $response;
-  }
-
-  /**
-   * Implements form AJAX callback.
-   */
-  public static function ajaxRebuildForm(array &$complete_form, FormStateInterface $complete_form_state) {
-    $blockManager = \Drupal::service('plugin.manager.block');
-    $contextRepository = \Drupal::service('context.repository');
-
-    // Get blocks definition
-    $definitions = $blockManager->getDefinitionsForContexts($contextRepository->getAvailableContexts());
-    $options = [];
-    foreach ($definitions as $machine_name => $definition) {
-      $options[$definition['admin_label']] = $machine_name;
-    }
-
-    $triggering_element = $complete_form_state->getTriggeringElement();
-
-    $form_parents = array_slice($triggering_element['#array_parents'], 0, -3);
-    $root_element = NestedArray::getValue($complete_form, $form_parents);
-
-    $response = new AjaxResponse();
-    $response->addCommand(new ReplaceCommand(sprintf('[data-drupal-selector="%s"]', $root_element['plugin_form']['#attributes']['data-drupal-selector']), $root_element['plugin_form']));
-
-    return $response;
-  }
+  //   return $response;
+  // }
 
   /**
    * Helper function for self::options().
@@ -157,14 +102,42 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
   }
 
   /**
-   * Builds the form elements for multiple plugins.
+   * {@inheritdoc}
    */
-  protected function buildMultipleAvailablePlugins(array $plugin_selector_form, FormStateInterface $plugin_selector_form_state) {
-    $plugins = $plugin_selector_form['#available_plugins'];
+  public function validateSelectorForm(array &$plugin_selector_form, FormStateInterface $plugin_selector_form_state) {
+    $this->assertSubformState($plugin_selector_form_state);
+    $plugin_id = $plugin_selector_form_state
+      ->getValue(['container', 'select', 'container', 'plugin_id']);
+    $match = preg_match('/\s\(([a-zA-Z0-9\:\-\_]+)\)$/', $plugin_id, $matches);
+    if ($match && isset($matches[1])) {
+      $plugin_id = $matches[1];
+    }
+    $selected_plugin = $this->getSelectedPlugin();
+    if (!$selected_plugin && $plugin_id || $selected_plugin && $plugin_id != $selected_plugin->getPluginId()) {
+      // Keep track of all previously selected plugins so their configuration
+      // does not get lost.
+      if (isset($this->getPreviouslySelectedPlugins()[$plugin_id])) {
+        $this->setSelectedPlugin($this->getPreviouslySelectedPlugins()[$plugin_id]);
+      }
+      elseif ($plugin_id) {
+        $this->setSelectedPlugin($this->selectablePluginFactory->createInstance($plugin_id));
+      }
+      else {
+        $this->resetSelectedPlugin();
+      }
 
-    $plugin_selector_form['select'] = $this->buildSelector($plugin_selector_form, $plugin_selector_form_state, $plugins);
-    $plugin_selector_form['plugin_form'] = $this->buildPluginForm($plugin_selector_form, $plugin_selector_form_state);
-
-    return $plugin_selector_form;
+      // If a (different) plugin was chosen and its form must be displayed,
+      // rebuild the form.
+      if ($this->getCollectPluginConfiguration() && $this->getSelectedPlugin() instanceof PluginFormInterface) {
+        $plugin_selector_form_state->setRebuild();
+      }
+    }
+    // If no (different) plugin was chosen, delegate validation to the plugin.
+    elseif ($this->getCollectPluginConfiguration() && $selected_plugin instanceof PluginFormInterface) {
+      $selected_plugin_form = &$plugin_selector_form['container']['plugin_form'];
+      $selected_plugin_form_state = SubformState::createForSubform($selected_plugin_form, $plugin_selector_form, $plugin_selector_form_state);
+      $selected_plugin->validateConfigurationForm($selected_plugin_form, $selected_plugin_form_state);
+    }
   }
+
 }
