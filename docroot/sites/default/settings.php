@@ -720,7 +720,7 @@ ini_set('memory_limit', '256M');
     ini_set('memory_limit', '2048M');
   }
     if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/camps/camp_du_nord/search/form') === 0) {
-    ini_set('memory_limit', '2048M');
+    ini_set('memory_limit', '512M');
   }
 }
 if (function_exists('drush_main')) {
