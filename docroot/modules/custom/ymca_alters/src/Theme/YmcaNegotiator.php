@@ -51,6 +51,14 @@ class YmcaNegotiator implements ThemeNegotiatorInterface {
       if ($node->bundle() == 'article' || $node->bundle() == 'location' || $node->bundle() == 'camp') {
         return TRUE;
       }
+
+      // Blog post related to News & Events also should have old theme.
+      /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $section */
+      $section = $node->field_site_section;
+      if (!$section->isEmpty()) {
+        return TRUE;
+      }
+
     }
   }
 
