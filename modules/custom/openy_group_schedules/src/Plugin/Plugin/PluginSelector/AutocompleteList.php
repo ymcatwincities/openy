@@ -30,14 +30,6 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
    */
   protected function buildSelector(array $root_element, FormStateInterface $form_state, array $plugins) {
     $element = parent::buildSelector($root_element, $form_state, $plugins);
-    // $element['container']['plugin_id'] = [
-    //   '#default_value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginId() : NULL,
-    //   '#value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginId() : NULL,
-    //   '#required' => $this->isRequired(),
-    //   '#title' => $this->getLabel(),
-    //   '#description' => $this->getDescription(),
-    //   '#type' => 'textfield',
-    // ];
     $element['container']['plugin_id'] = [
       '#ajax' => [
         'callback' => [$this, 'ajaxRebuildForm'],
@@ -61,19 +53,6 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
 
     return $element;
   }
-
-  /**
-   * Implements form AJAX callback.
-   */
-  // public static function ajaxRebuildForm(array &$complete_form, FormStateInterface $complete_form_state) {
-  //   $response = parent::ajaxRebuildForm($complete_form, $complete_form_state);
-  //   $triggering_element = $complete_form_state->getTriggeringElement();
-  //   $form_parents = array_slice($triggering_element['#array_parents'], 0, -1);
-  //   $root_element = NestedArray::getValue($complete_form, $form_parents);
-  //   $response->addCommand(new ReplaceCommand(sprintf('[data-drupal-selector="%s"]', $root_element['#attributes']['data-drupal-selector']), $root_element));
-
-  //   return $response;
-  // }
 
   /**
    * Helper function for self::options().
