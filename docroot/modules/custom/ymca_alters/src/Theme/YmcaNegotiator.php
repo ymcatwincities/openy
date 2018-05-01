@@ -47,10 +47,21 @@ class YmcaNegotiator implements ThemeNegotiatorInterface {
     if (in_array($route_match->getRouteName(), $this->routes)) {
       return TRUE;
     }
+
     if ($route_match->getRouteName() == 'entity.node.canonical' && $node = $route_match->getParameter('node')) {
       if ($node->bundle() == 'article' || $node->bundle() == 'location' || $node->bundle() == 'camp') {
         return TRUE;
       }
+
+      // Blog post related to News & Events also should have old theme.
+      /** @var \Drupal\Core\Field\EntityReferenceFieldItemList $section */
+      if ($node->hasField('field_site_section')) {
+        $section = $node->field_site_section;
+        if (!$section->isEmpty()) {
+          return TRUE;
+        }
+      }
+
     }
   }
 
