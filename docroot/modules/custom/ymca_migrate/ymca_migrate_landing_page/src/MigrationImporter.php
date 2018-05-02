@@ -427,15 +427,14 @@ class MigrationImporter implements MigrationImporterInterface {
       $context['sandbox']['max'] = count($context['results']['nids']);
       $context['sandbox']['progress'] = 0;
     }
-    $part = array_splice($context['results']['nids'], 0, 1);
-    $nid = reset($part);
+    $nids = array_splice($context['results']['nids'], 0, 10);
     $nodes = \Drupal::entityTypeManager()->getStorage('node')
-      ->loadMultiple([$nid]);
+      ->loadMultiple($nids);
     foreach ($nodes as $node) {
       self::migrate($node);
     }
-    $context['sandbox']['progress'] += 1;
-    $context['results']['migrated'][] = $nid['nid'];
+    $context['sandbox']['progress'] += 10;
+    $context['results']['migrated'][] = implode(', ', $nids);
 
     $context['message'] = \Drupal::translation()
       ->translate('Migrating nodes: @progress out of @total', [
