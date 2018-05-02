@@ -5258,7 +5258,7 @@ function ymca_master_update_8244() {
  * Install openy modules.
  */
 function ymca_master_update_8245() {
-  \Drupal::service('module_installer')->install([
+  $modules = [
     'admin_toolbar',
     'focal_point',
     'views_infinite_scroll',
@@ -5266,53 +5266,83 @@ function ymca_master_update_8245() {
     'blazy',
     'slick',
     'slick_views',
-  ], TRUE);
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
 }
 
 /**
  * Install openy modules.
  */
 function ymca_master_update_8246() {
-  \Drupal::service('module_installer')->install([
+  $modules = [
     'openy_node_alert',
     'openy_prgf_banner',
     'openy_prgf_gallery',
     'openy_prgf_grid_content',
-  ], TRUE);
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
 }
 
 /**
  * Install openy modules.
  */
 function ymca_master_update_8247() {
-  \Drupal::service('module_installer')->install([
+  $modules = [
     'openy_prgf_webform',
     'openy_prgf_teaser',
     'openy_prgf_secondary_description_sidebar',
-  ], TRUE);
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
 }
 
 /**
  * Install openy modules.
  */
 function ymca_master_update_8248() {
-  \Drupal::service('module_installer')->install([
+  $modules = [
     'openy_prgf_featured_highlights',
     'openy_prgf_promo_card',
     'openy_prgf_story_card',
-  ], TRUE);
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
 }
 
 /**
  * Install openy modules.
  */
 function ymca_master_update_8249() {
-  \Drupal::service('module_installer')->install([
+  $modules = [
     'openy_block_flexible_content',
     'openy_prgf_1c',
     'openy_tour',
     'openy_addthis',
-  ], TRUE);
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
 }
 
 /**
@@ -5320,14 +5350,21 @@ function ymca_master_update_8249() {
  */
 function ymca_master_update_8250() {
   \Drupal::configFactory()->getEditable('views.view.taxonomy_term')->delete();
-  \Drupal::service('module_installer')->install([
+
+  $modules = [
     'openy_field_holiday_hours',
     'openy_datalayer',
     'openy_ckeditor',
     'openy_taxonomy',
     'custom_formatters',
     'openy_prgf_featured_content',
-  ], TRUE);
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
 }
 
 /**
