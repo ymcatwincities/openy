@@ -74,7 +74,7 @@ class LocationFinder extends BlockBase implements ContainerFactoryPluginInterfac
     $locationDisplay = 'locations_block';
 
     // Render Locations block display with changed arguments
-    $activeTypes = array_keys($this->configFactory->get('openy_map.settings')->get('active_types'));
+    $activeTypes = array_keys(array_filter($this->configFactory->get('openy_map.settings')->get('active_types')));
     $blockLabels = $this->configFactory->get('openy_map.settings')->get('block_labels');
     $render = [];
     foreach ($activeTypes as $type) {
