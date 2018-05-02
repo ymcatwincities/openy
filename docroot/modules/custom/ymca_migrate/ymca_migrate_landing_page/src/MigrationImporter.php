@@ -16,6 +16,11 @@ use Drupal\pathauto\PathautoState;
 class MigrationImporter implements MigrationImporterInterface {
 
   /**
+   * Nodes to process per run.
+   */
+  const ITEMS_PER_RUN = 50;
+
+  /**
    * {@inheritdoc}
    */
   public static function migrate(EntityInterface $node) {
@@ -427,13 +432,13 @@ class MigrationImporter implements MigrationImporterInterface {
       $context['sandbox']['max'] = count($context['results']['nids']);
       $context['sandbox']['progress'] = 0;
     }
-    $nids = array_splice($context['results']['nids'], 0, 10);
+    $nids = array_splice($context['results']['nids'], 0, self::ITEMS_PER_RUN);
     $nodes = \Drupal::entityTypeManager()->getStorage('node')
       ->loadMultiple($nids);
     foreach ($nodes as $node) {
       self::migrate($node);
     }
-    $context['sandbox']['progress'] += 10;
+    $context['sandbox']['progress'] += self::ITEMS_PER_RUN;
     $context['results']['migrated'][] = implode(', ', $nids);
 
     $context['message'] = \Drupal::translation()
