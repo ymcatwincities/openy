@@ -203,6 +203,7 @@ display:
         arguments: false
         header: false
         fields: false
+        cache: false
       filter_groups:
         operator: AND
         groups:
@@ -374,6 +375,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: field
+      cache:
+        type: none
+        options: {  }
     cache_metadata:
       max-age: -1
       contexts:
