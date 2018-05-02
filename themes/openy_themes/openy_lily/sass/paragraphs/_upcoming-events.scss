@@ -1,10 +1,6 @@
 // OpenY Paragraph Latest Event Posts - Upcoming events
 .paragraph--type--upcoming-events {
   h2 {
-    //display: inline-block;
-    //color: $brown;
-    //font-size: 30px;
-    //line-height: 37px;
     letter-spacing: normal;
     text-transform: none;
     text-align: left;
@@ -12,9 +8,6 @@
   & > .paragraph-container-wrapper > h2 {
     padding-left: 15px;
   }
-  // .field-prgf-block {
-  //   display: inline-block;
-  // }
   header a {
     display: block;
     text-align: right;

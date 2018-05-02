@@ -2,7 +2,7 @@ name: 'OpenY Paragraph Latest Event Posts'
 description: 'OpenY Paragraph Latest Event Posts'
 type: module
 core: 8.x
-package: 'YMCA Maryland'
+package: 'OpenY'
 dependencies:
   - datalayer
   - field
