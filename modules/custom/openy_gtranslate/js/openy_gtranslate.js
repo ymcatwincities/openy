@@ -6,8 +6,6 @@
 
       $('nav .navbar-nav li.language > a').on('click', function (e, context) {
         e.preventDefault();
-        langSelect.css('left', '0px');
-        langSelect.css('top', '150px');
         langSelect.show();
         langSelect.addClass('open');
         return false;

@@ -890,6 +890,11 @@ body {
   display: none;
 }
 
+.goog-te-menu-frame.open {
+  left: 0;
+  top: 150px;
+}
+
 @media (min-width: 75em) {
   .viewport .page-head__top-menu {
     padding-right: 15px;
