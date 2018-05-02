@@ -110,8 +110,7 @@ class DataWrapper implements OpenyDataServiceInterface {
    * Used in location finder block.
    */
   public function getLocationPins() {
-    $activeTypes = array_keys($this->configFactory->get('openy_map.settings')->get('active_types'));
-
+    $activeTypes = array_keys(array_filter($this->configFactory->get('openy_map.settings')->get('active_types')));
     $pins = [];
     foreach ($activeTypes as $type) {
       $typePins = $this->getPins($type);

@@ -35,3 +35,20 @@ function openy_map_library_info_alter(&$libraries, $extension) {
     $libraries['openy_map']['js'][$key . '?key=' . $api_key] = $value;
   }
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Render%21theme.api.php/function/hook_theme_suggestions_HOOK_alter/8.2.x
+ */
+function openy_map_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $variables['elements']['#node'];
+  $view_mode = $variables['elements']['#view_mode'];
+  // Check for active types
+  $activeTypes = array_keys(array_filter(Drupal::configFactory()->get('openy_map.settings')->get('active_types')));
+  // Add universal template for all location content type teasers
+  if ($view_mode == 'teaser' && $node->hasField('field_location_coordinates') && in_array($node->bundle(), $activeTypes)) {
+    $suggestions[] = 'node__location_type__teaser';
+  }
+}
