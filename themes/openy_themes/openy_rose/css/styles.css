@@ -969,6 +969,11 @@ body {
   display: none;
 }
 
+.goog-te-menu-frame.open {
+  left: 0;
+  top: 150px;
+}
+
 .viewport .openy-gtranslate {
   display: inline-block;
   vertical-align: bottom;
