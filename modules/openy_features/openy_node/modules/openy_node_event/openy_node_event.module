@@ -50,7 +50,7 @@ function openy_node_event_preprocess_field__node__field_event_location__event(&$
     return;
   }
 
-  // Get dates
+  // Get dates.
   $datesField = $node->get('field_event_dates')->getValue();
   if (empty($datesField[0])) {
     return;
@@ -73,7 +73,7 @@ function openy_node_event_preprocess_field__node__field_event_location__event(&$
     'atc_description' => $description,
   ];
 
-  // Get locations
+  // Get locations.
   $locationField = $node->get('field_event_location')->getValue();
   foreach ($locationField as $i => $item) {
     $location = Node::load($item['target_id']);

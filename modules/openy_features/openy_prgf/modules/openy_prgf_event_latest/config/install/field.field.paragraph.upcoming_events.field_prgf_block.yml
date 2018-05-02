@@ -16,7 +16,7 @@ field_name: field_prgf_block
 entity_type: paragraph
 bundle: upcoming_events
 label: Block
-description: ''
+description: 'Block section with upcuming events.'
 required: true
 translatable: true
 default_value:
