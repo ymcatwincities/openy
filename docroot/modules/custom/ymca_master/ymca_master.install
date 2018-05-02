@@ -5690,3 +5690,10 @@ function ymca_master_update_8260() {
 
   $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
 }
+
+/**
+ * Install OpenY Theme Settings module.
+ */
+function ymca_master_update_8261() {
+  \Drupal::service('module_installer')->install(['openy_theme_settings'], TRUE);
+}
