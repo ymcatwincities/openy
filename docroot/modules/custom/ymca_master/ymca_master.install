@@ -5695,5 +5695,12 @@ function ymca_master_update_8260() {
  * Install OpenY Theme Settings module.
  */
 function ymca_master_update_8261() {
-  \Drupal::service('module_installer')->install(['openy_theme_settings'], TRUE);
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('modules/features/openy_theme_settings/config/install');
+  $config_importer->importConfigs(
+    [
+      'color.theme.openy_lily.yml',
+      'openy_lily.settings.yml',
+    ]
+  );
 }
