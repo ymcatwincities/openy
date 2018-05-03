@@ -29,12 +29,18 @@ class FieldHelper implements FieldHelperInterface {
           $field_config->delete();
         }
       }
+    } catch (\Exception $e) {
+      watchdog_exception('openy_tools', $e);
+      return FALSE;
+    }
 
+    try {
       // Delete field storage.
       if ($field_storage_config = FieldStorageConfig::loadByName($entityTypeId, $fieldName)) {
         $field_storage_config->delete();
       }
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       watchdog_exception('openy_tools', $e);
       return FALSE;
     }
