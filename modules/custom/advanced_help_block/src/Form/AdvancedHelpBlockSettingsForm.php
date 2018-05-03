@@ -37,7 +37,6 @@ class AdvancedHelpBlockSettingsForm extends FormBase {
       ->set('advanced_help_block.view_type', $form_state->getValue('view_type'))
       ->save();
     drupal_set_message(t('Advanced help block type was changed to <b>@value</b>', ['@value' => $form_state->getValue('view_type')]));
-    //drupal_flush_all_caches();
   }
 
 
@@ -82,7 +81,7 @@ class AdvancedHelpBlockSettingsForm extends FormBase {
     $form['actions']['cancel'] = [
       '#type' => 'link',
       '#title' => t('Cancel'),
-      '#url' => Url::fromRoute('view.advanced_help_blocks.page_1'),
+      '#url' => Url::fromRoute('view.advanced_help_blocks.ahb_list'),
     ];
 
     return $form;

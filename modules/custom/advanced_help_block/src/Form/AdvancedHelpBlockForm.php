@@ -56,7 +56,7 @@ class AdvancedHelpBlockForm extends ContentEntityForm {
       );
     }
 
-    $form_state->setRedirectUrl(new Url('view.advanced_help_blocks.page_1'));
+    $form_state->setRedirectUrl(new Url('view.advanced_help_blocks.ahb_list'));
     return $status;
   }
 }

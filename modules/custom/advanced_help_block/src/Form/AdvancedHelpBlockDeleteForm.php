@@ -30,7 +30,7 @@ class AdvancedHelpBlockDeleteForm extends ContentEntityConfirmFormBase {
    *   A URL object.
    */
   public function getCancelUrl() {
-    return new Url('view.advanced_help_blocks.page_1');
+    return new Url('view.advanced_help_blocks.ahb_list');
   }
 
   /**
@@ -60,6 +60,6 @@ class AdvancedHelpBlockDeleteForm extends ContentEntityConfirmFormBase {
     );
 
     //redirect to the
-    $form_state->setRedirect('view.advanced_help_blocks.page_1');
+    $form_state->setRedirect('view.advanced_help_blocks.ahb_list');
   }
 }

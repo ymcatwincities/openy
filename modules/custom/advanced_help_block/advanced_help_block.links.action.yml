@@ -5,4 +5,4 @@ advanced_help_block.advanced_help_block_add:
   appears_on:
     - entity.advanced_help_block.collection
     - entity.advanced_help_block.canonical
-    - view.advanced_help_blocks.page_1
+    - view.advanced_help_blocks.ahb_list
