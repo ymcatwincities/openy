@@ -721,10 +721,10 @@ ini_set('memory_limit', '384M');
   }
 }
 if (function_exists('drush_main')) {
-  ini_set('memory_limit', '2048M');
+  ini_set('memory_limit', '-1');
 }
 if (class_exists('Drupal\Console\Bootstrap\Drupal')) {
-  ini_set('memory_limit', '2048M');
+  ini_set('memory_limit', '-1');
 }
 
 $settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
