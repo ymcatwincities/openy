@@ -5746,3 +5746,11 @@ function ymca_master_update_8261() {
     ]
   );
 }
+
+/**
+ * Fix header migration for landing pages.
+ */
+function ymca_master_update_8262() {
+  drupal_flush_all_caches();
+  \Drupal::service("ymca_migrate_landing_page.field_manipulator")->fixHeaderSecondaryDescription();
+}
