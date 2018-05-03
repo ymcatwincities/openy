@@ -8,6 +8,8 @@
 use Drupal\openy\Form\ContentSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
 use Drupal\openy\Form\UploadFontMessageForm;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Implements hook_install_tasks().
@@ -121,6 +123,12 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_menu_link_footer_news',
       ],
     ],
+    'event' => [
+      'openy_demo_nevent' => [
+        'openy_demo_node_event',
+        'openy_demo_event_landing',
+      ],
+    ],
     'facility' => [
       'openy_demo_nfacility' => [
         'openy_demo_node_facility',
@@ -200,7 +208,7 @@ function openy_demo_content_configs_map($key = NULL) {
       ],
     ],
   ];
-
+  
   return array_key_exists($key, $map) ? $map[$key] : [];
 }
 
@@ -436,5 +444,45 @@ function openy_preprocess_block(&$variables) {
   ];
   if (in_array($variables['plugin_id'], $preventCacheBlocks)) {
     $variables['#cache']['max-age'] = 0;
+  }
+}
+
+function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (isset($form['css_editor'])) {
+    // Add short manual how to use CSS Editor inside the theme.
+    $types = \Drupal::entityTypeManager()->getStorage('node_type')->loadMultiple();
+    $css_node_selectors = array_map(function ($type) {
+      return str_replace('_', '-', $type);
+    }, array_keys($types));
+
+    $css_editor_info = [
+      '#prefix' => '<div class="description">',
+      '#markup' => t('In order to change CSS on each particular page you 
+      should use the following selectors:<br/>
+      - .page-node-type-{node type};<br/>
+      - .node-id-{node ID};<br/>
+      - .path-frontpage.<br/><br/>
+      The existing node types are: ' . implode($css_node_selectors, ', ') .'.
+      '),
+      '#suffix' => '</div>'
+    ];
+    $form['css_editor']['css_editor_info'] = $css_editor_info;
+  }
+}
+
+function openy_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'system.theme_settings_theme':
+      $theme = $route_match->getParameter('theme');
+      $config = \Drupal::configFactory()->getEditable('css_editor.theme.' . $theme);
+
+      if ($config->get('enabled')) {
+        return '<p>' . t('If you need to change CSS on some pages independently, you may use Custom CSS configuration.') . '</p>';
+      }
+      else {
+        return '<p>' . t('If you need to change CSS on some pages independently, you should enable Custom CSS functionality.') . '</p>';
+      }
+
+      break;
   }
 }

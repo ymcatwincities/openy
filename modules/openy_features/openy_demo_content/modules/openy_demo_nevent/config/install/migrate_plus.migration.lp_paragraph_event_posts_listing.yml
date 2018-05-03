@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nevent
+id: openy_demo_lp_paragraph_event_posts_listing
+migration_tags:
+  - 'OpenY Demo Event'
+migration_group: openy_demo_nevent
+label: 'Create event posts listing paragraph(s) for demo landing page nodes'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: event_event_posts_listing
+      parent_id: event
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_event_landing
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  # TODO: get parent_field_name from data?
+  parent_field_name:
+    plugin: default_value
+    default_value: field_content
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: event_posts_listing
