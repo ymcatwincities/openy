@@ -1,10 +1,12 @@
-entity.advanced_help_block.collection:
-  title: 'Content Advanced Help Blocks: Listing'
-  route_name: entity.advanced_help_block.collection
-  description: 'List Advanced Help Blocks'
-  weight: 10
 advanced_help_block.admin.structure.settings:
   title: Advanced Help Blocks Settings
-  description: 'Configure Advanced Help Block entity'
+  description: 'Configure Advanced Help Block'
   route_name:  advanced_help_block.advanced_help_block_settings
+  parent: entity.advanced_help_block.collection
+
+entity.advanced_help_block.collection:
+  title: 'Advanced Help Blocks: Listing'
+  route_name: view.advanced_help_blocks.page_1
+  description: 'List Advanced Help Blocks'
   parent: system.admin_structure
+  weight: 10

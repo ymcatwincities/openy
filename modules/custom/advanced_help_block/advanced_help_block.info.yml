@@ -4,5 +4,5 @@ description: Module for advanced help blocks which can be shown on the selected 
 core: 8.x
 package: Custom
 dependencies:
-  - options
-  - entity_reference
+  - field_group
+  - text
