@@ -1,0 +1,36 @@
+"Video Name","YouTube Training Video URLs","Sandbox URLs","Notes"
+"All","https://www.youtube.com/channel/UC4hp3K9JFptqPZyNjJLvkJg/videos","<front>","There is an existing FAQ question that directs people to the YouTube channel. An additional line of content could be added here to indicate that training videos have also been added inline in the admin, where applicable. http://www.openymca.org/faq
+ARE THERE ANY TUTORIALS OR VIDEOS ON HOW TO USE AND SETUP OPEN Y?"
+"Open Y Install Tutorial for Tech Novices","https://www.youtube.com/watch?v=O3BkmL2MpKU","<front>","Video includes hosting setup instructions with DigitalOcean, should be public link outside of Admin console before Drupal site is setup. There is an existing FAQ question that directs people to the general YouTube channel. An additional line of content and link to this specific setup video could be added here. http://www.openymca.org/faq ARE THERE ANY TUTORIALS OR VIDEOS ON HOW TO USE AND SETUP OPEN Y?
+If people need a refresher, the Help box could possibly be located in the /admin/config section"
+"OpenY anti spam protection - reCaptcha","https://www.youtube.com/watch?v=nHo2uL-bPyM","/admin/config/people/captcha","Suggest to put on webforms page (where editors create new webforms)"
+"Date Based Component - Quick Start","https://www.youtube.com/watch?v=Ok5Gf23pVs0",,"Related to scheduling content that is time based, which could be on any page/block. Example is about adding to landing page. https://www.evernote.com/l/AW_I2grxYrtD_qQpEJDjR9rkwRcspXyRtGY"
+"Image Focal Point - Tutorial and Preview","https://www.youtube.com/watch?v=_xqAYLagSwE",,"This is related to editing images on any page, therefore it could belong in a general, info section with other miscellaneous videos (e.g. Tips and Tricks), or left out of the Admin. "
+"OpenY: How to Change Styles and Create Custom Theme","https://www.youtube.com/watch?v=c1WXlyHXlrU","/admin/appearance/settings/openy_rose","This video is relevant to the OpenY Rose (default theme)"
+"OpenY: Upgrade Path Dashboard","https://www.youtube.com/watch?v=ThpCX6T4q6c","/admin/config/development/openy-upgrade-dashboard",
+"OpenY: Demo Content","https://www.youtube.com/watch?v=GcwNW3TDnjg",,"Part of the installation process. See notes in ""Open Y Install Tutorial for Tech Novices"" for placement. Could be here /admin/structure/migrate"
+"OpenY: Data Layer","https://www.youtube.com/watch?v=EDibwoQgIUY",,"Covers Chrome Developer Tools to explore data layer. Possible relation to /content types, but perhaps too micro of a topic to place as a Help box in this section. /admin/structure/types (if anywhere)"
+"lndr (pronounced 'Lander') - an easy to use tool to build landing / marketing pages in Open Y","https://www.youtube.com/watch?v=y9uXhMQaVYA","/admin/config/content/lndr","Integration for building landing pages. "
+"How to create an SSH key on Windows","https://www.youtube.com/watch?v=0lGnFoe4XzM",,"Part of setup process on Windows. "
+"Quick Start Open Y Install tutorial with Digital Ocean","https://www.youtube.com/watch?v=V3K4-RLjxQo",,"Similar to Open Y Install Tutorial for Tech Novices (but shorter). See notes above. "
+"Dr. Jeffrey Burns, Nathan Maehren talk about making a difference with Drupal - Open Y Edit","https://www.youtube.com/watch?v=HPsa8ZgLw1A",,"Great video, but more marketing focused. Suggest it doesn't need to be in the Admin as a Help topic. There is an existing playlist ""For Y Associations"" that covers these types of topics on YouTube https://www.youtube.com/watch?v=HPsa8ZgLw1A&list=PL_QVggMcFfKY_80g0z3UPZL7_wn-27UUg"
+"OpenY: Branch","https://www.youtube.com/watch?v=l5rlwyyIaMk","/node/add/branch","User is directed here during the video. Manage > Content > Add Content > Branch"
+"OpenY: Landing Page Wizard","https://www.youtube.com/watch?v=JGdDCWtbNKY","/node/add/landing_page","User is directed here during the video. Manage > Content > Add Content > Landing Page"
+"OpenY: Content Overview","https://www.youtube.com/watch?v=UNYCB9XegDE","/admin/content",
+"Blogs - How to Find and Edit Content","https://www.youtube.com/watch?v=f_ZdYSdxDMY","/admin/content?title=&type=blog&status=All&langcode=All","Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk"
+"Blogs - Creating Blog Content and Customizing Links to Blog Posts","https://www.youtube.com/watch?v=K4iK0TUxPS0","/node/add/blog
+/admin/content",
+"Blogs - Blog Paragraphs Components","https://www.youtube.com/watch?v=D4vzq664QLg","/admin/structure/paragraphs_type",
+"Blogs - Anatomy","https://www.youtube.com/watch?v=PTZkgOb8CFE","/node/add/blog",
+"Blogs - Overview","https://www.youtube.com/watch?v=--gW0zj4wEc&t=7s","/node/add/blog",
+"OpenY: Taxonomy","https://www.youtube.com/watch?v=y9LPj0V6tt4","/admin/structure/taxonomy",
+"OpenY: Logos","https://www.youtube.com/watch?v=lrGMihUyyDE","/admin/appearance/settings/openy_rose","This video is relevant to the OpenY Rose (default theme)"
+"OpenY: Customizable theme","https://www.youtube.com/watch?v=wj5rsd_suqY","/admin/appearance/settings/openy_rose","Similar to above, related to Open Y Rose (default theme)"
+"OpenY: Footer menu","https://www.youtube.com/watch?v=XMT92r5GydM","/admin/structure/menu","There are four footer menu topics; footer, center, left, right. Suggest the Help is at the root of /structure/menu NOTE there is already a playlist on YouTube for general customization and theme changes: https://www.youtube.com/watch?v=3--CzMz5DPk&list=PL_QVggMcFfKbcayynOt0pb_Uw7DAR7KIl"
+"OpenY: Footer icons & copyright","https://www.youtube.com/watch?v=BZMDljgK9A8","/admin/structure/block/block-content","This is footer social icons and copyright. While it's easy enough to edit the blocks directly, help info could be placed either as a second link in /structure/menu above and/or here /admin/structure/block/block-content"
+"OpenY: User Menu","https://www.youtube.com/watch?v=kcOKZVM-hzg","/admin/structure/menu/manage/account","My Account and Log Out menus"
+"OpenY: Header Menu","https://www.youtube.com/watch?v=3--CzMz5DPk","/admin/structure/menu/manage/main",
+"DrupalCon Baltimore 2017 - Open Y background, technology review, and upgrade path","https://www.youtube.com/watch?v=LV3MwaOt0rQ",,"Similar to Dr. Jeffrey Burns, Nathan Maehren video, more general information/marketing content. It does cover some technical installation and feature details but I suggest it doesn't need to be in the Admin as a Help topic.  "
+"OpenY Development: Debugging JavaScript Behat tests","https://www.youtube.com/watch?v=RSsQLVVhldc",,"Behat tests could apply to any functional area and is configured outside of the Drupal Admin."
+"Open Y - v1.0b Features Tour","https://www.youtube.com/watch?v=tXwbucW2TEQ",,"High level overview, rather than in-context admin help. "
+,,,"Discuss with client for anything that is ""NA"" if there needs to be a general section that points people to setup or marketing or test (QA) related content. "

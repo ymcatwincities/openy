@@ -35,15 +35,18 @@ function advanced_help_block_help($path, $arg) {
   foreach ($blocks as $block) {
 
     if (advanced_help_block_check_visibility($block)) {
-      parse_str(parse_url($block->get('field_ahb_video')->value, PHP_URL_QUERY), $url_params);
-      $link = Link::fromTextAndUrl('Video',
-        Url::fromUri($block->get('field_ahb_video')->value, [
-          'attributes' => [
-            'youtubeid' => $url_params['v'],
-            'class' => ['youtube-link'],
-          ],
-        ])
-      )->toString();
+      $link = '';
+      if (!empty($block->get('field_ahb_video')->value)) {
+        parse_str(parse_url($block->get('field_ahb_video')->value, PHP_URL_QUERY), $url_params);
+        $link = Link::fromTextAndUrl('Video',
+          Url::fromUri($block->get('field_ahb_video')->value, [
+            'attributes' => [
+              'youtubeid' => $url_params['v'],
+              'class' => ['youtube-link'],
+            ],
+          ])
+        )->toString();
+      }
       $output[$block->id()] = [
         'title' => $block->get('field_ahb_title')->value,
         'description' => $block->get('field_ahb_description')->value,
@@ -105,7 +108,7 @@ function advanced_help_block_check_visibility(AdvancedHelpBlock $entity) {
 
   $pages = Unicode::strtolower($pages);
   if (!$pages) {
-    return TRUE;
+    return FALSE;
   }
 
   $path_matcher = \Drupal::service('path.matcher');
