@@ -1,0 +1,66 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - advanced_help_block
+      - openy_demo_ahb
+id: openy_demo_entity_ahb
+migration_tags: {  }
+label: 'Import demo Advanced help blocks.'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      field_ahb_title: 'All'
+      field_ahb_description: |
+        <p>There is an existing FAQ question that directs people to the YouTube channel. An additional line of content could be added here to indicate that training videos have also been added inline in the admin, where applicable. http://www.openymca.org/faq
+           ARE THERE ANY TUTORIALS OR VIDEOS ON HOW TO USE AND SETUP OPEN Y?
+        </p>
+      field_ahb_video: 'https://www.youtube.com/channel/UC4hp3K9JFptqPZyNjJLvkJg/videos'
+      field_ahb_pages: '<front>'
+      field_ahb_visibility: 'include'
+    -
+      id: 2
+      field_ahb_title: 'Open Y Install Tutorial for Tech Novices'
+      field_ahb_description: |
+        <p>Video includes hosting setup instructions with DigitalOcean, should be public link outside of Admin console before Drupal site is setup. There is an existing FAQ question that directs people to the general YouTube channel. An additional line of content and link to this specific setup video could be added here. http://www.openymca.org/faq ARE THERE ANY TUTORIALS OR VIDEOS ON HOW TO USE AND SETUP OPEN Y?
+           If people need a refresher, the Help box could possibly be located in the /admin/config section
+        </p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=O3BkmL2MpKU'
+      field_ahb_pages: '<front>'
+      field_ahb_visibility: 'include'
+    -
+      id: 3
+      field_ahb_title: 'OpenY anti spam protection - reCaptcha'
+      field_ahb_description: |
+        <p>Suggest to put on webforms page (where editors create new webforms)</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=nHo2uL-bPyM'
+      field_ahb_pages: '/admin/config/people/captcha'
+      field_ahb_visibility: 'include'
+    -
+      id:
+      field_ahb_title: ''
+      field_ahb_description: |
+        <p></p>
+      field_ahb_video: ''
+      field_ahb_pages: ''
+      field_ahb_visibility: 'include'
+  ids:
+    id:
+      type: integer
+process:
+  field_ahb_title: field_ahb_title
+  field_ahb_description/value: field_ahb_description
+  field_ahb_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_ahb_video: field_ahb_video
+  field_ahb_pages: field_ahb_pages
+  field_ahb_visibility: field_ahb_visibility
+
+destination:
+  plugin: 'entity:advanced_help_block'
+migration_dependencies: {}
+optional: {  }
