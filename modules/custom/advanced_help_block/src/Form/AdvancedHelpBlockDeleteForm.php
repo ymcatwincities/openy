@@ -19,9 +19,8 @@ class AdvancedHelpBlockDeleteForm extends ContentEntityConfirmFormBase {
    * @return string
    *   The form question. The page title will be set to this value.
    */
-  public function getQuestion()
-  {
-    // TODO: Implement getQuestion() method.
+  public function getQuestion() {
+    return t('Are you sure you want delete this entity?');
   }
 
   /**
@@ -30,8 +29,37 @@ class AdvancedHelpBlockDeleteForm extends ContentEntityConfirmFormBase {
    * @return \Drupal\Core\Url
    *   A URL object.
    */
-  public function getCancelUrl()
-  {
-    // TODO: Implement getCancelUrl() method.
+  public function getCancelUrl() {
+    return new Url('view.advanced_help_blocks.page_1');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfirmText() {
+    return $this->t('Delete');
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * Delete the entity and log the event. log() replaces the watchdog.
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    //this method is the submit handler for our form
+
+    $entity = $this->getEntity();
+    $entity->delete();
+
+    \Drupal::logger('advanced_help_block')->notice(
+      '@type: deleted %title.',
+      array(
+        '@type' => $this->entity->bundle(),
+        '%title' => $this->entity->get('field_ahb_title')->value,
+      )
+    );
+
+    //redirect to the
+    $form_state->setRedirect('view.advanced_help_blocks.page_1');
   }
 }

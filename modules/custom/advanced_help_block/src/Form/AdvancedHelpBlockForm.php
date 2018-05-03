@@ -3,15 +3,16 @@
 namespace Drupal\advanced_help_block\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
-use Drupal\Core\Language\Language;
+use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Form controller for the advanced_help_block entity edit forms.
  *
  * @ingroup advanced_help_block
  */
-class AdvancedHelpBlock extends ContentEntityForm {
+class AdvancedHelpBlockForm extends ContentEntityForm {
 
   /**
    * {@inheritdoc}
@@ -19,14 +20,7 @@ class AdvancedHelpBlock extends ContentEntityForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\advanced_help_block\Entity\AdvancedHelpBlock */
     $form = parent::buildForm($form, $form_state);
-    $entity = $this->entity;
 
-    $form['langcode'] = array(
-      '#title' => $this->t('Language'),
-      '#type' => 'language_select',
-      '#default_value' => $entity->getUntranslated()->language()->getId(),
-      '#languages' => Language::STATE_ALL,
-    );
     return $form;
   }
 
@@ -37,13 +31,32 @@ class AdvancedHelpBlock extends ContentEntityForm {
     $status = parent::save($form, $form_state);
 
     $entity = $this->entity;
-    if ($status == SAVED_UPDATED) {
-      drupal_set_message($this->t('The Advanced Help Block %feed has been updated.', ['%feed' => $entity->toLink()->toString()]));
-    } else {
-      drupal_set_message($this->t('The contact %feed has been added.', ['%feed' => $entity->toLink()->toString()]));
+    if ($entity instanceof EntityChangedInterface) {
+      $entity->changed = $entity->getChangedTime();
     }
 
-    $form_state->setRedirectUrl($this->entity->toUrl('collection'));
+    if ($status == SAVED_UPDATED) {
+      drupal_set_message(
+        $this->t(
+          'The Advanced Help Block %feed has been updated.', [
+            '%feed' => $entity->toLink()
+              ->toString()
+          ]
+        )
+      );
+    }
+    else {
+      drupal_set_message(
+        $this->t(
+          'The Advanced Help Block %feed has been added.', [
+            '%feed' => $entity->toLink()
+              ->toString()
+          ]
+        )
+      );
+    }
+
+    $form_state->setRedirectUrl(new Url('view.advanced_help_blocks.page_1'));
     return $status;
   }
 }

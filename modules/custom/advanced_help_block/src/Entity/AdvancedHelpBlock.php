@@ -2,7 +2,11 @@
 
 namespace Drupal\advanced_help_block\Entity;
 
+use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\advanced_help_block\AdvancedHelpBlockInterface;
+use Drupal\Core\Annotation\PluralTranslation;
+use Drupal\Core\Annotation\Translation;
+use Drupal\Core\Entity\Annotation\ContentEntityType;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
@@ -74,11 +78,18 @@ use Drupal\user\UserInterface;
  * @ContentEntityType(
  *   id = "advanced_help_block",
  *   label = @Translation("Advanced Help Block"),
+ *   label_singular = @Translation("advanced help block"),
+ *   label_plural = @Translation("advanced help blocks"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count advanced help block",
+ *     plural = "@count advanced help blocks"
+ *   ),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\advanced_help_block\Entity\Controller\AdvancedHelpBlockBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
  *     "form" = {
+ *       "default" = "Drupal\advanced_help_block\Form\AdvancedHelpBlockForm",
  *       "add" = "Drupal\advanced_help_block\Form\AdvancedHelpBlockForm",
  *       "edit" = "Drupal\advanced_help_block\Form\AdvancedHelpBlockForm",
  *       "delete" = "Drupal\advanced_help_block\Form\AdvancedHelpBlockDeleteForm",
@@ -90,14 +101,16 @@ use Drupal\user\UserInterface;
  *   fieldable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "name",
- *     "uuid" = "uuid"
+ *     "uuid" = "uuid",
+ *     "published" = "status",
  *   },
+ *   field_ui_base_route = "entity.advanced_help_block.edit_form",
+ *   common_reference_target = TRUE,
  *   links = {
  *     "canonical" = "/advanced_help_block/{advanced_help_block}",
  *     "edit-form" = "/advanced_help_block/{advanced_help_block}/edit",
  *     "delete-form" = "/advanced_help_block/{advanced_help_block}/delete",
- *     "collection" = "/advanced_help_block/list"
+ *     "collection" = "/admin/advanced_help_block/list"
  *   },
  *   field_ui_base_route = "advanced_help_block.advanced_help_block_settings",
  * )
@@ -145,9 +158,124 @@ class AdvancedHelpBlock extends ContentEntityBase implements AdvancedHelpBlockIn
 
   /**
    * {@inheritdoc}
+   *
+   * Define the field properties here.
+   *
+   * Field name, type and size determine the table structure.
+   *
+   * In addition, we can define how the field and its content can be manipulated
+   * in the GUI. The behaviour of the widgets used can be determined here.
    */
-  public function getCreatedTime() {
-    return $this->get('created')->value;
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+    $fields = parent::baseFieldDefinitions($entity_type);
+
+    // Standard field, used as unique if primary index.
+    $fields['id'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('ID'))
+      ->setDescription(t('The ID of the Contact entity.'))
+      ->setReadOnly(TRUE);
+
+    $fields['changed'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(t('changed'))
+      ->setDescription(t('Changed time.'))
+      ->setReadOnly(TRUE);
+
+
+    // Standard field, unique outside of the scope of the current project.
+    $fields['uuid'] = BaseFieldDefinition::create('uuid')
+      ->setLabel(t('UUID'))
+      ->setDescription(t('The UUID of the Contact entity.'))
+      ->setReadOnly(TRUE);
+
+    // Name field for the contact.
+    // We set display options for the view as well as the form.
+    // Users with correct privileges can change the view and edit configuration.
+
+    $fields['field_ahb_title'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Title'))
+      ->setDescription(t('The name of the Advanced Help Block entity.'))
+      ->setSettings(
+        array(
+          'default_value' => '',
+          'max_length' => 255,
+          'text_processing' => 0,
+        )
+      )
+      ->setDisplayOptions(
+        'view', array(
+          'label' => 'above',
+          'type' => 'string',
+          'weight' => -6,
+        )
+      )
+      ->setDisplayOptions(
+        'form', array(
+          'type' => 'string_textfield',
+          'weight' => -6,
+        )
+      )
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setRequired(TRUE)
+      ->setReadOnly(FALSE);
+
+    $fields['field_ahb_pages'] = BaseFieldDefinition::create('string_long')
+      ->setLabel(t('Pages'))
+      ->setDescription(t('Specify pages by using their paths. Enter one path per line. The \'*\' character is a wildcard. An example path is /user/* for every user page. <front> is the front page. '))
+      ->setTranslatable(TRUE)
+      ->setSettings(
+        array(
+          'default_value' => '',
+          'text_processing' => 0,
+        )
+      )
+      ->setDisplayOptions(
+        'view', array(
+          'label' => 'above',
+          'type' => 'string',
+          'weight' => -3,
+        )
+      )
+      ->setDisplayOptions(
+        'form', array(
+          'type' => 'textarea',
+          'weight' => -5
+        )
+      )
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['field_ahb_visibility'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Visibility rules'))
+      ->setDescription(t('Visibility rules.'))
+      ->setRequired(TRUE)
+      ->setSettings(
+        array(
+          'allowed_values' => array(
+            'include' => 'Show for the listed pages',
+            'exclude' => 'Hide for the listed pages',
+          ),
+          'default_value' => '',
+        )
+      )
+      ->setDisplayOptions(
+        'view', array(
+          'label' => 'above',
+          'type' => 'list_default',
+          'weight' => -2,
+        )
+      )
+      ->setDisplayOptions(
+        'form', array(
+          'type' => 'options_select',
+          'weight' => -2,
+          'default_value' => 'include',
+        )
+      )
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    return $fields;
   }
 
   /**
@@ -181,98 +309,33 @@ class AdvancedHelpBlock extends ContentEntityBase implements AdvancedHelpBlockIn
   }
 
   /**
-   * {@inheritdoc}
+   * Gets the node title.
    *
-   * Define the field properties here.
-   *
-   * Field name, type and size determine the table structure.
-   *
-   * In addition, we can define how the field and its content can be manipulated
-   * in the GUI. The behaviour of the widgets used can be determined here.
+   * @return string
+   *   Title of the node.
    */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+  public function getTitle() {
+    return $this->label();
+  }
 
-    // Standard field, used as unique if primary index.
-    $fields['id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the Contact entity.'))
-      ->setReadOnly(TRUE);
+  /**
+   * Sets the node title.
+   *
+   * @param string $title
+   *   The node title.
+   *
+   * @return \Drupal\advanced_help_block\AdvancedHelpBlockInterface
+   *   The called node entity.
+   */
+  public function setTitle($title) {
+    $this->set('label', $title);
+    return $this;
+  }
 
-    // Standard field, unique outside of the scope of the current project.
-    $fields['uuid'] = BaseFieldDefinition::create('uuid')
-      ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the Contact entity.'))
-      ->setReadOnly(TRUE);
-
-    // Name field for the contact.
-    // We set display options for the view as well as the form.
-    // Users with correct privileges can change the view and edit configuration.
-
-    $fields['title'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Title'))
-      ->setDescription(t('The name of the Advanced Help Block entity.'))
-      ->setSettings(array(
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
-      ))
-      ->setDisplayOptions('view', array(
-        'label' => 'above',
-        'type' => 'string',
-        'weight' => -6,
-      ))
-      ->setDisplayOptions('form', array(
-        'type' => 'string_textfield',
-        'weight' => -6,
-      ))
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['description'] = BaseFieldDefinition::create('text_long')
-      ->setLabel(t('Description'))
-      ->setDescription(t('The Description of the block'))
-      ->setDisplayOptions('form', array(
-        'type'   => 'text_textarea',
-        'weight' => -6
-      ))
-      ->setRequired(TRUE)
-      ->setDisplayConfigurable('form', TRUE);
-
-    $fields['video'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Video'))
-      ->setDescription(t('The link to youtube video.'))
-      ->setSettings(array(
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
-      ))
-      ->setDisplayOptions('view', array(
-        'label' => 'above',
-        'type' => 'string',
-        'weight' => -6,
-      ))
-      ->setDisplayOptions('form', array(
-        'type' => 'string_textfield',
-        'weight' => -6,
-      ))
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-    $fields['url'] = BaseFieldDefinition::create('link')
-      ->setLabel(t('Page Url'))
-      ->setDescription(t('The link of page where this Help block will be shown'))
-      ->setSettings([
-        'link_type' => LinkItemInterface::LINK_GENERIC,
-        'title' => DRUPAL_DISABLED,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'link_default',
-        'weight' => -2,
-      ])
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
-
-    return $fields;
+  /**
+   * {@inheritdoc}
+   */
+  public function getCreatedTime() {
+    return $this->get('created')->value;
   }
 }

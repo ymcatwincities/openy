@@ -1,9 +1,8 @@
 advanced_help_block.advanced_help_block_add:
-  # Which route will be called by the link
   route_name: entity.advanced_help_block.advanced_help_block_add
   title: 'Add Advanced Help Block'
 
-  # Where will the link appear, defined by route name.
   appears_on:
     - entity.advanced_help_block.collection
     - entity.advanced_help_block.canonical
+    - view.advanced_help_blocks.page_1
