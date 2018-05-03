@@ -11,6 +11,8 @@ define('OPENY_DS_BLOCK_HTML_BUNDLE', 'digital_signage_block_free_html');
 use Drupal\Core\Template\Attribute;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\media_entity\Entity\Media as ContribMedia;
+use Drupal\media\Entity\Media as CoreMedia;
 
 /**
  * Implements hook_theme().
@@ -115,7 +117,27 @@ function openy_digital_signage_blocks_preprocess_block(&$variables) {
       $attributes->addClass('block-promotional-layout-' . $block->field_ds_layout->value);
       $background_styles = ['background-color: ' . $block->field_ds_background_color->value . ';'];
       if ($background_image = $block->field_ds_background_image->entity) {
-        $background_styles[] = 'background-image:url(' . file_create_url($background_image->getFileUri()) . ');';
+
+        /** @var ContribMedia $background_image */
+        if ($background_image instanceof ContribMedia) {
+          if (!$background_image->hasField('field_media_image')) {
+            throw new \Exception('Contrib media failed to find field with background image.');
+          }
+          $file = $background_image->field_media_image->entity;
+        }
+
+        if ($background_image instanceof CoreMedia) {
+          if (!$background_image->hasField('field_media_image')) {
+            throw new \Exception('Core media failed to find field with background image.');
+          }
+          $file = $background_image->field_media_image->entity;
+        }
+
+        if (!isset($file)) {
+          throw new \Exception('Failed to load file entity with background image.');
+        }
+
+        $background_styles[] = 'background-image:url(' . file_create_url($file->getFileUri()) . ');';
       }
       $attributes->setAttribute('style', $background_styles);
       $variables['wrapper_attributes'] = $attributes;
@@ -125,9 +147,31 @@ function openy_digital_signage_blocks_preprocess_block(&$variables) {
       // Do not display image.
       $variables['content']['field_ds_background_image']['#access'] = FALSE;
       $variables['background_image'] = '';
-      if (!empty($variables['content']['field_ds_background_image'][0]['#file'])) {
-        /* @var \Drupal\file_entity\Entity\FileEntity $file */
-        $file = $variables['content']['field_ds_background_image'][0]['#file'];
+
+      if (!$block->hasField('field_ds_background_image')) {
+        throw new \Exception('Failed to find field field_ds_background_image in digital_signage_block_free_html.');
+      }
+
+      if ($background_image = $block->field_ds_background_image->entity) {
+        /** @var ContribMedia $background_image */
+        if ($background_image instanceof ContribMedia) {
+          if (!$background_image->hasField('field_media_image')) {
+            throw new \Exception('Contrib media failed to find field with background image.');
+          }
+          $file = $background_image->field_media_image->entity;
+        }
+
+        if ($background_image instanceof CoreMedia) {
+          if (!$background_image->hasField('field_media_image')) {
+            throw new \Exception('Core media failed to find field with background image.');
+          }
+          $file = $background_image->field_media_image->entity;
+        }
+
+        if (!isset($file)) {
+          throw new \Exception('Failed to load file entity with background image.');
+        }
+
         $variables['background_image'] = file_create_url($file->getFileUri());
       }
       break;
