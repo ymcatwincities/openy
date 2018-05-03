@@ -2,17 +2,9 @@
 
 namespace Drupal\openy_group_schedules\Plugin\Plugin\PluginSelector;
 
-use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\AlertCommand;
-use Drupal\Core\Ajax\ChangedCommand;
-use Drupal\Core\Ajax\DataCommand;
-use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\plugin\PluginDefinition\PluginLabelDefinitionInterface;
 use Drupal\plugin\PluginHierarchyTrait;
 use Drupal\plugin\Plugin\Plugin\PluginSelector\AdvancedPluginSelectorBase;
-use Drupal\Component\Utility\Html;
 
 /**
  * Provides a plugin selector using a <autocomplete> element.
@@ -44,7 +36,6 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
         '#submit' => [[$this, 'rebuildForm']],
       ],
       '#default_value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginDefinition()['admin_label'] . ' (' . $this->getSelectedPlugin()->getPluginId() . ')' : NULL,
-      // '#default_value' => $this->getSelectedPlugin() ? $this->getSelectedPlugin()->getPluginId() : NULL,
       '#required' => $this->isRequired(),
       '#title' => $this->getLabel(),
       '#description' => $this->getDescription(),
@@ -67,17 +58,12 @@ class AutocompleteList extends AdvancedPluginSelectorBase {
   /**
    * {@inheritdoc}
    */
-  public function submitSelectorForm(array &$plugin_selector_form, FormStateInterface $plugin_selector_form_state) {
-    $this->setPluginId($plugin_selector_form_state);
-    parent::submitSelectorForm($plugin_selector_form, $plugin_selector_form_state);
-  }
-
   public function setPluginId(FormStateInterface &$plugin_selector_form_state) {
     $this->assertSubformState($plugin_selector_form_state);
     $plugin_id = $plugin_selector_form_state
       ->getValue(['container', 'select', 'container', 'plugin_id']);
-    $match = preg_match('/\s\(([a-zA-Z0-9\:\-\_]+)\)$/', $plugin_id, $matches);
-    if ($match && isset($matches[1])) {
+    $match_plugin_id = preg_match('/\s\(([a-zA-Z0-9\:\-\_]+)\)$/', $plugin_id, $matches);
+    if ($match_plugin_id && isset($matches[1])) {
       $plugin_id = $matches[1];
       $plugin_selector_form_state
         ->setValue(['container', 'select', 'container', 'plugin_id'], $plugin_id);
