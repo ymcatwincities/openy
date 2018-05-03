@@ -23,7 +23,7 @@ advanced_help_block.delete_confirm:
   weight: 30
 
 advanced_help_block.listing:
-  route_name : view.advanced_help_blocks.page_1
+  route_name : view.advanced_help_blocks.ahb_list
   title: Listing
   base_route: advanced_help_block.advanced_help_block_settings
   weight: 1

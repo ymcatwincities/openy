@@ -1,7 +1,7 @@
 {{ attach_library('advanced_help_block/ahb_modal') }}
 {% if render_type is defined %}
     {% if blocks is defined and blocks|length > 0 %}
-        <div id="block-seven-help" role="complementary" class="block block-help block-help-block">
+        <div id="block-help" role="complementary" class="block block-help block-help-block">
             {% if render_type == 'block' %}
                 {% for block in blocks %}
                     {% if block.title is defined %}
