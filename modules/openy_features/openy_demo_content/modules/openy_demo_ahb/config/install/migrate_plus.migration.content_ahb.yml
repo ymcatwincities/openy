@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_ahb
+migration_tags: null
+migration_group: null
+label: 'Import Advanced help blocks'
+source:
+  plugin: csv
+  path: '/var/www/docroot/profiles/contrib/openy/modules/openy_features/openy_demo_content/modules/openy_demo_ahb/source/advanced_help_blocks.csv'
+  delimiter: ','
+  enclosure: '"'
+  header_row_count: 1
+  keys:
+    - field_ahb_title
+  column_names:
+    -
+      field_ahb_title: 'Video Name'
+    -
+      field_ahb_video: 'YouTube Training Video URLs'
+    -
+      field_ahb_pages: 'Sandbox URLs'
+    -
+      field_ahb_description: Notes
+process:
+  field_ahb_title: field_ahb_title
+  field_ahb_description: field_ahb_description
+  field_ahb_video: field_ahb_video
+  field_ahb_pages: field_ahb_pages
+  field_ahb_visibility:
+    plugin: default_value
+    default_value: include
+destination:
+  plugin: 'entity:advanced_help_block'
+migration_dependencies: null
