@@ -43,10 +43,10 @@ env:
     # Configure synchroniation.
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_sync.settings')->set('active_syncers', ['personify_mindbody_sync.syncer_fast', 'ymca_google.syncer', 'ymca_cdn_sync.syncer'])->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('personify_mindbody_sync.settings')->set('is_production', '0')->save(TRUE);\"" }
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_endpoint', 'http://ygtctrain2.personifycloud.com/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_endpoint', 'https://account.ymcamn.org/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('childcare_endpoint', 'https://account.ymcamn.org/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments')->save(TRUE);\"" }
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_username', 'ALEX.SCHEDROV')->save(TRUE);\"" }
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_password', 'Helpdesk01')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_username', 'Paperless.Integratio')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_password', 'ymcA9622')->save(TRUE);\"" }
     # Set calendar syncer to test mode.
     - { name: 'config-set', status: true, arguments: "ymca_google.settings is_production 0" }
     # Set MindCacheProxy status endpoint as a secondary.
