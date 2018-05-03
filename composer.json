@@ -174,7 +174,7 @@
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
-        "drupal/core": "8.4.6",
+        "drupal/core": "8.4.*",
         "drupal/features": "3.5",
         "drupal/confi": "1.4",
         "drupal/config_update": "1.5",
@@ -244,6 +244,7 @@
         "drupal/video": "1.2",
         "drupal/easy_breadcrumb": "^1.6",
         "drupal/ckeditor_bootstrap_buttons": "^1.1",
-        "drupal/fontyourface": "^3.2"
+        "drupal/fontyourface": "^3.2",
+        "drupal/css_editor": "^1.2"
     }
 }
