@@ -40,11 +40,228 @@ source:
       field_ahb_pages: '/admin/config/people/captcha'
       field_ahb_visibility: 'include'
     -
-      id:
-      field_ahb_title: ''
+      id: 4
+      field_ahb_title: 'Date Based Component - Quick Start'
+      field_ahb_description: |
+        <p>Related to scheduling content that is time based, which could be on any page/block. Example is about adding to landing page. https://www.evernote.com/l/AW_I2grxYrtD_qQpEJDjR9rkwRcspXyRtGY</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=Ok5Gf23pVs0'
+      field_ahb_pages: ''
+      field_ahb_visibility: 'include'
+    -
+      id: 5
+      field_ahb_title: 'Image Focal Point - Tutorial and Preview'
+      field_ahb_description: |
+        <p>This is related to editing images on any page, therefore it could belong in a general, info section with other miscellaneous videos (e.g. Tips and Tricks), or left out of the Admin. </p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=_xqAYLagSwE'
+      field_ahb_pages: ''
+      field_ahb_visibility: 'include'
+    -
+      id: 6
+      field_ahb_title: 'OpenY: How to Change Styles and Create Custom Theme'
+      field_ahb_description: |
+        <p>This video is relevant to the OpenY Rose (default theme)</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=c1WXlyHXlrU'
+      field_ahb_pages: '/admin/appearance/settings/openy_rose'
+      field_ahb_visibility: 'include'
+    -
+      id: 7
+      field_ahb_title: 'OpenY: Upgrade Path Dashboard'
       field_ahb_description: |
         <p></p>
-      field_ahb_video: ''
+      field_ahb_video: 'https://www.youtube.com/watch?v=ThpCX6T4q6c'
+      field_ahb_pages: ''
+      field_ahb_visibility: 'include'
+    -
+      id: 8
+      field_ahb_title: 'OpenY: Demo Content'
+      field_ahb_description: |
+        <p>Part of the installation process. See notes in "Open Y Install Tutorial for Tech Novices" for placement. Could be here http://sandbox.openymca.org/admin/structure/migrate/p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=GcwNW3TDnjg'
+      field_ahb_pages: '/admin/structure/migrate'
+      field_ahb_visibility: 'include'
+    -
+      id: 9
+      field_ahb_title: 'OpenY: Data Layer'
+      field_ahb_description: |
+        <p>Covers Chrome Developer Tools to explore data layer. Possible relation to /content types, but perhaps too micro of a topic to place as a Help box in this section. http://sandbox.openymca.org/admin/structure/types (if anywhere)</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=EDibwoQgIUY'
+      field_ahb_pages: '/admin/structure/types'
+      field_ahb_visibility: 'include'
+    -
+      id: 10
+      field_ahb_title: "lndr (pronounced 'Lander') - an easy to use tool to build landing / marketing pages in Open Y"
+      field_ahb_description: |
+        <p>Integration for building landing pages. </p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=y9uXhMQaVYA'
+      field_ahb_pages: '/admin/config/content/lndr'
+      field_ahb_visibility: 'include'
+    -
+      id: 11
+      field_ahb_title: 'How to create an SSH key on Windows'
+      field_ahb_description: |
+        <p>Part of setup process on Windows. </p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=0lGnFoe4XzM'
+      field_ahb_pages: ''
+      field_ahb_visibility: 'include'
+    -
+      id: 12
+      field_ahb_title: 'Quick Start Open Y Install tutorial with Digital Ocean'
+      field_ahb_description: |
+        <p>Similar to Open Y Install Tutorial for Tech Novices (but shorter). See notes above. </p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=V3K4-RLjxQo'
+      field_ahb_pages: ''
+      field_ahb_visibility: 'include'
+    -
+      id: 13
+      field_ahb_title: 'Dr. Jeffrey Burns, Nathan Maehren talk about making a difference with Drupal - Open Y Edit'
+      field_ahb_description: |
+        <p>Great video, but more marketing focused. Suggest it doesn't need to be in the Admin as a Help topic. There is an existing playlist "For Y Associations" that covers these types of topics on YouTube https://www.youtube.com/watch?v=HPsa8ZgLw1A&list=PL_QVggMcFfKY_80g0z3UPZL7_wn-27UUg</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=HPsa8ZgLw1A'
+      field_ahb_pages: ''
+      field_ahb_visibility: 'include'
+    -
+      id: 14
+      field_ahb_title: 'OpenY: Branch'
+      field_ahb_description: |
+        <p>User is directed here during the video. Manage > Content > Add Content > Branch</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=l5rlwyyIaMk'
+      field_ahb_pages: '/node/add/branch'
+      field_ahb_visibility: 'include'
+    -
+      id: 15
+      field_ahb_title: 'OpenY: Landing Page Wizard'
+      field_ahb_description: |
+        <p>User is directed here during the video. Manage > Content > Add Content > Landing Page</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=JGdDCWtbNKY'
+      field_ahb_pages: '/node/add/landing_page'
+      field_ahb_visibility: 'include'
+    -
+      id: 16
+      field_ahb_title: 'OpenY: Content Overview'
+      field_ahb_description: |
+        <p></p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=UNYCB9XegDE'
+      field_ahb_pages: '/admin/content'
+      field_ahb_visibility: 'include'
+    -
+      id: 17
+      field_ahb_title: 'Blogs - How to Find and Edit Content'
+      field_ahb_description: |
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=f_ZdYSdxDMY'
+      field_ahb_pages: '/admin/content?title=&type=blog&status=All&langcode=All'
+      field_ahb_visibility: 'include'
+    -
+      id: 18
+      field_ahb_title: 'Blogs - Creating Blog Content and Customizing Links to Blog Posts'
+      field_ahb_description: |
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=K4iK0TUxPS0'
+      field_ahb_pages: '/node/add/blog
+                        /admin/content'
+      field_ahb_visibility: 'include'
+    -
+      id: 19
+      field_ahb_title: 'Blogs - Blog Paragraphs Components'
+      field_ahb_description: |
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=D4vzq664QLg'
+      field_ahb_pages: '/admin/structure/paragraphs_type'
+      field_ahb_visibility: 'include'
+    -
+      id: 20
+      field_ahb_title: 'Blogs - Anatomy'
+      field_ahb_description: |
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=PTZkgOb8CFE'
+      field_ahb_pages: '/node/add/blog'
+      field_ahb_visibility: 'include'
+    -
+      id: 21
+      field_ahb_title: 'Blogs - Overview'
+      field_ahb_description: |
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=--gW0zj4wEc&t=7s'
+      field_ahb_pages: '/node/add/blog'
+      field_ahb_visibility: 'include'
+    -
+      id: 22
+      field_ahb_title: 'OpenY: Taxonomy'
+      field_ahb_description: |
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=y9LPj0V6tt4'
+      field_ahb_pages: '/admin/structure/taxonomy'
+      field_ahb_visibility: 'include'
+    -
+      id: 23
+      field_ahb_title: 'OpenY: Logos'
+      field_ahb_description: |
+        <p>This video is relevant to the OpenY Rose (default theme)</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=lrGMihUyyDE'
+      field_ahb_pages: '/admin/appearance/settings/openy_rose'
+      field_ahb_visibility: 'include'
+    -
+      id: 24
+      field_ahb_title: 'OpenY: Customizable theme'
+      field_ahb_description: |
+        <p>Similar to above, related to Open Y Rose (default theme)</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=wj5rsd_suqY'
+      field_ahb_pages: '/admin/appearance/settings/openy_rose'
+      field_ahb_visibility: 'include'
+    -
+      id: 25
+      field_ahb_title: 'OpenY: Footer menu'
+      field_ahb_description: |
+        <p>There are four footer menu topics; footer, center, left, right. Suggest the Help is at the root of /structure/menu NOTE there is already a playlist on YouTube for general customization and theme changes: https://www.youtube.com/watch?v=3--CzMz5DPk&list=PL_QVggMcFfKbcayynOt0pb_Uw7DAR7KIl</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=XMT92r5GydM'
+      field_ahb_pages: '/admin/structure/menu'
+      field_ahb_visibility: 'include'
+    -
+      id: 26
+      field_ahb_title: 'OpenY: Footer icons & copyright'
+      field_ahb_description: |
+        <p>This is footer social icons and copyright. While it's easy enough to edit the blocks directly, help info could be placed either as a second link in /structure/menu above and/or here http://sandbox.openymca.org/admin/structure/block/block-content</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=BZMDljgK9A8'
+      field_ahb_pages: '/admin/structure/block/block-content'
+      field_ahb_visibility: 'include'
+    -
+      id: 27
+      field_ahb_title: 'OpenY: User Menu'
+      field_ahb_description: |
+        <p>My Account and Log Out menus</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=kcOKZVM-hzg'
+      field_ahb_pages: '/admin/structure/menu/manage/account'
+      field_ahb_visibility: 'include'
+    -
+      id: 28
+      field_ahb_title: 'OpenY: Header Menu'
+      field_ahb_description: |
+        <p>My Account and Log Out menus</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=3--CzMz5DPk'
+      field_ahb_pages: '/admin/structure/menu/manage/main'
+      field_ahb_visibility: 'include'
+    -
+      id: 29
+      field_ahb_title: 'DrupalCon Baltimore 2017 - Open Y background, technology review, and upgrade path'
+      field_ahb_description: |
+        <p>Similar to Dr. Jeffrey Burns, Nathan Maehren video, more general information/marketing content. It does cover some technical installation and feature details but I suggest it doesn't need to be in the Admin as a Help topic.  </p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=LV3MwaOt0rQ'
+      field_ahb_pages: ''
+      field_ahb_visibility: 'include'
+    -
+      id: 30
+      field_ahb_title: 'OpenY Development: Debugging JavaScript Behat tests'
+      field_ahb_description: |
+        <p>Behat tests could apply to any functional area and is configured outside of the Drupal Admin.</p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=RSsQLVVhldc'
+      field_ahb_pages: ''
+      field_ahb_visibility: 'include'
+    -
+      id: 31
+      field_ahb_title: 'Open Y - v1.0b Features Tour'
+      field_ahb_description: |
+        <p>High level overview, rather than in-context admin help. </p>
+      field_ahb_video: 'https://www.youtube.com/watch?v=tXwbucW2TEQ'
       field_ahb_pages: ''
       field_ahb_visibility: 'include'
   ids:
