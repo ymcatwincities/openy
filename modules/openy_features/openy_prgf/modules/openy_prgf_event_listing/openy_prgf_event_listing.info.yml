@@ -1,0 +1,18 @@
+name: 'OpenY Paragraph Event Posts Listing'
+description: 'OpenY Paragraph Event Posts Listing.'
+type: module
+core: 8.x
+package: 'OpenY'
+dependencies:
+  - datalayer
+  - field
+  - node
+  - openy_node_event
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - text
+  - user
+  - verf
+  - views
+  - views_infinite_scroll
