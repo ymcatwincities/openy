@@ -15,7 +15,7 @@
   tasks:
   - name: Include specific variables per environment
     include_vars: "devops/reinstall/{{ config_folder }}/environments/{{ pp_environment }}_env.yml"
-    tags: [ 'settings', 'pre-settings', 'post-settings', 'modules-enable', 'drush-commands' , 'shell-commands']
+    tags: [ 'settings', 'pre-settings', 'post-settings', 'modules-enable', 'drush-commands' , 'shell-commands', 'pre-drush-commands' ]
 
   - include: devops/reinstall/database_backup.yml
     when: make_backup
@@ -39,6 +39,9 @@
   - include: devops/reinstall/docker_sql_workflow.yml
     when: workflow_type == "sql" and docker_sql
     tags: [ 'sql-workflow' ]
+
+  - include: devops/reinstall/pre_drush_commands.yml
+    tags: [ 'drush-commands', 'pre-drush-commands' ]
 
   - include: devops/reinstall/shell_commands.yml
     when: workflow_type == "sql"
