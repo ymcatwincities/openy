@@ -15,8 +15,9 @@ env:
     - { name: '$settings["memcache"]["key_prefix"]', status: true, value: '{{ mysql_db }}' }
     - { name: '$settings["cache"]["default"]', status: true, value: 'cache.backend.memcache' }
   pre_drush_commands:
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::keyValue('system.schema')->set('ymca_master', 8259);\"" }
-    - { name: 'en', status: true, arguments: "openy_upgrade_tool, ymca_migrate_landing_page, openy_block_basic, openy_prgf_secondary_description_sidebar, rabbit_hole, focal_point, blazy, openy_prgf_banner" }
+    - { name: 'php-eval', status: false, arguments: "\"\\Drupal::keyValue('system.schema')->set('ymca_master', 8259);\"" }
+    - { name: 'en -y', status: true, arguments: "openy_upgrade_tool, ymca_migrate_landing_page, openy_block_basic, openy_prgf_secondary_description_sidebar, rabbit_hole, focal_point, blazy, openy_prgf_banner" }
+    - { name: 'en -y', status: true, arguments: "openy_upgrade_tool, ymca_migrate_landing_page, openy_block_basic, openy_prgf_secondary_description_sidebar, rabbit_hole, focal_point, blazy, openy_prgf_banner" }
   shell_commands:
     # @todo Set status false after OpenY Migration.
     - { name: '[Openy Migrate] UpdatingOpenY', status: true, arguments: "echo system serialization syslog file node rest entity_browser file_browser dropzonejs openy | xargs -n 1 | xargs -I item bin/drupal update:execute item"}
