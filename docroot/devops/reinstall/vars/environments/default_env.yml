@@ -11,9 +11,9 @@ env:
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$settings["install_profile"]', status: true, value: 'pp' }
     - { name: '$config["system.file"]["path"]["temporary"]', status: true, value: '/tmp' }
-    - { name: '$settings["memcache"]["bins"]', status: true, value: '[\\"default\\" => \\"default\\"]' }
-    - { name: '$settings["memcache"]["key_prefix"]', status: true, value: '{{ mysql_db }}' }
-    - { name: '$settings["cache"]["default"]', status: true, value: 'cache.backend.memcache' }
+    - { name: '$settings["memcache"]["bins"]', status: false, value: '[\\"default\\" => \\"default\\"]' }
+    - { name: '$settings["memcache"]["key_prefix"]', status: false, value: '{{ mysql_db }}' }
+    - { name: '$settings["cache"]["default"]', status: false, value: 'cache.backend.memcache' }
   pre_drush_commands:
     - { name: 'php-eval', status: false, arguments: "\"\\Drupal::keyValue('system.schema')->set('ymca_master', 8259);\"" }
     - { name: 'en -y', status: true, arguments: "openy_upgrade_tool, ymca_migrate_landing_page, openy_block_basic, openy_prgf_secondary_description_sidebar, rabbit_hole, focal_point, blazy, openy_prgf_banner" }
