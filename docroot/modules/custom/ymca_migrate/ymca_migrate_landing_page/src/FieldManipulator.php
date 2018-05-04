@@ -28,11 +28,14 @@ class FieldManipulator {
     $nodeQuery = \Drupal::entityQuery('node');
     $ladingPageIds = $nodeQuery
       ->condition('type', 'landing_page')
-      ->condition('field_header_content.target_revision_id', array_keys($legacyParagraphs), 'IN')
+      ->condition('field_header_content.target_id', array_values($legacyParagraphs), 'IN')
       ->execute();
 
     $nodeStorage = \Drupal::entityTypeManager()->getStorage('node');
     $paragraphStorage = \Drupal::entityTypeManager()->getStorage('paragraph');
+
+    $color = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => 'Grey']);
+    $color = reset($color);
 
     foreach ($ladingPageIds as $pageRevisionId => $pageId) {
       $pageEntity = $nodeStorage->loadRevision($pageRevisionId);
@@ -45,7 +48,7 @@ class FieldManipulator {
 
         // Set grey color.
         if ($paragraphEntity->bundle() == 'small_banner') {
-          $paragraphEntity->set('field_prgf_color', ['target_id' => 661]);
+          $paragraphEntity->set('field_prgf_color', $color);
           $paragraphEntity->save();
         }
 
