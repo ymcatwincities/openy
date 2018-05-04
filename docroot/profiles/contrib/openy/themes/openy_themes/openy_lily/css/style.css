@@ -15345,6 +15345,22 @@ body #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tickets {
   width: auto;
 }
 
+.container, .path-account .status-message, .padded-content-container {
+  padding: 0 30px;
+  max-width: none;
+  width: auto;
+}
+@media (min-width: 1200px) {
+  .container, .path-account .status-message, .padded-content-container {
+    padding-right: 100px;
+    padding-left: 100px;
+  }
+}
+
+.container .container, .path-account .status-message .container, .container .path-account .status-message, .path-account .container .status-message, .path-account .status-message .status-message {
+  padding: 0;
+}
+
 .path-locations .container, .path-locations .path-account .status-message, .path-account .path-locations .status-message, .path-locations .padded-content-container,
 .path-news .container,
 .path-news .path-account .status-message,
