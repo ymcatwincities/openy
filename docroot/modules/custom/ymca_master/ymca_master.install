@@ -5753,7 +5753,7 @@ function ymca_master_update_8261() {
       $mediaEntity = $mediaStorage->create(
         [
           'bundle' => 'document',
-          'name' => $row->field_schedule_documents_description,
+          'name' => isset($row->field_schedule_documents_description) ? $row->field_schedule_documents_description : $file->id(),
           'status' => TRUE,
           'field_media_document' => [
             'target_id' => $file->id(),
