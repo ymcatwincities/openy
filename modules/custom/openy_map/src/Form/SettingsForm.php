@@ -92,11 +92,13 @@ class SettingsForm extends ConfigFormBase {
       // Render icon files from Location Finder module and default theme.
       $themeConfig = $this->config('system.theme');
       $themePath = drupal_get_path('theme', $themeConfig->get('default')) . '/img/locations_icons';
-      $themeFiles = array_values(array_diff(scandir($themePath), ['.', '..']));
-      $fileOptions = [];
-      foreach ($themeFiles as $themeFile) {
-        $path = '/' . $themePath . '/' . $themeFile;
-        $fileOptions[$path] = '<img src="' . $path . '" />';
+      $fileOptions = $themeFiles = [];
+      if (is_dir($themePath)) {
+        $themeFiles = array_values(array_diff(scandir($themePath), ['.', '..']));
+        foreach ($themeFiles as $themeFile) {
+          $path = '/' . $themePath . '/' . $themeFile;
+          $fileOptions[$path] = '<img src="' . $path . '" />';
+        }
       }
       $locationFinderPath = drupal_get_path('module', 'location_finder') . '/img';
       $locationFinderFiles = array_values(array_diff(scandir($locationFinderPath), ['.', '..']));
