@@ -5665,12 +5665,13 @@ function ymca_master_update_8259() {
  * Run landing pages migration batch.
  */
 function ymca_master_update_8260(&$sandbox) {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'article')
+    ->condition('field_related', 'value', 'IS NULL');
+  $result = $query->execute();
+
   // Initialize some variables during the first pass through.
-  if (!isset($sandbox['total'])) {
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'article')
-      ->condition('field_related', 'value', 'IS NULL');
-    $result = $query->execute();
+  if (!isset($sandbox['max'])) {
     $sandbox['max'] = count($result);
     $sandbox['progress'] = 0;
   }
@@ -5683,16 +5684,17 @@ function ymca_master_update_8260(&$sandbox) {
   foreach ($nodes as $node) {
     \Drupal::service('ymca_migrate_landing_page_importer')->migrate($node);
   }
-  $sandbox['sandbox']['progress'] += $nodes_per_batch;
+  $sandbox['progress'] += $nodes_per_batch;
   $sandbox['results']['migrated'][] = implode(', ', $nids);
 
   $sandbox['message'] = \Drupal::translation()
     ->translate('Migrating nodes: @progress out of @total', [
-      '@progress' => $sandbox['sandbox']['progress'],
-      '@total' => $sandbox['sandbox']['max'],
+      '@progress' => $sandbox['progress'],
+      '@total' => $sandbox['max'],
     ]);
-  if ($sandbox['sandbox']['progress'] < $sandbox['sandbox']['max']) {
-    $sandbox['finished'] = $sandbox['sandbox']['progress'] / $sandbox['sandbox']['max'];
+
+  if ($sandbox['progress'] < $sandbox['max']) {
+    $sandbox['finished'] = $sandbox['progress'] / $sandbox['max'];
   }
   else {
     $sandbox['finished'] = 1;
