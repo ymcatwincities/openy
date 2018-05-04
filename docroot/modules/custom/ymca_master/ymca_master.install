@@ -5662,9 +5662,47 @@ function ymca_master_update_8259() {
 }
 
 /**
+ * Run landing pages migration batch.
+ */
+function ymca_master_update_8260(&$sandbox) {
+  // Initialize some variables during the first pass through.
+  if (!isset($sandbox['total'])) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'article')
+      ->condition('field_related', 'value', 'IS NULL');
+    $result = $query->execute();
+    $sandbox['max'] = count($result);
+    $sandbox['progress'] = 0;
+  }
+
+  $nodes_per_batch = 50;
+
+  $nids = array_splice($result, 0, $nodes_per_batch);
+  $nodes = \Drupal::entityTypeManager()->getStorage('node')
+    ->loadMultiple($nids);
+  foreach ($nodes as $node) {
+    \Drupal::service('ymca_migrate_landing_page_importer')->migrate($node);
+  }
+  $sandbox['sandbox']['progress'] += $nodes_per_batch;
+  $sandbox['results']['migrated'][] = implode(', ', $nids);
+
+  $sandbox['message'] = \Drupal::translation()
+    ->translate('Migrating nodes: @progress out of @total', [
+      '@progress' => $sandbox['sandbox']['progress'],
+      '@total' => $sandbox['sandbox']['max'],
+    ]);
+  if ($sandbox['sandbox']['progress'] < $sandbox['sandbox']['max']) {
+    $sandbox['finished'] = $sandbox['sandbox']['progress'] / $sandbox['sandbox']['max'];
+  }
+  else {
+    $sandbox['finished'] = 1;
+  }
+}
+
+/**
  * Change type of field_schedule_documents.
  */
-function ymca_master_update_8260() {
+function ymca_master_update_8261() {
   // Remove the field.
   $field_name = 'field_schedule_documents';
   $fieldHelper = \Drupal::service('openy_tools.field_helper');
@@ -5736,7 +5774,7 @@ function ymca_master_update_8260() {
 /**
  * Install OpenY Theme Settings module.
  */
-function ymca_master_update_8261() {
+function ymca_master_update_8262() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory('modules/features/openy_theme_settings/config/install');
   $config_importer->importConfigs(
@@ -5750,7 +5788,7 @@ function ymca_master_update_8261() {
 /**
  * Fix header migration for landing pages.
  */
-function ymca_master_update_8262() {
+function ymca_master_update_8263() {
   drupal_flush_all_caches();
   \Drupal::service("ymca_migrate_landing_page.field_manipulator")->fixHeaderSecondaryDescription();
 }
