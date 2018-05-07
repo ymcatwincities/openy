@@ -12,11 +12,6 @@ use Drupal\paragraphs\Entity\Paragraph;
 class FieldManipulator {
 
   /**
-   * Term ID for grey color.
-   */
-  const COLOR_GREY_ID = 661;
-
-  /**
    * Replace old [YGTC] Secondary Description and Sidebar with OpenY one.
    */
   public function fixHeaderSecondaryDescription() {
@@ -34,6 +29,9 @@ class FieldManipulator {
     $nodeStorage = \Drupal::entityTypeManager()->getStorage('node');
     $paragraphStorage = \Drupal::entityTypeManager()->getStorage('paragraph');
 
+    $color = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => 'Grey']);
+    $color = reset($color);
+
     foreach ($ladingPageIds as $pageRevisionId => $pageId) {
       $pageEntity = $nodeStorage->loadRevision($pageRevisionId);
 
@@ -45,8 +43,13 @@ class FieldManipulator {
 
         // Set grey color.
         if ($paragraphEntity->bundle() == 'small_banner') {
-          $paragraphEntity->set('field_prgf_color', ['target_id' => 661]);
-          $paragraphEntity->save();
+          try {
+            $paragraphEntity->set('field_prgf_color', $color);
+            $paragraphEntity->save();
+          }
+          catch (\Exception $e) {
+            watchdog_exception('ymca_master', $e, 'Failed to save color for node :id', [':id' => $pageEntity->id()]);
+          }
         }
 
         if ($paragraphEntity->bundle() == '70_30_columns') {
@@ -64,7 +67,14 @@ class FieldManipulator {
 
           $headerItems->removeItem($index);
 
-          $pageEntity->save();
+          try {
+            $pageEntity->save();
+          }
+          catch (\Exception $e) {
+            watchdog_exception('ymca_master', $e, 'Failed to update header for node :id', [':id' => $pageEntity->id()]);
+          }
+
+          \Drupal::logger('ymca_master')->info(sprintf('Header for node %d has been updated.', $pageEntity->id()));
         }
       }
     }
