@@ -206,8 +206,21 @@ section.content {
 }
 
 .paragraph--type--sidebar-menu {
-  background: #e0e0e0;
+  background: $grey27;
   margin: 0 0 20px;
+  .current > a {
+    color: #333;
+    border: 0;
+    &:after {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      margin-top: -11px;
+      color: gray;
+      content: '>';
+      font-family: 'YMCA';
+    }
+  }
   @media (max-width: 767px) {
     display: none;
   }
@@ -245,19 +258,6 @@ section.content {
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 35px;
-      }
-      .current > a {
-        color: #333;
-        border: 0;
-        &:after {
-          position: absolute;
-          top: 50%;
-          right: 12px;
-          margin-top: -11px;
-          color: gray;
-          content: '>';
-          font-family: 'YMCA';
-        }
       }
       > .nav,
       .nav .open .nav {
