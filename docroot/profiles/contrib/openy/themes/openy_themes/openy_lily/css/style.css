@@ -11766,6 +11766,20 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   text-align: center;
 }
 
+.sidebar-promos .richtext .text-promo {
+  background: none;
+}
+.sidebar-promos .richtext .text-promo a {
+  color: #428bca;
+  background: none;
+}
+.sidebar-promos .richtext .text-promo a:hover {
+  color: #428bca;
+}
+.sidebar-promos .richtext .text-promo h3 {
+  padding: 0;
+}
+
 .sidebar-promos img-crop {
   height: auto;
 }
@@ -15526,6 +15540,19 @@ section.content {
   background: #e0e0e0;
   margin: 0 0 20px;
 }
+.paragraph--type--sidebar-menu .current > a {
+  color: #333;
+  border: 0;
+}
+.paragraph--type--sidebar-menu .current > a:after {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  margin-top: -11px;
+  color: gray;
+  content: '>';
+  font-family: 'YMCA';
+}
 @media (max-width: 767px) {
   .paragraph--type--sidebar-menu {
     display: none;
@@ -15565,19 +15592,6 @@ section.content {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 35px;
-}
-.paragraph--type--sidebar-menu .dropdown.open .current > a {
-  color: #333;
-  border: 0;
-}
-.paragraph--type--sidebar-menu .dropdown.open .current > a:after {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  margin-top: -11px;
-  color: gray;
-  content: '>';
-  font-family: 'YMCA';
 }
 .paragraph--type--sidebar-menu .dropdown.open > .nav,
 .paragraph--type--sidebar-menu .dropdown.open .nav .open .nav {

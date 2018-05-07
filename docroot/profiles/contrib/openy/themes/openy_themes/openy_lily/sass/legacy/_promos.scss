@@ -171,6 +171,21 @@
     text-align: center;
   }
 }
+
+.sidebar-promos .richtext .text-promo {
+  background: none;
+  a {
+    color: $blue;
+    background: none;
+    &:hover {
+      color: $blue;
+    }
+  }
+  h3 {
+    padding: 0;
+  }
+}
+
 .sidebar-promos {
   img-crop {
     height: auto;
