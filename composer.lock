@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "95d9a7caed2e539c06a2227d1f1d82d2",
+    "content-hash": "af32125968fabf7dfea4ae06ee365ffe",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4950,6 +4950,16 @@
             "time": "2017-02-03T22:48:59+00:00"
         },
         {
+            "name": "grt-youtube-popup",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/grt107/grt-youtube-popup",
+                "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
+            },
+            "type": "drupal-library"
+        },
+        {
             "name": "guzzlehttp/guzzle",
             "version": "6.3.3",
             "source": {
@@ -5179,16 +5189,6 @@
                 "type": "git",
                 "url": "https://github.com/gdsmith/jquery.easing",
                 "reference": "1.4.1"
-            },
-            "type": "drupal-library"
-        },
-        {
-            "name": "library-grt-youtube-popup",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/grt107/grt-youtube-popup",
-                "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
             },
             "type": "drupal-library"
         },
