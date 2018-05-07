@@ -375,7 +375,7 @@ function openy_rose_preprocess_html(&$variables) {
           ->load($p['target_id']);
 
         // Take action for microsites_menu paragraph.
-        if ($paragraph->bundle() == 'microsites_menu') {
+        if ($paragraph && $paragraph->bundle() == 'microsites_menu') {
           // Add class to the body.
           $variables['attributes']['class'][] = 'microsites-menu';
           if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
