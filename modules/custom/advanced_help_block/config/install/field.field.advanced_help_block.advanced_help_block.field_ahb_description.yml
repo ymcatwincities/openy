@@ -16,7 +16,7 @@ field_name: field_ahb_description
 entity_type: advanced_help_block
 bundle: advanced_help_block
 label: Description
-description: ''
+description: 'User can add description with this field. This description will be shown in help block.'
 required: false
 translatable: false
 default_value: {  }

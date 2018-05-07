@@ -4,5 +4,4 @@ ahb_modal:
     theme:
       library/css/grt-youtube-popup.css: {}
   js:
-    library/js/grt-youtube-popup.js: {}
     library/js/ahb.js: {}
