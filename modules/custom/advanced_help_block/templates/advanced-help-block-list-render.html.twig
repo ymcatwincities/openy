@@ -1,3 +1,18 @@
+{#
+/**
+ * @file
+ * Advanced help block listing as block render.
+ *
+ * Available variables:
+ * - render_type: block or message.
+ * - blocks: array of blocks. Contains title, descritpion and youtube_link:
+ *
+ *
+ * @see advanced_help_block_help()
+ *
+ */
+#}
+
 {{ attach_library('advanced_help_block/ahb_modal') }}
 {% if render_type is defined %}
     {% if blocks is defined and blocks|length > 0 %}
