@@ -15541,7 +15541,7 @@ section.content {
   margin: 0 0 20px;
 }
 .paragraph--type--sidebar-menu .current > a {
-  color: #333;
+  color: #333333;
   border: 0;
 }
 .paragraph--type--sidebar-menu .current > a:after {
