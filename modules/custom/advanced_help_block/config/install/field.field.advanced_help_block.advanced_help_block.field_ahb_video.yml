@@ -15,7 +15,7 @@ field_name: field_ahb_video
 entity_type: advanced_help_block
 bundle: advanced_help_block
 label: Video
-description: ''
+description: 'User can add link to youtube video. This video will be shown in popup.'
 required: false
 translatable: false
 default_value: {  }

@@ -6,8 +6,7 @@
             $(".youtube-link").grtyoutube(
                 {
                     autoPlay: true,
-                    theme: "dark" // or dark
-
+                    theme: "dark"
                 }
             );
         }
