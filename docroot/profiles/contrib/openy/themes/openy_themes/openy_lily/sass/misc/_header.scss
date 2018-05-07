@@ -654,14 +654,6 @@ header#page-head {
 }
 
 .no-smil {
-  .navbar-brand {
-    padding-top: 70px !important;
-    height: 0 !important;
-    background: url(../img/ymca-logo-full.png) no-repeat;
-    background-size: contain;
-    line-height: 1em;
-    -ms-transition: padding .3s ease-out;
-  }
   .affix .navbar-brand {
     padding-top: 70px !important;
     background-image: url(../img/ymca-logo-full.png);
