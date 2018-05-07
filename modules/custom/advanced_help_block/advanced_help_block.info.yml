@@ -7,3 +7,4 @@ package: Custom
 dependencies:
   - field_group
   - text
+  - libraries
