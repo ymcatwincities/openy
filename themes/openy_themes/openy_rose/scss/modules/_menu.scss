@@ -176,9 +176,13 @@
   }
 }
 
-.goog-te-menu-frame.open {
-  left: 0;
-  top: 150px;
+.goog-te-menu-frame {
+  display: none;
+  &.open {
+    left: 0 !important;
+    top: 150px;
+    display: block !important;
+  }
 }
 .viewport {
   .openy-gtranslate {

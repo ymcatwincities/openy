@@ -969,9 +969,13 @@ body {
   display: none;
 }
 
+.goog-te-menu-frame {
+  display: none;
+}
 .goog-te-menu-frame.open {
-  left: 0;
+  left: 0 !important;
   top: 150px;
+  display: block !important;
 }
 
 .viewport .openy-gtranslate {

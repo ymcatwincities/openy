@@ -75,16 +75,6 @@ function openy_gtranslate_place_blocks(array &$install_state) {
       'uuid' => $uuid,
     ]);
     $blockContent->save();
-
-    /** @var \Drupal\block\Entity\Block $block */
-    $block = $entityTypeManager->getStorage('block')->create([
-      'id'=> $theme . '_googletranslate',
-      'plugin' => 'openy_gtranslate_block',
-      'theme' => $theme,
-    ]);
-    $block->setRegion('secondary_menu');
-    $block->setWeight(49);
-    $block->save();
   }
   return ['operations' => []];
 }
