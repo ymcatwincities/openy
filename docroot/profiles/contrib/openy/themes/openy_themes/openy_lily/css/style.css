@@ -10331,6 +10331,16 @@ a.sports-icon.floor-hockey {
   font-family: 'YMCA';
 }
 
+.field-prgf-description h2 a:after {
+  position: relative;
+  top: -1px;
+  margin-left: 10px;
+  content: 'o';
+  vertical-align: middle;
+  font-size: 20px;
+  font-family: 'YMCA';
+}
+
 .paragraph--type--featured-highlights article.featured-highlights-block {
   max-width: 100%;
   margin: auto;
