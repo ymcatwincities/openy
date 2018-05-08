@@ -30,8 +30,7 @@ class SettingsForm extends ConfigFormBase {
    * @param \Drupal\openy_map\OpenyMapManager $openy_map_manager
    *   The OpenY Map manager.
    */
-  public function __construct(ConfigFactoryInterface $config_factory,
-                              OpenyMapManager $openy_map_manager) {
+  public function __construct(ConfigFactoryInterface $config_factory, OpenyMapManager $openy_map_manager) {
     parent::__construct($config_factory);
     $this->openyMapManager = $openy_map_manager;
   }
@@ -78,12 +77,12 @@ class SettingsForm extends ConfigFormBase {
       '#open' => FALSE,
       'help_text' => [
         '#markup' => '<p>' . $this->t('1. You have to reuse Coordinates Geolocation field <b>field_location_coordinates</b>.') . '</p>' .
-          '<p>' . $this->t("2. It's highly recommended to reuse Address <b>field_location_address</b> and Phone <b>field_location_phone</b> fields. 
-             They will be shown on map and on locations list teasers.") . '</p>' .
-          '<p>' . $this->t('3. To use Amenities search feature you have to reuse Amenities field <b>field_location_amenities</b>') . '</p>' .
-          '<p>' . $this->t('4. You have to check fields display settings with @branch_display_link',
-            ['@branch_display_link' => Link::fromTextAndUrl('Branch Teaser display',
-              Url::fromUserInput('/admin/structure/types/manage/branch/display/teaser',['attributes' => ['target' => '_blank']]))->toString()]) . '</p>',
+        '<p>' . $this->t("2. It's highly recommended to reuse Address <b>field_location_address</b> and Phone <b>field_location_phone</b> fields. They will be shown on map and on locations list teasers.") . '</p>' .
+        '<p>' . $this->t('3. To use Amenities search feature you have to reuse Amenities field <b>field_location_amenities</b>') . '</p>' .
+        '<p>' . $this->t('4. You have to check fields display settings with @branch_display_link', [
+          '@branch_display_link' => Link::fromTextAndUrl('Branch Teaser display',
+            Url::fromUserInput('/admin/structure/types/manage/branch/display/teaser', ['attributes' => ['target' => '_blank']]))->toString()
+          ]) . '</p>',
       ],
     ];
 
@@ -142,11 +141,10 @@ class SettingsForm extends ConfigFormBase {
         $form[$id][$id . '_icon'] = [
           '#prefix' => '<div class="container-inline">',
           '#type' => 'radios',
-          '#title' => 'Locations Map icon',
-          '#default_value' =>  !empty($config->get('type_icons')[$id]) ? $config->get('type_icons')[$id] : array_keys($fileOptions)[0],
+          '#title' => $this->t('Locations Map icon'),
+          '#default_value' => !empty($config->get('type_icons')[$id]) ? $config->get('type_icons')[$id] : array_keys($fileOptions)[0],
           '#options' => $fileOptions,
-          '#description' => $this->t('Choose content type map icon. 
-             To redefine icons add file in <b>{default_theme}/img/location_icons</b> directory in active default theme'),
+          '#description' => $this->t('Choose content type map icon. To redefine icons add file in <b>{default_theme}/img/location_icons</b> directory in active default theme'),
           '#required' => TRUE,
           '#multiple' => FALSE,
           '#suffix' => '</div>',
