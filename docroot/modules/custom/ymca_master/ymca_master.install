@@ -5753,3 +5753,13 @@ function ymca_master_update_8261() {
 function ymca_master_update_8262() {
   \Drupal::service("ymca_migrate_landing_page.field_manipulator")->fixHeaderSecondaryDescription();
 }
+
+/**
+ * Disable core term view.
+ */
+function ymca_master_update_8263() {
+  \Drupal::entityTypeManager()->getStorage('view')
+    ->load('taxonomy_term')
+    ->setStatus(FALSE)
+    ->save();
+}
