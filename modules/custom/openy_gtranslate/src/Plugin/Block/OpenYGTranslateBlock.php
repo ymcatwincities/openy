@@ -28,4 +28,5 @@ class OpenYGTranslateBlock extends BlockBase {
 
     return $block;
   }
+
 }

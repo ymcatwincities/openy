@@ -5,13 +5,15 @@
  * Installation file for OpenY Google Translate module.
  */
 
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
 /**
  * Implements hook_install().
  */
 function openy_gtranslate_install() {
   $config = \Drupal::config('system.theme');
   $menuName = ($config->get('default') == 'openy_rose') ? 'account' : 'main';
-  $menuLink = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+  $menuLink = MenuLinkContent::create([
     'title' => t('Language'),
     'link' => [
       'uri' => 'internal:/',
