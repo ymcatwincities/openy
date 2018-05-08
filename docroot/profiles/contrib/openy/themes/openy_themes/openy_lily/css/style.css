@@ -15668,4 +15668,16 @@ body.independent-footer #page-footer {
   padding-top: 30px;
 }
 
+a[href$=pdf]:after,
+a[href*=".pdf?"]:after,
+.lead-copy li a[href$=pdf]:after,
+.lead-copy li a[href*=".pdf?"]:after,
+.pdf-link:after {
+  margin: 0 5px;
+  content: 'p';
+  text-transform: none;
+  font-weight: normal;
+  font-family: 'YMCA';
+}
+
 /*# sourceMappingURL=style.css.map */
