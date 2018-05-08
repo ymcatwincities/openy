@@ -176,13 +176,9 @@
   }
 }
 
-.goog-te-menu-frame {
-  display: none;
-  &.open {
-    left: 0 !important;
-    top: 150px;
-    display: block !important;
-  }
+.goog-te-menu-frame.open {
+  left: 0 !important;
+  top: 150px;
 }
 .viewport {
   .openy-gtranslate {
@@ -260,7 +256,6 @@
 
     .nav-level-3 {
       padding-top: 25px;
-
       > a {
         min-height: 34px;
         display: inline-block;
@@ -425,4 +420,12 @@
 // Overriding Bootstrap text decoration.
 .nav > li > a:hover {
   text-decoration: underline;
+}
+
+// Google translate styles
+.translated-ltr,
+.translated-rtl {
+  .viewport .top-navs {
+    margin-top: 40px;
+  }
 }

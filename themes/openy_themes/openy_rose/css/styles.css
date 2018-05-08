@@ -518,7 +518,7 @@ body {
   .is-camp .page-head__main-menu, .page-head__main-menu {
     border-bottom: none;
     position: absolute;
-    bottom: 0;
+    top: 125px;
   }
   .is-camp .page-head__main-menu .nav-level-2 > a,
   .is-camp .page-head__main-menu .nav-level-3 > a, .page-head__main-menu .nav-level-2 > a,
@@ -553,9 +553,11 @@ body {
 .viewport .top-navs {
   height: 165px;
   border-bottom: none;
+  min-height: 165px;
 }
 .viewport .top-navs.affix {
   height: 42px;
+  min-height: 42px;
 }
 .top-navs .navbar-default {
   background: none;
@@ -772,6 +774,7 @@ body {
   bottom: 0;
   position: absolute;
   height: 165px;
+  min-height: 165px;
 }
 .viewport .header-content .page-head__search {
   bottom: 1px;
@@ -969,13 +972,9 @@ body {
   display: none;
 }
 
-.goog-te-menu-frame {
-  display: none;
-}
 .goog-te-menu-frame.open {
   left: 0 !important;
   top: 150px;
-  display: block !important;
 }
 
 .viewport .openy-gtranslate {
@@ -1171,6 +1170,11 @@ body {
 
 .nav > li > a:hover {
   text-decoration: underline;
+}
+
+.translated-ltr .viewport .top-navs,
+.translated-rtl .viewport .top-navs {
+  margin-top: 40px;
 }
 
 ::-webkit-input-placeholder {

@@ -20,7 +20,6 @@ class OpenYGTranslateBlock extends BlockBase {
    */
   public function build() {
     $block = [
-      '#cache' => ['max-age' => 0],
       '#theme' => 'openy_gtranslate',
       '#attached' => [
         'library' => ['openy_gtranslate/translate'],

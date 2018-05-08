@@ -53,7 +53,8 @@ function openy_install_tasks() {
 }
 
 /**
- * Add Google Translate blocks to Secondary menu.
+ * Create Google Translate block content.
+ * Block already added from OpenY Google Translate module configs.
  */
 function openy_gtranslate_place_blocks(array &$install_state) {
   $moduleHandler = \Drupal::service('module_handler');
