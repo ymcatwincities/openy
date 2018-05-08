@@ -6,6 +6,32 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function openy_code_block_install() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_prgf_secondary_description_sidebar')) {
+    // Add code_block to secondary_description_sidebar target bundles.
+    $config_factory = \Drupal::configFactory();
+    $configs_to_update = [
+      'field.field.paragraph.secondary_description_sidebar.field_prgf_left_column_block',
+      'field.field.paragraph.secondary_description_sidebar.field_prgf_right_column_block',
+    ];
+    foreach ($configs_to_update as $config_name) {
+      $config = $config_factory->getEditable($config_name);
+      $dependencies = $config->get('dependencies.config');
+      if (!in_array('block_content.type.code_block', $dependencies)) {
+        $dependencies[] = 'block_content.type.code_block';
+        $config->set('dependencies.config', $dependencies);
+        $target_bundles = $config->get('settings.handler_settings.target_bundles');
+        $target_bundles['code_block'] = 'code_block';
+        $config->set('settings.handler_settings.target_bundles', $target_bundles);
+        $config->save(TRUE);
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_uninstall().
  */
 function openy_code_block_uninstall() {
