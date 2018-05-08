@@ -7413,6 +7413,7 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--location-filter-by-amenities .views-element-container form input[type="submit"] {
   display: none;
 }
+
 .paragraph--type--upcoming-events h2 {
   letter-spacing: normal;
   text-transform: none;
@@ -8286,6 +8287,15 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 
 .landing-header {
   margin-bottom: 20px;
+}
+
+.translated-ltr header#page-head .top-navs .nav-global,
+.translated-rtl header#page-head .top-navs .nav-global {
+  margin-top: 39px !important;
+}
+.translated-ltr header#page-head .top-navs .nav-wrapper .main-nav.affix,
+.translated-rtl header#page-head .top-navs .nav-wrapper .main-nav.affix {
+  top: 92px;
 }
 
 .viewport .nav-level-2.open {
