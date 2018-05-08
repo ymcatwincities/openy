@@ -500,6 +500,9 @@ body {
 .is-camp .page-head__top-menu.clearfix, .page-head__top-menu.clearfix {
   overflow: visible;
 }
+.is-camp .page-head__main-menu, .page-head__main-menu {
+  top: 0;
+}
 .is-camp .page-head__main-menu a, .page-head__main-menu a {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 14px;
@@ -551,13 +554,15 @@ body {
   background-color: #0089d0;
 }
 .viewport .top-navs {
-  height: 165px;
-  border-bottom: none;
   min-height: 165px;
+  border-bottom: none;
 }
 .viewport .top-navs.affix {
-  height: 42px;
   min-height: 42px;
+  height: 42px;
+}
+.viewport .top-navs.affix .page-head__main-menu {
+  top: 0;
 }
 .top-navs .navbar-default {
   background: none;
@@ -767,13 +772,12 @@ body {
 }
 
 .viewport .nav-global > .container > .row {
-  height: 165px;
+  min-height: 165px;
   position: relative;
 }
 .viewport .nav-global > .container > .row .header-content {
   bottom: 0;
   position: absolute;
-  height: 165px;
   min-height: 165px;
 }
 .viewport .header-content .page-head__search {
@@ -824,6 +828,11 @@ body {
 }
 .toolbar-vertical.toolbar-tray-open .top-navs {
   margin-left: 150px;
+}
+
+.translated-ltr .top-navs,
+.translated-rtl .top-navs {
+  margin-top: 40px;
 }
 
 .nav.dropdown-menu {
@@ -1170,11 +1179,6 @@ body {
 
 .nav > li > a:hover {
   text-decoration: underline;
-}
-
-.translated-ltr .viewport .top-navs,
-.translated-rtl .viewport .top-navs {
-  margin-top: 40px;
 }
 
 ::-webkit-input-placeholder {
