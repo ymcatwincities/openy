@@ -19,7 +19,7 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
   /**
    * Openy Socrates Facade.
    *
-   * @var OpenySocratesFacade
+   * @var \Drupal\openy_socrates\OpenySocratesFacade
    */
   protected $socrates;
 
@@ -65,11 +65,7 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   Config factory.
    */
-  public function __construct(QueryFactory $queryFactory,
-                              RendererInterface $renderer,
-                              EntityTypeManagerInterface $entityTypeManager,
-                              OpenySocratesFacade $socrates,
-                              ConfigFactoryInterface $configFactory) {
+  public function __construct(QueryFactory $queryFactory, RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager, OpenySocratesFacade $socrates, ConfigFactoryInterface $configFactory) {
     $this->queryFactory = $queryFactory;
     $this->renderer = $renderer;
     $this->entityTypeManager = $entityTypeManager;
@@ -104,7 +100,7 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
     $builder = $this->entityTypeManager->getViewBuilder('node');
     $locations = $storage->loadMultiple($location_ids);
 
-    // Get labels and icons for every bundle from OpenY Map config
+    // Get labels and icons for every bundle from OpenY Map config.
     $typeIcons = $this->configFactory->get('openy_map.settings')->get('type_icons');
     $typeLabels = $this->configFactory->get('openy_map.settings')->get('type_labels');
     $tag = $typeLabels[$type];

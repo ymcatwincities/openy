@@ -41,7 +41,8 @@ class OpenyMapManager {
   /**
    * Load all node types with 'field_location_address' field.
    *
-   * @return array Array of node types.
+   * @return array
+   *   Array of node types.
    */
   public function getLocationNodeTypes() {
     $fieldMap = $this->entityFieldManager->getFieldMap();

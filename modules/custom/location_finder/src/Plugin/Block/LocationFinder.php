@@ -36,17 +36,18 @@ class LocationFinder extends BlockBase implements ContainerFactoryPluginInterfac
   /**
    * Constructs a new Block instance.
    *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The service container.
    * @param array $configuration
    *   The plugin configuration.
    * @param string $plugin_id
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param ConfigFactoryInterface $config_factory
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
    */
-  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition,
-                              ConfigFactoryInterface $config_factory) {
+  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->container = $container;
     $this->configFactory = $config_factory;
@@ -69,11 +70,11 @@ class LocationFinder extends BlockBase implements ContainerFactoryPluginInterfac
    * {@inheritdoc}
    */
   public function build() {
-    // Location view
+    // Location view.
     $locationsView = 'locations';
     $locationDisplay = 'locations_block';
 
-    // Render Locations block display with changed arguments
+    // Render Locations block display with changed arguments.
     $activeTypes = array_keys(array_filter($this->configFactory->get('openy_map.settings')->get('active_types')));
     $blockLabels = $this->configFactory->get('openy_map.settings')->get('block_labels');
     $render = [];
