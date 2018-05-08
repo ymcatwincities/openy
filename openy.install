@@ -785,7 +785,7 @@ function openy_update_8052() {
   \Drupal::service('module_installer')->install(['openy_prgf_location_by_amenities']);
 }
 
-/*
+/**
  * Enable event module.
  */
 function openy_update_8053() {
@@ -825,15 +825,5 @@ function openy_update_8054() {
       'uuid' => $uuid,
     ]);
     $blockContent->save();
-
-    /** @var \Drupal\block\Entity\Block $block */
-    $block = $entityTypeManager->getStorage('block')->create([
-      'id'=> $theme . '_googletranslate',
-      'plugin' => 'openy_gtranslate_block',
-      'theme' => $theme,
-    ]);
-    $block->setRegion('secondary_menu');
-    $block->setWeight(49);
-    $block->save();
   }
 }
