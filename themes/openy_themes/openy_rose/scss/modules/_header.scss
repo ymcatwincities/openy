@@ -189,8 +189,7 @@
     @include breakpoint($screen-desktop) {
       border-bottom: none;
       position: absolute;
-      bottom: 0;
-
+      top: 125px;
 
       .nav-level-2,
       .nav-level-3 {
@@ -229,10 +228,12 @@
   .viewport & {
     height: $top-nav-height;
     border-bottom: none;
+    min-height: 165px;
   }
 
   .viewport &.affix {
     height: $minimized-nav-height;
+    min-height: 42px;
   }
 
   .navbar-default {
@@ -471,10 +472,7 @@
         bottom: 0;
         position: absolute;
         height: $top-nav-height;
-
-        .page-head__search {
-
-        }
+        min-height: 165px;
       }
     }
   }
