@@ -12,7 +12,7 @@ bundle: group_schedules
 mode: default
 content:
   field_prgf_schedules_ref:
-    type: 'plugin_selector:plugin_select_list'
+    type: 'plugin_selector:plugin_autocomplete_list'
     weight: 0
     settings: {  }
     third_party_settings: {  }
