@@ -2,7 +2,7 @@ name: OpenY
 type: profile
 description: 'Open Y Drupal distribution.'
 core: 8.x
-version: '8.1.10'
+version: '8.1.11'
 distribution:
   name: OpenY
   install:
@@ -128,6 +128,7 @@ dependencies:
   - openy_node_program
   - openy_node_category
   - openy_node_blog
+  - openy_node_event
   - openy_prgf
   - openy_prgf_small_banner
   - openy_prgf_banner
@@ -161,6 +162,8 @@ dependencies:
   - openy_prgf_embedded_groupexpro_schedule
   - openy_prgf_pgm_reg
   - openy_prgf_webform
+  - openy_prgf_event_latest
+  - openy_prgf_event_listing
   - openy_node_activity
   - openy_node_class
   - openy_node_session
