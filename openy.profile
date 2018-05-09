@@ -46,7 +46,38 @@ function openy_install_tasks() {
       'type' => 'form',
       'function' => UploadFontMessageForm::class,
     ],
+    'openy_gtranslate_place_blocks' => [
+      'type' => 'batch',
+    ],
   ];
+}
+
+/**
+ * Create Google Translate block content.
+ * Block already added from OpenY Google Translate module configs.
+ */
+function openy_gtranslate_place_blocks(array &$install_state) {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('openy_gtranslate')) {
+    return ['operations' => []];
+  }
+
+  $themes_list = [
+    'openy_rose' => '5a698466-f499-4dda-a084-4d61c1d0e902',
+    'openy_lily' => '5a698466-f499-4dda-a084-4d61c1d0e777',
+  ];
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::service('entity_type.manager');
+  foreach ($themes_list as $theme => $uuid) {
+    /** @var \Drupal\block_content\Entity\BlockContent $blockContent */
+    $blockContent = $entityTypeManager->getStorage('block_content')->create([
+      'type' => 'openy_gtranslate_block',
+      'info' => t('Google Translate Block'),
+      'uuid' => $uuid,
+    ]);
+    $blockContent->save();
+  }
+  return ['operations' => []];
 }
 
 /**

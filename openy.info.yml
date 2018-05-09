@@ -2,7 +2,7 @@ name: OpenY
 type: profile
 description: 'Open Y Drupal distribution.'
 core: 8.x
-version: '8.1.11'
+version: '8.1.12-dev'
 distribution:
   name: OpenY
   install:
@@ -208,6 +208,7 @@ dependencies:
   - logger_entity
   - openy_redirect
   - advanced_help_block
+  - openy_gtranslate
 
 themes:
   - bartik
