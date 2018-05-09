@@ -11,7 +11,8 @@ env:
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$settings["install_profile"]', status: true, value: 'pp' }
     - { name: '$config["system.file"]["path"]["temporary"]', status: true, value: '/tmp' }
-  shell_commands:
+  pre_drush_commands: []
+  shell_commands: []
     # @todo Remove after OpenY Migration.
     - { name: '[Openy Migrate] Updating OpenY', status: true, arguments: "echo system serialization syslog file node rest entity_browser file_browser dropzonejs openy | xargs -n 1 | xargs -I item bin/drupal update:execute item"}
     - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: true, arguments: "echo 8234 8235 8236 8237 8238 8239 8240 8241 8242 8243 8244 8245 8246 8247 8248 8249 8250 8251 8252 8253 8254 8255 8256 8257 8258 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
