@@ -95,7 +95,7 @@ class SettingsForm extends ConfigFormBase {
       if (is_dir($themePath)) {
         $themeFiles = array_values(array_diff(scandir($themePath), ['.', '..']));
         foreach ($themeFiles as $themeFile) {
-          $path = '/' . $themePath . '/' . $themeFile;
+          $path = file_create_url($themePath . '/' . $themeFile);
           $fileOptions[$path] = '<img src="' . $path . '" />';
         }
       }
@@ -103,7 +103,7 @@ class SettingsForm extends ConfigFormBase {
       $locationFinderFiles = array_values(array_diff(scandir($locationFinderPath), ['.', '..']));
       foreach ($locationFinderFiles as $locFile) {
         if (!in_array($locFile, $themeFiles)) {
-          $path = '/' . $locationFinderPath . '/' . $locFile;
+          $path = file_create_url($locationFinderPath . '/' . $locFile);
           $fileOptions[$path] = '<img src="' . $path . '" />';
         }
       }
