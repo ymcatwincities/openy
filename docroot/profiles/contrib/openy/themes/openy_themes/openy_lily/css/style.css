@@ -6383,14 +6383,6 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   }
 }
 
-.no-smil .navbar-brand {
-  padding-top: 70px !important;
-  height: 0 !important;
-  background: url(../img/ymca-logo-full.png) no-repeat;
-  background-size: contain;
-  line-height: 1em;
-  -ms-transition: padding .3s ease-out;
-}
 .no-smil .affix .navbar-brand {
   padding-top: 70px !important;
   background-image: url(../img/ymca-logo-full.png);
@@ -10339,6 +10331,16 @@ a.sports-icon.floor-hockey {
   font-family: 'YMCA';
 }
 
+.field-prgf-description h2 a:after {
+  position: relative;
+  top: -1px;
+  margin-left: 10px;
+  content: 'o';
+  vertical-align: middle;
+  font-size: 20px;
+  font-family: 'YMCA';
+}
+
 .paragraph--type--featured-highlights article.featured-highlights-block {
   max-width: 100%;
   margin: auto;
@@ -11764,6 +11766,20 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   display: block;
   width: auto;
   text-align: center;
+}
+
+.sidebar-promos .richtext .text-promo {
+  background: none;
+}
+.sidebar-promos .richtext .text-promo a {
+  color: #428bca;
+  background: none;
+}
+.sidebar-promos .richtext .text-promo a:hover {
+  color: #428bca;
+}
+.sidebar-promos .richtext .text-promo h3 {
+  padding: 0;
 }
 
 .sidebar-promos img-crop {
@@ -15345,6 +15361,22 @@ body #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tickets {
   width: auto;
 }
 
+.container, .path-account .status-message, .padded-content-container {
+  padding: 0 30px;
+  max-width: none;
+  width: auto;
+}
+@media (min-width: 1200px) {
+  .container, .path-account .status-message, .padded-content-container {
+    padding-right: 100px;
+    padding-left: 100px;
+  }
+}
+
+.container .container, .path-account .status-message .container, .container .path-account .status-message, .path-account .container .status-message, .path-account .status-message .status-message {
+  padding: 0;
+}
+
 .path-locations .container, .path-locations .path-account .status-message, .path-account .path-locations .status-message, .path-locations .padded-content-container,
 .path-news .container,
 .path-news .path-account .status-message,
@@ -15510,6 +15542,19 @@ section.content {
   background: #e0e0e0;
   margin: 0 0 20px;
 }
+.paragraph--type--sidebar-menu .current > a {
+  color: #333333;
+  border: 0;
+}
+.paragraph--type--sidebar-menu .current > a:after {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  margin-top: -11px;
+  color: gray;
+  content: '>';
+  font-family: 'YMCA';
+}
 @media (max-width: 767px) {
   .paragraph--type--sidebar-menu {
     display: none;
@@ -15549,19 +15594,6 @@ section.content {
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 35px;
-}
-.paragraph--type--sidebar-menu .dropdown.open .current > a {
-  color: #333;
-  border: 0;
-}
-.paragraph--type--sidebar-menu .dropdown.open .current > a:after {
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  margin-top: -11px;
-  color: gray;
-  content: '>';
-  font-family: 'YMCA';
 }
 .paragraph--type--sidebar-menu .dropdown.open > .nav,
 .paragraph--type--sidebar-menu .dropdown.open .nav .open .nav {
@@ -15644,6 +15676,18 @@ body.independent-footer #block-openy-lily-footersocialblock {
 }
 body.independent-footer #page-footer {
   padding-top: 30px;
+}
+
+a[href$=pdf]:after,
+a[href*=".pdf?"]:after,
+.lead-copy li a[href$=pdf]:after,
+.lead-copy li a[href*=".pdf?"]:after,
+.pdf-link:after {
+  margin: 0 5px;
+  content: 'p';
+  text-transform: none;
+  font-weight: normal;
+  font-family: 'YMCA';
 }
 
 /*# sourceMappingURL=style.css.map */
