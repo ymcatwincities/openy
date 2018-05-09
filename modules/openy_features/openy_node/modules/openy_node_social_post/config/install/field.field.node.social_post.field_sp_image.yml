@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sp_image
+    - node.type.social_post
+  module:
+    - image
+id: node.social_post.field_sp_image
+field_name: field_sp_image
+entity_type: node
+bundle: social_post
+label: Image
+description: ''
+required: false
+translatable: fasle
+default_value: {  }
+default_value_callback: ''
+settings:
+  alt_field: fasle
+  alt_field_required: fasle
+  title_field: false
+  title_field_required: false
+  max_resolution: ''
+  min_resolution: ''
+  default_image:
+    uuid: null
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  file_directory: 'social-feed-[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

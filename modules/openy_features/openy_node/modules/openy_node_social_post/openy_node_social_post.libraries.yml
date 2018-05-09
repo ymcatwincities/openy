@@ -1,0 +1,10 @@
+social-post-list:
+  version: 1.x
+  css:
+    theme:
+      css/openy-node-social-post.css: {}
+  js:
+    js/masonry.pkgd.min.js: {}
+    js/openy-node-social-post.js: {}
+  dependencies:
+      - core/jquery
