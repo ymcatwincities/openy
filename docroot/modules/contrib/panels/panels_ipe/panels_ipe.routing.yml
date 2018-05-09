@@ -14,6 +14,7 @@ panels_ipe.block_plugins:
     _panels_storage_access: read
     _permission: 'access panels in-place editing'
     _method: 'GET'
+  methods: ['GET']
 
 panels_ipe.block_plugin.form:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/block_plugins/{plugin_id}/form'
@@ -41,6 +42,7 @@ panels_ipe.remove_block:
     _panels_storage_access: update
     _permission: 'access panels in-place editing'
     _method: 'DELETE'
+  methods: ['DELETE']
 
 panels_ipe.block_content_types:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/block_content/types'
@@ -50,6 +52,7 @@ panels_ipe.block_content_types:
     _panels_storage_access: read
     _permission: 'access panels in-place editing'
     _method: 'GET'
+  methods: ['GET']
 
 panels_ipe.block_content.form:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/block_content/{type}/form'
@@ -75,6 +78,7 @@ panels_ipe.layouts:
     _panels_storage_access: read
     _permission: 'access panels in-place editing'
     _method: 'GET'
+  methods: ['GET']
 
 panels_ipe.layout.form:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/layouts/{layout_id}/form'
@@ -92,6 +96,7 @@ panels_ipe.layout.update:
     _panels_storage_access: update
     _permission: 'access panels in-place editing'
     _method: 'PUT'
+  methods: ['PUT']
 
 panels_ipe.layout.update_tempstore:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/layouts/{layout_id}/tempstore'
@@ -101,6 +106,7 @@ panels_ipe.layout.update_tempstore:
     _panels_storage_access: update
     _permission: 'access panels in-place editing'
     _method: 'PUT'
+  methods: ['PUT']
 
 panels_ipe.layout.save:
   path: '/admin/panels_ipe/variant/{panels_storage_type}/{panels_storage_id}/layouts/{layout_id}'
@@ -110,6 +116,7 @@ panels_ipe.layout.save:
     _panels_storage_access: update
     _permission: 'access panels in-place editing'
     _method: 'POST'
+  methods: ['POST']
 
 # @todo Add/consolidate routes for all Block CRUD operations.
 
@@ -121,5 +128,6 @@ panels_ipe.block.read:
     _panels_storage_access: read
     _permission: 'access panels in-place editing'
     _method: 'GET'
+  methods: ['GET']
   options:
     _admin_route: FALSE
