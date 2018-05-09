@@ -24,15 +24,15 @@
         {% for item in item.children %}
         <li class="{% if item.children %} dropdown {% if item.active %} open{% endif %}{% endif %}{% if item.current %} current{% endif %}">
           <a href="{{ item.url }}" class="">{{ item.page_name }}</a>
-          <ul class="nav-level-4 nav nav-stacked">
+          <ul class="nav-level-4 nav nav-stacked dropdown-menu">
             {% for item in item.children %}
             <li class="{{ item.classes }}{% if item.children %} dropdown {% if item.active %} open{% endif %}{% endif %}{% if item.current %} current{% endif %}">
               <a href="{{ item.url }}" class="{{ item.classes }}">{{ item.page_name }}</a>
-              <ul class="nav-level-5 nav nav-stacked">
+              <ul class="nav-level-5 nav nav-stacked dropdown-menu">
                 {% for item in item.children %}
                 <li class="{% if item.children %} dropdown {% if item.active %} open{% endif %}{% endif %}{% if item.current%} current{% endif %}">
                   <a href="{{ item.url }}" class="">{{ item.page_name }}</a>
-                  <ul class="nav-level-5 nav nav-stacked">
+                  <ul class="nav-level-5 nav nav-stacked dropdown-menu">
                     {% for item in item.children %}
                     <li class="{% if item.current %} current{% endif %}">
                       <a href="{{ item.url }}" class="">{{ item.page_name }}</a>

@@ -41,6 +41,21 @@
     width: auto;
   }
 }
+
+.container, .padded-content-container {
+  padding: 0 30px;
+  max-width: none;
+  width: auto;
+  @media (min-width: 1200px) {
+    padding-right: 100px;
+    padding-left: 100px;
+  }
+}
+
+.container .container {
+  padding: 0;
+}
+
 .path-locations,
 .path-news {
   .container, .padded-content-container {
@@ -191,8 +206,21 @@ section.content {
 }
 
 .paragraph--type--sidebar-menu {
-  background: #e0e0e0;
+  background: $grey27;
   margin: 0 0 20px;
+  .current > a {
+    color: $grey25;
+    border: 0;
+    &:after {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      margin-top: -11px;
+      color: gray;
+      content: '>';
+      font-family: 'YMCA';
+    }
+  }
   @media (max-width: 767px) {
     display: none;
   }
@@ -230,19 +258,6 @@ section.content {
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 35px;
-      }
-      .current > a {
-        color: #333;
-        border: 0;
-        &:after {
-          position: absolute;
-          top: 50%;
-          right: 12px;
-          margin-top: -11px;
-          color: gray;
-          content: '>';
-          font-family: 'YMCA';
-        }
       }
       > .nav,
       .nav .open .nav {
@@ -327,4 +342,16 @@ body.independent-footer {
   #page-footer {
     padding-top: 30px;
   }
+}
+
+a[href$=pdf]:after,
+a[href*=".pdf?"]:after,
+.lead-copy li a[href$=pdf]:after,
+.lead-copy li a[href*=".pdf?"]:after,
+.pdf-link:after {
+  margin: 0 5px;
+  content: 'p';
+  text-transform: none;
+  font-weight: normal;
+  font-family: 'YMCA';
 }
