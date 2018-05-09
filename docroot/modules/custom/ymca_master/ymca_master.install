@@ -5683,7 +5683,9 @@ function ymca_master_update_8260() {
   $nids = array_splice($result, 0, $nodes_per_batch);
   $nodes = \Drupal::entityTypeManager()->getStorage('node')
     ->loadMultiple($nids);
-  foreach ($result as $node) {
+  foreach ($result as $nid) {
+    $node = \Drupal::entityTypeManager()->getStorage('node')
+      ->load($nid);
     \Drupal::service('ymca_migrate_landing_page_importer')->migrate($node);
   }
   $sandbox['progress'] += $nodes_per_batch;
