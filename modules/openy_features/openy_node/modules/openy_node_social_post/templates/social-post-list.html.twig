@@ -1,0 +1,26 @@
+{#
+    List block template.
+#}
+{{ attach_library('openy_node_social_post/social-post-list') }}
+<div class="container">
+    {#<div class="row">
+        <div class="col col-sm-12">#}
+            <section class="wrapper-field-content">
+                <div class="social-post-list">
+                    <div class="header">
+                        {% if title %}
+                            <h2 class="h1 text-center">{{ title }}</h2>
+                        {% endif %}
+                        {% if description %}
+                            <div class="description text-center">{{ description }}</div>
+                        {% endif %}
+                    </div>
+
+                    {% if posts|length > 0 %}
+                        {{ posts }}
+                    {% endif %}
+                </div>
+            </section>
+        {#</div>
+    </div>#}
+</div>

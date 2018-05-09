@@ -1,0 +1,23 @@
+.social-post-list {
+  .header {
+    .description {
+      margin-bottom: 30px;
+    }
+  }
+  .views-element-container {
+    .row {
+      margin-bottom: 10px;
+    }
+    .col {
+      /*margin: 0 10px 10px 0;*/
+      background: #fff;
+      padding: 10px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      -webkit-box-shadow: 2px 2px 5px 1px rgba(135,135,135,0.43);
+      -moz-box-shadow: 2px 2px 5px 1px rgba(135,135,135,0.43);
+      box-shadow: 2px 2px 5px 1px rgba(135,135,135,0.43);
+    }
+  }
+}

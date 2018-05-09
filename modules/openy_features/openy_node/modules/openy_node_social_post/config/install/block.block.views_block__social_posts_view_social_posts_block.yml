@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.social_posts_view
+  module:
+    - ctools
+    - views
+  theme:
+    - openy_rose
+id: views_block__social_posts_view_social_posts_block
+theme: openy_rose
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:social_posts_view-social_posts_block'
+settings:
+  id: 'views_block:social_posts_view-social_posts_block'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      landing_page: landing_page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

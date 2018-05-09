@@ -1,0 +1,16 @@
+<?php
+/**
+ * Contains module file.
+ */
+
+function openy_node_social_post_theme($existing, $type, $theme, $path) {
+  return [
+    'social_post_list' => array(
+      'variables' => array(
+        'title' => '',
+        'description' => '',
+        'posts' => [],
+      ),
+    ),
+  ];
+}
