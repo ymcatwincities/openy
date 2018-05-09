@@ -11,6 +11,11 @@ env:
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$settings["install_profile"]', status: true, value: 'pp' }
     - { name: '$config["system.file"]["path"]["temporary"]', status: true, value: '/tmp' }
+    - { name: '$settings["memcache"]["bins"]', status: false, value: '[\\"default\\" => \\"default\\"]' }
+    - { name: '$settings["memcache"]["key_prefix"]', status: false, value: '{{ mysql_db }}' }
+    - { name: '$settings["cache"]["default"]', status: false, value: 'cache.backend.memcache' }
+  pre_drush_commands:
+    - { name: 'php-eval', status: false, arguments: "\"\\Drupal::keyValue('system.schema')->set('ymca_master', 8259);\"" }
   shell_commands:
     # @todo Remove after OpenY Migration.
     - { name: '[Openy Migrate] Updating OpenY', status: true, arguments: "echo system serialization syslog file node rest entity_browser file_browser dropzonejs openy | xargs -n 1 | xargs -I item bin/drupal update:execute item"}
