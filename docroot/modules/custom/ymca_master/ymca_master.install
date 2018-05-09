@@ -5664,9 +5664,11 @@ function ymca_master_update_8259() {
 /**
  * Run landing pages migration batch.
  */
-function ymca_master_update_8260(&$sandbox) {
+function ymca_master_update_8260() {
+  $sandbox = [];
   $query = \Drupal::entityQuery('node')
     ->condition('type', 'article')
+    ->condition('status', TRUE)
     ->condition('field_related', 'value', 'IS NULL');
   $result = $query->execute();
 
@@ -5681,7 +5683,7 @@ function ymca_master_update_8260(&$sandbox) {
   $nids = array_splice($result, 0, $nodes_per_batch);
   $nodes = \Drupal::entityTypeManager()->getStorage('node')
     ->loadMultiple($nids);
-  foreach ($nodes as $node) {
+  foreach ($result as $node) {
     \Drupal::service('ymca_migrate_landing_page_importer')->migrate($node);
   }
   $sandbox['progress'] += $nodes_per_batch;
