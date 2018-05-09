@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
+
 
 /**
  * Contribute form.
@@ -78,15 +80,25 @@ class BranchesForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $destination = '') {
+    
     $form['destination'] = ['#type' => 'value', '#value' => $destination];
 
     $branches_list = $this->getBranchesList();
-    $default = !empty($branches_list['branch']) ? key($branches_list['branch']) : 0;
-    if (!$default) {
-      $default = !empty($branches_list['camp']) ? key($branches_list['camp']) : 0;
-    }
 
-    $form['branch'] = [
+    $config = \Drupal::config('openy_popups.settings');
+
+    $default = $config->get('location');
+
+    $form['branch'] = self::buildBranch($default, $branches_list);
+    $form['submit'] = [
+      '#type' => 'submit',
+      '#value' => t('Set location'),
+    ];
+    return $form;
+  }
+
+  public static function buildBranch($default = 'All', $branches_list) {
+    return [
       '#type' => 'radios',
       '#prefix' => '<div class="fieldgroup form-item form-wrapper"><h2 class="fieldset-legend">' . t('Please select a location') . '</h2><div class="fieldset-wrapper">',
       '#suffix' => '</div></div>',
@@ -96,11 +108,6 @@ class BranchesForm extends FormBase {
       '#branches' => $branches_list['branch'],
       '#camps' => $branches_list['camp'],
     ];
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => t('Set location'),
-    ];
-    return $form;
   }
 
   /**
@@ -113,6 +120,7 @@ class BranchesForm extends FormBase {
     $destination['query']['location'] = $branch;
     $uri = \Drupal::request()->getUriForPath($destination['path']);
     $response = new RedirectResponse($uri . '?' . UrlHelper::buildQuery($destination['query']));
+    $response->headers->setCookie(new Cookie('openy_preferred_branch', $branch, strtotime('+1 day'), '/', null, false, false));
     $response->send();
   }
 
@@ -120,11 +128,7 @@ class BranchesForm extends FormBase {
    * Get Branches list.
    */
   public function getBranchesList() {
-    $branches_list = [
-      'branch' => [],
-      'camp' => [],
-    ];
-
+    $locations_to_be_displayed = [];
     $db = \Drupal::database();
     if (!empty($this->nodeId) && $node = $this->entityTypeManager->getStorage('node')->load($this->nodeId)) {
       $query = $db->select('node_field_data', 'n');
@@ -148,12 +152,23 @@ class BranchesForm extends FormBase {
       $query = $query;
       $items = $query->execute()->fetchAll();
 
-      $locations_to_be_displayed = [];
       foreach ($items as $item) {
         $locations_to_be_displayed[$item->field_session_location_target_id] = $item->field_session_location_target_id;
       }
     }
+    return self::getLocations($locations_to_be_displayed);
+    
+  }
 
+  /**
+   * Get Locations list.
+   */
+  public static function getLocations($locations_to_be_displayed = null) {
+    $db = \Drupal::database();
+    $branches_list = [
+      'branch' => [],
+      'camp' => [],
+    ];
     $query = $db->select('node_field_data', 'n')
       ->fields('n', ['nid', 'title', 'type'])
       ->condition('type', ['branch', 'camp'], 'IN')
@@ -161,7 +176,7 @@ class BranchesForm extends FormBase {
     $items = $query->execute()->fetchAll();
     foreach ($items as $item) {
       // By default we show all locations instead of showing empty popup.
-      if (isset($locations_to_be_displayed) && !in_array($item->nid, $locations_to_be_displayed)) {
+      if (!empty($locations_to_be_displayed) && !in_array($item->nid, $locations_to_be_displayed)) {
         continue;
       }
       $branches_list[$item->type][$item->nid] = $item->title;
