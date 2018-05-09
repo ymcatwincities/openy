@@ -23,7 +23,7 @@ class FieldManipulator {
     $nodeQuery = \Drupal::entityQuery('node');
     $ladingPageIds = $nodeQuery
       ->condition('type', 'landing_page')
-      ->condition('field_header_content.target_revision_id', array_keys($legacyParagraphs), 'IN')
+      ->condition('field_header_content.target_id', array_values($legacyParagraphs), 'IN')
       ->execute();
 
     $nodeStorage = \Drupal::entityTypeManager()->getStorage('node');
