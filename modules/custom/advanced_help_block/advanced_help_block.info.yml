@@ -5,7 +5,10 @@ core: 8.x
 version: 1.0
 package: Custom
 dependencies:
-  - advanced_help_block
   - field_group
   - text
   - libraries
+  - datalayer
+  - field_group
+  - options
+  - user

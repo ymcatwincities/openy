@@ -63,6 +63,9 @@ function openy_demo_content_configs_map($key = NULL) {
   $map = [
     'required' => [],
     'optional' => [
+      'openy_demo_ahb' => [
+        'openy_demo_entity_ahb',
+      ],
       'openy_demo_tcolor' => [
         'openy_demo_taxonomy_term_color',
       ],
