@@ -10331,9 +10331,43 @@ a.sports-icon.floor-hockey {
   font-family: 'YMCA';
 }
 
+.field-prgf-description article a:hover .inner-wrapper h3:after {
+  color: #428bca;
+}
+.field-prgf-description .text-promo {
+  background: none;
+  box-shadow: none;
+}
+.field-prgf-description .text-promo a {
+  color: #428bca;
+}
+.field-prgf-description .text-promo h3:hover {
+  color: #353535;
+}
 .field-prgf-description .inner-wrapper {
   background: #f0f0f0;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+  color: #666666;
+}
+.field-prgf-description .inner-wrapper .blog-heading h3 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.field-prgf-description .inner-wrapper .blog-heading h3:after {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 8%;
+  color: #b3b3b3;
+  content: 'o';
+  vertical-align: baseline;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'YMCA';
+  -webkit-transition: color .3s ease-out;
+}
+.field-prgf-description .inner-wrapper:hover {
+  color: #353535;
 }
 .field-prgf-description .inner-wrapper .promo-text {
   padding-bottom: 10px;
