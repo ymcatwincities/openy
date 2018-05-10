@@ -7577,20 +7577,19 @@ article .node--view-mode-flexible-content h2 a span {
   text-align: center;
   padding: 32px;
 }
-.social-post-list .header s
-.description {
+.social-post-list .header .description {
   margin-bottom: 30px;
 }
 .social-post-list .views-element-container .row {
   column-count: 3;
   column-gap: 1em;
-  margin: 1.5em auto;
+  margin: 2em auto;
 }
 .social-post-list .views-element-container .column {
   display: inline-block;
-  margin: 0 0 1em;
+  margin: 0 3em 2em;
   width: 100%;
-  padding: 10px;
+  padding: 0 0 20px 0;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -7598,13 +7597,18 @@ article .node--view-mode-flexible-content h2 a span {
   -moz-box-shadow: 2px 2px 5px 1px rgba(135, 135, 135, 0.43);
   box-shadow: 2px 2px 5px 1px rgba(135, 135, 135, 0.43);
 }
+.social-post-list .views-element-container .column p, .social-post-list .views-element-container .column .link, .social-post-list .views-element-container .column .posted {
+  padding: 0 20px;
+}
 .social-post-list .views-element-container .column img {
   width: 100%;
+  margin-bottom: 15px;
 }
 .social-post-list .views-element-container .column i {
+  margin-left: 10px;
   overflow: hidden;
   clear: both;
-  color: #50aec9;
+  color: #00aeef;
   font-weight: bold;
   margin-top: 15px;
 }

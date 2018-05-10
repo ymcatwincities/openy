@@ -8,11 +8,12 @@ dependencies:
     - field.storage.node.field_posted
     - field.storage.node.field_sp_image
     - node.type.social_post
+    - responsive_image.styles.social_post_preview
   module:
-    - blazy
     - datetime
     - link
     - node
+    - responsive_image
     - text
     - user
 id: social_posts_view
@@ -61,16 +62,14 @@ display:
           items_per_page: 20
           offset: 0
       style:
-        type: grid
+        type: html_list
         options:
           grouping: {  }
-          columns: 3
-          automatic_width: true
-          alignment: horizontal
-          col_class_default: false
-          col_class_custom: 'col col-md-4 col-lg-4 col-sm-6 col-xs-12'
-          row_class_default: false
-          row_class_custom: row
+          row_class: column
+          default_row_class: false
+          type: ul
+          wrapper_class: item-list
+          class: row
       row:
         type: fields
         options:
@@ -130,39 +129,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: target_id
-          type: blazy
+          type: responsive_image
           settings:
-            background: false
-            caption:
-              title: '0'
-              alt: '0'
-            image_style: media_full
-            thumbnail_style: ''
-            media_switch: ''
-            ratio: ''
-            sizes: ''
-            breakpoints:
-              xs:
-                image_style: ''
-                width: ''
-                breakpoint: ''
-              sm:
-                image_style: ''
-                width: ''
-                breakpoint: ''
-              md:
-                image_style: ''
-                width: ''
-                breakpoint: ''
-              lg:
-                image_style: ''
-                width: ''
-                breakpoint: ''
-              xl:
-                image_style: ''
-                width: ''
-                breakpoint: ''
-            current_view_mode: _custom
+            responsive_image_style: social_post_preview
+            image_link: ''
           group_column: ''
           group_columns: {  }
           group_rows: true
@@ -277,15 +247,15 @@ display:
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: div
+          element_wrapper_class: link
           element_default_classes: true
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: title
-          type: link
+          type: link_separate
           settings:
             trim_length: 80
             url_only: true
@@ -407,9 +377,9 @@ display:
           element_label_type: ''
           element_label_class: ''
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
+          element_wrapper_type: span
+          element_wrapper_class: posted
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false

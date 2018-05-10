@@ -1,3 +1,1 @@
-excluded:
-  - block.block.views_block__social_posts_view_social_posts_block
 required: true

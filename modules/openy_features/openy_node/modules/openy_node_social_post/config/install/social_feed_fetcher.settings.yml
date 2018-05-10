@@ -1,0 +1,27 @@
+facebook_enabled: true
+fb_page_name: ZICCU.DEv
+fb_app_id: '487028581351050'
+fb_secret_key: e7cab8bb10daee0a3689272dc55fac11
+fb_no_feeds: 10
+instagram_enabled: true
+in_client_id: sanyok.medved86
+in_redirect_uri: 'http://openy.docksal'
+in_auth_link: ''
+in_access_token: 5945953665.4487979.0e247cdb8aeb408588caa04a6c714cd8
+in_picture_count: 10
+in_picture_resolution: standard_resolution
+in_post_link: true
+twitter_enabled: true
+tw_consumer_key: Gnlh0CKqNzSQpIndkR3JUdRVZ
+tw_consumer_secret: EUYqZHdyrNpTZURpimE0JbaaxgPZWkJ5GIiy1CYlLfwCJo2n9s
+tw_access_token: 353190450-42gTHGRJvHDbBMbzmK4ct9xg6PMX9EoqfUbcohoy
+tw_access_token_secret: mkbHRnY5jcDB3Qd1BX7zc521XuvF4OiBYcN0TyOer44eW
+tw_count: 10
+last: ''
+submit: 'Run cron now'
+social_feed_fetcher_interval: '60'
+formats_post_format: full_html
+form_build_id: form-S9JcG1m0ZgyeoB9dCz160pX8ec7KBPy4N2EuEXO01iY
+form_token: XzX3My-A8hRUhj-KzOtncT9Gr57gNsB6Z2ZieIredbo
+form_id: social_feed_fetcher
+op: 'Save configuration'
