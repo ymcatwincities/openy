@@ -14,7 +14,10 @@ dependencies:
   - link
   - menu_ui
   - node
+  - openy_node_category
+  - openy_node_social_post
   - path
+  - responsive_image
   - scheduler
   - text
   - user
