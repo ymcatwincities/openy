@@ -68,7 +68,7 @@
           };
           // Attach the player to inline displays.
           var $preview = $el.find('.gardengnome-player-preview');
-          if ($preview.size()) {
+          if ($preview.length) {
             $preview.load(function() {
               options = {
                 width: $preview.naturalWidth(),

@@ -218,7 +218,7 @@ function TimeManager() {
             }
           });
 
-        if ($data.find('.screen').size() > 0) {
+        if ($data.find('.screen').length > 0) {
           var incoming_screen_elem = $data.find('.screen').get(0);
           var incoming_screen = ObjectsManager.getObject(incoming_screen_elem);
           // Force reloading if the app version has changed.
@@ -258,7 +258,7 @@ function TimeManager() {
                 });
 
               // No corresponding screen content was found.
-              if (new_screen.size() === 0) {
+              if (new_screen.length === 0) {
                 // Set "to"-time in past so that it removed later.
                 existingScreenContent.element.data('to-ts', time - 1);
                 if (!active) {
