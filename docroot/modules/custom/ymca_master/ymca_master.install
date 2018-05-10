@@ -5915,7 +5915,7 @@ function ymca_master_update_8267() {
   $config_importer->setDirectory($dir);
   $config_importer->importConfigs(
     [
-      'core.entity_view_mode.media.prgf_content_banner'
+      'core.entity_view_display.media.image.prgf_small_banner',
     ]
   );
 }
