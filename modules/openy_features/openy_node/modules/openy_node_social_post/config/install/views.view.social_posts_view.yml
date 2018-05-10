@@ -65,11 +65,11 @@ display:
         type: html_list
         options:
           grouping: {  }
-          row_class: column
+          row_class: masonry-item
           default_row_class: false
           type: ul
           wrapper_class: item-list
-          class: row
+          class: masonry
       row:
         type: fields
         options:
