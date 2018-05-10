@@ -42,15 +42,15 @@
   function needsActiveClassActualization(classes) {
     var $activeClassContainer = $(".active-classes .class-active");
     var $activeClass = $(".class", $activeClassContainer);
-    console.log($activeClass.size());
+    console.log($activeClass.length);
     console.log($activeClass.data('from'), classes.last.data('from'));
-    if (!$activeClass.size() || $activeClass.data('from') != classes.last.data('from')) {
+    if (!$activeClass.length || $activeClass.data('from') != classes.last.data('from')) {
       return true;
     }
 
     var $upcomingClassContainer = $(".active-classes .class-next");
     var $upcomingClass = $(".class", $upcomingClassContainer);
-    if (!$upcomingClass.size() || $upcomingClass.data('from') != classes.next.data('from')) {
+    if (!$upcomingClass.length || $upcomingClass.data('from') != classes.next.data('from')) {
       return true;
     }
 
@@ -63,7 +63,7 @@
     var $activeClass = $(".class", $activeClassContainer);
     var $upcomingClassContainer = $(".active-classes .class-next");
 
-    if ($activeClass.size() ) {
+    if ($activeClass.length ) {
       // Remove previous class.
       $prevClassContainer.remove();
 
