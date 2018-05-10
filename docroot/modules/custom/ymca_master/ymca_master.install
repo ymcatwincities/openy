@@ -5905,3 +5905,17 @@ function fixme_ymca_master_update_8266() {
 
   $db->query("DROP TABLE IF EXISTS copy_node__$field_name");
 }
+
+/**
+ * Fixes landing page image in header.
+ */
+function ymca_master_update_8267() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $dir = 'modules/features/ygtc_media_bundles/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_mode.media.prgf_content_banner'
+    ]
+  );
+}
