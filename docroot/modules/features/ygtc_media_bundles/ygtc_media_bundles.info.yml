@@ -1,0 +1,13 @@
+name: 'YGTC Media Bundles'
+description: 'Implements media bundles for YGTC.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - media_entity
+  - metatag
+  - page_manager
+  - user
+  - views
+  - ymca_page_manager
+version: 8.x-1.0
