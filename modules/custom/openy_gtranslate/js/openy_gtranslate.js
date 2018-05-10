@@ -2,7 +2,7 @@
 
   Drupal.behaviors.openy_gtranslate = {
     attach: function (context, settings) {
-      setTimeout(function () {
+      $('button.navbar-toggle, button.navbar-toggler').click(function () {
         var langSelect = $('.goog-te-menu-frame').first();
 
         $('nav .navbar-nav li.language > a').on('click', function (e, context) {
@@ -18,7 +18,7 @@
             langSelect.removeClass('open');
           }
         });
-      }, 100);
+      });
     }
   };
 
