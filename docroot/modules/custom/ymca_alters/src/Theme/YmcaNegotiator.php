@@ -38,6 +38,7 @@ class YmcaNegotiator implements ThemeNegotiatorInterface {
       'ymca_groupex.all_schedules_search_results',
       'ymca_frontend.location_schedules',
       'ymca_blog_listing.news_events_page_controller',
+      'entity.openy_digital_signage_screen.canonical',
     ];
   }
 
