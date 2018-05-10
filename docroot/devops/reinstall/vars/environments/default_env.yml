@@ -20,13 +20,13 @@ env:
   shell_commands:
     # @todo Remove after OpenY Migration.
     - { name: '[Openy Migrate] Updating OpenY', status: true, arguments: "echo system serialization syslog file node rest entity_browser file_browser dropzonejs openy | xargs -n 1 | xargs -I item bin/drupal update:execute item"}
-    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: true, arguments: "echo 8234 8235 8236 8237 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
-    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: true, arguments: "echo 8238 8239 8240 8241 8242 8243 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
-    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: true, arguments: "echo 8244 8245 8246 8247 8248 8249 8250 8251 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
-    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: true, arguments: "echo 8252 8253 8254 8255 8256 8257 8258 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8234 8235 8236 8237 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8238 8239 8240 8241 8242 8243 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8244 8245 8246 8247 8248 8249 8250 8251 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: true, arguments: "echo 8258 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
     - { name: '[Openy Migrate] Updating OpenY related features', status: true, arguments: "echo webform redirect crop openy_media openy_media_document openy_media_video openy_node openy_node_landing openy_txnm_color openy_prgf_small_banner openy_prgf_simple_content openy_prgf_2c openy_block_custom_simple openy_prgf | xargs -n 1 | xargs -I item bin/drupal update:execute item"}
-    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8259 8260 8261 8262 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
-    - { name: '[Openy Migrate] Updating YMCA Master remaining updates', status: false, arguments: "bin/drupal update:execute ymca_master"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8262 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating YMCA Master remaining updates', status: true, arguments: "bin/drupal update:execute ymca_master"}
   modules:
     - { name: 'config_inspector dblog stage_file_proxy', status: true }
   drush_commands:
