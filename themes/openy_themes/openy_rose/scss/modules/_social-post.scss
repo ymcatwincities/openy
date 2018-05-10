@@ -1,23 +1,64 @@
 .social-post-list {
   .header {
+    text-align: center;
+    padding: 32px;s
     .description {
       margin-bottom: 30px;
     }
   }
+
   .views-element-container {
+
     .row {
-      margin-bottom: 10px;
+      column-count: 3;
+      column-gap: 1em;
+      margin: 1.5em auto;
+
     }
-    .col {
-      /*margin: 0 10px 10px 0;*/
-      background: #fff;
+    .column {
+      display: inline-block;
+      margin: 0 0 1em;
+      width: 100%;
       padding: 10px;
+
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 5px;
       -webkit-box-shadow: 2px 2px 5px 1px rgba(135,135,135,0.43);
       -moz-box-shadow: 2px 2px 5px 1px rgba(135,135,135,0.43);
       box-shadow: 2px 2px 5px 1px rgba(135,135,135,0.43);
+      img {
+        width: 100%;
+      }
+      i {
+        overflow: hidden;
+        clear: both;
+        color: #50aec9;
+        font-weight: bold;
+        margin-top: 15px;
+      }
+      .posted {
+        font-size: 10px;
+      }
+    }
+  }
+  @media only screen and (min-width: 1024px) {
+    .row {
+      column-count: 3;
+    }
+  }
+
+  /* Masonry on medium-sized screens */
+  @media only screen and (max-width: 1023px) and (min-width: 768px) {
+    .row {
+      column-count: 3;
+    }
+  }
+
+  /* Masonry on small screens */
+  @media only screen and (max-width: 767px) and (min-width: 540px) {
+    .row {
+      column-count: 2;
     }
   }
 }
