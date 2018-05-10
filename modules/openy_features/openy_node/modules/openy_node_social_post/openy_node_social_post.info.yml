@@ -2,6 +2,7 @@ name: 'OpenY Node - Social Post'
 description: 'Features for content type: social post'
 type: module
 core: 8.x
+version: 8.x-1.0
 dependencies:
   - blazy
   - block
@@ -19,8 +20,7 @@ dependencies:
   - path
   - responsive_image
   - scheduler
+  - social_feed_fetcher
   - text
   - user
   - views
-  - views_infinite_scroll
-version: 8.x-1.0

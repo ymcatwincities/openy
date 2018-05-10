@@ -1,21 +1,20 @@
 {#
     List block template.
 #}
-<div class="container">
-    <section class="wrapper-field-content">
-        <div class="social-post-list">
-            <div class="header">
-                {% if title %}
-                    <h2 class="h1 text-center">{{ title }}</h2>
-                {% endif %}
-                {% if description %}
-                    <div class="description text-center">{{ description }}</div>
-                {% endif %}
-            </div>
-
-            {% if posts|length > 0 %}
+{% if posts|length > 0 %}
+    <div class="container">
+        <section class="row wrapper-field-content">
+            <div class="col col-md-12 social-post-list">
+                <div class="header">
+                    {% if title %}
+                        <h2 class="h1 text-center">{{ title }}</h2>
+                    {% endif %}
+                    {% if description %}
+                        <div class="description text-center">{{ description }}</div>
+                    {% endif %}
+                </div>
                 {{ posts }}
-            {% endif %}
-        </div>
-    </section>
-</div>
+            </div>
+        </section>
+    </div>
+{% endif %}
