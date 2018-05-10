@@ -5424,7 +5424,7 @@ function ymca_master_update_8253() {
           'uri' => '/health__fitness'
         ],
         [
-          'title' => 'Child Care & Prescholl',
+          'title' => 'Child Care & Preschool',
           'uri' => '/child_care__preschool'
         ],
         [
