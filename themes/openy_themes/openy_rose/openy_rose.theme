@@ -387,6 +387,9 @@ function openy_rose_preprocess_html(&$variables) {
         }
       }
     }
+    if (empty($variables['node'])) {
+      $variables['node'] = $node;
+    }
   }
 
   // Get title from node or page.
@@ -405,11 +408,4 @@ function openy_rose_theme_suggestions_form_alter(array &$suggestions, array $var
   if (isset($variables['element']['#form_id'])) {
     array_push($suggestions, 'form__' . $variables['element']['#form_id']);
   }
-}
-
-/**
- * Implements hook_preprocess_block().
- */
-function openy_rose_preprocess_block(&$variables) {
-  $variables['base_path'] = base_path();
 }

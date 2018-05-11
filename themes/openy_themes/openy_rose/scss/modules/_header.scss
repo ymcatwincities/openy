@@ -22,7 +22,8 @@
       margin: 16px;
 
       @include breakpoint($screen-desktop) {
-        height: 70px;
+        height: 84px;
+        margin-top: 23px;
       }
     }
 
@@ -31,16 +32,16 @@
 
       @include breakpoint($screen-desktop) {
         display: inline;
-        height: 33px;
-        margin-left: -22px;
-        margin-top: 35px;
+        height: 36px;
+        margin-left: -10px;
+        margin-top: 57px;
       }
     }
 
     .site-logo {
       @include breakpoint($screen-desktop) {
         position: absolute;
-        width: 250px;
+        width: 270px;
       }
     }
 
@@ -62,7 +63,11 @@
       @include breakpoint($screen-desktop) {
         font-size: 20px;
         left: auto;
-        top: 60px;
+        top: 84px;
+        right: 16px;
+      }
+      @include breakpoint($screen-lg-desktop) {
+        right: 32px;
       }
 
     }
@@ -115,6 +120,12 @@
 
     border-bottom: 1px solid $medium-grey;
 
+    .navbar-nav {
+      @include breakpoint($screen-desktop) {
+        margin-right: 16px;
+      }
+    }
+
     .navbar-nav>li>a {
       text-shadow: none;
 
@@ -122,6 +133,10 @@
         padding-bottom: 12px;
         padding-top: 12px;
       }
+    }
+
+    .navbar-nav>li:last-child>a {
+      padding-right: 0;
     }
 
     a {
@@ -138,7 +153,7 @@
     @include breakpoint($screen-desktop) {
       border-bottom: none;
       position: absolute;
-      top: 5px;
+      top: 12px;
       right: 0;
 
 
@@ -154,6 +169,7 @@
   }
   .is-camp &__main-menu,
   &__main-menu {
+    top: 0;
 
     a {
       @include cachet();
@@ -174,8 +190,7 @@
     @include breakpoint($screen-desktop) {
       border-bottom: none;
       position: absolute;
-      bottom: 0;
-
+      top: 125px;
 
       .nav-level-2,
       .nav-level-3 {
@@ -212,12 +227,16 @@
   background-color: $blue;
 
   .viewport & {
-    height: $top-nav-height;
+    min-height: $top-nav-height;
     border-bottom: none;
   }
 
   .viewport &.affix {
+    min-height: $minimized-nav-height;
     height: $minimized-nav-height;
+    .page-head__main-menu {
+      top: 0;
+    }
   }
 
   .navbar-default {
@@ -449,17 +468,14 @@
 .viewport {
   .nav-global {
     > .container > .row {
-      height: $top-nav-height;
+      min-height: $top-nav-height;
       position: relative;
 
       .header-content {
         bottom: 0;
         position: absolute;
-        height: $top-nav-height;
+        min-height: $top-nav-height;
 
-        .page-head__search {
-
-        }
       }
     }
   }
@@ -540,5 +556,13 @@
     .top-navs {
       margin-left: 150px;
     }
+  }
+}
+
+// Google translate styles.
+.translated-ltr,
+.translated-rtl {
+  .top-navs {
+    margin-top: 39px;
   }
 }
