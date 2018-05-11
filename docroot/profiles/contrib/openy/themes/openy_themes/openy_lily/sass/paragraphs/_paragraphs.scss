@@ -622,14 +622,17 @@
       }
     }
   }
+
+  h3 {
+    margin-top: 0;
+  }
   .left {
     font-size: 18px;
     padding-left: 0;
     padding-right: 0;
     @include breakpoint ($tablet) {
       margin-bottom: 0;
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px 15px;
       font-size: 21px;
     }
   }
@@ -639,8 +642,7 @@
     padding-right: 0;
     @include breakpoint ($tablet) {
       margin-bottom: 0;
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px 15px;
       font-size: 21px;
     }
   }
