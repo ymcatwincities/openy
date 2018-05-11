@@ -10287,6 +10287,9 @@ a.sports-icon.floor-hockey {
   font-weight: bold;
   font-family: 'Cachet', Helvetica, Arial, sans-serif;
 }
+.paragraph--type--secondary-description-sidebar h3 {
+  margin-top: 0;
+}
 .paragraph--type--secondary-description-sidebar .left {
   font-size: 18px;
   padding-left: 0;
@@ -10295,8 +10298,7 @@ a.sports-icon.floor-hockey {
 @media (min-width: 48em) {
   .paragraph--type--secondary-description-sidebar .left {
     margin-bottom: 0;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 15px;
     font-size: 21px;
   }
 }
@@ -10308,8 +10310,7 @@ a.sports-icon.floor-hockey {
 @media (min-width: 48em) {
   .paragraph--type--secondary-description-sidebar .right {
     margin-bottom: 0;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 20px 15px;
     font-size: 21px;
   }
 }
@@ -15413,6 +15414,11 @@ body #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tickets {
   width: auto;
 }
 
+@media (max-width: 767px) {
+  .container, .path-account .status-message {
+    padding: 0 15px;
+  }
+}
 .container, .path-account .status-message, .padded-content-container {
   padding: 0 30px;
   max-width: none;
