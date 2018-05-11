@@ -13203,6 +13203,7 @@ body.modal-open {
 @media screen and (max-width: 767px) {
   #modal.annual-report-modal .modal-dialog {
     padding: 9px 28px 9px 9px;
+    margin: 0 auto;
   }
 }
 
