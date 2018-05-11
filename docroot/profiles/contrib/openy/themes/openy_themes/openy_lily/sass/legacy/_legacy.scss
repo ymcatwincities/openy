@@ -42,6 +42,12 @@
   }
 }
 
+@media (max-width: 767px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
 .container, .padded-content-container {
   padding: 0 30px;
   max-width: none;
