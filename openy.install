@@ -34,9 +34,6 @@ function openy_install() {
 
   // Enable openy_user after all modules are installed.
   $module_installer->install(['openy_user'], TRUE);
-
-  // Enable openy_node_alert after openy_rose theme is enabled to place blocks.
-  $module_installer->install(['openy_node_alert'], TRUE);
 }
 
 /**

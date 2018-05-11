@@ -5,6 +5,7 @@
  * Defines the OpenY Profile install screen by modifying the install form.
  */
 
+use Drupal\openy\Form\ConfigureProfileForm;
 use Drupal\openy\Form\ContentSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
 use Drupal\openy\Form\UploadFontMessageForm;
@@ -16,12 +17,21 @@ use Drupal\Core\Routing\RouteMatchInterface;
  */
 function openy_install_tasks() {
   return [
-    'openy_select_content' => [
-      'display_name' => t('Import demo content'),
+    'openy_select_features' => [
+      'display_name' => t('Configure profile'),
       'display' => TRUE,
       'type' => 'form',
-      'function' => ContentSelectForm::class,
+      'function' => ConfigureProfileForm::class,
     ],
+    'openy_install_features' => [
+      'type' => 'batch',
+    ],
+//    'openy_select_content' => [
+//      'display_name' => t('Import demo content'),
+//      'display' => TRUE,
+//      'type' => 'form',
+//      'function' => ContentSelectForm::class,
+//    ],
     'openy_import_content' => [
       'type' => 'batch',
     ],
@@ -266,6 +276,28 @@ function openy_demo_content_configs_map($key = NULL) {
 }
 
 /**
+ * Create batch for enabling features.
+ *
+ * @param array $install_state
+ *   Installation parameters.
+ *
+ * @return array
+ *   Batch.
+ */
+function openy_install_features(array &$install_state) {
+  $module_operations = [];
+
+  $preset = $install_state['openy']['preset'];
+  $modules = ConfigureProfileForm::getModulesToInstallWithDependencies($preset);
+
+  foreach ($modules as $module) {
+    $module_operations[] = ['openy_enable_module', (array) $module];
+  }
+
+  return ['operations' => $module_operations];
+}
+
+/**
  * Create batch for content import.
  *
  * @param array $install_state
@@ -277,6 +309,10 @@ function openy_demo_content_configs_map($key = NULL) {
 function openy_import_content(array &$install_state) {
   $module_operations = [];
   $migrate_operations = [];
+
+  if (!isset($install_state['openy']['content'])) {
+    $install_state['openy']['content'] = [];
+  }
 
   if (!empty($install_state['openy']['content']['webform'])) {
     // Install webform feature - it's not handled as content migration.
@@ -368,6 +404,10 @@ function openy_discover_broken_paragraphs(array &$install_state) {
    */
   $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
     foreach ($tables as $table) {
+      // Everything is optional nowadays.
+      if (!\Drupal::database()->schema()->tableExists($table)) {
+        continue;
+      }
       // Select all paragraphs that have "broken" as plugin_id.
       $query = \Drupal::database()->select($table, 'ptable');
       $query->fields('ptable');
@@ -418,6 +458,10 @@ function openy_fix_configured_paragraph_blocks(array &$install_state) {
   ];
 
   foreach ($tables as $table) {
+    // Everything is optional nowadays.
+    if (!\Drupal::database()->schema()->tableExists($table)) {
+      continue;
+    }
     $query = \Drupal::database()
       ->select($table, 'ptable');
     $query->fields('ptable');
@@ -529,7 +573,7 @@ function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form
 
     $css_editor_info = [
       '#prefix' => '<div class="description">',
-      '#markup' => t('In order to change CSS on each particular page you 
+      '#markup' => t('In order to change CSS on each particular page you
       should use the following selectors:<br/>
       - .page-node-type-{node type};<br/>
       - .node-id-{node ID};<br/>

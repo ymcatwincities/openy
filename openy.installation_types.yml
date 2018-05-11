@@ -1,0 +1,24 @@
+standard:
+  name: Standard
+  packages:
+    - editorial
+    - webform
+    - seo
+    - alerts
+
+extended:
+  name: Extended
+  packages:
+    - editorial
+    - editorial_ext
+    - webform
+    - seo
+    - alerts
+    - blog
+    - locations
+    - membership
+    - social_sharing
+    - translation
+    - events
+    - analytics
+    - embeddable_header_footer
