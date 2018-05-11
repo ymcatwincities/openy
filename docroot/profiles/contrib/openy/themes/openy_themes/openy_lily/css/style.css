@@ -10384,6 +10384,45 @@ a.sports-icon.floor-hockey {
   font-size: 20px;
   font-family: 'YMCA';
 }
+.field-prgf-description .content-expander .panel-title a > *:before {
+  position: relative;
+  top: 0;
+  margin-right: .3em;
+  content: "\e082";
+  vertical-align: middle;
+  text-transform: none;
+  font-weight: normal;
+  font-size: .7em;
+  font-family: 'Glyphicons Halflings';
+}
+.field-prgf-description .content-expander .panel-title a.collapsed > *:before, .field-prgf-description .content-expander .panel-title a.collapsed > h4:before {
+  content: "\e081";
+}
+.field-prgf-description .textpander .panel-heading, .field-prgf-description .content-expander .panel-heading {
+  position: relative;
+  padding: 0;
+  background: #fff;
+}
+.field-prgf-description .panel-default.textpander, .field-prgf-description .panel-default.content-expander {
+  border-radius: 5px;
+  background: #f7f7f7;
+}
+.field-prgf-description .textpander .panel-title a, .field-prgf-description .content-expander .panel-title a {
+  display: block;
+  padding: 5px 5px 5px 10px;
+  outline: 0 !important;
+  box-shadow: none;
+  color: #44a1eb;
+}
+.field-prgf-description .textpander .panel-title a:focus, .field-prgf-description .content-expander .panel-title a:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.field-prgf-description .textpander .panel-title a h3, .field-prgf-description .content-expander .panel-title a h3 {
+  margin: 0;
+}
 
 .paragraph--type--featured-highlights article.featured-highlights-block {
   max-width: 100%;
