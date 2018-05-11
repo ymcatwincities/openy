@@ -38,28 +38,34 @@ class OpenyModulesManager {
    *   Config entity type (node_type, block_content_type, paragraphs_type, etc.)
    * @param string $bundle
    *   Entity bundle machine name.
+   * @param string $field
+   *   Content entity field name that contain reference to bundle.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function removeEntityBundle($content_entity_type, $config_entity_type, $bundle) {
-    // Remove existing data of content entity.
-    $query = $this->entityTypeManager
-      ->getStorage($content_entity_type)
-      ->getQuery('AND')
-      ->condition('type', $bundle);
+  public function removeEntityBundle($content_entity_type, $config_entity_type, $bundle, $field = 'type') {
+    if ($content_entity_type) {
+      // Remove existing data of content entity.
+      $query = $this->entityTypeManager
+        ->getStorage($content_entity_type)
+        ->getQuery('AND')
+        ->condition($field, $bundle);
 
-    $ids = $query->execute();
-    $storage_handler = $this->entityTypeManager->getStorage($content_entity_type);
-    $entities = $storage_handler->loadMultiple($ids);
-    $storage_handler->delete($entities);
+      $ids = $query->execute();
+      $storage_handler = $this->entityTypeManager->getStorage($content_entity_type);
+      $entities = $storage_handler->loadMultiple($ids);
+      $storage_handler->delete($entities);
+    }
 
-    // Remove bundle.
-    $config_entity_type_bundle = $this->entityTypeManager
-      ->getStorage($config_entity_type)
-      ->load($bundle);
-    if ($config_entity_type_bundle) {
-      $config_entity_type_bundle->delete();
+    if ($config_entity_type) {
+      // Remove bundle.
+      $config_entity_type_bundle = $this->entityTypeManager
+        ->getStorage($config_entity_type)
+        ->load($bundle);
+      if ($config_entity_type_bundle) {
+        $config_entity_type_bundle->delete();
+      }
     }
   }
 
