@@ -1,0 +1,141 @@
+blog:
+  name: 'Blog Package'
+  description: "Blog Package provide a set of modules to use and maintain blog posts.
+                8.1.12 - latest blog posts paragraph has been added
+                8.1.13 - featured blog posts paragraph has been added"
+  help: 'Awesome blog post package. See video - youtube.com/qweqwe'
+  modules:
+    - openy_node_blog
+    - openy_prgf_blog_listing
+    - openy_prgf_featured_blogs
+    - openy_prgf_blog_branch
+    - openy_prgf_blog_camp
+    - openy_prgf_blog_latest
+
+news:
+  name: 'News Package'
+  help: '...'
+  description: ''
+  modules:
+    - openy_node_news
+    - openy_prgf_news_branch
+    - openy_prgf_news_camp
+    - openy_prgf_news_latest
+    - openy_prgf_news_listing
+    - openy_prgf_featured_news
+
+editorial:
+  name: 'Editorial Package'
+  help: 'asd<iframe width="560" height="315"
+             src="https://www.youtube.com/embed/kpUqb1WPXJM"
+             frameborder="0" allow="autoplay; encrypted-media"
+             allowfullscreen></iframe>'
+  description: '...'
+  modules:
+    - openy_prgf_1c
+    - openy_prgf_2c
+    - openy_prgf_3c
+    - openy_prgf_4c
+    - openy_prgf_banner
+    - openy_prgf_code_block
+    - openy_prgf_featured_content
+    - openy_prgf_gallery
+    - openy_prgf_promo_card
+    - openy_prgf_secondary_description_sidebar
+    - openy_prgf_simple_content
+    - openy_prgf_small_banner
+    - openy_prgf_story_card
+    - openy_prgf_teaser
+    - easy_breadcrumb
+    - openy_block_basic
+    - openy_code_block
+
+editorial_ext:
+  name: 'Editorial (extended) Package'
+  help: 'asd<iframe width="560" height="315"
+             src="https://www.youtube.com/embed/kpUqb1WPXJM"
+             frameborder="0" allow="autoplay; encrypted-media"
+             allowfullscreen></iframe>'
+  description: '...'
+  modules:
+    - openy_block_date
+    - openy_block_featured_highlights
+    - openy_prgf_block_date
+    - openy_prgf_featured_highlights
+
+membership:
+  name: 'Membership'
+  help: '...'
+  description: '...'
+  modules:
+    - openy_node_mbrshp
+    - openy_calc
+    - openy_prgf_mbrshp_calc
+
+social_sharing:
+  name: 'Social Sharing'
+  help: ''
+  description: ''
+  modules:
+    - openy_addthis
+
+alerts:
+  name: 'Alerts'
+  help: '...'
+  description: '...'
+  modules:
+    - openy_node_alert
+
+analytics:
+  name: 'Analytics'
+  help: '...'
+  description: '...'
+  modules:
+    - google_tag
+    - google_analytics
+
+embeddable_header_footer:
+  name: 'Embeddable header & footer'
+  help: '...'
+  description: '...'
+  modules:
+    - openy_hf
+
+events:
+  name: 'Events'
+  help: '...'
+  description: '...'
+  modules:
+    - openy_node_event
+    - openy_prgf_event_latest
+    - openy_prgf_event_listing
+
+seo:
+  name: 'SEO'
+  help: '...'
+  description: '...'
+  modules:
+    - simple_sitemap
+
+webform:
+  name: 'Webform'
+  help: '...'
+  description: '...'
+  modules:
+    - webform
+
+translation:
+  name: 'Translation'
+  help: '...'
+  description: '...'
+  modules:
+    - openy_gtranslate
+
+locations:
+  name: 'Locations Package'
+  help: '...'
+  description: '...'
+  modules:
+    - location_finder
+    - openy_prgf_loc_finder
+    - openy_loc_branch
