@@ -103,7 +103,7 @@ class DateBlockService {
    */
   private function initBlockData(BlockContent $entity) {
     $fsd = $entity->get('field_start_date')->get(0)->getValue()['value'];
-    $fed = $entity->get('field_end_date')->get(0)->getValue()['value'];
+    $fed = $entity->get('field_ygtc_end_date')->get(0)->getValue()['value'];
     $fsd_fix_time = str_replace('\\', '', $fsd);
     $fed_fix_time = str_replace('\\', '', $fed);
     $this->startDate = \DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $fsd_fix_time, new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
@@ -167,7 +167,7 @@ class DateBlockService {
 
     // Do not show date fields at all.
     hide($build['field_start_date']);
-    hide($build['field_end_date']);
+    hide($build['field_ygtc_end_date']);
 
     // Invalidate cache by cron.
     $build['#cache'] = [
