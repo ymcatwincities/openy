@@ -9,7 +9,7 @@ field_name: field_mbrshp_join_fee
 entity_type: paragraph
 bundle: membership_info
 label: 'Join Fee'
-description: ''
+description: 'Dollar value for how much someone has to pay to join.'
 required: false
 translatable: true
 default_value: {  }

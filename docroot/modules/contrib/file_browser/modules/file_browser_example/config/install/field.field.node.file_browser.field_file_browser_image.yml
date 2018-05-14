@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_file_browser_image
     - node.type.file_browser
   module:
+    - file_browser_example
     - image
 id: node.file_browser.field_file_browser_image
 field_name: field_file_browser_image

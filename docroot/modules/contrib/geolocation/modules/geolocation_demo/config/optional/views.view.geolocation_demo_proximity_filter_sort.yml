@@ -1,0 +1,343 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_geolocation_demo_single
+    - node.type.geolocation_default_article
+    - system.menu.geolocation-demo
+  enforced:
+    module:
+      - geolocation_demo
+  module:
+    - geolocation
+    - node
+    - user
+id: geolocation_demo_proximity_filter_sort
+label: 'Geolocation Demo - Proximity Filter & Sort'
+module: views
+description: ''
+tag: 'Geolocation Demo'
+base_table: node_field_data
+base_field: nid
+core: 8.x
+display:
+  default:
+    display_plugin: default
+    id: default
+    display_title: Master
+    position: 0
+    display_options:
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_comment: ''
+          query_tags: {  }
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: some
+        options:
+          items_per_page: 10
+          offset: 0
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline:
+            field_geolocation_demo_single_proximity: field_geolocation_demo_single_proximity
+          separator: ''
+          hide_empty: false
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          plugin_id: field
+          entity_type: node
+          entity_field: title
+        field_geolocation_demo_single_proximity:
+          proximity_source: user_input
+          proximity_lat: ''
+          proximity_lng: ''
+          proximity_units: km
+          proximity_filter: field_geolocation_demo_single_proximity
+          proximity_argument: field_geolocation_demo_single_proximity
+          entity_id_argument: field_geolocation_demo_single_proximity
+          boundary_filter: ''
+          proximity_geocoder: 1
+          proximity_geocoder_plugin_settings:
+            plugin_id: google_geocoding_api
+            settings:
+              components:
+                route: ''
+                locality: ''
+                administrativeArea: ''
+                postalCode: ''
+                country: ''
+          id: field_geolocation_demo_single_proximity
+          table: node__field_geolocation_demo_single
+          field: field_geolocation_demo_single_proximity
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Distance
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: true
+          empty_zero: true
+          hide_alter_empty: true
+          set_precision: true
+          precision: 2
+          decimal: .
+          separator: ','
+          format_plural: false
+          format_plural_string: "1\x03@count"
+          prefix: ''
+          suffix: km
+          plugin_id: geolocation_field_proximity
+        field_geolocation_demo_single:
+          id: field_geolocation_demo_single
+          table: node__field_geolocation_demo_single
+          field: field_geolocation_demo_single
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: 'Use as starting point'
+            make_link: true
+            path: 'geolocation-demo/proximity_filter_and_sort?proximity_lat={{ field_geolocation_demo_single__lat }}&proximity_lng={{ field_geolocation_demo_single__lng }}'
+            absolute: true
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: 'Proximity to here'
+            rel: ''
+            link_class: 'btn button'
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: true
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: ''
+          type: geolocation_latlng
+          settings: {  }
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: geolocation_field
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            geolocation_default_article: geolocation_default_article
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+      sorts:
+        field_geolocation_demo_single_proximity:
+          proximity_field: field_geolocation_demo_single_proximity
+          id: field_geolocation_demo_single_proximity
+          table: node__field_geolocation_demo_single
+          field: field_geolocation_demo_single_proximity
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: geolocation_sort_proximity
+      title: 'Geolocation Demo - Proximity Field & Sort'
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
+      footer: {  }
+      empty: {  }
+      relationships: {  }
+      arguments: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_geolocation_demo_single'
+  page_1:
+    display_plugin: page
+    id: page_1
+    display_title: Page
+    position: 1
+    display_options:
+      path: geolocation-demo/proximity_filter_and_sort
+      display_extenders: {  }
+      menu:
+        type: normal
+        title: 'Proximity Filter & Sort'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: geolocation-demo
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_geolocation_demo_single'

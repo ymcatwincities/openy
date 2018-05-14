@@ -1,6 +1,7 @@
 ---
 global_env:
   pre_settings: []
+  pre_drush_commands: []
   modules: []
   drush_commands: []
   post_settings:

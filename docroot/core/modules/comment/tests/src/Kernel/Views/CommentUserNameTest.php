@@ -4,6 +4,7 @@ namespace Drupal\Tests\comment\Kernel\Views;
 
 use Drupal\comment\Entity\Comment;
 use Drupal\Core\Session\AnonymousUserSession;
+use Drupal\entity_test\Entity\EntityTest;
 use Drupal\Tests\views\Kernel\ViewsKernelTestBase;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
@@ -36,6 +37,7 @@ class CommentUserNameTest extends ViewsKernelTestBase {
 
     $this->installEntitySchema('user');
     $this->installEntitySchema('comment');
+    $this->installEntitySchema('entity_test');
     // Create the anonymous role.
     $this->installConfig(['user']);
 
@@ -67,12 +69,16 @@ class CommentUserNameTest extends ViewsKernelTestBase {
     ]);
     $this->adminUser->save();
 
+    $host = EntityTest::create(['name' => $this->randomString()]);
+    $host->save();
+
     // Create some comments.
     $comment = Comment::create([
       'subject' => 'My comment title',
       'uid' => $this->adminUser->id(),
       'name' => $this->adminUser->label(),
       'entity_type' => 'entity_test',
+      'entity_id' => $host->id(),
       'comment_type' => 'entity_test',
       'status' => 1,
     ]);
@@ -85,6 +91,7 @@ class CommentUserNameTest extends ViewsKernelTestBase {
       'mail' => 'test@example.com',
       'homepage' => 'https://example.com',
       'entity_type' => 'entity_test',
+      'entity_id' => $host->id(),
       'comment_type' => 'entity_test',
       'created' => 123456,
       'status' => 1,
@@ -144,7 +151,14 @@ class CommentUserNameTest extends ViewsKernelTestBase {
 
     $this->assertLink('My comment title');
     $this->assertLink('Anonymous comment title');
-    $this->assertLink($this->adminUser->label());
+    // Display plugin of the view is showing the name field. When comment
+    // belongs to an authenticated user the name field has no value.
+    $comment_author = $this->xpath('//div[contains(@class, :class)]/span[normalize-space(text())=""]', [
+      ':class' => 'views-field-subject',
+    ]);
+    $this->assertTrue(!empty($comment_author));
+    // When comment belongs to an anonymous user the name field has a value and
+    // it is rendered correctly.
     $this->assertLink('barry (not verified)');
 
     $account_switcher->switchTo(new AnonymousUserSession());

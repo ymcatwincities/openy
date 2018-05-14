@@ -9,7 +9,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 function entity_views_data() {
   $entity_types = \Drupal::entityTypeManager()->getDefinitions();
   $entity_types = array_filter($entity_types, function (EntityTypeInterface $entity_type) {
-    return $entity_type->isSubclassOf(ContentEntityInterface::class);
+    return $entity_type->entityClassImplements(ContentEntityInterface::class);
   });
 
   $data = [];

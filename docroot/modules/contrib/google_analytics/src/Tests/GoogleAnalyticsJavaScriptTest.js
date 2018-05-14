@@ -5,9 +5,9 @@
 
 (function ($, Drupal, drupalSettings) {
 
-  /*eslint no-console:0*/
+  /* eslint no-console: 0 */
 
-  "use strict";
+  'use strict';
 
   /**
    * This file is for developers only.

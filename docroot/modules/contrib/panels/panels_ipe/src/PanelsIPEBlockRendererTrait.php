@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels_ipe;
 
 use Drupal\Core\Plugin\ContextAwarePluginInterface;

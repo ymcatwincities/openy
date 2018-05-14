@@ -22,7 +22,7 @@ class TableSelect extends OptionsBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    return parent::getDefaultProperties() + [
+    return [
       // Options settings.
       'multiple' => TRUE,
       'multiple_error' => '',
@@ -30,7 +30,7 @@ class TableSelect extends OptionsBase {
       'js_select' => TRUE,
       // iCheck settings.
       'icheck' => '',
-    ];
+    ] + parent::getDefaultProperties();
   }
 
   /**

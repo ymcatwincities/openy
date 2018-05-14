@@ -1,0 +1,16 @@
+name: 'Digital Signage Blocks'
+description: 'Digital Signage Blocks.'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - content_moderation
+  - datalayer
+  - entity_browser
+  - field
+  - field_group
+  - media_entity
+  - openy_media_image
+  - options
+  - text
+version: 8.x-1.1

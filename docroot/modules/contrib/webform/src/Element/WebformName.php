@@ -25,6 +25,7 @@ class WebformName extends WebformCompositeBase {
       '#type' => 'webform_select_other',
       '#title' => t('Title'),
       '#options' => 'titles',
+      '#empty_option' => '',
     ];
     $elements['first'] = [
       '#type' => 'textfield',

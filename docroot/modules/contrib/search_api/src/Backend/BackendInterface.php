@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Backend\BackendInterface.
- */
-
 namespace Drupal\search_api\Backend;
 
 use Drupal\search_api\Plugin\ConfigurablePluginInterface;
@@ -16,7 +11,7 @@ use Drupal\search_api\ServerInterface;
  * Consists of general plugin methods and the backend-specific methods defined
  * in \Drupal\search_api\Backend\BackendSpecificInterface, as well as special
  * CRUD "hook" methods that cannot be present on the server entity (which also
- * implements \Drupal\search_api\Backend\BackendSpecificInterface.
+ * implements \Drupal\search_api\Backend\BackendSpecificInterface).
  *
  * @see \Drupal\search_api\Annotation\SearchApiBackend
  * @see \Drupal\search_api\Backend\BackendPluginManager
@@ -56,6 +51,13 @@ interface BackendInterface extends ConfigurablePluginInterface, BackendSpecificI
    *
    * The server's $original property can be used to inspect the old
    * configuration values.
+   *
+   * Take care, though, that the server at this point might be override-free and
+   * thus contain property values (and apparent changes) which will not actually
+   * go into effect. If this might influence the code in this method, you have
+   * to manually check for overrides to ensure no incorrect action is taken.
+   *
+   * @see \Drupal\search_api\Utility\Utility::getConfigOverrides()
    */
   public function preUpdate();
 

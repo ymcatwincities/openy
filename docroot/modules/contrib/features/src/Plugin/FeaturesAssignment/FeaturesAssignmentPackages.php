@@ -26,7 +26,7 @@ class FeaturesAssignmentPackages extends FeaturesAssignmentMethodBase {
       $short_name = $package->getMachineName();
 
       // Copy over package excluded settings, if any.
-      if (!$package->getExcluded()) {
+      if ($package->getExcluded()) {
         $config_collection = $this->featuresManager->getConfigCollection();
         foreach ($package->getExcluded() as $config_name) {
           if (isset($config_collection[$config_name])) {

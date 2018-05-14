@@ -51,7 +51,7 @@ class GoogleAnalyticsBasicTest extends WebTestBase {
     $this->drupalLogin($this->admin_user);
 
     // Place the block or the help is not shown.
-    $this->drupalPlaceBlock('help_block', array('region' => 'help'));
+    $this->drupalPlaceBlock('help_block', ['region' => 'help']);
   }
 
   /**
@@ -119,7 +119,7 @@ class GoogleAnalyticsBasicTest extends WebTestBase {
     // Verify that no tracking code is embedded into the webpage; if there is
     // only the module installed, but UA code not configured. See #2246991.
     $this->drupalGet('');
-    $this->assertNoRaw('//www.google-analytics.com/analytics.js', '[testGoogleAnalyticsPageVisibility]: Tracking code is not displayed without UA code configured.');
+    $this->assertNoRaw('https://www.google-analytics.com/analytics.js', '[testGoogleAnalyticsPageVisibility]: Tracking code is not displayed without UA code configured.');
 
     $ua_code = 'UA-123456-1';
     $this->config('google_analytics.settings')->set('account', $ua_code)->save();
@@ -140,7 +140,7 @@ class GoogleAnalyticsBasicTest extends WebTestBase {
     $this->assertNoRaw($ua_code, '[testGoogleAnalyticsPageVisibility]: Tracking code is not displayed on admin page.');
     $this->drupalGet('admin/config/system/google-analytics');
     // Checking for tracking URI here, as $ua_code is displayed in the form.
-    $this->assertNoRaw('//www.google-analytics.com/analytics.js', '[testGoogleAnalyticsPageVisibility]: Tracking code is not displayed on admin subpage.');
+    $this->assertNoRaw('https://www.google-analytics.com/analytics.js', '[testGoogleAnalyticsPageVisibility]: Tracking code is not displayed on admin subpage.');
 
     // Test whether tracking code display is properly flipped.
     $this->config('google_analytics.settings')->set('visibility.request_path_mode', 1)->save();
@@ -148,7 +148,7 @@ class GoogleAnalyticsBasicTest extends WebTestBase {
     $this->assertRaw($ua_code, '[testGoogleAnalyticsPageVisibility]: Tracking code is displayed on admin page.');
     $this->drupalGet('admin/config/system/google-analytics');
     // Checking for tracking URI here, as $ua_code is displayed in the form.
-    $this->assertRaw('//www.google-analytics.com/analytics.js', '[testGoogleAnalyticsPageVisibility]: Tracking code is displayed on admin subpage.');
+    $this->assertRaw('https://www.google-analytics.com/analytics.js', '[testGoogleAnalyticsPageVisibility]: Tracking code is displayed on admin subpage.');
     $this->drupalGet('');
     $this->assertNoRaw($ua_code, '[testGoogleAnalyticsPageVisibility]: Tracking code is NOT displayed on front page.');
 
@@ -162,15 +162,17 @@ class GoogleAnalyticsBasicTest extends WebTestBase {
     // Enable tracking code for all user roles.
     $this->config('google_analytics.settings')->set('visibility.user_role_roles', [])->save();
 
+    $base_path = base_path();
+
     // Test whether 403 forbidden tracking code is shown if user has no access.
     $this->drupalGet('admin');
     $this->assertResponse(403);
-    $this->assertRaw('/403.html', '[testGoogleAnalyticsPageVisibility]: 403 Forbidden tracking code shown if user has no access.');
+    $this->assertRaw($base_path . '403.html', '[testGoogleAnalyticsPageVisibility]: 403 Forbidden tracking code shown if user has no access.');
 
     // Test whether 404 not found tracking code is shown on non-existent pages.
     $this->drupalGet($this->randomMachineName(64));
     $this->assertResponse(404);
-    $this->assertRaw('/404.html', '[testGoogleAnalyticsPageVisibility]: 404 Not Found tracking code shown on non-existent page.');
+    $this->assertRaw($base_path . '404.html', '[testGoogleAnalyticsPageVisibility]: 404 Not Found tracking code shown on non-existent page.');
   }
 
   /**
@@ -192,17 +194,17 @@ class GoogleAnalyticsBasicTest extends WebTestBase {
     i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
+    })(window,document,"script","https://www.google-analytics.com/analytics.js","ga");
     ga('create', 'UA-123456-7');
     ga('send', 'pageview');
     </script>
     <!-- End Google Analytics -->
-    */
+     */
 
     // Test whether tracking code uses latest JS.
     $this->config('google_analytics.settings')->set('cache', 0)->save();
     $this->drupalGet('');
-    $this->assertRaw('//www.google-analytics.com/analytics.js', '[testGoogleAnalyticsTrackingCode]: Latest tracking code used.');
+    $this->assertRaw('https://www.google-analytics.com/analytics.js', '[testGoogleAnalyticsTrackingCode]: Latest tracking code used.');
 
     // Test whether anonymize visitors IP address feature has been enabled.
     $this->config('google_analytics.settings')->set('privacy.anonymizeip', 0)->save();
@@ -282,13 +284,14 @@ class GoogleAnalyticsBasicTest extends WebTestBase {
     $this->assertRaw('ga("create", "' . $ua_code . '", {"cookieDomain":"auto","allowLinker":true', '[testGoogleAnalyticsTrackingCode]: "allowLinker" has been found. Cross domain tracking is active.');
     $this->assertRaw('ga("require", "linker");', '[testGoogleAnalyticsTrackingCode]: Require linker has been found. Cross domain tracking is active.');
     $this->assertRaw('ga("linker:autoLink", ["www.example.com","www.example.net"]);', '[testGoogleAnalyticsTrackingCode]: "linker:autoLink" has been found. Cross domain tracking is active.');
+    $this->assertRaw('"trackDomainMode":2,', '[testGoogleAnalyticsTrackingCode]: Domain mode value is of type integer.');
     $this->assertRaw('"trackCrossDomains":["www.example.com","www.example.net"]', '[testGoogleAnalyticsTrackingCode]: Cross domain tracking with www.example.com and www.example.net is active.');
     $this->config('google_analytics.settings')->set('domain_mode', 0)->save();
 
     // Test whether debugging script has been enabled.
     $this->config('google_analytics.settings')->set('debug', 1)->save();
     $this->drupalGet('');
-    $this->assertRaw('//www.google-analytics.com/analytics_debug.js', '[testGoogleAnalyticsTrackingCode]: Google debugging script has been enabled.');
+    $this->assertRaw('https://www.google-analytics.com/analytics_debug.js', '[testGoogleAnalyticsTrackingCode]: Google debugging script has been enabled.');
 
     // Check if text and link is shown on 'Status Reports' page.
     // Requires 'administer site configuration' permission.
@@ -298,7 +301,7 @@ class GoogleAnalyticsBasicTest extends WebTestBase {
     // Test whether debugging script has been disabled.
     $this->config('google_analytics.settings')->set('debug', 0)->save();
     $this->drupalGet('');
-    $this->assertRaw('//www.google-analytics.com/analytics.js', '[testGoogleAnalyticsTrackingCode]: Google debugging script has been disabled.');
+    $this->assertRaw('https://www.google-analytics.com/analytics.js', '[testGoogleAnalyticsTrackingCode]: Google debugging script has been disabled.');
 
     // Test whether the CREATE and BEFORE and AFTER code is added to the
     // tracking code.
@@ -312,12 +315,13 @@ class GoogleAnalyticsBasicTest extends WebTestBase {
     $this->config('google_analytics.settings')
       ->set('codesnippet.create', $codesnippet_create)
       ->set('codesnippet.before', 'ga("set", "forceSSL", true);')
-      ->set('codesnippet.after', 'ga("create", "UA-123456-3", {"name": "newTracker"});ga("newTracker.send", "pageview");')
+      ->set('codesnippet.after', 'ga("create", "UA-123456-3", {"name": "newTracker"});if(1 == 1 && 2 < 3 && 2 > 1){console.log("Google Analytics: Custom condition works.");}ga("newTracker.send", "pageview");')
       ->save();
     $this->drupalGet('');
     $this->assertRaw('ga("create", "' . $ua_code . '", {"cookieDomain":"foo.example.com","cookieName":"myNewName","cookieExpires":20000,"allowAnchor":true,"sampleRate":4.3});', '[testGoogleAnalyticsTrackingCode]: Create only fields have been found.');
     $this->assertRaw('ga("set", "forceSSL", true);', '[testGoogleAnalyticsTrackingCode]: Before codesnippet will force http pages to also send all beacons using https.');
     $this->assertRaw('ga("create", "UA-123456-3", {"name": "newTracker"});', '[testGoogleAnalyticsTrackingCode]: After codesnippet with "newTracker" tracker has been found.');
+    $this->assertRaw('if(1 == 1 && 2 < 3 && 2 > 1){console.log("Google Analytics: Custom condition works.");}', '[testGoogleAnalyticsTrackingCode]: JavaScript code is not HTML escaped.');
   }
 
 }

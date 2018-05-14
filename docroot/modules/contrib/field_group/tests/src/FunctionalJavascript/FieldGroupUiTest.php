@@ -3,11 +3,10 @@
 namespace Drupal\Tests\field_group\FunctionalJavascript;
 
 use Drupal\Component\Utility\Unicode;
-use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
-use Drupal\field_group\Tests\FieldGroupTestTrait;
 use Drupal\FunctionalJavascriptTests\JavascriptTestBase;
 use Drupal\node\Entity\NodeType;
+use Drupal\Tests\field_group\Functional\FieldGroupTestTrait;
 
 /**
  * Test field_group user interface.
@@ -34,7 +33,14 @@ class FieldGroupUiTest extends JavascriptTestBase {
     parent::setUp();
 
     // Create test user.
-    $admin_user = $this->drupalCreateUser(array('access content', 'administer content types', 'administer node fields', 'administer node form display', 'administer node display', 'bypass node access'));
+    $admin_user = $this->drupalCreateUser([
+      'access content',
+      'administer content types',
+      'administer node fields',
+      'administer node form display',
+      'administer node display',
+      'bypass node access',
+    ]);
     $this->drupalLogin($admin_user);
 
     // Create content type, with underscores.
@@ -47,6 +53,9 @@ class FieldGroupUiTest extends JavascriptTestBase {
     $this->nodeType = $type->id();
   }
 
+  /**
+   * Test creation and editing trough the UI.
+   */
   public function testCreateAndEdit() {
     foreach (['test_1', 'test_2'] as $name) {
       $group = array(
@@ -56,8 +65,8 @@ class FieldGroupUiTest extends JavascriptTestBase {
       );
 
       // Add new group on the 'Manage form display' page.
-      $this->drupalPostForm('admin/structure/types/manage/' . $this->nodeType . '/form-display/add-group', $group, t('Save and continue'));
-      $this->drupalPostForm(NULL, [], t('Create group'));
+      $this->drupalPostForm('admin/structure/types/manage/' . $this->nodeType . '/form-display/add-group', $group, 'Save and continue');
+      $this->drupalPostForm(NULL, [], 'Create group');
     }
 
     // Update title in group 1
@@ -84,7 +93,7 @@ class FieldGroupUiTest extends JavascriptTestBase {
 
     $page->pressButton('Save');
 
-    /** @var EntityFormDisplayInterface $display */
+    /** @var \Drupal\Core\Entity\Display\EntityFormDisplayInterface $display */
     $display = EntityFormDisplay::load("node.{$this->nodeType}.default");
     $this->assertSame('Test 1 - Update', $display->getThirdPartySetting('field_group', 'group_test_1')['label']);
     $this->assertSame('Test 1 - Update', $display->getThirdPartySetting('field_group', 'group_test_1')['format_settings']['label']);

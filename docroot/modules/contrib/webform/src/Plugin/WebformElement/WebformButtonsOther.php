@@ -12,13 +12,4 @@ namespace Drupal\webform\Plugin\WebformElement;
  *   category = @Translation("Options elements"),
  * )
  */
-class WebformButtonsOther extends OptionsBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getDefaultProperties() {
-    return parent::getDefaultProperties() + static::getOtherProperties();
-  }
-
-}
+class WebformButtonsOther extends OptionsBase {}

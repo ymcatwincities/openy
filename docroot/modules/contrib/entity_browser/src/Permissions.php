@@ -1,14 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\Permissions.
- */
-
 namespace Drupal\entity_browser;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\TranslationManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -34,12 +29,12 @@ class Permissions implements ContainerInjectionInterface {
   /**
    * Constructs Permissions object.
    *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Entity manager service.
    * @param \Drupal\Core\StringTranslation\TranslationManager $translation
    */
-  public function __construct(EntityManagerInterface $entity_manager, TranslationManager $translation) {
-    $this->browserStorage = $entity_manager->getStorage('entity_browser');
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, TranslationManager $translation) {
+    $this->browserStorage = $entity_type_manager->getStorage('entity_browser');
     $this->translationManager = $translation;
   }
 
@@ -48,7 +43,7 @@ class Permissions implements ContainerInjectionInterface {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.manager'),
+      $container->get('entity_type.manager'),
       $container->get('string_translation')
     );
   }

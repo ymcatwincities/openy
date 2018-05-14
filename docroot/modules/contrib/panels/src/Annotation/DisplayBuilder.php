@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels\Annotation;
 
 use Drupal\Component\Annotation\Plugin;

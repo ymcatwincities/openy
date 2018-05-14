@@ -13,7 +13,7 @@ use Drupal\node\Entity\Node;
  *   id = "embed_test_node",
  *   title = @Translation("Test Node"),
  *   description = @Translation("Embeds nodes using node:NID embed codes."),
- *   type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE
+ *   type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
  * )
  */
 class EntityEmbedByID extends FilterBase {
@@ -24,7 +24,7 @@ class EntityEmbedByID extends FilterBase {
   public function process($text, $langcode) {
     $result = new FilterProcessResult($text);
 
-    $matches = array();
+    $matches = [];
     preg_match_all('/node:([0-9]+)/', $text, $matches);
 
     foreach ($matches[0] as $i => $search) {

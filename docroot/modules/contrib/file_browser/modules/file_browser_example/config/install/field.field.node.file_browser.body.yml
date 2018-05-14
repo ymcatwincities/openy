@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.body
     - node.type.file_browser
   module:
+    - file_browser_example
     - text
 id: node.file_browser.body
 field_name: body

@@ -5,6 +5,7 @@
  * @see /webform/test_element_codemirror/test
  */
 
+
 /* Clean up CodeMirror editor */
 form .CodeMirror {
   border: 1px solid #ccc;
@@ -15,6 +16,10 @@ form .CodeMirror {
 form .CodeMirror-scroll {
   overflow-y: hidden;
   overflow-x: auto;
+}
+
+form .CodeMirror .CodeMirror-placeholder {
+  color: #999;
 }
 
 /* Clean up CodeMirror viewer */

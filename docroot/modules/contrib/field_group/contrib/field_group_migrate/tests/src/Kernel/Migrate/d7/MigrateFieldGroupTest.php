@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\field_group_migrate\Kernel\Migrate\d7;
 
-use Drupal\Core\Entity\Display\EntityDisplayInterface;
 use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
 
 /**
@@ -12,7 +11,10 @@ use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
  */
 class MigrateFieldGroupTest extends MigrateDrupal7TestBase {
 
-  static $modules = [
+  /**
+   * {@inheritdoc}
+   */
+  public static $modules = [
     'field_group',
     'field_group_migrate',
     'comment',
@@ -23,6 +25,8 @@ class MigrateFieldGroupTest extends MigrateDrupal7TestBase {
     'taxonomy',
     'telephone',
     'text',
+    'taxonomy',
+    'menu_ui',
   ];
 
   /**
@@ -37,6 +41,7 @@ class MigrateFieldGroupTest extends MigrateDrupal7TestBase {
     $this->executeMigrations([
       'd7_node_type',
       'd7_comment_type',
+      'd7_taxonomy_vocabulary',
       'd7_view_modes',
       'd7_field',
       'd7_field_instance',
@@ -68,13 +73,14 @@ class MigrateFieldGroupTest extends MigrateDrupal7TestBase {
    *   The expected parent name.
    */
   protected function assertEntity($id, $type, $group_name, $expected_label, $expected_weight = 0, $expected_format_settings = [], $expected_format_type = 'tabs', $expected_children = [], $expected_parent_name = '') {
-    /** @var EntityDisplayInterface $entity */
+    /** @var \Drupal\Core\Entity\Display\EntityDisplayInterface $entity */
     $entity = \Drupal::entityTypeManager()
       ->getStorage($type)
       ->load($id);
     $field_group_settings = $entity->getThirdPartySettings('field_group');
     $this->assertNotEmpty($field_group_settings);
     $this->assertArrayHasKey($group_name, $field_group_settings);
+
     $field_group = $field_group_settings[$group_name];
     $this->assertEquals($expected_label, $field_group['label']);
     $this->assertEquals($expected_format_settings, $field_group['format_settings']);
@@ -94,7 +100,7 @@ class MigrateFieldGroupTest extends MigrateDrupal7TestBase {
     $this->assertEntity('node.article.teaser', 'entity_view_display', 'group_article', 'htab group', 2, ['classes' => 'htab-group'], 'tab', ['field_image']);
 
     // Check an entity_view_display without a field group.
-    /** @var EntityDisplayInterface $entity */
+    /** @var \Drupal\Core\Entity\Display\EntityDisplayInterface $entity */
     $entity = \Drupal::entityTypeManager()
       ->getStorage('entity_view_display')
       ->load('node.page.teaser');

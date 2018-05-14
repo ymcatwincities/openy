@@ -38,7 +38,7 @@
       {% set ia = ia.addClass('dropdown nav-level-2') %}
       <li{{ item.attributes }}>
         {% if item.below %}
-          <a class="dropdown-toggle" data-toggle="dropdown" href="{{ item.url }}">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="{{ item.url }}" aria-expanded="false">
             {{ item.title }}
             {#<b class="caret"></b>#}
             <i class="fa fa-caret-up" aria-hidden="true"></i>

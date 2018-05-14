@@ -22,30 +22,12 @@ STRUCTURE
 ---------
 There are two primary components to this example:
 
-1. Migration configuration, in the migrations and config/install directories.
-   These YAML files describe the migration process and provide the mappings from
-   the source data to Drupal's destination entities. The difference between the
-   two possible directories:
-
-   a. Files in the migrations directory provide configuration directly for the
-   migration plugins. The filenames are of the form <migration ID>.yml. This
-   approach is recommended when your migration configuration is fully hardcoded
-   and does not need to be overridden (e.g., you don't need to change the URL to
-   a source web service through an admin UI). While developing migrations,
-   changes to these files require at most a 'drush cr' to load your changes.
-
-   b. Files in the config/install directory provide migration configuration as
-   configuration entities, and have names of the form
-   migrate_plus.migration.<migration ID>.yml ("migration" because they define
-   entities of the "migration" type, and "migrate_plus" because that is the
-   module which implements the "migration" type). Migrations defined in this way
-   may have their configuration modified (in particular, through a web UI) by
-   loading the configuration entity, modifying its configuration, and saving the
-   entity. When developing, to get edits to the .yml files in config/install to
-   take effect in active configuration, use the config_devel module.
-
-   Configuration in either type of file is identical - the only differences are
-   the directories and filenames.
+1. Migration configuration, in the config/install directory. These YAML files
+   describe the migration process and provide the mappings from the source data
+   to Drupal's destination entities. The YAML file names are prefixed with
+   'migrate_plus.migration.' (because, reading from right to left, they define
+   "migration" configuration entities, and the configuration entity type is
+   defined by the "migrate_plus" module).
 
 2. Source plugins, in src/Plugin/migrate/source. These are referenced from the
    configuration files, and provide the source data to the migration processing

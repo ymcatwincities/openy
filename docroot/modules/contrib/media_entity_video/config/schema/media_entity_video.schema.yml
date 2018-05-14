@@ -1,0 +1,7 @@
+media_entity.bundle.type.video:
+  type: mapping
+  label: 'Video configuration'
+  mapping:
+    source_field:
+      type: string
+      label: 'Video file'

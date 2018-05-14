@@ -13,11 +13,18 @@ use Drupal\webform\Entity\WebformSubmission;
 class WebformElementManagedFileTest extends WebformElementManagedFileTestBase {
 
   /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = ['file', 'webform'];
+
+  /**
    * Webforms to load.
    *
    * @var array
    */
-  protected static $testWebforms = ['test_element_managed_file', 'test_element_media_file'];
+  protected static $testWebforms = ['test_element_managed_file'];
 
   /**
    * Test single and multiple file upload.
@@ -39,43 +46,6 @@ class WebformElementManagedFileTest extends WebformElementManagedFileTestBase {
 
     $this->checkFileUpload('single', $this->files[0], $this->files[1]);
     $this->checkFileUpload('multiple', $this->files[2], $this->files[3]);
-  }
-
-  /**
-   * Test media file upload elements.
-   */
-  public function testMediaFileUpload() {
-    /* Element render */
-
-    // Get test webform.
-    $this->drupalGet('webform/test_element_media_file');
-
-    // Check document file.
-    $this->assertRaw('<input data-drupal-selector="edit-document-file-upload" type="file" id="edit-document-file-upload" name="files[document_file]" size="22" class="js-form-file form-file" />');
-
-    // Check audio file.
-    $this->assertRaw('<input data-drupal-selector="edit-audio-file-upload" accept="audio/*" type="file" id="edit-audio-file-upload" name="files[audio_file]" size="22" class="js-form-file form-file" />');
-
-    // Check image file.
-    $this->assertRaw('<input data-drupal-selector="edit-image-file-upload" accept="image/*" type="file" id="edit-image-file-upload" name="files[image_file]" size="22" class="js-form-file form-file" />');
-
-    // Check video file.
-    $this->assertRaw('<input data-drupal-selector="edit-video-file-upload" accept="video/*" type="file" id="edit-video-file-upload" name="files[video_file]" size="22" class="js-form-file form-file" />');
-
-    /* Element processing */
-
-    // Get test webform preview with test values.
-    $this->drupalLogin($this->rootUser);
-    $this->drupalPostForm('webform/test_element_media_file/test', [], t('Preview'));
-
-    // Check audio file preview.
-    $this->assertRaw('<source src="' . $this->getAbsoluteUrl('/system/files/webform/test_element_media_file/_sid_/audio_file_mp3.mp3') . '" type="audio/mpeg">');
-
-    // Check image file preview.
-    $this->assertRaw('<img src="' . $this->getAbsoluteUrl('/system/files/webform/test_element_media_file/_sid_/image_file_jpg.jpg') . '" class="webform-image-file" />');
-
-    // Check video file preview.
-    $this->assertRaw('<source src="' . $this->getAbsoluteUrl('/system/files/webform/test_element_media_file/_sid_/video_file_mp4.mp4') . '" type="video/mp4">');
   }
 
   /****************************************************************************/
@@ -110,7 +80,7 @@ class WebformElementManagedFileTest extends WebformElementManagedFileTestBase {
 
     // Check that test file was uploaded to the current submission.
     $second = ($type == 'multiple') ? [$fid] : $fid;
-    $this->assertEqual($submission->getData($key), $second, 'Test file was upload to the current submission');
+    $this->assertEqual($submission->getElementData($key), $second, 'Test file was upload to the current submission');
 
     // Check test file file usage.
     $this->assertIdentical(['webform' => ['webform_submission' => [$sid => '1']]], $this->fileUsage->listUsage($file), 'The file has 1 usage.');
@@ -161,7 +131,7 @@ class WebformElementManagedFileTest extends WebformElementManagedFileTestBase {
 
     // Check that test new file was uploaded to the current submission.
     $second = ($type == 'multiple') ? [$new_fid] : $new_fid;
-    $this->assertEqual($submission->getData($key), $second, 'Test new file was upload to the current submission');
+    $this->assertEqual($submission->getElementData($key), $second, 'Test new file was upload to the current submission');
 
     // Check that test file was deleted from the disk and database.
     $this->assert(!file_exists($file->getFileUri()), 'Test file deleted from disk');

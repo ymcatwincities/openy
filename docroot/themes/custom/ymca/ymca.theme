@@ -9,13 +9,13 @@ define('SITE_SECTION_TARGET_TYPE', 'node');
 define('TERM_TID_NEWS', 6);
 
 use Drupal\Component\Utility\UrlHelper;
-use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Template\Attribute;
-use Drupal\Core\Path;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\media\Entity\Media as CoreMedia;
+use Drupal\media_entity\Entity\Media as ContribMedia;
 
 /**
  * Implements hook_preprocess_block() for block content.
@@ -279,10 +279,46 @@ function ymca_preprocess_node(&$variables) {
 
   // Article specific preprocessing.
   if ($variables['node']->bundle() == 'article') {
+    /** @var \Drupal\node\Entity\Node $article */
+    $article = $variables['node'];
+    /** @var \Drupal\field\Entity\FieldConfig $field_header_image */
+    $field_header_image = $article->getFieldDefinition('field_header_image');
+    $field_header_image_type = $field_header_image->getType();
     $variables['header_image_url'] = '';
-    if ($header_image = $variables['node']->field_header_image->getValue()) {
+    if ($field_header_image_type == 'image' && $header_image = $article->field_header_image->getValue()) {
       $id = $header_image[0]['target_id'];
       $file = \Drupal::entityTypeManager()->getStorage('file')->load($id);
+      $original_path = $file->getFileUri();
+      // Load style.
+      $style = \Drupal::entityTypeManager()->getStorage('image_style')->load('2013_masthead');
+      // Set up derivative file information.
+      $thumbnail = $style->buildUri($original_path);
+      // Create derivative if necessary.
+      if (!file_exists($thumbnail)) {
+        $style->createDerivative($original_path, $thumbnail);
+      }
+      $variables['header_image_url'] = file_create_url($thumbnail);
+    }
+    if ($field_header_image_type == 'entity_reference' && $background_image = $article->field_header_image->entity) {
+      // Let's use core render next time, dear past us.
+      /** @var ContribMedia $background_image */
+      if ($background_image instanceof ContribMedia) {
+        if (!$background_image->hasField('field_media_image')) {
+          throw new \Exception(
+            'Contrib media failed to find field with background image.'
+          );
+        }
+        $file = $background_image->field_media_image->entity;
+      }
+
+      if ($background_image instanceof CoreMedia) {
+        if (!$background_image->hasField('field_media_image')) {
+          throw new \Exception(
+            'Core media failed to find field with background image.'
+          );
+        }
+        $file = $background_image->field_media_image->entity;
+      }
       $original_path = $file->getFileUri();
       // Load style.
       $style = \Drupal::entityTypeManager()->getStorage('image_style')->load('2013_masthead');

@@ -11,6 +11,7 @@ use Drupal\webform\WebformSubmissionInterface;
  *
  * @WebformElement(
  *   id = "processed_text",
+ *   default_key = "processed_text",
  *   label = @Translation("Advanced HTML/Text"),
  *   category = @Translation("Markup elements"),
  *   description = @Translation("Provides an element to render advanced HTML markup and processed text."),
@@ -35,12 +36,12 @@ class ProcessedText extends WebformMarkupBase {
       $default_format = '';
     }
 
-    return parent::getDefaultProperties() + [
+    return [
       'wrapper_attributes' => [],
       // Markup settings.
       'text' => '',
       'format' => $default_format ,
-    ];
+    ] + parent::getDefaultProperties();
   }
 
   /**

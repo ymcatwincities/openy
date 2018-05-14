@@ -2,6 +2,7 @@
 
 namespace Drupal\webform;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Utility\Token;
@@ -10,6 +11,13 @@ use Drupal\Core\Utility\Token;
  * Defines a class to manage token replacement.
  */
 class WebformTokenManager implements WebformTokenManagerInterface {
+
+  /**
+   * The configuration object factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
 
   /**
    * The module handler.
@@ -28,14 +36,19 @@ class WebformTokenManager implements WebformTokenManagerInterface {
   /**
    * Constructs a WebformTokenManager object.
    *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration object factory.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    * @param \Drupal\Core\Utility\Token $token
    *   The token service.
    */
-  public function __construct(ModuleHandlerInterface $module_handler, Token $token) {
+  public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, Token $token) {
+    $this->configFactory = $config_factory;
     $this->moduleHandler = $module_handler;
     $this->token = $token;
+
+    $this->config = $this->configFactory->get('webform.settings');
   }
 
   /**
@@ -55,8 +68,9 @@ class WebformTokenManager implements WebformTokenManagerInterface {
       return $text;
     }
 
-    // Set token options.
-    $options += ['clear' => TRUE];
+    // Default all webform related tokens to be cleared.
+    // @see \webform_tokens
+    $options += ['webform_clear' => TRUE];
 
     // Replace @deprecated [webform-submission] with [webform_submission].
     $text = str_replace('[webform-submission:', '[webform_submission:', $text);
@@ -70,18 +84,41 @@ class WebformTokenManager implements WebformTokenManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function buildTreeLink(array $token_types = ['webform', 'webform_submission', 'webform_handler']) {
-    if ($this->moduleHandler->moduleExists('token')) {
-      // @todo Issue #2235581: Make Token Dialog support inserting in WYSIWYGs.
-      return [
-        '#theme' => 'token_tree_link',
-        '#token_types' => $token_types,
-        '#click_insert' => FALSE,
-        '#dialog' => TRUE,
-      ];
+  public function buildTreeLink(array $token_types = ['webform', 'webform_submission', 'webform_handler'], $description = NULL) {
+    if (!$this->moduleHandler->moduleExists('token')) {
+      return [];
+    }
+
+    // @todo Issue #2235581: Make Token Dialog support inserting in WYSIWYGs.
+    $build = [
+      '#theme' => 'token_tree_link',
+      '#token_types' => $token_types,
+      '#click_insert' => FALSE,
+      '#dialog' => TRUE,
+    ];
+
+    if ($description) {
+      if ($this->config->get('ui.description_help')) {
+        return [
+          'token_tree_link' => $build,
+          'help' => [
+            '#type' => 'webform_help',
+            '#help' => $description,
+          ]
+        ];
+      }
+      else {
+        return [
+          'token_tree_link' => $build,
+          'description' => [
+            '#prefix' => ' ',
+            '#markup' => $description,
+          ]
+        ];
+      }
     }
     else {
-      return [];
+      return $build;
     }
   }
 

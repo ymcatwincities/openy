@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ygtc_date_block
+label: 'YGTC Date Block'
+revision: 1
+description: 'Deprecated YGTC Date Block'

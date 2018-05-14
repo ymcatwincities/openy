@@ -41,6 +41,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -70,8 +71,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -145,8 +146,10 @@ handlers:
     label: 'Remote post'
     handler_id: remote_post
     status: true
+    conditions: {  }
     weight: 1
     settings:
+      method: POST
       type: x-www-form-urlencoded
       excluded_data:
         serial: serial

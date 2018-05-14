@@ -57,7 +57,7 @@ function _webform_honeypot_form(array &$form, FormStateInterface $form_state, $h
   $t_args = [
     '%label' => $label,
     ':href_honeypot' => Url::fromRoute('honeypot.config')->toString(),
-    ':href_webform' => Url::fromRoute('webform.settings')->toString(),
+    ':href_webform' => Url::fromRoute('webform.config')->toString(),
   ];
 
   // Honeypot.

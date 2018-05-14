@@ -90,7 +90,7 @@ class WebformElementMultiple extends FormElement {
       ],
     ];
 
-    // Set disabled
+    // Set disabled.
     if (!empty($element['#disabled'])) {
       $element['container']['cardinality']['#disabled'] = TRUE;
       $element['container']['cardinality_number']['#disabled'] = TRUE;
@@ -103,6 +103,10 @@ class WebformElementMultiple extends FormElement {
     else {
       $element['#element_validate'] = [[get_called_class(), 'validateWebformElementMultiple']];
     }
+
+    // Set #type to item to apply #states.
+    // @see drupal_process_states
+    $element['#type'] = 'item';
 
     return $element;
   }

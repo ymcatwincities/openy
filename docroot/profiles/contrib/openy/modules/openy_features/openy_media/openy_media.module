@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\media_entity\MediaInterface;
 
 /**
  * Implements hook_form_alter().
@@ -19,6 +20,8 @@ function openy_media_form_alter(array &$form, FormStateInterface $form_state, $f
     case 'entity_browser_documents_library_form':
     case 'entity_browser_videos_library_embed_form':
     case 'entity_browser_videos_library_form':
+    case 'entity_browser_local_video_library_form':
+    case 'entity_browser_local_video_library_embed_form':
       $form['#attached']['library'][] = 'openy_media/browser';
       break;
   }
@@ -35,6 +38,7 @@ function openy_media_preprocess_views_view_grid(array &$variables) {
     case 'images_library':
     case 'documents_library':
     case 'videos_library':
+    case 'local_videos_library':
       foreach ($variables['items'] as &$item) {
         foreach ($item['content'] as &$column) {
           $column['attributes']['data-selectable'] = 'true';

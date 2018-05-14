@@ -3,6 +3,7 @@
 namespace Drupal\webform_test_handler\Plugin\WebformHandler;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Entity\ContentEntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\webform\Plugin\WebformHandlerBase;
@@ -68,7 +69,7 @@ class TestEntityMappingWebformHandler extends WebformHandlerBase {
     // Get entity type options.
     $entity_type_options = [];
     foreach ($entity_type_manager->getDefinitions() as $entity_type_id => $entity_type) {
-      if ($entity_type instanceof \Drupal\Core\Entity\ContentEntityType) {
+      if ($entity_type instanceof ContentEntityTypeInterface) {
         $entity_type_options[$entity_type_id] = $entity_type->getLabel();
       }
     }

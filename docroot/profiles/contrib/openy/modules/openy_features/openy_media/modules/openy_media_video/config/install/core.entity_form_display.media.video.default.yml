@@ -9,6 +9,7 @@ dependencies:
     - field.field.media.video.field_media_video_id
     - media_entity.bundle.video
   module:
+    - path
     - video_embed_field
 id: media.video.default
 targetEntityType: media
@@ -21,6 +22,7 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   field_media_tags:
     weight: 1
     settings:
@@ -29,10 +31,19 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete_tags
+    region: content
   field_media_video_embed_field:
     type: video_embed_field_textfield
     weight: 3
     settings: {  }
+    third_party_settings: {  }
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -40,6 +51,13 @@ content:
     settings:
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+    region: content
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden:
   created: true

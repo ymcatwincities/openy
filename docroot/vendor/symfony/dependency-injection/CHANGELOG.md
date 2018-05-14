@@ -1,6 +1,21 @@
 CHANGELOG
 =========
 
+3.2.0
+-----
+
+ * allowed to prioritize compiler passes by introducing a third argument to `PassConfig::addPass()`, to `Compiler::addPass` and to `ContainerBuilder::addCompilerPass()`
+ * added support for PHP constants in YAML configuration files
+ * deprecated the ability to set or unset a private service with the `Container::set()` method
+ * deprecated the ability to check for the existence of a private service with the `Container::has()` method
+ * deprecated the ability to request a private service with the `Container::get()` method
+ * deprecated support for generating a dumped `Container` without populating the method map
+
+3.0.0
+-----
+
+ * removed all deprecated codes from 2.x versions
+
 2.8.0
 -----
 

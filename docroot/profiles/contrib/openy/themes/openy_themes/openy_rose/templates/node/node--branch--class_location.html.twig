@@ -81,7 +81,7 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
-  <span>{{ 'SCHEDULE FOR'|t }}</span>
+  <h2>{{ 'SCHEDULE FOR'|t }}</h2>
 
   {{ title_prefix }}
   {% if not page %}
@@ -92,10 +92,10 @@
       {% set title_url = url %}
     {% endif %}
 
-    <h2{{ title_attributes }}>
+    <h3{{ title_attributes }}>
       <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
-    </h2>
-    <a href="#" class="edit-class-popup hidden">{{ "Edit"|t }}</a>
+    </h3>
+    <a href="#" class="edit-class-popup hidden">{{ "Change Location"|t }}</a>
   {% endif %}
   {{ title_suffix }}
 

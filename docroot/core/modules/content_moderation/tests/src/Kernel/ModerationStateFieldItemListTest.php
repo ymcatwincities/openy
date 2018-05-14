@@ -79,4 +79,49 @@ class ModerationStateFieldItemListTest extends KernelTestBase {
     $this->assertEquals(['draft'], $states);
   }
 
+  /**
+   * Tests that moderation state changes also change the related entity state.
+   */
+  public function testModerationStateChanges() {
+    // Change the moderation state and check that the entity's
+    // 'isDefaultRevision' flag and the publishing status have also been
+    // updated.
+    $this->testNode->moderation_state->value = 'published';
+
+    $this->assertTrue($this->testNode->isPublished());
+    $this->assertTrue($this->testNode->isDefaultRevision());
+
+    $this->testNode->save();
+
+    // Repeat the checks using an 'unpublished' state.
+    $this->testNode->moderation_state->value = 'draft';
+    $this->assertFalse($this->testNode->isPublished());
+    $this->assertFalse($this->testNode->isDefaultRevision());
+  }
+
+  /**
+   * Test updating the state for an entity without a workflow.
+   */
+  public function testEntityWithNoWorkflow() {
+    $node_type = NodeType::create([
+      'type' => 'example_no_workflow',
+    ]);
+    $node_type->save();
+    $test_node = Node::create([
+      'type' => 'example_no_workflow',
+      'title' => 'Test node with no workflow',
+    ]);
+    $test_node->save();
+
+    /** @var \Drupal\content_moderation\ModerationInformationInterface $content_moderation_info */
+    $content_moderation_info = \Drupal::service('content_moderation.moderation_information');
+    $workflow = $content_moderation_info->getWorkflowForEntity($test_node);
+    $this->assertNull($workflow);
+
+    $this->assertTrue($test_node->isPublished());
+    $test_node->moderation_state->setValue('draft');
+    // The entity is still published because there is not a workflow.
+    $this->assertTrue($test_node->isPublished());
+  }
+
 }

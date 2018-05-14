@@ -110,6 +110,14 @@ abstract class PersonifyMindbodySyncFetcherBase implements PersonifyMindbodySync
       if ($response->getStatusCode() == '200') {
         $body = $response->getBody();
         $data = json_decode($body->getContents());
+
+        // @todo Implement mocks.
+        if (FALSE) {
+          // @todo Load this data form the latest cache entity
+          $mockObject = unserialize('O:8:"stdClass":33:{s:3:"$id";s:1:"2";s:11:"InternalKey";N;s:13:"NavigationKey";N;s:7:"OrderNo";s:10:"2012809899";s:11:"OrderLineNo";i:1;s:9:"OrderDate";s:19:"2018-05-02T00:00:00";s:9:"ProductId";i:142706076;s:13:"ParentProduct";s:20:"34_PT_20_SESS_60_MIN";s:11:"ProductCode";s:20:"34_PT_20_SESS_60_MIN";s:9:"Subsystem";s:4:"MISC";s:13:"RateStructure";s:6:"Member";s:8:"RateCode";s:3:"STD";s:14:"LineStatusCode";s:1:"A";s:14:"LineStatusDate";s:23:"2018-05-02T20:03:42.140";s:13:"OrderQuantity";i:1;s:9:"UnitPrice";d:1099;s:11:"TotalAmount";d:1099;s:16:"MasterCustomerId";s:10:"2052596923";s:13:"SubCustomerId";i:0;s:9:"FirstName";s:6:"Thomas";s:8:"LastName";s:7:"Christy";s:10:"GenderCode";s:4:"MALE";s:9:"BirthDate";s:19:"1971-10-15T00:00:00";s:12:"PrimaryPhone";s:12:"763-441-6392";s:24:"PrimaryPhoneLocationCode";s:4:"HOME";s:25:"PrimaryPhoneDoNotCallFlag";b:0;s:13:"PrimaryMobile";s:12:"763-859-5022";s:25:"PrimaryMobileLocationCode";s:4:"HOME";s:26:"PrimaryMobileDoNotCallFlag";b:0;s:12:"PrimaryEmail";s:28:"tom@frerichsconstruction.com";s:24:"PrimaryEmailLocationCode";s:4:"HOME";s:28:"PrimaryEmailDoNotContactFlag";b:0;s:27:"MindBodyCustomerOrderDetail";O:8:"stdClass":1:{s:4:"$ref";s:1:"1";}}');
+          $data->MindBodyCustomerOrderDetail = [$mockObject];
+        }
+
         foreach ($data->MindBodyCustomerOrderDetail as $order) {
           // In test mode proceed orders only for test user.
           if (!$this->isProduction && $order->MasterCustomerId != self::TEST_CLIENT_ID) {

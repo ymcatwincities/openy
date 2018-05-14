@@ -37,7 +37,6 @@ slick:
       /libraries/slick/slick/slick.css: {}
   dependencies:
     - core/jquery
-    - core/jquery.once
 
 slick.load:
   version: VERSION
@@ -46,6 +45,7 @@ slick.load:
   dependencies:
     - core/drupal
     - core/drupalSettings
+    - core/jquery.once
     - slick/slick
 
 slick.theme:

@@ -6,6 +6,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Form\FormInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\SubformState;
 use Drupal\plugin\Plugin\Plugin\PluginSelector\PluginSelectorManagerInterface;
 use Drupal\plugin\PluginDiscovery\LimitedPluginDiscoveryDecorator;
 use Drupal\plugin\PluginManager\PluginManagerDecorator;
@@ -79,13 +80,15 @@ class AdvancedPluginSelectorBasePluginSelectorForm implements ContainerInjection
       $form_state->set('plugin_selector', $plugin_selector);
     }
 
-    $form['plugin'] = $plugin_selector->buildSelectorForm([], $form_state);
+    $plugin_selector_form = [];
+    $plugin_selector_form_state = SubformState::createForSubform($plugin_selector_form, $form, $form_state);
+    $form['plugin'] = $plugin_selector->buildSelectorForm($plugin_selector_form, $plugin_selector_form_state);
     // Nest the selector in a tree if that's required.
     if ($tree) {
       $form['tree'] = array(
         '#tree' => TRUE,
+        'plugin' => $form['plugin'],
       );
-      $form['tree']['plugin'] = $form['plugin'];
       unset($form['plugin']);
     }
     $form['actions'] = array(
@@ -105,8 +108,9 @@ class AdvancedPluginSelectorBasePluginSelectorForm implements ContainerInjection
   public function validateForm(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\plugin\Plugin\Plugin\PluginSelector\PluginSelectorInterface $plugin_selector */
     $plugin_selector = $form_state->get('plugin_selector');
-    $plugin_form = isset($form['tree']) ? $form['tree']['plugin'] : $form['plugin'];
-    $plugin_selector->validateSelectorForm($plugin_form, $form_state);
+    $plugin_selector_form = isset($form['tree']) ? $form['tree']['plugin'] : $form['plugin'];
+    $plugin_selector_form_state = SubformState::createForSubform($plugin_selector_form, $form, $form_state);
+    $plugin_selector->validateSelectorForm($plugin_selector_form, $plugin_selector_form_state);
   }
 
   /**
@@ -115,8 +119,9 @@ class AdvancedPluginSelectorBasePluginSelectorForm implements ContainerInjection
   public function submitForm(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\plugin\Plugin\Plugin\PluginSelector\PluginSelectorInterface $plugin_selector */
     $plugin_selector = $form_state->get('plugin_selector');
-    $plugin_form = isset($form['tree']) ? $form['tree']['plugin'] : $form['plugin'];
-    $plugin_selector->submitSelectorForm($plugin_form, $form_state);
+    $plugin_selector_form = isset($form['tree']) ? $form['tree']['plugin'] : $form['plugin'];
+    $plugin_selector_form_state = SubformState::createForSubform($plugin_selector_form, $form, $form_state);
+    $plugin_selector->submitSelectorForm($plugin_selector_form, $plugin_selector_form_state);
     \Drupal::state()->set($this->getFormId(), $plugin_selector->getSelectedPlugin());
   }
 }
