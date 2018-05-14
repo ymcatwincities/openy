@@ -144,7 +144,7 @@ class ScheduleEmailWebformHandler extends EmailWebformHandler {
     // Send date/time.
     $send_options = [
       '[date:html_date]' => $this->t('Current date'),
-      WebformOtherBase::OTHER_OPTION => $this->t('Custom date/time...'),
+      WebformOtherBase::OTHER_OPTION => $this->t('Custom date...'),
       (string) $this->t('Webform') => [
         '[webform:open:html_date]' => $this->t('Open date'),
         '[webform:close:html_date]' => $this->t('Close date'),
@@ -164,7 +164,7 @@ class ScheduleEmailWebformHandler extends EmailWebformHandler {
       '#title' => $this->t('Send email on'),
       '#options' => $send_options,
       '#other__placeholder' => $this->t('YYYY-MM-DD'),
-      '#other__description' => $this->t('Enter a valid ISO date/time (YYYY-MM-DD) or token which returns a valid ISO date.'),
+      '#other__description' => $this->t('Enter a valid ISO date (YYYY-MM-DD) or token which returns a valid ISO date.'),
       '#parents' => ['settings', 'send'],
       '#default_value' => $this->configuration['send'],
     ];
@@ -196,7 +196,7 @@ class ScheduleEmailWebformHandler extends EmailWebformHandler {
     // Unschedule.
     $form['scheduled']['unschedule'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Unschedule email when draft or submission is saved.'),
+      '#title' => $this->t('Unschedule email when draft or submission is saved'),
       '#description' => $this->t('You can use this setting to unschedule a draft reminder, when submission has been completed.'),
       '#default_value' => $this->configuration['unschedule'],
       '#return_value' => TRUE,
@@ -207,7 +207,7 @@ class ScheduleEmailWebformHandler extends EmailWebformHandler {
     if ($webform->hasSubmissions()) {
       $form['scheduled']['queue'] = [
         '#type' => 'checkbox',
-        '#title' => $this->t('Schedule emails for all existing submissions.'),
+        '#title' => $this->t('Schedule emails for all existing submissions'),
         '#description' => $this->t('Check schedule emails after submissions have been processed.'),
         '#return_value' => TRUE,
         '#parents' => ['settings', 'queue'],
@@ -247,7 +247,7 @@ class ScheduleEmailWebformHandler extends EmailWebformHandler {
     $form = parent::buildConfigurationForm($form, $form_state);
 
     // Change 'Send email' to 'Scheduled email'.
-    $form['settings']['states']['#title'] = $this->t('Scheduled email');
+    $form['settings']['states']['#title'] = $this->t('Schedule email');
 
     return $form;
   }
@@ -365,9 +365,9 @@ class ScheduleEmailWebformHandler extends EmailWebformHandler {
         drupal_set_message($this->t('%submission: Email <b>not scheduled</b> for %handler handler because %send is not a valid date/token.', $t_args), 'warning', TRUE);
       }
       $context = $t_args + [
-        'link' => $this->getWebform()->toLink($this->t('Edit'), 'handlers-form')->toString(),
+        'link' => $this->getWebform()->toLink($this->t('Edit'), 'handlers')->toString(),
       ];
-      $this->logger->warning('%submission: Email <b>not scheduled</b> for %handler handler because %send is not a valid date/token.', $context);
+      $this->getLogger()->warning('%submission: Email <b>not scheduled</b> for %handler handler because %send is not a valid date/token.', $context);
       return FALSE;
     }
 

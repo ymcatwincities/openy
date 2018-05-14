@@ -1,6 +1,9 @@
 # OpenY upgrade tool
 This module add the ability to upgrade OpenY configs and log manual config changes.
 
+### OpenY upgrade dashboard
+- /admin/config/development/openy-upgrade-dashboard - On this page you can see list of manually changed configs that has conflicts with updates from openy and diff between current config version and config from update.
+- /admin/config/logger_entity - On this page you can see list of all manually changed configs.
 
 ### Revert only specific property from config
 
@@ -46,4 +49,62 @@ $config_importer->importConfigs([
   'views.view.images_library',
   'views.view.example_view',
 ]);
+```
+
+### Update conflicts resolving
+In case if you have conflict in config update, there are 3 ways of solving this problem:
+
+- **Force update** (this action will delete all manual changes).
+If you want to override existing config you need to delete logger entity and run update again. Example:
+```
+// Delete logger_entity.
+$logger_entity_storage = \Drupal::service('entity_type.manager')->getStorage('logger_entity');
+$entities = $logger_entity_storage->loadByProperties([
+  'type' => 'openy_config_upgrade_logs',
+  'name' => 'core.entity_form_display.node.landing_page.default',
+]);
+$logger_entity = array_shift($entities);
+$logger_entity->delete();
+
+// Run update.
+$config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install';
+$config_importer = \Drupal::service('openy_upgrade_tool.importer');
+$config_importer->setDirectory($config_dir);
+$config_importer->importConfigs([
+  'core.entity_form_display.node.landing_page.default',
+]);
+```
+
+- **Skip update and use existing version of config.**
+Also you can skip update, in this case you need remove field_config_path value from logger_entity, this action will delete config from dashboard. Example:
+```
+$logger_entity_storage = \Drupal::service('entity_type.manager')->getStorage('logger_entity');
+$entities = $logger_entity_storage->loadByProperties([
+  'type' => 'openy_config_upgrade_logs',
+  'name' => 'core.entity_form_display.node.landing_page.default',
+]);
+$logger_entity = array_shift($entities);
+$logger_entity->set('field_config_path', '');
+$logger_entity->save();
+```
+
+- **Resolve conflict and import fixed config version.**
+In this case you need export existing config (for example to sites/default/config/staging) and add changes from openy to this file (you can use diff on dashboard to get new updates).
+After this **import config using services from confi module** and remove field_config_path value from logger_entity.
+```
+$config_importer = \Drupal::service('config_import.importer');
+$config_importer->setDirectory(''sites/default/config/staging'');
+$config_importer->importConfigs([
+  // Fixed config version with manual changes and all updates from openy.
+  'core.entity_form_display.node.landing_page.default',
+]);
+  
+$logger_entity_storage = \Drupal::service('entity_type.manager')->getStorage('logger_entity');
+$entities = $logger_entity_storage->loadByProperties([
+  'type' => 'openy_config_upgrade_logs',
+  'name' => 'core.entity_form_display.node.landing_page.default',
+]);
+$logger_entity = array_shift($entities);
+$logger_entity->set('field_config_path', '');
+$logger_entity->save();
 ```

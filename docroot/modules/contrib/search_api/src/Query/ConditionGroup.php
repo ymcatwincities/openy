@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Query\ConditionGroup.
- */
-
 namespace Drupal\search_api\Query;
 
 /**
@@ -20,7 +15,7 @@ class ConditionGroup implements ConditionGroupInterface {
    *
    * @var array
    */
-  protected $conditions = array();
+  protected $conditions = [];
 
   /**
    * String specifying this condition group's conjunction ('AND' or 'OR').
@@ -47,7 +42,7 @@ class ConditionGroup implements ConditionGroupInterface {
    *   condition group after it's been added to the query. This is
    *   primarily used by the facet system to support OR facet queries.
    */
-  public function __construct($conjunction = 'AND', array $tags = array()) {
+  public function __construct($conjunction = 'AND', array $tags = []) {
     $this->conjunction = strtoupper(trim($conjunction)) == 'OR' ? 'OR' : 'AND';
     $this->tags = array_combine($tags, $tags);
   }
@@ -99,7 +94,7 @@ class ConditionGroup implements ConditionGroupInterface {
   /**
    * Implements the magic __clone() method.
    *
-   * Takes care to clone nested condition groups, too.
+   * Takes care to clone nested conditions and condition groups, too.
    */
   public function __clone() {
     foreach ($this->conditions as $i => $condition) {
@@ -115,7 +110,7 @@ class ConditionGroup implements ConditionGroupInterface {
     if (count($this->conditions) == 1) {
       return (string) reset($this->conditions);
     }
-    $ret = array();
+    $ret = [];
     foreach ($this->conditions as $condition) {
       $ret[] = str_replace("\n", "\n  ", (string) $condition);
     }

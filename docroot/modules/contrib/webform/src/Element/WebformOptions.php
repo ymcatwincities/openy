@@ -7,6 +7,7 @@ use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\Utility\WebformElementHelper;
+use Drupal\webform\Utility\WebformOptionsHelper;
 
 /**
  * Provides a webform element to assist in creation of options.
@@ -25,10 +26,12 @@ class WebformOptions extends FormElement {
     $class = get_class($this);
     return [
       '#input' => TRUE,
+      '#yaml' => FALSE,
       '#label' => t('option'),
       '#labels' => t('options'),
       '#empty_items' => 5,
       '#add_more' => 1,
+      '#options_description' => FALSE,
       '#process' => [
         [$class, 'processWebformOptions'],
       ],
@@ -49,7 +52,7 @@ class WebformOptions extends FormElement {
       if (static::hasOptGroup($options)) {
         return $options;
       }
-      return static::convertOptionsToValues($options);
+      return static::convertOptionsToValues($options, $element['#options_description']);
     }
     elseif (is_array($input) && isset($input['options'])) {
       return (is_string($input['options'])) ? Yaml::decode($input['options']) : $input['options'];
@@ -72,23 +75,59 @@ class WebformOptions extends FormElement {
     WebformElementHelper::fixStatesWrapper($element);
 
     // For options with optgroup display a CodeMirror YAML editor.
-    if (isset($element['#default_value']) && is_array($element['#default_value']) && static::hasOptGroup($element['#default_value'])) {
+    if (!empty($element['#yaml']) || (isset($element['#default_value']) && is_array($element['#default_value']) && static::hasOptGroup($element['#default_value']))) {
       // Build table.
       $element['options'] = [
         '#type' => 'webform_codemirror',
         '#mode' => 'yaml',
-        '#default_value' => Yaml::encode($element['#default_value']),
-        '#description' => t('Key-value pairs MUST be specified as "safe_key: \'Some readable options\'". Use of only alphanumeric characters and underscores is recommended in keys. One option per line.') . '<br />' .
-        t('Option groups can be created by using just the group name followed by indented group options.'),
+        '#default_value' => trim(Yaml::encode($element['#default_value'])),
+        '#placeholder' => t('Enter custom options'),
+        '#description' => t('Key-value pairs MUST be specified as "safe_key: \'Some readable options\'". Use of only alphanumeric characters and underscores is recommended in keys. One option per line.') . '<br /><br />' .
+          t('Option groups can be created by using just the group name followed by indented group options.'),
       ];
       return $element;
     }
     else {
       $properties = ['#label', '#labels', '#empty_items', '#add_more'];
+
       $element['options'] = array_intersect_key($element, array_combine($properties, $properties)) + [
         '#type' => 'webform_multiple',
         '#header' => TRUE,
-        '#element' => [
+        '#default_value' => (isset($element['#default_value'])) ? static::convertOptionsToValues($element['#default_value'], $element['#options_description']) : [],
+      ];
+
+      if ($element['#options_description']) {
+        $element['options']['#element'] = [
+          'value' => [
+            '#type' => 'textfield',
+            '#title' => t('Option value'),
+            '#title_display' => t('invisible'),
+            '#placeholder' => t('Enter value'),
+            '#maxlength' => 255,
+          ],
+          'option' => [
+            '#type' => 'container',
+            '#title' => t('Option text/description'),
+            '#title_display' => t('invisible'),
+            'text' => [
+              '#type' => 'textfield',
+              '#title' => t('Option text'),
+              '#title_display' => t('invisible'),
+              '#placeholder' => t('Enter text'),
+              '#maxlength' => 255,
+            ],
+            'description' => [
+              '#type' => 'textarea',
+              '#title' => t('Option description'),
+              '#title_display' => t('invisible'),
+              '#placeholder' => t('Enter description'),
+              '#rows' => 2,
+            ],
+          ],
+        ];
+      }
+      else {
+        $element['options']['#element'] = [
           'value' => [
             '#type' => 'textfield',
             '#title' => t('Option value'),
@@ -103,9 +142,8 @@ class WebformOptions extends FormElement {
             '#placeholder' => t('Enter text'),
             '#maxlength' => 255,
           ],
-        ],
-        '#default_value' => (isset($element['#default_value'])) ? static::convertOptionsToValues($element['#default_value']) : [],
-      ];
+        ];
+      }
       return $element;
     }
   }
@@ -120,7 +158,7 @@ class WebformOptions extends FormElement {
       $options = Yaml::decode($options_value);
     }
     else {
-      $options = static::convertValuesToOptions($options_value);
+      $options = static::convertValuesToOptions($options_value, $element['#options_description']);
     }
 
     // Validate required options.
@@ -149,15 +187,20 @@ class WebformOptions extends FormElement {
    *
    * @param array $values
    *   An array of values.
+   * @param bool $options_description
+   *   Options has description.
    *
    * @return array
    *   An array of options.
    */
-  public static function convertValuesToOptions(array $values = []) {
+  public static function convertValuesToOptions(array $values = [], $options_description = FALSE) {
     $options = [];
     foreach ($values as $value) {
       $option_value = $value['value'];
       $option_text = $value['text'];
+      if ($options_description && !empty($value['description'])) {
+        $option_text .= WebformOptionsHelper::DESCRIPTION_DELIMITER . $value['description'];
+      }
 
       // Populate empty option value or option text.
       if ($option_value === '') {
@@ -177,14 +220,22 @@ class WebformOptions extends FormElement {
    *
    * @param array $options
    *   An array of options.
+   * @param bool $options_description
+   *   Options has description.
    *
    * @return array
    *   An array of values.
    */
-  public static function convertOptionsToValues(array $options = []) {
+  public static function convertOptionsToValues(array $options = [], $options_description = FALSE) {
     $values = [];
     foreach ($options as $value => $text) {
-      $values[] = ['value' => $value, 'text' => $text];
+      if ($options_description && strpos($text, WebformOptionsHelper::DESCRIPTION_DELIMITER) !== FALSE) {
+        list($text, $description) = explode(WebformOptionsHelper::DESCRIPTION_DELIMITER, $text);
+        $values[] = ['value' => $value, 'text' => $text, 'description' => $description];
+      }
+      else {
+        $values[] = ['value' => $value, 'text' => $text];
+      }
     }
     return $values;
   }

@@ -20,7 +20,7 @@
      For more details about configurations options that may appear in
      this file, see http://wiki.apache.org/solr/SolrConfigXml.
 -->
-<config name="drupal-4.2-solr-4.x" >
+<config name="drupal-4.4-solr-4.x" >
   <!-- In all configuration below, a prefix of "solr." for class names
        is an alias that causes solr to search appropriate packages,
        including org.apache.solr.(search|update|request|core|analysis)
@@ -49,27 +49,25 @@
     -->
   <luceneMatchVersion>${solr.luceneMatchVersion:LUCENE_40}</luceneMatchVersion>
 
-  <!-- lib directives can be used to instruct Solr to load an Jars
-       identified and use them to resolve any "plugins" specified in
-       your solrconfig.xml or schema.xml (ie: Analyzers, Request
-       Handlers, etc...).
-
-       All directories and paths are resolved relative to the
-       instanceDir.
-
-       If a "./lib" directory exists in your instanceDir, all files
-       found in it are included as if you had used the following
-       syntax...
-
-              <lib dir="./lib" />
-    -->
-
-  <!-- A dir option by itself adds any files found in the directory to
-       the classpath, this is useful for including all jars in a
+  <!-- A 'dir' option by itself adds any files found in the directory
+       to the classpath, this is useful for including all jars in a
        directory.
+
+       When a 'regex' is specified in addition to a 'dir', only the
+       files in that directory which completely match the regex
+       (anchored on both ends) will be included.
+
+       If a 'dir' option (with or without a regex) is used and nothing
+       is found that matches, a warning will be logged.
+
+       The examples below can be used to load some solr-contribs along
+       with their external dependencies.
     -->
-  <lib dir="${solr.contrib.dir:../../../contrib}/extraction/lib" />
-  <lib dir="${solr.contrib.dir:../../../contrib}/clustering/lib/" />
+  <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-cell-\d.*\.jar" />
+
+  <lib dir="${solr.install.dir:../../../..}/contrib/clustering/lib/" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-clustering-\d.*\.jar" />
 
   <!-- The velocity library has been known to crash Solr in some
        instances when deployed as a war file to Tomcat. Therefore all
@@ -82,8 +80,6 @@
        files in that directory which completely match the regex
        (anchored on both ends) will be included.
     -->
-  <!--<lib dir="../../dist/" regex="apache-solr-cell-\d.*\.jar" />-->
-  <!--<lib dir="../../dist/" regex="apache-solr-clustering-\d.*\.jar" />-->
   <!--<lib dir="../../dist/" regex="apache-solr-dataimporthandler-\d.*\.jar" />-->
   <!--<lib dir="../../dist/" regex="apache-solr-langid-\d.*\.jar" />-->
   <!-- <lib dir="../../dist/" regex="apache-solr-velocity-\d.*\.jar" /> -->
@@ -885,7 +881,7 @@
 
   <!-- The more like this handler offers many advantages over the standard handler,
      when performing moreLikeThis requests.-->
-  <requestHandler name="mlt" class="solr.MoreLikeThisHandler">
+  <requestHandler name="/mlt" class="solr.MoreLikeThisHandler">
     <lst name="defaults">
       <str name="mlt.mintf">1</str>
       <str name="mlt.mindf">1</str>

@@ -34,9 +34,9 @@ class SelectListTest extends BrowserTestBase {
    * @param bool $tree
    *   Whether to test the element with #tree = TRUE or not.
    */
-  public function doTestElement($tree) {
-    $name_prefix = $tree ? 'tree[plugin][container]' : 'container';
-    $change_button_name = $tree ? 'tree__plugin__container__select__container__change' : 'container__select__container__change';
+  protected function doTestElement($tree) {
+    $name_prefix = $tree ? 'tree[plugin][container]' : 'plugin[container]';
+    $change_button_name = $tree ? 'tree__plugin__container__select__container__change' : 'plugin__container__select__container__change';
 
     // Test the presence of default elements without available plugins.
     $path = $this->buildFormPath(['none'], $tree);

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Backend\BackendSpecificInterface.
- */
-
 namespace Drupal\search_api\Backend;
 
 use Drupal\search_api\IndexInterface;
@@ -37,25 +32,37 @@ interface BackendSpecificInterface {
   public function viewSettings();
 
   /**
-   * Determines whether the backend supports a given feature.
+   * Returns a boolean with the availability of the backend.
+   *
+   * This can implement a specific call to test if the backend is available for
+   * reading. For SOLR or elasticsearch this would be a "ping" to the server to
+   * test if it's online. If this is a db-backend that is running on a separate
+   * server, this can also be a ping. When it's a db-backend that runs in the
+   * same database as the drupal installation; just returning TRUE is enough.
+   *
+   * @return bool
+   *   The availability of the backend.
+   */
+  public function isAvailable();
+
+  /**
+   * Returns all features that this backend supports.
    *
    * Features are optional extensions to Search API functionality and usually
    * defined and used by third-party modules.
    *
-   * There are currently three features defined directly in the Search API
-   * project:
-   * - search_api_facets, by the search_api_facetapi module.
-   * - search_api_facets_operator_or, also by the search_api_facetapi module.
-   * - search_api_mlt, by the search_api_views module.
+   * There are currently two features defined directly in the Search API module:
+   * - search_api_mlt, by the
+   *   \Drupal\search_api\Plugin\views\argument\SearchApiMoreLikeThis class.
+   * - search_api_random_sort, by the
+   *   \Drupal\search_api\Plugin\views\query\SearchApiQuery class.
    *
-   * @param string $feature
-   *   The name of the optional feature.
+   * @return string[]
+   *   The identifiers of all features this backend supports.
    *
-   * @return bool
-   *   TRUE if the backend knows and supports the specified feature, FALSE
-   *   otherwise.
+   * @see hook_search_api_server_features_alter()
    */
-  public function supportsFeature($feature);
+  public function getSupportedFeatures();
 
   /**
    * Determines whether the backend supports a given add-on data type.
@@ -67,6 +74,40 @@ interface BackendSpecificInterface {
    *   TRUE if the backend supports that data type.
    */
   public function supportsDataType($type);
+
+  /**
+   * Limits the processors displayed in the UI for indexes on this server.
+   *
+   * Returns an array of processor IDs that should not be enabled for this
+   * backend. It is a bad idea, for example, to have the "Tokenizer" processor
+   * enabled when using a Solr backend.
+   *
+   * @return string[]
+   *   A list of processor IDs.
+   */
+  public function getDiscouragedProcessors();
+
+  /**
+   * Provides information on additional fields made available by the backend.
+   *
+   * If a backend indexes additional data with items and wants to make this
+   * available as fixed fields on the index (for example, to be used with
+   * Views), it can implement this method to facilitate this.
+   *
+   * Fields returned here are expected to work correctly with this server when
+   * used in query conditions, sorts or similar places.
+   *
+   * @param \Drupal\search_api\IndexInterface $index
+   *   The index for which fields are being determined.
+   *
+   * @return \Drupal\search_api\Item\FieldInterface[]
+   *   An array of additional fields that are available for this index, keyed by
+   *   their field IDs. The field IDs should always start with "search_api_"
+   *   (avoiding the special field IDs defined by
+   *   \Drupal\search_api\Query\QueryInterface::sort()) to avoid conflicts with
+   *   user-defined fields.
+   */
+  public function getBackendDefinedFields(IndexInterface $index);
 
   /**
    * Adds a new index to this server.
@@ -125,10 +166,6 @@ interface BackendSpecificInterface {
    *   The search index for which items should be indexed.
    * @param \Drupal\search_api\Item\ItemInterface[] $items
    *   An array of items to be indexed, keyed by their item IDs.
-   *   The value of fields with the "tokenized_text" type is an array of tokens.
-   *   Each token is an array containing the following keys:
-   *   - value: The word that the token represents.
-   *   - score: A score for the importance of that word.
    *
    * @return string[]
    *   The IDs of all items that were successfully indexed.
@@ -156,20 +193,20 @@ interface BackendSpecificInterface {
    *
    * @param \Drupal\search_api\IndexInterface $index
    *   The index for which items should be deleted.
+   * @param string|null $datasource_id
+   *   (optional) If given, only delete items from the datasource with the
+   *   given ID.
    *
    * @throws \Drupal\search_api\SearchApiException
    *   Thrown if an error occurred while trying to delete indexed items.
    */
-  public function deleteAllIndexItems(IndexInterface $index);
+  public function deleteAllIndexItems(IndexInterface $index, $datasource_id = NULL);
 
   /**
    * Executes a search on this server.
    *
    * @param \Drupal\search_api\Query\QueryInterface $query
    *   The query to execute.
-   *
-   * @return \Drupal\search_api\Query\ResultSetInterface
-   *   The search results.
    *
    * @throws \Drupal\search_api\SearchApiException
    *   Thrown if an error prevented the search from completing.

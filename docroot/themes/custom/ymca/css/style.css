@@ -658,7 +658,7 @@ body {
   min-width: 11%;
   text-align: center;
   font-size: 20px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .promos a:hover, .text-promo:hover {
@@ -781,7 +781,7 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 34px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 1.1em;
 }
 
@@ -791,6 +791,8 @@ body {
   border-color: transparent;
   border-top: 0;
   border-radius: 0;
+  height: 100px;
+  min-height: 100px;
 }
 
 .container, .padded-content-container {
@@ -827,7 +829,7 @@ body {
   text-transform: uppercase;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 1.3em;
 }
 .masthead-brand:hover {
@@ -849,11 +851,11 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 20px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .carousel-caption p {
   font-size: 0;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .container .container, .container .padded-content-container {
@@ -889,31 +891,25 @@ body {
   display: block;
   overflow: hidden;
   box-sizing: content-box;
-  margin: 5px 0 3px 0;
-  margin-top: 5px;
+  margin: 12px 0 3px 0;
   margin-bottom: 5px;
-  padding: 0 0 0 30px;
-  width: 110px;
-  height: 80%;
-  background: url(../img/ymca-logo.svg) no-repeat 12px 0;
+  padding: 5px 0 0 30px;
+  width: 220px;
+  height: 72%;
+  background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
   background-size: contain;
 }
 
 .no-smil .navbar-brand {
   padding-top: 70px !important;
   height: 0 !important;
-  background: url(../img/ymca-logo.png) no-repeat;
+  background: url(../img/ymca-logo-full.png) no-repeat;
   background-size: contain;
   line-height: 1em;
   -ms-transition: padding .3s ease-out;
 }
-.no-smil .affix .navbar-brand {
-  padding-top: 40px !important;
-  background-image: url(../img/ymca-logo-small.png);
-}
-
-.csstransitions.no-smil .affix .navbar-brand {
-  background-image: url(../img/ymca-logo.png);
+.no-smil .navbar {
+  background-color: #eeeeee;
 }
 
 .sidebar .nav a:hover {
@@ -973,7 +969,7 @@ body {
   text-transform: uppercase;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 1.3em;
 }
 .masthead-brand:hover {
@@ -1000,7 +996,7 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .btn-primary:focus {
   border: 0;
@@ -1014,13 +1010,13 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .carousel-caption p {
   text-align: right;
   font-size: 20px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .carousel-control {
@@ -1045,7 +1041,7 @@ body {
   text-transform: uppercase;
   font-weight: normal;
   display: block;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   font-weight: 600;
 }
 
@@ -1060,7 +1056,7 @@ body {
   color: #5e5e5e;
   font-weight: bold;
   font-size: 34px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .nav-home .open > .dropdown-menu {
@@ -1439,7 +1435,7 @@ li.current.home > a:focus, li.current.home > a:hover {
   background: none;
   color: #2072bd;
   font-size: 22px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .nav-home .caret {
   display: none;
@@ -1533,6 +1529,9 @@ li.current.home > a:focus, li.current.home > a:hover {
   text-shadow: 0 1px #FFF;
 }
 
+.nav-global ul {
+  line-height: 6.4em;
+}
 .nav-global .navbar-nav a {
   outline: 0 !important;
   line-height: 50px;
@@ -1680,9 +1679,9 @@ li.current.home > a:focus, li.current.home > a:hover {
   border: 0;
   border-left: 0;
   border-radius: 0;
-  background: #383838;
+  background: #383838 !important;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   -webkit-transition: font-size .2s ease-out,height .2s ease-out;
   -moz-transition: font-size .2s ease-out,height .2s ease-out;
   -ms-transition: font-size .2s ease-out,height .2s ease-out;
@@ -1721,7 +1720,7 @@ li.current.home > a:focus, li.current.home > a:hover {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .masthead-carousel {
@@ -1730,7 +1729,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .nav-global .nav {
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .carousel .item {
@@ -1765,7 +1764,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .dock-subnav .nav-home {
   position: fixed;
-  top: 51px;
+  top: 100px;
   width: 100%;
 }
 .dock-subnav .page-middle {
@@ -1774,7 +1773,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .nav-home.fixed {
   position: fixed;
-  top: 51px;
+  top: 100px;
   bottom: auto;
   width: 100%;
 }
@@ -1784,7 +1783,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .no-touch .nav-home.affix, .no-touch .page_home .nav-home.affix {
   position: fixed;
-  top: 51px;
+  top: 100px;
   bottom: auto;
   width: 100%;
 }
@@ -1816,7 +1815,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .no-touch .nav-location.affix, .no-touch .locations-camps-template .nav-location.affix {
   position: fixed;
-  top: 51px;
+  top: 100px;
   height: 50px;
   font-size: 15px;
 }
@@ -1923,14 +1922,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .ancestor-camps .navbar-brand {
-  background-image: url(../img/ymca-logo-alt.svg);
-}
-
-.no-smil .ancestor-camps .navbar-brand {
-  background: url(../img/ymca-logo-alt.png) no-repeat;
-}
-.no-smil .ancestor-camps .affix .navbar-brand {
-  background: url(../img/ymca-logo-alt-small.png) no-repeat;
+  background-image: url(../img/ymca-logo-full-alt.svg);
 }
 
 .ancestor-camps .all-hours {
@@ -1974,7 +1966,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-align: center;
 }
 .page-footer.footer-themes-b .richtext h5, .page-footer.footer-themes-b .richtext p {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: Verdana,Arial,sans-serif;
   display: inline-block;
   vertical-align: top;
   margin: 0;
@@ -2483,7 +2475,7 @@ a.ms-brand:hover {
   text-decoration: underline;
 }
 .footer-themes-b .nav-footer .nav > li > a {
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   font-size: 20px;
   color: #a8a8a8;
 }
@@ -2731,7 +2723,8 @@ img.alignRight {
 .back-link {
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
+  padding-top: 40px;
 }
 .back-link a {
   color: #fff;
@@ -2751,7 +2744,7 @@ img.alignRight {
 }
 .lead-copy li a {
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .lead-copy li:before {
   position: absolute;
@@ -2829,7 +2822,7 @@ h2 img {
   font-size: 34px;
 }
 .social-news p {
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .social-disclaimer h5 {
@@ -3086,7 +3079,7 @@ legend small {
   border-bottom: 1px solid gray;
   font-weight: normal;
   font-size: 18px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .nav-home.nav-themes-b .nav-level-3 strong {
   border-bottom: none;
@@ -3189,7 +3182,7 @@ legend small {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .call-to-action p {
@@ -3244,7 +3237,7 @@ legend small {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 .post-excerpt .btn-link:after {
   margin-left: 5px;
@@ -3760,7 +3753,7 @@ h2 a:hover {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 17px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .promos .button a:hover {
@@ -3809,7 +3802,7 @@ h2 a:hover {
   text-decoration: none;
   text-transform: uppercase;
   font-size: 26px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .promo p, .promo h3, .promo h1, .promo h2 {
@@ -4315,7 +4308,7 @@ a[href*=".pdf?"]:hover,
 
 .ancestor-camps .panel-subnav .level_4 > a, .ancestor-locations .panel-subnav .level_4 > a, .panel-subnav .level_2 > a {
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 1em;
   line-height: 1em;
 }
@@ -4666,7 +4659,7 @@ a.wrapper:hover {
 
 .nav-level-3 > li {
   font-size: 18px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
 }
 
 .panel-subnav .dropdown .dropdown li a {
@@ -5004,7 +4997,7 @@ a.wrapper:hover {
   }
 
   .lt-ie9 .masthead-menu-active .page-middle {
-    margin-top: 144px;
+    margin-top: 162px;
   }
 
   .schedules-template .panel-group > .content-expander > .panel-heading a {
@@ -5061,14 +5054,14 @@ a.wrapper:hover {
   .campaign-template .page-middle,
   .internal-template .page-middle,
   .schedules-template .page-middle {
-    margin-top: 144px;
+    margin-top: 162px;
   }
 
   .landing-template.toolbar-horizontal .page-middle,
   .campaign-template.toolbar-horizontal .page-middle,
   .internal-template.toolbar-horizontal .page-middle,
   .schedules-template.toolbar-horizontal .page-middle {
-    margin-top: 144px;
+    margin-top: 162px;
   }
 
   .landing-template.toolbar-vertical .page-middle,
@@ -5167,7 +5160,7 @@ a.wrapper:hover {
   }
 
   .navbar > .container .navbar-brand {
-    margin-top: 5px;
+    margin-top: 12px;
   }
 
   .location-list .location:nth-child(3n+1) {
@@ -5397,14 +5390,6 @@ a.wrapper:hover {
     font-size: 22px;
   }
 
-  .no-smil .navbar-brand {
-    padding-top: 40px !important;
-    background-image: url(../img/ymca-logo-small.png) !important;
-  }
-  .no-smil .ancestor-camps .navbar-brand {
-    background: url(../img/ymca-logo-alt-small.png) no-repeat !important;
-  }
-
   .lead-copy h1 {
     margin-bottom: .4em;
     font-size: 26px;
@@ -5572,7 +5557,7 @@ a.wrapper:hover {
   }
 
   .back-link {
-    margin-top: 20px;
+    margin-top: 40px;
     text-align: center;
   }
 
@@ -5625,7 +5610,7 @@ a.wrapper:hover {
   }
 
   .navbar > .container .navbar-brand {
-    left: 50%;
+    left: 30%;
     float: none;
     margin-left: -24px;
     padding: 0;
@@ -5640,7 +5625,7 @@ a.wrapper:hover {
   }
 
   .viewport {
-    padding-top: 50px;
+    padding-top: 100px;
   }
 
   .collapsing-in .nav-global, .in .nav-global, .collapsing-out .nav-global {
@@ -6441,7 +6426,7 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
 .button-solid-blue a {
   color: #fff;
   font-size: 24px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   line-height: 32px;
   padding-right: 50px;
   padding-left: 50px;
@@ -7335,7 +7320,7 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   margin-top: 0;
   width: 100%;
   padding: 12px 20px;
@@ -7378,7 +7363,7 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
   text-transform: uppercase;
   font-weight: bold;
   font-size: 16px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   margin-top: 0;
   width: 100%;
   padding: 12px 20px;
@@ -8888,6 +8873,10 @@ body.ancestor-camps .footer-themes-b .social-icon:hover {
   color: #01a490;
 }
 
+body {
+  font-family: Verdana,Arial,sans-serif;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
@@ -10243,8 +10232,12 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   font-size: 15px;
   margin-bottom: 15px;
 }
-.location-schedules-content article ul li:before,
-#block-schedulesrightblocks article ul li:before {
+.location-schedules-content article ul:not(.schedule) li:before,
+.location-schedules-content article .schedule li article div:before,
+.location-schedules-content article .schedule li span:before,
+#block-schedulesrightblocks article ul:not(.schedule) li:before,
+#block-schedulesrightblocks article .schedule li article div:before,
+#block-schedulesrightblocks article .schedule li span:before {
   content: "\f105";
   color: #777;
   font-family: icomoon;
@@ -11188,6 +11181,7 @@ tr:nth-last-child(3) .atcb-list {
   text-transform: uppercase;
 }
 .cdn-form-full .form-item-village,
+.cdn-form-full .form-item-cabin,
 .cdn-form-full .form-item-capacity {
   border: 1px solid #dadada;
   background-color: #fff;
@@ -11196,6 +11190,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-item-village,
+  .cdn-form-full .form-item-cabin,
   .cdn-form-full .form-item-capacity {
     float: left;
     margin-right: 40px;
@@ -11206,6 +11201,7 @@ tr:nth-last-child(3) .atcb-list {
   }
 }
 .cdn-form-full .form-item-village label,
+.cdn-form-full .form-item-cabin label,
 .cdn-form-full .form-item-capacity label {
   font-size: 16px;
   letter-spacing: -0.5px;
@@ -11219,11 +11215,13 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-item-village label,
+  .cdn-form-full .form-item-cabin label,
   .cdn-form-full .form-item-capacity label {
     margin: 0 15px 0 0;
   }
 }
 .cdn-form-full .form-item-village select,
+.cdn-form-full .form-item-cabin select,
 .cdn-form-full .form-item-capacity select {
   font-size: 15px;
   letter-spacing: -0.5px;
@@ -11247,6 +11245,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-item-village select,
+  .cdn-form-full .form-item-cabin select,
   .cdn-form-full .form-item-capacity select {
     border: 1px solid #dadada;
     width: auto;
@@ -11671,7 +11670,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 .fullcalendar .fc-view-container .fc-view .fc-day-top,
 .fullcalendar .fc-view-container .fc-view .fc-day-number {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: Verdana,Arial,sans-serif;
   font-size: 22px;
   letter-spacing: -0.6px;
   text-align: left;
@@ -12461,9 +12460,6 @@ body.show-new-mobile-menu .sidebar {
   border-right: none;
   width: 100% !important;
 }
-body.show-new-mobile-menu .sidebar.collapse {
-  width: 0 !important;
-}
 body.show-new-mobile-menu .sidebar .top-bar {
   background-color: #0060af;
   min-height: 60px;
@@ -12987,7 +12983,7 @@ body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tic
   color: white;
   text-decoration: none;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   font-size: 20px;
   border-bottom: 5px solid #000;
 }
@@ -13008,7 +13004,7 @@ body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tic
   display: block;
   padding: 10px 15px;
   font-size: 18px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, sans-serif;
   text-decoration: none;
   font-weight: bold;
   color: #428bca;

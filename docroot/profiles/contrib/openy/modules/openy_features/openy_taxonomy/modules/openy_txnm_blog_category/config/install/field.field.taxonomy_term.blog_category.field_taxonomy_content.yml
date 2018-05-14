@@ -5,7 +5,6 @@ dependencies:
     - field.storage.taxonomy_term.field_taxonomy_content
     - taxonomy.vocabulary.blog_category
   module:
-    - datalayer
     - entity_reference_revisions
 third_party_settings:
   datalayer:

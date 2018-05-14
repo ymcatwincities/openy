@@ -5,7 +5,6 @@ dependencies:
     - field.storage.paragraph.field_prgf_webform
     - paragraphs.paragraphs_type.webform
   module:
-    - datalayer
     - webform
 third_party_settings:
   datalayer:

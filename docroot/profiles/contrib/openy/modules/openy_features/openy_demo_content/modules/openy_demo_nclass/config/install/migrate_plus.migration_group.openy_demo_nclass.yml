@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_nclass
+label: 'Class'
+description: 'Imports class demo content.'
+module: openy_demo_nclass

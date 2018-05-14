@@ -1,7 +1,8 @@
-name: 'OpenY session'
-description: 'OpenY session'
+name: 'OpenY Session'
+description: 'OpenY Session.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - datetime_range
   - entity_reference_revisions
@@ -18,6 +19,6 @@ dependencies:
   - paragraphs
   - path
   - rabbit_hole
+  - scheduler
   - text
   - user
-version: 8.x-1.1

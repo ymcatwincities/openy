@@ -11,7 +11,7 @@ field_name: field_mbrshp_link
 entity_type: paragraph
 bundle: membership_info
 label: Link
-description: ''
+description: 'Link field to provide the membership redirect URL.'
 required: false
 translatable: true
 default_value: {  }

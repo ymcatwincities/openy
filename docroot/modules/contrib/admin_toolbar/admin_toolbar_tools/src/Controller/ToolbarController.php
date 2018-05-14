@@ -6,6 +6,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\CronInterface;
 use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Component\Datetime\Time;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Menu\ContextualLinkManager;
@@ -31,6 +32,7 @@ class ToolbarController extends ControllerBase {
   protected $localTaskLinkManager;
   protected $localActionLinkManager;
   protected $cacheRender;
+  protected $time;
 
   /**
    * Constructs a CronController object.
@@ -43,13 +45,15 @@ class ToolbarController extends ControllerBase {
                               ContextualLinkManager $contextualLinkManager,
                               LocalTaskManager $localTaskLinkManager,
                               LocalActionManager $localActionLinkManager,
-                              CacheBackendInterface $cacheRender) {
+                              CacheBackendInterface $cacheRender,
+                              Time $time) {
     $this->cron = $cron;
     $this->menuLinkManager = $menuLinkManager;
     $this->contextualLinkManager = $contextualLinkManager;
     $this->localTaskLinkManager = $localTaskLinkManager;
     $this->localActionLinkManager = $localActionLinkManager;
     $this->cacheRender = $cacheRender;
+    $this->time = $time;
   }
 
   /**
@@ -62,7 +66,8 @@ class ToolbarController extends ControllerBase {
       $container->get('plugin.manager.menu.contextual_link'),
       $container->get('plugin.manager.menu.local_task'),
       $container->get('plugin.manager.menu.local_action'),
-      $container->get('cache.render')
+      $container->get('cache.render'),
+      $container->get('datetime.time')
     );
   }
 
@@ -93,7 +98,7 @@ class ToolbarController extends ControllerBase {
    */
   public function flush_js_css() {
     \Drupal::state()
-      ->set('system.css_js_query_string', base_convert(REQUEST_TIME, 10, 36));
+      ->set('system.css_js_query_string', base_convert($this->time->getCurrentTime(), 10, 36));
     drupal_set_message($this->t('CSS and JavaScript cache cleared.'));
     return new RedirectResponse($this->reload_page());
   }

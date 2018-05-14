@@ -20,10 +20,9 @@ function webform_ui_entity_type_alter(array &$entity_types) {
     // and move the old webform source entity webform to a new 'source'
     // webform handler.
     $handlers = $webform_entity_type->getHandlerClasses();
-    $handlers['form']['source'] = $handlers['form']['default'];
-    $handlers['form']['default'] = 'Drupal\webform_ui\WebformUiEntityForm';
-    $handlers['form']['duplicate'] = 'Drupal\webform_ui\WebformUiEntityForm';
-    $handlers['form']['quick_edit'] = 'Drupal\webform_ui\WebformUiEntityForm';
+    $handlers['form']['source'] = $handlers['form']['edit'];
+    $handlers['form']['edit'] = 'Drupal\webform_ui\WebformUiEntityElementsForm';
+    $handlers['form']['quick_edit'] = 'Drupal\webform_ui\WebformUiEntityElementsForm';
     $webform_entity_type->setHandlerClass('form', $handlers['form']);
   }
 
@@ -35,8 +34,9 @@ function webform_ui_entity_type_alter(array &$entity_types) {
     // and move the old webform option source entity webform to a new 'source'
     // webform handler.
     $handlers = $webform_options_entity_type->getHandlerClasses();
-    $handlers['form']['source'] = $handlers['form']['default'];
-    $handlers['form']['default'] = 'Drupal\webform_ui\WebformUiOptionsForm';
+    $handlers['form']['source'] = $handlers['form']['edit'];
+    $handlers['form']['add'] = 'Drupal\webform_ui\WebformUiOptionsForm';
+    $handlers['form']['edit'] = 'Drupal\webform_ui\WebformUiOptionsForm';
     $handlers['form']['duplicate'] = 'Drupal\webform_ui\WebformUiOptionsForm';
     $webform_options_entity_type->setHandlerClass('form', $handlers['form']);
   }

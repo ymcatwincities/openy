@@ -36,7 +36,7 @@ class WebformThirdPartySettingsManager implements WebformThirdPartySettingsManag
   protected $pathValidator;
 
   /**
-   * The webofmr add-ons manager.
+   * The webform add-ons manager.
    *
    * @var \Drupal\webform\WebformAddonsManagerInterface
    */

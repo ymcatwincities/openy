@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Default microdata theme implementation for a geolocation with latitude, longitude.
+ *
+ * Available variables:
+ * - lat: The latitude value.
+ * - lng: The longitude value.
+ *
+ * @see template_preprocess()
+ *
+ * @ingroup themeable
+ */
+#}
+<div id="{{ uniqueid }}" class="geolocation-formatter-map-wrapper" {% if latitude is not empty %} data-map-lat="{{ latitude }}" {% endif %} {% if longitude is not empty %} data-map-lng="{{ longitude }}" {% endif %}>
+  <div class="geolocation-google-map"></div>
+  {% if locations is not empty %}
+    <div class="geolocation-common-map-locations">
+        {%  for location in locations %}
+            {{ location }}
+        {% endfor %}
+    </div>
+  {% endif %}
+</div>

@@ -3,7 +3,7 @@
     function updateJson() {
         var $active = $(".page.active");
         var $next = $active.next();
-        if ($next.size() === 0) {
+        if ($next.length === 0) {
             $next = $(".page").first();
         }
         $active.fadeOut('slow', function() {

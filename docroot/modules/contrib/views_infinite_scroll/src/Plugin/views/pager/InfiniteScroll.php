@@ -23,10 +23,6 @@ class InfiniteScroll extends SqlBase {
    * {@inheritdoc}
    */
   public function render($input) {
-    $this->view->setAjaxEnabled(TRUE);
-    // Either call this again after setting the above flag or force people to
-    // select 'use ajax' from the UI.
-    views_views_pre_render($this->view);
     return [
       '#theme' => $this->themeFunctions(),
       '#options' => $this->options['views_infinite_scroll'],
@@ -74,6 +70,7 @@ class InfiniteScroll extends SqlBase {
 
     $form['views_infinite_scroll'] = [
       '#title' => $this->t('Infinite Scroll Options'),
+      '#description' => $this->t('Note: The infinite scroll option overrides and requires the <em>Use AJAX</em> setting for this views display.'),
       '#type' => 'details',
       '#open' => TRUE,
       '#tree' => TRUE,

@@ -105,6 +105,7 @@
     }
   }
   .form-item-village,
+  .form-item-cabin,
   .form-item-capacity {
     border: 1px solid #dadada;
     background-color: #fff;
@@ -533,7 +534,7 @@
     }
     .fc-day-top,
     .fc-day-number {
-      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-family: Verdana,Arial,sans-serif;
       font-size: 22px;
       letter-spacing: -0.6px;
       text-align: left;

@@ -1,0 +1,9 @@
+ymca_migrate_landing_page.settings_form:
+  path: '/admin/config/system/migrate-landing-pages'
+  defaults:
+    _form: '\Drupal\ymca_migrate_landing_page\Form\SettingsForm'
+    _title: 'Migration Pages to Landing Pages'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE

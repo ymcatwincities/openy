@@ -1,14 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed\EmbedButtonInterface.
- */
-
 namespace Drupal\embed;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
-use Drupal\editor\EditorInterface;
 
 /**
  * Provides an interface defining a embed button entity.

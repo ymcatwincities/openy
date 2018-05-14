@@ -44,8 +44,10 @@ class HtmlElement extends RenderElement {
     if (!empty($element['#effect']) && $element['#effect'] !== 'none') {
 
       $element['#attached']['library'][] = 'field_group/formatter.html_element';
+      $element['#attached']['library'][] = 'field_group/core';
 
       // Add the required classes for the js.
+      $element['#attributes']['class'][] = 'field-group-html-element';
       $element['#attributes']['class'][] = 'fieldgroup-collapsible';
       $element['#attributes']['class'][] = 'effect-' . $element['#effect'];
       if (!empty($element['#speed'])) {

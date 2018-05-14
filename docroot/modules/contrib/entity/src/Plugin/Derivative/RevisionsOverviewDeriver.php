@@ -3,6 +3,7 @@
 namespace Drupal\entity\Plugin\Derivative;
 
 use Drupal\Component\Plugin\Derivative\DeriverBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\Discovery\ContainerDeriverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -24,7 +25,7 @@ class RevisionsOverviewDeriver extends DeriverBase implements ContainerDeriverIn
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    */
-  public function __construct(\Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
   }
 
@@ -55,7 +56,7 @@ class RevisionsOverviewDeriver extends DeriverBase implements ContainerDeriverIn
 
       $this->derivatives[$entity_type_id] = [
         'route_name' => "entity.$entity_type_id.version_history",
-        'title' => 'Revisions',
+        'title' => t('Revisions'),
         'base_route' => "entity.$entity_type_id.canonical",
         'weight' => 20,
       ] + $base_plugin_definition;

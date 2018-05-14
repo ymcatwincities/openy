@@ -1,0 +1,11 @@
+name: Migrate Pages to OpenY Landing Pages
+type: module
+description: Migrate Pages to OpenY Landing Pages
+core: 8.x
+package: OpenY
+dependencies:
+  - openy_node_landing
+  - openy_prgf_banner
+  - openy_prgf_secondary_description_sidebar
+  - openy_prgf_small_banner
+  - openy_prgf_simple_content

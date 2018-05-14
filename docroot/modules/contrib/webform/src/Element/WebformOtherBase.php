@@ -93,12 +93,23 @@ abstract class WebformOtherBase extends FormElement {
     $element['#wrapper_attributes']['class'][] = "js-webform-$type-other";
     $element['#wrapper_attributes']['class'][] = "webform-$type-other";
 
+    if (!empty($element['#required'])) {
+      $element['#wrapper_attributes']['required'] = 'required';
+      $element['#wrapper_attributes']['aria-required'] = 'aria-required';
+    }
+
     $element[$type]['#type'] = static::$type;
     $element[$type] += array_intersect_key($element, array_combine($properties, $properties));
     if (!isset($element[$type]['#options'][static::OTHER_OPTION])) {
       $element[$type]['#options'][static::OTHER_OPTION] = (!empty($element['#other__option_label'])) ? $element['#other__option_label'] : t('Other...');
     }
     $element[$type]['#error_no_message'] = TRUE;
+
+    // Disable label[for] which does not point to any specific element.
+    // @see webform_preprocess_form_element_label()
+    if (in_array($type, ['radios', 'checkboxes', 'buttons'])) {
+      $element['#label_attributes']['for'] = FALSE;
+    }
 
     // Build other textfield.
     $element['other']['#error_no_message'] = TRUE;
@@ -169,14 +180,16 @@ abstract class WebformOtherBase extends FormElement {
     $other_value = $value['other'];
     if (static::isMultiple($element)) {
       $element_value = array_filter($element_value);
+      $element_value = array_combine($element_value, $element_value);
       $return_value += $element_value;
-      if (isset($element_value[static::OTHER_OPTION])) {
+      if (isset($return_value[static::OTHER_OPTION])) {
         unset($return_value[static::OTHER_OPTION]);
         if ($has_access && $other_value === '') {
           static::setOtherError($element, $form_state);
-          return;
         }
-        $return_value += [$other_value => $other_value];
+        else {
+          $return_value += [$other_value => $other_value];
+        }
       }
     }
     else {
@@ -184,7 +197,7 @@ abstract class WebformOtherBase extends FormElement {
       if ($element_value == static::OTHER_OPTION) {
         if ($has_access && $other_value === '') {
           static::setOtherError($element, $form_state);
-          return;
+          $return_value = '';
         }
         else {
           $return_value = $other_value;

@@ -77,7 +77,7 @@ function _webform_library_info_alter_recursive(array &$library, array $cdn) {
       continue;
     }
 
-    // Replace the CDN sources (ie /library/*) with the CDN URL destination
+    // Replace the CDN sources (i.e. /library/*) with the CDN URL destination
     // (https://cdnjs.cloudflare.com/ajax/libs/*).
     foreach ($cdn as $source => $destination) {
       if (strpos($key, $source) === 0) {

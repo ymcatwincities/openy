@@ -1,9 +1,11 @@
-name: 'OpenY paragraph membership calc'
-description: 'OpenY paragraph membership calc'
+name: 'OpenY Paragraph Membership Calculator'
+description: 'OpenY Paragraph Membership Calculator.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - address
+  - blazy
   - entity_reference_revisions
   - field
   - image
@@ -21,4 +23,3 @@ dependencies:
   - telephone
   - text
   - user
-version: 8.x-1.0

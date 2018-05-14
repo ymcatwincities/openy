@@ -24,9 +24,9 @@ class WebformAlterHooksTest extends WebformNodeTestBase {
   public function testWebformAlterHooks() {
     // Check webform alter hooks.
     $this->drupalGet('webform/contact');
-    $this->assertRaw("hook_form_alter(): 'webform_submission_contact_form' executed.");
-    $this->assertRaw("hook_form_webform_submission_form_alter(): 'webform_submission_contact_form' executed.");
-    $this->assertRaw("hook_form_webform_submission_WEBFORM_ID_form_alter(): 'webform_submission_contact_form' executed.");
+    $this->assertRaw("hook_form_alter(): 'webform_submission_contact_add_form' executed.");
+    $this->assertRaw("hook_form_webform_submission_form_alter(): 'webform_submission_contact_add_form' executed.");
+    $this->assertRaw("hook_form_webform_submission_WEBFORM_ID_form_alter(): 'webform_submission_contact_add_form' executed.");
 
     // Check webform element alter hooks.
     $this->assertRaw("hook_webform_element_alter(): 'name' executed.");
@@ -39,9 +39,9 @@ class WebformAlterHooksTest extends WebformNodeTestBase {
     $webform_node = $this->createWebformNode('contact');
     $nid = $webform_node->id();
     $this->drupalGet("node/$nid");
-    $this->assertRaw("hook_form_alter(): 'webform_submission_contact_node_{$nid}_form' executed.");
-    $this->assertRaw("hook_form_webform_submission_form_alter(): 'webform_submission_contact_node_{$nid}_form' executed.");
-    $this->assertRaw("hook_form_webform_submission_WEBFORM_ID_form_alter(): 'webform_submission_contact_form' executed.");
+    $this->assertRaw("hook_form_alter(): 'webform_submission_contact_node_{$nid}_add_form' executed.");
+    $this->assertRaw("hook_form_webform_submission_form_alter(): 'webform_submission_contact_node_{$nid}_add_form' executed.");
+    $this->assertRaw("hook_form_webform_submission_WEBFORM_ID_form_alter(): 'webform_submission_contact_node_{$nid}_add_form' executed.");
   }
 
 }

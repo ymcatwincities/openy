@@ -3,6 +3,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: basic
-label: 'Basic block'
+label: '[YGTC] Basic block (deprecated)'
 revision: 0
 description: 'A basic block contains a title and a body.'

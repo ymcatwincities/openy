@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Controller\ServerController.
- */
-
 namespace Drupal\search_api\Controller;
 
 use Drupal\Component\Render\FormattableMarkup;
@@ -27,15 +22,15 @@ class ServerController extends ControllerBase {
    */
   public function page(ServerInterface $search_api_server) {
     // Build the search server information.
-    $render = array(
-      'view' => array(
+    $render = [
+      'view' => [
         '#theme' => 'search_api_server',
         '#server' => $search_api_server,
-      ),
-      '#attached' => array(
-        'library' => array('search_api/drupal.search_api.admin_css'),
-      ),
-    );
+      ],
+      '#attached' => [
+        'library' => ['search_api/drupal.search_api.admin_css'],
+      ],
+    ];
     // Check if the server is enabled.
     if ($search_api_server->status()) {
       // Attach the server status form.
@@ -54,7 +49,7 @@ class ServerController extends ControllerBase {
    *   The page title.
    */
   public function pageTitle(ServerInterface $search_api_server) {
-    return new FormattableMarkup('@title', array('@title' => $search_api_server->label()));
+    return new FormattableMarkup('@title', ['@title' => $search_api_server->label()]);
   }
 
   /**
@@ -70,10 +65,10 @@ class ServerController extends ControllerBase {
     $search_api_server->setStatus(TRUE)->save();
 
     // Notify the user about the status change.
-    drupal_set_message($this->t('The search server %name has been enabled.', array('%name' => $search_api_server->label())));
+    drupal_set_message($this->t('The search server %name has been enabled.', ['%name' => $search_api_server->label()]));
 
     // Redirect to the server's "View" page.
-    $url = $search_api_server->urlInfo('canonical');
+    $url = $search_api_server->toUrl('canonical');
     return $this->redirect($url->getRouteName(), $url->getRouteParameters());
   }
 

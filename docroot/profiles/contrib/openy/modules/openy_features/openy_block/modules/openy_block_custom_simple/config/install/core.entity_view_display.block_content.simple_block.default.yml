@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - block_content.type.simple_block
+    - field.field.block_content.simple_block.field_icon
+    - field.field.block_content.simple_block.field_icon_class
     - field.field.block_content.simple_block.field_sb_body
     - field.field.block_content.simple_block.field_sb_link
     - field.field.block_content.simple_block.field_sb_title
@@ -14,6 +16,21 @@ targetEntityType: block_content
 bundle: simple_block
 mode: default
 content:
+  field_icon:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+  field_icon_class:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_sb_body:
     weight: 3
     label: hidden
@@ -39,4 +56,4 @@ content:
     third_party_settings: {  }
     type: string
 hidden:
-  langcode: false
+  langcode: true

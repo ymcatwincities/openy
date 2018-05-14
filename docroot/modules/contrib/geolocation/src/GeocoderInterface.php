@@ -27,7 +27,7 @@ interface GeocoderInterface extends PluginInspectionInterface {
    * @return array|null
    *   Settings to store or NULL.
    */
-  public function processOptionsForm($form_element);
+  public function processOptionsForm(array $form_element);
 
   /**
    * Attach geocoding logic to input element.
