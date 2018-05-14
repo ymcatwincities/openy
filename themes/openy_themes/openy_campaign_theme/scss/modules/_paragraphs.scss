@@ -303,3 +303,10 @@
     min-height: 75px;
   }
 }
+
+// Campaign Info Blocks paragraph type
+.paragraph--campaign-info-blocks {
+  .info-column p:first-of-type {
+    margin-top: 20px;
+  }
+}
