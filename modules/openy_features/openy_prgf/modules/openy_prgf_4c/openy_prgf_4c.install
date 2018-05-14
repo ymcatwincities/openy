@@ -6,6 +6,17 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_prgf_4c_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('paragraph', 'paragraphs_type', '4c');
+  \Drupal::configFactory()
+    ->getEditable('language.content_settings.paragraph.4c')
+    ->delete();
+}
+
+/**
  * Add field_prfg_display_line_above for openy_prgf_1c, openy_prgf_2c, openy_prgf_3c, openy_prgf_4c.
  *
  * In some reason configuration for openy_prgf_4c must be importer first we got conf dependency error.

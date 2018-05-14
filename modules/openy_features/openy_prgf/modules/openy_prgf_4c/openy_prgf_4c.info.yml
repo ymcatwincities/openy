@@ -3,6 +3,7 @@ description: 'Implements a paragraph with 4 columns.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - block_content
   - entity_browser_entity_form
@@ -11,7 +12,5 @@ dependencies:
   - language
   - link
   - openy_prgf
-  - openy_prgf_1c
-  - openy_prgf_3c
   - paragraphs
   - text
