@@ -10024,7 +10024,7 @@ a.sports-icon.floor-hockey {
   -ms-transform: skew(20deg);
   transform: skew(20deg);
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   #small-text-banner:before {
     display: none;
   }
@@ -10056,6 +10056,11 @@ a.sports-icon.floor-hockey {
   font-size: 24px;
   font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
+@media (min-width: 0) and (max-width: 47.9375em) {
+  #small-text-banner .header-copy .banner-copy p {
+    font-size: 16px;
+  }
+}
 #small-text-banner .header-image {
   z-index: 1;
   height: 100%;
@@ -10071,7 +10076,7 @@ a.sports-icon.floor-hockey {
     padding-right: 100px;
   }
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   #small-text-banner .header-image {
     background-image: none !important;
     position: static;
@@ -10082,6 +10087,18 @@ a.sports-icon.floor-hockey {
 #small-text-banner .header-image figure {
   overflow: hidden;
   margin: 0 -30px 0 -20px;
+}
+#small-text-banner .header-image figure .media--ratio {
+  height: auto;
+}
+#small-text-banner .header-image figure .media--ratio .media__element {
+  display: block;
+  height: auto;
+  left: 0;
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 0;
 }
 
 .paragraph--type--promo-text {
