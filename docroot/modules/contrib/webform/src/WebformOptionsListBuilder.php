@@ -62,7 +62,8 @@ class WebformOptionsListBuilder extends ConfigEntityListBuilder {
     $row['id'] = $entity->id();
     $row['category'] = $entity->get('category');
 
-    $options = WebformOptions::getElementOptions(['#options' => $entity->id()]);
+    $element = ['#options' => $entity->id()];
+    $options = WebformOptions::getElementOptions($element);
     $options = OptGroup::flattenOptions($options);
     foreach ($options as $key => &$value) {
       if ($key != $value) {

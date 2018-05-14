@@ -9,7 +9,7 @@ field_name: field_session_nmbr_price
 entity_type: node
 bundle: session
 label: 'Non Member Price'
-description: ''
+description: 'Input with with the price information for members.'
 required: false
 translatable: true
 default_value: {  }

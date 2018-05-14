@@ -95,6 +95,14 @@ elements: |
       '#message_type': warning
       '#message_message': 'This is a <strong>warning</strong> message.'
       '#description': '<b>Known Issues:</b><br /><a href="https://www.drupal.org/node/77245">Issue #77245: A place for JavaScript status messages</a>'
+  flexbox_webform_section:
+    '#type': webform_flexbox
+    flex_webform_section_left:
+      '#type': webform_section
+      '#title': 'Section 01'
+    flex_webform_section_right:
+      '#type': webform_section
+      '#title': 'Section 02'
   flexbox_table:
     '#type': webform_flexbox
     flex_table_left:
@@ -235,6 +243,38 @@ elements: |
     flex_color_right:
       '#type': color
       '#title': 'Color 02'
+  flexbox_webform_composite:
+    '#type': webform_flexbox
+    flex_webform_composite_left:
+      '#type': webform_composite
+      '#title': 'Composite custom 01'
+      '#element':
+        name:
+          '#type': textfield
+          '#title': Name
+          '#title_display': invisible
+        gender:
+          '#type': select
+          '#title': Gender
+          '#title_display': invisible
+          '#options':
+            Male: Male
+            Female: Female
+    flex_webform_composite_right:
+      '#type': webform_composite
+      '#title': 'Composite custom 02'
+      '#element':
+        name:
+          '#type': textfield
+          '#title': Name
+          '#title_display': invisible
+        gender:
+          '#type': select
+          '#title': Gender
+          '#title_display': invisible
+          '#options':
+            Male: Male
+            Female: Female
   flexbox_webform_computed_token:
     '#type': webform_flexbox
     flex_webform_computed_token_left:
@@ -435,6 +475,22 @@ elements: |
       '#type': managed_file
       '#title': 'File 02'
       '#description': '<b>Known Issues:</b><br /><a href="https://www.drupal.org/node/2705471">Issue #2705471: Webform states managed file fields</a><br /><a href="https://www.drupal.org/node/2113931">Issue #2113931: File Field design update</a><br /><a href="https://www.drupal.org/node/2346893">Issue #2346893: Duplicate Ajax wrapper around a file field</a><br /><a href="https://www.drupal.org/node/2482783">Issue #2482783: File upload errors not set or shown correctly</a>'
+  flexbox_webform_horizontal_rule:
+    '#type': webform_flexbox
+    flex_webform_horizontal_rule_left:
+      '#type': webform_horizontal_rule
+      '#attributes':
+        class:
+          - webform-horizontal-rule--dotted
+          - webform-horizontal-rule--thick
+      '#title': 'webform_horizontal_rule 01'
+    flex_webform_horizontal_rule_right:
+      '#type': webform_horizontal_rule
+      '#attributes':
+        class:
+          - webform-horizontal-rule--dotted
+          - webform-horizontal-rule--thick
+      '#title': 'webform_horizontal_rule 02'
   flexbox_webform_image_file:
     '#type': webform_flexbox
     flex_webform_image_file_left:
@@ -786,12 +842,10 @@ elements: |
     flex_webform_term_checkboxes_left:
       '#type': webform_term_checkboxes
       '#title': 'Term checkboxes 01'
-      '#options_display': side_by_side
       '#vocabulary': tags
     flex_webform_term_checkboxes_right:
       '#type': webform_term_checkboxes
       '#title': 'Term checkboxes 02'
-      '#options_display': side_by_side
       '#vocabulary': tags
   flexbox_webform_term_select:
     '#type': webform_flexbox
@@ -924,6 +978,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -953,8 +1008,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''

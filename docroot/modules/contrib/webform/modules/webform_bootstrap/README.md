@@ -3,11 +3,11 @@ Webform Bootstrap
 
 ### About this Module
 
-The Webform Boostrap module help integrate Webform with the Bootstrap base theme.
+The Webform Bootstrap module help integrate Webform with the Bootstrap base theme.
 
 ### Code Snippets
 
-Below are Bootstrap specific classes that can be added to Webform settings. (/admin/structure/webform/settings)
+Below are Bootstrap specific classes that can be added to Webform settings. (/admin/structure/webform/config)
 
 **Container classes**
 

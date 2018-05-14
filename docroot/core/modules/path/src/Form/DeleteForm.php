@@ -16,14 +16,14 @@ class DeleteForm extends ConfirmFormBase {
   /**
    * The alias storage service.
    *
-   * @var AliasStorageInterface $path
+   * @var \Drupal\Core\Path\AliasStorageInterface
    */
   protected $aliasStorage;
 
   /**
    * The path alias being deleted.
    *
-   * @var array $pathAlias
+   * @var array
    */
   protected $pathAlias;
 

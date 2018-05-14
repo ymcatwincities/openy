@@ -5,7 +5,8 @@ namespace Drupal\Tests\Component\Utility;
 use Drupal\Component\Render\MarkupInterface;
 use Drupal\Component\Render\MarkupTrait;
 use Drupal\Component\Utility\Html;
-use Drupal\Tests\UnitTestCase;
+use Drupal\Component\Utility\Random;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests \Drupal\Component\Utility\Html.
@@ -14,7 +15,7 @@ use Drupal\Tests\UnitTestCase;
  *
  * @coversDefaultClass \Drupal\Component\Utility\Html
  */
-class HtmlTest extends UnitTestCase {
+class HtmlTest extends TestCase {
 
   /**
    * {@inheritdoc}
@@ -66,9 +67,10 @@ class HtmlTest extends UnitTestCase {
       [$id1, $id1, []],
       // Verify that valid UTF-8 characters are not stripped from the identifier.
       [$id2, $id2, []],
-      // Verify that invalid characters (including non-breaking space) are stripped from the identifier.
-      [$id3, $id3],
       // Verify that double underscores are not stripped from the identifier.
+      [$id3, $id3],
+      // Verify that invalid characters (including non-breaking space) are
+      // stripped from the identifier.
       ['invalididentifier', 'invalid !"#$%&\'()*+,./:;<=>?@[\\]^`{|}~ identifier', []],
       // Verify that an identifier starting with a digit is replaced.
       ['_cssidentifier', '1cssidentifier', []],
@@ -354,11 +356,14 @@ class HtmlTest extends UnitTestCase {
   public function providerTestTransformRootRelativeUrlsToAbsolute() {
     $data = [];
 
+    // Random generator.
+    $random = new Random();
+
     // One random tag name.
-    $tag_name = strtolower($this->randomMachineName());
+    $tag_name = strtolower($random->name(8, TRUE));
 
     // A site installed either in the root of a domain or a subdirectory.
-    $base_paths = ['/', '/subdir/' . $this->randomMachineName() . '/'];
+    $base_paths = ['/', '/subdir/' . $random->name(8, TRUE) . '/'];
 
     foreach ($base_paths as $base_path) {
       // The only attribute that has more than just a URL as its value, is

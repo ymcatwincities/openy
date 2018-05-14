@@ -528,3 +528,37 @@ function ymca_alters_views_pre_view(ViewExecutable $view, $display_id, array &$a
     $view->setHandler('page_1', 'header', 'area_text_custom', $options);
   }
 }
+
+/**
+ * Implements hook_field_group_build_pre_render_alter().
+ */
+function ymca_alters_field_group_build_pre_render_alter(&$element) {
+  if (!isset($element['group_sidebar_area']) || !isset($element['group_sidebar_area']['#bundle']) || $element['group_sidebar_area']['#bundle'] != 'landing_page') {
+    return;
+  }
+  // Set visible states for Landing page form Group Sidebar Area when Layout has
+  // a two columns option selected.
+  $element['group_sidebar_area']['#states'] = [
+    'visible' => [
+      [
+        'select[name="field_lp_layout"]' => ['value' => 'two_column'],
+      ],
+      [
+        'select[name="field_lp_layout"]' => ['value' => 'two_column_left'],
+      ],
+      [
+        'select[name="field_lp_layout"]' => ['value' => 'two_column_fixed'],
+      ],
+      [
+        'select[name="field_lp_layout"]' => ['value' => 'three_columns'],
+      ],
+    ],
+  ];
+  $element['group_sidebar_extra_area']['#states'] = [
+    'visible' => [
+      [
+        'select[name="field_lp_layout"]' => ['value' => 'three_columns'],
+      ],
+    ],
+  ];
+}

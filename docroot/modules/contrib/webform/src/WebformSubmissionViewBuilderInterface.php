@@ -40,8 +40,9 @@ interface WebformSubmissionViewBuilderInterface extends EntityHandlerInterface, 
    * @param array $options
    *   - excluded_elements: An array of elements to be excluded.
    *   - email: Format element to be send via email.
-   * @return array A render array displaying the submitted values in a table.
-   * A render array displaying the submitted values in a table.
+   *
+   * @return array
+   *   A render array displaying the submitted values in a table.
    */
   public function buildTable(array $elements, WebformSubmissionInterface $webform_submission, array $options = []);
 

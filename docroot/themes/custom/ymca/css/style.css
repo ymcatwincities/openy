@@ -1687,7 +1687,7 @@ li.current.home > a:focus, li.current.home > a:hover {
   border: 0;
   border-left: 0;
   border-radius: 0;
-  background: #383838;
+  background: #383838 !important;
   font-size: 16px;
   font-family: 'Cachet', Verdana, Arial, sans-serif;
   -webkit-transition: font-size .2s ease-out,height .2s ease-out;
@@ -1931,13 +1931,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .ancestor-camps .navbar-brand {
   background-image: url(../img/ymca-logo-full-alt.svg);
-}
-
-.no-smil .ancestor-camps .navbar-brand {
-  background: url(../img/ymca-logo-alt.png) no-repeat;
-}
-.no-smil .ancestor-camps .affix .navbar-brand {
-  background: url(../img/ymca-logo-alt-small.png) no-repeat;
 }
 
 .ancestor-camps .all-hours {
@@ -2739,6 +2732,7 @@ img.alignRight {
   text-transform: uppercase;
   font-weight: bold;
   font-family: 'Cachet', Verdana, Arial, sans-serif;
+  padding-top: 40px;
 }
 .back-link a {
   color: #fff;
@@ -5402,14 +5396,6 @@ a.wrapper:hover {
 
   h2 {
     font-size: 22px;
-  }
-
-  .no-smil .navbar-brand {
-    padding-top: 40px !important;
-    background-image: url(../img/ymca-logo-small.png) !important;
-  }
-  .no-smil .ancestor-camps .navbar-brand {
-    background: url(../img/ymca-logo-alt-small.png) no-repeat !important;
   }
 
   .lead-copy h1 {
@@ -10256,8 +10242,12 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   font-size: 15px;
   margin-bottom: 15px;
 }
-.location-schedules-content article ul li:before,
-#block-schedulesrightblocks article ul li:before {
+.location-schedules-content article ul:not(.schedule) li:before,
+.location-schedules-content article .schedule li article div:before,
+.location-schedules-content article .schedule li span:before,
+#block-schedulesrightblocks article ul:not(.schedule) li:before,
+#block-schedulesrightblocks article .schedule li article div:before,
+#block-schedulesrightblocks article .schedule li span:before {
   content: "\f105";
   color: #777;
   font-family: icomoon;
@@ -12479,9 +12469,6 @@ body.show-new-mobile-menu .sidebar {
   padding-top: 0;
   border-right: none;
   width: 100% !important;
-}
-body.show-new-mobile-menu .sidebar.collapse {
-  width: 0 !important;
 }
 body.show-new-mobile-menu .sidebar .top-bar {
   background-color: #0060af;

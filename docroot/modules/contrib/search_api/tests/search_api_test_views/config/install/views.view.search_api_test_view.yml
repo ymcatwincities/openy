@@ -19,9 +19,7 @@ display:
       query:
         type: search_api_query
         options:
-          search_api_bypass_access: false
-          entity_access: false
-          parse_mode: terms
+          skip_access: true
       exposed_form:
         type: basic
         options:
@@ -59,11 +57,9 @@ display:
         type: search_api
         options:
           view_modes:
-            bundle:
-              'article': default
-              'page': default
-            datasource:
-              'entity:entity_test': default
+            'entity:entity_test_mulrev_changed':
+              article: default
+              page: default
       filters:
         search_api_fulltext:
           id: search_api_fulltext
@@ -78,7 +74,7 @@ display:
           exposed: true
           expose:
             operator_id: search_api_fulltext_op
-            label: ''
+            label: 'Fulltext search'
             description: ''
             use_operator: true
             operator: search_api_fulltext_op
@@ -130,6 +126,31 @@ display:
               anonymous: '0'
               administrator: '0'
           is_grouped: false
+        created:
+          plugin_id: search_api_date
+          id: created
+          table: search_api_index_database_search_index
+          field: created
+          relationship: none
+          admin_label: ''
+          operator: '='
+          group: 1
+          exposed: true
+          expose:
+            operator_id: created_op
+            label: ''
+            description: ''
+            use_operator: true
+            operator: created_op
+            identifier: created
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+          is_grouped: false
         keywords:
           plugin_id: search_api_string
           id: keywords
@@ -155,7 +176,96 @@ display:
               anonymous: '0'
               administrator: '0'
           is_grouped: false
-      sorts: {  }
+        name:
+          plugin_id: search_api_text
+          id: name
+          table: search_api_index_database_search_index
+          field: name
+          relationship: none
+          admin_label: ''
+          operator: '='
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: ''
+            description: ''
+            use_operator: true
+            operator: name_op
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+          is_grouped: false
+        search_api_language:
+          plugin_id: search_api_language
+          id: search_api_language
+          table: search_api_index_database_search_index
+          field: search_api_language
+          relationship: none
+          admin_label: ''
+          operator: 'in'
+          group: 1
+          exposed: true
+          expose:
+            operator_id: language_op
+            label: ''
+            description: ''
+            use_operator: true
+            operator: language_op
+            identifier: language
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+          is_grouped: false
+        search_api_datasource:
+          plugin_id: search_api_datasource
+          id: search_api_datasource
+          table: search_api_index_database_search_index
+          field: search_api_datasource
+          relationship: none
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: datasource_op
+            label: ''
+            description: ''
+            use_operator: true
+            operator: datasource_op
+            identifier: datasource
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+      sorts:
+        search_api_id:
+          id: search_api_id
+          table: search_api_index_database_search_index
+          field: search_api_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: search_api
       title: 'Fulltext test index'
       header:
         result:
@@ -170,15 +280,66 @@ display:
       footer: {  }
       empty: {  }
       relationships: {  }
-      arguments: {  }
+      arguments:
+        search_api_datasource:
+          plugin_id: search_api
+          id: search_api_datasource
+          table: search_api_index_database_search_index
+          field: search_api_datasource
+          break_phrase: true
+        type:
+          plugin_id: search_api
+          id: type
+          table: search_api_index_database_search_index
+          field: type
+          break_phrase: false
+          not: true
+        keywords:
+          plugin_id: search_api
+          id: keywords
+          table: search_api_index_database_search_index
+          field: keywords
+          break_phrase: true
   page_1:
     display_plugin: page
     id: page_1
     display_title: Page
     position: 1
     display_options:
-      path: search-api-test-fulltext
-label: 'Search API Test Fulltext search view'
+      path: search-api-test
+  block_1:
+    display_plugin: block
+    id: block_1
+    display_title: Block
+    position: 2
+    display_options:
+      display_extenders: {  }
+      defaults:
+        use_ajax: false
+      use_ajax: true
+  rest_export_1:
+    display_plugin: rest_export
+    id: rest_export_1
+    display_title: 'REST export'
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: search-api-rest-test
+      pager:
+        type: some
+        options:
+          items_per_page: 10
+          offset: 0
+      style:
+        type: serializer
+        options:
+          grouping: {  }
+          uses_fields: false
+          formats: {  }
+      row:
+        type: data_entity
+        options: {  }
+label: 'Search API Test search view'
 module: views
 id: search_api_test_view
 tag: ''

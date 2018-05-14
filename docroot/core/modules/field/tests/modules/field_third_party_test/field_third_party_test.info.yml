@@ -1,15 +1,9 @@
 name: 'Field Third Party Settings Test'
 type: module
 description: 'Support module for the Field API tests.'
-# core: 8.x
+core: 8.x
 package: Testing
-# version: VERSION
+version: VERSION
 dependencies:
   - entity_test
   - field_test
-
-# Information added by Drupal.org packaging script on 2017-08-16
-version: '8.3.7'
-core: '8.x'
-project: 'drupal'
-datestamp: 1502903957

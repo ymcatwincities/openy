@@ -17,15 +17,17 @@ elements: |
     novalidate: novalidate
   text_basic:
     '#type': webform_codemirror
-    '#title': 'Text basic'
+    '#title': text_basic
+    '#default_value': 'Hello'
   yaml_basic:
     '#type': webform_codemirror
     '#mode': yaml
-    '#title': 'YAML basic'
+    '#title': yaml_basic
+    '#default_value': 'test: hello'
   yaml_array:
     '#type': webform_codemirror
     '#mode': yaml
-    '#title': 'YAML array'
+    '#title': yaml_array
     '#description': 'Pass an associative array as the default value'
     '#default_value':
       one: One
@@ -34,11 +36,48 @@ elements: |
   html_basic:
     '#type': webform_codemirror
     '#mode': html
-    '#title': 'HTML basic'
+    '#title': html_basic
+    '#default_value': '<b>Hello</b>'
+  htmlmixed_basic:
+    '#type': webform_codemirror
+    '#title': htmlmixed_basic
+    '#mode': htmlmixed
+    '#default_value': |
+      <html style="color: green">
+        <!-- this is a comment -->
+        <head>
+          <title>Mixed HTML Example</title>
+          <style type="text/css">
+            h1 {font-family: comic sans; color: #f0f;}
+            div {background: yellow !important;}
+            body {
+              max-width: 50em;
+              margin: 1em 2em 1em 5em;
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Mixed HTML Example</h1>
+          <script>
+            function jsFunc(arg1, arg2) {
+              if (arg1 && arg2) document.body.innerHTML = "achoo";
+            }
+          </script>
+        </body>
+      </html>
+  twig_basic:
+    '#type': webform_codemirror
+    '#mode': twig
+    '#title': twig_basic
+    '#default_value': |
+  
+      {% set value = "Hello" %}
+      {{ value }}
 css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -68,8 +107,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -142,5 +181,6 @@ handlers:
     label: Debug
     handler_id: debug
     status: true
+    conditions: {  }
     weight: 1
     settings: {  }

@@ -34,6 +34,7 @@ class AdminToolbarToolsAlterTest extends WebTestBase {
     $this->adminUser = $this->drupalCreateUser([
       'access toolbar',
       'access administration pages',
+      'administer site configuration',
     ]);
     $this->drupalLogin($this->adminUser);
   }

@@ -19,7 +19,7 @@ trait WebformEntityOptionsTrait {
       'selection_handler' => '',
       'selection_settings' => [],
     ];
-    unset($properties['options']);
+    unset($properties['options'], $properties['options_description_display']);
     return $properties;
   }
 

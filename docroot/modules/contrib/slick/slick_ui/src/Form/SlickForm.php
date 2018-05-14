@@ -11,6 +11,13 @@ use Drupal\slick\Entity\Slick;
 class SlickForm extends SlickFormBase {
 
   /**
+   * The form elements.
+   *
+   * @var array
+   */
+  protected $formElements;
+
+  /**
    * {@inheritdoc}
    */
   public function form(array $form, FormStateInterface $form_state) {
@@ -48,6 +55,10 @@ class SlickForm extends SlickFormBase {
         $form['settings'][$name]['#type'] = $element['type'];
         if ($element['type'] != 'hidden') {
           $form['settings'][$name]['#attributes'] = $tooltip;
+        }
+        else {
+          // Ensures hidden element doesn't screw up the states.
+          unset($element['states']);
         }
 
         if ($element['type'] == 'textfield') {
@@ -287,9 +298,7 @@ class SlickForm extends SlickFormBase {
    * @see http://kenwheeler.github.io/slick
    */
   public function getFormElements() {
-    $elements = &drupal_static(__METHOD__, NULL);
-
-    if (!isset($elements)) {
+    if (!isset($this->formElements)) {
       $elements = [];
 
       $elements['mobileFirst'] = [
@@ -620,8 +629,11 @@ class SlickForm extends SlickFormBase {
           }
         }
       }
+
+      $this->formElements = $elements;
     }
-    return $elements;
+
+    return $this->formElements;
   }
 
   /**

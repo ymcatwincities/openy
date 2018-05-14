@@ -16,6 +16,16 @@ elements: |
     '#title': Detalles
   markup:
     '#markup': 'Esto es un poco de marcado HTML.'
+  composite:
+    '#title': Compuesto
+    '#element':
+      first_name:
+        '#title': Nombre
+      last_name:
+        '#title': Apellido
+      age:
+        '#title': Edad
+        '#field_suffix': 'años. antiguo'
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'

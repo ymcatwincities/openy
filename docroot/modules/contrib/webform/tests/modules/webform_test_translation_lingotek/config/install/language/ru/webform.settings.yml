@@ -8,7 +8,7 @@ settings:
   default_wizard_prev_button_label: '&lt; Предыдущая страница'
   default_wizard_next_button_label: 'Следующая страница настроек'
   default_wizard_start_label: Начало
-  default_wizard_complete_label: Полный
+  default_wizard_confirmation_label: Полный
   default_preview_prev_button_label: '&lt; Предыдущих'
   default_preview_message: 'Пожалуйста, просмотрите ваши представления. Ваше представление не является полным, пока вы не нажмете на кнопку «Отправить»!'
   default_draft_button_label: 'Сохранить черновик'

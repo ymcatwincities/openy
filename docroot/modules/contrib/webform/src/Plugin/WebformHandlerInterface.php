@@ -32,7 +32,7 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
   const CARDINALITY_SINGLE = 1;
 
   /**
-   * Value indicating webform submissions are not processed (ie email or saved) by the handler.
+   * Value indicating webform submissions are not processed (i.e. email or saved) by the handler.
    */
   const RESULTS_IGNORED = 0;
 
@@ -47,7 +47,7 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
   const SUBMISSION_OPTIONAL = 0;
 
   /**
-   * Value indicating webform submissions are processed (ie email or saved) by the handler.
+   * Value indicating webform submissions are processed (i.e. email or saved) by the handler.
    */
   const RESULTS_PROCESSED = 1;
 
@@ -82,6 +82,14 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
    *   The webform handler cardinality settings.
    */
   public function cardinality();
+
+  /**
+   * Determine if webform handler supports conditions.
+   *
+   * @return bool
+   *   TRUE if the webform handler supports conditions.
+   */
+  public function supportsConditions();
 
   /**
    * Returns the unique ID representing the webform handler.
@@ -156,6 +164,24 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
   public function setStatus($status);
 
   /**
+   * Returns the conditions the webform handler.
+   *
+   * @return array
+   *   The conditions of the webform handler.
+   */
+  public function getConditions();
+
+  /**
+   * Sets the conditions for this webform handler.
+   *
+   * @param array $conditions
+   *   The conditional logic for this webform handler.
+   *
+   * @return $this
+   */
+  public function setConditions(array $conditions);
+
+  /**
    * Checks if the handler is excluded via webform.settings.
    *
    * @return bool
@@ -216,12 +242,33 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
    */
   public function getWebform();
 
+  /**
+   * Check handler conditions against a webform submission.
+   *
+   * Note: Conditions are only applied to callbacks that require a
+   * webform submissions.
+   *
+   * Conditions are ignored by...
+   * - \Drupal\webform\Plugin\WebformHandlerInterface::alterElements
+   * - \Drupal\webform\Plugin\WebformHandlerInterface::preCreate
+   *
+   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
+   *   A webform submission.
+   *
+   * @return bool
+   *   TRUE if handler is disable or webform submission passes conditions.
+   *   FALSE if webform submission fails conditions.
+   */
+  public function checkConditions(WebformSubmissionInterface $webform_submission);
+
   /****************************************************************************/
   // Webform methods.
   /****************************************************************************/
 
   /**
    * Alter webform submission webform elements.
+   *
+   * Note: This hook is ignored by conditional logic.
    *
    * @param array $elements
    *   An associative array containing the webform elements.
@@ -289,6 +336,8 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
   /**
    * Changes the values of an entity before it is created.
    *
+   * Note: This hook is ignored by conditional logic.
+   *
    * @param mixed[] $values
    *   An array of values to set, keyed by property name.
    */
@@ -347,6 +396,23 @@ interface WebformHandlerInterface extends PluginInspectionInterface, Configurabl
    *   A webform submission.
    */
   public function postDelete(WebformSubmissionInterface $webform_submission);
+
+  /****************************************************************************/
+  // Preprocessing methods.
+  /****************************************************************************/
+
+  /**
+   * Prepares variables for webform confirmation templates.
+   *
+   * Default template: webform-confirmation.html.twig.
+   *
+   * @param array $variables
+   *   An associative array containing the following key:
+   *   - webform: A webform.
+   *   - webform_submission: A webform submission.
+   *   - source_entity: A webform submission source entity.
+   */
+  public function preprocessConfirmation(array &$variables);
 
   /****************************************************************************/
   // Handler methods.

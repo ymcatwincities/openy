@@ -11,6 +11,8 @@ use Drupal\Tests\BrowserTestBase;
  */
 class EnsureDevelWorks extends BrowserTestBase {
 
+  use MetatagHelperTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -41,6 +43,15 @@ class EnsureDevelWorks extends BrowserTestBase {
     $this->drupalGet('metatag_test_custom_route');
     $this->assertResponse(200);
     $this->assertText('Hello world!');
+  }
+
+  /**
+   * Make sure that the system still works when some example content exists.
+   */
+  public function testNode() {
+    $node = $this->createContentTypeNode();
+    $this->drupalGet($node->toUrl());
+    $this->assertResponse(200);
   }
 
 }

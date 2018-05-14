@@ -32,9 +32,11 @@ class WebformElementDateTest extends WebformTestBase {
 
     // Check dynamic date picker.
     $min = date('D, m/d/Y', strtotime('-1 year'));
+    $min_year = date('Y', strtotime('-1 year'));
     $max = date('D, m/d/Y', strtotime('+1 year'));
+    $max_year = date('Y', strtotime('+1 year'));
     $default_value = date('D, m/d/Y', strtotime('now'));
-    $this->assertRaw('<input min="' . $min . '" max="' . $max . '" type="text" data-drupal-date-format="D, m/d/Y" data-drupal-selector="edit-date-datepicker-min-max-dynamic" aria-describedby="edit-date-datepicker-min-max-dynamic--description" id="edit-date-datepicker-min-max-dynamic" name="date_datepicker_min_max_dynamic" value="' . $default_value . '" class="form-text" />');
+    $this->assertRaw('<input min="' . $min . '" data-min-year="' . $min_year . '" max="' . $max . '" data-max-year="' . $max_year . '" type="text" data-drupal-date-format="D, m/d/Y" data-drupal-selector="edit-date-datepicker-min-max-dynamic" aria-describedby="edit-date-datepicker-min-max-dynamic--description" id="edit-date-datepicker-min-max-dynamic" name="date_datepicker_min_max_dynamic" value="' . $default_value . '" class="form-text" />');
 
     // Check 'datelist' and 'datetime' #default_value.
     $form = $webform->getSubmissionForm();
@@ -53,9 +55,11 @@ class WebformElementDateTest extends WebformTestBase {
     // Check dynamic date.
     $this->drupalGet('webform/test_element_date');
     $min = \Drupal::service('date.formatter')->format(strtotime('-1 year'), 'html_date');
+    $min_year = date('Y', strtotime('-1 year'));
     $max = \Drupal::service('date.formatter')->format(strtotime('+1 year'), 'html_date');
+    $max_year = date('Y', strtotime('+1 year'));
     $default_value = \Drupal::service('date.formatter')->format(strtotime('now'), 'html_date');
-    $this->assertRaw('<input min="' . $min . '" max="' . $max . '" type="date" data-drupal-selector="edit-date-min-max-dynamic" aria-describedby="edit-date-min-max-dynamic--description" data-drupal-date-format="Y-m-d" id="edit-date-min-max-dynamic" name="date_min_max_dynamic" value="' . $default_value . '" class="form-date" />');
+    $this->assertRaw('<input min="' . $min . '" data-min-year="' . $min_year . '" max="' . $max . '" data-max-year="' . $max_year . '" type="date" data-drupal-selector="edit-date-min-max-dynamic" aria-describedby="edit-date-min-max-dynamic--description" data-drupal-date-format="Y-m-d" id="edit-date-min-max-dynamic" name="date_min_max_dynamic" value="' . $default_value . '" class="form-date" />');
   }
 
 }

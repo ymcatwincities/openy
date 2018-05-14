@@ -1,8 +1,10 @@
-name: 'OpenY paragraph teaser'
-description: 'OpenY paragraph teaser'
+name: 'OpenY Paragraph Teaser'
+description: 'OpenY Paragraph Teaser.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
+  - blazy
   - entity_browser
   - field
   - image
@@ -12,4 +14,3 @@ dependencies:
   - openy_prgf
   - paragraphs
   - text
-version: 8.x-1.0

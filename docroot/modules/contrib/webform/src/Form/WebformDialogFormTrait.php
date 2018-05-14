@@ -4,15 +4,10 @@ namespace Drupal\webform\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseDialogCommand;
-use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\webform\Utility\WebformDialogHelper;
 
 /**
  * Trait class for Webform Ajax dialog support.
- *
- * @todo Issue #2785047: In Outside In mode, messages should appear in the off-canvas tray, not the main page.
- * @see https://www.drupal.org/node/2785047
  */
 trait WebformDialogFormTrait {
 
@@ -23,47 +18,6 @@ trait WebformDialogFormTrait {
    */
   protected function isAjax() {
     return $this->isDialog();
-  }
-
-  /**
-   * Is the current request for an Ajax modal/dialog.
-   *
-   * @return bool
-   *   TRUE if the current request is for an Ajax modal/dialog.
-   */
-  protected function isDialog() {
-    $wrapper_format = $this->getRequest()
-      ->get(MainContentViewSubscriber::WRAPPER_FORMAT);
-    return (in_array($wrapper_format, [
-      'drupal_ajax',
-      'drupal_modal',
-      'drupal_dialog',
-      'drupal_dialog_' . WebformDialogHelper::getOffCanvasTriggerName(),
-    ])) ? TRUE : FALSE;
-  }
-
-  /**
-   * Is the current request for an off canvas dialog.
-   *
-   * @return bool
-   *   TRUE if the current request is for an off canvas dialog.
-   */
-  protected function isOffCanvasDialog() {
-    $wrapper_format = $this->getRequest()
-      ->get(MainContentViewSubscriber::WRAPPER_FORMAT);
-    return (in_array($wrapper_format, [
-      'drupal_dialog_' . WebformDialogHelper::getOffCanvasTriggerName(),
-    ])) ? TRUE : FALSE;
-  }
-
-  /**
-   * Is the current request a quick edit page.
-   *
-   * @return bool
-   *   TRUE if the current request a quick edit page.
-   */
-  protected function isQuickEdit() {
-    return (\Drupal::request()->query->get('destination')) ? TRUE : FALSE;
   }
 
   /**
@@ -124,7 +78,7 @@ trait WebformDialogFormTrait {
    * {@inheritdoc}
    */
   public function cancelAjaxForm(array &$form, FormStateInterface $form_state) {
-    $response = new AjaxResponse();
+    $response = $this->createAjaxResponse($form, $form_state);
     $response->addCommand(new CloseDialogCommand());
     return $response;
   }

@@ -74,6 +74,7 @@ class WebformPluginHandlerController extends ControllerBase implements Container
           $definition['category'],
           (isset($excluded_handlers[$plugin_id])) ? $this->t('Yes') : $this->t('No'),
           ($definition['cardinality'] == -1) ? $this->t('Unlimited') : $definition['cardinality'],
+          $definition['conditions'] ? $this->t('Yes') : $this->t('No'),
           $definition['submission'] ? $this->t('Required') : $this->t('Optional'),
           $definition['results'] ? $this->t('Processed') : $this->t('Ignored'),
           $definition['provider'],
@@ -90,8 +91,8 @@ class WebformPluginHandlerController extends ControllerBase implements Container
     // Settings
     $build['settings'] = [
       '#type' => 'link',
-      '#title' => $this->t('Edit settings'),
-      '#url' => Url::fromRoute('webform.settings.handlers'),
+      '#title' => $this->t('Edit configuration'),
+      '#url' => Url::fromRoute('webform.config.handlers'),
       '#attributes' => ['class' => ['button', 'button--small'], 'style' => 'float: right'],
     ];
 
@@ -112,6 +113,7 @@ class WebformPluginHandlerController extends ControllerBase implements Container
         $this->t('Category'),
         $this->t('Excluded'),
         $this->t('Cardinality'),
+        $this->t('Conditional'),
         $this->t('Database'),
         $this->t('Results'),
         $this->t('Provided by'),
@@ -199,6 +201,8 @@ class WebformPluginHandlerController extends ControllerBase implements Container
         $row['operations']['data'] = [
           '#type' => 'operations',
           '#links' => $links,
+          '#prefix' => '<div class="webform-dropbutton">',
+          '#suffix' => '</div>',
         ];
       }
 

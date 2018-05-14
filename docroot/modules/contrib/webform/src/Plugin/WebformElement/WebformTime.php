@@ -23,16 +23,14 @@ class WebformTime extends WebformElementBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    return parent::getDefaultProperties() + [
-      'multiple' => FALSE,
-      'multiple__header_label' => '',
+    return [
       // Time settings.
       'timepicker' => FALSE,
       'time_format' => 'H:i',
       'min' => '',
       'max' => '',
       'step' => '',
-    ];
+    ] + parent::getDefaultProperties() + $this->getDefaultMultipleProperties();
   }
 
   /**
@@ -74,7 +72,7 @@ class WebformTime extends WebformElementBase {
     $form = parent::form($form, $form_state);
 
     // Append supported time input format to #default_value description.
-    $form['element']['default_value']['#description'] .= '<br />' . $this->t('Accepts any time in any <a href="https://www.gnu.org/software/tar/manual/html_chapter/tar_7.html#Date-input-formats">GNU Date Input Format</a>. Strings such as now, +2 hours, and 4:30 PM are all valid.');
+    $form['default']['default_value']['#description'] .= '<br />' . $this->t('Accepts any time in any <a href="https://www.gnu.org/software/tar/manual/html_chapter/tar_7.html#Date-input-formats">GNU Date Input Format</a>. Strings such as now, +2 hours, and 4:30 PM are all valid.');
 
     // Time.
     $form['time'] = [
@@ -101,12 +99,13 @@ class WebformTime extends WebformElementBase {
       '#other__placeholder' => $this->t('Custom time format...'),
       '#other__description' => $this->t('Enter time format using <a href="http://php.net/manual/en/function.date.php">Time Input Format</a>.'),
     ];
-    $form['time']['min'] = [
+    $form['time']['time_container'] = $this->getFormInlineContainer();
+    $form['time']['time_container']['min'] = [
       '#type' => 'webform_time',
       '#title' => $this->t('Min'),
       '#description' => $this->t('Specifies the minimum time.'),
     ];
-    $form['time']['max'] = [
+    $form['time']['time_container']['max'] = [
       '#type' => 'webform_time',
       '#title' => $this->t('Max'),
       '#description' => $this->t('Specifies the maximum time.'),

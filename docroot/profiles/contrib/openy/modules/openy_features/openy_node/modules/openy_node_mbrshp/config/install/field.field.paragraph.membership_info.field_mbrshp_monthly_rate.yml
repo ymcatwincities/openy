@@ -9,7 +9,7 @@ field_name: field_mbrshp_monthly_rate
 entity_type: paragraph
 bundle: membership_info
 label: 'Monthly Rate'
-description: ''
+description: 'Dollar value for the monthly fee of the membership.'
 required: false
 translatable: true
 default_value: {  }

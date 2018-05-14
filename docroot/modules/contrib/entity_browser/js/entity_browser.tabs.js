@@ -1,8 +1,9 @@
 /**
- * @file entity_browser.admin.js
+ * @file Entity_browser.admin.js.
  *
  * Defines the behavior of the entity browser's tab display.
  */
+
 (function ($, Drupal, drupalSettings) {
 
   'use strict';
@@ -13,17 +14,21 @@
   Drupal.behaviors.entityBrowserTabs = {
     attach: function (context) {
       var $form = $(context).find('.entity-browser-form').once('entity-browser-admin');
-      var tabsClass = drupalSettings.entityBrowserTabs.tabsClass.join(' ');
       if (!$form.length) {
         return;
       }
 
-      var $nav = $('<nav class="tabs entity-tabs is-horizontal clearfix"></nav>');
-      var $tabs = $(Drupal.theme('entityTabs', tabsClass));
+      var $nav = $('<nav class="eb-tabs"></nav>');
+      var $tabs = $(Drupal.theme('entityTabs'));
 
       $form.find('.tab').each(function (index, element) {
         var $element = $(element);
-        var classes = $element.attr('disabled') ? 'is-active active' : '';
+        var classesArray = [];
+        classesArray.push($element.attr('disabled') ? 'is-active active' : '');
+        var text = $element.text();
+        var textClass = text.toLowerCase().replace(/ /g, '-');
+        classesArray.push(textClass);
+        var classes = classesArray.join(' ');
         var tabSettings = {
           class: classes,
           id: $element.attr('id'),
@@ -33,7 +38,7 @@
 
         // Add a click event handler that submits the hidden input buttons.
         $tab.find('a').on('click', function (event) {
-          var buttonID = event.currentTarget.dataset.buttonId;
+          var buttonID = $(event.currentTarget).data().buttonId;
           $form.find('#' + buttonID).trigger('click');
           event.preventDefault();
         });
@@ -48,15 +53,11 @@
   /**
    * Theme function for entity browser tabs.
    *
-   * @param {string} tabsClass
-   *   Classes for the tabs.
-   *
    * @return {object}
    *   This function returns a jQuery object.
    */
-  Drupal.theme.entityTabs = function (tabsClass) {
-    return $('<ul role="navigation" aria-label="Tabs"></ul>')
-        .addClass(tabsClass);
+  Drupal.theme.entityTabs = function () {
+    return $('<ul role="navigation" aria-label="Tabs"></ul>');
   };
 
   /**
@@ -75,7 +76,7 @@
    *   This function returns a jQuery object.
    */
   Drupal.theme.entityTab = function (settings) {
-    return $('<li class="tabs__tab" tabindex="-1"></li>')
+    return $('<li tabindex="-1"></li>')
       .addClass(settings.class)
       .append($('<a href="#"></a>').addClass(settings.class).attr('data-button-id', settings.id)
       .append(settings.title)

@@ -44,9 +44,16 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
       '#maxlength' => 20,
       '#placeholder' => 'UA-',
       '#required' => TRUE,
-      '#size' => 15,
+      '#size' => 20,
       '#title' => $this->t('Web Property ID'),
       '#type' => 'textfield',
+    ];
+
+    $form['general']['google_analytics_premium'] = [
+      '#default_value' => $config->get('premium'),
+      '#description' => $this->t('If you are a Google Analytics Premium customer, you can use up to 200 instead of 20 custom dimensions and metrics.'),
+      '#title' => $this->t('Premium account'),
+      '#type' => 'checkbox',
     ];
 
     // Visibility settings.
@@ -267,13 +274,13 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
     $colorbox_dependencies .= t('Requires: @module-list', ['@module-list' => (\Drupal::moduleHandler()->moduleExists('colorbox') ? t('@module (<span class="admin-enabled">enabled</span>)', ['@module' => 'Colorbox']) : t('@module (<span class="admin-missing">disabled</span>)', ['@module' => 'Colorbox']))]);
     $colorbox_dependencies .= '</div>';
 
-    $form['tracking']['linktracking']['google_analytics_trackcolorbox'] = array(
+    $form['tracking']['linktracking']['google_analytics_trackcolorbox'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Track content in colorbox modal dialogs'),
       '#description' => $this->t('Enable to track the content shown in colorbox modal windows.') . $colorbox_dependencies,
       '#default_value' => $config->get('track.colorbox'),
       '#disabled' => (\Drupal::moduleHandler()->moduleExists('colorbox') ? FALSE : TRUE),
-    );
+    ];
 
     $form['tracking']['linktracking']['google_analytics_tracklinkid'] = [
       '#type' => 'checkbox',
@@ -368,13 +375,15 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
 
     $google_analytics_custom_dimension = $config->get('custom.dimension');
 
-    // Google Analytics supports up to 20 custom dimensions.
-    for ($i = 1; $i <= 20; $i++) {
+    // Standard Google Analytics accounts support up to 20 custom dimensions,
+    // premium accounts support up to 200 custom dimensions.
+    $limit = ($config->get('premium')) ? 200 : 20;
+    for ($i = 1; $i <= $limit; $i++) {
       $form['google_analytics_custom_dimension']['indexes'][$i]['index'] = [
         '#default_value' => $i,
         '#description' => $this->t('Index number'),
         '#disabled' => TRUE,
-        '#size' => 2,
+        '#size' => ($limit == 200) ? 3 : 2,
         '#title' => $this->t('Custom dimension index #@index', ['@index' => $i]),
         '#title_display' => 'invisible',
         '#type' => 'textfield',
@@ -423,13 +432,14 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
 
     $google_analytics_custom_metric = $config->get('custom.metric');
 
-    // Google Analytics supports up to 20 custom metrics.
-    for ($i = 1; $i <= 20; $i++) {
+    // Standard Google Analytics accounts support up to 20 custom metrics,
+    // premium accounts support up to 200 custom metrics.
+    for ($i = 1; $i <= $limit; $i++) {
       $form['google_analytics_custom_metric']['indexes'][$i]['index'] = [
         '#default_value' => $i,
         '#description' => $this->t('Index number'),
         '#disabled' => TRUE,
-        '#size' => 2,
+        '#size' => ($limit == 200) ? 3 : 2,
         '#title' => $this->t('Custom metric index #@index', ['@index' => $i]),
         '#title_display' => 'invisible',
         '#type' => 'textfield',
@@ -622,6 +632,7 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
     $config = $this->config('google_analytics.settings');
     $config
       ->set('account', $form_state->getValue('google_analytics_account'))
+      ->set('premium', $form_state->getValue('google_analytics_premium'))
       ->set('cross_domains', $form_state->getValue('google_analytics_cross_domains'))
       ->set('codesnippet.create', $form_state->getValue('google_analytics_codesnippet_create'))
       ->set('codesnippet.before', $form_state->getValue('google_analytics_codesnippet_before'))
@@ -633,6 +644,7 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
       ->set('track.files_extensions', $form_state->getValue('google_analytics_trackfiles_extensions'))
       ->set('track.colorbox', $form_state->getValue('google_analytics_trackcolorbox'))
       ->set('track.linkid', $form_state->getValue('google_analytics_tracklinkid'))
+      ->set('track.urlfragments', $form_state->getValue('google_analytics_trackurlfragments'))
       ->set('track.userid', $form_state->getValue('google_analytics_trackuserid'))
       ->set('track.mailto', $form_state->getValue('google_analytics_trackmailto'))
       ->set('track.messages', $form_state->getValue('google_analytics_trackmessages'))
@@ -712,7 +724,7 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Validate if a string contains forbidden tokens not allowed by privacy rules.
+   * Validate if string contains forbidden tokens not allowed by privacy rules.
    *
    * @param string $token_string
    *   A string with one or more tokens to be validated.
@@ -856,16 +868,18 @@ class GoogleAnalyticsAdminSettingsForm extends ConfigFormBase {
     // List of supported field names:
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#create
     $create_only_fields = [
-      'clientId',
-      'userId',
-      'sampleRate',
-      'siteSpeedSampleRate',
-      'alwaysSendReferrer',
       'allowAnchor',
+      'alwaysSendReferrer',
+      'clientId',
       'cookieName',
       'cookieDomain',
       'cookieExpires',
       'legacyCookieDomain',
+      'legacyHistoryImport',
+      'sampleRate',
+      'siteSpeedSampleRate',
+      'storage',
+      'userId',
     ];
 
     if ($name == 'name') {

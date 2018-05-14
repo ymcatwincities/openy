@@ -16,7 +16,7 @@ class WebformEntityReferenceItemNormalizerTest extends WebformTestBase {
    *
    * @var array
    */
-  public static $modules = ['webform', 'webform_node', 'hal', 'serialization', 'rest'];
+  public static $modules = ['rest', 'serialization', 'hal', 'webform', 'webform_node'];
 
   /**
    * Tests the normalization of a node with a webform entity reference.

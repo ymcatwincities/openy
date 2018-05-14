@@ -1,14 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\EntityBrowserInterface.
- */
-
 namespace Drupal\entity_browser;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
-use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides an interface defining an entity browser entity.
@@ -46,7 +40,7 @@ interface EntityBrowserInterface extends ConfigEntityInterface {
   public function setLabel($label);
 
   /**
-   * Sets the id of the display plugin
+   * Sets the id of the display plugin.
    *
    * @param string $display
    *   The id of the display plugin.
@@ -57,7 +51,7 @@ interface EntityBrowserInterface extends ConfigEntityInterface {
   public function setDisplay($display);
 
   /**
-   * Sets the id of the widget selector plugin
+   * Sets the id of the widget selector plugin.
    *
    * @param string $display
    *   The id of the widget selector plugin.
@@ -68,7 +62,7 @@ interface EntityBrowserInterface extends ConfigEntityInterface {
   public function setWidgetSelector($widget_selector);
 
   /**
-   * Sets the id of the selection display plugin
+   * Sets the id of the selection display plugin.
    *
    * @param string $display
    *   The id of the selection display plugin.

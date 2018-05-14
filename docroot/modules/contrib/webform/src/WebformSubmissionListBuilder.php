@@ -204,7 +204,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     else {
       if ($route_name == 'entity.webform_submission.collection') {
         // Display only submission properties.
-        // @see /admin/structure/webform/results/manage
+        // @see /admin/structure/webform/submissions/manage
         $this->columns = $webform_submission_storage->getDefaultColumns($this->webform, $this->sourceEntity, $this->account, FALSE);
         // Replace serial with sid when showing results from all webforms.
         unset($this->columns['serial']);
@@ -325,7 +325,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
       '#type' => 'link',
       '#title' => $this->t('Customize'),
       '#url' => Url::fromRoute($route_name, $route_parameters, $route_options),
-      '#attributes' => WebformDialogHelper::getModalDialogAttributes(800, ['button', 'button-action', 'button--small', 'button-webform-setting']),
+      '#attributes' => WebformDialogHelper::getModalDialogAttributes(800, ['button', 'button-action', 'button--small', 'button-webform-table-setting']),
     ];
   }
 
@@ -545,9 +545,9 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
           $element = $column['element'];
           $options = $column;
 
-          /** @var \Drupal\webform\Plugin\WebformElementInterface $element_handler */
-          $element_handler = $column['plugin'];
-          $html = $element_handler->formatTableColumn($element, $entity, $options);
+          /** @var \Drupal\webform\Plugin\WebformElementInterface $element_plugin */
+          $element_plugin = $column['plugin'];
+          $html = $element_plugin->formatTableColumn($element, $entity, $options);
           return (is_array($html)) ? ['data' => $html] : $html;
         }
         else {
@@ -559,6 +559,16 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
   /****************************************************************************/
   // Operations.
   /****************************************************************************/
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildOperations(EntityInterface $entity) {
+    return parent::buildOperations($entity) + [
+        '#prefix' => '<div class="webform-dropbutton">',
+        '#suffix' => '</div>',
+      ];
+  }
 
   /**
    * {@inheritdoc}
@@ -776,7 +786,6 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
       case self::STATE_COMPLETED:
         $query->condition('in_draft', 0);
         break;
-
     }
 
     return $query;

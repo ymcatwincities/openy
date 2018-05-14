@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Contains \Drupal\entity_browser\Plugin\EntityBrowser\Display\Standalone.
- */
-
 namespace Drupal\entity_browser\Plugin\EntityBrowser\Display;
 
 use Drupal\entity_browser\DisplayBase;
@@ -16,7 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @EntityBrowserDisplay(
  *   id = "standalone",
  *   label = @Translation("Standalone form"),
- *   description = @Translation("Displays entity browser as a standalone form."),
+ *   description = @Translation("Displays the entity browser as a standalone form. Only intended for testing or very specific use cases."),
  *   uses_route = TRUE
  * )
  */
@@ -49,7 +45,8 @@ class Standalone extends DisplayBase implements DisplayRouterInterface {
   /**
    * {@inheritdoc}
    */
-  public function displayEntityBrowser(FormStateInterface $form_state) {
+  public function displayEntityBrowser(array $element, FormStateInterface $form_state, array &$complete_form, array $persistent_data = []) {
+    parent::displayEntityBrowser($element, $form_state, $complete_form, $persistent_data);
     // @TODO Implement it.
   }
 
@@ -65,20 +62,6 @@ class Standalone extends DisplayBase implements DisplayRouterInterface {
    */
   public function path() {
     return $this->configuration['path'];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getUuid() {
-    return '';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setUuid($uuid) {
-    // @TODO Implement it.
   }
 
 }

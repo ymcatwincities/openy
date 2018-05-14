@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.field.node.camp.field_bottom_content
     - field.field.node.camp.field_camp_menu_links
-    - field.field.node.camp.field_oy_content
+    - field.field.node.camp.field_content
     - field.field.node.camp.field_header_content
     - field.field.node.camp.field_location_address
     - field.field.node.camp.field_location_coordinates
@@ -35,7 +35,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
-  field_oy_content:
+  field_content:
     weight: 4
     label: hidden
     settings:
@@ -94,4 +94,5 @@ hidden:
   field_camp_menu_links: true
   field_location_directions: true
   field_location_email: true
+  langcode: true
   links: true

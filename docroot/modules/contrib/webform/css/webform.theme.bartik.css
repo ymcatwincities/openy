@@ -18,11 +18,16 @@ table {
   display: none;
 }
 
+.webform-submission-form .form-type-radio .description,
+.webform-submission-form .form-type-checkbox .description {
+  margin-left: 1.6em;
+}
+
 /**
  * Tweak webform element form.
  */
-.webform-states-table th:last-child,
-.webform-states-table td:last-child {
+.webform-states-table th.webform-states-table--operations,
+.webform-states-table td.webform-states-table--operations {
   min-width: 65px;
 }
 
@@ -30,12 +35,12 @@ table {
   margin: 0;
 }
 
-.webform-multiple-table td:last-child,
-.webform-multiple-table td:last-child {
+.webform-multiple-table td.webform-multiple-table--operations,
+.webform-multiple-table td.webform-multiple-table--operations {
   min-width: 65px;
 }
 
-.webform-multiple-table td:last-child input {
+.webform-multiple-table td.webform-multiple-table--operations input {
   margin: 0;
 }
 
@@ -60,4 +65,13 @@ table {
  */
 .webform-progress-tracker .progress-step {
   z-index: 0;
+}
+
+/**
+ * Tweak element help.
+ * @see css/webform.element.help.css
+ */
+summary .webform-element-help {
+  border-color: #999;
+  background: #999;
 }

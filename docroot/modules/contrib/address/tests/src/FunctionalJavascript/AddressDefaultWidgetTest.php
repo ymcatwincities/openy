@@ -213,7 +213,7 @@ class AddressDefaultWidgetTest extends JavascriptTestBase {
     $this->assertNotEmpty($node, 'Created article ' . $edit['title[0][value]']);
 
     // Now remove 'US' from the list of available countries.
-    $countries = ['FR', 'BR', 'JP'];
+    $countries = ['FR'];
     $edit = [];
     $edit['settings[available_countries][]'] = array_map(function ($country) {
       return $country;
@@ -232,6 +232,13 @@ class AddressDefaultWidgetTest extends JavascriptTestBase {
     $this->assertOptionSelected($field_name . '[0][address][administrative_area]', $address['administrative_area']);
     $this->assertSession()->fieldValueEquals($field_name . '[0][address][postal_code]', $address['postal_code']);
     $this->assertOptionSelected($field_name . '[0][address][country_code]', $country_code);
+    // Confirm that it is possible to switch the country to France, and back.
+    $this->getSession()->getPage()->fillField($field_name . '[0][address][country_code]', 'FR');
+    $this->waitForAjaxToFinish();
+    $this->assertSession()->fieldNotExists($field_name . '[0][address][administrative_area]');
+    $this->getSession()->getPage()->fillField($field_name . '[0][address][country_code]', 'US');
+    $this->waitForAjaxToFinish();
+    $this->assertSession()->fieldExists($field_name . '[0][address][administrative_area]');
 
     // Test the widget with only one available country.
     // Since the field is required, the country selector should be hidden.

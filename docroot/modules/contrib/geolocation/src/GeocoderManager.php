@@ -40,7 +40,7 @@ class GeocoderManager extends DefaultPluginManager {
    * @return \Drupal\geolocation\GeocoderInterface|false
    *   Geocoder instance.
    */
-  public function getGeocoder($id, $configuration = []) {
+  public function getGeocoder($id, array $configuration = []) {
     $definitions = $this->getDefinitions();
     if (empty($definitions[$id])) {
       return FALSE;
@@ -95,19 +95,20 @@ class GeocoderManager extends DefaultPluginManager {
    *
    * @param array $form
    *   Form.
-   * @param FormStateInterface $form_state
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   Current From State.
    *
    * @return array|false
    *   Settings form.
    */
-  public static function addGeocoderSettingsFormAjax($form, FormStateInterface $form_state) {
+  public static function addGeocoderSettingsFormAjax(array $form, FormStateInterface $form_state) {
     $triggering_element = $form_state->getTriggeringElement()['#parents'];
     array_pop($triggering_element);
 
     $target = $triggering_element;
-    $target[]  = 'plugin_id';
+    $target[] = 'plugin_id';
     $plugin_id = $form_state->getValue($target, '');
+
     $target = $triggering_element;
     $target[] = 'settings';
     $geocoder_settings = $form_state->getValue($target, []);

@@ -52,7 +52,7 @@ class UserSearch extends SearchPluginBase implements AccessibleInterface {
   /**
    * {@inheritdoc}
    */
-  static public function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $container->get('database'),
       $container->get('entity.manager'),
@@ -67,11 +67,11 @@ class UserSearch extends SearchPluginBase implements AccessibleInterface {
   /**
    * Creates a UserSearch object.
    *
-   * @param Connection $database
+   * @param \Drupal\Core\Database\Connection $database
    *   The database connection.
    * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
    *   The entity manager.
-   * @param ModuleHandlerInterface $module_handler
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    * @param \Drupal\Core\Session\AccountInterface $current_user
    *   The current user.
@@ -162,13 +162,15 @@ class UserSearch extends SearchPluginBase implements AccessibleInterface {
    * {@inheritdoc}
    */
   public function getHelp() {
-    $help = ['list' => [
-      '#theme' => 'item_list',
-      '#items' => [
-        $this->t('User search looks for user names and partial user names. Example: mar would match usernames mar, delmar, and maryjane.'),
-        $this->t('You can use * as a wildcard within your keyword. Example: m*r would match user names mar, delmar, and elementary.'),
+    $help = [
+      'list' => [
+        '#theme' => 'item_list',
+        '#items' => [
+          $this->t('User search looks for user names and partial user names. Example: mar would match usernames mar, delmar, and maryjane.'),
+          $this->t('You can use * as a wildcard within your keyword. Example: m*r would match user names mar, delmar, and elementary.'),
+        ],
       ],
-    ]];
+    ];
 
     return $help;
   }

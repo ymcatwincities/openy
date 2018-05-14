@@ -2,10 +2,11 @@
 
 /**
  * @file
- * Install, update and uninstall functions for the webform node module.
+ * Install, update and uninstall functions for the webform demo application evaluation module.
  */
 
 use Drupal\node\Entity\Node;
+use Drupal\webform\WebformInterface;
 
 /**
  * Implements hook_install().
@@ -20,7 +21,7 @@ function webform_demo_application_evaluation_install() {
       'status' => 1,
     ]);
     $webform_node->webform->target_id = 'demo_application';
-    $webform_node->webform->status = \Drupal\webform\WebformInterface::STATUS_OPEN;
+    $webform_node->webform->status = WebformInterface::STATUS_OPEN;
     $webform_node->webform->open = '';
     $webform_node->webform->close = '';
     $webform_node->save();
@@ -60,7 +61,7 @@ function webform_demo_application_evaluation_install() {
 }
 
 /**
- * Implements hook_install().
+ * Implements hook_uninstall().
  */
 function webform_demo_application_evaluation_uninstall() {
   // Delete all webform:demo_application nodes.

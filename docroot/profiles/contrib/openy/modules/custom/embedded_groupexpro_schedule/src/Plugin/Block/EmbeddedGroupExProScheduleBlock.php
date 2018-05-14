@@ -20,7 +20,7 @@ class EmbeddedGroupExProScheduleBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $account = \Drupal::config('embeddedgroupexpro.settings')->get('account');
+    $account = \Drupal::config('embedded_groupexpro_schedule.settings')->get('account');
 
     if (empty($account)) {
       // If the account id is not set, set an error and return empty.

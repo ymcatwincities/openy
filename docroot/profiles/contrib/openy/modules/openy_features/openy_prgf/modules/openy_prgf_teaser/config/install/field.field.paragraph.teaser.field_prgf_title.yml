@@ -9,7 +9,7 @@ field_name: field_prgf_title
 entity_type: paragraph
 bundle: teaser
 label: Title
-description: ''
+description: 'Title of the Teaser.'
 required: false
 translatable: true
 default_value: {  }

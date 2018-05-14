@@ -14,6 +14,7 @@ use Drupal\webform\WebformSubmissionInterface;
  *   category = @Translation("Composite elements"),
  *   description = @Translation("Provides a form element to display a link."),
  *   composite = TRUE,
+ *   states_wrapper = TRUE,
  * )
  */
 class WebformLink extends WebformCompositeBase {
@@ -38,7 +39,6 @@ class WebformLink extends WebformCompositeBase {
    */
   protected function formatTextItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
     $value = $this->getValue($element, $webform_submission, $options);
-
     return [
       'link' => new FormattableMarkup('@title (@url)', ['@title' => $value['title'], '@url' => $value['url']]),
     ];

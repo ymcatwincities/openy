@@ -13,6 +13,10 @@ type_settings:
   entity_type: media
   bundles:
     - document
+  display_plugins:
+    - 'view_mode:media.embedded_full'
+    - 'view_mode:media.embedded_half'
+    - 'view_mode:media.embedded_link'
   entity_browser: documents_library_embed
   entity_browser_settings:
     display_review: false

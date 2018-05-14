@@ -1,19 +1,20 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Processor\FieldsProcessorPluginBase.
- */
-
 namespace Drupal\search_api\Processor;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Render\ElementInfoManagerInterface;
 use Drupal\search_api\Item\FieldInterface;
+use Drupal\search_api\Utility\DataTypeHelperInterface;
+use Drupal\search_api\Plugin\PluginFormTrait;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface;
 use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\ConditionInterface;
 use Drupal\search_api\Query\QueryInterface;
-use Drupal\search_api\Utility;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a base class for processors that work on individual fields.
@@ -34,52 +35,242 @@ use Drupal\search_api\Utility;
  * run on:
  * - testField()
  * - testType()
+ *
+ * Processors extending this class should usually support the following stages:
+ * - pre_index_save
+ * - preprocess_index
+ * - preprocess_query
  */
-abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
+abstract class FieldsProcessorPluginBase extends ProcessorPluginBase implements PluginFormInterface {
 
-  // @todo Add defaultConfiguration() implementation and find a cleaner solution
-  //   for all the isset($this->configuration['fields']) checks.
+  use PluginFormTrait;
+
+  /**
+   * The data type helper.
+   *
+   * @var \Drupal\search_api\Utility\DataTypeHelperInterface|null
+   */
+  protected $dataTypeHelper;
+
+  /**
+   * The element info manager.
+   *
+   * @var \Drupal\Core\Render\ElementInfoManagerInterface|null
+   */
+  protected $elementInfoManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    /** @var static $processor */
+    $processor = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+
+    $processor->setDataTypeHelper($container->get('search_api.data_type_helper'));
+    $processor->setElementInfoManager($container->get('plugin.manager.element_info'));
+
+    return $processor;
+  }
+
+  /**
+   * Retrieves the data type helper.
+   *
+   * @return \Drupal\search_api\Utility\DataTypeHelperInterface
+   *   The data type helper.
+   */
+  public function getDataTypeHelper() {
+    return $this->dataTypeHelper ?: \Drupal::service('search_api.data_type_helper');
+  }
+
+  /**
+   * Sets the data type helper.
+   *
+   * @param \Drupal\search_api\Utility\DataTypeHelperInterface $data_type_helper
+   *   The new data type helper.
+   *
+   * @return $this
+   */
+  public function setDataTypeHelper(DataTypeHelperInterface $data_type_helper) {
+    $this->dataTypeHelper = $data_type_helper;
+    return $this;
+  }
+
+  /**
+   * Retrieves the element info manager.
+   *
+   * @return \Drupal\Core\Render\ElementInfoManagerInterface
+   *   The element info manager.
+   */
+  public function getElementInfoManager() {
+    return $this->elementInfoManager ?: \Drupal::service('plugin.manager.element_info');
+  }
+
+  /**
+   * Sets the element info manager.
+   *
+   * @param \Drupal\Core\Render\ElementInfoManagerInterface $element_info_manager
+   *   The new element info manager.
+   *
+   * @return $this
+   */
+  public function setElementInfoManager(ElementInfoManagerInterface $element_info_manager) {
+    $this->elementInfoManager = $element_info_manager;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preIndexSave() {
+    parent::preIndexSave();
+
+    // If the "all supported fields" option is checked, we need to reset the
+    // fields array and fill it with all fields defined on the index.
+    if ($this->configuration['all_fields']) {
+      $this->configuration['fields'] = [];
+      foreach ($this->index->getFields() as $field_id => $field) {
+        if (!$field->isHidden() && $this->testType($field->getType())) {
+          $this->configuration['fields'][] = $field_id;
+        }
+      }
+      // No need to explicitly check for field renames.
+      return;
+    }
+
+    // Otherwise, if no fields were checked, we also have nothing to do here.
+    if (empty($this->configuration['fields'])) {
+      return;
+    }
+
+    // Apply field ID changes to the fields selected for this processor.
+    $selected_fields = array_flip($this->configuration['fields']);
+    $renames = $this->index->getFieldRenames();
+    $renames = array_intersect_key($renames, $selected_fields);
+    if ($renames) {
+      $new_fields = array_keys(array_diff_key($selected_fields, $renames));
+      $new_fields = array_merge($new_fields, array_values($renames));
+      $this->configuration['fields'] = $new_fields;
+    }
+
+    // Remove fields from the configuration that are no longer compatible with
+    // this processor (or no longer present on the index at all).
+    foreach ($this->configuration['fields'] as $i => $field_id) {
+      $field = $this->index->getField($field_id);
+      if ($field === NULL
+        || $field->isHidden()
+        || !$this->testType($field->getType())) {
+        unset($this->configuration['fields'][$i]);
+      }
+    }
+    // Serialization might be problematic if the array indices aren't completely
+    // sequential.
+    $this->configuration['fields'] = array_values($this->configuration['fields']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    $configuration = parent::defaultConfiguration();
+
+    // @todo Add "fields" default here, too, and figure out how to replace
+    //   current "magic" code dealing with unset option (or whether we even need
+    //   to). See #2881665.
+    $configuration += [
+      'all_fields' => FALSE,
+    ];
+
+    return $configuration;
+  }
 
   /**
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildConfigurationForm($form, $form_state);
-
     $fields = $this->index->getFields();
-    $field_options = array();
-    $default_fields = array();
-    if (isset($this->configuration['fields'])) {
-      $default_fields = array_filter($this->configuration['fields']);
+    $field_options = [];
+    $default_fields = [];
+    $all_fields = $this->configuration['all_fields'];
+    $fields_configured = isset($this->configuration['fields']);
+    if ($fields_configured && !$all_fields) {
+      $default_fields = $this->configuration['fields'];
     }
     foreach ($fields as $name => $field) {
-      if ($this->testType($field->getType())) {
-        $field_options[$name] = $field->getPrefixedLabel();
-        if (!isset($this->configuration['fields']) && $this->testField($name, $field)) {
-          $default_fields[$name] = $name;
+      if (!$field->isHidden() && $this->testType($field->getType())) {
+        $field_options[$name] = Html::escape($field->getPrefixedLabel());
+        if ($all_fields || (!$fields_configured && $this->testField($name, $field))) {
+          $default_fields[] = $name;
         }
       }
     }
 
-    $form['fields'] = array(
+    $form['all_fields'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable on all supported fields'),
+      '#description' => $this->t('Enable this processor for all supported fields. This will also automatically update the setting when new supported fields are added to the index.'),
+      '#default_value' => $all_fields,
+    ];
+
+    // Unfortunately, Form API doesn't seem to automatically add the default
+    // "#pre_render" callbacks to an element if we set some of our own. We
+    // therefore need to explicitly include those, too.
+    $pre_render = $this->getElementInfoManager()
+      ->getInfoProperty('checkboxes', '#pre_render', []);
+    $pre_render[] = [static::class, 'preRenderFieldsCheckboxes'];
+    $form['fields'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Enable this processor on the following fields'),
+      '#description' => $this->t("Note: The Search API currently doesn't support per-field keywords processing, so this setting will be ignored when preprocessing search keywords. It is therefore usually recommended that you enable the processor for all fields that you intend to use as fulltext search fields, to avoid undesired consequences."),
       '#options' => $field_options,
       '#default_value' => $default_fields,
-    );
+      '#pre_render' => $pre_render,
+    ];
 
     return $form;
+  }
+
+  /**
+   * Preprocesses the "fields" checkboxes before rendering.
+   *
+   * Adds "#states" settings to disable the checkboxes when "all_fields" is
+   * checked.
+   *
+   * @param array $element
+   *   The form element to process.
+   *
+   * @return array
+   *   The processed form element.
+   */
+  public static function preRenderFieldsCheckboxes(array $element) {
+    $parents = $element['#parents'];
+    array_pop($parents);
+    $parents[] = 'all_fields';
+    $name = array_shift($parents);
+    if ($parents) {
+      $name .= '[' . implode('][', $parents) . ']';
+    }
+    $selector = ":input[name=\"$name\"]";
+    $element['#states'] = [
+      'invisible' => [
+        $selector => ['checked' => TRUE],
+      ],
+    ];
+
+    return $element;
   }
 
   /**
    * {@inheritdoc}
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
-    parent::validateConfigurationForm($form, $form_state);
-
-    $fields = array_filter($form_state->getValues()['fields']);
-    if ($fields) {
-      $fields = array_keys($fields);
+    if (!$form_state->getValue('all_fields')) {
+      $fields = array_filter($form_state->getValue('fields', []));
+      if ($fields) {
+        $fields = array_keys($fields);
+      }
+    }
+    else {
+      $fields = array_keys($form['fields']['#options']);
     }
     $form_state->setValue('fields', $fields);
   }
@@ -87,7 +278,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function preprocessIndexItems(array &$items) {
+  public function preprocessIndexItems(array $items) {
     // Annoyingly, this doc comment is needed for PHPStorm. See
     // http://youtrack.jetbrains.com/issue/WI-23586
     /** @var \Drupal\search_api\Item\ItemInterface $item */
@@ -129,64 +320,58 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
     foreach ($values as $i => &$value) {
       // We restore the field's type for each run of the loop since we need the
       // unchanged one as long as the current field value hasn't been updated.
-      $type = $field->getType();
-      if ($type == 'tokenized_text') {
-        foreach ($value as &$tokenized_value) {
-          $this->processFieldValue($tokenized_value['value'], $type);
+      if ($value instanceof TextValueInterface) {
+        $tokens = $value->getTokens();
+        if ($tokens !== NULL) {
+          $new_tokens = [];
+          foreach ($tokens as $token) {
+            $token_text = $token->getText();
+            $this->processFieldValue($token_text, $type);
+            if (is_scalar($token_text)) {
+              if ($token_text !== '') {
+                $token->setText($token_text);
+                $new_tokens[] = $token;
+              }
+            }
+            else {
+              $base_boost = $token->getBoost();
+              /** @var \Drupal\search_api\Plugin\search_api\data_type\value\TextTokenInterface $new_token */
+              foreach ($token_text as $new_token) {
+                if ($new_token->getText() !== '') {
+                  $new_token->setBoost($new_token->getBoost() * $base_boost);
+                  $new_tokens[] = $new_token;
+                }
+              }
+            }
+          }
+          $value->setTokens($new_tokens);
+        }
+        else {
+          $text = $value->getText();
+          if ($text !== '') {
+            $this->processFieldValue($text, $type);
+            if ($text === '') {
+              unset($values[$i]);
+            }
+            elseif (is_scalar($text)) {
+              $value->setText($text);
+            }
+            else {
+              $value->setTokens($text);
+            }
+          }
         }
       }
-      else {
+      elseif ($value !== '') {
         $this->processFieldValue($value, $type);
-      }
 
-      if ($type == 'tokenized_text') {
-        $value = $this->normalizeTokens($value);
-      }
-      elseif ($value === '') {
-        unset($values[$i]);
-      }
-    }
-
-    // We're also setting the type here as it could have changed.
-    $field->setType($type);
-    $field->setValues($values);
-  }
-
-  /**
-   * Normalizes an internal array of tokens, which might be nested.
-   *
-   * @param array $tokens
-   *   An array of tokens, possibly nested.
-   * @param int $score
-   *   (optional) The score to use as a multiplier for all of the tokens
-   *   contained in this array of tokens. Used internally.
-   *
-   * @return array
-   *   A normalized tokens array, without any nested tokens arrays.
-   */
-  protected function normalizeTokens(array $tokens, $score = 1) {
-    $ret = array();
-    foreach ($tokens as $token) {
-      if ($token['value'] === '') {
-        // Filter out empty tokens.
-        continue;
-      }
-      if (!isset($token['score'])) {
-        $token['score'] = $score;
-      }
-      else {
-        $token['score'] *= $score;
-      }
-      if (is_array($token['value'])) {
-        foreach ($this->normalizeTokens($token['value'], $token['score']) as $t) {
-          $ret[] = $t;
+        if ($value === '') {
+          unset($values[$i]);
         }
       }
-      else {
-        $ret[] = $token;
-      }
     }
-    return $ret;
+
+    $field->setValues(array_values($values));
   }
 
   /**
@@ -226,7 +411,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
     foreach ($conditions as $key => &$condition) {
       if ($condition instanceof ConditionInterface) {
         $field = $condition->getField();
-        if ($this->testField($field, $fields[$field])) {
+        if (isset($fields[$field]) && $this->testField($field, $fields[$field])) {
           // We want to allow processors also to easily remove complete
           // conditions. However, we can't use empty() or the like, as that
           // would sort out filters for 0 or NULL. So we specifically check only
@@ -235,6 +420,20 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
           $value = $condition->getValue();
           $empty_string = $value === '';
           $this->processConditionValue($value);
+
+          // Conditions with (NOT) BETWEEN operator deserve special attention,
+          // as it seems unlikely that it makes sense to completely remove them.
+          // Processors that remove values are normally indicating that this
+          // value can't be in the index – but that's irrelevant for (NOT)
+          // BETWEEN conditions, as any value between the two bounds could still
+          // be included. We therefore never remove a (NOT) BETWEEN condition
+          // and also ignore it when one of the two values got removed. (Note
+          // that this check will also catch empty strings.) Processors who need
+          // different behavior have to override this method.
+          $between_operator = in_array($condition->getOperator(), ['BETWEEN', 'NOT BETWEEN']);
+          if ($between_operator && (!is_array($value) || count($value) < 2)) {
+            continue;
+          }
 
           if ($value === '' && !$empty_string) {
             unset($conditions[$key]);
@@ -264,7 +463,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
    */
   protected function testField($name, FieldInterface $field) {
     if (!isset($this->configuration['fields'])) {
-      return $this->testType($field->getType());
+      return !$field->isHidden() && $this->testType($field->getType());
     }
     return in_array($name, $this->configuration['fields'], TRUE);
   }
@@ -272,8 +471,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
   /**
    * Determines whether a field of a certain type should be preprocessed.
    *
-   * The default implementation returns TRUE for "text", "tokenized_text" and
-   * "string".
+   * The default implementation returns TRUE for "text" and "string".
    *
    * @param string $type
    *   The type of the field (either when preprocessing the field at index time,
@@ -283,7 +481,8 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
    *   TRUE if fields of that type should be processed, FALSE otherwise.
    */
   protected function testType($type) {
-    return Utility::isTextType($type, array('text', 'tokenized_text', 'string'));
+    return $this->getDataTypeHelper()
+      ->isTextType($type, ['text', 'string']);
   }
 
   /**
@@ -294,20 +493,13 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
    * @param string $value
    *   The string value to preprocess, as a reference. Can be manipulated
    *   directly, nothing has to be returned. Can either be left a string, or
-   *   changed into an array of tokens. A token is an associative array
-   *   containing:
-   *   - value: Either the text inside the token, or a nested array of tokens.
-   *     The score of nested tokens will be multiplied by their parent's score.
-   *   - score: The relative importance of the token, as a float, with 1 being
-   *     the default.
+   *   changed into an array of
+   *   \Drupal\search_api\Plugin\search_api\data_type\value\TextTokenInterface
+   *   objects. Returning anything else will result in undefined behavior.
    * @param string $type
-   *   The field type as a reference. If the method changes the field's type,
-   *   this parameter has to be updated accordingly. A common example would be
-   *   changing text to tokenized_text. If an implementation updates the type,
-   *   however, it has to do so regardless of the $value passed – otherwise, the
-   *   behavior is undefined.
+   *   The field's data type.
    */
-  protected function processFieldValue(&$value, &$type) {
+  protected function processFieldValue(&$value, $type) {
     $this->process($value);
   }
 
@@ -320,7 +512,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
    *   The string value to preprocess, as a reference. Can be manipulated
    *   directly, nothing has to be returned. Can either be left a string, or be
    *   changed into a nested keys array, as defined by
-   *   \Drupal\search_api\Query\QueryInterface::getKeys().
+   *   \Drupal\search_api\ParseMode\ParseModeInterface::parseInput().
    */
   protected function processKey(&$value) {
     $this->process($value);
@@ -332,13 +524,28 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase {
    * Called for processing a single condition value. The default implementation
    * just calls process().
    *
-   * @param string $value
-   *   The string value to preprocess, as a reference. Can be manipulated
-   *   directly, nothing has to be returned. Has to remain a string. Set to an
-   *   empty string to remove the condition.
+   * @param mixed $value
+   *   The condition value to preprocess, as a reference. Can be manipulated
+   *   directly, nothing has to be returned. Set to an empty string to remove
+   *   the condition.
    */
   protected function processConditionValue(&$value) {
-    $this->process($value);
+    if (is_array($value)) {
+      if ($value) {
+        foreach ($value as $i => $part) {
+          $this->processConditionValue($value[$i]);
+          if ($value[$i] !== $part && $value[$i] === '') {
+            unset($value[$i]);
+          }
+        }
+        if (!$value) {
+          $value = '';
+        }
+      }
+    }
+    else {
+      $this->process($value);
+    }
   }
 
   /**

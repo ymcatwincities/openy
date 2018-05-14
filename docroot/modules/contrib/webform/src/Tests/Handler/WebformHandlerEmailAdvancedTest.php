@@ -69,13 +69,15 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
     $this->postSubmissionTest($webform);
     $sent_mail = $this->getLastEmail();
     $this->assertEqual($sent_mail['headers']['Return-Path'], 'return_path@example.com');
-    $this->assertEqual($sent_mail['headers']['Sender'], 'return_path@example.com');
+    $this->assertEqual($sent_mail['headers']['Sender'], 'sender_name <sender_mail@example.com>');
     $this->assertEqual($sent_mail['headers']['Reply-to'], 'reply_to@example.com');
 
     $email_handler = $webform->getHandler('email');
     $configuration = $email_handler->getConfiguration();
     $configuration['settings']['reply_to'] = '';
     $configuration['settings']['return_path'] = '';
+    $configuration['settings']['sender_mail'] = '';
+    $configuration['settings']['sender_name'] = '';
     $email_handler->setConfiguration($configuration);
     $webform->save();
 
@@ -83,7 +85,7 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
     $this->postSubmissionTest($webform);
     $sent_mail = $this->getLastEmail();
     $this->assertNotEqual($sent_mail['headers']['Return-Path'], 'return_path@example.com');
-    $this->assertNotEqual($sent_mail['headers']['Sender'], 'return_path@example.com');
+    $this->assertNotEqual($sent_mail['headers']['Sender'], 'sender_name <sender_mail@example.com>');
     $this->assertNotEqual($sent_mail['headers']['Reply-to'], 'reply_to@example.com');
     $this->assertEqual($sent_mail['headers']['Return-Path'], $sent_mail['params']['from_mail']);
     $this->assertEqual($sent_mail['headers']['Sender'], $sent_mail['params']['from_mail']);
@@ -99,6 +101,15 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
     $this->assertEqual($sent_mail['headers']['Return-Path'], 'default_return_path@example.com');
     $this->assertEqual($sent_mail['headers']['Sender'], 'default_return_path@example.com');
     $this->assertEqual($sent_mail['headers']['Reply-to'], 'default_reply_to@example.com');
+
+    // Check site wide sender mail and name.
+    \Drupal::configFactory()->getEditable('webform.settings')
+      ->set('mail.default_sender_mail', 'default_sender_mail@example.com')
+      ->set('mail.default_sender_name', 'Default Sender Name')
+      ->save();
+    $this->postSubmissionTest($webform);
+    $sent_mail = $this->getLastEmail();
+    $this->assertEqual($sent_mail['headers']['Sender'], 'Default Sender Name <default_sender_mail@example.com>');
 
     // Post a new submission using test webform which will automatically
     // upload file.txt.
@@ -198,7 +209,6 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
     $this->postSubmission($webform);
     $sent_mail = $this->getLastEmail();
     $this->assertNotContains($sent_mail['params']['body'], '<b>Notes</b><br />These notes are private.<br /><br />');
-
   }
 
 }

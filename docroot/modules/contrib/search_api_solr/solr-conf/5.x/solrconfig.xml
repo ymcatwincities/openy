@@ -20,7 +20,7 @@
      For more details about configurations options that may appear in
      this file, see http://wiki.apache.org/solr/SolrConfigXml.
 -->
-<config name="drupal-4.3-solr-4.x" >
+<config name="drupal-4.6-solr-5.x" >
   <!-- In all configuration below, a prefix of "solr." for class names
        is an alias that causes solr to search appropriate packages,
        including org.apache.solr.(search|update|request|core|analysis)
@@ -47,7 +47,7 @@
        that you fully re-index after changing this setting as it can
        affect both how text is indexed and queried.
     -->
-  <luceneMatchVersion>${solr.luceneMatchVersion:5.0.0}</luceneMatchVersion>
+  <luceneMatchVersion>${solr.luceneMatchVersion:LUCENE_50}</luceneMatchVersion>
 
   <!-- <lib/> directives can be used to instruct Solr to load any Jars
        identified and use them to resolve any "plugins" specified in
@@ -70,34 +70,31 @@
               <lib dir="./lib" />
     -->
 
-  <!-- A "dir" option by itself adds any files found in the directory to the
-       classpath, this is useful for including all jars in a directory.
-    -->
-  <lib dir="${solr.contrib.dir:../../../contrib}/extraction/lib" />
-  <lib dir="${solr.contrib.dir:../../../contrib}/clustering/lib/" />
+  <!-- A 'dir' option by itself adds any files found in the directory
+       to the classpath, this is useful for including all jars in a
+       directory.
 
-  <!-- The velocity library has been known to crash Solr in some
-       instances when deployed as a war file to Tomcat. Therefore all
-       references have been removed from the default configuration.
-       @see http://drupal.org/node/1612556
-  -->
-  <!-- <lib dir="../../contrib/velocity/lib" /> -->
-
-  <!-- When a regex is specified in addition to a directory, only the
+       When a 'regex' is specified in addition to a 'dir', only the
        files in that directory which completely match the regex
        (anchored on both ends) will be included.
-    -->
-  <!--<lib dir="../../dist/" regex="apache-solr-cell-\d.*\.jar" />-->
-  <!--<lib dir="../../dist/" regex="apache-solr-clustering-\d.*\.jar" />-->
-  <!--<lib dir="../../dist/" regex="apache-solr-dataimporthandler-\d.*\.jar" />-->
-  <!--<lib dir="../../dist/" regex="apache-solr-langid-\d.*\.jar" />-->
-  <!-- <lib dir="../../dist/" regex="apache-solr-velocity-\d.*\.jar" /> -->
 
-  <!-- If a dir option (with or without a regex) is used and nothing
-       is found that matches, it will be ignored
+       If a 'dir' option (with or without a regex) is used and nothing
+       is found that matches, a warning will be logged.
+
+       The examples below can be used to load some solr-contribs along
+       with their external dependencies.
     -->
-  <!--<lib dir="../../contrib/clustering/lib/" />-->
-  <!--<lib dir="/total/crap/dir/ignored" />-->
+  <lib dir="${solr.install.dir:../../../..}/contrib/extraction/lib" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-cell-\d.*\.jar" />
+
+  <lib dir="${solr.install.dir:../../../..}/contrib/clustering/lib/" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-clustering-\d.*\.jar" />
+
+  <lib dir="${solr.install.dir:../../../..}/contrib/langid/lib/" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-langid-\d.*\.jar" />
+
+  <lib dir="${solr.install.dir:../../../..}/contrib/velocity/lib" regex=".*\.jar" />
+  <lib dir="${solr.install.dir:../../../..}/dist/" regex="solr-velocity-\d.*\.jar" />
 
   <!-- an exact path can be used to specify a specific file.  This
        will cause a serious error to be logged if it can't be loaded.
@@ -969,7 +966,6 @@
     <lst name="defaults">
       <str name="defType">edismax</str>
       <str name="df">content</str>
-      <str name="q.op">AND</str>
       <str name="echoParams">explicit</str>
       <bool name="omitHeader">true</bool>
       <float name="tie">0.01</float>
@@ -993,7 +989,7 @@
 
   <!-- The more like this handler offers many advantages over the standard handler,
      when performing moreLikeThis requests.-->
-  <requestHandler name="mlt" class="solr.MoreLikeThisHandler">
+  <requestHandler name="/mlt" class="solr.MoreLikeThisHandler">
     <lst name="defaults">
       <str name="df">content</str>
       <str name="mlt.mintf">1</str>
@@ -1058,14 +1054,14 @@
        http://wiki.apache.org/solr/UpdateCSV
     -->
   <requestHandler name="/update/csv"
-                  class="solr.CSVRequestHandler"
+                  class="solr.UpdateRequestHandler"
                   startup="lazy" />
 
   <!-- JSON Update Request Handler
        http://wiki.apache.org/solr/UpdateJSON
     -->
   <requestHandler name="/update/json"
-                  class="solr.JsonUpdateRequestHandler"
+                  class="solr.UpdateRequestHandler"
                   startup="lazy" />
 
   <!-- Solr Cell Update Request Handler
@@ -1076,7 +1072,7 @@
   <requestHandler name="/update/extract"
                   startup="lazy"
                   class="solr.extraction.ExtractingRequestHandler" >
-    <lst name="defaults">
+  <lst name="defaults">
       <!-- All the main content goes into "text"... if you need to return
            the extracted text or do highlighting, use a stored field. -->
       <str name="fmap.content">text</str>

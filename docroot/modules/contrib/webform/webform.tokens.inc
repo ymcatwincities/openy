@@ -143,8 +143,11 @@ function webform_token_info() {
       '<li>element_key:delta:format</li>' .
       '<li>element_key:delta:format:html</li>' .
       '<li>element_key:entity:*</li>' .
+      '<li>element_key:entity:*</li>' .
       '<li>element_key:delta:entity:*</li>' .
+      '<li>element_key:delta:entity:field_name:*</li>' .
       '<li>element_key:sub_element_key:entity:*</li>' .
+      '<li>element_key:sub_element_key:entity:fiel_name:*</li>' .
       '<li>element_key:delta:sub_element_key:entity:*</li>' .
       '</ul>' .
       t("All items after the 'element_key' are optional.") . '<br />' .
@@ -229,12 +232,12 @@ function webform_token_info() {
     'type' => 'user',
   ];
   $webform['open'] = [
-    'name' => t('Open date '),
+    'name' => t('Open date'),
     'description' => t('The date the webform is open to new submissions.'),
     'type' => 'date',
   ];
   $webform['close'] = [
-    'name' => t('Close date '),
+    'name' => t('Close date'),
     'description' => t('The date the webform is closed to new submissions.'),
     'type' => 'date',
   ];
@@ -580,6 +583,7 @@ function webform_tokens($type, $tokens, array $data, array $options, BubbleableM
       foreach ($handler_tokens as $key => $original) {
         $webform_handler = isset($data['webform_handler']) ? $data['webform_handler'] : [];
         $parents = explode(':', $key);
+        $key_exists = NULL;
         $value = NestedArray::getValue($webform_handler, $parents, $key_exists);
         $replacements[$original] = ($key_exists) ? $value : $original;
       }
@@ -606,9 +610,35 @@ function webform_tokens($type, $tokens, array $data, array $options, BubbleableM
     }
   }
 
+  // If 'webform_clear' options is set, clear all [webform*] tokens.
+  if (strpos($type, 'webform') === 0 && !empty($options['webform_clear'])) {
+    foreach ($tokens as $token) {
+      if (!isset($replacements[$token])) {
+        $replacements[$token] = '';
+      }
+    }
+  }
+
   return $replacements;
 }
 
+/**
+ * Get webform submission token value.
+ *
+ * @param string $value_token
+ *   A [webform_submission:value:?] token.
+ * @param array $options
+ *   An array of token options.
+ * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
+ *   A webform submission.
+ * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
+ *   The webform element manager.
+ * @param \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata
+ *   (optional) Object to collect route processors' bubbleable metadata.
+ *
+ * @return \Drupal\Component\Render\MarkupInterface|string
+ *   Webform submission token value.
+ */
 function _webform_token_get_submission_value($value_token, array $options, WebformSubmissionInterface $webform_submission, WebformElementManagerInterface $element_manager, BubbleableMetadata $bubbleable_metadata) {
   $submission_data = $webform_submission->getData();
 
@@ -636,10 +666,10 @@ function _webform_token_get_submission_value($value_token, array $options, Webfo
     return NULL;
   }
 
-  $element_handler = $element_manager->getElementInstance($element);
+  $element_plugin = $element_manager->getElementInstance($element);
 
   // Exit if no submission data and form element is not a container.
-  if (!isset($submission_data[$element_key]) && !$element_handler->isContainer($element)) {
+  if (!isset($submission_data[$element_key]) && !$element_plugin->isContainer($element)) {
     return NULL;
   }
 
@@ -651,7 +681,7 @@ function _webform_token_get_submission_value($value_token, array $options, Webfo
   }
 
   // If multiple value element look for delta.
-  if ($keys && $element_handler->hasMultipleValues($element) && is_numeric($keys[0])) {
+  if ($keys && $element_plugin->hasMultipleValues($element) && is_numeric($keys[0])) {
     $delta = array_shift($keys);
     $options['delta'] = $delta;
   }
@@ -660,7 +690,7 @@ function _webform_token_get_submission_value($value_token, array $options, Webfo
   }
 
   // If composite element look for sub-element key.
-  if ($keys && $element_handler->isComposite() && method_exists($element_handler, 'getInitializedCompositeElement') && $element_handler->getInitializedCompositeElement($element, $keys[0])) {
+  if ($keys && $element_plugin->isComposite() && method_exists($element_plugin, 'getInitializedCompositeElement') && $element_plugin->getInitializedCompositeElement($element, $keys[0])) {
     $composite_key = array_shift($keys);
     $options['composite_key'] = $composite_key;
   }
@@ -669,12 +699,12 @@ function _webform_token_get_submission_value($value_token, array $options, Webfo
   }
 
   // Set entity reference chaining.
-  if ($keys && $keys[0] == 'entity' && $element_handler instanceof WebformElementEntityReferenceInterface) {
+  if ($keys && $keys[0] == 'entity' && $element_plugin instanceof WebformElementEntityReferenceInterface) {
     // Remove entity from keys.
     array_shift($keys);
 
     // Get entity value, type, instance, and token.
-    if ($entity = $element_handler->getTargetEntity($element, $webform_submission, $options)) {
+    if ($entity = $element_plugin->getTargetEntity($element, $webform_submission, $options)) {
       $entity_type = $entity->getEntityTypeId();
       // Map entity type id to entity token name.
       $entity_token_names = [
@@ -735,6 +765,17 @@ function _webform_token_get_submission_value($value_token, array $options, Webfo
   }
 }
 
+/**
+ * Get webform submission values.
+ *
+ * @param array $options
+ *   An array of token options.
+ * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
+ *   A webform submission.
+ *
+ * @return \Drupal\Component\Render\MarkupInterface|string
+ *   Webform submission values.
+ */
 function _webform_token_get_submission_values(array $options, WebformSubmissionInterface $webform_submission) {
   $submission_format = (!empty($options['html'])) ? 'html' : 'text';
   /** @var \Drupal\webform\WebformSubmissionViewBuilderInterface $view_builder */

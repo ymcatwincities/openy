@@ -26,9 +26,12 @@ class Textarea extends TextBase {
   public function getDefaultProperties() {
     return [
       'title' => '',
-      // General settings.
-      'description' => '',
       'default_value' => '',
+      // Description/Help.
+      'help' => '',
+      'description' => '',
+      'more' => '',
+      'more_title' => '',
       // Form display.
       'title_display' => '',
       'description_display' => '',
@@ -42,6 +45,8 @@ class Textarea extends TextBase {
       'required' => FALSE,
       'required_error' => '',
       'unique' => FALSE,
+      'unique_user' => FALSE,
+      'unique_entity' => FALSE,
       'unique_error' => '',
       'counter_type' => '',
       'counter_maximum' => '',
@@ -51,11 +56,12 @@ class Textarea extends TextBase {
       'attributes' => [],
       // Submission display.
       'format' => $this->getItemDefaultFormat(),
+      'format_html' => '',
+      'format_text' => '',
       'format_items' => $this->getItemsDefaultFormat(),
-      // Multiple.
-      'multiple' => FALSE,
-      'multiple__header_label' => '',
-    ] + $this->getDefaultBaseProperties();
+      'format_items_html' => '',
+      'format_items_text' => '',
+    ] + parent::getDefaultProperties() + $this->getDefaultMultipleProperties();
   }
 
   /**
@@ -105,8 +111,8 @@ class Textarea extends TextBase {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
-    $form['element']['default_value']['#type'] = 'textarea';
-    $form['element']['default_value']['#rows'] = 3;
+    $form['default']['default_value']['#type'] = 'textarea';
+    $form['default']['default_value']['#rows'] = 3;
 
     $form['form']['placeholder']['#type'] = 'textarea';
     $form['form']['placeholder']['#rows'] = 3;

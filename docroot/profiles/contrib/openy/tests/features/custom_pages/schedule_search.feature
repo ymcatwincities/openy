@@ -47,12 +47,12 @@ Feature: Schedule search
     And I create large landing_page content:
       | KEY           | behat_schedule                             |
       | title         | BEHAT Schedule                             |
-      | field_oy_content | schedule_search_form, schedule_search_list |
+      | field_content | schedule_search_form, schedule_search_list |
 
   Scenario:
     Given I go to "/behat-schedule?date=04/20/2037"
     And I wait for AJAX to finish
-    Then I should see "Classes and Activities for April 20, 2037"
+    Then I should see "Classes for April 20, 2037"
     And I scroll to ".form-item-location" element
     And I select "BEHAT BRANCH" from "location"
     And I wait for AJAX to finish

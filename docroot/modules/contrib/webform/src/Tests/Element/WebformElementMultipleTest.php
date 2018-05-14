@@ -33,6 +33,14 @@ class WebformElementMultipleTest extends WebformTestBase {
   - One
   - Two
   - Three
+webform_multiple_no_sorting:
+  - One
+  - Two
+  - Three
+webform_multiple_no_operations:
+  - One
+  - Two
+  - Three
 webform_multiple_email_five:
   - example@example.com
   - test@test.com
@@ -78,7 +86,14 @@ webform_multiple_elements_hidden_table:
     last_name: Smith
   - first_name: Jane
     id: jane
-    last_name: Doe");
+    last_name: Doe
+webform_multiple_elements_flattened:
+  - value: one
+    text: One
+    description: 'This is the number 1.'
+  - value: two
+    text: Two
+    description: 'This is the number 2.'");
 
     /**************************************************************************/
     // Rendering.
@@ -91,11 +106,18 @@ webform_multiple_elements_hidden_table:
     $this->assertRaw('<td><div class="js-form-item form-item js-form-type-textfield form-type-textfield js-form-item-webform-multiple-default-items-0--item- form-item-webform-multiple-default-items-0--item- form-no-label">');
     $this->assertRaw('<label for="edit-webform-multiple-default-items-0-item-" class="visually-hidden">Item value</label>');
     $this->assertRaw('<input data-drupal-selector="edit-webform-multiple-default-items-0-item-" type="text" id="edit-webform-multiple-default-items-0-item-" name="webform_multiple_default[items][0][_item_]" value="One" size="60" maxlength="128" placeholder="Enter value" class="form-text" />');
-    $this->assertRaw('<td><div class="js-form-item form-item js-form-type-number form-type-number js-form-item-webform-multiple-default-items-0-weight form-item-webform-multiple-default-items-0-weight form-no-label">');
+    $this->assertRaw('<td class="webform-multiple-table--weight"><div class="webform-multiple-table--weight js-form-item form-item js-form-type-number form-type-number js-form-item-webform-multiple-default-items-0-weight form-item-webform-multiple-default-items-0-weight form-no-label">');
     $this->assertRaw('<label for="edit-webform-multiple-default-items-0-weight" class="visually-hidden">Item weight</label>');
     $this->assertRaw('<input class="webform-multiple-sort-weight form-number" data-drupal-selector="edit-webform-multiple-default-items-0-weight" type="number" id="edit-webform-multiple-default-items-0-weight" name="webform_multiple_default[items][0][weight]" value="0" step="1" size="10" />');
-    $this->assertRaw('<td><input data-drupal-selector="edit-webform-multiple-default-items-0-operations-add" formnovalidate="formnovalidate" type="image" id="edit-webform-multiple-default-items-0-operations-add" name="webform_multiple_default_table_add_0"');
+    $this->assertRaw('<td class="webform-multiple-table--operations"><input data-drupal-selector="edit-webform-multiple-default-items-0-operations-add" formnovalidate="formnovalidate" type="image" id="edit-webform-multiple-default-items-0-operations-add" name="webform_multiple_default_table_add_0"');
     $this->assertRaw('<input data-drupal-selector="edit-webform-multiple-default-items-0-operations-remove" formnovalidate="formnovalidate" type="image" id="edit-webform-multiple-default-items-0-operations-remove" name="webform_multiple_default_table_remove_0"');
+
+    // Check that sorting is disabled.
+    $this->assertNoRaw('<tr class="draggable odd" data-drupal-selector="edit-webform-multiple-no-sorting-items-0">');
+    $this->assertRaw('<tr data-drupal-selector="edit-webform-multiple-no-sorting-items-0" class="odd">');
+
+    // Check that operations is disabled.
+    $this->assertNoRaw('data-drupal-selector="edit-webform-multiple-no-operations-items-0-operations-remove"');
 
     /**************************************************************************/
     // Validation.

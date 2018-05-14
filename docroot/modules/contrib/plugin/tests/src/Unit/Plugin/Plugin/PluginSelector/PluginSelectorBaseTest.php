@@ -6,6 +6,7 @@ use Drupal\Component\Plugin\Discovery\DiscoveryInterface;
 use Drupal\Component\Plugin\Factory\FactoryInterface;
 use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Form\FormState;
+use Drupal\Core\Form\SubformStateInterface;
 use Drupal\plugin\Plugin\Plugin\PluginSelector\PluginSelectorBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -167,12 +168,12 @@ class PluginSelectorBaseTest extends PluginSelectorBaseTestBase {
   public function testBuildSelectorForm() {
     $this->sut->setSelectablePluginType($this->selectablePluginType);
 
-    $form = [];
-    $form_state = new FormState();
+    $plugin_selector_form = [];
+    $plugin_selector_form_state = $this->getMock(SubformStateInterface::class);
 
-    $form = $this->sut->buildSelectorForm($form, $form_state);
+    $plugin_selector_form = $this->sut->buildSelectorForm($plugin_selector_form, $plugin_selector_form_state);
 
-    $this->assertInternalType('array', $form);
+    $this->assertInternalType('array', $plugin_selector_form);
   }
 
 }
