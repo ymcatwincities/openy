@@ -6050,7 +6050,7 @@ function ymca_master_update_8269() {
 /**
  * Fix browsers for article/Page CT.
  */
-function ymca_master_update_8270() {
+function ymca_master_update_8271() {
   $config_importer = \Drupal::service('config_import.importer');
 
   // Remove the field.
@@ -6062,14 +6062,51 @@ function ymca_master_update_8270() {
   $config_importer->setDirectory($dir);
   $config_importer->importConfigs(
     [
+      'core.base_field_override.node.article.promote',
+      'core.entity_form_display.mapping.trainer.default',
       'core.entity_form_display.node.article.default',
+      'core.entity_view_display.mapping.trainer.default',
       'core.entity_view_display.node.article.content_browser_preview',
       'core.entity_view_display.node.article.default',
       'core.entity_view_display.node.article.full',
       'core.entity_view_display.node.article.rss',
       'core.entity_view_display.node.article.teaser',
+      'field.field.mapping.trainer.field_mindbody_trainer_id',
+      'field.field.mapping.trainer.field_trainer_page_ref',
+      'field.field.node.article.field_alert',
+      'field.field.node.article.field_header_button',
       'field.field.node.article.field_header_image',
-      'field.storage.node.field_header_image.yml'
+      'field.field.node.article.field_header_variant',
+      'field.field.node.article.field_lead_description',
+      'field.field.node.article.field_page_meta',
+      'field.field.node.article.field_promo_slideshow',
+      'field.field.node.article.field_related',
+      'field.field.node.article.field_secondary_sidebar',
+      'field.field.node.article.field_sidebar_navigation',
+      'field.field.node.article.field_sidebar',
+      'field.field.node.article.field_state',
+      'field.field.node.article.field_tags',
+      'field.field.node.article.field_template',
+      'field.field.node.article.field_title_description',
+      'field.field.node.article.field_ygtc_content',
+      'field.storage.mapping.field_mindbody_trainer_id',
+      'field.storage.mapping.field_trainer_page_ref',
+      'field.storage.node.field_header_button',
+      'field.storage.node.field_header_image',
+      'field.storage.node.field_header_variant',
+      'field.storage.node.field_lead_description',
+      'field.storage.node.field_page_meta',
+      'field.storage.node.field_related',
+      'field.storage.node.field_secondary_sidebar',
+      'field.storage.node.field_sidebar_navigation',
+      'field.storage.node.field_sidebar',
+      'field.storage.node.field_template',
+      'field.storage.node.field_title_description',
+      'image.style.2013_masthead',
+      'language.content_settings.node.article',
+      'node.type.article',
+      'views.view.trainers_mapping',
+      'ymca_mappings.mapping_type.trainer',
     ]
   );
 
@@ -6099,7 +6136,7 @@ function ymca_master_update_8270() {
       $mediaEntity = $mediaStorage->create(
         [
           'bundle' => 'image',
-          'name' => $row->field_image_alt,
+          'name' => $row->field_header_image_alt,
           'status' => TRUE,
           'field_media_image' => [
             'target_id' => $file->id(),
@@ -6120,9 +6157,9 @@ function ymca_master_update_8270() {
 }
 
 /**
- * Remove old date_block bundle and enable OpenY Date Block.
+ * Enable OpenY Date Block.
  */
-function ymca_master_update_8271() {
+function ymca_master_update_8272() {
 
   $modules = [
     'openy_block_date',
@@ -6131,6 +6168,6 @@ function ymca_master_update_8271() {
 
   $installer = \Drupal::service('module_installer');
   foreach ($modules as $module) {
-    $installer = $installer->install([$module], TRUE);
+    $installer->install([$module], TRUE);
   }
 }
