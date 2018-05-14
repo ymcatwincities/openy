@@ -19,7 +19,7 @@ class WebformElementAllowsTagsTest extends WebformTestBase {
   protected static $testWebforms = ['test_element_allowed_tags'];
 
   /**
-   * Test element element allowed tags.
+   * Test element allowed tags.
    */
   public function testAllowsTags() {
     // Check <b> tags is allowed.

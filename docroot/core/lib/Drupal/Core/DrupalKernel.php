@@ -7,6 +7,7 @@ use Drupal\Component\Assertion\Handle;
 use Drupal\Component\FileCache\FileCacheFactory;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Cache\DatabaseBackend;
 use Drupal\Core\Config\BootstrapConfigStorageFactory;
 use Drupal\Core\Config\NullStorage;
 use Drupal\Core\Database\Database;
@@ -78,7 +79,7 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
       ],
       'cache.container' => [
         'class' => 'Drupal\Core\Cache\DatabaseBackend',
-        'arguments' => ['@database', '@cache_tags_provider.container', 'container'],
+        'arguments' => ['@database', '@cache_tags_provider.container', 'container', DatabaseBackend::MAXIMUM_NONE],
       ],
       'cache_tags_provider.container' => [
         'class' => 'Drupal\Core\Cache\DatabaseCacheTagsChecksum',
@@ -411,7 +412,7 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
    * {@inheritdoc}
    */
   public function setSitePath($path) {
-    if ($this->booted) {
+    if ($this->booted && $path !== $this->sitePath) {
       throw new \LogicException('Site path cannot be changed after calling boot()');
     }
     $this->sitePath = $path;
@@ -682,13 +683,13 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
    *
    * @param \Exception $e
    *   An exception
-   * @param Request $request
+   * @param \Symfony\Component\HttpFoundation\Request $request
    *   A Request instance
    * @param int $type
    *   The type of the request (one of HttpKernelInterface::MASTER_REQUEST or
    *   HttpKernelInterface::SUB_REQUEST)
    *
-   * @return Response
+   * @return \Symfony\Component\HttpFoundation\Response
    *   A Response instance
    *
    * @throws \Exception
@@ -923,6 +924,7 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
     // new session into the master request if one was present before.
     if (($request_stack = $this->container->get('request_stack', ContainerInterface::NULL_ON_INVALID_REFERENCE))) {
       if ($request = $request_stack->getMasterRequest()) {
+        $subrequest = TRUE;
         if ($request->hasSession()) {
           $request->setSession($this->container->get('session'));
         }
@@ -934,6 +936,12 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
     }
 
     \Drupal::setContainer($this->container);
+
+    // Allow other parts of the codebase to react on container initialization in
+    // subrequest.
+    if (!empty($subrequest)) {
+      $this->container->get('event_dispatcher')->dispatch(self::CONTAINER_INITIALIZE_SUBREQUEST_FINISHED);
+    }
 
     // If needs dumping flag was set, dump the container.
     if ($this->containerNeedsDumping && !$this->cacheDrupalContainer($container_definition)) {
@@ -1186,10 +1194,10 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
   /**
    * Attach synthetic values on to kernel.
    *
-   * @param ContainerInterface $container
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   Container object
    *
-   * @return ContainerInterface
+   * @return \Symfony\Component\DependencyInjection\ContainerInterface
    */
   protected function attachSynthetic(ContainerInterface $container) {
     $persist = [];
@@ -1212,7 +1220,7 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
   /**
    * Compiles a new service container.
    *
-   * @return ContainerBuilder The compiled service container
+   * @return \Drupal\Core\DependencyInjection\ContainerBuilder The compiled service container
    */
   protected function compileContainer() {
     // We are forcing a container build so it is reasonable to assume that the
@@ -1333,7 +1341,7 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
   /**
    * Gets a new ContainerBuilder instance used to build the service container.
    *
-   * @return ContainerBuilder
+   * @return \Drupal\Core\DependencyInjection\ContainerBuilder
    */
   protected function getContainerBuilder() {
     return new ContainerBuilder(new ParameterBag($this->getKernelParameters()));

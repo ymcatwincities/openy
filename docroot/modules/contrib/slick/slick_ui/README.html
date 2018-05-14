@@ -4,64 +4,58 @@
 Wheeler's Slick carousel.<br />
 See http://kenwheeler.github.io/slick</p>
 
-<p>Powerful: Slick is one of the sliders [1], as of 9/15, the only one [2], which<br />
-supports nested sliders and a mix of lazy-loaded image/video with<br />
-image-to-iframe or multimedia lightbox switchers.<br />
-See below for the supported media.</p>
-
-<p>Performant: Slick is stored as plain HTML the first time it is requested, and<br />
-then reused on subsequent requests. Carousels with cacheability and lazyload<br />
-are lighter and faster than those without.</p>
-
 <p>Slick has gazillion options, please start with the very basic working<br />
-samples from slick_example [3] only if trouble to build slicks. Be sure to read<br />
+samples from <a href="http://dgo.to/slick_extras">slick_example</a> only if trouble to build slicks. Be sure to read<br />
 its README.txt. Spending 5 minutes or so will save you hours in building more<br />
 complex slideshows.</p>
 
 <p>The module supports Slick 1.6 above.<br />
 Slick 2.x is just out 9/21/15, and hasn't been officially supported now, 9/27.</p>
 
-<p>[1] https://groups.drupal.org/node/20384<br />
-[2] https://www.drupal.org/node/418616<br />
-[3] http://dgo.to/slick_extras</p>
-
 <h3>REQUIREMENTS</h3>
 
 <ul>
-	<li>Slick library:&nbsp;<br />
-	o Download Slick archive &gt;= 1.6 from https://github.com/kenwheeler/slick/&nbsp;<br />
-	o Extract it as is, rename "slick-master" to "slick", so the assets are at:<br />
-	&nbsp; &nbsp; /libraries/slick/slick/slick.css<br />
-	&nbsp;&nbsp;&nbsp; /libraries/slick/slick/slick-theme.css (optional if a skin chosen)<br />
-	&nbsp;&nbsp;&nbsp; /libraries/slick/slick/slick.min.js</li>
-	<li>Download jqeasing from https://github.com/gdsmith/jquery.easing, so available&nbsp; at:<br />
-	&nbsp; /libraries/easing/jquery.easing.min.js<br />
-	&nbsp; This is CSS easing fallback for non-supporting browsers.</li>
-	<li>Blazy.module, to reduce DRY stuffs, and as a bonus, advanced lazyloading&nbsp; such as delay lazyloading for below-fold sliders, iframe, (fullscreen) CSS&nbsp; background lazyloading, breakpoint dependent multi-serving images, lazyload&nbsp; ahead for smoother UX.</li>
+  <li>Slick library:  <br />
+    <ul>
+      <li>Download Slick archive &gt;= 1.6 from https://github.com/kenwheeler/slick/</li>
+      <li>Extract it as is, rename "slick-master" to "slick", so the assets are at:<br />
+        <em>/libraries/slick/slick/slick.css</em><br />
+        <em>/libraries/slick/slick/slick-theme.css</em> (optional if a skin chosen)<br />
+        <em>/libraries/slick/slick/slick.min.js</em>
+      </li>
+    </ul>
+  </li>
+  <li>Download jqeasing from https://github.com/gdsmith/jquery.easing, so available&nbsp; at:<br />
+    <em>/libraries/easing/jquery.easing.min.js</em><br />
+    This is CSS easing fallback for non-supporting browsers.</li>
+  <li>Blazy.module, to reduce DRY stuffs, and as a bonus, advanced lazyloading
+  such as delay lazyloading for below-fold sliders, iframe, (fullscreen) CSS
+  background lazyloading, breakpoint dependent multi-serving images, lazyload
+  ahead for smoother UX.</li>
 </ul>
 
-<p>&nbsp; Important! Be sure to enable Blazy first before updating Slick Alphas,<br />
+<p>&nbsp; Important! Enable Blazy first before updating Slick Alphas,<br />
 &nbsp; otherwise a requirement error.</p>
 
 <h3>FEATURES</h3>
 
 <ul>
-	<li>Fully responsive. Scales with its container.</li>
-	<li>Uses CSS3 when available. Fully functional when not.</li>
-	<li>Swipe enabled. Or disabled, if you prefer.</li>
-	<li>Desktop mouse dragging.</li>
-	<li>Fully accessible with arrow key navigation.</li>
-	<li>Built-in lazyLoad, and multiple breakpoint options.</li>
-	<li>Random, autoplay, pagers, arrows, dots/text/tabs/thumbnail pagers etc...</li>
-	<li>Supports pure text, responsive image, iframe, video carousels with aspect ratio. No extra jQuery plugin FitVids is required. Just CSS.</li>
-	<li>Works with Views, core and contrib fields: Image, Media Entity.</li>
-	<li>Optional and modular skins, e.g.: Carousel, Classic, Fullscreen, Fullwidth, Split, Grid or a multi row carousel.</li>
-	<li>Various slide layouts are built with pure CSS goodness.</li>
-	<li>Nested sliders/overlays, or multiple slicks within a single Slick via Views.</li>
-	<li>Some useful hooks and drupal_alters for advanced works.</li>
-	<li>Modular integration with various contribs to build carousels with multimedia lightboxes or inline multimedia.</li>
-	<li>Media switcher: Image linked to content, Image to iframe, Image to colorbox, Image to photobox.</li>
-	<li>Cacheability + lazyload = light + fast.</li>
+  <li>Fully responsive. Scales with its container.</li>
+  <li>Uses CSS3 when available. Fully functional when not.</li>
+  <li>Swipe enabled. Or disabled, if you prefer.</li>
+  <li>Desktop mouse dragging.</li>
+  <li>Fully accessible with arrow key navigation.</li>
+  <li>Built-in lazyLoad, and multiple breakpoint options.</li>
+  <li>Random, autoplay, pagers, arrows, dots/text/tabs/thumbnail pagers etc...</li>
+  <li>Supports pure text, responsive image, iframe, video carousels with aspect ratio. No extra jQuery plugin FitVids is required. Just CSS.</li>
+  <li>Works with Views, core and contrib fields: Image, Media Entity.</li>
+  <li>Optional and modular skins, e.g.: Carousel, Classic, Fullscreen, Fullwidth, Split, Grid or a multi row carousel.</li>
+  <li>Various slide layouts are built with pure CSS goodness.</li>
+  <li>Nested sliders/overlays, or multiple slicks within a single Slick via Views.</li>
+  <li>Some useful hooks and drupal_alters for advanced works.</li>
+  <li>Modular integration with various contribs to build carousels with multimedia lightboxes or inline multimedia.</li>
+  <li>Media switcher: Image linked to content, Image to iframe, Image to colorbox, Image to photobox.</li>
+  <li>Cacheability + lazyload = light + fast.</li>
 </ul>
 
 <h3>INSTALLATION</h3>
@@ -72,12 +66,12 @@ http://drupal.org/documentation/install/modules-themes/modules-7</p>
 <p>The Slick module has several sub-modules:</p>
 
 <ul>
-	<li>slick_ui, included, to manage optionsets, can be uninstalled at production.</li>
-	<li><a href="http://dgo.to/slick_media">slick_media</a>, to get richer contents using Media entity.</li>
-	<li><a href="http://dgo.to/slick_video">slick_video</a>, to get video carousels using Video Embed Field.</li>
-	<li><a href="http://dgo.to/slick_paragraphs">slick_paragraphs</a>, to get more complex slides at field level.</li>
-	<li><a href="http://dgo.to/slick_views">slick_views</a>, to get more complex slides.</li>
-	<li><a href="http://dgo.to/slick_extras">slick_extras</a> contains <strong>slick_devel</strong>, if you want to help testing and developing the Slick, and <strong>slick_example</strong>, to get up and running quickly.</li>
+  <li>slick_ui, included, to manage optionsets, can be uninstalled at production.</li>
+  <li><a href="http://dgo.to/slick_media">slick_media</a>, to get richer contents using Media entity.</li>
+  <li><a href="http://dgo.to/slick_video">slick_video</a>, to get video carousels using Video Embed Field.</li>
+  <li><a href="http://dgo.to/slick_paragraphs">slick_paragraphs</a>, to get more complex slides at field level.</li>
+  <li><a href="http://dgo.to/slick_views">slick_views</a>, to get more complex slides.</li>
+  <li><a href="http://dgo.to/slick_extras">slick_extras</a> contains <strong>slick_devel</strong>, if you want to help testing and developing the Slick, and <strong>slick_example</strong>, to get up and running quickly.</li>
 </ul>
 
 <h3>OPTIONAL INTEGRATION</h3>
@@ -85,14 +79,14 @@ http://drupal.org/documentation/install/modules-themes/modules-7</p>
 <p>Slick supports enhancements and more complex layouts.</p>
 
 <ul>
-	<li>Colorbox, to have grids/slides that open up image/video in overlay.</li>
-	<li>Photobox, idem ditto.</li>
-	<li>Responsive image, in core, to get truly responsive image.</li>
-	<li><a href="http://dgo.to/media_entity">Media Entity</a>, to have richer contents: image, video, or a mix of em.</li>
-	<li><a href="http://dgo.to/video_embed_field">Video Embed Media</a>, idem ditto.</li>
-	<li><a href="http://dgo.to/paragraphs">Paragraphs</a>, to get more complex slides at field level.</li>
-	<li>Mousewheel, download from https://github.com/brandonaaron/jquery-mousewheel, so it is available at:<br />
-	<em>/libraries/mousewheel/jquery.mousewheel.min.js</em></li>
+  <li>Colorbox, to have grids/slides that open up image/video in overlay.</li>
+  <li>Photobox, idem ditto.</li>
+  <li>Responsive image, in core, to get truly responsive image.</li>
+  <li><a href="http://dgo.to/media_entity">Media Entity</a>, to have richer contents: image, video, or a mix of em.</li>
+  <li><a href="http://dgo.to/video_embed_field">Video Embed Media</a>, idem ditto.</li>
+  <li><a href="http://dgo.to/paragraphs">Paragraphs</a>, to get more complex slides at field level.</li>
+  <li>Mousewheel, download from https://github.com/brandonaaron/jquery-mousewheel, so it is available at:<br />
+  <em>/libraries/mousewheel/jquery.mousewheel.min.js</em></li>
 </ul>
 
 <p>&nbsp;</p>
@@ -103,7 +97,7 @@ http://drupal.org/documentation/install/modules-themes/modules-7</p>
 
 <p><em>&nbsp; admin/config/media/slick</em></p>
 
-<p>Be sure to enable Slick UI sub-module first, otherwise regular "Access denied".<br />
+<p>Enable Slick UI sub-module first, otherwise regular "Access denied".<br />
 They will be available at field formatter "Manage display", and Views UI.</p>
 
 <h3>VIEWS AND FIELDS</h3>
@@ -186,7 +180,7 @@ It is not the module job to match your awesome design requirements.</p>
 
 <p>If you want to attach extra 3rd libraries, e.g.: image reflection, image zoomer,<br />
 more advanced 3d carousels, etc, simply put them into js array of the target<br />
-skin. Be sure to add proper weight, if you are acting on existing slick events,<br />
+skin. Add proper weight, if you are acting on existing slick events,<br />
 normally &lt; 0 (slick.load.min.js) is the one.</p>
 
 <p>Use hook_slick_skins_info() and implement \Drupal\slick\SlickSkinInterface<br />
@@ -202,20 +196,20 @@ Some extra skins are WIP which may not work as expected.</p>
 
 <p>To create Slick grid or multiple rows carousel, there are 3 options:</p>
 
-<p>1. One row grid managed by library:<br />
-&nbsp;&nbsp; Visit admin/config/media/slick,<br />
-&nbsp;&nbsp; Edit current optionset, and set<br />
-&nbsp;&nbsp; slidesToShow &gt; 1, and Rows and slidesperRow = 1</p>
-
-<p>2. Multiple rows grid managed by library:<br />
-&nbsp;&nbsp; Visit admin/config/media/slick,<br />
-&nbsp;&nbsp; Edit current optionset, and set<br />
-&nbsp;&nbsp; slidesToShow = 1, Rows &gt; 1 and slidesPerRow &gt; 1</p>
-
-<p>3. Multiple rows grid managed by Module:<br />
-&nbsp;&nbsp; Visit admin/structure/views/view/slick_x/edit/block_grid from slick_example,<br />
-&nbsp;&nbsp; Be sure to install the Slick example sub-module first.<br />
-&nbsp;&nbsp; Requires skin "Grid", and slidesToShow, Rows and slidesPerRow = 1.</p>
+<ol>
+<li>One row grid managed by library:<br />
+  Visit <em>admin/config/media/slick</em><br />
+  Edit current optionset, and set<br />
+  slidesToShow &gt; 1, and Rows and slidesperRow = 1</li>
+<li>Multiple rows grid managed by library:<br />
+  Visit <em>admin/config/media/slick</em><br />
+  Edit current optionset, and set<br />
+  slidesToShow = 1, Rows &gt; 1 and slidesPerRow &gt; 1</li>
+<li>Multiple rows grid managed by Module:<br />
+  Visit <em>admin/structure/views/view/slick_x/edit/block_grid from slick_example</em><br />
+  Install the Slick example sub-module first.<br />
+  Requires skin "Grid", and slidesToShow, Rows and slidesPerRow = 1.</li>
+</ol>
 
 <p>The first 2 are supported by core library using pure JS approach.<br />
 The last is the Module feature using pure CSS Foundation block-grid.</p>
@@ -228,13 +222,14 @@ broken Grid, see skin Grid above for more details.</p>
 
 <p>Note, non-BEM classes are added by JS.</p>
 
-<p>&lt;div class="slick"&gt;<br />
+<code>
+&lt;div class="slick"&gt;<br />
 &nbsp; &lt;div class="slick__slider slick-initialized slick-slider"&gt;<br />
 &nbsp;&nbsp;&nbsp; &lt;div class="slick__slide"&gt;&lt;/div&gt;<br />
 &nbsp; &lt;/div&gt;<br />
 &nbsp; &lt;nav class="slick__arrow"&gt;&lt;/nav&gt;<br />
-&lt;/div&gt;</p>
-
+&lt;/div&gt;
+</code>
 <p>asNavFor should target slick-initialized class/ID attributes.</p>
 
 <h3>BUG REPORTS OR SUPPORT REQUESTS</h3>
@@ -242,24 +237,20 @@ broken Grid, see skin Grid above for more details.</p>
 <p>A basic knowledge of Drupal site building is required. If you get stuck:</p>
 
 <ul>
-	<li>consult the provided READMEs,</li>
-	<li>descriptions on each form item,</li>
-	<li>the relevant guidelines from the supported modules,</li>
-	<li>consider the project issue queues, your problem may be already addressed,</li>
-	<li>install slick_example.</li>
+  <li>consult the provided READMEs,</li>
+  <li>descriptions on each form item,</li>
+  <li>the relevant guidelines from the supported modules,</li>
+  <li>consider the project issue queues, your problem may be already addressed,</li>
+  <li>install slick_example.</li>
 </ul>
-
-<p>&nbsp;</p>
 
 <p>If you do have bug reports, we love bugs, please:</p>
 
 <ul>
-	<li>provide steps to reproduce it,</li>
-	<li>provide detailed info, a screenshot of the output and Slick form, or words to identify it any better,</li>
-	<li>make sure that the bug is caused by the module.</li>
+  <li>provide steps to reproduce it,</li>
+  <li>provide detailed info, a screenshot of the output and Slick form, or words to identify it any better,</li>
+  <li>make sure that the bug is caused by the module.</li>
 </ul>
-
-<p>&nbsp;</p>
 
 <p>For the Slick library bug, please report it to the actual library:<br />
 &nbsp; https://github.com/kenwheeler/slick</p>
@@ -272,62 +263,65 @@ Shortly, you should kindly help the maintainers with detailed info to help you.<
 Thanks.</p>
 
 <h3>TROUBLESHOOTING</h3>
+<ul>
+  <li>When upgrading from Slick v1.3.6 to later version, try to resave options at:<br />
+    <ul>
+      <li><em>admin/config/media/slick</em></li>
+      <li><em>admin/structure/types/manage/CONTENT_TYPE/display</em></li>
+      <li><em>admin/structure/views/view/VIEW_NAME</em><br />
+      only if trouble to see the new options, or when options don't apply properly.<br />
+      Most likely true when the library adds/changes options, or the module<br />
+      does something new. This is normal for any library even commercial ones, so<br />
+      bear with it.</li>
+    </ul>
+  </li>
+  <li>Always clear the cache, and re-generate JS (if aggregation is on) when<br />
+  updating the module to ensure things are picked up:<br />
+  <em>admin/config/development/performance</em></li>
+  <li>If you are customizing template files, or theme functions, re-check against the latest.</li>
 
-<p>- When upgrading from Slick v1.3.6 to later version, try to resave options at:<br />
-&nbsp; o admin/config/media/slick<br />
-&nbsp; o admin/structure/types/manage/CONTENT_TYPE/display<br />
-&nbsp; o admin/structure/views/view/VIEW_NAME<br />
-&nbsp; only if trouble to see the new options, or when options don't apply properly.<br />
-&nbsp; Most likely true when the library adds/changes options, or the module<br />
-&nbsp; does something new. This is normal for any library even commercial ones, so<br />
-&nbsp; bear with it.</p>
-
-<p>- Always clear the cache, and re-generate JS (if aggregation is on) when<br />
-&nbsp; updating the module to ensure things are picked up:<br />
-&nbsp; o admin/config/development/performance</p>
-
-<p>- If you are customizing template files, or theme functions, be sure to re-check<br />
-&nbsp; against the latest.</p>
-
-<p>- Be sure Slick release is similar, or later than Blazy.</p>
+  <li>Slick release is similar, or later than Blazy.</li>
+</ul>
 
 <h3>KNOWN ISSUES</h3>
 
-<p>- Slick admin CSS may not be compatible with private or contrib admin<br />
-&nbsp; themes. Only if trouble with admin display, please disable it at:<br />
-&nbsp; admin/config/media/blazy</p>
-
-<p>- The Slick lazyLoad is not supported with Responsive image. Slick only<br />
-&nbsp; facilitates Responsive image to get in. The image formatting is taken over by<br />
-&nbsp; Responsive image.<br />
-&nbsp; Some other options such as Aspect ratio is currently not supported either.</p>
-
-<p>- Photobox is best for:<br />
-&nbsp; - infinite true + slidesToShow 1<br />
-&nbsp; - infinite false + slidesToShow N<br />
-&nbsp; If "infinite true + slidesToShow &gt; 1" is a must, but you don't want dup<br />
-&nbsp; thumbnails, simply override the JS to disable 'thumbs' option.</p>
-
-<p>- The following is not module related, but worth a note:<br />
-&nbsp; o lazyLoad ondemand has issue with dummy image excessive height.<br />
-&nbsp;&nbsp;&nbsp; Added fixes to suppress it via option Aspect ratio (fluid | enforced).<br />
-&nbsp;&nbsp;&nbsp; Or use Blazy lazyload for more advanced options.<br />
-&nbsp; o Aspect ratio is not compatible with Responsive image or multi-serving<br />
-&nbsp;&nbsp;&nbsp; images.<br />
-&nbsp;&nbsp;&nbsp; However if you can stick to one Aspect ratio, choose 'enforced' instead.<br />
-&nbsp;&nbsp;&nbsp; Otherwise disable Aspect ratio for multi-serving images.<br />
-&nbsp; o If the total &lt; slidesToShow, Slick behaves. Previously added a workaround to<br />
-&nbsp;&nbsp;&nbsp; fix this, but later dropped and handed over to the core instead.<br />
-&nbsp;&nbsp;&nbsp; Brought back the temp fix for 1.6+ as per 10/18/16:<br />
-&nbsp;&nbsp;&nbsp; See https://github.com/kenwheeler/slick/issues/262<br />
-&nbsp; o Fade option with slideToShow &gt; 1 will screw up.<br />
-&nbsp; o variableWidth ignores slidesToShow.<br />
-&nbsp; o Too much centerPadding at small device affects slidesToShow.<br />
-&nbsp; o Infinite option will create duplicates or clone slides which look more<br />
-&nbsp;&nbsp;&nbsp; obvious if slidesToShow &gt; 1. Simply disable it if not desired.<br />
-&nbsp; o If thumbnail display is Infinite, the main one must be infinite too, else<br />
-&nbsp;&nbsp;&nbsp; incorrect syncing.<br />
-&nbsp; o adaptiveHeight is no good for vertical.</p>
+<ul>
+  <li>Slick admin CSS may not be compatible with private or contrib admin<br />
+  themes. Only if trouble with admin display, please disable it at:<br />
+  admin/config/media/blazy</li>
+  <li>The Slick lazyLoad is not supported with Responsive image. Slick only<br />
+  facilitates Responsive image to get in. The image formatting is taken over by<br />
+  Responsive image.<br />
+  Some other options such as Aspect ratio is currently not supported either.</li>
+  <li>Photobox is best for:<br />
+  - infinite true + slidesToShow 1<br />
+  - infinite false + slidesToShow N<br />
+  If "infinite true + slidesToShow &gt; 1" is a must, but you don't want dup<br />
+  thumbnails, simply override the JS to disable 'thumbs' option.</li>
+  <li>The following is not module related, but worth a note:<br />
+    <ul>
+      <li>lazyLoad ondemand has issue with dummy image excessive height.<br />
+      Added fixes to suppress it via option Aspect ratio (fluid | enforced).<br />
+      Or use Blazy lazyload for more advanced options.</li>
+      <li>Aspect ratio is not compatible with Responsive image or multi-serving<br />
+      images.<br />
+      However if you can stick to one Aspect ratio, choose 'enforced' instead.<br />
+      Otherwise disable Aspect ratio for multi-serving images.</li>
+      <li>If the total &lt; slidesToShow, Slick behaves. Previously added a workaround to<br />
+      fix this, but later dropped and handed over to the core instead.<br />
+      Brought back the temp fix for 1.6+ as per 10/18/16:<br />
+      See https://github.com/kenwheeler/slick/issues/262</li>
+      <li>Fade option with slideToShow &gt; 1 will screw up.</li>
+      <li>variableWidth ignores slidesToShow.</li>
+      <li>Too much centerPadding at small device affects slidesToShow.</li>
+      <li>Infinite option will create duplicates or clone slides which look more<br />
+      obvious if slidesToShow &gt; 1. Simply disable it if not desired.</li>
+      <li>If thumbnail display is Infinite, the main one must be infinite too, else<br />
+      incorrect syncing.</li>
+      <li>adaptiveHeight is no good for vertical.</li>
+    </ul>
+  </li>
+</ul>
 
 <h3>CURRENT DEVELOPMENT STATUS</h3>
 
@@ -337,12 +331,14 @@ some code cleanup, and optimization where needed. Patches are very much welcome.
 <p>Alpha and Beta releases are for developers only. Be aware of possible breakage.</p>
 
 <p>However if it is broken, unless an update is explicitly required, clearing cache<br />
-should fix most issues during DEV phases. Prior to any update, always visit:<br />
-/admin/config/development/performance</p>
-
-<p>And hit "Clear all caches" button once the new Slick is in place. Regenerate CSS<br />
-and JS as the latest fixes may contain changes to the assets.<br />
-Have the latest or similar release Blazy to avoid trouble in the first place.</p>
+should fix most issues during DEV phases.</p>
+<ul>
+  <li>Prior to any update, always visit:
+  <em>/admin/config/development/performance</em></li>
+  <li>Hit "Clear all caches" button once the new Slick is in place.</li>
+  <li>Regenerate CSS and JS as the latest fixes may contain changes to the assets.</li>
+  <li>Have the latest or similar release Blazy to avoid trouble in the first place.</li>
+</ul>
 
 <h3>ROADMAP</h3>
 
@@ -353,6 +349,22 @@ Have the latest or similar release Blazy to avoid trouble in the first place.</p
 <p>Please consider helping in the issue queue, provide improvement, or helping with documentation.</p>
 
 <p>If you find this module helpful, please help back spread the love. Thanks.</p>
+
+<h3>QUICK PERFORMANCE TIPS</h3>
+<ul>
+  <li>Use lazyLoad "ondemand" / "anticipated" for tons of images, not "progressive".
+   Unless within an ajaxified lightbox.</li>
+  <li>Choose lazyload "Blazy" for carousels below the fold to delay loading them.</li>
+  <li>Tick "Optimized" option on the top right of Slick optionset edit page.</li>
+  <li>Use image style with regular sizes containing effect "crop" in the name. This
+  way all images will inherit dimensions calculated once.</li>
+  <li>Disable core library "slick-theme.css" as it contains font "slick" which
+  may not be in use when using own icon font at:
+  /admin/config/media/slick/ui</li>
+  <li>Use Blazy multi-serving images, Responsive image, or Picture, accordingly.</li>
+  <li>Uninstall Slick UI at production.</li>
+  <li>Enable Drupal cache, and CSS/ JS assets aggregation.</li>
+</ul>
 
 <h3>AUTHOR/MAINTAINER/CREDITS</h3>
 

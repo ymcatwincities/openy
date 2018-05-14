@@ -18,20 +18,21 @@ class Radios extends AdvancedPluginSelectorBase {
   /**
    * {@inheritdoc}
    */
-  public function buildSelectorForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildSelectorForm($form, $form_state);
-    $form['clear'] = array(
+  public function buildSelectorForm(array $plugin_selector_form, FormStateInterface $plugin_selector_form_state) {
+    $this->assertSubformState($plugin_selector_form_state);
+    $plugin_selector_form = parent::buildSelectorForm($plugin_selector_form, $plugin_selector_form_state);
+    $plugin_selector_form['clear'] = array(
       '#markup' => '<div style="clear: both;"></div>',
     );
 
-    return $form;
+    return $plugin_selector_form;
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function buildSelector(array $root_element, FormStateInterface $form_state, array $plugins) {
-    $element = parent::buildSelector($root_element, $form_state, $plugins);
+  protected function buildSelector(array $plugin_selector_form, FormStateInterface $plugin_selector_form_state, array $plugins) {
+    $element = parent::buildSelector($plugin_selector_form, $plugin_selector_form_state, $plugins);
     /** @var \Drupal\Component\Plugin\PluginInspectionInterface[] $plugins */
     $plugin_options = [];
     foreach ($plugins as $plugin) {

@@ -16,9 +16,9 @@ source:
       title: ''
       body: |
         <ul class="list-inline">
-        	<li><a class="fa fa-facebook" title="Facebook" href="#">Facebook</a></li>
-        	<li><a class="fa fa-twitter" title="Twitter" href="#">Twitter</a></li>
-        	<li><a class="fa fa-youtube" title="Youtube" href="#">Youtube</a></li>
+        	<li><a class="fa fa-facebook" title="Go to YMCA Facebook" href="#">Facebook</a></li>
+        	<li><a class="fa fa-twitter" title="Go to YMCA Twitter" href="#">Twitter</a></li>
+        	<li><a class="fa fa-youtube" title="Go to YMCA Youtube channel" href="#">Youtube</a></li>
         </ul>
     -
       id: 8

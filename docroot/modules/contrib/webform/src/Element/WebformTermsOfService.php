@@ -63,7 +63,7 @@ class WebformTermsOfService extends Checkbox {
 
     // Change description to render array.
     if (isset($element['#description'])) {
-      $element['#description']['description'] = (is_array($element['#description'])) ? $element['#description'] : ['#markup' => $element['#description']];
+      $element['#description'] = ['description' => (is_array($element['#description'])) ? $element['#description'] : ['#markup' => $element['#description']]];
     }
     else {
       $element['#description'] = [];

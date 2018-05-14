@@ -35,7 +35,7 @@ process:
   field_lp_layout:
     plugin: default_value
     default_value: one_column
-  field_oy_content:
+  field_content:
     plugin: iterator
     source: content_ids
     process:

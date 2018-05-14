@@ -3,11 +3,14 @@
 namespace Drupal\Tests\rest\Functional\EntityResource\User;
 
 use Drupal\Core\Url;
+use Drupal\Tests\rest\Functional\BcTimestampNormalizerUnixTestTrait;
 use Drupal\Tests\rest\Functional\EntityResource\EntityResourceTestBase;
 use Drupal\user\Entity\User;
 use GuzzleHttp\RequestOptions;
 
 abstract class UserResourceTestBase extends EntityResourceTestBase {
+
+  use BcTimestampNormalizerUnixTestTrait;
 
   /**
    * {@inheritdoc}
@@ -98,14 +101,10 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
         ],
       ],
       'created' => [
-        [
-          'value' => 123456789,
-        ],
+        $this->formatExpectedTimestampItemValues(123456789),
       ],
       'changed' => [
-        [
-          'value' => $this->entity->getChangedTime(),
-        ],
+        $this->formatExpectedTimestampItemValues($this->entity->getChangedTime()),
       ],
       'default_langcode' => [
         [
@@ -122,7 +121,7 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
     return [
       'name' => [
         [
-          'value' => 'Dramallama ' . $this->randomMachineName(),
+          'value' => 'Dramallama',
         ],
       ],
     ];
@@ -145,7 +144,6 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
     // @todo Remove the array_diff_key() call in https://www.drupal.org/node/2821077.
     $original_normalization = array_diff_key($this->serializer->normalize($user, static::$format), ['created' => TRUE, 'changed' => TRUE, 'name' => TRUE]);
 
-
     // Since this test must be performed by the user that is being modified,
     // we cannot use $this->getUrl().
     $url = $user->toUrl()->setOption('query', ['_format' => static::$format]);
@@ -154,17 +152,14 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
     ];
     $request_options = array_merge_recursive($request_options, $this->getAuthenticationRequestOptions('PATCH'));
 
-
     // Test case 1: changing email.
     $normalization = $original_normalization;
     $normalization['mail'] = [['value' => 'new-email@example.com']];
     $request_options[RequestOptions::BODY] = $this->serializer->encode($normalization, static::$format);
 
-
     // DX: 422 when changing email without providing the password.
     $response = $this->request('PATCH', $url, $request_options);
     $this->assertResourceErrorResponse(422, "Unprocessable Entity: validation failed.\nmail: Your current password is missing or incorrect; it's required to change the Email.\n", $response);
-
 
     $normalization['pass'] = [['existing' => 'wrong']];
     $request_options[RequestOptions::BODY] = $this->serializer->encode($normalization, static::$format);
@@ -173,15 +168,12 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
     $response = $this->request('PATCH', $url, $request_options);
     $this->assertResourceErrorResponse(422, "Unprocessable Entity: validation failed.\nmail: Your current password is missing or incorrect; it's required to change the Email.\n", $response);
 
-
     $normalization['pass'] = [['existing' => $this->account->passRaw]];
     $request_options[RequestOptions::BODY] = $this->serializer->encode($normalization, static::$format);
-
 
     // 200 for well-formed request.
     $response = $this->request('PATCH', $url, $request_options);
     $this->assertResourceResponse(200, FALSE, $response);
-
 
     // Test case 2: changing password.
     $normalization = $original_normalization;
@@ -189,24 +181,19 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
     $normalization['pass'] = [['value' => $new_password]];
     $request_options[RequestOptions::BODY] = $this->serializer->encode($normalization, static::$format);
 
-
     // DX: 422 when changing password without providing the current password.
     $response = $this->request('PATCH', $url, $request_options);
     $this->assertResourceErrorResponse(422, "Unprocessable Entity: validation failed.\npass: Your current password is missing or incorrect; it's required to change the Password.\n", $response);
 
-
     $normalization['pass'][0]['existing'] = $this->account->pass_raw;
     $request_options[RequestOptions::BODY] = $this->serializer->encode($normalization, static::$format);
-
 
     // 200 for well-formed request.
     $response = $this->request('PATCH', $url, $request_options);
     $this->assertResourceResponse(200, FALSE, $response);
 
-
     // Verify that we can log in with the new password.
     $this->assertRpcLogin($user->getAccountName(), $new_password);
-
 
     // Update password in $this->account, prepare for future requests.
     $this->account->passRaw = $new_password;
@@ -216,20 +203,16 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
     ];
     $request_options = array_merge_recursive($request_options, $this->getAuthenticationRequestOptions('PATCH'));
 
-
     // Test case 3: changing name.
     $normalization = $original_normalization;
     $normalization['name'] = [['value' => 'Cooler Llama']];
     $request_options[RequestOptions::BODY] = $this->serializer->encode($normalization, static::$format);
 
-
     // DX: 403 when modifying username without required permission.
     $response = $this->request('PATCH', $url, $request_options);
     $this->assertResourceErrorResponse(403, "Access denied on updating field 'name'.", $response);
 
-
     $this->grantPermissionsToTestedRole(['change own username']);
-
 
     // 200 for well-formed request.
     $response = $this->request('PATCH', $url, $request_options);

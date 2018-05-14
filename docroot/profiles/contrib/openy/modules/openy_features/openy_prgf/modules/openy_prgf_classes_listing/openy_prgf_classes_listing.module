@@ -23,7 +23,70 @@ function openy_prgf_classes_listing_form_views_exposed_form_alter(&$form, FormSt
       $form_state->setUserInput($user_input);
     }
 
+    // Change Select All labels.
+    $selectFields = ['location', 'program', 'category', 'activity'];
+    foreach ($selectFields as $selectField) {
+      if (isset($form[$selectField])) {
+        $form[$selectField]['#options']['All'] = t('All');
+      }
+      if ($selectField == 'location') {
+        $form[$selectField]['#options'] = openy_prgf_classes_listing_get_location_options();
+      }
+
+      /**
+       * Check status of the program nodes. The VERF module doesn't do this. :(
+       * This isn't needed for locations, because they are the base filter and
+       * update automatically already.
+       */
+      if ($selectField != 'locations') {
+        $filter_ids = array_keys($form[$selectField]['#options']);
+        foreach ($filter_ids as $id) {
+          if (is_numeric($id)) {
+            $query = \Drupal::entityQuery('node');
+            $query->condition('status', 1);
+            $query->condition('nid', $id);
+            if (!$result = $query->execute()) {
+              unset($form[$selectField]['#options'][$id]);
+            }
+          }
+        }
+      }
+    }
+
     $form['#attributes']['class'][] = 'container';
     $form['#attached']['library'][] = 'openy_prgf_classes_listing/openy_classes_listing';
   }
+}
+
+/**
+ * Predefine options for locations.
+ * @return array
+ */
+function openy_prgf_classes_listing_get_location_options() {
+  static $options;
+
+  if (!$options) {
+    $options = [
+      'All' => t('All'),
+      'branches' => [],
+      'camps' => [],
+    ];
+    $map = [
+      'branch' => 'branches',
+      'camp' => 'camps',
+    ];
+
+    $query =  \Drupal::entityQuery('node')
+      ->condition('status', 1)
+      ->condition('type', ['branch', 'camp'], 'IN');
+    $entity_ids = $query->execute();
+
+    $nodes = \Drupal\node\Entity\Node::loadMultiple($entity_ids);
+
+    foreach ($nodes as $id => $node) {
+      $options[$map[$node->bundle()]][$id] = $node->getTitle();
+    }
+  }
+
+  return $options;
 }

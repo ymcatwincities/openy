@@ -28,7 +28,7 @@ Feature: Camp Content type
       | :lng                                | -122.238717        |
       | field_location_phone                | +1234567890        |
       | field_header_content                | behat_banner_01    |
-      | field_oy_content                       | behat_banner_02    |
+      | field_content                       | behat_banner_02    |
       | field_bottom_content                | behat_banner_03    |
 
   Scenario: Create basic Camp
@@ -45,7 +45,7 @@ Feature: Camp Content type
       | Latitude       | 46.293433      |
       | Longitude      | -123.238717    |
       | Phone          | +1234567890    |
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Camp Camp One has been created."
 
   Scenario: I see appropriate content on camp

@@ -67,6 +67,14 @@ $config['system.performance']['js']['preprocess'] = FALSE;
 # $settings['cache']['bins']['render'] = 'cache.backend.null';
 
 /**
+ * Disable caching for migrations.
+ *
+ * Uncomment the code below to only store migrations in memory and not in the
+ * database. This makes it easier to develop custom migrations.
+ */
+# $settings['cache']['bins']['discovery_migration'] = 'cache.backend.memory';
+
+/**
  * Disable Dynamic Page Cache.
  *
  * Note: you should test with Dynamic Page Cache enabled, to ensure the correct
@@ -82,7 +90,7 @@ $config['system.performance']['js']['preprocess'] = FALSE;
  * During development it can be useful to install test extensions for debugging
  * purposes.
  */
-$settings['extension_discovery_scan_tests'] = TRUE;
+# $settings['extension_discovery_scan_tests'] = TRUE;
 
 /**
  * Enable access to rebuild.php.

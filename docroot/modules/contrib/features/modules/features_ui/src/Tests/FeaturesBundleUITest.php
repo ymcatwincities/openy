@@ -51,7 +51,7 @@ class FeaturesBundleUITest extends WebTestBase {
    *   The features bundle.
    */
   protected function defaultBundle() {
-    return $this->bundleStorage->load('default');
+    return $this->bundleStorage->load(FeaturesBundleInterface::DEFAULT_BUNDLE);
   }
 
   /**

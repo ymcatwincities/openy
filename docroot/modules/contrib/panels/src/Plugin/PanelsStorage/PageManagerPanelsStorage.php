@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels\Plugin\PanelsStorage;
 
 use Drupal\Core\Access\AccessResult;

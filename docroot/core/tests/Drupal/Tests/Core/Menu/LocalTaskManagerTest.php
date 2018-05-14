@@ -413,7 +413,7 @@ class LocalTaskManagerTest extends UnitTestCase {
       ->method('getDefinitions')
       ->will($this->returnValue($definitions));
 
-    // Set up some cacheablity metadata and ensure its merged together.
+    // Set up some cacheability metadata and ensure its merged together.
     $definitions['menu_local_task_test_tasks_settings']['cache_tags'] = ['tag.example1'];
     $definitions['menu_local_task_test_tasks_settings']['cache_contexts'] = ['context.example1'];
     $definitions['menu_local_task_test_tasks_edit']['cache_tags'] = ['tag.example2'];
@@ -461,7 +461,6 @@ class LocalTaskManagerTest extends UnitTestCase {
       $mock->getCacheContexts()->willReturn(isset($info['cache_contexts']) ? $info['cache_contexts'] : []);
       $mock->getCacheTags()->willReturn(isset($info['cache_tags']) ? $info['cache_tags'] : []);
       $mock->getCacheMaxAge()->willReturn(isset($info['cache_max_age']) ? $info['cache_max_age'] : Cache::PERMANENT);
-
 
       $access_manager_map[] = [$info['route_name'], [], $this->account, TRUE, $info['access']];
 

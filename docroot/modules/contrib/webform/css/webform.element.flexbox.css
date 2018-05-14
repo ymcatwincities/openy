@@ -159,8 +159,8 @@
   /**
    * Radios/checkboxes.
    */
-  .form-type-checkbox,
-  .form-type-radio {
+  .webform-flex--container .form-type-checkbox,
+  .webform-flex--container .form-type-radio {
     white-space: nowrap;
   }
 

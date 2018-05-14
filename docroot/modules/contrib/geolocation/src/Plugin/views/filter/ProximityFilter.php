@@ -148,15 +148,20 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
       ];
 
       if (!empty($this->options['expose']['geocoder_plugin_settings']['plugin_id'])) {
-        $geocoder_plugin = $this->geolocationCore->getGeocoderManager()->getGeocoder(
-          $this->options['expose']['geocoder_plugin_settings']['plugin_id'],
-          $this->options['expose']['geocoder_plugin_settings']['settings']
-        );
-        if ($geocoder_plugin) {
-          $geocoder_settings_form = $geocoder_plugin->getOptionsForm();
-          if ($geocoder_settings_form) {
-            $geocoder_container['settings'] = $geocoder_settings_form;
-          }
+        $geocoder_plugin = $this->geolocationCore->getGeocoderManager()
+          ->getGeocoder(
+            $this->options['expose']['geocoder_plugin_settings']['plugin_id'],
+            $this->options['expose']['geocoder_plugin_settings']['settings']
+          );
+      }
+      elseif (current(array_keys($geocoder_options))) {
+        $geocoder_plugin = $this->geolocationCore->getGeocoderManager()->getGeocoder(current(array_keys($geocoder_options)));
+      }
+
+      if (!empty($geocoder_plugin)) {
+        $geocoder_settings_form = $geocoder_plugin->getOptionsForm();
+        if ($geocoder_settings_form) {
+          $geocoder_container['settings'] = $geocoder_settings_form;
         }
       }
 
@@ -193,7 +198,8 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
     else {
       $value_element = &$form;
     }
-    $value_element[$this->field]['#weight'] = 30;
+
+    $value_element[$identifier]['#weight'] = 30;
 
     if ($this->options['proximity_units'] == 'exposed') {
       $value_element[$this->options['expose']['identifier'] . '-units'] = [
@@ -335,6 +341,11 @@ class ProximityFilter extends NumericFilter implements ContainerFactoryPluginInt
             }
           }
         }
+      }
+      elseif (!$this->isAGroup()) {
+        // Proximity source set to "expose ins & retrieve from exposed form".
+        $this->value[$this->options['expose']['identifier'] . '-lat'] = $input[$this->options['expose']['identifier'] . '-lat'];
+        $this->value[$this->options['expose']['identifier'] . '-lng'] = $input[$this->options['expose']['identifier'] . '-lng'];
       }
     }
 

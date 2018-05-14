@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.ygtc_block_wrapper.field_prgf_ygtc_block_ref
+    - paragraphs.paragraphs_type.ygtc_block_wrapper
+  module:
+    - plugin
+id: paragraph.ygtc_block_wrapper.default
+targetEntityType: paragraph
+bundle: ygtc_block_wrapper
+mode: default
+content:
+  field_prgf_ygtc_block_ref:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+    region: content
+hidden: {  }

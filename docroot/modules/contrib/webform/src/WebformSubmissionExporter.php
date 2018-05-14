@@ -2,11 +2,9 @@
 
 namespace Drupal\webform;
 
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Archiver\ArchiveTar;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -45,13 +43,6 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
    * @var \Drupal\webform\WebformSubmissionStorageInterface
    */
   protected $entityStorage;
-
-  /**
-   * The entity query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $queryFactory;
 
   /**
    * The stream wrapper manager.
@@ -118,8 +109,6 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
    *   File system service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
-   *   The entity query factory.
    * @param \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface $stream_wrapper_manager
    *   The stream wrapper manager.
    * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
@@ -127,11 +116,10 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
    * @param \Drupal\webform\Plugin\WebformExporterManagerInterface $exporter_manager
    *   The results exporter manager.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, EntityTypeManagerInterface $entity_type_manager, QueryFactory $query_factory, StreamWrapperManagerInterface $stream_wrapper_manager, WebformElementManagerInterface $element_manager, WebformExporterManagerInterface $exporter_manager) {
+  public function __construct(ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, EntityTypeManagerInterface $entity_type_manager, StreamWrapperManagerInterface $stream_wrapper_manager, WebformElementManagerInterface $element_manager, WebformExporterManagerInterface $exporter_manager) {
     $this->configFactory = $config_factory;
     $this->fileSystem = $file_system;
     $this->entityStorage = $entity_type_manager->getStorage('webform_submission');
-    $this->queryFactory = $query_factory;
     $this->streamWrapperManager = $stream_wrapper_manager;
     $this->elementManager = $element_manager;
     $this->exporterManager = $exporter_manager;
@@ -195,7 +183,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
    * Get options name for current webform and source entity.
    *
    * @return string
-   *   Settings name as 'webform.export.{entity_type}.{entity_id}.
+   *   Settings name as 'webform.export.{entity_type}.{entity_id}'.
    */
   protected function getWebformOptionsName() {
     if ($entity = $this->getSourceEntity()) {
@@ -248,6 +236,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
 
       'delimiter' => ',',
       'multiple_delimiter' => ';',
+      'excel' => FALSE,
 
       'file_name' => 'submission-[webform_submission:serial]',
 
@@ -275,10 +264,10 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
 
     // Append element handler default options.
     $element_types = $this->getWebformElementTypes();
-    $element_handlers = $this->elementManager->getInstances();
-    foreach ($element_handlers as $element_type => $element_handler) {
+    $element_plugins = $this->elementManager->getInstances();
+    foreach ($element_plugins as $element_type => $element_plugin) {
       if (empty($element_types) || isset($element_types[$element_type])) {
-        $this->defaultOptions += $element_handler->getExportDefaultOptions();
+        $this->defaultOptions += $element_plugin->getExportDefaultOptions();
       }
     }
 
@@ -289,8 +278,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
    * {@inheritdoc}
    */
   public function buildExportOptionsForm(array &$form, FormStateInterface $form_state, array $export_options = []) {
-    $default_options = $this->getDefaultExportOptions();
-    $export_options = NestedArray::mergeDeep($default_options, $export_options);
+    $export_options += $this->getDefaultExportOptions();
     $this->setExporter($export_options);
 
     $webform = $this->getWebform();
@@ -304,17 +292,15 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
         if ($states_archive['invisible']) {
           $states_archive['invisible'][] = 'or';
         }
-        $states_archive['invisible'][] = [':input[name="export[format][exporter]"]' => ['value' => $plugin_id]];
+        $states_archive['invisible'][] = [':input[name="exporter"]' => ['value' => $plugin_id]];
       }
       if (!$exporter_plugin->hasOptions()) {
         if ($states_options['invisible']) {
           $states_options['invisible'][] = 'or';
         }
-        $states_options['invisible'][] = [':input[name="export[format][exporter]"]' => ['value' => $plugin_id]];
+        $states_options['invisible'][] = [':input[name="exporter"]' => ['value' => $plugin_id]];
       }
     }
-
-    $form['export']['#tree'] = TRUE;
 
     $form['export']['format'] = [
       '#type' => 'details',
@@ -346,7 +332,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
     $form['export']['element']['multiple_delimiter'] = [
       '#type' => 'select',
       '#title' => $this->t('Element multiple values delimiter'),
-      '#description' => $this->t('This is the delimiter when an element has multiple values.'),
+      '#description' => $this->t('The delimiter used when an element has multiple values.'),
       '#required' => TRUE,
       '#options' => [
         ';' => $this->t('Semicolon (;)'),
@@ -379,7 +365,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
 
     $form['export']['header']['header_prefix'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t("Include an element's title with all sub elements and values in each column header."),
+      '#title' => $this->t("Include an element's title with all sub elements and values in each column header"),
       '#return_value' => TRUE,
       '#default_value' => $export_options['header_prefix'],
     ];
@@ -398,14 +384,14 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
     if ($webform) {
       $form['export']['header']['header_prefix_label_delimiter']['#states'] = [
         'visible' => [
-          ':input[name="export[header][header_prefix]"]' => ['checked' => TRUE],
-          ':input[name="export[header][header_format]"]' => ['value' => 'label'],
+          ':input[name="header_prefix"]' => ['checked' => TRUE],
+          ':input[name="header_format"]' => ['value' => 'label'],
         ],
       ];
       $form['export']['header']['header_prefix_key_delimiter']['#states'] = [
         'visible' => [
-          ':input[name="export[header][header_prefix]"]' => ['checked' => TRUE],
-          ':input[name="export[header][header_format]"]' => ['value' => 'key'],
+          ':input[name="header_prefix"]' => ['checked' => TRUE],
+          ':input[name="header_format"]' => ['value' => 'key'],
         ],
       ];
     }
@@ -419,11 +405,11 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
       '#states' => $states_options,
     ];
     $element_types = $this->getWebformElementTypes();
-    $element_handlers = $this->elementManager->getInstances();
-    foreach ($element_handlers as $element_type => $element_handler) {
+    $element_plugins = $this->elementManager->getInstances();
+    foreach ($element_plugins as $element_type => $element_plugin) {
       if (empty($element_types) || isset($element_types[$element_type])) {
         $subform_state = SubformState::createForSubform($form['export']['elements'], $form, $form_state);
-        $element_handler->buildExportOptionsForm($form['export']['elements'], $subform_state, $export_options);
+        $element_plugin->buildExportOptionsForm($form['export']['elements'], $subform_state, $export_options);
       }
     }
 
@@ -437,11 +423,11 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
     $form['export']['columns'] = [
       '#type' => 'details',
       '#title' => $this->t('Column options'),
+      '#description' => $this->t('The selected columns will be included in the export.'),
       '#states' => $states_options,
     ];
     $form['export']['columns']['excluded_columns'] = [
       '#type' => 'webform_excluded_columns',
-      '#description' => $this->t('The selected columns will be included in the export.'),
       '#webform_id' => $webform->id(),
       '#default_value' => $export_options['excluded_columns'],
     ];
@@ -466,13 +452,13 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
       '#title' => $this->t('Download uploaded files'),
       '#description' => $this->t('If checked, the exported file and any submission file uploads will be download in a gzipped tar file.'),
       '#return_value' => TRUE,
+      '#default_value' => ($webform->hasManagedFile()) ? $export_options['files'] : 0,
       '#access' => $webform->hasManagedFile(),
       '#states' => [
         'invisible' => [
-          ':input[name="export[download][download]"]' => ['checked' => FALSE],
+          ':input[name="download"]' => ['checked' => FALSE],
         ],
       ],
-      '#default_value' => ($webform->hasManagedFile()) ? $export_options['files'] : 0,
     ];
 
     $source_entity = $this->getSourceEntity();
@@ -481,6 +467,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
       if ($entity_types) {
         $form['export']['download']['submitted'] = [
           '#type' => 'item',
+          '#input' => FALSE,
           '#title' => $this->t('Submitted to'),
           '#description' => $this->t('Select the entity type and then enter the entity id.'),
           '#field_prefix' => '<div class="container-inline">',
@@ -502,7 +489,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
           '#default_value' => $export_options['entity_id'],
           '#states' => [
             'invisible' => [
-              ':input[name="export[download][submitted][entity_type]"]' => ['value' => ''],
+              ':input[name="entity_type"]' => ['value' => ''],
             ],
           ],
         ];
@@ -526,7 +513,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
       '#attributes' => ['class' => ['container-inline']],
       '#states' => [
         'visible' => [
-          ':input[name="export[download][range_type]"]' => ['value' => 'latest'],
+          ':input[name="range_type"]' => ['value' => 'latest'],
         ],
       ],
       'range_latest' => [
@@ -545,18 +532,21 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
       $form['export']['download'][$key] = [
         '#type' => 'container',
         '#attributes' => ['class' => ['container-inline']],
+        '#tree' => TRUE,
         '#states' => [
           'visible' => [
-            ':input[name="export[download][range_type]"]' => ['value' => $key],
+            ':input[name="range_type"]' => ['value' => $key],
           ],
         ],
       ];
       $form['export']['download'][$key]['range_start'] = $range_element + [
           '#title' => $this->t('From'),
+          '#parents' => [$key, 'range_start'],
           '#default_value' => $export_options['range_start'],
         ];
       $form['export']['download'][$key]['range_end'] = $range_element + [
           '#title' => $this->t('To'),
+          '#parents' => [$key, 'range_end'],
           '#default_value' => $export_options['range_end'],
         ];
     }
@@ -587,67 +577,17 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
   /**
    * {@inheritdoc}
    */
-  public function getValuesFromInput(array $input) {
-    if (empty($input['export'])) {
-      return [];
-    }
-    $export_values = $input['export'];
-    $values = [];
-
-    // Append download/range type, submitted, and sticky.
-    if (isset($export_values['download'])) {
-      if (isset($export_values['download']['download'])) {
-        $values['download'] = $export_values['download']['download'];
-      }
-      if (isset($export_values['download']['state'])) {
-        $values['state'] = $export_values['download']['state'];
-      }
-      if (isset($export_values['download']['files'])) {
-        $values['files'] = $export_values['download']['files'];
-      }
-      if (isset($export_values['download']['sticky'])) {
-        $values['sticky'] = $export_values['download']['sticky'];
-      }
-      if (!empty($export_values['download']['submitted']['entity_type'])) {
-        $values += $export_values['download']['submitted'];
-      }
-      if (isset($export_values['download']['range_type'])) {
-        $range_type = $export_values['download']['range_type'];
-        $values['range_type'] = $range_type;
-        if (isset($export_values['download'][$range_type])) {
-          $values += $export_values['download'][$range_type];
-        }
+  public function getValuesFromInput(array $values) {
+    if (isset($values['range_type'])) {
+      $range_type = $values['range_type'];
+      $values['range_type'] = $range_type;
+      if (isset($values[$range_type])) {
+        $values += $values[$range_type];
       }
     }
 
-    // Append format.
-    if (isset($export_values['format'])) {
-      $values += $export_values['format'];
-    }
-
-    // Append element.
-    if (isset($export_values['element'])) {
-      $values += $export_values['element'];
-    }
-
-    // Append header.
-    if (isset($export_values['header'])) {
-      $values += $export_values['header'];
-    }
-
-    // Append columns.
-    if (isset($export_values['columns'])) {
-      $values += $export_values['columns'];
-    }
-
-    // Append (and flatten) elements.
-    // http://stackoverflow.com/questions/1319903/how-to-flatten-a-multidimensional-array
-    $default_options = $this->getDefaultExportOptions();
-    array_walk_recursive($export_values['elements'], function ($item, $key) use (&$values, $default_options) {
-      if (isset($default_options[$key])) {
-        $values[$key] = $item;
-      }
-    });
+    // Make sure only support options are returned.
+    $values = array_intersect_key($values, $this->getDefaultExportOptions());
 
     return $values;
   }
@@ -750,7 +690,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
     $webform = $this->getWebform();
     $source_entity = $this->getSourceEntity();
 
-    $query = $this->queryFactory->get('webform_submission')->condition('webform_id', $webform->id());
+    $query = $this->entityStorage->getQuery()->condition('webform_id', $webform->id());
 
     // Filter by source entity or submitted to.
     if ($source_entity) {
@@ -789,7 +729,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
           $query->condition('created', strtotime($export_options['range_start']), '>=');
         }
         if ($export_options['range_end']) {
-          $query->condition('created', strtotime($export_options['range_end']), '<=');
+          $query->condition('created', strtotime('+1 day', strtotime($export_options['range_end'])), '<');
         }
         break;
     }

@@ -17,34 +17,38 @@
 
 .webform-multiple-table td {
   white-space: nowrap;
+  vertical-align: top;
 }
 
-.webform-multiple-table td:first-child {
+.webform-multiple-table td.webform-multiple-table--handle {
   padding: 0 0 0 1em;
   width: 26px;
   vertical-align: middle;
   text-align: center;
 }
 
-.webform-multiple-table td:last-child {
+.webform-multiple-table td.webform-multiple-table--weight {
+  width: 20px;
+}
+
+.webform-multiple-table td.webform-multiple-table--operations {
   padding: 0 2px;
   vertical-align: middle;
   text-align: center;
   width: 60px;
 }
 
-
-.webform-multiple-table td:last-child input {
+.webform-multiple-table td.webform-multiple-table--operations input {
   margin: 0 2px;
 }
 
-.webform-multiple-table td:last-child input {
+.webform-multiple-table td.webform-multiple-table--operations input {
   opacity: 0.4;
 }
 
-.webform-multiple-table td:last-child input:hover,
-.webform-multiple-table td:last-child input:focus,
-.webform-multiple-table td:last-child input:active {
+.webform-multiple-table td.webform-multiple-table--operations input:hover,
+.webform-multiple-table td.webform-multiple-table--operations input:focus,
+.webform-multiple-table td.webform-multiple-table--operations input:active {
   opacity: 1;
   background: none;
 }
@@ -58,7 +62,8 @@
 .webform-multiple-table td .form-type-webform-autocomplete input {
   width: 100%;
 }
-.webform-multiple-table td .form-type-datelist select,
+
+.webform-multiple-table td .container-inline select,
 .form-type-webform-multiple.webform-has-field-prefix td select,
 .form-type-webform-multiple.webform-has-field-suffix td select,
 .form-type-webform-multiple.webform-has-field-prefix td input,

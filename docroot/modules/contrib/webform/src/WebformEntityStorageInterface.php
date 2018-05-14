@@ -50,7 +50,7 @@ interface WebformEntityStorageInterface extends ConfigEntityStorageInterface, Im
    * @param \Drupal\webform\WebformInterface $webform
    *   A webform.
    * @param int $next_serial
-   *   The next serial number
+   *   The next serial number.
    */
   public function setNextSerial(WebformInterface $webform, $next_serial);
 

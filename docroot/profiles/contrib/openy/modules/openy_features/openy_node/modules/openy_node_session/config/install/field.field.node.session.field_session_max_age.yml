@@ -9,7 +9,7 @@ field_name: field_session_max_age
 entity_type: node
 bundle: session
 label: 'Max Age'
-description: ''
+description: 'Input field for adding the max age.'
 required: false
 translatable: true
 default_value: {  }

@@ -105,7 +105,7 @@ function hook_webform_options_alter(array &$options, array &$element, $options_i
  * @param array $element
  *   The webform element that the options is for.
  */
-function hook_webform_options_WEBFORM_OPTIONS_ID_alter(array &$options, array &$element = []) {
+function hook_webform_options_WEBFORM_OPTIONS_ID_alter(array &$options, array &$element) {
 
 }
 

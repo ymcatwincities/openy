@@ -73,6 +73,7 @@ dependencies:
   - geolocation
   - rabbit_hole
   - rh_node
+  - rh_taxonomy
   - redirect
   - simple_sitemap
   - metatag
@@ -87,16 +88,33 @@ dependencies:
   - recaptcha
   - admin_toolbar
   - colorbutton
+  - better_exposed_filters
+  - custom_formatters
+  - token_filter
+  - views_field_formatter
+  - ctools
+  - lndr
+  - crop
+  - focal_point
+  - video
+  - media_entity_video
+  - easy_breadcrumb
   # OpenY features.
+  - openy_svg_formatter
   - openy_media_image
   - openy_media_document
   - openy_media_video
+  - openy_media_local_video
   - openy_node_mbrshp
   - openy_node
   - openy_block
   - openy_block_basic
+  - openy_block_menu
+  - openy_code_block
   - openy_datalayer
+  - openy_font
   - openy_taxonomy
+  - openy_txnm_amenities
   - openy_txnm_color
   - openy_location
   - openy_loc_branch
@@ -112,13 +130,17 @@ dependencies:
   - openy_prgf_branches_popup_all
   - openy_prgf_branches_popup_class
   - openy_prgf_class_location
+  - openy_prgf_code_block
   - openy_prgf_simple_content
   - openy_prgf_schedule_search
   - openy_prgf_featured_content
   - openy_prgf_grid_content
+  - openy_prgf_group_schedules
   - openy_prgf_story_card
   - openy_prgf_promo_card
+  - openy_prgf_secondary_description_sidebar
   - openy_prgf_featured_blogs
+  - openy_prgf_featured_highlights
   - openy_prgf_gallery
   - openy_prgf_teaser
   - openy_prgf_classes_listing
@@ -127,9 +149,12 @@ dependencies:
   - openy_prgf_blog_camp
   - openy_prgf_blog_branch
   - openy_prgf_blog_listing
+  - openy_prgf_block_date
   - openy_prgf_loc_finder
   - openy_prgf_mbrshp_calc
+  - openy_prgf_microsites_menu
   - openy_prgf_embedded_groupexpro_schedule
+  - openy_prgf_pgm_reg
   - openy_prgf_webform
   - openy_node_activity
   - openy_node_class
@@ -139,10 +164,24 @@ dependencies:
   - openy_menu_footer
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
+  - openy_block_branch_amenities
+  - openy_block_custom_simple
+  - openy_block_flexible_content
+  - openy_editor
+  - openy_prgf_1c
+  - openy_prgf_2c
+  - openy_prgf_3c
+  - openy_prgf_4c
+  - openy_prgf_amenities
+  - openy_prgf_lto
   # OpenY custom modules
+  - openy_addthis
   - openy_branch_selector
   - openy_field_hours
+  - openy_group_schedules
+  - groupex_form_cache
   - openy_hf
+  - openy_ckeditor
   - openy_hours_formatter
   - openy_migrate
   - openy_map
@@ -151,8 +190,10 @@ dependencies:
   - openy_session_instance
   - openy_schedules
   - openy_socrates
+  - openy_tour
   - location_finder
   - daxko
+  - openy_programs_search
   - openy_mappings
   - openy_calc
   - openy_data_wrapper

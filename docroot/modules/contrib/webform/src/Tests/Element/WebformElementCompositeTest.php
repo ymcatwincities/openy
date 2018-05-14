@@ -51,6 +51,11 @@ class WebformElementCompositeTest extends WebformTestBase {
     $this->assertRaw('<label for="edit-creditcard-basic-name">Name on Card</label>');
     $this->assertRaw('<input data-drupal-selector="edit-creditcard-basic-name" type="text" id="edit-creditcard-basic-name" name="creditcard_basic[name]" value="John Smith" size="60" maxlength="255" class="form-text" />');
 
+    // Check link multiple in table.
+    $this->assertRaw('<label for="edit-link-multiple">Link multiple</label>');
+    $this->assertRaw('<th class="link_multiple-table--title webform-multiple-table--title">Link Title<a href="#help" title="This is link title help" data-webform-help="This is link title help" class="webform-element-help">?</a>');
+    $this->assertRaw('<th class="link_multiple-table--url webform-multiple-table--url">Link URL<a href="#help" title="This is link url help" data-webform-help="This is link url help" class="webform-element-help">?</a>');
+
     /* Processing */
 
     // Check contact composite value.

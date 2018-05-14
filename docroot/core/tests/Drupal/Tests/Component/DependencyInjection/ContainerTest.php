@@ -8,6 +8,7 @@
 namespace Drupal\Tests\Component\DependencyInjection;
 
 use Drupal\Component\Utility\Crypt;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Exception\LogicException;
@@ -21,7 +22,7 @@ use Prophecy\Argument;
  * @coversDefaultClass \Drupal\Component\DependencyInjection\Container
  * @group DependencyInjection
  */
-class ContainerTest extends \PHPUnit_Framework_TestCase {
+class ContainerTest extends TestCase {
 
   /**
    * The tested container.
@@ -516,7 +517,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
     $configurator = $this->prophesize('\Drupal\Tests\Component\DependencyInjection\MockConfiguratorInterface');
     $configurator->configureService(Argument::type('object'))
       ->shouldBeCalled(1)
-      ->will(function($args) use ($container) {
+      ->will(function ($args) use ($container) {
         $args[0]->setContainer($container);
       });
     $container->set('configurator', $configurator->reveal());
@@ -654,46 +655,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Tests that unsupported methods throw an Exception.
-   *
-   * @covers ::enterScope
-   * @covers ::leaveScope
-   * @covers ::addScope
-   * @covers ::hasScope
-   * @covers ::isScopeActive
-   *
-   * @dataProvider scopeExceptionTestProvider
-   */
-  public function testScopeFunctionsWithException($method, $argument) {
-    $callable = [
-      $this->container,
-      $method,
-    ];
-
-    $this->setExpectedException(\BadMethodCallException::class);
-    $callable($argument);
-  }
-
-  /**
-   * Data provider for scopeExceptionTestProvider().
-   *
-   * @return array[]
-   *   Returns per data set an array with:
-   *     - method name to call
-   *     - argument to pass
-   */
-  public function scopeExceptionTestProvider() {
-    $scope = $this->prophesize('\Symfony\Component\DependencyInjection\ScopeInterface')->reveal();
-    return [
-      ['enterScope', 'test_scope'],
-      ['leaveScope', 'test_scope'],
-      ['hasScope', 'test_scope'],
-      ['isScopeActive', 'test_scope'],
-      ['addScope', $scope],
-    ];
-  }
-
-  /**
    * Tests that Container::getServiceIds() works properly.
    *
    * @covers ::getServiceIds
@@ -754,12 +715,18 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
       ]),
       'properties' => $this->getCollection(['_someProperty' => 'foo']),
       'calls' => [
-        ['setContainer', $this->getCollection([
-          $this->getServiceCall('service_container'),
-        ])],
-        ['setOtherConfigParameter', $this->getCollection([
-          $this->getParameterCall('some_other_config'),
-        ])],
+        [
+          'setContainer',
+          $this->getCollection([
+            $this->getServiceCall('service_container'),
+          ]),
+        ],
+        [
+          'setOtherConfigParameter',
+          $this->getCollection([
+            $this->getParameterCall('some_other_config'),
+          ]),
+        ],
       ],
       'priority' => 0,
     ];
@@ -811,7 +778,8 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
     $services['invalid_argument_service'] = [
       'class' => '\Drupal\Tests\Component\DependencyInjection\MockService',
       'arguments' => $this->getCollection([
-        1, // Test passing non-strings, too.
+        // Test passing non-strings, too.
+        1,
         (object) [
           'type' => 'invalid',
         ],
@@ -863,9 +831,12 @@ class ContainerTest extends \PHPUnit_Framework_TestCase {
         [NULL, 'bar'],
       ],
       'calls' => [
-        ['setContainer', $this->getCollection([
-          $this->getServiceCall('service_container'),
-        ])],
+        [
+          'setContainer',
+          $this->getCollection([
+            $this->getServiceCall('service_container'),
+          ]),
+        ],
       ],
     ];
 
@@ -1072,7 +1043,7 @@ class MockInstantiationService {
 class MockService {
 
   /**
-   * @var ContainerInterface
+   * @var \Symfony\Component\DependencyInjection\ContainerInterface
    */
   protected $container;
 
@@ -1110,7 +1081,7 @@ class MockService {
   /**
    * Sets the container object.
    *
-   * @param ContainerInterface $container
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   The container to inject via setter injection.
    */
   public function setContainer(ContainerInterface $container) {
@@ -1120,7 +1091,7 @@ class MockService {
   /**
    * Gets the container object.
    *
-   * @return ContainerInterface
+   * @return \Symfony\Component\DependencyInjection\ContainerInterface
    *   The internally set container.
    */
   public function getContainer() {

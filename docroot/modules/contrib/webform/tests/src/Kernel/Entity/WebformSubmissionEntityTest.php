@@ -44,6 +44,10 @@ class WebformSubmissionEntityTest extends KernelTestBase {
         '#type' => 'textfield',
         '#title' => 'name',
       ],
+      'other' => [
+        '#type' => 'textfield',
+        '#title' => 'other',
+      ],
     ];
     $webform->setElements($elements);
     $webform->save();
@@ -59,6 +63,20 @@ class WebformSubmissionEntityTest extends KernelTestBase {
     $webform_submission = WebformSubmission::create($values);
     $webform_submission->save();
     $this->assertEquals($webform->uuid(), $webform_submission->getWebform()->uuid());
+
+    // Check get data.
+    $this->assertEquals($webform_submission->getData(), ['name' => 'John Smith']);
+
+    // Check get element data.
+    $this->assertEquals($webform_submission->getElementData('name'), 'John Smith');
+
+    // Check get element data.
+    $this->assertEquals($webform_submission->getElementData('name'), 'John Smith');
+
+    // Check set element data.
+    $webform_submission->setElementData('other', 'Other');
+    $this->assertEquals($webform_submission->getElementData('other'), 'Other');
+    $this->assertEquals($webform_submission->getData(), ['name' => 'John Smith', 'other' => 'Other']);
 
     // Check default submission label.
     $this->assertEquals($webform_submission->label(), 'Test: Submission #1');

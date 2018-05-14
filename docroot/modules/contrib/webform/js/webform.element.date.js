@@ -32,7 +32,7 @@
 
         // Skip if date inputs are supported by the browser and input is not a text field.
         // @see \Drupal\webform\Element\WebformDatetime
-        if (window.Modernizr && Modernizr.inputtypes.date === true && $input.attr('type') != 'text') {
+        if (window.Modernizr && Modernizr.inputtypes.date === true && $input.attr('type') !== 'text') {
           return;
         }
 
@@ -67,6 +67,11 @@
         }
         if ($input.attr('max')) {
           options.maxDate = $input.attr('max');
+        }
+
+        // Add min/max year to data range.
+        if (!options.yearRange && $input.data('min-year') && $input.data('max-year')) {
+          options.yearRange = $input.data('min-year') + ':' + $input.attr('data-max-year')
         }
 
         $input.datepicker(options);

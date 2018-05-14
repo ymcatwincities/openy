@@ -110,11 +110,8 @@ abstract class DataParserPluginBase extends PluginBase implements DataParserPlug
     $this->fetchNextRow();
     // If there was no valid row there, try the next url (if any).
     if (is_null($this->currentItem)) {
-      while ($this->nextSource()) {
+      if ($this->nextSource()) {
         $this->fetchNextRow();
-        if ($this->valid()) {
-          break;
-        }
       }
     }
     if ($this->valid()) {

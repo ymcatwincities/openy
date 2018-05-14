@@ -36,6 +36,14 @@ Just replace `testSendNotification()` with your method.
 
   * With PHP:
   `\Drupal::service("personify_mindbody_sync.tester")->testSendNotification();`
+ 
+### How to debug:
+
+**Be careful**
+
+Personify & Mindbody is in PROD mode. Every time running the syncer locally you affect real data.
+
+@see `docroot/modules/custom/personify_mindbody_sync/src/PersonifyMindbodySyncFetcherBase.php:114`
 
 ## TODO
 

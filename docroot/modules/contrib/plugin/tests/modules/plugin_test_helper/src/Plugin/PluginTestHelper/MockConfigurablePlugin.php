@@ -3,7 +3,6 @@
 namespace Drupal\plugin_test_helper\Plugin\PluginTestHelper;
 
 use Drupal\Component\Plugin\ConfigurablePluginInterface;
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\Plugin\PluginFormInterface;
@@ -80,8 +79,7 @@ class MockConfigurablePlugin extends PluginBase implements ConfigurablePluginInt
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $values = NestedArray::getValue($form_state->getValues(), $form['#parents']);
-    $this->configuration['foo'] = $values['foo'];
+    $this->configuration['foo'] = $form_state->getValue('foo');
   }
 
 }

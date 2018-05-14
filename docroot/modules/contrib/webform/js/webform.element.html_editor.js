@@ -56,7 +56,7 @@
           format_tags: 'p;h2;h3;h4;h5;h6',
           // Autogrow.
           extraPlugins: 'autogrow',
-          autoGrow_minHeight: 100,
+          autoGrow_minHeight: 60,
           autoGrow_maxHeight: 300
         };
 

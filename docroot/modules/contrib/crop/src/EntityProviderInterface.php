@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\crop\EntityProviderInterface.
- */
-
 namespace Drupal\crop;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
@@ -29,7 +24,7 @@ interface EntityProviderInterface extends PluginInspectionInterface {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   Entity being cropping.
    *
-   * @return string|FALSE
+   * @return string|false
    *   URI as string or FALSE
    */
   public function uri(EntityInterface $entity);

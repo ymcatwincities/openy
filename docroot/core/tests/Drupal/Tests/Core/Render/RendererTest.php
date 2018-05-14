@@ -65,110 +65,154 @@ class RendererTest extends RendererTestBase {
   public function providerTestRenderBasic() {
     $data = [];
 
-
     // Part 1: the most simplistic render arrays possible, none using #theme.
-
 
     // Pass a NULL.
     $data[] = [NULL, ''];
     // Pass an empty string.
     $data[] = ['', ''];
     // Previously printed, see ::renderTwice for a more integration-like test.
-    $data[] = [[
-      '#markup' => 'foo',
-      '#printed' => TRUE,
-    ], ''];
+    $data[] = [
+      ['#markup' => 'foo', '#printed' => TRUE],
+      '',
+    ];
     // Printed in pre_render.
-    $data[] = [[
-      '#markup' => 'foo',
-      '#pre_render' => [[new TestCallables(), 'preRenderPrinted']]
-    ], ''];
+    $data[] = [
+      [
+        '#markup' => 'foo',
+        '#pre_render' => [[new TestCallables(), 'preRenderPrinted']],
+      ],
+      '',
+    ];
     // Basic #markup based renderable array.
-    $data[] = [[
-      '#markup' => 'foo',
-    ], 'foo'];
+    $data[] = [
+      ['#markup' => 'foo'],
+      'foo',
+    ];
     // Basic #plain_text based renderable array.
-    $data[] = [[
-      '#plain_text' => 'foo',
-    ], 'foo'];
+    $data[] = [
+      ['#plain_text' => 'foo'],
+      'foo',
+    ];
     // Mixing #plain_text and #markup based renderable array.
-    $data[] = [[
-      '#plain_text' => '<em>foo</em>',
-      '#markup' => 'bar',
-    ], '&lt;em&gt;foo&lt;/em&gt;'];
+    $data[] = [
+      ['#plain_text' => '<em>foo</em>', '#markup' => 'bar'],
+      '&lt;em&gt;foo&lt;/em&gt;',
+    ];
     // Safe strings in #plain_text are still escaped.
-    $data[] = [[
-      '#plain_text' => Markup::create('<em>foo</em>'),
-    ], '&lt;em&gt;foo&lt;/em&gt;'];
+    $data[] = [
+      ['#plain_text' => Markup::create('<em>foo</em>')],
+      '&lt;em&gt;foo&lt;/em&gt;',
+    ];
     // Renderable child element.
-    $data[] = [[
-      'child' => ['#markup' => 'bar'],
-    ], 'bar'];
+    $data[] = [
+      ['child' => ['#markup' => 'bar']],
+      'bar',
+    ];
     // XSS filtering test.
-    $data[] = [[
-      'child' => ['#markup' => "This is <script>alert('XSS')</script> test"],
-    ], "This is alert('XSS') test"];
+    $data[] = [
+      ['child' => ['#markup' => "This is <script>alert('XSS')</script> test"]],
+      "This is alert('XSS') test",
+    ];
     // XSS filtering test.
-    $data[] = [[
-      'child' => ['#markup' => "This is <script>alert('XSS')</script> test", '#allowed_tags' => ['script']],
-    ], "This is <script>alert('XSS')</script> test"];
+    $data[] = [
+      [
+        'child' => [
+          '#markup' => "This is <script>alert('XSS')</script> test",
+          '#allowed_tags' => ['script'],
+        ],
+      ],
+      "This is <script>alert('XSS')</script> test",
+    ];
     // XSS filtering test.
-    $data[] = [[
-      'child' => ['#markup' => "This is <script><em>alert('XSS')</em></script> <strong>test</strong>", '#allowed_tags' => ['em', 'strong']],
-    ], "This is <em>alert('XSS')</em> <strong>test</strong>"];
+    $data[] = [
+      [
+        'child' => [
+          '#markup' => "This is <script><em>alert('XSS')</em></script> <strong>test</strong>",
+          '#allowed_tags' => ['em', 'strong'],
+        ],
+      ],
+      "This is <em>alert('XSS')</em> <strong>test</strong>",
+    ];
     // Html escaping test.
-    $data[] = [[
-      'child' => ['#plain_text' => "This is <script><em>alert('XSS')</em></script> <strong>test</strong>"],
-    ], "This is &lt;script&gt;&lt;em&gt;alert(&#039;XSS&#039;)&lt;/em&gt;&lt;/script&gt; &lt;strong&gt;test&lt;/strong&gt;"];
+    $data[] = [
+      [
+        'child' => [
+          '#plain_text' => "This is <script><em>alert('XSS')</em></script> <strong>test</strong>",
+        ],
+      ],
+      "This is &lt;script&gt;&lt;em&gt;alert(&#039;XSS&#039;)&lt;/em&gt;&lt;/script&gt; &lt;strong&gt;test&lt;/strong&gt;",
+    ];
     // XSS filtering by default test.
-    $data[] = [[
-      'child' => ['#markup' => "This is <script><em>alert('XSS')</em></script> <strong>test</strong>"],
-    ], "This is <em>alert('XSS')</em> <strong>test</strong>"];
+    $data[] = [
+      [
+        'child' => [
+          '#markup' => "This is <script><em>alert('XSS')</em></script> <strong>test</strong>",
+        ],
+      ],
+      "This is <em>alert('XSS')</em> <strong>test</strong>",
+    ];
     // Ensure non-XSS tags are not filtered out.
-    $data[] = [[
-      'child' => ['#markup' => "This is <strong><script>alert('not a giraffe')</script></strong> test"],
-    ], "This is <strong>alert('not a giraffe')</strong> test"];
+    $data[] = [
+      [
+        'child' => [
+          '#markup' => "This is <strong><script>alert('not a giraffe')</script></strong> test",
+        ],
+      ],
+      "This is <strong>alert('not a giraffe')</strong> test",
+    ];
     // #children set but empty, and renderable children.
-    $data[] = [[
-      '#children' => '',
-      'child' => ['#markup' => 'bar'],
-    ], 'bar'];
+    $data[] = [
+      ['#children' => '', 'child' => ['#markup' => 'bar']],
+      'bar',
+    ];
     // #children set, not empty, and renderable children. #children will be
     // assumed oto be the rendered child elements, even though the #markup for
     // 'child' differs.
-    $data[] = [[
-      '#children' => 'foo',
-      'child' => ['#markup' => 'bar'],
-    ], 'foo'];
+    $data[] = [
+      ['#children' => 'foo', 'child' => ['#markup' => 'bar']],
+      'foo',
+    ];
     // Ensure that content added to #markup via a #pre_render callback is safe.
-    $data[] = [[
-      '#markup' => 'foo',
-      '#pre_render' => [function($elements) {
-        $elements['#markup'] .= '<script>alert("bar");</script>';
-        return $elements;
-      }]
-    ], 'fooalert("bar");'];
+    $data[] = [
+      [
+        '#markup' => 'foo',
+        '#pre_render' => [function ($elements) {
+          $elements['#markup'] .= '<script>alert("bar");</script>';
+          return $elements;
+        }
+        ],
+      ],
+      'fooalert("bar");',
+    ];
     // Test #allowed_tags in combination with #markup and #pre_render.
-    $data[] = [[
-      '#markup' => 'foo',
-      '#allowed_tags' => ['script'],
-      '#pre_render' => [function($elements) {
-        $elements['#markup'] .= '<script>alert("bar");</script>';
-        return $elements;
-      }]
-    ], 'foo<script>alert("bar");</script>'];
+    $data[] = [
+      [
+        '#markup' => 'foo',
+        '#allowed_tags' => ['script'],
+        '#pre_render' => [function ($elements) {
+          $elements['#markup'] .= '<script>alert("bar");</script>';
+          return $elements;
+        }
+        ],
+      ],
+      'foo<script>alert("bar");</script>',
+    ];
     // Ensure output is escaped when adding content to #check_plain through
     // a #pre_render callback.
-    $data[] = [[
-      '#plain_text' => 'foo',
-      '#pre_render' => [function($elements) {
-        $elements['#plain_text'] .= '<script>alert("bar");</script>';
-        return $elements;
-      }]
-    ], 'foo&lt;script&gt;alert(&quot;bar&quot;);&lt;/script&gt;'];
+    $data[] = [
+      [
+        '#plain_text' => 'foo',
+        '#pre_render' => [function ($elements) {
+          $elements['#plain_text'] .= '<script>alert("bar");</script>';
+          return $elements;
+        }
+        ],
+      ],
+      'foo&lt;script&gt;alert(&quot;bar&quot;);&lt;/script&gt;',
+    ];
 
     // Part 2: render arrays using #theme and #theme_wrappers.
-
 
     // Tests that #theme and #theme_wrappers can co-exist on an element.
     $build = [
@@ -178,12 +222,12 @@ class RendererTest extends RendererTestBase {
       '#theme_wrappers' => ['container'],
       '#attributes' => ['class' => ['baz']],
     ];
-    $setup_code_type_link = function() {
+    $setup_code_type_link = function () {
       $this->setupThemeContainer();
       $this->themeManager->expects($this->at(0))
         ->method('render')
         ->with('common_test_foo', $this->anything())
-        ->willReturnCallback(function($theme, $vars) {
+        ->willReturnCallback(function ($theme, $vars) {
           return $vars['#foo'] . $vars['#bar'];
         });
     };
@@ -203,12 +247,12 @@ class RendererTest extends RendererTestBase {
       '#url' => 'https://www.drupal.org',
       '#title' => 'bar',
     ];
-    $setup_code_type_link = function() {
+    $setup_code_type_link = function () {
       $this->setupThemeContainer();
       $this->themeManager->expects($this->at(0))
         ->method('render')
         ->with('link', $this->anything())
-        ->willReturnCallback(function($theme, $vars) {
+        ->willReturnCallback(function ($theme, $vars) {
           $attributes = new Attribute(['href' => $vars['#url']] + (isset($vars['#attributes']) ? $vars['#attributes'] : []));
           return '<a' . (string) $attributes . '>' . $vars['#title'] . '</a>';
         });
@@ -240,7 +284,7 @@ class RendererTest extends RendererTestBase {
         'container',
       ],
     ];
-    $setup_code = function() {
+    $setup_code = function () {
       $this->setupThemeContainer($this->any());
     };
     $data[] = [$build, '<div class="foo"><div class="bar"></div>' . "\n" . '</div>' . "\n", $setup_code];
@@ -250,21 +294,19 @@ class RendererTest extends RendererTestBase {
       '#theme_wrappers' => [['container']],
       '#attributes' => ['class' => ['foo']],
     ];
-    $setup_code = function() {
+    $setup_code = function () {
       $this->setupThemeContainerMultiSuggestion($this->any());
     };
     $data[] = [$build, '<div class="foo"></div>' . "\n", $setup_code];
 
-
     // Part 3: render arrays using #markup as a fallback for #theme hooks.
-
 
     // Theme suggestion is not implemented, #markup should be rendered.
     $build = [
       '#theme' => ['suggestionnotimplemented'],
       '#markup' => 'foo',
     ];
-    $setup_code = function() {
+    $setup_code = function () {
       $this->themeManager->expects($this->once())
         ->method('render')
         ->with(['suggestionnotimplemented'], $this->anything())
@@ -279,7 +321,7 @@ class RendererTest extends RendererTestBase {
         '#markup' => 'foo',
       ],
     ];
-    $setup_code = function() {
+    $setup_code = function () {
       $this->themeManager->expects($this->once())
         ->method('render')
         ->with(['suggestionnotimplemented'], $this->anything())
@@ -293,7 +335,7 @@ class RendererTest extends RendererTestBase {
       '#markup' => 'foo',
     ];
     $theme_function_output = $this->randomContextValue();
-    $setup_code = function() use ($theme_function_output) {
+    $setup_code = function () use ($theme_function_output) {
       $this->themeManager->expects($this->once())
         ->method('render')
         ->with(['common_test_empty'], $this->anything())
@@ -310,9 +352,7 @@ class RendererTest extends RendererTestBase {
     ];
     $data[] = [$build, $theme_function_output, $setup_code];
 
-
     // Part 4: handling of #children and child renderable elements.
-
 
     // #theme is implemented so the values of both #children and 'child' will
     // be ignored - it is the responsibility of the theme hook to render these
@@ -322,7 +362,7 @@ class RendererTest extends RendererTestBase {
       '#children' => 'baz',
       'child' => ['#markup' => 'boo'],
     ];
-    $setup_code = function() {
+    $setup_code = function () {
       $this->themeManager->expects($this->once())
         ->method('render')
         ->with('common_test_foo', $this->anything())
@@ -341,7 +381,7 @@ class RendererTest extends RendererTestBase {
         '#markup' => 'boo',
       ],
     ];
-    $setup_code = function() {
+    $setup_code = function () {
       $this->themeManager->expects($this->never())
         ->method('render');
     };
@@ -357,11 +397,30 @@ class RendererTest extends RendererTestBase {
         '#markup' => 'boo',
       ],
     ];
-    $setup_code = function() {
+    $setup_code = function () {
       $this->themeManager->expects($this->never())
         ->method('render');
     };
     $data[] = [$build, 'baz', $setup_code];
+
+    // #theme is implemented but #render_children is TRUE. In this case the
+    // calling code is expecting only the children to be rendered. #prefix and
+    // #suffix should not be inherited for the children.
+    $build = [
+      '#theme' => 'common_test_foo',
+      '#children' => '',
+      '#prefix' => 'kangaroo',
+      '#suffix' => 'unicorn',
+      '#render_children' => TRUE,
+      'child' => [
+        '#markup' => 'kitten',
+      ],
+    ];
+    $setup_code = function () {
+      $this->themeManager->expects($this->never())
+        ->method('render');
+    };
+    $data[] = [$build, 'kitten', $setup_code];
 
     return $data;
   }
@@ -447,7 +506,7 @@ class RendererTest extends RendererTestBase {
    */
   public function testRenderWithAccessCallbackCallable($access) {
     $build = [
-      '#access_callback' => function() use ($access) {
+      '#access_callback' => function () use ($access) {
         return $access;
       }
     ];
@@ -466,7 +525,7 @@ class RendererTest extends RendererTestBase {
   public function testRenderWithAccessPropertyAndCallback($access) {
     $build = [
       '#access' => $access,
-      '#access_callback' => function() {
+      '#access_callback' => function () {
         return TRUE;
       }
     ];
@@ -511,7 +570,7 @@ class RendererTest extends RendererTestBase {
    * @covers ::render
    * @covers ::doRender
    */
-  public function testRenderAccessCacheablityDependencyInheritance() {
+  public function testRenderAccessCacheabilityDependencyInheritance() {
     $build = [
       '#access' => AccessResult::allowed()->addCacheContexts(['user']),
     ];
@@ -522,22 +581,78 @@ class RendererTest extends RendererTestBase {
   }
 
   /**
-   * Tests that a first render returns the rendered output and a second doesn't.
+   * Tests rendering same render array twice.
    *
-   * (Because of the #printed property.)
+   * Tests that a first render returns the rendered output and a second doesn't
+   * because of the #printed property. Also tests that correct metadata has been
+   * set for re-rendering.
    *
    * @covers ::render
    * @covers ::doRender
+   *
+   * @dataProvider providerRenderTwice
    */
-  public function testRenderTwice() {
-    $build = [
-      '#markup' => 'test',
-    ];
-
-    $this->assertEquals('test', $this->renderer->renderRoot($build));
+  public function testRenderTwice($build) {
+    $this->assertEquals('kittens', $this->renderer->renderRoot($build));
+    $this->assertEquals('kittens', $build['#markup']);
+    $this->assertEquals(['kittens-147'], $build['#cache']['tags']);
     $this->assertTrue($build['#printed']);
 
     // We don't want to reprint already printed render arrays.
+    $this->assertEquals('', $this->renderer->renderRoot($build));
+  }
+
+  /**
+   * Provides a list of render array iterations.
+   *
+   * @return array
+   */
+  public function providerRenderTwice() {
+    return [
+      [
+        [
+          '#markup' => 'kittens',
+          '#cache' => [
+            'tags' => ['kittens-147']
+          ],
+        ],
+      ],
+      [
+        [
+          'child' => [
+            '#markup' => 'kittens',
+            '#cache' => [
+              'tags' => ['kittens-147'],
+            ],
+          ],
+        ],
+      ],
+      [
+        [
+          '#render_children' => TRUE,
+          'child' => [
+            '#markup' => 'kittens',
+            '#cache' => [
+              'tags' => ['kittens-147'],
+            ],
+          ],
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * Ensures that #access is taken in account when rendering #render_children.
+   */
+  public function testRenderChildrenAccess() {
+    $build = [
+      '#access' => FALSE,
+      '#render_children' => TRUE,
+      'child' => [
+        '#markup' => 'kittens',
+      ],
+    ];
+
     $this->assertEquals('', $this->renderer->renderRoot($build));
   }
 
@@ -578,7 +693,7 @@ class RendererTest extends RendererTestBase {
     $this->themeManager->expects($matcher ?: $this->at(1))
       ->method('render')
       ->with('container', $this->anything())
-      ->willReturnCallback(function($theme, $vars) {
+      ->willReturnCallback(function ($theme, $vars) {
         return '<div' . (string) (new Attribute($vars['#attributes'])) . '>' . $vars['#children'] . "</div>\n";
       });
   }
@@ -587,7 +702,7 @@ class RendererTest extends RendererTestBase {
     $this->themeManager->expects($matcher ?: $this->at(1))
       ->method('render')
       ->with(['container'], $this->anything())
-      ->willReturnCallback(function($theme, $vars) {
+      ->willReturnCallback(function ($theme, $vars) {
         return '<div' . (string) (new Attribute($vars['#attributes'])) . '>' . $vars['#children'] . "</div>\n";
       });
   }

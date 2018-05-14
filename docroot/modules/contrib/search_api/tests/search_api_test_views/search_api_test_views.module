@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Contains hook implementations for the Search API Views Test module.
+ */
+
+use Drupal\search_api\Query\QueryInterface;
+
+/**
+ * Implements hook_search_api_query_alter().
+ *
+ * Prints the contents of the "search_api_retrieved_properties" query option to
+ * the page (if present) so it can be checked by the testing code.
+ */
+function search_api_test_views_search_api_query_alter(QueryInterface $query) {
+  $properties = $query->getOption('search_api_retrieved_properties');
+  if ($properties) {
+    $message = [];
+    foreach ($properties as $datasource_properties) {
+      foreach ($datasource_properties as $combined_property_path) {
+        $message[] = "'$combined_property_path'";
+      }
+    }
+    drupal_set_message(implode(' ', $message));
+  }
+}

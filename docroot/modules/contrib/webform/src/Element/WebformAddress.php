@@ -37,6 +37,7 @@ class WebformAddress extends WebformCompositeBase {
       '#type' => 'select',
       '#title' => t('State/Province'),
       '#options' => 'state_province_names',
+      '#empty_option' => '',
     ];
     $elements['postal_code'] = [
       '#type' => 'textfield',
@@ -46,6 +47,7 @@ class WebformAddress extends WebformCompositeBase {
       '#type' => 'select',
       '#title' => t('Country'),
       '#options' => 'country_names',
+      '#empty_option' => '',
     ];
     return $elements;
   }

@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Installation file.
+ */
+
+/**
+ * Initial hook_updates runner.
+ */
+function openy_prgf_group_schedules_install() {
+  for ($i = 8001; $i < 9000; $i++) {
+    $function = 'openy_prgf_group_schedules' . $i;
+    if (function_exists($function)) {
+      \Drupal::logger('openy_prgf_group_schedules')->info('running: ' . $function);
+      $function();
+    }
+  }
+}

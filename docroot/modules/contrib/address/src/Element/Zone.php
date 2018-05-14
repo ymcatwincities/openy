@@ -60,19 +60,15 @@ class Zone extends FormElement {
   }
 
   /**
-   * {@inheritdoc}
+   * Ensures all keys are set on the provided value.
+   *
+   * @param array $value
+   *   The value.
+   *
+   * @return array
+   *   The modified value.
    */
-  public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
-    if (is_array($input)) {
-      $value = $input;
-    }
-    else {
-      if (!is_array($element['#default_value'])) {
-        $element['#default_value'] = [];
-      }
-      $value = $element['#default_value'];
-    }
-    // Initialize default keys.
+  public static function applyDefaults(array $value) {
     foreach (['label', 'territories'] as $property) {
       if (!isset($value[$property])) {
         $value[$property] = NULL;
@@ -80,6 +76,21 @@ class Zone extends FormElement {
     }
 
     return $value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
+    // Ensure both the default value and the input have all keys set.
+    // Preselect the default country to ensure it's present in the value.
+    if (is_array($input)) {
+      $input = self::applyDefaults($input);
+    }
+    $element['#default_value'] = (array) $element['#default_value'];
+    $element['#default_value'] = self::applyDefaults($element['#default_value']);
+
+    return is_array($input) ? $input : $element['#default_value'];
   }
 
   /**

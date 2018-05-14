@@ -45,10 +45,10 @@
  * @ingroup themeable
  */
 #}
-<div class="layout-container {{ camp_class }}">
+<div class="layout-container {{ layout_class }}">
 
   <div class="top-navs navbar-fixed-top visible-xs visible-sm" data-spy="affix" data-offset-top="1">
-    <nav class="nav-global navbar-default navbar">
+    <div class="nav-global navbar-default navbar">
       <div class="container">
         <div class="row">
           <div class="page-head__logo">
@@ -57,17 +57,18 @@
             {% endblock %}
           </div>
 
-          <a class="navbar-toggle visible-xs visible-sm" data-toggle="collapse" data-target=".sidebar-left" href="#">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
+          <button aria-controls="sidebar" aria-expanded="false" class="collapsed navbar-toggle visible-xs visible-sm" data-target="#sidebar" data-toggle="collapse" type=button>
+            <div class=sr-only>{{ 'Navigation menu'|t }}</div>
+            <span class=icon-bar></span>
+            <span class=icon-bar></span>
+            <span class=icon-bar></span>
+          </button>
         </div>
       </div>
-    </nav>
+    </div>
   </div>
 
-  <div id="sidebar" class="sidebar sidebar-left collapse width">
+  <div id="sidebar" class="sidebar sidebar-left collapse width" aria-hidden="true">
     <div class="col-xs-12 page-head__top-menu">
       {{ page.mobile_menu.useraccountmenu }}
     </div>
@@ -79,7 +80,7 @@
   <div class="viewport">
     <header id="page-head" class="page-head">
       <div class="top-navs navbar-fixed-top hidden-xs hidden-sm" data-spy="affix" data-offset-top="1">
-        <nav class="nav-global navbar-ymcags navbar">
+        <div class="nav-global navbar-ymcags navbar">
           <div class="container">
             <div class="row">
               <div class="page-head__logo">
@@ -119,7 +120,7 @@
             </div>
 
           </div>
-        </nav>
+        </div>
       </div>
     </header>
 
@@ -153,14 +154,14 @@
             {% if footer_logo %}
               {% set background_image = " style='background-image: url(" ~ file_url(footer_logo) ~ ")'" %}
             {% endif %}
-            <a href="{{ front_page }}" class="footer__brand brand" title="{{ "YMCA"|t }}"{{ background_image|raw }}></a>
+            <a href="{{ front_page }}" class="footer__brand brand" title="{{ "Site-logo"|t }}"{{ background_image|raw }}></a>
           {% endblock %}
         </div>
-        <nav class="col-xs-8 col-sm-12 col-md-7 col-lg-6">
-          <nav class="footer__nav row">
+        <div class="col-xs-8 col-sm-12 col-md-7 col-lg-6">
+          <div class="footer__nav row">
             {{ page.footer_menus }}
-          </nav>
-        </nav>
+          </div>
+        </div>
         <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4 footer__social">
           {{ page.footer_social }}
         </div>

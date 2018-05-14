@@ -26,12 +26,17 @@
         unsaved = true;
       }
       else {
-        $('.js-webform-unsaved :input:not(input[type=\'submit\'])', context).once('webform-unsaved').on('change keypress', function () {
-          unsaved = true;
+        $('.js-webform-unsaved :input:not(input[type="submit"])', context).once('webform-unsaved').on('change keypress', function (event, param1) {
+          // Ignore events triggered when #states API is changed,
+          // which passes 'webform.states' as param1.
+          // @see webform.states.js ::triggerEventHandlers().
+          if (param1 != 'webform.states') {
+            unsaved = true;
+          }
         });
       }
 
-      $('.js-webform-unsaved button, .js-webform-unsaved input[type=\'submit\']', context).once('webform-unsaved').on('click', function () {
+      $('.js-webform-unsaved button, .js-webform-unsaved input[type="submit"]', context).once('webform-unsaved').on('click', function () {
         unsaved = false;
       });
     }

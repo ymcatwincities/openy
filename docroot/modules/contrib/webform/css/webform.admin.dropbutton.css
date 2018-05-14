@@ -11,7 +11,7 @@
 /**
  * Hide dropbutton to prevent FOUC (flash of unstyled content).
  */
-.dropbutton-wrapper {
+.webform-dropbutton .dropbutton-wrapper {
   visibility: hidden;
   min-width: 100px;
 }

@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_prgf_3с feature.
+ */
+
+/**
+ * Add field_prfg_display_line_above for openy_prgf_1c, openy_prgf_2c, openy_prgf_3c, openy_prgf_4c.
+ *
+ * In some reason configuration for openy_prgf_4c must be importer first we got conf dependency error.
+ */
+function openy_prgf_4c_update_8002() {
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+}
+
+/**
+ * Fix configs.
+ */
+function openy_prgf_4c_update_8003() {
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+}
+
+/**
+ * Change view mode for columns fields to full.
+ * @see https://github.com/ymcatwincities/openy/issues/824
+ */
+function openy_prgf_4c_update_8004() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_4c');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.paragraph.4c.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.paragraph.4c.default',
+    'content'
+  );
+}
