@@ -138,13 +138,13 @@
       if (!classes.last) {
         return true;
       }
-      if (!$activeClass.size() || $activeClass.data('from') != classes.last.data('from')) {
+      if (!$activeClass.length || $activeClass.data('from') != classes.last.data('from')) {
         return true;
       }
 
       var $upcomingClassContainer = $('.active-classes .class-next', self.context);
       var $upcomingClass = $('.class', $upcomingClassContainer);
-      if ($upcomingClass.size() && $upcomingClass.data('from') != classes.next.data('from')) {
+      if ($upcomingClass.length && $upcomingClass.data('from') != classes.next.data('from')) {
         return true;
       }
 
@@ -160,7 +160,7 @@
       var $upcomingClassContainer = $('.active-classes .class-next', self.context);
       var $upcomingClass = $('.class', $upcomingClassContainer);
 
-      if ($activeClass.size()) {
+      if ($activeClass.length) {
         // Remove previous class.
         $prevClassContainer.remove();
 
@@ -298,7 +298,7 @@
       self.blockObject = ObjectsManager.getObject(self.context);
       self.blockObject.activate = self.activate;
       self.blockObject.deactivate = self.deactivate;
-      if (self.blockObject.isActive() || $(self.context).parents('.screen').size() === 0) {
+      if (self.blockObject.isActive() || $(self.context).parents('.screen').length === 0) {
         self.activate();
         if ($('.active-classes .class-active .class', self.context).length === 0) {
           self.actualizeActiveClasses(self.getCurrentAndNext());

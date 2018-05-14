@@ -197,7 +197,7 @@ class AddressPlainFormatter extends FormatterBase implements ContainerFactoryPlu
       }
 
       // Remember the original value so that it can be used for $parents.
-      $original_values[$field] = $values[$field];
+      $original_values[$field] = $value;
       // Replace the value with the expected code.
       if (LocaleHelper::match($address->getLocale(), $subdivision->getLocale())) {
         $values[$field] = [

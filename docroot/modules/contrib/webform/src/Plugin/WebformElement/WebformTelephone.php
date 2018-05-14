@@ -15,6 +15,7 @@ use Drupal\webform\WebformSubmissionInterface;
  *   category = @Translation("Composite elements"),
  *   description = @Translation("Provides a form element to display a telephone number with type and extension."),
  *   composite = TRUE,
+ *   states_wrapper = TRUE,
  * )
  */
 class WebformTelephone extends WebformCompositeBase {
@@ -23,12 +24,12 @@ class WebformTelephone extends WebformCompositeBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    $default_properties = parent::getDefaultProperties();
-    $default_properties['title_display'] = '';
-    $default_properties['phone__international'] = TRUE;
-    $default_properties['phone__international_initial_country'] = '';
-    unset($default_properties['flexbox']);
-    return $default_properties;
+    $properties = parent::getDefaultProperties();
+    $properties['title_display'] = '';
+    $properties['phone__international'] = TRUE;
+    $properties['phone__international_initial_country'] = '';
+    unset($properties['flexbox']);
+    return $properties;
   }
 
   /**

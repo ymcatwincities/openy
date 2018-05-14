@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels\Controller;
 
 use Drupal\Component\Plugin\PluginManagerInterface;

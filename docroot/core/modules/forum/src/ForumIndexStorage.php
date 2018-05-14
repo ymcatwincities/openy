@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\forum;
+
 use Drupal\comment\CommentInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\node\NodeInterface;
@@ -103,7 +104,7 @@ class ForumIndexStorage implements ForumIndexStorageInterface {
         ':status' => CommentInterface::PUBLISHED,
       ])->fetchObject();
       $this->database->update('forum_index')
-        ->fields( [
+        ->fields([
           'comment_count' => $count,
           'last_comment_timestamp' => $last_reply->created,
         ])
@@ -114,7 +115,7 @@ class ForumIndexStorage implements ForumIndexStorageInterface {
       // Comments do not exist.
       // @todo This should be actually filtering on the desired node language
       $this->database->update('forum_index')
-        ->fields( [
+        ->fields([
           'comment_count' => 0,
           'last_comment_timestamp' => $node->getCreatedTime(),
         ])

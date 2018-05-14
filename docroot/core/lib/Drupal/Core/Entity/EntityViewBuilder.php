@@ -52,7 +52,7 @@ class EntityViewBuilder extends EntityHandlerBase implements EntityHandlerInterf
   /**
    * The language manager.
    *
-   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   * @var \Drupal\Core\Language\LanguageManagerInterface
    */
   protected $languageManager;
 
@@ -66,9 +66,9 @@ class EntityViewBuilder extends EntityHandlerBase implements EntityHandlerInterf
   /**
    * The EntityViewDisplay objects created for individual field rendering.
    *
-   * @see \Drupal\Core\Entity\EntityViewBuilder::getSingleFieldDisplay()
+   * @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface[]
    *
-   * @param \Drupal\Core\Entity\Display\EntityViewDisplayInterface[]
+   * @see \Drupal\Core\Entity\EntityViewBuilder::getSingleFieldDisplay()
    */
   protected $singleFieldDisplays;
 
@@ -337,7 +337,7 @@ class EntityViewBuilder extends EntityHandlerBase implements EntityHandlerInterf
    * @param string $view_mode
    *   The view mode that should be used to prepare the entity.
    */
-  protected function alterBuild(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) { }
+  protected function alterBuild(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {}
 
   /**
    * {@inheritdoc}

@@ -65,6 +65,23 @@ elements: |
         one: One
         two: Two
         three: Three
+    checkboxes_help:
+      '#type': checkboxes
+      '#title': 'Checkboxes with help text'
+      '#options_display': side_by_side
+      '#options_description_display': help
+      '#options':
+        one: 'One -- This is help text.'
+        two: 'Two -- This is help text.'
+        three: 'Three -- This is  help text.'
+    checkboxes_description:
+      '#type': checkboxes
+      '#title': 'Checkboxes with descriptions'
+      '#options_description_display': description
+      '#options':
+        one: 'One -- This is a descripion.'
+        two: 'Two -- This is a descripion.'
+        three: 'Three -- This is a descripion.'
     checkboxes_icheck:
       '#type': checkboxes
       '#title': 'Checkboxes (iCheck)'
@@ -83,7 +100,7 @@ elements: |
         two: Two
         three: Three
     radios_icheck:
-      '#type': checkboxes
+      '#type': radios
       '#title': 'Radios (iCheck)'
       '#options_display': side_by_side
       '#options':
@@ -347,6 +364,31 @@ elements: |
       '#title': 'Link multiple'
       '#multiple': true
       '#multiple__header': true
+    webform_custom_composite:
+      '#type': webform_composite
+      '#title': 'Custom composite'
+      '#element':
+        first_name:
+          '#type': textfield
+          '#title': 'First name'
+        last_name:
+          '#type': textfield
+          '#title': 'Last name'
+        gender:
+          '#type': select
+          '#options': gender
+          '#title': Gender
+        martial_status:
+          '#type': webform_select_other
+          '#options': marital_status
+          '#title': 'Martial status'
+        employment_status:
+          '#type': webform_select_other
+          '#options': employment_status
+          '#title': 'Employment status'
+        age:
+          '#type': number
+          '#title': 'Age'
   form_elements:
     '#type': details
     '#title': 'Form elements'
@@ -385,6 +427,10 @@ elements: |
       '#title': 'Title displayed after'
       '#title_display': after
       '#description': 'This is a description.'
+    title_help:
+      '#type': textfield
+      '#title': 'Title with help (tooltip)'
+      '#help': 'This is help displayed in a tooltip. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.'
     title_display_inline:
       '#type': textfield
       '#title': 'Title displayed inline'
@@ -398,8 +444,13 @@ elements: |
     description_display_tooltip:
       '#type': textfield
       '#title': 'Description displayed in tooltip'
-      '#description': 'This description is displayed in a tooltip.  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.'
+      '#description': 'This description is displayed in a tooltip. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.'
       '#description_display': tooltip
+    description_more:
+      '#type': textfield
+      '#title': 'Description with (read) more'
+      '#description': 'This is a description.'
+      '#more': 'This is more text'
   container_elements:
     '#type': details
     '#title': 'Containers elements'
@@ -411,6 +462,10 @@ elements: |
     fieldset:
       '#type': fieldset
       '#title': Fieldset
+      '#description': 'This is a description.'
+    webform_section:
+      '#type': webform_section
+      '#title': Section
       '#description': 'This is a description.'
     container_form_inline:
       '#type': container
@@ -431,6 +486,16 @@ elements: |
       '#wrapper_attributes':
         class:
           - 'container-inline clearfix'
+  divider:
+    '#type': details
+    '#title': 'Divider'
+    '#open': true
+    horizontal_rule:
+      '#type': webform_horizontal_rule
+      '#attributes':
+        class:
+          - webform-horizontal-rule--dotted
+          - webform-horizontal-rule--thick
   messages:
     '#type': details
     '#title': Messages
@@ -477,6 +542,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -506,8 +572,8 @@ settings:
   wizard_progress_pages: true
   wizard_progress_percentage: true
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 1
   preview_label: ''
   preview_title: ''

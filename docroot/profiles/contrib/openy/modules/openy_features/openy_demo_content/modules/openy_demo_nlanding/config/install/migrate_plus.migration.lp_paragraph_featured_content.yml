@@ -105,7 +105,7 @@ process:
   # TODO: get parent_field_name from data?
   parent_field_name:
     plugin: default_value
-    default_value: field_oy_content
+    default_value: field_content
   field_prgf_headline: headline
   field_prgf_description/value: description
   field_prgf_description/format:

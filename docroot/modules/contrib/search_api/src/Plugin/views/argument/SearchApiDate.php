@@ -1,14 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Plugin\views\argument\SearchApiDate.
- */
-
 namespace Drupal\search_api\Plugin\views\argument;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Datetime\DateFormatterInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a contextual filter for conditions on date fields.
@@ -17,7 +14,49 @@ use Drupal\Component\Utility\Html;
  *
  * @ViewsArgument("search_api_date")
  */
-class SearchApiDate extends SearchApiArgument {
+class SearchApiDate extends SearchApiStandard {
+
+  /**
+   * The date formatter.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface|null
+   */
+  protected $dateFormatter;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    /** @var static $plugin */
+    $plugin = parent::create($container, $configuration, $plugin_id, $plugin_definition);
+
+    $plugin->setDateFormatter($container->get('date.formatter'));
+
+    return $plugin;
+  }
+
+  /**
+   * Retrieves the date formatter.
+   *
+   * @return \Drupal\Core\Datetime\DateFormatterInterface
+   *   The date formatter.
+   */
+  public function getDateFormatter() {
+    return $this->dateFormatter ?: \Drupal::service('date.formatter');
+  }
+
+  /**
+   * Sets the date formatter.
+   *
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
+   *   The new date formatter.
+   *
+   * @return $this
+   */
+  public function setDateFormatter(DateFormatterInterface $date_formatter) {
+    $this->dateFormatter = $date_formatter;
+    return $this;
+  }
 
   /**
    * {@inheritdoc}
@@ -48,7 +87,7 @@ class SearchApiDate extends SearchApiArgument {
       foreach ($this->value as $value) {
         $value_conditions = $this->query->createConditionGroup($inner_conjunction);
         $values = explode(';', $value);
-        $values = array_map(array($this, 'getTimestamp'), $values);
+        $values = array_map([$this, 'getTimestamp'], $values);
         if (in_array(FALSE, $values, TRUE)) {
           $this->abort();
           return;
@@ -76,19 +115,19 @@ class SearchApiDate extends SearchApiArgument {
   public function title() {
     if (!empty($this->argument)) {
       $this->fillValue();
-      $dates = array();
+      $dates = [];
       foreach ($this->value as $date) {
         $date_parts = explode(';', $date);
 
         $ts = $this->getTimestamp($date_parts[0]);
-        $datestr = format_date($ts, 'short');
+        $date_string = $this->getDateFormatter()->format($ts, 'short');
         if (count($date_parts) > 1) {
           $ts = $this->getTimestamp($date_parts[1]);
-          $datestr .= ' – ' . format_date($ts, 'short');
+          $date_string .= ' – ' . $this->getDateFormatter()->format($ts, 'short');
         }
 
-        if ($datestr) {
-          $dates[] = $datestr;
+        if ($date_string) {
+          $dates[] = $date_string;
         }
       }
       return $dates ? implode(', ', $dates) : Html::escape($this->argument);
@@ -118,10 +157,10 @@ class SearchApiDate extends SearchApiArgument {
   /**
    * {@inheritdoc}
    */
-  protected function unpackArgumentValue() {
+  protected function unpackArgumentValue($force_int = FALSE) {
     // Set up the defaults.
     if (!isset($this->value)) {
-      $this->value = array();
+      $this->value = [];
     }
     if (!isset($this->operator)) {
       $this->operator = 'or';

@@ -99,7 +99,7 @@ function _webform_test_get_element_preview($type, array $options = []) {
   ];
 
   // Skip certain elements that should never be included in test forms.
-  if (in_array($type, $skipped )) {
+  if (in_array($type, $skipped)) {
     return FALSE;
   }
 

@@ -33,7 +33,7 @@ Feature: Membership Calculator Paragraph
       | KEY                    |
       | openy_prgf_mbrshp_calc |
     And I create landing_page content:
-      | KEY             | title                            | field_lp_layout | field_oy_content          |
+      | KEY             | title                            | field_lp_layout | field_content          |
       | membership_page | Behat Membership calculator test | one_column      | openy_prgf_mbrshp_calc |
     And I am an anonymous user
 

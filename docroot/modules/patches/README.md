@@ -57,6 +57,11 @@ patch: docroot/modules/patches/2857270.patch
 drupal.org issue: https://www.drupal.org/project/datalayer/issues/2857270#comment-12393678
 description: Entity reference field selected causing Fatal Error
 
+patch: docroot/modules/patches/panels_method_not_allowed_2895962.patch
+drupal.org issues: http://dgo.to/2895962
+description: Add support for symfony 3.x
+
 patch: docroot/modules/patches/core.acquia.block_content.diff
 acquia ticket: https://insight.acquia.com/support/tickets/644913#comment-457855935107 + https://insight.acquia.com/support/tickets/655770
 description: Fix for cache load for content blocks
+

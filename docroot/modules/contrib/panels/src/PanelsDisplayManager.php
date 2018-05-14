@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels;
 
 use Drupal\Core\Config\Schema\SchemaCheckTrait;

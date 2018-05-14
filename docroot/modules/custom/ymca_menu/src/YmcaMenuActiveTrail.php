@@ -109,6 +109,18 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
           }
           break;
 
+        case 'landing_page':
+          if ($field_related_value = $node->field_ygtc_related->getValue()) {
+            if (!empty($field_related_value[0]['target_id'])) {
+              if ($related = \Drupal::entityTypeManager()->getStorage('node')->load($field_related_value[0]['target_id'])) {
+                if ($related->bundle() == 'location') {
+                  $route_name_matched = 'ymca_frontend.locations';
+                }
+              }
+            }
+          }
+          break;
+
         case 'location':
           $route_name_matched = 'ymca_frontend.locations';
           break;

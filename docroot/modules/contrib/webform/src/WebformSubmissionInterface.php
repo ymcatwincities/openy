@@ -234,36 +234,53 @@ interface WebformSubmissionInterface extends ContentEntityInterface, EntityOwner
   public function getState();
 
   /**
-   * Gets the webform submission's data.
+   * Get a webform submission element's data.
    *
    * @param string $key
-   *   A string that maps to a key in the submission's data.
-   *   If no key is specified, then the entire data array is returned.
+   *   An webform submission element's key.
+   *
+   * @return mixed
+   *   An webform submission element's data/value.
+   */
+  public function getElementData($key);
+
+  /**
+   * Set a webform submission element's data.
+   *
+   * @param string $key
+   *   An webform submission element's key
+   * @param mixed $value
+   *   A value.
+   *
+   * @return $this
+   */
+  public function setElementData($key, $value);
+
+  /**
+   * Gets the webform submission's data.
    *
    * @return array
    *   The webform submission data.
    */
-  public function getData($key = NULL);
+  public function getData();
 
   /**
    * Set the webform submission's data.
    *
    * @param array $data
    *   The webform submission data.
+   *
+   * @return $this
    */
   public function setData(array $data);
 
   /**
    * Gets the webform submission's original data before any changes.
    *
-   * @param string $key
-   *   A string that maps to a key in the submission's original data.
-   *   If no key is specified, then the entire data array is returned.
-   *
    * @return array
    *   The webform submission original data.
    */
-  public function getOriginalData($key = NULL);
+  public function getOriginalData();
 
   /**
    * Set the webform submission's original data.

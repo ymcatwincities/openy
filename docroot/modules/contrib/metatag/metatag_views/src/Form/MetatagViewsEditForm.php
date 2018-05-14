@@ -92,10 +92,10 @@ class MetatagViewsEditForm extends FormBase {
       '#required' => TRUE,
     ];
 
-    $form['submit'] = array(
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => t('Submit'),
-    );
+    ];
 
     return $form;
   }

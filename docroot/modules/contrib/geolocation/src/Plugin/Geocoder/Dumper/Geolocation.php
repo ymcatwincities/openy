@@ -22,15 +22,17 @@ class Geolocation extends DumperBase {
     $data = $address->toArray();
     $lat = $data['latitude'];
     $lng = $data['longitude'];
+
     unset($data['latitude'], $data['longitude'], $data['bounds']);
-    return array(
+
+    return [
       'lat' => $lat,
       'lng' => $lng,
       'lat_sin' => sin(deg2rad($lat)),
       'lat_cos' => cos(deg2rad($lat)),
       'lng_rad' => deg2rad($lng),
       'data' => $data,
-    );
+    ];
   }
 
 }

@@ -141,6 +141,7 @@
     var iterateDate = selectedDateFirst;
     if (iterateDate === null) {
       return;
+
     }
 
     // Select all dates we have to join.
@@ -199,7 +200,7 @@
   };
 
   Drupal.cdn.update_total = function(link, settings) {
-    var calendar = link.parents('.cdn-calendar'),
+    var calendar = link.parents('.cdn-calendar[data-index]'),
         index = calendar.data('index'),
         footer = $('.cdn-village-footer-bar[data-index="' + index + '"]'),
         price = 0,

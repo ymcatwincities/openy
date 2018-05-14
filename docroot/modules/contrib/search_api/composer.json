@@ -23,5 +23,14 @@
     "source": "http://git.drupal.org/project/search_api.git"
   },
   "license": "GPL-2.0+",
-  "require": {}
+  "require-dev": {
+    "drupal/search_api_autocomplete": "@dev"
+  },
+  "extra": {
+    "drush": {
+      "services": {
+        "drush.services.yml": "^9"
+      }
+    }
+  }
 }

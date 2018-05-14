@@ -136,7 +136,7 @@ class MailHandlerTest extends UnitTestCase {
     $this->mailManager->expects($this->any())
       ->method('mail')
       ->willReturnCallback(
-        function($module, $key, $to, $langcode, $params, $from) use (&$results) {
+        function ($module, $key, $to, $langcode, $params, $from) use (&$results) {
           $result = array_shift($results);
           $this->assertEquals($module, $result['module']);
           $this->assertEquals($key, $result['key']);
@@ -234,7 +234,7 @@ class MailHandlerTest extends UnitTestCase {
     $results[] = $result + $default_result;
     $data[] = [$message, $sender, $results];
 
-    //For authenticated user.
+    // For authenticated user.
     $results = [];
     $message = $this->getAuthenticatedMockMessage();
     $sender = $this->getMockSender(FALSE, 'user@drupal.org');

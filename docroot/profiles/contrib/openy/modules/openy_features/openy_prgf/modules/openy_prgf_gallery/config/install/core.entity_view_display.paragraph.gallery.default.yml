@@ -21,6 +21,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_prgf_headline:
     weight: 0
     label: hidden
@@ -28,6 +29,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_prgf_images:
     weight: 3
     label: hidden
@@ -36,6 +38,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_prgf_link:
     weight: 2
     label: hidden
@@ -47,6 +50,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
 hidden:
   created: true
   uid: true

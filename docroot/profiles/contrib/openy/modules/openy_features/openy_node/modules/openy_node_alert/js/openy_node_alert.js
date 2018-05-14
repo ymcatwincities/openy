@@ -32,7 +32,7 @@
         var slick = self.parents('.slick__slider').first();
         // Remove dismissed alerts.
         if ($.inArray(nid, dismissed) != -1) {
-          if (slick.size() > 0) {
+          if (slick.length > 0) {
             slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index());
           }
           else {
@@ -40,7 +40,7 @@
           }
         }
         $('.site-alert__dismiss', self).on('click', function () {
-          if (slick.size() > 0) {
+          if (slick.length > 0) {
             slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index());
           }
           else {
@@ -70,9 +70,25 @@
       var jQueryCookieJson = $.cookie.json;
       $.cookie.json = true;
       $.cookie('alerts_dismiss', dismissed, {
-        expires: 7
+        expires: 7,
+        path: '/'
       });
       $.cookie.json = jQueryCookieJson;
+    }
+  };
+
+  Drupal.behaviors.removeUnneededAria = {
+    attach: function (context, settings) {
+      $('.slick-list', context).once().each(function () {
+        $(this).removeAttr('aria-live');
+      });
+      $('.slick-track', context).once().each(function () {
+        $(this).removeAttr('role');
+      });
+      $('.slick__slide', context).once().each(function () {
+        $(this).removeAttr('aria-describedby');
+        $(this).removeAttr('role');
+      });
     }
   };
 

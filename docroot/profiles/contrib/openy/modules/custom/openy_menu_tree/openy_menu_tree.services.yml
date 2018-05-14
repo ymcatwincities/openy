@@ -1,4 +1,0 @@
-services:
-  openy_menu_tree.sidebar_menu:
-    class: Drupal\openy_menu_tree\SidebarMenu
-    arguments: []

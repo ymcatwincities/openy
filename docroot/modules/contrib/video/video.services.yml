@@ -1,0 +1,28 @@
+services:
+  video.provider_manager:
+    class: Drupal\video\ProviderManager
+    parent: default_plugin_manager
+  stream_wrapper.youtube:
+    class: Drupal\video\StreamWrapper\YoutubeStream
+    tags:
+      - { name: stream_wrapper, scheme: youtube }
+  stream_wrapper.vimeo:
+    class: Drupal\video\StreamWrapper\VimeoStream
+    tags:
+      - { name: stream_wrapper, scheme: vimeo }
+  stream_wrapper.dailymotion:
+    class: Drupal\video\StreamWrapper\DailymotionStream
+    tags:
+      - { name: stream_wrapper, scheme: dailymotion }
+  stream_wrapper.vine:
+    class: Drupal\video\StreamWrapper\VineStream
+    tags:
+      - { name: stream_wrapper, scheme: vine }
+  stream_wrapper.instagram:
+    class: Drupal\video\StreamWrapper\InstagramStream
+    tags:
+      - { name: stream_wrapper, scheme: instagram }
+  stream_wrapper.facebook:
+    class: Drupal\video\StreamWrapper\FacebookStream
+    tags:
+      - { name: stream_wrapper, scheme: facebook }

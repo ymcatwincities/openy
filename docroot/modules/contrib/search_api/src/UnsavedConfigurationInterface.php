@@ -1,13 +1,6 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\search_api\UnsavedConfigurationInterface.
- */
-
 namespace Drupal\search_api;
-
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Represents a piece of configuration that was not permanently saved yet.
@@ -45,15 +38,11 @@ interface UnsavedConfigurationInterface {
   /**
    * Retrieves the owner of the lock on this configuration, if any.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity manager to use for loading the user, if necessary. Or NULL to
-   *   retrieve the entity manager from the global container.
-   *
    * @return \Drupal\user\UserInterface|null
    *   The lock's owner; or NULL if this object represents the still unchanged
    *   configuration that is currently stored.
    */
-  public function getLockOwner(EntityTypeManagerInterface $entity_type_manager = NULL);
+  public function getLockOwner();
 
   /**
    * Retrieves the last updated date of this configuration, if any.
@@ -78,12 +67,8 @@ interface UnsavedConfigurationInterface {
 
   /**
    * Saves the changes represented by this object permanently.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity manager to use, if necessary. Or NULL to retrieve the entity
-   *   manager from the global container.
    */
-  public function savePermanent(EntityTypeManagerInterface $entity_type_manager = NULL);
+  public function savePermanent();
 
   /**
    * Discards the changes represented by this object.

@@ -1,8 +1,7 @@
-name: OpenY upgrade tool
+name: OpenY Upgrade Tool
 type: module
-description: Provide Upgrade path tool.
+description: Provide Upgrade Path Tool.
 core: 8.x
-version: 8.x-1.0
 package: OpenY
 php: 5.6
 dependencies:

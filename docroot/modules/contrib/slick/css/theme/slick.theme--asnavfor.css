@@ -49,7 +49,7 @@
   transform: scale(1.3);
   -webkit-transition-delay: 0s;
   transition-delay: 0s;
-  z-index: 3;
+  z-index: 4;
 }
 
 .slick--thumbnail.slick--skin--asnavfor .slick__slide.slick-current::before {

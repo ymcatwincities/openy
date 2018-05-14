@@ -1,0 +1,15 @@
+name: 'Openy Block Flexible Content'
+description: 'Implements Flexible Content Block'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - block_content
+  - field
+  - language
+  - node
+# - openy:openy_node_blog
+# - openy:openy_node_branch
+# - openy:openy_node_camp
+# - openy:openy_node_event
+# - openy:openy_node_testimonial

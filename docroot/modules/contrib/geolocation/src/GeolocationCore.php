@@ -314,15 +314,15 @@ class GeolocationCore implements ContainerInjectionInterface {
     $field_lng = "{$table_name}.{$field_id}_lng";
 
     /*
-     * GoogleMaps shows a map, not a globe. Therefore it will never flip over
+     * Google Maps shows a map, not a globe. Therefore it will never flip over
      * the poles, but it will move across -180°/+180° longitude.
      * So latitude will always have north larger than south, but east not
      * necessarily larger than west.
      */
-    return "($field_lat BETWEEN $filter_lat_south_west AND $filter_lat_north_east) 
+    return "($field_lat BETWEEN $filter_lat_south_west AND $filter_lat_north_east)
       AND
       (
-        ($filter_lng_south_west < $filter_lng_north_east AND $field_lng BETWEEN $filter_lng_south_west AND $filter_lng_north_east) 
+        ($filter_lng_south_west < $filter_lng_north_east AND $field_lng BETWEEN $filter_lng_south_west AND $filter_lng_north_east)
         OR
         (
           $filter_lng_south_west > $filter_lng_north_east AND (

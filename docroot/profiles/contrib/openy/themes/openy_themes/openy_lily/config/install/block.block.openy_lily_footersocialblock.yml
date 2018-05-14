@@ -1,0 +1,25 @@
+uuid: a1aab341-0f85-460a-9d1e-c6e602809fe8
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic_block:563975cc-7a52-48fa-b30c-12c54d0cb863'
+  module:
+    - block_content
+  theme:
+    - openy_lily
+id: openy_lily_footersocialblock
+theme: openy_lily
+region: footer_social
+weight: -7
+provider: null
+plugin: 'block_content:563975cc-7a52-48fa-b30c-12c54d0cb863'
+settings:
+  id: 'block_content:563975cc-7a52-48fa-b30c-12c54d0cb863'
+  label: 'Footer Social Block'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

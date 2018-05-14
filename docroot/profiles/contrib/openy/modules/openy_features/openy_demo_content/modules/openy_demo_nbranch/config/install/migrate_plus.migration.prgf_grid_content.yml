@@ -127,7 +127,7 @@ process:
   # TODO: get parent_field_name from data?
   parent_field_name:
     plugin: default_value
-    default_value: field_oy_content
+    default_value: field_content
   field_prgf_grid_style: style
   field_grid_columns:
     plugin: iterator

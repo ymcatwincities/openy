@@ -141,7 +141,6 @@ class MatcherDumper implements MatcherDumperInterface {
         $insert->execute();
       }
 
-
     }
     catch (\Exception $e) {
       $transaction->rollBack();
@@ -194,6 +193,8 @@ class MatcherDumper implements MatcherDumperInterface {
    *
    * @return array
    *   The schema API definition for the SQL storage table.
+   *
+   * @internal
    */
   protected function schemaDefinition() {
     $schema = [

@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.article.field_alert
-    - field.field.node.article.field_content
+    - field.field.node.article.field_ygtc_content
     - field.field.node.article.field_header_button
     - field.field.node.article.field_header_image
     - field.field.node.article.field_header_variant
@@ -38,7 +38,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  field_content:
+  field_ygtc_content:
     weight: 1
     label: above
     settings: {  }

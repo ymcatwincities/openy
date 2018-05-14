@@ -5,29 +5,11 @@ namespace Drupal\webform\Twig;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\webform\Utility\WebformHtmlHelper;
-use Drupal\webform\WebformTokenManagerInterface;
 
 /**
  * Twig extension with some useful functions and filters.
  */
 class TwigExtension extends \Twig_Extension {
-
-  /**
-   * The webform token manager.
-   *
-   * @var \Drupal\webform\WebformTokenManagerInterface
-   */
-  protected $tokenManager;
-
-  /**
-   * Constructs a TwigExtension object.
-   *
-   * @param \Drupal\webform\WebformTokenManagerInterface $token_manager
-   *   The webform token manager.
-   */
-  public function __construct(WebformTokenManagerInterface $token_manager) {
-    $this->tokenManager = $token_manager;
-  }
 
   /**
    * {@inheritdoc}
@@ -70,7 +52,13 @@ class TwigExtension extends \Twig_Extension {
       return $token;
     }
 
-    $value = $this->tokenManager->replace($token, $entity, $data, $options);
+    // IMPORTANT: We are not injecting the WebformTokenManager to prevent
+    // errors being thrown when updating the Webform.module.
+    // ISSUE. This TwigExtension is loaded on every page load, even when a
+    // website is in maintenance mode.
+    // @see https://www.drupal.org/node/2907960
+    /** @var \Drupal\webform\WebformTokenManagerInterface $value */
+    $value = \Drupal::service('webform.token_manager')->replace($token, $entity, $data, $options);
 
     // Must decode HTML entities which are going to re-encoded.
     $value = Html::decodeEntities($value);

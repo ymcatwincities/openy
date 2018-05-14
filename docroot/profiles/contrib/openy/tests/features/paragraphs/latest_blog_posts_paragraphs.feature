@@ -28,7 +28,7 @@ Feature: Latest Blogs Paragraphs
       | field_location_coordinates:lat      | 47.293433       | 47.293433       |
       | :lng                                | -122.238717     | -122.238717     |
       | field_location_phone                | +1234567890     | +1234567890     |
-      | field_oy_content                       | branch_blogs    | branch_blogs_2  |
+      | field_content                       | branch_blogs    | branch_blogs_2  |
     And I create large camp content:
       | KEY                                 | behat_camp_01      |
       | title                               | BEHAT CAMP 01      |
@@ -42,7 +42,7 @@ Feature: Latest Blogs Paragraphs
       | field_location_coordinates:lat      | 47.293433          |
       | :lng                                | -122.238717        |
       | field_location_phone                | +1234567890        |
-      | field_oy_content                       | camp_blogs         |
+      | field_content                       | camp_blogs         |
     And I create blog content:
       | title                                              | field_blog_location | promote | created           |
       | Behat Lifestyle changes beyond the first two weeks | behat_branch_01     | 1       | 2037-10-17 8:00am |
@@ -58,7 +58,7 @@ Feature: Latest Blogs Paragraphs
       | Behat Why you should give walking a try            | behat_camp_01       | 1       | 2037-10-17 8:10am |
       | Behat Community Outreach                           | behat_camp_01       | 1       | 2037-10-17 8:11am |
     Then I create landing_page content:
-      | KEY                 | title               | field_lp_layout | field_oy_content |
+      | KEY                 | title               | field_lp_layout | field_content |
       | behat_landing_blogs | Behat Landing Blogs | one_column      | latest_blogs  |
 
   Scenario: Paste latest blog post

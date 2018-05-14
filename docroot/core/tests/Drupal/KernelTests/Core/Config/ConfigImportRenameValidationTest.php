@@ -67,7 +67,7 @@ class ConfigImportRenameValidationTest extends KernelTestBase {
   public function testRenameValidation() {
     // Create a test entity.
     $test_entity_id = $this->randomMachineName();
-    $test_entity = entity_create('config_test', [
+    $test_entity = \Drupal::entityTypeManager()->getStorage('config_test')->create([
       'id' => $test_entity_id,
       'label' => $this->randomMachineName(),
     ]);
@@ -95,7 +95,7 @@ class ConfigImportRenameValidationTest extends KernelTestBase {
       'node.type.' . $content_type->id() . '::config_test.dynamic.' . $test_entity_id,
     ];
     $renames = $this->configImporter->getUnprocessedConfiguration('rename');
-    $this->assertIdentical($expected, $renames);
+    $this->assertSame($expected, $renames);
 
     // Try to import the configuration. We expect an exception to be thrown
     // because the staged entity is of a different type.
@@ -138,7 +138,7 @@ class ConfigImportRenameValidationTest extends KernelTestBase {
       'config_test.old::config_test.new'
     ];
     $renames = $this->configImporter->getUnprocessedConfiguration('rename');
-    $this->assertIdentical($expected, $renames);
+    $this->assertSame($expected, $renames);
 
     // Try to import the configuration. We expect an exception to be thrown
     // because the rename is for simple configuration.

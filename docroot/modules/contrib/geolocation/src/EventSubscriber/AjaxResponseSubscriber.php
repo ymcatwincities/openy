@@ -18,7 +18,7 @@ class AjaxResponseSubscriber implements EventSubscriberInterface {
    * @param array $commands
    *   An array of commands to alter.
    */
-  protected function alterCommands(&$commands) {
+  protected function alterCommands(array &$commands) {
     foreach ($commands as $delta => &$command) {
       // Substitute the 'replace' method without our custom jQuery method which
       // will allow views content to be injected one after the other.
@@ -30,10 +30,6 @@ class AjaxResponseSubscriber implements EventSubscriberInterface {
       ) {
         $command['command'] = 'geolocationCommonMapsUpdate';
         unset($command['method']);
-      }
-      // Stop the view from scrolling to the top of the page.
-      if ($command['command'] === 'viewsScrollTop') {
-        unset($commands[$delta]);
       }
     }
   }
@@ -76,8 +72,27 @@ class AjaxResponseSubscriber implements EventSubscriberInterface {
       }
     }
 
+    $page_change = $event->getRequest()->query->get('page', FALSE);
+
     $commands = &$response->getCommands();
-    $this->alterCommands($commands);
+    foreach ($commands as $delta => &$command) {
+      // Substitute the 'replace' method without our custom jQuery method which
+      // will allow views content to be injected one after the other.
+      if (
+        isset($command['method'])
+        && $command['method'] === 'replaceWith'
+        && isset($command['selector'])
+        && substr($command['selector'], 0, 16) === '.js-view-dom-id-'
+      ) {
+        $command['command'] = 'geolocationCommonMapsUpdate';
+        unset($command['method']);
+      }
+
+      // Stop the view from scrolling to the top of the page.
+      if ($page_change === FALSE && $command['command'] === 'viewsScrollTop') {
+        unset($commands[$delta]);
+      }
+    }
   }
 
   /**

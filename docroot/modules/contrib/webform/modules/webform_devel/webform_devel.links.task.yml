@@ -10,22 +10,26 @@ entity.webform.schema_form:
   parent_id: devel.entities:webform.devel_tab
   weight: 100
 
-entity.webform.test.form:
+entity.webform.test_form.form:
   title: 'Form'
-  route_name: entity.webform.test
-  parent_id: entity.webform.test
+  route_name: entity.webform.test_form
+  parent_id: entity.webform.test_form
+  weight: 0
 
-entity.webform.test.api:
+entity.webform.test_form.api:
   title: 'API'
-  route_name: entity.webform.api
-  parent_id: entity.webform.test
+  route_name: entity.webform.api_form
+  parent_id: entity.webform.test_form
+  weight: 10
 
-entity.node.webform.test.form:
+entity.node.webform.test_form.form:
   title: 'Form'
-  route_name: entity.node.webform.test
-  parent_id: entity.node.webform.test
+  route_name: entity.node.webform.test_form
+  parent_id: entity.node.webform.test_form
+  weight: 0
 
-entity.node.webform.test.api:
+entity.node.webform.test_form.api:
   title: 'API'
-  route_name: entity.node.webform.api
-  parent_id: entity.node.webform.test
+  route_name: entity.node.webform.api_form
+  parent_id: entity.node.webform.test_form
+  weight: 10

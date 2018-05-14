@@ -6,3 +6,8 @@ services:
     class: Drupal\ymca_alters\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+  theme.negotiator.ymca_theme:
+    class: Drupal\ymca_alters\Theme\YmcaNegotiator
+    arguments: ['@entity.manager', '@current_route_match']
+    tags:
+      - { name: theme_negotiator, priority: -40 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Query\ConditionGroupInterface.
- */
-
 namespace Drupal\search_api\Query;
 
 /**
@@ -31,7 +26,8 @@ interface ConditionGroupInterface extends ConditionSetInterface {
    *   simple condition, represented as an object of type
    *   \Drupal\search_api\Query\ConditionInterface, or a nested condition group,
    *   represented by a \Drupal\search_api\Query\ConditionGroupInterface object.
-   *   Returned by reference so it's possible to, e.g., remove conditions.
+   *   Returned by reference so it's possible, for example, to remove
+   *   conditions.
    */
   public function &getConditions();
 
@@ -51,8 +47,8 @@ interface ConditionGroupInterface extends ConditionSetInterface {
    *
    * @return string[]
    *   The tags associated with this condition group, as both the array keys and
-   *   values. Returned by reference so it's possible to, e.g., remove existing
-   *   tags.
+   *   values. Returned by reference so it's possible, for example, to remove
+   *   existing tags.
    */
   public function &getTags();
 

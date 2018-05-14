@@ -11,9 +11,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\taxonomy\TermInterface;
 
 /**
  * Implements hook_help().
@@ -132,12 +132,55 @@ function metatag_page_attachments(array &$attachments) {
     }
   }
 }
+/**
+ * Implements hook_module_implements_alter().
+ */
+function metatag_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'page_attachments_alter') {
+    // Move metatag_page_attachments_alter() to the end of the list. This is so
+    // the canonical and shortlink tags can be removed that are added by
+    // taxonomy_page_attachments_alter().
+    // @todo Remove once https://www.drupal.org/node/2282029 is fixed.
+    $group = $implementations['metatag'];
+    unset($implementations['metatag']);
+    $implementations['metatag'] = $group;
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function metatag_page_attachments_alter(array &$attachments) {
+  $route_match = \Drupal::routeMatch();
+  // Can be removed once https://www.drupal.org/node/2282029 is fixed.
+  if ($route_match->getRouteName() == 'entity.taxonomy_term.canonical' && ($term = $route_match->getParameter('taxonomy_term')) && $term instanceof TermInterface) {
+    _metatag_remove_duplicate_entity_tags($attachments);
+  }
+}
 
 /**
  * Implements hook_entity_view_alter().
  */
 function metatag_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
-  // Some entities are built with a link rel="canonical" and/or link rel="shortlink" tag attached.
+  // If this is a 403 or 404 page then don't output these meta tags.
+  // @todo Make the default meta tags load properly so this is unnecessary.
+  if ($display->getOriginalId() == 'node.403.default' || $display->getOriginalId() == 'node.404.default') {
+    $build['#attached']['html_head_link'] = [];
+    return;
+  }
+
+  _metatag_remove_duplicate_entity_tags($build);
+}
+
+/**
+ * Remove duplicate entity tags from a build.
+ *
+ * @param array $build
+ *   The build.
+ */
+function _metatag_remove_duplicate_entity_tags(array &$build) {
+  // Some entities are built with a link rel="canonical" and/or link
+  // rel="shortlink" tag attached.
   // If metatag provides them, remove the ones built with the entity.
   if (isset($build['#attached']['html_head_link'])) {
     $metatag_attachments = drupal_static('metatag_attachments');
@@ -146,13 +189,14 @@ function metatag_entity_view_alter(array &$build, EntityInterface $entity, Entit
       $metatag_attachments = metatag_get_tags_from_route();
     }
 
-    // Check to see if the page currently outputs a canonical and/or shortlink tag.
+    // Check to see if the page currently outputs a canonical and/or shortlink
+    // tag.
     if (isset($metatag_attachments['#attached']['html_head'])) {
       foreach ($metatag_attachments['#attached']['html_head'] as $metatag_item) {
         if (in_array($metatag_item[1], array('canonical_url', 'shortlink'))) {
           // Metatag provides rel="canonical" and/or rel="shortlink" tags.
           foreach ($build['#attached']['html_head_link'] as $key => $item) {
-            if (isset($item[0]['rel']) && in_array($item[0]['rel'], array('canonical', 'shortlink'))) {
+            if (isset($item[0]['rel']) && in_array($item[0]['rel'], ['canonical', 'shortlink'])) {
               // Remove the link rel="canonical" or link rel="shortlink" tag
               // from the entity's build array.
               unset($build['#attached']['html_head_link'][$key]);
@@ -387,7 +431,7 @@ function metatag_get_default_tags($entity = NULL) {
       $entity = metatag_get_route_entity();
     }
 
-    if (!empty($entity)) {
+    if (!empty($entity) && $entity instanceof ContentEntityInterface) {
       $entity_metatags = $global_metatag_manager->load($entity->getEntityTypeId());
       if ($entity_metatags != NULL) {
         // Merge with global defaults.
@@ -407,15 +451,78 @@ function metatag_get_default_tags($entity = NULL) {
 }
 
 /**
- * Implements hook_entity_base_field_info_alter().
+ * Implements hook_entity_base_field_info().
  */
-function metatag_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
-  $fields['metatag'] = BaseFieldDefinition::create('map')
-    ->setName('Metatags')
-    ->setLabel(t('Metatags'))
-    ->setDescription(t('The metatags for the entity.'))
-    ->setClass('\Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList')
-    ->setQueryable(FALSE)
-    ->setComputed(TRUE);
+function metatag_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+  $base_table = $entity_type->getBaseTable();
+  $canonical_template_exists = $entity_type->hasLinkTemplate('canonical');
+  // Certain classes are just not supported.
+  $original_class = $entity_type->getOriginalClass();
+  $classes_to_skip = [
+    'Drupal\comment\Entity\Comment',
+  ];
+
+  // If the entity type doesn't have a base table, has no link template then there's no point in
+  // supporting it.
+  if (!empty($base_table) && $canonical_template_exists && !in_array($original_class, $classes_to_skip)) {
+    $fields['metatag'] = BaseFieldDefinition::create('map')
+      ->setLabel(t('Metatags'))
+      ->setDescription(t('The metatags for the entity.'))
+      ->setClass('\Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList')
+      ->setQueryable(FALSE)
+      ->setComputed(TRUE)
+      ->setTargetEntityTypeId($entity_type->id());
+  }
+
+  return $fields;
 }
 
+/**
+ * Implements hook_entity_diff_options().
+ */
+function metatag_entity_diff_options($entity_type) {
+  if (metatag_entity_supports_metatags($entity_type)) {
+    $options = array(
+      'metatag' => t('Metatags'),
+    );
+    return $options;
+  }
+}
+
+/**
+ * Implements hook_entity_diff
+ */
+function metatag_entity_diff($old_entity, $new_entity, $context) {
+  $result = array();
+  $entity_type = $context['entity_type'];
+  $options = variable_get('diff_additional_options_' . $entity_type, array());
+  if (!empty($options['metatag']) && metatag_entity_supports_metatags($entity_type)) {
+    // Find metatags that are set on either the new or old entity.
+    $tags = array();
+    foreach (array('old' => $old_entity, 'new' => $new_entity) as $entity_key => $entity) {
+      $language = metatag_entity_get_language($entity_type, $entity);
+      if (isset($entity->metatags[$language])) {
+        foreach ($entity->metatags[$language] as $key => $value) {
+          $tags[$key][$entity_key] = $value['value'];
+        }
+      }
+    }
+
+    $init_weight = 100;
+    foreach ($tags as $key => $values) {
+      $id = ucwords('Meta ' . $key);
+      // @todo find the default values and show these if not set.
+      $result[$id] = array(
+        '#name' => $id,
+        '#old' => array(empty($values['old']) ? '' : $values['old']),
+        '#new' => array(empty($values['new']) ? '' : $values['new']),
+        '#weight' => $init_weight++,
+        '#settings' => array(
+          'show_header' => TRUE,
+        ),
+      );
+    }
+  }
+  return $result;
+}

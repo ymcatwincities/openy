@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Secondary Description and Sidebar'
+description: 'OpenY Paragraph Secondary Description and Sidebar.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - datalayer
+  - field
+  - openy_block_basic
+  - paragraphs
+  - text

@@ -24,6 +24,7 @@ class WebformUsers extends EntityAutocomplete {
     $info['#target_type'] = 'user';
     $info['#selection_settings'] = ['include_anonymous' => FALSE];
     $info['#tags'] = TRUE;
+    $info['#maxlength'] = NULL;
     $info['#default_value'] = [];
     $info['#element_validate'] = [
       [$class, 'validateEntityAutocomplete'],

@@ -71,7 +71,7 @@ trait CookieResourceTestTrait {
     $this->sessionCookie = explode(';', $response->getHeader('Set-Cookie')[0], 2)[0];
 
     // Parse and store the CSRF token and logout token.
-    $data = $this->serializer->decode((string)$response->getBody(), static::$format);
+    $data = $this->serializer->decode((string) $response->getBody(), static::$format);
     $this->csrfToken = $data['csrf_token'];
     $this->logoutToken = $data['logout_token'];
   }
@@ -109,22 +109,17 @@ trait CookieResourceTestTrait {
       return;
     }
 
-
     unset($request_options[RequestOptions::HEADERS]['X-CSRF-Token']);
-
 
     // DX: 403 when missing X-CSRF-Token request header.
     $response = $this->request($method, $url, $request_options);
     $this->assertResourceErrorResponse(403, 'X-CSRF-Token request header is missing', $response);
 
-
     $request_options[RequestOptions::HEADERS]['X-CSRF-Token'] = 'this-is-not-the-token-you-are-looking-for';
-
 
     // DX: 403 when invalid X-CSRF-Token request header.
     $response = $this->request($method, $url, $request_options);
     $this->assertResourceErrorResponse(403, 'X-CSRF-Token request header is invalid', $response);
-
 
     $request_options[RequestOptions::HEADERS]['X-CSRF-Token'] = $this->csrfToken;
   }

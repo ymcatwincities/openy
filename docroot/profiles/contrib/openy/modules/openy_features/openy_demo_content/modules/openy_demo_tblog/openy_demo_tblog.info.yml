@@ -1,11 +1,11 @@
-name: 'OpenY demo taxonomy blog category'
-description: 'OpenY demo taxonomy blog category'
+name: 'OpenY Demo Taxonomy Blog Category'
+description: 'OpenY Demo Taxonomy Blog Category.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
   - openy_node_blog
   - taxonomy
-version: 8.x-1.0

@@ -45,7 +45,7 @@ process:
     default_value: node
   parent_field_name:
     plugin: default_value
-    default_value: field_oy_content
+    default_value: field_content
 destination:
   plugin: 'entity:paragraph'
   default_bundle: latest_blog_posts_camp

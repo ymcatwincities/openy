@@ -45,40 +45,6 @@
 }
 
 /**
- * Help menu.
- *
- * @see /core/themes/stable/css/core/dropbutton/dropbutton.css
- */
-.webform-help-menu {
-  display: none;
-}
-
-.js .webform-help-menu {
-  display: block;
-  width: 250px;
-  float: right;
-}
-
-.js .webform-help-menu .dropbutton-wrapper {
-  min-height: 2em;
-}
-
-.js .webform-help-menu .dropbutton-wrapper {
-  display: block;
-  position: relative;
-}
-
-.js .webform-help-menu .dropbutton-widget {
-  position: absolute;
-}
-
-@media screen and (max-width: 768px) {
-  .js .webform-help-menu {
-    display: none;
-  }
-}
-
-/**
  * Help accordion.
  */
 .webform-help-accordion dt {
