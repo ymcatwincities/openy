@@ -6122,7 +6122,7 @@ function ymca_master_update_8270() {
 /**
  * Remove old date_block bundle and enable OpenY Date Block.
  */
-function _ymca_master_update_8271() {
+function ymca_master_update_8271() {
 
   $modules = [
     'openy_block_date',
