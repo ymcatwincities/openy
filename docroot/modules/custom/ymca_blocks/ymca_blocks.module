@@ -181,7 +181,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
         return NULL;
       };
 
-      $date_start = $get_time('field_start_date');
+      $date_start = $get_time('field_ygtc_start_date');
       $date_end = $get_time('field_ygtc_end_date');
 
       if (!$date_start && !$date_end) {
