@@ -221,7 +221,7 @@ trait YmcaMigrateTrait {
       'info' => $data['info'],
       'field_ygtc_start_date' => $data['date_start'],
       'field_ygtc_end_date' => $data['date_end'],
-      'field_content_date_before' => [
+      'field_ygtc_content_date_before' => [
         'value' => $data['content_before'],
         'format' => 'full_html',
       ],
