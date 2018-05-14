@@ -446,6 +446,13 @@ function openy_lily_preprocess_block(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_region().
+ */
+function openy_lily_preprocess_region(&$variables) {
+  $variables['attributes']['class'][] = $variables['elements']['#region'];
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openy_lily_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
