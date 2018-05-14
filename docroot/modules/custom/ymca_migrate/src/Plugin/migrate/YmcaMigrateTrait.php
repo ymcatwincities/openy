@@ -216,20 +216,20 @@ trait YmcaMigrateTrait {
     }
 
     $block = BlockContent::create([
-      'type' => 'date_block',
+      'type' => 'ygtc_date_block',
       'langcode' => 'en',
       'info' => $data['info'],
-      'field_start_date' => $data['date_start'],
-      'field_end_date' => $data['date_end'],
-      'field_content_date_before' => [
+      'field_ygtc_start_date' => $data['date_start'],
+      'field_ygtc_end_date' => $data['date_end'],
+      'field_ygtc_content_date_before' => [
         'value' => $data['content_before'],
         'format' => 'full_html',
       ],
-      'field_content_date_between' => [
+      'field_ygtc_content_date_between' => [
         'value' => $data['content_during'],
         'format' => 'full_html',
       ],
-      'field_content_date_end' => [
+      'field_ygtc_content_date_end' => [
         'value' => $data['content_after'],
         'format' => 'full_html',
       ],
