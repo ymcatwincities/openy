@@ -5819,7 +5819,7 @@ function ymca_master_update_8265() {
 /**
  * Fix browsers for blog.
  */
-function fixme_ymca_master_update_8266() {
+function ymca_master_update_8266() {
   $config_importer = \Drupal::service('config_import.importer');
 
   // Remove the field.
@@ -6045,16 +6045,84 @@ function ymca_master_update_8269() {
       }
     }
   }
+}
 
+/**
+ * Fix browsers for article/Page CT.
+ */
+function ymca_master_update_8270() {
+  $config_importer = \Drupal::service('config_import.importer');
+
+  // Remove the field.
+  $field_name = 'field_header_image';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('node', ['article'], $field_name, TRUE);
+
+  $dir = 'modules/features/ygtc_page_and_location/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'core.entity_form_display.node.article.default',
+      'core.entity_view_display.node.article.content_browser_preview',
+      'core.entity_view_display.node.article.default',
+      'core.entity_view_display.node.article.full',
+      'core.entity_view_display.node.article.rss',
+      'core.entity_view_display.node.article.teaser',
+      'field.field.node.article.field_header_image',
+      'field.storage.node.field_header_image.yml'
+    ]
+  );
+
+  $db = \Drupal::database();
+  $entityTypeManager = \Drupal::entityTypeManager();
+  // Copy backed up data to new field instance.
+  $rows = $db->select("copy_node__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $nodeStorage = $entityTypeManager->getStorage('node');
+  $mediaStorage = $entityTypeManager->getStorage('media');
+  $fileStorage = $entityTypeManager->getStorage('file');
+
+  foreach ($rows as $row) {
+    $nodeEntity = $nodeStorage->load($row->entity_id);
+    if ($nodeEntity) {
+      // Load appropriate image.
+      $field_name_column = $field_name . '_target_id';
+      $file = $fileStorage->load($row->$field_name_column);
+      if (!$file) {
+        continue;
+      }
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'image',
+          'name' => $row->field_image_alt,
+          'status' => TRUE,
+          'field_media_image' => [
+            'target_id' => $file->id(),
+          ],
+        ]
+      );
+
+      $mediaEntity->save();
+
+      $referenceField = $nodeEntity->get($field_name);
+      $referenceField->appendItem(['target_id' => $mediaEntity->id()]);
+
+      $nodeEntity->save();
+    }
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_node__$field_name");
 }
 
 /**
  * Remove old date_block bundle and enable OpenY Date Block.
- * @todo Fix The field is not working correctly anymore and has to be adjusted.
  */
-function _ymca_master_update_8270() {
-  $type = \Drupal::entityTypeManager()->getStorage('block_content_type')->load('date_block');
-  $type->delete();
+function _ymca_master_update_8271() {
 
   $modules = [
     'openy_block_date',
