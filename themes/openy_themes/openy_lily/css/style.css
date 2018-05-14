@@ -890,9 +890,63 @@ body {
   display: none;
 }
 
+.goog-te-menu-frame.open {
+  left: 0;
+  top: 150px;
+}
+
 @media (min-width: 75em) {
   .viewport .page-head__top-menu {
     padding-right: 15px;
+  }
+}
+.viewport .openy-gtranslate {
+  display: none;
+  vertical-align: text-bottom;
+}
+.viewport .openy-gtranslate .goog-te-gadget-simple {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+.viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-gadget-icon {
+  display: none;
+}
+.viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value {
+  display: inline-block;
+  line-height: 82px;
+  padding: 0 10px;
+  vertical-align: text-bottom;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  font-size: 16px;
+  color: #777777;
+  border-top: 2px solid transparent;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value img, .viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value span:not(:first-of-type) {
+  display: none;
+}
+.viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value:after {
+  content: '\f107';
+  font-family: 'FontAwesome';
+  font-size: 18px;
+  padding-left: 5px;
+}
+.viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value:hover {
+  background-color: #fff;
+  color: #000;
+  border-top: 2px solid #aa228d;
+}
+@media (min-width: 62em) {
+  .viewport .secondary_menu {
+    float: right;
+  }
+  .viewport .secondary_menu nav, .viewport .secondary_menu .openy-gtranslate {
+    display: inline-block;
   }
 }
 .viewport .page-head__main-menu .dropdown-menu > li > a:focus,
@@ -977,6 +1031,10 @@ body {
   font-size: 14px;
   line-height: 20px;
   text-transform: none;
+}
+
+.tiny-header .viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value {
+  line-height: 51px;
 }
 
 @media (min-width: 48em) and (max-width: 61.9375em) {
@@ -7355,6 +7413,7 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--location-filter-by-amenities .views-element-container form input[type="submit"] {
   display: none;
 }
+
 .paragraph--type--upcoming-events h2 {
   letter-spacing: normal;
   text-transform: none;
@@ -7634,7 +7693,7 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
 
 @media (min-width: 62em) {
   body {
-    padding-top: 83px !important;
+    padding-top: 100px !important;
     -webkit-transition: padding-top 0.2s ease;
     -moz-transition: padding-top 0.2s ease;
     -ms-transition: padding-top 0.2s ease;
@@ -7647,7 +7706,7 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
 }
 @media (min-width: 0) and (max-width: 62em) {
   body {
-    padding-top: 52px !important;
+    padding-top: 80px !important;
     max-width: 100%;
   }
 }
@@ -7823,7 +7882,6 @@ header#page-head:after {
 @media (min-width: 0) and (max-width: 62em) {
   header#page-head {
     position: relative;
-    z-index: 999;
   }
 }
 @media (min-width: 1200px) {
@@ -7849,7 +7907,13 @@ header#page-head .top-navs .nav-global {
   margin-bottom: 0;
   border-radius: 0;
   background-color: #f8f8f8;
+  min-height: 100px;
   width: 100%;
+}
+@media (min-width: 0) and (max-width: 62em) {
+  header#page-head .top-navs .nav-global {
+    min-height: 80px;
+  }
 }
 header#page-head .top-navs .nav-global .navbar-header {
   padding: 5px 0 13px;
@@ -7874,9 +7938,8 @@ header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
   }
   header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
     display: block !important;
-    float: right;
-    position: absolute;
-    right: 15px;
+    float: left;
+    position: relative;
     outline: 0 !important;
     margin-top: 8px;
     background: transparent;
@@ -7922,6 +7985,9 @@ header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
     transform-origin: 50%;
   }
 }
+header#page-head .top-navs #block-topmenu2 .expanded-menu + .dropdown-menu {
+  display: block;
+}
 header#page-head .top-navs .nav-wrapper {
   min-height: 62px;
   z-index: 998;
@@ -7948,7 +8014,7 @@ header#page-head .top-navs .nav-wrapper .main-nav {
   transition: top 0.2s linear;
 }
 header#page-head .top-navs .nav-wrapper .main-nav.affix {
-  top: 52px;
+  top: 100px;
 }
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   width: 100%;
@@ -8076,6 +8142,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
   display: none;
 }
 @media (min-width: 0) and (max-width: 62em) {
+  header#page-head .top-navs #block-topmenu2,
   header#page-head .top-navs #block-anonymoususersmenu--2,
   header#page-head .top-navs #block-anonymoususersmenu,
   header#page-head .top-navs #block-openy-lily-user-menu,
@@ -8084,6 +8151,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
     display: none !important;
   }
 }
+header#page-head .top-navs #block-topmenu2 .nav li a,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a,
 header#page-head .top-navs #block-anonymoususersmenu .nav li a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a,
@@ -8091,7 +8159,7 @@ header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li a,
 header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
   color: #777777;
   border-top: 2px solid transparent;
-  line-height: 50px;
+  line-height: 68px;
   font-size: 16px;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
@@ -8099,6 +8167,19 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
+@media (min-width: 48em) and (max-width: 61.9375em) {
+  header#page-head .top-navs #block-topmenu2 .nav li a,
+  header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a,
+  header#page-head .top-navs #block-anonymoususersmenu .nav li a,
+  header#page-head .top-navs #block-openy-lily-user-menu .nav li a,
+  header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li a,
+  header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
+    margin-top: 0;
+    padding: 15px 6px;
+    font-size: 13px;
+  }
+}
+header#page-head .top-navs #block-topmenu2 .nav li a:hover,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a:hover,
 header#page-head .top-navs #block-anonymoususersmenu .nav li a:hover,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover,
@@ -8108,6 +8189,7 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a:hover {
   background-color: #fff;
   color: black;
 }
+header#page-head .top-navs #block-topmenu2 .nav li.is-active a,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li.is-active a,
 header#page-head .top-navs #block-anonymoususersmenu .nav li.is-active a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li.is-active a,
@@ -8130,10 +8212,17 @@ header#page-head .top-navs #block-cccuseraccountmenu--2 ul li:first-child .welco
   color: #777777;
   cursor: default;
 }
+header#page-head .top-navs #block-topmenu2 h2,
+header#page-head .top-navs #block-anonymoususersmenu h2,
+header#page-head .top-navs #block-anonymoususersmenu--2 h2,
+header#page-head .top-navs #block-openy-lily-user-menu h2 {
+  display: none;
+}
+header#page-head .top-navs #block-topmenu2 .nav li:first-child a,
 header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li:first-child a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a {
-  padding: 7px 15px;
+  padding: 4px 15px;
   border-radius: 5px;
   background-color: #b92f9e;
   text-transform: capitalize;
@@ -8142,9 +8231,10 @@ header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a {
   line-height: 20px;
   color: white;
   text-shadow: none;
-  margin: 24px 5px 0 0;
+  margin: 36px 5px 0 0;
   border-top: none;
 }
+header#page-head .top-navs #block-topmenu2 .nav li:first-child a:hover,
 header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li:first-child a:hover,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a:hover {
@@ -8194,6 +8284,7 @@ header#page-head.tiny .top-navs .nav-global .navbar-header {
 header#page-head.tiny .top-navs .nav-global .navbar-header #block-openy-lily-branding a img {
   width: 55px;
 }
+header#page-head.tiny .top-navs #block-topmenu2 li a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu li a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu--2 li a,
 header#page-head.tiny .top-navs #block-openy-lily-user-menu li a,
@@ -8201,6 +8292,7 @@ header#page-head.tiny .top-navs #block-cccuseraccountmenu li a,
 header#page-head.tiny .top-navs #block-cccuseraccountmenu--2 li a {
   line-height: 19px;
 }
+header#page-head.tiny .top-navs #block-topmenu2 ul li:first-child a,
 header#page-head.tiny .top-navs #block-openy-lily-user-menu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu--2 ul li:first-child a {
@@ -8226,8 +8318,49 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   top: 140px !important;
 }
 
-.landing-header {
-  margin-bottom: 20px;
+.navbar-brand {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  box-sizing: content-box;
+  margin: 7px 0 5px 0;
+  padding: 5px 0 0 30px;
+  width: 220px;
+  height: 72%;
+  background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
+  background-size: contain;
+}
+@media (min-width: 0) and (max-width: 62em) {
+  .navbar-brand {
+    left: 35%;
+    float: none;
+    margin-left: -24px;
+    padding: 0;
+    height: 70%;
+    background-position: left top;
+    background-size: contain;
+  }
+}
+
+.no-smil .affix .navbar-brand {
+  padding-top: 70px !important;
+  background-image: url(../img/ymca-logo-full.png);
+}
+.no-smil .navbar {
+  background-color: #eeeeee;
+}
+
+.csstransitions.no-smil .affix .navbar-brand {
+  background-image: url(../img/ymca-logo-full.png);
+}
+
+.translated-ltr header#page-head .top-navs .nav-global,
+.translated-rtl header#page-head .top-navs .nav-global {
+  margin-top: 39px !important;
+}
+.translated-ltr header#page-head .top-navs .nav-wrapper .main-nav.affix,
+.translated-rtl header#page-head .top-navs .nav-wrapper .main-nav.affix {
+  top: 139px;
 }
 
 .viewport .nav-level-2.open {
