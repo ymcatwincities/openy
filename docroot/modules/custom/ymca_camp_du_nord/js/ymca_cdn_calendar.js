@@ -141,6 +141,7 @@
     var iterateDate = selectedDateFirst;
     if (iterateDate === null) {
       return;
+
     }
 
     // Select all dates we have to join.

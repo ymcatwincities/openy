@@ -703,33 +703,21 @@ $config_directories["staging"] = 'sites/default/config/staging';
 
 // Default DB credentials.
 if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/ymcatwincities/ymcatwincities-settings.inc';
+  require '/var/www/site-php/ymcatwincities/debug-settings.inc';
 }
-
-// Legacy DB credentials.
-if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/ymcatwincities/amm_source-settings.inc';
-}
-$settings["install_profile"] = "pp";
+$settings["install_profile"] = "openy";
 
 
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
 $config['system.file']['path']['temporary'] = "/mnt/gfs/{$_ENV['AH_SITE_GROUP']}.{$_ENV['AH_SITE_ENVIRONMENT']}/tmp";
-ini_set('memory_limit', '384M');
+ini_set('memory_limit', '256M');
   if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
     ini_set('memory_limit', '2048M');
   }
-    if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/camps/camp_du_nord/search/form') === 0) {
-    ini_set('memory_limit', '512M');
-  }
 }
 if (function_exists('drush_main')) {
-  ini_set('memory_limit', '-1');
+  ini_set('memory_limit', '2048M');
 }
-if (class_exists('Drupal\Console\Bootstrap\Drupal')) {
-  ini_set('memory_limit', '-1');
-}
-
 $settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
 // According to https://insight.acquia.com/support/tickets/293389?s=3041521
 // Changed to APC according to https://insight.acquia.com/support/tickets/322330#comment-182141690227
@@ -750,7 +738,7 @@ if (file_exists('/var/www/site-php')) {
   } 
 
   // Use memcache for cache_discovery 
-  $settings['cache']['bins']['discovery'] = 'cache.backend.memcache'; 
+   $settings['cache']['bins']['discovery'] = 'cache.backend.memcache'; 
   // Use memcache as the default bin 
-  $settings['cache']['default'] = 'cache.backend.memcache';
+   $settings['cache']['default'] = 'cache.backend.memcache';
 }

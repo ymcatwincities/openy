@@ -908,8 +908,16 @@ body {
   line-height: 1em;
   -ms-transition: padding .3s ease-out;
 }
+.no-smil .affix .navbar-brand {
+  padding-top: 70px !important;
+  background-image: url(../img/ymca-logo-full.png);
+}
 .no-smil .navbar {
   background-color: #eeeeee;
+}
+
+.csstransitions.no-smil .affix .navbar-brand {
+  background-image: url(../img/ymca-logo-full.png);
 }
 
 .sidebar .nav a:hover {
@@ -5610,11 +5618,11 @@ a.wrapper:hover {
   }
 
   .navbar > .container .navbar-brand {
-    left: 30%;
+    left: 35%;
     float: none;
     margin-left: -24px;
     padding: 0;
-    height: 80%;
+    height: 70%;
     background-position: left top;
     background-size: contain;
   }
@@ -5625,7 +5633,7 @@ a.wrapper:hover {
   }
 
   .viewport {
-    padding-top: 100px;
+    padding-top: 80px;
   }
 
   .collapsing-in .nav-global, .in .nav-global, .collapsing-out .nav-global {
@@ -5776,6 +5784,8 @@ a.wrapper:hover {
     width: 100%;
     top: 0;
     box-shadow: 0 0 8px -3px #000;
+    height: 80px;
+    min-height: 80px;
   }
 
   .navbar-fixed-top {
