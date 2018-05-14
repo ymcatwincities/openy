@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\plugin\DefaultPluginResolver\DefaultPluginResolverInterface;
+use Drupal\plugin\Form\SubformHelperTrait;
 use Drupal\plugin\PluginDiscovery\TypedDefinitionEnsuringPluginDiscoveryDecorator;
 use Drupal\plugin\PluginType\PluginTypeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -21,6 +22,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * plugin_selector.plugin_configuration.plugin_selector.plugin_selector_base.
  */
 abstract class PluginSelectorBase extends PluginBase implements PluginSelectorInterface, ContainerFactoryPluginInterface {
+
+  use SubformHelperTrait;
 
   /**
    * The default plugin resolver.
@@ -291,7 +294,8 @@ abstract class PluginSelectorBase extends PluginBase implements PluginSelectorIn
   /**
    * {@inheritdoc}
    */
-  public function buildSelectorForm(array $form, FormStateInterface $form_state) {
+  public function buildSelectorForm(array $plugin_selector_form, FormStateInterface $plugin_selector_form_state) {
+    $this->assertSubformState($plugin_selector_form_state);
     $this->validateSelectablePluginType();
 
     return [];

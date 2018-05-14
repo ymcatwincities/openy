@@ -29,8 +29,9 @@ interface WebformLibrariesManagerInterface {
   /**
    * Get libraries.
    *
-   * @param boolean|null $included
+   * @param bool|null $included
    *   Optionally filter by include (TRUE) or excluded (FALSE)
+   *
    * @return array
    *   An associative array of libraries.
    */
@@ -40,19 +41,19 @@ interface WebformLibrariesManagerInterface {
    * Get excluded libraries.
    *
    * @return array
-   *   A keyey array of excluded libraries.
+   *   A keyed array of excluded libraries.
    */
   public function getExcludedLibraries();
 
   /**
- * Determine if library is excluded.
- *
- * @param string $name
- *   The name of the library.
- *
- * @return boolean
- *   TRUE if library is excluded.
- */
+   * Determine if library is excluded.
+   *
+   * @param string $name
+   *   The name of the library.
+   *
+   * @return bool
+   *   TRUE if library is excluded.
+   */
   public function isExcluded($name);
 
   /**
@@ -61,7 +62,7 @@ interface WebformLibrariesManagerInterface {
    * @param string $name
    *   The name of the library.
    *
-   * @return boolean
+   * @return bool
    *   TRUE if library is included.
    */
   public function isIncluded($name);

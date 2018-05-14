@@ -57,7 +57,7 @@ class FeaturesConfigInstaller extends ConfigInstaller {
     list($major, $minor, ) = explode('.', \Drupal::VERSION);
     if ($major == 8 && $minor > 2) {
       // D8.3 added the %install_profile% argument.
-      $install_profile = drupal_get_profile();
+      $install_profile = \Drupal::installProfile();
       parent::__construct($config_factory, $active_storage, $typed_config, $config_manager, $event_dispatcher, $install_profile);
     }
     else {

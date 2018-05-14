@@ -16,7 +16,7 @@ settings:
   default_wizard_prev_button_label: '&lt; Página anterior'
   default_wizard_next_button_label: 'Página siguiente &amp;gt;'
   default_wizard_start_label: Inicio
-  default_wizard_complete_label: Complete
+  default_wizard_confirmation_label: Complete
   default_confirmation_back_label: 'A forma'
 mail:
   default_subject: 'Presentación de formulario de: [webform_submission:source-entidad]'

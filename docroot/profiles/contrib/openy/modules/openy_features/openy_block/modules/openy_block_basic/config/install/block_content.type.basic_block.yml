@@ -4,4 +4,4 @@ dependencies: {  }
 id: basic_block
 label: 'Basic block'
 revision: 1
-description: ''
+description: 'A simple block with a description.'

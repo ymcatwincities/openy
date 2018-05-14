@@ -14,7 +14,6 @@
 # http://www.robotstxt.org/robotstxt.html
 
 User-agent: *
-Crawl-delay: 10
 # CSS, JS, Images
 Allow: /core/*.css$
 Allow: /core/*.css?
@@ -60,25 +59,3 @@ Disallow: /index.php/user/password/
 Disallow: /index.php/user/register/
 Disallow: /index.php/user/login/
 Disallow: /index.php/user/logout/
-# End of Drupal core rules
-
-Disallow: */archive
-Disallow: */group_exercise_search_results
-Disallow: */thank_you
-Disallow: *?action_9455
-Disallow: *?category
-Disallow: *?filter_length
-Disallow: *?location
-Disallow: *catalog_search_panel
-
-User-Agent: gsa-crawler
-Disallow: */group_exercise_search_results
-Disallow: */thank_you
-Disallow: *?action_9455
-Disallow: *?category
-Disallow: *?filter_length
-Disallow: *?location
-Disallow: *catalog_search_panel
-
-Sitemap: https://www.ymcamn.org/sitemap.xml
-Sitemap: http://redwingymca.org/sitemap.xml

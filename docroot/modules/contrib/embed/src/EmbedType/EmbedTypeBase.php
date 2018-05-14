@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed\EmbedType\EmbedTypeBase.
- */
-
 namespace Drupal\embed\EmbedType;
 
 use Drupal\Component\Utility\NestedArray;

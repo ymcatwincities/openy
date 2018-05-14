@@ -6,3 +6,5 @@ dependencies:
 id: paragraph.2c
 target_entity_type_id: paragraph
 target_bundle: 2c
+default_langcode: site_default
+language_alterable: true

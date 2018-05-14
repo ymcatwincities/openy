@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed\Annotation\EntityType.
- */
-
 namespace Drupal\embed\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
@@ -28,9 +23,9 @@ class EmbedType extends Plugin {
   /**
    * The human-readable name of the embed type.
    *
-   * @ingroup plugin_translatable
-   *
    * @var \Drupal\Core\Annotation\Translation
+   *
+   * @ingroup plugin_translatable
    */
   protected $label;
 

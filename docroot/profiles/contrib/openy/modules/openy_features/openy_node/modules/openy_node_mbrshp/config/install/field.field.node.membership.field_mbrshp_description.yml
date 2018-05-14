@@ -15,7 +15,7 @@ field_name: field_mbrshp_description
 entity_type: node
 bundle: membership
 label: Description
-description: ''
+description: 'Textarea for the description/body with WYSIWYG, without summary.'
 required: true
 translatable: true
 default_value: {  }

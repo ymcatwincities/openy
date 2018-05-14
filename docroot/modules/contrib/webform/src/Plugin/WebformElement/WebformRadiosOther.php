@@ -12,13 +12,4 @@ namespace Drupal\webform\Plugin\WebformElement;
  *   category = @Translation("Options elements"),
  * )
  */
-class WebformRadiosOther extends Radios {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getDefaultProperties() {
-    return parent::getDefaultProperties() + static::getOtherProperties();
-  }
-
-}
+class WebformRadiosOther extends Radios {}

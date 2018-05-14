@@ -31,6 +31,7 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
     'twitter_cards_data1',
     'twitter_cards_data2',
     'twitter_cards_description',
+    'twitter_cards_donottrack',
     'twitter_cards_gallery_image0',
     'twitter_cards_gallery_image1',
     'twitter_cards_gallery_image2',
@@ -81,8 +82,8 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
     elseif ($tag_name == 'twitter:type') {
       $tag_name = 'twitter:card';
     }
-    elseif ($tag_name == '') {
-      $tag_name = '';
+    elseif ($tag_name == 'twitter:donottrack') {
+      $tag_name = 'twitter:dnt';
     }
 
     return $tag_name;

@@ -1,7 +1,0 @@
-dropzonejs.upload:
-  path: '/dropzonejs/upload'
-  defaults:
-    _controller: '\Drupal\dropzonejs\Controller\UploadController::handleUploads'
-  requirements:
-    _permission: 'dropzone upload files'
-    _csrf_token: 'TRUE'

@@ -18,8 +18,6 @@ use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
  * @Annotation
  * @Target({"PROPERTY", "METHOD", "ANNOTATION"})
  *
- * @property int $maxSize
- *
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
 class File extends Constraint

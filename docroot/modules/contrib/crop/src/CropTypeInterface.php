@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\crop\CropTypeInterface.
- */
-
 namespace Drupal\crop;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
@@ -47,5 +42,21 @@ interface CropTypeInterface extends ConfigEntityInterface {
    *   succeeded.
    */
   public function validate();
+
+  /**
+   * Returns width and height soft limit values.
+   *
+   * @return array
+   *   Width and height values.
+   */
+  public function getSoftLimit();
+
+  /**
+   * Returns width and height hard limit values.
+   *
+   * @return array
+   *   Width and height values.
+   */
+  public function getHardLimit();
 
 }

@@ -4,7 +4,6 @@ namespace Drupal\mindbody_cache_proxy;
 
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\State\State;
 use Drupal\mindbody_cache_proxy\Entity\MindbodyCache;
@@ -57,7 +56,7 @@ class MindbodyCacheProxyManager implements MindbodyCacheProxyManagerInterface {
   /**
    * Constructor.
    */
-  public function __construct(QueryFactory $entity_query, EntityTypeManager $entity_type_manager, LoggerChannelFactory $logger_factory, State $state) {
+  public function __construct(QueryFactory $entity_query, EntityTypeManager $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, State $state) {
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get(self::CHANNEL);

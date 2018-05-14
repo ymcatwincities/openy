@@ -1,0 +1,71 @@
+.node--type-location,
+.node--type-camp {
+
+  .page-middle {
+
+    .content.node--view-mode-full,
+    .content.node--view-mode-default {
+      background: none;
+    }
+  }
+}
+
+.locations-camps-template, .ancestor-locations, .theme_ymca_2013_location_home {
+
+  .tabs--primary {
+    margin-top: 51px;
+  }
+
+}
+
+.locations-page-under-lead-copy {
+
+    .locations-camps-template & {
+    padding-top: 10px;
+  }
+
+  h2 {
+    color: #5e5e5e;
+    font-weight: bold;
+    font-size: 34px;
+    font-family: 'Cachet';
+  }
+
+  li {
+    @media (min-width: 768px) {
+      float: left;
+      width: 50%;
+    }
+    a {
+      font-weight: bold;
+      font-family: 'Cachet';
+    }
+    position: relative;
+    margin: 5px 0;
+    padding-left: 20px;
+    list-style: none;
+
+    &:before {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      margin-right: 8px;
+      color: #bebcbc;
+      content: '>';
+      font-family: 'YMCA';
+    }
+  }
+
+  ul {
+    padding: 0;
+  }
+}
+
+body.locations-camps-template .locations-page-under-lead-copy {
+  margin-top: -22px;
+  padding-top: 22px;
+  @media screen and (max-width: 1200px) {
+    margin-top: -30px;
+    padding-top: 30px;
+  }
+}

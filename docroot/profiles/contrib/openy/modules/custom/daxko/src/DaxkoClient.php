@@ -49,8 +49,15 @@ class DaxkoClient extends Client implements DaxkoClientInterface {
 
       $object = json_decode($contents);
 
-      // @todo Check if object contains data.
-      return $object->data;
+      // todo remove todo??? @todo Check if object contains data.
+      if (isset($object->data)) {
+        return $object->data;
+      }
+      elseif (isset($object->tags)) {
+        return $object->tags;
+      }
+
+      throw new DaxkoClientException(sprintf('Got unknown body name for method %s.', $method));
     }
     catch (\Exception $e) {
       throw new DaxkoClientException(sprintf('Failed to make a request for uri %s with message %s.', $uri, $e->getMessage()));

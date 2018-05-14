@@ -909,8 +909,8 @@ body {
   margin: 12px 0 3px 0;
   margin-bottom: 5px;
   padding: 5px 0 0 30px;
-  width: 210px;
-  height: 80%;
+  width: 220px;
+  height: 72%;
   background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
   background-size: contain;
 }
@@ -924,17 +924,9 @@ body {
     line-height: 1em;
     -ms-transition: padding .3s ease-out;
   }
-  .affix .navbar-brand {
-    padding-top: 70px !important;
-    background-image: url(../img/ymca-logo-full.png);
-  }
   .navbar {
     background-color: #eeeeee;
   }
-}
-
-.csstransitions.no-smil .affix .navbar-brand {
-  background-image: url(../img/ymca-logo-full.png);
 }
 
 .sidebar .nav a:hover {
@@ -1770,7 +1762,7 @@ li.current.home > a {
   border: 0;
   border-left: 0;
   border-radius: 0;
-  background: #383838;
+  background: #383838 !important;
   font-size: 16px;
   font-family: 'Cachet', Verdana, Arial, sans-serif;
   -webkit-transition: font-size .2s ease-out,height .2s ease-out;
@@ -2033,15 +2025,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .ancestor-camps .navbar-brand {
   background-image: url(../img/ymca-logo-full-alt.svg);
-}
-
-.no-smil .ancestor-camps {
-  .navbar-brand {
-    background: url(../img/ymca-logo-alt.png) no-repeat;
-  }
-  .affix .navbar-brand {
-    background: url(../img/ymca-logo-alt-small.png) no-repeat;
-  }
 }
 
 .ancestor-camps {
@@ -2897,6 +2880,7 @@ img {
   text-transform: uppercase;
   font-weight: bold;
   font-family: 'Cachet', Verdana, Arial, sans-serif;
+  padding-top: 40px;
   a {
     color: #fff;
     color: rgba(255, 255, 255, 0.7);
@@ -5673,15 +5657,6 @@ a.wrapper:hover {
     }
     h2 {
       font-size: 22px;
-    }
-    .no-smil {
-      .navbar-brand {
-        padding-top: 40px !important;
-        background-image: url(../img/ymca-logo-small.png) !important;
-      }
-      .ancestor-camps .navbar-brand {
-        background: url(../img/ymca-logo-alt-small.png) no-repeat !important;
-      }
     }
     .lead-copy h1 {
       margin-bottom: .4em;

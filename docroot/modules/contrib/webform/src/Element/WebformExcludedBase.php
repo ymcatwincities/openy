@@ -47,6 +47,9 @@ abstract class WebformExcludedBase extends FormElement {
       '#empty' => t('No elements are available.'),
       '#default_value' => array_combine($default_value, $default_value),
     ];
+    if (isset($element['#parents'])) {
+      $element['tableselect']['#parents'] = array_merge($element['#parents'], ['tableselect']);
+    }
 
     // Build tableselect element with selected properties.
     $properties = [
@@ -82,7 +85,9 @@ abstract class WebformExcludedBase extends FormElement {
    * @return array
    *   An array container the header for the excluded tableselect element.
    */
-  public static function getWebformExcludedHeader() { }
+  public static function getWebformExcludedHeader() {
+    return [];
+  }
 
   /**
    * Get options for excluded tableselect element.
@@ -95,6 +100,8 @@ abstract class WebformExcludedBase extends FormElement {
    *   An array of options containing title, name, and type of items for a
    *   tableselect element.
    */
-  public static function getWebformExcludedOptions(array $element) { }
+  public static function getWebformExcludedOptions(array $element) {
+    return [];
+  }
 
 }

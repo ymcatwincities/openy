@@ -444,7 +444,7 @@ class MetatagManager implements MetatagManagerInterface {
             // @todo Can we move this into metatag_views somehow?
             $token_replacements = ['view' => $entity->getExecutable()];
           }
-          else {
+          elseif ($entity instanceof ContentEntityInterface) {
             $token_replacements = [$entity->getEntityTypeId() => $entity];
           }
         }

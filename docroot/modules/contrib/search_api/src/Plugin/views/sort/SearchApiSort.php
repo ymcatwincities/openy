@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Plugin\views\sort\SearchApiSort.
- */
-
 namespace Drupal\search_api\Plugin\views\sort;
 
 use Drupal\views\Plugin\views\sort\SortPluginBase;
@@ -12,7 +7,7 @@ use Drupal\views\Plugin\views\sort\SortPluginBase;
 /**
  * Provides a sort plugin for Search API views.
  *
- * @ViewsSort("search_api_sort")
+ * @ViewsSort("search_api")
  */
 class SearchApiSort extends SortPluginBase {
 
@@ -35,7 +30,7 @@ class SearchApiSort extends SortPluginBase {
     if (isset($this->query->orderby)) {
       unset($this->query->orderby);
       $sort = &$this->query->getSort();
-      $sort = array();
+      $sort = [];
     }
     $this->query->sort($this->realField, $this->options['order']);
   }

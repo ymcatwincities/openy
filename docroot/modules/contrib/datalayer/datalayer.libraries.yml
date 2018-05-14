@@ -8,6 +8,6 @@ behaviors:
     - core/drupal
 helper:
   js:
-    /libraries/data-layer-helper/data-layer-helper.js: {}
+    /libraries/data-layer-helper/dist/data-layer-helper.js: {}
   dependencies:
     - core/jquery

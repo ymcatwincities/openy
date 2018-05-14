@@ -9,7 +9,8 @@ use Drupal\migrate_drupal\Plugin\migrate\source\DrupalSqlBase;
  * Drupal 6 Node types source from database.
  *
  * @MigrateSource(
- *   id = "d6_node_type"
+ *   id = "d6_node_type",
+ *   source_module = "node"
  * )
  */
 class NodeType extends DrupalSqlBase {
@@ -62,7 +63,7 @@ class NodeType extends DrupalSqlBase {
    * {@inheritdoc}
    */
   public function fields() {
-    return [
+    $fields = [
       'type' => $this->t('Machine name of the node type.'),
       'name' => $this->t('Human name of the node type.'),
       'module' => $this->t('The module providing the node type.'),
@@ -77,6 +78,28 @@ class NodeType extends DrupalSqlBase {
       'locked' => $this->t('Flag.'),
       'orig_type' => $this->t('The original type.'),
       'teaser_length' => $this->t('Teaser length'),
+    ];
+    if ($this->moduleExists('comment')) {
+      $fields += $this->getCommentFields();
+    }
+    return $fields;
+  }
+
+  /**
+   * Returns the fields containing comment settings for each node type.
+   *
+   * @return string[]
+   *   An associative array of field descriptions, keyed by field.
+   */
+  protected function getCommentFields() {
+    return [
+      'comment' => $this->t('Default comment setting'),
+      'comment_default_mode' => $this->t('Default display mode'),
+      'comment_default_per_page' => $this->t('Default comments per page'),
+      'comment_anonymous' => $this->t('Anonymous commenting'),
+      'comment_subject_field' => $this->t('Comment subject field'),
+      'comment_preview' => $this->t('Preview comment'),
+      'comment_form_location' => $this->t('Location of comment submission form'),
     ];
   }
 
@@ -111,6 +134,13 @@ class NodeType extends DrupalSqlBase {
       $row->setSourceProperty('available_menus', [$default_node_menu]);
       $row->setSourceProperty('parent', $default_node_menu . ':');
     }
+
+    if ($this->moduleExists('comment')) {
+      foreach (array_keys($this->getCommentFields()) as $field) {
+        $row->setSourceProperty($field, $this->variableGet($field . '_' . $type, NULL));
+      }
+    }
+
     return parent::prepareRow($row);
   }
 

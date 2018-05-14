@@ -1,13 +1,16 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - focal_point
 name: node_program_header
 label: 'Node Program Header (500×260)'
 effects:
-  205ea77e-1bcc-4c4e-9966-1446d6979429:
-    uuid: 205ea77e-1bcc-4c4e-9966-1446d6979429
-    id: image_scale_and_crop
-    weight: 1
+  8fc5e44e-7717-4e12-82ef-98ab84eed245:
+    uuid: 8fc5e44e-7717-4e12-82ef-98ab84eed245
+    id: focal_point_scale_and_crop
+    weight: 2
     data:
       width: 500
       height: 260
+      crop_type: focal_point

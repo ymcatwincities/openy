@@ -26,7 +26,7 @@ class WebformUiElementEditForm extends WebformUiElementFormBase {
 
     // Handler changing element type.
     if ($type = $this->getRequest()->get('type')) {
-      $webform_element = $this->getWebformElement();
+      $webform_element = $this->getWebformElementPlugin();
       $related_types = $webform_element->getRelatedTypes($this->element);
       if (!isset($related_types[$type])) {
         throw new NotFoundHttpException();
@@ -68,7 +68,7 @@ class WebformUiElementEditForm extends WebformUiElementFormBase {
     */
 
     // WORKAROUND:
-    // Create a hidden link that is click using jQuery.
+    // Create a hidden link that is clicked using jQuery.
     if ($this->isDialog()) {
       $form['delete'] = [
         '#type' => 'link',

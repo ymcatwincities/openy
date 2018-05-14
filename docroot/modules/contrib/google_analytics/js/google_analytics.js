@@ -5,7 +5,9 @@
 
 (function ($, Drupal, drupalSettings) {
 
-  "use strict";
+  /* eslint max-nested-callbacks: ["error", 4] */
+
+  'use strict';
 
   Drupal.google_analytics = {};
 
@@ -13,59 +15,59 @@
 
     // Attach mousedown, keyup, touchstart events to document only and catch
     // clicks on all elements.
-    $(document.body).on("mousedown keyup touchstart", function (event) {
+    $(document.body).on('mousedown keyup touchstart', function (event) {
 
       // Catch the closest surrounding link of a clicked element.
-      $(event.target).closest("a,area").each(function () {
+      $(event.target).closest('a,area').each(function () {
 
         // Is the clicked URL internal?
         if (Drupal.google_analytics.isInternal(this.href)) {
           // Skip 'click' tracking, if custom tracking events are bound.
           if ($(this).is('.colorbox') && (drupalSettings.google_analytics.trackColorbox)) {
             // Do nothing here. The custom event will handle all tracking.
-            // console.info("Click on .colorbox item has been detected.");
+            // console.info('Click on .colorbox item has been detected.');
           }
           // Is download tracking activated and the file extension configured
           // for download tracking?
           else if (drupalSettings.google_analytics.trackDownload && Drupal.google_analytics.isDownload(this.href)) {
             // Download link clicked.
-            ga("send", {
-              "hitType": "event",
-              "eventCategory": "Downloads",
-              "eventAction": Drupal.google_analytics.getDownloadExtension(this.href).toUpperCase(),
-              "eventLabel": Drupal.google_analytics.getPageUrl(this.href),
-              "transport": "beacon"
+            ga('send', {
+              hitType: 'event',
+              eventCategory: 'Downloads',
+              eventAction: Drupal.google_analytics.getDownloadExtension(this.href).toUpperCase(),
+              eventLabel: Drupal.google_analytics.getPageUrl(this.href),
+              transport: 'beacon'
             });
           }
           else if (Drupal.google_analytics.isInternalSpecial(this.href)) {
             // Keep the internal URL for Google Analytics website overlay intact.
-            ga("send", {
-              "hitType": "pageview",
-              "page": Drupal.google_analytics.getPageUrl(this.href),
-              "transport": "beacon"
+            ga('send', {
+              hitType: 'pageview',
+              page: Drupal.google_analytics.getPageUrl(this.href),
+              transport: 'beacon'
             });
           }
         }
         else {
           if (drupalSettings.google_analytics.trackMailto && $(this).is("a[href^='mailto:'],area[href^='mailto:']")) {
             // Mailto link clicked.
-            ga("send", {
-              "hitType": "event",
-              "eventCategory": "Mails",
-              "eventAction": "Click",
-              "eventLabel": this.href.substring(7),
-              "transport": "beacon"
+            ga('send', {
+              hitType: 'event',
+              eventCategory: 'Mails',
+              eventAction: 'Click',
+              eventLabel: this.href.substring(7),
+              transport: 'beacon'
             });
           }
           else if (drupalSettings.google_analytics.trackOutbound && this.href.match(/^\w+:\/\//i)) {
             if (drupalSettings.google_analytics.trackDomainMode !== 2 || (drupalSettings.google_analytics.trackDomainMode === 2 && !Drupal.google_analytics.isCrossDomain(this.hostname, drupalSettings.google_analytics.trackCrossDomains))) {
               // External link clicked / No top-level cross domain clicked.
-              ga("send", {
-                "hitType": "event",
-                "eventCategory": "Outbound links",
-                "eventAction": "Click",
-                "eventLabel": this.href,
-                "transport": "beacon"
+              ga('send', {
+                hitType: 'event',
+                eventCategory: 'Outbound links',
+                eventAction: 'Click',
+                eventLabel: this.href,
+                transport: 'beacon'
               });
             }
           }
@@ -76,9 +78,9 @@
     // Track hash changes as unique pageviews, if this option has been enabled.
     if (drupalSettings.google_analytics.trackUrlFragments) {
       window.onhashchange = function () {
-        ga("send", {
-          "hitType": "pageview",
-          "page": location.pathname + location.search + location.hash
+        ga('send', {
+          hitType: 'pageview',
+          page: location.pathname + location.search + location.hash
         });
       };
     }
@@ -86,12 +88,12 @@
     // Colorbox: This event triggers when the transition has completed and the
     // newly loaded content has been revealed.
     if (drupalSettings.google_analytics.trackColorbox) {
-      $(document).on("cbox_complete", function () {
-        var href = $.colorbox.element().attr("href");
+      $(document).on('cbox_complete', function () {
+        var href = $.colorbox.element().attr('href');
         if (href) {
-          ga("send", {
-            "hitType": "pageview",
-            "page": Drupal.google_analytics.getPageUrl(href)
+          ga('send', {
+            hitType: 'pageview',
+            page: Drupal.google_analytics.getPageUrl(href)
           });
         }
       });
@@ -122,7 +124,7 @@
    * @return {boolean} isDownload
    */
   Drupal.google_analytics.isDownload = function (url) {
-    var isDownload = new RegExp("\\.(" + drupalSettings.google_analytics.trackDownloadExtensions + ")([\?#].*)?$", "i");
+    var isDownload = new RegExp('\\.(' + drupalSettings.google_analytics.trackDownloadExtensions + ')([\?#].*)?$', 'i');
     return isDownload.test(url);
   };
 
@@ -135,7 +137,7 @@
    * @return {boolean} isInternal
    */
   Drupal.google_analytics.isInternal = function (url) {
-    var isInternal = new RegExp("^(https?):\/\/" + window.location.host, "i");
+    var isInternal = new RegExp('^(https?):\/\/' + window.location.host, 'i');
     return isInternal.test(url);
   };
 
@@ -151,7 +153,7 @@
    * @return {boolean} isInternalSpecial
    */
   Drupal.google_analytics.isInternalSpecial = function (url) {
-    var isInternalSpecial = new RegExp("(\/go\/.*)$", "i");
+    var isInternalSpecial = new RegExp('(\/go\/.*)$', 'i');
     return isInternalSpecial.test(url);
   };
 
@@ -169,7 +171,7 @@
    *   Internal website URL.
    */
   Drupal.google_analytics.getPageUrl = function (url) {
-    var extractInternalUrl = new RegExp("^(https?):\/\/" + window.location.host, "i");
+    var extractInternalUrl = new RegExp('^(https?):\/\/' + window.location.host, 'i');
     return url.replace(extractInternalUrl, '');
   };
 
@@ -180,10 +182,10 @@
    *   The web url to check.
    *
    * @return {string} getDownloadExtension
-   *   The file extension of the passed url. e.g. "zip", "txt"
+   *   The file extension of the passed url. e.g. 'zip', 'txt'
    */
   Drupal.google_analytics.getDownloadExtension = function (url) {
-    var extractDownloadextension = new RegExp("\\.(" + drupalSettings.google_analytics.trackDownloadExtensions + ")([\?#].*)?$", "i");
+    var extractDownloadextension = new RegExp('\\.(' + drupalSettings.google_analytics.trackDownloadExtensions + ')([\?#].*)?$', 'i');
     var extension = extractDownloadextension.exec(url);
     return (extension === null) ? '' : extension[1];
   };

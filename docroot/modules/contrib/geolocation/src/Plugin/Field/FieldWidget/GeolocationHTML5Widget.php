@@ -24,7 +24,7 @@ class GeolocationHTML5Widget extends WidgetBase {
    * {@inheritdoc}
    */
   public function flagErrors(FieldItemListInterface $items, ConstraintViolationListInterface $violations, array $form, FormStateInterface $form_state) {
-    foreach ($violations as $offset => $violation) {
+    foreach ($violations as $violation) {
       if ($violation->getMessageTemplate() == 'This value should not be null.') {
         $form_state->setErrorByName($items->getName(), $this->t('No location could be determined for required field %field.', ['%field' => $items->getFieldDefinition()->getLabel()]));
       }

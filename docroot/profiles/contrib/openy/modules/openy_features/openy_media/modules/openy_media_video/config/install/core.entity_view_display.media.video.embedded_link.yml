@@ -10,7 +10,7 @@ dependencies:
     - field.field.media.video.field_media_video_id
     - media_entity.bundle.video
   module:
-    - openy_media
+    - openy_media_video
 id: media.video.embedded_link
 targetEntityType: media
 bundle: video
@@ -22,12 +22,14 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   field_media_in_library: true
   field_media_source: true
   field_media_tags: true
   field_media_video_id: true
+  langcode: true
   name: true
   thumbnail: true
   uid: true

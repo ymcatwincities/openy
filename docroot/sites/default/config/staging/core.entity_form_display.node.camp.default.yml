@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.camp.field_body
     - field.field.node.camp.field_camp_links
     - field.field.node.camp.field_camp_meta
-    - field.field.node.camp.field_content
+    - field.field.node.camp.field_ygtc_content
     - field.field.node.camp.field_facebook_page_id
     - field.field.node.camp.field_include_general_blog_posts
     - field.field.node.camp.field_location
@@ -73,7 +73,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
-  field_content:
+  field_ygtc_content:
     weight: 10
     settings:
       rows: 5

@@ -1,13 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Datasource\DatasourcePluginBase.
- */
-
 namespace Drupal\search_api\Datasource;
 
+use Drupal\Core\Language\Language;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TypedData\ComplexDataInterface;
+use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\search_api\Plugin\IndexPluginBase;
 
 /**
@@ -41,33 +39,120 @@ abstract class DatasourcePluginBase extends IndexPluginBase implements Datasourc
   /**
    * {@inheritdoc}
    */
-  public function getBundles() {
-    return array();
+  public function getPropertyDefinitions() {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function load($id) {
+    $items = $this->loadMultiple([$id]);
+    return $items ? reset($items) : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function loadMultiple(array $ids) {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getItemLabel(ComplexDataInterface $item) {
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getItemBundle(ComplexDataInterface $item) {
+    return $this->getPluginId();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getItemLanguage(ComplexDataInterface $item) {
+    if ($item instanceof TranslatableInterface) {
+      return $item->language()->getId();
+    }
+    $item = $item->getValue();
+    if ($item instanceof TranslatableInterface) {
+      return $item->language()->getId();
+    }
+    return Language::LANGCODE_NOT_SPECIFIED;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getItemUrl(ComplexDataInterface $item) {
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function checkItemAccess(ComplexDataInterface $item, AccountInterface $account = NULL) {
+    return TRUE;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getViewModes($bundle = NULL) {
-    return array();
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBundles() {
+    return [
+      $this->getPluginId() => $this->label(),
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function viewItem(ComplexDataInterface $item, $view_mode, $langcode = NULL) {
-    return array();
+    return [];
   }
 
   /**
    * {@inheritdoc}
    */
   public function viewMultipleItems(array $items, $view_mode, $langcode = NULL) {
-    $build = array();
+    $build = [];
     foreach ($items as $key => $item) {
       $build[$key] = $this->viewItem($item, $view_mode, $langcode);
     }
     return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getEntityTypeId() {
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getItemIds($page = NULL) {
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldDependencies(array $fields) {
+    return [];
   }
 
 }

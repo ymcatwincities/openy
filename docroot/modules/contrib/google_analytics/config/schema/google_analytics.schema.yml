@@ -7,6 +7,9 @@ google_analytics.settings:
     account:
       type: string
       label: 'Web Property ID'
+    premium:
+      type: boolean
+      label: 'Premium account'
     domain_mode:
       type: integer
       label: 'What are you tracking?'

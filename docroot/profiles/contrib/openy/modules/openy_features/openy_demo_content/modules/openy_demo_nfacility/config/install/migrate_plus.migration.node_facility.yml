@@ -193,7 +193,7 @@ process:
     -
       plugin: get
       source: longitude
-  field_oy_content:
+  field_content:
     plugin: iterator
     source: content_ids
     process:

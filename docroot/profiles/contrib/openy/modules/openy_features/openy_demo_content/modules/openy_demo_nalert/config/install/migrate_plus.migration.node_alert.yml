@@ -132,7 +132,7 @@ process:
       plugin: migration
       migration: openy_demo_taxonomy_term_area
       source: area
-  field_oy_content:
+  field_content:
       plugin: iterator
       source: content_ids
       process:

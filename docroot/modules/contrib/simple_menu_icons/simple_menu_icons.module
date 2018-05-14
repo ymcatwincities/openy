@@ -73,6 +73,9 @@ function simple_menu_icons_menu_link_content_form_submit($form, \Drupal\Core\For
   $menu_link->save();
 
   simple_menu_icons_css_generate();
+  if (!empty($file_id)) {
+    drupal_flush_all_caches();
+  }
 }
 
 /**
@@ -140,9 +143,9 @@ function simple_menu_icons_css_generate() {
 }
 
 /**
- * Implements hook_cache_flush().
+ * Implements hook_rebuild().
  */
-function simple_menu_icons_cache_flush() {
+function simple_menu_icons_rebuild() {
   simple_menu_icons_css_generate();
 }
 

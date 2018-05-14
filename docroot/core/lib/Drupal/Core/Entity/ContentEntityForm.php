@@ -179,10 +179,29 @@ class ContentEntityForm extends EntityForm implements ContentEntityFormInterface
 
     $violations = $entity->validate();
 
-    // Remove violations of inaccessible fields and not edited fields.
-    $violations
-      ->filterByFieldAccess($this->currentUser())
-      ->filterByFields(array_diff(array_keys($entity->getFieldDefinitions()), $this->getEditedFieldNames($form_state)));
+    // Remove violations of inaccessible fields.
+    $violations->filterByFieldAccess($this->currentUser());
+
+    // In case a field-level submit button is clicked, for example the 'Add
+    // another item' button for multi-value fields or the 'Upload' button for a
+    // File or an Image field, make sure that we only keep violations for that
+    // specific field.
+    $edited_fields = [];
+    if ($limit_validation_errors = $form_state->getLimitValidationErrors()) {
+      foreach ($limit_validation_errors as $section) {
+        $field_name = reset($section);
+        if ($entity->hasField($field_name)) {
+          $edited_fields[] = $field_name;
+        }
+      }
+      $edited_fields = array_unique($edited_fields);
+    }
+    else {
+      $edited_fields = $this->getEditedFieldNames($form_state);
+    }
+
+    // Remove violations for fields that are not edited.
+    $violations->filterByFields(array_diff(array_keys($entity->getFieldDefinitions()), $edited_fields));
 
     $this->flagViolations($violations, $form, $form_state);
 
@@ -235,7 +254,7 @@ class ContentEntityForm extends EntityForm implements ContentEntityFormInterface
     // Flag entity level violations.
     foreach ($violations->getEntityViolations() as $violation) {
       /** @var \Symfony\Component\Validator\ConstraintViolationInterface $violation */
-      $form_state->setErrorByName('', $violation->getMessage());
+      $form_state->setErrorByName(str_replace('.', '][', $violation->getPropertyPath()), $violation->getMessage());
     }
     // Let the form display flag violations of its fields.
     $this->getFormDisplay($form_state)->flagWidgetsErrorsFromViolations($violations, $form, $form_state);
@@ -381,6 +400,7 @@ class ContentEntityForm extends EntityForm implements ContentEntityFormInterface
    *   An associative array containing the structure of the form.
    */
   protected function addRevisionableFormFields(array &$form) {
+    /** @var ContentEntityTypeInterface $entity_type */
     $entity_type = $this->entity->getEntityType();
 
     $new_revision_default = $this->getNewRevisionDefault();
@@ -411,9 +431,10 @@ class ContentEntityForm extends EntityForm implements ContentEntityFormInterface
       '#access' => !$this->entity->isNew() && $this->entity->get($entity_type->getKey('revision'))->access('update'),
       '#group' => 'revision_information',
     ];
-
-    if (isset($form['revision_log'])) {
-      $form['revision_log'] += [
+    // Get log message field's key from definition.
+    $log_message_field = $entity_type->getRevisionMetadataKey('revision_log_message');
+    if ($log_message_field && isset($form[$log_message_field])) {
+      $form[$log_message_field] += [
         '#group' => 'revision_information',
         '#states' => [
           'visible' => [

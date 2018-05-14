@@ -46,7 +46,7 @@ function field_group_validate_css_class($element, FormStateInterface $form_state
   $form_state_values = $form_state->getValues();
   $plugin_name = $form_state->get('plugin_settings_edit');
   if (!empty($form_state_values['fields'][$plugin_name]['settings_edit_form']['settings']['classes']) && !preg_match('!^[A-Za-z0-9-_ ]+$!', $form_state_values['fields'][$plugin_name]['settings_edit_form']['settings']['classes'])) {
-    Drupal::formBuilder()->setError($element, $form_state, t('The css class must include only letters, numbers, underscores and dashes.'));
+    $form_state->setError($element, $form_state, t('The css class must include only letters, numbers, underscores and dashes.'));
   }
 }
 

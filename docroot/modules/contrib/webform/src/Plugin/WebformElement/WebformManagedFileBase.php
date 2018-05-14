@@ -39,7 +39,7 @@ abstract class WebformManagedFileBase extends WebformElementBase {
     $max_filesize = Bytes::toInt($max_filesize);
     $max_filesize = ($max_filesize / 1024 / 1024);
     $file_extensions = $this->getFileExtensions();
-    return parent::getDefaultProperties() + [
+    $properties = parent::getDefaultProperties() + [
       'multiple' => FALSE,
       'max_filesize' => $max_filesize,
       'file_extensions' => $file_extensions,
@@ -48,6 +48,9 @@ abstract class WebformManagedFileBase extends WebformElementBase {
       'button__title' => '',
       'button__attributes' => [],
     ];
+    // File uploads can't have default files.
+    unset($properties['default_value']);
+    return $properties;
   }
 
   /**
@@ -175,8 +178,8 @@ abstract class WebformManagedFileBase extends WebformElementBase {
    * {@inheritdoc}
    */
   public function setDefaultValue(array &$element) {
-    if (!empty($element['#default_value']) && !is_array($element['#default_value'])) {
-      $element['#default_value'] = [$element['#default_value']];
+    if (!empty($element['#default_value'])) {
+      $element['#default_value'] = (array) $element['#default_value'];
     }
   }
 
@@ -604,13 +607,13 @@ abstract class WebformManagedFileBase extends WebformElementBase {
     ];
     $form['file']['file_extensions'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('File extensions'),
-      '#description' => $this->t('A list of additional file extensions for this upload field, separated by spaces.'),
+      '#title' => $this->t('Allowed file extensions'),
+      '#description' => $this->t('Separate extensions with a space and do not include the leading dot. '),
       '#maxlength' => 255,
     ];
     $form['file']['multiple'] = [
-      '#title' => $this->t('Multiple'),
       '#type' => 'checkbox',
+      '#title' => $this->t('Multiple'),
       '#description' => $this->t('Check this option if the user should be allowed to upload multiple files.'),
       '#return_value' => TRUE,
     ];
@@ -618,14 +621,14 @@ abstract class WebformManagedFileBase extends WebformElementBase {
     // Button.
     // @see webform_preprocess_file_managed_file()
     $form['file']['button'] = [
-      '#title' => $this->t('Replace file upload input with button'),
       '#type' => 'checkbox',
+      '#title' => $this->t('Replace file upload input with an upload button'),
       '#description' => $this->t('If checked the file upload input will be replaced with click-able label styled as button.'),
       '#return_value' => TRUE,
     ];
     $form['file']['button__title'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Button title'),
+      '#title' => $this->t('Upload button title'),
       '#description' => $this->t('Defaults to: %value', ['%value' => $this->t('Choose file')]),
       '#states' => [
         'visible' => [
@@ -635,7 +638,7 @@ abstract class WebformManagedFileBase extends WebformElementBase {
     ];
     $form['file']['button__attributes'] = [
       '#type' => 'webform_element_attributes',
-      '#title' => $this->t('Button attributes'),
+      '#title' => $this->t('Upload button attributes'),
       '#classes' => $this->configFactory->get('webform.settings')->get('settings.button_classes'),
       '#class__description' => $this->t("Apply classes to the button. Button classes default to 'button button-primary'."),
       '#states' => [

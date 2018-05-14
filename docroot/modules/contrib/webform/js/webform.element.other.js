@@ -24,16 +24,27 @@
 
     if (show) {
       // Limit the other inputs width to the parent's container.
-      $element.width($element.parent().width());
+      // If the parent container is not visible it's width will be 0
+      // and ignored.
+      var width = $element.parent().width();
+      if (width) {
+        $element.width(width);
+      }
+
       // Display the element.
       $element[showEffect]();
       // Focus and require the input.
-      $input.focus().prop('required', true);
+      $input.focus().prop('required', true).attr('aria-required', 'aria-required');
       // Restore the input's value.
       var value = $input.data('webform-value');
       if (value !== undefined) {
         $input.val(value);
-        $input.get(0).setSelectionRange(0, 0);
+        var input = $input.get(0);
+        // Move cursor to the beginning of the other text input.
+        // @see https://stackoverflow.com/questions/21177489/selectionstart-selectionend-on-input-type-number-no-longer-allowed-in-chrome
+        if ($.inArray(input.type, ['text', 'search', 'url', 'tel', 'password']) !== -1) {
+          input.setSelectionRange(0, 0);
+        }
       }
       // Refresh CodeMirror used as other element.
       $element.parent().find('.CodeMirror').each(function (index, $element) {
@@ -46,7 +57,7 @@
       // Save the input's value.
       $input.data('webform-value', $input.val());
       // Empty and un-required the input.
-      $input.val('').prop('required', false);
+      $input.val('').prop('required', false).removeAttr('aria-required');
     }
   }
 
@@ -128,23 +139,11 @@
 
         var $buttons = $element.find('input[type="radio"]');
         var $input = $element.find('.js-webform-buttons-other-input');
-
-        // Note: Initializing buttonset here so that we can set the onchange
-        // event handler.
-        // @see Drupal.behaviors.webformButtons
         var $container = $(this).find('.form-radios');
-        // Remove all div and classes around radios and labels.
-        $container.html($container.find('input[type="radio"], label').removeClass());
-        // Create buttonset and set onchange handler.
-        $container.buttonset().change(function () {
+
+        // Create set onchange handler.
+        $container.change(function () {
           toggleOther(($(this).find(':radio:checked').val() === '_other_'), $input);
-        });
-        // Disable buttonset.
-        $container.buttonset('option', 'disabled', $container.find('input[type="radio"]:disabled').length);
-        // Turn buttonset off/on when the input is disabled/enabled.
-        // @see webform.states.js
-        $container.on('webform:disabled', function () {
-          $container.buttonset('option', 'disabled', $container.find('input[type="radio"]:disabled').length);
         });
 
         toggleOther(($buttons.filter(':checked').val() === '_other_'), $input, false);

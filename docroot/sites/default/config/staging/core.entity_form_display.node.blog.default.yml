@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.blog.field_blog_meta
-    - field.field.node.blog.field_content
+    - field.field.node.blog.field_ygtc_content
     - field.field.node.blog.field_image
     - field.field.node.blog.field_related_camps_locations
     - field.field.node.blog.field_site_section
@@ -34,7 +34,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
-  field_content:
+  field_ygtc_content:
     weight: 9
     settings:
       rows: 5

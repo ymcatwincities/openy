@@ -99,11 +99,14 @@ class WebformEmailConfirm extends FormElement {
     // Don't require the main element.
     $element['#required'] = FALSE;
 
+    // Hide title and description from being display.
+    $element['#title_display'] = 'invisible';
+    $element['#description_display'] = 'invisible';
+
     // Remove properties that are being applied to the sub elements.
-    unset($element['#title']);
-    unset($element['#description']);
     unset($element['#maxlength']);
     unset($element['#attributes']);
+    unset($element['#description']);
     return $element;
   }
 

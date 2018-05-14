@@ -53,6 +53,11 @@ elements: |
       '#type': webform_image_file
       '#title': 'image_file (jpg)'
       '#file_extensions': jpg
+    image_file_jpg_modal:
+      '#type': webform_image_file
+      '#title': 'image_file modal (jpg)'
+      '#file_extensions': jpg
+      '#format': 'thumbnail:modal'
   video_file_elements:
     '#type': details
     '#title': 'Video File Elements'
@@ -68,6 +73,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -97,8 +103,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 1
   preview_label: ''
   preview_title: ''

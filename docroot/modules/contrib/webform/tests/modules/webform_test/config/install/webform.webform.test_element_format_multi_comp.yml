@@ -101,6 +101,33 @@ elements: |
             postal_code: Loremipsum
             country: Afghanistan
         '#format_items': hr
+      webform_address_table:
+        '#type': webform_address
+        '#title': 'Address (Table)'
+        '#multiple': true
+        '#default_value':
+          -
+            address: '10 Main Street'
+            address_2: '10 Main Street'
+            city: Springfield
+            state_province: Alabama
+            postal_code: Loremipsum
+            country: Afghanistan
+          -
+            address: '10 Main Street'
+            address_2: '10 Main Street'
+            city: Springfield
+            state_province: Alabama
+            postal_code: Loremipsum
+            country: Afghanistan
+          -
+            address: '10 Main Street'
+            address_2: '10 Main Street'
+            city: Springfield
+            state_province: Alabama
+            postal_code: Loremipsum
+            country: Afghanistan
+        '#format_items': table
     webform_contact:
       '#type': details
       '#title': Contact
@@ -221,6 +248,45 @@ elements: |
             postal_code: Loremipsum
             country: Afghanistan
         '#format_items': hr
+      webform_contact_table:
+        '#type': webform_contact
+        '#title': 'Contact (Table)'
+        '#multiple': true
+        '#default_value':
+          -
+            name: Loremipsum
+            company: Loremipsum
+            email: example@example.com
+            phone: 123-456-7890
+            address: '10 Main Street'
+            address_2: '10 Main Street'
+            city: Springfield
+            state_province: Alabama
+            postal_code: Loremipsum
+            country: Afghanistan
+          -
+            name: Loremipsum
+            company: Loremipsum
+            email: example@example.com
+            phone: 123-456-7890
+            address: '10 Main Street'
+            address_2: '10 Main Street'
+            city: Springfield
+            state_province: Alabama
+            postal_code: Loremipsum
+            country: Afghanistan
+          -
+            name: Loremipsum
+            company: Loremipsum
+            email: example@example.com
+            phone: 123-456-7890
+            address: '10 Main Street'
+            address_2: '10 Main Street'
+            city: Springfield
+            state_province: Alabama
+            postal_code: Loremipsum
+            country: Afghanistan
+        '#format_items': table
     webform_link:
       '#type': details
       '#title': Link
@@ -269,6 +335,21 @@ elements: |
             title: Loremipsum
             url: 'http://example.com'
         '#format_items': hr
+      webform_link_table:
+        '#type': webform_link
+        '#title': 'Link (Table)'
+        '#multiple': true
+        '#default_value':
+          -
+            title: Loremipsum
+            url: 'http://example.com'
+          -
+            title: Loremipsum
+            url: 'http://example.com'
+          -
+            title: Loremipsum
+            url: 'http://example.com'
+        '#format_items': table
     webform_location:
       '#type': details
       '#title': Location
@@ -317,6 +398,21 @@ elements: |
           -
             value: 'Moscow, Russia, 10307'
         '#format_items': hr
+      webform_location_table:
+        '#type': webform_location
+        '#title': 'Location (Table)'
+        '#map': true
+        '#geolocation': true
+        '#format': map
+        '#multiple': true
+        '#default_value':
+          -
+            value: 'The White House, 1600 Pennsylvania Ave NW, Washington, DC 20500, USA'
+          -
+            value: 'London SW1A 1AA, United Kingdom'
+          -
+            value: 'Moscow, Russia, 10307'
+        '#format_items': table
     webform_name:
       '#type': details
       '#title': Name
@@ -401,6 +497,33 @@ elements: |
             suffix: Loremipsum
             degree: Loremipsum
         '#format_items': hr
+      webform_name_table:
+        '#type': webform_name
+        '#title': 'Name (Table)'
+        '#multiple': true
+        '#default_value':
+          -
+            title: Miss
+            first: Loremipsum
+            middle: Loremipsum
+            last: Loremipsum
+            suffix: Loremipsum
+            degree: Loremipsum
+          -
+            title: Miss
+            first: Loremipsum
+            middle: Loremipsum
+            last: Loremipsum
+            suffix: Loremipsum
+            degree: Loremipsum
+          -
+            title: Miss
+            first: Loremipsum
+            middle: Loremipsum
+            last: Loremipsum
+            suffix: Loremipsum
+            degree: Loremipsum
+        '#format_items': table
     webform_telephone:
       '#type': details
       '#title': 'Telephone advanced'
@@ -458,10 +581,29 @@ elements: |
             phone: '+1 212-333-4444'
             ext: 0
         '#format_items': hr
+      webform_telephone_table:
+        '#type': webform_telephone
+        '#title': 'Telephone advanced (Table)'
+        '#multiple': true
+        '#default_value':
+          -
+            type: Home
+            phone: '+1 212-333-4444'
+            ext: 0
+          -
+            type: Home
+            phone: '+1 212-333-4444'
+            ext: 0
+          -
+            type: Home
+            phone: '+1 212-333-4444'
+            ext: 0
+        '#format_items': table
 css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -491,8 +633,9 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  wizard_track: ''
   preview: 1
   preview_label: ''
   preview_title: ''
@@ -565,6 +708,7 @@ handlers:
     label: 'Email (Text)'
     handler_id: email_text
     status: true
+    conditions: {  }
     weight: 1
     settings:
       states:
@@ -588,11 +732,14 @@ handlers:
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
   email_html:
     id: email
     label: 'Email (HTML)'
     handler_id: email_html
     status: true
+    conditions: {  }
     weight: 2
     settings:
       states:
@@ -616,3 +763,5 @@ handlers:
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''

@@ -19,6 +19,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -48,8 +49,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -122,6 +123,7 @@ handlers:
     label: 'Draft saved'
     handler_id: email_draft
     status: true
+    conditions: {  }
     weight: 0
     settings:
       states:
@@ -145,11 +147,14 @@ handlers:
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
   email_converted:
     id: email
     label: 'Submission converted'
     handler_id: email_converted
     status: true
+    conditions: {  }
     weight: 0
     settings:
       states:
@@ -173,11 +178,14 @@ handlers:
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
   email_completed:
     id: email
     label: 'Submission completed'
     handler_id: email_completed
     status: true
+    conditions: {  }
     weight: 1
     settings:
       states:
@@ -201,11 +209,14 @@ handlers:
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
   email_updated:
     id: email
     label: 'Submission updated'
     handler_id: email_updated
     status: true
+    conditions: {  }
     weight: 2
     settings:
       states:
@@ -229,11 +240,14 @@ handlers:
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
   email_deleted:
     id: email
     label: 'Submission deleted'
     handler_id: email_deleted
     status: true
+    conditions: {  }
     weight: 2
     settings:
       states:
@@ -257,3 +271,5 @@ handlers:
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''

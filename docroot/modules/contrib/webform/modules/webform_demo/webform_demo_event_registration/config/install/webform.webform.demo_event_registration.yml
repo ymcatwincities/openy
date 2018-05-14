@@ -15,6 +15,17 @@ title: 'Demo: Event Registration'
 description: 'A demonstration of an event registration form.'
 category: Demo
 elements: |
+  event_information:
+    '#type': fieldset
+    '#title': 'Event Information'
+    event_title:
+      '#type': webform_computed_token
+      '#title': 'Event Title'
+      '#value': '[webform_submission:node:title]'
+    event_date:
+      '#type': webform_computed_token
+      '#title': 'Event Date'
+      '#value': '[webform_submission:node:field_webform_demo_event_date:date:short]'
   information:
     '#title': 'Your Information'
     '#type': fieldset
@@ -30,10 +41,10 @@ elements: |
       '#type': email
       '#title': Email
       '#required': true
-    actions:
-      '#type': webform_actions
-      '#title': 'Submit button(s)'
-      '#submit__label': 'Register'
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#submit__label': Register
 css: ''
 javascript: ''
 settings:
@@ -64,8 +75,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -128,6 +139,7 @@ handlers:
     label: 'Email Notification'
     handler_id: email_notification
     status: true
+    conditions: {  }
     weight: 1
     settings:
       states:
@@ -144,18 +156,21 @@ handlers:
       subject: default
       body: default
       excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: false
       reply_to: ''
       return_path: ''
-      ignore_access: false
-      exclude_empty: true
+      sender_mail: ''
+      sender_name: ''
   email_reminder:
     id: scheduled_email
     label: 'Email Reminder'
     handler_id: email_reminder
     status: true
+    conditions: {  }
     weight: 1
     settings:
       states:
@@ -172,13 +187,15 @@ handlers:
       subject: '[webform_submission:node:title:value]: Reminder'
       body: default
       excluded_elements: {  }
+      ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: false
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
       send: '[webform_submission:node:field_webform_demo_event_date:value]'
       days: -1
       unschedule: false
-      ignore_access: false
-      exclude_empty: true

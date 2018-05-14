@@ -115,7 +115,7 @@
         $this.find('ul input:checkbox').change(function() {
           // Determine the number of unchecked sibling checkboxes.
           var $this = $(this);
-          var uncheckedSiblings = $this.closest('li').siblings('li').find('> div > input:checkbox:not(:checked)').size();
+          var uncheckedSiblings = $this.closest('li').siblings('li').find('> div > input:checkbox:not(:checked)').length;
 
           // If this term or any siblings are unchecked, uncheck the parent and
           // all ancestors.
