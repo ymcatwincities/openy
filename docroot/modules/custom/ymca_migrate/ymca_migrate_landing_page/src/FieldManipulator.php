@@ -44,7 +44,7 @@ class FieldManipulator {
         // Set grey color.
         if ($paragraphEntity->bundle() == 'small_banner') {
           try {
-            $paragraphEntity->set('field_prgf_color', $color);
+            $paragraphEntity->set('field_prgf_color', $color->tid);
             $paragraphEntity->save();
           }
           catch (\Exception $e) {
