@@ -26,7 +26,7 @@ class WebformResultsExportDownloadTest extends WebformTestBase {
    *
    * @var array
    */
-  protected static $testWebforms = ['test_element_managed_file', 'test_results'];
+  protected static $testWebforms = ['test_element_managed_file'];
 
   /**
    * {@inheritdoc}
@@ -60,7 +60,7 @@ class WebformResultsExportDownloadTest extends WebformTestBase {
     /* Download CSV */
 
     // Download tar ball archive with CSV.
-    $edit = ['export[download][files]' => TRUE];
+    $edit = ['files' => TRUE];
     $this->drupalPostForm('admin/structure/webform/manage/test_element_managed_file/results/download', $edit, t('Download'));
 
     // Load the tar and get a list of files.
@@ -79,7 +79,7 @@ class WebformResultsExportDownloadTest extends WebformTestBase {
     $submissions = WebformSubmission::loadMultiple($sids);
     foreach ($submissions as $submission) {
       $serial = $submission->serial();
-      $fid = $submission->getData('managed_file_single');
+      $fid = $submission->getElementData('managed_file_single');
       $filename = File::load($fid)->getFilename();
 
       $this->assert(isset($files["submission-$serial/$filename"]));
@@ -89,8 +89,8 @@ class WebformResultsExportDownloadTest extends WebformTestBase {
 
     // Download tar ball archive with YAML documents.
     $edit = [
-      'export[download][files]' => TRUE,
-      'export[format][exporter]' => 'yaml',
+      'files' => TRUE,
+      'exporter' => 'yaml',
     ];
     $this->drupalPostForm('admin/structure/webform/manage/test_element_managed_file/results/download', $edit, t('Download'));
 
@@ -110,7 +110,7 @@ class WebformResultsExportDownloadTest extends WebformTestBase {
     $submissions = WebformSubmission::loadMultiple($sids);
     foreach ($submissions as $submission) {
       $serial = $submission->serial();
-      $fid = $submission->getData('managed_file_single');
+      $fid = $submission->getElementData('managed_file_single');
       $filename = File::load($fid)->getFilename();
 
       $this->assert(isset($files["submission-$serial.yml"]));

@@ -1,7 +1,8 @@
-name: 'Openy Latest Blog Posts (Camp)'
-description: 'Provides latest blog posts for camp.'
+name: 'OpenY Paragraph Latest Blog Posts (Camp)'
+description: 'OpenY Paragraph Latest Blog Posts (Camp).'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - field
   - node
@@ -13,4 +14,3 @@ dependencies:
   - user
   - views
   - views_infinite_scroll
-version: 8.x-1.0

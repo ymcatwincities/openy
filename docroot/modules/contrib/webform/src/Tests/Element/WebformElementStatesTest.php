@@ -45,16 +45,27 @@ class WebformElementStatesTest extends WebformTestBase {
     - or
     - selector_02:
         checked: true
+states_values:
+  enabled:
+    selector_01:
+      value: '0'
+    selector_02:
+      value: 'false'
+    selector_03:
+      value: ''
+    selector_04:
+      checked: true
 states_custom_selector:
   required:
     custom_selector:
       value: 'Yes'
 states_empty: {  }
+states_single: {  }
 states_unsupported_operator:
   required:
     - custom_selector:
         value: 'Yes'
-    - xor
+    - xxx
     - custom_selector:
         value: 'Yes'
 states_unsupported_nesting:
@@ -76,15 +87,19 @@ states_unsupported_nesting:
     $this->drupalGet('webform/test_element_states');
 
     // Check 'States custom selector'.
-    $this->assertRaw('<input data-drupal-selector="edit-states-custom-selector-states-1-selector-other" type="text" id="edit-states-custom-selector-states-1-selector-other" name="states_custom_selector[states][1][selector][other]" value="custom_selector" size="60" maxlength="128" placeholder="Enter other..." class="form-text" />');
+    $this->assertRaw('<input data-drupal-selector="edit-states-custom-selector-states-1-selector-other" type="text" id="edit-states-custom-selector-states-1-selector-other" name="states_custom_selector[states][1][selector][other]" value="custom_selector" size="60" maxlength="128" placeholder="Enter custom selector..." class="form-text" />');
 
     // Check 'States unsupport operator'.
-    $this->assertRaw('Conditional logic (Form API #states) is using the <em class="placeholder">XOR</em> operator. Form API #states must be manually entered.');
+    $this->assertRaw('Conditional logic (Form API #states) is using the <em class="placeholder">XXX</em> operator. Form API #states must be manually entered.');
     $this->assertRaw('<textarea data-drupal-selector="edit-states-unsupported-operator-states" aria-describedby="edit-states-unsupported-operator-states--description" class="js-webform-codemirror webform-codemirror yaml form-textarea resize-vertical" data-webform-codemirror-mode="text/x-yaml" id="edit-states-unsupported-operator-states" name="states_unsupported_operator[states]" rows="5" cols="60">');
 
     // Check 'States unsupport nested multiple selectors'.
     $this->assertRaw('Conditional logic (Form API #states) is using multiple nested conditions. Form API #states must be manually entered.');
     $this->assertRaw('<textarea data-drupal-selector="edit-states-unsupported-nesting-states" aria-describedby="edit-states-unsupported-nesting-states--description" class="js-webform-codemirror webform-codemirror yaml form-textarea resize-vertical" data-webform-codemirror-mode="text/x-yaml" id="edit-states-unsupported-nesting-states" name="states_unsupported_nesting[states]" rows="5" cols="60">');
+
+    // Check 'States single' (#multiple: FALSE)
+    $this->assertFieldById('edit-states-empty-add');
+    $this->assertNoFieldById('edit-states-single-add');
 
     /**************************************************************************/
     // Processing.

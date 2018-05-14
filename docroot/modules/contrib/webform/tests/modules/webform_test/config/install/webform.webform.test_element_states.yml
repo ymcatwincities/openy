@@ -35,6 +35,24 @@ elements: |
         - or
         - selector_02:
             checked: true
+  states_values:
+    '#type': webform_element_states
+    '#title': 'States basic'
+    '#selector_options':
+      selector_01: 'Selector 01 (selector_01)'
+      selector_02: 'Selector 02 (selector_02)'
+      selector_03: 'Selector 03 (selector_03)'
+      selector_04: 'Selector 04 (selector_04)'
+    '#default_value':
+      enabled:
+        selector_01:
+          value: '0'
+        selector_02:
+          value: 'false'
+        selector_03:
+          value: ''
+        selector_04:
+          checked: true
   states_custom_selector:
     '#type': webform_element_states
     '#title': 'States custom selector'
@@ -53,6 +71,14 @@ elements: |
       selector_01: 'Selector 01 (selector_01)'
       selector_02: 'Selector 02 (selector_02)'
       selector_03: 'Selector 03 (selector_03)'
+  states_single:
+    '#type': webform_element_states
+    '#title': 'States single'
+    '#selector_options':
+      selector_01: 'Selector 01 (selector_01)'
+      selector_02: 'Selector 02 (selector_02)'
+      selector_03: 'Selector 03 (selector_03)'
+    '#multiple': false
   states_unsupported_operator:
     '#type': webform_element_states
     '#title': 'States unsupport operator'
@@ -60,7 +86,7 @@ elements: |
       required:
         - custom_selector:
             value: 'Yes'
-        - xor
+        - xxx
         - custom_selector:
             value: 'Yes'
   states_unsupported_nesting:
@@ -81,6 +107,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -110,8 +137,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''
@@ -184,5 +211,6 @@ handlers:
     label: Debug
     handler_id: debug
     status: true
+    conditions: {  }
     weight: 0
     settings: {  }

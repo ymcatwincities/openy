@@ -20,6 +20,7 @@ function webform_test_test_element_format(WebformInterface $webform, $composite 
     'language_select',
     'text_format_raw',
     'text_format_value',
+    'webform_composite',
     // @todo Fix file display
     'managed_file',
     'webform_audio_file',

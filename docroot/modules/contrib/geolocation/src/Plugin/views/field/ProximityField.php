@@ -2,9 +2,11 @@
 
 namespace Drupal\geolocation\Plugin\views\field;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation\GeolocationCore;
+use Drupal\views\ResultRow;
 use Drupal\views\Plugin\views\field\NumericField;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -71,6 +73,13 @@ class ProximityField extends NumericField implements ContainerFactoryPluginInter
       'proximity_argument' => ['default' => ''],
       'entity_id_argument' => ['default' => ''],
       'boundary_filter' => ['default' => ''],
+      'proximity_geocoder' => ['default' => FALSE],
+      'proximity_geocoder_plugin_settings' => [
+        'default' => [
+          'plugin_id' => '',
+          'settings' => [],
+        ],
+      ],
     ] + parent::defineOptions();
   }
 
@@ -92,6 +101,7 @@ class ProximityField extends NumericField implements ContainerFactoryPluginInter
       '#fieldset' => 'proximity_group',
       '#options' => [
         'direct_input' => $this->t('Static Values'),
+        'user_input' => $this->t('User input'),
       ],
     ];
 
@@ -142,10 +152,90 @@ class ProximityField extends NumericField implements ContainerFactoryPluginInter
             ['select[name="options[proximity_source]"]' => ['value' => 'boundary_filter']],
             'or',
             ['select[name="options[proximity_source]"]' => ['value' => 'entity_id_argument']],
+            'or',
+            ['select[name="options[proximity_source]"]' => ['value' => 'user_input']],
           ],
         ],
       ],
     ];
+
+    $geocoder_definitions = $this->geolocationCore->getGeocoderManager()->getLocationCapableGeocoders();
+
+    if ($geocoder_definitions) {
+      $form['proximity_geocoder'] = [
+        '#type' => 'checkbox',
+        '#default_value' => $this->options['proximity_geocoder'],
+        '#title' => $this->t('Use Geocoder for latitude/longitude input'),
+        '#fieldset' => 'proximity_group',
+        '#states' => [
+          'visible' => [
+            'select[name="options[proximity_source]"]' => ['value' => 'user_input'],
+          ],
+        ],
+      ];
+
+      $geocoder_options = [];
+      foreach ($geocoder_definitions as $id => $definition) {
+        $geocoder_options[$id] = $definition['name'];
+      }
+
+      $form['proximity_geocoder_plugin_settings'] = [
+        '#type' => 'container',
+        '#fieldset' => 'proximity_group',
+        '#states' => [
+          'visible' => [
+            'input[name="options[proximity_geocoder]"]' => ['checked' => TRUE],
+            'select[name="options[proximity_source]"]' => ['value' => 'user_input'],
+          ],
+        ],
+      ];
+
+      $geocoder_container = &$form['proximity_geocoder_plugin_settings'];
+
+      $geocoder_container['plugin_id'] = [
+        '#type' => 'select',
+        '#options' => $geocoder_options,
+        '#title' => $this->t('Geocoder plugin'),
+        '#default_value' => $this->options['proximity_geocoder_plugin_settings']['plugin_id'],
+        '#ajax' => [
+          'callback' => [get_class($this->geolocationCore->getGeocoderManager()), 'addGeocoderSettingsFormAjax'],
+          'wrapper' => 'geocoder-plugin-settings',
+          'effect' => 'fade',
+        ],
+      ];
+
+      if (!empty($this->options['proximity_geocoder_plugin_settings']['plugin_id'])) {
+        $geocoder_plugin = $this->geolocationCore->getGeocoderManager()
+          ->getGeocoder(
+            $this->options['proximity_geocoder_plugin_settings']['plugin_id'],
+            $this->options['proximity_geocoder_plugin_settings']['settings']
+          );
+      }
+      elseif (current(array_keys($geocoder_options))) {
+        $geocoder_plugin = $this->geolocationCore->getGeocoderManager()->getGeocoder(current(array_keys($geocoder_options)));
+      }
+
+      if (!empty($geocoder_plugin)) {
+        $geocoder_settings_form = $geocoder_plugin->getOptionsForm();
+        if ($geocoder_settings_form) {
+          $geocoder_container['settings'] = $geocoder_settings_form;
+        }
+      }
+
+      if (empty($geocoder_container['settings'])) {
+        $geocoder_container['settings'] = [
+          '#type' => 'html_tag',
+          '#tag' => 'span',
+          '#value' => $this->t("No settings available."),
+        ];
+      }
+
+      $geocoder_container['settings'] = array_replace_recursive($geocoder_container['settings'], [
+        '#flatten' => TRUE,
+        '#prefix' => '<div id="geocoder-plugin-settings">',
+        '#suffix' => '</div>',
+      ]);
+    }
 
     /*
      * Available proximity filters form elements.
@@ -282,6 +372,12 @@ class ProximityField extends NumericField implements ContainerFactoryPluginInter
     /** @var \Drupal\views\Plugin\views\query\Sql $query */
     $query = $this->query;
     switch ($this->options['proximity_source']) {
+      case 'user_input':
+        $latitude = $this->view->getRequest()->get('proximity_lat', '');
+        $longitude = $this->view->getRequest()->get('proximity_lng', '');
+        $units = $this->options['proximity_units'];
+        break;
+
       case 'filter':
         /** @var \Drupal\geolocation\Plugin\views\filter\ProximityFilter $filter */
         $filter = $this->view->filter[$this->options['proximity_filter']];
@@ -323,7 +419,10 @@ class ProximityField extends NumericField implements ContainerFactoryPluginInter
         }
         /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
         $entity = \Drupal::entityTypeManager()->getStorage($this->getEntityType())->load($entity_id);
-        if (!$entity->hasField($this->realField)) {
+        if (
+          !$entity
+          || !$entity->hasField($this->realField)
+        ) {
           return;
         }
         $field = $entity->get($this->realField);
@@ -363,6 +462,103 @@ class ProximityField extends NumericField implements ContainerFactoryPluginInter
     // Remove the initial ':' from the placeholder and avoid collision with
     // original field name.
     $this->field_alias = $query->addField(NULL, $expression, substr($this->placeholder(), 1));
+  }
+
+  /**
+   * Form constructor for the user input form.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  public function viewsForm(array &$form, FormStateInterface $form_state) {
+    if ($this->options['proximity_source'] != 'user_input') {
+      unset($form['actions']);
+      return;
+    }
+    $form['#cache']['max-age'] = 0;
+
+    $form['#method'] = 'GET';
+
+    $form['#attributes']['class'][] = 'geolocation-views-proximity-field';
+
+    $form['proximity_lat'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Latitude'),
+      '#empty_value' => '',
+      '#default_value' => $this->view->getRequest()->get('proximity_lat', ''),
+      '#maxlength' => 255,
+      '#weight' => -1,
+    ];
+    $form['proximity_lng'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Longitude'),
+      '#empty_value' => '',
+      '#default_value' => $this->view->getRequest()->get('proximity_lng', ''),
+      '#maxlength' => 255,
+      '#weight' => -1,
+    ];
+
+    if (
+      $this->options['proximity_geocoder']
+      && !empty($this->options['proximity_geocoder_plugin_settings'])
+    ) {
+      $geocoder_configuration = $this->options['proximity_geocoder_plugin_settings']['settings'];
+      $geocoder_configuration['label'] = $this->t('Address');
+
+      /** @var \Drupal\geolocation\GeocoderInterface $geocoder_plugin */
+      $geocoder_plugin = $this->geolocationCore->getGeocoderManager()->getGeocoder(
+        $this->options['proximity_geocoder_plugin_settings']['plugin_id'],
+        $geocoder_configuration
+      );
+
+      if (empty($geocoder_plugin)) {
+        return;
+      }
+
+      $form['proximity_lat']['#type'] = 'hidden';
+      $form['proximity_lng']['#type'] = 'hidden';
+
+      $geocoder_plugin->formAttachGeocoder($form, 'views_field_geocoder');
+
+      $form = array_merge_recursive($form, [
+        '#attached' => [
+          'library' => [
+            'geolocation/geolocation.views.field.geocoder',
+          ],
+        ],
+      ]);
+    }
+
+    $form['actions']['submit']['#value'] = $this->t('Calculate proximity');
+
+    // #weight will be stripped from 'output' in preRender callback.
+    // Offset negatively to compensate.
+    foreach (Element::children($form) as $key) {
+      if (isset($form[$key]['#weight'])) {
+        $form[$key]['#weight'] = $form[$key]['#weight'] - 2;
+      }
+      else {
+        $form[$key]['#weight'] = -2;
+      }
+    }
+    $form['actions']['#weight'] = -1;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function render(ResultRow $row) {
+
+    // Remove once https://www.drupal.org/node/1232920 lands.
+    $value = $this->getValue($row);
+    // Hiding should happen before rounding or adding prefix/suffix.
+    if ($this->options['hide_empty'] && empty($value) && ($value !== 0 || $this->options['empty_zero'])) {
+      return '';
+    }
+
+    return parent::render($row);
   }
 
 }

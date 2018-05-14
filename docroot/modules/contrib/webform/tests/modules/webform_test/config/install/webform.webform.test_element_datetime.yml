@@ -63,10 +63,46 @@ elements: |
     '#date_date_format': 'D, m/d/Y'
     '#date_time_element': timepicker
     '#date_time_format': 'g:i A'
+  datetime_time_min_max:
+    '#type': datetime
+    '#title': datetime_time_min_max
+    '#description': '(2009-01-01 to 2009-12-31 and 09:00:00 to 17:00:00)'
+    '#min': '2009-01-01'
+    '#max': '2009-12-31'
+    '#date_time_min': '09:00:00'
+    '#date_time_max': '17:00:00'
+    '#date_time_step': '1800'
+    '#default_value': '2009-08-18T18:00:00-05:00'
+  datetime_datepicker_timepicker_time_min_max:
+    '#type': datetime
+    '#title': datetime_datepicker_timepicker_time_min_max
+    '#description': '(2009-01-01 to 2009-12-31 and 09:00:00 to 17:00:00)'
+    '#min': '2009-01-01'
+    '#max': '2009-12-31'
+    '#date_time_min': '09:00:00'
+    '#date_time_max': '17:00:00'
+    '#date_time_step': '1800'
+    '#date_date_element': datepicker
+    '#date_date_format': 'D, m/d/Y'
+    '#date_time_element': timepicker
+    '#date_time_format': 'g:i A'
+    '#default_value': '2009-08-18T18:00:00-05:00'
+  datetime_no_seconds:
+    '#type': datetime
+    '#title': datetime_no_seconds
+    '#description': |
+      @see <a href="https://www.drupal.org/node/2917107">Issue #2917107: Date and Time validation problem</a><b r/>
+      @see <a href="https://www.drupal.org/node/2723159">Issue #2723159: Datetime form element cannot validate when using a format without seconds</a><b r/>
+    '#date_date_element': datepicker
+    '#date_time_element': text
+    '#date_time_format': 'H:i'
+    '#date_time_step': '900'
+    '#default_value': '2009-08-18T01:00:00-05:00'
 css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -96,8 +132,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 1
   preview_label: ''
   preview_title: ''

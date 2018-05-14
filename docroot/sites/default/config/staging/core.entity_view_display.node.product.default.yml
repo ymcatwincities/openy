@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.product.field_category
-    - field.field.node.product.field_content
+    - field.field.node.product.field_ygtc_content
     - field.field.node.product.field_locations
     - node.type.product
   module:
@@ -22,7 +22,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-  field_content:
+  field_ygtc_content:
     weight: 101
     label: above
     settings: {  }

@@ -9,6 +9,7 @@ use Drupal\search\SearchPageRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\search\Controller\SearchController as DrupalSearchController;
+use Drupal\search\Form\SearchPageForm;
 
 /**
  * Route controller for search.
@@ -49,7 +50,7 @@ class SearchController extends DrupalSearchController {
     }
 
     $build['#title'] = $plugin->suggestedTitle();
-    $build['#search_form'] = $this->entityFormBuilder()->getForm($entity, 'search');
+    $build['#search_form'] = $this->formBuilder()->getForm(SearchPageForm::class, $entity);
     $build['#search_form']['#attributes']['style'] = 'display:none;';
 
     // Build search results, if keywords or other search parameters are in the

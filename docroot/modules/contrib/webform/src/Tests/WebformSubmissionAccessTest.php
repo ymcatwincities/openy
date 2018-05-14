@@ -78,7 +78,7 @@ class WebformSubmissionAccessTest extends WebformTestBase {
     $this->assertResponse(403);
 
     // Check all results access denied.
-    $this->drupalGet('/admin/structure/webform/results/manage');
+    $this->drupalGet('/admin/structure/webform/submissions/manage');
     $this->assertResponse(403);
 
     /**************************************************************************/
@@ -99,7 +99,7 @@ class WebformSubmissionAccessTest extends WebformTestBase {
     $this->assertResponse(200);
 
     // Check all results access allowed.
-    $this->drupalGet('/admin/structure/webform/results/manage');
+    $this->drupalGet('/admin/structure/webform/submissions/manage');
     $this->assertResponse(200);
 
     /**************************************************************************/

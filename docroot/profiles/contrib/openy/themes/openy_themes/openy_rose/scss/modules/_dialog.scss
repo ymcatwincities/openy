@@ -80,6 +80,9 @@ body .branch-popup {
   }
 
   .fieldset-legend {
+    margin: 0;
+    font-weight: normal;
+    line-height: inherit;
     @include cachet();
     @include breakpoint($screen-sm) {
       font-size: 24px;

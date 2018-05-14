@@ -106,7 +106,7 @@ class WebformActions extends Container {
       }
     }
 
-    // Hide actions element if no buttons are visible (ie #access = FALSE).
+    // Hide actions element if no buttons are visible (i.e. #access = FALSE).
     if (!$has_visible_button) {
       $element['#access'] = FALSE;
     }

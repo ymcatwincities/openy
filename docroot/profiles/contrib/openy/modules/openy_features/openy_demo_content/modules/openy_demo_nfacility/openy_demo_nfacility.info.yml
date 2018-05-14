@@ -1,7 +1,8 @@
-name: 'OpenY demo node facility'
-description: 'OpenY demo node facility'
+name: 'OpenY Demo Node Facility'
+description: 'OpenY Demo Node Facility.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - migrate
   - migrate_plus
@@ -10,4 +11,3 @@ dependencies:
   - openy_demo_tarea
   - openy_demo_tfacility
   - openy_loc_facility
-version: 8.x-1.0

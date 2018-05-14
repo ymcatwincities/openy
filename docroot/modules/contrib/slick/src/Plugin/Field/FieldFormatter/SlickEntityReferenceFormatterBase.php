@@ -65,4 +65,13 @@ abstract class SlickEntityReferenceFormatterBase extends BlazyEntityReferenceBas
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getScopedFormElements() {
+    return [
+      'namespace' => 'slick',
+    ] + parent::getScopedFormElements();
+  }
+
 }

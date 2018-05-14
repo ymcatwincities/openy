@@ -12,10 +12,10 @@
  * @ingroup themeable
  */
 #}
-{% spaceless %}
-  <span itemscope itemtype="http://schema.org/GeoCoordinates">
-    <meta itemprop="latitude" content="{{ lat }}">
-    <meta itemprop="longitude" content="{{ lng }}">
-    <span class="geolocation-latlng">{{ lat }}, {{ lng }}</span>
+<span typeof="Place">
+  <span property="geo" typeof="GeoCoordinates">
+    <meta property="latitude" content="{{ lat }}">
+    <meta property="longitude" content="{{ lng }}">
   </span>
-{% endspaceless %}
+  <span class="geolocation-latlng">{{ lat }}, {{ lng }}</span>
+</span>

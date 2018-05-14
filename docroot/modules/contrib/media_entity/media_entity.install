@@ -38,6 +38,18 @@ function media_entity_requirements($phase) {
       'severity' => REQUIREMENT_ERROR,
     ];
   }
+  if ($phase == 'install' && \Drupal::moduleHandler()->moduleExists('media')) {
+    $version = explode('.', \Drupal::VERSION);
+    if ($version[1] >= 4) {
+      $requirements['media_module_incompatibility'] = [
+        'title' => t('Media Entity'),
+        'value' => t('The Media Entity module is not compatible with media in core.'),
+        'description' => t('The 1.x branch of Media Entity cannot be used in conjunction with the media module in core. Please check the 2.x branch for an upgrade path.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+
   return $requirements;
 }
 

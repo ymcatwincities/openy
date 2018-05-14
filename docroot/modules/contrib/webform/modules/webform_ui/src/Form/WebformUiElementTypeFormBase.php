@@ -225,13 +225,17 @@ abstract class WebformUiElementTypeFormBase extends FormBase {
     $row = [];
 
     // Type.
-    $row['type'] = [
+    $row['type']['link'] = [
       '#type' => 'link',
       '#title' => $plugin_definition['label'],
       '#url' => $url,
-      '#attributes' => WebformDialogHelper::getModalDialogAttributes(800, ['webform-tooltip-link', 'js-webform-tooltip-link']) + ['title' => $plugin_definition['description']],
-      '#prefix' => '<div class="webform-form-filter-text-source">',
-      '#suffix' => '</div>',
+      '#attributes' => WebformDialogHelper::getModalDialogAttributes(800),
+      '#prefix' => '<span class="webform-form-filter-text-source">',
+      '#suffix' => '</span>',
+    ];
+    $row['type']['help'] = [
+      '#type' => 'webform_help',
+      '#help' => $plugin_definition['description'],
     ];
 
     // Preview.
@@ -244,7 +248,7 @@ abstract class WebformUiElementTypeFormBase extends FormBase {
       '#type' => 'link',
       '#title' => $label,
       // Must clone the URL object to prevent the above 'label' link attributes
-      // (ie webform-tooltip-link) from being copied to 'operation' link.
+      // (i.e. webform-tooltip-link) from being copied to 'operation' link.
       '#url' => clone $url,
       '#attributes' => WebformDialogHelper::getModalDialogAttributes(800, ['button', 'button--primary', 'button--small']),
     ];

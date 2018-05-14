@@ -18,7 +18,7 @@ a[href="#step2"] {
   legend {
     border: none;
     color: inherit;
-    font-size: 36px;
+    font-size: 32px;
   }
   .label-for-field-mbrshp-join-fee,
   .label-for-field-mbrshp-monthly-rate {
@@ -28,17 +28,23 @@ a[href="#step2"] {
       content: ":";
     }
   }
-  .membership-type label {
-    border-bottom: 1px solid #333;
-    bottom: 0;
-    display: block;
-    padding-bottom: 30px;
-    position: absolute;
-    width: 100%;
+  .membership-type {
+    h3 {
+      width: 100%;
+    }
+    label {
+      border-bottom: 1px solid #333;
+      left: 0;
+      bottom: 0;
+      display: block;
+      padding-bottom: 30px;
+      position: absolute;
+      width: 100%;
+    }
   }
   .btn {
     line-height: 40px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     padding: 10px 10px;
   }
@@ -46,17 +52,27 @@ a[href="#step2"] {
     margin-top: 40px;
   }
   .form-element-wrapper {
-    height: 100%;
+    @include display-flex;
+    @include flex-wrap(wrap);
+    flex-direction:column;
     position: relative;
+    width: 100%;
     .btn {
       display: block;
     }
   }
   input[name="type"] {
-    display: none;
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    word-wrap: normal;
   }
   .membership-type {
-    margin: 0 0 40px 0;
+    margin: 0 0 20px 0;
+    @include display-flex;
+    @include flex-wrap(wrap);
     @include breakpoint($screen-xs $screen-sm) {
       width: 50%;
     }
@@ -80,11 +96,17 @@ a[href="#step2"] {
     margin: 20px 0 10px 0;
   }
   .node--type-membership.node--view-mode-calc-preview {
-    margin-bottom: 90px;
+    margin-bottom: 100px;
+    width: 100%;
   }
   .pull-right,
   .complete-registration {
     background-color: $purple;
+  }
+  .calc-summary-col {
+    h2 {
+      font-size: 34px;
+    }
   }
 }
 
@@ -96,7 +118,7 @@ a[href="#step2"] {
   margin-bottom: 20px;
   font-size: 13px;
   @include breakpoint($screen-sm) {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 42px;
   }
   & > li {
@@ -248,4 +270,22 @@ a[href="#step2"] {
 }
 .membership-continue {
   display: none;
+}
+
+.price {
+  &-month {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: $h2-size;
+    font-family: $font-style-sans;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+  }
+}
+
+.field-branch-hours {
+  h4 {
+    font-size: $h4-size;
+  }
 }

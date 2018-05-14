@@ -7,7 +7,7 @@ use Drupal\Core\Render\Element;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\blazy\Form\BlazyAdminInterface;
+use Drupal\blazy\Dejavu\BlazyAdminExtended;
 use Drupal\slick\SlickManagerInterface;
 
 /**
@@ -20,7 +20,7 @@ class SlickAdmin implements SlickAdminInterface {
   /**
    * The blazy admin service.
    *
-   * @var \Drupal\blazy\Form\BlazyAdminInterface
+   * @var \Drupal\blazy\Dejavu\BlazyAdminExtended
    */
   protected $blazyAdmin;
 
@@ -34,12 +34,12 @@ class SlickAdmin implements SlickAdminInterface {
   /**
    * Constructs a SlickAdmin object.
    *
-   * @param \Drupal\blazy\Form\BlazyAdminInterface $blazy_admin
+   * @param \Drupal\blazy\Dejavu\BlazyAdminExtended $blazy_admin
    *   The blazy admin service.
    * @param \Drupal\slick\SlickManagerInterface $manager
    *   The slick manager service.
    */
-  public function __construct(BlazyAdminInterface $blazy_admin, SlickManagerInterface $manager) {
+  public function __construct(BlazyAdminExtended $blazy_admin, SlickManagerInterface $manager) {
     $this->blazyAdmin = $blazy_admin;
     $this->manager = $manager;
   }
@@ -77,6 +77,13 @@ class SlickAdmin implements SlickAdminInterface {
     $definition['optionsets']       = isset($definition['optionsets']) ? $definition['optionsets'] : $this->getOptionsetsByGroupOptions('main');
     $definition['skins']            = isset($definition['skins']) ? $definition['skins'] : $this->getSkinsByGroupOptions('main');
     $definition['responsive_image'] = isset($definition['responsive_image']) ? $definition['responsive_image'] : TRUE;
+
+    foreach (['optionsets', 'skins'] as $key) {
+      if (isset($definition[$key]['default'])) {
+        ksort($definition[$key]);
+        $definition[$key] = ['default' => $definition[$key]['default']] + $definition[$key];
+      }
+    }
 
     if (empty($definition['no_layouts'])) {
       $definition['layouts'] = isset($definition['layouts']) ? array_merge($this->getLayoutOptions(), $definition['layouts']) : $this->getLayoutOptions();
@@ -125,6 +132,11 @@ class SlickAdmin implements SlickAdminInterface {
       $this->blazyAdmin->openingForm($form, $definition);
 
       $form['optionset']['#title'] = $this->t('Optionset main');
+
+      if ($this->manager()->getModuleHandler()->moduleExists('slick_ui')) {
+        $route_name = 'entity.slick.collection';
+        $form['optionset']['#description'] = $this->t('Manage optionsets at <a href=":url" target="_blank">the optionset admin page</a>.', [':url' => Url::fromRoute($route_name)->toString()]);
+      }
     }
 
     if (!empty($definition['nav']) || !empty($definition['thumbnails'])) {
@@ -409,9 +421,25 @@ class SlickAdmin implements SlickAdminInterface {
 
   /**
    * Return the field formatter settings summary.
+   *
+   * @deprecated: Removed for self::getSettingsSummary().
    */
   public function settingsSummary($plugin, $definition = []) {
     return $this->blazyAdmin->settingsSummary($plugin, $definition);
+  }
+
+  /**
+   * Return the field formatter settings summary.
+   *
+   * @todo: Remove second param $plugin for post-release for Blazy RC2+.
+   */
+  public function getSettingsSummary($definition = [], $plugin = NULL) {
+    // @todo: Remove condition for Blazy RC2+.
+    if (!method_exists($this->blazyAdmin, 'getSettingsSummary')) {
+      return $this->blazyAdmin->settingsSummary($plugin, $definition);
+    }
+
+    return $this->blazyAdmin->getSettingsSummary($definition);
   }
 
   /**
@@ -425,7 +453,7 @@ class SlickAdmin implements SlickAdminInterface {
    * Returns re-usable logic, styling and assets across fields and Views.
    */
   public function finalizeForm(array &$form, $definition = []) {
-    return $this->blazyAdmin->finalizeForm($form, $definition);
+    $this->blazyAdmin->finalizeForm($form, $definition);
   }
 
 }

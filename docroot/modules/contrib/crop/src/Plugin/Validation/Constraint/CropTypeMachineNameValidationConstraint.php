@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\crop\Plugin\Validation\Constraint\CropTypeMachineNameValidationConstraint.
- */
-
 namespace Drupal\crop\Plugin\Validation\Constraint;
 
 use Symfony\Component\Validator\Constraint;

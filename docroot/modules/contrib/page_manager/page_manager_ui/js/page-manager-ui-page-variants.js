@@ -10,7 +10,7 @@
       $('.current_variant').parents('.page__section__2').siblings('.page__section__label').addClass('active current_variant');
 
       // When the label is clicked show the variant settings.
-      $('.page__section_item__1 > .page__section__label').once().click(function() {
+      $('.page__section_item__1 > .page__section__label').click(function() {
         if ($(this).hasClass('active')) {
           $(this).removeClass('active');
           $(this).siblings('.page__section__2').removeClass('active');

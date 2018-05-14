@@ -3,6 +3,7 @@
 namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -22,7 +23,7 @@ class Select extends OptionsBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    return parent::getDefaultProperties() + [
+    return [
       // Options settings.
       'multiple' => FALSE,
       'multiple_error' => '',
@@ -30,7 +31,7 @@ class Select extends OptionsBase {
       'empty_value' => '',
       'select2' => FALSE,
       'chosen' => FALSE,
-    ];
+    ] + parent::getDefaultProperties();
   }
 
   /**
@@ -69,18 +70,7 @@ class Select extends OptionsBase {
 
     parent::prepare($element, $webform_submission);
 
-    // Add select2 library and classes.
-    if (!empty($element['#select2']) && $this->librariesManager->isIncluded('jquery.select2')) {
-      $element['#attached']['library'][] = 'webform/webform.element.select2';
-      $element['#attributes']['class'][] = 'js-webform-select2';
-      $element['#attributes']['class'][] = 'webform-select2';
-    }
-    // Add chosen library and classes.
-    elseif (!empty($element['#chosen']) && $this->librariesManager->isIncluded('jquery.chosen')) {
-      $element['#attached']['library'][] = 'webform/webform.element.chosen';
-      $element['#attributes']['class'][] = 'js-webform-chosen';
-      $element['#attributes']['class'][] = 'webform-chosen';
-    }
+    WebformElementHelper::enhanceSelect($element);
   }
 
   /**

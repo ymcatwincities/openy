@@ -1,11 +1,5 @@
-# core: 8.x
+core: 8.x
 name: Update test after
 type: module
 package: Testing
-# version: VERSION
-
-# Information added by Drupal.org packaging script on 2017-08-16
-version: '8.3.7'
-core: '8.x'
-project: 'drupal'
-datestamp: 1502903957
+version: VERSION

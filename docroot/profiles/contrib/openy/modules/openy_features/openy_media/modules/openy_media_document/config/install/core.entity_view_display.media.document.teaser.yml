@@ -24,6 +24,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    region: content
   thumbnail:
     type: image
     weight: 0
@@ -32,6 +33,7 @@ content:
       image_style: thumbnail
       image_link: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   field_media_document: true
@@ -39,4 +41,5 @@ hidden:
   field_media_mime: true
   field_media_size: true
   field_media_tags: true
+  langcode: true
   uid: true

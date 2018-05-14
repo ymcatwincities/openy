@@ -36,13 +36,13 @@ class WebformBlockTest extends WebformTestBase {
     $block->getPlugin()->setConfigurationValue('webform_id', 'contact');
     $block->save();
     $this->drupalGet('<front>');
-    $this->assertRaw('webform-submission-contact-form');
+    $this->assertRaw('webform-submission-contact-add-form');
 
     // Check contact webform with default data.
     $block->getPlugin()->setConfigurationValue('default_data', "name: 'John Smith'");
     $block->save();
     $this->drupalGet('<front>');
-    $this->assertRaw('webform-submission-contact-form');
+    $this->assertRaw('webform-submission-contact-add-form');
     $this->assertFieldByName('name', 'John Smith');
 
     // Check confirmation inline webform.

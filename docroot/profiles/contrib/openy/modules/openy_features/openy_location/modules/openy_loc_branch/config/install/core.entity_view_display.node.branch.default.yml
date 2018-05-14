@@ -4,9 +4,10 @@ dependencies:
   config:
     - field.field.node.branch.field_bottom_content
     - field.field.node.branch.field_branch_hours
-    - field.field.node.branch.field_oy_content
+    - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
+    - field.field.node.branch.field_location_amenities
     - field.field.node.branch.field_location_area
     - field.field.node.branch.field_location_coordinates
     - field.field.node.branch.field_location_directions
@@ -46,7 +47,7 @@ content:
     third_party_settings: {  }
     type: openy_custom_hours_default
     region: content
-  field_oy_content:
+  field_content:
     type: entity_reference_revisions_entity_view
     weight: 3
     label: hidden
@@ -94,10 +95,12 @@ content:
     type: metatag_empty_formatter
     region: content
 hidden:
+  field_location_amenities: true
   field_location_area: true
   field_location_directions: true
   field_location_email: true
   field_location_fax: true
   field_location_state: true
   field_location_temp_url: true
+  langcode: true
   links: true

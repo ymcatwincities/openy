@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  config:
-    - block_content.type.simple_block
-id: block_content.simple_block
-target_entity_type_id: block_content
-target_bundle: simple_block

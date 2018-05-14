@@ -8,6 +8,15 @@ geolocation.google_map_settings:
     zoom:
       type: string
       label: 'Zoom level'
+    minZoom:
+      type: integer
+      label: 'Min Zoom'
+    maxZoom:
+      type: integer
+      label: 'Max Zoom'
+    rotateControl:
+      type: integer
+      label: 'The state of the rotate control'
     mapTypeControl:
       type: integer
       label: 'Map controls'
@@ -17,6 +26,9 @@ geolocation.google_map_settings:
     zoomControl:
       type: integer
       label: 'Zoom control'
+    fullscreenControl:
+      type: integer
+      label: 'The state of the fullscreen control'
     scrollwheel:
       type: integer
       label: 'Scrool wheel'
@@ -35,6 +47,9 @@ geolocation.google_map_settings:
     info_auto_display:
       type: integer
       label: 'Display info'
+    marker_icon_path:
+      type: string
+      label: 'Path to marker icon'
     disableAutoPan:
       type: integer
       label: 'Disable automatic panning for info window'
@@ -55,6 +70,9 @@ geolocation.settings:
     google_map_api_key:
       type: string
       label: 'Google Maps API Key'
+    google_map_api_server_key:
+      type: string
+      label: 'Google Maps API Key'
     google_map_custom_url_parameters:
       type: mapping
       label: 'Additional Google Maps API parameters'
@@ -71,12 +89,18 @@ geolocation.settings:
         client:
           type: string
           label: 'Client ID'
+        channel:
+          type: string
+          label: 'Channel'
         libraries:
           type: sequence
           label: 'Libraries'
           sequence:
             type: string
             label: 'Library name'
+    use_current_language:
+      type: boolean
+      label: 'Use site language for Google Map'
 
 views.style.maps_common:
   type: views_style
@@ -100,6 +124,9 @@ views.style.maps_common:
     marker_scroll_to_result:
       type: integer
       label: 'Scroll instead of open bubble'
+    marker_row_number:
+      type: integer
+      label: 'Use row number as marker label'
     id_field:
       type: string
       label: 'ID field'
@@ -122,12 +149,18 @@ views.style.maps_common:
         update_target:
           type: string
           label: 'Display to update'
+    context_popup_content:
+      type: string
+      label: 'Context Popup content'
     marker_clusterer:
       type: integer
       label: 'Cluster markers'
     marker_clusterer_image_path:
       type: string
       label: 'Path to cluster base images'
+    marker_clusterer_styles:
+      type: string
+      label: 'Custom cluster styles'
     centre:
       type: sequence
       label: 'Centre Option'
@@ -181,6 +214,26 @@ views.field.geolocation_field_proximity:
     entity_id_argument:
       type: string
       label: 'Proximity Entity ID argument'
+    proximity_geocoder:
+      type: integer
+      label: 'Enable geocoding widget'
+    proximity_geocoder_plugin_settings:
+      type: mapping
+      label: 'Geocoding widget settings'
+      mapping:
+        plugin_id:
+          type: string
+          label: 'Geolocation geocoding widget'
+        settings:
+          type: mapping
+          label: 'Settings'
+          mapping:
+            components:
+              type: sequence
+              label: 'Components'
+              sequence:
+                type: string
+                label: 'Address component'
 
 views.filter.geolocation_filter_boundary:
   type: views_filter
@@ -202,6 +255,30 @@ views.filter.geolocation_filter_boundary:
         lng_south_west:
            type: string
            label: 'North East Longitude'
+    expose:
+      type: mapping
+      label: 'Expose settings'
+      mapping:
+        input_by_geocoding_widget:
+          type: integer
+          label: 'Enable geocoding widget'
+        geocoder_plugin_settings:
+          type: mapping
+          label: 'Geocoding widget settings'
+          mapping:
+            plugin_id:
+              type: string
+              label: 'Geolocation geocoding widget'
+            settings:
+              type: mapping
+              label: 'Settings'
+              mapping:
+                components:
+                  type: sequence
+                  label: 'Components'
+                  sequence:
+                    type: string
+                    label: 'Address component'
 
 views.filter.geolocation_filter_proximity:
   type: views_filter
@@ -216,24 +293,30 @@ views.filter.geolocation_filter_proximity:
     proximity_lng:
       type: string
       label: 'Proximity Longitude'
-    proximity_argument:
-      type: string
-      label: 'Proximity Argument'
-    boundary_filter:
-      type: string
-      label: 'Boundary Filter'
-    entity_id_argument:
-      type: string
-      label: 'Proximity Entity ID argument'
     proximity_units:
       type: string
       label: 'Proximity Units'
+    proximity_argument:
+      type: string
+      label: 'Proximity Argument'
+    entity_id_argument:
+      type: string
+      label: 'Proximity Entity ID argument'
+    boundary_filter:
+      type: string
+      label: 'Boundary Filter'
     client_location:
       type: boolean
       label: 'Ask client for location first'
     value:
       type: views.filter_value.numeric
       label: 'Proximity Value'
+
+views.filter.group_item.geolocation_filter_proximity:
+  type: views_filter_group_item
+  mapping:
+    value:
+      type: views.filter_value.numeric
 
 views.sort.geolocation_sort_proximity:
   type: views_sort
@@ -250,6 +333,9 @@ field.formatter.settings.geolocation_map:
     set_marker:
       type: string
       label: 'Set marker at map center'
+    common_map:
+      type: string
+      label: 'Display results on a common map'
     title:
       type: string
       label: 'Title'
@@ -293,9 +379,35 @@ field.widget.settings.geolocation_googlegeocoder:
     target_address_field:
       type: string
       label: 'Target address field name'
+    explicite_actions_address_field:
+      type: string
+      label: 'Explicite buttons'
     allow_override_map_settings:
       type: integer
       label: 'Allow override map settings.'
     google_map_settings:
       type: geolocation.google_map_settings
       label: 'Google map settings'
+
+field.value.geolocation:
+  type: mapping
+  label: 'Default value'
+  mapping:
+    lat:
+      type: text
+      label: 'Latitude'
+    lng:
+      type: text
+      label: 'Longitude'
+    lat_sin:
+      type: text
+      label: 'Support value'
+    lat_cos:
+      type: text
+      label: 'Support value'
+    lng_rad:
+      type: text
+      label: 'Support value'
+    data:
+      type: text
+      label: 'Catchall'

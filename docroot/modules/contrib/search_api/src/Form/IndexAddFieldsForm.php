@@ -1,27 +1,25 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\search_api\Form\IndexAddFieldsForm.
- */
-
 namespace Drupal\search_api\Form;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Datetime\DateFormatter;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Field\TypedData\FieldItemDataDefinition;
+use Drupal\Core\Entity\TypedData\EntityDataDefinitionInterface;
+use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\TypedData\ComplexDataDefinitionInterface;
+use Drupal\Core\TypedData\DataReferenceDefinitionInterface;
 use Drupal\Core\Url;
 use Drupal\search_api\Datasource\DatasourceInterface;
-use Drupal\search_api\DataType\DataTypePluginManager;
-use Drupal\search_api\UnsavedConfigurationInterface;
-use Drupal\search_api\Utility;
-use Drupal\user\SharedTempStoreFactory;
+use Drupal\search_api\Processor\ConfigurablePropertyInterface;
+use Drupal\search_api\Processor\ProcessorPropertyInterface;
+use Drupal\search_api\Utility\DataTypeHelperInterface;
+use Drupal\search_api\Utility\FieldsHelperInterface;
+use Drupal\search_api\Utility\Utility;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -29,47 +27,28 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class IndexAddFieldsForm extends EntityForm {
 
+  use UnsavedConfigurationFormTrait;
+
+  /**
+   * The fields helper.
+   *
+   * @var \Drupal\search_api\Utility\FieldsHelperInterface
+   */
+  protected $fieldsHelper;
+
+  /**
+   * The data type helper.
+   *
+   * @var \Drupal\search_api\Utility\DataTypeHelperInterface|null
+   */
+  protected $dataTypeHelper;
+
   /**
    * The index for which the fields are configured.
    *
    * @var \Drupal\search_api\IndexInterface
    */
   protected $entity;
-
-  /**
-   * The shared temporary storage for unsaved search indexes.
-   *
-   * @var \Drupal\user\SharedTempStore
-   */
-  protected $tempStore;
-
-  /**
-   * The entity manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
-   * The data type plugin manager.
-   *
-   * @var \Drupal\search_api\DataType\DataTypePluginManager
-   */
-  protected $dataTypePluginManager;
-
-  /**
-   * The renderer.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
-
-  /**
-   * The date formatter.
-   *
-   * @var \Drupal\Core\Datetime\DateFormatter
-   */
-  protected $dateFormatter;
 
   /**
    * The parameters of the current page request.
@@ -86,7 +65,14 @@ class IndexAddFieldsForm extends EntityForm {
    *
    * @var string[][]
    */
-  protected $unmappedFields = array();
+  protected $unmappedFields = [];
+
+  /**
+   * The "id" attribute of the generated form.
+   *
+   * @var string
+   */
+  protected $formIdAttribute;
 
   /**
    * {@inheritdoc}
@@ -98,30 +84,30 @@ class IndexAddFieldsForm extends EntityForm {
   /**
    * {@inheritdoc}
    */
-  public function getBaseFormID() {
+  public function getBaseFormId() {
     return NULL;
   }
 
   /**
    * Constructs an IndexAddFieldsForm object.
    *
-   * @param \Drupal\user\SharedTempStoreFactory $temp_store_factory
-   *   The factory for shared temporary storages.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
-   * @param \Drupal\search_api\DataType\DataTypePluginManager $data_type_plugin_manager
-   *   The data type plugin manager.
+   * @param \Drupal\search_api\Utility\FieldsHelperInterface $fields_helper
+   *   The fields helper.
+   * @param \Drupal\search_api\Utility\DataTypeHelperInterface $data_type_helper
+   *   The data type helper.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer to use.
-   * @param \Drupal\Core\Datetime\DateFormatter $date_formatter
+   * @param \Drupal\Core\Datetime\DateFormatterInterface $date_formatter
    *   The date formatter.
    * @param array $parameters
    *   The parameters for this page request.
    */
-  public function __construct(SharedTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $entity_type_manager, DataTypePluginManager $data_type_plugin_manager, RendererInterface $renderer, DateFormatter $date_formatter, array $parameters) {
-    $this->tempStore = $temp_store_factory->get('search_api_index');
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, FieldsHelperInterface $fields_helper, DataTypeHelperInterface $data_type_helper, RendererInterface $renderer, DateFormatterInterface $date_formatter, array $parameters) {
     $this->entityTypeManager = $entity_type_manager;
-    $this->dataTypePluginManager = $data_type_plugin_manager;
+    $this->fieldsHelper = $fields_helper;
+    $this->dataTypeHelper = $data_type_helper;
     $this->renderer = $renderer;
     $this->dateFormatter = $date_formatter;
     $this->parameters = $parameters;
@@ -131,55 +117,15 @@ class IndexAddFieldsForm extends EntityForm {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $temp_store_factory = $container->get('user.shared_tempstore');
     $entity_type_manager = $container->get('entity_type.manager');
-    $data_type_plugin_manager = $container->get('plugin.manager.search_api.data_type');
+    $fields_helper = $container->get('search_api.fields_helper');
+    $data_type_helper = $container->get('search_api.data_type_helper');
     $renderer = $container->get('renderer');
     $date_formatter = $container->get('date.formatter');
     $request_stack = $container->get('request_stack');
     $parameters = $request_stack->getCurrentRequest()->query->all();
 
-    return new static($temp_store_factory, $entity_type_manager, $data_type_plugin_manager, $renderer, $date_formatter, $parameters);
-  }
-
-  /**
-   * Retrieves the entity manager.
-   *
-   * @return \Drupal\Core\Entity\EntityTypeManagerInterface
-   *   The entity manager.
-   */
-  protected function getEntityTypeManager() {
-    return $this->entityTypeManager;
-  }
-
-  /**
-   * Retrieves the data type plugin manager.
-   *
-   * @return \Drupal\search_api\DataType\DataTypePluginManager
-   *   The data type plugin manager.
-   */
-  public function getDataTypePluginManager() {
-    return $this->dataTypePluginManager;
-  }
-
-  /**
-   * Retrieves the renderer.
-   *
-   * @return \Drupal\Core\Render\RendererInterface
-   *   The renderer.
-   */
-  public function getRenderer() {
-    return $this->renderer;
-  }
-
-  /**
-   * Retrieves the date formatter.
-   *
-   * @return \Drupal\Core\Datetime\DateFormatter
-   *   The date formatter.
-   */
-  public function getDateFormatter() {
-    return $this->dateFormatter;
+    return new static($entity_type_manager, $fields_helper, $data_type_helper, $renderer, $date_formatter, $parameters);
   }
 
   /**
@@ -207,60 +153,53 @@ class IndexAddFieldsForm extends EntityForm {
     // \Drupal\views_ui\ViewEditForm::form().
     $form_state->disableCache();
 
-    if ($index instanceof UnsavedConfigurationInterface && $index->hasChanges()) {
-      if ($index->isLocked()) {
-        $form['#disabled'] = TRUE;
-        $username = array(
-          '#theme' => 'username',
-          '#account' => $index->getLockOwner($this->entityTypeManager),
-        );
-        $lock_message_substitutions = array(
-          '@user' => $this->getRenderer()->render($username),
-          '@age' => $this->dateFormatter->formatTimeDiffSince($index->getLastUpdated()),
-          ':url' => $index->toUrl('break-lock-form')->toString(),
-        );
-        $form['locked'] = array(
-          '#type' => 'container',
-          '#attributes' => array(
-            'class' => array(
-              'index-locked',
-              'messages',
-              'messages--warning'
-            )
-          ),
-          '#children' => $this->t('This index is being edited by user @user, and is therefore locked from editing by others. This lock is @age old. Click here to <a href=":url">break this lock</a>.', $lock_message_substitutions),
-          '#weight' => -10,
-        );
-      }
-    }
+    $this->checkEntityEditable($form, $index);
 
     $args['%index'] = $index->label();
     $form['#title'] = $this->t('Add fields to index %index', $args);
 
-    $form['properties'] = array(
-      '#theme' => 'search_api_form_item_list',
-    );
-    $datasources = array(
-      '' => NULL,
-    );
-    $datasources += $this->entity->getDatasources();
-    foreach ($datasources as $datasource) {
-      $form['properties'][] = $this->getDatasourceListItem($datasource);
-    }
+    $this->formIdAttribute = Html::getUniqueId($this->getFormId());
+    $form['#id'] = $this->formIdAttribute;
 
-    // Log any unmapped types that were encountered.
-    if ($this->unmappedFields) {
-      $unmapped_types = array();
-      foreach ($this->unmappedFields as $type => $fields) {
-        $unmapped_types[] = implode(', ', $fields) . ' (' . new FormattableMarkup('type @type', array('@type' => $type)) . ')';
+    $form['messages'] = [
+      '#type' => 'status_messages',
+    ];
+
+    $datasources = [
+      '' => NULL,
+    ];
+    $datasources += $this->entity->getDatasources();
+    foreach ($datasources as $datasource_id => $datasource) {
+      $item = $this->getDatasourceListItem($datasource);
+      if ($item) {
+        $form['datasources']['datasource_' . $datasource_id] = $item;
       }
-      $vars['@fields'] = implode('; ', $unmapped_types);
-      $vars['%index'] = $this->entity->label();
-      \Drupal::logger('search_api')
-        ->warning('Warning while retrieving available fields for index %index: could not find a type mapping for the following fields: @fields.', $vars);
     }
 
     $form['actions'] = $this->actionsElement($form, $form_state);
+
+    // Log any unmapped types that were encountered.
+    if ($this->unmappedFields) {
+      $unmapped_fields = [];
+      foreach ($this->unmappedFields as $type => $fields) {
+        foreach ($fields as $field) {
+          $unmapped_fields[] = new FormattableMarkup('@field (type "@type")', [
+            '@field' => $field,
+            '@type' => $type,
+          ]);
+        }
+      }
+      $form['unmapped_types'] = [
+        '#type' => 'details',
+        '#title' => $this->t('Skipped fields'),
+        'fields' => [
+          '#theme' => 'item_list',
+          '#items' => $unmapped_fields,
+          '#prefix' => $this->t('The following fields cannot be indexed since there is no type mapping for them:'),
+          '#suffix' => $this->t("If you think one of these fields should be available for indexing, please report this in the module's <a href=':url'>issue queue</a>. (Make sure to first search for an existing issue for this field.) Please note that entity-valued fields generally can be indexed by either indexing their parent reference field, or their child entity ID field.", [':url' => Url::fromUri('https://www.drupal.org/project/issues/search_api')->toString()]),
+        ],
+      ];
+    }
 
     return $form;
   }
@@ -276,52 +215,25 @@ class IndexAddFieldsForm extends EntityForm {
    *   attached properties.
    */
   protected function getDatasourceListItem(DatasourceInterface $datasource = NULL) {
-    $item = array(
-      '#type' => 'container',
-      '#attributes' => array(
-        'class' => array('container-inline'),
-      ),
-    );
-
-    $active = FALSE;
-    $datasource_id = $datasource ? $datasource->getPluginId() : '';
-    $active_datasource = $this->getParameter('datasource');
-    if (isset($active_datasource)) {
-      $active = $active_datasource == $datasource_id;
-    }
-
-    $url = $this->entity->toUrl('add-fields');
-    if ($active) {
-      $expand_link = array(
-        '#type' => 'link',
-        '#title' => '(-) ',
-        '#url' => $url,
-      );
-    }
-    else {
-      $url->setOption('query', array('datasource' => $datasource_id));
-      $expand_link = array(
-        '#type' => 'link',
-        '#title' => '(+) ',
-        '#url' => $url,
-      );
-    }
-    $item['expand_link'] = $expand_link;
-
-    $label = $datasource ? Html::escape($datasource->label()) : $this->t('General');
-    $item['label']['#markup'] = $label;
-
-    if ($active) {
-      $properties = $this->entity->getPropertyDefinitions($datasource_id ?: NULL);
-      if ($properties) {
+    $datasource_id = $datasource ? $datasource->getPluginId() : NULL;
+    $datasource_id_param = $datasource_id ?: '';
+    $properties = $this->entity->getPropertyDefinitions($datasource_id);
+    if ($properties) {
+      $active_property_path = '';
+      $active_datasource = $this->getParameter('datasource');
+      if ($active_datasource !== NULL && $active_datasource == $datasource_id_param) {
         $active_property_path = $this->getParameter('property_path', '');
-        $base_url = clone $url;
-        $base_url->setOption('query', array('datasource' => $datasource_id));
-        $item['properties'] = $this->getPropertiesList($properties, $active_property_path, $base_url);
       }
+
+      $base_url = $this->entity->toUrl('add-fields');
+      $base_url->setOption('query', ['datasource' => $datasource_id_param]);
+
+      $item = $this->getPropertiesList($properties, $active_property_path, $base_url, $datasource_id);
+      $item['#title'] = $datasource ? $datasource->label() : $this->t('General');
+      return $item;
     }
 
-    return $item;
+    return NULL;
   }
 
   /**
@@ -334,6 +246,9 @@ class IndexAddFieldsForm extends EntityForm {
    * @param \Drupal\Core\Url $base_url
    *   The base URL to which property path parameters should be added for
    *   the navigation links.
+   * @param string|null $datasource_id
+   *   The datasource ID of the listed properties, or NULL for
+   *   datasource-independent properties.
    * @param string $parent_path
    *   (optional) The common property path prefix of the given properties.
    * @param string $label_prefix
@@ -343,32 +258,33 @@ class IndexAddFieldsForm extends EntityForm {
    *   A render array representing the given properties and, possibly, nested
    *   properties.
    */
-  protected function getPropertiesList(array $properties, $active_property_path, Url $base_url, $parent_path = '', $label_prefix = '') {
-    $list = array(
-      '#theme' => 'search_api_form_item_list',
-    );
+  protected function getPropertiesList(array $properties, $active_property_path, Url $base_url, $datasource_id, $parent_path = '', $label_prefix = '') {
+    $list = [];
 
     $active_item = '';
     if ($active_property_path) {
-      list($active_item, $active_property_path) = explode(':', $active_property_path, 2) + array(1 => '');
+      list($active_item, $active_property_path) = explode(':', $active_property_path, 2) + [1 => ''];
     }
 
-    $type_mapping = Utility::getFieldTypeMapping();
+    $type_mapping = $this->dataTypeHelper->getFieldTypeMapping();
 
     $query_base = $base_url->getOption('query');
     foreach ($properties as $key => $property) {
+      if ($property instanceof ProcessorPropertyInterface && $property->isHidden()) {
+        continue;
+      }
       $this_path = $parent_path ? $parent_path . ':' : '';
       $this_path .= $key;
 
       $label = $property->getLabel();
-      $property = Utility::getInnerProperty($property);
+      $property = $this->fieldsHelper->getInnerProperty($property);
 
       $can_be_indexed = TRUE;
-      $nested_properties = array();
+      $nested_properties = [];
       $parent_child_type = NULL;
       if ($property instanceof ComplexDataDefinitionInterface) {
         $can_be_indexed = FALSE;
-        $nested_properties = $property->getPropertyDefinitions();
+        $nested_properties = $this->fieldsHelper->getNestedProperties($property);
         $main_property = $property->getMainPropertyName();
         if ($main_property && isset($nested_properties[$main_property])) {
           $parent_child_type = $property->getDataType() . '.';
@@ -378,20 +294,24 @@ class IndexAddFieldsForm extends EntityForm {
           $can_be_indexed = TRUE;
         }
 
-        // Don't add the additional 'entity' property for entity reference
+        // Don't add the additional "entity" property for entity reference
         // fields which don't target a content entity type.
-        if ($property instanceof FieldItemDataDefinition && in_array($property->getDataType(), array('field_item:entity_reference', 'field_item:image', 'field_item:file'))) {
-          $entity_type = $this->getEntityTypeManager()
-            ->getDefinition($property->getSetting('target_type'));
-          if (!$entity_type->isSubclassOf('Drupal\Core\Entity\ContentEntityInterface')) {
-            unset($nested_properties['entity']);
+        if (isset($nested_properties['entity'])) {
+          $entity_property = $nested_properties['entity'];
+          if ($entity_property instanceof DataReferenceDefinitionInterface) {
+            $target = $entity_property->getTargetDefinition();
+            if ($target instanceof EntityDataDefinitionInterface) {
+              if (!$this->fieldsHelper->isContentEntityType($target->getEntityTypeId())) {
+                unset($nested_properties['entity']);
+              }
+            }
           }
         }
       }
 
       // Don't allow indexing of properties with unmapped types. Also, prefer
       // a "parent.child" type mapping (taking into account the parent property
-      // for, e.g., text fields).
+      // for, for example, text fields).
       $type = $property->getDataType();
       if ($parent_child_type && !empty($type_mapping[$parent_child_type])) {
         $type = $parent_child_type;
@@ -409,82 +329,116 @@ class IndexAddFieldsForm extends EntityForm {
         continue;
       }
 
-      $nested_list = array();
-      $expand_link = array();
+      $item = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => ['container-inline'],
+        ],
+      ];
+
+      $nested_list = [];
       if ($nested_properties) {
         if ($key == $active_item) {
           $link_url = clone $base_url;
           $query_base['property_path'] = $parent_path;
           $link_url->setOption('query', $query_base);
-          $expand_link = array(
+          $item['expand_link'] = [
             '#type' => 'link',
             '#title' => '(-) ',
             '#url' => $link_url,
-          );
+            '#ajax' => [
+              'wrapper' => $this->formIdAttribute,
+            ],
+          ];
 
-          $nested_list = $this->getPropertiesList($nested_properties, $active_property_path, $base_url, $this_path, $label_prefix . $label . ' » ');
+          $nested_list = $this->getPropertiesList($nested_properties, $active_property_path, $base_url, $datasource_id, $this_path, $label_prefix . $label . ' » ');
         }
         else {
           $link_url = clone $base_url;
           $query_base['property_path'] = $this_path;
           $link_url->setOption('query', $query_base);
-          $expand_link = array(
+          $item['expand_link'] = [
             '#type' => 'link',
             '#title' => '(+) ',
             '#url' => $link_url,
-          );
+            '#ajax' => [
+              'wrapper' => $this->formIdAttribute,
+            ],
+          ];
         }
       }
 
-      $item = array(
-        '#type' => 'container',
-        '#attributes' => array(
-          'class' => array('container-inline'),
-        ),
-      );
-
-      if ($expand_link) {
-        $item['expand_link'] = $expand_link;
-      }
-
-      $item['label']['#markup'] = Html::escape($label) . ' ';
+      $label_markup = Html::escape($label);
+      $escaped_path = Html::escape($this_path);
+      $label_markup = "$label_markup <small>(<code>$escaped_path</code>)</small>";
+      $item['label']['#markup'] = $label_markup . ' ';
 
       if ($can_be_indexed) {
-        $item['add'] = array(
+        $item['add'] = [
           '#type' => 'submit',
-          '#name' => Utility::createCombinedId($this->getParameter('datasource') ?: NULL, $this_path),
+          '#name' => Utility::createCombinedId($datasource_id, $this_path),
           '#value' => $this->t('Add'),
-          '#submit' => array('::addField', '::save'),
+          '#submit' => ['::addField', '::save'],
           '#property' => $property,
           '#prefixed_label' => $label_prefix . $label,
           '#data_type' => $type_mapping[$type],
-        );
+          '#ajax' => [
+            'wrapper' => $this->formIdAttribute,
+          ],
+        ];
       }
 
       if ($nested_list) {
         $item['properties'] = $nested_list;
       }
 
-      $list[] = $item;
+      $list[$key] = $item;
+    }
+
+    if ($list) {
+      uasort($list, [static::class, 'compareFieldLabels']);
+      $list['#theme'] = 'search_api_form_item_list';
     }
 
     return $list;
   }
 
   /**
+   * Compares labels of property render arrays.
+   *
+   * Used as an uasort() callback in
+   * \Drupal\search_api\Form\IndexAddFieldsForm::getPropertiesList().
+   *
+   * @param array $a
+   *   First property render array.
+   * @param array $b
+   *   Second property render array.
+   *
+   * @return int
+   *   -1, 0 or 1 if the first array should be considered, respectively, less
+   *   than, equal to or greater than the second.
+   */
+  public static function compareFieldLabels(array $a, array $b) {
+    $a_title = (string) $a['label']['#markup'];
+    $b_title = (string) $b['label']['#markup'];
+
+    return strnatcasecmp($a_title, $b_title);
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function actions(array $form, FormStateInterface $form_state) {
-    return array(
-      'done' => array(
+    return [
+      'done' => [
         '#type' => 'link',
         '#title' => $this->t('Done'),
         '#url' => $this->entity->toUrl('fields'),
-        '#attributes' => array(
-          'class' => array('button'),
-        ),
-      ),
-    );
+        '#attributes' => [
+          'class' => ['button'],
+        ],
+      ],
+    ];
   }
 
   /**
@@ -505,9 +459,25 @@ class IndexAddFieldsForm extends EntityForm {
     $property = $button['#property'];
 
     list($datasource_id, $property_path) = Utility::splitCombinedId($button['#name']);
-    $field = Utility::createFieldFromProperty($this->entity, $property, $datasource_id, $property_path, NULL, $button['#data_type']);
+    $field = $this->fieldsHelper->createFieldFromProperty($this->entity, $property, $datasource_id, $property_path, NULL, $button['#data_type']);
     $field->setLabel($button['#prefixed_label']);
     $this->entity->addField($field);
+
+    if ($property instanceof ConfigurablePropertyInterface) {
+      $parameters = [
+        'search_api_index' => $this->entity->id(),
+        'field_id' => $field->getFieldIdentifier(),
+      ];
+      $options = [];
+      $route = $this->getRequest()->attributes->get('_route');
+      if ($route === 'entity.search_api_index.add_fields_ajax') {
+        $options['query'] = [
+          MainContentViewSubscriber::WRAPPER_FORMAT => 'drupal_ajax',
+          'modal_redirect' => 1,
+        ];
+      }
+      $form_state->setRedirect('entity.search_api_index.field_config', $parameters, $options);
+    }
 
     $args['%label'] = $field->getLabel();
     drupal_set_message($this->t('Field %label was added to the index.', $args));

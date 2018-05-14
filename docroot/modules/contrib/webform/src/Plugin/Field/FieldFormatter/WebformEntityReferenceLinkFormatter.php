@@ -122,13 +122,16 @@ class WebformEntityReferenceLinkFormatter extends WebformEntityReferenceFormatte
     $this->messageManager->setSourceEntity($source_entity);
 
     $elements = [];
-    foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
+
+    /** @var \Drupal\webform\WebformInterface[] $entities */
+    $entities = $this->getEntitiesToView($items, $langcode);
+    foreach ($entities as $delta => $entity) {
       // Do not display the webform if the current user can't create submissions.
       if ($entity->id() && !$entity->access('submission_create')) {
         continue;
       }
 
-      if ($this->isOpen($entity, $items[$delta])) {
+      if ($entity->isOpen()) {
         $link_options = [
           'query' => [
             'source_entity_type' => $source_entity->getEntityTypeId(),
@@ -145,7 +148,7 @@ class WebformEntityReferenceLinkFormatter extends WebformEntityReferenceFormatte
       }
       else {
         $this->messageManager->setWebform($entity);
-        $message_type = $this->isOpening($entity, $items[$delta]) ? WebformMessageManagerInterface::FORM_OPEN_MESSAGE : WebformMessageManagerInterface::FORM_CLOSE_MESSAGE;
+        $message_type = $entity->isOpening() ? WebformMessageManagerInterface::FORM_OPEN_MESSAGE : WebformMessageManagerInterface::FORM_CLOSE_MESSAGE;
         $elements[$delta] = $this->messageManager->build($message_type);
       }
 

@@ -5,7 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.groupex
     - field.field.node.location.field_alert
-    - field.field.node.location.field_content
+    - field.field.node.location.field_ygtc_content
     - field.field.node.location.field_facebook_page_id
     - field.field.node.location.field_include_general_blog_posts
     - field.field.node.location.field_join_override
@@ -34,7 +34,7 @@ content:
     third_party_settings: {  }
 hidden:
   field_alert: true
-  field_content: true
+  field_ygtc_content: true
   field_facebook_page_id: true
   field_include_general_blog_posts: true
   field_join_override: true

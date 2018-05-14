@@ -28,6 +28,15 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp();
+    // Disable description help icon.
+    $this->config('webform.settings')->set('ui.description_help', FALSE)->save();
+  }
+
+  /**
    * Tests webform setting including confirmation.
    */
   public function testSettings() {
@@ -48,7 +57,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
     $webform_form_submit_once->save();
 
     // Check submit once checkbox is enabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_submit_once/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_submit_once/settings/form');
     $this->assertRaw('<input data-drupal-selector="edit-form-submit-once" aria-describedby="edit-form-submit-once--description" type="checkbox" id="edit-form-submit-once" name="form_submit_once" value class="form-checkbox" />');
 
     // Check webform no longer has webform.form.submit_once.js.
@@ -61,7 +70,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
       ->save();
 
     // Check submit_once checkbox is disabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_submit_once/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_submit_once/settings/form');
     $this->assertRaw('<input data-drupal-selector="edit-form-submit-once-disabled" aria-describedby="edit-form-submit-once-disabled--description" disabled="disabled" type="checkbox" id="edit-form-submit-once-disabled" name="form_submit_once_disabled" value="1" checked="checked" class="form-checkbox" />');
     $this->assertRaw('Submit button is disabled immediately after it is clicked for all forms.');
 
@@ -84,7 +93,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
     $webform_form_disable_back->save();
 
     // Check disable_back checkbox is enabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_disable_back/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_disable_back/settings/form');
     $this->assertRaw('<input data-drupal-selector="edit-form-disable-back" aria-describedby="edit-form-disable-back--description" type="checkbox" id="edit-form-disable-back" name="form_disable_back" value class="form-checkbox" />');
 
     // Check webform no longer has webform.form.disable_back.js.
@@ -97,7 +106,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
       ->save();
 
     // Check disable_back checkbox is disabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_disable_back/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_disable_back/settings/form');
     $this->assertRaw('<input data-drupal-selector="edit-form-disable-back-disabled" aria-describedby="edit-form-disable-back-disabled--description" disabled="disabled" type="checkbox" id="edit-form-disable-back-disabled" name="form_disable_back_disabled" value="1" checked="checked" class="form-checkbox" />');
     $this->assertRaw('Back button is disabled for all forms.');
 
@@ -120,7 +129,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
     $webform_form_unsaved->save();
 
     // Check novalidate checkbox is enabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_unsaved/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_unsaved/settings/form');
     $this->assertRaw('<input data-drupal-selector="edit-form-unsaved" aria-describedby="edit-form-unsaved--description" type="checkbox" id="edit-form-unsaved" name="form_unsaved" value class="form-checkbox" />');
 
     // Check webform no longer has .js-webform-unsaved class.
@@ -133,7 +142,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
       ->save();
 
     // Check unsaved checkbox is disabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_unsaved/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_unsaved/settings/form');
     $this->assertRaw('<input data-drupal-selector="edit-form-unsaved-disabled" aria-describedby="edit-form-unsaved-disabled--description" disabled="disabled" type="checkbox" id="edit-form-unsaved-disabled" name="form_unsaved_disabled" value="1" checked="checked" class="form-checkbox" />');
     $this->assertRaw('Unsaved warning is enabled for all forms.');
 
@@ -164,7 +173,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
     $webform_form_novalidate->save();
 
     // Check novalidate checkbox is enabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_novalidate/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_novalidate/settings/form');
     $this->assertRaw('<input data-drupal-selector="edit-form-novalidate" aria-describedby="edit-form-novalidate--description" type="checkbox" id="edit-form-novalidate" name="form_novalidate" value class="form-checkbox" />');
     $this->assertRaw('If checked, the <a href="http://www.w3schools.com/tags/att_form_novalidate.asp">novalidate</a> attribute, which disables client-side validation, will be added to this form.');
 
@@ -178,7 +187,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
       ->save();
 
     // Check novalidate checkbox is disabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_novalidate/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_novalidate/settings/form');
     $this->assertNoRaw('If checked, the <a href="http://www.w3schools.com/tags/att_form_novalidate.asp">novalidate</a> attribute, which disables client-side validation, will be added to this form.');
     $this->assertRaw('<input data-drupal-selector="edit-form-novalidate-disabled" aria-describedby="edit-form-novalidate-disabled--description" disabled="disabled" type="checkbox" id="edit-form-novalidate-disabled" name="form_novalidate_disabled" value="1" checked="checked" class="form-checkbox" />');
     $this->assertRaw('Client-side validation is disabled for all forms.');
@@ -206,7 +215,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
     $this->assertCssSelect('form.webform-details-toggle', t('Form has the .webform-details-toggle class.'));
 
     // Check details toggle checkbox is disabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_details_toggle/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_details_toggle/settings/form');
     $this->assertRaw('<input data-drupal-selector="edit-form-details-toggle-disabled" aria-describedby="edit-form-details-toggle-disabled--description" disabled="disabled" type="checkbox" id="edit-form-details-toggle-disabled" name="form_details_toggle_disabled" value="1" checked="checked" class="form-checkbox" />');
     $this->assertRaw('Expand/collapse all (details) link is automatically added to all forms.');
 
@@ -220,7 +229,7 @@ class WebformSettingsBehaviorsTest extends WebformTestBase {
     $this->assertCssSelect('form.webform-details-toggle', t('Form has the .webform-details-toggle class.'));
 
     // Check details toggle checkbox is enabled.
-    $this->drupalGet('admin/structure/webform/manage/test_form_details_toggle/settings');
+    $this->drupalGet('admin/structure/webform/manage/test_form_details_toggle/settings/form');
     $this->assertRaw('<input data-drupal-selector="edit-form-details-toggle" aria-describedby="edit-form-details-toggle--description" type="checkbox" id="edit-form-details-toggle" name="form_details_toggle" value checked="checked" class="form-checkbox" />');
     $this->assertRaw('If checked, an expand/collapse all (details) link will be added to this webform when there are two or more details elements available on the webform.');
 

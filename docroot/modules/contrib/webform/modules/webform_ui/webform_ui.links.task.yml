@@ -1,10 +1,15 @@
 # Forms
 
-entity.webform.source_form_elements:
-  title: 'Source (YAML)'
+entity.webform.edit_manage:
+  title: 'Elements'
+  route_name: entity.webform.edit_form
+  parent_id: entity.webform.edit_form
+  weight: 0
+
+entity.webform.source_form:
+  title: 'Source'
   route_name: entity.webform.source_form
   parent_id: entity.webform.edit_form
-
 
 # Webform Options
 
@@ -19,6 +24,6 @@ entity.webform_options.edit_form:
   parent_id: entity.webform_options
 
 entity.webform_options.source_form:
-  title: 'Source (YAML)'
+  title: 'Source'
   route_name: entity.webform_options.source_form
   parent_id: entity.webform_options

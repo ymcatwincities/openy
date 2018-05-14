@@ -10,20 +10,6 @@ In this file we should put updates that are related to the distribution in gener
 ### `openy_*.install` in modules
 In case if you update some configuration for specific feature, make sure that you put updates into appropriate module.
 
-
-### Modules version
-Whenever you change configuration in module, you should increase module version.
-
-Before:
-```
-version: 8.x-1.0
-```
-
-After:
-```
-version: 8.x-1.1
-```
-
 ### Revert only specific property from config
 
 With [config_import module](https://www.drupal.org/project/confi) help we can update only part from full config.

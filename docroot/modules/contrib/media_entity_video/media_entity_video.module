@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Media entity for video files.
+ */
+
+use Drupal\file\Entity\File;
+
+/**
+ * Implements hook_theme().
+ */
+function media_entity_video_theme() {
+  return array(
+    'media_video_file_formatter' => array(
+      'variables' => array(
+        'file' => NULL,
+        'description' => NULL,
+        'attributes' => array(),
+        'value' => NULL,
+        'extravalue' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements template_preprocess_media_video_file_formatter().
+ */
+function media_entity_video_preprocess_media_video_file_formatter(&$vars) {
+  $file = $vars['file'];
+  $file_entity = ($file instanceof File) ? $file : File::load($file->fid);
+  $url = file_create_url($file_entity->getFileUri());
+  $mimetype = $file_entity->getMimeType();
+
+  if ($mimetype == 'video/mp4') {
+    $vars['mimetype'] = 'video/mp4';
+  }
+  if ($mimetype == 'video/webm') {
+    $vars['mimetype'] = 'video/webm';
+  }
+  if ($mimetype == 'video/ogg') {
+    $vars['mimetype'] = 'video/ogg';
+  }
+  $vars['media_link'] = $url;
+}

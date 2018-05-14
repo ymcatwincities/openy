@@ -62,6 +62,14 @@ class WebformEntityTranslationTest extends WebformTestBase {
     $this->assertRaw('<option value="1">Uno</option>');
     $this->assertRaw('<option value="4">Las cuatro</option>');
 
+    // Check translated webform custom composite.
+    $this->drupalGet('es/webform/test_translation');
+    $this->assertRaw('<label for="edit-composite">Compuesto</label>');
+    $this->assertRaw('<th class="composite-table--first_name webform-multiple-table--first_name">Nombre</th>');
+    $this->assertRaw('<th class="composite-table--last_name webform-multiple-table--last_name">Apellido</th>');
+    $this->assertRaw('<th class="composite-table--age webform-multiple-table--age">Edad</th>');
+    $this->assertRaw('<span class="field-suffix">años. antiguo</span>');
+
     // Check that webform is not translated into French.
     $this->drupalGet('fr/webform/test_translation');
     $this->assertRaw('<label for="edit-textfield">Text field</label>');
@@ -130,6 +138,30 @@ class WebformEntityTranslationTest extends WebformTestBase {
 
     // Check French translation.
     $this->drupalGet('webform/test_translation', ['language' => $language_manager->getLanguage('fr')]);
+    $this->assertRaw('<label for="edit-textfield">French</label>');
+
+    /**************************************************************************/
+
+    // Make sure the site language is English (en).
+    \Drupal::configFactory()->getEditable('system.site')->set('default_langcode', 'en')->save();
+
+    // Duplicate translated webform.
+    $edit = [
+      'title' => 'DUPLICATE',
+      'id' => 'duplicate',
+    ];
+    $this->drupalPostForm('admin/structure/webform/manage/test_translation/duplicate', $edit, t('Save'));
+
+    // Check duplicate  English translation.
+    $this->drupalGet('webform/duplicate', ['language' => $language_manager->getLanguage('en')]);
+    $this->assertRaw('<label for="edit-textfield">Text field</label>');
+
+    // Check duplicate Spanish translation.
+    $this->drupalGet('webform/duplicate', ['language' => $language_manager->getLanguage('es')]);
+    $this->assertRaw('<label for="edit-textfield">Campo de texto</label>');
+
+    // Check duplicate French translation.
+    $this->drupalGet('webform/duplicate', ['language' => $language_manager->getLanguage('fr')]);
     $this->assertRaw('<label for="edit-textfield">French</label>');
   }
 

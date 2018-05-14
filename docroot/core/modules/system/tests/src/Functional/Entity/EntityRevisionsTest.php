@@ -135,28 +135,74 @@ class EntityRevisionsTest extends BrowserTestBase {
     $entity->addTranslation('de', ['name' => 'default revision - de']);
     $entity->save();
 
-    $forward_revision = \Drupal::entityTypeManager()->getStorage('entity_test_mulrev')->loadUnchanged($entity->id());
+    $pending_revision = \Drupal::entityTypeManager()->getStorage('entity_test_mulrev')->loadUnchanged($entity->id());
 
-    $forward_revision->setNewRevision();
-    $forward_revision->isDefaultRevision(FALSE);
+    $pending_revision->setNewRevision();
+    $pending_revision->isDefaultRevision(FALSE);
 
-    $forward_revision->name = 'forward revision - en';
-    $forward_revision->save();
+    $pending_revision->name = 'pending revision - en';
+    $pending_revision->save();
 
-    $forward_revision_translation = $forward_revision->getTranslation('de');
-    $forward_revision_translation->name = 'forward revision - de';
-    $forward_revision_translation->save();
+    $pending_revision_translation = $pending_revision->getTranslation('de');
+    $pending_revision_translation->name = 'pending revision - de';
+    $pending_revision_translation->save();
 
     // Check that the entity revision is upcasted in the correct language.
-    $revision_url = 'entity_test_mulrev/' . $entity->id() . '/revision/' . $forward_revision->getRevisionId() . '/view';
+    $revision_url = 'entity_test_mulrev/' . $entity->id() . '/revision/' . $pending_revision->getRevisionId() . '/view';
 
     $this->drupalGet($revision_url);
-    $this->assertText('forward revision - en');
-    $this->assertNoText('forward revision - de');
+    $this->assertText('pending revision - en');
+    $this->assertNoText('pending revision - de');
 
     $this->drupalGet('de/' . $revision_url);
-    $this->assertText('forward revision - de');
-    $this->assertNoText('forward revision - en');
+    $this->assertText('pending revision - de');
+    $this->assertNoText('pending revision - en');
+  }
+
+  /**
+   * Tests manual revert of the revision ID value.
+   *
+   * @covers \Drupal\Core\Entity\ContentEntityBase::getRevisionId
+   * @covers \Drupal\Core\Entity\ContentEntityBase::getLoadedRevisionId
+   * @covers \Drupal\Core\Entity\ContentEntityBase::setNewRevision
+   * @covers \Drupal\Core\Entity\ContentEntityBase::isNewRevision
+   */
+  public function testNewRevisionRevert() {
+    $entity = EntityTestMulRev::create(['name' => 'EntityLoadedRevisionTest']);
+    $entity->save();
+
+    // Check that revision ID field is reset while the loaded revision ID is
+    // preserved when flagging a new revision.
+    $revision_id = $entity->getRevisionId();
+    $entity->setNewRevision();
+    $this->assertNull($entity->getRevisionId());
+    $this->assertEquals($revision_id, $entity->getLoadedRevisionId());
+    $this->assertTrue($entity->isNewRevision());
+
+    // Check that after manually restoring the original revision ID, the entity
+    // is stored without creating a new revision.
+    $key = $entity->getEntityType()->getKey('revision');
+    $entity->set($key, $revision_id);
+    $entity->save();
+    $this->assertEquals($revision_id, $entity->getRevisionId());
+    $this->assertEquals($revision_id, $entity->getLoadedRevisionId());
+
+    // Check that manually restoring the original revision ID causes the "new
+    // revision" state to be reverted.
+    $entity->setNewRevision();
+    $this->assertNull($entity->getRevisionId());
+    $this->assertEquals($revision_id, $entity->getLoadedRevisionId());
+    $this->assertTrue($entity->isNewRevision());
+    $entity->set($key, $revision_id);
+    $this->assertFalse($entity->isNewRevision());
+    $this->assertEquals($revision_id, $entity->getRevisionId());
+    $this->assertEquals($revision_id, $entity->getLoadedRevisionId());
+
+    // Check that flagging a new revision again works correctly.
+    $entity->setNewRevision();
+    $this->assertNull($entity->getRevisionId());
+    $this->assertEquals($revision_id, $entity->getLoadedRevisionId());
+    $this->assertTrue($entity->isNewRevision());
   }
 
 }

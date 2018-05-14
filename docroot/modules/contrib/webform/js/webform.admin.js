@@ -47,6 +47,10 @@
           return true;
         }
 
+        if ($(event.target).parents('a[href]').length) {
+          return true;
+        }
+
         var $tr = $(event.target).parents('tr[data-webform-href]');
         if (!$tr.length) {
           return true;

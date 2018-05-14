@@ -4,7 +4,6 @@ namespace Drupal\optimizely\Tests;
 
 use Drupal\simpletest\WebTestBase;
 
-
 /**
  * Test schema creation.
  *
@@ -13,23 +12,23 @@ use Drupal\simpletest\WebTestBase;
 class OptimizelySchemaTest extends WebTestBase {
 
   protected $privilegedUser;
-  
+
   /**
    * Modules to enable.
    *
    * @var array
    */
-  public static $modules = array('optimizely');
+  public static $modules = ['optimizely'];
 
   /**
    * {@inheritdoc}
    */
   public static function getInfo() {
-    return array(
+    return [
       'name' => 'Optimizely Schema Creation',
       'description' => 'Ensure schema creation.',
       'group' => 'Optimizely',
-    );
+    ];
   }
 
   /**
@@ -39,14 +38,17 @@ class OptimizelySchemaTest extends WebTestBase {
 
     parent::setUp();
 
-    $this->privilegedUser = $this->drupalCreateUser(array('administer optimizely'));
+    $this->privilegedUser = $this->drupalCreateUser(['administer optimizely']);
   }
-     
-  public function testSchemaCreation()
-  {
+
+  /**
+   * Test that module's database table is created.
+   */
+  public function testSchemaCreation() {
     $this->drupalLogin($this->privilegedUser);
 
     $schema = \Drupal::moduleHandler()->invoke('optimizely', 'schema');
     $this->assertNotNull($schema, t('<strong>Optimizely table was created.</strong>'), 'Optimizely');
   }
+
 }

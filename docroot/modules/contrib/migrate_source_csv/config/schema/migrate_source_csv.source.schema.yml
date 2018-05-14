@@ -1,0 +1,31 @@
+migrate.source.csv:
+  type: migrate_source
+  label: 'CSV'
+  mapping:
+    path:
+      type: string
+      label: 'Path to the source CSV file'
+    header_row_count:
+      type: integer
+      label: 'Signifies the number of rows of data in a file until the header row'
+    keys:
+      type: sequence
+      label: 'Column name(s) which represent the key uniquely identifying each record'
+      sequence:
+        type: string
+        label: 'Key field'
+    column_names:
+      type: sequence
+      label: 'Numeric key 0-based index of the columns in source CSV file'
+    file_class:
+      type: string
+      label: 'Full class name that includes namespace for an alternative CSV reader'
+    delimiter:
+      type: string
+      label: 'The field delimiter (one character only)'
+    enclosure:
+      type: string
+      label: 'The field enclosure character (one character only)'
+    escape:
+      type: string
+      label: 'The field escape character (one character only)'

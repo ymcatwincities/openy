@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed\Tests\IconFileUsageTest.
- */
-
 namespace Drupal\Tests\embed\Kernel;
 
 use Drupal\embed\Entity\EmbedButton;
@@ -45,12 +40,12 @@ class IconFileUsageTest extends KernelTestBase {
     $file2->setTemporary();
     $file2->save();
 
-    $button = array(
+    $button = [
       'id' => 'test_button',
       'label' => 'Testing embed button instance',
       'type_id' => 'embed_test_default',
       'icon_uuid' => $file1->uuid(),
-    );
+    ];
 
     $entity = EmbedButton::create($button);
     $entity->save();

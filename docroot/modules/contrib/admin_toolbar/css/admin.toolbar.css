@@ -1,4 +1,7 @@
 /*---------------------- menu horizontal hover---- Krout Fethi FrontEnd Developer-----*/
+#toolbar-bar {
+  z-index: 9999;
+}
 .toolbar-tray-horizontal .menu-item:hover {
   background: #fff;
 }
@@ -33,20 +36,20 @@
   border-top: 1px solid #dddddd;
 }
 
-.toolbar-tray-horizontal li.menu-item--expanded:hover ul ul,
-.toolbar-tray-horizontal li.menu-item--expanded:hover ul ul ul,
-.toolbar-tray-horizontal li.menu-item--expanded:hover ul ul ul ul,
-.toolbar-tray-horizontal li.menu-item--expanded:hover ul ul ul ul ul {
+.toolbar-tray-horizontal li.menu-item--expanded.hover-intent ul ul,
+.toolbar-tray-horizontal li.menu-item--expanded.hover-intent ul ul ul,
+.toolbar-tray-horizontal li.menu-item--expanded.hover-intent ul ul ul ul,
+.toolbar-tray-horizontal li.menu-item--expanded.hover-intent ul ul ul ul ul {
   display: none;
   left: -999em; /* LTR */
 }
 
 /* Lists nested under hovered list items */
-.toolbar-tray-horizontal li.menu-item--expanded:hover ul,
-.toolbar-tray-horizontal li li.menu-item--expanded:hover ul,
-.toolbar-tray-horizontal li li li.menu-item--expanded:hover ul,
-.toolbar-tray-horizontal li li li li.menu-item--expanded:hover ul,
-.toolbar-tray-horizontal li li li li li.menu-item--expanded:hover ul {
+.toolbar-tray-horizontal li.menu-item--expanded.hover-intent ul,
+.toolbar-tray-horizontal li li.menu-item--expanded.hover-intent ul,
+.toolbar-tray-horizontal li li li.menu-item--expanded.hover-intent ul,
+.toolbar-tray-horizontal li li li li.menu-item--expanded.hover-intent ul,
+.toolbar-tray-horizontal li li li li li.menu-item--expanded.hover-intent ul {
   display: block;
   left: auto; /* LTR */
 }
@@ -56,7 +59,7 @@
   padding: 12px 15px 12px 12px;
 }
 
-.toolbar-tray-horizontal ul li.menu-item--expanded:hover ul {
+.toolbar-tray-horizontal ul li.menu-item--expanded.hover-intent ul {
   display: block;
   position: absolute;
   width: 200px;
@@ -74,12 +77,12 @@
   background-repeat: no-repeat;
 }
 
-.toolbar-tray-horizontal ul li.menu-item--expanded .menu-item:hover ul {
+.toolbar-tray-horizontal ul li.menu-item--expanded .menu-item.hover-intent ul {
   display: block;
   margin: -40px 0 0 197px;
 }
 
-.toolbar-tray-horizontal li:hover ul li {
+.toolbar-tray-horizontal li.hover-intent ul li {
   float: none;
 }
 

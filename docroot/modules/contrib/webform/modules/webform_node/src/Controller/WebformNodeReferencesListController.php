@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Url;
-use Drupal\webform\Plugin\Field\FieldType\WebformEntityReferenceItem;
+use Drupal\webform\WebformEntityReferenceManagerInterface;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -51,6 +51,13 @@ class WebformNodeReferencesListController extends EntityListBuilder implements C
    * @var \Drupal\Core\Config\Entity\ConfigEntityStorageInterface
    */
   protected $fieldConfigStorage;
+
+  /**
+   * The webform entity reference manager
+   *
+   * @var \Drupal\webform\WebformEntityReferenceManagerInterface
+   */
+  protected $webformEntityReferenceManager;
 
   /**
    * The webform.
@@ -108,14 +115,17 @@ class WebformNodeReferencesListController extends EntityListBuilder implements C
    *   The field config storage class.
    * @param \Drupal\webform\WebformSubmissionStorageInterface $webform_submsision_storage
    *   The webform submission storage class.
+   * @param \Drupal\webform\WebformEntityReferenceManagerInterface $webform_entity_reference_manager
+   *   The webform entity reference manager.
    */
-  public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, DateFormatterInterface $date_formatter, ConfigEntityStorageInterface $node_type_storage, ConfigEntityStorageInterface $field_config_storage, WebformSubmissionStorageInterface $webform_submsision_storage) {
+  public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, DateFormatterInterface $date_formatter, ConfigEntityStorageInterface $node_type_storage, ConfigEntityStorageInterface $field_config_storage, WebformSubmissionStorageInterface $webform_submsision_storage, WebformEntityReferenceManagerInterface $webform_entity_reference_manager) {
     parent::__construct($entity_type, $storage);
 
     $this->dateFormatter = $date_formatter;
     $this->nodeTypeStorage = $node_type_storage;
     $this->fieldConfigStorage = $field_config_storage;
     $this->submissionStorage = $webform_submsision_storage;
+    $this->webformEntityReferenceManager = $webform_entity_reference_manager;
 
     $this->nodeTypes = [];
     $this->fieldNames = [];
@@ -145,7 +155,8 @@ class WebformNodeReferencesListController extends EntityListBuilder implements C
       $container->get('date.formatter'),
       $container->get('entity.manager')->getStorage('node_type'),
       $container->get('entity.manager')->getStorage('field_config'),
-      $container->get('entity.manager')->getStorage('webform_submission')
+      $container->get('entity.manager')->getStorage('webform_submission'),
+      $container->get('webform.entity_reference_manager')
     );
   }
 
@@ -233,6 +244,8 @@ class WebformNodeReferencesListController extends EntityListBuilder implements C
     $row['results_operations']['data'] = [
       '#type' => 'operations',
       '#links' => $this->getDefaultOperations($entity, 'results'),
+      '#prefix' => '<div class="webform-dropbutton">',
+      '#suffix' => '</div>',
     ];
     $row['operations']['data'] = $this->buildOperations($entity);
     return $row + parent::buildRow($entity);
@@ -251,7 +264,7 @@ class WebformNodeReferencesListController extends EntityListBuilder implements C
    */
   protected function getWebformStatus(EntityInterface $entity) {
     // Get source entity's webform field.
-    $webform_field_name = WebformEntityReferenceItem::getEntityWebformFieldName($entity);
+    $webform_field_name = $this->webformEntityReferenceManager->getFieldName($entity);
     if (!$webform_field_name) {
       return NULL;
     }
@@ -313,7 +326,7 @@ class WebformNodeReferencesListController extends EntityListBuilder implements C
         $operations['test'] = [
           'title' => $this->t('Test'),
           'weight' => 21,
-          'url' => Url::fromRoute('entity.node.webform.test', $route_parameters),
+          'url' => Url::fromRoute('entity.node.webform.test_form', $route_parameters),
         ];
       }
     }
@@ -339,7 +352,7 @@ class WebformNodeReferencesListController extends EntityListBuilder implements C
           '#theme' => 'menu_local_action',
           '#link' => [
             'title' => $this->t('Add @title', ['@title' => $node_type->label()]),
-            'url' => Url::fromRoute('node.add', ['node_type' => $bundle], ['query' => ['webform' => $this->webform->id()]]),
+            'url' => Url::fromRoute('node.add', ['node_type' => $bundle], ['query' => ['webform_id' => $this->webform->id()]]),
           ],
         ];
       }

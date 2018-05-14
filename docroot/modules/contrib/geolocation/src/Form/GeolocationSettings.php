@@ -30,6 +30,13 @@ class GeolocationSettings extends ConfigFormBase {
       '#description' => $this->t('Google requires users to use a valid API key. Using the <a href="https://console.developers.google.com/apis">Google API Manager</a>, you can enable the <em>Google Maps JavaScript API</em>. That will create (or reuse) a <em>Browser key</em> which you can paste here.'),
     ];
 
+    $form['google_map_api_server_key'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Google Maps API Server key'),
+      '#default_value' => $config->get('google_map_api_server_key'),
+      '#description' => $this->t('If you use a separate key for server-side operations, add it here. Leave empty to use the Google Maps API key as above.'),
+    ];
+
     $custom_parameters = $config->get('google_map_custom_url_parameters');
     $form['parameters'] = [
       '#type' => 'details',
@@ -110,6 +117,20 @@ class GeolocationSettings extends ConfigFormBase {
       '#description' => $this->t('Attention: setting this option has major usage implications. See <a href=":google_client_id_link">Google Maps Authentication documentation</a>.', [':google_client_id_link' => 'https://developers.google.com/maps/documentation/javascript/get-api-key#client-id']),
     ];
 
+    $form['parameters']['channel'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t("Google Maps Channel ID - 'channel'"),
+      '#default_value' => empty($custom_parameters['channel']) ?: $custom_parameters['channel'],
+      '#description' => $this->t('Channel parameter will be used together with client ID to track usage of your application. See <a href=":google_channel_id_link">Google Maps Premium reports - Channels data </a>.', [':google_channel_id_link' => 'https://developers.google.com/maps/premium/reports/usage-reports#channels']),
+    ];
+
+    $form['use_current_language'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use current interface language in Google Maps'),
+      '#default_value' => $config->get('use_current_language') ? TRUE : FALSE,
+      '#description' => $this->t('If a supported language is set by Drupal, it will be handed over to Google Maps. Defaults to language parameter above if set. List of <a href=":google_languages_list">supported languages here</a>.', [':google_languages_list' => 'https://developers.google.com/maps/faq#languagesupport']),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -149,9 +170,11 @@ class GeolocationSettings extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    /** @var \Drupal\Core\Config\Config $config */
-    $config = \Drupal::service('config.factory')->getEditable('geolocation.settings');
+    $config = $this->configFactory()->getEditable('geolocation.settings');
     $config->set('google_map_api_key', $form_state->getValue('google_map_api_key'));
+    $config->set('google_map_api_server_key', $form_state->getValue('google_map_api_server_key'));
+
+    $config->set('use_current_language', $form_state->getValue('use_current_language'));
 
     $parameters = $form_state->getValue('parameters');
     unset($parameters['libraries']['add']);
@@ -165,6 +188,9 @@ class GeolocationSettings extends ConfigFormBase {
     $config->set('google_map_custom_url_parameters', $parameters);
 
     $config->save();
+
+    // Confirmation on form submission.
+    drupal_set_message($this->t('The configuration options have been saved.'));
   }
 
 }

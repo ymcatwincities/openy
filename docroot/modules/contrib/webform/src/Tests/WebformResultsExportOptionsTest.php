@@ -2,6 +2,8 @@
 
 namespace Drupal\webform\Tests;
 
+use Drupal\webform\Entity\Webform;
+
 /**
  * Tests for webform results export.
  *
@@ -14,14 +16,14 @@ class WebformResultsExportOptionsTest extends WebformTestBase {
    *
    * @var array
    */
-  public static $modules = ['node', 'locale', 'webform'];
+  public static $modules = ['node', 'locale', 'webform', 'webform_test_submissions'];
 
   /**
    * Webforms to load.
    *
    * @var array
    */
-  protected static $testWebforms = ['test_element_managed_file', 'test_results'];
+  protected static $testWebforms = ['test_submissions'];
 
   /**
    * {@inheritdoc}
@@ -38,8 +40,11 @@ class WebformResultsExportOptionsTest extends WebformTestBase {
    */
   public function testExportOptions() {
     /** @var \Drupal\webform\WebformInterface $webform */
+    $webform = Webform::load('test_submissions');
     /** @var \Drupal\webform\WebformSubmissionInterface[] $submissions */
-    list($webform, $submissions) = $this->createWebformWithSubmissions();
+    $submissions = array_values(\Drupal::entityTypeManager()->getStorage('webform_submission')->loadByProperties(['webform_id' => 'test_submissions']));
+    /** @var \Drupal\node\NodeInterface[] $node */
+    $nodes = array_values(\Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'webform_test_submissions']));
 
     $this->drupalLogin($this->adminSubmissionUser);
 
@@ -64,12 +69,12 @@ class WebformResultsExportOptionsTest extends WebformTestBase {
     $this->assertRaw('first_name,last_name');
 
     // Check options format compact.
-    $this->getExport($webform, ['options_format' => 'compact']);
+    $this->getExport($webform, ['options_single_format' => 'compact', 'options_multiple_format' => 'compact']);
     $this->assertRaw('"Flag colors"');
     $this->assertRaw('Red;White;Blue');
 
     // Check options format separate.
-    $this->getExport($webform, ['options_format' => 'separate']);
+    $this->getExport($webform, ['options_single_format' => 'separate', 'options_multiple_format' => 'separate']);
     $this->assertRaw('"Flag colors: Red","Flag colors: White","Flag colors: Blue"');
     $this->assertNoRaw('"Flag colors"');
     $this->assertRaw('X,X,X');
@@ -91,17 +96,17 @@ class WebformResultsExportOptionsTest extends WebformTestBase {
     $this->assertRaw('"Red,White,Blue"');
 
     // Check entity reference format link.
-    $nodes = $this->getNodes();
-    $this->getExport($webform, ['entity_reference_format' => 'link']);
+    $this->getExport($webform, ['entity_reference_items' => 'id,title,url']);
     $this->assertRaw('"Favorite node: ID","Favorite node: Title","Favorite node: URL"');
     $this->assertRaw('' . $nodes[0]->id() . ',"' . $nodes[0]->label() . '",' . $nodes[0]->toUrl('canonical', ['absolute' => TRUE])->toString());
 
-    // Check entity reference format id.
-    $this->getExport($webform, ['entity_reference_format' => 'id']);
-    $this->assertRaw('"Favorite node"');
-    $this->assertNoRaw('"Favorite node Title","Favorite node ID","Favorite node URL"');
-    $this->assertRaw(',node:' . $nodes[0]->id() . ',');
-    $this->assertNoRaw('"' . $nodes[0]->label() . '",' . $nodes[0]->id() . ',' . $nodes[0]->toUrl('canonical', ['absolute' => TRUE])->toString());
+    // Check entity reference format title and url.
+    $this->getExport($webform, ['entity_reference_items' => 'id']);
+    $this->getExport($webform, ['entity_reference_items' => 'title,url']);
+    $this->assertNoRaw('"Favorite node: ID","Favorite node: Title","Favorite node: URL"');
+    $this->assertNoRaw('' . $nodes[0]->id() . ',"' . $nodes[0]->label() . '",' . $nodes[0]->toUrl('canonical', ['absolute' => TRUE])->toString());
+    $this->assertRaw('"Favorite node: Title","Favorite node: URL"');
+    $this->assertRaw('"' . $nodes[0]->label() . '",' . $nodes[0]->toUrl('canonical', ['absolute' => TRUE])->toString());
 
     // Check likert questions format label.
     $this->getExport($webform, ['header_format' => 'label']);
@@ -148,17 +153,14 @@ class WebformResultsExportOptionsTest extends WebformTestBase {
     $this->assertNoRaw('Hillary,Clinton');
 
     // Check date range.
-    $submissions[0]->set('created', strtotime('1/01/2000'))->save();
-    $submissions[1]->set('created', strtotime('1/01/2001'))->save();
-    $submissions[2]->set('created', strtotime('1/01/2002'))->save();
-    $this->getExport($webform, ['range_type' => 'date', 'range_start' => '12/31/2000', 'range_end' => '12/31/2001']);
-    $this->assertNoRaw('George,Washington');
+    $this->getExport($webform, ['range_type' => 'date', 'range_start' => '2000-01-01', 'range_end' => '2001-01-01']);
+    $this->assertRaw('George,Washington');
     $this->assertRaw('Abraham,Lincoln');
     $this->assertNoRaw('Hillary,Clinton');
 
     // Check entity type and id hidden.
     $this->drupalGet('admin/structure/webform/manage/' . $webform->id() . '/results/download');
-    $this->assertNoFieldById('edit-export-download-submitted-entity-type');
+    $this->assertNoFieldById('edit-entity-type');
 
     // Change submission 0 & 1 to be submitted user account.
     $submissions[0]->set('entity_type', 'user')->set('entity_id', '1')->save();
@@ -166,7 +168,7 @@ class WebformResultsExportOptionsTest extends WebformTestBase {
 
     // Check entity type and id visible.
     $this->drupalGet('admin/structure/webform/manage/' . $webform->id() . '/results/download');
-    $this->assertFieldById('edit-export-download-submitted-entity-type');
+    $this->assertFieldById('edit-entity-type');
 
     // Check entity type limit.
     $this->getExport($webform, ['entity_type' => 'user']);
@@ -182,18 +184,18 @@ class WebformResultsExportOptionsTest extends WebformTestBase {
 
     // Check changing default exporter to 'table' settings.
     $this->drupalLogin($this->rootUser);
-    $this->drupalPostForm('admin/structure/webform/manage/' . $webform->id() . '/results/download', ['export[format][exporter]' => 'table'], t('Download'));
+    $this->drupalPostForm('admin/structure/webform/manage/' . $webform->id() . '/results/download', ['exporter' => 'table'], t('Download'));
     $this->assertRaw('<body><table border="1"><thead><tr bgcolor="#cccccc" valign="top"><th>Serial number</th>');
     $this->assertPattern('#<td>George</td>\s+<td>Washington</td>\s+<td>Male</td>#ms');
 
     // Check changing default export (delimiter) settings.
     $this->drupalLogin($this->rootUser);
-    $this->drupalPostForm('admin/structure/webform/settings/exporters', ['export[format][delimiter]' => '|'], t('Save configuration'));
+    $this->drupalPostForm('admin/structure/webform/config/exporters', ['delimiter' => '|'], t('Save configuration'));
     $this->drupalPostForm('admin/structure/webform/manage/' . $webform->id() . '/results/download', [], t('Download'));
     $this->assertRaw('"Submission ID"|"Submission URI"');
 
     // Check saved webform export (delimiter) settings.
-    $this->drupalPostForm('admin/structure/webform/manage/' . $webform->id() . '/results/download', ['export[format][delimiter]' => '.'], t('Save settings'));
+    $this->drupalPostForm('admin/structure/webform/manage/' . $webform->id() . '/results/download', ['delimiter' => '.'], t('Save settings'));
     $this->drupalPostForm('admin/structure/webform/manage/' . $webform->id() . '/results/download', [], t('Download'));
     $this->assertRaw('"Submission ID"."Submission URI"');
 

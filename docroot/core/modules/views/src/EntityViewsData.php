@@ -236,6 +236,13 @@ class EntityViewsData implements EntityHandlerInterface, EntityViewsDataInterfac
           'type' => 'INNER',
         ];
       }
+
+      // Add a filter for showing only the latest revisions of an entity.
+      $data[$revision_table]['latest_revision'] = [
+        'title' => $this->t('Is Latest Revision'),
+        'help' => $this->t('Restrict the view to only revisions that are the latest revision of their entity.'),
+        'filter' => ['id' => 'latest_revision'],
+      ];
     }
 
     $this->addEntityLinks($data[$base_table]);
@@ -300,7 +307,7 @@ class EntityViewsData implements EntityHandlerInterface, EntityViewsDataInterfac
 
     // Add the entity type key to each table generated.
     $entity_type_id = $this->entityType->id();
-    array_walk($data, function(&$table_data) use ($entity_type_id){
+    array_walk($data, function (&$table_data) use ($entity_type_id) {
       $table_data['table']['entity type'] = $entity_type_id;
     });
 

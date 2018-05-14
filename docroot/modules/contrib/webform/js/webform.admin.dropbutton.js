@@ -19,7 +19,7 @@
   Drupal.behaviors.dropButton = {
     attach: function (context, settings) {
       dropButton.attach(context, settings);
-      $(context).find('.dropbutton-wrapper').once('webform-dropbutton').css('visibility', 'visible');
+      $(context).find('.webform-dropbutton .dropbutton-wrapper').once('webform-dropbutton').css('visibility', 'visible');
     }
   };
 

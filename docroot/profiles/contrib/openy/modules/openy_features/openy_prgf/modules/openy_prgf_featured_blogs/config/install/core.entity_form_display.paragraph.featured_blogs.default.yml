@@ -22,7 +22,7 @@ content:
     weight: 0
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Provide title here'
     third_party_settings: {  }
     type: string_textfield
 hidden:

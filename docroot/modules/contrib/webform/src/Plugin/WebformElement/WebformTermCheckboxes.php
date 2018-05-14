@@ -33,6 +33,7 @@ class WebformTermCheckboxes extends Checkboxes implements WebformElementEntityRe
 
     unset($properties['options']);
     unset($properties['options_randomize']);
+    unset($properties['options_display']);
     return $properties;
   }
 
