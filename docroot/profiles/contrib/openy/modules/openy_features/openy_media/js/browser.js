@@ -14,7 +14,7 @@
       // Selector for finding the actual form inputs.
       var input = 'input[name ^= "entity_browser_select"]';
 
-      $selectables.on('click', function () {
+      $selectables.unbind("click").click(function() {
         // Allow unselecting and multiselect.
         if ($(this).hasClass('selected')) {
           $(this).removeClass('selected').find(input).prop('checked', false);

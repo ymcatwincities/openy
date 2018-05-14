@@ -12,13 +12,6 @@ class WebformHandlerPluginCollection extends DefaultLazyPluginCollection {
   /**
    * {@inheritdoc}
    */
-  public function &get($instance_id) {
-    return parent::get($instance_id);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function sortHelper($a_id, $b_id) {
     $a_weight = $this->get($a_id)->getWeight();
     $b_weight = $this->get($b_id)->getWeight();

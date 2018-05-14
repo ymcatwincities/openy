@@ -1,7 +1,4 @@
-Jira issue: 
+### How to review: 
 
-Steps to review:
 - [ ] login as admin
 - [ ] 
-- [ ] 
-- [ ]

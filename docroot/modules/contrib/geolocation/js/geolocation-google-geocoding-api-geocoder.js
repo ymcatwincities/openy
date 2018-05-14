@@ -8,11 +8,25 @@
  */
 
 /**
- * @property {Object} GoogleMap.GeocoderStatus
- * @property {String} GoogleMap.GeocoderStatus.OK
+ * Callback for geocoding.
  *
- * @property {function():Object} GoogleMap.Geocoder
- * @property {Function} GoogleMap.Geocoder.geocode
+ * @callback googleGeocoderCallback
+ * @param {GoogleAddress[]} results - Returned results
+ * @param {String} status - Whether geocoding was successful
+ */
+
+/**
+ * @typedef {Object} GoogleGeocoder
+ * @property {function({}, googleGeocoderCallback)} Geocoder.geocode
+ */
+
+/**
+ * @extends {GoogleMap}
+ * @property {Object} GeocoderStatus
+ * @property {String} GeocoderStatus.OK
+ *
+ * @function
+ * @property {function():GoogleGeocoder} Geocoder
  */
 
 (function ($, Drupal) {
@@ -51,13 +65,6 @@
             address: request.term,
             componentRestrictions: componentRestrictions
           },
-
-          /**
-           * Google Geocoding API geocode.
-           *
-           * @param {GoogleAddress[]} results - Returned results
-           * @param {String} status - Whether geocoding was successful
-           */
           function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
               $.each(results, function (index, result) {

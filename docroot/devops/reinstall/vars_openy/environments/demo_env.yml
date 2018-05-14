@@ -3,6 +3,7 @@ env:
   pre_settings:
     - { name: '$settings["hash_salt"]', status: true, value: '1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ'}
     - { name: '$config_directories["staging"]', status: true, value: 'sites/openy/config/staging' }
+  pre_drush_commands: []
   modules:
     - { name: 'config_inspector dblog stage_file_proxy', status: true }
   drush_commands:

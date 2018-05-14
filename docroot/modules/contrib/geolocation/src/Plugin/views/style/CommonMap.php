@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\geolocation\Plugin\views\field\GeolocationField;
 use Drupal\geolocation\GoogleMapsDisplayTrait;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\Core\Url;
 
 /**
  * Allow to display several field items on a common map.
@@ -58,7 +59,6 @@ class CommonMap extends StylePluginBase {
 
       switch ($filter['plugin_id']) {
         case 'geolocation_filter_boundary':
-          $map_update_target_options['boundary_filters'][$filter_name] = $filter_handler;
           if ($filter_handler->isExposed()) {
             $options['boundary_filters_exposed'][$filter_name] = $filter_handler;
           }
@@ -118,7 +118,8 @@ class CommonMap extends StylePluginBase {
     $map_id = $this->view->dom_id;
 
     $build = [
-      '#theme' => 'geolocation_common_map_display',
+      '#theme' => $this->view->buildThemeFunctions('geolocation_common_map_display'),
+      '#view' => $this->view,
       '#id' => $map_id,
       '#attached' => [
         'library' => [
@@ -137,8 +138,22 @@ class CommonMap extends StylePluginBase {
       ],
     ];
 
+    // Add cache dependency for the view.
+    $renderer = $this->getRenderer();
+    $renderer->addCacheableDependency($build, $this->view->storage);
+
     if (!empty($this->options['show_raw_locations'])) {
       $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['showRawLocations'] = TRUE;
+    }
+
+    /*
+     * Context popup content.
+     */
+    if (!empty($this->options['context_popup_content'])) {
+      $context_popup_content = \Drupal::token()->replace($this->options['context_popup_content']);
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['contextPopupContent'] = [];
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['contextPopupContent']['enable'] = TRUE;
+      $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['contextPopupContent']['content'] = $context_popup_content;
     }
 
     /*
@@ -149,6 +164,9 @@ class CommonMap extends StylePluginBase {
       $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['markerClusterer'] = [];
       $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['markerClusterer']['enable'] = TRUE;
       $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['markerClusterer']['imagePath'] = $this->options['marker_clusterer_image_path'];
+      if (!empty($this->options['marker_clusterer_styles'])) {
+        $build['#attached']['drupalSettings']['geolocation']['commonMap'][$map_id]['markerClusterer']['styles'] = json_decode($this->options['marker_clusterer_styles']);
+      }
     }
 
     /*
@@ -185,24 +203,32 @@ class CommonMap extends StylePluginBase {
       }
     }
 
+    $this->renderFields($this->view->result);
+
     /*
      * Add locations to output.
      */
-    foreach ($this->view->result as $row) {
+    foreach ($this->view->result as $row_number => $row) {
       if (!empty($title_field)) {
-        $title_field_handler = $this->view->field[$title_field];
-        $title_build = [
-          '#theme' => $title_field_handler->themeFunctions(),
-          '#view' => $title_field_handler->view,
-          '#field' => $title_field_handler,
-          '#row' => $row,
-        ];
+        if (!empty($this->rendered_fields[$row_number][$title_field])) {
+          $title_build = $this->rendered_fields[$row_number][$title_field];
+        }
+        elseif (!empty($this->view->field[$title_field])) {
+          $title_build = $this->view->field[$title_field]->render($row);
+        }
       }
 
       if ($this->view->field[$geo_field] instanceof GeolocationField) {
         /** @var \Drupal\geolocation\Plugin\views\field\GeolocationField $geolocation_field */
         $geolocation_field = $this->view->field[$geo_field];
-        $geo_items = $geolocation_field->getItems($row);
+        $entity = $geolocation_field->getEntity($row);
+        if (isset($entity->{$geolocation_field->definition['field_name']})) {
+          /** @var \Drupal\Core\Field\FieldItemListInterface $field_item_list */
+          $geo_items = $entity->{$geolocation_field->definition['field_name']};
+        }
+        else {
+          $geo_items = [];
+        }
       }
       else {
         return $build;
@@ -217,6 +243,7 @@ class CommonMap extends StylePluginBase {
         }
       }
 
+      $icon_url = NULL;
       if (!empty($icon_field)) {
         /** @var \Drupal\views\Plugin\views\field\Field $icon_field_handler */
         $icon_field_handler = $this->view->field[$icon_field];
@@ -225,23 +252,27 @@ class CommonMap extends StylePluginBase {
           if (!empty($image_items[0])) {
             /** @var \Drupal\image\Plugin\Field\FieldType\ImageItem $item */
             $item = $image_items[0]['rendered']['#item'];
-            /** @var \Drupal\image\Entity\ImageStyle $style */
-            $style = ImageStyle::load($image_items[0]['rendered']['#image_style']);
-            if (!empty($style)) {
-              $icon_url = $style->buildUrl($item->entity->getFileUri());
-            }
-            else {
-              $icon_url = file_create_url($item->entity->getFileUri());
+            if (!empty($item->entity)) {
+              $file_uri = $item->entity->getFileUri();
+
+              /** @var \Drupal\image\Entity\ImageStyle $style */
+              $style = ImageStyle::load($image_items[0]['rendered']['#image_style']);
+              if (!empty($style)) {
+                $icon_url = $style->buildUrl($file_uri);
+              }
+              else {
+                $icon_url = file_url_transform_relative(file_create_url($file_uri));
+              }
             }
           }
         }
       }
 
+      /** @var \Drupal\geolocation\Plugin\Field\FieldType\GeolocationItem $item */
       foreach ($geo_items as $delta => $item) {
-        $geolocation = $item['raw'];
         $position = [
-          'lat' => $geolocation->lat,
-          'lng' => $geolocation->lng,
+          'lat' => $item->get('lat')->getValue(),
+          'lng' => $item->get('lng')->getValue(),
         ];
 
         $location = [
@@ -254,8 +285,37 @@ class CommonMap extends StylePluginBase {
         if (!empty($icon_url)) {
           $location['#icon'] = $icon_url;
         }
+        else {
+          if (
+            !empty($this->options['google_map_settings']['marker_icon_path'])
+            && !empty($this->rowTokens[$row_number])
+          ) {
+            $icon_token_uri = $this->viewsTokenReplace($this->options['google_map_settings']['marker_icon_path'], $this->rowTokens[$row_number]);
+            $icon_token_url = file_create_url($icon_token_uri);
+
+            if ($icon_token_url) {
+              $location['#icon'] = $icon_token_url;
+            }
+            else {
+              try {
+                $icon_token_url = Url::fromUri($icon_token_uri);
+                if ($icon_token_url) {
+                  $location['#icon'] = $icon_token_url->setAbsolute(TRUE)
+                    ->toString();
+                }
+              }
+              catch (\Exception $e) {
+                // User entered mal-formed URL, but that doesn't matter.
+                // We hereby skip it anyway.
+              }
+            }
+          }
+        }
         if (!empty($location_id)) {
           $location['#location_id'] = $location_id;
+        }
+        if ($this->options['marker_row_number']) {
+          $location['#marker_label'] = (int) $row_number + 1;
         }
 
         $build['#locations'][] = $location;
@@ -392,9 +452,11 @@ class CommonMap extends StylePluginBase {
     $options['title_field'] = ['default' => ''];
     $options['icon_field'] = ['default' => ''];
     $options['marker_scroll_to_result'] = ['default' => 0];
+    $options['marker_row_number'] = ['default' => FALSE];
     $options['id_field'] = ['default' => ''];
     $options['marker_clusterer'] = ['default' => 0];
     $options['marker_clusterer_image_path'] = ['default' => ''];
+    $options['marker_clusterer_styles'] = ['default' => []];
     $options['dynamic_map'] = [
       'contains' => [
         'enabled' => ['default' => 0],
@@ -405,6 +467,7 @@ class CommonMap extends StylePluginBase {
       ],
     ];
     $options['centre'] = ['default' => ''];
+    $options['context_popup_content'] = ['default' => ''];
 
     foreach (self::getGoogleMapDefaultSettings() as $key => $setting) {
       $options[$key] = ['default' => $setting];
@@ -459,19 +522,6 @@ class CommonMap extends StylePluginBase {
       }
     }
 
-    $form['show_raw_locations'] = [
-      '#title' => $this->t('Show raw locations.'),
-      '#description' => $this->t('By default, the location data for the map will be hidden when the map loads.'),
-      '#type' => 'checkbox',
-      '#default_value' => $this->options['show_raw_locations'],
-    ];
-
-    $form['even_empty'] = [
-      '#title' => $this->t('Display map when no locations are found.'),
-      '#type' => 'checkbox',
-      '#default_value' => $this->options['even_empty'],
-    ];
-
     $form['geolocation_field'] = [
       '#title' => $this->t('Geolocation source field'),
       '#type' => 'select',
@@ -488,52 +538,6 @@ class CommonMap extends StylePluginBase {
       '#description' => $this->t("The source of the title for each entity. Field type must be 'string'."),
       '#options' => $title_options,
       '#empty_value' => 'none',
-    ];
-
-    $form['icon_field'] = [
-      '#title' => $this->t('Icon source field'),
-      '#type' => 'select',
-      '#default_value' => $this->options['icon_field'],
-      '#description' => $this->t("Optional image (field) to use as icon."),
-      '#options' => $icon_options,
-      '#empty_value' => 'none',
-    ];
-
-    $form['marker_scroll_to_result'] = [
-      '#title' => $this->t('On clicking marker scroll to result instead of opening marker bubble'),
-      '#type' => 'checkbox',
-      '#default_value' => $this->options['marker_scroll_to_result'],
-    ];
-    $form['id_field'] = [
-      '#title' => $this->t('ID source field'),
-      '#type' => 'select',
-      '#default_value' => $this->options['id_field'],
-      '#description' => $this->t("Unique location ID used as scrolling target. If not targeting the raw location output, either add a class structured as 'geolocation-location-id-[ID]' or an attribute 'data-location-id=\"[ID]\"' to the target element."),
-      '#options' => $id_options,
-      '#empty_value' => 'none',
-      '#states' => [
-        'visible' => [
-          ':input[name="style_options[marker_scroll_to_result]"]' => ['checked' => TRUE],
-        ],
-      ],
-    ];
-
-    $form['marker_clusterer'] = [
-      '#title' => $this->t('Cluster markers'),
-      '#type' => 'checkbox',
-      '#description' => $this->t('See example at :url', [':url' => 'https://developers.google.com/maps/documentation/javascript/marker-clustering']),
-      '#default_value' => $this->options['marker_clusterer'],
-    ];
-    $form['marker_clusterer_image_path'] = [
-      '#title' => $this->t('Cluster image path'),
-      '#type' => 'textfield',
-      '#default_value' => $this->options['marker_clusterer_image_path'],
-      '#description' => $this->t("Override default image path :url", [':url' => 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m']),
-      '#states' => [
-        'visible' => [
-          ':input[name="style_options[marker_clusterer]"]' => ['checked' => TRUE],
-        ],
-      ],
     ];
 
     $map_update_target_options = $this->getMapUpdateOptions();
@@ -717,9 +721,143 @@ class CommonMap extends StylePluginBase {
     uasort($form['centre'], 'Drupal\Component\Utility\SortArray::sortByWeightProperty');
 
     /*
-     * Additional map settings.
+     * Advanced settings
      */
-    $form += $this->getGoogleMapsSettingsForm($this->options);
+
+    $form['advanced_settings'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Advanced settings'),
+    ];
+
+    $form['show_raw_locations'] = [
+      '#group' => 'style_options][advanced_settings',
+      '#title' => $this->t('Show raw locations'),
+      '#description' => $this->t('By default, the location data for the map will be hidden when the map loads.'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->options['show_raw_locations'],
+    ];
+
+    $form['even_empty'] = [
+      '#group' => 'style_options][advanced_settings',
+      '#title' => $this->t('Display map when no locations are found'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->options['even_empty'],
+    ];
+
+    if ($icon_options) {
+      $form['icon_field'] = [
+        '#group' => 'style_options][advanced_settings',
+        '#title' => $this->t('Icon source field'),
+        '#type' => 'select',
+        '#default_value' => $this->options['icon_field'],
+        '#description' => $this->t("Optional image (field) to use as icon."),
+        '#options' => $icon_options,
+        '#empty_value' => 'none',
+        '#process' => [
+          ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+          ['\Drupal\Core\Render\Element\Select', 'processSelect'],
+        ],
+        '#pre_render' => [
+          ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ],
+      ];
+    }
+
+    if ($id_options) {
+      $form['marker_scroll_to_result'] = [
+        '#group' => 'style_options][advanced_settings',
+        '#title' => $this->t('On clicking marker scroll to result instead of opening marker bubble'),
+        '#type' => 'checkbox',
+        '#default_value' => $this->options['marker_scroll_to_result'],
+      ];
+      $form['id_field'] = [
+        '#group' => 'style_options][advanced_settings',
+        '#title' => $this->t('ID source field'),
+        '#type' => 'select',
+        '#default_value' => $this->options['id_field'],
+        '#description' => $this->t("Unique location ID used as scrolling target. If not targeting the raw location output, either add a class structured as 'geolocation-location-id-[ID]' or an attribute 'data-location-id=\"[ID]\"' to the target element."),
+        '#options' => $id_options,
+        '#empty_value' => 'none',
+        '#states' => [
+          'visible' => [
+            ':input[name="style_options[marker_scroll_to_result]"]' => ['checked' => TRUE],
+          ],
+        ],
+        '#process' => [
+          ['\Drupal\Core\Render\Element\RenderElement', 'processGroup'],
+          ['\Drupal\Core\Render\Element\Select', 'processSelect'],
+        ],
+        '#pre_render' => [
+          ['\Drupal\Core\Render\Element\RenderElement', 'preRenderGroup'],
+        ],
+      ];
+    }
+
+    $form['marker_row_number'] = [
+      '#group' => 'style_options][advanced_settings',
+      '#title' => $this->t('Show views result row number in marker'),
+      '#type' => 'checkbox',
+      '#default_value' => $this->options['marker_row_number'],
+    ];
+
+    $form['context_popup_content'] = [
+      '#group' => 'style_options][advanced_settings',
+      '#type' => 'textarea',
+      '#title' => $this->t('Context popup content'),
+      '#description' => $this->t('A right click on the map will open a context popup with this content. Tokens supported. Additionally "@lat, @lng" will be replaced dynamically.'),
+      '#default_value' => $this->options['context_popup_content'],
+    ];
+
+    /*
+     * Marker Clusterer
+     */
+
+    $form['marker_clusterer_settings'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Marker Clusterer'),
+    ];
+    $form['marker_clusterer'] = [
+      '#group' => 'style_options][marker_clusterer_settings',
+      '#title' => $this->t('Cluster markers'),
+      '#type' => 'checkbox',
+      '#description' => $this->t('Various <a href=":url">examples</a> are available.', [':url' => 'https://developers.google.com/maps/documentation/javascript/marker-clustering']),
+      '#default_value' => $this->options['marker_clusterer'],
+    ];
+    $form['marker_clusterer_image_path'] = [
+      '#group' => 'style_options][marker_clusterer_settings',
+      '#title' => $this->t('Cluster image path'),
+      '#type' => 'textfield',
+      '#default_value' => $this->options['marker_clusterer_image_path'],
+      '#description' => $this->t("Set the marker image path. If omitted, the default image path %url will be used.", ['%url' => 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m']),
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[marker_clusterer]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    $form['marker_clusterer_styles'] = [
+      '#group' => 'style_options][marker_clusterer_settings',
+      '#title' => $this->t('Styles of the Cluster'),
+      '#type' => 'textarea',
+      '#default_value' => $this->options['marker_clusterer_styles'],
+      '#description' => $this->t(
+        'Set custom Cluster styles in JSON Format. Custom Styles have to be set for all 5 Cluster Images. See the <a href=":reference">reference</a> for details.',
+        [
+          ':reference' => 'https://googlemaps.github.io/js-marker-clusterer/docs/reference.html',
+        ]
+      ),
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[marker_clusterer]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    /*
+     * Google Maps settings
+     */
+
+    $form += $this->getGoogleMapsSettingsForm($this->options, 'style_options][');
   }
 
   /**
@@ -727,6 +865,23 @@ class CommonMap extends StylePluginBase {
    */
   public function validateOptionsForm(&$form, FormStateInterface $form_state) {
     parent::validateOptionsForm($form, $form_state);
+
+    $values = $form_state->getValues()['style_options'];
+
+    $marker_clusterer_styles = $values['marker_clusterer_styles'];
+    if (!empty($marker_clusterer_styles)) {
+      if (!is_string($marker_clusterer_styles)) {
+        $form_state->setErrorByName('style_options][marker_clusterer_styles', $this->t('Please enter a JSON string as style.'));
+      }
+      $json_result = json_decode($marker_clusterer_styles);
+      if ($json_result === NULL) {
+        $form_state->setErrorByName('style_options][marker_clusterer_styles', $this->t('Decoding style JSON failed. Error: %error.', ['%error' => json_last_error()]));
+      }
+      elseif (!is_array($json_result)) {
+        $form_state->setErrorByName('style_options][marker_clusterer_styles', $this->t('Decoded style JSON is not an array.'));
+      }
+    }
+
     $this->validateGoogleMapsSettingsForm($form, $form_state, 'style_options');
   }
 

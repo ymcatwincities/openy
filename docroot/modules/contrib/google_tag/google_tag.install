@@ -57,16 +57,18 @@ function google_tag_requirements($phase) {
         $description = t('An automated attempt to make the directory writable failed, possibly due to a permissions problem. Make the directory writable.');
         $value = t('Not writable');
       }
+      $extra = '';
       if ($phase == 'install') {
-        $description .= t(' For more information, see INSTALL.txt or the <a href=":handbook_url">online handbook</a>.', array(':handbook_url' => 'https://www.drupal.org/server-permissions'));
+        $extra = t('For more information, see INSTALL.txt or the <a href=":handbook_url">online handbook</a>.', array(':handbook_url' => 'https://www.drupal.org/server-permissions'));
         $value = '';
       }
       $description = array(
         '#type' => 'inline_template',
-        '#template' => '{{ error }} {{ description }}',
+        '#template' => '{{ error }} {{ description }} {{ extra }}',
         '#context' => array(
           'error' => $error,
           'description' => $description,
+          'extra' => $extra,
         ),
       );
       $requirements['google_tag_snippet_directory'] = array(

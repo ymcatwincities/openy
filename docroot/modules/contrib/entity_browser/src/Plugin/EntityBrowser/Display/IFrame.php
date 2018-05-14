@@ -1,14 +1,11 @@
 <?php
 
-/**
- * Contains \Drupal\entity_browser\Plugin\EntityBrowser\Display\IFrame.
- */
-
 namespace Drupal\entity_browser\Plugin\EntityBrowser\Display;
 
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\entity_browser\DisplayBase;
@@ -21,7 +18,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -30,7 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @EntityBrowserDisplay(
  *   id = "iframe",
  *   label = @Translation("iFrame"),
- *   description = @Translation("Displays entity browser in an iFrame."),
+ *   description = @Translation("Displays the entity browser in an iFrame container embedded into the main page."),
  *   uses_route = TRUE
  * )
  */
@@ -42,20 +38,6 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
    * @var \Drupal\Core\Routing\RouteMatchInterface
    */
   protected $currentRouteMatch;
-
-  /**
-   * UUID generator interface.
-   *
-   * @var \Drupal\Component\Uuid\UuidInterface
-   */
-  protected $uuidGenerator;
-
-  /**
-   * UIID string.
-   *
-   * @var string
-   */
-  protected $uuid = NULL;
 
   /**
    * Current path.
@@ -82,17 +64,20 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
    *   The plugin implementation definition.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   Event dispatcher service.
-   * @param \Drupal\Core\Routing\RouteMatchInterface
-   *   The currently active route match object.
-   * @param \Drupal\Component\Uuid\UuidInterface
+   * @param \Drupal\Component\Uuid\UuidInterface $uuid
    *   UUID generator interface.
+   * @param \Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface $selection_storage
+   *   The selection storage.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $current_route_match
+   *   The currently active route match object.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   Current request.
    * @param \Drupal\Core\Path\CurrentPathStack $current_path
    *   The current path.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $current_route_match, UuidInterface $uuid, Request $request, CurrentPathStack $current_path) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $event_dispatcher);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, UuidInterface $uuid, KeyValueStoreExpirableInterface $selection_storage, RouteMatchInterface $current_route_match, Request $request, CurrentPathStack $current_path) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $event_dispatcher, $uuid, $selection_storage);
     $this->currentRouteMatch = $current_route_match;
-    $this->uuidGenerator = $uuid;
     $this->request = $request;
     $this->currentPath = $current_path;
   }
@@ -106,8 +91,9 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
       $plugin_id,
       $plugin_definition,
       $container->get('event_dispatcher'),
-      $container->get('current_route_match'),
       $container->get('uuid'),
+      $container->get('entity_browser.selection_storage'),
+      $container->get('current_route_match'),
       $container->get('request_stack')->getCurrentRequest(),
       $container->get('path.current')
     );
@@ -117,46 +103,49 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return array(
+    return [
       'width' => '650',
       'height' => '500',
-      'link_text' => t('Select entities'),
+      'link_text' => $this->t('Select entities'),
       'auto_open' => FALSE,
-    ) + parent::defaultConfiguration();
+    ] + parent::defaultConfiguration();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function displayEntityBrowser(FormStateInterface $form_state) {
-    $uuid = $this->getUuid();
+  public function displayEntityBrowser(array $element, FormStateInterface $form_state, array &$complete_form, array $persistent_data = []) {
+    parent::displayEntityBrowser($element, $form_state, $complete_form, $persistent_data);
     /** @var \Drupal\entity_browser\Events\RegisterJSCallbacks $event */
-    // TODO - $uuid is unused in this event but we need to pass it as
-    // constructor expects it. See https://www.drupal.org/node/2600706 for more
-    // info.
-    $js_event_object = new RegisterJSCallbacks($this->configuration['entity_browser_id'], $uuid);
+    $js_event_object = new RegisterJSCallbacks($this->configuration['entity_browser_id'], $this->getUuid());
     $js_event_object->registerCallback('Drupal.entityBrowser.selectionCompleted');
     $callback_event = $this->eventDispatcher->dispatch(Events::REGISTER_JS_CALLBACKS, $js_event_object);
     $original_path = $this->currentPath->getPath();
+
     $data = [
       'query_parameters' => [
         'query' => [
-          'uuid' => $uuid,
+          'uuid' => $this->getUuid(),
           'original_path' => $original_path,
         ],
       ],
       'attributes' => [
         'href' => '#browser',
         'class' => ['entity-browser-handle', 'entity-browser-iframe'],
-        'data-uuid' => $uuid,
+        'data-uuid' => $this->getUuid(),
         'data-original-path' => $original_path,
       ],
     ];
-    $event_object = new AlterEntityBrowserDisplayData($this->configuration['entity_browser_id'], $uuid, $this->getPluginDefinition(), $form_state, $data);
+    $event_object = new AlterEntityBrowserDisplayData($this->configuration['entity_browser_id'], $this->getUuid(), $this->getPluginDefinition(), $form_state, $data);
     $event = $this->eventDispatcher->dispatch(Events::ALTER_BROWSER_DISPLAY_DATA, $event_object);
     $data = $event->getData();
     return [
       '#theme_wrappers' => ['container'],
+      '#attributes' => [
+        'class' => [
+          'entity-browser-iframe-container',
+        ],
+      ],
       'link' => [
         '#type' => 'html_tag',
         '#tag' => 'a',
@@ -167,7 +156,7 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
           'drupalSettings' => [
             'entity_browser' => [
               'iframe' => [
-                $uuid => [
+                $this->getUuid() => [
                   'src' => Url::fromRoute('entity_browser.' . $this->configuration['entity_browser_id'], [], $data['query_parameters'])
                     ->toString(),
                   'width' => $this->configuration['width'],
@@ -178,23 +167,17 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
                 ],
               ],
             ],
-          ]
+          ],
         ],
       ],
     ];
   }
 
   /**
-   * {@inheritdoc}
-   */
-  public function selectionCompleted(array $entities) {
-    $this->entities = $entities;
-    $this->eventDispatcher->addListener(KernelEvents::RESPONSE, [$this, 'propagateSelection']);
-  }
-
-  /**
-   * KernelEvents::RESPONSE listener. Intercepts default response and injects
-   * response that will trigger JS to propagate selected entities upstream.
+   * KernelEvents::RESPONSE listener.
+   *
+   * Intercepts default response and injects response that will trigger JS to
+   * propagate selected entities upstream.
    *
    * @param FilterResponseEvent $event
    *   Response event.
@@ -202,13 +185,17 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
   public function propagateSelection(FilterResponseEvent $event) {
     $render = [
       'labels' => [
-        '#markup' => 'Labels: ' . implode(', ', array_map(function (EntityInterface $item) {return $item->label();}, $this->entities)),
+        '#markup' => 'Labels: ' . implode(', ', array_map(function (EntityInterface $item) {
+          return $item->label();
+        }, $this->entities)),
         '#attached' => [
-          'library' => ['entity_browser/iframe_selection'],
+          'library' => ['entity_browser/'. $this->pluginDefinition['id'] . '_selection'],
           'drupalSettings' => [
             'entity_browser' => [
-              'iframe' => [
-                'entities' => array_map(function (EntityInterface $item) {return [$item->id(), $item->uuid(), $item->getEntityTypeId()];}, $this->entities),
+              $this->pluginDefinition['id'] => [
+                'entities' => array_map(function (EntityInterface $item) {
+                  return [$item->id(), $item->uuid(), $item->getEntityTypeId()];
+                }, $this->entities),
                 'uuid' => $this->request->query->get('uuid'),
               ],
             ],
@@ -223,25 +210,8 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
   /**
    * {@inheritdoc}
    */
-  public function getUuid() {
-    if (empty($this->uuid)) {
-      $this->uuid = $this->uuidGenerator->generate();
-    }
-    return $this->uuid;
-  }
-
-  /**
-    * {@inheritdoc}
-    */
-  public function setUuid($uuid) {
-    $this->uuid = $uuid;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function path() {
-    return '/entity-browser/iframe/' . $this->configuration['entity_browser_id'];
+    return '/entity-browser/' . $this->pluginDefinition['id'] . '/' . $this->configuration['entity_browser_id'];
   }
 
   /**
@@ -250,10 +220,10 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $configuration = $this->getConfiguration();
     $form['width'] = [
-      '#type' => 'number',
+      '#type' => 'textfield',
       '#title' => $this->t('Width of the iFrame'),
-      '#min' => 1,
       '#default_value' => $configuration['width'],
+      '#description' => $this->t('Positive integer for absolute size or a relative size in percentages.'),
     ];
 
     $form['height'] = [
@@ -282,11 +252,14 @@ class IFrame extends DisplayBase implements DisplayRouterInterface {
    * {@inheritdoc}
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('width') <= 0) {
-      $form_state->setError($form['width'], $this->t('Width must be greather than 0.'));
+    // We want all positive integers, or percentages between 1% and 100%.
+    $pattern = '/^([1-9][0-9]*|([2-9][0-9]{0,1}%)|(1[0-9]{0,2}%))$/';
+    if (preg_match($pattern, $form_state->getValue('width')) == 0) {
+      $form_state->setError($form['width'], $this->t('Width must be a number greater than 0, or a percentage between 1% and 100%.'));
     }
+
     if ($form_state->getValue('height') <= 0) {
-      $form_state->setError($form['height'], $this->t('Height must be greather than 0.'));
+      $form_state->setError($form['height'], $this->t('Height must be greater than 0.'));
     }
   }
 

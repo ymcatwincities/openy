@@ -3,6 +3,7 @@ status: true
 dependencies:
   module:
     - file
+    - file_browser_example
     - image
     - node
 id: node.field_file_browser_image

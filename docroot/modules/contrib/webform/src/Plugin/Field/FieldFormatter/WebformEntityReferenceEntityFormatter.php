@@ -5,7 +5,6 @@ namespace Drupal\webform\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Serialization\Yaml;
-use Drupal\webform\WebformMessageManagerInterface;
 
 /**
  * Plugin implementation of the 'Webform rendered entity' formatter.
@@ -26,8 +25,8 @@ class WebformEntityReferenceEntityFormatter extends WebformEntityReferenceFormat
    */
   public static function defaultSettings() {
     return [
-        'source_entity' => TRUE,
-      ] + parent::defaultSettings();
+      'source_entity' => TRUE,
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -68,12 +67,12 @@ class WebformEntityReferenceEntityFormatter extends WebformEntityReferenceFormat
 
     $elements = [];
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
-      // Do not display the webform if the current user can't create submissions.
+      // Do not display the webform if the current user can't
+      // create submissions.
       if ($entity->id() && !$entity->access('submission_create')) {
-        continue;
+        $elements[$delta] = [];
       }
-
-      if ($is_paragraph_edit_preview) {
+      elseif ($is_paragraph_edit_preview) {
         // Webform can not be nested within node edit form because the nested
         // <form> tags will cause unexpected validation issues.
         $elements[$delta] = [
@@ -82,7 +81,7 @@ class WebformEntityReferenceEntityFormatter extends WebformEntityReferenceFormat
           '#message_type' => 'info',
         ];
       }
-      elseif ($this->isOpen($entity, $items[$delta])) {
+      else {
         $values = [];
         if ($this->getSetting('source_entity')) {
           $values += [
@@ -95,13 +94,6 @@ class WebformEntityReferenceEntityFormatter extends WebformEntityReferenceFormat
         }
         $elements[$delta] = $entity->getSubmissionForm($values);
       }
-      else {
-        $this->messageManager->setWebform($entity);
-        $message_type = $this->isOpening($entity, $items[$delta]) ? WebformMessageManagerInterface::FORM_OPEN_MESSAGE : WebformMessageManagerInterface::FORM_CLOSE_MESSAGE;
-        $elements[$delta] = [];
-        $elements[$delta] = $this->messageManager->append($elements[$delta], $message_type, 'warning');
-      }
-
       $this->setCacheContext($elements[$delta], $entity, $items[$delta]);
     }
     return $elements;

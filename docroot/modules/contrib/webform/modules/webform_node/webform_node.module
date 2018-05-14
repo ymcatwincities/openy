@@ -10,10 +10,10 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\webform\Element\WebformMessage;
 use Drupal\webform\Entity\Webform;
-use Drupal\webform\Plugin\Field\FieldType\WebformEntityReferenceItem;
 
 /**
  * Implements hook_entity_type_alter().
@@ -53,7 +53,7 @@ function webform_node_help($route_name, RouteMatchInterface $route_match) {
   }
 
   // Display warning message if webform query string parameter is missing.
-  if ($has_webform_field && !\Drupal::request()->get('webform')) {
+  if ($has_webform_field && !\Drupal::request()->get('webform_id')) {
     $build = [
       '#type' => 'webform_message',
       '#message_type' => 'warning',
@@ -64,7 +64,7 @@ function webform_node_help($route_name, RouteMatchInterface $route_match) {
       '#cache' => ['max-age' => 0],
     ];
   }
-  elseif (\Drupal::request()->get('webform')) {
+  elseif (\Drupal::request()->get('webform_id')) {
     // If there is a webform query string parameter, then disable caching.
     $build = ['#cache' => ['max-age' => 0]];
   }
@@ -85,9 +85,12 @@ function webform_node_node_access(NodeInterface $node, $operation, AccountInterf
     return AccessResult::neutral();
   }
   else {
+    /** @var \Drupal\webform\WebformEntityReferenceManagerInterface $entity_reference_manager */
+    $entity_reference_manager = \Drupal::service('webform.entity_reference_manager');
+
     // Check that the node has a webform field that has been populated.
-    $webform_field_name = WebformEntityReferenceItem::getEntityWebformFieldName($node);
-    if (!$webform_field_name || !$node->$webform_field_name->entity) {
+    $webform = $entity_reference_manager->getWebform($node);
+    if (!$webform) {
       return AccessResult::forbidden();
     }
 
@@ -126,15 +129,86 @@ function webform_node_node_prepare_form(NodeInterface $node, $operation, FormSta
     return;
   }
 
+  /** @var \Drupal\webform\WebformEntityReferenceManagerInterface $entity_reference_manager */
+  $entity_reference_manager = \Drupal::service('webform.entity_reference_manager');
+
   // Make the node has a webform (entity reference) field.
-  $field_name = WebformEntityReferenceItem::getEntityWebformFieldName($node);
+  $field_name = $entity_reference_manager->getFieldName($node);
   if (!$field_name) {
     return;
   }
 
-  // Populate the webform field.
-  $webform = \Drupal::request()->get('webform');
-  if ($webform && Webform::load($webform)) {
-    $node->$field_name->target_id = $webform;
+  // Populate the node's title and webform field.
+  $webform_id = \Drupal::request()->query->get('webform_id');
+  if ($webform_id && ($webform = Webform::load($webform_id))) {
+    $node->title->value = $webform->label();
+    $node->$field_name->target_id = $webform_id;
+  }
+}
+
+/**
+ * Implements hook_node_delete().
+ *
+ * Remove user specified entity references.
+ */
+function webform_node_node_delete(NodeInterface $node) {
+  /** @var \Drupal\webform\WebformEntityReferenceManagerInterface $entity_reference_manager */
+  $entity_reference_manager = \Drupal::service('webform.entity_reference_manager');
+  $entity_reference_manager->deleteUserWebformId($node);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for page title templates.
+ */
+function webform_node_preprocess_page_title(&$variables) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node && is_string($node)) {
+    $node = Node::load($node);
+  }
+
+  if (!$node) {
+    return;
+  }
+
+  /** @var \Drupal\webform\WebformEntityReferenceManagerInterface $entity_reference_manager */
+  $entity_reference_manager = \Drupal::service('webform.entity_reference_manager');
+
+  // Only allow user to change webform for specific routes.
+  if (!$entity_reference_manager->isUserWebformRoute($node)) {
+    return;
+  }
+
+  $webforms = $entity_reference_manager->getWebforms($node);
+  if (count($webforms) > 1) {
+    $route_options = ['query' => \Drupal::destination()->getAsArray()];
+
+    $operations = [];
+
+    // Add current webform first.
+    $current_webform = $entity_reference_manager->getWebform($node);
+    $operations[$current_webform->id()] = [
+      'title' => $current_webform->label(),
+      'url' => Url::fromRoute('entity.node.webform.entity_reference.set', ['node' => $node->id(), 'webform' => $current_webform->id()], $route_options),
+    ];
+
+    // Add remaining webforms.
+    foreach ($webforms as $webform) {
+      $operations[$webform->id()] = [
+        'title' => $webform->label(),
+        'url' => Url::fromRoute('entity.node.webform.entity_reference.set', ['node' => $node->id(), 'webform' => $webform->id()], $route_options),
+      ];
+    }
+
+    $variables['title_prefix']['webform_node'] = [
+      '#type' => 'operations',
+      '#links' => $operations,
+      '#prefix' => '<div class="webform-dropbutton webform-node-entity-references">',
+      '#suffix' => '</div>',
+      '#attached' => [
+        'library' => [
+          'webform_node/webform_node.entity_references',
+        ],
+      ],
+    ];
   }
 }

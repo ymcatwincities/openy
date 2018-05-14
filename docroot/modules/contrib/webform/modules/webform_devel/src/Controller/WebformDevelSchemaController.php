@@ -2,6 +2,7 @@
 
 namespace Drupal\webform_devel\Controller;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\webform\WebformInterface;
@@ -15,6 +16,13 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class WebformDevelSchemaController extends ControllerBase implements ContainerInjectionInterface {
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * The webform devel schema generator.
    *
    * @var \Drupal\webform_devel\WebformDevelSchemaInterface
@@ -24,10 +32,13 @@ class WebformDevelSchemaController extends ControllerBase implements ContainerIn
   /**
    * Constructs a WebformDevelSchemaController object.
    *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
    * @param \Drupal\webform_devel\WebformDevelSchemaInterface $schema
    *   The webform devel schema generator.
    */
-  public function __construct(WebformDevelSchemaInterface $schema) {
+  public function __construct(ConfigFactoryInterface $config_factory, WebformDevelSchemaInterface $schema) {
+    $this->configFactory = $config_factory;
     $this->schema = $schema;
   }
 
@@ -36,6 +47,7 @@ class WebformDevelSchemaController extends ControllerBase implements ContainerIn
    */
   public static function create(ContainerInterface $container) {
     return new static(
+      $container->get('config.factory'),
       $container->get('webform_devel.schema')
     );
   }
@@ -50,8 +62,10 @@ class WebformDevelSchemaController extends ControllerBase implements ContainerIn
    *   A streamed response containing webform's schema as a CSV.
    */
   public function index(WebformInterface $webform) {
+    $multiple_delimiter = $this->configFactory->get('webform.settings')->get('export.multiple_delimiter') ?: ';';
+
     // From: http://obtao.com/blog/2013/12/export-data-to-a-csv-file-with-symfony/
-    $response = new StreamedResponse(function () use ($webform) {
+    $response = new StreamedResponse(function () use ($webform, $multiple_delimiter) {
       $handle = fopen('php://output', 'r+');
 
       // Header.
@@ -60,6 +74,7 @@ class WebformDevelSchemaController extends ControllerBase implements ContainerIn
       // Rows.
       $elements = $this->schema->getElements($webform);
       foreach ($elements as $element) {
+        $element['options'] = implode($multiple_delimiter, $element['options']);
         fputcsv($handle, $element);
       }
 

@@ -109,7 +109,7 @@ class WebformElementTableTest extends WebformTestBase {
     $excluded_columns = $this->getExportColumns($webform);
     unset($excluded_columns['webform_tableselect_sort_custom']);
 
-    $this->getExport($webform, ['options_format' => 'separate', 'excluded_columns' => $excluded_columns]);
+    $this->getExport($webform, ['options_single_format' => 'separate', 'options_multiple_format' => 'separate', 'excluded_columns' => $excluded_columns]);
     $this->assertRaw('"webform_tableselect_sort (custom): one","webform_tableselect_sort (custom): two","webform_tableselect_sort (custom): three","webform_tableselect_sort (custom): four","webform_tableselect_sort (custom): five"');
     $this->assertRaw('5,4,3,2,1');
   }

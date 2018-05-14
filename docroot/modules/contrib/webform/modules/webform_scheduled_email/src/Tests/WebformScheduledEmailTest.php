@@ -93,6 +93,7 @@ class WebformScheduledEmailTest extends WebformNodeTestBase {
     $this->assertText("Test: Handler: Test scheduled email: Submission #$sid: Email not scheduled for Broken handler because [broken] is not a valid date/token.");
     $this->assertEqual($scheduled_manager->total($webform_schedule), 0);
 
+    /**************************************************************************/
     // Check deleting handler removes scheduled emails.
     // @todo Figure out why the below exception is occurring during tests only.
     // "Drupal\Component\Plugin\Exception\PluginNotFoundException: Plugin ID 'tomorrow' was not found. "
@@ -100,6 +101,7 @@ class WebformScheduledEmailTest extends WebformNodeTestBase {
     // $webform->deleteWebformHandler($handler);
     // $total = \Drupal::database()->select('webform_scheduled_email')->countQuery()->execute()->fetchField();
     // $this->assertEqual($total, 3);
+    /**************************************************************************/
 
     /**************************************************************************/
     // Webform scheduling.

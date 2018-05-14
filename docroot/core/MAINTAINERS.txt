@@ -11,45 +11,35 @@ Core committers
 ---------------
 
 The Drupal Core committers oversee the development of Drupal as a whole. The
-core committers for Drupal are (per major version, in alphabetical order):
+core committers for Drupal are (in alphabetical order):
 
-Drupal 8
-- Alex Bronstein 'effulgentsia' https://www.drupal.org/u/effulgentsia
-  (Framework Manager)
+BDFL
 - Dries Buytaert 'dries' https://www.drupal.org/u/dries
-  (BDFL, Product Manager)
+
+Product managers
+- Dries Buytaert 'dries' https://www.drupal.org/u/dries
 - Angela Byron 'webchick' https://www.drupal.org/u/webchick
-  (Product Manager)
-- Nathaniel Catchpole 'catch' https://www.drupal.org/u/catch
-  (Framework Manager, Release Manager)
-- Chris McCafferty 'cilefen' https://www.drupal.org/u/cilefen
-  (Release Manager)
-- Jess Myrbo 'xjm' https://www.drupal.org/u/xjm
-  (Release Manager)
-- Alex Pott 'alexpott' https://www.drupal.org/u/alexpott
-  (Framework Manager)
-- Scott Reeves 'Cottser' https://www.drupal.org/u/cottser
-  (Framework Manager - Frontend)
-
-Provisional membership:
-- Lauri Eskola 'lauriii' https://www.drupal.org/u/lauriii
-  (Framework Manager - Frontend)
 - Gábor Hojtsy 'Gábor Hojtsy' https://www.drupal.org/u/gábor-hojtsy
-  (Product Manager)
-- Lee Rowlands 'larowlan' https://www.drupal.org/u/larowlan
-  (Framework Manager)
 - Roy Scholten 'yoroy' https://www.drupal.org/u/yoroy
-  (Product Manager)
 
-Drupal 7
-- Fabian Franz 'Fabianx' https://www.drupal.org/u/fabianx
-  (Framework Manager)
-- David Rothstein 'David_Rothstein' https://www.drupal.org/u/david_rothstein
-  (Release Manager, Framework Manager, Product Manager)
-- Stefan Ruijsenaars 'stefan.r' https://www.drupal.org/u/stefanr-0
-  (Release Manager, Product Manager)
+Framework managers
 
-Provisional membership: None at this time.
+  Backend
+  - Alex Bronstein 'effulgentsia' https://www.drupal.org/u/effulgentsia
+  - Nathaniel Catchpole 'catch' https://www.drupal.org/u/catch
+  - Alex Pott 'alexpott' https://www.drupal.org/u/alexpott
+  - Lee Rowlands 'larowlan' https://www.drupal.org/u/larowlan
+  - (provisional) Francesco Placella 'plach' https://www.drupal.org/u/plach
+
+  Frontend
+  - Lauri Eskola 'lauriii' https://www.drupal.org/u/lauriii
+  - Scott Reeves 'Cottser' https://www.drupal.org/u/cottser
+
+Release managers
+- Nathaniel Catchpole 'catch' https://www.drupal.org/u/catch
+- Chris McCafferty 'cilefen' https://www.drupal.org/u/cilefen
+- Jess Myrbo 'xjm' https://www.drupal.org/u/xjm
+
 
 Subsystem maintainers
 ---------------------
@@ -170,6 +160,7 @@ CSS
 - John Albin Wilkins 'JohnAlbin' https://www.drupal.org/u/johnalbin
 
 Database API
+- ?
 
   MySQL DB driver
   - David Strauss 'David Strauss' https://www.drupal.org/u/david-strauss
@@ -203,6 +194,7 @@ Editor
 
 Entity API
 - Nathaniel Catchpole 'catch' https://www.drupal.org/u/catch
+- Hristo Chonov 'hchonov' https://www.drupal.org/u/hchonov
 - Sascha Grossenbacher 'Berdir' https://www.drupal.org/u/berdir
 - Francesco Placella 'plach' https://www.drupal.org/u/plach
 - Tobias Stöckler 'tstoeckler' https://www.drupal.org/u/tstoeckler
@@ -255,6 +247,7 @@ JavaScript
 - Théodore Biadala 'nod_' https://www.drupal.org/u/nod_
 - Kay Leung 'droplet' https://www.drupal.org/u/droplet
 - Matthew Grill 'drpal' https://www.drupal.org/u/drpal
+- Sally Young 'justafish' https://www.drupal.org/u/justafish
 
 Language
 - Francesco Placella 'plach' https://www.drupal.org/u/plach
@@ -272,6 +265,10 @@ Mail
 Markup
 - ?
 
+Media
+- Sean Blommaert 'seanB' https://www.drupal.org/u/seanb
+- Adam Globus-Hoenich 'phenaproxima' https://www.drupal.org/u/phenaproxima
+
 Menu
 - Daniel Wehner 'dawehner' https://www.drupal.org/u/dawehner
 - Peter Wolanin 'pwolanin' https://www.drupal.org/u/pwolanin
@@ -285,16 +282,10 @@ Menu UI
 
 Migrate
 - Adam Globus-Hoenich 'phenaproxima' https://www.drupal.org/u/phenaproxima
-- Ben Dougherty 'benjy' https://www.drupal.org/u/benjy
 - Lucas Hedding 'heddn' https://www.drupal.org/u/heddn
-- Mike Ryan 'mikeryan' https://www.drupal.org/u/mikeryan
+- Markus Sipilä 'masipila' https://www.drupal.org/u/masipila
 - Vicki Spagnolo 'quietone' https://www.drupal.org/u/quietone
-
-Migrate (Drupal)
-- Ben Dougherty 'benjy' https://www.drupal.org/u/benjy
-- Lucas Hedding 'heddn' https://www.drupal.org/u/heddn
-- Mike Ryan 'mikeryan' https://www.drupal.org/u/mikeryan
-- Vicki Spagnolo 'quietone' https://www.drupal.org/u/quietone
+- Maxime Turcotte 'maxocub' https://www.drupal.org/u/maxocub
 
 Node
 - Tim Millwood 'timmillwood' https://www.drupal.org/u/timmillwood
@@ -306,9 +297,6 @@ Node Access
 
 Options
 - ?
-
-Outside In
-- Ted Bowman 'tedbow' https://www.drupal.org/u/tedbow
 
 Page Cache
 - Lorenz Schori 'znerol' https://www.drupal.org/u/znerol
@@ -355,6 +343,9 @@ Search
 
 Serialization
 - Damian Lee 'damiankloip' https://www.drupal.org/u/damiankloip
+
+Settings Tray
+- Ted Bowman 'tedbow' https://www.drupal.org/u/tedbow
 
 Seven
 - ?
@@ -489,10 +480,8 @@ Media Initiative
 
 PHPUnit Initiative
 - Daniel Wehner 'dawehner' https://www.drupal.org/u/dawehner
-
-  Provisional membership:
-  - Len Swaneveld 'Lendude' https://www.drupal.org/u/lendude
-  - Michiel Nugter 'michielnugter' https://www.drupal.org/u/michielnugter
+  - (provisional) Michiel Nugter 'michielnugter' https://www.drupal.org/u/michielnugter
+  - (provisional) Len Swaneveld 'Lendude' https://www.drupal.org/u/lendude
 
 Workflow Initiative
 - Dick Olsson 'dixon_' https://www.drupal.org/u/dixon_
@@ -512,11 +501,11 @@ tools, documentation, and processes to make it easier for new contributors to
 get involved. They organize communications and logistics, and actively
 participate in mentoring.
 
+- Mauricio Dinarte 'dinarcon' https://www.drupal.org/u/dinarcon
 - Lucas Hedding 'heddn' https://www.drupal.org/u/heddn
+- Rachel Lawson 'rachel_norfolk' https://www.drupal.org/u/rachel_norfolk
 - Valery Lourie 'valthebald' https://www.drupal.org/u/valthebald
-- Alina Mackenzie 'alimac' https://www.drupal.org/u/alimac
 - Jess Myrbo 'xjm' https://www.drupal.org/u/xjm
-- Andrea Soper 'ZenDoodles' https://www.drupal.org/u/zendoodles
-- Cathy Theys 'YesCT' https://www.drupal.org/u/yesct
+- Matthew Radcliffe 'mradcliffe' https://www.drupal.org/u/mradcliffe
 
 Provisional membership: None at this time.

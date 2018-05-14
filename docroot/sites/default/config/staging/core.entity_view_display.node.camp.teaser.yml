@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.camp.field_alternate_location
     - field.field.node.camp.field_body
     - field.field.node.camp.field_camp_links
-    - field.field.node.camp.field_content
+    - field.field.node.camp.field_ygtc_content
     - field.field.node.camp.field_facebook_page_id
     - field.field.node.camp.field_include_general_blog_posts
     - field.field.node.camp.field_location
@@ -32,7 +32,7 @@ hidden:
   field_alternate_location: true
   field_body: true
   field_camp_links: true
-  field_content: true
+  field_ygtc_content: true
   field_facebook_page_id: true
   field_include_general_blog_posts: true
   field_location: true

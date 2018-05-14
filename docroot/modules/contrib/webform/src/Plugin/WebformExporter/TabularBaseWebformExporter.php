@@ -172,7 +172,7 @@ abstract class TabularBaseWebformExporter extends WebformExporterBase {
 
     // Add custom entity reference field definitions which rely on the
     // entity type and entity id.
-    if ($export_options['entity_reference_format'] == 'link' && isset($this->fieldDefinitions['entity_type']) && isset($this->fieldDefinitions['entity_id'])) {
+    if (isset($this->fieldDefinitions['entity_type']) && isset($this->fieldDefinitions['entity_id'])) {
       $this->fieldDefinitions['entity_title'] = [
         'name' => 'entity_title',
         'title' => t('Submitted to: Entity title'),

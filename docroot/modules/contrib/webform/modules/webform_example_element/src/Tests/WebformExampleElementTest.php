@@ -42,8 +42,8 @@ class WebformExampleElementTest extends WebformTestBase {
     ];
     $sid = $this->postSubmission($webform, $edit);
     $webform_submission = WebformSubmission::load($sid);
-    $this->assertEqual($webform_submission->getData('webform_example_element'), '{Test}');
-    $this->assertEqual($webform_submission->getData('webform_example_element_multiple'), ['{Test 01}']);
+    $this->assertEqual($webform_submission->getElementData('webform_example_element'), '{Test}');
+    $this->assertEqual($webform_submission->getElementData('webform_example_element_multiple'), ['{Test 01}']);
   }
 
 }

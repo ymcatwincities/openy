@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\crop\Entity\ImageCrop.
- */
-
 namespace Drupal\crop\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
@@ -60,9 +55,19 @@ class Crop extends ContentEntityBase implements CropInterface {
    */
   public function position() {
     return [
-      'x' => $this->x->value,
-      'y' => $this->y->value,
+      'x' => (int) $this->x->value,
+      'y' => (int) $this->y->value,
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPosition($x, $y) {
+    $this->x = $x;
+    $this->y = $y;
+
+    return $this;
   }
 
   /**
@@ -70,8 +75,8 @@ class Crop extends ContentEntityBase implements CropInterface {
    */
   public function anchor() {
     return [
-      'x' => $this->x->value - ($this->width->value / 2),
-      'y' => $this->y->value - ($this->height->value / 2),
+      'x' => (int) ($this->x->value - ($this->width->value / 2)),
+      'y' => (int) ($this->y->value - ($this->height->value / 2)),
     ];
   }
 
@@ -80,9 +85,18 @@ class Crop extends ContentEntityBase implements CropInterface {
    */
   public function size() {
     return [
-      'width' => $this->width->value,
-      'height' => $this->height->value,
+      'width' => (int) $this->width->value,
+      'height' => (int) $this->height->value,
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSize($width, $height) {
+    $this->width = $width;
+    $this->height = $height;
+    return $this;
   }
 
   /**
@@ -102,6 +116,34 @@ class Crop extends ContentEntityBase implements CropInterface {
   /**
    * {@inheritdoc}
    */
+  public static function cropExists($uri, $type = NULL) {
+    $query = \Drupal::entityQuery('crop')
+      ->condition('uri', $uri);
+    if ($type) {
+      $query->condition('type', $type);
+    }
+    return (bool) $query->execute();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function findCrop($uri, $type) {
+    $query = \Drupal::entityQuery('crop')
+      ->condition('uri', $uri);
+    if ($type) {
+      $query->condition('type', $type);
+    }
+    $crop = $query->sort('cid')
+      ->range(0, 1)
+      ->execute();
+
+    return $crop ? \Drupal::entityTypeManager()->getStorage('crop')->load(current($crop)) : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);
 
@@ -113,7 +155,7 @@ class Crop extends ContentEntityBase implements CropInterface {
 
     // Try to set URI if not yet defined.
     if (empty($this->uri->value) && !empty($this->entity_type->value) && !empty($this->entity_id->value)) {
-      $entity = \Drupal::entityManager()->getStorage($this->entity_type->value)->load($this->entity_id->value);
+      $entity = \Drupal::entityTypeManager()->getStorage($this->entity_type->value)->load($this->entity_id->value);
       if ($uri = $this->provider()->uri($entity)) {
         $this->set('uri', $uri);
       }
@@ -132,6 +174,25 @@ class Crop extends ContentEntityBase implements CropInterface {
       // Therefore, this code allows us to avoid clobbering an existing log
       // entry with an empty one.
       $record->revision_log = $this->original->revision_log->value;
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function postSave(EntityStorageInterface $storage, $update = TRUE) {
+    parent::postSave($storage, $update);
+
+    // If you are manually generating your image derivatives instead of waiting
+    // for them to be generated on the fly, because you are using a cloud
+    // storage service (like S3), then you may not want your image derivatives
+    // to be flushed. If they are you could end up serving 404s during the time
+    // between the crop entity being saved and the image derivative being
+    // manually generated and pushed to your cloud storage service. In that
+    // case, set this configuration variable to false.
+    $flush_derivative_images = \Drupal::config('crop.settings')->get('flush_derivative_images');
+    if ($flush_derivative_images) {
+      image_path_flush($this->uri->value);
     }
   }
 
@@ -200,13 +261,6 @@ class Crop extends ContentEntityBase implements CropInterface {
       ->setRevisionable(TRUE)
       ->setTranslatable(TRUE)
       ->setSetting('max_length', 255);
-
-    $fields['image_style'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Image style'))
-      ->setDescription(t('The image style crop relates to.'))
-      ->setRevisionable(TRUE)
-      ->setSetting('target_type', 'image_style')
-      ->setReadOnly(TRUE);
 
     $fields['height'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Height'))

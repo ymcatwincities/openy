@@ -1,24 +1,24 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Plugin\search_api\processor\Tokenizer.
- */
-
 namespace Drupal\search_api\Plugin\search_api\processor;
 
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\search_api\Item\FieldInterface;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextValueInterface;
 use Drupal\search_api\Processor\FieldsProcessorPluginBase;
-use Drupal\search_api\Utility;
+use Drupal\search_api\Utility\Utility;
 
 /**
+ * Splits text into individual words for searching.
+ *
  * @SearchApiProcessor(
  *   id = "tokenizer",
  *   label = @Translation("Tokenizer"),
  *   description = @Translation("Splits text into individual words for searching."),
  *   stages = {
+ *     "pre_index_save" = 0,
  *     "preprocess_index" = -6,
  *     "preprocess_query" = -6
  *   }
@@ -37,11 +37,15 @@ class Tokenizer extends FieldsProcessorPluginBase {
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return array(
+    $configuration = parent::defaultConfiguration();
+
+    $configuration += [
       'spaces' => '',
       'overlap_cjk' => TRUE,
       'minimum_word_size' => 3,
-    );
+    ];
+
+    return $configuration;
   }
 
   /**
@@ -58,32 +62,32 @@ class Tokenizer extends FieldsProcessorPluginBase {
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildConfigurationForm($form, $form_state);
 
-    $args = array(
-      '@pcre-url' => Url::fromUri('http://www.php.net/manual/en/regexp.reference.character-classes.php')->toString(),
-      '@doc-url' => Url::fromUri('https://api.drupal.org/api/drupal/core!lib!Drupal!Component!Utility!Unicode.php/constant/Unicode%3A%3APREG_CLASS_WORD_BOUNDARY/8')->toString(),
-    );
-    $form['spaces'] = array(
+    $args = [
+      ':pcre-url' => Url::fromUri('https://php.net/manual/regexp.reference.character-classes.php')->toString(),
+      ':doc-url' => Url::fromUri('https://api.drupal.org/api/drupal/core!lib!Drupal!Component!Utility!Unicode.php/constant/Unicode%3A%3APREG_CLASS_WORD_BOUNDARY/8')->toString(),
+    ];
+    $form['spaces'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Whitespace characters'),
-      '#description' => $this->t('Specify the characters that should be regarded as whitespace and therefore used as word-delimiters. Specify the characters as the inside of a <a href="@pcre-url">PCRE character class</a>. Leave empty to use a <a href="@doc-url">default</a> which should be suitable for most languages with a Latin alphabet.', $args),
+      '#description' => $this->t('Specify the characters that should be regarded as whitespace and therefore used as word-delimiters. Specify the characters as the inside of a <a href=":pcre-url">PCRE character class</a>. Leave empty to use a <a href=":doc-url">default</a> which should be suitable for most languages with a Latin alphabet.', $args),
       '#default_value' => $this->configuration['spaces'],
-    );
+    ];
 
-    $form['overlap_cjk'] = array(
+    $form['overlap_cjk'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Simple CJK handling'),
       '#default_value' => $this->configuration['overlap_cjk'],
-      '#description' => $this->t('Whether to apply a simple Chinese/Japanese/Korean tokenizer based on overlapping sequences. Does not affect other languages.')
-    );
+      '#description' => $this->t('Whether to apply a simple Chinese/Japanese/Korean tokenizer based on overlapping sequences. Does not affect other languages.'),
+    ];
 
-    $form['minimum_word_size'] = array(
+    $form['minimum_word_size'] = [
       '#type' => 'number',
       '#title' => $this->t('Minimum word length to index'),
       '#default_value' => $this->configuration['minimum_word_size'],
       '#min' => 1,
       '#max' => 1000,
-      '#description' => $this->t('The number of characters a word has to be to be indexed. A lower setting means better search result ranking, but also a larger database. Each search query must contain at least one keyword that is this size (or longer).')
-    );
+      '#description' => $this->t('The number of characters a word has to be to be indexed. A lower setting means better search result ranking, but also a larger database. Each search query must contain at least one keyword that is this size (or longer).'),
+    ];
 
     return $form;
   }
@@ -95,8 +99,8 @@ class Tokenizer extends FieldsProcessorPluginBase {
     parent::validateConfigurationForm($form, $form_state);
 
     $spaces = str_replace('/', '\/', trim($form_state->getValues()['spaces']));
-    if ($spaces !== '' && @preg_match('/(' . $spaces . ')+/u', '') === FALSE) {
-      $form_state->setError($form['spaces'], $form['spaces']['#title'] . ': ' . $this->t('The entered text is no valid regular expression.'));
+    if ($spaces !== '' && @preg_match('/[' . $spaces . ']+/u', '') === FALSE) {
+      $form_state->setError($form['spaces'], $form['spaces']['#title'] . ': ' . $this->t('The entered text is no valid PCRE character class.'));
     }
   }
 
@@ -104,13 +108,27 @@ class Tokenizer extends FieldsProcessorPluginBase {
    * {@inheritdoc}
    */
   protected function testType($type) {
-    return Utility::isTextType($type, array('text', 'tokenized_text'));
+    return $this->getDataTypeHelper()->isTextType($type);
   }
 
   /**
-   * Matches all 'N' Unicode character classes (numbers)
+   * {@inheritdoc}
+   */
+  protected function processField(FieldInterface $field) {
+    parent::processField($field);
+
+    foreach ($field->getValues() as $value) {
+      if ($value instanceof TextValueInterface) {
+        $value->setProperty('tokenized');
+      }
+    }
+  }
+
+  /**
+   * Matches all 'N' Unicode character classes (numbers).
    *
    * @return string
+   *   A string of Unicode characters to use in the regular expression.
    */
   protected function getPregClassNumbers() {
     return '\x{30}-\x{39}\x{b2}\x{b3}\x{b9}\x{bc}-\x{be}\x{660}-\x{669}\x{6f0}-\x{6f9}' .
@@ -125,9 +143,10 @@ class Tokenizer extends FieldsProcessorPluginBase {
   }
 
   /**
-   * Matches all 'P' Unicode character classes (punctuation)
+   * Matches all 'P' Unicode character classes (punctuation).
    *
    * @return string
+   *   A string of Unicode characters to use in the regular expression.
    */
   protected function getPregClassPunctuation() {
     return '\x{21}-\x{23}\x{25}-\x{2a}\x{2c}-\x{2f}\x{3a}\x{3b}\x{3f}\x{40}\x{5b}-\x{5d}' .
@@ -160,11 +179,12 @@ class Tokenizer extends FieldsProcessorPluginBase {
    * considered symbols. (See
    * http://www.unicode.org/Public/UNIDATA/extracted/DerivedGeneralCategory.txt)
    *
-   * @see search_expand_cjk() (Core Search of Drupal 8)
-   *
    * @return string
+   *   A string of Unicode characters to use in the regular expression.
+   *
+   * @see search_expand_cjk()
    */
-  protected function getPregClassCJK() {
+  protected function getPregClassCjk() {
     return '\x{1100}-\x{11FF}\x{3040}-\x{309F}\x{30A1}-\x{318E}' .
         '\x{31A0}-\x{31B7}\x{31F0}-\x{31FF}\x{3400}-\x{4DBF}\x{4E00}-\x{9FCF}' .
         '\x{A000}-\x{A48F}\x{A4D0}-\x{A4FD}\x{A960}-\x{A97F}\x{AC00}-\x{D7FF}' .
@@ -175,16 +195,15 @@ class Tokenizer extends FieldsProcessorPluginBase {
   /**
    * {@inheritdoc}
    */
-  protected function processFieldValue(&$value, &$type) {
+  protected function processFieldValue(&$value, $type) {
     $this->prepare();
-    $type = 'tokenized_text';
 
     $text = $this->simplifyText($value);
     // Split on spaces. The configured (or default) delimiters have been
     // replaced by those already in simplifyText().
     $arr = explode(' ', $text);
 
-    $value = array();
+    $value = [];
     foreach ($arr as $token) {
       if (is_numeric($token) || Unicode::strlen($token) >= $this->configuration['minimum_word_size']) {
         $value[] = Utility::createTextToken($token);
@@ -206,19 +225,19 @@ class Tokenizer extends FieldsProcessorPluginBase {
   protected function simplifyText($text) {
     // Optionally apply simple CJK handling to the text.
     if ($this->configuration['overlap_cjk']) {
-      $text = preg_replace_callback('/[' . $this->getPregClassCJK() . ']+/u', array($this, 'expandCjk'), $text);
+      $text = preg_replace_callback('/[' . $this->getPregClassCjk() . ']+/u', [$this, 'expandCjk'], $text);
     }
 
     // To improve searching for numerical data such as dates, IP addresses or
     // version numbers, we consider a group of numerical characters separated
-    // only by punctuation characters to be one piece. This also means that
-    // searching for e.g. '20/03/1984' also returns results with '20-03-1984'
-    // in them.
-    // Readable regexp: ([number]+)[punctuation]+(?=[number])
+    // only by punctuation characters to be one piece. This also means, for
+    // example, that searching for "20/03/1984" also returns results with
+    // "20-03-1984" in them.
+    // Readable regular expression: "([number]+)[punctuation]+(?=[number])".
     $text = preg_replace('/([' . $this->getPregClassNumbers() . ']+)[' . $this->getPregClassPunctuation() . ']+(?=[' . $this->getPregClassNumbers() . '])/u', '\1', $text);
 
     // Multiple dot and dash groups are word boundaries and replaced with space.
-    // No need to use the unicode modifier here because 0-127 ASCII characters
+    // No need to use the Unicode modifier here because 0-127 ASCII characters
     // can't match higher UTF-8 characters as the leftmost bit of those are 1.
     $text = preg_replace('/[.-]{2,}/', ' ', $text);
 
@@ -265,7 +284,7 @@ class Tokenizer extends FieldsProcessorPluginBase {
     }
     $tokens = ' ';
     // Build a FIFO queue of characters.
-    $chars = array();
+    $chars = [];
     for ($i = 0; $i < $length; $i++) {
       // Add the next character off the beginning of the string to the queue.
       $current = Unicode::substr($str, 0, 1);

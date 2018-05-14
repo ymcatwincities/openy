@@ -141,7 +141,7 @@ class WebformAjaxJavaScriptTest extends JavascriptTestBase {
     // Test Ajax confirmation url. (test_ajax_confirmation_url)
     /**************************************************************************/
 
-    $webform_ajax_confirmation_url  = Webform::load('test_ajax_confirmation_url');
+    $webform_ajax_confirmation_url = Webform::load('test_ajax_confirmation_url');
 
     // Submit form.
     $this->drupalPostForm($webform_ajax_confirmation_url->toUrl(), [], t('Submit'));
@@ -154,7 +154,7 @@ class WebformAjaxJavaScriptTest extends JavascriptTestBase {
     // Test Ajax confirmation url with message. (test_ajax_confirmation_url_msg)
     /**************************************************************************/
 
-    $webform_ajax_confirmation_url_msg  = Webform::load('test_ajax_confirmation_url_msg');
+    $webform_ajax_confirmation_url_msg = Webform::load('test_ajax_confirmation_url_msg');
 
     // Submit form.
     $this->drupalPostForm($webform_ajax_confirmation_url_msg->toUrl(), [], t('Submit'));

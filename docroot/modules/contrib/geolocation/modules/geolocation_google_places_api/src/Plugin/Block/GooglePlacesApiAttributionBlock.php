@@ -18,7 +18,7 @@ class GooglePlacesApiAttributionBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    return ['#markup' => '<span id="geolocation-google-places-api-attribution" />'];
+    return ['#markup' => '<span id="geolocation-google-places-api-attribution"></span>'];
   }
 
 }

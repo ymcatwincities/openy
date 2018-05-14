@@ -1,28 +1,103 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Item\Field.
- */
-
 namespace Drupal\search_api\Item;
 
+use Drupal\Core\TypedData\DataDefinitionInterface;
+use Drupal\search_api\DataType\DataTypePluginManager;
+use Drupal\search_api\IndexInterface;
+use Drupal\search_api\LoggerTrait;
+use Drupal\search_api\Processor\ConfigurablePropertyInterface;
 use Drupal\search_api\SearchApiException;
-use Drupal\search_api\Utility;
+use Drupal\search_api\Utility\Utility;
 
 /**
  * Represents a field on a search item that can be indexed.
  */
 class Field implements \IteratorAggregate, FieldInterface {
 
-  use FieldTrait;
+  use LoggerTrait;
 
   /**
-   * The field's values.
+   * The index this field is attached to.
    *
-   * @var array
+   * @var \Drupal\search_api\IndexInterface
    */
-  protected $values = array();
+  protected $index;
+
+  /**
+   * The ID of the index this field is attached to.
+   *
+   * This is only used to avoid serialization of the index in __sleep() and
+   * __wakeup().
+   *
+   * @var string
+   */
+  protected $indexId;
+
+  /**
+   * The field's identifier.
+   *
+   * @var string
+   */
+  protected $fieldIdentifier;
+
+  /**
+   * The field's original identifier.
+   *
+   * @var string
+   */
+  protected $originalFieldIdentifier;
+
+  /**
+   * The field's datasource's ID.
+   *
+   * @var string|null
+   */
+  protected $datasourceId;
+
+  /**
+   * The field's datasource.
+   *
+   * @var \Drupal\search_api\Datasource\DatasourceInterface|null
+   */
+  protected $datasource;
+
+  /**
+   * The property path on the search object.
+   *
+   * @var string
+   */
+  protected $propertyPath;
+
+  /**
+   * This field's data definition.
+   *
+   * @var \Drupal\Core\TypedData\DataDefinitionInterface
+   */
+  protected $dataDefinition;
+
+  /**
+   * The human-readable label for this field.
+   *
+   * @var string
+   */
+  protected $label;
+
+  /**
+   * The human-readable description for this field.
+   *
+   * FALSE if the field has no description.
+   *
+   * @var string|false
+   */
+  protected $description;
+
+  /**
+   * The human-readable label for this field's datasource.
+   *
+   * @var string
+   */
+  protected $labelPrefix;
 
   /**
    * The Search API data type of this field.
@@ -32,25 +107,18 @@ class Field implements \IteratorAggregate, FieldInterface {
   protected $type;
 
   /**
-   * The original data type of this field.
-   *
-   * @var string
-   */
-  protected $originalType;
-
-  /**
-   * The state of this field in the index, whether indexed or not.
-   *
-   * @var bool
-   */
-  protected $indexed;
-
-  /**
    * The boost assigned to this field, if any.
    *
    * @var float
    */
   protected $boost;
+
+  /**
+   * Whether this field should be hidden from the user.
+   *
+   * @var bool
+   */
+  protected $hidden;
 
   /**
    * Whether this field should always be enabled/indexed.
@@ -67,6 +135,333 @@ class Field implements \IteratorAggregate, FieldInterface {
   protected $typeLocked;
 
   /**
+   * The field's configuration.
+   *
+   * @var array
+   */
+  protected $configuration = [];
+
+  /**
+   * This field's dependencies, if any.
+   *
+   * @var string[][]
+   */
+  protected $dependencies = [];
+
+  /**
+   * The field's values.
+   *
+   * @var array
+   */
+  protected $values = [];
+
+  /**
+   * The original data type of this field.
+   *
+   * @var string
+   */
+  protected $originalType;
+
+  /**
+   * The data type manager.
+   *
+   * @var \Drupal\search_api\DataType\DataTypePluginManager|null
+   */
+  protected $dataTypeManager;
+
+  /**
+   * Constructs a Field object.
+   *
+   * @param \Drupal\search_api\IndexInterface $index
+   *   The field's index.
+   * @param string $field_identifier
+   *   The field's identifier.
+   */
+  public function __construct(IndexInterface $index, $field_identifier) {
+    $this->index = $index;
+    $this->fieldIdentifier = $this->originalFieldIdentifier = $field_identifier;
+  }
+
+  /**
+   * Retrieves the data type manager.
+   *
+   * @return \Drupal\search_api\DataType\DataTypePluginManager
+   *   The data type manager.
+   */
+  public function getDataTypeManager() {
+    return $this->dataTypeManager ?: \Drupal::service('plugin.manager.search_api.data_type');
+  }
+
+  /**
+   * Sets the data type manager.
+   *
+   * @param \Drupal\search_api\DataType\DataTypePluginManager $data_type_manager
+   *   The new data type manager.
+   *
+   * @return $this
+   */
+  public function setDataTypeManager(DataTypePluginManager $data_type_manager) {
+    $this->dataTypeManager = $data_type_manager;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getIndex() {
+    return $this->index;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setIndex(IndexInterface $index) {
+    if ($this->index->id() != $index->id()) {
+      throw new \InvalidArgumentException('Attempted to change the index of a field object.');
+    }
+    $this->index = $index;
+    $this->datasource = NULL;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFieldIdentifier() {
+    return $this->fieldIdentifier;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOriginalFieldIdentifier() {
+    return $this->originalFieldIdentifier;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setFieldIdentifier($field_id) {
+    $this->fieldIdentifier = $field_id;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function wasRenamed() {
+    return $this->fieldIdentifier != $this->originalFieldIdentifier;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSettings() {
+    $settings = [
+      'label' => $this->getLabel(),
+      'datasource_id' => $this->getDatasourceId(),
+      'property_path' => $this->getPropertyPath(),
+      'type' => $this->getType(),
+    ];
+    if ($this->getDatasourceId() === NULL) {
+      unset($settings['datasource_id']);
+    }
+    if ($this->getBoost() != 1.0) {
+      $settings['boost'] = $this->getBoost();
+    }
+    if ($this->isIndexedLocked()) {
+      $settings['indexed_locked'] = TRUE;
+    }
+    if ($this->isTypeLocked()) {
+      $settings['type_locked'] = TRUE;
+    }
+    if ($this->isHidden()) {
+      $settings['hidden'] = TRUE;
+    }
+    if ($this->getConfiguration()) {
+      $settings['configuration'] = $this->getConfiguration();
+    }
+    if ($this->getDependencies()) {
+      $settings['dependencies'] = $this->getDependencies();
+    }
+    return $settings;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDatasourceId() {
+    return $this->datasourceId;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDatasource() {
+    if (!isset($this->datasource) && isset($this->datasourceId)) {
+      $this->datasource = $this->index->getDatasource($this->datasourceId);
+    }
+    return $this->datasource;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setDatasourceId($datasource_id) {
+    if ($this->datasourceId != $datasource_id) {
+      $this->datasource = NULL;
+    }
+    $this->datasourceId = $datasource_id;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPropertyPath() {
+    return $this->propertyPath;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPropertyPath($property_path) {
+    $this->propertyPath = $property_path;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCombinedPropertyPath() {
+    return Utility::createCombinedId($this->getDatasourceId(), $this->getPropertyPath());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLabel() {
+    return $this->label;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setLabel($label) {
+    $this->label = $label;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDescription() {
+    if (!isset($this->description)) {
+      try {
+        $property = $this->getDataDefinition();
+        if ($property instanceof ConfigurablePropertyInterface) {
+          $this->description = $property->getFieldDescription($this);
+        }
+        else {
+          $this->description = $property->getDescription();
+        }
+        $this->description = $this->description ?: FALSE;
+      }
+      catch (SearchApiException $e) {
+        $this->logException($e);
+      }
+    }
+    return $this->description ?: NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setDescription($description) {
+    // Set FALSE instead of NULL so caching will work properly.
+    $this->description = $description ?: FALSE;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPrefixedLabel() {
+    if (!isset($this->labelPrefix)) {
+      $this->labelPrefix = '';
+      if (isset($this->datasourceId)) {
+        $this->labelPrefix = $this->datasourceId;
+        try {
+          $this->labelPrefix = $this->getDatasource()->label();
+        }
+        catch (SearchApiException $e) {
+          $this->logException($e);
+        }
+        $this->labelPrefix .= ' » ';
+      }
+    }
+    return $this->labelPrefix . $this->getLabel();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setLabelPrefix($label_prefix) {
+    $this->labelPrefix = $label_prefix;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isHidden() {
+    return (bool) $this->hidden;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setHidden($hidden = TRUE) {
+    $this->hidden = $hidden;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDataDefinition() {
+    if (!isset($this->dataDefinition)) {
+      $definitions = $this->index->getPropertyDefinitions($this->getDatasourceId());
+      $definition = \Drupal::getContainer()
+        ->get('search_api.fields_helper')
+        ->retrieveNestedProperty($definitions, $this->getPropertyPath());
+      if (!$definition) {
+        $field_label = $this->getLabel();
+        $index_label = $this->getIndex()->label();
+        throw new SearchApiException("Could not retrieve data definition for field '$field_label' on index '$index_label'.");
+      }
+      $this->dataDefinition = $definition;
+    }
+    return $this->dataDefinition;
+  }
+
+  /**
+   * Sets the field's data definition.
+   *
+   * This should mainly be used only when creating a new field object. Calling
+   * this on an existing field object might not work as expected.
+   *
+   * @param \Drupal\Core\TypedData\DataDefinitionInterface $data_definition
+   *   The field's new data definition.
+   *
+   * @return $this
+   */
+  public function setDataDefinition(DataDefinitionInterface $data_definition) {
+    $this->dataDefinition = $data_definition;
+    return $this;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getType() {
@@ -76,15 +471,24 @@ class Field implements \IteratorAggregate, FieldInterface {
   /**
    * {@inheritdoc}
    */
-  public function setType($type, $notify = FALSE) {
-    $this->type = $type;
-    if ($notify) {
-      $fields = $this->index->getOption('fields', array());
-      if (isset($fields[$this->fieldIdentifier])) {
-        $fields[$this->fieldIdentifier]['type'] = $type;
-        $this->index->setOption('fields', $fields);
-      }
+  public function getDataTypePlugin() {
+    $data_type_manager = $this->getDataTypeManager();
+    if ($data_type_manager->hasDefinition($this->getType())) {
+      return $data_type_manager->createInstance($this->getType());
     }
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setType($type) {
+    if ($type != $this->type && $this->isTypeLocked()) {
+      $field_label = $this->getLabel();
+      $index_label = $this->getIndex()->label();
+      throw new SearchApiException("Trying to change the type of field '$field_label' on index '$index_label', which is locked.");
+    }
+    $this->type = $type;
     return $this;
   }
 
@@ -107,6 +511,13 @@ class Field implements \IteratorAggregate, FieldInterface {
    * {@inheritdoc}
    */
   public function addValue($value) {
+    // The data type has to be able to alter the given value before it is
+    // included.
+    $data_type_plugin = $this->getDataTypePlugin();
+    if ($data_type_plugin) {
+      $value = $data_type_plugin->getValue($value);
+    }
+
     $this->values[] = $value;
     return $this;
   }
@@ -121,7 +532,7 @@ class Field implements \IteratorAggregate, FieldInterface {
         $this->originalType = $this->getDataDefinition()->getDataType();
       }
       catch (SearchApiException $e) {
-        watchdog_exception('search_api', $e);
+        $this->logException($e);
       }
     }
     return $this->originalType;
@@ -138,64 +549,15 @@ class Field implements \IteratorAggregate, FieldInterface {
   /**
    * {@inheritdoc}
    */
-  public function isIndexed() {
-    if (!isset($this->indexed)) {
-      $fields = $this->index->getOption('fields', array());
-      $this->indexed = isset($fields[$this->fieldIdentifier]);
-    }
-    return $this->isIndexedLocked() || $this->indexed;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setIndexed($indexed, $notify = FALSE) {
-    $this->indexed = (bool) $indexed;
-    if ($notify) {
-      $fields = $this->index->getOption('fields', array());
-      if ($indexed) {
-        $fields[$this->fieldIdentifier] = array('type' => $this->getType());
-        if (($boost = $this->getBoost()) != 1.0) {
-          $fields[$this->fieldIdentifier]['boost'] = $boost;
-        }
-      }
-      else {
-        unset($fields[$this->fieldIdentifier]);
-      }
-      $this->index->setOption('fields', $fields);
-    }
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getBoost() {
-    if (!isset($this->boost)) {
-      $fields = $this->index->getOption('fields', array());
-      $this->boost = isset($fields[$this->fieldIdentifier]['boost']) ? (float) $fields[$this->fieldIdentifier]['boost'] : 1.0;
-    }
-    return $this->boost;
+    return isset($this->boost) ? $this->boost : 1.0;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setBoost($boost, $notify = FALSE) {
-    $boost = (float) $boost;
-    $this->boost = $boost;
-    if ($notify) {
-      $fields = $this->index->getOption('fields', array());
-      if (isset($fields[$this->fieldIdentifier])) {
-        if ($boost != 1.0) {
-          $fields[$this->fieldIdentifier]['boost'] = $boost;
-        }
-        else {
-          unset($fields[$this->fieldIdentifier]['boost']);
-        }
-        $this->index->setOption('fields', $fields);
-      }
-    }
+  public function setBoost($boost) {
+    $this->boost = (float) $boost;
     return $this;
   }
 
@@ -232,10 +594,31 @@ class Field implements \IteratorAggregate, FieldInterface {
   /**
    * {@inheritdoc}
    */
-  public function __sleep() {
-    $properties = $this->getSerializationProperties();
-    unset($properties['values']);
-    return array_keys($properties);
+  public function getConfiguration() {
+    return $this->configuration;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setConfiguration(array $configuration) {
+    $this->configuration = $configuration;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDependencies() {
+    return $this->dependencies;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setDependencies(array $dependencies) {
+    $this->dependencies = $dependencies;
+    return $this;
   }
 
   /**
@@ -249,15 +632,15 @@ class Field implements \IteratorAggregate, FieldInterface {
    * Implements the magic __toString() method to simplify debugging.
    */
   public function __toString() {
-    $out = $this->getLabel() . ' [' . $this->getFieldIdentifier() . ']: ';
-    if ($this->isIndexed()) {
-      $out .= 'indexed as type ' . $this->getType();
-      if (Utility::isTextType($this->getType())) {
-        $out .= ' (boost ' . $this->getBoost() . ')';
-      }
-    }
-    else {
-      $out .= 'not indexed';
+    $label = $this->getLabel();
+    $field_id = $this->getFieldIdentifier();
+    $type = $this->getType();
+    $out = "$label [$field_id]: indexed as type $type";
+    $is_text_type = \Drupal::getContainer()
+      ->get('search_api.data_type_helper')
+      ->isTextType($type);
+    if ($is_text_type) {
+      $out .= ' (boost ' . $this->getBoost() . ')';
     }
     if ($this->getValues()) {
       $out .= "\nValues:";
@@ -267,6 +650,34 @@ class Field implements \IteratorAggregate, FieldInterface {
       }
     }
     return $out;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __sleep() {
+    $this->indexId = $this->index->id();
+    $properties = get_object_vars($this);
+    // Don't serialize objects in properties or the field values.
+    unset($properties['index']);
+    unset($properties['datasource']);
+    unset($properties['dataDefinition']);
+    unset($properties['dataTypeManager']);
+    return array_keys($properties);
+  }
+
+  /**
+   * Implements the magic __wakeup() method to control object unserialization.
+   */
+  public function __wakeup() {
+    // Make sure we have a container to do this. This is important to correctly
+    // display test failures.
+    if ($this->indexId && \Drupal::hasContainer()) {
+      $this->index = \Drupal::entityTypeManager()
+        ->getStorage('search_api_index')
+        ->load($this->indexId);
+      $this->indexId = NULL;
+    }
   }
 
 }

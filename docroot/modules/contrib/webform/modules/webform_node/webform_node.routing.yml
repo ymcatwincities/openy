@@ -2,14 +2,14 @@ entity.webform.references:
   path: '/admin/structure/webform/manage/{webform}/references'
   defaults:
     _controller: '\Drupal\webform_node\Controller\WebformNodeReferencesListController::listing'
-    _title_callback: '\Drupal\webform\Controller\WebformController::title'
+    _title_callback: '\Drupal\webform\Controller\WebformEntityController::title'
   requirements:
     _entity_access: 'webform.update'
 
 entity.node.webform.confirmation:
   path: '/node/{node}/webform/confirmation'
   defaults:
-    _controller: '\Drupal\webform\Controller\WebformController::confirmation'
+    _controller: '\Drupal\webform\Controller\WebformEntityController::confirmation'
     _title_callback: '\Drupal\Core\Entity\Controller\EntityController::title'
     operation: view
     entity_access: 'webform.submission_create'
@@ -66,7 +66,7 @@ entity.node.webform.user.submission:
 entity.node.webform.user.submission.edit:
   path: '/node/{node}/webform/submissions/{webform_submission}/edit'
   defaults:
-    _entity_form: 'webform_submission.default'
+    _entity_form: 'webform_submission.edit'
     _title_callback: 'Drupal\webform\Controller\WebformSubmissionController::title'
     operation: webform_submission_edit
     entity_access: 'webform_submission.update'
@@ -91,7 +91,7 @@ entity.node.webform.user.submission.delete:
   requirements:
     _custom_access: '\Drupal\webform_node\Access\WebformNodeAccess::checkWebformSubmissionAccess'
 
-entity.node.webform.test:
+entity.node.webform.test_form:
   path: '/node/{node}/webform/test'
   defaults:
     _controller: '\Drupal\webform\Controller\WebformTestController::testForm'
@@ -151,7 +151,7 @@ entity.node.webform.results_export_file:
   path: '/node/{node}/webform/results/download/file/{filename}'
   defaults:
     _controller: '\Drupal\webform\Controller\WebformResultsExportController::file'
-    _title_callback: 'Drupal\webform\Controller\WebformController::title'
+    _title_callback: 'Drupal\webform\Controller\WebformEntityController::title'
     operation: webform_submission_view
     entity_access: 'webform.submission_view_any'
   options:
@@ -258,7 +258,7 @@ entity.node.webform_submission.yaml:
 entity.node.webform_submission.edit_form:
   path: '/node/{node}/webform/submission/{webform_submission}/edit'
   defaults:
-    _entity_form: 'webform_submission.default'
+    _entity_form: 'webform_submission.edit'
     _title_callback: 'Drupal\webform\Controller\WebformSubmissionController::title'
     operation: webform_submission_edit
     entity_access: 'webform_submission.update'
@@ -273,11 +273,10 @@ entity.node.webform_submission.edit_form:
 entity.node.webform_submission.edit_form.all:
   path: '/node/{node}/webform/submission/{webform_submission}/edit/all'
   defaults:
-    _entity_form: 'webform_submission.default'
+    _entity_form: 'webform_submission.edit_all'
     _title_callback: 'Drupal\webform\Controller\WebformSubmissionController::title'
-    operation: webform_submission_edit
+    operation: webform_submission_edit_all
     entity_access: 'webform_submission.update'
-    mode: disable_pages
   options:
     _admin_route: TRUE
     parameters:
@@ -308,7 +307,6 @@ entity.node.webform_submission.resend_form:
     _title_callback: 'Drupal\webform\Controller\WebformSubmissionController::title'
     operation: webform_submission_resend
     entity_access: 'webform_submission.update_any'
-    resend: true
   options:
     _admin_route: TRUE
     parameters:
@@ -363,3 +361,19 @@ entity.node.webform_submission.log:
   requirements:
     _permission: 'access webform submission log'
     _custom_access: '\Drupal\webform_node\Access\WebformNodeAccess::checkWebformLogAccess'
+
+entity.node.webform.entity_reference.set:
+  path: '/node/{node}/webform/change/{webform}'
+  defaults:
+    _controller: '\Drupal\webform_node\Controller\WebformNodeEntityReferenceController::change'
+    operation: webform_submission_view
+    entity_access: 'webform.submission_view_any'
+  options:
+    parameters:
+      node:
+        type: 'entity:node'
+      webform:
+        type: 'entity:webform'
+  requirements:
+    _custom_access: '\Drupal\webform_node\Access\WebformNodeAccess::checkWebformAccess'
+    _csrf_token: 'TRUE'

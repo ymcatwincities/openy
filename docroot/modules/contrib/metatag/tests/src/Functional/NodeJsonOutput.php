@@ -48,26 +48,8 @@ class NodeJsonOutput extends BrowserTestBase {
   public function testNode() {
     $this->provisionResource();
 
-    $content_type = 'metatag_test';
-    $args = [
-      'type' => $content_type,
-      'label' => 'Test content type',
-    ];
-    $this->createContentType($args);
-    
-    $args = [
-      'body' => [
-        [
-          'value' => 'Testing JSON output for a content type',
-          'format' => filter_default_format(),
-        ],
-      ],
-      'title' => 'Test JSON output',
-      'type' => 'article',
-    ];
     /* @var \Drupal\node\NodeInterface $node */
-    $node = $this->createNode($args);
-
+    $node = $this->createContentTypeNode('Test JSON output', 'Testing JSON output for a content type');
     $url = $node->toUrl();
 
     // Load the node's page.

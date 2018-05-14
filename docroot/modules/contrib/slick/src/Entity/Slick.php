@@ -93,6 +93,13 @@ class Slick extends ConfigEntityBase implements SlickInterface {
   protected $options = [];
 
   /**
+   * The slick HTML ID.
+   *
+   * @var int
+   */
+  private static $slickId;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $values, $entity_type = 'slick') {
@@ -170,8 +177,16 @@ class Slick extends ConfigEntityBase implements SlickInterface {
   /**
    * {@inheritdoc}
    */
-  public function getSetting($setting_name) {
-    return isset($this->getSettings()[$setting_name]) ? $this->getSettings()[$setting_name] : NULL;
+  public function getSetting($name) {
+    return isset($this->getSettings()[$name]) ? $this->getSettings()[$name] : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSetting($name, $value) {
+    $this->options['settings'][$name] = $value;
+    return $this;
   }
 
   /**
@@ -182,17 +197,10 @@ class Slick extends ConfigEntityBase implements SlickInterface {
   }
 
   /**
-   * Overrides \Drupal\Core\Entity\Entity::create().
-   */
-  public static function create(array $values = []) {
-    $optionset = parent::create($values);
-
-    $optionset->setSettings($optionset->getSettings());
-    return $optionset;
-  }
-
-  /**
    * Returns the Slick responsive settings.
+   *
+   * @return array
+   *   The responsive options.
    */
   public function getResponsiveOptions() {
     if (empty($this->breakpoints)) {
@@ -217,14 +225,20 @@ class Slick extends ConfigEntityBase implements SlickInterface {
 
   /**
    * Sets the Slick responsive settings.
+   *
+   * @return $this
+   *   The class instance that this method is called on.
    */
-  public function setResponsiveSettings($settings, $delta = 0) {
-    $this->options['responsives']['responsive'][$delta]['settings'] = $settings;
+  public function setResponsiveSettings($values, $delta = 0, $key = 'settings') {
+    $this->options['responsives']['responsive'][$delta][$key] = $values;
     return $this;
   }
 
   /**
    * Strip out options containing default values so to have real clean JSON.
+   *
+   * @return array
+   *   The cleaned out settings.
    */
   public function removeDefaultValues(array $js) {
     $config   = [];
@@ -258,7 +272,7 @@ class Slick extends ConfigEntityBase implements SlickInterface {
         $cleaned[$key]['breakpoint'] = $responsives[$key]['breakpoint'];
 
         // Destroy responsive slick if so configured.
-        if ($responsives[$key]['unslick']) {
+        if (!empty($responsives[$key]['unslick'])) {
           $cleaned[$key]['settings'] = 'unslick';
           unset($responsives[$key]['unslick']);
         }
@@ -293,6 +307,9 @@ class Slick extends ConfigEntityBase implements SlickInterface {
 
   /**
    * Defines the dependent options.
+   *
+   * @return array
+   *   The dependent options.
    */
   public static function getDependentOptions() {
     $down_arrow = ['downArrowTarget', 'downArrowOffset'];
@@ -311,17 +328,25 @@ class Slick extends ConfigEntityBase implements SlickInterface {
   /**
    * Returns the trusted HTML ID of a single slick instance.
    *
+   * @return string
+   *   The html ID.
+   *
    * @todo: Consider Blazy::getHtmlId() instead.
    */
   public static function getHtmlId($string = 'slick', $id = '') {
-    $slick_id = &drupal_static('slick_id', 0);
+    if (!isset(static::$slickId)) {
+      static::$slickId = 0;
+    }
 
     // Do not use dynamic Html::getUniqueId, otherwise broken asnavfors.
-    return empty($id) ? Html::getId($string . '-' . ++$slick_id) : $id;
+    return empty($id) ? Html::getId($string . '-' . ++static::$slickId) : strip_tags($id);
   }
 
   /**
    * Returns HTML or layout related settings to shut up notices.
+   *
+   * @return array
+   *   The default settings.
    */
   public static function htmlSettings() {
     return [

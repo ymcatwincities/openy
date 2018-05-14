@@ -10,6 +10,17 @@ use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
+ * Implements hook_page_attachments().
+ */
+function webform_bootstrap_page_attachments(array &$attachments) {
+  if (!WebformThemeHelper::isActiveTheme('bootstrap')) {
+    return;
+  }
+
+  $attachments['#attached']['library'][] = 'webform_bootstrap/webform_bootstrap';
+}
+
+/**
  * Implements hook_webform_element_ELEMENT_TYPE_alter().
  */
 function webform_bootstrap_webform_element_webform_terms_of_service_alter(array &$element, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
@@ -43,6 +54,13 @@ function webform_bootstrap_webform_element_alter(array &$element, FormStateInter
   }
   if ($smart_description_enabled && isset($element['#description']) && is_array($element['#description']) && (empty($element['#smart_description']) || $element['#smart_description'] === TRUE)) {
     $element['#description'] =  \Drupal::service('renderer')->renderPlain($element['#description']);
+  }
+
+  // Enable Bootstrap .input-group wrapper for #field_prefix.
+  // and/or #field_suffix support.
+  // @see \Drupal\bootstrap\Plugin\ProcessManager::process
+  if (isset($element['#field_prefix']) || isset($element['#field_suffix'])) {
+    $element['#input_group'] = TRUE;
   }
 }
 

@@ -1,11 +1,11 @@
-name: 'OpenY demo taxonomy facility type'
-description: 'OpenY demo taxonomy facility type'
+name: 'OpenY Demo Taxonomy Facility Type'
+description: 'OpenY Demo Taxonomy Facility Type.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
   - openy_loc_facility
   - taxonomy
-version: 8.x-1.0

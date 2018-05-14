@@ -10,7 +10,7 @@ field_name: field_activity_category
 entity_type: node
 bundle: activity
 label: 'Program Subcategory'
-description: ''
+description: 'A reference field for selecting the program subcategory.'
 required: false
 translatable: true
 default_value: {  }

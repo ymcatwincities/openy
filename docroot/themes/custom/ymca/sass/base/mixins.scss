@@ -143,6 +143,10 @@
   font-family: "Helvetica Neue LT W01_55 Roman", Helvetica, Arial, Verdana, sans-serif;
 }
 
+@mixin verdana() {
+  font-family: Verdana, Arial, sans-serif;
+}
+
 @mixin btn-large-purple() {
   @include cachet-medium();
   background-image: linear-gradient(to bottom, $dark-magenta, $purple);
@@ -180,7 +184,7 @@
   line-height: inherit;
   font-size: 15px;
   text-transform: none;
-  @include helvetica-neue();
+  font-family: Arial, Verdana, sans-serif;
 }
 
 @mixin btn-blue() {

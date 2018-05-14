@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Query\ResultSetInterface.
- */
-
 namespace Drupal\search_api\Query;
 
 use Drupal\search_api\Item\ItemInterface;
@@ -109,8 +104,8 @@ interface ResultSetInterface extends \Traversable {
    * Returns the ignored search keys, if any.
    *
    * @return string[]
-   *   A numeric array of search keys that were ignored for this search
-   *   (e.g., because of being too short or stop words).
+   *   A numeric array of search keys that were ignored for this search (for
+   *   example, because of being too short or stop words).
    */
   public function getIgnoredSearchKeys();
 
@@ -150,11 +145,7 @@ interface ResultSetInterface extends \Traversable {
    * Retrieves extra data for this search result.
    *
    * @param string $key
-   *   The key of the extra data. The following keys are used in the Search API
-   *   module itself:
-   *   - highlighted_fields: An array mapping item IDs (contained in the result)
-   *     to arrays mapping field IDs to arrays of highlighted field values for
-   *     that field of that item.
+   *   The key of the extra data.
    * @param mixed $default
    *   (optional) The value to return if the data is not set.
    *
@@ -183,9 +174,21 @@ interface ResultSetInterface extends \Traversable {
    *   key instead.
    *
    * @return $this
+   *
+   * @todo Add unsetExtraData() instead of special NULL handling? And/or
+   *  just have to use &getAllExtraData()?
    */
-  // @todo Add unsetExtraData() instead of special NULL handling? And/or
-  //   just have to use &getAllExtraData()?
   public function setExtraData($key, $data = NULL);
+
+  /**
+   * Creates a clone of this result set based on the given query.
+   *
+   * @param \Drupal\search_api\Query\QueryInterface $query
+   *   The query for the new result set.
+   *
+   * @return static
+   *   A clone of this result set.
+   */
+  public function getCloneForQuery(QueryInterface $query);
 
 }

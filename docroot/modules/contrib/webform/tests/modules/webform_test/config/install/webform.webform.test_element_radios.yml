@@ -30,7 +30,7 @@ elements: |
       '#type': checkbox
       '#title': 'Required the below radio button'
       '#default_value': true
-    radios_required_conditional:
+    radios_required_conditions:
       '#type': radios
       '#title': radios_required
       '#options': yes_no
@@ -46,7 +46,7 @@ elements: |
       '#type': checkbox
       '#title': 'Required the below buttons'
       '#default_value': true
-    buttons_required_conditional:
+    buttons_required_conditions:
       '#type': webform_buttons
       '#title': buttons_required
       '#options': yes_no
@@ -54,10 +54,31 @@ elements: |
         required:
           ':input[name="buttons_required_conditional_trigger"]':
             checked: true
+  radios_descriptions_example:
+    '#type': details
+    '#title': 'Radios descriptions'
+    '#open': true
+    radios_description:
+      '#type': radios
+      '#title': radios_description
+      '#options_description_display': description
+      '#options':
+        one: 'One -- This is a description'
+        two: 'Two -- This is a description'
+        three: 'Three -- This is a description'
+    radios_help:
+      '#type': radios
+      '#title': radios_help
+      '#options_description_display': help
+      '#options':
+        one: 'One -- This is a description'
+        two: 'Two -- This is a description'
+        three: 'Three -- This is a description'
 css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -87,9 +108,9 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
-  preview: 0
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
+  preview: 1
   preview_label: ''
   preview_title: ''
   preview_message: ''
@@ -117,7 +138,7 @@ settings:
   purge_days: null
   entity_limit_total: null
   entity_limit_user: null
-  results_disabled: true
+  results_disabled: false
   results_disabled_ignore: false
   token_update: false
 access:
@@ -161,5 +182,6 @@ handlers:
     label: Debug
     handler_id: debug
     status: true
+    conditions: {  }
     weight: 1
     settings: {  }

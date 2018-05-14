@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - media_entity.bundle.image
+    - views.view.images_library
   module:
     - dropzonejs_eb_widget
     - media_entity
@@ -27,18 +28,25 @@ widgets:
       submit_text: 'Select images'
       auto_select: false
     uuid: 066bf7d9-6d8d-46cd-ac5c-a0944058e8c4
-    weight: -9
+    weight: -8
     label: 'All Images'
     id: view
-  1ed5267c-6f5e-4ce5-b9ce-a2b244f7aefa:
+  eaf0fa61-65c5-4c7c-a3d6-ef077a075918:
     settings:
+      form_mode: default
       media_entity_bundle: image
       upload_location: 'public://[date:custom:Y]-[date:custom:m]'
       dropzone_description: 'Drop files here to upload them'
       max_filesize: 10M
       extensions: 'png jpg jpeg gif svg'
+      clientside_resize: false
+      resize_width: 0
+      resize_height: 0
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
       submit_text: 'Select images'
-    uuid: 1ed5267c-6f5e-4ce5-b9ce-a2b244f7aefa
-    weight: -10
+    uuid: eaf0fa61-65c5-4c7c-a3d6-ef077a075918
+    weight: -9
     label: 'Upload images'
-    id: dropzonejs_media_entity
+    id: dropzonejs_media_entity_inline_entity_form

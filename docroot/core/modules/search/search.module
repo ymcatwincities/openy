@@ -8,6 +8,7 @@
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -103,6 +104,13 @@ function search_theme() {
       'file' => 'search.pages.inc',
     ],
   ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function search_theme_suggestions_search_result(array $variables) {
+  return ['search_result__' . $variables['plugin_id']];
 }
 
 /**
@@ -218,7 +226,7 @@ function search_update_totals() {
   // search_total. We use a LEFT JOIN between the two tables and keep only the
   // rows which fail to join.
   $result = db_query("SELECT t.word AS realword, i.word FROM {search_total} t LEFT JOIN {search_index} i ON t.word = i.word WHERE i.word IS NULL", [], ['target' => 'replica']);
-  $or = db_or();
+  $or = new Condition('OR');
   foreach ($result as $word) {
     $or->condition('word', $word->realword);
   }
@@ -445,14 +453,21 @@ function search_index($type, $sid, $langcode, $text) {
   // Note: PHP ensures the array consists of alternating delimiters and literals
   // and begins and ends with a literal (inserting $null as required).
 
-  $tag = FALSE; // Odd/even counter. Tag or no tag.
-  $score = 1; // Starting score per word
-  $accum = ' '; // Accumulator for cleaned up data
-  $tagstack = []; // Stack with open tags
-  $tagwords = 0; // Counter for consecutive words
-  $focus = 1; // Focus state
+  // Odd/even counter. Tag or no tag.
+  $tag = FALSE;
+  // Starting score per word.
+  $score = 1;
+  // Accumulator for cleaned up data.
+  $accum = ' ';
+  // Stack with open tags.
+  $tagstack = [];
+  // Counter for consecutive words.
+  $tagwords = 0;
+  // Focus state.
+  $focus = 1;
 
-  $scored_words = []; // Accumulator for words for index
+  // Accumulator for words for index.
+  $scored_words = [];
 
   foreach ($split as $value) {
     if ($tag) {

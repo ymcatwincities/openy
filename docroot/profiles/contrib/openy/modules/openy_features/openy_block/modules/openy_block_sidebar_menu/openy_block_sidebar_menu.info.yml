@@ -1,7 +1,0 @@
-name: OpenY Block Sidebar Menu
-description: Provides Openy Block Sidebar Menu
-type: module
-core: 8.x
-version: 8.x-1.0
-dependencies:
-  - openy_menu_tree

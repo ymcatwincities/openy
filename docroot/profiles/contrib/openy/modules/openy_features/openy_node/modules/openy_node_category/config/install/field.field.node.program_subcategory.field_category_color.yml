@@ -10,7 +10,7 @@ field_name: field_category_color
 entity_type: node
 bundle: program_subcategory
 label: Color
-description: ''
+description: 'Reference field for choosing the term from "Color" vocabulary.'
 required: true
 translatable: true
 default_value: {  }

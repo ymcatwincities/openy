@@ -1,3 +1,8 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - views
 name: test_dropdown
 label: 'Test browser Dropdown'
 display: standalone

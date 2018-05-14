@@ -43,10 +43,10 @@ class WebformNodeReferencesTest extends WebformNodeTestBase {
     $this->assertLink($node->label());
 
     // Check references tab local actions.
-    $this->assertRaw('<li><a href="' . $base_path . 'node/add/webform?webform=contact" class="button button-action" data-drupal-link-query="{&quot;webform&quot;:&quot;contact&quot;}" data-drupal-link-system-path="node/add/webform">Add Webform</a></li>');
+    $this->assertRaw('<li><a href="' . $base_path . 'node/add/webform?webform_id=contact" class="button button-action" data-drupal-link-query="{&quot;webform_id&quot;:&quot;contact&quot;}" data-drupal-link-system-path="node/add/webform">Add Webform</a></li>');
 
     // Check node with prepopulated webform.
-    $this->drupalGet('node/add/webform', ['query' => ['webform' => 'contact']]);
+    $this->drupalGet('node/add/webform', ['query' => ['webform_id' => 'contact']]);
     $this->assertFieldByName('webform[0][target_id]', 'contact');
 
     // Check node without prepopulated webform warning.

@@ -80,13 +80,13 @@ class MetatagFieldNodeTest extends MetatagFieldTestBase {
   /**
    * {@inheritDoc}
    */
-  protected $entity_save_button_label = 'Save and publish';
-
-  /**
-   * {@inheritDoc}
-   */
   protected function setUpEntityType() {
     $this->createContentType(['type' => 'page']);
+
+    // 8.3 has the label 'Save and publish'.
+    if ((floatval(\Drupal::VERSION) <= 8.3)) {
+      $this->entity_save_button_label = 'Save and publish';
+    }
   }
 
 }

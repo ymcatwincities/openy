@@ -62,6 +62,7 @@ class ViewsFieldFormatter extends FormatterBase {
         'entity_id' => ['checked' => TRUE],
         'delta' => ['checked' => TRUE],
       ],
+      'hide_empty' => FALSE,
       'multiple' => FALSE,
       'implode_character' => '',
     ];
@@ -137,6 +138,13 @@ class ViewsFieldFormatter extends FormatterBase {
         ];
       }
 
+      $element['hide_empty'] = array(
+        '#title' => $this->t('Hide empty views'),
+        '#description' => $this->t('Do not display the field if the view is empty.'),
+        '#type' => 'checkbox',
+        '#default_value' => boolval($this->getSetting('hide_empty')),
+      );
+
       $element['multiple'] = array(
         '#title' => $this->t('Multiple'),
         '#description' => $this->t('If the field is configured as multiple (<em>greater than one</em>), should we display a view per item ? If selected, there will be one view per item.'),
@@ -173,6 +181,7 @@ class ViewsFieldFormatter extends FormatterBase {
     $settings = $this->getSettings();
     list($view, $view_display) = explode('::', $settings['view']);
     $multiple = ((bool) $settings['multiple'] === TRUE) ? 'Enabled' : 'Disabled';
+    $hide_empty = ((bool) $settings['hide_empty'] === TRUE) ? 'Hide' : 'Display';
 
     $arguments = array_filter($settings['arguments'], function ($argument) {
       return $argument['checked'];
@@ -191,6 +200,7 @@ class ViewsFieldFormatter extends FormatterBase {
       $summary[] = t('View: @view', ['@view' => $view]);
       $summary[] = t('Display: @display', ['@display' => $view_display]);
       $summary[] = t('Argument(s): @arguments', ['@arguments' => implode(', ', $arguments)]);
+      $summary[] = t('Empty views: @hide_empty empty views', ['@hide_empty' => $hide_empty]);
       $summary[] = t('Multiple: @multiple', ['@multiple' => $multiple]);
     }
 
@@ -212,18 +222,21 @@ class ViewsFieldFormatter extends FormatterBase {
     $cardinality = $items->getFieldDefinition()->getFieldStorageDefinition()->getCardinality();
     list($view_id, $view_display) = explode('::', $settings['view'], 2);
 
-    $view = Views::getView($view_id);
-    if (!$view || !$view->access($view_display)) {
-      return $elements;
-    }
+    // If empty views are hidden, execute view to count result.
+    if (!empty($settings['hide_empty'])) {
+      $view = Views::getView($view_id);
+      if (!$view || !$view->access($view_display)) {
+        return $elements;
+      }
 
-    $view->setArguments($this->getArguments($items, $items[0], 0));
-    $view->setDisplay($view_display);
-    $view->preExecute();
-    $view->execute();
+      $view->setArguments($this->getArguments($items, $items[0], 0));
+      $view->setDisplay($view_display);
+      $view->preExecute();
+      $view->execute();
 
-    if (empty($view->result)) {
-      return $elements;
+      if (empty($view->result)) {
+        return $elements;
+      }
     }
 
     $elements = array(

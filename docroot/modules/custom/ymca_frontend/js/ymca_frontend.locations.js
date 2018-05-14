@@ -190,7 +190,7 @@ CWjQuery(document).ready(function($) {
 
             for (l = 0; l < locations.length; l++) {
 
-                var list_item = '<div class="location col-xs-6 col-sm-4 col-md-3">';
+                var list_item = '<div class="location col-xs-12 col-sm-4 col-md-3">';
                 list_item += this.draw_list_location(locations[l]);
                 list_item += '</div>';
                 list_locations_html += list_item;

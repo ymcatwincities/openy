@@ -1,27 +1,30 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Plugin\search_api\tracker\Basic.
- */
-
 namespace Drupal\search_api\Plugin\search_api\tracker;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
+use Drupal\search_api\LoggerTrait;
+use Drupal\search_api\Plugin\PluginFormTrait;
 use Drupal\search_api\Tracker\TrackerPluginBase;
-use Drupal\search_api\Utility;
+use Drupal\search_api\Utility\Utility;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a tracker implementation which uses a FIFO-like processing order.
  *
- * @SearchApiTracker(
+ *  @SearchApiTracker(
  *   id = "default",
  *   label = @Translation("Default"),
- *   description = @Translation("Index tracker which uses first in/first out for processing pending items.")
+ *   description = @Translation("Default index tracker which uses a simple database table for tracking items.")
  * )
  */
-class Basic extends TrackerPluginBase {
+class Basic extends TrackerPluginBase implements PluginFormInterface {
+
+  use LoggerTrait;
+  use PluginFormTrait;
 
   /**
    * Status value that represents items which are indexed in their latest form.
@@ -41,15 +44,21 @@ class Basic extends TrackerPluginBase {
   protected $connection;
 
   /**
+   * The time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface|null
+   */
+  protected $timeService;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     /** @var static $tracker */
     $tracker = parent::create($container, $configuration, $plugin_id, $plugin_definition);
 
-    /** @var \Drupal\Core\Database\Connection $connection */
-    $connection = $container->get('database');
-    $tracker->setDatabaseConnection($connection);
+    $tracker->setDatabaseConnection($container->get('database'));
+    $tracker->setTimeService($container->get('datetime.time'));
 
     return $tracker;
   }
@@ -78,14 +87,63 @@ class Basic extends TrackerPluginBase {
   }
 
   /**
+   * Retrieves the time service.
+   *
+   * @return \Drupal\Component\Datetime\TimeInterface
+   *   The time service.
+   */
+  public function getTimeService() {
+    return $this->timeService ?: \Drupal::time();
+  }
+
+  /**
+   * Sets the time service.
+   *
+   * @param \Drupal\Component\Datetime\TimeInterface $time_service
+   *   The new time service.
+   *
+   * @return $this
+   */
+  public function setTimeService(TimeInterface $time_service) {
+    $this->timeService = $time_service;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return ['indexing_order' => 'fifo'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form['indexing_order'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Indexing order'),
+      '#description' => $this->t('The order in which items will be indexed.'),
+      '#options' => [
+        'fifo' => $this->t('Index items in the same order in which they were saved'),
+        'lifo' => $this->t('Index the most recent items first'),
+      ],
+      '#default_value' => $this->configuration['indexing_order'],
+    ];
+
+    return $form;
+  }
+
+  /**
    * Creates a SELECT statement for this tracker.
    *
    * @return \Drupal\Core\Database\Query\SelectInterface
    *   A SELECT statement.
    */
   protected function createSelectStatement() {
-    return $this->getDatabaseConnection()->select('search_api_item', 'sai')
-      ->condition('index_id', $this->getIndex()->id());
+    $select = $this->getDatabaseConnection()->select('search_api_item', 'sai');
+    $select->condition('index_id', $this->getIndex()->id());
+    return $select;
   }
 
   /**
@@ -96,7 +154,7 @@ class Basic extends TrackerPluginBase {
    */
   protected function createInsertStatement() {
     return $this->getDatabaseConnection()->insert('search_api_item')
-      ->fields(array('index_id', 'datasource', 'item_id', 'changed', 'status'));
+      ->fields(['index_id', 'datasource', 'item_id', 'changed', 'status']);
   }
 
   /**
@@ -133,14 +191,16 @@ class Basic extends TrackerPluginBase {
    */
   protected function createRemainingItemsStatement($datasource_id = NULL) {
     $select = $this->createSelectStatement();
-    $select->fields('sai', array('item_id'));
+    $select->fields('sai', ['item_id']);
     if ($datasource_id) {
       $select->condition('datasource', $datasource_id);
     }
     $select->condition('sai.status', $this::STATUS_NOT_INDEXED, '=');
-    $select->orderBy('sai.changed', 'ASC');
+    // Use the same direction for both sorts to avoid performance problems.
+    $order = $this->configuration['indexing_order'] === 'lifo' ? 'DESC' : 'ASC';
+    $select->orderBy('sai.changed', $order);
     // Add a secondary sort on item ID to make the order completely predictable.
-    $select->orderBy('sai.item_id', 'ASC');
+    $select->orderBy('sai.item_id', $order);
 
     return $select;
   }
@@ -155,23 +215,37 @@ class Basic extends TrackerPluginBase {
       // Process the IDs in chunks so we don't create an overly large INSERT
       // statement.
       foreach (array_chunk($ids, 1000) as $ids_chunk) {
+        // We have to make sure we don't try to insert duplicate items.
+        $select = $this->createSelectStatement()
+          ->fields('sai', ['item_id']);
+        $select->condition('item_id', $ids_chunk, 'IN');
+        $existing = $select
+          ->execute()
+          ->fetchCol();
+        $existing = array_flip($existing);
+
         $insert = $this->createInsertStatement();
         foreach ($ids_chunk as $item_id) {
+          if (isset($existing[$item_id])) {
+            continue;
+          }
           list($datasource_id) = Utility::splitCombinedId($item_id);
-          $insert->values(array(
+          $insert->values([
             'index_id' => $index_id,
             'datasource' => $datasource_id,
             'item_id' => $item_id,
-            'changed' => REQUEST_TIME,
+            'changed' => $this->getTimeService()->getRequestTime(),
             'status' => $this::STATUS_NOT_INDEXED,
-          ));
+          ]);
         }
-        $insert->execute();
+        if ($insert->count()) {
+          $insert->execute();
+        }
       }
     }
     catch (\Exception $e) {
-      watchdog_exception('search_api', $e);
-      $transaction->rollback();
+      $this->logException($e);
+      $transaction->rollBack();
     }
   }
 
@@ -183,19 +257,28 @@ class Basic extends TrackerPluginBase {
     try {
       // Process the IDs in chunks so we don't create an overly large UPDATE
       // statement.
-      $ids_chunks = ($ids !== NULL ? array_chunk($ids, 1000) : array(NULL));
+      $ids_chunks = ($ids !== NULL ? array_chunk($ids, 1000) : [NULL]);
       foreach ($ids_chunks as $ids_chunk) {
         $update = $this->createUpdateStatement();
-        $update->fields(array('changed' => REQUEST_TIME, 'status' => $this::STATUS_NOT_INDEXED));
+        $update->fields([
+          'changed' => $this->getTimeService()->getRequestTime(),
+          'status' => $this::STATUS_NOT_INDEXED,
+        ]);
         if ($ids_chunk) {
           $update->condition('item_id', $ids_chunk, 'IN');
+        }
+        // Update the status of unindexed items only if the item order is LIFO.
+        // (Otherwise, an item that's regularly being updated might never get
+        // indexed.)
+        if ($this->configuration['indexing_order'] === 'fifo') {
+          $update->condition('status', static::STATUS_INDEXED);
         }
         $update->execute();
       }
     }
     catch (\Exception $e) {
-      watchdog_exception('search_api', $e);
-      $transaction->rollback();
+      $this->logException($e);
+      $transaction->rollBack();
     }
   }
 
@@ -206,15 +289,18 @@ class Basic extends TrackerPluginBase {
     $transaction = $this->getDatabaseConnection()->startTransaction();
     try {
       $update = $this->createUpdateStatement();
-      $update->fields(array('changed' => REQUEST_TIME, 'status' => $this::STATUS_NOT_INDEXED));
+      $update->fields([
+        'changed' => $this->getTimeService()->getRequestTime(),
+        'status' => $this::STATUS_NOT_INDEXED,
+      ]);
       if ($datasource_id) {
         $update->condition('datasource', $datasource_id);
       }
       $update->execute();
     }
     catch (\Exception $e) {
-      watchdog_exception('search_api', $e);
-      $transaction->rollback();
+      $this->logException($e);
+      $transaction->rollBack();
     }
   }
 
@@ -229,14 +315,14 @@ class Basic extends TrackerPluginBase {
       $ids_chunks = array_chunk($ids, 1000);
       foreach ($ids_chunks as $ids_chunk) {
         $update = $this->createUpdateStatement();
-        $update->fields(array('status' => $this::STATUS_INDEXED));
+        $update->fields(['status' => $this::STATUS_INDEXED]);
         $update->condition('item_id', $ids_chunk, 'IN');
         $update->execute();
       }
     }
     catch (\Exception $e) {
-      watchdog_exception('search_api', $e);
-      $transaction->rollback();
+      $this->logException($e);
+      $transaction->rollBack();
     }
   }
 
@@ -248,7 +334,7 @@ class Basic extends TrackerPluginBase {
     try {
       // Process the IDs in chunks so we don't create an overly large DELETE
       // statement.
-      $ids_chunks = ($ids !== NULL ? array_chunk($ids, 1000) : array(NULL));
+      $ids_chunks = ($ids !== NULL ? array_chunk($ids, 1000) : [NULL]);
       foreach ($ids_chunks as $ids_chunk) {
         $delete = $this->createDeleteStatement();
         if ($ids_chunk) {
@@ -258,8 +344,8 @@ class Basic extends TrackerPluginBase {
       }
     }
     catch (\Exception $e) {
-      watchdog_exception('search_api', $e);
-      $transaction->rollback();
+      $this->logException($e);
+      $transaction->rollBack();
     }
   }
 
@@ -276,8 +362,8 @@ class Basic extends TrackerPluginBase {
       $delete->execute();
     }
     catch (\Exception $e) {
-      watchdog_exception('search_api', $e);
-      $transaction->rollback();
+      $this->logException($e);
+      $transaction->rollBack();
     }
   }
 
@@ -285,45 +371,69 @@ class Basic extends TrackerPluginBase {
    * {@inheritdoc}
    */
   public function getRemainingItems($limit = -1, $datasource_id = NULL) {
-    $select = $this->createRemainingItemsStatement($datasource_id);
-    if ($limit >= 0) {
-      $select->range(0, $limit);
+    try {
+      $select = $this->createRemainingItemsStatement($datasource_id);
+      if ($limit >= 0) {
+        $select->range(0, $limit);
+      }
+      return $select->execute()->fetchCol();
     }
-    return $select->execute()->fetchCol();
+    catch (\Exception $e) {
+      $this->logException($e);
+      return [];
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function getTotalItemsCount($datasource_id = NULL) {
-    $select = $this->createSelectStatement();
-    if ($datasource_id) {
-      $select->condition('datasource', $datasource_id);
+    try {
+      $select = $this->createSelectStatement();
+      if ($datasource_id) {
+        $select->condition('datasource', $datasource_id);
+      }
+      return (int) $select->countQuery()->execute()->fetchField();
     }
-    return (int) $select->countQuery()->execute()->fetchField();
+    catch (\Exception $e) {
+      $this->logException($e);
+      return 0;
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function getIndexedItemsCount($datasource_id = NULL) {
-    $select = $this->createSelectStatement();
-    $select->condition('sai.status', $this::STATUS_INDEXED);
-    if ($datasource_id) {
-      $select->condition('datasource', $datasource_id);
+    try {
+      $select = $this->createSelectStatement();
+      $select->condition('sai.status', $this::STATUS_INDEXED);
+      if ($datasource_id) {
+        $select->condition('datasource', $datasource_id);
+      }
+      return (int) $select->countQuery()->execute()->fetchField();
     }
-    return (int) $select->countQuery()->execute()->fetchField();
+    catch (\Exception $e) {
+      $this->logException($e);
+      return 0;
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function getRemainingItemsCount($datasource_id = NULL) {
-    $select = $this->createRemainingItemsStatement();
-    if ($datasource_id) {
-      $select->condition('datasource', $datasource_id);
+    try {
+      $select = $this->createRemainingItemsStatement();
+      if ($datasource_id) {
+        $select->condition('datasource', $datasource_id);
+      }
+      return (int) $select->countQuery()->execute()->fetchField();
     }
-    return (int) $select->countQuery()->execute()->fetchField();
+    catch (\Exception $e) {
+      $this->logException($e);
+      return 0;
+    }
   }
 
 }
