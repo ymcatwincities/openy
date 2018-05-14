@@ -5968,32 +5968,60 @@ function ymca_master_update_8269() {
 
     $newDateBlock->set('field_ygtc_end_date', $oldDateBlock->field_end_date->value);
     $newDateBlock->set('field_ygtc_start_date', $oldDateBlock->field_start_date->value);
-    $newDateBlock->set('field_ygtc_content_date_end', $oldDateBlock->field_content_date_end->value);
-    $newDateBlock->set('field_ygtc_content_date_before', $oldDateBlock->field_content_date_before->value);
-    $newDateBlock->set('field_ygtc_content_date_between', $oldDateBlock->field_content_date_between->value);
+
+    $newDateBlock->set(
+      'field_ygtc_content_date_end',
+      [
+        'value' => $oldDateBlock->field_content_date_end->value,
+        'format' => $oldDateBlock->field_content_date_end->format,
+      ]
+    );
+
+    $newDateBlock->set(
+      'field_ygtc_content_date_before',
+      [
+        'value' => $oldDateBlock->field_content_date_before->value,
+        'format' => $oldDateBlock->field_content_date_before->format,
+      ]
+    );
+
+    $newDateBlock->set(
+      'field_ygtc_content_date_between',
+      [
+        'value' => $oldDateBlock->field_content_date_between->value,
+        'format' => $oldDateBlock->field_content_date_between->format,
+      ]
+    );
+
     $newDateBlock->save();
 
-    // Set the old ID and Revision ID on the new block in the main table.
-    $query = $db->update('block_content');
-    $query->fields([
-      'id' => $oldDateBlock->id(),
-      'revision_id' => $oldDateBlock->getLoadedRevisionId(),
-      'uuid' => $oldDateBlock->uuid(),
-    ]);
-    $query->condition('id', $newDateBlock->id());
-    $query->execute();
+    $content_tables = [
+      'block_content',
+      'block_content_revision',
+      'block_content_field_data',
+      'block_content_field_revision'
+    ];
 
-    // Set the old ID and Revision ID on the new block in the revisions table.
-    $query = $db->update('block_content_revision');
-    $query->fields([
-      'id' => $oldDateBlock->id(),
-      'revision_id' => $oldDateBlock->getLoadedRevisionId(),
-    ]);
-    $query->condition('id', $newDateBlock->id());
-    $query->execute();
+    foreach ($content_tables as $table) {
+      // Set the old ID and Revision ID on the new block in the main table.
+      $query = $db->update($table);
+      $query->condition('id', $newDateBlock->id());
+
+      $fields = [
+        'id' => $oldDateBlock->id(),
+        'revision_id' => $oldDateBlock->getLoadedRevisionId(),
+      ];
+
+      if ($table == 'block_content') {
+        $fields['uuid'] = $oldDateBlock->uuid();
+      }
+
+      $query->fields($fields);
+      $query->execute();
+    }
 
     // Set the old ID and Revision ID on the new block in the field tables.
-    $tables = [
+    $field_tables = [
       'block_content__field_ygtc_end_date',
       'block_content__field_ygtc_start_date',
       'block_content__field_ygtc_content_date_before',
@@ -6005,7 +6033,7 @@ function ymca_master_update_8269() {
       'block_content_revision__field_ygtc_content_date_between',
       'block_content_revision__field_ygtc_content_date_end',
     ];
-    foreach ($tables as $table) {
+    foreach ($field_tables as $table) {
       if ($db->schema()->tableExists($table)) {
         $query = $db->update($table);
         $query->fields([
