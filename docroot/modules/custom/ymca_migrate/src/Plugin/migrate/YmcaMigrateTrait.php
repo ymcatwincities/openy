@@ -229,7 +229,7 @@ trait YmcaMigrateTrait {
         'value' => $data['content_during'],
         'format' => 'full_html',
       ],
-      'field_content_date_end' => [
+      'field_ygtc_content_date_end' => [
         'value' => $data['content_after'],
         'format' => 'full_html',
       ],
