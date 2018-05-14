@@ -14,15 +14,19 @@ dependencies:
   - inline_entity_form
   - language
   - link
+  - media_entity
   - menu_ui
   - metatag
   - node
+  - openy_media_image
   - options
+  - panelizer
   - path
   - scheduler
   - text
   - user
   - views
+  - views_field_formatter
   - workflowfield
   - ymca_link_formatter
   - ymca_mappings
