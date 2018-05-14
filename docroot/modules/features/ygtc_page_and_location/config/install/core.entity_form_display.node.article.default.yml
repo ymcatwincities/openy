@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.browse_content_modal
-    - entity_browser.browser.browse_files_modal
     - field.field.node.article.field_alert
     - field.field.node.article.field_header_button
     - field.field.node.article.field_header_image
@@ -24,7 +23,6 @@ dependencies:
   module:
     - content_moderation
     - entity_browser
-    - file_browser
     - inline_entity_form
     - link
     - metatag
@@ -51,7 +49,7 @@ content:
     third_party_settings: {  }
     region: content
   field_alert:
-    weight: 18
+    weight: 19
     settings:
       form_mode: default
       label_singular: ''
@@ -74,15 +72,16 @@ content:
   field_header_image:
     weight: 10
     settings:
-      entity_browser: browse_files_modal
-      field_widget_edit: '1'
-      field_widget_remove: '1'
-      view_mode: default
-      field_widget_display: ''
-      open: 0
-      field_widget_display_settings: {  }
+      entity_browser: images_library
+      field_widget_display: rendered_entity
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      field_widget_display_settings:
+        view_mode: thumbnail_for_preview
+      open: false
     third_party_settings: {  }
-    type: file_browser
+    type: entity_browser_entity_reference
     region: content
   field_header_variant:
     weight: 9
@@ -99,13 +98,13 @@ content:
     type: text_textarea
     region: content
   field_page_meta:
-    weight: 26
+    weight: 24
     settings: {  }
     third_party_settings: {  }
     type: metatag_firehose
     region: content
   field_promo_slideshow:
-    weight: 17
+    weight: 18
     settings:
       form_mode: default
       label_singular: ''
@@ -118,7 +117,7 @@ content:
     type: inline_entity_form_complex
     region: content
   field_related:
-    weight: 19
+    weight: 20
     settings:
       entity_browser: browse_content_modal
       field_widget_display: label
@@ -126,6 +125,7 @@ content:
       field_widget_remove: true
       open: false
       field_widget_display_settings: {  }
+      selection_mode: selection_append
     third_party_settings: {  }
     type: entity_browser_entity_reference
     region: content
@@ -138,7 +138,7 @@ content:
     type: text_textarea
     region: content
   field_sidebar:
-    weight: 16
+    weight: 17
     settings:
       rows: 5
       placeholder: ''
@@ -152,7 +152,7 @@ content:
     type: options_select
     region: content
   field_state:
-    weight: 20
+    weight: 22
     settings: {  }
     third_party_settings: {  }
     type: workflow_default
@@ -188,7 +188,7 @@ content:
     region: content
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 25
     settings: {  }
     region: content
     third_party_settings: {  }
@@ -207,7 +207,7 @@ content:
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 20
+    weight: 23
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -215,7 +215,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 26
     third_party_settings: {  }
     region: content
   sticky:
@@ -244,7 +244,7 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 19
+    weight: 21
     settings: {  }
     third_party_settings: {  }
     region: content
