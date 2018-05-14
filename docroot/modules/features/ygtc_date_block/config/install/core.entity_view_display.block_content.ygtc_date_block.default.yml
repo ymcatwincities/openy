@@ -1,0 +1,42 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.ygtc_date_block
+    - field.field.block_content.ygtc_date_block.field_ygtc_content_date_before
+    - field.field.block_content.ygtc_date_block.field_ygtc_content_date_between
+    - field.field.block_content.ygtc_date_block.field_ygtc_content_date_end
+    - field.field.block_content.ygtc_date_block.field_ygtc_end_date
+    - field.field.block_content.ygtc_date_block.field_ygtc_start_date
+  module:
+    - text
+id: block_content.ygtc_date_block.default
+targetEntityType: block_content
+bundle: ygtc_date_block
+mode: default
+content:
+  field_ygtc_content_date_before:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_ygtc_content_date_between:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_ygtc_content_date_end:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  field_ygtc_end_date: true
+  field_ygtc_start_date: true
+  langcode: true
