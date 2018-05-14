@@ -391,6 +391,75 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
 }
 
 /**
+ * Implements hook_preprocess_paragraph().
+ */
+function openy_campaign_preprocess_paragraph(&$variables) {
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+
+  // Campaign Info Blocks paragraph.
+  if ($paragraph->bundle() == 'campaign_info_blocks') {
+    /** @var \Drupal\openy_campaign\CampaignMenuService $campaignMenuService */
+    $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
+
+    // Check if needed blocks were set in Campaign page.
+    $campaign = $campaignMenuService->getCampaignNodeFromRoute();
+    $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
+    // If Enable Activities Counter checked - show "Activity count" block.
+    if ($campaign->field_enable_activities_counter->value) {
+      $activitiesOptions[] = 'field_enable_activities_counter';
+    }
+
+    // Render title field.
+    $content['title'] = $paragraph->field_prgf_title->view('full');
+
+    /** @var \Drupal\Core\Block\BlockManager $blockManager */
+    $blockManager = \Drupal::service('plugin.manager.block');
+
+    // Get and render needed blocks.
+    $map = [
+      'field_prgf_activity_visits' => 'campaign_activity_visits_block',
+      'field_prgf_campaign_game' => 'campaign_game_block',
+      'field_enable_activities_counter' => 'campaign_activity_visits_block',
+    ];
+    foreach (['left', 'right'] as $side) {
+      $render = [];
+      $col = 'field_prgf_' . $side . '_column';
+      $textField = 'field_prgf_' . $side . '_text';
+      // Check for not empty description field.
+      $descriptionFieldValue = $paragraph->{$textField}->value;
+      $descriptionField = str_replace("&nbsp;", '', strip_tags($descriptionFieldValue));
+      if (!empty(trim($descriptionField))) {
+        $render[] = [
+          '#markup' => '<div class="' . $side . '-text">' .
+          check_markup($paragraph->{$textField}->value, $paragraph->{$textField}->format) .
+          '</div>',
+        ];
+      }
+      // Show selected blocks.
+      $column = $paragraph->{$col}->value;
+      if ($column && in_array($column, $activitiesOptions)) {
+        $block = $blockManager->createInstance($map[$column], []);
+        $renderBlock = $block->build();
+        switch ($column) {
+          // Show Visit Tracking. It will be displayed with enActvCounter = 0.
+          case 'field_prgf_activity_visits':
+            $renderBlock['goal_block']['#enActvCounter'] = 0;
+            break;
+          // Show Activity count. It will be displayed with enActvCounter = 1
+          case 'field_enable_activities_counter':
+            $renderBlock['goal_block']['#enActvCounter'] = 1;
+            break;
+        }
+        $render[] = $renderBlock;
+      }
+      $content[$side] = $render;
+    }
+    $variables['content'] = $content;
+  }
+}
+
+/**
  * Implements hook_entity_presave().
  */
 function openy_campaign_node_presave(Node $node) {
