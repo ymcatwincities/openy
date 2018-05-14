@@ -3,6 +3,7 @@
 namespace Drupal\openy;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\RfcLogLevel;
 
 /**
  * Openy modules manager.
@@ -42,7 +43,6 @@ class OpenyModulesManager {
    *   Content entity field name that contain reference to bundle.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function removeEntityBundle($content_entity_type, $config_entity_type, $bundle, $field = 'type') {
     if ($content_entity_type) {
@@ -55,7 +55,26 @@ class OpenyModulesManager {
       $ids = $query->execute();
       $storage_handler = $this->entityTypeManager->getStorage($content_entity_type);
       $entities = $storage_handler->loadMultiple($ids);
-      $storage_handler->delete($entities);
+      try {
+        $storage_handler->delete($entities);
+      }
+      catch (\Exception $e) {
+        watchdog_exception('openy', $e, "Error! Can't delete content related 
+        to '@entity_type' bundle '@bundle', please remove it manually (Entity ID's - @ids).<br>
+        After this delete config entity @config_entity_type bundle '@bundle'.", [
+          '@entity_type' => $content_entity_type,
+          '@config_entity_type' => $config_entity_type,
+          '@bundle' => $bundle,
+          '@ids' => implode(', ', $ids),
+        ], RfcLogLevel::NOTICE);
+        return;
+      }
+      // TODO: Fix minor issue. After paragraph bundle deleting and restoring
+      // we get additional empty paragraph on node edit page if try to add
+      // paragraph of this type (if content of this paragraph type was in
+      // node).
+      // Proposed solution - cleanup entity reference field tables from
+      // removed target bundles.
     }
 
     if ($config_entity_type) {
@@ -64,7 +83,16 @@ class OpenyModulesManager {
         ->getStorage($config_entity_type)
         ->load($bundle);
       if ($config_entity_type_bundle) {
-        $config_entity_type_bundle->delete();
+        try {
+          $config_entity_type_bundle->delete();
+        }
+        catch (\Exception $e) {
+          watchdog_exception('openy', $e, "Error! Can't delete config entity 
+          '@config_entity_type' bundle '@bundle', please remove it manually.", [
+            '@config_entity_type' => $config_entity_type,
+            '@bundle' => $bundle,
+          ], RfcLogLevel::NOTICE);
+        }
       }
     }
   }
