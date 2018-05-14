@@ -78,8 +78,8 @@ class DateBlockService {
       return FALSE;
     }
 
-    if ($date_block->get('type')->get(0)->getValue()['target_id'] !== 'date_block') {
-      \Drupal::logger('Date Blocks')->critical(t('Block type is not date_block.'));
+    if ($date_block->get('type')->get(0)->getValue()['target_id'] !== 'ygtc_date_block') {
+      \Drupal::logger('Date Blocks')->critical(t('Block type is not ygtc_date_block.'));
       return FALSE;
     }
 
@@ -102,8 +102,8 @@ class DateBlockService {
    *   Chaining.
    */
   private function initBlockData(BlockContent $entity) {
-    $fsd = $entity->get('field_start_date')->get(0)->getValue()['value'];
-    $fed = $entity->get('field_end_date')->get(0)->getValue()['value'];
+    $fsd = $entity->get('field_ygtc_start_date')->get(0)->getValue()['value'];
+    $fed = $entity->get('field_ygtc_end_date')->get(0)->getValue()['value'];
     $fsd_fix_time = str_replace('\\', '', $fsd);
     $fed_fix_time = str_replace('\\', '', $fed);
     $this->startDate = \DateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $fsd_fix_time, new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
@@ -111,15 +111,15 @@ class DateBlockService {
 
     switch ($this->getBlockState()) {
       case self::DBS_BEFORE:
-        $this->activeContent = is_null($entity->get('field_content_date_before')->get(0)) ? '' : $entity->get('field_content_date_before')->get(0)->getValue()['value'];
+        $this->activeContent = is_null($entity->get('field_ygtc_content_date_before')->get(0)) ? '' : $entity->get('field_ygtc_content_date_before')->get(0)->getValue()['value'];
         break;
 
       case self::DBS_MIDDLE:
-        $this->activeContent = is_null($entity->get('field_content_date_between')->get(0)) ? '' : $entity->get('field_content_date_between')->get(0)->getValue()['value'];
+        $this->activeContent = is_null($entity->get('field_ygtc_content_date_between')->get(0)) ? '' : $entity->get('field_ygtc_content_date_between')->get(0)->getValue()['value'];
         break;
 
       case self::DBS_AFTER:
-        $this->activeContent = is_null($entity->get('field_content_date_end')->get(0)) ? '' : $entity->get('field_content_date_end')->get(0)->getValue()['value'];
+        $this->activeContent = is_null($entity->get('field_ygtc_content_date_end')->get(0)) ? '' : $entity->get('field_ygtc_content_date_end')->get(0)->getValue()['value'];
         break;
 
     }
@@ -150,24 +150,24 @@ class DateBlockService {
 
     switch ($this->getBlockState()) {
       case self::DBS_BEFORE:
-        hide($build['field_content_date_between']);
-        hide($build['field_content_date_end']);
+        hide($build['field_ygtc_content_date_between']);
+        hide($build['field_ygtc_content_date_end']);
         break;
 
       case self::DBS_MIDDLE:
-        hide($build['field_content_date_before']);
-        hide($build['field_content_date_end']);
+        hide($build['field_ygtc_content_date_before']);
+        hide($build['field_ygtc_content_date_end']);
         break;
 
       case self::DBS_AFTER:
-        hide($build['field_content_date_before']);
-        hide($build['field_content_date_between']);
+        hide($build['field_ygtc_content_date_before']);
+        hide($build['field_ygtc_content_date_between']);
         break;
     }
 
     // Do not show date fields at all.
-    hide($build['field_start_date']);
-    hide($build['field_end_date']);
+    hide($build['field_ygtc_start_date']);
+    hide($build['field_ygtc_end_date']);
 
     // Invalidate cache by cron.
     $build['#cache'] = [

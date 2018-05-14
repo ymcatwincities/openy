@@ -1905,7 +1905,7 @@ function ymca_master_update_8071() {
 
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs([
-    $path . 'ymca_frontend.locations.yml'
+    $path . 'ymca_frontend.locations.yml',
   ]);
 }
 
@@ -2388,7 +2388,7 @@ function ymca_master_update_8093() {
   $db->update('node_field_data')
     ->fields([
       'publish_on' => NULL,
-      'unpublish_on' => NULL
+      'unpublish_on' => NULL,
     ])
     ->execute();
   Drupal::service('module_installer')->uninstall(['scheduler']);
@@ -2517,7 +2517,7 @@ function ymca_master_update_8100() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'core.entity_form_display.node.article.default.yml'
+      $path . 'core.entity_form_display.node.article.default.yml',
     ]
   );
 }
@@ -2547,7 +2547,7 @@ function ymca_master_update_8104() {
       $path . 'views.view.content_browser_block.yml',
       $path . 'core.entity_form_display.block_content.image_block.default.yml',
       $path . 'core.entity_form_display.block_content.promo_block.default.yml',
-      $path . 'core.entity_form_display.block_content.slide_show_item.default.yml'
+      $path . 'core.entity_form_display.block_content.slide_show_item.default.yml',
     ]
   );
 }
@@ -2863,7 +2863,7 @@ function ymca_master_update_8122() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'entity_browser.browser.browse_files.yml',
-      $path . 'entity_browser.browser.browse_files_modal.yml'
+      $path . 'entity_browser.browser.browse_files_modal.yml',
     ]
   );
 }
@@ -3040,7 +3040,7 @@ function ymca_master_update_8127() {
     $msg = 'Mapping %op ID: %id.';
     \Drupal::logger('ymca_master')->info($msg, [
       '%op' => $op,
-      '%id' => $mapping->id()
+      '%id' => $mapping->id(),
     ]);
   }
 }
@@ -3441,7 +3441,7 @@ function ymca_master_update_8146() {
       $path . 'workflow.transition.workflow_published_unpublished.yml',
       $path . 'workflow.transition.workflow_unpublished_draft.yml',
       $path . 'workflow.transition.workflow_unpublished_needs_review.yml',
-      $path . 'workflow.transition.workflow_unpublished_published.yml'
+      $path . 'workflow.transition.workflow_unpublished_published.yml',
     ]
   );
 }
@@ -3458,7 +3458,7 @@ function ymca_master_update_8147() {
       $path . 'field.field.block_content.promo_block.field_image.yml',
       $path . 'field.field.block_content.slide_show_item.field_image.yml',
       $path . 'field.field.node.article.field_header_image.yml',
-      $path . 'field.field.node.blog.field_image.yml'
+      $path . 'field.field.node.blog.field_image.yml',
     ]
   );
 }
@@ -3507,15 +3507,15 @@ function ymca_master_update_8148() {
   $replacements = [
     [
       'block_id' => 'top_menu_2',
-      'selector' => '#block-topmenu'
+      'selector' => '#block-topmenu',
     ],
     [
       'block_id' => 'mastheadnavigationblock_2',
-      'selector' => '#masthead-menu'
+      'selector' => '#masthead-menu',
     ],
     [
       'block_id' => 'footer_b',
-      'selector' => '.nav-footer > div'
+      'selector' => '.nav-footer > div',
     ],
   ];
   $config->set('replacements', $replacements);
@@ -3813,7 +3813,7 @@ function ymca_master_update_8154() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'views.settings.yml',
-      $path . 'views.view.my_content.yml'
+      $path . 'views.view.my_content.yml',
     ]
   );
 }
@@ -3925,7 +3925,7 @@ function ymca_master_update_8161() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'views.view.my_content.yml'
+      $path . 'views.view.my_content.yml',
     ]
   );
 }
@@ -3945,7 +3945,7 @@ function ymca_master_update_8163() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'user.role.contributor.yml',
-      $path . 'user.role.intern.yml'
+      $path . 'user.role.intern.yml',
     ]
   );
 }
@@ -3960,7 +3960,7 @@ function ymca_master_update_8164() {
       $path . 'user.role.contributor.yml',
       $path . 'user.role.intern.yml',
       $path . 'workflow.transition.workflow_unpublished_draft.yml',
-      $path . 'workflow.transition.workflow_unpublished_needs_review.yml'
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml',
     ]
   );
 }
@@ -3984,7 +3984,7 @@ function ymca_master_update_8166() {
   $path = 'themes/custom/ymca/config/install/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'ymca.settings.yml'
+      $path . 'ymca.settings.yml',
     ]
   );
 }
@@ -3996,7 +3996,7 @@ function ymca_master_update_8167() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'user.role.intern.yml'
+      $path . 'user.role.intern.yml',
     ]
   );
 }
@@ -4008,7 +4008,7 @@ function ymca_master_update_8168() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'views.view.my_content.yml'
+      $path . 'views.view.my_content.yml',
     ]
   );
 }
@@ -4033,7 +4033,7 @@ function ymca_master_update_8170() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'user.role.contributor.yml',
-      $path . 'user.role.intern.yml'
+      $path . 'user.role.intern.yml',
     ]
   );
 }
@@ -4049,16 +4049,16 @@ function _ymca_master_update_8171() {
   $fileMap = [
     'default' => [
       'from' => 'favicon.ico',
-      'to' => 'default.ico'
+      'to' => 'default.ico',
     ],
     'camp' => [
       'from' => 'favicon-alt.ico',
-      'to' => 'camp.ico'
+      'to' => 'camp.ico',
     ],
     'location' => [
       'from' => 'favicon-locations.ico',
-      'to' => 'location.ico'
-    ]
+      'to' => 'location.ico',
+    ],
   ];
   $fileUsage = \Drupal::service('file.usage');
   foreach ($fileMap as $key => $fileItem) {
@@ -4169,7 +4169,7 @@ function ymca_master_update_8176() {
     $node = $node_storage->load($nid);
     $node->set('field_schedule_content', [
       'value' => (string) $renderer->renderRoot($build),
-      'format' => 'full_html'
+      'format' => 'full_html',
     ]);
     $node->save();
   }
@@ -4753,7 +4753,7 @@ function ymca_master_update_8217() {
   $modules = [
     'openy_block',
     'openy_block_custom_simple',
-    'openy_prgf_2c'
+    'openy_prgf_2c',
   ];
   foreach ($modules as $module) {
     \Drupal::service('module_installer')->install([$module], TRUE);
@@ -5403,7 +5403,7 @@ function ymca_master_update_8252() {
     array(
       'id'=> 'topmenu2',
       'plugin' => 'system_menu_block:top_menu_2',
-      'theme' => 'openy_lily'
+      'theme' => 'openy_lily',
     )
   );
   $block->setRegion('secondary_menu');
@@ -5421,27 +5421,27 @@ function ymca_master_update_8253() {
       'sub' => [
         [
           'title' => 'Health & Fitness',
-          'uri' => '/health__fitness'
+          'uri' => '/health__fitness',
         ],
         [
           'title' => 'Child Care & Preschool',
-          'uri' => '/child_care__preschool'
+          'uri' => '/child_care__preschool',
         ],
         [
           'title' => 'Swimming',
-          'uri' => '/swimming'
+          'uri' => '/swimming',
         ],
         [
           'title' => 'Kids & Teens',
-          'uri' => '/kid__teen_activities'
+          'uri' => '/kid__teen_activities',
         ],
         [
           'title' => 'Camps',
-          'uri' => '/camps'
+          'uri' => '/camps',
         ],
         [
           'title' => 'Summer Programs',
-          'uri' => '/child_care__preschool/summer_programs/summer_at_the_y'
+          'uri' => '/child_care__preschool/summer_programs/summer_at_the_y',
         ],
       ],
     ],
@@ -5463,18 +5463,18 @@ function ymca_master_update_8253() {
       'sub' => [
         [
           'title' => 'Volunteer',
-          'uri' => '/about/volunteer'
+          'uri' => '/about/volunteer',
         ],
         [
           'title' => 'About the Y',
-          'uri' => '/about'
+          'uri' => '/about',
         ],
         [
           'title' => 'How We Help',
-          'uri' => '/our_cause/how_we_help'
-        ]
-      ]
-    ]
+          'uri' => '/our_cause/how_we_help',
+        ],
+      ],
+    ],
   ];
   foreach($menu_tree as $key => $menu_link) {
     $first_level = MenuLinkContent::create([
@@ -5646,7 +5646,7 @@ function ymca_master_update_8259() {
           'status' => TRUE,
           'field_media_image' => [
             'target_id' => $image->id(),
-          ]
+          ],
         ]
       );
       $mediaEntity->save();
@@ -5730,7 +5730,7 @@ function ymca_master_update_8261() {
   $config_importer->setDirectory($dir);
   $config_importer->importConfigs(
     [
-      'entity_browser.browser.documents_library'
+      'entity_browser.browser.documents_library',
     ]
   );
 
@@ -5761,7 +5761,7 @@ function ymca_master_update_8261() {
           'status' => TRUE,
           'field_media_document' => [
             'target_id' => $file->id(),
-          ]
+          ],
         ]
       );
 
@@ -5890,7 +5890,7 @@ function ymca_master_update_8266() {
           'status' => TRUE,
           'field_media_image' => [
             'target_id' => $file->id(),
-          ]
+          ],
         ]
       );
 
@@ -5918,4 +5918,256 @@ function ymca_master_update_8267() {
       'core.entity_view_display.media.image.prgf_small_banner',
     ]
   );
+}
+
+/**
+ * Deprecate old date block.
+ */
+function ymca_master_update_8268() {
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $dir = 'modules/features/ygtc_date_block/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'block_content.type.ygtc_date_block',
+      'core.entity_form_display.block_content.ygtc_date_block.default',
+      'core.entity_view_display.block_content.ygtc_date_block.default',
+      'field.field.block_content.ygtc_date_block.field_ygtc_content_date_before',
+      'field.field.block_content.ygtc_date_block.field_ygtc_content_date_between',
+      'field.field.block_content.ygtc_date_block.field_ygtc_content_date_end',
+      'field.field.block_content.ygtc_date_block.field_ygtc_end_date',
+      'field.field.block_content.ygtc_date_block.field_ygtc_start_date',
+      'field.storage.block_content.field_ygtc_content_date_before',
+      'field.storage.block_content.field_ygtc_content_date_between',
+      'field.storage.block_content.field_ygtc_content_date_end',
+      'field.storage.block_content.field_ygtc_end_date',
+      'field.storage.block_content.field_ygtc_start_date',
+      'language.content_settings.block_content.ygtc_date_block',
+    ]
+  );
+}
+
+/**
+ * Migrate deprecated date block.
+ */
+function ymca_master_update_8269() {
+  $blockStorage = \Drupal::entityTypeManager()->getStorage('block_content');
+  $oldDateBlocks = $blockStorage->loadByProperties(['type' => 'date_block']);
+  $blockStorage->delete($oldDateBlocks);
+
+  $db = \Drupal::database();
+
+  /** @var BlockContent $oldDateBlock */
+  foreach ($oldDateBlocks as $oldDateBlock) {
+    // Create new block.
+    $newDateBlock = $blockStorage->create([
+      'type' => 'ygtc_date_block',
+      'info' => $oldDateBlock->info->value,
+    ]);
+
+    $newDateBlock->set('field_ygtc_end_date', $oldDateBlock->field_end_date->value);
+    $newDateBlock->set('field_ygtc_start_date', $oldDateBlock->field_start_date->value);
+
+    $newDateBlock->set(
+      'field_ygtc_content_date_end',
+      [
+        'value' => $oldDateBlock->field_content_date_end->value,
+        'format' => $oldDateBlock->field_content_date_end->format,
+      ]
+    );
+
+    $newDateBlock->set(
+      'field_ygtc_content_date_before',
+      [
+        'value' => $oldDateBlock->field_content_date_before->value,
+        'format' => $oldDateBlock->field_content_date_before->format,
+      ]
+    );
+
+    $newDateBlock->set(
+      'field_ygtc_content_date_between',
+      [
+        'value' => $oldDateBlock->field_content_date_between->value,
+        'format' => $oldDateBlock->field_content_date_between->format,
+      ]
+    );
+
+    $newDateBlock->save();
+
+    $content_tables = [
+      'block_content',
+      'block_content_revision',
+      'block_content_field_data',
+      'block_content_field_revision'
+    ];
+
+    foreach ($content_tables as $table) {
+      // Set the old ID and Revision ID on the new block in the main table.
+      $query = $db->update($table);
+      $query->condition('id', $newDateBlock->id());
+
+      $fields = [
+        'id' => $oldDateBlock->id(),
+        'revision_id' => $oldDateBlock->getLoadedRevisionId(),
+      ];
+
+      if ($table == 'block_content') {
+        $fields['uuid'] = $oldDateBlock->uuid();
+      }
+
+      $query->fields($fields);
+      $query->execute();
+    }
+
+    // Set the old ID and Revision ID on the new block in the field tables.
+    $field_tables = [
+      'block_content__field_ygtc_end_date',
+      'block_content__field_ygtc_start_date',
+      'block_content__field_ygtc_content_date_before',
+      'block_content__field_ygtc_content_date_between',
+      'block_content__field_ygtc_content_date_end',
+      'block_content_revision__field_ygtc_end_date',
+      'block_content_revision__field_ygtc_start_date',
+      'block_content_revision__field_ygtc_content_date_before',
+      'block_content_revision__field_ygtc_content_date_between',
+      'block_content_revision__field_ygtc_content_date_end',
+    ];
+    foreach ($field_tables as $table) {
+      if ($db->schema()->tableExists($table)) {
+        $query = $db->update($table);
+        $query->fields([
+          'entity_id' => $oldDateBlock->id(),
+          'revision_id' => $oldDateBlock->getLoadedRevisionId(),
+        ]);
+        $query->condition('entity_id', $newDateBlock->id());
+        $query->execute();
+      }
+    }
+  }
+}
+
+/**
+ * Fix browsers for article/Page CT.
+ */
+function ymca_master_update_8271() {
+  $config_importer = \Drupal::service('config_import.importer');
+
+  // Remove the field.
+  $field_name = 'field_header_image';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('node', ['article'], $field_name, TRUE);
+
+  $dir = 'modules/features/ygtc_page_and_location/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'core.base_field_override.node.article.promote',
+      'core.entity_form_display.mapping.trainer.default',
+      'core.entity_form_display.node.article.default',
+      'core.entity_view_display.mapping.trainer.default',
+      'core.entity_view_display.node.article.content_browser_preview',
+      'core.entity_view_display.node.article.default',
+      'core.entity_view_display.node.article.full',
+      'core.entity_view_display.node.article.rss',
+      'core.entity_view_display.node.article.teaser',
+      'field.field.mapping.trainer.field_mindbody_trainer_id',
+      'field.field.mapping.trainer.field_trainer_page_ref',
+      'field.field.node.article.field_alert',
+      'field.field.node.article.field_header_button',
+      'field.field.node.article.field_header_image',
+      'field.field.node.article.field_header_variant',
+      'field.field.node.article.field_lead_description',
+      'field.field.node.article.field_page_meta',
+      'field.field.node.article.field_promo_slideshow',
+      'field.field.node.article.field_related',
+      'field.field.node.article.field_secondary_sidebar',
+      'field.field.node.article.field_sidebar_navigation',
+      'field.field.node.article.field_sidebar',
+      'field.field.node.article.field_state',
+      'field.field.node.article.field_tags',
+      'field.field.node.article.field_template',
+      'field.field.node.article.field_title_description',
+      'field.field.node.article.field_ygtc_content',
+      'field.storage.mapping.field_mindbody_trainer_id',
+      'field.storage.mapping.field_trainer_page_ref',
+      'field.storage.node.field_header_button',
+      'field.storage.node.field_header_image',
+      'field.storage.node.field_header_variant',
+      'field.storage.node.field_lead_description',
+      'field.storage.node.field_page_meta',
+      'field.storage.node.field_related',
+      'field.storage.node.field_secondary_sidebar',
+      'field.storage.node.field_sidebar_navigation',
+      'field.storage.node.field_sidebar',
+      'field.storage.node.field_template',
+      'field.storage.node.field_title_description',
+      'image.style.2013_masthead',
+      'language.content_settings.node.article',
+      'node.type.article',
+      'views.view.trainers_mapping',
+      'ymca_mappings.mapping_type.trainer',
+    ]
+  );
+
+  $db = \Drupal::database();
+  $entityTypeManager = \Drupal::entityTypeManager();
+  // Copy backed up data to new field instance.
+  $rows = $db->select("copy_node__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $nodeStorage = $entityTypeManager->getStorage('node');
+  $mediaStorage = $entityTypeManager->getStorage('media');
+  $fileStorage = $entityTypeManager->getStorage('file');
+
+  foreach ($rows as $row) {
+    $nodeEntity = $nodeStorage->load($row->entity_id);
+    if ($nodeEntity) {
+      // Load appropriate image.
+      $field_name_column = $field_name . '_target_id';
+      $file = $fileStorage->load($row->$field_name_column);
+      if (!$file) {
+        continue;
+      }
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'image',
+          'name' => $row->field_header_image_alt,
+          'status' => TRUE,
+          'field_media_image' => [
+            'target_id' => $file->id(),
+          ],
+        ]
+      );
+
+      $mediaEntity->save();
+
+      $referenceField = $nodeEntity->get($field_name);
+      $referenceField->appendItem(['target_id' => $mediaEntity->id()]);
+
+      $nodeEntity->save();
+    }
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_node__$field_name");
+}
+
+/**
+ * Enable OpenY Date Block.
+ */
+function ymca_master_update_8272() {
+
+  $modules = [
+    'openy_block_date',
+    'openy_prgf_block_date',
+  ];
+
+  $installer = \Drupal::service('module_installer');
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
 }
