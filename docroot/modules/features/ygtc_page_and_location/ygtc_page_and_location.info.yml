@@ -1,0 +1,29 @@
+name: 'YGTC Page'
+description: 'YGTC Page CT'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - crop
+  - datalayer
+  - entity_browser
+  - field
+  - file
+  - file_browser
+  - image
+  - inline_entity_form
+  - language
+  - link
+  - menu_ui
+  - metatag
+  - node
+  - options
+  - path
+  - scheduler
+  - text
+  - user
+  - views
+  - workflowfield
+  - ymca_link_formatter
+  - ymca_mappings
+version: 8.x-1.0
