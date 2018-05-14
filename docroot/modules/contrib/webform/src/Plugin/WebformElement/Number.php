@@ -19,14 +19,12 @@ class Number extends NumericBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    return parent::getDefaultProperties() + [
-      'multiple' => FALSE,
-      'multiple__header_label' => '',
+    return [
       // Number settings.
       'min' => '',
       'max' => '',
       'step' => '',
-    ];
+    ] + parent::getDefaultProperties() + $this->getDefaultMultipleProperties();
   }
 
   /**

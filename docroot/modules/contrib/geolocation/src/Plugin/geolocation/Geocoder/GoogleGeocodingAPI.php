@@ -30,36 +30,36 @@ class GoogleGeocodingAPI extends GeocoderBase {
     return [
       'components' => [
         '#type' => 'fieldset',
-        '#title' => t("Component presets"),
-        '#description' => t("See https://developers.google.com/maps/documentation/geocoding/intro#ComponentFiltering"),
+        '#title' => $this->t('Component presets'),
+        '#description' => $this->t('See https://developers.google.com/maps/documentation/geocoding/intro#ComponentFiltering'),
         'route' => [
           '#type' => 'textfield',
           '#default_value' => isset($this->configuration['components']['route']) ? $this->configuration['components']['route'] : '',
-          '#title' => t("Route"),
+          '#title' => $this->t('Route'),
           '#size' => 15,
         ],
         'locality' => [
           '#type' => 'textfield',
           '#default_value' => isset($this->configuration['components']['locality']) ? $this->configuration['components']['locality'] : '',
-          '#title' => t("Locality"),
+          '#title' => $this->t('Locality'),
           '#size' => 15,
         ],
         'administrativeArea' => [
           '#type' => 'textfield',
           '#default_value' => isset($this->configuration['components']['administrative_area']) ? $this->configuration['components']['administrativeArea'] : '',
-          '#title' => t("Administrative Area"),
+          '#title' => $this->t('Administrative Area'),
           '#size' => 15,
         ],
         'postalCode' => [
           '#type' => 'textfield',
           '#default_value' => isset($this->configuration['components']['postal_code']) ? $this->configuration['components']['postalCode'] : '',
-          '#title' => t("Postal code"),
+          '#title' => $this->t('Postal code'),
           '#size' => 5,
         ],
         'country' => [
           '#type' => 'textfield',
           '#default_value' => isset($this->configuration['components']['country']) ? $this->configuration['components']['country'] : '',
-          '#title' => t("Country"),
+          '#title' => $this->t('Country'),
           '#size' => 5,
         ],
       ],
@@ -72,7 +72,7 @@ class GoogleGeocodingAPI extends GeocoderBase {
   public function formAttachGeocoder(array &$render_array, $element_name) {
     $render_array['geolocation_geocoder_google_geocoding_api'] = [
       '#type' => 'textfield',
-      '#description' => t('Enter an address to filter results.'),
+      '#description' => $this->t('Enter an address to filter results.'),
       '#attributes' => [
         'class' => [
           'form-autocomplete',
@@ -113,10 +113,8 @@ class GoogleGeocodingAPI extends GeocoderBase {
       ],
     ];
 
-    $config = \Drupal::config('geolocation.settings');
-
-    if (!empty($config->get('google_map_custom_url_parameters')['region'])) {
-      $form['#attached']['drupalSettings']['geolocation']['geocoder']['googleGeocodingAPI']['region'] = $config->get('google_map_custom_url_parameters')['region'];
+    if (!empty($this->geolocationSettings->get('google_map_custom_url_parameters')['region'])) {
+      $render_array['#attached']['drupalSettings']['geolocation']['geocoder']['googleGeocodingAPI']['region'] = $this->geolocationSettings->get('google_map_custom_url_parameters')['region'];
     }
 
     if (!empty($this->configuration['components'])) {
@@ -155,7 +153,7 @@ class GoogleGeocodingAPI extends GeocoderBase {
       $location_data = $this->geocode($input['geolocation_geocoder_google_geocoding_api']);
 
       if (empty($location_data)) {
-        $form_state->setErrorByName('geolocation_geocoder_google_geocoding_api', t('Failed to geocode %input.', ['%input' => $input['geolocation_geocoder_google_geocoding_api']]));
+        $form_state->setErrorByName('geolocation_geocoder_google_geocoding_api', $this->t('Failed to geocode %input.', ['%input' => $input['geolocation_geocoder_google_geocoding_api']]));
         return FALSE;
       }
     }
@@ -195,10 +193,11 @@ class GoogleGeocodingAPI extends GeocoderBase {
     }
     $request_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $address;
 
-    $config = \Drupal::config('geolocation.settings');
-
-    if (!empty($config->get('google_map_api_key'))) {
-      $request_url .= '&key=' . $config->get('google_map_api_key');
+    if (!empty($this->geolocationSettings->get('google_map_api_server_key'))) {
+      $request_url .= '&key=' . $this->geolocationSettings->get('google_map_api_key');
+    }
+    elseif (!empty($this->geolocationSettings->get('google_map_api_key'))) {
+      $request_url .= '&key=' . $this->geolocationSettings->get('google_map_api_key');
     }
     if (!empty($this->configuration['components'])) {
       $request_url .= '&components=';
@@ -206,8 +205,8 @@ class GoogleGeocodingAPI extends GeocoderBase {
         $request_url .= $component_id . ':' . $component_value . '|';
       }
     }
-    if (!empty($config->get('google_map_custom_url_parameters')['language'])) {
-      $request_url .= '&language=' . $config->get('google_map_custom_url_parameters')['language'];
+    if (!empty($this->geolocationSettings->get('google_map_custom_url_parameters')['language'])) {
+      $request_url .= '&language=' . $this->geolocationSettings->get('google_map_custom_url_parameters')['language'];
     }
 
     try {

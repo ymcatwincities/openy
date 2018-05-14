@@ -73,6 +73,22 @@ elements: |
     '#type': color
     '#title': Color
     '#disabled': true
+  webform_composite:
+    '#type': webform_composite
+    '#title': 'Composite custom'
+    '#element':
+      name:
+        '#type': textfield
+        '#title': Name
+        '#title_display': invisible
+      gender:
+        '#type': select
+        '#title': Gender
+        '#title_display': invisible
+        '#options':
+          Male: Male
+          Female: Female
+    '#disabled': true
   webform_contact:
     '#type': webform_contact
     '#title': Contact
@@ -320,7 +336,6 @@ elements: |
   webform_term_checkboxes:
     '#type': webform_term_checkboxes
     '#title': 'Term checkboxes'
-    '#options_display': side_by_side
     '#vocabulary': tags
     '#disabled': true
   webform_term_select:
@@ -373,6 +388,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -402,8 +418,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 1
   preview_label: ''
   preview_title: ''

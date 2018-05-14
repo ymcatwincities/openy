@@ -11,7 +11,7 @@
  */
 
 /**
- * Define additional parameters to the google maps API url.
+ * Define additional parameters to the Google Maps API URL.
  *
  * @return array
  *   Parameters

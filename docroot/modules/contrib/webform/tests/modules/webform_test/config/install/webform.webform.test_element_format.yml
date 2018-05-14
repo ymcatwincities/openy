@@ -1108,55 +1108,55 @@ elements: |
         '#type': webform_term_select
         '#title': 'Term select (Value)'
         '#vocabulary': tags
-        '#default_value': 49
+        '#default_value': 41
         '#format': value
       webform_term_select_raw:
         '#type': webform_term_select
         '#title': 'Term select (Raw value)'
         '#vocabulary': tags
-        '#default_value': 49
+        '#default_value': 41
         '#format': raw
       webform_term_select_link:
         '#type': webform_term_select
         '#title': 'Term select (Link)'
         '#vocabulary': tags
-        '#default_value': 49
+        '#default_value': 41
         '#format': link
       webform_term_select_id:
         '#type': webform_term_select
         '#title': 'Term select (Entity ID)'
         '#vocabulary': tags
-        '#default_value': 49
+        '#default_value': 41
         '#format': id
       webform_term_select_label:
         '#type': webform_term_select
         '#title': 'Term select (Label)'
         '#vocabulary': tags
-        '#default_value': 49
+        '#default_value': 41
         '#format': label
       webform_term_select_text:
         '#type': webform_term_select
         '#title': 'Term select (Label (ID))'
         '#vocabulary': tags
-        '#default_value': 49
+        '#default_value': 41
         '#format': text
       webform_term_select_teaser:
         '#type': webform_term_select
         '#title': 'Term select (Teaser)'
         '#vocabulary': tags
-        '#default_value': 49
+        '#default_value': 41
         '#format': teaser
       webform_term_select_default:
         '#type': webform_term_select
         '#title': 'Term select (Default)'
         '#vocabulary': tags
-        '#default_value': 49
+        '#default_value': 41
         '#format': default
       webform_term_select_breadcrumb:
         '#type': webform_term_select
         '#title': 'Term select (Breadcrumb)'
         '#vocabulary': tags
-        '#default_value': 49
+        '#default_value': 41
         '#format': breadcrumb
   other_elements:
     '#type': details
@@ -1179,6 +1179,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -1208,8 +1209,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 1
   preview_label: ''
   preview_title: ''
@@ -1282,6 +1283,7 @@ handlers:
     label: 'Email (Text)'
     handler_id: email_text
     status: true
+    conditions: {  }
     weight: 1
     settings:
       states:
@@ -1305,11 +1307,14 @@ handlers:
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''
   email_html:
     id: email
     label: 'Email (HTML)'
     handler_id: email_html
     status: true
+    conditions: {  }
     weight: 2
     settings:
       states:
@@ -1333,3 +1338,5 @@ handlers:
       debug: true
       reply_to: ''
       return_path: ''
+      sender_mail: ''
+      sender_name: ''

@@ -10,7 +10,7 @@ field_name: field_class_activity
 entity_type: node
 bundle: class
 label: Activity
-description: ''
+description: 'A reference field for selecting the class.'
 required: false
 translatable: true
 default_value: {  }

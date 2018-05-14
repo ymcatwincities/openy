@@ -33,10 +33,11 @@ class WebformSubmissionTokenUpdateTest extends WebformTestBase {
    * Test updating webform submission using tokenized URL.
    */
   public function testTokenUpdateTest() {
+    $webform = Webform::load('test_token_update');
+
     // Post test submission.
     $this->drupalLogin($this->rootUser);
-    $webform_token_update = Webform::load('test_token_update');
-    $sid = $this->postSubmissionTest($webform_token_update);
+    $sid = $this->postSubmissionTest($webform);
     $webform_submission = WebformSubmission::load($sid);
 
     // Check token update access allowed.
@@ -44,15 +45,33 @@ class WebformSubmissionTokenUpdateTest extends WebformTestBase {
     $this->drupalGet($webform_submission->getTokenUrl());
     $this->assertResponse(200);
     $this->assertRaw('Submission information');
-    $this->assertFieldByName('textfield', $webform_submission->getData('textfield'));
+    $this->assertFieldByName('textfield', $webform_submission->getElementData('textfield'));
 
     // Check token update access denied.
-    $webform_token_update->setSetting('token_update', FALSE)->save();
+    $webform->setSetting('token_update', FALSE)->save();
     $this->drupalLogin($this->normalUser);
     $this->drupalGet($webform_submission->getTokenUrl());
     $this->assertResponse(200);
     $this->assertNoRaw('Submission information');
-    $this->assertNoFieldByName('textfield', $webform_submission->getData('textfield'));
+    $this->assertNoFieldByName('textfield', $webform_submission->getElementData('textfield'));
+
+    // Logout and switch to anonymous user.
+    $this->drupalLogout();
+
+    // Set access to authenticated only and reenabled tokenized URL.
+    $access = $webform->getAccessRules();
+    $access['create']['roles'] = ['authenticated'];
+    $webform->setAccessRules($access);
+    $webform->setSetting('token_update', TRUE)->save();
+    $webform->save();
+
+    // Check that access is denied for anonymous user.
+    $this->drupalGet('webform/test_token_update');
+    $this->assertResponse(403);
+
+    // Check token update access allowed for anonymous user.
+    $this->drupalGet($webform_submission->getTokenUrl());
+    $this->assertResponse(200);
   }
 
 }

@@ -1,33 +1,28 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Form\IndexDeleteConfirmForm.
- */
-
 namespace Drupal\search_api\Form;
 
-use Drupal\Core\Entity\EntityConfirmFormBase;
+use Drupal\Core\Entity\EntityDeleteForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
  * Defines a confirm form for deleting an index.
  */
-class IndexDeleteConfirmForm extends EntityConfirmFormBase {
+class IndexDeleteConfirmForm extends EntityDeleteForm {
 
   /**
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Are you sure you want to delete the search index %name?', array('%name' => $this->entity->label()));
+    return $this->t('Are you sure you want to delete the search index %name?', ['%name' => $this->entity->label()]);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getCancelUrl() {
-    return new Url('entity.search_api_index.canonical', array('search_api_index' => $this->entity->id()));
+    return new Url('entity.search_api_index.canonical', ['search_api_index' => $this->entity->id()]);
   }
 
   /**
@@ -42,7 +37,7 @@ class IndexDeleteConfirmForm extends EntityConfirmFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
-    drupal_set_message($this->t('The search index %name has been removed.', array('%name' => $this->entity->label())));
+    drupal_set_message($this->t('The search index %name has been removed.', ['%name' => $this->entity->label()]));
     $form_state->setRedirect('search_api.overview');
   }
 

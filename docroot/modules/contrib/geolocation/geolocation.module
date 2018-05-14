@@ -36,6 +36,15 @@ function geolocation_help($route_name, RouteMatchInterface $route_match) {
  */
 function geolocation_theme() {
   return [
+    'geolocation_map_formatter' => [
+      'variables' => [
+        'locations' => NULL,
+        'latitude' => NULL,
+        'longitude' => NULL,
+        'uniqueid' => NULL,
+      ],
+      'template' => 'geolocation-map-formatter',
+    ],
     'geolocation_latlng_formatter' => [
       'variables' => [
         'lat' => NULL,
@@ -57,6 +66,7 @@ function geolocation_theme() {
         'clientlocation' => NULL,
         'locations' => NULL,
         'id' => NULL,
+        'view' => NULL,
       ],
     ],
     'geolocation_common_map_location' => [
@@ -64,9 +74,24 @@ function geolocation_theme() {
         'content' => NULL,
         'title' => NULL,
         'position' => NULL,
-        'icon' => NULL,
         'location_id' => NULL,
+        'disable_marker' => NULL,
+        'icon' => NULL,
+        'marker_label' => NULL,
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function geolocation_theme_suggestions_geolocation_common_map_display(array $variables) {
+  $suggestions = [];
+
+  if (!empty($variables['view']) && $variables['view'] instanceof ViewExecutable) {
+    $suggestions = $variables['view']->buildThemeFunctions('geolocation_common_map_display');
+  }
+
+  return $suggestions;
 }

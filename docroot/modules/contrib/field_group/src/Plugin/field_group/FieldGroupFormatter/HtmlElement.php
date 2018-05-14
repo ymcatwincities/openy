@@ -75,6 +75,7 @@ class HtmlElement extends FieldGroupFormatterBase {
     \Drupal\field_group\Element\HtmlElement::processHtmlElement($element, $form_state);
 
     if ($this->getSetting('required_fields')) {
+      $element['#attributes']['class'][] = 'field-group-html-element';
       $element['#attached']['library'][] = 'field_group/formatter.html_element';
       $element['#attached']['library'][] = 'field_group/core';
     }

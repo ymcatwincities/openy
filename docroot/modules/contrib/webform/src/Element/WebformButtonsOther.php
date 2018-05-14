@@ -24,6 +24,17 @@ class WebformButtonsOther extends WebformOtherBase {
    * @see \Drupal\Core\Render\Element\Select
    */
   public static function processWebformOther(&$element, FormStateInterface $form_state, &$complete_form) {
+    // Attach element buttons before other handler.
+    // @see \Drupal\webform\Element\WebformButtons::processRadios
+    if (floatval(\Drupal::VERSION) < 8.4) {
+      $element['#attached']['library'][] = 'webform/webform.element.buttons.buttonset';
+    }
+    else {
+      $element['#attached']['library'][] = 'webform/webform.element.buttons.checkboxradio';
+    }
+    $element['#wrapper_attributes']['class'][] = "js-webform-buttons";
+    $element['#wrapper_attributes']['class'][] = "webform-buttons";
+
     $element = parent::processWebformOther($element, $form_state, $complete_form);
     return $element;
   }

@@ -35,7 +35,15 @@ class FeaturesInstallStorage extends ExtensionInstallStorage {
    *   default collection.
    */
   public function __construct(StorageInterface $config_storage, $directory = self::CONFIG_INSTALL_DIRECTORY, $collection = StorageInterface::DEFAULT_COLLECTION) {
-    parent::__construct($config_storage, $directory, $collection, FALSE);
+    list($major, $minor, ) = explode('.', \Drupal::VERSION);
+    if ($major == 8 && $minor > 2) {
+      // D8.3 added the %profile% argument.
+      $profile = \Drupal::installProfile();
+      parent::__construct($config_storage, $directory, $collection, FALSE, $profile);
+    }
+    else {
+      parent::__construct($config_storage, $directory, $collection, FALSE);
+    }
   }
 
   /**

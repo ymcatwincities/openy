@@ -77,11 +77,35 @@
       // Webform CodeMirror syntax coloring.
       $(context).find('.js-webform-codemirror-runmode').once('webform-codemirror-runmode').each(function () {
         // Mode Runner - http://codemirror.net/demo/runmode.html
-        CodeMirror.runMode($(this).addClass('cm-s-default').html(), $(this).attr('data-webform-codemirror-mode'), this);
+        CodeMirror.runMode($(this).addClass('cm-s-default').text(), $(this).attr('data-webform-codemirror-mode'), this);
       });
 
     }
   };
+
+  /****************************************************************************/
+  // Refresh functions.
+  /****************************************************************************/
+
+  /**
+   * Refresh codemirror element to make sure it renders correctly.
+   *
+   * @param element
+   *   An element containing a CodeMirror editor.
+   */
+  function refresh(element) {
+    // Show tab panel and open details.
+    var $tabPanel = $(element).parents('.ui-tabs-panel:hidden');
+    $tabPanel.show();
+    var $details = $(element).parents('details:not([open])');
+    $details.attr('open', 'open');
+
+    element.CodeMirror.refresh();
+
+    // Hide tab panel and close details.
+    $tabPanel.hide();
+    $details.removeAttr('open');
+  }
 
   // Workaround: When a dialog opens we need to reference all CodeMirror
   // editors to make sure they are properly initialized and sized.
@@ -90,24 +114,20 @@
     // still being rendered.
     // @see http://stackoverflow.com/questions/8349571/codemirror-editor-is-not-loading-content-until-clicked
     setTimeout(function () {
-      $('.CodeMirror').each(function (index, $element) {
-        var $details = $(this).parents('details:not([open])');
-        $details.attr('open', 'open');
-        $element.CodeMirror.refresh();
-        // Now, close details.
-        $details.removeAttr('open');
+      $('.CodeMirror').each(function (index, element) {
+        refresh(element);
       });
     }, 10);
   });
 
   // On state:visible refresh CodeMirror elements.
   $(document).on('state:visible', function (event) {
-    var $element = $(event.target);
-    if ($element.hasClass('js-webform-codemirror')) {
-      $element.parent().find('.CodeMirror').each(function (index, $element) {
-        $element.CodeMirror.refresh();
-      });
-    }
+    var $element = $(event.target).parent().find('.js-webform-codemirror');
+    $element.parent().find('.CodeMirror').each(function (index, element) {
+      setTimeout(function () {
+        refresh(element);
+      }, 1);
+    });
   });
 
 })(jQuery, Drupal);

@@ -111,12 +111,16 @@ class WebformResultsExportController extends ControllerBase implements Container
       return $build;
     }
     elseif ($query && empty($query['ajax_form'])) {
-      if (!empty($query['excluded_columns']) && is_string($query['excluded_columns'])) {
-        $excluded_columns = explode(',', $query['excluded_columns']);
-        $query['excluded_columns'] = array_combine($excluded_columns, $excluded_columns);
+      $default_options = $this->submissionExporter->getDefaultExportOptions();
+      foreach ($query as $key => $value) {
+        if (isset($default_options[$key]) && is_array($default_options[$key]) && is_string($value)) {
+          $query[$key] = explode(',', $value);
+        }
       }
-
-      $export_options = $query + $this->submissionExporter->getDefaultExportOptions();
+      if (!empty($query['excluded_columns'])) {
+        $query['excluded_columns'] = array_combine($query['excluded_columns'], $query['excluded_columns']);
+      }
+      $export_options = $query + $default_options;
       $this->submissionExporter->setExporter($export_options);
       if ($this->submissionExporter->isBatch()) {
         static::batchSet($webform, $source_entity, $export_options);

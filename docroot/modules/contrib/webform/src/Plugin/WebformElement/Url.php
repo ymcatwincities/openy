@@ -21,10 +21,7 @@ class Url extends TextBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    return parent::getDefaultProperties() + [
-      'multiple' => FALSE,
-      'multiple__header_label' => '',
-    ];
+    return parent::getDefaultProperties() + $this->getDefaultMultipleProperties();
   }
 
   /**

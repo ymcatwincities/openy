@@ -108,6 +108,16 @@ elements: |
         required:
           ':input[name="visible_trigger"]':
             checked: true
+    visible_webform_section:
+      '#type': webform_section
+      '#title': Section
+      '#states':
+        visible:
+          ':input[name="visible_trigger"]':
+            checked: true
+        required:
+          ':input[name="visible_trigger"]':
+            checked: true
     visible_table:
       '#type': table
       '#title': Table
@@ -264,6 +274,38 @@ elements: |
       '#type': color
       '#title': Color
       '#default_value': '#ffffcc'
+      '#states':
+        visible:
+          ':input[name="visible_trigger"]':
+            checked: true
+        required:
+          ':input[name="visible_trigger"]':
+            checked: true
+    visible_webform_composite:
+      '#type': webform_composite
+      '#title': 'Composite custom'
+      '#element':
+        name:
+          '#type': textfield
+          '#title': Name
+          '#title_display': invisible
+        gender:
+          '#type': select
+          '#title': Gender
+          '#title_display': invisible
+          '#options':
+            Male: Male
+            Female: Female
+      '#default_value':
+        -
+          name: Loremipsum
+          gender: Male
+        -
+          name: Loremipsum
+          gender: Male
+        -
+          name: Loremipsum
+          gender: Male
       '#states':
         visible:
           ':input[name="visible_trigger"]':
@@ -500,6 +542,19 @@ elements: |
       '#type': managed_file
       '#title': File
       '#description': '<b>Known Issues:</b><br /><a href="https://www.drupal.org/node/2705471">Issue #2705471: Webform states managed file fields</a><br /><a href="https://www.drupal.org/node/2113931">Issue #2113931: File Field design update</a><br /><a href="https://www.drupal.org/node/2346893">Issue #2346893: Duplicate Ajax wrapper around a file field</a><br /><a href="https://www.drupal.org/node/2482783">Issue #2482783: File upload errors not set or shown correctly</a>'
+      '#states':
+        visible:
+          ':input[name="visible_trigger"]':
+            checked: true
+        required:
+          ':input[name="visible_trigger"]':
+            checked: true
+    visible_webform_horizontal_rule:
+      '#type': webform_horizontal_rule
+      '#attributes':
+        class:
+          - webform-horizontal-rule--dotted
+          - webform-horizontal-rule--thick
       '#states':
         visible:
           ':input[name="visible_trigger"]':
@@ -881,12 +936,11 @@ elements: |
     visible_webform_term_checkboxes:
       '#type': webform_term_checkboxes
       '#title': 'Term checkboxes'
-      '#options_display': side_by_side
       '#vocabulary': tags
       '#default_value':
-        - 49
-        - 33
-        - 21
+        - 41
+        - 48
+        - 43
       '#states':
         visible:
           ':input[name="visible_trigger"]':
@@ -898,7 +952,7 @@ elements: |
       '#type': webform_term_select
       '#title': 'Term select'
       '#vocabulary': tags
-      '#default_value': 49
+      '#default_value': 41
       '#states':
         visible:
           ':input[name="visible_trigger"]':
@@ -1089,6 +1143,13 @@ elements: |
         invisible:
           ':input[name="invisible_trigger"]':
             checked: true
+    invisible_webform_section:
+      '#type': webform_section
+      '#title': Section
+      '#states':
+        invisible:
+          ':input[name="invisible_trigger"]':
+            checked: true
     invisible_table:
       '#type': table
       '#title': Table
@@ -1212,6 +1273,35 @@ elements: |
       '#type': color
       '#title': Color
       '#default_value': '#ffffcc'
+      '#states':
+        invisible:
+          ':input[name="invisible_trigger"]':
+            checked: true
+    invisible_webform_composite:
+      '#type': webform_composite
+      '#title': 'Composite custom'
+      '#element':
+        name:
+          '#type': textfield
+          '#title': Name
+          '#title_display': invisible
+        gender:
+          '#type': select
+          '#title': Gender
+          '#title_display': invisible
+          '#options':
+            Male: Male
+            Female: Female
+      '#default_value':
+        -
+          name: Loremipsum
+          gender: Male
+        -
+          name: Loremipsum
+          gender: Male
+        -
+          name: Loremipsum
+          gender: Male
       '#states':
         invisible:
           ':input[name="invisible_trigger"]':
@@ -1397,6 +1487,16 @@ elements: |
       '#type': managed_file
       '#title': File
       '#description': '<b>Known Issues:</b><br /><a href="https://www.drupal.org/node/2705471">Issue #2705471: Webform states managed file fields</a><br /><a href="https://www.drupal.org/node/2113931">Issue #2113931: File Field design update</a><br /><a href="https://www.drupal.org/node/2346893">Issue #2346893: Duplicate Ajax wrapper around a file field</a><br /><a href="https://www.drupal.org/node/2482783">Issue #2482783: File upload errors not set or shown correctly</a>'
+      '#states':
+        invisible:
+          ':input[name="invisible_trigger"]':
+            checked: true
+    invisible_webform_horizontal_rule:
+      '#type': webform_horizontal_rule
+      '#attributes':
+        class:
+          - webform-horizontal-rule--dotted
+          - webform-horizontal-rule--thick
       '#states':
         invisible:
           ':input[name="invisible_trigger"]':
@@ -1700,12 +1800,11 @@ elements: |
     invisible_webform_term_checkboxes:
       '#type': webform_term_checkboxes
       '#title': 'Term checkboxes'
-      '#options_display': side_by_side
       '#vocabulary': tags
       '#default_value':
-        - 49
-        - 33
-        - 21
+        - 41
+        - 48
+        - 43
       '#states':
         invisible:
           ':input[name="invisible_trigger"]':
@@ -1714,7 +1813,7 @@ elements: |
       '#type': webform_term_select
       '#title': 'Term select'
       '#vocabulary': tags
-      '#default_value': 49
+      '#default_value': 41
       '#states':
         invisible:
           ':input[name="invisible_trigger"]':
@@ -1930,6 +2029,35 @@ elements: |
         disabled:
           ':input[name="disabled_trigger"]':
             checked: true
+    disabled_webform_composite:
+      '#type': webform_composite
+      '#title': 'Composite custom'
+      '#element':
+        name:
+          '#type': textfield
+          '#title': Name
+          '#title_display': invisible
+        gender:
+          '#type': select
+          '#title': Gender
+          '#title_display': invisible
+          '#options':
+            Male: Male
+            Female: Female
+      '#default_value':
+        -
+          name: Loremipsum
+          gender: Male
+        -
+          name: Loremipsum
+          gender: Male
+        -
+          name: Loremipsum
+          gender: Male
+      '#states':
+        disabled:
+          ':input[name="disabled_trigger"]':
+            checked: true
     disabled_webform_computed_token:
       '#type': webform_computed_token
       '#title': 'Computed token'
@@ -2111,6 +2239,16 @@ elements: |
       '#type': managed_file
       '#title': File
       '#description': '<b>Known Issues:</b><br /><a href="https://www.drupal.org/node/2705471">Issue #2705471: Webform states managed file fields</a><br /><a href="https://www.drupal.org/node/2113931">Issue #2113931: File Field design update</a><br /><a href="https://www.drupal.org/node/2346893">Issue #2346893: Duplicate Ajax wrapper around a file field</a><br /><a href="https://www.drupal.org/node/2482783">Issue #2482783: File upload errors not set or shown correctly</a>'
+      '#states':
+        disabled:
+          ':input[name="disabled_trigger"]':
+            checked: true
+    disabled_webform_horizontal_rule:
+      '#type': webform_horizontal_rule
+      '#attributes':
+        class:
+          - webform-horizontal-rule--dotted
+          - webform-horizontal-rule--thick
       '#states':
         disabled:
           ':input[name="disabled_trigger"]':
@@ -2414,12 +2552,11 @@ elements: |
     disabled_webform_term_checkboxes:
       '#type': webform_term_checkboxes
       '#title': 'Term checkboxes'
-      '#options_display': side_by_side
       '#vocabulary': tags
       '#default_value':
-        - 49
-        - 33
-        - 21
+        - 41
+        - 48
+        - 43
       '#states':
         disabled:
           ':input[name="disabled_trigger"]':
@@ -2428,7 +2565,7 @@ elements: |
       '#type': webform_term_select
       '#title': 'Term select'
       '#vocabulary': tags
-      '#default_value': 49
+      '#default_value': 41
       '#states':
         disabled:
           ':input[name="disabled_trigger"]':
@@ -2522,6 +2659,7 @@ css: ''
 javascript: ''
 settings:
   ajax: false
+  ajax_scroll_top: form
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -2551,8 +2689,8 @@ settings:
   wizard_progress_pages: false
   wizard_progress_percentage: false
   wizard_start_label: ''
-  wizard_complete: true
-  wizard_complete_label: ''
+  wizard_confirmation: true
+  wizard_confirmation_label: ''
   preview: 0
   preview_label: ''
   preview_title: ''

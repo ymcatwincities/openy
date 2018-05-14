@@ -28,12 +28,17 @@ class ContentSelectForm extends FormBase {
       'branches' => $this->t('Demo Branches'),
       'camps' => $this->t('Demo Camps'),
       'blog' => $this->t('Demo Blog Posts'),
+      'news' => $this->t('Demo News Posts'),
       'programs' => $this->t('Demo Programs & Categories'),
       'landing' => $this->t('Demo Landing Pages'),
-      'menus' => $this->t('Demo menus'),
+      'menus' => $this->t('Demo Menus'),
       'facility' => $this->t('Demo Facilities'),
       'membership' => $this->t('Demo Memberships'),
       'webform' => $this->t('Demo Webform'),
+    ];
+
+    $settings_options = [
+      'addthis' => $this->t('AddThis Demo Credentials'),
     ];
 
     $form['content'] = [
@@ -41,6 +46,13 @@ class ContentSelectForm extends FormBase {
       '#title' => $this->t('Choose content to import'),
       '#default_value' => array_keys($options),
       '#options' => $options,
+    ];
+
+    $form['settings'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Choose settings to import'),
+      '#default_value' => array_keys($settings_options),
+      '#options' => $settings_options,
     ];
 
     $form['actions'] = [

@@ -9,8 +9,24 @@ env:
     - { name: '$databases["amm_source"]["default"]["namespace"]', status: true, value: 'Drupal\\\\Core\\\\Database\\\\Driver\\\\mysql' }
     - { name: '$databases["amm_source"]["default"]["driver"]', status: true, value: 'mysql' }
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
+    - { name: '$config_directories["sync"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$settings["install_profile"]', status: true, value: 'pp' }
     - { name: '$config["system.file"]["path"]["temporary"]', status: true, value: '/tmp' }
+    - { name: '$settings["memcache"]["bins"]', status: false, value: '[\\"default\\" => \\"default\\"]' }
+    - { name: '$settings["memcache"]["key_prefix"]', status: false, value: '{{ mysql_db }}' }
+    - { name: '$settings["cache"]["default"]', status: false, value: 'cache.backend.memcache' }
+  pre_drush_commands:
+    - { name: 'php-eval', status: false, arguments: "\"\\Drupal::keyValue('system.schema')->set('ymca_master', 8259);\"" }
+  shell_commands:
+    # @todo Remove after OpenY Migration.
+    - { name: '[Openy Migrate] Updating OpenY', status: true, arguments: "echo system serialization syslog file node rest entity_browser file_browser dropzonejs openy | xargs -n 1 | xargs -I item bin/drupal update:execute item"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8234 8235 8236 8237 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8238 8239 8240 8241 8242 8243 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8244 8245 8246 8247 8248 8249 8250 8251 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: true, arguments: "echo 8258 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating OpenY related features', status: true, arguments: "echo webform redirect crop openy_media openy_media_document openy_media_video openy_node openy_node_landing openy_txnm_color openy_prgf_small_banner openy_prgf_simple_content openy_prgf_2c openy_block_custom_simple openy_prgf | xargs -n 1 | xargs -I item bin/drupal update:execute item"}
+    - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8262 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
+    - { name: '[Openy Migrate] Updating YMCA Master remaining updates', status: true, arguments: "bin/drupal update:execute ymca_master"}
   modules:
     - { name: 'config_inspector dblog stage_file_proxy', status: true }
   drush_commands:
@@ -37,10 +53,10 @@ env:
     # Configure synchroniation.
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_sync.settings')->set('active_syncers', ['personify_mindbody_sync.syncer_fast', 'ymca_google.syncer', 'ymca_cdn_sync.syncer'])->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('personify_mindbody_sync.settings')->set('is_production', '0')->save(TRUE);\"" }
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_endpoint', 'http://ygtctrain2.personifycloud.com/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_endpoint', 'https://***REMOVED***/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('childcare_endpoint', 'https://***REMOVED***/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments')->save(TRUE);\"" }
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_username', '***REMOVED***')->save(TRUE);\"" }
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_password', '***REMOVED***')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_username', 'Paperless.Integratio')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_password', 'ymcA9622')->save(TRUE);\"" }
     # Set calendar syncer to test mode.
     - { name: 'config-set', status: true, arguments: "ymca_google.settings is_production 0" }
     # Set MindCacheProxy status endpoint as a secondary.

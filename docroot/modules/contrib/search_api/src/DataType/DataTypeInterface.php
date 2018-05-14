@@ -1,14 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\DataType\DataTypeInterface.
- */
-
 namespace Drupal\search_api\DataType;
 
 use Drupal\Component\Plugin\DerivativeInspectionInterface;
 use Drupal\Component\Plugin\PluginInspectionInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 
 /**
  * Defines an interface for data type plugins.
@@ -18,15 +14,20 @@ use Drupal\Component\Plugin\PluginInspectionInterface;
  * @see \Drupal\search_api\DataType\DataTypePluginBase
  * @see plugin_api
  */
-interface DataTypeInterface extends PluginInspectionInterface, DerivativeInspectionInterface {
+interface DataTypeInterface extends PluginInspectionInterface, DerivativeInspectionInterface, ContainerFactoryPluginInterface {
 
   /**
-   * Returns the label for use on the administration pages.
+   * Returns the label of the data type.
    *
    * @return string
    *   The administration label.
    */
   public function label();
+
+  /**
+   * Returns the description of the data type.
+   */
+  public function getDescription();
 
   /**
    * Converts a field value to match the data type (if needed).
@@ -44,8 +45,6 @@ interface DataTypeInterface extends PluginInspectionInterface, DerivativeInspect
    *
    * @return string
    *   The fallback default data type.
-   *
-   * @see \Drupal\search_api\Utility::getDefaultDataTypes()
    */
   public function getFallbackType();
 

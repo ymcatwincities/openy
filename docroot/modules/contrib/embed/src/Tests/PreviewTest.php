@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\embed\Tests\PreviewTest.
- */
-
 namespace Drupal\embed\Tests;
 
 /**

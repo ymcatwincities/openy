@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels\Plugin\DisplayVariant;
 
 use Drupal\Component\Render\HtmlEscapedText;

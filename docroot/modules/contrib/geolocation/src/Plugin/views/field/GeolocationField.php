@@ -10,18 +10,9 @@ use Drupal\views\Plugin\views\field\Field;
  *
  * @ingroup views_field_handlers
  *
- * @todo Rename the extended class https://www.drupal.org/node/2408667
- *
  * @ViewsField("geolocation_field")
  */
 class GeolocationField extends Field {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getFieldStorageDefinition() {
-    return parent::getFieldStorageDefinition();
-  }
 
   /**
    * {@inheritdoc}

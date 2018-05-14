@@ -1,6 +1,6 @@
 body {
   color: $default-grey;
-  @include helvetica-neue();
+  @include verdana();
 }
 
 h1, .h1, h2, .h2, h3, h4, h5, h6 {
@@ -9,12 +9,17 @@ h1, .h1, h2, .h2, h3, h4, h5, h6 {
 
 h1,
 .h1 {
-  font-size: 40px;
+  font-size: $h1-size;
 }
 
 h2,
 .h2 {
-  font-size:  36px;
+  font-size: $h2-size;
+}
+
+h3,
+.h3 {
+  font-size: $h3-size;
 }
 
 p {

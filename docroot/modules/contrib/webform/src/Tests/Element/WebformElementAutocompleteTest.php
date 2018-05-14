@@ -24,6 +24,8 @@ class WebformElementAutocompleteTest extends WebformTestBase {
   public function testAutocomplete() {
     global $base_path;
 
+    $this->drupalLogin($this->rootUser);
+
     /* Test #autocomplete property */
 
     $this->drupalGet('webform/test_element_autocomplete');

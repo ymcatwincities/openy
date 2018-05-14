@@ -167,8 +167,9 @@ class WebformMessageManager implements WebformMessageManagerInterface {
    * {@inheritdoc}
    */
   public function display($key, $type = 'status') {
-    $build = $this->build($key);
-    drupal_set_message($this->renderer->renderPlain($build), $type);
+    if ($build = $this->build($key)) {
+      drupal_set_message($this->renderer->renderPlain($build), $type);
+    }
   }
 
   /**
@@ -228,13 +229,16 @@ class WebformMessageManager implements WebformMessageManagerInterface {
 
     $t_args = [
       '%form' => ($source_entity) ? $source_entity->label() : $webform->label(),
-      ':handlers_href' => $webform->toUrl('handlers-form')->toString(),
-      ':settings_href' => $webform->toUrl('settings-form')->toString(),
+      ':handlers_href' => $webform->toUrl('handlers')->toString(),
+      ':settings_href' => $webform->toUrl('settings')->toString(),
       ':duplicate_href' => $webform->toUrl('duplicate-form')->toString(),
     ];
 
     switch ($key) {
-      case WebformMessageManagerInterface::ADMIN_ACCESS:
+      case WebformMessageManagerInterface::ADMIN_PAGE:
+        return $this->t('Only webform administrators are allowed to access this page and create new submissions.', $t_args);
+
+      case WebformMessageManagerInterface::ADMIN_CLOSED:
         return $this->t('This webform is <a href=":settings_href">closed</a>. Only submission administrators are allowed to access this webform and create new submissions.', $t_args);
 
       case WebformMessageManagerInterface::SUBMISSION_DEFAULT_CONFIRMATION:
@@ -293,7 +297,7 @@ class WebformMessageManager implements WebformMessageManagerInterface {
   public function log($key, $type = 'warning') {
     $webform = $this->webform;
     $context = [
-      'link' => $webform->toLink($this->t('Edit'), 'edit-form')->toString(),
+      'link' => $webform->toLink($this->t('Edit'), 'settings')->toString(),
     ];
 
     switch ($key) {

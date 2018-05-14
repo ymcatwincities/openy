@@ -2,6 +2,7 @@
 
 namespace Drupal\content_moderation\Form;
 
+use Drupal\Component\Datetime\Time;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\RevisionLogInterface;
 use Drupal\Core\Form\FormBase;
@@ -24,6 +25,13 @@ class EntityModerationForm extends FormBase {
   protected $moderationInfo;
 
   /**
+   * The time service.
+   *
+   * @var \Drupal\Component\Datetime\Time
+   */
+  protected $time;
+
+  /**
    * The moderation state transition validation service.
    *
    * @var \Drupal\content_moderation\StateTransitionValidation
@@ -37,9 +45,12 @@ class EntityModerationForm extends FormBase {
    *   The moderation information service.
    * @param \Drupal\content_moderation\StateTransitionValidation $validation
    *   The moderation state transition validation service.
+   * @param \Drupal\Component\Datetime\Time $time
+   *   The time service.
    */
-  public function __construct(ModerationInformationInterface $moderation_info, StateTransitionValidation $validation) {
+  public function __construct(ModerationInformationInterface $moderation_info, StateTransitionValidation $validation, Time $time) {
     $this->moderationInfo = $moderation_info;
+    $this->time = $time;
     $this->validation = $validation;
   }
 
@@ -49,7 +60,8 @@ class EntityModerationForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('content_moderation.moderation_information'),
-      $container->get('content_moderation.state_transition_validation')
+      $container->get('content_moderation.state_transition_validation'),
+      $container->get('datetime.time')
     );
   }
 
@@ -71,7 +83,7 @@ class EntityModerationForm extends FormBase {
     $transitions = $this->validation->getValidTransitions($entity, $this->currentUser());
 
     // Exclude self-transitions.
-    $transitions = array_filter($transitions, function(Transition $transition) use ($current_state) {
+    $transitions = array_filter($transitions, function (Transition $transition) use ($current_state) {
       return $transition->to()->id() != $current_state;
     });
 
@@ -88,8 +100,8 @@ class EntityModerationForm extends FormBase {
     if ($current_state) {
       $form['current'] = [
         '#type' => 'item',
-        '#title' => $this->t('Status'),
-        '#markup' => $workflow->getState($current_state)->label(),
+        '#title' => $this->t('Moderation state'),
+        '#markup' => $workflow->getTypePlugin()->getState($current_state)->label(),
       ];
     }
 
@@ -98,7 +110,7 @@ class EntityModerationForm extends FormBase {
 
     $form['new_state'] = [
       '#type' => 'select',
-      '#title' => $this->t('Moderate'),
+      '#title' => $this->t('Change to'),
       '#options' => $target_states,
     ];
 
@@ -122,7 +134,7 @@ class EntityModerationForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    /** @var ContentEntityInterface $entity */
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $form_state->get('entity');
 
     $new_state = $form_state->getValue('new_state');
@@ -130,6 +142,7 @@ class EntityModerationForm extends FormBase {
     $entity->set('moderation_state', $new_state);
 
     if ($entity instanceof RevisionLogInterface) {
+      $entity->setRevisionCreationTime($this->time->getRequestTime());
       $entity->setRevisionLogMessage($form_state->getValue('revision_log'));
       $entity->setRevisionUserId($this->currentUser()->id());
     }
@@ -137,10 +150,10 @@ class EntityModerationForm extends FormBase {
 
     drupal_set_message($this->t('The moderation state has been updated.'));
 
-    $new_state = $this->moderationInfo->getWorkflowForEntity($entity)->getState($new_state);
+    $new_state = $this->moderationInfo->getWorkflowForEntity($entity)->getTypePlugin()->getState($new_state);
     // The page we're on likely won't be visible if we just set the entity to
     // the default state, as we hide that latest-revision tab if there is no
-    // forward revision. Redirect to the canonical URL instead, since that will
+    // pending revision. Redirect to the canonical URL instead, since that will
     // still exist.
     if ($new_state->isDefaultRevisionState()) {
       $form_state->setRedirectUrl($entity->toUrl('canonical'));

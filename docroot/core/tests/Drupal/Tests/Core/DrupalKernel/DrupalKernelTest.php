@@ -177,12 +177,14 @@ $sites['8888.www.example.org'] = 'example';
 EOD;
 
       // Create the expected directory structure.
-      vfsStream::create(['sites' => [
-        'sites.php' => $sites_php,
-        'example' => [
-          'settings.php' => 'test'
-        ]
-      ]]);
+      vfsStream::create([
+        'sites' => [
+          'sites.php' => $sites_php,
+          'example' => [
+            'settings.php' => 'test',
+          ],
+        ],
+      ]);
 
       $request = new Request();
       $request->server->set('SERVER_NAME', 'www.example.org');
@@ -241,6 +243,7 @@ EOD;
 
 
 namespace {
+
   if (!function_exists('drupal_valid_test_ua')) {
     function drupal_valid_test_ua($new_prefix = NULL) {
       return FALSE;

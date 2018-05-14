@@ -7,6 +7,12 @@
 
   'use strict';
 
+  Drupal.webform = Drupal.webform || {};
+  Drupal.webform.ajax = Drupal.webform.ajax || {};
+  // Allow scrollTopOffset to be custom defined or based on whether there is a
+  // floating toolbar.
+  Drupal.webform.ajax.scrollTopOffset = Drupal.webform.ajax.scrollTopOffset || ($('#toolbar-administration').length ? 140 : 10);
+
   /**
    * Provide Webform Ajax link behavior.
    *
@@ -36,6 +42,17 @@
         element_settings.base = $(this).attr('id');
         element_settings.element = this;
         Drupal.ajax(element_settings);
+
+        // For anchor tags with 'data-hash' attribute, add the hash to current
+        // pages location.
+        // @see \Drupal\webform_ui\WebformUiEntityElementsForm::getElementRow
+        // @see Drupal.behaviors.webformFormTabs
+        var hash = $(this).data('hash');
+        if (hash) {
+          $(this).on('click', function() {
+            location.hash = $(this).data('hash');
+          });
+        }
       });
     }
   };
@@ -114,7 +131,7 @@
 
       // Scroll to elements that are not visible.
       if (!isScrolledIntoView($element)) {
-        $('html, body').animate({scrollTop: $element.offset().top - 140}, 500);
+        $('html, body').animate({scrollTop: $element.offset().top - Drupal.webform.ajax.scrollTopOffset}, 500);
       }
     }
     updateKey = null; // Reset element update.
@@ -147,7 +164,7 @@
    * @param {string} response.selector
    *   Selector to use.
    *
-   * @see Drupal.AjaxCommands.prototype.webformScrollTop
+   * @see Drupal.AjaxCommands.prototype.viewScrollTop
    */
   Drupal.AjaxCommands.prototype.webformScrollTop = function (ajax, response) {
     // Scroll to the top of the view. This will allow users
@@ -162,9 +179,20 @@
     while ($(scrollTarget).scrollTop() === 0 && $(scrollTarget).parent()) {
       scrollTarget = $(scrollTarget).parent();
     }
-    // Only scroll upward.
-    if (offset.top - 10 < $(scrollTarget).scrollTop()) {
-      $(scrollTarget).animate({scrollTop: (offset.top - 10)}, 500);
+
+    if (response.target == 'page' && $(scrollTarget).length && $(scrollTarget)[0].tagName === 'HTML') {
+      // Scroll to top when scroll target is the entire page.
+      // @see https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport
+      var rect = $(scrollTarget)[0].getBoundingClientRect();
+      if (!(rect.top >= 0 && rect.left >= 0 && rect.bottom <= $(window).height() && rect.right <= $(window).width())) {
+        $(scrollTarget).animate({scrollTop: 0}, 500);
+      }
+    }
+    else {
+      // Only scroll upward.
+      if (offset.top - Drupal.webform.ajax.scrollTopOffset < $(scrollTarget).scrollTop()) {
+        $(scrollTarget).animate({scrollTop: (offset.top - Drupal.webform.ajax.scrollTopOffset)}, 500);
+      }
     }
   };
 
@@ -181,7 +209,11 @@
    *   The XMLHttpRequest status.
    */
   Drupal.AjaxCommands.prototype.webformRefresh = function (ajax, response, status) {
-    if (response.url.indexOf(window.location.pathname) !== -1 && $('.webform-ajax-refresh').length) {
+    // Get URL path name.
+    // @see https://stackoverflow.com/questions/6944744/javascript-get-portion-of-url-path
+    var a = document.createElement('a');
+    a.href = response.url;
+    if (a.pathname == window.location.pathname && $('.webform-ajax-refresh').length) {
       updateKey = (response.url.match(/[\?|&]update=(.*)($|&)/)) ? RegExp.$1 : null;
       $('.webform-ajax-refresh').click();
     }

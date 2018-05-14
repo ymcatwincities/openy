@@ -31,7 +31,6 @@
 
       // Turn the legend into a clickable link, but retain span.field-group-format-toggler
       // for CSS positioning.
-
       var $toggler = $('.field-group-toggler:first', $wrapper);
       var $link = $('<a class="field-group-title" href="#"></a>');
       $link.prepend($toggler.contents());

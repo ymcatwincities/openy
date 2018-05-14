@@ -2,7 +2,6 @@ name: OpenY Map
 type: module
 description: Renders map with locations.
 core: 8.x
-version: 8.x-1.0
 package: OpenY
 dependencies:
   - geolocation:geolocation

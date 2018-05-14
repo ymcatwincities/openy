@@ -188,11 +188,11 @@ class WebformSubmissionFormDraftTest extends WebformTestBase {
 
     // Check export with draft settings.
     $this->drupalGet('admin/structure/webform/manage/test_form_draft_authenticated/results/download');
-    $this->assertFieldByName('export[download][state]', 'all');
+    $this->assertFieldByName('state', 'all');
 
     // Check export without draft settings.
     $this->drupalGet('admin/structure/webform/manage/test_form_preview/results/download');
-    $this->assertNoFieldByName('export[download][state]', 'all');
+    $this->assertNoFieldByName('state', 'all');
 
     // Check autosave on submit with validation errors.
     $this->drupalPostForm('webform/test_form_draft_authenticated', [], t('Submit'));
@@ -257,9 +257,8 @@ class WebformSubmissionFormDraftTest extends WebformTestBase {
     $this->assertFieldByName('name', '');
 
     // Save third anonymous draft.
-    $sid_3 = $this->postSubmission($webform, ['name' => 'Jane Doe'], t('Save Draft'));
+    $this->postSubmission($webform, ['name' => 'Jane Doe'], t('Save Draft'));
     $this->assertRaw('Submission saved. You may return to this form later and it will restore the current values.');
-    $webform_submission_3 = WebformSubmission::load($sid_2);
 
     // Check restore third anonymous draft.
     $this->drupalGet('webform/test_form_draft_multiple');

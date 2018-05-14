@@ -28,13 +28,22 @@ class TextFormat extends WebformElementBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    $default_properties = parent::getDefaultProperties() + [
+    $properties = parent::getDefaultProperties() + [
       // Text format settings.
       'allowed_formats' => [],
       'hide_help' => FALSE,
     ];
-    unset($default_properties['disabled']);
-    return $default_properties;
+    unset(
+      $properties['disabled'],
+      $properties['attributes'],
+      $properties['wrapper_attributes'],
+      $properties['title_display'],
+      $properties['description_display'],
+      $properties['field_prefix'],
+      $properties['field_suffix'],
+      $properties['help']
+    );
+    return $properties;
   }
 
   /**
@@ -236,4 +245,5 @@ class TextFormat extends WebformElementBase {
     $elements = $this->getCompositeElements();
     return (isset($elements[$key])) ? TRUE : FALSE;
   }
+
 }

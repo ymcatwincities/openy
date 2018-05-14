@@ -49,7 +49,7 @@ class WebformEntityAccessControlHandler extends EntityAccessControlHandler {
           break;
 
         case 'duplicate':
-          if ($entity->isTemplate() || ($account->hasPermission('edit any webform') || ($account->hasPermission('edit own webform') && $is_owner))) {
+          if ($account->hasPermission('create webform') && ($entity->isTemplate() || ($account->hasPermission('edit any webform') || ($account->hasPermission('edit own webform') && $is_owner)))) {
             return AccessResult::allowed()->cachePerPermissions()->cachePerUser()->addCacheableDependency($entity);
           }
           break;
@@ -72,6 +72,22 @@ class WebformEntityAccessControlHandler extends EntityAccessControlHandler {
       // Allow users with 'view own webform submission' to view own submissions.
       if ($operation == 'submission_view_own' && $account->hasPermission('view own webform submission')) {
         return AccessResult::allowed();
+      }
+
+      // Allow (secure) token to bypass submission page and create access controls.
+      if (in_array($operation, ['submission_page', 'submission_create'])) {
+        $token = \Drupal::request()->query->get('token');
+        if ($token && $entity->isOpen()) {
+          /** @var \Drupal\webform\WebformRequestInterface $request_handler */
+          $request_handler = \Drupal::service('webform.request');
+          /** @var \Drupal\webform\WebformSubmissionStorageInterface $submission_storage */
+          $submission_storage = \Drupal::entityTypeManager()->getStorage('webform_submission');
+
+          $source_entity = $request_handler->getCurrentSourceEntity('webform');
+          if ($submission_storage->loadFromToken($token, $entity, $source_entity)) {
+            return AccessResult::allowed();
+          }
+        }
       }
 
       // Completely block access to a template if the user can't create new

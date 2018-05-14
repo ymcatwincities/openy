@@ -142,7 +142,7 @@ class ViewAjaxController implements ContainerInjectionInterface {
         throw new NotFoundHttpException();
       }
       $view = $this->executableFactory->get($entity);
-      if ($view && $view->access($display_id) && $view->setDisplay($display_id)) {
+      if ($view && $view->access($display_id) && $view->setDisplay($display_id) && $view->display_handler->ajaxEnabled()) {
         $response->setView($view);
         // Fix the current path for paging.
         if (!empty($path)) {
@@ -181,7 +181,7 @@ class ViewAjaxController implements ContainerInjectionInterface {
         $view->dom_id = $dom_id;
 
         $context = new RenderContext();
-        $preview = $this->renderer->executeInRenderContext($context, function() use ($view, $display_id, $args) {
+        $preview = $this->renderer->executeInRenderContext($context, function () use ($view, $display_id, $args) {
           return $view->preview($display_id, $args);
         });
         if (!$context->isEmpty()) {

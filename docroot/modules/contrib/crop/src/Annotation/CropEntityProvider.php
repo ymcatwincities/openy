@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\crop\Annotation\CropEntityProvider.
- */
-
 namespace Drupal\crop\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
@@ -26,21 +21,22 @@ class CropEntityProvider extends Plugin {
   public $entity_type;
 
   /**
-   * The human-readable name of the crop entity provider (will usually match
-   * entity type name).
+   * The human-readable name of the crop entity provider.
    *
-   * @ingroup plugin_translatable
+   * Will usually match entity type name.
    *
    * @var \Drupal\Core\Annotation\Translation
+   *
+   * @ingroup plugin_translatable
    */
   public $label;
 
   /**
    * A brief description of the crop entity provider.
    *
-   * @ingroup plugin_translatable
+   * @var \Drupal\Core\Annotation\Translation
    *
-   * @var \Drupal\Core\Annotation\Translation (optional)
+   * @ingroup plugin_translatable
    */
   public $description = '';
 

@@ -10,10 +10,7 @@ use Drupal\Core\Url;
 use Drupal\webform\Utility\WebformArrayHelper;
 use Drupal\webform\Utility\WebformElementHelper;
 
-/**
- * Defines a class to validate webform elements.
- */
-class WebformEntityElementsValidator {
+class WebformEntityElementsValidator implements WebformEntityElementsValidatorInterface {
 
   use StringTranslationTrait;
 
@@ -53,13 +50,7 @@ class WebformEntityElementsValidator {
   protected $originalElements;
 
   /**
-   * Validate webform elements.
-   *
-   * @param \Drupal\webform\WebformInterface $webform
-   *   A webform.
-   *
-   * @return array|null
-   *   An array of error messages or NULL is the elements are valid.
+   * {@inheritdoc}
    */
   public function validate(WebformInterface $webform) {
     $this->webform = $webform;
@@ -215,18 +206,23 @@ class WebformEntityElementsValidator {
     $ignored_properties = WebformElementHelper::getIgnoredProperties($this->elements);
     if ($ignored_properties) {
       $messages = [];
-      foreach ($ignored_properties as $ignored_property) {
-        $line_numbers = $this->getLineNumbers('/^\s*(["\']?)' . preg_quote($ignored_property, '/') . '\1\s*:/');
-        $t_args = [
-          '%property' => $ignored_property,
-          '@line_number' => WebformArrayHelper::toString($line_numbers),
-        ];
-        $messages[] = $this->formatPlural(
-          count($line_numbers),
-          'Elements contain an unsupported %property property found on line @line_number.',
-          'Elements contain an unsupported %property property found on lines @line_number.',
-          $t_args
-        );
+      foreach ($ignored_properties as $ignored_property => $ignored_message) {
+        if ($ignored_property != $ignored_message) {
+          $messages[] = $ignored_message;
+        }
+        else {
+          $line_numbers = $this->getLineNumbers('/^\s*(["\']?)' . preg_quote($ignored_property, '/') . '\1\s*:/');
+          $t_args = [
+            '%property' => $ignored_property,
+            '@line_number' => WebformArrayHelper::toString($line_numbers),
+          ];
+          $messages[] = $this->formatPlural(
+            count($line_numbers),
+            'Elements contain an unsupported %property property found on line @line_number.',
+            'Elements contain an unsupported %property property found on lines @line_number.',
+            $t_args
+          );
+        }
       }
       return $messages;
     }
@@ -356,7 +352,7 @@ class WebformEntityElementsValidator {
         ->getStorage('webform_submission')
         ->create(['webform' => $this->webform]);
 
-      $form_object = $entity_type_manager->getFormObject('webform_submission', 'default');
+      $form_object = $entity_type_manager->getFormObject('webform_submission', 'add');
       $form_object->setEntity($webform_submission);
       $form_state = (new FormState())->setFormState([]);
       $form_builder->buildForm($form_object, $form_state);

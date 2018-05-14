@@ -1,12 +1,16 @@
-name: 'OpenY program subcategory'
-description: 'OpenY program subcategory'
+name: 'OpenY Program Subcategory'
+description: 'OpenY Program Subcategory.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
+  - blazy
+  - datalayer
   - entity_browser
   - entity_reference_revisions
   - field
   - field_group
+  - focal_point
   - image
   - media_entity
   - menu_ui
@@ -23,4 +27,3 @@ dependencies:
   - taxonomy
   - text
   - user
-version: 8.x-1.2

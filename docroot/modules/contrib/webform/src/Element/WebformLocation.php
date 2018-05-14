@@ -96,7 +96,7 @@ class WebformLocation extends WebformCompositeBase {
 
     // Hide location element webform display only if #geolocation is also set.
     if (!empty($element['#hidden']) && !empty($element['#geolocation'])) {
-      $element['#attributes']['style'] = 'display: none';
+      $element['#wrapper_attributes']['style'] = 'display: none';
     }
 
     return $element;

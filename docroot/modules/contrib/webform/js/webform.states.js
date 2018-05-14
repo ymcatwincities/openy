@@ -24,14 +24,14 @@
   $document.on('state:visible', function (e) {
     if (e.trigger) {
       if (e.value) {
-        $(':input', e.target).andSelf().each(function () {
+        $(':input', e.target).addBack().each(function () {
           restoreValueAndRequired(this);
           triggerEventHandlers(this);
         });
       }
       else {
         // @see https://www.sitepoint.com/jquery-function-clear-form-data/
-        $(':input', e.target).andSelf().each(function () {
+        $(':input', e.target).addBack().each(function () {
           backupValueAndRequired(this);
           clearValueAndRequired(this);
           triggerEventHandlers(this);
@@ -64,24 +64,27 @@
   function triggerEventHandlers(input) {
     var $input = $(input);
     var type = input.type;
-    var tag = input.tagName.toLowerCase(); // Normalize case.
+    var tag = input.tagName.toLowerCase();
+    // Add 'webform.states' as extra parameter to event handlers.
+    // @see Drupal.behaviors.webformUnsaved
+    var extraParameters = ['webform.states'];
     if (type === 'checkbox' || type === 'radio') {
       $input
-        .trigger('change')
-        .trigger('blur');
+        .trigger('change', extraParameters)
+        .trigger('blur', extraParameters);
     }
     else if (tag === 'select') {
       $input
-        .trigger('change')
-        .trigger('blur');
+        .trigger('change', extraParameters)
+        .trigger('blur', extraParameters);
     }
     else if (type !== 'submit' && type !== 'button') {
       $input
-        .trigger('input')
-        .trigger('change')
-        .trigger('keydown')
-        .trigger('keyup')
-        .trigger('blur');
+        .trigger('input', extraParameters)
+        .trigger('change', extraParameters)
+        .trigger('keydown', extraParameters)
+        .trigger('keyup', extraParameters)
+        .trigger('blur', extraParameters);
     }
   }
 
@@ -162,7 +165,7 @@
 
     // Check for #states no clear attribute.
     // @see https://css-tricks.com/snippets/jquery/make-an-jquery-hasattr/
-    if ($input[0].hasAttribute('data-webform-states-no-clear')) {
+    if ($input.closest('[data-webform-states-no-clear]').length) {
       return;
     }
 

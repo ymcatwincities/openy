@@ -20,8 +20,28 @@ use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\block\Entity\Block;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function ymca_master_update_dependencies() {
+  $dependencies['openy_media_image'] = [
+    8001 => [
+      'ymca_master' => 8244,
+    ],
+  ];
+  $dependencies['redirect'] = [
+    8105 => [
+      'system' => 8403,
+    ],
+  ];
+
+  return $dependencies;
+}
 
 /**
  * Protecting sites with a shield.
@@ -1885,7 +1905,7 @@ function ymca_master_update_8071() {
 
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs([
-    $path . 'ymca_frontend.locations.yml'
+    $path . 'ymca_frontend.locations.yml',
   ]);
 }
 
@@ -2368,7 +2388,7 @@ function ymca_master_update_8093() {
   $db->update('node_field_data')
     ->fields([
       'publish_on' => NULL,
-      'unpublish_on' => NULL
+      'unpublish_on' => NULL,
     ])
     ->execute();
   Drupal::service('module_installer')->uninstall(['scheduler']);
@@ -2497,7 +2517,7 @@ function ymca_master_update_8100() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'core.entity_form_display.node.article.default.yml'
+      $path . 'core.entity_form_display.node.article.default.yml',
     ]
   );
 }
@@ -2527,7 +2547,7 @@ function ymca_master_update_8104() {
       $path . 'views.view.content_browser_block.yml',
       $path . 'core.entity_form_display.block_content.image_block.default.yml',
       $path . 'core.entity_form_display.block_content.promo_block.default.yml',
-      $path . 'core.entity_form_display.block_content.slide_show_item.default.yml'
+      $path . 'core.entity_form_display.block_content.slide_show_item.default.yml',
     ]
   );
 }
@@ -2843,7 +2863,7 @@ function ymca_master_update_8122() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'entity_browser.browser.browse_files.yml',
-      $path . 'entity_browser.browser.browse_files_modal.yml'
+      $path . 'entity_browser.browser.browse_files_modal.yml',
     ]
   );
 }
@@ -3020,7 +3040,7 @@ function ymca_master_update_8127() {
     $msg = 'Mapping %op ID: %id.';
     \Drupal::logger('ymca_master')->info($msg, [
       '%op' => $op,
-      '%id' => $mapping->id()
+      '%id' => $mapping->id(),
     ]);
   }
 }
@@ -3421,7 +3441,7 @@ function ymca_master_update_8146() {
       $path . 'workflow.transition.workflow_published_unpublished.yml',
       $path . 'workflow.transition.workflow_unpublished_draft.yml',
       $path . 'workflow.transition.workflow_unpublished_needs_review.yml',
-      $path . 'workflow.transition.workflow_unpublished_published.yml'
+      $path . 'workflow.transition.workflow_unpublished_published.yml',
     ]
   );
 }
@@ -3438,7 +3458,7 @@ function ymca_master_update_8147() {
       $path . 'field.field.block_content.promo_block.field_image.yml',
       $path . 'field.field.block_content.slide_show_item.field_image.yml',
       $path . 'field.field.node.article.field_header_image.yml',
-      $path . 'field.field.node.blog.field_image.yml'
+      $path . 'field.field.node.blog.field_image.yml',
     ]
   );
 }
@@ -3487,15 +3507,15 @@ function ymca_master_update_8148() {
   $replacements = [
     [
       'block_id' => 'top_menu_2',
-      'selector' => '#block-topmenu'
+      'selector' => '#block-topmenu',
     ],
     [
       'block_id' => 'mastheadnavigationblock_2',
-      'selector' => '#masthead-menu'
+      'selector' => '#masthead-menu',
     ],
     [
       'block_id' => 'footer_b',
-      'selector' => '.nav-footer > div'
+      'selector' => '.nav-footer > div',
     ],
   ];
   $config->set('replacements', $replacements);
@@ -3793,7 +3813,7 @@ function ymca_master_update_8154() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'views.settings.yml',
-      $path . 'views.view.my_content.yml'
+      $path . 'views.view.my_content.yml',
     ]
   );
 }
@@ -3905,7 +3925,7 @@ function ymca_master_update_8161() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'views.view.my_content.yml'
+      $path . 'views.view.my_content.yml',
     ]
   );
 }
@@ -3925,7 +3945,7 @@ function ymca_master_update_8163() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'user.role.contributor.yml',
-      $path . 'user.role.intern.yml'
+      $path . 'user.role.intern.yml',
     ]
   );
 }
@@ -3940,7 +3960,7 @@ function ymca_master_update_8164() {
       $path . 'user.role.contributor.yml',
       $path . 'user.role.intern.yml',
       $path . 'workflow.transition.workflow_unpublished_draft.yml',
-      $path . 'workflow.transition.workflow_unpublished_needs_review.yml'
+      $path . 'workflow.transition.workflow_unpublished_needs_review.yml',
     ]
   );
 }
@@ -3964,7 +3984,7 @@ function ymca_master_update_8166() {
   $path = 'themes/custom/ymca/config/install/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'ymca.settings.yml'
+      $path . 'ymca.settings.yml',
     ]
   );
 }
@@ -3976,7 +3996,7 @@ function ymca_master_update_8167() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'user.role.intern.yml'
+      $path . 'user.role.intern.yml',
     ]
   );
 }
@@ -3988,7 +4008,7 @@ function ymca_master_update_8168() {
   $path = 'sites/default/config/staging/';
   \Drupal::service('config_import.importer')->importConfigs(
     [
-      $path . 'views.view.my_content.yml'
+      $path . 'views.view.my_content.yml',
     ]
   );
 }
@@ -4013,7 +4033,7 @@ function ymca_master_update_8170() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       $path . 'user.role.contributor.yml',
-      $path . 'user.role.intern.yml'
+      $path . 'user.role.intern.yml',
     ]
   );
 }
@@ -4029,16 +4049,16 @@ function _ymca_master_update_8171() {
   $fileMap = [
     'default' => [
       'from' => 'favicon.ico',
-      'to' => 'default.ico'
+      'to' => 'default.ico',
     ],
     'camp' => [
       'from' => 'favicon-alt.ico',
-      'to' => 'camp.ico'
+      'to' => 'camp.ico',
     ],
     'location' => [
       'from' => 'favicon-locations.ico',
-      'to' => 'location.ico'
-    ]
+      'to' => 'location.ico',
+    ],
   ];
   $fileUsage = \Drupal::service('file.usage');
   foreach ($fileMap as $key => $fileItem) {
@@ -4149,7 +4169,7 @@ function ymca_master_update_8176() {
     $node = $node_storage->load($nid);
     $node->set('field_schedule_content', [
       'value' => (string) $renderer->renderRoot($build),
-      'format' => 'full_html'
+      'format' => 'full_html',
     ]);
     $node->save();
   }
@@ -4733,7 +4753,7 @@ function ymca_master_update_8217() {
   $modules = [
     'openy_block',
     'openy_block_custom_simple',
-    'openy_prgf_2c'
+    'openy_prgf_2c',
   ];
   foreach ($modules as $module) {
     \Drupal::service('module_installer')->install([$module], TRUE);
@@ -4985,4 +5005,1169 @@ function ymca_master_update_8231() {
       'openy_digital_signage_classes_schedule.cron_settings',
     ]
   );
+}
+
+/**
+ * Delete old retention entities.
+ */
+function ymca_master_update_8232() {
+  $tables_to_truncate = [
+    'ymca_retention_winner',
+    'ymca_retention_member_checkin',
+    'ymca_retention_member_chance',
+    'ymca_retention_member_bonus',
+    'ymca_retention_member_activity',
+    'ymca_retention_member',
+    'tango_card_campaign',
+    'tango_card_account',
+  ];
+
+  foreach ($tables_to_truncate as $table) {
+    db_truncate($table)->execute();
+  }
+
+  drupal_flush_all_caches();
+}
+
+/**
+ * Disable old retention modules.
+ */
+function ymca_master_update_8233() {
+  \Drupal::service('module_installer')->uninstall([
+    'ymca_retention',
+    'tango_card',
+    'creditfield',
+  ]);
+}
+
+/**
+ * Create a new field field_ygtc_content.
+ */
+function ymca_master_update_8234() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_ygtc_content',
+      'field.field.node.article.field_ygtc_content',
+      'field.field.node.blog.field_ygtc_content',
+      'field.field.node.camp.field_ygtc_content',
+      'field.field.node.location.field_ygtc_content',
+      'field.field.node.product.field_ygtc_content',
+    ]
+  );
+}
+
+/**
+ * Copy content from field_content to field_ygtc_content.
+ */
+function ymca_master_update_8235() {
+  db_query("INSERT {node__field_ygtc_content} SELECT * FROM {node__field_content}");
+  db_query("INSERT {node_revision__field_ygtc_content} SELECT * FROM {node_revision__field_content}");
+}
+
+/**
+ * Replace field_content with field_ygtc_content in all related configs.
+ */
+function ymca_master_update_8236() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'core.entity_form_display.node.article.default',
+      'core.entity_form_display.node.blog.default',
+      'core.entity_form_display.node.camp.default',
+      'core.entity_form_display.node.location.default',
+      'core.entity_view_display.node.article.content_browser_preview',
+      'core.entity_view_display.node.article.default',
+      'core.entity_view_display.node.article.full',
+      'core.entity_view_display.node.article.rss',
+      'core.entity_view_display.node.article.teaser',
+      'core.entity_view_display.node.blog.camp_blog_teaser',
+      'core.entity_view_display.node.blog.content_browser_preview',
+      'core.entity_view_display.node.blog.default',
+    ]
+  );
+}
+/**
+ * Replace field_content with field_ygtc_content in all related configs.
+ */
+function ymca_master_update_8237() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.node.blog.location_blog_teaser',
+      'core.entity_view_display.node.blog.teaser',
+      'core.entity_view_display.node.camp.content_browser_preview',
+      'core.entity_view_display.node.camp.default',
+      'core.entity_view_display.node.camp.teaser',
+      'core.entity_view_display.node.location.content_browser_preview',
+      'core.entity_view_display.node.location.default',
+      'core.entity_view_display.node.location.groupex',
+      'core.entity_view_display.node.location.schedules',
+      'core.entity_view_display.node.location.teaser',
+      'core.entity_view_display.node.product.default',
+      'core.entity_view_display.node.product.teaser',
+    ]
+  );
+}
+
+/**
+ * Delete field_content from node entity type.
+ */
+function ymca_master_update_8238() {
+  // Deleting field.
+  $bundles = ['article', 'camp', 'blog', 'location', 'product'];
+  foreach ($bundles as $bundle) {
+    if ($field_config = FieldConfig::loadByName('node', $bundle, 'field_content')) {
+      $field_config->delete();
+    }
+  }
+  // Deleting field storage.
+  if ($field_storage_config = FieldStorageConfig::loadByName('node', 'field_content')) {
+    $field_storage_config->delete();
+  }
+}
+
+/**
+ * Import field_content storage config from openy_node. Import field_content config from openy_node_landing.
+ */
+function ymca_master_update_8239() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_content',
+    ]
+  );
+  // Import field_content config from openy_node_landing.
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_landing') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.landing_page.field_content',
+    ]
+  );
+}
+
+/**
+ * Copy content from field_oy_content to field_content.
+ */
+function ymca_master_update_8240() {
+  db_query("INSERT {node__field_content} SELECT * FROM {node__field_oy_content}");
+  db_query("INSERT {node_revision__field_content} SELECT * FROM {node_revision__field_oy_content}");
+}
+
+/**
+ * Delete field_oy_content from node entity type.
+ */
+function ymca_master_update_8241() {
+  // Deleting field.
+  if ($field_config = FieldConfig::loadByName('node', 'landing_page', 'field_oy_content')) {
+    $field_config->delete();
+  }
+  // Deleting field storage.
+  if ($field_storage_config = FieldStorageConfig::loadByName('node', 'field_oy_content')) {
+    $field_storage_config->delete();
+  }
+}
+
+/**
+ * Install required openy modules.
+ */
+function ymca_master_update_8242() {
+  \Drupal::service('module_installer')->install([
+    'openy_upgrade_tool',
+    'rabbit_hole',
+    'blazy',
+    'openy_menu',
+  ], TRUE);
+}
+
+/**
+ * Update configs.
+ */
+function ymca_master_update_8243() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $path = 'profiles/contrib/openy/modules/openy_features/openy_node/config/install';
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_mode.node.sidebar_teaser',
+      'field.storage.node.field_content',
+      'image.style.facebook',
+      'metatag.metatag_defaults.node',
+      'tour.tour.openy-landing-page-add',
+      'tour.tour.openy-node-add',
+      'tour.tour.openy-node-overview',
+    ]
+  );
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_lp_layout',
+      'field.storage.node.field_ygtc_related',
+      'field.field.node.landing_page.field_ygtc_related',
+      'field.field.node.landing_page.field_sidebar_content_extra',
+      'field.storage.node.field_sidebar_content_extra',
+      'core.entity_form_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.default',
+    ]
+  );
+  $path = 'profiles/contrib/openy/modules/openy_features/openy_node/modules/openy_node_landing/config/install';
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_lp_layout',
+      'field.field.node.landing_page.field_content',
+      'core.entity_form_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.full',
+      'core.entity_view_display.node.landing_page.teaser',
+    ]
+  );
+  $path = 'profiles/contrib/openy/modules/openy_features/openy_prgf/config/install';
+  $config_importer->setDirectory($path);
+  $config_importer->importConfigs(
+    [
+      'field.storage.paragraph.field_prgf_grid_style',
+      'field.storage.paragraph.field_prgf_title',
+      'openy_prgf.settings',
+    ]
+  );
+}
+
+/**
+ * Update landing page configs. Rename Old basic block.
+ */
+function ymca_master_update_8244() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.paragraph.small_banner.default',
+      'node.type.landing_page',
+      'core.entity_form_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.default',
+      'block_content.type.basic_block',
+    ]
+  );
+}
+
+/**
+ * Install openy modules.
+ */
+function ymca_master_update_8245() {
+  $modules = [
+    'admin_toolbar',
+    'focal_point',
+    'views_infinite_scroll',
+    'verf',
+    'blazy',
+    'slick',
+    'slick_views',
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
+}
+
+/**
+ * Install openy modules.
+ */
+function ymca_master_update_8246() {
+  $modules = [
+    'openy_node_alert',
+    'openy_prgf_banner',
+    'openy_prgf_gallery',
+    'openy_prgf_grid_content',
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
+}
+
+/**
+ * Install openy modules.
+ */
+function ymca_master_update_8247() {
+  $modules = [
+    'openy_prgf_webform',
+    'openy_prgf_teaser',
+    'openy_prgf_secondary_description_sidebar',
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
+}
+
+/**
+ * Install openy modules.
+ */
+function ymca_master_update_8248() {
+  $modules = [
+    'openy_prgf_featured_highlights',
+    'openy_prgf_promo_card',
+    'openy_prgf_story_card',
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
+}
+
+/**
+ * Install openy modules.
+ */
+function ymca_master_update_8249() {
+  $modules = [
+    'openy_block_flexible_content',
+    'openy_prgf_1c',
+    'openy_tour',
+    'openy_addthis',
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
+}
+
+/**
+ * Install openy modules.
+ */
+function ymca_master_update_8250() {
+  \Drupal::configFactory()->getEditable('views.view.taxonomy_term')->delete();
+
+  $modules = [
+    'openy_field_holiday_hours',
+    'openy_datalayer',
+    'openy_ckeditor',
+    'openy_taxonomy',
+    'custom_formatters',
+    'openy_prgf_featured_content',
+  ];
+
+  $installer = \Drupal::service('module_installer');
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
+}
+
+/**
+ * Create taxonomy terms for the Color vocabulary. Rename old paragraphs.
+ */
+function ymca_master_update_8251() {
+  // Create Taxonomy terms for OpenY.
+  \Drupal::service('module_installer')->install([
+    'openy_demo_tcolor',
+  ], TRUE);
+  /** @var \Drupal\openy_migrate\Importer $importer */
+  $importer = \Drupal::service('openy_migrate.importer');
+  $importer->import('openy_demo_taxonomy_term_color');
+
+  // Rename old paragraph type.
+  $storage = \Drupal::entityTypeManager()->getStorage('paragraphs_type');
+  $paragraph_type = $storage->load('70_30_columns');
+  $paragraph_type->set('label', '[YGTC] Secondary Description and Sidebar (deprecated)');
+  $paragraph_type->save();
+
+  $paragraph_type = $storage->load('content_banner');
+  $paragraph_type->set('label', '[YGTC] Content Banner (deprecated)');
+  $paragraph_type->save();
+}
+
+/**
+ * Install openy_lily theme. Create block with menu. Create default taxonomy terms for openy.
+ */
+function ymca_master_update_8252() {
+  \Drupal::service('theme_installer')->install(['openy_lily']);
+  \Drupal::service('theme_handler')->setDefault('openy_lily');
+
+  // Create block with menu. Create default taxonomy terms for openy.
+  $blockEntityManager = \Drupal::service('entity.manager')->getStorage('block');
+  $block = $blockEntityManager->create(
+    array(
+      'id'=> 'topmenu2',
+      'plugin' => 'system_menu_block:top_menu_2',
+      'theme' => 'openy_lily',
+    )
+  );
+  $block->setRegion('secondary_menu');
+  $block->save();
+}
+
+/**
+ * Fill the main menu with links.
+ */
+function ymca_master_update_8253() {
+  $menu_tree = [
+    [
+      'title' => 'Programs & Classes',
+      'uri' => '/programs_and_classes',
+      'sub' => [
+        [
+          'title' => 'Health & Fitness',
+          'uri' => '/health__fitness',
+        ],
+        [
+          'title' => 'Child Care & Preschool',
+          'uri' => '/child_care__preschool',
+        ],
+        [
+          'title' => 'Swimming',
+          'uri' => '/swimming',
+        ],
+        [
+          'title' => 'Kids & Teens',
+          'uri' => '/kid__teen_activities',
+        ],
+        [
+          'title' => 'Camps',
+          'uri' => '/camps',
+        ],
+        [
+          'title' => 'Summer Programs',
+          'uri' => '/child_care__preschool/summer_programs/summer_at_the_y',
+        ],
+      ],
+    ],
+    [
+      'title' => 'Schedules',
+      'uri' => '/all_y_schedules',
+    ],
+    [
+      'title' => 'Locations',
+      'uri' => '/locations',
+    ],
+    [
+      'title' => 'Membership',
+      'uri' => '/membership',
+    ],
+    [
+      'title' => 'More',
+      'uri' => '/more',
+      'sub' => [
+        [
+          'title' => 'Volunteer',
+          'uri' => '/about/volunteer',
+        ],
+        [
+          'title' => 'About the Y',
+          'uri' => '/about',
+        ],
+        [
+          'title' => 'How We Help',
+          'uri' => '/our_cause/how_we_help',
+        ],
+      ],
+    ],
+  ];
+  foreach($menu_tree as $key => $menu_link) {
+    $first_level = MenuLinkContent::create([
+      'title' => $menu_link['title'],
+      'link' => ['uri' => 'internal:' . $menu_link['uri']],
+      'menu_name' => 'main',
+      'expanded' => TRUE,
+      'weight' => $key,
+    ]);
+    $first_level->save();
+    if (!empty($menu_link['sub'])) {
+      foreach ($menu_link['sub'] as $s_key => $menu_link_sub) {
+        $second_level = MenuLinkContent::create([
+          'title' => $menu_link_sub['title'],
+          'link' => ['uri' => 'internal:' . $menu_link_sub['uri']],
+          'parent' => $first_level->getPluginId(),
+          'menu_name' => 'main',
+          'expanded' => TRUE,
+          'weight' => $s_key,
+        ]);
+        $second_level->save();
+      }
+    }
+  }
+}
+
+/**
+  * Install Block wrapper.
+ */
+function ymca_master_update_8254() {
+  \Drupal::service('module_installer')->install([
+    'ygtc_prgf_block_wrapper',
+  ], TRUE);
+}
+
+/**
+ * Install migrate module.
+ */
+function ymca_master_update_8255() {
+  \Drupal::service('module_installer')->install([
+    'ymca_migrate_landing_page',
+  ], TRUE);
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'node.type.blog',
+      'node.type.camp',
+      'node.type.location',
+      'node.type.article',
+      'node.type.product',
+    ]
+  );
+}
+
+/**
+ * Uninstall ymca_entity_browser.
+ */
+function ymca_master_update_8256() {
+  \Drupal::service('module_installer')->uninstall([
+    'ymca_entity_browser',
+  ], TRUE);
+  \Drupal::configFactory()->getEditable('entity_browser.browser.browse_block_modal')->delete();
+}
+
+/**
+ * Update permissions.
+ */
+function ymca_master_update_8257() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'user.role.anonymous',
+    ]
+  );
+}
+
+/**
+ * Update configs.
+ */
+function ymca_master_update_8258() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_lp_layout',
+      'core.entity_view_display.node.landing_page.default',
+      'core.entity_view_display.node.landing_page.full',
+    ]
+  );
+}
+
+/**
+ * Change type of field_ds_background_image.
+ */
+function ymca_master_update_8259() {
+  // Install help module.
+  \Drupal::service('module_installer')->install(['openy_tools'], TRUE);
+
+  // Remove the field.
+  $field_name = 'field_ds_background_image';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('block_content', ['digital_signage_promotional', 'digital_signage_block_free_html'], $field_name, TRUE);
+
+  // Import updated fields.
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('modules/features/digital_signage_blocks/config/install');
+  $config_importer->importConfigs(
+    [
+      'block_content.type.digital_signage_block_free_html',
+      'block_content.type.digital_signage_promotional',
+      'core.entity_form_display.block_content.digital_signage_block_free_html.default',
+      'core.entity_form_display.block_content.digital_signage_promotional.default',
+      'core.entity_view_display.block_content.digital_signage_block_free_html.default',
+      'core.entity_view_display.block_content.digital_signage_promotional.default',
+      'field.field.block_content.digital_signage_block_free_html.body',
+      'field.field.block_content.digital_signage_block_free_html.field_ds_background_image',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_color',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_image',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_position',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_scheme',
+      'field.field.block_content.digital_signage_promotional.field_ds_background_size',
+      'field.field.block_content.digital_signage_promotional.field_ds_color_scheme',
+      'field.field.block_content.digital_signage_promotional.field_ds_headline',
+      'field.field.block_content.digital_signage_promotional.field_ds_layout',
+      'field.field.block_content.digital_signage_promotional.field_ds_message',
+      'field.field.block_content.digital_signage_promotional.field_ds_message_position',
+      'field.field.block_content.digital_signage_promotional.field_ds_subheading',
+      'field.storage.block_content.field_ds_background_color',
+      'field.storage.block_content.field_ds_background_image',
+      'field.storage.block_content.field_ds_background_position',
+      'field.storage.block_content.field_ds_background_scheme',
+      'field.storage.block_content.field_ds_background_size',
+      'field.storage.block_content.field_ds_color_scheme',
+      'field.storage.block_content.field_ds_headline',
+      'field.storage.block_content.field_ds_layout',
+      'field.storage.block_content.field_ds_message',
+      'field.storage.block_content.field_ds_message_position',
+      'field.storage.block_content.field_ds_subheading',
+    ]
+  );
+
+  $db = \Drupal::database();
+
+  // Copy backed up data to new field instance.
+  $rows = $db->select("copy_block_content__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
+  $fileStorage = \Drupal::entityTypeManager()->getStorage('file');
+
+  $updated = [];
+  foreach ($rows as $row) {
+    $blockEntity = \Drupal::entityTypeManager()->getStorage('block_content')->load($row->entity_id);
+
+    if ($blockEntity && !in_array($blockEntity->id(), $updated)) {
+      // Load appropriate image.
+      /** @var \Drupal\file\FileInterface $image */
+      $image = $fileStorage->load($row->field_ds_background_image_target_id);
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'image',
+          'name' => $image->getFilename(),
+          'status' => TRUE,
+          'field_media_image' => [
+            'target_id' => $image->id(),
+          ],
+        ]
+      );
+      $mediaEntity->save();
+
+      $blockEntity->set($field_name, ['target_id' => $mediaEntity->id()]);
+      $blockEntity->save();
+      $updated[] = $blockEntity->id();
+    }
+
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
+}
+
+/**
+ * Run landing pages migration batch.
+ */
+function ymca_master_update_8260() {
+  $sandbox = [];
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'article')
+    ->condition('status', TRUE)
+    ->condition('field_related', 'value', 'IS NULL');
+  $result = $query->execute();
+
+  // Initialize some variables during the first pass through.
+  if (!isset($sandbox['max'])) {
+    $sandbox['max'] = count($result);
+    $sandbox['progress'] = 0;
+  }
+
+  $nodes_per_batch = 50;
+
+  $nids = array_splice($result, 0, $nodes_per_batch);
+  $nodes = \Drupal::entityTypeManager()->getStorage('node')
+    ->loadMultiple($nids);
+  foreach ($result as $nid) {
+    $node = \Drupal::entityTypeManager()->getStorage('node')
+      ->load($nid);
+    \Drupal::service('ymca_migrate_landing_page_importer')->migrate($node);
+  }
+  $sandbox['progress'] += $nodes_per_batch;
+  $sandbox['results']['migrated'][] = implode(', ', $nids);
+
+  $sandbox['message'] = \Drupal::translation()
+    ->translate('Migrating nodes: @progress out of @total', [
+      '@progress' => $sandbox['progress'],
+      '@total' => $sandbox['max'],
+    ]);
+
+  if ($sandbox['progress'] < $sandbox['max']) {
+    $sandbox['finished'] = $sandbox['progress'] / $sandbox['max'];
+  }
+  else {
+    $sandbox['finished'] = 1;
+  }
+}
+
+/**
+ * Change type of field_schedule_documents.
+ */
+function ymca_master_update_8261() {
+  // Remove the field.
+  $field_name = 'field_schedule_documents';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('block_content', ['location_schedule'], $field_name, TRUE);
+
+  // Import updated fields.
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('modules/features/openy_location_schedule_block/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_form_display.block_content.location_schedule.default',
+      'core.entity_view_display.block_content.location_schedule.default',
+      'field.field.block_content.location_schedule.field_schedule_documents',
+      'field.storage.block_content.field_schedule_documents',
+    ]
+  );
+
+  $dir = 'profiles/contrib/openy/modules/openy_features/openy_media/modules/openy_media_document/config/install/';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'entity_browser.browser.documents_library',
+    ]
+  );
+
+  // Copy backed up data to new field instance.
+  $db = \Drupal::database();
+  $rows = $db->select("copy_block_content__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $mediaStorage = \Drupal::entityTypeManager()->getStorage('media');
+  $fileStorage = \Drupal::entityTypeManager()->getStorage('file');
+
+  foreach ($rows as $row) {
+    $blockEntity = \Drupal::entityTypeManager()->getStorage('block_content')->load($row->entity_id);
+    if ($blockEntity) {
+      // Load appropriate image.
+      $file = $fileStorage->load($row->field_schedule_documents_target_id);
+      if (!$file) {
+        continue;
+      }
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'document',
+          'name' => isset($row->field_schedule_documents_description) ? $row->field_schedule_documents_description : $file->id(),
+          'status' => TRUE,
+          'field_media_document' => [
+            'target_id' => $file->id(),
+          ],
+        ]
+      );
+
+      $mediaEntity->save();
+
+      $referenceField = $blockEntity->get($field_name);
+      $referenceField->appendItem(['target_id' => $mediaEntity->id()]);
+
+      $blockEntity->save();
+    }
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
+}
+
+/**
+ * Install OpenY Theme Settings module.
+ */
+function ymca_master_update_8262() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('modules/features/openy_theme_settings/config/install');
+  $config_importer->importConfigs(
+    [
+      'color.theme.openy_lily.yml',
+      'openy_lily.settings.yml',
+    ]
+  );
+}
+
+
+/**
+ * Prepare db before migration.
+ */
+function ymca_master_update_8263() {
+  drupal_flush_all_caches();
+}
+
+/**
+ * Fix header migration for landing pages.
+ */
+function ymca_master_update_8264() {
+  \Drupal::service("ymca_migrate_landing_page.field_manipulator")->fixHeaderSecondaryDescription();
+}
+
+/**
+ * Disable core term view.
+ */
+function ymca_master_update_8265() {
+  \Drupal::entityTypeManager()->getStorage('view')
+    ->load('taxonomy_term')
+    ->setStatus(FALSE)
+    ->save();
+}
+
+/**
+ * Fix browsers for blog.
+ */
+function ymca_master_update_8266() {
+  $config_importer = \Drupal::service('config_import.importer');
+
+  // Remove the field.
+  $field_name = 'field_image';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('node', ['blog'], $field_name, TRUE);
+
+  $dir = 'modules/features/ygtc_blog/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'core.base_field_override.node.blog.promote',
+      'core.entity_form_display.node.blog.default',
+      'core.entity_view_display.node.blog.camp_blog_teaser',
+      'core.entity_view_display.node.blog.content_browser_preview',
+      'core.entity_view_display.node.blog.default',
+      'core.entity_view_display.node.blog.location_blog_teaser',
+      'core.entity_view_display.node.blog.teaser',
+      'core.entity_view_mode.node.camp_blog_teaser',
+      'field.field.node.blog.field_blog_meta',
+      'field.field.node.blog.field_image',
+      'field.field.node.blog.field_related_camps_locations',
+      'field.field.node.blog.field_site_section',
+      'field.field.node.blog.field_state',
+      'field.field.node.blog.field_summary',
+      'field.field.node.blog.field_tags',
+      'field.field.node.blog.field_ygtc_content',
+      'field.storage.node.field_image',
+      'language.content_settings.node.blog',
+      'node.type.blog',
+      'views.view.camp_blog_listing',
+      'views.view.day_camp_news',
+      'views.view.location_blog_listing',
+      'views.view.ymca_news',
+      'views.view.ymca_news_archive',
+      'views.view.ymca_twin_cities_blog',
+      'views.view.ymca_twin_cities_blog_archive',
+    ]
+  );
+
+  $db = \Drupal::database();
+  $entityTypeManager = \Drupal::entityTypeManager();
+  // Copy backed up data to new field instance.
+  $rows = $db->select("copy_node__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $nodeStorage = $entityTypeManager->getStorage('node');
+  $mediaStorage = $entityTypeManager->getStorage('media');
+  $fileStorage = $entityTypeManager->getStorage('file');
+
+  foreach ($rows as $row) {
+    $nodeEntity = $nodeStorage->load($row->entity_id);
+    if ($nodeEntity) {
+      // Load appropriate image.
+      $field_name_column = $field_name . '_target_id';
+      $file = $fileStorage->load($row->$field_name_column);
+      if (!$file) {
+        continue;
+      }
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'image',
+          'name' => $row->field_image_alt,
+          'status' => TRUE,
+          'field_media_image' => [
+            'target_id' => $file->id(),
+          ],
+        ]
+      );
+
+      $mediaEntity->save();
+
+      $referenceField = $nodeEntity->get($field_name);
+      $referenceField->appendItem(['target_id' => $mediaEntity->id()]);
+
+      $nodeEntity->save();
+    }
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_node__$field_name");
+}
+
+/**
+ * Fixes landing page image in header.
+ */
+function ymca_master_update_8267() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $dir = 'modules/features/ygtc_media_bundles/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.media.image.prgf_small_banner',
+    ]
+  );
+}
+
+/**
+ * Deprecate old date block.
+ */
+function ymca_master_update_8268() {
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $dir = 'modules/features/ygtc_date_block/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'block_content.type.ygtc_date_block',
+      'core.entity_form_display.block_content.ygtc_date_block.default',
+      'core.entity_view_display.block_content.ygtc_date_block.default',
+      'field.field.block_content.ygtc_date_block.field_ygtc_content_date_before',
+      'field.field.block_content.ygtc_date_block.field_ygtc_content_date_between',
+      'field.field.block_content.ygtc_date_block.field_ygtc_content_date_end',
+      'field.field.block_content.ygtc_date_block.field_ygtc_end_date',
+      'field.field.block_content.ygtc_date_block.field_ygtc_start_date',
+      'field.storage.block_content.field_ygtc_content_date_before',
+      'field.storage.block_content.field_ygtc_content_date_between',
+      'field.storage.block_content.field_ygtc_content_date_end',
+      'field.storage.block_content.field_ygtc_end_date',
+      'field.storage.block_content.field_ygtc_start_date',
+      'language.content_settings.block_content.ygtc_date_block',
+    ]
+  );
+}
+
+/**
+ * Migrate deprecated date block.
+ */
+function ymca_master_update_8269() {
+  $blockStorage = \Drupal::entityTypeManager()->getStorage('block_content');
+  $oldDateBlocks = $blockStorage->loadByProperties(['type' => 'date_block']);
+  $blockStorage->delete($oldDateBlocks);
+
+  $db = \Drupal::database();
+
+  /** @var BlockContent $oldDateBlock */
+  foreach ($oldDateBlocks as $oldDateBlock) {
+    // Create new block.
+    $newDateBlock = $blockStorage->create([
+      'type' => 'ygtc_date_block',
+      'info' => $oldDateBlock->info->value,
+    ]);
+
+    $newDateBlock->set('field_ygtc_end_date', $oldDateBlock->field_end_date->value);
+    $newDateBlock->set('field_ygtc_start_date', $oldDateBlock->field_start_date->value);
+
+    $newDateBlock->set(
+      'field_ygtc_content_date_end',
+      [
+        'value' => $oldDateBlock->field_content_date_end->value,
+        'format' => $oldDateBlock->field_content_date_end->format,
+      ]
+    );
+
+    $newDateBlock->set(
+      'field_ygtc_content_date_before',
+      [
+        'value' => $oldDateBlock->field_content_date_before->value,
+        'format' => $oldDateBlock->field_content_date_before->format,
+      ]
+    );
+
+    $newDateBlock->set(
+      'field_ygtc_content_date_between',
+      [
+        'value' => $oldDateBlock->field_content_date_between->value,
+        'format' => $oldDateBlock->field_content_date_between->format,
+      ]
+    );
+
+    $newDateBlock->save();
+
+    $content_tables = [
+      'block_content',
+      'block_content_revision',
+      'block_content_field_data',
+      'block_content_field_revision'
+    ];
+
+    foreach ($content_tables as $table) {
+      // Set the old ID and Revision ID on the new block in the main table.
+      $query = $db->update($table);
+      $query->condition('id', $newDateBlock->id());
+
+      $fields = [
+        'id' => $oldDateBlock->id(),
+        'revision_id' => $oldDateBlock->getLoadedRevisionId(),
+      ];
+
+      if ($table == 'block_content') {
+        $fields['uuid'] = $oldDateBlock->uuid();
+      }
+
+      $query->fields($fields);
+      $query->execute();
+    }
+
+    // Set the old ID and Revision ID on the new block in the field tables.
+    $field_tables = [
+      'block_content__field_ygtc_end_date',
+      'block_content__field_ygtc_start_date',
+      'block_content__field_ygtc_content_date_before',
+      'block_content__field_ygtc_content_date_between',
+      'block_content__field_ygtc_content_date_end',
+      'block_content_revision__field_ygtc_end_date',
+      'block_content_revision__field_ygtc_start_date',
+      'block_content_revision__field_ygtc_content_date_before',
+      'block_content_revision__field_ygtc_content_date_between',
+      'block_content_revision__field_ygtc_content_date_end',
+    ];
+    foreach ($field_tables as $table) {
+      if ($db->schema()->tableExists($table)) {
+        $query = $db->update($table);
+        $query->fields([
+          'entity_id' => $oldDateBlock->id(),
+          'revision_id' => $oldDateBlock->getLoadedRevisionId(),
+        ]);
+        $query->condition('entity_id', $newDateBlock->id());
+        $query->execute();
+      }
+    }
+  }
+}
+
+/**
+ * Fix browsers for article/Page CT.
+ */
+function ymca_master_update_8271() {
+  $config_importer = \Drupal::service('config_import.importer');
+
+  // Remove the field.
+  $field_name = 'field_header_image';
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('node', ['article'], $field_name, TRUE);
+
+  $dir = 'modules/features/ygtc_page_and_location/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'core.base_field_override.node.article.promote',
+      'core.entity_form_display.mapping.trainer.default',
+      'core.entity_form_display.node.article.default',
+      'core.entity_view_display.mapping.trainer.default',
+      'core.entity_view_display.node.article.content_browser_preview',
+      'core.entity_view_display.node.article.default',
+      'core.entity_view_display.node.article.full',
+      'core.entity_view_display.node.article.rss',
+      'core.entity_view_display.node.article.teaser',
+      'field.field.mapping.trainer.field_mindbody_trainer_id',
+      'field.field.mapping.trainer.field_trainer_page_ref',
+      'field.field.node.article.field_alert',
+      'field.field.node.article.field_header_button',
+      'field.field.node.article.field_header_image',
+      'field.field.node.article.field_header_variant',
+      'field.field.node.article.field_lead_description',
+      'field.field.node.article.field_page_meta',
+      'field.field.node.article.field_promo_slideshow',
+      'field.field.node.article.field_related',
+      'field.field.node.article.field_secondary_sidebar',
+      'field.field.node.article.field_sidebar_navigation',
+      'field.field.node.article.field_sidebar',
+      'field.field.node.article.field_state',
+      'field.field.node.article.field_tags',
+      'field.field.node.article.field_template',
+      'field.field.node.article.field_title_description',
+      'field.field.node.article.field_ygtc_content',
+      'field.storage.mapping.field_mindbody_trainer_id',
+      'field.storage.mapping.field_trainer_page_ref',
+      'field.storage.node.field_header_button',
+      'field.storage.node.field_header_image',
+      'field.storage.node.field_header_variant',
+      'field.storage.node.field_lead_description',
+      'field.storage.node.field_page_meta',
+      'field.storage.node.field_related',
+      'field.storage.node.field_secondary_sidebar',
+      'field.storage.node.field_sidebar_navigation',
+      'field.storage.node.field_sidebar',
+      'field.storage.node.field_template',
+      'field.storage.node.field_title_description',
+      'image.style.2013_masthead',
+      'language.content_settings.node.article',
+      'node.type.article',
+      'views.view.trainers_mapping',
+      'ymca_mappings.mapping_type.trainer',
+    ]
+  );
+
+  $db = \Drupal::database();
+  $entityTypeManager = \Drupal::entityTypeManager();
+  // Copy backed up data to new field instance.
+  $rows = $db->select("copy_node__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $nodeStorage = $entityTypeManager->getStorage('node');
+  $mediaStorage = $entityTypeManager->getStorage('media');
+  $fileStorage = $entityTypeManager->getStorage('file');
+
+  foreach ($rows as $row) {
+    $nodeEntity = $nodeStorage->load($row->entity_id);
+    if ($nodeEntity) {
+      // Load appropriate image.
+      $field_name_column = $field_name . '_target_id';
+      $file = $fileStorage->load($row->$field_name_column);
+      if (!$file) {
+        continue;
+      }
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'image',
+          'name' => $row->field_header_image_alt,
+          'status' => TRUE,
+          'field_media_image' => [
+            'target_id' => $file->id(),
+          ],
+        ]
+      );
+
+      $mediaEntity->save();
+
+      $referenceField = $nodeEntity->get($field_name);
+      $referenceField->appendItem(['target_id' => $mediaEntity->id()]);
+
+      $nodeEntity->save();
+    }
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_node__$field_name");
+}
+
+/**
+ * Enable OpenY Date Block.
+ */
+function ymca_master_update_8272() {
+
+  $modules = [
+    'openy_block_date',
+    'openy_prgf_block_date',
+  ];
+
+  $installer = \Drupal::service('module_installer');
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
 }

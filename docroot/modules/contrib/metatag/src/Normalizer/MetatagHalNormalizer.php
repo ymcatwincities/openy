@@ -2,21 +2,18 @@
 
 namespace Drupal\metatag\Normalizer;
 
-
 /**
  * Converts the Metatag field item object structure to METATAG array structure.
  */
 class MetatagHalNormalizer extends MetatagNormalizer {
 
   /**
-   * The formats that the Normalizer can handle.
-   *
-   * @var array
+   * {@inheritdoc}}
    */
   protected $format = ['hal_json'];
 
   /**
-   * {@inheritdoc}}
+   * {@inheritdoc}
    */
   public function normalize($field_item, $format = NULL, array $context = []) {
     $normalized = parent::normalize($field_item, $format, $context);
@@ -29,4 +26,5 @@ class MetatagHalNormalizer extends MetatagNormalizer {
 
     return $normalized;
   }
+
 }

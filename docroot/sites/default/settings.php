@@ -715,14 +715,18 @@ $settings["install_profile"] = "pp";
 
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
 $config['system.file']['path']['temporary'] = "/mnt/gfs/{$_ENV['AH_SITE_GROUP']}.{$_ENV['AH_SITE_ENVIRONMENT']}/tmp";
-ini_set('memory_limit', '256M');
+ini_set('memory_limit', '384M');
   if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
     ini_set('memory_limit', '2048M');
   }
 }
 if (function_exists('drush_main')) {
-  ini_set('memory_limit', '2048M');
+  ini_set('memory_limit', '-1');
 }
+if (class_exists('Drupal\Console\Bootstrap\Drupal')) {
+  ini_set('memory_limit', '-1');
+}
+
 $settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_torzbh6JgHg010jkiL3HQ";
 // According to https://insight.acquia.com/support/tickets/293389?s=3041521
 // Changed to APC according to https://insight.acquia.com/support/tickets/322330#comment-182141690227

@@ -74,7 +74,7 @@ abstract class WebformComputedBase extends FormElement {
       $element['value']['#markup'] = $value;
 
       // Include hidden element so that computed value will be available to
-      // conditional logic.
+      // conditions (#states).
       $element['#tree'] = TRUE;
       $element['hidden'] = [
         '#type' => 'hidden',

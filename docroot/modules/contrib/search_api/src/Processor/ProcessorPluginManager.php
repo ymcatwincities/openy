@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\search_api\Processor\ProcessorPluginManager.
- */
-
 namespace Drupal\search_api\Processor;
 
 use Drupal\Core\Cache\CacheBackendInterface;
@@ -58,17 +53,17 @@ class ProcessorPluginManager extends DefaultPluginManager {
    *   - label: The translated label for this stage.
    */
   public function getProcessingStages() {
-    return array(
-      ProcessorInterface::STAGE_PREPROCESS_INDEX => array(
+    return [
+      ProcessorInterface::STAGE_PREPROCESS_INDEX => [
         'label' => $this->t('Preprocess index'),
-      ),
-      ProcessorInterface::STAGE_PREPROCESS_QUERY => array(
+      ],
+      ProcessorInterface::STAGE_PREPROCESS_QUERY => [
         'label' => $this->t('Preprocess query'),
-      ),
-      ProcessorInterface::STAGE_POSTPROCESS_QUERY => array(
+      ],
+      ProcessorInterface::STAGE_POSTPROCESS_QUERY => [
         'label' => $this->t('Postprocess query'),
-      ),
-    );
+      ],
+    ];
   }
 
 }

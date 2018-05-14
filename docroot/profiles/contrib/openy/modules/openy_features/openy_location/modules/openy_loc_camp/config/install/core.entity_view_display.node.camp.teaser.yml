@@ -5,7 +5,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.camp.field_bottom_content
     - field.field.node.camp.field_camp_menu_links
-    - field.field.node.camp.field_oy_content
+    - field.field.node.camp.field_content
     - field.field.node.camp.field_header_content
     - field.field.node.camp.field_location_address
     - field.field.node.camp.field_location_coordinates
@@ -55,10 +55,11 @@ content:
 hidden:
   field_bottom_content: true
   field_camp_menu_links: true
-  field_oy_content: true
+  field_content: true
   field_header_content: true
   field_location_coordinates: true
   field_location_email: true
   field_location_fax: true
   field_meta_tags: true
+  langcode: true
   links: true
