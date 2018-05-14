@@ -115,7 +115,7 @@ class DateBlockService {
         break;
 
       case self::DBS_MIDDLE:
-        $this->activeContent = is_null($entity->get('field_content_date_between')->get(0)) ? '' : $entity->get('field_content_date_between')->get(0)->getValue()['value'];
+        $this->activeContent = is_null($entity->get('field_ygtc_content_date_between')->get(0)) ? '' : $entity->get('field_ygtc_content_date_between')->get(0)->getValue()['value'];
         break;
 
       case self::DBS_AFTER:
@@ -150,7 +150,7 @@ class DateBlockService {
 
     switch ($this->getBlockState()) {
       case self::DBS_BEFORE:
-        hide($build['field_content_date_between']);
+        hide($build['field_ygtc_content_date_between']);
         hide($build['field_content_date_end']);
         break;
 
@@ -161,7 +161,7 @@ class DateBlockService {
 
       case self::DBS_AFTER:
         hide($build['field_ygtc_content_date_before']);
-        hide($build['field_content_date_between']);
+        hide($build['field_ygtc_content_date_between']);
         break;
     }
 
