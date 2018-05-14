@@ -72,7 +72,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
   /** @var \Drupal\block_content\Entity\BlockContent $entity */
 
   switch ($entity->bundle()) {
-    case 'date_block':
+    case 'ygtc_date_block':
       \Drupal::service('dateslides.service')->viewAlter($build, $entity);
       break;
 

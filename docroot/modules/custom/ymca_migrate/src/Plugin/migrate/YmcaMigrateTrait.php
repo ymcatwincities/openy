@@ -216,7 +216,7 @@ trait YmcaMigrateTrait {
     }
 
     $block = BlockContent::create([
-      'type' => 'date_block',
+      'type' => 'ygtc_date_block',
       'langcode' => 'en',
       'info' => $data['info'],
       'field_ygtc_start_date' => $data['date_start'],
