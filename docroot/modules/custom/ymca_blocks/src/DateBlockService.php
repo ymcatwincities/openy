@@ -78,7 +78,7 @@ class DateBlockService {
       return FALSE;
     }
 
-    if ($ygtc_date_block->get('type')->get(0)->getValue()['target_id'] !== 'ygtc_date_block') {
+    if ($date_block->get('type')->get(0)->getValue()['target_id'] !== 'ygtc_date_block') {
       \Drupal::logger('Date Blocks')->critical(t('Block type is not ygtc_date_block.'));
       return FALSE;
     }
