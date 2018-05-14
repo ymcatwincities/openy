@@ -6044,7 +6044,25 @@ function ymca_master_update_8269() {
         $query->execute();
       }
     }
-
   }
 
+}
+
+/**
+ * Remove old date_block bundle and enable OpenY Date Block.
+ * @todo Fix The field is not working correctly anymore and has to be adjusted.
+ */
+function _ymca_master_update_8270() {
+  $type = \Drupal::entityTypeManager()->getStorage('block_content_type')->load('date_block');
+  $type->delete();
+
+  $modules = [
+    'openy_block_date',
+    'openy_prgf_block_date',
+  ];
+
+  $installer = \Drupal::service('module_installer');
+  foreach ($modules as $module) {
+    $installer = $installer->install([$module], TRUE);
+  }
 }
