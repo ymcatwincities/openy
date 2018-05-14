@@ -225,7 +225,7 @@ trait YmcaMigrateTrait {
         'value' => $data['content_before'],
         'format' => 'full_html',
       ],
-      'field_content_date_between' => [
+      'field_ygtc_content_date_between' => [
         'value' => $data['content_during'],
         'format' => 'full_html',
       ],
