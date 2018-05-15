@@ -11,10 +11,6 @@
     .masonry {
       padding: 0;
       margin: 0;
-      /*column-count: 3;
-      column-gap: 1em;
-      margin: 2em auto;*/
-
     }
     .masonry-item {
       display: inline-block;
@@ -49,6 +45,7 @@
     }
   }
 }
+
 @media (min-width: $screen-md) {
   .social-post-list {
     .masonry {
@@ -59,7 +56,6 @@
   }
 }
 
-/* Masonry on medium-sized screens */
 @media (max-width: $screen-md-max) and (min-width: $screen-sm) {
   .social-post-list {
     .masonry {
@@ -70,7 +66,6 @@
   }
 }
 
-/* Masonry on small screens */
 @media (max-width: $screen-xs-max) and (min-width: $screen-xs) {
   .social-post-list {
     .masonry {

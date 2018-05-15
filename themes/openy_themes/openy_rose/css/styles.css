@@ -7637,9 +7637,6 @@ article .node--view-mode-flexible-content h2 a span {
 .social-post-list .views-element-container .masonry {
   padding: 0;
   margin: 0;
-  /*column-count: 3;
-  column-gap: 1em;
-  margin: 2em auto;*/
 }
 .social-post-list .views-element-container .masonry-item {
   display: inline-block;
@@ -7679,7 +7676,6 @@ article .node--view-mode-flexible-content h2 a span {
     margin: 2em auto;
   }
 }
-/* Masonry on medium-sized screens */
 @media (max-width: 1199px) and (min-width: 768px) {
   .social-post-list .masonry {
     column-count: 3;
@@ -7687,7 +7683,6 @@ article .node--view-mode-flexible-content h2 a span {
     margin: 2em auto;
   }
 }
-/* Masonry on small screens */
 @media (max-width: 767px) and (min-width: 480px) {
   .social-post-list .masonry {
     column-count: 2;
