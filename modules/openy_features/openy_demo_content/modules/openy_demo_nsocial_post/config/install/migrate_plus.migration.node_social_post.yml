@@ -14,40 +14,40 @@ source:
   data_rows:
     -
       id: 1
+      title: 'Post 1'
       field_id: 1
-      field_sp_image: 1
       field_link: 'http://instagram.com'
       field_platform: instagram
       field_post: "<p>Visit the OpenY Distribution site.</p>\n"
       field_posted: '15/05/2018 12:00'
     -
       id: 2
+      title: 'Post 2'
       field_id: 2
-      field_sp_image: 2
       field_link: 'http://instagram.com'
       field_platform: instagram
       field_post: "<p>Post 2</p>\n"
       field_posted: '15/05/2018 12:00'
     -
       id: 3
+      title: 'Post 3'
       field_id: 3
-      field_sp_image: 3
       field_link: 'http://instagram.com'
       field_platform: instagram
       field_post: "<p>Post 3</p>\n"
       field_posted: '15/05/2018 12:00'
     -
       id: 4
+      title: 'Post 4'
       field_id: 4
-      field_sp_image: 4
       field_link: 'http://instagram.com'
       field_platform: instagram
       field_post: "<p>Post 4</p>\n"
       field_posted: '15/05/2018 12:00'
     -
       id: 5
+      title: 'Post 5'
       field_id: 5
-      field_sp_image: 5
       field_link: 'http://instagram.com'
       field_platform: instagram
       field_post: "<p>Post 5</p>\n"
@@ -56,50 +56,41 @@ source:
     id:
       type: string
 process:
-  field_id:
-    -
-      plugin: get
-      source: field_id
-  field_sp_image:
-    -
-      plugin: get
-      source: field_sp_image
-  field_platform:
-    -
-      plugin: get
-      source: field_platform
-  field_posted:
-    -
-      plugin: get
-      default_value: field_posted
   type:
-    -
-      plugin: default_value
-      default_value: social_post
-  bundle:
-    -
-      plugin: default_value
-      default_value: social_post
+    plugin: default_value
+    default_value: social_post
+  title:
+    plugin: get
+    source: title
+  field_id:
+    plugin: get
+    source: field_id
+  field_sp_image:
+    plugin: get
+    source: field_sp_image
+  field_platform:
+    plugin: get
+    source: field_platform
+  field_posted:
+    plugin: get
+    default_value: field_posted
   status:
-    -
-      plugin: default_value
-      default_value: 1
+    plugin: default_value
+    default_value: 1
   promote:
-    -
-      plugin: get
-      source: promote
+    plugin: default_value
+    default_value: 1
   uid:
-    -
-      plugin: default_value
-      default_value: 1
+    plugin: default_value
+    default_value: 1
   field_post/value:
-    -
-      plugin: get
-      source: field_post
+    plugin: get
+    source: field_post
   field_post/format:
     plugin: default_value
     default_value: full_html
 destination:
   plugin: 'entity:node'
+migration_dependencies:
+  required: {  }
   optional: {  }
-migration_dependencies: null
