@@ -6,6 +6,45 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function openy_block_branch_amenities_install() {
+  $modules = [
+    'openy_prgf_3c' => [
+      'field.field.paragraph.3c.field_prgf_3c_center',
+      'field.field.paragraph.3c.field_prgf_3c_left',
+      'field.field.paragraph.3c.field_prgf_3c_right',
+    ],
+  ];
+  $config_factory = \Drupal::configFactory();
+  foreach ($modules as $module => $configs) {
+    if (\Drupal::service('module_handler')->moduleExists($module)) {
+      // Add flexible_content to field config target bundles.
+      foreach ($configs as $config_name) {
+        $config = $config_factory->getEditable($config_name);
+        $dependencies = $config->get('dependencies.config');
+        if (!in_array('block_content.type.branch_amenities', $dependencies)) {
+          $dependencies[] = 'block_content.type.branch_amenities';
+          $config->set('dependencies.config', $dependencies);
+          $target_bundles = $config->get('settings.handler_settings.target_bundles');
+          $target_bundles['branch_amenities'] = 'branch_amenities';
+          $config->set('settings.handler_settings.target_bundles', $target_bundles);
+          $config->save(TRUE);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_block_branch_amenities_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('block_content', 'block_content_type', 'branch_amenities');
+}
+
+/**
  * Update configs for Drupal Core upgrade.
  */
 function openy_block_branch_amenities_update_8001() {

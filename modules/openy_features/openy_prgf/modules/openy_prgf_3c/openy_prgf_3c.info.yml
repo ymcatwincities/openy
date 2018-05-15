@@ -5,11 +5,10 @@ core: 8.x
 package: OpenY
 version: '8.x-1.0'
 dependencies:
-  - block_content
   - entity_browser_entity_form
   - field
   - inline_entity_form
   - language
-  - openy_block_branch_amenities
+  - openy_block_custom_simple
   - openy_prgf
   - paragraphs
