@@ -6171,3 +6171,110 @@ function ymca_master_update_8272() {
     $installer->install([$module], TRUE);
   }
 }
+
+/**
+ * Fix grey header for landing pages.
+ */
+function ymca_master_update_8273() {
+  $db = \Drupal::database();
+
+  $list = [
+    10686,
+    9086,
+    9881,
+    7341,
+    10371,
+    9781,
+    10006,
+    7326,
+    9306,
+    9301,
+    9256,
+    9261,
+    9266,
+    9296,
+    9281,
+    9231,
+    9096,
+    9291,
+    9091,
+    9251,
+    9286,
+    9311,
+    9271,
+    9241,
+    9236,
+    9226,
+    9246,
+    7946,
+    9716,
+    9711,
+    9706,
+    9701,
+    9696,
+    9691,
+    9676,
+    7256,
+    7206,
+    6741,
+  ];
+
+  $query = $db->select('node__field_header_content', 'n');
+  $query->leftJoin('paragraphs_item', 'p', 'n.field_header_content_target_id = p.id');
+  $query->fields('n', [
+    'entity_id',
+    'field_header_content_target_id',
+    'field_header_content_target_revision_id',
+  ]);
+  $query->condition('p.type','small_banner');
+  $query->condition('n.entity_id', $list, 'IN');
+  $result = $query->execute();
+
+  $grey = 593;
+
+  while ($row = $result->fetchAssoc()) {
+    // Check if paragraph__field_prgf_color has appropriate revision.
+    $queryField = $db->select("paragraph__field_prgf_color");
+    $queryField->condition('entity_id', $row['field_header_content_target_id']);
+    $queryField->addExpression('COUNT(*)');
+    $count = $queryField->execute()->fetchField();
+
+    if (!$count) {
+      $fieldInsert = $db->insert('paragraph__field_prgf_color');
+      $fieldInsert->fields(
+        [
+          'bundle' => 'small_banner',
+          'deleted' => '0',
+          'entity_id' => $row['field_header_content_target_id'],
+          'revision_id' => $row['field_header_content_target_revision_id'],
+          'langcode' => 'en',
+          'delta' => 0,
+          'field_prgf_color_target_id' => $grey
+        ]
+      );
+      $fieldInsert->execute();
+    }
+
+    // Check if paragraph_revision__field_prgf_color has appropriate revision.
+    $queryField = $db->select("paragraph_revision__field_prgf_color");
+    $queryField->condition('revision_id', $row['field_header_content_target_revision_id']);
+    $queryField->addExpression('COUNT(*)');
+    $count = $queryField->execute()->fetchField();
+
+    if (!$count) {
+      $fieldInsert = $db->insert('paragraph_revision__field_prgf_color');
+      $fieldInsert->fields(
+        [
+          'bundle' => 'small_banner',
+          'deleted' => '0',
+          'entity_id' => $row['field_header_content_target_id'],
+          'revision_id' => $row['field_header_content_target_revision_id'],
+          'langcode' => 'en',
+          'delta' => 0,
+          'field_prgf_color_target_id' => $grey
+        ]
+      );
+      $fieldInsert->execute();
+    }
+  }
+}
