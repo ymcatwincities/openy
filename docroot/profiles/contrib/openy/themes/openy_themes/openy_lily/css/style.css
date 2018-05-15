@@ -4995,14 +4995,27 @@ html.js .flag-waiting .flag-throbber {
   -moz-osx-font-smoothing: grayscale;
   content: "\f138";
 }
-.block-description--text .blog-heading,
-.block-description--text .promo-text {
+.block-description--text .blog-up .img-crop img {
+  width: 100%;
+  height: auto;
+  max-width: inherit;
+  vertical-align: top;
+  margin: auto;
+}
+.block-description--text .blog-heading {
   padding: 0 25px 30px;
 }
 @media (min-width: 48em) {
-  .block-description--text .blog-heading,
-  .block-description--text .promo-text {
+  .block-description--text .blog-heading {
     padding: 0 35px 35px 45px;
+  }
+}
+.block-description--text .promo-text {
+  padding: 0 0 30px;
+}
+@media (min-width: 48em) {
+  .block-description--text .promo-text {
+    padding: 0 35px 35px 0;
   }
 }
 .block-description--text article a {
