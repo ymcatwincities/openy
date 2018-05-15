@@ -16,11 +16,6 @@ use Drupal\Core\Link;
 function advanced_help_block_help($path, $arg) {
   $query = \Drupal::entityQuery('advanced_help_block');
   $entity_ids = $query->execute();
-  $ids = [];
-  foreach ($entity_ids as $entity_id) {
-    $ids[] = $entity_id;
-  }
-  $blocks = AdvancedHelpBlock::loadMultiple($ids);
 
   $output = [];
 
@@ -32,34 +27,43 @@ function advanced_help_block_help($path, $arg) {
     $render_type = 'block';
   }
 
-  foreach ($blocks as $block) {
+  $ids = [];
+  foreach ($entity_ids as $entity_id) {
+    $ids[] = $entity_id;
+  }
+  $chunks = array_chunk($ids, 50);
+  foreach ($chunks as $chunk) {
+    $blocks = AdvancedHelpBlock::loadMultiple($chunk);
 
-    if (advanced_help_block_check_visibility($block)) {
-      $link = '';
-      if (!empty($block->get('field_ahb_video')->value)) {
-        parse_str(parse_url($block->get('field_ahb_video')->value, PHP_URL_QUERY), $url_params);
-        $link = Link::fromTextAndUrl('Video',
-          Url::fromUri($block->get('field_ahb_video')->value, [
-            'attributes' => [
-              'youtubeid' => $url_params['v'],
-              'class' => ['youtube-link'],
-            ],
-          ])
-        )->toString();
-      }
-      $output[$block->id()] = [
-        'title' => $block->get('field_ahb_title')->value,
-        'description' => $block->get('field_ahb_description')->value,
-        'video' => $block->get('field_ahb_video')->value,
-        'youtube_link' => $link,
-      ];
+    foreach ($blocks as $block) {
 
-      if ($render_type == 'message') {
-        drupal_set_message(t('<h3>%title</h3>%description @link', [
-          '@link' => $link,
-          '%title' => $block->get('field_ahb_title')->value,
-          '%description' => \Drupal\Core\Render\Markup::create($block->get('field_ahb_description')->value),
-        ]), 'status');
+      if (advanced_help_block_check_visibility($block)) {
+        $link = '';
+        if (!empty($block->field_ahb_video->value)) {
+          parse_str(parse_url($block->field_ahb_video->value, PHP_URL_QUERY), $url_params);
+          $link = Link::fromTextAndUrl('Video',
+            Url::fromUri($block->field_ahb_video->value, [
+              'attributes' => [
+                'youtubeid' => $url_params['v'],
+                'class' => ['youtube-link'],
+              ],
+            ])
+          )->toString();
+        }
+        $output[$block->id()] = [
+          'title' => $block->field_ahb_title->value,
+          'description' => $block->field_ahb_description->value,
+          'video' => $block->field_ahb_video->value,
+          'youtube_link' => $link,
+        ];
+
+        if ($render_type == 'message') {
+          drupal_set_message(t('<h3>%title</h3>%description @link', [
+            '@link' => $link,
+            '%title' => $block->field_ahb_title->value,
+            '%description' => \Drupal\Core\Render\Markup::create($block->field_ahb_description->value),
+          ]), 'status');
+        }
       }
     }
   }

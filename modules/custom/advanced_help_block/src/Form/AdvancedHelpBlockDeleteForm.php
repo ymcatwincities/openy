@@ -5,6 +5,8 @@ namespace Drupal\advanced_help_block\Form;
 use Drupal\Core\Entity\ContentEntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\logger_entity\Entity\LoggerEntityInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a form for deleting a advanced_help_block entity.
@@ -13,6 +15,29 @@ use Drupal\Core\Url;
  */
 class AdvancedHelpBlockDeleteForm extends ContentEntityConfirmFormBase {
 
+  /**
+   * @var \Drupal\logger_entity\Entity\LoggerEntityInterface $logger;
+   */
+  private $logger;
+
+  /**
+   * AdvancedHelpBlockDeleteForm constructor.
+   *
+   * @param LoggerEntityInterface $logger
+   * ConfigFactory.
+   */
+  public function __construct(LoggerEntityInterface $logger) {
+    $this->logger = $logger;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('logger')
+    );
+  }
   /**
    * Returns the question to ask the user.
    *
@@ -51,11 +76,11 @@ class AdvancedHelpBlockDeleteForm extends ContentEntityConfirmFormBase {
     $entity = $this->getEntity();
     $entity->delete();
 
-    \Drupal::logger('advanced_help_block')->notice(
+    $this->logger('advanced_help_block')->notice(
       '@type: deleted %title.',
       array(
         '@type' => $this->entity->bundle(),
-        '%title' => $this->entity->get('field_ahb_title')->value,
+        '%title' => $this->entity->get->field_ahb_title->value,
       )
     );
 

@@ -18,7 +18,7 @@ class AdvancedHelpBlockForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\advanced_help_block\Entity\AdvancedHelpBlock */
+
     $form = parent::buildForm($form, $form_state);
 
     return $form;

@@ -2,9 +2,11 @@
 
 namespace Drupal\advanced_help_block\Form;
 
-use Drupal\Core\Form\FormBase;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class AdvancedHelpBlockSettingsForm.
@@ -12,47 +14,28 @@ use Drupal\Core\Url;
  * @package Drupal\advanced_help_block\Form
  * @ingroup advanced_help_block
  */
-class AdvancedHelpBlockSettingsForm extends FormBase {
+class AdvancedHelpBlockSettingsForm extends ConfigFormBase {
+
   /**
-   * Returns a unique string identifying the form.
-   *
-   * @return string
-   *   The unique string identifying the form.
+   * {@inheritdoc}
    */
   public function getFormId() {
     return 'advanced_help_block_settings';
   }
 
   /**
-   * Form submission handler.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param FormStateInterface $form_state
-   *   An associative array containing the current state of the form.
+   * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config_factory = \Drupal::configFactory();
-    $config_factory->getEditable('advanced_help_block.settings')
-      ->set('advanced_help_block.view_type', $form_state->getValue('view_type'))
-      ->save();
-    drupal_set_message(t('Advanced help block type was changed to <b>@value</b>', ['@value' => $form_state->getValue('view_type')]));
+  protected function getEditableConfigNames() {
+    return [
+      'advanced_help_block.settings',
+    ];
   }
 
-
   /**
-   * Define the form used for ContentEntityExample settings.
-   *
-   * @return array
-   *   Form definition array.
-   *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param FormStateInterface $form_state
-   *   An associative array containing the current state of the form.
+   * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config_factory = \Drupal::configFactory();
     $form['advanced_help_block'] = [
       '#type' => 'details',
       '#title' => t('Advanced help block settigns.'),
@@ -65,25 +48,28 @@ class AdvancedHelpBlockSettingsForm extends FormBase {
         'block' => t('Block'),
         'message' => t('Message')
       ],
-      '#default_value' => $config_factory->getEditable('advanced_help_block.settings')
+      '#default_value' => $this->config('advanced_help_block.settings')
         ->get('advanced_help_block.view_type'),
     ];
 
-    $form['actions'] = [
-      '#type' => 'actions'
-    ];
-
-    $form['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => t('Save settings')
-    ];
-
-    $form['actions']['cancel'] = [
-      '#type' => 'link',
-      '#title' => t('Cancel'),
-      '#url' => Url::fromRoute('view.advanced_help_blocks.ahb_list'),
-    ];
-
-    return $form;
+    return parent::buildForm($form, $form_state);
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $this->config('advanced_help_block.settings')
+      ->set('advanced_help_block.view_type', $form_state->getValue('view_type'))
+      ->save();
+    parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCancelUrl() {
+    return new Url('view.advanced_help_blocks.ahb_list');
+  }
+
 }
