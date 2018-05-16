@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.program_subcategory
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+id: node.program_subcategory
+target_entity_type_id: node
+target_bundle: program_subcategory
+default_langcode: site_default
+language_alterable: false

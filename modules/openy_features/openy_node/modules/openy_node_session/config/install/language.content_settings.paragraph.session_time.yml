@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.session_time
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+id: paragraph.session_time
+target_entity_type_id: paragraph
+target_bundle: session_time
+default_langcode: site_default
+language_alterable: false
