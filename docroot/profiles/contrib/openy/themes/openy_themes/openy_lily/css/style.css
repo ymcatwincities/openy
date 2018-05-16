@@ -10361,6 +10361,13 @@ a.sports-icon.floor-hockey {
   font-weight: normal;
   font-family: 'YMCA';
 }
+.paragraph--type--secondary-description-sidebar .field-ygtc-content-date-between a:after {
+  margin-left: 10px;
+  content: 'o';
+  text-transform: none;
+  font-size: 18px;
+  font-family: 'YMCA';
+}
 
 .field-prgf-description article a:hover .inner-wrapper h3:after {
   color: #428bca;
