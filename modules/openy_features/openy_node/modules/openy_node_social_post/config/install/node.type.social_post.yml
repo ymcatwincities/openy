@@ -12,7 +12,7 @@ third_party_settings:
     parent: ''
 name: 'Social Post'
 type: social_post
-description: 'This content type for Social posts'
+description: 'This is a content type for the posts, pulled from Social Networks.'
 help: ''
 new_revision: false
 preview_mode: 1
