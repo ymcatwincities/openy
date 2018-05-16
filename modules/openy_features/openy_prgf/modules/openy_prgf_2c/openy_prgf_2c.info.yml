@@ -7,6 +7,7 @@ version: 8.x-1.0
 dependencies:
   - block_content
   - datalayer
+  - content_translation
   - entity_browser_entity_form
   - field
   - inline_entity_form

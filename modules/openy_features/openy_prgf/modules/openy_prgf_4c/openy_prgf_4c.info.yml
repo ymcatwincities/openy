@@ -7,12 +7,14 @@ version: 8.x-1.0
 dependencies:
   - block_content
   - datalayer
+  - content_translation
   - entity_browser_entity_form
   - field
   - inline_entity_form
   - language
   - link
   - openy_block_custom_simple
+  - openy_block_flexible_content
   - openy_prgf
   - paragraphs
   - text

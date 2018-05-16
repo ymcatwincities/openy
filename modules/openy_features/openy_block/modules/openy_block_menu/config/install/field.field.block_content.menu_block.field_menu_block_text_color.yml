@@ -5,8 +5,6 @@ dependencies:
     - block_content.type.menu_block
     - field.storage.block_content.field_menu_block_text_color
     - taxonomy.vocabulary.color
-  content:
-    - 'taxonomy_term:color:c1e7d9c8-b66a-4aed-bcfa-c05e08421874'
 id: block_content.menu_block.field_menu_block_text_color
 field_name: field_menu_block_text_color
 entity_type: block_content
