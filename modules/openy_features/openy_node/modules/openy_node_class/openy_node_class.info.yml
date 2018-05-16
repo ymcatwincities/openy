@@ -5,9 +5,13 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
+  - content_moderation
+  - content_translation
+  - datalayer
   - entity_reference_revisions
   - field
   - field_group
+  - language
   - menu_ui
   - metatag
   - node

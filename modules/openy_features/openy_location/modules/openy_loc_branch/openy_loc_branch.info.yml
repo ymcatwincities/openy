@@ -6,11 +6,14 @@ package: Open Y
 version: 8.x-1.0
 dependencies:
   - address
+  - content_moderation
+  - content_translation
   - datalayer
   - entity_reference_revisions
   - field
   - field_group
   - geolocation
+  - language
   - link
   - menu_ui
   - metatag
