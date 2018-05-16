@@ -9,6 +9,7 @@ dependencies:
     - field.field.block_content.date_block.field_end_date
     - field.field.block_content.date_block.field_start_date
   module:
+    - content_moderation
     - datetime
     - paragraphs
 id: block_content.date_block.default
@@ -75,5 +76,14 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  translation:
+    weight: 10
     region: content
 hidden: {  }

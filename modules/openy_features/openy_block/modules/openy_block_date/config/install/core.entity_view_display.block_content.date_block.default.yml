@@ -24,6 +24,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_content_date_between:
     type: entity_reference_revisions_entity_view
     weight: 4
@@ -32,6 +33,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_content_date_end:
     type: entity_reference_revisions_entity_view
     weight: 3
@@ -40,6 +42,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_end_date:
     weight: 1
     label: hidden
@@ -48,6 +51,7 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_start_date:
     weight: 0
     label: hidden
@@ -56,5 +60,6 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
 hidden:
   langcode: true
