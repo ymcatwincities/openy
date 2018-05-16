@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.image_block
+    - field.storage.block_content.field_image
+    - media_entity.bundle.image
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: ''
+id: block_content.image_block.field_image
+field_name: field_image
+entity_type: block_content
+bundle: image_block
+label: Image
+description: 'The recommended size is 600 x 340 pixels.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
