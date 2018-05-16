@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.date_block
+    - node.type.news
   module:
     - content_translation
 third_party_settings:
   content_translation:
     enabled: true
-id: block_content.date_block
-target_entity_type_id: block_content
-target_bundle: date_block
-default_langcode: current_interface
+id: node.news
+target_entity_type_id: node
+target_bundle: news
+default_langcode: site_default
 language_alterable: true

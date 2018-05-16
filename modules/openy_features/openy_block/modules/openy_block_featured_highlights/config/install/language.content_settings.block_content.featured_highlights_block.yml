@@ -3,6 +3,11 @@ status: true
 dependencies:
   config:
     - block_content.type.featured_highlights_block
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
 id: block_content.featured_highlights_block
 target_entity_type_id: block_content
 target_bundle: featured_highlights_block

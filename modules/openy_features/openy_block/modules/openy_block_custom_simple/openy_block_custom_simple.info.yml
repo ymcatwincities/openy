@@ -11,6 +11,8 @@ dependencies:
   - drupal:media (>= 8.6)
   - drupal:text
   - block_content
+  - content_moderation
+  - content_translation
   - entity_browser
   - openy_block
   - openy_media_image

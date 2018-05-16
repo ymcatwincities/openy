@@ -3,6 +3,11 @@ status: true
 dependencies:
   config:
     - block_content.type.menu_block
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
 id: block_content.menu_block
 target_entity_type_id: block_content
 target_bundle: menu_block

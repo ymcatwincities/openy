@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.date_block
+    - block_content.type.basic_block
   module:
     - content_translation
 third_party_settings:
   content_translation:
     enabled: true
-id: block_content.date_block
+id: block_content.basic_block
 target_entity_type_id: block_content
-target_bundle: date_block
-default_langcode: current_interface
+target_bundle: basic_block
+default_langcode: site_default
 language_alterable: true

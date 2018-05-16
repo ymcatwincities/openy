@@ -12,6 +12,7 @@ dependencies:
   - drupal:text
   - block_content
   - content_moderation
+  - content_translation
   - datalayer
   - entity_browser
   - openy_block

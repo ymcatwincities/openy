@@ -6,6 +6,8 @@ version: 8.x-1.0
 package: Open Y
 dependencies:
   - block_content
+  - content_moderation
+  - content_translation
   - custom_formatters
   - field
   - language

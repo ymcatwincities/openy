@@ -6,6 +6,7 @@ package: Open Y
 version: 8.x-1.0
 dependencies:
   - block_content
+  - content_translation
   - field
   - language
   - node
