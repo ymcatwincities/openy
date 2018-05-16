@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: upcoming_events
 label: 'Upcoming Events'
+icon_uuid: null
+description: null
 behavior_plugins: {  }

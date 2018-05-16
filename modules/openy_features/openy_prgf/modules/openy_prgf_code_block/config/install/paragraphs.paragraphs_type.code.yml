@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: code
 label: Code
+icon_uuid: null
+description: null
+behavior_plugins: {  }

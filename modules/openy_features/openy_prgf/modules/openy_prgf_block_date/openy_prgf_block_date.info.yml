@@ -6,9 +6,13 @@ core: 8.x
 version: 8.x-1.0
 dependencies:
   - block_content
+  - content_moderation
+  - content_translation
+  - datalayer
   - entity_browser_entity_form
   - field
   - inline_entity_form
+  - language
   - openy_block_date
   - paragraphs
 version: 8.x-1.1

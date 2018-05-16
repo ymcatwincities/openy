@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: blog_posts_listing
 label: 'Blog Posts Listing'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

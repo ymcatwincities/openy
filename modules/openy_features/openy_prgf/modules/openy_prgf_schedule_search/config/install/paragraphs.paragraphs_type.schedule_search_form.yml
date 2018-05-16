@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: schedule_search_form
 label: 'Schedule search form'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

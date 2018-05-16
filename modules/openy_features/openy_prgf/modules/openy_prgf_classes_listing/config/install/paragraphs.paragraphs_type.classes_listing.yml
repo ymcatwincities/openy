@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: classes_listing
 label: 'Classes Listing'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: group_schedules
 label: 'Group Schedules (GroupEx Pro)'
+icon_uuid: null
+description: null
 behavior_plugins: {  }

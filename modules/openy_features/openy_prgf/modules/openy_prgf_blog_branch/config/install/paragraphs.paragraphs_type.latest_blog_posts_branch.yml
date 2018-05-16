@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: latest_blog_posts_branch
 label: 'Latest blog posts (branch)'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

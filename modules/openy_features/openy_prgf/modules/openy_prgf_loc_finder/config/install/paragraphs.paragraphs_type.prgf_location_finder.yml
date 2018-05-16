@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: prgf_location_finder
 label: 'Location finder'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

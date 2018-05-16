@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: latest_news_posts
 label: 'Latest news posts'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

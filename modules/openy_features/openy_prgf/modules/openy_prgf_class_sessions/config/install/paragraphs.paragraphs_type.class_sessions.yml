@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: class_sessions
 label: 'Class Sessions'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

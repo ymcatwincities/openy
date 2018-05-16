@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: latest_news_posts_camp
 label: 'Latest news posts (camp)'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

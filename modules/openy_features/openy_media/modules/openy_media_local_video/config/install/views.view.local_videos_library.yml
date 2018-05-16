@@ -18,6 +18,7 @@ tag: ''
 base_table: media_field_data
 base_field: mid
 core: 8.x
+version: 8.x-1.0
 display:
   default:
     display_plugin: default

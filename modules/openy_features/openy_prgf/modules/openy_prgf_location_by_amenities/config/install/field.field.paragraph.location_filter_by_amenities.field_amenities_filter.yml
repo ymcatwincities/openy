@@ -11,7 +11,7 @@ bundle: location_filter_by_amenities
 label: 'Amenities Filter'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     target_uuid: 70e8d2b6-caaa-400d-a59c-3270d78fad11

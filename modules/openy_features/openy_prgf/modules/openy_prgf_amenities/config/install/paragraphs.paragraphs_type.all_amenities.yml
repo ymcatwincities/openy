@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: all_amenities
 label: 'All Amenities'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

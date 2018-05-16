@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: webform
 label: Webform
+icon_uuid: null
+description: null
+behavior_plugins: {  }

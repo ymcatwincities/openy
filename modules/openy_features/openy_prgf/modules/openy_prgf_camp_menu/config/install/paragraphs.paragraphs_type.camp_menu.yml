@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: camp_menu
 label: 'Camp menu'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

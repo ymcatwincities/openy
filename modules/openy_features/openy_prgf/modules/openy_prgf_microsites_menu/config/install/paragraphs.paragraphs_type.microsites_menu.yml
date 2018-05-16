@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: microsites_menu
 label: 'Microsites Menu'
+icon_uuid: null
+description: null
 behavior_plugins: {  }

@@ -5,6 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_block
     - paragraphs.paragraphs_type.branches_popup_all
   module:
+    - datalayer
     - plugin
 id: paragraph.branches_popup_all.field_prgf_block
 field_name: field_prgf_block

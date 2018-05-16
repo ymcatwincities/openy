@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: banner
 label: Banner
+icon_uuid: null
+description: null
 behavior_plugins: {  }

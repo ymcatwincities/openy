@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: embedded_groupexpro_schedule
 label: 'Embedded GroupEx Pro Schedule'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: branches_popup_class
 label: 'Branches popup (Class)'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

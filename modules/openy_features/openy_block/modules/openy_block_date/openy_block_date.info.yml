@@ -3,6 +3,7 @@ description: Implements a custom block to display content based on date and time
 package: Open Y
 type: module
 core: 8.x
+version: 8.x-1.0
 dependencies:
   - block_content
   - content_moderation
@@ -12,4 +13,3 @@ dependencies:
   - field
   - language
   - paragraphs
-version: 8.x-1.0

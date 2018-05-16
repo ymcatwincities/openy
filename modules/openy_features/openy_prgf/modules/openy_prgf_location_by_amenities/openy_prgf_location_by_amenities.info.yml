@@ -7,11 +7,18 @@ version: 8.x-1.0
 dependencies:
   - better_exposed_filters
   - content_moderation
+  - content_translation
   - datalayer
   - field
+  - language
+  - node
+  - openy_loc_branch
   - openy_prgf
   - openy_prgf_amenities
+  - openy_taxonomy
+  - openy_txnm_amenities
   - paragraphs
+  - user
   - views
   - views_field_formatter
   - views_block_filter_block

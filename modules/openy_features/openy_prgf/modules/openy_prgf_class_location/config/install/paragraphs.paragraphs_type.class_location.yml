@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: class_location
 label: 'Class location'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

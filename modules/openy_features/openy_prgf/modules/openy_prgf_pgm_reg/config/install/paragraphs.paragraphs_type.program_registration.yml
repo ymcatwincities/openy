@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: program_registration
 label: 'Program Registration (Daxko)'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

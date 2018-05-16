@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: featured_news
 label: 'Featured News Posts'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

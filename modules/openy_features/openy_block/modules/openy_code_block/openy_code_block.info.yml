@@ -3,6 +3,7 @@ description: Implements a custom block to insert code that displays embedded dat
 package: Open Y
 type: module
 core: 8.x
+version: 8.x-1.0
 dependencies:
   - block_content
   - content_moderation
@@ -13,4 +14,3 @@ dependencies:
   - filter
   - language
   - text
-version: 8.x-1.0

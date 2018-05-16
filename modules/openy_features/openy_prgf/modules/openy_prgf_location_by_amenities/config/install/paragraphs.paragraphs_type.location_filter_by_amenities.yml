@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: location_filter_by_amenities
 label: 'Location filter by amenities'
+icon_uuid: null
+description: null
 behavior_plugins: {  }

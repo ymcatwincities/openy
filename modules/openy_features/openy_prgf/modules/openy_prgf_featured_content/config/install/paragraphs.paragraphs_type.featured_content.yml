@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: featured_content
 label: 'Featured Content'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

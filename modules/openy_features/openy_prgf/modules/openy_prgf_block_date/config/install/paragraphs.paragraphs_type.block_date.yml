@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: block_date
 label: 'Date Block'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

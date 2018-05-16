@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: news_posts_listing
 label: 'News Posts Listing'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

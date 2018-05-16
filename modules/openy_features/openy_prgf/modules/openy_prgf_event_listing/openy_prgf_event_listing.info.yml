@@ -5,8 +5,10 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
+  - content_translation
   - datalayer
   - field
+  - language
   - node
   - openy_node_event
   - openy_prgf

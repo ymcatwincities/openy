@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: categories_listing
 label: 'Categories Listing'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

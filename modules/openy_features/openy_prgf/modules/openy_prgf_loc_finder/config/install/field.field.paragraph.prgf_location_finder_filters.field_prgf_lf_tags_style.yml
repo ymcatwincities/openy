@@ -13,7 +13,7 @@ bundle: prgf_location_finder_filters
 label: 'Tags style'
 description: 'Tags style that will be used for map tags filter. Default - checkboxes. Second option is multiselect widget with checkboxes.'
 required: true
-translatable: false
+translatable: true
 default_value:
   -
     value: checkboxes

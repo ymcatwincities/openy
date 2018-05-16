@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: openy_prgf_mbrshp_calc
 label: 'Membership calculator'
+icon_uuid: null
+description: null
 behavior_plugins: {  }

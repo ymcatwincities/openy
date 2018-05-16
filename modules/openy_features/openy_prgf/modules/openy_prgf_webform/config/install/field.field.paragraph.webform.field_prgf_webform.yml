@@ -5,6 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_webform
     - paragraphs.paragraphs_type.webform
   module:
+    - datalayer
     - webform
 id: paragraph.webform.field_prgf_webform
 field_name: field_prgf_webform
@@ -13,7 +14,7 @@ bundle: webform
 label: Webform
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
@@ -22,5 +23,7 @@ settings:
     target_bundles: null
     auto_create: false
   default_data: ''
-  status: true
+  status: '1'
+  open: ''
+  close: ''
 field_type: webform

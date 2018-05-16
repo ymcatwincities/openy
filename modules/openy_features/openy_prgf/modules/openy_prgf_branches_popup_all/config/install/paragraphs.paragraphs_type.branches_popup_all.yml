@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: branches_popup_all
 label: 'Branches popup (All)'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

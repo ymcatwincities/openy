@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: classes_listing_filters
 label: 'Classes Listing Filters'
+icon_uuid: null
+description: null
+behavior_plugins: {  }
