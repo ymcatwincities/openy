@@ -4,5 +4,5 @@ dependencies: {  }
 id: social_list
 label: 'Social List'
 icon_uuid: null
-description: 'List of social posts, which were imported from social networks.'
+description: 'List of social posts, which are imported from social networks.'
 behavior_plugins: {  }
