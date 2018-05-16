@@ -2,8 +2,6 @@
 
 namespace Drupal\activenet;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Config\ImmutableConfig;
 use GuzzleHttp\Client;
 
 /**
@@ -157,7 +155,7 @@ class ActivenetClient extends Client implements ActivenetClientInterface {
 
   public function getActivityDetail(integer $id){
     if(!$this->api_settings) throw new ActivenetClientException(sprintf('Please inject api settings using "$this->setAPI($api_settings)".'));
-    
+
     $base_uri = $this->api_settings['base_uri'];
     $suffix = '?api_key=' . $this->api_settings['api_key'];
     return $this->makeRequest('get', $base_uri . 'activities/' . $id . $suffix);
