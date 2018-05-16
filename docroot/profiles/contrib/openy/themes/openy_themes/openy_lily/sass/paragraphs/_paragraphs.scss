@@ -410,6 +410,9 @@
     figure {
       overflow: hidden;
       margin: 0 -30px 0 -20px;
+      .field-media-image div {
+        padding-bottom: 0 !important;
+      }
       .media--ratio {
         height: auto;
       }
