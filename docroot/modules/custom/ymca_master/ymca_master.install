@@ -6278,3 +6278,94 @@ function ymca_master_update_8273() {
     }
   }
 }
+
+/**
+ * Fix field_image for blocks.
+ */
+function _ymca_master_update_8274() {
+  // Remove the field.
+  $field_name = 'field_image';
+
+  $fieldHelper = \Drupal::service('openy_tools.field_helper');
+  $fieldHelper->remove('block_content', ['image_block', 'promo_block', 'slide_show_item'], $field_name, TRUE);
+
+  $config_importer = \Drupal::service('config_import.importer');
+
+  $dir = 'modules/features/ygtc_field_image_blocks/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'block_content.type.image_block',
+      'block_content.type.promo_block',
+      'block_content.type.slide_show_item',
+      'core.entity_form_display.block_content.image_block.default',
+      'core.entity_form_display.block_content.promo_block.default',
+      'core.entity_form_display.block_content.slide_show_item.default',
+      'core.entity_view_display.block_content.image_block.default',
+      'core.entity_view_display.block_content.promo_block.default',
+      'core.entity_view_display.block_content.slide_show_item.default',
+      'field.field.block_content.image_block.field_image',
+      'field.field.block_content.promo_block.field_block_content',
+      'field.field.block_content.promo_block.field_block_header',
+      'field.field.block_content.promo_block.field_image',
+      'field.field.block_content.promo_block.field_link',
+      'field.field.block_content.slide_show_item.field_block_content',
+      'field.field.block_content.slide_show_item.field_button',
+      'field.field.block_content.slide_show_item.field_image',
+      'field.field.block_content.slide_show_item.field_title',
+      'field.storage.block_content.field_block_header',
+      'field.storage.block_content.field_button',
+      'field.storage.block_content.field_image',
+      'field.storage.block_content.field_link',
+      'field.storage.block_content.field_slide_show_item',
+      'field.storage.block_content.field_title',
+      'language.content_settings.block_content.image_block',
+      'language.content_settings.block_content.slide_show_item',
+    ]
+  );
+
+  $db = \Drupal::database();
+  $entityTypeManager = \Drupal::entityTypeManager();
+  // Copy backed up data to new field instance.
+  $rows = $db->select("copy_block_content__$field_name", 'copy')
+    ->fields('copy')
+    ->execute()
+    ->fetchAll();
+
+  $blockStorage = $entityTypeManager->getStorage('block_content');
+  $mediaStorage = $entityTypeManager->getStorage('media');
+  $fileStorage = $entityTypeManager->getStorage('file');
+
+  foreach ($rows as $row) {
+    $blockEntity = $blockStorage->load($row->entity_id);
+    if ($blockEntity) {
+      // Load appropriate image.
+      $field_name_column = $field_name . '_target_id';
+      $file = $fileStorage->load($row->$field_name_column);
+      if (!$file) {
+        continue;
+      }
+
+      // Create new Media entity.
+      $mediaEntity = $mediaStorage->create(
+        [
+          'bundle' => 'image',
+          'name' => $row->field_image_alt,
+          'status' => TRUE,
+          'field_media_image' => [
+            'target_id' => $file->id(),
+          ],
+        ]
+      );
+
+      $mediaEntity->save();
+
+      $referenceField = $blockEntity->get($field_name);
+      $referenceField->appendItem(['target_id' => $mediaEntity->id()]);
+
+      $blockEntity->save();
+    }
+  }
+
+  $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
+}
