@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.branches_popup_all
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: paragraph.branches_popup_all
+target_entity_type_id: paragraph
+target_bundle: branches_popup_all
+default_langcode: site_default
+language_alterable: true

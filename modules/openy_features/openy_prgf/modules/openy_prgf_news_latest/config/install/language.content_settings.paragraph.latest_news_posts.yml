@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.latest_news_posts
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: paragraph.latest_news_posts
+target_entity_type_id: paragraph
+target_bundle: latest_news_posts
+default_langcode: site_default
+language_alterable: true

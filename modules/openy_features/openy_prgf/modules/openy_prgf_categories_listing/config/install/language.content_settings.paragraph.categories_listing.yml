@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.categories_listing
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: paragraph.categories_listing
+target_entity_type_id: paragraph
+target_bundle: categories_listing
+default_langcode: site_default
+language_alterable: true

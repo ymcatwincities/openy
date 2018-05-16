@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.prgf_location_finder
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: paragraph.prgf_location_finder
+target_entity_type_id: paragraph
+target_bundle: prgf_location_finder
+default_langcode: site_default
+language_alterable: true
