@@ -169,6 +169,21 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  redirect:
+    type: string_textfield
+    weight: 30
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 120
+    region: content
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
@@ -183,6 +198,9 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
+  translation:
+    weight: 10
     region: content
   uid:
     type: entity_reference_autocomplete

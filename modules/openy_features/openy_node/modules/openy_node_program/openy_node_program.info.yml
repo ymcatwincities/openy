@@ -6,12 +6,16 @@ package: Open Y
 version: 8.x-1.0
 dependencies:
   - blazy
+  - content_moderation
+  - content_translation
   - datalayer
   - entity_browser
   - entity_reference_revisions
   - field
   - field_group
+  - focal_point
   - image
+  - language
   - drupal:media (>= 8.6)
   - menu_ui
   - metatag
