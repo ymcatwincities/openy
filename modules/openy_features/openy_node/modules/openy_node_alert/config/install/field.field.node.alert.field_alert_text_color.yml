@@ -12,7 +12,7 @@ bundle: alert
 label: 'Text color'
 description: 'Reference field for choosing the term from "Color" vocabulary.'
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

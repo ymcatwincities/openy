@@ -12,7 +12,7 @@ bundle: alert
 label: 'Icon color'
 description: 'Leave empty to hide icon.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

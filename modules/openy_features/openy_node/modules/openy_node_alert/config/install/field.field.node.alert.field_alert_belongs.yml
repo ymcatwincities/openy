@@ -17,7 +17,7 @@ bundle: alert
 label: '[obsolete] Reference'
 description: 'Reference to node (branch, camp, landing page and etc.), where local alert will be displayed. DO NOT USE, will be removed in next release.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
