@@ -10101,6 +10101,9 @@ a.sports-icon.floor-hockey {
   overflow: hidden;
   margin: 0 -30px 0 -20px;
 }
+#small-text-banner .header-image figure .field-media-image div {
+  padding-bottom: 0 !important;
+}
 #small-text-banner .header-image figure .media--ratio {
   height: auto;
 }
