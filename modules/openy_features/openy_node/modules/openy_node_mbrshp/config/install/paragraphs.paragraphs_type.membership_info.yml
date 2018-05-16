@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: membership_info
 label: 'Membership info'
+icon_uuid: null
+description: null
 behavior_plugins: {  }

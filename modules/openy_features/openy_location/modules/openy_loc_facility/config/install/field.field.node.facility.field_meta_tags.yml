@@ -13,7 +13,7 @@ bundle: facility
 label: 'Meta Tags'
 description: 'A Meta Tags provides metadata about some aspect of the contents of a Web page. <br/> The metadata can be used by browsers, search engines, or other web services as Facebook, Pinterest, LinkedIn and other social networking sites.'
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     value: 'a:0:{}'

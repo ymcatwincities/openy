@@ -6,9 +6,11 @@ package: Open Y
 version: 8.x-1.0
 dependencies:
   - datalayer
+  - content_translation
   - entity_reference_revisions
   - field
   - field_group
+  - language
   - menu_ui
   - metatag
   - node
