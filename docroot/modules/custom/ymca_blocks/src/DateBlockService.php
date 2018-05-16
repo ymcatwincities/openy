@@ -4,9 +4,10 @@ namespace Drupal\ymca_blocks;
 
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\media_entity\Entity\Media as ContribMedia;
+use Drupal\media\Entity\Media as CoreMedia;
 
 /**
  * Class DateBlock.
@@ -242,8 +243,30 @@ class DateBlockService {
     $style = ImageStyle::load('2013_masthead');
     /** @var BlockContent $slide_entity */
     foreach ($slides as $id => $slide_entity) {
+      $imageUrl = NULL;
       $title = is_null($slide_entity->get('field_title')->get(0)) ? '' : $slide_entity->get('field_title')->get(0)->getValue()['value'];
-      $img_url = is_null($slide_entity->get('field_image')->get(0)) ? '' : File::load($slide_entity->get('field_image')->get(0)->getValue()['target_id'])->getFileUri();
+
+      if ($slideImage = $slide_entity->field_image->entity) {
+        /** @var ContribMedia $slideImage */
+        if ($slideImage instanceof ContribMedia) {
+          if (!$slideImage->hasField('field_media_image')) {
+            throw new \Exception('Contrib media failed to find field with background image.');
+          }
+          $file = $slideImage->field_media_image->entity;
+        }
+
+        if ($slideImage instanceof CoreMedia) {
+          if (!$slideImage->hasField('field_media_image')) {
+            throw new \Exception('Core media failed to find field with background image.');
+          }
+          $file = $slideImage->field_media_image->entity;
+        }
+
+        if (isset($file)) {
+          $imageUrl = file_create_url($file->getFileUri());
+        }
+      }
+
       $description = '';
       if ($content = $slide_entity->get('field_block_content')->get(0)) {
         $value = $content->getValue();
@@ -252,7 +275,7 @@ class DateBlockService {
 
       $this->slideShowItems[$i]['id'] = $i;
       $this->slideShowItems[$i]['title'] = $title;
-      $this->slideShowItems[$i]['img_url'] = $style->buildUrl($img_url);
+      $this->slideShowItems[$i]['img_url'] = $imageUrl;
       $this->slideShowItems[$i]['description'] = $description;
       $i++;
     }

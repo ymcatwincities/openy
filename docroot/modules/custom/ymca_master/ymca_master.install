@@ -6282,7 +6282,7 @@ function ymca_master_update_8273() {
 /**
  * Fix field_image for blocks.
  */
-function _ymca_master_update_8274() {
+function ymca_master_update_8274() {
   // Remove the field.
   $field_name = 'field_image';
 
