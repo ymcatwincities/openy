@@ -6369,3 +6369,99 @@ function ymca_master_update_8274() {
 
   $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
 }
+
+/**
+ * Fix redirects to 404 & 403.
+ */
+function ymca_master_update_8275() {
+  $db = \Drupal::database();
+
+  $redirectsMap = [
+    749 => 10791,
+    2505 => 11110,
+    787 => 10802,
+    4371 => 11207,
+    2756 => 11158,
+    3046 => 11175,
+    3311 => 11178,
+    1951 => 11083,
+    2000 => 11084,
+    2032 => 11085,
+    3241 => 11176,
+  ];
+
+  foreach ($redirectsMap as $oldId => $newId) {
+    $db->update('redirect')
+      ->fields([
+        'redirect_redirect__uri' => sprintf('internal:/node/%d', $newId)
+      ])
+      ->condition('redirect_redirect__uri', sprintf('internal:/node/%d', $oldId))
+      ->execute();
+  }
+}
+
+/**
+ * Fix unpublished blogs (workflow).
+ */
+function ymca_master_update_8276() {
+  $db = \Drupal::database();
+  $storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  $urls = [
+    'blog/2016/2/18/952/spinach_green_onion_frittata',
+    'blog/2016/05/24/3571/cajun_chicken_kabobs',
+    'blog/2016/05/24/3561/nourishing_outdoor_cooking',
+    'blog/2016/04/27/3421/barbecue_spiced_kale_chips',
+    'blog/2016/04/27/3411/the_importance_of_family_meals',
+    'blog/2016/03/28/3081/managing_stress_is_key_for_long_term_health',
+    'blog/2016/02/18/954/artificial_sweeteners_are_not_the_answer',
+    'blog/2016/01/25/931/getting_the_meal_on_the_table',
+    'blog/2016/01/18/908/creating_sustainable_behavior_change',
+    'blog/2016/01/11/910/grilled_chicken_with_kale_apple_and_cranberry_salad',
+    'blog/2015/12/21/2442/family_workout_fun',
+    'blog/2015/11/13/872/using_food_to_reduce_the_stress_in_our_lives',
+    'blog/2015/11/06/862/herby_salmon_fillets',
+    'blog/2015/10/26/856/never_tried_a_group_exercise_class',
+    'blog/2015/07/28/822/st_paul_midway_member_triumph',
+    'blog/2015/06/25/810/splish_splash_safety',
+    'blog/2015/03/02/737/member_triumph_post_surgery_recovery',
+    'blog/2014/11/17/678/5_signs_your_child_might_be_ready_for_overnight_camp',
+    'blog/2014/10/30/661/being_grateful_is_great_for_you',
+    'blog/2014/09/22/656/head_north_for_nature_and_new_experiences',
+    'blog/2014/07/28/630/amp_up_workweek_activity',
+    'blog/2014/07/28/629/member_triumph_recovering_from_a_life_changing_car_accident',
+    'blog/2014/07/01/566/member_triumph_finishing_the_y_run_5k',
+    'blog/2014/05/01/577/staying_active_when_injured',
+    'blog/2014/05/01/576/family_time_in_the_garden',
+    'blog/2014/01/03/608/group_cycling_for_newbies',
+    'blog/2016/01/25/931/getting_the_meal_on_the_table/',
+    'blog/2016/01/25/927/five_healthy_eating_habits_your_heart_will_love/',
+    'blog/2015/12/21/905/enriching_the_lives_of_our_youngest_community_members/',
+    'blog/2014/09/22/653/5_things_you_need_to_know_about_portion_sizes/',
+    'blog/2014/09/02/648/start_small_to_make_a_big_impact_on_healthier_habits/',
+    'blog/2014/06/05/570/smarter_road_trip_snacks/',
+    'blog/2013/12/23/610/8_inspired_byo_lunches/',
+  ];
+
+  $user = \Drupal::entityTypeManager()->getStorage('user')->load(1);
+  user_login_finalize($user);
+
+  foreach ($urls as $url) {
+    $query = $db->select('url_alias', 'a')
+      ->fields('a', ['source'])
+      ->condition('alias', '/' . trim($url, '/') . '%', 'LIKE');
+    $result = $query->execute()->fetchAll();
+
+    if (!$result) {
+      \Drupal::logger('ymca_master')->error(sprintf('Alias not found %s', $url));
+    }
+
+    $item = reset($result);
+    $parts = explode('/', $item->source);
+
+    $node = $storage->load($parts[2]);
+    $node->set('field_state', 'workflow_published');
+    $node->setPublished(TRUE);
+    $node->save();
+  }
+}
