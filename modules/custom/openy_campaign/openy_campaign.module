@@ -21,6 +21,7 @@ use Drupal\Core\Link;
 use Drupal\openy_campaign\Controller\CampaignWinnerStreamController;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\OpenYLocaleDate;
+use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 
 define('CAMPAIGN_MENU_PAGES_MAX', 5);
 define('CAMPAIGN_THEME', 'openy_campaign_theme');
@@ -417,11 +418,6 @@ function openy_campaign_preprocess_paragraph(&$variables) {
     $blockManager = \Drupal::service('plugin.manager.block');
 
     // Get and render needed blocks.
-    $map = [
-      'field_prgf_activity_visits' => 'campaign_activity_visits_block',
-      'field_prgf_campaign_game' => 'campaign_game_block',
-      'field_enable_activities_counter' => 'campaign_activity_visits_block',
-    ];
     foreach (['left', 'right'] as $side) {
       $render = [];
       $col = 'field_prgf_' . $side . '_column';
@@ -439,16 +435,33 @@ function openy_campaign_preprocess_paragraph(&$variables) {
       // Show selected blocks.
       $column = $paragraph->{$col}->value;
       if ($column && in_array($column, $activitiesOptions)) {
-        $block = $blockManager->createInstance($map[$column], []);
-        $renderBlock = $block->build();
+        $renderBlock = [];
         switch ($column) {
+          // Game block.
+          case 'field_prgf_campaign_game':
+            $block = $blockManager->createInstance('campaign_game_block', []);
+            $renderBlock = $block->build();
+            break;
+
           // Show Visit Tracking. It will be displayed with enActvCounter = 0.
           case 'field_prgf_activity_visits':
+            $block = $blockManager->createInstance('campaign_activity_visits_block', []);
+            $renderBlock = $block->build();
             $renderBlock['goal_block']['#enActvCounter'] = 0;
             break;
+
           // Show Activity count. It will be displayed with enActvCounter = 1
           case 'field_enable_activities_counter':
-            $renderBlock['goal_block']['#enActvCounter'] = 1;
+            $userData = MemberCampaign::getMemberCampaignData($campaign->id());
+            $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
+            $countedActivities = MemberCampaignActivity::getTrackedActivities($memberCampaignID);
+
+            $renderBlock['goal_block'] = [
+              '#theme' => 'openy_campaign_visits_goal',
+              '#enActvCounter' => 1,
+              '#countedActv' => $countedActivities,
+              '#trackActvDesc' => !empty($campaign->get('field_tracking_actv_goal_desc')->value) ? $campaign->get('field_tracking_actv_goal_desc')->value : '',
+            ];
             break;
         }
         $render[] = $renderBlock;
