@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed_test\EntityEmbedTestTwigController.
- */
-
 namespace Drupal\entity_embed_test;
 
 /**

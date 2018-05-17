@@ -1,16 +1,13 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\Plugin\entity_embed\EntityEmbedDisplay\ImageFieldFormatter.
- */
-
 namespace Drupal\entity_embed\Plugin\entity_embed\EntityEmbedDisplay;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FormatterPluginManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Image\ImageFactory;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TypedData\TypedDataManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,16 +29,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ImageFieldFormatter extends FileFieldFormatter {
 
   /**
-    * The image factory.
-    *
-    * @var \Drupal\Core\Image\ImageFactory
-    */
-    protected $imageFactory;
+   * The image factory.
+   *
+   * @var \Drupal\Core\Image\ImageFactory
+   */
+  protected $imageFactory;
 
   /**
    * {@inheritdoc}
    *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager service.
    * @param \Drupal\Core\Field\FormatterPluginManager $formatter_plugin_manager
    *   The field formatter plugin manager.
@@ -49,9 +46,11 @@ class ImageFieldFormatter extends FileFieldFormatter {
    *   The typed data manager.
    * @param \Drupal\Core\Image\ImageFactory $image_factory
    *   The image factory.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The language manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityManagerInterface $entity_manager, FormatterPluginManager $formatter_plugin_manager, TypedDataManager $typed_data_manager, ImageFactory $image_factory) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_manager, $formatter_plugin_manager, $typed_data_manager);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, FormatterPluginManager $formatter_plugin_manager, TypedDataManager $typed_data_manager, ImageFactory $image_factory, LanguageManagerInterface $language_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $formatter_plugin_manager, $typed_data_manager, $language_manager);
     $this->imageFactory = $image_factory;
   }
 
@@ -63,10 +62,11 @@ class ImageFieldFormatter extends FileFieldFormatter {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('entity.manager'),
+      $container->get('entity_type.manager'),
       $container->get('plugin.manager.field.formatter'),
       $container->get('typed_data_manager'),
-      $container->get('image.factory')
+      $container->get('image.factory'),
+      $container->get('language_manager')
     );
   }
 
@@ -85,15 +85,38 @@ class ImageFieldFormatter extends FileFieldFormatter {
    * {@inheritdoc}
    */
   public function access(AccountInterface $account = NULL) {
-    if (!parent::access($account)) {
-      return FALSE;
-    }
+    return parent::access($account)->andIf($this->isValidImage());
+  }
 
+  /**
+   * Checks if the image is valid.
+   *
+   * @return \Drupal\Core\Access\AccessResult
+   *   Returns the access result.
+   */
+  protected function isValidImage() {
+    // If entity type is not file we have to return early to prevent fatal in
+    // the condition above. Access should already be forbidden at this point,
+    // which means this won't have any effect.
+    // @see EntityEmbedDisplayBase::access()
+    if ($this->getEntityTypeFromContext() != 'file') {
+      return AccessResult::forbidden();
+    }
+    $access = AccessResult::allowed();
+
+    // @todo needs cacheability metadata for getEntityFromContext.
+    // @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayBase::getEntityFromContext()
+    /** @var \Drupal\file\FileInterface $entity */
     if ($entity = $this->getEntityFromContext()) {
-      return $this->imageFactory->get($entity->getFileUri())->isValid();
+      // Loading large files is slow, make sure it is an image mime type before
+      // doing that.
+      list($type,) = explode('/', $entity->getMimeType(), 2);
+      $access = AccessResult::allowedIf($type == 'image' && $this->imageFactory->get($entity->getFileUri())->isValid())
+        // See the above @todo, this is the best we can do for now.
+        ->addCacheableDependency($entity);
     }
 
-    return TRUE;
+    return $access;
   }
 
   /**
