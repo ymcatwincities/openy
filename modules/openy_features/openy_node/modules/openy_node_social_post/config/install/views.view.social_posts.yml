@@ -33,8 +33,12 @@ display:
         options:
           perm: 'administer socialpost entity'
       cache:
-        type: tag
-        options: {  }
+        type: time
+        options:
+          results_lifespan: 3600
+          results_lifespan_custom: 0
+          output_lifespan: 3600
+          output_lifespan_custom: 0
       query:
         type: views_query
         options:
@@ -154,7 +158,6 @@ display:
             - node_delete_action
             - node_publish_action
             - node_unpublish_action
-            - pathauto_update_alias_node
           entity_type: node
           plugin_id: node_bulk_form
         field_platform:

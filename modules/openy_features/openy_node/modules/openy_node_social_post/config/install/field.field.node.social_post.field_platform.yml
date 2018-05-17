@@ -9,7 +9,7 @@ field_name: field_platform
 entity_type: node
 bundle: social_post
 label: Platform
-description: ''
+description: 'Field is used as marker with the name of social network where post was imported from.'
 required: true
 translatable: false
 default_value: {  }

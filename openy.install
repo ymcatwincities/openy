@@ -827,3 +827,22 @@ function openy_update_8054() {
     $blockContent->save();
   }
 }
+
+/**
+ * Enable Social Posts.
+ */
+function openy_update_8055() {
+  \Drupal::service('module_installer')->install([
+    'openy_node_social_post',
+  ], TRUE);
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    // Enable modules.
+    \Drupal::service('module_installer')->install([
+      'openy_demo_nsocial_post',
+    ], TRUE);
+
+    // Run openy_demo_nsocial_post migration.
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_nsocial_post');
+  }
+}
