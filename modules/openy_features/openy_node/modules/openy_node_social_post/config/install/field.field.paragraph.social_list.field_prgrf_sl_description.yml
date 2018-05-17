@@ -16,7 +16,7 @@ field_name: field_prgrf_sl_description
 entity_type: paragraph
 bundle: social_list
 label: Description
-description: ''
+description: 'Block Description. You can add text here if your block needs in Description.'
 required: false
 translatable: false
 default_value: {  }
