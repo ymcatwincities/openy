@@ -21,7 +21,7 @@ class LocationFinderFilters extends BlockBase implements ContainerFactoryPluginI
   /**
    * Openy Socrates Facade.
    *
-   * @var OpenySocratesFacade
+   * @var \Drupal\openy_socrates\OpenySocratesFacade
    */
   protected $socrates;
 
