@@ -1616,7 +1616,7 @@ body {
   }
 }
 .sidebar-card h2 {
-  font-family: 'Cachet', Verdana, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   text-transform: uppercase;
   color: #636466;
   margin: 0 0 25px;
@@ -3914,7 +3914,7 @@ html.js .branch__updates_queue__button {
 
 .node--type-branch.node--view-mode-class-location h2 {
   font-size: 15px;
-  font-family: 'Cachet', Verdana, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   font-weight: normal;
   margin: 0;
 }
@@ -3977,7 +3977,7 @@ html.js .branch__updates_queue__button {
 }
 
 .sidebar-card_h3 {
-  font-family: 'Cachet', Verdana, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   text-transform: uppercase;
   color: #636466;
   margin: 0 0 25px;
@@ -10318,7 +10318,7 @@ a.sports-icon.floor-hockey {
 }
 .paragraph--type--secondary-description-sidebar ul li a {
   font-weight: bold;
-  font-family: 'Cachet', Verdana, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
 }
 .paragraph--type--secondary-description-sidebar h3 {
   margin-top: 0;
@@ -13456,7 +13456,7 @@ body.modal-open {
 .button-solid-blue a {
   color: #fff;
   font-size: 24px;
-  font-family: 'Cachet', Verdana, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   line-height: 32px;
   padding-right: 50px;
   padding-left: 50px;
