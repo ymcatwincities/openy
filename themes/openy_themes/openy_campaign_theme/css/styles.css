@@ -470,6 +470,9 @@ p {
   min-height: 75px;
 }
 
+.paragraph--campaign-info-blocks .columns {
+  display: inline-block;
+}
 .paragraph--campaign-info-blocks .info-column p:first-of-type {
   margin-top: 20px;
 }
