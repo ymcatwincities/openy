@@ -6369,3 +6369,33 @@ function ymca_master_update_8274() {
 
   $db->query("DROP TABLE IF EXISTS copy_block_content__$field_name");
 }
+
+/**
+ * Fix redirects to 404 & 403.
+ */
+function ymca_master_update_8275() {
+  $db = \Drupal::database();
+
+  $redirectsMap = [
+    749 => 10791,
+    2505 => 11110,
+    787 => 10802,
+    4371 => 11207,
+    2756 => 11158,
+    3046 => 11175,
+    3311 => 11178,
+    1951 => 11083,
+    2000 => 11084,
+    2032 => 11085,
+    3241 => 11176,
+  ];
+
+  foreach ($redirectsMap as $oldId => $newId) {
+    $db->update('redirect')
+      ->fields([
+        'redirect_redirect__uri' => sprintf('internal:/node/%d', $newId)
+      ])
+      ->condition('redirect_redirect__uri', sprintf('internal:/node/%d', $oldId))
+      ->execute();
+  }
+}
