@@ -1,11 +1,11 @@
 <div class="visits-goal">
     {% if enActvCounter == true %}
-        {% for activity in countedActv %}
-            <p><span>{{ activity.name }}</span>: <span>{{ activity.count }}</span></p>
-        {% endfor %}
         <div class="description">
             {{ trackActvDesc|raw }}
         </div>
+        {% for activity in countedActv %}
+            <p><span>{{ activity.name }}</span>: <span>{{ activity.count }}</span></p>
+        {% endfor %}
     {% else %}
         <div class="visits-goal-header">
             <div class="header-description">
