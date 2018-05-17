@@ -1,4 +1,20 @@
 default_tags:
-  YMCA: 'YMCA'
-  Camps: 'Camps'
-  Facilities: ''
+  branch: 'YMCA'
+  camp: 'Camps'
+  facility: ''
+block_labels:
+  branch: 'YMCAs'
+  camp: 'Camps'
+  facility: 'Facilities'
+type_labels:
+  branch: 'YMCA'
+  camp: 'Camps'
+  facility: 'Facilities'
+active_types:
+  branch: 'YMCA'
+  camp: 'Camps'
+  facility: 'Facilities'
+type_icons:
+  branch: '/profiles/contrib/openy/modules/custom/location_finder/img/map_icon_blue.png'
+  camp: '/profiles/contrib/openy/modules/custom/location_finder/img/map_icon_green.png'
+  facility: '/profiles/contrib/openy/modules/custom/location_finder/img/map_icon_green.png'

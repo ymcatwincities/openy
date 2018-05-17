@@ -1,4 +1,4 @@
-openy_popups.config:
+openy_popups.settings:
   type: config_object
   label: 'OpenY Popups config'
   mapping:
@@ -8,3 +8,6 @@ openy_popups.config:
     description:
       type: text
       label: 'Description'
+    location: 
+      type: text
+      label: 'Default Location'
