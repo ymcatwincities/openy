@@ -1,37 +1,49 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\Twig\EntityEmbedTwigExtension.
- */
-
 namespace Drupal\entity_embed\Twig;
 
-use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\entity_embed\EntityHelperTrait;
-use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayManager;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\entity_embed\EntityEmbedBuilderInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provide entity embedding function within Twig templates.
  */
 class EntityEmbedTwigExtension extends \Twig_Extension {
-  use EntityHelperTrait;
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The entity embed builder service.
+   *
+   * @var \Drupal\entity_embed\EntityEmbedBuilderInterface
+   */
+  protected $builder;
 
   /**
    * Constructs a new EntityEmbedTwigExtension.
    *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager service.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The module handler.
-   * @param \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayManager $plugin_manager
-   *   The plugin manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct(EntityManagerInterface $entity_manager, ModuleHandlerInterface $module_handler, EntityEmbedDisplayManager $plugin_manager) {
-    $this->setEntityManager($entity_manager);
-    $this->setModuleHandler($module_handler);
-    $this->setDisplayPluginManager($plugin_manager);
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, EntityEmbedBuilderInterface $builder) {
+    $this->entityTypeManager = $entity_type_manager;
+    $this->builder = $builder;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager'),
+      $container->get('entity_embed.builder')
+    );
   }
 
   /**
@@ -46,7 +58,7 @@ class EntityEmbedTwigExtension extends \Twig_Extension {
    */
   public function getFunctions() {
     return array(
-      new \Twig_SimpleFunction('entity_embed', array($this, 'getRenderArray')),
+      new \Twig_SimpleFunction('entity_embed', [$this, 'getRenderArray']),
     );
   }
 
@@ -56,7 +68,7 @@ class EntityEmbedTwigExtension extends \Twig_Extension {
    * @param string $entity_type
    *   The machine name of an entity_type like 'node'.
    * @param string $entity_id
-   *   The entity ID or entity UUID.
+   *   The entity ID.
    * @param string $display_plugin
    *   (optional) The Entity Embed Display plugin to be used to render the
    *   entity.
@@ -67,14 +79,14 @@ class EntityEmbedTwigExtension extends \Twig_Extension {
    *   A render array from entity_view().
    */
   public function getRenderArray($entity_type, $entity_id, $display_plugin = 'default', array $display_settings = []) {
-    $entity = $this->loadEntity($entity_type, $entity_id);
-    $context = array(
+    $entity = $this->entityTypeManager->getStorage($entity_type)->load($entity_id);
+    $context = [
       'data-entity-type' => $entity_type,
-      'data-entity-id' => $entity_id,
+      'data-entity-uuid' => $entity->uuid(),
       'data-entity-embed-display' => $display_plugin,
-      'data-entity-embed-settings' => $display_settings,
-    );
-    return $this->renderEntityEmbed($entity, $context);
+      'data-entity-embed-display-settings' => $display_settings,
+    ];
+    return $this->builder->buildEntityEmbed($entity, $context);
   }
 
 }

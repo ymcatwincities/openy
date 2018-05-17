@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\Tests\FileFieldFormatterTest.
- */
-
 namespace Drupal\entity_embed\Tests;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Form\FormState;
-use Drupal\entity_embed\EntityHelperTrait;
 
 /**
  * Tests the file field formatter provided by entity_embed.
@@ -32,6 +26,9 @@ class FileFieldFormatterTest extends EntityEmbedTestBase {
    */
   protected $file;
 
+  /**
+   *
+   */
   protected function setUp() {
     parent::setUp();
     $this->file = $this->getTestFile('text');
@@ -61,7 +58,8 @@ class FileFieldFormatterTest extends EntityEmbedTestBase {
     );
     // Ensure that description field is available for all the 'file' plugins.
     foreach ($plugins as $plugin) {
-      $display = $this->displayPluginManager()->createInstance($plugin, array());
+      $display = $this->container->get('plugin.manager.entity_embed.display')
+        ->createInstance($plugin, []);
       $display->setContextValue('entity', $this->file);
       $conf_form = $display->buildConfigurationForm($form, $form_state);
       $this->assertIdentical(array_keys($conf_form), array('description'));
@@ -71,7 +69,7 @@ class FileFieldFormatterTest extends EntityEmbedTestBase {
 
     // Test entity embed using 'Generic file' Entity Embed Display plugin.
     $embed_settings = array('description' => "This is sample description");
-    $content = '<drupal-entity data-entity-type="file" data-entity-uuid="' . $this->file->uuid() . '" data-entity-embed-display="file:file_default" data-entity-embed-settings=\'' . Json::encode($embed_settings) . '\'>This placeholder should not be rendered.</drupal-entity>';
+    $content = '<drupal-entity data-entity-type="file" data-entity-uuid="' . $this->file->uuid() . '" data-entity-embed-display="file:file_default" data-entity-embed-display-settings=\'' . Json::encode($embed_settings) . '\'>This placeholder should not be rendered.</drupal-entity>';
     $settings = array();
     $settings['type'] = 'page';
     $settings['title'] = 'Test entity embed with file:file_default';
