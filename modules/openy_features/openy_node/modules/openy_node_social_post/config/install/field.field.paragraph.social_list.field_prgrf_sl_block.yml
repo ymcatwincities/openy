@@ -16,7 +16,7 @@ field_name: field_prgrf_sl_block
 entity_type: paragraph
 bundle: social_list
 label: 'Social List'
-description: ''
+description: 'Reference to views block. This block select social posts which were imported before.'
 required: false
 translatable: false
 default_value:
