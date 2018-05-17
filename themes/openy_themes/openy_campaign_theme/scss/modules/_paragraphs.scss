@@ -306,6 +306,9 @@
 
 // Campaign Info Blocks paragraph type
 .paragraph--campaign-info-blocks {
+  .columns {
+    display: inline-block;
+  }
   .info-column p:first-of-type {
     margin-top: 20px;
   }
