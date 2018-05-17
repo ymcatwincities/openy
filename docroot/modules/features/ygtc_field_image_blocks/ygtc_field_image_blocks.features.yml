@@ -1,0 +1,26 @@
+excluded:
+  - block.block.openy_lily_views_block__alerts_footer_alerts
+  - block.block.openy_lily_views_block__alerts_footer_alerts_local
+  - block.block.openy_lily_views_block__alerts_header_alerts
+  - block.block.openy_lily_views_block__alerts_header_alerts_local
+  - metatag.metatag_defaults.node__article
+  - metatag.metatag_defaults.node__camp
+  - page_manager.page.youth_intervention_
+  - language.content_settings.block_content.panorama_block
+  - language.content_settings.block_content.slide_show
+  - block_content.type.expander_block
+  - block_content.type.panorama_block
+  - block_content.type.slide_show
+  - embed.button.block
+  - core.entity_form_display.block_content.expander_block.default
+  - core.entity_form_display.block_content.panorama_block.default
+  - core.entity_form_display.block_content.slide_show.default
+  - core.entity_view_display.block_content.expander_block.default
+  - core.entity_view_display.block_content.panorama_block.default
+  - core.entity_view_display.block_content.slide_show.default
+  - field.field.block_content.expander_block.field_block_content
+  - field.field.block_content.expander_block.field_block_header
+  - field.field.block_content.panorama_block.body
+  - field.field.block_content.panorama_block.field_panorama_archive
+  - field.field.block_content.slide_show.field_slide_show_item
+required: true
