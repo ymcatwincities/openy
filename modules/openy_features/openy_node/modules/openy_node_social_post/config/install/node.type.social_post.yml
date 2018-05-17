@@ -13,7 +13,6 @@ third_party_settings:
 name: 'Social Post'
 type: social_post
 description: 'This is a content type for the posts, pulled from Social Networks.'
-help: ''
 new_revision: false
 preview_mode: 1
 display_submitted: false

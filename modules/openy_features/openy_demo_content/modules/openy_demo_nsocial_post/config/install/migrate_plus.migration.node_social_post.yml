@@ -16,7 +16,7 @@ source:
       id: 1
       title: 'Post 1'
       field_id: 1
-      field_link: 'http://instagram.com'
+      field_link: 'https://instagram.com'
       field_platform: instagram
       field_post: "<p>Visit the OpenY Distribution site.</p>\n"
       field_posted: '15/05/2018 12:00'
@@ -24,7 +24,7 @@ source:
       id: 2
       title: 'Post 2'
       field_id: 2
-      field_link: 'http://instagram.com'
+      field_link: 'https://instagram.com'
       field_platform: instagram
       field_post: "<p>Post 2</p>\n"
       field_posted: '15/05/2018 12:00'
@@ -32,7 +32,7 @@ source:
       id: 3
       title: 'Post 3'
       field_id: 3
-      field_link: 'http://instagram.com'
+      field_link: 'https://instagram.com'
       field_platform: instagram
       field_post: "<p>Post 3</p>\n"
       field_posted: '15/05/2018 12:00'
@@ -40,7 +40,7 @@ source:
       id: 4
       title: 'Post 4'
       field_id: 4
-      field_link: 'http://instagram.com'
+      field_link: 'https://instagram.com'
       field_platform: instagram
       field_post: "<p>Post 4</p>\n"
       field_posted: '15/05/2018 12:00'
@@ -48,7 +48,7 @@ source:
       id: 5
       title: 'Post 5'
       field_id: 5
-      field_link: 'http://instagram.com'
+      field_link: 'https://instagram.com'
       field_platform: instagram
       field_post: "<p>Post 5</p>\n"
       field_posted: '15/05/2018 12:00'
