@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\Tests\ImageFieldFormatterTest.
- */
-
 namespace Drupal\entity_embed\Tests;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Form\FormState;
-use Drupal\entity_embed\EntityHelperTrait;
 
 /**
  * Tests the image field formatter provided by entity_embed.
@@ -39,6 +33,9 @@ class ImageFieldFormatterTest extends EntityEmbedTestBase {
    */
   protected $file;
 
+  /**
+   *
+   */
   protected function setUp() {
     parent::setUp();
     $this->image = $this->getTestFile('image');
@@ -63,7 +60,8 @@ class ImageFieldFormatterTest extends EntityEmbedTestBase {
     // Ensure that correct form attributes are returned for the image plugin.
     $form = array();
     $form_state = new FormState();
-    $display = $this->displayPluginManager()->createInstance('image:image', array());
+    $display = $this->container->get('plugin.manager.entity_embed.display')
+      ->createInstance('image:image', []);
     $display->setContextValue('entity', $this->image);
     $conf_form = $display->buildConfigurationForm($form, $form_state);
     $this->assertIdentical(array_keys($conf_form), array(
@@ -85,7 +83,7 @@ class ImageFieldFormatterTest extends EntityEmbedTestBase {
     $alt_text = "This is sample description";
     $title = "This is sample title";
     $embed_settings = array('image_link' => 'file');
-    $content = '<drupal-entity data-entity-type="file" data-entity-uuid="' . $this->image->uuid() . '" data-entity-embed-display="image:image" data-entity-embed-settings=\'' . Json::encode($embed_settings) . '\' alt="' . $alt_text . '" title="' . $title . '">This placeholder should not be rendered.</drupal-entity>';
+    $content = '<drupal-entity data-entity-type="file" data-entity-uuid="' . $this->image->uuid() . '" data-entity-embed-display="image:image" data-entity-embed-display-settings=\'' . Json::encode($embed_settings) . '\' alt="' . $alt_text . '" title="' . $title . '">This placeholder should not be rendered.</drupal-entity>';
     $settings = array();
     $settings['type'] = 'page';
     $settings['title'] = 'Test entity embed with image:image';

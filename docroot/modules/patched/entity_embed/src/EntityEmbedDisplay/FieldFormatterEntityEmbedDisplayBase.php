@@ -1,22 +1,22 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\EntityEmbedDisplay\FieldFormatterEntityEmbedDisplayBase.
- */
-
 namespace Drupal\entity_embed\EntityEmbedDisplay;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FormatterPluginManager;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\PluginDependencyTrait;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\TypedData\TypedDataManager;
 use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ *
+ */
 abstract class FieldFormatterEntityEmbedDisplayBase extends EntityEmbedDisplayBase {
   use PluginDependencyTrait;
 
@@ -51,19 +51,20 @@ abstract class FieldFormatterEntityEmbedDisplayBase extends EntityEmbedDisplayBa
   /**
    * Constructs a FieldFormatterEntityEmbedDisplayBase object.
    *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
    * @param \Drupal\Core\Field\FormatterPluginManager $formatter_plugin_manager
    *   The field formatter plugin manager.
    * @param \Drupal\Core\TypedData\TypedDataManager $typed_data_manager
    *   The typed data manager.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The language manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityManagerInterface $entity_manager, FormatterPluginManager $formatter_plugin_manager, TypedDataManager $typed_data_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, FormatterPluginManager $formatter_plugin_manager, TypedDataManager $typed_data_manager, LanguageManagerInterface $language_manager) {
     $this->formatterPluginManager = $formatter_plugin_manager;
     $this->setConfiguration($configuration);
-    $this->setEntityManager($entity_manager);
     $this->typedDataManager = $typed_data_manager;
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_manager);
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $language_manager);
   }
 
   /**
@@ -74,9 +75,10 @@ abstract class FieldFormatterEntityEmbedDisplayBase extends EntityEmbedDisplayBa
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('entity.manager'),
+      $container->get('entity_type.manager'),
       $container->get('plugin.manager.field.formatter'),
-      $container->get('typed_data_manager')
+      $container->get('typed_data_manager'),
+      $container->get('language_manager')
     );
   }
 
@@ -112,12 +114,28 @@ abstract class FieldFormatterEntityEmbedDisplayBase extends EntityEmbedDisplayBa
    * {@inheritdoc}
    */
   public function access(AccountInterface $account = NULL) {
-    if (!parent::access($account)) {
-      return FALSE;
-    }
+    return parent::access($account)->andIf($this->isApplicableFieldFormatter());
+  }
 
-    $definition = $this->formatterPluginManager->getDefinition($this->getDerivativeId());
-    return $definition['class']::isApplicable($this->getFieldDefinition());
+  /**
+   * Checks if the field formatter is applicable.
+   *
+   * @return \Drupal\Core\Access\AccessResult
+   *   Returns the access result.
+   */
+  protected function isApplicableFieldFormatter() {
+    $definition = $this->formatterPluginManager->getDefinition($this->getFieldFormatterId());
+    return AccessResult::allowedIf($definition['class']::isApplicable($this->getFieldDefinition()));
+  }
+
+  /**
+   * Returns the field formatter id.
+   *
+   * @return string|null
+   *   Returns field formatter id or null.
+   */
+  public function getFieldFormatterId() {
+    return $this->getDerivativeId();
   }
 
   /**
@@ -156,7 +174,7 @@ abstract class FieldFormatterEntityEmbedDisplayBase extends EntityEmbedDisplayBa
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    return $this->formatterPluginManager->getDefaultSettings($this->getDerivativeId());
+    return $this->formatterPluginManager->getDefaultSettings($this->getFieldFormatterId());
   }
 
   /**
@@ -175,7 +193,7 @@ abstract class FieldFormatterEntityEmbedDisplayBase extends EntityEmbedDisplayBa
   public function getFieldFormatter() {
     if (!isset($this->fieldFormatter)) {
       $display = array(
-        'type' => $this->getDerivativeId(),
+        'type' => $this->getFieldFormatterId(),
         'settings' => $this->getConfiguration(),
         'label' => 'hidden',
       );
@@ -216,11 +234,10 @@ abstract class FieldFormatterEntityEmbedDisplayBase extends EntityEmbedDisplayBa
   public function calculateDependencies() {
     $this->addDependencies(parent::calculateDependencies());
 
-    $definition = $this->formatterPluginManager->getDefinition($this->getDerivativeId());
+    $definition = $this->formatterPluginManager->getDefinition($this->getFieldFormatterId());
     $this->addDependency('module', $definition['provider']);
     // @todo Investigate why this does not work currently.
-    //$this->calculatePluginDependencies($this->getFieldFormatter());
-
+    // $this->calculatePluginDependencies($this->getFieldFormatter());
     return $this->dependencies;
   }
 

@@ -5,7 +5,9 @@
  * Helper module for the Entity Embed tests.
  */
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
 
 /**
  * Implements hook_theme().
@@ -22,7 +24,6 @@ function entity_embed_test_theme($existing, $type, $theme, $path) {
   );
   return $items;
 }
-
 
 /**
  * Implements hook_entity_embed_display_plugins_alter().
@@ -54,7 +55,7 @@ function entity_embed_test_entity_embed_context_alter(array &$context, EntityInt
 
   // Force to use 'Label' plugin.
   $context['data-entity-embed-display'] = 'entity_reference:entity_reference_label';
-  $context['data-entity-embed-settings'] = array('link' => 1);
+  $context['data-entity-embed-display-settings'] = array('link' => 1);
 
   // Set title of the entity.
   $entity->setTitle("Title set by hook_entity_embed_context_alter");
@@ -70,6 +71,14 @@ function entity_embed_test_entity_embed_alter(array &$build, EntityInterface $en
   }
 
   // Set title of the 'node' entity.
-  $node = $build['#node'];
-  $node->setTitle("Title set by hook_entity_embed_alter");
+  $entity->setTitle("Title set by hook_entity_embed_alter");
+}
+
+/**
+ * Implements hook_entity_access().
+ */
+function entity_embed_test_entity_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  if ($entity->label() == 'Embed Test Node') {
+    return AccessResult::neutral()->addCacheTags(['foo:' . $entity->id()]);
+  }
 }
