@@ -9,7 +9,8 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\text\Plugin\Field\FieldType\TextLongItem;
-use Drupal\file\Entity\File;
+use Drupal\media_entity\Entity\Media as ContribMedia;
+use Drupal\media\Entity\Media as CoreMedia;
 
 /**
  * Implements hook_theme().
@@ -102,6 +103,7 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
       break;
 
     case 'promo_block':
+      $image_build = [];
       // Get path for promo block.
       if ($entity->field_link->get(0)) {
         $url = $entity->field_link->get(0)->getUrl();
@@ -119,15 +121,29 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
       }
 
       // Get image, if exists.
-      if (isset($build['field_image'][0])) {
-        $image_item_values = $build['field_image'][0]['#item']->getValue();
-        $image_file = File::load($image_item_values['target_id']);
-        $image = \Drupal::service('image.factory')->get($image_file->getFileUri());
-        $image_build = [
-          '#theme' => 'image',
-          '#uri' => $image->getSource(),
-          '#alt' => isset($image_item_values['alt']) ? $image_item_values['alt'] : '',
-        ];
+      if ($image = $entity->field_image->entity) {
+        /** @var ContribMedia $image */
+        if ($image instanceof ContribMedia) {
+          if (!$image->hasField('field_media_image')) {
+            throw new \Exception('Contrib media failed to find field with background image.');
+          }
+          $file = $image->field_media_image->entity;
+        }
+
+        if ($image instanceof CoreMedia) {
+          if (!$image->hasField('field_media_image')) {
+            throw new \Exception('Core media failed to find field with background image.');
+          }
+          $file = $image->field_media_image->entity;
+        }
+
+        if (isset($file)) {
+          $image_build = [
+            '#theme' => 'image',
+            '#uri' => file_create_url($file->getFileUri()),
+            '#alt' => !empty($image->field_media_image->alt) ? $image->field_media_image->alt : '',
+          ];
+        }
       }
 
       // Get content.
