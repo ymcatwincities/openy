@@ -1,18 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\Plugin\Filter\EntityEmbedFilter.
- */
-
 namespace Drupal\entity_embed\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\entity_embed\EntityHelperTrait;
+use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Render\RenderContext;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\entity_embed\EntityEmbedBuilderInterface;
 use Drupal\entity_embed\Exception\EntityNotFoundException;
 use Drupal\entity_embed\Exception\RecursiveRenderingException;
 use Drupal\filter\FilterProcessResult;
@@ -26,13 +22,34 @@ use Drupal\embed\DomHelperTrait;
  * @Filter(
  *   id = "entity_embed",
  *   title = @Translation("Display embedded entities"),
- *   description = @Translation("Embeds entities using data attributes: data-entity-type, data-entity-uuid or data-entity-id, and data-view-mode."),
+ *   description = @Translation("Embeds entities using data attributes: data-entity-type, data-entity-uuid, and data-view-mode."),
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE
  * )
  */
 class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInterface {
-  use EntityHelperTrait;
+
   use DomHelperTrait;
+
+  /**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The entity embed builder service.
+   *
+   * @var \Drupal\entity_embed\EntityEmbedBuilderInterface
+   */
+  protected $builder;
 
   /**
    * Constructs a EntityEmbedFilter object.
@@ -43,15 +60,18 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager service.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The Module Handler.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   * @param \Drupal\entity_embed\EntityEmbedBuilderInterface $builder
+   *   The entity embed builder service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityManagerInterface $entity_manager, ModuleHandlerInterface $module_handler) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer, EntityEmbedBuilderInterface $builder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->setEntityManager($entity_manager);
-    $this->setModuleHandler($module_handler);
+    $this->entityTypeManager = $entity_type_manager;
+    $this->renderer = $renderer;
+    $this->builder = $builder;
   }
 
   /**
@@ -62,8 +82,9 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('entity.manager'),
-      $container->get('module_handler')
+      $container->get('entity_type.manager'),
+      $container->get('renderer'),
+      $container->get('entity_embed.builder')
     );
   }
 
@@ -77,16 +98,32 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
       $dom = Html::load($text);
       $xpath = new \DOMXPath($dom);
 
-      foreach ($xpath->query('//*[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]') as $node) {
+      foreach ($xpath->query('//drupal-entity[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]') as $node) {
         /** @var \DOMElement $node */
         $entity_type = $node->getAttribute('data-entity-type');
         $entity = NULL;
         $entity_output = '';
 
+        // data-entity-embed-settings is deprecated, make sure we convert it to
+        // data-entity-embed-display-settings.
+        if (($settings = $node->getAttribute('data-entity-embed-settings')) && !$node->hasAttribute('data-entity-embed-display-settings')) {
+          $node->setAttribute('data-entity-embed-display-settings', $settings);
+          $node->removeAttribute('data-entity-embed-settings');
+        }
+
         try {
           // Load the entity either by UUID (preferred) or ID.
-          $id = $node->getAttribute('data-entity-uuid') ?: $node->getAttribute('data-entity-id');
-          $entity = $this->loadEntity($entity_type, $id);
+          $id = NULL;
+          $entity = NULL;
+          if ($id = $node->getAttribute('data-entity-uuid')) {
+            $entity = $this->entityTypeManager->getStorage($entity_type)
+              ->loadByProperties(['uuid' => $id]);
+            $entity = current($entity);
+          }
+          else {
+            $id = $node->getAttribute('data-entity-id');
+            $entity = $this->entityTypeManager->getStorage($entity_type)->load($id);
+          }
 
           if ($entity) {
             // Protect ourselves from recursive rendering.
@@ -101,14 +138,22 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
               $node->setAttribute('data-entity-uuid', $uuid);
             }
 
-            $access = $entity->access('view', NULL, TRUE);
-            $access_metadata = CacheableMetadata::createFromObject($access);
-            $entity_metadata = CacheableMetadata::createFromObject($entity);
-            $result = $result->merge($entity_metadata)->merge($access_metadata);
-
             $context = $this->getNodeAttributesAsArray($node);
             $context += array('data-langcode' => $langcode);
-            $entity_output = $this->renderEntityEmbed($entity, $context);
+            $build = $this->builder->buildEntityEmbed($entity, $context);
+            // We need to render the embedded entity:
+            // - without replacing placeholders, so that the placeholders are
+            //   only replaced at the last possible moment. Hence we cannot use
+            //   either renderPlain() or renderRoot(), so we must use render().
+            // - without bubbling beyond this filter, because filters must
+            //   ensure that the bubbleable metadata for the changes they make
+            //   when filtering text makes it onto the FilterProcessResult
+            //   object that they return ($result). To prevent that bubbling, we
+            //   must wrap the call to render() in a render context.
+            $entity_output = $this->renderer->executeInRenderContext(new RenderContext(), function () use (&$build) {
+              return $this->renderer->render($build);
+            });
+            $result = $result->merge(BubbleableMetadata::createFromRenderArray($build));
 
             $depth--;
           }
@@ -116,21 +161,14 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
             throw new EntityNotFoundException(sprintf('Unable to load embedded %s entity %s.', $entity_type, $id));
           }
         }
-        catch(\Exception $e) {
-          if ($e instanceof \Drupal\Core\Form\EnforcedResponseException) {
-            throw $e;
-          }
+        catch (\Exception $e) {
           watchdog_exception('entity_embed', $e);
         }
 
-
         $this->replaceNodeContent($node, $entity_output);
       }
-      $processedText = Html::serialize($dom);
-      if (isset($context['data-button']) && $context['data-button']) {
-        $processedText = '<p class="button">' . Html::serialize($dom) . '</p>';
-      }
-      $result->setProcessedText($processedText);
+
+      $result->setProcessedText(Html::serialize($dom));
     }
 
     return $result;
@@ -142,11 +180,8 @@ class EntityEmbedFilter extends FilterBase implements ContainerFactoryPluginInte
   public function tips($long = FALSE) {
     if ($long) {
       return $this->t('
-        <p>You can embed entities. Additional properties can be added to the embed tag like data-caption and data-align if supported. Examples:</p>
-        <ul>
-          <li>Embed by ID: <code>&lt;drupal-entity data-entity-type="node" data-entity-id="1" data-view-mode="teaser" /&gt;</code></li>
-          <li>Embed by UUID: <code>&lt;drupal-entity data-entity-type="node" data-entity-uuid="07bf3a2e-1941-4a44-9b02-2d1d7a41ec0e" data-view-mode="teaser" /&gt;</code></li>
-        </ul>');
+        <p>You can embed entities. Additional properties can be added to the embed tag like data-caption and data-align if supported. Example:</p>
+        <code>&lt;drupal-entity data-entity-type="node" data-entity-uuid="07bf3a2e-1941-4a44-9b02-2d1d7a41ec0e" data-view-mode="teaser" /&gt;</code>');
     }
     else {
       return $this->t('You can embed entities.');

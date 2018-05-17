@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\system\Tests\EntityEmbedTwigTest.
- */
-
 namespace Drupal\entity_embed\Tests;
 
 /**
@@ -14,6 +9,9 @@ namespace Drupal\entity_embed\Tests;
  */
 class EntityEmbedTwigTest extends EntityEmbedTestBase {
 
+  /**
+   *
+   */
   protected function setUp() {
     parent::setUp();
     \Drupal::service('theme_handler')->install(array('test_theme'));
