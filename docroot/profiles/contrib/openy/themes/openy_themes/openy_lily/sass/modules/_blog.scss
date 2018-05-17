@@ -80,7 +80,7 @@
       font-size: 14px;
       line-height: 1.28;
       letter-spacing: 2px;
-      font-family: 'Cachet', Verdana, Arial, sans-serif;
+      font-family: $font-family-cachet;
       position: absolute;
       left: 0;
       bottom: 0;
@@ -167,7 +167,7 @@
   position: relative;
 
   h2 {
-    font-family: 'Cachet', Verdana, Arial, sans-serif;
+    font-family: $font-family-cachet;
     text-transform: uppercase;
     color: $default-grey !important;
     margin: 0 0 25px;
