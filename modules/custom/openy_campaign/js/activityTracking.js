@@ -91,7 +91,7 @@ jQuery(function () {
         // Complete categories list.
         $('.activity-data .categories ul').html('');
         categories.each(function (ind, val) {
-            var activityName = $(val).html();
+            var activityName = $(val).text();
             var icon = $(val).data('icon');
             var iconBackground = '';
             if (icon) {
@@ -99,7 +99,7 @@ jQuery(function () {
             }
 
             $('.activity-data .categories ul').append(
-                '<li class="' + activityName.replace(/ /g, '') + '"' + iconBackground + '>' + activityName + '</li>'
+                '<li class="' + activityName.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '') + '"' + iconBackground + '>' + activityName + '</li>'
             );
         });
 
@@ -107,9 +107,10 @@ jQuery(function () {
         $('.activity-data .categories ul li').on('click', function (e) {
             $('.activity-data .categories ul li').removeClass('active');
             var activityName = $(e.target).attr('class');
+            var className = '.' + activityName.replace(/[ !"#$%&'()*+,.\/:;<=>?@\[\\\]^`{|}~]/g, '');
             $(e.target).addClass('active');
             $dataEl.find('.category-data').hide();
-            $dataEl.find('.' + activityName.replace(/ /g, '')).parents('.category-data').show();
+            $dataEl.find(className).parents('.category-data').show();
         });
     }
 

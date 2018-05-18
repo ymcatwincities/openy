@@ -74,8 +74,8 @@ body {
           margin-bottom: 30px;
         }
         @include breakpoint($screen-md) {
-          margin-top: 60px;
-          margin-bottom: 70px;
+          margin-top: 20px;
+          margin-bottom: 30px;
         }
       }
       .main-region {
@@ -92,6 +92,9 @@ body {
 .path-members-list {
   .wrapper-field-content {
     background: #fff;
+    &:first-child .paragraph-2c-wrapper h4{
+      margin-top: 10px !important;
+    }
   }
   main[role="main"] {
     background-color: #ffffff;
@@ -113,21 +116,21 @@ body {
       @include breakpoint($screen-sm) {
         margin-left: 15px;
         margin-right: 15px;
-        margin-top: 0px;
+        margin-top: -403px;
         padding: 30px;
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-md) {
         margin-left: 15px;
         margin-right: 15px;
-        margin-top: 0px;
+        margin-top: -255px;
         padding: 30px;
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-lg-desktop) {
         margin-left: 125px;
         margin-right: 125px;
-        margin-top: 0px;
+        margin-top: -255px;
         padding: 40px;
         box-shadow: 10px 20px 115px 10px;
       }
@@ -143,13 +146,22 @@ body {
           margin-bottom: 30px;
         }
         @include breakpoint($screen-md) {
-          margin-top: 60px;
-          margin-bottom: 70px;
+          margin-top: 20px;
+          margin-bottom: 30px;
         }
       }
       .main-region {
         padding: 0px;
       }
+    }
+  }
+  // For logged members.
+  &.logged-in main[role="main"] .layout-content {
+    @include breakpoint($screen-md) {
+      margin-top: -400px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      margin-top: -400px;
     }
   }
 }
