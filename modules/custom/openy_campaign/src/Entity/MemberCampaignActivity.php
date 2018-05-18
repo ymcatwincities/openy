@@ -103,21 +103,15 @@ class MemberCampaignActivity extends ContentEntityBase implements MemberCampaign
     $activityIds = $query->execute();
 
     $existingActivitiesEntities = \Drupal::service('entity_type.manager')->getStorage('openy_campaign_memb_camp_actv')->loadMultiple($activityIds);
-    $activity_count_values = [];
     /** @var \Drupal\openy_campaign\Entity\MemberCampaignActivity $activity */
-    foreach ($existingActivitiesEntities as $activity) {
-      $activity_count_values[$activity->id()] = [
-        'name' => $activity->activity->entity->get('name')->value,
-        'desc' => $activity->activity->entity->get('description')->value,
-        'count' => $activity->count->value,
-      ];
-    }
-    // Count activities by name.
     $activity_count_names = [];
-    foreach ($activity_count_values as $id => $item) {
-      $activity_count_names[$item['name']]['name'] = $item['name'];
-      $activity_count_names[$item['name']]['desc'] = $item['desc'];
-      $activity_count_names[$item['name']]['count'] += $item['count'];
+    foreach ($existingActivitiesEntities as $activity) {
+      $name = $activity->activity->entity->get('name')->value;
+      $desc = $activity->activity->entity->get('description')->value;
+      // Count activities by name.
+      $activity_count_names[$name]['name'] = $name;
+      $activity_count_names[$name]['desc'] = $desc;
+      $activity_count_names[$name]['count'] += $activity->count->value;
     }
 
     return $activity_count_names;
