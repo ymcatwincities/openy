@@ -17,23 +17,18 @@
       // @see https://www.drupal.org/node/2448449#comment-9717735
       var dtd = CKEDITOR.dtd, tagName;
       dtd['drupal-entity'] = {'#': 1};
-      dtd['drupal-entity-inline'] = {'#': 1};
       // Register drupal-entity element as allowed child, in each tag that can
-      // contain a div element and drupal-entity-inline element as allowed
-      // child, in each tag that can contain a span element.
+      // contain a div element.
       for (tagName in dtd) {
         if (dtd[tagName].div) {
           dtd[tagName]['drupal-entity'] = 1;
-        }
-        if (dtd[tagName].span && tagName != '$removeEmpty') {
-          dtd[tagName]['drupal-entity-inline'] = 1;
         }
       }
 
       // Generic command for adding/editing entities of all types.
       editor.addCommand('editdrupalentity', {
-        allowedContent: 'drupal-entity[*], drupal-entity-inline[*]',
-        requiredContent: 'drupal-entity[*], drupal-entity-inline[*]',
+        allowedContent: 'drupal-entity[data-embed-button,data-entity-type,data-entity-uuid,data-entity-embed-display,data-entity-embed-display-settings,data-align,data-caption]',
+        requiredContent: 'drupal-entity[data-embed-button,data-entity-type,data-entity-uuid,data-entity-embed-display,data-entity-embed-display-settings,data-align,data-caption]',
         modes: { wysiwyg : 1 },
         canUndo: true,
         exec: function (editor, data) {
@@ -56,23 +51,20 @@
             }
           }
 
-          var entity_label = data.label ? data.label : existingValues['data-entity-label'];
           var embed_button_id = data.id ? data.id : existingValues['data-embed-button'];
 
           var dialogSettings = {
-            title: existingElement ? 'Edit ' + entity_label : 'Insert ' + entity_label,
             dialogClass: 'entity-select-dialog',
             resizable: false
           };
 
           var saveCallback = function (values) {
-            var type = values.attributes['data-embed-button'];
-            var tagName = editor.config.DrupalEntity_buttons[type].style == 'inline' ? 'drupal-entity-inline' : 'drupal-entity';
-            var entityElement = editor.document.createElement(tagName);
+            var entityElement = editor.document.createElement('drupal-entity');
             var attributes = values.attributes;
             for (var key in attributes) {
               entityElement.setAttribute(key, attributes[key]);
             }
+
             editor.insertHtml(entityElement.getOuterHtml());
             if (existingElement) {
               // Detach the behaviors that were attached when the entity content
@@ -90,8 +82,8 @@
       // Register the entity embed widget.
       editor.widgets.add('drupalentity', {
         // Minimum HTML which is required by this widget to work.
-        allowedContent: 'drupal-entity[*], drupal-entity-inline[*]',
-        requiredContent: 'drupal-entity[*], drupal-entity-inline[*]',
+        allowedContent: 'drupal-entity[data-entity-type,data-entity-uuid,data-entity-embed-display,data-entity-embed-display-settings,data-align,data-caption]',
+        requiredContent: 'drupal-entity[data-entity-type,data-entity-uuid,data-entity-embed-display,data-entity-embed-display-settings,data-align,data-caption]',
 
         // Simply recognize the element as our own. The inner markup if fetched
         // and inserted the init() callback, since it requires the actual DOM
@@ -113,7 +105,7 @@
           var element = this.element;
           // Use the Ajax framework to fetch the HTML, so that we can retrieve
           // out-of-band assets (JS, CSS...).
-          var entityEmbedPreview = new Drupal.ajax({
+          var entityEmbedPreview = Drupal.ajax({
             base: element.getId(),
             element: element.$,
             url: Drupal.url('embed/preview/' + editor.config.drupal.format + '?' + $.param({
@@ -143,6 +135,7 @@
           editor.ui.addButton(button.id, {
             label: button.label,
             data: button,
+            allowedContent: 'drupal-entity[!data-entity-type,!data-entity-uuid,!data-entity-embed-display,!data-entity-embed-display-settings,!data-align,!data-caption,!data-embed-button]',
             click: function(editor) {
               editor.execCommand('editdrupalentity', this.data);
             },
@@ -162,7 +155,7 @@
         });
 
         editor.contextMenu.addListener(function(element) {
-          if (isEmbeddedEntityWidget(editor, element)) {
+          if (isEditableEntityWidget(editor, element)) {
             return { drupalentity: CKEDITOR.TRISTATE_OFF };
           }
         });
@@ -172,7 +165,7 @@
       editor.on('doubleclick', function (evt) {
         var element = getSelectedEmbeddedEntity(editor) || evt.data.element;
 
-        if (isEmbeddedEntityWidget(editor, element)) {
+        if (isEditableEntityWidget(editor, element)) {
           editor.execCommand('editdrupalentity');
         }
       });
@@ -187,7 +180,7 @@
   function getSelectedEmbeddedEntity(editor) {
     var selection = editor.getSelection();
     var selectedElement = selection.getSelectedElement();
-    if (isEmbeddedEntityWidget(editor, selectedElement)) {
+    if (isEditableEntityWidget(editor, selectedElement)) {
       return selectedElement;
     }
 
@@ -195,14 +188,25 @@
   }
 
   /**
-   * Returns whether or not the given element is a drupalentity widget.
+   * Checks if the given element is an editable drupalentity widget.
    *
    * @param {CKEDITOR.editor} editor
    * @param {CKEDITOR.htmlParser.element} element
    */
-  function isEmbeddedEntityWidget (editor, element) {
+  function isEditableEntityWidget (editor, element) {
     var widget = editor.widgets.getByElement(element, true);
-    return widget && widget.name === 'drupalentity';
+    if (!widget || widget.name !== 'drupalentity') {
+      return false;
+    }
+
+    var button = $(element.$.firstChild).attr('data-embed-button');
+    if (!button) {
+      // If there was no data-embed-button attribute, not editable.
+      return false;
+    }
+
+    // The button itself must be valid.
+    return editor.config.DrupalEntity_buttons.hasOwnProperty(button);
   }
 
   /**
