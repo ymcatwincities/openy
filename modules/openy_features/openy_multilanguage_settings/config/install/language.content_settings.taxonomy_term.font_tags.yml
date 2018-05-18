@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.font_tags
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+id: taxonomy_term.font_tags
+target_entity_type_id: taxonomy_term
+target_bundle: font_tags
+default_langcode: site_default
+language_alterable: false

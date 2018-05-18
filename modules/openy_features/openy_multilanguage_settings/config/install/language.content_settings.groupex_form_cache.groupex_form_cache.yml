@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - groupex_form_cache
+id: groupex_form_cache.groupex_form_cache
+target_entity_type_id: groupex_form_cache
+target_bundle: groupex_form_cache
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_session_instance
+id: session_instance.session_instance
+target_entity_type_id: session_instance
+target_bundle: session_instance
+default_langcode: site_default
+language_alterable: false
