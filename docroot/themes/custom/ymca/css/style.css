@@ -1974,7 +1974,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-align: center;
 }
 .page-footer.footer-themes-b .richtext h5, .page-footer.footer-themes-b .richtext p {
-  font-family: Verdana,Arial,sans-serif;
+  font-family: 'Cachet', Verdana,Arial,sans-serif;
   display: inline-block;
   vertical-align: top;
   margin: 0;
@@ -8884,7 +8884,7 @@ body.ancestor-camps .footer-themes-b .social-icon:hover {
 }
 
 body {
-  font-family: Verdana,Arial,sans-serif;
+  font-family: 'Cachet', Verdana,Arial,sans-serif;
 }
 
 .form-item {
@@ -9526,7 +9526,7 @@ body {
   padding: 35px 0 10px;
   overflow: hidden;
   position: relative;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
 }
 @media screen and (max-width: 767px) {
   .mindbody-search-results-header {
@@ -9700,13 +9700,13 @@ body {
 }
 .mindbody-search-results-content .day .group-by-date .name {
   color: #1d1d1b;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
   font-size: 15px;
   font-weight: bold;
 }
 .mindbody-search-results-content .day .group-by-date .available {
   color: #00aa95;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
   font-size: 14px;
   margin: 5px 0 10px;
 }
@@ -9732,7 +9732,7 @@ body {
   background-color: #fafafa;
   border-radius: 3px;
   border: 1px solid #e9e9e9;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
   font-size: 14px;
   height: 50px;
   line-height: 50px;
@@ -11680,7 +11680,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 .fullcalendar .fc-view-container .fc-view .fc-day-top,
 .fullcalendar .fc-view-container .fc-view .fc-day-number {
-  font-family: Verdana,Arial,sans-serif;
+  font-family: 'Cachet', Verdana,Arial,sans-serif;
   font-size: 22px;
   letter-spacing: -0.6px;
   text-align: left;
@@ -11975,7 +11975,7 @@ tr:nth-last-child(3) .atcb-list {
   font-size: 18px;
   text-transform: none;
   font-weight: normal;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
   margin-bottom: 30px;
   line-height: 24px;
 }
