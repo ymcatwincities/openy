@@ -10,18 +10,17 @@ use Drupal\Core\Database\Database;
 use Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\file\Entity\File as EntityFile;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\redirect\Entity\Redirect;
 use Drupal\redirect\Exception\RedirectLoopException;
-use Drupal\ymca_aliases\UrlCleaner;
-use Drupal\ymca_mappings\Entity\Mapping;
-use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
-use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\block\Entity\Block;
+use Drupal\ymca_aliases\UrlCleaner;
+use Drupal\ymca_mappings\Entity\Mapping;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
@@ -6463,5 +6462,92 @@ function ymca_master_update_8276() {
     $node->set('field_state', 'workflow_published');
     $node->setPublished(TRUE);
     $node->save();
+  }
+}
+
+/**
+ * Migrate FileEntity to Media.
+ */
+function ymca_master_update_8277() {
+  $query = \Drupal::entityQuery('file');
+  $fileIds = $query->execute();
+  $entityTypeManager = \Drupal::entityTypeManager();
+  /** @var \Drupal\media_entity\MediaStorage $mediaStorage */
+  $mediaStorage = $entityTypeManager->getStorage('media');
+  /** @var \Drupal\file\FileStorage $fileStorage */
+  $fileStorage = $entityTypeManager->getStorage('file');
+  foreach ($fileIds as $fileId) {
+    $file = $fileStorage->load($fileId);
+    if (!$file) {
+      continue;
+    }
+    $mediaEntity = NULL;
+    switch ($file->bundle()) {
+      case 'image':
+        $id = $file->id();
+        $m = $mediaStorage->loadByProperties(
+          ['field_media_image' => ['target_id' => $id]]
+        );
+        if ($m) {
+          // Skip media creation, because it is already exists.
+          continue;
+        }
+        // Create new Media entity.
+        $mediaEntity = $mediaStorage->create(
+          [
+            'bundle' => 'image',
+            'name' => $file->filename->value,
+            'status' => TRUE,
+            'field_media_image' => [
+              'target_id' => $file->id(),
+            ],
+            'field_media_caption' => $file->filename->value,
+            'field_media_in_library' => TRUE,
+            'field_media_mime' => $file->getMimeType(),
+          ]
+        );
+        break;
+      case 'document':
+      case 'archive':
+        $id = $file->id();
+        $m = $mediaStorage->loadByProperties(
+          ['field_media_document' => ['target_id' => $id]]
+        );
+        if ($m) {
+          // Skip media creation, because it is already exists.
+          continue;
+        }
+        // Create new Media entity.
+        $mediaEntity = $mediaStorage->create(
+          [
+            'bundle' => 'document',
+            'name' => $file->filename->value,
+
+            'status' => TRUE,
+            'field_media_document' => [
+              'target_id' => $file->id(),
+            ],
+            'field_media_in_library' => TRUE,
+            'field_media_mime' => $file->getMimeType(),
+            'field_media_size' => $file->getSize(),
+          ]
+        );
+        break;
+      case 'audio':
+        continue;
+      case 'video':
+        continue;
+    }
+    if ($mediaEntity) {
+      $status = $mediaEntity->save();
+      if ($status) {
+        \Drupal::logger('file_media')->debug(
+          $mediaEntity->label() . ' created.'
+        );
+      }
+      else {
+        throw new \Exception('Failed to save mediaEntity');
+      }
+    }
   }
 }

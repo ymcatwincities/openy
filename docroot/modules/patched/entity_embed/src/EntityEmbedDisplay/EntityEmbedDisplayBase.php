@@ -1,20 +1,16 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayBase.
- */
-
 namespace Drupal\entity_embed\EntityEmbedDisplay;
 
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\entity_embed\EntityHelperTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,10 +21,23 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @see \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayManager
  * @see plugin_api
  *
-  * @ingroup entity_embed_api
+ * @ingroup entity_embed_api
  */
 abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFactoryPluginInterface, EntityEmbedDisplayInterface {
-  use EntityHelperTrait;
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   */
+  protected $languageManager;
 
   /**
    * The context for the plugin.
@@ -47,13 +56,16 @@ abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFac
   /**
    * {@inheritdoc}
    *
-   * @param \Drupal\Core\Entity\EntityManagerInterface $entity_manager
-   *   The entity manager service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   *   The language manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityManagerInterface $entity_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, LanguageManagerInterface $language_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->setConfiguration($configuration);
-    $this->setEntityManager($entity_manager);
+    $this->entityTypeManager = $entity_type_manager;
+    $this->languageManager = $language_manager;
   }
 
   /**
@@ -64,7 +76,8 @@ abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFac
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('entity.manager')
+      $container->get('entity_type.manager'),
+      $container->get('language_manager')
     );
   }
 
@@ -73,19 +86,11 @@ abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFac
    */
   public function access(AccountInterface $account = NULL) {
     // @todo Add a hook_entity_embed_display_access()?
-
     // Check that the plugin's registered entity types matches the current
     // entity type.
-    if (!$this->isValidEntityType()) {
-      return FALSE;
-    }
-
-    // Check that the entity itself can be viewed by the user.
-    if ($entity = $this->getEntityFromContext() && $account) {
-      return $entity->access('view', $account);
-    }
-
-    return TRUE;
+    return AccessResult::allowedIf($this->isValidEntityType())
+      // @see \Drupal\Core\Entity\EntityTypeManager
+      ->addCacheTags(['entity_types']);
   }
 
   /**
@@ -104,7 +109,7 @@ abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFac
     // First, determine whether or not the entity type id is valid. Return FALSE
     // if the specified id is not valid.
     $entity_type = $this->getEntityTypeFromContext();
-    if (!$this->entityManager()->getDefinition($entity_type)) {
+    if (!$this->entityTypeManager->getDefinition($entity_type)) {
       return FALSE;
     }
 
@@ -261,6 +266,13 @@ abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFac
   /**
    * Gets the entity from the current context.
    *
+   * @todo Where doe sthis come from? The value must come from somewhere, yet
+   * this does not implement any context-related interfaces. This is an *input*,
+   * so we need cache contexts and possibly cache tags to reflect where this
+   * came from. We need that for *everything* that this class does that relies
+   * on this, plus any of its subclasses. Right now, this is effectively a
+   * global that breaks cacheability metadata.
+   *
    * @return \Drupal\Core\Entity\EntityInterface
    */
   public function getEntityFromContext() {
@@ -313,8 +325,9 @@ abstract class EntityEmbedDisplayBase extends PluginBase implements ContainerFac
   public function getLangcode() {
     $langcode = $this->getAttributeValue('data-langcode');
     if (empty($langcode)) {
-      $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+      $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
     }
     return $langcode;
   }
+
 }

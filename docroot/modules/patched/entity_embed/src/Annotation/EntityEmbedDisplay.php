@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\Annotation\EntityEmbedDisplay.
- */
-
 namespace Drupal\entity_embed\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
@@ -52,5 +47,12 @@ class EntityEmbedDisplay extends Plugin {
    * @var bool|array
    */
   public $entity_types = FALSE;
+
+  /**
+   * Shows plugin in the UI if this is FALSE.
+   *
+   * @var bool
+   */
+  public $no_ui = FALSE;
 
 }
