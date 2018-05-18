@@ -365,11 +365,15 @@ body {
       float: left;
       border-bottom: 4px solid #cecece;
       display: block;
-    }
-    .point.active {
-      background: url('../img/active.png');
-      background-repeat: no-repeat;
-      background-position: center;
+      svg {
+        width: 33px;
+        margin-top: -6px;
+        margin-left: -12px;
+      }
+      .point-count {
+        margin-top: -38px;
+        display: block;
+      }
     }
     .point-1 {
       background-position: left !important;

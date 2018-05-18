@@ -25,7 +25,14 @@
                     {% set activeClass = ' active' %}
                     {% set symbol = '*' %}
                 {% endif %}
-                <span class="point point-{{ pointNum }}{{ activeClass }}">{{ i }}</span>
+                <span class="point point-{{ pointNum }}{{ activeClass }}">
+                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="33pt" height="30pt" viewBox="0 0 33 30" preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,30.000000) scale(0.100000,-0.100000)" fill="#ccc" stroke="none">
+                            <path d="M7 294 c-17 -18 -2 -61 61 -171 62 -108 70 -118 97 -118 27 0 35 10 98 119 45 80 67 128 65 145 l-3 26 -156 3 c-85 1 -158 -1 -162 -4z"/>
+                        </g>
+                    </svg>
+                    <span class="point-count">{{ i }}</span>
+                </span>
                 {% if i is divisible by(5) %}
                 {% set pointNum = 0 %}
             </div>
