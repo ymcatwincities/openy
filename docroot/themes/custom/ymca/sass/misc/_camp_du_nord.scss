@@ -534,7 +534,7 @@
     }
     .fc-day-top,
     .fc-day-number {
-      font-family: Verdana,Arial,sans-serif;
+      font-family: 'Cachet', Verdana,Arial,sans-serif;
       font-size: 22px;
       letter-spacing: -0.6px;
       text-align: left;
@@ -845,7 +845,7 @@
     font-size: 18px;
     text-transform: none;
     font-weight: normal;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
     margin-bottom: 30px;
     line-height: 24px;
     @include breakpoint(0 991px) {

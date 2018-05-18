@@ -11,7 +11,7 @@ html, body {
 }
 
 .theme_ymca_2016_fall_retention {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
 }
 .theme_ymca_2016_fall_retention .viewport {
   padding-top: 0;
@@ -1127,7 +1127,7 @@ html, body {
 .yfr-table-progress td {
   padding: 34px 0 34px 0;
   padding: 3.4rem 0 3.4rem 0;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid #c;
   text-align: center;
   color: #cfcfcf;
   vertical-align: middle;
@@ -1160,7 +1160,7 @@ html, body {
   .yfr-table-progress tr {
     padding: 24px 15px;
     padding: 2.4rem 1.5rem;
-    border-bottom: 1px solid #ebebeb;
+    border-bottom: 1px solid #c;
     display: block;
   }
 }
