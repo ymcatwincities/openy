@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
  *
  * @package Drupal\yptf_kronos
  */
-class YptfKronosReports {
+class YptfKronosReports implements YptfKronosReportsInterface {
 
   /**
    * Config factory.
