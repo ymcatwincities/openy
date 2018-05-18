@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
  *
  * @package Drupal\yptf_kronos
  */
-class YptfKronosReports implements YptfKronosReportsInterface {
+class YptfKronosReportsMonday implements YptfKronosReportsInterface {
 
   /**
    * Config factory.
@@ -133,7 +133,12 @@ class YptfKronosReports implements YptfKronosReportsInterface {
   /**
    * Kronos file url.
    */
-  const KRONOS_FILE_URL_PATTERN = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFC_';
+  const KRONOS_FILE_URL_PATTERN = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFCMon_';
+
+  /**
+   * Kronos file prefix.
+   */
+  const KRONOS_FILE_PREFIX = 'WFCMon_';
 
   /**
    * Kronos Training program.
@@ -192,12 +197,14 @@ class YptfKronosReports implements YptfKronosReportsInterface {
    *   Number of requests of report to MB.
    */
   public function generateReports($request_number = 0) {
+    $this->logger->info('Kronos Monday email reports generator started.');
     $this->getInitialDates();
     if (!empty($request_number)) {
       $this->numberOfRequest = $request_number;
     }
     $this->sendReports();
     $this->sendErrorReports();
+    $this->logger->info('Kronos Monday email reports generator finished.');
   }
 
   /**
@@ -352,11 +359,11 @@ class YptfKronosReports implements YptfKronosReportsInterface {
           }
 
           !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
-          $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
+          $trainer_reports[$location_id][$staff_id]['mb_hours'] += (float) $diff;
           !empty($trainer_name) ? $trainer_reports[$location_id][$staff_id]['name'] = $trainer_name : '';
 
           !isset($location_reports[$location_id]['mb_hours']) ? $location_reports[$location_id]['mb_hours'] = 0 : '';
-          $location_reports[$location_id]['mb_hours'] += $diff;
+          $location_reports[$location_id]['mb_hours'] += (float) $diff;
           !empty($item['Location']) ? $location_reports[$location_id]['name'] = $item['Location'] : '';
         }
       }
@@ -495,13 +502,9 @@ class YptfKronosReports implements YptfKronosReportsInterface {
         'Y-m-d',
         strtotime($kronos_report_day . $shift . 'days')
       );
-      $kronos_path_to_file = \Drupal::service('file_system')->realpath(
-        file_default_scheme() . "://"
-      );
-      $kronos_file = $kronos_path_to_file . '/wf_reports/WFC_' . $kronos_file_name_date . '.json';
-      file_exists($kronos_file) ? $kronos_data_raw = file_get_contents(
-        $kronos_file
-      ) : '';
+      $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+      $kronos_file = $kronos_path_to_file . '/wf_reports/' . self::KRONOS_FILE_PREFIX . $kronos_file_name_date . '.json';
+      file_exists($kronos_file) ? $kronos_data_raw = file_get_contents($kronos_file) : '';
       if (empty($kronos_data_raw)) {
         $kronos_file = self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date . '.json';
         $kronos_data_raw = @file_get_contents($kronos_file);
@@ -609,7 +612,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
     ];
 
     // Get MB cache for debug mode.
-    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
+    $debug_mode = $this->configFactory->get('yptf_kronos_monday.settings')->get(
       'debug'
     );
     if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
@@ -737,7 +740,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
       return $this->staffIDs[$staff_id];
     }
     // Get MB cache for debug mode.
-    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
+    $debug_mode = $this->configFactory->get('yptf_kronos_monday.settings')->get(
       'debug'
     );
     if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
@@ -796,7 +799,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
     if (isset($mb_staff_id->Row->EmpID) && !empty($mb_staff_id->Row->EmpID)) {
       $this->staffIDs[$staff_id] = $mb_staff_id->Row->EmpID;
       // Get MB cache for debug mode.
-      $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
+      $debug_mode = $this->configFactory->get('yptf_kronos_monday.settings')->get(
         'debug'
       );
       if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
@@ -828,7 +831,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
             $empID = $parsed_data['Results']['Row']['EmpID'];
             $this->staffIDs[$staff_id] = $empID;
             // Get MB cache for debug mode.
-            $debug_mode = $this->configFactory->get('yptf_kronos.settings')
+            $debug_mode = $this->configFactory->get('yptf_kronos_monday.settings')
               ->get('debug');
             if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
               file_put_contents($file, json_encode($this->staffIDs));
@@ -860,7 +863,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
    * Send reports.
    */
   public function sendReports() {
-    $config = $this->configFactory->get('yptf_kronos.settings');
+    $config = $this->configFactory->get('yptf_kronos_monday.settings');
     $debug_mode = $config->get('debug');
     $email_type = [
       'leadership' => 'Leadership email',
@@ -1031,9 +1034,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
     $type = 'leadership',
     $enabled_setting = TRUE
   ) {
-    $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t(
-      'Branch Name'
-    );
+    $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t('Branch Name');
 
     switch ($type) {
       case "pt_managers":
@@ -1083,7 +1084,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
           if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
             $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
             $admin_emails = $config = $this->configFactory->get(
-              'yptf_kronos.settings'
+              'yptf_kronos_monday.settings'
             )
               ->get('admin_emails');
             $data['admin_mail_raw'] = '';
@@ -1141,10 +1142,6 @@ class YptfKronosReports implements YptfKronosReportsInterface {
             $names[] = &$name["name"];
           }
           natcasesort($names);
-          array_multisort($names, $data['rows'], SORT_NATURAL);
-          foreach ($names as $id => $sortName) {
-
-          }
           $variables = [
             '#theme' => 'yptf_kronos_report',
             '#data' => $data,
@@ -1165,7 +1162,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
   public function sendErrorReports() {
     if (isset($this->reports['messages']['error_reports'])) {
       $admin_emails = $config = $this->configFactory->get(
-        'yptf_kronos.settings'
+        'yptf_kronos_monday.settings'
       )->get('admin_emails');
       if (!empty($admin_emails)) {
         $admin_emails = explode(',', $admin_emails);

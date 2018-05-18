@@ -16,6 +16,7 @@ function yptf_kronos_drush_command() {
     'arguments' => [
       'request_number' => 'Request number for MB.',
     ],
+    'aliases' => ['ykgt']
   ];
   $items['yptf_kronos_generate_monday'] = [
     'description' => 'Generate Email reports for Monday.',
