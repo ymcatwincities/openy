@@ -279,6 +279,8 @@ function ymca_alters_entity_view_alter(array &$build, EntityInterface $entity, E
       'devel-load',
       'token-devel',
       'clone-form',
+      'create',
+      'latest-version',
     ];
     foreach ($build['#attached']['html_head_link'] as $key => $value) {
       if (isset($value[0]['rel']) && in_array($value[0]['rel'], $unset_html_head_link)) {
