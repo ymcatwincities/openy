@@ -10320,6 +10320,9 @@ a.sports-icon.floor-hockey {
   font-weight: bold;
   font-family: "Cachet", Verdana, Arial, sans-serif;
 }
+.paragraph--type--secondary-description-sidebar ul li a:after {
+  content: none !important;
+}
 .paragraph--type--secondary-description-sidebar h3 {
   margin-top: 0;
 }
@@ -10364,7 +10367,7 @@ a.sports-icon.floor-hockey {
   font-weight: normal;
   font-family: 'YMCA';
 }
-.paragraph--type--secondary-description-sidebar a:after {
+.paragraph--type--secondary-description-sidebar .field-prgf-right-column-block:not(.path-frontpage) a:after {
   margin-left: 10px;
   content: 'o';
   text-transform: none;
