@@ -94,7 +94,7 @@ $registration-confirmation-pink: #e49abd;
     @include rem(padding-left, 15px);
     @include rem(padding-right, 15px);
     color: $black;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-family:  'Cachet', Verdana, Arial, Helvetica, sans-serif;
     text-align: left;
 
     @include breakpoint($tablet) {
