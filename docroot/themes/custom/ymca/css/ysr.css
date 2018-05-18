@@ -800,7 +800,7 @@
   }
 }
 #register-and-report .registration .access-help p {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
 }
 #register-and-report .registration .access-help .access-question {
   -moz-transition: opacity 0.3s;
@@ -1348,7 +1348,7 @@
 .results-table tbody tr td.number {
   font-size: 11px;
   font-size: 1.1rem;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
   padding-left: 0;
 }
 @media (min-width: 30em) {
@@ -1709,7 +1709,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .ysr-offset:before {
   padding-right: 15px;
   padding-right: 1.5rem;
   color: #231f20;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
   text-align: left;
 }
 @media (min-width: 48em) {
