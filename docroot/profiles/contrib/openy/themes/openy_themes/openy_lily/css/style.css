@@ -10582,17 +10582,6 @@ a.sports-icon.floor-hockey {
   line-height: 1.62em;
 }
 
-input[type="file"]:focus,
-input[type="radio"]:focus,
-input[type="checkbox"]:focus {
-  outline: none;
-}
-
-.focusable.skip-link:focus {
-  position: fixed !important;
-  top: 0;
-}
-
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
