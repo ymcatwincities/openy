@@ -199,7 +199,28 @@ sudo: yes
 shell: cp /tmp/reinstall_settings.php sites/default/settings.php
 ```
 
-### How to install & use Mailcatcher
+### How to use MailCatcher
+
+1. Start MailCatcher with the job (to be fixed):
+http://ygtc.cibox.tools:8080/view/All/job/RESTART_MAILCATCHER/
+
+```bash
+sudo lsof -nP -iTCP:1025 -sTCP:LISTEN`
+kill -9 <PID>
+mailcatcher --ip 127.0.0.1 --smtp-ip 0.0.0.0
+```
+
+2. Open UI:
+http://ygtc.cibox.tools:1079/
+login: ygtc
+password: openy
+
+3. **Always test** before development
+3a. Go to `/admin/config/system/smtp`
+3b. Send test email
+3c. Check UI http://ygtc.cibox.tools:1079/
+
+### How to install & use Mailcatcher (deprecated)
 
 Install RVM on the VM.
 
