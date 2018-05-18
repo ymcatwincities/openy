@@ -5,3 +5,10 @@ yptf_kronos.settings:
     _title: 'Kronos settings'
   requirements:
     _permission: 'administer site configuration'
+yptf_kronos_monday.settings:
+  path: '/admin/config/ymca-services/kronos-monday-settings'
+  defaults:
+    _form: '\Drupal\yptf_kronos\Form\KronosMondaySettingsForm'
+    _title: 'Kronos Monday settings'
+  requirements:
+    _permission: 'administer site configuration'
