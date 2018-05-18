@@ -958,10 +958,14 @@ body {
   border-bottom: 4px solid #cecece;
   display: block;
 }
-.visits-goal .visits-goal-progress .point.active {
-  background: url("../img/active.png");
-  background-repeat: no-repeat;
-  background-position: center;
+.visits-goal .visits-goal-progress .point svg {
+  width: 33px;
+  margin-top: -6px;
+  margin-left: -12px;
+}
+.visits-goal .visits-goal-progress .point .point-count {
+  margin-top: -38px;
+  display: block;
 }
 .visits-goal .visits-goal-progress .point-1 {
   background-position: left !important;
