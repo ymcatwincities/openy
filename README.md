@@ -205,7 +205,7 @@ shell: cp /tmp/reinstall_settings.php sites/default/settings.php
 http://ygtc.cibox.tools:8080/view/All/job/RESTART_MAILCATCHER/
 
 ```bash
-sudo lsof -nP -iTCP:1025 -sTCP:LISTEN`
+sudo lsof -nP -iTCP:1025 -sTCP:LISTEN
 kill -9 <PID>
 mailcatcher --ip 127.0.0.1 --smtp-ip 0.0.0.0
 ```
