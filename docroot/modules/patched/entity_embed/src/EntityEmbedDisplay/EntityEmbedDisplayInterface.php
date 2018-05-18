@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\EntityEmbedDisplay\EntityEmbedDisplayInterface.
- */
-
 namespace Drupal\entity_embed\EntityEmbedDisplay;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
@@ -58,8 +53,8 @@ interface EntityEmbedDisplayInterface extends ConfigurablePluginInterface, Plugi
    *   (optional) The user for which to check access, or NULL to check access
    *   for the current user. Defaults to NULL.
    *
-   * @return bool
-   *   TRUE if this Entity Embed Display plugin can be used, or FALSE otherwise.
+   * @return \Drupal\Core\Access\AccessResultInterface
+   *   The access result.
    */
   public function access(AccountInterface $account = NULL);
 

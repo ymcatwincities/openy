@@ -1,13 +1,6 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_embed\Tests\EntityEmbedHooksTest.
- */
-
 namespace Drupal\entity_embed\Tests;
-
-use Drupal\entity_embed\EntityHelperTrait;
 
 /**
  * Tests the hooks provided by entity_embed module.
@@ -23,6 +16,9 @@ class EntityEmbedHooksTest extends EntityEmbedTestBase {
    */
   protected $state;
 
+  /**
+   *
+   */
   protected function setUp() {
     parent::setUp();
     $this->state = $this->container->get('state');
@@ -36,7 +32,8 @@ class EntityEmbedHooksTest extends EntityEmbedTestBase {
     // hook_entity_embed_display_plugins_alter() implementation and ensure it is
     // working as designed.
     $this->state->set('entity_embed_test_entity_embed_display_plugins_alter', TRUE);
-    $plugins = $this->displayPluginManager()->getDefinitionOptionsForEntity($this->node);
+    $plugins = $this->container->get('plugin.manager.entity_embed.display')
+      ->getDefinitionOptionsForEntity($this->node);
     // Ensure that name of each plugin is prefixed with 'testing_hook:'.
     foreach ($plugins as $plugin => $plugin_info) {
       $this->assertTrue(strpos($plugin, 'testing_hook:') === 0, 'Name of the plugin is prefixed by hook_entity_embed_display_plugins_alter()');
@@ -54,7 +51,7 @@ class EntityEmbedHooksTest extends EntityEmbedTestBase {
     // Enable entity_embed_test.module's hook_entity_embed_alter()
     // implementation and ensure it is working as designed.
     $this->state->set('entity_embed_test_entity_embed_alter', TRUE);
-    $content = '<drupal-entity data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="default" data-entity-embed-settings=\'{"view_mode":"teaser"}\'>This placeholder should not be rendered.</drupal-entity>';
+    $content = '<drupal-entity data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="default" data-entity-embed-display-settings=\'{"view_mode":"teaser"}\'>This placeholder should not be rendered.</drupal-entity>';
     $settings = array();
     $settings['type'] = 'page';
     $settings['title'] = 'Test hook_entity_embed_alter()';
@@ -71,7 +68,7 @@ class EntityEmbedHooksTest extends EntityEmbedTestBase {
     // Enable entity_embed_test.module's hook_entity_embed_context_alter()
     // implementation and ensure it is working as designed.
     $this->state->set('entity_embed_test_entity_embed_context_alter', TRUE);
-    $content = '<drupal-entity data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="default" data-entity-embed-settings=\'{"view_mode":"teaser"}\'>This placeholder should not be rendered.</drupal-entity>';
+    $content = '<drupal-entity data-entity-type="node" data-entity-uuid="' . $this->node->uuid() . '" data-entity-embed-display="default" data-entity-embed-display-settings=\'{"view_mode":"teaser"}\'>This placeholder should not be rendered.</drupal-entity>';
     $settings = array();
     $settings['type'] = 'page';
     $settings['title'] = 'Test hook_entity_embed_context_alter()';

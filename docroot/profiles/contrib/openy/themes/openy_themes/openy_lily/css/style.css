@@ -10582,48 +10582,6 @@ a.sports-icon.floor-hockey {
   line-height: 1.62em;
 }
 
-a:focus,
-input:focus,
-select:focus,
-textarea:focus,
-.dropdown-toggle:focus,
-.carousel-control:focus,
-.btn:focus,
-.button:focus,
-.ui-widget.ui-dialog.confirmation-popup .content-button a:focus,
-.btn.focus,
-.focus.button,
-.ui-widget.ui-dialog.confirmation-popup .content-button a.focus,
-.btn:active:focus,
-.button:active:focus,
-.ui-widget.ui-dialog.confirmation-popup .content-button a:active:focus,
-.btn:active.focus,
-.button:active.focus,
-.ui-widget.ui-dialog.confirmation-popup .content-button a:active.focus,
-.btn.active:focus,
-.active.button:focus,
-.ui-widget.ui-dialog.confirmation-popup .content-button a.active:focus,
-.btn.active.focus,
-.active.focus.button,
-.ui-widget.ui-dialog.confirmation-popup .content-button a.active.focus,
-.form-control:focus,
-.slick-arrow:focus:before,
-.navbar-toggle:focus {
-  outline: 5px auto #69ff00;
-}
-
-input[type="file"]:focus,
-input[type="radio"]:focus,
-input[type="checkbox"]:focus {
-  box-shadow: 0px 0px 3px 3px #69ff00;
-  outline: none;
-}
-
-.focusable.skip-link:focus {
-  position: fixed !important;
-  top: 0;
-}
-
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
