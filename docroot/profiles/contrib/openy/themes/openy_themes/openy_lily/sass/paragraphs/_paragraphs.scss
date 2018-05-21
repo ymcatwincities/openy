@@ -820,6 +820,10 @@
     }
   }
 
+  .embedded-entity img {
+    padding: 0;
+  }
+
   article.featured-highlights-block a {
     .inner-wrapper:hover {
       background-color: $white;
