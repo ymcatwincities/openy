@@ -15761,6 +15761,14 @@ p.button {
   border-radius: 4px;
 }
 
+.button.blue:hover, .modal-body .button:hover {
+  background-color: #0d63ad !important;
+}
+
+.button.purple:hover {
+  background-color: #9c1f7b;
+}
+
 .button a, a.button {
   display: inline-block;
   margin-bottom: 0;
