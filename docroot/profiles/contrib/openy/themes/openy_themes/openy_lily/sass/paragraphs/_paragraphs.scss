@@ -637,9 +637,6 @@
       a {
         font-weight: bold;
         font-family: $font-family-cachet;
-        &:after {
-          content: none !important;
-        }
       }
     }
   }
@@ -685,7 +682,7 @@
     font-family: 'YMCA';
   }
 
-  .field-prgf-right-column-block:not(.path-frontpage) {
+  .field-prgf-right-column-block {
     a:after {
       margin-left: 10px;
       content: 'o';
@@ -693,6 +690,12 @@
       font-size: 18px;
       font-family: 'YMCA';
     }
+  }
+}
+
+.path-frontpage .field-prgf-right-column-block {
+  a:after {
+    content: none;
   }
 }
 
@@ -704,7 +707,7 @@
   .text-promo {
     background: none;
     box-shadow: none;
-    a{
+    a {
       color: $blue;
     }
     h3:hover {
