@@ -229,4 +229,90 @@ class FixEntityEmbed {
 
   }
 
+  /**
+   * Fix block content.
+   */
+  public function fixBlockContent() {
+    $db = \Drupal::database();
+    $tables = $this->getTables();
+
+    foreach ($tables as $table => $columns) {
+      foreach ($columns as $field) {
+        $result = $db->select($table, 't')
+          ->fields('t')
+          ->condition(
+            't.' . $field,
+            '%' . $db->escapeLike('drupal-entity-inline') . '%',
+            'LIKE'
+          )
+          ->execute();
+
+        while ($data = $result->fetchObject()) {
+          $replace = [];
+
+          preg_match_all(
+            "/<drupal-entity-inline.*<\/drupal-entity-inline>/miU",
+            $data->$field,
+            $test
+          );
+
+          if (count($test[0])) {
+            foreach ($test[0] as $drupalEntityInline) {
+
+              // Check if there is more than one drupal-entity-inline with block_content.
+              preg_match_all("/data-entity-type=\"block_content\"/miU", $drupalEntityInline, $fail);
+              if (count($fail[0]) >= 2) {
+                $this->loggerChannel->error(sprintf('Failed to parse entities for entity_id: %d, revision_id: %d in table: %s', $data->entity_id, $data->revision_id, $table));
+                throw new \Exception('Regex is wrong');
+              }
+              else {
+                if (count($fail[0]) == 0) {
+                  continue;
+                }
+              }
+
+              // Load entity properties via DOM.
+              $dom = Html::load($drupalEntityInline);
+              $xpath = new \DOMXPath($dom);
+              foreach ($xpath->query(
+                '//*[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]'
+              ) as $node) {
+                $uuid = $node->getAttribute('data-entity-uuid');
+                $align = $node->getAttribute('data-align');
+                $replacement = '<drupal-entity
+                  data-align="' . $align . '"
+                  data-embed-button="block"
+                  data-embed-button="embed_document"
+                  data-entity-embed-display="entity_reference:entity_reference_entity_view"
+                  data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;default&quot;}"
+                  data-entity-type="block_content"
+                  data-entity-uuid="' . $uuid . '"></drupal-entity>';
+
+                // Prepare replacement array.
+                $replace['from'][] = $drupalEntityInline;
+                $replace['to'][] = $replacement;
+              }
+            }
+          }
+
+          // Replace all entities in the text.
+          if ($replace) {
+            $updated = str_replace($replace['from'], $replace['to'], $data->$field);
+            $db->update($table)
+              ->fields([
+                $field => $updated,
+              ])
+              ->condition('entity_id', $data->entity_id)
+              ->condition('revision_id', $data->revision_id)
+              ->execute();
+
+            $this->loggerChannel->info(sprintf('Fixed entity embed for entity_id: %d, revision_id: %d in table: %s', $data->entity_id, $data->revision_id, $table));
+          }
+        }
+
+      }
+    }
+
+  }
+
 }
