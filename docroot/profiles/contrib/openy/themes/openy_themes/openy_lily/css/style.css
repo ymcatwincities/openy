@@ -10475,6 +10475,9 @@ a.sports-icon.floor-hockey {
 .paragraph--type--featured-highlights article a:hover .inner-wrapper .blog-heading p {
   color: #333333;
 }
+.paragraph--type--featured-highlights .embedded-entity img {
+  padding: 0;
+}
 .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper:hover {
   background-color: #fff;
   color: #333333;
