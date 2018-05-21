@@ -23,6 +23,13 @@ function openy_tools_drush_command() {
     'aliases' => ['ot-fee-f']
   ];
 
+  $items['openy-tools-fix-entity-embed-block-content'] = [
+    'description' => 'Fix entity_embed markup for block content.',
+    'callback' => 'openy_tools_fix_entity_embed_block_content',
+    'drupal dependencies' => ['entity_embed'],
+    'aliases' => ['ot-fee-bc']
+  ];
+
   return $items;
 }
 
@@ -38,4 +45,11 @@ function openy_tools_fix_entity_embed_menu_link() {
  */
 function openy_tools_fix_entity_embed_file() {
   \Drupal::service('openy_tools.fix_entity_embed')->fixFile();
+}
+
+/**
+ * Callback for "ot-fee-bc" command.
+ */
+function openy_tools_fix_entity_embed_block_content() {
+  \Drupal::service('openy_tools.fix_entity_embed')->fixBlockContent();
 }
