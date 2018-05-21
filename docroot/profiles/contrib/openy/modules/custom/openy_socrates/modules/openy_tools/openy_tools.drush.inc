@@ -9,23 +9,33 @@
  * Implements hook_drush_command().
  */
 function openy_tools_drush_command() {
-  $items['openy-tools-fix-entity-embed'] = [
-    'description' => 'Fix entity_embed markup.',
-    'callback' => 'openy_tools_fix_entity_embed',
+  $items['openy-tools-fix-entity-embed-menu-link'] = [
+    'description' => 'Fix entity_embed markup for menu_link.',
+    'callback' => 'openy_tools_fix_entity_embed_menu_link',
     'drupal dependencies' => ['entity_embed'],
-    'aliases' => ['ot-fee']
+    'aliases' => ['ot-fee-ml']
   ];
+
+  $items['openy-tools-fix-entity-embed-file'] = [
+    'description' => 'Fix entity_embed markup for file.',
+    'callback' => 'openy_tools_fix_entity_embed_file',
+    'drupal dependencies' => ['entity_embed'],
+    'aliases' => ['ot-fee-f']
+  ];
+
   return $items;
 }
 
 /**
- * Callback function for hook_drush_command().
- *
- * Generate email reports.
- *
- * @param int $request_number
- *   Request number to MB.
+ * Callback for "ot-fee-ml" command.
  */
-function openy_tools_fix_entity_embed() {
-  \Drupal::service('openy_tools.fix_entity_embed')->process();
+function openy_tools_fix_entity_embed_menu_link() {
+  \Drupal::service('openy_tools.fix_entity_embed')->fixMenuLink();
+}
+
+/**
+ * Callback for "ot-fee-f" command.
+ */
+function openy_tools_fix_entity_embed_file() {
+  \Drupal::service('openy_tools.fix_entity_embed')->fixFile();
 }
