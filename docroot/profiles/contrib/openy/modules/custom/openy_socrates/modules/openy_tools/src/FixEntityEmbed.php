@@ -108,9 +108,9 @@ class FixEntityEmbed {
               foreach ($xpath->query(
                 '//*[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]'
               ) as $node) {
+                // Get real uuid from Media.
                 $uuid = $node->getAttribute('data-entity-uuid');
                 $replacement = '<drupal-entity
-                  data-button="0"
                   data-embed-button="embed_document"
                   data-entity-embed-display="entity_reference:entity_reference_entity_view"
                   data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_link&quot;}"
@@ -175,7 +175,7 @@ class FixEntityEmbed {
             foreach ($test[0] as $drupalEntityInline) {
 
               // Check if there is more than one drupal-entity-inline with menu_link .
-              preg_match_all("/data-entity-type=\"menu_link\"/miU", $drupalEntityInline, $fail);
+              preg_match_all("/data-embed-button=\"menu_link\"/miU", $drupalEntityInline, $fail);
               if (count($fail[0]) >= 2) {
                 $this->loggerChannel->error(sprintf('Failed to parse entities for entity_id: %d, revision_id: %d in table: %s', $data->entity_id, $data->revision_id, $table));
                 throw new \Exception('Regex is wrong');
