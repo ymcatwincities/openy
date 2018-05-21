@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-id: openy_demo_nsocila_post
-label: 'Branch'
+id: openy_demo_nsocial_post
+label: 'Social Post'
 description: 'Imports social post demo content.'
 module: openy_demo_nsocial_post
