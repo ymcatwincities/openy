@@ -70,17 +70,21 @@ class FixEntityEmbed {
           ->execute();
 
         while ($data = $result->fetchObject()) {
-          $replacement = [];
+          $replace = [];
+
           preg_match_all(
             "/<drupal-entity-inline.*<\/drupal-entity-inline>/miU",
             $data->$field,
             $test
           );
-          $i = 0;
+
           if (count($test[0])) {
             foreach ($test[0] as $drupalEntityInline) {
+
+              // Check if there is more than one drupal-entity-inline with menu_link .
               preg_match_all("/\"menu_link\"/miU", $drupalEntityInline, $fail);
               if (count($fail[0]) >= 2) {
+                $this->loggerChannel->error(sprintf('Failed to parse entities for entity_id: %d, revision_id: %d in table: %s', $data->entity_id, $data->revision_id, $table));
                 throw new \Exception('Regex is wrong');
               }
               else {
@@ -88,8 +92,9 @@ class FixEntityEmbed {
                   continue;
                 }
               }
-              $i = 0;
-              $dom = Html::load($data->$field);
+
+              // Load entity properties via DOM.
+              $dom = Html::load($drupalEntityInline);
               $xpath = new \DOMXPath($dom);
               foreach ($xpath->query(
                 '//*[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]'
@@ -103,20 +108,31 @@ class FixEntityEmbed {
                               data-entity-embed-display-settings="{&quot;route_link&quot;:1,&quot;route_title&quot;:&quot;' . $label . '&quot;}"
                               data-entity-type="menu_link_content"
                               data-entity-uuid="' . $uuid . '"></drupal-entity>';
-                $i = 0;
-                $data->$field = str_replace($drupalEntityInline, $replacement, $data->$field);
-                $db->update($table)
-                  ->fields([
-                    $field => $data->$field,
-                  ])
-                  ->execute();
+
+                // Prepare replacement array.
+                $replace['from'][] = $drupalEntityInline;
+                $replace['to'][] = $replacement;
               }
             }
           }
+
+          // Replace all entities in the text.
+          if ($replace) {
+            $updated = str_replace($replace['from'], $replace['to'], $data->$field);
+          }
+
+          $db->update($table)
+            ->fields([
+              $field => $updated,
+            ])
+            ->condition('entity_id', $data->entity_id)
+            ->condition('revision_id', $data->revision_id)
+            ->execute();
+
+          $this->loggerChannel->info(sprintf('Fixed entity embed for entity_id: %d, revision_id: %d in table: %s', $data->entity_id, $data->revision_id, $table));
         }
 
       }
-      $this->loggerChannel->info(sprintf('Fixed entity embed in field %s in table %s', $field, $table));
     }
 
   }
