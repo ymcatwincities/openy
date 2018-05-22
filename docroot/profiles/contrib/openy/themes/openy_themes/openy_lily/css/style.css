@@ -10379,6 +10379,9 @@ a.sports-icon.floor-hockey {
 .field-prgf-description article a:hover .inner-wrapper h3:after {
   color: #428bca;
 }
+.field-prgf-description .embedded-entity img {
+  padding: 0;
+}
 .field-prgf-description .text-promo {
   background: none;
   box-shadow: none;
@@ -10419,6 +10422,7 @@ a.sports-icon.floor-hockey {
 }
 .field-prgf-description .inner-wrapper .promo-text p {
   margin: 0;
+  padding: 0 20px 10px;
 }
 .field-prgf-description h2 a:after {
   position: relative;
