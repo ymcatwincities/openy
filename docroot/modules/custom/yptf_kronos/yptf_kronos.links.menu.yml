@@ -3,3 +3,8 @@ yptf_kronos.settings:
   route_name: yptf_kronos.settings
   parent: ymca_alters.admin_config_ymca_services
   description: 'Kronos service configuration.'
+yptf_kronos_monday.settings:
+  title: Kronos Monday Settings
+  route_name: yptf_kronos_monday.settings
+  parent: ymca_alters.admin_config_ymca_services
+  description: 'Kronos service configuration for Monday.'
