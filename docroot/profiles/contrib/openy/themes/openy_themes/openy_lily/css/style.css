@@ -15732,6 +15732,9 @@ section.content {
   padding-bottom: 5px;
   padding-left: 35px;
 }
+.paragraph--type--sidebar-menu .dropdown.open .dropdown .dropdown li a {
+  padding-left: 45px;
+}
 .paragraph--type--sidebar-menu .dropdown.open > .nav,
 .paragraph--type--sidebar-menu .dropdown.open .nav .open .nav {
   display: block;
