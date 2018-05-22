@@ -61,7 +61,60 @@ class FixEntityEmbed {
   }
 
   /**
+   * Find media UUID by file UUID.
+   *
+   * @param string $uuid
+   *   UUID.
+   *
+   * @return NULL|\Drupal\media_entity\Entity\Media
+   *   Entity or NULL.
+   */
+  protected function findMediaUuidByFileUuid($uuid) {
+    $entityTypeManager = \Drupal::entityTypeManager();
+    $mediaStorage = $entityTypeManager->getStorage('media');
+    $fileStorage = $entityTypeManager->getStorage('file');
+
+    // Get File ID.
+    $fileIds = $fileStorage->loadByProperties(['uuid' => $uuid]);
+
+    if (empty($fileIds)) {
+      return NULL;
+    }
+
+    $fileId = reset($fileIds)->id();
+
+    // Try to find document.
+    $mediaEntities = $mediaStorage->loadByProperties(
+      [
+        'field_media_document' => ['target_id' => $fileId]
+      ]
+    );
+
+    if (!empty($mediaEntities)) {
+      return reset($mediaEntities);
+    }
+
+    // Try to find image.
+    $mediaEntities = $mediaStorage->loadByProperties(
+      [
+        'field_media_image' => ['target_id' => $fileId]
+      ]
+    );
+
+    if (!empty($mediaEntities)) {
+      return reset($mediaEntities);
+    }
+
+    // Try to find image.
+    return NULL;
+  }
+
+  /**
    * Fix file.
+   *
+   * @todo Fix /swimming/swim_team
+   * @todo Fix abandoned UUIDs.
+   * @todo Fix title for PDFs.
    */
   public function fixFile() {
     $db = \Drupal::database();
@@ -109,13 +162,55 @@ class FixEntityEmbed {
                 '//*[@data-entity-type and (@data-entity-uuid or @data-entity-id) and (@data-entity-embed-display or @data-view-mode)]'
               ) as $node) {
                 // Get real uuid from Media.
-                $uuid = $node->getAttribute('data-entity-uuid');
-                $replacement = '<drupal-entity
-                  data-embed-button="embed_document"
-                  data-entity-embed-display="entity_reference:entity_reference_entity_view"
-                  data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_link&quot;}"
-                  data-entity-type="media"
-                  data-entity-uuid="' . $uuid . '"></drupal-entity>';
+                $fileUuid = $node->getAttribute('data-entity-uuid');
+                $mediaEntity = $this->findMediaUuidByFileUuid($fileUuid);
+
+                if (!$mediaEntity) {
+                  // If file was not found let's just replace abandoned embed with empty string.
+                  $replacement = '';
+                  $this->loggerChannel->info(sprintf("Failed to find Media entity by file UUID: %s", $fileUuid));
+                  $abandoned[] = [
+                    'table' => $table,
+                    'field' => $field,
+                    'entity_id' => $data->entity_id,
+                    'uuid' => $fileUuid,
+                  ];
+                }
+                else {
+                  $media_types[$mediaEntity->bundle()][] = $mediaEntity;
+                  if ($mediaEntity->bundle() == 'image') {
+                    // Get stats for data-entity-embed-settings.
+                    if (!isset($image_embed_settings)) {
+                      $image_embed_settings = [];
+                    }
+                    $image_embed_settings[$node->getAttribute('data-entity-embed-settings')] += 1;
+
+                    // Get stats for data-entity-embed-display
+                    if (!isset($image_embed_display)) {
+                      $image_embed_display = [];
+                    }
+                    $image_embed_display[$node->getAttribute('data-entity-embed-display')] += 1;
+                  }
+
+                  $replacement = '<drupal-entity
+                    data-embed-button="embed_document"
+                    data-entity-embed-display="entity_reference:entity_reference_entity_view"
+                    data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_link&quot;}"
+                    data-entity-type="media"
+                    data-entity-uuid="' . $mediaEntity->uuid() . '"></drupal-entity>';
+
+                  if ($mediaEntity->bundle() == 'image') {
+                    // @todo Create replacement for display "file:file_default"
+                    // @todo Create replacement for display "entity_reference:file_entity_reference_label_url"
+
+                    $replacement = '<drupal-entity
+                      data-embed-button="embed_image"
+                      data-entity-embed-display="entity_reference:entity_reference_entity_view"
+                      data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_full&quot;}"
+                      data-entity-type="media"
+                      data-entity-uuid="' . $mediaEntity->uuid() . '"></drupal-entity>';
+                  }
+                }
 
                 // Prepare replacement array.
                 $replace['from'][] = $drupalEntityInline;
@@ -142,6 +237,9 @@ class FixEntityEmbed {
       }
     }
 
+    if (!empty($abandoned)) {
+      $this->loggerChannel->error(sprintf("Found %d abandoned File UUIDs", count($abandoned)));
+    }
   }
 
   /**
