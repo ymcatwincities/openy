@@ -155,7 +155,7 @@ class CampaignScorecardService {
         $of_members = number_format($actual / $targets[$id] * 100, 1);
         $result['registration']['early'][$id]['of_members'] = $of_members;
 
-        $of_goal = number_format($actual / $goal * 100, 1);
+        $of_goal = $goal ? number_format($actual / $goal * 100, 1) : 0;
         $result['registration']['early'][$id]['of_goal'] = $of_goal;
 
         // Total Early registration calculation.
@@ -174,7 +174,7 @@ class CampaignScorecardService {
         $reg_of_member = number_format($reg_actual / $target * 100, 1);
         $result['registration']['challenge'][$id]['of_members'] = $reg_of_member;
 
-        $reg_of_goal = number_format($reg_actual / $goal * 100, 1);
+        $reg_of_goal = $goal ? number_format($reg_actual / $goal * 100, 1) : 0;
         $result['registration']['challenge'][$id]['of_goal'] = $reg_of_goal;
 
         $result['total']['reg_registration_goal'] += $goal;
@@ -205,7 +205,7 @@ class CampaignScorecardService {
 
         $result['utilization'][$id]['of_members'] = $util_of_member;
 
-        $util_of_goal = number_format($util_actual / $util_goal * 100, 1);
+        $util_of_goal = $util_goal ? number_format($util_actual / $util_goal * 100, 1) : 0;
 
         $result['utilization'][$id]['of_goal'] = $util_of_goal;
 
@@ -247,7 +247,10 @@ class CampaignScorecardService {
       $ids[] = $branchId['target_id'];
     }
 
-    if (!empty($ids)) {
+    // Check for the started campaign.
+    $isCampaignStarted = $this->checkIsCampaignStarted($node);
+
+    if (!empty($ids) && $isCampaignStarted) {
       $query = $this->connection->select('openy_campaign_util_activity', 'ua');
 
       $query->leftJoin('openy_campaign_member_campaign', 'mc', 'ua.member_campaign = mc.id');
@@ -336,6 +339,29 @@ class CampaignScorecardService {
     $result = $query->execute()->fetchAllAssoc('branch');
 
     return $result;
+  }
+
+  /**
+   * Check if Campaign has already started.
+   *
+   * @param $node Node Campaign node object.
+   *
+   * @return bool
+   */
+  private function checkIsCampaignStarted($node) {
+    // Campaign timezone.
+    $campaignTimezone = new \DateTime($node->get('field_campaign_timezone')->getString());
+    $campaignTimezone = $campaignTimezone->getTimezone();
+
+    // All time of campaign.
+    $localeCampaignStart = OpenYLocaleDate::createDateFromFormat($node->get('field_campaign_start_date')->getString());
+    $localeCampaignStart->convertTimezone($campaignTimezone);
+
+    // Current dates. + labels with dates.
+    $localTime = OpenYLocaleDate::createDateFromFormat(date('c'));
+    $localTime->convertTimezone($campaignTimezone);
+
+    return ($localTime > $localeCampaignStart) ? TRUE : FALSE;
   }
 
 }

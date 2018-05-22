@@ -747,6 +747,11 @@ body {
   }
 }
 
+.path-team-member-registration main[role="main"] .layout-content,
+.path-members-list main[role="main"] .layout-content {
+  margin-top: 0;
+}
+
 .layout-container {
   position: relative;
 }
@@ -1401,7 +1406,7 @@ footer .container .footer__nav nav ul > li a {
   background-color: #fff;
   background-repeat: no-repeat;
   cursor: pointer;
-  color: #c6168d;
+  color: #5c2e91;
   background-position: 26px 27px;
   white-space: normal;
   padding-right: 50px;

@@ -72,10 +72,15 @@ body {
 
 
 // _forms.scss
-.form-item input + label {
-  //color: $pink;
-  &:hover{
-    color: $pink;
+.form-item {
+  input + label {
+    //color: $pink;
+    &:hover{
+      color: $pink;
+    }
+  }
+  input:checked + label {
+    color: $purple;
   }
 }
 .activity {
