@@ -17,7 +17,7 @@ function openy_prgf_gallery_uninstall() {
   $config_factory = \Drupal::configFactory();
   $configs_to_delete = [
     'image.style.prgf_gallery',
-    'core.entity_view_display.media.image.prgf_gallery.yml',
+    'core.entity_view_display.media.image.prgf_gallery',
     'core.entity_view_mode.media.prgf_gallery',
   ];
   foreach ($configs_to_delete as $config) {
