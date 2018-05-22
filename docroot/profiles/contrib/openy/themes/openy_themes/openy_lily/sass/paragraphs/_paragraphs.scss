@@ -703,6 +703,9 @@
   article a:hover .inner-wrapper h3:after{
     color: $blue;
   }
+  .embedded-entity img {
+    padding: 0;
+  }
 
   .text-promo {
     background: none;
@@ -720,6 +723,7 @@
     box-shadow: 0 2px 2px rgba(0,0,0,0.2);
     margin-bottom: 30px;
     color: $grey28;
+
     .blog-heading {
       h3 {
         padding-left: 20px;
@@ -746,6 +750,7 @@
       padding-bottom: 10px;
       p {
         margin: 0;
+        padding: 0 20px 10px;
       }
     }
   }
