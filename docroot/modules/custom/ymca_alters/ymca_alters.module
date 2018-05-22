@@ -562,3 +562,28 @@ function ymca_alters_field_group_build_pre_render_alter(&$element) {
     ],
   ];
 }
+
+function ymca_alters_preprocess_filter_caption(&$variables) {
+  \Drupal::service('ymca_entity_embed.link_finder')->getLinkByUuid(10);
+  $a = 10;
+
+//  $variables['is_link'] = ['#markup' => '<a href="http://root.ua">link</a>'];
+//  $a = 10;
+    if ($variables['tag'] == 'drupal-entity') {
+      $inline = (string) $variables['node'];
+      if (strpos($inline, 'embedded_link') !== FALSE) {
+        // Get UUID.
+
+//        $mediaEntities = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['uuid' => $])
+        $variables['drupal_entity_link'] = 'https://facebook.com';
+      }
+    }
+}
+
+function ymca_alters_preprocess_media(&$variables) {
+  $a = 10;
+}
+
+function ymca_alters_preprocess_entity_embed_container(&$variables) {
+  $a = 10;
+}
