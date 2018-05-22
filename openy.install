@@ -849,5 +849,5 @@ function openy_update_8056() {
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $branchLocationConfig = drupal_get_path('module', 'openy_loc_branch') . '/config/install';
   $config_importer->setDirectory($branchLocationConfig);
-  $config_importer->importConfigs(['field.storage.node.field_branch_hours.yml']);
+  $config_importer->importConfigs(['field.storage.node.field_branch_hours']);
 }
