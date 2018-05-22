@@ -166,7 +166,12 @@ body {
   }
 }
 
-
+.path-team-member-registration,
+.path-members-list {
+  main[role="main"] .layout-content {
+    margin-top: 0;
+  }
+}
 
 .layout-container {
   position: relative;

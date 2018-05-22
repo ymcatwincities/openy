@@ -203,6 +203,9 @@ body {
 .form-item input + label:hover {
   color: #c6168d;
 }
+.form-item input:checked + label {
+  color: #5c2e91;
+}
 
 .activity .paragraph-background-container {
   background-color: #92278F;
