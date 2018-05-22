@@ -163,6 +163,12 @@ class FixEntityEmbed {
               ) as $node) {
                 // Get real uuid from Media.
                 $fileUuid = $node->getAttribute('data-entity-uuid');
+                $fileDescription = $node->getAttribute('data-entity-embed-settings');
+                $fileDescriptionData = json_decode($fileDescription, TRUE);
+                $dataCaption = '';
+                if (isset($fileDescriptionData['description'])) {
+                  $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['description']) . '" ';
+                }
                 $mediaEntity = $this->findMediaUuidByFileUuid($fileUuid);
 
                 if (!$mediaEntity) {
@@ -178,22 +184,9 @@ class FixEntityEmbed {
                 }
                 else {
                   $media_types[$mediaEntity->bundle()][] = $mediaEntity;
-                  if ($mediaEntity->bundle() == 'image') {
-                    // Get stats for data-entity-embed-settings.
-                    if (!isset($image_embed_settings)) {
-                      $image_embed_settings = [];
-                    }
-                    $image_embed_settings[$node->getAttribute('data-entity-embed-settings')] += 1;
-
-                    // Get stats for data-entity-embed-display
-                    if (!isset($image_embed_display)) {
-                      $image_embed_display = [];
-                    }
-                    $image_embed_display[$node->getAttribute('data-entity-embed-display')] += 1;
-                  }
 
                   $replacement = '<drupal-entity
-                    data-embed-button="embed_document"
+                    data-embed-button="embed_document"'. $dataCaption . '
                     data-entity-embed-display="entity_reference:entity_reference_entity_view"
                     data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_link&quot;}"
                     data-entity-type="media"
@@ -204,7 +197,7 @@ class FixEntityEmbed {
                     // @todo Create replacement for display "entity_reference:file_entity_reference_label_url"
 
                     $replacement = '<drupal-entity
-                      data-embed-button="embed_image"
+                      data-embed-button="embed_image"'. $dataCaption . '
                       data-entity-embed-display="entity_reference:entity_reference_entity_view"
                       data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_full&quot;}"
                       data-entity-type="media"
