@@ -13,6 +13,11 @@
  */
 #}
 <figure role="group"{%- if classes %} class="{{ classes }}"{%- endif %}>
+    {# Check if it's link #}
+  {% if caption %}
+    {% include 'media--embedded-link.html.twig' with {'content': node, 'caption': caption, 'is_link': is_link} %}
+  {% else %}
     {{ node }}
     <figcaption>{{ caption }}</figcaption>
+  {% endif %}
 </figure>
