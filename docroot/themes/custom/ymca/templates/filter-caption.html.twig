@@ -12,12 +12,11 @@
  * - string classes: The classes of the captioned HTML tag.
  */
 #}
-<figure role="group"{%- if classes %} class="{{ classes }}"{%- endif %}>
-    {# Check if it's link #}
-  {% if caption %}
-    {% include 'media--embedded-link.html.twig' with {'content': node, 'caption': caption, 'is_link': is_link} %}
+  {% if (caption and is_link) %}
+      {% include 'media--embedded-link.html.twig' with {'content': node, 'caption': caption, 'is_link': is_link} %}
   {% else %}
-    {{ node }}
-    <figcaption>{{ caption }}</figcaption>
+      <figure role="group"{%- if classes %} class="{{ classes }}"{%- endif %}>
+          {{ node }}
+          <figcaption>{{ caption }}</figcaption>
+      </figure>
   {% endif %}
-</figure>
