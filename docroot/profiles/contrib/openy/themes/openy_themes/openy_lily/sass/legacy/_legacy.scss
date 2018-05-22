@@ -265,6 +265,10 @@ section.content {
         padding-bottom: 5px;
         padding-left: 35px;
       }
+
+      .dropdown .dropdown li a {
+        padding-left: 45px;
+      }
       > .nav,
       .nav .open .nav {
         display: block;
@@ -301,6 +305,14 @@ p.button {
   display: inline-block;
   border-radius: 4px;
 }
+.button.blue:hover {
+  background-color: $blue-dark2 !important;
+}
+
+.button.purple:hover {
+  background-color: $dark-purple;
+}
+
 .button a, a.button {
   display: inline-block;
   margin-bottom: 0;

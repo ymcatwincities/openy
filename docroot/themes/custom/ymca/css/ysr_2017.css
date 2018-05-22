@@ -11,7 +11,7 @@ html, body {
 }
 
 .theme-ymca--2017-compain {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
   color: #424242;
 }
 .theme-ymca--2017-compain .viewport {
@@ -1344,7 +1344,7 @@ html, body {
   text-decoration: underline;
 }
 .compain-progress-block--footer .description {
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
   color: #424242;
   text-transform: initial;
   font-weight: normal;

@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
  *
  * @package Drupal\yptf_kronos
  */
-class YptfKronosReports {
+class YptfKronosReports implements YptfKronosReportsInterface {
 
   /**
    * Config factory.
@@ -192,12 +192,14 @@ class YptfKronosReports {
    *   Number of requests of report to MB.
    */
   public function generateReports($request_number = 0) {
+    $this->logger->info('Kronos Tuesday email reports generator started.');
     $this->getInitialDates();
     if (!empty($request_number)) {
       $this->numberOfRequest = $request_number;
     }
     $this->sendReports();
     $this->sendErrorReports();
+    $this->logger->info('Kronos Tuesday email reports generator finished.');
   }
 
   /**
@@ -352,11 +354,11 @@ class YptfKronosReports {
           }
 
           !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
-          $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
+          $trainer_reports[$location_id][$staff_id]['mb_hours'] += (float) $diff;
           !empty($trainer_name) ? $trainer_reports[$location_id][$staff_id]['name'] = $trainer_name : '';
 
           !isset($location_reports[$location_id]['mb_hours']) ? $location_reports[$location_id]['mb_hours'] = 0 : '';
-          $location_reports[$location_id]['mb_hours'] += $diff;
+          $location_reports[$location_id]['mb_hours'] += (float) $diff;
           !empty($item['Location']) ? $location_reports[$location_id]['name'] = $item['Location'] : '';
         }
       }
@@ -1141,10 +1143,6 @@ class YptfKronosReports {
             $names[] = &$name["name"];
           }
           natcasesort($names);
-          array_multisort($names, $data['rows'], SORT_NATURAL);
-          foreach ($names as $id => $sortName) {
-
-          }
           $variables = [
             '#theme' => 'yptf_kronos_report',
             '#data' => $data,

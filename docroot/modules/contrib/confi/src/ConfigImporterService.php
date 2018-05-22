@@ -231,7 +231,14 @@ class ConfigImporterService implements ConfigImporterServiceInterface {
 
     // Overwrite exported configurations by our custom ones.
     foreach ($configs as $config) {
-      $file = "$this->directory/$config.yml";
+
+      // Add support for file extensions.
+      if (substr($config, -4) == '.yml') {
+        $file = "$this->directory/$config";
+      }
+      else {
+        $file = "$this->directory/$config.yml";
+      }
 
       if (file_exists($file)) {
         file_unmanaged_copy($file, $tmp_dir, FILE_EXISTS_REPLACE);
