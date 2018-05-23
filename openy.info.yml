@@ -208,6 +208,7 @@ dependencies:
   - openy_data_wrapper
   - logger_entity
   - openy_redirect
+  - advanced_help_block
   - openy_gtranslate
 
 themes:

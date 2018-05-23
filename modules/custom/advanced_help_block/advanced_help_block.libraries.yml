@@ -1,0 +1,10 @@
+ahb_modal:
+  version: 1.x
+  css:
+    theme:
+     /libraries/grt-youtube-popup/grt-youtube-popup.css: {}
+  js:
+    /libraries/grt-youtube-popup/grt-youtube-popup.js: {}
+    library/js/ahb.js: {}
+  dependencies:
+    - core/jquery
