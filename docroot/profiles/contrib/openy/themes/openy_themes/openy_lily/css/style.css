@@ -5542,7 +5542,7 @@ article .node--view-mode-flexible-content h2 a span {
 }
 body {
   -webkit-font-smoothing: antialiased;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
