@@ -236,7 +236,7 @@ class CampaignScorecardService {
   }
 
   /**
-   * @param $node
+   * @param $node Node Campaign node.
    *
    * @return array
    */
@@ -254,6 +254,7 @@ class CampaignScorecardService {
       $query = $this->connection->select('openy_campaign_util_activity', 'ua');
 
       $query->leftJoin('openy_campaign_member_campaign', 'mc', 'ua.member_campaign = mc.id');
+      $query->condition('mc.campaign', $node->id());
       $query->leftJoin('openy_campaign_member', 'cm', 'mc.member = cm.id');
       $query->fields('cm', ['branch']);
       $query->fields('ua', ['id']);
