@@ -585,11 +585,3 @@ function ymca_alters_preprocess_filter_caption(&$variables) {
       }
     }
 }
-
-function ymca_alters_preprocess_media(&$variables) {
-  $a = 10;
-}
-
-function ymca_alters_preprocess_entity_embed_container(&$variables) {
-  $a = 10;
-}
