@@ -105,12 +105,18 @@ nav#block-footermenuright {
   }
   p {
     padding: 0;
+    margin-bottom: 0;
   }
   &.promos .richtext p {
     padding: 0 20px 10px;
+    margin-bottom: 10px;
   }
   &.promos .richtext .text-promo p {
     padding: 0;
+  }
+
+  .blazy {
+    margin-bottom: 0;
   }
 }
 
