@@ -75,7 +75,6 @@ function ymca_master_update_8002() {
  * Set appropriate node aliases for news pages.
  */
 function ymca_master_update_8003() {
-  // @todo run this after next reimport from ClockWork source DB.
   $news_term_id = \Drupal::entityQuery('taxonomy_term')
     ->condition('name', 'News')
     ->condition('vid', 'tags')
