@@ -114,7 +114,6 @@ class FixEntityEmbed {
    *
    * @todo Fix /swimming/swim_team
    * @todo Fix abandoned UUIDs.
-   * @todo Fix title for PDFs.
    */
   public function fixFile() {
     $db = \Drupal::database();
@@ -165,9 +164,21 @@ class FixEntityEmbed {
                 $fileUuid = $node->getAttribute('data-entity-uuid');
                 $fileDescription = $node->getAttribute('data-entity-embed-settings');
                 $fileDescriptionData = json_decode($fileDescription, TRUE);
+                $fileAlt = $node->getAttribute('alt');
                 $dataCaption = '';
                 if (isset($fileDescriptionData['description'])) {
                   $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['description']) . '" ';
+                }
+                else if (isset($fileDescriptionData['file_title'])) {
+                  // Create replacement for display "entity_reference:file_entity_reference_label_url"
+                  $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['file_title']) . '" ';
+                }
+                else if ($fileAlt != '') {
+                  // Create replacement for display "image:image"
+                  $dataCaption = ' data-caption="' . $fileAlt . '" ';
+                }
+                if ($dataCaption == '' && !(isset($fileDescriptionData['image_style']) && isset($fileDescriptionData['image_link']) && $fileDescriptionData['image_style'] == $fileDescriptionData['image_link'])) {
+                  $this->loggerChannel->error(sprintf("Failed to find data-caption for old embed: %s for entity ID %d", $drupalEntityInline, $data->entity_id));
                 }
                 $mediaEntity = $this->findMediaUuidByFileUuid($fileUuid);
 
@@ -193,8 +204,6 @@ class FixEntityEmbed {
                     data-entity-uuid="' . $mediaEntity->uuid() . '"></drupal-entity>';
 
                   if ($mediaEntity->bundle() == 'image') {
-                    // @todo Create replacement for display "file:file_default"
-                    // @todo Create replacement for display "entity_reference:file_entity_reference_label_url"
 
                     $replacement = '<drupal-entity
                       data-embed-button="embed_image"'. $dataCaption . '
