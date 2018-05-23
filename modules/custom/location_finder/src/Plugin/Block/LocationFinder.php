@@ -75,7 +75,8 @@ class LocationFinder extends BlockBase implements ContainerFactoryPluginInterfac
     $locationDisplay = 'locations_block';
 
     // Render Locations block display with changed arguments.
-    $activeTypes = array_keys(array_filter($this->configFactory->get('openy_map.settings')->get('active_types')));
+    $activeTypes = \Drupal::configFactory()->get('openy_map.settings')->get('active_types');
+    $activeTypes = !empty($activeTypes) ? array_keys(array_filter($activeTypes)) : [];
     $blockLabels = $this->configFactory->get('openy_map.settings')->get('block_labels');
     $render = [];
     foreach ($activeTypes as $type) {

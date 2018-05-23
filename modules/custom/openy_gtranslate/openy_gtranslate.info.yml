@@ -2,5 +2,5 @@ name: OpenY Google Translate
 type: module
 description: OpenY module for Google Translate integration.
 core: 8.x
-version: 8.0.1
+version: 8.0.2
 package: OpenY
