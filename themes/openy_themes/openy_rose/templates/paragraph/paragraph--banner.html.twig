@@ -62,7 +62,7 @@
           <div class="banner-description">
             {{ content.field_prgf_description}}
           </div>
-          {% if paragraph.field_prgf_link.0.uri %}
+          {% if content.field_prgf_link|render|trim is not empty %}
             <div class="btn banner-btn ">
               {{ content.field_prgf_link }}
             </div>
