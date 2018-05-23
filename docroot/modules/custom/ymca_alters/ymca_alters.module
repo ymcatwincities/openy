@@ -597,3 +597,31 @@ function ymca_alters_preprocess_filter_caption(&$variables) {
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ymca_alters_preprocess_file_link(&$variables) {
+
+  /** @var \Drupal\Core\Template\Attribute $attributes */
+  $attributes = $variables['attributes'];
+  $storage = $attributes->storage();
+  /** @var \Drupal\Core\Template\AttributeString $dataDrupalSelector */
+  $dataDrupalSelector = $storage['data-drupal-selector'];
+  if ($dataDrupalSelector) {
+    $value = $dataDrupalSelector->value();
+    if ($value) {
+      preg_match("/(edit)-field-media-document-0-file-(\d+)-filename/", $value, $output_array);
+
+      if (isset($output_array[1]) && isset($output_array[2]) && $output_array[1] = 'edit') {
+        $url = Url::fromRoute('entity.file.edit_form', ['file' => $output_array[2]], [
+          'absolute' => TRUE,
+          'attributes' => ['target' => '_blank', 'class' => 'button']
+        ]);
+        $project_link = Link::fromTextAndUrl(t('Replace: ' . $variables['file']->filename->value), $url);
+        $project_link = $project_link->toRenderable();
+        $variables['link'] = $project_link;
+      }
+    }
+  }
+}
