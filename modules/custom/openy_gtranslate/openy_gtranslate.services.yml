@@ -1,0 +1,7 @@
+services:
+  openy_gtranslate_events_subscriber:
+    class: '\Drupal\openy_gtranslate\EventSubscriber\ConfigEventSubscriber'
+    arguments:
+      - '@database'
+    tags:
+      - { name: 'event_subscriber' }
