@@ -73,7 +73,7 @@ class YMCAMenuBuilder {
     $level = 0;
 
     // Check for page existance.
-    if (!$this->lookup[$this->pageId]) {
+    if (isset($this->lookup[$this->pageId]) && !$this->lookup[$this->pageId]) {
       return FALSE;
     }
 
