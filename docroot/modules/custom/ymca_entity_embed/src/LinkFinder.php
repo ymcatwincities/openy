@@ -9,6 +9,10 @@ use Drupal\file_entity\Entity\FileEntity;
 use Drupal\media_entity\Entity\Media;
 use Drupal\media_entity\MediaStorage;
 
+/**
+ * Class LinkFinder
+ * @package Drupal\ymca_entity_embed
+ */
 class LinkFinder {
 
   public function getFileLinkByMediaUuid($uuid) {
