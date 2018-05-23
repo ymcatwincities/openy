@@ -111,9 +111,6 @@ class FixEntityEmbed {
 
   /**
    * Fix file.
-   *
-   * @todo Fix /swimming/swim_team
-   * @todo Fix abandoned UUIDs.
    */
   public function fixFile() {
     $db = \Drupal::database();
@@ -240,7 +237,7 @@ class FixEntityEmbed {
     }
 
     if (!empty($abandoned)) {
-      $this->loggerChannel->error(sprintf("Found %d abandoned File UUIDs", count($abandoned)));
+      $this->loggerChannel->info(sprintf("Found and cleared %d abandoned File UUIDs", count($abandoned)));
     }
   }
 
