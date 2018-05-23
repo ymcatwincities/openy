@@ -14,7 +14,7 @@
     <h3><span class="fa fa-link" aria-hidden="true"></span>&nbsp;<a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a></h3>
     <div class="time">
       {% if class.time == '12:00am' %}
-        <span class="icon icon-clock"></span>All Day
+        <span class="icon icon-clock"></span>{{ 'All Day'|t }}
       {% else %}
         <span class="icon icon-clock"></span>{{ class.time }}  <span class="duration">{{ class.duration }}</span>
       {% endif %}
