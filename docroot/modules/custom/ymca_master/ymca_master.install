@@ -6579,3 +6579,20 @@ function ymca_master_update_8280() {
 function ymca_master_update_8281() {
   \Drupal::service('openy_tools.fix_entity_embed')->fixBlockContent();
 }
+
+/**
+ * Create new Kronos emails group.
+ */
+function ymca_master_update_8282() {
+  $termStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $termProperties = [
+    'name' => 'Branch Executives',
+    'vid' => 'staff_type',
+  ];
+
+  // Create term if it not exists.
+  if (empty($termStorage->loadByProperties($termProperties))) {
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->create($termProperties);
+    $term->save();
+  }
+}
