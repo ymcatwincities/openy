@@ -259,6 +259,7 @@
         "drupal/easy_breadcrumb": "^1.6",
         "drupal/ckeditor_bootstrap_buttons": "^1.1",
         "drupal/fontyourface": "^3.2",
-        "drupal/css_editor": "^1.2"
+        "drupal/css_editor": "^1.2",
+        "drupal/social_feed_fetcher": "^1.0"
     }
 }

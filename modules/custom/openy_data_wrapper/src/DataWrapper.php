@@ -9,6 +9,7 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Class DataWrapper.
@@ -20,7 +21,7 @@ class DataWrapper implements OpenyDataServiceInterface {
   /**
    * Openy Socrates Facade.
    *
-   * @var OpenySocratesFacade
+   * @var \Drupal\openy_socrates\OpenySocratesFacade
    */
   protected $socrates;
 
@@ -60,6 +61,13 @@ class DataWrapper implements OpenyDataServiceInterface {
   protected $loggerChannel;
 
   /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * DataWrapperBase constructor.
    *
    * @param \Drupal\Core\Entity\Query\QueryFactory $queryFactory
@@ -74,22 +82,17 @@ class DataWrapper implements OpenyDataServiceInterface {
    *   Cache backend.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
    *   Logger channel.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   Config factory.
    */
-  public function __construct(
-    QueryFactory $queryFactory,
-    RendererInterface $renderer,
-    EntityTypeManagerInterface $entityTypeManager,
-    OpenySocratesFacade $socrates,
-    CacheBackendInterface $cacheBackend,
-    LoggerChannelInterface $loggerChannel
-  ) {
-
+  public function __construct(QueryFactory $queryFactory, RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager, OpenySocratesFacade $socrates, CacheBackendInterface $cacheBackend, LoggerChannelInterface $loggerChannel, ConfigFactoryInterface $configFactory) {
     $this->queryFactory = $queryFactory;
     $this->renderer = $renderer;
     $this->entityTypeManager = $entityTypeManager;
     $this->socrates = $socrates;
     $this->cacheBackend = $cacheBackend;
     $this->loggerChannel = $loggerChannel;
+    $this->configFactory = $configFactory;
   }
 
   /**
@@ -98,11 +101,13 @@ class DataWrapper implements OpenyDataServiceInterface {
    * Used in location finder block.
    */
   public function getLocationPins() {
-    $branch_pins = $this->getPins('branch', t('YMCA'), 'blue');
-    $camp_pins = $this->getPins('camp', t('Camps'), 'green');
-    // TODO: Add icon with new color for facility.
-    $facility_pins = $this->getPins('facility', t('Facilities'), 'green');
-    $pins = array_merge($branch_pins, $camp_pins, $facility_pins);
+    $activeTypes = \Drupal::configFactory()->get('openy_map.settings')->get('active_types');
+    $activeTypes = !empty($activeTypes) ? array_keys(array_filter($activeTypes)) : [];
+    $pins = [];
+    foreach ($activeTypes as $type) {
+      $typePins = $this->getPins($type);
+      $pins = array_merge($pins, $typePins);
+    }
     return $pins;
   }
 
@@ -111,17 +116,13 @@ class DataWrapper implements OpenyDataServiceInterface {
    *
    * @param string $type
    *   Location node type (branch, camp or facility).
-   * @param string $tag
-   *   Pin tag.
-   * @param string $icon_color
-   *   Icon color(see possible options in img directory).
    * @param int $id
    *   Node ID (if set return pin only for specified node ID).
    *
    * @return array
-   *   Pins
+   *   Pins.
    */
-  public function getPins($type, $tag, $icon_color, $id = NULL) {
+  public function getPins($type, $id = NULL) {
     if ($id) {
       $location_ids[] = $id;
     }
@@ -140,6 +141,10 @@ class DataWrapper implements OpenyDataServiceInterface {
     $builder = $this->entityTypeManager->getViewBuilder('node');
     $locations = $storage->loadMultiple($location_ids);
 
+    // Get labels and icons for every bundle from OpenY Map config.
+    $typeIcons = $this->configFactory->get('openy_map.settings')->get('type_icons');
+    $typeLabels = $this->configFactory->get('openy_map.settings')->get('type_labels');
+    $tag = $typeLabels[$type];
     $pins = [];
     foreach ($locations as $location) {
       $view = $builder->view($location, 'teaser');
@@ -147,11 +152,11 @@ class DataWrapper implements OpenyDataServiceInterface {
       if (!$coordinates) {
         continue;
       }
-      $tags = [$tag];
-      $icon = file_create_url(drupal_get_path('module', 'location_finder') . "/img/map_icon_$icon_color.png");
+      $uri = !empty($typeIcons[$location->bundle()]) ? $typeIcons[$location->bundle()] :
+        drupal_get_path('module', 'location_finder') . "/img/map_icon_green.png";
       $pins[] = [
-        'icon' => $icon,
-        'tags' => $tags,
+        'icon' => file_create_url($uri),
+        'tags' => [$tag],
         'lat' => round($coordinates[0]['lat'], 5),
         'lng' => round($coordinates[0]['lng'], 5),
         'name' => $location->label(),
@@ -202,8 +207,7 @@ class DataWrapper implements OpenyDataServiceInterface {
    * Used in membership calc block.
    */
   public function getBranchPins($id = NULL) {
-    $branch_pins = $this->getPins('branch', t('YMCA'), 'blue', $id);
-    return $branch_pins;
+    return $this->getPins('branch', $id);
   }
 
   /**
