@@ -44,7 +44,8 @@ function openy_map_theme_suggestions_node_alter(array &$suggestions, array $vari
   $node = $variables['elements']['#node'];
   $view_mode = $variables['elements']['#view_mode'];
   // Check for active types.
-  $activeTypes = array_keys(array_filter(Drupal::configFactory()->get('openy_map.settings')->get('active_types')));
+  $activeTypes = \Drupal::configFactory()->get('openy_map.settings')->get('active_types');
+  $activeTypes = !empty($activeTypes) ? array_keys(array_filter($activeTypes)) : [];
   // Add universal template for all location content type teasers.
   if ($view_mode == 'teaser' && $node->hasField('field_location_coordinates') && in_array($node->bundle(), $activeTypes)) {
     $suggestions[] = 'node__location_type__teaser';
