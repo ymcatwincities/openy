@@ -166,13 +166,17 @@ class FixEntityEmbed {
                 if (isset($fileDescriptionData['description'])) {
                   $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['description']) . '" ';
                 }
-                else if (isset($fileDescriptionData['file_title'])) {
-                  // Create replacement for display "entity_reference:file_entity_reference_label_url"
-                  $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['file_title']) . '" ';
-                }
-                else if ($fileAlt != '') {
-                  // Create replacement for display "image:image"
-                  $dataCaption = ' data-caption="' . $fileAlt . '" ';
+                else {
+                  if (isset($fileDescriptionData['file_title'])) {
+                    // Create replacement for display "entity_reference:file_entity_reference_label_url"
+                    $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['file_title']) . '" ';
+                  }
+                  else {
+                    if ($fileAlt != '') {
+                      // Create replacement for display "image:image"
+                      $dataCaption = ' data-caption="' . $fileAlt . '" ';
+                    }
+                  }
                 }
                 if ($dataCaption == '' && !(isset($fileDescriptionData['image_style']) && isset($fileDescriptionData['image_link']) && $fileDescriptionData['image_style'] == $fileDescriptionData['image_link'])) {
                   $this->loggerChannel->error(sprintf("Failed to find data-caption for old embed: %s for entity ID %d", $drupalEntityInline, $data->entity_id));
@@ -194,7 +198,7 @@ class FixEntityEmbed {
                   $media_types[$mediaEntity->bundle()][] = $mediaEntity;
 
                   $replacement = '<drupal-entity
-                    data-embed-button="embed_document"'. $dataCaption . '
+                    data-embed-button="embed_document"' . $dataCaption . '
                     data-entity-embed-display="entity_reference:entity_reference_entity_view"
                     data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_link&quot;}"
                     data-entity-type="media"
@@ -203,7 +207,7 @@ class FixEntityEmbed {
                   if ($mediaEntity->bundle() == 'image') {
 
                     $replacement = '<drupal-entity
-                      data-embed-button="embed_image"'. $dataCaption . '
+                      data-embed-button="embed_image"' . $dataCaption . '
                       data-entity-embed-display="entity_reference:entity_reference_entity_view"
                       data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_full&quot;}"
                       data-entity-type="media"
