@@ -1,0 +1,24 @@
+leadership:
+  enabled: 1
+  staff_type:
+    476: '476'
+  subject: '[TUE] Total PT Hours Variance for [report-start-date] - [report-end-date]'
+  body:
+    value: "<p>[leadership-report]</p>\r\n"
+    format: full_html
+  disabled_message:
+    value: ''
+    format: full_html
+pt_managers:
+  enabled: 1
+  staff_type:
+    481: '481'
+  subject: '[TUE] [report-branch-name] - PT Hours Variance for [report-start-date] - [report-end-date]'
+  body:
+    value: "<p>[pt-manager-report]</p>\r\n"
+    format: full_html
+  disabled_message:
+    value: ''
+    format: full_html
+admin_emails: Paige.Kiecker@ymcamn.org
+debug: ''
