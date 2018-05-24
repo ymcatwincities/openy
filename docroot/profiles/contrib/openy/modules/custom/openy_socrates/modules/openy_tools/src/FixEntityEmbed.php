@@ -28,6 +28,8 @@ class FixEntityEmbed {
     $this->loggerChannel = $loggerChannel;
     $this->menuLinkStorage = \Drupal::entityTypeManager()
       ->getStorage('menu_link_content');
+    $this->fileStorage = \Drupal::entityTypeManager()
+      ->getStorage('file');
   }
 
   /**
@@ -166,18 +168,22 @@ class FixEntityEmbed {
                 $fileDescriptionData = json_decode($fileDescription, TRUE);
                 $fileAlt = $node->getAttribute('alt');
                 $dataCaption = '';
+                $title = '';
                 if (isset($fileDescriptionData['description'])) {
                   $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['description']) . '" ';
+                  $title = Html::escape($fileDescriptionData['description']);
                 }
                 else {
                   if (isset($fileDescriptionData['file_title'])) {
                     // Create replacement for display "entity_reference:file_entity_reference_label_url"
                     $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['file_title']) . '" ';
+                    $title = Html::escape($fileDescriptionData['file_title']);
                   }
                   else {
                     if ($fileAlt != '') {
                       // Create replacement for display "image:image"
                       $dataCaption = ' data-caption="' . $fileAlt . '" ';
+                      $title = $fileAlt;
                     }
                   }
                 }
@@ -200,12 +206,34 @@ class FixEntityEmbed {
                 else {
                   $media_types[$mediaEntity->bundle()][] = $mediaEntity;
 
-                  $replacement = '<drupal-entity
-                    data-embed-button="embed_document"' . $dataCaption . '
-                    data-entity-embed-display="entity_reference:entity_reference_entity_view"
-                    data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_link&quot;}"
-                    data-entity-type="media"
-                    data-entity-uuid="' . $mediaEntity->uuid() . '"></drupal-entity>';
+                  $filesArray = $this->fileStorage->loadByProperties(['uuid' => $fileUuid]);
+                  $alias = '';
+                  if (!empty($filesArray)){
+                    /** @var \Drupal\file_entity\Entity\FileEntity $file */
+                    $file = reset($filesArray);
+                    $absoluteUrl = \Drupal::service('ymca_entity_embed.link_finder')->getFileLinkByMediaUuid($mediaEntity->uuid());
+                    if (!$absoluteUrl){
+                      $replacement = '';
+                      // Prepare replacement array.
+                      $replace['from'][] = $drupalEntityInline;
+                      $replace['to'][] = $replacement;
+                      $abandoned[] = [
+                        'table' => $table,
+                        'field' => $field,
+                        'entity_id' => $data->entity_id,
+                        'uuid' => $fileUuid,
+                      ];
+                      continue;
+                    }
+
+                    $url = parse_url($absoluteUrl);
+                    $alias = $url['path'];
+                  }
+                  $dataEntityTypeId = 'data-drupal-entity-type-id="file"';
+                  $dataEntityUuid = $fileUuid ? 'data-drupal-entity-uuid="' . $fileUuid . '"' : '';
+                  $replacement = '<a ' . $dataEntityTypeId . ' ' . $dataEntityUuid . '
+                   href="' . $alias . '"
+                   title="' . $title . '">' . $title . '</a>';
 
                   if ($mediaEntity->bundle() == 'image') {
 
