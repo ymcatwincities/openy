@@ -94,6 +94,9 @@ function openy_demo_content_configs_map($key = NULL) {
   $map = [
     'required' => [],
     'optional' => [
+      'openy_demo_ahb' => [
+        'openy_demo_entity_ahb',
+      ],
       'openy_demo_nsocial_post' => [
         'openy_demo_node_social_post',
       ],
