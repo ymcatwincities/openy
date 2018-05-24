@@ -7,8 +7,6 @@ version: '8.x-1.0'
 dependencies:
   - datalayer
   - field
-  - openy_block_basic
-  - openy_block_custom_simple
-  - openy_block_date
+  - openy_er
   - paragraphs
   - text
