@@ -5,9 +5,13 @@
  * OpenY Lily Theme File.
  */
 
-/* @todo move this out of the theme */
-define('SITE_SECTION_TARGET_TYPE', 'node');
-define('TERM_TID_NEWS', 6);
+if (!defined('SITE_SECTION_TARGET_TYPE')) {
+  define('SITE_SECTION_TARGET_TYPE', 'node');
+}
+
+if (!defined('TERM_TID_NEWS')) {
+  define('TERM_TID_NEWS', 6);
+}
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Html;

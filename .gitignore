@@ -6,7 +6,6 @@ backup
 build_reports
 commentinfo.md
 d20*
-drush.phar
 index.html
 vagrant*
 .projectile
