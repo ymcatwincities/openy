@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_data_wrapper;
 
+use Drupal\Core\Url;
 use Drupal\openy_socrates\OpenyDataServiceInterface;
 use Drupal\openy_socrates\OpenySocratesFacade;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -261,13 +262,12 @@ class DataWrapper implements OpenyDataServiceInterface {
     $result['membership'] = $builder->view($membership, 'calc_summary');
 
     $info = $membership->field_mbrshp_info->referencedEntities();
+    $defaultUrl = Url::fromRoute('<front>');
     foreach ($info as $value) {
-      if ($value->field_mbrshp_location->first()->get('target_id')->getValue() == $location_id) {
+      if (!empty($value->field_mbrshp_location->first()) && $value->field_mbrshp_location->first()->get('target_id')->getValue() == $location_id) {
         $result['price']['monthly_rate'] = $value->field_mbrshp_monthly_rate->value;
         $result['price']['join_fee'] = $value->field_mbrshp_join_fee->value;
-        if ($value->field_mbrshp_link) {
-          $result['link'] = $value->field_mbrshp_link->first()->getUrl();
-        }
+        $result['link'] = !empty($value->field_mbrshp_link->first()) ? $value->field_mbrshp_link->first()->getUrl() : $defaultUrl;
       }
     }
 
@@ -289,11 +289,10 @@ class DataWrapper implements OpenyDataServiceInterface {
     $storage = $this->entityTypeManager->getStorage('node');
     $membership = $storage->load($membership_id);
     $info = $membership->field_mbrshp_info->referencedEntities();
+    $defaultUrl = Url::fromRoute('<front>');
     foreach ($info as $value) {
-      if ($value->field_mbrshp_location->first()->get('target_id')->getValue() == $location_id) {
-        if ($value->field_mbrshp_link) {
-          return $value->field_mbrshp_link->first()->getUrl();
-        }
+      if (!empty($value->field_mbrshp_location->first()) && $value->field_mbrshp_location->first()->get('target_id')->getValue() == $location_id) {
+        return !empty($value->field_mbrshp_link->first()) ? $value->field_mbrshp_link->first()->getUrl() : $defaultUrl;
       }
     }
     return NULL;
