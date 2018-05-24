@@ -13,7 +13,7 @@ pt_managers:
   enabled: 1
   staff_type:
     481: '481'
-  subject: '[TUE] [report-branch-name] - PT Hours Variance for [report-start-date] - [report-end-date]'
+  subject: 'Final PT Hours Variance Report for [report-start-date] - [report-end-date]'
   body:
     value: "<p>[pt-manager-report]</p>\r\n"
     format: full_html
