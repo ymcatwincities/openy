@@ -587,7 +587,7 @@
   background: $extra-grey3;
   padding: 10px 0 20px 0;
   color: $darker-grey;
-  font-family: $font-family-sans-serif;
+  font-family: $font-family-cachet;
   font-weight: 200;
   line-height: 1.4;
   &:before {
@@ -682,23 +682,35 @@
     font-family: 'YMCA';
   }
 
-  .field-ygtc-content-date-between a:after {
-    margin-left: 10px;
-    content: 'o';
-    text-transform: none;
-    font-size: 18px;
-    font-family: 'YMCA';
+  .field-prgf-right-column-block {
+    a:after {
+      margin-left: 10px;
+      content: 'o';
+      text-transform: none;
+      font-size: 18px;
+      font-family: 'YMCA';
+    }
   }
 }
+
+.path-frontpage .field-prgf-right-column-block {
+  a:after {
+    content: none;
+  }
+}
+
 .field-prgf-description {
   article a:hover .inner-wrapper h3:after{
     color: $blue;
+  }
+  .embedded-entity img {
+    padding: 0;
   }
 
   .text-promo {
     background: none;
     box-shadow: none;
-    a{
+    a {
       color: $blue;
     }
     h3:hover {
@@ -711,6 +723,7 @@
     box-shadow: 0 2px 2px rgba(0,0,0,0.2);
     margin-bottom: 30px;
     color: $grey28;
+
     .blog-heading {
       h3 {
         padding-left: 20px;
@@ -737,6 +750,7 @@
       padding-bottom: 10px;
       p {
         margin: 0;
+        padding: 0 20px 10px;
       }
     }
   }
@@ -809,6 +823,10 @@
     p {
       color: $grey25;
     }
+  }
+
+  .embedded-entity img {
+    padding: 0;
   }
 
   article.featured-highlights-block a {

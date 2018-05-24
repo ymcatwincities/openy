@@ -5429,7 +5429,7 @@ article .node--view-mode-flexible-content h2 a span {
 
 .list-branch-amenities-wrapper h5 {
   font-size: 15px;
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 
 .paragraph--type--lto {
@@ -9178,7 +9178,7 @@ a.sports-icon.floor-hockey {
   height: 51px;
   white-space: nowrap;
   font-weight: normal;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   font-size: 16px;
   line-height: 1.4em;
   -webkit-transition: background-color .2s linear;
@@ -10266,7 +10266,7 @@ a.sports-icon.floor-hockey {
   background: #e5e5e5;
   padding: 10px 0 20px 0;
   color: #333333;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   font-weight: 200;
   line-height: 1.4;
 }
@@ -10364,7 +10364,7 @@ a.sports-icon.floor-hockey {
   font-weight: normal;
   font-family: 'YMCA';
 }
-.paragraph--type--secondary-description-sidebar .field-ygtc-content-date-between a:after {
+.paragraph--type--secondary-description-sidebar .field-prgf-right-column-block a:after {
   margin-left: 10px;
   content: 'o';
   text-transform: none;
@@ -10372,8 +10372,15 @@ a.sports-icon.floor-hockey {
   font-family: 'YMCA';
 }
 
+.path-frontpage .field-prgf-right-column-block a:after {
+  content: none;
+}
+
 .field-prgf-description article a:hover .inner-wrapper h3:after {
   color: #428bca;
+}
+.field-prgf-description .embedded-entity img {
+  padding: 0;
 }
 .field-prgf-description .text-promo {
   background: none;
@@ -10415,6 +10422,7 @@ a.sports-icon.floor-hockey {
 }
 .field-prgf-description .inner-wrapper .promo-text p {
   margin: 0;
+  padding: 0 20px 10px;
 }
 .field-prgf-description h2 a:after {
   position: relative;
@@ -10470,6 +10478,9 @@ a.sports-icon.floor-hockey {
 }
 .paragraph--type--featured-highlights article a:hover .inner-wrapper .blog-heading p {
   color: #333333;
+}
+.paragraph--type--featured-highlights .embedded-entity img {
+  padding: 0;
 }
 .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper:hover {
   background-color: #fff;
@@ -12523,7 +12534,7 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
 }
 .fullcalendar .fc-view-container .fc-view .fc-day-top,
 .fullcalendar .fc-view-container .fc-view .fc-day-number {
-  font-family: Verdana,Arial,sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   font-size: 22px;
   letter-spacing: -0.6px;
   text-align: left;
@@ -12818,7 +12829,7 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   font-size: 18px;
   text-transform: none;
   font-weight: normal;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   margin-bottom: 30px;
   line-height: 24px;
 }
@@ -14132,7 +14143,7 @@ body.modal-open {
   padding: 35px 0 10px;
   overflow: hidden;
   position: relative;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
 }
 @media screen and (max-width: 767px) {
   .mindbody-search-results-header {
@@ -14305,13 +14316,13 @@ body.modal-open {
 }
 .mindbody-search-results-content .day .group-by-date .name {
   color: #1d1d1b;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   font-size: 15px;
   font-weight: bold;
 }
 .mindbody-search-results-content .day .group-by-date .available {
   color: #00aa95;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   font-size: 14px;
   margin: 5px 0 10px;
 }
@@ -14337,7 +14348,7 @@ body.modal-open {
   background-color: #fafafa;
   border-radius: 3px;
   border: 1px solid #e9e9e9;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   font-size: 14px;
   height: 50px;
   line-height: 50px;
@@ -15725,6 +15736,9 @@ section.content {
   padding-bottom: 5px;
   padding-left: 35px;
 }
+.paragraph--type--sidebar-menu .dropdown.open .dropdown .dropdown li a {
+  padding-left: 45px;
+}
 .paragraph--type--sidebar-menu .dropdown.open > .nav,
 .paragraph--type--sidebar-menu .dropdown.open .nav .open .nav {
   display: block;
@@ -15755,6 +15769,14 @@ section.content {
 p.button {
   display: inline-block;
   border-radius: 4px;
+}
+
+.button.blue:hover, .modal-body .button:hover {
+  background-color: #0d63ad !important;
+}
+
+.button.purple:hover {
+  background-color: #9c1f7b;
 }
 
 .button a, a.button {
