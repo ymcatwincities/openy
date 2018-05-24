@@ -6554,7 +6554,7 @@ function ymca_master_update_8277() {
 /**
  * Enable OpenY Kronos.
  */
-function ymca_master_update_8278() {
+function _ymca_master_update_8278() {
   \Drupal::service('module_installer')->install(['openy_kronos'], TRUE);
 }
 
