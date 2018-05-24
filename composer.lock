@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffba59ae0d7ff29bd5d7f6c8117f0cca",
+    "content-hash": "08fa539f7c77625619a533966aefaf28",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -5113,6 +5113,16 @@
                 "sdk"
             ],
             "time": "2018-02-14T23:24:51+00:00"
+        },
+        {
+            "name": "grt-youtube-popup",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/grt107/grt-youtube-popup",
+                "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
+            },
+            "type": "drupal-library"
         },
         {
             "name": "guzzlehttp/guzzle",
