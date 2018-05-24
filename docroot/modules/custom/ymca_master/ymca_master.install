@@ -6582,7 +6582,7 @@ function ymca_master_update_8281() {
 /**
  * Fix drupal-entity-inline for block_content.
  */
-function ymca_master_update_8281() {
+function ymca_master_update_8282() {
   $config_importer = \Drupal::service('config_import.importer');
   $modules = [
     'linkit',
