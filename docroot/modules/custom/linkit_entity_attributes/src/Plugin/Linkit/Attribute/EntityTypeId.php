@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\linkit_entity_attributes\Plugin\Linkit\Attribute\Uuid.
+ * Contains \Drupal\linkit_entity_attributes\Plugin\Linkit\Attribute\EntityTypeId.
  */
 
 namespace Drupal\linkit_entity_attributes\Plugin\Linkit\Attribute;
@@ -14,13 +14,13 @@ use Drupal\linkit\ConfigurableAttributeBase;
  * Title attribute.
  *
  * @Attribute(
- *   id = "linkit_entity_uuid",
- *   label = @Translation("UUID"),
- *   html_name = "data-drupal-entity-uuid",
- *   description = @Translation("Entity uuid for relationship tracking.")
+ *   id = "entity_type_id",
+ *   label = @Translation("Entity Type Id"),
+ *   html_name = "data-drupal-entity-type-id",
+ *   description = @Translation("Entity type id for relationship tracking.")
  * )
  */
-class Uuid extends ConfigurableAttributeBase {
+class EntityTypeId extends ConfigurableAttributeBase {
 
   /**
    * {@inheritdoc}
@@ -31,12 +31,12 @@ class Uuid extends ConfigurableAttributeBase {
       '#default_value' => $default_value,
       '#maxlength' => 255,
       '#size' => 40,
-      '#placeholder' => t('The "data-drupal-entity-uuid" attribute value'),
+      '#placeholder' => t('The "data-drupal-entity-type-id" attribute value'),
       '#attributes' => array('class' => array('hidden')),
     ];
 
-    if ($this->configuration['automatic_uuid']) {
-      $element['#placeholder'] = t('The "data-drupal-entity-uuid" attribute value (auto populated)');
+    if ($this->configuration['automatic_entity_type_id']) {
+      $element['#placeholder'] = t('The "data-drupal-entity-type-id" attribute value (auto populated)');
     }
 
     return $element;
@@ -47,20 +47,21 @@ class Uuid extends ConfigurableAttributeBase {
    */
   public function defaultConfiguration() {
     return parent::defaultConfiguration() + [
-        'automatic_uuid' => TRUE,
-      ];
+      'automatic_entity_type_id' => TRUE,
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form['uuid'] = [
+    $form['entity_type_id'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Automatically populate Entity UUID'),
-      '#default_value' => $this->configuration['automatic_uuid'],
-      '#description' => $this->t('Automatically populate the Entity UUID attribute with the Entity UUID from the match selection.'),
+      '#title' => $this->t('Automatically populate Entity Type Id'),
+      '#default_value' => $this->configuration['automatic_entity_type_id'],
+      '#description' => $this->t('Automatically populate the Entity Type Id attribute with the Entity Type Id from the match selection.'),
     ];
+
     return $form;
   }
 
@@ -74,7 +75,7 @@ class Uuid extends ConfigurableAttributeBase {
    * {@inheritdoc}
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $this->configuration['automatic_uuid'] = $form_state->getValue('automatic_uuid');
+    $this->configuration['automatic_entity_type_id'] = $form_state->getValue('automatic_entity_type_id');
   }
 
 }
