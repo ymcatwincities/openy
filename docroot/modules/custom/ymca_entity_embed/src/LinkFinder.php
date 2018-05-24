@@ -35,7 +35,9 @@ class LinkFinder {
           if ($fileEntity) {
             $fileUri = $fileEntity->getFileUri();
             $fileUrl = file_create_url($fileUri);
-            return $fileUrl;
+            $url = parse_url($fileUrl);
+            $alias = $url['path'];
+            return $alias;
           }
         }
         break;
@@ -47,7 +49,9 @@ class LinkFinder {
           if ($fileEntity) {
             $fileUri = $fileEntity->getFileUri();
             $fileUrl = file_create_url($fileUri);
-            return $fileUrl;
+            $url = parse_url($fileUrl);
+            $alias = $url['path'];
+            return $alias;
           }
         }
         break;
