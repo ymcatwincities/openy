@@ -28,7 +28,7 @@ env:
     - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8262 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
     - { name: '[Openy Migrate] Updating YMCA Master remaining updates', status: false, arguments: "bin/drupal update:execute ymca_master"}
   modules:
-    - { name: 'dblog stage_file_proxy linkit linkit_entity_attributes openy_linkit', status: true }
+    - { name: 'dblog stage_file_proxy', status: true }
   drush_commands:
     - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
     - { name: 'config-set', status: true, arguments: "system.site uuid 97eff2a4-ba00-4bd3-b64c-7641d6ccb54c -y" }
