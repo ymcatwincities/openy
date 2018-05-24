@@ -424,7 +424,7 @@ function openy_campaign_preprocess_paragraph(&$variables) {
       $textField = 'field_prgf_' . $side . '_text';
       // Check for not empty description field.
       $descriptionFieldValue = $paragraph->{$textField}->value;
-      $descriptionField = str_replace("&nbsp;", '', strip_tags($descriptionFieldValue));
+      $descriptionField = str_replace("&nbsp;", '', strip_tags($descriptionFieldValue, '<drupal-entity>'));
       if (!empty(trim($descriptionField))) {
         $render[] = [
           '#markup' => '<div class="' . $side . '-text">' .
