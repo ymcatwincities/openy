@@ -370,6 +370,10 @@ class FixEntityEmbed {
                   if ($alias == '') {
                     throw new \Exception(sprintf('Alias can"t be null. Possibly broken menu_link_content ID: %d', $referencedEntity->id()));
                   }
+                  if ($label == 'Menu Link' && $title) {
+                    $this->loggerChannel->info(sprintf('Detected wrong label %s for Menu Link %s', (string) $referencedEntity->uuid(), $title));
+                    $label = $title;
+                  }
                   if ($title == '') {
                     $title = $label;
                   }
