@@ -224,11 +224,12 @@ class GroupexFormFull extends GroupexFormBase {
       $location_select_classes = $class_select_classes = $classes = 'show';
     }
 
+    $locationValue = !empty($values['location']) ? $values['location'] : '';
     $form['location'] = [
       '#type' => 'radios',
       '#options' => $this->locationOptions,
       '#title' => $this->t('Locations'),
-      '#default_value' => !empty($values['location']) ? $values['location'] : '',
+      '#default_value' => $locationValue,
       '#prefix' => '<div id="location-wrapper" class="' . $location_classes . '">',
       '#suffix' => '</div>',
       '#ajax' => [
@@ -333,7 +334,7 @@ class GroupexFormFull extends GroupexFormBase {
     ];
 
     // Get instructor options.
-    $instructors_location = isset($values['location_select']) ? $values['location_select'] : $values['location'];
+    $instructors_location = isset($values['location_select']) ? $values['location_select'] : $locationValue;
     $instructors_query = !empty($instructors_location) && $instructors_location != 'any' ? ['schedule' => TRUE, 'location' => $instructors_location] : ['schedule' => TRUE];
     $this->instructorOptions = ['any' => (string) $this->t('-All-')];
     $raw_schedule_data = $this->request(['query' => $instructors_query]);

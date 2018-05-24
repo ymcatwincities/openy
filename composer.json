@@ -126,6 +126,19 @@
                     "reference": "1620254d294a209bdf18cc0bc7b131d2ffaa10db"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "grt-youtube-popup",
+                "version": "1.0.0",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/grt107/grt-youtube-popup",
+                    "type": "git",
+                    "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
+                }
+            }
         }
     ],
     "scripts": {
@@ -215,6 +228,7 @@
         "library-ckeditor/panelbutton": "4.7.0",
         "library-ckeditor/colorbutton": "4.7.0",
         "library-smonetti/btbutton": "1.0.1",
+        "grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
@@ -245,6 +259,7 @@
         "drupal/easy_breadcrumb": "^1.6",
         "drupal/ckeditor_bootstrap_buttons": "^1.1",
         "drupal/fontyourface": "^3.2",
-        "drupal/css_editor": "^1.2"
+        "drupal/css_editor": "^1.2",
+        "drupal/social_feed_fetcher": "^1.0"
     }
 }
