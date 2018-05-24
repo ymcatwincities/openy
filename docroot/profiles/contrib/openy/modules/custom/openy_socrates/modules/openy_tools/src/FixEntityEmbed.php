@@ -233,7 +233,7 @@ class FixEntityEmbed {
                   $dataEntityUuid = $fileUuid ? 'data-drupal-entity-uuid="' . $fileUuid . '"' : '';
                   $replacement = '<a ' . $dataEntityTypeId . ' ' . $dataEntityUuid . '
                    href="' . $alias . '"
-                   title="' . $title . '">' . $title . '</a>';
+                   title="' . $title . '">' . htmlspecialchars_decode($title) . '</a>';
 
                   if ($mediaEntity->bundle() == 'image') {
 
@@ -377,7 +377,7 @@ class FixEntityEmbed {
                   $dataEntityUuid = $entityUuid ? 'data-drupal-entity-uuid="' . $entityUuid . '"' : '';
                   $replacement = '<a ' . $dataEntityTypeId . ' ' . $dataEntityUuid . '
                    href="' . $alias . '"
-                   title="' . $title . '">' . $label . '</a>';
+                   title="' . $title . '">' . htmlspecialchars_decode($label) . '</a>';
                 }
 
                 // Prepare replacement array.
