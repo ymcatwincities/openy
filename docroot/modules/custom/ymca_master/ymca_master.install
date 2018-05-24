@@ -6561,14 +6561,14 @@ function ymca_master_update_8278() {
 /**
  * Fix drupal-entity-inline for menu_file.
  */
-function ymca_master_update_8279() {
+function _ymca_master_update_8279() {
   \Drupal::service('openy_tools.fix_entity_embed')->fixFile();
 }
 
 /**
  * Fix drupal-entity-inline for block_content.
  */
-function ymca_master_update_8280() {
+function _ymca_master_update_8280() {
   \Drupal::service('openy_tools.fix_entity_embed')->fixBlockContent();
 }
 
