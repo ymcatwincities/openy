@@ -6,6 +6,7 @@ dependencies:
   module:
     - file
     - image
+    - linkit_entity_attributes
     - node
 id: openy_linkit
 label: 'OpenY LinkIt'
@@ -25,6 +26,16 @@ attributes:
     id: relationship
     weight: 0
     settings: {  }
+  entity_type_id:
+    id: entity_type_id
+    weight: 0
+    settings:
+      automatic_entity_type_id: 1
+  linkit_entity_uuid:
+    id: linkit_entity_uuid
+    weight: 0
+    settings:
+      automatic_uuid: null
 matchers:
   0f37b047-60c4-44a4-b9d0-9c00b07e9765:
     uuid: 0f37b047-60c4-44a4-b9d0-9c00b07e9765
