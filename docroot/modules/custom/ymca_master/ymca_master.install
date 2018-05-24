@@ -6561,14 +6561,14 @@ function ymca_master_update_8278() {
 /**
  * Fix drupal-entity-inline for menu_file.
  */
-function _ymca_master_update_8279() {
+function ymca_master_update_8279() {
   \Drupal::service('openy_tools.fix_entity_embed')->fixFile();
 }
 
 /**
  * Fix drupal-entity-inline for block_content.
  */
-function _ymca_master_update_8280() {
+function ymca_master_update_8280() {
   \Drupal::service('openy_tools.fix_entity_embed')->fixBlockContent();
 }
 
@@ -6588,7 +6588,7 @@ function ymca_master_update_8281() {
     $installer->install([$module], TRUE);
   }
 
-  $dir = 'profiles/contrib/openy/modules/openy_features/openy_editor';
+  $dir = 'profiles/contrib/openy/modules/openy_features/openy_editor/config/install';
   $config_importer->setDirectory($dir);
   $config_importer->importConfigs(
     [
