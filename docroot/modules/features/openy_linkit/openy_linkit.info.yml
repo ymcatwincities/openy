@@ -6,5 +6,6 @@ dependencies:
   - file
   - image
   - linkit
+  - linkit_entity_attributes
   - node
 version: 8.x-1.0
