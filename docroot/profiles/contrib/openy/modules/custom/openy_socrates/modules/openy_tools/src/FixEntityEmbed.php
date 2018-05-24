@@ -4,6 +4,7 @@ namespace Drupal\openy_tools;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Url;
 
 /**
  * Class FieldHelper.
@@ -25,6 +26,8 @@ class FixEntityEmbed {
    */
   public function __construct(LoggerChannelInterface $loggerChannel) {
     $this->loggerChannel = $loggerChannel;
+    $this->menuLinkStorage = \Drupal::entityTypeManager()
+      ->getStorage('menu_link_content');
   }
 
   /**
@@ -251,6 +254,7 @@ class FixEntityEmbed {
   public function fixMenuLink() {
     $db = \Drupal::database();
     $tables = $this->getTables();
+    $abandoned = [];
 
     foreach ($tables as $table => $columns) {
       foreach ($columns as $field) {
@@ -295,13 +299,58 @@ class FixEntityEmbed {
               ) as $node) {
                 $uuid = $node->getAttribute('data-entity-uuid');
                 $label = $node->getAttribute('data-entity-label');
-                $replacement = '<drupal-entity
-                  data-button="0"
-                  data-embed-button="menu_link"
-                  data-entity-embed-display="entity_reference:entity_reference_label_url"
-                  data-entity-embed-display-settings="{&quot;route_link&quot;:1,&quot;route_title&quot;:&quot;' . $label . '&quot;}"
-                  data-entity-type="menu_link_content"
-                  data-entity-uuid="' . $uuid . '"></drupal-entity>';
+                /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $referencedEntity */
+                $referencedEntityArray = $this->menuLinkStorage->loadByProperties(['uuid' => $uuid]);
+                if (empty($referencedEntityArray)) {
+                  $abandoned[] = [
+                    'table' => $table,
+                    'field' => $field,
+                    'entity_id' => $data->entity_id,
+                    'uuid' => $uuid,
+                  ];
+                  $replacement = '';
+                }
+                else {
+                  $entity_type = NULL;
+                  $entityUuid = NULL;
+                  /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $referencedEntity */
+                  $referencedEntity = reset($referencedEntityArray);
+                  $linkData = $referencedEntity->link->getValue();
+                  $title = '';
+                  $alias = '';
+                  if ($linkData) {
+                    $l = $linkData[0]['uri'];
+                    if (strpos($l, 'entity:') !== FALSE) {
+                      // We've found entity:node/ID.
+                      $entityData = Url::fromUri($l)->getRouteParameters();
+                      $entity_type = key($entityData);
+                      $entity = \Drupal::entityTypeManager()
+                        ->getStorage($entity_type)
+                        ->load($entityData[$entity_type]);
+                      $title = $entity->getTitle();
+                      $alias = $entity->toUrl()->toString();
+                      $entityUuid = $entity->uuid();
+                    }
+                    elseif (strpos($l, 'internal:') !== FALSE) {
+                      $alias = Url::fromUri($l)->toString();
+                    }
+                  }
+                  // Handling external links.
+                  if ($l && !$alias) {
+                    $alias = $l;
+                  }
+                  if ($alias == '') {
+                    throw new \Exception(sprintf('Alias can"t be null. Possibly broken menu_link_content ID: %d', $referencedEntity->id()));
+                  }
+                  if ($title == '') {
+                    $title = $label;
+                  }
+                  $dataEntityTypeId = $entity_type ? 'data-drupal-entity-type-id="' . $entity_type . '"' : '';
+                  $dataEntityUuid = $entityUuid ? 'data-drupal-entity-uuid="' . $entityUuid . '"' : '';
+                  $replacement = '<a ' . $dataEntityTypeId . ' ' . $dataEntityUuid . '
+                   href="' . $alias . '"
+                   title="' . $title . '">' . $label . '</a>';
+                }
 
                 // Prepare replacement array.
                 $replace['from'][] = $drupalEntityInline;
@@ -327,7 +376,9 @@ class FixEntityEmbed {
 
       }
     }
-
+    if (!empty($abandoned)) {
+      $this->loggerChannel->info(sprintf("Found and cleared %d abandoned File UUIDs", count($abandoned)));
+    }
   }
 
   /**
