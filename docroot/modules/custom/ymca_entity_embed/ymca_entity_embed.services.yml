@@ -1,0 +1,4 @@
+services:
+  ymca_entity_embed.link_finder:
+    class: Drupal\ymca_entity_embed\LinkFinder
+    arguments: []
