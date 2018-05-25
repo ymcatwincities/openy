@@ -1,8 +1,7 @@
 leadership:
-  enabled: 1
-  staff_type:
-    476: '476'
-  subject: '[MON] Total PT Hours Variance for [report-start-date] - [report-end-date]'
+  enabled: 0
+  staff_type: {  }
+  subject: '[report-branch-name] PT Hours Payroll Correction Report for [report-start-date] - [report-end-date]'
   body:
     value: "<p>[leadership-report]</p>\r\n"
     format: full_html
@@ -10,10 +9,11 @@ leadership:
     value: ''
     format: full_html
 pt_managers:
-  enabled: 1
+  enabled: 0
   staff_type:
+    602: '602'
     481: '481'
-  subject: 'PT Hours Payroll Correction Report for [report-start-date] - [report-end-date]'
+  subject: '[report-branch-name] PT Hours Payroll Correction Report for [report-start-date] - [report-end-date]'
   body:
     value: "<p>[pt-manager-report]</p>\r\n"
     format: full_html
