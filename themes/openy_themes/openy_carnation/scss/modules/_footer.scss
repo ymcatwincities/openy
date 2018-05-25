@@ -1,0 +1,141 @@
+.footer {
+ background-color: #2F2F2F;
+ color: #FFF;
+ font-size: 18px;
+ padding-bottom: 0;
+ padding-top: 50px;
+ margin-top: 0;
+ border-top: 0px solid;
+ ul {
+  list-style: none;
+ }
+ #block-footeraddress {
+  ul.address-list {
+    position: relative;
+    padding-left: 30px;
+    li {
+     margin: 0;
+     padding: 0;
+    }   
+  } 
+  ul.address-list::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "\e943";
+    font-family: 'icomoon' !important;
+    font-size: 20px;
+    vertical-align: text-top;
+    display: inline-block;
+    color: #646464;
+  }
+ }
+ #block-footertel {
+  ul.address-list {
+    position: relative;
+    padding-left: 30px;
+    li {
+     margin: 0;
+     padding: 0;
+    }
+  }
+  ul.address-list::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "\e943";
+    font-family: 'icomoon' !important;
+    font-size: 20px;
+    vertical-align: text-top;
+    display: inline-block;
+    color: #646464;
+  }
+ 
+  ul.tel-list {
+    position: relative;
+    padding-left: 30px;
+    li {
+     margin: 0;
+     padding: 0;
+     a {
+      color: $white;
+     }
+    }
+  }
+  ul.tel-list::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "\e93c";
+    font-family: 'icomoon' !important;
+    font-size: 20px;
+    vertical-align: text-top;
+    display: inline-block;
+    color: #646464;
+  }
+ }
+ #block-footeremail p {
+  a:hover {
+   text-decoration: underline !important;
+   color: $blue;
+  }
+  a::before {
+    font-family: 'icomoon' !important;
+    content: "\eb47";
+    font-size: 20px;
+    vertical-align: text-top;
+    display: inline-block;
+    margin-top: -4px;
+    margin-right: 4px;
+    color: #00AEEF;
+  }
+ }
+ #block-openy_carnation-footersocialblock {
+  text-align: right;
+   .fa {
+    width: 28px;
+    color: transparent !important;
+    font-size: 28px;
+    transition: all 0.3s linear 0s;
+   }
+   .fa::before {
+    color: $white;
+   }
+  .list-inline li:hover {
+   .fa::before {
+    color: $blue;
+   }
+  }
+ }
+ .footer__copyright {
+  background: #141414;
+  font-size: 15px;
+  color: #646464;
+  padding: 20px;
+  margin-top: 35px;
+  #block-openy_carnation-footermenuright {
+   ul.menu {
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    li {
+     margin-right: 8px;
+     display: inline-block;
+     a {
+      font-size: 15px;
+      padding: 0;
+      color: $white;
+      &:hover {
+       color: $white;
+       background: none;
+       text-decoration: underline !important;
+      }
+     }
+    }
+   }
+  }
+ }
+}
+
+
+

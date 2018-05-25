@@ -1,0 +1,77 @@
+body {
+ margin-top: 0px !important;
+}
+
+.layout-container {
+  position: relative;
+}
+
+
+.node--type-blog .wrapper-field-blog-image {
+ display: none !important;
+}
+.row-eq-height, .modal-body .fieldset-wrapper > div {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.without-banner {
+ .viewport {
+  margin-top: 140px;
+ }
+ .page-head__main-menu .nav-level-2 > a {
+  color: $blue !important;
+  &:hover {
+   color: $pink !important;
+  }
+ }
+ .menu-item-home {
+  background: url("../img/logo-color.png") no-repeat;
+  background-size: 65px 50px;
+  width: 65px;
+  text-indent: -9999px;
+  background-position: center;
+ } 
+}
+.paragraph--column-in-a-grid {
+ max-width: 1080px;
+ margin: 0 auto; 
+}
+
+.region.region-content {
+ //padding: 40px 0;
+}
+
+.tabs {
+ text-align: center;
+ .tabs--primary.nav.nav-tabs {
+  display: inline-block;
+ }
+}
+
+.status-message {
+ text-align: center;
+ padding: 10px 0;
+}
+
+.field-link-attribute {
+ display: none;
+}
+
+.toolbar-icon-admin-toolbar-tools-help::before {
+ background-image: url(../img/logo-color.png);
+}
+
+.node,
+.two-columns-container,
+.user-login,
+.webform-submission-form {
+ padding-bottom: 20px;
+ min-height: 600px;
+}
+
+ .webform-submission-form {
+   padding-top: 136px;
+   }

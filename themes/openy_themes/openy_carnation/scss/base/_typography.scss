@@ -1,0 +1,64 @@
+body {
+  color: $default-grey;
+  @include verdana();
+  font-size: 18px;
+}
+
+h1, .h1, h2, .h2, h3, h4, h5, h6 {
+  @include verdana();
+}
+
+h1, .h1, h1.node-title {
+  font-size: 50px;  
+  font-weight: 500;
+  letter-spacing: -2px;
+  color: #2F2F2F;
+  text-transform: uppercase;
+}
+
+h2,
+.h2 {
+ font-size: 40px;
+ font-weight: 500;
+ letter-spacing: -2px;
+ color: #2F2F2F;
+}
+
+h3, #membership-calc-wrapper legend {
+ font-size: 30px;
+ letter-spacing: -0.5px;
+}
+
+h4 {
+ font-size: 24px;
+ letter-spacing: -0.5px;
+ color: $default-grey;
+}
+
+h5 {
+ font-size: 20px;
+ font-weight: bold;
+ letter-spacing: -0.5px;
+}
+
+h6, .h6 {
+ font-size: 20px;
+ font-weight: bold;
+}
+
+p {
+  word-wrap: break-word;
+}
+
+figcaption {
+  font-size: 13px;
+  font-style: italic;
+  text-align: right;
+}
+
+a {
+ text-decoration: none;
+ &:hover {
+  text-decoration: none !important;
+ }
+}

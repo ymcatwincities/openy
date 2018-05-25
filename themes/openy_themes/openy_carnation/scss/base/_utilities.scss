@@ -1,0 +1,42 @@
+.clearfix {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+.ajax-progress-throbber {
+  position: absolute;
+  opacity: 0.2;
+}
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+.row-eq-height {
+  //@include display-flex;
+  //@include flex-wrap(wrap);
+
+  &:before,
+  &:after {
+    content: none;
+  }
+}
+
+// Angular styles.
+.ng-hide {
+  display: none !important;
+}
+
+.button {
+  @extend .btn;
+}
+
+
