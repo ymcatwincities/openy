@@ -15,9 +15,11 @@ body {
   &.navbar-is-static-top {
     margin-top: 0;
   }
+
   &.navbar-is-fixed-top {
     margin-top: ($navbar-height + ($grid-gutter-width / 2));
   }
+
   &.navbar-is-fixed-bottom {
     padding-bottom: ($navbar-height + ($grid-gutter-width / 2));
   }
@@ -25,6 +27,7 @@ body {
   @media #{$tablet} {
     margin-top: ($grid-gutter-width / 2);
   }
+
   @media #{$mobile} {
     &.toolbar-vertical {
       &.navbar-is-fixed-top,
@@ -32,10 +35,12 @@ body {
         .toolbar-bar {
           position: fixed;
         }
+
         header {
           z-index: 500;
         }
       }
+
       // Default toolbar fixed height value.
       // @see core/modules/toolbar/css/toolbar.icons.theme.css@261
       &.navbar-is-fixed-top header {
@@ -48,9 +53,11 @@ body {
   @media #{$tablet} {
     max-width: (($container-sm - $grid-gutter-width));
   }
+
   @media #{$normal} {
     max-width: (($container-md - $grid-gutter-width));
   }
+
   @media #{$wide} {
     max-width: (($container-lg - $grid-gutter-width));
   }
@@ -61,6 +68,7 @@ body {
   margin-right: -($grid-gutter-width / 2);
   padding-left: ($grid-gutter-width / 2);
   padding-right: ($grid-gutter-width / 2);
+
   @media #{$grid-breakpoint} {
     margin-right: 0;
     padding-left: 0;

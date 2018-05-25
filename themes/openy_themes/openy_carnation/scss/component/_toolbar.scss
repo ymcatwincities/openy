@@ -22,7 +22,6 @@ body.toolbar-fixed {
 
   // Vertical Open.
   &.toolbar-vertical.toolbar-tray-open {
-
     .navbar-fixed-top {
       left: $toolbar-width;
     }
@@ -32,13 +31,11 @@ body.toolbar-fixed {
 
       .toolbar-tray {
         padding-bottom: 40px;
+
         &, > .toolbar-lining:before {
           width: $toolbar-width;
         }
       }
-
     }
-
   }
-
 }

@@ -19,29 +19,36 @@
   display: inline-block;
   position: relative;
   width: 100%;
+
   .form-inline & {
     width: auto;
   }
+
   .input-group & {
     display: table-cell;
     // Reset rounded corners
+
     &:first-child .form-control:first-child {
       @include border-left-radius($border-radius-base);
     }
+
     &:last-child .form-control:first-child {
       @include border-right-radius($border-radius-base);
     }
   }
+
   select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     line-height: 1;
     padding-right: 2em;
+
     &::-ms-expand {
       opacity: 0;
     }
   }
+
   &:after {
     color: $brand-primary;
     content: '▼';
@@ -64,12 +71,15 @@
       display: inline-block;
       font-family: 'Glyphicons Halflings';
     }
+
     .has-error & {
       color: $state-danger-text;
     }
+
     .has-success & {
       color: $state-success-text;
     }
+
     .has-warning & {
       color: $state-warning-text;
     }
@@ -94,6 +104,7 @@
   .btn, .btn-group {
     margin-right: 10px;
   }
+
   .btn-group {
     .btn {
       margin-right: 0;

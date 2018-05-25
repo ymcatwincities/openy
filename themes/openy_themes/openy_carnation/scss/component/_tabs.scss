@@ -4,6 +4,7 @@
 .local-actions {
   margin: 10px 0 10px -5px;
 }
+
 .tabs--secondary {
   margin: 10px 0 5px;
 }
@@ -16,18 +17,22 @@
 .tabbable {
   margin-bottom: 20px;
 }
+
 .tabs-below, .tabs-left, .tabs-right {
   > .nav-tabs {
     border-bottom: 0;
+
     .summary {
       color: $nav-disabled-link-color;
       font-size: $font-size-small;
     }
   }
 }
+
 .tab-pane > .panel-heading {
   display: none;
 }
+
 .tab-content > .active {
   display: block;
 }
@@ -36,11 +41,14 @@
 .tabs-below {
   > .nav-tabs {
     border-top: 1px solid $nav-tabs-border-color;
+
     > li {
       margin-top: -1px;
       margin-bottom: 0;
+
       > a {
         border-radius: 0 0 $border-radius-base $border-radius-base;
+
         &:hover,
         &:focus {
           border-top-color: $nav-tabs-border-color;
@@ -48,6 +56,7 @@
         }
       }
     }
+
     > .active {
       > a,
       > a:hover,
@@ -64,20 +73,25 @@
   > .nav-tabs {
     padding-bottom: 20px;
     width: 220px;
+
     > li {
       float: none;
+
       &:focus {
         outline: 0;
       }
+
       > a {
         margin-right: 0;
         margin-bottom: 3px;
+
         &:focus {
           outline: 0;
         }
       }
     }
   }
+
   > .tab-content {
     border-radius: 0 $border-radius-base $border-radius-base $border-radius-base;
     border: 1px solid $nav-tabs-border-color;
@@ -92,13 +106,16 @@
   > .nav-tabs {
     float: left;
     margin-right: -1px;
+
     > li > a {
       border-radius: $border-radius-base 0 0 $border-radius-base;
+
       &:hover,
       &:focus {
         border-color: $nav-tabs-link-hover-border-color $nav-tabs-border-color $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color;
       }
     }
+
     > .active > a,
     > .active > a:hover,
     > .active > a:focus {
@@ -113,8 +130,10 @@
   > .nav-tabs {
     float: right;
     margin-left: -1px;
+
     > li > a {
       border-radius: 0 $border-radius-base $border-radius-base 0;
+
       &:hover,
       &:focus {
         border-color: $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color $nav-tabs-border-color;
