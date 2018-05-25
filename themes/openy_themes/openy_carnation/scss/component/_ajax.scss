@@ -7,10 +7,12 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(359deg); }
 }
+
 .glyphicon-spin {
   display: inline-block;
   animation: glyphicon-spin 1s infinite linear;
 }
+
 a .glyphicon-spin {
   display: inline-block;
   text-decoration: none;
@@ -27,11 +29,13 @@ html.js {
       color: $gray-light;
       opacity: .5;
       transition: 150ms color, 150ms opacity;
+
       &.glyphicon-spin {
         color: $brand-primary;
         opacity: 1;
       }
     }
+
     .input-group-addon {
       background-color: rgb(255, 255, 255);
     }

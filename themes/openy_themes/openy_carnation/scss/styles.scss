@@ -7,7 +7,7 @@
 // Base-theme overrides.
 @import 'overrides';
 
-//Base
+// Base
 @import 'base/colors';
 @import 'base/variables';
 @import 'base/mixins';
@@ -15,7 +15,7 @@
 @import 'base/typography';
 @import 'base/utilities';
 
-//Modules
+// Modules
 @import 'modules/page';
 @import 'modules/footer';
 @import 'modules/header';
@@ -28,7 +28,7 @@
 @import 'modules/blogs';
 @import 'modules/gallery';
 
-//Layouts
+// Layouts
 @import 'layouts/mob';
 @import 'layouts/tab';
 

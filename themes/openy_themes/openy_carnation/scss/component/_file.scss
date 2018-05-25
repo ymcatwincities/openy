@@ -7,22 +7,27 @@
   font-weight: 700;
   margin: 5px 0;
   width: 100%;
+
   > span {
     background: #fff;
     color: $brand-primary;
     border-bottom: 1px solid $input-border;
     border-top: 1px solid $input-border;
+
     &:first-child {
       border-left: 1px solid $input-border;
     }
+
     &:last-child {
       border-right: 1px solid $input-border;
     }
   }
+
   > .tabledrag-changed {
     &, &:last-child {
       border: 1px solid darken($alert-warning-border, 5%);
     }
+
     background: $alert-warning-bg;
     border-radius: 0;
     color: $alert-warning-text;
@@ -33,6 +38,7 @@
     border-left: 1px solid inherit;
   }
 }
+
 .file-icon {
   display: table-cell;
   font-size: 150%;
@@ -40,14 +46,17 @@
   text-align: center;
   vertical-align: middle;
 }
+
 .file-link {
   display: table-cell;
   vertical-align: middle;
   width: 100%;
+
   a, a:hover, a:focus, a:active {
     color: inherit;
   }
 }
+
 .file-size {
   display: table-cell;
   padding: 0 1em;

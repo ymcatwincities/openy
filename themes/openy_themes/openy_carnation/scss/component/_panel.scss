@@ -5,9 +5,11 @@
   display: block;
   margin: -10px -15px;
   padding: 10px 15px;
+
   &, &:hover, &:focus, &:hover:focus {
     color: inherit;
   }
+
   &:focus, &:hover {
     text-decoration: none;
   }

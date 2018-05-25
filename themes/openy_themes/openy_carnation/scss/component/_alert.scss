@@ -9,21 +9,25 @@
 .alert a {
   font-weight: $alert-link-font-weight;
 }
+
 .alert-success {
   a, a:hover, a:focus {
     color: darken($alert-success-text, 10%);
   }
 }
+
 .alert-info {
   a, a:hover, a:focus {
     color: darken($alert-info-text, 10%);
   }
 }
+
 .alert-warning {
   a, a:hover, a:focus {
     color: darken($alert-warning-text, 10%);
   }
 }
+
 .alert-danger {
   a, a:hover, a:focus {
     color: darken($alert-danger-text, 10%);
