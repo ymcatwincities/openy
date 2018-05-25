@@ -1,0 +1,8 @@
+name: Linkit Entity Attributes
+description: OpenY addons for Linkit module suite.
+core: 8.x
+version: 0.1
+type: module
+package: OPENY
+dependencies:
+  - linkit
