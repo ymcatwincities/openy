@@ -4,6 +4,7 @@ namespace Drupal\openy_tools;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Url;
 
 /**
  * Class FieldHelper.
@@ -25,6 +26,10 @@ class FixEntityEmbed {
    */
   public function __construct(LoggerChannelInterface $loggerChannel) {
     $this->loggerChannel = $loggerChannel;
+    $this->menuLinkStorage = \Drupal::entityTypeManager()
+      ->getStorage('menu_link_content');
+    $this->fileStorage = \Drupal::entityTypeManager()
+      ->getStorage('file');
   }
 
   /**
@@ -111,10 +116,6 @@ class FixEntityEmbed {
 
   /**
    * Fix file.
-   *
-   * @todo Fix /swimming/swim_team
-   * @todo Fix abandoned UUIDs.
-   * @todo Fix title for PDFs.
    */
   public function fixFile() {
     $db = \Drupal::database();
@@ -163,6 +164,32 @@ class FixEntityEmbed {
               ) as $node) {
                 // Get real uuid from Media.
                 $fileUuid = $node->getAttribute('data-entity-uuid');
+                $fileDescription = $node->getAttribute('data-entity-embed-settings');
+                $fileDescriptionData = json_decode($fileDescription, TRUE);
+                $fileAlt = $node->getAttribute('alt');
+                $dataCaption = '';
+                $title = '';
+                if (isset($fileDescriptionData['description'])) {
+                  $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['description']) . '" ';
+                  $title = Html::escape($fileDescriptionData['description']);
+                }
+                else {
+                  if (isset($fileDescriptionData['file_title'])) {
+                    // Create replacement for display "entity_reference:file_entity_reference_label_url"
+                    $dataCaption = ' data-caption="' . Html::escape($fileDescriptionData['file_title']) . '" ';
+                    $title = Html::escape($fileDescriptionData['file_title']);
+                  }
+                  else {
+                    if ($fileAlt != '') {
+                      // Create replacement for display "image:image"
+                      $dataCaption = ' data-caption="' . $fileAlt . '" ';
+                      $title = $fileAlt;
+                    }
+                  }
+                }
+                if ($dataCaption == '' && !(isset($fileDescriptionData['image_style']) && isset($fileDescriptionData['image_link']) && $fileDescriptionData['image_style'] == $fileDescriptionData['image_link'])) {
+                  $this->loggerChannel->error(sprintf("Failed to find data-caption for old embed: %s for entity ID %d", $drupalEntityInline, $data->entity_id));
+                }
                 $mediaEntity = $this->findMediaUuidByFileUuid($fileUuid);
 
                 if (!$mediaEntity) {
@@ -178,33 +205,40 @@ class FixEntityEmbed {
                 }
                 else {
                   $media_types[$mediaEntity->bundle()][] = $mediaEntity;
-                  if ($mediaEntity->bundle() == 'image') {
-                    // Get stats for data-entity-embed-settings.
-                    if (!isset($image_embed_settings)) {
-                      $image_embed_settings = [];
-                    }
-                    $image_embed_settings[$node->getAttribute('data-entity-embed-settings')] += 1;
 
-                    // Get stats for data-entity-embed-display
-                    if (!isset($image_embed_display)) {
-                      $image_embed_display = [];
+                  $filesArray = $this->fileStorage->loadByProperties(['uuid' => $fileUuid]);
+                  $alias = '';
+                  if (!empty($filesArray)){
+                    /** @var \Drupal\file_entity\Entity\FileEntity $file */
+                    $file = reset($filesArray);
+                    $absoluteUrl = \Drupal::service('ymca_entity_embed.link_finder')->getFileLinkByMediaUuid($mediaEntity->uuid());
+                    if (!$absoluteUrl){
+                      $replacement = '';
+                      // Prepare replacement array.
+                      $replace['from'][] = $drupalEntityInline;
+                      $replace['to'][] = $replacement;
+                      $abandoned[] = [
+                        'table' => $table,
+                        'field' => $field,
+                        'entity_id' => $data->entity_id,
+                        'uuid' => $fileUuid,
+                      ];
+                      continue;
                     }
-                    $image_embed_display[$node->getAttribute('data-entity-embed-display')] += 1;
+
+                    $url = parse_url($absoluteUrl);
+                    $alias = $url['path'];
                   }
-
-                  $replacement = '<drupal-entity
-                    data-embed-button="embed_document"
-                    data-entity-embed-display="entity_reference:entity_reference_entity_view"
-                    data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_link&quot;}"
-                    data-entity-type="media"
-                    data-entity-uuid="' . $mediaEntity->uuid() . '"></drupal-entity>';
+                  $dataEntityTypeId = 'data-drupal-entity-type-id="file"';
+                  $dataEntityUuid = $fileUuid ? 'data-drupal-entity-uuid="' . $fileUuid . '"' : '';
+                  $replacement = '<a ' . $dataEntityTypeId . ' ' . $dataEntityUuid . '
+                   href="' . $alias . '"
+                   title="' . $title . '">' . htmlspecialchars_decode($title) . '</a>';
 
                   if ($mediaEntity->bundle() == 'image') {
-                    // @todo Create replacement for display "file:file_default"
-                    // @todo Create replacement for display "entity_reference:file_entity_reference_label_url"
 
                     $replacement = '<drupal-entity
-                      data-embed-button="embed_image"
+                      data-embed-button="embed_image"' . $dataCaption . '
                       data-entity-embed-display="entity_reference:entity_reference_entity_view"
                       data-entity-embed-display-settings="{&quot;view_mode&quot;:&quot;embedded_full&quot;}"
                       data-entity-type="media"
@@ -238,7 +272,7 @@ class FixEntityEmbed {
     }
 
     if (!empty($abandoned)) {
-      $this->loggerChannel->error(sprintf("Found %d abandoned File UUIDs", count($abandoned)));
+      $this->loggerChannel->info(sprintf("Found and cleared %d abandoned File UUIDs", count($abandoned)));
     }
   }
 
@@ -248,6 +282,7 @@ class FixEntityEmbed {
   public function fixMenuLink() {
     $db = \Drupal::database();
     $tables = $this->getTables();
+    $abandoned = [];
 
     foreach ($tables as $table => $columns) {
       foreach ($columns as $field) {
@@ -292,13 +327,62 @@ class FixEntityEmbed {
               ) as $node) {
                 $uuid = $node->getAttribute('data-entity-uuid');
                 $label = $node->getAttribute('data-entity-label');
-                $replacement = '<drupal-entity
-                  data-button="0"
-                  data-embed-button="menu_link"
-                  data-entity-embed-display="entity_reference:entity_reference_label_url"
-                  data-entity-embed-display-settings="{&quot;route_link&quot;:1,&quot;route_title&quot;:&quot;' . $label . '&quot;}"
-                  data-entity-type="menu_link_content"
-                  data-entity-uuid="' . $uuid . '"></drupal-entity>';
+                /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $referencedEntity */
+                $referencedEntityArray = $this->menuLinkStorage->loadByProperties(['uuid' => $uuid]);
+                if (empty($referencedEntityArray)) {
+                  $abandoned[] = [
+                    'table' => $table,
+                    'field' => $field,
+                    'entity_id' => $data->entity_id,
+                    'uuid' => $uuid,
+                  ];
+                  $replacement = '';
+                }
+                else {
+                  $entity_type = NULL;
+                  $entityUuid = NULL;
+                  /** @var \Drupal\menu_link_content\Entity\MenuLinkContent $referencedEntity */
+                  $referencedEntity = reset($referencedEntityArray);
+                  $linkData = $referencedEntity->link->getValue();
+                  $title = '';
+                  $alias = '';
+                  if ($linkData) {
+                    $l = $linkData[0]['uri'];
+                    if (strpos($l, 'entity:') !== FALSE) {
+                      // We've found entity:node/ID.
+                      $entityData = Url::fromUri($l)->getRouteParameters();
+                      $entity_type = key($entityData);
+                      $entity = \Drupal::entityTypeManager()
+                        ->getStorage($entity_type)
+                        ->load($entityData[$entity_type]);
+                      $title = $entity->getTitle();
+                      $alias = $entity->toUrl()->toString();
+                      $entityUuid = $entity->uuid();
+                    }
+                    elseif (strpos($l, 'internal:') !== FALSE) {
+                      $alias = Url::fromUri($l)->toString();
+                    }
+                  }
+                  // Handling external links.
+                  if ($l && !$alias) {
+                    $alias = $l;
+                  }
+                  if ($alias == '') {
+                    throw new \Exception(sprintf('Alias can"t be null. Possibly broken menu_link_content ID: %d', $referencedEntity->id()));
+                  }
+                  if ($label == 'Menu Link' && $title) {
+                    $this->loggerChannel->info(sprintf('Detected wrong label %s for Menu Link %s', (string) $referencedEntity->uuid(), $title));
+                    $label = $title;
+                  }
+                  if ($title == '') {
+                    $title = $label;
+                  }
+                  $dataEntityTypeId = $entity_type ? 'data-drupal-entity-type-id="' . $entity_type . '"' : '';
+                  $dataEntityUuid = $entityUuid ? 'data-drupal-entity-uuid="' . $entityUuid . '"' : '';
+                  $replacement = '<a ' . $dataEntityTypeId . ' ' . $dataEntityUuid . '
+                   href="' . $alias . '"
+                   title="' . $title . '">' . htmlspecialchars_decode($label) . '</a>';
+                }
 
                 // Prepare replacement array.
                 $replace['from'][] = $drupalEntityInline;
@@ -324,7 +408,9 @@ class FixEntityEmbed {
 
       }
     }
-
+    if (!empty($abandoned)) {
+      $this->loggerChannel->info(sprintf("Found and cleared %d abandoned File UUIDs", count($abandoned)));
+    }
   }
 
   /**
