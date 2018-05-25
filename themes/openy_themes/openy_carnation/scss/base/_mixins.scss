@@ -1,0 +1,99 @@
+@mixin verdana() {
+ font-family: Verdana,"Bitstream Vera Sans","DejaVu Sans",Tahoma,Geneva,Arial,sans-serif,myriad-pro-condensed,sans-serif;
+}
+
+@mixin cachet() {
+  font-family: "Cachet", 'Ubuntu Condensed', sans-serif;
+  font-weight: 400;
+}
+
+@mixin cachet-medium() {
+  font-family: "Cachet", 'Ubuntu Condensed', sans-serif;
+  font-weight: 500;
+}
+
+@mixin cachet-bold() {
+  font-family: "Cachet", 'Ubuntu Condensed', sans-serif;
+  font-weight: 700;
+}
+
+@mixin helvetica-neue() {
+  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+}
+
+input.button, input.btn, input.button, a.btn, a.button, #block-useraccountmenu ul li#preferred-branch a, a.button {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    border-radius: 8px;
+    line-height: 40px;
+    display: inline-block;
+    color: #FFF;
+    padding: 10px 25px;
+    text-align: center;
+    min-width: 180px;
+    white-space: inherit;
+    &:hover {
+     opacity: 0.7;
+    }
+}
+
+.btn-transparent {
+    //font-family: "Cachet",Arial,sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    text-align: center;
+    background-color: transparent !important;
+    border: 3px solid #FFF !important;
+    border-radius: 8px !important;
+    padding: 0 25px;
+    line-height: 52px;
+    min-width: 160px;
+    color: $white;
+ a {
+  color: $white;
+ }
+ &:hover {
+  opacity: 0.7;
+ }
+}
+
+a.back-link, a.follow-link, .paragraph--type--grid-related-blog-posts .field-prgf-link a, .y-news-view-list .comments_count a {
+    //font-family: "Cachet",Arial,sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    line-height: 24px;
+    color: $blue;
+    text-transform: uppercase;
+    &:hover {
+     color: $pink;
+   }
+}
+
+a.follow-link::after, .paragraph--type--grid-related-blog-posts .field-prgf-link a::after, .y-news-view-list .comments_count a::after {
+    font-family: 'icomoon' !important;
+    content: "\ec13";
+    font-size: 24px;
+    padding-left: 5px;
+    color: $pink;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+
+body .pager li.load_more_button > a {
+    font-family: "Cachet",Arial,sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    line-height: 40px;
+    min-width: 160px;
+    padding: 10px;
+    height: 60px;
+    letter-spacing: -1px;
+    background: #0060AF;
+    color: #FFF;
+}
+

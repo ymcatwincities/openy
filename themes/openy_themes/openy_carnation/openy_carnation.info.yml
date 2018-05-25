@@ -1,0 +1,26 @@
+name: OpenY Carnation
+type: theme
+description: 'YMCA brand compliant and customizable theme.'
+package: YMCA
+core: 8.x
+#base theme: false
+base theme: bootstrap
+libraries:
+  - openy_carnation/global-styling
+  - openy_carnation/bootstrap-scripts
+regions:
+  header: Header
+  logo: Logo
+  primary_menu: Primary Menu
+  secondary_menu: Secondary Menu
+  mobile_menu: Mobile menu
+  search: Search Form
+  content: Content
+  pre_footer: Pre Footer
+  footer_info: Footer Info
+  footer_tel: Footer Telephone
+  footer_mail: Footer Mail
+  footer_social: Footer Social
+  footer_copyright: Copyright
+  footer_menus: Footer Menu
+

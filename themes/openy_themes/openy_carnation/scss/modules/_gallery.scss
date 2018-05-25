@@ -1,0 +1,39 @@
+.paragraph-gallery {
+ .carousel {
+  position: relative;
+  .carousel-inner {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    img {
+     width: 100%;
+    }
+  }
+  .carousel-control {
+    text-shadow: none;
+    width: 83px;
+    height: 105px;
+    background-color: $pink;
+    background-image: none;
+    opacity: 1;
+    z-index: 1;
+    text-align: center;
+    text-shadow: none;
+    top: 50%;
+    margin-top: -23px;
+    .fa {
+     line-height: 105px;
+     font-size: 25px;
+     color: $white;
+    }
+  }
+  .carousel-control.left {
+    left: 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .carousel-control.right {
+    right: 0;
+    border-radius: 8px 0px 0px 8px;
+  }
+ }
+}
