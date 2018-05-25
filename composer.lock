@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "af32125968fabf7dfea4ae06ee365ffe",
-=======
-    "content-hash": "8d8f0ab53539bf3ba6fcf55bb8a4f26b",
->>>>>>> master
+    "content-hash": "9f23216a5288acaf41f343ce9785b07c",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -118,16 +114,16 @@
         },
         {
             "name": "commerceguys/addressing",
-            "version": "v1.0.0-beta5",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commerceguys/addressing.git",
-                "reference": "f257d08341a64a429b37e65f1194b243a66fc753"
+                "reference": "ef34ba9f6e5378e56cceb9f45798b464878db031"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/f257d08341a64a429b37e65f1194b243a66fc753",
-                "reference": "f257d08341a64a429b37e65f1194b243a66fc753",
+                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/ef34ba9f6e5378e56cceb9f45798b464878db031",
+                "reference": "ef34ba9f6e5378e56cceb9f45798b464878db031",
                 "shasum": ""
             },
             "require": {
@@ -138,12 +134,9 @@
                 "mikey179/vfsstream": "1.*",
                 "phpunit/phpunit": "~4.0",
                 "squizlabs/php_codesniffer": "2.*",
-                "symfony/intl": ">=3.2",
                 "symfony/validator": ">=3.2"
             },
             "suggest": {
-                "commerceguys/intl": "to use it as the source of country data",
-                "symfony/intl": "to use it as the source of country data",
                 "symfony/validator": "to validate addresses"
             },
             "type": "library",
@@ -169,14 +162,14 @@
                     "name": "Damien Tournoud"
                 }
             ],
-            "description": "Addressing library powered by Google's address data.",
+            "description": "Addressing library powered by CLDR and Google's address data.",
             "keywords": [
                 "address",
                 "internationalization",
                 "localization",
                 "postal"
             ],
-            "time": "2018-02-16T01:16:24+00:00"
+            "time": "2018-05-23T13:00:47+00:00"
         },
         {
             "name": "commerceguys/intl",
@@ -2077,11 +2070,7 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-<<<<<<< HEAD
                     "version": "8.x-1.8",
-=======
-                    "version": "8.x-1.7",
->>>>>>> master
                     "datestamp": "1524864180",
                     "security-coverage": {
                         "status": "covered",
@@ -4395,17 +4384,17 @@
         },
         {
             "name": "drupal/social_feed_fetcher",
-            "version": "1.0.0-beta8",
+            "version": "1.0.0-beta9",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/social_feed_fetcher",
-                "reference": "8.x-1.0-beta8"
+                "reference": "8.x-1.0-beta9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/social_feed_fetcher-8.x-1.0-beta8.zip",
-                "reference": "8.x-1.0-beta8",
-                "shasum": "9cb871eb36b1f09f8c738275989a0d04029ec524"
+                "url": "https://ftp.drupal.org/files/projects/social_feed_fetcher-8.x-1.0-beta9.zip",
+                "reference": "8.x-1.0-beta9",
+                "shasum": "49e47d0c9b6c8d15c19a7c1b2cb502647a22abde"
             },
             "require": {
                 "abraham/twitteroauth": "^0.7.2",
@@ -4420,8 +4409,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-beta8",
-                    "datestamp": "1525373284",
+                    "version": "8.x-1.0-beta9",
+                    "datestamp": "1525877584",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -4436,7 +4425,7 @@
                 {
                     "name": "Yuriy Stenin",
                     "homepage": "https://www.drupal.org/user/3297381",
-                    "email": "yuriy.s@team.anyforsoft.com",
+                    "email": "yuriy.ipcom@gmail.com",
                     "role": "Maintainer"
                 }
             ],
@@ -5109,16 +5098,6 @@
             "time": "2017-02-03T22:48:59+00:00"
         },
         {
-<<<<<<< HEAD
-            "name": "grt-youtube-popup",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/grt107/grt-youtube-popup",
-                "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
-            },
-            "type": "drupal-library"
-=======
             "name": "facebook/graph-sdk",
             "version": "5.6.2",
             "source": {
@@ -5175,7 +5154,16 @@
                 "sdk"
             ],
             "time": "2018-02-14T23:24:51+00:00"
->>>>>>> master
+        },
+        {
+            "name": "grt-youtube-popup",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/grt107/grt-youtube-popup",
+                "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
+            },
+            "type": "drupal-library"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -6974,16 +6962,16 @@
         },
         {
             "name": "zendframework/zend-feed",
-            "version": "2.9.1",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-feed.git",
-                "reference": "15a6ca78dd8f67b687e4f902657b4e420a8fd1e0"
+                "reference": "c3b1b86591e7e2e8bf759e2964d8638d4c5e2f02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-feed/zipball/15a6ca78dd8f67b687e4f902657b4e420a8fd1e0",
-                "reference": "15a6ca78dd8f67b687e4f902657b4e420a8fd1e0",
+                "url": "https://api.github.com/repos/zendframework/zend-feed/zipball/c3b1b86591e7e2e8bf759e2964d8638d4c5e2f02",
+                "reference": "c3b1b86591e7e2e8bf759e2964d8638d4c5e2f02",
                 "shasum": ""
             },
             "require": {
@@ -7012,8 +7000,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.9-dev",
-                    "dev-develop": "2.10-dev"
+                    "dev-master": "2.10.x-dev",
+                    "dev-develop": "2.11.x-dev"
                 }
             },
             "autoload": {
@@ -7031,7 +7019,7 @@
                 "feed",
                 "zf"
             ],
-            "time": "2018-05-14T21:45:18+00:00"
+            "time": "2018-05-24T20:36:29+00:00"
         },
         {
             "name": "zendframework/zend-stdlib",
