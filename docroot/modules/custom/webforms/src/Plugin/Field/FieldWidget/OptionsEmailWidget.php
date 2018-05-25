@@ -113,7 +113,7 @@ class OptionsEmailWidget extends WidgetBase {
         if (!empty($item_data['option_reference'])) {
           foreach ($mapping as $row) {
             $field_location_ref = $row->field_location_ref->getValue();
-            if ($field_location_ref[0]['target_id'] == $item_data['option_reference']) {
+            if ($field_location_ref && isset($field_location_ref[0]) && $field_location_ref[0]['target_id'] == $item_data['option_reference']) {
               $machine_name = UrlCleaner::clean($row->get('name')->value);
               $machine_name_mapping['#' . $machine_name] = $id;
               break;

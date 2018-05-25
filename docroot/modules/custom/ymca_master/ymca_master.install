@@ -75,7 +75,6 @@ function ymca_master_update_8002() {
  * Set appropriate node aliases for news pages.
  */
 function ymca_master_update_8003() {
-  // @todo run this after next reimport from ClockWork source DB.
   $news_term_id = \Drupal::entityQuery('taxonomy_term')
     ->condition('name', 'News')
     ->condition('vid', 'tags')
@@ -6555,7 +6554,7 @@ function ymca_master_update_8277() {
 /**
  * Enable OpenY Kronos.
  */
-function ymca_master_update_8278() {
+function _ymca_master_update_8278() {
   \Drupal::service('module_installer')->install(['openy_kronos'], TRUE);
 }
 
@@ -6578,4 +6577,29 @@ function ymca_master_update_8280() {
  */
 function ymca_master_update_8281() {
   \Drupal::service('openy_tools.fix_entity_embed')->fixBlockContent();
+}
+
+/**
+ * Fix drupal-entity-inline for block_content.
+ */
+function ymca_master_update_8282() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $modules = [
+    'linkit',
+    'linkit_entity_attributes',
+    'openy_linkit'
+  ];
+
+  $installer = \Drupal::service('module_installer');
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
+
+  $dir = 'profiles/contrib/openy/modules/openy_features/openy_editor/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'filter.format.full_html.yml',
+    ]
+  );
 }

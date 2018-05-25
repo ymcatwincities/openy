@@ -70,7 +70,8 @@ function ymca_alters_form_alter(&$form, FormStateInterface $form_state, $form_id
 
   // Add membership block edit link.
   if ($form_id == 'node_location_edit_form' || $form_id == 'node_location_form') {
-    $membership_block_id = \Drupal::config('ymca_alters.config')->get('membership_block_id');
+    $membership_block_id = \Drupal::config('ymca_alters.config')
+      ->get('membership_block_id');
     $edit_link_url = Url::fromUri('internal:/block/' . $membership_block_id);
     $edit_link_url->setOption('attributes', array('target' => '_blank'));
     /* @var Link $edit_link */
@@ -142,12 +143,15 @@ function ymca_alters_block_content_presave(EntityInterface $entity) {
     ->condition('field_global_alert', 1)
     ->execute();
 
-  $blocks = \Drupal::entityTypeManager()->getStorage('block_content')->loadMultiple($query);
+  $blocks = \Drupal::entityTypeManager()
+    ->getStorage('block_content')
+    ->loadMultiple($query);
   /** @var \Drupal\block_content\Entity\BlockContent $block */
   foreach ($blocks as $block) {
     if ($block->uuid() == $entity->uuid()) {
       // All pages with an updated block should get cache invalidated.
-      \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $block->id()]);
+      \Drupal::service('cache_tags.invalidator')
+        ->invalidateTags(['block_content:' . $block->id()]);
       // No need to change itself.
       continue;
     }
@@ -155,7 +159,8 @@ function ymca_alters_block_content_presave(EntityInterface $entity) {
     $block->set('field_global_alert', 0);
     $block->save();
     // All pages with an old block should get cache invalidated.
-    \Drupal::service('cache_tags.invalidator')->invalidateTags(['block_content:' . $block->id()]);
+    \Drupal::service('cache_tags.invalidator')
+      ->invalidateTags(['block_content:' . $block->id()]);
   }
   // We should invalidate all rendered cache, because block was changed/created.
   \Drupal::service('cache_tags.invalidator')->invalidateTags(['rendered']);
@@ -224,7 +229,9 @@ function ymca_alters_preprocess_field(&$variables) {
         ->execute();
       $mapping_id = reset($mapping_id);
       $location = FALSE;
-      if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+      if ($mapping = \Drupal::entityManager()
+        ->getStorage('mapping')
+        ->load($mapping_id)) {
         $field_groupex_id = $mapping->field_groupex_id->getValue();
         $location = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
       }
@@ -236,7 +243,8 @@ function ymca_alters_preprocess_field(&$variables) {
         );
       }
 
-      $variables['groupex_schedule'] = \Drupal::service('ymca_groupex.helper')->getPdfLink($location);
+      $variables['groupex_schedule'] = \Drupal::service('ymca_groupex.helper')
+        ->getPdfLink($location);
     }
   }
 }
@@ -335,7 +343,8 @@ function ymca_alters_page_attachments(array &$page) {
   $route = \Drupal::routeMatch();
   $name = $route->getRouteName();
 
-  $match = \Drupal::config('ymca_alters.config')->get('custom_routes_canonical');
+  $match = \Drupal::config('ymca_alters.config')
+    ->get('custom_routes_canonical');
 
   if (!in_array($name, $match)) {
     return;
@@ -483,7 +492,8 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
     }
   }
 
-  $title = \Drupal::service('title_resolver')->getTitle(\Drupal::request(), $route_match->getRouteObject());
+  $title = \Drupal::service('title_resolver')
+    ->getTitle(\Drupal::request(), $route_match->getRouteObject());
   $breadcrumb->addLink(Link::createFromRoute($title, '<none>'));
   $breadcrumb->addCacheContexts(['url.path']);
 }
@@ -492,7 +502,8 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
  * Implements hook_block_build_alter().
  */
 function ymca_alters_block_build_alter(array &$build, BlockPluginInterface $block) {
-  if (preg_match('/childcare_payment_history/', \Drupal::request()->getPathInfo()) && $block->getPluginId() == 'system_breadcrumb_block') {
+  if (preg_match('/childcare_payment_history/', \Drupal::request()
+      ->getPathInfo()) && $block->getPluginId() == 'system_breadcrumb_block') {
     $build['#cache']['max-age'] = 0;
   }
 }
@@ -563,4 +574,56 @@ function ymca_alters_field_group_build_pre_render_alter(&$element) {
       ],
     ],
   ];
+}
+
+/**
+ * Implements MODULE_preprocess_HOOK().
+ */
+function ymca_alters_preprocess_filter_caption(&$variables) {
+  if ($variables['tag'] == 'drupal-entity') {
+    $inline = (string) $variables['node'];
+    if (strpos($inline, 'embedded_link') !== FALSE) {
+      // Get UUID.
+      $test = [];
+      preg_match('/data-entity-uuid=\\"([a-f0-9\-]{36})/', $inline, $test);
+      if (array_key_exists(1, $test)) {
+        $url = \Drupal::service('ymca_entity_embed.link_finder')
+          ->getFileLinkByMediaUuid($test[1]);
+        if ($url) {
+          $link = [
+            '#markup' => '<a href="' . $url . '">' . $variables['caption'] . '</a>',
+          ];
+          $variables['is_link'] = $link;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function ymca_alters_preprocess_file_link(&$variables) {
+
+  /** @var \Drupal\Core\Template\Attribute $attributes */
+  $attributes = $variables['attributes'];
+  $storage = $attributes->storage();
+  /** @var \Drupal\Core\Template\AttributeString $dataDrupalSelector */
+  $dataDrupalSelector = $storage['data-drupal-selector'];
+  if ($dataDrupalSelector) {
+    $value = $dataDrupalSelector->value();
+    if ($value) {
+      preg_match("/(edit)-field-media-document-0-file-(\d+)-filename/", $value, $output_array);
+
+      if (isset($output_array[1]) && isset($output_array[2]) && $output_array[1] = 'edit') {
+        $url = Url::fromRoute('entity.file.edit_form', ['file' => $output_array[2]], [
+          'absolute' => TRUE,
+          'attributes' => ['target' => '_blank', 'class' => 'button']
+        ]);
+        $project_link = Link::fromTextAndUrl(t('Replace: ' . $variables['file']->filename->value), $url);
+        $project_link = $project_link->toRenderable();
+        $variables['link'] = $project_link;
+      }
+    }
+  }
 }

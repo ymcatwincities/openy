@@ -7820,12 +7820,17 @@ nav#block-footermenuright {
 }
 .sidebar-promos p {
   padding: 0;
+  margin-bottom: 0;
 }
 .sidebar-promos.promos .richtext p {
   padding: 0 20px 10px;
+  margin-bottom: 10px;
 }
 .sidebar-promos.promos .richtext .text-promo p {
   padding: 0;
+}
+.sidebar-promos .blazy {
+  margin-bottom: 0;
 }
 
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .nav-home.affix#masthead-menu {
