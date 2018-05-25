@@ -75,7 +75,6 @@ function ymca_master_update_8002() {
  * Set appropriate node aliases for news pages.
  */
 function ymca_master_update_8003() {
-  // @todo run this after next reimport from ClockWork source DB.
   $news_term_id = \Drupal::entityQuery('taxonomy_term')
     ->condition('name', 'News')
     ->condition('vid', 'tags')
@@ -6581,9 +6580,34 @@ function ymca_master_update_8281() {
 }
 
 /**
- * Create new Kronos emails group.
+ * Fix drupal-entity-inline for block_content.
  */
 function ymca_master_update_8282() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $modules = [
+    'linkit',
+    'linkit_entity_attributes',
+    'openy_linkit'
+  ];
+
+  $installer = \Drupal::service('module_installer');
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
+
+  $dir = 'profiles/contrib/openy/modules/openy_features/openy_editor/config/install';
+  $config_importer->setDirectory($dir);
+  $config_importer->importConfigs(
+    [
+      'filter.format.full_html.yml',
+    ]
+  );
+}
+
+/**
+ * Create new Kronos emails group.
+ */
+function ymca_master_update_8283() {
   $termStorage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
   $termProperties = [
     'name' => 'Branch Executives',
