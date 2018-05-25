@@ -604,13 +604,11 @@ function ymca_alters_preprocess_filter_caption(&$variables) {
  * Implements hook_preprocess_HOOK().
  */
 function ymca_alters_preprocess_file_link(&$variables) {
-
   /** @var \Drupal\Core\Template\Attribute $attributes */
   $attributes = $variables['attributes'];
   $storage = $attributes->storage();
   /** @var \Drupal\Core\Template\AttributeString $dataDrupalSelector */
-  $dataDrupalSelector = $storage['data-drupal-selector'];
-  if ($dataDrupalSelector) {
+  if (isset($storage['data-drupal-selector']) && $dataDrupalSelector = $storage['data-drupal-selector']) {
     $value = $dataDrupalSelector->value();
     if ($value) {
       preg_match("/(edit)-field-media-document-0-file-(\d+)-filename/", $value, $output_array);
