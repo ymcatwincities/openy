@@ -1,7 +1,7 @@
 // @todo these should be their own CSS files and only included when
 // specific Drupal libraries are used.
-@import "component/alert";
 @import "component/ajax";
+@import "component/alert";
 @import "component/field";
 @import "component/file";
 @import "component/filter";
@@ -20,6 +20,7 @@
 
 ol, ul {
   padding-left: 1.5em;
+
   .popover &:last-child {
     margin-bottom: 0;
   }
@@ -52,6 +53,7 @@ p:last-child,
     float: left;
     margin: -0.05em 0.5em 0 0;
   }
+
   .block {
     overflow: hidden;
   }
@@ -63,6 +65,7 @@ p:last-child,
   font-size: 12px;
   margin: 5px 0 10px;
   padding: 0;
+
   &:first-child {
     margin-top: 0;
   }
