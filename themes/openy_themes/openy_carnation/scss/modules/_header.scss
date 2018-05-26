@@ -26,10 +26,10 @@
       #ffffff 100%
     );
     filter: progid:DXImageTransform.Microsoft.gradient(
-        startColorstr="#000000",
-        endColorstr="#ffffff",
-        GradientType=0
-      );
+      startColorstr="#000000",
+      endColorstr="#ffffff",
+      GradientType=0
+    );
     height: 200px;
 
     .logo.navbar-btn.pull-left {
@@ -41,17 +41,21 @@
     }
   }
 
-  .site-name a {
-    font-size: 20px;
-    color: #646464;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: -1px;
-    line-height: 44px;
-    padding: 0;
-    margin: 0px !important;
-    height: 100% !important;
-    float: none !important;
+  .site-name {
+    @include cachet(400);
+
+    a {
+      font-size: 20px;
+      color: #646464;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 44px;
+      padding: 0;
+      margin: 0 !important;
+      height: 100% !important;
+      float: none !important;
+    }
   }
 }
 

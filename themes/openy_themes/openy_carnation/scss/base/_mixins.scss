@@ -2,19 +2,13 @@
  font-family: Verdana,"Bitstream Vera Sans","DejaVu Sans",Tahoma,Geneva,Arial,sans-serif,myriad-pro-condensed,sans-serif;
 }
 
-@mixin cachet() {
+// Cachet fonts
+// 400 - normal
+// 500 - medium
+// 700 - bold
+@mixin cachet($font-weight: 400) {
   font-family: "Cachet", 'Ubuntu Condensed', sans-serif;
-  font-weight: 400;
-}
-
-@mixin cachet-medium() {
-  font-family: "Cachet", 'Ubuntu Condensed', sans-serif;
-  font-weight: 500;
-}
-
-@mixin cachet-bold() {
-  font-family: "Cachet", 'Ubuntu Condensed', sans-serif;
-  font-weight: 700;
+  font-weight: $font-weight;
 }
 
 @mixin helvetica-neue() {
