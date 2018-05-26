@@ -8102,7 +8102,10 @@ input.button:hover, input.btn:hover, input.button:hover, input.button:hover, a.b
   opacity: 0.7;
 }
 
-a.back-link, a.follow-link, .paragraph--type--grid-related-blog-posts .field-prgf-link a, .y-news-view-list .comments_count a {
+a.back-link,
+a.follow-link,
+.paragraph--type--grid-related-blog-posts .field-prgf-link a,
+.y-news-view-list .comments_count a {
   font-size: 20px;
   font-weight: 500;
   letter-spacing: -1px;
@@ -8110,7 +8113,10 @@ a.back-link, a.follow-link, .paragraph--type--grid-related-blog-posts .field-prg
   color: #0089d0;
   text-transform: uppercase;
 }
-a.back-link:hover, a.follow-link:hover, .paragraph--type--grid-related-blog-posts .field-prgf-link a:hover, .y-news-view-list .comments_count a:hover {
+a.back-link:hover,
+a.follow-link:hover,
+.paragraph--type--grid-related-blog-posts .field-prgf-link a:hover,
+.y-news-view-list .comments_count a:hover {
   color: #c6168d;
 }
 
@@ -8152,8 +8158,8 @@ body .pager li.load_more_button > a {
   src: url("../fonts/icons/icomoon.eot?#iefix") format("embedded-opentype"), url("../fonts/icons/icomoon.woff") format("woff"), url("../fonts/icons/icomoon.ttf") format("truetype"), url("../fonts/icons/icomoon.svg#icomoon") format("svg");
 }
 body {
-  color: #636466;
   font-family: Verdana,"Bitstream Vera Sans","DejaVu Sans",Tahoma,Geneva,Arial,sans-serif,myriad-pro-condensed,sans-serif;
+  color: #636466;
   font-size: 18px;
 }
 
@@ -8194,7 +8200,8 @@ h5 {
   letter-spacing: -0.5px;
 }
 
-h6, .h6 {
+h6,
+.h6 {
   font-size: 20px;
   font-weight: bold;
 }
@@ -8460,6 +8467,10 @@ body {
 .layout-container .top-navs .logo.navbar-btn.pull-left img {
   width: 45px;
 }
+.layout-container .site-name {
+  font-family: "Cachet", 'Ubuntu Condensed', sans-serif;
+  font-weight: 400;
+}
 .layout-container .site-name a {
   font-size: 20px;
   color: #646464;
@@ -8468,7 +8479,7 @@ body {
   letter-spacing: -1px;
   line-height: 44px;
   padding: 0;
-  margin: 0px !important;
+  margin: 0 !important;
   height: 100% !important;
   float: none !important;
 }
@@ -9242,7 +9253,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   border-radius: 8px 0 0 8px;
 }
 
-@media screen and (min-width: 0px) and (max-width: 767px) {
+@media screen and (min-width: 0) and (max-width: 767px) {
   .search-form-wrapper.col-xs-12 {
     position: relative;
   }
@@ -9269,7 +9280,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   }
   .page-head__top-menu .navbar-nav {
     width: 100%;
-    margin: 0px !important;
+    margin: 0 !important;
   }
 
   .top-navs .navbar-default {
@@ -9304,7 +9315,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   }
 
   .top-navs.navbar-fixed-top.visible-xs.visible-sm.affix-top {
-    height: 0px !important;
+    height: 0 !important;
   }
 
   .without-banner .viewport {
@@ -9332,7 +9343,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   }
 
   .path-frontpage .paragraph--type--header-banner {
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
   }
 
   .banner-zone-node .banner-cta {
@@ -9373,7 +9384,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
     position: relative;
     background: #20bdbe;
     display: block;
-    padding: 0px 0px 30px;
+    padding: 0 0 30px;
     word-wrap: break-word;
   }
   .paragraph--type--banner .banner-cta .banner-description {
@@ -9401,7 +9412,8 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
     min-height: 100% !important;
   }
 
-  .banner-zone-node h1, .banner-zone-node .banner-title, .banner-zone-node .banner-title {
+  .banner-zone-node h1, .banner-zone-node .banner-title,
+  .banner-zone-node .banner-title {
     font-size: 38px;
   }
 
@@ -9411,7 +9423,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
 
   #btn-shw-hide {
     transition: all 0.3s ease-in-out 0s;
-    padding: 0px 10px;
+    padding: 0 10px;
     float: left;
     width: 100%;
   }
@@ -9441,10 +9453,10 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
     border-top: dotted 1px #eee;
   }
   #btn-shw-hide ul li ul {
-    padding: 0px 0px 0px 20px;
+    padding: 0 0 0 20px;
   }
   #btn-shw-hide ul li ul li {
-    border: 0px solid;
+    border: 0 solid;
   }
   #btn-shw-hide ul li a {
     color: #fff;
@@ -9465,8 +9477,8 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   position: relative;
   color: #fff;
 }
-.nav-level-3 > a::before {
-  font-family: 'icomoon' !important;
+.nav-level-3 > a:before {
+  font-family: "icomoon" !important;
   content: "\ec13";
 }
 .nav-level-3 .section-icon {
@@ -9505,7 +9517,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   }
   .page-head__top-menu .navbar-nav {
     width: 100%;
-    margin: 0px !important;
+    margin: 0 !important;
   }
 
   .top-navs .navbar-default {
@@ -9546,7 +9558,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   }
 
   .top-navs.navbar-fixed-top.visible-xs.visible-sm.affix-top {
-    height: 0px !important;
+    height: 0 !important;
   }
 
   .without-banner .viewport {
@@ -9599,7 +9611,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
     position: relative;
     background: #20bdbe;
     display: block;
-    padding: 0px 0px 30px;
+    padding: 0 0 30px;
     word-wrap: break-word;
   }
   .paragraph--type--banner .banner-cta .banner-description {
