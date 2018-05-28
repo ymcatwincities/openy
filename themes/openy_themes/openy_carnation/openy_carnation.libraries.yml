@@ -1,34 +1,12 @@
 global-styling:
   css:
     base:
-      css/vendor/bootstrap/bootstrap.css: {}
-      css/vendor/bootstrap/bootstrap-theme.min.css: {}
-    theme:
-      css/styles.css: {}
+      dist/css/style.css: {}
   js:
     //use.fontawesome.com/95fd5fcc01.js: {}
-    scripts/vendor/bootstrap.min.js: {}
-    scripts/vendor/iscroll/iscroll.js: {}
-    scripts/openy_carnation.js: {}
-#  css:
-#    theme:
-#      css/style.css: {}
-#      css/font-awesome.css: {}
-#      css/font-awesome.min.css: {}
-#      css/bootstrap.min.css: {}
+      dist/js/openy_carnation.min.js: {}
+#      src/js/scripts.js: {}
 
-bootstrap-scripts:
-  js:
-    bootstrap/assets/javascripts/bootstrap/affix.js: {}
-    bootstrap/assets/javascripts/bootstrap/alert.js: {}
-    bootstrap/assets/javascripts/bootstrap/button.js: {}
-    bootstrap/assets/javascripts/bootstrap/carousel.js: {}
-    bootstrap/assets/javascripts/bootstrap/collapse.js: {}
-    bootstrap/assets/javascripts/bootstrap/dropdown.js: {}
-    bootstrap/assets/javascripts/bootstrap/modal.js: {}
-    bootstrap/assets/javascripts/bootstrap/tooltip.js: {}
-    bootstrap/assets/javascripts/bootstrap/popover.js: {}
-    bootstrap/assets/javascripts/bootstrap/scrollspy.js: {}
-    bootstrap/assets/javascripts/bootstrap/tab.js: {}
-    bootstrap/assets/javascripts/bootstrap/transition.js: {}
-    bootstrap/assets/javascripts/bootstrap/menu.js: {}
+  dependencies:
+    - core/jquery.once
+    - core/drupal
