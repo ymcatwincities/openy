@@ -1,5 +1,6 @@
 .DS_Store
 .sass-cache/
+*.css.map
 .idea
 ./contrib
 ./libraries
@@ -7,6 +8,11 @@
 ./bin
 ./build/reports
 ./docroot
+
+
+# Ignore custom theme build artifacts
+#themes/openy_themes/*/dist
+themes/openy_themes/*/node_modules
 
 vendor
 bin
