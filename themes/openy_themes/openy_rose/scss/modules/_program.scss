@@ -9,8 +9,7 @@
     margin-bottom: 15px;
     position: relative;
     @include breakpoint($screen-sm) {
-      height: 260px;
-      padding: 40px 0;
+      padding: 36px 0;
       margin-bottom: 45px;
     }
   }
@@ -48,7 +47,7 @@
   }
 
   .image {
-    margin-top: -40px;
+    margin-top: -36px;
   }
   .main {
     position: static;
@@ -79,7 +78,7 @@
     margin: 0 0 15px;
     @include breakpoint($screen-sm) {
       font-size: 50px;
-      margin-bottom: 80px;
+      margin-bottom: 0;
     }
   }
 
@@ -91,7 +90,7 @@
       margin: 0 0 7px;
 
       @include breakpoint($screen-sm) {
-        margin: 0 0 45px;
+        margin: 0 0 36px;
       }
     }
 
@@ -111,10 +110,6 @@
     .content {
       height: auto;
       margin-bottom: 0;
-
-      @include breakpoint($screen-sm) {
-        min-height: 200px;
-      }
 
       .image {
         position: static;
