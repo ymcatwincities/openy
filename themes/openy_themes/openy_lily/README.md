@@ -29,6 +29,8 @@ Set as default ruby:
 
 4. Install autoprefixer
 
+`sudo apt-get install ruby`ruby -e 'puts RUBY_VERSION[/\d+\.\d+/]'`-dev`
+
 `sudo gem install autoprefixer-rails -v '6.4.1.1'`
 
 5. Go to the theme folder

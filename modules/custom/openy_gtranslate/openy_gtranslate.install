@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Installation file for OpenY Google Translate module.
+ */
+
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
+/**
+ * Implements hook_install().
+ */
+function openy_gtranslate_install() {
+  $config = \Drupal::config('system.theme');
+  $menuName = (!empty($config->get('default')) && $config->get('default') == 'openy_lily') ? 'main' : 'account';
+  $menuLink = MenuLinkContent::create([
+    'title' => t('Language'),
+    'link' => [
+      'uri' => 'internal:/',
+      'options' => [
+        'attributes' => [
+          'class' => ['language hidden-md hidden-lg'],
+        ],
+      ],
+    ],
+    'menu_name' => $menuName,
+    'weight' => 50,
+  ]);
+  $menuLink->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_gtranslate_uninstall() {
+  $config = \Drupal::config('system.theme');
+  $menuName = (!empty($config->get('default')) && $config->get('default') == 'openy_lily') ? 'main' : 'account';
+
+  $database = \Drupal::database();
+  $query = $database->select('menu_link_content_data', 'm');
+  $query->condition('bundle', 'menu_link_content');
+  $query->condition('enabled', 1);
+  $query->condition('m.menu_name', $menuName);
+  $query->condition('title', "%Language%", 'LIKE');
+  $query->condition('link__options', "%language%", 'LIKE');
+  $query->fields('m', ['id']);
+  $res = $query->execute()->fetchField();
+  // Delete Language link.
+  if (!empty($res)) {
+    $menuLink = MenuLinkContent::load($res);
+    $menuLink->delete();
+  }
+}

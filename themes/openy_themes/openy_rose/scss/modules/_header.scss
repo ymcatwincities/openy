@@ -169,6 +169,7 @@
   }
   .is-camp &__main-menu,
   &__main-menu {
+    top: 0;
 
     a {
       @include cachet();
@@ -189,8 +190,7 @@
     @include breakpoint($screen-desktop) {
       border-bottom: none;
       position: absolute;
-      bottom: 0;
-
+      top: 125px;
 
       .nav-level-2,
       .nav-level-3 {
@@ -227,12 +227,16 @@
   background-color: $blue;
 
   .viewport & {
-    height: $top-nav-height;
+    min-height: $top-nav-height;
     border-bottom: none;
   }
 
   .viewport &.affix {
+    min-height: $minimized-nav-height;
     height: $minimized-nav-height;
+    .page-head__main-menu {
+      top: 0;
+    }
   }
 
   .navbar-default {
@@ -464,17 +468,14 @@
 .viewport {
   .nav-global {
     > .container > .row {
-      height: $top-nav-height;
+      min-height: $top-nav-height;
       position: relative;
 
       .header-content {
         bottom: 0;
         position: absolute;
-        height: $top-nav-height;
+        min-height: $top-nav-height;
 
-        .page-head__search {
-
-        }
       }
     }
   }
@@ -555,5 +556,13 @@
     .top-navs {
       margin-left: 150px;
     }
+  }
+}
+
+// Google translate styles.
+.translated-ltr,
+.translated-rtl {
+  .top-navs {
+    margin-top: 39px;
   }
 }

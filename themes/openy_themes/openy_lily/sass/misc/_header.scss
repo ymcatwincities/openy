@@ -1,13 +1,13 @@
 body {
   @include breakpoint ($tablet-start) {
-    padding-top: 83px !important;
+    padding-top: 100px !important;
     @include transition(padding-top 0.2s ease);
     &.tiny-header {
       padding-top: 55px !important;
     }
   }
   @include breakpoint (0 $tablet-start) {
-    padding-top: 52px !important;
+    padding-top: 80px !important;
     max-width: 100%;
   }
   &.toolbar-fixed {
@@ -195,7 +195,6 @@ header#page-head {
   @include cachet();
   @include breakpoint (0 $tablet-start) {
     position: relative;
-    z-index: 999;
   }
   .container-fluid {
     @media (min-width: 1200px) {
@@ -215,7 +214,11 @@ header#page-head {
       margin-bottom: 0;
       border-radius: 0;
       background-color: $gray-light;
+      min-height: 100px;
       width: 100%;
+      @include breakpoint (0 $tablet-start) {
+        min-height: 80px;
+      }
       .navbar-header {
         padding: 5px 0 13px;
         .navbar-toggler {
@@ -236,9 +239,8 @@ header#page-head {
           }
           .navbar-toggler {
             display: block !important;
-            float: right;
-            position: absolute;
-            right: 15px;
+            float: left;
+            position: relative;
             outline: 0 !important;
             margin-top: 8px;
             background: transparent;
@@ -290,6 +292,11 @@ header#page-head {
         }
       }
     }
+    #block-topmenu2 {
+      .expanded-menu + .dropdown-menu {
+        display: block;
+      }
+    }
     .nav-wrapper {
       min-height: 62px;
       z-index: 998;
@@ -306,7 +313,7 @@ header#page-head {
         z-index: 9999;
         @include transition(top 0.2s linear);
         &.affix {
-          top: 52px;
+          top: 100px;
         }
         #block-openy-lily-main-menu {
           width: 100%;
@@ -429,6 +436,7 @@ header#page-head {
         }
       }
     }
+    #block-topmenu2,
     #block-anonymoususersmenu--2,
     #block-anonymoususersmenu,
     #block-openy-lily-user-menu,
@@ -442,8 +450,13 @@ header#page-head {
           a {
             color: $gray-dark;
             border-top: 2px solid transparent;
-            line-height: 50px;
+            line-height: 68px;
             font-size: 16px;
+            @include breakpoint (768px 991px) {
+              margin-top: 0;
+              padding: 15px 6px;
+              font-size: 13px;
+            }
             @include transition(all 0.2s linear);
             &:hover {
               border-top: 2px solid #aa228d;
@@ -481,14 +494,18 @@ header#page-head {
         }
       }
     }
+    #block-topmenu2,
     #block-anonymoususersmenu,
     #block-anonymoususersmenu--2,
     #block-openy-lily-user-menu {
+      h2 {
+        display: none;
+      }
       .nav {
         li {
           &:first-child {
             a {
-              padding: 7px 15px;
+              padding: 4px 15px;
               border-radius: 5px;
               background-color: $main-purple;
               text-transform: capitalize;
@@ -497,7 +514,7 @@ header#page-head {
               line-height: 20px;
               color: white;
               text-shadow: none;
-              margin: 24px 5px 0 0;
+              margin: 36px 5px 0 0;
               border-top: none;
               &:hover {
                 border-top: none;
@@ -558,6 +575,7 @@ header#page-head {
           }
         }
       }
+      #block-topmenu2,
       #block-anonymoususersmenu,
       #block-anonymoususersmenu--2,
       #block-openy-lily-user-menu,
@@ -569,6 +587,7 @@ header#page-head {
           }
         }
       }
+      #block-topmenu2,
       #block-openy-lily-user-menu,
       #block-anonymoususersmenu,
       #block-anonymoususersmenu--2 {
@@ -612,7 +631,51 @@ header#page-head {
     }
   }
 }
+.navbar-brand {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  box-sizing: content-box;
+  margin: 7px 0 5px 0;
+  padding: 5px 0 0 30px;
+  width: 220px;
+  height: 72%;
+  background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
+  background-size: contain;
+  @include breakpoint(0 $tablet-start) {
+    left: 35%;
+    float: none;
+    margin-left: -24px;
+    padding: 0;
+    height: 70%;
+    background-position: left top;
+    background-size: contain;
+  }
+}
 
-.landing-header {
-  margin-bottom: 20px;
+.no-smil {
+  .affix .navbar-brand {
+    padding-top: 70px !important;
+    background-image: url(../img/ymca-logo-full.png);
+  }
+  .navbar {
+    background-color: #eeeeee;
+  }
+}
+
+.csstransitions.no-smil .affix .navbar-brand {
+  background-image: url(../img/ymca-logo-full.png);
+}
+
+// Google translate styles.
+.translated-ltr,
+.translated-rtl {
+  header#page-head .top-navs {
+    .nav-global {
+      margin-top: 39px !important;
+    }
+    .nav-wrapper .main-nav.affix {
+      top: 139px;
+    }
+  }
 }

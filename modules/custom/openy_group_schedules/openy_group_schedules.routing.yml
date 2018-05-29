@@ -26,3 +26,11 @@ openy_group_schedules.settings:
     _title: GroupEx settings
   requirements:
     _permission: 'administer site configuration'
+
+openy_group_schedules.autocomplete:
+  path: /openy-group-schedules-autocomplete
+  defaults:
+    _controller: '\Drupal\openy_group_schedules\Controller\AutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _access: 'TRUE'
