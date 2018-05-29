@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f23216a5288acaf41f343ce9785b07c",
+    "content-hash": "cf0b338380b4edd196ca976ad075cebd",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1995,6 +1995,9 @@
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
                     }
+                },
+                "patches_applied": {
+                    "2833965 - Multiple submissions of the same form on double-clicking 'Select entities'": "https://www.drupal.org/files/issues/dropzonejs-prevent_multiple_form_submissions-2833965-10.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
