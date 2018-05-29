@@ -182,6 +182,7 @@ dependencies:
   - openy_prgf_4c
   - openy_prgf_amenities
   - openy_prgf_lto
+  - openy_node_social_post
   # OpenY custom modules
   - openy_addthis
   - openy_branch_selector
@@ -207,6 +208,7 @@ dependencies:
   - openy_data_wrapper
   - logger_entity
   - openy_redirect
+  - advanced_help_block
   - openy_gtranslate
 
 themes:
