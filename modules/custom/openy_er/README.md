@@ -5,7 +5,7 @@ The idea of the module is to provide enhancements to the Core entity reference f
 #### Entity Reference Selection Handler plugins
 
 The plugins stored at `src/Plugin/EntityReferenceSelection` must be used in ER-fields if additional bundle filtering is setup and you export configuration of those fields into the profile.
-Default Selection Handlers put dependency for each single bundle setup there, because the core works the way, that 'target_bundles' field settings. See [EntityReferenceItem::calculateDependencies()](https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21Plugin%21Field%21FieldType%21EntityReferenceItem.php/function/EntityReferenceItem%3A%3AcalculateDependencies/8.5.x)
+Default Selection Handlers put dependency for each single bundle setup there, because the core works the way, that 'target_bundles' field settings entries add dependencies. See [EntityReferenceItem::calculateDependencies()](https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Field%21Plugin%21Field%21FieldType%21EntityReferenceItem.php/function/EntityReferenceItem%3A%3AcalculateDependencies/8.5.x)
 
 `DefaultSelectionNoDependency` is basically needed to create a label for the group of OpenY selection handlers.
 

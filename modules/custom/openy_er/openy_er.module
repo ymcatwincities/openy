@@ -8,7 +8,7 @@
 /**
  * Implements hook_field_widget_form_alter().
  *
- * This will change the description text for the site slogan field.
+ * Alters default entity reference widget in favor of openy_er.
  */
 function openy_er_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
   $settings = $context['items']->getSettings();
