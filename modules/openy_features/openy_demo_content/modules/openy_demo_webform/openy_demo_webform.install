@@ -9,9 +9,6 @@
  * Implements hook_uninstall().
  */
 function openy_demo_webform_uninstall() {
-  // TODO: Show warning message in OpenY components page on uninstall
-  // "Be careful, if you use demo_form webform on site, module
-  // uninstall will remove all submissions and demo_form from site".
   \Drupal::service('openy.modules_manager')
     ->removeEntityBundle('webform_submission', 'webform', 'demo_form', 'webform_id');
 }
