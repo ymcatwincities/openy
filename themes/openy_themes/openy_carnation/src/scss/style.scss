@@ -1,34 +1,8 @@
-// Default variables.
-@import "default-variables";
+// Initialize OpenY's default variables
+@import "init";
 
-// Bootstrap Framework.
-@import '../bootstrap/assets/stylesheets/bootstrap';
+// Bootstrap Framework (loaded from node_modules)
+@import "bootstrap";
 
-// Base-theme overrides.
-@import 'overrides';
-
-// Base
-@import 'base/colors';
-@import 'base/variables';
-@import 'base/mixins';
-@import 'base/fonts';
-@import 'base/typography';
-@import 'base/utilities';
-
-// Modules
-@import 'modules/page';
-@import 'modules/footer';
-@import 'modules/header';
-@import 'modules/menu';
-@import 'modules/headerbanner';
-@import 'modules/grid_col';
-@import 'modules/locations';
-@import 'modules/banner';
-@import 'modules/events';
-@import 'modules/blogs';
-@import 'modules/gallery';
-
-// Layouts
-@import 'layouts/mob';
-@import 'layouts/tab';
-
+// OpenY (Carnation) Base Styles
+@import "base";

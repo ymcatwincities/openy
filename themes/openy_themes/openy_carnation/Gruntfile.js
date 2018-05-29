@@ -13,6 +13,25 @@ module.exports = function(grunt) {
     global_vars: global_vars,
     pkg: grunt.file.readJSON('package.json'),
 
+    sass_globbing: {
+      dist: {
+        files: {
+          '<%= global_vars.theme_src_scss %>/_init.scss': [
+            '<%= global_vars.theme_src_scss %>/presentation/_variables.scss',
+            '<%= global_vars.theme_src_scss %>/presentation/_mixins.scss',
+          ],
+          '<%= global_vars.theme_src_scss %>/_base.scss': [
+            '<%= global_vars.theme_src_scss %>/component/**/*.scss',
+            '<%= global_vars.theme_src_scss %>/component/**/*.scss',
+            '<%= global_vars.theme_src_scss %>/jquery-ui/**/*.scss',
+            '<%= global_vars.theme_src_scss %>/modules/**/*.scss',
+            '<%= global_vars.theme_src_scss %>/layouts/**/*.scss',
+            '<%= global_vars.theme_src_scss %>/_overrides.scss'
+          ]
+        }
+      }
+    },
+
     sass: {
       modules: {
         options: {
@@ -33,7 +52,7 @@ module.exports = function(grunt) {
           sourceMap: true
         },
         files: {
-          '<%= theme_dist_css %>/style.css': '<%= theme_src_scss %>/style.scss'
+          '<%= global_vars.theme_dist_css %>/style.css': '<%= global_vars.theme_src_scss %>/style.scss'
         }
       }
     },
@@ -46,9 +65,9 @@ module.exports = function(grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= theme_src_js %>',
+          cwd: '<%= global_vars.theme_src_js %>',
           src: ['*.js', '*.min.js'],
-          dest: '<%= theme_dist_js %>',
+          dest: '<%= global_vars.theme_dist_js %>',
           rename: function (dst, src) {
             return dst + '/' + src.replace('.js', '.min.js');
           }
@@ -64,9 +83,9 @@ module.exports = function(grunt) {
         expand: true,
         flatten: true,
         src: [
-          '<%= theme_src_scss %>/*.css'
+          '<%= global_vars.theme_src_scss %>/*.css'
         ],
-        dest: '<%= theme_dist_css %>'
+        dest: ['<%= global_vars.theme_dist_css %>/']
       }
     },
 
@@ -74,7 +93,7 @@ module.exports = function(grunt) {
       options: {
         configFile: '.sass-lint.yml'
       },
-      files: ['<%= theme_src_scss %>/**/*.scss']
+      files: ['<%= global_vars.theme_src_scss %>/**/*.scss']
     },
 
     jshint: {
@@ -87,7 +106,7 @@ module.exports = function(grunt) {
           jQuery: true
         }
       },
-      files: ['<%= theme_src_js %>/*.js']
+      files: ['<%= global_vars.theme_src_js %>/*.js']
     },
 
     watch: {
@@ -115,6 +134,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('build', ['sasslint', 'webfont', 'sass_globbing', 'sass', 'autoprefixer', 'uglify', 'imagemin']);
+  grunt.registerTask('build', ['sasslint', 'sass_globbing', 'sass', 'autoprefixer', 'uglify']);
   grunt.registerTask('default', ['build', 'watch']);
 };

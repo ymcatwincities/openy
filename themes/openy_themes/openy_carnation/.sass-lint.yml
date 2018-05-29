@@ -6,9 +6,7 @@ options:
 # File Options
 files:
   ignore:
-    - 'src/scss/fonts/_icons.scss'
-    - 'src/scss/_mixins.scss'
-    - 'src/scss/_overrides.scss'
+#    - ''
 # Rule Configuration
 rules:
   extends-before-mixins: 2

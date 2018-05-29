@@ -12,24 +12,24 @@
 
 .alert-success {
   a, a:hover, a:focus {
-    color: darken($alert-success-text, 10%);
+    color: darken($success, 10%);
   }
 }
 
 .alert-info {
   a, a:hover, a:focus {
-    color: darken($alert-info-text, 10%);
+    color: darken($info, 10%);
   }
 }
 
 .alert-warning {
   a, a:hover, a:focus {
-    color: darken($alert-warning-text, 10%);
+    color: darken($warning, 10%);
   }
 }
 
 .alert-danger {
   a, a:hover, a:focus {
-    color: darken($alert-danger-text, 10%);
+    color: darken($danger, 10%);
   }
 }

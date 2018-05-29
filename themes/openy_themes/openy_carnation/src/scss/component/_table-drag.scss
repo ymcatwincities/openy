@@ -12,7 +12,7 @@
 }
 
 .tabledrag-handle {
-  color: $gray-light;
+  color: $gray-200;
   cursor: move;
   float: left;
   font-size: 125%;
@@ -21,7 +21,7 @@
   padding: 10px;
 
   &:hover, &:focus {
-    color: $brand-primary;
+    color: $primary;
   }
 }
 

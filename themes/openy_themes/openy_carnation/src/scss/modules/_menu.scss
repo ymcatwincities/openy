@@ -3,9 +3,9 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
 }
 
 .menu-item-home {
-  background: url("../img/logo.png") no-repeat;
-  background-size: 300px 85px;
-  width: 32%;
+  background: url("../img/logo-white.png") no-repeat;
+  background-size: 65px 50px;
+  width: 65px;
   text-indent: -9999px;
   background-position: center;
 
@@ -51,8 +51,8 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
 
 ///////////////////////////
 .nav.dropdown-menu {
-  background-color: $white;
-  border: 1px solid $white;
+  background-color: white;
+  border: 1px solid white;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   width: 100%;
 }
@@ -134,15 +134,9 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   }
 
   .active > a {
-    -webkit-transition: height 0.3s 0.3s ease-out, opacity 0.3s 0s ease-out,
-      background-color 0.2s 0.6s ease-out, color 0.2s 0.6s ease-out,
-      color 0.2s 0.6s ease-out, border-color 0s ease-out;
-    -moz-transition: height 0.3s 0.3s ease-out, opacity 0.3s 0s ease-out,
-      background-color 0.2s 0.6s ease-out, color 0.2s 0.6s ease-out,
-      color 0.2s 0.6s ease-out, border-color 0s ease-out;
-    -ms-transition: height 0.3s 0.3s ease-out, opacity 0.3s 0s ease-out,
-      background-color 0.2s 0.6s ease-out, color 0.2s 0.6s ease-out,
-      color 0.2s 0.6s ease-out, border-color 0s ease-out;
+    transition: height 0.3s 0.3s ease-out, opacity 0.3s 0s ease-out,
+    background-color 0.2s 0.6s ease-out, color 0.2s 0.6s ease-out,
+    color 0.2s 0.6s ease-out, border-color 0s ease-out;
   }
 
   .nav a {
@@ -151,10 +145,6 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
     text-overflow: ellipsis;
     line-height: 20px;
     cursor: pointer;
-    -webkit-transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out;
-    -moz-transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out;
-    -ms-transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out;
-    -o-transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out;
     transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out;
   }
 
@@ -165,7 +155,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
 
     &.open .row-level-2 {
       display: block;
-      border-bottom: 1px solid $medium-grey;
+      border-bottom: 1px solid $gray-300;
     }
   }
 
@@ -212,7 +202,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
 
   .nav-level-2.open,
   .row-level-2 {
-    background-color: $white;
+    background-color: white;
   }
 
   .navbar-nav .open .dropdown-menu > li > a,
@@ -288,11 +278,11 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
     }
 
     &.open {
-      background-color: $white;
-      //border-top: 1px solid $white;
-      //border-left: 1px solid $white;
-      //border-right: 1px solid $white;
-      //border-bottom: 1px solid $white;
+      background-color: white;
+      //border-top: 1px solid white;
+      //border-left: 1px solid white;
+      //border-right: 1px solid white;
+      //border-bottom: 1px solid white;
       //margin-top: -1px;
 
       > .dropdown-menu {
@@ -304,7 +294,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
         position: relative;
         z-index: 1001;
         //padding: 10px 14px 24px 14px;
-        background: $white;
+        background: white;
         color: $dark-blue !important;
         &:hover {
           color: $dark-blue;
