@@ -10,32 +10,33 @@
 
   > span {
     background: #fff;
-    color: $brand-primary;
-    border-bottom: 1px solid $input-border;
-    border-top: 1px solid $input-border;
+    color: $primary;
+    border-bottom: 1px solid $input-border-color;
+    border-top: 1px solid $input-border-color;
 
     &:first-child {
-      border-left: 1px solid $input-border;
+      border-left: 1px solid $input-border-color;
     }
 
     &:last-child {
-      border-right: 1px solid $input-border;
+      border-right: 1px solid $input-border-color;
     }
   }
 
   > .tabledrag-changed {
-    &, &:last-child {
-      border: 1px solid darken($alert-warning-border, 5%);
-    }
-
-    background: $alert-warning-bg;
+    background: theme-color-level("warning", -10);
     border-radius: 0;
-    color: $alert-warning-text;
+    color: theme-color-level("warning", 6);
     display: table-cell;
     padding: 0 1em;
     top: 0;
     vertical-align: middle;
     border-left: 1px solid inherit;
+
+    &,
+    &:last-child {
+      border: 1px solid darken($warning, 5%);
+    }
   }
 }
 
@@ -52,7 +53,10 @@
   vertical-align: middle;
   width: 100%;
 
-  a, a:hover, a:focus, a:active {
+  a,
+  a:hover,
+  a:focus,
+  a:active {
     color: inherit;
   }
 }

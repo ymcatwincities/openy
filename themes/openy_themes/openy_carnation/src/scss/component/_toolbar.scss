@@ -8,7 +8,7 @@ body.toolbar-fixed {
 
   // Fix z-index.
   .toolbar-oriented .toolbar-bar {
-    z-index: ($zindex-navbar-fixed + 1);
+    z-index: ($zindex-fixed + 1);
   }
 
   .navbar-fixed-top {

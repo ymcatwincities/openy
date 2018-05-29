@@ -10,18 +10,22 @@
   // Sidebar collapsible.
   Drupal.behaviors.openy_carnation_init = {
     attach: function (context, settings) {
-      $('.layout-container').prepend('<div class="banner-zone-node"></div>');
-      $('.wrapper-field-header-content .paragraph--type--banner').appendTo('.banner-zone-node');
-      $('.menu-icon-1').addClass('home-link');
+
+      // homepage banner
+      $('.layout-container').once('banner-zone').each(function() {
+        $('.layout-container').prepend('<div class="banner-zone-node"></div>');
+        $('.wrapper-field-header-content .paragraph--type--banner').appendTo('.banner-zone-node');
+
+        if ($('.banner-zone-node').text().length > 0 ) {
+          $('body').addClass('with-banner');
+        }
+
+        if ($('.banner-zone-node').text().length <= 0 ) {
+          $('body').addClass('without-banner');
+        }
+      });
+
       $('.webform-submission-form').addClass('container');
-
-      if ($('.banner-zone-node').text().length > 0 ) {
-        $('body').addClass('with-banner');
-      }
-
-      if ($('.banner-zone-node').text().length == 0 ) {
-        $('body').addClass('without-banner');
-      }
 
       if($(".field-link-attribute:contains('New Window')").length) {
         $('.field-prgf-clm-link a').attr('target', '_blank');

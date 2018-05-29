@@ -26,12 +26,12 @@ html.js {
 
   .form-item .input-group-addon {
     .glyphicon {
-      color: $gray-light;
+      color: $gray-200;
       opacity: .5;
       transition: 150ms color, 150ms opacity;
 
       &.glyphicon-spin {
-        color: $brand-primary;
+        color: $primary;
         opacity: 1;
       }
     }

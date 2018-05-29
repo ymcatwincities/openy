@@ -29,11 +29,11 @@
     // Reset rounded corners
 
     &:first-child .form-control:first-child {
-      @include border-left-radius($border-radius-base);
+      @include border-left-radius($border-radius);
     }
 
     &:last-child .form-control:first-child {
-      @include border-right-radius($border-radius-base);
+      @include border-right-radius($border-radius);
     }
   }
 
@@ -50,7 +50,7 @@
   }
 
   &:after {
-    color: $brand-primary;
+    color: $primary;
     content: '▼';
     font-style: normal;
     font-weight: 400;
@@ -73,15 +73,15 @@
     }
 
     .has-error & {
-      color: $state-danger-text;
+      color: theme-color-level("danger", -10);
     }
 
     .has-success & {
-      color: $state-success-text;
+      color: theme-color-level("success", -10);
     }
 
     .has-warning & {
-      color: $state-warning-text;
+      color: theme-color-level("warning", -10);
     }
   }
 }
@@ -97,6 +97,13 @@
   line-height:1;
   height: 7px;
   width: 10px;
+}
+
+// Form items.
+.form-actions,
+.form-item,
+.form-text {
+  margin: 0;
 }
 
 // Form action buttons.

@@ -1,5 +1,5 @@
 @mixin verdana() {
- font-family: Verdana,"Bitstream Vera Sans","DejaVu Sans",Tahoma,Geneva,Arial,sans-serif,myriad-pro-condensed,sans-serif;
+  font-family: Verdana, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, Geneva, Arial, sans-serif, myriad-pro-condensed,sans-serif;
 }
 
 // Cachet fonts
@@ -22,14 +22,14 @@ input.button, input.btn, input.button, a.btn, a.button, #block-useraccountmenu u
   border-radius: 8px;
   line-height: 40px;
   display: inline-block;
-  color: #FFF;
+  color: white;
   padding: 10px 25px;
   text-align: center;
   min-width: 180px;
   white-space: inherit;
 
   &:hover {
-   opacity: 0.7;
+    opacity: 0.7;
   }
 }
 
@@ -40,15 +40,15 @@ input.button, input.btn, input.button, a.btn, a.button, #block-useraccountmenu u
   letter-spacing: -1px;
   text-align: center;
   background-color: transparent !important;
-  border: 3px solid #FFF !important;
+  border: 3px solid white !important;
   border-radius: 8px !important;
   padding: 0 25px;
   line-height: 52px;
   min-width: 160px;
-  color: $white;
+  color: white;
 
   a {
-    color: $white;
+    color: white;
   }
 
   &:hover {
@@ -69,11 +69,13 @@ a.follow-link,
   text-transform: uppercase;
 
   &:hover {
-   color: $pink;
+    color: $pink;
   }
 }
 
-a.follow-link::after, .paragraph--type--grid-related-blog-posts .field-prgf-link a::after, .y-news-view-list .comments_count a::after {
+a.follow-link::after,
+.paragraph--type--grid-related-blog-posts .field-prgf-link a::after,
+.y-news-view-list .comments_count a::after {
   font-family: 'icomoon' !important;
   content: "\ec13";
   font-size: 24px;
@@ -94,7 +96,7 @@ body .pager li.load_more_button > a {
   padding: 10px;
   height: 60px;
   letter-spacing: -1px;
-  background: #0060AF;
-  color: #FFF;
+  background: $dark-blue;
+  color: white;
 }
 

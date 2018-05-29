@@ -84,24 +84,29 @@
   </div>
 
   <div class="viewport">
+
     <header id="page-head" class="page-head">
       <div class="top-navs navbar-fixed-top hidden-xs hidden-sm" data-spy="affix" data-offset-top="1">
-        <nav class="nav-global navbar-ymcags navbar">
-          <div class="container-fluid">
-            <div class="row">
+        <div class="container-fluid">
+          <nav class="nav-global navbar-ymcags navbar">
+
               <a class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </a>
-              <div class="clearfix page-head__top-menu">
+
+              {# sitename & secondary menu #}
+              <div class="clearfix page-head__top-menu d-flex">
                 <div class="col-md-6 site-name">
                  {{ page.logo }}
                 </div>
                 <div class="col-md-6">
                   {{ page.secondary_menu }}
                 </div>
-                </div>
+              </div>
+
+              {# search #}
               <div class="col-md-12 header-content hidden-xs">
                 <div class="page-head__search collapse">
                   <div class="search-form-wrapper">
@@ -121,10 +126,11 @@
                   {{ page.primary_menu }}
                 </div>
               </div>
-            </div>
+              {# / search #}
 
-          </div>
-        </nav>
+            </nav>
+         </div>
+
       </div>
     </header>
 

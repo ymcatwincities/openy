@@ -1,0 +1,36 @@
+//
+// Colours
+// --------------------------------------------------
+
+// grays
+$gray-100: #ebebeb;
+$gray-200: #ccc;
+$gray-300: #979797;
+$gray-400: #636466;
+$gray-500: #4f4f4f;
+$gray-600: #333333;
+$gray-700: #2f2f2f;
+//$gray-800: #373a3c !default;
+//$gray-900: #212529 !default;
+
+// openy colour palette
+$sky-blue:            #bfe1f3;
+$light-blue:          #00aeef;
+$blue:                #0089d0;
+$dark-blue:           #0060af;
+$pink:                #c6168d;
+$indigo:              #92278f;
+$purple:              #5c2e91;
+$red:                 #ed1c24;
+$orange:              #f15922;
+$yellow:              #fcaf17;
+$green:               #20bdbe;
+$teal:                #006b6b;
+$cyan:                #01a490;
+
+$colors: () !default;
+$colors: map-merge((
+    "sky-blue":       $sky-blue,
+    "light-blue":     $light-blue,
+    "dark-blue":      $light-blue,
+), $colors);

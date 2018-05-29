@@ -4,7 +4,7 @@
    
     .search-input {
       width: 100%;
-      border: 1px solid $white;
+      border: 1px solid white;
       border-radius: 4px;
       padding: 5px;
     }
@@ -35,16 +35,16 @@
  
   .top-navs {
     .navbar-default {
-       background-color: $blue;
-       border-color: $blue;
+      background-color: $blue;
+      border-color: $blue;
 
       .navbar-toggle {
         .icon-bar {
-          background-color: $white;
+          background-color: white;
         }
 
         &:hover {
-         background: transparent;
+          background: transparent;
         }
       }
 
@@ -70,10 +70,10 @@
   }
 
   .page-head__logo a {
-    color: $white !important;
+    color: white !important;
 
     &:hover {
-     color: $white;
+      color: white;
     }
   }
 
@@ -95,7 +95,7 @@
 
     .page-head__top-menu li a {
       padding: 10px 0;
-      color: $white;
+      color: white;
     }
 
     .nav-level-2.open,
@@ -104,7 +104,7 @@
     }
 
     .nav-level-2.open .row-level-2 {
-      border-bottom: 1px solid rgba($white, 0.2);
+      border-bottom: 1px solid rgba(white, 0.2);
     }
 
     .navbar-nav > li {
@@ -147,7 +147,7 @@
     word-wrap: break-word;
 
     .banner-description {
-      color: $white;
+      color: white;
     }
   }
 

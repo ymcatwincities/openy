@@ -33,7 +33,7 @@
 {% macro menu_links(items, attributes, menu_level) %}
   {% import _self as menus %}
   {% if items %}
-    {% set attributes = attributes.addClass(['nav', 'navbar-nav', 'pull-right-lg']) %}
+    {% set attributes = attributes.addClass(['nav', 'float-lg-right']) %}
     <ul{{ attributes }}>
     {% for item in items %}
       {%

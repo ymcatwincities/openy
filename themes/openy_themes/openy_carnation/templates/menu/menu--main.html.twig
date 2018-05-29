@@ -38,7 +38,7 @@
       {% set ia = ia.addClass('dropdown nav-level-2') %}
       <li{{ item.attributes.addClass('menu-item-' ~ item.title|clean_class) }}>
         {% if item.below %}
-          <a class="dropdown-toggle" data-toggle="dropdown" href="{{ item.url }}">
+          <a data-toggle="dropdown" href="{{ item.url }}">
             {{ item.title }}
             <i class="fa fa-angle-up" aria-hidden="true"></i>
             <i class="fa fa-angle-down" aria-hidden="true"></i>
