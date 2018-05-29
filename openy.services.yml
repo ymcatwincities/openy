@@ -5,6 +5,3 @@ services:
     class: Drupal\openy\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
-  openy.modules_manager:
-    class: Drupal\openy\OpenyModulesManager
-    arguments: ['@entity_type.manager']
