@@ -14,6 +14,19 @@ function openy_prgf_featured_highlights_uninstall() {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_prgf_featured_highlights_update_dependencies() {
+  $dependencies['openy_prgf_featured_highlights'] = [
+    8001 => [
+      'openy' => 8057,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Update configs of the entity reference fields.
  */
 function openy_prgf_featured_highlights_update_8001() {
