@@ -5,7 +5,6 @@ type: module
 core: 8.x
 dependencies:
   - block_content
-  - content_moderation
   - content_translation
   - datalayer
   - entity_browser_entity_form

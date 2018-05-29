@@ -4,8 +4,6 @@ dependencies:
   config:
     - block_content.type.flexible_content
     - field.field.block_content.flexible_content.field_node_ref
-  module:
-    - content_moderation
 id: block_content.flexible_content.default
 targetEntityType: block_content
 bundle: flexible_content
@@ -34,12 +32,6 @@ content:
     region: content
     settings:
       include_locked: true
-    third_party_settings: {  }
-  moderation_state:
-    type: moderation_state_default
-    weight: 100
-    settings: {  }
-    region: content
     third_party_settings: {  }
   translation:
     weight: 10

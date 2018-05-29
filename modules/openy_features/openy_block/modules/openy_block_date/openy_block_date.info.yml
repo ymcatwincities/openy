@@ -6,7 +6,6 @@ core: 8.x
 version: 8.x-1.0
 dependencies:
   - block_content
-  - content_moderation
   - content_translation
   - datetime
   - entity_reference_revisions
