@@ -46,7 +46,38 @@ function openy_install_tasks() {
       'type' => 'form',
       'function' => UploadFontMessageForm::class,
     ],
+    'openy_gtranslate_place_blocks' => [
+      'type' => 'batch',
+    ],
   ];
+}
+
+/**
+ * Create Google Translate block content.
+ * Block already added from OpenY Google Translate module configs.
+ */
+function openy_gtranslate_place_blocks(array &$install_state) {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('openy_gtranslate')) {
+    return ['operations' => []];
+  }
+
+  $themes_list = [
+    'openy_rose' => '5a698466-f499-4dda-a084-4d61c1d0e902',
+    'openy_lily' => '5a698466-f499-4dda-a084-4d61c1d0e777',
+  ];
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::service('entity_type.manager');
+  foreach ($themes_list as $theme => $uuid) {
+    /** @var \Drupal\block_content\Entity\BlockContent $blockContent */
+    $blockContent = $entityTypeManager->getStorage('block_content')->create([
+      'type' => 'openy_gtranslate_block',
+      'info' => t('Google Translate Block'),
+      'uuid' => $uuid,
+    ]);
+    $blockContent->save();
+  }
+  return ['operations' => []];
 }
 
 /**
@@ -63,6 +94,12 @@ function openy_demo_content_configs_map($key = NULL) {
   $map = [
     'required' => [],
     'optional' => [
+      'openy_demo_ahb' => [
+        'openy_demo_entity_ahb',
+      ],
+      'openy_demo_nsocial_post' => [
+        'openy_demo_node_social_post',
+      ],
       'openy_demo_tcolor' => [
         'openy_demo_taxonomy_term_color',
       ],
@@ -121,6 +158,12 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_news',
         'openy_demo_news_landing',
         'openy_demo_menu_link_footer_news',
+      ],
+    ],
+    'event' => [
+      'openy_demo_nevent' => [
+        'openy_demo_node_event',
+        'openy_demo_event_landing',
       ],
     ],
     'facility' => [
@@ -202,7 +245,7 @@ function openy_demo_content_configs_map($key = NULL) {
       ],
     ],
   ];
-
+  
   return array_key_exists($key, $map) ? $map[$key] : [];
 }
 
