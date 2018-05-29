@@ -11,4 +11,5 @@ dependencies:
   - inline_entity_form
   - language
   - openy_block_custom_simple
+  - openy_prgf
   - paragraphs
