@@ -6552,13 +6552,6 @@ function ymca_master_update_8277() {
 }
 
 /**
- * Enable OpenY Kronos.
- */
-function ymca_master_update_8278() {
-  \Drupal::service('module_installer')->install(['openy_kronos'], TRUE);
-}
-
-/**
  * Fix drupal-entity-inline for menu_link.
  */
 function ymca_master_update_8279() {
@@ -6619,4 +6612,11 @@ function ymca_master_update_8283() {
     $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->create($termProperties);
     $term->save();
   }
+}
+
+/**
+ * Enable OpenY Kronos.
+ */
+function ymca_master_update_8284() {
+  \Drupal::service('module_installer')->install(['openy_kronos'], TRUE);
 }
