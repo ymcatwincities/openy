@@ -7322,18 +7322,13 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
 
 .layout-container .site-name {
   font-family: "Cachet", 'Ubuntu Condensed', sans-serif;
-  font-weight: 400; }
-  .layout-container .site-name a {
-    font-size: 20px;
-    color: #646464;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: -1px;
-    line-height: 44px;
-    padding: 0;
-    margin: 0 !important;
-    height: 100% !important;
-    float: none !important; }
+  font-weight: 500;
+  font-size: 20px;
+  color: #636466;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: -1px;
+  line-height: 44px; }
 
 .viewport .nav-global {
   border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
@@ -7342,13 +7337,9 @@ body.with-banner .banner-zone-node {
   margin-top: 43px; }
 
 body.with-banner .layout-container .top-navs {
-  background: -moz-linear-gradient(top, black 0%, black 34%, rgba(4, 4, 4, 0) 35%, rgba(255, 255, 255, 0) 100%);
-  background: -webkit-linear-gradient(top, black 0%, black 34%, rgba(4, 4, 4, 0) 35%, rgba(255, 255, 255, 0) 100%);
-  background: linear-gradient(to bottom, #000000 0%, #000000 34%, rgba(4, 4, 4, 0) 35%, rgba(255, 255, 255, 0) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#000000", endColorstr="#00ffffff", GradientType=0 ); }
-
-body.with-banner .layout-container .top-navs.affix {
-  background-color: #2f2f2f; }
+  background: none; }
+  body.with-banner .layout-container .top-navs.affix {
+    background-color: #2f2f2f; }
 
 .page-head__top-menu .navbar-nav > li > a {
   color: #777777;
@@ -7443,8 +7434,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   width: 100%; }
 
 .page-head__main-menu .navbar-nav > li > a {
-  padding: 65px 0;
-  font-weight: bold;
+  padding: 25px 0;
   text-align: center; }
   .page-head__main-menu .navbar-nav > li > a:hover {
     color: #c6168d; }
@@ -7650,9 +7640,6 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
 .page-head__main-menu .nav-level-2.open .fa-angle-down {
   display: none; }
 
-.header-content {
-  top: 13px; }
-
 body {
   margin-top: 0 !important; }
 
@@ -7747,14 +7734,14 @@ body {
     width: 100px !important; }
   .top-navs .name.navbar-brand {
     display: none; }
-  .page-head__logo a {
-    color: white !important; }
-    .page-head__logo a:hover {
-      color: white; }
   .top-navs.affix {
     background: none !important; }
   .top-navs.navbar-fixed-top.visible-xs.visible-sm.affix-top {
     height: 0 !important; }
+  .page-head__logo a {
+    color: white !important; }
+    .page-head__logo a:hover {
+      color: white; }
   .without-banner .viewport {
     margin-top: 52px !important; }
   .sidebar {
@@ -7913,14 +7900,14 @@ body {
     margin-left: 20px !important; }
   .top-navs .name.navbar-brand {
     display: none; }
-  .page-head__logo a {
-    color: white !important; }
-    .page-head__logo a:hover {
-      color: white; }
   .top-navs.affix {
     background: none !important; }
   .top-navs.navbar-fixed-top.visible-xs.visible-sm.affix-top {
     height: 0 !important; }
+  .page-head__logo a {
+    color: white !important; }
+    .page-head__logo a:hover {
+      color: white; }
   .without-banner .viewport {
     margin-top: 52px !important; }
   .sidebar {

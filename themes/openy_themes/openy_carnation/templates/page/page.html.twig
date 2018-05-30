@@ -87,8 +87,9 @@
 
     <header id="page-head" class="page-head">
       <div class="top-navs navbar-fixed-top hidden-xs hidden-sm" data-spy="affix" data-offset-top="1">
-        <div class="container-fluid">
-          <nav class="nav-global navbar-ymcags navbar">
+        <nav class="nav-global navbar-ymcags navbar p-0">
+          <div class="container-fluid m-0 p-0">
+            {#<div class="row">#}
 
               <a class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left">
                 <span class="icon-bar"></span>
@@ -97,7 +98,7 @@
               </a>
 
               {# sitename & secondary menu #}
-              <div class="clearfix page-head__top-menu d-flex">
+              <div class="page-head__top-menu d-flex w-100">
                 <div class="col-md-6 site-name">
                  {{ page.logo }}
                 </div>
@@ -128,9 +129,9 @@
               </div>
               {# / search #}
 
-            </nav>
-         </div>
-
+            {#</div>#}
+          </div>
+        </nav>
       </div>
     </header>
 

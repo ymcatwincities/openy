@@ -57,6 +57,33 @@ module.exports = function(grunt) {
       }
     },
 
+    autoprefixer: {
+      dist: {
+        options: {
+          map: true
+        },
+        expand: true,
+        flatten: true,
+        src: [
+          '<%= global_vars.theme_src_scss %>/*.css'
+        ],
+        dest: ['<%= global_vars.theme_dist_css %>/']
+      }
+    },
+
+    // copy bootstrap asset
+    copy: {
+      main: {
+        files: [{
+          expand: true,
+          src: 'node_modules/bootstrap/dist/js/bootstrap.js',
+          dest: '<%= global_vars.theme_src_js %>',
+          flatten: true
+        }]
+      }
+    },
+
+    // compress js
     uglify: {
       dist: {
         options: {
@@ -75,20 +102,7 @@ module.exports = function(grunt) {
       }
     },
 
-    autoprefixer: {
-      dist: {
-        options: {
-          map: true
-        },
-        expand: true,
-        flatten: true,
-        src: [
-          '<%= global_vars.theme_src_scss %>/*.css'
-        ],
-        dest: ['<%= global_vars.theme_dist_css %>/']
-      }
-    },
-
+    // linting
     sasslint: {
       options: {
         configFile: '.sass-lint.yml'
@@ -109,6 +123,7 @@ module.exports = function(grunt) {
       files: ['<%= global_vars.theme_src_js %>/*.js']
     },
 
+    // watch
     watch: {
       grunt: { files: ['Gruntfile.js'] },
       sass: {
@@ -133,7 +148,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('build', ['sasslint', 'sass_globbing', 'sass', 'autoprefixer', 'uglify']);
+  grunt.registerTask('build', ['sasslint', 'sass_globbing', 'sass', 'autoprefixer', 'copy', 'uglify']);
   grunt.registerTask('default', ['build', 'watch']);
 };

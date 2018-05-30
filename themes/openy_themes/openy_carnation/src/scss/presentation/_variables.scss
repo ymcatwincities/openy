@@ -34,3 +34,36 @@ $colors: map-merge((
     "light-blue":     $light-blue,
     "dark-blue":      $light-blue,
 ), $colors);
+
+// Fonts
+//
+// Font, line-height, and color for body text, headings, and more.
+$font-size-base:              1rem !default;            // 16px
+$font-size-sm:                ($font-size-base * .875); // 14px
+$font-size-xs:                ($font-size-base * .625); // 10px
+
+// Navbar
+//$navbar-padding-y:                  0;
+//$navbar-padding-x:                  0;
+
+// Body
+//
+// Settings for the `<body>` element.
+//$navbar-brand-height: 91;
+
+
+// Body
+//
+// Settings for the `<body>` element.
+//$body-color:      $gray-700;
+
+// Links
+//
+// Style anchor elements.
+//$link-color:                $primary-darker;
+//$link-decoration:           none !default;
+//$link-hover-color:          $blue-027;
+//$link-hover-decoration:     none;
+
+// Customize the light and dark text colors for use in our YIQ color contrast function.
+//$yiq-text-dark:   $blue;
