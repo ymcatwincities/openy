@@ -22,8 +22,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
 }
 
 .page-head__main-menu .navbar-nav > li > a {
-  padding: 65px 0;
-  font-weight: bold;
+  padding: 25px 0;
   text-align: center;
 
   &:hover {
@@ -351,8 +350,4 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
       display: none;
     }
   }
-}
-
-.header-content {
-  top: 13px;
 }

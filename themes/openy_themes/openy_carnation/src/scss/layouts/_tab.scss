@@ -67,6 +67,14 @@
     .name.navbar-brand {
       display: none;
     }
+
+    &.affix {
+      background: none !important;
+    }
+
+    &.navbar-fixed-top.visible-xs.visible-sm.affix-top {
+      height: 0 !important;
+    }
   }
 
   .page-head__logo a {
@@ -75,14 +83,6 @@
     &:hover {
       color: white;
     }
-  }
-
-  .top-navs.affix {
-    background: none !important;
-  }
-
-  .top-navs.navbar-fixed-top.visible-xs.visible-sm.affix-top {
-    height: 0 !important;
   }
 
   .without-banner .viewport {

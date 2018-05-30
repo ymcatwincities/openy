@@ -42,20 +42,13 @@
   }
 
   .site-name {
-    @include cachet(400);
-
-    a {
-      font-size: 20px;
-      color: #646464;
-      text-transform: uppercase;
-      font-weight: 500;
-      letter-spacing: -1px;
-      line-height: 44px;
-      padding: 0;
-      margin: 0 !important;
-      height: 100% !important;
-      float: none !important;
-    }
+    @include cachet(500);
+    font-size: 20px;
+    color: $gray-400;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: -1px;
+    line-height: 44px;
   }
 }
 
@@ -68,36 +61,11 @@ body.with-banner .banner-zone-node {
 }
 
 body.with-banner .layout-container .top-navs {
-  background: -moz-linear-gradient(
-    top,
-    black 0%,
-    black 34%,
-    rgba(4, 4, 4, 0) 35%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background: -webkit-linear-gradient(
-    top,
-    black 0%,
-    black 34%,
-    rgba(4, 4, 4, 0) 35%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background: linear-gradient(
-    to bottom,
-    #000000 0%,
-    #000000 34%,
-    rgba(4, 4, 4, 0) 35%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient(
-      startColorstr="#000000",
-      endColorstr="#00ffffff",
-      GradientType=0
-    );
-}
+  background: none;
 
-body.with-banner .layout-container .top-navs.affix {
-  background-color: $gray-700;
+  &.affix {
+    background-color: $gray-700;
+  }
 }
 
 .page-head__top-menu {
