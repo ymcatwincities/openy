@@ -31,6 +31,22 @@
     }
   };
 
+
+  /**
+   * Update "Category" select value to be equal with "category" query param.
+   *
+   * @param parameters
+   */
+  Drupal.openy_group_schedules.update_category_select = function(parameters) {
+    console.log(parameters);
+    if (typeof(parameters.category) !== 'undefined') {
+      var exists = 0 !== $('#category-select-wrapper select option[value="' + parameters.category + '"]').length;
+      if (exists) {
+        $('#class-select-wrapper select').val(parameters.category);
+      }
+    }
+  };
+
   /**
    * Update "Instructor" select value to be equal with "instructor" query param.
    *
@@ -95,6 +111,7 @@
     Drupal.openy_group_schedules.update_class_select(parameters);
     Drupal.openy_group_schedules.update_instructor_select(parameters);
     Drupal.openy_group_schedules.update_filter_date(parameters);
+    Drupal.openy_group_schedules.update_category_select(parameters);
     Drupal.openy_group_schedules.update_location_select(parameters);
   };
 
@@ -104,7 +121,7 @@
    */
   Drupal.behaviors.openy_group_schedules = {
     attach: function (context, settings) {
-      if (!$('#location-select-wrapper').hasClass('hidden') || !$('#date-select-wrapper').hasClass('hidden') || !$('#class-select-wrapper').hasClass('hidden')) {
+      if (!$('#location-select-wrapper').hasClass('hidden') || !$('#date-select-wrapper').hasClass('hidden') || !$('#class-select-wrapper').hasClass('hidden') || !$('#category-select-wrapper').hasClass('hidden')) {
         $('.groupex-form-full .top-form-wrapper').removeClass('hidden');
       }
 
