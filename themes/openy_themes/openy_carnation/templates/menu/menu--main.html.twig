@@ -31,7 +31,7 @@
 {% macro menu_links(items, attributes, menu_level) %}
   {% import _self as menus %}
   {% if items %}
-    <ul{{ attributes.addClass('navbar nav nav-level-1 pt-3 m-0') }}>
+    <ul{{ attributes.addClass('navbar nav nav-level-1 pt-3 pb-0 m-0') }}>
     {% for item in items %}
       {% set ia = item.attributes %}
       {% set ia = ia.addClass('nav-level-2') %}
@@ -50,12 +50,12 @@
         {% endif %}
       </li>
     {% endfor %}
-      {# Search icon #}
-      {#<li class="nav-level-2 site-search hidden-xs hidden-sm">#}
-        {#<a class="btn btn-link" data-toggle="collapse" data-target=".page-head__search">#}
-          {#<i class="fa fa-search" aria-hidden="true"></i>#}
-        {#</a>#}
-      {#</li>#}
+     {# Search icon #}
+      <li class="nav-level-2 site-search">
+        <button class="navbar-toggler pr-3" type="button" data-toggle="collapse" data-target=".page-head__search" aria-controls="page-head__search" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+      </li>
     </ul>
   {% endif %}
 {% endmacro %}

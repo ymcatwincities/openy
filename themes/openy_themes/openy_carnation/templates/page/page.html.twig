@@ -47,7 +47,9 @@
 #}
 <div class="layout-container {{ camp_class }}">
 
-  <div class="top-navs fixed-top d-block d-lg-none" data-spy="affix" data-offset-top="1">
+  <div class="banner-zone-node"></div>
+
+  <div class="top-navs fixed-top d-block d-lg-none">
     <nav class="nav-global navbar-default navbar border-0">
       <div class="container-fluid">
         <div class="row w-100">
@@ -59,11 +61,9 @@
           </div>
 
           <div class="col-auto">
-            <a class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left" href="#">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".sidebar-left" aria-controls="sidebar-left" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
           </div>
 
         </div>
@@ -113,7 +113,7 @@
 
               {# search #}
               <div class="col-md-12 header-content d-none d-sm-block">
-                <div class="page-head__search collapse">
+                <div class="page-head__search fade collapse">
                   <div class="search-form-wrapper">
                     {{ page.search }}
                     <form method="get" action="{{ base_path }}search">
@@ -121,10 +121,9 @@
                       <input type="search" name="query" class="search-input" placeholder="Search">
                       <input type="submit" value="Search">
                     </form>
-                    <a href="#" data-target=".page-head__search" data-toggle="collapse" class="page-head__search-close">
+                    <button class="navbar-toggler page-head__search-close text-white" type="button" data-toggle="collapse" data-target=".page-head__search" aria-controls="page-head__search" aria-expanded="false" aria-label="Toggle search bar">
                       <i class="fa fa-times" aria-hidden="true"></i>
-                      {{ "Cancel"|t }}
-                    </a>
+                    </button>
                   </div>
                 </div>
                 <div class="clearfix page-head__main-menu nav-home">

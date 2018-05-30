@@ -1,5 +1,6 @@
-body.with-banner .page-head__main-menu .nav-level-2 > a {
-  color: #fff;
+body.with-banner .page-head__main-menu .nav-level-2 > a,
+body.with-banner .page-head__main-menu .nav-level-2 > button {
+  color: white;
 }
 
 .menu-item-home {
@@ -15,14 +16,9 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   }
 }
 
-//.page-head__main-menu .navbar-nav {
-////  float: none !important;
-////  display: table;
-////  width: 100%;
-////}
-
-.page-head__main-menu .navbar > li > a {
-  padding: 40px 0 25px 0;
+.page-head__main-menu .navbar > li > a,
+.page-head__main-menu .navbar > li > button {
+  padding: 25px 0;
   text-align: center;
 
   &:hover {
@@ -44,14 +40,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   white-space: normal;
 }
 
-///////////////////////////
-.nav.dropdown-menu {
-  background-color: white;
-  border: 1px solid white;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  width: 100%;
-}
-
+// Main "Mega Menu" Dropdown
 .nav-home {
   li.dropdown {
     position: static;
@@ -62,10 +51,13 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
   }
 
   .dropdown-menu {
+    background-color: white;
+    border: 1px solid white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    width: 100%;
     position: absolute;
-    bottom: auto;
+    top: 100%;
     overflow: auto;
-    top: auto;
   }
 }
 
@@ -148,7 +140,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
       display: none;
     }
 
-    &.open .row-level-2 {
+    &.show .row-level-2 {
       display: block;
       border-bottom: 1px solid $gray-300;
     }
@@ -195,13 +187,13 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
     padding-bottom: 12px;
   }
 
-  .nav-level-2.open,
+  .nav-level-2.show,
   .row-level-2 {
     background-color: white;
   }
 
-  .navbar-nav .open .dropdown-menu > li > a,
-  .navbar-nav .open .dropdown-menu .dropdown-header {
+  .navbar-nav .show .dropdown-menu > li > a,
+  .navbar-nav .show .dropdown-menu .dropdown-header {
     padding: 12px 15px 12px 23px;
   }
 
@@ -269,7 +261,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
       }
     }
 
-    &.open {
+    &.show {
       background-color: white;
       //border-top: 1px solid white;
       //border-left: 1px solid white;
@@ -334,7 +326,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > a {
     display: none;
   }
 
-  &.open {
+  &.show {
     .fa-angle-up {
       display: inline;
     }
