@@ -1416,6 +1416,10 @@ RewriteRule ^$ https://www.ymcamn.org/suppliers? [L,R=301]
   RewriteCond %{HTTP_HOST} ^www.ymcavendors.org [NC]
   RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
+  RewriteCond %{HTTP_HOST} ^ymcayouthenrichmentcenter.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcayouthenrichmentcenter.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # Redirect for old retention campaigns.
 RewriteCond %{REQUEST_URI} ^/(march|ygames)
 RewriteRule ^(.*)$ /challenge [L,R=301]
