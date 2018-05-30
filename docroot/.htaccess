@@ -734,345 +734,687 @@ RewriteRule ^$ https://www.ymcamn.org/locations/southdale_ymca/kid__teen_activit
 RewriteCond %{HTTP_HOST} ^www\.andoverymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/andover_ymca_community_center? [L,R=301]
 
+
+  RewriteCond %{HTTP_HOST} ^andoverymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.andoverymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
+
 # 301 --- http://www.burnsvilleymca.org => http://www.ymcamn.org/locations/burnsville_ymca
 RewriteCond %{HTTP_HOST} ^www\.burnsvilleymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/burnsville_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^burnsvilleymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.burnsvilleymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.campdunord.org => http://www.ymcamn.org/camps/camp_du_nord
 RewriteCond %{HTTP_HOST} ^www\.campdunord\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_du_nord? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^campdunord.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.campdunord.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.campicaghowan.org => http://www.ymcamn.org/camps/camp_icaghowan
 RewriteCond %{HTTP_HOST} ^www\.campicaghowan\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_icaghowan? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^campicaghowan.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.campicaghowan.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.campihduhapi.org => http://www.ymcamn.org/camps/camp_ihduhapi
 RewriteCond %{HTTP_HOST} ^www\.campihduhapi\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_ihduhapi? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^campihduhapi.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.campihduhapi.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.campmenogyn.org => http://www.ymcamn.org/camps/camp_menogyn
 RewriteCond %{HTTP_HOST} ^www\.campmenogyn\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_menogyn? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^campmenogyn.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.campmenogyn.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.campstcroix.org => http://www.ymcamn.org/camps/camp_st_croix
 RewriteCond %{HTTP_HOST} ^www\.campstcroix\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_st_croix? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^campstcroix.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.campstcroix.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.campstreefland.org => http://www.ymcamn.org/camps/day_camp_streefland
 RewriteCond %{HTTP_HOST} ^www\.campstreefland\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_streefland? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^campstreefland.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.campstreefland.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.campwarren.org => http://www.ymcamn.org/camps/camp_warren
 RewriteCond %{HTTP_HOST} ^www\.campwarren\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_warren? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^campwarren.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.campwarren.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.campwidjiwagan.org => http://www.ymcamn.org/camps/camp_widjiwagan
 RewriteCond %{HTTP_HOST} ^www\.campwidjiwagan\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_widjiwagan? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^campwidjiwagan.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.campwidjiwagan.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.coonrapidsymca.org => http://www.ymcamn.org/locations/emma_b_howe_ymca
 RewriteCond %{HTTP_HOST} ^www\.coonrapidsymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/emma_b_howe_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^coonrapidsymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.coonrapidsymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.daycampchristmastree.org => http://www.ymcamn.org/camps/day_camp_christmas_tree
 RewriteCond %{HTTP_HOST} ^www\.daycampchristmastree\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_christmas_tree? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^daycampchristmastree.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.daycampchristmastree.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.daycampguyrobinson.org => http://www.ymcamn.org/camps/day_camp_guy_robinson
 RewriteCond %{HTTP_HOST} ^www\.daycampguyrobinson\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_guy_robinson? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^daycampguyrobinson.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.daycampguyrobinson.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.daycampheritage.org => http://www.ymcamn.org/camps/day_camp_heritage
 RewriteCond %{HTTP_HOST} ^www\.daycampheritage\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_heritage? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^daycampheritage.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.daycampheritage.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.daycampihduhapi.org => http://www.ymcamn.org/camps/day_camp_ihduhapi
 RewriteCond %{HTTP_HOST} ^www\.daycampihduhapi\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_ihduhapi? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^daycampihduhapi.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.daycampihduhapi.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.daycampkiciyapi.org => http://www.ymcamn.org/camps/day_camp_kici_yapi
 RewriteCond %{HTTP_HOST} ^www\.daycampkiciyapi\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_kici_yapi? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^daycampkiciyapi.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.daycampkiciyapi.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.daycampkumalya.org => http://www.ymcamn.org/camps/day_camp_kumalya
 RewriteCond %{HTTP_HOST} ^www\.daycampkumalya\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_kumalya? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^daycampkumalya.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.daycampkumalya.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.daycampmanitou.org => http://www.ymcamn.org/camps/day_camp_manitou
 RewriteCond %{HTTP_HOST} ^www\.daycampmanitou\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_manitou? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^daycampmanitou.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.daycampmanitou.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.daycampspringlake.org => http://www.ymcamn.org/camps/day_camp_spring_lake
 RewriteCond %{HTTP_HOST} ^www\.daycampspringlake\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_spring_lake? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^daycampspringlake.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.daycampspringlake.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.daycroix.org => http://www.ymcamn.org/camps/day_camp_daycroix
 RewriteCond %{HTTP_HOST} ^www\.daycroix\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_daycroix? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^daycroix.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.daycroix.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.dunord.org => http://www.ymcamn.org/camps/camp_du_nord
 RewriteCond %{HTTP_HOST} ^www\.dunord\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_du_nord? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^dunord.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.dunord.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.eaganymca.org => http://www.ymcamn.org/locations/eagan_ymca
 RewriteCond %{HTTP_HOST} ^www\.eaganymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/eagan_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^eaganymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.eaganymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.edinaymca.org => http://www.ymcamn.org/locations/southdale_ymca
 RewriteCond %{HTTP_HOST} ^www\.edinaymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/southdale_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^edinaymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.edinaymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.elkriverymca.org => http://www.ymcamn.org/locations/elk_river_ymca
 RewriteCond %{HTTP_HOST} ^www\.elkriverymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/elk_river_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^elkriverymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.elkriverymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.emmabhoweymca.org => http://www.ymcamn.org/locations/emma_b_howe_ymca
 RewriteCond %{HTTP_HOST} ^www\.emmabhoweymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/emma_b_howe_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^emmabhoweymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.emmabhoweymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.heritageparkymca.org => http://www.ymcamn.org/locations/heritage_park_ymca
 RewriteCond %{HTTP_HOST} ^www\.heritageparkymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/heritage_park_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^heritageparkymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.heritageparkymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.hudsonymca.org => http://www.ymcamn.org/locations/hudson_ymca
 RewriteCond %{HTTP_HOST} ^www\.hudsonymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/hudson_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^hudsonymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.hudsonymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.menogyn.org => http://www.ymcamn.org/camps/camp_menogyn
 RewriteCond %{HTTP_HOST} ^www\.menogyn\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_menogyn? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^menogyn.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.menogyn.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.midwayymca.org => http://www.ymcamn.org/locations/st_paul_midway_ymca
 RewriteCond %{HTTP_HOST} ^www\.midwayymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/st_paul_midway_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^midwayymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.midwayymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.minneapolisymca.org => http://www.ymcamn.org/locations/minneapolis_downtown_ymca
 RewriteCond %{HTTP_HOST} ^www\.minneapolisymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/minneapolis_downtown_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^minneapolisymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.minneapolisymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.minnesotavalleyymca.org => http://www.ymcamn.org/locations/burnsville_ymca
 RewriteCond %{HTTP_HOST} ^www\.minnesotavalleyymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/burnsville_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^minnesotavalleyymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.minnesotavalleyymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.minnetonkaymca.org => http://www.ymcamn.org/locations/ridgedale_ymca
 RewriteCond %{HTTP_HOST} ^www\.minnetonkaymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/ridgedale_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^minnetonkaymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.minnetonkaymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.mnvalleyymca.org => http://www.ymcamn.org/locations/river_valley_ymca
 RewriteCond %{HTTP_HOST} ^www\.mnvalleyymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/river_valley_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^mnvalleyymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.mnvalleyymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.mnyig.org => http://www.ymcamn.org/locations/youth_in_government
 RewriteCond %{HTTP_HOST} ^www\.mnyig\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/youth_in_government? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^mnyig.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.mnyig.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.newhopeymca.org => http://www.ymcamn.org/locations/new_hope_ymca
 RewriteCond %{HTTP_HOST} ^www\.newhopeymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/new_hope_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^newhopeymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.newhopeymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.northcommunityymca.org => http://www.ymcamn.org/locations/north_community_ymca
 RewriteCond %{HTTP_HOST} ^www\.northcommunityymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/north_community_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^northcommunityymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.northcommunityymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.priorlakeymca.org => http://www.ymcamn.org/locations/river_valley_ymca
 RewriteCond %{HTTP_HOST} ^www\.priorlakeymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/river_valley_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^priorlakeymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.priorlakeymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ridgedaleymca.org => http://www.ymcamn.org/locations/ridgedale_ymca
 RewriteCond %{HTTP_HOST} ^www\.ridgedaleymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/ridgedale_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ridgedaleymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ridgedaleymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.rivervalleyymca.org => http://www.ymcamn.org/locations/river_valley_ymca
 RewriteCond %{HTTP_HOST} ^www\.rivervalleyymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/river_valley_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^rivervalleyymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.rivervalleyymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.shoreviewymca.org => http://www.ymcamn.org/locations/shoreview_ymca
 RewriteCond %{HTTP_HOST} ^www\.shoreviewymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/shoreview_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^shoreviewymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.shoreviewymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.southdaleymca.org => http://www.ymcamn.org/locations/southdale_ymca
 RewriteCond %{HTTP_HOST} ^www\.southdaleymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/southdale_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^southdaleymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.southdaleymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.southminneapolisymca.org => http://www.ymcamn.org/locations/blaisdell_ymca
 RewriteCond %{HTTP_HOST} ^www\.southminneapolisymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/blaisdell_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^southminneapolisymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.southminneapolisymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.stpauldowntownymca.org => http://www.ymcamn.org/locations/st_paul_downtown_ymca
 RewriteCond %{HTTP_HOST} ^www\.stpauldowntownymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/st_paul_downtown_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^stpauldowntownymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.stpauldowntownymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.stpauleastsideymca.org => http://www.ymcamn.org/locations/st_paul_eastside_ymca
 RewriteCond %{HTTP_HOST} ^www\.stpauleastsideymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/st_paul_eastside_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^stpauleastsideymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.stpauleastsideymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.stpaulmidwayymca.org => http://www.ymcamn.org/locations/st_paul_midway_ymca
 RewriteCond %{HTTP_HOST} ^www\.stpaulmidwayymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/st_paul_midway_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^stpaulmidwayymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.stpaulmidwayymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.twincitiesymca.org => http://www.ymcamn.org
 RewriteCond %{HTTP_HOST} ^www\.twincitiesymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^twincitiesymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.twincitiesymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.universitymny.org => http://www.ymcamn.org/locations/university_ymca
 RewriteCond %{HTTP_HOST} ^www\.universitymny\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/university_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^universitymny.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.universitymny.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.uymn.org => http://www.ymcamn.org/locations/university_ymca
 RewriteCond %{HTTP_HOST} ^www\.uymn\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/university_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^uymn.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.uymn.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.weststpaulymca.org => http://www.ymcamn.org/locations/west_st_paul_ymca
 RewriteCond %{HTTP_HOST} ^www\.weststpaulymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/west_st_paul_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^weststpaulymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.weststpaulymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.whitebearareaymca.org => http://www.ymcamn.org/locations/white_bear_area_ymca
 RewriteCond %{HTTP_HOST} ^www\.whitebearareaymca\.org$
 RewriteRule ^(.*)$ https://www.ymcamn.org/locations/white_bear_area_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^whitebearareaymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.whitebearareaymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.whitebearlakeymca.org => http://www.ymcamn.org/locations/white_bear_area_ymca
 RewriteCond %{HTTP_HOST} ^www\.whitebearlakeymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/white_bear_area_ymca? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^whitebearlakeymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.whitebearlakeymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.widji.org => http://www.ymcamn.org/camps/camp_widjiwagan
 RewriteCond %{HTTP_HOST} ^www\.widji\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_widjiwagan? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^widji.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.widji.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.widjiwagan.org => http://www.ymcamn.org/camps/camp_widjiwagan
 RewriteCond %{HTTP_HOST} ^www\.widjiwagan\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_widjiwagan? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^widjiwagan.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.widjiwagan.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.woodburyymca.org => http://www.ymcamn.org/locations/woodbury_ymca
 RewriteCond %{HTTP_HOST} ^www\.woodburyymca\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/woodbury_ymca? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^woodburyymca.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.woodburyymca.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ydpp.org => http://www.ymcamn.org/health__fitness/diabetes_prevention
 RewriteCond %{HTTP_HOST} ^www\.ydpp\.org$
 RewriteRule ^$ https://www.ymcamn.org/health__fitness/diabetes_prevention? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ydpp.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ydpp.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ygtc.org => http://www.ymcamn.org
 RewriteCond %{HTTP_HOST} ^www\.ygtc\.org$
 RewriteRule ^$ https://www.ymcamn.org/? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ygtc.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ygtc.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcacamping.com => http://www.ymcamn.org/camps
 RewriteCond %{HTTP_HOST} ^www\.ymcacamping\.com$
 RewriteRule ^$ https://www.ymcamn.org/camps? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcacamping.com [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcacamping.com [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcacamping.net => http://www.ymcamn.org/camps
 RewriteCond %{HTTP_HOST} ^www\.ymcacamping\.net$
 RewriteRule ^$ https://www.ymcamn.org/camps? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcacamping.net [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcacamping.net [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcacamping.org => http://www.ymcamn.org/camps
 RewriteCond %{HTTP_HOST} ^www\.ymcacamping\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcacamping.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcacamping.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcacamps.net => http://www.ymcamn.org/camps
 RewriteCond %{HTTP_HOST} ^www\.ymcacamps\.net$
 RewriteRule ^$ https://www.ymcamn.org/camps? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcacamps.net [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcacamps.net [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcacamps.org => http://www.ymcamn.org/camps
 RewriteCond %{HTTP_HOST} ^www\.ymcacamps\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcacamps.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcacamps.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcacorporatewellness.org => http://www.ymcamn.org/membership/corporate_wellness
 RewriteCond %{HTTP_HOST} ^www\.ymcacorporatewellness\.org$
 RewriteRule ^$ https://www.ymcamn.org/membership/corporate_wellness? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcacorporatewellness.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcacorporatewellness.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcadaycampchristmastree.org => http://www.ymcamn.org/camps/day_camp_christmas_tree
 RewriteCond %{HTTP_HOST} ^www\.ymcadaycampchristmastree\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_christmas_tree? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcadaycampchristmastree.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadaycampchristmastree.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcadaycampguyrobinson.org => http://www.ymcamn.org/camps/day_camp_guy_robinson
 RewriteCond %{HTTP_HOST} ^www\.ymcadaycampguyrobinson\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_guy_robinson? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcadaycampguyrobinson.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadaycampguyrobinson.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcadaycampheritage.org => http://www.ymcamn.org/camps/day_camp_heritage
 RewriteCond %{HTTP_HOST} ^www\.ymcadaycampheritage\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_heritage? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcadaycampheritage.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadaycampheritage.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcadaycampihduhapi.org => http://www.ymcamn.org/camps/day_camp_ihduhapi
 RewriteCond %{HTTP_HOST} ^www\.ymcadaycampihduhapi\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_ihduhapi? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcadaycampihduhapi.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadaycampihduhapi.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcadaycampkiciyapi.org => http://www.ymcamn.org/camps/day_camp_kici_yapi
 RewriteCond %{HTTP_HOST} ^www\.ymcadaycampkiciyapi\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_kici_yapi? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcadaycampkiciyapi.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadaycampkiciyapi.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcadaycampkumalya.org => http://www.ymcamn.org/camps/day_camp_kumalya
 RewriteCond %{HTTP_HOST} ^www\.ymcadaycampkumalya\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_kumalya? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcadaycampkumalya.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadaycampkumalya.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcadaycampmanitou.org => http://www.ymcamn.org/camps/day_camp_manitou
 RewriteCond %{HTTP_HOST} ^www\.ymcadaycampmanitou\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_manitou? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcadaycampmanitou.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadaycampmanitou.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcadaycampspringlake.org => http://www.ymcamn.org/camps/day_camp_spring_lake
 RewriteCond %{HTTP_HOST} ^www\.ymcadaycampspringlake\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_spring_lake? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcadaycampspringlake.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadaycampspringlake.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcadaycroix.org => http://www.ymcamn.org/camps/day_camp_daycroix
 RewriteCond %{HTTP_HOST} ^www\.ymcadaycroix\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/day_camp_daycroix? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcadaycroix.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadaycroix.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcadiscoversummer.org => http://www.ymcamn.org/child_care__preschool/summer_programs/summer_at_the_y
 RewriteCond %{HTTP_HOST} ^www\.ymcadiscoversummer\.org$
 RewriteRule ^$ https://www.ymcamn.org/child_care__preschool/summer_programs/summer_at_the_y? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcadiscoversummer.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcadiscoversummer.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcagtc.com => http://www.ymcamn.org
 RewriteCond %{HTTP_HOST} ^www\.ymcagtc\.com$
 RewriteRule ^$ https://www.ymcamn.org/? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcagtc.com [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcagtc.com [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcagtc.org => http://www.ymcamn.org
 RewriteCond %{HTTP_HOST} ^www\.ymcagtc\.org$
 RewriteRule ^$ https://www.ymcamn.org/? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcagtc.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcagtc.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcampls.org => http://www.ymcamn.org
 RewriteCond %{HTTP_HOST} ^www\.ymcampls\.org$
 RewriteRule ^$ https://www.ymcamn.org/? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcampls.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcampls.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcamusicfesttickets.org => http://www.ymcamn.org/lakefront_music_fest
 RewriteCond %{HTTP_HOST} ^www\.ymcamusicfesttickets\.org$
 RewriteRule ^$ https://www.ymcamn.org/lakefront_music_fest? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcamusicfesttickets.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcamusicfesttickets.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcapersonaltraining.org => http://www.ymcamn.org/health__fitness/personal_training
 RewriteCond %{HTTP_HOST} ^www\.ymcapersonaltraining\.org$
 RewriteRule ^$ https://www.ymcamn.org/health__fitness/personal_training? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcapersonaltraining.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcapersonaltraining.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcarun.org => http://www.ymcamn.org/health__fitness/yrun
 RewriteCond %{HTTP_HOST} ^www\.ymcarun\.org$
 RewriteRule ^$ https://www.ymcamn.org/health__fitness/yrun? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcarun.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcarun.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcastpaul.org => http://www.ymcamn.org
 RewriteCond %{HTTP_HOST} ^www\.ymcastpaul\.org$
 RewriteRule ^$ https://www.ymcamn.org/? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ymcastpaul.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcastpaul.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcatricityskatepark.org => http://www.ymcamn.org/child_care__preschool/summer_programs/edina_and_eden_prairie/tri_city_skate_park
 RewriteCond %{HTTP_HOST} ^www\.ymcatricityskatepark\.org$
 RewriteRule ^$ https://www.ymcamn.org/child_care__preschool/summer_programs/edina_and_eden_prairie/tri_city_skate_park? [L,R=301]
 
-# 301 --- http://www.ymcatwincities.net => http://www.ymcamn.org
-RewriteCond %{HTTP_HOST} ^www\.ymcatwincities\.net$
-RewriteRule ^$ https://www.ymcamn.org/? [L,R=301]
+  RewriteCond %{HTTP_HOST} ^ymcatricityskatepark.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcatricityskatepark.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
+  RewriteCond %{HTTP_HOST} ^ymcatwincities.net [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcatwincities.net [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ymcavendors.org => http://www.ymcamn.org/suppliers
 RewriteCond %{HTTP_HOST} ^www\.ymcavendors\.org$
 RewriteRule ^$ https://www.ymcamn.org/suppliers? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcavendors.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcavendors.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ysportsburnsville.org => http://www.ymcamn.org/locations/burnsville_ymca/kid__teen_activities/sports
 RewriteCond %{HTTP_HOST} ^www\.ysportsburnsville\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/burnsville_ymca/kid__teen_activities/sports? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ysportsburnsville.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ysportsburnsville.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ysportseagan.org => http://www.ymcamn.org/locations/eagan_ymca/kid__teen_activities/sports
 RewriteCond %{HTTP_HOST} ^www\.ysportseagan\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/eagan_ymca/kid__teen_activities/sports? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ysportseagan.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ysportseagan.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # 301 --- http://www.ysportssouthdale.org => http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activities/sports
 RewriteCond %{HTTP_HOST} ^www\.ysportssouthdale\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/southdale_ymca/kid__teen_activities/sports? [L,R=301]
 
+  RewriteCond %{HTTP_HOST} ^ysportssouthdale.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ysportssouthdale.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
+
 # 301 --- http://www.ymcavendors.org => http://www.ymcamn.org/suppliers
 RewriteCond %{HTTP_HOST} ^www\.ymcavendors\.org$
 RewriteRule ^$ https://www.ymcamn.org/suppliers? [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^ymcavendors.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcavendors.org [NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
 # Redirect for old retention campaigns.
 RewriteCond %{REQUEST_URI} ^/(march|ygames)
