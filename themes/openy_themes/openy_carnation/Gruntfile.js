@@ -118,7 +118,11 @@ module.exports = function(grunt) {
         browser: true,
         globals: {
           jQuery: true
-        }
+        },
+        ignores: [
+          '<%= global_vars.theme_src_js %>/bootstrap.js',
+          '<%= global_vars.theme_src_js %>/popper.js',
+        ]
       },
       files: ['<%= global_vars.theme_src_js %>/*.js']
     },

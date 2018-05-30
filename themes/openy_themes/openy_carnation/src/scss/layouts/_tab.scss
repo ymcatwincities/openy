@@ -76,12 +76,12 @@
       color: white;
     }
 
-    .nav-level-2.open,
+    .nav-level-2.show,
     .row-level-2 {
       background-color: transparent;
     }
 
-    .nav-level-2.open .row-level-2 {
+    .nav-level-2.show .row-level-2 {
       border-bottom: 1px solid rgba(white, 0.2);
     }
 
