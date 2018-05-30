@@ -5,6 +5,7 @@ namespace Drupal\webforms;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\contact\MessageForm as CoreMessageForm;
 use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Modified form controller for contact message forms.
@@ -68,6 +69,14 @@ class MessageForm extends CoreMessageForm {
     // the contact form; either to the contacted user account or the front page.
     if ($message->isPersonal() && $user->hasPermission('access user profiles')) {
       $form_state->setRedirectUrl($message->getPersonalRecipient()->urlInfo());
+      $response = new RedirectResponse($message->getPersonalRecipient()->urlInfo()->toString());
+      $request = \Drupal::request();
+      // Save the session so things like messages get saved.
+      $request->getSession()->save();
+      $response->prepare($request);
+      // Make sure to trigger kernel events.
+      \Drupal::service('kernel')->terminate($request, $response);
+      $response->send();
     }
     else {
       $contact_form = $message->getContactForm();
@@ -83,6 +92,14 @@ class MessageForm extends CoreMessageForm {
         ];
         $url = Url::fromRoute('entity.message.thank_you', $params, $options);
         $form_state->setRedirectUrl($url);
+        $response = new RedirectResponse($url->toString());
+        $request = \Drupal::request();
+        // Save the session so things like messages get saved.
+        $request->getSession()->save();
+        $response->prepare($request);
+        // Make sure to trigger kernel events.
+        \Drupal::service('kernel')->terminate($request, $response);
+        $response->send();
       }
       else {
         $form_state->setRedirect('<front>');

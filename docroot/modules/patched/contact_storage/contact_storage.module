@@ -50,6 +50,14 @@ function contact_storage_contact_message_redirect_submit(&$form, &$form_state) {
   $contact_form = ContactForm::load($contact_message->bundle());
   if ($redirect_uri = $contact_form->getThirdPartySetting('contact_storage', 'redirect_uri', FALSE)) {
     $form_state->setRedirectUrl(Url::fromUri($redirect_uri));
+    $response = new \Symfony\Component\HttpFoundation\RedirectResponse(Url::fromUri($redirect_uri)->toString());
+    $request = \Drupal::request();
+    // Save the session so things like messages get saved.
+    $request->getSession()->save();
+    $response->prepare($request);
+    // Make sure to trigger kernel events.
+    \Drupal::service('kernel')->terminate($request, $response);
+    $response->send();
   }
 }
 
