@@ -11,18 +11,18 @@ body.toolbar-fixed {
     z-index: ($zindex-fixed + 1);
   }
 
-  .navbar-fixed-top {
+  .fixed-top {
     top: 39px;
   }
 
   // Horizontal.
-  &.toolbar-horizontal.toolbar-tray-open .navbar-fixed-top {
+  &.toolbar-horizontal.toolbar-tray-open .fixed-top {
     top: 79px;
   }
 
   // Vertical Open.
   &.toolbar-vertical.toolbar-tray-open {
-    .navbar-fixed-top {
+    .fixed-top {
       left: $toolbar-width;
     }
 

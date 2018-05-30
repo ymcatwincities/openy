@@ -1,22 +1,7 @@
 .layout-container {
   .top-navs {
     background: black;
-    background: -moz-linear-gradient(
-      top,
-      black 0%,
-      black 34%,
-      white 34%,
-      white 34%,
-      white 100%
-    );
-    background: -webkit-linear-gradient(
-      top,
-      black 0%,
-      black 34%,
-      white 34%,
-      white 34%,
-      white 100%
-    );
+
     background: linear-gradient(
       to bottom,
       #000000 0%,
@@ -25,24 +10,15 @@
       #ffffff 34%,
       #ffffff 100%
     );
-    filter: progid:DXImageTransform.Microsoft.gradient(
-      startColorstr="#000000",
-      endColorstr="#ffffff",
-      GradientType=0
-    );
     height: 200px;
 
-    .logo.navbar-btn.pull-left {
-      display: none;
-
-      img {
-        width: 45px;
-      }
+    .logo img {
+      width: 45px;
     }
   }
 
   .site-name {
-    @include cachet(500);
+    //@include cachet(500);
     font-size: 20px;
     color: $gray-400;
     text-transform: uppercase;
@@ -69,7 +45,20 @@ body.with-banner .layout-container .top-navs {
 }
 
 .page-head__top-menu {
-  .navbar-nav > li > a {
+  background-color: rgba($primary, .8);
+
+  @include media-breakpoint-up(lg) {
+    background-color: $black;
+  }
+
+  .navbar-nav > li {
+    border-right: 1px solid #636466;
+
+    &:last-child {
+      border: none;
+    }
+
+    > a {
     color: #777777;
     background-color: transparent !important;
     padding-bottom: 11px;
@@ -79,8 +68,5 @@ body.with-banner .layout-container .top-navs {
     text-shadow: none;
     text-transform: none;
   }
-
-  .navbar-nav {
-    float: right !important;
   }
 }

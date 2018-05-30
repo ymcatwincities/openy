@@ -28,23 +28,22 @@
 #}
 {{ menus.menu_links(items, attributes, 0) }}
 
-{# id="utility-nav" #}
-
 {% macro menu_links(items, attributes, menu_level) %}
   {% import _self as menus %}
   {% if items %}
-    {% set attributes = attributes.addClass(['nav', 'float-lg-right']) %}
+    {% set attributes = attributes.addClass(['navbar-nav flex-column flex-lg-row float-right']) %}
     <ul{{ attributes }}>
     {% for item in items %}
       {%
         set classes = [
         item.in_active_trail ? 'is-active',
         item.below ? 'dropdown',
+        'h-100 d-flex align-items-center'
         ]
       %}
       <li{{ item.attributes.addClass(classes) }}>
         {% if not item.below %}
-          {{ link(item.title, item.url) }}
+          {{ link(item.title, item.url, item.attributes.addClass('px-4')) }}
         {% else %}
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             {{ item.title }}
