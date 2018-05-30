@@ -958,12 +958,12 @@ class YptfKronosReports implements YptfKronosReportsInterface {
           );
           $tokens['subject'] = str_replace(
             '[report-start-date]',
-            date("m/d/Y", strtotime($this->dates['StartDate'])),
+            date("d/m/Y", strtotime($this->dates['StartDate'])),
             $tokens['subject']
           );
           $tokens['subject'] = str_replace(
             '[report-end-date]',
-            date("m/d/Y", strtotime($this->dates['EndDate'])),
+            date("d/m/Y", strtotime($this->dates['EndDate'])),
             $tokens['subject']
           );
 
