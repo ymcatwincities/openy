@@ -1,8 +1,12 @@
 .banner-zone-node {
   position: relative;
 
-  .banner-image img {
-    width: 100%;
+  .banner-image {
+    max-height: 700px;
+
+    img {
+      width: 100%;
+    }
   }
 
   .banner-cta {

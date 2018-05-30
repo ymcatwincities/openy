@@ -17,14 +17,17 @@
 #}
 {% block content %}
   {% if site_logo %}
-    <a class="logo navbar-btn pull-left" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
-      <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
+    <a class="logo d-block d-lg-none" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+      <img class="logo-img" src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
     </a>
   {% endif %}
-  {% if site_name %}
-    {{ site_name }}
-  {% endif %}
-  {% if site_slogan %}
-    {{ site_slogan }}
-  {% endif %}
+
+  <span class="d-none d-lg-block">
+    {% if site_name %}
+      {{ site_name }}
+    {% endif %}
+    {% if site_slogan %}
+      {{ site_slogan }}
+    {% endif %}
+  </span>
 {% endblock %}

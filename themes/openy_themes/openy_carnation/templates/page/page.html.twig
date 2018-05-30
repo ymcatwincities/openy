@@ -47,21 +47,25 @@
 #}
 <div class="layout-container {{ camp_class }}">
 
-  <div class="top-navs navbar-fixed-top visible-xs visible-sm" data-spy="affix" data-offset-top="1">
-    <nav class="nav-global navbar-default navbar">
+  <div class="top-navs fixed-top d-block d-lg-none" data-spy="affix" data-offset-top="1">
+    <nav class="nav-global navbar-default navbar border-0">
       <div class="container-fluid">
-        <div class="row">
-          <div class="page-head__logo">
+        <div class="row w-100">
+
+          <div class="col-auto mr-auto">
             {% block page_logo %}
               {{ page.logo }}
             {% endblock %}
           </div>
 
-          <a class="navbar-toggle visible-xs visible-sm" data-toggle="collapse" data-target=".sidebar-left" href="#">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
+          <div class="col-auto">
+            <a class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left" href="#">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          </div>
+
         </div>
       </div>
     </nav>
@@ -86,7 +90,7 @@
   <div class="viewport">
 
     <header id="page-head" class="page-head">
-      <div class="top-navs navbar-fixed-top hidden-xs hidden-sm" data-spy="affix" data-offset-top="1">
+      <div class="top-navs fixed-top d-none d-lg-block" data-spy="affix" data-offset-top="1">
         <nav class="nav-global navbar-ymcags navbar p-0">
           <div class="container-fluid m-0 p-0">
             {#<div class="row">#}
@@ -98,7 +102,7 @@
               </a>
 
               {# sitename & secondary menu #}
-              <div class="page-head__top-menu d-flex w-100">
+              <div class="page-head__top-menu d-flex align-items-center w-100">
                 <div class="col-md-6 site-name">
                  {{ page.logo }}
                 </div>
@@ -108,7 +112,7 @@
               </div>
 
               {# search #}
-              <div class="col-md-12 header-content hidden-xs">
+              <div class="col-md-12 header-content d-none d-sm-block">
                 <div class="page-head__search collapse">
                   <div class="search-form-wrapper">
                     {{ page.search }}

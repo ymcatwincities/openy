@@ -10,8 +10,9 @@ $gray-400: #636466;
 $gray-500: #4f4f4f;
 $gray-600: #333333;
 $gray-700: #2f2f2f;
-//$gray-800: #373a3c !default;
+//$gray-800: #777777 !default;
 //$gray-900: #212529 !default;
+$black:    #000 !default;
 
 // openy colour palette
 $sky-blue:            #bfe1f3;
@@ -35,6 +36,11 @@ $colors: map-merge((
     "dark-blue":      $light-blue,
 ), $colors);
 
+$theme-colors: () !default;
+$theme-colors: map-merge((
+    "black":       $black
+), $theme-colors);
+
 // Fonts
 //
 // Font, line-height, and color for body text, headings, and more.
@@ -42,9 +48,14 @@ $font-size-base:              1rem !default;            // 16px
 $font-size-sm:                ($font-size-base * .875); // 14px
 $font-size-xs:                ($font-size-base * .625); // 10px
 
+// Dropdowns
+//
+// Dropdown menu container and contents.
+$dropdown-border-radius:            0;
+
 // Navbar
 //$navbar-padding-y:                  0;
-//$navbar-padding-x:                  0;
+$navbar-padding-x:                  0;
 
 // Body
 //

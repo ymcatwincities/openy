@@ -32,7 +32,7 @@
       }
 
       // menus
-      $(".row-level-3").hide();
+      // $(".row-level-3").hide();
 
       $( ".row-level-2 li" ).mouseover(function() {
         var show_div = this.className;
