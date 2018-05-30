@@ -253,8 +253,6 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
 
   .nav-level-2 {
     > a {
-      padding-bottom: 25px;
-
       &:hover,
       &:focus {
         background: none;
@@ -263,21 +261,12 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
 
     &.show {
       background-color: white;
-      //border-top: 1px solid white;
-      //border-left: 1px solid white;
-      //border-right: 1px solid white;
-      //border-bottom: 1px solid white;
-      //margin-top: -1px;
-
-      > .dropdown-menu {
-        margin-top: -1px;
-      }
+      box-shadow: 0 4px 0 0 white;
 
       > a,
       > a:focus {
         position: relative;
         z-index: 1001;
-        //padding: 10px 14px 24px 14px;
         background: white;
         color: $dark-blue !important;
         &:hover {
