@@ -6620,3 +6620,21 @@ function ymca_master_update_8283() {
 function ymca_master_update_8284() {
   \Drupal::service('module_installer')->install(['openy_kronos'], TRUE);
 }
+
+/**
+ * Remove tabs block from the search page.
+ */
+function ymca_master_update_8285() {
+  $config = Drupal::configFactory()->getEditable('block.block.openy_lily_tabs');
+  $new_visibility = [
+    'request_path' => [
+      'id' => 'request_path',
+      'pages' => '/search_results',
+      'negate' => TRUE,
+      'context_mapping' => []
+    ]
+  ];
+
+  $config->set('visibility', $new_visibility);
+  $config->save(TRUE);
+}
