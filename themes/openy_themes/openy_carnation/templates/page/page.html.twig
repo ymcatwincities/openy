@@ -71,10 +71,10 @@
     </nav>
   </div>
 
-  <div id="sidebar" class="sidebar sidebar-left fixed-top collapse">
-    <div class="px-3 px-lg-0">
+  <div id="sidebar" class="sidebar sidebar-left fixed-top collapse fade">
+    <div class="row px-3 px-lg-0">
 
-      <div class="search-form-wrapper col-xs-12">
+      <div class="search-form-wrapper col-12">
         <form method="get" action="{{ base_path }}search">
           <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
           <input type="search" name="query" class="search-input" placeholder="Search">
@@ -82,11 +82,9 @@
         </form>
       </div>
 
-      <div class="col-xs-12 page-head__top-menu">
+      <div class="page-head__main-menu col-12">
+        {{ page.top_menu }}
         {{ page.mobile_menu }}
-      </div>
-
-      <div class="col-xs-12 page-head__main-menu nav-home">
       </div>
 
     </div>
@@ -98,11 +96,6 @@
       <div class="top-navs fixed-top d-none d-lg-block" data-spy="affix" data-offset-top="1">
         <nav class="nav-global navbar-ymcags navbar p-0">
           <div class="container-fluid m-0 p-0">
-
-            {# mobile menu toggler #}
-            {#<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".sidebar-left" aria-controls="sidebar-left" aria-expanded="false" aria-label="Toggle navigation">#}
-              {#<span class="navbar-toggler-icon"></span>#}
-            {#</button>#}
 
             {# sitename & secondary menu #}
             <div class="page-head__top-menu d-flex align-items-center w-100">
@@ -129,7 +122,7 @@
                   </button>
                 </div>
               </div>
-              <div class="clearfix page-head__main-menu nav-home">
+              <div class="page-head__main-menu nav-home nav-desktop">
                 {{ page.primary_menu }}
               </div>
             </div>

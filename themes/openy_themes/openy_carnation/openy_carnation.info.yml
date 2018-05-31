@@ -12,6 +12,7 @@ regions:
   logo: Logo
   primary_menu: Primary Menu
   secondary_menu: Secondary Menu
+  top_menu: Top menu
   mobile_menu: Mobile menu
   search: Search Form
   content: Content

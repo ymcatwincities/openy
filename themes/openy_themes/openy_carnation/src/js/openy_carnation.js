@@ -56,7 +56,7 @@
   // Dropdown menu height.
   Drupal.behaviors.openyDropdownMenu = {
     attach: function (context, settings) {
-      $('.page-head__main-menu .nav-level-2').each(function (index, element) {
+      $('.nav-desktop .nav-level-2').each(function (index, element) {
         var item = $(element);
         var offset = item.offset();
         var bottom = offset.top + item.height() - $(window).scrollTop();
@@ -80,17 +80,145 @@
     }
   };
 
-  // Sidebar collapsible.
-  Drupal.behaviors.openy_carnation_init = {
-    attach: function (context, settings) {
+  // // Sidebar collapsible.
+  // Drupal.behaviors.sidebar = {
+  //   attach: function (context, settings) {
+  //     var current_scroll = 0;
+  //     $('.sidebar')
+  //       .once()
+  //       .on('show.bs.collapse',
+  //         // Add custom class for expand specific styling. in = open.
+  //         function (e) {
+  //           // Header banner.
+  //           $('.banner-zone-node')
+  //             .addBack()
+  //             .removeClass('out')
+  //             .addClass('collapsing-in');
+  //
+  //           $(this)
+  //             .next('.viewport')
+  //             .addBack()
+  //             .removeClass('out')
+  //             .addClass('collapsing-in');
+  //
+  //           current_scroll = $(window).scrollTop();
+  //           $('.nav-global').css({
+  //             top: current_scroll
+  //           });
+  //           $(window).trigger('resize');
+  //         }
+  //       )
+  //       .on('shown.bs.collapse',
+  //         // Allow css to control open rest state.
+  //         function () {
+  //           // Header banner.
+  //           $('.banner-zone-node')
+  //             .addBack()
+  //             .removeClass('collapsing-in')
+  //             .addClass('in');
+  //
+  //           $(this)
+  //             .next('.viewport')
+  //             .addBack()
+  //             .removeClass('collapsing-in')
+  //             .addClass('in');
+  //
+  //           var body =  $('body');
+  //           body.addClass('sidebar-in');
+  //
+  //           $('html').addClass('sidebar-in');
+  //           $(window).trigger('resize');
+  //         }
+  //       )
+  //       .on('hide.bs.collapse',
+  //         // Add custom class for collapse specific styling. out = closed.
+  //         function (e) {
+  //           var sidebar = $(this);
+  //
+  //           // Header banner.
+  //           $('.banner-zone-node')
+  //             .addBack()
+  //             .removeClass('in')
+  //             .addClass('collapsing-out');
+  //
+  //           sidebar
+  //             .next('.viewport')
+  //             .addBack()
+  //             .removeClass('in')
+  //             .addClass('collapsing-out');
+  //
+  //           $(window).scrollTop(current_scroll);
+  //
+  //           $('#page-head').css({
+  //             marginTop: ''
+  //           });
+  //           $(window).trigger('resize');
+  //         }
+  //       )
+  //       .on('hidden.bs.collapse',
+  //         // Allow css to control closed rest state.
+  //         function () {
+  //           // Header banner.
+  //           $('.banner-zone-node')
+  //             .addBack()
+  //             .addClass('out')
+  //             .removeClass('collapsing-out');
+  //
+  //           $(this)
+  //             .next('.viewport')
+  //             .addBack()
+  //             .addClass('out')
+  //             .removeClass('collapsing-out');
+  //
+  //           $('body').removeClass('sidebar-in');
+  //           $('html').removeClass('sidebar-in');
+  //
+  //           $('.nav-global').css({
+  //             top: 0
+  //           });
+  //           $(window).trigger('resize');
+  //         }
+  //       )
+  //       .find('li')
+  //       .on('hide.bs.dropdown',
+  //         // For nested dropdowns, prevent collapse of other dropdowns.
+  //         function (e) {
+  //           e.preventDefault();
+  //         }
+  //       );
+  //   }
+  // };
 
-      $('.webform-submission-form').addClass('container');
+  // Sidebar collapsible menu items.
+  // Drupal.behaviors.sidebarMenuCollapsible = {
+  //   attach: function (context, settings) {
+  //     $('.sidebar .dropdown-toggle').on('click', function () {
+  //       var expanded = $(this).attr('aria-expanded');
+  //       if (expanded === 'true') {
+  //         $(this).removeAttr('aria-expanded');
+  //         $(this).parent().removeClass('open');
+  //         return false;
+  //       }
+  //     });
+  //   }
+  // };
 
-      if($(".field-link-attribute:contains('New Window')").length) {
-        $('.field-prgf-clm-link a').attr('target', '_blank');
-      }
+  // Re-size.
+  $(window).resize(function () {
+    Drupal.behaviors.openyDropdownMenu.attach();
+  });
 
-    }
-  };
+  // // Sidebar collapsible.
+  // Drupal.behaviors.openy_carnation_init = {
+  //   attach: function (context, settings) {
+  //
+  //     $('.webform-submission-form').addClass('container');
+  //
+  //     if($(".field-link-attribute:contains('New Window')").length) {
+  //       $('.field-prgf-clm-link a').attr('target', '_blank');
+  //     }
+  //
+  //   }
+  // };
 
 })(jQuery);

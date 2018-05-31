@@ -38,7 +38,6 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
   font-style: normal;
   font-stretch: normal;
   line-height: 0.85;
-  text-transform: uppercase;
 }
 
 .dropdown-menu > li > a {
@@ -89,7 +88,11 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
         display: inline-block;
         padding: 0;
         position: relative;
-        color: $dark-blue;
+        color: white;
+
+        @include media-breakpoint-up(lg) {
+          color: $dark-blue;
+        }
       }
     }
 

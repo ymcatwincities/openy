@@ -1,3 +1,26 @@
+  //.sidebar {
+    //top: 52px;
+    //background: $blue;
+
+    //.page-head__top-menu li a {
+    //  padding: 25px;
+    //  color: white;
+    //}
+
+    //.nav-level-2.show,
+    //.row-level-2 {
+    //  background-color: transparent;
+    //}
+    //
+    //.nav-level-2.show .row-level-2 {
+    //  border-bottom: 1px solid rgba(white, 0.2);
+    //}
+    //
+    //.navbar-nav > li {
+    //  width: 100%;
+    //}
+  //}
+
 /*
 ** Mobile menu
 */
@@ -30,10 +53,12 @@
   .search-form-wrapper {
     padding-bottom: 10px;
     padding-top: 10px;
+    border-bottom: 1px solid $gray-300;
+    border-top: 1px solid $gray-300;
   }
 
-  .caret {
-    margin-left: 7px;
+  .dropdown-toggle::after {
+    display: none;
   }
 
   .dropdown-menu {
@@ -62,7 +87,13 @@
     text-overflow: ellipsis;
     line-height: 20px;
     cursor: pointer;
-    transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out;
+    transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out,
+    background-color 0.2s ease-out;
+
+    &:hover,
+    &[aria-expanded="true"] {
+      background: $dark-blue;
+    }
   }
 
   .nav-level-2 {
@@ -73,30 +104,13 @@
     &.show .row-level-2 {
       display: block;
       border-bottom: 1px solid $gray-300;
+      position: static !important;
+      transform: none !important;
     }
-  }
-
-  .nav-stacked > li {
-    margin: 0;
-
-    + li {
-      margin: 0;
-    }
-  }
-
-  .page-head__main-menu {
-    padding-top: 9px;
   }
 
   .page-head__top-menu {
     overflow: visible;
-    padding-bottom: 5px;
-    padding-top: 5px;
-
-    li a {
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
   }
 
   .row-level-3 {
@@ -113,8 +127,8 @@
   }
 
   .nav-level-2 a {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 25px;
+    padding-bottom: 25px;
   }
 
   .nav-level-2.show,
@@ -122,10 +136,10 @@
     background-color: white;
   }
 
-  .navbar-nav .show .dropdown-menu > li > a,
-  .navbar-nav .show .dropdown-menu .dropdown-header {
-    padding: 12px 15px 12px 23px;
-  }
+  //.navbar-nav .show .dropdown-menu > li > a,
+  //.navbar-nav .show .dropdown-menu .dropdown-header {
+  //  padding: 12px 15px 12px 23px;
+  //}
 
   .dropdown-menu > li > a:hover,
   .dropdown-menu > li > a:focus {
