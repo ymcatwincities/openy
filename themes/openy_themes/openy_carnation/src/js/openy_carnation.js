@@ -38,26 +38,26 @@
   };
 
   // Add class to header when mobile menu is opened.
-  Drupal.behaviors.openy_carnation_mob_menu = {
-    attach: function (context, settings) {
-      var sidebar = $('#sidebar');
-      var $target = $('.top-navs');
-
-      sidebar.on('show.bs.collapse', function () {
-        $target.addClass('menu-in');
-      });
-
-      sidebar.on('hide.bs.collapse', function () {
-        $target.removeClass('menu-in');
-      });
-    }
-  };
+  // Drupal.behaviors.openy_carnation_mob_menu = {
+  //   attach: function (context, settings) {
+  //     var sidebar = $('#sidebar');
+  //     var $target = $('.top-navs');
+  //
+  //     sidebar.on('show.bs.collapse', function () {
+  //       $target.addClass('menu-in');
+  //     });
+  //
+  //     sidebar.on('hide.bs.collapse', function () {
+  //       $target.removeClass('menu-in');
+  //     });
+  //   }
+  // };
 
   // Dropdown menu height.
   Drupal.behaviors.openyDropdownMenu = {
     attach: function (context, settings) {
-      $('.page-head__main-menu .nav-level-2').each(function (index, item) {
-        var item = $(item);
+      $('.page-head__main-menu .nav-level-2').each(function (index, element) {
+        var item = $(element);
         var offset = item.offset();
         var bottom = offset.top + item.height() - $(window).scrollTop();
         var maxHeight = $(window).height() - bottom - 15;

@@ -50,9 +50,9 @@
   <div class="banner-zone-node"></div>
 
   <div class="top-navs fixed-top d-block d-lg-none">
-    <nav class="nav-global navbar-default navbar border-0">
+    <nav class="nav-global navbar-default navbar navbar-dark">
       <div class="container-fluid">
-        <div class="row w-100">
+        <div class="d-flex w-100">
 
           <div class="col-auto mr-auto">
             {% block page_logo %}
@@ -61,7 +61,7 @@
           </div>
 
           <div class="col-auto">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".sidebar-left" aria-controls="sidebar-left" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target=".sidebar-left" aria-controls="sidebar-left" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
           </div>
@@ -71,19 +71,24 @@
     </nav>
   </div>
 
-  <div id="sidebar" class="sidebar sidebar-left collapse width">
-    <div class="search-form-wrapper col-xs-12">
-      <form method="get" action="{{ base_path }}search">
-        <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
-        <input type="search" name="query" class="search-input" placeholder="Search">
-        <input type="submit" type="submit" value="Search">
-      </form>
-    </div>
+  <div id="sidebar" class="sidebar sidebar-left fixed-top collapse">
+    <div class="px-3 px-lg-0">
 
-    <div class="col-xs-12 page-head__top-menu">
-      {{ page.mobile_menu }}
-    </div>
-    <div class="col-xs-12 page-head__main-menu nav-home">
+      <div class="search-form-wrapper col-xs-12">
+        <form method="get" action="{{ base_path }}search">
+          <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
+          <input type="search" name="query" class="search-input" placeholder="Search">
+          <input type="submit" type="submit" value="Search">
+        </form>
+      </div>
+
+      <div class="col-xs-12 page-head__top-menu">
+        {{ page.mobile_menu }}
+      </div>
+
+      <div class="col-xs-12 page-head__main-menu nav-home">
+      </div>
+
     </div>
   </div>
 

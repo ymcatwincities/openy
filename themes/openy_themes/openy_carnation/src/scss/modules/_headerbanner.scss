@@ -1,3 +1,23 @@
+// header banner section
+body.with-banner {
+  //.banner-zone-node {
+  //  margin-top: 52px;
+  //
+  //  @include media-breakpoint-up(lg) {
+  //    margin-top: 43px;
+  //  }
+  //}
+
+  .layout-container .top-navs {
+    background: none;
+    transition: background-color 0.5s ease;
+
+    &.affix {
+      background-color: $gray-700;
+    }
+  }
+}
+
 .banner-zone-node {
   position: relative;
 

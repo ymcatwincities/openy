@@ -9,57 +9,20 @@
       padding: 5px;
     }
     
-    .fa.fa-search.search-input-decoration {
-      position: absolute;
-      right: 25px;
-      top: 16px;
-      color: $pink;
-      font-size: 18px;
-    }
+    //.fa.fa-search.search-input-decoration {
+    //  position: absolute;
+    //  right: 25px;
+    //  top: 16px;
+    //  color: $pink;
+    //  font-size: 18px;
+    //}
   }
  
-  body.with-banner .banner-zone-node {
-    margin-top: 52px;
-  }
+
  
   .page-head__top-menu {
     #block-openy-carnation-main-menu .menu-item-home {
       display: none;
-    }
-  }
- 
-  .top-navs {
-    .navbar-default {
-      background-color: $blue;
-      border-color: $blue;
-
-      .navbar-toggle {
-        .icon-bar {
-          background-color: white;
-        }
-
-        &:hover {
-          background: transparent;
-        }
-      }
-
-      .navbar .logo {
-        margin-right: -15px !important;
-        padding-left: 15px !important;
-        padding-right: 15px;
-      }
-    }
-
-    .name.navbar-brand {
-      display: none;
-    }
-
-    &.affix {
-      background: none !important;
-    }
-
-    &.fixed-top.visible-xs.visible-sm.affix-top {
-      height: 0 !important;
     }
   }
 

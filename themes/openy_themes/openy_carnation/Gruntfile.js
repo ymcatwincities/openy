@@ -17,6 +17,7 @@ module.exports = function(grunt) {
       dist: {
         files: {
           '<%= global_vars.theme_src_scss %>/_init.scss': [
+            '<%= global_vars.theme_src_scss %>/presentation/_functions.scss',
             '<%= global_vars.theme_src_scss %>/presentation/_variables.scss',
             '<%= global_vars.theme_src_scss %>/presentation/_mixins.scss',
           ],

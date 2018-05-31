@@ -2,6 +2,13 @@
  * Form styles.
  */
 
+::-webkit-input-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder,
+input:-moz-placeholder {
+  font-style: italic;
+}
+
 // Checkboxes / radio buttons.
 .checkbox, .radio {
   // Remove top/bottom margins when in table context, because this is most

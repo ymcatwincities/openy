@@ -3,6 +3,7 @@
 // --------------------------------------------------
 
 // grays
+$white:    #fff !default;
 $gray-100: #ebebeb;
 $gray-200: #ccc;
 $gray-300: #979797;
@@ -54,8 +55,15 @@ $font-size-xs:                ($font-size-base * .625); // 10px
 $dropdown-border-radius:            0;
 
 // Navbar
-//$navbar-padding-y:                  0;
+$navbar-padding-y:                  1rem;
 $navbar-padding-x:                  0;
+
+$navbar-dark-color:                 $white;
+$navbar-dark-hover-color:           rgba($white, .75);
+//$navbar-dark-active-color:          $white !default;
+//$navbar-dark-disabled-color:        rgba($white, .25) !default;
+$navbar-dark-toggler-icon-bg:       str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='4' stroke-linecap='square' stroke-miterlimit='8' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
+//$navbar-dark-toggler-border-color:  rgba($white, .1) !default;
 
 // Body
 //
