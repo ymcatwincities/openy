@@ -355,6 +355,7 @@ body.node--type-location {
 
     ul:not(.schedule) li,
     .schedule li  article div,
+    .schedule li div a,
     .schedule li span {
       &:before {
         content: "\f105";
