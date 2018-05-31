@@ -10249,9 +10249,11 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
 }
 .location-schedules-content article ul:not(.schedule) li:before,
 .location-schedules-content article .schedule li article div:before,
+.location-schedules-content article .schedule li div a:before,
 .location-schedules-content article .schedule li span:before,
 #block-schedulesrightblocks article ul:not(.schedule) li:before,
 #block-schedulesrightblocks article .schedule li article div:before,
+#block-schedulesrightblocks article .schedule li div a:before,
 #block-schedulesrightblocks article .schedule li span:before {
   content: "\f105";
   color: #777;
