@@ -6042,7 +6042,7 @@ a[href="#step2"] {
 }
 
 .openy-map-wrapper {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .views-view-membership .field-body-no-summary {
@@ -7341,6 +7341,10 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title a {
   color: #fff;
   font-family: "Cachet", Verdana, Geneva, sans-serif;
+}
+.paragraph--type--location-filter-by-amenities h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
 }
 .paragraph--type--location-filter-by-amenities .field-amenities-icon {
   background-color: #fff;
