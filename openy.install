@@ -886,7 +886,7 @@ function openy_update_8057() {
 /**
  * Update Branch Hours field.
  */
-function openy_update_8056() {
+function openy_update_8058() {
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $branchLocationConfig = drupal_get_path('module', 'openy_loc_branch') . '/config/install';
   $config_importer->setDirectory($branchLocationConfig);
