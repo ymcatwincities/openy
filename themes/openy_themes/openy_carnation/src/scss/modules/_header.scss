@@ -33,7 +33,9 @@
   }
 
   .navbar-nav > li {
-    border-right: 1px solid #636466;
+    @include media-breakpoint-up(lg) {
+      border-right: 1px solid #636466;
+    }
 
     &:last-child {
       border: none;
