@@ -223,7 +223,6 @@ process:
           - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_menu_camp
           - openy_demo_lp_paragraph_microsites_menu
-          - openy_demo_lp_paragraph_lto
         source: header_content_id
       target_revision_id:
         plugin: migration
@@ -235,7 +234,6 @@ process:
           - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_menu_camp
           - openy_demo_lp_paragraph_microsites_menu
-          - openy_demo_lp_paragraph_lto
         source: header_content_id
   field_content:
     plugin: iterator
@@ -321,7 +319,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_group_schedules
     - openy_demo_lp_paragraph_microsites_menu
     - openy_demo_lp_paragraph_all_amenities
-    - openy_demo_lp_paragraph_lto
     - openy_demo_lp_paragraph_loc_by_amnts
   optional:
     - openy_demo_node_blog
