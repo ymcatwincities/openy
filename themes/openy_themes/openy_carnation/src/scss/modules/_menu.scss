@@ -6,9 +6,14 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
 .menu-item-home {
   background: url("../img/logo-white.png") no-repeat;
   background-size: 65px 50px;
+  background-position: center;
   width: 65px;
   text-indent: -9999px;
-  background-position: center;
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
 
   a {
     display: block;
@@ -40,7 +45,9 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
   white-space: normal;
 }
 
-// Main "Mega Menu" Dropdown
+/*
+** Main "Mega Menu" dropdown
+*/
 .nav-home {
   li.dropdown {
     position: static;
@@ -61,151 +68,6 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
   }
 }
 
-.sidebar {
-  position: fixed;
-  top: 70px;
-  bottom: 0;
-  z-index: 40;
-  display: block !important;
-  visibility: visible;
-  overflow: hidden;
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding-right: inherit;
-  height: auto;
-  background: $blue;
-  -webkit-overflow-scrolling: touch;
-
-  &.collapse {
-    width: 0 !important;
-  }
-
-  &.collapse.in {
-    width: 100% !important;
-  }
-
-  &.collapsing-out {
-    -webkit-transition: visibility 0s 0.4s linear;
-    -moz-transition: visibility 0s 0.4s linear;
-    -ms-transition: visibility 0s 0.4s linear;
-  }
-
-  .search-form-wrapper {
-    padding-bottom: 10px;
-    padding-top: 10px;
-
-    input[type="search"] {
-      //@include input-placeholder {
-      //  font-size: 18px;
-      //}
-    }
-  }
-
-  .caret {
-    margin-left: 7px;
-  }
-
-  .dropdown-menu {
-    position: relative;
-    top: 0;
-    z-index: 0;
-    display: block;
-    float: none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: none;
-    box-shadow: none;
-    background-color: $blue;
-  }
-
-  .active > a {
-    transition: height 0.3s 0.3s ease-out, opacity 0.3s 0s ease-out,
-    background-color 0.2s 0.6s ease-out, color 0.2s 0.6s ease-out,
-    color 0.2s 0.6s ease-out, border-color 0s ease-out;
-  }
-
-  .nav a {
-    overflow: hidden;
-    padding: 0 15px;
-    text-overflow: ellipsis;
-    line-height: 20px;
-    cursor: pointer;
-    transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out;
-  }
-
-  .nav-level-2 {
-    .row-level-2 {
-      display: none;
-    }
-
-    &.show .row-level-2 {
-      display: block;
-      border-bottom: 1px solid $gray-300;
-    }
-  }
-
-  .nav-stacked > li {
-    margin: 0;
-
-    + li {
-      margin: 0;
-    }
-  }
-
-  .page-head__main-menu {
-    padding-top: 9px;
-  }
-
-  .page-head__top-menu {
-    overflow: visible;
-    padding-bottom: 5px;
-    padding-top: 5px;
-
-    li a {
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-  }
-
-  .row-level-3 {
-    list-style: none;
-  }
-
-  // Search form.
-  input[type="submit"] {
-    display: none;
-  }
-
-  .navbar-nav {
-    margin: 0 -15px;
-  }
-
-  .nav-level-2 a {
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-
-  .nav-level-2.show,
-  .row-level-2 {
-    background-color: white;
-  }
-
-  .navbar-nav .show .dropdown-menu > li > a,
-  .navbar-nav .show .dropdown-menu .dropdown-header {
-    padding: 12px 15px 12px 23px;
-  }
-
-  .dropdown-menu > li > a:hover,
-  .dropdown-menu > li > a:focus {
-    background: none;
-  }
-
-  .section-icon {
-    display: none;
-  }
-}
 
 .viewport {
   .page-head__main-menu {
@@ -228,21 +90,6 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
         padding: 0;
         position: relative;
         color: $dark-blue;
-
-        &:before {
-          font-family: "icomoon" !important;
-          content: "\ec13";
-        }
-      }
-
-      .section-icon {
-        display: none;
-        margin-bottom: 15px;
-        text-align: center;
-
-        img {
-          width: 50px;
-        }
       }
     }
 
@@ -297,19 +144,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
   }
 }
 
-.section-icon {
-  background-position: 33% 50%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 50px;
-
-  img {
-    display: none;
-  }
-
-  // Section icons are set via UI and simple_menu_icons module.
-}
-
+// show/hide arrows (desktop)
 .page-head__main-menu .nav-level-2 {
   .fa-angle-up {
     display: none;

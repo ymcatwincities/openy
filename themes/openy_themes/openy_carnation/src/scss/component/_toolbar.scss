@@ -13,11 +13,19 @@ body.toolbar-fixed {
 
   .fixed-top {
     top: 39px;
+
+    &.sidebar {
+      top: 109px;
+    }
   }
 
   // Horizontal.
   &.toolbar-horizontal.toolbar-tray-open .fixed-top {
     top: 79px;
+
+    &.sidebar {
+      top: 149px;
+    }
   }
 
   // Vertical Open.
