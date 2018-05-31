@@ -53,6 +53,13 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'mindbody-products-list-modal',
     ],
+    'mindbody_locations_pt_list' => [
+      'variables' => [
+        'left_col' => '',
+        'right_col' => '',
+      ],
+      'template' => 'mindbody-locations-pt-list',
+    ],
   ];
 }
 
@@ -80,6 +87,11 @@ function ymca_mindbody_token_info() {
     'description' => t('Provides an expander block with list of personify products'),
     'type' => 'markup',
   ];
+  $info['tokens']['site']['list-of-locations-pt'] = [
+    'name' => t('Location PT Links'),
+    'description' => t('Provides a list of links to location PT pages.'),
+    'type' => 'markup',
+  ];
 
   return $info;
 }
@@ -89,6 +101,58 @@ function ymca_mindbody_token_info() {
  */
 function ymca_mindbody_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
   $replacements = array();
+
+  if ($type == 'site') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'list-of-locations-pt':
+          /** @var \Drupal\ymca_mappings\LocationMappingRepository $locationRepo */
+          $locationRepo = \Drupal::service('ymca_mappings.location_repository');
+          $locationMappings = $locationRepo->loadAll();
+          $items = [];
+
+          $aliasManager = \Drupal::service('path.alias_manager');
+          $pathValidator = \Drupal::service('path.validator');
+
+          foreach ($locationMappings as $mapping) {
+            foreach ($mapping->get('field_location_ref')->referencedEntities() as $location) {
+              if ($location->bundle() != 'location') {
+                continue;
+              }
+
+              $path = $aliasManager->getAliasByPath('/node/' . $location->id());
+              $schedulePath = $path . '/health__fitness/personal_training';
+              if ($pathValidator->isValid($schedulePath)) {
+                $items[] = new Link($location->label(), Url::fromUserInput($schedulePath));
+              }
+            }
+          }
+
+          if (empty($items)) {
+            return NULL;
+          }
+
+          // Let's create 2 columns.
+          $chunks = array_chunk($items, (floor(count($items) / 2)) + 1);
+
+          $variables = [
+            '#theme' => 'mindbody_locations_pt_list',
+            '#left_col' => [
+              '#theme' => 'item_list',
+              '#items' => count($chunks[0]) ? $chunks[0] : [],
+            ],
+            '#right_col' => [
+              '#theme' => 'item_list',
+              '#items' => count($chunks[1]) ? $chunks[1] : [],
+            ],
+          ];
+
+          $replacements[$original] = render($variables);
+
+          break;
+      }
+    }
+  }
 
   if ($type == 'node') {
     foreach ($tokens as $name => $original) {
