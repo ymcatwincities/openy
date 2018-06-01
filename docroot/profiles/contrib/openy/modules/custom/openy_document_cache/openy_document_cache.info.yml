@@ -1,0 +1,6 @@
+name: 'OpenY Document Cache'
+type: module
+description: 'Adds timestamp to document links to prevent caching.'
+core: 8.x
+version: 1.0
+package: 'OpenY'

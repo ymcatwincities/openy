@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_document_cache.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function openy_document_cache_help($route_name, RouteMatchInterface $route_match) {
+  $output = NULL;
+  switch ($route_name) {
+    // Main module help for the openy_document_cache module.
+    case 'help.page.openy_document_cache':
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Adds timestamp to document links to prevent caching.') . '</p>';
+      return $output;
+  }
+  return $output;
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function openy_document_cache_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'openy_document_cache/openy_document_cache';
+}
