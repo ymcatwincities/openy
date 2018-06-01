@@ -11,6 +11,7 @@ use Drupal\daxko\DaxkoClientInterface;
 use Drupal\openy_mappings\LocationMappingRepository;
 use Drupal\openy_mappings\MappingRepository;
 use Drupal\openy_mappings\MembershipTypeMappingRepository;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Class DataWrapperBase.
@@ -81,6 +82,13 @@ abstract class DataWrapperBase implements DataWrapperInterface {
   protected $loggerChannel;
 
   /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * DataWrapperBase constructor.
    *
    * @param \Drupal\Core\Entity\Query\QueryFactory $queryFactory
@@ -101,18 +109,10 @@ abstract class DataWrapperBase implements DataWrapperInterface {
    *   Membership type mapping repository.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
    *   Logger channel.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   Config factory.
    */
-  public function __construct(
-    QueryFactory $queryFactory,
-    RendererInterface $renderer,
-    EntityTypeManagerInterface $entityTypeManager,
-    DaxkoClientInterface $daxkoClient,
-    CacheBackendInterface $cacheBackend,
-    MappingRepository $mappingRepo,
-    LocationMappingRepository $locationRepo,
-    MembershipTypeMappingRepository $membershipTypeRepo,
-    LoggerChannelInterface $loggerChannel
-  ) {
+  public function __construct(QueryFactory $queryFactory, RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager, DaxkoClientInterface $daxkoClient, CacheBackendInterface $cacheBackend, MappingRepository $mappingRepo, LocationMappingRepository $locationRepo, MembershipTypeMappingRepository $membershipTypeRepo, LoggerChannelInterface $loggerChannel, ConfigFactoryInterface $configFactory) {
     $this->queryFactory = $queryFactory;
     $this->renderer = $renderer;
     $this->entityTypeManager = $entityTypeManager;
@@ -122,6 +122,7 @@ abstract class DataWrapperBase implements DataWrapperInterface {
     $this->locationRepo = $locationRepo;
     $this->membershipTypeRepo = $membershipTypeRepo;
     $this->loggerChannel = $loggerChannel;
+    $this->configFactory = $configFactory;
   }
 
   /**
