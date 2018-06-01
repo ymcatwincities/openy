@@ -1,6 +1,7 @@
 Make sure these boxes are checked before asking for review of your pull request - thank you!
 
-If there is a new feature, please create PR against 8.x-1.xx-dev branch
+If there is a new feature, please create PR against 8.x-1.xx-dev branch.
+
 If this is a bug fix - use 8.x-1.x branch. We'll tag for release if the bug is critical asap or tag for release next bug fix release until critical issue arrived.
 
 ## Steps for review
