@@ -2086,7 +2086,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         display: inline-block;
         vertical-align: top;
         margin: 0;
-        font-size: 13px;
+        font-size: 12px;
         line-height: 20px;
         color: #a8a8a8;
       }
@@ -2102,6 +2102,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
       nav {
         width: 100%;
         padding: 0;
+        margin-left: 0;
+        margin-right: 0;
       }
 
       .nav {
@@ -2123,7 +2125,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
     .list-inline {
       text-align: center;
-      margin: 0 0 40px 0;
+      margin: 4px 0 36px -5px;
 
       > li {
         display: inline-block;
@@ -2188,7 +2190,10 @@ a.ms-brand:hover {
 .nav-footer .nav-stacked > li {
   margin-top:2px;
 }
+
+
 .social-icon {
+  color: #377bb5;
   position: relative;
   display: block;
   overflow: hidden;
