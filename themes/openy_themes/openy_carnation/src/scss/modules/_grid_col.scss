@@ -87,12 +87,12 @@
         letter-spacing: -1px;
         text-align: center;
         display: inline-block;
-        color: #fff;
+        color: white;
         min-width: 180px;
         border-radius: 8px;
         margin: 0;
         padding: 8px 20px;
-        background-color: #01a490;
+        background-color: $cyan;
         border: 2px solid white;
 
         &:hover {
