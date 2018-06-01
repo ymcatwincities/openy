@@ -8,4 +8,5 @@ dependencies:
   - field
   - user
   - views
+  - openy_lily
 version: 8.x-1.0
