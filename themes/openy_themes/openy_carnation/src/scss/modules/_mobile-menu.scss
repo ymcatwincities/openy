@@ -12,7 +12,7 @@
   overflow-y: auto;
   padding-right: inherit;
   height: auto;
-  background: $blue;
+  background: $primary;
   -webkit-overflow-scrolling: touch;
 
   &.collapse {
@@ -47,7 +47,7 @@
     border: 0;
     border-radius: 0;
     box-shadow: none;
-    background-color: $blue;
+    background-color: $primary;
   }
 
   .active > a {

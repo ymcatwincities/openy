@@ -37,8 +37,12 @@ $colors: map-merge((
     "dark-blue":      $light-blue,
 ), $colors);
 
+// theme colours
+$primary-darker:    $dark-blue;
+
 $theme-colors: () !default;
 $theme-colors: map-merge((
+    "primary-darker":    $primary-darker,
     "black":       $black
 ), $theme-colors);
 
