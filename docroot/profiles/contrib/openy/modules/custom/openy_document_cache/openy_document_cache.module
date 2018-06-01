@@ -23,7 +23,7 @@ function openy_document_cache_help($route_name, RouteMatchInterface $route_match
 }
 
 /**
- * @param array $attachments
+ * Implements hook_page_attachments().
  */
 function openy_document_cache_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'openy_document_cache/openy_document_cache';
