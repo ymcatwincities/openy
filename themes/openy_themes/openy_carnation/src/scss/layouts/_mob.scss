@@ -95,16 +95,16 @@
     margin-bottom: 0 !important;
   }
 
-  .banner-zone-node {
-    .banner-cta {
-      position: relative;
-      background: $green;
-    }
-
-    .banner-cta-section {
-      padding-top: 0;
-    }
-  }
+  //.banner-zone-node {
+  //  .banner-cta {
+  //    position: relative;
+  //    background: $green;
+  //  }
+  //
+  //  .banner-cta-section {
+  //    padding-top: 0;
+  //  }
+  //}
 
   .paragraph--column-in-a-grid .inner {
     h2 {
@@ -144,7 +144,6 @@
     position: relative;
     background: $green;
     display: block;
-    padding: 0 0 30px;
     word-wrap: break-word;
 
     .banner-description {

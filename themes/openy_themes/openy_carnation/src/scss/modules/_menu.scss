@@ -64,15 +64,24 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
     position: absolute;
     top: 100%;
     overflow: auto;
+    display: none;
+
+    &.show {
+      display: flex;
+    }
   }
 }
 
 
 .viewport {
   .page-head__main-menu {
-    .nav-level-2 > a:hover,
-    .nav-level-2 > a:focus {
-      text-decoration: none;
+    .nav-level-2 {
+      font-family: $headings-font-family;
+
+      > a:hover,
+      > a:focus {
+        text-decoration: none;
+      }
     }
 
     .dropdown-menu > li > a:focus,
@@ -81,9 +90,12 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
     }
 
     .nav-level-3 {
+      font-family: $font-family-base;
       padding-top: 25px;
 
       > a {
+        font-family: $headings-font-family;
+        line-height: 24px;
         min-height: 34px;
         display: inline-block;
         padding: 0;
@@ -149,15 +161,18 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
 
 // show/hide arrows (desktop)
 .page-head__main-menu .nav-level-2 {
+  .fa-caret-up,
   .fa-angle-up {
     display: none;
   }
 
   &.show {
+    .fa-caret-up,
     .fa-angle-up {
       display: inline;
     }
 
+    .fa-caret-down,
     .fa-angle-down {
       display: none;
     }

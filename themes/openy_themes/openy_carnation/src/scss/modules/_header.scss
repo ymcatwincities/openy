@@ -1,7 +1,7 @@
 .layout-container {
   .top-navs {
-    background: black;
-    background: linear-gradient(to bottom, #000000 0%, #000000 34%, #ffffff 34%, #ffffff 34%, #ffffff 100%);
+    //background: black;
+    //background: linear-gradient(to bottom, #000000 0%, #000000 34%, #ffffff 34%, #ffffff 34%, #ffffff 100%);
 
     .logo img {
       width: 45px;
@@ -9,7 +9,7 @@
   }
 
   .site-name {
-    //@include cachet(500);
+    font-family: $headings-font-family;
     font-size: 20px;
     color: $gray-400;
     text-transform: uppercase;
@@ -42,7 +42,8 @@
     }
 
     > a {
-      color: #777777;
+      font-family: $headings-font-family;
+      color: $gray-800;
       background-color: transparent !important;
       padding-bottom: 11px;
       padding-top: 11px;

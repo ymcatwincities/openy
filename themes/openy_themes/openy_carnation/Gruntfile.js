@@ -77,7 +77,10 @@ module.exports = function(grunt) {
       main: {
         files: [{
           expand: true,
-          src: 'node_modules/bootstrap/dist/js/bootstrap.js',
+          src: [
+            'node_modules/bootstrap/dist/js/bootstrap.js',
+            'node_modules/jquery-match-height/dist/jquery.matchHeight.js'
+          ],
           dest: '<%= global_vars.theme_src_js %>',
           flatten: true
         }]

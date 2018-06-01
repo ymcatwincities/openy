@@ -1,9 +1,9 @@
 .paragraph--column-in-a-grid {
-  .col-xs-12:first-child h2 {
+  .col-12:first-child h2 {
     color: $cyan;
   }
 
-  .col-xs-12:nth-child(2) {
+  .col-12:nth-child(2) {
     h2 {
       color: $yellow;
     }
@@ -13,7 +13,7 @@
     }
   }
 
-  .col-xs-12:last-child {
+  .col-12:last-child {
     h2 {
       color: $orange;
     }
@@ -23,7 +23,7 @@
     }
   }
 
-  .col-xs-12 {
+  .col-12 {
     padding-top: 15px;
     padding-bottom: 15px;
     margin-bottom: 20px;
@@ -50,11 +50,14 @@
       text-transform: uppercase;
       border-bottom: 2px solid;
       display: inline-block;
-      margin: 40px 0 30px;
+      margin: 0 30px;
+    }
+
+    i {
+      font-size: 30px;
     }
 
     .text {
-      height: 240px;
       font-size: 15px;
       line-height: 1.5;
     }
@@ -65,10 +68,18 @@
     }
 
     .more-link {
-      margin-top: -30px;
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+
+      div {
+        position: relative;
+        left: -50%;
+        background: white;
+      }
 
       a {
-        font-family: "Cachet", Arial, sans-serif;
+        font-family: $headings-font-family;
         text-transform: uppercase;
         font-weight: bold;
         font-size: 20px;
@@ -77,13 +88,12 @@
         text-align: center;
         display: inline-block;
         color: #fff;
-        width: 180px;
+        min-width: 180px;
         border-radius: 8px;
         margin: 0;
-        padding: 8px 0;
+        padding: 8px 20px;
         background-color: #01a490;
-        border: 2px solid !important;
-        border-color: transparent;
+        border: 2px solid white;
 
         &:hover {
           opacity: 0.85;

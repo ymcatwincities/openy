@@ -11,7 +11,7 @@ $gray-400: #636466;
 $gray-500: #4f4f4f;
 $gray-600: #333333;
 $gray-700: #2f2f2f;
-//$gray-800: #777777 !default;
+$gray-800: #777777;
 //$gray-900: #212529 !default;
 $black:    #000 !default;
 
@@ -42,6 +42,27 @@ $theme-colors: map-merge((
     "black":       $black
 ), $theme-colors);
 
+
+// Body
+//
+// Settings for the `<body>` element.
+$body-color:      $gray-700;
+
+// Links
+//
+// Style anchor elements.
+$link-hover-decoration:     none;
+
+//
+// Typography
+// --------------------------------------------------
+
+$font-family-sans-serif:  "Cachet", "Comfortaa", sans-serif;
+
+// heading & body font
+$headings-font-family:  $font-family-sans-serif !default;
+$font-family-base:      Verdana, sans-serif;;
+
 // Fonts
 //
 // Font, line-height, and color for body text, headings, and more.
@@ -60,29 +81,5 @@ $navbar-padding-x:                  0;
 
 $navbar-dark-color:                 $white;
 $navbar-dark-hover-color:           rgba($white, .75);
-//$navbar-dark-active-color:          $white !default;
-//$navbar-dark-disabled-color:        rgba($white, .25) !default;
 $navbar-dark-toggler-icon-bg:       str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='4' stroke-linecap='square' stroke-miterlimit='8' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
-//$navbar-dark-toggler-border-color:  rgba($white, .1) !default;
 
-// Body
-//
-// Settings for the `<body>` element.
-//$navbar-brand-height: 91;
-
-
-// Body
-//
-// Settings for the `<body>` element.
-//$body-color:      $gray-700;
-
-// Links
-//
-// Style anchor elements.
-//$link-color:                $primary-darker;
-//$link-decoration:           none !default;
-//$link-hover-color:          $blue-027;
-//$link-hover-decoration:     none;
-
-// Customize the light and dark text colors for use in our YIQ color contrast function.
-//$yiq-text-dark:   $blue;

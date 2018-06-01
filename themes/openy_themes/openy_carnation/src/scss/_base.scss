@@ -15,6 +15,7 @@
 @import "component/tabs";
 @import "component/toolbar";
 @import "jquery-ui/autocomplete";
+@import "modules/administrative_tabs";
 @import "modules/banner";
 @import "modules/blogs";
 @import "modules/events";
@@ -27,7 +28,7 @@
 @import "modules/menu";
 @import "modules/mobile-menu";
 @import "modules/page";
-@import "modules/top-nav";
+@import "modules/user_login";
 @import "layouts/mob";
 @import "layouts/tab";
 @import "overrides";

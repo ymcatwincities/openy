@@ -38,20 +38,20 @@
   };
 
   // Add class to header when mobile menu is opened.
-  // Drupal.behaviors.openy_carnation_mob_menu = {
-  //   attach: function (context, settings) {
-  //     var sidebar = $('#sidebar');
-  //     var $target = $('.top-navs');
-  //
-  //     sidebar.on('show.bs.collapse', function () {
-  //       $target.addClass('menu-in');
-  //     });
-  //
-  //     sidebar.on('hide.bs.collapse', function () {
-  //       $target.removeClass('menu-in');
-  //     });
-  //   }
-  // };
+  Drupal.behaviors.openy_carnation_mob_menu = {
+    attach: function (context, settings) {
+      var sidebar = $('#sidebar');
+      var $target = $('.top-navs');
+
+      sidebar.on('show.bs.collapse', function () {
+        $target.addClass('menu-in');
+      });
+
+      sidebar.on('hide.bs.collapse', function () {
+        $target.removeClass('menu-in');
+      });
+    }
+  };
 
   // Dropdown menu height.
   Drupal.behaviors.openyDropdownMenu = {
@@ -79,115 +79,6 @@
       });
     }
   };
-
-  // // Sidebar collapsible.
-  // Drupal.behaviors.sidebar = {
-  //   attach: function (context, settings) {
-  //     var current_scroll = 0;
-  //     $('.sidebar')
-  //       .once()
-  //       .on('show.bs.collapse',
-  //         // Add custom class for expand specific styling. in = open.
-  //         function (e) {
-  //           // Header banner.
-  //           $('.banner-zone-node')
-  //             .addBack()
-  //             .removeClass('out')
-  //             .addClass('collapsing-in');
-  //
-  //           $(this)
-  //             .next('.viewport')
-  //             .addBack()
-  //             .removeClass('out')
-  //             .addClass('collapsing-in');
-  //
-  //           current_scroll = $(window).scrollTop();
-  //           $('.nav-global').css({
-  //             top: current_scroll
-  //           });
-  //           $(window).trigger('resize');
-  //         }
-  //       )
-  //       .on('shown.bs.collapse',
-  //         // Allow css to control open rest state.
-  //         function () {
-  //           // Header banner.
-  //           $('.banner-zone-node')
-  //             .addBack()
-  //             .removeClass('collapsing-in')
-  //             .addClass('in');
-  //
-  //           $(this)
-  //             .next('.viewport')
-  //             .addBack()
-  //             .removeClass('collapsing-in')
-  //             .addClass('in');
-  //
-  //           var body =  $('body');
-  //           body.addClass('sidebar-in');
-  //
-  //           $('html').addClass('sidebar-in');
-  //           $(window).trigger('resize');
-  //         }
-  //       )
-  //       .on('hide.bs.collapse',
-  //         // Add custom class for collapse specific styling. out = closed.
-  //         function (e) {
-  //           var sidebar = $(this);
-  //
-  //           // Header banner.
-  //           $('.banner-zone-node')
-  //             .addBack()
-  //             .removeClass('in')
-  //             .addClass('collapsing-out');
-  //
-  //           sidebar
-  //             .next('.viewport')
-  //             .addBack()
-  //             .removeClass('in')
-  //             .addClass('collapsing-out');
-  //
-  //           $(window).scrollTop(current_scroll);
-  //
-  //           $('#page-head').css({
-  //             marginTop: ''
-  //           });
-  //           $(window).trigger('resize');
-  //         }
-  //       )
-  //       .on('hidden.bs.collapse',
-  //         // Allow css to control closed rest state.
-  //         function () {
-  //           // Header banner.
-  //           $('.banner-zone-node')
-  //             .addBack()
-  //             .addClass('out')
-  //             .removeClass('collapsing-out');
-  //
-  //           $(this)
-  //             .next('.viewport')
-  //             .addBack()
-  //             .addClass('out')
-  //             .removeClass('collapsing-out');
-  //
-  //           $('body').removeClass('sidebar-in');
-  //           $('html').removeClass('sidebar-in');
-  //
-  //           $('.nav-global').css({
-  //             top: 0
-  //           });
-  //           $(window).trigger('resize');
-  //         }
-  //       )
-  //       .find('li')
-  //       .on('hide.bs.dropdown',
-  //         // For nested dropdowns, prevent collapse of other dropdowns.
-  //         function (e) {
-  //           e.preventDefault();
-  //         }
-  //       );
-  //   }
-  // };
 
   // Sidebar collapsible menu items.
   // Drupal.behaviors.sidebarMenuCollapsible = {
@@ -220,5 +111,23 @@
   //
   //   }
   // };
+
+  // Match Heights
+  Drupal.behaviors.glenvilleMatchHeight = {
+    attach: function (context, settings) {
+      matchAllHeight();
+    }
+  };
+
+  function matchAllHeight() {
+    var el = [
+      '.container-wide .row > div'
+    ];
+
+    // make them all equal heights.
+    $.each(el, function (index, value) {
+      $(value).matchHeight();
+    });
+  }
 
 })(jQuery);
