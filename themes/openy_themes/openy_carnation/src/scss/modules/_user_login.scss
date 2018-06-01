@@ -1,50 +1,50 @@
-.user-login {
-  margin: 10px 0;
+body.path-user:not(.user-logged-in) {
+  background: linear-gradient($primary-darker, $primary);
 
-  .openy-page-tabs {
-    >ul {
-      margin: 10px 0;
-      padding-left: 0;
+  .dialog-off-canvas-main-canvas {
+    height: 100%;
+  }
+}
+
+.login-page {
+  .brand {
+    margin: 1em auto 2em auto;
+  }
+
+  .region-content {
+    > .container {
+      padding: 0;
+    }
+
+    nav.tabs {
+      margin-bottom: 2em;
     }
   }
 
-  label {
-    font-family: $headings-font-family;
-    display: inline-block;
-    max-width: 100%;
-    margin-bottom: 10px;
-    color: $gray-400;
-    font-size: 20px;
-    line-height: 25px;
-    font-weight: bold;
+  .card {
+    padding: .75em;
+    border-color: transparent;
+    box-shadow: 0 0 40px rgba(0, 0, 0, .05);
   }
 
-  input[type="text"],
-  input[type="password"] {
-    border: solid 1px $gray-200;
-    padding: 6px 12px 6px 5px;
-    height: 40px;
-    width: 50%;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555555;
-    background-color: #fff;
-    background-image: none;
-
-    @include media-breakpoint-up(lg) {
-      width: 100%;
-    }
+  .card .card-title {
+    margin-bottom: 1.5em;
   }
 
-  input:-webkit-autofill,
-  textarea:-webkit-autofill {
-    color: #555555 !important;
-
-    background-color: #fff !important;
-    background-image: none !important;
+  .form-control {
+    border-width: 2px;
   }
 
+  .user-pass p,
   .description {
-    margin-bottom: 20px;
+    font-size: .75em;
+    color: $gray-300;
+    margin: .5em 0 1em;
+  }
+
+  .form-submit {
+    margin-top: 1em;
+    padding: 1em;
+    width: 100%;
   }
 }

@@ -6,7 +6,7 @@
 #}
 
 {% if items.next %}
-<ul{{ attributes.addClass('list-unstyled text-center') }}>
+<ul{{ attributes.addClass('list-unstyled text-center my-4') }}>
   <li class="pager__item load_more_button">
     <a class="button blue" href="{{ items.next.href }}" title="{{ 'Go to next page'|t }}" rel="next">{{ options.button_text }}</a>
   </li>

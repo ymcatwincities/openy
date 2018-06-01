@@ -88,7 +88,7 @@
   #block-footeremail p {
     a:hover {
       text-decoration: underline !important;
-      color: $blue;
+      color: $primary;
     }
 
     a::before {
@@ -118,7 +118,7 @@
     }
 
     .list-inline li:hover .fa::before {
-      color: $blue;
+      color: $primary;
     }
   }
 
