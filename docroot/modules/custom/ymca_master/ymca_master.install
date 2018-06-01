@@ -6638,3 +6638,10 @@ function ymca_master_update_8285() {
   $config->set('visibility', $new_visibility);
   $config->save(TRUE);
 }
+
+/**
+ * Enable Openy Document Cache.
+ */
+function ymca_master_update_8286() {
+  \Drupal::service('module_installer')->install(['openy_document_cache'], TRUE);
+}

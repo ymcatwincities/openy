@@ -1,0 +1,9 @@
+openy_document_cache:
+  version: 1.0
+  js:
+    js/script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
