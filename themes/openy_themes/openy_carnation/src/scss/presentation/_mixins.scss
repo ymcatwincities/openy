@@ -7,12 +7,12 @@
 // 500 - medium
 // 700 - bold
 @mixin cachet($font-weight: 400) {
-  font-family: "Cachet", 'Ubuntu Condensed', sans-serif;
+  font-family: 'Cachet', 'Arial', sans-serif;
   font-weight: $font-weight;
 }
 
 @mixin helvetica-neue() {
-  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+  font-family: 'Helvetica Neue LT W01_55 Roman', Verdana, sans-serif;
 }
 
 input.button, input.btn, input.button, a.btn, a.button, #block-useraccountmenu ul li#preferred-branch a, a.button {

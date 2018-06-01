@@ -44,19 +44,23 @@ set classes = [
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-<div{{ attributes.addClass(classes) }}>
-  <div class="content"{{ content_attributes }}>
+<div{{ attributes.addClass(classes) }} data-mh="grid-col-group">
+  <div class="content p-5"{{ content_attributes }}>
     <div class="inner">
       {% if content.field_prgf_clm_class|render|trim %}
-        <i class="fa fa-{{ paragraph.field_prgf_clm_class.value }}"></i>
         <h2 class="with-icon">{{ content.field_prgf_clm_headline }}</h2>
+        <span class="d-block py-4">
+          <i class="fa fa-{{ paragraph.field_prgf_clm_class.value }}"></i>
+        </span>
       {% elseif content.field_prgf_clm_icon|render|trim %}
-        {{ content.field_prgf_clm_icon }}
         <h2 class="with-icon">{{ content.field_prgf_clm_headline }}</h2>
+        <span class="d-block py-4">
+          {{ content.field_prgf_clm_icon }}
+        </span>
       {% else %}
         <h2>{{ content.field_prgf_clm_headline }}</h2>
       {% endif %}
-      <div class="text">{{ content.field_prgf_grid_clm_description }}</div>
+      <div class="text pb-lg-5" data-mh="grid-col-group-text">{{ content.field_prgf_grid_clm_description }}</div>
       <div class="image-prgf-grid">{{ content.field_image }}</div>
       <div class="more-link">{{ content.field_prgf_clm_link }} {{ content.field_link_attribute }}</div>
     </div>

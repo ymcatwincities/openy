@@ -3,13 +3,18 @@
   overflow: hidden;
 
   .banner-cta {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 7%;
+    position: relative;
+    background: $green;
+
+    @include media-breakpoint-up(lg) {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: none;
+    }
   }
 
   .banner-title {

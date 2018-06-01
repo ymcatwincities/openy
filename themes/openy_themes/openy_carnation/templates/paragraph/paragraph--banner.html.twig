@@ -46,28 +46,31 @@
 %}
 
 <div{{ attributes.addClass(classes) }}>
+
   <div class="banner-image">
     <div class="banner-image-wrapper">
       {{ content.field_prgf_image }}
     </div>
   </div>
+
   <div class="banner-cta">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 col-md-9">
-        <div class="banner-cta-section">
-         <h3 class="banner-title">
-            {{ content.field_prgf_headline }}
-          </h3>
-          <div class="banner-description">
-            {{ content.field_prgf_description}}
-          </div>
-          <div class="btn btn-transparent">
-            {{ content.field_prgf_link }}
+    <div class="container align-items-center m-auto py-5 pb-lg-0 text-center">
+      <div class="row py-3 pt-lg-5 pb-lg-0">
+        <div class="col-12">
+          <div class="banner-cta-section">
+            <h1 class="banner-title text-uppercase">
+              {{ content.field_prgf_headline }}
+            </h1>
+            <div class="banner-description text-light">
+              {{ content.field_prgf_description}}
+            </div>
+            <div class="btn btn-transparent">
+              {{ content.field_prgf_link }}
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
- </div>
+
 </div>
