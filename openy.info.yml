@@ -200,6 +200,7 @@ dependencies:
   - openy_session_instance
   - openy_schedules
   - openy_socrates
+  - openy_system
   - openy_tour
   - location_finder
   - daxko

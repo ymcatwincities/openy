@@ -867,3 +867,10 @@ function openy_update_8056() {
 function openy_update_8057() {
   \Drupal::service('module_installer')->install(['openy_er']);
 }
+
+/**
+ * Enable OpenY System.
+ */
+function openy_update_8058() {
+  \Drupal::service('module_installer')->install(['openy_system']);
+}
