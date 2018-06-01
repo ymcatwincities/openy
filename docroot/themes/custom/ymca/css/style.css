@@ -1974,7 +1974,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   text-align: center;
 }
 .page-footer.footer-themes-b .richtext h5, .page-footer.footer-themes-b .richtext p {
-  font-family: 'Cachet', Verdana,Arial,sans-serif;
+  font-family: Verdana,Arial,sans-serif;
   display: inline-block;
   vertical-align: top;
   margin: 0;
@@ -2010,7 +2010,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   display: inline-block;
   vertical-align: top;
   margin: 0 12px;
-  padding: 0;
+  padding-left: 5px;
+  padding-right: 5px;
   width: auto;
 }
 @media (max-width: 420px) {
@@ -2076,7 +2077,7 @@ a.ms-brand:hover {
   height: 0;
   text-decoration: none;
   font-size: 30px;
-  font-family: 'YMCA';
+  font-family: 'FontAwesome';
 }
 .social-icon:after {
   position: absolute;
@@ -2118,11 +2119,11 @@ a.ms-brand:hover {
 }
 
 .icon-facebook:after {
-  content: 'f';
+  content: "\f09a";
 }
 
 .icon-youtube:after {
-  content: '';
+  content: "\f167";
 }
 
 .icon-pinterest:after {
@@ -2134,11 +2135,11 @@ a.ms-brand:hover {
 }
 
 .icon-twitter:after {
-  content: 't';
+  content: "\f099";
 }
 
 .icon-youtube:after {
-  content: 'y';
+  content: "\f167";
 }
 
 .icon-pinterest:after {
@@ -2444,7 +2445,7 @@ a.ms-brand:hover {
 }
 
 .icon-flickr:after {
-  content: 'k';
+  content: "\f16e";
 }
 
 .sidebar-promos .img-responsive {
