@@ -123,14 +123,14 @@ body {
       @include breakpoint($screen-md) {
         margin-left: 15px;
         margin-right: 15px;
-        margin-top: -255px;
+        margin-top: -245px;
         padding: 30px;
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-lg-desktop) {
         margin-left: 125px;
         margin-right: 125px;
-        margin-top: -255px;
+        margin-top: -245px;
         padding: 40px;
         box-shadow: 10px 20px 115px 10px;
       }

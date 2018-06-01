@@ -132,7 +132,7 @@ class MemberRegisterForm extends FormBase {
     $form['submit_ok'] = [
       '#type' => 'submit',
       '#name' => 'submit_ok',
-      '#value' => $this->t('Register'),
+      '#value' => $this->t('Sign in'),
       '#attributes' => [
         'class' => [
           'btn',
