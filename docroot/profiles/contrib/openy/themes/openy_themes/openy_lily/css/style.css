@@ -7179,6 +7179,7 @@ legend {
   display: inline-block;
 }
 #page-footer #block-openy-lily-footermenucenter .nav li a {
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   font-size: 20px;
   color: #a8a8a8;
 }
@@ -7196,7 +7197,7 @@ legend {
   top: -20px;
 }
 #page-footer #block-openy-lily-footercopyrightblock h5, #page-footer #block-openy-lily-footercopyrightblock p {
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  font-family: Verdana,Arial,sans-serif;
   display: inline-block;
   margin: 0;
   font-size: 12px;
