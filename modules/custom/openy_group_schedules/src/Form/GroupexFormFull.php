@@ -216,7 +216,7 @@ class GroupexFormFull extends GroupexFormBase {
       $classes = $class_select_classes = 'show';
     }
     if (isset($state['location']) && is_numeric($state['location'])) {
-      $location_select_classes = $classes = $class_select_classes = 'show';
+      $location_select_classes = $classes = $class_select_classes = $category_select_classes = 'show';
       $location_classes = 'hidden';
     }
     if (isset($site_section)) {
@@ -225,8 +225,8 @@ class GroupexFormFull extends GroupexFormBase {
     if (!empty($state['class']) && is_numeric($state['class'])) {
       $location_select_classes = $class_select_classes = $classes = 'show';
     }
-    if ($location_select_classes == 'show') {
-      $category_select_classes = 'show';
+    if (!empty($state['category']) && is_numeric($state['category'])) {
+      $location_select_classes = $category_select_classes = 'show';
     }
 
     $locationValue = !empty($values['location']) ? $values['location'] : '';
