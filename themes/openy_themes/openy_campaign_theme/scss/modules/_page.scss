@@ -189,7 +189,7 @@ body {
   }
   .content-wrapper {
     background-color: rgba(0, 0, 0, 0.2);
-    max-width: 800px;
+    max-width: 850px;
     padding: 40px 0px;
 
     @include breakpoint($screen-phone) {
