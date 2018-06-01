@@ -8,5 +8,6 @@ dependencies:
   - field
   - user
   - views
-  - openy_lily
+  - domain
+  - domain_theme_switch
 version: 8.x-1.0
