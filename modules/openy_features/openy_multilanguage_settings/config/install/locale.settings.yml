@@ -8,6 +8,6 @@ translation:
   default_server_pattern: 'http://ftp.drupal.org/files/translations/%core/%project/%project-%version.%language.po'
   overwrite_customized: false
   overwrite_not_customized: true
-  update_interval_days: 0
+  update_interval_days: 30
   path: sites/default/files/translations
   import_enabled: false
