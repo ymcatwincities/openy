@@ -214,5 +214,6 @@ dependencies:
 themes:
   - bartik
   - openy_rose
+  - openy_lily
   - openy_admin
   - seven
