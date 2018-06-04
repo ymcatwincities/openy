@@ -2,51 +2,8 @@
 
 /**
  * @file
- * OpenY Block Flexible Contente install file.
+ * OpenY Block Flexible Content install file.
  */
-
-/**
- * Implements hook_install().
- */
-function openy_block_flexible_content_install() {
-  $modules = [
-    'openy_prgf_1c' => [
-      'field.field.paragraph.1c.field_prgf_1c_column',
-    ],
-    'openy_prgf_2c' => [
-      'field.field.paragraph.2c.field_prgf_2c_left',
-      'field.field.paragraph.2c.field_prgf_2c_right',
-    ],
-    'openy_prgf_3c' => [
-      'field.field.paragraph.3c.field_prgf_3c_center',
-      'field.field.paragraph.3c.field_prgf_3c_left',
-      'field.field.paragraph.3c.field_prgf_3c_right',
-    ],
-    'openy_prgf_4c' => [
-      'field.field.paragraph.3c.field_prgf_3c_center',
-      'field.field.paragraph.3c.field_prgf_3c_left',
-      'field.field.paragraph.3c.field_prgf_3c_right',
-    ],
-  ];
-  $config_factory = \Drupal::configFactory();
-  foreach ($modules as $module => $configs) {
-    if (\Drupal::service('module_handler')->moduleExists($module)) {
-      // Add flexible_content to field config target bundles.
-      foreach ($configs as $config_name) {
-        $config = $config_factory->getEditable($config_name);
-        $dependencies = $config->get('dependencies.config');
-        if (!in_array('block_content.type.flexible_content', $dependencies)) {
-          $dependencies[] = 'block_content.type.flexible_content';
-          $config->set('dependencies.config', $dependencies);
-          $target_bundles = $config->get('settings.handler_settings.target_bundles');
-          $target_bundles['flexible_content'] = 'flexible_content';
-          $config->set('settings.handler_settings.target_bundles', $target_bundles);
-          $config->save(TRUE);
-        }
-      }
-    }
-  }
-}
 
 /**
  * Implements hook_uninstall().
