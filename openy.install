@@ -732,7 +732,7 @@ function openy_update_8049() {
 function openy_update_8050() {
   \Drupal::service('module_installer')->install(['fontyourface']);
   if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
-    $message = 'OpenY Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module. 
+    $message = 'OpenY Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module.
         Please, <a href="/admin/appearance/font/local_font_config_entity">use it</a> to add purchased fonts to the site and uninstall OpenY Font module.';
     drupal_set_message($message, 'warning');
   }
@@ -862,8 +862,15 @@ function openy_update_8056() {
 }
 
 /**
- * Enable OpenY System.
+ * Enable OpenY Entity Reference Tweaks.
  */
 function openy_update_8057() {
+  \Drupal::service('module_installer')->install(['openy_er']);
+}
+
+/**
+ * Enable OpenY System.
+ */
+function openy_update_8058() {
   \Drupal::service('module_installer')->install(['openy_system']);
 }

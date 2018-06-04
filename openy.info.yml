@@ -105,6 +105,7 @@ dependencies:
   - local_fonts
   - css_editor
   # OpenY features.
+  - openy_er
   - openy_svg_formatter
   - openy_media_image
   - openy_media_document
