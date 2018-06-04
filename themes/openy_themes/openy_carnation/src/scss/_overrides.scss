@@ -1,3 +1,10 @@
+html,
+body {
+  height: 100%;
+  position: relative;
+  margin-top: 0;
+}
+
 ol, ul {
   padding-left: 1.5em;
 
@@ -56,3 +63,13 @@ p:last-child,
 .media--type-video-upload.media {
   display: block;
 }
+
+// resize navtabs sizing
+.nav-tabs {
+  font-size: 0.875em;
+
+  li a {
+    padding: 5px 12px;
+  }
+}
+

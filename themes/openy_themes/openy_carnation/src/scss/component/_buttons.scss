@@ -51,7 +51,7 @@ a.follow-link::after,
 }
 
 body .pager li.load_more_button > a {
-  font-family: "Cachet",Arial,sans-serif;
+  font-family: $headings-font-family;
   font-size: 20px;
   font-weight: 500;
   border-radius: 8px;
