@@ -1,24 +1,18 @@
 body.path-user:not(.user-logged-in) {
-  background: linear-gradient($primary-darker, $primary);
-
-  .dialog-off-canvas-main-canvas {
-    height: 100%;
-  }
+  background: linear-gradient($dark-blue, $light-blue);
 }
 
 .login-page {
   .brand {
     margin: 1em auto 2em auto;
+
+    img {
+      max-width: 125px;
+    }
   }
 
-  .region-content {
-    > .container {
-      padding: 0;
-    }
-
-    nav.tabs {
-      margin-bottom: 2em;
-    }
+  .openy-page-tabs {
+    padding: 0;
   }
 
   .card {
