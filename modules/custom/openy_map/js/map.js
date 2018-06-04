@@ -26,7 +26,7 @@
       // Marker designating the center point.
       search_center_marker: null,
       // Geocoder.
-      geocoder: typeof google !== 'undefined' ? new google.maps.Geocoder() : {},
+      geocoder: typeof google.maps !== 'undefined' ? new google.maps.Geocoder() : {},
       // Normalizes a map-vendor specific representation of
       // a coordinate point to a {lat:x, lon:y} object.
       normalize_point: function (point) {
