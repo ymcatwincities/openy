@@ -44,6 +44,7 @@ $primary-darker:    $dark-blue;
 $theme-colors: () !default;
 $theme-colors: map-merge((
     "primary-darker":     $primary-darker,
+    "gray-100":           $gray-100,
     "black":              $black,
 ), $theme-colors);
 
@@ -98,3 +99,6 @@ $nav-tabs-link-hover-border-color:  $gray-100 $gray-100 $nav-tabs-border-color;
 $nav-tabs-link-active-color:        $gray-400;
 $nav-tabs-link-active-bg:           $body-bg !default;
 $nav-tabs-link-active-border-color: $gray-200 $gray-200 $nav-tabs-link-active-bg;
+
+// Lists
+$list-inline-padding:         .5rem !default;

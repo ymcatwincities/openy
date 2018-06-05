@@ -1,14 +1,14 @@
 .footer {
   background-color: $gray-700;
-  color: #fff;
+  color: white;
   font-size: 18px;
   padding-bottom: 0;
-  padding-top: 50px;
+  //padding-top: 50px;
   margin-top: 0;
   border-top: 0 solid;
 
   ul {
-    list-style: none;
+    margin: 0;
   }
 
   #block-footeraddress {
@@ -103,7 +103,7 @@
     }
   }
 
-  #block-openy_carnation-footersocialblock {
+  #block-openy-carnation-footersocialblock {
     text-align: right;
 
     .fa {
@@ -123,14 +123,12 @@
   }
 
   .footer__copyright {
-    background: #141414;
+    background: black;
     font-size: 15px;
-    color: #646464;
-    padding: 20px;
-    margin-top: 35px;
+    color: $gray-400;
 
-    #block-openy_carnation-footermenuright {
-      ul.menu {
+    #block-openy-carnation-footermenuright {
+      ul {
         text-align: right;
         padding: 0;
         margin: 0;

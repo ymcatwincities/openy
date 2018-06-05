@@ -105,7 +105,7 @@
     display: block;
     height: 0;
     position: absolute;
-    bottom: 40px;
+    bottom: 30px;
     top: auto;
   }
 
@@ -140,6 +140,11 @@
 
     &:hover:before {
       opacity: .8;
+    }
+
+    &.slick-disabled {
+      opacity: .5;
+      cursor: default;
     }
   }
 }

@@ -65,9 +65,11 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
     top: 100%;
     overflow: auto;
     display: none;
+    height: 0;
 
     &.show {
       display: flex;
+      height: auto;
     }
   }
 }
@@ -131,6 +133,8 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
         z-index: 1001;
         background: white;
         color: $dark-blue !important;
+        box-shadow: 0 5px 0 0 white;
+
         &:hover {
           color: $dark-blue;
         }
