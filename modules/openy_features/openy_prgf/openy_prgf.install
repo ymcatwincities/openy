@@ -119,3 +119,28 @@ function openy_prgf_update_8007() {
     'fields_unset_paragraphs'
   );
 }
+
+/**
+ * Fix shared field storage configs issue (set persist_with_no_fields to TRUE).
+ */
+function openy_prgf_update_8008() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_path = drupal_get_path('module', 'openy_prgf') . '/config/install/';
+  $configs = [
+    'field.storage.paragraph.field_prfg_display_line_above',
+    'field.storage.paragraph.field_prgf_block',
+    'field.storage.paragraph.field_prgf_color',
+    'field.storage.paragraph.field_prgf_description',
+    'field.storage.paragraph.field_prgf_grid_style',
+    'field.storage.paragraph.field_prgf_headline',
+    'field.storage.paragraph.field_prgf_image',
+    'field.storage.paragraph.field_prgf_link',
+    'field.storage.paragraph.field_prgf_title',
+  ];
+  foreach ($configs as $config) {
+    $config_importer->update($config_path . $config . '.yml',
+      $config,
+      'persist_with_no_fields'
+    );
+  }
+}
