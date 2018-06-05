@@ -3,13 +3,14 @@ description: 'Provide a paragraph with a table view shows list of Branches.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - better_exposed_filters
   - field
   - node
   - openy_location
   - openy_loc_branch
-  - openy_prgf_3c
+  - openy_prgf
   - openy_taxonomy
   - paragraphs
   - taxonomy
