@@ -54,5 +54,6 @@ function openy_prgf_3c_update_8003() {
     'field.field.paragraph.3c.field_prgf_3c_center',
     'field.field.paragraph.3c.field_prgf_3c_left',
     'field.field.paragraph.3c.field_prgf_3c_right',
+    'paragraphs.paragraphs_type.3c',
   ]);
 }
