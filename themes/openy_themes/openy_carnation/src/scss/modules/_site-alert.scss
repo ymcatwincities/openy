@@ -1,0 +1,163 @@
+.site-alert {
+  width: 100%;
+}
+
+.site-alert__wrapper {
+  position: relative;
+}
+
+.site-alert__title {
+  font-family: $headings-font-family;
+  font-size: 16px;
+  display: inline;
+  padding-right: 0.7em;
+}
+
+.site-alert__content p {
+  margin: 0;
+}
+
+.site-alert__cta {
+  font-size: 12px;
+  margin-top: 15px;
+
+  @media (min-width: 48em) {
+    margin-bottom: 15px;
+  }
+
+  @media (min-width: 62em) {
+    margin:0;
+  }
+}
+
+.site-alert__dismiss {
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 10px;
+
+  &:hover {
+    color: #999999;
+  }
+}
+
+.site-alert__icon,
+.site-alert__icon {
+  font-size: 26px;
+  color: #ed1c24;
+  position: absolute;
+  top: 10px;
+  left: 25px;
+
+  &:before {
+    content: " ";
+    background-color: white;
+    border-radius: 10px;
+    height: 20px;
+    left: 1px;
+    position: absolute;
+    top: 2px;
+    width: 20px;
+    z-index: 2;
+  }
+
+  .fa {
+    position: absolute;
+    z-index: 3;
+  }
+}
+
+.site-alert__content,
+.site-alert__content {
+  display: inline;
+  font-size: 14px;
+
+  .field-body-no-summary a {
+    color: white;
+  }
+}
+
+.site-alert__cta a {
+  color: white;
+}
+
+.header-alerts-list,
+.footer-alerts-list {
+
+  .slick-slider {
+    margin-bottom: 0;
+  }
+
+  .slick-track {
+    display: flex;
+
+    .slick-slide {
+      display: flex;
+      height: auto;
+    }
+  }
+
+  .slick--view--alerts .container {
+    position: relative;
+  }
+
+  .slick__arrow {
+    display: block;
+    height: 0;
+    position: absolute;
+    bottom: 40px;
+    top: auto;
+  }
+
+  .slick__counter {
+    display: none;
+  }
+
+  .slick-arrow {
+    background: transparent;
+    border: none;
+    color: transparent;
+    cursor: pointer;
+    display: block;
+    font-size: 0;
+    height: auto;
+    left: auto;
+    line-height: 0;
+    outline: none;
+    padding: 0;
+    position: absolute;
+    text-decoration: none;
+    width: auto;
+
+    &:before {
+      color: white;
+      font-family: "FontAwesome";
+      font-size: 30px;
+      font-weight: bold;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    &:hover:before {
+      opacity: .8;
+    }
+  }
+}
+
+.header-alerts-list .slick-prev,
+.footer-alerts-list .slick-prev {
+  right: 30px;
+
+  &:before {
+    content: "\f104";
+  }
+}
+
+.header-alerts-list .slick-next,
+.footer-alerts-list .slick-next {
+  right: 0;
+
+  &:before {
+    content: "\f105";
+  }
+}
