@@ -38,28 +38,17 @@
 #}
 {%
 set classes = [
-  'paragraph',
-  'row-eq-height',
-  'paragraph--column-in-a-grid',
-  'paragraph--type--' ~ paragraph.bundle|clean_class,
-  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-  'mb-5',
+'paragraph',
+'paragraph--type--' ~ paragraph.bundle|clean_class,
+view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-{% set grid_style = content.field_prgf_grid_style|render|trim %}
-{% if grid_style == '2' %}
-  {% set item_class = 'col-xs-12 col-sm-6 row-eq-height' %}
-{% elseif grid_style == '3' %}
-  {% set item_class = 'col-xs-12 col-sm-4 row-eq-height' %}
-{% elseif grid_style == '4' %}
-  {% set item_class = 'col-xs-12 col-sm-3 row-eq-height' %}
+{% if content.field_prgf_title.0 is empty %}
+  {% set title = 'What\'s New at '|t ~ label ~ '?' %}
+{% else %}
+  {% set title = content.field_prgf_title.0 %}
 {% endif %}
 <div{{ attributes.addClass(classes) }}>
-  {% for key, item in content.field_grid_columns %}
-    {% if key matches '/^\\d+$/' %}
-    <div class="col-12 col-sm row-eq-height">
-      {{ item }}
-    </div>
-    {% endif %}
-  {% endfor %}
+  <h2 class="h1">{{ title }}</h2>
+  {{ content|without('field_prgf_title') }}
 </div>

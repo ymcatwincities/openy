@@ -42,14 +42,17 @@ set classes = [
   'featured-content',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  'my-5'
 ]
 %}
 <div{{ attributes.addClass(classes) }}>
-  <h3 class="h1">
+
+  <h2 class="mb-3 text-center">
     {{ content.field_prgf_headline }}
-  </h3>
-  <div class="description">
-      {{ content.field_prgf_description }}
+  </h2>
+
+  <div class="description mb-3 text-center">
+    {{ content.field_prgf_description }}
   </div>
 
   {#
@@ -57,29 +60,26 @@ set classes = [
     have after this was converted from a field collection.
   #}
   {{ attach_library('openy_rose/featured_slider') }}
-  <div class="{{ 'wrapper-' ~ content.field_prgf_fc_clm_description['#field_name']|clean_class}} row">
-    {% if content.field_prgf_grid_style.0['#markup'] == '2' %}
-      {% set item_class = 'col-xs-12 col-sm-6' %}
-    {% elseif content.field_prgf_grid_style.0['#markup'] == '3' %}
-      {% set item_class = 'col-xs-12 col-sm-4' %}
-    {% elseif content.field_prgf_grid_style.0['#markup'] == '4' %}
-      {% set item_class = 'col-xs-12 col-sm-3' %}
-    {% endif %}
-
+  <div class="{{ 'wrapper-' ~ content.field_prgf_fc_clm_description['#field_name']|clean_class}}">
+    <div class="card-deck pt-3">
     {% for key, item in content.field_prgf_fc_clm_description %}
       {% if key matches '/^\\d+$/' %}
-        <div class="{{ item_class }} row-eq-height">
+      <div class="card">
+        <div class="card-body">
           {{ item }}
         </div>
+      </div>
       {% endif %}
     {% endfor %}
+    </div>
   </div>
 
-  <center>
+  <div class="text-center my-5">
     {% if content.field_prgf_link.0["#title"] %}
-      <div class="btn btn-default btn-link blue">
+      <div class="btn btn-md btn-outline-primary">
         {{ content.field_prgf_link }}
       </div>
     {% endif %}
-  </center>
+  </div>
+
 </div>
