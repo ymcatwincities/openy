@@ -4,5 +4,5 @@ dependencies: {  }
 id: 4c
 label: '4 columns'
 icon_uuid: null
-description: null
+description: 'Paragraph with 4 columns.'
 behavior_plugins: {  }

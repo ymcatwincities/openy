@@ -69,5 +69,6 @@ function openy_prgf_2c_update_8004() {
   $config_importer->importConfigs([
     'field.field.paragraph.2c.field_prgf_2c_left',
     'field.field.paragraph.2c.field_prgf_2c_right',
+    'paragraphs.paragraphs_type.2c',
   ]);
 }

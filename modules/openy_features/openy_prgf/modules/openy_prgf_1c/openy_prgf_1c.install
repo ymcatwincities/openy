@@ -61,5 +61,6 @@ function openy_prgf_1c_update_8003() {
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
     'field.field.paragraph.1c.field_prgf_1c_column',
+    'paragraphs.paragraphs_type.1c',
   ]);
 }
