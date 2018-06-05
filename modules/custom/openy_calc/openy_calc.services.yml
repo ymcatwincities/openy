@@ -14,5 +14,6 @@ services:
       - '@openy_mappings.location_repository'
       - '@openy_mappings.membership_type_repository'
       - '@logger.channel.openy_calc'
+      - '@config.factory'
     tags:
       - { name: "openy_data_service", priority: 100 }
