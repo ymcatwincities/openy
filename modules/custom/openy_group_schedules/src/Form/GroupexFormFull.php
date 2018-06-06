@@ -109,12 +109,14 @@ class GroupexFormFull extends GroupexFormBase {
     if (!empty($request)) {
       $state['class'] = isset($request['class_select']) ? $request['class_select'] : NULL;
       $state['location'] = isset($request['location_select']) ? $request['location_select'] : NULL;
+      $state['category'] = isset($request['category_select']) ? $request['category_select'] : NULL;
       $state['filter_date'] = isset($request['date_select']) ? $request['date_select'] : NULL;
     }
-    // Reset any 'class' value if date has been changed.
+    // Reset any 'class' and 'category' value if date has been changed.
     if (!empty($request) && $request['_triggering_element_name'] == 'date_select') {
       $state['class'] = NULL;
       $state['view_mode'] = NULL;
+      $state['category'] = NULL;
     }
     // Try to fill location from request.
     if (!empty($state['location']) && !empty($request['location']) == 'date_select') {
@@ -208,13 +210,13 @@ class GroupexFormFull extends GroupexFormBase {
     $form['#prefix'] = '<div id="groupex-full-form-wrapper">';
     $form['#suffix'] = '</div>';
 
-    $class_select_classes = $location_select_classes = $classes = 'hidden';
+    $class_select_classes = $location_select_classes = $category_select_classes = $classes = 'hidden';
     $location_classes = 'show';
     if (isset($groupex_id) && empty($state['class'])) {
       $classes = $class_select_classes = 'show';
     }
     if (isset($state['location']) && is_numeric($state['location'])) {
-      $location_select_classes = $classes = $class_select_classes = 'show';
+      $location_select_classes = $classes = $class_select_classes = $category_select_classes = 'show';
       $location_classes = 'hidden';
     }
     if (isset($site_section)) {
@@ -222,6 +224,9 @@ class GroupexFormFull extends GroupexFormBase {
     }
     if (!empty($state['class']) && is_numeric($state['class'])) {
       $location_select_classes = $class_select_classes = $classes = 'show';
+    }
+    if (!empty($state['category']) && is_numeric($state['category'])) {
+      $location_select_classes = $category_select_classes = 'show';
     }
 
     $locationValue = !empty($values['location']) ? $values['location'] : '';
@@ -302,6 +307,37 @@ class GroupexFormFull extends GroupexFormBase {
       '#weight' => -2,
     ];
 
+    // Get category options
+    $raw_category_data = $this->getOptions($this->request(['query' => ['categories' => TRUE]]), 'id', 'name');
+    $this->categoryOptions = ['any' => $this->t('-All-')];
+    $processed_category_data = [];
+    foreach ($raw_category_data as $key => $category) {
+      // Remove excess key text & cleanup markup being sent back.
+      $id = str_replace('DESC--[', '', $key);
+      $processed_category_data[$id] = t($category);
+    }
+    $this->categoryOptions = $this->categoryOptions + $processed_category_data;
+
+    $form['category_select'] = [
+      '#type' => 'select',
+      '#options' => $this->categoryOptions,
+      '#default_value' => !empty($state['category']) ? $state['category'] : 'any',
+      '#title' => $this->t('Category:'),
+      '#prefix' => '<div id="category-select-wrapper" class="' . $category_select_classes . '">',
+      '#suffix' => '</div>',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'groupex-full-form-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+        '#weight' => -1,
+      ],
+    ];
+
     // Get classes options.
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
     $this->classesOptions = ['any' => $this->t('-All-')];
@@ -312,7 +348,7 @@ class GroupexFormFull extends GroupexFormBase {
       $processed_classes_data[$id] = t($class);
     }
     $this->classesOptions = $this->classesOptions + $processed_classes_data;
-
+    
     $form['class_select'] = [
       '#type' => 'select',
       '#options' => $this->classesOptions,
@@ -442,6 +478,7 @@ class GroupexFormFull extends GroupexFormBase {
         'url.query_args:class',
         'url.query_args:filter_length',
         'url.query_args:groupex_class',
+        'url.query_args:category',
       ],
     ];
 
@@ -472,24 +509,32 @@ class GroupexFormFull extends GroupexFormBase {
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $state['class'] != 'any') {
       $parameters['class'] = $state['class'];
       $parameters['filter_length'] = 'week';
-      $parameters['category'] = 'any';
+      $parameters['category'] = $state['category'];
       $parameters['groupex_class'] = 'groupex_table_class_individual';
       $parameters['view_mode'] = 'class';
     }
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'class_select' && $triggering_element['#value'] != 'any') {
       $parameters['class'] = $triggering_element['#value'];
       $parameters['filter_length'] = 'week';
-      $parameters['category'] = 'any';
+      $parameters['category'] = $state['category'];
       $parameters['groupex_class'] = 'groupex_table_class_individual';
       $parameters['view_mode'] = 'class';
     }
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'instructor_select') {
       $parameters['class'] = $state['class'];
       $parameters['filter_length'] = 'week';
-      $parameters['category'] = 'any';
+      $parameters['category'] = $state['category'];
       $parameters['groupex_class'] = 'groupex_table_instructor_individual';
       if ($triggering_element['#value'] != 'any') {
         $parameters['instructor'] = $triggering_element['#value'];
+      }
+    }
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'category_select' && $triggering_element['#value'] != 'any') {
+      $parameters['class'] = $state['class'];
+      $parameters['filter_length'] = 'week';
+      $parameters['groupex_class'] = 'groupex_table_instructor_individual';
+      if ($triggering_element['#value'] != 'any') {
+        $parameters['category'] = $state['category'];;
       }
     }
 
@@ -523,6 +568,7 @@ class GroupexFormFull extends GroupexFormBase {
    */
   public function buildResults(array &$form, FormStateInterface $form_state) {
     $user_input = $form_state->getUserInput();
+
     $values = $form_state->getValues();
     $query = $this->state;
     $filter_date = NULL;
@@ -542,6 +588,10 @@ class GroupexFormFull extends GroupexFormBase {
     $class = !empty($values['class_select']) ? $values['class_select'] : 'any';
     if ($class == 'any' && empty($user_input['class_select']) && is_numeric($query['class'])) {
       $class = $query['class'];
+    }
+    $category = !empty($values['category_select']) ? $values['category_select'] : 'any';
+    if ($category == 'any' && empty($user_input['category_select']) && is_numeric($query['category'])) {
+      $category = $query['category_select'];
     }
 
     $filter_length = !empty($query['filter_length']) ? $query['filter_length'] : 'day';
@@ -563,6 +613,12 @@ class GroupexFormFull extends GroupexFormBase {
       $groupex_class = 'groupex_table_class_individual';
       $view_mode = 'class';
     }
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'category_select' && $triggering_element['#value'] != 'any') {
+      $category = $triggering_element['#value'];
+      $filter_length = 'week';
+      $groupex_class = 'groupex_table_class_individual';
+      $view_mode = 'class';
+    }    
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $groupex_class = 'groupex_table_instructor_individual') {
       $location = $triggering_element['#value'];
       $class = 'any';
@@ -572,7 +628,7 @@ class GroupexFormFull extends GroupexFormBase {
     $parameters = [
       'location' => $location,
       'class' => $class,
-      'category' => 'any',
+      'category' => $category,
       'filter_length' => $filter_length,
       'filter_date' => $filter_date,
       'groupex_class' => $groupex_class,
