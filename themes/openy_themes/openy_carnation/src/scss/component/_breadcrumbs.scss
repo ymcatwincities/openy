@@ -1,0 +1,77 @@
+.breadcrumbs {
+  padding: 0;
+  list-style: none;
+  display: inline-table;
+
+  li {
+    display: inline;
+
+    span,
+    a {
+      display: block;
+      float: left;
+      height: 50px;
+      background: #f3f5fa;
+      text-align: center;
+      padding: 10px 20px 10px 50px;
+      position: relative;
+      margin: 0 10px 0 0;
+      font-size: 20px;
+      text-decoration: none;
+
+      &:after {
+        content: "";
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 25px solid #f3f5fa;
+        position: absolute;
+        right: -25px;
+        top: 0;
+        z-index: 1;
+      }
+
+      &:before {
+        content: "";
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 25px solid white;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+    }
+
+    // hover for links
+    a:hover {
+      background: $primary;
+      color: white;
+
+      &:after {
+        border-left-color: $primary;
+        color: white;
+      }
+    }
+
+    // first child (rounded)
+    &:first-child a {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      padding-left: 30px;
+
+      &:before {
+        display: none;
+      }
+    }
+
+    // last child (rounded)
+    &:last-child a {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      padding-right: 30px;
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+}
