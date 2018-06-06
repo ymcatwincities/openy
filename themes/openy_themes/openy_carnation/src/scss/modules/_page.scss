@@ -23,11 +23,18 @@ body {
     margin-top: 140px;
   }
 
-  .page-head__main-menu .nav-level-2 > a {
-    color: $primary !important;
+  .page-head__main-menu .nav-level-2 {
+     > a {
+      color: $primary;
 
-    &:hover {
-      color: $pink !important;
+      &:hover {
+        color: $pink;
+      }
+    }
+
+    &.show > a,
+    &.show > a:focus {
+      color: $pink;
     }
   }
 

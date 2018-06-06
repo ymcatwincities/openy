@@ -128,11 +128,12 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
       box-shadow: 0 4px 0 0 white;
 
       > a,
+      > a:hover,
       > a:focus {
+        color: $pink;
         position: relative;
         z-index: 1001;
         background: white;
-        color: $dark-blue !important;
         box-shadow: 0 5px 0 0 white;
 
         &:hover {

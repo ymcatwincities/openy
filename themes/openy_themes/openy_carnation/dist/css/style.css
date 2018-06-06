@@ -6653,6 +6653,62 @@ html.js .ajax-new-content:empty {
 .alert-danger a, .alert-danger a:hover, .alert-danger a:focus {
   color: #c61017; }
 
+.breadcrumbs {
+  padding: 0;
+  list-style: none;
+  display: inline-table; }
+  .breadcrumbs li {
+    display: inline; }
+    .breadcrumbs li span,
+    .breadcrumbs li a {
+      display: block;
+      float: left;
+      height: 50px;
+      background: #f3f5fa;
+      text-align: center;
+      padding: 10px 20px 10px 50px;
+      position: relative;
+      margin: 0 10px 0 0;
+      font-size: 20px;
+      text-decoration: none; }
+      .breadcrumbs li span:after,
+      .breadcrumbs li a:after {
+        content: "";
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 25px solid #f3f5fa;
+        position: absolute;
+        right: -25px;
+        top: 0;
+        z-index: 1; }
+      .breadcrumbs li span:before,
+      .breadcrumbs li a:before {
+        content: "";
+        border-top: 25px solid transparent;
+        border-bottom: 25px solid transparent;
+        border-left: 25px solid white;
+        position: absolute;
+        left: 0;
+        top: 0; }
+    .breadcrumbs li a:hover {
+      background: #0089d0;
+      color: white; }
+      .breadcrumbs li a:hover:after {
+        border-left-color: #0089d0;
+        color: white; }
+    .breadcrumbs li:first-child a {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      padding-left: 30px; }
+      .breadcrumbs li:first-child a:before {
+        display: none; }
+    .breadcrumbs li:last-child a {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      padding-right: 30px; }
+      .breadcrumbs li:last-child a:after {
+        display: none; }
+
 .btn-transparent {
   font-family: "Cachet", "Comfortaa", sans-serif;
   font-weight: 500;
@@ -7898,13 +7954,15 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
   background-color: white;
   box-shadow: 0 4px 0 0 white; }
   .viewport .nav-level-2.show > a,
+  .viewport .nav-level-2.show > a:hover,
   .viewport .nav-level-2.show > a:focus {
+    color: #c6168d;
     position: relative;
     z-index: 1001;
     background: white;
-    color: #0060af !important;
     box-shadow: 0 5px 0 0 white; }
     .viewport .nav-level-2.show > a:hover,
+    .viewport .nav-level-2.show > a:hover:hover,
     .viewport .nav-level-2.show > a:focus:hover {
       color: #0060af; }
 
@@ -8030,9 +8088,13 @@ body {
   margin-top: 140px; }
 
 .without-banner .page-head__main-menu .nav-level-2 > a {
-  color: #0089d0 !important; }
+  color: #0089d0; }
   .without-banner .page-head__main-menu .nav-level-2 > a:hover {
-    color: #c6168d !important; }
+    color: #c6168d; }
+
+.without-banner .page-head__main-menu .nav-level-2.show > a,
+.without-banner .page-head__main-menu .nav-level-2.show > a:focus {
+  color: #c6168d; }
 
 .without-banner .menu-item-home {
   background: url("../img/logo-color.png") no-repeat;
@@ -8154,7 +8216,9 @@ body {
   height: 0;
   position: absolute;
   bottom: 30px;
-  top: auto; }
+  top: auto;
+  left: auto;
+  right: 0; }
 
 .header-alerts-list .slick__counter,
 .footer-alerts-list .slick__counter {
