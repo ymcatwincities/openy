@@ -38,7 +38,6 @@
    * @param parameters
    */
   Drupal.openy_group_schedules.update_category_select = function(parameters) {
-    console.log(parameters);
     if (typeof(parameters.category) !== 'undefined') {
       var exists = 0 !== $('#category-select-wrapper select option[value="' + parameters.category + '"]').length;
       if (exists) {
