@@ -133,15 +133,15 @@
     </header>
 
     <div class="container">
-      {{ page.header }}
       {{ page.breadcrumb }}
+      {{ page.header }}
       {{ page.highlighted }}
       {{ page.help }}
     </div>
 
     <main role="main">
       <a id="main-content" tabindex="-1"></a>
-      <div class="layout-content">
+      <div class="layout-content pb-3 mb-5">
         {% block pagecontent %}
           {{ page.content }}
         {% endblock %}
