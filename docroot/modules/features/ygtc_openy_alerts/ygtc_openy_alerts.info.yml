@@ -1,0 +1,13 @@
+name: 'YGTC OpenY Alerts'
+description: 'Implements OpenY alerts.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - metatag
+  - openy_node_alert
+  - page_manager
+  - user
+  - views
+  - ymca_page_manager
+version: 8.x-1.0
