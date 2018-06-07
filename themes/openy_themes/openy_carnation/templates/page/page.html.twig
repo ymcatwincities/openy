@@ -126,7 +126,6 @@
                 {{ page.primary_menu }}
               </div>
             </div>
-            {# / search #}
 
           </div>
         </nav>
@@ -141,13 +140,12 @@
     </div>
 
     <main role="main">
-      <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
-
+      <a id="main-content" tabindex="-1"></a>
       <div class="layout-content">
         {% block pagecontent %}
           {{ page.content }}
         {% endblock %}
-      </div>{# /.layout-content #}
+      </div>
     </main>
 
     <div class="pre-footer">
@@ -156,19 +154,32 @@
 
     <footer class="footer">
       <div class="container py-5">
-        <div class="row">
-          <div class="col-12 col-md-6 col-lg">
+        <div class="row py-3">
+
+          {% if page.footer_info|render|trim is not empty %}
+          <div class="col-12 col-lg">
             {{ page.footer_info }}
           </div>
-          <div class="col-xs-12 col-md-6 col-lg">
+          {% endif %}
+
+          {% if page.footer_tel|render|trim is not empty %}
+          <div class="col-xs-12 col-lg">
               {{ page.footer_tel }}
           </div>
-          <div class="col-xs-12 col-md-6 col-lg">
+          {% endif %}
+
+          {% if page.footer_mail|render|trim is not empty %}
+          <div class="col-xs-12 col-lg">
               {{ page.footer_mail }}
           </div>
-          <div class="col-xs-12 col-md-6 col-lg">
+          {% endif %}
+
+          {% if page.footer_social|render|trim is not empty %}
+          <div class="col-xs-12 col-lg text-center">
             {{ page.footer_social }}
           </div>
+          {% endif %}
+
         </div>
       </div>
 
@@ -184,6 +195,6 @@
        </div>
     </footer>
 
-  </div>{# /.viewport #}
+  </div>
 
-</div>{# /.layout-container #}
+</div>

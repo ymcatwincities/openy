@@ -7530,17 +7530,15 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
     margin-top: -4px;
     margin-right: 4px;
     color: #00aeef; }
-  .footer #block-openy-carnation-footersocialblock {
-    text-align: right; }
-    .footer #block-openy-carnation-footersocialblock .fa {
-      width: 28px;
-      color: transparent !important;
-      font-size: 28px;
-      transition: all 0.3s linear 0s; }
-      .footer #block-openy-carnation-footersocialblock .fa:before {
-        color: white; }
-    .footer #block-openy-carnation-footersocialblock .list-inline li:hover .fa::before {
-      color: #0089d0; }
+  .footer #block-openy-carnation-footersocialblock .fa {
+    width: 28px;
+    color: transparent !important;
+    font-size: 28px;
+    transition: all 0.3s linear 0s; }
+    .footer #block-openy-carnation-footersocialblock .fa:before {
+      color: white; }
+  .footer #block-openy-carnation-footersocialblock .list-inline li:hover .fa::before {
+    color: #0089d0; }
   .footer .footer__copyright {
     background: black;
     font-size: 15px;
@@ -7673,7 +7671,25 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
 .layout-container .top-navs .logo img {
   width: 45px; }
 
-.layout-container .site-name {
+.layout-container .top-navs.affix {
+  background: white; }
+
+.with-banner .layout-container .top-navs {
+  background-color: rgba(0, 137, 208, 0.8);
+  transition: background-color 0.5s ease; }
+  @media (min-width: 992px) {
+    .with-banner .layout-container .top-navs {
+      background-color: transparent; } }
+  .with-banner .layout-container .top-navs.affix {
+    background-color: #2f2f2f; }
+  .with-banner .layout-container .top-navs.affix.menu-in, .with-banner .layout-container .top-navs.menu-in {
+    background-color: #0089d0; }
+
+.viewport .nav-global {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); }
+
+.site-name {
   font-family: "Cachet", "Comfortaa", sans-serif;
   font-size: 20px;
   color: #636466;
@@ -7681,9 +7697,6 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
   font-weight: 500;
   letter-spacing: -1px;
   line-height: 44px; }
-
-.viewport .nav-global {
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2); }
 
 .page-head__top-menu {
   background-color: rgba(0, 137, 208, 0.8); }
@@ -7745,10 +7758,10 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
       color: black; }
 
 .page-head__search {
+  padding: 24px 0;
   width: 100%;
-  z-index: 50;
   position: absolute;
-  bottom: 22px; }
+  bottom: 0; }
   .page-head__search form {
     display: block;
     margin: 0 10%;
@@ -7788,10 +7801,11 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
       right: auto; } }
 
 .page-head__search-close {
+  margin: 24px 0;
   height: 40px;
   position: absolute;
   right: 40px;
-  top: 0;
+  bottom: 0;
   z-index: 1;
   color: white; }
   .page-head__search-close:hover {
@@ -7801,16 +7815,8 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
     font-size: 22px;
     vertical-align: top; }
 
-body.with-banner .layout-container .top-navs {
-  background-color: rgba(0, 137, 208, 0.8);
-  transition: background-color 0.5s ease; }
-  @media (min-width: 992px) {
-    body.with-banner .layout-container .top-navs {
-      background-color: transparent; } }
-  body.with-banner .layout-container .top-navs.affix {
-    background-color: #2f2f2f; }
-  body.with-banner .layout-container .top-navs.affix.menu-in, body.with-banner .layout-container .top-navs.menu-in {
-    background-color: #0089d0; }
+.site-search .fa {
+  vertical-align: top; }
 
 .banner-zone-node {
   position: relative; }
@@ -7878,7 +7884,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
 
 .page-head__main-menu .navbar > li > a,
 .page-head__main-menu .navbar > li > button {
-  padding: 25px 0;
+  padding: 35px 0;
   text-align: center; }
   .page-head__main-menu .navbar > li > a:hover,
   .page-head__main-menu .navbar > li > button:hover {

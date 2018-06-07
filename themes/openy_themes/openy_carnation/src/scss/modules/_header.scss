@@ -1,28 +1,47 @@
-.layout-container {
-  .top-navs {
-    //background: black;
-    //background: linear-gradient(to bottom, #000000 0%, #000000 34%, #ffffff 34%, #ffffff 34%, #ffffff 100%);
-
-    .logo img {
-      width: 45px;
-    }
+.layout-container .top-navs {
+  .logo img {
+    width: 45px;
   }
 
-  .site-name {
-    font-family: $headings-font-family;
-    font-size: 20px;
-    color: $gray-400;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: -1px;
-    line-height: 44px;
+  &.affix {
+    background: white;
   }
 }
 
-.viewport {
-  .nav-global {
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+// background on fixed nav
+.with-banner {
+  .layout-container .top-navs {
+    background-color: rgba($primary, .8);
+    transition: background-color 0.5s ease;
+
+    @include media-breakpoint-up(lg) {
+      background-color: transparent;
+    }
+
+    &.affix {
+      background-color: $gray-700;
+    }
+
+    &.affix.menu-in,
+    &.menu-in {
+      background-color: $primary;
+    }
   }
+}
+
+.viewport .nav-global {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+}
+
+.site-name {
+  font-family: $headings-font-family;
+  font-size: 20px;
+  color: $gray-400;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: -1px;
+  line-height: 44px;
 }
 
 // top menu (blue > mobile / black > desktop+ )
@@ -114,10 +133,10 @@
 
 // header search
 .page-head__search {
+  padding: 24px 0;
   width: 100%;
-  z-index: 50;
   position: absolute;
-  bottom: 22px;
+  bottom: 0;
 
   form {
     display: block;
@@ -153,7 +172,7 @@
   }
 }
 
-// search icon
+// static search icon
 .fa.search-input-decoration {
   position: absolute;
   font-size: 22px;
@@ -171,12 +190,14 @@
 
 // search close
 .page-head__search-close {
+  margin: 24px 0;
   height: 40px;
   position: absolute;
   right: 40px;
-  top: 0;
+  bottom: 0;
   z-index: 1;
   color: white;
+
 
   &:hover {
     color: #ccc;
@@ -187,4 +208,9 @@
     font-size: 22px;
     vertical-align: top;
   }
+}
+
+// primary nav search icon
+.site-search .fa {
+  vertical-align: top;
 }
