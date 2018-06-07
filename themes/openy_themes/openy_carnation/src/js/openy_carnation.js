@@ -7,8 +7,20 @@
   "use strict";
   Drupal.openy_carnation = Drupal.openy_carnation || {};
 
+  Drupal.behaviors.openyAlertModals = {
+    attach: function (context, settings) {
+      var alert_modals = $('.alert-modal', context);
+
+      $(window).on('load',function() {
+        if (alert_modals.length) {
+          alert_modals.modal('show');
+        }
+      });
+    }
+  };
+
   //  Move Header Banner paragraph to header.
-  Drupal.behaviors.openy_carnation_banner_node = {
+  Drupal.behaviors.openyBanners = {
     attach: function (context, settings) {
       var banner_header = $('.paragraph--type--banner, .landing-header');
       if (banner_header.length > 0) {
@@ -21,7 +33,7 @@
   };
 
   // Show/hide desktop search block.
-  Drupal.behaviors.openy_carnation_search_md = {
+  Drupal.behaviors.openySearchToggle = {
     attach: function (context, settings) {
       var search_md = $('.site-search button');
       var main_menu_links_md = $('.page-head__main-menu .nav-level-1 li:not(:eq(0))').find('a, button');
@@ -38,7 +50,7 @@
   };
 
   // Add class to header when mobile menu is opened.
-  Drupal.behaviors.openy_carnation_mob_menu = {
+  Drupal.behaviors.openyMobileMenu = {
     attach: function (context, settings) {
       var sidebar = $('#sidebar');
       var $target = $('.top-navs');
@@ -67,7 +79,7 @@
   };
 
   // BS4 data-spy: affix replacement
-  Drupal.behaviors.openy_carnation_header_affix = {
+  Drupal.behaviors.openyHeaderAffix = {
     attach: function (context, settings) {
       $(window).on('scroll', function(event) {
         var scrollValue = $(window).scrollTop();
@@ -80,37 +92,10 @@
     }
   };
 
-  // Sidebar collapsible menu items.
-  // Drupal.behaviors.sidebarMenuCollapsible = {
-  //   attach: function (context, settings) {
-  //     $('.sidebar .dropdown-toggle').on('click', function () {
-  //       var expanded = $(this).attr('aria-expanded');
-  //       if (expanded === 'true') {
-  //         $(this).removeAttr('aria-expanded');
-  //         $(this).parent().removeClass('open');
-  //         return false;
-  //       }
-  //     });
-  //   }
-  // };
-
   // Re-size.
   $(window).resize(function () {
     Drupal.behaviors.openyDropdownMenu.attach();
   });
-
-  // // Sidebar collapsible.
-  // Drupal.behaviors.openy_carnation_init = {
-  //   attach: function (context, settings) {
-  //
-  //     $('.webform-submission-form').addClass('container');
-  //
-  //     if($(".field-link-attribute:contains('New Window')").length) {
-  //       $('.field-prgf-clm-link a').attr('target', '_blank');
-  //     }
-  //
-  //   }
-  // };
 
   Drupal.behaviors.openyUserLogin = {
     attach: function (context, settings) {

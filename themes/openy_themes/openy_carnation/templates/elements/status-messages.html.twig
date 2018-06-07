@@ -20,28 +20,62 @@
  * - attributes: HTML attributes for the element, including:
  *   - class: HTML classes.
  *
- * @ingroup themeable
+ * @ingroup templates
+ *
+ * @see template_preprocess_status_messages()
  */
 #}
+{%
+  set status_heading = {
+    'status': 'Status message'|t,
+    'error': 'Error message'|t,
+    'warning': 'Warning message'|t,
+    'info': 'Informative message'|t,
+  }
+%}
+{%
+  set status_classes = {
+    'status': 'success',
+    'error': 'danger',
+    'warning': 'warning',
+    'info': 'info',
+  }
+%}
 {% for type, messages in message_list %}
-  <div role="contentinfo" class="status-message" aria-label="{{ status_headings[type] }}"{{ attributes|without('role', 'aria-label') }}>
-    {% if type == 'error' %}
-      <div role="alert" class="status-message__alert">
-    {% endif %}
-      {% if status_headings[type] %}
-        <h2 class="visually-hidden">{{ status_headings[type] }}</h2>
-      {% endif %}
-      {% if messages|length > 1 %}
-        <ul>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>{{ messages|first }}</p>
-      {% endif %}
-    {% if type == 'error' %}
+{%
+  set classes = [
+    'alert',
+    'm-0',
+    'alert-' ~ status_classes[type],
+    'alert-dismissible',
+  ]
+%}
+
+<div class="alert-modal modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog d-flex h-100 align-items-center" role="document">
+    <div class="modal-content">
+      <div{{ attributes.addClass(classes) }} role="alert">
+        <div class="modal-header border-0">
+          {% if status_headings[type] %}
+          <h5 class="modal-title">{{ status_headings[type] }}</h5>
+          {% endif %}
+          <button type="button" class="close m-0" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% if messages|length > 1 %}
+          <ul class="item-list item-list--messages">
+            {% for message in messages %}
+              <li class="item item--message">{{ message }}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+            {{ messages|first }}
+          {% endif %}
+        </div>
       </div>
-    {% endif %}
+    </div>
   </div>
+</div>
 {% endfor %}

@@ -41,30 +41,24 @@
 
 {% if label_hidden %}
   {% if multiple %}
-    <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
+    <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class, 'navbar justify-content-center justify-content-lg-end') }}>
       {% for item in items %}
-        {#<div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>#}
-          {{ item.content }}
-        {#</div>#}
+        {{ item.content }}
       {% endfor %}
     </div>
   {% else %}
     {% for item in items %}
-      {#<div{{ attributes.addClass(field_name|clean_class) }}>#}
-        {{ item.content }}
-      {#</div>#}
+      {{ item.content }}
     {% endfor %}
   {% endif %}
 {% else %}
-  <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
+  <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class, 'nav') }}>
     <div{{ title_attributes.addClass('label-for-' ~ field_name|clean_class) }}>{{ label }}</div>
     {% if multiple %}
     <div>
       {% endif %}
       {% for item in items %}
-        {#<div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>#}
-          {{ item.content }}
-        {#</div>#}
+        {{ item.content }}
       {% endfor %}
       {% if multiple %}
     </div>
