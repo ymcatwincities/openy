@@ -1,9 +1,0 @@
-name: 'YGTC Alerts'
-description: 'Implements alerts for YGTC.'
-type: module
-core: 8.x
-dependencies:
-  - block
-  - openy_node_alert
-  - views
-version: 8.x-1.0
