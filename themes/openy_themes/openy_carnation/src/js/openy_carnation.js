@@ -10,7 +10,7 @@
   //  Move Header Banner paragraph to header.
   Drupal.behaviors.openy_carnation_banner_node = {
     attach: function (context, settings) {
-      var banner_header = $('.paragraph--type--banner');
+      var banner_header = $('.paragraph--type--banner, .landing-header');
       if (banner_header.length > 0) {
         $('.banner-zone-node').once('move').append(banner_header.eq(0));
         $('body').addClass('with-banner');
@@ -167,7 +167,7 @@
 
   function matchAllHeight() {
     var el = [
-      '.container-wide .row > div'
+      // '.container-wide .row > div'
     ];
 
     // make them all equal heights.
