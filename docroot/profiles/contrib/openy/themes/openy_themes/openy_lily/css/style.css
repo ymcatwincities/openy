@@ -5766,7 +5766,7 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
 }
 @media (min-width: 47.9375em) {
   body.toolbar-fixed.toolbar-horizontal {
-    padding-top: 122px !important;
+    padding-top: 122px;
     -webkit-transition: padding-top 0.2s ease;
     -moz-transition: padding-top 0.2s ease;
     -ms-transition: padding-top 0.2s ease;
@@ -7197,7 +7197,7 @@ legend {
   top: -20px;
 }
 #page-footer #block-openy-lily-footercopyrightblock h5, #page-footer #block-openy-lily-footercopyrightblock p {
-  font-family: Verdana,Arial,sans-serif;
+  font-family: Verdana, Arial,sans-serif;
   display: inline-block;
   margin: 0;
   font-size: 12px;
@@ -15828,7 +15828,7 @@ body.independent-footer #block-openy-lily-footersocialblock {
   display: none;
 }
 body.independent-footer #page-footer {
-  padding-top: 30px;
+  padding-top: 0;
 }
 
 a[href$=pdf]:after,
