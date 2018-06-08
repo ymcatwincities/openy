@@ -8,7 +8,7 @@
 {% if items.next %}
 <ul{{ attributes.addClass('list-unstyled text-center my-4') }}>
   <li class="pager__item load_more_button">
-    <a class="btn btn-primary" href="{{ items.next.href }}" title="{{ 'Go to next page'|t }}" rel="next">{{ options.button_text }}</a>
+    <a class="btn btn-lg btn-primary" href="{{ items.next.href }}" title="{{ 'Go to next page'|t }}" rel="next">{{ options.button_text }}</a>
   </li>
 </ul>
 {% endif %}

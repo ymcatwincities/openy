@@ -1,103 +1,31 @@
 .paragraph-gallery {
   position: relative;
 
-  .carousel {
-    margin: 0px -135px;
+  @include media-breakpoint-up(lg) {
+    max-height: 700px;
+  }
 
-    @include media-breakpoint-up(md) {
-      margin: 0;
-    }
+  .carousel {
+    margin: 0 -135px;
 
     @include media-breakpoint-up(lg) {
       margin: 0;
     }
 
-    .carousel-control {
-      background-color: rgba(255, 255, 255, 0.3);
-      background-image: none;
-      height: 46px;
-      opacity: 1;
-      width: 46px;
-      z-index: 1;
-
-      @include media-breakpoint-up(md) {
-        background: none;
-        opacity: 0.5;
-        height: 54px;
-        width: 44px;
-      }
-
-      @include media-breakpoint-up(lg) {
-        height: 74px;
-        width: 58px;
-      }
-
-      .fa {
-        font-size: 34px;
-        line-height: 46px;
-        color: $white;
-
-        @include media-breakpoint-up(md) {
-          font-size: 54px;
-          line-height: 54px;
-        }
-
-        @include media-breakpoint-up(lg) {
-          font-size: 74px;
-          line-height: 74px;
-        }
-      }
-
-      &.left {
-        text-align: right;
-        top: 50%;
-        left: 135px;
-        margin-top: -23px;
-
-        @include media-breakpoint-up(md) {
-          left: 10px;
-          margin-top: -27px;
-        }
-
-        @include media-breakpoint-up(lg) {
-          margin-top: -37px;
-        }
-
-        .fa {
-          margin-right: 5px;
-        }
-      }
-
-      &.right {
-        text-align: left;
-        top: 50%;
-        right: 135px;
-        margin-top: -23px;
-
-        @include media-breakpoint-up(md) {
-          right: 10px;
-          margin-top: -27px;
-        }
-
-        @include media-breakpoint-up(lg) {
-          margin-top: -37px;
-        }
-
-        .fa {
-          margin-left: 5px;
-        }
-      }
-    }
-
-    .carousel-inner > .item {
+    .carousel-inner > .carousel-item {
       background: $gray-900;
+
+      img,
+      a img {
+        height: auto;
+        width: 100%;
+        opacity: .5;
+      }
     }
 
-    .carousel-inner > .item img,
-    .carousel-inner > .item a img {
-      height: auto;
-      width: 100%;
-      opacity: .5;
+    .carousel-control-prev,
+    .carousel-control-next {
+      z-index: 1;
     }
   }
 
@@ -110,6 +38,7 @@
       left: 0;
       right: 0;
       background: transparent;
+      z-index: 0;
     }
 
     .text {

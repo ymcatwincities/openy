@@ -46,41 +46,45 @@ set classes = [
 %}
 {% if content.field_prgf_images['#items']|length >= 1 %}
 <div{{ attributes.addClass(classes) }}>
-  <div id="carousel" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner" role="listbox">
+  <div class="carousel slide" data-ride="carousel">
+
+    <ol class="carousel-indicators">
       {% for key, value in content.field_prgf_images['#items'] %}
-      <div class="item{% if key == 0 %} active{% endif %}">
+        <li data-target=".carousel" data-slide-to="{{ key }}"{% if key == 0 %} class="active"{% endif %}></li>
+      {% endfor %}
+    </ol>
+
+    <div class="carousel-inner">
+      {% for key, value in content.field_prgf_images['#items'] %}
+      <div class="carousel-item{% if key == 0 %} active{% endif %}">
+
+        {# images #}
         {{ content.field_prgf_images[key] }}
+
+        {# caption #}
         {% if content.field_prgf_images[key]['#media'].field_media_caption is not empty and content.field_prgf_images[key]['#media'].field_media_caption.0.value is not empty %}
-        <div class="container item__caption__wrapper hidden-xs">
-          <div class="row">
-            <div class="item__caption">
-              {{ content.field_prgf_images[key]['#media'].field_media_caption.0.value }}
-            </div>
-          </div>
+        <div class="carousel-caption d-none d-md-block">
+          {{ content.field_prgf_images[key]['#media'].field_media_caption.0.value }}
         </div>
         {% endif %}
+
       </div>
       {% endfor %}
     </div>
     {% if content.field_prgf_images['#items']|length > 1 %}
-    <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
-      <span class="fa fa-chevron-left" aria-hidden="true"></span>
+    <a class="carousel-control-prev" href=".carousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only">{{ 'Previous'|t }}</span>
     </a>
-    <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
-      <span class="fa fa-chevron-right" aria-hidden="true"></span>
+    <a class="carousel-control-next" href=".carousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only">{{ 'Next'|t }}</span>
     </a>
     {% endif %}
   </div>
 
-  <div class="d-none d-block-lg col-12 " id="slider-thumbs">
-   <ul class="list-inline"></ul>
-  </div>
-
   <div class="cta-group-wrapper d-flex h-100">
-    <div class="container align-items-stretch m-auto py-5 pb-lg-0 text-center text-white">
+    <div class="container align-items-stretch m-auto p-5 pb-lg-0 text-center text-white">
       <div class="row">
         <div class="cta-group">
           <h1 class="mb-3 text-uppercase">
@@ -89,9 +93,7 @@ set classes = [
           <div class="text mb-3">
             {{ content.field_prgf_description }}
           </div>
-          <div class="btn btn-lg btn-transparent">
-            {{ content.field_prgf_link }}
-          </div>
+          {{ content.field_prgf_link }}
         </div>
       </div>
     </div>
