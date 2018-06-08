@@ -522,6 +522,7 @@ body {
     border-bottom: none;
     position: absolute;
     top: 125px;
+    width: 100%;
   }
   .is-camp .page-head__main-menu .nav-level-2 > a,
   .is-camp .page-head__main-menu .nav-level-3 > a, .page-head__main-menu .nav-level-2 > a,
