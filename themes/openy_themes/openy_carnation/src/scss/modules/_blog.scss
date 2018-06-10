@@ -1,0 +1,124 @@
+.paragraph--type--featured-blogs {
+  .slick-prev {
+    left: -17px;
+  }
+
+  .slick-next {
+    right: -17px;
+  }
+
+  .slick-arrow {
+    top: 55%;
+  }
+
+  @include media-breakpoint-up(sm) {
+    .slick-prev {
+      left: 15px;
+    }
+
+    .slick-next {
+      right: 15px;
+    }
+  }
+}
+
+// featured articles
+.blog-card {
+  overflow: visible;
+  padding-top: 20px;
+
+  @include media-breakpoint-up(sm) {
+    overflow: hidden;
+  }
+}
+
+// blog exposed form
+.blog-more-teaser form.views-exposed-form {
+  padding: 25px 40px;
+  border-radius: 8px;
+  box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.05);
+  height: 92px;
+  display: table;
+  background-color: #ebebeb;
+  width: 100%;
+  margin-bottom: 50px;
+  margin-top: 50px;
+
+  & > div {
+    vertical-align: bottom;
+
+    @include media-breakpoint-up(md) {
+      display: table-cell;
+      padding: 0 40px 0 0;
+
+      &.form-item-field-blog-location-target-id-verf,
+      &.form-item-field-blog-category-target-id {
+        width: 210px;
+      }
+
+      &.form-item-combine input {
+        width: 100%;
+      }
+
+      &.form-item-related-content-titles {
+        width: 258px;
+      }
+
+      &.form-actions {
+        padding-right: 0;
+        width: 90px;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      &.form-item-field-blog-location-target-id-verf,
+      &.form-item-field-blog-category-target-id {
+        width: 240px;
+      }
+    }
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 25px;
+  }
+}
+
+.node--type-blog.node--view-mode-teaser {
+  margin: auto;
+  max-width: 373px;
+  width: 100%;
+
+  .inner-wrapper {
+    margin: 15px 0;
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+    background-color: #0089d0;
+    border-radius: 8px;
+
+    .blog-heading {
+      background-color: rgba(35, 31, 32, 0.5);
+      padding: 12px 22px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      text-align: left;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    h6 a,
+    h2 a {
+      color: inherit;
+    }
+
+    h6,
+    h2 {
+      color: white;
+    }
+  }
+}

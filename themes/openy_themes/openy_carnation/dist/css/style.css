@@ -7247,6 +7247,28 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
     font-size: 20px;
     line-height: 25px; }
 
+.paragraph--type--featured-blogs .slick-prev {
+  left: -17px; }
+
+.paragraph--type--featured-blogs .slick-next {
+  right: -17px; }
+
+.paragraph--type--featured-blogs .slick-arrow {
+  top: 55%; }
+
+@media (min-width: 576px) {
+  .paragraph--type--featured-blogs .slick-prev {
+    left: 15px; }
+  .paragraph--type--featured-blogs .slick-next {
+    right: 15px; } }
+
+.blog-card {
+  overflow: visible;
+  padding-top: 20px; }
+  @media (min-width: 576px) {
+    .blog-card {
+      overflow: hidden; } }
+
 .blog-more-teaser form.views-exposed-form {
   padding: 25px 40px;
   border-radius: 8px;
@@ -7255,7 +7277,29 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
   display: table;
   background-color: #ebebeb;
   width: 100%;
-  margin-bottom: 49px; }
+  margin-bottom: 50px;
+  margin-top: 50px; }
+  .blog-more-teaser form.views-exposed-form > div {
+    vertical-align: bottom; }
+    @media (min-width: 768px) {
+      .blog-more-teaser form.views-exposed-form > div {
+        display: table-cell;
+        padding: 0 40px 0 0; }
+        .blog-more-teaser form.views-exposed-form > div.form-item-field-blog-location-target-id-verf, .blog-more-teaser form.views-exposed-form > div.form-item-field-blog-category-target-id {
+          width: 210px; }
+        .blog-more-teaser form.views-exposed-form > div.form-item-combine input {
+          width: 100%; }
+        .blog-more-teaser form.views-exposed-form > div.form-item-related-content-titles {
+          width: 258px; }
+        .blog-more-teaser form.views-exposed-form > div.form-actions {
+          padding-right: 0;
+          width: 90px; } }
+    @media (min-width: 992px) {
+      .blog-more-teaser form.views-exposed-form > div.form-item-field-blog-location-target-id-verf, .blog-more-teaser form.views-exposed-form > div.form-item-field-blog-category-target-id {
+        width: 240px; } }
+  .blog-more-teaser form.views-exposed-form .btn {
+    width: 100%;
+    margin-top: 25px; }
 
 .node--type-blog.node--view-mode-teaser {
   margin: auto;
