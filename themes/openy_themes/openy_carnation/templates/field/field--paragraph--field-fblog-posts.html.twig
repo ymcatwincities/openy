@@ -41,24 +41,24 @@
 
 {% if label_hidden %}
   {% if multiple %}
-    <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class, 'description', 'slick-mobile') }}>
+    <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class, 'description slick-mobile row') }}>
       {% for item in items %}
-        <div{{ attributes.addClass(field_name|clean_class, 'col-xs-12', 'col-sm-6', 'col-md-4', 'row-eq-height').removeClass('wrapper-' ~ field_name|clean_class, 'description', 'slick-mobile') }}>{{ item.content }}</div>
+        <div{{ attributes.addClass(field_name|clean_class, 'col-xs-12 col-sm-6 col-md-4').removeClass('wrapper-' ~ field_name|clean_class, 'description slick-mobile row') }}>{{ item.content }}</div>
       {% endfor %}
     </div>
   {% else %}
     {% for item in items %}
-      <div{{ attributes.addClass(field_name|clean_class, 'col-xs-12', 'col-sm-6', 'col-md-4', 'row-eq-height') }}>{{ item.content }}</div>
+      <div{{ attributes.addClass(field_name|clean_class, 'col-xs-12 col-sm-6 col-md-4').removeClass('wrapper-' ~ field_name|clean_class, 'description slick-mobile row') }}>{{ item.content }}</div>
     {% endfor %}
   {% endif %}
 {% else %}
   <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
     <div{{ title_attributes.addClass('label-for-' ~ field_name|clean_class) }}>{{ label }}</div>
     {% if multiple %}
-    <div class="description slick-mobile">
+    <div class="description slick-mobile row">
       {% endif %}
       {% for item in items %}
-        <div{{ attributes.addClass(field_name|clean_class, 'col-xs-12', 'col-sm-6', 'col-md-4', 'row-eq-height').removeClass('wrapper-' ~ field_name|clean_class, 'description', 'slick-mobile') }}>{{ item.content }}</div>
+        <div{{ attributes.addClass(field_name|clean_class, 'col-xs-12 col-sm-6 col-md-4').removeClass('wrapper-' ~ field_name|clean_class, 'description slick-mobile row') }}>{{ item.content }}</div>
       {% endfor %}
       {% if multiple %}
     </div>
