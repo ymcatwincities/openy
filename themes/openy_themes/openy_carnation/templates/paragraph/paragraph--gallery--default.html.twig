@@ -48,11 +48,21 @@ set classes = [
 <div{{ attributes.addClass(classes) }}>
   <div class="carousel slide" data-ride="carousel">
 
-    <ol class="carousel-indicators">
-      {% for key, value in content.field_prgf_images['#items'] %}
-        <li data-target=".carousel" data-slide-to="{{ key }}"{% if key == 0 %} class="active"{% endif %}></li>
-      {% endfor %}
-    </ol>
+    {# thumbs #}
+    {#<ul class="carousel-indicators list-inline">#}
+      {#<li class="list-inline-item active">#}
+        {#<a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#myCarousel">#}
+          {#<img src="http://placehold.it/80x60&amp;text=one" class="img-fluid">#}
+        {#</a>#}
+      {#</li>#}
+    {#</ul>#}
+
+    {# square indicators #}
+    {#<ol class="carousel-indicators">#}
+      {#{% for key, value in content.field_prgf_images['#items'] %}#}
+        {#<li data-target=".carousel" data-slide-to="{{ key }}"{% if key == 0 %} class="active"{% endif %}></li>#}
+      {#{% endfor %}#}
+    {#</ol>#}
 
     <div class="carousel-inner">
       {% for key, value in content.field_prgf_images['#items'] %}
@@ -84,13 +94,13 @@ set classes = [
   </div>
 
   <div class="cta-group-wrapper d-flex h-100">
-    <div class="container align-items-stretch m-auto p-5 pb-lg-0 text-center text-white">
+    <div class="container align-items-stretch m-auto p-5 py-lg-3 text-center text-white">
       <div class="row">
         <div class="cta-group">
-          <h1 class="mb-3 text-uppercase">
+          <h1 class="display-4 mb-4 text-uppercase">
             {{ content.field_prgf_headline }}
           </h1>
-          <div class="text mb-3">
+          <div class="text mb-4">
             {{ content.field_prgf_description }}
           </div>
           {{ content.field_prgf_link }}

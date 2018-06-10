@@ -152,7 +152,9 @@
 
   function matchAllHeight() {
     var el = [
-      // '.container-wide .row > div'
+      '.membership-type',
+      '.membership-type h3',
+      '.membership-type article p'
     ];
 
     // make them all equal heights.

@@ -63,6 +63,7 @@
     'col-sm-6',
     'col-md-3',
     'membership-type',
+    'mb-3',
   ]
 %}
 {%
@@ -92,7 +93,7 @@
       <h3>{{ data.title }}</h3>
       {{ data.description }}
       <label for="{{ element['#attributes'].id }}">
-        <div class="btn btn-default blue btn-lg">{{ 'select'|t }}</div>
+        <div class="btn btn-primary btn-block btn-lg">{{ 'select'|t }}</div>
       </label>
     </div>
   {% endif %}

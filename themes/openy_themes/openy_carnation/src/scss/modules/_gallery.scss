@@ -25,8 +25,55 @@
 
     .carousel-control-prev,
     .carousel-control-next {
+      background-color: $pink;
+      height: 50px;
+      opacity: 1;
+      width: 50px;
       z-index: 1;
+      text-align: center;
+      top: 50%;
+      margin-top: -25px;
+      z-index: 1;
+
+      @include media-breakpoint-up(lg) {
+        text-shadow:none;
+        width: 80px;
+        height: 100px;
+        margin-top: -50px;
+      }
     }
+
+    .carousel-control-prev {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .carousel-control-next {
+      border-radius: 8px 0 0 8px;
+    }
+
+    .carousel-indicators {
+      position: static;
+      left: initial;
+      width: initial;
+      margin-left: initial;
+
+      // thumbnails
+      &.list-inline {
+        white-space: nowrap;
+        overflow-x: auto;
+      }
+
+      > li {
+        width: initial;
+        height: initial;
+        text-indent: initial;
+
+        &.active img {
+          opacity: 0.7;
+        }
+      }
+    }
+
   }
 
   .cta-group-wrapper {
