@@ -1,0 +1,274 @@
+a[href="#step2"] {
+  pointer-events: none;
+}
+
+#membership-calc-wrapper {
+
+  .description,
+  legend {
+    font-family: $headings-font-family;
+  }
+
+  .description {
+    padding-bottom: 1em;
+    font-size: 20px;
+    max-width: 840px;
+    line-height: 1.45em;
+    font-weight: bold;
+  }
+
+  legend {
+    font-size: 24px;
+    letter-spacing: -0.5px;
+    color: $gray-400;
+    margin-bottom: 3rem;
+  }
+
+  .label-for-field-mbrshp-join-fee,
+  .label-for-field-mbrshp-monthly-rate {
+    float: left;
+    margin-right: 0.5em;
+
+    &:after {
+      content: ":";
+    }
+  }
+
+  .membership-type {
+    h3 {
+      width: 100%;
+    }
+
+    label {
+      left: 0;
+      bottom: 0;
+      display: block;
+      padding-bottom: 30px;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  .text-center {
+    margin-top: 40px;
+  }
+
+  .form-element-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction:column;
+    position: relative;
+    width: 100%;
+  }
+
+  input[name="type"] {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    word-wrap: normal;
+  }
+
+  .membership-type {
+    //margin: 0 0 20px 0;
+    //display: flex;
+    //flex-wrap: wrap;
+    //
+    //@include media-breakpoint-up(sm) {
+    //  width: 50%;
+    //}
+
+    .contextual-region {
+      position: static;
+    }
+
+    .node--view-mode-calc-preview img {
+      height: auto;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  }
+
+  input[type="radio"]:checked + .form-element-wrapper label .btn {
+    background-color: $purple;
+    box-shadow: 0 0 5px $purple;
+  }
+
+  .pull-left,
+  .pull-right {
+    margin: 20px 0 10px 0;
+  }
+
+  .node--type-membership.node--view-mode-calc-preview {
+    margin-bottom: 100px;
+    width: 100%;
+  }
+
+  .pull-right,
+  .complete-registration {
+    background-color: $purple;
+    border: none;
+    padding: 10px 25px;
+    //text-transform: uppercase;
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .calc-summary-col h2 {
+    font-size: 34px;
+  }
+
+  // step tracker
+  .nav-pills {
+    font-family: $headings-font-family;
+    font-size: 13px;
+
+    @include media-breakpoint-up(sm) {
+      font-size: 20px;
+      line-height: 42px;
+    }
+
+    & > li {
+      margin-bottom: 5px;
+      overflow: hidden;
+
+      @include media-breakpoint-up(sm) {
+        &:last-child div {
+          padding-left: 25px;
+        }
+      }
+
+      div {
+        position: relative;
+        color: white;
+        background-color: $indigo;
+        padding: 9px;
+
+        @include media-breakpoint-up(sm) {
+          width: calc(100% - 30px);
+        }
+
+        &:before,
+        &:after {
+          position: absolute;
+          top: 50%;
+          margin-top: -60px;
+          content: " ";
+          display: block;
+          width: 0;
+          height: 0;
+          border-top: 60px solid transparent;
+          border-bottom: 60px solid transparent;
+          left: 100%;
+        }
+
+        &:before {
+          border-left: 30px solid white;
+        }
+
+        &:after {
+          border-left: 30px solid $indigo;
+        }
+      }
+
+      .step-1,
+      .step-2 {
+        @include media-breakpoint-up(sm) {
+          width: calc(100% - 15px);
+        }
+      }
+
+      .step-2 .nav-pills__text {
+        margin-left: 5px;
+      }
+
+      &.active div,
+      &:first-child div {
+        background-color: $purple;
+      }
+
+      &.active div:after,
+      &:first-child div:after {
+        border-left: 30px solid $purple;
+      }
+    }
+
+    li + li {
+      margin-left: 0;
+    }
+  }
+}
+
+.openy-map-wrapper {
+  margin-bottom: 40px;
+}
+
+.views-view-membership .field-body-no-summary {
+  font-size: 15px;
+  padding-bottom: 110px;
+}
+
+.view-mode-thumb-262-233 {
+  margin-bottom: 1em;
+}
+
+.wrapper-field-membership-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.form-item-location {
+  flex-basis: 100%;
+  margin-bottom: 5px;
+
+  @include media-breakpoint-up(sm) {
+    flex-basis: 33.33%
+  }
+
+  @include media-breakpoint-up(lg) {
+    flex-basis: 25%;
+  }
+
+  input {
+    vertical-align: middle;
+    display: inline-block;
+    margin: 10px;
+  }
+
+  [class^="wrapper-"] > div {
+    display: inline-block;
+  }
+
+  [class^="label-"]:after {
+    content: ":";
+  }
+
+  .field-link {
+    display: none;
+  }
+
+  label {
+    max-width: calc(100% - 40px);
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+}
+
+.membership-continue {
+  display: none;
+}
+
+.price-month {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: $h2-font-size;
+  font-family: $font-family-sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}
+//
+//.field-branch-hours h4 {
+//  font-size: $h4-font-size;
+//}
