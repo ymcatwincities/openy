@@ -45,10 +45,10 @@
 
     a {
       color: $cyan;
-      background: lighten($gray-100, 10%);
+      background: lighten($gray-100, 3%);
 
       &:after {
-        border-left-color: lighten($gray-100, 10%);
+        border-left-color: lighten($gray-100, 3%);
       }
     }
 

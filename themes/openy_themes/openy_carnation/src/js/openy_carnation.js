@@ -24,7 +24,7 @@
     attach: function (context, settings) {
       var banner_header = $('.paragraph--type--banner, .landing-header');
       if (banner_header.length > 0) {
-        $('.banner-zone-node').once('move').append(banner_header.eq(0));
+        $('.banner-zone-node').once('openy-banners').append(banner_header.eq(0));
         $('body').addClass('with-banner');
       } else {
         $('body').addClass('without-banner');
@@ -39,11 +39,11 @@
       var main_menu_links_md = $('.page-head__main-menu .nav-level-1 li:not(:eq(0))').find('a, button');
       var search_close_md = $('.page-head__search-close');
 
-      search_md.once('search-toggle-hide').on('click', function () {
+      search_md.once('openy-search-toggle-hide').on('click', function () {
         main_menu_links_md.removeClass('show').addClass('fade');
       });
 
-      search_close_md.once('search-toggle-show').on('click', function () {
+      search_close_md.once('openy-search-toggle-show').on('click', function () {
         main_menu_links_md.addClass('show');
       });
     }
@@ -152,7 +152,9 @@
 
   function matchAllHeight() {
     var el = [
-      // '.container-wide .row > div'
+      '.membership-type',
+      '.membership-type h3',
+      '.membership-type article p'
     ];
 
     // make them all equal heights.
