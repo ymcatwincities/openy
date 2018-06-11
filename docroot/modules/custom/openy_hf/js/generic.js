@@ -14,8 +14,8 @@
    */
   Drupal.behaviors.openy_hf = {
     attach: function (context) {
-      // Allow footer links to be open inside iFrame.
-      $('.independent-footer a').on('click', function(event) {
+      // Allow footer links to be opened inside iFrame.
+      $('.independent-footer a').on('click', function() {
         parent.location.href = $(this).attr('href');
       });
 
