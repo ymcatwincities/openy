@@ -93,29 +93,42 @@
 
 
 {# Program header #}
-<article{{ attributes.addClass('program-header') }}>
-  <div{{ content_attributes.addClass('content').setAttribute('style', bg_color) }}>
-    <div class="container">
+<article{{ attributes.addClass('program-header banner') }}>
+  <div{{ content_attributes.addClass('content banner banner--small d-flex py-5').setAttribute('style', bg_color) }}>
+    <div class="container align-self-end py-5">
       <div class="row">
-        <div class="col-12 main">
+
+        <div class="col main">
           <h1>{{ label }}</h1>
+
+          {% if content.field_program_icon|render|trim is not empty %}
           <div class="icon">
             {{ content.field_program_icon }}
           </div>
+          {% endif %}
+
         </div>
-        <div class="col-sm-4 hidden-xs hidden-sm image">
+
+        {% if content.field_program_image|render|trim is not empty %}
+        <div class="col-sm-4 d-none d-lg-inline image">
           {{ content.field_program_image }}
         </div>
+        {% endif %}
+
       </div>
     </div>
   </div>
-  <div class="container">
+
+  {% if content.field_program_description|render|trim is not empty %}
+  <div class="container py-5">
     <div class="row">
-      <div class="col-sm-8 description" style="color: {{ color }};">
+      <div class="col description" style="color: {{ color }};">
         {{ content.field_program_description }}
       </div>
     </div>
   </div>
+  {% endif %}
+
 </article>
 
 <div class="container">

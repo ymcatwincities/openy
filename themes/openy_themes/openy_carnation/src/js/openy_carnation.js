@@ -22,7 +22,7 @@
   //  Move Header Banner paragraph to header.
   Drupal.behaviors.openyBanners = {
     attach: function (context, settings) {
-      var banner_header = $('.paragraph--type--banner, .landing-header');
+      var banner_header = $('.paragraph--type--banner, .landing-header, .program-header');
       if (banner_header.length > 0) {
         $('.banner-zone-node').once('openy-banners').append(banner_header.eq(0));
         $('body').addClass('with-banner');
