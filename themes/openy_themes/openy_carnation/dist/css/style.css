@@ -10257,19 +10257,9 @@ body {
     border-radius: 0; }
 
 .program-header {
-  margin-bottom: 10px;
   position: relative; }
-  @media (min-width: 576px) {
-    .program-header {
-      margin-bottom: 60px; } }
   .program-header .content {
-    padding: 15px 0;
-    margin-bottom: 15px;
     position: relative; }
-    @media (min-width: 576px) {
-      .program-header .content {
-        padding: 36px 0;
-        margin-bottom: 45px; } }
   .program-header .description {
     font-family: "Cachet", "Comfortaa", sans-serif;
     font-weight: 500;

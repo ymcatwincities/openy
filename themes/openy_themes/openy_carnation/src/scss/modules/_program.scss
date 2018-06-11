@@ -1,20 +1,20 @@
 .program-header {
-  margin-bottom: 10px;
+  //margin-bottom: 10px;
   position: relative;
 
-  @include media-breakpoint-up(sm) {
-    margin-bottom: 60px;
-  }
+  //@include media-breakpoint-up(sm) {
+  //  margin-bottom: 60px;
+  //}
 
   .content {
-    padding: 15px 0;
-    margin-bottom: 15px;
+    //padding: 15px 0;
+    //margin-bottom: 15px;
     position: relative;
 
-    @include media-breakpoint-up(sm) {
-      padding: 36px 0;
-      margin-bottom: 45px;
-    }
+    //@include media-breakpoint-up(sm) {
+    //  padding: 36px 0;
+    //  margin-bottom: 45px;
+    //}
   }
 
   .description {
