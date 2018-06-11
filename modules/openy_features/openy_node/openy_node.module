@@ -22,7 +22,11 @@ function openy_node_modules_installed($modules) {
       'openy_node_class' => 'simple_sitemap.bundle_settings.node.class',
       'openy_node_event' => 'simple_sitemap.bundle_settings.node.event',
       'openy_node_landing' => 'simple_sitemap.bundle_settings.node.landing_page',
+      'openy_node_news' => 'simple_sitemap.bundle_settings.node.news',
       'openy_node_program' => 'simple_sitemap.bundle_settings.node.program',
+      'openy_loc_branch' => 'simple_sitemap.bundle_settings.node.branch',
+      'openy_loc_camp' => 'simple_sitemap.bundle_settings.node.camp',
+      'openy_loc_facility' => 'simple_sitemap.bundle_settings.node.facility',
     ];
     $module_handler = \Drupal::service('module_handler');
     $config_importer = \Drupal::service('openy_upgrade_tool.importer');
