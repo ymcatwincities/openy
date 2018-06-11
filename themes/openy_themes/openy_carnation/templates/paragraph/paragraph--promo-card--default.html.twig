@@ -39,25 +39,30 @@
 {%
 set classes = [
   'paragraph',
-  'promo-card',
-  'sidebar-card',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  'card'
 ]
 %}
 <div{{ attributes.addClass(classes) }}>
-  <h3>
-    {{ content.field_prgf_title }}
-  </h3>
-  <div class="description">
-    <h4>
-      {{ content.field_prgf_headline }}
-    </h4>
+
+  <div class="card-header">
+    {% if content.field_prgf_title|render|trim is not empty %}
+      <h3>{{ content.field_prgf_title }}</h3>
+    {% endif %}
+
+    {% if content.field_prgf_headline|render|trim is not empty %}
+    <div class="description">
+      <h4>{{ content.field_prgf_headline }}</h4>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="card-body">
     {{ content.field_prgf_description }}
+
+    {% if content.field_prgf_link.0['#title'] %}
+      {{ content.field_prgf_link }}
+    {% endif %}
   </div>
-  {% if content.field_prgf_link.0['#title'] %}
-    <div class="btn btn-link white-blue">
-    {{ content.field_prgf_link }}
-  </div>
-  {% endif %}
 </div>

@@ -1,20 +1,8 @@
 .program-header {
-  //margin-bottom: 10px;
   position: relative;
 
-  //@include media-breakpoint-up(sm) {
-  //  margin-bottom: 60px;
-  //}
-
   .content {
-    //padding: 15px 0;
-    //margin-bottom: 15px;
     position: relative;
-
-    //@include media-breakpoint-up(sm) {
-    //  padding: 36px 0;
-    //  margin-bottom: 45px;
-    //}
   }
 
   .description {
@@ -58,11 +46,7 @@
   }
 
   .image {
-    margin-top: -36px;
-  }
-
-  .main {
-    position: static;
+    margin-top: -52px;
   }
 
   .icon {
@@ -104,12 +88,9 @@
     margin-bottom: 0;
     overflow: hidden;
 
-    h1 {
-      margin: 0 0 7px;
-
-      @include media-breakpoint-up(sm) {
-        margin: 0 0 36px;
-      }
+    h1,
+    h4 {
+      margin: 0;
     }
 
     .field-category-program {
@@ -125,19 +106,8 @@
       }
     }
 
-    .content {
-      height: auto;
-      margin-bottom: 0;
-
-      .image {
-        position: static;
-      }
-
-      img {
-        height: 100%;
-        width: auto;
-        position: absolute;
-      }
+    .content img {
+      position: absolute;
     }
   }
 }

@@ -94,12 +94,12 @@
 
 {# Program header #}
 <article{{ attributes.addClass('program-header banner') }}>
-  <div{{ content_attributes.addClass('content banner banner--small d-flex py-5').setAttribute('style', bg_color) }}>
+  <div{{ content_attributes.addClass('content banner banner--small d-flex').setAttribute('style', bg_color) }}>
     <div class="container align-self-end py-5">
       <div class="row">
 
         <div class="col main">
-          <h1>{{ label }}</h1>
+          <h1 class="text-white">{{ label }}</h1>
 
           {% if content.field_program_icon|render|trim is not empty %}
           <div class="icon">
@@ -133,7 +133,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="two-column">
+
       {# Program content #}
       <div class="main-region col-sm-8">
         {{ content.field_content }}
@@ -145,6 +145,6 @@
           {{ content.field_sidebar_content }}
         </article>
       </div>
-    </div>
+
   </div>
 </div>
