@@ -23,9 +23,9 @@ module.exports = function(grunt) {
           ],
           '<%= global_vars.theme_src_scss %>/_base.scss': [
             '<%= global_vars.theme_src_scss %>/component/**/*.scss',
-            '<%= global_vars.theme_src_scss %>/component/**/*.scss',
             '<%= global_vars.theme_src_scss %>/jquery-ui/**/*.scss',
             '<%= global_vars.theme_src_scss %>/modules/**/*.scss',
+            '<%= global_vars.theme_src_scss %>/paragraphs/**/*.scss',
             '<%= global_vars.theme_src_scss %>/layouts/**/*.scss',
             '<%= global_vars.theme_src_scss %>/_overrides.scss'
           ]

@@ -1,25 +1,28 @@
 .programs-search-block-form {
   margin-bottom: 20px;
-  @include breakpoint($screen-tablet) {
+
+  @include media-breakpoint-up(md) {
     margin-bottom: 40px;
   }
-  @include breakpoint($screen-desktop) {
+
+  @include media-breakpoint-up(lg) {
     margin-bottom: 70px;
   }
+
   fieldset {
-    legend {
-      span {
-        border: none;
-        color: $purple;
-        font-size: 36px;
-        font-family: $headings-font-family;
-      }
+    legend span {
+      border: none;
+      color: $purple;
+      font-size: 36px;
+      font-family: $headings-font-family;
     }
+
     .js-webform-radios {
       display: -webkit-flex;
       display: flex;
       flex-wrap: wrap;
       margin: 0;
+
       .js-form-type-radio {
         flex-basis: 100%;
         padding-right: 15px;
@@ -27,18 +30,22 @@
         position: relative;
         padding-left: 20px;
         line-height: 20px;
-        @include breakpoint($screen-tablet) {
+
+        @include media-breakpoint-up(md) {
           flex-basis: 50%;
         }
-        @include breakpoint($screen-desktop) {
+
+        @include media-breakpoint-up(lg) {
           flex-basis: 25%;
         }
+
         label {
           font-family: Verdana, sans-serif;
           font-size: 15px;
           margin: 0 0 0 7px;
           vertical-align: top;
         }
+
         input {
           margin: 0;
           position: absolute;
@@ -46,9 +53,11 @@
           top: 5px;
           vertical-align: top;
         }
+
         .ajax-progress-throbber {
           position: absolute;
           left: -7px;
+
           .throbber {
             padding: 1px 6px 2px;
           }
@@ -56,21 +65,25 @@
       }
     }
   }
+
   .result {
     font-size: 24px;
     color: $pink;
     margin: 40px 0 0;
     font-family: $headings-font-family;
+
     a {
+      @include cachet(500);
       color: $pink;
       text-decoration: underline;
       font-style: normal;
-      @include cachet-medium();
+
       em {
         font-style: normal;
       }
     }
   }
+
   .no-result {
     font-size: 24px;
     color: $purple;

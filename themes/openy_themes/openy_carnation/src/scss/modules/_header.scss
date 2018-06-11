@@ -158,7 +158,7 @@
 
 // search input field
 .search-input {
-  border: 1px solid #ccc;
+  border: 1px solid $gray-200;
   border-radius: 6px;
   width: 100%;
   height: 40px;
@@ -200,7 +200,7 @@
 
 
   &:hover {
-    color: #ccc;
+    color: $gray-200;
     text-decoration: none;
   }
 

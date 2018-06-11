@@ -42,14 +42,14 @@
   {% if multiple %}
     <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
       {% for item in items %}
-        <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-light text-uppercase">
+        <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-light">
           {{ item.content['#title'] }}
         </a>
       {% endfor %}
     </div>
   {% else %}
     {% for item in items %}
-      <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-light text-uppercase">
+      <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-light">
         {{ item.content['#title'] }}
       </a>
     {% endfor %}
@@ -61,7 +61,7 @@
     <div>
       {% endif %}
       {% for item in items %}
-        <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-light text-uppercase">
+        <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-light">
           {{ item.content['#title'] }}
         </a>
       {% endfor %}

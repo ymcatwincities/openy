@@ -10,11 +10,11 @@
     min-height: 70px;
 
     .column {
-      margin-left: 60px;
+      margin-left: 0;
       width: auto;
 
-      @include breakpoint($screen-sm $screen-lg) {
-        margin-left: 0;
+      @include media-breakpoint-up(md) {
+        margin-left: 60px;
         width: auto;
       }
 
@@ -23,11 +23,9 @@
       }
 
       &.address-wrapper {
-        @include breakpoint($screen-sm) {
-          max-width: 275px;
-        }
+        max-width: 275px;
 
-        @include breakpoint($screen-md) {
+        @include media-breakpoint-up(md) {
           max-width: 310px;
         }
       }
@@ -58,7 +56,7 @@
       margin: 0;
       font-family: $headings-font-family;
 
-      @include breakpoint(768px 992px) {
+      @include media-breakpoint-up(md) {
         font-size: 14px;
       }
     }
@@ -129,16 +127,14 @@
       justify-content: space-around;
 
       .branch-header__item {
-        @include breakpoint($screen-lg) {
-          margin-left: 0;
-          float: none;
-        }
+        margin-left: 0;
+        float: none;
+        flex-basis: 20%;
+        padding: 0 5px;
 
-        @include breakpoint($screen-sm) {
+        @include media-breakpoint-up(lg) {
           margin-left: 0;
           float: none;
-          flex-basis: 20%;
-          padding: 0 5px;
         }
 
         p {
@@ -153,7 +149,7 @@
       .save-link {
         align-self: center;
 
-        @include breakpoint($screen-sm $screen-desktop) {
+        @include media-breakpoint-up(sm) {
           align-self: flex-end;
         }
       }
@@ -216,7 +212,7 @@
         }
 
         .ui-tabs-anchor {
-          color: #fff;
+          color: white;
           font-size: 24px;
           outline: none;
           padding: 4px 20px;
@@ -266,7 +262,7 @@
         }
 
         .dropdown-toggle {
-          color: $light-grey;
+          color: $gray-200;
           position: relative;
           z-index: 0;
 
@@ -321,7 +317,7 @@
 .branch__updates_queue {
   @include rem(padding-top, 20px);
 
-  @include breakpoint($screen-sm) {
+  @include media-breakpoint-up(sm) {
     margin-bottom: 40px;
   }
 
@@ -335,7 +331,7 @@
     font-size: 28px;
     margin: 0 0 20px;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       font-size: 40px;
       margin: 0 0 30px;
     }
@@ -351,7 +347,8 @@
   }
 
   .field-updates-queue-update {
-    @include breakpoint($screen-xs $screen-sm) {
+    @include media-breakpoint-up(sm) {
+      //@include breakpoint($screen-xs $screen-sm) {
       width: 362px;
       margin: 0 auto;
     }
@@ -365,10 +362,10 @@
   }
 
   .slick-slider {
-    margin: 0 15px 50px;
+    margin: 0 0 50px;
 
-    @include breakpoint(0 $screen-xs) {
-      margin: 0 0 50px;
+    @include media-breakpoint-up(sm) {
+      margin: 0 15px 50px;
     }
   }
 
@@ -401,7 +398,7 @@
       button {
         &:before {
           opacity: 1;
-          color: $lighter-grey;
+          color: $gray-100;
         }
       }
 
@@ -424,7 +421,7 @@ html.js {
     display: none;
   }
 
-  @include breakpoint($screen-sm) {
+  @include media-breakpoint-up(sm) {
     .branch__updates_queue {
       .cards:nth-child(7),
       .cards:nth-child(8),
@@ -452,8 +449,10 @@ html.js {
 
 #branch-sessions-form-wrapper {
   .container {
-    @include breakpoint(0 $screen-sm) {
-      padding: 0;
+    padding: 0;
+
+    @include media-breakpoint-up(sm) {
+      padding: auto;
     }
   }
 }
@@ -464,7 +463,7 @@ html.js {
     margin: 0 15px 10px;
     font-size: 28px;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       margin: 0 0 20px;
       font-size: 40px;
     }
@@ -478,10 +477,10 @@ html.js {
     font-size: 14px;
     line-height: 1.6;
     font-family: $headings-font-family;
-    color: $dark-grey;
+    color: $gray-500;
     margin-bottom: 0;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       margin-bottom: 5px;
     }
   }
@@ -492,8 +491,8 @@ html.js {
     position: relative;
     background-color: $sky-blue;
 
-    @include breakpoint($screen-sm) {
-      background-color: $lighter-grey;
+    @include media-breakpoint-up(sm) {
+      background-color: $gray-100;
       margin-bottom: 40px;
     }
   }
@@ -511,13 +510,13 @@ html.js {
     padding: 10px 0 5px;
     width: 100%;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       padding: 0;
     }
 
     select {
       text-transform: uppercase;
-      color: $dark-grey;
+      color: $gray-500;
       font-family: $headings-font-family;
     }
   }
@@ -525,7 +524,7 @@ html.js {
   .form-item-when-day {
     display: inline-block;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       width: 130px;
     }
   }
@@ -534,7 +533,7 @@ html.js {
     display: inline-block;
     margin-right: 20px;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       width: 130px;
     }
   }
@@ -542,7 +541,7 @@ html.js {
   .form-item-program {
     display: inline-block;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       width: 200px;
     }
   }
@@ -556,12 +555,12 @@ html.js {
   .schedule-wrapper {
     margin-top: 10px;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       margin: 27px -7px 0 0;
       float: right;
     }
 
-    @include breakpoint($screen-md) {
+    @include media-breakpoint-up(md) {
       margin: 2px -7px 0 0;
       float: right;
     }
@@ -571,13 +570,13 @@ html.js {
       padding: 10px 0;
       width: 100%;
 
-      @include breakpoint($screen-sm) {
+      @include media-breakpoint-up(sm) {
         font-size: 12px;
         padding: 9px;
         width: auto;
       }
 
-      @include breakpoint($screen-md) {
+      @include media-breakpoint-up(md) {
         font-size: 20px;
         padding: 15px 0;
         width: 340px;
@@ -605,15 +604,15 @@ html.js {
     padding: 0 15px 15px;
     background-color: $sky-blue;
 
-    @include breakpoint($screen-sm) {
-      background-color: $lighter-grey;
+    @include media-breakpoint-up(sm) {
+      background-color: $gray-100;
       padding: 15px 20px;
     }
 
     .inner {
-      border-top: 1px solid $default-grey;
+      border-top: 1px solid $gray-400;
 
-      @include breakpoint($screen-sm) {
+      @include media-breakpoint-up(sm) {
         border-top: none;
       }
     }
@@ -628,7 +627,7 @@ html.js {
     background-color: rgba(0, 136, 208, 0.25);
     position: relative;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       display: none;
     }
 
@@ -641,7 +640,7 @@ html.js {
       right: 35px;
       top: 4px;
 
-      @include breakpoint($screen-sm) {
+      @include media-breakpoint-up(sm) {
         top: 0;
         right: 0;
       }
@@ -650,14 +649,14 @@ html.js {
         font-family: $headings-font-family;
         background: none;
         border: none;
-        color: $blue;
+        color: $primary;
         display: inline-block;
         font-size: 14px;
         height: 30px;
         line-height: 30px;
         padding: 0;
 
-        @include breakpoint($screen-sm) {
+        @include media-breakpoint-up(sm) {
           text-transform: uppercase;
         }
       }
@@ -666,10 +665,10 @@ html.js {
 
   .filters-wrapper {
     padding-bottom: 5px;
-    border-top: 1px solid $default-grey;
+    border-top: 1px solid $gray-400;
     padding-top: 5px;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       padding-bottom: 0;
       padding-top: 0;
       border: 0;
@@ -677,7 +676,7 @@ html.js {
 
     .label {
       font-family: $headings-font-family;
-      color: $dark-grey;
+      color: $gray-500;
       display: block;
       font-size: 14px;
       line-height: 30px;
@@ -685,7 +684,7 @@ html.js {
       padding: 0;
       text-align: left;
 
-      @include breakpoint($screen-sm) {
+      @include media-breakpoint-up(sm) {
         display: inline-block;
       }
     }
@@ -707,24 +706,24 @@ html.js {
         padding: 0 10px;
         margin: 0 5px 10px 0;
 
-        @include breakpoint($screen-sm) {
+        @include media-breakpoint-up(sm) {
           margin: 5px 20px 5px 0;
-          color: $dark-grey;
+          color: $gray-500;
         }
 
         .remove {
           margin-left: 10px;
           line-height: 30px;
 
-          @include breakpoint($screen-sm) {
+          @include media-breakpoint-up(sm) {
             margin-left: 15px;
           }
 
           .fa {
             font-size: 13px;
-            color: $blue;
+            color: $primary;
 
-            @include breakpoint($screen-sm) {
+            @include media-breakpoint-up(sm) {
               font-size: 16px;
             }
           }
@@ -738,7 +737,7 @@ html.js {
   padding: 0;
 
   h3 {
-    @include cachet-medium();
+    @include cachet(500);
     font-size: 30px;
     line-height: 1.6;
     letter-spacing: -0.8px;
@@ -769,21 +768,21 @@ html.js {
     text-transform: uppercase;
     line-height: 1.2;
     letter-spacing: 2px;
-    color: $dark-grey;
+    color: $gray-500;
     margin: 10px 0 15px;
   }
 
   h3 {
     font-size: 22px;
     line-height: 1.2;
-    color: $blue;
+    color: $primary;
     margin: 10px 0 5px;
   }
 
   .time {
     font-size: 14px;
     margin-bottom: 10px;
-    color: $default-grey;
+    color: $gray-400;
   }
 
   .included-in-membership {
@@ -791,20 +790,20 @@ html.js {
     background-size: contain;
     position: absolute;
     top: 47px;
-    right: 0px;
+    right: 0;
     height: 32px;
     width: 90px;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       top: 66px;
-      right: 0px;
+      right: 0;
     }
   }
 
   .field-body-no-summary {
     font-size: 15px;
     line-height: 1.5;
-    color: $darker-grey;
+    color: $gray-600;
   }
 
   .group_time {
@@ -818,7 +817,7 @@ html.js {
     margin: -1px -2px 0;
     padding-left: 2px;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       letter-spacing: -0.8px;
       font-size: 30px;
       line-height: 72px;
@@ -847,7 +846,7 @@ html.js {
       width: 40px;
       margin-top: 15px;
 
-      @include breakpoint($screen-sm) {
+      @include media-breakpoint-up(sm) {
         margin-top: 30px;
       }
 
@@ -858,7 +857,7 @@ html.js {
       &.slick-prev {
         left: -20px;
 
-        @include breakpoint($screen-sm) {
+        @include media-breakpoint-up(sm) {
           left: -13px;
         }
       }
@@ -866,7 +865,7 @@ html.js {
       &.slick-next {
         right: -20px;
 
-        @include breakpoint($screen-sm) {
+        @include media-breakpoint-up(sm) {
           right: -13px;
         }
       }
@@ -879,7 +878,7 @@ html.js {
         button {
           &:before {
             opacity: 1;
-            color: $lighter-grey;
+            color: $gray-100;
           }
         }
 
@@ -901,7 +900,7 @@ html.js {
 .node--type-branch.node--view-mode-sidebar-teaser,
 .node--type-branch.node--view-mode-class-location,
 .node--type-camp.node--view-mode-teaser {
-  border: solid 1px $light-grey;
+  border: solid 1px $gray-200;
   padding: 20px;
   min-height: 300px;
   margin: 20px;
@@ -911,7 +910,7 @@ html.js {
   [class*="sidebar"] & {
     height: auto;
     margin: 0 0 20px;
-    border-color: #ccc;
+    border-color: $gray-200;
 
     > span {
       display: block;
@@ -927,7 +926,7 @@ html.js {
 
     .edit-class-popup {
       background-color: #00aeef;
-      color: #ffffff;
+      color: white;
       display: inline-block;
       font-size: 15px;
       font-weight: normal;
@@ -984,7 +983,7 @@ html.js {
     letter-spacing: 2px;
     text-transform: uppercase;
 
-    @include breakpoint ($screen-sm-min $screen-desktop) {
+    @include media-breakpoint-up(sm) {
       letter-spacing: 1.1px;
     }
 
@@ -1009,7 +1008,7 @@ html.js {
 
 .paragraph--type--class-location.paragraph--view-mode--default {
   .empty-text {
-    border: solid 1px $light-grey;
+    border: solid 1px $gray-200;
     padding: 20px;
 
     h2 {
@@ -1023,7 +1022,7 @@ html.js {
 
   .edit-class-popup {
     background-color: #00aeef;
-    color: #ffffff;
+    color: white;
     display: inline-block;
     font-size: 15px;
     font-weight: normal;
@@ -1095,7 +1094,7 @@ html.js {
 .sidebar-card_h3 {
   font-family: Verdana, sans-serif;
   text-transform: uppercase;
-  color: $default-grey;
+  color: $gray-400;
   margin: 0 0 25px;
   font-size: 14px;
   font-weight: normal;

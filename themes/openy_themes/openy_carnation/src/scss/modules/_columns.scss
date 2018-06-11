@@ -1,8 +1,10 @@
 .block-description--4 {
   margin: 40px 0;
+
   .field-prgf-title h2 {
     margin-bottom: 0;
   }
+
   .field-prgf-description {
     font-family: $headings-font-family;
     font-size: 20px;
@@ -17,12 +19,12 @@
     h4 {
       font-family: $headings-font-family;
       font-size: 22px;
-      color: $default-grey;
+      color: $gray-400;
       text-align: left;
     }
 
     .field-sb-body {
-      color: $darker-grey;
+      color: $gray-600;
     }
   }
 
@@ -35,21 +37,22 @@
     text-align: center;
     display: block;
     width: 100%;
+
     .btn {
       font-size: 14px;
       padding-left: 20px;
       padding-right: 20px;
-      @include breakpoint('tablet') {
+
+      @include media-breakpoint-up(lg) {
         font-size: 20px;
       }
     }
   }
 
-
-
   .field-icon-class {
     text-align: center;
     margin-bottom: 15px;
+
     .fa {
       color: $purple;
       font-size: 36px;
@@ -59,10 +62,12 @@
   .field-icon {
     text-align: center;
     margin-bottom: 15px;
+
     .field-image {
       text-align: center;
       height: 36px;
       margin: auto;
+
       img {
         display: inline;
         max-height: 100%;
@@ -74,44 +79,45 @@
   .slick-dotted {
     margin-bottom: 25px;
   }
+
   .slick-slide {
     margin: 0 50px;
   }
+
   .slick-prev {
     text-align: right;
   }
+
   .slick-arrow {
     height: 20px;
     width: 26px;
+
     &:before {
-      color: $blue;
+      color: $primary;
     }
-    &.slick-disabled {
-      &:before {
-        color: $default-grey;
-      }
+
+    &.slick-disabled:before {
+      color: $gray-400;
     }
   }
+
   .slick-dots {
     bottom: -15px;
   }
 }
 
-.node--type-landing {
-  .content-sidebar-region {
-    @media (min-width: $screen-tablet) {
-      margin-top: 25px;
-    }
+@include media-breakpoint-up(lg) {
+  .node--type-landing .content-sidebar-region {
+    margin-top: 25px;
   }
 }
 
-article .node--view-mode-flexible-content {
-  h2 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-    a span {
-      font-family: CachetBook;
-      font-size: 36px;
-    }
+article .node--view-mode-flexible-content h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  a span {
+    @include cachet(500);
+    font-size: 36px;
   }
 }

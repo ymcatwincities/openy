@@ -3,16 +3,20 @@
   .affix-bottom {
     top: 126px;
     position: static;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       width: 220px;
       position: fixed;
     }
-    @include breakpoint($screen-md) {
+
+    @include media-breakpoint-up(md) {
       width: 294px;
     }
-    @include breakpoint($screen-lg) {
+
+    @include media-breakpoint-up(lg) {
       width: 360px;
     }
+
     .toolbar-fixed & {
       top: 166px;
     }

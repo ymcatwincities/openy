@@ -34,7 +34,7 @@ body .branch-popup {
       position: relative;
 
       &:hover {
-        background-color: $lighter-grey;
+        background-color: $gray-100;
       }
 
       input {
@@ -51,7 +51,7 @@ body .branch-popup {
       }
     }
 
-    @include breakpoint($screen-md) {
+    @include media-breakpoint-up(md) {
       .branch-popup-map {
         position: relative;
         overflow: hidden;
@@ -84,7 +84,7 @@ body .branch-popup {
     font-weight: normal;
     line-height: inherit;
     font-family: $headings-font-family;
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       font-size: 24px;
     }
   }
@@ -115,11 +115,11 @@ body .branch-popup {
     display: inline-block;
     padding: 15px;
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       width: 50%;
     }
 
-    @include breakpoint($screen-lg) {
+    @include media-breakpoint-up(lg) {
       width: 33.33%;
     }
 
