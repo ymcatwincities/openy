@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * OpenY Paragraph Featured Blog Posts install file.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_prgf_featured_blogs_uninstall() {
+  // Remove featured_blogs content and paragraph type.
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('paragraph', 'paragraphs_type', 'featured_blogs');
+}
