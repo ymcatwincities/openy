@@ -1,82 +1,100 @@
 .program-header {
   margin-bottom: 10px;
   position: relative;
-  @include breakpoint($screen-sm) {
+
+  @include media-breakpoint-up(sm) {
     margin-bottom: 60px;
   }
+
   .content {
     padding: 15px 0;
     margin-bottom: 15px;
     position: relative;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       padding: 36px 0;
       margin-bottom: 45px;
     }
   }
+
   .description {
+    @include cachet(500);
     font-size: 18px;
     line-height: 27px;
-    @include cachet-medium();
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       font-size: 20px;
     }
   }
+
   &.purple {
     .content {
       background-color: $purple;
     }
+
     .description {
       color: $purple;
     }
   }
+
   &.green {
     .content {
       background-color: $green;
     }
+
     .description {
       color: $green;
     }
   }
+
   &.dark-green {
     .content {
-      background-color: $dark-green;
+      background-color: $teal;
     }
+
     .description {
-      color: $dark-green;
+      color: $teal;
     }
   }
 
   .image {
     margin-top: -36px;
   }
+
   .main {
     position: static;
   }
+
   .icon {
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       position: absolute;
       bottom: 35px;
     }
+
     img {
       max-width: 50px;
       max-height: 50px;
       height: auto;
       width: auto;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         max-width: 78px;
         max-height: 78px;
       }
+
       &.svg-image {
         width: 100px;
       }
     }
   }
+
   h1 {
     color: $white;
     font-size: 32px;
     text-transform: uppercase;
     margin: 0 0 15px;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       font-size: 50px;
       margin-bottom: 0;
     }
@@ -89,20 +107,20 @@
     h1 {
       margin: 0 0 7px;
 
-      @include breakpoint($screen-sm) {
+      @include media-breakpoint-up(sm) {
         margin: 0 0 36px;
       }
     }
 
     .field-category-program {
       color: $white;
-      font-family: $font-style-sans;
+      font-family: $font-family-sans-serif;
       font-size: 28px;
       letter-spacing: -0.8px;
       line-height: 28px;
       margin: 0;
 
-      @include breakpoint($screen-sm) {
+      @include media-breakpoint-up(sm) {
         font-size: 36px;
       }
     }
@@ -128,62 +146,73 @@
   display: table;
   margin-top: 20px;
   margin-bottom: 25px;
-  @include breakpoint($screen-sm) {
+
+  @include media-breakpoint-up(sm) {
     display: block;
     margin-bottom: 45px;
   }
+
   img {
     height: auto;
     width: auto;
     max-width: 100%;
   }
+
   .image {
     display: table-caption;
     margin-bottom: 20px;
     text-align: center;
-    @include breakpoint(0 $screen-xs) {
-      img {
-        height: auto;
-        width: 100%;
-      }
+
+    img {
+      height: auto;
+      width: 100%;
     }
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       display: block;
       float: left;
       text-align: right;
     }
-    @include breakpoint($screen-lg) {
+
+    @include media-breakpoint-up(lg) {
       margin-bottom: 0;
+
       img {
         height: auto;
       }
     }
   }
+
   .title {
     h2 {
       font-size: 20px;
       line-height: 20px;
       margin: -2px 0 15px;
-      color: $blue;
+      color: $primary;
     }
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       float: right;
     }
   }
+
   .content {
     font-size: 14px;
     line-height: 20px;
-    color: $dark-grey;
-    @include breakpoint($screen-sm) {
+    color: $gray-500;
+
+    @include media-breakpoint-up(sm) {
       float: right;
       padding-right: 0;
     }
+
     .btn {
       display: block;
       font-size: 18px;
       padding: 12px;
       margin-top: 15px;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         max-width: 360px;
         font-size: 18px;
         padding: 16px;
@@ -198,16 +227,19 @@
     padding-top: 9px;
     padding-bottom: 9px;
     background-color: $sky-blue;
+
     a {
       display: inline-block;
       padding: 3px 15px;
     }
   }
+
   form {
     background-color: $sky-blue;
     margin-bottom: 20px;
-    @include breakpoint($screen-sm) {
-      background-color: $lighter-grey;
+
+    @include media-breakpoint-up(sm) {
+      background-color: $gray-100;
       margin-bottom: 40px;
     }
   }
@@ -216,15 +248,18 @@
     display: inline-block;
     padding: 10px 0 5px;
     width: 100%;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       padding: 15px 0;
       margin-right: 18px;
       width: 125px;
     }
-    @include breakpoint($screen-md) {
+
+    @include media-breakpoint-up(md) {
       width: 170px;
     }
-    @include breakpoint($screen-lg) {
+
+    @include media-breakpoint-up(lg) {
       width: 200px;
     }
 
@@ -232,24 +267,27 @@
       font-size: 14px;
       line-height: 1.6;
       font-family: $headings-font-family;
-      color: $dark-grey;
+      color: $gray-500;
       margin-bottom: 0;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         margin-bottom: 5px;
       }
     }
 
     select {
       text-transform: uppercase;
-      color: $dark-grey;
+      color: $gray-500;
       font-family: $headings-font-family;
     }
   }
   .selects-container {
+
     hr {
-      border-color: $default-grey;
+      border-color: $gray-400;
       margin: 0 0 12px;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         display: none;
       }
     }
@@ -257,6 +295,7 @@
   .form-actions {
     padding-top: 23px;
     padding-bottom: 23px;
+
     input {
       text-transform: uppercase;
       font-size: 18px;
@@ -264,18 +303,22 @@
       width: 100%;
     }
   }
+
   .filters-main-wrapper {
     clear: both;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       background-color: rgba(0, 136, 208, 0.25);
       padding-top: 15px;
       padding-bottom: 15px;
     }
   }
+
   .filters-container {
     clear: both;
     position: relative;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       margin-top: 0;
     }
 
@@ -287,21 +330,24 @@
       position: absolute;
       right: 35px;
       top: 4px;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         top: 0;
         right: 0;
       }
+
       .clear {
         font-family: $headings-font-family;
         background: none;
         border: none;
-        color: $blue;
+        color: $primary;
         display: inline-block;
         font-size: 14px;
         height: 30px;
         line-height: 30px;
         padding: 0;
-        @include breakpoint($screen-sm) {
+
+        @include media-breakpoint-up(sm) {
           text-transform: uppercase;
         }
       }
@@ -310,28 +356,33 @@
 
   .filters-wrapper {
     padding-bottom: 5px;
-    border-top: 1px solid $default-grey;
+    border-top: 1px solid $gray-400;
     padding-top: 5px;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       padding-bottom: 0;
       padding-top: 0;
       border: 0;
     }
+
     .label {
       font-family: $headings-font-family;
-      color: $dark-grey;
+      color: $gray-500;
       display: block;
       font-size: 14px;
       line-height: 30px;
       margin-right: 20px;
       padding: 0;
       text-align: left;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         display: inline-block;
       }
     }
+
     .filters {
       display: inline-block;
+
       .filter {
         font-family: $headings-font-family;
         background: $white;
@@ -345,20 +396,25 @@
         white-space: nowrap;
         padding: 0 10px;
         margin: 0 5px 10px 0;
-        @include breakpoint($screen-sm) {
+
+        @include media-breakpoint-up(sm) {
           margin: 5px 20px 5px 0;
-          color: $dark-grey;
+          color: $gray-500;
         }
+
         .remove {
           margin-left: 10px;
           line-height: 30px;
-          @include breakpoint($screen-sm) {
+
+          @include media-breakpoint-up(sm) {
             margin-left: 15px;
           }
+
           .fa {
             font-size: 13px;
-            color: $blue;
-            @include breakpoint($screen-sm) {
+            color: $primary;
+
+            @include media-breakpoint-up(sm) {
               font-size: 16px;
             }
           }
@@ -369,7 +425,7 @@
 
   .activity-group {
     h2 {
-      @include cachet-medium();
+      @include cachet(500);
       font-size: 30px;
       line-height: 1.6;
       letter-spacing: -0.8px;
@@ -393,54 +449,55 @@
     }
 
     .node__content {
-      color: $darker-grey;
+      color: $gray-600;
     }
 
     .views-field-title {
       font-family: $headings-font-family;
       font-size: 22px;
       line-height: 1;
-      color: $blue;
+      color: $primary;
       margin: 40px 0 27px;
 
       a {
         text-decoration: none;
-        color: $blue;
+        color: $primary;
       }
     }
+
     .views-field-field-body-no-summary {
       font-size: 15px;
       line-height: 1.5;
-      color: $darker-grey;
+      color: $gray-600;
     }
 
     .activity-group-slider {
       margin: 0 0 45px;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         margin: 0 35px 55px 0;
       }
-      @include breakpoint($screen-lg+100) {
-        margin-right: 0 ;
+
+      @include media-breakpoint-up(lg) {
+        margin-right: 0;
       }
 
       .views-field-rendered-entity {
         padding: 15px;
         margin: 0 15px;
         height: auto;
-
         border: 1px solid $pink;
+
         * {
           text-decoration: none;
         }
+
         a:hover h3 {
           text-decoration: underline;
         }
       }
 
       .slick-track {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
         display: flex;
         flex-wrap: wrap;
       }
@@ -458,7 +515,7 @@
           color: $light-blue;
         }
 
-        @include breakpoint($screen-sm) {
+        @include media-breakpoint-up(sm) {
           height: 70px;
           width: 50px;
         }
@@ -466,7 +523,7 @@
         .fa {
           font-size: 30px;
 
-          @include breakpoint($screen-sm) {
+          @include media-breakpoint-up(sm) {
             font-size: 70px;
           }
         }
@@ -474,7 +531,7 @@
         &.slick-prev {
           left: -20px;
 
-          @include breakpoint($screen-sm) {
+          @include media-breakpoint-up(sm) {
             left: -45px;
           }
         }
@@ -482,26 +539,21 @@
         &.slick-next {
           right: -20px;
 
-          @include breakpoint($screen-sm) {
+          @include media-breakpoint-up(sm) {
             right: -45px;
           }
         }
       }
 
-      .slick-dots {
-        li {
-          button {
-            &:before {
-              opacity: 1;
-              color: $lighter-grey;
-            }
-          }
-          &.slick-active {
-            button:before {
-              opacity: 1;
-              color: $pink;
-            }
-          }
+      .slick-dots li {
+        button:before {
+          opacity: 1;
+          color: $gray-100;
+        }
+
+        &.slick-active button:before {
+          opacity: 1;
+          color: $pink;
         }
       }
     }

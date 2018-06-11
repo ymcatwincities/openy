@@ -34,7 +34,7 @@ $colors: () !default;
 $colors: map-merge((
     "sky-blue":       $sky-blue,
     "light-blue":     $light-blue,
-    "dark-blue":      $light-blue,
+    "dark-blue":      $dark-blue,
 ), $colors);
 
 // theme colours

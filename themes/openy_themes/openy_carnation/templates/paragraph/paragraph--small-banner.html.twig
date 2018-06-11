@@ -43,23 +43,30 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     'banner',
     'banner--small',
+    'd-flex',
+    'py-5',
   ]
 %}
-<div{{ attributes.addClass(classes) }} style="background-color:# {{ content.field_prgf_color }}">
+{% set color = '#' ~ content.field_prgf_color['#items'].entity.field_color.value %}
+
+<div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
+
+  {% if content.field_prgf_image|render|trim is not empty %}
   <div class="banner-image">
     <div class="banner-image-wrapper">
       {{ content.field_prgf_image }}
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-8">
-        <div class="banner-cta-section">
-          <h3 class="banner-title">
-            {{ content.field_prgf_headline }}
-          </h3>
-        </div>
-      </div>
+  {% endif %}
+
+  {% if content.field_prgf_headline|render|trim is not empty %}
+  <div class="container align-self-end">
+    <div class="banner-cta-section">
+      <h1 class="banner-title text-white">
+        {{ content.field_prgf_headline }}
+      </h1>
     </div>
   </div>
+  {% endif %}
+
 </div>

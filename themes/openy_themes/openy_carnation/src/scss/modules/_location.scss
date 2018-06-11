@@ -18,38 +18,45 @@
 }
 
 .form__locations {
-  background-color: $lighter-grey;
+  background-color: $gray-100;
   height: 92px;
   display: table;
   width: 100%;
-  padding: 35px 0px 17px;
-  @media (min-width: $screen-md) {
+  padding: 35px 0 17px;
+
+  @include media-breakpoint-up(md) {
     padding: 35px 25px 17px;
   }
+
   .form-group {
-    @media (min-width: $screen-sm-min) {
-      margin-bottom: 0px;
+    @include media-breakpoint-up(sm) {
+      margin-bottom: 0;
     }
   }
+
   label {
     text-transform: none;
     padding: 6px 8px;
     left: -1px;
     margin: 10px 10px 0 0;
-    @media (min-width: $screen-md-min) {
+
+    @include media-breakpoint-up(md) {
       left: -20px;
       margin: 0 10px 0 0;
     }
   }
+
   input[type="checkbox"] {
-    margin: 0 10px 0px 0;
+    margin: 0 10px 0 0;
     vertical-align: middle;
   }
+
   .btn-group-justified {
     border-spacing: 1px;
     margin: -1px -1px 5px 1px;
     min-width: 234px;
-    @media (min-width: $screen-md) {
+
+    @include media-breakpoint-up(md) {
       border-spacing: 10px;
       margin: -10px -10px -10px 10px;
     }
@@ -57,8 +64,10 @@
 
   .zip-code,
   .distance {
-    @include breakpoint(0 $screen-xs) {
-      display: none;
+    display: none;
+
+    @include media-breakpoint-up(xs) {
+      display: initial;
     }
   }
 }
@@ -75,7 +84,6 @@
 
   .views-row {
     display: flex;
-
     flex-basis: 100%;
 
     @media (min-width: 600px) and (max-width: 1025px) {
@@ -91,20 +99,23 @@
       align-self: stretch;
     }
   }
+
   header h1,
   header h2,
   header h2.h1 {
     font-size: 36px;
     padding-left: 20px;
-    padding-bottom: 0px;
+    padding-bottom: 0;
     clear: both;
     margin-top: 0;
     font-weight: bold;
   }
+
   h1.color-purple,
   h2.color-purple {
     color: $purple;
   }
+
   .field_location_state {
     float: right;
     margin-right: -20px;
@@ -118,6 +129,7 @@
     background: #fcaf17;
     line-height: 1.2;
     font-style: italic;
+
     .fa {
       color: white;
       height: 32px;
@@ -125,14 +137,14 @@
       font-size: 16px;
       padding-right: 6px;
     }
+
     span {
       display: block;
     }
   }
-  .field-branch-hours {
-    h4 {
-      font-size: 14px;
-    }
+
+  .field-branch-hours h4 {
+    font-size: 14px;
   }
 }
 

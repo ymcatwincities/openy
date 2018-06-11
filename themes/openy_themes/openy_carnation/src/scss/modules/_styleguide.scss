@@ -7,13 +7,13 @@ $sg-highlight-background: #f7f7f9;
   .sg-color {
     @include border-radius(3px);
     color: $white;
-    font-family: 'Cachet';
+    font-family: $headings-font-family;
     margin-bottom: 12px;
     min-height: 50px;
     padding: 12px;
 
     &.bg-white {
-      border: 1px solid $default-grey;
+      border: 1px solid $gray-400;
       color: $black;
       padding: 11px;
     }
@@ -22,6 +22,7 @@ $sg-highlight-background: #f7f7f9;
   .bg-white {
     background-color: $white;
   }
+
   .bg-black {
     background-color: $black;
   }
@@ -29,12 +30,15 @@ $sg-highlight-background: #f7f7f9;
   .bg-sky-blue {
     background-color: $sky-blue;
   }
+
   .bg-light-blue {
     background-color: $light-blue;
   }
+
   .bg-blue {
-    background-color: $blue;
+    background-color: $primary;
   }
+
   .bg-dark-blue {
     background-color: $dark-blue;
   }
@@ -42,9 +46,11 @@ $sg-highlight-background: #f7f7f9;
   .bg-pink {
     background-color: $pink;
   }
+
   .bg-dark-magenta {
-    background-color: $dark-magenta;
+    background-color: $indigo;
   }
+
   .bg-purple {
     background-color: $purple;
   }
@@ -52,24 +58,29 @@ $sg-highlight-background: #f7f7f9;
   .bg-orange {
     background-color: $orange;
   }
+
   .bg-yellow {
     background-color: $yellow;
   }
 
   .bg-lighter-grey {
-    background-color: $lighter-grey;
+    background-color: $gray-100;
   }
+
   .bg-light-grey {
-    background-color: $light-grey;
+    background-color: $gray-200;
   }
+
   .bg-medium-grey {
-    background-color: $medium-grey;
+    background-color: $gray-300;
   }
+
   .bg-default-grey {
-    background-color: $default-grey;
+    background-color: $gray-400;
   }
+
   .bg-dark-grey {
-    background-color: $dark-grey;
+    background-color: $gray-500;
   }
 
   .bs-docs-section {
@@ -81,8 +92,6 @@ $sg-highlight-background: #f7f7f9;
     margin-left: -15px;
     margin-right: -15px;
     margin-bottom: 50px;
-
-    *zoom: 1;
 
     &:before,
     &:after {
@@ -120,9 +129,10 @@ $sg-highlight-background: #f7f7f9;
   }
 
   .fontawesome-icon-list .fa-hover a:hover {
-    background-color: #1d9d74;
-    color: #fff;
+    background-color: $cyan;
+    color: white;
     text-decoration: none;
+
     .fa {
       font-size: 28px;
       vertical-align: -6px;

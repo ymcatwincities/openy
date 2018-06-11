@@ -30,7 +30,8 @@
 
   &.node--view-mode-teaser {
     margin: auto;
-    @include breakpoint($screen-xs) {
+
+    @include media-breakpoint-up(sm) {
       max-width: 373px;
       width: 100%;
     }
@@ -41,18 +42,22 @@
       margin: 15px auto;
       position: relative;
       overflow: hidden;
-      @include breakpoint($screen-xs) {
+
+      @include media-breakpoint-up(sm) {
         height: 288px;
         width: auto;
       }
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         height: 288px;
         width: auto;
       }
-      @include breakpoint($screen-md) {
+
+      @include media-breakpoint-up(md) {
         height: 245px;
       }
-      @include breakpoint($screen-lg) {
+
+      @include media-breakpoint-up(lg) {
         height: 300px;
       }
     }
@@ -122,11 +127,11 @@
 }
 
 .news-card {
-  overflow: hidden;
+  overflow: visible;
   padding-top: 20px;
 
-  @include breakpoint(0 $screen-xs) {
-    overflow: visible;
+  @include media-breakpoint-up(sm) {
+    overflow: hidden;
   }
 }
 
@@ -136,7 +141,7 @@
   h2 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
-    color: $default-grey !important;
+    color: $gray-400 !important;
     margin: 0 0 25px;
     font-size: 14px;
     font-weight: normal;
@@ -167,7 +172,7 @@
   max-width: 100%;
   text-align: center;
 
-  @media (min-width: 1024px) {
+  @include media-breakpoint-up(md) {
     margin: -20px;
     max-width: inherit;
   }
@@ -194,7 +199,7 @@
       }
     }
 
-    @media (min-width: 1200px) {
+    @include media-breakpoint-up(lg) {
 
       .row {
         display: inline;
@@ -208,7 +213,7 @@
     padding: 17px 25px;
     margin-bottom: 49px;
 
-    @media (min-width: 1024px) {
+    @include media-breakpoint-up(md) {
       height: 92px;
       display: table;
     }
@@ -216,7 +221,7 @@
     & > div {
       vertical-align: bottom;
 
-      @media (min-width: 1024px) {
+      @include media-breakpoint-up(md) {
         display: table-cell;
         padding: 0 40px 0 0;
 
@@ -244,7 +249,7 @@
         }
       }
 
-      @media (min-width: 1200px) {
+      @include media-breakpoint-up(lg) {
 
         &.form-item-field-news-location-target-id-verf {
           width: 240px;
@@ -261,7 +266,7 @@
     text-align: center;
     padding-top: 20px;
 
-    @media (min-width: 1024px) {
+    @include media-breakpoint-up(md) {
       padding-top: 0;
       text-align: inherit;
     }
@@ -292,7 +297,7 @@
     height: 34px;
     padding-left: 10px;
 
-    @media (min-width: 1024px) {
+    @include media-breakpoint-up(md) {
       width: 250px;
     }
   }

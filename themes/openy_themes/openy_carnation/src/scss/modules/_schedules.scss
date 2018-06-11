@@ -3,25 +3,30 @@
     padding-top: 9px;
     padding-bottom: 9px;
     background-color: $sky-blue;
+
     a {
       display: inline-block;
       padding: 3px 15px;
     }
   }
+
   form {
     background-color: $sky-blue;
     margin-bottom: 20px;
-    @include breakpoint($screen-sm) {
-      background-color: $lighter-grey;
+
+    @include media-breakpoint-up(sm) {
+      background-color: $gray-100;
       margin-bottom: 40px;
     }
   }
+
   .js-form-type-select {
     float: left;
     display: inline-block;
     padding: 10px 0 5px;
     width: 100%;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       padding: 15px 0;
       margin-right: 18px;
       width: 150px;
@@ -31,30 +36,35 @@
       font-size: 14px;
       line-height: 1.6;
       font-family: $headings-font-family;
-      color: $dark-grey;
+      color: $gray-500;
       margin-bottom: 0;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         margin-bottom: 5px;
       }
     }
 
     select {
       text-transform: uppercase;
-      color: $dark-grey;
+      color: $gray-500;
       font-family: $headings-font-family;
     }
+
     &.form-item-location {
       padding: 15px 0 25px;
       width: 100%;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         padding: 15px 0;
         width: 150px;
       }
     }
+
     &.form-item-time {
       padding: 15px 0 25px;
       width: 100%;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         margin-right: 18px;
         padding: 15px 0;
         width: 90px;
@@ -66,7 +76,8 @@
     display: inline-block;
     padding: 10px 0 5px;
     width: 100%;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       padding: 15px 0;
       margin-right: 18px;
       width: 110px;
@@ -76,16 +87,17 @@
       font-size: 14px;
       line-height: 1.6;
       font-family: $headings-font-family;
-      color: $dark-grey;
+      color: $gray-500;
       margin-bottom: 0;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         margin-bottom: 5px;
       }
     }
 
     input {
       text-transform: uppercase;
-      color: $dark-grey;
+      color: $gray-500;
       font-family: $headings-font-family;
       width: 100%;
     }
@@ -101,30 +113,36 @@
     display: inline-block;
     padding: 10px 0 5px;
     width: 100%;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       padding: 15px 0;
       margin-right: 18px;
       width: 110px;
     }
+
     label {
       font-size: 14px;
       line-height: 1.6;
       font-family: $headings-font-family;
-      color: $dark-grey;
+      color: $gray-500;
       margin-bottom: 0;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         margin-bottom: 5px;
       }
     }
+
     input {
       display: block;
     }
   }
+
   .selects-container {
     hr {
-      border-color: $default-grey;
+      border-color: $gray-400;
       margin: 0 0 12px;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         display: none;
       }
     }
@@ -132,6 +150,7 @@
   .actions-wrapper {
     padding-top: 23px;
     padding-bottom: 23px;
+
     input {
       text-transform: uppercase;
       font-size: 18px;
@@ -139,18 +158,22 @@
       width: 100%;
     }
   }
+
   .filters-main-wrapper {
     clear: both;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       background-color: rgba(0, 136, 208, 0.25);
       padding-top: 15px;
       padding-bottom: 15px;
     }
   }
+
   .filters-container {
     clear: both;
     position: relative;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       margin-top: 0;
     }
 
@@ -162,21 +185,24 @@
       position: absolute;
       right: 35px;
       top: 4px;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         top: 0;
         right: 15px;
       }
+
       .clear {
         font-family: $headings-font-family;
         background: none;
         border: none;
-        color: $blue;
+        color: $primary;
         display: inline-block;
         font-size: 14px;
         height: 30px;
         line-height: 30px;
         padding: 0;
-        @include breakpoint($screen-sm) {
+
+        @include media-breakpoint-up(sm) {
           text-transform: uppercase;
         }
       }
@@ -185,28 +211,33 @@
 
   .filters-wrapper {
     padding-bottom: 5px;
-    border-top: 1px solid $default-grey;
+    border-top: 1px solid $gray-400;
     padding-top: 5px;
-    @include breakpoint($screen-sm) {
+
+    @include media-breakpoint-up(sm) {
       padding-bottom: 0;
       padding-top: 0;
       border: 0;
     }
+
     .label {
       font-family: $headings-font-family;
-      color: $dark-grey;
+      color: $gray-500;
       display: block;
       font-size: 14px;
       line-height: 30px;
       margin-right: 20px;
       padding: 0;
       text-align: left;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         display: inline-block;
       }
     }
+
     .filters {
       display: inline-block;
+
       .filter {
         font-family: $headings-font-family;
         background: $white;
@@ -220,20 +251,25 @@
         white-space: nowrap;
         padding: 0 10px;
         margin: 0 5px 10px 0;
-        @include breakpoint($screen-sm) {
+
+        @include media-breakpoint-up(sm) {
           margin: 5px 20px 5px 0;
-          color: $dark-grey;
+          color: $gray-500;
         }
+
         .remove {
           margin-left: 10px;
           line-height: 30px;
-          @include breakpoint($screen-sm) {
+
+          @include media-breakpoint-up(sm) {
             margin-left: 15px;
           }
+
           .fa {
             font-size: 13px;
-            color: $blue;
-            @include breakpoint($screen-sm) {
+            color: $primary;
+
+            @include media-breakpoint-up(sm) {
               font-size: 16px;
             }
           }
@@ -244,8 +280,8 @@
 
   .form-control  {
     &[readonly], &[disabled] {
-      color: $dark_grey;
-      background: $lighter-grey;
+      color: $gray-500;
+      background: $gray-100;
     }
   }
 }
@@ -253,16 +289,18 @@
 #schedules-search-listing-wrapper {
   .results {
     margin-bottom: 40px;
+
     h2 {
       font-size: 28px;
       line-height: 32px;
       margin-bottom: 18px;
       font-weight: 700;
 
-      @include breakpoint($screen-sm) {
+      @include media-breakpoint-up(sm) {
         font-size: 40px;
         line-height: 44px;
       }
+
       em {
         font-style: normal;
       }
@@ -276,25 +314,28 @@
       margin-top: 0;
       line-height: inherit;
       font-weight: normal;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         font-size: 28px;
       }
     }
+
     .schedule-sessions-group-slider {
       margin: 0 0 45px;
-      @include breakpoint($screen-sm) {
+
+      @include media-breakpoint-up(sm) {
         margin: 0 35px 55px;
       }
-      @include breakpoint($screen-lg+100) {
+
+      @include media-breakpoint-up(lg) {
         margin-right: 0;
       }
+
       .slick-track {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
         display: flex;
         flex-wrap: wrap;
       }
+
       .slick-arrow {
         background: none;
         color: $light-blue;
@@ -308,56 +349,63 @@
           color: $light-blue;
         }
 
-        @include breakpoint($screen-sm) {
+        @include media-breakpoint-up(sm) {
           height: 70px;
           width: 50px;
         }
+
         .fa {
           font-size: 30px;
-          @include breakpoint($screen-sm) {
+
+          @include media-breakpoint-up(sm) {
             font-size: 70px;
           }
         }
+
         &.slick-prev {
           left: -20px;
-          @include breakpoint($screen-sm) {
+          @include media-breakpoint-up(sm) {
             left: -45px;
           }
         }
+
         &.slick-next {
           right: -20px;
-          @include breakpoint($screen-sm) {
+
+          @include media-breakpoint-up(sm) {
             right: -45px;
           }
         }
       }
+
       .slick-dots {
         bottom: -40px;
+
         li {
-          button {
-            &:before {
-              opacity: 1;
-              color: $lighter-grey;
-            }
+          button:before {
+            opacity: 1;
+            color: $gray-100;
           }
-          &.slick-active {
-            button:before {
-              opacity: 1;
-              color: $pink;
-            }
+          &.slick-active button:before {
+            opacity: 1;
+            color: $pink;
           }
         }
       }
     }
+
     .week-control {
       font-size: 16px;
+
       &.prev-week {
         float: left;
       }
+
       &.next-week {
         float: right;
       }
     }
+
     .views-row {
       border: 1px solid $pink;
       margin: 0 15px;
@@ -367,10 +415,8 @@
       text-decoration: none;
       position: relative;
 
-      &:hover {
-        h3 {
-          text-decoration: underline;
-        }
+      &:hover h3 {
+        text-decoration: underline;
       }
 
       .included-in-membership {
@@ -393,26 +439,31 @@
         font-family: $headings-font-family;
         font-size: 22px;
         line-height: 1;
-        color: $blue;
+        color: $primary;
         margin: 40px 0 27px;
         white-space: normal;
       }
+
       .time {
-        color: $default-grey;
+        color: $gray-400;
       }
+
       p {
-         font-size: 15px;
-         line-height: 1.5;
-         color: $darker-grey;
+        font-size: 15px;
+        line-height: 1.5;
+        color: $gray-600;
        }
+
       img {
         display: none;
       }
+
       .node__content {
-        color: $darker-grey;
+        color: $gray-600;
       }
     }
   }
+
   .branch-hours-wrapper {
     margin-bottom: 10px;
 
@@ -423,10 +474,11 @@
     .slick-track {
       display: -webkit-flex;
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
 
-      @include breakpoint(0 $screen-xs) {
-        flex-wrap: nowrap;
+
+      @include media-breakpoint-up(sm) {
+        flex-wrap: wrap;
       }
     }
 
@@ -459,7 +511,6 @@
       .slick-next {
         text-align: right;
       }
-
     }
 
     .card {
@@ -478,39 +529,44 @@
         line-height: 17px;
         letter-spacing: -0.5px;
       }
+
       p {
         font-size: 30px;
         line-height: 1.15;
         font-family: $headings-font-family;
       }
     }
+    
     .col-sm-2 {
       h4 {
         font-size: 14px;
       }
+
       p {
         font-size: 20px;
       }
     }
+
     .row {
-      @include breakpoint(0 $screen-sm) {
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      -webkit-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+
+      .row-eq-height {
         -webkit-flex-wrap: nowrap;
         flex-wrap: nowrap;
-        .row-eq-height {
-          -webkit-flex-wrap: nowrap;
-          flex-wrap: nowrap;
-          h4 {
-            font-size: 20px;
-            white-space: normal;
-          }
-          p {
-            font-size: 30px;
-            white-space: normal;
-          }
+
+        h4 {
+          font-size: 20px;
+          white-space: normal;
+        }
+
+        p {
+          font-size: 30px;
+          white-space: normal;
         }
       }
     }
@@ -527,58 +583,72 @@
     display: flex;
     flex-wrap: wrap;
   }
+
   .caption {
     font-family: $headings-font-family;
     letter-spacing: -0.8px;
     color: $purple;
     font-size: 30px;
     margin-bottom: 15px;
+
     a {
       color: $purple;
     }
   }
+
   .card-wrapper {
     display: inline-block;
-    padding-bottom: 100px;
-    width: 32%;
-    @include breakpoint(0 $screen-sm) {
-      width: 49%;
-      padding-bottom: 55px;
+
+    width: 49%;
+    padding-bottom: 55px;
+
+    @include media-breakpoint-up(sm) {
+      padding-bottom: 100px;
+      width: 32%;
     }
+
     &:nth-child(3n+2) {
       margin: 0 2%;
     }
-    @include breakpoint(0 $screen-sm) {
+
+    @include media-breakpoint-down(sm) {
       &:nth-child(3n+2) {
         margin: 0;
       }
+
       &:nth-child(odd) {
         margin-right: 1%;
       }
+
       &:nth-child(even) {
         margin-left: 1%;
       }
     }
   }
+
   .time {
     font-family: $headings-font-family;
     color: $purple;
     font-size: 18px;
+
     .hh-mm {
       display: inline-block;
       min-width: 69px;
     }
+
     .duration {
       font-size: 16px;
       color: $pink;
       white-space: nowrap;
       word-wrap: normal;
     }
-    @include breakpoint($screen-tablet) {
+
+    @include media-breakpoint-up(md) {
       font-size: 30px;
       margin-bottom: 10px;
     }
   }
+
   .card {
     border: 1px solid $pink;
     height: 100%;
@@ -591,7 +661,7 @@
 
     h3 {
       font-family: $headings-font-family;
-      color: $blue;
+      color: $primary;
       font-size: 22px;
       letter-spacing: -0.8px;
       line-height: 1;
@@ -599,29 +669,35 @@
       white-space: normal;
       word-wrap: break-word;
       min-height: 44px;
+
       a {
-        color: $blue;
+        color: $primary;
       }
     }
+
     p {
       font-size: 15px;
       line-height: 1.5;
-      color: $darker-grey;
+      color: $gray-600;
     }
+
     .instructor {
       .fa {
         color: $purple;
         margin-right: 5px;
       }
+
       a {
         color: $purple;
       }
+
       .fa-refresh {
         font-size: 12px;
         color: $pink;
         margin-left: 16px;
         margin-right: 5px;
       }
+
       .sub {
         font-size: 12px;
         color: $pink;
@@ -636,20 +712,12 @@
     color: $pink;
     font-size: 18px;
   }
+
   .js-webform-radios {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
     justify-content: space-between;
-    -webkit-flex-wrap: wrap;
-    -moz-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    -o-flex-wrap: wrap;
     flex-wrap: wrap;
+
     .js-form-type-radio {
       flex-basis: 100%;
       padding-right: 15px;
@@ -657,18 +725,22 @@
       position: relative;
       padding-left: 20px;
       line-height: 20px;
-      @include breakpoint($screen-tablet) {
+
+      @include media-breakpoint-up(md) {
         flex-basis: 50%;
       }
-      @include breakpoint($screen-desktop) {
+
+      @include media-breakpoint-up(lg) {
         flex-basis: 33%;
       }
+
       label {
         font-family: Verdana, sans-serif;
         font-size: 15px;
         margin: 0 0 0 7px;
         vertical-align: top;
       }
+
       input {
         margin: 0;
         position: absolute;
@@ -678,20 +750,20 @@
       }
     }
   }
+
   .top-form-wrapper {
-    background-color: $lighter-grey;
+    background-color: $gray-100;
     margin-top: 20px;
     overflow: hidden;
     padding: 0 20px 20px 20px;
+
     .js-form-type-select,
     .js-form-type-date {
       margin: 0;
     }
+
     select {
-      border: 1px solid $medium-grey;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      -ms-appearance: none;
+      border: 1px solid $gray-300;
       appearance: none;
       background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
       background-position: 100% 50%;
@@ -699,78 +771,98 @@
       background-color: $white;
       padding-right: 25px;
       font-family: $headings-font-family;
-      color: $dark-grey;
+      color: $gray-500;
       font-size: 14px;
       text-transform: uppercase;
       max-width: 220px;
+
       ::-ms-expand {
         display: none;
       }
     }
+
     > div {
       margin-top: 20px;
-      @include breakpoint($screen-tablet) {
+
+      @include media-breakpoint-up(md) {
         float: left;
         margin-right: 30px;
       }
     }
+
     #date-select-wrapper {
       max-width: 220px;
     }
+
     #submit-wrapper {
-      @include breakpoint($screen-tablet) {
+      @include media-breakpoint-up(md) {
         margin: 46px 30px 0 0;
       }
-      @include breakpoint($screen-md) {
+
+      @include media-breakpoint-up(md) {
         clear: both;
         float: left;
         margin-top: 20px;
       }
-      @include breakpoint($screen-lg) {
+
+      @include media-breakpoint-up(lg) {
         clear: none;
         margin-top: 46px;
       }
     }
+
     .groupex-pdf-link-container {
-      @include breakpoint($screen-tablet) {
+      @include media-breakpoint-up(md) {
         margin-top: 46px;
       }
-      @include breakpoint($screen-md) {
+
+      @include media-breakpoint-up(md) {
         margin-top: 20px;
       }
-      @include breakpoint($screen-lg) {
+
+      @include media-breakpoint-up(lg) {
         margin-top: 46px;
       }
+
       a {
-        color: #fff;
+        color: white;
       }
+
     }
   }
+
   .groupex-results {
     clear: both;
     padding: 40px 0;
   }
+
   .class-description {
     margin: 15px 0;
     font-size: 20px;
+
     img {
       max-width: 100%;
     }
   }
+
   &.branch-specific-form {
     #location-select-wrapper {
       display: none !important;
     }
+
     #class-select-wrapper {
       display: block !important;
     }
+
     #date-select-wrapper {
       display: block !important;
     }
+
     .class-description {
       display: block;
     }
   }
+
   #submit-wrapper {
     display: block !important;
   }
@@ -783,7 +875,8 @@ iframe#ga_iframe {
   height: 865px;
   margin-top: 10px;
   margin-bottom: 10px;
-  @include breakpoint($screen-desktop) {
+
+  @include media-breakpoint-up(lg) {
     height: 460px;
   }
 }
@@ -794,7 +887,6 @@ iframe#ga_iframe {
  */
 
 /* Base */
-
 .addtocalendar var {
   display: none;
 }
@@ -834,7 +926,7 @@ iframe#ga_iframe {
   list-style: none;
   margin: 0;
   padding: 0;
-  background: #fff;
+  background: white;
 }
 
 .atcb-item {
@@ -858,7 +950,6 @@ iframe#ga_iframe {
 }
 
 /* Blue */
-
 .atc-style-blue .atcb-link,
 .atc-style-blue .atcb-link:hover,
 .atc-style-blue .atcb-link:active,
@@ -883,12 +974,12 @@ iframe#ga_iframe {
   width: 170px;
   border: 1px solid rgb(186, 186, 186);
   border-radius: 2px;
-  box-shadow: 0 0 5px #AAA;
+  box-shadow: 0 0 5px #aaa;
 }
 
 .atc-style-blue .atcb-list,
 .atc-style-blue .atcb-item {
-  background: #fff;
+  background: white;
   color: #000;
 }
 
@@ -914,7 +1005,7 @@ iframe#ga_iframe {
 .atc-style-blue .atcb-item-link:hover,
 .atc-style-blue .atcb-item-link:active,
 .atc-style-blue .atcb-item-link:focus {
-  color: #fff;
+  color: white;
 }
 
 .atc-style-blue .atcb-item.hover,

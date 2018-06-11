@@ -1,28 +1,33 @@
 .yamlform-submission-guest-pass-form-form {
   #rc-imageselect,
   .g-recaptcha {
-    @include breakpoint($screen-lg-desktop) {
+    transform: scale(0.96);
+    -webkit-transform: scale(0.96);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+
+    @include media-breakpoint-up(xs) {
       transform: scale(1.24);
       -webkit-transform: scale(1.24);
       transform-origin: 0 0;
       -webkit-transform-origin: 0 0;
     }
 
-    @include breakpoint($screen-desktop $screen-lg-desktop) {
-      transform: scale(1.02);
-      -webkit-transform: scale(1.02);
-      transform-origin: 0 0;
-      -webkit-transform-origin: 0 0;
-    }
-
-    @include breakpoint($screen-sm $screen-desktop) {
+    @include media-breakpoint-up(sm) {
       transform: scale(0.78);
       -webkit-transform: scale(0.78);
       transform-origin: 0 0;
       -webkit-transform-origin: 0 0;
     }
 
-    @include breakpoint($screen-xs $screen-sm) {
+    @include media-breakpoint-up(md) {
+      transform: scale(1.02);
+      -webkit-transform: scale(1.02);
+      transform-origin: 0 0;
+      -webkit-transform-origin: 0 0;
+    }
+
+    @include media-breakpoint-up(lg) {
       transform: scale(1.24);
       -webkit-transform: scale(1.24);
       transform-origin: 0 0;
@@ -41,13 +46,6 @@
     @media screen and (width: 568px) {
       transform: scale(1.425);
       -webkit-transform: scale(1.425);
-      transform-origin: 0 0;
-      -webkit-transform-origin: 0 0;
-    }
-
-    @media screen and (width: 320px) {
-      transform: scale(0.96);
-      -webkit-transform: scale(0.96);
       transform-origin: 0 0;
       -webkit-transform-origin: 0 0;
     }
@@ -72,24 +70,18 @@
 // Bottom margin-top to avoid overlay of captcha.
 .yamlform-submission-guest-pass-form-form {
   input + #edit-actions {
-    @include breakpoint($screen-lg-desktop) {
+    margin-top: 10px;
+
+    @include media-breakpoint-up(sm) {
       margin-top: 20px;
     }
 
-    @include breakpoint($screen-xs $screen-sm) {
-      margin-top: 20px;
-    }
-
-    @media screen and (width: 375px) {
-      margin-top: 10px;
-    }
-
-    @media screen and (width: 568px) {
+    @include media-breakpoint-up(md) {
       margin-top: 30px;
     }
 
-    @media screen and (width: 667px) {
-      margin-top: 50px;
+    @include media-breakpoint-up(lg) {
+      margin-top: 20px;
     }
   }
 }

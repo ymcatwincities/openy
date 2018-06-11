@@ -42,7 +42,6 @@
   background-color: #ebebeb;
   width: 100%;
   margin-bottom: 50px;
-  margin-top: 50px;
 
   & > div {
     vertical-align: bottom;
@@ -58,6 +57,7 @@
 
       &.form-item-combine input {
         width: 100%;
+        padding: 9px 12px 9px 5px;
       }
 
       &.form-item-related-content-titles {

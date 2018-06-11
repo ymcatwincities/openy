@@ -1,20 +1,21 @@
 .field-media-local-video {
   padding: 20px;
+
   video {
     width: 300px !important;
     height: 200px !important;
 
-    @include breakpoint($screen-xs) {
+    @include media-breakpoint-up(sm) {
       width: 320px !important;
       height: 240px !important;
     }
 
-    @include breakpoint($screen-sm) {
+    @include media-breakpoint-up(sm) {
       width: 400px !important;
       height: 300px !important;
     }
 
-    @include breakpoint($screen-md) {
+    @include media-breakpoint-up(md) {
       width: 640px !important;
       height: 480px !important;
     }
@@ -24,13 +25,14 @@
 .sidebar-region {
   .field-media-local-video {
     padding: 20px;
-    video {
-      width: 300px !important;
-      height: 200px !important;
 
-      @include breakpoint($screen-xs $screen-sm-max) {
-        width: 180px !important;
-        height: 120px !important;
+    video {
+      width: 180px !important;
+      height: 120px !important;
+
+      @include media-breakpoint-up(sm) {
+        width: 300px !important;
+        height: 200px !important;
       }
     }
 
@@ -41,6 +43,3 @@
     }
   }
 }
-
-
-
