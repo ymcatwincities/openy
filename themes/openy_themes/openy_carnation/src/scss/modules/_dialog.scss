@@ -20,7 +20,7 @@ body .branch-popup {
       margin-bottom: 15px;
       margin-top: 15px;
       padding-right: 15px;
-      color: $purple;
+      color: $primary;
       width: 100%;
 
       &:after {
@@ -30,17 +30,20 @@ body .branch-popup {
 
     .form-item-branch {
       line-height: 20px;
-      padding: 7px 15px 7px 10px;
+      padding: 15px;
       position: relative;
+      border-radius: $border-radius;
+      margin: 0 20px 0 0;
 
       &:hover {
         background-color: $gray-100;
       }
 
       input {
-        margin: 7px 0 0 0;
+        margin: 0;
         position: absolute;
-        top: 5px;
+        top: 50%;
+        transform: translateY(-50%);
       }
 
       label {
@@ -80,19 +83,17 @@ body .branch-popup {
   }
 
   .fieldset-legend {
-    margin: 0;
+    margin: 0 0 .75rem 0;
     font-weight: normal;
     line-height: inherit;
     font-family: $headings-font-family;
+
     @include media-breakpoint-up(sm) {
       font-size: 24px;
     }
   }
 
   .button {
-    @extend .blue;
-    font-family: $headings-font-family;
-    height: 40px;
     float: right;
     padding: 10px 20px;
   }
