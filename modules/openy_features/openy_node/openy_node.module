@@ -30,7 +30,7 @@ function openy_node_modules_installed($modules) {
       if ($module_handler->moduleExists($module)) {
         $config_dir = drupal_get_path('module', $module) . '/config/install';
         $config_importer->setDirectory($config_dir);
-        $config_importer->importConfigs([$config]);
+        $config_importer->importConfigSimple($config);
       }
     }
   }
