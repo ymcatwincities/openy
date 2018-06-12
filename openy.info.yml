@@ -210,6 +210,7 @@ dependencies:
   - openy_redirect
   - advanced_help_block
   - openy_gtranslate
+  - openy_autocomplete_path
 
 themes:
   - bartik
