@@ -6653,3 +6653,11 @@ function ymca_master_update_8287() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['ygtc_openy_alerts'], TRUE);
 }
+
+/**
+ * Enable OpenY Autocomplete Path.
+ */
+function ymca_master_update_8288() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['openy_autocomplete_path'], TRUE);
+}
