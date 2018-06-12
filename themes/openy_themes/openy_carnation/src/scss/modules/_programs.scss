@@ -11,10 +11,10 @@
 
   fieldset {
     legend span {
+      @include cachet();
       border: none;
       color: $purple;
       font-size: 36px;
-      font-family: $headings-font-family;
     }
 
     .js-webform-radios {
@@ -67,10 +67,10 @@
   }
 
   .result {
+    @include cachet();
     font-size: 24px;
     color: $pink;
     margin: 40px 0 0;
-    font-family: $headings-font-family;
 
     a {
       @include cachet(500);

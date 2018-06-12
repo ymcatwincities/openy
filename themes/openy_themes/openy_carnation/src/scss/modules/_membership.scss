@@ -4,9 +4,13 @@ a[href="#step2"] {
 
 #membership-calc-wrapper {
 
+  fieldset {
+    margin: 0;
+  }
+
   .description,
   legend {
-    font-family: $headings-font-family;
+    @include cachet();
   }
 
   .description {
@@ -121,7 +125,7 @@ a[href="#step2"] {
 
   // step tracker
   .nav-pills {
-    font-family: $headings-font-family;
+    @include cachet();
     font-size: 13px;
 
     @include media-breakpoint-up(sm) {

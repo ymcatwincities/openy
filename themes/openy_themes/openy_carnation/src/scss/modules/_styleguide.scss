@@ -5,9 +5,9 @@ $sg-highlight-background: #f7f7f9;
 
 .styleguide {
   .sg-color {
+    @include cachet();
     @include border-radius(3px);
     color: $white;
-    font-family: $headings-font-family;
     margin-bottom: 12px;
     min-height: 50px;
     padding: 12px;
@@ -40,7 +40,7 @@ $sg-highlight-background: #f7f7f9;
   }
 
   .bg-dark-blue {
-    background-color: $dark-blue;
+    background-color: $primary-darker;
   }
 
   .bg-pink {
@@ -105,7 +105,7 @@ $sg-highlight-background: #f7f7f9;
   }
 
   .highlight {
-    border-left: 3px solid $dark-blue;
+    border-left: 3px solid $primary-darker;
   }
 
   .fontawesome-icon-list .fa-hover a {
@@ -140,7 +140,7 @@ $sg-highlight-background: #f7f7f9;
   }
 
   .underline {
-    border-bottom: 3px solid $dark-blue;
+    border-bottom: 3px solid $primary-darker;
     padding-bottom: 10px;
   }
 }

@@ -69,28 +69,26 @@
 
   .tier-prices {
     margin-bottom: 15px;
+
     .tier-price {
-      font-family: $headings-font-family;
+      @include cachet(700);
       font-size: 18px;
-      font-weight: bold;
     }
   }
 
   .ticket {
+    @include cachet(700);
     color: $purple;
     margin-top: 10px;
-    font-family: $headings-font-family;
     font-size: 18px;
-    font-weight: bold;
   }
 }
 
 .class_price,
 .class_time,
 .class_days {
-  font-family: $headings-font-family;
+  @include cachet(700);
   font-size: 18px;
-  font-weight: bold;
 }
 
 .class_price:first-child {
@@ -99,7 +97,7 @@
 
 .node--type-class.node--view-mode-teaser {
   h2, h3 {
-    font-family: $headings-font-family;
+    @include cachet();
     font-size: 22px;
     line-height: 1;
     color: $primary;
@@ -131,8 +129,8 @@
 
 .class__session-instance,
 .flexreg__teaser {
+  @include cachet();
   border-bottom: 1px solid $gray-100;
-  font-family: $headings-font-family;
 
   td {
     padding: 10px 5px;

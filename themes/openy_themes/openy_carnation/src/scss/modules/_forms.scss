@@ -14,7 +14,7 @@
 }
 
 .btn {
-  font-family: $headings-font-family;
+  @include cachet();
   text-transform: uppercase;
 
   &.blue {
@@ -81,7 +81,7 @@
   padding: 15px 0;
 
   label {
-    font-family: $headings-font-family;
+    @include cachet();
     font-size: 18px;
     line-height: 23px
   }

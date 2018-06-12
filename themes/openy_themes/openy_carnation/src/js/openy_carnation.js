@@ -245,6 +245,8 @@
 
   function matchAllHeight() {
     var el = [
+      '.viewport .page-head__main-menu .nav-level-3 > a',
+      '.blog-heading',
       '.membership-type',
       '.membership-type h3',
       '.membership-type article p'
