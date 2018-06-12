@@ -7,7 +7,7 @@
 }
 
 .site-alert__title {
-  font-family: $headings-font-family;
+  @include cachet();
   font-size: 16px;
   display: inline;
   padding-right: 0.7em;

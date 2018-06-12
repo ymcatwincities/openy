@@ -79,7 +79,7 @@
       }
 
       a {
-        font-family: $headings-font-family;
+        @include cachet();
         text-transform: uppercase;
         font-weight: 500;
         font-size: 20px;

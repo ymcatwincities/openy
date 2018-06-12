@@ -7081,6 +7081,8 @@ html.js .ajax-new-content:empty {
   display: flex; }
   .breadcrumbs li span,
   .breadcrumbs li a {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     display: block;
     float: left;
     height: 50px;
@@ -7119,12 +7121,6 @@ html.js .ajax-new-content:empty {
     background: #e6e5e5; }
     .breadcrumbs li span:after {
       border-left-color: #e6e5e5; }
-  .breadcrumbs li a:hover {
-    background: #0089d0;
-    color: white; }
-    .breadcrumbs li a:hover:after {
-      border-left-color: #0089d0;
-      color: white; }
   .breadcrumbs li:first-child a {
     padding-left: 30px; }
     .breadcrumbs li:first-child a:before {
@@ -7132,7 +7128,7 @@ html.js .ajax-new-content:empty {
 
 .btn-transparent {
   font-family: "Cachet", "Comfortaa", sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -1px;
   background-color: transparent !important;
   border: 3px solid white !important;
@@ -7150,8 +7146,8 @@ a.follow-link,
 .paragraph--type--grid-related-blog-posts .field-prgf-link a,
 .y-news-view-list .comments_count a {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   font-size: 20px;
-  font-weight: 500;
   letter-spacing: -1px;
   line-height: 24px;
   color: #0089d0;
@@ -7176,8 +7172,8 @@ a.follow-link::after,
 
 body .pager li.load_more_button > a {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   font-size: 20px;
-  font-weight: 500;
   border-radius: 8px;
   letter-spacing: -1px; }
 
@@ -7645,27 +7641,21 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
 .paragraph--type--banner {
   position: relative;
   overflow: hidden; }
-  .paragraph--type--banner .banner-cta {
-    position: relative;
-    background: #20bdbe; }
-    @media (min-width: 992px) {
-      .paragraph--type--banner .banner-cta {
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        background: none; } }
+  @media (min-width: 992px) {
+    .paragraph--type--banner .banner-cta {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: none; } }
   .paragraph--type--banner .banner-title {
     font-size: 60px;
     line-height: normal;
     font-weight: 500;
     letter-spacing: -1.5px;
     color: white; }
-  .paragraph--type--banner .banner-description {
-    font-size: 20px;
-    line-height: 25px; }
 
 .paragraph--type--featured-blogs .slick-prev {
   left: -17px; }
@@ -7772,21 +7762,24 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
         .branch-header .desktop .column.address-wrapper {
           max-width: 310px; } }
     .branch-header .desktop .column .field-phone a {
-      font-family: "Cachet", "Comfortaa", sans-serif; }
+      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400; }
     .branch-header .desktop .column .ygs-branch-selector {
       margin-top: 22px; }
       .branch-header .desktop .column .ygs-branch-selector a {
-        font-family: "Cachet", "Comfortaa", sans-serif; }
+        font-family: "Cachet", "Comfortaa", sans-serif;
+        font-weight: 400; }
   .branch-header .desktop h4 {
     font-size: 14px;
     line-height: 1.1;
     text-transform: uppercase;
     margin: 0 0 5px; }
   .branch-header .desktop p {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 16px;
     line-height: 1.1;
-    margin: 0;
-    font-family: "Cachet", "Comfortaa", sans-serif; }
+    margin: 0; }
     @media (min-width: 768px) {
       .branch-header .desktop p {
         font-size: 14px; } }
@@ -7809,6 +7802,7 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
         white-space: nowrap; }
   .branch-header .desktop .today-hours .dropdown-toggle {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     position: relative;
     z-index: 0; }
     .branch-header .desktop .today-hours .dropdown-toggle span {
@@ -7859,9 +7853,10 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
     line-height: 1.2;
     margin: 0 0 3px; }
   .branch-header .mobile p {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 16px;
     line-height: 1.1;
-    font-family: "Cachet", "Comfortaa", sans-serif;
     margin: 0 0 5px; }
   .branch-header .mobile a {
     color: #fff; }
@@ -7903,13 +7898,15 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
         text-transform: uppercase;
         margin: 0 0 5px; }
       .branch-header .mobile .ui-tabs .ui-tabs-panel p {
-        color: #fff;
+        font-family: "Cachet", "Comfortaa", sans-serif;
+        font-weight: 400;
+        color: white;
         font-size: 16px;
         line-height: 1.1;
-        margin: 0;
-        font-family: "Cachet", "Comfortaa", sans-serif; }
+        margin: 0; }
     .branch-header .mobile .ui-tabs .today-hours {
-      font-family: "Cachet", "Comfortaa", sans-serif; }
+      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400; }
       .branch-header .mobile .ui-tabs .today-hours .today {
         margin-right: 10px; }
       .branch-header .mobile .ui-tabs .today-hours .branch-hours {
@@ -7941,8 +7938,9 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
     max-width: 155px;
     line-height: 14px; }
     .branch-header .mobile #save-location a {
-      color: #fff;
-      font-family: "Cachet", "Comfortaa", sans-serif; }
+      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
+      color: white; }
 
 .branch-header .field-location-fax {
   display: inline; }
@@ -8053,9 +8051,10 @@ html.js .branch__updates_queue__button {
     font-style: normal !important; }
 
 .ygs-branch-sessions-form label {
+  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet", "Comfortaa", sans-serif;
   color: #4f4f4f;
   margin-bottom: 0; }
   @media (min-width: 576px) {
@@ -8085,9 +8084,10 @@ html.js .branch__updates_queue__button {
     .ygs-branch-sessions-form .js-form-type-select {
       padding: 0; } }
   .ygs-branch-sessions-form .js-form-type-select select {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
-    color: #4f4f4f;
-    font-family: "Cachet", "Comfortaa", sans-serif; }
+    color: #4f4f4f; }
 
 .ygs-branch-sessions-form .form-item-when-day {
   display: inline-block; }
@@ -8185,6 +8185,7 @@ html.js .branch__updates_queue__button {
         right: 0; } }
     .ygs-branch-sessions-form .filters-main-wrapper .reset-wrapper .clear {
       font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
       background: none;
       border: none;
       color: #0089d0;
@@ -8208,6 +8209,7 @@ html.js .branch__updates_queue__button {
       border: 0; } }
   .ygs-branch-sessions-form .filters-wrapper .label {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     color: #4f4f4f;
     display: block;
     font-size: 14px;
@@ -8222,6 +8224,7 @@ html.js .branch__updates_queue__button {
     display: inline-block; }
     .ygs-branch-sessions-form .filters-wrapper .filters .filter {
       font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
       background: #fff;
       border-radius: 4px;
       color: #00aeef;
@@ -8306,6 +8309,7 @@ html.js .branch__updates_queue__button {
     color: #333333; }
   .branch-sessions-group .group_time {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     background: #fff;
     border-bottom: 1px solid #c6168d;
     color: #5c2e91;
@@ -8441,9 +8445,9 @@ html.js .branch__updates_queue__button {
   .node--type-branch.node--view-mode-sidebar-teaser .location-item--title,
   .node--type-branch.node--view-mode-class-location .location-item--title,
   .node--type-camp.node--view-mode-teaser .location-item--title {
-    font-size: 22px;
     font-family: "Cachet", "Comfortaa", sans-serif;
-    font-weight: bold; }
+    font-weight: 400;
+    font-size: 22px; }
     .marker_tooltip .node--location-content-type.node--view-mode-teaser .location-item--title, .marker_tooltip
     .node--type-facility.node--view-mode-teaser .location-item--title, .marker_tooltip
     .node--type-branch.node--view-mode-teaser .location-item--title, .marker_tooltip
@@ -8560,10 +8564,10 @@ html.js .branch__updates_queue__button {
   .node--view-mode-full.node--type-facility .label-for-field-location-address {
     display: block; }
   .node--view-mode-full.node--type-facility .associated-branch-title {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     display: inline-block;
     font-size: 22px;
-    font-family: "Cachet", "Comfortaa", sans-serif;
-    font-weight: bold;
     margin: 20px 0 33px;
     line-height: 1.1;
     color: inherit; }
@@ -8747,28 +8751,29 @@ html.js .branch__updates_queue__button {
   margin-bottom: 15px; }
   .class-page-schedule .tier-prices .tier-price {
     font-family: "Cachet", "Comfortaa", sans-serif;
-    font-size: 18px;
-    font-weight: bold; }
+    font-weight: 700;
+    font-size: 18px; }
 
 .class-page-schedule .ticket {
+  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 700;
   color: #5c2e91;
   margin-top: 10px;
-  font-family: "Cachet", "Comfortaa", sans-serif;
-  font-size: 18px;
-  font-weight: bold; }
+  font-size: 18px; }
 
 .class_price,
 .class_time,
 .class_days {
   font-family: "Cachet", "Comfortaa", sans-serif;
-  font-size: 18px;
-  font-weight: bold; }
+  font-weight: 700;
+  font-size: 18px; }
 
 .class_price:first-child {
   margin-top: 35px; }
 
 .node--type-class.node--view-mode-teaser h2, .node--type-class.node--view-mode-teaser h3 {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   font-size: 22px;
   line-height: 1;
   color: #0089d0;
@@ -8793,8 +8798,9 @@ html.js .branch__updates_queue__button {
 
 .class__session-instance,
 .flexreg__teaser {
-  border-bottom: 1px solid #ebebeb;
-  font-family: "Cachet", "Comfortaa", sans-serif; }
+  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
+  border-bottom: 1px solid #ebebeb; }
   .class__session-instance td,
   .flexreg__teaser td {
     padding: 10px 5px; }
@@ -8861,6 +8867,7 @@ html.js .branch__updates_queue__button {
     margin-bottom: 0; }
   .block-description--4 .field-prgf-description {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 20px;
     line-height: 1.4;
     color: #5c2e91;
@@ -8869,6 +8876,7 @@ html.js .branch__updates_queue__button {
     padding: 0 15px; }
   .block-description--4 .block-description--text h4 {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 22px;
     color: #636466;
     text-align: left; }
@@ -8990,10 +8998,11 @@ body .branch-popup {
     padding-top: 0;
     margin-top: -10px; }
   .modal-body .fieldset-legend {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     margin: 0 0 .75rem 0;
     font-weight: normal;
-    line-height: inherit;
-    font-family: "Cachet", "Comfortaa", sans-serif; }
+    line-height: inherit; }
     @media (min-width: 576px) {
       .modal-body .fieldset-legend {
         font-size: 24px; } }
@@ -9299,6 +9308,7 @@ body .branch-popup {
 
 .btn {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   text-transform: uppercase; }
   .btn.blue a {
     text-decoration: none; }
@@ -9345,6 +9355,7 @@ body .branch-popup {
   padding: 15px 0; }
   .yamlform-submission-guest-pass-form-form label {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 18px;
     line-height: 23px; }
   .yamlform-submission-guest-pass-form-form .form-control {
@@ -9597,6 +9608,7 @@ body .branch-popup {
     background: white; }
   .paragraph--column-in-a-grid .inner .more-link a {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
     font-weight: 500;
     font-size: 20px;
@@ -9637,10 +9649,10 @@ body .branch-popup {
 
 .site-name {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   font-size: 20px;
   color: #636466;
   text-transform: uppercase;
-  font-weight: 500;
   letter-spacing: -1px;
   line-height: 44px; }
 
@@ -9656,6 +9668,7 @@ body .branch-popup {
     border: none; }
   .page-head__top-menu .navbar-nav > li > a {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     color: #777777;
     background-color: transparent !important;
     padding-bottom: 8px;
@@ -9683,10 +9696,11 @@ body .branch-popup {
     .openy-gtranslate .goog-te-gadget-simple .goog-te-gadget-icon {
       display: none; }
     .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value {
+      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
       display: inline-block;
       margin: 0;
       padding: 8px 1.5rem;
-      font-family: "Cachet", "Comfortaa", sans-serif;
       font-size: 16px;
       color: #777777;
       border-left: 1px solid #636466;
@@ -9948,9 +9962,13 @@ body .branch-popup {
 a[href="#step2"] {
   pointer-events: none; }
 
+#membership-calc-wrapper fieldset {
+  margin: 0; }
+
 #membership-calc-wrapper .description,
 #membership-calc-wrapper legend {
-  font-family: "Cachet", "Comfortaa", sans-serif; }
+  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400; }
 
 #membership-calc-wrapper .description {
   padding-bottom: 1em;
@@ -10035,6 +10053,7 @@ a[href="#step2"] {
 
 #membership-calc-wrapper .nav-pills {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   font-size: 13px; }
   @media (min-width: 576px) {
     #membership-calc-wrapper .nav-pills {
@@ -10134,10 +10153,6 @@ a[href="#step2"] {
   line-height: 1.1;
   color: inherit; }
 
-body.with-banner .page-head__main-menu .nav-level-2 > a,
-body.with-banner .page-head__main-menu .nav-level-2 > button {
-  color: white; }
-
 .menu-item-home {
   background: url("../img/logo-white.png") no-repeat;
   background-size: 65px 50px;
@@ -10154,6 +10169,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
 
 .page-head__main-menu .navbar > li > a,
 .page-head__main-menu .navbar > li > button {
+  color: white;
   padding: 35px 0;
   text-align: center; }
   .page-head__main-menu .navbar > li > a:hover,
@@ -10161,9 +10177,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
     color: #c6168d; }
 
 .page-head__main-menu a {
-  color: #0060af;
   font-size: 18px;
-  font-weight: 500;
   font-style: normal;
   font-stretch: normal;
   line-height: 0.85; }
@@ -10196,7 +10210,8 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
     height: auto; }
 
 .viewport .page-head__main-menu .nav-level-2 {
-  font-family: "Cachet", "Comfortaa", sans-serif; }
+  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400; }
   .viewport .page-head__main-menu .nav-level-2 > a:hover,
   .viewport .page-head__main-menu .nav-level-2 > a:focus {
     text-decoration: none; }
@@ -10210,14 +10225,17 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
   padding-top: 25px; }
   .viewport .page-head__main-menu .nav-level-3 > a {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     line-height: 24px;
     min-height: 34px;
     display: inline-block;
     padding: 0;
     position: relative;
-    color: white; }
+    color: white;
+    text-transform: uppercase; }
     @media (min-width: 992px) {
       .viewport .page-head__main-menu .nav-level-3 > a {
+        min-height: 30px;
         color: #0060af; } }
 
 .viewport .page-head__main-menu .row-level-2 {
@@ -10248,8 +10266,10 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
   padding-left: 0; }
 
 .viewport .nav-level-4 {
-  padding: 2px 0; }
+  padding: 4px 0; }
   .viewport .nav-level-4 a {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 14px;
     line-height: 20px;
     text-transform: none; }
@@ -10268,6 +10288,25 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
 .page-head__main-menu .nav-level-2.show .fa-angle-down {
   display: none; }
 
+.without-banner .viewport {
+  margin-top: 140px; }
+
+.without-banner .page-head__main-menu .nav-level-2 > a {
+  color: #0089d0; }
+  .without-banner .page-head__main-menu .nav-level-2 > a:hover {
+    color: #c6168d; }
+
+.without-banner .page-head__main-menu .nav-level-2.show > a,
+.without-banner .page-head__main-menu .nav-level-2.show > a:focus {
+  color: #c6168d; }
+
+.without-banner .menu-item-home {
+  background: url("../img/logo-color.png") no-repeat;
+  background-size: 65px 50px;
+  width: 65px;
+  text-indent: -9999px;
+  background-position: center; }
+
 .microsites-menu.microsites-menu--hide-main-menu .nav-home .navbar-nav {
   visibility: hidden; }
 
@@ -10276,6 +10315,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
 
 .wrapper-field-menu-block-links a {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   color: inherit;
   text-transform: uppercase;
   font-size: 16px;
@@ -10329,13 +10369,18 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
     background-color: #0089d0; }
   .sidebar .active > a {
     transition: height 0.3s 0.3s ease-out, opacity 0.3s 0s ease-out, background-color 0.2s 0.6s ease-out, color 0.2s 0.6s ease-out, color 0.2s 0.6s ease-out, border-color 0s ease-out; }
+  .sidebar .nav > li > a {
+    color: white; }
   .sidebar .nav a {
+    color: #0060af;
     overflow: hidden;
     padding: 0 15px;
     text-overflow: ellipsis;
     line-height: 20px;
     cursor: pointer;
     transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out, background-color 0.2s ease-out; }
+    .sidebar .nav a[aria-expanded="true"] {
+      color: white; }
     .sidebar .nav a:hover, .sidebar .nav a[aria-expanded="true"] {
       background: #0060af; }
   .sidebar .nav-level-2 .row-level-2 {
@@ -10353,6 +10398,7 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
     display: none; }
   .sidebar .navbar-nav {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     margin: 0 -15px; }
   .sidebar .nav-level-2 a {
     padding-top: 25px;
@@ -10360,6 +10406,8 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
   .sidebar .nav-level-2.show,
   .sidebar .row-level-2 {
     background-color: white; }
+  .sidebar .nav-level-3 a {
+    text-transform: uppercase; }
   .sidebar .dropdown-menu > li > a:hover,
   .sidebar .dropdown-menu > li > a:focus {
     background: none; }
@@ -10547,8 +10595,9 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
         padding-top: 0;
         text-align: inherit; } }
   .news-more-teaser label {
-    display: block;
-    font-family: "Cachet", "Comfortaa", sans-serif; }
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
+    display: block; }
   .news-more-teaser .form-item-combine label {
     border: 0;
     clip: rect(0 0 0 0);
@@ -10559,7 +10608,8 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
     position: absolute;
     width: 1px; }
   .news-more-teaser select {
-    font-family: "Cachet", "Comfortaa", sans-serif; }
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400; }
   .news-more-teaser .form-text {
     width: 100%;
     height: 34px;
@@ -10568,13 +10618,13 @@ body.with-banner .page-head__main-menu .nav-level-2 > button {
       .news-more-teaser .form-text {
         width: 250px; } }
   .news-more-teaser input[type="submit"] {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     width: 90px;
     height: 34px;
     padding: 7px 16px;
     border: solid 1px #636466;
     font-size: 16px;
-    font-weight: 600;
-    font-family: "Cachet", "Comfortaa", sans-serif;
     text-transform: uppercase; }
   .news-more-teaser .no-results {
     margin-bottom: 49px; }
@@ -10600,25 +10650,6 @@ body {
   display: flex;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap; }
-
-.without-banner .viewport {
-  margin-top: 140px; }
-
-.without-banner .page-head__main-menu .nav-level-2 > a {
-  color: #0089d0; }
-  .without-banner .page-head__main-menu .nav-level-2 > a:hover {
-    color: #c6168d; }
-
-.without-banner .page-head__main-menu .nav-level-2.show > a,
-.without-banner .page-head__main-menu .nav-level-2.show > a:focus {
-  color: #c6168d; }
-
-.without-banner .menu-item-home {
-  background: url("../img/logo-color.png") no-repeat;
-  background-size: 65px 50px;
-  width: 65px;
-  text-indent: -9999px;
-  background-position: center; }
 
 .tabs {
   text-align: center; }
@@ -10825,18 +10856,20 @@ body {
     .sub-category-classes-view .js-form-type-select {
       width: 200px; } }
   .sub-category-classes-view .js-form-type-select label {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 14px;
     line-height: 1.6;
-    font-family: "Cachet", "Comfortaa", sans-serif;
     color: #4f4f4f;
     margin-bottom: 0; }
     @media (min-width: 576px) {
       .sub-category-classes-view .js-form-type-select label {
         margin-bottom: 5px; } }
   .sub-category-classes-view .js-form-type-select select {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
-    color: #4f4f4f;
-    font-family: "Cachet", "Comfortaa", sans-serif; }
+    color: #4f4f4f; }
 
 .sub-category-classes-view .selects-container hr {
   border-color: #636466;
@@ -10880,6 +10913,7 @@ body {
         right: 0; } }
     .sub-category-classes-view .filters-container .reset-wrapper .clear {
       font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
       background: none;
       border: none;
       color: #0089d0;
@@ -10903,6 +10937,7 @@ body {
       border: 0; } }
   .sub-category-classes-view .filters-wrapper .label {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     color: #4f4f4f;
     display: block;
     font-size: 14px;
@@ -10917,6 +10952,7 @@ body {
     display: inline-block; }
     .sub-category-classes-view .filters-wrapper .filters .filter {
       font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
       background: #fff;
       border-radius: 4px;
       color: #00aeef;
@@ -10971,6 +11007,7 @@ body {
 
 .sub-category-classes-view .activity-group .views-field-title {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   font-size: 22px;
   line-height: 1;
   color: #0089d0;
@@ -11049,10 +11086,11 @@ body {
     .programs-search-block-form {
       margin-bottom: 70px; } }
   .programs-search-block-form fieldset legend span {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     border: none;
     color: #5c2e91;
-    font-size: 36px;
-    font-family: "Cachet", "Comfortaa", sans-serif; }
+    font-size: 36px; }
   .programs-search-block-form fieldset .js-webform-radios {
     display: -webkit-flex;
     display: flex;
@@ -11088,10 +11126,11 @@ body {
         .programs-search-block-form fieldset .js-webform-radios .js-form-type-radio .ajax-progress-throbber .throbber {
           padding: 1px 6px 2px; }
   .programs-search-block-form .result {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 24px;
     color: #c6168d;
-    margin: 40px 0 0;
-    font-family: "Cachet", "Comfortaa", sans-serif; }
+    margin: 40px 0 0; }
     .programs-search-block-form .result a {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 500;
@@ -11132,18 +11171,20 @@ body {
       margin-right: 18px;
       width: 150px; } }
   #schedules-search-form-wrapper .js-form-type-select label {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 14px;
     line-height: 1.6;
-    font-family: "Cachet", "Comfortaa", sans-serif;
     color: #4f4f4f;
     margin-bottom: 0; }
     @media (min-width: 576px) {
       #schedules-search-form-wrapper .js-form-type-select label {
         margin-bottom: 5px; } }
   #schedules-search-form-wrapper .js-form-type-select select {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
-    color: #4f4f4f;
-    font-family: "Cachet", "Comfortaa", sans-serif; }
+    color: #4f4f4f; }
   #schedules-search-form-wrapper .js-form-type-select.form-item-location {
     padding: 15px 0 25px;
     width: 100%; }
@@ -11171,18 +11212,20 @@ body {
       margin-right: 18px;
       width: 110px; } }
   #schedules-search-form-wrapper .js-form-type-textfield label {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 14px;
     line-height: 1.6;
-    font-family: "Cachet", "Comfortaa", sans-serif;
     color: #4f4f4f;
     margin-bottom: 0; }
     @media (min-width: 576px) {
       #schedules-search-form-wrapper .js-form-type-textfield label {
         margin-bottom: 5px; } }
   #schedules-search-form-wrapper .js-form-type-textfield input {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
     color: #4f4f4f;
-    font-family: "Cachet", "Comfortaa", sans-serif;
     width: 100%; }
   #schedules-search-form-wrapper .js-form-type-textfield .hasDatepicker {
     background: #fff url("../img/icons/input_calc_icon.png") no-repeat 95% center;
@@ -11200,9 +11243,10 @@ body {
       margin-right: 18px;
       width: 110px; } }
   #schedules-search-form-wrapper .form-item-display label {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     font-size: 14px;
     line-height: 1.6;
-    font-family: "Cachet", "Comfortaa", sans-serif;
     color: #4f4f4f;
     margin-bottom: 0; }
     @media (min-width: 576px) {
@@ -11253,6 +11297,7 @@ body {
         right: 15px; } }
     #schedules-search-form-wrapper .filters-container .reset-wrapper .clear {
       font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
       background: none;
       border: none;
       color: #0089d0;
@@ -11276,6 +11321,7 @@ body {
       border: 0; } }
   #schedules-search-form-wrapper .filters-wrapper .label {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     color: #4f4f4f;
     display: block;
     font-size: 14px;
@@ -11290,6 +11336,7 @@ body {
     display: inline-block; }
     #schedules-search-form-wrapper .filters-wrapper .filters .filter {
       font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
       background: #fff;
       border-radius: 4px;
       color: #00aeef;
@@ -11337,6 +11384,7 @@ body {
       font-style: normal; }
   #schedules-search-listing-wrapper .results .group_time {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     color: #5c2e91;
     font-size: 18px;
     margin-bottom: 10px;
@@ -11424,6 +11472,7 @@ body {
       display: block; }
     #schedules-search-listing-wrapper .results .views-row h3 {
       font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
       font-size: 22px;
       line-height: 1;
       color: #0089d0;
@@ -11485,9 +11534,10 @@ body {
       line-height: 17px;
       letter-spacing: -0.5px; }
     #schedules-search-listing-wrapper .branch-hours-wrapper .card p {
+      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
       font-size: 30px;
-      line-height: 1.15;
-      font-family: "Cachet", "Comfortaa", sans-serif; }
+      line-height: 1.15; }
   #schedules-search-listing-wrapper .branch-hours-wrapper .col-sm-2 h4 {
     font-size: 14px; }
   #schedules-search-listing-wrapper .branch-hours-wrapper .col-sm-2 p {
@@ -11522,6 +11572,7 @@ body {
 #group-ex-results .caption,
 .groupex-results .caption {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   letter-spacing: -0.8px;
   color: #5c2e91;
   font-size: 30px;
@@ -11557,6 +11608,7 @@ body {
 #group-ex-results .time,
 .groupex-results .time {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   color: #5c2e91;
   font-size: 18px; }
   #group-ex-results .time .hh-mm,
@@ -11588,6 +11640,7 @@ body {
   #group-ex-results .card h3,
   .groupex-results .card h3 {
     font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     color: #0089d0;
     font-size: 22px;
     letter-spacing: -0.8px;
@@ -11665,6 +11718,8 @@ body {
   .groupex-form-full .top-form-wrapper .js-form-type-date {
     margin: 0; }
   .groupex-form-full .top-form-wrapper select {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     border: 1px solid #979797;
     appearance: none;
     background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
@@ -11672,7 +11727,6 @@ body {
     background-repeat: no-repeat;
     background-color: #fff;
     padding-right: 25px;
-    font-family: "Cachet", "Comfortaa", sans-serif;
     color: #4f4f4f;
     font-size: 14px;
     text-transform: uppercase;
@@ -11876,6 +11930,7 @@ iframe#ga_iframe {
 
 .site-alert__title {
   font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   font-size: 16px;
   display: inline;
   padding-right: 0.7em; }
@@ -12135,9 +12190,10 @@ iframe#ga_iframe {
   background: #ed1c24; }
 
 .styleguide .sg-color {
+  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400;
   border-radius: 3px;
   color: #fff;
-  font-family: "Cachet", "Comfortaa", sans-serif;
   margin-bottom: 12px;
   min-height: 50px;
   padding: 12px; }
@@ -12339,26 +12395,7 @@ body.path-user:not(.user-logged-in) {
     background-color: #636466; }
   .banner--purple {
     background-color: #5c2e91; }
-  @media (min-width: 768px) {
-    .banner-image {
-      position: absolute;
-      right: 0; } }
-  @media (min-width: 992px) {
-    .banner-image .media--image {
-      height: 600px;
-      overflow: hidden;
-      padding-bottom: 0 !important;
-      position: relative; } }
-  .banner-image img.media__element {
-    width: 100% !important;
-    height: auto !important; }
-    @media (min-width: 768px) {
-      .banner-image img.media__element {
-        width: 120% !important; } }
   .banner-title {
-    font-family: "Cachet", "Comfortaa", sans-serif;
-    font-weight: 400;
-    color: #fff;
     font-size: 32px;
     line-height: 36px;
     margin-bottom: 10px;
@@ -12372,46 +12409,18 @@ body.path-user:not(.user-logged-in) {
         font-size: 50px;
         line-height: 55px; } }
   .banner-description {
-    font-family: "Cachet", "Comfortaa", sans-serif;
-    font-weight: 500;
-    color: #fff;
     font-size: 16px;
-    font-style: normal;
-    font-stretch: normal;
     line-height: 1.22; }
     @media (min-width: 768px) {
       .banner-description {
-        font-size: 18px;
-        line-height: 22px;
-        margin-bottom: 30px; } }
-  .banner .banner-btn {
-    white-space: normal;
-    font-size: 18px;
-    padding: 0;
-    width: 100%; }
-    .banner .banner-btn a {
-      border: 1px solid #fff;
-      color: #fff;
-      display: block;
-      padding: 16px; }
-      @media (min-width: 576px) {
-        .banner .banner-btn a {
-          padding: 15px; } }
+        font-size: 20px;
+        line-height: 25px; } }
   .banner--small {
-    min-height: 120px; }
+    min-height: 120px;
+    max-height: 400px; }
     @media (min-width: 768px) {
       .banner--small {
-        min-height: 300px; } }
-    .banner--small .banner-image {
-      display: none; }
-      @media (min-width: 768px) {
-        .banner--small .banner-image {
-          display: block;
-          position: absolute;
-          right: 0; } }
-    .banner--small .banner-title {
-      margin: 0;
-      max-width: 700px; }
+        min-height: 400px; } }
 
 .paragraph--type--classes-listing-filters {
   background-color: #ebebeb; }
@@ -12620,7 +12629,8 @@ p:last-child,
     margin-top: 0; }
 
 .btn:not(.btn-link) {
-  font-family: "Cachet", "Comfortaa", sans-serif; }
+  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-weight: 400; }
 
 .media-image.media,
 .media--type-video.media,

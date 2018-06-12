@@ -273,8 +273,8 @@
   }
 
   label {
+    @include cachet();
     display: block;
-    font-family: $headings-font-family;
   }
 
   .form-item-combine label {
@@ -289,7 +289,7 @@
   }
 
   select {
-    font-family: $headings-font-family;
+    @include cachet();
   }
 
   .form-text {
@@ -303,13 +303,12 @@
   }
 
   input[type="submit"] {
+    @include cachet();
     width: 90px;
     height: 34px;
     padding: 7px 16px;
     border: solid 1px #636466;
     font-size: 16px;
-    font-weight: 600;
-    font-family: $headings-font-family;
     text-transform: uppercase;
   }
 

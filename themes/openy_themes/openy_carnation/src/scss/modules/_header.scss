@@ -35,11 +35,10 @@
 }
 
 .site-name {
-  font-family: $headings-font-family;
+  @include cachet();
   font-size: 20px;
   color: $gray-400;
   text-transform: uppercase;
-  font-weight: 500;
   letter-spacing: -1px;
   line-height: 44px;
 }
@@ -62,7 +61,7 @@
     }
 
     > a {
-      font-family: $headings-font-family;
+      @include cachet();
       color: $gray-800;
       background-color: transparent !important;
       padding-bottom: 8px;
@@ -100,10 +99,10 @@
     }
 
     .goog-te-menu-value {
+      @include cachet();
       display: inline-block;
       margin: 0;
       padding: 8px 1.5rem;
-      font-family: $headings-font-family;
       font-size: 16px;
       color: $gray-800;
       border-left: 1px solid $gray-400;

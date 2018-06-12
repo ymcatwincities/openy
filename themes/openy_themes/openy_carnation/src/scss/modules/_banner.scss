@@ -3,9 +3,6 @@
   overflow: hidden;
 
   .banner-cta {
-    position: relative;
-    background: $green;
-
     @include media-breakpoint-up(lg) {
       position: absolute;
       top: 0;
@@ -23,10 +20,5 @@
     font-weight: 500;
     letter-spacing: -1.5px;
     color: white;
-  }
-
-  .banner-description {
-    font-size: 20px;
-    line-height: 25px;
   }
 }

@@ -63,7 +63,7 @@ p:last-child,
 }
 
 .btn:not(.btn-link) {
-  font-family: $headings-font-family;
+  @include cachet();
 }
 
 // Media fix for BS.

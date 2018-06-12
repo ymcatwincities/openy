@@ -234,9 +234,9 @@
     }
 
     label {
+      @include cachet();
       font-size: 14px;
       line-height: 1.6;
-      font-family: $headings-font-family;
       color: $gray-500;
       margin-bottom: 0;
 
@@ -246,9 +246,9 @@
     }
 
     select {
+      @include cachet();
       text-transform: uppercase;
       color: $gray-500;
-      font-family: $headings-font-family;
     }
   }
   .selects-container {
@@ -307,7 +307,7 @@
       }
 
       .clear {
-        font-family: $headings-font-family;
+        @include cachet();
         background: none;
         border: none;
         color: $primary;
@@ -336,7 +336,7 @@
     }
 
     .label {
-      font-family: $headings-font-family;
+      @include cachet();
       color: $gray-500;
       display: block;
       font-size: 14px;
@@ -354,7 +354,7 @@
       display: inline-block;
 
       .filter {
-        font-family: $headings-font-family;
+        @include cachet();
         background: $white;
         border-radius: 4px;
         color: $light-blue;
@@ -423,7 +423,7 @@
     }
 
     .views-field-title {
-      font-family: $headings-font-family;
+      @include cachet();
       font-size: 22px;
       line-height: 1;
       color: $primary;

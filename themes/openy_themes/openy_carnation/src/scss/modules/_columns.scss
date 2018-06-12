@@ -6,7 +6,7 @@
   }
 
   .field-prgf-description {
-    font-family: $headings-font-family;
+    @include cachet();
     font-size: 20px;
     line-height: 1.4;
     color: $purple;
@@ -17,7 +17,7 @@
 
   .block-description--text {
     h4 {
-      font-family: $headings-font-family;
+      @include cachet();
       font-size: 22px;
       color: $gray-400;
       text-align: left;

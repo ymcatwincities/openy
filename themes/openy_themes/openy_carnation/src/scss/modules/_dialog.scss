@@ -83,10 +83,10 @@ body .branch-popup {
   }
 
   .fieldset-legend {
+    @include cachet();
     margin: 0 0 .75rem 0;
     font-weight: normal;
     line-height: inherit;
-    font-family: $headings-font-family;
 
     @include media-breakpoint-up(sm) {
       font-size: 24px;
