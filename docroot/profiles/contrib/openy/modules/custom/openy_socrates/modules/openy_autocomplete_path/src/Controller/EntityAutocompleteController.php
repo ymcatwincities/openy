@@ -7,6 +7,11 @@ use Drupal\openy_autocomplete_path\EntityAutocompleteMatcher;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\system\Controller\EntityAutocompleteController as SystemEntityAutocompleteController;
 
+/**
+ * Class EntityAutocompleteController.
+ *
+ * @package Drupal\openy_autocomplete_path\Controller
+ */
 class EntityAutocompleteController extends SystemEntityAutocompleteController {
 
   /**
@@ -18,7 +23,7 @@ class EntityAutocompleteController extends SystemEntityAutocompleteController {
    * {@inheritdoc}
    */
   public function __construct(EntityAutocompleteMatcher $matcher, KeyValueStoreInterface $key_value) {
-    //parent::__construct($matcher, $key_value);
+    parent::__construct($matcher, $key_value);
     $this->matcher = $matcher;
     $this->keyValue = $key_value;
   }
