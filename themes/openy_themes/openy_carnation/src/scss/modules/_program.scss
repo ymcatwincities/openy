@@ -1,4 +1,190 @@
 .program-header {
+  margin-bottom: 35px;
+
+  .content {
+    padding: 0;
+
+    .main {
+      padding: 40px 0;
+
+      @include media-breakpoint-up(md) {
+        padding: 20px 15px 5px 15px;
+      }
+    }
+
+    .image {
+      margin: -130px 0 0;
+      position: absolute !important;
+      right: 0;
+      height: 260px;
+      padding-right: 0;
+      text-align: right;
+      top: 50%;
+
+      img {
+        height: 260px;
+        width: auto;
+        display: inline;
+        position: static !important;
+      }
+    }
+  }
+
+  &.program-header-sub-category .content {
+    min-height: 260px;
+  }
+
+  .description {
+    .field-program-description {
+      @include cachet();
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}
+
+.carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
+  @include media-breakpoint-up(md) {
+    display: inline-block;
+  }
+}
+
+.sub-category-listing {
+  .activity-group {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+
+    @include media-breakpoint-up(md) {
+      width: 33.33333333%;
+      float: left;
+    }
+
+    .activity-item {
+      margin-bottom: 30px;
+      border: 1px solid #5c2e91;
+      padding: 20px;
+    }
+  }
+
+  .col-sm-8 {
+    .activity-group {
+      @include media-breakpoint-up(md) {
+        width: 50%;
+        float: left;
+      }
+    }
+  }
+}
+
+.prices-wrapper {
+  color: #333;
+
+  h4 {
+    font-size: 14px;
+  }
+}
+
+.node--type-program-subcategory {
+  .two-column {
+    padding: 15px 0;
+  }
+}
+
+[data-drupal-selector="edit-add-to-cart-button"] {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.ui-dialog {
+  .ui-dialog-content {
+    overflow: auto;
+  }
+
+  .ui-dialog-buttonpane {
+    .ui-dialog-buttonset {
+      button {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 2px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: #b92f9e;
+        color: white;
+
+        &:hover {
+          background-color: #92288d;
+        }
+      }
+    }
+  }
+  form {
+    [data-drupal-selector="edit-actions"] .ajax-progress {
+      left: auto !important;
+      top: auto;
+      margin-top: 0 !important;
+      -webkit-background-clip: 0;
+      right: -9px;
+      bottom: 10px;
+    }
+  }
+}
+
+#schedules-search-listing-wrapper .branch-hours-wrapper .card {
+  background-color: #b93f9e;
+}
+
+
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots {
+  display: none;
+
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+.program-header {
   position: relative;
 
   .content {
@@ -213,6 +399,7 @@
       margin-bottom: 40px;
     }
   }
+
   .js-form-type-select {
     float: left;
     display: inline-block;
@@ -251,17 +438,16 @@
       color: $gray-500;
     }
   }
-  .selects-container {
 
-    hr {
-      border-color: $gray-400;
-      margin: 0 0 12px;
+  .selects-container h2 {
+    border-color: $gray-400;
+    margin: 0 0 12px;
 
-      @include media-breakpoint-up(sm) {
-        display: none;
-      }
+    @include media-breakpoint-up(sm) {
+      display: none;
     }
   }
+
   .form-actions {
     padding-top: 23px;
     padding-bottom: 23px;
@@ -427,7 +613,7 @@
       font-size: 22px;
       line-height: 1;
       color: $primary;
-      margin: 40px 0 27px;
+      //margin: 40px 0 27px;
 
       a {
         text-decoration: none;
@@ -453,10 +639,8 @@
       }
 
       .views-field-rendered-entity {
-        padding: 15px;
         margin: 0 15px;
         height: auto;
-        border: 1px solid $pink;
 
         * {
           text-decoration: none;

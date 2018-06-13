@@ -9,6 +9,27 @@
 use Drupal\block\Entity\Block;
 use Drupal\Core\Link;
 use Drupal\Core\Template\Attribute;
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_preprocess().
+ */
+function openy_carnation_preprocess_node(&$variables, $hook) {
+
+  // Set a generic default background.
+//  $variables['header_image'] = $variables['theme']['path'] . '/images/generic-background.jpg';
+  // Load the node entity from current route.
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+
+    if ($node->getType() == 'program_subcategory') {
+      if (!$node->get('field_category_image')->isEmpty()) {
+        // One line uri without loading.
+        $uri = $node->get('field_category_image')->entity->get('field_media_image')->entity->uri->value;
+        $variables['header_image'] = ImageStyle::load('prgf_gallery')->buildUrl($uri);
+      }
+    }
+  }
+}
 
 /**
  * Implements hook_preprocess_HOOK().

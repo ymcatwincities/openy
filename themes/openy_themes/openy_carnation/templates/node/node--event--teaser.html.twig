@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Default theme implementation to display a node.
+ * Theme override to display a node.
  *
  * Available variables:
  * - node: The node entity with limited access to object properties and methods.
@@ -68,81 +68,35 @@
  * @todo Remove the id attribute (or make it a class), because if that gets
  *   rendered twice on a page this is invalid CSS for example: two lists
  *   in different view modes.
- *
- * @ingroup themeable
  */
 #}
-{%
-set classes = [
-  'program-header',
-  'program-header-sub-category',
-  'banner',
-  'banner--medium',
-  'bg-light',
-]
-%}
+{% set classes = [
+'node',
+'node--type-' ~ node.bundle|clean_class,
+node.isPromoted() ? 'node--promoted',
+node.isSticky() ? 'node--sticky',
+not node.isPublished() ? 'node--unpublished',
+view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+] %}
 
-{% if content.field_category_color is empty %}
-  {% set bg_color = '' %}
-{% else %}
-  {% set color = '#' ~ content.field_category_color['#items'].entity.field_color.value %}
-  {% set bg_color = 'background-color: '  ~  color %}
-{% endif %}
-
-{# Category header #}
-<div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
-
-  <div class="banner-cta">
-    <div class="banner-cta-content container align-self-end pt-5 pb-4">
-      <div class="banner-cta-section">
-
-        <h1 class="banner-title text-uppercase mb-4 text-white">
-          {{ label }}
-        </h1>
-
-        {% if content.field_category_program|render|trim is not empty %}
-        <div class="banner-description">
-          <h4 class="text-gray-200">{{ content.field_category_program }}</h4>
-        </div>
-        {% endif %}
-
-      </div>
+<article{{ attributes.addClass(classes) }}>
+  <div class="content">
+    <div class="event-start-date event-date-month">
+      <div class="event-date">{{ node.field_event_dates.value|date('j') }}</div>
+      <div class="event-month">{{ node.field_event_dates.value|date('M') }}</div>
     </div>
-    <div class="banner-bg" style="background: url('{{ header_image }}');"></div>
-  </div>
 
-  <div>
-    {{ content.field_header_content }}
-  </div>
+    {{ content.field_event_image }}
 
-</div>
+    {{ title_prefix }}
+    <h2{{ title_attributes }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+    {{ title_suffix }}
 
-
-
-
-{% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}
-
-<div class="container">
-  <div class="row">
-    <div class="two-column">
-
-     {# Category content #}
-      <div class="main-region col">
-        {{ content.field_category_description }}
-        {{ content.field_content }}
-      </div>
-
-      {# Category sidebar #}
-      {% if hasSidebar %}
-      <div class="sidebar-region col-sm-4">
-        <article class="program-sidebar program-sidebar-sub-category">
-          {{ content.field_sidebar_content }}
-        </article>
-      </div>
-      {% endif %}
-
+    {{ content.field_event_location }}
+    <div class="event-start-date event-time">
+      {{ node.field_event_dates.value|date('g:i a') }}
     </div>
   </div>
-</div>
-
-{{ content.field_bottom_content }}
+</article>

@@ -10,9 +10,38 @@
     }
   }
 
-  .banner-cta {
+  .banner-bg {
+    background-size: cover !important;
+    background-position: center center !important;
     position: absolute;
     top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-size: cover;
+    z-index: 0;
+  }
+
+  .banner-cta {
+    padding-top: 70px;
+    position: relative;
+
+    &:before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: black;
+      content: "";
+      opacity: 0.4;
+      z-index: 1;
+    }
+
+    .banner-cta-content {
+      position: relative;
+      z-index: 1;
+    }
   }
 
   h1 {
