@@ -10,38 +10,6 @@
   &--grey { background-color: $gray-400; }
   &--purple { background-color: $purple; }
 
-  //  &-image {
-  //
-  //    @include media-breakpoint-up(md) {
-  //      position: absolute;
-  //      right: 0;
-  //      //width: calc(50% + #{ceil($container-desktop/6 - $grid-gutter-width)});
-  //    }
-  //
-  //    @include media-breakpoint-up(lg) {
-  //      //width: calc(50% + #{ceil($container-large-desktop/6 - $grid-gutter-width)});
-  //    }
-  //
-  //    .media--image {
-  //      @include media-breakpoint-up(lg) {
-  //        height: 600px;
-  //        overflow: hidden;
-  //        padding-bottom: 0 !important;
-  //        position: relative;
-  //      }
-  //    }
-  //
-  //    img.media__element {
-  //      width: 100% !important;
-  //      height: auto !important;
-  //
-  //      @include media-breakpoint-up(md) {
-  //        width: 120% !important;
-  //      }
-  //    }
-  //  }
-  //
-
   &-title {
     font-size: 32px;
     line-height: 36px;
@@ -69,50 +37,27 @@
     }
   }
 
-  //.banner-btn {
-  //  white-space: normal;
-  //  font-size: 18px;
-  //  padding: 0;
-  //  width: 100%;
-  //
-  //  a {
-  //    border: 1px solid $white;
-  //    color: $white;
-  //    display: block;
-  //    padding: 16px;
-  //
-  //    @include media-breakpoint-up(sm) {
-  //      padding: 15px;
-  //    }
-  //  }
-  //}
-
+  // heading only
   &--small {
     min-height: 120px;
     max-height: 400px;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       min-height: 400px;
     }
+  }
 
-    //.banner-image {
-    //  display: none;
-    //
-    //  @include media-breakpoint-up(md) {
-    //    display: block;
-    //    position: absolute;
-    //    right: 0;
-    //    //width: calc(50% - #{ceil($container-desktop/6 + 0*$grid-gutter-width)});
-    //  }
-    //
-    //  @include media-breakpoint-up(lg) {
-    //    //width: calc(50% - #{ceil($container-large-desktop/6 + 0*$grid-gutter-width)});
-    //  }
-    //}
+  // heading + subheading (program nodes)
+  &--medium {
+    min-height: 120px;
+    //max-height: 400px;
 
-    //.banner-title {
-    //  margin: 0;
-    //  max-width: 700px;
-    //}
+    @include media-breakpoint-up(lg) {
+      min-height: 400px;
+
+      .banner-cta {
+        padding-top: 140px;
+      }
+    }
   }
 }

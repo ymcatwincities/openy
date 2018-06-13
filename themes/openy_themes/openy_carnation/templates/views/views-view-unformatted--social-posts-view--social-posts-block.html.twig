@@ -17,27 +17,21 @@
  * @ingroup themeable
  */
 #}
-<div class="container">
-  <div class="row taxonomy-term">
-    {% if title %}
-      <h3>{{ title }}</h3>
-    {% endif %}
+{% if title %}
+    <h3>{{ title }}</h3>
+{% endif %}
 
-    <div class="main-region col-sm-12">
-      {% for row in rows %}
-        {%
-          set row_classes = [
-          default_row_class ? 'views-row',
-          'col-xs-12',
-          'col-sm-6',
-          'col-md-4',
-          'row-eq-height',
-        ]
-        %}
+<div class="grid">
+    {% for row in rows %}
+        {% set row_classes = [
+        'grid-item',
+        ] %}
+
         <div{{ row.attributes.addClass(row_classes) }}>
-          {{ row.content }}
+            <div class="grid-item-content">
+                {{ row.content }}
+            </div>
         </div>
-      {% endfor %}
-    </div>
-  </div>
+
+    {% endfor %}
 </div>

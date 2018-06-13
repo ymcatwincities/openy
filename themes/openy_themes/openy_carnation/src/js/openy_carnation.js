@@ -249,7 +249,8 @@
       '.blog-heading',
       '.membership-type',
       '.membership-type h3',
-      '.membership-type article p'
+      '.membership-type article p',
+      '.activity-group .card'
     ];
 
     // make them all equal heights.

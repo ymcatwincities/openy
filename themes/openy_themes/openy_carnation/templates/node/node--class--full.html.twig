@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Default theme implementation to display a node.
+ * Theme override to display a node.
  *
  * Available variables:
  * - node: The node entity with limited access to object properties and methods.
@@ -64,85 +64,76 @@
  *   is an administrator.
  *
  * @see template_preprocess_node()
- *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
- *
- * @ingroup themeable
  */
 #}
+{% if content.field_sidebar_content is not empty %}
+  {% set layout_class = 'has-sidebar' %}
+{% endif %}
 {%
-set classes = [
-  'program-header',
-  'program-header-sub-category',
-  'banner',
-  'banner--medium',
-  'bg-light',
+  set header_classes = [
+    'class-header',
+    layout_class,
+  ]
+%}
+{% set header_content_classes = ['content'] %}
+{%
+  set content_classes = [
+    'class-content',
+    layout_class,
+  ]
+%}
+{%
+set sidebar_classes = [
+  'class-sidebar',
 ]
 %}
 
-{% if content.field_category_color is empty %}
-  {% set bg_color = '' %}
-{% else %}
-  {% set color = '#' ~ content.field_category_color['#items'].entity.field_color.value %}
-  {% set bg_color = 'background-color: '  ~  color %}
+{% if content.field_header_content is not empty %}
+  <article{{ attributes.addClass(header_classes) }}>
+    <div{{ content_attributes.addClass(header_content_classes) }}>
+      <div class="main">
+        {{ content.field_header_content }}
+      </div>
+    </div>
+  </article>
 {% endif %}
 
-{# Category header #}
-<div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
-
-  <div class="banner-cta">
-    <div class="banner-cta-content container align-self-end pt-5 pb-4">
-      <div class="banner-cta-section">
-
-        <h1 class="banner-title text-uppercase mb-4 text-white">
-          {{ label }}
-        </h1>
-
-        {% if content.field_category_program|render|trim is not empty %}
-        <div class="banner-description">
-          <h4 class="text-gray-200">{{ content.field_category_program }}</h4>
-        </div>
-        {% endif %}
-
-      </div>
-    </div>
-    <div class="banner-bg" style="background: url('{{ header_image }}');"></div>
-  </div>
-
-  <div>
-    {{ content.field_header_content }}
-  </div>
-
-</div>
-
-
-
-
-{% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}
-
+{% if content.field_sidebar_content is not empty %}
 <div class="container">
   <div class="row">
-    <div class="two-column">
+    {% endif %}
 
-     {# Category content #}
-      <div class="main-region col">
-        {{ content.field_category_description }}
-        {{ content.field_content }}
-      </div>
+    {% if content.field_content is not empty %}
+      <article{{ attributes.addClass(content_classes) }}>
+        {% if content.field_sidebar_content is empty %}
+        <div class="main-region col-sm-12">
+          {% endif %}
+          {% if content.field_sidebar_content is not empty %}
+          <div class="two-column">
+            <div class="main-region col-sm-8">
+              {% endif %}
+              {{ content.field_class_description }}
+              {{ content.field_content }}
+              {% if content.field_sidebar_content is not empty %}
+            </div>
+            <div class="sidebar-region col-sm-4">
+              {% endif %}
+              <article{{ attributes.addClass(sidebar_classes) }}>
+                {{ content.field_sidebar_content }}
+              </article>
+              {% if content.field_sidebar_content is not empty %}
+            </div>
+          </div>
+          {% endif %}
+          {% if content.field_sidebar_content is empty %}
+        </div>
+        {% endif %}
+      </article>
+    {% endif %}
 
-      {# Category sidebar #}
-      {% if hasSidebar %}
-      <div class="sidebar-region col-sm-4">
-        <article class="program-sidebar program-sidebar-sub-category">
-          {{ content.field_sidebar_content }}
-        </article>
-      </div>
-      {% endif %}
-
-    </div>
+    {% if content.field_sidebar_content is not empty %}
   </div>
 </div>
+{% endif %}
 
 {{ content.field_bottom_content }}
