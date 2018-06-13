@@ -68,14 +68,14 @@
     }
   }
 
-  .col-sm-8 {
-    .activity-group {
-      @include media-breakpoint-up(md) {
-        width: 50%;
-        float: left;
-      }
-    }
-  }
+  //.col-sm-8 {
+  //  .activity-group {
+  //    @include media-breakpoint-up(md) {
+  //      width: 50%;
+  //      float: left;
+  //    }
+  //  }
+  //}
 }
 
 .prices-wrapper {
@@ -628,15 +628,15 @@
     }
 
     .activity-group-slider {
-      margin: 0 0 45px;
+      //margin: 0 0 45px;
+      //
+      //@include media-breakpoint-up(sm) {
+      //  margin: 0 35px 55px 0;
+      //}
 
-      @include media-breakpoint-up(sm) {
-        margin: 0 35px 55px 0;
-      }
-
-      @include media-breakpoint-up(lg) {
-        margin-right: 0;
-      }
+      //@include media-breakpoint-up(lg) {
+      //  margin-right: 0;
+      //}
 
       .views-field-rendered-entity {
         margin: 0 15px;
@@ -677,24 +677,24 @@
         .fa {
           font-size: 30px;
 
-          @include media-breakpoint-up(sm) {
-            font-size: 70px;
+          @include media-breakpoint-up(lg) {
+            font-size: 40px;
           }
         }
 
         &.slick-prev {
-          left: -20px;
+          left: -45px;
 
-          @include media-breakpoint-up(sm) {
-            left: -45px;
+          @include media-breakpoint-up(lg) {
+            left: -35px;
           }
         }
 
         &.slick-next {
-          right: -20px;
+          right: -45px;
 
-          @include media-breakpoint-up(sm) {
-            right: -45px;
+          @include media-breakpoint-up(lg) {
+            right: -35px;
           }
         }
       }
