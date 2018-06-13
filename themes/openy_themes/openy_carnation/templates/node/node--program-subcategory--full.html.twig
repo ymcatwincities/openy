@@ -89,7 +89,7 @@ set classes = [
   {% set bg_color = 'background-color: '  ~  color %}
 {% endif %}
 
-{# Category header #}
+{# Banner #}
 <div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
 
   <div class="banner-cta">
@@ -101,7 +101,7 @@ set classes = [
         </h1>
 
         {% if content.field_category_program|render|trim is not empty %}
-        <div class="banner-description">
+        <div class="banner-description mb-3">
           <h4 class="text-gray-200">{{ content.field_category_program }}</h4>
         </div>
         {% endif %}
@@ -119,7 +119,7 @@ set classes = [
 
 
 
-
+{# Filters #}
 {% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}
 
 <div class="container">
