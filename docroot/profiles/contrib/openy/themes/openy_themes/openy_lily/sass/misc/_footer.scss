@@ -55,6 +55,9 @@
           &.icon-flickr:before {
             content: "\f16e";
           }
+          &.icon-instagram:before {
+            content: "\f16d";
+          }
         }
       }
       @include breakpoint(0 $tablet) {

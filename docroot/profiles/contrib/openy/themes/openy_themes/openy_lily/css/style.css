@@ -7160,6 +7160,9 @@ legend {
 #page-footer #block-openy-lily-footersocialblock ul li a.icon-flickr:before {
   content: "\f16e";
 }
+#page-footer #block-openy-lily-footersocialblock ul li a.icon-instagram:before {
+  content: "\f16d";
+}
 @media (min-width: 0) and (max-width: 48em) {
   #page-footer #block-openy-lily-footersocialblock ul li {
     margin: 0 5px;
