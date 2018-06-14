@@ -321,15 +321,15 @@
     }
 
     .schedule-sessions-group-slider {
-      //margin: 0 0 45px;
+      margin: 0 0 45px;
 
-      //@include media-breakpoint-up(sm) {
-      //  margin: 0 65px 55px;
-      //}
+      @include media-breakpoint-up(sm) {
+        margin: 0 65px 55px;
+      }
 
-      //@include media-breakpoint-up(lg) {
-      //  margin-right: 0;
-      //}
+      @include media-breakpoint-up(lg) {
+        margin-right: 0;
+      }
 
       .slick-track {
         display: flex;
@@ -364,18 +364,10 @@
 
         &.slick-prev {
           left: -45px;
-
-          @include media-breakpoint-up(lg) {
-            left: -35px;
-          }
         }
 
         &.slick-next {
           right: -45px;
-
-          @include media-breakpoint-up(lg) {
-            right: -35px;
-          }
         }
       }
 
