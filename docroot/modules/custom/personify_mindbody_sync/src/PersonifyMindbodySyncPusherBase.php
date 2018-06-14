@@ -932,6 +932,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'State' => 'NA',
         'PostalCode' => '00000',
         'ReferredBy' => 'Non existent within Personify: ReferredBy',
+        'EmailOptIn' => TRUE,
       ],
       SOAP_ENC_OBJECT,
       'Client',
