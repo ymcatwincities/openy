@@ -143,7 +143,7 @@
     }
   };
 
-  // Match Heights
+  // Program Carousels
   Drupal.behaviors.openySubCategoryClassesTheme = {
     attach: function (context, settings) {
       $('.sub-category-classes-view').once().each(function() {

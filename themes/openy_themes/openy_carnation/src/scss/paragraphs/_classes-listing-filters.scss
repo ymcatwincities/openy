@@ -43,8 +43,6 @@
     }
 
     select {
-      @include cachet();
-      text-transform: uppercase;
       color: $gray-500;
     }
   }

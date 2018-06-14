@@ -26,6 +26,7 @@ input:-moz-placeholder {
   display: inline-block;
   position: relative;
   width: 100%;
+  background-color: white;
 
   .form-inline & {
     width: auto;
@@ -48,34 +49,26 @@ input:-moz-placeholder {
     appearance: none;
     line-height: 1;
     padding-right: 2em;
+    position: relative;
+    background-color: transparent;
+    z-index: 2;
 
     &::-ms-expand {
       opacity: 0;
     }
+
+    &:focus {
+      background-color: transparent;
+    }
   }
 
-  &:after {
+  // arrow down
+  i {
     color: $primary;
-    content: '▼';
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1;
-    margin-top: -.5em;
-    padding-right: .5em;
-    pointer-events: none;
     position: absolute;
-    right: 0;
-    top: 50%;
-    z-index: 10;
-
-    // Use a more stylish icon if the theme uses glyphicons.
-    .has-glyphicons & {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      content: '\e114'; // .glyphicon-chevron-down
-      display: inline-block;
-      font-family: 'Glyphicons Halflings';
-    }
+    top: 6px;
+    right: 10px;
+    font-size: 26px;
 
     .has-error & {
       color: theme-color-level("danger", -10);
