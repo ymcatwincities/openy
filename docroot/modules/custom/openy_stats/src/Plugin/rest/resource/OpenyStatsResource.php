@@ -31,18 +31,8 @@ class OpenyStatsResource extends ResourceBase {
         'arguments' => ''
       ]
     ];
-    $list = $this->getModuleList();
+    $list = \Drupal::service('openy_stats.modulestats')->getModuleList();
     return new ResourceResponse($list);
-  }
-
-  private function getModuleList() {
-    $moduleHandler = \Drupal::service('module_handler');
-    $moduleHandler->loadAll();
-    $enabledModules = [];
-    foreach ($moduleHandler->getModuleList() as $name => $data) {
-      $enabledModules[$name] = ['status' => TRUE];
-    }
-    return $enabledModules;
   }
 
 }
