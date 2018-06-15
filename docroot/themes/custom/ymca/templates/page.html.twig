@@ -110,6 +110,8 @@
 
   </header>
 
+  {{ page.alerts_header }}
+
   <div id="main" role="main" class="page-middle">
     {% block camplocationmenu %}
       {% if site_section_bundle in ['location', 'camp'] %}
@@ -136,8 +138,7 @@
     {% endblock %}
   </div>
 
-
-
+  {{ page.alerts_footer }}
 
   <!--googleoff: index-->
   <footer id="page-footer" class="page-footer footer-themes-b">

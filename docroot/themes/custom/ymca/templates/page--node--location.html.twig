@@ -108,6 +108,8 @@
 
   </header>
 
+  {{ page.alerts_header }}
+
   <div id="main" role="main" class="page-middle">
     {% include "@ymca/layout/node/node-location-header.html.twig" %}
     {% if not page_schedules %}
@@ -122,6 +124,8 @@
       {{ page.content }}
     {% endblock %}
   </div>
+
+  {{ page.alerts_footer }}
 
   <!--googleoff: index-->
   <footer id="page-footer" class="page-footer footer-themes-b">
