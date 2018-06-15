@@ -7,8 +7,7 @@ namespace Drupal\openy_stats;
  *
  * @package Drupal\openy_stats
  */
-class NodeStats
-{
+class NodeStats {
 
   /**
    * Get module list.
@@ -16,25 +15,24 @@ class NodeStats
    * @return array
    *   Module list.
    */
-  public function getNodeStats()
-  {
-
+  public function getNodeStats() {
     $db = \Drupal::database();
     $result = $db->query('SELECT type, status, count(*) as count FROM {node_field_data} GROUP BY type, status')->fetchAll(\PDO::FETCH_ASSOC);
 
     foreach ($result as $id => $data) {
-      if (!isset($enabledModules[$data['type']])) {
-        $enabledModules[$data['type']] = [];
+      if (!isset($stats[$data['type']])) {
+        $stats[$data['type']] = [];
       }
       if ($data['status'] == '0') {
-        $enabledModules[$data['type']]['unpublished'] = (int)$data['count'];
+        $stats[$data['type']]['unpublished'] = (int)$data['count'];
 
-      } elseif ($data['status'] == '1') {
-        $enabledModules[$data['type']]['published'] = (int)$data['count'];
+      }
+      elseif ($data['status'] == '1') {
+        $stats[$data['type']]['published'] = (int)$data['count'];
       }
     }
 
-    foreach ($enabledModules as &$module) {
+    foreach ($stats as &$module) {
       if (!isset ($module['unpublished'])) {
         $module['unpublished'] = 0;
       }
@@ -43,6 +41,8 @@ class NodeStats
       }
       $module['total'] = $module['unpublished'] + $module['published'];
     }
-    return $enabledModules;
+
+    return $stats;
   }
+
 }
