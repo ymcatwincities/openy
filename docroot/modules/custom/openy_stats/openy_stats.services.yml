@@ -1,8 +1,4 @@
 services:
-  authentication.openy_stats_auth:
-    class: Drupal\openy_stats\Authentication\Provider\OpenYStatsAuth
-    tags:
-      - { name: authentication_provider, provider_id: openy_stats_auth, priority: 100 }
   openy_stats.modulestats:
     class: Drupal\openy_stats\ModuleStats
   openy_stats.prgfstats:
