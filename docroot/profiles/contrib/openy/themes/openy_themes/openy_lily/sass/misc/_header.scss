@@ -13,7 +13,7 @@ body {
   &.toolbar-fixed {
     &.toolbar-horizontal {
       @include breakpoint (767px) {
-        padding-top: 122px !important;
+        padding-top: 122px;
         @include transition(padding-top 0.2s ease);
         &.tiny-header {
           padding-top: 94px !important;

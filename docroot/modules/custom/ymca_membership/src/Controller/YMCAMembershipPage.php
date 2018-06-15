@@ -113,6 +113,12 @@ class YMCAMembershipPage extends ControllerBase {
    */
   public function submissionView() {
     $uuid = \Drupal::request()->query->get('key');
+
+    // Incorrect UUID entered.
+    if (!$uuid) {
+      throw new NotFoundHttpException('Incorrect UUID entered');
+    }
+
     // Load submission data.
     $submissions = $this->entityTypeManager()
       ->getStorage('contact_message')
