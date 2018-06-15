@@ -7,3 +7,5 @@ services:
     class: Drupal\openy_stats\ModuleStats
   openy_stats.nodestats:
     class: Drupal\openy_stats\NodeStats
+  openy_stats.prgfstats:
+    class: Drupal\openy_stats\ParagraphStats
