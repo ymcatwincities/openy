@@ -16,21 +16,33 @@ use Drupal\rest\ResourceResponse;
  *   }
  * )
  */
-class EnabledModulesResource extends ResourceBase {
+class OpenyStatsResource extends ResourceBase {
 
   /**
    * Responds to entity GET requests.
    * @return \Drupal\rest\ResourceResponse
    */
   public function get() {
+    $call_config = [
+      'module_list' => [
+        'type' => 'class',
+        'name' => 'OpenyStatsResource',
+        'method' => 'getModuleList',
+        'arguments' => ''
+      ]
+    ];
+    $list = $this->getModuleList();
+    return new ResourceResponse($list);
+  }
+
+  private function getModuleList() {
     $moduleHandler = \Drupal::service('module_handler');
     $moduleHandler->loadAll();
     $enabledModules = [];
     foreach ($moduleHandler->getModuleList() as $name => $data) {
-      $enabledModules[] = $name;
+      $enabledModules[$name] = ['status' => TRUE];
     }
-    $response = ['enabled_modules' => $enabledModules];
-    return new ResourceResponse($response);
+    return $enabledModules;
   }
 
 }
