@@ -7,13 +7,13 @@ use Drupal\rest\ResourceResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
- * Provides a Enabled Modules Resource.
+ * Provides a Factory pattern for stats framework.
  *
  * @RestResource(
- *   id = "enabled_modules_resource",
- *   label = @Translation("Enabled Modules"),
+ *   id = "openy_stats_factory",
+ *   label = @Translation("OpenY Stats"),
  *   uri_paths = {
- *     "canonical" = "/openy_stats/enabled_modules"
+ *     "canonical" = "/openy_stats/{endpoint}"
  *   }
  * )
  */
@@ -23,7 +23,7 @@ class OpenyStatsResource extends ResourceBase {
    * Responds to entity GET requests.
    * @return \Drupal\rest\ResourceResponse
    */
-  public function get() {
+  public function get($endpoint) {
     $client_ip = \Drupal::request()->getClientIp();
     $allowed_ips = \Drupal::configFactory()->getEditable('openy_stats.settings')->get('allowed_ips');
 
@@ -33,14 +33,40 @@ class OpenyStatsResource extends ResourceBase {
 
     $call_config = [
       'module_list' => [
-        'type' => 'class',
-        'name' => 'OpenyStatsResource',
+        'type' => 'service',
+        'name' => 'openy_stats.modulestats',
         'method' => 'getModuleList',
+        'arguments' => ''
+      ],
+      'node_stats' => [
+        'type' => 'service',
+        'name' => 'openy_stats.nodestats',
+        'method' => 'getNodeStats',
+        'arguments' => ''
+      ],
+      'prgf_stats' => [
+        'type' => 'service',
+        'name' => 'openy_stats.prgfstats',
+        'method' => 'getPrgfStats',
         'arguments' => ''
       ]
     ];
-    $list = \Drupal::service('openy_stats.modulestats')->getModuleList();
-    return new ResourceResponse($list);
+    $result = [];
+    if (array_key_exists($endpoint, $call_config)) {
+      $current_call = $call_config[$endpoint];
+      switch ($current_call['type']) {
+        case 'service':
+          $service_name = $current_call['name'];
+          $service_method = $current_call['method'];
+          // @todo Create ability to pass arguments from current_call array.
+          $result = \Drupal::service($service_name)->$service_method();
+          break;
+        default:
+          break;
+      }
+    }
+
+    return new ResourceResponse($result);
   }
 
 }
