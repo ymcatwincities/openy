@@ -8,6 +8,7 @@ libraries:
   - ymca/global-styling
 regions:
   header: Header
+  alerts_header: 'Alerts in Header'
   primary_menu: 'Primary menu'
   secondary_menu: 'Secondary menu'
   location_menu: 'Location menu'
@@ -17,6 +18,7 @@ regions:
   highlighted: Highlighted
   breadcrumb: Breadcrumb
   content: Content
+  alerts_footer: 'Alerts in Footer'
   footer_menu: 'Footer menus'
   footer_social: 'Footer social'
   schedule_right: 'Schedule right'
