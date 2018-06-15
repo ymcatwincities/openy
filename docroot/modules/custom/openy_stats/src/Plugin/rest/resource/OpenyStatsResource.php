@@ -4,6 +4,7 @@ namespace Drupal\openy_stats\Plugin\rest\resource;
 
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Provides a Enabled Modules Resource.
@@ -23,6 +24,13 @@ class OpenyStatsResource extends ResourceBase {
    * @return \Drupal\rest\ResourceResponse
    */
   public function get() {
+    $client_ip = \Drupal::request()->getClientIp();
+    $allowed_ips = \Drupal::configFactory()->getEditable('openy_stats.settings')->get('allowed_ips');
+
+    if (!in_array($client_ip, $allowed_ips)) {
+      throw new AccessDeniedHttpException('Access denied');
+    }
+
     $call_config = [
       'module_list' => [
         'type' => 'class',
