@@ -41,6 +41,7 @@ class YmcaNegotiator implements ThemeNegotiatorInterface {
       'entity.openy_digital_signage_screen.canonical',
       'ymca_frontend.2014_annual_report',
       'ymca_frontend.2014_annual_report_leaders',
+      'openy_hf.footer',
     ];
   }
 
