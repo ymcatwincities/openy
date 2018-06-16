@@ -84,7 +84,7 @@ source:
       description: |
         <p>OpenY is growing, be a part of it's success!</p>
       background_color: 7
-      text_color: 2
+      text_color: 1
       icon_color: 2
       placement: 'header'
       link_url: http://www.openymca.org
@@ -96,7 +96,7 @@ source:
       description: |
         <p>OpenY is the site foundation you need!</p>
       background_color: 7
-      text_color: 2
+      text_color: 1
       icon_color: 2
       placement: 'footer'
       link_url: http://www.openymca.org
