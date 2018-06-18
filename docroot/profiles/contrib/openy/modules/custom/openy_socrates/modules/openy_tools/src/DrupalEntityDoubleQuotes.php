@@ -69,36 +69,77 @@ class DrupalEntityDoubleQuotes {
    */
   public function fixDoubleQuotes() {
     $disappeared = [];
+    $problems = [];
 
     $db = \Drupal::database();
     $tables = $this->getTables();
     foreach ($tables as $table) {
       $result = $db->query('SHOW columns FROM '. $table)->fetchAll();
+
       foreach ($result as $column) {
         // Find only column which has '_value' suffix.
         $field = $column->Field;
         $name = substr($field, -6, 6);
         if ($name == '_value' && $column->Type == 'longtext') {
-
           $result = $db->select($table, 't')
-            ->fields('t', [$field])
+            ->fields('t', [$field, 'entity_id', 'revision_id'])
             ->execute();
+
           while ($data = $result->fetchObject()) {
-            preg_match_all("/<drupal-entity.*(\"{2}).*(\"{2}).*<\/drupal-entity>/imU", $data->{$field}, $test);
-            if ($test && $test[0]) {
-              if (count($test[0] == 1)) {
-                $disappeared[] = $test[0];
-                $this->loggerChannel->info(sprintf("Disappeared drupal-entity has been found"));
+            $replace = [];
+
+            preg_match_all("/data-caption=\"\"(.+)\"\"/imU", $data->{$field}, $test);
+            if ($test && $test[0] && $test[0][0]) {
+              foreach ($test[0] as $i => $item) {
+
+                // Check if found data is valid.
+                if (!isset($test[1][$i])) {
+                  $this->loggerChannel->warning(sprintf("Invalid data were found while replacing."));
+                  continue;
+                }
+
+                // Skip already corrupted items.
+                if (strpos($item, 'data-caption="" ') !== FALSE) {
+                  $disappeared[$table][] = [
+                    'data' => $item,
+                    'entity_id' => $data->entity_id,
+                    'revision_id' => $data->revision_id,
+                  ];
+                  continue;
+                }
+
+                // Log each available problem.
+                $problems[$table][] = [
+                  'data' => $item,
+                  'entity_id' => $data->entity_id,
+                  'revision_id' => $data->revision_id,
+                ];
+
+                // Prepare replacement array.
+                $replace['from'][] = $item;
+                $replace['to'][] = sprintf('data-caption="%s"', $test[1][$i]);
               }
             }
+
+            if (!empty($replace)) {
+              $updated = str_replace($replace['from'], $replace['to'], $data->{$field});
+              $db->update($table)
+                ->fields([
+                  $field => $updated,
+                ])
+                ->condition('entity_id', $data->entity_id)
+                ->condition('revision_id', $data->revision_id)
+                ->execute();
+
+              $this->loggerChannel->info(sprintf('Fixed double quotes for entity_id: %d, revision_id: %d in table: %s, field: %s', $data->entity_id, $data->revision_id, $table, $field));
+            }
+
           }
 
           break;
         }
       }
     }
-
-    $a = 10;
   }
 
 }

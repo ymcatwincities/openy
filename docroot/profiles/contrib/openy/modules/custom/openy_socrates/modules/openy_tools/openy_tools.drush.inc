@@ -30,6 +30,13 @@ function openy_tools_drush_command() {
     'aliases' => ['ot-fee-bc']
   ];
 
+  $items['openy-tools-fix-double-quotes'] = [
+    'description' => 'Fix double quotes.',
+    'callback' => 'openy_tools_fix_double_quotes',
+    'drupal dependencies' => ['entity_embed'],
+    'aliases' => ['ot-fdq']
+  ];
+
   return $items;
 }
 
@@ -52,4 +59,11 @@ function openy_tools_fix_entity_embed_file() {
  */
 function openy_tools_fix_entity_embed_block_content() {
   \Drupal::service('openy_tools.fix_entity_embed')->fixBlockContent();
+}
+
+/**
+ * Callback for "ot-fdq" command.
+ */
+function openy_tools_fix_double_quotes() {
+  \Drupal::service('openy_tools.fix_double_quotes')->fixDoubleQuotes();
 }
