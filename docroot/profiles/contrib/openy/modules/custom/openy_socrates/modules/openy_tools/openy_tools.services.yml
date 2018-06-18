@@ -8,3 +8,7 @@ services:
     class: Drupal\openy_tools\FixEntityEmbed
     arguments:
       - '@logger.channel.openy_tools'
+  openy_tools.fix_double_quotes:
+    class: Drupal\openy_tools\DrupalEntityDoubleQuotes
+    arguments:
+      - '@logger.channel.openy_tools'
