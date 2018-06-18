@@ -12,3 +12,7 @@ services:
     class: Drupal\openy_tools\DrupalEntityDoubleQuotes
     arguments:
       - '@logger.channel.openy_tools'
+  openy_tools.fix_display_mode:
+    class: Drupal\openy_tools\DrupalEntityFixViewMode
+    arguments:
+      - '@logger.channel.openy_tools'
