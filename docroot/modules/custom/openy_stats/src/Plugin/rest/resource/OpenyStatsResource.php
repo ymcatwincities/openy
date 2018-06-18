@@ -49,6 +49,12 @@ class OpenyStatsResource extends ResourceBase {
         'name' => 'openy_stats.prgfstats',
         'method' => 'getPrgfStats',
         'arguments' => ''
+      ],
+      'blks_stats' => [
+        'type' => 'service',
+        'name' => 'openy_stats.blcsstats',
+        'method' => 'getBlocksStats',
+        'arguments' => ''
       ]
     ];
     $result = [];
