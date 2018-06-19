@@ -1,4 +1,4 @@
-### Hello, OpenY community
+### Hello, OpenY community.
 We are announcing a give away for the DrupalCampKyiv 2018 
 We are giving 
 3 tickets from Open Y
