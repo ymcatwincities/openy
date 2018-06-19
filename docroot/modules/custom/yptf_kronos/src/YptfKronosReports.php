@@ -239,6 +239,17 @@ class YptfKronosReports implements YptfKronosReportsInterface {
     if ($this->getKronosData()) {
       // Calculate Workforce Kronos data.
       foreach ($this->kronosData as $current_line => $item) {
+        // Remove data for specific locations.
+        // Use http://drupal.192.168.56.132.xip.io/admin/content/locations-mapping.
+        // LOCATION PERSONIFY BRCODE.
+        $suppress = [
+          17
+        ];
+
+        if (in_array($item->locNo, $suppress)) {
+          continue;
+        }
+
         if (in_array($item->job, $this->kronosTrainingId)) {
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId(
             $item->locNo
