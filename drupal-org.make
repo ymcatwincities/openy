@@ -63,6 +63,7 @@ projects[custom_formatters] = 3.0-alpha1
 projects[token_filter] = 1.0-beta1
 projects[views_field_formatter] = 1.5
 projects[lndr] = 1.11
+projects[crop] = 1.3
 projects[focal_point] = 1.0-beta5
 projects[media_entity_video] = 1.0-beta2
 projects[video] = 1.2
