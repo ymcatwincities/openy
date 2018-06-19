@@ -3,6 +3,7 @@ description: 'OpenY Paragraph Class Location.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - paragraphs
   - openy_location
