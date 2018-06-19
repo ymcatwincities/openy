@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Implement install hooks for module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_prgf_branches_popup_all_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('paragraph', 'paragraphs_type', 'branches_popup_all');
+}
