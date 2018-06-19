@@ -223,6 +223,13 @@ class YptfKronosReports implements YptfKronosReportsInterface {
       ->get('locations');
     if (!empty($mb_locations)) {
       foreach ($mb_locations as $mbNo => $mb_location) {
+        // Filtering out Dayton at Gaviidale
+        $suppress = [
+          5
+        ];
+        if (in_array($mbNo, $suppress)) {
+          continue;
+        }
         $mb_locations_names[$mb_location['label']] = $mbNo;
       }
     }
