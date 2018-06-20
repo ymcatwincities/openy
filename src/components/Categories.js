@@ -18,63 +18,63 @@ class Categories extends Component {
                   <div className="d-flex">
                     <div className="mr-auto p-2">
                       <Label check>
-                        <Input type="radio" name="radio1"/>
+                        <Input type="radio" name="radio1" />
                         Parent & Child
                         <p className={'mb-0 ml-2'}>
                           <small>Ages: 6mos-3yrs</small>
                         </p>
                       </Label>
                     </div>
-                    <div className="p-2 align-self-center"><FaInfoCircle size={25}/></div>
+                    <div className="p-2 align-self-center"><FaInfoCircle size={25} /></div>
                   </div>
                 </FormGroup>
                 <FormGroup check>
                   <div className="d-flex">
                     <div className="mr-auto p-2">
                       <Label check>
-                        <Input type="radio" name="radio1"/>
+                        <Input type="radio" name="radio1" />
                         Preschool Child
                         <p className={'mb-0 ml-2'}>
                           <small>Ages: 3-5 years</small>
                         </p>
                       </Label>
                     </div>
-                    <div className="p-2 align-self-center"><FaInfoCircle size={25}/></div>
+                    <div className="p-2 align-self-center"><FaInfoCircle size={25} /></div>
                   </div>
                 </FormGroup>
                 <FormGroup check>
                   <div className="d-flex">
                     <div className="mr-auto p-2">
                       <Label check>
-                        <Input type="radio" name="radio1"/>
+                        <Input type="radio" name="radio1" />
                         School-Age Child
                         <p className={'mb-0 ml-2'}>
                           <small>Ages: 5-12yrs</small>
                         </p>
                       </Label>
                     </div>
-                    <div className="p-2 align-self-center"><FaInfoCircle size={25}/></div>
+                    <div className="p-2 align-self-center"><FaInfoCircle size={25} /></div>
                   </div>
                 </FormGroup>
                 <FormGroup check>
                   <div className="d-flex">
                     <div className="mr-auto p-2">
                       <Label check>
-                        <Input type="radio" name="radio1"/>
+                        <Input type="radio" name="radio1" />
                         Teen & Adult
                         <p className={'mb-0 ml-2'}>
                           <small>Ages: 13yrs and up</small>
                         </p>
                       </Label>
                     </div>
-                    <div className="p-2 align-self-center"><FaInfoCircle size={25}/></div>
+                    <div className="p-2 align-self-center"><FaInfoCircle size={25} /></div>
                   </div>
                 </FormGroup>
               </FormGroup>
               <Button className={"d-flex m-auto justify-content-center pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase"}>Next</Button>
             </Col>
             <Col md={4} className={'order-first order-md-last'}>
-              <RightSidebar/>
+              <RightSidebar />
             </Col>
           </Row>
         </Container>
