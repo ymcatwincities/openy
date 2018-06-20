@@ -55,10 +55,6 @@
     margin-bottom: -60px;
   }
 
-  //.banner-zone-node .banner-cta-section {
-  //  padding-top: 0;
-  //}
-
   .paragraph-gallery .carousel .carousel-control {
     width: 55px;
     height: 55px;
@@ -78,17 +74,17 @@
     }
   }
 
-  .paragraph--type--banner .banner-cta {
-    position: relative;
-    background: $green;
-    display: block;
-    padding: 0 0 30px;
-    word-wrap: break-word;
-
-    .banner-description {
-      color: white;
-    }
-  }
+  //.paragraph--type--banner .banner-cta {
+  //  position: relative;
+  //  background: $green;
+  //  display: block;
+  //  padding: 0 0 30px;
+  //  word-wrap: break-word;
+  //
+  //  .banner-description {
+  //    color: white;
+  //  }
+  //}
 
   .region-footer-info,
   .region-footer-tel {

@@ -92,13 +92,13 @@ set classes = [
 {# Banner #}
 <div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
 
+  {% if header_image|render|trim is not empty %}
+    <div class="banner-bg" style="background: url('{{ header_image }}');"></div>
+  {% endif %}
+
   <div class="banner-cta">
     <div class="banner-cta-content container align-self-end pt-5 pb-4">
       <div class="banner-cta-section">
-
-        <h1 class="banner-title text-uppercase mb-4 text-white">
-          {{ label }}
-        </h1>
 
         {% if content.field_category_program|render|trim is not empty %}
         <div class="banner-description mb-3">
@@ -108,7 +108,6 @@ set classes = [
 
       </div>
     </div>
-    <div class="banner-bg" style="background: url('{{ header_image }}');"></div>
   </div>
 
   <div>

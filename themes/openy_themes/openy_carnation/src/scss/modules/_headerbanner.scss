@@ -2,40 +2,46 @@
 .banner-zone-node {
   position: relative;
 
-  .banner-image {
-    max-height: 700px;
-
-    img {
-      width: 100%;
-    }
-  }
-
+  // main background image
   .banner-bg {
-    background-size: cover !important;
-    background-position: center center !important;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+    min-height: 225px;
     background-size: cover;
-    z-index: 0;
-  }
+    background-position: center center;
 
-  .banner-cta {
-    padding-top: 70px;
-    position: relative;
+    @include media-breakpoint-up(md) {
+      min-height: 350px;
+    }
 
-    &:before {
+    @include media-breakpoint-up(lg) {
       position: absolute;
       top: 0;
       right: 0;
-      bottom: 0;
       left: 0;
-      background-color: black;
-      content: "";
-      opacity: 0.4;
+      bottom: 0;
       z-index: 1;
+    }
+  }
+
+  .banner-cta {
+    position: relative;
+
+    // start overlaying images
+    @include media-breakpoint-up(lg) {
+      padding-top: 140px;
+
+      &:not(.banner-cta--no_overlay) {
+        &:before {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: black;
+          content: "";
+          opacity: 0.4;
+          z-index: 1;
+        }
+      }
     }
 
     .banner-cta-content {
@@ -44,11 +50,8 @@
     }
   }
 
+  // headings
   h1 {
     letter-spacing: -2px;
   }
-}
-
-.path-frontpage .paragraph--type--header-banner {
-  margin-bottom: -110px;
 }
