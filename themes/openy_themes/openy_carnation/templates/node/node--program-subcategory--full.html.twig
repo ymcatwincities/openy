@@ -122,14 +122,14 @@ set classes = [
     <div class="two-column col">
 
      {# Category content #}
-      <div class="main-region">
+      <div class="main-region col">
         {{ content.field_category_description }}
         {{ content.field_content }}
       </div>
 
       {# Category sidebar #}
       {% if hasSidebar %}
-      <div class="sidebar-region col-sm-4">
+      <div class="sidebar-region col-md-5 col-lg-4">
         <article class="program-sidebar program-sidebar-sub-category">
           {{ content.field_sidebar_content }}
         </article>
