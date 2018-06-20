@@ -101,8 +101,14 @@ class ImportForm extends FormBase {
     $after = TRUE;
     $i = 1;
 
-    $filenamePrograms = '/tmp/programs.csv';
-    unlink($filenamePrograms);
+    $publicPath = \Drupal::service('file_system')->realpath("public://");
+    $filenamePrograms = $publicPath . '/daxko-import/programs.csv';
+    if (file_exists($filenamePrograms)) {
+      unlink($filenamePrograms);
+    }
+    if (!is_dir($publicPath . '/daxko-import')) {
+      mkdir($publicPath . '/daxko-import');
+    }
     $fp = fopen($filenamePrograms, 'w');
 
     $categories = [];
@@ -166,9 +172,7 @@ class ImportForm extends FormBase {
               break;
 
             case 'restrictions':
-              if (isset($value['age'])) {
-                $value = json_encode($value);
-              }
+              $value = json_encode($value);
               break;
 
             case 'times':
@@ -179,6 +183,9 @@ class ImportForm extends FormBase {
                 'end_date' => $row['end_date'],
               ]);
               break;
+
+            default:
+              $value = !is_string($value) ? json_encode($value) : $value;
           }
 
           $newRow[$key] = $value;
@@ -209,8 +216,10 @@ class ImportForm extends FormBase {
     fclose($fp);
 
     // Save categories CSV file.
-    $filenameCategories = '/tmp/categories.csv';
-    unlink($filenameCategories);
+    $filenameCategories = $publicPath . '/daxko-import/categories.csv';
+    if (file_exists($filenameCategories)) {
+      unlink($filenameCategories);
+    }
     $fp = fopen($filenameCategories, 'w');
     foreach ($categories as $fields) {
       \Drupal::moduleHandler()->alter('openy_daxko2_categories_csv_row', $fields);

@@ -20,19 +20,49 @@ class OpenYDaxkoSchedule extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
+    print($value);
+    drush_print();
+    if (empty(json_decode($value))) {
+      return [];
+    }
     $value = json_decode($value);
 //    {"times":[{"start":"18:00","end":"20:00"}],"days":[{"id":"5","name":"Friday"}],"start_date":"2018-02-16T00:00:00.0000000","end_date":"2018-02-16T00:00:00.0000000"}
 
-    $startDate = substr($value->start_date, 0, 11) . $value->times[0]->start . ':00';
-    $endDate = substr($value->end_date, 0, 11) . $value->times[0]->end . ':00';
+    // Check for max timestamp date
+    $timezone = new \DateTimeZone(drupal_get_user_timezone());
+    $maxDt = new \DateTime();
+    $maxDt->setTimestamp(2147483647);
+    $maxDt->setTimezone($timezone);
+    $maxDt->setTime(0, 0, 0, 0);
+    $maxDate = $maxDt->format(DATETIME_DATETIME_STORAGE_FORMAT);
+
+    $paragraph = Paragraph::create(['type' => 'session_time' ]);
 
     $days = [];
     foreach ($value->days as $day) {
       $days[] = strtolower($day->name);
     }
-
-    $paragraph = Paragraph::create(['type' => 'session_time' ]);
     $paragraph->set('field_session_time_days', $days);
+
+    // Set default start date as current time.
+    $startDt = new \DateTime();
+    $startDt->setTimezone($timezone);
+    $startDate = $startDt->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    if (!empty($value->start_date)) {
+      $startTime = !empty($value->times[0]) ? $value->times[0]->start : '00:00';
+      $startDate = substr($value->start_date, 0, 11) . $startTime . ':00';
+      if (strtotime($startDate) > 2147483647) {
+        $startDate = $maxDate;
+      }
+    }
+    $endDate = $maxDate;
+    if (!empty($value->end_date)) {
+      $endTime = !empty($value->times[0]) ? $value->times[0]->end : '23:59';
+      $endDate = substr($value->end_date, 0, 11) . $endTime . ':00';
+      if (strtotime($endDate) > 2147483647) {
+        $endDate = $maxDate;
+      }
+    }
     $paragraph->set('field_session_time_date', ['value' => $startDate, 'end_value' => $endDate]);
     $paragraph->isNew();
     $paragraph->save();
