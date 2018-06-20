@@ -9287,14 +9287,14 @@ body .branch-popup {
     margin-top: -4px;
     margin-right: 4px;
     color: #00aeef; }
-  .footer #block-openy-carnation-footersocialblock .fa {
+  .footer .fa {
     width: 28px;
     color: transparent !important;
     font-size: 28px;
     transition: all 0.3s linear 0s; }
-    .footer #block-openy-carnation-footersocialblock .fa:before {
+    .footer .fa:before {
       color: white; }
-  .footer #block-openy-carnation-footersocialblock .list-inline li:hover .fa::before {
+  .footer .list-inline li:hover .fa::before {
     color: #0089d0; }
   .footer .footer__copyright {
     background: black;
@@ -9804,9 +9804,10 @@ body .branch-popup {
 .banner-zone-node {
   position: relative; }
   .banner-zone-node .banner-bg {
-    min-height: 225px;
-    background-size: cover;
-    background-position: center center; }
+    min-height: 70px; }
+    @media (min-width: 576px) {
+      .banner-zone-node .banner-bg {
+        min-height: 225px; } }
     @media (min-width: 768px) {
       .banner-zone-node .banner-bg {
         min-height: 350px; } }
@@ -9819,11 +9820,12 @@ body .branch-popup {
         bottom: 0;
         z-index: 1; } }
   .banner-zone-node .banner-cta {
-    position: relative; }
+    position: relative;
+    overflow: hidden; }
     @media (min-width: 992px) {
       .banner-zone-node .banner-cta {
         padding-top: 140px; }
-        .banner-zone-node .banner-cta:not(.banner-cta--no_overlay):before {
+        .banner-zone-node .banner-cta:not(.banner-cta--no_overlay):after {
           position: absolute;
           top: 0;
           right: 0;
@@ -9831,11 +9833,11 @@ body .branch-popup {
           left: 0;
           background-color: black;
           content: "";
-          opacity: 0.4;
+          opacity: .3;
           z-index: 1; } }
     .banner-zone-node .banner-cta .banner-cta-content {
       position: relative;
-      z-index: 1; }
+      z-index: 2; }
   .banner-zone-node h1 {
     letter-spacing: -2px; }
 

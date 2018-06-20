@@ -78,7 +78,6 @@ set classes = [
   'program-header-sub-category',
   'banner',
   'banner--medium',
-  'bg-light',
 ]
 %}
 
@@ -91,19 +90,19 @@ set classes = [
 
 {# Banner #}
 <div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
-
-  {% if header_image|render|trim is not empty %}
-    <div class="banner-bg" style="background: url('{{ header_image }}');"></div>
-  {% endif %}
-
   <div class="banner-cta">
-    <div class="banner-cta-content container align-self-end pt-5 pb-4">
-      <div class="banner-cta-section">
+
+    {% if header_image|render|trim is not empty %}
+      <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;"></div>
+    {% endif %}
+
+    <div class="banner-cta-content container align-self-end py-4 py-lg-5">
+      <div class="banner-cta-section row">
 
         {% if content.field_category_program|render|trim is not empty %}
-        <div class="banner-description mb-3">
-          <h4 class="text-gray-200">{{ content.field_category_program }}</h4>
-        </div>
+        <h1 class="banner-title text-uppercase m-0 text-white col">
+          {{ content.field_category_program }}
+        </h1>
         {% endif %}
 
       </div>
@@ -113,10 +112,7 @@ set classes = [
   <div>
     {{ content.field_header_content }}
   </div>
-
 </div>
-
-
 
 {# Filters #}
 {% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}
