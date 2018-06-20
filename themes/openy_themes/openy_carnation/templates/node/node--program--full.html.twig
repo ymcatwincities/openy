@@ -93,26 +93,26 @@
 
 
 {# Program header #}
-<article{{ attributes.addClass('program-header banner') }}>
-  <div{{ content_attributes.addClass('content banner banner--small d-flex').setAttribute('style', bg_color) }}>
-    <div class="container align-self-end py-5">
-      <div class="row">
+<div{{ attributes.addClass('banner program-header') }}>
 
-        <div class="col main">
-          <h1 class="text-white">{{ label }}</h1>
+  {% if content.field_program_image is not empty %}
+    <div class="banner-bg" style="background: url('{{ header_image }}');"></div>
+  {% endif %}
 
-          {% if content.field_program_icon|render|trim is not empty %}
-          <div class="icon">
-            {{ content.field_program_icon }}
-          </div>
-          {% endif %}
+  <div{{ content_attributes.addClass('banner-cta banner-cta--no_overlay banner--green d-block d-lg-flex').setAttribute('style', bg_color) }}>
+    <div class="banner-cta-content container align-items-center m-auto py-5 text-white">
+      <div class="banner-cta-section row align-items-center">
 
+        {% if content.field_program_icon is not empty %}
+        <div class="banner-icon col d-none d-md-flex align-items-center">
+          {{ content.field_program_icon }}
         </div>
+        {% endif %}
 
-        {% if content.field_program_image|render|trim is not empty %}
-        <div class="col-sm-4 d-none d-lg-inline image">
-          {{ content.field_program_image }}
-        </div>
+        {% if label|render|trim is not empty %}
+        <h1 class="banner-title text-uppercase m-0 text-white col">
+          {{ label }}
+        </h1>
         {% endif %}
 
       </div>
@@ -129,7 +129,7 @@
   </div>
   {% endif %}
 
-</article>
+</div>
 
 <div class="container">
   <div class="row">

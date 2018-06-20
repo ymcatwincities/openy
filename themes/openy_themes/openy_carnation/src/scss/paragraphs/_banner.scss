@@ -50,13 +50,19 @@
   // heading + subheading (program nodes)
   &--medium {
     min-height: 120px;
-    //max-height: 400px;
 
     @include media-breakpoint-up(lg) {
       min-height: 400px;
+    }
+  }
+
+  // large cta banners (homepage)
+  &--large {
+    @include media-breakpoint-up(lg) {
+      min-height: 700px;
 
       .banner-cta {
-        padding-top: 140px;
+        min-height: 700px;
       }
     }
   }
