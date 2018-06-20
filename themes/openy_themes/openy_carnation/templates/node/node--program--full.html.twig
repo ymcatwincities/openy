@@ -81,6 +81,10 @@
   {% set bg_color = 'background-color: '  ~  color %}
 {% endif %}
 
+{% if header_image|render|trim is empty %}
+  {% set overlay_class = 'banner-cta--no_overlay' %}
+{% endif %}
+
 {% if content.field_header_content is not empty %}
   <article{{ attributes.addClass(header_classes) }}>
     <div{{ content_attributes.addClass(header_content_classes) }}>
@@ -94,13 +98,13 @@
 
 {# Program header #}
 <div{{ attributes.addClass('banner program-header') }}>
+  <div{{ content_attributes.addClass('banner-cta banner--green d-block d-lg-flex', overlay_class).setAttribute('style', bg_color) }}>
 
-  {% if content.field_program_image is not empty %}
-    <div class="banner-bg" style="background: url('{{ header_image }}');"></div>
-  {% endif %}
+    {% if header_image|render|trim is not empty %}
+      <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;"></div>
+    {% endif %}
 
-  <div{{ content_attributes.addClass('banner-cta banner-cta--no_overlay banner--green d-block d-lg-flex').setAttribute('style', bg_color) }}>
-    <div class="banner-cta-content container align-items-center m-auto py-5 text-white">
+    <div class="banner-cta-content container align-items-center text-white m-auto py-4 py-lg-5">
       <div class="banner-cta-section row align-items-center">
 
         {% if content.field_program_icon is not empty %}

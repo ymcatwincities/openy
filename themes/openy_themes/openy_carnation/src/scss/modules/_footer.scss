@@ -3,7 +3,6 @@
   color: white;
   font-size: 18px;
   padding-bottom: 0;
-  //padding-top: 50px;
   margin-top: 0;
   border-top: 0 solid;
 
@@ -103,23 +102,23 @@
     }
   }
 
-  #block-openy-carnation-footersocialblock {
-    .fa {
-      width: 28px;
-      color: transparent !important;
-      font-size: 28px;
-      transition: all 0.3s linear 0s;
+  // social media
+  .fa {
+    width: 28px;
+    color: transparent !important;
+    font-size: 28px;
+    transition: all 0.3s linear 0s;
 
-      &:before {
-        color: white;
-      }
-    }
-
-    .list-inline li:hover .fa::before {
-      color: $primary;
+    &:before {
+      color: white;
     }
   }
 
+  .list-inline li:hover .fa::before {
+    color: $primary;
+  }
+
+  // copyright
   .footer__copyright {
     background: black;
     font-size: 15px;
