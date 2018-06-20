@@ -1,0 +1,20 @@
+.categories {
+  padding: 20px;
+  .form-group .form-check {
+    padding: 15px 20px;
+    border-top: 1px solid #777;
+  }
+
+  .card {
+    margin-bottom: 20px;
+    &-title {
+      margin-bottom: 0;
+    }
+  }
+
+  .btn-next {
+    background: #fff;
+    color: #777;
+    border-radius: 0;
+  }
+}
