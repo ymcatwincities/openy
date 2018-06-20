@@ -81,12 +81,12 @@ set classes = [
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
-  <div class="col-sm-5 image">
+  <div class="col-md-5 image">
     <a href="{{ url }}">{{ content.field_category_image }}</a>
   </div>
-  <div class="col-sm-7 content">
+  <div class="col-md-7 content">
     <h2>{{ label }}</h2>
     {{ content.field_category_description }}
-    <a href="{{ url }}" class="btn btn-link blue">{{ 'Open category'|t }}</a>
+    <a href="{{ url }}" class="btn btn-outline-primary d-block d-lg-inline">{{ 'Open category'|t }}</a>
   </div>
 </article>

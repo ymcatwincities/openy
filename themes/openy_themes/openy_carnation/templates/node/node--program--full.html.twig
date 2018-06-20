@@ -107,7 +107,7 @@
     <div class="banner-cta-content container align-items-center text-white m-auto py-4 py-lg-5">
       <div class="banner-cta-section row align-items-center">
 
-        {% if content.field_program_icon is not empty %}
+        {% if content.field_program_icon|render|trim is not empty %}
         <div class="banner-icon col d-none d-md-flex align-items-center">
           {{ content.field_program_icon }}
         </div>
@@ -135,20 +135,24 @@
 
 </div>
 
+{% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}
+
 <div class="container">
   <div class="row">
 
       {# Program content #}
-      <div class="main-region col-sm-8">
+      <div class="main-region col">
         {{ content.field_content }}
       </div>
 
       {# Program sidebar #}
-      <div class="sidebar-region col-sm-4">
+      {% if hasSidebar %}
+      <div class="sidebar-region col-md-5 col-lg-4">
         <article class="program-sidebar">
           {{ content.field_sidebar_content }}
         </article>
       </div>
+      {% endif %}
 
   </div>
 </div>

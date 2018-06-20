@@ -320,20 +320,6 @@
       float: right;
       padding-right: 0;
     }
-
-    .btn {
-      display: block;
-      font-size: 18px;
-      padding: 12px;
-      margin-top: 15px;
-
-      @include media-breakpoint-up(sm) {
-        max-width: 360px;
-        font-size: 18px;
-        padding: 16px;
-        margin-top: 25px;
-      }
-    }
   }
 }
 

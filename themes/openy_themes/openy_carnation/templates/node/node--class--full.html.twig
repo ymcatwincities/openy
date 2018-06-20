@@ -110,13 +110,13 @@ set sidebar_classes = [
           {% endif %}
           {% if content.field_sidebar_content is not empty %}
           <div class="two-column">
-            <div class="main-region col-sm-8">
+            <div class="main-region col-md-7 col-lg-8">
               {% endif %}
               {{ content.field_class_description }}
               {{ content.field_content }}
               {% if content.field_sidebar_content is not empty %}
             </div>
-            <div class="sidebar-region col-sm-4">
+            <div class="sidebar-region col-md-5 col-lg-4">
               {% endif %}
               <article{{ attributes.addClass(sidebar_classes) }}>
                 {{ content.field_sidebar_content }}

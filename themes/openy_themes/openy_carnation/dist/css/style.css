@@ -10973,17 +10973,6 @@ body {
       .subprogram-listing-item .content {
         float: right;
         padding-right: 0; } }
-    .subprogram-listing-item .content .btn {
-      display: block;
-      font-size: 18px;
-      padding: 12px;
-      margin-top: 15px; }
-      @media (min-width: 576px) {
-        .subprogram-listing-item .content .btn {
-          max-width: 360px;
-          font-size: 18px;
-          padding: 16px;
-          margin-top: 25px; } }
 
 .sub-category-classes-view .controls-wrapper {
   padding-top: 9px;

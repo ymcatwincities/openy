@@ -45,12 +45,12 @@ set classes = [
 ]
 %}
 <article{{ attributes.addClass(classes) }}>
-  <div class="col-sm-5 col-md-4 image">
+  <div class="col-md-5 image">
     <a href="{{ content.field_prgf_link.0['#url'] }}">{{ content.field_prgf_image }}</a>
   </div>
-  <div class="col-sm-7 content">
+  <div class="col-md-7 content">
     <h2>{{ content.field_prgf_title }}</h2>
     {{ content.field_prgf_description }}
-    <a href="{{ content.field_prgf_link.0['#url'] }}" class="btn btn-link blue">{{ content.field_prgf_link.0['#title'] }}</a>
+    <a href="{{ content.field_prgf_link.0['#url'] }}" class="btn btn-outline-primary d-block d-lg-inline">{{ content.field_prgf_link.0['#title'] }}</a>
   </div>
 </article>
