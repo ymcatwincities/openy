@@ -6,6 +6,14 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_prgf_camp_menu_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('paragraph', 'paragraphs_type', 'camp_menu');
+}
+
+/**
  * Update Paragraph Camp Menu field_prgf_block.
  */
 function openy_prgf_camp_menu_update_8001() {
@@ -14,7 +22,7 @@ function openy_prgf_camp_menu_update_8001() {
 
   // Update multiple configurations.
   $configs = [
-    'core.entity_view_display.paragraph.camp_menu.default' =>[
+    'core.entity_view_display.paragraph.camp_menu.default' => [
       'content.field_prgf_block.region',
     ],
     'field.field.paragraph.camp_menu.field_prgf_block' => [
