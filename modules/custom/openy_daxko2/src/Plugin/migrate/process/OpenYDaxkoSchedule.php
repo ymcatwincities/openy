@@ -20,8 +20,6 @@ class OpenYDaxkoSchedule extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    print($value);
-    drush_print();
     if (empty(json_decode($value))) {
       return [];
     }
@@ -35,6 +33,10 @@ class OpenYDaxkoSchedule extends ProcessPluginBase {
     $maxDt->setTimezone($timezone);
     $maxDt->setTime(0, 0, 0, 0);
     $maxDate = $maxDt->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    // Set default start date as current time.
+    $nowDt = new \DateTime();
+    $nowDt->setTimezone($timezone);
+    $currentDate = $nowDt->format(DATETIME_DATETIME_STORAGE_FORMAT);
 
     $paragraph = Paragraph::create(['type' => 'session_time' ]);
 
@@ -44,15 +46,15 @@ class OpenYDaxkoSchedule extends ProcessPluginBase {
     }
     $paragraph->set('field_session_time_days', $days);
 
-    // Set default start date as current time.
-    $startDt = new \DateTime();
-    $startDt->setTimezone($timezone);
-    $startDate = $startDt->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $startDate = $currentDate;
     if (!empty($value->start_date)) {
       $startTime = !empty($value->times[0]) ? $value->times[0]->start : '00:00';
       $startDate = substr($value->start_date, 0, 11) . $startTime . ':00';
       if (strtotime($startDate) > 2147483647) {
         $startDate = $maxDate;
+      }
+      if (strtotime($startDate) <= 0) {
+        $startDate = $currentDate;
       }
     }
     $endDate = $maxDate;
@@ -61,6 +63,9 @@ class OpenYDaxkoSchedule extends ProcessPluginBase {
       $endDate = substr($value->end_date, 0, 11) . $endTime . ':00';
       if (strtotime($endDate) > 2147483647) {
         $endDate = $maxDate;
+      }
+      if (strtotime($startDate) <= 0) {
+        $endDate = $currentDate;
       }
     }
     $paragraph->set('field_session_time_date', ['value' => $startDate, 'end_value' => $endDate]);
