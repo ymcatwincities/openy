@@ -23,6 +23,11 @@
 
 .site-alert__dismiss {
   color: white;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
 
   &:hover {
     color: white;
@@ -87,17 +92,23 @@
   }
 
   .slick--view--alerts .container {
-    position: relative;
+    @include media-breakpoint-up(lg) {
+      position: relative;
+    }
   }
 
   .slick__arrow {
     display: block;
     height: 30px;
     position: absolute;
-    bottom: 22px;
+    bottom: 50%;
     top: auto;
     left: 0;
     right: 0;
+
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 31px;
+    }
   }
 
   .slick__counter {
@@ -105,20 +116,20 @@
   }
 
   .slick-arrow {
+    padding: 10px;
     background: transparent;
     border: none;
     color: transparent;
     cursor: pointer;
     display: block;
     font-size: 0;
-    height: auto;
+    width: 20px;
+    height: 32px;
     left: auto;
     line-height: 0;
     outline: none;
-    padding: 0;
     position: absolute;
     text-decoration: none;
-    width: auto;
 
     &:before {
       color: white;
@@ -140,20 +151,31 @@
   }
 }
 
-.header-alerts-list .slick-prev,
-.footer-alerts-list .slick-prev {
-  left: 0;
+.header-alerts-list,
+.footer-alerts-list {
+  .slick-prev,
+  .slick-prev {
+    left: 20px;
 
-  &:before {
-    content: "\f104";
+    @include media-breakpoint-up(lg) {
+      left: 0;
+    }
+
+    &:before {
+      content: "\f104";
+    }
   }
-}
 
-.header-alerts-list .slick-next,
-.footer-alerts-list .slick-next {
-  right: 0;
+  .slick-next,
+  .slick-next {
+    right: 20px;
 
-  &:before {
-    content: "\f105";
+    @include media-breakpoint-up(lg) {
+      right: 0;
+    }
+
+    &:before {
+      content: "\f105";
+    }
   }
 }

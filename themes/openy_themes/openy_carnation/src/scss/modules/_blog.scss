@@ -1,24 +1,22 @@
 .paragraph--type--featured-blogs {
   .slick-prev {
-    left: -17px;
+    left: 10px;
+
+    @include media-breakpoint-up(sm) {
+      left: 15px;
+    }
   }
 
   .slick-next {
-    right: -17px;
+    right: 10px;
+
+    @include media-breakpoint-up(sm) {
+      right: 15px;
+    }
   }
 
   .slick-arrow {
     top: 55%;
-  }
-
-  @include media-breakpoint-up(sm) {
-    .slick-prev {
-      left: 15px;
-    }
-
-    .slick-next {
-      right: 15px;
-    }
   }
 }
 
@@ -87,8 +85,16 @@
 // teaser
 .node--type-blog.node--view-mode-teaser {
   margin: auto;
-  max-width: 373px;
+  max-width: 225px;
   width: 100%;
+
+  @include media-breakpoint-up(xs) {
+    max-width: 275px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    max-width: 375px;
+  }
 
   .inner-wrapper {
     margin: 15px 0;
