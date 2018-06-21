@@ -39,19 +39,16 @@
  */
 #}
 {% set classes = [
-'sidebar-card',
-'blog-related',
+  'list-group-item',
+  'px-2',
 ] %}
 
-{% for item in items %}
-  <div{{ attributes.addClass(classes) }}>
-    <h3>
-      {{ 'Related content'|t }}
-    </h3>
-    <div class="description">
-      <h2> {{ item.content }} </h2>
-    </div>
-  </div>
-{% endfor %}
+<h4 class="mt-4">{{ 'Related content'|t }}</h4>
 
-
+<ul class="list-group list-group-flush">
+  {% for item in items %}
+  <li{{ attributes.addClass(classes) }}>
+    <i class="fa fa-angle-right text-primary"></i> {{ item.content }}
+  </li>
+  {% endfor %}
+</ul>

@@ -77,30 +77,62 @@
     node.isPromoted() ? 'node--promoted',
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class
   ]
 %}
 
-<div class="container two-columns-container">
-  <div class="row">
-    <div class="two-column">
-      <div class="main-region col-md-7 col-lg-8">
-        <article{{ attributes.addClass(classes) }}>
-          {{ title_prefix }}
-          <h1{{ title_attributes }}>
-             {{ label }}
-          </h1>
-          {{ title_suffix }}
+<div class="page-heading banner banner--small banner--grey">
+  <div class="banner-cta d-block d-lg-flex">
+    <div class="banner-cta-content container align-items-center m-auto py-4 py-lg-5 text-white">
+      <div class="banner-cta-section">
 
-          <div{{ content_attributes.addClass('node__content') }}>
-            {{ content|without('field_blog_related', 'field_sidebar_content') }}
-          </div>
-        </article>
-      </div>
-      <div class="sidebar-region col-md-5 col-lg-4">
-        {{ content.field_blog_related }}
-        {{ content.field_sidebar_content }}
+        {% if label|render|trim is not empty %}
+        <h1 class="banner-title text-uppercase m-0 text-white">
+          {{ label }}
+        </h1>
+        {% endif %}
+
       </div>
     </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12 back-to-blog text-left">
+      <a href="{{ back_link_path }}">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        {{ back_link_title }}
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="copy col-12 col-md-8 col-lg-9 mb-5 mb-lg-0">
+      <article{{ attributes.addClass(classes) }}>
+        <div{{ content_attributes.addClass('node__content') }}>
+
+          {% if content.field_blog_image|render|trim is not empty %}
+          <figure class="mb-4">
+            {{ content.field_blog_image }}
+          </figure>
+          {% endif %}
+
+          {{ content|without('field_blog_related', 'field_blog_image', 'field_sidebar_content', 'field_blog_location', 'field_blog_category') }}
+        </div>
+      </article>
+    </div>
+
+    <div class="col-12 col-md-4 col-lg-3">
+      <div class="card mb-3">
+        <div class="card-body">
+          {{ content.field_blog_location }}
+          {{ content.field_blog_category }}
+          {{ content.field_blog_related }}
+          {{ content.field_sidebar_content }}
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

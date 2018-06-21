@@ -2,29 +2,34 @@
  * @file
  * OpenY Carnation JS.
  */
-
 (function ($) {
-  "use strict";
-  Drupal.openy_carnation = Drupal.openy_carnation || {};
 
+  "use strict";
+  Drupal.openyCarnation = Drupal.openyCarnation || {};
+
+  /**
+   * Alert Modals
+   */
   Drupal.behaviors.openyAlertModals = {
     attach: function (context, settings) {
-      var alert_modals = $('.alert-modal', context);
+      var alertModals = $('.alert-modal', context);
 
       $(window).on('load',function() {
-        if (alert_modals.length) {
-          alert_modals.modal('show');
+        if (alertModals.length) {
+          alertModals.modal('show');
         }
       });
     }
   };
 
-  //  Move Header Banner paragraph to header.
+  /**
+   * Move Header Banner paragraph to header.
+   */
   Drupal.behaviors.openyBanners = {
     attach: function (context, settings) {
-      var banner_header = $('.paragraph--type--banner, .landing-header, .program-header');
-      if (banner_header.length > 0) {
-        $('.banner-zone-node').once('openy-banners').append(banner_header.eq(0));
+      var bannerHeader = $('.paragraph--type--banner, .landing-header, .program-header, .page-heading');
+      if (bannerHeader.length > 0) {
+        $('.banner-zone-node').once('openy-banners').append(bannerHeader.eq(0));
         $('body').addClass('with-banner');
       } else {
         $('body').addClass('without-banner');
@@ -32,24 +37,28 @@
     }
   };
 
-  // Show/hide desktop search block.
+  /**
+   * Show/hide desktop search block.
+   */
   Drupal.behaviors.openySearchToggle = {
     attach: function (context, settings) {
-      var search_md = $('.site-search button');
-      var main_menu_links_md = $('.page-head__main-menu .nav-level-1 li:not(:eq(0))').find('a, button');
-      var search_close_md = $('.page-head__search-close');
+      var searchBtn = $('.site-search button');
+      var mainMenuLinks = $('.page-head__main-menu .nav-level-1 li:not(:eq(0))').find('a, button');
+      var searchClose = $('.page-head__search-close');
 
-      search_md.once('openy-search-toggle-hide').on('click', function () {
-        main_menu_links_md.removeClass('show').addClass('fade');
+      searchBtn.once('openy-search-toggle-hide').on('click', function () {
+        mainMenuLinks.removeClass('show').addClass('fade');
       });
 
-      search_close_md.once('openy-search-toggle-show').on('click', function () {
-        main_menu_links_md.addClass('show');
+      searchClose.once('openy-search-toggle-show').on('click', function () {
+        mainMenuLinks.addClass('show');
       });
     }
   };
 
-  // Add class to header when mobile menu is opened.
+  /**
+   * Add class to header when mobile menu is opened.
+   */
   Drupal.behaviors.openyMobileMenu = {
     attach: function (context, settings) {
       var sidebar = $('#sidebar');
@@ -65,7 +74,9 @@
     }
   };
 
-  // Dropdown menu height.
+  /**
+   * Dropdown menu height.
+   */
   Drupal.behaviors.openyDropdownMenu = {
     attach: function (context, settings) {
       $('.nav-desktop .nav-level-2').each(function (index, element) {
@@ -78,7 +89,9 @@
     }
   };
 
-  // BS4 data-spy: affix replacement
+  /**
+   * BS4 data-spy: affix replacement
+   */
   Drupal.behaviors.openyHeaderAffix = {
     attach: function (context, settings) {
       $(window).on('scroll', function(event) {
@@ -97,6 +110,9 @@
     Drupal.behaviors.openyDropdownMenu.attach();
   });
 
+  /**
+   * User Login Form
+   */
   Drupal.behaviors.openyUserLogin = {
     attach: function (context, settings) {
       $("input[type='password'][data-eye]").each(function (i) {
@@ -143,7 +159,38 @@
     }
   };
 
-  // Program Carousels
+  // PULLED FROM LILY
+
+  /**
+   * Match Heights
+   */
+  Drupal.behaviors.openyMatchHeight = {
+    attach: function (context, settings) {
+      matchAllHeight();
+    }
+  };
+
+  function matchAllHeight() {
+    var el = [
+      '.viewport .page-head__main-menu .nav-level-3 > a',
+      '.blog-up',
+      '.blog-heading',
+      '.inner-wrapper',
+      '.membership-type',
+      '.membership-type h3',
+      '.membership-type article p',
+      '.activity-group .card',
+    ];
+
+    // make them all equal heights.
+    $.each(el, function (index, value) {
+      $(value).matchHeight();
+    });
+  }
+
+  /**
+   * Program Carousels
+   */
   Drupal.behaviors.openySubCategoryClassesTheme = {
     attach: function (context, settings) {
       $('.sub-category-classes-view').once().each(function() {
@@ -236,27 +283,127 @@
     }
   };
 
-  // Match Heights
-  Drupal.behaviors.openyMatchHeight = {
+  /**
+   * Scroll to next button.
+   */
+  Drupal.behaviors.scrollToNext = {
     attach: function (context, settings) {
-      matchAllHeight();
+      $(context).find('.calc-block-form').once('calcForm').each(function () {
+        $(this).find('.btn-lg.btn').on('click', function () {
+          $('html, body').animate({
+            scrollTop: $(".form-submit").offset().top
+          }, 2000);
+        });
+      });
     }
   };
 
-  function matchAllHeight() {
-    var el = [
-      '.viewport .page-head__main-menu .nav-level-3 > a',
-      '.blog-heading',
-      '.membership-type',
-      '.membership-type h3',
-      '.membership-type article p',
-      '.activity-group .card'
-    ];
+  /**
+   * Hide/Show membership form.
+   */
+  Drupal.behaviors.showMember = {
+    attach: function (context, settings) {
+      $(context).find('#membership-page .webform-submission-form').once('membForm').each(function () {
+        $('.try-the-y-toggle').on('click', function (e) {
+          e.preventDefault();
+          $('.try-the-y-toggle').addClass('active');
+          $('.landing-content > .paragraph:nth-child(1), .landing-content > .paragraph:nth-child(3),  article.webform').slideDown('fast');
+          $('html, body').animate({
+            scrollTop: $("#membership-page .webform form").offset().top - 250
+          }, 500);
+        });
+      });
+    }
+  };
 
-    // make them all equal heights.
-    $.each(el, function (index, value) {
-      $(value).matchHeight();
-    });
-  }
+  /**
+   * Views scroll to top ajax command override.
+   */
+  Drupal.behaviors.scrollOffset = {
+    attach: function (context, settings) {
+      if (typeof Drupal.AjaxCommands === 'undefined') {
+        return;
+      }
+      Drupal.AjaxCommands.prototype.viewsScrollTop = function (ajax, response) {
+        // Scroll to the top of the view. This will allow users
+        // to browse newly loaded content after e.g. clicking a pager
+        // link.
+        var offset = $(response.selector).offset();
+        // We can't guarantee that the scrollable object should be
+        // the body, as the view could be embedded in something
+        // more complex such as a modal popup. Recurse up the DOM
+        // and scroll the first element that has a non-zero top.
+        var scrollTarget = response.selector;
+        while ($(scrollTarget).scrollTop() === 0 && $(scrollTarget).parent()) {
+          scrollTarget = $(scrollTarget).parent();
+        }
+        // Only scroll upward.
+        if (offset.top - 10 < $(scrollTarget).scrollTop()) {
+          $(scrollTarget).animate({scrollTop: (offset.top - 230)}, 500);
+        }
+      };
+    }
+  };
+
+  /**
+   * Mobile UX for Microsites menu.
+   */
+  Drupal.behaviors.mobile_microsites_menu = {
+    attach: function (context, settings) {
+      if ($(window).width() > 992) {
+        return;
+      }
+      var menu = $('.microsites-menu__wrapper');
+      if (menu.length === 0) {
+        menu = $('.paragraph--type--camp-menu');
+      }
+
+      if (menu.length === 0) {
+        return;
+      }
+      if ($('ul li a', menu).length === 0) {
+        return;
+      }
+      $('ul li', menu).css('display', 'none');
+      var home = $('ul li a', menu).first();
+      home.text('');
+      home.append('<span class="name">' + Drupal.t('Helpful links, info, etc.') + '</span><b class="caret"></b>');
+      home.parent().css('display', 'list-item');
+      home.click(function (e) {
+        e.preventDefault();
+        if ($(this).hasClass('open')) {
+          $(this).removeClass('open').parents('ul.camp-menu').find('li:not(.heading)').slideUp();
+        }
+        else {
+          $(this).parents('ul.camp-menu').find('li:eq(0)').addClass('heading');
+          $(this).addClass('open').parents('ul.camp-menu').find('li').slideDown();
+        }
+      });
+    },
+    detach: function (context, settings, trigger) {
+      if (trigger === 'unload') {
+        var menu = $('.microsites-menu__wrapper');
+        if (menu.length === 0) {
+          menu = $('.paragraph--type--camp-menu');
+        }
+        var home = $('ul li a', menu).first();
+        home.unbind('click');
+        home.html(Drupal.t('Home'));
+        $('ul li', menu).css('display', 'table-cell');
+      }
+    }
+  };
+
+  /**
+   * Mobile UX.
+   */
+  Drupal.behaviors.mobile_ux = {
+    attach: function (context, settings) {
+      $(window).on('orientationchange', function () {
+        Drupal.behaviors.mobile_microsites_menu.detach(context, settings, 'unload');
+        Drupal.behaviors.mobile_microsites_menu.attach(context, settings);
+      });
+    }
+  };
 
 })(jQuery);
