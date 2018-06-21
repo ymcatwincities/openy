@@ -8,6 +8,7 @@ $breadcrumbColorsLength: length($breadcrumbColors);
 .breadcrumbs-wrapper {
   position: relative;
   top: -25px;
+  z-index: 1;
 }
 
 .breadcrumbs {

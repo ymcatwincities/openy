@@ -197,7 +197,6 @@
   z-index: 1;
   color: white;
 
-
   &:hover {
     color: $gray-200;
     text-decoration: none;
@@ -212,4 +211,10 @@
 // primary nav search icon
 .site-search .fa {
   vertical-align: top;
+}
+
+// remove outlines from search toggler
+.navbar-toggler:active {
+  outline: none;
+  box-shadow: none;
 }

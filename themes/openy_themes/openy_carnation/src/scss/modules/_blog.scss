@@ -84,6 +84,7 @@
   }
 }
 
+// teaser
 .node--type-blog.node--view-mode-teaser {
   margin: auto;
   max-width: 373px;
@@ -121,4 +122,17 @@
       color: white;
     }
   }
+}
+
+// nodes
+.node--type-blog .node__content {
+  line-height: 1.62em;
+
+  ol, ul {
+    margin: 1rem 0;
+  }
+}
+
+.view-mode-node-blog img {
+  border-radius: 1rem;
 }

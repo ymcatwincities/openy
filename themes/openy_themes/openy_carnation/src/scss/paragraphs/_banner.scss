@@ -37,13 +37,13 @@
     }
   }
 
-  // heading only
+  // heading only (blog nodes)
   &--small {
     min-height: 120px;
-    max-height: 400px;
+    padding-top: 70px;
 
     @include media-breakpoint-up(lg) {
-      min-height: 400px;
+      padding-top: 0;
     }
   }
 
