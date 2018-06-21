@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import 'bootstrap/scss/bootstrap.scss';
-import 'bootstrap/scss/bootstrap-grid.scss';
-import 'bootstrap/scss/bootstrap-reboot.scss';
-import './style.scss';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-grid.css';
+import 'bootstrap/dist/css/bootstrap-reboot.css';
+import './style.css';
+
 import Categories from "./components/Categories";
 
 /**
