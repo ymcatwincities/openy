@@ -6160,7 +6160,7 @@ a.wrapper:hover {
   }
 }
 @media print {
-  nav, .affix, form, .group-ex-panel, .affix-top, .affix-bottom, .result-actions, .social-disclaimer .list-inline, .pagination {
+  .sidebar-left, nav, .affix, form, .group-ex-panel, .affix-top, .affix-bottom, .result-actions, .social-disclaimer .list-inline, .pagination {
     display: none !important;
   }
 
