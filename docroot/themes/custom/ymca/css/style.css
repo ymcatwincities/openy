@@ -9093,6 +9093,10 @@ body {
   font-family: Verdana,Arial,sans-serif;
 }
 
+body.node--type-article figcaption {
+  display: none;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
