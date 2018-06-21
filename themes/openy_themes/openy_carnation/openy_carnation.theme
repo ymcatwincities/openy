@@ -8,6 +8,7 @@
 
 use Drupal\block\Entity\Block;
 use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\Core\Template\Attribute;
 use Drupal\image\Entity\ImageStyle;
 
@@ -16,9 +17,7 @@ use Drupal\image\Entity\ImageStyle;
  */
 function openy_carnation_preprocess_node(&$variables, $hook) {
 
-  // Load the node entity from current route.
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
-
     switch ($node->getType()) {
       // program pages
       case 'program':
@@ -37,38 +36,18 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
         break;
     }
   }
-
-  // Load the node entity from current route.
-
-
-//  $types = [
-//    'program',
-//    'program_subcategory',
-//  ];
-//
-//  // Load the node entity from current route.
-//  if ($node = \Drupal::routeMatch()->getParameter('node')) {
-//
-//    switch ($types) {
-//      // program pages
-//      case 'program':
-//        if (!$node->get('field_program_image')->isEmpty()) {
-//          $uri = $node->get('field_program_image')->entity->get('field_media_image')->entity->uri->value;
-//          $variables['header_image'] = ImageStyle::load('prgf_gallery')->buildUrl($uri);
-//        }
-//        break;
-//
-//      // program pages
-//      case 'program_subcategory':
-//        if (!$node->get('field_category_image')->isEmpty()) {
-//          $uri = $node->get('field_category_image')->entity->get('field_media_image')->entity->uri->value;
-//          $variables['header_image'] = ImageStyle::load('prgf_gallery')->buildUrl($uri);
-//        }
-//        break;
-//    }
-//  }
-
 }
+
+/**
+ * Implements hook_preprocess_node() for the Blog Content Type.
+ */
+function openy_carnation_preprocess_node_blog(&$variables) {
+  $back_link_title = t('Back to Blog');
+  $variables['back_link_title'] = $back_link_title;
+  // @todo move this url out of the theme.
+  $variables['back_link_path'] = Url::fromUri('internal:/blog')->toString();
+}
+
 
 /**
  * Implements hook_preprocess_HOOK().

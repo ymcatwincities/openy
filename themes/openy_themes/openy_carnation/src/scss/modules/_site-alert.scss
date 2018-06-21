@@ -19,25 +19,14 @@
 
 .site-alert__cta {
   font-size: 12px;
-  margin-top: 15px;
-
-  @media (min-width: 48em) {
-    margin-bottom: 15px;
-  }
-
-  @media (min-width: 62em) {
-    margin:0;
-  }
 }
 
 .site-alert__dismiss {
   color: white;
-  position: absolute;
-  right: 0;
-  top: 10px;
 
   &:hover {
-    color: #999999;
+    color: white;
+    opacity: .7;
   }
 }
 
@@ -103,11 +92,11 @@
 
   .slick__arrow {
     display: block;
-    height: 0;
+    height: 30px;
     position: absolute;
-    bottom: 30px;
+    bottom: 22px;
     top: auto;
-    left: auto;
+    left: 0;
     right: 0;
   }
 
@@ -141,7 +130,7 @@
     }
 
     &:hover:before {
-      opacity: .8;
+      opacity: .7;
     }
 
     &.slick-disabled {
@@ -153,7 +142,7 @@
 
 .header-alerts-list .slick-prev,
 .footer-alerts-list .slick-prev {
-  right: 30px;
+  left: 0;
 
   &:before {
     content: "\f104";
