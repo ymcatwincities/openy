@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap-reboot.css';
 import './style.css';
 
 import Categories from "./components/Categories";
+import LocationsList from "./components/LocationsList";
 
 /**
  * Application entry point.
@@ -14,6 +15,7 @@ class App extends Component {
     return (
       <div className="App">
           <Categories />
+          <LocationsList />
       </div>
     );
   }
