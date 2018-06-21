@@ -2937,6 +2937,13 @@ body.modal-open {
   text-align: center;
 }
 
+.sidebar-promos figure {
+  margin-bottom: 0;
+}
+.sidebar-promos figure figcaption {
+  display: none;
+}
+
 .panel-body .overview-link:after {
   content: ' Overview';
 }
