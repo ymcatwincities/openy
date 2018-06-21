@@ -15838,6 +15838,11 @@ body.independent-footer #page-footer {
   padding-top: 0;
 }
 
+body.node--type-landing-page figcaption,
+body.node--type-blog figcaption {
+  display: none;
+}
+
 a[href$=pdf]:after,
 a[href*=".pdf?"]:after,
 .lead-copy li a[href$=pdf]:after,

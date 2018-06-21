@@ -362,6 +362,13 @@ body.independent-footer {
   }
 }
 
+body.node--type-landing-page,
+body.node--type-blog {
+  figcaption {
+    display: none;
+  }
+}
+
 a[href$=pdf]:after,
 a[href*=".pdf?"]:after,
 .lead-copy li a[href$=pdf]:after,
