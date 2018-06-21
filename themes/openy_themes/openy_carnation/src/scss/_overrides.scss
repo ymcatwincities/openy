@@ -71,6 +71,11 @@ p:last-child,
 .media--type-video.media,
 .media--type-video-upload.media {
   display: block;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 // resize navtabs sizing
@@ -81,4 +86,3 @@ p:last-child,
     padding: 5px 12px;
   }
 }
-
