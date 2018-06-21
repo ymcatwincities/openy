@@ -7683,19 +7683,19 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
   letter-spacing: -1.5px; }
 
 .paragraph--type--featured-blogs .slick-prev {
-  left: -17px; }
+  left: 10px; }
+  @media (min-width: 576px) {
+    .paragraph--type--featured-blogs .slick-prev {
+      left: 15px; } }
 
 .paragraph--type--featured-blogs .slick-next {
-  right: -17px; }
+  right: 10px; }
+  @media (min-width: 576px) {
+    .paragraph--type--featured-blogs .slick-next {
+      right: 15px; } }
 
 .paragraph--type--featured-blogs .slick-arrow {
   top: 55%; }
-
-@media (min-width: 576px) {
-  .paragraph--type--featured-blogs .slick-prev {
-    left: 15px; }
-  .paragraph--type--featured-blogs .slick-next {
-    right: 15px; } }
 
 .blog-card {
   overflow: visible;
@@ -7738,8 +7738,12 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
 
 .node--type-blog.node--view-mode-teaser {
   margin: auto;
-  max-width: 373px;
-  width: 100%; }
+  max-width: 225px;
+  width: 100%;
+  max-width: 275px; }
+  @media (min-width: 576px) {
+    .node--type-blog.node--view-mode-teaser {
+      max-width: 375px; } }
   .node--type-blog.node--view-mode-teaser .inner-wrapper {
     margin: 15px 0;
     position: relative;
@@ -12095,7 +12099,12 @@ iframe#ga_iframe {
   font-size: 12px; }
 
 .site-alert__dismiss {
-  color: white; }
+  color: white;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 10px; }
   .site-alert__dismiss:hover {
     color: white;
     opacity: .7; }
@@ -12146,19 +12155,24 @@ iframe#ga_iframe {
     display: flex;
     height: auto; }
 
-.header-alerts-list .slick--view--alerts .container,
-.footer-alerts-list .slick--view--alerts .container {
-  position: relative; }
+@media (min-width: 992px) {
+  .header-alerts-list .slick--view--alerts .container,
+  .footer-alerts-list .slick--view--alerts .container {
+    position: relative; } }
 
 .header-alerts-list .slick__arrow,
 .footer-alerts-list .slick__arrow {
   display: block;
   height: 30px;
   position: absolute;
-  bottom: 22px;
+  bottom: 50%;
   top: auto;
   left: 0;
   right: 0; }
+  @media (min-width: 992px) {
+    .header-alerts-list .slick__arrow,
+    .footer-alerts-list .slick__arrow {
+      margin-bottom: 31px; } }
 
 .header-alerts-list .slick__counter,
 .footer-alerts-list .slick__counter {
@@ -12166,20 +12180,20 @@ iframe#ga_iframe {
 
 .header-alerts-list .slick-arrow,
 .footer-alerts-list .slick-arrow {
+  padding: 10px;
   background: transparent;
   border: none;
   color: transparent;
   cursor: pointer;
   display: block;
   font-size: 0;
-  height: auto;
+  width: 20px;
+  height: 32px;
   left: auto;
   line-height: 0;
   outline: none;
-  padding: 0;
   position: absolute;
-  text-decoration: none;
-  width: auto; }
+  text-decoration: none; }
   .header-alerts-list .slick-arrow:before,
   .footer-alerts-list .slick-arrow:before {
     color: white;
@@ -12197,16 +12211,36 @@ iframe#ga_iframe {
     cursor: default; }
 
 .header-alerts-list .slick-prev,
+.header-alerts-list .slick-prev,
+.footer-alerts-list .slick-prev,
 .footer-alerts-list .slick-prev {
-  left: 0; }
+  left: 20px; }
+  @media (min-width: 992px) {
+    .header-alerts-list .slick-prev,
+    .header-alerts-list .slick-prev,
+    .footer-alerts-list .slick-prev,
+    .footer-alerts-list .slick-prev {
+      left: 0; } }
   .header-alerts-list .slick-prev:before,
+  .header-alerts-list .slick-prev:before,
+  .footer-alerts-list .slick-prev:before,
   .footer-alerts-list .slick-prev:before {
     content: "\f104"; }
 
 .header-alerts-list .slick-next,
+.header-alerts-list .slick-next,
+.footer-alerts-list .slick-next,
 .footer-alerts-list .slick-next {
-  right: 0; }
+  right: 20px; }
+  @media (min-width: 992px) {
+    .header-alerts-list .slick-next,
+    .header-alerts-list .slick-next,
+    .footer-alerts-list .slick-next,
+    .footer-alerts-list .slick-next {
+      right: 0; } }
   .header-alerts-list .slick-next:before,
+  .header-alerts-list .slick-next:before,
+  .footer-alerts-list .slick-next:before,
   .footer-alerts-list .slick-next:before {
     content: "\f105"; }
 
