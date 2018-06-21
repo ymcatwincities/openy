@@ -1247,3 +1247,9 @@ body.ancestor-camps {
 body {
   font-family: Verdana,Arial,sans-serif;
 }
+
+body.node--type-article {
+  figcaption {
+    display: none;
+  }
+}

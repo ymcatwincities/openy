@@ -2937,6 +2937,13 @@ body.modal-open {
   text-align: center;
 }
 
+.sidebar-promos figure {
+  margin-bottom: 0;
+}
+.sidebar-promos figure figcaption {
+  display: none;
+}
+
 .panel-body .overview-link:after {
   content: ' Overview';
 }
@@ -9084,6 +9091,10 @@ body.ancestor-camps .footer-themes-b .social-icon:hover {
 
 body {
   font-family: Verdana,Arial,sans-serif;
+}
+
+body.node--type-article figcaption {
+  display: none;
 }
 
 .form-item {
