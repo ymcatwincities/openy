@@ -6160,7 +6160,7 @@ a.wrapper:hover {
   }
 }
 @media print {
-  .sidebar-left, nav, .affix, form, .group-ex-panel, .affix-top, .affix-bottom, .result-actions, .social-disclaimer .list-inline, .pagination {
+  .top-bar, site-search-sidebar, sidebar-nav, .sidebar-left, nav, .affix, form, .group-ex-panel, .affix-top, .affix-bottom, .result-actions, .social-disclaimer .list-inline, .pagination {
     display: none !important;
   }
 
@@ -6174,11 +6174,15 @@ a.wrapper:hover {
   }
 
   .collapse {
-    display: block !important;
+    display: none !important;
     height: auto !important;
     -webkit-transition: none;
     -moz-transition: none;
     -ms-transition: none;
+  }
+
+  .collapse.directions-hours {
+    display: block !important;
   }
 
   .social .list-inline li {
