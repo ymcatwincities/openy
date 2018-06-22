@@ -862,15 +862,56 @@ function openy_update_8056() {
 }
 
 /**
- * Enable OpenY Entity Reference Tweaks.
+ * Message to delete "Search by Amenities" Limited Time Offer paragraph.
  */
 function openy_update_8057() {
+  // Find Limited Time Offer paragraphs on Locations page.
+  $query = \Drupal::database()->select('node_field_data', 'n');
+  $query->condition('n.title', 'Locations');
+  $query->condition('n.type', 'landing_page');
+  $query->join('node__field_header_content', 'h', 'n.nid = h.entity_id AND n.vid = h.revision_id');
+  $query->condition('h.bundle', 'landing_page');
+  $query->join('paragraphs_item_field_data', 'par', 'h.field_header_content_target_revision_id = par.revision_id');
+  $query->condition('par.type', 'lto');
+  $query->addField('n', 'nid');
+  $resultField = $query->execute()->fetchField();
+  if ($resultField) {
+    $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and 
+      delete "Search by Amenities" Limited Time Offer paragraph in Header area. 
+      With Sidebar "Amenities" filter it became redundant.');
+    drupal_set_message($message, 'warning');
+  }
+}
+
+/**
+ * Upgrade path for new alert fields.
+ */
+function openy_update_8058() {
+  if (!\Drupal::service('module_handler')->moduleExists('openy_node_alert')) {
+    // Skip this update if module disabled.
+    return;
+  }
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_alert_visibility_pages',
+    'field.storage.node.field_alert_visibility_state',
+    'field.field.node.alert.field_alert_visibility_pages',
+    'field.field.node.alert.field_alert_visibility_state',
+  ]);
+}
+
+/**
+ * Enable OpenY Entity Reference Tweaks.
+ */
+function openy_update_8059() {
   \Drupal::service('module_installer')->install(['openy_er']);
 }
 
 /**
  * Enable OpenY System.
  */
-function openy_update_8058() {
+function openy_update_8060() {
   \Drupal::service('module_installer')->install(['openy_system']);
 }

@@ -1,0 +1,13 @@
+name: 'OpenY Development'
+description: 'Continuous Integration helpers.'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - domain
+  - field
+  - user
+  - views
+  - domain
+  - domain_theme_switch
+version: 8.x-1.0

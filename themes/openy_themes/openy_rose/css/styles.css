@@ -522,6 +522,7 @@ body {
     border-bottom: none;
     position: absolute;
     top: 125px;
+    width: 100%;
   }
   .is-camp .page-head__main-menu .nav-level-2 > a,
   .is-camp .page-head__main-menu .nav-level-3 > a, .page-head__main-menu .nav-level-2 > a,
@@ -6360,7 +6361,7 @@ a[href="#step2"] {
 }
 
 .openy-map-wrapper {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .views-view-membership .field-body-no-summary {
@@ -7863,6 +7864,10 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title a {
   color: #fff;
   font-family: "Cachet W01 Book", Verdana, sans-serif;
+}
+.paragraph--type--location-filter-by-amenities .field-prgf-title h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 .paragraph--type--location-filter-by-amenities .field-amenities-icon {
   background-color: #fff;
