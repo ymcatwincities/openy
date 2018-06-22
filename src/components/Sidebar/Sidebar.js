@@ -63,7 +63,15 @@ class Sidebar extends Component {
       <div>
         <Card>
           <CardBody>
-            <CardTitle className={'text-uppercase'}>Locations</CardTitle> <hr />
+            <div className={'d-flex'}>
+              <div className={'mr-auto align-self-center'}>
+                <CardTitle className={'text-uppercase'}>Locations</CardTitle>
+              </div>
+              <a href={'#'}>
+                <small>Edit</small>
+              </a>
+            </div>
+            <hr />
             <CardSubtitle className="pb-2 pt-2 font-weight-bold">
               Blaisdell
             </CardSubtitle>
@@ -80,6 +88,10 @@ class Sidebar extends Component {
         <Card>
           <CardBody>
             <CardTitle className={'text-uppercase'}>Times</CardTitle>
+            <hr />
+            <CardSubtitle className="pb-2 pt-2 font-weight-bold">
+              Morning
+            </CardSubtitle>
           </CardBody>
         </Card>
       </div>
