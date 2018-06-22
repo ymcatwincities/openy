@@ -6,6 +6,7 @@ import './style.css';
 
 import Categories from './components/Categories/Categories';
 import LocationsList from './components/LocationsList/LocationsList';
+import Times from './components/Times/Times';
 
 /**
  * Application entry point.
@@ -16,6 +17,7 @@ class App extends Component {
       <div className="App">
         <Categories />
         <LocationsList />
+        <Times />
       </div>
     );
   }
