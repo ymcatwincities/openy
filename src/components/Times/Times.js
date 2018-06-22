@@ -8,11 +8,10 @@ import {
   Label,
   Input
 } from 'reactstrap';
-import { FaCaretDown } from 'react-icons/lib/fa';
 import Sidebar from '../Sidebar/Sidebar';
 
 /**
- * Renders list locations with checkboxes and "Next" button.
+ * Renders times with checkboxes and "Next" button.
  */
 class Times extends Component {
   render() {
