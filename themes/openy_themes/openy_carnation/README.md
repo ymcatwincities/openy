@@ -1,37 +1,31 @@
 # Maintaining the theme.
 
-1. Install Ruby 2.2.5:
+##1. Install Yarn
 
-`gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3`
+####Homebrew
 
-`\curl -sSL https://get.rvm.io | bash -s stable`
+You can install Yarn through the Homebrew package manager. This will also install Node.js if it is not already installed.
 
-To start using RVM you need to run 
-`source ~/.rvm/scripts/rvm`
+`brew install yarn`
 
-If still not working restart sh client.
+If you use nvm or similar, you should exclude installing Node.js so that nvm’s version of Node.js is used.
 
-`rvm install ruby-2.2.5`
+`brew install yarn --without-node`
 
-Set as default ruby:
+####MacPorts
 
-`rvm --default use 2.2.5`
+You can install Yarn through MacPorts. This will also install Node.js if it is not already installed.
 
-2. Install bundler
+`sudo port install yarn`
 
-`sudo gem install bundler`
+##2. Go to the theme's folder
 
-3. Go to the theme folder
+`yarn install`
 
-`bundle install`
+##3. Compile all assets
 
-If you see error like this `tmpdir': could not find a temporary directory (ArgumentError)`
-Run command `chmod o+t /tmp` and try again.
+`grunt build`
 
-4. To compile css use
+##4. Start watching all assets (for development)
 
-`bundler exec compass compile`
-
-5. Compass watching changes
-
-`bundler exec compass watch --poll`
+`grunt watch`

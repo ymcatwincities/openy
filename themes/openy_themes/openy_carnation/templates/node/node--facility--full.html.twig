@@ -89,31 +89,31 @@ set classes = [
       <h1{{ title_attributes.addClass('node-title') }}>{{ label }}</h1>
     </div>
   </div>
-  <div class="row">
-    <div class="two-column">
-      <div class="main-region col-md-7 col-lg-8">
-          {{ content.field_content }}
-      </div>
-      <div class="sidebar-region col-md-5 col-lg-4">
-        <article{{ attributes.addClass(classes) }}>
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="sidebar-card">
-                <div>
-                  <h3>{{ content.field_facility_type }}</h3>
-                    {{ content.field_location_address }}
-                    {{ content.field_location_phone }}
-                </div>
+
+  <div class="two-column row">
+    <div class="main-region col-md-7 col-lg-8">
+        {{ content.field_content }}
+    </div>
+    <div class="sidebar-region col-md-5 col-lg-4">
+      <article{{ attributes.addClass(classes) }}>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="sidebar-card">
+              <div>
+                <h3>{{ content.field_facility_type }}</h3>
+                  {{ content.field_location_address }}
+                  {{ content.field_location_phone }}
               </div>
             </div>
           </div>
-          {% if content.field_facility_loc %}
-            <h3 class="sidebar-card_h3">{{ "Associated Branch"|t }}</h3>
-            {{ content.field_facility_loc }}
-          {% endif %}
-          {{ content.field_sidebar_content }}
-        </article>
-      </div>
+        </div>
+        {% if content.field_facility_loc %}
+          <h3 class="sidebar-card_h3">{{ "Associated Branch"|t }}</h3>
+          {{ content.field_facility_loc }}
+        {% endif %}
+        {{ content.field_sidebar_content }}
+      </article>
     </div>
   </div>
+
 </div>
