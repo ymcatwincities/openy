@@ -1,7 +1,15 @@
-import React, {Component} from 'react';
-import {Container, Row, Col, Button, FormGroup, Label, Input} from 'reactstrap';
-import {FaCaretDown} from 'react-icons/lib/fa';
-import Sidebar from "../Sidebar/Sidebar";
+import React, { Component } from 'react';
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap';
+import { FaCaretDown } from 'react-icons/lib/fa';
+import Sidebar from '../Sidebar/Sidebar';
 import './LocationList.css';
 
 /**
@@ -9,7 +17,6 @@ import './LocationList.css';
  */
 class LocationsList extends Component {
   render() {
-
     return (
       <div>
         <Container>
@@ -19,212 +26,252 @@ class LocationsList extends Component {
                 <h2>Location(s)</h2>
                 <p>Select your preferred location(s)</p>
                 <Row>
-                <Col md={6}>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
+                  <Col md={6}>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
                             Andover
-                        </Label>
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                           Burnsville
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            Burnsville
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label className={'text-muted'} check>
-                          <Input type="checkbox" />
-                          Downtown Minneapolis
-                          <p className={'mb-0 red'}>
-                            <small>No available options</small>
-                          </p>
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label className={'text-muted'} check>
+                            <Input type="checkbox" />
+                            Downtown Minneapolis
+                            <p className={'mb-0 red'}>
+                              <small>No available options</small>
+                            </p>
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'red'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'red'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          Elk River
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            Elk River
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          Forest Lake
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            Forest Lake
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          Southdale
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            Southdale
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          St. Paul Eastside
-                          <p className={'mb-0 orange'}>
-                            <small>Limited options</small>
-                          </p>
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            St. Paul Eastside
+                            <p className={'mb-0 orange'}>
+                              <small>Limited options</small>
+                            </p>
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'orange'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'orange'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          West St. Paul
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            West St. Paul
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          Woodbury
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            Woodbury
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                </Col>
-                <Col md={6}>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          Blaisdell
-                        </Label>
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            Blaisdell
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label className={"text-muted"} check>
-                          <Input type="checkbox" />
-                          Cora McCorvey YMCA
-                          <p className={'mb-0 red'}>
-                            <small>No available options</small>
-                          </p>
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label className={'text-muted'} check>
+                            <Input type="checkbox" />
+                            Cora McCorvey YMCA
+                            <p className={'mb-0 red'}>
+                              <small>No available options</small>
+                            </p>
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'red'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'red'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          Eagan
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            Eagan
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          Emma B Howe - Coon Rapids
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            Emma B Howe - Coon Rapids
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          Hastings
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            Hastings
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label className={'text-muted'} check>
-                          <Input type="checkbox" />
-                          St. Poul Downtown
-                          <p className={'mb-0 red'}>
-                            <small>No available options</small>
-                          </p>
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label className={'text-muted'} check>
+                            <Input type="checkbox" />
+                            St. Poul Downtown
+                            <p className={'mb-0 red'}>
+                              <small>No available options</small>
+                            </p>
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'red'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'red'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          St. Poul Midway
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            St. Poul Midway
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                  <FormGroup check>
-                    <div className="d-flex">
-                      <div className="mr-auto p-2">
-                        <Label check>
-                          <Input type="checkbox" />
-                          White Bear Area
-                        </Label>
+                    </FormGroup>
+                    <FormGroup check>
+                      <div className="d-flex">
+                        <div className="mr-auto p-2">
+                          <Label check>
+                            <Input type="checkbox" />
+                            White Bear Area
+                          </Label>
+                        </div>
+                        <div className="p-2 align-self-center">
+                          <FaCaretDown size={25} className={'green'} />
+                        </div>
                       </div>
-                      <div className="p-2 align-self-center"><FaCaretDown size={25} className={'green'} /></div>
-                    </div>
-                  </FormGroup>
-                </Col>
+                    </FormGroup>
+                  </Col>
                 </Row>
               </FormGroup>
-              <Button className={"d-flex m-auto justify-content-center pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase"}>Next</Button>
+              <Button
+                className={
+                  'd-flex m-auto justify-content-center pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'
+                }
+              >
+                Next
+              </Button>
             </Col>
             <Col md={4} className={'order-first order-md-last'}>
               <Sidebar />
@@ -236,4 +283,4 @@ class LocationsList extends Component {
   }
 }
 
-export default LocationsList
+export default LocationsList;

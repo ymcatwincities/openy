@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Card, CardBody, CardTitle, CardText, CardSubtitle} from 'reactstrap';
+import React, { Component } from 'react';
+import { Card, CardBody, CardTitle, CardText, CardSubtitle } from 'reactstrap';
 import './Sidebar.css';
 
 /**
@@ -19,8 +19,10 @@ class Sidebar extends Component {
                 <small>Add</small>
               </a>
             </div>
-            <hr></hr>
-            <CardSubtitle className='font-weight-bold'>Swim Lessons</CardSubtitle>
+            <hr />
+            <CardSubtitle className="font-weight-bold">
+              Swim Lessons
+            </CardSubtitle>
             <CardText>Preschool Child</CardText>
             <CardText className={'text-muted small'}>Swim Strokes</CardText>
             <ul className={'pl-0 list-inline"'}>
@@ -29,12 +31,16 @@ class Sidebar extends Component {
                   <small>Edit</small>
                 </a>
               </li>
-              <li className={'list-inline-item'}><a href={'#'}>
-                <small>Delete</small>
-              </a></li>
+              <li className={'list-inline-item'}>
+                <a href={'#'}>
+                  <small>Delete</small>
+                </a>
+              </li>
             </ul>
 
-            <CardSubtitle className='font-weight-bold'>Swim Lessons</CardSubtitle>
+            <CardSubtitle className="font-weight-bold">
+              Swim Lessons
+            </CardSubtitle>
             <CardText>Parent & Child</CardText>
             <ul className={'pl-0 list-inline"'}>
               <li className={'list-inline-item'}>
@@ -42,9 +48,11 @@ class Sidebar extends Component {
                   <small>Edit</small>
                 </a>
               </li>
-              <li className={'list-inline-item'}><a href={'#'}>
-                <small>Delete</small>
-              </a></li>
+              <li className={'list-inline-item'}>
+                <a href={'#'}>
+                  <small>Delete</small>
+                </a>
+              </li>
             </ul>
           </CardBody>
         </Card>
@@ -55,9 +63,13 @@ class Sidebar extends Component {
       <div>
         <Card>
           <CardBody>
-            <CardTitle className={'text-uppercase'}>Locations</CardTitle> <hr></hr>
-            <CardSubtitle className='pb-2 pt-2 font-weight-bold'>Blaisdell</CardSubtitle>
-            <CardSubtitle className='pb-2 pt-2 font-weight-bold'>Southdale</CardSubtitle>
+            <CardTitle className={'text-uppercase'}>Locations</CardTitle> <hr />
+            <CardSubtitle className="pb-2 pt-2 font-weight-bold">
+              Blaisdell
+            </CardSubtitle>
+            <CardSubtitle className="pb-2 pt-2 font-weight-bold">
+              Southdale
+            </CardSubtitle>
           </CardBody>
         </Card>
       </div>
@@ -79,8 +91,8 @@ class Sidebar extends Component {
         {Locations}
         {Times}
       </div>
-    )
+    );
   }
 }
 
-export default Sidebar
+export default Sidebar;

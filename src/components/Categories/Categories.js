@@ -1,7 +1,15 @@
-import React, {Component} from 'react';
-import {Container, Row, Col, Button, FormGroup, Label, Input} from 'reactstrap';
-import {FaInfoCircle} from 'react-icons/lib/fa';
-import Sidebar from "../Sidebar/Sidebar";
+import React, { Component } from 'react';
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  FormGroup,
+  Label,
+  Input
+} from 'reactstrap';
+import { FaInfoCircle } from 'react-icons/lib/fa';
+import Sidebar from '../Sidebar/Sidebar';
 
 import './Categories.css';
 
@@ -10,7 +18,6 @@ import './Categories.css';
  */
 class Categories extends Component {
   render() {
-
     return (
       <div>
         <Container>
@@ -30,7 +37,9 @@ class Categories extends Component {
                         </p>
                       </Label>
                     </div>
-                    <div className="p-2 align-self-center"><FaInfoCircle size={25} /></div>
+                    <div className="p-2 align-self-center">
+                      <FaInfoCircle size={25} />
+                    </div>
                   </div>
                 </FormGroup>
                 <FormGroup check>
@@ -44,7 +53,9 @@ class Categories extends Component {
                         </p>
                       </Label>
                     </div>
-                    <div className="p-2 align-self-center"><FaInfoCircle size={25} /></div>
+                    <div className="p-2 align-self-center">
+                      <FaInfoCircle size={25} />
+                    </div>
                   </div>
                 </FormGroup>
                 <FormGroup check>
@@ -58,7 +69,9 @@ class Categories extends Component {
                         </p>
                       </Label>
                     </div>
-                    <div className="p-2 align-self-center"><FaInfoCircle size={25} /></div>
+                    <div className="p-2 align-self-center">
+                      <FaInfoCircle size={25} />
+                    </div>
                   </div>
                 </FormGroup>
                 <FormGroup check>
@@ -72,11 +85,19 @@ class Categories extends Component {
                         </p>
                       </Label>
                     </div>
-                    <div className="p-2 align-self-center"><FaInfoCircle size={25} /></div>
+                    <div className="p-2 align-self-center">
+                      <FaInfoCircle size={25} />
+                    </div>
                   </div>
                 </FormGroup>
               </FormGroup>
-              <Button className={"d-flex m-auto justify-content-center pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase"}>Next</Button>
+              <Button
+                className={
+                  'd-flex m-auto justify-content-center pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'
+                }
+              >
+                Next
+              </Button>
             </Col>
             <Col md={4} className={'order-first order-md-last'}>
               <Sidebar />
@@ -88,4 +109,4 @@ class Categories extends Component {
   }
 }
 
-export default Categories
+export default Categories;
