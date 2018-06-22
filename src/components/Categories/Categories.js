@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import {Container, Row, Col, Button, FormGroup, Label, Input} from 'reactstrap';
 import {FaInfoCircle} from 'react-icons/lib/fa';
-import RightSidebar from "./RightSidebar";
+import Sidebar from "../Sidebar/Sidebar";
 
+import './Categories.css';
+
+/**
+ * Renders list categories with radio buttons and "Next" button.
+ */
 class Categories extends Component {
   render() {
 
@@ -74,7 +79,7 @@ class Categories extends Component {
               <Button className={"d-flex m-auto justify-content-center pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase"}>Next</Button>
             </Col>
             <Col md={4} className={'order-first order-md-last'}>
-              <RightSidebar />
+              <Sidebar />
             </Col>
           </Row>
         </Container>

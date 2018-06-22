@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap-grid.css';
 import 'bootstrap/dist/css/bootstrap-reboot.css';
 import './style.css';
 
-import Categories from "./components/Categories";
-import LocationsList from "./components/LocationsList";
+import Categories from "./components/Categories/Categories";
+import LocationsList from "./components/LocationsList/LocationsList";
 
 /**
  * Application entry point.
