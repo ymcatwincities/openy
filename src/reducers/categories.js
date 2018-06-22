@@ -1,5 +1,5 @@
 const initState = {
-  categories: [],
+  categories: []
 };
 
 const categories = (state = initState, action) => {
