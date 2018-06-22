@@ -186,4 +186,14 @@ function openy_node_alert_update_8006() {
       $config_updater->update($config, $config_name, $param);
     }
   }
+
+  // Import new configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_alert_visibility_pages',
+    'field.storage.node.field_alert_visibility_state',
+    'field.field.node.alert.field_alert_visibility_pages',
+    'field.field.node.alert.field_alert_visibility_state',
+  ]);
 }
