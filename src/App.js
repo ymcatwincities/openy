@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap-grid.css';
 import 'bootstrap/dist/css/bootstrap-reboot.css';
 import './style.css';
 
-import Categories from "./components/Categories/Categories";
-import LocationsList from "./components/LocationsList/LocationsList";
+import Categories from './components/Categories/Categories';
+import LocationsList from './components/LocationsList/LocationsList';
 
 /**
  * Application entry point.
@@ -14,8 +14,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <Categories />
-          <LocationsList />
+        <Categories />
+        <LocationsList />
       </div>
     );
   }
