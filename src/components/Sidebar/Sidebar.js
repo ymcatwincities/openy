@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
 import {Card, CardBody, CardTitle, CardText, CardSubtitle} from 'reactstrap';
+import './Sidebar.css';
 
-class RightSidebar extends Component {
+/**
+ * Renders categories Activities, Locations and Times in boxes.
+ */
+class Sidebar extends Component {
   render() {
     const Activities = (
       <div>
@@ -70,7 +74,7 @@ class RightSidebar extends Component {
     );
 
     return (
-      <div>
+      <div className={'sidebar'}>
         {Activities}
         {Locations}
         {Times}
@@ -79,4 +83,4 @@ class RightSidebar extends Component {
   }
 }
 
-export default RightSidebar
+export default Sidebar

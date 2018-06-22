@@ -1,0 +1,17 @@
+.sidebar {
+  .card {
+    margin-bottom: 20px;
+    &-title {
+      margin-bottom: 0;
+    }
+    &-text {
+      margin-bottom: 0;
+    }
+
+
+    li:first-child a:after {
+      content: "|";
+      padding-left: 8px;
+    }
+  }
+}
