@@ -88,7 +88,7 @@
   ]
 %}
 
-{% if content.field_header_content is not empty %}
+{% if content.field_header_content|render|trim is not empty %}
   <article{{ attributes.addClass(header_classes) }}>
     <div{{ content_attributes.addClass(header_content_classes) }}>
       <div class="main">
@@ -104,14 +104,16 @@
 
 {% if node.field_lp_layout.value != "one_column_clean" %}
 <div class="container">
-  <div class="row">
+  {#<div class="row">#}
     {% endif %}
 
     {% if content.field_content is not empty %}
       <article{{ attributes.addClass(content_classes) }}>
+
         {% if node.field_lp_layout.value == "one_column" %}
-        <div class="main-region col-12">
-          {% endif %}
+        {#<div class="main-region col-12">#}
+        {% endif %}
+
           {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
           <div class="two-column row">
             <div class="main-region col-md-7 col-lg-8">
@@ -128,15 +130,17 @@
             </div>
           </div>
           {% endif %}
-          {% if node.field_lp_layout.value == "one_column" %}
-        </div>
+
+        {% if node.field_lp_layout.value == "one_column" %}
+        {#</div>#}
         {% endif %}
+
       </article>
     {% endif %}
 
     {% if node.field_lp_layout.value != "one_column_clean" %}
-  </div>
+  {#</div>#}
 </div>
 {% endif %}
 
-{{ content.field_bottom_content }}
+{#{{ content.field_bottom_content }}#}
