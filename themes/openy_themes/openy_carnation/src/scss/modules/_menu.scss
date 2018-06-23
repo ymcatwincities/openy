@@ -190,20 +190,26 @@
 .without-banner {
   .viewport {
     margin-top: 140px;
+
+    @include media-breakpoint-up(lg) {
+      margin-top: 200px;
+    }
   }
 
-  .page-head__main-menu .nav-level-2 {
-    > a {
-      color: $primary;
+  @include media-breakpoint-down(lg) {
+    .page-head__main-menu .nav-level-2 {
+      > a {
+        color: $primary;
 
-      &:hover {
+        &:hover {
+          color: $pink;
+        }
+      }
+
+      &.show > a,
+      &.show > a:focus {
         color: $pink;
       }
-    }
-
-    &.show > a,
-    &.show > a:focus {
-      color: $pink;
     }
   }
 
@@ -213,5 +219,13 @@
     width: 65px;
     text-indent: -9999px;
     background-position: center;
+  }
+
+  .affix {
+    .menu-item-home {
+      @include media-breakpoint-down(lg) {
+        background: url("../img/logo-white.png") no-repeat;
+      }
+    }
   }
 }
