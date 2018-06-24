@@ -16,35 +16,13 @@ use Drupal\Core\Datetime\DateHelper;
  * @ContentEntityType(
  *   id = "repeat",
  *   label = @Translation("Repeat"),
- *   bundle_label = @Translation("Repeat type"),
- *   handlers = {
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\Core\Entity\EntityListBuilder",
- *     "access" = "Drupal\Core\Entity\EntityAccessControlHandler",
- *     "views_data" = "Drupal\views\EntityViewsData",
- *     "form" = {
- *       "default" = "Drupal\openy_schedules\Form\RepeatForm",
- *       "add" = "Drupal\openy_schedules\Form\RepeatForm",
- *       "edit" = "Drupal\openy_schedules\Form\RepeatForm",
- *       "delete" = "Drupal\openy_schedules\Form\RepeatDeleteForm",
- *     },
- *     "route_provider" = {
- *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
- *     },
- *   },
- *   base_table = "event_data",
- *   admin_permission = "administer site configuration",
- *   translatable = FALSE,
+ *   base_table = "repeat",
  *   entity_keys = {
  *     "id" = "id",
  *   },
- *   links = {
- *     "canonical" = "/admin/structure/repeat/{repeat}",
- *     "delete-form" = "/admin/structure/repeat/{repeat}/delete",
- *     "edit-form" = "/admin/structure/repeat/{repeat}/edit",
- *     "add-form" = "/admin/structure/repeat/add",
- *   },
- *   fieldable = TRUE
+ *   translatable = FALSE,
+ *   fieldable = FALSE
+ *   admin_permission = "administer site configuration",
  * )
  */
 class Repeat extends ContentEntityBase {
@@ -54,6 +32,18 @@ class Repeat extends ContentEntityBase {
       ->setLabel(t('Repeat ID'))
       ->setDescription(t('The repeat ID.'))
       ->setReadOnly(TRUE);
+
+    $fields['session'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Session'))
+      ->setDescription(t('Reference to the Session.'))
+      ->setSetting('target_type', 'node')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'entity_reference_label',
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete'
+      ]);
 
     $fields['start'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Repeat Start'))
@@ -81,7 +71,7 @@ class Repeat extends ContentEntityBase {
         'weight' => 3,
       ));
 
-    $fields['repeat_year'] = BaseFieldDefinition::create('string')
+    $fields['year'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Repeat Year'))
       ->setDescription(t('The repeat year. Leave * to repeat every year.'))
       ->setRequired(TRUE)
@@ -101,7 +91,7 @@ class Repeat extends ContentEntityBase {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['repeat_month'] = BaseFieldDefinition::create('list_string')
+    $fields['month'] = BaseFieldDefinition::create('list_string')
       ->setLabel(t('Repeat Month'))
       ->setDescription(t('The repeat month. Leave * to repeat every month.'))
       ->setRequired(TRUE)
@@ -122,7 +112,7 @@ class Repeat extends ContentEntityBase {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['repeat_day'] = BaseFieldDefinition::create('string')
+    $fields['day'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Repeat Day'))
       ->setDescription(t('The repeat day. Leave * to repeat every day.'))
       ->setRequired(TRUE)
@@ -146,7 +136,7 @@ class Repeat extends ContentEntityBase {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['repeat_week'] = BaseFieldDefinition::create('string')
+    $fields['week'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Repeat Week'))
       ->setDescription(t('The repeat week. Leave * to repeat every week.'))
       ->setRequired(TRUE)
@@ -174,7 +164,7 @@ class Repeat extends ContentEntityBase {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['repeat_weekday'] = BaseFieldDefinition::create('list_string')
+    $fields['weekday'] = BaseFieldDefinition::create('list_string')
       ->setLabel(t('Repeat Weekday'))
       ->setDescription(t('The repeat weekday. Leave * to repeat every weekday.'))
       ->setRequired(TRUE)
