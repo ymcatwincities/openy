@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_coach
+    - node.type.group_exercise
+    - taxonomy.vocabulary.group_exercise_coach
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_coach
+id: node.group_exercise.field_coach
+field_name: field_coach
+entity_type: node
+bundle: group_exercise
+label: Coach
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      group_exercise_coach: group_exercise_coach
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

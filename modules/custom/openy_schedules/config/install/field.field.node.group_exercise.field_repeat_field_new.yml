@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_repeat_field_new
+    - node.type.group_exercise
+id: node.group_exercise.field_repeat_field_new
+field_name: field_repeat_field_new
+entity_type: node
+bundle: group_exercise
+label: 'Repeat '
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:repeat'
+  handler_settings: {  }
+field_type: entity_reference

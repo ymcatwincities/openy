@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.group_exercise
+id: node.group_exercise
+target_entity_type_id: node
+target_bundle: group_exercise
+default_langcode: site_default
+language_alterable: false
