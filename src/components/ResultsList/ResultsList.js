@@ -17,7 +17,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import './ResultsList.css';
 
 /**
- * Renders list categories with radio buttons and "Next" button.
+ * Renders results packages with radio buttons and "Select package" button.
  */
 class ResultsList extends Component {
   render() {
