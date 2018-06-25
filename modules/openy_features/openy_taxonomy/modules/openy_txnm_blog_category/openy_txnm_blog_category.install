@@ -6,6 +6,22 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_txnm_blog_category_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('taxonomy_term', 'taxonomy_vocabulary', 'blog_category', 'vid');
+  $configFactory = \Drupal::configFactory();
+  $configs = [
+    'simple_sitemap.bundle_settings.taxonomy_term.blog_category',
+    'pathauto.pattern._blog_category_',
+  ];
+  foreach ($configs as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+}
+
+/**
  * Add Taxonomy content field.
  */
 function openy_txnm_blog_category_update_8001() {
@@ -16,7 +32,7 @@ function openy_txnm_blog_category_update_8001() {
     'core.entity_form_display.taxonomy_term.blog_category.default',
     'core.entity_view_display.taxonomy_term.blog_category.default',
     'field.field.taxonomy_term.blog_category.field_taxonomy_content',
-    'field.storage.taxonomy_term.field_taxonomy_content'
+    'field.storage.taxonomy_term.field_taxonomy_content',
   ]);
 }
 
