@@ -19,7 +19,7 @@ function openy_prgf_secondary_description_sidebar_uninstall() {
 function openy_prgf_secondary_description_sidebar_update_dependencies() {
   $dependencies['openy_prgf_secondary_description_sidebar'] = [
     8001 => [
-      'openy' => 8057,
+      'openy' => 8059,
     ],
   ];
 
