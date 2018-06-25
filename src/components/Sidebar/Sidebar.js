@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardTitle, CardText, CardSubtitle } from 'reactstrap';
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  CardSubtitle,
+  Button
+} from 'reactstrap';
 import './Sidebar.css';
 
 /**
@@ -87,7 +94,14 @@ class Sidebar extends Component {
       <div>
         <Card>
           <CardBody>
-            <CardTitle className={'text-uppercase'}>Times</CardTitle>
+            <div className={'d-flex'}>
+              <div className={'mr-auto align-self-center'}>
+                <CardTitle className={'text-uppercase'}>Times</CardTitle>
+              </div>
+              <a href={'#'}>
+                <small>Edit</small>
+              </a>
+            </div>
             <hr />
             <CardSubtitle className="pb-2 pt-2 font-weight-bold">
               Morning
@@ -99,9 +113,14 @@ class Sidebar extends Component {
 
     return (
       <div className={'sidebar'}>
-        {Activities}
         {Locations}
+        {Activities}
         {Times}
+        <Card>
+          <Button className={'p-2 btn-result text-uppercase'}>
+            Start over
+          </Button>
+        </Card>
       </div>
     );
   }
