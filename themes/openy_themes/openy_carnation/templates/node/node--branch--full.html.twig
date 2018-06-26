@@ -82,84 +82,153 @@ set classes = [
 ]
 %}
 
-{# Branch header #}
+{%
+  set header_classes = [
+    'landing-header',
+    'w-100',
+    node.field_lp_layout.value|clean_class,
+  ]
+%}
+
+{% if content.field_header_content|render|trim is not empty %}
+  <article{{ attributes.addClass(header_classes) }}>
+    <div{{ content_attributes.addClass(header_content_classes) }}>
+      <div class="main">
+        {{ content.field_header_content }}
+      </div>
+    </div>
+  </article>
+{% endif %}
+
+{# branch contact card #}
 <article{{ attributes.addClass('branch-header') }}>
-  <div class="hidden-xs desktop">
+
+  {# desktop view #}
+  <div class="d-none d-sm-inline desktop">
     <div class="container">
+
+      <div class="row branch-title">
+        <div class="container">
+          <div class="column col-sm-12 branch-header__item">
+            <h1><span>{{ label }}</span></h1>
+          </div>
+        </div>
+      </div>
+
       <div class="row branch-header-inner branch-info" data-branch-name="{{ node.label }}">
-        <div class="column col-sm-3 col-md-2 branch-header__item">
-          <h4>{{ 'WELCOME TO THE'|t }}</h4>
-          <p>{{ label }}</p>
-        </div>
-        <div class="column col-sm-3 address-wrapper branch-header__item">
-          <h4>{{ 'ADDRESS'|t }}</h4>
+        <div class="column col-sm-5 address-wrapper branch-header__item">
+          <h4>{{ 'Address & Contacts'|t }}</h4>
           {{ content.field_location_address }}
+
+          {% if content.field_location_phone|render|trim is not empty %}
+          <div class="wrapper-field-location-phone">
+            <div class="field-location-phone">
+              <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if content.field_location_fax|render|trim is not empty %}
+          <div class="wrapper-field-location-fax">
+            <div class="field-location-fax">
+              <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
+            </div>
+          </div>
+          {% endif %}
+
+          {{ content.field_location_directions }}
+
         </div>
-        <div class="column col-sm-3 col-md-2 branch-header__item">
-          <h4>{{ 'PHONE'|t }}</h4>
-          {{ content.field_location_phone }}
-        </div>
-        <div class="column col-sm-3 col-md-2 branch-header__item">
-          <h4>{{ 'TODAY\'S HOURS'|t }}</h4>
+
+        <div class="column col-sm-7 branch-header__item">
+          <h4>{{ 'Hours of Operation'|t }}</h4>
+          <span class="extra-hours-label">({{ 'Branch Hours'|t }})</span>
           {{ content.field_branch_hours }}
         </div>
-        {#<div class="column col-sm-3 col-md-3 save-link branch-header__item">#}
-          {# TODO: Here should displayed ygs_branch_selector. @see ygs_branch_selector module on YGS #}
-          {# @see ygs_branch_selector module on YGS #}
-        {#</div>#}
+
       </div>
     </div>
   </div>
 
-  <div class="hidden-sm hidden-md hidden-lg mobile">
+  {# mobile view #}
+  <div class="d-inline d-sm-none mobile">
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-          <h4>{{ 'WELCOME TO THE'|t }}</h4>
-          <p>{{ label }}</p>
+          <p><span>{{ label }}</span></p>
         </div>
+      </div>
+
+      <div class="row">
         <div class="ui-tabs">
+
+          {# location contact info tabs #}
           <ul class="ui-tabs-nav">
             <li><a href="#tabs-phone"><i class="fa fa-phone"></i></a></li>
             <li><a href="#tabs-marker"><i class="fa fa-map-marker"></i></a></li>
             <li><a href="#tabs-clock"><i class="fa fa-clock-o"></i></a></li>
           </ul>
+
+          {# phone tab #}
           <div id="tabs-phone" class="ui-tabs-panel col-xs-12">
-            <h4>{{ 'PHONE'|t }}</h4>
-            {{ content.field_location_phone }}
+            <h4>{{ 'Contacts'|t }}</h4>
+
+            {% if content.field_location_phone|render|trim is not empty %}
+            <div class="wrapper-field-location-phone">
+              <div class="field-location-phone">
+                <span class="label-inline"><i class="fa fa-phone"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
+              </div>
+            </div>
+            {% endif %}
+
+            {% if content.field_location_fax|render|trim is not empty %}
+            <div class="wrapper-field-location-fax">
+              <div class="field-location-fax">
+                <span class="label-inline"><i class="fa fa-phone"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
+              </div>
+            </div>
+            {% endif %}
+
           </div>
+
+          {# locations tab #}
           <div id="tabs-marker" class="ui-tabs-panel col-xs-12">
-            <h4>{{ 'ADDRESS'|t }}</h4>
+            <h4>{{ 'Address & Contacts'|t }}</h4>
             {{ content.field_location_address }}
+            {{ content.field_location_directions }}
           </div>
-          <div id="tabs-clock" class="ui-tabs-panel col-xs-12">
-            <h4>{{ 'TODAY\'S HOURS'|t }}</h4>
-            {{ content.field_branch_hours }}
+
+          {# hours tab #}
+          <div id="tabs-clock" class="ui-tabs-panel col-xs-12" aria-hidden="true">
+            <h4>{{ 'Hours of Operation'|t }}</h4><span class="extra-hours-label">({{ 'Branch Hours'|t }})</span>
+            {{ content.field_branch_hours|without('label') }}
           </div>
+
         </div>
-        {#<div id="save-location">#}
-          {# TODO: Here should displayed ygs_branch_selector. @see ygs_branch_selector module on YGS #}
-          {# @see ygs_branch_selector module on YGS #}
-        {#</div>#}
       </div>
     </div>
   </div>
 </article>
-{{ content.field_header_content }}
 
-{# Branch content #}
-<div class="container">
-  <div class="row">
-    <div class="main-region col-12">
-      <div class="branch-content">
-        <article{{ attributes.addClass(classes) }}>
-          <div{{ content_attributes.addClass('node__content') }}>
-            {{ content.field_content }}
-          </div>
-        </article>
+{# ammenities #}
+<div class="py-5 bg-dark text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h4>{{ 'Branch Features'|t }}</h4>
+        {{ content.field_location_amenities }}
       </div>
     </div>
   </div>
+</div>
+
+{# Branch content #}
+<div class="branch-content">
+  <article{{ attributes.addClass(classes) }}>
+    <div{{ content_attributes.addClass('node__content') }}>
+      {{ content.field_content }}
+    </div>
+  </article>
 </div>
 
 {{ content.field_bottom_content }}

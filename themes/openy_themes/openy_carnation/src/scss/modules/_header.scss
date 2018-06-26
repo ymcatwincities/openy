@@ -29,27 +29,6 @@
   }
 }
 
-// without banner
-.without-banner {
-  .layout-container .top-navs {
-    background-color: rgba($primary, .8);
-    transition: background-color 0.5s ease;
-
-    @include media-breakpoint-up(lg) {
-      background-color: transparent;
-    }
-
-    &.affix {
-      background-color: $gray-700;
-    }
-
-    &.affix.menu-in,
-    &.menu-in {
-      background-color: $primary;
-    }
-  }
-}
-
 .viewport .nav-global {
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
