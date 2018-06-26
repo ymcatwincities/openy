@@ -6,6 +6,17 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_prgf_blog_latest_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('paragraph', 'paragraphs_type', 'latest_blog_posts');
+  \Drupal::configFactory()
+    ->getEditable('views.view.latest_blog_posts')
+    ->delete();
+}
+
+/**
  * Update OpenY Paragraph Latest Blog Posts field_prgf_block.
  */
 function openy_prgf_blog_latest_update_8001() {
@@ -27,7 +38,7 @@ function openy_prgf_blog_latest_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_prgf_blog_latest');
   $config_dir .= '/config/install/';
 
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
