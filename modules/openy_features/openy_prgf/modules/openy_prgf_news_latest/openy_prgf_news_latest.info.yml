@@ -3,6 +3,7 @@ package: 'OpenY (Experimental)'
 description: 'OpenY Latest News Posts.'
 type: module
 core: 8.x
+version: '8.x-1.0'
 dependencies:
   - field
   - node
