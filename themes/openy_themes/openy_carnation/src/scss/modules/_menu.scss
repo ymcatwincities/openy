@@ -186,8 +186,11 @@
   }
 }
 
+
 // pages without a banner (ex. program nodes)
 .without-banner {
+
+  // adjust top margins
   .viewport {
     margin-top: 140px;
 
@@ -196,36 +199,53 @@
     }
   }
 
-  @include media-breakpoint-down(lg) {
-    .page-head__main-menu .nav-level-2 {
-      > a {
-        color: $primary;
+  // change navbar background colours when scrolling
+  .top-navs {
+    background-color: rgba($primary, .8);
+    transition: background-color 0.5s ease;
 
-        &:hover {
+    @include media-breakpoint-up(lg) {
+      background-color: transparent;
+
+      // adjust main nav link colours
+      &:not(.affix) .page-head__main-menu .navbar > li {
+        > a {
+          color: $primary;
+
+          &:hover {
+            color: $pink;
+          }
+        }
+
+        &.show > a,
+        &.show > a:focus {
           color: $pink;
         }
       }
+    }
 
-      &.show > a,
-      &.show > a:focus {
-        color: $pink;
+
+    .menu-item-home {
+      background: url("../img/logo-color.png") no-repeat;
+      background-size: 65px 50px;
+      width: 65px;
+      text-indent: -9999px;
+      background-position: center;
+    }
+
+    &.affix {
+      background-color: $gray-700;
+
+      .menu-item-home {
+        background: url("../img/logo-white.png") no-repeat;
+        background-size: 65px 50px;
+        background-position: center;
       }
     }
-  }
 
-  .menu-item-home {
-    background: url("../img/logo-color.png") no-repeat;
-    background-size: 65px 50px;
-    width: 65px;
-    text-indent: -9999px;
-    background-position: center;
-  }
-
-  .affix {
-    .menu-item-home {
-      @include media-breakpoint-down(lg) {
-        background: url("../img/logo-white.png") no-repeat;
-      }
+    &.affix.menu-in,
+    &.menu-in {
+      background-color: $primary;
     }
   }
 }

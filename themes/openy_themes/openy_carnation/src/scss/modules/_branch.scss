@@ -1,318 +1,264 @@
-.branch-header {
-  .ajax-progress-throbber {
-    display: none;
-  }
+.branch-info {
+  background: white;
+  color: $gray-400;
+  margin: 0;
+  box-shadow: 0 3px 30px 2px rgba(0,0,0,0.05);
+}
 
-  .desktop {
-    background-color: $pink;
-    color: $white;
-    padding: 15px 0;
-    min-height: 70px;
-
-    .column {
-      margin-left: 0;
-      width: auto;
-
-      @include media-breakpoint-up(md) {
-        margin-left: 60px;
-        width: auto;
-      }
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &.address-wrapper {
-        max-width: 275px;
-
-        @include media-breakpoint-up(md) {
-          max-width: 310px;
-        }
-      }
-
-      .field-phone a {
-        @include cachet();
-      }
-
-      .ygs-branch-selector {
-        margin-top: 22px;
-
-        a {
-          @include cachet();
-        }
-      }
-    }
-
-    h4 {
-      font-size: 14px;
-      line-height: 1.1;
-      text-transform: uppercase;
-      margin: 0 0 5px;
-    }
-
-    p {
-      @include cachet();
-      font-size: 16px;
-      line-height: 1.1;
-      margin: 0;
-
-      @include media-breakpoint-up(md) {
-        font-size: 14px;
-      }
-    }
-
-    a {
-      color: $white;
-    }
-
-    .today-hours {
-      .today {
-        margin-right: 10px;
-      }
-
-      .branch-hours {
-        display: none;
-        position: absolute;
-        top: 120%;
-        background: $pink;
-        padding: 5px 15px;
-        width: 240px;
-        left: -15px;
-        z-index: 1;
-
-        td {
-          padding: 0 10px 5px 0;
-
-          &:first-child {
-            white-space: nowrap;
-          }
-        }
-      }
-
-      .dropdown-toggle {
-        @include cachet();
-        position: relative;
-        z-index: 0;
-
-        span {
-          pointer-events: none;
-          position: relative;
-          z-index: -1;
-        }
-
-        .hide-text {
-          display: none;
-        }
-      }
-
-      &.open {
-        .dropdown-toggle {
-          .show-text {
-            display: none;
-          }
-
-          .hide-text {
-            display: inline;
-          }
-        }
-
-        .branch-hours {
-          display: block;
-        }
-      }
-    }
-
-    .branch-header-inner {
-      display: flex;
-      justify-content: space-around;
-
-      .branch-header__item {
-        margin-left: 0;
-        float: none;
-        flex-basis: 20%;
-        padding: 0 5px;
-
-        @include media-breakpoint-up(lg) {
-          margin-left: 0;
-          float: none;
-        }
-
-        p {
-          line-height: 20px;
-        }
-      }
-
-      .branch-header__directions {
-        padding-top: 5px;
-      }
-
-      .save-link {
-        align-self: center;
-
-        @include media-breakpoint-up(sm) {
-          align-self: flex-end;
-        }
-      }
-
-      .ygs-branch-selector {
-        margin-top: 0;
-
-        a {
-          display: inline-block;
-        }
-      }
-    }
-  }
-
-  .mobile {
-    background-color: $pink;
-    color: $white;
-    padding: 12px 0 0;
-    position: relative;
-
-    h4 {
-      font-size: 14px;
-      line-height: 1.2;
-      margin: 0 0 3px;
-    }
-
-    p {
-      @include cachet();
-      font-size: 16px;
-      line-height: 1.1;
-      margin: 0 0 5px;
-    }
-
-    a {
-      color: $white;
-    }
-
-    .ui-tabs {
-      background: none;
-      border-radius: 0;
-      border: none;
-      clear: both;
-      padding: 0;
-
-      .ui-tabs-nav {
-        padding: 0;
-        background: none;
-        border-radius: 0;
-        border: none;
-
-        li {
-          background: none;
-          border: none;
-          border-radius: 0;
-          margin: 0 10px 0 0;
-        }
-
-        .ui-tabs-active {
-          background: $pink;
-        }
-
-        .ui-tabs-anchor {
-          color: white;
-          font-size: 24px;
-          outline: none;
-          padding: 4px 20px;
-        }
-      }
-
-      .ui-tabs-panel {
-        background: $pink;
-        border-radius: 0;
-        color: $white;
-        border: none;
-        font-size: 16px;
-        padding: 18px 15px;
-        min-height: 80px;
-
-        h4 {
-          color: $white;
-          font-size: 16px;
-          line-height: 1.1;
-          text-transform: uppercase;
-          margin: 0 0 5px;
-        }
-
-        p {
-          @include cachet();
-          color: white;
-          font-size: 16px;
-          line-height: 1.1;
-          margin: 0;
-        }
-      }
-
-      .today-hours {
-        @include cachet();
-
-        .today {
-          margin-right: 10px;
-        }
-
-        .branch-hours {
-          display: none;
-          padding: 20px 0 12px;
-
-          td {
-            padding: 4px 10px 0 2px;
-          }
-        }
-
-        .dropdown-toggle {
-          color: $gray-200;
-          position: relative;
-          z-index: 0;
-
-          span{
-            pointer-events: none;
-            position: relative;
-            z-index: -1;
-          }
-
-          .hide-text {
-            display: none;
-          }
-        }
-
-        &.open {
-          .dropdown-toggle {
-            .show-text {
-              display: none;
-            }
-
-            .hide-text {
-              display: inline;
-            }
-          }
-          .branch-hours {
-            display: block;
-          }
-        }
-      }
-    }
-
-    #save-location {
-      position: absolute;
-      right: 15px;
-      text-align: right;
-      top: 8px;
-      max-width: 155px;
-      line-height: 14px;
-
-      a {
-        @include cachet();
-        color: white;
-      }
-    }
-  }
-
-  .field-location-fax {
-    display: inline;
+@media (min-width: 48em) {
+  .branch-info {
+    margin:0 15px;
   }
 }
+
+a.direction-link {
+  font-family: Verdana, sans-serif;
+  color: $pink;
+  font-size: 16px;
+  line-height: 1.5;
+  display: block;
+  margin-left: -5px;
+}
+
+a.direction-link:hover,a.direction-link:focus {
+  text-decoration: none;
+}
+
+.address {
+  font-size: 16px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-family: Verdana, sans-serif;
+}
+
+.field-location-phone,.field-location-fax {
+  font-size: 16px;
+}
+
+.field-location-phone a,.field-location-fax a {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 2;
+  color: $gray-400;
+}
+
+.field-location-phone a:hover,.field-location-phone a:focus,.field-location-fax a:hover,.field-location-fax a:focus {
+  text-decoration: none;
+  color: $gray-400;
+}
+
+.page-node-type-branch.with-banner .branch-title h1 {
+  @include cachet(700);
+  color: $gray-400;
+  font-size: 60px;
+}
+
+@media (min-width: 62em) {
+  .page-node-type-branch.with-banner .branch-title h1 {
+    color: white;
+  }
+}
+
+.page-node-type-branch .branch-header .branch-info {
+  padding: 0;
+  background: url(/themes/custom/openy_orchid/img/hours_bg.png) repeat-y white -72px 0;
+  border-radius: 8px;
+  position: relative;
+}
+
+@media (min-width: 62em) {
+  .page-node-type-branch .branch-header .branch-info {
+    background-position: -40px 0;
+  }
+}
+
+.page-node-type-branch .branch-header .branch-info .address-wrapper > h4 {
+  @include cachet(500);
+  color: $primary;
+  font-size: 24px;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+}
+
+.page-node-type-branch .branch-header .branch-info .address-wrapper .address {
+  font-size: 16px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  font-family: Verdana, sans-serif;
+}
+
+.page-node-type-branch .branch-header .branch-info .field-location-fax a,.page-node-type-branch .branch-header .branch-info .field-location-fax a:hover,.page-node-type-branch .branch-header .branch-info .field-location-fax a:focus,.page-node-type-branch .branch-header .branch-info .field-location-phone a,.page-node-type-branch .branch-header .branch-info .field-location-phone a:hover,.page-node-type-branch .branch-header .branch-info .field-location-phone a:focus {
+  color: $gray-400;
+}
+
+.page-node-type-branch .branch-header .branch-info a.direction-link {
+  font-family: Verdana, sans-serif;
+  color: $pink;
+  font-size: 16px;
+  line-height: 1.5;
+  display: block;
+  margin-left: -5px;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+.page-node-type-branch .branch-header .branch-info .branch-header__item {
+  padding: 34px 3% 34px 8%;
+}
+
+.page-node-type-branch .branch-header .branch-info .branch-header__item > h4 {
+  display: inline-block;
+}
+
+.page-node-type-branch .branch-header .branch-info .branch-header__item .extra-hours-label {
+  padding-left: 15px;
+  font-size: 15px;
+}
+
+.page-node-type-branch .branch-header .branch-info .save-link {
+  padding-top: 25px;
+}
+
+@media (min-width: 62em) {
+  .page-node-type-branch .branch-header .branch-info .save-link {
+    padding-right:20px;
+  }
+}
+
+.page-node-type-branch .branch-header .branch-info .save-link a {
+  font-size: 16px;
+  line-height: normal;
+  font-family: "Cachet",Arial,sans-serif;
+}
+
+@media (min-width: 48em) {
+  .page-node-type-branch .branch-header .branch-info .save-link a {
+    color:$pink;
+  }
+}
+
+.page-node-type-branch .branch-header #tabs-clock .today-hours > h5 {
+  display: none;
+}
+
+.page-node-type-branch .branch-header #tabs-clock table tr td {
+  border: 0;
+  height: auto;
+}
+
+.page-node-type-branch .branch-header #tabs-marker a.direction-link::before {
+  color: white;
+}
+
+.page-node-type-branch .branch-info .today-hours {
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+
+.page-node-type-branch .branch-info .today-hours > h5 {
+  display: none;
+}
+
+.page-node-type-branch .branch-info .today-hours td {
+  font-size: 16px;
+  line-height: 30px;
+  text-align: left;
+  color: $gray-700;
+  border: none;
+  height: auto;
+}
+
+.page-node-type-branch .branch-info .today-hours td:first-child {
+  font-weight: bold;
+  text-align: left;
+  color: $gray-400;
+  padding-right: 10px;
+}
+
+
+
+//
+
+// branch features
+
+//
+
+.paragraph--type--grid-branch-features {
+  background-color: $gray-700;
+  color: #959595;
+}
+
+.paragraph--type--grid-branch-features .grid-branch-features {
+  font-family: "Cachet",Arial,sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  color: white;
+  padding: 15px;
+  border-bottom: 1px solid $gray-400;
+  margin: 0;
+}
+
+.page-node-type-branch .paragraph--type--grid-branch-features .grid-branch-features {
+  margin-top: 70px;
+  padding: 0 0 15px 0;
+}
+
+.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum {
+  padding: 0 15px 15px;
+}
+
+.page-node-type-branch .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum {
+  padding: 0 0 50px 0;
+}
+
+.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .row-eq-height .inner,
+.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .modal-body .fieldset-wrapper > div .inner,.modal-body .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .fieldset-wrapper > div .inner {
+  position: relative;
+  padding-left: 40px;
+  margin-top: 35px;
+}
+
+.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .row-eq-height .inner:before,
+.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .modal-body .fieldset-wrapper > div .inner:before,.modal-body .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .fieldset-wrapper > div .inner:before {
+  font-family: 'icomoon' !important;
+  content: "\e933";
+  font-size: 30px;
+  color: #20BDBE;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .row-eq-height .inner .field-prgf-clm-headline,
+.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .modal-body .fieldset-wrapper > div .inner .field-prgf-clm-headline,
+.modal-body .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .fieldset-wrapper > div .inner .field-prgf-clm-headline {
+  font-size: 20px;
+  line-height: 1.25;
+  text-align: left;
+  color: #959595;
+}
+
+.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .row-eq-height .inner .field-prgf-description,
+.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .modal-body .fieldset-wrapper > div .inner .field-prgf-description,
+.modal-body .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .fieldset-wrapper > div .inner .field-prgf-description {
+  font-size: 16px;
+  line-height: 1.38;
+  color: $gray-400;
+}
+
+
+//
+
+
+
+
+
+
 
 .branch__updates_queue {
   @include rem(padding-top, 20px);

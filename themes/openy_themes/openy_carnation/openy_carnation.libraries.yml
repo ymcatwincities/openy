@@ -1,6 +1,7 @@
 global-styling:
   css:
     base:
+      //use.fontawesome.com/releases/v5.1.0/css/all.css: { type: external, minified: true }
       //fonts.googleapis.com/css?family=Comfortaa:300,400,700: { type: external, minified: true }
       dist/css/style.css: {}
   js:
