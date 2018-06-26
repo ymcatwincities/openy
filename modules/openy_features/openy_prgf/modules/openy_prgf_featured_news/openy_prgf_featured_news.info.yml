@@ -3,6 +3,7 @@ description: 'OpenY Paragraph Featured News Posts'
 package: 'OpenY (Experimental)'
 type: module
 core: 8.x
+version: '8.x-1.0'
 dependencies:
   - field
   - node
