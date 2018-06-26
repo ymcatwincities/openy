@@ -19,7 +19,7 @@ function openy_prgf_featured_highlights_uninstall() {
 function openy_prgf_featured_highlights_update_dependencies() {
   $dependencies['openy_prgf_featured_highlights'] = [
     8001 => [
-      'openy' => 8057,
+      'openy' => 8059,
     ],
   ];
 

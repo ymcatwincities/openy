@@ -22,7 +22,7 @@ function openy_prgf_4c_uninstall() {
 function openy_prgf_4c_update_dependencies() {
   $dependencies['openy_prgf_4c'] = [
     8005 => [
-      'openy' => 8057,
+      'openy' => 8059,
     ],
   ];
 
