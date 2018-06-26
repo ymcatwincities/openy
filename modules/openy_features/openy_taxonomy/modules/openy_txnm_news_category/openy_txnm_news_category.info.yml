@@ -3,6 +3,7 @@ description: 'OpenY Taxonomy News Category.'
 package: 'OpenY (Experimental)'
 type: module
 core: 8.x
+version: '8.x-1.0'
 dependencies:
   - ctools
   - entity_reference_revisions
