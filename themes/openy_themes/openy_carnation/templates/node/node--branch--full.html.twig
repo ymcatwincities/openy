@@ -101,19 +101,19 @@ set classes = [
 {% endif %}
 
 {# branch contact card #}
-<article{{ attributes.addClass('branch-header') }}>
+<article{{ attributes.removeClass(header_classes).addClass('branch-header my-5') }}>
 
   {# desktop view #}
-  <div class="d-none d-sm-inline desktop">
+  <div class="d-none d-sm-inline-block w-100 mt-3 mb-5 desktop">
     <div class="container">
 
-      <div class="row branch-title">
-        <div class="container">
-          <div class="column col-sm-12 branch-header__item">
-            <h1><span>{{ label }}</span></h1>
-          </div>
-        </div>
-      </div>
+      {#<div class="row branch-title">#}
+        {#<div class="container">#}
+          {#<div class="column col-sm-12 branch-header__item">#}
+            {#<h1><span>{{ label }}</span></h1>#}
+          {#</div>#}
+        {#</div>#}
+      {#</div>#}
 
       <div class="row branch-header-inner branch-info" data-branch-name="{{ node.label }}">
         <div class="column col-sm-5 address-wrapper branch-header__item">
@@ -140,9 +140,8 @@ set classes = [
 
         </div>
 
-        <div class="column col-sm-7 branch-header__item">
-          <h4>{{ 'Hours of Operation'|t }}</h4>
-          <span class="extra-hours-label">({{ 'Branch Hours'|t }})</span>
+        <div class="column col-sm-7 hours-wrapper branch-header__item">
+          <h5>{{ 'Today\'s Hours'|t }}</h5>
           {{ content.field_branch_hours }}
         </div>
 
@@ -153,11 +152,12 @@ set classes = [
   {# mobile view #}
   <div class="d-inline d-sm-none mobile">
     <div class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <p><span>{{ label }}</span></p>
-        </div>
-      </div>
+
+      {#<div class="row">#}
+        {#<div class="col-xs-12">#}
+          {#<p><span>{{ label }}</span></p>#}
+        {#</div>#}
+      {#</div>#}
 
       <div class="row">
         <div class="ui-tabs">
@@ -210,25 +210,31 @@ set classes = [
   </div>
 </article>
 
-{# ammenities #}
-<div class="py-5 bg-dark text-white">
+{# branch ammenities #}
+{% if content.field_location_amenities|render|trim is not empty %}
+<div class="bg-gray-600 text-white">
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h4>{{ 'Branch Features'|t }}</h4>
+    <div class="row py-5">
+      <div class="col-12 py-0 py-lg-3">
+        <h5 class="grid-branch-features text-uppercase border-bottom border-gray-400 pb-2 mb-4">{{ 'Branch Features'|t }}</h5>
         {{ content.field_location_amenities }}
       </div>
     </div>
   </div>
 </div>
+{% endif %}
 
 {# Branch content #}
-<div class="branch-content">
-  <article{{ attributes.addClass(classes) }}>
-    <div{{ content_attributes.addClass('node__content') }}>
-      {{ content.field_content }}
+<div class="container">
+  <div class="row">
+    <div class="branch-content my-5">
+      <article{{ attributes.removeClass('branch-header my-5').addClass(classes) }}>
+        <div{{ content_attributes.addClass('node__content') }}>
+          {{ content.field_content }}
+        </div>
+      </article>
     </div>
-  </article>
+  </div>
 </div>
 
 {{ content.field_bottom_content }}

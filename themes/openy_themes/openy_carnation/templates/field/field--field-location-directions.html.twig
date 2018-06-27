@@ -43,14 +43,14 @@
     <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
       {% for item in items %}
         <a href="{{ item.content['#url'] }}" class="direction-link" rel="nofollow" target="_blank">
-          <i class="fa fa-arrow-alt-circle-up"></i> {{ item.content['#title'] }}
+          <i class="fas fa-map-marker-alt"></i> {{ item.content['#title'] }}
         </a>
       {% endfor %}
     </div>
   {% else %}
     {% for item in items %}
       <a href="{{ item.content['#url'] }}" class="direction-link" rel="nofollow" target="_blank">
-        <i class="fa fa-arrow-alt-circle-up"></i> {{ item.content['#title'] }}
+        <i class="fas fa-map-marker-alt"></i> {{ item.content['#title'] }}
       </a>
     {% endfor %}
   {% endif %}
@@ -62,7 +62,7 @@
       {% endif %}
       {% for item in items %}
         <a href="{{ item.content['#url'] }}" class="direction-link" rel="nofollow" target="_blank">
-          <i class="fa fa-arrow-alt-circle-up"></i> {{ item.content['#title'] }}
+          <i class="fas fa-map-marker-alt"></i> {{ item.content['#title'] }}
         </a>
       {% endfor %}
       {% if multiple %}

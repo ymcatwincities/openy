@@ -42,12 +42,15 @@
 {%
   set classes = [
     field_name|clean_class,
-    'block-description--text'
+    'block-description--text',
+    'col-12 col-lg',
   ]
 %}
 {% if field_name == 'field_prgf_title' %}
   {% for item in items %}
-    <div{{ attributes.addClass('field-prgf-title') }}><h2>{{ item.content }}</h2></div>
+    <div{{ attributes.addClass('field-prgf-title') }}>
+      <h2>{{ item.content }}</h2>
+    </div>
   {% endfor %}
 {% else %}
   {% if label_hidden %}
@@ -63,16 +66,13 @@
           {% set icon_class = item.content.field_icon_class.0 ? item.content.field_icon_class.0 : '' %}
           {% set icon = item.content.field_icon.0 ? item.content.field_icon.0 : '' %}
           {% if icon_class %}
-            <h2 {% if icon_class %}class="with-icon"{% endif %}>
-              <i class="fa fa-{{ icon_class }}" aria-hidden="true"></i>
-              {{ item.content.field_sb_title|raw|render}}
-            </h2>
+            <i class="fa fa-{{ icon_class }}" aria-hidden="true"></i>
+            <h2 {% if icon_class %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|raw|render}}</h2>
           {% else %}
-            <h2 {% if icon %}class="with-icon"{% endif %}>
-              {{ item.content.field_icon }}
-              {{ item.content.field_sb_title|raw|render }}
-            </h2>
+            {{ item.content.field_icon }}
+            <h2 {% if icon %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|raw|render }}</h2>
           {% endif %}
+
           {{ item.content|without('field_icon', 'field_icon_class', 'field_sb_title') }}
         </div>
       {% endfor %}
