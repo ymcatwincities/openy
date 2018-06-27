@@ -180,6 +180,9 @@
       '.membership-type h3',
       '.membership-type article p',
       '.activity-group .card',
+      '.block-description--text > h2',
+      '.block-description--text > div',
+      '.table-class',
     ];
 
     // make them all equal heights.

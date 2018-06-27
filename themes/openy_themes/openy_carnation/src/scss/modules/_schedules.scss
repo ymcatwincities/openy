@@ -567,15 +567,6 @@
 
 #group-ex-results,
 .groupex-results {
-  .col-xs-12,
-  .cards-wrapper {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
   .caption {
     @include cachet();
     letter-spacing: -0.8px;
@@ -590,31 +581,10 @@
 
   .card-wrapper {
     display: inline-block;
-
-    width: 49%;
     padding-bottom: 55px;
 
     @include media-breakpoint-up(sm) {
       padding-bottom: 100px;
-      width: 32%;
-    }
-
-    &:nth-child(3n+2) {
-      margin: 0 2%;
-    }
-
-    @include media-breakpoint-down(sm) {
-      &:nth-child(3n+2) {
-        margin: 0;
-      }
-
-      &:nth-child(odd) {
-        margin-right: 1%;
-      }
-
-      &:nth-child(even) {
-        margin-left: 1%;
-      }
     }
   }
 
@@ -745,7 +715,7 @@
 
   .top-form-wrapper {
     background-color: $gray-100;
-    margin-top: 20px;
+    margin: 20px 0;
     overflow: hidden;
     padding: 0 20px 20px 20px;
 
@@ -762,11 +732,11 @@
       background-position: 100% 50%;
       background-repeat: no-repeat;
       background-color: $white;
-      padding-right: 25px;
+      //padding-right: 25px;
       color: $gray-500;
       font-size: 14px;
       text-transform: uppercase;
-      max-width: 220px;
+      //max-width: 220px;
 
       ::-ms-expand {
         display: none;
@@ -784,6 +754,12 @@
 
     #date-select-wrapper {
       max-width: 220px;
+
+      input {
+        width: 100%;
+        line-height: 32px;
+        border: 1px solid $gray-300;
+      }
     }
 
     #submit-wrapper {
@@ -818,19 +794,14 @@
 
       a {
         color: white;
+        background-color: $purple;
       }
-
     }
   }
 
-  .groupex-results {
-    clear: both;
-    padding: 40px 0;
-  }
-
   .class-description {
-    margin: 15px 0;
-    font-size: 20px;
+    margin: 20px 0 40px 0;
+    font-size: 16px;
 
     img {
       max-width: 100%;

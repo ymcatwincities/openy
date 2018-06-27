@@ -11,12 +11,10 @@
  * @ingroup themeable
  */
 #}
-<figure id="group-ex-results">
+<figure id="group-ex-results clearfix">
   <div class="row">
-    <div class="col-xs-12">
-      {% for class in classes %}
-        {{ class }}
-      {% endfor %}
-    </div>
+    {% for class in classes %}
+      {{ class }}
+    {% endfor %}
   </div>
 </figure>

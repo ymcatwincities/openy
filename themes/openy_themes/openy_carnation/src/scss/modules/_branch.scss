@@ -2,13 +2,7 @@
   background: white;
   color: $gray-400;
   margin: 0;
-  box-shadow: 0 3px 30px 2px rgba(0,0,0,0.05);
-}
-
-@media (min-width: 48em) {
-  .branch-info {
-    margin:0 15px;
-  }
+  box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.15);
 }
 
 a.direction-link {
@@ -17,7 +11,6 @@ a.direction-link {
   font-size: 16px;
   line-height: 1.5;
   display: block;
-  margin-left: -5px;
 }
 
 a.direction-link:hover,a.direction-link:focus {
@@ -31,230 +24,246 @@ a.direction-link:hover,a.direction-link:focus {
   font-family: Verdana, sans-serif;
 }
 
-.field-location-phone,.field-location-fax {
+.field-location-phone,
+.field-location-fax {
   font-size: 16px;
-}
 
-.field-location-phone a,.field-location-fax a {
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 2;
-  color: $gray-400;
-}
+  i {
+    margin-right: 5px;
+    font-size: 18px;
+  }
 
-.field-location-phone a:hover,.field-location-phone a:focus,.field-location-fax a:hover,.field-location-fax a:focus {
-  text-decoration: none;
-  color: $gray-400;
-}
+  a {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 2;
+    color: $gray-400;
 
-.page-node-type-branch.with-banner .branch-title h1 {
-  @include cachet(700);
-  color: $gray-400;
-  font-size: 60px;
-}
-
-@media (min-width: 62em) {
-  .page-node-type-branch.with-banner .branch-title h1 {
-    color: white;
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      color: $gray-400;
+    }
   }
 }
 
-.page-node-type-branch .branch-header .branch-info {
-  padding: 0;
-  background: url(/themes/custom/openy_orchid/img/hours_bg.png) repeat-y white -72px 0;
-  border-radius: 8px;
-  position: relative;
-}
+// @todo: implement if new paragraph gets added to openy
+//.page-node-type-branch.with-banner .branch-title h1 {
+//  @include cachet(700);
+//  color: $gray-400;
+//  font-size: 60px;
+//
+//  @include media-breakpoint-up(lg) {
+//    color: white;
+//  }
+//}
 
-@media (min-width: 62em) {
-  .page-node-type-branch .branch-header .branch-info {
-    background-position: -40px 0;
+.page-node-type-branch {
+  .branch-header {
+
+    // branch information
+    .branch-info {
+      padding: 0;
+      border-radius: 8px;
+      position: relative;
+
+      .branch-header__item {
+        padding: 34px 3% 34px 8%;
+
+        h5 {
+          @include cachet(500);
+          display: inline-block;
+          color: $gray-700;
+          font-size: 24px;
+          letter-spacing: -1px;
+          text-transform: none;
+          margin-bottom: 0;
+        }
+
+        .extra-hours-label {
+          padding-left: 15px;
+          font-size: 15px;
+        }
+      }
+
+      // address & contacts
+      .address-wrapper {
+        > h4 {
+          @include cachet(500);
+          color: $primary;
+          font-size: 24px;
+          letter-spacing: -1px;
+          margin-bottom: 15px;
+        }
+
+        .address {
+          font-size: 16px;
+          margin-bottom: 15px;
+          line-height: 1.5;
+          font-family: Verdana, sans-serif;
+        }
+      }
+
+      a.direction-link {
+        font-family: Verdana, sans-serif;
+        color: $pink;
+        font-size: 16px;
+        line-height: 2;
+        display: block;
+
+        i {
+          font-size: 18px;
+          margin-right: 5px;
+        }
+
+        &:hover,
+        &:focus {
+          text-decoration: none;
+        }
+      }
+
+      // hours of operation
+      .hours-wrapper {
+        background-color: #f8f8f8;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+
+      // hours table
+      .today-hours {
+        margin-bottom: 20px;
+        margin-top: 15px;
+
+        .dropdown-toggle {
+          display: none;
+        }
+
+        .today {
+          margin-bottom: 1.5rem;
+          display: block;
+        }
+
+        > h5 {
+          display: none;
+        }
+
+        table {
+          margin-top: 1rem;
+
+          td {
+            font-size: 16px;
+            line-height: 30px;
+            text-align: left;
+            color: $gray-700;
+            border: none;
+            height: auto;
+            width: 50%;
+
+            &:first-child {
+              font-weight: bold;
+              text-align: left;
+              color: $gray-400;
+              padding-right: 10px;
+            }
+
+            &:last-child::before {
+              margin-right: 10px;
+              font-family: "Font Awesome 5 Free";
+              content: "\f017";
+              -webkit-font-smoothing: antialiased;
+              display: inline-block;
+              font-style: normal;
+              font-variant: normal;
+              text-rendering: auto;
+              line-height: 1;
+            }
+          }
+        }
+      }
+    }
+
+    // @todo: implement? (save as preferred branch)
+    //.save-link {
+    //  padding-top: 25px;
+    //
+    //  @include media-breakpoint-up(lg) {
+    //    padding-right:20px;
+    //  }
+    //
+    //  a {
+    //    @include cachet();
+    //    font-size: 16px;
+    //    line-height: normal;
+    //
+    //    @include media-breakpoint-up(md) {
+    //      color: $pink;
+    //    }
+    //  }
+    //}
+
+    // tab - hours
+    #tabs-clock {
+      .today-hours > h5 {
+        display: none;
+      }
+
+      table tr td {
+        border: 0;
+        height: auto;
+      }
+    }
+
+    // tab - location
+    #tabs-marker a.direction-link::before {
+      color: white;
+    }
   }
 }
 
-.page-node-type-branch .branch-header .branch-info .address-wrapper > h4 {
+//
+// branch amenities
+//
+.grid-branch-features {
   @include cachet(500);
-  color: $primary;
-  font-size: 24px;
-  letter-spacing: -1px;
-  margin-bottom: 15px;
-}
-
-.page-node-type-branch .branch-header .branch-info .address-wrapper .address {
-  font-size: 16px;
-  margin-bottom: 15px;
-  line-height: 1.5;
-  font-family: Verdana, sans-serif;
-}
-
-.page-node-type-branch .branch-header .branch-info .field-location-fax a,.page-node-type-branch .branch-header .branch-info .field-location-fax a:hover,.page-node-type-branch .branch-header .branch-info .field-location-fax a:focus,.page-node-type-branch .branch-header .branch-info .field-location-phone a,.page-node-type-branch .branch-header .branch-info .field-location-phone a:hover,.page-node-type-branch .branch-header .branch-info .field-location-phone a:focus {
-  color: $gray-400;
-}
-
-.page-node-type-branch .branch-header .branch-info a.direction-link {
-  font-family: Verdana, sans-serif;
-  color: $pink;
-  font-size: 16px;
-  line-height: 1.5;
-  display: block;
-  margin-left: -5px;
-
-  &:hover,
-  &:focus {
-    text-decoration: none;
-  }
-}
-
-.page-node-type-branch .branch-header .branch-info .branch-header__item {
-  padding: 34px 3% 34px 8%;
-}
-
-.page-node-type-branch .branch-header .branch-info .branch-header__item > h4 {
-  display: inline-block;
-}
-
-.page-node-type-branch .branch-header .branch-info .branch-header__item .extra-hours-label {
-  padding-left: 15px;
-  font-size: 15px;
-}
-
-.page-node-type-branch .branch-header .branch-info .save-link {
-  padding-top: 25px;
-}
-
-@media (min-width: 62em) {
-  .page-node-type-branch .branch-header .branch-info .save-link {
-    padding-right:20px;
-  }
-}
-
-.page-node-type-branch .branch-header .branch-info .save-link a {
-  font-size: 16px;
-  line-height: normal;
-  font-family: "Cachet",Arial,sans-serif;
-}
-
-@media (min-width: 48em) {
-  .page-node-type-branch .branch-header .branch-info .save-link a {
-    color:$pink;
-  }
-}
-
-.page-node-type-branch .branch-header #tabs-clock .today-hours > h5 {
-  display: none;
-}
-
-.page-node-type-branch .branch-header #tabs-clock table tr td {
-  border: 0;
-  height: auto;
-}
-
-.page-node-type-branch .branch-header #tabs-marker a.direction-link::before {
-  color: white;
-}
-
-.page-node-type-branch .branch-info .today-hours {
-  margin-bottom: 20px;
-  margin-top: 15px;
-}
-
-.page-node-type-branch .branch-info .today-hours > h5 {
-  display: none;
-}
-
-.page-node-type-branch .branch-info .today-hours td {
-  font-size: 16px;
-  line-height: 30px;
-  text-align: left;
-  color: $gray-700;
-  border: none;
-  height: auto;
-}
-
-.page-node-type-branch .branch-info .today-hours td:first-child {
-  font-weight: bold;
-  text-align: left;
-  color: $gray-400;
-  padding-right: 10px;
-}
-
-
-
-//
-
-// branch features
-
-//
-
-.paragraph--type--grid-branch-features {
-  background-color: $gray-700;
-  color: #959595;
-}
-
-.paragraph--type--grid-branch-features .grid-branch-features {
-  font-family: "Cachet",Arial,sans-serif;
   font-size: 20px;
   text-transform: uppercase;
-  font-weight: bold;
   letter-spacing: -0.5px;
-  color: white;
-  padding: 15px;
   border-bottom: 1px solid $gray-400;
-  margin: 0;
-}
-
-.page-node-type-branch .paragraph--type--grid-branch-features .grid-branch-features {
-  margin-top: 70px;
   padding: 0 0 15px 0;
 }
 
-.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum {
-  padding: 0 15px 15px;
-}
+.wrapper-field-location-amenities {
+  @include make-row();
 
-.page-node-type-branch .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum {
-  padding: 0 0 50px 0;
-}
+  & > div {
+    @include make-col-ready();
 
-.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .row-eq-height .inner,
-.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .modal-body .fieldset-wrapper > div .inner,.modal-body .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .fieldset-wrapper > div .inner {
-  position: relative;
-  padding-left: 40px;
-  margin-top: 35px;
-}
+    @include media-breakpoint-up(lg) {
+      @include make-col(4);
+    }
+  }
 
-.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .row-eq-height .inner:before,
-.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .modal-body .fieldset-wrapper > div .inner:before,.modal-body .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .fieldset-wrapper > div .inner:before {
-  font-family: 'icomoon' !important;
-  content: "\e933";
-  font-size: 30px;
-  color: #20BDBE;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
+  .term-name {
+    position: relative;
+    padding-left: 40px;
+    margin-top: 35px;
+    font-size: 20px;
+    line-height: 1.25;
+    color: $gray-300;
 
-.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .row-eq-height .inner .field-prgf-clm-headline,
-.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .modal-body .fieldset-wrapper > div .inner .field-prgf-clm-headline,
-.modal-body .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .fieldset-wrapper > div .inner .field-prgf-clm-headline {
-  font-size: 20px;
-  line-height: 1.25;
-  text-align: left;
-  color: #959595;
+    &:before {
+      font-size: 24px;
+      color: $green;
+      position: absolute;
+      top: -2px;
+      left: 0;
+      content: '\f00c';
+      font-family: 'FontAwesome';
+    }
+  }
 }
-
-.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .row-eq-height .inner .field-prgf-description,
-.paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .modal-body .fieldset-wrapper > div .inner .field-prgf-description,
-.modal-body .paragraph--type--grid-branch-features .wrapper-field-grid-branch-features-colum .fieldset-wrapper > div .inner .field-prgf-description {
-  font-size: 16px;
-  line-height: 1.38;
-  color: $gray-400;
-}
-
 
 //
-
-
 
 
 
@@ -356,10 +365,6 @@ a.direction-link:hover,a.direction-link:focus {
       }
     }
   }
-}
-
-.branch-content {
-  margin-top: 40px;
 }
 
 html.js {
