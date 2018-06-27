@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_schedules\Plugin\Validation\Constraint;
+namespace Drupal\openy_repeat\Plugin\Validation\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
