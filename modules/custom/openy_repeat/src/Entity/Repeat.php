@@ -1,16 +1,14 @@
 <?php
-namespace Drupal\openy_schedules\Entity;
+namespace Drupal\openy_repeat\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
-use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Datetime\DateHelper;
 
 /**
  * Defines the repeat entity class.
- * 
+ *
  * @ingroup openy_schedules
  *
  * @ContentEntityType(
@@ -21,29 +19,29 @@ use Drupal\Core\Datetime\DateHelper;
  *     "id" = "id",
  *   },
  *   translatable = FALSE,
- *   fieldable = FALSE
+ *   fieldable = FALSE,
  *   admin_permission = "administer site configuration",
  * )
  */
-class Repeat extends ContentEntityBase {
-  
+class Repeat extends ContentEntityBase implements RepeatInterface {
+
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Repeat ID'))
       ->setDescription(t('The repeat ID.'))
       ->setReadOnly(TRUE);
 
-    $fields['session'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Session'))
-      ->setDescription(t('Reference to the Session.'))
-      ->setSetting('target_type', 'node')
-      ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'entity_reference_label',
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete'
-      ]);
+    //$fields['session'] = BaseFieldDefinition::create('entity_reference')
+    //  ->setLabel(t('Session'))
+    //  ->setDescription(t('Reference to the Session.'))
+    //  ->setSetting('target_type', 'node')
+    //  ->setDisplayOptions('view', [
+    //    'label' => 'above',
+    //    'type' => 'entity_reference_label',
+    //  ])
+    //  ->setDisplayOptions('form', [
+    //    'type' => 'entity_reference_autocomplete'
+    //  ]);
 
     $fields['start'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Repeat Start'))
