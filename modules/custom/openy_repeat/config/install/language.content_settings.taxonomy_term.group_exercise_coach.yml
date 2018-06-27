@@ -1,10 +1,10 @@
-langcode: en
-status: true
-dependencies:
-  config:
-    - taxonomy.vocabulary.group_exercise_coach
-id: taxonomy_term.group_exercise_coach
-target_entity_type_id: taxonomy_term
-target_bundle: group_exercise_coach
-default_langcode: site_default
-language_alterable: false
+#langcode: en
+#status: true
+#dependencies:
+#  config:
+#    - taxonomy.vocabulary.group_exercise_coach
+#id: taxonomy_term.group_exercise_coach
+#target_entity_type_id: taxonomy_term
+#target_bundle: group_exercise_coach
+#default_langcode: site_default
+#language_alterable: false

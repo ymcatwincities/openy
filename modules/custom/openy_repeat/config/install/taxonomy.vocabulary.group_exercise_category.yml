@@ -1,8 +1,8 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Group Exercise Category'
-vid: group_exercise_category
-description: 'Group Exercise Category'
-hierarchy: 0
-weight: 0
+#langcode: en
+#status: true
+#dependencies: {  }
+#name: 'Group Exercise Category'
+#vid: group_exercise_category
+#description: 'Group Exercise Category'
+#hierarchy: 0
+#weight: 0
