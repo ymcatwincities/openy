@@ -1,37 +1,37 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - entity_browser_entity_form
-name: repeat
-label: Repeat
-display: iframe
-display_configuration:
-  width: '650'
-  height: '630'
-  link_text: 'create repeat'
-  auto_open: true
-  path: /admin/structure/repeat/add
-selection_display: no_display
-selection_display_configuration:
-  entity_type: repeat
-  display: label
-  display_settings:
-    view_mode: default
-  select_text: 'Use selected'
-  selection_hidden: false
-  view: null
-  view_display: null
-widget_selector: single
-widget_selector_configuration: {  }
-widgets:
-  7e99b781-9881-4b48-94bb-e93b855f1e4e:
-    settings:
-      entity_type: repeat
-      bundle: repeat
-      form_mode: default
-      submit_text: Save
-    uuid: 7e99b781-9881-4b48-94bb-e93b855f1e4e
-    weight: 2
-    label: entity_form
-    id: entity_form
+#langcode: en
+#status: true
+#dependencies:
+#  module:
+#    - entity_browser_entity_form
+#name: repeat
+#label: Repeat
+#display: iframe
+#display_configuration:
+#  width: '650'
+#  height: '630'
+#  link_text: 'create repeat'
+#  auto_open: true
+#  path: /admin/structure/repeat/add
+#selection_display: no_display
+#selection_display_configuration:
+#  entity_type: repeat
+#  display: label
+#  display_settings:
+#    view_mode: default
+#  select_text: 'Use selected'
+#  selection_hidden: false
+#  view: null
+#  view_display: null
+#widget_selector: single
+#widget_selector_configuration: {  }
+#widgets:
+#  7e99b781-9881-4b48-94bb-e93b855f1e4e:
+#    settings:
+#      entity_type: repeat
+#      bundle: repeat
+#      form_mode: default
+#      submit_text: Save
+#    uuid: 7e99b781-9881-4b48-94bb-e93b855f1e4e
+#    weight: 2
+#    label: entity_form
+#    id: entity_form

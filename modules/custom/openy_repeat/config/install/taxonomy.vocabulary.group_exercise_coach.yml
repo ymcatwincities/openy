@@ -1,8 +1,8 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Group Exercise Coach'
-vid: group_exercise_coach
-description: 'Group Exercise Coach'
-hierarchy: 0
-weight: 0
+#langcode: en
+#status: true
+#dependencies: {  }
+#name: 'Group Exercise Coach'
+#vid: group_exercise_coach
+#description: 'Group Exercise Coach'
+#hierarchy: 0
+#weight: 0

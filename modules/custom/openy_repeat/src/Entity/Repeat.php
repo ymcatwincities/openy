@@ -9,14 +9,15 @@ use Drupal\Core\Datetime\DateHelper;
 /**
  * Defines the repeat entity class.
  *
- * @ingroup openy_schedules
+ * @ingroup openy_repeat
  *
  * @ContentEntityType(
  *   id = "repeat",
  *   label = @Translation("Repeat"),
- *   base_table = "repeat",
+ *   base_table = "repeat_event",
  *   entity_keys = {
  *     "id" = "id",
+ *     "uuid" = "uuid"
  *   },
  *   translatable = FALSE,
  *   fieldable = FALSE,
@@ -25,23 +26,31 @@ use Drupal\Core\Datetime\DateHelper;
  */
 class Repeat extends ContentEntityBase implements RepeatInterface {
 
+  /**
+   * {@inheritdoc}
+   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Repeat ID'))
       ->setDescription(t('The repeat ID.'))
       ->setReadOnly(TRUE);
 
-    //$fields['session'] = BaseFieldDefinition::create('entity_reference')
-    //  ->setLabel(t('Session'))
-    //  ->setDescription(t('Reference to the Session.'))
-    //  ->setSetting('target_type', 'node')
-    //  ->setDisplayOptions('view', [
-    //    'label' => 'above',
-    //    'type' => 'entity_reference_label',
-    //  ])
-    //  ->setDisplayOptions('form', [
-    //    'type' => 'entity_reference_autocomplete'
-    //  ]);
+    $fields['uuid'] = BaseFieldDefinition::create('uuid')
+      ->setLabel(t('UUID'))
+      ->setDescription(t('The UUID of the entity.'))
+      ->setReadOnly(TRUE);
+
+    $fields['session'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Session'))
+      ->setDescription(t('Reference to the Session.'))
+      ->setSetting('target_type', 'node')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'entity_reference_label',
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete'
+      ]);
 
     $fields['start'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Repeat Start'))
