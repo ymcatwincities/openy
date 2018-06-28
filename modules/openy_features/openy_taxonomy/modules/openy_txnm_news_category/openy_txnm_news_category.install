@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Update hooks for module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_txnm_news_category_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('taxonomy_term', 'taxonomy_vocabulary', 'news_category', 'vid');
+  \Drupal::configFactory()
+    ->getEditable('pathauto.pattern._news_category_')
+    ->delete();
+}
