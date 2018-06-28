@@ -33,7 +33,7 @@
         // Remove dismissed alerts.
         if ($.inArray(nid, dismissed) != -1) {
           if (slick.length > 0) {
-            slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index());
+            slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index()-1);
           }
           else {
             self.remove();
@@ -41,7 +41,11 @@
         }
         $('.site-alert__dismiss', self).on('click', function () {
           if (slick.length > 0) {
-            slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index());
+            var slickCheck = slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index()-1);
+            if(!slickCheck) {
+              self.remove();
+              slick.parents('.slick-track').prevObject.remove();
+            }
           }
           else {
             self.remove();
