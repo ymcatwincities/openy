@@ -37,13 +37,13 @@
  */
 #}
 {%
-  set classes = [
-    'paragraph',
-    'paragraph--type--' ~ paragraph.bundle|clean_class,
-    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    'banner',
-    'banner--small',
-  ]
+set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  'banner',
+  'banner--small',
+]
 %}
 {% set color = '#' ~ content.field_prgf_color['#items'].entity.field_color.value %}
 

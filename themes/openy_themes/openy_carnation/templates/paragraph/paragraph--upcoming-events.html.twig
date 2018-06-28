@@ -43,24 +43,25 @@ set classes = [
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-
 <div{{ attributes.addClass(classes) }}>
- <div class="field-prgf-block">
-  <div class="views-element-container container">
-  <div class="row">
-    <div class="upcoming-events__header-info clearfix">
-                <div class="col-xs-12 col-sm-8 col-md-6">
-                        <h2>{{ title }} Upcoming Events</h2>
-                </div>
-                <div class="hidden-xs col-sm-4 col-md-6 text-right">
-                        <div><a class="follow-link" href="/events">See all events</a> {{ header }}</div>
-                </div>
+  <div class="field-prgf-block">
+    <div class="views-element-container container">
+      <div class="row">
+
+        <div class="upcoming-events__header-info clearfix">
+          <div class="col-xs-12 col-sm-8 col-md-6">
+            <h2>{{ title }} Upcoming Events</h2>
+          </div>
+          <div class="hidden-xs col-sm-4 col-md-6 text-right">
+            <div><a class="follow-link" href="/events">See all events</a> {{ header }}</div>
+          </div>
+        </div>
+
+        <div class="upcoming-events__block-wrapper clearfix">
+          {{ content }}
+        </div>
+      </div>
     </div>
-    <div class="upcoming-events__block-wrapper clearfix">
-     {{ content }}
-    </div>
-   </div>
   </div>
- </div>
 </div>
 

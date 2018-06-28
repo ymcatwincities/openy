@@ -37,10 +37,10 @@
  */
 #}
 {%
-  set classes = [
-    'paragraph',
-    'paragraph--type--' ~ paragraph.bundle|clean_class,
-  ]
+set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+]
 %}
 {% set tags_style = paragraph.field_prgf_lf_tags_style.value ? paragraph.field_prgf_lf_tags_style.value|clean_class : 'checkboxes' %}
 

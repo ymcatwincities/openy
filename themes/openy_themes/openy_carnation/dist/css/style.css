@@ -7899,6 +7899,7 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
       padding-bottom: 1rem;
+      margin-bottom: 2rem;
       font-size: 22px;
       line-height: 1.5;
       color: #636466;
@@ -8830,8 +8831,7 @@ html.js .branch__updates_queue__button {
   content: ":"; }
 
 .node--view-mode-full h2 {
-  font-size: 22px;
-  margin-bottom: 33px; }
+  font-size: 22px; }
 
 .node--view-mode-full .sidebar-card_h3 {
   position: absolute;

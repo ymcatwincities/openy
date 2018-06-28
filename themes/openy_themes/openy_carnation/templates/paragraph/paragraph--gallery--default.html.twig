@@ -97,13 +97,17 @@ set classes = [
     <div class="container align-items-stretch m-auto p-5 py-lg-3 text-center text-white">
       <div class="row">
         <div class="cta-group col-12">
-          <h1 class="display-4 mb-4 text-uppercase">
+          <h1 class="display-4 text-uppercase">
             {{ content.field_prgf_headline }}
           </h1>
-          <div class="text mb-4">
+          <div class="text mt-3">
             {{ content.field_prgf_description }}
           </div>
-          {{ content.field_prgf_link }}
+          {% if content.field_prgf_link|render|trim is not empty %}
+          <div class="mt-3">
+            {{ content.field_prgf_link }}
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>

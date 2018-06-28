@@ -130,6 +130,7 @@
       > h2 {
         @include cachet();
         padding-bottom: 1rem;
+        margin-bottom: 2rem;
         font-size: 22px;
         line-height: 1.5;
         color: $gray-400;

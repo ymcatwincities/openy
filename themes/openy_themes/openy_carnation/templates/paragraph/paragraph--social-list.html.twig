@@ -37,19 +37,19 @@
   */
   #}
 <div class="container">
-    <section class="row wrapper-field-content">
-        <div class="col col-md-12 social-post-list">
-            <div class="header">
-                {% if content.field_prgrf_sl_title %}
-                    <h2 class="h1 text-center">{{ content.field_prgrf_sl_title }}</h2>
-                {% endif %}
-                {% if content.field_prgrf_sl_description %}
-                    <div class="description text-center">{{ content.field_prgrf_sl_description }}</div>
-                {% endif %}
-            </div>
-            {% if content.posts is defined %}
-                {{ content.posts }}
-            {% endif %}
-        </div>
-    </section>
+  <section class="row wrapper-field-content">
+    <div class="col col-md-12 social-post-list">
+      <div class="header">
+        {% if content.field_prgrf_sl_title %}
+          <h2 class="h1 text-center">{{ content.field_prgrf_sl_title }}</h2>
+        {% endif %}
+        {% if content.field_prgrf_sl_description %}
+          <div class="description text-center">{{ content.field_prgrf_sl_description }}</div>
+        {% endif %}
+      </div>
+      {% if content.posts is defined %}
+        {{ content.posts }}
+      {% endif %}
+    </div>
+  </section>
 </div>
