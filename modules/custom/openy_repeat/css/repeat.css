@@ -1,9 +1,9 @@
 body .container .sidebar {
   position: fixed;
-  top: 70px;
+  top: 274px;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 1031;
   display: block;
   padding: 20px;
   overflow-x: hidden;
@@ -16,4 +16,8 @@ body .container .sidebar {
 /* Sidebar navigation */
 body .main-table {
   min-height: 500px;
+}
+
+[v-cloak] {
+  display: none;
 }

@@ -5,3 +5,17 @@ openy_repeat.scheule_dashboard:
     _title: 'TEST'
   requirements:
     _permission: 'access content'
+openy_repeat.scheule_ajax:
+  path: '/programs/get-event-data/{location}/{date}'
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::ajaxScheduler'
+    location: ''
+    date: '0'
+  requirements:
+    _permission: 'access content'
+openy_repeat.scheule_locations:
+  path: '/programs/get-event-locations'
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::getLocations'
+  requirements:
+    _permission: 'access content'
