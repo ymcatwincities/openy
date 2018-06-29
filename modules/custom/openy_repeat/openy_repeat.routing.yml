@@ -1,0 +1,7 @@
+openy_repeat.scheule_dashboard:
+  path: '/programs/test-schedule'
+  defaults:
+    _controller: '\Drupal\openy_repeat\Controller\RepeatController::dashboard'
+    _title: 'TEST'
+  requirements:
+    _permission: 'access content'
