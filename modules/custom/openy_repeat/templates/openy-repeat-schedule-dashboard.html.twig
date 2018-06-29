@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - currant_date: date for filter.
+ * - locations: locations of "repeat" entity for filter.
+ */
+#}
+{{ attach_library('openy_repeat/openy_repeat') }}
+
+<div class="container repeat-schedule">
+    <div class="row">
+        <div class="col-sm-4 col-md-3 sidebar">
+            <h4>Filter by</h4>
+            <form class="form">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="inputText">Date:</label>
+                        <div class='input-group date' id='datepicker'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% if locations is not empty %}
+                    <div class="row">
+                        <div class="form-group location">
+                            <label for="inputText">Location:</label>
+                            {% for location in locations %}
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="{{ location }}" class="box"> {{ location }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+        <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main-table">
+            <center>
+                <h2 class="sub-header">
+                    <span class="left"> < </span>
+                    <span class="date"></span>
+                    <span class="right"> > </span>
+                </h2>
+            </center>
+            <div id="app">
+                <results :prop-data="globalData" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+body .container .sidebar {
+  position: fixed;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  display: block;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+  border-right: 1px solid #eee;
+  display: block !important;
+}
+
+/* Sidebar navigation */
+body .main-table {
+  min-height: 500px;
+}

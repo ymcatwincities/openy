@@ -1,0 +1,11 @@
+openy_repeat:
+  version: VERSION
+  js:
+    js/repeat.js: {}
+  css:
+    base:
+      css/repeat.css: {}
+  dependencies:
+#    - core/drupal.dialog.ajax
+#    - core/jquery.cookie
+#    - core/drupalSettings
