@@ -5578,12 +5578,31 @@ h6, .h6 {
   background: #f8f8f8;
   box-shadow: 0 0 15px #d8d8d8;
   margin: 10px 0;
-  border-top: 2px solid #c6168d;
+  border-top: none !important;
+  position: relative;
+  padding-bottom: 35px;
 }
 @media (min-width: 768px) {
   .content-banner {
     margin: 40px 0;
   }
+  .content-banner:before {
+    position: absolute;
+    top: 0;
+    left: 7%;
+    z-index: 2;
+    width: 52%;
+    height: 100%;
+    background: inherit;
+    content: '';
+    -webkit-transform: skew(20deg);
+    -moz-transform: skew(20deg);
+    -ms-transform: skew(20deg);
+    transform: skew(20deg);
+  }
+}
+.content-banner .header-copy {
+  z-index: 4;
 }
 .content-banner.page-title:before {
   background: #f8f8f8;
@@ -5592,11 +5611,13 @@ h6, .h6 {
   color: #424242;
   font-size: 20px;
   margin: 0 25px 15px;
+  padding-top: 30px;
 }
 @media (min-width: 768px) {
   .content-banner .banner-title {
     margin: 0 45px 15px;
     font-size: 30px;
+    padding-top: 30px;
   }
 }
 .content-banner .banner-title a {
@@ -5635,6 +5656,11 @@ h6, .h6 {
   margin-left: 0;
   padding: 0;
   height: 100%;
+}
+@media (max-width: 767px) {
+  .content-banner .content-prgf-image {
+    margin: 0 15px !important;
+  }
 }
 @media (min-width: 768px) {
   .content-banner .content-prgf-image {
