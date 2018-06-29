@@ -6,6 +6,24 @@ openy_repeat:
     base:
       css/repeat.css: {}
   dependencies:
+    - openy_repeat/openy_repeat.vue
+    - openy_repeat/openy_repeat.vue.table
+    - openy_repeat/open_repeat.moment
 #    - core/drupal.dialog.ajax
 #    - core/jquery.cookie
 #    - core/drupalSettings
+
+openy_repeat.vue:
+  version: VERSION
+  js:
+    js/vue/vue.min.js: {}
+
+openy_repeat.vue.table:
+  version: VERSION
+  js:
+    js/components/event_table.js: {}
+
+open_repeat.moment:
+  version: VERSION
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js: { type: external }

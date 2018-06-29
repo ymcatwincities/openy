@@ -11,14 +11,14 @@
 
 <div class="container repeat-schedule">
     <div class="row">
-        <div class="col-sm-4 col-md-3 sidebar">
+        <div class="col-sm-4 col-md-3 sidebar js-sidebar">
             <h4>Filter by</h4>
             <form class="form">
                 <div class="row">
                     <div class="form-group">
                         <label for="inputText">Date:</label>
                         <div class='input-group date' id='datepicker'>
-                            <input type='text' class="form-control" />
+                            <input type='date' class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -50,7 +50,32 @@
                 </h2>
             </center>
             <div id="app">
-                <results :prop-data="globalData" />
+                <results inline-template :prop-data="globalData.table">
+                    <div class="vue-template">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Class</th>
+                                        <th>Instructor</th>
+                                        <th>Location</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="item in propData">
+                                        <td v-cloak>${ item.time } <div>${ item.duration }</div></td>
+                                        <td v-cloak>${ item.name }</td>
+                                        <td v-cloak>${ item.instructor }</td>
+                                        <td v-cloak>${ item.location }</td>
+                                        <td v-cloak><a href="#">Edit</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </results>
             </div>
         </div>
     </div>
