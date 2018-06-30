@@ -85,16 +85,7 @@
 // teaser
 .node--type-blog.node--view-mode-teaser {
   margin: auto;
-  max-width: 225px;
   width: 100%;
-
-  @include media-breakpoint-up(xs) {
-    max-width: 275px;
-  }
-
-  @include media-breakpoint-up(sm) {
-    max-width: 375px;
-  }
 
   .inner-wrapper {
     margin: 15px 0;

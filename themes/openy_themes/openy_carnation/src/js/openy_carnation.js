@@ -105,6 +105,19 @@
     }
   };
 
+  /**
+   * Locations (Download PDF)
+   */
+  Drupal.behaviors.openyHeaderAffix = {
+    attach: function (context, settings) {
+      var pdfBtnContainer = $('.groupex-pdf-link-container');
+      if (pdfBtnContainer.length) {
+        pdfBtnContainer.find('a').html('PDF <i class="fas fa-download"></i>');
+        pdfBtnContainer.insertAfter('.groupex-form-full .form-submit');
+      }
+    }
+  };
+
   // Re-size.
   $(window).resize(function () {
     Drupal.behaviors.openyDropdownMenu.attach();

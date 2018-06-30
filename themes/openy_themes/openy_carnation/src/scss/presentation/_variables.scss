@@ -47,6 +47,9 @@ $primary-darker:    $dark-blue;
 
 $theme-colors: () !default;
 $theme-colors: map-merge((
+    "pink":               $pink,
+    "indigo":             $indigo,
+    "purple":             $purple,
     "primary-darker":     $primary-darker,
     "gray-100":           $gray-100,
     "gray-200":           $gray-200,
