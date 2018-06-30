@@ -1,3 +1,16 @@
+// hide gallery arrows when placed in the header
+.banner-zone-node {
+  .paragraph-gallery {
+    .carousel {
+      margin: 0 -135px;
+
+      @include media-breakpoint-up(lg) {
+        margin: 0;
+      }
+    }
+  }
+}
+
 .paragraph-gallery {
   position: relative;
 
@@ -6,12 +19,6 @@
   }
 
   .carousel {
-    margin: 0 -135px;
-
-    @include media-breakpoint-up(lg) {
-      margin: 0;
-    }
-
     .carousel-inner > .carousel-item {
       background: $gray-900;
 

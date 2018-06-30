@@ -101,20 +101,11 @@ set classes = [
 {% endif %}
 
 {# branch contact card #}
-<article{{ attributes.removeClass(header_classes).addClass('branch-header my-5') }}>
+<article{{ attributes.removeClass(header_classes).addClass('branch-header mt-0 mt-lg-5') }}>
 
   {# desktop view #}
   <div class="d-none d-sm-inline-block w-100 mt-3 mb-5 desktop">
     <div class="container">
-
-      {#<div class="row branch-title">#}
-        {#<div class="container">#}
-          {#<div class="column col-sm-12 branch-header__item">#}
-            {#<h1><span>{{ label }}</span></h1>#}
-          {#</div>#}
-        {#</div>#}
-      {#</div>#}
-
       <div class="row branch-header-inner branch-info" data-branch-name="{{ node.label }}">
         <div class="column col-sm-5 address-wrapper branch-header__item">
           <h4>{{ 'Address & Contacts'|t }}</h4>
@@ -152,67 +143,69 @@ set classes = [
   {# mobile view #}
   <div class="d-inline d-sm-none mobile">
     <div class="container">
-
-      {#<div class="row">#}
-        {#<div class="col-xs-12">#}
-          {#<p><span>{{ label }}</span></p>#}
-        {#</div>#}
-      {#</div>#}
-
       <div class="row">
-        <div class="ui-tabs">
+        <div class="w-100">
 
           {# location contact info tabs #}
-          <ul class="ui-tabs-nav">
-            <li><a href="#tabs-phone"><i class="fa fa-phone"></i></a></li>
-            <li><a href="#tabs-marker"><i class="fa fa-map-marker"></i></a></li>
-            <li><a href="#tabs-clock"><i class="fa fa-clock-o"></i></a></li>
-          </ul>
-
-          {# phone tab #}
-          <div id="tabs-phone" class="ui-tabs-panel col-xs-12">
-            <h4>{{ 'Contacts'|t }}</h4>
-
-            {% if content.field_location_phone|render|trim is not empty %}
-            <div class="wrapper-field-location-phone">
-              <div class="field-location-phone">
-                <span class="label-inline"><i class="fa fa-phone"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
-              </div>
-            </div>
-            {% endif %}
+          <ul class="nav bg-pink">
+            <li class="nav-item h4 m-0 d-flex align-items-stretch">
+              <a href="#tabs-phone" class="nav-link active d-flex align-items-center text-white p-3" data-toggle="pill" aria-selected="true"><i class="fa fa-phone"></i></a>
+            </li>
 
             {% if content.field_location_fax|render|trim is not empty %}
-            <div class="wrapper-field-location-fax">
-              <div class="field-location-fax">
-                <span class="label-inline"><i class="fa fa-phone"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
-              </div>
-            </div>
+            <li class="nav-item h4 m-0 d-flex align-items-stretch">
+              <a href="#tabs-marker" class="nav-link d-flex align-items-center text-white p-3" data-toggle="pill" aria-selected="false"><i class="fa fa-map-marker"></i></a>
+            </li>
             {% endif %}
 
-          </div>
+            <li class="nav-item h4 m-0 d-flex align-items-stretch">
+              <a href="#tabs-clock" class="nav-link d-flex align-items-center text-white p-3" data-toggle="pill" aria-selected="false"><i class="fa fa-clock-o"></i></a>
+            </li>
+          </ul>
 
-          {# locations tab #}
-          <div id="tabs-marker" class="ui-tabs-panel col-xs-12">
-            <h4>{{ 'Address & Contacts'|t }}</h4>
-            {{ content.field_location_address }}
-            {{ content.field_location_directions }}
-          </div>
+          <div class="tab-content bg-indigo text-white">
 
-          {# hours tab #}
-          <div id="tabs-clock" class="ui-tabs-panel col-xs-12" aria-hidden="true">
-            <h4>{{ 'Hours of Operation'|t }}</h4><span class="extra-hours-label">({{ 'Branch Hours'|t }})</span>
-            {{ content.field_branch_hours|without('label') }}
+            {# phone #}
+            <div id="tabs-phone" class="tab-pane fade show active p-3">
+              <h4 class="text-uppercase">{{ 'Contacts'|t }}</h4>
+              <div class="wrapper-field-location-phone">
+                <div class="field-location-phone">
+                  <span class="label-inline"><i class="fa fa-phone"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
+                </div>
+              </div>
+              {% if content.field_location_fax|render|trim is not empty %}
+              <div class="wrapper-field-location-fax">
+                <div class="field-location-fax">
+                  <span class="label-inline"><i class="fa fa-fax"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+
+            {# address #}
+            <div id="tabs-marker" class="tab-pane fade p-3">
+              <h4 class="text-uppercase">{{ 'Address & Contacts'|t }}</h4>
+              {{ content.field_location_address }}
+              {{ content.field_location_directions }}
+            </div>
+
+            {# hours #}
+            <div id="tabs-clock" class="tab-pane fade p-3">
+              <h4 class="text-uppercase">{{ 'Today\'s Hours'|t }}</h4>
+              {{ content.field_branch_hours }}
+            </div>
           </div>
 
         </div>
       </div>
+
     </div>
   </div>
 </article>
 
 {# branch ammenities #}
 {% if content.field_location_amenities|render|trim is not empty %}
-<div class="bg-gray-600 text-white">
+<div class="bg-gray-600 text-white mb-sm-5">
   <div class="container">
     <div class="row py-5">
       <div class="col-12 py-0 py-lg-3">
@@ -227,7 +220,7 @@ set classes = [
 {# Branch content #}
 <div class="container">
   <div class="row">
-    <div class="branch-content my-5">
+    <div class="branch-content mt-0 mt-lg-5">
       <article{{ attributes.removeClass('branch-header my-5').addClass(classes) }}>
         <div{{ content_attributes.addClass('node__content') }}>
           {{ content.field_content }}

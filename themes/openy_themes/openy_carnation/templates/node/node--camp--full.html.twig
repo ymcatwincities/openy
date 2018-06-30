@@ -102,27 +102,44 @@
     </div>
   </div>
 
-  <div class="hidden-sm hidden-md hidden-lg mobile">
+  <div class="d-block d-sm-none mobile">
     <div class="container">
       <div class="row">
+
         <div class="col-xs-12">
           <h4>{{ 'WELCOME TO THE'|t }}</h4>
           <p>{{ label }}</p>
         </div>
-        <div class="ui-tabs">
-          <ul class="ui-tabs-nav">
-            <li><a href="#tabs-phone"><i class="fa fa-phone"></i></a></li>
-            <li><a href="#tabs-marker"><i class="fa fa-map-marker"></i></a></li>
+
+        <div class="w-100">
+
+          {# location contact info tabs #}
+          <ul class="nav">
+            <li class="nav-item h4 m-0 d-flex align-items-stretch">
+              <a href="#tabs-phone" class="d-flex active align-items-center text-white p-3" data-toggle="pill" aria-selected="true"><i class="fa fa-phone"></i></a>
+            </li>
+            <li class="nav-item h4 m-0 d-flex align-items-stretch">
+              <a href="#tabs-marker" class="d-flex align-items-center-white p-3" data-toggle="pill" aria-selected="false"><i class="fa fa-map-marker"></i></a>
+            </li>
           </ul>
-          <div id="tabs-phone" class="ui-tabs-panel col-xs-12">
-            <h4>{{ 'PHONE'|t }}</h4>
-            <p>{{ content.field_location_phone }}</p>
-          </div>
-          <div id="tabs-marker" class="ui-tabs-panel col-xs-12">
-            <h4>{{ 'ADDRESS'|t }}</h4>
+
+          <div class="tab-content bg-indigo text-white">
+
+            {# phone #}
+            <div id="tabs-phone" class="tab-pane fade show active p-3">
+              <h4>{{ 'PHONE'|t }}</h4>
+              <p>{{ content.field_location_phone }}</p>
+            </div>
+
+            {# marker #}
+            <div id="tabs-marker" class="tab-pane fade p-3">
+              <h4>{{ 'ADDRESS'|t }}</h4>
               {{ content.field_location_address }}
+            </div>
+
           </div>
         </div>
+
       </div>
     </div>
   </div>
