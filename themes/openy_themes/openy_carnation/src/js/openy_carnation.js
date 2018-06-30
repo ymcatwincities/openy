@@ -106,9 +106,9 @@
   };
 
   /**
-   * Locations (Download PDF)
+   * Branch Locations (Download PDF)
    */
-  Drupal.behaviors.openyHeaderAffix = {
+  Drupal.behaviors.openyPdfDownload = {
     attach: function (context, settings) {
       var pdfBtnContainer = $('.groupex-pdf-link-container');
       if (pdfBtnContainer.length) {
