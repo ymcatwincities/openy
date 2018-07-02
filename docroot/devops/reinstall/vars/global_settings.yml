@@ -1,6 +1,6 @@
 ---
 drupal_user: Yadmin
-drupal_pass: propeople
+drupal_pass: openy
 installation_profile_name: pp
 mysql_user: root
 mysql_pass: root
