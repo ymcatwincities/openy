@@ -9101,6 +9101,10 @@ body.node--type-article figcaption {
   display: none;
 }
 
+body.independent-footer .toolbar {
+  display: none;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
