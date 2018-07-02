@@ -5,12 +5,12 @@
 .content-banner {
   background: $grey1;
   box-shadow: 0 0 15px #d8d8d8;
-  margin: 10px 0;
+  margin: 0 0 10px !important;
   border-top: none !important;
   position: relative;
   padding-bottom: 35px;
   @media (min-width: 768px) {
-    margin: 40px 0;
+    margin: 0 0 40px !important;
     &:before {
       position: absolute;
       top: 0;
