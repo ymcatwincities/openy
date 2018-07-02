@@ -5577,14 +5577,14 @@ h6, .h6 {
 .content-banner {
   background: #f8f8f8;
   box-shadow: 0 0 15px #d8d8d8;
-  margin: 10px 0;
+  margin: 0 0 10px !important;
   border-top: none !important;
   position: relative;
   padding-bottom: 35px;
 }
 @media (min-width: 768px) {
   .content-banner {
-    margin: 40px 0;
+    margin: 0 0 40px !important;
   }
   .content-banner:before {
     position: absolute;
