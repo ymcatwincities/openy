@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
  *
  * @package Drupal\yptf_kronos
  */
-class YptfKronosReportsMonday implements YptfKronosReportsInterface {
+class YptfKronosReportsMonday extends YptfKronosReportsBase implements YptfKronosReportsInterface {
 
   /**
    * Config factory.
@@ -80,13 +80,6 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
    * @var array
    */
   protected $staffIDs;
-
-  /**
-   * The Reports data.
-   *
-   * @var array
-   */
-  protected $reports;
 
   /**
    * Mail manager.
@@ -284,6 +277,7 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
             // No EmpID.
             $empID = 'KWFC - No Staff ID for: ' . $item->lastName . ', ' . $item->firstName;
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . $empID;
+            $this->addError('Kronos Data', sprintf('No EmpID for %s, %s in %s has been found.', $item->lastName, $item->firstName, $item->locName));
           }
           elseif (!is_array(
               $empID
@@ -341,6 +335,7 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
             // No EmpID.
             $staff_id = 'MB - No EmpID for: ' . $item['Staff'];
             $trainer_name .= '. * - MB - No Staff ID';
+            $this->addError('MindBody Data', sprintf('No EmpID for %s in %s has been found.', $item['Staff'], $item['Location']));
           }
 
           if (!empty($item['LocationID'])) {
@@ -1002,6 +997,12 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
           elseif (!empty($debug_mode) && strpos($debug_mode, 'email')) {
             $debug_email = explode('email', $debug_mode);
             $debug_email = end($debug_email);
+
+            // Do not send any emails if there are errors.
+            if ($this->hasErrors()) {
+              continue;
+            }
+
             try {
               // Send notifications.
               $this->mailManager->mail(
@@ -1017,6 +1018,11 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
             }
           }
           else {
+            // Do not send any emails if there are errors.
+            if ($this->hasErrors()) {
+              continue;
+            }
+
             try {
               // Send notifications.
               $this->mailManager->mail(
