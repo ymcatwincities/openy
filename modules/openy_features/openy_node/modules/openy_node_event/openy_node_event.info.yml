@@ -3,6 +3,7 @@ description: 'Event-related OpenY site configuration'
 type: module
 package: 'YMCA Maryland'
 core: 8.x
+version: '8.x-1.0'
 dependencies:
   - content_moderation
   - datalayer
