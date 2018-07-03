@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_repeat module hooks.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_repeat_theme() {
+  return [
+    'openy_repeat_schedule_dashboard' => [
+      'variables' => [
+        'current_date' => '',
+        'locations' => [],
+      ],
+    ],
+  ];
+}
