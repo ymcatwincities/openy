@@ -10,6 +10,13 @@ namespace Drupal\yptf_kronos;
 class YptfKronosReportsBase implements YptfKronosReportsInterface {
 
   /**
+   * Whether to send emails if there are errors.
+   *
+   * @var bool
+   */
+  protected $sendWithErrors = TRUE;
+
+  /**
    * The Reports data.
    *
    * @var array

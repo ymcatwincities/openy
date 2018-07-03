@@ -998,8 +998,8 @@ class YptfKronosReportsMonday extends YptfKronosReportsBase implements YptfKrono
             $debug_email = explode('email', $debug_mode);
             $debug_email = end($debug_email);
 
-            // Do not send any emails if there are errors.
-            if ($this->hasErrors()) {
+            // Check whether we need to send the emails.
+            if ($this->hasErrors() && $this->sendWithErrors == FALSE) {
               continue;
             }
 
@@ -1018,8 +1018,8 @@ class YptfKronosReportsMonday extends YptfKronosReportsBase implements YptfKrono
             }
           }
           else {
-            // Do not send any emails if there are errors.
-            if ($this->hasErrors()) {
+            // Check whether we need to send the emails.
+            if ($this->hasErrors() && $this->sendWithErrors == FALSE) {
               continue;
             }
 
