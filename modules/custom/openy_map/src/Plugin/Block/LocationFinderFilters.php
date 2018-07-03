@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\location_finder\Plugin\Block;
+namespace Drupal\openy_map\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
