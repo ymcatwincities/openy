@@ -2,7 +2,7 @@
 
 namespace Drupal\openy_addthis\Form;
 
-use Drupal\Core\Database\Database;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -22,11 +22,19 @@ class PrepareUninstallForm extends ConfirmFormBase {
   protected $entityTypeManager;
 
   /**
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('database')
     );
   }
 
@@ -35,9 +43,12 @@ class PrepareUninstallForm extends ConfirmFormBase {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
+   * @param \Drupal\Core\Database\Connection $database
+   *   Database connection.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, Connection $database) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->connection = $database;
   }
 
   /**
@@ -90,11 +101,9 @@ class PrepareUninstallForm extends ConfirmFormBase {
       }
     }
 
-    $db_connection = Database::getConnection();
-
     foreach ($tables_to_update as $table) {
-      if ($table && $db_connection->schema()->fieldExists($table, 'addthis')) {
-        $db_connection->update($table)
+      if ($table && $this->connection->schema()->fieldExists($table, 'addthis')) {
+        $this->connection->update($table)
           ->fields(['addthis' => NULL])
           ->execute();
       }
