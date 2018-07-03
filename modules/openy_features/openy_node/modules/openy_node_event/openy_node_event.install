@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Module install file.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_node_event_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('node', 'node_type', 'event');
+  $configFactory = \Drupal::configFactory();
+  $configs = [
+    'pathauto.pattern.event',
+    'image.style.event_teaser',
+    'simple_sitemap.bundle_settings.node.event',
+  ];
+  foreach ($configs as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+}
