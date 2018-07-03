@@ -224,26 +224,45 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
       'ymca_mappings.location_repository'
     );
 
-    $mb_locations = $this->configFactory->get('ymca_mindbody.trainings_mapping')
-      ->get('locations');
-    if (!empty($mb_locations)) {
-      foreach ($mb_locations as $mbNo => $mb_location) {
-        $mb_locations_names[$mb_location['label']] = $mbNo;
+    $all_mb_locations = $mapping_repository_location->loadAllLocationsWithMindBodyId();
+    $mb_locations_names = [];
+
+    if (!empty($all_mb_locations)) {
+      foreach ($all_mb_locations as $mb_location) {
+        $mbNo = $mb_location->field_mindbody_id->value;
+
+        // Remove data for specific locations.
+        // Use http://www.ymcamn.org/admin/content/locations-mapping.
+        // MindBody ID.
+        $suppress = [
+          5
+        ];
+        if (in_array($mbNo, $suppress)) {
+          continue;
+        }
+
+        $mb_locations_names[$mb_location->label()] = $mbNo;
       }
     }
     else {
-      $msg = 'Failed to get locations from config %params.';
-      $this->logger->notice(
-        $msg,
-        [
-          '%params' => 'ymca_mindbody.trainings_mapping',
-        ]
-      );
+      $msg = 'Failed to get locations from the repository.';
+      $this->logger->notice($msg);
     }
 
     if ($this->getKronosData()) {
       // Calculate Workforce Kronos data.
       foreach ($this->kronosData as $current_line => $item) {
+        // Remove data for specific locations.
+        // Use http://www.ymcamn.org/admin/content/locations-mapping.
+        // LOCATION PERSONIFY BRCODE.
+        $suppress = [
+          17
+        ];
+
+        if (in_array($item->locNo, $suppress)) {
+          continue;
+        }
+
         if (in_array($item->job, $this->kronosTrainingId)) {
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId(
             $item->locNo
@@ -390,10 +409,16 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
           $trainer['wf_hours'] = round($trainer['wf_hours'], 2);
         }
         if ($mb_flag && $wf_flag) {
-          $trainer['variance'] = round(
-            (1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100
-          );
-          $trainer['variance'] .= '%';
+          // We can't divide by zero, setting variance to be "-" in that case.
+          if ($trainer['wf_hours'] != 0)  {
+            $trainer['variance'] = round(
+              (1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100
+            );
+            $trainer['variance'] .= '%';
+          }
+          else {
+            $trainer['variance'] = '-';
+          }
         }
 
         if (!isset($trainer['historical_hours'])) {
@@ -459,7 +484,6 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
 
     $this->reports['trainers'] = $trainer_reports;
     $this->reports['locations'] = $location_reports;
-
   }
 
   /**
@@ -615,7 +639,9 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
     $debug_mode = $this->configFactory->get('yptf_kronos_monday.settings')->get(
       'debug'
     );
-    if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
+
+    // Never use cache files!
+    if (FALSE && !empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
       // New service to add.
       // Saving a file with a path.
       $cache_dir = \Drupal::service('file_system')->realpath(
@@ -629,7 +655,7 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
           'DataService',
           'FunctionDataXml',
           $params,
-          TRUE
+          FALSE
         );
         $this->mindbodyData = $result->FunctionDataXmlResult->Results;
 
@@ -650,7 +676,7 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
           'DataService',
           'FunctionDataXml',
           $params,
-          TRUE
+          FALSE
         );
         $this->mindbodyData = $result->FunctionDataXmlResult->Results;
       } catch (\Exception $e) {
@@ -781,7 +807,7 @@ class YptfKronosReportsMonday implements YptfKronosReportsInterface {
         'DataService',
         'FunctionDataXml',
         $staff_params,
-        TRUE
+        FALSE
       );
       $mb_staff_id = $staff_id_call->FunctionDataXmlResult->Results;
     } catch (\Exception $e) {
