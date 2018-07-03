@@ -238,7 +238,7 @@ class YptfKronosReportsMonday extends YptfKronosReportsBase implements YptfKrono
       }
     }
     else {
-      $msg = 'Failed to get locations from the repository.';
+      $msg = 'No locations found in locations mapping repository.';
       $this->logger->notice($msg);
     }
 
