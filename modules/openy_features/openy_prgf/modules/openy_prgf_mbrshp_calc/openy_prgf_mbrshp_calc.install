@@ -22,7 +22,6 @@ function openy_prgf_mbrshp_calc_uninstall() {
     'core.entity_view_mode.media.calc_summary',
     'core.entity_view_mode.node.calc_preview',
     'core.entity_view_mode.node.calc_summary',
-    'core.entity_view_mode.paragraph.calc_preview',
     'image.style.node_mbrshp_calc_preview',
     'image.style.node_mbrshp_calc_summary',
   ];

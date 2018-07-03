@@ -6,6 +6,25 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_node_mbrshp_uninstall() {
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('node', 'node_type', 'membership');
+  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'membership_info');
+
+  $configFactory = \Drupal::configFactory();
+  $configs = [
+    'pathauto.pattern.membership',
+    'rabbit_hole.behavior_settings.node_type_membership',
+    'metatag.metatag_defaults.node__membership',
+  ];
+  foreach ($configs as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+}
+
+/**
  * Implements hook_update_dependencies().
  */
 function openy_node_mbrshp_update_dependencies() {
@@ -54,7 +73,7 @@ function openy_node_mbrshp_update_8002() {
  */
 function openy_node_mbrshp_update_8003() {
   $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
@@ -107,7 +126,7 @@ function openy_node_mbrshp_update_8006() {
   $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'field.field.node.membership.field_mbrshp_description' =>[
+    'field.field.node.membership.field_mbrshp_description' => [
       'description',
     ],
     'field.field.node.membership.field_mbrshp_image' => [
@@ -161,7 +180,7 @@ function openy_node_mbrshp_update_8008() {
   $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.membership.default' =>[
+    'core.entity_form_display.node.membership.default' => [
       'dependencies.module',
       'content',
     ],
