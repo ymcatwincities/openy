@@ -10217,7 +10217,6 @@ a.sports-icon.floor-hockey {
 @media (min-width: 0) and (max-width: 48em) {
   #small-text-banner {
     height: auto;
-    min-height: initial;
   }
   #small-text-banner .container-fluid {
     padding: 0 15px;
@@ -10237,7 +10236,7 @@ a.sports-icon.floor-hockey {
   -ms-transform: skew(20deg);
   transform: skew(20deg);
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 48em) {
   #small-text-banner:before {
     display: none;
   }
@@ -10250,29 +10249,18 @@ a.sports-icon.floor-hockey {
   padding: 30px 0;
   z-index: 3;
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
-  #small-text-banner .header-copy .banner-copy {
-    padding-top: 20px;
-    padding-bottom: 10px;
-  }
-}
 #small-text-banner .header-copy .banner-copy h1 {
   color: white;
   margin-top: 0;
 }
 @media (min-width: 0) and (max-width: 62em) {
   #small-text-banner .header-copy .banner-copy h1 {
-    font-size: 24px;
+    font-size: 48px;
   }
 }
 #small-text-banner .header-copy .banner-copy p {
   font-size: 24px;
   font-family: "Cachet", Verdana, Geneva, sans-serif;
-}
-@media (min-width: 0) and (max-width: 47.9375em) {
-  #small-text-banner .header-copy .banner-copy p {
-    font-size: 16px;
-  }
 }
 #small-text-banner .header-image {
   z-index: 1;
@@ -10300,21 +10288,6 @@ a.sports-icon.floor-hockey {
 #small-text-banner .header-image figure {
   overflow: hidden;
   margin: 0 -30px 0 -20px;
-}
-#small-text-banner .header-image figure .field-media-image div {
-  padding-bottom: 0 !important;
-}
-#small-text-banner .header-image figure .media--ratio {
-  height: auto;
-}
-#small-text-banner .header-image figure .media--ratio .media__element {
-  display: block;
-  height: auto;
-  left: 0;
-  position: relative;
-  top: 0;
-  width: 100%;
-  z-index: 0;
 }
 
 .paragraph--type--promo-text {
@@ -10465,10 +10438,17 @@ a.sports-icon.floor-hockey {
 .paragraph--type--secondary-description-sidebar {
   background: #e5e5e5;
   padding: 10px 0 20px 0;
+  margin-bottom: 20px;
   color: #333333;
   font-family: "Cachet", Verdana, Arial, sans-serif;
   font-weight: 200;
   line-height: 1.4;
+}
+@media (min-width: 48em) {
+  .paragraph--type--secondary-description-sidebar {
+    margin-bottom: 40px;
+    padding: 0;
+  }
 }
 .paragraph--type--secondary-description-sidebar:before {
   position: absolute;
@@ -10520,9 +10500,6 @@ a.sports-icon.floor-hockey {
   font-weight: bold;
   font-family: "Cachet", Verdana, Arial, sans-serif;
 }
-.paragraph--type--secondary-description-sidebar h3 {
-  margin-top: 0;
-}
 .paragraph--type--secondary-description-sidebar .left {
   font-size: 18px;
   padding-left: 0;
@@ -10531,7 +10508,8 @@ a.sports-icon.floor-hockey {
 @media (min-width: 48em) {
   .paragraph--type--secondary-description-sidebar .left {
     margin-bottom: 0;
-    padding: 20px 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     font-size: 21px;
   }
 }
@@ -10543,7 +10521,8 @@ a.sports-icon.floor-hockey {
 @media (min-width: 48em) {
   .paragraph--type--secondary-description-sidebar .right {
     margin-bottom: 0;
-    padding: 20px 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     font-size: 21px;
   }
 }
@@ -10564,154 +10543,7 @@ a.sports-icon.floor-hockey {
   font-weight: normal;
   font-family: 'YMCA';
 }
-.paragraph--type--secondary-description-sidebar .field-prgf-right-column-block a:after {
-  margin-left: 10px;
-  content: 'o';
-  text-transform: none;
-  font-size: 18px;
-  font-family: 'YMCA';
-}
 
-.path-frontpage .field-prgf-right-column-block a:after {
-  content: none;
-}
-
-.field-prgf-description article a:hover .inner-wrapper h3:after {
-  color: #428bca;
-}
-.field-prgf-description .embedded-entity img {
-  padding: 0;
-}
-.field-prgf-description .text-promo {
-  background: none;
-  box-shadow: none;
-}
-.field-prgf-description .text-promo a {
-  color: #428bca;
-}
-.field-prgf-description .text-promo h3:hover {
-  color: #353535;
-}
-.field-prgf-description .inner-wrapper {
-  background: #f0f0f0;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-  margin-bottom: 30px;
-  color: #666666;
-}
-.field-prgf-description .inner-wrapper .blog-heading h3 {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.field-prgf-description .inner-wrapper .blog-heading h3:after {
-  margin-right: 10px;
-  margin-left: 10px;
-  width: 8%;
-  color: #b3b3b3;
-  content: 'o';
-  vertical-align: baseline;
-  text-align: center;
-  font-size: 24px;
-  font-family: 'YMCA';
-  -webkit-transition: color .3s ease-out;
-}
-.field-prgf-description .inner-wrapper:hover {
-  color: #353535;
-}
-.field-prgf-description .inner-wrapper .promo-text {
-  padding-bottom: 10px;
-}
-.field-prgf-description .inner-wrapper .promo-text p {
-  margin: 0;
-  padding: 0 20px 10px;
-}
-.field-prgf-description h2 a:after {
-  position: relative;
-  top: -1px;
-  margin-left: 10px;
-  content: 'o';
-  vertical-align: middle;
-  font-size: 20px;
-  font-family: 'YMCA';
-}
-.field-prgf-description .content-expander .panel-title a > *:before {
-  position: relative;
-  top: 0;
-  margin-right: .3em;
-  content: "\e082";
-  vertical-align: middle;
-  text-transform: none;
-  font-weight: normal;
-  font-size: .7em;
-  font-family: 'Glyphicons Halflings';
-}
-.field-prgf-description .content-expander .panel-title a.collapsed > *:before, .field-prgf-description .content-expander .panel-title a.collapsed > h4:before {
-  content: "\e081";
-}
-.field-prgf-description .textpander .panel-heading, .field-prgf-description .content-expander .panel-heading {
-  position: relative;
-  padding: 0;
-  background: #fff;
-}
-.field-prgf-description .panel-default.textpander, .field-prgf-description .panel-default.content-expander {
-  border-radius: 5px;
-  background: #f7f7f7;
-}
-.field-prgf-description .textpander .panel-title a, .field-prgf-description .content-expander .panel-title a {
-  display: block;
-  padding: 5px 5px 5px 10px;
-  outline: 0 !important;
-  box-shadow: none;
-  color: #44a1eb;
-}
-.field-prgf-description .textpander .panel-title a:focus, .field-prgf-description .content-expander .panel-title a:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
-.field-prgf-description .textpander .panel-title a h3, .field-prgf-description .content-expander .panel-title a h3 {
-  margin: 0;
-}
-
-.paragraph--type--featured-highlights article a:hover .inner-wrapper .blog-heading h3:after {
-  background-color: #428bca;
-}
-.paragraph--type--featured-highlights article a:hover .inner-wrapper .blog-heading p {
-  color: #333333;
-}
-.paragraph--type--featured-highlights .embedded-entity img {
-  padding: 0;
-}
-.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper:hover {
-  background-color: #fff;
-  color: #333333;
-}
-.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper h3 {
-  font-weight: bold;
-  margin-top: 8px;
-  font-size: 30px;
-}
-.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper h3:after {
-  margin: 10px 10px 0;
-  display: inline-block;
-  color: white;
-  background: #b3b3b3;
-  content: "\f054";
-  text-align: center;
-  font-size: 24px;
-  font: normal normal normal 14px/1 FontAwesome;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -ms-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  padding-top: 4px;
-  padding-left: 2px;
-  vertical-align: text-top;
-}
 .paragraph--type--featured-highlights article.featured-highlights-block {
   max-width: 100%;
   margin: auto;
@@ -10728,11 +10560,14 @@ a.sports-icon.floor-hockey {
   overflow: visible;
   height: auto;
   border: none !important;
-  background-color: #f1f1f1;
+  background-color: rgba(255, 255, 255, 0.61);
   position: relative;
 }
 .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-up {
   text-align: center;
+}
+.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-up .field-media-image {
+  height: 210px;
 }
 .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-up .field-media-image img {
   height: auto;
@@ -10742,7 +10577,7 @@ a.sports-icon.floor-hockey {
   margin: auto;
 }
 .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading {
-  padding: 10px;
+  padding: 12px;
   position: static;
   height: auto;
   -webkit-transition: all 0.5s ease;
@@ -10750,6 +10585,7 @@ a.sports-icon.floor-hockey {
   -ms-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+  background-color: #F5F5F5;
   left: 0;
   top: 0;
   width: 100%;
@@ -10789,6 +10625,7 @@ a.sports-icon.floor-hockey {
   vertical-align: text-top;
 }
 .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading p {
+  color: #635f5f;
   font-size: 14px;
   line-height: 1.62em;
 }
@@ -16253,6 +16090,242 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     background-position: left top;
     background-size: contain;
   }
+}
+
+@media (min-width: 0) and (max-width: 48em) {
+  #small-text-banner {
+    min-height: initial;
+  }
+}
+#small-text-banner:before {
+  position: absolute;
+  top: 0;
+  left: -21%;
+  z-index: 2;
+  width: 80%;
+  height: 100%;
+  background: inherit;
+  content: '';
+  -webkit-transform: skew(20deg);
+  -moz-transform: skew(20deg);
+  -ms-transform: skew(20deg);
+  transform: skew(20deg);
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  #small-text-banner:before {
+    display: none;
+  }
+}
+@media (min-width: 48em) {
+  #small-text-banner:before {
+    display: block;
+  }
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  #small-text-banner .header-copy .banner-copy {
+    padding-top: 20px;
+    padding-bottom: 10px;
+  }
+}
+@media (min-width: 0) and (max-width: 62em) {
+  #small-text-banner .header-copy .banner-copy h1 {
+    font-size: 24px;
+  }
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  #small-text-banner .header-copy .banner-copy p {
+    font-size: 16px;
+  }
+}
+#small-text-banner .header-image figure .field-media-image div {
+  padding-bottom: 0 !important;
+}
+#small-text-banner .header-image figure .media--ratio {
+  height: auto;
+}
+#small-text-banner .header-image figure .media--ratio .media__element {
+  display: block;
+  height: auto;
+  left: 0;
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+.paragraph--type--secondary-description-sidebar {
+  margin-bottom: 0;
+  padding: 10px 0 20px 0;
+}
+.paragraph--type--secondary-description-sidebar h3 {
+  margin-top: 0;
+}
+@media (min-width: 48em) {
+  .paragraph--type--secondary-description-sidebar .left {
+    padding: 20px 15px;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph--type--secondary-description-sidebar .right {
+    padding: 20px 15px;
+  }
+}
+.paragraph--type--secondary-description-sidebar .field-prgf-right-column-block a:after {
+  margin-left: 10px;
+  content: 'o';
+  text-transform: none;
+  font-size: 18px;
+  font-family: 'YMCA';
+}
+
+.path-frontpage .field-prgf-right-column-block a:after {
+  content: none;
+}
+
+.field-prgf-description article a:hover .inner-wrapper h3:after {
+  color: #428bca;
+}
+.field-prgf-description .embedded-entity img {
+  padding: 0;
+}
+.field-prgf-description .text-promo {
+  background: none;
+  box-shadow: none;
+}
+.field-prgf-description .text-promo a {
+  color: #428bca;
+}
+.field-prgf-description .text-promo h3:hover {
+  color: #353535;
+}
+.field-prgf-description .inner-wrapper {
+  background: #f0f0f0;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+  color: #666666;
+}
+.field-prgf-description .inner-wrapper .blog-heading h3 {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.field-prgf-description .inner-wrapper .blog-heading h3:after {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 8%;
+  color: #b3b3b3;
+  content: 'o';
+  vertical-align: baseline;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'YMCA';
+  -webkit-transition: color .3s ease-out;
+}
+.field-prgf-description .inner-wrapper:hover {
+  color: #353535;
+}
+.field-prgf-description .inner-wrapper .promo-text {
+  padding-bottom: 10px;
+}
+.field-prgf-description .inner-wrapper .promo-text p {
+  margin: 0;
+  padding: 0 20px 10px;
+}
+.field-prgf-description h2 a:after {
+  position: relative;
+  top: -1px;
+  margin-left: 10px;
+  content: 'o';
+  vertical-align: middle;
+  font-size: 20px;
+  font-family: 'YMCA';
+}
+.field-prgf-description .content-expander .panel-title a > *:before {
+  position: relative;
+  top: 0;
+  margin-right: .3em;
+  content: "\e082";
+  vertical-align: middle;
+  text-transform: none;
+  font-weight: normal;
+  font-size: .7em;
+  font-family: 'Glyphicons Halflings';
+}
+.field-prgf-description .content-expander .panel-title a.collapsed > *:before, .field-prgf-description .content-expander .panel-title a.collapsed > h4:before {
+  content: "\e081";
+}
+.field-prgf-description .textpander .panel-heading, .field-prgf-description .content-expander .panel-heading {
+  position: relative;
+  padding: 0;
+  background: #fff;
+}
+.field-prgf-description .panel-default.textpander, .field-prgf-description .panel-default.content-expander {
+  border-radius: 5px;
+  background: #f7f7f7;
+}
+.field-prgf-description .textpander .panel-title a, .field-prgf-description .content-expander .panel-title a {
+  display: block;
+  padding: 5px 5px 5px 10px;
+  outline: 0 !important;
+  box-shadow: none;
+  color: #44a1eb;
+}
+.field-prgf-description .textpander .panel-title a:focus, .field-prgf-description .content-expander .panel-title a:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+.field-prgf-description .textpander .panel-title a h3, .field-prgf-description .content-expander .panel-title a h3 {
+  margin: 0;
+}
+
+.paragraph--type--featured-highlights article a:hover .inner-wrapper .blog-heading h3:after {
+  background-color: #428bca;
+}
+.paragraph--type--featured-highlights article a:hover .inner-wrapper .blog-heading p {
+  color: #333333;
+}
+.paragraph--type--featured-highlights .embedded-entity img {
+  padding: 0;
+}
+.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper:hover {
+  background-color: #fff;
+  color: #333333;
+}
+.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper h3 {
+  font-weight: bold;
+  margin-top: 8px;
+  font-size: 30px;
+}
+.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper h3:after {
+  margin: 10px 10px 0;
+  display: inline-block;
+  color: white;
+  background: #b3b3b3;
+  content: "\f054";
+  text-align: center;
+  font-size: 24px;
+  font: normal normal normal 14px/1 FontAwesome;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  padding-top: 4px;
+  padding-left: 2px;
+  vertical-align: text-top;
+}
+.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper {
+  background-color: #f1f1f1;
+}
+.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading {
+  padding: 10px;
+}
+.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading:hover {
+  background-color: #fff;
 }
 
 /*# sourceMappingURL=style.css.map */
