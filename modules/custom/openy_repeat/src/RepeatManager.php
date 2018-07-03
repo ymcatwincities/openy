@@ -11,7 +11,7 @@ use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\node\NodeInterface;
-use Drupal\openy_session_instance\Entity\SessionInstance;
+use Drupal\openy_repeat\Entity\Repeat;
 use Drupal\openy_session_instance\SessionInstanceManagerInterface;
 
 /**
@@ -71,13 +71,13 @@ class RepeatManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function resetCache() {
-    $result = $this->entityQuery->get('session_instance')->execute();
+    $result = $this->entityQuery->get('repeat')->execute();
     if (empty($result)) {
       return;
     }
     $this->deleteCacheItems($result);
     $this->logger->info('The cache was cleared.');
-    Drupal::moduleHandler()->invokeAll('openy_session_instance_reset_cache');
+    Drupal::moduleHandler()->invokeAll('openy_repeat_reset_cache');
   }
 
   /**
@@ -89,7 +89,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
   private function deleteCacheItems(array $ids) {
     $chunks = array_chunk($ids, 10);
     foreach ($chunks as $chunk) {
-      $entities = SessionInstance::loadMultiple($chunk);
+      $entities = Repeat::loadMultiple($chunk);
       $this->storage->delete($entities);
     }
   }
@@ -195,61 +195,30 @@ class RepeatManager implements SessionInstanceManagerInterface {
   public static function calcSessionInstancesBySchedule(array $session_schedule, $timestamp = NULL) {
     $session_instances = [];
 
-    if (!$timestamp) {
-      // Make sure it calculates today's session instances.
-      $timestamp = time() - 86400;
-    }
+    $weekday_mapping = [
+      'sunday' => '1',
+      'monday' => '2',
+      'tuesday' => '3',
+      'wednesday' => '4',
+      'thursday' => '5',
+      'friday' => '6',
+      'saturday' => '7',
+    ];
 
     foreach ($session_schedule['dates'] as $schedule_item) {
-      // Skip expired schedule items.
-      $end_timestamp = strtotime($schedule_item['period']['to'] . ' +1day');
-      if ($end_timestamp < $timestamp) {
-        continue;
-      }
-
-      // Find closest occurrence according to the repeating rule.
+      // @todo: Make exclusions work.
       if ($schedule_item['frequency'] == 'weekly' || $schedule_item['frequency'] == 'daily') {
-        $candidate_day = strtotime($schedule_item['period']['from'] . 'T' . $schedule_item['time']['from']);
-        while ($candidate_day <= $end_timestamp) {
-          if ($schedule_item['frequency'] == 'weekly' && !in_array(strtolower(date('l', $candidate_day)), $schedule_item['days'])) {
-            // The day not into the schedule.
-          }
-          elseif ($candidate_day < $timestamp) {
-            // The day is in the past.
-          }
-          else {
-            $candidate_time_from = strtotime(date('Y-m-d', $candidate_day) . 'T' . $schedule_item['time']['from']);
-            $candidate_time_to = strtotime(date('Y-m-d', $candidate_day) . 'T' . $schedule_item['time']['to']);
-
-            // Check against exclusions.
-            $excluded = FALSE;
-            foreach ($session_schedule['exclusions'] as $exclusion) {
-              if (
-                $candidate_time_to >= strtotime($exclusion['from']) &&
-                $candidate_time_from <= strtotime($exclusion['to'])
-              ) {
-                // Exclusion found.
-                $excluded = TRUE;
-              }
-            }
-
-            if (!$excluded) {
-              $session_instances[] = [
-                'from' => $candidate_time_from,
-                'to' => $candidate_time_to,
-              ];
-            }
-          }
-          $candidate_day = strtotime('Next day', $candidate_day);
+        foreach ($schedule_item['days'] as $day) {
+          $session_instances[] = [
+            'start' => strtotime($schedule_item['period']['from'] . 'T' . $schedule_item['time']['from']),
+            'end' => strtotime($schedule_item['period']['to'] . 'T' . $schedule_item['time']['to']),
+            'year' => '*',
+            'month' => '*',
+            'day' => '*',
+            'week' => '*',
+            'weekday' => $weekday_mapping[$day],
+          ];
         }
-      }
-      else {
-        // It's assumed, that schedule item date range is a single day and the
-        // the exclusions doesn't affect it if the frequency is not set.
-        $session_instances[] = [
-          'from' => strtotime($schedule_item['period']['from'] . 'T' . $session_schedule['time']['from']),
-          'to' => strtotime($schedule_item['period']['from'] . 'T' . $session_schedule['time']['to']),
-        ];
       }
     }
 
@@ -347,10 +316,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
 
     $instances = self::calcSessionInstancesBySession($node);
     foreach ($instances as $instance) {
-      $session_instance = SessionInstance::create($session_data + [
-          'timestamp' => $instance['from'],
-          'timestamp_to' => $instance['to'],
-        ]);
+      $session_instance = Repeat::create($session_data + $instance);
       $session_instance->save();
     }
   }
@@ -359,23 +325,24 @@ class RepeatManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getClosestUpcomingSessionInstanceBySession(NodeInterface $node, $from = NULL, $to = NULL) {
+    // @todo check if it works with new logic.
     $session_instance = NULL;
 
     $query = $this->entityQuery
-      ->get('session_instance')
+      ->get('repeat')
       ->condition('session', $node->id())
-      ->sort('timestamp')
+      ->sort('start')
       ->range(0, 1);
     if ($from) {
-      $query->condition('timestamp', $from, '>');
+      $query->condition('start', $from, '>');
     }
     if ($to) {
-      $query->condition('timestamp', $to, '<');
+      $query->condition('end', $to, '<');
     }
     $id = $query->execute();
 
     if ($id) {
-      $session_instance = SessionInstance::load(reset($id));
+      $session_instance = Repeat::load(reset($id));
     }
 
     return $session_instance;
@@ -393,13 +360,14 @@ class RepeatManager implements SessionInstanceManagerInterface {
    */
   private static function addEntityQueryCondition(QueryInterface &$query, $key, $value) {
     $simple = array(
-      'from' => ['timestamp', '>='],
-      'to' => ['timestamp', '<'],
+      'from' => ['start', '>='],
+      'to' => ['end', '<'],
     );
 
     if (isset($simple[$key])) {
+      // @todo: Make date conditions work with new logic.
       list($field, $op) = $simple[$key];
-      $query->condition($field, $value, $op);
+      //$query->condition($field, $value, $op);
       return;
     }
 
@@ -413,8 +381,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $session_instances = [];
 
     $query = $this->entityQuery
-      ->get('session_instance')
-      ->sort('timestamp');
+      ->get('repeat')
+      ->sort('start');
 
     foreach ($conditions as $key => $value) {
       self::addEntityQueryCondition($query, $key, $value);
@@ -423,7 +391,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $ids = $query->execute();
 
     if ($ids) {
-      $session_instances = SessionInstance::loadMultiple($ids);
+      $session_instances = Repeat::loadMultiple($ids);
     }
 
     return $session_instances;
@@ -554,6 +522,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getLocationsByClassNode(NodeInterface $node) {
+    $locations = [];
     $nids = $this->getLocationIDsByClassNode($node);
 
     if ($nids) {
