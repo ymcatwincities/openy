@@ -8,7 +8,7 @@ use Drupal\Core\DependencyInjection\ServiceProviderBase;
 /**
  * Modifies the language manager service.
  */
-class RepeatServiceProvider extends ServiceProviderBase {
+class OpenyRepeatServiceProvider extends ServiceProviderBase {
 
   /**
    * {@inheritdoc}
