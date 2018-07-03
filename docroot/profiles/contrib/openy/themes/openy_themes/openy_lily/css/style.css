@@ -5937,7 +5937,7 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
   left: 150px;
 }
 
-@media (min-width: 47.9375em) {
+@media (min-width: 62em) {
   body {
     padding-top: 100px !important;
     -webkit-transition: padding-top 0.2s ease;
@@ -5950,15 +5950,15 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
     padding-top: 55px !important;
   }
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   body {
     padding-top: 80px !important;
     max-width: 100%;
   }
 }
-@media (min-width: 47.9375em) {
+@media (min-width: 62em) {
   body.toolbar-fixed.toolbar-horizontal {
-    padding-top: 122px;
+    padding-top: 122px !important;
     -webkit-transition: padding-top 0.2s ease;
     -moz-transition: padding-top 0.2s ease;
     -ms-transition: padding-top 0.2s ease;
@@ -6092,7 +6092,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
 #side-area ul li .dropdown-menu.open li.menu-item-online-store---rewards a {
   white-space: initial;
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   #side-area .section-icon {
     display: none;
   }
@@ -6125,7 +6125,7 @@ header#page-head:after {
   display: table;
   clear: both;
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   header#page-head {
     position: relative;
   }
@@ -6156,7 +6156,7 @@ header#page-head .top-navs .nav-global {
   min-height: 100px;
   width: 100%;
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   header#page-head .top-navs .nav-global {
     min-height: 80px;
   }
@@ -6167,7 +6167,7 @@ header#page-head .top-navs .nav-global .navbar-header {
 header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
   display: none;
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   header#page-head .top-navs .nav-global .navbar-header {
     width: 100%;
     padding: 0 !important;
@@ -6240,12 +6240,12 @@ header#page-head .top-navs .nav-wrapper {
   display: none;
   position: relative;
 }
-@media (min-width: 47.9375em) {
+@media (min-width: 62em) {
   header#page-head .top-navs .nav-wrapper {
     display: block;
   }
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   header#page-head .top-navs .nav-wrapper {
     min-height: 0;
   }
@@ -6272,7 +6272,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     padding: 0 100px;
   }
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     display: none !important;
   }
@@ -6387,7 +6387,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav.row-level-2 li a .section-icon {
   display: none;
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   header#page-head .top-navs #block-topmenu2,
   header#page-head .top-navs #block-anonymoususersmenu--2,
   header#page-head .top-navs #block-anonymoususersmenu,
@@ -6514,7 +6514,7 @@ header#page-head #block-openy-lily-branding .ymca-branding-slogan {
 .is-camp header#page-head #block-openy-lily-branding .ymca-branding-slogan {
   color: #f47820;
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   header#page-head #block-openy-lily-branding .ymca-branding-slogan {
     display: none;
   }
@@ -6576,7 +6576,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
   background-size: contain;
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
+@media (min-width: 0) and (max-width: 62em) {
   .navbar-brand {
     left: 35%;
     float: none;
@@ -16045,6 +16045,214 @@ a[href*=".pdf?"]:after,
   text-transform: none;
   font-weight: normal;
   font-family: 'YMCA';
+}
+
+@media (min-width: 47.9375em) {
+  body {
+    padding-top: 100px !important;
+    -webkit-transition: padding-top 0.2s ease;
+    -moz-transition: padding-top 0.2s ease;
+    -ms-transition: padding-top 0.2s ease;
+    -o-transition: padding-top 0.2s ease;
+    transition: padding-top 0.2s ease;
+  }
+  body.tiny-header {
+    padding-top: 55px !important;
+  }
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  body {
+    padding-top: 80px !important;
+    max-width: 100%;
+  }
+}
+@media (min-width: 47.9375em) {
+  body.toolbar-fixed.toolbar-horizontal {
+    padding-top: 122px !important;
+    -webkit-transition: padding-top 0.2s ease;
+    -moz-transition: padding-top 0.2s ease;
+    -ms-transition: padding-top 0.2s ease;
+    -o-transition: padding-top 0.2s ease;
+    transition: padding-top 0.2s ease;
+  }
+  body.toolbar-fixed.toolbar-horizontal.tiny-header {
+    padding-top: 94px !important;
+  }
+}
+
+@media (min-width: 0) and (max-width: 47.9375em) {
+  #side-area .section-icon {
+    display: none;
+  }
+}
+
+header#page-head {
+  width: 100%;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
+}
+header#page-head:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  header#page-head {
+    position: relative;
+  }
+}
+header#page-head .top-navs {
+  height: auto !important;
+  background-color: transparent;
+}
+header#page-head .top-navs .nav-global {
+  -webkit-transition: top 0.2s linear;
+  -moz-transition: top 0.2s linear;
+  -ms-transition: top 0.2s linear;
+  -o-transition: top 0.2s linear;
+  transition: top 0.2s linear;
+  left: 0;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  margin-bottom: 0;
+  border-radius: 0;
+  background-color: #f8f8f8;
+  min-height: 100px;
+  width: 100%;
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  header#page-head .top-navs .nav-global {
+    min-height: 80px;
+  }
+}
+header#page-head .top-navs .nav-global .navbar-header {
+  padding: 5px 0 13px;
+}
+@media (min-width: 48em) {
+  header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
+    display: none !important;
+  }
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  header#page-head .top-navs .nav-global .navbar-header {
+    width: 100%;
+    padding: 0 !important;
+    height: 52px !important;
+  }
+  header#page-head .top-navs .nav-global .navbar-header #block-openy-lily-branding {
+    position: absolute;
+    left: 50%;
+    margin-left: -27px;
+    margin-top: 5px;
+  }
+  header#page-head .top-navs .nav-global .navbar-header #block-openy-lily-branding img {
+    width: 54px !important;
+  }
+}
+@media (min-width: 48em) and (max-width: 62em) {
+  header#page-head .top-navs .nav-global .navbar-header {
+    padding: 5px 0 13px !important;
+    width: auto;
+  }
+}
+header#page-head .top-navs .nav-wrapper {
+  min-height: 62px;
+  z-index: 998;
+  display: none;
+}
+@media (min-width: 47.9375em) {
+  header#page-head .top-navs .nav-wrapper {
+    display: block;
+  }
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  header#page-head .top-navs .nav-wrapper {
+    min-height: 0;
+  }
+}
+header#page-head .top-navs .nav-wrapper .main-nav {
+  width: 100%;
+  z-index: 9999;
+  -webkit-transition: top 0.2s linear;
+  -moz-transition: top 0.2s linear;
+  -ms-transition: top 0.2s linear;
+  -o-transition: top 0.2s linear;
+  transition: top 0.2s linear;
+}
+header#page-head .top-navs .nav-wrapper .main-nav.affix {
+  top: 100px;
+}
+header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
+  width: 100%;
+  background: rgba(0, 96, 175, 0.95);
+  padding: 0 30px;
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
+    display: none !important;
+  }
+}
+@media (min-width: 48em) and (max-width: 62em) {
+  header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
+    display: block !important;
+  }
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  header#page-head .top-navs #block-topmenu2,
+  header#page-head .top-navs #block-anonymoususersmenu--2,
+  header#page-head .top-navs #block-anonymoususersmenu,
+  header#page-head .top-navs #block-openy-lily-user-menu,
+  header#page-head .top-navs #block-cccuseraccountmenu--2,
+  header#page-head .top-navs #block-cccuseraccountmenu {
+    display: none !important;
+  }
+}
+@media (min-width: 48em) and (max-width: 62em) {
+  header#page-head .top-navs #block-topmenu2,
+  header#page-head .top-navs #block-anonymoususersmenu--2,
+  header#page-head .top-navs #block-anonymoususersmenu,
+  header#page-head .top-navs #block-openy-lily-user-menu,
+  header#page-head .top-navs #block-cccuseraccountmenu--2,
+  header#page-head .top-navs #block-cccuseraccountmenu {
+    display: block !important;
+  }
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  header#page-head #block-openy-lily-branding .ymca-branding-slogan {
+    display: none;
+  }
+}
+@media (min-width: 48em) and (max-width: 62em) {
+  header#page-head #block-openy-lily-branding .ymca-branding-slogan {
+    display: block !important;
+  }
+}
+
+@media (min-width: 48em) and (max-width: 62em) {
+  .navbar-brand {
+    left: auto;
+    position: absolute;
+    display: block;
+    overflow: hidden;
+    box-sizing: content-box;
+    margin: 7px 0 5px 0;
+    padding: 5px 0 0 30px;
+    width: 220px;
+    height: 72%;
+    background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
+    background-size: contain;
+  }
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  .navbar-brand {
+    left: 35%;
+    float: none;
+    margin-left: -24px;
+    padding: 0;
+    height: 70%;
+    background-position: left top;
+    background-size: contain;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
