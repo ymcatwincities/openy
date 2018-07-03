@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
  *
  * @package Drupal\yptf_kronos
  */
-class YptfKronosReports implements YptfKronosReportsInterface {
+class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosReportsInterface {
 
   /**
    * Config factory.
@@ -219,35 +219,36 @@ class YptfKronosReports implements YptfKronosReportsInterface {
       'ymca_mappings.location_repository'
     );
 
-    $mb_locations = $this->configFactory->get('ymca_mindbody.trainings_mapping')
-      ->get('locations');
-    if (!empty($mb_locations)) {
-      foreach ($mb_locations as $mbNo => $mb_location) {
-        // Filtering out Dayton at Gaviidale
+    $all_mb_locations = $mapping_repository_location->loadAllLocationsWithMindBodyId();
+    $mb_locations_names = [];
+
+    if (!empty($all_mb_locations)) {
+      foreach ($all_mb_locations as $mb_location) {
+        $mbNo = $mb_location->field_mindbody_id->value;
+
+        // Remove data for specific locations.
+        // Use http://www.ymcamn.org/admin/content/locations-mapping.
+        // MindBody ID.
         $suppress = [
           5
         ];
         if (in_array($mbNo, $suppress)) {
           continue;
         }
-        $mb_locations_names[$mb_location['label']] = $mbNo;
+
+        $mb_locations_names[$mb_location->label()] = $mbNo;
       }
     }
     else {
-      $msg = 'Failed to get locations from config %params.';
-      $this->logger->notice(
-        $msg,
-        [
-          '%params' => 'ymca_mindbody.trainings_mapping',
-        ]
-      );
+      $msg = 'No locations found in locations mapping repository.';
+      $this->logger->notice($msg);
     }
 
     if ($this->getKronosData()) {
       // Calculate Workforce Kronos data.
       foreach ($this->kronosData as $current_line => $item) {
         // Remove data for specific locations.
-        // Use http://drupal.192.168.56.132.xip.io/admin/content/locations-mapping.
+        // Use http://www.ymcamn.org/admin/content/locations-mapping.
         // LOCATION PERSONIFY BRCODE.
         $suppress = [
           17
@@ -278,6 +279,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
             // No EmpID.
             $empID = 'KWFC - No Staff ID for: ' . $item->lastName . ', ' . $item->firstName;
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . $empID;
+            $this->addError('Kronos Data', sprintf('No EmpID for %s, %s in %s has been found.', $item->lastName, $item->firstName, $item->locName));
           }
           elseif (!is_array(
               $empID
@@ -335,6 +337,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
             // No EmpID.
             $staff_id = 'MB - No EmpID for: ' . $item['Staff'];
             $trainer_name .= '. * - MB - No Staff ID';
+            $this->addError('MindBody Data', sprintf('No EmpID for %s in %s has been found.', $item['Staff'], $item['Location']));
           }
 
           if (!empty($item['LocationID'])) {
@@ -403,10 +406,16 @@ class YptfKronosReports implements YptfKronosReportsInterface {
           $trainer['wf_hours'] = round($trainer['wf_hours'], 2);
         }
         if ($mb_flag && $wf_flag) {
-          $trainer['variance'] = round(
-            (1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100
-          );
-          $trainer['variance'] .= '%';
+          // We can't divide by zero, setting variance to be "-" in that case.
+          if ($trainer['wf_hours'] != 0)  {
+            $trainer['variance'] = round(
+              (1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100
+            );
+            $trainer['variance'] .= '%';
+          }
+          else {
+            $trainer['variance'] = '-';
+          }
         }
 
         if (!isset($trainer['historical_hours'])) {
@@ -472,7 +481,6 @@ class YptfKronosReports implements YptfKronosReportsInterface {
 
     $this->reports['trainers'] = $trainer_reports;
     $this->reports['locations'] = $location_reports;
-
   }
 
   /**
@@ -632,7 +640,9 @@ class YptfKronosReports implements YptfKronosReportsInterface {
     $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
       'debug'
     );
-    if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
+
+    // Never use cache files!
+    if (FALSE && !empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
       // New service to add.
       // Saving a file with a path.
       $cache_dir = \Drupal::service('file_system')->realpath(
@@ -646,7 +656,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
           'DataService',
           'FunctionDataXml',
           $params,
-          TRUE
+          FALSE
         );
         $this->mindbodyData = $result->FunctionDataXmlResult->Results;
 
@@ -667,7 +677,7 @@ class YptfKronosReports implements YptfKronosReportsInterface {
           'DataService',
           'FunctionDataXml',
           $params,
-          TRUE
+          FALSE
         );
         $this->mindbodyData = $result->FunctionDataXmlResult->Results;
       } catch (\Exception $e) {
@@ -993,6 +1003,12 @@ class YptfKronosReports implements YptfKronosReportsInterface {
           elseif (!empty($debug_mode) && strpos($debug_mode, 'email')) {
             $debug_email = explode('email', $debug_mode);
             $debug_email = end($debug_email);
+
+            // Check whether we need to send the emails.
+            if ($this->hasErrors() && $this->sendWithErrors == FALSE) {
+              continue;
+            }
+
             try {
               // Send notifications.
               $this->mailManager->mail(
@@ -1008,6 +1024,11 @@ class YptfKronosReports implements YptfKronosReportsInterface {
             }
           }
           else {
+            // Check whether we need to send the emails.
+            if ($this->hasErrors() && $this->sendWithErrors == FALSE) {
+              continue;
+            }
+
             try {
               // Send notifications.
               $this->mailManager->mail(
