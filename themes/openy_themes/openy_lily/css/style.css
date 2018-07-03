@@ -9173,6 +9173,10 @@ legend {
 .breadcrumb-container {
   background: #3a3a3a;
 }
+.breadcrumb-container .breadcrumb {
+  background-color: inherit;
+  margin-bottom: 0;
+}
 .breadcrumb-container ol {
   list-style-type: none;
   margin: 0;
