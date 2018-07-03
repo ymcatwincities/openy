@@ -882,3 +882,10 @@ function openy_update_8057() {
     drupal_set_message($message, 'warning');
   }
 }
+
+/**
+ * Uninstall Location Finder deprecated module.
+ */
+function openy_update_8058() {
+  \Drupal::service('module_installer')->uninstall(['location_finder']);
+}
