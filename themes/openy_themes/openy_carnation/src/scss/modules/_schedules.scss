@@ -13,22 +13,19 @@
     }
   }
 
-  form {
-    margin-bottom: 20px;
-
-    @include media-breakpoint-up(md) {
-      margin-bottom: 40px;
-    }
-  }
-
   .selects-container {
     display: flex;
     flex-direction: column;
     align-items: start;
 
+    &.hidden-xs {
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+    }
+
     @include media-breakpoint-up(md) {
       flex-direction: row;
-      padding: 0;
     }
 
     hr {
@@ -44,12 +41,22 @@
   .form-item {
     margin: 0 0 15px 0;
     width: 100%;
+    position: relative;
+    border-bottom: 1px solid $gray-100;
 
     @include media-breakpoint-up(md) {
       margin: 1em 0.75em;
+      border: none;
     }
 
-    .select-wrapper:after {
+    .ajax-progress-throbber {
+      position: absolute;
+      margin: -20px 0 0 -15px;
+      left: 50%;
+      top: 50%;
+    }
+
+    .select-wrapper:before {
       color: $pink;
       font-size: 24px;
       right: 0;
@@ -75,26 +82,37 @@
       @include cachet();
       padding-left: 0;
       text-transform: uppercase;
+      background: transparent;
       color: $gray-500;
       font-size: 14px;
       width: 100%;
       border: 0;
       height: calc(3.5rem + 2px) !important;
       letter-spacing: -1.2px;
+      position: relative;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
     }
 
     .hasDatepicker {
-      background: url("../img/input_calc_icon.png") no-repeat 95% center;
+      background: url("../img/input_calc_icon.png") no-repeat right center;
       padding-right: 20px;
     }
   }
 
   // location field
   .js-form-type-select.js-form-item-location {
-    width: 300px;
     flex-basis: unset;
+    border: none;
 
-    .select-wrapper:after {
+    @include media-breakpoint-up(md) {
+      max-width: 300px;
+    }
+
+    .select-wrapper:before {
       right: 15px;
     }
 
@@ -136,97 +154,116 @@
   .filters-container {
     clear: both;
     position: relative;
+    border-top: 1px solid $gray-400;
+
+    &.hidden {
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
 
     @include media-breakpoint-up(md) {
       margin-top: 0;
+      border: none;
+      display: block;
     }
 
     .container {
+      position: relative;
       padding: 0;
     }
-  }
 
-  .filters-wrapper {
-    padding-bottom: 5px;
-    padding-top: 5px;
-
-    @include media-breakpoint-up(md) {
-      padding-bottom: 0;
-      padding-top: 0;
-      border: 0;
-    }
-
-    .label {
-      @include cachet();
-      color: $gray-500;
-      display: block;
-      font-size: 14px;
-      margin-right: 20px;
-      padding: 0;
-      text-align: left;
+    .filters-wrapper {
+      padding-bottom: 5px;
+      padding-top: 5px;
 
       @include media-breakpoint-up(md) {
-        display: inline-block;
-      }
-    }
-
-    .filters {
-      @include media-breakpoint-up(md) {
-        display: flex;
-        align-items: center;
+        padding-bottom: 0;
+        padding-top: 0;
+        border: 0;
       }
 
-      .filter {
+      .label {
         @include cachet();
-        background: $white;
-        border-radius: 4px;
-        color: $light-blue;
-        display: inline-block;
-        font-size: 12px;
-        height: 30px;
-        line-height: 30px;
-        text-transform: uppercase;
-        white-space: nowrap;
-        padding: 0 10px;
-        margin: 0 5px 10px 0;
+        color: $gray-500;
+        display: block;
+        font-size: 14px;
+        margin-right: 20px;
+        padding: 0;
+        text-align: left;
 
         @include media-breakpoint-up(md) {
-          margin: 5px 20px 5px 0;
-          color: $gray-500;
+          display: inline-block;
+        }
+      }
+
+      .filters {
+        @include media-breakpoint-up(md) {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
         }
 
-        .remove {
-          margin-left: 10px;
+        .filter {
+          @include cachet();
+          background: rgba($gray-100, .3);
+          border-radius: 4px;
+          color: $gray-500;
+          display: inline-block;
+          font-size: 12px;
+          height: 30px;
           line-height: 30px;
+          text-transform: uppercase;
+          white-space: nowrap;
+          padding: 0 10px;
+          margin: 0 5px 10px 0;
 
           @include media-breakpoint-up(md) {
-            margin-left: 15px;
+            margin: 5px 20px 5px 0;
           }
 
-          .fa {
-            font-size: 13px;
-            color: $primary;
+          .remove {
+            margin-left: 10px;
+            line-height: 30px;
 
             @include media-breakpoint-up(md) {
-              font-size: 16px;
+              margin-left: 15px;
+            }
+
+            .fa {
+              font-size: 13px;
+              color: $primary;
+
+              &:hover {
+                color: $pink;
+              }
+
+              @include media-breakpoint-up(md) {
+                font-size: 16px;
+              }
             }
           }
         }
       }
     }
-  }
 
-  .form-control  {
-    &[readonly], &[disabled] {
-      color: $gray-500;
-      background: transparent;
+    .form-control {
+      &[readonly],
+      &[disabled] {
+        color: $gray-100;
+        background: transparent;
+      }
     }
   }
 }
 
 #schedules-search-listing-wrapper {
   .results {
-    margin-bottom: 40px;
+    margin: 40px 0;
 
     h2 {
       font-size: 28px;

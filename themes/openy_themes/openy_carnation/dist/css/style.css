@@ -9853,7 +9853,7 @@ body .branch-popup {
 
 .select-wrapper {
   position: relative; }
-  .select-wrapper:after {
+  .select-wrapper:before {
     position: absolute;
     content: '\f107';
     font-family: 'FontAwesome';
@@ -11579,59 +11579,61 @@ body {
       border: none; } }
   .sub-category-classes-view .filters-container .container {
     position: relative; }
-
-.sub-category-classes-view .filters-wrapper {
-  padding-bottom: 5px;
-  padding-top: 5px; }
-  @media (min-width: 576px) {
-    .sub-category-classes-view .filters-wrapper {
-      padding-bottom: 0;
-      padding-top: 0;
-      border: 0; } }
-  .sub-category-classes-view .filters-wrapper .label {
-    font-family: "Cachet", "Comfortaa", sans-serif;
-    font-weight: 400;
-    color: #4f4f4f;
-    display: block;
-    font-size: 14px;
-    line-height: 30px;
-    margin-right: 20px;
-    padding: 0;
-    text-align: left; }
-    @media (min-width: 576px) {
-      .sub-category-classes-view .filters-wrapper .label {
-        display: inline-block; } }
-  .sub-category-classes-view .filters-wrapper .filters {
-    display: inline-block; }
-    .sub-category-classes-view .filters-wrapper .filters .filter {
+  .sub-category-classes-view .filters-container .filters-wrapper {
+    padding-bottom: 5px;
+    padding-top: 5px; }
+    @media (min-width: 768px) {
+      .sub-category-classes-view .filters-container .filters-wrapper {
+        padding-bottom: 0;
+        padding-top: 0;
+        border: 0; } }
+    .sub-category-classes-view .filters-container .filters-wrapper .label {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
-      background: #fff;
-      border-radius: 4px;
-      color: #00aeef;
-      display: inline-block;
+      color: #4f4f4f;
+      display: block;
       font-size: 14px;
+      margin-right: 20px;
+      padding: 0;
+      text-align: left; }
+      @media (min-width: 768px) {
+        .sub-category-classes-view .filters-container .filters-wrapper .label {
+          display: inline-block; } }
+    @media (min-width: 768px) {
+      .sub-category-classes-view .filters-container .filters-wrapper .filters {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap; } }
+    .sub-category-classes-view .filters-container .filters-wrapper .filters .filter {
+      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
+      background: rgba(235, 235, 235, 0.3);
+      border-radius: 4px;
+      color: #4f4f4f;
+      display: inline-block;
+      font-size: 12px;
       height: 30px;
       line-height: 30px;
       text-transform: uppercase;
       white-space: nowrap;
       padding: 0 10px;
       margin: 0 5px 10px 0; }
-      @media (min-width: 576px) {
-        .sub-category-classes-view .filters-wrapper .filters .filter {
-          margin: 5px 20px 5px 0;
-          color: #4f4f4f; } }
-      .sub-category-classes-view .filters-wrapper .filters .filter .remove {
+      @media (min-width: 768px) {
+        .sub-category-classes-view .filters-container .filters-wrapper .filters .filter {
+          margin: 5px 20px 5px 0; } }
+      .sub-category-classes-view .filters-container .filters-wrapper .filters .filter .remove {
         margin-left: 10px;
         line-height: 30px; }
-        @media (min-width: 576px) {
-          .sub-category-classes-view .filters-wrapper .filters .filter .remove {
+        @media (min-width: 768px) {
+          .sub-category-classes-view .filters-container .filters-wrapper .filters .filter .remove {
             margin-left: 15px; } }
-        .sub-category-classes-view .filters-wrapper .filters .filter .remove .fa {
+        .sub-category-classes-view .filters-container .filters-wrapper .filters .filter .remove .fa {
           font-size: 13px;
           color: #0089d0; }
-          @media (min-width: 576px) {
-            .sub-category-classes-view .filters-wrapper .filters .filter .remove .fa {
+          .sub-category-classes-view .filters-container .filters-wrapper .filters .filter .remove .fa:hover {
+            color: #c6168d; }
+          @media (min-width: 768px) {
+            .sub-category-classes-view .filters-container .filters-wrapper .filters .filter .remove .fa {
               font-size: 16px; } }
 
 .sub-category-classes-view .activity-group h2 {
@@ -11792,20 +11794,16 @@ body {
     display: inline-block;
     padding: 3px 15px; }
 
-#schedules-search-form-wrapper form {
-  margin-bottom: 20px; }
-  @media (min-width: 768px) {
-    #schedules-search-form-wrapper form {
-      margin-bottom: 40px; } }
-
 #schedules-search-form-wrapper .selects-container {
   display: flex;
   flex-direction: column;
   align-items: start; }
+  @media (max-width: 767.98px) {
+    #schedules-search-form-wrapper .selects-container.hidden-xs {
+      display: none; } }
   @media (min-width: 768px) {
     #schedules-search-form-wrapper .selects-container {
-      flex-direction: row;
-      padding: 0; } }
+      flex-direction: row; } }
   #schedules-search-form-wrapper .selects-container hr {
     border-color: #636466;
     margin: 0 0 12px; }
@@ -11815,11 +11813,19 @@ body {
 
 #schedules-search-form-wrapper .form-item {
   margin: 0 0 15px 0;
-  width: 100%; }
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #ebebeb; }
   @media (min-width: 768px) {
     #schedules-search-form-wrapper .form-item {
-      margin: 1em 0.75em; } }
-  #schedules-search-form-wrapper .form-item .select-wrapper:after {
+      margin: 1em 0.75em;
+      border: none; } }
+  #schedules-search-form-wrapper .form-item .ajax-progress-throbber {
+    position: absolute;
+    margin: -20px 0 0 -15px;
+    left: 50%;
+    top: 50%; }
+  #schedules-search-form-wrapper .form-item .select-wrapper:before {
     color: #c6168d;
     font-size: 24px;
     right: 0;
@@ -11842,20 +11848,29 @@ body {
     font-weight: 400;
     padding-left: 0;
     text-transform: uppercase;
+    background: transparent;
     color: #4f4f4f;
     font-size: 14px;
     width: 100%;
     border: 0;
     height: calc(3.5rem + 2px) !important;
-    letter-spacing: -1.2px; }
+    letter-spacing: -1.2px;
+    position: relative; }
+    #schedules-search-form-wrapper .form-item input:focus,
+    #schedules-search-form-wrapper .form-item select:focus {
+      outline: none;
+      box-shadow: none; }
   #schedules-search-form-wrapper .form-item .hasDatepicker {
-    background: url("../img/input_calc_icon.png") no-repeat 95% center;
+    background: url("../img/input_calc_icon.png") no-repeat right center;
     padding-right: 20px; }
 
 #schedules-search-form-wrapper .js-form-type-select.js-form-item-location {
-  width: 300px;
-  flex-basis: unset; }
-  #schedules-search-form-wrapper .js-form-type-select.js-form-item-location .select-wrapper:after {
+  flex-basis: unset;
+  border: none; }
+  @media (min-width: 768px) {
+    #schedules-search-form-wrapper .js-form-type-select.js-form-item-location {
+      max-width: 300px; } }
+  #schedules-search-form-wrapper .js-form-type-select.js-form-item-location .select-wrapper:before {
     right: 15px; }
   #schedules-search-form-wrapper .js-form-type-select.js-form-item-location select {
     font-family: "Cachet", "Comfortaa", sans-serif;
@@ -11888,74 +11903,84 @@ body {
 
 #schedules-search-form-wrapper .filters-container {
   clear: both;
-  position: relative; }
+  position: relative;
+  border-top: 1px solid #636466; }
+  @media (max-width: 767.98px) {
+    #schedules-search-form-wrapper .filters-container.hidden {
+      display: none; } }
+  @media (max-width: 767.98px) {
+    #schedules-search-form-wrapper .filters-container {
+      display: none; } }
   @media (min-width: 768px) {
     #schedules-search-form-wrapper .filters-container {
-      margin-top: 0; } }
+      margin-top: 0;
+      border: none;
+      display: block; } }
   #schedules-search-form-wrapper .filters-container .container {
+    position: relative;
     padding: 0; }
-
-#schedules-search-form-wrapper .filters-wrapper {
-  padding-bottom: 5px;
-  padding-top: 5px; }
-  @media (min-width: 768px) {
-    #schedules-search-form-wrapper .filters-wrapper {
-      padding-bottom: 0;
-      padding-top: 0;
-      border: 0; } }
-  #schedules-search-form-wrapper .filters-wrapper .label {
-    font-family: "Cachet", "Comfortaa", sans-serif;
-    font-weight: 400;
-    color: #4f4f4f;
-    display: block;
-    font-size: 14px;
-    margin-right: 20px;
-    padding: 0;
-    text-align: left; }
+  #schedules-search-form-wrapper .filters-container .filters-wrapper {
+    padding-bottom: 5px;
+    padding-top: 5px; }
     @media (min-width: 768px) {
-      #schedules-search-form-wrapper .filters-wrapper .label {
-        display: inline-block; } }
-  @media (min-width: 768px) {
-    #schedules-search-form-wrapper .filters-wrapper .filters {
-      display: flex;
-      align-items: center; } }
-  #schedules-search-form-wrapper .filters-wrapper .filters .filter {
-    font-family: "Cachet", "Comfortaa", sans-serif;
-    font-weight: 400;
-    background: #fff;
-    border-radius: 4px;
-    color: #00aeef;
-    display: inline-block;
-    font-size: 12px;
-    height: 30px;
-    line-height: 30px;
-    text-transform: uppercase;
-    white-space: nowrap;
-    padding: 0 10px;
-    margin: 0 5px 10px 0; }
-    @media (min-width: 768px) {
-      #schedules-search-form-wrapper .filters-wrapper .filters .filter {
-        margin: 5px 20px 5px 0;
-        color: #4f4f4f; } }
-    #schedules-search-form-wrapper .filters-wrapper .filters .filter .remove {
-      margin-left: 10px;
-      line-height: 30px; }
+      #schedules-search-form-wrapper .filters-container .filters-wrapper {
+        padding-bottom: 0;
+        padding-top: 0;
+        border: 0; } }
+    #schedules-search-form-wrapper .filters-container .filters-wrapper .label {
+      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
+      color: #4f4f4f;
+      display: block;
+      font-size: 14px;
+      margin-right: 20px;
+      padding: 0;
+      text-align: left; }
       @media (min-width: 768px) {
-        #schedules-search-form-wrapper .filters-wrapper .filters .filter .remove {
-          margin-left: 15px; } }
-      #schedules-search-form-wrapper .filters-wrapper .filters .filter .remove .fa {
-        font-size: 13px;
-        color: #0089d0; }
+        #schedules-search-form-wrapper .filters-container .filters-wrapper .label {
+          display: inline-block; } }
+    @media (min-width: 768px) {
+      #schedules-search-form-wrapper .filters-container .filters-wrapper .filters {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap; } }
+    #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter {
+      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
+      background: rgba(235, 235, 235, 0.3);
+      border-radius: 4px;
+      color: #4f4f4f;
+      display: inline-block;
+      font-size: 12px;
+      height: 30px;
+      line-height: 30px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 0 10px;
+      margin: 0 5px 10px 0; }
+      @media (min-width: 768px) {
+        #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter {
+          margin: 5px 20px 5px 0; } }
+      #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove {
+        margin-left: 10px;
+        line-height: 30px; }
         @media (min-width: 768px) {
-          #schedules-search-form-wrapper .filters-wrapper .filters .filter .remove .fa {
-            font-size: 16px; } }
-
-#schedules-search-form-wrapper .form-control[readonly], #schedules-search-form-wrapper .form-control[disabled] {
-  color: #4f4f4f;
-  background: transparent; }
+          #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove {
+            margin-left: 15px; } }
+        #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa {
+          font-size: 13px;
+          color: #0089d0; }
+          #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa:hover {
+            color: #c6168d; }
+          @media (min-width: 768px) {
+            #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa {
+              font-size: 16px; } }
+  #schedules-search-form-wrapper .filters-container .form-control[readonly], #schedules-search-form-wrapper .filters-container .form-control[disabled] {
+    color: #ebebeb;
+    background: transparent; }
 
 #schedules-search-listing-wrapper .results {
-  margin-bottom: 40px; }
+  margin: 40px 0; }
   #schedules-search-listing-wrapper .results h2 {
     font-size: 28px;
     line-height: 32px;
@@ -12731,11 +12756,11 @@ iframe#ga_iframe {
 
 html.js .ajax-progress .throbber,
 html.js .flag-waiting .flag-throbber {
-  width: 15px;
-  height: 15px;
+  width: 32px;
+  height: 32px;
   top: 5px !important;
   position: relative;
-  background-image: url(../img/bx_loader.gif);
+  background-image: url(../img/throbber.svg);
   background-size: contain;
   opacity: 1; }
 
@@ -13375,5 +13400,8 @@ p:last-child,
   font-size: 0.875em; }
   .nav-tabs li a {
     padding: 5px 12px; }
+
+.hidden {
+  display: none !important; }
 
 /*# sourceMappingURL=style.css.map */
