@@ -7,3 +7,7 @@
 - name: Build application
   shell: cd reactapps/prgreg && yarn build
   sudo: yes
+
+  - name: ReactApp url
+    sudo: yes
+    lineinfile: dest={{ workspace_root }}/{{ artifacts_file }} line="Build site installed at {{ webroot }}/reactapps/prgreg/build/" create=yes state=present
