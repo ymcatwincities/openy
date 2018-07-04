@@ -53,7 +53,7 @@
 .select-wrapper {
   position: relative;
 
-  &:after {
+  &:before {
     position: absolute;
     content: '\f107';
     font-family: 'FontAwesome';

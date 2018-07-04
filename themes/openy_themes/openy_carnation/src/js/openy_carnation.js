@@ -37,6 +37,21 @@
     }
   };
 
+
+  /**
+   * Ensure breadcrumbs are after banners in the DOM
+   */
+  Drupal.behaviors.moveBreadcrumbs = {
+    attach: function (context, settings) {
+      var breadCrumbs = $('.breadcrumbs-wrapper', context);
+      var banner = $('.banner-zone-node .banner', context);
+
+      if (breadCrumbs.length && banner.length) {
+        banner.once('openy-breadcrumbs').after(breadCrumbs);
+      }
+    }
+  };
+
   /**
    * Show/hide desktop search block.
    */
