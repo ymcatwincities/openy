@@ -2,21 +2,9 @@
   position: absolute;
   opacity: 0.2;
 }
-/*
- * Row with equal height columns
- * --------------------------------------------------
- */
-.row-eq-height {
-  //@include display-flex;
-  //@include flex-wrap(wrap);
-
-  &:before,
-  &:after {
-    content: none;
-  }
-}
 
 // Angular styles.
+.hidden,
 .ng-hide {
   display: none !important;
 }
@@ -24,5 +12,3 @@
 .button {
   @extend .btn;
 }
-
-

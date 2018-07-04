@@ -26,7 +26,7 @@ input:-moz-placeholder {
   display: inline-block;
   position: relative;
   width: 100%;
-  background-color: white;
+  text-align: center;
 
   .form-inline & {
     width: auto;
@@ -49,16 +49,9 @@ input:-moz-placeholder {
     appearance: none;
     line-height: 1;
     padding-right: 2em;
-    position: relative;
-    background-color: transparent;
-    z-index: 2;
 
     &::-ms-expand {
       opacity: 0;
-    }
-
-    &:focus {
-      background-color: transparent;
     }
   }
 
