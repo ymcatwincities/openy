@@ -8,6 +8,3 @@
   shell: cd reactapps/prgreg && yarn build
   sudo: yes
 
-- name: ReactApp url
-  sudo: yes
-  lineinfile: dest={{ workspace_root }}/{{ artifacts_file }} line="Program Registration App installed at {{ webroot }}/reactapps/prgreg/build/" create=yes state=present
