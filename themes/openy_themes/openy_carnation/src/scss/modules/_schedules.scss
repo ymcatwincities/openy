@@ -2,9 +2,8 @@
   .controls-wrapper {
     padding-top: 9px;
     padding-bottom: 9px;
-    background-color: $sky-blue;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       display: none;
     }
 
@@ -15,140 +14,109 @@
   }
 
   form {
-    background-color: $sky-blue;
     margin-bottom: 20px;
 
-    @include media-breakpoint-up(sm) {
-      background-color: $gray-100;
+    @include media-breakpoint-up(md) {
       margin-bottom: 40px;
     }
   }
 
-  .js-form-type-select {
-    float: left;
-    display: inline-block;
-    padding: 10px 0 5px;
-    width: 100%;
-
-    @include media-breakpoint-up(sm) {
-      padding: 15px 0;
-      width: 150px;
-    }
-
-    label {
-      @include cachet();
-      font-size: 14px;
-      line-height: 1.6;
-      color: $gray-500;
-      margin-bottom: 0;
-
-      @include media-breakpoint-up(sm) {
-        margin-bottom: 5px;
-      }
-    }
-
-    select {
-      @include cachet();
-      text-transform: uppercase;
-      color: $gray-500;
-    }
-
-    &.form-item-location {
-      padding: 15px 0 25px;
-      width: 100%;
-
-      @include media-breakpoint-up(sm) {
-        padding: 15px 0;
-        width: 150px;
-      }
-    }
-
-    &.form-item-time {
-      padding: 15px 0 25px;
-      width: 100%;
-
-      @include media-breakpoint-up(sm) {
-        padding: 15px 0;
-        width: 90px;
-      }
-    }
-  }
-
-  .js-form-type-textfield {
-    float: left;
-    display: inline-block;
-    padding: 10px 0 5px;
-    width: 100%;
-
-    @include media-breakpoint-up(sm) {
-      padding: 15px 0;
-      margin-right: 18px;
-      width: 110px;
-    }
-
-    label {
-      @include cachet();
-      font-size: 14px;
-      line-height: 1.6;
-      color: $gray-500;
-      margin-bottom: 0;
-
-      @include media-breakpoint-up(sm) {
-        margin-bottom: 5px;
-      }
-    }
-
-    input {
-      @include cachet();
-      text-transform: uppercase;
-      color: $gray-500;
-      width: 100%;
-    }
-
-    .hasDatepicker {
-      background: $white url("../img/icons/input_calc_icon.png") no-repeat 95% center;
-      padding-right: 20px;
-      padding-left: 5px;
-    }
-  }
-
-  .form-item-display {
-    float: left;
-    display: inline-block;
-    padding: 10px 0 5px;
-    width: 100%;
-
-    @include media-breakpoint-up(sm) {
-      padding: 15px 0;
-      margin-right: 18px;
-      width: 110px;
-    }
-
-    label {
-      @include cachet();
-      font-size: 14px;
-      line-height: 1.6;
-      color: $gray-500;
-      margin-bottom: 0;
-
-      @include media-breakpoint-up(sm) {
-        margin-bottom: 5px;
-      }
-    }
-
-    input {
-      display: block;
-    }
-  }
-
   .selects-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+      padding: 0;
+    }
+
     hr {
       border-color: $gray-400;
       margin: 0 0 12px;
 
-      @include media-breakpoint-up(sm) {
+      @include media-breakpoint-up(md) {
         display: none;
       }
+    }
+  }
+
+  .form-item {
+    margin: 0 0 15px 0;
+    width: 100%;
+
+    @include media-breakpoint-up(md) {
+      margin: 1em 0.75em;
+    }
+
+    .select-wrapper:after {
+      color: $pink;
+      font-size: 24px;
+      right: 0;
+      top: 50%;
+      margin-top: -18px;
+    }
+
+    label {
+      @include cachet();
+      font-size: 14px;
+      line-height: 1.6;
+      color: $gray-500;
+      margin-bottom: 0;
+      text-decoration: underline;
+
+      @include media-breakpoint-up(md) {
+        margin-bottom: 5px;
+      }
+    }
+
+    input,
+    select {
+      @include cachet();
+      padding-left: 0;
+      text-transform: uppercase;
+      color: $gray-500;
+      font-size: 14px;
+      width: 100%;
+      border: 0;
+      height: calc(3.5rem + 2px) !important;
+      letter-spacing: -1.2px;
+    }
+
+    .hasDatepicker {
+      background: url("../img/input_calc_icon.png") no-repeat 95% center;
+      padding-right: 20px;
+    }
+  }
+
+  // location field
+  .js-form-type-select.js-form-item-location {
+    width: 300px;
+    flex-basis: unset;
+
+    .select-wrapper:after {
+      right: 15px;
+    }
+
+    select {
+      @include cachet();
+      width: 100%;
+      border: 1px solid $gray-100;
+      border-radius: 8px;
+      color: $gray-500;
+      text-transform: uppercase;
+      padding: 15px;
+      font-size: 18px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    .js-form-type-select,
+    .js-form-type-textfield,
+    .form-item-display {
+      width: 150px;
     }
   }
 
@@ -159,8 +127,7 @@
   .filters-main-wrapper {
     clear: both;
 
-    @include media-breakpoint-up(sm) {
-      background-color: rgba(0, 136, 208, 0.25);
+    @include media-breakpoint-up(md) {
       padding-top: 15px;
       padding-bottom: 15px;
     }
@@ -169,50 +136,21 @@
   .filters-container {
     clear: both;
     position: relative;
-    border-top: 1px solid $gray-400;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       margin-top: 0;
-      border: none;
     }
 
     .container {
-      position: relative;
+      padding: 0;
     }
-
-    //.reset-wrapper {
-    //  position: absolute;
-    //  right: 35px;
-    //  top: 4px;
-    //
-    //  @include media-breakpoint-up(sm) {
-    //    top: 0;
-    //    right: 15px;
-    //  }
-    //
-    //  .clear {
-    //    @include cachet();
-    //    background: none;
-    //    border: none;
-    //    color: $primary;
-    //    display: inline-block;
-    //    font-size: 14px;
-    //    height: 30px;
-    //    line-height: 30px;
-    //    padding: 0;
-    //
-    //    @include media-breakpoint-up(sm) {
-    //      text-transform: uppercase;
-    //    }
-    //  }
-    //}
   }
 
   .filters-wrapper {
     padding-bottom: 5px;
     padding-top: 5px;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       padding-bottom: 0;
       padding-top: 0;
       border: 0;
@@ -223,18 +161,20 @@
       color: $gray-500;
       display: block;
       font-size: 14px;
-      line-height: 30px;
       margin-right: 20px;
       padding: 0;
       text-align: left;
 
-      @include media-breakpoint-up(sm) {
+      @include media-breakpoint-up(md) {
         display: inline-block;
       }
     }
 
     .filters {
-      display: inline-block;
+      @include media-breakpoint-up(md) {
+        display: flex;
+        align-items: center;
+      }
 
       .filter {
         @include cachet();
@@ -250,7 +190,7 @@
         padding: 0 10px;
         margin: 0 5px 10px 0;
 
-        @include media-breakpoint-up(sm) {
+        @include media-breakpoint-up(md) {
           margin: 5px 20px 5px 0;
           color: $gray-500;
         }
@@ -259,7 +199,7 @@
           margin-left: 10px;
           line-height: 30px;
 
-          @include media-breakpoint-up(sm) {
+          @include media-breakpoint-up(md) {
             margin-left: 15px;
           }
 
@@ -267,7 +207,7 @@
             font-size: 13px;
             color: $primary;
 
-            @include media-breakpoint-up(sm) {
+            @include media-breakpoint-up(md) {
               font-size: 16px;
             }
           }
@@ -279,7 +219,7 @@
   .form-control  {
     &[readonly], &[disabled] {
       color: $gray-500;
-      background: $gray-100;
+      background: transparent;
     }
   }
 }
@@ -294,7 +234,7 @@
       margin-bottom: 18px;
       font-weight: 700;
 
-      @include media-breakpoint-up(sm) {
+      @include media-breakpoint-up(md) {
         font-size: 40px;
         line-height: 44px;
       }
@@ -346,75 +286,8 @@
     #ygd-scheduler-daxko-block .title-class {
       font-weight: bold;
       letter-spacing: -0.6px;
-      color: #0060AF;
+      color: #0060af;
     }
-
-    //.schedule-sessions-group-slider {
-    //  margin: 0 0 45px;
-    //
-    //  @include media-breakpoint-up(sm) {
-    //    margin: 0 65px 55px;
-    //  }
-    //
-    //  @include media-breakpoint-up(lg) {
-    //    margin-right: 0;
-    //  }
-    //
-    //  .slick-track {
-    //    display: flex;
-    //    flex-wrap: wrap;
-    //  }
-    //
-    //  .slick-arrow {
-    //    background: none;
-    //    color: $light-blue;
-    //    padding: 0;
-    //    z-index: 1;
-    //    height: 40px;
-    //    width: 40px;
-    //    margin-top: -7px;
-    //
-    //    &:before {
-    //      color: $light-blue;
-    //    }
-    //
-    //    @include media-breakpoint-up(sm) {
-    //      height: 70px;
-    //      width: 50px;
-    //    }
-    //
-    //    .fa {
-    //      font-size: 30px;
-    //
-    //      @include media-breakpoint-up(lg) {
-    //        font-size: 40px;
-    //      }
-    //    }
-    //
-    //    &.slick-prev {
-    //      left: -45px;
-    //    }
-    //
-    //    &.slick-next {
-    //      right: -45px;
-    //    }
-    //  }
-    //
-    //  .slick-dots {
-    //    bottom: -40px;
-    //
-    //    li {
-    //      button:before {
-    //        opacity: 1;
-    //        color: $gray-100;
-    //      }
-    //      &.slick-active button:before {
-    //        opacity: 1;
-    //        color: $pink;
-    //      }
-    //    }
-    //  }
-    //}
 
     .week-control {
       font-size: 16px;
@@ -431,171 +304,7 @@
         display: none;
       }
     }
-
-    //.views-row {
-    //  border: 1px solid $pink;
-    //  margin: 0 15px;
-    //  padding: 15px;
-    //  height: auto;
-    //  outline: none;
-    //  text-decoration: none;
-    //  position: relative;
-    //
-    //  &:hover h3 {
-    //    text-decoration: underline;
-    //  }
-    //
-    //  .included-in-membership {
-    //    background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
-    //    background-size: contain;
-    //    position: absolute;
-    //    top: 0;
-    //    right: 0;
-    //    height: 32px;
-    //    width: 90px;
-    //  }
-    //
-    //  .ticket {
-    //    color: $purple;
-    //    margin-top: 10px;
-    //    display: block;
-    //  }
-    //
-    //  h3 {
-    //    @include cachet();
-    //    font-size: 22px;
-    //    line-height: 1;
-    //    color: $primary;
-    //    white-space: normal;
-    //  }
-    //
-    //  .time {
-    //    color: $gray-400;
-    //  }
-    //
-    //  p {
-    //    font-size: 15px;
-    //    line-height: 1.5;
-    //    color: $gray-600;
-    //   }
-    //
-    //  img {
-    //    display: none;
-    //  }
-    //
-    //  .node__content {
-    //    color: $gray-600;
-    //  }
-    //}
   }
-
-  //.branch-hours-wrapper {
-  //  margin-bottom: 10px;
-  //
-  //  .slick-slider {
-  //    padding: 0 30px;
-  //  }
-  //
-  //  .slick-track {
-  //    display: -webkit-flex;
-  //    display: flex;
-  //    flex-wrap: nowrap;
-  //
-  //
-  //    @include media-breakpoint-up(sm) {
-  //      flex-wrap: wrap;
-  //    }
-  //  }
-  //
-  //  .slick-slide {
-  //    display: -webkit-flex;
-  //    display: flex;
-  //    height: auto;
-  //  }
-  //
-  //  .row-eq-height {
-  //    margin: 0 10px 10px 0;
-  //
-  //    .slick-arrow {
-  //      color: $light-blue;
-  //
-  //      &:hover:before {
-  //        color: $light-blue;
-  //      }
-  //
-  //      &:before {
-  //        color: $light-blue;
-  //      }
-  //    }
-  //
-  //    .slick-next,
-  //    .slick-prev {
-  //      z-index: 100;
-  //    }
-  //
-  //    .slick-next {
-  //      text-align: right;
-  //    }
-  //  }
-  //
-  //  .card {
-  //    background-color: $orange;
-  //    color: $white;
-  //    padding: 10px 20px;
-  //    width: 100%;
-  //    height: auto;
-  //    display: -webkit-flex;
-  //    display: flex;
-  //    -webkit-flex-direction: column;
-  //    flex-direction: column;
-  //
-  //    h4 {
-  //      font-size: 20px;
-  //      line-height: 17px;
-  //      letter-spacing: -0.5px;
-  //    }
-  //
-  //    p {
-  //      @include cachet();
-  //      font-size: 30px;
-  //      line-height: 1.15;
-  //    }
-  //  }
-  //
-  //  .col-sm-2 {
-  //    h4 {
-  //      font-size: 14px;
-  //    }
-  //
-  //    p {
-  //      font-size: 20px;
-  //    }
-  //  }
-  //
-  //  .row {
-  //    overflow-x: scroll;
-  //    overflow-y: hidden;
-  //    white-space: nowrap;
-  //    -webkit-overflow-scrolling: touch;
-  //    -webkit-flex-wrap: nowrap;
-  //    flex-wrap: nowrap;
-  //
-  //    .row-eq-height {
-  //      -webkit-flex-wrap: nowrap;
-  //      flex-wrap: nowrap;
-  //
-  //      h4 {
-  //        font-size: 20px;
-  //        white-space: normal;
-  //      }
-  //
-  //      p {
-  //        font-size: 30px;
-  //        white-space: normal;
-  //      }
-  //    }
-  //  }
-  //}
 }
 
 #group-ex-results,
@@ -616,7 +325,7 @@
     display: inline-block;
     padding-bottom: 55px;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       padding-bottom: 100px;
     }
   }
@@ -809,51 +518,14 @@
       }
     }
 
-    > div {
-      //margin-top: 20px;
-
-      @include media-breakpoint-up(md) {
-        //float: left;
-        //margin-right: 30px;
-      }
-    }
-
     #date-select-wrapper input {
       width: 100%;
       line-height: 32px;
       border: 1px solid $gray-300;
     }
 
-    #submit-wrapper {
-      //@include media-breakpoint-up(md) {
-      //  margin: 46px 30px 0 0;
-      //}
-      //
-      //@include media-breakpoint-up(md) {
-      //  clear: both;
-      //  float: left;
-      //  margin-top: 20px;
-      //}
-      //
-      //@include media-breakpoint-up(lg) {
-      //  clear: none;
-      //  margin-top: 46px;
-      //}
-    }
 
     .groupex-pdf-link-container {
-      //@include media-breakpoint-up(md) {
-      //  margin-top: 46px;
-      //}
-      //
-      //@include media-breakpoint-up(md) {
-      //  margin-top: 20px;
-      //}
-      //
-      //@include media-breakpoint-up(lg) {
-      //  margin-top: 46px;
-      //}
-
       a {
         color: white;
         background-color: $purple;
@@ -874,23 +546,7 @@
     #location-select-wrapper {
       display: none !important;
     }
-    //
-    //  #class-select-wrapper {
-    //    display: block !important;
-    //  }
-    //
-    //  #date-select-wrapper {
-    //    display: block !important;
-    //  }
-    //
-    //  .class-description {
-    //    display: block;
-    //  }
   }
-
-  //#submit-wrapper {
-  //  display: block !important;
-  //}
 }
 
 //Daxko registration iframe

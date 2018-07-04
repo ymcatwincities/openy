@@ -50,15 +50,25 @@
   }
 }
 
+.select-wrapper {
+  position: relative;
+
+  &:after {
+    position: absolute;
+    content: '\f107';
+    font-family: 'FontAwesome';
+    font-size: 18px;
+    right: 10px;
+    top: 7px;
+  }
+}
+
 .form-select {
   border: 1px solid $gray-300;
   -webkit-appearance:none;
   -moz-appearance:none;
   -ms-appearance:none;
   appearance:none;
-  background: image-url('icons/arrow_down.svg');
-  background-position: 100% 50%;
-  background-repeat: no-repeat;
   background-color: white;
   padding-right: 25px;
 
