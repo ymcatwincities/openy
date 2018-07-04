@@ -21,3 +21,8 @@ body .main-table {
 [v-cloak] {
   display: none;
 }
+
+.main-table span.left,
+.main-table span.right {
+  cursor: pointer;
+}

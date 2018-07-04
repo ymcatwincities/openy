@@ -3,7 +3,6 @@
  * @file
  *
  * Available variables:
- * - currant_date: date for filter.
  * - locations: locations of "repeat" entity for filter.
  */
 #}
@@ -17,10 +16,10 @@
                 <div class="row">
                     <div class="form-group">
                         <label for="inputText">Date:</label>
-                        <div class='input-group date' id='datepicker'>
-                            <input type='date' class="form-control" />
+                        <div class="input-group date" id="datepicker" data-date-format="MM dd, yyyy">
+                            <input type="text" class="form-control" />
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
+                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                             </span>
                         </div>
                     </div>

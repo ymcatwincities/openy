@@ -3,13 +3,8 @@
     return;
   }
 
-  var text = '18.05.89';
-  changeDateTitle(text);
+  $("#datepicker").datepicker();
 
-  function changeDateTitle(text) {
-    $('span.date').text(text);
-  }
-  
   // select the target node
   var head_target = document.querySelector('#page-head .top-navs');
   var foter_target = document.querySelector('footer.footer');
@@ -41,9 +36,9 @@
       dest.style.bottom = 0;
     }
     checkBreadcrums();
-  }
+  };
 
-  // create an observer instance
+  // Create an observer instance.
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
       dest.style.top = head_target.getBoundingClientRect().bottom + "px";
@@ -57,43 +52,42 @@
   // pass in the target node, as well as the observer options
   observer.observe(head_target, config);
 
-  var curentDate = moment().format('ll'),
+  var currentDate = moment().format('ll'),
     eventLocation = '';
 
 
   var globalData = {
-    date: curentDate,
+    date: currentDate,
     location: '',
     table: []
   };
 
-
-
+  $("#datepicker input").val(currentDate);
   $('#datepicker input').on('change', function() {
     if (this.value != '') {
-      curentDate = moment(this.value).format('ll');
-      globalData.date = curentDate;
+      currentDate = moment(this.value).format('ll');
+      globalData.date = currentDate;
     }
   });
 
 
   $('span.right').on('click', function() {
-    curentDate = moment(curentDate).add(1, 'day').format('ll');
-    globalData.date = curentDate;
+    currentDate = moment(currentDate).add(1, 'day').format('ll');
+    globalData.date = currentDate;
+    $("#datepicker input").val(currentDate);
   });
-
   $('span.left').on('click', function() {
-    curentDate = moment(curentDate).add(-1, 'day').format('ll');
-    globalData.date = curentDate;
+    currentDate = moment(currentDate).add(-1, 'day').format('ll');
+    globalData.date = currentDate;
+    $("#datepicker input").val(currentDate);
   });
-
   $('.location .box').on('click', function() {
     getValueUsingClass();
   });
 
 
   function runAjaxRequest(self, date, loc) {
-    var url = '/programs/get-event-data';
+    var url = '/schedules/get-event-data';
     url += loc ? '/' + loc : '/0';
     url += date ? '/' + date : '';
     $.getJSON(url, function(data) {
@@ -110,7 +104,7 @@
 
     $(".location .box").each(function() {
       if ($(this).is(':checked')) {
-        chkArray.push("'" + this.value + "'");
+        chkArray.push(this.value);
       }
     });
 
@@ -127,8 +121,8 @@
       //Results
     },
     mounted() {
-      runAjaxRequest(this, curentDate, eventLocation);
-      changeDateTitle(curentDate);
+      runAjaxRequest(this, currentDate, eventLocation);
+      changeDateTitle(currentDate);
     },
     watch: {
       'globalData.date': function(newValue, oldValue) {
@@ -137,7 +131,7 @@
         changeDateTitle(newValue);
       },
       'globalData.location': function(newValue, oldValue) {
-        runAjaxRequest(this, curentDate, newValue);
+        runAjaxRequest(this, currentDate, newValue);
       }
     },
     delimiters: ["${","}"]
