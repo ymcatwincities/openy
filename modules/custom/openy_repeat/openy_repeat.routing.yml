@@ -1,21 +1,15 @@
 openy_repeat.scheule_dashboard:
-  path: '/programs/test-schedule'
+  path: '/schedules/group-excercise-classes'
   defaults:
     _controller: '\Drupal\openy_repeat\Controller\RepeatController::dashboard'
-    _title: 'TEST'
+    _title: 'Group excercise classes'
   requirements:
     _permission: 'access content'
 openy_repeat.scheule_ajax:
-  path: '/programs/get-event-data/{location}/{date}'
+  path: '/schedules/get-event-data/{location}/{date}'
   defaults:
     _controller: '\Drupal\openy_repeat\Controller\RepeatController::ajaxScheduler'
     location: ''
     date: '0'
-  requirements:
-    _permission: 'access content'
-openy_repeat.scheule_locations:
-  path: '/programs/get-event-locations'
-  defaults:
-    _controller: '\Drupal\openy_repeat\Controller\RepeatController::getLocations'
   requirements:
     _permission: 'access content'
