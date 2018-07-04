@@ -609,37 +609,36 @@ html.js {
       padding: 0 15px 15px;
     }
 
-    .reset-wrapper {
-      position: absolute;
-      right: 35px;
-      top: 4px;
-
-      @include media-breakpoint-up(sm) {
-        top: 0;
-        right: 0;
-      }
-
-      .clear {
-        @include cachet();
-        background: none;
-        border: none;
-        color: $primary;
-        display: inline-block;
-        font-size: 14px;
-        height: 30px;
-        line-height: 30px;
-        padding: 0;
-
-        @include media-breakpoint-up(sm) {
-          text-transform: uppercase;
-        }
-      }
-    }
+    //.reset-wrapper {
+    //  position: absolute;
+    //  right: 35px;
+    //  top: 4px;
+    //
+    //  @include media-breakpoint-up(sm) {
+    //    top: 0;
+    //    right: 0;
+    //  }
+    //
+    //  .clear {
+    //    @include cachet();
+    //    background: none;
+    //    border: none;
+    //    color: $primary;
+    //    display: inline-block;
+    //    font-size: 14px;
+    //    height: 30px;
+    //    line-height: 30px;
+    //    padding: 0;
+    //
+    //    @include media-breakpoint-up(sm) {
+    //      text-transform: uppercase;
+    //    }
+    //  }
+    //}
   }
 
   .filters-wrapper {
     padding-bottom: 5px;
-    border-top: 1px solid $gray-400;
     padding-top: 5px;
 
     @include media-breakpoint-up(sm) {
@@ -759,20 +758,20 @@ html.js {
     color: $gray-400;
   }
 
-  .included-in-membership {
-    background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
-    background-size: contain;
-    position: absolute;
-    top: 47px;
-    right: 0;
-    height: 32px;
-    width: 90px;
-
-    @include media-breakpoint-up(sm) {
-      top: 66px;
-      right: 0;
-    }
-  }
+  //.included-in-membership {
+  //  background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
+  //  background-size: contain;
+  //  position: absolute;
+  //  top: 47px;
+  //  right: 0;
+  //  height: 32px;
+  //  width: 90px;
+  //
+  //  @include media-breakpoint-up(sm) {
+  //    top: 66px;
+  //    right: 0;
+  //  }
+  //}
 
   .field-body-no-summary {
     font-size: 15px;
@@ -786,16 +785,13 @@ html.js {
     border-bottom: 1px solid $pink;
     color: $purple;
     font-size: 18px;
-    height: 48px;
-    line-height: 56px;
+    min-height: 50px;
     margin: -1px -2px 0;
     padding-left: 2px;
 
     @include media-breakpoint-up(sm) {
       letter-spacing: -0.8px;
       font-size: 30px;
-      line-height: 72px;
-      height: 67px;
       padding-left: 0;
     }
   }

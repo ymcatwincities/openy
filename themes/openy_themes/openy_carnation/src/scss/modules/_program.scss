@@ -418,46 +418,47 @@
   .filters-container {
     clear: both;
     position: relative;
+    border-top: 1px solid $gray-400;
 
     @include media-breakpoint-up(sm) {
       margin-top: 0;
+      border: none;
     }
 
     .container {
       position: relative;
     }
 
-    .reset-wrapper {
-      position: absolute;
-      right: 35px;
-      top: 4px;
-
-      @include media-breakpoint-up(sm) {
-        top: 0;
-        right: 0;
-      }
-
-      .clear {
-        @include cachet();
-        background: none;
-        border: none;
-        color: $primary;
-        display: inline-block;
-        font-size: 14px;
-        height: 30px;
-        line-height: 30px;
-        padding: 0;
-
-        @include media-breakpoint-up(sm) {
-          text-transform: uppercase;
-        }
-      }
-    }
+    //.reset-wrapper {
+    //  position: absolute;
+    //  right: 35px;
+    //  top: 4px;
+    //
+    //  @include media-breakpoint-up(sm) {
+    //    top: 0;
+    //    right: 0;
+    //  }
+    //
+    //  .clear {
+    //    @include cachet();
+    //    background: none;
+    //    border: none;
+    //    color: $primary;
+    //    display: inline-block;
+    //    font-size: 14px;
+    //    height: 30px;
+    //    line-height: 30px;
+    //    padding: 0;
+    //
+    //    @include media-breakpoint-up(sm) {
+    //      text-transform: uppercase;
+    //    }
+    //  }
+    //}
   }
 
   .filters-wrapper {
     padding-bottom: 5px;
-    border-top: 1px solid $gray-400;
     padding-top: 5px;
 
     @include media-breakpoint-up(sm) {

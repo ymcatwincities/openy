@@ -8742,32 +8742,9 @@ html.js .branch__updates_queue__button {
       display: none; } }
   .ygs-branch-sessions-form .filters-main-wrapper > div {
     padding: 0 15px 15px; }
-  .ygs-branch-sessions-form .filters-main-wrapper .reset-wrapper {
-    position: absolute;
-    right: 35px;
-    top: 4px; }
-    @media (min-width: 576px) {
-      .ygs-branch-sessions-form .filters-main-wrapper .reset-wrapper {
-        top: 0;
-        right: 0; } }
-    .ygs-branch-sessions-form .filters-main-wrapper .reset-wrapper .clear {
-      font-family: "Cachet", "Comfortaa", sans-serif;
-      font-weight: 400;
-      background: none;
-      border: none;
-      color: #0089d0;
-      display: inline-block;
-      font-size: 14px;
-      height: 30px;
-      line-height: 30px;
-      padding: 0; }
-      @media (min-width: 576px) {
-        .ygs-branch-sessions-form .filters-main-wrapper .reset-wrapper .clear {
-          text-transform: uppercase; } }
 
 .ygs-branch-sessions-form .filters-wrapper {
   padding-bottom: 5px;
-  border-top: 1px solid #636466;
   padding-top: 5px; }
   @media (min-width: 576px) {
     .ygs-branch-sessions-form .filters-wrapper {
@@ -8858,18 +8835,6 @@ html.js .branch__updates_queue__button {
     font-size: 14px;
     margin-bottom: 10px;
     color: #636466; }
-  .branch-sessions-group .included-in-membership {
-    background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
-    background-size: contain;
-    position: absolute;
-    top: 47px;
-    right: 0;
-    height: 32px;
-    width: 90px; }
-    @media (min-width: 576px) {
-      .branch-sessions-group .included-in-membership {
-        top: 66px;
-        right: 0; } }
   .branch-sessions-group .field-body-no-summary {
     font-size: 15px;
     line-height: 1.5;
@@ -8881,16 +8846,13 @@ html.js .branch__updates_queue__button {
     border-bottom: 1px solid #c6168d;
     color: #5c2e91;
     font-size: 18px;
-    height: 48px;
-    line-height: 56px;
+    min-height: 50px;
     margin: -1px -2px 0;
     padding-left: 2px; }
     @media (min-width: 576px) {
       .branch-sessions-group .group_time {
         letter-spacing: -0.8px;
         font-size: 30px;
-        line-height: 72px;
-        height: 67px;
         padding-left: 0; } }
   .branch-sessions-group .branch-sessions-group-slider {
     margin: 0 45px 35px; }
@@ -11607,38 +11569,17 @@ body {
 
 .sub-category-classes-view .filters-container {
   clear: both;
-  position: relative; }
+  position: relative;
+  border-top: 1px solid #636466; }
   @media (min-width: 576px) {
     .sub-category-classes-view .filters-container {
-      margin-top: 0; } }
+      margin-top: 0;
+      border: none; } }
   .sub-category-classes-view .filters-container .container {
     position: relative; }
-  .sub-category-classes-view .filters-container .reset-wrapper {
-    position: absolute;
-    right: 35px;
-    top: 4px; }
-    @media (min-width: 576px) {
-      .sub-category-classes-view .filters-container .reset-wrapper {
-        top: 0;
-        right: 0; } }
-    .sub-category-classes-view .filters-container .reset-wrapper .clear {
-      font-family: "Cachet", "Comfortaa", sans-serif;
-      font-weight: 400;
-      background: none;
-      border: none;
-      color: #0089d0;
-      display: inline-block;
-      font-size: 14px;
-      height: 30px;
-      line-height: 30px;
-      padding: 0; }
-      @media (min-width: 576px) {
-        .sub-category-classes-view .filters-container .reset-wrapper .clear {
-          text-transform: uppercase; } }
 
 .sub-category-classes-view .filters-wrapper {
   padding-bottom: 5px;
-  border-top: 1px solid #636466;
   padding-top: 5px; }
   @media (min-width: 576px) {
     .sub-category-classes-view .filters-wrapper {
@@ -11843,6 +11784,9 @@ body {
   padding-top: 9px;
   padding-bottom: 9px;
   background-color: #bfe1f3; }
+  @media (min-width: 576px) {
+    #schedules-search-form-wrapper .controls-wrapper {
+      display: none; } }
   #schedules-search-form-wrapper .controls-wrapper a {
     display: inline-block;
     padding: 3px 15px; }
@@ -11863,7 +11807,6 @@ body {
   @media (min-width: 576px) {
     #schedules-search-form-wrapper .js-form-type-select {
       padding: 15px 0;
-      margin-right: 18px;
       width: 150px; } }
   #schedules-search-form-wrapper .js-form-type-select label {
     font-family: "Cachet", "Comfortaa", sans-serif;
@@ -11892,7 +11835,6 @@ body {
     width: 100%; }
     @media (min-width: 576px) {
       #schedules-search-form-wrapper .js-form-type-select.form-item-time {
-        margin-right: 18px;
         padding: 15px 0;
         width: 90px; } }
 
@@ -11958,13 +11900,7 @@ body {
       display: none; } }
 
 #schedules-search-form-wrapper .actions-wrapper {
-  padding-top: 23px;
-  padding-bottom: 23px; }
-  #schedules-search-form-wrapper .actions-wrapper input {
-    text-transform: uppercase;
-    font-size: 18px;
-    padding: 12px 0;
-    width: 100%; }
+  display: none; }
 
 #schedules-search-form-wrapper .filters-main-wrapper {
   clear: both; }
@@ -11976,38 +11912,17 @@ body {
 
 #schedules-search-form-wrapper .filters-container {
   clear: both;
-  position: relative; }
+  position: relative;
+  border-top: 1px solid #636466; }
   @media (min-width: 576px) {
     #schedules-search-form-wrapper .filters-container {
-      margin-top: 0; } }
+      margin-top: 0;
+      border: none; } }
   #schedules-search-form-wrapper .filters-container .container {
     position: relative; }
-  #schedules-search-form-wrapper .filters-container .reset-wrapper {
-    position: absolute;
-    right: 35px;
-    top: 4px; }
-    @media (min-width: 576px) {
-      #schedules-search-form-wrapper .filters-container .reset-wrapper {
-        top: 0;
-        right: 15px; } }
-    #schedules-search-form-wrapper .filters-container .reset-wrapper .clear {
-      font-family: "Cachet", "Comfortaa", sans-serif;
-      font-weight: 400;
-      background: none;
-      border: none;
-      color: #0089d0;
-      display: inline-block;
-      font-size: 14px;
-      height: 30px;
-      line-height: 30px;
-      padding: 0; }
-      @media (min-width: 576px) {
-        #schedules-search-form-wrapper .filters-container .reset-wrapper .clear {
-          text-transform: uppercase; } }
 
 #schedules-search-form-wrapper .filters-wrapper {
   padding-bottom: 5px;
-  border-top: 1px solid #636466;
   padding-top: 5px; }
   @media (min-width: 576px) {
     #schedules-search-form-wrapper .filters-wrapper {
@@ -12080,172 +11995,43 @@ body {
   #schedules-search-listing-wrapper .results .group_time {
     font-family: "Cachet", "Comfortaa", sans-serif;
     font-weight: 400;
-    color: #5c2e91;
-    font-size: 18px;
-    margin-bottom: 10px;
-    margin-top: 0;
-    line-height: inherit;
-    font-weight: normal; }
-    @media (min-width: 576px) {
-      #schedules-search-listing-wrapper .results .group_time {
-        font-size: 28px; } }
-  #schedules-search-listing-wrapper .results .schedule-sessions-group-slider {
-    margin: 0 0 45px; }
-    @media (min-width: 576px) {
-      #schedules-search-listing-wrapper .results .schedule-sessions-group-slider {
-        margin: 0 65px 55px; } }
-    @media (min-width: 992px) {
-      #schedules-search-listing-wrapper .results .schedule-sessions-group-slider {
-        margin-right: 0; } }
-    #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-track {
-      display: flex;
-      flex-wrap: wrap; }
-    #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow {
-      background: none;
-      color: #00aeef;
-      padding: 0;
-      z-index: 1;
-      height: 40px;
-      width: 40px;
-      margin-top: -7px; }
-      #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow:before {
-        color: #00aeef; }
-      @media (min-width: 576px) {
-        #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow {
-          height: 70px;
-          width: 50px; } }
-      #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow .fa {
-        font-size: 30px; }
-        @media (min-width: 992px) {
-          #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow .fa {
-            font-size: 40px; } }
-      #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-prev {
-        left: -45px; }
-      #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-next {
-        right: -45px; }
-    #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots {
-      bottom: -40px; }
-      #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots li button:before {
-        opacity: 1;
-        color: #ebebeb; }
-      #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before {
-        opacity: 1;
-        color: #c6168d; }
+    width: 80px;
+    min-height: 50px;
+    border-radius: 8px;
+    background-color: #ebebeb;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    text-align: center;
+    color: #2f2f2f;
+    position: relative; }
+    #schedules-search-listing-wrapper .results .group_time.group_time_week {
+      width: 90px;
+      font-size: 15px; }
+  #schedules-search-listing-wrapper .results .schedule-sessions-group {
+    border-bottom: dotted 3px #636466;
+    margin-bottom: 60px; }
+  #schedules-search-listing-wrapper .results .time-wrapper {
+    margin-top: -35px;
+    padding-left: 40px; }
+    #schedules-search-listing-wrapper .results .time-wrapper li {
+      border-top: dotted 3px #636466;
+      padding: 25px; }
+      @media (min-width: 992px) {
+        #schedules-search-listing-wrapper .results .time-wrapper li {
+          padding: 45px; } }
+  #schedules-search-listing-wrapper .results #ygd-scheduler-daxko-block .title-class {
+    font-weight: bold;
+    letter-spacing: -0.6px;
+    color: #0060AF; }
   #schedules-search-listing-wrapper .results .week-control {
     font-size: 16px; }
     #schedules-search-listing-wrapper .results .week-control.prev-week {
       float: left; }
     #schedules-search-listing-wrapper .results .week-control.next-week {
       float: right; }
-  #schedules-search-listing-wrapper .results .views-row {
-    border: 1px solid #c6168d;
-    margin: 0 15px;
-    padding: 15px;
-    height: auto;
-    outline: none;
-    text-decoration: none;
-    position: relative; }
-    #schedules-search-listing-wrapper .results .views-row:hover h3 {
-      text-decoration: underline; }
-    #schedules-search-listing-wrapper .results .views-row .included-in-membership {
-      background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
-      background-size: contain;
-      position: absolute;
-      top: 0;
-      right: 0;
-      height: 32px;
-      width: 90px; }
-    #schedules-search-listing-wrapper .results .views-row .ticket {
-      color: #5c2e91;
-      margin-top: 10px;
-      display: block; }
-    #schedules-search-listing-wrapper .results .views-row h3 {
-      font-family: "Cachet", "Comfortaa", sans-serif;
-      font-weight: 400;
-      font-size: 22px;
-      line-height: 1;
-      color: #0089d0;
-      white-space: normal; }
-    #schedules-search-listing-wrapper .results .views-row .time {
-      color: #636466; }
-    #schedules-search-listing-wrapper .results .views-row p {
-      font-size: 15px;
-      line-height: 1.5;
-      color: #333333; }
-    #schedules-search-listing-wrapper .results .views-row img {
+    #schedules-search-listing-wrapper .results .week-control.hidden {
       display: none; }
-    #schedules-search-listing-wrapper .results .views-row .node__content {
-      color: #333333; }
-
-#schedules-search-listing-wrapper .branch-hours-wrapper {
-  margin-bottom: 10px; }
-  #schedules-search-listing-wrapper .branch-hours-wrapper .slick-slider {
-    padding: 0 30px; }
-  #schedules-search-listing-wrapper .branch-hours-wrapper .slick-track {
-    display: -webkit-flex;
-    display: flex;
-    flex-wrap: nowrap; }
-    @media (min-width: 576px) {
-      #schedules-search-listing-wrapper .branch-hours-wrapper .slick-track {
-        flex-wrap: wrap; } }
-  #schedules-search-listing-wrapper .branch-hours-wrapper .slick-slide {
-    display: -webkit-flex;
-    display: flex;
-    height: auto; }
-  #schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div {
-    margin: 0 10px 10px 0; }
-    #schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-arrow, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-arrow, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-arrow {
-      color: #00aeef; }
-      #schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-arrow:hover:before, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-arrow:hover:before, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-arrow:hover:before {
-        color: #00aeef; }
-      #schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-arrow:before, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-arrow:before, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-arrow:before {
-        color: #00aeef; }
-    #schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-next, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-next, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-next,
-    #schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-prev,
-    #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-prev,
-    .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-prev {
-      z-index: 100; }
-    #schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-next, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-next, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-next {
-      text-align: right; }
-  #schedules-search-listing-wrapper .branch-hours-wrapper .card {
-    background-color: #f15922;
-    color: #fff;
-    padding: 10px 20px;
-    width: 100%;
-    height: auto;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column; }
-    #schedules-search-listing-wrapper .branch-hours-wrapper .card h4 {
-      font-size: 20px;
-      line-height: 17px;
-      letter-spacing: -0.5px; }
-    #schedules-search-listing-wrapper .branch-hours-wrapper .card p {
-      font-family: "Cachet", "Comfortaa", sans-serif;
-      font-weight: 400;
-      font-size: 30px;
-      line-height: 1.15; }
-  #schedules-search-listing-wrapper .branch-hours-wrapper .col-sm-2 h4 {
-    font-size: 14px; }
-  #schedules-search-listing-wrapper .branch-hours-wrapper .col-sm-2 p {
-    font-size: 20px; }
-  #schedules-search-listing-wrapper .branch-hours-wrapper .row {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap; }
-    #schedules-search-listing-wrapper .branch-hours-wrapper .row .row-eq-height, #schedules-search-listing-wrapper .branch-hours-wrapper .row .modal-body .fieldset-wrapper > div, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .row .fieldset-wrapper > div {
-      -webkit-flex-wrap: nowrap;
-      flex-wrap: nowrap; }
-      #schedules-search-listing-wrapper .branch-hours-wrapper .row .row-eq-height h4, #schedules-search-listing-wrapper .branch-hours-wrapper .row .modal-body .fieldset-wrapper > div h4, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .row .fieldset-wrapper > div h4 {
-        font-size: 20px;
-        white-space: normal; }
-      #schedules-search-listing-wrapper .branch-hours-wrapper .row .row-eq-height p, #schedules-search-listing-wrapper .branch-hours-wrapper .row .modal-body .fieldset-wrapper > div p, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .row .fieldset-wrapper > div p {
-        font-size: 30px;
-        white-space: normal; }
 
 #group-ex-results .caption,
 .groupex-results .caption {
