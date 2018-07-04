@@ -60,6 +60,7 @@
                                         <th>Instructor</th>
                                         <th>Location</th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,7 +69,10 @@
                                         <td v-cloak>${ item.name }</td>
                                         <td v-cloak>${ item.instructor }</td>
                                         <td v-cloak>${ item.location }</td>
-                                        <td v-cloak><a href="#">Edit</a></td>
+                                        <td v-cloak><a href="/node/item.nid">Learn more</a></td>
+                                        <td v-cloak>
+                                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
