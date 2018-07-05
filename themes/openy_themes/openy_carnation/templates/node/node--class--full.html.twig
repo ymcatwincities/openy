@@ -79,6 +79,7 @@
 {%
   set content_classes = [
     'class-content',
+    'row',
     layout_class,
   ]
 %}
@@ -100,39 +101,35 @@ set sidebar_classes = [
 
 {% if content.field_sidebar_content is not empty %}
 <div class="container">
-  <div class="row">
-    {% endif %}
+  {% endif %}
+  {% if content.field_content is not empty %}
+    <article{{ attributes.addClass(content_classes) }}>
 
-    {% if content.field_content is not empty %}
-      <article{{ attributes.addClass(content_classes) }}>
-        {% if content.field_sidebar_content is empty %}
-        <div class="main-region col-sm-12">
-          {% endif %}
-          {% if content.field_sidebar_content is not empty %}
-          <div class="two-column">
-            <div class="main-region col-md-7 col-lg-8">
-              {% endif %}
-              {{ content.field_class_description }}
-              {{ content.field_content }}
-              {% if content.field_sidebar_content is not empty %}
-            </div>
-            <div class="sidebar-region col-md-5 col-lg-4">
-              {% endif %}
-              <article{{ attributes.addClass(sidebar_classes) }}>
-                {{ content.field_sidebar_content }}
-              </article>
-              {% if content.field_sidebar_content is not empty %}
-            </div>
-          </div>
-          {% endif %}
-          {% if content.field_sidebar_content is empty %}
-        </div>
+      {% if content.field_sidebar_content is empty %}
+      <div class="main-region col-sm-12">
         {% endif %}
-      </article>
-    {% endif %}
+        {% if content.field_sidebar_content is not empty %}
+          <div class="main-region col-md-7 col-lg-8">
+            {% endif %}
+            {{ content.field_class_description }}
+            {{ content.field_content }}
+            {% if content.field_sidebar_content is not empty %}
+          </div>
+          <div class="sidebar-region col-md-5 col-lg-4">
+            {% endif %}
+            <article{{ attributes.addClass(sidebar_classes).removeClass(content_classes) }}>
+              {{ content.field_sidebar_content }}
+            </article>
+            {% if content.field_sidebar_content is not empty %}
+          </div>
+        {% endif %}
+        {% if content.field_sidebar_content is empty %}
+      </div>
+      {% endif %}
 
-    {% if content.field_sidebar_content is not empty %}
-  </div>
+    </article>
+  {% endif %}
+  {% if content.field_sidebar_content is not empty %}
 </div>
 {% endif %}
 

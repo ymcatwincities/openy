@@ -72,6 +72,7 @@
 #}
 {%
   set classes = [
+    'card',
     'node',
     'node--type-' ~ node.bundle|clean_class,
     node.isPromoted() ? 'node--promoted',
@@ -81,7 +82,7 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
-  <h2>{{ 'SCHEDULE FOR'|t }}</h2>
+  <span>{{ 'SCHEDULE FOR'|t }}</span>
 
   {{ title_prefix }}
   {% if not page %}
@@ -95,22 +96,15 @@
     <h3{{ title_attributes }}>
       <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
     </h3>
-    <a href="#" class="edit-class-popup hidden">{{ "Edit"|t }}</a>
   {% endif %}
   {{ title_suffix }}
-
-  {% if display_submitted %}
-    <footer class="node__meta">
-      {{ author_picture }}
-      <div{{ author_attributes.addClass('node__submitted') }}>
-        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-        {{ metadata }}
-      </div>
-    </footer>
-  {% endif %}
 
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content }}
   </div>
+
+  {% if not page %}
+  <a href="#" class="btn btn-sm btn-outline-primary mt-3 edit-class-popup"><i class="fas fa-edit"></i> {{ "Edit"|t }}</a>
+  {% endif %}
 
 </article>
