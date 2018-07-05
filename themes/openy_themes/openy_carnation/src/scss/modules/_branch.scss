@@ -867,20 +867,27 @@ html.js {
       }
     }
 
-    .edit-class-popup {
-      background-color: #00aeef;
-      color: white;
-      display: inline-block;
-      font-size: 15px;
-      font-weight: normal;
-      padding: 3px 15px;
-      text-transform: lowercase;
-      vertical-align: middle;
+    // address
+    .field-location-address {
+      position: relative;
+      padding-left: 25px;
 
-      &:hover {
-        background-color: #0089d0;
+      &:before {
+        position: absolute;
+        content: '\f041';
+        font-family: 'FontAwesome';
+        font-size: 18px;
+        top: 0;
+        left: 0;
+        color: $gray-400;
       }
     }
+
+    // links (tel)
+    h4 {
+      margin-top: 1rem;
+    }
+
   }
 
   .marker_tooltip & {
@@ -959,21 +966,6 @@ html.js {
       letter-spacing: 2px;
       margin: 0 0 10px;
       text-transform: uppercase;
-    }
-  }
-
-  .edit-class-popup {
-    background-color: #00aeef;
-    color: white;
-    display: inline-block;
-    font-size: 15px;
-    font-weight: normal;
-    padding: 3px 15px;
-    text-transform: lowercase;
-    vertical-align: middle;
-
-    &:hover {
-      background-color: #0089d0;
     }
   }
 }

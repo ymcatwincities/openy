@@ -8931,27 +8931,34 @@ html.js .branch__updates_queue__button {
       .node--type-branch.node--view-mode-class-location .location-item--title a, [class*="sidebar"]
       .node--type-camp.node--view-mode-teaser .location-item--title a {
         color: #5c2e91; }
-    [class*="sidebar"] .node--location-content-type.node--view-mode-teaser .edit-class-popup, [class*="sidebar"]
-    .node--type-facility.node--view-mode-teaser .edit-class-popup, [class*="sidebar"]
-    .node--type-branch.node--view-mode-teaser .edit-class-popup, [class*="sidebar"]
-    .node--type-branch.node--view-mode-sidebar-teaser .edit-class-popup, [class*="sidebar"]
-    .node--type-branch.node--view-mode-class-location .edit-class-popup, [class*="sidebar"]
-    .node--type-camp.node--view-mode-teaser .edit-class-popup {
-      background-color: #00aeef;
-      color: white;
-      display: inline-block;
-      font-size: 15px;
-      font-weight: normal;
-      padding: 3px 15px;
-      text-transform: lowercase;
-      vertical-align: middle; }
-      [class*="sidebar"] .node--location-content-type.node--view-mode-teaser .edit-class-popup:hover, [class*="sidebar"]
-      .node--type-facility.node--view-mode-teaser .edit-class-popup:hover, [class*="sidebar"]
-      .node--type-branch.node--view-mode-teaser .edit-class-popup:hover, [class*="sidebar"]
-      .node--type-branch.node--view-mode-sidebar-teaser .edit-class-popup:hover, [class*="sidebar"]
-      .node--type-branch.node--view-mode-class-location .edit-class-popup:hover, [class*="sidebar"]
-      .node--type-camp.node--view-mode-teaser .edit-class-popup:hover {
-        background-color: #0089d0; }
+    [class*="sidebar"] .node--location-content-type.node--view-mode-teaser .field-location-address, [class*="sidebar"]
+    .node--type-facility.node--view-mode-teaser .field-location-address, [class*="sidebar"]
+    .node--type-branch.node--view-mode-teaser .field-location-address, [class*="sidebar"]
+    .node--type-branch.node--view-mode-sidebar-teaser .field-location-address, [class*="sidebar"]
+    .node--type-branch.node--view-mode-class-location .field-location-address, [class*="sidebar"]
+    .node--type-camp.node--view-mode-teaser .field-location-address {
+      position: relative;
+      padding-left: 25px; }
+      [class*="sidebar"] .node--location-content-type.node--view-mode-teaser .field-location-address:before, [class*="sidebar"]
+      .node--type-facility.node--view-mode-teaser .field-location-address:before, [class*="sidebar"]
+      .node--type-branch.node--view-mode-teaser .field-location-address:before, [class*="sidebar"]
+      .node--type-branch.node--view-mode-sidebar-teaser .field-location-address:before, [class*="sidebar"]
+      .node--type-branch.node--view-mode-class-location .field-location-address:before, [class*="sidebar"]
+      .node--type-camp.node--view-mode-teaser .field-location-address:before {
+        position: absolute;
+        content: '\f041';
+        font-family: 'FontAwesome';
+        font-size: 18px;
+        top: 0;
+        left: 0;
+        color: #636466; }
+    [class*="sidebar"] .node--location-content-type.node--view-mode-teaser h4, [class*="sidebar"]
+    .node--type-facility.node--view-mode-teaser h4, [class*="sidebar"]
+    .node--type-branch.node--view-mode-teaser h4, [class*="sidebar"]
+    .node--type-branch.node--view-mode-sidebar-teaser h4, [class*="sidebar"]
+    .node--type-branch.node--view-mode-class-location h4, [class*="sidebar"]
+    .node--type-camp.node--view-mode-teaser h4 {
+      margin-top: 1rem; }
   .marker_tooltip .node--location-content-type.node--view-mode-teaser, .marker_tooltip
   .node--type-facility.node--view-mode-teaser, .marker_tooltip
   .node--type-branch.node--view-mode-teaser, .marker_tooltip
@@ -9070,18 +9077,6 @@ html.js .branch__updates_queue__button {
     letter-spacing: 2px;
     margin: 0 0 10px;
     text-transform: uppercase; }
-
-.paragraph--type--class-location.paragraph--view-mode--default .edit-class-popup {
-  background-color: #00aeef;
-  color: white;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: normal;
-  padding: 3px 15px;
-  text-transform: lowercase;
-  vertical-align: middle; }
-  .paragraph--type--class-location.paragraph--view-mode--default .edit-class-popup:hover {
-    background-color: #0089d0; }
 
 .node--view-mode-full.node--type-facility {
   margin-top: -20px; }
@@ -9325,7 +9320,8 @@ html.js .branch__updates_queue__button {
   border-bottom: 1px solid #ebebeb; }
   .class__session-instance td,
   .flexreg__teaser td {
-    padding: 10px 5px; }
+    padding: 10px 5px;
+    border-top: none; }
   .class__session-instance .name,
   .flexreg__teaser .name {
     font-family: "Cachet", "Comfortaa", sans-serif;

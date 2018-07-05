@@ -73,6 +73,7 @@
 {%
   set classes = [
     'node',
+    'card',
     'node--type-' ~ node.bundle|clean_class,
     node.isPromoted() ? 'node--promoted',
     node.isSticky() ? 'node--sticky',
@@ -94,22 +95,16 @@
 
     <h2{{ title_attributes }}>
       <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
-    </h2><a href="#" class="edit-class-popup hidden">{{ "Edit"|t }}</a>
+    </h2>
   {% endif %}
   {{ title_suffix }}
-
-  {% if display_submitted %}
-    <footer class="node__meta">
-      {{ author_picture }}
-      <div{{ author_attributes.addClass('node__submitted') }}>
-        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-        {{ metadata }}
-      </div>
-    </footer>
-  {% endif %}
 
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content }}
   </div>
+
+  {% if not page %}
+  <a href="#" class="btn btn-sm btn-outline-primary mt-3 edit-class-popup"><i class="fas fa-edit"></i> {{ "Edit"|t }}</a>
+  {% endif %}
 
 </article>
