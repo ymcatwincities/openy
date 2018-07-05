@@ -233,7 +233,6 @@ a.direction-link {
 .branch-content {
   .node__content {
     .paragraph {
-      @include make-container();
       margin-bottom: 2.5rem;
 
       @include media-breakpoint-up(lg) {

@@ -9,6 +9,11 @@ input:-moz-placeholder {
   font-style: italic;
 }
 
+.form-type-radio {
+  display: flex;
+  align-items: center;
+}
+
 // Checkboxes / radio buttons.
 .checkbox, .radio {
   // Remove top/bottom margins when in table context, because this is most
@@ -24,7 +29,6 @@ input:-moz-placeholder {
 // $see http://stackoverflow.com/q/21103542
 .select-wrapper {
   display: inline-block;
-  position: relative;
   width: 100%;
   text-align: center;
 

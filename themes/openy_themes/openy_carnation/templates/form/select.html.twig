@@ -29,7 +29,7 @@
    # @see http://stackoverflow.com/q/21103542
    #}
   {% if not attributes.offsetExists('multiple') %}
-    <div class="select-wrapper">
+    <div class="select-wrapper position-relative">
   {% endif %}
     {% set classes = ['form-control'] %}
     <select{{ attributes.addClass(classes) }}>

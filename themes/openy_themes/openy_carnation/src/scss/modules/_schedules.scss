@@ -65,12 +65,11 @@
     }
 
     label {
-      @include cachet();
+      @include cachet(500);
       font-size: 14px;
       line-height: 1.6;
       color: $gray-500;
       margin-bottom: 0;
-      text-decoration: underline;
 
       @include media-breakpoint-up(md) {
         margin-bottom: 5px;
@@ -521,11 +520,13 @@
     }
 
     #submit-wrapper {
-      display: flex;
-      justify-content: space-between;
+      .input-wrapper {
+        display: flex;
+        justify-content: space-between;
 
-      @include media-breakpoint-up(lg) {
-        flex-direction: row;
+        @include media-breakpoint-up(lg) {
+          flex-direction: row;
+        }
       }
     }
 
@@ -540,13 +541,6 @@
 
     select {
       @include cachet();
-      border: 1px solid $gray-300;
-      appearance: none;
-      background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
-      background-position: 100% 50%;
-      background-repeat: no-repeat;
-      background-color: $white;
-      color: $gray-500;
       font-size: 14px;
       text-transform: uppercase;
 
@@ -560,7 +554,6 @@
       line-height: 32px;
       border: 1px solid $gray-300;
     }
-
 
     .groupex-pdf-link-container {
       a {

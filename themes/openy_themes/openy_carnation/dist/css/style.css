@@ -7485,9 +7485,11 @@ html.js .ajax-new-content:empty {
   color: #c61017; }
 
 .breadcrumbs-wrapper {
-  position: relative;
-  top: -25px;
-  z-index: 1; }
+  position: absolute;
+  bottom: -25px;
+  z-index: 1;
+  left: 0;
+  right: 0; }
 
 .breadcrumbs {
   list-style: none;
@@ -7747,13 +7749,16 @@ body .pager li.load_more_button > a {
 input:-moz-placeholder {
   font-style: italic; }
 
+.form-type-radio {
+  display: flex;
+  align-items: center; }
+
 table .checkbox.form-no-label, table .radio.form-no-label {
   margin-bottom: 0;
   margin-top: 0; }
 
 .select-wrapper {
   display: inline-block;
-  position: relative;
   width: 100%;
   text-align: center; }
   .form-inline .select-wrapper {
@@ -8460,11 +8465,6 @@ a.direction-link {
   height: auto; }
 
 .branch-content .node__content .paragraph {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
   margin-bottom: 2.5rem; }
   @media (min-width: 992px) {
     .branch-content .node__content .paragraph {
@@ -9321,7 +9321,8 @@ html.js .branch__updates_queue__button {
   .class__session-instance td,
   .flexreg__teaser td {
     padding: 10px 5px;
-    border-top: none; }
+    border-top: none;
+    vertical-align: middle; }
   .class__session-instance .name,
   .flexreg__teaser .name {
     font-family: "Cachet", "Comfortaa", sans-serif;
@@ -9481,23 +9482,18 @@ body .branch-popup {
       body .branch-popup .ui-dialog-content h3:after {
         content: ":"; }
     body .branch-popup .ui-dialog-content .form-item-branch {
-      line-height: 20px;
       padding: 15px;
       position: relative;
       border-radius: 0.25rem;
-      margin: 0 20px 0 0; }
+      margin: 0 20px 0 0;
+      display: flex;
+      align-items: center; }
       body .branch-popup .ui-dialog-content .form-item-branch:hover {
         background-color: #ebebeb; }
-      body .branch-popup .ui-dialog-content .form-item-branch input {
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%); }
       body .branch-popup .ui-dialog-content .form-item-branch label {
-        display: inline-block;
         font-size: 14px;
         margin: 0;
-        padding-left: 20px; }
+        padding-left: 15px; }
     @media (min-width: 768px) {
       body .branch-popup .ui-dialog-content .branch-popup-map {
         position: relative;
@@ -9542,11 +9538,6 @@ body .branch-popup {
     @media (min-width: 992px) {
       .modal-body [class*='form-type-radio'] {
         width: 33.33%; } }
-    .modal-body [class*='form-type-radio'] input {
-      margin: 4px 5px 0 0;
-      margin-top: 1px \9; }
-    .modal-body [class*='form-type-radio'] label {
-      display: inline; }
 
 .ygs-popups-class-branches-form hr {
   margin: 0;
@@ -10546,20 +10537,6 @@ a[href="#step2"] {
   #membership-calc-wrapper .label-for-field-mbrshp-monthly-rate:after {
     content: ":"; }
 
-#membership-calc-wrapper .membership-type h3 {
-  width: 100%; }
-
-#membership-calc-wrapper .membership-type label {
-  left: 0;
-  bottom: 0;
-  display: block;
-  padding-bottom: 30px;
-  position: absolute;
-  width: 100%; }
-
-#membership-calc-wrapper .text-center {
-  margin-top: 40px; }
-
 #membership-calc-wrapper .form-element-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -10587,17 +10564,8 @@ a[href="#step2"] {
   background-color: #5c2e91;
   box-shadow: 0 0 5px #5c2e91; }
 
-#membership-calc-wrapper .pull-left,
-#membership-calc-wrapper .pull-right {
-  margin: 20px 0 10px 0; }
-
-#membership-calc-wrapper .node--type-membership.node--view-mode-calc-preview {
-  margin-bottom: 100px;
-  width: 100%; }
-
 #membership-calc-wrapper .pull-right,
 #membership-calc-wrapper .complete-registration {
-  background-color: #5c2e91;
   border: none;
   padding: 10px 25px;
   font-size: 1.25rem;
@@ -11829,12 +11797,11 @@ body {
     margin-top: -18px; }
   #schedules-search-form-wrapper .form-item label {
     font-family: "Cachet", "Comfortaa", sans-serif;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 14px;
     line-height: 1.6;
     color: #4f4f4f;
-    margin-bottom: 0;
-    text-decoration: underline; }
+    margin-bottom: 0; }
     @media (min-width: 768px) {
       #schedules-search-form-wrapper .form-item label {
         margin-bottom: 5px; } }
@@ -12180,11 +12147,11 @@ body {
         margin-bottom: 0;
         flex-basis: 0;
         flex-grow: 1; } }
-  .groupex-form-full .top-form-wrapper #submit-wrapper {
+  .groupex-form-full .top-form-wrapper #submit-wrapper .input-wrapper {
     display: flex;
     justify-content: space-between; }
     @media (min-width: 992px) {
-      .groupex-form-full .top-form-wrapper #submit-wrapper {
+      .groupex-form-full .top-form-wrapper #submit-wrapper .input-wrapper {
         flex-direction: row; } }
   .groupex-form-full .top-form-wrapper .ajax-progress-throbber {
     display: none; }
@@ -12194,13 +12161,6 @@ body {
   .groupex-form-full .top-form-wrapper select {
     font-family: "Cachet", "Comfortaa", sans-serif;
     font-weight: 400;
-    border: 1px solid #979797;
-    appearance: none;
-    background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
-    background-position: 100% 50%;
-    background-repeat: no-repeat;
-    background-color: #fff;
-    color: #4f4f4f;
     font-size: 14px;
     text-transform: uppercase; }
     .groupex-form-full .top-form-wrapper select ::-ms-expand {
@@ -12967,7 +12927,6 @@ body.path-user:not(.user-logged-in) {
 
 .banner {
   background-color: #01a490;
-  overflow: hidden;
   position: relative; }
   .banner--dark-blue {
     background-color: #0060af; }

@@ -81,27 +81,13 @@ set classes = [
   view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
 ]
 %}
+{% set branch_attributes = create_attribute() %}
 
-{%
-  set header_classes = [
-    'landing-header',
-    'w-100',
-    node.field_lp_layout.value|clean_class,
-  ]
-%}
-
-{% if content.field_header_content|render|trim is not empty %}
-  <article{{ attributes.addClass(header_classes) }}>
-    <div{{ content_attributes.addClass(header_content_classes) }}>
-      <div class="main">
-        {{ content.field_header_content }}
-      </div>
-    </div>
-  </article>
-{% endif %}
+{# default header #}
+{% include '@openy_carnation/node/include/header-default.html.twig' %}
 
 {# branch contact card #}
-<article{{ attributes.removeClass(header_classes).addClass('branch-header mt-0 mt-lg-5') }}>
+<article{{ attributes.addClass('branch-header mt-0 mt-lg-5') }}>
 
   {# desktop view #}
   <div class="d-none d-sm-inline-block w-100 mt-3 mb-5 desktop">
@@ -203,6 +189,7 @@ set classes = [
   </div>
 </article>
 
+
 {# branch ammenities #}
 {% if content.field_location_amenities|render|trim is not empty %}
 <div class="bg-gray-600 text-white mb-sm-5">
@@ -220,8 +207,8 @@ set classes = [
 {# Branch content #}
 <div class="container">
   <div class="row">
-    <div class="branch-content mt-0 mt-lg-5">
-      <article{{ attributes.removeClass('branch-header my-5').addClass(classes) }}>
+    <div class="branch-content col mt-0 mt-lg-4">
+      <article{{ branch_attributes.addClass(classes) }}>
         <div{{ content_attributes.addClass('node__content') }}>
           {{ content.field_content }}
         </div>
