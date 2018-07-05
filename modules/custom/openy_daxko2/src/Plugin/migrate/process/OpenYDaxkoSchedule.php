@@ -16,6 +16,8 @@ use Drupal\paragraphs\Entity\Paragraph;
  */
 class OpenYDaxkoSchedule extends ProcessPluginBase {
 
+  const MAX_TIMESTAMP = 2147483647;
+
   /**
    * {@inheritdoc}
    */
@@ -29,7 +31,7 @@ class OpenYDaxkoSchedule extends ProcessPluginBase {
     // Check for max timestamp date
     $timezone = new \DateTimeZone(drupal_get_user_timezone());
     $maxDt = new \DateTime();
-    $maxDt->setTimestamp(2147483647);
+    $maxDt->setTimestamp(self::MAX_TIMESTAMP);
     $maxDt->setTimezone($timezone);
     $maxDt->setTime(0, 0, 0, 0);
     $maxDate = $maxDt->format(DATETIME_DATETIME_STORAGE_FORMAT);
@@ -50,7 +52,7 @@ class OpenYDaxkoSchedule extends ProcessPluginBase {
     if (!empty($value->start_date)) {
       $startTime = !empty($value->times[0]) ? $value->times[0]->start : '00:00';
       $startDate = substr($value->start_date, 0, 11) . $startTime . ':00';
-      if (strtotime($startDate) > 2147483647) {
+      if (strtotime($startDate) > self::MAX_TIMESTAMP) {
         $startDate = $maxDate;
       }
       if (strtotime($startDate) <= 0) {
@@ -61,7 +63,7 @@ class OpenYDaxkoSchedule extends ProcessPluginBase {
     if (!empty($value->end_date)) {
       $endTime = !empty($value->times[0]) ? $value->times[0]->end : '23:59';
       $endDate = substr($value->end_date, 0, 11) . $endTime . ':00';
-      if (strtotime($endDate) > 2147483647) {
+      if (strtotime($endDate) > self::MAX_TIMESTAMP) {
         $endDate = $maxDate;
       }
       if (strtotime($startDate) <= 0) {
