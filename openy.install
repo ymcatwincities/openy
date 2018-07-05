@@ -882,3 +882,22 @@ function openy_update_8057() {
     drupal_set_message($message, 'warning');
   }
 }
+
+/**
+ * Upgrade path for new alert fields.
+ */
+function openy_update_8058() {
+  if (!\Drupal::service('module_handler')->moduleExists('openy_node_alert')) {
+    // Skip this update if module disabled.
+    return;
+  }
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_alert_visibility_pages',
+    'field.storage.node.field_alert_visibility_state',
+    'field.field.node.alert.field_alert_visibility_pages',
+    'field.field.node.alert.field_alert_visibility_state',
+  ]);
+}
