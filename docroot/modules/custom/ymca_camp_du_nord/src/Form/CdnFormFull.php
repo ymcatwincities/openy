@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_camp_du_nord\Form;
 
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -62,6 +63,13 @@ class CdnFormFull extends FormBase {
   private $cabinOptions = [];
 
   /**
+   * Default database connection.
+   *
+   * @var Connection
+   */
+  private $database;
+
+  /**
    * CdnFormFull constructor.
    *
    * @param \Drupal\Core\Entity\Query\QueryFactory $entity_query
@@ -71,27 +79,44 @@ class CdnFormFull extends FormBase {
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The entity type manager.
    */
-  public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, Connection $database) {
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get('ymca_camp_du_nord');
+    $this->database = $database;
 
     $this->villageOptions = $this->getVillageOptions();
     $this->capacityOptions = $this->getCapacityOptions();
 
     $query = $this->getRequest()->query->all();
 
-    $tz = new \DateTimeZone(\Drupal::config('system.date')->get('timezone.default'));
+    $tz = new \DateTimeZone(\Drupal::config('system.date')
+      ->get('timezone.default'));
     $default_arrival_date = NULL;
     if (!empty($query['arrival_date'])) {
       $dt = new \DateTime($query['arrival_date'], $tz);
       $default_arrival_date = $dt->format('Y-m-d');
     }
     else {
-      $dt = new \DateTime();
-      $dt->setTimezone($tz);
-      $dt->setTimestamp(REQUEST_TIME + (86400 * 3));
-      $default_arrival_date = $dt->format('Y-m-d');
+      $nearest_date = $this->database->query('SELECT cstartdate.field_cdn_prd_start_date_value FROM {cdn_prs_product__field_cdn_prd_start_date} cstartdate LEFT JOIN {cdn_prs_product__field_cdn_prd_capacity_left} cleft ON cstartdate.entity_id = cleft.entity_id WHERE cleft.field_cdn_prd_capacity_left_value != 0 ORDER BY cstartdate.field_cdn_prd_start_date_value ASC LIMIT 1')
+        ->fetchCol();
+
+      if ($nearest_date) {
+        $nearest_date = $nearest_date[0];
+        $nearest_date = substr($nearest_date, 0, 10);
+        $date = new \DateTime($nearest_date, $tz);
+        $timestamp = $date->format('U');
+        if ($timestamp > (REQUEST_TIME + (86400 * 3))) {
+          $default_arrival_date = $nearest_date;
+        }
+      }
+      else {
+        $dt = new \DateTime();
+        $dt->setTimezone($tz);
+        $dt->setTimestamp(REQUEST_TIME + (86400 * 3));
+        $default_arrival_date = $dt->format('Y-m-d');
+      }
+
     }
     $default_departure_date = NULL;
     if (!empty($query['departure_date'])) {
@@ -101,9 +126,13 @@ class CdnFormFull extends FormBase {
     else {
       $dt = new \DateTime();
       $dt->setTimezone($tz);
-      $dt->setTimestamp(REQUEST_TIME + (86400 * 7));
+      $date = new \DateTime($default_arrival_date, $tz);
+      $timestamp = $date->format('U');
+      $dt->setTimestamp($timestamp + (86400 * 7));
       $default_departure_date = $dt->format('Y-m-d');
     }
+
+
     $state = [
       'ids' => isset($query['ids']) && is_numeric($query['ids']) ? $query['ids'] : '',
       'village' => isset($query['village']) && is_numeric($query['village']) ? $query['village'] : 'all',
@@ -158,7 +187,8 @@ class CdnFormFull extends FormBase {
     return new static(
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('database')
     );
   }
 
@@ -207,17 +237,17 @@ class CdnFormFull extends FormBase {
         0 => '+/- 0 Days',
         3 => '+/- 3 Days',
         7 => '+/- 7 Days',
-        10 => '+/- 10 Days'
+        10 => '+/- 10 Days',
       ],
     ];
 
-    $form['actions']['submit'] = array(
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Search'),
       // Close top-elements-wrapper.
       '#suffix' => '</div></div>',
       '#button_type' => 'primary',
-    );
+    ];
 
     $this->cabinOptions = array_merge(['' => $this->t('All')], $this->cabinOptions);
     $form['cabin'] = [
@@ -305,7 +335,8 @@ class CdnFormFull extends FormBase {
       }
     }
     $formatted_results = '<div class="container">' . $this->t('Please select another village, change capacity or date range to see if there are other cabins available.') . '</div>';
-    if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')->loadMultiple($cdn_product_ids)) {
+    if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')
+      ->loadMultiple($cdn_product_ids)) {
       if ($query['village'] !== 'all' || $query['capacity'] !== 'all') {
         foreach ($cdn_products as $key => $product) {
           $capacity = $product->field_cdn_prd_capacity->value;
@@ -322,7 +353,8 @@ class CdnFormFull extends FormBase {
               ->condition('field_cdn_prd_cabin_id', $cabin_id)
               ->execute();
             $mapping_id = reset($mapping_id);
-            if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+            if ($mapping = $this->entityTypeManager->getStorage('mapping')
+              ->load($mapping_id)) {
               if (!$mapping->field_cdn_prd_village_ref->isEmpty()) {
                 $ref = $mapping->field_cdn_prd_village_ref->getValue();
                 $page_id = isset($ref[0]['target_id']) ? $ref[0]['target_id'] : FALSE;
@@ -404,7 +436,8 @@ class CdnFormFull extends FormBase {
       ->condition('field_cdn_prd_cabin_id', $cid)
       ->execute();
     $mapping_id = reset($mapping_ids);
-    if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+    if ($mapping = $this->entityTypeManager->getStorage('mapping')
+      ->load($mapping_id)) {
       $village_id = !$mapping->field_cdn_prd_village_ref->isEmpty() ? $mapping->field_cdn_prd_village_ref->target_id : '';
     }
     return $village_id;
@@ -419,11 +452,13 @@ class CdnFormFull extends FormBase {
       ->get('mapping')
       ->condition('type', 'cdn_prs_product')
       ->execute();
-    if ($mappings = $this->entityTypeManager->getStorage('mapping')->loadMultiple($mapping_ids)) {
+    if ($mappings = $this->entityTypeManager->getStorage('mapping')
+      ->loadMultiple($mapping_ids)) {
       foreach ($mappings as $mapping) {
         $ref = $mapping->field_cdn_prd_village_ref->getValue();
         $page_id = isset($ref[0]['target_id']) ? $ref[0]['target_id'] : FALSE;
-        if ($page_node = $this->entityTypeManager->getStorage('node')->load($page_id)) {
+        if ($page_node = $this->entityTypeManager->getStorage('node')
+          ->load($page_id)) {
           $options[$page_id] = $page_node->getTitle();
         }
       }
@@ -439,7 +474,8 @@ class CdnFormFull extends FormBase {
     $cdn_products_ids = $this->entityQuery
       ->get('cdn_prs_product')
       ->execute();
-    if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')->loadMultiple($cdn_products_ids)) {
+    if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')
+      ->loadMultiple($cdn_products_ids)) {
       foreach ($cdn_products as $cdn_product) {
         $value = $cdn_product->field_cdn_prd_capacity->getValue();
         if (!empty($value[0]['value'])) {
@@ -478,7 +514,8 @@ class CdnFormFull extends FormBase {
         ->condition('field_cdn_prd_cabin_id', $cabins_ids, 'IN')
         ->sort('name')
         ->execute();
-      if ($mappings = $this->entityTypeManager->getStorage('mapping')->loadMultiple($mapping_ids)) {
+      if ($mappings = $this->entityTypeManager->getStorage('mapping')
+        ->loadMultiple($mapping_ids)) {
         $total_capacity = $cabin_url = $image = $panorama = $description = '';
         foreach ($mappings as $mapping) {
 
@@ -496,7 +533,8 @@ class CdnFormFull extends FormBase {
           $description = !$mapping->field_cdn_prd_cabin_desc->isEmpty() ? $mapping->field_cdn_prd_cabin_desc->view('default') : '';
           $panorama = !$mapping->field_cdn_prd_panorama->isEmpty() ? $mapping->field_cdn_prd_panorama->view('default') : '';
           $fid = !$mapping->field_cdn_prd_image->isEmpty() ? $mapping->field_cdn_prd_image->target_id : '';
-          if ($file = $this->entityTypeManager->getStorage('file')->load($fid)) {
+          if ($file = $this->entityTypeManager->getStorage('file')
+            ->load($fid)) {
             $image = file_create_url($file->getFileUri());
           }
           else {
@@ -510,7 +548,8 @@ class CdnFormFull extends FormBase {
             ->range(0, 1)
             ->execute();
           $product_id = reset($product_id);
-          if ($product = $this->entityTypeManager->getStorage('cdn_prs_product')->load($product_id)) {
+          if ($product = $this->entityTypeManager->getStorage('cdn_prs_product')
+            ->load($product_id)) {
             $total_capacity = !$product->field_cdn_prd_capacity->isEmpty() ? $product->field_cdn_prd_capacity->value : '';
           }
           $cabins[$cid] = [
@@ -603,7 +642,7 @@ class CdnFormFull extends FormBase {
         $teasers[$product->field_cdn_prd_cabin_id->value] += [
           'calendar' => [
             'list' => $calendar_list_data['list'],
-            'calendar' => $calendar
+            'calendar' => $calendar,
           ],
           'footer' => $calendar_list_data['footer'],
         ];
@@ -647,7 +686,8 @@ class CdnFormFull extends FormBase {
     }
     // Check availability for given products.
     if (!empty($product_ids)) {
-      $products = \Drupal::service('ymca_cdn_sync.add_to_cart')->checkProductAvailability($product_ids);
+      $products = \Drupal::service('ymca_cdn_sync.add_to_cart')
+        ->checkProductAvailability($product_ids);
     }
     foreach ($view->result as $row) {
       $entity = $row->_entity;
@@ -694,7 +734,8 @@ class CdnFormFull extends FormBase {
       $total_nights++;
       $product_ids[] = $product_id;
     }
-    $login_url = Url::fromUri('internal:/cdn/personify/login', ['query' => ['ids' => implode(',', $product_ids)]])->toString();
+    $login_url = Url::fromUri('internal:/cdn/personify/login', ['query' => ['ids' => implode(',', $product_ids)]])
+      ->toString();
     $builds['footer'] = [
       'total_nights' => $total_nights,
       'total_price' => $total_price,
@@ -732,26 +773,30 @@ class CdnFormFull extends FormBase {
     foreach ($period as $d) {
       $skip = FALSE;
       foreach ($builds['list'] as $key => $l) {
-        $current = \DateTime::createFromFormat('Y-m-d', $l['#data']['date'])->setTime(0, 0);
+        $current = \DateTime::createFromFormat('Y-m-d', $l['#data']['date'])
+          ->setTime(0, 0);
         if ($skip) {
           continue;
         }
         if ($d <= $current && in_array($d->format('Y-m-d'), $dates)) {
-          $missed_build = array([
-            '#theme' => 'cdn_results_calendar',
-            '#data' => [
-              'id' => '0',
-              'pid' => '0',
-              'date' => $d->format('Y-m-d'),
-              'date1' => $d->format('F'),
-              'date2' => $d->format('d'),
-              'date3' => $d->format('D'),
-              'is_booked' => TRUE,
-              'is_selected' => FALSE,
-              'price' => '0',
-              'total_capacity' => '0',
-              'village_id' => '0',
-            ]]);
+          $missed_build = [
+            [
+              '#theme' => 'cdn_results_calendar',
+              '#data' => [
+                'id' => '0',
+                'pid' => '0',
+                'date' => $d->format('Y-m-d'),
+                'date1' => $d->format('F'),
+                'date2' => $d->format('d'),
+                'date3' => $d->format('D'),
+                'is_booked' => TRUE,
+                'is_selected' => FALSE,
+                'price' => '0',
+                'total_capacity' => '0',
+                'village_id' => '0',
+              ],
+            ],
+          ];
           array_splice($builds['list'], $key, 0, $missed_build);
           $skip = TRUE;
         }
