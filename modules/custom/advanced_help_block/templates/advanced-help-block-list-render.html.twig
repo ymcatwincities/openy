@@ -19,7 +19,7 @@
         <div id="block-help" role="complementary" class="block block-help block-help-block">
             {% if render_type == 'block' %}
                 {% for i, block in blocks %}
-                    <div class="block-help-item block-help-item-{{ i }} messages messages--status hidden" data-block-id="{{ i }}">
+                    <div class="block-help-item block-help-item-{{ i }} messages messages--info hidden" data-block-id="{{ i }}">
                         {% if block.title is defined %}
                             <strong>{{ block.title }}</strong>
                         {% endif %}

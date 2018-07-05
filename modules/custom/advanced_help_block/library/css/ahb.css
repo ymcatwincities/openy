@@ -1,9 +1,14 @@
 .block-help .messages {
-    padding: 10px 20px 10px 35px;
-    background-position-y: 12px;
+    padding: 7px 14px;
 }
 .block-help .messages + .messages {
     margin-top: 0;
+}
+.block-help .messages.messages--info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #0074bd #0074bd #0074bd transparent;
+    box-shadow: -8px 0 0 #0074bd;
 }
 .block-help .block-help-item .help-close {
     float: right;
@@ -13,4 +18,8 @@
 }
 .block-help .block-help-item .help-more {
     padding-left: 15px;
+}
+.block-help .block-help-item .button.youtube-link:before {
+    content: '► ';
+    font-size: .8em;
 }
