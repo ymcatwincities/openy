@@ -29,9 +29,13 @@
                         <div class="form-group location">
                             <label for="inputText">Location:</label>
                             {% for location in locations %}
+                                {% set loc_checked = "t" %}
+                                {% if checked_locations is not empty and location in checked_locations %}
+                                    {% set loc_checked = "checked" %}
+                                {% endif %}
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" value="{{ location }}" class="box"> {{ location }}
+                                        <input type="checkbox" value="{{ location }}" class="box" {{ loc_checked }}> {{ location }}
                                     </label>
                                 </div>
                             {% endfor %}
