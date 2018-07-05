@@ -33,3 +33,8 @@ open_repeat.bootstrap-datepicker:
   css:
     base:
       'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css': { type: external }
+
+openy_repeat.locations:
+  version: VERSION
+  js:
+    js/locations.js: {}

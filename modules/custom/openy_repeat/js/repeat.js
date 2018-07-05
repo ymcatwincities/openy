@@ -111,6 +111,7 @@
     eventLocation = chkArray.join(',');
     globalData.location = eventLocation;
   }
+  getValueUsingClass();
 
   new Vue({
     el: '#app',

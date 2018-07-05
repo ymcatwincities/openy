@@ -14,10 +14,15 @@ class RepeatController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function dashboard() {
+  public function dashboard( Request $request, string $location ) {
+    $checked_locations = [];
+    if (!empty($location)) {
+      $checked_locations = explode(',', $location);
+    }
     return [
       '#theme' => 'openy_repeat_schedule_dashboard',
       '#locations' => $this->getLocations(),
+      '#checked_locations' => $checked_locations,
     ];
   }
 
@@ -97,6 +102,16 @@ class RepeatController extends ControllerBase {
     $query = $connection->query($sql);
 
     return $query->fetchCol();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function locations() {
+    return [
+      '#theme' => 'openy_repeat_schedule_locations',
+      '#locations' => $this->getLocations(),
+    ];
   }
 
 }
