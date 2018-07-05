@@ -15,6 +15,6 @@ active_types:
   camp: 'Camps'
   facility: 'Facilities'
 type_icons:
-  branch: '/profiles/contrib/openy/modules/custom/location_finder/img/map_icon_blue.png'
-  camp: '/profiles/contrib/openy/modules/custom/location_finder/img/map_icon_green.png'
-  facility: '/profiles/contrib/openy/modules/custom/location_finder/img/map_icon_green.png'
+  branch: '/profiles/contrib/openy/modules/custom/openy_map/img/map_icon_blue.png'
+  camp: '/profiles/contrib/openy/modules/custom/openy_map/img/map_icon_green.png'
+  facility: '/profiles/contrib/openy/modules/custom/openy_map/img/map_icon_green.png'
