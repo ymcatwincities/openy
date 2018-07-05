@@ -41,11 +41,11 @@ function advanced_help_block_help($path, $arg) {
         $link = '';
         if (!empty($block->field_ahb_video->value)) {
           parse_str(parse_url($block->field_ahb_video->value, PHP_URL_QUERY), $url_params);
-          $link = Link::fromTextAndUrl('Video',
+          $link = Link::fromTextAndUrl('Watch video',
             Url::fromUri($block->field_ahb_video->value, [
               'attributes' => [
                 'youtubeid' => $url_params['v'],
-                'class' => ['youtube-link'],
+                'class' => ['youtube-link button button-action button--small'],
               ],
             ])
           )->toString();
