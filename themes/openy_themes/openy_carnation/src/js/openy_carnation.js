@@ -47,7 +47,7 @@
       var banner = $('.banner-zone-node .banner', context);
 
       if (breadCrumbs.length && banner.length) {
-        banner.once('openy-breadcrumbs').after(breadCrumbs);
+        breadCrumbs.once('openy-breadcrumbs').appendTo(banner);
       }
     }
   };
@@ -204,9 +204,9 @@
       '.blog-up',
       '.blog-heading',
       '.inner-wrapper',
-      '.membership-type',
-      '.membership-type h3',
-      '.membership-type article p',
+      '.membership-type .card',
+      '.membership-type .card h3',
+      '.membership-type .card .node__content',
       '.activity-group .card',
       '.block-description--text > h2',
       '.block-description--text > div',
@@ -321,6 +321,10 @@
     attach: function (context, settings) {
       $(context).find('.calc-block-form').once('calcForm').each(function () {
         $(this).find('.btn-lg.btn').on('click', function () {
+
+          $(context).find('.form-radios .btn-lg.btn').removeClass('btn-success');
+          $(this).addClass('btn-success');
+
           $('html, body').animate({
             scrollTop: $(".form-submit").offset().top
           }, 2000);

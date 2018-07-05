@@ -29,28 +29,21 @@ body .branch-popup {
     }
 
     .form-item-branch {
-      line-height: 20px;
       padding: 15px;
       position: relative;
       border-radius: $border-radius;
       margin: 0 20px 0 0;
+      display: flex;
+      align-items: center;
 
       &:hover {
         background-color: $gray-100;
       }
 
-      input {
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
       label {
-        display: inline-block;
         font-size: 14px;
         margin: 0;
-        padding-left: 20px;
+        padding-left: 15px;
       }
     }
 
@@ -69,7 +62,7 @@ body .branch-popup {
   }
 
   & + .ui-widget-overlay {
-    z-index: 1030!important;
+    z-index: 1030 !important;
     opacity: 0.5;
   }
 }
@@ -123,20 +116,10 @@ body .branch-popup {
     @include media-breakpoint-up(lg) {
       width: 33.33%;
     }
-
-    input {
-      margin: 4px 5px 0 0;
-      margin-top: 1px \9;
-    }
-
-    label {
-      display: inline;
-    }
   }
 }
 
 .ygs-popups-class-branches-form {
-
   hr {
     margin: 0;
     width: 100%;

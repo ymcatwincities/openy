@@ -69,13 +69,8 @@
 {% if content.field_sidebar_content is not empty %}
   {% set layout_class = 'has-sidebar' %}
 {% endif %}
-{%
-  set header_classes = [
-    'class-header',
-    layout_class,
-  ]
-%}
-{% set header_content_classes = ['content'] %}
+
+{% set content_attributes = create_attribute() %}
 {%
   set content_classes = [
     'class-content',
@@ -83,27 +78,18 @@
     layout_class,
   ]
 %}
-{%
-set sidebar_classes = [
-  'class-sidebar',
-]
-%}
 
-{% if content.field_header_content is not empty %}
-  <article{{ attributes.addClass(header_classes) }}>
-    <div{{ content_attributes.addClass(header_content_classes) }}>
-      <div class="main">
-        {{ content.field_header_content }}
-      </div>
-    </div>
-  </article>
-{% endif %}
+{% set sidebar_attributes = create_attribute() %}
+{% set sidebar_classes = ['class-sidebar'] %}
+
+{# default header #}
+{% include '@openy_carnation/node/include/header-default.html.twig' %}
 
 {% if content.field_sidebar_content is not empty %}
 <div class="container">
   {% endif %}
   {% if content.field_content is not empty %}
-    <article{{ attributes.addClass(content_classes) }}>
+    <article{{ content_attributes.addClass(content_classes) }}>
 
       {% if content.field_sidebar_content is empty %}
       <div class="main-region col-sm-12">
@@ -117,7 +103,7 @@ set sidebar_classes = [
           </div>
           <div class="sidebar-region col-md-5 col-lg-4">
             {% endif %}
-            <article{{ attributes.addClass(sidebar_classes).removeClass(content_classes) }}>
+            <article{{ sidebar_attributes.addClass(sidebar_classes) }}>
               {{ content.field_sidebar_content }}
             </article>
             {% if content.field_sidebar_content is not empty %}

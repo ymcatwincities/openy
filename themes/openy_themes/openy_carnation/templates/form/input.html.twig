@@ -29,7 +29,9 @@
   {% endif %}
 
   {% block input %}
-    <input{{ attributes }} />
+    <div class="input-wrapper position-relative">
+      <input{{ attributes }} />
+    </div>
   {% endblock %}
 
   {% if suffix %}

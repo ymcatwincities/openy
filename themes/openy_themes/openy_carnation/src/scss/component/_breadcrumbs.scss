@@ -6,9 +6,11 @@ $breadcrumbColors: lighten($gray-100, 10%), lighten($gray-200, 15%), lighten($gr
 $breadcrumbColorsLength: length($breadcrumbColors);
 
 .breadcrumbs-wrapper {
-  position: relative;
-  top: -25px;
+  position: absolute;
+  bottom: -25px;
   z-index: 1;
+  left: 0;
+  right: 0;
 }
 
 .breadcrumbs {
