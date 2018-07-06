@@ -18,7 +18,7 @@ import { FaPlusCircle } from 'react-icons/lib/fa';
 import { Locations } from '../Sidebar/Sidebar';
 
 /**
- * Renders list categories with radio buttons and "Next" button.
+ * Renders kids list and "Next" button.
  */
 class Kids extends Component {
   render() {
