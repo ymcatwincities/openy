@@ -72,49 +72,9 @@
  * @ingroup themeable
  */
 #}
-{%
-set classes = [
-  'program-header',
-  'program-header-sub-category',
-  'banner',
-  'banner--medium',
-]
-%}
 
-{% if content.field_category_color is empty %}
-  {% set bg_color = '' %}
-{% else %}
-  {% set color = '#' ~ content.field_category_color['#items'].entity.field_color.value %}
-  {% set bg_color = 'background-color: '  ~  color %}
-{% endif %}
-
-
-{# default header #}
-{#{% include '@openy_carnation/node/include/header-default--with-bg.html.twig' %}#}
-
-{# Banner #}
-<div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
-  <div class="banner-cta d-block d-lg-flex">
-
-    {% if header_image|render|trim is not empty %}
-    <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;"></div>
-    {% endif %}
-
-    <div class="banner-cta-content container align-items-center m-auto py-4 py-lg-5 text-white">
-      <div class="banner-cta-section">
-
-        {% if content.field_category_program|render|trim is not empty %}
-        <h1 class="banner-title text-uppercase m-0 text-white">
-          {{ content.field_category_program }}
-        </h1>
-        {% endif %}
-
-      </div>
-    </div>
-  </div>
-
-  {{ content.field_header_content }}
-</div>
+{# program subcategory header #}
+{% include '@openy_carnation/node/include/header-default--program-subcategory.html.twig' %}
 
 {# Filters #}
 {% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}

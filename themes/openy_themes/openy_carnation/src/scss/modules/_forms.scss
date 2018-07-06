@@ -11,6 +11,12 @@
   font-size: 12px;
   text-shadow: none;
   padding: 6px 12px 6px 5px;
+
+  &[readonly],
+  &[disabled] {
+    color: $gray-100 !important;
+    background: transparent;
+  }
 }
 
 .btn {

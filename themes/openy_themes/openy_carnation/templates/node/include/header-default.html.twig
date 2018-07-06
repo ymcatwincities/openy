@@ -18,7 +18,9 @@
   <div class="page-heading banner banner--small banner--grey">
 
     {% if header_image|render|trim is not empty %}
-    <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;"></div>
+    <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;">
+      <span></span>
+    </div>
     {% endif %}
 
     <div class="banner-cta d-block d-lg-flex">
