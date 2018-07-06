@@ -8,6 +8,8 @@ import Categories from './components/Categories/Categories';
 import LocationsList from './components/LocationsList/LocationsList';
 import Times from './components/Times/Times';
 import ResultsList from './components/ResultsList/ResultsList';
+import LoginSelection from './components/LoginSelection/LoginSelection';
+import Kids from './components/Kids/Kids';
 import ListCategoryLevel from './components/ListCategoryLevel/ListCategoryLevel';
 
 /**
@@ -17,6 +19,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <LoginSelection />
+        <Kids />
         <Categories />
         <ListCategoryLevel />
         <LocationsList />
