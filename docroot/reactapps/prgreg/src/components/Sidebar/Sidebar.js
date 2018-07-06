@@ -27,6 +27,8 @@ class Sidebar extends Component {
               </a>
             </div>
             <hr />
+            <CardSubtitle className="font-weight-bold">Terri</CardSubtitle>
+            <CardSubtitle className="font-weight-bold">Age: 3</CardSubtitle>
             <CardSubtitle className="font-weight-bold">
               Swim Lessons
             </CardSubtitle>
@@ -44,7 +46,6 @@ class Sidebar extends Component {
                 </a>
               </li>
             </ul>
-
             <CardSubtitle className="font-weight-bold">
               Swim Lessons
             </CardSubtitle>
@@ -113,8 +114,8 @@ class Sidebar extends Component {
 
     return (
       <div className={'sidebar'}>
-        {Locations}
         {Activities}
+        {Locations}
         {Times}
         <Card>
           <Button className={'p-2 btn-result text-uppercase'}>

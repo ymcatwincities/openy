@@ -10,6 +10,7 @@ import Times from './components/Times/Times';
 import ResultsList from './components/ResultsList/ResultsList';
 import LoginSelection from './components/LoginSelection/LoginSelection';
 import Kids from './components/Kids/Kids';
+import ListCategoryLevel from './components/ListCategoryLevel/ListCategoryLevel';
 
 /**
  * Application entry point.
@@ -21,6 +22,7 @@ class App extends Component {
         <LoginSelection />
         <Kids />
         <Categories />
+        <ListCategoryLevel />
         <LocationsList />
         <Times />
         <ResultsList />
