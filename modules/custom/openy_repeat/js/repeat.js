@@ -135,6 +135,11 @@
         runAjaxRequest(this, currentDate, newValue);
       }
     },
+    updated: function() {
+      if (typeof(addtocalendar) !== 'undefined') {
+        addtocalendar.load();
+      }
+    },
     delimiters: ["${","}"]
   });
 
