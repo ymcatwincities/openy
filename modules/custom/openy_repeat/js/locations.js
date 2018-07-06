@@ -8,7 +8,7 @@
             chkArray.push(this.value);
           }
         });
-        location.href = '/schedules/group-excercise-classes/' + chkArray.join(',');
+        location.href = '/schedules/group-exercise-classes/' + chkArray.join(',');
       });
     }
   };
