@@ -8,6 +8,7 @@ import Categories from './components/Categories/Categories';
 import LocationsList from './components/LocationsList/LocationsList';
 import Times from './components/Times/Times';
 import ResultsList from './components/ResultsList/ResultsList';
+import ListCategoryLevel from "./components/ListCategoryLevel/ListCategoryLevel";
 
 /**
  * Application entry point.
@@ -17,6 +18,7 @@ class App extends Component {
     return (
       <div className="App">
         <Categories />
+        <ListCategoryLevel />
         <LocationsList />
         <Times />
         <ResultsList />
