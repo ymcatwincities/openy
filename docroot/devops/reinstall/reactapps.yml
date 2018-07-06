@@ -1,0 +1,10 @@
+---
+# This script contains commands to build react applications from docroot/reactapps folder.
+- name: Install dependencies
+  shell: cd reactapps/prgreg && yarn install
+  sudo: yes
+  
+- name: Build application
+  shell: cd reactapps/prgreg && yarn build
+  sudo: yes
+

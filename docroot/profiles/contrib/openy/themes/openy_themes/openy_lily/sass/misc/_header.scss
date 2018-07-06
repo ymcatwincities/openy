@@ -1,19 +1,19 @@
 body {
-  @include breakpoint (767px) {
+  @include breakpoint ($tablet-start) {
     padding-top: 100px !important;
     @include transition(padding-top 0.2s ease);
     &.tiny-header {
       padding-top: 55px !important;
     }
   }
-  @include breakpoint (0 767px) {
+  @include breakpoint (0 $tablet-start) {
     padding-top: 80px !important;
     max-width: 100%;
   }
   &.toolbar-fixed {
     &.toolbar-horizontal {
-      @include breakpoint (767px) {
-        padding-top: 122px;
+      @include breakpoint ($tablet-start) {
+        padding-top: 122px !important;
         @include transition(padding-top 0.2s ease);
         &.tiny-header {
           padding-top: 94px !important;
@@ -163,7 +163,7 @@ body {
     }
   }
   .section-icon {
-    @include breakpoint (0 767px) {
+    @include breakpoint (0 $tablet-start) {
       display: none;
     }
   }
@@ -193,7 +193,7 @@ header#page-head {
   @include clearfix;
   width: 100%;
   @include cachet();
-  @include breakpoint (0 767px) {
+  @include breakpoint (0 $tablet-start) {
     position: relative;
   }
   .container-fluid {
@@ -216,7 +216,7 @@ header#page-head {
       background-color: $gray-light;
       min-height: 100px;
       width: 100%;
-      @include breakpoint (0 767px) {
+      @include breakpoint (0 $tablet-start) {
         min-height: 80px;
       }
       .navbar-header {
@@ -224,7 +224,7 @@ header#page-head {
         .navbar-toggler {
           display: none;
         }
-        @include breakpoint (0 767px) {
+        @include breakpoint (0 $tablet-start) {
           width: 100%;
           padding: 0 !important;
           height: 52px !important;
@@ -301,10 +301,10 @@ header#page-head {
       min-height: 62px;
       z-index: 998;
       display: none;
-      @include breakpoint (767px) {
+      @include breakpoint ($tablet-start) {
         display: block;
       }
-      @include breakpoint (0 767px) {
+      @include breakpoint (0 $tablet-start) {
         min-height: 0;
       }
       position: relative;
@@ -322,7 +322,7 @@ header#page-head {
           @include breakpoint($desktop) {
             padding: 0 100px;
           }
-          @include breakpoint (0 767px) {
+          @include breakpoint (0 $tablet-start) {
             display: none !important;
           }
           .nav {
@@ -442,7 +442,7 @@ header#page-head {
     #block-openy-lily-user-menu,
     #block-cccuseraccountmenu--2,
     #block-cccuseraccountmenu {
-      @include breakpoint (0 767px) {
+      @include breakpoint (0 $tablet-start) {
         display: none !important;
       }
       .nav {
@@ -548,7 +548,7 @@ header#page-head {
       .is-camp & {
         color: #f47820;
       }
-      @include breakpoint (0 767px) {
+      @include breakpoint (0 $tablet-start) {
         display: none;
       }
     }
@@ -642,7 +642,7 @@ header#page-head {
   height: 72%;
   background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
   background-size: contain;
-  @include breakpoint(0 767px) {
+  @include breakpoint(0 $tablet-start) {
     left: 35%;
     float: none;
     margin-left: -24px;
