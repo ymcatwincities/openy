@@ -27,12 +27,8 @@ class Sidebar extends Component {
               </a>
             </div>
             <hr />
-            <CardSubtitle className="font-weight-bold">
-              Terri
-            </CardSubtitle>
-            <CardSubtitle className="font-weight-bold">
-              Age: 3
-            </CardSubtitle>
+            <CardSubtitle className="font-weight-bold">Terri</CardSubtitle>
+            <CardSubtitle className="font-weight-bold">Age: 3</CardSubtitle>
             <CardSubtitle className="font-weight-bold">
               Swim Lessons
             </CardSubtitle>
