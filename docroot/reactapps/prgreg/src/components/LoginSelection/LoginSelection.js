@@ -55,7 +55,7 @@ class LoginSelection extends Component {
                     'mb-3 mr-3 pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'
                   }
                 >
-                  Contine as guest
+                  Continue as guest
                 </Button>
               </div>
             </Col>
