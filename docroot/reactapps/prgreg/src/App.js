@@ -9,6 +9,7 @@ import LocationsList from './components/LocationsList/LocationsList';
 import Times from './components/Times/Times';
 import ResultsList from './components/ResultsList/ResultsList';
 import LoginSelection from './components/LoginSelection/LoginSelection';
+import Kids from './components/Kids/Kids';
 
 /**
  * Application entry point.
@@ -18,6 +19,7 @@ class App extends Component {
     return (
       <div className="App">
         <LoginSelection />
+        <Kids />
         <Categories />
         <LocationsList />
         <Times />
