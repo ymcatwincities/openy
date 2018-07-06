@@ -42,14 +42,18 @@ class LoginSelection extends Component {
             </Col>
             <Col md={4}>{Activities}</Col>
             <Col md={12}>
-              <div className="my-4 d-flex justify-content-center">
+              <div className="my-4 d-sm-flex justify-content-center">
                 <Button
-                  className={'mr-3 pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'}
+                  className={
+                    'mb-3 mr-3 pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'
+                  }
                 >
                   Sign in
                 </Button>
                 <Button
-                  className={'mr-3 pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'}
+                  className={
+                    'mb-3 mr-3 pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'
+                  }
                 >
                   Contine as guest
                 </Button>
