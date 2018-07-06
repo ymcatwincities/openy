@@ -23,29 +23,26 @@
       bottom: 0;
       z-index: 1;
     }
+
+    span:after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: black;
+      content: "";
+      opacity: .3;
+      z-index: 1;
+    }
   }
 
   .banner-cta {
     position: relative;
-    //overflow: hidden;
 
     // start overlaying images
     @include media-breakpoint-up(lg) {
       padding-top: 140px;
-
-      &:not(.banner-cta--no_overlay) {
-        &:after {
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 0;
-          background-color: black;
-          content: "";
-          opacity: .3;
-          z-index: 1;
-        }
-      }
     }
 
     .banner-cta-content {

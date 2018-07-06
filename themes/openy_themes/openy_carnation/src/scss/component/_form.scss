@@ -105,12 +105,12 @@ input:-moz-placeholder {
 // Form action buttons.
 .form-actions {
   .btn, .btn-group {
-    margin-right: 10px;
+    margin-left: 10px;
   }
 
   .btn-group {
     .btn {
-      margin-right: 0;
+      margin-left: 0;
     }
   }
 }

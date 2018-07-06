@@ -1,64 +1,66 @@
-.paragraph--type--classes-listing-filters {
-  background-color: $gray-100;
+//.paragraph--type--classes-listing-filters {
+  //background-color: $gray-100;
+  //position: relative;
+  //z-index: 1;
 
-  form {
-    padding-bottom: 30px;
-    padding-top: 30px;
-    display: flex;
-    flex-direction: column;
-
-    .form-item {
-      margin: 0 0 1rem 0;
-
-      @include media-breakpoint-up(md) {
-        margin: 0 0.75em;
-      }
-    }
-
-    @include media-breakpoint-up(md) {
-      padding-top: 60px;
-      flex-direction: row;
-    }
-  }
-
-  .js-form-type-select {
-    min-width: 150px;
-    width: 100%;
-
-    @include media-breakpoint-up(md) {
-      &:first-child {
-        margin-left: 0;
-      }
-    }
-
-    label {
-      @include cachet();
-      font-size: 14px;
-      color: $gray-500;
-      margin-bottom: 0;
-
-      @include media-breakpoint-up(md) {
-        margin-bottom: 5px;
-      }
-    }
-
-    select {
-      color: $gray-500;
-    }
-  }
-
-  .form-actions {
-    margin: 0;
-    display: flex;
-    align-items: flex-end;
-
-    input {
-      margin: 0;
-      width: 100%;
-    }
-
-    @include media-breakpoint-up(md) {
-      margin: 0;
-    }
-  }
-}
+  //form {
+  //  padding-bottom: 30px;
+  //  padding-top: 30px;
+  //  display: flex;
+  //  flex-direction: column;
+  //
+  //  .form-item {
+  //    margin: 0 0 1rem 0;
+  //
+  //    @include media-breakpoint-up(md) {
+  //      margin: 0 0.75em;
+  //    }
+  //  }
+  //
+  //  @include media-breakpoint-up(md) {
+  //    padding-top: 60px;
+  //    flex-direction: row;
+  //  }
+  //}
+  //
+  //.js-form-type-select {
+  //  min-width: 150px;
+  //  width: 100%;
+  //
+  //  @include media-breakpoint-up(md) {
+  //    &:first-child {
+  //      margin-left: 0;
+  //    }
+  //  }
+  //
+  //  label {
+  //    @include cachet();
+  //    font-size: 14px;
+  //    color: $gray-500;
+  //    margin-bottom: 0;
+  //
+  //    @include media-breakpoint-up(md) {
+  //      margin-bottom: 5px;
+  //    }
+  //  }
+  //
+  //  select {
+  //    color: $gray-500;
+  //  }
+  //}
+  //
+  //.form-actions {
+  //  margin: 0;
+  //  display: flex;
+  //  align-items: flex-end;
+  //
+  //  input {
+  //    margin: 0;
+  //    width: 100%;
+  //  }
+  //
+  //  @include media-breakpoint-up(md) {
+  //    margin: 0;
+  //  }
+  //}
+//}

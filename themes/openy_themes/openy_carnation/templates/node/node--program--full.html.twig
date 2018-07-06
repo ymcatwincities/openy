@@ -81,9 +81,6 @@
   {% set bg_color = 'background-color: '  ~  color %}
 {% endif %}
 
-{% if header_image|render|trim is empty %}
-  {% set overlay_class = 'banner-cta--no_overlay' %}
-{% endif %}
 
 {% if content.field_header_content is not empty %}
   <article{{ attributes.addClass(header_classes) }}>
@@ -98,7 +95,9 @@
   <div{{ content_attributes.addClass('banner-cta d-block d-lg-flex', overlay_class).setAttribute('style', bg_color) }}>
 
     {% if header_image|render|trim is not empty %}
-      <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;"></div>
+      <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;">
+        <span></span>
+      </div>
     {% endif %}
 
     <div class="banner-cta-content container align-items-center text-white m-auto py-4 py-lg-5">
