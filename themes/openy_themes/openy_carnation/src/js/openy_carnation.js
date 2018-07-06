@@ -37,17 +37,16 @@
     }
   };
 
-
   /**
    * Ensure breadcrumbs are after banners in the DOM
    */
   Drupal.behaviors.moveBreadcrumbs = {
     attach: function (context, settings) {
       var breadCrumbs = $('.breadcrumbs-wrapper', context);
-      var banner = $('.banner-zone-node .banner', context);
+      var bannerCta = $('.banner-zone-node .banner .banner-cta', context);
 
-      if (breadCrumbs.length && banner.length) {
-        breadCrumbs.once('openy-breadcrumbs').appendTo(banner);
+      if (breadCrumbs.length && bannerCta.length) {
+        breadCrumbs.once('openy-breadcrumbs').appendTo(bannerCta);
       }
     }
   };

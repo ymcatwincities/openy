@@ -93,12 +93,9 @@
       </div>
     </div>
   </article>
-{% endif %}
-
-
-{# Program header #}
-<div{{ attributes.addClass('banner program-header') }}>
-  <div{{ content_attributes.addClass('banner-cta banner--green d-block d-lg-flex', overlay_class).setAttribute('style', bg_color) }}>
+{% else %}
+<div{{ attributes.addClass('landing-header banner banner--small') }}>
+  <div{{ content_attributes.addClass('banner-cta d-block d-lg-flex', overlay_class).setAttribute('style', bg_color) }}>
 
     {% if header_image|render|trim is not empty %}
       <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;"></div>
@@ -122,23 +119,22 @@
       </div>
     </div>
   </div>
-
-  {% if content.field_program_description|render|trim is not empty %}
-  <div class="container py-5">
-    <div class="row">
-      <div class="col description" style="color: {{ color }};">
-        {{ content.field_program_description }}
-      </div>
-    </div>
-  </div>
-  {% endif %}
-
 </div>
+{% endif %}
 
 {% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}
 
 <div class="container">
+
+  {% if content.field_program_description|render|trim is not empty %}
   <div class="row">
+    <div class="main-region col">
+      <p class="lead">{{ content.field_program_description }}</p>
+    </div>
+  </div>
+ {% endif %}
+
+  <div class="row mt-3">
 
       {# Program content #}
       <div class="main-region col">

@@ -3,7 +3,8 @@
   position: relative;
 
   // main background image
-  .banner-bg {
+  .banner-bg,
+  .banner--medium .banner-cta {
     min-height: 70px;
 
     @include media-breakpoint-up(sm) {
@@ -26,7 +27,7 @@
 
   .banner-cta {
     position: relative;
-    overflow: hidden;
+    //overflow: hidden;
 
     // start overlaying images
     @include media-breakpoint-up(lg) {

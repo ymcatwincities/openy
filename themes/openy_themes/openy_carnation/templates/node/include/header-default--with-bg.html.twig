@@ -2,9 +2,15 @@
   set header_classes = [
     'landing-header',
     'w-100',
-    node.field_lp_layout.value|clean_class,
   ]
 %}
+
+{% if content.field_category_color is empty %}
+  {% set bg_color = '' %}
+{% else %}
+  {% set color = '#' ~ content.field_category_color['#items'].entity.field_color.value %}
+  {% set bg_color = 'background-color: '  ~  color %}
+{% endif %}
 
 {% if content.field_header_content|render|trim is not empty %}
   <article{{ attributes.addClass(header_classes) }}>
@@ -15,7 +21,7 @@
     </div>
   </article>
 {% else %}
-  <div class="page-heading banner banner--small banner--grey">
+  <div class="page-heading banner banner--small banner--grey" style="background-color: {{ color }}">
 
     {% if header_image|render|trim is not empty %}
     <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;"></div>
@@ -24,12 +30,6 @@
     <div class="banner-cta d-block d-lg-flex">
       <div class="banner-cta-content container align-items-center m-auto py-4 py-lg-5 text-white">
         <div class="banner-cta-section">
-
-          {% if label|render|trim is not empty %}
-          <h1 class="banner-title text-uppercase m-0 text-white">
-            {{ label }}
-          </h1>
-          {% endif %}
 
           {% if content.field_category_program|render|trim is not empty %}
           <h1 class="banner-title text-uppercase m-0 text-white">
