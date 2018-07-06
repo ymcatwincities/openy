@@ -88,19 +88,23 @@ set classes = [
   {% set bg_color = 'background-color: '  ~  color %}
 {% endif %}
 
+
+{# default header #}
+{#{% include '@openy_carnation/node/include/header-default--with-bg.html.twig' %}#}
+
 {# Banner #}
 <div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
-  <div class="banner-cta">
+  <div class="banner-cta d-block d-lg-flex">
 
     {% if header_image|render|trim is not empty %}
-      <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;"></div>
+    <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;"></div>
     {% endif %}
 
-    <div class="banner-cta-content container align-self-end py-4 py-lg-5">
-      <div class="banner-cta-section row">
+    <div class="banner-cta-content container align-items-center m-auto py-4 py-lg-5 text-white">
+      <div class="banner-cta-section">
 
         {% if content.field_category_program|render|trim is not empty %}
-        <h1 class="banner-title text-uppercase m-0 text-white col">
+        <h1 class="banner-title text-uppercase m-0 text-white">
           {{ content.field_category_program }}
         </h1>
         {% endif %}
@@ -109,9 +113,7 @@ set classes = [
     </div>
   </div>
 
-  <div>
-    {{ content.field_header_content }}
-  </div>
+  {{ content.field_header_content }}
 </div>
 
 {# Filters #}
@@ -119,24 +121,22 @@ set classes = [
 
 <div class="container">
   <div class="row">
-    <div class="two-column col">
 
-     {# Category content #}
-      <div class="main-region col">
-        {{ content.field_category_description }}
-        {{ content.field_content }}
-      </div>
-
-      {# Category sidebar #}
-      {% if hasSidebar %}
-      <div class="sidebar-region col-md-5 col-lg-4">
-        <article class="program-sidebar program-sidebar-sub-category">
-          {{ content.field_sidebar_content }}
-        </article>
-      </div>
-      {% endif %}
-
+   {# Category content #}
+    <div class="main-region col">
+      {{ content.field_category_description }}
+      {{ content.field_content }}
     </div>
+
+    {# Category sidebar #}
+    {% if hasSidebar %}
+    <div class="sidebar-region col-md-5 col-lg-4">
+      <article class="program-sidebar program-sidebar-sub-category">
+        {{ content.field_sidebar_content }}
+      </article>
+    </div>
+    {% endif %}
+
   </div>
 </div>
 

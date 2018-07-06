@@ -1,26 +1,26 @@
 .program-header {
-  .content {
-    .image {
-      margin: -130px 0 0;
-      position: absolute !important;
-      right: 0;
-      height: 260px;
-      padding-right: 0;
-      text-align: right;
-      top: 50%;
-
-      img {
-        height: 260px;
-        width: auto;
-        display: inline;
-        position: static !important;
-      }
-    }
-  }
-
-  &.program-header-sub-category .content {
-    min-height: 260px;
-  }
+  //.content {
+  //  .image {
+  //    margin: -130px 0 0;
+  //    position: absolute !important;
+  //    right: 0;
+  //    height: 260px;
+  //    padding-right: 0;
+  //    text-align: right;
+  //    top: 50%;
+  //
+  //    img {
+  //      height: 260px;
+  //      width: auto;
+  //      display: inline;
+  //      position: static !important;
+  //    }
+  //  }
+  //}
+  //
+  //&.program-header-sub-category .content {
+  //  min-height: 260px;
+  //}
 
   .description {
     .field-program-description {
@@ -229,32 +229,32 @@
   }
 
   // sub-program header banners
-  &.program-header-sub-category {
-    margin-bottom: 0;
-    overflow: hidden;
-
-    h1,
-    h4 {
-      margin: 0;
-    }
-
-    .field-category-program {
-      color: $white;
-      font-family: $font-family-sans-serif;
-      font-size: 28px;
-      letter-spacing: -0.8px;
-      line-height: 28px;
-      margin: 0;
-
-      @include media-breakpoint-up(sm) {
-        font-size: 36px;
-      }
-    }
-
-    .content img {
-      position: absolute;
-    }
-  }
+  //&.program-header-sub-category {
+  //  margin-bottom: 0;
+  //  overflow: hidden;
+  //
+  //  h1,
+  //  h4 {
+  //    margin: 0;
+  //  }
+  //
+  //  .field-category-program {
+  //    color: $white;
+  //    font-family: $font-family-sans-serif;
+  //    font-size: 28px;
+  //    letter-spacing: -0.8px;
+  //    line-height: 28px;
+  //    margin: 0;
+  //
+  //    @include media-breakpoint-up(sm) {
+  //      font-size: 36px;
+  //    }
+  //  }
+  //
+  //  .content img {
+  //    position: absolute;
+  //  }
+  //}
 }
 
 .subprogram-listing-item {
