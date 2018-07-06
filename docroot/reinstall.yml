@@ -62,3 +62,6 @@
 
   - include: devops/reinstall/drush_commands.yml
     tags: [ 'drush-commands' ]
+
+  - include: devops/reinstall/reactapps.yml
+    tags: [ 'react-commands' ]
