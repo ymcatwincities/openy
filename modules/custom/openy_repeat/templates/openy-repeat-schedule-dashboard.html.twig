@@ -19,7 +19,7 @@
                         <div class="input-group date" id="datepicker" data-date-format="MM dd, yyyy">
                             <input type="text" class="form-control" />
                             <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                <span class="fa fa-calendar" aria-hidden="true"></span>
                             </span>
                         </div>
                     </div>
@@ -75,7 +75,18 @@
                                         <td v-cloak>${ item.location }</td>
                                         <td v-cloak><a href="/node/item.nid">Learn more</a></td>
                                         <td v-cloak>
-                                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                        <span class="addtocalendar atc-style-blue">
+                                          <var class="atc_event">
+                                            <var class="atc_date_start">2018-07-06 05:10:00</var>
+                                            <var class="atc_date_end">2018-07-06 06:10:00</var>
+                                            <var class="atc_timezone">America/Chicago</var>
+                                            <var class="atc_title">${ item.name }</var>
+                                            <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.)Class will take place at Studio 2--
+                                    Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
+                                            <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
+                                            <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
+                                          </var>
+                                        </span>
                                         </td>
                                     </tr>
                                 </tbody>
