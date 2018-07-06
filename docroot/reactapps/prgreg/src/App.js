@@ -8,6 +8,7 @@ import Categories from './components/Categories/Categories';
 import LocationsList from './components/LocationsList/LocationsList';
 import Times from './components/Times/Times';
 import ResultsList from './components/ResultsList/ResultsList';
+import Kids from './components/Kids/Kids';
 
 /**
  * Application entry point.
@@ -16,6 +17,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Kids />
         <Categories />
         <LocationsList />
         <Times />
