@@ -2,6 +2,7 @@ openy_repeat:
   version: VERSION
   js:
     js/repeat.js: {}
+    js/atc.js: {}
   css:
     base:
       css/repeat.css: {}
