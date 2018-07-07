@@ -20,15 +20,25 @@
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}
-<div class="views-row__wrapper">
+
+{% set cols = 3 | default(2) %}
 {% for row in rows %}
   {%
     set row_classes = [
-      default_row_class ? 'views-row',
+      default_row_class ? 'd-flex',
     ]
   %}
-  <div{{ row.attributes.addClass(row_classes) }}>
-    {{ row.content }}
-  </div>
+  {% if loop.index0 % cols == 0 %}
+    <div{{ row.attributes.addClass(row_classes) }}>
+    {% endif %}
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          {{ row.content }}
+        </div>
+      </div>
+    </div>
+    {% if (loop.index0 % cols == cols - 1 or loop.last) %}
+    </div>
+  {% endif %}
 {% endfor %}
-</div>
