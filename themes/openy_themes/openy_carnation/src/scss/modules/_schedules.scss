@@ -1,3 +1,7 @@
+/**
+ * Schedules
+ * (Framework)
+ */
 #schedules-search-listing-wrapper {
   .results {
     margin: 40px 0;
@@ -38,21 +42,20 @@
       }
     }
 
-    .schedule-sessions-group {
-      border-bottom: dotted 3px $gray-400;
-      margin-bottom: 60px;
-    }
-
     .time-wrapper {
       margin-top: -35px;
       padding-left: 40px;
+
+      &:last-child li:last-child {
+        border-bottom: dotted 3px $gray-400;
+      }
 
       li {
         border-top: dotted 3px $gray-400;
         padding: 25px;
 
         @include media-breakpoint-up(lg) {
-          padding:45px;
+          padding: 45px;
         }
       }
     }
@@ -81,8 +84,14 @@
   }
 }
 
+/**
+ * Group Schedules
+ * (Results)
+ */
 #group-ex-results,
 .groupex-results {
+  margin-top: 2rem;
+
   .caption {
     @include cachet();
     letter-spacing: -0.8px;
@@ -184,6 +193,10 @@
   }
 }
 
+/**
+ * Group Schedules
+ * (GroupEX Form)
+ */
 .groupex-form-full {
   .instructor-chosen {
     margin-bottom: 30px;
@@ -229,78 +242,6 @@
     }
   }
 
-  .top-form-wrapper {
-    @include make-row();
-    background-color: $gray-100;
-    margin: 20px 0;
-    overflow: hidden;
-    padding: 20px;
-    flex-direction: column;
-    align-items: flex-end;
-
-    @include media-breakpoint-up(lg) {
-      flex-direction: row;
-    }
-
-    .show {
-      position: relative;
-      width: 100%;
-      padding-right: 15px;
-      padding-left: 15px;
-      margin-bottom: 1rem;
-      max-width: 100%;
-
-      @include media-breakpoint-up(lg) {
-        margin-bottom: 0;
-        flex-basis: 0;
-        flex-grow: 1;
-      }
-    }
-
-    #submit-wrapper {
-      .input-wrapper {
-        display: flex;
-        justify-content: space-between;
-
-        @include media-breakpoint-up(lg) {
-          flex-direction: row;
-        }
-      }
-    }
-
-    .ajax-progress-throbber {
-      display: none;
-    }
-
-    .js-form-type-select,
-    .js-form-type-date {
-      margin: 0;
-    }
-
-    select {
-      @include cachet();
-      font-size: 14px;
-      text-transform: uppercase;
-
-      ::-ms-expand {
-        display: none;
-      }
-    }
-
-    #date-select-wrapper input {
-      width: 100%;
-      line-height: 32px;
-      border: 1px solid $gray-300;
-    }
-
-    .groupex-pdf-link-container {
-      a {
-        color: white;
-        background-color: $purple;
-      }
-    }
-  }
-
   .class-description {
     margin: 20px 0 40px 0;
     font-size: 16px;
@@ -317,7 +258,10 @@
   }
 }
 
-//Daxko registration iframe
+/**
+ * Group Schedules
+ * (Daxko registration iframe)
+ */
 iframe#ga_iframe {
   border: 0;
   width: 100%;

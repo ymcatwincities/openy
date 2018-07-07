@@ -7500,7 +7500,7 @@ html.js .ajax-new-content:empty {
     font-weight: 400;
     display: block;
     float: left;
-    height: 50px;
+    min-height: 50px;
     text-align: center;
     padding: 10px 20px 10px 50px;
     position: relative;
@@ -9828,6 +9828,9 @@ body .branch-popup {
     background-color: #fff;
     color: #00aeef;
     border: 1px solid #00aeef; }
+    .btn.white-blue:hover {
+      background-color: #00aeef;
+      color: #fff; }
     .btn.white-blue a {
       color: #00aeef;
       text-decoration: none; }
@@ -9835,9 +9838,15 @@ body .branch-popup {
     background-color: transparent;
     color: #0089d0;
     border: 1px solid #0089d0; }
+    .btn.transparent-blue:hover {
+      background-color: #0089d0;
+      color: #fff; }
     .btn.transparent-blue a {
       color: #0089d0;
       text-decoration: none; }
+    @media (max-width: 1199.98px) {
+      .btn.transparent-blue {
+        display: block; } }
   .btn.btn-link {
     text-decoration: none; }
 
@@ -11606,47 +11615,50 @@ body {
   line-height: 1.5;
   color: #333333; }
 
-.sub-category-classes-view .activity-group .activity-group-slider {
-  margin: 0 35px 45px; }
-  .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity {
-    margin: 0 15px;
-    height: auto; }
-    .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity * {
-      text-decoration: none; }
-    .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity a:hover h3 {
-      text-decoration: underline; }
-  .sub-category-classes-view .activity-group .activity-group-slider .slick-track {
-    display: flex;
-    flex-wrap: wrap; }
-  .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
-    background: none;
-    color: #00aeef;
-    padding: 0;
-    z-index: 1;
-    height: 40px;
-    width: 40px;
-    margin-top: -7px; }
-    .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow:before {
-      color: #00aeef; }
-    @media (min-width: 576px) {
-      .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
-        height: 70px;
-        width: 50px; } }
-    .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow .fa {
-      font-size: 30px; }
-      @media (min-width: 992px) {
-        .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow .fa {
-          font-size: 40px; } }
-    .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow.slick-prev {
-      left: -45px; }
-    .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow.slick-next {
-      right: -45px; }
-  .sub-category-classes-view .activity-group .activity-group-slider .slick-dots li button:before {
-    opacity: 1;
-    color: #ebebeb; }
-  .sub-category-classes-view .activity-group .activity-group-slider .slick-dots li.slick-active button:before {
-    opacity: 1;
-    color: #c6168d; }
+.sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity {
+  margin: 0 15px;
+  height: auto; }
+  .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity * {
+    text-decoration: none; }
+  .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity a:hover h3 {
+    text-decoration: underline; }
+
+.sub-category-classes-view .activity-group .activity-group-slider .slick-track {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto; }
+
+.sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
+  background: none;
+  color: #00aeef;
+  padding: 0;
+  z-index: 1;
+  height: 40px;
+  width: 40px;
+  margin-top: -7px; }
+  .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow:before {
+    color: #00aeef; }
+  @media (min-width: 576px) {
+    .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
+      height: 70px;
+      width: 50px; } }
+  .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow .fa {
+    font-size: 30px; }
+    @media (min-width: 992px) {
+      .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow .fa {
+        font-size: 40px; } }
+  .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow.slick-prev {
+    left: -45px; }
+  .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow.slick-next {
+    right: -45px; }
+
+.sub-category-classes-view .activity-group .activity-group-slider .slick-dots li button:before {
+  opacity: 1;
+  color: #ebebeb; }
+
+.sub-category-classes-view .activity-group .activity-group-slider .slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #c6168d; }
 
 .programs-search-block-form {
   margin-bottom: 20px; }
@@ -11715,6 +11727,10 @@ body {
     color: #5c2e91;
     margin: 40px 0 0; }
 
+/**
+ * Schedules
+ * (Framework)
+ */
 #schedules-search-listing-wrapper .results {
   margin: 40px 0; }
   #schedules-search-listing-wrapper .results h2 {
@@ -11744,12 +11760,11 @@ body {
     #schedules-search-listing-wrapper .results .group_time.group_time_week {
       width: 90px;
       font-size: 15px; }
-  #schedules-search-listing-wrapper .results .schedule-sessions-group {
-    border-bottom: dotted 3px #636466;
-    margin-bottom: 60px; }
   #schedules-search-listing-wrapper .results .time-wrapper {
     margin-top: -35px;
     padding-left: 40px; }
+    #schedules-search-listing-wrapper .results .time-wrapper:last-child li:last-child {
+      border-bottom: dotted 3px #636466; }
     #schedules-search-listing-wrapper .results .time-wrapper li {
       border-top: dotted 3px #636466;
       padding: 25px; }
@@ -11769,97 +11784,105 @@ body {
     #schedules-search-listing-wrapper .results .week-control.hidden {
       display: none; }
 
-#group-ex-results .caption,
-.groupex-results .caption {
-  font-family: "Cachet", "Comfortaa", sans-serif;
-  font-weight: 400;
-  letter-spacing: -0.8px;
-  color: #5c2e91;
-  font-size: 30px;
-  margin-bottom: 15px; }
-  #group-ex-results .caption a,
-  .groupex-results .caption a {
-    color: #5c2e91; }
-
-#group-ex-results .card-wrapper,
-.groupex-results .card-wrapper {
-  display: inline-block;
-  padding-bottom: 55px; }
-  @media (min-width: 992px) {
-    #group-ex-results .card-wrapper,
-    .groupex-results .card-wrapper {
-      padding-bottom: 100px; } }
-
-#group-ex-results .time,
-.groupex-results .time {
-  font-family: "Cachet", "Comfortaa", sans-serif;
-  font-weight: 400;
-  color: #5c2e91;
-  font-size: 18px; }
-  #group-ex-results .time .hh-mm,
-  .groupex-results .time .hh-mm {
-    display: inline-block;
-    min-width: 69px; }
-  #group-ex-results .time .duration,
-  .groupex-results .time .duration {
-    font-size: 16px;
-    color: #c6168d;
-    white-space: nowrap;
-    word-wrap: normal; }
-  @media (min-width: 768px) {
-    #group-ex-results .time,
-    .groupex-results .time {
-      font-size: 30px;
-      margin-bottom: 10px; } }
-
-#group-ex-results .card,
-.groupex-results .card {
-  border: 1px solid #c6168d;
-  height: 100%;
-  outline: none;
-  text-decoration: none;
-  padding: 15px;
-  margin-bottom: -10px;
-  position: relative;
-  width: 100%; }
-  #group-ex-results .card h3,
-  .groupex-results .card h3 {
+/**
+ * Group Schedules
+ * (Results)
+ */
+#group-ex-results,
+.groupex-results {
+  margin-top: 2rem; }
+  #group-ex-results .caption,
+  .groupex-results .caption {
     font-family: "Cachet", "Comfortaa", sans-serif;
     font-weight: 400;
-    color: #0089d0;
-    font-size: 22px;
     letter-spacing: -0.8px;
-    line-height: 1;
-    margin: 5px 0;
-    white-space: normal;
-    word-wrap: break-word;
-    min-height: 44px; }
-    #group-ex-results .card h3 a,
-    .groupex-results .card h3 a {
-      color: #0089d0; }
-  #group-ex-results .card p,
-  .groupex-results .card p {
-    font-size: 15px;
-    line-height: 1.5;
-    color: #333333; }
-  #group-ex-results .card .instructor .fa,
-  .groupex-results .card .instructor .fa {
     color: #5c2e91;
-    margin-right: 5px; }
-  #group-ex-results .card .instructor a,
-  .groupex-results .card .instructor a {
-    color: #5c2e91; }
-  #group-ex-results .card .instructor .fa-refresh,
-  .groupex-results .card .instructor .fa-refresh {
-    font-size: 12px;
-    color: #c6168d;
-    margin-left: 16px;
-    margin-right: 5px; }
-  #group-ex-results .card .instructor .sub,
-  .groupex-results .card .instructor .sub {
-    font-size: 12px;
-    color: #c6168d; }
+    font-size: 30px;
+    margin-bottom: 15px; }
+    #group-ex-results .caption a,
+    .groupex-results .caption a {
+      color: #5c2e91; }
+  #group-ex-results .card-wrapper,
+  .groupex-results .card-wrapper {
+    display: inline-block;
+    padding-bottom: 55px; }
+    @media (min-width: 992px) {
+      #group-ex-results .card-wrapper,
+      .groupex-results .card-wrapper {
+        padding-bottom: 100px; } }
+  #group-ex-results .time,
+  .groupex-results .time {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
+    color: #5c2e91;
+    font-size: 18px; }
+    #group-ex-results .time .hh-mm,
+    .groupex-results .time .hh-mm {
+      display: inline-block;
+      min-width: 69px; }
+    #group-ex-results .time .duration,
+    .groupex-results .time .duration {
+      font-size: 16px;
+      color: #c6168d;
+      white-space: nowrap;
+      word-wrap: normal; }
+    @media (min-width: 768px) {
+      #group-ex-results .time,
+      .groupex-results .time {
+        font-size: 30px;
+        margin-bottom: 10px; } }
+  #group-ex-results .card,
+  .groupex-results .card {
+    border: 1px solid #c6168d;
+    height: 100%;
+    outline: none;
+    text-decoration: none;
+    padding: 15px;
+    margin-bottom: -10px;
+    position: relative;
+    width: 100%; }
+    #group-ex-results .card h3,
+    .groupex-results .card h3 {
+      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-weight: 400;
+      color: #0089d0;
+      font-size: 22px;
+      letter-spacing: -0.8px;
+      line-height: 1;
+      margin: 5px 0;
+      white-space: normal;
+      word-wrap: break-word;
+      min-height: 44px; }
+      #group-ex-results .card h3 a,
+      .groupex-results .card h3 a {
+        color: #0089d0; }
+    #group-ex-results .card p,
+    .groupex-results .card p {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #333333; }
+    #group-ex-results .card .instructor .fa,
+    .groupex-results .card .instructor .fa {
+      color: #5c2e91;
+      margin-right: 5px; }
+    #group-ex-results .card .instructor a,
+    .groupex-results .card .instructor a {
+      color: #5c2e91; }
+    #group-ex-results .card .instructor .fa-refresh,
+    .groupex-results .card .instructor .fa-refresh {
+      font-size: 12px;
+      color: #c6168d;
+      margin-left: 16px;
+      margin-right: 5px; }
+    #group-ex-results .card .instructor .sub,
+    .groupex-results .card .instructor .sub {
+      font-size: 12px;
+      color: #c6168d; }
 
+/**
+ * Group Schedules
+ * (GroupEX Form)
+ */
 .groupex-form-full .instructor-chosen {
   margin-bottom: 30px;
   color: #c6168d;
@@ -11894,58 +11917,6 @@ body {
       top: 0;
       vertical-align: top; }
 
-.groupex-form-full .top-form-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-  background-color: #ebebeb;
-  margin: 20px 0;
-  overflow: hidden;
-  padding: 20px;
-  flex-direction: column;
-  align-items: flex-end; }
-  @media (min-width: 992px) {
-    .groupex-form-full .top-form-wrapper {
-      flex-direction: row; } }
-  .groupex-form-full .top-form-wrapper .show {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-bottom: 1rem;
-    max-width: 100%; }
-    @media (min-width: 992px) {
-      .groupex-form-full .top-form-wrapper .show {
-        margin-bottom: 0;
-        flex-basis: 0;
-        flex-grow: 1; } }
-  .groupex-form-full .top-form-wrapper #submit-wrapper .input-wrapper {
-    display: flex;
-    justify-content: space-between; }
-    @media (min-width: 992px) {
-      .groupex-form-full .top-form-wrapper #submit-wrapper .input-wrapper {
-        flex-direction: row; } }
-  .groupex-form-full .top-form-wrapper .ajax-progress-throbber {
-    display: none; }
-  .groupex-form-full .top-form-wrapper .js-form-type-select,
-  .groupex-form-full .top-form-wrapper .js-form-type-date {
-    margin: 0; }
-  .groupex-form-full .top-form-wrapper select {
-    font-family: "Cachet", "Comfortaa", sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    text-transform: uppercase; }
-    .groupex-form-full .top-form-wrapper select ::-ms-expand {
-      display: none; }
-  .groupex-form-full .top-form-wrapper #date-select-wrapper input {
-    width: 100%;
-    line-height: 32px;
-    border: 1px solid #979797; }
-  .groupex-form-full .top-form-wrapper .groupex-pdf-link-container a {
-    color: white;
-    background-color: #5c2e91; }
-
 .groupex-form-full .class-description {
   margin: 20px 0 40px 0;
   font-size: 16px; }
@@ -11955,6 +11926,10 @@ body {
 .groupex-form-full.branch-specific-form #location-select-wrapper {
   display: none !important; }
 
+/**
+ * Group Schedules
+ * (Daxko registration iframe)
+ */
 iframe#ga_iframe {
   border: 0;
   width: 100%;
@@ -12149,74 +12124,69 @@ iframe#ga_iframe {
     color: white; }
 
 .site-alert__cta a {
-  color: white; }
+  color: white;
+  white-space: initial; }
 
-.header-alerts-list .slick-slider,
-.footer-alerts-list .slick-slider {
-  margin-bottom: 0; }
-
-.header-alerts-list .slick-track,
-.footer-alerts-list .slick-track {
-  display: flex; }
-  .header-alerts-list .slick-track .slick-slide,
-  .footer-alerts-list .slick-track .slick-slide {
-    display: flex;
-    height: auto; }
-
-@media (min-width: 992px) {
-  .header-alerts-list .slick--view--alerts .container,
-  .footer-alerts-list .slick--view--alerts .container {
-    position: relative; } }
-
-.header-alerts-list .slick__arrow,
-.footer-alerts-list .slick__arrow {
-  display: block;
-  height: 30px;
-  position: absolute;
-  bottom: 50%;
-  top: auto;
-  left: 0;
-  right: 0; }
+.header-alerts-list,
+.footer-alerts-list {
+  z-index: 1; }
+  .header-alerts-list .slick-slider,
+  .footer-alerts-list .slick-slider {
+    margin-bottom: 0; }
+  .header-alerts-list .slick-track,
+  .footer-alerts-list .slick-track {
+    display: flex; }
+    .header-alerts-list .slick-track .slick-slide,
+    .footer-alerts-list .slick-track .slick-slide {
+      display: flex;
+      height: auto; }
   @media (min-width: 992px) {
-    .header-alerts-list .slick__arrow,
-    .footer-alerts-list .slick__arrow {
-      margin-bottom: 31px; } }
-
-.header-alerts-list .slick__counter,
-.footer-alerts-list .slick__counter {
-  display: none; }
-
-.header-alerts-list .slick-arrow,
-.footer-alerts-list .slick-arrow {
-  padding: 10px;
-  background: transparent;
-  border: none;
-  color: transparent;
-  cursor: pointer;
-  display: block;
-  font-size: 0;
-  width: 20px;
-  height: 32px;
-  left: auto;
-  line-height: 0;
-  outline: none;
-  position: absolute;
-  text-decoration: none; }
-  .header-alerts-list .slick-arrow:before,
-  .footer-alerts-list .slick-arrow:before {
-    color: white;
-    font-family: "FontAwesome";
-    font-size: 30px;
-    font-weight: bold;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; }
-  .header-alerts-list .slick-arrow:hover:before,
-  .footer-alerts-list .slick-arrow:hover:before {
-    opacity: .7; }
-  .header-alerts-list .slick-arrow.slick-disabled,
-  .footer-alerts-list .slick-arrow.slick-disabled {
-    opacity: .5;
-    cursor: default; }
+    .header-alerts-list .slick--view--alerts .container,
+    .footer-alerts-list .slick--view--alerts .container {
+      position: relative; } }
+  .header-alerts-list .slick__arrow,
+  .footer-alerts-list .slick__arrow {
+    display: block;
+    position: absolute;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 55px; }
+  .header-alerts-list .slick__counter,
+  .footer-alerts-list .slick__counter {
+    display: none; }
+  .header-alerts-list .slick-arrow,
+  .footer-alerts-list .slick-arrow {
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: transparent;
+    cursor: pointer;
+    display: block;
+    font-size: 0;
+    width: 20px;
+    height: 32px;
+    left: auto;
+    line-height: 0;
+    outline: none;
+    position: absolute;
+    text-decoration: none;
+    bottom: -50%; }
+    .header-alerts-list .slick-arrow:before,
+    .footer-alerts-list .slick-arrow:before {
+      color: white;
+      font-family: "FontAwesome";
+      font-size: 30px;
+      font-weight: bold;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale; }
+    .header-alerts-list .slick-arrow:hover:before,
+    .footer-alerts-list .slick-arrow:hover:before {
+      opacity: .7; }
+    .header-alerts-list .slick-arrow.slick-disabled,
+    .footer-alerts-list .slick-arrow.slick-disabled {
+      opacity: .5;
+      cursor: default; }
 
 .header-alerts-list .slick-prev,
 .header-alerts-list .slick-prev,
@@ -12484,39 +12454,65 @@ iframe#ga_iframe {
   padding-bottom: 10px; }
 
 .sub-header--filters,
-#schedules-search-form-wrapper {
+#schedules-search-form-wrapper,
+.groupex-form-full {
+  padding-top: 30px;
   position: relative;
-  z-index: 1;
-  padding-top: 30px; }
+  z-index: 1; }
   @media (min-width: 992px) {
     .sub-header--filters,
-    #schedules-search-form-wrapper {
-      padding-top: 60px; } }
+    #schedules-search-form-wrapper,
+    .groupex-form-full {
+      padding-top: 40px; } }
   @media (min-width: 992px) {
     .sub-header--filters .controls-wrapper,
-    #schedules-search-form-wrapper .controls-wrapper {
+    #schedules-search-form-wrapper .controls-wrapper,
+    .groupex-form-full .controls-wrapper {
       display: none; } }
   .sub-header--filters .selects-container,
-  #schedules-search-form-wrapper .selects-container {
+  .sub-header--filters .top-form-wrapper,
+  #schedules-search-form-wrapper .selects-container,
+  #schedules-search-form-wrapper .top-form-wrapper,
+  .groupex-form-full .selects-container,
+  .groupex-form-full .top-form-wrapper {
     display: flex;
     flex-direction: column; }
     @media (max-width: 991.98px) {
       .sub-header--filters .selects-container.hidden-xs,
-      #schedules-search-form-wrapper .selects-container.hidden-xs {
+      .sub-header--filters .top-form-wrapper.hidden-xs,
+      #schedules-search-form-wrapper .selects-container.hidden-xs,
+      #schedules-search-form-wrapper .top-form-wrapper.hidden-xs,
+      .groupex-form-full .selects-container.hidden-xs,
+      .groupex-form-full .top-form-wrapper.hidden-xs {
         display: none; } }
     @media (min-width: 992px) {
       .sub-header--filters .selects-container,
-      #schedules-search-form-wrapper .selects-container {
-        flex-direction: row; } }
+      .sub-header--filters .top-form-wrapper,
+      #schedules-search-form-wrapper .selects-container,
+      #schedules-search-form-wrapper .top-form-wrapper,
+      .groupex-form-full .selects-container,
+      .groupex-form-full .top-form-wrapper {
+        flex-direction: row;
+        align-items: center;
+        padding: 0; } }
     .sub-header--filters .selects-container .container,
-    #schedules-search-form-wrapper .selects-container .container {
+    .sub-header--filters .top-form-wrapper .container,
+    #schedules-search-form-wrapper .selects-container .container,
+    #schedules-search-form-wrapper .top-form-wrapper .container,
+    .groupex-form-full .selects-container .container,
+    .groupex-form-full .top-form-wrapper .container {
       padding: 0; }
       @media (max-width: 991.98px) {
         .sub-header--filters .selects-container .container,
-        #schedules-search-form-wrapper .selects-container .container {
+        .sub-header--filters .top-form-wrapper .container,
+        #schedules-search-form-wrapper .selects-container .container,
+        #schedules-search-form-wrapper .top-form-wrapper .container,
+        .groupex-form-full .selects-container .container,
+        .groupex-form-full .top-form-wrapper .container {
           max-width: unset; } }
   .sub-header--filters .form-item,
-  #schedules-search-form-wrapper .form-item {
+  #schedules-search-form-wrapper .form-item,
+  .groupex-form-full .form-item {
     margin: 0 0 15px 0;
     flex: 0 0 100%;
     width: 100%;
@@ -12524,29 +12520,31 @@ iframe#ga_iframe {
     border-bottom: 1px solid #ebebeb; }
     @media (min-width: 992px) {
       .sub-header--filters .form-item,
-      #schedules-search-form-wrapper .form-item {
+      #schedules-search-form-wrapper .form-item,
+      .groupex-form-full .form-item {
         padding: 0 15px;
+        margin-bottom: 0;
         flex-basis: 0;
         flex-grow: 1;
-        border: none; }
-        .sub-header--filters .form-item:nth-of-type(1),
-        #schedules-search-form-wrapper .form-item:nth-of-type(1) {
-          padding-left: 0; } }
+        border: none; } }
     .sub-header--filters .form-item .ajax-progress-throbber,
-    #schedules-search-form-wrapper .form-item .ajax-progress-throbber {
+    #schedules-search-form-wrapper .form-item .ajax-progress-throbber,
+    .groupex-form-full .form-item .ajax-progress-throbber {
       position: absolute;
       margin: -20px 0 0 -15px;
       left: 50%;
       top: 50%; }
     .sub-header--filters .form-item .select-wrapper:before,
-    #schedules-search-form-wrapper .form-item .select-wrapper:before {
+    #schedules-search-form-wrapper .form-item .select-wrapper:before,
+    .groupex-form-full .form-item .select-wrapper:before {
       color: #c6168d;
       font-size: 24px;
       right: 0;
       top: 50%;
       margin-top: -18px; }
     .sub-header--filters .form-item label,
-    #schedules-search-form-wrapper .form-item label {
+    #schedules-search-form-wrapper .form-item label,
+    .groupex-form-full .form-item label {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 500;
       font-size: 14px;
@@ -12555,10 +12553,12 @@ iframe#ga_iframe {
       margin-bottom: 0; }
       @media (min-width: 992px) {
         .sub-header--filters .form-item label,
-        #schedules-search-form-wrapper .form-item label {
+        #schedules-search-form-wrapper .form-item label,
+        .groupex-form-full .form-item label {
           margin-bottom: 5px; } }
     .sub-header--filters .form-item .form-control,
-    #schedules-search-form-wrapper .form-item .form-control {
+    #schedules-search-form-wrapper .form-item .form-control,
+    .groupex-form-full .form-item .form-control {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
       padding-left: 0;
@@ -12572,31 +12572,38 @@ iframe#ga_iframe {
       letter-spacing: -1.2px;
       position: relative; }
       .sub-header--filters .form-item .form-control:focus,
-      #schedules-search-form-wrapper .form-item .form-control:focus {
+      #schedules-search-form-wrapper .form-item .form-control:focus,
+      .groupex-form-full .form-item .form-control:focus {
         outline: none;
         box-shadow: none; }
     .sub-header--filters .form-item .hasDatepicker,
-    #schedules-search-form-wrapper .form-item .hasDatepicker {
+    #schedules-search-form-wrapper .form-item .hasDatepicker,
+    .groupex-form-full .form-item .hasDatepicker {
       padding-right: 20px; }
       .sub-header--filters .form-item .hasDatepicker:after,
-      #schedules-search-form-wrapper .form-item .hasDatepicker:after {
+      #schedules-search-form-wrapper .form-item .hasDatepicker:after,
+      .groupex-form-full .form-item .hasDatepicker:after {
         content: '\f105';
         font-family: 'FontAwesome';
         font-weight: bold;
         padding-left: 5px; }
   .sub-header--filters .js-form-type-select.js-form-item-location,
-  #schedules-search-form-wrapper .js-form-type-select.js-form-item-location {
+  #schedules-search-form-wrapper .js-form-type-select.js-form-item-location,
+  .groupex-form-full .js-form-type-select.js-form-item-location {
     border: none; }
     @media (min-width: 992px) {
       .sub-header--filters .js-form-type-select.js-form-item-location,
-      #schedules-search-form-wrapper .js-form-type-select.js-form-item-location {
+      #schedules-search-form-wrapper .js-form-type-select.js-form-item-location,
+      .groupex-form-full .js-form-type-select.js-form-item-location {
         min-width: 225px;
         max-width: 300px; } }
     .sub-header--filters .js-form-type-select.js-form-item-location .select-wrapper:before,
-    #schedules-search-form-wrapper .js-form-type-select.js-form-item-location .select-wrapper:before {
+    #schedules-search-form-wrapper .js-form-type-select.js-form-item-location .select-wrapper:before,
+    .groupex-form-full .js-form-type-select.js-form-item-location .select-wrapper:before {
       right: 15px; }
     .sub-header--filters .js-form-type-select.js-form-item-location select,
-    #schedules-search-form-wrapper .js-form-type-select.js-form-item-location select {
+    #schedules-search-form-wrapper .js-form-type-select.js-form-item-location select,
+    .groupex-form-full .js-form-type-select.js-form-item-location select {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
       width: 100%;
@@ -12609,51 +12616,67 @@ iframe#ga_iframe {
       -webkit-appearance: none;
       -moz-appearance: none; }
   .sub-header--filters .actions-wrapper,
-  #schedules-search-form-wrapper .actions-wrapper {
+  #schedules-search-form-wrapper .actions-wrapper,
+  .groupex-form-full .actions-wrapper {
     display: none; }
+  .sub-header--filters #submit-wrapper .input-wrapper,
+  #schedules-search-form-wrapper #submit-wrapper .input-wrapper,
+  .groupex-form-full #submit-wrapper .input-wrapper {
+    display: flex;
+    justify-content: space-between; }
   .sub-header--filters .filters-main-wrapper,
-  #schedules-search-form-wrapper .filters-main-wrapper {
+  #schedules-search-form-wrapper .filters-main-wrapper,
+  .groupex-form-full .filters-main-wrapper {
     clear: both; }
     @media (min-width: 992px) {
       .sub-header--filters .filters-main-wrapper,
-      #schedules-search-form-wrapper .filters-main-wrapper {
+      #schedules-search-form-wrapper .filters-main-wrapper,
+      .groupex-form-full .filters-main-wrapper {
         padding-top: 15px;
         padding-bottom: 15px; } }
   .sub-header--filters .filters-container,
-  #schedules-search-form-wrapper .filters-container {
+  #schedules-search-form-wrapper .filters-container,
+  .groupex-form-full .filters-container {
     clear: both;
     position: relative;
     border-top: 1px solid #636466; }
     @media (max-width: 991.98px) {
       .sub-header--filters .filters-container.hidden,
-      #schedules-search-form-wrapper .filters-container.hidden {
+      #schedules-search-form-wrapper .filters-container.hidden,
+      .groupex-form-full .filters-container.hidden {
         display: none; } }
     @media (max-width: 991.98px) {
       .sub-header--filters .filters-container,
-      #schedules-search-form-wrapper .filters-container {
+      #schedules-search-form-wrapper .filters-container,
+      .groupex-form-full .filters-container {
         display: none; } }
     @media (min-width: 992px) {
       .sub-header--filters .filters-container,
-      #schedules-search-form-wrapper .filters-container {
+      #schedules-search-form-wrapper .filters-container,
+      .groupex-form-full .filters-container {
         margin-top: 0;
         border: none;
         display: block; } }
     .sub-header--filters .filters-container .container,
-    #schedules-search-form-wrapper .filters-container .container {
+    #schedules-search-form-wrapper .filters-container .container,
+    .groupex-form-full .filters-container .container {
       position: relative;
       padding: 0; }
     .sub-header--filters .filters-container .filters-wrapper,
-    #schedules-search-form-wrapper .filters-container .filters-wrapper {
+    #schedules-search-form-wrapper .filters-container .filters-wrapper,
+    .groupex-form-full .filters-container .filters-wrapper {
       padding-bottom: 5px;
       padding-top: 5px; }
       @media (min-width: 992px) {
         .sub-header--filters .filters-container .filters-wrapper,
-        #schedules-search-form-wrapper .filters-container .filters-wrapper {
+        #schedules-search-form-wrapper .filters-container .filters-wrapper,
+        .groupex-form-full .filters-container .filters-wrapper {
           padding-bottom: 0;
           padding-top: 0;
           border: 0; } }
       .sub-header--filters .filters-container .filters-wrapper .label,
-      #schedules-search-form-wrapper .filters-container .filters-wrapper .label {
+      #schedules-search-form-wrapper .filters-container .filters-wrapper .label,
+      .groupex-form-full .filters-container .filters-wrapper .label {
         font-family: "Cachet", "Comfortaa", sans-serif;
         font-weight: 400;
         color: #4f4f4f;
@@ -12664,16 +12687,19 @@ iframe#ga_iframe {
         text-align: left; }
         @media (min-width: 992px) {
           .sub-header--filters .filters-container .filters-wrapper .label,
-          #schedules-search-form-wrapper .filters-container .filters-wrapper .label {
+          #schedules-search-form-wrapper .filters-container .filters-wrapper .label,
+          .groupex-form-full .filters-container .filters-wrapper .label {
             display: inline-block; } }
       @media (min-width: 992px) {
         .sub-header--filters .filters-container .filters-wrapper .filters,
-        #schedules-search-form-wrapper .filters-container .filters-wrapper .filters {
+        #schedules-search-form-wrapper .filters-container .filters-wrapper .filters,
+        .groupex-form-full .filters-container .filters-wrapper .filters {
           display: flex;
           align-items: center;
           flex-wrap: wrap; } }
       .sub-header--filters .filters-container .filters-wrapper .filters .filter,
-      #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter {
+      #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter,
+      .groupex-form-full .filters-container .filters-wrapper .filters .filter {
         font-family: "Cachet", "Comfortaa", sans-serif;
         font-weight: 400;
         background: rgba(235, 235, 235, 0.3);
@@ -12689,26 +12715,32 @@ iframe#ga_iframe {
         margin: 0 5px 10px 0; }
         @media (min-width: 992px) {
           .sub-header--filters .filters-container .filters-wrapper .filters .filter,
-          #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter {
+          #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter,
+          .groupex-form-full .filters-container .filters-wrapper .filters .filter {
             margin: 5px 20px 5px 0; } }
         .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove,
-        #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove {
+        #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove,
+        .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove {
           margin-left: 10px;
           line-height: 30px; }
           @media (min-width: 992px) {
             .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove,
-            #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove {
+            #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove,
+            .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove {
               margin-left: 15px; } }
           .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa,
-          #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa {
+          #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa,
+          .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa {
             font-size: 13px;
             color: #0089d0; }
             .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
-            #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa:hover {
+            #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
+            .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa:hover {
               color: #c6168d; }
             @media (min-width: 992px) {
               .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa,
-              #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa {
+              #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa,
+              .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa {
                 font-size: 16px; } }
 
 html.js .ajax-progress .throbber,

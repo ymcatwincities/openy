@@ -73,10 +73,12 @@
 
 .site-alert__cta a {
   color: white;
+  white-space: initial;
 }
 
 .header-alerts-list,
 .footer-alerts-list {
+  z-index: 1;
 
   .slick-slider {
     margin-bottom: 0;
@@ -99,16 +101,12 @@
 
   .slick__arrow {
     display: block;
-    height: 30px;
+    //height: 30px;
     position: absolute;
-    bottom: 50%;
     top: auto;
     left: 0;
     right: 0;
-
-    @include media-breakpoint-up(lg) {
-      margin-bottom: 31px;
-    }
+    bottom: 55px;
   }
 
   .slick__counter {
@@ -130,6 +128,20 @@
     outline: none;
     position: absolute;
     text-decoration: none;
+    bottom: -50%;
+    //top: -56px;
+
+    //@include media-breakpoint-up(sm) {
+    //  top: -110px;
+    //}
+    //
+    //@include media-breakpoint-up(md) {
+    //  top: -70px;
+    //}
+
+    //@include media-breakpoint-up(lg) {
+    //  top: -55px;
+    //}
 
     &:before {
       color: white;

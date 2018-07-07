@@ -13,4 +13,5 @@ global-styling:
 
   dependencies:
     - core/jquery.once
+    - core/jquery.ui.datepicker
     - core/drupal
