@@ -84,31 +84,31 @@
 
 <div {{ attributes.setAttribute('style', bg_color ~ '; ' ~ txt_color) }}>
   <div class="container py-4">
-    <div class="row">
+    <div class="row py-lg-2">
       <div class="site-alert__wrapper col-12 col-lg-8 col-xl-8 m-auto px-5 py-1 d-flex flex-column flex-md-row align-items-stretch">
 
-          {% if icon_color is defined %}
-            <div class="site-alert__icon align-self-start" style="color: {{ icon_color }}">
-              <i class="fa fa-exclamation-circle"></i>
-            </div>
-          {% endif %}
+        {% if icon_color is defined %}
+          <div class="site-alert__icon align-self-start" style="color: {{ icon_color }}">
+            <i class="fa fa-exclamation-circle"></i>
+          </div>
+        {% endif %}
 
-          <div class="col-12 col-md-7 align-self-center">
-            <div class="site-alert__title">{{ label }}</div>
-            <div class="site-alert__content header-alert__content">
-              {{ content.field_alert_description }}
+        <div class="col-12 col-md-7 align-self-center">
+          <div class="site-alert__title">{{ label }}</div>
+          <div class="site-alert__content header-alert__content">
+            {{ content.field_alert_description }}
+          </div>
+        </div>
+
+        {% if link_title %}
+          <div class="site-alert__cta col-12 col-md-5 my-2 my-lg-0 align-self-center">
+            <div class="field-alert-link">
+              <a href="{{ link_url }}" class="btn btn-black btn-block py-2">{{ link_title }}</a>
             </div>
           </div>
+        {% endif %}
 
-          {% if link_title %}
-            <div class="site-alert__cta col-12 col-md-5 my-2 my-lg-0 align-self-center">
-              <div class="field-alert-link">
-                <a href="{{ link_url }}" class="btn btn-black btn-block py-2">{{ link_title }}</a>
-              </div>
-            </div>
-          {% endif %}
-
-          <a href="#" class="site-alert__dismiss align-self-center"><i class="fa fa-times"></i></a>
+        <a href="#" class="site-alert__dismiss align-self-center"><i class="fa fa-times"></i></a>
 
       </div>
     </div>

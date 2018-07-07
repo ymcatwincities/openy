@@ -34,6 +34,11 @@
     color: $light-blue;
     border: 1px solid $light-blue;
 
+    &:hover {
+      background-color: $light-blue;
+      color: $white;
+    }
+
     a {
       color: $light-blue;
       text-decoration: none;
@@ -45,9 +50,18 @@
     color: $primary;
     border: 1px solid $primary;
 
+    &:hover {
+      background-color: $primary;
+      color: $white;
+    }
+
     a {
       color: $primary;
       text-decoration: none;
+    }
+
+    @include media-breakpoint-down(lg) {
+      display: block;
     }
   }
 

@@ -52,6 +52,23 @@
   };
 
   /**
+   * Ensure header alerts are after breadcrumbs in the DOM
+   */
+  Drupal.behaviors.moveHeaderAlerts = {
+    attach: function (context, settings) {
+      var headerAlerts = $('#block-openy-carnation-views-block-alerts-header-alerts', context);
+      var subHeaderFilters = $(
+        '.sub-header--filters, ' +
+        '#schedules-search-form-wrapper, ' +
+        'groupex-form-full', context);
+
+      if (headerAlerts.length && subHeaderFilters.length) {
+        headerAlerts.once('openy-breadcrumbs').insertBefore(subHeaderFilters);
+      }
+    }
+  };
+
+  /**
    * Show/hide desktop search block.
    */
   Drupal.behaviors.openySearchToggle = {

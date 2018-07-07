@@ -116,6 +116,7 @@ function openy_carnation_preprocess_input(&$variables) {
   if ($variables['element']['#type'] == 'textfield'
     || $variables['element']['#type'] == 'email'
     || $variables['element']['#type'] == 'checkbox'
+    || $variables['element']['#type'] == 'date'
     || $variables['element']['#type'] == 'password') {
     $variables['attributes']['class'][] = 'form-control';
   }
@@ -143,6 +144,19 @@ function openy_carnation_theme_suggestions_page_alter(array &$suggestions, array
   }
 }
 
+/**
+ * Implements THEME_preprocess_breadcrumb.
+ *
+ * Trims long page title breadcrumbs.
+ */
+function openy_carnation_preprocess_breadcrumb(&$variables) {
+  if (isset($variables['breadcrumb'])) {
+    $last_item = end($variables['breadcrumb']);
+    if (strlen($last_item['text']) > 20) {
+      $variables['breadcrumb'][key($variables['breadcrumb'])]['text'] = t('Current page');
+    }
+  }
+}
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
@@ -151,7 +165,7 @@ function openy_carnation_theme_suggestions_page_alter(array &$suggestions, array
  * @param array $variables
  * @param $hook
  */
-function openy_rose_theme_suggestions_slick_alter(array &$suggestions, array $variables, $hook) {
+function openy_carnation_theme_suggestions_slick_alter(array &$suggestions, array $variables, $hook) {
   $types = [];
   foreach ($variables['element']['#items'] as $item) {
     $types[] = 'slick__' . $item['slide']['#node']->bundle();
@@ -169,7 +183,7 @@ function openy_carnation_theme_suggestions_radios_alter(array &$suggestions, arr
 /**
  * Implements hook_theme_suggestions_form_alter().
  */
-function openy_rose_theme_suggestions_form_alter(array &$suggestions, array $variables) {
+function openy_carnation_theme_suggestions_form_alter(array &$suggestions, array $variables) {
   if (isset($variables['element']['#form_id'])) {
     array_push($suggestions, 'form__' . $variables['element']['#form_id']);
   }

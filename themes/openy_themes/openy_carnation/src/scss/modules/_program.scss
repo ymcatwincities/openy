@@ -553,16 +553,6 @@
     }
 
     .activity-group-slider {
-      margin: 0 35px 45px;
-
-      //@include media-breakpoint-up(sm) {
-      //  margin: 0 35px 55px;
-      //}
-      //
-      //@include media-breakpoint-up(lg) {
-      //  margin-right: 0;
-      //}
-
       .views-field-rendered-entity {
         margin: 0 15px;
         height: auto;
@@ -579,6 +569,7 @@
       .slick-track {
         display: flex;
         flex-wrap: wrap;
+        margin: 0 auto;
       }
 
       .slick-arrow {

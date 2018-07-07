@@ -24,7 +24,7 @@ $breadcrumbColorsLength: length($breadcrumbColors);
       @include cachet();
       display: block;
       float: left;
-      height: 50px;
+      min-height: 50px;
       text-align: center;
       padding: 10px 20px 10px 50px;
       position: relative;
