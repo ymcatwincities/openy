@@ -842,11 +842,11 @@ html.js {
 .node--type-branch.node--view-mode-sidebar-teaser,
 .node--type-branch.node--view-mode-class-location,
 .node--type-camp.node--view-mode-teaser {
-  border: solid 1px $gray-200;
-  padding: 20px;
-  min-height: 300px;
-  margin: 20px;
-  position: relative;
+  //border: solid 1px $gray-200;
+  //padding: 20px;
+  //min-height: 300px;
+  //margin: 20px;
+  //position: relative;
   font-size: 15px;
 
   [class*="sidebar"] & {
@@ -858,35 +858,36 @@ html.js {
       display: block;
     }
 
+    // titles
     .location-item--title {
       display: inline-block;
-
-      a {
-        color: $purple;
-      }
     }
+  }
 
-    // address
-    .field-location-address {
-      position: relative;
-      padding-left: 25px;
+  // titles
+  .location-item--title a {
+    color: $purple;
+  }
 
-      &:before {
-        position: absolute;
-        content: '\f041';
-        font-family: 'FontAwesome';
-        font-size: 18px;
-        top: 0;
-        left: 0;
-        color: $gray-400;
-      }
+  // address
+  .field-location-address {
+    position: relative;
+    padding-left: 25px;
+
+    &:before {
+      position: absolute;
+      content: '\f041';
+      font-family: 'FontAwesome';
+      font-size: 18px;
+      top: 0;
+      left: 0;
+      color: $gray-400;
     }
+  }
 
-    // links (tel)
-    h4 {
-      margin-top: 1rem;
-    }
-
+  // links (tel)
+  h4 {
+    margin-top: 1rem;
   }
 
   .marker_tooltip & {

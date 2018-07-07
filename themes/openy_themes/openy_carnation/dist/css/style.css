@@ -8895,11 +8895,6 @@ html.js .branch__updates_queue__button {
 .node--type-branch.node--view-mode-sidebar-teaser,
 .node--type-branch.node--view-mode-class-location,
 .node--type-camp.node--view-mode-teaser {
-  border: solid 1px #ccc;
-  padding: 20px;
-  min-height: 300px;
-  margin: 20px;
-  position: relative;
   font-size: 15px; }
   [class*="sidebar"] .node--location-content-type.node--view-mode-teaser, [class*="sidebar"]
   .node--type-facility.node--view-mode-teaser, [class*="sidebar"]
@@ -8924,41 +8919,41 @@ html.js .branch__updates_queue__button {
     .node--type-branch.node--view-mode-class-location .location-item--title, [class*="sidebar"]
     .node--type-camp.node--view-mode-teaser .location-item--title {
       display: inline-block; }
-      [class*="sidebar"] .node--location-content-type.node--view-mode-teaser .location-item--title a, [class*="sidebar"]
-      .node--type-facility.node--view-mode-teaser .location-item--title a, [class*="sidebar"]
-      .node--type-branch.node--view-mode-teaser .location-item--title a, [class*="sidebar"]
-      .node--type-branch.node--view-mode-sidebar-teaser .location-item--title a, [class*="sidebar"]
-      .node--type-branch.node--view-mode-class-location .location-item--title a, [class*="sidebar"]
-      .node--type-camp.node--view-mode-teaser .location-item--title a {
-        color: #5c2e91; }
-    [class*="sidebar"] .node--location-content-type.node--view-mode-teaser .field-location-address, [class*="sidebar"]
-    .node--type-facility.node--view-mode-teaser .field-location-address, [class*="sidebar"]
-    .node--type-branch.node--view-mode-teaser .field-location-address, [class*="sidebar"]
-    .node--type-branch.node--view-mode-sidebar-teaser .field-location-address, [class*="sidebar"]
-    .node--type-branch.node--view-mode-class-location .field-location-address, [class*="sidebar"]
-    .node--type-camp.node--view-mode-teaser .field-location-address {
-      position: relative;
-      padding-left: 25px; }
-      [class*="sidebar"] .node--location-content-type.node--view-mode-teaser .field-location-address:before, [class*="sidebar"]
-      .node--type-facility.node--view-mode-teaser .field-location-address:before, [class*="sidebar"]
-      .node--type-branch.node--view-mode-teaser .field-location-address:before, [class*="sidebar"]
-      .node--type-branch.node--view-mode-sidebar-teaser .field-location-address:before, [class*="sidebar"]
-      .node--type-branch.node--view-mode-class-location .field-location-address:before, [class*="sidebar"]
-      .node--type-camp.node--view-mode-teaser .field-location-address:before {
-        position: absolute;
-        content: '\f041';
-        font-family: 'FontAwesome';
-        font-size: 18px;
-        top: 0;
-        left: 0;
-        color: #636466; }
-    [class*="sidebar"] .node--location-content-type.node--view-mode-teaser h4, [class*="sidebar"]
-    .node--type-facility.node--view-mode-teaser h4, [class*="sidebar"]
-    .node--type-branch.node--view-mode-teaser h4, [class*="sidebar"]
-    .node--type-branch.node--view-mode-sidebar-teaser h4, [class*="sidebar"]
-    .node--type-branch.node--view-mode-class-location h4, [class*="sidebar"]
-    .node--type-camp.node--view-mode-teaser h4 {
-      margin-top: 1rem; }
+  .node--location-content-type.node--view-mode-teaser .location-item--title a,
+  .node--type-facility.node--view-mode-teaser .location-item--title a,
+  .node--type-branch.node--view-mode-teaser .location-item--title a,
+  .node--type-branch.node--view-mode-sidebar-teaser .location-item--title a,
+  .node--type-branch.node--view-mode-class-location .location-item--title a,
+  .node--type-camp.node--view-mode-teaser .location-item--title a {
+    color: #5c2e91; }
+  .node--location-content-type.node--view-mode-teaser .field-location-address,
+  .node--type-facility.node--view-mode-teaser .field-location-address,
+  .node--type-branch.node--view-mode-teaser .field-location-address,
+  .node--type-branch.node--view-mode-sidebar-teaser .field-location-address,
+  .node--type-branch.node--view-mode-class-location .field-location-address,
+  .node--type-camp.node--view-mode-teaser .field-location-address {
+    position: relative;
+    padding-left: 25px; }
+    .node--location-content-type.node--view-mode-teaser .field-location-address:before,
+    .node--type-facility.node--view-mode-teaser .field-location-address:before,
+    .node--type-branch.node--view-mode-teaser .field-location-address:before,
+    .node--type-branch.node--view-mode-sidebar-teaser .field-location-address:before,
+    .node--type-branch.node--view-mode-class-location .field-location-address:before,
+    .node--type-camp.node--view-mode-teaser .field-location-address:before {
+      position: absolute;
+      content: '\f041';
+      font-family: 'FontAwesome';
+      font-size: 18px;
+      top: 0;
+      left: 0;
+      color: #636466; }
+  .node--location-content-type.node--view-mode-teaser h4,
+  .node--type-facility.node--view-mode-teaser h4,
+  .node--type-branch.node--view-mode-teaser h4,
+  .node--type-branch.node--view-mode-sidebar-teaser h4,
+  .node--type-branch.node--view-mode-class-location h4,
+  .node--type-camp.node--view-mode-teaser h4 {
+    margin-top: 1rem; }
   .marker_tooltip .node--location-content-type.node--view-mode-teaser, .marker_tooltip
   .node--type-facility.node--view-mode-teaser, .marker_tooltip
   .node--type-branch.node--view-mode-teaser, .marker_tooltip
