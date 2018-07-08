@@ -9896,7 +9896,7 @@ body .branch-popup {
   .yamlform-submission-guest-pass-form-form .yamlform-button--submit {
     margin: 10px 0; }
 
-.form-item, .form-actions {
+.form-item {
   margin: 1em 0.75em; }
 
 .form-type-checkbox {
@@ -12512,26 +12512,31 @@ iframe#ga_iframe {
 
 .sub-header--filters,
 #schedules-search-form-wrapper,
-.groupex-form-full {
+.groupex-form-full,
+.paragraph--type--event-posts-listing {
   padding-top: 30px;
   position: relative;
   z-index: 1; }
   @media (min-width: 992px) {
     .sub-header--filters,
     #schedules-search-form-wrapper,
-    .groupex-form-full {
+    .groupex-form-full,
+    .paragraph--type--event-posts-listing {
       padding-top: 40px; } }
   @media (min-width: 992px) {
     .sub-header--filters .controls-wrapper,
     #schedules-search-form-wrapper .controls-wrapper,
-    .groupex-form-full .controls-wrapper {
+    .groupex-form-full .controls-wrapper,
+    .paragraph--type--event-posts-listing .controls-wrapper {
       display: none; } }
   .sub-header--filters .selects-container,
   .sub-header--filters .top-form-wrapper,
   #schedules-search-form-wrapper .selects-container,
   #schedules-search-form-wrapper .top-form-wrapper,
   .groupex-form-full .selects-container,
-  .groupex-form-full .top-form-wrapper {
+  .groupex-form-full .top-form-wrapper,
+  .paragraph--type--event-posts-listing .selects-container,
+  .paragraph--type--event-posts-listing .top-form-wrapper {
     display: flex;
     flex-direction: column; }
     @media (max-width: 991.98px) {
@@ -12540,7 +12545,9 @@ iframe#ga_iframe {
       #schedules-search-form-wrapper .selects-container.hidden-xs,
       #schedules-search-form-wrapper .top-form-wrapper.hidden-xs,
       .groupex-form-full .selects-container.hidden-xs,
-      .groupex-form-full .top-form-wrapper.hidden-xs {
+      .groupex-form-full .top-form-wrapper.hidden-xs,
+      .paragraph--type--event-posts-listing .selects-container.hidden-xs,
+      .paragraph--type--event-posts-listing .top-form-wrapper.hidden-xs {
         display: none; } }
     @media (min-width: 992px) {
       .sub-header--filters .selects-container,
@@ -12548,7 +12555,9 @@ iframe#ga_iframe {
       #schedules-search-form-wrapper .selects-container,
       #schedules-search-form-wrapper .top-form-wrapper,
       .groupex-form-full .selects-container,
-      .groupex-form-full .top-form-wrapper {
+      .groupex-form-full .top-form-wrapper,
+      .paragraph--type--event-posts-listing .selects-container,
+      .paragraph--type--event-posts-listing .top-form-wrapper {
         flex-direction: row;
         align-items: center;
         padding: 0; } }
@@ -12557,7 +12566,9 @@ iframe#ga_iframe {
     #schedules-search-form-wrapper .selects-container .container,
     #schedules-search-form-wrapper .top-form-wrapper .container,
     .groupex-form-full .selects-container .container,
-    .groupex-form-full .top-form-wrapper .container {
+    .groupex-form-full .top-form-wrapper .container,
+    .paragraph--type--event-posts-listing .selects-container .container,
+    .paragraph--type--event-posts-listing .top-form-wrapper .container {
       padding: 0; }
       @media (max-width: 991.98px) {
         .sub-header--filters .selects-container .container,
@@ -12565,11 +12576,14 @@ iframe#ga_iframe {
         #schedules-search-form-wrapper .selects-container .container,
         #schedules-search-form-wrapper .top-form-wrapper .container,
         .groupex-form-full .selects-container .container,
-        .groupex-form-full .top-form-wrapper .container {
+        .groupex-form-full .top-form-wrapper .container,
+        .paragraph--type--event-posts-listing .selects-container .container,
+        .paragraph--type--event-posts-listing .top-form-wrapper .container {
           max-width: unset; } }
   .sub-header--filters .form-item,
   #schedules-search-form-wrapper .form-item,
-  .groupex-form-full .form-item {
+  .groupex-form-full .form-item,
+  .paragraph--type--event-posts-listing .form-item {
     margin: 0 0 15px 0;
     flex: 0 0 100%;
     width: 100%;
@@ -12578,7 +12592,8 @@ iframe#ga_iframe {
     @media (min-width: 992px) {
       .sub-header--filters .form-item,
       #schedules-search-form-wrapper .form-item,
-      .groupex-form-full .form-item {
+      .groupex-form-full .form-item,
+      .paragraph--type--event-posts-listing .form-item {
         padding: 0 15px;
         margin-bottom: 0;
         flex-basis: 0;
@@ -12586,14 +12601,16 @@ iframe#ga_iframe {
         border: none; } }
     .sub-header--filters .form-item .ajax-progress-throbber,
     #schedules-search-form-wrapper .form-item .ajax-progress-throbber,
-    .groupex-form-full .form-item .ajax-progress-throbber {
+    .groupex-form-full .form-item .ajax-progress-throbber,
+    .paragraph--type--event-posts-listing .form-item .ajax-progress-throbber {
       position: absolute;
       margin: -20px 0 0 -15px;
       left: 50%;
       top: 50%; }
     .sub-header--filters .form-item .select-wrapper:before,
     #schedules-search-form-wrapper .form-item .select-wrapper:before,
-    .groupex-form-full .form-item .select-wrapper:before {
+    .groupex-form-full .form-item .select-wrapper:before,
+    .paragraph--type--event-posts-listing .form-item .select-wrapper:before {
       color: #c6168d;
       font-size: 24px;
       right: 0;
@@ -12601,7 +12618,8 @@ iframe#ga_iframe {
       margin-top: -18px; }
     .sub-header--filters .form-item label,
     #schedules-search-form-wrapper .form-item label,
-    .groupex-form-full .form-item label {
+    .groupex-form-full .form-item label,
+    .paragraph--type--event-posts-listing .form-item label {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 500;
       font-size: 14px;
@@ -12611,11 +12629,13 @@ iframe#ga_iframe {
       @media (min-width: 992px) {
         .sub-header--filters .form-item label,
         #schedules-search-form-wrapper .form-item label,
-        .groupex-form-full .form-item label {
+        .groupex-form-full .form-item label,
+        .paragraph--type--event-posts-listing .form-item label {
           margin-bottom: 5px; } }
     .sub-header--filters .form-item .form-control,
     #schedules-search-form-wrapper .form-item .form-control,
-    .groupex-form-full .form-item .form-control {
+    .groupex-form-full .form-item .form-control,
+    .paragraph--type--event-posts-listing .form-item .form-control {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
       padding-left: 0;
@@ -12630,42 +12650,66 @@ iframe#ga_iframe {
       position: relative; }
       .sub-header--filters .form-item .form-control:focus,
       #schedules-search-form-wrapper .form-item .form-control:focus,
-      .groupex-form-full .form-item .form-control:focus {
+      .groupex-form-full .form-item .form-control:focus,
+      .paragraph--type--event-posts-listing .form-item .form-control:focus {
         outline: none;
         box-shadow: none; }
     .sub-header--filters .form-item.js-form-item-date .input-wrapper,
     #schedules-search-form-wrapper .form-item.js-form-item-date .input-wrapper,
-    .groupex-form-full .form-item.js-form-item-date .input-wrapper {
+    .groupex-form-full .form-item.js-form-item-date .input-wrapper,
+    .paragraph--type--event-posts-listing .form-item.js-form-item-date .input-wrapper {
       display: flex;
       align-items: center; }
       .sub-header--filters .form-item.js-form-item-date .input-wrapper:after,
       #schedules-search-form-wrapper .form-item.js-form-item-date .input-wrapper:after,
-      .groupex-form-full .form-item.js-form-item-date .input-wrapper:after {
+      .groupex-form-full .form-item.js-form-item-date .input-wrapper:after,
+      .paragraph--type--event-posts-listing .form-item.js-form-item-date .input-wrapper:after {
         content: '\f133';
         font-family: 'FontAwesome';
         font-weight: bold;
         padding-left: 5px; }
     .sub-header--filters .form-item .hasDatepicker,
     #schedules-search-form-wrapper .form-item .hasDatepicker,
-    .groupex-form-full .form-item .hasDatepicker {
+    .groupex-form-full .form-item .hasDatepicker,
+    .paragraph--type--event-posts-listing .form-item .hasDatepicker {
       padding-right: 20px; }
   .sub-header--filters .js-form-type-select.js-form-item-location,
+  .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf,
   #schedules-search-form-wrapper .js-form-type-select.js-form-item-location,
-  .groupex-form-full .js-form-type-select.js-form-item-location {
+  #schedules-search-form-wrapper .js-form-type-select.js-form-item-field-event-location-target-id-verf,
+  .groupex-form-full .js-form-type-select.js-form-item-location,
+  .groupex-form-full .js-form-type-select.js-form-item-field-event-location-target-id-verf,
+  .paragraph--type--event-posts-listing .js-form-type-select.js-form-item-location,
+  .paragraph--type--event-posts-listing .js-form-type-select.js-form-item-field-event-location-target-id-verf {
     border: none; }
     @media (min-width: 992px) {
       .sub-header--filters .js-form-type-select.js-form-item-location,
+      .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf,
       #schedules-search-form-wrapper .js-form-type-select.js-form-item-location,
-      .groupex-form-full .js-form-type-select.js-form-item-location {
+      #schedules-search-form-wrapper .js-form-type-select.js-form-item-field-event-location-target-id-verf,
+      .groupex-form-full .js-form-type-select.js-form-item-location,
+      .groupex-form-full .js-form-type-select.js-form-item-field-event-location-target-id-verf,
+      .paragraph--type--event-posts-listing .js-form-type-select.js-form-item-location,
+      .paragraph--type--event-posts-listing .js-form-type-select.js-form-item-field-event-location-target-id-verf {
         min-width: 225px;
         max-width: 300px; } }
     .sub-header--filters .js-form-type-select.js-form-item-location .select-wrapper:before,
+    .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before,
     #schedules-search-form-wrapper .js-form-type-select.js-form-item-location .select-wrapper:before,
-    .groupex-form-full .js-form-type-select.js-form-item-location .select-wrapper:before {
+    #schedules-search-form-wrapper .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before,
+    .groupex-form-full .js-form-type-select.js-form-item-location .select-wrapper:before,
+    .groupex-form-full .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before,
+    .paragraph--type--event-posts-listing .js-form-type-select.js-form-item-location .select-wrapper:before,
+    .paragraph--type--event-posts-listing .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before {
       right: 15px; }
     .sub-header--filters .js-form-type-select.js-form-item-location select,
+    .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
     #schedules-search-form-wrapper .js-form-type-select.js-form-item-location select,
-    .groupex-form-full .js-form-type-select.js-form-item-location select {
+    #schedules-search-form-wrapper .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
+    .groupex-form-full .js-form-type-select.js-form-item-location select,
+    .groupex-form-full .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
+    .paragraph--type--event-posts-listing .js-form-type-select.js-form-item-location select,
+    .paragraph--type--event-posts-listing .js-form-type-select.js-form-item-field-event-location-target-id-verf select {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
       width: 100%;
@@ -12679,66 +12723,78 @@ iframe#ga_iframe {
       -moz-appearance: none; }
   .sub-header--filters .actions-wrapper,
   #schedules-search-form-wrapper .actions-wrapper,
-  .groupex-form-full .actions-wrapper {
+  .groupex-form-full .actions-wrapper,
+  .paragraph--type--event-posts-listing .actions-wrapper {
     display: none; }
   .sub-header--filters #submit-wrapper .input-wrapper,
   #schedules-search-form-wrapper #submit-wrapper .input-wrapper,
-  .groupex-form-full #submit-wrapper .input-wrapper {
+  .groupex-form-full #submit-wrapper .input-wrapper,
+  .paragraph--type--event-posts-listing #submit-wrapper .input-wrapper {
     display: flex;
     justify-content: space-between; }
   .sub-header--filters .filters-main-wrapper,
   #schedules-search-form-wrapper .filters-main-wrapper,
-  .groupex-form-full .filters-main-wrapper {
+  .groupex-form-full .filters-main-wrapper,
+  .paragraph--type--event-posts-listing .filters-main-wrapper {
     clear: both; }
     @media (min-width: 992px) {
       .sub-header--filters .filters-main-wrapper,
       #schedules-search-form-wrapper .filters-main-wrapper,
-      .groupex-form-full .filters-main-wrapper {
+      .groupex-form-full .filters-main-wrapper,
+      .paragraph--type--event-posts-listing .filters-main-wrapper {
         padding-top: 15px;
         padding-bottom: 15px; } }
   .sub-header--filters .filters-container,
   #schedules-search-form-wrapper .filters-container,
-  .groupex-form-full .filters-container {
+  .groupex-form-full .filters-container,
+  .paragraph--type--event-posts-listing .filters-container {
     clear: both;
     position: relative;
     border-top: 1px solid #636466; }
     @media (max-width: 991.98px) {
       .sub-header--filters .filters-container.hidden,
       #schedules-search-form-wrapper .filters-container.hidden,
-      .groupex-form-full .filters-container.hidden {
+      .groupex-form-full .filters-container.hidden,
+      .paragraph--type--event-posts-listing .filters-container.hidden {
         display: none; } }
     @media (max-width: 991.98px) {
       .sub-header--filters .filters-container,
       #schedules-search-form-wrapper .filters-container,
-      .groupex-form-full .filters-container {
+      .groupex-form-full .filters-container,
+      .paragraph--type--event-posts-listing .filters-container {
         display: none; } }
     @media (min-width: 992px) {
       .sub-header--filters .filters-container,
       #schedules-search-form-wrapper .filters-container,
-      .groupex-form-full .filters-container {
+      .groupex-form-full .filters-container,
+      .paragraph--type--event-posts-listing .filters-container {
         margin-top: 0;
         border: none;
         display: block; } }
     .sub-header--filters .filters-container .container,
     #schedules-search-form-wrapper .filters-container .container,
-    .groupex-form-full .filters-container .container {
+    .groupex-form-full .filters-container .container,
+    .paragraph--type--event-posts-listing .filters-container .container {
       position: relative;
       padding: 0; }
     .sub-header--filters .filters-container .filters-wrapper,
     #schedules-search-form-wrapper .filters-container .filters-wrapper,
-    .groupex-form-full .filters-container .filters-wrapper {
+    .groupex-form-full .filters-container .filters-wrapper,
+    .paragraph--type--event-posts-listing .filters-container .filters-wrapper {
       padding-bottom: 5px;
       padding-top: 5px; }
       @media (min-width: 992px) {
         .sub-header--filters .filters-container .filters-wrapper,
         #schedules-search-form-wrapper .filters-container .filters-wrapper,
-        .groupex-form-full .filters-container .filters-wrapper {
+        .groupex-form-full .filters-container .filters-wrapper,
+        .paragraph--type--event-posts-listing .filters-container .filters-wrapper {
           padding-bottom: 0;
           padding-top: 0;
           border: 0; } }
       .sub-header--filters .filters-container .filters-wrapper .label,
       #schedules-search-form-wrapper .filters-container .filters-wrapper .label,
-      .groupex-form-full .filters-container .filters-wrapper .label {
+      .groupex-form-full .filters-container .filters-wrapper .label,
+      .paragraph--type--event-posts-listing .filters-container .filters-wrapper .label {
         font-family: "Cachet", "Comfortaa", sans-serif;
         font-weight: 400;
         color: #4f4f4f;
@@ -12750,18 +12806,21 @@ iframe#ga_iframe {
         @media (min-width: 992px) {
           .sub-header--filters .filters-container .filters-wrapper .label,
           #schedules-search-form-wrapper .filters-container .filters-wrapper .label,
-          .groupex-form-full .filters-container .filters-wrapper .label {
+          .groupex-form-full .filters-container .filters-wrapper .label,
+          .paragraph--type--event-posts-listing .filters-container .filters-wrapper .label {
             display: inline-block; } }
       @media (min-width: 992px) {
         .sub-header--filters .filters-container .filters-wrapper .filters,
         #schedules-search-form-wrapper .filters-container .filters-wrapper .filters,
-        .groupex-form-full .filters-container .filters-wrapper .filters {
+        .groupex-form-full .filters-container .filters-wrapper .filters,
+        .paragraph--type--event-posts-listing .filters-container .filters-wrapper .filters {
           display: flex;
           align-items: center;
           flex-wrap: wrap; } }
       .sub-header--filters .filters-container .filters-wrapper .filters .filter,
       #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter,
-      .groupex-form-full .filters-container .filters-wrapper .filters .filter {
+      .groupex-form-full .filters-container .filters-wrapper .filters .filter,
+      .paragraph--type--event-posts-listing .filters-container .filters-wrapper .filters .filter {
         font-family: "Cachet", "Comfortaa", sans-serif;
         font-weight: 400;
         background: rgba(235, 235, 235, 0.3);
@@ -12778,31 +12837,37 @@ iframe#ga_iframe {
         @media (min-width: 992px) {
           .sub-header--filters .filters-container .filters-wrapper .filters .filter,
           #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter,
-          .groupex-form-full .filters-container .filters-wrapper .filters .filter {
+          .groupex-form-full .filters-container .filters-wrapper .filters .filter,
+          .paragraph--type--event-posts-listing .filters-container .filters-wrapper .filters .filter {
             margin: 5px 20px 5px 0; } }
         .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove,
         #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove,
-        .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove {
+        .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove,
+        .paragraph--type--event-posts-listing .filters-container .filters-wrapper .filters .filter .remove {
           margin-left: 10px;
           line-height: 30px; }
           @media (min-width: 992px) {
             .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove,
             #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove,
-            .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove {
+            .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove,
+            .paragraph--type--event-posts-listing .filters-container .filters-wrapper .filters .filter .remove {
               margin-left: 15px; } }
           .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa,
           #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa,
-          .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa {
+          .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa,
+          .paragraph--type--event-posts-listing .filters-container .filters-wrapper .filters .filter .remove .fa {
             font-size: 13px;
             color: #0089d0; }
             .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
             #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
-            .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa:hover {
+            .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
+            .paragraph--type--event-posts-listing .filters-container .filters-wrapper .filters .filter .remove .fa:hover {
               color: #c6168d; }
             @media (min-width: 992px) {
               .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa,
               #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa,
-              .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa {
+              .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa,
+              .paragraph--type--event-posts-listing .filters-container .filters-wrapper .filters .filter .remove .fa {
                 font-size: 16px; } }
 
 html.js .ajax-progress .throbber,
@@ -13069,31 +13134,6 @@ body.path-user:not(.user-logged-in) {
       min-height: 700px; }
       .banner--large .banner-cta {
         min-height: 700px; } }
-
-.paragraph--type--event-posts-listing .views-exposed-form {
-  background-color: #ebebeb;
-  width: 100%;
-  padding: 17px 25px;
-  margin: 30px 0 50px; }
-
-.paragraph--type--event-posts-listing .form-actions {
-  text-align: center; }
-
-.paragraph--type--event-posts-listing .views-row {
-  margin: 30px 0; }
-
-@media (min-width: 768px) {
-  .paragraph--type--event-posts-listing form .form-item, .paragraph--type--event-posts-listing form .form-actions {
-    display: table-cell;
-    padding: 0 20px 0 0;
-    width: 50%;
-    vertical-align: bottom; }
-    .paragraph--type--event-posts-listing form .form-item select, .paragraph--type--event-posts-listing form .form-actions select {
-      max-width: 220px; }
-  .paragraph--type--event-posts-listing form .form-item-combine {
-    padding-left: 200px; }
-    .paragraph--type--event-posts-listing form .form-item-combine input {
-      min-width: 250px; } }
 
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title {
   font-size: 16px; }
