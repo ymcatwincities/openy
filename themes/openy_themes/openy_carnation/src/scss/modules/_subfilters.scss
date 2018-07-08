@@ -3,7 +3,7 @@
 .sub-header--filters,
 #schedules-search-form-wrapper,
 .groupex-form-full,
-.paragraph--type--event-posts-listing {
+.listing-event-posts {
   padding-top: 30px;
   position: relative;
   z-index: 1;
@@ -23,6 +23,7 @@
   .top-form-wrapper {
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     &.hidden-xs {
       @include media-breakpoint-down(md) {
@@ -32,7 +33,7 @@
 
     @include media-breakpoint-up(lg) {
       flex-direction: row;
-      align-items: center;
+      align-items: end;
       padding: 0;
     }
 

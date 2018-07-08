@@ -1,3 +1,128 @@
+// main events page
+.node--type-event.node--view-mode-teaser {
+  display: inline-block;
+  margin: 20px auto;
+  position: relative;
+  width: 100%;
+  height: auto;
+
+  // event date badge
+  .event-date {
+    position: absolute;
+    top: -12px;
+    left: calc(50% - 120px);
+    color: $white;
+    text-align: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: $white;
+    padding: 3px;
+
+    @include media-breakpoint-up(sm) {
+      left: 12px;
+    }
+
+    .event-date-wrapper {
+      background-color: $pink;
+      border-radius: 10px;
+      width: 54px;
+      height: 54px;
+    }
+  }
+
+  // event day
+  .event-date__event-day {
+    @include cachet(500);
+    font-size: 30px;
+    line-height: 15px;
+    padding-top: 12px;
+    padding-bottom: 4px;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+  }
+
+  // event month
+  .event-date__event-month {
+    @include cachet(500);
+    font-size: 13px;
+    line-height: 15px;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+  }
+
+  // event time (clock)
+  .event-date__event-time {
+    @include cachet(500);
+    font-size: 18px;
+    letter-spacing: -0.4px;
+    color: #5c2e91;
+  }
+
+  // event image
+  .event-image {
+    min-height: 150px;
+
+    &.empty {
+      background: $gray-100;
+      border-radius: 8px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 3px 30px 2px rgba(0, 0, 0, .05);
+    }
+  }
+
+  // event title
+  .event-title h2 {
+    @include cachet(500);
+    font-size: 20px;
+    letter-spacing: -0.5px;
+    color: $gray-700;
+    margin-top: 18px;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+
+    a {
+      color: $gray-700;
+
+      &:hover,
+      &:focus {
+        color: $gray-700;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // event location
+  .event-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include media-breakpoint-up(sm) {
+      justify-content: start;
+    }
+
+    a {
+      @include cachet(500);
+      font-size: 18px;
+      letter-spacing: -0.4px;
+      color: $primary;
+
+      &:hover,
+      &:focus {
+        color: $primary;
+      }
+    }
+  }
+}
+
+
+// upcoming events
 .paragraph--type--upcoming-events {
   .view-header,
   .view-footer {
@@ -166,7 +291,7 @@
 
   .field-direction a,
   .field-calendar a {
-    color: $pink;
+    color: $indigo;
     font-size: 16px;
     line-height: 1.5;
     display: block;

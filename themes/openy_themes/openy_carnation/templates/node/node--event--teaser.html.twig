@@ -80,23 +80,36 @@ view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
 ] %}
 
 <article{{ attributes.addClass(classes) }}>
-  <div class="content">
-    <div class="event-start-date event-date-month">
-      <div class="event-date">{{ node.field_event_dates.value|date('j') }}</div>
-      <div class="event-month">{{ node.field_event_dates.value|date('M') }}</div>
+  <div class="node__content text-center text-sm-left">
+
+    {# event date #}
+    <div class="event-date">
+			<div class="event-date-wrapper">
+				<div class="event-date__event-day">{{ node.field_event_dates.value|date('j') }}</div>
+				<div class="event-date__event-month">{{ node.field_event_dates.value|date('M') }}</div>
+			</div>
+		</div>
+
+    {# event image #}
+    <div class="event-image">
+      {{ content.field_event_image }}
     </div>
 
-    {{ content.field_event_image }}
+    {# event title (linked) #}
+    <div class="event-title">
+      {{ title_prefix }}
+      <h2{{ title_attributes.addClass('post-title') }}>
+        <a href="{{ url }}">{{ label }}</a>
+      </h2>
+      {{ title_suffix }}
+    </div>
 
-    {{ title_prefix }}
-    <h2{{ title_attributes }}>
-      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-    </h2>
-    {{ title_suffix }}
+    <div class="event-location">
+      <i class="fas fa-map-marker-alt mr-2 text-primary"></i> {{ content.field_event_location }}
+    </div>
 
-    {{ content.field_event_location }}
-    <div class="event-start-date event-time">
-      {{ node.field_event_dates.value|date('g:i a') }}
+    <div class="event-date__event-time">
+      <i class="fa fa-clock-o"></i> {{ node.field_event_dates.value|date('g:i a') }}
     </div>
   </div>
 </article>
