@@ -20,15 +20,8 @@ ol, ul {
 
 // Footer.
 .footer {
-  //margin-top: 45px;
-  //padding-top: 35px;
-  //padding-bottom: 36px;
-  //border-top: 1px solid #e5e5e5;
-  background-color: $gray-900;
   color: white;
   font-size: 12px;
-  //padding: 50px 0 0;
-  //font-family: Verdana,Geneva,sans-serif;
 }
 
 // Paragraphs.
@@ -89,4 +82,9 @@ p:last-child,
 
 .hidden {
   display: none !important;
+}
+
+// make row ready
+.views-infinite-scroll-content-wrapper {
+  @include make-row();
 }

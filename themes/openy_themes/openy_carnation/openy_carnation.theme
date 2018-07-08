@@ -188,4 +188,3 @@ function openy_carnation_theme_suggestions_form_alter(array &$suggestions, array
     array_push($suggestions, 'form__' . $variables['element']['#form_id']);
   }
 }
-
