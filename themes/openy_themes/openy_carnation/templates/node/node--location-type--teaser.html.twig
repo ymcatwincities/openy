@@ -62,6 +62,9 @@
  *   current user is a logged-in member.
  * - is_admin: Flag for admin user status. Will be true when the current user
  *   is an administrator.
+ * - content.field_branch_hours: Branch hours
+ * - content.field_location_state: Location State (links)
+ * - content.field_location_area: Location Area (links)
  *
  * @see template_preprocess_node()
  *
@@ -94,22 +97,49 @@
       {% set title_url = url %}
     {% endif %}
 
-    <h3 class="location-item--title" {{ title_attributes }}>
-      <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
-    </h3>
+    {# setup card colours #}
+    {% if node.type.entity.label|render|striptags == 'Branch' %}
+      {% set card_colour = 'primary' %}
+    {% else %}
+      {% set card_colour = 'success' %}
+    {% endif %}
+
+    <h2 class="location-item--title {{ 'card-type--' ~ node.type.entity.label|lower }}" {{ title_attributes }}>
+      <a href="{{ title_url }}" class="title-link text-{{ card_colour }}" rel="bookmark">
+        <i class="fas fa-hotel"></i>
+        {{ label }}
+      </a>
+    </h2>
   {% endif %}
   {{ title_suffix }}
 
-  {{ content.field_location_state }}
-  {{ content.field_location_area }}
-
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content.field_location_address }}
-    {{ content.field_location_phone }}
+
     {% if directions_title %}
       <a href="{{ directions_url }}" title="{{ directions_title }}">{{ directions_title }}</a>
     {% endif %}
-    {{ content.field_branch_hours }}
+
+    {% if content.field_location_phone|render|trim is not empty %}
+    <div class="wrapper-field-location-phone">
+      <div class="field-location-phone">
+        <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if content.field_location_fax|render|trim is not empty %}
+    <div class="wrapper-field-location-fax">
+      <div class="field-location-fax">
+        <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
+      </div>
+    </div>
+    {% endif %}
+
+    <span class="button branch-info">
+      <a href="{{ title_url }}" class="btn-{{ card_colour }}">{{ node.type.entity.label ~ ' ' ~ 'Info'|t }}</a>
+    </span>
+
   </div>
 
 </article>
