@@ -62,17 +62,6 @@ a.direction-link {
   }
 }
 
-// @todo: implement if new paragraph gets added to openy
-//.page-node-type-branch.with-banner .branch-title h1 {
-//  @include cachet(700);
-//  color: $gray-400;
-//  font-size: 60px;
-//
-//  @include media-breakpoint-up(lg) {
-//    color: white;
-//  }
-//}
-
 .page-node-type-branch {
   .branch-header {
 
@@ -842,11 +831,6 @@ html.js {
 .node--type-branch.node--view-mode-sidebar-teaser,
 .node--type-branch.node--view-mode-class-location,
 .node--type-camp.node--view-mode-teaser {
-  //border: solid 1px $gray-200;
-  //padding: 20px;
-  //min-height: 300px;
-  //margin: 20px;
-  //position: relative;
   font-size: 15px;
 
   [class*="sidebar"] & {
@@ -861,12 +845,10 @@ html.js {
     // titles
     .location-item--title {
       display: inline-block;
+      a {
+        color: $purple;
+      }
     }
-  }
-
-  // titles
-  .location-item--title a {
-    color: $purple;
   }
 
   // address

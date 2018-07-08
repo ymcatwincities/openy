@@ -106,16 +106,21 @@
       }
     }
 
-    .hasDatepicker {
-      //background: url("../img/input_calc_icon.png") no-repeat right center;
-      padding-right: 20px;
+    // date picker field
+    &.js-form-item-date .input-wrapper {
+      display: flex;
+      align-items: center;
 
       &:after {
-        content: '\f105';
+        content: '\f133';
         font-family: 'FontAwesome';
         font-weight: bold;
         padding-left: 5px;
       }
+    }
+
+    .hasDatepicker {
+      padding-right: 20px;
     }
   }
 

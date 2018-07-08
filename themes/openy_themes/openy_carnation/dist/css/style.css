@@ -8919,13 +8919,13 @@ html.js .branch__updates_queue__button {
     .node--type-branch.node--view-mode-class-location .location-item--title, [class*="sidebar"]
     .node--type-camp.node--view-mode-teaser .location-item--title {
       display: inline-block; }
-  .node--location-content-type.node--view-mode-teaser .location-item--title a,
-  .node--type-facility.node--view-mode-teaser .location-item--title a,
-  .node--type-branch.node--view-mode-teaser .location-item--title a,
-  .node--type-branch.node--view-mode-sidebar-teaser .location-item--title a,
-  .node--type-branch.node--view-mode-class-location .location-item--title a,
-  .node--type-camp.node--view-mode-teaser .location-item--title a {
-    color: #5c2e91; }
+      [class*="sidebar"] .node--location-content-type.node--view-mode-teaser .location-item--title a, [class*="sidebar"]
+      .node--type-facility.node--view-mode-teaser .location-item--title a, [class*="sidebar"]
+      .node--type-branch.node--view-mode-teaser .location-item--title a, [class*="sidebar"]
+      .node--type-branch.node--view-mode-sidebar-teaser .location-item--title a, [class*="sidebar"]
+      .node--type-branch.node--view-mode-class-location .location-item--title a, [class*="sidebar"]
+      .node--type-camp.node--view-mode-teaser .location-item--title a {
+        color: #5c2e91; }
   .node--location-content-type.node--view-mode-teaser .field-location-address,
   .node--type-facility.node--view-mode-teaser .field-location-address,
   .node--type-branch.node--view-mode-teaser .field-location-address,
@@ -10378,27 +10378,89 @@ body .branch-popup {
   display: inline-block;
   padding: 10px 0; }
 
-.paragraph--type--prgf-location-finder .views-element-container {
-  padding: 0; }
-  .paragraph--type--prgf-location-finder .views-element-container .locations-list {
-    padding: 20px 0; }
-    .paragraph--type--prgf-location-finder .views-element-container .locations-list .label-for-field-location-fax,
-    .paragraph--type--prgf-location-finder .views-element-container .locations-list .label-for-field-location-phone {
-      text-transform: lowercase;
-      display: inline; }
-    .paragraph--type--prgf-location-finder .views-element-container .locations-list .field-location-fax,
-    .paragraph--type--prgf-location-finder .views-element-container .locations-list .field-location-phone {
-      display: inline; }
+.node--type-facility.node--view-mode-teaser,
+.node--type-branch.node--view-mode-teaser,
+.node--type-camp.node--view-mode-teaser {
+  min-height: 300px;
+  font-size: 15px;
+  background-color: #fff;
+  box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  border: none;
+  position: relative;
+  padding: 20px;
+  padding-bottom: 50px;
+  margin-bottom: 52px; }
+  .node--type-facility.node--view-mode-teaser > h2,
+  .node--type-branch.node--view-mode-teaser > h2,
+  .node--type-camp.node--view-mode-teaser > h2 {
+    padding-bottom: 16px;
+    font-size: 22px;
+    font-family: "Cachet",Arial,sans-serif;
+    margin: 20px 0 33px;
+    font-weight: bold;
+    border-bottom: 2px solid #0089d0; }
+    .node--type-facility.node--view-mode-teaser > h2.card-type--camp, .node--type-facility.node--view-mode-teaser > h2.card-type--facility,
+    .node--type-branch.node--view-mode-teaser > h2.card-type--camp,
+    .node--type-branch.node--view-mode-teaser > h2.card-type--facility,
+    .node--type-camp.node--view-mode-teaser > h2.card-type--camp,
+    .node--type-camp.node--view-mode-teaser > h2.card-type--facility {
+      border-bottom: 2px solid #20bdbe; }
+  .node--type-facility.node--view-mode-teaser .title-link,
+  .node--type-branch.node--view-mode-teaser .title-link,
+  .node--type-camp.node--view-mode-teaser .title-link {
+    font-family: "Cachet",Arial,sans-serif;
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: -1.2px;
+    text-transform: uppercase; }
+    .node--type-facility.node--view-mode-teaser .title-link i,
+    .node--type-branch.node--view-mode-teaser .title-link i,
+    .node--type-camp.node--view-mode-teaser .title-link i {
+      margin-right: 8px;
+      font-size: 22px; }
+      .node--type-facility.node--view-mode-teaser .title-link i:before,
+      .node--type-branch.node--view-mode-teaser .title-link i:before,
+      .node--type-camp.node--view-mode-teaser .title-link i:before {
+        content: "\f594" !important; }
+    .node--type-facility.node--view-mode-teaser .title-link:focus, .node--type-facility.node--view-mode-teaser .title-link:hover,
+    .node--type-branch.node--view-mode-teaser .title-link:focus,
+    .node--type-branch.node--view-mode-teaser .title-link:hover,
+    .node--type-camp.node--view-mode-teaser .title-link:focus,
+    .node--type-camp.node--view-mode-teaser .title-link:hover {
+      text-decoration: none; }
+  .node--type-facility.node--view-mode-teaser .button.branch-info a,
+  .node--type-branch.node--view-mode-teaser .button.branch-info a,
+  .node--type-camp.node--view-mode-teaser .button.branch-info a {
+    position: absolute;
+    bottom: -20px;
+    left: calc(50% - 90px);
+    border-radius: 8px;
+    text-transform: uppercase;
+    width: 180px;
+    height: 60px;
+    font-family: "Cachet",Arial,sans-serif;
+    font-size: 20px;
+    line-height: 60px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    text-align: center; }
+    .node--type-facility.node--view-mode-teaser .button.branch-info a:focus, .node--type-facility.node--view-mode-teaser .button.branch-info a:hover,
+    .node--type-branch.node--view-mode-teaser .button.branch-info a:focus,
+    .node--type-branch.node--view-mode-teaser .button.branch-info a:hover,
+    .node--type-camp.node--view-mode-teaser .button.branch-info a:focus,
+    .node--type-camp.node--view-mode-teaser .button.branch-info a:hover {
+      text-decoration: none; }
 
 .form__locations {
-  background-color: #ebebeb;
+  background-color: rgba(235, 235, 235, 0.5);
   height: 92px;
   display: table;
   width: 100%;
-  padding: 35px 0 17px; }
+  padding: 35px 0; }
   @media (min-width: 768px) {
     .form__locations {
-      padding: 35px 25px 17px; } }
+      padding: 35px 25px; } }
   @media (min-width: 576px) {
     .form__locations .form-group {
       margin-bottom: 0; } }
@@ -10427,6 +10489,10 @@ body .branch-popup {
     display: none;
     display: initial; }
 
+.tag_filters img {
+  margin: -2px 0 0 3px;
+  width: 13px; }
+
 .locations-list {
   margin: -20px; }
   .locations-list .views-row__wrapper {
@@ -10451,7 +10517,7 @@ body .branch-popup {
   .locations-list header h2.h1 {
     font-size: 36px;
     padding-left: 20px;
-    padding-bottom: 0;
+    padding-bottom: 20px;
     clear: both;
     margin-top: 0;
     font-weight: bold; }
@@ -10481,10 +10547,6 @@ body .branch-popup {
       display: block; }
   .locations-list .field-branch-hours h4 {
     font-size: 14px; }
-
-.tag_filters img {
-  margin: -2px 0 0 3px;
-  width: 13px; }
 
 .paragraph--type--single-teaser .content-tease-paragraph .image-wrapper {
   text-align: center;
@@ -12571,17 +12633,22 @@ iframe#ga_iframe {
       .groupex-form-full .form-item .form-control:focus {
         outline: none;
         box-shadow: none; }
+    .sub-header--filters .form-item.js-form-item-date .input-wrapper,
+    #schedules-search-form-wrapper .form-item.js-form-item-date .input-wrapper,
+    .groupex-form-full .form-item.js-form-item-date .input-wrapper {
+      display: flex;
+      align-items: center; }
+      .sub-header--filters .form-item.js-form-item-date .input-wrapper:after,
+      #schedules-search-form-wrapper .form-item.js-form-item-date .input-wrapper:after,
+      .groupex-form-full .form-item.js-form-item-date .input-wrapper:after {
+        content: '\f133';
+        font-family: 'FontAwesome';
+        font-weight: bold;
+        padding-left: 5px; }
     .sub-header--filters .form-item .hasDatepicker,
     #schedules-search-form-wrapper .form-item .hasDatepicker,
     .groupex-form-full .form-item .hasDatepicker {
       padding-right: 20px; }
-      .sub-header--filters .form-item .hasDatepicker:after,
-      #schedules-search-form-wrapper .form-item .hasDatepicker:after,
-      .groupex-form-full .form-item .hasDatepicker:after {
-        content: '\f105';
-        font-family: 'FontAwesome';
-        font-weight: bold;
-        padding-left: 5px; }
   .sub-header--filters .js-form-type-select.js-form-item-location,
   #schedules-search-form-wrapper .js-form-type-select.js-form-item-location,
   .groupex-form-full .js-form-type-select.js-form-item-location {
@@ -13050,7 +13117,7 @@ body.path-user:not(.user-logged-in) {
     fill: #007677; }
 
 .paragraph--type--location-filter-by-amenities .views-element-container {
-  margin: 0 15px 40px; }
+  margin: 0 0 40px; }
   .paragraph--type--location-filter-by-amenities .views-element-container legend {
     color: #636466; }
   .paragraph--type--location-filter-by-amenities .views-element-container form {
@@ -13076,6 +13143,9 @@ body.path-user:not(.user-logged-in) {
           columns: 4; } }
     .paragraph--type--location-filter-by-amenities .views-element-container form .form-item {
       margin: 0 0 5px; }
+      .paragraph--type--location-filter-by-amenities .views-element-container form .form-item input.form-checkbox {
+        width: auto;
+        display: inline; }
       .paragraph--type--location-filter-by-amenities .views-element-container form .form-item .field-amenities-icon {
         padding: 2px;
         width: 30px;

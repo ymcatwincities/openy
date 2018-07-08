@@ -31,7 +31,7 @@
   }
 
   .views-element-container {
-    margin: 0 15px 40px;
+    margin: 0 0 40px;
 
     legend {
       color: $gray-400;
@@ -68,6 +68,8 @@
         margin: 0 0 5px;
 
         input.form-checkbox {
+          width: auto;
+          display: inline;
         }
 
         .field-amenities-icon {
