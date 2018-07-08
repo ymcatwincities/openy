@@ -2,7 +2,8 @@
 // (programs, sub-programs)
 .sub-header--filters,
 #schedules-search-form-wrapper,
-.groupex-form-full {
+.groupex-form-full,
+.paragraph--type--event-posts-listing {
   padding-top: 30px;
   position: relative;
   z-index: 1;
@@ -125,7 +126,8 @@
   }
 
   // location field
-  .js-form-type-select.js-form-item-location {
+  .js-form-type-select.js-form-item-location,
+  .js-form-type-select.js-form-item-field-event-location-target-id-verf {
     border: none;
 
     @include media-breakpoint-up(lg) {
