@@ -11,6 +11,7 @@ import ResultsList from './components/ResultsList/ResultsList';
 import LoginSelection from './components/LoginSelection/LoginSelection';
 import Kids from './components/Kids/Kids';
 import ListCategoryLevel from './components/ListCategoryLevel/ListCategoryLevel';
+import DayView from './components/DayView/DayView';
 
 /**
  * Application entry point.
@@ -24,6 +25,7 @@ class App extends Component {
         <Categories />
         <ListCategoryLevel />
         <LocationsList />
+        <DayView />
         <Times />
         <ResultsList />
       </div>
