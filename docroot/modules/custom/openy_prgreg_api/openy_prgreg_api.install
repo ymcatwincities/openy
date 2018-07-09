@@ -1,0 +1,25 @@
+<?php
+
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function openy_prgreg_api_install() {
+  $roles = Role::loadMultiple([
+    RoleInterface::ANONYMOUS_ID,
+    RoleInterface::AUTHENTICATED_ID
+  ]);
+
+  $permissions = [
+    "restful get openy_prgreg_api_locations"
+  ];
+
+  foreach ($roles as $role) {
+    foreach ($permissions as $permission) {
+      $role->grantPermission($permission);
+    }
+    $role->save();
+  }
+}
