@@ -12616,6 +12616,12 @@ iframe#ga_iframe {
     .groupex-form-full .controls-wrapper,
     .listing-event-posts .controls-wrapper {
       display: none; } }
+  @media (min-width: 992px) {
+    .sub-header--filters .exposed-form-flex-wrapper,
+    #schedules-search-form-wrapper .exposed-form-flex-wrapper,
+    .groupex-form-full .exposed-form-flex-wrapper,
+    .listing-event-posts .exposed-form-flex-wrapper {
+      margin: 0 -15px; } }
   .sub-header--filters .selects-container,
   .sub-header--filters .top-form-wrapper,
   #schedules-search-form-wrapper .selects-container,
@@ -12727,7 +12733,6 @@ iframe#ga_iframe {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
       padding-left: 0;
-      text-transform: uppercase;
       background: transparent;
       color: #4f4f4f;
       font-size: 14px;
@@ -12736,6 +12741,11 @@ iframe#ga_iframe {
       height: calc(3.5rem + 2px) !important;
       letter-spacing: -1.2px;
       position: relative; }
+      .sub-header--filters .form-item .form-control.form-select,
+      #schedules-search-form-wrapper .form-item .form-control.form-select,
+      .groupex-form-full .form-item .form-control.form-select,
+      .listing-event-posts .form-item .form-control.form-select {
+        text-transform: uppercase; }
       .sub-header--filters .form-item .form-control:focus,
       #schedules-search-form-wrapper .form-item .form-control:focus,
       .groupex-form-full .form-item .form-control:focus,
@@ -12809,6 +12819,11 @@ iframe#ga_iframe {
       font-size: 18px;
       -webkit-appearance: none;
       -moz-appearance: none; }
+  .sub-header--filters .form-actions,
+  #schedules-search-form-wrapper .form-actions,
+  .groupex-form-full .form-actions,
+  .listing-event-posts .form-actions {
+    padding: 0 15px; }
   .sub-header--filters .actions-wrapper,
   #schedules-search-form-wrapper .actions-wrapper,
   .groupex-form-full .actions-wrapper,
