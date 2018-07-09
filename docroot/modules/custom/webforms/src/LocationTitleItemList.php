@@ -20,21 +20,35 @@ class LocationTitleItemList extends FieldItemList {
   protected function computeValue() {
     $entity = $this->getEntity();
 
-    $locationField = $entity->get('field_y_location_email');
-    if ($locationField->isEmpty()) {
-      return;
+    // Try to find the first "options_email_item".
+    $entityManager = \Drupal::service('entity_field.manager');
+    $fields = $entityManager->getFieldDefinitions($entity->getEntityTypeId(), $entity->bundle());
+
+    /** @var \Drupal\field\Entity\FieldConfig $field */
+    foreach ($fields as $field) {
+      $type = $field->getType();
+      if ($type == 'options_email_item') {
+
+        $locationField = $entity->get($field->getName());
+        if ($locationField->isEmpty()) {
+          return;
+        }
+
+        $optionsEmailItem = $locationField->get(0);
+        $id = $optionsEmailItem->get('option_emails')->getValue();
+        if (!$id) {
+          return;
+        }
+
+        $loadedNode = \Drupal::entityTypeManager()->getStorage('node')->load($id);
+        if ($loadedNode && $loadedNode->bundle() == 'location') {
+          $this->list[0] = $this->createItem(0, $loadedNode->getTitle());
+        }
+
+        break;
+      }
     }
 
-    $optionsEmailItem = $locationField->get(0);
-    $id = $optionsEmailItem->get('option_emails')->getValue();
-    if (!$id) {
-      return;
-    }
-
-    $loadedNode = \Drupal::entityTypeManager()->getStorage('node')->load($id);
-    if ($loadedNode && $loadedNode->bundle() == 'location') {
-      $this->list[0] = $this->createItem(0, $loadedNode->getTitle());
-    }
   }
 
 }
