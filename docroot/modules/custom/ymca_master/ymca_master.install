@@ -6661,3 +6661,11 @@ function ymca_master_update_8288() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['openy_autocomplete_path'], TRUE);
 }
+
+/**
+ * Enable OpenY Program Registration.
+ */
+function ymca_master_update_8289() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['openy_prgreg_api'], TRUE);
+}
