@@ -28,21 +28,24 @@ class ResultsList extends Component {
             <Col md={12}>
               <Row>
                 <Col md={8}>
-              <h2>Registration</h2>
-              <p>Please provide the details marked with a  <FaExclamationCircle size={20} /> to proceed.</p>
+                  <h2>Registration</h2>
+                  <p>
+                    Please provide the details marked with a{' '}
+                    <FaExclamationCircle size={20} /> to proceed.
+                  </p>
                 </Col>
-              <Col md={4}>
-                <div className={'kids-data'}>
-                  <Button
-                    className={
-                      'd-flex ml-auto justify-content-center pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'
-                    }
-                  >
-                   Back to results
-                  </Button>
-                </div>
-              </Col>
-          </Row>
+                <Col md={4}>
+                  <div className={'kids-data'}>
+                    <Button
+                      className={
+                        'd-flex ml-auto justify-content-center pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'
+                      }
+                    >
+                      Back to results
+                    </Button>
+                  </div>
+                </Col>
+              </Row>
               <Card className={'data-time my-3'}>
                 <CardBody>
                   <CardTitle className={'text-uppercase mb-0'}>
@@ -82,17 +85,29 @@ class ResultsList extends Component {
                         <Col md={4}>
                           <FormGroup>
                             <div className={'d-flex'}>
-                              <div className={"d-flex align-items-center pr-2"}>
-                            <FaExclamationCircle size={20} />
+                              <div className={'d-flex align-items-center pr-2'}>
+                                <FaExclamationCircle size={20} />
                               </div>
 
-                            <Input type="select" name="select" placeholder="fdfs" id="exampleSelect">
-                              <option value="" disabled selected>Select Participant</option>
-                              <option>Terri</option>
-                              <option>Craig</option>
-                            </Input>
+                              <Input
+                                type="select"
+                                name="select"
+                                placeholder="fdfs"
+                                id="exampleSelect"
+                              >
+                                <option value="" disabled selected>
+                                  Select Participant
+                                </option>
+                                <option>Terri</option>
+                                <option>Craig</option>
+                              </Input>
                             </div>
-                            <Label for="exampleSelect">or: <small><a href={'#'}> Add New Participant</a></small></Label>
+                            <Label for="exampleSelect">
+                              or:{' '}
+                              <small>
+                                <a href={'#'}> Add New Participant</a>
+                              </small>
+                            </Label>
                           </FormGroup>
                         </Col>
                       </Row>
@@ -115,17 +130,29 @@ class ResultsList extends Component {
                         <Col md={4}>
                           <FormGroup>
                             <div className={'d-flex'}>
-                              <div className={"d-flex align-items-center pr-2"}>
+                              <div className={'d-flex align-items-center pr-2'}>
                                 <FaExclamationCircle size={20} />
                               </div>
 
-                              <Input type="select" name="select" placeholder="fdfs" id="exampleSelect">
-                                <option value="" disabled selected>Select Participant</option>
+                              <Input
+                                type="select"
+                                name="select"
+                                placeholder="fdfs"
+                                id="exampleSelect"
+                              >
+                                <option value="" disabled selected>
+                                  Select Participant
+                                </option>
                                 <option>Terri</option>
                                 <option>Craig</option>
                               </Input>
                             </div>
-                            <Label for="exampleSelect">or: <small><a href={'#'}> Add New Participant</a></small></Label>
+                            <Label for="exampleSelect">
+                              or:{' '}
+                              <small>
+                                <a href={'#'}> Add New Participant</a>
+                              </small>
+                            </Label>
                           </FormGroup>
                         </Col>
                       </Row>
@@ -137,22 +164,17 @@ class ResultsList extends Component {
             <Col md={12}>
               <div className={'d-flex ml-auto py-4 justify-content-end'}>
                 <div className="p-2">
-                  <p className={'mb-0 font-weight-bold'}>
-                    Members: $94.00
-                  </p>
+                  <p className={'mb-0 font-weight-bold'}>Members: $94.00</p>
                 </div>
                 <div>
                   <Button
-                    className={
-                      'pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'
-                    }
+                    className={'pt-2 pb-2 pl-5 pr-5 btn-next text-uppercase'}
                   >
                     Add to cart
                   </Button>
                 </div>
               </div>
             </Col>
-
           </Row>
         </Container>
       </div>
