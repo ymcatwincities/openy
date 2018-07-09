@@ -790,7 +790,9 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
     foreach ($campaign->get('field_campaign_pages')->getValue() as $item) {
       if (!empty($item)) {
         $campaignPage = Node::load($item['target_id']);
-        $campaignPages[$campaignPage->id()] = $campaignPage->getTitle();
+        if ($campaignPage) {
+          $campaignPages[$campaignPage->id()] = $campaignPage->getTitle();
+        }
       }
     }
     $campaignMenu = $campaign->get('field_campaign_menu')->getValue();
