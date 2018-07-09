@@ -18,6 +18,13 @@
     }
   }
 
+  // wrapper
+  .exposed-form-flex-wrapper {
+    @include media-breakpoint-up(lg) {
+      margin: 0 -15px;
+    }
+  }
+
   // show/hide filters based on screen size
   .selects-container,
   .top-form-wrapper {
@@ -92,7 +99,6 @@
     .form-control {
       @include cachet();
       padding-left: 0;
-      text-transform: uppercase;
       background: transparent;
       color: $gray-500;
       font-size: 14px;
@@ -101,6 +107,10 @@
       height: calc(3.5rem + 2px) !important;
       letter-spacing: -1.2px;
       position: relative;
+
+      &.form-select {
+        text-transform: uppercase;
+      }
 
       &:focus {
         outline: none;
@@ -152,6 +162,10 @@
       -webkit-appearance: none;
       -moz-appearance: none;
     }
+  }
+
+  .form-actions {
+    padding: 0 15px;
   }
 
   // buttons
