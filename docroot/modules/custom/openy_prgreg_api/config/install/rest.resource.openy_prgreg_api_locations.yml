@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_prgreg_api
+    - serialization
+    - user
+id: openy_prgreg_api_locations
+plugin_id: openy_prgreg_api_locations
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - cookie
