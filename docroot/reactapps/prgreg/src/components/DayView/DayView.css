@@ -1,0 +1,11 @@
+.paginate {
+  padding: 40px; }
+
+.header-day-view {
+  border-bottom: 1px solid black;
+  border-bottom-style: dotted; }
+  .header-day-view .package {
+    border: 1px solid #777;
+    font-size: 14px;
+    margin: 5px 15px 5px 0;
+    padding: 5px 5px 5px 32px; }
