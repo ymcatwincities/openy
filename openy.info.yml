@@ -193,14 +193,13 @@ dependencies:
   - openy_ckeditor
   - openy_hours_formatter
   - openy_migrate
-  - openy_map
   - openy_moderation_wrapper
   - openy_popups
   - openy_session_instance
   - openy_schedules
   - openy_socrates
+  - openy_map
   - openy_tour
-  - location_finder
   - daxko
   - openy_programs_search
   - openy_mappings
