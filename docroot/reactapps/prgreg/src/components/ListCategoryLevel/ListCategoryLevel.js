@@ -16,17 +16,14 @@ import {
   CardText
 } from 'reactstrap';
 import { FaInfoCircle } from 'react-icons/lib/fa';
-import './ListCategoryLevel.css'
+import './ListCategoryLevel.css';
 import Sidebar from '../Sidebar/Sidebar';
-
-
 
 /**
  * Renders list categories with radio buttons and "Next" button.
  */
 class ListCategoryLevel extends Component {
   render() {
-
     return (
       <div>
         <Container>
@@ -35,17 +32,19 @@ class ListCategoryLevel extends Component {
               <FormGroup tag="fieldset">
                 <Row>
                   <Col md={9}>
-                <Breadcrumb>
-                  <BreadcrumbItem><a href="#">Swim Lessons</a></BreadcrumbItem>
-                  <BreadcrumbItem active>Preschool Child </BreadcrumbItem>
-                </Breadcrumb>
-                <p>Select your level.</p>
+                    <Breadcrumb>
+                      <BreadcrumbItem>
+                        <a href="#">Swim Lessons</a>
+                      </BreadcrumbItem>
+                      <BreadcrumbItem active>Preschool Child </BreadcrumbItem>
+                    </Breadcrumb>
+                    <p>Select your level.</p>
                   </Col>
                   <Col md={3}>
                     <div className={'kids-data'}>
-                    <h4>Terri</h4>
-                    <h5>Age: 3</h5>
-                  </div>
+                      <h4>Terri</h4>
+                      <h5>Age: 3</h5>
+                    </div>
                   </Col>
                 </Row>
                 <FormGroup check>
