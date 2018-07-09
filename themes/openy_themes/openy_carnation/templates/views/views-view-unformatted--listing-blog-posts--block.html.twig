@@ -20,19 +20,21 @@
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}
-<div class="blog-more-teaser-results-wrapper row clearfix">
+
+{% set cols = 3 | default(2) %}
 {% for row in rows %}
-  {%
-    set row_classes = [
-      default_row_class ? 'views-row',
-      'col-xs-12',
-      'col-sm-6',
-      'col-md-4',
-      'row-eq-height',
-    ]
-  %}
+{%
+  set row_classes = [
+    default_row_class ? 'row justify-content-center',
+  ]
+%}
+{% if loop.index0 % cols == 0 %}
   <div{{ row.attributes.addClass(row_classes) }}>
+  {% endif %}
+  <div class="col-12 col-md-4 mb-3">
     {{ row.content }}
   </div>
+  {% if (loop.index0 % cols == cols - 1 or loop.last) %}
+  </div>
+{% endif %}
 {% endfor %}
- </div>

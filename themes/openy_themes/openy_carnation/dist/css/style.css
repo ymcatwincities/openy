@@ -8258,38 +8258,6 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
     .blog-card {
       overflow: hidden; } }
 
-.blog-more-teaser form.views-exposed-form {
-  padding: 25px 40px;
-  border-radius: 8px;
-  box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.05);
-  height: 92px;
-  display: table;
-  background-color: #ebebeb;
-  width: 100%;
-  margin-bottom: 50px; }
-  .blog-more-teaser form.views-exposed-form > div {
-    vertical-align: bottom; }
-    @media (min-width: 768px) {
-      .blog-more-teaser form.views-exposed-form > div {
-        display: table-cell;
-        padding: 0 40px 0 0; }
-        .blog-more-teaser form.views-exposed-form > div.form-item-field-blog-location-target-id-verf, .blog-more-teaser form.views-exposed-form > div.form-item-field-blog-category-target-id {
-          width: 210px; }
-        .blog-more-teaser form.views-exposed-form > div.form-item-combine input {
-          width: 100%;
-          padding: 9px 12px 9px 5px; }
-        .blog-more-teaser form.views-exposed-form > div.form-item-related-content-titles {
-          width: 258px; }
-        .blog-more-teaser form.views-exposed-form > div.form-actions {
-          padding-right: 0;
-          width: 90px; } }
-    @media (min-width: 992px) {
-      .blog-more-teaser form.views-exposed-form > div.form-item-field-blog-location-target-id-verf, .blog-more-teaser form.views-exposed-form > div.form-item-field-blog-category-target-id {
-        width: 240px; } }
-  .blog-more-teaser form.views-exposed-form .btn {
-    width: 100%;
-    margin-top: 25px; }
-
 .node--type-blog.node--view-mode-teaser {
   margin: auto;
   width: 100%; }
@@ -11120,79 +11088,6 @@ a[href="#step2"] {
     line-height: 1.62em; }
   .node--type-news p + h2 {
     margin-top: 1em; }
-  .node--type-news.node--view-mode-teaser {
-    margin: auto; }
-    @media (min-width: 576px) {
-      .node--type-news.node--view-mode-teaser {
-        max-width: 373px;
-        width: 100%; } }
-    .node--type-news.node--view-mode-teaser .inner-wrapper {
-      height: 240px;
-      width: 288px;
-      margin: 15px auto;
-      position: relative;
-      overflow: hidden; }
-      @media (min-width: 576px) {
-        .node--type-news.node--view-mode-teaser .inner-wrapper {
-          height: 288px;
-          width: auto; } }
-      @media (min-width: 576px) {
-        .node--type-news.node--view-mode-teaser .inner-wrapper {
-          height: 288px;
-          width: auto; } }
-      @media (min-width: 768px) {
-        .node--type-news.node--view-mode-teaser .inner-wrapper {
-          height: 245px; } }
-      @media (min-width: 992px) {
-        .node--type-news.node--view-mode-teaser .inner-wrapper {
-          height: 300px; } }
-    .node--type-news.node--view-mode-teaser img {
-      height: auto;
-      max-width: inherit;
-      width: 100%;
-      vertical-align: top;
-      margin: auto; }
-    .node--type-news.node--view-mode-teaser .news-heading {
-      padding: 12px 22px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      text-align: left;
-      font-weight: 500;
-      background-color: rgba(35, 31, 32, 0.5); }
-      .node--type-news.node--view-mode-teaser .news-heading h3 {
-        font-size: 32px;
-        margin-top: 0;
-        margin-bottom: 20px; }
-    .node--type-news.node--view-mode-teaser a {
-      color: inherit;
-      word-break: break-word; }
-    .node--type-news.node--view-mode-teaser h3,
-    .node--type-news.node--view-mode-teaser .news-category {
-      color: white; }
-    .node--type-news.node--view-mode-teaser .news-category {
-      margin: 0 0 12px;
-      font-size: 14px;
-      line-height: 1.28;
-      letter-spacing: 2px;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      padding: 0 22px; }
-      .node--type-news.node--view-mode-teaser .news-category a {
-        position: relative;
-        z-index: 1; }
-    .node--type-news.node--view-mode-teaser h3 a:after {
-      content: '';
-      position: absolute;
-      height: 100%;
-      min-height: 250px;
-      width: 100%;
-      left: 0;
-      top: 0; }
 
 .news-card {
   overflow: visible;
@@ -11300,6 +11195,13 @@ body {
     padding: 5px 10px;
     font-size: 15px;
     border-radius: 0; }
+
+.post-excerpt {
+  border-bottom: dotted 3px #646464;
+  padding-bottom: 20px;
+  margin-bottom: 20px; }
+  .post-excerpt .btn-link {
+    letter-spacing: -1px; }
 
 .program-header .description .field-program-description {
   font-family: "Cachet", "Comfortaa", sans-serif;
@@ -12510,142 +12412,175 @@ iframe#ga_iframe {
   border-bottom: 3px solid #0060af;
   padding-bottom: 10px; }
 
-.sub-header--filters,
+.news-more-teaser form.views-exposed-form,
+.event-more-teaser form.views-exposed-form,
+.blog-more-teaser form.views-exposed-form {
+  padding: 25px 40px;
+  border-radius: 8px;
+  box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  width: 100%;
+  margin-bottom: 50px; }
+  .news-more-teaser form.views-exposed-form .exposed-form-flex-wrapper > div,
+  .event-more-teaser form.views-exposed-form .exposed-form-flex-wrapper > div,
+  .blog-more-teaser form.views-exposed-form .exposed-form-flex-wrapper > div {
+    margin-bottom: 0 !important; }
+
 #schedules-search-form-wrapper,
+.sub-header--filters,
 .groupex-form-full,
 .listing-news-posts,
-.listing-event-posts {
+.listing-event-posts,
+.listing-blog-posts {
   padding-top: 30px;
   position: relative;
   z-index: 1; }
   @media (min-width: 992px) {
-    .sub-header--filters,
     #schedules-search-form-wrapper,
+    .sub-header--filters,
     .groupex-form-full,
     .listing-news-posts,
-    .listing-event-posts {
+    .listing-event-posts,
+    .listing-blog-posts {
       padding-top: 40px; } }
   @media (min-width: 992px) {
-    .sub-header--filters .controls-wrapper,
     #schedules-search-form-wrapper .controls-wrapper,
+    .sub-header--filters .controls-wrapper,
     .groupex-form-full .controls-wrapper,
     .listing-news-posts .controls-wrapper,
-    .listing-event-posts .controls-wrapper {
+    .listing-event-posts .controls-wrapper,
+    .listing-blog-posts .controls-wrapper {
       display: none; } }
   @media (min-width: 992px) {
-    .sub-header--filters .exposed-form-flex-wrapper,
     #schedules-search-form-wrapper .exposed-form-flex-wrapper,
+    .sub-header--filters .exposed-form-flex-wrapper,
     .groupex-form-full .exposed-form-flex-wrapper,
     .listing-news-posts .exposed-form-flex-wrapper,
-    .listing-event-posts .exposed-form-flex-wrapper {
+    .listing-event-posts .exposed-form-flex-wrapper,
+    .listing-blog-posts .exposed-form-flex-wrapper {
       margin: 0 -15px; } }
-  .sub-header--filters .selects-container,
-  .sub-header--filters .top-form-wrapper,
   #schedules-search-form-wrapper .selects-container,
   #schedules-search-form-wrapper .top-form-wrapper,
+  .sub-header--filters .selects-container,
+  .sub-header--filters .top-form-wrapper,
   .groupex-form-full .selects-container,
   .groupex-form-full .top-form-wrapper,
   .listing-news-posts .selects-container,
   .listing-news-posts .top-form-wrapper,
   .listing-event-posts .selects-container,
-  .listing-event-posts .top-form-wrapper {
+  .listing-event-posts .top-form-wrapper,
+  .listing-blog-posts .selects-container,
+  .listing-blog-posts .top-form-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center; }
     @media (max-width: 991.98px) {
-      .sub-header--filters .selects-container.hidden-xs,
-      .sub-header--filters .top-form-wrapper.hidden-xs,
       #schedules-search-form-wrapper .selects-container.hidden-xs,
       #schedules-search-form-wrapper .top-form-wrapper.hidden-xs,
+      .sub-header--filters .selects-container.hidden-xs,
+      .sub-header--filters .top-form-wrapper.hidden-xs,
       .groupex-form-full .selects-container.hidden-xs,
       .groupex-form-full .top-form-wrapper.hidden-xs,
       .listing-news-posts .selects-container.hidden-xs,
       .listing-news-posts .top-form-wrapper.hidden-xs,
       .listing-event-posts .selects-container.hidden-xs,
-      .listing-event-posts .top-form-wrapper.hidden-xs {
+      .listing-event-posts .top-form-wrapper.hidden-xs,
+      .listing-blog-posts .selects-container.hidden-xs,
+      .listing-blog-posts .top-form-wrapper.hidden-xs {
         display: none; } }
     @media (min-width: 992px) {
-      .sub-header--filters .selects-container,
-      .sub-header--filters .top-form-wrapper,
       #schedules-search-form-wrapper .selects-container,
       #schedules-search-form-wrapper .top-form-wrapper,
+      .sub-header--filters .selects-container,
+      .sub-header--filters .top-form-wrapper,
       .groupex-form-full .selects-container,
       .groupex-form-full .top-form-wrapper,
       .listing-news-posts .selects-container,
       .listing-news-posts .top-form-wrapper,
       .listing-event-posts .selects-container,
-      .listing-event-posts .top-form-wrapper {
+      .listing-event-posts .top-form-wrapper,
+      .listing-blog-posts .selects-container,
+      .listing-blog-posts .top-form-wrapper {
         flex-direction: row;
         align-items: end;
         padding: 0; } }
-    .sub-header--filters .selects-container .container,
-    .sub-header--filters .top-form-wrapper .container,
     #schedules-search-form-wrapper .selects-container .container,
     #schedules-search-form-wrapper .top-form-wrapper .container,
+    .sub-header--filters .selects-container .container,
+    .sub-header--filters .top-form-wrapper .container,
     .groupex-form-full .selects-container .container,
     .groupex-form-full .top-form-wrapper .container,
     .listing-news-posts .selects-container .container,
     .listing-news-posts .top-form-wrapper .container,
     .listing-event-posts .selects-container .container,
-    .listing-event-posts .top-form-wrapper .container {
+    .listing-event-posts .top-form-wrapper .container,
+    .listing-blog-posts .selects-container .container,
+    .listing-blog-posts .top-form-wrapper .container {
       padding: 0; }
       @media (max-width: 991.98px) {
-        .sub-header--filters .selects-container .container,
-        .sub-header--filters .top-form-wrapper .container,
         #schedules-search-form-wrapper .selects-container .container,
         #schedules-search-form-wrapper .top-form-wrapper .container,
+        .sub-header--filters .selects-container .container,
+        .sub-header--filters .top-form-wrapper .container,
         .groupex-form-full .selects-container .container,
         .groupex-form-full .top-form-wrapper .container,
         .listing-news-posts .selects-container .container,
         .listing-news-posts .top-form-wrapper .container,
         .listing-event-posts .selects-container .container,
-        .listing-event-posts .top-form-wrapper .container {
+        .listing-event-posts .top-form-wrapper .container,
+        .listing-blog-posts .selects-container .container,
+        .listing-blog-posts .top-form-wrapper .container {
           max-width: unset; } }
-  .sub-header--filters .form-item,
   #schedules-search-form-wrapper .form-item,
+  .sub-header--filters .form-item,
   .groupex-form-full .form-item,
   .listing-news-posts .form-item,
-  .listing-event-posts .form-item {
+  .listing-event-posts .form-item,
+  .listing-blog-posts .form-item {
     margin: 0 0 15px 0;
     flex: 0 0 100%;
     width: 100%;
     position: relative;
     border-bottom: 1px solid #ebebeb; }
     @media (min-width: 992px) {
-      .sub-header--filters .form-item,
       #schedules-search-form-wrapper .form-item,
+      .sub-header--filters .form-item,
       .groupex-form-full .form-item,
       .listing-news-posts .form-item,
-      .listing-event-posts .form-item {
+      .listing-event-posts .form-item,
+      .listing-blog-posts .form-item {
         padding: 0 15px;
         margin-bottom: 0;
         flex-basis: 0;
         flex-grow: 1;
         border: none; } }
-    .sub-header--filters .form-item .ajax-progress-throbber,
     #schedules-search-form-wrapper .form-item .ajax-progress-throbber,
+    .sub-header--filters .form-item .ajax-progress-throbber,
     .groupex-form-full .form-item .ajax-progress-throbber,
     .listing-news-posts .form-item .ajax-progress-throbber,
-    .listing-event-posts .form-item .ajax-progress-throbber {
+    .listing-event-posts .form-item .ajax-progress-throbber,
+    .listing-blog-posts .form-item .ajax-progress-throbber {
       position: absolute;
       margin: -20px 0 0 -15px;
       left: 50%;
       top: 50%; }
-    .sub-header--filters .form-item .select-wrapper:before,
     #schedules-search-form-wrapper .form-item .select-wrapper:before,
+    .sub-header--filters .form-item .select-wrapper:before,
     .groupex-form-full .form-item .select-wrapper:before,
     .listing-news-posts .form-item .select-wrapper:before,
-    .listing-event-posts .form-item .select-wrapper:before {
+    .listing-event-posts .form-item .select-wrapper:before,
+    .listing-blog-posts .form-item .select-wrapper:before {
       color: #c6168d;
       font-size: 24px;
       right: 0;
       top: 50%;
       margin-top: -18px; }
-    .sub-header--filters .form-item label,
     #schedules-search-form-wrapper .form-item label,
+    .sub-header--filters .form-item label,
     .groupex-form-full .form-item label,
     .listing-news-posts .form-item label,
-    .listing-event-posts .form-item label {
+    .listing-event-posts .form-item label,
+    .listing-blog-posts .form-item label {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 500;
       font-size: 14px;
@@ -12653,17 +12588,19 @@ iframe#ga_iframe {
       color: #4f4f4f;
       margin-bottom: 0; }
       @media (min-width: 992px) {
-        .sub-header--filters .form-item label,
         #schedules-search-form-wrapper .form-item label,
+        .sub-header--filters .form-item label,
         .groupex-form-full .form-item label,
         .listing-news-posts .form-item label,
-        .listing-event-posts .form-item label {
+        .listing-event-posts .form-item label,
+        .listing-blog-posts .form-item label {
           margin-bottom: 5px; } }
-    .sub-header--filters .form-item .form-control,
     #schedules-search-form-wrapper .form-item .form-control,
+    .sub-header--filters .form-item .form-control,
     .groupex-form-full .form-item .form-control,
     .listing-news-posts .form-item .form-control,
-    .listing-event-posts .form-item .form-control {
+    .listing-event-posts .form-item .form-control,
+    .listing-blog-posts .form-item .form-control {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
       padding-left: 0;
@@ -12675,86 +12612,99 @@ iframe#ga_iframe {
       height: calc(3.5rem + 2px) !important;
       letter-spacing: -1.2px;
       position: relative; }
-      .sub-header--filters .form-item .form-control.form-select,
       #schedules-search-form-wrapper .form-item .form-control.form-select,
+      .sub-header--filters .form-item .form-control.form-select,
       .groupex-form-full .form-item .form-control.form-select,
       .listing-news-posts .form-item .form-control.form-select,
-      .listing-event-posts .form-item .form-control.form-select {
+      .listing-event-posts .form-item .form-control.form-select,
+      .listing-blog-posts .form-item .form-control.form-select {
         text-transform: uppercase; }
-      .sub-header--filters .form-item .form-control:focus,
       #schedules-search-form-wrapper .form-item .form-control:focus,
+      .sub-header--filters .form-item .form-control:focus,
       .groupex-form-full .form-item .form-control:focus,
       .listing-news-posts .form-item .form-control:focus,
-      .listing-event-posts .form-item .form-control:focus {
+      .listing-event-posts .form-item .form-control:focus,
+      .listing-blog-posts .form-item .form-control:focus {
         outline: none;
         box-shadow: none; }
-    .sub-header--filters .form-item.js-form-item-date .input-wrapper,
     #schedules-search-form-wrapper .form-item.js-form-item-date .input-wrapper,
+    .sub-header--filters .form-item.js-form-item-date .input-wrapper,
     .groupex-form-full .form-item.js-form-item-date .input-wrapper,
     .listing-news-posts .form-item.js-form-item-date .input-wrapper,
-    .listing-event-posts .form-item.js-form-item-date .input-wrapper {
+    .listing-event-posts .form-item.js-form-item-date .input-wrapper,
+    .listing-blog-posts .form-item.js-form-item-date .input-wrapper {
       display: flex;
       align-items: center; }
-      .sub-header--filters .form-item.js-form-item-date .input-wrapper:after,
       #schedules-search-form-wrapper .form-item.js-form-item-date .input-wrapper:after,
+      .sub-header--filters .form-item.js-form-item-date .input-wrapper:after,
       .groupex-form-full .form-item.js-form-item-date .input-wrapper:after,
       .listing-news-posts .form-item.js-form-item-date .input-wrapper:after,
-      .listing-event-posts .form-item.js-form-item-date .input-wrapper:after {
+      .listing-event-posts .form-item.js-form-item-date .input-wrapper:after,
+      .listing-blog-posts .form-item.js-form-item-date .input-wrapper:after {
         content: '\f133';
         font-family: 'FontAwesome';
         font-weight: bold;
         padding-left: 5px; }
-    .sub-header--filters .form-item .hasDatepicker,
     #schedules-search-form-wrapper .form-item .hasDatepicker,
+    .sub-header--filters .form-item .hasDatepicker,
     .groupex-form-full .form-item .hasDatepicker,
     .listing-news-posts .form-item .hasDatepicker,
-    .listing-event-posts .form-item .hasDatepicker {
+    .listing-event-posts .form-item .hasDatepicker,
+    .listing-blog-posts .form-item .hasDatepicker {
       padding-right: 20px; }
-  .sub-header--filters .js-form-type-select.js-form-item-location,
-  .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf,
   #schedules-search-form-wrapper .js-form-type-select.js-form-item-location,
   #schedules-search-form-wrapper .js-form-type-select.js-form-item-field-event-location-target-id-verf,
+  .sub-header--filters .js-form-type-select.js-form-item-location,
+  .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf,
   .groupex-form-full .js-form-type-select.js-form-item-location,
   .groupex-form-full .js-form-type-select.js-form-item-field-event-location-target-id-verf,
   .listing-news-posts .js-form-type-select.js-form-item-location,
   .listing-news-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf,
   .listing-event-posts .js-form-type-select.js-form-item-location,
-  .listing-event-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf {
+  .listing-event-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf,
+  .listing-blog-posts .js-form-type-select.js-form-item-location,
+  .listing-blog-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf {
     border: none; }
     @media (min-width: 992px) {
-      .sub-header--filters .js-form-type-select.js-form-item-location,
-      .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf,
       #schedules-search-form-wrapper .js-form-type-select.js-form-item-location,
       #schedules-search-form-wrapper .js-form-type-select.js-form-item-field-event-location-target-id-verf,
+      .sub-header--filters .js-form-type-select.js-form-item-location,
+      .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf,
       .groupex-form-full .js-form-type-select.js-form-item-location,
       .groupex-form-full .js-form-type-select.js-form-item-field-event-location-target-id-verf,
       .listing-news-posts .js-form-type-select.js-form-item-location,
       .listing-news-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf,
       .listing-event-posts .js-form-type-select.js-form-item-location,
-      .listing-event-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf {
+      .listing-event-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf,
+      .listing-blog-posts .js-form-type-select.js-form-item-location,
+      .listing-blog-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf {
         min-width: 225px;
         max-width: 300px; } }
-    .sub-header--filters .js-form-type-select.js-form-item-location .select-wrapper:before,
-    .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before,
     #schedules-search-form-wrapper .js-form-type-select.js-form-item-location .select-wrapper:before,
     #schedules-search-form-wrapper .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before,
+    .sub-header--filters .js-form-type-select.js-form-item-location .select-wrapper:before,
+    .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before,
     .groupex-form-full .js-form-type-select.js-form-item-location .select-wrapper:before,
     .groupex-form-full .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before,
     .listing-news-posts .js-form-type-select.js-form-item-location .select-wrapper:before,
     .listing-news-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before,
     .listing-event-posts .js-form-type-select.js-form-item-location .select-wrapper:before,
-    .listing-event-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before {
+    .listing-event-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before,
+    .listing-blog-posts .js-form-type-select.js-form-item-location .select-wrapper:before,
+    .listing-blog-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf .select-wrapper:before {
       right: 15px; }
-    .sub-header--filters .js-form-type-select.js-form-item-location select,
-    .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
     #schedules-search-form-wrapper .js-form-type-select.js-form-item-location select,
     #schedules-search-form-wrapper .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
+    .sub-header--filters .js-form-type-select.js-form-item-location select,
+    .sub-header--filters .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
     .groupex-form-full .js-form-type-select.js-form-item-location select,
     .groupex-form-full .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
     .listing-news-posts .js-form-type-select.js-form-item-location select,
     .listing-news-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
     .listing-event-posts .js-form-type-select.js-form-item-location select,
-    .listing-event-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf select {
+    .listing-event-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
+    .listing-blog-posts .js-form-type-select.js-form-item-location select,
+    .listing-blog-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf select {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
       width: 100%;
@@ -12766,98 +12716,111 @@ iframe#ga_iframe {
       font-size: 18px;
       -webkit-appearance: none;
       -moz-appearance: none; }
-  .sub-header--filters .form-actions,
   #schedules-search-form-wrapper .form-actions,
+  .sub-header--filters .form-actions,
   .groupex-form-full .form-actions,
   .listing-news-posts .form-actions,
-  .listing-event-posts .form-actions {
+  .listing-event-posts .form-actions,
+  .listing-blog-posts .form-actions {
     padding: 0 15px; }
-  .sub-header--filters .actions-wrapper,
   #schedules-search-form-wrapper .actions-wrapper,
+  .sub-header--filters .actions-wrapper,
   .groupex-form-full .actions-wrapper,
   .listing-news-posts .actions-wrapper,
-  .listing-event-posts .actions-wrapper {
+  .listing-event-posts .actions-wrapper,
+  .listing-blog-posts .actions-wrapper {
     display: none; }
-  .sub-header--filters #submit-wrapper .input-wrapper,
   #schedules-search-form-wrapper #submit-wrapper .input-wrapper,
+  .sub-header--filters #submit-wrapper .input-wrapper,
   .groupex-form-full #submit-wrapper .input-wrapper,
   .listing-news-posts #submit-wrapper .input-wrapper,
-  .listing-event-posts #submit-wrapper .input-wrapper {
+  .listing-event-posts #submit-wrapper .input-wrapper,
+  .listing-blog-posts #submit-wrapper .input-wrapper {
     display: flex;
     justify-content: space-between; }
-  .sub-header--filters .filters-main-wrapper,
   #schedules-search-form-wrapper .filters-main-wrapper,
+  .sub-header--filters .filters-main-wrapper,
   .groupex-form-full .filters-main-wrapper,
   .listing-news-posts .filters-main-wrapper,
-  .listing-event-posts .filters-main-wrapper {
+  .listing-event-posts .filters-main-wrapper,
+  .listing-blog-posts .filters-main-wrapper {
     clear: both; }
     @media (min-width: 992px) {
-      .sub-header--filters .filters-main-wrapper,
       #schedules-search-form-wrapper .filters-main-wrapper,
+      .sub-header--filters .filters-main-wrapper,
       .groupex-form-full .filters-main-wrapper,
       .listing-news-posts .filters-main-wrapper,
-      .listing-event-posts .filters-main-wrapper {
+      .listing-event-posts .filters-main-wrapper,
+      .listing-blog-posts .filters-main-wrapper {
         padding-top: 15px;
         padding-bottom: 15px; } }
-  .sub-header--filters .filters-container,
   #schedules-search-form-wrapper .filters-container,
+  .sub-header--filters .filters-container,
   .groupex-form-full .filters-container,
   .listing-news-posts .filters-container,
-  .listing-event-posts .filters-container {
+  .listing-event-posts .filters-container,
+  .listing-blog-posts .filters-container {
     clear: both;
     position: relative;
     border-top: 1px solid #636466; }
     @media (max-width: 991.98px) {
-      .sub-header--filters .filters-container.hidden,
       #schedules-search-form-wrapper .filters-container.hidden,
+      .sub-header--filters .filters-container.hidden,
       .groupex-form-full .filters-container.hidden,
       .listing-news-posts .filters-container.hidden,
-      .listing-event-posts .filters-container.hidden {
+      .listing-event-posts .filters-container.hidden,
+      .listing-blog-posts .filters-container.hidden {
         display: none; } }
     @media (max-width: 991.98px) {
-      .sub-header--filters .filters-container,
       #schedules-search-form-wrapper .filters-container,
+      .sub-header--filters .filters-container,
       .groupex-form-full .filters-container,
       .listing-news-posts .filters-container,
-      .listing-event-posts .filters-container {
+      .listing-event-posts .filters-container,
+      .listing-blog-posts .filters-container {
         display: none; } }
     @media (min-width: 992px) {
-      .sub-header--filters .filters-container,
       #schedules-search-form-wrapper .filters-container,
+      .sub-header--filters .filters-container,
       .groupex-form-full .filters-container,
       .listing-news-posts .filters-container,
-      .listing-event-posts .filters-container {
+      .listing-event-posts .filters-container,
+      .listing-blog-posts .filters-container {
         margin-top: 0;
         border: none;
         display: block; } }
-    .sub-header--filters .filters-container .container,
     #schedules-search-form-wrapper .filters-container .container,
+    .sub-header--filters .filters-container .container,
     .groupex-form-full .filters-container .container,
     .listing-news-posts .filters-container .container,
-    .listing-event-posts .filters-container .container {
+    .listing-event-posts .filters-container .container,
+    .listing-blog-posts .filters-container .container {
       position: relative;
       padding: 0; }
-    .sub-header--filters .filters-container .filters-wrapper,
     #schedules-search-form-wrapper .filters-container .filters-wrapper,
+    .sub-header--filters .filters-container .filters-wrapper,
     .groupex-form-full .filters-container .filters-wrapper,
     .listing-news-posts .filters-container .filters-wrapper,
-    .listing-event-posts .filters-container .filters-wrapper {
+    .listing-event-posts .filters-container .filters-wrapper,
+    .listing-blog-posts .filters-container .filters-wrapper {
       padding-bottom: 5px;
       padding-top: 5px; }
       @media (min-width: 992px) {
-        .sub-header--filters .filters-container .filters-wrapper,
         #schedules-search-form-wrapper .filters-container .filters-wrapper,
+        .sub-header--filters .filters-container .filters-wrapper,
         .groupex-form-full .filters-container .filters-wrapper,
         .listing-news-posts .filters-container .filters-wrapper,
-        .listing-event-posts .filters-container .filters-wrapper {
+        .listing-event-posts .filters-container .filters-wrapper,
+        .listing-blog-posts .filters-container .filters-wrapper {
           padding-bottom: 0;
           padding-top: 0;
           border: 0; } }
-      .sub-header--filters .filters-container .filters-wrapper .label,
       #schedules-search-form-wrapper .filters-container .filters-wrapper .label,
+      .sub-header--filters .filters-container .filters-wrapper .label,
       .groupex-form-full .filters-container .filters-wrapper .label,
       .listing-news-posts .filters-container .filters-wrapper .label,
-      .listing-event-posts .filters-container .filters-wrapper .label {
+      .listing-event-posts .filters-container .filters-wrapper .label,
+      .listing-blog-posts .filters-container .filters-wrapper .label {
         font-family: "Cachet", "Comfortaa", sans-serif;
         font-weight: 400;
         color: #4f4f4f;
@@ -12867,26 +12830,29 @@ iframe#ga_iframe {
         padding: 0;
         text-align: left; }
         @media (min-width: 992px) {
-          .sub-header--filters .filters-container .filters-wrapper .label,
           #schedules-search-form-wrapper .filters-container .filters-wrapper .label,
+          .sub-header--filters .filters-container .filters-wrapper .label,
           .groupex-form-full .filters-container .filters-wrapper .label,
           .listing-news-posts .filters-container .filters-wrapper .label,
-          .listing-event-posts .filters-container .filters-wrapper .label {
+          .listing-event-posts .filters-container .filters-wrapper .label,
+          .listing-blog-posts .filters-container .filters-wrapper .label {
             display: inline-block; } }
       @media (min-width: 992px) {
-        .sub-header--filters .filters-container .filters-wrapper .filters,
         #schedules-search-form-wrapper .filters-container .filters-wrapper .filters,
+        .sub-header--filters .filters-container .filters-wrapper .filters,
         .groupex-form-full .filters-container .filters-wrapper .filters,
         .listing-news-posts .filters-container .filters-wrapper .filters,
-        .listing-event-posts .filters-container .filters-wrapper .filters {
+        .listing-event-posts .filters-container .filters-wrapper .filters,
+        .listing-blog-posts .filters-container .filters-wrapper .filters {
           display: flex;
           align-items: center;
           flex-wrap: wrap; } }
-      .sub-header--filters .filters-container .filters-wrapper .filters .filter,
       #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter,
+      .sub-header--filters .filters-container .filters-wrapper .filters .filter,
       .groupex-form-full .filters-container .filters-wrapper .filters .filter,
       .listing-news-posts .filters-container .filters-wrapper .filters .filter,
-      .listing-event-posts .filters-container .filters-wrapper .filters .filter {
+      .listing-event-posts .filters-container .filters-wrapper .filters .filter,
+      .listing-blog-posts .filters-container .filters-wrapper .filters .filter {
         font-family: "Cachet", "Comfortaa", sans-serif;
         font-weight: 400;
         background: rgba(235, 235, 235, 0.3);
@@ -12901,45 +12867,51 @@ iframe#ga_iframe {
         padding: 0 10px;
         margin: 0 5px 10px 0; }
         @media (min-width: 992px) {
-          .sub-header--filters .filters-container .filters-wrapper .filters .filter,
           #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter,
+          .sub-header--filters .filters-container .filters-wrapper .filters .filter,
           .groupex-form-full .filters-container .filters-wrapper .filters .filter,
           .listing-news-posts .filters-container .filters-wrapper .filters .filter,
-          .listing-event-posts .filters-container .filters-wrapper .filters .filter {
+          .listing-event-posts .filters-container .filters-wrapper .filters .filter,
+          .listing-blog-posts .filters-container .filters-wrapper .filters .filter {
             margin: 5px 20px 5px 0; } }
-        .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove,
         #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove,
+        .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove,
         .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove,
         .listing-news-posts .filters-container .filters-wrapper .filters .filter .remove,
-        .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove {
+        .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove,
+        .listing-blog-posts .filters-container .filters-wrapper .filters .filter .remove {
           margin-left: 10px;
           line-height: 30px; }
           @media (min-width: 992px) {
-            .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove,
             #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove,
+            .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove,
             .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove,
             .listing-news-posts .filters-container .filters-wrapper .filters .filter .remove,
-            .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove {
+            .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove,
+            .listing-blog-posts .filters-container .filters-wrapper .filters .filter .remove {
               margin-left: 15px; } }
-          .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa,
           #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa,
+          .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa,
           .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa,
           .listing-news-posts .filters-container .filters-wrapper .filters .filter .remove .fa,
-          .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove .fa {
+          .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove .fa,
+          .listing-blog-posts .filters-container .filters-wrapper .filters .filter .remove .fa {
             font-size: 13px;
             color: #0089d0; }
-            .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
             #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
+            .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
             .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
             .listing-news-posts .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
-            .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove .fa:hover {
+            .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove .fa:hover,
+            .listing-blog-posts .filters-container .filters-wrapper .filters .filter .remove .fa:hover {
               color: #c6168d; }
             @media (min-width: 992px) {
-              .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa,
               #schedules-search-form-wrapper .filters-container .filters-wrapper .filters .filter .remove .fa,
+              .sub-header--filters .filters-container .filters-wrapper .filters .filter .remove .fa,
               .groupex-form-full .filters-container .filters-wrapper .filters .filter .remove .fa,
               .listing-news-posts .filters-container .filters-wrapper .filters .filter .remove .fa,
-              .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove .fa {
+              .listing-event-posts .filters-container .filters-wrapper .filters .filter .remove .fa,
+              .listing-blog-posts .filters-container .filters-wrapper .filters .filter .remove .fa {
                 font-size: 16px; } }
 
 html.js .ajax-progress .throbber,
@@ -13523,11 +13495,5 @@ p:last-child,
 
 .hidden {
   display: none !important; }
-
-.views-infinite-scroll-content-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px; }
 
 /*# sourceMappingURL=style.css.map */
