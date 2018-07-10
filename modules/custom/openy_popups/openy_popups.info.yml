@@ -3,3 +3,6 @@ type: module
 description: Implements OpenY Popups.
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
+dependencies:
+  - openy_session_instance
