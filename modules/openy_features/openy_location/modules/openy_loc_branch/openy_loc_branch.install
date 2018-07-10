@@ -6,6 +6,25 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_loc_branch_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('node', 'node_type', 'branch');
+
+  $configFactory = \Drupal::configFactory();
+  $configs = [
+    'pathauto.pattern.branch',
+    'rabbit_hole.behavior_settings.node_type_branch',
+    'simple_sitemap.bundle_settings.node.branch',
+    'tour.tour.openy-branch-add',
+  ];
+  foreach ($configs as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+}
+
+/**
  * Implements hook_update_dependencies().
  */
 function openy_loc_branch_update_dependencies() {
