@@ -1,3 +1,19 @@
+// address (with marker icon)
+.field-location-address {
+  position: relative;
+  padding-left: 25px;
+
+  &:before {
+    position: absolute;
+    content: '\f041';
+    font-family: 'FontAwesome';
+    font-size: 18px;
+    top: 0;
+    left: 0;
+    color: $gray-400;
+  }
+}
+
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
 .node--type-camp.node--view-mode-teaser {

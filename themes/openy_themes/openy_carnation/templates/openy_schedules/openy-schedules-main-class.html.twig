@@ -49,13 +49,13 @@
               {% if teaser.included_in_membership or teaser.ticket_required %}
               <div class="col-md text-left text-md-right">
                 {% if teaser.included_in_membership %}
-                  <div class="py-2 px-3 badge badge-pill badge-success">
+                  <div class="py-2 px-3 badge badge-pill badge-success mb-2">
                     <i class="far fa-check-square"></i> {{ 'Included in Membership'|t }}
                   </div>
                 {% endif %}
 
                 {% if teaser.ticket_required %}
-                  <div class="py-2 px-3 badge badge-pill badge-warning ml-2 mt-2">
+                  <div class="py-2 px-3 badge badge-pill badge-warning ml-sm-2">
                     <i class="fas fa-ticket-alt"></i> {{ 'Ticket Required'|t }}
                   </div>
                 {% endif %}
