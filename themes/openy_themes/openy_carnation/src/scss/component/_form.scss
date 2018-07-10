@@ -12,6 +12,10 @@ input:-moz-placeholder {
 .form-type-radio {
   display: flex;
   align-items: center;
+
+  label {
+    margin: 0;
+  }
 }
 
 // Checkboxes / radio buttons.

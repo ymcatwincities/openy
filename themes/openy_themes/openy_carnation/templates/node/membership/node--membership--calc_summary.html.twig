@@ -82,8 +82,7 @@
 %}
 <article{{ attributes.addClass(classes) }}>
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content.field_mbrshp_image }}
-    <h3{{ title_attributes }}>{{ label }}</h3>
+    <h3{{ title_attributes.addClass('m-0') }}>{{ label }}</h3>
     {{ content.field_mbrshp_description }}
   </div>
 </article>
