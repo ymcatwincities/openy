@@ -13,11 +13,11 @@
       }
 
       tr:nth-child(odd) td {
-        background-color: $green-aa;
+        background-color: $primary;
       }
 
       tr:nth-child(even) td {
-        background-color: $dark-green-aa;
+        background-color: $primary-darker;
       }
     }
 
@@ -52,10 +52,8 @@
     height: 32px;
     overflow: hidden;
 
-    svg {
-      * {
-        fill: $dark-green-aa;
-      }
+    svg * {
+      fill: $primary-darker;
     }
   }
 
@@ -77,76 +75,58 @@
     form {
       margin-bottom: 1em;
 
-      .fieldgroup.form-checkboxes {
-        -webkit-columns: 2;
-        -moz-columns: 2;
-        columns: 2;
-
-        @include media-breakpoint-up(sm) {
-          -webkit-columns: 1;
-          -moz-columns: 1;
-          columns: 1;
-        }
-
-        @include media-breakpoint-up(md) {
-          -webkit-columns: 2;
-          -moz-columns: 2;
-          columns: 2;
-        }
-
-        @include media-breakpoint-up(lg) {
-          -webkit-columns: 4;
-          -moz-columns: 4;
-          columns: 4;
-        }
+      fieldset {
+        margin: 0;
       }
 
-      .form-item {
-        margin: 0 0 5px;
+      .fieldgroup.form-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
 
-        .field-amenities-icon {
-          padding: 2px;
-          width: 30px;
-          height: 30px;
-          margin: 0 4px;
+        // checkboxes
+        .form-item {
+          margin: 0 0 5px;
+          display: flex;
+          align-items: center;
+          width: 100%;
+
+          @include media-breakpoint-up(md){
+            width: 50%;
+          }
+
+          @include media-breakpoint-up(lg){
+            width: 33.33333%;
+          }
+
+          .field-amenities-icon {
+            padding: 2px;
+            width: 30px;
+            height: 30px;
+            margin: 0 4px;
+          }
+
+          label {
+            > div {
+              display: flex;
+              align-items: center;
+            }
+
+            .field-amenities-icon-wrapper {
+              vertical-align: middle;
+            }
+
+            .term-name {
+              padding-right: 20px;
+            }
+
+            svg * {
+              fill: $blue;
+              color: $green-aa;
+            }
+
+          }
         }
 
-        label {
-          .field-amenities-icon-wrapper {
-            vertical-align: middle;
-          }
-
-          .term-name {
-            @include media-breakpoint-up(sm) {
-              width: auto;
-              font-weight: bold;
-            }
-
-            @include media-breakpoint-up(md) {
-              width: auto;
-              font-weight: normal;
-            }
-
-            @include media-breakpoint-up(lg) {
-              width: 155px;
-            }
-
-            @include media-breakpoint-up(xl) {
-              width: auto;
-            }
-          }
-
-          div {
-            display: inline-block;
-
-            svg {
-              * {
-                fill: $blue;
-                color: $green-aa;
-              }
-            }
-          }
-        }
       }
     }
   }

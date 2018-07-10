@@ -13057,9 +13057,9 @@ body.path-user:not(.user-logged-in) {
   .paragraph--type--all-amenities .field-field-prgf-amnts-view table td {
     padding: 7px 10px; }
   .paragraph--type--all-amenities .field-field-prgf-amnts-view table tr:nth-child(odd) td {
-    background-color: #008485; }
+    background-color: #0089d0; }
   .paragraph--type--all-amenities .field-field-prgf-amnts-view table tr:nth-child(even) td {
-    background-color: #007677; }
+    background-color: #0060af; }
 
 .paragraph--type--all-amenities .field-field-prgf-amnts-view .views-field-title {
   font-size: 16px; }
@@ -13085,7 +13085,7 @@ body.path-user:not(.user-logged-in) {
   height: 32px;
   overflow: hidden; }
   .paragraph--type--all-amenities .field-amenities-icon svg * {
-    fill: #007677; }
+    fill: #0060af; }
 
 .paragraph--type--all-amenities .views-element-container {
   margin-bottom: 40px; }
@@ -13099,51 +13099,35 @@ body.path-user:not(.user-logged-in) {
       margin: 20px 0; }
   .paragraph--type--all-amenities .views-element-container form {
     margin-bottom: 1em; }
+    .paragraph--type--all-amenities .views-element-container form fieldset {
+      margin: 0; }
     .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
-      -webkit-columns: 2;
-      -moz-columns: 2;
-      columns: 2; }
-      @media (min-width: 576px) {
-        .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
-          -webkit-columns: 1;
-          -moz-columns: 1;
-          columns: 1; } }
-      @media (min-width: 768px) {
-        .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
-          -webkit-columns: 2;
-          -moz-columns: 2;
-          columns: 2; } }
-      @media (min-width: 992px) {
-        .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes {
-          -webkit-columns: 4;
-          -moz-columns: 4;
-          columns: 4; } }
-    .paragraph--type--all-amenities .views-element-container form .form-item {
-      margin: 0 0 5px; }
-      .paragraph--type--all-amenities .views-element-container form .form-item .field-amenities-icon {
-        padding: 2px;
-        width: 30px;
-        height: 30px;
-        margin: 0 4px; }
-      .paragraph--type--all-amenities .views-element-container form .form-item label .field-amenities-icon-wrapper {
-        vertical-align: middle; }
-      @media (min-width: 576px) {
-        .paragraph--type--all-amenities .views-element-container form .form-item label .term-name {
-          width: auto;
-          font-weight: bold; } }
-      @media (min-width: 768px) {
-        .paragraph--type--all-amenities .views-element-container form .form-item label .term-name {
-          width: auto;
-          font-weight: normal; } }
-      @media (min-width: 992px) {
-        .paragraph--type--all-amenities .views-element-container form .form-item label .term-name {
-          width: 155px; } }
-      @media (min-width: 1200px) {
-        .paragraph--type--all-amenities .views-element-container form .form-item label .term-name {
-          width: auto; } }
-      .paragraph--type--all-amenities .views-element-container form .form-item label div {
-        display: inline-block; }
-        .paragraph--type--all-amenities .views-element-container form .form-item label div svg * {
+      display: flex;
+      flex-wrap: wrap; }
+      .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes .form-item {
+        margin: 0 0 5px;
+        display: flex;
+        align-items: center;
+        width: 100%; }
+        @media (min-width: 768px) {
+          .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes .form-item {
+            width: 50%; } }
+        @media (min-width: 992px) {
+          .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes .form-item {
+            width: 33.33333%; } }
+        .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes .form-item .field-amenities-icon {
+          padding: 2px;
+          width: 30px;
+          height: 30px;
+          margin: 0 4px; }
+        .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes .form-item label > div {
+          display: flex;
+          align-items: center; }
+        .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes .form-item label .field-amenities-icon-wrapper {
+          vertical-align: middle; }
+        .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes .form-item label .term-name {
+          padding-right: 20px; }
+        .paragraph--type--all-amenities .views-element-container form .fieldgroup.form-checkboxes .form-item label svg * {
           fill: #0089d0;
           color: #008485; }
 

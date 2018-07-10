@@ -115,7 +115,6 @@ function openy_carnation_preprocess_input(&$variables) {
   }
   if ($variables['element']['#type'] == 'textfield'
     || $variables['element']['#type'] == 'email'
-    || $variables['element']['#type'] == 'checkbox'
     || $variables['element']['#type'] == 'date'
     || $variables['element']['#type'] == 'password') {
     $variables['attributes']['class'][] = 'form-control';
