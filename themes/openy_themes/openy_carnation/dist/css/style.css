@@ -7859,6 +7859,8 @@ input:-moz-placeholder {
 .form-type-radio {
   display: flex;
   align-items: center; }
+  .form-type-radio label {
+    margin: 0; }
 
 table .checkbox.form-no-label, table .radio.form-no-label {
   margin-bottom: 0;
@@ -10737,7 +10739,7 @@ a[href="#step2"] {
   pointer-events: none; }
 
 #membership-calc-wrapper fieldset {
-  margin: 0; }
+  margin: 2rem 0; }
 
 #membership-calc-wrapper .description,
 #membership-calc-wrapper legend {
@@ -10754,8 +10756,10 @@ a[href="#step2"] {
 #membership-calc-wrapper legend {
   font-size: 24px;
   letter-spacing: -0.5px;
-  color: #636466;
-  margin-bottom: 3rem; }
+  color: #636466; }
+
+#membership-calc-wrapper .form-type-radio {
+  margin: 0; }
 
 #membership-calc-wrapper .label-for-field-mbrshp-join-fee,
 #membership-calc-wrapper .label-for-field-mbrshp-monthly-rate {
@@ -10792,8 +10796,7 @@ a[href="#step2"] {
   background-color: #5c2e91;
   box-shadow: 0 0 5px #5c2e91; }
 
-#membership-calc-wrapper .pull-right,
-#membership-calc-wrapper .complete-registration {
+#membership-calc-wrapper .form-submit {
   border: none;
   padding: 10px 25px;
   font-size: 1.25rem;
