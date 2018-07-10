@@ -90,7 +90,12 @@
  */
 #group-ex-results,
 .groupex-results {
-  margin-top: 2rem;
+
+  > div {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid $gray-100;
+  }
 
   .caption {
     @include cachet();
@@ -198,6 +203,17 @@
  * (GroupEX Form)
  */
 .groupex-form-full {
+  .top-form-wrapper {
+
+    @include media-breakpoint-down(md) {
+      align-items: unset !important;
+    }
+
+    > div {
+      flex: 1 1 auto;
+    }
+  }
+
   .instructor-chosen {
     margin-bottom: 30px;
     color: $pink;

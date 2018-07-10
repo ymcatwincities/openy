@@ -29,6 +29,40 @@
   }
 }
 
+// category lists
+.category-list {
+  .badge a {
+    color: white;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+}
+
+//
+.arrow-list {
+  a {
+    position: relative;
+    padding-left: 20px;
+    display: inline-block;
+
+    &:before {
+      position: absolute;
+      left: 0;
+      top: -1px;
+      content: "\f105";
+      display: inline-block;
+      font-family: "FontAwesome";
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color: $pink;
+    }
+  }
+}
+
 // card style
 .news-card {
   overflow: visible;

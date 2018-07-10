@@ -17,27 +17,15 @@
  * @ingroup themeable
  */
 #}
-<div class="container">
-  <div class="row taxonomy-term">
-    {% if title %}
-      <h3>{{ title }}</h3>
-    {% endif %}
+{# default header #}
+{% include '@openy_carnation/node/include/header-default.html.twig' %}
 
-    <div class="main-region col-sm-12">
-      {% for row in rows %}
-        {%
-          set row_classes = [
-          default_row_class ? 'views-row',
-          'col-xs-12',
-          'col-sm-6',
-          'col-md-4',
-          'row-eq-height',
-        ]
-        %}
-        <div{{ row.attributes.addClass(row_classes) }}>
-          {{ row.content }}
-        </div>
-      {% endfor %}
-    </div>
-  </div>
+<div class="taxonomy-term">
+  {% if title %}
+    <h3>{{ title }}</h3>
+  {% endif %}
+
+  {% for row in rows %}
+    {{ row.content }}
+  {% endfor %}
 </div>
