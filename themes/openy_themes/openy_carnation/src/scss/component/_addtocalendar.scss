@@ -67,26 +67,19 @@
 }
 
 /* Blue */
-.atc-style-blue .atcb-link,
-.atc-style-blue .atcb-link:hover,
-.atc-style-blue .atcb-link:active,
-.atc-style-blue .atcb-link:focus {
-
-  //font-size: 0;
-  &:before {
-    margin-right: 8px;
-    font-family: FontAwesome;
-    content: "\f073";
-    font-size: 14px;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+.atc-style-blue .atcb-link:before {
+  margin-right: 8px;
+  font-family: FontAwesome;
+  content: "\f073";
+  font-size: 14px;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .atc-style-blue .atcb-list {

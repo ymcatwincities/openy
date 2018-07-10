@@ -88,38 +88,9 @@
 {# default header #}
 {% include '@openy_carnation/node/include/header-default.html.twig' %}
 
-{#<div class="container two-columns-container">#}
-  {#<div class="row">#}
-    {#<div class="two-column">#}
-      {#<div class="main-region {{ main_class }}">#}
-        {#<article{{ attributes.addClass(classes) }}>#}
-          {#{{ content.field_event_location }}#}
-          {#<div{{ content_attributes.addClass('node__content') }}>#}
-            {#{{ content.field_event_description }}#}
-            {#{{ content.field_content }}#}
-          {#</div>#}
-        {#</article>#}
-      {#</div>#}
-      {#{% if content.field_sidebar_content|render is not empty %}#}
-        {#<div class="sidebar-region col-md-5 col-lg-4">#}
-          {#{{ content.field_sidebar_content }}#}
-        {#</div>#}
-      {#{% endif %}#}
-    {#</div>#}
-  {#</div>#}
-{#</div>#}
-
 <div class="container mt-5">
   <div class="row">
-    <div class="col-12 back-to-blog text-left">
-      <a href="{{ back_link_path }}">
-        <i class="glyphicon glyphicon-chevron-left"></i>
-        {{ back_link_title }}
-      </a>
-    </div>
-  </div>
 
-  <div class="row">
     <div class="copy col-12 col-md-8 col-lg-9 mb-5 mb-lg-0">
       <article{{ attributes.addClass(classes) }}>
         <div{{ content_attributes.addClass('node__content') }}>
@@ -135,11 +106,20 @@
       </article>
     </div>
 
-    <div class="col-12 col-md-4 col-lg-3">
+    <div class="col-12 col-md-4 col-lg-3 side-col">
       <div class="card mb-3">
         <div class="card-body">
-          {{ content.field_event_location }}
-          {{ content.field_sidebar_content }}
+
+          {% if content.field_sidebar_content|render|striptags is not empty %}
+          <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
+            {{ content.field_sidebar_content }}
+          </div>
+          {% endif %}
+
+          {% if content.field_event_location|render|striptags is not empty %}
+            {{ content.field_event_location }}
+          {% endif %}
+
         </div>
       </div>
     </div>

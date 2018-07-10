@@ -3,14 +3,10 @@
   position: relative;
   padding-left: 25px;
 
-  &:before {
+  i {
     position: absolute;
-    content: '\f041';
-    font-family: 'FontAwesome';
-    font-size: 18px;
-    top: 0;
+    top: 5px;
     left: 0;
-    color: $gray-400;
   }
 }
 

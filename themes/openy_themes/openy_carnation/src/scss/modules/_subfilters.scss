@@ -1,8 +1,9 @@
 // floating form
+.groupex-form-full,
 .news-more-teaser form.views-exposed-form,
 .listing-event-posts form.views-exposed-form,
 .blog-more-teaser form.views-exposed-form {
-  padding: 30px 40px;
+  padding: 30px 40px !important;
   border-radius: 8px;
   box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.15);
   background-color: white;
@@ -27,7 +28,7 @@
   z-index: 1;
 
   @include media-breakpoint-up(lg) {
-    padding-top: 40px;
+    padding-top: 60px;
   }
 
   .controls-wrapper {
@@ -58,7 +59,7 @@
 
     @include media-breakpoint-up(lg) {
       flex-direction: row;
-      align-items: end;
+      align-items: flex-end;
       padding: 0;
     }
 

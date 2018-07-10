@@ -80,32 +80,64 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-<section class="page-heading black-header page-title title-only">
-  <div class="container-fluid">
-    {{ title_prefix }}
-    <h1{{ title_attributes }}>
-      {{ label }}
-    </h1>
-    {{ title_suffix }}
-  </div>
-</section>
-<br>
-<div class="container two-columns-container">
+
+{# default header #}
+{% include '@openy_carnation/node/include/header-default.html.twig' %}
+
+
+<div class="container mt-5">
   <div class="row">
-    <div class="two-column">
-      <div class="main-region col-md-7 col-lg-8">
-        <article{{ attributes.addClass(classes) }}>
-          <div{{ content_attributes.addClass('node__content') }}>
-            {{ content|without('field_news_related', 'field_sidebar_content') }}
-          </div>
-        </article>
-      </div>
-      {% if content.field_news_related is not empty or content.field_sidebar_content is not empty %}
-        <div class="sidebar-region col-md-5 col-lg-4">
-          {{ content.field_news_related }}
-          {{ content.field_sidebar_content }}
+
+    <div class="copy col-12 col-md-8 col-lg-9 mb-5 mb-lg-0">
+      <article{{ attributes.addClass(classes) }}>
+        <div{{ content_attributes.addClass('node__content') }}>
+
+          {% if content.field_news_image|render|trim is not empty %}
+          <figure class="mb-4">
+            {{ content.field_news_image }}
+          </figure>
+          {% endif %}
+
+          {{ content|without('field_news_image', 'field_news_related', 'field_news_category', 'field_news_location') }}
         </div>
-      {% endif %}
+      </article>
     </div>
+
+
+    <div class="col-12 col-md-4 col-lg-3 side-col">
+      <div class="card mb-3">
+        <div class="card-body">
+
+          {% if content.field_sidebar_content|render|striptags is not empty %}
+          <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
+            {{ content.field_sidebar_content }}
+          </div>
+          {% endif %}
+
+          {% if content.field_news_category|render|striptags is not empty %}
+          <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
+            <h5><i class="fa fa-tags text-gray-300 pr-1"></i> {{ 'Categories'|t }}</h5>
+            {{ content.field_news_category }}
+          </div>
+          {% endif %}
+
+          {% if content.field_news_location|render|striptags is not empty %}
+          <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom arrow-list">
+            <h5><i class="fas fa-map-marker-alt text-gray-300 pr-2"></i> {{ 'Locations'|t }}</h5>
+            {{ content.field_news_location }}
+          </div>
+          {% endif %}
+
+          {% if content.field_news_related|render|striptags is not empty %}
+          <div class="d-inline-block w-100 arrow-list">
+            <h5><i class="far fa-file text-gray-300 pr-1"></i> {{ 'Related Articles'|t }}</h5>
+            {{ content.field_news_related }}
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

@@ -14,11 +14,13 @@
  * @ingroup themeable
  */
 #}
-<div class="d-inline-block location mb-4">
+<div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
   <h4>{{ info.loc_link }}</h4>
 
   <address>
-    <div class="field-location-address">{{ info.loc_address }}</div>
+    <div class="field-location-address">
+      <i class="fas fa-map-marker-alt text-gray-300"></i> {{ info.loc_address }}
+    </div>
   </address>
 
   <div class="location-directions">{{ info.directions }} <i class="fa fa-arrow-right text-pink"></i></div>

@@ -121,3 +121,11 @@ article .node--view-mode-flexible-content h2 {
     font-size: 36px;
   }
 }
+
+// node sidebars
+.side-col .card-body .border-bottom:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  border: 0 !important;
+}
+

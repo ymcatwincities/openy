@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override for a field.
+ * Default theme implementation for a field.
  *
  * To override output, copy the "field.html.twig" from the templates directory
  * to your theme's directory and customize it, just like customizing other
@@ -33,49 +33,24 @@
  * - field_type: The type of the field.
  * - label_display: The display settings for the label.
  *
- * @ingroup templates
- *
  * @see template_preprocess_field()
+ *
+ * @ingroup themeable
  */
 #}
-{%
-  set classes = [
-    'field',
-    'field--name-' ~ field_name|clean_class,
-    'field--type-' ~ field_type|clean_class,
-    'field--label-' ~ label_display,
-  ]
-%}
-{%
-  set title_classes = [
-    'field--label',
-    label_display == 'visually_hidden' ? 'sr-only',
-  ]
-%}
 
-{% if label_hidden %}
+<div{{ attributes }}>
   {% if multiple %}
-    <div{{ attributes.addClass(classes, 'field--items') }}>
-      {% for item in items %}
-        <div{{ item.attributes.addClass('field--item') }}>{{ item.content }}</div>
-      {% endfor %}
-    </div>
-  {% else %}
-    {% for item in items %}
-      <div{{ attributes.addClass(classes, 'field--item') }}>{{ item.content }}</div>
-    {% endfor %}
+  <ul class="list-unstyled category-list m-0">
   {% endif %}
-{% else %}
-  <div{{ attributes.addClass(classes) }}>
-    <div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
-    {% if multiple %}
-      <div class="field__items">
-    {% endif %}
     {% for item in items %}
-      <div{{ item.attributes.addClass('field--item') }}>{{ item.content }}</div>
+      <li>
+        <span{{ item.attributes.addClass('badge badge-pill badge-success p-2 px-3 mt-2') }}>
+          {{ item.content }}
+        </span>
+      </li>
     {% endfor %}
-    {% if multiple %}
-      </div>
-    {% endif %}
-  </div>
-{% endif %}
+  {% if multiple %}
+  </ul>
+  {% endif %}
+</div>

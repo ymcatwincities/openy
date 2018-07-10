@@ -12,25 +12,20 @@ node.isSticky() ? 'node--sticky',
 not node.isPublished() ? 'node--unpublished',
 view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
 ] %}
-<section class="page-heading black-header page-title title-only">
-  <div class="container-fluid">
-    {{ title_prefix }}
-    <h1{{ title_attributes }}>
-      {{ label }}
-    </h1>
-    {{ title_suffix }}
-  </div>
-</section>
+
+{# default header #}
+{% include '@openy_carnation/node/include/header-default.html.twig' %}
+
 <div class="container-fluid">
   <div class="row">
-    <div class="copy col-sm-12 col-md-9">
+    <div class="copy col-12 col-md-9">
       <article{{ attributes.addClass(classes) }}>
         <div{{ content_attributes.addClass('node__content') }}>
           {{ content|without('field_page_related_content', 'field_sidebar_content') }}
         </div>
       </article>
     </div>
-    <div class="col-sm-12 col-md-3">
+    <div class="col-12 col-md-3">
       {{ content.field_page_related_content }}
       {{ content.field_sidebar_content }}
     </div>

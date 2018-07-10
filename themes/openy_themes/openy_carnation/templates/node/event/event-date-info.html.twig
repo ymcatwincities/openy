@@ -21,10 +21,10 @@
  * @ingroup themeable
  */
 #}
-<div class="d-inline-block w-100 date mb-4">
-  <div class="date-start"><i class="fa fa-clock-o"></i> {{ info.date_start }}</div>
-  <div class="date-end">{{ 'Until'|t }} {{ info.date_end }}</div>
-  <div class="addtocalendar atc-style-blue">
+<div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
+  <h5><i class="far fa-clock text-gray-300"></i> {{ 'Event Details'|t }}</h5>
+  <div class="date-start">{{ info.date_start }} - {{ info.date_end }}</div>
+  <div class="addtocalendar atc-style-blue mt-2">
     <var class="atc_event">
       <var class="atc_date_start">{{ atc.atc_date_start }}</var>
       <var class="atc_date_end">{{ atc.atc_date_end }}</var>

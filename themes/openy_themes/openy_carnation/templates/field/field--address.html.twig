@@ -40,13 +40,10 @@
 #}
 
 <address{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
-  {% if multiple %}
-  <div>
-    {% endif %}
-    {% for item in items %}
-      <div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>{{ item.content }}</div>
-    {% endfor %}
-    {% if multiple %}
-  </div>
-  {% endif %}
+  {% for item in items %}
+    <div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>
+      <i class="fas fa-map-marker-alt text-gray-300"></i>
+      {{ item.content }}
+    </div>
+  {% endfor %}
 </address>
