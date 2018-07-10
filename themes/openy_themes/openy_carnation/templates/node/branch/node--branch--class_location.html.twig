@@ -82,29 +82,32 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
-  <span>{{ 'SCHEDULE FOR'|t }}</span>
+  <div class="card-body">
 
-  {{ title_prefix }}
-  {% if not page %}
+    <span>{{ 'SCHEDULE FOR'|t }}</span>
 
-    {% if content.field_location_state|render|trim and node.field_location_temp_url is not empty %}
-      {% set title_url =  node.field_location_temp_url.0.url ? node.field_location_temp_url.0.url : url %}
-    {% else %}
-      {% set title_url = url %}
+    {{ title_prefix }}
+    {% if not page %}
+
+      {% if content.field_location_state|render|trim and node.field_location_temp_url is not empty %}
+        {% set title_url =  node.field_location_temp_url.0.url ? node.field_location_temp_url.0.url : url %}
+      {% else %}
+        {% set title_url = url %}
+      {% endif %}
+
+      <h4{{ title_attributes }}>
+        <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
+      </h4>
+    {% endif %}
+    {{ title_suffix }}
+
+    <div{{ content_attributes.addClass('node__content') }}>
+      {{ content }}
+    </div>
+
+    {% if not page %}
+    <a href="#" class="btn btn-sm btn-outline-primary mt-3 edit-class-popup"><i class="fas fa-edit"></i> {{ "Edit"|t }}</a>
     {% endif %}
 
-    <h3{{ title_attributes }}>
-      <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
-    </h3>
-  {% endif %}
-  {{ title_suffix }}
-
-  <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
   </div>
-
-  {% if not page %}
-  <a href="#" class="btn btn-sm btn-outline-primary mt-3 edit-class-popup"><i class="fas fa-edit"></i> {{ "Edit"|t }}</a>
-  {% endif %}
-
 </article>

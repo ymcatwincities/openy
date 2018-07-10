@@ -81,21 +81,24 @@
   ]
 %}
 
-<div class="page-heading banner banner--small banner--grey">
-  <div class="banner-cta d-block d-lg-flex">
-    <div class="banner-cta-content container align-items-center m-auto py-4 py-lg-5 text-white">
-      <div class="banner-cta-section">
+{# default header #}
+{% include '@openy_carnation/node/include/header-default.html.twig' %}
 
-        {% if label|render|trim is not empty %}
-        <h1 class="banner-title text-uppercase m-0 text-white">
-          {{ label }}
-        </h1>
-        {% endif %}
+{#<div class="page-heading banner banner--small banner--grey">#}
+  {#<div class="banner-cta d-block d-lg-flex">#}
+    {#<div class="banner-cta-content container align-items-center m-auto py-4 py-lg-5 text-white">#}
+      {#<div class="banner-cta-section">#}
 
-      </div>
-    </div>
-  </div>
-</div>
+        {#{% if label|render|trim is not empty %}#}
+        {#<h1 class="banner-title text-uppercase m-0 text-white">#}
+          {#{{ label }}#}
+        {#</h1>#}
+        {#{% endif %}#}
+
+      {#</div>#}
+    {#</div>#}
+  {#</div>#}
+{#</div>#}
 
 <div class="container mt-5">
   <div class="row">

@@ -85,33 +85,64 @@
   {% set main_class = 'col-sm-8' %}
 {% endif %}
 
-<section class="page-heading black-header page-title title-only">
-  <div class="container">
-    {{ title_prefix }}
-    <h1{{ title_attributes }}>
-      {{ label }}
-    </h1>
-    {{ title_suffix }}
-  </div>
-</section>
-<br>
-<div class="container two-columns-container">
+{# default header #}
+{% include '@openy_carnation/node/include/header-default.html.twig' %}
+
+{#<div class="container two-columns-container">#}
+  {#<div class="row">#}
+    {#<div class="two-column">#}
+      {#<div class="main-region {{ main_class }}">#}
+        {#<article{{ attributes.addClass(classes) }}>#}
+          {#{{ content.field_event_location }}#}
+          {#<div{{ content_attributes.addClass('node__content') }}>#}
+            {#{{ content.field_event_description }}#}
+            {#{{ content.field_content }}#}
+          {#</div>#}
+        {#</article>#}
+      {#</div>#}
+      {#{% if content.field_sidebar_content|render is not empty %}#}
+        {#<div class="sidebar-region col-md-5 col-lg-4">#}
+          {#{{ content.field_sidebar_content }}#}
+        {#</div>#}
+      {#{% endif %}#}
+    {#</div>#}
+  {#</div>#}
+{#</div>#}
+
+<div class="container mt-5">
   <div class="row">
-    <div class="two-column">
-      <div class="main-region {{ main_class }}">
-        <article{{ attributes.addClass(classes) }}>
+    <div class="col-12 back-to-blog text-left">
+      <a href="{{ back_link_path }}">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        {{ back_link_title }}
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="copy col-12 col-md-8 col-lg-9 mb-5 mb-lg-0">
+      <article{{ attributes.addClass(classes) }}>
+        <div{{ content_attributes.addClass('node__content') }}>
+
+          {% if content.field_event_image|render|trim is not empty %}
+          <figure class="mb-4">
+            {{ content.field_event_image }}
+          </figure>
+          {% endif %}
+
+          {{ content|without('field_event_location', 'field_event_dates', 'field_event_image') }}
+        </div>
+      </article>
+    </div>
+
+    <div class="col-12 col-md-4 col-lg-3">
+      <div class="card mb-3">
+        <div class="card-body">
           {{ content.field_event_location }}
-          <div{{ content_attributes.addClass('node__content') }}>
-            {{ content.field_event_description }}
-            {{ content.field_content }}
-          </div>
-        </article>
-      </div>
-      {% if content.field_sidebar_content|render is not empty %}
-        <div class="sidebar-region col-md-5 col-lg-4">
           {{ content.field_sidebar_content }}
         </div>
-      {% endif %}
+      </div>
     </div>
+
   </div>
 </div>
