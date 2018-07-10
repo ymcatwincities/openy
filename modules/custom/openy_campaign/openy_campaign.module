@@ -767,6 +767,53 @@ function openy_campaign_form_node_campaign_edit_form_alter(&$form, FormStateInte
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add message about related nodes to the confirm form.
+ */
+function openy_campaign_form_node_campaign_page_delete_form_alter(&$form, &$form_state, $form_id) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof \Drupal\node\NodeInterface !== TRUE) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\EntityStorageInterface $entityStorage */
+  $entityStorage = \Drupal::entityTypeManager()->getStorage('node');
+  /** @var \Drupal\Core\Entity\Query\QueryInterface $nodeQuery */
+  $nodeQuery = \Drupal::entityQuery('node');
+
+  // Check if Campaign page is referenced in any Campaign.
+  $landingQuery = $nodeQuery
+    ->condition('type', 'campaign');
+  $orGroup = $landingQuery->orConditionGroup()
+    // Campaign landing pages.
+    ->condition('field_campaign_pages', $node->id(), 'IN')
+    // Pause landidng page.
+    ->condition('field_pause_landing_page', $node->id())
+    // Campaign Menu.
+    ->condition('field_campaign_menu', '%' . $node->id() . '%', 'LIKE');
+  $nids = $landingQuery->condition($orGroup)->execute();
+
+  if (!empty($nids) && $campaigns = $entityStorage->loadMultiple($nids)) {
+    $campLinks = [];
+    foreach ($campaigns as $campaign) {
+      $campLinks[] = Link::fromTextAndUrl(
+        $campaign->label(),
+        Url::fromRoute('entity.node.edit_form', ['node' => $campaign->id()], ['attributes' => ['target' => '_blank'], 'html' => TRUE])
+      )->toString();
+    }
+
+    $form['warning'] = [
+      '#markup' => '<div class="messages messages--warning">' .
+        t('<strong>Please, check!<br>@title</strong> page is added to Campaign: ', ['@title' => $node->label()]) . implode(', ', $campLinks) .
+        '<br>' . t('First, you have to delete it from all Campaigns') .
+        '</div>',
+    ];
+    $form['actions']['submit']['#disabled'] = TRUE;
+  }
+}
+
+/**
  * {@inheritdoc}
  */
 function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $form_state) {
