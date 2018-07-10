@@ -28,6 +28,10 @@
 {% set title = name.0['#context']['value'] %}
 
 <div{{ attributes }}>
-  <div title="{{ title }}" class="field-amenities-icon-wrapper">{{ content }}</div>
+  <div title="{{ title }}" class="field-amenities-icon-wrapper">
+    <div class="field-amenities-icon">
+      {{ content }}
+    </div>
+  </div>
   <div class="term-name">{{ name }}</div>
 </div>
