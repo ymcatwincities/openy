@@ -62,8 +62,7 @@ a.direction-link {
   }
 }
 
-.page-node-type-branch {
-  .branch-header {
+.branch-header {
 
     // branch information
     .branch-info {
@@ -216,7 +215,6 @@ a.direction-link {
         height: auto;
       }
     }
-  }
 }
 
 .branch-content {
@@ -274,12 +272,7 @@ a.direction-link {
   }
 }
 
-//
-
-
-
-
-
+// @todo: check if this is being used
 .branch__updates_queue {
   @include rem(padding-top, 20px);
 
@@ -718,21 +711,6 @@ html.js {
     margin-bottom: 10px;
     color: $gray-400;
   }
-
-  //.included-in-membership {
-  //  background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
-  //  background-size: contain;
-  //  position: absolute;
-  //  top: 47px;
-  //  right: 0;
-  //  height: 32px;
-  //  width: 90px;
-  //
-  //  @include media-breakpoint-up(sm) {
-  //    top: 66px;
-  //    right: 0;
-  //  }
-  //}
 
   .field-body-no-summary {
     font-size: 15px;

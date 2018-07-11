@@ -41,14 +41,15 @@ set classes = [
   'paragraph',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  'my-5'
 ]
 %}
 {% if content.field_prgf_title.0 is empty %}
-  {% set title = 'What\'s New at '|t ~ label ~ '?' %}
+  {% set title = 'What\'s happening at the Y?'|t %}
 {% else %}
   {% set title = content.field_prgf_title.0 %}
 {% endif %}
 <div{{ attributes.addClass(classes) }}>
-  <h2 class="h1">{{ title }}</h2>
+  <h2 class="h1 text-center mb-4">{{ title }}</h2>
   {{ content|without('field_prgf_title') }}
 </div>
