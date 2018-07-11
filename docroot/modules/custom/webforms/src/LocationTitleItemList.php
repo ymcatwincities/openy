@@ -36,13 +36,11 @@ class LocationTitleItemList extends FieldItemList {
 
         $optionsEmailItem = $locationField->get(0);
         $id = $optionsEmailItem->get('option_emails')->getValue();
-        if (!$id) {
-          return;
-        }
 
-        $loadedNode = \Drupal::entityTypeManager()->getStorage('node')->load($id);
-        if ($loadedNode && $loadedNode->bundle() == 'location') {
-          $this->list[0] = $this->createItem(0, $loadedNode->getTitle());
+        // Found in the field values.
+        $values = $field->getDefaultValue($entity);
+        if (array_key_exists($id, $values)) {
+          $this->list[0] = $this->createItem(0, $values[$id]['option_name']);
         }
 
         break;
