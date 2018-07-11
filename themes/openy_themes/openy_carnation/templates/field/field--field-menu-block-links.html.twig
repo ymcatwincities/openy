@@ -41,7 +41,7 @@
 
 {% if label_hidden %}
   {% if multiple %}
-    <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class, 'navbar justify-content-center justify-content-lg-end') }}>
+    <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class, 'navbar text-white justify-content-center justify-content-lg-end') }}>
       {% for item in items %}
         {{ item.content }}
       {% endfor %}

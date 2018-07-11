@@ -2,11 +2,10 @@
   visibility: hidden;
 }
 
+.camp-menu__wrapper,
 .microsites-menu__wrapper {
-  background: $primary;
-}
+  background: $primary-darker;
 
-.wrapper-field-menu-block-links {
   a {
     @include cachet();
     color: inherit;

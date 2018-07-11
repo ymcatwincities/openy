@@ -81,6 +81,9 @@
   ]
 %}
 
+{# default header #}
+{% include '@openy_carnation/node/include/header-default.html.twig' %}
+
 {# Camp header #}
 <article{{ attributes.addClass('branch-header') }}>
   <div class="hidden-xs desktop">
@@ -144,8 +147,6 @@
     </div>
   </div>
 </article>
-
-{{ content.field_header_content }}
 
 {# Camp content #}
 <div class="container">
