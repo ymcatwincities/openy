@@ -1,3 +1,10 @@
+.paragraph--type--blog-posts-listing {
+  .listing-blog-posts {
+    padding-top: 0;
+  }
+}
+
+// featured blog posts (carousel)
 .paragraph--type--featured-blogs {
   .slick-prev {
     left: 10px;

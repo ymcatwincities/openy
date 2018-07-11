@@ -101,7 +101,12 @@
           </figure>
           {% endif %}
 
-          {{ content|without('field_event_location', 'field_event_dates', 'field_event_image') }}
+          {{ content.field_event_description }}
+
+          {% if content.addthis is not empty %}
+            {{ content.addthis }}
+          {% endif %}
+
         </div>
       </article>
     </div>
