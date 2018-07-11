@@ -28,10 +28,12 @@
 {% set title = name.0['#context']['value'] %}
 
 <div{{ attributes }}>
+  {% if content|render|trim is not empty %}
   <div title="{{ title }}" class="field-amenities-icon-wrapper">
     <div class="field-amenities-icon">
       {{ content }}
     </div>
   </div>
+  {% endif %}
   <div class="term-name">{{ name }}</div>
 </div>
