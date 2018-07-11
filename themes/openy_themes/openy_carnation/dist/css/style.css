@@ -8346,6 +8346,9 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
   .block-description--wrapper--outline--top.paragraph-1c-wrapper .field-prgf-1c-description {
     padding-top: 24px; }
 
+.paragraph--type--blog-posts-listing .listing-blog-posts {
+  padding-top: 0; }
+
 .paragraph--type--featured-blogs .slick-prev {
   left: 10px; }
   @media (min-width: 576px) {
@@ -13387,42 +13390,7 @@ body.path-user:not(.user-logged-in) {
   .two-columns-container,
   .user-login,
   .webform-submission-form {
-    min-height: 100% !important; }
-  #btn-shw-hide {
-    transition: all 0.3s ease-in-out 0s;
-    padding: 0 10px;
-    float: left;
-    width: 100%; }
-    #btn-shw-hide ul.jquerymenu li span.parent {
-      margin-right: 10px !important;
-      right: 0;
-      margin-top: 0;
-      margin-left: 0;
-      background-size: 20px auto !important;
-      height: 20px;
-      width: 20px;
-      float: right;
-      position: relative !important; }
-    #btn-shw-hide ul.jquerymenu li.parent span.closed {
-      background: url("../img/plus-wite.png"); }
-    #btn-shw-hide ul.jquerymenu li.parent span.open {
-      background: url("../img/mines-wite.png"); }
-    #btn-shw-hide ul {
-      padding: 0; }
-      #btn-shw-hide ul li {
-        padding: 10px 0;
-        list-style: none;
-        border-top: dotted 1px #eee; }
-        #btn-shw-hide ul li ul {
-          padding: 0 0 0 20px; }
-          #btn-shw-hide ul li ul li {
-            border: 0 solid; }
-        #btn-shw-hide ul li a {
-          color: #fff;
-          font-size: 14px;
-          text-decoration: none; }
-          #btn-shw-hide ul li a:hover {
-            text-decoration: underline; } }
+    min-height: 100% !important; } }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .search-form-wrapper.col-xs-12 {

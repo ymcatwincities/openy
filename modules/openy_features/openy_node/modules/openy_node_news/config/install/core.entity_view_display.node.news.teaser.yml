@@ -13,13 +13,14 @@ dependencies:
     - field.field.node.news.field_sidebar_content
     - node.type.news
   module:
+    - text
     - user
 id: node.news.teaser
 targetEntityType: node
 bundle: news
 mode: teaser
 content:
-  addthis:
+  aaddthis:
     label: hidden
     type: boolean
     weight: 100
@@ -37,6 +38,14 @@ content:
       link: true
     third_party_settings: {  }
     region: content
+  field_news_description:
+    type: text_trimmed
+    weight: 3
+    region: content
+    label: hidden
+    settings:
+      trim_length: 400
+    third_party_settings: {  }
   field_news_image:
     type: entity_reference_entity_view
     weight: 2
@@ -54,7 +63,6 @@ content:
 hidden:
   field_content: true
   field_meta_tags: true
-  field_news_description: true
   field_news_location: true
   field_news_related: true
   field_sidebar_content: true

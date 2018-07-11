@@ -98,7 +98,11 @@
           </figure>
           {% endif %}
 
-          {{ content|without('field_news_image', 'field_news_related', 'field_news_category', 'field_news_location') }}
+          {{ content.field_news_description }}
+
+          {% if content.addthis is not empty %}
+            {{ content.addthis }}
+          {% endif %}
         </div>
       </article>
     </div>

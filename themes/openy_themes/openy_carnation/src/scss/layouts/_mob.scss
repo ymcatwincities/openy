@@ -64,58 +64,58 @@
     min-height: 100% !important;
   }
 
-  #btn-shw-hide {
-    transition: all 0.3s ease-in-out 0s;
-    padding: 0 10px;
-    float: left;
-    width: 100%;
-
-    ul.jquerymenu li span.parent {
-      margin-right: 10px !important;
-      right: 0;
-      margin-top: 0;
-      margin-left: 0;
-      background-size: 20px auto !important;
-      height: 20px;
-      width: 20px;
-      float: right;
-      position: relative !important;
-    }
-
-    ul.jquerymenu li.parent span.closed {
-      background: url("../img/plus-wite.png");
-    }
-
-    ul.jquerymenu li.parent span.open {
-      background: url("../img/mines-wite.png");
-    }
-
-    ul {
-      padding: 0;
-
-      li {
-        padding: 10px 0;
-        list-style: none;
-        border-top: dotted 1px #eee;
-
-        ul {
-          padding: 0 0 0 20px;
-
-          li {
-            border: 0 solid;
-          }
-        }
-        
-        a {
-          color: #fff;
-          font-size: 14px;
-          text-decoration: none;
-          
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
-  }
+  //#btn-shw-hide {
+  //  transition: all 0.3s ease-in-out 0s;
+  //  padding: 0 10px;
+  //  float: left;
+  //  width: 100%;
+  //
+  //  ul.jquerymenu li span.parent {
+  //    margin-right: 10px !important;
+  //    right: 0;
+  //    margin-top: 0;
+  //    margin-left: 0;
+  //    background-size: 20px auto !important;
+  //    height: 20px;
+  //    width: 20px;
+  //    float: right;
+  //    position: relative !important;
+  //  }
+  //
+  //  ul.jquerymenu li.parent span.closed {
+  //    background: url("../img/plus-wite.png");
+  //  }
+  //
+  //  ul.jquerymenu li.parent span.open {
+  //    background: url("../img/mines-wite.png");
+  //  }
+  //
+  //  ul {
+  //    padding: 0;
+  //
+  //    li {
+  //      padding: 10px 0;
+  //      list-style: none;
+  //      border-top: dotted 1px #eee;
+  //
+  //      ul {
+  //        padding: 0 0 0 20px;
+  //
+  //        li {
+  //          border: 0 solid;
+  //        }
+  //      }
+  //
+  //      a {
+  //        color: #fff;
+  //        font-size: 14px;
+  //        text-decoration: none;
+  //
+  //        &:hover {
+  //          text-decoration: underline;
+  //        }
+  //      }
+  //    }
+  //  }
+  //}
 }

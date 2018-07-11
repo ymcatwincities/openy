@@ -22,16 +22,16 @@
 {% endif %}
 
 <div class="grid">
-    {% for row in rows %}
-        {% set row_classes = [
-        'grid-item',
-        ] %}
-
-        <div{{ row.attributes.addClass(row_classes) }}>
-            <div class="grid-item-content">
-                {{ row.content }}
-            </div>
-        </div>
-
-    {% endfor %}
+  {% for row in rows %}
+    {%
+      set row_classes = [
+      'grid-item',
+      ]
+    %}
+    <div{{ row.attributes.addClass(row_classes) }}>
+      <div class="grid-item-content">
+        {{ row.content }}
+      </div>
+    </div>
+  {% endfor %}
 </div>

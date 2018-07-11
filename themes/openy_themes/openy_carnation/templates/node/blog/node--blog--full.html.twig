@@ -84,22 +84,6 @@
 {# default header #}
 {% include '@openy_carnation/node/include/header-default.html.twig' %}
 
-{#<div class="page-heading banner banner--small banner--grey">#}
-  {#<div class="banner-cta d-block d-lg-flex">#}
-    {#<div class="banner-cta-content container align-items-center m-auto py-4 py-lg-5 text-white">#}
-      {#<div class="banner-cta-section">#}
-
-        {#{% if label|render|trim is not empty %}#}
-        {#<h1 class="banner-title text-uppercase m-0 text-white">#}
-          {#{{ label }}#}
-        {#</h1>#}
-        {#{% endif %}#}
-
-      {#</div>#}
-    {#</div>#}
-  {#</div>#}
-{#</div>#}
-
 <div class="container mt-5">
   <div class="row">
     <div class="col-12 back-to-blog text-left">
@@ -121,7 +105,11 @@
           </figure>
           {% endif %}
 
-          {{ content|without('field_blog_related', 'field_blog_image', 'field_sidebar_content', 'field_blog_location', 'field_blog_category') }}
+          {{ content.field_blog_description }}
+
+          {% if content.addthis is not empty %}
+            {{ content.addthis }}
+          {% endif %}
         </div>
       </article>
     </div>

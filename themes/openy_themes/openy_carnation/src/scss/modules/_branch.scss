@@ -64,157 +64,157 @@ a.direction-link {
 
 .branch-header {
 
-    // branch information
-    .branch-info {
-      padding: 0;
-      border-radius: 8px;
-      position: relative;
+  // branch information
+  .branch-info {
+    padding: 0;
+    border-radius: 8px;
+    position: relative;
 
-      .branch-header__item {
-        padding: 34px 3% 34px 8%;
+    .branch-header__item {
+      padding: 34px 3% 34px 8%;
 
-        h5 {
-          @include cachet(500);
-          display: inline-block;
-          color: $gray-700;
-          font-size: 24px;
-          letter-spacing: -1px;
-          text-transform: none;
-          margin-bottom: 0;
-        }
-
-        .extra-hours-label {
-          padding-left: 15px;
-          font-size: 15px;
-        }
+      h5 {
+        @include cachet(500);
+        display: inline-block;
+        color: $gray-700;
+        font-size: 24px;
+        letter-spacing: -1px;
+        text-transform: none;
+        margin-bottom: 0;
       }
 
-      // address & contacts
-      .address-wrapper {
-        > h4 {
-          @include cachet(500);
-          color: $primary;
-          font-size: 24px;
-          letter-spacing: -1px;
-          margin-bottom: 15px;
-        }
-
-        address {
-          font-size: 16px;
-          margin-bottom: 15px;
-          line-height: 1.5;
-          font-family: Verdana, sans-serif;
-        }
-      }
-
-      a.direction-link {
-        font-family: Verdana, sans-serif;
-        font-size: 16px;
-        line-height: 2;
-        display: block;
-
-        i {
-          font-size: 18px;
-          margin-right: 5px;
-        }
-      }
-
-      // hours of operation
-      .hours-wrapper {
-        background-color: #f8f8f8;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
+      .extra-hours-label {
+        padding-left: 15px;
+        font-size: 15px;
       }
     }
 
-    // hours table
-    .today-hours {
-      margin-bottom: 20px;
-      margin-top: 15px;
-
-      .dropdown-toggle {
-        display: none;
+    // address & contacts
+    .address-wrapper {
+      > h4 {
+        @include cachet(500);
+        color: $primary;
+        font-size: 24px;
+        letter-spacing: -1px;
+        margin-bottom: 15px;
       }
 
-      .today {
-        margin-bottom: 1.5rem;
-        display: block;
+      address {
+        font-size: 16px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        font-family: Verdana, sans-serif;
       }
+    }
 
-      > h5 {
-        display: none;
+    a.direction-link {
+      font-family: Verdana, sans-serif;
+      font-size: 16px;
+      line-height: 2;
+      display: block;
+
+      i {
+        font-size: 18px;
+        margin-right: 5px;
       }
+    }
 
-      table {
-        margin-top: 1rem;
+    // hours of operation
+    .hours-wrapper {
+      background-color: #f8f8f8;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+  }
 
-        td {
-          font-size: 16px;
-          line-height: 30px;
+  // hours table
+  .today-hours {
+    margin-bottom: 20px;
+    margin-top: 15px;
+
+    .dropdown-toggle {
+      display: none;
+    }
+
+    .today {
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    > h5 {
+      display: none;
+    }
+
+    table {
+      margin-top: 1rem;
+
+      td {
+        font-size: 16px;
+        line-height: 30px;
+        text-align: left;
+        border: none;
+        height: auto;
+        width: 50%;
+
+        @include media-breakpoint-up(md) {
+          color: $gray-700;
+        }
+
+        &:first-child {
+          font-weight: bold;
           text-align: left;
-          border: none;
-          height: auto;
-          width: 50%;
+          padding-right: 10px;
 
           @include media-breakpoint-up(md) {
-            color: $gray-700;
+            color: $gray-400;
           }
+        }
 
-          &:first-child {
-            font-weight: bold;
-            text-align: left;
-            padding-right: 10px;
-
-            @include media-breakpoint-up(md) {
-              color: $gray-400;
-            }
-          }
-
-          &:last-child::before {
-            margin-right: 10px;
-            font-family: "Font Awesome 5 Free";
-            content: "\f017";
-            -webkit-font-smoothing: antialiased;
-            display: inline-block;
-            font-style: normal;
-            font-variant: normal;
-            text-rendering: auto;
-            line-height: 1;
-          }
+        &:last-child::before {
+          margin-right: 10px;
+          font-family: "Font Awesome 5 Free";
+          content: "\f017";
+          -webkit-font-smoothing: antialiased;
+          display: inline-block;
+          font-style: normal;
+          font-variant: normal;
+          text-rendering: auto;
+          line-height: 1;
         }
       }
     }
+  }
 
-    // @todo: implement? (save as preferred branch)
-    //.save-link {
-    //  padding-top: 25px;
-    //
-    //  @include media-breakpoint-up(lg) {
-    //    padding-right:20px;
-    //  }
-    //
-    //  a {
-    //    @include cachet();
-    //    font-size: 16px;
-    //    line-height: normal;
-    //
-    //    @include media-breakpoint-up(md) {
-    //      color: $pink;
-    //    }
-    //  }
-    //}
+  // @todo: implement? (save as preferred branch)
+  //.save-link {
+  //  padding-top: 25px;
+  //
+  //  @include media-breakpoint-up(lg) {
+  //    padding-right:20px;
+  //  }
+  //
+  //  a {
+  //    @include cachet();
+  //    font-size: 16px;
+  //    line-height: normal;
+  //
+  //    @include media-breakpoint-up(md) {
+  //      color: $pink;
+  //    }
+  //  }
+  //}
 
-    // tab - hours
-    #tabs-clock {
-      .today-hours > h5 {
-        display: none;
-      }
-
-      table tr td {
-        border: 0;
-        height: auto;
-      }
+  // tab - hours
+  #tabs-clock {
+    .today-hours > h5 {
+      display: none;
     }
+
+    table tr td {
+      border: 0;
+      height: auto;
+    }
+  }
 }
 
 .branch-content {
