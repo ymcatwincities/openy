@@ -267,10 +267,17 @@ process:
   today_day_of_week_strtolower:
     -
       plugin: default_value
-      default_value: 'l'
+      default_value: '+3 days'
     -
       plugin: callback
-      callable: date
+      callable: strtotime
+    -
+      plugin: callback
+      callable: getdate
+    -
+      plugin: extract
+      index:
+        - weekday
     -
       plugin: callback
       callable: strtolower
