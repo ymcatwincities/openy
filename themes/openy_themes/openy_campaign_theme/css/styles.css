@@ -1576,6 +1576,77 @@ footer .container .footer__nav nav ul > li a {
   background-position: center 10px;
   background-repeat: no-repeat;
   background-size: 35px;
+  /*
+  &.Aquatics {
+    background-image: url('../img/swimming.png');
+    background-repeat: no-repeat;
+    @include breakpoint($screen-phone) {
+      background-position: center 15px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      background-position: center 50px;
+      background-size: auto;
+    }
+  }
+  &.Fitness {
+    background-image: url('../img/fitnes.png');
+    background-repeat: no-repeat;
+    background-position: 70px 50px;
+    @include breakpoint($screen-phone) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-sm) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-md) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      background-position: center 50px;
+      background-size: auto;
+    }
+  }
+  &.GroupExercise {
+    background-image: url('../img/groupex.png');
+    background-repeat: no-repeat;
+    @include breakpoint($screen-phone) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-sm) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      background-position: center 50px;
+      background-size: auto;
+    }
+  }
+  &.Community {
+    background-image: url('../img/community.png');
+    background-repeat: no-repeat;
+    @include breakpoint($screen-phone) {
+      background-position: center 5px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-sm) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-md) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      background-position: center 50px;
+      background-size: auto;
+    }
+  }
+  */
 }
 @media (min-width: 20em) {
   .activity-data .categories ul li {
@@ -1601,101 +1672,6 @@ footer .container .footer__nav nav ul > li a {
 }
 .activity-data .categories ul li.active {
   opacity: 1;
-}
-.activity-data .categories ul li.Aquatics {
-  background-image: url("../img/swimming.png");
-  background-repeat: no-repeat;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.Aquatics {
-    background-position: center 15px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.Aquatics {
-    background-position: center 50px;
-    background-size: auto;
-  }
-}
-.activity-data .categories ul li.Fitness {
-  background-image: url("../img/fitnes.png");
-  background-repeat: no-repeat;
-  background-position: 70px 50px;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.Fitness {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-data .categories ul li.Fitness {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 62em) {
-  .activity-data .categories ul li.Fitness {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.Fitness {
-    background-position: center 50px;
-    background-size: auto;
-  }
-}
-.activity-data .categories ul li.GroupExercise {
-  background-image: url("../img/groupex.png");
-  background-repeat: no-repeat;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 50px;
-    background-size: auto;
-  }
-}
-.activity-data .categories ul li.Community {
-  background-image: url("../img/community.png");
-  background-repeat: no-repeat;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.Community {
-    background-position: center 5px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-data .categories ul li.Community {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 62em) {
-  .activity-data .categories ul li.Community {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.Community {
-    background-position: center 50px;
-    background-size: auto;
-  }
 }
 
 .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
