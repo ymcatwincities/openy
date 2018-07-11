@@ -97,42 +97,32 @@
 
 {% if node.field_lp_layout.value != "one_column_clean" %}
 <div class="container">
-  {#<div class="row">#}
-    {% endif %}
+{% endif %}
 
-    {% if content.field_content is not empty %}
-      <article{{ attributes.addClass(content_classes) }}>
+  {% if content.field_content is not empty %}
+    <article{{ attributes.addClass(content_classes) }}>
 
-        {% if node.field_lp_layout.value == "one_column" %}
-        {#<div class="main-region col-12">#}
-        {% endif %}
-
-          {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
-          <div class="two-column row">
-            <div class="main-region col-md-7 col-lg-8">
-              {% endif %}
-              {{ content.field_content }}
-              {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
-            </div>
-            <div class="sidebar-region col-md-5 col-lg-4">
-              {% endif %}
-              <article{{ attributes.addClass(sidebar_classes) }}>
-                {{ content.field_sidebar_content }}
-              </article>
-              {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
-            </div>
-          </div>
+      {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
+      <div class="two-column row">
+        <div class="main-region col-md-7 col-lg-8">
           {% endif %}
+          {{ content.field_content }}
+          {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
+        </div>
+        <div class="sidebar-region col-md-5 col-lg-4">
+          {% endif %}
+          <article{{ attributes.addClass(sidebar_classes) }}>
+            {{ content.field_sidebar_content }}
+          </article>
+          {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
+        </div>
+      </div>
+      {% endif %}
 
-        {% if node.field_lp_layout.value == "one_column" %}
-        {#</div>#}
-        {% endif %}
+    </article>
+  {% endif %}
 
-      </article>
-    {% endif %}
-
-    {% if node.field_lp_layout.value != "one_column_clean" %}
-  {#</div>#}
+{% if node.field_lp_layout.value != "one_column_clean" %}
 </div>
 {% endif %}
 

@@ -11072,23 +11072,27 @@ a[href="#step2"] {
 .microsites-menu.microsites-menu--hide-main-menu .nav-home .navbar-nav {
   visibility: hidden; }
 
+.camp-menu__wrapper,
 .microsites-menu__wrapper {
-  background: #0089d0; }
-
-.wrapper-field-menu-block-links a {
-  font-family: "Cachet", "Comfortaa", sans-serif;
-  font-weight: 400;
-  color: inherit;
-  text-transform: uppercase;
-  font-size: 16px;
-  margin: 10px 15px; }
-  .wrapper-field-menu-block-links a:hover {
+  background: #0060af; }
+  .camp-menu__wrapper a,
+  .microsites-menu__wrapper a {
+    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-weight: 400;
     color: inherit;
-    text-decoration: underline; }
-  .wrapper-field-menu-block-links a:first-child {
-    margin-left: 0; }
-  .wrapper-field-menu-block-links a:last-child {
-    margin-right: 0; }
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 10px 15px; }
+    .camp-menu__wrapper a:hover,
+    .microsites-menu__wrapper a:hover {
+      color: inherit;
+      text-decoration: underline; }
+    .camp-menu__wrapper a:first-child,
+    .microsites-menu__wrapper a:first-child {
+      margin-left: 0; }
+    .camp-menu__wrapper a:last-child,
+    .microsites-menu__wrapper a:last-child {
+      margin-right: 0; }
 
 /*
 ** Mobile menu

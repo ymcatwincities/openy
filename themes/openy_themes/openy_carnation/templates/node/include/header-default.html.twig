@@ -6,6 +6,8 @@
   ]
 %}
 
+{#{{ path('entity.node.canonical', {'node': node.id}) }}#}
+
 {% if content.field_header_content|render|trim is not empty %}
   <article{{ attributes.addClass(header_classes) }}>
     <div{{ content_attributes.addClass('content') }}>
