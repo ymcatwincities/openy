@@ -88,8 +88,13 @@
   ]
 %}
 
-{# default header #}
-{% include '@openy_carnation/node/include/header-default.html.twig' %}
+{# camp landing pages need both banner & header content outputted #}
+{% if '/camps/' in path('entity.node.canonical', {'node': node.id}) %}
+  {% include '@openy_carnation/node/include/header-default--camp.html.twig' %}
+{% else %}
+  {# default header #}
+  {% include '@openy_carnation/node/include/header-default.html.twig' %}
+{% endif %}
 
 {% if node.field_lp_layout.value == "two_column_fixed" %}
   {{ attach_library('openy_rose/landing') }}

@@ -1,12 +1,10 @@
 {%
   set header_classes = [
-    'landing-header',
+    'page-heading',
     'w-100',
     node.field_lp_layout.value|clean_class,
   ]
 %}
-
-{#{{ path('entity.node.canonical', {'node': node.id}) }}#}
 
 {% if content.field_header_content|render|trim is not empty %}
   <article{{ attributes.addClass(header_classes) }}>

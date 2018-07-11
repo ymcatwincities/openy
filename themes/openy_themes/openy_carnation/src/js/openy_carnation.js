@@ -27,7 +27,7 @@
    */
   Drupal.behaviors.openyBanners = {
     attach: function (context, settings) {
-      var bannerHeader = $('.paragraph--type--banner, .landing-header, .program-header, .page-heading');
+      var bannerHeader = $('.paragraph--type--banner, .landing-header, .page-heading');
       if (bannerHeader.length > 0) {
         $('.banner-zone-node').once('openy-banners').append(bannerHeader.eq(0));
         $('body').addClass('with-banner');
@@ -43,7 +43,7 @@
   Drupal.behaviors.moveBreadcrumbs = {
     attach: function (context, settings) {
       var breadCrumbs = $('.breadcrumbs-wrapper', context);
-      var bannerCta = $('.banner-zone-node .banner .banner-cta', context);
+      var bannerCta = $('.banner-zone-node .banner .banner-cta, .banner-zone-node .landing-header, .banner-zone-node .paragraph-gallery', context);
 
       if (breadCrumbs.length && bannerCta.length) {
         breadCrumbs.once('openy-breadcrumbs').appendTo(bannerCta);
@@ -60,7 +60,7 @@
       var subHeaderFilters = $(
         '.sub-header--filters, ' +
         '#schedules-search-form-wrapper, ' +
-        'groupex-form-full', context);
+        '.groupex-form-full', context);
 
       if (headerAlerts.length && subHeaderFilters.length) {
         headerAlerts.once('openy-breadcrumbs').insertBefore(subHeaderFilters);

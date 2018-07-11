@@ -8452,13 +8452,13 @@ a.direction-link {
 .nav.bg-pink .nav-link.active {
   background-color: #92278f; }
 
-.page-node-type-branch .branch-header .branch-info {
+.branch-header .branch-info {
   padding: 0;
   border-radius: 8px;
   position: relative; }
-  .page-node-type-branch .branch-header .branch-info .branch-header__item {
+  .branch-header .branch-info .branch-header__item {
     padding: 34px 3% 34px 8%; }
-    .page-node-type-branch .branch-header .branch-info .branch-header__item h5 {
+    .branch-header .branch-info .branch-header__item h5 {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 500;
       display: inline-block;
@@ -8467,47 +8467,47 @@ a.direction-link {
       letter-spacing: -1px;
       text-transform: none;
       margin-bottom: 0; }
-    .page-node-type-branch .branch-header .branch-info .branch-header__item .extra-hours-label {
+    .branch-header .branch-info .branch-header__item .extra-hours-label {
       padding-left: 15px;
       font-size: 15px; }
-  .page-node-type-branch .branch-header .branch-info .address-wrapper > h4 {
+  .branch-header .branch-info .address-wrapper > h4 {
     font-family: "Cachet", "Comfortaa", sans-serif;
     font-weight: 500;
     color: #0089d0;
     font-size: 24px;
     letter-spacing: -1px;
     margin-bottom: 15px; }
-  .page-node-type-branch .branch-header .branch-info .address-wrapper address {
+  .branch-header .branch-info .address-wrapper address {
     font-size: 16px;
     margin-bottom: 15px;
     line-height: 1.5;
     font-family: Verdana, sans-serif; }
-  .page-node-type-branch .branch-header .branch-info a.direction-link {
+  .branch-header .branch-info a.direction-link {
     font-family: Verdana, sans-serif;
     font-size: 16px;
     line-height: 2;
     display: block; }
-    .page-node-type-branch .branch-header .branch-info a.direction-link i {
+    .branch-header .branch-info a.direction-link i {
       font-size: 18px;
       margin-right: 5px; }
-  .page-node-type-branch .branch-header .branch-info .hours-wrapper {
+  .branch-header .branch-info .hours-wrapper {
     background-color: #f8f8f8;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px; }
 
-.page-node-type-branch .branch-header .today-hours {
+.branch-header .today-hours {
   margin-bottom: 20px;
   margin-top: 15px; }
-  .page-node-type-branch .branch-header .today-hours .dropdown-toggle {
+  .branch-header .today-hours .dropdown-toggle {
     display: none; }
-  .page-node-type-branch .branch-header .today-hours .today {
+  .branch-header .today-hours .today {
     margin-bottom: 1.5rem;
     display: block; }
-  .page-node-type-branch .branch-header .today-hours > h5 {
+  .branch-header .today-hours > h5 {
     display: none; }
-  .page-node-type-branch .branch-header .today-hours table {
+  .branch-header .today-hours table {
     margin-top: 1rem; }
-    .page-node-type-branch .branch-header .today-hours table td {
+    .branch-header .today-hours table td {
       font-size: 16px;
       line-height: 30px;
       text-align: left;
@@ -8515,16 +8515,16 @@ a.direction-link {
       height: auto;
       width: 50%; }
       @media (min-width: 768px) {
-        .page-node-type-branch .branch-header .today-hours table td {
+        .branch-header .today-hours table td {
           color: #2f2f2f; } }
-      .page-node-type-branch .branch-header .today-hours table td:first-child {
+      .branch-header .today-hours table td:first-child {
         font-weight: bold;
         text-align: left;
         padding-right: 10px; }
         @media (min-width: 768px) {
-          .page-node-type-branch .branch-header .today-hours table td:first-child {
+          .branch-header .today-hours table td:first-child {
             color: #636466; } }
-      .page-node-type-branch .branch-header .today-hours table td:last-child::before {
+      .branch-header .today-hours table td:last-child::before {
         margin-right: 10px;
         font-family: "Font Awesome 5 Free";
         content: "\f017";
@@ -8535,10 +8535,10 @@ a.direction-link {
         text-rendering: auto;
         line-height: 1; }
 
-.page-node-type-branch .branch-header #tabs-clock .today-hours > h5 {
+.branch-header #tabs-clock .today-hours > h5 {
   display: none; }
 
-.page-node-type-branch .branch-header #tabs-clock table tr td {
+.branch-header #tabs-clock table tr td {
   border: 0;
   height: auto; }
 

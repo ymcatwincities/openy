@@ -84,45 +84,67 @@
 {# default header #}
 {% include '@openy_carnation/node/include/header-default.html.twig' %}
 
-{# Camp header #}
-<article{{ attributes.addClass('branch-header') }}>
-  <div class="hidden-xs desktop">
+
+
+{# branch contact card #}
+<article{{ attributes.addClass('branch-header mt-0 mt-lg-5') }}>
+
+  {# desktop view #}
+  <div class="d-none d-sm-inline-block w-100 mt-3 mb-5 desktop">
     <div class="container">
-      <div class="row branch-header-inner camp-info" data-camp-name="{{ node.label }}">
-        <div class="column col-sm-3 col-md-2">
-          <h4>{{ 'WELCOME TO THE'|t }}</h4>
-          <p>{{ label }}</p>
+      <div class="row branch-header-inner branch-info" data-camp-name="{{ node.label }}">
+        <div class="column col-sm-5 address-wrapper branch-header__item">
+          <h4 class="text-uppercase">{{ 'Welcome to'|t }}</h4>
+          <h3>{{ label }}</h3>
         </div>
-        <div class="column col-sm-3 address-wrapper">
-          <h4>{{ 'ADDRESS'|t }}</h4>
-            {{ content.field_location_address }}
+
+        <div class="column col-sm-7 hours-wrapper branch-header__item">
+          <h4>{{ 'Address & Contacts'|t }}</h4>
+          {{ content.field_location_address }}
+
+          {% if content.field_location_phone|render|trim is not empty %}
+          <div class="wrapper-field-location-phone">
+            <div class="field-location-phone">
+              <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if content.field_location_fax|render|trim is not empty %}
+          <div class="wrapper-field-location-fax">
+            <div class="field-location-fax">
+              <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
+            </div>
+          </div>
+          {% endif %}
+
+          {{ content.field_location_directions }}
         </div>
-        <div class="column col-sm-3 col-md-2">
-          <h4>{{ 'PHONE'|t }}</h4>
-          <p>{{ content.field_location_phone }}</p>
-        </div>
+
       </div>
     </div>
   </div>
 
-  <div class="d-block d-sm-none mobile">
+  {# mobile view #}
+  <div class="d-inline d-sm-none mobile">
     <div class="container">
       <div class="row">
-
-        <div class="col-xs-12">
-          <h4>{{ 'WELCOME TO THE'|t }}</h4>
-          <p>{{ label }}</p>
-        </div>
-
         <div class="w-100">
 
           {# location contact info tabs #}
-          <ul class="nav">
+          <ul class="nav bg-pink">
             <li class="nav-item h4 m-0 d-flex align-items-stretch">
-              <a href="#tabs-phone" class="d-flex active align-items-center text-white p-3" data-toggle="pill" aria-selected="true"><i class="fa fa-phone"></i></a>
+              <a href="#tabs-phone" class="nav-link active d-flex align-items-center text-white p-3" data-toggle="pill" aria-selected="true"><i class="fa fa-phone"></i></a>
             </li>
+
+            {% if content.field_location_fax|render|trim is not empty %}
             <li class="nav-item h4 m-0 d-flex align-items-stretch">
-              <a href="#tabs-marker" class="d-flex align-items-center-white p-3" data-toggle="pill" aria-selected="false"><i class="fas fa-map-marker-alt"></i></a>
+              <a href="#tabs-marker" class="nav-link d-flex align-items-center text-white p-3" data-toggle="pill" aria-selected="false"><i class="fas fa-map-marker-alt"></i></a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item h4 m-0 d-flex align-items-stretch">
+              <a href="#tabs-clock" class="nav-link d-flex align-items-center text-white p-3" data-toggle="pill" aria-selected="false"><i class="far fa-clock"></i></a>
             </li>
           </ul>
 
@@ -130,20 +152,38 @@
 
             {# phone #}
             <div id="tabs-phone" class="tab-pane fade show active p-3">
-              <h4>{{ 'PHONE'|t }}</h4>
-              <p>{{ content.field_location_phone }}</p>
+              <h4 class="text-uppercase">{{ 'Contacts'|t }}</h4>
+              <div class="wrapper-field-location-phone">
+                <div class="field-location-phone">
+                  <span class="label-inline"><i class="fa fa-phone"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
+                </div>
+              </div>
+              {% if content.field_location_fax|render|trim is not empty %}
+              <div class="wrapper-field-location-fax">
+                <div class="field-location-fax">
+                  <span class="label-inline"><i class="fa fa-fax"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
+                </div>
+              </div>
+              {% endif %}
             </div>
 
-            {# marker #}
+            {# address #}
             <div id="tabs-marker" class="tab-pane fade p-3">
-              <h4>{{ 'ADDRESS'|t }}</h4>
+              <h4 class="text-uppercase">{{ 'Address & Contacts'|t }}</h4>
               {{ content.field_location_address }}
+              {{ content.field_location_directions }}
             </div>
 
+            {# hours #}
+            <div id="tabs-clock" class="tab-pane fade p-3">
+              <h4 class="text-uppercase">{{ 'Today\'s Hours'|t }}</h4>
+              {{ content.field_branch_hours }}
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
+
     </div>
   </div>
 </article>
