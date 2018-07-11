@@ -83,37 +83,51 @@ set classes = [
 ]
 %}
 
-<div class="container two-columns-container">
-  <div class="row">
-    <div class="col-12">
-      <h1{{ title_attributes.addClass('node-title') }}>{{ label }}</h1>
-    </div>
-  </div>
 
-  <div class="two-column row">
-    <div class="main-region col-md-7 col-lg-8">
-        {{ content.field_content }}
-    </div>
-    <div class="sidebar-region col-md-5 col-lg-4">
+{# default header #}
+{% include '@openy_carnation/node/include/header-default.html.twig' %}
+
+
+<div class="container mt-5">
+  <div class="row">
+
+    <div class="copy col-12 col-md-8 col-lg-9 mb-5 mb-lg-0">
       <article{{ attributes.addClass(classes) }}>
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="sidebar-card">
-              <div>
-                <h3>{{ content.field_facility_type }}</h3>
-                  {{ content.field_location_address }}
-                  {{ content.field_location_phone }}
-              </div>
-            </div>
-          </div>
+        <div{{ content_attributes.addClass('node__content') }}>
+          {{ content.field_content }}
         </div>
-        {% if content.field_facility_loc %}
-          <h3 class="sidebar-card_h3">{{ "Associated Branch"|t }}</h3>
-          {{ content.field_facility_loc }}
-        {% endif %}
-        {{ content.field_sidebar_content }}
       </article>
     </div>
-  </div>
 
+
+    <div class="col-12 col-md-4 col-lg-3 side-col">
+      <div class="card mb-3">
+        <div class="card-body">
+
+          {% if content.field_sidebar_content|render|striptags is not empty %}
+          <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
+            {{ content.field_sidebar_content }}
+          </div>
+          {% endif %}
+
+          {% if content.field_facility_type|render|striptags is not empty %}
+          <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
+            <h5>{{ content.field_facility_type }}</h5>
+            {{ content.field_location_address }}
+            {{ content.field_location_phone }}
+          </div>
+          {% endif %}
+
+          {% if content.field_facility_loc|render|striptags is not empty %}
+          <div class="d-inline-block w-100 arrow-list">
+            <h5><i class="far fa-file text-gray-300 pr-1"></i> {{ 'Associated Branch'|t }}</h5>
+            {{ content.field_facility_loc }}
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
