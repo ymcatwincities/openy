@@ -497,6 +497,9 @@ class YptfKronosReportsMonday extends YptfKronosReportsBase implements YptfKrono
       'Y-m-d',
       strtotime($kronos_report_day . ' -13 days')
     );
+
+    $this->dates['StartDate'] = '2018-06-03';
+    $this->dates['EndDate'] = '2018-06-16';
   }
 
   /**
@@ -554,6 +557,10 @@ class YptfKronosReportsMonday extends YptfKronosReportsBase implements YptfKrono
       'Y-m-d',
       strtotime($kronos_file_name_date . ' -13 days')
     );
+
+    $this->dates['StartDate'] = '2018-06-03';
+    $this->dates['EndDate'] = '2018-06-16';
+
     return $this->kronosData = json_decode($kronos_data_raw);
   }
 
@@ -612,8 +619,11 @@ class YptfKronosReportsMonday extends YptfKronosReportsBase implements YptfKrono
       }
     }
 
+    $this->dates['mbStartDate'] = "2018-06-03";
+    $this->dates['mbEndDate'] = "2018-06-16";
+
     $params = [
-      'PageSize' => 50,
+      'PageSize' => 1000,
       'CurrentPageIndex' => 0,
       'FunctionName' => 'YMCAGTC_ApptMetrics',
       'FunctionParams' => [
