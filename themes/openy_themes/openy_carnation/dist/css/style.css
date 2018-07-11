@@ -12626,11 +12626,17 @@ iframe#ga_iframe {
         .listing-blog-posts .form-item label {
           margin-bottom: 5px; } }
     #schedules-search-form-wrapper .form-item .form-control,
+    #schedules-search-form-wrapper .form-item .form-checkbox,
     .sub-header--filters .form-item .form-control,
+    .sub-header--filters .form-item .form-checkbox,
     .groupex-form-full .form-item .form-control,
+    .groupex-form-full .form-item .form-checkbox,
     .listing-news-posts .form-item .form-control,
+    .listing-news-posts .form-item .form-checkbox,
     .listing-event-posts .form-item .form-control,
-    .listing-blog-posts .form-item .form-control {
+    .listing-event-posts .form-item .form-checkbox,
+    .listing-blog-posts .form-item .form-control,
+    .listing-blog-posts .form-item .form-checkbox {
       font-family: "Cachet", "Comfortaa", sans-serif;
       font-weight: 400;
       padding-left: 0;
@@ -12643,26 +12649,44 @@ iframe#ga_iframe {
       letter-spacing: -1.2px;
       position: relative; }
       #schedules-search-form-wrapper .form-item .form-control.form-select,
+      #schedules-search-form-wrapper .form-item .form-checkbox.form-select,
       .sub-header--filters .form-item .form-control.form-select,
+      .sub-header--filters .form-item .form-checkbox.form-select,
       .groupex-form-full .form-item .form-control.form-select,
+      .groupex-form-full .form-item .form-checkbox.form-select,
       .listing-news-posts .form-item .form-control.form-select,
+      .listing-news-posts .form-item .form-checkbox.form-select,
       .listing-event-posts .form-item .form-control.form-select,
-      .listing-blog-posts .form-item .form-control.form-select {
+      .listing-event-posts .form-item .form-checkbox.form-select,
+      .listing-blog-posts .form-item .form-control.form-select,
+      .listing-blog-posts .form-item .form-checkbox.form-select {
         text-transform: uppercase; }
       #schedules-search-form-wrapper .form-item .form-control.form-text:not(.hasDatepicker),
+      #schedules-search-form-wrapper .form-item .form-checkbox.form-text:not(.hasDatepicker),
       .sub-header--filters .form-item .form-control.form-text:not(.hasDatepicker),
+      .sub-header--filters .form-item .form-checkbox.form-text:not(.hasDatepicker),
       .groupex-form-full .form-item .form-control.form-text:not(.hasDatepicker),
+      .groupex-form-full .form-item .form-checkbox.form-text:not(.hasDatepicker),
       .listing-news-posts .form-item .form-control.form-text:not(.hasDatepicker),
+      .listing-news-posts .form-item .form-checkbox.form-text:not(.hasDatepicker),
       .listing-event-posts .form-item .form-control.form-text:not(.hasDatepicker),
-      .listing-blog-posts .form-item .form-control.form-text:not(.hasDatepicker) {
+      .listing-event-posts .form-item .form-checkbox.form-text:not(.hasDatepicker),
+      .listing-blog-posts .form-item .form-control.form-text:not(.hasDatepicker),
+      .listing-blog-posts .form-item .form-checkbox.form-text:not(.hasDatepicker) {
         font-size: 16px;
         border-bottom: 1px solid #ebebeb; }
       #schedules-search-form-wrapper .form-item .form-control:focus,
+      #schedules-search-form-wrapper .form-item .form-checkbox:focus,
       .sub-header--filters .form-item .form-control:focus,
+      .sub-header--filters .form-item .form-checkbox:focus,
       .groupex-form-full .form-item .form-control:focus,
+      .groupex-form-full .form-item .form-checkbox:focus,
       .listing-news-posts .form-item .form-control:focus,
+      .listing-news-posts .form-item .form-checkbox:focus,
       .listing-event-posts .form-item .form-control:focus,
-      .listing-blog-posts .form-item .form-control:focus {
+      .listing-event-posts .form-item .form-checkbox:focus,
+      .listing-blog-posts .form-item .form-control:focus,
+      .listing-blog-posts .form-item .form-checkbox:focus {
         outline: none;
         box-shadow: none; }
     #schedules-search-form-wrapper .form-item.js-form-item-date .input-wrapper,

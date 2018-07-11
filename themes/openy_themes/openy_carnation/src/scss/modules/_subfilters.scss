@@ -115,7 +115,8 @@
       }
     }
 
-    .form-control {
+    .form-control,
+    .form-checkbox {
       @include cachet();
       padding-left: 0;
       background: transparent;
