@@ -1595,6 +1595,8 @@ footer .container .footer__nav nav ul > li a {
     height: 200px;
     font-size: 22px;
     padding-top: 115px;
+    background-position: center 50px;
+    background-size: 70px;
   }
 }
 .activity-data .categories ul li.active {
