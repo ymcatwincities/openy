@@ -1,0 +1,7 @@
+name: OpenY Program Registration API
+type: module
+description: Provides Program Registration API.
+package: OpenY
+core: 8.x
+dependencies:
+  - rest:rest
