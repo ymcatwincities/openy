@@ -18,18 +18,22 @@
     {% if blocks is defined and blocks|length > 0 %}
         <div id="block-help" role="complementary" class="block block-help block-help-block">
             {% if render_type == 'block' %}
-                {% for block in blocks %}
-                    {% if block.title is defined %}
-                        <strong>{{ block.title }}</strong>
-                    {% endif %}
-                    {% if block.description is defined %}
-                        {% autoescape %}
-                            {{ block.description|raw }}
-                        {% endautoescape %}
-                    {% endif %}
-                    {% if block.youtube_link is defined %}
-                        <p> {{ block.youtube_link }}</p>
-                    {% endif %}
+                {% for i, block in blocks %}
+                    <div class="block-help-item block-help-item-{{ i }} messages messages--info hidden" data-block-id="{{ i }}">
+                        {% if block.title is defined %}
+                            <strong>{{ block.title }}</strong>
+                        {% endif %}
+                        <a href="#" class="help-more">{{ 'Show more'|t }}</a>
+                        <a href="#" class="help-close">×</a>
+                        <div class="help-content hidden">
+                            {% if block.description is defined %}
+                                {{ block.description }}
+                            {% endif %}
+                            {% if block.youtube_link is defined %}
+                                <p>{{ block.youtube_link }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
                 {% endfor %}
             {% endif %}
         </div>
