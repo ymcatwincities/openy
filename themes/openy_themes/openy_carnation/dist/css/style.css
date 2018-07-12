@@ -10530,6 +10530,9 @@ body .branch-popup {
   display: inline-block;
   padding: 10px 0; }
 
+.openy-map-canvas {
+  height: 500px; }
+
 .field-location-address {
   position: relative;
   padding-left: 25px; }
@@ -11437,6 +11440,9 @@ body {
   @media (min-width: 768px) {
     #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots {
       display: block; } }
+
+.program-header .banner-cta {
+  overflow: hidden; }
 
 .program-header .banner-icon {
   max-width: 50px;
