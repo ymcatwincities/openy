@@ -48,12 +48,12 @@ set classes = [
 
   <div class="card-header">
     {% if content.field_prgf_title|render|trim is not empty %}
-      <h3>{{ content.field_prgf_title }}</h3>
+      {{ content.field_prgf_title }}
     {% endif %}
 
     {% if content.field_prgf_headline|render|trim is not empty %}
     <div class="description">
-      <h4>{{ content.field_prgf_headline }}</h4>
+      <h5>{{ content.field_prgf_headline }}</h5>
     </div>
     {% endif %}
   </div>

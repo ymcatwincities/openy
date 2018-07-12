@@ -10681,9 +10681,6 @@ body .branch-popup {
     clear: both;
     margin-top: 0;
     font-weight: bold; }
-  .locations-list h1.color-purple,
-  .locations-list h2.color-purple {
-    color: #5c2e91; }
   .locations-list .field_location_state {
     float: right;
     margin-right: -20px;
@@ -12158,7 +12155,11 @@ iframe#ga_iframe {
     outline: none;
     position: absolute;
     text-decoration: none;
-    bottom: -50%; }
+    bottom: calc(-32px - (-50%)); }
+    @media (min-width: 768px) {
+      .header-alerts-list .slick-arrow,
+      .footer-alerts-list .slick-arrow {
+        bottom: calc(-16px - (-50%)); } }
     .header-alerts-list .slick-arrow:before,
     .footer-alerts-list .slick-arrow:before {
       color: white;
