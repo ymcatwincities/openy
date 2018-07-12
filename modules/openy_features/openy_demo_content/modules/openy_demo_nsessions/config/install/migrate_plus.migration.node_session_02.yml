@@ -33,7 +33,7 @@ source:
       times:
         -
           time: sports_classes_and_workshops_youth_homezone
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -63,7 +63,7 @@ source:
       times:
         -
           time: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -91,7 +91,7 @@ source:
       times:
         -
           time: group_exercise_classes_hiit
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -119,7 +119,7 @@ source:
       times:
         -
           time: group_exercise_classes_moving_for_balance_spr_2017
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -148,7 +148,7 @@ source:
       times:
         -
           time: samll_group_training_youth_small_group_training_tween_titans
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: false
       in_membership: false
@@ -176,7 +176,7 @@ source:
       times:
         -
           time: private_yoga_10_1hour_sessions
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -206,7 +206,7 @@ source:
       times:
         -
           time: partner_personal_training_1_session
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -236,7 +236,7 @@ source:
       times:
         -
           time: health_improvement_nutrition_consultation_initial
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -264,7 +264,7 @@ source:
       times:
         -
           time: climbing_adult_rock_climbing_sept
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -292,7 +292,7 @@ source:
       times:
         -
           time: climbing_adult_parent_child_sept
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -320,7 +320,7 @@ source:
       times:
         -
           time: small_group_and_specialty_training_adaptive_yoga
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -348,7 +348,7 @@ source:
       times:
         -
           time: small_group_and_specialty_training_pilates_reformer_intro
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -376,7 +376,7 @@ source:
       times:
         -
           time: weight_loss_lose_to_win_men
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: true
       in_membership: true
@@ -404,7 +404,7 @@ source:
       times:
         -
           time: before_after_school_child_care_2016_17_woodmoor_non_school_days
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -434,7 +434,7 @@ source:
       times:
         -
           time: before_after_school_child_care_2016_17_woodmoor_after
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -464,7 +464,7 @@ source:
       times:
         -
           time: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -494,7 +494,7 @@ source:
       times:
         -
           time: discovery_day_camp_drop_off_carol_edwards_ctr_2017
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -524,7 +524,7 @@ source:
       times:
         -
           time: discovery_day_camp_drop_off_Northshore_ymca_2017
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -554,7 +554,7 @@ source:
       times:
         -
           time: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: false
       in_membership: false
@@ -582,7 +582,7 @@ source:
       times:
         -
           time: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -612,7 +612,7 @@ source:
       times:
         -
           time: academic_success
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
