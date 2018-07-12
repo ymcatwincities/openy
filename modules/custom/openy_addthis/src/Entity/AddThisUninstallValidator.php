@@ -41,15 +41,18 @@ class AddThisUninstallValidator implements ModuleUninstallValidatorInterface {
    * {@inheritdoc}
    */
   public function validate($module) {
-    $entity_types = $this->entityTypeManager->getDefinitions();
     $reasons = [];
+    if ($module !== 'openy_addthis') {
+      return $reasons;
+    }
+    $entity_types = $this->entityTypeManager->getDefinitions();
     foreach ($entity_types as $entity_type_id => $entity_type) {
       $storage = $this->entityTypeManager->getStorage($entity_type_id);
 
       if ($storage instanceof SqlContentEntityStorage) {
         foreach ($storage->getFieldStorageDefinitions() as $storage_definition) {
           if (
-            $storage_definition->getProvider() == $module
+            $storage_definition->getProvider() === 'openy_addthis'
             && $storage instanceof FieldableEntityStorageInterface
             && $storage->countFieldData($storage_definition, TRUE)
           ) {
