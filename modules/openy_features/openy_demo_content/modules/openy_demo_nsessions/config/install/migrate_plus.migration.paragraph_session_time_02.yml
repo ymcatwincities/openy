@@ -267,7 +267,7 @@ process:
   today_day_of_week_strtolower:
     -
       plugin: default_value
-      default_value: '+1 day'
+      default_value: '+2 days'
     -
       plugin: callback
       callable: strtotime
@@ -276,7 +276,23 @@ process:
       callable: getdate
     -
       plugin: extract
-      #source: some_text_field
+      index:
+        - weekday
+    -
+      plugin: callback
+      callable: strtolower
+  today_day_of_week_strtolower2:
+    -
+      plugin: default_value
+      default_value: '+3 days'
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: callback
+      callable: getdate
+    -
+      plugin: extract
       index:
         - weekday
     -
@@ -308,6 +324,7 @@ process:
     plugin: default_value
     source:
       - '@today_day_of_week_strtolower'
+      - '@today_day_of_week_strtolower2'
     default_value: NULL
 destination:
   plugin: 'entity:paragraph'
