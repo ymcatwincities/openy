@@ -170,6 +170,10 @@
 // main program header banners
 .program-header {
 
+  .banner-cta {
+    overflow: hidden;
+  }
+
   // banner icons
   .banner-icon {
     max-width: 50px;
@@ -227,36 +231,9 @@
       font-size: 50px;
     }
   }
-
-  // sub-program header banners
-  //&.program-header-sub-category {
-  //  margin-bottom: 0;
-  //  overflow: hidden;
-  //
-  //  h1,
-  //  h4 {
-  //    margin: 0;
-  //  }
-  //
-  //  .field-category-program {
-  //    color: $white;
-  //    font-family: $font-family-sans-serif;
-  //    font-size: 28px;
-  //    letter-spacing: -0.8px;
-  //    line-height: 28px;
-  //    margin: 0;
-  //
-  //    @include media-breakpoint-up(sm) {
-  //      font-size: 36px;
-  //    }
-  //  }
-  //
-  //  .content img {
-  //    position: absolute;
-  //  }
-  //}
 }
 
+// sub program listing items
 .subprogram-listing-item {
   display: table;
   margin-top: 20px;
