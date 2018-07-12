@@ -32,7 +32,7 @@ source:
       times:
         -
           time: swim_lessons_parent_child_a
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -62,7 +62,7 @@ source:
       times:
         -
           time: swim_lessons_preschool_1
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -92,7 +92,7 @@ source:
       times:
         -
           time: swim_lessons_preschool_3
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -122,7 +122,7 @@ source:
       times:
         -
           time: swim_lessons_private
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -149,7 +149,7 @@ source:
       times:
         -
           time: swim_lessons_youth_2
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -175,7 +175,7 @@ source:
       times:
         -
           time: swim_lessons_youth_4
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -201,7 +201,7 @@ source:
       times:
         -
           time: swim_lessons_youth_6
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -229,7 +229,7 @@ source:
       times:
         -
           time: swim_lessons_teen
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -259,7 +259,7 @@ source:
       times:
         -
           time: swim_lessons_teen_intermediate
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -289,7 +289,7 @@ source:
       times:
         -
           time: drop_in_swim_recreational_3ft
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -313,7 +313,7 @@ source:
       times:
         -
           time: drop_in_swim_rec_with_slide
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -338,7 +338,7 @@ source:
       times:
         -
           time: drop_in_swim_family
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -362,7 +362,7 @@ source:
       times:
         -
           time: drop_in_swim_lap
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -388,7 +388,7 @@ source:
       times:
         -
           time: cooking_classes_future_chefs
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -418,7 +418,7 @@ source:
       times:
         -
           time: arts_and_crafts_april_earth_day_bridhouses
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -446,7 +446,7 @@ source:
       times:
         -
           time: birthday_parties_room_rental
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -472,7 +472,7 @@ source:
       times:
         -
           time: before_and_after_school_programs_2016_17_bellevue_no_school_days
-      location: 1
+      location: 2
       online_registration: true
       ticket_required: false
       in_membership: false
