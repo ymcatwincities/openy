@@ -1,13 +1,13 @@
 favicon:
-  use_default: true
+  use_default: 1
 features:
   comment_user_picture: true
   comment_user_verification: true
-  favicon: true
+  favicon: 1
   node_user_picture: true
 logo:
-  path: ''
+  path: profiles/contrib/openy/themes/openy_themes/openy_carnation/dist/img/logo-white.png
   url: ''
-  use_default: true
+  use_default: 0
 schemas:
   openy_carnation: 8000

@@ -89,26 +89,6 @@
   }
 }
 
-//.paragraph--type--prgf-location-finder {
-//  .views-element-container {
-//    padding: 0;
-//    .locations-list {
-//      padding: 20px 0;
-//
-//      .label-for-field-location-fax,
-//      .label-for-field-location-phone {
-//        text-transform: lowercase;
-//        display: inline;
-//      }
-//
-//      .field-location-fax,
-//      .field-location-phone {
-//        display: inline;
-//      }
-//    }
-//  }
-//}
-
 .form__locations {
   background-color: rgba($gray-100, .5);
   height: 92px;
@@ -141,6 +121,35 @@
   input[type="checkbox"] {
     margin: 0 10px 0 0;
     vertical-align: middle;
+  }
+
+  .distance .form-group {
+    position: relative;
+    background: white;
+
+    &:before {
+      font-family: 'FontAwesome';
+      position: absolute;
+      content: '\f107';
+      right: 10px;
+      color: $pink;
+      font-size: 24px;
+      top: 50%;
+      margin-top: -18px;
+      z-index: 0;
+    }
+
+    .form-select {
+      position: relative;
+      border-radius: 5px;
+      z-index: 1;
+      background: transparent;
+    }
+  }
+
+  input[type="text"] {
+    border-radius: 5px !important;
+    padding: 5px 15px;
   }
 
   .btn-group-justified {

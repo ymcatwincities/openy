@@ -221,6 +221,7 @@
       '.blog-heading',
       '.inner-wrapper',
       '.card',
+      '.card-body',
       '.card h3',
       '.card .node__content',
       '.block-description--text > h2',

@@ -188,18 +188,32 @@
   </div>
 </article>
 
-{# Camp content #}
+{# camp content #}
 <div class="container">
   <div class="row">
-    <div class="main-region col-12">
-      <article{{ attributes.addClass(classes) }}>
-        <h2>{{ 'Welcome to'|t }} {% spaceless %}{{ label }}{% endspaceless %}!</h2>
-        <hr>
+
+    <div class="branch-content col mt-4">
+      <article{{ branch_attributes.addClass(classes) }}>
         <div{{ content_attributes.addClass('node__content') }}>
+          <h2>{{ 'Welcome to'|t }} {% spaceless %}{{ label }}{% endspaceless %}!</h2>
+          <hr>
           {{ content.field_content }}
         </div>
       </article>
     </div>
+
+    {% if content.field_sidebar_content|render|striptags is not empty %}
+    <div class="col-12 col-md-4 col-lg-3 side-col">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
+            {{ content.field_sidebar_content }}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
   </div>
 </div>
 

@@ -87,47 +87,134 @@ set classes = [
 {# default header #}
 {% include '@openy_carnation/node/include/header-default.html.twig' %}
 
+{# branch contact card #}
+<article{{ attributes.addClass('branch-header mt-0 mt-lg-5') }}>
 
-<div class="container mt-5">
+  {# desktop view #}
+  <div class="d-none d-sm-inline-block w-100 mt-3 mb-5 desktop">
+    <div class="container">
+      <div class="row branch-header-inner branch-info" data-branch-name="{{ node.label }}">
+        <div class="column col-sm-5 address-wrapper branch-header__item">
+          <h4>{{ 'Address & Contacts'|t }}</h4>
+          {{ content.field_location_address }}
+
+          {% if content.field_location_phone|render|trim is not empty %}
+          <div class="wrapper-field-location-phone">
+            <div class="field-location-phone">
+              <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if content.field_location_fax|render|trim is not empty %}
+          <div class="wrapper-field-location-fax">
+            <div class="field-location-fax">
+              <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
+            </div>
+          </div>
+          {% endif %}
+
+          {{ content.field_location_directions }}
+
+        </div>
+
+        <div class="column col-sm-7 hours-wrapper branch-header__item arrow-list">
+          <h5 class="mb-2">{{ content.field_facility_type }}</h5>
+          {{ content.field_facility_loc }}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {# mobile view #}
+  <div class="d-inline d-sm-none mobile">
+    <div class="container">
+      <div class="row">
+        <div class="w-100">
+
+          {# location contact info tabs #}
+          <ul class="nav bg-pink">
+            <li class="nav-item h4 m-0 d-flex align-items-stretch">
+              <a href="#tabs-phone" class="nav-link active d-flex align-items-center text-white p-3" data-toggle="pill" aria-selected="true"><i class="fa fa-phone"></i></a>
+            </li>
+
+            {% if content.field_location_fax|render|trim is not empty %}
+            <li class="nav-item h4 m-0 d-flex align-items-stretch">
+              <a href="#tabs-marker" class="nav-link d-flex align-items-center text-white p-3" data-toggle="pill" aria-selected="false"><i class="fas fa-map-marker-alt"></i></a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item h4 m-0 d-flex align-items-stretch">
+              <a href="#tabs-clock" class="nav-link d-flex align-items-center text-white p-3" data-toggle="pill" aria-selected="false"><i class="far fa-clock"></i></a>
+            </li>
+          </ul>
+
+          <div class="tab-content bg-indigo text-white">
+
+            {# phone #}
+            <div id="tabs-phone" class="tab-pane fade show active p-3">
+              <h4 class="text-uppercase">{{ 'Contacts'|t }}</h4>
+              <div class="wrapper-field-location-phone">
+                <div class="field-location-phone">
+                  <span class="label-inline"><i class="fa fa-phone"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
+                </div>
+              </div>
+              {% if content.field_location_fax|render|trim is not empty %}
+              <div class="wrapper-field-location-fax">
+                <div class="field-location-fax">
+                  <span class="label-inline"><i class="fa fa-fax"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+
+            {# address #}
+            <div id="tabs-marker" class="tab-pane fade p-3">
+              <h4 class="text-uppercase">{{ 'Address & Contacts'|t }}</h4>
+              {{ content.field_location_address }}
+              {{ content.field_location_directions }}
+            </div>
+
+            {# associated branch #}
+            <div id="tabs-clock" class="tab-pane fade p-3">
+              <h4 class="text-uppercase">{{ content.field_facility_type }}</h4>
+              {{ content.field_facility_loc }}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</article>
+
+{# facility content #}
+<div class="container">
   <div class="row">
 
-    <div class="copy col-12 col-md-8 col-lg-9 mb-5 mb-lg-0">
-      <article{{ attributes.addClass(classes) }}>
+    <div class="branch-content col mt-4">
+      <article{{ branch_attributes.addClass(classes) }}>
         <div{{ content_attributes.addClass('node__content') }}>
           {{ content.field_content }}
         </div>
       </article>
     </div>
 
-
+    {% if content.field_sidebar_content|render|striptags is not empty %}
     <div class="col-12 col-md-4 col-lg-3 side-col">
       <div class="card mb-3">
         <div class="card-body">
-
-          {% if content.field_sidebar_content|render|striptags is not empty %}
           <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
             {{ content.field_sidebar_content }}
           </div>
-          {% endif %}
-
-          {% if content.field_facility_type|render|striptags is not empty %}
-          <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
-            <h5>{{ content.field_facility_type }}</h5>
-            {{ content.field_location_address }}
-            {{ content.field_location_phone }}
-          </div>
-          {% endif %}
-
-          {% if content.field_facility_loc|render|striptags is not empty %}
-          <div class="d-inline-block w-100 arrow-list">
-            <h5><i class="far fa-file text-gray-300 pr-1"></i> {{ 'Associated Branch'|t }}</h5>
-            {{ content.field_facility_loc }}
-          </div>
-          {% endif %}
-
         </div>
       </div>
     </div>
+    {% endif %}
 
   </div>
 </div>
+
+{{ content.field_bottom_content }}

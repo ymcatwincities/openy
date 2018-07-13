@@ -29,8 +29,19 @@
   }
 }
 
-.tab-pane > .panel-heading {
-  display: none;
+.tab-pane {
+
+  > .panel-heading {
+    display: none;
+  }
+
+  .field-location-address {
+    margin-top: 20px;
+  }
+
+  a {
+    color: inherit;
+  }
 }
 
 .tab-content > .active {

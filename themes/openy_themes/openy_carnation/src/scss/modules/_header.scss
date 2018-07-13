@@ -1,6 +1,9 @@
 .layout-container .top-navs {
+  // @todo: fix the horizontal scroll on mobile
+  //overflow-x: hidden;
+
   .logo img {
-    width: 45px;
+    width: 105px;
   }
 
   &.affix {
@@ -139,10 +142,14 @@
 
   form {
     display: block;
-    margin: 0 10%;
+    margin: 0 10% 0 20%;
     position: relative;
     z-index: 1;
     background: transparent;
+
+    @include media-breakpoint-up(lg) {
+      margin: 0 10%;
+    }
   }
 
   input[type="submit"] {

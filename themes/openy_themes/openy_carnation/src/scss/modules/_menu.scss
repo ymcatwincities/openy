@@ -1,19 +1,19 @@
 // primary nav (Y Logo)
-.menu-item-home {
+.menu-item-home  {
+  margin-left: 20px;
   background: url("../img/logo-white.png") no-repeat;
-  background-size: 65px 50px;
+  background-size: contain;
   background-position: center;
-  width: 65px;
   text-indent: -9999px;
   display: none;
+  max-width: 150px;
 
   @include media-breakpoint-up(lg) {
     display: block;
-  }
 
-  a {
-    display: block;
-    width: 95px;
+    a {
+      min-width: 100px;
+    }
   }
 }
 
@@ -186,8 +186,7 @@
   }
 }
 
-
-// pages without a banner (ex. program nodes)
+// pages without a banner (ex. user account page)
 .without-banner {
 
   // adjust top margins
