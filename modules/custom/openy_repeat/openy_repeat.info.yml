@@ -4,4 +4,4 @@ description: Framework for Repeatable events.
 core: 8.x
 package: OpenY
 dependencies:
-  - openy_session_instance
+  - openy_repeat_entity

@@ -11,7 +11,7 @@ use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\node\NodeInterface;
-use Drupal\openy_repeat\Entity\Repeat;
+use Drupal\openy_repeat_entity\Entity\Repeat;
 use Drupal\openy_session_instance\SessionInstanceManagerInterface;
 
 /**
