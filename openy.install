@@ -891,9 +891,16 @@ function openy_update_8058() {
 }
 
 /**
- * Update Branch Hours field.
+ * Enable OpenY Entity Reference Tweaks.
  */
 function openy_update_8059() {
+  \Drupal::service('module_installer')->install(['openy_er']);
+}
+
+/**
+ * Update Branch Hours field.
+ */
+function openy_update_8060() {
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $branchLocationConfig = drupal_get_path('module', 'openy_loc_branch') . '/config/install';
   $config_importer->setDirectory($branchLocationConfig);
