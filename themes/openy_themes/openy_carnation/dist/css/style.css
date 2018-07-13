@@ -8059,6 +8059,12 @@ body {
 .tab-pane > .panel-heading {
   display: none; }
 
+.tab-pane .field-location-address {
+  margin-top: 20px; }
+
+.tab-pane a {
+  color: inherit; }
+
 .tab-content > .active {
   display: block; }
 
@@ -8497,6 +8503,8 @@ a.direction-link {
     background-color: #f8f8f8;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px; }
+    .branch-header .branch-info .hours-wrapper address {
+      margin-top: 1rem; }
 
 .branch-header .today-hours {
   margin-bottom: 20px;
@@ -9013,7 +9021,10 @@ html.js .branch__updates_queue__button {
   .node--type-branch.node--view-mode-sidebar-teaser h4,
   .node--type-branch.node--view-mode-class-location h4,
   .node--type-camp.node--view-mode-teaser h4 {
-    margin-top: 1rem; }
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-top: 1.5rem; }
   .marker_tooltip .node--location-content-type.node--view-mode-teaser, .marker_tooltip
   .node--type-facility.node--view-mode-teaser, .marker_tooltip
   .node--type-branch.node--view-mode-teaser, .marker_tooltip
@@ -10303,7 +10314,7 @@ body .branch-popup {
       opacity: 0.85; }
 
 .layout-container .top-navs .logo img {
-  width: 45px; }
+  width: 105px; }
 
 .layout-container .top-navs.affix {
   background: white; }
@@ -10400,10 +10411,13 @@ body .branch-popup {
   bottom: 0; }
   .page-head__search form {
     display: block;
-    margin: 0 10%;
+    margin: 0 10% 0 20%;
     position: relative;
     z-index: 1;
     background: transparent; }
+    @media (min-width: 992px) {
+      .page-head__search form {
+        margin: 0 10%; } }
   .page-head__search input[type="submit"] {
     display: none; }
   .page-head__search .search-input {
@@ -10639,6 +10653,27 @@ body .branch-popup {
   .form__locations input[type="checkbox"] {
     margin: 0 10px 0 0;
     vertical-align: middle; }
+  .form__locations .distance .form-group {
+    position: relative;
+    background: white; }
+    .form__locations .distance .form-group:before {
+      font-family: 'FontAwesome';
+      position: absolute;
+      content: '\f107';
+      right: 10px;
+      color: #c6168d;
+      font-size: 24px;
+      top: 50%;
+      margin-top: -18px;
+      z-index: 0; }
+    .form__locations .distance .form-group .form-select {
+      position: relative;
+      border-radius: 5px;
+      z-index: 1;
+      background: transparent; }
+  .form__locations input[type="text"] {
+    border-radius: 5px !important;
+    padding: 5px 15px; }
   .form__locations .btn-group-justified {
     border-spacing: 1px;
     margin: -1px -1px 5px 1px;
@@ -10904,18 +10939,18 @@ a[href="#step2"] {
   color: inherit; }
 
 .menu-item-home {
+  margin-left: 20px;
   background: url("../img/logo-white.png") no-repeat;
-  background-size: 65px 50px;
+  background-size: contain;
   background-position: center;
-  width: 65px;
   text-indent: -9999px;
-  display: none; }
+  display: none;
+  max-width: 150px; }
   @media (min-width: 992px) {
     .menu-item-home {
-      display: block; } }
-  .menu-item-home a {
-    display: block;
-    width: 95px; }
+      display: block; }
+      .menu-item-home a {
+        min-width: 100px; } }
 
 .page-head__main-menu .navbar > li > a,
 .page-head__main-menu .navbar > li > button {

@@ -100,6 +100,7 @@ a.direction-link {
       }
 
       address {
+
         font-size: 16px;
         margin-bottom: 15px;
         line-height: 1.5;
@@ -124,6 +125,10 @@ a.direction-link {
       background-color: #f8f8f8;
       border-top-right-radius: 8px;
       border-bottom-right-radius: 8px;
+
+      address {
+        margin-top: 1rem;
+      }
     }
   }
 
@@ -832,7 +837,10 @@ html.js {
 
   // links (tel)
   h4 {
-    margin-top: 1rem;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-top: 1.5rem;
   }
 
   .marker_tooltip & {
