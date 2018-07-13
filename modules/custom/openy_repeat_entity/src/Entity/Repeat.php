@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\openy_repeat\Entity;
+namespace Drupal\openy_repeat_entity\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -9,7 +9,7 @@ use Drupal\Core\Datetime\DateHelper;
 /**
  * Defines the repeat entity class.
  *
- * @ingroup openy_repeat
+ * @ingroup openy_repeat_entity
  *
  * @ContentEntityType(
  *   id = "repeat",
@@ -42,7 +42,7 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
 
 
   /**
-   * Retrieves Repeat location node.
+   * Retrieves Repeat Event location node.
    *
    * @return mixed
    *   Location node;
@@ -57,7 +57,7 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
   }
 
   /**
-   * Retrieves Session Instance session node.
+   * Retrieves Repeat Event session node.
    *
    * @return mixed
    *   Session node;
