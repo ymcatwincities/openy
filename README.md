@@ -1,20 +1,3 @@
-### Hello, OpenY community
-We are announcing a give away for the DrupalCampKyiv 2018 
-We are giving 
-3 tickets from Open Y
-3 tickets from It Care Company
-to the contributors of OpenY 
-Please find a list of issues we prepared for the giveaway
-https://github.com/ymcatwincities/openy/milestone/18
-Rules
-- add your comment in respective issue thread and book a job you are working on for avoiding conflicts
-- Create PR with your changes
-- ping @podarok and @danylevskyi for review
-If you created PR before June 18, 17-00 EET starting from now - you have joined the giveaway
-We'll use random.org to get a list of 6 lucky guys or gals as a result.
-Thanks for the participation. Go go go, #crazy_ukrainians
-
-
 <p align="center">
   <a href="http://www.openymca.org">
     <img alt="react-router" src="https://www.ymcamn.org/themes/custom/ymca/img/ymca-logo.svg" width="144">
