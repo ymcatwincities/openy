@@ -1,5 +1,5 @@
 <?php
-namespace Drupal\openy_repeat\Entity;
+namespace Drupal\openy_repeat_entity\Entity;
 
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -9,7 +9,7 @@ use Drupal\Core\Datetime\DateHelper;
 /**
  * Defines the repeat entity class.
  *
- * @ingroup openy_repeat
+ * @ingroup openy_repeat_entity
  *
  * @ContentEntityType(
  *   id = "repeat",
@@ -42,7 +42,7 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
 
 
   /**
-   * Retrieves Repeat location node.
+   * Retrieves Repeat Event location node.
    *
    * @return mixed
    *   Location node;
@@ -57,7 +57,7 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
   }
 
   /**
-   * Retrieves Session Instance session node.
+   * Retrieves Repeat Event session node.
    *
    * @return mixed
    *   Session node;
@@ -309,6 +309,10 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
         'type' => 'entity_reference_autocomplete'
       ]);
 
+    $fields['facility'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Facility'))
+      ->setDescription(t('Physical location of a session.'));
+
     $fields['min_age'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Min Age'))
       ->setDescription(t('Minimum age.'));
@@ -316,6 +320,11 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
     $fields['max_age'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Max Age'))
       ->setDescription(t('Maximum age.'));
+
+    $fields['duration'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Duration'))
+      ->setDescription(t('Duration of a session.'));
+
 
     return $fields;
   }
