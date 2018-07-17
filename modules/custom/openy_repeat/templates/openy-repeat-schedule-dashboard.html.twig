@@ -8,93 +8,114 @@
 #}
 {{ attach_library('openy_repeat/openy_repeat') }}
 
-<div class="container repeat-schedule">
-    <div class="row">
-        <div class="col-sm-4 col-md-3 sidebar js-sidebar">
-            <h4>Filter by</h4>
-            <form class="form">
-                <div class="row">
-                    <div class="form-group">
-                        <label for="inputText">Date:</label>
-                        <div class="input-group date" id="datepicker" data-date-format="MM dd, yyyy">
-                            <input type="text" class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="fa fa-calendar" aria-hidden="true"></span>
-                            </span>
-                        </div>
-                    </div>
+<div class="container schedule-dashboard__wrapper">
+  <div class="row">
+
+    <div class="col-sm-4 col-md-3 schedule-dashboard__sidebar">
+
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <h4 class="hidden-xs">{{ 'Filters'|t }}</h4>
+
+          {# mobile toggler button #}
+          <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="hidden-md">+</span> {{ 'Show Filters'|t }}
+          </a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+          <form class="navbar-form" role="search">
+
+            <div class="form-group-wrapper">
+              <label for="form-group-location" data-toggle="collapse" data-target=".form-group-date">
+                {{ 'Date'|t }} <i class="fa fa-calendar" aria-hidden="true"></i>
+              </label>
+              <div class="form-group-date collapse in" aria-expanded="true">
+                <div class="input-group date" id="datepicker" data-date-format="MM dd, yyyy">
+                  <input type="text" class="form-control" />
+                  <span class="input-group-addon">
+                    <span class="fa fa-calendar" aria-hidden="true"></span>
+                  </span>
                 </div>
-                {% if locations is not empty %}
-                    <div class="row">
-                        <div class="form-group location">
-                            <label for="inputText">Location:</label>
-                            {% for location in locations %}
-                                {% set loc_checked = "t" %}
-                                {% if checked_locations is not empty and location in checked_locations %}
-                                    {% set loc_checked = "checked" %}
-                                {% endif %}
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="{{ location }}" class="box" {{ loc_checked }}> {{ location }}
-                                    </label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% endif %}
-            </form>
-        </div>
-        <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main-table">
-            <center>
-                <h2 class="sub-header">
-                    <span class="left"> < </span>
-                    <span class="date"></span>
-                    <span class="right"> > </span>
-                </h2>
-            </center>
-            <div id="app">
-                <results inline-template :prop-data="globalData.table">
-                    <div class="vue-template">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Class</th>
-                                        <th>Instructor</th>
-                                        <th>Location</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="item in propData">
-                                        <td v-cloak>${ item.time } <div>${ item.duration }</div></td>
-                                        <td v-cloak>${ item.name }</td>
-                                        <td v-cloak>${ item.instructor }</td>
-                                        <td v-cloak>${ item.location }</td>
-                                        <td v-cloak><a href="/node/item.nid">Learn more</a></td>
-                                        <td v-cloak>
-                                        <span class="addtocalendar atc-style-blue">
-                                          <var class="atc_event">
-                                            <var class="atc_date_start">2018-07-06 05:10:00</var>
-                                            <var class="atc_date_end">2018-07-06 06:10:00</var>
-                                            <var class="atc_timezone">America/Chicago</var>
-                                            <var class="atc_title">${ item.name }</var>
-                                            <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.)Class will take place at Studio 2--
-                                    Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
-                                            <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
-                                            <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
-                                          </var>
-                                        </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </results>
+              </div>
             </div>
+
+            {% if locations is not empty %}
+            <div class="form-group-wrapper">
+              <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location">
+                {{ 'Location'|t }} <i class="fa fa-plus" aria-hidden="true"></i>
+              </label>
+              <div class="form-group-location collapse in" aria-expanded="true">
+                {% for location in locations %}
+                  {% set loc_checked = "t" %}
+                  {% if checked_locations is not empty and location in checked_locations %}
+                    {% set loc_checked = "checked" %}
+                  {% endif %}
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="{{ location }}" class="box" {{ loc_checked }}> {{ location }}
+                    </label>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+
+          </form>
         </div>
+      </div>
     </div>
+
+    <div class="col-sm-8 col-md-9 schedule-dashboard__content main-table">
+        <h2 class="schedule-dashboard__content--header">
+          <span class="schedule-dashboard__arrow left"><i class="fa fa-arrow-left"></i></span>
+          <span class="date"></span>
+          <span class="schedule-dashboard__arrow right"><i class="fa fa-arrow-right"></i></span>
+        </h2>
+        <div id="app">
+          <results inline-template :prop-data="globalData.table">
+            <div class="vue-template">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Class</th>
+                      <th>Instructor</th>
+                      <th>Location</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in propData">
+                          <td v-cloak>${ item.time } <div>${ item.duration }</div></td>
+                          <td v-cloak>${ item.name }</td>
+                          <td v-cloak>${ item.instructor }</td>
+                          <td v-cloak>${ item.location }</td>
+                          <td v-cloak><a href="/node/item.nid">Learn more</a></td>
+                          <td v-cloak>
+                          <span class="addtocalendar atc-style-blue">
+                            <var class="atc_event">
+                              <var class="atc_date_start">2018-07-06 05:10:00</var>
+                              <var class="atc_date_end">2018-07-06 06:10:00</var>
+                              <var class="atc_timezone">America/Chicago</var>
+                              <var class="atc_title">${ item.name }</var>
+                              <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.)Class will take place at Studio 2--
+                      Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
+                              <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
+                              <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
+                            </var>
+                          </span>
+                          </td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </results>
+        </div>
+      </div>
+
+  </div>
 </div>

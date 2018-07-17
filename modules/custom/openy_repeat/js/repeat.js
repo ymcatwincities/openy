@@ -1,15 +1,15 @@
 (function ($) {
-  if (!$('.repeat-schedule').length) {
+  if (!$('.schedule-dashboard__wrapper').length) {
     return;
   }
 
   $("#datepicker").datepicker();
 
   // select the target node
-  var head_target = document.querySelector('#page-head .top-navs');
-  var foter_target = document.querySelector('footer.footer');
+  var headerTarget = document.querySelector('#page-head .top-navs');
+  var footerTarget = document.querySelector('footer.footer');
   var bread = document.querySelector('.breadcrumbs');
-  var dest = document.querySelector('.js-sidebar');
+  var dest = document.querySelector('.schedule-dashboard__sidebar');
 
   function isScrolledIntoView(el) {
     var rect = el.getBoundingClientRect();
@@ -17,40 +17,41 @@
   }
 
   function checkBreadcrums() {
-    var bread_rect = bread.getBoundingClientRect();
-    var nav_rect = head_target.getBoundingClientRect();
-    if (nav_rect.bottom > bread_rect.bottom) {
-      dest.style.top = nav_rect.bottom + 'px';
+    var breadRect = bread.getBoundingClientRect();
+    var navRect = headerTarget.getBoundingClientRect();
+    if (navRect.bottom > breadRect.bottom) {
+      dest.style.top = navRect.bottom + 'px';
     }
     else {
-      dest.style.top = bread_rect.bottom + 'px';
+      dest.style.top = breadRect.bottom + 'px';
     }
   }
 
-  window.onscroll = function() {
-    if (isScrolledIntoView(foter_target)) {
-      var rect = foter_target.getBoundingClientRect();
-      dest.style.bottom = (window.innerHeight - rect.top) + "px";
-    }
-    else {
-      dest.style.bottom = 0;
-    }
-    checkBreadcrums();
-  };
+  // Fix the sidebars position.
+  // window.onscroll = function() {
+  //   if (isScrolledIntoView(footerTarget)) {
+  //     var rect = footerTarget.getBoundingClientRect();
+  //     dest.style.bottom = (window.innerHeight - rect.top) + "px";
+  //   }
+  //   else {
+  //     dest.style.bottom = 0;
+  //   }
+  //   checkBreadcrums();
+  // };
 
   // Create an observer instance.
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
-      dest.style.top = head_target.getBoundingClientRect().bottom + "px";
-      checkBreadcrums();
-    });    
+      // dest.style.top = headerTarget.getBoundingClientRect().bottom + "px";
+      // checkBreadcrums();
+    });
   });
 
   // configuration of the observer:
   var config = { attributes: true };
 
   // pass in the target node, as well as the observer options
-  observer.observe(head_target, config);
+  observer.observe(headerTarget, config);
 
   var currentDate = moment().format('ll'),
     eventLocation = '';
@@ -71,12 +72,12 @@
   });
 
 
-  $('span.right').on('click', function() {
+  $('.schedule-dashboard__arrow.right').on('click', function() {
     currentDate = moment(currentDate).add(1, 'day').format('ll');
     globalData.date = currentDate;
     $("#datepicker input").val(currentDate);
   });
-  $('span.left').on('click', function() {
+  $('.schedule-dashboard__arrow.left').on('click', function() {
     currentDate = moment(currentDate).add(-1, 'day').format('ll');
     globalData.date = currentDate;
     $("#datepicker input").val(currentDate);
