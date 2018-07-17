@@ -309,6 +309,10 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
         'type' => 'entity_reference_autocomplete'
       ]);
 
+    $fields['facility'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Facility'))
+      ->setDescription(t('Physical location of a session.'));
+
     $fields['min_age'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Min Age'))
       ->setDescription(t('Minimum age.'));
@@ -316,6 +320,11 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
     $fields['max_age'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Max Age'))
       ->setDescription(t('Maximum age.'));
+
+    $fields['duration'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Duration'))
+      ->setDescription(t('Duration of a session.'));
+
 
     return $fields;
   }

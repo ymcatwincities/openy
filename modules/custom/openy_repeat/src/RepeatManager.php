@@ -133,6 +133,11 @@ class RepeatManager implements SessionInstanceManagerInterface {
       return NULL;
     }
     $class = reset($class);
+
+    // Facility reference.
+    $facility = $session->field_session_plocation->referencedEntities();
+    $facility = reset($facility);
+
     if (!$moderation_wrapper->entity_moderation_status($class)) {
       // Class is unpublished.
       return NULL;
@@ -180,6 +185,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
       'title' => $session->label(),
       'session' => $session->id(),
       'location' => $location_id,
+      'facility' => !empty($facility) ? $facility->getTitle() : NULL,
       'class' => $class_id,
       'field_si_activity' => array_unique($activity_ids),
       'field_si_program_subcategory' => array_unique($program_subcategory_ids),
@@ -209,6 +215,9 @@ class RepeatManager implements SessionInstanceManagerInterface {
       // @todo: Make exclusions work.
       if ($schedule_item['frequency'] == 'weekly' || $schedule_item['frequency'] == 'daily') {
         foreach ($schedule_item['days'] as $day) {
+          $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
+          $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
+          $duration = round(abs($to_time - $from_time) / 60,2);
           $session_instances[] = [
             'start' => strtotime($schedule_item['period']['from'] . 'T' . $schedule_item['time']['from']),
             'end' => strtotime($schedule_item['period']['to'] . 'T' . $schedule_item['time']['to']),
@@ -217,6 +226,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
             'day' => '*',
             'week' => '*',
             'weekday' => $weekday_mapping[$day],
+            'duration'=> $duration,
           ];
         }
       }
