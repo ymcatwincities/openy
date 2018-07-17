@@ -10,6 +10,7 @@
 	background-color: #f8f8f8;
 	cursor: pointer;
 	font-weight: normal;
+  align-items: center;
 }
 
 .schedule-locations__item label.selected {

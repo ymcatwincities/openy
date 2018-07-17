@@ -1,4 +1,8 @@
-.schedule-locations__wrapper {
+//
+// Shared schedules styling.
+//
+.schedule-locations__wrapper,
+.schedule-dashboard__wrapper {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 
@@ -8,6 +12,9 @@
   }
 }
 
+//
+// Locations selection page.
+//
 .locations-header {
   align-items: flex-end;
   margin-bottom: 1rem;
@@ -35,4 +42,11 @@
     border-color: $yet-another-green;
     background: $yet-another-green;
   }
+}
+
+//
+// Schedules dashboard.
+//
+.schedule-dashboard__sidebar {
+  color: $darker-grey;
 }

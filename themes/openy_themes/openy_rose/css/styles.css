@@ -7697,12 +7697,14 @@ article .node--view-mode-flexible-content h2 a span {
     margin: 0.5em auto;
   }
 }
-.schedule-locations__wrapper {
+.schedule-locations__wrapper,
+.schedule-dashboard__wrapper {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
 @media (min-width: 768px) {
-  .schedule-locations__wrapper {
+  .schedule-locations__wrapper,
+  .schedule-dashboard__wrapper {
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
@@ -7734,6 +7736,10 @@ article .node--view-mode-flexible-content h2 a span {
   color: white;
   border-color: #01A490;
   background: #01A490;
+}
+
+.schedule-dashboard__sidebar {
+  color: #333333;
 }
 
 .paragraph-1c-wrapper {
