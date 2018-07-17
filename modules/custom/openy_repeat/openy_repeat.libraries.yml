@@ -39,3 +39,6 @@ openy_repeat.locations:
   version: VERSION
   js:
     js/locations.js: {}
+  css:
+    base:
+      css/locations.css: {}

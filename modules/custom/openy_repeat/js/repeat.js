@@ -12,8 +12,8 @@
   var dest = document.querySelector('.js-sidebar');
 
   function isScrolledIntoView(el) {
-      var rect = el.getBoundingClientRect();
-      return (rect.top >= 0) && (rect.top <= window.innerHeight);
+    var rect = el.getBoundingClientRect();
+    return (rect.top >= 0) && (rect.top <= window.innerHeight);
   }
 
   function checkBreadcrums() {
