@@ -1,0 +1,164 @@
+.block-description {
+  &--text {
+    background-color: #f8f8f8;
+    border-top: 2px solid #c6168d;
+    box-shadow: 0px 0px 15px #d8d8d8;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 0;
+
+    @include breakpoint(540px) {
+      margin: 0 15px 40px;
+      padding: 0;
+    }
+
+    h2,
+    h3 {
+      text-transform: uppercase;
+      font-family: Cachet;
+      margin: 0;
+      font-size: 20px;
+      padding: 30px 0;
+      color: #0089d0;
+      &:after {
+        margin-left: 10px;
+        color: #0089d0;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\f138";
+      }
+    }
+
+    .blog-up .img-crop img {
+      width: 100%;
+      height: auto;
+      max-width: inherit;
+      vertical-align: top;
+      margin: auto;
+    }
+
+    .blog-heading{
+      padding: 0 25px 30px;
+      @include breakpoint(768px) {
+        padding: 0 35px 35px 45px;
+      }
+    }
+
+    .promo-text {
+      padding: 0 0 30px;
+      @include breakpoint(768px) {
+        padding: 0 35px 35px 0;
+      }
+    }
+
+    article {
+      a {
+        color: $default-grey;
+      }
+    }
+
+    h4 {
+      font-family: Cachet;
+      font-size: 26px;
+      line-height: lh(30, 26);
+      color:inherit;
+      margin: 0 0 10px;
+      vertical-align: middle;
+
+      @include breakpoint(768px) {
+        font-size: 36px;
+        line-height: lh(40, 36);
+      }
+    }
+
+    .fa {
+      color: inherit;
+      @include breakpoint(540px) {
+        font-size: 26px;
+        max-height: 26px;
+        max-width: 26px;
+      }
+      @include breakpoint(laptop) {
+        font-size: 30px;
+        max-height: 30px;
+        max-width: 30px;
+      }
+    }
+
+    .field-icon {
+      img {
+        @include breakpoint(540px) {
+          max-height: 28px;
+          max-width: 28px;
+        }
+        @include breakpoint(laptop) {
+          max-height: 35px;
+          max-width: 35px;
+        }
+      }
+    }
+
+    p {
+      font-size: 15px;
+      line-height: lh(22, 15);
+      margin: 0;
+      color: #424242;
+    }
+
+    .field-sb-link {
+
+    }
+
+    .field-sb-body {
+      @include breakpoint(540px) {
+        font-size: 15px;
+        line-height: lh(22, 15);
+      }
+    }
+  }
+
+
+  &--2 {
+    .block-description--text {
+      @include breakpoint(540px) {
+        width: calc(100% / 2 - 15px);
+      }
+    }
+  }
+
+  &--3 {
+    .block-description--text {
+      @include breakpoint($screen-tablet) {
+        width: calc(100% / 3 - 30px);
+        position: relative;
+        .block-share {
+          margin: 0 0 20px 0;
+        }
+        .field-sb-link a {
+          position: absolute;
+          bottom:10px;
+        }
+      }
+    }
+  }
+
+  &--4 {
+    @include breakpoint($screen-tablet) {
+      display: flex;
+    }
+    @include breakpoint($screen-tablet) {
+      .wrapper {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+    .block-description--text {
+      @include breakpoint(540px) {
+        width: calc(100% / 4 - 30px);
+      }
+    }
+  }
+}
