@@ -18,7 +18,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 function openy_install_tasks() {
   return [
     'openy_select_features' => [
-      'display_name' => t('Configure profile'),
+      'display_name' => t('Select installation type'),
       'display' => TRUE,
       'type' => 'form',
       'function' => ConfigureProfileForm::class,
@@ -404,7 +404,6 @@ function openy_discover_broken_paragraphs(array &$install_state) {
    */
   $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
     foreach ($tables as $table) {
-      // Everything is optional nowadays.
       if (!\Drupal::database()->schema()->tableExists($table)) {
         continue;
       }
@@ -458,7 +457,6 @@ function openy_fix_configured_paragraph_blocks(array &$install_state) {
   ];
 
   foreach ($tables as $table) {
-    // Everything is optional nowadays.
     if (!\Drupal::database()->schema()->tableExists($table)) {
       continue;
     }

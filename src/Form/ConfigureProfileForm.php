@@ -50,10 +50,10 @@ class ConfigureProfileForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
-    $form['#title'] = $this->t('Content');
+    $form['#title'] = $this->t('Select installation type');
 
     $installation_types = self::getInstallationTypes();
-    $presets = ['none' => $this->t('Choose One')];
+    $presets = ['' => $this->t('Choose One')];
     foreach ($installation_types as $key => $type) {
       $presets[$key] = $this->t($type['name']);
     }
@@ -64,6 +64,7 @@ class ConfigureProfileForm extends FormBase {
       '#title' => $this->t('Select your Open Y Install'),
       '#options' => $presets,
       '#default_value' => $default_preset,
+      '#required' => TRUE,
     ];
 
     $form['preset_info'] = [
@@ -99,6 +100,9 @@ class ConfigureProfileForm extends FormBase {
       ],
       '#type' => 'actions',
     ];
+
+    $form['#attached']['library'] = ['openy/installation_ui'];
+
 
     return $form;
   }
@@ -168,7 +172,7 @@ class ConfigureProfileForm extends FormBase {
    */
   public static function buildQuestionMark($contents) {
     return "<div class='tooltip-helper'>
-    <div class='tooltip-helper-icon'>?</div>
+    <a href='#' class='tooltip-helper-icon'>?</a>
     <div class='tooltip-helper-contents'>" . $contents . "</div>
 </div>";
   }
@@ -194,14 +198,12 @@ class ConfigureProfileForm extends FormBase {
    * @return string
    */
   private function getSelectedPresetMarkup($preset) {
-    unset($_SESSION["messages"]["error"]);
-
     $presets = self::getPresetsInfo();
     if (!isset($presets[$preset])) {
       return [
         'title' => [
           '#type' => 'html_tag',
-          '#tag' => 'h2',
+          '#tag' => 'h3',
           '#value' => $this->t('Choose an installation type.'),
         ]
       ];
@@ -211,7 +213,7 @@ class ConfigureProfileForm extends FormBase {
     $form['packages_to_install'] = [
       'title' => [
         '#type' => 'html_tag',
-        '#tag' => 'h2',
+        '#tag' => 'h3',
         '#value' => $this->t('%name - the following features will be installed:', [
           '%name' => $presets[$preset]['name'],
         ]),
@@ -277,20 +279,35 @@ class ConfigureProfileForm extends FormBase {
 
     $modules = self::getModulesToInstall($preset);
     $form['debug'] = [
-      '#type' => 'inline_template',
-      '#template' => '
-        <div>
-          <strong>{{ "Without dependecies"|t }}</strong>:<br>
-          {{ without_dependencies|join(", ") }}
-        </div>
-        <br>
-        <div>
-          <strong>{{ "With dependecies"|t }}</strong>:<br>
-          {{ with_dependencies|join(", ") }}
-        </div>',
-      '#context' => [
-        'without_dependencies' => $modules,
-        'with_dependencies' => self::getDependencies($modules),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+      '#title' => $this->t('Debug info'),
+      '#type' => 'details',
+      'without_dependencies' => [
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#title' => $this->t('Modules directly included into the selected packages'),
+        '#type' => 'details',
+        'without_dependencies' => [
+          '#type' => 'inline_template',
+          '#template' => '<p>{{ dependencies|join(", ") }}</p>',
+          '#context' => [
+            'dependencies' => $modules,
+          ],
+        ],
+      ],
+      'with_dependencies' => [
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#title' => $this->t('Dependencies to be installed'),
+        '#type' => 'details',
+        'with_dependencies' => [
+          '#type' => 'inline_template',
+          '#template' => '<p>{{ dependencies|join(", ") }}</p>',
+          '#context' => [
+            'dependencies' => self::getDependencies($modules, TRUE),
+          ],
+        ],
       ],
     ];
 
@@ -298,16 +315,16 @@ class ConfigureProfileForm extends FormBase {
   }
 
   private function getExtendedPackagesMarkup() {
-    $output = '<h2>The following extended features will not be installed however they can be easily added in the future:';
+    $output = '<h3>The following extended features will not be installed however they can be easily added in the future:';
     $output .= $this->buildQuestionMark('<p>Some markup for extended packages goes here</p>');
-    $output .= '</h2>';
+    $output .= '</h3>';
     return $output;
   }
 
   private function getExperimentalModulesMarkup() {
-    $output = '<h2>Custom and experimental modules can also be installed in the future';
+    $output = '<h3>Custom and experimental modules can also be installed in the future';
     $output .= $this->buildQuestionMark('<p>Some markup goes here</p>');
-    $output .= '</h2>';
+    $output .= '</h3>';
     return $output;
   }
 
@@ -338,7 +355,8 @@ class ConfigureProfileForm extends FormBase {
    *
    * @return array|bool
    */
-  public static function getDependencies(array $module_list) {
+  public static function getDependencies(array $module_list, $only_dependencies = FALSE) {
+    $module_list_orig = $module_list;
     $extension_config = \Drupal::configFactory()->getEditable('core.extension');
     // Get all module data so we can find dependencies and sort.
     $module_data = system_rebuild_module_data();
@@ -378,6 +396,13 @@ class ConfigureProfileForm extends FormBase {
 
     // Sort the module list by their weights (reverse).
     arsort($module_list);
+
+    if ($only_dependencies) {
+      foreach ($module_list_orig as $key => $value) {
+        unset($module_list[$key]);
+      }
+    }
+
     $module_list = array_keys($module_list);
 
     return $module_list;
