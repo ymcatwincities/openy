@@ -50,6 +50,11 @@ process:
     plugin: default_value
     default_value: field_content
   field_prgf_grid_style: style
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: grid_content
   field_grid_columns:
     plugin: iterator
     source: column_ids

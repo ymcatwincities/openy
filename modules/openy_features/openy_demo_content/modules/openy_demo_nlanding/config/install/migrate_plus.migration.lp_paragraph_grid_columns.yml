@@ -68,6 +68,11 @@ process:
     default_value: full_html
   field_prgf_clm_link/uri: link_uri
   field_prgf_clm_link/title: link_text
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: grid_columns
 destination:
   plugin: 'entity:paragraph'
   default_bundle: grid_columns
