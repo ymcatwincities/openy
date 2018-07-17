@@ -15,7 +15,8 @@
 
       <div class="navbar navbar-default">
         <div class="navbar-header">
-          <h4 class="hidden-xs">{{ 'Filters'|t }}</h4>
+          <h5 class="hidden-xs"><strong>{{ 'Filters'|t }}</strong></h5>
+          <span class="clear-all">{{ 'Clear all'|t }}</span>
 
           {# mobile toggler button #}
           <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -68,52 +69,53 @@
 
     <div class="col-sm-8 col-md-9 schedule-dashboard__content main-table">
         <h2 class="schedule-dashboard__content--header">
-          <span class="schedule-dashboard__arrow left"><i class="fa fa-arrow-left"></i></span>
+          <span class="schedule-dashboard__arrow left"> < </span>
           <span class="date"></span>
-          <span class="schedule-dashboard__arrow right"><i class="fa fa-arrow-right"></i></span>
+          <span class="schedule-dashboard__arrow right"> > </span>
         </h2>
-        <div id="app">
-          <results inline-template :prop-data="globalData.table">
-            <div class="vue-template">
-              <div class="table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>Time</th>
-                      <th>Class</th>
-                      <th>Instructor</th>
-                      <th>Location</th>
-                      <th></th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="item in propData">
-                          <td v-cloak>${ item.time } <div>${ item.duration }</div></td>
-                          <td v-cloak>${ item.name }</td>
-                          <td v-cloak>${ item.instructor }</td>
-                          <td v-cloak>${ item.location }</td>
-                          <td v-cloak><a href="/node/item.nid">Learn more</a></td>
-                          <td v-cloak>
-                          <span class="addtocalendar atc-style-blue">
-                            <var class="atc_event">
-                              <var class="atc_date_start">2018-07-06 05:10:00</var>
-                              <var class="atc_date_end">2018-07-06 06:10:00</var>
-                              <var class="atc_timezone">America/Chicago</var>
-                              <var class="atc_title">${ item.name }</var>
-                              <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.)Class will take place at Studio 2--
-                      Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
-                              <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
-                              <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
-                            </var>
-                          </span>
-                          </td>
-                      </tr>
-                  </tbody>
-                </table>
+        <div class="selected-locations"></div>
+          <div id="app">
+            <results inline-template :prop-data="globalData.table">
+              <div class="vue-template">
+                  <div class="table-responsive">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Time</th>
+                            <th>Class</th>
+                            <th>Instructor</th>
+                            <th>Location</th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="item in propData">
+                            <td v-cloak>${ item.time } <div>${ item.duration } min</div></td>
+                            <td v-cloak>${ item.name } <span class="facility">${ item.facility }</span></td>
+                            <td v-cloak>${ item.instructor }</td>
+                            <td v-cloak>${ item.location }</td>
+                            <td v-cloak><a v-bind:href="'' + '/node/' + item.class + ''">Learn more</a></td>
+                            <td v-cloak>
+                            <span class="addtocalendar atc-style-blue">
+                              <var class="atc_event">
+                                <var class="atc_date_start">2018-07-06 05:10:00</var>
+                                <var class="atc_date_end">2018-07-06 06:10:00</var>
+                                <var class="atc_timezone">America/Chicago</var>
+                                <var class="atc_title">${ item.name }</var>
+                                <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.)Class will take place at Studio 2--
+                        Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
+                                <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
+                                <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
+                              </var>
+                            </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
               </div>
-            </div>
-        </results>
+            </results>
         </div>
       </div>
 
