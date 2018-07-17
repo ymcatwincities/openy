@@ -1,7 +1,24 @@
 <?php
+
 /**
- * @file OpenY Node Class install file.
+ * @file
+ * OpenY Node Class install file.
  */
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_node_class_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('node', 'node_type', 'class');
+  $configs = [
+    'pathauto.pattern.class',
+    'simple_sitemap.bundle_settings.node.class',
+  ];
+  foreach ($configs as $config) {
+    \Drupal::configFactory()->getEditable($config)->delete();
+  }
+}
 
 /**
  * Implements hook_update_dependencies().
@@ -10,7 +27,7 @@ function openy_node_class_update_dependencies() {
   $dependencies['openy_node_class'] = [
     8002 => [
       'openy_node' => 8003,
-    ]
+    ],
   ];
 
   return $dependencies;
@@ -41,7 +58,7 @@ function openy_node_class_update_8001() {
  */
 function openy_node_class_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
@@ -150,7 +167,7 @@ function openy_node_class_update_8004() {
   $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'field.field.node.class.field_bottom_content' =>[
+    'field.field.node.class.field_bottom_content' => [
       'description',
     ],
     'field.field.node.class.field_class_activity' => [
@@ -185,7 +202,7 @@ function openy_node_class_update_8004() {
  */
 function openy_node_class_update_8005() {
   $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
