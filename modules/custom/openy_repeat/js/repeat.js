@@ -70,7 +70,6 @@
     }
   });
 
-
   $('span.right').on('click', function() {
     currentDate = moment(currentDate).add(1, 'day').format('ll');
     globalData.date = currentDate;
@@ -81,10 +80,30 @@
     globalData.date = currentDate;
     $("#datepicker input").val(currentDate);
   });
+  // Reset all the selected filters and set date to today.
+  $('.clear-all').on('click', function() {
+    $(".checkbox input").each(function() {
+      this.checked = false;
+    });
+    getValueUsingClass();
+    currentDate = moment().format('ll');
+    $("#datepicker input").val(currentDate);
+    globalData.date = currentDate;
+  });
   $('.location .box').on('click', function() {
     getValueUsingClass();
   });
 
+  function checkSelectedLocations() {
+    // Remove single selected location from filtering.
+    $('.selected-locations .remove').on('click', function () {
+      var name = $(this).parent().find('.name').text();
+      $('.checkbox input[value="' + name + '"]').each(function () {
+        this.checked = false;
+      });
+      getValueUsingClass();
+    });
+  }
 
   function runAjaxRequest(self, date, loc) {
     var url = '/schedules/get-event-data';
@@ -100,13 +119,16 @@
   }
 
   function getValueUsingClass() {
-    var chkArray = [];
+    var chkArray = [],
+        selected_locations = '';
 
     $(".location .box").each(function() {
       if ($(this).is(':checked')) {
         chkArray.push(this.value);
+        selected_locations += '<div><span class="name">' + $(this).val() + '</span><span class="remove">x</span></div>';
       }
     });
+    $('.selected-locations').html(selected_locations);
 
     eventLocation = chkArray.join(',');
     globalData.location = eventLocation;
@@ -124,6 +146,7 @@
     mounted() {
       runAjaxRequest(this, currentDate, eventLocation);
       changeDateTitle(currentDate);
+      checkSelectedLocations();
     },
     watch: {
       'globalData.date': function(newValue, oldValue) {
@@ -133,6 +156,7 @@
       },
       'globalData.location': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, newValue);
+        checkSelectedLocations();
       }
     },
     updated: function() {
