@@ -41,7 +41,7 @@ class RepeatController extends ControllerBase {
     $week = date('W', $date);
     $weekday = date('N', $date);
 
-    $sql = "SELECT DISTINCT n.nid, re.id, nd.title as location, nds.title as name, DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i%p') as time
+    $sql = "SELECT DISTINCT n.nid, re.id, nd.title as location, nds.title as name, re.class as class, re.duration as duration, re.facility as facility, DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i%p') as time
             FROM {node} n
             RIGHT JOIN {repeat_event} re ON re.session = n.nid
             INNER JOIN node_field_data nd ON re.location = nd.nid
