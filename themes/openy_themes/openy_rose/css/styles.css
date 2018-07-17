@@ -7697,6 +7697,45 @@ article .node--view-mode-flexible-content h2 a span {
     margin: 0.5em auto;
   }
 }
+.schedule-locations__wrapper {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .schedule-locations__wrapper {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.locations-header {
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .locations-header {
+    margin-bottom: 2rem;
+  }
+}
+.locations-header h4 {
+  font-size: 16px;
+}
+@media (min-width: 768px) {
+  .locations-header h4 {
+    font-size: 18px;
+  }
+}
+
+.schedule-locations__item label {
+  border-color: #ccc;
+  color: #4f4f4f;
+}
+.schedule-locations__item label.selected {
+  color: white;
+  border-color: #01A490;
+  background: #01A490;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
