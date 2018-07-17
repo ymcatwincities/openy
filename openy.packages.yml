@@ -1,9 +1,7 @@
 blog:
   name: 'Blog Package'
-  description: "Blog Package provide a set of modules to use and maintain blog posts.
-                8.1.12 - latest blog posts paragraph has been added
-                8.1.13 - featured blog posts paragraph has been added"
-  help: 'Awesome blog post package. See video - youtube.com/qweqwe'
+  description: "Blog Package provide a set of modules to use and maintain blog posts."
+  help: '<p>Awesome blog post package. See video - <a href="https://youtu.be/qTrGaisDWP0">https://youtu.be/qTrGaisDWP0</a><p>'
   modules:
     - openy_node_blog
     - openy_prgf_blog_listing
@@ -14,7 +12,7 @@ blog:
 
 news:
   name: 'News Package'
-  help: '...'
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
   description: ''
   modules:
     - openy_node_news
@@ -26,7 +24,8 @@ news:
 
 editorial:
   name: 'Editorial Package'
-  help: 'asd<iframe width="560" height="315"
+  help: '<p></p>
+      <iframe width="560" height="315"
              src="https://www.youtube.com/embed/kpUqb1WPXJM"
              frameborder="0" allow="autoplay; encrypted-media"
              allowfullscreen></iframe>'
@@ -52,7 +51,8 @@ editorial:
 
 editorial_ext:
   name: 'Editorial (extended) Package'
-  help: 'asd<iframe width="560" height="315"
+  help: '<p>Extended set of editorial breaks: layouts, blocks, paragraphs.</p>
+         <iframe width="560" height="315"
              src="https://www.youtube.com/embed/kpUqb1WPXJM"
              frameborder="0" allow="autoplay; encrypted-media"
              allowfullscreen></iframe>'
@@ -65,7 +65,12 @@ editorial_ext:
 
 membership:
   name: 'Membership'
-  help: '...'
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/qTrGaisDWP0" frameborder="0"
+      allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
+  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
+  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
     - openy_node_mbrshp
@@ -74,21 +79,35 @@ membership:
 
 social_sharing:
   name: 'Social Sharing'
-  help: ''
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
+  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
+  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: ''
   modules:
     - openy_addthis
 
 alerts:
   name: 'Alerts'
-  help: '...'
+  help: '<dl>
+            <dt>Definition list</dt>
+            <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+         aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+         commodo consequat.</dd>
+            <dt>Lorem ipsum dolor sit amet</dt>
+            <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+         aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+         commodo consequat.</dd>
+         </dl>'
   description: '...'
   modules:
     - openy_node_alert
 
 analytics:
   name: 'Analytics'
-  help: '...'
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
+  tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+  Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
     - google_tag
@@ -96,14 +115,14 @@ analytics:
 
 embeddable_header_footer:
   name: 'Embeddable header & footer'
-  help: '...'
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
   description: '...'
   modules:
     - openy_hf
 
 events:
   name: 'Events'
-  help: '...'
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
   description: '...'
   modules:
     - openy_node_event
@@ -112,28 +131,37 @@ events:
 
 seo:
   name: 'SEO'
-  help: '...'
+  help: '<ol>
+            <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+            <li>Aliquam tincidunt mauris eu risus.</li>
+            <li>Vestibulum auctor dapibus neque.</li>
+         </ol>'
   description: '...'
   modules:
     - simple_sitemap
 
 webform:
   name: 'Webform'
-  help: '...'
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
+  tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
+  Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
     - webform
 
 translation:
   name: 'Translation'
-  help: '...'
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
   description: '...'
   modules:
     - openy_gtranslate
 
 locations:
   name: 'Locations Package'
-  help: '...'
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
+  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
+  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
     - location_finder
