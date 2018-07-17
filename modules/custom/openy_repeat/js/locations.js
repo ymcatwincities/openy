@@ -5,21 +5,24 @@
   Drupal.behaviors.repeat_locations = {
     attach: function (context, settings) {
 
+      $(window).once('openy-load-selected-locations').on('load', function() {
+        $('.schedule-locations__item input', context).each(function () {
+          if ($(this).is(':checked')) {
+            $(this).parent('label').attr('class', 'selected');
+          }
+        });
+        toggleSubmit(context);
+      });
+
       // Toggle active class on location item.
-      $('.schedule-locations__item input', context).once('openy-submit-locations').on('change', function() {
+      $('.schedule-locations__item input', context).once('openy-selected-locations').on('change', function() {
         if(!$(this).parent().hasClass('selected')) {
           $(this).parent('label').attr('class', 'selected');
         }
         else {
           $(this).parent().removeClass('selected');
         }
-
-        // Toggle disable the submit button.
-        if($('.schedule-locations__item label.selected').length > 0) {
-          $('.js-submit-locations', context).removeClass('disabled');
-        } else {
-          $('.js-submit-locations', context).addClass('disabled');
-        }
+        toggleSubmit(context);
       });
 
       // Attach location arguments to url on submit.
@@ -32,6 +35,17 @@
         });
         location.href = '/schedules/group-exercise-classes/' + chkArray.join(',');
       });
+
     }
   };
+
+  // Toggle disable the submit button.
+  var toggleSubmit = function(context) {
+    if($('.schedule-locations__item label.selected').length > 0) {
+      $('.js-submit-locations', context).removeClass('disabled');
+    } else {
+      $('.js-submit-locations', context).addClass('disabled');
+    }
+  };
+
 })(jQuery, Drupal);
