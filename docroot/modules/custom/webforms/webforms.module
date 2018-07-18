@@ -288,23 +288,3 @@ function webforms_file_access(EntityInterface $entity, $operation, AccountInterf
   }
   return AccessResult::neutral();
 }
-
-/**
- * Implements hook_entity_base_field_info_alter().
- */
-function webforms_entity_base_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type) {
-  if ($entity_type->id() == 'contact_message') {
-
-    $fields['location_title'] = \Drupal\Core\Field\BaseFieldDefinition::create('string')
-      ->setName('location_title')
-      ->setLabel(t('Location title'))
-      ->setComputed(TRUE)
-      ->setClass(\Drupal\webforms\LocationTitleItemList::class)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'weight' => -5,
-      ]);
-
-  }
-}
