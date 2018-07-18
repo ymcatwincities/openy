@@ -135,7 +135,6 @@ body .branch-popup {
 }
 
 .ygs-popups-class-branches-form {
-
   hr {
     margin: 0;
     width: 100%;
@@ -147,4 +146,8 @@ body .branch-popup {
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+.modal-content {
+  width: 100%;
 }

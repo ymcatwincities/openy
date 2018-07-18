@@ -65,20 +65,25 @@ body .container .sidebar {
   justify-content: space-between;
 }
 
+.navbar-controls__title {
+	font-size: 16px;
+}
+
 /* form styling */
 .schedule-dashboard__sidebar .navbar-form {
 	border: none;
 	padding: 0;
 	box-shadow: none;
 }
-
+.schedule-dashboard__sidebar .navbar-form .form-control,
 .schedule-dashboard__sidebar .navbar-form .checkbox {
 	width: 100%;
 }
 
 .schedule-dashboard__sidebar .form-group-wrapper {
 	padding: 2.5rem 0 1.5rem;
-	border-bottom: 1px solid #ccc;
+	border-top: 2px solid #d4d4d4;
+
 }
 
 .schedule-dashboard__sidebar .form-group-wrapper > label {
@@ -86,7 +91,7 @@ body .container .sidebar {
   align-items: center;
   justify-content: space-between;
 	margin-bottom: 1rem;
-	cursor: pointer;
+	font-size: 16px;
 }
 
 .schedule-dashboard__sidebar .form-group-wrapper > label:hover {
@@ -101,4 +106,9 @@ body .container .sidebar {
 
 .schedule-dashboard__sidebar .collapse.in {
 	padding-bottom: 1rem;
+}
+
+/* dashboard content */
+.schedule-dashboard__content {
+
 }

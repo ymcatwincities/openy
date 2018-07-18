@@ -126,16 +126,13 @@
   }
 
   function getValueUsingClass() {
-    var chkArray = [],
-        selected_locations = '';
+    var chkArray = [];
 
     $(".form-group-location .box").each(function() {
       if ($(this).is(':checked')) {
         chkArray.push(this.value);
-        selected_locations += '<div><span class="name">' + $(this).val() + '</span><span class="remove">x</span></div>';
       }
     });
-    $('.selected-locations').html(selected_locations);
 
     eventLocation = chkArray.join(',');
     globalData.location = eventLocation;

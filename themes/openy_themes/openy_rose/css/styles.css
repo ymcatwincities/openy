@@ -5886,6 +5886,9 @@ iframe#ga_iframe {
   right: 0;
   width: 170px;
   z-index: 900;
+  border: 1px solid #bababa;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #AAA;
 }
 
 .atcb-list,
@@ -5905,6 +5908,10 @@ iframe#ga_iframe {
   text-decoration: none;
   outline: none;
   display: block;
+  padding: 3px 10px;
+}
+.atcb-item-link:hover {
+  background-color: #ebebeb;
 }
 
 .atcb-item.hover,
@@ -6110,6 +6117,10 @@ body .branch-popup + .ui-widget-overlay {
   height: 100%;
   display: flex;
   align-items: center;
+}
+
+.modal-content {
+  width: 100%;
 }
 
 .two-column-fixed .affix,
@@ -7535,22 +7546,6 @@ article .node--view-mode-flexible-content h2 a span {
 .node--type-event.node--view-mode-full .field-event-location .location-directions > a, .node--type-event.node--view-mode-full .field-event-location .addtocalendar > a {
   font-family: "Cachet W01 Bold", Verdana, sans-serif;
 }
-.node--type-event.node--view-mode-full .field-event-location .addtocalendar {
-  float: none;
-  top: 0;
-  right: 0;
-}
-.node--type-event.node--view-mode-full .field-event-location .addtocalendar .atcb-list {
-  border: 1px solid #bababa;
-  border-radius: 2px;
-  box-shadow: 0 0 5px #AAA;
-}
-.node--type-event.node--view-mode-full .field-event-location .addtocalendar a.atcb-item-link {
-  padding: 3px 10px;
-}
-.node--type-event.node--view-mode-full .field-event-location .addtocalendar a.atcb-item-link:hover {
-  background-color: #ebebeb;
-}
 .node--type-event.node--view-mode-full .field-event-location .contact {
   background-color: #f9f9f9;
 }
@@ -7743,6 +7738,10 @@ article .node--view-mode-flexible-content h2 a span {
 
 .schedule-dashboard__sidebar {
   color: #333333;
+}
+
+.schedule-dashboard__modal--body .table h4 {
+  color: #0060af;
 }
 
 .paragraph-1c-wrapper {
