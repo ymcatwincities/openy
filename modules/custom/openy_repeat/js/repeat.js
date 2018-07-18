@@ -92,7 +92,7 @@
     $("#datepicker input").val(currentDate);
     globalData.date = currentDate;
   });
-  $('.location .box').on('click', function() {
+  $('.form-group-location .box').on('click', function() {
     getValueUsingClass();
   });
 
@@ -108,7 +108,7 @@
   }
 
   function runAjaxRequest(self, date, loc) {
-    var url = '/schedules/get-event-data';
+    var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
     url += loc ? '/' + loc : '/0';
     url += date ? '/' + date : '';
     $.getJSON(url, function(data) {
@@ -124,7 +124,7 @@
     var chkArray = [],
         selected_locations = '';
 
-    $(".location .box").each(function() {
+    $(".form-group-location .box").each(function() {
       if ($(this).is(':checked')) {
         chkArray.push(this.value);
         selected_locations += '<div><span class="name">' + $(this).val() + '</span><span class="remove">x</span></div>';
