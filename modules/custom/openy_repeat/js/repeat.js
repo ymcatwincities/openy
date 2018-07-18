@@ -71,27 +71,32 @@
     }
   });
 
-
   $('.schedule-dashboard__arrow.right').on('click', function() {
     currentDate = moment(currentDate).add(1, 'day').format('ll');
     globalData.date = currentDate;
     $("#datepicker input").val(currentDate);
   });
+
   $('.schedule-dashboard__arrow.left').on('click', function() {
     currentDate = moment(currentDate).add(-1, 'day').format('ll');
     globalData.date = currentDate;
     $("#datepicker input").val(currentDate);
   });
+
   // Reset all the selected filters and set date to today.
-  $('.clear-all').on('click', function() {
+  $('.clear-all').on('click', function(e) {
+    e.preventDefault();
+
     $(".checkbox input").each(function() {
       this.checked = false;
     });
+
     getValueUsingClass();
     currentDate = moment().format('ll');
     $("#datepicker input").val(currentDate);
     globalData.date = currentDate;
   });
+
   $('.form-group-location .box').on('click', function() {
     getValueUsingClass();
   });
