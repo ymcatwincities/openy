@@ -7,8 +7,8 @@ configure: lndr.admin_settings
 dependencies:
   - path
   - tour
-# Information added by Drupal.org packaging script on 2017-10-27
-version: '8.x-1.11'
+# Information added by Drupal.org packaging script on 2018-02-21
+version: '8.x-1.15'
 core: '8.x'
 project: 'lndr'
-datestamp: 1509115987
+datestamp: 1519175588
