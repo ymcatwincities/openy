@@ -12,16 +12,11 @@
   <div class="row">
 
     <div class="col-sm-4 col-md-3 schedule-dashboard__sidebar">
-
       <div class="navbar navbar-default">
         <div class="navbar-header">
 
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-            Launch demo modal
-          </button>
-
           <div class="navbar-controls hidden-xs">
-            <h5><strong>{{ 'Filters'|t }}</strong></h5>
+            <span class="navbar-controls__title"><strong>{{ 'Filters'|t }}</strong></span>
             <a class="clear-all" href="" role="button">{{ 'Clear all'|t }}</a>
           </div>
 
@@ -29,13 +24,15 @@
           <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" role="button">
             <span class="hidden-md">+</span> {{ 'Show Filters'|t }}
           </a>
+
         </div>
 
         <div class="navbar-collapse collapse">
           <form class="navbar-form" role="search">
 
+            {# date picker #}
             <div class="form-group-wrapper">
-              <label for="form-group-date" data-toggle="collapse" data-target=".form-group-date">
+              <label for="form-group-date" data-toggle="collapse" data-target=".form-group-date" role="button">
                 {{ 'Date'|t }} <i class="fa fa-calendar date-picker" aria-hidden="true"></i>
               </label>
               <div class="form-group-date collapse in" aria-expanded="true">
@@ -48,9 +45,10 @@
               </div>
             </div>
 
+            {# location select list #}
             {% if locations is not empty %}
             <div class="form-group-wrapper">
-              <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location">
+              <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button">
                 {{ 'Location'|t }} <i class="fa fa-plus" aria-hidden="true"></i>
               </label>
               <div class="form-group-location collapse in" aria-expanded="true">
@@ -69,86 +67,77 @@
             </div>
             {% endif %}
 
+            {# class name #}
+            <div class="form-group-wrapper">
+              <label for="form-group-class">
+                {{ 'Class name'|t }}
+              </label>
+              <div class="form-group-class">
+                <input type="text" class="form-control" placeholder="All">
+              </div>
+            </div>
+
           </form>
         </div>
       </div>
     </div>
 
     <div class="col-sm-8 col-md-9 schedule-dashboard__content main-table">
-        <h2 class="schedule-dashboard__content--header">
-          <span class="schedule-dashboard__arrow left"> < </span>
-          <span class="date"></span>
-          <span class="schedule-dashboard__arrow right"> > </span>
-        </h2>
-        <div class="selected-locations"></div>
-          <div id="app">
-            <results inline-template :prop-data="globalData.table">
-              <div class="vue-template">
-                  <div class="table-responsive">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>{{ 'Location'|t }}</th>
-                            <th>{{ 'Class'|t }}</th>
-                            <th>{{ 'Time'|t }}</th>
-                            {#<th>{{ 'Instructor'|t }}</th>#}
-                            <th></th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="item in propData">
-                            <td v-cloak>${ item.location }</td>
-                            <td v-cloak>${ item.name } <span class="facility">${ item.facility }</span></td>
-                            <td v-cloak><strong>${ item.time }</strong><br/>${ item.duration } {{ 'min'|t }}</td>
-                            {#<td v-cloak>${ item.instructor }</td>#}
-                            <td v-cloak>
-                            <span class="addtocalendar">
-                              <var class="atc_event">
-                                <var class="atc_date_start">2018-07-06 05:10:00</var>
-                                <var class="atc_date_end">2018-07-06 06:10:00</var>
-                                <var class="atc_timezone">America/Chicago</var>
-                                <var class="atc_title">${ item.name }</var>
-                                <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.)Class will take place at Studio 2--
-                        Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
-                                <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
-                                <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
-                              </var>
-                            </span>
-                            </td>
-                            <td v-cloak><a v-bind:href="'/node/' + item.class" class="btn btn-primary text-capitalize">{{ 'Register'|t }}</a></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                  </div>
-              </div>
-            </results>
 
+      {# date arrows & title #}
+      <h2 class="schedule-dashboard__content--header">
+        <span class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
+        <span class="date"></span>
+        <span class="schedule-dashboard__arrow right" role="button"><i class="fa fa-angle-right"></i></span>
+      </h2>
 
-
-
-
-        </div>
-      </div>
-
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+      {# schedules table data #}
+      <div id="app">
+        <results inline-template :prop-data="globalData.table">
+          <div class="vue-template">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>{{ 'Location'|t }}</th>
+                    <th>{{ 'Class'|t }}</th>
+                    <th>{{ 'Time'|t }}</th>
+                    {#<th>{{ 'Instructor'|t }}</th>#}
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="item in propData">
+                    <td v-cloak><a role="button" data-toggle="modal" data-target="#myModal"><strong>${ item.location }</a></td>
+                    <td v-cloak>${ item.name } <span class="facility">${ item.facility }</span></td>
+                    <td v-cloak><strong>${ item.time }</strong><br/>${ item.duration } {{ 'min'|t }}</td>
+                    {#<td v-cloak>${ item.instructor }</td>#}
+                    <td v-cloak>
+                    <span class="addtocalendar">
+                      <var class="atc_event">
+                        <var class="atc_date_start">2018-07-06 05:10:00</var>
+                        <var class="atc_date_end">2018-07-06 06:10:00</var>
+                        <var class="atc_timezone">America/Chicago</var>
+                        <var class="atc_title">${ item.name }</var>
+                        <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.) Class will take place at Studio 2 -- Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
+                        <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
+                        <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
+                      </var>
+                    </span>
+                    </td>
+                    <td v-cloak><a v-bind:href="'/node/' + item.class" class="btn btn-primary text-capitalize">{{ 'Register'|t }}</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </results>
       </div>
     </div>
+
   </div>
 </div>
+
+{# modals #}
+{% include '@openy_repeat/openy-repeat-schedule-dashboard--modal.html.twig' %}

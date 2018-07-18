@@ -6,6 +6,7 @@ openy_repeat:
   css:
     base:
       css/repeat.css: {}
+      css/modal.css: {}
   dependencies:
     - openy_repeat/openy_repeat.vue
     - openy_repeat/openy_repeat.vue.table
