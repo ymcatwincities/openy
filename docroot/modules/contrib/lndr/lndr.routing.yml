@@ -1,3 +1,4 @@
+# Administration/configuration page
 lndr.admin_settings:
   path: 'admin/config/content/lndr'
   defaults:
@@ -6,19 +7,20 @@ lndr.admin_settings:
   requirements:
     _permission: 'administer nodes'
 
-lndr.example_service:
-  path: 'examples/lndr/service'
-  defaults:
-    _controller: '\Drupal\lndr\Controller\LndrExampleController::service'
-  requirements:
-    _permission: 'access content'
-
+# Main page route to display Lndr page
 lndr_page:
   path: 'lndr/{page_id}'
   defaults:
     _controller: '\Drupal\lndr\Controller\LndrController::page'
   requirements:
     _permission: 'access content'
+
+lndr.sync:
+  path: 'lndr_sync'
+  defaults:
+    _controller: '\Drupal\lndr\Controller\LndrController::lndr_sync'
+  requirements:
+    _access: 'TRUE'
 
 # Service endpoints
 lndr.validate_path:
@@ -39,5 +41,12 @@ lndr.sync_content:
   path: 'service/lndr/sync_content'
   defaults:
     _controller: '\Drupal\lndr\Controller\LndrServiceController::sync_content'
+  requirements:
+    _permission: 'access content'
+
+lndr.example_service:
+  path: 'examples/lndr/service'
+  defaults:
+    _controller: '\Drupal\lndr\Controller\LndrExampleController::service'
   requirements:
     _permission: 'access content'
