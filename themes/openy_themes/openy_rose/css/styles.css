@@ -6106,6 +6106,12 @@ body .branch-popup + .ui-widget-overlay {
   width: 100%;
 }
 
+.modal-dialog {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .two-column-fixed .affix,
 .two-column-fixed .affix-bottom {
   top: 126px;
