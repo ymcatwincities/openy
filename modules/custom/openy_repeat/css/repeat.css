@@ -43,6 +43,10 @@ body .container .sidebar {
 	background: none;
 }
 
+.schedule-dashboard__sidebar .navbar-header {
+	float: none;
+}
+
 .schedule-dashboard__sidebar .navbar-collapse {
 	border: none;
 }
@@ -53,6 +57,15 @@ body .container .sidebar {
 	}
 }
 
+/* filter controls */
+.navbar-controls {
+	width: 100%;
+	display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* form styling */
 .schedule-dashboard__sidebar .navbar-form {
 	border: none;
 	padding: 0;
