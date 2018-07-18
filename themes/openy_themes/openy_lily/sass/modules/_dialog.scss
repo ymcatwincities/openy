@@ -140,9 +140,15 @@ body .branch-popup {
 }
 
 .ygs-popups-class-branches-form {
-
   hr {
     margin: 0;
     width: 100%;
   }
+}
+
+// Vertically align modals
+.modal-dialog {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
