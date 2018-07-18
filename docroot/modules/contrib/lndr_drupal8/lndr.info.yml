@@ -1,7 +1,0 @@
-name: Lndr
-type: module
-description: 'Lndr page bulider agent'
-package: Web services
-core: 8.x
-dependencies:
-  - path
