@@ -83,7 +83,7 @@
                           <tr>
                             <th>Time</th>
                             <th>Class</th>
-                            <th>Instructor</th>
+                            {#<th>Instructor</th>#}
                             <th>Location</th>
                             <th></th>
                             <th></th>
@@ -93,7 +93,7 @@
                           <tr v-for="item in propData">
                             <td v-cloak>${ item.time } <div>${ item.duration } min</div></td>
                             <td v-cloak>${ item.name } <span class="facility">${ item.facility }</span></td>
-                            <td v-cloak>${ item.instructor }</td>
+                            {#<td v-cloak>${ item.instructor }</td>#}
                             <td v-cloak>${ item.location }</td>
                             <td v-cloak><a v-bind:href="'' + '/node/' + item.class + ''">Learn more</a></td>
                             <td v-cloak>
