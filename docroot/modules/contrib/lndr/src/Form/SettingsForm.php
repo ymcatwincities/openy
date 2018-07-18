@@ -59,10 +59,14 @@ class SettingsForm extends ConfigFormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
 
     try {
-      $response = \Drupal::httpClient()->request('POST', LNDR_API_VALIDATE_TOKEN, [
+      $response = \Drupal::httpClient()->post(LNDR_API_VALIDATE_TOKEN, [
         'form_params' => [
           'token' => $form_state->getValue('lndr_token'),
-        ]]);
+        ],
+        'headers' => [
+          'Content-type' => 'application/x-www-form-urlencoded',
+        ]
+      ]);
 
       // @todo: token validation is successful. Let's store this in config
 
