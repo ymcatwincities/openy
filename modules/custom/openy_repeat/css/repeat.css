@@ -59,6 +59,10 @@ body .container .sidebar {
 	box-shadow: none;
 }
 
+.schedule-dashboard__sidebar .navbar-form .checkbox {
+	width: 100%;
+}
+
 .schedule-dashboard__sidebar .form-group-wrapper {
 	padding: 2.5rem 0 1.5rem;
 	border-bottom: 1px solid #ccc;
