@@ -35,7 +35,7 @@
               <label for="form-group-date" data-toggle="collapse" data-target=".form-group-date" role="button">
                 {{ 'Date'|t }} <i class="fa fa-calendar date-picker" aria-hidden="true"></i>
               </label>
-              <div class="form-group-date collapse in" aria-expanded="true">
+              <div class="form-group-date collapse" aria-expanded="false">
                 <div class="input-group date" id="datepicker" data-date-format="MM dd, yyyy">
                   <input type="text" class="form-control" />
                   <span class="input-group-addon">
@@ -45,11 +45,12 @@
               </div>
             </div>
 
+
             {# location select list #}
             {% if locations is not empty %}
             <div class="form-group-wrapper">
               <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button">
-                {{ 'Location'|t }} <i class="fa fa-plus" aria-hidden="true"></i>
+                {{ 'Location'|t }} <i class="fa fa-minus" aria-hidden="true"></i>
               </label>
               <div class="form-group-location collapse in" aria-expanded="true">
                 {% for location in locations %}
@@ -58,9 +59,8 @@
                     {% set loc_checked = "checked" %}
                   {% endif %}
                   <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value="{{ location }}" class="box" {{ loc_checked }}> {{ location }}
-                    </label>
+                    <input type="checkbox" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
+                    <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
                   </div>
                 {% endfor %}
               </div>
@@ -73,7 +73,7 @@
                 {{ 'Class name'|t }}
               </label>
               <div class="form-group-class">
-                <input type="text" class="form-control" placeholder="All">
+                <input type="text" class="form-control" placeholder="All" disabled>
               </div>
             </div>
 
@@ -85,11 +85,20 @@
     <div class="col-sm-8 col-md-9 schedule-dashboard__content main-table">
 
       {# date arrows & title #}
-      <h2 class="schedule-dashboard__content--header">
-        <span class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
-        <span class="date"></span>
-        <span class="schedule-dashboard__arrow right" role="button"><i class="fa fa-angle-right"></i></span>
-      </h2>
+      <div class="row schedule-dashboard__content--header">
+        <div class="col-sm-12 col-md-8">
+          <h2>
+            <span class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
+            <span class="date"></span>
+            <span class="schedule-dashboard__arrow right" role="button"><i class="fa fa-angle-right"></i></span>
+          </h2>
+        </div>
+
+        {# dynamic header button #}
+        <div class="col-sm-12 col-md-4">
+          <a class="btn btn-md btn-block disabled">{{ 'View Weekly Schedule'|t }} <i class="fa fa-print"></i></a>
+        </div>
+      </div>
 
       {# schedules table data #}
       <div id="app">
@@ -126,7 +135,7 @@
                       </var>
                     </span>
                     </td>
-                    <td v-cloak><a v-bind:href="'/node/' + item.class" class="btn btn-primary text-capitalize">{{ 'Register'|t }}</a></td>
+                    <td v-cloak><a v-bind:href="'/node/' + item.class" class="btn btn-primary">{{ 'Register'|t }}</a></td>
                   </tr>
                 </tbody>
               </table>

@@ -101,6 +101,11 @@
     getValueUsingClass();
   });
 
+  // +/- toggle
+  $('.form-group-wrapper label[data-toggle]').on('click', function() {
+    $(this).find('i').toggleClass('fa-minus fa-plus');
+  });
+
   function checkSelectedLocations() {
     // Remove single selected location from filtering.
     $('.selected-locations .remove').on('click', function () {
