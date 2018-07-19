@@ -3,6 +3,7 @@ description: 'Limited Time Offer Paragraph for Home Page based on Landing Page C
 package: OpenY
 type: module
 core: 8.x
+version: '8.x-1.0'
 dependencies:
   - field
   - language
