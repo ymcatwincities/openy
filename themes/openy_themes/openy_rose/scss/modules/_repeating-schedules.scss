@@ -1,14 +1,23 @@
 //
 // Shared schedules styling.
 //
-.schedule-locations__wrapper,
-.schedule-dashboard__wrapper {
+.schedule-locations__wrapper {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 
   @media (min-width: $screen-tablet) {
     padding-top: 3rem;
     padding-bottom: 3rem;
+  }
+}
+
+.schedule-dashboard__wrapper {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+
+  @media (min-width: $screen-tablet) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
 }
 
