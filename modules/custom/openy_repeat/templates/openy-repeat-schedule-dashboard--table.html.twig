@@ -1,0 +1,102 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - inheirted from 'openy-repeat-schedule-dashboard.html.twig'.
+ */
+#}
+
+{# date arrows & title #}
+<div class="row schedule-dashboard__content--header">
+  <div class="col-sm-12 col-md-8">
+    <h2>
+      <span class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
+      <span class="date"></span>
+      <span class="schedule-dashboard__arrow right" role="button"><i class="fa fa-angle-right"></i></span>
+    </h2>
+  </div>
+
+  <div class="hidden-xs hidden-sm col-md-4">
+    <a class="btn btn-md btn-block btn-schedule-pdf disabled">{{ 'View PDF Schedule'|t }} <i class="fa fa-print"></i></a>
+  </div>
+</div>
+
+{# schedules table data #}
+<div id="app">
+  <results inline-template :prop-data="globalData.table">
+    <div class="vue-template">
+
+      <div class="schedules-data clearfix">
+
+        <div class="schedules-data__header">
+          <div class="schedules-data__group">
+            <div>{{ 'Location'|t }}</div>
+            <div>{{ 'Class'|t }}</div>
+          </div>
+          <div class="schedules-data__group">
+            <div>{{ 'Time'|t }}</div>
+            <div>{{ 'Category'|t }}</div>
+          </div>
+          <div class="schedules-data__group">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+
+        <div v-for="item in propData" class="schedules-data__row">
+          <div class="schedules-data__group">
+
+            {# location #}
+            <div v-cloak>
+              <a role="button" data-toggle="modal" data-target="#myModal"><strong>${ item.location }</strong></a>
+            </div>
+
+            {# class #}
+            <div v-cloak>
+              ${ item.name } <span class="facility">(${ item.facility })</span>
+            </div>
+          </div>
+
+          <div class="schedules-data__group">
+
+            {# time #}
+            <div v-cloak>
+              <strong>${ item.time }</strong><br/>
+              ${ item.duration } {{ 'min'|t }}
+            </div>
+
+            {# category #}
+            <div v-cloak>
+              category
+            </div>
+          </div>
+
+          <div class="schedules-data__group">
+
+            {# add to calendar #}
+            <div v-cloak>
+              <span class="addtocalendar">
+                <var class="atc_event">
+                  <var class="atc_date_start">2018-07-06 05:10:00</var>
+                  <var class="atc_date_end">2018-07-06 06:10:00</var>
+                  <var class="atc_timezone">America/Chicago</var>
+                  <var class="atc_title">${ item.name }</var>
+                  <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.) Class will take place at Studio 2 -- Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
+                  <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
+                  <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
+                </var>
+              </span>
+            </div>
+
+            {# register btn #}
+            <div v-cloak>
+              <a v-bind:href="'/node/' + item.class" class="btn btn-primary">{{ 'Register'|t }}</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </results>
+</div>

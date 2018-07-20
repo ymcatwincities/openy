@@ -11,138 +11,14 @@
 <div class="container schedule-dashboard__wrapper">
   <div class="row">
 
-    <div class="col-sm-4 col-md-3 schedule-dashboard__sidebar">
-      <div class="navbar navbar-default">
-        <div class="navbar-header">
-
-          <div class="navbar-controls hidden-xs">
-            <span class="navbar-controls__title"><strong>{{ 'Filters'|t }}</strong></span>
-            <a class="clear-all" href="" role="button">{{ 'Clear all'|t }}</a>
-          </div>
-
-          {# mobile toggler button #}
-          <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" role="button">
-            <span class="hidden-md">+</span> {{ 'Show Filters'|t }}
-          </a>
-
-        </div>
-
-        <div class="navbar-collapse collapse">
-          <form class="navbar-form" role="search">
-
-            {# date picker #}
-            <div class="form-group-wrapper">
-              <label for="form-group-date" data-toggle="collapse" data-target=".form-group-date" role="button">
-                {{ 'Date'|t }} <i class="fa fa-calendar date-picker" aria-hidden="true"></i>
-              </label>
-              <div class="form-group-date collapse" aria-expanded="false">
-                <div class="input-group date" id="datepicker" data-date-format="MM dd, yyyy">
-                  <input type="text" class="form-control" />
-                  <span class="input-group-addon">
-                    <span class="fa fa-calendar" aria-hidden="true"></span>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-
-            {# location select list #}
-            {% if locations is not empty %}
-            <div class="form-group-wrapper">
-              <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button">
-                {{ 'Location'|t }} <i class="fa fa-minus" aria-hidden="true"></i>
-              </label>
-              <div class="form-group-location collapse in" aria-expanded="true">
-                {% for location in locations %}
-                  {% set loc_checked = "t" %}
-                  {% if checked_locations is not empty and location in checked_locations %}
-                    {% set loc_checked = "checked" %}
-                  {% endif %}
-                  <div class="checkbox">
-                    <input type="checkbox" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
-                    <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
-                  </div>
-                {% endfor %}
-              </div>
-            </div>
-            {% endif %}
-
-            {# class name #}
-            <div class="form-group-wrapper">
-              <label for="form-group-class">
-                {{ 'Class name'|t }}
-              </label>
-              <div class="form-group-class">
-                <input type="text" class="form-control" placeholder="All" disabled>
-              </div>
-            </div>
-
-          </form>
-        </div>
-      </div>
+    {# sidebar #}
+    <div class="col-xs-12 col-sm-4 col-md-3 schedule-dashboard__sidebar">
+      {% include '@openy_repeat/openy-repeat-schedule-dashboard--sidebar.html.twig' %}
     </div>
 
-    <div class="col-sm-8 col-md-9 schedule-dashboard__content main-table">
-
-      {# date arrows & title #}
-      <div class="row schedule-dashboard__content--header">
-        <div class="col-sm-12 col-md-8">
-          <h2>
-            <span class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
-            <span class="date"></span>
-            <span class="schedule-dashboard__arrow right" role="button"><i class="fa fa-angle-right"></i></span>
-          </h2>
-        </div>
-
-        {# dynamic header button #}
-        <div class="col-sm-12 col-md-4">
-          <a class="btn btn-md btn-block disabled">{{ 'View Weekly Schedule'|t }} <i class="fa fa-print"></i></a>
-        </div>
-      </div>
-
-      {# schedules table data #}
-      <div id="app">
-        <results inline-template :prop-data="globalData.table">
-          <div class="vue-template">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>{{ 'Location'|t }}</th>
-                    <th>{{ 'Class'|t }}</th>
-                    <th>{{ 'Time'|t }}</th>
-                    {#<th>{{ 'Instructor'|t }}</th>#}
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="item in propData">
-                    <td v-cloak><a role="button" data-toggle="modal" data-target="#myModal"><strong>${ item.location }</a></td>
-                    <td v-cloak>${ item.name } <span class="facility">${ item.facility }</span></td>
-                    <td v-cloak><strong>${ item.time }</strong><br/>${ item.duration } {{ 'min'|t }}</td>
-                    {#<td v-cloak>${ item.instructor }</td>#}
-                    <td v-cloak>
-                    <span class="addtocalendar">
-                      <var class="atc_event">
-                        <var class="atc_date_start">2018-07-06 05:10:00</var>
-                        <var class="atc_date_end">2018-07-06 06:10:00</var>
-                        <var class="atc_timezone">America/Chicago</var>
-                        <var class="atc_title">${ item.name }</var>
-                        <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.) Class will take place at Studio 2 -- Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
-                        <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
-                        <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
-                      </var>
-                    </span>
-                    </td>
-                    <td v-cloak><a v-bind:href="'/node/' + item.class" class="btn btn-primary">{{ 'Register'|t }}</a></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </results>
-      </div>
+    {# main table #}
+    <div class="col-xs-12 col-sm-8 col-md-9 schedule-dashboard__content main-table">
+      {% include '@openy_repeat/openy-repeat-schedule-dashboard--table.html.twig' %}
     </div>
 
   </div>

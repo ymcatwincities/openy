@@ -13,8 +13,7 @@ function openy_repeat_theme() {
     'openy_repeat_schedule_dashboard' => [
       'variables' => [
         'locations' => [],
-        'checked_locations' => [],
-        'modal' => []
+        'checked_locations' => []
       ],
     ],
     'openy_repeat_schedule_locations' => [

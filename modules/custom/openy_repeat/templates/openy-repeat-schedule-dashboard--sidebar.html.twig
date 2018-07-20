@@ -1,0 +1,85 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - inheirted from 'openy-repeat-schedule-dashboard.html.twig'.
+ */
+#}
+
+<div class="navbar navbar-default">
+  <div class="navbar-header">
+
+    <div class="navbar-controls hidden-xs">
+      <span class="navbar-controls__title"><strong>{{ 'Filters'|t }}</strong></span>
+      <a href="{{ url('openy_repeat.schedules_locations') }}">{{ 'Clear all'|t }}</a>
+    </div>
+
+    <div class="row hidden-sm hidden-md hidden-lg">
+
+      {# mobile toggler button #}
+      <div class="col-xs-5">
+        <a data-toggle="collapse" data-target=".navbar-collapse" role="button">
+          <span>+</span> {{ 'Show Filters'|t }}
+        </a>
+      </div>
+
+      <div class="col-xs-7">
+        <a class="btn btn-md btn-block btn-schedule-pdf disabled">{{ 'View PDF Schedule'|t }} <i class="fa fa-print"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="navbar-collapse collapse">
+    <form class="navbar-form" role="search">
+
+      {# date picker #}
+      <div class="form-group-wrapper">
+        <label for="form-group-date" data-toggle="collapse" data-target=".form-group-date" role="button">
+          {{ 'Date'|t }} <i class="fa fa-calendar date-picker" aria-hidden="true"></i>
+        </label>
+        <div class="form-group-date collapse" aria-expanded="false">
+          <div class="input-group date" id="datepicker" data-date-format="MM dd, yyyy">
+            <input type="text" class="form-control" />
+            <span class="input-group-addon hidden">
+              <span class="fa fa-calendar" aria-hidden="true"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {# location select list #}
+      {% if locations is not empty %}
+      <div class="form-group-wrapper">
+        <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button">
+          {{ 'Location'|t }} <i class="fa fa-minus" aria-hidden="true"></i>
+        </label>
+        <div class="form-group-location collapse in" aria-expanded="true">
+          {% for location in locations %}
+            {% set loc_checked = "t" %}
+            {% if checked_locations is not empty and location in checked_locations %}
+              {% set loc_checked = "checked" %}
+            {% endif %}
+            <div class="checkbox">
+              <input type="checkbox" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
+              <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {# @todo: class name (implement) #}
+      <div class="form-group-wrapper">
+        <label for="form-group-class">
+          {{ 'Class name'|t }}
+        </label>
+        <div class="form-group-class">
+          <input type="text" class="form-control" placeholder="All" disabled>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

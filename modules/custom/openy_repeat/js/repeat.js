@@ -3,59 +3,20 @@
     return;
   }
 
-  $("#datepicker").datepicker();
-
-  // select the target node
-  var headerTarget = document.querySelector('#page-head .top-navs');
-  var footerTarget = document.querySelector('footer.footer');
-  var bread = document.querySelector('.breadcrumbs');
-  var dest = document.querySelector('.schedule-dashboard__sidebar');
-
-  function isScrolledIntoView(el) {
-    var rect = el.getBoundingClientRect();
-    return (rect.top >= 0) && (rect.top <= window.innerHeight);
-  }
-
-  function checkBreadcrums() {
-    var breadRect = bread.getBoundingClientRect();
-    var navRect = headerTarget.getBoundingClientRect();
-    if (navRect.bottom > breadRect.bottom) {
-      dest.style.top = navRect.bottom + 'px';
-    }
-    else {
-      dest.style.top = breadRect.bottom + 'px';
-    }
-  }
-
-  // Fix the sidebars position.
-  // window.onscroll = function() {
-  //   if (isScrolledIntoView(footerTarget)) {
-  //     var rect = footerTarget.getBoundingClientRect();
-  //     dest.style.bottom = (window.innerHeight - rect.top) + "px";
-  //   }
-  //   else {
-  //     dest.style.bottom = 0;
-  //   }
-  //   checkBreadcrums();
-  // };
-
-  // Create an observer instance.
-  var observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      // dest.style.top = headerTarget.getBoundingClientRect().bottom + "px";
-      // checkBreadcrums();
-    });
+  // Attach the datepicker.
+  $("#datepicker").datepicker({
+    autoclose: true
   });
 
-  // configuration of the observer:
-  var config = { attributes: true };
-
-  // pass in the target node, as well as the observer options
-  observer.observe(headerTarget, config);
+  // Close the datepicker when clicking outside.
+  $(document).click(function(e) {
+    var ele = $(e.toElement);
+    if (!ele.hasClass("hasDatepicker") && !ele.hasClass("ui-datepicker") && !ele.hasClass("ui-icon") && !$(ele).parent().parents(".ui-datepicker").length)
+       $(".hasDatepicker").datepicker("hide");
+  });
 
   var currentDate = moment().format('ll'),
     eventLocation = '';
-
 
   var globalData = {
     date: currentDate,
@@ -81,20 +42,6 @@
     currentDate = moment(currentDate).add(-1, 'day').format('ll');
     globalData.date = currentDate;
     $("#datepicker input").val(currentDate);
-  });
-
-  // Reset all the selected filters and set date to today.
-  $('.clear-all').on('click', function(e) {
-    e.preventDefault();
-
-    $(".checkbox input").each(function() {
-      this.checked = false;
-    });
-
-    getValueUsingClass();
-    currentDate = moment().format('ll');
-    $("#datepicker input").val(currentDate);
-    globalData.date = currentDate;
   });
 
   $('.form-group-location .box').on('click', function() {
@@ -144,6 +91,7 @@
   }
   getValueUsingClass();
 
+  // Retrieve the data via vue.js.
   new Vue({
     el: '#app',
     data: {
