@@ -21,7 +21,6 @@ dependencies:
   - path
   - plugin
   - responsive_image
-  - scheduler
   - social_feed_fetcher
   - text
   - user
