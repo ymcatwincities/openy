@@ -182,7 +182,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
 
     // All references are in the chain, return data.
     return [
-      'title' => $session->label(),
+      'title2' => $session->label(),
       'session' => $session->id(),
       'location' => $location_id,
       'facility' => !empty($facility) ? $facility->getTitle() : NULL,

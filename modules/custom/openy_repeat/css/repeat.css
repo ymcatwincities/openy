@@ -37,12 +37,7 @@
 
 .schedule-dashboard__sidebar .navbar-collapse {
 	border: none;
-}
-
-@media (min-width: 768px) {
-	.schedule-dashboard__sidebar .navbar-collapse {
-		padding: 0;
-	}
+	padding: 0;
 }
 
 /* filter controls */
@@ -111,7 +106,7 @@
 .schedule-dashboard__sidebar [type="checkbox"]:checked + label,
 .schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label {
   position: relative;
-  padding-left: 10px;
+  padding-left: 25px;
   cursor: pointer;
   display: inline-block;
 }
@@ -120,7 +115,7 @@
 .schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:before {
   content: '';
   position: absolute;
-  left: -15px;
+  left: 0;
   top: 2px;
   width: 16px;
   height: 16px;
@@ -136,9 +131,26 @@
   background: #00a69c;
   position: absolute;
   top: 5px;
-  left: -12px;
+  left: 3px;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+	.schedule-dashboard__sidebar [type="checkbox"]:checked + label,
+	.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label {
+		padding-left: 10px;
+	}
+
+	.schedule-dashboard__sidebar [type="checkbox"]:checked + label:before,
+	.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:before {
+		left: -15px;
+	}
+
+	.schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
+	.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
+		left: -12px;
+	}
 }
 
 .schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
@@ -155,12 +167,20 @@
 
 /* dashboard main date heading */
 .schedule-dashboard__content--header h2 {
+	font-size: 22px;
 	margin-top: 0;
 	margin-bottom: 16px;
 	color: #333;
+	text-align: left;
 }
 
-.schedule-dashboard__content--header .btn {
+@media (min-width: 768px) {
+	.schedule-dashboard__content--header h2 {
+		font-size: 36px;
+	}
+}
+
+.btn.btn-schedule-pdf {
 	border: 1px solid #d4d4d4;
 	background-color: #f4f4f4;
 	border-radius: 0;
@@ -168,15 +188,95 @@
 	color: #333;
 }
 
-.schedule-dashboard__content--header .btn:hover {
+.btn.btn-schedule-pdf:hover {
 	border: 1px solid #ccc;
 	background-color: #eee;
 	color: #333;
 }
 
-.schedule-dashboard__content--header .btn .fa {
+.btn.btn-schedule-pdf .fa {
 	margin-left: 10px;
 }
+
+
+
+
+
+
+
+
+/* heading row */
+.schedules-data__header {
+	display: none;
+  text-transform: uppercase;
+  font-weight: normal;
+  border-bottom: 1px solid #c2c2c2;
+  color: black;
+}
+
+.schedules-data__header,
+.schedules-data__row {
+	flex-direction: column;
+	width: 100%;
+}
+
+/* row styles */
+.schedules-data__row {
+	padding: 14px 0;
+	display: flex;
+}
+
+.schedules-data__row:nth-child(even) {
+	background-color: #f0faf9;
+}
+
+/* grouped for mobile displays */
+.schedules-data__group {
+	display: flex;
+	flex: 1 1 auto;
+}
+
+/* inner group divs */
+.schedules-data__group > div {
+	padding: 8px 20px;
+	flex: 0 0 50%;
+}
+
+/* mobile > right col */
+.schedules-data__group > div:last-child {
+	text-align: right;
+}
+
+
+@media (min-width: 991px) {
+	.schedules-data__header {
+		display: flex;
+	}
+
+	.schedules-data__header,
+	.schedules-data__row {
+		flex-direction: row;
+	}
+
+	.schedules-data__row {
+		padding: 0;
+	}
+
+	.schedules-data__group {
+    width: calc(100% / 3);
+	}
+
+	.schedules-data__group > div  {
+		padding: 24px;
+		width: 50%;
+	}
+
+	.schedules-data__group > div:last-child {
+		text-align: left;
+	}
+}
+
+
 
 
 /* dashboard main table */
