@@ -6,6 +6,26 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_loc_facility_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('node', 'node_type', 'facility');
+
+  $configFactory = \Drupal::configFactory();
+  $configs = [
+    'pathauto.pattern.facility_type',
+    'pathauto.pattern.facility',
+    'rabbit_hole.behavior_settings.taxonomy_vocabulary_facility_type',
+    'simple_sitemap.bundle_settings.node.facility',
+    'taxonomy.vocabulary.facility_type',
+  ];
+  foreach ($configs as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+}
+
+/**
  * Implements hook_update_dependencies().
  */
 function openy_loc_facility_update_dependencies() {
