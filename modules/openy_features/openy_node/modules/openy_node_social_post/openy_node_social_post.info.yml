@@ -3,6 +3,7 @@ description: 'Features for content type: social post'
 type: module
 core: 8.x
 version: 8.x-1.0
+package: OpenY
 dependencies:
   - blazy
   - block
