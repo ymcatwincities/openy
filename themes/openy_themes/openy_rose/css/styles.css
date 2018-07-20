@@ -701,7 +701,6 @@ body {
 
   .viewport {
     position: relative;
-    z-index: 41;
     width: 100%;
   }
   .viewport.collapsing-in, .viewport.collapsing-out {
@@ -7748,10 +7747,20 @@ article .node--view-mode-flexible-content h2 a span {
   color: #333333;
 }
 
+.schedule-dashboard__sidebar .form-group-wrapper {
+  border-color: #ccc;
+}
+
 .schedule-dashboard__modal--body .table h4 {
   color: #0060af;
 }
 
+.schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
+  background: #01A490;
+}
+
+/* row striping */
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }

@@ -35,6 +35,16 @@
 	float: none;
 }
 
+.schedule-dashboard__sidebar .navbar-header .row {
+	display: flex;
+	align-items: center;
+}
+
+.schedule-dashboard__sidebar .navbar-header a[data-toggle] {
+	color: #4f4f4f;
+	text-decoration: none;
+}
+
 .schedule-dashboard__sidebar .navbar-collapse {
 	border: none;
 	padding: 0;
@@ -59,15 +69,10 @@
 	padding: 0;
 	box-shadow: none;
 }
-.schedule-dashboard__sidebar .navbar-form .form-control,
-.schedule-dashboard__sidebar .navbar-form .checkbox {
-	width: 100%;
-}
 
 .schedule-dashboard__sidebar .form-group-wrapper {
 	padding: 2.5rem 0 1.5rem;
 	border-top: 2px solid #d4d4d4;
-
 }
 
 .schedule-dashboard__sidebar .form-group-wrapper > label {
@@ -84,6 +89,7 @@
 
 .schedule-dashboard__sidebar .form-group-wrapper,
 .schedule-dashboard__sidebar .form-group-wrapper > label,
+.schedule-dashboard__sidebar .navbar-form .form-control,
 .schedule-dashboard__sidebar .date {
 	width: 100%;
 }
@@ -93,8 +99,8 @@
 }
 
 /* custom checkboxes */
-.schedule-dashboard__sidebar .navbar-form .checkbox {
-	margin-bottom: 1rem;
+.schedule-dashboard__sidebar .checkbox-wrapper label {
+	font-weight: normal;
 }
 
 .schedule-dashboard__sidebar [type="checkbox"]:checked,
@@ -128,7 +134,7 @@
   content: '';
   width: 10px;
   height: 10px;
-  background: #00a69c;
+  background: #333;
   position: absolute;
   top: 5px;
   left: 3px;
@@ -136,7 +142,23 @@
   transition: all 0.2s ease;
 }
 
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
 @media (min-width: 768px) {
+	.schedule-dashboard__sidebar .checkbox-wrapper {
+		padding-left: 15px;
+	}
+
 	.schedule-dashboard__sidebar [type="checkbox"]:checked + label,
 	.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label {
 		padding-left: 10px;
@@ -151,18 +173,6 @@
 	.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
 		left: -12px;
 	}
-}
-
-.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
-  opacity: 0;
-  -webkit-transform: scale(0);
-  transform: scale(0);
-}
-
-[type="checkbox"]:checked + label:after {
-  opacity: 1;
-  -webkit-transform: scale(1);
-  transform: scale(1);
 }
 
 /* dashboard main date heading */
@@ -198,13 +208,10 @@
 	margin-left: 10px;
 }
 
-
-
-
-
-
-
-
+/*
+* Main flex table data
+*
+*/
 /* heading row */
 .schedules-data__header {
 	display: none;
@@ -224,8 +231,10 @@
 .schedules-data__row {
 	padding: 14px 0;
 	display: flex;
+	color: #333;
 }
 
+/* striping bg */
 .schedules-data__row:nth-child(even) {
 	background-color: #f0faf9;
 }
@@ -234,6 +243,10 @@
 .schedules-data__group {
 	display: flex;
 	flex: 1 1 auto;
+}
+
+.schedules-data__group:last-child {
+	align-items: center;
 }
 
 /* inner group divs */
@@ -247,8 +260,8 @@
 	text-align: right;
 }
 
-
-@media (min-width: 991px) {
+/* desktop */
+@media (min-width: 992px) {
 	.schedules-data__header {
 		display: flex;
 	}
@@ -266,6 +279,10 @@
     width: calc(100% / 3);
 	}
 
+	.schedules-data__group:last-child {
+		align-items: start;
+	}
+
 	.schedules-data__group > div  {
 		padding: 24px;
 		width: 50%;
@@ -274,40 +291,4 @@
 	.schedules-data__group > div:last-child {
 		text-align: left;
 	}
-}
-
-
-
-
-/* dashboard main table */
-.schedule-dashboard__content .table-responsive {
-	overflow-y: hidden;
-}
-
-/* table headers */
-.schedule-dashboard__content .table > thead > tr > th,
-.schedule-dashboard__content .table > tbody > tr > th,
-.schedule-dashboard__content .table > tfoot > tr > th {
-	padding: 24px;
-	text-transform: uppercase;
-	font-weight: normal;
-	border-bottom: 1px solid #c2c2c2;
-	color: black;
-}
-
-.schedule-dashboard__content .table > thead > tr > th:first-child {
-	min-width: 150px;
-}
-
-/* table cells */
-.schedule-dashboard__content .table > thead > tr > td,
-.schedule-dashboard__content .table > tbody > tr > td,
-.schedule-dashboard__content .table > tfoot > tr > td {
-	padding: 24px;
-  border: 0;
-}
-
-/* default striping */
-.schedule-dashboard__content .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #f0faf9;
 }

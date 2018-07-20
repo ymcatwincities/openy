@@ -49,7 +49,7 @@
   });
 
   // +/- toggle
-  $('.form-group-wrapper label[data-toggle]').on('click', function() {
+  $('.schedule-dashboard__sidebar .navbar-header a[data-toggle], .form-group-wrapper label[data-toggle]').on('click', function() {
     $(this).find('i').toggleClass('fa-minus fa-plus');
   });
 

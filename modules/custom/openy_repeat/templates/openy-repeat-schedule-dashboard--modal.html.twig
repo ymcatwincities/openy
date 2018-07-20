@@ -18,58 +18,72 @@
       <div class="schedule-dashboard__modal--body">
 
         {# main data table #}
-        <div class="table-responsive">
-          <table class="table">
+        <table class="table">
+          <thead>
             <tr>
-              <th colspan="2">
-                <h4><strong>{{ 'Location Name'|t }}</strong></h4>
+              <th>
+                <h4><strong>{{ 'Title'|t }}</strong></h4>
               </th>
             </tr>
+          </thead>
+
+          <tbody>
             <tr>
-              <td><label>{{ 'Address'|t }}</label></td>
-              <td>{{ '2222 Preimeter Rd SW Houston 88019 TX United States'|t }}</td>
-            </tr>
-            <tr>
-              <td><label>{{ 'Call'|t }}</label></td>
-              <td><a href="tel:9981901820">9981901820</a></td>
-            </tr>
-            <tr>
-              <td><label>{{ 'Email'|t }}</label></td>
-              <td><a href="mailto:berkley@ymca.com">{{ 'berkley@ymca.com'|t }}</a></td>
-            </tr>
-            <tr>
-              <td><label>{{ 'Branch hours'|t }}</label></td>
               <td>
-
-                {# branch hours table #}
-                <table class="table">
-                  <tr>
-                    <td>{{ 'Mon - Sat'|t }}</td>
-                    <td>{{ '8:00am - 9:00pm'|t }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ 'Sun'|t }}</td>
-                    <td>{{ '10:00am - 6:00pm'|t }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ 'Childcare'|t }}</td>
-                    <td>
-                      {{ 'Mon - Fri 10:00am - 6:00pm'|t }}<br/>
-                      {{ 'Sat - Sun 1:00pm - 5:00pm'|t }}
-                    </td>
-                  </tr>
-                </table>
-
+                <p>Description text. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
               </td>
             </tr>
-          </table>
-        </div>
+          </tbody>
+
+          {#<tr>#}
+            {#<td><label>{{ 'Address'|t }}</label></td>#}
+            {#<td>{{ '2222 Preimeter Rd SW Houston 88019 TX United States'|t }}</td>#}
+          {#</tr>#}
+
+          {#<tr>#}
+            {#<td><label>{{ 'Address'|t }}</label></td>#}
+            {#<td>{{ '2222 Preimeter Rd SW Houston 88019 TX United States'|t }}</td>#}
+          {#</tr>#}
+          {#<tr>#}
+            {#<td><label>{{ 'Call'|t }}</label></td>#}
+            {#<td><a href="tel:9981901820">9981901820</a></td>#}
+          {#</tr>#}
+          {#<tr>#}
+            {#<td><label>{{ 'Email'|t }}</label></td>#}
+            {#<td><a href="mailto:berkley@ymca.com">{{ 'berkley@ymca.com'|t }}</a></td>#}
+          {#</tr>#}
+          {#<tr>#}
+            {#<td><label>{{ 'Branch hours'|t }}</label></td>#}
+            {#<td>#}
+
+              {# branch hours table #}
+              {#<table class="table">#}
+                {#<tr>#}
+                  {#<td>{{ 'Mon - Sat'|t }}</td>#}
+                  {#<td>{{ '8:00am - 9:00pm'|t }}</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                  {#<td>{{ 'Sun'|t }}</td>#}
+                  {#<td>{{ '10:00am - 6:00pm'|t }}</td>#}
+                {#</tr>#}
+                {#<tr>#}
+                  {#<td>{{ 'Childcare'|t }}</td>#}
+                  {#<td>#}
+                    {#{{ 'Mon - Fri 10:00am - 6:00pm'|t }}<br/>#}
+                    {#{{ 'Sat - Sun 1:00pm - 5:00pm'|t }}#}
+                  {#</td>#}
+                {#</tr>#}
+              {#</table>#}
+
+            {#</td>#}
+          {#</tr>#}
+        </table>
         {# / main data table #}
 
       </div>
 
       <div class="schedule-dashboard__modal--footer">
-        <button type="button" class="btn btn-lg btn-primary">{{ 'View Branch'|t }}</button>
+        <button type="button" class="btn btn-lg btn-primary">{{ 'Button Text'|t }}</button>
       </div>
 
     </div>

@@ -20,7 +20,7 @@
       {# mobile toggler button #}
       <div class="col-xs-5">
         <a data-toggle="collapse" data-target=".navbar-collapse" role="button">
-          <span>+</span> {{ 'Show Filters'|t }}
+          <strong><i class="fa fa-plus" aria-hidden="true"></i> {{ 'Show Filters'|t }}</strong>
         </a>
       </div>
 
@@ -61,7 +61,7 @@
             {% if checked_locations is not empty and location in checked_locations %}
               {% set loc_checked = "checked" %}
             {% endif %}
-            <div class="checkbox">
+            <div class="checkbox-wrapper">
               <input type="checkbox" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
               <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
             </div>

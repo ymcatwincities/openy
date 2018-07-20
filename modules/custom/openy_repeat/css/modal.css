@@ -1,9 +1,10 @@
 .schedule-dashboard__modal {
-	font-size: 16px;
+	font-size: 14px;
 }
 
 /* modal > content wrapper */
 .schedule-dashboard__modal .modal-content {
+	padding: 20px 0;
 	border-radius: 0;
 	border: none;
 	color: #333;
@@ -11,6 +12,7 @@
 
 /* modal > header */
 .schedule-dashboard__modal--header {
+	padding: 0 20px;
 	display: block;
   height: 50px;
 }
@@ -21,8 +23,8 @@
 }
 
 /* modal > body */
-.schedule-dashboard__modal--body {
-
+.schedule-dashboard__modal--body .table h4 {
+	font-size: 16px;
 }
 
 /* table headers */
@@ -58,9 +60,29 @@
 	text-align: center;
 }
 
+.schedule-dashboard__modal--footer .btn {
+	font-size: 14px;
+}
+
 
 @media (min-width: 768px) {
+	.schedule-dashboard__modal {
+		font-size: 16px;
+	}
+
+	.schedule-dashboard__modal--header {
+		padding: 0;
+	}
+
 	.schedule-dashboard__modal .modal-content {
 		padding: 30px;
+	}
+
+	.schedule-dashboard__modal--body .table h4 {
+		font-size: 18px;
+	}
+
+	.schedule-dashboard__modal--footer .btn {
+		font-size: 18px;
 	}
 }
