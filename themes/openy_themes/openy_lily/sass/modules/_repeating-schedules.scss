@@ -58,13 +58,13 @@
 }
 
 .schedule-dashboard__modal--body .table h4 {
-  color: $dark-blue;
+  color: $main-purple;
 }
 
 // checkbox
 .schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
 .schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
-  background: $yet-another-green;
+  background: $main-purple;
 }
 
 /* row striping */

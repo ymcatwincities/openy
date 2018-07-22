@@ -12,6 +12,13 @@
 @import 'base/utilities';
 @import 'base/decor';
 
+// Lily styles
+@import 'global/mixins';
+@import 'global/colors';
+@import 'global/variables';
+@import 'global/fonts';
+@import 'global/transition';
+
 // Modules
 @import 'modules/page';
 @import 'modules/footer';
@@ -47,6 +54,7 @@
 @import 'modules/simple_content';
 @import 'modules/event';
 @import 'modules/social-post';
+@import 'modules/repeating-schedules';
 
 // Paragraphs
 @import 'paragraphs/1c';
@@ -55,13 +63,6 @@
 @import 'paragraphs/location_by_amenities';
 @import 'paragraphs/upcoming-events';
 @import 'paragraphs/event-post-listing';
-
-// Lily styles
-@import 'global/mixins';
-@import 'global/colors';
-@import 'global/variables';
-@import 'global/fonts';
-@import 'global/transition';
 
 @import 'misc/settings';
 @import 'misc/toolbar';

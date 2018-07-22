@@ -7704,17 +7704,6 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
-.schedule-dashboard__wrapper {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-}
-@media (min-width: 768px) {
-  .schedule-dashboard__wrapper {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-}
-
 .locations-header {
   align-items: flex-end;
   margin-bottom: 1rem;
