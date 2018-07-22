@@ -5,6 +5,18 @@
   display: none;
 }
 
+.schedule-dashboard__wrapper {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+@media (min-width: 992px) {
+	.schedule-dashboard__wrapper {
+		padding-top: 5rem;
+		padding-bottom: 5rem;
+	}
+}
+
 /* Content > Subheader */
 .schedule-dashboard__arrow {
   cursor: pointer;
@@ -24,11 +36,13 @@
 	background: none !important;
 }
 
+body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .navbar-default,
 .schedule-dashboard__sidebar .navbar-default {
 	border: none;
 	box-shadow: none;
 	border-radius: 0;
 	background: none;
+	top: 0 !important;
 }
 
 .schedule-dashboard__sidebar .navbar-header {
