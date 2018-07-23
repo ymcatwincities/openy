@@ -18,6 +18,5 @@ dependencies:
   - paragraphs
   - path
   - pathauto
-  - scheduler
   - telephone
   - user

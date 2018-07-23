@@ -21,7 +21,6 @@ dependencies:
   - path
   - pathauto
   - rabbit_hole
-  - scheduler
   - taxonomy
   - telephone
   - user
