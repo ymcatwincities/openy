@@ -336,6 +336,17 @@
     }
   }
 }
+body.node--type-landing-page #small-text-banner {
+  &:before {
+    left: 7%;
+    width: 52%;
+  }
+
+  .header-image figure {
+    margin: 0;
+  }
+}
+
 
 #small-text-banner {
   position: relative;
