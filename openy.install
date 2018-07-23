@@ -915,3 +915,17 @@ function openy_update_8059() {
 function openy_update_8060() {
   \Drupal::service('module_installer')->install(['openy_system']);
 }
+
+/**
+ * Breadcrumbs config moving.
+ */
+function openy_update_8061() {
+  // Remove config that will be renamed.
+  \Drupal::configFactory()->getEditable('block.block.breadcrumbs')->delete();
+  $config_dir = drupal_get_path('theme', 'openy_rose') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'block.block.openy_rose_breadcrumbs',
+  ]);
+}
