@@ -26,14 +26,6 @@ targetEntityType: node
 bundle: facility
 mode: teaser
 content:
-  addthis:
-    label: hidden
-    type: string
-    weight: 100
-    region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_location_address:
     type: address_plain
     weight: 1
