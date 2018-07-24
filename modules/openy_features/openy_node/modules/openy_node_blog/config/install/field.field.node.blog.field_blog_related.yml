@@ -4,12 +4,18 @@ dependencies:
   config:
     - field.storage.node.field_blog_related
     - node.type.blog
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_blog_related
 id: node.blog.field_blog_related
 field_name: field_blog_related
 entity_type: node
 bundle: blog
 label: 'Related content'
-description: ''
+description: 'Reference field for choosing related Blog posts. Multiple Values.'
 required: false
 translatable: true
 default_value: {  }
@@ -22,5 +28,5 @@ settings:
     sort:
       field: _none
     auto_create: false
-    auto_create_bundle: ''
+    auto_create_bundle: branch
 field_type: entity_reference
