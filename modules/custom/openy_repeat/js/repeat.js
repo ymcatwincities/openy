@@ -11,16 +11,19 @@
   // Close the datepicker when clicking outside.
   $(document).click(function(e) {
     var ele = $(e.toElement);
-    if (!ele.hasClass("hasDatepicker") && !ele.hasClass("ui-datepicker") && !ele.hasClass("ui-icon") && !$(ele).parent().parents(".ui-datepicker").length)
-       $(".hasDatepicker").datepicker("hide");
+    if (!ele.hasClass("hasDatepicker") && !ele.hasClass("ui-datepicker") && !ele.hasClass("ui-icon") && !$(ele).parent().parents(".ui-datepicker").length) {
+      $(".hasDatepicker").datepicker("hide");
+    }
   });
 
   var currentDate = moment().format('ll'),
-    eventLocation = '';
+    eventLocation = '',
+    eventCategory = '';
 
   var globalData = {
     date: currentDate,
     location: '',
+    category: '',
     table: []
   };
 
@@ -45,7 +48,11 @@
   });
 
   $('.form-group-location .box').on('click', function() {
-    getValueUsingClass();
+    getValuesLocations();
+  });
+
+  $('.form-group-category .box').on('click', function() {
+    getValuesCategories();
   });
 
   // +/- toggle
@@ -53,20 +60,10 @@
     $(this).find('i').toggleClass('fa-minus fa-plus');
   });
 
-  function checkSelectedLocations() {
-    // Remove single selected location from filtering.
-    $('.selected-locations .remove').on('click', function () {
-      var name = $(this).parent().find('.name').text();
-      $('.checkbox input[value="' + name + '"]').each(function () {
-        this.checked = false;
-      });
-      getValueUsingClass();
-    });
-  }
-
-  function runAjaxRequest(self, date, loc) {
+  function runAjaxRequest(self, date, loc, cat) {
     var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
     url += loc ? '/' + loc : '/0';
+    url += cat ? '/' + cat : '/0';
     url += date ? '/' + date : '';
     $.getJSON(url, function(data) {
       self.globalData.table = data
@@ -77,7 +74,7 @@
     $('span.date').text(text);
   }
 
-  function getValueUsingClass() {
+  function getValuesLocations() {
     var chkArray = [];
 
     $(".form-group-location .box").each(function() {
@@ -89,7 +86,21 @@
     eventLocation = chkArray.join(',');
     globalData.location = eventLocation;
   }
-  getValueUsingClass();
+  getValuesLocations();
+
+  function getValuesCategories() {
+    var chkArray = [];
+
+    $(".form-group-category .box").each(function() {
+      if ($(this).is(':checked')) {
+        chkArray.push(this.value);
+      }
+    });
+
+    eventCategory = chkArray.join(',');
+    globalData.category = eventCategory;
+  }
+  getValuesCategories();
 
   // Retrieve the data via vue.js.
   new Vue({
@@ -101,9 +112,8 @@
       //Results
     },
     mounted() {
-      runAjaxRequest(this, currentDate, eventLocation);
+      runAjaxRequest(this, currentDate, eventLocation, eventCategory);
       changeDateTitle(currentDate);
-      checkSelectedLocations();
     },
     watch: {
       'globalData.date': function(newValue, oldValue) {
@@ -112,8 +122,10 @@
         changeDateTitle(newValue);
       },
       'globalData.location': function(newValue, oldValue) {
-        runAjaxRequest(this, currentDate, newValue);
-        checkSelectedLocations();
+        runAjaxRequest(this, currentDate, newValue, globalData.category);
+      },
+      'globalData.category': function(newValue, oldValue) {
+        runAjaxRequest(this, currentDate, globalData.location, newValue);
       }
     },
     updated: function() {
