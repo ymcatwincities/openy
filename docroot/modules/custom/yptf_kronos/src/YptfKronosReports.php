@@ -314,74 +314,74 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
         }
       }
     }
+
     if (!empty($request_number)) {
       $this->numberOfRequest = $request_number;
     }
-    for ($period = 0; $period < $this->numberOfRequest; $period++) {
-      if ($this->getMindbodyData()) {
-        // Calculate MB data.
-        foreach ($this->mindbodyData as $mb_id => $item) {
-          $diff = $item['HoursBooked'];
 
-          $staff_id = $item['EmpID'];
-          $name = explode(' ', $item['Staff']);
-          if (is_array($name)) {
-            $firstName = $name[0];
-            $lastName = end($name);
-          }
-          else {
-            $firstName = $lastName = $item['Staff'];
-          }
-          $trainer_name = $lastName . ', ' . $firstName;
-          if (empty($staff_id)) {
-            // No EmpID.
-            $staff_id = 'MB - No EmpID for: ' . $item['Staff'];
-            $trainer_name .= '. * - MB - No Staff ID';
-            $this->addError('MindBody Data', sprintf('No EmpID for %s in %s has been found.', $item['Staff'], $item['Location']));
-          }
+    if ($this->getMindBodyCSVData($this->kronosData)) {
+      // Calculate MB data.
+      foreach ($this->mindbodyData as $mb_id => $item) {
+        $diff = $item['HoursBooked'];
 
-          if (!empty($item['LocationID'])) {
-            $location_id = trim($item['LocationID']);
-          }
-          elseif (isset($mb_locations_names[trim($item['Location'])])) {
-            $location_id = $mb_locations_names[trim($item['Location'])];
-          }
-          else {
-            $max = ['name' => 'NULL', 'max' => 0, 'id' => NULL];
-            foreach ($mb_locations_names as $name => $id) {
-              $count = similar_text(trim($item['Location']), $name, $percentage);
-              $new_max = $count * $percentage;
-              if ($new_max > $max['max']) {
-                $max = [
-                  'name' => trim($item['Location']),
-                  'max' => $new_max,
-                  'id' => $id,
-                ];
-              }
-            }
-            if ($max['name'] && $max['id']) {
-              $location_id = $max['id'];
-            }
-            else {
-              $location_id = 'no location';
-              $msg = 'Failed to get locations for config %params.';
-              $this->logger->notice(
-                $msg,
-                [
-                  '%params' => $staff_id,
-                ]
-              );
-            }
-          }
-
-          !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
-          $trainer_reports[$location_id][$staff_id]['mb_hours'] += (float) $diff;
-          !empty($trainer_name) ? $trainer_reports[$location_id][$staff_id]['name'] = $trainer_name : '';
-
-          !isset($location_reports[$location_id]['mb_hours']) ? $location_reports[$location_id]['mb_hours'] = 0 : '';
-          $location_reports[$location_id]['mb_hours'] += (float) $diff;
-          !empty($item['Location']) ? $location_reports[$location_id]['name'] = $item['Location'] : '';
+        $staff_id = $item['EmpID'];
+        $name = explode(' ', $item['Staff']);
+        if (is_array($name)) {
+          $firstName = $name[0];
+          $lastName = end($name);
         }
+        else {
+          $firstName = $lastName = $item['Staff'];
+        }
+        $trainer_name = $lastName . ', ' . $firstName;
+        if (empty($staff_id)) {
+          // No EmpID.
+          $staff_id = 'Discrepancy: ' . $item['Staff'];
+          $trainer_name .= ' (discrepancy)';
+          $this->addError('Discrepancy', sprintf('No corresponding name for "%s" (%s) has been found in Kronos data.', $item['Staff'], $item['Location']));
+        }
+
+        if (!empty($item['LocationID'])) {
+          $location_id = trim($item['LocationID']);
+        }
+        elseif (isset($mb_locations_names[trim($item['Location'])])) {
+          $location_id = $mb_locations_names[trim($item['Location'])];
+        }
+        else {
+          $max = ['name' => 'NULL', 'max' => 0, 'id' => NULL];
+          foreach ($mb_locations_names as $name => $id) {
+            $count = similar_text(trim($item['Location']), $name, $percentage);
+            $new_max = $count * $percentage;
+            if ($new_max > $max['max']) {
+              $max = [
+                'name' => trim($item['Location']),
+                'max' => $new_max,
+                'id' => $id,
+              ];
+            }
+          }
+          if ($max['name'] && $max['id']) {
+            $location_id = $max['id'];
+          }
+          else {
+            $location_id = 'no location';
+            $msg = 'Failed to get locations for config %params.';
+            $this->logger->notice(
+              $msg,
+              [
+                '%params' => $staff_id,
+              ]
+            );
+          }
+        }
+
+        !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
+        $trainer_reports[$location_id][$staff_id]['mb_hours'] += (float) $diff;
+        !empty($trainer_name) ? $trainer_reports[$location_id][$staff_id]['name'] = $trainer_name : '';
+
+        !isset($location_reports[$location_id]['mb_hours']) ? $location_reports[$location_id]['mb_hours'] = 0 : '';
+        $location_reports[$location_id]['mb_hours'] += (float) $diff;
+        !empty($item['Location']) ? $location_reports[$location_id]['name'] = $item['Location'] : '';
       }
     }
 
@@ -766,28 +766,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
     if (!empty($this->staffIDs[$staff_id])) {
       return $this->staffIDs[$staff_id];
     }
-    // Get MB cache for debug mode.
-    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
-      'debug'
-    );
-    if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
-      if (!isset($this->staffIDs)) {
-        $cache_dir = \Drupal::service('file_system')
-          ->realpath(file_default_scheme() . "://");
-        $cache_dir = $cache_dir . '/mb_reports';
-        if (!file_exists($cache_dir)) {
-          mkdir($cache_dir, 0764, TRUE);
-        }
-        $file = $cache_dir . '/staff_ids.json';
-        $mb_data_file = file_get_contents($file);
-        if ($mb_data_file) {
-          $this->staffIDs = json_decode($mb_data_file, TRUE);
-        }
-        if (!empty($this->staffIDs[$staff_id])) {
-          return $this->staffIDs[$staff_id];
-        }
-      }
-    }
+
     $staff_params = [
       'PageSize' => 50,
       'CurrentPageIndex' => 0,
@@ -825,13 +804,6 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
 
     if (isset($mb_staff_id->Row->EmpID) && !empty($mb_staff_id->Row->EmpID)) {
       $this->staffIDs[$staff_id] = $mb_staff_id->Row->EmpID;
-      // Get MB cache for debug mode.
-      $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
-        'debug'
-      );
-      if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
-        file_put_contents($file, json_encode($this->staffIDs));
-      }
       return $mb_staff_id->Row->EmpID;
     }
     elseif (isset($staff_id_call->SoapClient)) {
@@ -857,12 +829,6 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           if (isset($parsed_data['Results']['Row']['EmpID'])) {
             $empID = $parsed_data['Results']['Row']['EmpID'];
             $this->staffIDs[$staff_id] = $empID;
-            // Get MB cache for debug mode.
-            $debug_mode = $this->configFactory->get('yptf_kronos.settings')
-              ->get('debug');
-            if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
-              file_put_contents($file, json_encode($this->staffIDs));
-            }
             return $empID;
           }
         }
