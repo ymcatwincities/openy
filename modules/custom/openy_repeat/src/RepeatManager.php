@@ -186,6 +186,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
       'session' => $session->id(),
       'location' => $location_id,
       'facility' => !empty($facility) ? $facility->getTitle() : NULL,
+      'category' => !empty($program_subcategory) ? $program_subcategory->getTitle() : NULL,
       'class' => $class_id,
       'field_si_activity' => array_unique($activity_ids),
       'field_si_program_subcategory' => array_unique($program_subcategory_ids),

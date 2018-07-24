@@ -14,7 +14,11 @@ class RepeatController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function dashboard( Request $request, string $location ) {
+  public function dashboard( Request $request, string $location, string $category = NULL) {
+    $checked_categories = [];
+    if (!empty($category)) {
+      $checked_categories = explode(',', $category);
+    }
     $checked_locations = [];
     if (!empty($location)) {
       $checked_locations = explode(',', $location);
@@ -22,14 +26,16 @@ class RepeatController extends ControllerBase {
     return [
       '#theme' => 'openy_repeat_schedule_dashboard',
       '#locations' => $this->getLocations(),
+      '#categories' => $this->getCategories(),
       '#checked_locations' => $checked_locations,
+      '#checked_categories' => $checked_categories,
     ];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function ajaxScheduler( Request $request, string $location, string $date ) {
+  public function ajaxScheduler( Request $request, string $location, string $date, string $category) {
     if (empty($date)) {
       $date = date('d-m-Y 00:00:00');
     }
@@ -41,7 +47,7 @@ class RepeatController extends ControllerBase {
     $week = date('W', $date);
     $weekday = date('N', $date);
 
-    $sql = "SELECT DISTINCT n.nid, re.id, nd.title as location, nds.title as name, re.class as class, re.duration as duration, re.facility as facility, DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i%p') as time
+    $sql = "SELECT DISTINCT n.nid, re.id, nd.title as location, nds.title as name, re.class as class, re.duration as duration, re.facility as facility, re.category as category, DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i%p') as time
             FROM {node} n
             RIGHT JOIN {repeat_event} re ON re.session = n.nid
             INNER JOIN node_field_data nd ON re.location = nd.nid
@@ -66,6 +72,10 @@ class RepeatController extends ControllerBase {
               )";
 
     $values = [];
+    if (!empty($category)) {
+      $sql .= "AND re.category IN ( :categories[] )";
+      $values[':categories[]'] = explode(',', $category);
+    }
     if (!empty($location)) {
       $sql .= "AND nd.title IN ( :locations[] )";
       $values[':locations[]'] = explode(',', $location);
@@ -101,6 +111,23 @@ class RepeatController extends ControllerBase {
     $connection = \Drupal::database();
     $query = $connection->query($sql);
 
+    return $query->fetchCol();
+  }
+
+
+  /**
+   * Return Categories from chain "Session" -> "Class" -> "Activity" -> "Program sub-category".
+   *
+   * @return array
+   */
+  public function getCategories() {
+    $sql = "SELECT title 
+            FROM {node_field_data} n
+            WHERE n.type = 'program_subcategory'
+            AND n.status = '1'";
+
+    $connection = \Drupal::database();
+    $query = $connection->query($sql);
     return $query->fetchCol();
   }
 
