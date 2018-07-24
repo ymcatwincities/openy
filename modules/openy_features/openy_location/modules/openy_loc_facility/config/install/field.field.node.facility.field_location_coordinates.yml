@@ -5,7 +5,6 @@ dependencies:
     - field.storage.node.field_location_coordinates
     - node.type.facility
   module:
-    - datalayer
     - geolocation
 third_party_settings:
   datalayer:

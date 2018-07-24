@@ -6,7 +6,6 @@ dependencies:
     - node.type.facility
   module:
     - address
-    - datalayer
 third_party_settings:
   datalayer:
     expose: 1

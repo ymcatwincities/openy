@@ -27,14 +27,6 @@ targetEntityType: node
 bundle: facility
 mode: full
 content:
-  addthis:
-    label: hidden
-    type: string
-    weight: 100
-    region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_content:
     weight: 1
     label: hidden
