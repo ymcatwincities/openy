@@ -5,8 +5,6 @@ core: 8.x
 package: OpenY
 version: 8.x-1.0
 dependencies:
-  - content_moderation
-  - datalayer
   - datetime_range
   - entity_reference_revisions
   - field
