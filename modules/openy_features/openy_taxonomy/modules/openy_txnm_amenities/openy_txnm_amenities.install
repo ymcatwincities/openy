@@ -9,16 +9,9 @@
  * Implements hook_uninstall().
  */
 function openy_txnm_amenities_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('taxonomy_term', 'taxonomy_vocabulary', 'amenities', 'vid');
-  $configFactory = \Drupal::configFactory();
-  $configs = [
-    'pathauto.pattern.amenities',
-    'core.entity_view_mode.taxonomy_term.icon',
-  ];
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('taxonomy_term', 'taxonomy_vocabulary', 'amenities', 'vid');
+  $modules_manager->removeModuleConfigs('openy_txnm_amenities');
 }
 
 /**

@@ -9,9 +9,7 @@
  * Implements hook_uninstall().
  */
 function openy_prgf_news_listing_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'news_posts_listing');
-  \Drupal::configFactory()
-    ->getEditable('views.view.listing_news_posts')
-    ->delete();
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'news_posts_listing');
+  $modules_manager->removeModuleConfigs('openy_prgf_news_listing');
 }

@@ -9,8 +9,9 @@
  * Implements hook_uninstall().
  */
 function openy_block_menu_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('block_content', 'block_content_type', 'menu_block');
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('block_content', 'block_content_type', 'menu_block');
+  $modules_manager->removeModuleConfigs('openy_block_menu');
 }
 
 /**

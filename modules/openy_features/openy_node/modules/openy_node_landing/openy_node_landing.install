@@ -28,16 +28,9 @@ function openy_node_landing_update_dependencies() {
  * Implements hook_uninstall().
  */
 function openy_node_landing_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('node', 'node_type', 'landing_page');
-  $config_factory = Drupal::configFactory();
-  $configs_to_delete = [
-    'pathauto.pattern.landing_page',
-    'simple_sitemap.bundle_settings.node.landing_page',
-  ];
-  foreach ($configs_to_delete as $config) {
-    $config_factory->getEditable($config)->delete();
-  }
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('node', 'node_type', 'landing_page');
+  $modules_manager->removeModuleConfigs('openy_node_landing');
 }
 
 /**

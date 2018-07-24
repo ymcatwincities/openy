@@ -12,10 +12,7 @@ function openy_node_session_uninstall() {
   $modules_manager = \Drupal::service('openy.modules_manager');
   $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'session_time');
   $modules_manager->removeEntityBundle('node', 'node_type', 'session');
-
-  \Drupal::configFactory()
-    ->getEditable('rabbit_hole.behavior_settings.node_type_session')
-    ->delete();
+  $modules_manager->removeModuleConfigs('openy_node_session');
 }
 
 /**

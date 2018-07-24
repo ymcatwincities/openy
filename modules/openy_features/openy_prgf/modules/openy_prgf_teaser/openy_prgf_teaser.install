@@ -9,20 +9,13 @@
  * Implements hook_uninstall().
  */
 function openy_prgf_teaser_uninstall() {
-  // Remove teaser content and paragraph type.
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'teaser');
-
-  // Remove other module configs.
-  $config_factory = \Drupal::configFactory();
-  $configs_to_delete = [
-    'image.style.prgf_teaser',
-    'core.entity_view_display.media.image.prgf_teaser',
-    'core.entity_view_mode.media.prgf_teaser',
-  ];
-  foreach ($configs_to_delete as $config) {
-    $config_factory->getEditable($config)->delete();
-  }
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'teaser');
+  $modules_manager->removeModuleConfigs('openy_prgf_teaser');
+  // Remove protected entity_view_display config.
+  \Drupal::configFactory()
+    ->getEditable('core.entity_view_display.media.image.prgf_teaser')
+    ->delete();
 }
 
 /**
