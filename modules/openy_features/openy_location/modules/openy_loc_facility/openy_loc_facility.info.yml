@@ -3,10 +3,12 @@ description: 'OpenY Facility.'
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - address
+  - content_moderation
   - ctools
+  - datalayer
   - entity_reference_revisions
   - field
   - field_group
@@ -15,7 +17,6 @@ dependencies:
   - menu_ui
   - metatag
   - node
-  - openy_loc_branch
   - openy_location
   - openy_node
   - paragraphs
