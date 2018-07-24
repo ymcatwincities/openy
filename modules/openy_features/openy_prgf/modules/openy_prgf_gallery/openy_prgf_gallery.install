@@ -10,19 +10,13 @@
  */
 function openy_prgf_gallery_uninstall() {
   // Remove gallery content and paragraph type.
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'gallery');
-
-  // Remove other module configs.
-  $config_factory = \Drupal::configFactory();
-  $configs_to_delete = [
-    'image.style.prgf_gallery',
-    'core.entity_view_display.media.image.prgf_gallery',
-    'core.entity_view_mode.media.prgf_gallery',
-  ];
-  foreach ($configs_to_delete as $config) {
-    $config_factory->getEditable($config)->delete();
-  }
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'gallery');
+  $modules_manager->removeModuleConfigs('openy_prgf_gallery');
+  // Remove protected module config.
+  \Drupal::configFactory()
+    ->getEditable('core.entity_view_display.media.image.prgf_gallery')
+    ->delete();
 }
 
 /**

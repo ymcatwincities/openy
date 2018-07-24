@@ -9,16 +9,9 @@
  * Implements hook_uninstall().
  */
 function openy_txnm_color_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('taxonomy_term', 'taxonomy_vocabulary', 'color', 'vid');
-  $configFactory = \Drupal::configFactory();
-  $configs = [
-    'rabbit_hole.behavior_settings.taxonomy_vocabulary_color',
-    'core.entity_view_mode.taxonomy_term.color',
-  ];
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('taxonomy_term', 'taxonomy_vocabulary', 'color', 'vid');
+  $modules_manager->removeModuleConfigs('openy_txnm_color');
 }
 
 /**

@@ -12,16 +12,7 @@ function openy_node_mbrshp_uninstall() {
   $modules_manager = \Drupal::service('openy.modules_manager');
   $modules_manager->removeEntityBundle('node', 'node_type', 'membership');
   $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'membership_info');
-
-  $configFactory = \Drupal::configFactory();
-  $configs = [
-    'pathauto.pattern.membership',
-    'rabbit_hole.behavior_settings.node_type_membership',
-    'metatag.metatag_defaults.node__membership',
-  ];
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
+  $modules_manager->removeModuleConfigs('openy_node_mbrshp');
 }
 
 /**

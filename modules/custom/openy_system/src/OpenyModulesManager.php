@@ -4,6 +4,8 @@ namespace Drupal\openy_system;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 
@@ -20,13 +22,44 @@ class OpenyModulesManager {
   protected $entityTypeManager;
 
   /**
+   * The contact settings config object.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * Configs prefixes that protected from manual deleting.
+   *
+   * This configs will be deleted with entity bundle removing automatically,
+   * so no need to remove them manually.
+   *
+   * @var array
+   * @see OpenyModulesManager->removeEntityBundle().
+   */
+  protected $protectedConfigPrefixes = [
+    'core.entity_form_display',
+    'core.entity_view_display',
+    'field.field',
+    'field.storage',
+    'paragraphs.paragraphs_type',
+    'node.type',
+    'media_entity.bundle',
+    'taxonomy.vocabulary',
+    'block_content.type',
+  ];
+
+  /**
    * Constructs a OpenyModulesManager object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -241,6 +274,45 @@ class OpenyModulesManager {
 
     $link = Link::fromTextAndUrl($link_text, $url)->toRenderable();
     return render($link);
+  }
+
+  /**
+   * Remove non-protected configs that related to module from active storage.
+   *
+   * @param string $module_name
+   *   Module name.
+   */
+  public function removeModuleConfigs($module_name) {
+    $path = drupal_get_path('module', $module_name) . '/config/install';
+    $file_storage = new FileStorage($path);
+    $module_configs = $file_storage->listAll();
+    $module_configs_filtered = array_filter($module_configs, [$this, 'filterConfigsList']);
+    if (empty($module_configs_filtered)) {
+      return;
+    }
+    foreach ($module_configs_filtered as $config) {
+      $this->configFactory->getEditable($config)->delete();
+    }
+  }
+
+  /**
+   * Callback function for array_filter.
+   *
+   * Check if config name contain protected prefix.
+   *
+   * @param string $config_name
+   *   Config for checking.
+   *
+   * @return bool
+   *   Return FALSE if config contain protected config prefix.
+   */
+  public function filterConfigsList($config_name) {
+    foreach ($this->protectedConfigPrefixes as $prefix) {
+      if (strpos($config_name, $prefix) !== FALSE) {
+        return FALSE;
+      }
+    }
+    return TRUE;
   }
 
 }

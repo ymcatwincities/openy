@@ -12,9 +12,7 @@ function openy_prgf_classes_listing_uninstall() {
   $modules_manager = \Drupal::service('openy.modules_manager');
   $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'classes_listing');
   $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'classes_listing_filters');
-  \Drupal::configFactory()
-    ->getEditable('views.view.classes_listing')
-    ->delete();
+  $modules_manager->removeModuleConfigs('openy_prgf_classes_listing');
 }
 
 /**

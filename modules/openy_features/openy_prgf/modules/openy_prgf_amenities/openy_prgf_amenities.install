@@ -9,14 +9,9 @@
  * Implements hook_uninstall().
  */
 function openy_prgf_amenities_uninstall() {
-  // Remove all_amenities content and paragraph type.
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'all_amenities');
-
-  // Remove other module configs.
-  \Drupal::configFactory()
-    ->getEditable('views.view.branches')
-    ->delete();
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'all_amenities');
+  $modules_manager->removeModuleConfigs('openy_prgf_amenities');
 }
 
 /**

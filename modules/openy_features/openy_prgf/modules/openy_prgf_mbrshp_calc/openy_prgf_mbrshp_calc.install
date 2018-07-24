@@ -9,21 +9,16 @@
  * Implements hook_uninstall().
  */
 function openy_prgf_mbrshp_calc_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'openy_prgf_mbrshp_calc');
-
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'openy_prgf_mbrshp_calc');
+  $modules_manager->removeModuleConfigs('openy_prgf_mbrshp_calc');
+  // Delete protected entity_view_display configs.
   $configs = [
     'core.entity_view_display.media.image.calc_preview',
     'core.entity_view_display.media.image.calc_summary',
     'core.entity_view_display.node.branch.calc_summary',
     'core.entity_view_display.node.membership.calc_preview',
     'core.entity_view_display.node.membership.calc_summary',
-    'core.entity_view_mode.media.calc_preview',
-    'core.entity_view_mode.media.calc_summary',
-    'core.entity_view_mode.node.calc_preview',
-    'core.entity_view_mode.node.calc_summary',
-    'image.style.node_mbrshp_calc_preview',
-    'image.style.node_mbrshp_calc_summary',
   ];
   $configFactory = \Drupal::configFactory();
   foreach ($configs as $config) {

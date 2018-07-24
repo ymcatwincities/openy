@@ -9,8 +9,9 @@
  * Implements hook_uninstall().
  */
 function openy_block_branch_amenities_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('block_content', 'block_content_type', 'branch_amenities');
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('block_content', 'block_content_type', 'branch_amenities');
+  $modules_manager->removeModuleConfigs('openy_block_branch_amenities');
 }
 
 /**

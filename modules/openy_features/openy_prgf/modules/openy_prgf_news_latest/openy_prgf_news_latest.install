@@ -9,9 +9,7 @@
  * Implements hook_uninstall().
  */
 function openy_prgf_news_latest_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'latest_news_posts');
-  \Drupal::configFactory()
-    ->getEditable('views.view.latest_news_posts')
-    ->delete();
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'latest_news_posts');
+  $modules_manager->removeModuleConfigs('openy_prgf_news_latest');
 }

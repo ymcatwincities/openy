@@ -9,19 +9,14 @@
  * Implements hook_uninstall().
  */
 function openy_node_blog_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('node', 'node_type', 'blog');
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  $modules_manager->removeEntityBundle('node', 'node_type', 'blog');
+  $modules_manager->removeModuleConfigs('openy_node_blog');
+  // Delete protected entity_view_display configs.
   $configFactory = \Drupal::configFactory();
   $configs = [
     'core.entity_view_display.media.image.node_blog',
     'core.entity_view_display.media.image.node_blog_teaser',
-    'core.entity_view_mode.media.node_blog',
-    'core.entity_view_mode.media.node_blog_teaser',
-    'simple_sitemap.bundle_settings.node.blog',
-    'pathauto.pattern.blog',
-    'image.style.node_blog',
-    'image.style.node_blog_teaser',
-    'metatag.metatag_defaults.node__blog',
   ];
   foreach ($configs as $config) {
     $configFactory->getEditable($config)->delete();
