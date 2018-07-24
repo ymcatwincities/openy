@@ -313,6 +313,10 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
       ->setLabel(t('Facility'))
       ->setDescription(t('Physical location of a session.'));
 
+    $fields['category'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Category'))
+      ->setDescription(t('Category of a session.'));
+
     $fields['min_age'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Min Age'))
       ->setDescription(t('Minimum age.'));
