@@ -226,9 +226,7 @@
 
     .menu-item-home {
       background: url("../img/logo-color.png") no-repeat;
-      background-size: 65px 50px;
-      width: 65px;
-      text-indent: -9999px;
+      background-size: contain;
       background-position: center;
     }
 

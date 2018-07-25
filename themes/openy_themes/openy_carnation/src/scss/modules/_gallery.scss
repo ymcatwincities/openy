@@ -1,11 +1,25 @@
 // hide gallery arrows when placed in the header
 .banner-zone-node {
   .paragraph-gallery {
+
     .carousel {
       margin: 0 -135px;
 
       @include media-breakpoint-up(lg) {
         margin: 0;
+      }
+    }
+
+    .cta-group-wrapper {
+      @include media-breakpoint-up(lg) {
+        padding-top: 135px;
+      }
+
+      @include media-breakpoint-down(lg) {
+        .text {
+          font-size: 16px;
+          line-height: 18px;
+        }
       }
     }
   }
