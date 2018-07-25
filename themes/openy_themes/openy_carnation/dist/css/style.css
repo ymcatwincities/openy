@@ -9614,6 +9614,11 @@ body .branch-popup {
   margin: 0;
   width: 100%; }
 
+.modal-dialog {
+  height: 100%;
+  display: flex;
+  align-items: center; }
+
 .node--type-event.node--view-mode-teaser {
   display: inline-block;
   margin: 20px auto;
@@ -10075,6 +10080,15 @@ body .branch-popup {
   @media (min-width: 992px) {
     .banner-zone-node .paragraph-gallery .carousel {
       margin: 0; } }
+
+@media (min-width: 992px) {
+  .banner-zone-node .paragraph-gallery .cta-group-wrapper {
+    padding-top: 135px; } }
+
+@media (max-width: 1199.98px) {
+  .banner-zone-node .paragraph-gallery .cta-group-wrapper .text {
+    font-size: 16px;
+    line-height: 18px; } }
 
 .paragraph-gallery {
   position: relative; }
@@ -11094,9 +11108,7 @@ a[href="#step2"] {
         color: #c6168d; } }
   .without-banner .top-navs .menu-item-home {
     background: url("../img/logo-color.png") no-repeat;
-    background-size: 65px 50px;
-    width: 65px;
-    text-indent: -9999px;
+    background-size: contain;
     background-position: center; }
   .without-banner .top-navs.affix {
     background-color: #2f2f2f; }
