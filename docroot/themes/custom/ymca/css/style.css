@@ -4823,7 +4823,7 @@ a.wrapper:hover {
 }
 
 .touch .directions-hours .call {
-  display: inline-block;
+  display: none;
 }
 
 .holiday-hours-active .richtext {
@@ -9100,7 +9100,6 @@ body {
 body.node--type-article figcaption {
   display: none;
 }
-
 
 body.independent-footer .toolbar {
   display: none;
