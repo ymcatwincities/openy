@@ -4822,10 +4822,6 @@ a.wrapper:hover {
   display: none;
 }
 
-.touch .directions-hours .call {
-  display: inline-block;
-}
-
 .holiday-hours-active .richtext {
   padding: 1px 0;
   margin: 0;
@@ -9100,7 +9096,6 @@ body {
 body.node--type-article figcaption {
   display: none;
 }
-
 
 body.independent-footer .toolbar {
   display: none;
