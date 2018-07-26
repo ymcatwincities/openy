@@ -23,7 +23,8 @@
   }
 
   .slick-arrow {
-    top: 55%;
+    cursor: pointer;
+    top: 107%;
   }
 }
 
@@ -46,7 +47,7 @@
     margin: 15px 0;
     position: relative;
     overflow: hidden;
-    height: 250px;
+    height: 240px;
     background-color: #0089d0;
     border-radius: 8px;
 
@@ -56,8 +57,13 @@
       position: absolute;
       left: 0;
       top: 0;
+      bottom: 0;
       width: 100%;
       text-align: left;
+
+      @include media-breakpoint-up(lg) {
+        bottom: auto;
+      }
     }
 
     img {
