@@ -6,6 +6,21 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_node_uninstall() {
+  $configFactory = \Drupal::configFactory();
+  $configs = [
+    'tour.tour.openy-landing-page-add',
+    'tour.tour.openy-node-add',
+    'tour.tour.openy-node-overview',
+  ];
+  foreach ($configs as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+}
+
+/**
  * Implements hook_update_dependencies().
  */
 function openy_node_update_dependencies() {
