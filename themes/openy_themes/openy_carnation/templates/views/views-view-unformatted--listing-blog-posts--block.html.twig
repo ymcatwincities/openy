@@ -21,20 +21,10 @@
   <h3>{{ title }}</h3>
 {% endif %}
 
-{% set cols = 3 | default(2) %}
+<div{{ attributes.addClass('row justify-content-center') }}>
 {% for row in rows %}
-{%
-  set row_classes = [
-    default_row_class ? 'row justify-content-center',
-  ]
-%}
-{% if loop.index0 % cols == 0 %}
-  <div{{ row.attributes.addClass(row_classes) }}>
-  {% endif %}
-  <div class="col-12 col-md-4 mb-3">
+  <div class="col-12 col-md-6 col-lg-4">
     {{ row.content }}
   </div>
-  {% if (loop.index0 % cols == cols - 1 or loop.last) %}
-  </div>
-{% endif %}
 {% endfor %}
+</div>
