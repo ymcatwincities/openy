@@ -9036,6 +9036,13 @@ html.js .branch__updates_queue__button {
     margin: 0;
     height: auto;
     min-height: auto; }
+    .marker_tooltip .node--location-content-type.node--view-mode-teaser .branch-info, .marker_tooltip
+    .node--type-facility.node--view-mode-teaser .branch-info, .marker_tooltip
+    .node--type-branch.node--view-mode-teaser .branch-info, .marker_tooltip
+    .node--type-branch.node--view-mode-sidebar-teaser .branch-info, .marker_tooltip
+    .node--type-branch.node--view-mode-class-location .branch-info, .marker_tooltip
+    .node--type-camp.node--view-mode-teaser .branch-info {
+      display: none; }
   .node--location-content-type.node--view-mode-teaser .location-item--title,
   .node--type-facility.node--view-mode-teaser .location-item--title,
   .node--type-branch.node--view-mode-teaser .location-item--title,
@@ -9051,7 +9058,15 @@ html.js .branch__updates_queue__button {
     .node--type-branch.node--view-mode-sidebar-teaser .location-item--title, .marker_tooltip
     .node--type-branch.node--view-mode-class-location .location-item--title, .marker_tooltip
     .node--type-camp.node--view-mode-teaser .location-item--title {
-      margin: 0 0 5px; }
+      margin: 0 0 15px 0;
+      padding: 10px 0; }
+      .marker_tooltip .node--location-content-type.node--view-mode-teaser .location-item--title .title-link, .marker_tooltip
+      .node--type-facility.node--view-mode-teaser .location-item--title .title-link, .marker_tooltip
+      .node--type-branch.node--view-mode-teaser .location-item--title .title-link, .marker_tooltip
+      .node--type-branch.node--view-mode-sidebar-teaser .location-item--title .title-link, .marker_tooltip
+      .node--type-branch.node--view-mode-class-location .location-item--title .title-link, .marker_tooltip
+      .node--type-camp.node--view-mode-teaser .location-item--title .title-link {
+        font-size: 20px; }
     .node--location-content-type.node--view-mode-teaser .location-item--title + .node__content,
     .node--type-facility.node--view-mode-teaser .location-item--title + .node__content,
     .node--type-branch.node--view-mode-teaser .location-item--title + .node__content,
@@ -10588,7 +10603,7 @@ body .branch-popup {
     padding-bottom: 16px;
     font-size: 22px;
     font-family: "Cachet",Arial,sans-serif;
-    margin: 20px 0 33px;
+    margin: 5px 0 33px;
     font-weight: bold;
     border-bottom: 2px solid #0089d0; }
     .node--type-facility.node--view-mode-teaser > h2.card-type--camp, .node--type-facility.node--view-mode-teaser > h2.card-type--facility,
@@ -10706,7 +10721,7 @@ body .branch-popup {
   width: 13px; }
 
 .locations-list {
-  margin: -20px; }
+  margin: 0 -15px; }
   .locations-list .views-row__wrapper {
     display: flex;
     flex-wrap: wrap;
@@ -11317,7 +11332,8 @@ body {
   margin-top: 0 !important; }
 
 .layout-container {
-  position: relative; }
+  position: relative;
+  overflow-x: hidden; }
 
 .node--type-blog .wrapper-field-blog-image {
   display: none !important; }
