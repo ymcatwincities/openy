@@ -31,10 +31,10 @@
         <div class="row collapse directions-hours" id="directions-hours">
             <div class="directions-hours-inner">
                 <div class="col-sm-3 col-md-2 phone clearfix">
-					<span class="tel">
+                    <span class="tel">
 						<span class="glyphicon glyphicon-earphone bullet"></span>
-                        {{ node.field_phone.0.value }}
-					</span>
+                        <a  class="tel" href="tel:{{ node.field_phone.0.value }}">{{ node.field_phone.0.value }}</a>
+                    </span>
                 </div>
                 <hr class="visible-xs">
                 <div class="col-lg-6 col-sm-5 col-md-6 address clearfix">
