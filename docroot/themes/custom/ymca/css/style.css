@@ -3860,6 +3860,10 @@ h2 a:hover {
   background: rgba(255, 255, 255, 0.15);
 }
 
+.masthead-menu .tel:hover {
+  background: none;
+}
+
 a.tel {
   cursor: default;
 }
@@ -5506,6 +5510,16 @@ a.wrapper:hover {
     padding: 4px 10px;
     line-height: 1.5em;
     margin-top: 5px;
+  }
+
+  .directions-hours .tel {
+    background: none;
+    font-size: 25px;
+    padding: 0;
+    margin: 0;
+  }
+  .directions-hours .tel:hover {
+    background: none;
   }
 
   .promos a {
