@@ -4,6 +4,7 @@ body {
 
 .layout-container {
   position: relative;
+  overflow-x: hidden;
 }
 
 .node--type-blog .wrapper-field-blog-image {

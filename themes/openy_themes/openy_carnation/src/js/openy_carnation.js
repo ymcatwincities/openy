@@ -43,7 +43,10 @@
   Drupal.behaviors.moveBreadcrumbs = {
     attach: function (context, settings) {
       var breadCrumbs = $('.breadcrumbs-wrapper', context);
-      var bannerCta = $('.banner-zone-node .banner .banner-cta, .banner-zone-node .landing-header, .banner-zone-node .paragraph-gallery', context);
+      var bannerCta = $(
+        '.banner-zone-node .banner .banner-cta, ' +
+        '.banner-zone-node .landing-header, ' +
+        '.banner-zone-node .paragraph-gallery', context);
 
       if (breadCrumbs.length && bannerCta.length) {
         breadCrumbs.once('openy-breadcrumbs').appendTo(bannerCta);
@@ -57,13 +60,10 @@
   Drupal.behaviors.moveHeaderAlerts = {
     attach: function (context, settings) {
       var headerAlerts = $('#block-openy-carnation-views-block-alerts-header-alerts', context);
-      var subHeaderFilters = $(
-        '.sub-header--filters, ' +
-        '#schedules-search-form-wrapper, ' +
-        '.groupex-form-full', context);
+      var subHeaderFilters = $('.banner-cta', context);
 
       if (headerAlerts.length && subHeaderFilters.length) {
-        headerAlerts.once('openy-breadcrumbs').insertBefore(subHeaderFilters);
+        headerAlerts.once('openy-breadcrumbs').insertAfter(subHeaderFilters);
       }
     }
   };

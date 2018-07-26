@@ -849,6 +849,10 @@ html.js {
     margin: 0;
     height: auto;
     min-height: auto;
+
+    .branch-info {
+      display: none;
+    }
   }
 
   .location-item--title {
@@ -856,7 +860,13 @@ html.js {
     font-size: 22px;
 
     .marker_tooltip & {
-      margin: 0 0 5px;
+      margin: 0 0 15px 0;
+      padding: 10px 0;
+
+      // tooltip title
+      .title-link {
+        font-size: 20px;
+      }
     }
 
     &+.node__content {
