@@ -27,5 +27,4 @@ dependencies:
   - rabbit_hole
   - taxonomy
   - telephone
-  - tour
   - user
