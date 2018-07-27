@@ -14,7 +14,7 @@ class RepeatController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function dashboard( Request $request, string $location, string $category = NULL) {
+  public function dashboard( Request $request, $location, $category = NULL) {
     $checked_categories = [];
     if (!empty($category)) {
       $checked_categories = explode(',', $category);
@@ -35,7 +35,7 @@ class RepeatController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function ajaxScheduler( Request $request, string $location, string $date, string $category) {
+  public function ajaxScheduler( Request $request, $location, $date, $category) {
     if (empty($date)) {
       $date = date('d-m-Y 00:00:00');
     }

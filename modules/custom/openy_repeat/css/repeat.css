@@ -63,6 +63,14 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 	border: none;
 	padding: 0;
 }
+.schedule-dashboard__sidebar .closed .minus,
+.schedule-dashboard__sidebar .active .plus {
+	display: none;
+}
+.schedule-dashboard__sidebar .active .minus,
+.schedule-dashboard__sidebar .closed .plus {
+	display: inline;
+}
 
 /* filter controls */
 .navbar-controls {
