@@ -139,8 +139,13 @@ class YMCAMembershipPage extends ControllerBase {
     }
 
     $field_name = \Drupal::config('ymca_membership.config')->get('webform_location_field');
+    $reference_field_value = $submission->{$field_name}->getValue();
+    $field_definition = $submission->getFieldDefinition($field_name);
+    $field_default_values = $field_definition->getDefaultValue($submission);
 
-    $location = \Drupal::service('webforms.node_extractor')->extractNode($submission, $field_name, 'location');
+    $location_title = $field_default_values[$reference_field_value['0']['option_emails']]['option_name'];
+    $location = \Drupal::service('webforms.node_extractor')
+      ->extractNode($submission, $field_name, 'location');
     $location_build = [];
     if (!$location) {
       \Drupal::logger('ymca_membership')->alert(t('Unbound prefered Y location value selected.'));
