@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Repeat Schedules'
+description: 'Repeat Schedules paragraph.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - openy_repeat
+  - paragraphs
+  - plugin
+version: 8.x-1.0
