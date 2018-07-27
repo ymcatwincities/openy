@@ -20,15 +20,19 @@ class LocationTitleItemList extends FieldItemList {
   protected function computeValue() {
     $entity = $this->getEntity();
 
-    // Try to find the first "options_email_item".
+    // Get field to compute data from.
+    preg_match("/csv_(.*)/", $this->getName(), $test);
+    $name = isset($test[1]) && !empty($test[1]) ? $test[1] : NULL;
+    if (!$name) {
+      return;
+    }
+
     $entityManager = \Drupal::service('entity_field.manager');
     $fields = $entityManager->getFieldDefinitions($entity->getEntityTypeId(), $entity->bundle());
 
     /** @var \Drupal\field\Entity\FieldConfig $field */
     foreach ($fields as $field) {
-      $type = $field->getType();
-      if ($type == 'options_email_item') {
-
+      if ($field->getType() == 'options_email_item' && $field->getName() == $name) {
         $locationField = $entity->get($field->getName());
         if ($locationField->isEmpty()) {
           return;
