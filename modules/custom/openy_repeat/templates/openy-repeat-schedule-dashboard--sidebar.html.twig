@@ -19,8 +19,8 @@
 
       {# mobile toggler button #}
       <div class="col-xs-5">
-        <a data-toggle="collapse" data-target=".navbar-collapse" role="button">
-          <strong><i class="fa fa-plus" aria-hidden="true"></i> {{ 'Show Filters'|t }}</strong>
+        <a data-toggle="collapse" data-target=".navbar-collapse" role="button" class="closed">
+          <strong><i class="fa fa-plus" aria-hidden="true"></i> <span class="plus">{{ 'Show Filters'|t }}</span> <span class="minus">{{ 'Hide Filters'|t }}</span></strong>
         </a>
       </div>
 
@@ -92,7 +92,7 @@
       {% endif %}
 
       {# @todo: class name (implement) #}
-      <div class="form-group-wrapper">
+      <div class="form-group-wrapper hide">
         <label for="form-group-class">
           {{ 'Class name'|t }}
         </label>

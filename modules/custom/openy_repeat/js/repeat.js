@@ -57,7 +57,10 @@
 
   // +/- toggle
   $('.schedule-dashboard__sidebar .navbar-header a[data-toggle], .form-group-wrapper label[data-toggle]').on('click', function() {
-    $(this).find('i').toggleClass('fa-minus fa-plus');
+    $(this)
+      .toggleClass('closed active')
+      .find('i')
+      .toggleClass('fa-minus fa-plus');
   });
 
   function runAjaxRequest(self, date, loc, cat) {
@@ -68,6 +71,12 @@
     $.getJSON(url, function(data) {
       self.globalData.table = data
     });
+  }
+
+  function updateUrl(date, loc, cat) {
+    var url = drupalSettings.path.baseUrl + 'schedules/group-exercise-classes';
+    url += loc ? '/' + loc : '/0';
+    window.history.pushState({}, '', url);
   }
 
   function changeDateTitle(text) {
@@ -123,6 +132,7 @@
       },
       'globalData.location': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, newValue, globalData.category);
+        updateUrl(currentDate, newValue, globalData.category);
       },
       'globalData.category': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, globalData.location, newValue);
