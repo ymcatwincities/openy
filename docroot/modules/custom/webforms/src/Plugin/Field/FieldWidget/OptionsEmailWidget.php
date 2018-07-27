@@ -141,8 +141,10 @@ class OptionsEmailWidget extends WidgetBase {
       );
 
       // Add our custom validator.
-      $element['#element_validate'][] = array(get_class($this), 'validateElement');
-
+      $element['#element_validate'][] = array(
+        get_class($this),
+        'validateElement'
+      );
       return $element;
     }
 
@@ -247,10 +249,6 @@ class OptionsEmailWidget extends WidgetBase {
     );
     // Set recipients for sending out emails.
     $contact_form->setRecipients($new_recipients);
-
-    // Pass full value to the element.
-    $optionsEmailItemValue = $email_item->getValue();
-    $form_state->setValueForElement($element, $optionsEmailItemValue);
   }
 
   /**

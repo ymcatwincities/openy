@@ -854,6 +854,20 @@ abstract class DisplayPluginBase extends PluginBase implements DisplayPluginInte
       // Cast to an array so that if the display does not have any handlers of
       // this type there is no PHP error.
       foreach ((array) $this->getOption($plural) as $id => $info) {
+        // Log problematic context.
+        if (is_null($this->view->getRequest()->request)) {
+          \Drupal::logger('blaisdel_schedules')->error(
+            'Context: id: %id, info: %info, plural: %plural, type: %type',
+            [
+              '%id' => $id,
+              '%info' => serialize($info),
+              '%plural' => $plural,
+              '%type' => $type,
+            ]
+          );
+          continue;
+        }
+
         // If this is during form submission and there are temporary options
         // which can only appear if the view is in the edit cache, use those
         // options instead. This is used for AJAX multi-step stuff.
