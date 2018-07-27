@@ -288,3 +288,28 @@ function webforms_file_access(EntityInterface $entity, $operation, AccountInterf
   }
   return AccessResult::neutral();
 }
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function webforms_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle) {
+  if ($entity_type->id() == 'contact_message') {
+    /** @var FieldConfig $field */
+    foreach ($fields as $field) {
+      if ($field->getType() == 'options_email_item') {
+        $machineName = sprintf('csv_%s', $field->getName());
+        $label = sprintf('%s (CSV Export)', $field->label());
+        $fields[$machineName] = \Drupal\Core\Field\BaseFieldDefinition::create('string')
+          ->setName($machineName)
+          ->setLabel($label)
+          ->setComputed(TRUE)
+          ->setClass(\Drupal\webforms\LocationTitleItemList::class)
+          ->setDisplayConfigurable('view', TRUE)
+          ->setDisplayOptions('view', [
+            'label' => 'hidden',
+            'weight' => -5,
+          ]);
+      }
+    }
+  }
+}

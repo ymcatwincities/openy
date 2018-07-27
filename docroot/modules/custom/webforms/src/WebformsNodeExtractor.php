@@ -46,23 +46,9 @@ class WebformsNodeExtractor {
     $field_definition = $submission->getFieldDefinition($field_name);
     $field_default_values = $field_definition->getDefaultValue($submission);
 
-    $nid = NULL;
-    foreach ($field_default_values as $item) {
-      if ($reference_field_value[0]['option_name'] == $item['option_name']) {
-        $nid = $item['option_reference'];
-      }
-    }
-
-    if (!$nid) {
-      \Drupal::logger('webforms')->error(
-        'Failed to get location reference for webforms submission ID %id',
-        [
-          '%id' => $submission->uuid()
-        ]
-      );
+    if (!$nid = $field_default_values[$reference_field_value['0']['option_emails']]['option_reference']) {
       return NULL;
     }
-
     $node = $this->entityTypeManager
       ->getStorage('node')
       ->load($nid);
