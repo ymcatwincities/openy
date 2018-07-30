@@ -929,3 +929,20 @@ function openy_update_8061() {
     'block.block.openy_rose_breadcrumbs',
   ]);
 }
+
+/**
+ * Rename mainnavigation and useraccountmenu block configs.
+ */
+function openy_update_8062() {
+  // Remove config that will be renamed.
+  \Drupal::configFactory()->getEditable('block.block.mainnavigation')->delete();
+  \Drupal::configFactory()->getEditable('block.block.useraccountmenu')->delete();
+  // Import renamed configs.
+  $config_dir = drupal_get_path('theme', 'openy_rose') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'block.block.openy_rose_mainnavigation',
+    'block.block.openy_rose_useraccountmenu',
+  ]);
+}
