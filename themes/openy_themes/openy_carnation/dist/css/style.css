@@ -54,7 +54,7 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Cachet", "Comfortaa", sans-serif;
+  --font-family-sans-serif: "Cachet", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
 *,
@@ -322,7 +322,7 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 500;
   line-height: 1.2;
   color: inherit; }
@@ -7464,7 +7464,7 @@ a.text-black:hover, a.text-black:focus {
   list-style: none;
   margin: 0;
   padding: 0;
-  background: white; }
+  background: #fff; }
 
 .atcb-item {
   float: none;
@@ -7506,7 +7506,7 @@ a.text-black:hover, a.text-black:focus {
 
 .atc-style-blue .atcb-list,
 .atc-style-blue .atcb-item {
-  background: white;
+  background: #fff;
   color: #000; }
 
 .atc-style-blue .atcb-item,
@@ -7529,7 +7529,7 @@ a.text-black:hover, a.text-black:focus {
 .atc-style-blue .atcb-item-link:hover,
 .atc-style-blue .atcb-item-link:active,
 .atc-style-blue .atcb-item-link:focus {
-  color: white; }
+  color: #fff; }
 
 .atc-style-blue .atcb-item.hover,
 .atc-style-blue .atcb-item:hover {
@@ -7603,7 +7603,7 @@ html.js .ajax-new-content:empty {
   display: flex; }
   .breadcrumbs li span,
   .breadcrumbs li a {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     display: block;
     float: left;
@@ -7629,7 +7629,7 @@ html.js .ajax-new-content:empty {
       content: "";
       border-top: 25px solid transparent;
       border-bottom: 25px solid transparent;
-      border-left: 25px solid white;
+      border-left: 25px solid #fff;
       position: absolute;
       left: 0;
       top: 0; }
@@ -7694,7 +7694,7 @@ html.js .ajax-new-content:empty {
       display: none; }
 
 .btn-transparent {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   letter-spacing: -1px;
   background-color: transparent !important;
@@ -7703,7 +7703,7 @@ html.js .ajax-new-content:empty {
   padding: 10px 25px;
   line-height: 52px;
   min-width: 180px;
-  color: white;
+  color: #fff;
   text-transform: uppercase; }
   .btn-transparent:hover {
     opacity: 0.7; }
@@ -7712,7 +7712,7 @@ a.back-link,
 a.follow-link,
 .paragraph--type--grid-related-blog-posts .field-prgf-link a,
 .y-news-view-list .comments_count a {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 20px;
   letter-spacing: -1px;
@@ -7738,7 +7738,7 @@ a.follow-link::after,
   margin-top: -3px; }
 
 body .pager li.load_more_button > a {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 20px;
   border-radius: 8px;
@@ -8227,7 +8227,7 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
       padding-left: 40px; } }
 
 .block-description--text h4 {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 26px;
   line-height: lh(30, 26);
@@ -8321,7 +8321,7 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
       display: block;
       width: 100%; }
     .block-description--3 .block-description--text > h2 {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 400;
       padding-bottom: 1rem;
       margin-bottom: 2rem;
@@ -8407,7 +8407,7 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
       color: inherit; }
     .node--type-blog.node--view-mode-teaser .inner-wrapper h6,
     .node--type-blog.node--view-mode-teaser .inner-wrapper h2 {
-      color: white; }
+      color: #fff; }
 
 .node--type-blog .node__content {
   line-height: 1.62em; }
@@ -8418,7 +8418,7 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
   border-radius: 1rem; }
 
 .branch-info {
-  background: white;
+  background: #fff;
   color: #636466;
   margin: 0;
   box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.15); }
@@ -8473,7 +8473,7 @@ a.direction-link {
   .branch-header .branch-info .branch-header__item {
     padding: 34px 3% 34px 8%; }
     .branch-header .branch-info .branch-header__item h5 {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 500;
       display: inline-block;
       color: #2f2f2f;
@@ -8485,7 +8485,7 @@ a.direction-link {
       padding-left: 15px;
       font-size: 15px; }
   .branch-header .branch-info .address-wrapper > h4 {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 500;
     color: #0089d0;
     font-size: 24px;
@@ -8565,7 +8565,7 @@ a.direction-link {
       margin-bottom: 1.5rem; } }
 
 .grid-branch-features {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 500;
   font-size: 20px;
   text-transform: uppercase;
@@ -8707,7 +8707,7 @@ html.js .branch__updates_queue__button {
     font-style: normal !important; }
 
 .ygs-branch-sessions-form label {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.6;
@@ -8740,7 +8740,7 @@ html.js .branch__updates_queue__button {
     .ygs-branch-sessions-form .js-form-type-select {
       padding: 0; } }
   .ygs-branch-sessions-form .js-form-type-select select {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     text-transform: uppercase;
     color: #4f4f4f; }
@@ -8841,7 +8841,7 @@ html.js .branch__updates_queue__button {
       padding-top: 0;
       border: 0; } }
   .ygs-branch-sessions-form .filters-wrapper .label {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #4f4f4f;
     display: block;
@@ -8856,7 +8856,7 @@ html.js .branch__updates_queue__button {
     display: flex;
     align-items: center; }
     .ygs-branch-sessions-form .filters-wrapper .filters .filter {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 400;
       background: #fff;
       border-radius: 4px;
@@ -8889,7 +8889,7 @@ html.js .branch__updates_queue__button {
 .branch-sessions-group {
   padding: 0; }
   .branch-sessions-group h3 {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 500;
     font-size: 30px;
     line-height: 1.6;
@@ -8929,7 +8929,7 @@ html.js .branch__updates_queue__button {
     line-height: 1.5;
     color: #333333; }
   .branch-sessions-group .group_time {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     background: #fff;
     border-bottom: 1px solid #c6168d;
@@ -9054,7 +9054,7 @@ html.js .branch__updates_queue__button {
   .node--type-branch.node--view-mode-sidebar-teaser .location-item--title,
   .node--type-branch.node--view-mode-class-location .location-item--title,
   .node--type-camp.node--view-mode-teaser .location-item--title {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     font-size: 22px; }
     .marker_tooltip .node--location-content-type.node--view-mode-teaser .location-item--title, .marker_tooltip
@@ -9114,7 +9114,7 @@ html.js .branch__updates_queue__button {
   .node--type-camp.node--view-mode-teaser .field-location-area {
     position: static;
     top: 15px;
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-size: 14px;
     letter-spacing: 2px;
     text-transform: uppercase; }
@@ -9158,7 +9158,7 @@ html.js .branch__updates_queue__button {
   border: solid 1px #ccc;
   padding: 20px; }
   .paragraph--type--class-location.paragraph--view-mode--default .empty-text h2 {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-size: 14px;
     letter-spacing: 2px;
     margin: 0 0 10px;
@@ -9169,7 +9169,7 @@ html.js .branch__updates_queue__button {
   .node--view-mode-full.node--type-facility .label-for-field-location-address {
     display: block; }
   .node--view-mode-full.node--type-facility .associated-branch-title {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     display: inline-block;
     font-size: 22px;
@@ -9341,7 +9341,7 @@ html.js .branch__updates_queue__button {
   white-space: normal; }
 
 .class-page-schedule .starting-from {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 700;
   margin-bottom: 15px;
   font-size: 16px; }
@@ -9354,12 +9354,12 @@ html.js .branch__updates_queue__button {
 .class-page-schedule .tier-prices {
   margin-bottom: 15px; }
   .class-page-schedule .tier-prices .tier-price {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 700;
     font-size: 18px; }
 
 .class-page-schedule .ticket {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 700;
   color: #5c2e91;
   margin-top: 10px;
@@ -9368,7 +9368,7 @@ html.js .branch__updates_queue__button {
 .class_price,
 .class_time,
 .class_days {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 700;
   font-size: 18px; }
 
@@ -9376,7 +9376,7 @@ html.js .branch__updates_queue__button {
   margin-top: 35px; }
 
 .node--type-class.node--view-mode-teaser h2, .node--type-class.node--view-mode-teaser h3 {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 22px;
   line-height: 1;
@@ -9390,7 +9390,7 @@ html.js .branch__updates_queue__button {
     content: "..."; }
 
 .class-page-other-sessions .session .name {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 700; }
 
 .class__session-instances .class__session-instances-list,
@@ -9401,7 +9401,7 @@ html.js .branch__updates_queue__button {
 
 .class__session-instance,
 .flexreg__teaser {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   border-bottom: 1px solid #ebebeb; }
   .class__session-instance td,
@@ -9411,7 +9411,7 @@ html.js .branch__updates_queue__button {
     vertical-align: middle; }
   .class__session-instance .name,
   .flexreg__teaser .name {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 700; }
   .class__session-instance .description,
   .flexreg__teaser .description {
@@ -9428,7 +9428,7 @@ html.js .branch__updates_queue__button {
     padding: 0 10px; }
     .class__session-instance .register a,
     .flexreg__teaser .register a {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 700;
       color: #4f4f4f;
       text-decoration: underline; }
@@ -9471,7 +9471,7 @@ html.js .branch__updates_queue__button {
   .block-description--4 .field-prgf-title h2 {
     margin-bottom: 0; }
   .block-description--4 .field-prgf-description {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     font-size: 20px;
     line-height: 1.4;
@@ -9480,7 +9480,7 @@ html.js .branch__updates_queue__button {
     margin: 0 auto;
     padding: 0 15px; }
   .block-description--4 .block-description--text h4 {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     font-size: 22px;
     color: #636466;
@@ -9542,7 +9542,7 @@ article .node--view-mode-flexible-content h2 {
   margin-top: 20px;
   margin-bottom: 10px; }
   article .node--view-mode-flexible-content h2 a span {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 500;
     font-size: 36px; }
 
@@ -9603,7 +9603,7 @@ body .branch-popup {
     padding-top: 0;
     margin-top: -10px; }
   .modal-body .fieldset-legend {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     margin: 0 0 .75rem 0;
     font-weight: normal;
@@ -9665,7 +9665,7 @@ body .branch-popup {
       width: 54px;
       height: 54px; }
   .node--type-event.node--view-mode-teaser .event-date__event-day {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 500;
     font-size: 30px;
     line-height: 15px;
@@ -9674,14 +9674,14 @@ body .branch-popup {
     letter-spacing: -1px;
     text-transform: uppercase; }
   .node--type-event.node--view-mode-teaser .event-date__event-month {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 500;
     font-size: 13px;
     line-height: 15px;
     letter-spacing: -1px;
     text-transform: uppercase; }
   .node--type-event.node--view-mode-teaser .event-date__event-time {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 500;
     font-size: 18px;
     letter-spacing: -0.4px;
@@ -9697,7 +9697,7 @@ body .branch-popup {
       border-radius: 8px;
       box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.05); }
   .node--type-event.node--view-mode-teaser .event-title h2 {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 500;
     font-size: 20px;
     letter-spacing: -0.5px;
@@ -9718,7 +9718,7 @@ body .branch-popup {
       .node--type-event.node--view-mode-teaser .event-location {
         justify-content: start; } }
     .node--type-event.node--view-mode-teaser .event-location a {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 500;
       font-size: 18px;
       letter-spacing: -0.4px;
@@ -9747,12 +9747,12 @@ body .branch-popup {
   position: absolute;
   top: -12px;
   left: 30px;
-  color: white;
+  color: #fff;
   text-align: center;
   width: 60px;
   height: 60px;
   border-radius: 10px;
-  background-color: white;
+  background-color: #fff;
   padding: 3px; }
   .paragraph--type--upcoming-events .views-field-field-event-date .field-content {
     background-color: #92278f;
@@ -9887,7 +9887,7 @@ body .branch-popup {
 
 .footer {
   background-color: #2f2f2f;
-  color: white;
+  color: #fff;
   font-size: 18px;
   padding-bottom: 0;
   margin-top: 0;
@@ -9933,7 +9933,7 @@ body .branch-popup {
       margin: 0;
       padding: 0; }
       .footer #block-footertel ul.tel-list li a {
-        color: white; }
+        color: #fff; }
   .footer #block-footertel ul.tel-list::before {
     position: absolute;
     left: 0;
@@ -9962,7 +9962,7 @@ body .branch-popup {
     font-size: 28px;
     transition: all 0.3s linear 0s; }
     .footer .fa:before {
-      color: white; }
+      color: #fff; }
   .footer .list-inline li:hover .fa::before {
     color: #0089d0; }
   .footer .footer__copyright {
@@ -9979,9 +9979,9 @@ body .branch-popup {
         .footer .footer__copyright #block-openy-carnation-footermenuright ul li a {
           font-size: 15px;
           padding: 0;
-          color: white; }
+          color: #fff; }
           .footer .footer__copyright #block-openy-carnation-footermenuright ul li a:hover {
-            color: white;
+            color: #fff;
             background: none;
             text-decoration: underline !important; }
 
@@ -10002,7 +10002,7 @@ body .branch-popup {
     background: transparent; }
 
 .btn {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   text-transform: uppercase; }
   .btn.blue a {
@@ -10049,7 +10049,7 @@ body .branch-popup {
   -moz-appearance: none;
   -ms-appearance: none;
   appearance: none;
-  background-color: white;
+  background-color: #fff;
   padding-right: 25px; }
   .form-select ::-ms-expand {
     display: none; }
@@ -10065,7 +10065,7 @@ body .branch-popup {
 .yamlform-submission-guest-pass-form-form {
   padding: 15px 0; }
   .yamlform-submission-guest-pass-form-form label {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     font-size: 18px;
     line-height: 23px; }
@@ -10291,7 +10291,7 @@ body .branch-popup {
   text-align: center; }
   .paragraph--column-in-a-grid .col-12 .paragraph--type--grid-columns {
     border: none;
-    background: white;
+    background: #fff;
     box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     margin-bottom: 18px;
@@ -10326,9 +10326,9 @@ body .branch-popup {
   .paragraph--column-in-a-grid .inner .more-link span {
     position: relative;
     left: -50%;
-    background: white; }
+    background: #fff; }
   .paragraph--column-in-a-grid .inner .more-link a {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     text-transform: uppercase;
     font-weight: 500;
@@ -10337,13 +10337,13 @@ body .branch-popup {
     letter-spacing: -1px;
     text-align: center;
     display: inline-block;
-    color: white;
+    color: #fff;
     min-width: 180px;
     border-radius: 8px;
     margin: 0;
     padding: 8px 20px;
     background-color: #01a490;
-    border: 2px solid white; }
+    border: 2px solid #fff; }
     .paragraph--column-in-a-grid .inner .more-link a:hover {
       opacity: 0.85; }
 
@@ -10351,7 +10351,7 @@ body .branch-popup {
   width: 105px; }
 
 .layout-container .top-navs.affix {
-  background: white; }
+  background: #fff; }
 
 .with-banner .layout-container .top-navs {
   background-color: rgba(0, 137, 208, 0.8);
@@ -10369,7 +10369,7 @@ body .branch-popup {
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1); }
 
 .site-name {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 20px;
   color: #636466;
@@ -10388,7 +10388,7 @@ body .branch-popup {
   .page-head__top-menu .navbar-nav > li:last-child {
     border: none; }
   .page-head__top-menu .navbar-nav > li > a {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #777777;
     background-color: transparent !important;
@@ -10417,7 +10417,7 @@ body .branch-popup {
     .openy-gtranslate .goog-te-gadget-simple .goog-te-gadget-icon {
       display: none; }
     .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 400;
       display: inline-block;
       margin: 0;
@@ -10435,7 +10435,7 @@ body .branch-popup {
       font-size: 18px;
       padding-left: 5px; }
     .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value:hover {
-      background-color: white;
+      background-color: #fff;
       color: black; }
 
 .page-head__search {
@@ -10451,7 +10451,7 @@ body .branch-popup {
     background: transparent; }
     @media (min-width: 992px) {
       .page-head__search form {
-        margin: 0 10%; } }
+        margin: 0 10% 0 15%; } }
   .page-head__search input[type="submit"] {
     display: none; }
   .page-head__search .search-input {
@@ -10491,7 +10491,7 @@ body .branch-popup {
   right: 40px;
   bottom: 0;
   z-index: 1;
-  color: white; }
+  color: #fff; }
   .page-head__search-close:hover {
     color: #ccc;
     text-decoration: none; }
@@ -10689,7 +10689,7 @@ body .branch-popup {
     vertical-align: middle; }
   .form__locations .distance .form-group {
     position: relative;
-    background: white; }
+    background: #fff; }
     .form__locations .distance .form-group:before {
       font-family: 'FontAwesome';
       position: absolute;
@@ -10767,7 +10767,7 @@ body .branch-popup {
     line-height: 1.2;
     font-style: italic; }
     .locations-list .field_location_state .fa {
-      color: white;
+      color: #fff;
       height: 32px;
       float: left;
       font-size: 16px;
@@ -10779,7 +10779,7 @@ body .branch-popup {
 
 .paragraph--type--single-teaser .content-tease-paragraph .image-wrapper {
   text-align: center;
-  color: white;
+  color: #fff;
   display: flex;
   height: 500px;
   background-size: cover !important; }
@@ -10792,12 +10792,12 @@ body .branch-popup {
     flex-direction: column; }
   .paragraph--type--single-teaser .content-tease-paragraph .image-wrapper h2 {
     text-transform: uppercase;
-    color: white; }
+    color: #fff; }
   .paragraph--type--single-teaser .content-tease-paragraph .image-wrapper hr.delimeter {
     width: 150px;
     height: 2px;
     border: none;
-    background: white;
+    background: #fff;
     opacity: 0.4;
     margin-top: 35px;
     margin-bottom: 35px; }
@@ -10805,7 +10805,7 @@ body .branch-popup {
     text-transform: uppercase;
     border: 2px solid; }
     .paragraph--type--single-teaser .content-tease-paragraph .image-wrapper .btn:hover {
-      color: white; }
+      color: #fff; }
 
 a[href="#step2"] {
   pointer-events: none; }
@@ -10815,7 +10815,7 @@ a[href="#step2"] {
 
 #membership-calc-wrapper .description,
 #membership-calc-wrapper legend {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400; }
 
 #membership-calc-wrapper .description {
@@ -10878,7 +10878,7 @@ a[href="#step2"] {
   font-size: 34px; }
 
 #membership-calc-wrapper .nav-pills {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 13px; }
   @media (min-width: 576px) {
@@ -10893,7 +10893,7 @@ a[href="#step2"] {
         padding-left: 25px; } }
     #membership-calc-wrapper .nav-pills > li div {
       position: relative;
-      color: white;
+      color: #fff;
       background-color: #92278f;
       padding: 9px; }
       @media (min-width: 576px) {
@@ -10911,7 +10911,7 @@ a[href="#step2"] {
         border-bottom: 60px solid transparent;
         left: 100%; }
       #membership-calc-wrapper .nav-pills > li div:before {
-        border-left: 30px solid white; }
+        border-left: 30px solid #fff; }
       #membership-calc-wrapper .nav-pills > li div:after {
         border-left: 30px solid #92278f; }
     @media (min-width: 576px) {
@@ -10967,7 +10967,7 @@ a[href="#step2"] {
   margin-top: 20px;
   margin-bottom: 10px;
   font-size: 2rem;
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit; }
@@ -10988,7 +10988,7 @@ a[href="#step2"] {
 
 .page-head__main-menu .navbar > li > a,
 .page-head__main-menu .navbar > li > button {
-  color: white;
+  color: #fff;
   padding: 35px 0;
   text-align: center; }
   .page-head__main-menu .navbar > li > a:hover,
@@ -11015,8 +11015,8 @@ a[href="#step2"] {
   box-sizing: border-box; }
 
 .nav-home .dropdown-menu {
-  background-color: white;
-  border: 1px solid white;
+  background-color: #fff;
+  border: 1px solid #fff;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   width: 100%;
   position: absolute;
@@ -11029,7 +11029,7 @@ a[href="#step2"] {
     height: auto; }
 
 .viewport .page-head__main-menu .nav-level-2 {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400; }
   .viewport .page-head__main-menu .nav-level-2 > a:hover,
   .viewport .page-head__main-menu .nav-level-2 > a:focus {
@@ -11043,14 +11043,14 @@ a[href="#step2"] {
   font-family: Verdana, sans-serif;
   padding-top: 25px; }
   .viewport .page-head__main-menu .nav-level-3 > a {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     line-height: 24px;
     min-height: 34px;
     display: inline-block;
     padding: 0;
     position: relative;
-    color: white;
+    color: #fff;
     text-transform: uppercase; }
     @media (min-width: 992px) {
       .viewport .page-head__main-menu .nav-level-3 > a {
@@ -11064,16 +11064,16 @@ a[href="#step2"] {
   background: none; }
 
 .viewport .nav-level-2.show {
-  background-color: white;
-  box-shadow: 0 4px 0 0 white; }
+  background-color: #fff;
+  box-shadow: 0 4px 0 0 #fff; }
   .viewport .nav-level-2.show > a,
   .viewport .nav-level-2.show > a:hover,
   .viewport .nav-level-2.show > a:focus {
     color: #c6168d;
     position: relative;
     z-index: 1001;
-    background: white;
-    box-shadow: 0 5px 0 0 white; }
+    background: #fff;
+    box-shadow: 0 5px 0 0 #fff; }
     .viewport .nav-level-2.show > a:hover,
     .viewport .nav-level-2.show > a:hover:hover,
     .viewport .nav-level-2.show > a:focus:hover {
@@ -11087,7 +11087,7 @@ a[href="#step2"] {
 .viewport .nav-level-4 {
   padding: 4px 0; }
   .viewport .nav-level-4 a {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
@@ -11147,7 +11147,7 @@ a[href="#step2"] {
   background: #0060af; }
   .camp-menu__wrapper a,
   .microsites-menu__wrapper a {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: inherit;
     text-transform: uppercase;
@@ -11206,7 +11206,7 @@ a[href="#step2"] {
   .sidebar .active > a {
     transition: height 0.3s 0.3s ease-out, opacity 0.3s 0s ease-out, background-color 0.2s 0.6s ease-out, color 0.2s 0.6s ease-out, color 0.2s 0.6s ease-out, border-color 0s ease-out; }
   .sidebar .nav > li > a {
-    color: white; }
+    color: #fff; }
   .sidebar .nav a {
     color: #0060af;
     overflow: hidden;
@@ -11216,7 +11216,7 @@ a[href="#step2"] {
     cursor: pointer;
     transition: height 0.3s 0s ease-out, opacity 0.3s 0s ease-out, background-color 0.2s ease-out; }
     .sidebar .nav a[aria-expanded="true"] {
-      color: white; }
+      color: #fff; }
     .sidebar .nav a:hover, .sidebar .nav a[aria-expanded="true"] {
       background: #0060af; }
   .sidebar .nav-level-2 .row-level-2 {
@@ -11233,7 +11233,7 @@ a[href="#step2"] {
   .sidebar input[type="submit"] {
     display: none; }
   .sidebar .navbar-nav {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     margin: 0 -15px; }
   .sidebar .nav-level-2 a {
@@ -11241,7 +11241,7 @@ a[href="#step2"] {
     padding-bottom: 25px; }
   .sidebar .nav-level-2.show,
   .sidebar .row-level-2 {
-    background-color: white; }
+    background-color: #fff; }
   .sidebar .nav-level-3 a {
     text-transform: uppercase; }
   .sidebar .dropdown-menu > li > a:hover,
@@ -11267,7 +11267,7 @@ a[href="#step2"] {
     margin-top: 1em; }
 
 .category-list .badge a {
-  color: white; }
+  color: #fff; }
   .category-list .badge a:hover {
     opacity: .8; }
 
@@ -11404,7 +11404,7 @@ body {
     letter-spacing: -1px; }
 
 .program-header .description .field-program-description {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px; }
@@ -11488,7 +11488,7 @@ body {
   border: 1px solid transparent;
   border-radius: 4px;
   background-color: #b92f9e;
-  color: white; }
+  color: #fff; }
   .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button:hover {
     background-color: #92288d; }
 
@@ -11524,7 +11524,7 @@ body {
     max-width: 100%; }
 
 .program-header .description {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 500;
   font-size: 18px;
   line-height: 27px; }
@@ -11632,7 +11632,7 @@ body {
     .sub-category-classes-view .js-form-type-select {
       width: 200px; } }
   .sub-category-classes-view .js-form-type-select label {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.6;
@@ -11642,7 +11642,7 @@ body {
       .sub-category-classes-view .js-form-type-select label {
         margin-bottom: 5px; } }
   .sub-category-classes-view .js-form-type-select select {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     text-transform: uppercase;
     color: #4f4f4f; }
@@ -11690,7 +11690,7 @@ body {
         padding-top: 0;
         border: 0; } }
     .sub-category-classes-view .filters-container .filters-wrapper .label {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 400;
       color: #4f4f4f;
       display: block;
@@ -11707,7 +11707,7 @@ body {
         align-items: center;
         flex-wrap: wrap; } }
     .sub-category-classes-view .filters-container .filters-wrapper .filters .filter {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 400;
       background: rgba(235, 235, 235, 0.3);
       border-radius: 4px;
@@ -11739,7 +11739,7 @@ body {
               font-size: 16px; } }
 
 .sub-category-classes-view .activity-group h2 {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 500;
   font-size: 30px;
   line-height: 1.6;
@@ -11763,7 +11763,7 @@ body {
   color: #333333; }
 
 .sub-category-classes-view .activity-group .views-field-title {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 22px;
   line-height: 1;
@@ -11831,7 +11831,7 @@ body {
     .programs-search-block-form {
       margin-bottom: 70px; } }
   .programs-search-block-form fieldset legend span {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     border: none;
     color: #5c2e91;
@@ -11871,13 +11871,13 @@ body {
         .programs-search-block-form fieldset .js-webform-radios .js-form-type-radio .ajax-progress-throbber .throbber {
           padding: 1px 6px 2px; }
   .programs-search-block-form .result {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     font-size: 24px;
     color: #c6168d;
     margin: 40px 0 0; }
     .programs-search-block-form .result a {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 500;
       color: #c6168d;
       text-decoration: underline;
@@ -11907,7 +11907,7 @@ body {
     #schedules-search-listing-wrapper .results h2 em {
       font-style: normal; }
   #schedules-search-listing-wrapper .results .group_time {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     width: 80px;
     min-height: 50px;
@@ -11958,7 +11958,7 @@ body {
 
 #group-ex-results .caption,
 .groupex-results .caption {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   letter-spacing: -0.8px;
   color: #5c2e91;
@@ -11979,7 +11979,7 @@ body {
 
 #group-ex-results .time,
 .groupex-results .time {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   color: #5c2e91;
   font-size: 18px; }
@@ -12011,7 +12011,7 @@ body {
   width: 100%; }
   #group-ex-results .card h3,
   .groupex-results .card h3 {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #0089d0;
     font-size: 22px;
@@ -12127,7 +12127,7 @@ iframe#ga_iframe {
   position: relative; }
 
 .site-alert__title {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   font-size: 16px;
   display: inline;
@@ -12140,14 +12140,14 @@ iframe#ga_iframe {
   font-size: 12px; }
 
 .site-alert__dismiss {
-  color: white;
+  color: #fff;
   width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
   padding: 10px; }
   .site-alert__dismiss:hover {
-    color: white;
+    color: #fff;
     opacity: .7; }
 
 .site-alert__icon,
@@ -12160,7 +12160,7 @@ iframe#ga_iframe {
   .site-alert__icon:before,
   .site-alert__icon:before {
     content: " ";
-    background-color: white;
+    background-color: #fff;
     border-radius: 10px;
     height: 20px;
     left: 1px;
@@ -12179,10 +12179,10 @@ iframe#ga_iframe {
   font-size: 14px; }
   .site-alert__content .field-body-no-summary a,
   .site-alert__content .field-body-no-summary a {
-    color: white; }
+    color: #fff; }
 
 .site-alert__cta a {
-  color: white;
+  color: #fff;
   white-space: initial; }
 
 .header-alerts-list,
@@ -12236,7 +12236,7 @@ iframe#ga_iframe {
         bottom: calc(-16px - (-50%)); } }
     .header-alerts-list .slick-arrow:before,
     .footer-alerts-list .slick-arrow:before {
-      color: white;
+      color: #fff;
       font-family: "FontAwesome";
       font-size: 30px;
       font-weight: bold;
@@ -12391,11 +12391,11 @@ iframe#ga_iframe {
     font-size: 10px; }
 
 .status-message ul, .status-message p {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400;
   margin: 0 auto;
   padding: 20px;
-  color: white;
+  color: #fff;
   font-size: 18px;
   font-style: normal;
   font-stretch: normal;
@@ -12407,129 +12407,21 @@ iframe#ga_iframe {
 .status-message__alert ul, .status-message__alert p {
   background: #ed1c24; }
 
-.styleguide .sg-color {
-  font-family: "Cachet", "Comfortaa", sans-serif;
-  font-weight: 400;
-  border-radius: 3px;
-  color: #fff;
-  margin-bottom: 12px;
-  min-height: 50px;
-  padding: 12px; }
-  .styleguide .sg-color.bg-white {
-    border: 1px solid #636466;
-    color: #000;
-    padding: 11px; }
-
-.styleguide .bg-white {
-  background-color: #fff; }
-
-.styleguide .bg-black {
-  background-color: #000; }
-
-.styleguide .bg-sky-blue {
-  background-color: #bfe1f3; }
-
-.styleguide .bg-light-blue {
-  background-color: #00aeef; }
-
-.styleguide .bg-blue {
-  background-color: #0089d0; }
-
-.styleguide .bg-dark-blue {
-  background-color: #0060af; }
-
-.styleguide .bg-pink {
-  background-color: #c6168d; }
-
-.styleguide .bg-dark-magenta {
-  background-color: #92278f; }
-
-.styleguide .bg-purple {
-  background-color: #5c2e91; }
-
-.styleguide .bg-orange {
-  background-color: #f15922; }
-
-.styleguide .bg-yellow {
-  background-color: #fcaf17; }
-
-.styleguide .bg-lighter-grey {
-  background-color: #ebebeb; }
-
-.styleguide .bg-light-grey {
-  background-color: #ccc; }
-
-.styleguide .bg-medium-grey {
-  background-color: #979797; }
-
-.styleguide .bg-default-grey {
-  background-color: #636466; }
-
-.styleguide .bg-dark-grey {
-  background-color: #4f4f4f; }
-
-.styleguide .bs-docs-section {
-  margin-bottom: 100px; }
-
-.styleguide .bs-example {
-  position: relative;
-  margin-left: -15px;
-  margin-right: -15px;
-  margin-bottom: 50px; }
-  .styleguide .bs-example:before, .styleguide .bs-example:after {
-    display: table;
-    content: ""; }
-  .styleguide .bs-example:after {
-    clear: both; }
-
-.styleguide .highlight {
-  border-left: 3px solid #0060af; }
-
-.styleguide .fontawesome-icon-list .fa-hover a {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: block;
-  color: #222;
-  line-height: 32px;
-  height: 32px;
-  padding-left: 10px;
-  border-radius: 4px; }
-
-.styleguide .fontawesome-icon-list .fa-hover a .fa {
-  width: 32px;
-  font-size: 14px;
-  display: inline-block;
-  text-align: right;
-  margin-right: 10px; }
-
-.styleguide .fontawesome-icon-list .fa-hover a:hover {
-  background-color: #01a490;
-  color: white;
-  text-decoration: none; }
-  .styleguide .fontawesome-icon-list .fa-hover a:hover .fa {
-    font-size: 28px;
-    vertical-align: -6px; }
-
-.styleguide .underline {
-  border-bottom: 3px solid #0060af;
-  padding-bottom: 10px; }
-
 .groupex-form-full,
 .news-more-teaser form.views-exposed-form,
 .listing-event-posts form.views-exposed-form,
 .blog-more-teaser form.views-exposed-form {
-  padding: 30px 40px !important;
+  padding: 30px 40px;
   border-radius: 8px;
   box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.15);
-  background-color: white;
+  background-color: #fff;
   width: 100%;
   margin-bottom: 50px; }
   .groupex-form-full .exposed-form-flex-wrapper > div,
   .news-more-teaser form.views-exposed-form .exposed-form-flex-wrapper > div,
   .listing-event-posts form.views-exposed-form .exposed-form-flex-wrapper > div,
   .blog-more-teaser form.views-exposed-form .exposed-form-flex-wrapper > div {
-    margin-bottom: 0 !important; }
+    margin-bottom: 0; }
 
 #schedules-search-form-wrapper,
 .sub-header--filters,
@@ -12686,7 +12578,7 @@ iframe#ga_iframe {
     .listing-news-posts .form-item label,
     .listing-event-posts .form-item label,
     .listing-blog-posts .form-item label {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 500;
       font-size: 14px;
       line-height: 1.6;
@@ -12712,7 +12604,7 @@ iframe#ga_iframe {
     .listing-event-posts .form-item .form-checkbox,
     .listing-blog-posts .form-item .form-control,
     .listing-blog-posts .form-item .form-checkbox {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 400;
       padding-left: 0;
       background: transparent;
@@ -12835,7 +12727,7 @@ iframe#ga_iframe {
     .listing-event-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf select,
     .listing-blog-posts .js-form-type-select.js-form-item-location select,
     .listing-blog-posts .js-form-type-select.js-form-item-field-event-location-target-id-verf select {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 400;
       width: 100%;
       border: 1px solid #ebebeb;
@@ -12951,7 +12843,7 @@ iframe#ga_iframe {
       .listing-news-posts .filters-container .filters-wrapper .label,
       .listing-event-posts .filters-container .filters-wrapper .label,
       .listing-blog-posts .filters-container .filters-wrapper .label {
-        font-family: "Cachet", "Comfortaa", sans-serif;
+        font-family: "Cachet", sans-serif;
         font-weight: 400;
         color: #4f4f4f;
         display: block;
@@ -12983,7 +12875,7 @@ iframe#ga_iframe {
       .listing-news-posts .filters-container .filters-wrapper .filters .filter,
       .listing-event-posts .filters-container .filters-wrapper .filters .filter,
       .listing-blog-posts .filters-container .filters-wrapper .filters .filter {
-        font-family: "Cachet", "Comfortaa", sans-serif;
+        font-family: "Cachet", sans-serif;
         font-weight: 400;
         background: rgba(235, 235, 235, 0.3);
         border-radius: 4px;
@@ -13131,7 +13023,7 @@ body.path-user:not(.user-logged-in) {
 .paragraph-1c-wrapper {
   padding-bottom: 30px; }
   .paragraph-1c-wrapper .field-prgf-1c-title {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     font-weight: normal;
     font-size: 28px;
@@ -13142,7 +13034,7 @@ body.path-user:not(.user-logged-in) {
       .paragraph-1c-wrapper .field-prgf-1c-title {
         font-size: 40px; } }
   .paragraph-1c-wrapper .field-prgf-1c-description {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #5c2e91;
     font-size: 20px;
@@ -13170,7 +13062,7 @@ body.path-user:not(.user-logged-in) {
 .paragraph--type--all-amenities .field-field-prgf-amnts-view .views-field-title {
   font-size: 16px; }
   .paragraph--type--all-amenities .field-field-prgf-amnts-view .views-field-title a {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #fff; }
 
@@ -13296,7 +13188,7 @@ body.path-user:not(.user-logged-in) {
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title {
   font-size: 16px; }
   .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title a {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #fff; }
 
@@ -13378,7 +13270,7 @@ body.path-user:not(.user-logged-in) {
   padding: 20px 0;
   margin: -20px 0 40px; }
   .paragraph--type--lto .field-lto-title {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #fff;
     font-size: 28px; }
@@ -13390,7 +13282,7 @@ body.path-user:not(.user-logged-in) {
       .paragraph--type--lto .field-lto-title {
         font-size: 32px; } }
   .paragraph--type--lto .field-lto-subtitle {
-    font-family: "Cachet", "Comfortaa", sans-serif;
+    font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #fff;
     font-size: 20px;
@@ -13414,13 +13306,13 @@ body.path-user:not(.user-logged-in) {
     font-size: 18px;
     padding: 0;
     width: 100%;
-    border: 1px solid white; }
+    border: 1px solid #fff; }
     .paragraph--type--lto .btn a {
-      font-family: "Cachet", "Comfortaa", sans-serif;
+      font-family: "Cachet", sans-serif;
       font-weight: 500;
       display: block;
       padding: 12px;
-      color: white;
+      color: #fff;
       text-transform: uppercase; }
   .wrapper-field-bottom-content .paragraph--type--lto {
     margin: 0; }
@@ -13434,7 +13326,7 @@ body.path-user:not(.user-logged-in) {
   padding-left: 15px; }
 
 .paragraph--type--upcoming-events header a {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   color: #92278f;
@@ -13454,66 +13346,6 @@ body.path-user:not(.user-logged-in) {
 .paragraph--type--upcoming-events .views-row {
   margin: 30px 0; }
 
-@media screen and (min-width: 0) and (max-width: 767px) {
-  .search-form-wrapper.col-xs-12 {
-    position: relative; }
-    .search-form-wrapper.col-xs-12 .search-input {
-      width: 100%;
-      border: 1px solid white;
-      border-radius: 4px;
-      padding: 5px; }
-  .path-frontpage .paragraph--type--header-banner {
-    margin-bottom: 0 !important; }
-  .paragraph--column-in-a-grid .inner h2 {
-    margin-top: 0; }
-  .paragraph--column-in-a-grid .inner .text {
-    height: 100%;
-    margin-bottom: 20px; }
-  .paragraph-gallery .carousel .carousel-control {
-    width: 46px;
-    height: 46px; }
-    .paragraph-gallery .carousel .carousel-control .fa {
-      line-height: 50px; }
-  .paragraph--type--upcoming-events .views-row {
-    margin-bottom: 40px; }
-  .paragraph--type--upcoming-events .upcoming-events__header-info.clearfix {
-    padding-top: 0; }
-  .paragraph--type--upcoming-events .field-prgf-block {
-    padding-bottom: 0; }
-  #block-footertel ul {
-    padding: 0; }
-  .region-footer-social .list-inline {
-    text-align: left !important;
-    margin-top: 15px; }
-  .node,
-  .two-columns-container,
-  .user-login,
-  .webform-submission-form {
-    min-height: 100% !important; } }
-
-@media screen and (min-width: 768px) and (max-width: 991px) {
-  .search-form-wrapper.col-xs-12 {
-    position: relative; }
-    .search-form-wrapper.col-xs-12 .search-input {
-      width: 100%;
-      border: 1px solid white;
-      border-radius: 4px;
-      padding: 5px; }
-  .path-frontpage .paragraph--type--header-banner {
-    margin-bottom: -60px; }
-  .paragraph-gallery .carousel .carousel-control {
-    width: 55px;
-    height: 55px; }
-    .paragraph-gallery .carousel .carousel-control .fa {
-      line-height: 59px; }
-  .paragraph--type--upcoming-events .views-row {
-    min-height: 440px; }
-  .paragraph--type--upcoming-events .field-prgf-block {
-    padding-bottom: 0; }
-  .region-footer-info,
-  .region-footer-tel {
-    min-height: 100px; } }
-
 html,
 body {
   height: 100%;
@@ -13529,7 +13361,7 @@ ol, ul {
   margin-top: 0; }
 
 .footer {
-  color: white;
+  color: #fff;
   font-size: 12px; }
 
 p:last-child,
@@ -13554,7 +13386,7 @@ p:last-child,
     margin-top: 0; }
 
 .btn:not(.btn-link) {
-  font-family: "Cachet", "Comfortaa", sans-serif;
+  font-family: "Cachet", sans-serif;
   font-weight: 400; }
 
 .media-image.media,

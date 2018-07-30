@@ -125,7 +125,7 @@
    */
   Drupal.behaviors.openyHeaderAffix = {
     attach: function (context, settings) {
-      $(window).on('scroll', function(event) {
+      $(window).once('openy-affix', context).on('scroll', function(event) {
         var scrollValue = $(window).scrollTop();
         if (scrollValue === settings.scrollTopPx || scrollValue > 1) {
           $('.top-navs').addClass('affix');

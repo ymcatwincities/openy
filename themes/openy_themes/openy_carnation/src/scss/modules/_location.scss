@@ -125,7 +125,7 @@
 
   .distance .form-group {
     position: relative;
-    background: white;
+    background: $white;
 
     &:before {
       font-family: 'FontAwesome';
@@ -232,7 +232,7 @@
     font-style: italic;
 
     .fa {
-      color: white;
+      color: $white;
       height: 32px;
       float: left;
       font-size: 16px;

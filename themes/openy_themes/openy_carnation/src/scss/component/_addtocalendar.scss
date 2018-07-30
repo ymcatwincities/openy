@@ -43,7 +43,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  background: white;
+  background: $white;
 }
 
 .atcb-item {
@@ -91,7 +91,7 @@
 
 .atc-style-blue .atcb-list,
 .atc-style-blue .atcb-item {
-  background: white;
+  background: $white;
   color: #000;
 }
 
@@ -117,7 +117,7 @@
 .atc-style-blue .atcb-item-link:hover,
 .atc-style-blue .atcb-item-link:active,
 .atc-style-blue .atcb-item-link:focus {
-  color: white;
+  color: $white;
 }
 
 .atc-style-blue .atcb-item.hover,
