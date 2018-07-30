@@ -1,0 +1,8 @@
+name: GroupExPro integration
+type: module
+description: Provide way to import classes and sessions.
+core: 8.x
+package: OpenY
+dependencies:
+  - migrate_tools
+  - migrate_source_csv

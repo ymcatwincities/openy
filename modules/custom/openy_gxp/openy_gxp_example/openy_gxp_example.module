@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * Implements hook_openy_gxp_programs_csv_row_alter().
+ */
+function openy_gxp_example_openy_gxp_programs_csv_row_alter(&$row) {
+  // Locations mapping. Ideally here should be mapping table of
+  // gxp locations -> OpenY locations. Result should be id of the node.
+
+  // For demo purposes use random location.
+  static $locations;
+  if (empty($locations)) {
+    $query = \Drupal::entityQuery('node');
+    $query->condition('status', 1);
+    $query->condition('type', 'branch');
+    $locations = array_values($query->execute());
+  }
+
+  $row['locations'] = $locations[rand(0, count($locations) - 1)];
+}
+
+///**
+// * Implements hook_openy_gxp_categories_csv_row_alter().
+// */
+//function openy_gxp_example_openy_gxp_categories_csv_row_alter(&$row) {
+//  // Here should be a mapping of classes to activities. As activities
+//  // are created manually in Drupal and classes coming from gxp
+//  // there should be some kind of intelligent system of mapping or simple
+//  // mapping table (if there are not too many classes).
+//
+//  // In example we do simple random pull of activities. And also mark
+//  // classes with 'gxp' so easy to spot on demo site.
+//  static $activities;
+//  if (empty($activities)) {
+//    $query = \Drupal::entityQuery('node');
+//    $query->condition('status', 1);
+//    $query->condition('type', 'activity');
+//    $activities = array_values($query->execute());
+//  }
+//
+//  $row['name'] = 'gxp ' . $row['name'];
+//  $row['description'] = 'gxp ' . $row['description'];
+//
+//  $row['activity'] = $activities[rand(0, count($activities) - 1)];
+//}
