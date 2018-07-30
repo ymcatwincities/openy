@@ -823,6 +823,7 @@ addtocalendar var {
   box-shadow: 0 0 5px #AAA;
 
   @include breakpoint($screen-desktop) {
+    left: auto;
     right: 0;
   }
 }
