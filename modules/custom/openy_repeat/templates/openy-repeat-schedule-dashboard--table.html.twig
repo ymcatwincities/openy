@@ -49,12 +49,12 @@
 
             {# location #}
             <div v-cloak>
-              <a role="button" data-toggle="modal" data-target="#myModal"><strong>${ item.location }</strong></a>
+              <a class="schedule-dashboard__modal--location-link" role="button" data-toggle="modal" data-target=".schedule-dashboard__modal--location"><strong>${ item.location }</strong></a>
             </div>
 
             {# class #}
             <div v-cloak>
-              ${ item.name } <span class="facility">(${ item.facility })</span>
+              <a class="schedule-dashboard__modal--class-link" role="button" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name } <span class="facility">${ item.facility }</span></a>
             </div>
           </div>
 
