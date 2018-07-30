@@ -917,32 +917,29 @@ function openy_update_8060() {
 }
 
 /**
- * Breadcrumbs config moving.
+ * Breadcrumbs config rename.
  */
 function openy_update_8061() {
-  // Remove config that will be renamed.
-  \Drupal::configFactory()->getEditable('block.block.breadcrumbs')->delete();
-  $config_dir = drupal_get_path('theme', 'openy_rose') . '/config/install/';
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'block.block.openy_rose_breadcrumbs',
-  ]);
+  \Drupal::configFactory()
+    ->rename('block.block.breadcrumbs', 'block.block.openy_rose_breadcrumbs');
+  \Drupal::configFactory()->getEditable('block.block.openy_rose_breadcrumbs')
+    ->set('id', 'openy_rose_breadcrumbs')
+    ->save(TRUE);
 }
 
 /**
  * Rename mainnavigation and useraccountmenu block configs.
  */
-function openy_update_8062() {
-  // Remove config that will be renamed.
-  \Drupal::configFactory()->getEditable('block.block.mainnavigation')->delete();
-  \Drupal::configFactory()->getEditable('block.block.useraccountmenu')->delete();
-  // Import renamed configs.
-  $config_dir = drupal_get_path('theme', 'openy_rose') . '/config/install/';
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'block.block.openy_rose_mainnavigation',
-    'block.block.openy_rose_useraccountmenu',
-  ]);
+function openy_update_8063() {
+  $configs = [
+    'mainnavigation' => 'openy_rose_mainnavigation',
+    'useraccountmenu' => 'openy_rose_useraccountmenu',
+  ];
+  foreach ($configs as $old_id => $new_id) {
+    \Drupal::configFactory()
+      ->rename('block.block.' . $old_id, 'block.block.' . $new_id);
+    \Drupal::configFactory()->getEditable('block.block.' . $new_id)
+      ->set('id', $new_id)
+      ->save(TRUE);
+  }
 }
