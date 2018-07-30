@@ -51,13 +51,13 @@
     font-size: 18px;
     padding: 0;
     width: 100%;
-    border: 1px solid white;
+    border: 1px solid $white;
 
     a {
       @include cachet(500);
       display: block;
       padding: 12px;
-      color: white;
+      color: $white;
       text-transform: uppercase;
     }
   }

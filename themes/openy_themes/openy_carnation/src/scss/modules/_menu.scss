@@ -21,7 +21,7 @@
 .page-head__main-menu .navbar > li {
   > a,
   > button {
-    color: white;
+    color: $white;
     padding: 35px 0;
     text-align: center;
 
@@ -56,8 +56,8 @@
   }
 
   .dropdown-menu {
-    background-color: white;
-    border: 1px solid white;
+    background-color: $white;
+    border: 1px solid $white;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     width: 100%;
     position: absolute;
@@ -101,7 +101,7 @@
         display: inline-block;
         padding: 0;
         position: relative;
-        color: white;
+        color: $white;
         text-transform: uppercase;
 
         @include media-breakpoint-up(lg) {
@@ -125,8 +125,8 @@
     }
 
     &.show {
-      background-color: white;
-      box-shadow: 0 4px 0 0 white;
+      background-color: $white;
+      box-shadow: 0 4px 0 0 $white;
 
       > a,
       > a:hover,
@@ -134,8 +134,8 @@
         color: $pink;
         position: relative;
         z-index: 1001;
-        background: white;
-        box-shadow: 0 5px 0 0 white;
+        background: $white;
+        box-shadow: 0 5px 0 0 $white;
 
         &:hover {
           color: $primary-darker;

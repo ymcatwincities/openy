@@ -7,7 +7,7 @@
   }
 
   &.affix {
-    background: white;
+    background: $white;
   }
 }
 
@@ -126,7 +126,7 @@
       }
 
       &:hover {
-        background-color: white;
+        background-color: $white;
         color: black;
       }
     }
@@ -148,7 +148,7 @@
     background: transparent;
 
     @include media-breakpoint-up(lg) {
-      margin: 0 10%;
+      margin: 0 10% 0 15%;
     }
   }
 
@@ -202,7 +202,7 @@
   right: 40px;
   bottom: 0;
   z-index: 1;
-  color: white;
+  color: $white;
 
   &:hover {
     color: $gray-200;

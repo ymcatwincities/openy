@@ -2,14 +2,13 @@ global-styling:
   css:
     base:
       //use.fontawesome.com/releases/v5.1.0/css/all.css: { type: external, minified: true }
-      //fonts.googleapis.com/css?family=Comfortaa:300,400,700: { type: external, minified: true }
       dist/css/style.css: {}
   js:
     //use.fontawesome.com/95fd5fcc01.js: { type: external, minified: true }
     dist/js/popper.min.js: {}
     dist/js/bootstrap.min.js: {}
     dist/js/jquery.matchHeight.min.js: {}
-    src/js/openy_carnation.js: {}
+    dist/js/openy_carnation.min.js: {}
 
   dependencies:
     - core/jquery.once

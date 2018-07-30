@@ -1,7 +1,7 @@
 .paragraph--type--single-teaser {
   .content-tease-paragraph .image-wrapper {
     text-align: center;
-    color: white;
+    color: $white;
     display: flex;
     height: 500px;
     background-size: cover !important;
@@ -19,14 +19,14 @@
 
     h2 {
       text-transform: uppercase;
-      color: white;
+      color: $white;
     }
 
     hr.delimeter {
       width: 150px;
       height: 2px;
       border: none;
-      background: white;
+      background: $white;
       opacity: 0.4;
       margin-top: 35px;
       margin-bottom: 35px;
@@ -37,7 +37,7 @@
       border: 2px solid;
 
       &:hover {
-        color: white;
+        color: $white;
       }
     }
   }

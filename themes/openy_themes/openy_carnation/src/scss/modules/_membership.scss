@@ -111,7 +111,7 @@ a[href="#step2"] {
 
       div {
         position: relative;
-        color: white;
+        color: $white;
         background-color: $indigo;
         padding: 9px;
 
@@ -134,7 +134,7 @@ a[href="#step2"] {
         }
 
         &:before {
-          border-left: 30px solid white;
+          border-left: 30px solid $white;
         }
 
         &:after {

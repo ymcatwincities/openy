@@ -22,7 +22,7 @@
 }
 
 .site-alert__dismiss {
-  color: white;
+  color: $white;
   width: 32px;
   height: 32px;
   display: flex;
@@ -30,7 +30,7 @@
   padding: 10px;
 
   &:hover {
-    color: white;
+    color: $white;
     opacity: .7;
   }
 }
@@ -45,7 +45,7 @@
 
   &:before {
     content: " ";
-    background-color: white;
+    background-color: $white;
     border-radius: 10px;
     height: 20px;
     left: 1px;
@@ -67,12 +67,12 @@
   font-size: 14px;
 
   .field-body-no-summary a {
-    color: white;
+    color: $white;
   }
 }
 
 .site-alert__cta a {
-  color: white;
+  color: $white;
   white-space: initial;
 }
 
@@ -134,7 +134,7 @@
     }
 
     &:before {
-      color: white;
+      color: $white;
       font-family: "FontAwesome";
       font-size: 30px;
       font-weight: bold;

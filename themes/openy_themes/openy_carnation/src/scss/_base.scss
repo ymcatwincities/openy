@@ -20,7 +20,6 @@
 @import "component/toolbar";
 @import "jquery-ui/autocomplete";
 @import "modules/addthis";
-@import "modules/administrative_tabs";
 @import "modules/banner";
 @import "modules/block-description";
 @import "modules/blog";
@@ -56,7 +55,6 @@
 @import "modules/slick";
 @import "modules/social-post";
 @import "modules/status-messages";
-@import "modules/styleguide";
 @import "modules/subfilters";
 @import "modules/throbber";
 @import "modules/user_login";
@@ -68,6 +66,4 @@
 @import "paragraphs/location_by_amenities";
 @import "paragraphs/lto";
 @import "paragraphs/upcoming-events";
-@import "layouts/mob";
-@import "layouts/tab";
 @import "overrides";

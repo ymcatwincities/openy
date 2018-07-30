@@ -1,6 +1,6 @@
 .footer {
   background-color: $gray-700;
-  color: white;
+  color: $white;
   font-size: 18px;
   padding-bottom: 0;
   margin-top: 0;
@@ -66,7 +66,7 @@
         padding: 0;
 
         a {
-          color: white;
+          color: $white;
         }
       }
     }
@@ -110,7 +110,7 @@
     transition: all 0.3s linear 0s;
 
     &:before {
-      color: white;
+      color: $white;
     }
   }
 
@@ -137,10 +137,10 @@
           a {
             font-size: 15px;
             padding: 0;
-            color: white;
+            color: $white;
 
             &:hover {
-              color: white;
+              color: $white;
               background: none;
               text-decoration: underline !important;
             }
