@@ -253,7 +253,15 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 .schedules-data__row {
 	padding: 14px 0;
 	display: flex;
+	color: #656565;
+}
+
+.schedules-data__row strong {
 	color: #333;
+}
+
+.schedules-data__group p {
+	padding-top: 5px;
 }
 
 /* striping bg */
