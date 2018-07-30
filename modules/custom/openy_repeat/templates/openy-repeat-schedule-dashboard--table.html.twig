@@ -18,7 +18,7 @@
   </div>
 
   <div class="hidden-xs hidden-sm col-md-4">
-    <a class="btn btn-md btn-block btn-schedule-pdf disabled">{{ 'View PDF Schedule'|t }} <i class="fa fa-print"></i></a>
+    <a class="btn btn-md btn-block btn-schedule-pdf disabled">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
   </div>
 </div>
 
@@ -49,12 +49,13 @@
 
             {# location #}
             <div v-cloak>
-              <a role="button" data-toggle="modal" data-target="#myModal"><strong>${ item.location }</strong></a>
+              <strong><a class="schedule-dashboard__modal--location-link" role="button" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
             </div>
 
             {# class #}
             <div v-cloak>
-              ${ item.name } <span class="facility">(${ item.facility })</span>
+              <strong><a class="schedule-dashboard__modal--class-link" role="button" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
+              <p>${ item.facility }</p>
             </div>
           </div>
 
@@ -62,8 +63,8 @@
 
             {# time #}
             <div v-cloak>
-              <strong>${ item.time }</strong><br/>
-              ${ item.duration } {{ 'min'|t }}
+              <strong>${ item.time }</strong>
+              <p>${ item.duration } {{ 'min'|t }}</p>
             </div>
 
             {# category #}
