@@ -5571,6 +5571,7 @@ addtocalendar var {
 }
 @media (min-width: 62em) {
   .atcb-list {
+    left: auto;
     right: 0;
   }
 }

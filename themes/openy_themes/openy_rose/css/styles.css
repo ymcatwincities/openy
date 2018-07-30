@@ -5890,6 +5890,7 @@ iframe#ga_iframe {
 }
 @media (min-width: 62em) {
   .atcb-list {
+    left: auto;
     right: 0;
   }
 }
