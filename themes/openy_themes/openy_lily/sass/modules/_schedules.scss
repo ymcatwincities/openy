@@ -815,12 +815,17 @@ addtocalendar var {
   visibility: hidden;
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
   width: 170px;
   z-index: 900;
   border: 1px solid #bababa;
   border-radius: 2px;
   box-shadow: 0 0 5px #AAA;
+
+  @include breakpoint($screen-desktop) {
+    left: auto;
+    right: 0;
+  }
 }
 
 .atcb-list,
