@@ -11,9 +11,7 @@ dependencies:
   - jquery_colorpicker
   - metatag
   - node
-  - openy_node
   - paragraphs
   - path
   - taxonomy
   - text
-  - tour

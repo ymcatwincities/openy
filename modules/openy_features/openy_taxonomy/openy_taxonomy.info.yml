@@ -2,7 +2,8 @@ name: 'OpenY Taxonomy Package'
 description: 'OpenY Taxonomy Package.'
 type: module
 core: 8.x
+version: 8.x-1.0
 package: OpenY
 dependencies:
-  - tour
   - taxonomy
+  - views
