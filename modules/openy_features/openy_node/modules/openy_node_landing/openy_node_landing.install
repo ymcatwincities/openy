@@ -25,15 +25,6 @@ function openy_node_landing_update_dependencies() {
 }
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_landing_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('node', 'node_type', 'landing_page');
-  $modules_manager->removeModuleConfigs('openy_node_landing');
-}
-
-/**
  * Update Landing page with field_bottom_content.
  */
 function openy_node_landing_update_8001() {

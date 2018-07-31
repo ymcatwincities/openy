@@ -6,20 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_gallery_uninstall() {
-  // Remove gallery content and paragraph type.
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'gallery');
-  $modules_manager->removeModuleConfigs('openy_prgf_gallery');
-  // Remove protected module config.
-  \Drupal::configFactory()
-    ->getEditable('core.entity_view_display.media.image.prgf_gallery')
-    ->delete();
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_prgf_gallery_dependencies() {

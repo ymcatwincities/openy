@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_alert_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('node', 'node_type', 'alert');
-  $modules_manager->removeModuleConfigs('openy_node_alert');
-}
-
-/**
  * Update Alert for rabbit hole, hiding pages from anonymous users.
  */
 function openy_node_alert_update_8001() {

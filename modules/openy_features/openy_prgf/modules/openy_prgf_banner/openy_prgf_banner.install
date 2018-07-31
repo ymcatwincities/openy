@@ -6,19 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_banner_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'banner');
-  $modules_manager->removeModuleConfigs('openy_prgf_banner');
-  // Remove protected entity_view_display config.
-  \Drupal::configFactory()
-    ->getEditable('core.entity_view_display.media.image.prgf_banner')
-    ->delete();
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_prgf_banner_update_dependencies() {

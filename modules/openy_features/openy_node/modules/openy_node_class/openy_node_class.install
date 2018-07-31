@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_class_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('node', 'node_type', 'class');
-  $modules_manager->removeModuleConfigs('openy_node_class');
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_node_class_update_dependencies() {

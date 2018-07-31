@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_txnm_color_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('taxonomy_term', 'taxonomy_vocabulary', 'color', 'vid');
-  $modules_manager->removeModuleConfigs('openy_txnm_color');
-}
-
-/**
  * Add description to color vocabulary.
  */
 function openy_txnm_color_update_8001() {

@@ -6,24 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_news_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('node', 'node_type', 'news');
-  $modules_manager->removeModuleConfigs('openy_node_news');
-  // Remove protected entity_view_display configs.
-  $configFactory = \Drupal::configFactory();
-  $configs = [
-    'core.entity_view_display.media.image.node_news',
-    'core.entity_view_display.media.image.node_news_teaser',
-  ];
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
-}
-
-/**
  * Update config for the image style after focal point support was added.
  */
 function openy_node_news_update_8001() {

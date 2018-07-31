@@ -6,27 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_mbrshp_calc_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'openy_prgf_mbrshp_calc');
-  $modules_manager->removeModuleConfigs('openy_prgf_mbrshp_calc');
-  // Delete protected entity_view_display configs.
-  $configs = [
-    'core.entity_view_display.media.image.calc_preview',
-    'core.entity_view_display.media.image.calc_summary',
-    'core.entity_view_display.node.branch.calc_summary',
-    'core.entity_view_display.node.membership.calc_preview',
-    'core.entity_view_display.node.membership.calc_summary',
-  ];
-  $configFactory = \Drupal::configFactory();
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
-}
-
-/**
  * Update Paragraph Membership Calculator summary image config.
  */
 function openy_prgf_mbrshp_calc_update_8001() {

@@ -6,16 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_classes_listing_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'classes_listing');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'classes_listing_filters');
-  $modules_manager->removeModuleConfigs('openy_prgf_classes_listing');
-}
-
-/**
  * Update classes listing view.
  */
 function openy_prgf_classes_listing_update_8001() {

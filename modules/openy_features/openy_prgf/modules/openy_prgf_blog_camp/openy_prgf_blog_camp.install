@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_blog_camp_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'latest_blog_posts_camp');
-  $modules_manager->removeModuleConfigs('openy_prgf_blog_camp');
-}
-
-/**
  * Update Paragraph Latest Blog Posts (Camp) field_prgf_block.
  */
 function openy_prgf_blog_camp_update_8001() {

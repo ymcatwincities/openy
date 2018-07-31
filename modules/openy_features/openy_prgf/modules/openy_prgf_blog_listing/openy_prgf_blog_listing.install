@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_blog_listing_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'blog_posts_listing');
-  $modules_manager->removeModuleConfigs('openy_prgf_blog_listing');
-}
-
-/**
  * Update Paragraph Blog Listing filter labels.
  */
 function openy_prgf_blog_listing_update_8001() {

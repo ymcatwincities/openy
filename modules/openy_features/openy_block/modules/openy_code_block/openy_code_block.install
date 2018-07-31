@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_code_block_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('block_content', 'block_content_type', 'code_block');
-  $modules_manager->removeModuleConfigs('openy_code_block');
-}
-
-/**
  * Update configs for Drupal Core upgrade.
  */
 function openy_code_block_update_8001() {

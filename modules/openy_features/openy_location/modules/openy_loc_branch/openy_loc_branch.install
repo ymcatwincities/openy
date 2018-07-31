@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_loc_branch_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('node', 'node_type', 'branch');
-  $modules_manager->removeModuleConfigs('openy_loc_branch');
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_loc_branch_update_dependencies() {
