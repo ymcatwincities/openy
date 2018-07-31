@@ -35,10 +35,22 @@ class OpenYMap extends RenderElement {
    *   Element
    */
   public static function processElement(array $element) {
-
+    $settings = \Drupal::configFactory()->get('openy_map.settings');
     $element['#attached']['library'][] = 'openy_map/openy_map';
+    switch ($settings->get('map_engine')) {
+      case 'gmaps':
+        $element['#attached']['library'][] = 'openy_map/gmaps';
+        $element['#attached']['drupalSettings']['openyMapSettings']['engine'] = 'gmaps';
+      break;
+
+      case 'leaflet':
+      default:
+        $element['#attached']['library'][] = 'openy_map/leafletr';
+        $element['#attached']['drupalSettings']['openyMapSettings']['engine'] = 'leaflet';
+      break;
+    }
     $element['#attached']['drupalSettings']['openyMap'] = $element['#element_variables'];
-    $tags = \Drupal::configFactory()->get('openy_map.settings')->get('default_tags');
+    $tags = $settings->get('default_tags');
     $element['#attached']['drupalSettings']['openyMapSettings']['default_tags'] = array_values(array_filter($tags));
     $element['#cache']['tags'][] = 'config:openy_map.settings';
 
