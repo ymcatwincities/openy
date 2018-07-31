@@ -7,7 +7,7 @@ dependencies:
     - system
   theme:
     - openy_rose
-id: useraccountmenu
+id: openy_rose_useraccountmenu
 theme: openy_rose
 region: mobile_menu
 weight: 0
