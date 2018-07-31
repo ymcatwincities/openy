@@ -6,14 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_featured_highlights_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'featured_highlights');
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_prgf_featured_highlights_update_dependencies() {

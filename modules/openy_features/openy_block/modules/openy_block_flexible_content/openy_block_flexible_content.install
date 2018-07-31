@@ -6,14 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_block_flexible_content_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('block_content', 'block_content_type', 'flexible_content');
-}
-
-/**
  * Update configs for Drupal Core upgrade.
  */
 function openy_block_flexible_content_update_8001() {

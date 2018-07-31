@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_3c_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', '3c');
-  $modules_manager->removeModuleConfigs('openy_prgf_3c');
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_prgf_3c_update_dependencies() {

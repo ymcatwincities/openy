@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_block_date_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('block_content', 'block_content_type', 'date_block');
-  $modules_manager->removeModuleConfigs('openy_block_date');
-}
-
-/**
  * Update configs for Drupal Core upgrade.
  */
 function openy_block_date_update_8001() {

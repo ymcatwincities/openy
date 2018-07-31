@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_event_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('node', 'node_type', 'event');
-  $modules_manager->removeModuleConfigs('openy_node_event');
-}
-
-/**
  * Update handler and description for field_event_location.
  */
 function openy_node_event_update_8001() {
@@ -24,7 +15,7 @@ function openy_node_event_update_8001() {
     'field.field.node.event.field_event_location' => [
       'settings',
       'description',
-      'dependencies.config'
+      'dependencies.config',
     ],
   ];
 
