@@ -164,6 +164,9 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
  * Implements hook_theme_HOOK_alter().
  */
 function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  /** @var \Drupal\node\NodeInterface $node */
+  $node = $variables['elements']['#node'];
+
   if (in_array('node__blog__default', $suggestions)) {
     array_push($suggestions, 'node__blog__full');
   }
@@ -172,7 +175,10 @@ function ymca_theme_suggestions_node_alter(array &$suggestions, array $variables
   }
   // Detect all pages which referenced to location by context.
   if ($data = ymca_detect_locations_pages()) {
-    array_push($suggestions, 'node__article__location__full');
+    // Do not override template for "alert".
+    if ($node->bundle() != 'alert') {
+      array_push($suggestions, 'node__article__location__full');
+    }
   }
   if (in_array('node__location__default', $suggestions)) {
     array_push($suggestions, 'node__location__full');
