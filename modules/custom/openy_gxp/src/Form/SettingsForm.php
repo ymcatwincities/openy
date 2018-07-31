@@ -4,6 +4,7 @@ namespace Drupal\openy_gxp\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
 
 /**
  * Settings Form for gxp.
@@ -41,6 +42,22 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('Your GroupExPro client id. Like 36.'),
     ];
 
+    $form['activity'] = [
+      '#type' => 'entity_autocomplete',
+      '#target_type' => 'node',
+      '#selection_settings' => ['target_bundles' => 'activity'],
+      '#title' => $this->t('Activity'),
+      '#default_value' => Node::load($config->get('activity')),
+      '#description' => t('What activity we should use as a parent. Should be Group Exercises under Fitness.'),
+    ];
+
+    $form['locations'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Locations Mapping'),
+      '#default_value' => $config->get('locations'),
+      '#description' => t('One per line. Format: GroupExPro ID, Name (as Branch in Drupal). Example: 202,West YMCA'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -52,6 +69,8 @@ class SettingsForm extends ConfigFormBase {
     $config = \Drupal::service('config.factory')->getEditable('openy_gxp.settings');
 
     $config->set('client_id', $form_state->getValue('client_id'))->save();
+    $config->set('activity', $form_state->getValue('activity'))->save();
+    $config->set('locations', $form_state->getValue('locations'))->save();
 
     parent::submitForm($form, $form_state);
   }

@@ -40,7 +40,6 @@ class ImportForm extends FormBase {
     ];
 
     return $form;
-
   }
 
   /**
@@ -49,17 +48,26 @@ class ImportForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = \Drupal::configFactory()->get('openy_gxp.settings');
 
+    $operations = [];
+    foreach (explode("\n", $config->get('locations')) as $row) {
+      list($gxpLocationId, $locationName) = explode(',', $row);
+      $gxpLocationId = (int) $gxpLocationId;
+      $locationName = trim($locationName);
+      $nids = \Drupal::entityQuery('node')
+        ->condition('title', $locationName)
+        ->execute();
+      if (!empty($nids)) {
+        $operations[] = ['Drupal\openy_gxp\Form\ImportForm::generateProgramsCSV', [$config->get('activity'), $config->get('client_id'), $gxpLocationId, reset($nids)]];
+        $operations[] = ['Drupal\openy_gxp\Form\ImportForm::migrateOfferings', [$gxpLocationId]];
+      }
+      else {
+        drupal_set_message(t('Unknown branch @branch. Please correct GroupExPro settings Location Mapping.', ['@branch' => $locationName]), 'error');
+      }
+    }
+
     $batch = array(
       'title' => $this->t('Importing Programs from gxp'),
-      'operations' => [
-        // We will get Categories CSV file from Programs as ID's of categories
-        // do not match.
-        // Should pull in all locations and iterate through them to generate
-        // separate CSV files and rum imports.
-        array('Drupal\openy_gxp\Form\ImportForm::generateProgramsCSV', [$config, 202]),
-//        array('Drupal\openy_gxp\Form\ImportForm::migrateCategories', [202]),
-        array('Drupal\openy_gxp\Form\ImportForm::migrateOfferings', [202]),
-      ],
+      'operations' => $operations,
       'finished' => 'Drupal\openy_gxp\Form\ImportForm::batchFinished',
     );
 
@@ -69,12 +77,12 @@ class ImportForm extends FormBase {
   /**
    * Generate CSV files with programs.
    */
-  public static function generateProgramsCSV($config, $location_id, &$context) {
+  public static function generateProgramsCSV($activityId, $gxpClientId, $gxpLocationId, $locationId, &$context) {
     // Hardcoded URL for now for single location.
     $client = new Client(['base_uri' => 'https://www.groupexpro.com/gxp/api/']);
 
     $publicPath = \Drupal::service('file_system')->realpath('public://');
-    $filenamePrograms = $publicPath . '/' . self::FOLDER . '/programs-' . $location_id . '.csv';
+    $filenamePrograms = $publicPath . '/' . self::FOLDER . '/programs-' . $gxpLocationId . '.csv';
     if (file_exists($filenamePrograms)) {
       unlink($filenamePrograms);
     }
@@ -84,11 +92,14 @@ class ImportForm extends FormBase {
     
     $fp = fopen($filenamePrograms, 'w');
 
-    $categories = [];
-
-    $response = $client->request('GET', 'openy/view/36/' . $location_id);
+    $response = $client->request('GET', 'openy/view/' . $gxpClientId . '/' . $gxpLocationId);
 
     $programsResponse = json_decode((string) $response->getBody(), TRUE);
+
+    if (empty($programsResponse)) {
+      drupal_set_message(t('Something went wrong with GroupExPro API call. Received empty response. https://www.groupexpro.com/gxp/api/@client/@location',
+        ['@client' => $gxpClientId, '@location' => $gxpLocationId]));
+    }
 
     foreach ($programsResponse as $row) {
 
@@ -100,9 +111,9 @@ class ImportForm extends FormBase {
         'category' => json_encode([
           'title' => $row['category'],
           'description' => $row['description'],
-          'activity' => 119, // Hardcoded Activity as from Demo content. Need to move to configuration.
+          'activity' => $activityId,
         ]),
-        'location' => $row['location'],
+        'location' => $locationId,
         'title' => $row['title'],
         'studio' => $row['studio'],
         'instructor' => $row['instructor'],
@@ -152,31 +163,20 @@ class ImportForm extends FormBase {
   }
 
   /**
-   * Migrate categories.
-   */
-  public static function migrateCategories($location_id) {
-    $migration = \Drupal::service('plugin.manager.migration')->createInstance('gxp_categories_import');
-
-    $source = $migration->getSourceConfiguration();
-    $publicPath = \Drupal::service('file_system')->realpath('public://');
-
-    $source['path'] = $publicPath . '/' . self::FOLDER . '/categories-' . $location_id . '.csv';
-    $migration->set('source', $source);
-
-    $executable = new MigrateExecutable($migration, new MigrateMessage());
-    $executable->import();
-  }
-
-  /**
    * Migrate offerings.
    */
-  public static function migrateOfferings($location_id) {
+  public static function migrateOfferings($gxpLocationId) {
     $migration = \Drupal::service('plugin.manager.migration')->createInstance('gxp_offerings_import');
 
     $source = $migration->getSourceConfiguration();
     $publicPath = \Drupal::service('file_system')->realpath('public://');
 
-    $source['path'] = $publicPath . '/' . self::FOLDER . '/programs-' . $location_id . '.csv';
+    $filePath = $publicPath . '/' . self::FOLDER . '/programs-' . $gxpLocationId . '.csv';
+    if (!file_exists($filePath)) {
+      drupal_set_message(t('File @file does not exist. Please check script that builds CSV file for import.', ['@file' => $filePath]), 'error');
+      return;
+    }
+    $source['path'] = $filePath;
     $migration->set('source', $source);
 
     $executable = new MigrateExecutable($migration, new MigrateMessage());
