@@ -36,8 +36,7 @@
     @include cachet(500);
     font-size: 30px;
     line-height: 15px;
-    padding-top: 12px;
-    padding-bottom: 4px;
+    padding: 12px 0 4px;
     letter-spacing: -1px;
     text-transform: uppercase;
   }
@@ -217,9 +216,7 @@
       font-size: 20px;
       display: inline-block;
       vertical-align: text-top;
-      margin-top: -4px;
-      margin-left: -6px;
-      margin-right: 5px;
+      margin: -4px 5px 0 -6px;
     }
   }
 
@@ -239,9 +236,7 @@
     font-size: 20px;
     display: inline-block;
     vertical-align: text-top;
-    margin-top: -4px;
-    margin-left: -5px;
-    margin-right: 6px;
+    margin: -4px 6px 0 -5px;
   }
 }
 
@@ -262,9 +257,7 @@
     font-size: 20px;
     display: inline-block;
     vertical-align: text-top;
-    margin-top: 0;
-    margin-left: -6px;
-    margin-right: 5px;
+    margin: 0 5px 0 -6px;
   }
 
   .field-event-date-time {
@@ -279,9 +272,7 @@
       font-size: 20px;
       display: inline-block;
       vertical-align: text-top;
-      margin-top: -4px;
-      margin-left: -5px;
-      margin-right: 6px;
+      margin: -4px 6px 0 -5px;
     }
   }
 

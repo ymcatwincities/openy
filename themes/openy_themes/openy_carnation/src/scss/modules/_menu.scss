@@ -225,18 +225,16 @@
 
 
     .menu-item-home {
-      background: url("../img/logo-color.png") no-repeat;
+      background: url("../img/logo-color.png") center no-repeat;
       background-size: contain;
-      background-position: center;
     }
 
     &.affix {
       background-color: $gray-700;
 
       .menu-item-home {
-        background: url("../img/logo-white.png") no-repeat;
+        background: url("../img/logo-white.png") center no-repeat;
         background-size: 65px 50px;
-        background-position: center;
       }
     }
 
