@@ -25,11 +25,11 @@
   /**
    * Move Header Banner paragraph to header.
    */
-  Drupal.behaviors.openyBanners = {
+  Drupal.behaviors.openyMoveBanners = {
     attach: function (context, settings) {
       var bannerHeader = $('.paragraph--type--banner, .landing-header, .page-heading');
       if (bannerHeader.length > 0) {
-        $('.banner-zone-node').once('openy-banners').append(bannerHeader.eq(0));
+        $('.banner-zone-node').once('openy-move-banners').append(bannerHeader.eq(0));
         $('body').addClass('with-banner');
       } else {
         $('body').addClass('without-banner');
@@ -40,7 +40,7 @@
   /**
    * Ensure breadcrumbs are after banners in the DOM
    */
-  Drupal.behaviors.moveBreadcrumbs = {
+  Drupal.behaviors.openyMoveBreadcrumbs = {
     attach: function (context, settings) {
       var breadCrumbs = $('.breadcrumbs-wrapper', context);
       var bannerCta = $(
@@ -49,7 +49,7 @@
         '.banner-zone-node .paragraph-gallery', context);
 
       if (breadCrumbs.length && bannerCta.length) {
-        breadCrumbs.once('openy-breadcrumbs').appendTo(bannerCta);
+        breadCrumbs.once('openy-move-breadcrumbs').appendTo(bannerCta);
       }
     }
   };
@@ -57,13 +57,13 @@
   /**
    * Ensure header alerts are after breadcrumbs in the DOM
    */
-  Drupal.behaviors.moveHeaderAlerts = {
+  Drupal.behaviors.openyMoveHeaderAlerts = {
     attach: function (context, settings) {
       var headerAlerts = $('#block-openy-carnation-views-block-alerts-header-alerts', context);
       var subHeaderFilters = $('.banner-cta', context);
 
       if (headerAlerts.length && subHeaderFilters.length) {
-        headerAlerts.once('openy-breadcrumbs').insertAfter(subHeaderFilters);
+        headerAlerts.once('openy-move-alerts').insertAfter(subHeaderFilters);
       }
     }
   };
@@ -74,11 +74,15 @@
   Drupal.behaviors.openySearchToggle = {
     attach: function (context, settings) {
       var searchBtn = $('.site-search button');
+      var searchInput = $('header input.search-input');
       var mainMenuLinks = $('.page-head__main-menu .nav-level-1 li:not(:eq(0))').find('a, button');
       var searchClose = $('.page-head__search-close');
 
       searchBtn.once('openy-search-toggle-hide').on('click', function () {
         mainMenuLinks.removeClass('show').addClass('fade');
+        setTimeout(function() {
+          searchInput.focus();
+        }, 500);
       });
 
       searchClose.once('openy-search-toggle-show').on('click', function () {

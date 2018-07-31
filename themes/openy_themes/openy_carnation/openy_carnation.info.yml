@@ -4,7 +4,6 @@ description: 'YMCA brand compliant and customizable theme.'
 package: YMCA
 core: 8.x
 base theme: false
-#base theme: bootstrap
 libraries:
   - openy_carnation/global-styling
 regions:

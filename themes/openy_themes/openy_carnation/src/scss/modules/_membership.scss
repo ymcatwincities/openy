@@ -2,10 +2,7 @@ a[href="#step2"] {
   pointer-events: none;
 }
 
-
-
 #membership-calc-wrapper {
-
   fieldset {
     margin: 2rem 0;
   }
@@ -213,12 +210,6 @@ a[href="#step2"] {
   .field-link {
     display: none;
   }
-
-  //label {
-  //  max-width: calc(100% - 40px);
-  //  margin-bottom: 0;
-  //  vertical-align: middle;
-  //}
 }
 
 .membership-continue {
@@ -234,7 +225,3 @@ a[href="#step2"] {
   line-height: 1.1;
   color: inherit;
 }
-//
-//.field-branch-hours h4 {
-//  font-size: $h4-font-size;
-//}

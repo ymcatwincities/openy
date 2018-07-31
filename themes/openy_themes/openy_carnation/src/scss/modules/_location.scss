@@ -25,16 +25,14 @@
   border-radius: 8px;
   border: none;
   position: relative;
-  padding: 20px;
-  padding-bottom: 50px;
+  padding: 20px 20px 50px 20px;
   margin-bottom: 52px;
 
   > h2 {
+    @include cachet(700);
     padding-bottom: 16px;
     font-size: 22px;
-    font-family: "Cachet",Arial,sans-serif;
     margin: 5px 0 33px;
-    font-weight: bold;
     border-bottom: 2px solid $primary;
 
     &.card-type--camp,
@@ -45,9 +43,8 @@
 
   // title link
   .title-link {
-    font-family: "Cachet",Arial,sans-serif;
+    @include cachet(500);
     font-size: 25px;
-    font-weight: 500;
     letter-spacing: -1.2px;
     text-transform: uppercase;
 
@@ -68,6 +65,7 @@
 
   // button
   .button.branch-info a {
+    @include cachet(700);
     position: absolute;
     bottom: -20px;
     left: calc(50% - 90px);
@@ -75,10 +73,8 @@
     text-transform: uppercase;
     width: 180px;
     height: 60px;
-    font-family: "Cachet",Arial,sans-serif;
     font-size: 20px;
     line-height: 60px;
-    font-weight: bold;
     letter-spacing: -1px;
     text-align: center;
 
