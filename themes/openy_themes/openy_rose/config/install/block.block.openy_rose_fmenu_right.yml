@@ -7,7 +7,7 @@ dependencies:
     - system
   theme:
     - openy_rose
-id: footermenuright
+id: openy_rose_fmenu_right
 theme: openy_rose
 region: footer_menus
 weight: -1
