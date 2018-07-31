@@ -1,3 +1,4 @@
+map_engine: leaflet
 default_tags:
   branch: 'YMCA'
   camp: 'Camps'

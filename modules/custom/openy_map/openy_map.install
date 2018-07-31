@@ -13,3 +13,13 @@ function openy_map_update_8001() {
   $cim->setDirectory(drupal_get_path('module', 'openy_map') . '/config/install');
   $cim->importConfigs(['openy_map.settings']);
 }
+
+/**
+ * Import map default settings.
+ */
+function openy_map_update_8002() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('openy_map.settings');
+  $config->set('map_engine', 'leaflet');
+  $config->save(TRUE);
+}

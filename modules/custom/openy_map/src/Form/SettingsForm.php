@@ -68,6 +68,37 @@ class SettingsForm extends ConfigFormBase {
     $config = $this->config('openy_map.settings');
     $form_state->setCached(FALSE);
 
+    $form['map_engine_title'] = [
+      '#markup' => '<h2>' . $this->t('Map provider') . '</h2>',
+    ];
+    $form['map_engine'] = [
+      '#type' => 'radios',
+      '#options' => [
+        'leaflet' => $this->t('Leaflet + OpenStreetMaps tiles'),
+        'gmaps' => $this->t('Google Maps'),
+      ],
+      '#default_value' => !empty($config->get('map_engine')) ? $config->get('map_engine') : 'leaflet',
+      '#required' => TRUE,
+    ];
+
+    $form['gmaps_keys'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Google Maps Configuration'),
+      '#states' => [
+        'visible' => [
+          ':input[name="map_engine"]' => ['value' => 'gmaps'],
+        ],
+      ],
+    ];
+
+    $form['gmaps_keys']['info'] = [
+      '#type' => 'inline_template',
+      '#template' => '<p>Please find Google Maps keys here {{ link }}</p>',
+      '#context' => [
+        'link' => Link::createFromRoute('Geolocation settings', 'geolocation.settings'),
+      ],
+    ];
+
     $form['title'] = [
       '#markup' => '<h2>' . $this->t('Location list page settings') . '</h2>',
     ];
@@ -177,6 +208,7 @@ class SettingsForm extends ConfigFormBase {
       $type_icons[$id] = $form_state->getValue($id . '_icon');
     }
 
+    $config->set('map_engine', $form_state->getValue('map_engine'));
     $config->set('default_tags', $default_tags);
     $config->set('active_types', $active_types);
     $config->set('type_labels', $type_labels);
