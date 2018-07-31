@@ -339,6 +339,7 @@ class MemberRegisterForm extends FormBase {
         // If Campaign is not started.
         if ($campaignStartDate >= new \DateTime()) {
           $msgNotStarted = $config->get('error_register_checkins_not_started');
+          $msgNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
           // TODO: use hook_theme instead of inline template.
           $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
           $modalTitle = t('Thank you!');
