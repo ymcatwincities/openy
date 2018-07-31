@@ -196,7 +196,8 @@ dependencies:
   - openy_map
   - openy_moderation_wrapper
   - openy_popups
-  - openy_session_instance
+  - openy_repeat_entity
+  - openy_repeat
   - openy_schedules
   - openy_socrates
   - openy_tour

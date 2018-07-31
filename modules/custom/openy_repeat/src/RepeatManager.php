@@ -155,7 +155,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
         continue;
       }
       // Program Subcategory reference.
-      if ($program_subcategory = $activity->field_activity_category->referencedEntities()) {
+      if (!$activity->field_activity_category->isEmpty() && $program_subcategory = $activity->field_activity_category->referencedEntities()) {
         $program_subcategory = reset($program_subcategory);
         if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
           // Skip activity due to unpublished program subcategory.

@@ -27,6 +27,7 @@ class OpenYGXPCategory extends ProcessPluginBase {
     $nids = \Drupal::entityQuery('node')
       ->condition('title', $value['title'])
       ->condition('field_class_activity', $value['activity'])
+      ->condition('field_class_description', $value['description'])
       ->execute();
 
     if (!empty($nids)) {
