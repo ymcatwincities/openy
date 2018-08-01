@@ -82,6 +82,32 @@ class YptfKronosReportsBase implements YptfKronosReportsInterface {
   }
 
   /**
+   * Returns report dates.
+   *
+   * @return mixed
+   *   Array with "StartDate" & "EndDate".
+   *
+   * @throws \Exception
+   */
+  protected function getReportDates() {
+    if (!isset($this->dates)) {
+      throw new \Exception('Failed to get dates for report generating.');
+    }
+
+    $dates = $this->dates;
+
+    if (!isset($dates["StartDate"]) || empty($dates["StartDate"])) {
+      throw new \Exception('Failed to get start date for the report.');
+    }
+
+    if (!isset($dates["EndDate"]) || empty($dates["EndDate"])) {
+      throw new \Exception('Failed to get end date for the report.');
+    }
+
+    return $dates;
+  }
+
+  /**
    * Get data from exported MindBody CSV file.
    *
    * @param array $kronosData
@@ -89,9 +115,20 @@ class YptfKronosReportsBase implements YptfKronosReportsInterface {
    *
    * @return array
    *   List of rows with MindBody data.
+   *
+   * @throws \Exception
    */
   protected function getMindBodyCSVData(array $kronosData) {
-    $filePath = drupal_get_path('module', 'yptf_kronos') . '/misc/mb_data_example.csv';
+    $reportDates = $this->getReportDates();
+    $fileName = sprintf('MB_%s--%s.csv', $reportDates['StartDate'], $reportDates['EndDate']);
+    $filesDir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/mb_reports';
+    $filePath = $filesDir . '/' . $fileName;
+
+    if (!file_exists($filePath)) {
+      $message = sprintf('The file with MindBody data was not found: %s. Please, upload the file', $filePath);
+      throw new \Exception($message);
+    }
+
     $csvData = file_get_contents($filePath);
     $lines = explode(PHP_EOL, $csvData);
     $titles = str_getcsv($lines[1]);
