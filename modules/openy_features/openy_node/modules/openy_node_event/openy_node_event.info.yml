@@ -1,9 +1,9 @@
 name: 'OpenY Node Event'
 description: 'Event-related OpenY site configuration'
 type: module
-package: 'YMCA Maryland'
+package: OpenY
 core: 8.x
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - content_moderation
   - datalayer
@@ -17,14 +17,11 @@ dependencies:
   - media_entity
   - menu_ui
   - node
-  - openy_loc_branch
-  - openy_loc_camp
   - openy_media_image
   - openy_node
   - paragraphs
   - path
   - pathauto
-  - plugin
   - scheduler
   - text
   - user
