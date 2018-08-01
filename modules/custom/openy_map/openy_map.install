@@ -6,6 +6,23 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function openy_map_install() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('openy_map.settings');
+  $icons_config = $config->get('type_icons');
+  foreach ($icons_config as &$url) {
+    $absolute_path = file_create_url($url);
+    if ($absolute_path != $url) {
+      $url = $absolute_path;
+    }
+  }
+  $config->set('type_icons', $icons_config);
+  $config->save(TRUE);
+}
+
+/**
  * Import map default settings.
  */
 function openy_map_update_8001() {
