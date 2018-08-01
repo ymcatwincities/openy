@@ -45,7 +45,7 @@ class OpenYMap extends RenderElement {
 
       case 'leaflet':
       default:
-        $element['#attached']['library'][] = 'openy_map/leafletr';
+        $element['#attached']['library'][] = 'openy_map/leaflet';
         $element['#attached']['drupalSettings']['openyMapSettings']['engine'] = 'leaflet';
       break;
     }
