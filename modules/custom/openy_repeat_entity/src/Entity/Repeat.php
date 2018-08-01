@@ -309,9 +309,13 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
         'type' => 'entity_reference_autocomplete'
       ]);
 
-    $fields['facility'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Facility'))
-      ->setDescription(t('Physical location of a session.'));
+    $fields['room'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Room'))
+      ->setDescription(t('What room class is at.'));
+
+    $fields['instructor'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Instructor'))
+      ->setDescription(t('Instructor of the class.'));
 
     $fields['category'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Category'))

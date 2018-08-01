@@ -49,6 +49,12 @@ process:
   field_session_location/target_revision_id:
     plugin: get
     source: location
+  field_session_room/value:
+    plugin: get
+    source: studio
+  field_session_instructor/value:
+    plugin: get
+    source: instructor
   langcode:
     plugin: default_value
     source: language

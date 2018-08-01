@@ -4,6 +4,8 @@ type: module
 core: 8.x
 package: OpenY
 dependencies:
+  - content_moderation
+  - datalayer
   - datetime_range
   - entity_reference_revisions
   - field
