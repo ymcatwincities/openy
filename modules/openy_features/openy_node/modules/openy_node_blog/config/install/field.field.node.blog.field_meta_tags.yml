@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_meta_tags
     - node.type.blog
   module:
+    - datalayer
     - metatag
 third_party_settings:
   datalayer:
