@@ -959,7 +959,7 @@
       },
 
       geocode: function(query, callback) {
-        $.getJSON('http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + query, callback);
+        $.getJSON('https://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + query, callback);
       },
 
       apply_autocomplete_search: function (event, ui) {
