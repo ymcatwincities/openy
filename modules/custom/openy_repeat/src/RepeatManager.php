@@ -180,6 +180,10 @@ class RepeatManager implements SessionInstanceManagerInterface {
       return NULL;
     }
 
+    // Instructor and Room text fields.
+    $instructor = !$session->field_session_instructor->isEmpty() ? $session->field_session_instructor->value : '';
+    $room = !$session->field_session_room->isEmpty() ? $session->field_session_room->value : '';
+
     // All references are in the chain, return data.
     return [
       'title2' => $session->label(),
@@ -193,6 +197,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
       'field_si_program' => array_unique($program_ids),
       'min_age' => $session->field_session_min_age->value,
       'max_age' => $session->field_session_max_age->value,
+      'instructor' => $instructor,
+      'room' => $room,
     ];
   }
 
