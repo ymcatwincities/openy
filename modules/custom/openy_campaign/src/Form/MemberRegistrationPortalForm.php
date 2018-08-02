@@ -373,6 +373,26 @@ class MemberRegistrationPortalForm extends FormBase {
       return;
     }
 
+    // If User does not have an assigned branch he is now allowed to register.
+    $isEmptyBranch = empty($member->branch->entity);
+    if ($isEmptyBranch) {
+      $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
+      $errorAudience = check_markup(
+        $msgAudienceMessages['value'],
+        $msgAudienceMessages['format']
+      );
+      // Get error from Campaign node.
+      if (!empty($campaign->field_error_target_audience->value)) {
+        $errorAudience = check_markup(
+          $campaign->field_error_target_audience->value,
+          $campaign->field_error_target_audience->format
+        );
+      }
+
+      $form_state->setErrorByName('membership_id', $errorAudience);
+      return;
+    }
+
     /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
     $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, 'portal');
     if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
