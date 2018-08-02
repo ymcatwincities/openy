@@ -10,9 +10,9 @@
                 <span class="masthead-brand">{{ node.label }}</span>
             </div>
             <div class="col-sm-4 text-center masthead-button" id="masthead-button">
-              {% if node.field_join_override|length %}
-                {{ node.field_join_override.0.value|raw }}
-              {% endif %}
+                {% if node.field_join_override|length %}
+                    {{ node.field_join_override.0.value|raw }}
+                {% endif %}
             </div>
         </div>
     </div>
@@ -35,19 +35,19 @@
 						<span class="glyphicon glyphicon-earphone bullet"></span>
                         {% set phone =  node.field_phone.0.value|split(',') %}
                         {% for item in phone %}
-                            <a  class="tel" href="tel:{{ item|trim }}">{{ item|trim }}</a>
+                            <a class="tel" href="tel:{{ item|trim }}">{{ item|trim }}</a>
                         {% endfor %}
                     </span>
                 </div>
                 <hr class="visible-xs">
                 <div class="col-lg-6 col-sm-5 col-md-6 address clearfix">
                     <span class="glyphicon glyphicon-map-marker bullet"></span>
-          <span class="plaintext">
+                    <span class="plaintext">
             {{ node.field_location.0.address_line1 }}
-              <br class="visible-xs">
-              {{ node.field_location.0.address_line2 }}
-              {{ node.field_location.0.administrative_area }}
-              {{ node.field_location.0.postal_code }}
+                        <br class="visible-xs">
+                        {{ node.field_location.0.address_line2 }}
+                        {{ node.field_location.0.administrative_area }}
+                        {{ node.field_location.0.postal_code }}
           </span>
                     <br class="visible-xs"/>
                     <a class="directions" target="_blank">
@@ -64,7 +64,7 @@
                     <span class="glyphicon glyphicon-time bullet"></span>
                     Today:
                     <time id="todays-hours"></time>
-					<span class="hidden-xs">
+                    <span class="hidden-xs">
 					<a
                             data-toggle="collapse"
                             data-target="#all-hours"
