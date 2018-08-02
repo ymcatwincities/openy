@@ -33,7 +33,10 @@
                 <div class="col-sm-3 col-md-2 phone clearfix">
                     <span class="tel">
 						<span class="glyphicon glyphicon-earphone bullet"></span>
-                        <a  class="tel" href="tel:{{ node.field_phone.0.value }}">{{ node.field_phone.0.value }}</a>
+                        {% set phone =  node.field_phone.0.value|split(',') %}
+                        {% for item in phone %}
+                            <a  class="tel" href="tel:{{ item|trim }}">{{ item|trim }}</a>
+                        {% endfor %}
                     </span>
                 </div>
                 <hr class="visible-xs">
