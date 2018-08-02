@@ -268,7 +268,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           continue;
         }
 
-        $diff = $item['HoursBooked'];
+        $diff = (float) $item['HoursBooked'];
 
         $staff_id = isset($item['EmpID']) ? $item['EmpID'] : NULL;
         $name = explode(' ', $item['Staff']);
