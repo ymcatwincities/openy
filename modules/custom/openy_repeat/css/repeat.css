@@ -322,3 +322,7 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 		text-align: left;
 	}
 }
+
+.field-prgf-repeat-schedules-pref {
+	display: none;
+}

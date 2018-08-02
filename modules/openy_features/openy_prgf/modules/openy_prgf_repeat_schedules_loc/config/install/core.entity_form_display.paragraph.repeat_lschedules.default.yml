@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
-    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_ref
-    - paragraphs.paragraphs_type.repeat_schedules
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_lschedules_prf
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_lschedules_ref
+    - paragraphs.paragraphs_type.repeat_schedules_loc
   module:
     - plugin
-id: paragraph.repeat_schedules.default
+id: paragraph.repeat_schedules_loc.default
 targetEntityType: paragraph
-bundle: repeat_schedules
+bundle: repeat_schedules_loc
 mode: default
 content:
-  field_prgf_repeat_schedules_pref:
+  field_prgf_repeat_lschedules_prf:
     weight: 101
     settings:
       match_operator: CONTAINS
@@ -21,7 +21,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_prgf_repeat_schedules_ref:
+  field_prgf_repeat_lschedules_ref:
     type: 'plugin_selector:plugin_autocomplete_list'
     weight: 0
     settings: {  }

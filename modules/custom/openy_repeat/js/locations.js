@@ -33,7 +33,9 @@
             chkArray.push(this.value);
           }
         });
-        location.href = '/schedules/group-exercise-classes/' + chkArray.join(',');
+        // Get url from paragraph's field.
+        var url = $('.field-prgf-repeat-lschedules-prf a').attr('href');
+        location.href = url + '/?locations=' + chkArray.join(',');
       });
 
     }
