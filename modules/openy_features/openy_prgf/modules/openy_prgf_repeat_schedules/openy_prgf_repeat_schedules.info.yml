@@ -7,6 +7,7 @@ dependencies:
   - datalayer
   - field
   - node
+  - openy_node_activity
   - openy_node_landing
   - openy_repeat
   - paragraphs
