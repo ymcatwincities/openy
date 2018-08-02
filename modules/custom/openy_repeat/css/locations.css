@@ -36,3 +36,6 @@
 .schedule-locations__item label:hover {
 	border-color: #979797;
 }
+.field-prgf-repeat-lschedules-prf {
+	display: none;
+}

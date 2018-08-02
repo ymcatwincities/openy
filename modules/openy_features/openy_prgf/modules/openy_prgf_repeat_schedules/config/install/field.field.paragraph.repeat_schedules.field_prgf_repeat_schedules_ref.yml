@@ -5,6 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_repeat_schedules_ref
     - paragraphs.paragraphs_type.repeat_schedules
   module:
+    - datalayer
     - plugin
 third_party_settings:
   datalayer:
@@ -20,14 +21,13 @@ required: true
 translatable: true
 default_value:
   -
-    plugin_id: repeat_schedules
+    plugin_id: repeat_schedules_block
     plugin_configuration:
       id: repeat_schedules_block
       label: 'Repeat Schedules Block'
       provider: openy_repeat
       label_display: '0'
-      enabled_locations: all
-    plugin_configuration_schema_id: block.settings.repeat_schedules
+    plugin_configuration_schema_id: block.settings.repeat_schedules_block
 default_value_callback: ''
 settings: {  }
 field_type: 'plugin:block'

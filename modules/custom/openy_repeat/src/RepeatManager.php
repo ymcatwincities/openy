@@ -225,6 +225,9 @@ class RepeatManager implements SessionInstanceManagerInterface {
           $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
           $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
           $duration = round(abs($to_time - $from_time) / 60,2);
+          if ($duration == 1439) {
+            $abu=1;
+          }
           $session_instances[] = [
             'start' => strtotime($schedule_item['period']['from'] . 'T' . $schedule_item['time']['from']),
             'end' => strtotime($schedule_item['period']['to'] . 'T' . $schedule_item['time']['to']),

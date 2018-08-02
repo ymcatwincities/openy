@@ -1,9 +1,8 @@
 openy_repeat.schedules_dashboard:
-  path: '/schedules/group-exercise-classes/{location}'
+  path: '/schedules/group-exercise-classes'
   defaults:
     _controller: '\Drupal\openy_repeat\Controller\RepeatController::dashboard'
     _title: 'Group exercise classes'
-    location: ''
   requirements:
     _permission: 'access content'
 openy_repeat.schedules_ajax:

@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
-id: repeat_schedules
-label: 'Repeat Schedules'
+id: repeat_schedules_loc
+label: 'Repeat Schedules Locations'
 icon_uuid: null
 description: null
 behavior_plugins: {  }
