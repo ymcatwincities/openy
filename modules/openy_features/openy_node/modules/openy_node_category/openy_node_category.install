@@ -6,6 +6,27 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_node_category_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('node', 'node_type', 'program_subcategory');
+  $configFactory = \Drupal::configFactory();
+  $configs = [
+    'core.entity_view_display.media.image.node_program_subcategory_teaser',
+    'core.entity_view_mode.media.node_program_subcategory_teaser',
+    'image.style.node_program_subcategory_teaser',
+    'metatag.metatag_defaults.node__program_subcategory',
+    'pathauto.pattern.program_subcategory',
+    'simple_sitemap.bundle_settings.node.program_subcategory',
+  ];
+  foreach ($configs as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+}
+
+
+/**
  * Implements hook_update_dependencies().
  */
 function openy_node_category_update_dependencies() {
@@ -303,6 +324,33 @@ function openy_node_category_update_8014() {
     ],
   ];
 
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs after entity reference handler update and configs actualization.
+ */
+function openy_node_category_update_8015() {
+  $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
+  $configs = [
+    'core.entity_view_display.node.program_subcategory.default' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.program_subcategory.full' => [
+      'dependencies.config',
+      'hidden',
+    ],
+    'core.entity_view_display.node.program_subcategory.teaser' => [
+      'dependencies.config',
+      'hidden',
+    ],
+  ];
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
