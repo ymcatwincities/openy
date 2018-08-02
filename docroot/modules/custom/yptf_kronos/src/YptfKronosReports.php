@@ -54,13 +54,6 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
   protected $dates;
 
   /**
-   * Number requests to MB. For timeout reason.
-   *
-   * @var array
-   */
-  protected $numberOfRequest = 3;
-
-  /**
    * The Kronos data report.
    *
    * @var array
@@ -168,14 +161,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
    * @param LanguageManagerInterface $language_manager
    *   Language manager.
    */
-  public function __construct(
-    ConfigFactory $config_factory,
-    MindbodyCacheProxy $proxy,
-    LoggerChannelInterface $logger,
-    MailManagerInterface $mail_manager,
-    Renderer $renderer,
-    LanguageManagerInterface $language_manager
-  ) {
+  public function __construct(ConfigFactory $config_factory, MindbodyCacheProxy $proxy, LoggerChannelInterface $logger, MailManagerInterface $mail_manager, Renderer $renderer, LanguageManagerInterface $language_manager) {
     $this->configFactory = $config_factory;
     $this->proxy = $proxy;
     $this->logger = $logger;
@@ -187,16 +173,10 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
 
   /**
    * Generate reports.
-   *
-   * @param int $request_number
-   *   Number of requests of report to MB.
    */
-  public function generateReports($request_number = 0) {
+  public function generateReports() {
     $this->logger->info('Kronos Tuesday email reports generator started.');
     $this->getInitialDates();
-    if (!empty($request_number)) {
-      $this->numberOfRequest = $request_number;
-    }
     $this->sendReports();
     $this->sendErrorReports();
     $this->logger->info('Kronos Tuesday email reports generator finished.');
@@ -204,73 +184,29 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
 
   /**
    * Calculate/compare data from Kronos & reports.
-   *
-   * @param int $request_number
-   *   Number of requests of report to MB.
    */
-  public function calculateReports($request_number = 0) {
+  public function calculateReports() {
     // Report calculated flag.
     $this->reportCalculated = TRUE;
+
     // Get Kronos data.
     $trainer_reports = [];
     $location_reports = [];
+
     // Get locations ref.
-    $mapping_repository_location = \Drupal::service(
-      'ymca_mappings.location_repository'
-    );
-
-    $all_mb_locations = $mapping_repository_location->loadAllLocationsWithMindBodyId();
-    $mb_locations_names = [];
-
-    if (!empty($all_mb_locations)) {
-      foreach ($all_mb_locations as $mb_location) {
-        $mbNo = $mb_location->field_mindbody_id->value;
-
-        // Remove data for specific locations.
-        // Use http://www.ymcamn.org/admin/content/locations-mapping.
-        // MindBody ID.
-        $suppress = [
-          5
-        ];
-        if (in_array($mbNo, $suppress)) {
-          continue;
-        }
-
-        $mb_locations_names[$mb_location->label()] = $mbNo;
-      }
-    }
-    else {
-      $msg = 'No locations found in locations mapping repository.';
-      $this->logger->notice($msg);
-    }
+    $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
 
     if ($this->getKronosData()) {
       // Calculate Workforce Kronos data.
       foreach ($this->kronosData as $current_line => $item) {
-        // Remove data for specific locations.
-        // Use http://www.ymcamn.org/admin/content/locations-mapping.
-        // LOCATION PERSONIFY BRCODE.
-        $suppress = [
-          17
-        ];
-
-        if (in_array($item->locNo, $suppress)) {
-          continue;
-        }
-
         if (in_array($item->job, $this->kronosTrainingId)) {
-          $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId(
-            $item->locNo
-          );
-          !$location_id ? $location_reports[$item->locNo] = 'Location mapping missed. WF locNo: ' . $item->locNo : '';
-          $loc_name = $item->locName;
-          if ($location_id) {
-            $mapping = $mapping_repository_location->findByMindBodyId(
-              $location_id
-            );
-            $loc_name = $mapping->field_location_name->value;
+          $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
+          if (!$location_id) {
+            throw new \Exception(sprintf('Failed to get MindBody Location ID by Personify ID: %d', $item->locNo));
           }
 
+          $mapping = $mapping_repository_location->findByMindBodyId($location_id);
+          $loc_name = $mapping->field_location_name->value;
 
           $location_reports[$location_id]['name'] = $loc_name;
           $empID = $item->empNo;
@@ -281,27 +217,22 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . $empID;
             $this->addError('Kronos Data', sprintf('No EmpID for %s, %s in %s has been found.', $item->lastName, $item->firstName, $item->locName));
           }
-          elseif (!is_array(
-              $empID
-            ) && !isset($trainer_reports[$location_id][$empID]['name'])) {
+          elseif (!is_array($empID) && !isset($trainer_reports[$location_id][$empID]['name'])) {
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName;
           }
 
           if (isset($item->totalHours)) {
             // Skip trainer calculation for multiple empIDs.
-            !is_array(
-              $empID
-            ) && !isset($trainer_reports[$location_id][$empID]['wf_hours']) ? $trainer_reports[$location_id][$empID]['wf_hours'] = 0 : '';
+            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['wf_hours']) ? $trainer_reports[$location_id][$empID]['wf_hours'] = 0 : '';
             !isset($location_reports[$location_id]['wf_hours']) && $location_reports[$location_id]['wf_hours'] = 0;
           }
 
           if (isset($item->historical)) {
             // Skip trainer calculation for multiple empIDs.
-            !is_array(
-              $empID
-            ) && !isset($trainer_reports[$location_id][$empID]['historical_hours']) ? $trainer_reports[$location_id][$empID]['historical_hours'] = 0 : '';
+            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['historical_hours']) ? $trainer_reports[$location_id][$empID]['historical_hours'] = 0 : '';
             !isset($location_reports[$location_id]['historical_hours']) ? $location_reports[$location_id]['historical_hours'] = 0 : '';
           }
+
           // Skip trainer calculation for multiple empIDs.
           if (!is_array($empID)) {
             $trainer_reports[$location_id][$empID]['wf_hours'] += $item->totalHours;
@@ -310,13 +241,8 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
 
           $location_reports[$location_id]['wf_hours'] += $item->totalHours;
           $location_reports[$location_id]['historical_hours'] += $item->historical;
-
         }
       }
-    }
-
-    if (!empty($request_number)) {
-      $this->numberOfRequest = $request_number;
     }
 
     if ($this->getMindBodyCSVData($this->kronosData)) {
@@ -324,7 +250,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
       foreach ($this->mindbodyData as $mb_id => $item) {
         $diff = $item['HoursBooked'];
 
-        $staff_id = $item['EmpID'];
+        $staff_id = isset($item['EmpID']) ? $item['EmpID'] : NULL;
         $name = explode(' ', $item['Staff']);
         if (is_array($name)) {
           $firstName = $name[0];
@@ -341,38 +267,14 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           $this->addError('Discrepancy', sprintf('No corresponding name for "%s" (%s) has been found in Kronos data.', $item['Staff'], $item['Location']));
         }
 
-        if (!empty($item['LocationID'])) {
-          $location_id = trim($item['LocationID']);
+        // Get MB location ID.
+        $brCode = $this->getBranchCodeIdByMBLocationName($item['Location']);
+        if (!$brCode) {
+          throw new \Exception(sprintf('Failed to get Personify Location ID by MB Location Name: %s', $item['Location']));
         }
-        elseif (isset($mb_locations_names[trim($item['Location'])])) {
-          $location_id = $mb_locations_names[trim($item['Location'])];
-        }
-        else {
-          $max = ['name' => 'NULL', 'max' => 0, 'id' => NULL];
-          foreach ($mb_locations_names as $name => $id) {
-            $count = similar_text(trim($item['Location']), $name, $percentage);
-            $new_max = $count * $percentage;
-            if ($new_max > $max['max']) {
-              $max = [
-                'name' => trim($item['Location']),
-                'max' => $new_max,
-                'id' => $id,
-              ];
-            }
-          }
-          if ($max['name'] && $max['id']) {
-            $location_id = $max['id'];
-          }
-          else {
-            $location_id = 'no location';
-            $msg = 'Failed to get locations for config %params.';
-            $this->logger->notice(
-              $msg,
-              [
-                '%params' => $staff_id,
-              ]
-            );
-          }
+        $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($brCode);
+        if (!$location_id) {
+          throw new \Exception(sprintf('Failed to get MindBody Location ID by Personify ID: %d', $item->locNo));
         }
 
         !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
@@ -385,7 +287,13 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
       }
     }
 
-    // Calculate variance.
+    // Suppress data for specific locations.
+    // Dayton at Gaviidae - DT Minneapolis - (MB ID: 5).
+    // https://www.ymcamn.org/admin/content/locations-mapping
+    unset($location_reports[5]);
+    unset($trainer_reports[5]);
+
+    // Calculate variance for trainers.
     foreach ($trainer_reports as $location_id => &$trainers) {
       foreach ($trainers as &$trainer) {
         $mb_flag = $wf_flag = TRUE;
@@ -427,6 +335,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
       }
     }
 
+    // Calculate variance for locations.
     $loc_total['wf_hours'] = $loc_total['mb_hours'] = $loc_total['historical_hours'] = 0;
     foreach ($location_reports as &$row) {
       if (!is_array($row)) {
@@ -872,11 +781,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
     $lang = $this->languageManager->getCurrentLanguage()->getId();
 
     foreach ($email_type as $report_type => $data) {
-      $enabled_setting = !empty(
-      $config->get(
-        $report_type
-      )['enabled']
-      ) ? $config->get($report_type)['enabled'] : FALSE;
+      $enabled_setting = !empty($config->get($report_type)['enabled']) ? $config->get($report_type)['enabled'] : FALSE;
       $enabled_condition = trim(
         strip_tags(
           str_replace(
@@ -887,11 +792,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
         )
       );
       $enabled_condition = $enabled_setting || !empty($enabled_condition);
-      if ($enabled_condition && !empty(
-        $config->get(
-          $report_type
-        )['staff_type']
-        )) {
+      if ($enabled_condition && !empty($config->get($report_type)['staff_type'])) {
         $recipients = $storage->loadByProperties(
           [
             'type' => 'staff',
@@ -902,36 +803,21 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           if ($enabled_setting && !$this->reportCalculated) {
             $this->calculateReports();
           }
-          $body = $enabled_setting ? $config->get(
-            $report_type
-          )['body']['value'] : $config->get(
-            $report_type
-          )['disabled_message']['value'];
+          $body = $enabled_setting ? $config->get($report_type)['body']['value'] : $config->get($report_type)['disabled_message']['value'];
           $token = FALSE;
 
           if ($report_type == 'leadership') {
-            $token = $this->createReportTable(
-              '',
-              $report_type,
-              $enabled_setting
-            );
+            $token = $this->createReportTable('', $report_type, $enabled_setting);
           }
-          elseif (!empty(
-          $recipient->field_staff_branch->getValue()[0]['target_id']
-          )) {
-            $token = $this->createReportTable(
-              $recipient->field_staff_branch->getValue()[0]['target_id'],
-              $report_type,
-              $enabled_setting
-            );
+          elseif(!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
+            $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type, $enabled_setting);
           }
           else {
             $msg = 'PT Manager "%surname, %name" has no branch.';
             $this->logger->notice(
               $msg,
               [
-                '%surname' => $recipient->field_staff_surname->getValue(
-                )[0]['value'],
+                '%surname' => $recipient->field_staff_surname->getValue()[0]['value'],
                 '%name' => $recipient->field_staff_name->getValue()[0]['value'],
               ]
             );
@@ -940,33 +826,17 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
             continue;
           }
 
-          $tokens['body'] = $enabled_setting ? str_replace(
-            $report_tokens[$report_type],
-            $token['report'],
-            $body
-          ) : $body;
-          $tokens['subject'] = str_replace(
-            '[report-branch-name]',
-            $token['name'],
-            $config->get($report_type)['subject']
-          );
-          $tokens['subject'] = str_replace(
-            '[report-start-date]',
-            date("d/m/Y", strtotime($this->dates['StartDate'])),
-            $tokens['subject']
-          );
-          $tokens['subject'] = str_replace(
-            '[report-end-date]',
-            date("d/m/Y", strtotime($this->dates['EndDate'])),
-            $tokens['subject']
-          );
+          $tokens['body'] = $enabled_setting ? str_replace($report_tokens[$report_type], $token['report'], $body) : $body;
+          $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
+          $tokens['subject'] = str_replace('[report-start-date]', date("d/m/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
+          $tokens['subject'] = str_replace('[report-end-date]', date("d/m/Y", strtotime($this->dates['EndDate'])), $tokens['subject']);
 
           // Debug Mode: Print results on screen or send to mail.
-          if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'dpm')) {
+          if (FALSE && !empty($debug_mode) && FALSE !== strpos($debug_mode, 'dpm')) {
             print ($tokens['subject']);
             print ($token['report']);
           }
-          elseif (!empty($debug_mode) && strpos($debug_mode, 'email')) {
+          elseif (FALSE && !empty($debug_mode) && strpos($debug_mode, 'email')) {
             $debug_email = explode('email', $debug_mode);
             $debug_email = end($debug_email);
 
@@ -1033,14 +903,8 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
    * @return mixed
    *   Rendered value.
    */
-  public function createReportTable(
-    $location_id,
-    $type = 'leadership',
-    $enabled_setting = TRUE
-  ) {
-    $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t(
-      'Branch Name'
-    );
+  public function createReportTable($location_id, $type = 'leadership', $enabled_setting = TRUE) {
+    $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t('Branch Name');
 
     switch ($type) {
       case "pt_managers":
@@ -1049,9 +913,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
         }
 
         // Get locations ref.
-        $location_repository = \Drupal::service(
-          'ymca_mappings.location_repository'
-        );
+        $location_repository = \Drupal::service('ymca_mappings.location_repository');
         $location = $location_repository->findByLocationId($location_id);
         $location = is_array($location) ? reset($location) : $location;
         if ($location) {
@@ -1137,7 +999,6 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           }
           $data['summary'] = $this->reports['locations']['total'];
           $data['summary']['name'] = t('ALL BRANCHES');
-//          unset($this->reports['locations']['total']);
           $data['rows'] = $this->reports['locations'];
           // Sort by names.
           $names = [];
