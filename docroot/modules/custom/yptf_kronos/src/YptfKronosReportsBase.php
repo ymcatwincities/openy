@@ -228,4 +228,12 @@ class YptfKronosReportsBase implements YptfKronosReportsInterface {
     return NULL;
   }
 
+  /**
+   * Return suppressed location IDs (MindBody IDs)
+   * @return array
+   */
+  protected function getSuppressedLocationIds() {
+    return [5];
+  }
+
 }
