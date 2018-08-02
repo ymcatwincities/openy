@@ -791,6 +791,8 @@
       search_center_point: null,
       // Marker designating the center point.
       search_center_marker: null,
+      // The paddings for fitBounds method, depends on marker dimensions.
+      fitBoundsOptions: null,
 
       // Checks if the provider library object has loaded
       libraryIsLoaded: function () {
@@ -817,6 +819,12 @@
         this.map_data = args.map_data;
         this.tags_style = args.tags_style;
         this.locations = this.map_data;
+
+        // Depends on markers' dimensions.
+        this.fitBoundsOptions = {
+          paddingTopLeft: L.point(0, 40),
+          paddingBottomRight: L.point(0, 10)
+        };
 
         this.marker_image_url = args.marker_image_url || null;
         this.shadow_image_url = args.shadow_image_url || null;
@@ -928,30 +936,13 @@
             self.search_center_point = L.latLng(data[0].lat, data[0].lon);
 
             if (data[0].boundingbox) {
-              if (
-                  data[0].boundingbox[0] != data[0].boundingbox[1] ||
-                  data[0].boundingbox[2] != data[0].boundingbox[3]
-              ) {
-                self.map.fitBounds([
-                  [data[0].boundingbox[0], data[0].boundingbox[2]],
-                  [data[0].boundingbox[1], data[0].boundingbox[3]]
-                ]);
-              }
-              else {
-                var bounds = L.latLngBounds();
-                bounds.extend(self.search_center_point);
-                // Don't zoom in too far on only one marker
-                if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
-                  var extendPoint1 = L.latLng(bounds.getNorthEast().lat + 0.001, bounds.getNorthEast().lng + 0.001);
-                  var extendPoint2 = L.latLng(bounds.getNorthEast().lat - 0.001, bounds.getNorthEast().lng - 0.001);
-                  bounds.extend(extendPoint1);
-                  bounds.extend(extendPoint2);
-                }
-                self.map.fitBounds(bounds);
-              }
+              var bounds = L.latLngBounds();
+              bounds.extend(L.latLng(data[0].boundingbox[0], data[0].boundingbox[2]));
+              bounds.extend(L.latLng(data[0].boundingbox[1], data[0].boundingbox[3]));
+              self.map.fitBounds(bounds, self.fitBoundsOptions);
             }
 
-            self.search_center = self.map.getCenter();
+            self.search_center = self.search_center_point;
             self.draw_search_center();
             self.apply_distance_limit();
           }
@@ -976,15 +967,14 @@
           this.search_center = this.map.getCenter();
         }
         this.distance_limit = '';
-        this.search_center_marker.setLatLng(this.search_center_point);
-        this.search_center_marker.setOpacity(1);
+        this.search_center_marker.setOpacity(0);
         var bounds = L.latLngBounds();
         for (var i = 0; i < locations.length; i++) {
           var loc = locations[i];
           bounds.extend(loc.point);
           loc.marker.setOpacity(1);
         }
-        this.map.fitBounds(bounds);
+        this.map.fitBounds(bounds, this.fitBoundsOptions);
 
         // Redraw locations list.
         for (var l = 0; l < this.locations.length; l++) {
@@ -1035,6 +1025,7 @@
         }
         this.redraw_map_locations();
         this.draw_list_locations();
+        this.set_url_parameters();
       },
 
       locate_me_onclick: function (evt) {
@@ -1097,7 +1088,6 @@
           }
         }
       },
-
 
       // Applies the current checkbox state of the tag filter controls
       // to the internal filters data structure.
@@ -1404,7 +1394,7 @@
           bounds.extend(extendPoint1);
           bounds.extend(extendPoint2);
         }
-        this.map.fitBounds(bounds);
+        this.map.fitBounds(bounds, this.fitBoundsOptions);
       },
 
       // Updates locations on the map by setting their visibility
@@ -1461,18 +1451,7 @@
       },
 
       init_map_locations: function () {
-        var self = this;
         var locations = this.locations;
-
-        var f = function (infowindow, marker) {
-          return function () {
-            for (var i = 0; i < self.locations.length; i++) {
-              self.locations[i].infowindow.close();
-            }
-            infowindow.open(this.map, marker);
-          };
-        };
-
         var iconOptionsKeys = ['iconSize', 'shadowSize', 'iconAnchor', 'shadowAnchor', 'popupAnchor'];
 
         for (var i = 0; i < locations.length; i++) {
