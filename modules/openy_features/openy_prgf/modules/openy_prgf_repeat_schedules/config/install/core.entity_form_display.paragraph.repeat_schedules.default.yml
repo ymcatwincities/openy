@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_categ
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_ref
     - paragraphs.paragraphs_type.repeat_schedules
@@ -12,6 +13,15 @@ targetEntityType: paragraph
 bundle: repeat_schedules
 mode: default
 content:
+  field_prgf_repeat_schedule_categ:
+    weight: 102
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_prgf_repeat_schedules_pref:
     weight: 101
     settings:
