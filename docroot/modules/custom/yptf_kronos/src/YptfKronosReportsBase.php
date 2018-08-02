@@ -186,7 +186,7 @@ class YptfKronosReportsBase implements YptfKronosReportsInterface {
       ['kronos' => 'Burnsville', 'mb' => 'Burnsville YMCA', 'brcode' => 30],
       ['kronos' => 'Eagan', 'mb' => 'Eagan YMCA', 'brcode' => 82],
       ['kronos' => 'Elk River', 'mb' => 'Elk River YMCA', 'brcode' => 34],
-      ['kronos' => 'Emma B Howe', 'mb' => 'Emma B. Howe - Coon Rapids YMCA', 'brcode' => 17],
+      ['kronos' => 'Emma B Howe', 'mb' => 'Emma B. Howe - Coon Rapids YMCA', 'brcode' => 27],
       ['kronos' => 'Forest Lake', 'mb' => 'Forest Lake YMCA', 'brcode' => 38],
       ['kronos' => 'Hastings', 'mb' => 'Hastings YMCA', 'brcode' => 85],
       ['kronos' => 'Hudson', 'mb' => 'Hudson YMCA', 'brcode' => 84],
