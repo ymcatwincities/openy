@@ -12,7 +12,7 @@
 
     <div class="navbar-controls hidden-xs">
       <span class="navbar-controls__title"><strong>{{ 'Filters'|t }}</strong></span>
-      <a href="{{ url('openy_repeat.schedules_locations') }}">{{ 'Clear all'|t }}</a>
+      <a href="#" class="clear-all">{{ 'Clear all'|t }}</a>
     </div>
 
     <div class="row hidden-sm hidden-md hidden-lg">
@@ -77,7 +77,7 @@
             {{ 'Category'|t }} <i class="fa fa-minus" aria-hidden="true"></i>
           </label>
           <div class="form-group-category collapse in" aria-expanded="true">
-            {% for category in categories %}
+            {% for category in categories %}{{ dump(categories) }}
                 {% set cat_checked = "t" %}
                 {% if checked_categories is not empty and category in checked_categories %}
                   {% set cat_checked = "checked" %}
