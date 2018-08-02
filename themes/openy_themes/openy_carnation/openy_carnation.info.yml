@@ -3,6 +3,7 @@ type: theme
 description: 'YMCA brand compliant and customizable theme.'
 package: YMCA
 core: 8.x
+version: 8.x-1.x-beta
 base theme: false
 libraries:
   - openy_carnation/global-styling

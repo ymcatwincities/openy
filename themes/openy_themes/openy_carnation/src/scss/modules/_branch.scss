@@ -2,7 +2,7 @@
   background: $white;
   color: $gray-400;
   margin: 0;
-  box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 30px 2px rgba($black, 0.15);
 }
 
 a.direction-link {
@@ -190,25 +190,6 @@ a.direction-link {
     }
   }
 
-  // @todo: implement? (save as preferred branch)
-  //.save-link {
-  //  padding-top: 25px;
-  //
-  //  @include media-breakpoint-up(lg) {
-  //    padding-right:20px;
-  //  }
-  //
-  //  a {
-  //    @include cachet();
-  //    font-size: 16px;
-  //    line-height: normal;
-  //
-  //    @include media-breakpoint-up(md) {
-  //      color: $pink;
-  //    }
-  //  }
-  //}
-
   // tab - hours
   #tabs-clock {
     .today-hours > h5 {
@@ -312,7 +293,6 @@ a.direction-link {
 
   .field-updates-queue-update {
     @include media-breakpoint-up(sm) {
-      //@include breakpoint($screen-xs $screen-sm) {
       width: 362px;
       margin: 0 auto;
     }

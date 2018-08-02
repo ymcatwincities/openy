@@ -20,7 +20,7 @@ targetEntityType: node
 bundle: news
 mode: teaser
 content:
-  aaddthis:
+  addthis:
     label: hidden
     type: boolean
     weight: 100

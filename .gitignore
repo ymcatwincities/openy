@@ -9,11 +9,7 @@
 ./build/reports
 ./docroot
 
-
-# Ignore custom theme build artifacts
-#themes/openy_themes/*/dist
-themes/openy_themes/*/node_modules
-
+node_modules
 vendor
 bin
 build/reports

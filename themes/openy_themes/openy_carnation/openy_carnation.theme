@@ -13,13 +13,13 @@ use Drupal\Core\Template\Attribute;
 use Drupal\image\Entity\ImageStyle;
 
 /**
- * Implements hook_preprocess().
+ * Implements hook_preprocess_node().
  */
 function openy_carnation_preprocess_node(&$variables, $hook) {
 
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
     switch ($node->getType()) {
-      // program pages
+      // Program pages.
       case 'program':
         if (!$node->get('field_program_image')->isEmpty()) {
           $uri = $node->get('field_program_image')->entity->get('field_media_image')->entity->uri->value;
@@ -27,7 +27,7 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
         }
         break;
 
-      // program pages
+      // Sub-Program pages.
       case 'program_subcategory':
         if (!$node->get('field_category_image')->isEmpty()) {
           $uri = $node->get('field_category_image')->entity->get('field_media_image')->entity->uri->value;
@@ -39,12 +39,11 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
 }
 
 /**
- * Implements hook_preprocess_node() for the Blog Content Type.
+ * Implements hook_preprocess_node_TYPEID() for the Blog Content Type.
  */
 function openy_carnation_preprocess_node_blog(&$variables) {
   $back_link_title = t('Back to Blog');
   $variables['back_link_title'] = $back_link_title;
-  // @todo move this url out of the theme.
   $variables['back_link_path'] = Url::fromUri('internal:/blog')->toString();
 }
 
@@ -63,7 +62,7 @@ function openy_carnation_preprocess_block(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_page() for page.html.twig.
+ * Implements hook_preprocess_page().
  */
 function openy_carnation_preprocess_page(array &$variables) {
   $variables['relative_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
@@ -89,7 +88,7 @@ function openy_carnation_preprocess_menu_local_task(array &$variables) {
 function openy_carnation_preprocess_input(&$variables) {
   if ($variables['element']['#type'] == 'submit') {
 
-    if ($variables['element']['#value'] == "Preview") {
+    if ($variables['element']['#value'] == t('Preview')) {
       $variables['attributes']['class'][] = 'btn-secondary';
     }
 

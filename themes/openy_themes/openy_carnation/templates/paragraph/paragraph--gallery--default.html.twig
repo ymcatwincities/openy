@@ -48,22 +48,6 @@ set classes = [
 <div{{ attributes.addClass(classes) }}>
   <div class="carousel slide" data-ride="carousel">
 
-    {# thumbs #}
-    {#<ul class="carousel-indicators list-inline">#}
-      {#<li class="list-inline-item active">#}
-        {#<a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#myCarousel">#}
-          {#<img src="http://placehold.it/80x60&amp;text=one" class="img-fluid">#}
-        {#</a>#}
-      {#</li>#}
-    {#</ul>#}
-
-    {# square indicators #}
-    {#<ol class="carousel-indicators">#}
-      {#{% for key, value in content.field_prgf_images['#items'] %}#}
-        {#<li data-target=".carousel" data-slide-to="{{ key }}"{% if key == 0 %} class="active"{% endif %}></li>#}
-      {#{% endfor %}#}
-    {#</ol>#}
-
     <div class="carousel-inner">
       {% for key, value in content.field_prgf_images['#items'] %}
       <div class="carousel-item{% if key == 0 %} active{% endif %}">
