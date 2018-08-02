@@ -19,6 +19,11 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosReportsInterface {
 
   /**
+   * Kronos file url.
+   */
+  const KRONOS_FILE_URL_PATTERN = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFC_';
+
+  /**
    * Config factory.
    *
    * @var ConfigFactory
@@ -124,11 +129,6 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
   protected $kronosReportShiftDays = [0, -7];
 
   /**
-   * Kronos file url.
-   */
-  const KRONOS_FILE_URL_PATTERN = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFC_';
-
-  /**
    * Kronos Training program.
    *
    * @var array
@@ -205,6 +205,11 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
             throw new \Exception(sprintf('Failed to get MindBody Location ID by Personify ID: %d', $item->locNo));
           }
 
+          // Skip this location if it's suppressed.
+          if (in_array($location_id, $this->getSuppressedLocationIds())) {
+            continue;
+          }
+
           $mapping = $mapping_repository_location->findByMindBodyId($location_id);
           $loc_name = $mapping->field_location_name->value;
 
@@ -248,6 +253,21 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
     if ($this->getMindBodyCSVData($this->kronosData)) {
       // Calculate MB data.
       foreach ($this->mindbodyData as $mb_id => $item) {
+        // Get MB location ID.
+        $brCode = $this->getBranchCodeIdByMBLocationName($item['Location']);
+        if (!$brCode) {
+          throw new \Exception(sprintf('Failed to get Personify Location ID by MB Location Name: %s', $item['Location']));
+        }
+        $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($brCode);
+        if (!$location_id) {
+          throw new \Exception(sprintf('Failed to get MindBody Location ID by Personify ID: %d', $item->locNo));
+        }
+
+        // Skip this location if it's suppressed.
+        if (in_array($location_id, $this->getSuppressedLocationIds())) {
+          continue;
+        }
+
         $diff = $item['HoursBooked'];
 
         $staff_id = isset($item['EmpID']) ? $item['EmpID'] : NULL;
@@ -267,31 +287,15 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           $this->addError('Discrepancy', sprintf('No corresponding name for "%s" (%s) has been found in Kronos data.', $item['Staff'], $item['Location']));
         }
 
-        // Get MB location ID.
-        $brCode = $this->getBranchCodeIdByMBLocationName($item['Location']);
-        if (!$brCode) {
-          throw new \Exception(sprintf('Failed to get Personify Location ID by MB Location Name: %s', $item['Location']));
-        }
-        $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($brCode);
-        if (!$location_id) {
-          throw new \Exception(sprintf('Failed to get MindBody Location ID by Personify ID: %d', $item->locNo));
-        }
-
         !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
-        $trainer_reports[$location_id][$staff_id]['mb_hours'] += (float) $diff;
+        $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
         !empty($trainer_name) ? $trainer_reports[$location_id][$staff_id]['name'] = $trainer_name : '';
 
         !isset($location_reports[$location_id]['mb_hours']) ? $location_reports[$location_id]['mb_hours'] = 0 : '';
-        $location_reports[$location_id]['mb_hours'] += (float) $diff;
+        $location_reports[$location_id]['mb_hours'] += $diff;
         !empty($item['Location']) ? $location_reports[$location_id]['name'] = $item['Location'] : '';
       }
     }
-
-    // Suppress data for specific locations.
-    // Dayton at Gaviidae - DT Minneapolis - (MB ID: 5).
-    // https://www.ymcamn.org/admin/content/locations-mapping
-    unset($location_reports[5]);
-    unset($trainer_reports[5]);
 
     // Calculate variance for trainers.
     foreach ($trainer_reports as $location_id => &$trainers) {
@@ -302,23 +306,15 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           $trainer['variance'] = '-';
           $trainer['mb_hours'] = '-';
         }
-        else {
-          $trainer['mb_hours'] = round($trainer['mb_hours'], 2);
-        }
         if (!isset($trainer['wf_hours'])) {
           $wf_flag = FALSE;
           $trainer['variance'] = '-';
           $trainer['wf_hours'] = '-';
         }
-        else {
-          $trainer['wf_hours'] = round($trainer['wf_hours'], 2);
-        }
         if ($mb_flag && $wf_flag) {
           // We can't divide by zero, setting variance to be "-" in that case.
           if ($trainer['wf_hours'] != 0)  {
-            $trainer['variance'] = round(
-              (1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100
-            );
+            $trainer['variance'] = round((1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100);
             $trainer['variance'] .= '%';
           }
           else {
@@ -329,9 +325,6 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
         if (!isset($trainer['historical_hours'])) {
           $trainer['historical_hours'] = '-';
         }
-        else {
-          $trainer['historical_hours'] = round($trainer['historical_hours'], 2);
-        }
       }
     }
 
@@ -341,6 +334,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
       if (!is_array($row)) {
         continue;
       }
+
       if (!isset($row['mb_hours'])) {
         $row['variance'] = '-';
         $row['mb_hours'] = '-';
@@ -350,30 +344,17 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
         $row['wf_hours'] = '-';
       }
       else {
-        $row['mb_hours'] = round($row['mb_hours'], 2);
-        $row['wf_hours'] = round($row['wf_hours'], 2);
-        $row['variance'] = round(
-          (1 - $row['mb_hours'] / $row['wf_hours']) * 100
-        );
+        $row['variance'] = round((1 - $row['mb_hours'] / $row['wf_hours']) * 100);
         $row['variance'] .= '%';
       }
-      isset($row['wf_hours']) ? $loc_total['wf_hours'] += intval(
-        $row['wf_hours']
-      ) : '';
-      isset($row['mb_hours']) ? $loc_total['mb_hours'] += intval(
-        $row['mb_hours']
-      ) : '';
-      isset($row['historical_hours']) ? $loc_total['historical_hours'] += intval(
-        $row['historical_hours']
-      ) : '';
+      isset($row['wf_hours']) ? $loc_total['wf_hours'] += $row['wf_hours'] : '';
+      isset($row['mb_hours']) ? $loc_total['mb_hours'] += $row['mb_hours'] : '';
+      isset($row['historical_hours']) ? $loc_total['historical_hours'] += $row['historical_hours'] : '';
     }
-    $location_reports['total']['wf_hours'] = round($loc_total['wf_hours'], 2);
-    $location_reports['total']['mb_hours'] = round($loc_total['mb_hours'], 2);
+    $location_reports['total']['wf_hours'] = $loc_total['wf_hours'];
+    $location_reports['total']['mb_hours'] = $loc_total['mb_hours'];
     if (isset($loc_total['total']['historical_hours'])) {
-      $location_reports['total']['historical_hours'] = round(
-        $loc_total['total']['historical_hours'],
-        2
-      );
+      $location_reports['total']['historical_hours'] = $loc_total['total']['historical_hours'];
     }
     else {
       $location_reports['total']['historical_hours'] = 0;
@@ -382,9 +363,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
       $location_reports['total']['variance'] = '-';
     }
     else {
-      $location_reports['total']['variance'] = round(
-        (1 - $location_reports['total']['mb_hours'] / $location_reports['total']['wf_hours']) * 100
-      );
+      $location_reports['total']['variance'] = round((1 - $location_reports['total']['mb_hours'] / $location_reports['total']['wf_hours']) * 100);
       $location_reports['total']['variance'] .= '%';
     }
 
