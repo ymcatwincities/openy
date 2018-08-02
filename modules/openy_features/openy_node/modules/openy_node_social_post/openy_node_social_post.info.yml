@@ -6,9 +6,7 @@ version: 8.x-1.0
 package: OpenY
 dependencies:
   - blazy
-  - block
   - content_moderation
-  - ctools
   - datalayer
   - datetime
   - field
@@ -17,7 +15,6 @@ dependencies:
   - link
   - menu_ui
   - node
-  - openy_node_category
   - paragraphs
   - path
   - plugin

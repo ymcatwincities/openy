@@ -9,7 +9,6 @@ dependencies:
   - field_group
   - menu_ui
   - node
-  - openy_node_category
   - path
   - pathauto
   - rabbit_hole
