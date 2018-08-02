@@ -114,7 +114,6 @@ class RepeatController extends ControllerBase {
     return $query->fetchCol();
   }
 
-
   /**
    * Return Categories from chain "Session" -> "Class" -> "Activity" -> "Program sub-category".
    *

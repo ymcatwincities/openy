@@ -16,6 +16,8 @@
     }
   });
 
+  $('.clear-all').attr('href', $('.field-prgf-repeat-schedules-pref a').attr('href'));
+
   var currentDate = moment().format('ll'),
     eventLocation = '',
     eventCategory = '';
@@ -74,9 +76,7 @@
   }
 
   function updateUrl(date, loc, cat) {
-    var url = drupalSettings.path.baseUrl + 'schedules/group-exercise-classes';
-    url += loc ? '/' + loc : '/0';
-    window.history.pushState({}, '', url);
+    router.push({ query: { date: date, locations: loc, categories: cat }});
   }
 
   function changeDateTitle(text) {
@@ -111,9 +111,15 @@
   }
   getValuesCategories();
 
+  var router = new VueRouter({
+      mode: 'history',
+      routes: []
+  });
+
   // Retrieve the data via vue.js.
   new Vue({
     el: '#app',
+    router,
     data: {
       globalData: globalData
     },
@@ -129,6 +135,7 @@
         // this.$root.mounted();
         runAjaxRequest(this, newValue, eventLocation);
         changeDateTitle(newValue);
+        updateUrl(newValue, globalData.location, globalData.category);
       },
       'globalData.location': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, newValue, globalData.category);
@@ -136,6 +143,7 @@
       },
       'globalData.category': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, globalData.location, newValue);
+        updateUrl(currentDate, globalData.location, newValue);
       }
     },
     updated: function() {

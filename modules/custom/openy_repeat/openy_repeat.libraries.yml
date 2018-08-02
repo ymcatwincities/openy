@@ -9,6 +9,7 @@ openy_repeat:
       css/modal.css: {}
   dependencies:
     - openy_repeat/openy_repeat.vue
+    - openy_repeat/openy_repeat.vue_router
     - openy_repeat/openy_repeat.vue.table
     - openy_repeat/open_repeat.moment
     - openy_repeat/open_repeat.bootstrap-datepicker
@@ -17,6 +18,11 @@ openy_repeat.vue:
   version: VERSION
   js:
     js/vue/vue.min.js: {}
+
+openy_repeat.vue_router:
+  version: VERSION
+  js:
+    js/vue/vue-router.js: {}
 
 openy_repeat.vue.table:
   version: VERSION
