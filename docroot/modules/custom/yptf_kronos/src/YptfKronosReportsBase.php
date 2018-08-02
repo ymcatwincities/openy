@@ -10,6 +10,16 @@ namespace Drupal\yptf_kronos;
 class YptfKronosReportsBase implements YptfKronosReportsInterface {
 
   /**
+   * MindBody CSV file format.
+   */
+  const MINDBODY_CSV_FILE_FORMAT = 'MB_%s--%s.csv';
+
+  /**
+   * MindBody CSV dir.
+   */
+  const MINDBODY_CSV_FILE_DIR = 'mb_kronos_reports';
+
+  /**
    * Whether to send emails if there are errors.
    *
    * @var bool
@@ -54,7 +64,11 @@ class YptfKronosReportsBase implements YptfKronosReportsInterface {
    */
   protected function addError($key, $item) {
     // Prevent duplicates.
-    if (!in_array($item, $this->reports['messages']['error_reports'][$key])) {
+    if (
+      isset($this->reports['messages']) &&
+      isset($this->reports['messages']['error_reports']) &&
+      !in_array($item, $this->reports['messages']['error_reports'][$key])
+    ) {
       $this->reports['messages']['error_reports'][$key][] = $item;
     }
   }
@@ -121,7 +135,7 @@ class YptfKronosReportsBase implements YptfKronosReportsInterface {
   protected function getMindBodyCSVData(array $kronosData) {
     $reportDates = $this->getReportDates();
     $fileName = sprintf('MB_%s--%s.csv', $reportDates['StartDate'], $reportDates['EndDate']);
-    $filesDir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/mb_reports';
+    $filesDir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/' . self::MINDBODY_CSV_FILE_DIR;
     $filePath = $filesDir . '/' . $fileName;
 
     if (!file_exists($filePath)) {
@@ -157,6 +171,61 @@ class YptfKronosReportsBase implements YptfKronosReportsInterface {
 
     $this->mindbodyData = $rows;
     return $this->mindbodyData;
+  }
+
+  /**
+   * Returns location mapping.
+   *
+   * @return array
+   *   Mapping array.
+   */
+  protected function getLocationNamesMapping() {
+    return [
+      ['kronos' => 'Andover', 'mb' => 'Andover YMCA', 'brcode' => 32],
+      ['kronos' => 'Blaisdell', 'mb' => 'Blaisdell YMCA', 'brcode' => 14],
+      ['kronos' => 'Burnsville', 'mb' => 'Burnsville YMCA', 'brcode' => 30],
+      ['kronos' => 'Eagan', 'mb' => 'Eagan YMCA', 'brcode' => 82],
+      ['kronos' => 'Elk River', 'mb' => 'Elk River YMCA', 'brcode' => 34],
+      ['kronos' => 'Emma B Howe', 'mb' => 'Emma B. Howe - Coon Rapids YMCA', 'brcode' => 17],
+      ['kronos' => 'Forest Lake', 'mb' => 'Forest Lake YMCA', 'brcode' => 38],
+      ['kronos' => 'Hastings', 'mb' => 'Hastings YMCA', 'brcode' => 85],
+      ['kronos' => 'Hudson', 'mb' => 'Hudson YMCA', 'brcode' => 84],
+      ['kronos' => 'Lino Lakes', 'mb' => 'Lino Lakes YMCA', 'brcode' => 81],
+      ['kronos' => 'Maplewood Comm Ctr', 'mb' => 'Maplewood YMCA', 'brcode' => 87],
+      ['kronos' => 'New Hope', 'mb' => 'New Hope YMCA', 'brcode' => 24],
+      ['kronos' => 'Ridgedale', 'mb' => 'Ridgedale YMCA', 'brcode' => 22],
+      ['kronos' => 'River Valley', 'mb' => 'River Valley YMCA', 'brcode' => 36],
+      ['kronos' => 'Rochester', 'mb' => 'Rochester YMCA', 'brcode' => 50],
+      ['kronos' => 'Shoreview', 'mb' => 'Shoreview YMCA', 'brcode' => 89],
+      ['kronos' => 'Southdale', 'mb' => 'Southdale YMCA', 'brcode' => 20],
+      ['kronos' => 'St Paul Downtown', 'mb' => 'St. Paul Downtown YMCA', 'brcode' => 75],
+      ['kronos' => 'St Paul Eastside', 'mb' => 'St. Paul Eastside YMCA', 'brcode' => 76],
+      ['kronos' => 'West St Paul', 'mb' => 'West St. Paul YMCA', 'brcode' => 70],
+      ['kronos' => 'White Bear Lake', 'mb' => 'White Bear Lake YMCA', 'brcode' => 88],
+      ['kronos' => 'Woodbury', 'mb' => 'Woodbury YMCA', 'brcode' => 83],
+      ['kronos' => 'Mpls Downtown', 'mb' => 'Dayton YMCA', 'brcode' => 17],
+      ['kronos' => 'Heritage Park', 'mb' => 'Cora McCorvey YMCA', 'brcode' => 18],
+      ['kronos' => 'St Paul Midway', 'mb' => 'Midway YMCA', 'brcode' => 77],
+    ];
+  }
+
+  /**
+   * Get Personify ID (branch code in Kronos) by MB location name.
+   *
+   * @param string $name
+   *   MindBody location name.
+   *
+   * @return null
+   */
+  protected function getBranchCodeIdByMBLocationName($name) {
+    $mapping = $this->getLocationNamesMapping();
+    foreach ($mapping as $item) {
+      if (trim($name) === trim($item['mb'])) {
+        return $item['brcode'];
+      }
+    }
+
+    return NULL;
   }
 
 }
