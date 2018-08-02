@@ -47,8 +47,6 @@ set classes = [
 %}
 {{ attach_library('openy_rose/blog_slider') }}
 <div{{ attributes.addClass(classes) }}>
-  <h3 class="h1">
-    {{ content.field_prgf_headline }}
-  </h3>
+  <h1>{{ content.field_prgf_headline }}</h1>
   {{ content.field_fblog_posts }}
 </div>
