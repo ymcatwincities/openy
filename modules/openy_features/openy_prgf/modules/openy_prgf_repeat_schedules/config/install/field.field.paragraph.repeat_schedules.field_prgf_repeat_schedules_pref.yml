@@ -17,7 +17,7 @@ entity_type: paragraph
 bundle: repeat_schedules
 label: 'Schedules page reference'
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
