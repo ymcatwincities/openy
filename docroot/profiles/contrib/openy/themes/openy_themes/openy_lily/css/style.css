@@ -7319,7 +7319,7 @@ legend {
 }
 
 .pre-footer {
-  margin-top: 30px;
+  margin-top: 0;
 }
 
 .social-disclaimer .contextual-region .contextual .contextual-links li {
@@ -7328,7 +7328,7 @@ legend {
 
 #page-footer {
   background: #fff;
-  padding-top: 40px;
+  padding-top: 14px;
   padding-bottom: 14px;
 }
 #page-footer #block-openy-lily-footersocialblock ul li {
@@ -16307,6 +16307,10 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
 }
 .field-prgf-description .textpander .panel-title a h3, .field-prgf-description .content-expander .panel-title a h3 {
   margin: 0;
+}
+
+.featured-highlights-block a:after {
+  display: none;
 }
 
 .paragraph--type--featured-highlights article a:hover .inner-wrapper .blog-heading h3:after {
