@@ -1034,6 +1034,11 @@ body {
   line-height: 51px;
 }
 
+@media (min-width: 48em) and (max-width: 61.9375em) {
+  .navbar-nav > li {
+    float: none;
+  }
+}
 @media (min-width: 62em) and (max-width: 74.9375em) {
   .row-level-2 > li:nth-child(4n + 1) {
     clear: both;
@@ -16570,6 +16575,11 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   z-index: 1000;
 }
 
+@media (min-width: 768px) {
+  .navbar-nav > li {
+    float: left;
+  }
+}
 .page_home .pre-footer {
   margin-top: 0;
 }
