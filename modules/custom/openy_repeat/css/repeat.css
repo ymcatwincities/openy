@@ -325,6 +325,7 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 
 /* Hide values of fields so they can be accessed by javascript only. */
 .field-prgf-repeat-schedules-pref,
-.field-prgf-repeat-schedule-categ {
+.field-prgf-repeat-schedule-categ,
+.field-prgf-repeat-schedule-instr {
 	display: none;
 }

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_categ
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_instr
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_ref
     - paragraphs.paragraphs_type.repeat_schedules
@@ -21,6 +22,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_prgf_repeat_schedule_instr:
+    weight: 103
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_prgf_repeat_schedules_pref:
     weight: 101
