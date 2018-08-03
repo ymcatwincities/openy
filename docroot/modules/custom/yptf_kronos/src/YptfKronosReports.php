@@ -9,14 +9,30 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Render\Renderer;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 /**
  * Class YptfKronosReports.
  *
  * @package Drupal\yptf_kronos
  */
-class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosReportsInterface {
+class YptfKronosReports {
+
+  /**
+   * MindBody CSV file format.
+   */
+  const MINDBODY_CSV_FILE_FORMAT = 'MB_%s--%s.csv';
+
+  /**
+   * MindBody CSV dir.
+   */
+  const MINDBODY_CSV_FILE_DIR = 'mb_kronos_reports';
+
+  /**
+   * Whether to send emails if there are errors.
+   *
+   * @var bool
+   */
+  protected $sendWithErrors = TRUE;
 
   /**
    * Kronos file url.
@@ -71,13 +87,6 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
    * @var array
    */
   protected $mindbodyData;
-
-  /**
-   * The StaffIDs.
-   *
-   * @var array
-   */
-  protected $staffIDs;
 
   /**
    * The Reports data.
@@ -452,295 +461,6 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
   }
 
   /**
-   * Get MB data.
-   *
-   * @return bool|string
-   *   MindBody ID.
-   */
-  public function getMindbodyData() {
-    $this->mindbodyData = FALSE;
-
-    $user_credentials = [
-      'Username' => $this->credentials->get('user_name'),
-      'Password' => $this->credentials->get('user_password'),
-      'SiteIDs' => [$this->credentials->get('site_id')],
-    ];
-
-    // Calculate dates for the MB request.
-    $start_time_report = strtotime($this->dates['StartDate']);
-    if (empty($this->dates['mbEndDate'])) {
-      $this->dates['mbEndDate'] = $this->dates['EndDate'];
-      $start_time_calc = strtotime(
-        $this->dates['mbEndDate'] . ' -' . ceil(
-          14 / $this->numberOfRequest
-        ) . ' days'
-      );
-      if ($start_time_calc > $start_time_report) {
-        $this->dates['mbStartDate'] = date('Y-m-d', $start_time_calc);
-      }
-      else {
-        $this->dates['mbStartDate'] = $this->dates['StartDate'];
-      }
-    }
-    else {
-      if (empty($this->dates['mbStartDate'])) {
-        return FALSE;
-      }
-      $this->dates['mbEndDate'] = date(
-        'Y-m-d',
-        strtotime($this->dates['mbStartDate'] . ' -1 day')
-      );
-      if (strtotime($this->dates['mbEndDate']) < $start_time_report) {
-        return FALSE;
-      }
-      $start_time_calc = strtotime(
-        $this->dates['mbEndDate'] . ' -' . ceil(
-          14 / $this->numberOfRequest
-        ) . ' days'
-      );
-      if ($start_time_calc > $start_time_report) {
-        $this->dates['mbStartDate'] = date('Y-m-d', $start_time_calc);
-      }
-      else {
-        $this->dates['mbStartDate'] = $this->dates['StartDate'];
-      }
-    }
-
-    $params = [
-      'PageSize' => 50,
-      'CurrentPageIndex' => 0,
-      'FunctionName' => 'YMCAGTC_ApptMetrics',
-      'FunctionParams' => [
-        [
-          'ParamName' => '@startDate',
-          'ParamValue' => $this->dates['mbStartDate'],
-          'ParamDataType' => 'string',
-        ],
-        [
-          'ParamName' => '@endDate',
-          'ParamValue' => $this->dates['mbEndDate'],
-          'ParamDataType' => 'string',
-        ],
-      ],
-    ];
-
-    // Get MB cache for debug mode.
-    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get(
-      'debug'
-    );
-
-    // Never use cache files!
-    if (FALSE && !empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
-      // New service to add.
-      // Saving a file with a path.
-      $cache_dir = \Drupal::service('file_system')->realpath(
-        file_default_scheme() . "://"
-      );
-      $cache_dir = $cache_dir . '/mb_reports';
-      $file = $cache_dir . '/MB_' . $this->dates['EndDate'] . '.json';
-      $mb_data_file = file_get_contents($file);
-      if (!$mb_data_file) {
-        $result = $this->proxy->call(
-          'DataService',
-          'FunctionDataXml',
-          $params,
-          FALSE
-        );
-        $this->mindbodyData = $result->FunctionDataXmlResult->Results;
-
-        if (!file_exists($cache_dir)) {
-          mkdir($cache_dir, 0764, TRUE);
-        }
-        file_put_contents($file, json_encode($this->mindbodyData));
-      }
-      else {
-        $this->mindbodyData = json_decode($mb_data_file);
-      }
-    }
-
-    if (empty($this->mindbodyData)) {
-      try {
-        // Send notifications.
-        $result = $this->proxy->call(
-          'DataService',
-          'FunctionDataXml',
-          $params,
-          FALSE
-        );
-        $this->mindbodyData = $result->FunctionDataXmlResult->Results;
-      } catch (\Exception $e) {
-        $msg = 'Error: %error . Failed to get the data from MindBody. Request MB params: %params.';
-        $this->logger->notice(
-          $msg,
-          [
-            '%error' => $e->getMessage(),
-            '%params' => print_r($params, TRUE),
-          ]
-        );
-        $this->reports['messages']['error_reports']['Failed request for MB report data:'][] = t(
-          'Error: %error . Failed to get the data from MindBody. Request MB params: %params. Contact the MindBody team.',
-          [
-            '%error' => $e->getMessage(),
-            '%params' => print_r($params, TRUE),
-          ]
-        );
-        return FALSE;
-      }
-
-    }
-
-    if (isset($result->Row) && !empty($result->Row) && $first_row = reset(
-          $result->Row
-        ) && !empty($first_row)) {
-      $this->mindbodyData = $result->Row;
-    }
-    elseif (isset($result->SoapClient)) {
-      try {
-        $last_response = $result->SoapClient->__getLastResponse();
-        $encoder = new XmlEncoder();
-        $data = $encoder->decode($last_response, 'xml');
-        $parsed_data = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult'];
-      } catch (\Exception $e) {
-        $msg = 'Error: %error . Failed to get SoapClient->lastResponse from MindBody request for: %params.';
-        $this->logger->notice(
-          $msg,
-          [
-            '%error' => $e->getMessage(),
-            '%params' => $params,
-          ]
-        );
-      }
-
-      if (isset($parsed_data['Status']) && $parsed_data['Status'] == 'Success') {
-        if (isset($parsed_data['Results']['Row'])) {
-          $this->mindbodyData = $parsed_data['Results']['Row'];
-        }
-        else {
-          $msg = 'Failed to get data from SoapClient->lastResponse from MindBody request for: %params.';
-          $this->logger->notice(
-            $msg,
-            [
-              '%params' => $params,
-            ]
-          );
-          return FALSE;
-        }
-      }
-      else {
-        $msg = 'Failed to get data from SoapClient->lastResponse from MindBody request for: %params.';
-        $this->logger->notice(
-          $msg,
-          [
-            '%params' => $params,
-          ]
-        );
-        return FALSE;
-      }
-    }
-
-    return $this->mindbodyData;
-  }
-
-  /**
-   * Get MB ID by StaffID.
-   *
-   * @param string $staff_id
-   *   Staff ID.
-   *
-   * @return bool|string
-   *   MindBody ID.
-   */
-  public function getMindbodyidbyStaffId($staff_id) {
-    if (!empty($this->staffIDs[$staff_id])) {
-      return $this->staffIDs[$staff_id];
-    }
-
-    $staff_params = [
-      'PageSize' => 50,
-      'CurrentPageIndex' => 0,
-      'FunctionName' => 'YMCAGTC_GetEmpID',
-      'FunctionParams' => [
-        'FunctionParam' => [
-          'ParamName' => '@staffID',
-          'ParamValue' => $staff_id,
-          'ParamDataType' => 'string',
-        ],
-      ],
-    ];
-
-    $mb_staff_id = $mb_server_fails = FALSE;
-    try {
-      // Send notifications.
-      $staff_id_call = $this->proxy->call(
-        'DataService',
-        'FunctionDataXml',
-        $staff_params,
-        TRUE
-      );
-      $mb_staff_id = $staff_id_call->FunctionDataXmlResult->Results;
-    } catch (\Exception $e) {
-      $mb_server_fails = TRUE;
-      $msg = 'Error: %error . Failed to get the Employee ID from MindBody. Request MB params: %params.';
-      $this->logger->notice(
-        $msg,
-        [
-          '%error' => $e->getMessage(),
-          '%params' => $staff_id,
-        ]
-      );
-    }
-
-    if (isset($mb_staff_id->Row->EmpID) && !empty($mb_staff_id->Row->EmpID)) {
-      $this->staffIDs[$staff_id] = $mb_staff_id->Row->EmpID;
-      return $mb_staff_id->Row->EmpID;
-    }
-    elseif (isset($staff_id_call->SoapClient)) {
-
-      try {
-        $last_response = $staff_id_call->SoapClient->__getLastResponse();
-        $encoder = new XmlEncoder();
-        $data = $encoder->decode($last_response, 'xml');
-        $parsed_data = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult'];
-      } catch (\Exception $e) {
-        $msg = 'Error: %error . Failed to get SoapClient->lastResponse from MindBody request for staffID: %params.';
-        $this->logger->notice(
-          $msg,
-          [
-            '%error' => $e->getMessage(),
-            '%params' => $staff_id,
-          ]
-        );
-      }
-
-      if (isset($parsed_data['Status']) && $parsed_data['Status'] == 'Success') {
-        if ($parsed_data['ResultCount'] == 1) {
-          if (isset($parsed_data['Results']['Row']['EmpID'])) {
-            $empID = $parsed_data['Results']['Row']['EmpID'];
-            $this->staffIDs[$staff_id] = $empID;
-            return $empID;
-          }
-        }
-        elseif ($parsed_data['ResultCount'] > 1) {
-          $msg = 'Multiple Employee ID from MindBody. Staff ID: %params.';
-          $this->logger->notice($msg, ['%params' => $staff_id]);
-          if (isset($parsed_data['Results']['Row'])) {
-            $empID = $parsed_data['Results']['Row'];
-            return $empID;
-          }
-        }
-      }
-    }
-    if (empty($empID)) {
-      $msg = 'Failed to get the Employee ID from MindBody. Staff ID: %params.';
-      $this->logger->notice($msg, ['%params' => $staff_id]);
-      if ($mb_server_fails) {
-        return 0;
-      }
-    }
-    return FALSE;
-  }
-
-  /**
    * Send reports.
    */
   public function sendReports() {
@@ -810,59 +530,29 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           $tokens['subject'] = str_replace('[report-start-date]', date("d/m/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
           $tokens['subject'] = str_replace('[report-end-date]', date("d/m/Y", strtotime($this->dates['EndDate'])), $tokens['subject']);
 
-          // Debug Mode: Print results on screen or send to mail.
-          if (FALSE && !empty($debug_mode) && FALSE !== strpos($debug_mode, 'dpm')) {
-            print ($tokens['subject']);
-            print ($token['report']);
+          // Check whether we need to send the emails.
+          if ($this->hasErrors() && $this->sendWithErrors == FALSE) {
+            continue;
           }
-          elseif (FALSE && !empty($debug_mode) && strpos($debug_mode, 'email')) {
-            $debug_email = explode('email', $debug_mode);
-            $debug_email = end($debug_email);
 
-            // Check whether we need to send the emails.
-            if ($this->hasErrors() && $this->sendWithErrors == FALSE) {
-              continue;
-            }
-
-            try {
-              // Send notifications.
-              $this->mailManager->mail(
-                'yptf_kronos',
-                'yptf_kronos_reports',
-                $debug_email,
-                $lang,
-                $tokens
-              );
-            } catch (\Exception $e) {
-              $msg = 'Failed to send email report. Error: %error';
-              $this->logger->notice($msg, ['%error' => $e->getMessage()]);
-            }
-          }
-          else {
-            // Check whether we need to send the emails.
-            if ($this->hasErrors() && $this->sendWithErrors == FALSE) {
-              continue;
-            }
-
-            try {
-              // Send notifications.
-              $this->mailManager->mail(
-                'yptf_kronos',
-                'yptf_kronos_reports',
-                $recipient->field_staff_email->getValue()[0]['value'],
-                $lang,
-                $tokens
-              );
-            } catch (\Exception $e) {
-              $msg = 'Failed to send email report. Error: %error';
-              $this->logger->notice($msg, ['%error' => $e->getMessage()]);
-              $this->reports['messages']['error_reports']['Failed to send email. Email server issue:'][] = t(
-                'Failed to send email report. Error: %error . Contact the FFW team.',
-                [
-                  '%error' => print_r($e->getMessage(), TRUE),
-                ]
-              );
-            }
+          try {
+            // Send notifications.
+            $this->mailManager->mail(
+              'yptf_kronos',
+              'yptf_kronos_reports',
+              $recipient->field_staff_email->getValue()[0]['value'],
+              $lang,
+              $tokens
+            );
+          } catch (\Exception $e) {
+            $msg = 'Failed to send email report. Error: %error';
+            $this->logger->notice($msg, ['%error' => $e->getMessage()]);
+            $this->reports['messages']['error_reports']['Failed to send email. Email server issue:'][] = t(
+              'Failed to send email report. Error: %error . Contact the FFW team.',
+              [
+                '%error' => print_r($e->getMessage(), TRUE),
+              ]
+            );
           }
         }
       }
@@ -930,10 +620,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           $data['messages'] = '';
           if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
             $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
-            $admin_emails = $config = $this->configFactory->get(
-              'yptf_kronos.settings'
-            )
-              ->get('admin_emails');
+            $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')->get('admin_emails');
             $data['admin_mail_raw'] = '';
             $data['admin_mail'] = '';
             if (!empty($admin_emails)) {
@@ -1007,9 +694,7 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
    */
   public function sendErrorReports() {
     if (isset($this->reports['messages']['error_reports'])) {
-      $admin_emails = $config = $this->configFactory->get(
-        'yptf_kronos.settings'
-      )->get('admin_emails');
+      $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')->get('admin_emails');
       if (!empty($admin_emails)) {
         $admin_emails = explode(',', $admin_emails);
         foreach ($admin_emails as $index => $email) {
@@ -1040,11 +725,208 @@ class YptfKronosReports extends YptfKronosReportsBase implements YptfKronosRepor
           } catch (\Exception $e) {
             $msg = 'Failed to send Error email report. Error: %error';
             $this->logger->notice($msg, ['%error' => $e->getMessage()]);
-
           }
         }
       }
     }
+  }
+
+  /**
+   * Get Personify ID (branch code in Kronos) by MB location name.
+   *
+   * @param string $name
+   *   MindBody location name.
+   *
+   * @return null
+   */
+  protected function getBranchCodeIdByMBLocationName($name) {
+    $mapping = $this->getLocationNamesMapping();
+    foreach ($mapping as $item) {
+      if (trim($name) === trim($item['mb'])) {
+        return $item['brcode'];
+      }
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Return suppressed location IDs (MindBody IDs)
+   *
+   * @return array
+   *   List of MindBody location IDs to suppress.
+   */
+  protected function getSuppressedLocationIds() {
+    return [5];
+  }
+
+  /**
+   * Check whether reports has errors.
+   *
+   * @return bool
+   *   TRUE if there are errors.
+   */
+  protected function hasErrors() {
+    if (isset($this->reports['messages']['error_reports']) && !empty($this->reports['messages']['error_reports'])) {
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * Add error to the array of errors.
+   *
+   * @param $key
+   *   Error key. Will be marked with bold in the email.
+   * @param $item
+   *   Error description.
+   */
+  protected function addError($key, $item) {
+    // Prevent duplicates.
+    if (
+      isset($this->reports['messages']) &&
+      isset($this->reports['messages']['error_reports']) &&
+      !in_array($item, $this->reports['messages']['error_reports'][$key])
+    ) {
+      $this->reports['messages']['error_reports'][$key][] = $item;
+    }
+  }
+
+  /**
+   * Get empNo from raw Kronos data.
+   *
+   * @param string $name
+   *   First + Last names.
+   * @param array $kronosData
+   *   Raw kronos data.
+   *
+   * @return bool
+   *   String if something found. FALSE if there is no match.
+   */
+  protected function getEmpIdByNameFromKronosData($name, array $kronosData) {
+    foreach ($kronosData as $item) {
+      $computedName = sprintf('%s %s', $item->firstName, $item->lastName);
+      if (trim($computedName) == trim($name)) {
+        return $item->empNo;
+      }
+    }
+
+    return FALSE;
+  }
+
+  /**
+   * Returns report dates.
+   *
+   * @return mixed
+   *   Array with "StartDate" & "EndDate".
+   *
+   * @throws \Exception
+   */
+  protected function getReportDates() {
+    if (!isset($this->dates)) {
+      throw new \Exception('Failed to get dates for report generating.');
+    }
+
+    $dates = $this->dates;
+
+    if (!isset($dates["StartDate"]) || empty($dates["StartDate"])) {
+      throw new \Exception('Failed to get start date for the report.');
+    }
+
+    if (!isset($dates["EndDate"]) || empty($dates["EndDate"])) {
+      throw new \Exception('Failed to get end date for the report.');
+    }
+
+    return $dates;
+  }
+
+  /**
+   * Get data from exported MindBody CSV file.
+   *
+   * @param array $kronosData
+   *   Raw Kronos data.
+   *
+   * @return array
+   *   List of rows with MindBody data.
+   *
+   * @throws \Exception
+   */
+  protected function getMindBodyCSVData(array $kronosData) {
+    $reportDates = $this->getReportDates();
+    $fileName = sprintf('MB_%s--%s.csv', $reportDates['StartDate'], $reportDates['EndDate']);
+    $filesDir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/' . self::MINDBODY_CSV_FILE_DIR;
+    $filePath = $filesDir . '/' . $fileName;
+
+    if (!file_exists($filePath)) {
+      $message = sprintf('The file with MindBody data was not found: %s. Please, upload the file', $filePath);
+      throw new \Exception($message);
+    }
+
+    $csvData = file_get_contents($filePath);
+    $lines = explode(PHP_EOL, $csvData);
+    $titles = str_getcsv($lines[1]);
+
+    // Remove headers.
+    array_splice ($lines, 0,2);
+
+    $rows = [];
+    $notFound = [];
+    foreach ($lines as $i => $line) {
+      // Skip the last empty line.
+      if (empty($line)) {
+        continue;
+      }
+
+      $row = str_getcsv($line);
+      $rows[$i] = array_combine($titles, $row);
+      $empId = $this->getEmpIdByNameFromKronosData($rows[$i]['Staff'], $kronosData);
+      if ($empId) {
+        $rows[$i]['EmpID'] = $empId;
+      }
+      else {
+        $notFound[] = $rows[$i]['Staff'];
+      }
+    }
+
+    $this->mindbodyData = $rows;
+    return $this->mindbodyData;
+  }
+
+  /**
+   * Returns location mapping.
+   *
+   * @return array
+   *   Mapping array.
+   */
+  protected function getLocationNamesMapping() {
+    return [
+      ['kronos' => 'Andover', 'mb' => 'Andover YMCA', 'brcode' => 32],
+      ['kronos' => 'Blaisdell', 'mb' => 'Blaisdell YMCA', 'brcode' => 14],
+      ['kronos' => 'Burnsville', 'mb' => 'Burnsville YMCA', 'brcode' => 30],
+      ['kronos' => 'Eagan', 'mb' => 'Eagan YMCA', 'brcode' => 82],
+      ['kronos' => 'Elk River', 'mb' => 'Elk River YMCA', 'brcode' => 34],
+      ['kronos' => 'Emma B Howe', 'mb' => 'Emma B. Howe - Coon Rapids YMCA', 'brcode' => 27],
+      ['kronos' => 'Forest Lake', 'mb' => 'Forest Lake YMCA', 'brcode' => 38],
+      ['kronos' => 'Hastings', 'mb' => 'Hastings YMCA', 'brcode' => 85],
+      ['kronos' => 'Hudson', 'mb' => 'Hudson YMCA', 'brcode' => 84],
+      ['kronos' => 'Lino Lakes', 'mb' => 'Lino Lakes YMCA', 'brcode' => 81],
+      ['kronos' => 'Maplewood Comm Ctr', 'mb' => 'Maplewood YMCA', 'brcode' => 87],
+      ['kronos' => 'New Hope', 'mb' => 'New Hope YMCA', 'brcode' => 24],
+      ['kronos' => 'Ridgedale', 'mb' => 'Ridgedale YMCA', 'brcode' => 22],
+      ['kronos' => 'River Valley', 'mb' => 'River Valley YMCA', 'brcode' => 36],
+      ['kronos' => 'Rochester', 'mb' => 'Rochester YMCA', 'brcode' => 50],
+      ['kronos' => 'Shoreview', 'mb' => 'Shoreview YMCA', 'brcode' => 89],
+      ['kronos' => 'Southdale', 'mb' => 'Southdale YMCA', 'brcode' => 20],
+      ['kronos' => 'St Paul Downtown', 'mb' => 'St. Paul Downtown YMCA', 'brcode' => 75],
+      ['kronos' => 'St Paul Eastside', 'mb' => 'St. Paul Eastside YMCA', 'brcode' => 76],
+      ['kronos' => 'West St Paul', 'mb' => 'West St. Paul YMCA', 'brcode' => 70],
+      ['kronos' => 'White Bear Lake', 'mb' => 'White Bear Lake YMCA', 'brcode' => 88],
+      ['kronos' => 'Woodbury', 'mb' => 'Woodbury YMCA', 'brcode' => 83],
+      ['kronos' => 'Mpls Downtown', 'mb' => 'Dayton YMCA', 'brcode' => 17],
+      ['kronos' => 'Heritage Park', 'mb' => 'Cora McCorvey YMCA', 'brcode' => 18],
+      ['kronos' => 'St Paul Midway', 'mb' => 'Midway YMCA', 'brcode' => 77],
+    ];
   }
 
 }
