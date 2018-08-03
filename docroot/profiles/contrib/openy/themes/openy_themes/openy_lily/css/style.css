@@ -7319,16 +7319,24 @@ legend {
 }
 
 .pre-footer {
-  margin-top: 0;
+  margin-top: 30px;
 }
 
 .social-disclaimer .contextual-region .contextual .contextual-links li {
   width: auto;
 }
 
+.page_home .pre-footer r {
+  margin-top: 0;
+}
+
+.page_home #page-footer {
+  padding-top: 14px;
+}
+
 #page-footer {
   background: #fff;
-  padding-top: 14px;
+  padding-top: 40px;
   padding-bottom: 14px;
 }
 #page-footer #block-openy-lily-footersocialblock ul li {
