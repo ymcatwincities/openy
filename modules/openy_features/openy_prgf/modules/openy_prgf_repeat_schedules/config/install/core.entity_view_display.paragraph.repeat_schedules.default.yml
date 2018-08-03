@@ -15,7 +15,7 @@ mode: default
 content:
   field_prgf_repeat_schedule_categ:
     weight: 2
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
