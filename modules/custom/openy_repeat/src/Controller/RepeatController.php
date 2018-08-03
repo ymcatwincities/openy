@@ -93,6 +93,11 @@ class RepeatController extends ControllerBase {
     $query = $connection->query($sql, $values);
     $result = $query->fetchAll();
 
+    $locations_info = $this->getLocationsInfo();
+    foreach ($result as $key => $item) {
+      $result[$key]->location_info = $locations_info[$item->location];
+    }
+
     return new JsonResponse($result);
   }
 
@@ -102,7 +107,7 @@ class RepeatController extends ControllerBase {
    * @return array
    */
   public function getLocations() {
-    $sql = "SELECT DISTINCT nd.title as location 
+    $sql = "SELECT DISTINCT nd.title as location
             FROM {node} n
             INNER JOIN node__field_session_location l ON n.nid = l.entity_id AND l.bundle = 'session'
             INNER JOIN node_field_data nd ON l.field_session_location_target_id = nd.nid
@@ -112,6 +117,35 @@ class RepeatController extends ControllerBase {
     $query = $connection->query($sql);
 
     return $query->fetchCol();
+  }
+
+  /**
+   * Get detailed info about Location (aka branch).
+   */
+  public function getLocationsInfo() {
+    $sql = "SELECT DISTINCT
+              n.nid,
+              nd.title,
+              em.field_location_email_value as email,
+              ph.field_location_phone_value as phone,
+              concat_ws(' ', ad.field_location_address_locality, ad.field_location_address_address_line1, ad.field_location_address_postal_code, ad.field_location_address_administrative_area, ad.field_location_address_country_code) AS address
+            FROM {node} n
+            INNER JOIN node__field_location_email em ON n.nid = em.entity_id AND em.bundle = 'branch'
+            INNER JOIN node__field_location_phone ph ON n.nid = ph.entity_id AND ph.bundle = 'branch'
+            INNER JOIN node__field_location_address ad ON n.nid = ph.entity_id AND ph.bundle = 'branch'
+            INNER JOIN node_field_data nd ON n.nid = nd.nid
+            WHERE n.type = 'branch'";
+
+    $connection = \Drupal::database();
+    $query = $connection->query($sql);
+    $select_data = $query->fetchAll();
+
+    $data = [];
+    foreach ($select_data as $item) {
+      $data[$item->title] = $item;
+    }
+
+    return $data;
   }
 
   /**
