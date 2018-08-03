@@ -197,3 +197,22 @@ function openy_node_alert_update_8006() {
     'field.field.node.alert.field_alert_visibility_state',
   ]);
 }
+
+/**
+ * Rename alert blocks configs.
+ */
+function openy_node_alert_update_8007() {
+  $configs = [
+    'views_block__alerts_footer_alerts' => 'openy_rose_views_block__alerts_footer_alerts',
+    'views_block__alerts_footer_alerts_local' => 'openy_rose_views_block__alerts_footer_alerts_local',
+    'views_block__alerts_header_alerts' => 'openy_rose_views_block__alerts_header_alerts',
+    'views_block__alerts_header_alerts_local' =>'openy_rose_views_block__alerts_header_alerts_local',
+  ];
+  foreach ($configs as $old_id => $new_id) {
+    \Drupal::configFactory()
+      ->rename('block.block.' . $old_id, 'block.block.' . $new_id);
+    \Drupal::configFactory()->getEditable('block.block.' . $new_id)
+      ->set('id', $new_id)
+      ->save(TRUE);
+  }
+}
