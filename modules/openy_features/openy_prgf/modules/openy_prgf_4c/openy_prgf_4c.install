@@ -6,17 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_4c_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', '4c');
-  \Drupal::configFactory()
-    ->getEditable('language.content_settings.paragraph.4c')
-    ->delete();
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_prgf_4c_update_dependencies() {

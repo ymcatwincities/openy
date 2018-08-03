@@ -4,6 +4,8 @@ namespace Drupal\openy_system;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\RfcLogLevel;
+use Drupal\Core\Config\FileStorage;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 
@@ -20,13 +22,81 @@ class OpenyModulesManager {
   protected $entityTypeManager;
 
   /**
+   * The contact settings config object.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * Configs prefixes that protected from manual deleting.
+   *
+   * This configs will be deleted with entity bundle removing automatically,
+   * so no need to remove them manually.
+   *
+   * @var array
+   * @see OpenyModulesManager->removeEntityBundle().
+   */
+  protected $protectedConfigPrefixes = [
+    'core.entity_form_display',
+    'field.field',
+    'field.storage',
+    'paragraphs.paragraphs_type',
+    'node.type',
+    'media_entity.bundle',
+    'taxonomy.vocabulary',
+    'block_content.type',
+  ];
+
+  /**
+   * Configs prefixes that contain entity bundles and protected from deleting.
+   *
+   * This configs will be deleted with entity bundle removing automatically,
+   * so no need to remove them manually.
+   *
+   * @var array
+   * @see OpenyModulesManager->removeEntityBundle().
+   */
+  protected $entityBundlesConfigPrefixes = [
+    'node' => [
+      'prefix' => 'node.type',
+      'config_entity_type' => 'node_type',
+      'bundle_field' => 'type',
+    ],
+    'paragraph' => [
+      'prefix' => 'paragraphs.paragraphs_type',
+      'config_entity_type' => 'paragraphs_type',
+      'bundle_field' => 'type',
+    ],
+    // TODO: fix media_entity info after switching to core media.
+    'media_entity' => [
+      'prefix' => 'media_entity.bundle',
+      'config_entity_type' => 'media_bundle',
+      'bundle_field' => 'type',
+    ],
+    'taxonomy_term' => [
+      'prefix' => 'taxonomy.vocabulary',
+      'config_entity_type' => 'taxonomy_vocabulary',
+      'bundle_field' => 'vid',
+    ],
+    'block_content' => [
+      'prefix' => 'block_content.type',
+      'config_entity_type' => 'block_content_type',
+      'bundle_field' => 'type',
+    ],
+  ];
+
+  /**
    * Constructs a OpenyModulesManager object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -241,6 +311,104 @@ class OpenyModulesManager {
 
     $link = Link::fromTextAndUrl($link_text, $url)->toRenderable();
     return render($link);
+  }
+
+  /**
+   * Remove non-protected configs that related to module from active storage.
+   *
+   * @param array $module_configs
+   *   Module configs to delete.
+   */
+  public function removeModuleConfigs(array $module_configs) {
+    $module_configs_filtered = array_filter($module_configs, [$this, 'filterConfigsList']);
+    if (empty($module_configs_filtered)) {
+      return;
+    }
+    foreach ($module_configs_filtered as $config) {
+      $this->configFactory->getEditable($config)->delete();
+    }
+  }
+
+  /**
+   * Callback function for array_filter.
+   *
+   * Check if config name contain protected prefix.
+   *
+   * @param string $config_name
+   *   Config for checking.
+   *
+   * @return bool
+   *   Return FALSE if config contain protected config prefix.
+   */
+  public function filterConfigsList($config_name) {
+    foreach ($this->protectedConfigPrefixes as $prefix) {
+      if (strpos($config_name, $prefix) !== FALSE) {
+        return FALSE;
+      }
+    }
+    return TRUE;
+  }
+
+  /**
+   * Find entity bundles in module configs list.
+   *
+   * @param array $module_configs
+   *   Module configs.
+   *
+   * @return array
+   *   Entities list with entity info.
+   */
+  public function getEntityBundles(array $module_configs) {
+    $list = [];
+    foreach ($this->entityBundlesConfigPrefixes as $entity_type => $data) {
+      $filtered_array = preg_grep('/^' . $data['prefix'] . '.*/', $module_configs);
+      if (empty($filtered_array)) {
+        continue;
+      }
+
+      foreach ($filtered_array as $config_name) {
+        // Example - paragraphs.paragraphs_type.blog_posts_listing.
+        // Example - taxonomy.vocabulary.amenities.
+        // Example - node.type.landing_page.
+        // Last array item always entity bundle name.
+        $entity_info = explode('.', $config_name);
+        $list[] = [
+          'entity_type' => $entity_type,
+          'config_entity_type' => $data['config_entity_type'],
+          'bundle' => end($entity_info),
+          'bundle_field' => $data['bundle_field'],
+        ];
+      }
+    }
+
+    return $list;
+  }
+
+  /**
+   * Uninstall action for OpenY modules.
+   *
+   * @param string $module_name
+   *   Module for uninstall.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   *
+   * @see openy_system_modules_uninstalled
+   */
+  public function postUninstall($module_name) {
+    // Get install and optional configs list for module_name.
+    $module_path = drupal_get_path('module', $module_name);
+    $file_storage_install = new FileStorage($module_path . '/config/install');
+    $module_install_configs = $file_storage_install->listAll();
+    $file_storage_optional = new FileStorage($module_path . '/config/optional');
+    $module_optional_configs = $file_storage_optional->listAll();
+    // Find entity bundles based on configs list.
+    $entity_bundles_list = $this->getEntityBundles($module_install_configs);
+    foreach ($entity_bundles_list as $data) {
+      // Delete entity data for bundle and config entity type.
+      $this->removeEntityBundle($data['entity_type'], $data['config_entity_type'], $data['bundle'], $data['bundle_field']);
+    }
+    $this->removeModuleConfigs(array_merge($module_install_configs, $module_optional_configs));
   }
 
 }

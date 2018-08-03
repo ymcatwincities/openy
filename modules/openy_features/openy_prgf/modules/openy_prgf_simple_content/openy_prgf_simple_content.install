@@ -6,14 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_simple_content_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'simple_content');
-}
-
-/**
  * Update description for field.
  */
 function openy_prgf_simple_content_update_8001() {

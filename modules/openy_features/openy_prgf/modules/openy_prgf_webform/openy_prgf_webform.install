@@ -6,14 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_webform_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'webform');
-}
-
-/**
  * Remove DataLayer from dependency in the field instance.
  */
 function openy_prgf_webform_update_8001() {

@@ -6,26 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_small_banner_uninstall() {
-  // Remove small_banner content and paragraph type.
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'small_banner');
-
-  // Remove other module configs.
-  $config_factory = \Drupal::configFactory();
-  $configs_to_delete = [
-    'image.style.prgf_small_banner',
-    'core.entity_view_display.media.image.prgf_small_banner',
-    'core.entity_view_mode.media.prgf_small_banner',
-  ];
-  foreach ($configs_to_delete as $config) {
-    $config_factory->getEditable($config)->delete();
-  }
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_prgf_small_banner_dependencies() {

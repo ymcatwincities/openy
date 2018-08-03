@@ -6,14 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_embedded_groupexpro_schedule_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'embedded_groupexpro_schedule');
-}
-
-/**
  * Update Paragraph Embedded GroupEx Pro Schedule field_prgf_block.
  */
 function openy_prgf_embedded_groupexpro_schedule_update_8001() {

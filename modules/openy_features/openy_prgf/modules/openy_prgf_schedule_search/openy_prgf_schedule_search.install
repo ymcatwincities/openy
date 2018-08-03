@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_schedule_search_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'schedule_search_form');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'schedule_search_list');
-}
-
-/**
  * Update Paragraph Schedule Search field_prgf_block.
  */
 function openy_prgf_schedule_search_update_8001() {

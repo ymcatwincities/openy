@@ -6,18 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_loc_finder_uninstall() {
-  $modules_manager = \Drupal::service('openy.modules_manager');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'prgf_location_finder_filters');
-  $modules_manager->removeEntityBundle('paragraph', 'paragraphs_type', 'prgf_location_finder');
-  \Drupal::configFactory()
-    ->getEditable('views.view.locations')
-    ->delete();
-}
-
-/**
  * Add new field to Location Finder Filters paragraph.
  */
 function openy_prgf_loc_finder_update_8001() {

@@ -6,28 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_social_post_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('node', 'node_type', 'social_post');
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'social_list');
-
-  $configFactory = \Drupal::configFactory();
-  $configs = [
-    'image.style.social_post_preview',
-    'responsive_image.styles.social_post_preview',
-    'social_feed_fetcher.settings',
-    'views.view.social_posts',
-    'views.view.social_posts_view',
-  ];
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
-}
-
-/**
  * Update responsive image style fallback_image_style.
  */
 function openy_node_social_post_update_8001() {
