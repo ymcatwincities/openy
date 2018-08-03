@@ -106,7 +106,6 @@
       chkArray.push(preSelectedCategory);
       $('.form-group-category').parent().hide();
       $('.category-column').hide();
-      return;
     }
 
     $(".form-group-category .box").each(function() {
@@ -119,6 +118,15 @@
     globalData.category = eventCategory;
   }
   getValuesCategories();
+
+  /* Check the settings of whether to display Instructor column or not */
+  function displayInstructorOrNot() {
+    var instructorDisplay = $('.field-prgf-repeat-schedule-instr').html();
+    if (instructorDisplay != 'Display') {
+      $('.instructor-column').hide();
+    }
+  }
+  displayInstructorOrNot();
 
   var router = new VueRouter({
       mode: 'history',
