@@ -7326,14 +7326,6 @@ legend {
   width: auto;
 }
 
-.page_home .pre-footer {
-  margin-top: 0;
-}
-
-.page_home #page-footer {
-  padding-top: 14px;
-}
-
 #page-footer {
   background: #fff;
   padding-top: 40px;
@@ -16518,6 +16510,14 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   .block-description--4 .block-description--text {
     width: calc(100% / 4 - 30px);
   }
+}
+
+.page_home .pre-footer {
+  margin-top: 0;
+}
+
+.page_home #page-footer {
+  padding-top: 14px;
 }
 
 /*# sourceMappingURL=style.css.map */
