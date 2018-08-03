@@ -478,7 +478,7 @@ class YptfKronosReports {
    * Send reports.
    */
   public function sendReports() {
-    $config = $this->configFactory->get('yptf_kronos.settings');
+    $config = $this->configFactory->get($this->getCurrentConfigName());
 
     $email_type = [
       'leadership' => 'Leadership email',
@@ -619,7 +619,7 @@ class YptfKronosReports {
           $data['messages'] = '';
           if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
             $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
-            $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')->get('admin_emails');
+            $admin_emails = $config = $this->configFactory->get($this->getCurrentConfigName())->get('admin_emails');
             $data['admin_mail_raw'] = '';
             $data['admin_mail'] = '';
             if (!empty($admin_emails)) {
@@ -694,7 +694,7 @@ class YptfKronosReports {
    */
   public function sendErrorReports() {
     if (isset($this->reports['messages']['error_reports'])) {
-      $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')->get('admin_emails');
+      $admin_emails = $config = $this->configFactory->get($this->getCurrentConfigName())->get('admin_emails');
       if (!empty($admin_emails)) {
         $admin_emails = explode(',', $admin_emails);
         foreach ($admin_emails as $index => $email) {
@@ -927,6 +927,27 @@ class YptfKronosReports {
       ['kronos' => 'Heritage Park', 'mb' => 'Cora McCorvey YMCA', 'brcode' => 18],
       ['kronos' => 'St Paul Midway', 'mb' => 'Midway YMCA', 'brcode' => 77],
     ];
+  }
+
+  /**
+   * Get config name depending on day of report.
+   *
+   * @return string
+   *   Config name.
+   *
+   * @throws \Exception
+   */
+  protected function getCurrentConfigName() {
+    $mapping = [
+      'monday' => 'yptf_kronos_monday.settings',
+      'tuesday' => 'yptf_kronos.settings',
+    ];
+
+    if (!array_key_exists($this->reportDay, $mapping)) {
+      throw new \Exception(sprintf('Failed to load config name for day %s', $this->reportDay));
+    }
+
+    return $mapping[$this->reportDay];
   }
 
 }
