@@ -16362,6 +16362,10 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   margin: 0;
 }
 
+.featured-highlights-block a:after {
+  display: none;
+}
+
 .paragraph--type--featured-highlights article a:hover .inner-wrapper .blog-heading h3:after {
   background-color: #428bca;
 }
@@ -16564,6 +16568,14 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
 .sidebar {
   top: 0;
   z-index: 1000;
+}
+
+.page_home .pre-footer {
+  margin-top: 0;
+}
+
+.page_home #page-footer {
+  padding-top: 14px;
 }
 
 /*# sourceMappingURL=style.css.map */
