@@ -323,6 +323,7 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 	}
 }
 
-.field-prgf-repeat-schedules-pref {
+.field-prgf-repeat-schedules-pref,
+.field-prgf-repeat-schedules-pdf {
 	display: none;
 }
