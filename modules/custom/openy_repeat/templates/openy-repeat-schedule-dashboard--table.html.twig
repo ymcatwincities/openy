@@ -64,7 +64,10 @@
             {# time #}
             <div v-cloak>
               <strong>${ item.time }</strong>
-              <p>${ item.duration } {{ 'min'|t }}</p>
+              <p>
+                <span>${ item.duration_hours }{{ 'h'|t }}</span>
+                <span v-if="item.duration_minutes > 0">${ item.duration_minutes }{{ 'min'|t }}</span>
+              </p>
             </div>
 
             {# category #}
