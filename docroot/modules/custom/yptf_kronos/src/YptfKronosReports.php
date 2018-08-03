@@ -3,6 +3,7 @@
 namespace Drupal\yptf_kronos;
 
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
@@ -35,9 +36,11 @@ class YptfKronosReports {
   protected $sendWithErrors = TRUE;
 
   /**
-   * Kronos file url.
+   * Day of report to generate.
+   *
+   * @var string
    */
-  const KRONOS_FILE_URL_PATTERN = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFC_';
+  protected $reportDay;
 
   /**
    * Config factory.
@@ -181,14 +184,41 @@ class YptfKronosReports {
   }
 
   /**
-   * Generate reports.
+   * Generate Reports.
+   *
+   * @param string $day
+   *   Day. 'tuesday' or 'monday'.
+   *
+   * @return bool
+   *   FALSE in case .
    */
-  public function generateReports() {
-    $this->logger->info('Kronos Tuesday email reports generator started.');
-    $this->getInitialDates();
-    $this->sendReports();
-    $this->sendErrorReports();
-    $this->logger->info('Kronos Tuesday email reports generator finished.');
+  public function generateReports($day) {
+    if (!in_array($day, ['tuesday', 'monday'])) {
+      $this->logger->error('Report type "%type" is not supported.', ['%type' => $day]);
+      return FALSE;
+    }
+
+    $this->reportDay = $day;
+
+    try {
+      $this->logger->info(sprintf('Kronos %s email reports generator started.', Unicode::ucfirst($this->reportDay)));
+      $this->getInitialDates();
+      $this->sendReports();
+      $this->sendErrorReports();
+      $this->logger->info(sprintf('Kronos %s email reports generator finished.', Unicode::ucfirst($this->reportDay)));
+    }
+    catch (\Exception $e) {
+      $this->logger->error(
+        'Failed to run reports for %day. Error: %error',
+        [
+          '%day' => Unicode::ucfirst($this->reportDay),
+          '%error' => $e->getMessage()
+        ]
+      );
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
   /**
@@ -403,8 +433,15 @@ class YptfKronosReports {
    *
    * @return array|bool
    *   List of trainers hours.
+   *
+   * @throws \Exception
    */
   public function getKronosData() {
+    $fileMapping = [
+      'monday' => 'WFCMon',
+      'tuesday' => 'WFC'
+    ];
+
     $this->kronosData = FALSE;
     $kronos_report_day = $this->kronosReportDay;
     $kronos_shift_days = $this->kronosReportShiftDays;
@@ -416,47 +453,24 @@ class YptfKronosReports {
     $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day));
     $kronos_data_raw = $kronos_file = '';
     foreach ($kronos_shift_days as $shift) {
-      $kronos_file_name_date = date(
-        'Y-m-d',
-        strtotime($kronos_report_day . $shift . 'days')
-      );
-      $kronos_path_to_file = \Drupal::service('file_system')->realpath(
-        file_default_scheme() . "://"
-      );
-      $kronos_file = $kronos_path_to_file . '/wf_reports/WFC_' . $kronos_file_name_date . '.json';
-      file_exists($kronos_file) ? $kronos_data_raw = file_get_contents(
-        $kronos_file
-      ) : '';
-      if (empty($kronos_data_raw)) {
-        $kronos_file = self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date . '.json';
-        $kronos_data_raw = @file_get_contents($kronos_file);
-      }
+      $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
+      $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+      $file_prefix = $fileMapping[$this->reportDay];
+      $kronos_file = sprintf('%s/wf_reports/%s_%s.json', $kronos_path_to_file, $file_prefix, $kronos_file_name_date);
+
+      file_exists($kronos_file) ? $kronos_data_raw = file_get_contents($kronos_file) : '';
       if (!empty($kronos_data_raw)) {
         break;
       }
     }
 
     if (!$kronos_data_raw) {
-      $msg = 'Failed to get the data from Kronos file %file.';
-      $this->logger->notice($msg, ['%file' => $kronos_file]);
-      $kronos_file_name_date2 = date(
-        'Y-m-d',
-        strtotime($kronos_report_day . reset($kronos_shift_days) . 'days')
-      );
-      $this->reports['messages']['error_reports']['No Kronos file for two weeks:'][] = t(
-        'Failed to get the data from Kronos file %file1 and %file2. Contact the FFW team.',
-        [
-          '%file1' => $kronos_file,
-          '%file2' => self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date2 . '.json',
-        ]
-      );
-      return $this->kronosData;
+      throw new \Exception(sprintf('Failed to load Kronos file: %s', $kronos_file));
     }
+
     $this->dates['EndDate'] = date('Y-m-d', strtotime($kronos_file_name_date));
-    $this->dates['StartDate'] = date(
-      'Y-m-d',
-      strtotime($kronos_file_name_date . ' -13 days')
-    );
+    $this->dates['StartDate'] = date('Y-m-d', strtotime($kronos_file_name_date . ' -13 days'));
+
     return $this->kronosData = json_decode($kronos_data_raw);
   }
 
@@ -465,7 +479,7 @@ class YptfKronosReports {
    */
   public function sendReports() {
     $config = $this->configFactory->get('yptf_kronos.settings');
-    $debug_mode = $config->get('debug');
+
     $email_type = [
       'leadership' => 'Leadership email',
       'pt_managers' => 'PT managers email',
@@ -483,11 +497,7 @@ class YptfKronosReports {
       $enabled_setting = !empty($config->get($report_type)['enabled']) ? $config->get($report_type)['enabled'] : FALSE;
       $enabled_condition = trim(
         strip_tags(
-          str_replace(
-            '&nbsp;',
-            '',
-            $config->get($report_type)['disabled_message']['value']
-          )
+          str_replace('&nbsp;', '', $config->get($report_type)['disabled_message']['value'])
         )
       );
       $enabled_condition = $enabled_setting || !empty($enabled_condition);
@@ -545,14 +555,7 @@ class YptfKronosReports {
               $tokens
             );
           } catch (\Exception $e) {
-            $msg = 'Failed to send email report. Error: %error';
-            $this->logger->notice($msg, ['%error' => $e->getMessage()]);
-            $this->reports['messages']['error_reports']['Failed to send email. Email server issue:'][] = t(
-              'Failed to send email report. Error: %error . Contact the FFW team.',
-              [
-                '%error' => print_r($e->getMessage(), TRUE),
-              ]
-            );
+            throw new \Exception(sprintf('Failed to send email with error: %s', $e->getMessage()));
           }
         }
       }
@@ -571,6 +574,8 @@ class YptfKronosReports {
    *
    * @return mixed
    *   Rendered value.
+   *
+   * @throws \Exception
    */
   public function createReportTable($location_id, $type = 'leadership', $enabled_setting = TRUE) {
     $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t('Branch Name');
@@ -585,20 +590,14 @@ class YptfKronosReports {
         $location_repository = \Drupal::service('ymca_mappings.location_repository');
         $location = $location_repository->findByLocationId($location_id);
         $location = is_array($location) ? reset($location) : $location;
+
         if ($location) {
           $location_mid = $location->field_mindbody_id->getValue()[0]['value'];
         }
         else {
-          $msg = 'No location on site for MB location_id: %params.';
-          $this->logger->notice($msg, ['%params' => $location_id]);
-          $this->reports['messages']['error_reports']['No location mapping based on MB location ID:'][] = t(
-            'No location on site for MB location_id: %params. Contact the FFW team.',
-            [
-              '%params' => print_r($location_id, TRUE),
-            ]
-          );
-          return FALSE;
+          throw new \Exception(sprintf('Failed to find Location MindBody ID, by location ID: %d', $location_id));
         }
+
         $location_name = $location->getName();
         $table = '';
         if ($enabled_setting) {
@@ -649,6 +648,7 @@ class YptfKronosReports {
             '#theme' => 'yptf_kronos_report',
             '#data' => $data,
           ];
+
           // Drush can't render that 'render($variables);' cause it has miss
           // context instead use command below.
           $table = $this->renderer->renderRoot($variables);
