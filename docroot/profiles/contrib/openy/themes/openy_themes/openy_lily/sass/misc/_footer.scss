@@ -1,5 +1,5 @@
 .pre-footer {
-  margin-top: 0;
+  margin-top: 30px;
 }
 
 .social-disclaimer {
@@ -8,9 +8,17 @@
   }
 }
 
+.page_home .pre-footer {
+  margin-top: 0;
+}
+
+.page_home #page-footer {
+  padding-top: 14px;
+}
+
 #page-footer {
   background: $white;
-  padding-top: 14px;
+  padding-top: 40px;
   padding-bottom: 14px;
   #block-openy-lily-footersocialblock {
     ul {
