@@ -111,6 +111,15 @@
   function getValuesCategories() {
     var chkArray = [];
 
+    // If there is preselected category, we hide filters and column.
+    var preSelectedCategory = $('.field-prgf-repeat-schedule-categ a').html();
+    if (preSelectedCategory) {
+      chkArray.push(preSelectedCategory);
+      $('.form-group-category').parent().hide();
+      $('.category-column').hide();
+      return;
+    }
+
     $(".form-group-category .box").each(function() {
       if ($(this).is(':checked')) {
         chkArray.push(this.value);

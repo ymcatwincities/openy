@@ -36,7 +36,7 @@
           </div>
           <div class="schedules-data__group">
             <div>{{ 'Time'|t }}</div>
-            <div>{{ 'Category'|t }}</div>
+            <div class="category-column">{{ 'Category'|t }}</div>
           </div>
           <div class="schedules-data__group">
             <div></div>
@@ -68,7 +68,7 @@
             </div>
 
             {# category #}
-            <div v-cloak>
+            <div v-cloak class="category-column">
               ${ item.category }
             </div>
           </div>
