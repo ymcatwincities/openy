@@ -349,7 +349,7 @@
 
 @include breakpoint($screen-tablet $screen-sm-max) {
   .navbar-nav > li {
-    //float: none;
+    float: none;
   }
 }
 
