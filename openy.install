@@ -943,3 +943,21 @@ function openy_update_8063() {
       ->save(TRUE);
   }
 }
+
+/**
+ * Fix incorrect ids in footer blocks configs according to config name.
+ */
+function openy_update_8065() {
+  $configs = [
+    'footermenucenter' => 'openy_rose_fmenu_center',
+    'footermenuleft' => 'openy_rose_fmenu_left',
+    'footermenuright' => 'openy_rose_fmenu_right',
+  ];
+  foreach ($configs as $old_id => $new_id) {
+    \Drupal::configFactory()
+      ->rename('block.block.' . $old_id, 'block.block.' . $new_id);
+    \Drupal::configFactory()->getEditable('block.block.' . $new_id)
+      ->set('id', $new_id)
+      ->save(TRUE);
+  }
+}
