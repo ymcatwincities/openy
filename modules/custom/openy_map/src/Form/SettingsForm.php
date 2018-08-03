@@ -74,7 +74,7 @@ class SettingsForm extends ConfigFormBase {
     $form['map_engine'] = [
       '#type' => 'radios',
       '#options' => [
-        'leaflet' => $this->t('Leaflet + OpenStreetMaps tiles'),
+        'leaflet' => $this->t('Leaflet'),
         'gmaps' => $this->t('Google Maps'),
       ],
       '#default_value' => !empty($config->get('map_engine')) ? $config->get('map_engine') : 'leaflet',
