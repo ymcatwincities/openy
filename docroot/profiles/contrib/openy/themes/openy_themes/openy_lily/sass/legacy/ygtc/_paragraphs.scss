@@ -219,6 +219,12 @@
   }
 }
 
+.featured-highlights-block a {
+  &:after {
+    display: none;
+  }
+}
+
 .paragraph--type--featured-highlights {
   article a:hover .inner-wrapper .blog-heading {
     h3:after {
