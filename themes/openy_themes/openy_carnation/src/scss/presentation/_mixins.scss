@@ -3,7 +3,7 @@
 // 500 - medium
 // 700 - bold
 @mixin cachet($font-weight: 400) {
-  font-family: $headings-font-family;
+  font-family: $font-family-sans-serif;
   font-weight: $font-weight;
 }
 

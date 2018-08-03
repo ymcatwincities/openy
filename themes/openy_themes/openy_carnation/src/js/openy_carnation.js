@@ -166,19 +166,12 @@
       $("input[type='password'][data-eye]").each(function (i) {
         var $this = $(this);
 
-        $this.wrap($("<div/>", {
-          style: 'position:relative'
-        }));
-
-        $this.css({
-          paddingRight: 60
-        });
+        $this.wrap($("<div class='position-relative'>"));
 
         $this.after($("<div/>", {
           html: 'Show',
-          class: 'btn btn-primary btn-sm',
+          class: 'btn btn-primary btn-sm passeye-toggle',
           id: 'passeye-toggle-' + i,
-          style: 'position:absolute;right:10px;top:50%;transform:translate(0,-50%);padding: 2px 7px;font-size:12px;cursor:pointer;'
         }));
 
         $this.after($("<input/>", {

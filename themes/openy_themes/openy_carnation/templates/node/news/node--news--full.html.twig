@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display a node.
+ * Default theme implementation to display a node.
  *
  * Available variables:
  * - node: The node entity with limited access to object properties and methods.
@@ -65,11 +65,10 @@
  *
  * @see template_preprocess_node()
  *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
+ * @ingroup themeable
  */
 #}
+
 {%
   set classes = [
     'node',
@@ -103,6 +102,7 @@
           {% if content.addthis is not empty %}
             {{ content.addthis }}
           {% endif %}
+
         </div>
       </article>
     </div>

@@ -43,16 +43,12 @@
   {% if multiple %}
     <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
       {% for item in items %}
-        {#<div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>#}
-          {{ item.content }}
-        {#</div>#}
+        {{ item.content }}
       {% endfor %}
     </div>
   {% else %}
     {% for item in items %}
-      {#<div{{ attributes.addClass(field_name|clean_class) }}>#}
-        {{ item.content }}
-      {#</div>#}
+      {{ item.content }}
     {% endfor %}
   {% endif %}
 {% else %}
@@ -62,9 +58,7 @@
     <div>
       {% endif %}
       {% for item in items %}
-        {#<div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>#}
-          {{ item.content }}
-        {#</div>#}
+        {{ item.content }}
       {% endfor %}
       {% if multiple %}
     </div>

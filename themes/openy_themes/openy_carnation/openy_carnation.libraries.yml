@@ -9,7 +9,7 @@ global-styling:
     dist/js/popper.min.js: {}
     dist/js/bootstrap.min.js: {}
     dist/js/jquery.matchHeight.min.js: {}
-    dist/js/openy_carnation.min.js: {}
+    src/js/openy_carnation.js: {}
 
   dependencies:
     - core/jquery.once

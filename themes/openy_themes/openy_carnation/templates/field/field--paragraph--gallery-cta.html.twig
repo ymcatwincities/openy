@@ -43,8 +43,7 @@
   <div class="carousel-inner" role="listbox">
     {% if multiple %}
       {% for key, item in items %}
-        <div
-            class="item {% if key == 0 %} active{% endif %}">{{ item.content }}</div>
+        <div class="item {% if key == 0 %} active{% endif %}">{{ item.content }}</div>
       {% endfor %}
     {% else %}
       {% for item in items %}
@@ -52,13 +51,13 @@
       {% endfor %}
     {% endif %}
   </div>
-  <a class="left carousel-control" href="#carousel" role="button"
-     data-slide="prev">
+
+  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
     <span class="sr-only">{{ 'Previous'|t }}</span>
   </a>
-  <a class="right carousel-control" href="#carousel" role="button"
-     data-slide="next">
+
+  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">{{ 'Next'|t }}</span>
   </a>

@@ -1,27 +1,4 @@
 .program-header {
-  //.content {
-  //  .image {
-  //    margin: -130px 0 0;
-  //    position: absolute !important;
-  //    right: 0;
-  //    height: 260px;
-  //    padding-right: 0;
-  //    text-align: right;
-  //    top: 50%;
-  //
-  //    img {
-  //      height: 260px;
-  //      width: auto;
-  //      display: inline;
-  //      position: static !important;
-  //    }
-  //  }
-  //}
-  //
-  //&.program-header-sub-category .content {
-  //  min-height: 260px;
-  //}
-
   .description {
     .field-program-description {
       @include cachet();
@@ -132,11 +109,11 @@
         background-image: none;
         border: 1px solid transparent;
         border-radius: 4px;
-        background-color: #b92f9e;
+        background-color: $pink;
         color: $white;
 
         &:hover {
-          background-color: #92288d;
+          background-color: $indigo;
         }
       }
     }
@@ -154,7 +131,7 @@
 }
 
 #schedules-search-listing-wrapper .branch-hours-wrapper .card {
-  background-color: #b93f9e;
+  background-color: $pink;
 }
 
 
@@ -386,7 +363,7 @@
     clear: both;
 
     @include media-breakpoint-up(sm) {
-      background-color: rgba(0, 136, 208, 0.25);
+      background-color: rgba($blue, 0.25);
       padding-top: 15px;
       padding-bottom: 15px;
     }
@@ -515,7 +492,6 @@
       font-size: 22px;
       line-height: 1;
       color: $primary;
-      //margin: 40px 0 27px;
 
       a {
         text-decoration: none;

@@ -71,7 +71,7 @@
       max-width: 100%;
       height: auto;
       border-radius: 8px;
-      box-shadow: 0 3px 30px 2px rgba(0, 0, 0, .05);
+      box-shadow: 0 3px 30px 2px rgba($black, .05);
     }
   }
 
@@ -179,7 +179,7 @@
       height: auto;
       width: 100%;
       border-radius: 8px;
-      box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 3px 30px 2px rgba($black, 0.05);
     }
   }
 

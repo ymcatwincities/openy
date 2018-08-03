@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display a node.
+ * Default theme implementation to display a node.
  *
  * Available variables:
  * - node: The node entity with limited access to object properties and methods.
@@ -65,11 +65,10 @@
  *
  * @see template_preprocess_node()
  *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
+ * @ingroup themeable
  */
 #}
+
 {%
   set classes = [
     'node',
@@ -80,6 +79,7 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
+
 <article{{ attributes.addClass(classes) }}>
   <div{{ content_attributes.addClass('node__content') }}>
     <h3{{ title_attributes.addClass('m-0') }}>{{ label }}</h3>

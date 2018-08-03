@@ -62,17 +62,11 @@
  *   current user is a logged-in member.
  * - is_admin: Flag for admin user status. Will be true when the current user
  *   is an administrator.
- * - content.field_branch_hours: Branch hours
- * - content.field_location_state: Location State (links)
- * - content.field_location_area: Location Area (links)
  *
  * @see template_preprocess_node()
- *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
  */
 #}
+
 {%
   set classes = [
     'node',
@@ -143,5 +137,4 @@
     </span>
 
   </div>
-
 </article>

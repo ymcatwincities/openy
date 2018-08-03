@@ -6,7 +6,7 @@
 }
 
 a.direction-link {
-  font-family: Verdana, sans-serif;
+  font-family: $font-family-base;
   font-size: 16px;
   line-height: 1.5;
   display: block;
@@ -26,7 +26,7 @@ a.direction-link {
   font-size: 16px;
   margin-bottom: 15px;
   line-height: 1.5;
-  font-family: Verdana, sans-serif;
+  font-family: $font-family-base;
 }
 
 .field-location-phone,
@@ -104,12 +104,12 @@ a.direction-link {
         font-size: 16px;
         margin-bottom: 15px;
         line-height: 1.5;
-        font-family: Verdana, sans-serif;
+        font-family: $font-family-base;
       }
     }
 
     a.direction-link {
-      font-family: Verdana, sans-serif;
+      font-family: $font-family-base;
       font-size: 16px;
       line-height: 2;
       display: block;
@@ -564,7 +564,7 @@ html.js {
 
   .filters-main-wrapper {
     clear: both;
-    background-color: rgba(0, 136, 208, 0.25);
+    background-color: rgba($blue, 0.25);
     position: relative;
 
     @include media-breakpoint-up(sm) {
@@ -675,7 +675,7 @@ html.js {
   }
 
   h4 {
-    font-family: Verdana, sans-serif;
+    font-family: $font-family-base;
     font-size: 14px;
     text-transform: uppercase;
     line-height: 1.2;
@@ -893,7 +893,7 @@ html.js {
 
 .node--type-branch.node--view-mode-class-location h2 {
   font-size: 15px;
-  font-family: Verdana, sans-serif;
+  font-family: $font-family-base;
   font-weight: normal;
   margin: 0;
 }
@@ -965,7 +965,7 @@ html.js {
 }
 
 .sidebar-card_h3 {
-  font-family: Verdana, sans-serif;
+  font-family: $font-family-base;
   text-transform: uppercase;
   color: $gray-400;
   margin: 0 0 25px;

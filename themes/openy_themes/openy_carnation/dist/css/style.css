@@ -8824,7 +8824,7 @@ html.js .branch__updates_queue__button {
 
 .ygs-branch-sessions-form .filters-main-wrapper {
   clear: both;
-  background-color: rgba(0, 136, 208, 0.25);
+  background-color: rgba(0, 137, 208, 0.25);
   position: relative; }
   @media (min-width: 576px) {
     .ygs-branch-sessions-form .filters-main-wrapper {
@@ -9549,49 +9549,49 @@ article .node--view-mode-flexible-content h2 {
   padding-bottom: 0 !important;
   border: 0 !important; }
 
-body .branch-popup {
+.branch-popup {
   border-radius: 0;
   font-family: inherit;
   max-width: 750px;
   min-width: 300px;
   padding: 0;
   z-index: 1031 !important; }
-  body .branch-popup .ui-dialog-titlebar {
+  .branch-popup .ui-dialog-titlebar {
     display: none; }
-  body .branch-popup .ui-dialog-content {
+  .branch-popup .ui-dialog-content {
     padding: 0;
     overflow-x: hidden; }
-    body .branch-popup .ui-dialog-content h3 {
+    .branch-popup .ui-dialog-content h3 {
       font-size: 20px;
       margin-bottom: 15px;
       margin-top: 15px;
       padding-right: 15px;
       color: #0089d0;
       width: 100%; }
-      body .branch-popup .ui-dialog-content h3:after {
+      .branch-popup .ui-dialog-content h3:after {
         content: ":"; }
-    body .branch-popup .ui-dialog-content .form-item-branch {
+    .branch-popup .ui-dialog-content .form-item-branch {
       padding: 15px;
       position: relative;
       border-radius: 0.25rem;
       margin: 0 20px 0 0;
       display: flex;
       align-items: center; }
-      body .branch-popup .ui-dialog-content .form-item-branch:hover {
+      .branch-popup .ui-dialog-content .form-item-branch:hover {
         background-color: #ebebeb; }
-      body .branch-popup .ui-dialog-content .form-item-branch label {
+      .branch-popup .ui-dialog-content .form-item-branch label {
         font-size: 14px;
         margin: 0;
         padding-left: 15px; }
     @media (min-width: 768px) {
-      body .branch-popup .ui-dialog-content .branch-popup-map {
+      .branch-popup .ui-dialog-content .branch-popup-map {
         position: relative;
         overflow: hidden;
         max-height: 100px;
         transition: max-height 0.3s; }
-        body .branch-popup .ui-dialog-content .branch-popup-map:hover {
+        .branch-popup .ui-dialog-content .branch-popup-map:hover {
           max-height: 500px; } }
-  body .branch-popup + .ui-widget-overlay {
+  .branch-popup + .ui-widget-overlay {
     z-index: 1030 !important;
     opacity: 0.5; }
 
@@ -11284,7 +11284,7 @@ a[href="#step2"] {
 .news-related {
   position: relative; }
   .news-related h2 {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Verdana, sans-serif;
     text-transform: uppercase;
     color: #636466 !important;
     margin: 0 0 25px;
@@ -11473,10 +11473,10 @@ body {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-  background-color: #b92f9e;
+  background-color: #c6168d;
   color: #fff; }
   .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button:hover {
-    background-color: #92288d; }
+    background-color: #92278f; }
 
 .ui-dialog form [data-drupal-selector="edit-actions"] .ajax-progress {
   left: auto !important;
@@ -11487,7 +11487,7 @@ body {
   bottom: 10px; }
 
 #schedules-search-listing-wrapper .branch-hours-wrapper .card {
-  background-color: #b93f9e; }
+  background-color: #c6168d; }
 
 #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots {
   display: none; }
@@ -11653,7 +11653,7 @@ body {
   clear: both; }
   @media (min-width: 576px) {
     .sub-category-classes-view .filters-main-wrapper {
-      background-color: rgba(0, 136, 208, 0.25);
+      background-color: rgba(0, 137, 208, 0.25);
       padding-top: 15px;
       padding-bottom: 15px; } }
 
@@ -12358,7 +12358,7 @@ iframe#ga_iframe {
   width: 100%;
   padding: 0 0 20px 0;
   border-radius: 5px;
-  box-shadow: 2px 2px 5px 1px rgba(135, 135, 135, 0.43); }
+  box-shadow: 2px 2px 5px 1px rgba(119, 119, 119, 0.43); }
   .social-post-list .views-element-container .masonry-item p,
   .social-post-list .views-element-container .masonry-item .link,
   .social-post-list .views-element-container .masonry-item .posted {
@@ -12950,6 +12950,27 @@ body.path-user:not(.user-logged-in) {
 
 .login-page .card .card-title {
   margin-bottom: 1.5em; }
+
+.login-page input[type='password'][data-eye] {
+  /* 3 */
+  /* 3 */
+  /* 4 */
+  /* 6 */
+  /* 6 */
+  /* 7 */
+  padding-right: 60px;
+  /* 9 */
+  padding-right: 6rem;
+  /* 9 */ }
+
+.login-page .passeye-toggle {
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: 2px 7px;
+  cursor: pointer; }
 
 .login-page .form-control {
   border-width: 2px; }

@@ -61,35 +61,11 @@
     {% for item in items %}
       {% set ia = item.attributes.addClass(['nav-item nav-level-3 menu-item-' ~ item.title|clean_class]) %}
       <li{{ ia }}>
-        {#{% if item.below %}#}
-          {#<a href="{{ item.url }}" class="nav-link">#}
-            {#{{ item.title }}#}
-          {#</a>#}
-          {#{{ menus.menu_links_level_3(item.below, item, attributes, menu_level) }}#}
-        {#{% else %}#}
-          <a href="{{ item.url }}" class="nav-link">
-            {{ item.title }}
-          </a>
-        {#{% endif %}#}
+        <a href="{{ item.url }}" class="nav-link">
+          {{ item.title }}
+        </a>
       </li>
     {% endfor %}
     </ul>
   {% endif %}
 {% endmacro %}
-
-{#{% macro menu_links_level_3(items, parent, attributes, menu_level) %}#}
-  {#{% import _self as menus %}#}
-  {#{% if items %}#}
-    {#<ul class="row-level-3">#}
-      {#{% set ia = parent.attributes %}#}
-      {#{% set ia = ia.addClass('nav-level-4') %}#}
-      {#{% for item in items %}#}
-        {#{% set ia = item.attributes %}#}
-        {#{% set ia = ia.addClass('nav-level-4') %}#}
-        {#<li{{ ia }}>#}
-          {#{{ link(item.title, item.url) }}#}
-        {#</li>#}
-      {#{% endfor %}#}
-    {#</ul>#}
-  {#{% endif %}#}
-{#{% endmacro %}#}

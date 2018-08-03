@@ -58,7 +58,7 @@
     <div class="description slick-mobile row">
       {% endif %}
       {% for item in items %}
-        <div{{ attributes.addClass(field_name|clean_class, 'col-12 col-md-6 col-lg-4').removeClass('wrapper-' ~ field_name|clean_class, 'description slick-mobile row ') }}>{{ item.content }}</div>
+        <div{{ attributes.addClass(field_name|clean_class, 'col-12 col-md-6 col-lg-4').removeClass('wrapper-' ~ field_name|clean_class, 'description slick-mobile row') }}>{{ item.content }}</div>
       {% endfor %}
       {% if multiple %}
     </div>
