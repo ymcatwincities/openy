@@ -25,7 +25,7 @@
       </div>
 
       <div class="col-xs-7">
-        <a class="btn btn-md btn-block btn-schedule-pdf disabled">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
+        <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
       </div>
     </div>
 
@@ -40,7 +40,7 @@
           {{ 'Date'|t }} <i class="fa fa-calendar date-picker" aria-hidden="true"></i>
         </label>
         <div class="form-group-date collapse" aria-expanded="false">
-          <div class="date" id="datepicker" data-date-format="MM dd, yyyy">
+          <div class="date" id="datepicker" data-date-format="MM d, DD">
             <input type="text" class="form-control" />
             <span class="input-group-addon hidden">
               <span class="fa fa-calendar" aria-hidden="true"></span>
@@ -77,7 +77,7 @@
             {{ 'Category'|t }} <i class="fa fa-minus" aria-hidden="true"></i>
           </label>
           <div class="form-group-category collapse in" aria-expanded="true">
-            {% for category in categories %}{{ dump(categories) }}
+            {% for category in categories %}
                 {% set cat_checked = "t" %}
                 {% if checked_categories is not empty and category in checked_categories %}
                   {% set cat_checked = "checked" %}

@@ -18,7 +18,7 @@
 
   $('.clear-all').attr('href', $('.field-prgf-repeat-schedules-pref a').attr('href'));
 
-  var currentDate = moment().format('ll'),
+  var currentDate = moment().format('MMMM D, dddd'),
     eventLocation = '',
     eventCategory = '';
 
@@ -30,23 +30,27 @@
   };
 
   $("#datepicker input").val(currentDate);
-  $('#datepicker input').on('change', function() {
-    if (this.value != '') {
-      currentDate = moment(this.value).format('ll');
+  $('#datepicker input').datepicker().on('changeDate', function() {
+    if ($(this).val() != '') {
+      currentDate = moment($(this).datepicker('getDate')).format('MMMM D, dddd');
       globalData.date = currentDate;
     }
   });
 
   $('.schedule-dashboard__arrow.right').on('click', function() {
-    currentDate = moment(currentDate).add(1, 'day').format('ll');
+    currentDate = moment($('#datepicker input').datepicker('getDate')).add(1, 'day').format('MMMM D, dddd');
     globalData.date = currentDate;
-    $("#datepicker input").val(currentDate);
+    var d = $('#datepicker input').datepicker('getDate', '+1d');
+    d.setDate(d.getDate()+1);
+    $("#datepicker input").datepicker('setDate', d);
   });
 
   $('.schedule-dashboard__arrow.left').on('click', function() {
-    currentDate = moment(currentDate).add(-1, 'day').format('ll');
+    currentDate = moment($('#datepicker input').datepicker('getDate')).add(-1, 'day').format('MMMM D, dddd');
     globalData.date = currentDate;
-    $("#datepicker input").val(currentDate);
+    var d = $('#datepicker input').datepicker('getDate', '-1d');
+    d.setDate(d.getDate()+1);
+    $("#datepicker input").datepicker('setDate', d);
   });
 
   $('.form-group-location .box').on('click', function() {
@@ -64,6 +68,13 @@
       .find('i')
       .toggleClass('fa-minus fa-plus');
   });
+
+  // PDF link show/hidden
+  if ($('.field-prgf-repeat-schedules-pdf a').length > 0) {
+    $('.btn-schedule-pdf')
+      .removeClass('hidden')
+      .attr('href', $('.field-prgf-repeat-schedules-pdf a').attr('href'));
+  }
 
   function runAjaxRequest(self, date, loc, cat) {
     var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';

@@ -6,6 +6,7 @@ package: OpenY
 dependencies:
   - datalayer
   - field
+  - link
   - node
   - openy_node_activity
   - openy_node_landing

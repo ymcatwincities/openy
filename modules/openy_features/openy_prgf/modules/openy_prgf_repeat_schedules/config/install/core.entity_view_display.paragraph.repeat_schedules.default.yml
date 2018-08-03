@@ -4,16 +4,30 @@ dependencies:
   config:
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_categ
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_instr
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pdf
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_ref
     - paragraphs.paragraphs_type.repeat_schedules
   module:
+    - link
     - plugin
 id: paragraph.repeat_schedules.default
 targetEntityType: paragraph
 bundle: repeat_schedules
 mode: default
 content:
+  field_prgf_repeat_schedules_pdf:
+    weight: 3
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
   field_prgf_repeat_schedule_categ:
     weight: 2
     label: hidden
@@ -49,4 +63,5 @@ content:
     region: content
 hidden:
   created: true
+  field_prgf_repeat_schedule_categ: true
   uid: true

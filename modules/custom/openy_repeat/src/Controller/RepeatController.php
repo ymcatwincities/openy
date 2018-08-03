@@ -37,7 +37,7 @@ class RepeatController extends ControllerBase {
    */
   public function ajaxScheduler( Request $request, $location, $date, $category) {
     if (empty($date)) {
-      $date = date('d-m-Y 00:00:00');
+      $date = date('F j, l 00:00:00');
     }
     $date = strtotime($date);
 
