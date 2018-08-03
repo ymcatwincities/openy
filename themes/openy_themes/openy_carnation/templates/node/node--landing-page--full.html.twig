@@ -66,6 +66,7 @@
  * @see template_preprocess_node()
  */
 #}
+
 {%
   set header_classes = [
     'landing-header',
@@ -73,15 +74,18 @@
     node.field_lp_layout.value|clean_class,
   ]
 %}
+
 {%
   set header_content_classes = ['content']
 %}
+
 {%
   set content_classes = [
     'landing-content',
     node.field_lp_layout.value|clean_class,
   ]
 %}
+
 {%
   set sidebar_classes = [
     'landing-sidebar',
@@ -130,5 +134,3 @@
 {% if node.field_lp_layout.value != "one_column_clean" %}
 </div>
 {% endif %}
-
-{#{{ content.field_bottom_content }}#}

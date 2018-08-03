@@ -39,20 +39,26 @@
  */
 #}
 {%
-set classes = [
-  'paragraph',
-  'paragraph--type--' ~ paragraph.bundle|clean_class,
-  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-]
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  ]
 %}
+
 {%
-set color = {
-  text: content.field_prgf_block_ref['#items'].entity.field_menu_block_text_color.entity.field_color.value,
-  top: content.field_prgf_block_ref['#items'].entity.field_menu_block_color.0.entity.field_color.value,
-  bottom: content.field_prgf_block_ref['#items'].entity.field_menu_block_color.1.entity.field_color.value
-}
+  set color = {
+    text: content.field_prgf_block_ref['#items'].entity.field_menu_block_text_color.entity.field_color.value,
+    top: content.field_prgf_block_ref['#items'].entity.field_menu_block_color.0.entity.field_color.value,
+    bottom: content.field_prgf_block_ref['#items'].entity.field_menu_block_color.1.entity.field_color.value
+  }
 %}
-{% set text_style = 'color: #' ~ color.text %}
+
+{% set text_style = "" %}
+{% if color.text is not empty %}
+  {% set text_style = "color: #" ~ color.text ~ ";" %}
+{% endif %}
+
 {% set background_style = "" %}
 {% if color.bottom is not empty and color.top is not empty %}
   {% set background_style = "background: linear-gradient(to top, #color_bottom, #color_top);" %}
@@ -61,8 +67,7 @@ set color = {
 {% endif %}
 
 {% block paragraph %}
-  <div class="microsites-menu__wrapper"
-       style="{{ text_style }}; {{ background_style|replace({'color_bottom': color.bottom, 'color_top': color.top}) }}">
+  <div class="microsites-menu__wrapper" style="{{ text_style }} {{ background_style|replace({'color_bottom': color.bottom, 'color_top': color.top}) }}">
     <div{{ attributes.addClass(classes, 'container') }}>
       {% block content %}
         {{ content }}

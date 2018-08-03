@@ -65,11 +65,9 @@
  *
  * @see template_preprocess_node()
  *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
  */
 #}
+
 {%
   set classes = [
     'node',
@@ -80,6 +78,7 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
+
 <article{{ attributes.addClass(classes, 'card').setAttribute('tabindex', '0') }}>
   <h3 class="card-header">{{ label }}</h3>
   <div{{ content_attributes.addClass('node__content card-body') }}>

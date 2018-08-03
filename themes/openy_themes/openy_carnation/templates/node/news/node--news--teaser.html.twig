@@ -2,7 +2,7 @@
 {#
 /**
  * @file
- * Theme override to display a node.
+ * Default theme implementation to display a node.
  *
  * Available variables:
  * - node: The node entity with limited access to object properties and methods.
@@ -66,11 +66,10 @@
  *
  * @see template_preprocess_node()
  *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
+ * @ingroup themeable
  */
 #}
+
 {% set category = content.field_news_category[0]['#title'] %}
 
 {% block image %}
@@ -88,8 +87,8 @@
 {% endblock %}
 
 {% block link %}
-<a href="{{ url }}" rel="bookmark" class="btn-link h5">
-  <span class="text-uppercase font-weight-bold pr-1">{{ 'Continue Reading'|t }}</span>
-  <i class="fa fa-arrow-right text-pink"></i>
-</a>
+  <a href="{{ url }}" rel="bookmark" class="btn-link h5">
+    <span class="text-uppercase font-weight-bold pr-1">{{ 'Continue Reading'|t }}</span>
+    <i class="fa fa-arrow-right text-pink"></i>
+  </a>
 {% endblock %}

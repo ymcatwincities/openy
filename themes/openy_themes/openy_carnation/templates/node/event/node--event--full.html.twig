@@ -65,11 +65,9 @@
  *
  * @see template_preprocess_node()
  *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
  */
 #}
+
 {%
   set classes = [
     'node',
@@ -80,6 +78,7 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
+
 {% set main_class = '' %}
 {% if content.field_sidebar_content|render is not empty %}
   {% set main_class = 'col-sm-8' %}

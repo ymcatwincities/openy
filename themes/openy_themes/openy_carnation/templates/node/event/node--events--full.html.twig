@@ -65,11 +65,9 @@
  *
  * @see template_preprocess_node()
  *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
  */
 #}
+
 {%
   set classes = [
     'node',
@@ -82,62 +80,71 @@
 %}
 
 <article{{ attributes.addClass(classes) }}>
-<div class="container">
-  <div class="col-xs-12">
-   {{ title_prefix }}
-     <h1{{ title_attributes }}>
-       {{ label }}
-     </h1>
-   {{ title_suffix }}  
-  </div>
- <div class="info-row">
-        <div class="col-xs-12">
-          <div class="row event-info header-info">
-            <div class="inner">
-              <div class="col-xs-12 col-md-8">
-                <div class="row">
-                  <div class="column col-xs-12 col-md-6 address-wrapper info-item-wrapper">
-                    <div class="event-info-inner-wrapper">
-                     <div class="location-title">
-                       {{ content.field_event_location }}
-                       {{ content.field_branch_address }}
-                       {{ content.field_direction }}
-                     </div> 
-                    </div>
-                  </div>
-                  <div class="column col-xs-12 col-md-6 data-wrapper info-item-wrapper">
-                    <div class="event-info-inner-wrapper">
-                     <div class="branch-address">
-                      {{ content.field_event_date_time }}
-                      {{ content.field_calendar }}
-                     </div>
+  <div class="container">
+
+    <div class="col-xs-12">
+      {{ title_prefix }}
+      <h1{{ title_attributes }}>
+        {{ label }}
+      </h1>
+      {{ title_suffix }}
+    </div>
+
+    <div class="info-row">
+      <div class="col-xs-12">
+        <div class="row event-info header-info">
+          <div class="inner">
+
+            <div class="col-xs-12 col-md-8">
+              <div class="row">
+
+                <div class="column col-xs-12 col-md-6 address-wrapper info-item-wrapper">
+                  <div class="event-info-inner-wrapper">
+                    <div class="location-title">
+                      {{ content.field_event_location }}
+                      {{ content.field_branch_address }}
+                      {{ content.field_direction }}
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-xs-12 col-md-4 right-col">
-                <div class="column contact-wrapper info-item-wrapper">
+
+                <div class="column col-xs-12 col-md-6 data-wrapper info-item-wrapper">
                   <div class="event-info-inner-wrapper">
-                    <div class="branch-phone">
-                     <span>Tel:</span> {{ content.field_location_tel }}
-                     <span>Fax:</span> {{ content.field_location_fax_no }}
-                     {{ content.field_location_email_id }}
-                     {{ content.field_sidebar_content }}
+                    <div class="branch-address">
+                      {{ content.field_event_date_time }}
+                      {{ content.field_calendar }}
                     </div>
-                   </div>
                   </div>
-               </div>
+                </div>
+
+              </div>
             </div>
-         </div>
+
+            <div class="col-xs-12 col-md-4 right-col">
+              <div class="column contact-wrapper info-item-wrapper">
+                <div class="event-info-inner-wrapper">
+                  <div class="branch-phone">
+                    <span>Tel:</span> {{ content.field_location_tel }}
+                    <span>Fax:</span> {{ content.field_location_fax_no }}
+                    {{ content.field_location_email_id }}
+                    {{ content.field_sidebar_content }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
-   <div class="event-description">
+
+  <div class="event-description">
     <div class="content-main-region col-md-12">
       <div class="wrapper-field-landing-body">
-       {{ content.body }}
+        {{ content.body }}
       </div>
     </div>
-   </div>
- </div>
-</article>
+  </div>
 
+  </div>
+</article>

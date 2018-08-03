@@ -65,46 +65,53 @@
  *
  * @see template_preprocess_node()
  *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
  */
 #}
-{% set classes = [
-  'node',
-  'node--type-' ~ node.bundle|clean_class,
-  node.isPromoted() ? 'node--promoted',
-  node.isSticky() ? 'node--sticky',
-  not node.isPublished() ? 'node--unpublished',
-  view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-  node.field_blog_style.value ? 'blog-' ~ node.field_blog_style.value|clean_class : 'blog-story',
-] %}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    node.field_blog_style.value ? 'blog-' ~ node.field_blog_style.value|clean_class : 'blog-story',
+  ]
+%}
+
 {% set category_default = node.bundle|clean_class|capitalize %}
 {% set category = content.field_blog_category.0 ? content.field_blog_category.0 : category_default|t %}
-{% set color = 'color: #' ~ content.field_blog_text_color['#items'].entity.field_color.value %}
-{% set bg_color = 'background-color: #' ~ content.field_blog_color['#items'].entity.field_color.value %}
+{% set color = content.field_blog_text_color['#items'].entity.field_color.value ? 'color: #' ~ content.field_blog_text_color['#items'].entity.field_color.value ~ ';' : null %}
+{% set bg_color  = content.field_blog_color['#items'].entity.field_color.value ? 'background-color: #' ~ content.field_blog_color['#items'].entity.field_color.value ~ '; ' : null %}
 
 <article{{ attributes.addClass(classes) }}>
-  <div class="inner-wrapper" style="{{ color }}; {{ bg_color }};">
-    {% if ( node.field_blog_style.value == "photo" ) %}
-      <div>
-    {{ content.field_blog_image }}
-  </div>
+  <div class="inner-wrapper" {% if (node.field_blog_style.value == "color") %} {{ attributes.setAttribute('style', bg_color ~ color) }} {% endif %}>
+
+    {% if (node.field_blog_style.value == "photo") %}
+    <div>
+      {{ content.field_blog_image }}
+    </div>
     {% endif %}
+
     <div class="blog-heading">
-      <h6 style="{{ color }};">{{ category }}</h6>
-      {% if ( node.field_blog_style.value == "story" ) %}
-        <div class="story-card">
-          <div class="quote">
-            <i class="icon"></i>
-          </div>
+      <h6 {% if (node.field_blog_style.value == "color") %} {{ attributes.setAttribute('style', color) }} {% endif %}>
+        {{ category }}
+      </h6>
+
+      {% if (node.field_blog_style.value == "story") %}
+      <div class="story-card">
+        <div class="quote">
+          <i class="icon"></i>
         </div>
+      </div>
       {% endif %}
-      <h2 style="{{ color }};">
+      <h2 {% if (node.field_blog_style.value == "color") %} {{ attributes.setAttribute('style', color) }} {% endif %}>
         <a href="{{ url }}" rel="bookmark">
           {{ label }}
         </a>
       </h2>
     </div>
+
   </div>
 </article>

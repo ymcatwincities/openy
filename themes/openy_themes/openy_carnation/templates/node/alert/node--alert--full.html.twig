@@ -65,18 +65,16 @@
  *
  * @see template_preprocess_node()
  *
- * @todo Remove the id attribute (or make it a class), because if that gets
- *   rendered twice on a page this is invalid CSS for example: two lists
- *   in different view modes.
  */
 #}
+
 <h1>{{ label }}</h1>
-{% set is_header = (field_alert_place['#items'].getString() == 'header') %}
-{% if is_header %}
-  {% include 'node--alert--node-alert-header.html.twig' %}
-{% else %}
-  {% include 'node--alert--node-alert-footer.html.twig' %}
-{% endif %}
+  {% set is_header = (field_alert_place['#items'].getString() == 'header') %}
+  {% if is_header %}
+    {% include 'node--alert--node-alert-header.html.twig' %}
+  {% else %}
+    {% include 'node--alert--node-alert-footer.html.twig' %}
+  {% endif %}
 <ul>
   {{ node.field_alert_belongs.value }}
   {% if node.field_alert_belongs.value is not empty %}
