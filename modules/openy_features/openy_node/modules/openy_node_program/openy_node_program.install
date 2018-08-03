@@ -6,26 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_program_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('node', 'node_type', 'program');
-  $configFactory = \Drupal::configFactory();
-  $configs = [
-    'core.entity_view_display.media.image.node_program_header',
-    'core.entity_view_mode.media.node_program_header',
-    'image.style.node_program_header',
-    'pathauto.pattern.program',
-    'simple_sitemap.bundle_settings.node.program',
-    'metatag.metatag_defaults.node__program',
-  ];
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_node_program_update_dependencies() {
