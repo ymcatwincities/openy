@@ -57,7 +57,7 @@ class RepeatController extends ControllerBase {
               CAST(re.duration % 60 AS CHAR(2)) as duration_minutes,
               re.room,
               re.category,
-              DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i%p') as time
+              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i%p'))) as time
             FROM {node} n
             RIGHT JOIN {repeat_event} re ON re.session = n.nid
             INNER JOIN node_field_data nd ON re.location = nd.nid
