@@ -6,21 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_menu_uninstall() {
-  $configFactory = \Drupal::configFactory();
-  $configs = [
-    'tour.tour.openy-menu-link',
-    'tour.tour.openy-menu-management',
-    'tour.tour.openy-menu-overview',
-  ];
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
-}
-
-/**
  * Update menu tutorials.
  */
 function openy_menu_update_8001() {

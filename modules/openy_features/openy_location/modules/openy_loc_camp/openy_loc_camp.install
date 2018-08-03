@@ -6,23 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_loc_camp_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('node', 'node_type', 'camp');
-
-  $configFactory = \Drupal::configFactory();
-  $configs = [
-    'pathauto.pattern.camp',
-    'simple_sitemap.bundle_settings.node.camp',
-  ];
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_loc_camp_update_dependencies() {

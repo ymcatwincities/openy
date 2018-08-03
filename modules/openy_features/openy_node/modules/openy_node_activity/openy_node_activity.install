@@ -6,21 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_activity_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('node', 'node_type', 'activity');
-  $configs = [
-    'pathauto.pattern.activity',
-    'rabbit_hole.behavior_settings.node_type_activity',
-  ];
-  foreach ($configs as $config) {
-    \Drupal::configFactory()->getEditable($config)->delete();
-  }
-}
-
-/**
  * Update Activity for rabbit hole, hiding pages from anonymous users.
  */
 function openy_node_activity_update_8003() {

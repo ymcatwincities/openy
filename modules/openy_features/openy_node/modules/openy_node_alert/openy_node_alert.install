@@ -6,28 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_alert_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('node', 'node_type', 'alert');
-  $config_factory = Drupal::configFactory();
-  $configs_to_delete = [
-    'block.block.views_block__alerts_footer_alerts',
-    'block.block.views_block__alerts_footer_alerts_local',
-    'block.block.views_block__alerts_header_alerts',
-    'block.block.views_block__alerts_header_alerts_local',
-    'pathauto.pattern.alert',
-    'rabbit_hole.behavior_settings.node_type_alert',
-    'views.view.alert_belongs_reference',
-    'views.view.alerts',
-  ];
-  foreach ($configs_to_delete as $config) {
-    $config_factory->getEditable($config)->delete();
-  }
-}
-
-/**
  * Update Alert for rabbit hole, hiding pages from anonymous users.
  */
 function openy_node_alert_update_8001() {

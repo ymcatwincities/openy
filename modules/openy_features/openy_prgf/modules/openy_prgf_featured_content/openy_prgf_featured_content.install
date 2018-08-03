@@ -6,15 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_featured_content_uninstall() {
-  // Remove featured_content content and paragraph type.
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'featured_content');
-}
-
-/**
  * Update description for fields.
  */
 function openy_prgf_featured_content_update_8001() {

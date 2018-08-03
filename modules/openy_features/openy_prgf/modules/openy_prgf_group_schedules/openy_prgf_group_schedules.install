@@ -19,14 +19,6 @@ function openy_prgf_group_schedules_install() {
 }
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_group_schedules_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'group_schedules');
-}
-
-/**
  * Update group schedule field display form from select to autocomplete.
  */
 function openy_prgf_group_schedules_update_8001() {

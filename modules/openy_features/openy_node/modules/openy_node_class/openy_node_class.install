@@ -6,21 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_class_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('node', 'node_type', 'class');
-  $configs = [
-    'pathauto.pattern.class',
-    'simple_sitemap.bundle_settings.node.class',
-  ];
-  foreach ($configs as $config) {
-    \Drupal::configFactory()->getEditable($config)->delete();
-  }
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_node_class_update_dependencies() {

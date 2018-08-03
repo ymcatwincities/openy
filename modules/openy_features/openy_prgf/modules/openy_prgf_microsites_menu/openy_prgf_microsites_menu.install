@@ -6,14 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_microsites_menu_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'microsites_menu');
-}
-
-/**
  * Add field_prgf_ms_menu_hide_menu field to the paragraph.
  */
 function openy_prgf_microsites_menu_update_8001() {

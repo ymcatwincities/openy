@@ -6,20 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_prgf_blog_listing_uninstall() {
-  // Remove blog_posts_listing content and paragraph type.
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('paragraph', 'paragraphs_type', 'blog_posts_listing');
-
-  // Remove other module configs.
-  \Drupal::configFactory()
-    ->getEditable('views.view.listing_blog_posts')
-    ->delete();
-}
-
-/**
  * Update Paragraph Blog Listing filter labels.
  */
 function openy_prgf_blog_listing_update_8001() {

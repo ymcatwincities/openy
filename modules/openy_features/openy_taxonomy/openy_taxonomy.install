@@ -6,21 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_taxonomy_uninstall() {
-  $configFactory = \Drupal::configFactory();
-  $configs = [
-    'tour.tour.openy-taxonomy-overview',
-    'tour.tour.openy-taxonomy-term',
-    'tour.tour.openy-taxonomy-vocabulary',
-  ];
-  foreach ($configs as $config) {
-    $configFactory->getEditable($config)->delete();
-  }
-}
-
-/**
  * Update pager settings in taxonomy term view.
  */
 function openy_taxonomy_update_8001() {

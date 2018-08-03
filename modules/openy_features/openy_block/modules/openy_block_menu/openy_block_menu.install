@@ -6,14 +6,6 @@
  */
 
 /**
- * Implements hook_uninstall().
- */
-function openy_block_menu_uninstall() {
-  \Drupal::service('openy.modules_manager')
-    ->removeEntityBundle('block_content', 'block_content_type', 'menu_block');
-}
-
-/**
  * Import color and text color fields for block menu.
  */
 function openy_block_menu_update_8001() {
