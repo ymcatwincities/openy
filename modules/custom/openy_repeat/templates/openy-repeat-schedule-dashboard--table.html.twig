@@ -99,7 +99,9 @@
             </div>
           </div>
         </div>
-
+        <div id="no-result" v-if="propData.length < 1">
+          <h5>{{ 'No results'|t }}</h5>
+        </div>
       </div>
     </div>
   </results>
