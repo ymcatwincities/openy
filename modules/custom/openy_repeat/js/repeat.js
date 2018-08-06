@@ -3,24 +3,23 @@
     return;
   }
 
-  // Attach the datepicker.
-  $("#datepicker").datepicker({
-    autoclose: true
-  });
-
-  // Close the datepicker when clicking outside.
-  $(document).click(function(e) {
-    var ele = $(e.toElement);
-    if (!ele.hasClass("hasDatepicker") && !ele.hasClass("ui-datepicker") && !ele.hasClass("ui-icon") && !$(ele).parent().parents(".ui-datepicker").length) {
-      $(".hasDatepicker").datepicker("hide");
-    }
-  });
-
   $('.clear-all').attr('href', $('.field-prgf-repeat-schedules-pref a').attr('href'));
 
   var currentDate = moment().format('MMMM D, dddd'),
-    eventLocation = '',
-    eventCategory = '';
+      datepicker = $('#datepicker input'),
+      eventLocation = '',
+      eventCategory = '';
+
+
+  // Attach the datepicker.
+  datepicker.datepicker({
+    format: "MM d, DD",
+    multidate: false,
+    keyboardNavigation: false,
+    forceParse: false,
+    autoclose: true,
+    todayHighlight: true
+  });
 
   var globalData = {
     date: currentDate,
@@ -29,8 +28,7 @@
     table: []
   };
 
-  $("#datepicker input").val(currentDate);
-  $('#datepicker input').datepicker().on('changeDate', function() {
+  datepicker.datepicker().on('changeDate', function() {
     if ($(this).val() != '') {
       currentDate = moment($(this).datepicker('getDate')).format('MMMM D, dddd');
       globalData.date = currentDate;
@@ -38,19 +36,13 @@
   });
 
   $('.schedule-dashboard__arrow.right').on('click', function() {
-    currentDate = moment($('#datepicker input').datepicker('getDate')).add(1, 'day').format('MMMM D, dddd');
+    currentDate = moment(datepicker.datepicker('getDate')).add(1, 'day').format('MMMM D, dddd');
     globalData.date = currentDate;
-    var d = $('#datepicker input').datepicker('getDate', '+1d');
-    d.setDate(d.getDate()+1);
-    $("#datepicker input").datepicker('setDate', d);
   });
 
   $('.schedule-dashboard__arrow.left').on('click', function() {
-    currentDate = moment($('#datepicker input').datepicker('getDate')).add(-1, 'day').format('MMMM D, dddd');
+    currentDate = moment(datepicker.datepicker('getDate')).add(-1, 'day').format('MMMM D, dddd');
     globalData.date = currentDate;
-    var d = $('#datepicker input').datepicker('getDate', '-1d');
-    d.setDate(d.getDate()+1);
-    $("#datepicker input").datepicker('setDate', d);
   });
 
   $('.form-group-location .box').on('click', function() {
@@ -92,6 +84,7 @@
 
   function changeDateTitle(text) {
     $('span.date').text(text);
+    datepicker.datepicker('update', text);
   }
 
   function getValuesLocations() {
