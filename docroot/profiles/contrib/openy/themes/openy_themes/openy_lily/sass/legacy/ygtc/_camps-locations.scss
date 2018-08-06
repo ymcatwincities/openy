@@ -1,0 +1,14 @@
+.paragraph--type--microsites-menu,
+.paragraph--type--camp-menu {
+  .camp-menu-wrapper {
+    .camp-menu {
+      width: 100% !important;
+      text-align: center;
+      li {
+        a {
+          font-family: $font-family-cachet;
+        }
+      }
+    }
+  }
+}
