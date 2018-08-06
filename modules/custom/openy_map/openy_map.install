@@ -9,6 +9,15 @@
  * Implements hook_install().
  */
 function openy_map_install() {
+  _openy_map_absolutize_config_icon_urls();
+}
+
+/**
+ * Helper function.
+ *
+ * Absolutizes config icon urls.
+ */
+function _openy_map_absolutize_config_icon_urls() {
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable('openy_map.settings');
   $icons_config = $config->get('type_icons');
@@ -37,6 +46,7 @@ function openy_map_update_8001() {
 function openy_map_update_8002() {
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable('openy_map.settings');
-  $config->set('map_engine', 'leaflet');
+  $config->set('map_engine', 'gmaps');
   $config->save(TRUE);
+  _openy_map_absolutize_config_icon_urls();
 }
