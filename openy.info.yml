@@ -183,6 +183,8 @@ dependencies:
   - openy_prgf_amenities
   - openy_prgf_lto
   - openy_node_social_post
+  - openy_prgf_repeat_schedules
+  - openy_prgf_repeat_schedules_loc
   # OpenY custom modules
   - openy_addthis
   - openy_branch_selector

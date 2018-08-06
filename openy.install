@@ -901,3 +901,18 @@ function openy_update_8058() {
     'field.field.node.alert.field_alert_visibility_state',
   ]);
 }
+
+/**
+ * Enable PEF paragraphs.
+ */
+function openy_update_8059() {
+  $modules = [
+    'openy_prgf_repeat_schedules',
+    'openy_prgf_repeat_schedules_loc',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
