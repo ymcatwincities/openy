@@ -8435,8 +8435,11 @@ nav#block-footermenuright {
     display: none;
   }
   .toolbar-vertical.sidebar-in #sidebar {
-    margin-top: 52px;
+    margin-top: 39px;
     height: calc(100vh - 39px);
+  }
+  .toolbar-vertical.sidebar-in #sidebar .news {
+    padding-bottom: 50px;
   }
 
   .toolbar-vertical.toolbar-fixed #page-head .top-navs.navbar-fixed-top.affix .nav-global {
@@ -16624,6 +16627,12 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
 .paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li a,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a {
   font-family: "Cachet", Verdana, Arial, sans-serif;
+}
+
+@media screen and (max-width: 767px) {
+  .toolbar-vertical.sidebar-in #sidebar {
+    margin-top: 52px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
