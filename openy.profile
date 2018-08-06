@@ -26,12 +26,12 @@ function openy_install_tasks() {
     'openy_install_features' => [
       'type' => 'batch',
     ],
-//    'openy_select_content' => [
-//      'display_name' => t('Import demo content'),
-//      'display' => TRUE,
-//      'type' => 'form',
-//      'function' => ContentSelectForm::class,
-//    ],
+    'openy_select_content' => [
+      'display_name' => t('Import demo content'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => ContentSelectForm::class,
+    ],
     'openy_import_content' => [
       'type' => 'batch',
     ],
@@ -102,6 +102,37 @@ function openy_gtranslate_place_blocks(array &$install_state) {
 function openy_demo_content_configs_map($key = NULL) {
   // Maps selection to migrations.
   $map = [
+    'complete' => [
+      'openy_demo_nalert' => [],
+      'openy_demo_nbranch' => [],
+      'openy_demo_ncamp' => [],
+      'openy_demo_nblog' => [],
+      'openy_demo_nnews' => [],
+      'openy_demo_nevent' => [],
+      'openy_demo_nfacility' => [],
+      'openy_demo_nlanding' => [],
+      'openy_demo_nmbrshp' => [],
+      'openy_demo_nprogram' => [],
+      'openy_demo_ncategory' => [],
+      'openy_demo_nclass' => [],
+      'openy_demo_nsessions' => [],
+      'openy_demo_menu_main' => [],
+      'openy_demo_menu_footer' => [],
+      'openy_demo_webform' => [],
+      'openy_demo_ahb' => [],
+      'openy_demo_nsocial_post' => [],
+      'openy_demo_tcolor' => [],
+      'openy_demo_tarea' => [],
+      'openy_demo_tblog' => [],
+      'openy_demo_tnews' => [ ],
+      'openy_demo_tfacility' => [],
+      'openy_demo_tamenities' => [],
+      'openy_demo_bfooter' => [],
+      'openy_demo_bmicrosites_menu' => [],
+      'openy_demo_addthis' => [],
+      'openy_demo_bsimple' => [],
+      'openy_demo_bamenities' => [],
+    ],
     'required' => [],
     'optional' => [
       'openy_demo_ahb' => [
@@ -310,63 +341,8 @@ function openy_import_content(array &$install_state) {
   $module_operations = [];
   $migrate_operations = [];
 
-  if (!isset($install_state['openy']['content'])) {
-    $install_state['openy']['content'] = [];
-  }
-
-  if (!empty($install_state['openy']['content']['webform'])) {
-    // Install webform feature - it's not handled as content migration.
-    openy_enable_module('openy_demo_webform');
-    unset($install_state['openy']['content']['webform']);
-  }
-
-  // Import GroupExPro classes. They are not handled as content migration.
-  $importGxp = !empty($install_state['openy']['content']['gxp']);
-  unset($install_state['openy']['content']['gxp']);
-
-  // Build required migrations operations arrays.
-  _openy_import_content_helper($module_operations, $migrate_operations, 'required');
-
-  // Build optional migrations operations arrays, only if at least one option
-  // has been selected.
-  if (!empty($install_state['openy']['content'])) {
-    _openy_import_content_helper($module_operations, $migrate_operations, 'optional');
-  }
-
-  // Add home_alt if landing is not included.
-  if (!in_array('landing', $install_state['openy']['content'])) {
-    $install_state['openy']['content'][] = 'home_alt';
-  }
-
-  if (in_array('programs', $install_state['openy']['content'])) {
-    $install_state['openy']['content'][] = 'categories';
-    $install_state['openy']['content'][] = 'activities';
-    $install_state['openy']['content'][] = 'classes_01';
-    $install_state['openy']['content'][] = 'classes_02';
-    $install_state['openy']['content'][] = 'sessions_01';
-    $install_state['openy']['content'][] = 'sessions_02';
-    $install_state['openy']['content'][] = 'sessions_03';
-    $install_state['openy']['content'][] = 'sessions_04';
-    $install_state['openy']['content'][] = 'interstitial';
-  }
-
-  // Campaign requires Landing.
-  if (in_array('campaign', $install_state['openy']['content']) && !in_array('landing', $install_state['openy']['content'])) {
-    $install_state['openy']['content'][] = 'landing';
-  }
-
-  // Build migrations operations arrays, for selected content.
-  foreach ($install_state['openy']['content'] as $content) {
-    _openy_import_content_helper($module_operations, $migrate_operations, $content);
-  }
-
-  // Add demo content Program Event Framework landing pages manually. Do it as
-  // so last step so menu items are in place.
-  $migrate_operations[] = ['openy_demo_nlanding_pef_pages', []];
-
-  if ($importGxp) {
-    openy_enable_module('openy_gxp');
-    $migrate_operations[] = ['openy_gxp_import_tc', []];
+  if ($install_state['openy']['content']) {
+    _openy_import_content_helper($module_operations, $migrate_operations, 'complete');
   }
 
   // Combine operations module enable before of migrations.
