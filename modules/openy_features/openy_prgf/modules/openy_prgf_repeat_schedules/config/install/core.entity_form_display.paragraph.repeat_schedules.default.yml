@@ -16,6 +16,22 @@ targetEntityType: paragraph
 bundle: repeat_schedules
 mode: default
 content:
+  field_prgf_repeat_schedule_categ:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_prgf_repeat_schedule_instr:
+    weight: 4
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_prgf_repeat_schedules_pdf:
     weight: 1
     settings:
@@ -23,13 +39,6 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
-    region: content
-  field_prgf_repeat_schedule_instr:
-    weight: 103
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
     region: content
   field_prgf_repeat_schedules_pref:
     type: entity_reference_autocomplete
@@ -48,7 +57,6 @@ content:
     region: content
 hidden:
   created: true
-  field_prgf_repeat_schedule_categ: true
   moderation_state: true
   status: true
   uid: true
