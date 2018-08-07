@@ -70,8 +70,10 @@
         this.draw_map_controls();
         this.hookup_map_controls_events();
         this.update_tag_filters();
+        this.update_amenities_filters();
         this.draw_map_locations();
         this.draw_list_locations();
+
 
         var mapLocation = document.location.href.match(/&?[amp;]?map_location=([\w|\+]*)&?[amp;]?/),
           component = this;
@@ -131,6 +133,7 @@
         }
 
         this.update_tag_filters();
+        this.update_amenities_filters();
         this.redraw_map_locations();
         this.draw_list_locations();
       },
@@ -143,6 +146,8 @@
         this.locate_me_el.on('click', $.proxy(this.locate_me_onclick, this));
         this.component_el.find('nav.types input[type=checkbox]').on('change', $.proxy(this.bar_filter_change, this));
         this.search_field_el.on("autocompleteselect", $.proxy(this.apply_autocomplete_search, this));
+
+        $('#views-exposed-form-location-by-amenities-block-1').find('input[type=checkbox]').on('change', $.proxy(this.filter_change, this));
       },
 
       // Attempts a map search against Google's
@@ -244,6 +249,7 @@
         this.draw_list_locations();
       },
 
+
       // Executed if was provided empty ZIP code.
       reset_search_results: function () {
         if (this.search_center === null) {
@@ -317,6 +323,7 @@
         }
       },
 
+
       // Applies the current checkbox state of the tag filter controls
       // to the internal filters data structure.
       // Called at init time, and after every checkbox state change.
@@ -328,8 +335,21 @@
           var el = $(this);
           self.tag_filters.push(el.val());
         };
-
         this.map_controls_el.find('.tag_filters input[type=checkbox]:checked').each(f);
+      },
+
+      update_amenities_filters: function () {
+        this.amenities_filters = [];
+        var self = this;
+
+        var f = function (index) {
+          var el = $(this);
+          self.amenities_filters.push(el.val());
+        };
+
+        $('#views-exposed-form-location-by-amenities-block-1')
+        .find('input[type=checkbox]:checked')
+        .each(f);
       },
 
       // Applies tag and distance filters to a list of locations,
@@ -337,6 +357,7 @@
       apply_filters: function (locations) {
         locations = this.apply_tag_filters(locations);
         locations = this.apply_distance_filters(locations);
+        locations = this.apply_amenities_filters(locations);
         this.set_url_parameters();
         return locations;
       },
@@ -411,6 +432,28 @@
         return filtered_locations;
       },
 
+
+      // Applies tag filters to a list of locations,
+      // returns the filtered list.
+      apply_amenities_filters: function (locations) {
+        if (this.amenities_filters.length === 0) {
+          return locations;
+        }
+        var filtered_locations = [];
+        for (var i = 0; i < locations.length; i++) {
+          var loc = locations[i];
+          for (var j = 0; j < this.amenities_filters.length; j++) {
+            var amenities_filter = this.amenities_filters[j];
+            if ($.inArray(amenities_filter, loc.amenities) >= 0) {
+              filtered_locations.push(loc);
+              continue;  // If any tag matches, skip checking other tags
+            }
+          }
+        }
+        return filtered_locations;
+      },
+
+
       // Populates an array of active tags from an URL parameter "type".
       init_active_tags: function () {
         if (this.initial_active_tags) {
@@ -457,7 +500,9 @@
         var url = document.location.pathname,
           params = this.get_parameters(),
           filterTagsRaw = this.tag_filters,
+          filteramenitiesRaw = this.amenities_filters,
           filterTags = '',
+          filteramenities = '',
           mapLocation = $('.search_field').val() || (params.hasOwnProperty('map_location') && params.map_location) || '';
         if (mapLocation) {
           mapLocation = '?map_location=' + this.encode_to_url_format(mapLocation);
@@ -470,7 +515,15 @@
           }, this, filterTags);
           filterTags = filterTags.substring(0, filterTags.length - 1);
         }
-        window.history.replaceState(null, null, url + mapLocation + filterTags);
+        if (filteramenitiesRaw) {
+          filteramenities = '&';
+          filteramenities += 'amenities=';
+          filteramenitiesRaw.forEach(function (tag) {
+            filteramenities += this.encode_to_url_format(tag) + ',';
+          }, this, filteramenities);
+          filteramenities = filteramenities.substring(0, filteramenities.length - 1);
+        }
+        window.history.replaceState(null, null, url + mapLocation + filterTags + filteramenities);
       },
 
       // Renders an extra set of filter boxes below the map.
@@ -725,10 +778,13 @@
             if ($.trim($self.find('.location-item--title')[0].innerText).toLowerCase() == $.trim(data[i].name).toLocaleLowerCase()) {
               data[i].element = {};
               data[i].element = $self.parent();
+              data[i].amenities = [];
+              data[i].amenities = ($self.data('amenities'));
             }
           }
         }
       });
+
 
       $('.openy-map-canvas', context).once().each(function () {
         var $canvas = $(this);
@@ -752,4 +808,4 @@
     }
   };
 
-}) (jQuery, window, Drupal, drupalSettings);
+})(jQuery, window, Drupal, drupalSettings);
