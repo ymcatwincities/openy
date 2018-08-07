@@ -145,7 +145,7 @@
    */
   Drupal.behaviors.openyPdfDownload = {
     attach: function (context, settings) {
-      var pdfBtnContainer = $('.groupex-pdf-link-container');
+      var pdfBtnContainer = $('.openy_carnation .groupex-pdf-link-container');
       if (pdfBtnContainer.length) {
         pdfBtnContainer.find('a').html('PDF <i class="fas fa-download"></i>');
         pdfBtnContainer.insertAfter('.groupex-form-full .form-submit');

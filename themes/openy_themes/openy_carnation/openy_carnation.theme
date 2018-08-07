@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Bootstrap sub-theme.
@@ -11,6 +12,13 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Template\Attribute;
 use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function openy_carnation_preprocess_html(array &$variables) {
+  $variables['theme_name'] = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+}
 
 /**
  * Implements hook_preprocess_node().
@@ -47,7 +55,6 @@ function openy_carnation_preprocess_node_blog(&$variables) {
   $variables['back_link_path'] = Url::fromUri('internal:/blog')->toString();
 }
 
-
 /**
  * Implements hook_preprocess_HOOK().
  *
@@ -78,7 +85,6 @@ function openy_carnation_preprocess_menu_local_task(array &$variables) {
   $url->setOptions($options + $link['localized_options']);
   $variables['item'] = Link::fromTextAndUrl($link['title'], $url);
 }
-
 
 /**
  * Implements hook_preprocess_input().
@@ -158,10 +164,6 @@ function openy_carnation_preprocess_breadcrumb(&$variables) {
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
- *
- * @param array $suggestions
- * @param array $variables
- * @param $hook
  */
 function openy_carnation_theme_suggestions_slick_alter(array &$suggestions, array $variables, $hook) {
   $types = [];
