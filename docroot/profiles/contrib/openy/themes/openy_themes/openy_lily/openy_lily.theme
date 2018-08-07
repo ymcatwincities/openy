@@ -5,14 +5,6 @@
  * OpenY Lily Theme File.
  */
 
-if (!defined('SITE_SECTION_TARGET_TYPE')) {
-  define('SITE_SECTION_TARGET_TYPE', 'node');
-}
-
-if (!defined('TERM_TID_NEWS')) {
-  define('TERM_TID_NEWS', 6);
-}
-
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Link;
@@ -45,83 +37,6 @@ function openy_lily_preprocess_node(&$variables) {
     $front_page = Drupal::config('system.site')->get('page.front');
     $variables['is_front'] = '/node/' . $variables['node']->id() == $front_page;
   }
-  /* @todo move this out of the theme */
-  $variables['date_formatted'] = \Drupal::service('date.formatter')->format($variables['node']->getCreatedTime(), 'blog_date_format');
-
-  // Passing slideshow to template.
-  if ($variables['node']->hasField('field_promo_slideshow')) {
-    /** @var \Drupal\node\Entity\Node $node */
-    $node = &$variables['node'];
-
-    if ($value = $variables['node']->field_promo_slideshow->getValue()) {
-      if ($id = $value[0]['target_id']) {
-        $promo_slideshow = \Drupal::service('dateslides.service')->getSlides($id);
-        $variables['field_promo_slideshow_referenced_items'] = $promo_slideshow;
-      }
-    }
-  }
-
-  // Article specific preprocessing.
-  if ($variables['node']->bundle() == 'article') {
-    $variables['header_image_url'] = '';
-    if ($header_image = $variables['node']->field_header_image->getValue()) {
-      $id = $header_image[0]['target_id'];
-      $file = \Drupal::entityTypeManager()->getStorage('file')->load($id);
-      $original_path = $file->getFileUri();
-      // Load style.
-      $style = \Drupal::entityTypeManager()->getStorage('image_style')->load('2013_masthead');
-      // Set up derivative file information.
-      $thumbnail = $style->buildUri($original_path);
-      // Create derivative if necessary.
-      if (!file_exists($thumbnail)) {
-        $style->createDerivative($original_path, $thumbnail);
-      }
-      $variables['header_image_url'] = file_create_url($thumbnail);
-    }
-  }
-
-  // Location specific preprocessing.
-  if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
-    // Add facebook ID to the template.
-    $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
-    // Add membership block flag.
-    if ($variables['node']->hasField('field_membership_block')) {
-      $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
-      // Display Location Membership block.
-      $membership_block_id = \Drupal::config('ymca_alters.config')->get('membership_block_id');
-      $block = \Drupal::entityTypeManager()->getStorage('block_content')->load($membership_block_id);
-      if (!is_null($block)) {
-        $view_builder = \Drupal::entityTypeManager()->getViewBuilder('block_content');
-        $variables['membership_block'] = $view_builder->view($block);
-      }
-    }
-  }
-
-  // Blog specific preprocessing.
-  if ($variables['node']->bundle() == 'blog') {
-    $back_link_title = t('Back to Blog');
-    $back_link_path = 'blog';
-    if ($field_tags_value = $variables['node']->field_tags->getValue()) {
-      foreach ($field_tags_value as $id) {
-        if ($id['target_id'] == TERM_TID_NEWS) {
-          $back_link_title = t('Back to News');
-          $back_link_path = 'news';
-        }
-      }
-    }
-    $variables['back_link_title'] = $back_link_title;
-    $variables['back_link_path'] = \Drupal\Core\Url::fromUri('internal:/' . $back_link_path);
-    // Preprocessing for day camp news.
-    $variables['is_day_camp_news'] = FALSE;
-    if ($variables['node']->hasField('field_related_camps_locations')) {
-      $day_camp = $variables['node']->get('field_related_camps_locations');
-      if (!$day_camp->isEmpty()) {
-        $variables['is_day_camp_news'] = TRUE;
-      }
-    }
-  }
-
-  $variables['site_section_bundle'] = !empty($site_section) ? $site_section->bundle() : '';
 }
 
 /**
@@ -318,10 +233,10 @@ function openy_lily_page_attachments_alter(array &$page) {
   // related to a camp, and the custom camp favicon has been set for the theme.
 
   // Exit if not a node page, or if the 'openy_loc_camp.camp_service' is not available.
-  if (!($node = \Drupal::request()->attributes->get('node')) || !(\Drupal::hasService('openy_loc_camp.camp_service'))) {
+  if (!($node = \Drupal::request()->attributes->get('node')) || !($camp_service = \Drupal::service('openy_loc_camp.camp_service'))) {
     return;
   }
-  $camp_service = \Drupal::service('openy_loc_camp.camp_service');
+
   // Exit if not a camp or related to a camp.
   if (!$camp_service->nodeHasOrIsCamp($node)) {
     return;
@@ -398,7 +313,7 @@ function openy_lily_preprocess_page(&$variables) {
   }
   else {
     // @todo move out from the theme.
-    $variables['search_view_content_path'] = Url::fromUri('internal:/search_results')
+    $variables['search_view_content_path'] = Url::fromUri('internal:/search')
       ->toString();
   }
 
@@ -472,14 +387,12 @@ function openy_lily_preprocess_page(&$variables) {
   if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
     $node = $variables['node'];
     /** @var Drupal\openy_loc_camp\CampService $service */
-    if (\Drupal::hasService('openy_loc_camp.camp_service')) {
-      if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
-        if ($service->nodeHasOrIsCamp($node)) {
-          $variables['page_class'] = 'is-camp';
-        }
-        if ($node->bundle() == 'branch') {
-          $variables['page_class'] = 'is-branch';
-        }
+    if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
+      if ($service->nodeHasOrIsCamp($node)) {
+        $variables['page_class'] = 'is-camp';
+      }
+      if ($node->bundle() == 'branch') {
+        $variables['page_class'] = 'is-branch';
       }
     }
   }
@@ -530,6 +443,13 @@ function openy_lily_preprocess_menu__footer_menus(&$variables) {
  */
 function openy_lily_preprocess_block(&$variables) {
   $variables['base_path'] = base_path();
+}
+
+/**
+ * Implements hook_preprocess_region().
+ */
+function openy_lily_preprocess_region(&$variables) {
+  $variables['attributes']['class'][] = $variables['elements']['#region'];
 }
 
 /**
@@ -668,6 +588,10 @@ function openy_lily_preprocess_html(&$variables) {
   }
   if (!is_array($variables['attributes'])) {
     $variables['attributes']->addClass($classes);
+  }
+
+  if (empty($variables['node']) && !empty($node)) {
+    $variables['node'] = $node;
   }
 }
 
@@ -847,10 +771,6 @@ function openy_lily_preprocess_form_element(&$variables) {
     'mb_program',
     'mb_location',
   ];
-  if ($element['#name'] == 'mb_program') {
-    $program_image_name = \Drupal::service('ymca_mindbody.trainings_mapping')->getProgramImageName($element['#return_value']);
-    $variables['img_path'] = base_path() . drupal_get_path('module', 'ymca_mindbody') .'/img/' . $program_image_name;
-  }
   if (isset($element['#name']) && in_array($element['#name'], $elements_names)) {
     $variables['title'] = $element['#title'];
     $variables['id'] = $element['#id'];
@@ -958,147 +878,4 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
   // Change link text since URL is used as link text for
   // 'Separate link text and URL' format by default.
   $variables['items'][0]['content']['#url_title'] = $link_title;
-}
-
-/**
- * Implements hook_preprocess_views_view().
- */
-function openy_lily_preprocess_views_view(&$vars) {
-  /* @todo move this out ot the theme */
-  if ($vars['view']->id() == 'ymca_twin_cities_blog' || $vars['view']->id() == 'ymca_twin_cities_blog_archive') {
-    if ($vars['view']->current_display == 'blog_page') {
-      $vars['base_path'] = base_path();
-      $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
-      foreach ($available_terms as $name => $tid) {
-        $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
-        $vars['categories'][] = $link;
-        // Pass Archive block data to the Search The Blog block.
-        if ($archive_lists = openy_lily_get_archive_data('blog')) {
-          $vars['archive_lists'] = $archive_lists;
-        }
-      }
-    }
-  }
-
-  if ($vars['view']->id() == 'ymca_news' || $vars['view']->id() == 'ymca_news_archive') {
-    if ($vars['view']->current_display == 'page_news') {
-      $vars['base_path'] = base_path();
-      // Pass Archive block data to the YMCA News Archive block.
-      if ($archive_lists = openy_lily_get_archive_data('news')) {
-        $vars['archive_lists'] = $archive_lists;
-      }
-    }
-  }
-
-  if ($vars['view']->id() == 'ymca_taxonomy_term' && $vars['view']->current_display == 'page_1') {
-    $vars['base_path'] = base_path();
-
-    $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
-    foreach ($available_terms as $name => $tid) {
-      $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
-      $vars['categories'][] = $link;
-    }
-    // Pass Archive block data to the Search The Blog block.
-    if ($archive_lists = openy_lily_get_archive_data('blog')) {
-      $vars['archive_lists'] = $archive_lists;
-    }
-  }
-
-  // Sets the search path.
-  $vars['search_view_content_path'] = Url::fromRoute('search.view_content');
-}
-
-/**
- * Implements template_preprocess_search_results_page().
- */
-function openy_lily_preprocess_search_results_page(&$vars) {
-  // Detect blog search form by path, because we haven't some other id.
-  $current_path = \Drupal::service('path.current')->getPath();
-  /* @todo move this out ot the theme */
-  if ($current_path == '/search_results' && isset($_GET['f'][0]) && $_GET['f'][0] == 'type:blog') {
-    $vars['base_path'] = base_path();
-    $vars['search_blog'] = TRUE;
-
-    $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
-    foreach ($available_terms as $name => $tid) {
-      $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
-      $vars['categories'][] = $link;
-    }
-    // Pass Archive block data to the Search The Blog block.
-    if ($archive_lists = openy_lily_get_archive_data('blog')) {
-      $vars['archive_lists'] = $archive_lists;
-    }
-  }
-}
-
-/**
- * Returns an array with archive list data for blog and news.
- */
-function openy_lily_get_archive_data($context) {
-  if ($context == 'news') {
-    $query = \Drupal::entityQuery('node')
-      ->condition('status', 1)
-      ->condition('field_tags.target_id', 6)
-      ->condition('type', 'blog')
-      ->sort('created', 'DESC');
-    $url_key = '/news/ymca_news_archive/';
-    $nids = $query->execute();
-  }
-  if ($context == 'blog') {
-    $query1 = \Drupal::entityQuery('node')
-      ->condition('status', 1)
-      ->condition('field_tags.target_id', NULL, 'IS NULL')
-      ->condition('type', 'blog')
-      ->sort('created', 'DESC');
-    $query2 = \Drupal::entityQuery('node')
-      ->condition('status', 1)
-      ->condition('field_tags.target_id', TERM_TID_NEWS, '<>')
-      ->condition('type', 'blog')
-      ->sort('created', 'DESC');
-    $blog_nids = $query1->execute();
-    $other_nids = $query2->execute();
-    $nids = array_merge($blog_nids, $other_nids);
-    $url_key = '/blog/archive/';
-  }
-
-  if (empty($nids)) {
-    return;
-  }
-
-  $nodes = entity_load_multiple('node', $nids);
-  $years = array();
-  foreach ($nodes as $node) {
-    $year = date('Y', $node->getCreatedTime());
-    $number = date('m', $node->getCreatedTime());
-    $active = FALSE;
-    if (\Drupal::routeMatch()->getRawParameter('arg_0') == $year && \Drupal::routeMatch()->getRawParameter('arg_1') == $number) {
-      $active = TRUE;
-    }
-    $month = array(
-      'title' => date('F', $node->getCreatedTime()),
-      'number' => $number,
-      'url' => Drupal\Core\Url::fromUri('internal:' . $url_key . $year . '/' . date('m', $node->getCreatedTime())),
-      'active' => $active ? TRUE : FALSE,
-    );
-    $data[$year]['expanded'] = '';
-    if (\Drupal::routeMatch()->getRawParameter('arg_0') == $year) {
-      $data[$year]['expanded'] = 'expanded';
-    }
-    if (!isset($data[$year]['months'])) {
-      $data[$year]['months'] = [];
-    }
-    if (!in_array($month, $data[$year]['months'])) {
-      $data[$year]['months'][] = $month;
-    }
-  }
-
-  // Remove 2011, 2012 years from archive.
-  if (isset($data['2011'])) {
-    unset($data['2011']);
-  }
-  if (isset($data['2012'])) {
-    unset($data['2012']);
-  }
-
-  return $data;
 }

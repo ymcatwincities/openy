@@ -56,47 +56,82 @@
  * @see html.html.twig
  */
 #}
-{% include "@openy_lily/include/sidebar-search-and-menu.html.twig" %}
-<div class="layout-container {{ page_class }}">
+<div class="layout-container {{ layout_class }}">
+
+  <div class="top-navs navbar-fixed-top visible-xs visible-sm" data-spy="affix" data-offset-top="1">
+    <div class="nav-global navbar-default navbar">
+      <div class="container">
+        <div class="row">
+          <div class="page-head__logo">
+            {% block page_logo %}
+              {{ page.logo }}
+            {% endblock %}
+          </div>
+
+          <button aria-controls="sidebar" aria-expanded="false" class="collapsed navbar-toggle visible-xs visible-sm" data-target="#sidebar" data-toggle="collapse" type=button>
+            <div class=sr-only>{{ 'Navigation menu'|t }}</div>
+            <span class=icon-bar></span>
+            <span class=icon-bar></span>
+            <span class=icon-bar></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar sidebar-left collapse width" aria-hidden="true">
+    <div class="col-xs-12 page-head__main-menu nav-home">
+      {{ page.mobile_menu.mainnavigation }}
+    </div>
+  </div>
+
   <div class="viewport">
     <header id="page-head" class="page-head">
-      <div class="top-navs">
-        <nav class="nav-global navbar-default navbar">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button class="navbar-toggler" data-toggle="collapse" data-target=".sidebar-left">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-                {% block page_logo %}
-                  {% if (page_class == 'is-camp') and (camp_section_image is not empty) %}
-                    <a href="{{ front_page }}" title="{{ "YMCA Twin Cities"|t }}" rel="{{ "YMCA Twin Cities"|t }}">
-                      <img src="{{ camp_section_image }}" alt="{{ "YMCA Twin Cities"|t }}">
-                    </a>
-                  {% else %}
-                    <a class="navbar-brand" href="{{ base_path }}" title="{{ "YMCA Twin Cities"|t }}" rel="{{ "YMCA Twin Cities"|t }}"></a>
-                  {% endif %}
+      <div class="top-navs navbar-fixed-top hidden-xs hidden-sm" data-spy="affix" data-offset-top="1">
+        <div class="nav-global navbar-ymcags navbar">
+          <div class="container">
+            <div class="row">
+              <div class="page-head__logo">
+                {% block page_logo_2 %}
+                  {{ page.logo }}
                 {% endblock %}
-            </div>
-              {{ page.secondary_menu }}
-          </div>
-        </nav>
+              </div>
 
-          {% block primary_menu %}
-            <div class="nav-wrapper">
-              <div class="main-nav" data-spy="affix" data-offset-top="10">
-                {{ page.primary_menu }}
+              <a class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
+
+              <div class="col-md-12 header-content hidden-xs">
+                <div class="page-head__search collapse">
+                  <div class="search-form-wrapper">
+                    {{ page.search }}
+                    <form method="get" action="{{ base_path }}search">
+                      <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
+                      <input type="search" name="query" class="search-input" placeholder="Search">
+                      <input type="submit" value="Search">
+                    </form>
+                    <a href="#" data-target=".page-head__search" data-toggle="collapse" class="page-head__search-close">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                      {{ "Cancel"|t }}
+                    </a>
+                  </div>
+                </div>
+                <div class="clearfix page-head__top-menu">
+                  {{ page.secondary_menu }}
+                </div>
+                <div class="clearfix page-head__main-menu nav-home">
+                  {{ page.primary_menu }}
+                </div>
               </div>
             </div>
-          {% endblock %}
+
+          </div>
+        </div>
       </div>
-    </header>{# /.page-head #}
+    </header>
 
-      {% block pageheader %}
-          {{ page.header }}
-      {% endblock %}
-  </div>
+  </div>{# /.viewport #}
+
 </div>{# /.layout-container #}
-
-{% include '@ymca/template-scripts.html' %}

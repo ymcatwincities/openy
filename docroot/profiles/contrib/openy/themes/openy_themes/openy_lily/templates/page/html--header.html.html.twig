@@ -29,6 +29,7 @@
     not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
     node_type ? 'page-node-type-' ~ node_type|clean_class,
     db_offline ? 'db-offline',
+    node ? 'node-id-' ~ node.id,
   ]
 %}
 <!DOCTYPE html>
@@ -39,7 +40,6 @@
     {% for style in styles %}
       {{ style }}
     {% endfor %}
-    <link href="https://use.fontawesome.com/95fd5fcc01.css" media="all" rel="stylesheet">
     {% for script in scripts %}
       {{ script }}
     {% endfor %}
