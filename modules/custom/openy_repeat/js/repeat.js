@@ -142,7 +142,13 @@
     el: '#app',
     router,
     data: {
-      globalData: globalData
+      globalData: globalData,
+      locationPopup: {
+        address: '',
+        email: '',
+        phone: '',
+        title: ''
+      }
     },
     components: {
       //Results
@@ -165,6 +171,11 @@
       'globalData.category': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, globalData.location, newValue);
         updateUrl(currentDate, globalData.location, newValue);
+      }
+    },
+    methods: {
+      populatePopup: function(index) {
+        this.locationPopup = this.globalData.table[index].location_info;
       }
     },
     updated: function() {
