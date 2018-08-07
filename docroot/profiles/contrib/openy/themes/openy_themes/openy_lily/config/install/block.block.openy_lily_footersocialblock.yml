@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:basic_block:563975cc-7a52-48fa-b30c-12c54d0cb863'
+    - 'block_content:basic_block:e350fe26-bc73-4c69-af18-a51a052dbcd3'
   module:
     - block_content
   theme:
@@ -13,9 +13,9 @@ theme: openy_lily
 region: footer_social
 weight: -7
 provider: null
-plugin: 'block_content:563975cc-7a52-48fa-b30c-12c54d0cb863'
+plugin: 'block_content:e350fe26-bc73-4c69-af18-a51a052dbcd3'
 settings:
-  id: 'block_content:563975cc-7a52-48fa-b30c-12c54d0cb863'
+  id: 'block_content:e350fe26-bc73-4c69-af18-a51a052dbcd3'
   label: 'Footer Social Block'
   provider: block_content
   label_display: '0'
