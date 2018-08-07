@@ -2,9 +2,6 @@
 .nav.dropdown-menu {
   background-color: $dark-blue;
   border: 1px solid $white;
-  //height: 442px;
-  //object-fit: contain;
-  //width: 1200px;
 }
 
 .nav-home {
@@ -36,7 +33,6 @@
   overflow: hidden;
   overflow-x: hidden;
   overflow-y: auto;
-  //padding-top: 9px;
   padding-right: inherit;
   height: auto;
   background: $blue;
@@ -180,11 +176,57 @@
   }
 }
 
+.goog-te-menu-frame.open {
+  left: 0 !important;
+  top: 150px;
+}
 .viewport {
+  .openy-gtranslate {
+    display: inline-block;
+    vertical-align: bottom;
+    height: 41px;
+    .goog-te-gadget-simple {
+      background-color: transparent;
+      border: none;
+      @include cachet();
+      font-size: 12px;
+      .goog-te-gadget-icon {
+        display: none;
+      }
+      .goog-te-menu-value {
+        color: $white;
+        img, span:not(:first-of-type) {
+          display: none;
+        }
+      }
+      &:before {
+        content: '\f0ac';
+        font-family: 'FontAwesome';
+        font-size: 14px;
+        color: $white;
+        padding-right: 5px;
+        padding-left: 10px;
+        border-left: 1px solid $white;
+      }
+      &:after {
+        content: '\f107';
+        font-family: 'FontAwesome';
+        font-size: 15px;
+        padding-left: 5px;
+        color: $white;
+      }
+    }
+  }
 
   .page-head__top-menu {
     @include breakpoint($screen-lg-desktop) {
       padding-right: 15px;
+    }
+
+    @include breakpoint($screen-md) {
+      & > div > nav {
+        display: inline-block;
+      }
     }
   }
 
@@ -195,9 +237,25 @@
       background: none;
     }
 
+    .nav-level-1.navbar-nav {
+      margin-left: 120px;
+    }
+
+    .nav-level-2 {
+      &:first-child a {
+        padding-left: 0;
+      }
+      > a {
+        @include breakpoint($screen-lg-desktop) {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+
+      }
+    }
+
     .nav-level-3 {
       padding-top: 25px;
-
       > a {
         min-height: 34px;
         display: inline-block;
@@ -208,7 +266,6 @@
           display: block;
         }
       }
-
 
       .section-icon {
         display: none;
@@ -232,15 +289,17 @@
 
   .nav-level-2 {
     > a {
-      padding-bottom: 25px;
+      padding-bottom: 10px;
 
       @include breakpoint($screen-lg-desktop) {
-        padding: 10px 18px 25px 18px;
+        padding: 10px 25px 9px 25px;
+        margin: 1px 1px 0 1px;
       }
 
       &:hover,
       &:focus {
         background: none;
+        z-index: $menu-z-index;
       }
     }
 
@@ -250,7 +309,7 @@
       border-left: 1px solid $light-grey;
       border-right: 1px solid $light-grey;
       border-bottom: 1px solid $dark-blue;
-      margin-top: -1px;
+      margin-top: -2px;
 
       > .dropdown-menu {
         margin-top: -1px;
@@ -259,12 +318,14 @@
       > a,
       > a:focus {
         position: relative;
-        z-index: 1001;
-        padding: 10px 14px 24px 14px;
+        z-index: $menu-z-index;
+        padding: 10px 14px 10px 14px;
         background: $dark-blue;
 
         @include breakpoint($screen-lg-desktop) {
-          padding: 10px 17px 24px 17px;
+          padding: 10px 25px 10px 25px;
+          margin: 0;
+          top: 1px;
         }
       }
     }

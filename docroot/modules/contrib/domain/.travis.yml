@@ -1,0 +1,101 @@
+language: php
+sudo: false
+
+matrix:
+  fast_finish: true
+  include:
+    - env: DRUPAL=8.4.x
+      php: 7.1
+    - env: DRUPAL=8.4.x
+      php: 7.0
+    - env: DRUPAL=8.4.x
+      php: 5.6
+    - env: DRUPAL=8.4.x
+      php: 5.5
+    - env: DRUPAL=8.5.x
+      php: 7.1
+    - env: DRUPAL=8.5.x
+      php: 7.0
+    - env: DRUPAL=8.5.x
+      php: 5.6
+    - env: DRUPAL=8.5.x
+      php: 5.5
+
+addons:
+  hosts:
+    - example.com
+    - one.example.com
+    - two.example.com
+    - three.example.com
+    - four.example.com
+    - five.example.com
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+env:
+  global:
+    # add composer's global bin directory to the path
+    # see: https://github.com/drush-ops/drush#install---composer
+    - PATH="$PATH:$HOME/.composer/vendor/bin"
+
+mysql:
+  database: domain
+  username: root
+  encoding: utf8
+
+notifications:
+  email: false
+
+before_install:
+  # Remove Xdebug. Not an issue for PHP 7.
+  - phpenv config-rm xdebug.ini || true
+
+  - composer self-update
+
+  # Install Drush.
+  - composer global require --no-interaction drush/drush:8.*
+
+install:
+  # Optimize MySQL timeout and max packet size.
+  - echo "mysql.connect_timeout=3000" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "default_socket_timeout=3000" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - mysql -e 'create database domain'
+  - mysql -e "SET GLOBAL wait_timeout = 36000;"
+  - mysql -e "SET GLOBAL max_allowed_packet = 134209536;"
+
+before_script:
+
+  # Remember the current rules test directory for later use in the Drupal installation.
+  - TESTDIR=$(pwd)
+  # Navigate out of module directory to prevent blown stack by recursive module lookup.
+  - cd ..
+
+  # Download Drupal 8 core.
+  - travis_retry drush dl drupal-$DRUPAL --drupal-project-rename=drupal
+  - cd drupal
+
+  # Make the module appear in the correct place
+  - ln -s $TESTDIR modules/domain
+
+  # Install drupal default profile
+  - /usr/bin/env PHP_OPTIONS="-d sendmail_path=$(which true)" drush --yes --verbose site-install minimal --db-url=mysql://root:@127.0.0.1/domain
+  - drush --yes en simpletest domain domain_access domain_alias domain_config domain_source
+  - drush cr
+
+  # Start a web server on port 8080 in the background.
+  - nohup php -S 0.0.0.0:8080 > /dev/null 2>&1 &
+
+  # Wait until the web server is responding.
+  - until curl -s example.com:8080; do true; done > /dev/null
+
+script:
+  - php core/scripts/run-tests.sh --verbose --color --concurrency 4 --types "PHPUnit-Functional" --php `which php` --url http://example.com:8080 domain
+  - php core/scripts/run-tests.sh --verbose --color --concurrency 4 --types "PHPUnit-Kernel" --php `which php` --url http://example.com:8080 domain
+  - php core/scripts/run-tests.sh --verbose --color --concurrency 4 --types "PHPUnit-Functional" --php `which php` --url http://example.com:8080 domain_access
+  - php core/scripts/run-tests.sh --verbose --color --concurrency 4 --types "PHPUnit-Functional" --php `which php` --url http://example.com:8080 domain_alias
+  - php core/scripts/run-tests.sh --verbose --color --concurrency 4 --types "PHPUnit-Kernel" --php `which php` --url http://example.com:8080 domain_alias
+  - php core/scripts/run-tests.sh --verbose --color --concurrency 4 --types "PHPUnit-Functional" --php `which php` --url http://example.com:8080 domain_config
+  - php core/scripts/run-tests.sh --verbose --color --concurrency 4 --types "PHPUnit-Functional" --php `which php` --url http://example.com:8080 domain_content
+  - php core/scripts/run-tests.sh --verbose --color --concurrency 4 --types "PHPUnit-Functional" --php `which php` --url http://example.com:8080 domain_source

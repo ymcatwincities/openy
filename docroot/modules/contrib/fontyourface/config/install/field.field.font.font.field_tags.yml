@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.font.field_tags
+    - taxonomy.vocabulary.font_designer
+    - taxonomy.vocabulary.font_foundry
+    - taxonomy.vocabulary.font_tags
+  module:
+    - fontyourface
+id: font.font.field_tags
+field_name: field_tags
+entity_type: font
+bundle: font
+label: Tags
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      font_designer: font_designer
+      font_foundry: font_foundry
+      font_tags: font_tags
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: font_foundry
+field_type: entity_reference

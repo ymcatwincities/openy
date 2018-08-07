@@ -590,3 +590,240 @@ function openy_update_8046() {
     ]);
   }
 }
+
+/**
+ * Enable CKEditor Bootstrap Buttons module and import the settings.
+ */
+function openy_update_8047() {
+  // Enable CKEditor Bootstrap Buttons module.
+  \Drupal::service('module_installer')->install(['ckeditor_bootstrap_buttons'], TRUE);
+
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
+
+/**
+ * Enable OpenY Redirect module.
+ */
+function openy_update_8048() {
+  \Drupal::service('module_installer')->install(['openy_redirect']);
+}
+
+/**
+ * Update the configuration of the paragraph fields of OpenY nodes.
+ */
+function openy_update_8049() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+
+  $updatedFields = [
+    'openy_block_date' => [
+      'core.entity_form_display.block_content.date_block.default' => [
+        'content.field_content_date_before',
+        'content.field_content_date_between',
+        'content.field_content_date_end',
+      ],
+    ],
+    'openy_node_blog' => [
+      'core.entity_form_display.node.blog.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_loc_branch' => [
+      'core.entity_form_display.node.branch.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+      ],
+    ],
+    'openy_loc_camp' => [
+      'core.entity_form_display.node.camp.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+      ],
+    ],
+    'openy_node_class' => [
+      'core.entity_form_display.node.class.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_loc_facility' => [
+      'core.entity_form_display.node.facility.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_landing' => [
+      'core.entity_form_display.node.landing_page.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_mbrshp' => [
+      'core.entity_form_display.node.membership.default' => [
+        'content.field_mbrshp_info',
+      ],
+    ],
+    'openy_node_news' => [
+      'core.entity_form_display.node.news.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_program' => [
+      'core.entity_form_display.node.program.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_category' => [
+      'core.entity_form_display.node.program_subcategory.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_session' => [
+      'core.entity_form_display.node.session.default' => [
+        'content.field_session_time',
+      ],
+    ],
+    'openy_prgf_grid_content' => [
+      'core.entity_form_display.paragraph.grid_content.default' => [
+        'content.field_grid_columns',
+      ],
+    ],
+    'openy_txnm_blog_category' => [
+      'core.entity_form_display.taxonomy_term.blog_category.default' => [
+        'content.field_taxonomy_content',
+      ],
+    ],
+    'openy_txnm_news_category' => [
+      'core.entity_form_display.taxonomy_term.news_category.default' => [
+        'content.field_taxonomy_content',
+      ],
+    ],
+  ];
+
+  foreach ($updatedFields as $module => $configs) {
+    foreach ($configs as $config_name => $fields) {
+      foreach ($fields as $field) {
+        $config = drupal_get_path('module', $module);
+        $config .= '/config/install/';
+        $config .= $config_name . '.yml';
+        $config_importer->update($config, $config_name, $field);
+      }
+    }
+  }
+
+}
+
+/**
+ * Enable font-your-face module.
+ */
+function openy_update_8050() {
+  \Drupal::service('module_installer')->install(['fontyourface']);
+  if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
+    $message = 'OpenY Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module. 
+        Please, <a href="/admin/appearance/font/local_font_config_entity">use it</a> to add purchased fonts to the site and uninstall OpenY Font module.';
+    drupal_set_message($message, 'warning');
+  }
+}
+
+/**
+ * Enable CSS Editor module and import the settings.
+ */
+function openy_update_8051() {
+  \Drupal::service('module_installer')->install(['css_editor'], TRUE);
+
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_manager = \Drupal::service('config.manager');
+  $config_factory = $config_manager->getConfigFactory();
+
+  $themes_list = [
+    'openy_rose',
+    'openy_lily',
+  ];
+
+  $update_fields = [
+    'css_enabled',
+    'css',
+    'plaintext_enabled',
+    'autopreview_enabled',
+    'preview_path',
+  ];
+
+  foreach ($themes_list as $theme) {
+    foreach ($update_fields as $field) {
+      $config_name = $theme . '.settings';
+      $config = drupal_get_path('theme', $theme);
+      $config .= '/config/install/';
+      $config .= $config_name . '.yml';
+
+      $configObj = $config_factory->getEditable($config_name);
+      if ($configObj->isNew() && empty($configObj->getOriginal())) {
+        continue;
+      }
+
+      $config_importer->update($config, $config_name, $field);
+    }
+  }
+}
+
+/**
+ * Enable OpenY Paragraph Location By Amenities.
+ */
+function openy_update_8052() {
+  \Drupal::service('module_installer')->install(['openy_prgf_location_by_amenities']);
+}
+
+/**
+ * Enable event module.
+ */
+function openy_update_8053() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    $modules = [
+      'openy_prgf_event_latest',
+      'openy_prgf_event_listing',
+      'openy_node_event',
+      'openy_demo_nevent',
+    ];
+
+    // Enable modules.
+    \Drupal::service('module_installer')->install($modules, TRUE);
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_event');
+    $importer->import('openy_demo_event_landing');
+  }
+}
+
+/**
+ * Enable OpenY Google Translate module and blocks.
+ */
+function openy_update_8054() {
+  \Drupal::service('module_installer')->install(['openy_gtranslate']);
+
+  $themes_list = [
+    'openy_rose' => '5a698466-f499-4dda-a084-4d61c1d0e902',
+    'openy_lily' => '5a698466-f499-4dda-a084-4d61c1d0e777',
+  ];
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::service('entity_type.manager');
+  foreach ($themes_list as $theme => $uuid) {
+    /** @var \Drupal\block_content\Entity\BlockContent $blockContent */
+    $blockContent = $entityTypeManager->getStorage('block_content')->create([
+      'type' => 'openy_gtranslate_block',
+      'info' => t('Google Translate Block'),
+      'uuid' => $uuid,
+    ]);
+    $blockContent->save();
+  }
+}

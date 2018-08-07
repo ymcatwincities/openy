@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.font.field_classification
+    - taxonomy.vocabulary.font_classification
+  module:
+    - fontyourface
+id: font.font.field_classification
+field_name: field_classification
+entity_type: font
+bundle: font
+label: Classification
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      font_classification: font_classification
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

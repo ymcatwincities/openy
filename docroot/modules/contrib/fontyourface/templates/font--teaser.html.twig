@@ -1,0 +1,33 @@
+{#
+/**
+ * @file font.html.twig
+ * Default theme implementation to present Font data.
+ *
+ * This template is used when viewing Font pages.
+ *
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ * - attributes: HTML attributes for the container element.
+ *
+ * @see template_preprocess_font()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes }}>
+  <div class="fontyourface-header">
+    <h4>{{ font_title }}</h4>
+    <h5>{{- content.pid }}</h5>
+  </div>
+  <div class="fontyourface-preview">
+    {% if font_preview %}
+      <span class="fontyourface-preview" style="line-height: 40px">{{- font_preview }}</span>
+    {% else %}
+      <span class="fontyourface-preview" style="{{- font_style_inline }} font-size: 40px; line-height: 40px">AaGg</span>
+    {% endif %}
+  </div>
+  <div class="fontyourface-operations">
+    {{ operation_links }}
+  </div>
+</div>

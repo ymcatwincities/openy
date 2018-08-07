@@ -1,0 +1,53 @@
+default:
+  suites:
+    default:
+      contexts:
+        - Drupal\DrupalExtension\Context\MinkContext: ~
+        - Drupal\DrupalExtension\Context\DrupalContext: ~
+        - Drupal\DrupalExtension\Context\MarkupContext: ~
+        - Drupal\DrupalExtension\Context\MessageContext: ~
+  extensions:
+    Behat\MinkExtension:
+      goutte:
+        guzzle_parameters:
+          # Ignore cURL error about self-signed SSL certificates.
+          verify: false
+          config:
+            curl:
+              CURLOPT_TIMEOUT: 300
+              CURLOPT_CONNECTTIMEOUT: 0
+              CURLOPT_SSL_VERIFYPEER: 0
+              CURLOPT_SSL_VERIFYHOST: 0
+      selenium2: ~
+      base_url: <DRUPAL_HOST>
+      files_path: resources
+      default_session: selenium2
+    Drupal\DrupalExtension:
+      blackbox: ~
+      api_driver: drupal
+      drush:
+        root: <DRUPAL_PATH>
+      drupal:
+        drupal_root: <DRUPAL_PATH>
+      text:
+        log_in: Log in
+        log_out: Log out
+        username_field: Username
+        password_field: Password
+      selectors:
+        message_selector: .messages
+        error_message_selector: .messages.error
+        success_message_selector: .messages.status
+        warning_message_selector: .messages.warning
+      region_map:
+        content: "#content"
+        sidebar: "#sidebar"
+    Drupal\TqExtension:
+      wait_for_email: 10
+      wait_for_redirect: 60
+#      email_account_strings: get_account_strings_for_email
+#      email_accounts:
+#        example1@email.com:
+#          imap: imap.gmail.com:993/imap/ssl
+#          username: example1@email.com
+#          password: p4sswDstr_1

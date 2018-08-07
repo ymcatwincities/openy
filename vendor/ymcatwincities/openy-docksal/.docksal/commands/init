@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+## Initialize Docksal powered Drupal 8 site
+##
+## Usage: fin init
+
+# Abort if anything fails
+set -e
+
+CURRENT_DIR="$(dirname "$0")"
+source "${CURRENT_DIR}/includes/helpers.sh"
+
+#-------------------------- Settings --------------------------------
+
+DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT:-docroot}"
+# Set to the appropriate site directory
+SITE_DIRECTORY='default'
+SITEDIR_PATH="${DOCROOT_PATH}/sites/${SITE_DIRECTORY}"
+SERVER_SITE_ROOT='/var/www'
+SERVER_DOCROOT_PATH="${SERVER_SITE_ROOT}/${DOCROOT}"
+
+# Profile name
+PROFILE_NAME="openy"
+
+# Delay in seconds.
+# Increase this value if you have an issue
+# with the DB connection during the site installation.
+MYSQL_STARTUP_DELAY=5
+
+#-------------------------- END: Settings --------------------------------
+
+#-------------------------- Functions --------------------------------
+
+# Install site
+site_install ()
+{
+    chmod -R a+w "${DOCROOT_PATH}/sites/default"
+
+    echo-green "Install site from '${PROFILE_NAME}' profile."
+    fin drush si -y ${PROFILE_NAME} \
+        --account-pass=admin \
+        --db-url="mysql://${MYSQL_USER:-user}:${MYSQL_PASSWORD:-user}@db:${MYSQL_PORT_MAPPING:-3306}/${MYSQL_DATABASE:-default}" \
+        --root="${SERVER_DOCROOT_PATH}"
+
+    echo-green "Clear caches."
+    fin drush cr --root="${SERVER_DOCROOT_PATH}"
+
+    mkdir -p "${DOCROOT_PATH}/sites/${SITE_DIRECTORY}/files"
+    chmod 777 "${DOCROOT_PATH}/sites/${SITE_DIRECTORY}/files"
+}
+
+#-------------------------- END: Functions --------------------------------
+
+if [[ ${DOCKER_RUNNING} == "true" ]]; then
+	echo-green-bg " Step 1: Recreating services. "
+	fin reset -f
+else
+	echo-green-bg " Step 1: Creating services. "
+	fin up
+fi
+
+echo-green-bg " Step 2: Waiting ${MYSQL_STARTUP_DELAY}s for MySQL to start. "
+sleep ${MYSQL_STARTUP_DELAY} & PID=$!
+progress_bar
+
+echo-green-bg " Step 3: Installing site. "
+time site_install
+
+if is_windows; then
+	echo-green "Add ${VIRTUAL_HOST} to your hosts file (/etc/hosts), e.g.:"
+	echo-green "192.168.64.100  ${VIRTUAL_HOST}"
+	echo
+fi
+
+echo -en "${green_bg} DONE! ${NC} "
+echo "Open http://${VIRTUAL_HOST} in your browser to verify the setup."
+
+#-------------------------- END: Execution ----------------------------------

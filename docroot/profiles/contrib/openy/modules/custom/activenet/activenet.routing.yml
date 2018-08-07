@@ -1,0 +1,7 @@
+activenet.settings:
+  path: '/admin/config/services/activenet'
+  defaults:
+    _form: '\Drupal\activenet\Form\SettingsForm'
+    _title: 'ActiveNet settings'
+  requirements:
+    _permission: 'administer activenet'

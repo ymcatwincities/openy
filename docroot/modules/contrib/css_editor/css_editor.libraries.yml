@@ -1,0 +1,26 @@
+css_editor:
+  version: 1.x
+  css:
+    theme:
+      css/css_editor.css: {}
+  js:
+    js/css_editor.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+
+codemirror:
+  remote: https://github.com/codemirror/CodeMirror
+  version: 5.31.0
+  license:
+    name: MIT
+    url: https://github.com/codemirror/CodeMirror/blob/master/LICENSE
+    gpl-compatible: true
+  css:
+    theme:
+      //cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/codemirror.min.css: { type: external, minified: true }
+      //cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/addon/hint/show-hint.min.css: { type: external, minified: true }
+  js:
+    //cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/codemirror.min.js: { type: external, minified: true }
+    //cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/mode/css/css.min.js: { type: external, minified: true }
+    //cdnjs.cloudflare.com/ajax/libs/codemirror/5.31.0/addon/hint/show-hint.min.js: { type: external, minified: true }

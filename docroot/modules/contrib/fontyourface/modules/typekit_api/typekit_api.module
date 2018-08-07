@@ -1,0 +1,257 @@
+<?php
+
+/**
+ * @file
+ * Typekit API module file.
+ */
+
+define('TYPEKIT_API_BASE_URL', 'https://typekit.com/api/v1/json/');
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Link;
+
+/**
+ * Implements hook_fontyourface_api().
+ */
+function typekit_api_fontyourface_api() {
+  return [
+    'version' => '3',
+    'name' => 'Typekit',
+  ];
+}
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Use this hook instead of hook_install, because the route "font.settings" is
+ * not defined otherwise.
+ */
+function typekit_api_modules_installed($modules) {
+  if (in_array('typekit_api', $modules)) {
+    drupal_set_message(t('Typekit needs to be set up in order for fonts to be imported. Please use @link to import Typekit fonts.', ['@link' => Link::createFromRoute('@font-your-face settings', 'font.settings')->toString()]));
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function typekit_api_form_font_settings_alter(&$form, FormStateInterface $form_state) {
+  $config = \Drupal::config('typekit_api.settings');
+  $form['typekit_api'] = [
+    '#type' => 'fieldset',
+    '#title' => t('TYPEKIT SETTINGS'),
+  ];
+  $form['typekit_api']['typekit_token'] = [
+    '#type' => 'textfield',
+    '#title' => t('Typekit API Token'),
+    '#description' => t('Add your Typekit API token to import your kits. Available at <a target="_blank" href=":url">:url</a>', [':url' => 'https://typekit.com/account/tokens']),
+    '#default_value' => $config->get('token'),
+  ];
+  $form['#submit'][] = 'typekit_api_form_font_settings_submit';
+}
+
+/**
+ * Submits Font settings form data.
+ */
+function typekit_api_form_font_settings_submit(&$form, FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+  $config = \Drupal::configFactory()->getEditable('typekit_api.settings');
+  $config->set('token', $values['typekit_token'])->save();
+  drupal_set_message(t('Saved Typekit API token'));
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function typekit_api_page_attachments(&$page) {
+  $enabled_fonts = &drupal_static('fontyourface_fonts', []);
+  $kits = [];
+  foreach ($enabled_fonts as $font) {
+    if ($font->pid->value == 'typekit_api') {
+      $metadata = $font->getMetadata();
+      $kits[$metadata['kit']] = $metadata['kit'];
+    }
+  }
+  foreach ($kits as $kit) {
+    $page['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#attributes' => [
+          'src' => 'https://use.typekit.com/' . $kit . '.js',
+        ],
+      ], 'fontyourface-typekit-api-' . $kit,
+    ];
+    $page['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#value' => 'try{Typekit.load({ async: true });}catch(e){}',
+      ], 'fontyourface-typekit-api-inline',
+    ];
+  }
+}
+
+/**
+ * Implements hook_fontyourface_import().
+ */
+function typekit_api_fontyourface_import($font_context = []) {
+  $config = \Drupal::config('typekit_api.settings');
+  if (empty($config->get('token'))) {
+    drupal_set_message(t('Typekit token not set. Cannot import typekit kits.'));
+    return $font_context;
+  }
+
+  $kits = typekit_api_get_kits($config->get('token'));
+  foreach ($kits as $kit_data) {
+    $kit = typekit_api_get_kit($kit_data->id, $config->get('token'));
+    if (typekit_api_kit_matches_domain($kit, $_SERVER['HTTP_HOST'])) {
+      foreach ($kit->families as $family) {
+        foreach ($family->variations as $variant_id) {
+          $variant = typekit_api_get_variant($family->id, $variant_id, $config->get('token'));
+          $metadata = [
+            'typekit_id' => $variant->id,
+            'variant' => $variant->font_variant,
+            'kit' => $kit->id,
+          ];
+          $font_data = new stdClass();
+          $font_data->name = $variant->name;
+          $font_data->url = 'https://typekit.com/fonts/' . $family->slug . '#' . $variant_id;
+          $font_data->provider = 'typekit_api';
+          $font_data->css_family = "'" . implode("', '", $family->css_names) . "'";
+          $font_data->css_style = $variant->font_style;
+          $font_data->css_weight = $variant->font_weight;
+          $font_data->foundry_url = 'https://typekit.com/foundries/' . $variant->foundry->slug;
+          $font_data->metadata = $metadata;
+          $font = fontyourface_save_font($font_data);
+          $font->activate();
+        }
+      }
+    }
+    else {
+      drupal_set_message(t('Typekit kit did not match current domain, @domain', ['@domain' => $_SERVER['HTTP_HOST']]));
+    }
+  }
+  drupal_set_message(t('Imported Typekit kits: @kits', ['@kits' => print_r($kits, TRUE)]));
+  return $font_context;
+}
+
+/**
+ * Returns kits based on typekit id.
+ *
+ * @param string $token
+ *   The typekit api token.
+ *
+ * @return array
+ *   Array of typekit font objects.
+ */
+function typekit_api_get_kits($token = NULL) {
+  try {
+    $uri = TYPEKIT_API_BASE_URL . 'kits';
+    $response = \Drupal::httpClient()->get($uri, ['headers' => typekit_api_token_headers($token), 'verify' => FALSE]);
+    $data = json_decode((string) $response->getBody());
+  }
+  catch (RequestException $e) {
+    drupal_set_message(t('There was an error importing kit list from Typekit. Error: %error', ['%error' => $e->getMessage()]), 'error');
+    return FALSE;
+  }
+  return $data->kits;
+}
+
+/**
+ * Returns kit information.
+ *
+ * @param string $kit_id
+ *   The typekit kit id.
+ * @param string $token
+ *   The typekit api token.
+ *
+ * @return object
+ *   Typekit kit object.
+ */
+function typekit_api_get_kit($kit_id, $token = NULL) {
+  try {
+    $uri = TYPEKIT_API_BASE_URL . 'kits/' . $kit_id;
+    $response = \Drupal::httpClient()->get($uri, ['headers' => typekit_api_token_headers($token), 'verify' => FALSE]);
+    $data = json_decode((string) $response->getBody());
+  }
+  catch (RequestException $e) {
+    drupal_set_message(t('There was an error importing kit list from Typekit. Error: %error', ['%error' => $e->getMessage()]), 'error');
+    return FALSE;
+  }
+  return $data->kit;
+}
+
+/**
+ * Get a specific variant from API based on family and variant IDs.
+ *
+ * @param string $family_id
+ *   The typekit font family id.
+ * @param string $variant_id
+ *   The typekit font variant id.
+ * @param string $token
+ *   The typekit api token.
+ *
+ * @return object
+ *   Typekit font family variant object.
+ */
+function typekit_api_get_variant($family_id, $variant_id, $token = NULL) {
+  try {
+    $uri = TYPEKIT_API_BASE_URL . 'families/' . $family_id . '/' . $variant_id;
+    $response = \Drupal::httpClient()->get($uri, ['headers' => typekit_api_token_headers($token), 'verify' => FALSE]);
+    $data = json_decode((string) $response->getBody());
+  }
+  catch (RequestException $e) {
+    drupal_set_message(t('There was an error importing a variant (@kit, @variant) from Typekit: %error',
+      [
+        '@kit' => $family_id,
+        '@variant' => $variant_id,
+        '%error' => $e->getMessage(),
+      ]), 'error');
+    return FALSE;
+  }
+  return $data->variation;
+}
+
+/**
+ * Provides header with token.
+ *
+ * @param string $token
+ *   The typekit api token.
+ *
+ * @return array
+ *   Header with typekit token for API request.
+ */
+function typekit_api_token_headers($token = NULL) {
+
+  if (empty($token)) {
+    $config = \Drupal::config('typekit_api.settings');
+    $token = $config->get('token');
+  }
+  return [
+    'X-Typekit-Token' => $token,
+  ];
+}
+
+/**
+ * Checks if a kit is valid against a particular domain.
+ *
+ * @param string $kit
+ *   Typekit font kit project id.
+ * @param string $domain
+ *   Site domain.
+ *
+ * @return bool
+ *   TRUE if kit is valid against domain. FALSE otherwise.
+ */
+function typekit_api_kit_matches_domain($kit, $domain) {
+  $domain = Unicode::strtolower($domain);
+  $domains = array_filter($kit->domains, function ($kit_domain) use ($domain) {
+    if ($kit_domain == $domain) {
+      return TRUE;
+    }
+    return preg_match('#' . str_replace(['.', '*'], ['\.', '.*'], $kit_domain) . '#', $domain);
+  });
+  return !empty($domains);
+}

@@ -1,0 +1,5 @@
+social_feed_fetcher.settings:
+  title: Social Feed Fetcher Settings
+  description: 'Configure Social Feed'
+  route_name:  social_feed_fetcher.settings
+  parent: system.admin_config_services

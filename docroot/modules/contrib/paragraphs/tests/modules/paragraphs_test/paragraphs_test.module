@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Test module for testing the paragraphs module.
+ */
+
+use Drupal\paragraphs\Plugin\Field\FieldWidget\ParagraphsWidget;
+
+/**
+ * Implements hook_paragraphs_widget_actions_alter().
+ */
+function paragraphs_test_paragraphs_widget_actions_alter(&$widget_actions, &$context) {
+  if (\Drupal::state()->get('paragraphs_test_dropbutton')) {
+    $widget_actions['dropdown_actions']['test_button'] = ParagraphsWidget::expandButton([
+      '#type' => 'submit',
+      '#value' => t('Add to library'),
+      '#delta' => 0,
+      '#name' => 'field_paragraphs_test',
+      '#weight' => 504,
+      '#paragraphs_mode' => 'remove',
+      '#access' => TRUE,
+    ]);
+  }
+}
