@@ -8,6 +8,8 @@
 use Drupal\openy\Form\ContentSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
 use Drupal\openy\Form\UploadFontMessageForm;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Implements hook_install_tasks().
@@ -44,7 +46,38 @@ function openy_install_tasks() {
       'type' => 'form',
       'function' => UploadFontMessageForm::class,
     ],
+    'openy_gtranslate_place_blocks' => [
+      'type' => 'batch',
+    ],
   ];
+}
+
+/**
+ * Create Google Translate block content.
+ * Block already added from OpenY Google Translate module configs.
+ */
+function openy_gtranslate_place_blocks(array &$install_state) {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('openy_gtranslate')) {
+    return ['operations' => []];
+  }
+
+  $themes_list = [
+    'openy_rose' => '5a698466-f499-4dda-a084-4d61c1d0e902',
+    'openy_lily' => '5a698466-f499-4dda-a084-4d61c1d0e777',
+  ];
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::service('entity_type.manager');
+  foreach ($themes_list as $theme => $uuid) {
+    /** @var \Drupal\block_content\Entity\BlockContent $blockContent */
+    $blockContent = $entityTypeManager->getStorage('block_content')->create([
+      'type' => 'openy_gtranslate_block',
+      'info' => t('Google Translate Block'),
+      'uuid' => $uuid,
+    ]);
+    $blockContent->save();
+  }
+  return ['operations' => []];
 }
 
 /**
@@ -119,6 +152,12 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_news',
         'openy_demo_news_landing',
         'openy_demo_menu_link_footer_news',
+      ],
+    ],
+    'event' => [
+      'openy_demo_nevent' => [
+        'openy_demo_node_event',
+        'openy_demo_event_landing',
       ],
     ],
     'facility' => [
@@ -200,7 +239,7 @@ function openy_demo_content_configs_map($key = NULL) {
       ],
     ],
   ];
-
+  
   return array_key_exists($key, $map) ? $map[$key] : [];
 }
 
@@ -422,4 +461,59 @@ function openy_import_migration($migration_id) {
  */
 function openy_form_system_site_information_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
   $form['site_information']['site_slogan']['#description'] = t("This will display your association name in the header as per Y USA brand guidelines. Try to use less than 27 characters. The text may get cut off on smaller devices.");
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function openy_preprocess_block(&$variables) {
+  $variables['base_path'] = base_path();
+
+  // Prevent some blocks from caching
+  $preventCacheBlocks = [
+    'system_breadcrumb_block',
+  ];
+  if (in_array($variables['plugin_id'], $preventCacheBlocks)) {
+    $variables['#cache']['max-age'] = 0;
+  }
+}
+
+function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if (isset($form['css_editor'])) {
+    // Add short manual how to use CSS Editor inside the theme.
+    $types = \Drupal::entityTypeManager()->getStorage('node_type')->loadMultiple();
+    $css_node_selectors = array_map(function ($type) {
+      return str_replace('_', '-', $type);
+    }, array_keys($types));
+
+    $css_editor_info = [
+      '#prefix' => '<div class="description">',
+      '#markup' => t('In order to change CSS on each particular page you 
+      should use the following selectors:<br/>
+      - .page-node-type-{node type};<br/>
+      - .node-id-{node ID};<br/>
+      - .path-frontpage.<br/><br/>
+      The existing node types are: ' . implode($css_node_selectors, ', ') .'.
+      '),
+      '#suffix' => '</div>'
+    ];
+    $form['css_editor']['css_editor_info'] = $css_editor_info;
+  }
+}
+
+function openy_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'system.theme_settings_theme':
+      $theme = $route_match->getParameter('theme');
+      $config = \Drupal::configFactory()->getEditable('css_editor.theme.' . $theme);
+
+      if ($config->get('enabled')) {
+        return '<p>' . t('If you need to change CSS on some pages independently, you may use Custom CSS configuration.') . '</p>';
+      }
+      else {
+        return '<p>' . t('If you need to change CSS on some pages independently, you should enable Custom CSS functionality.') . '</p>';
+      }
+
+      break;
+  }
 }

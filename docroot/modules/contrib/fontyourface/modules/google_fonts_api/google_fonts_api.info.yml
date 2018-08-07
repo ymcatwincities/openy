@@ -1,0 +1,13 @@
+name: '@fontyourface - Google Fonts'
+type: module
+description: '@font-your-face provider with Google fonts.'
+# core: 8.x
+package: '@font-your-face'
+dependencies:
+  - fontyourface
+
+# Information added by Drupal.org packaging script on 2018-02-01
+version: '8.x-3.2'
+core: '8.x'
+project: 'fontyourface'
+datestamp: 1517458984

@@ -1,6 +1,0 @@
-library_definitions:
-  local:
-    path: 'public://library-definitions'
-  remote:
-    enable: false
-    url: ''

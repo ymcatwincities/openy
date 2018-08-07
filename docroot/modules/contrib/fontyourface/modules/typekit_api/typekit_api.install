@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Typekit API install file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function typekit_api_install() {
+  module_set_weight('typekit_api', 10);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function typekit_api_uninstall() {
+  fontyourface_delete('typekit_api');
+}

@@ -1,0 +1,18 @@
+name: Domain Content
+description: 'Review content by assigned domain.'
+type: module
+package: Domain
+# version: VERSION
+# core: 8.x
+dependencies:
+  - domain
+  - domain_access
+  - node
+  - user
+  - views
+
+# Information added by Drupal.org packaging script on 2018-03-08
+version: '8.x-1.0-alpha13'
+core: '8.x'
+project: 'domain'
+datestamp: 1520519900

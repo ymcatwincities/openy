@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains ckeditor_bootstrap_buttons.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ckeditor_bootstrap_buttons_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ckeditor_entity_link module.
+    case 'help.page.ckeditor_bootstrap_buttons':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Allows to insert bootstrap buttons in CKEditor.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

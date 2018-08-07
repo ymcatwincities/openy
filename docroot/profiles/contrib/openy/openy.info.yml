@@ -2,6 +2,7 @@ name: OpenY
 type: profile
 description: 'Open Y Drupal distribution.'
 core: 8.x
+version: '8.1.11'
 distribution:
   name: OpenY
   install:
@@ -99,6 +100,10 @@ dependencies:
   - video
   - media_entity_video
   - easy_breadcrumb
+  - ckeditor_bootstrap_buttons
+  - fontyourface
+  - local_fonts
+  - css_editor
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
@@ -112,7 +117,6 @@ dependencies:
   - openy_block_menu
   - openy_code_block
   - openy_datalayer
-  - openy_font
   - openy_taxonomy
   - openy_txnm_amenities
   - openy_txnm_color
@@ -124,6 +128,7 @@ dependencies:
   - openy_node_program
   - openy_node_category
   - openy_node_blog
+  - openy_node_event
   - openy_prgf
   - openy_prgf_small_banner
   - openy_prgf_banner
@@ -151,11 +156,14 @@ dependencies:
   - openy_prgf_blog_listing
   - openy_prgf_block_date
   - openy_prgf_loc_finder
+  - openy_prgf_location_by_amenities
   - openy_prgf_mbrshp_calc
   - openy_prgf_microsites_menu
   - openy_prgf_embedded_groupexpro_schedule
   - openy_prgf_pgm_reg
   - openy_prgf_webform
+  - openy_prgf_event_latest
+  - openy_prgf_event_listing
   - openy_node_activity
   - openy_node_class
   - openy_node_session
@@ -198,6 +206,8 @@ dependencies:
   - openy_calc
   - openy_data_wrapper
   - logger_entity
+  - openy_redirect
+  - openy_gtranslate
 
 themes:
   - bartik
