@@ -4,10 +4,11 @@
     "type": "project",
     "license": "GPL-2.0+",
     "require": {
-        "ymcatwincities/openy": "8.*.*",
+        "ymcatwincities/openy": "8.1.11",
         "composer/installers": "^1.2",
         "drupal-composer/drupal-scaffold": "^2.2",
-        "cweagans/composer-patches": "~1.0"
+        "cweagans/composer-patches": "~1.0",
+        "drupal/address": "1.2.0"
     },
     "require-dev": {
         "ymcatwincities/openy-cibox-build": "dev-master",

@@ -1,25 +1,18 @@
-# Ignore configuration files that may contain sensitive information.
+# Exclude hidden OS files.
 .DS_Store
-.idea
-.vagrant
-backup
-build_reports
-commentinfo.md
-d20*
-index.html
-vagrant*
-.projectile
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.idea
+._*
+Thumbs.db
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-src/**/*.css
+# Ignore Development tool files.
+.idea
+node_modules
+docroot/sites/default/config/staging
+.docksal/
+.vagrant/
+backup/
+docroot/clean.sql
+docroot/reactapps/prgreg/.env.local
+docroot/reactapps/prgreg/storybook-static/
+docroot/yarn.lock
+vendor/ymcatwincities/openy-cibox-build/
+vendor/ymcatwincities/openy-cibox-vm/
