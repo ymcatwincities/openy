@@ -22,10 +22,9 @@ function openy_media_image_update_dependencies() {
     8007 => [
       'openy_media' => 8003,
     ],
-    // @todo YGTC only: uncomment after release to production.
-//    8008 => [
-//      'openy' => 8042,
-//    ],
+    8008 => [
+      'openy' => 8042,
+    ],
   ];
 
   $dependencies['dropzonejs_eb_widget'][8101] = array(
@@ -201,7 +200,7 @@ function openy_media_image_update_8007() {
 /**
  * Import OpenY media image style "Thumbnail focal point".
  */
-function openy_media_image_update_8009() {
+function openy_media_image_update_8008() {
   $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
 
   // Import configuration.
@@ -229,7 +228,7 @@ function openy_media_image_update_8009() {
 /**
  * Update library view for core upgrade.
  */
-function openy_media_image_update_8008() {
+function openy_media_image_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
   // Update multiple configurations.
   $configs = [

@@ -4,10 +4,8 @@ core: 8.x
 package: OpenY
 dependencies:
   - ckeditor
-  - colorbutton
   - editor
   - entity_embed
   - filter
-  - rel_to_abs
   - token_filter
-  - ymca_entity_embed
+  - colorbutton
