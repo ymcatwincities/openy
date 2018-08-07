@@ -1,15 +1,20 @@
 {#
 /**
  * @file
- * YMCA's theme implementation to display a node.
+ * Theme override to display a node.
  *
  * Available variables:
- * - node: Full node entity.
- *   - id: The node ID.
- *   - bundle: The type of the node, for example, "page" or "article".
- *   - authorid: The user ID of the node author.
- *   - createdtime: Time the node was published formatted in Unix timestamp.
- *   - changedtime: Time the node was changed formatted in Unix timestamp.
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
  * - label: The title of the node.
  * - content: All node items. Use {{ content }} to print them all,
  *   or print a subset such as {{ content.field_example }}. Use
@@ -59,52 +64,48 @@
  *   is an administrator.
  *
  * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
  */
 #}
-{%
-  set classes = [
-    'content',
-    'node',
-    'node--type-' ~ node.bundle|clean_class,
-    node.isPromoted() ? 'node--promoted',
-    node.isSticky() ? 'node--sticky',
-    not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    'clearfix',
-  ]
-%}
-{{ attach_library('classy/node') }}
-
-{% embed "@ymca/layout/header/header-without-image.html.twig" %}
-  {% block label_and_description %}
-    <h1>{{ label }}</h1>
-  {% endblock %}
-{% endembed %}
-
-<section {{ attributes.addClass(classes) }}>
-  <div class="container">
-
-    <section class="messages">
-    </section>
-
-    <div class="row">
-      {% if not is_day_camp_news %}
-      <div class="col-sm-3 col-md-2 back-to-blog">
-        <a href="{{ back_link_path }}"><i class="glyphicon glyphicon-chevron-left"></i>{{ back_link_title }}</a>
-      </div>
-      <div class="copy col-sm-8 col-md-9">
-      {% else %}
-      <div class="copy col-sm-12 categories">
-      {% endif %}
-        <div class="post_display_full">
-          <article class="richtext">
-            {{ content.field_ygtc_content }}
-          </article>
-        </div>
-
-        {% include "@ymca/misc/add-this.html.twig" %}
-
-      </div>
-    </div>
+{% set classes = [
+'node',
+'node--type-' ~ node.bundle|clean_class,
+node.isPromoted() ? 'node--promoted',
+node.isSticky() ? 'node--sticky',
+not node.isPublished() ? 'node--unpublished',
+view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+] %}
+<section class="page-heading black-header page-title title-only">
+  <div class="container-fluid">
+    {{ title_prefix }}
+    <h1{{ title_attributes }}>
+      {{ label }}
+    </h1>
+    {{ title_suffix }}
   </div>
 </section>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 back-to-blog">
+      <a href="{{ back_link_path }}">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        {{ back_link_title }}
+      </a>
+    </div>
+    <div class="copy col-sm-9 col-md-7">
+      <article{{ attributes.addClass(classes) }}>
+        <div{{ content_attributes.addClass('node__content') }}>
+          {{ content|without('field_blog_related', 'field_sidebar_content', 'field_blog_image') }}
+        </div>
+      </article>
+    </div>
+    <div class="col-sm-12 col-md-3">
+      {{ content.field_blog_related }}
+      {{ content.field_sidebar_content }}
+    </div>
+  </div>
+</div>
+</div>

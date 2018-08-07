@@ -276,7 +276,7 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
     ];
     $dates = $node->field_session_time->referencedEntities();
     foreach ($dates as $date) {
-      if (empty($date) || empty($date->field_session_time_days) || empty($date->field_session_time_date)) {
+      if (empty($date) || empty($date->field_session_time_days->getValue()) || empty($date->field_session_time_date->getValue())) {
         continue;
       }
       $schedule_item = [
