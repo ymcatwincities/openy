@@ -12,7 +12,7 @@ theme: openy_lily
 region: footer_menu
 weight: -6
 provider: null
-plugin: 'system_menu_block:footer'
+plugin: 'system_menu_block:footer-menu-center'
 settings:
   id: 'system_menu_block:footer-menu-center'
   label: 'Footer menu center'
