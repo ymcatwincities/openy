@@ -56,6 +56,7 @@
 @import 'paragraphs/event-post-listing';
 
 // Lily styles
+
 @import 'global/mixins';
 @import 'global/colors';
 @import 'global/variables';
@@ -92,33 +93,5 @@
 
 // YGTC import
 
-@import 'legacy/ygtc/_variables';
-@import 'legacy/ygtc/_amenities';
-@import 'legacy/ygtc/_block-description';
-@import 'legacy/ygtc/_blog';
-@import 'legacy/ygtc/_branch';
-@import 'legacy/ygtc/_camps-locations';
-@import 'legacy/ygtc/_colors';
-@import 'legacy/ygtc/_footer';
-@import 'legacy/ygtc/_header';
 @import 'legacy/ygtc/_legacy';
-@import 'legacy/ygtc/_menu';
-@import 'legacy/ygtc/_openy-lily-styles';
-@import 'legacy/ygtc/_paragraphs';
-
-
-@import 'legacy/_blog.scss';
-@import 'legacy/_camp_du_nord.scss';
-@import 'legacy/_childcare.scss';
-@import 'legacy/_icomoon.scss';
-@import 'legacy/_legacy.scss';
-@import 'legacy/_location.scss';
-@import 'legacy/_locations.scss';
-@import 'legacy/_membership.scss';
-@import 'legacy/_mindbody.scss';
-@import 'legacy/_mobile_nav.scss';
-@import 'legacy/_modal.scss';
-@import 'legacy/_promos.scss';
-@import 'legacy/_schedules.scss';
-@import 'legacy/_sidebar.scss';
-@import 'legacy/content-banner.scss';
+@import 'legacy/_legacy';

@@ -1,0 +1,43 @@
+@font-face {
+  font-family: 'Cachet';
+  src: url('../fonts/cachet/cachet-book.eot'); //!* IE9 Compat Modes *!
+  src: url('../fonts/cachet/cachet-book.eot?#iefix') format('embedded-opentype'), //!* IE6-IE8 *!
+  url('../fonts/cachet/cachet-book.woff2') format('woff2'), //!* Super Modern Browsers *!
+  url('../fonts/cachet/cachet-book.woff') format('woff'), //!* Pretty Modern Browsers *!
+  url('../fonts/cachet/cachet-book.svg#cachet-book') format('svg'), //!* Legacy iOS *!
+  url('../fonts/cachet/cachet-book.ttf') format('truetype'); //!* Safari, Android, iOS *!
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cachet Bold';
+  src: url('../fonts/cachet/cachet-bold.eot'); //!* IE9 Compat Modes *!
+  src: url('../fonts/cachet/cachet-bold.eot?#iefix') format('embedded-opentype'), //!* IE6-IE8 *!
+  url('../fonts/cachet/cachet-bold.woff2') format('woff2'), //!* Super Modern Browsers *!
+  url('../fonts/cachet/cachet-bold.woff') format('woff'), //!* Pretty Modern Browsers *!
+  url('../fonts/cachet/cachet-bold.svg#cachet-bold') format('svg'), //!* Legacy iOS *!
+  url('../fonts/cachet/cachet-bold.ttf') format('truetype'); //!* Safari, Android, iOS *!
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cachet Medium';
+  src: url('../fonts/cachet/cachet-medium.eot'); //!* IE9 Compat Modes *!
+  src: url('../fonts/cachet/cachet-medium.eot?#iefix') format('embedded-opentype'), //!* IE6-IE8 *!
+  url('../fonts/cachet/cachet-medium.woff2') format('woff2'), //!* Super Modern Browsers *!
+  url('../fonts/cachet/cachet-medium.woff') format('woff'), //!* Pretty Modern Browsers *!
+  url('../fonts/cachet/cachet-medium.svg#cachet-medium') format('svg'), //!* Legacy iOS *!
+  url('../fonts/cachet/cachet-medium.ttf') format('truetype'); //!* Safari, Android, iOS *!
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('../fonts/icomoon.eot?fmn4yo');
+  src: url('../fonts/icomoon.eot?#iefixfmn4yo') format("embedded-opentype"), url('../fonts/icomoon.woff?fmn4yo') format("woff"), url('../fonts/icomoon.ttf?fmn4yo') format("truetype"), url('../fonts/icomoon.svg?fmn4yo#icomoon') format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
