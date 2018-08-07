@@ -27,6 +27,9 @@ env:
     - { name: '[Openy Migrate] Updating OpenY related features', status: false, arguments: "echo webform redirect crop openy_media openy_media_document openy_media_video openy_node openy_node_landing openy_txnm_color openy_prgf_small_banner openy_prgf_simple_content openy_prgf_2c openy_block_custom_simple openy_prgf | xargs -n 1 | xargs -I item bin/drupal update:execute item"}
     - { name: '[Openy Migrate] Updating YMCA Master specific updates', status: false, arguments: "echo 8262 | xargs -n 1 | xargs -I item bin/drupal update:execute ymca_master item"}
     - { name: '[Openy Migrate] Updating YMCA Master remaining updates', status: false, arguments: "bin/drupal update:execute ymca_master"}
+    - { name: 'Enable yptf_kronos_monday', status: true, arguments: "bin/drupal moi yptf_kronos_monday openy_theme_override"}
+    - { name: 'Run proper hook update', status: true, arguments: "bin/drupal update:execute openy_block_custom_simple"}
+    - { name: 'enable all modules from Openy profile', status: true, arguments: "cd profiles/contrib/openy && sh yparse.sh | xargs drush en -y"}
   modules:
     - { name: 'dblog stage_file_proxy', status: true }
   drush_commands:
