@@ -340,11 +340,29 @@ function openy_install_features(array &$install_state) {
 function openy_import_content(array &$install_state) {
   $module_operations = [];
   $migrate_operations = [];
+  $migration_tag = 'openy_complete_installation';
 
   if ($install_state['openy']['content']) {
+    // If option  has been selected build demo modules installation operations array.
     _openy_import_content_helper($module_operations, $migrate_operations, 'complete');
+    // Build migrations import operation array.
+    $migrate_operations[] = ['openy_import_migration', (array) $migration_tag ];
   }
+  // @todo Fix below code for Import GroupExPro classes and PEF pages.
+  // Import GroupExPro classes. They are not handled as content migration.
+  // $importGxp = !empty($install_state['openy']['content']['gxp']);
+  // unset($install_state['openy']['content']['gxp']);
 
+  // Add demo content Program Event Framework landing pages manually. Do it as
+  // so last step so menu items are in place.
+  // $migrate_operations[] = ['openy_demo_nlanding_pef_pages', []];
+
+  // if ($importGxp) {
+  //   openy_enable_module('openy_gxp');
+  //  $migrate_operations[] = ['openy_gxp_import_tc', []];
+  // }
+  
+  // @todo Add home_alt if landing is not included.
   // Combine operations module enable before of migrations.
   return ['operations' => array_merge($module_operations, $migrate_operations)];
 }
@@ -499,14 +517,14 @@ function openy_enable_module($module_name) {
 }
 
 /**
- * Import single migration (with dependencies).
+ * Import migrations with specified tag.
  *
- * @param string $migration_id
- *   Migration ID.
+ * @param string $migration_tag
+ *   Migration tag.
  */
-function openy_import_migration($migration_id) {
+function openy_import_migration($migration_tag) {
   $importer = \Drupal::service('openy_migrate.importer');
-  $importer->import($migration_id);
+  $importer->importByTag($migration_tag);
 }
 
 /**
