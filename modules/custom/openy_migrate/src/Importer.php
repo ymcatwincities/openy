@@ -59,4 +59,14 @@ class Importer implements ImporterInterface {
     $this->importMigration($migration);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function importByTag($migration_tag) {
+    $migrations = $this->migrationManager->createInstancesByTag($migration_tag);
+    foreach ($migrations as $migration) {
+      $this->importMigration($migration);
+    }
+  }
+
 }
