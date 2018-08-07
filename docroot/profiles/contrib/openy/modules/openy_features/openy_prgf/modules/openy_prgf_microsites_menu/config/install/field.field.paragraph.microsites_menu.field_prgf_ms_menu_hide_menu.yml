@@ -9,7 +9,7 @@ field_name: field_prgf_ms_menu_hide_menu
 entity_type: paragraph
 bundle: microsites_menu
 label: 'Hide Main Menu'
-description: 'Whether to hide or not the main website menu.'
+description: 'Whether to hide or not the main website menu. If more than one paragraphs added, only the first one will affect the main menu.'
 required: false
 translatable: true
 default_value:

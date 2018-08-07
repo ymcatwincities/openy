@@ -76,10 +76,6 @@ source:
       id: 17
       name: Grey
       color: '4f4f4f'
-    -
-      id: 18
-      name: Light grey
-      color: '999999'
   ids:
     id:
       type: integer
