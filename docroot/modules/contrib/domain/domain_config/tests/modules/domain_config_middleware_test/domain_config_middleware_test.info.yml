@@ -1,0 +1,17 @@
+name: "Domain config middleware module tests"
+description: "Support module for domain config middleware response testing."
+type: module
+package: Testing
+# version: VERSION
+# core: 8.x
+hidden: TRUE
+
+dependencies:
+  - domain
+  - domain_config
+
+# Information added by Drupal.org packaging script on 2018-03-08
+version: '8.x-1.0-alpha13'
+core: '8.x'
+project: 'domain'
+datestamp: 1520519900

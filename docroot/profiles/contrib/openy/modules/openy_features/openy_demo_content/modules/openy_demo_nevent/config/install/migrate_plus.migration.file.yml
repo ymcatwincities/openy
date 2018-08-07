@@ -1,0 +1,72 @@
+dependencies:
+  module:
+    - file
+id: openy_demo_nevent_file
+migration_tags:
+  - 'OpenY Demo Event'
+migration_group: openy_demo_nevent
+label: 'Files'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 2
+      name: 2.jpg
+    -
+      id: 4
+      name: 4.jpg
+    -
+      id: 6
+      name: 6.jpg
+    -
+      id: 7
+      name: 7.jpg
+  ids:
+    id:
+      type: integer
+  constants:
+    source_relative_path: assets/images
+    uri_file: 'public:/'
+    module: openy_demo_nevent
+process:
+  module_path:
+    plugin: module_path
+    source: constants/module
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - '@module_path'
+        - constants/source_relative_path
+        - name
+    -
+      plugin: urlencode
+  uri_file:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/uri_file
+        - name
+    -
+      plugin: urlencode
+  filename: name
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@uri_file'
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+destination:
+  plugin: 'entity:file'
+migration_dependencies:
+  required: {  }
+  optional: {  }

@@ -1,0 +1,605 @@
+<?php
+
+/**
+ * @file
+ * Fonts.com API module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Link;
+use GuzzleHttp\Psr7;
+
+use Drupal\fontyourface\FontInterface;
+use Drupal\fontyourface\FontDisplayInterface;
+use Drupal\fontyourface\Entity\Font;
+
+define('FONTSCOM_API_BASE_URL', 'https://api.fonts.com');
+define('FONTSCOM_API_APP_KEY', '1fdb130c-d5c0-4fab-8e2b-271508570323932606');
+
+/**
+ * Implements hook_fontyourface_api().
+ */
+function fontscom_api_fontyourface_api() {
+  return [
+    'version' => '3',
+    'name' => 'Fonts.com',
+  ];
+}
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Use this hook instead of hook_install, because the route "font.settings" is
+ * not defined otherwise.
+ */
+function fontscom_api_modules_installed($modules) {
+  if (in_array('fontscom_api', $modules)) {
+    drupal_set_message(t('Fonts.com settings needs to be set up in order to import fonts from Fonts.com. Please use @link to import Fonts.com fonts.', ['@link' => Link::createFromRoute('@font-your-face settings', 'font.settings')->toString()]));
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function fontscom_api_entity_presave(EntityInterface $entity) {
+  if ($entity instanceof Font) {
+    if ($entity->pid->value == 'fontscom_api' && $entity->isActivated()) {
+      $metadata = $entity->getMetadata();
+      $config = \Drupal::config('fontscom_api.settings');
+      $enabled_fonts = fontscom_api_get_all_enabled_fonts();
+      if (isset($enabled_fonts[$metadata['FontID']])) {
+        // Do nothing.
+      }
+      else {
+        fontscom_api_add_font_to_current_project($metadata['FontID']);
+      }
+    }
+    elseif ($entity->pid->value == 'fontscom_api' && $entity->isDeactivated()) {
+      if (!empty($entity->original)) {
+        $original_entity = $entity->original;
+        if ($original_entity->status->value != $entity->status->value) {
+          $metadata = $entity->getMetadata();
+          $config = \Drupal::config('fontscom_api.settings');
+          $enabled_fonts = fontscom_api_get_all_enabled_fonts();
+          if (isset($enabled_fonts[$metadata['FontID']])) {
+            fontscom_api_remove_font_from_current_project($metadata['FontID']);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function fontscom_api_form_font_settings_alter(&$form, FormStateInterface $form_state) {
+  $config = \Drupal::config('fontscom_api.settings');
+  $form['fontscom_api'] = [
+    '#type' => 'fieldset',
+    '#title' => t('FONTS.COM SETTINGS'),
+  ];
+  $form['fontscom_api']['fontscom_api_token'] = [
+    '#type' => 'textfield',
+    '#title' => t('Fonts.com Authentication Key'),
+    '#description' => t('Add your Fonts.com authentication key to import your projects. Available at <a target="_blank" href=":url">:url</a>', [':url' => 'https://www.fonts.com/account#authentification-section']),
+    '#default_value' => $config->get('token'),
+  ];
+
+  if (!empty($config->get('token'))) {
+    $projects = fontscom_api_get_projects();
+
+    if (count($projects) > 0) {
+      $options = ['' => '-- Select a project --'];
+      foreach ($projects as $key => $project) {
+        $options[$project->ProjectKey] = Html::escape($project->ProjectName);
+      }
+      $form['fontscom_api']['fontscom_api_project'] = [
+        '#type' => 'select',
+        '#title' => t('Project'),
+        '#options' => $options,
+        '#default_value' => $config->get('project'),
+        '#required' => TRUE,
+      ];
+    }
+  }
+  $form['#submit'][] = 'fontscom_api_form_font_settings_submit';
+}
+
+/**
+ * Submits Font settings form data.
+ */
+function fontscom_api_form_font_settings_submit(&$form, FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+  $config = \Drupal::configFactory()->getEditable('fontscom_api.settings');
+  $config->set('token', $values['fontscom_api_token']);
+  if (isset($values['fontscom_api_project'])) {
+    $config->set('project', $values['fontscom_api_project']);
+  }
+  $config->save();
+  fontscom_api_get_allowed_api_filters(TRUE);
+  fontscom_api_get_all_remote_fonts_count(TRUE);
+  drupal_set_message(t('Saved Fonts.com Authentication Key'));
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function fontscom_api_page_attachments(&$page) {
+  $config = \Drupal::config('fontscom_api.settings');
+  // Only get all fonts when we have set a project and token.
+  if (!empty($config->get('token')) && !empty($config->get('project'))) {
+    $page['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#attributes' => [
+          'src' => 'https://fast.fonts.net/jsapi/' . $config->get('project') . '.js',
+        ],
+      ], 'fontyourface-fontscom-api-' . $config->get('project'),
+    ];
+  }
+
+  $enabled_fonts = &drupal_static('fontyourface_fonts', []);
+  $font_css = '';
+  foreach ($enabled_fonts as $font) {
+    if ($font->pid->value == 'fontscom_api') {
+      if ($font->isDeactivated()) {
+        $font_css .= _fontscom_api_generate_font_css($font);
+      }
+    }
+  }
+  if (!empty($font_css)) {
+    $hash = hash('sha256', $font_css);
+    $directory_location = 'fontyourface/fontscom_api';
+    file_prepare_directory($directory_location, FILE_CREATE_DIRECTORY);
+    if (!file_exists($directory_location . '/fontyourface-stylesheet-' . $hash . '.css')) {
+      file_unmanaged_save_data($font_css, $directory_location . '/fontyourface-stylesheet-' . $hash . '.css', FILE_EXISTS_REPLACE);
+    }
+    $page['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'link',
+        '#attributes' => [
+          'rel' => 'stylesheet',
+          'href' => file_create_url($directory_location . '/fontyourface-stylesheet-' . $hash . '.css'),
+          'media' => 'all',
+        ],
+      ], 'fontyourface-fontscom-api-preview-fonts',
+    ];
+  }
+}
+
+/**
+ * Implements hook_fontyourface_font_css().
+ */
+function fontscom_api_fontyourface_font_css(FontInterface $font, FontDisplayInterface $font_style = NULL, $separator = ' ') {
+  if ($font->pid->value == 'fontscom_api') {
+    $css = [];
+
+    // Enclose font family definition in single quotes if not already enclosed.
+    if ($font->css_family->value[0] === "'") {
+      $family_list = $font->css_family->value;
+    }
+    else {
+      $family_list = "'" . $font->css_family->value . "'";
+    }
+
+    if ($font_style !== NULL) {
+      if ($font_style->css_fallbacks) {
+        $family_list .= ', ' . $font_style->css_fallbacks;
+      }
+    }
+
+    $css[] = 'font-family: ' . $family_list . ';';
+    $css[] = 'font-style: 400;';
+    $css[] = 'font-weight: normal;';
+
+    return implode($separator, $css);
+  }
+}
+
+/**
+ * Implements hook_fontyourface_import().
+ */
+function fontscom_api_fontyourface_import($font_context = []) {
+  $context = $font_context;
+  $limit = 50;
+  $config = \Drupal::config('fontscom_api.settings');
+  // Only get all fonts when we have set a project and token.
+  if (!empty($config->get('token')) && !empty($config->get('project'))) {
+    if (empty($context['sandbox'])) {
+      $context['sandbox']['progress'] = 1;
+      $context['sandbox']['font_count'] = 0;
+      $context['sandbox']['max'] = ceil(fontscom_api_get_all_remote_fonts_count() / $limit);
+      $context['sandbox']['enabled_fonts'] = fontscom_api_get_all_enabled_fonts();
+    }
+    $fontscom_fonts = fontscom_api_get_all_fonts($context['sandbox']['progress'], $limit);
+    foreach ($fontscom_fonts as $fontscom_font) {
+      _fontscom_api_parse_imported_font($fontscom_font);
+      $font_data = new stdClass();
+      $font_data->metadata = [
+        'FontID' => $fontscom_font->FontID,
+        'eot' => $fontscom_font->EOTURL,
+        'svg' => $fontscom_font->SVGURL,
+        'ttf' => $fontscom_font->TTFURL,
+        'woff2' => $fontscom_font->WOFF2URL,
+        'woff' => $fontscom_font->WOFFURL,
+      ];
+      $font_data->provider = 'fontscom_api';
+      $font_data->name = $fontscom_font->name;
+      $font_data->url = 'https://www.fonts.com/fonts/' . $fontscom_font->FontID;
+      $font_data->css_family = $fontscom_font->FontCSSName;
+      $font_data->language = [
+        $fontscom_font->FontLanguage,
+      ];
+      $font_data->designer = $fontscom_font->Designer;
+      $font_data->foundry = $fontscom_font->FontFoundryName;
+      if (!empty($fontscom_font->Classification)) {
+        $font_data->classification = explode(',', $fontscom_font->Classification);
+      }
+      $font = fontyourface_save_font($font_data);
+      if (isset($context['sandbox']['enabled_fonts'][$fontscom_font->FontID])) {
+        $font->activate();
+      }
+      $context['sandbox']['font_count']++;
+    }
+    $context['message'] = "Working on batch {$context['sandbox']['progress']} of {$context['sandbox']['max']}";
+    $context['sandbox']['progress']++;
+    if ($context['sandbox']['progress'] < $context['sandbox']['max']) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    }
+    else {
+      drupal_set_message(t('Imported @count fonts from fonts.com', ['@count' => $context['sandbox']['font_count']]));
+    }
+  }
+  else {
+    drupal_set_message(t('Due to the number of fonts, automated import from install for Fonts.com is disabled. Please enter your Authentication Key and Project ID first before trying to import fonts.'));
+  }
+  return $context;
+}
+
+/**
+ * Provides headers with api parameters.
+ *
+ * @param string $path
+ *   Fonts.com API endpoint.
+ *
+ * @return array
+ *   Header with fonts.com token for API request.
+ */
+function fontscom_api_headers($path) {
+  $config = \Drupal::config('fontscom_api.settings');
+
+  $fontscom_token = $config->get('token');
+
+  if (empty($fontscom_token)) {
+    return [];
+  }
+
+  list($public_key, $private_key) = explode('--', $fontscom_token);
+
+  $encoded = base64_encode(hash_hmac('md5', $public_key . '|' . $path, $private_key, TRUE));
+  $auth = urlencode($public_key . ':' . $encoded);
+
+  return ['Authorization' => $auth, 'AppKey' => FONTSCOM_API_APP_KEY];
+
+}
+
+/**
+ * Returns list of projects.
+ */
+function fontscom_api_get_projects() {
+  $projects = [];
+  try {
+    $path = '/rest/json/Projects/?wfspstart=0&wfsplimit=100';
+    $uri = FONTSCOM_API_BASE_URL . $path;
+    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $data = json_decode((string) $response->getBody());
+  }
+  catch (Exception $e) {
+    drupal_set_message(t('There was an error retrieving project list from Fonts.com. Error: %error', ['%error' => $e->getMessage()]), 'error');
+    return [];
+  }
+
+  if ($data->Projects->TotalRecords > 0) {
+    $project = $data->Projects->Project;
+    $projects = fontscom_api_unknown_to_array($project);
+  }
+  return $projects;
+}
+
+/**
+ * Returns an array, regardless of input.
+ *
+ * @param mixed $unknown
+ *   A parameter of unknown type.
+ *
+ * @return array
+ *   If parameter is already an array, return as-is. Otherwise, return array
+ *   with param as first value.
+ */
+function fontscom_api_unknown_to_array($unknown) {
+  if (is_array($unknown)) {
+    return $unknown;
+  }
+
+  return [$unknown];
+}
+
+/**
+ * Gets a list of all fonts, in given range.
+ *
+ * @param int $start
+ *   Pager request start value.
+ * @param int $limit
+ *   Pager request limit. Max 50.
+ *
+ * @return array
+ *   Array of fonts.com font objects.
+ */
+function fontscom_api_get_all_fonts($start = 0, $limit = 50) {
+  $result = [
+    'fonts' => [],
+    'count' => FALSE,
+  ];
+
+  $query = [
+    'wfspstart' => $start,
+    'wfsplimit' => $limit,
+    'wfsCSS' => 1,
+  ];
+
+  $filters = fontscom_api_get_allowed_api_filters();
+  if ($filters->FreeOrPaid == 0) {
+    $query['wfsfree'] = 'true';
+  }
+
+  try {
+    $path = '/rest/json/AllFonts/?' . UrlHelper::buildQuery($query);
+    $uri = FONTSCOM_API_BASE_URL . $path;
+    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $data = json_decode((string) $response->getBody());
+  }
+  catch (Exception $e) {
+    drupal_set_message(t('There was an error importing fonts from Fonts.com. Error: %error', ['%error' => $e->getMessage()]), 'error');
+    return FALSE;
+  }
+  return $data->AllFonts->Font;
+}
+
+/**
+ * Gets total font count.
+ *
+ * @param bool $reset
+ *   If the cache should be flushed and force an API request.
+ *
+ * @return int
+ *   Total number of fonts on fonts.com.
+ */
+function fontscom_api_get_all_remote_fonts_count($reset = FALSE) {
+  $data = NULL;
+  if (!$reset && $cache = \Drupal::cache()->get('fontscom_api_remote_fonts_count')) {
+    return $cache->data;
+  }
+  try {
+    $filters = fontscom_api_get_allowed_api_filters();
+    $path = '/rest/json/AllFonts/?wfspstart=0&wfsplimit=1';
+    if ($filters->FreeOrPaid == 0) {
+      $path .= '&wfsfree=true';
+    }
+    $uri = FONTSCOM_API_BASE_URL . $path;
+    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $data = json_decode((string) $response->getBody());
+  }
+  catch (Exception $e) {
+    drupal_set_message(t('There was an error retrieving total Font count from Fonts.com. Error: %error', ['%error' => $e->getMessage()]), 'error');
+    return FALSE;
+  }
+  \Drupal::cache()->set('fontscom_api_remote_fonts_count', $data->AllFonts->TotalRecords);
+  return $data->AllFonts->TotalRecords;
+}
+
+/**
+ * Retrieves list of allowed api filters.
+ *
+ * @param bool $reset
+ *   If the cache should be flushed and force an API request.
+ *
+ * @return array
+ *   Key-value store of allowed filters from fonts.com.
+ */
+function fontscom_api_get_allowed_api_filters($reset = FALSE) {
+  $data = NULL;
+  if (!$reset && $cache = \Drupal::cache()->get('fontscom_api_allowed_api_filters')) {
+    return $cache->data;
+  }
+  try {
+    $path = '/rest/json/AllFilterValues/';
+    $uri = FONTSCOM_API_BASE_URL . $path;
+    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $data = json_decode((string) $response->getBody());
+  }
+  catch (Exception $e) {
+    drupal_set_message(t('There was an error retrieving Font filters from Fonts.com. Error: %error', ['%error' => $e->getMessage()]), 'error');
+    return FALSE;
+  }
+  \Drupal::cache()->set('fontscom_api_allowed_api_filters', $data->FilterValues);
+  return $data->FilterValues;
+}
+
+/**
+ * Retrieves list of all enabled fonts from Fonts.com.
+ *
+ * @return array
+ *   Array of enabled fonts.com font objects.
+ */
+function fontscom_api_get_all_enabled_fonts() {
+  try {
+    $config = \Drupal::config('fontscom_api.settings');
+    $path = '/rest/json/Fonts/?wfspid=' . $config->get('project');
+    $uri = FONTSCOM_API_BASE_URL . $path;
+    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $data = json_decode((string) $response->getBody());
+  }
+  catch (Exception $e) {
+    drupal_set_message(t('There was an error retrieving total Font count from Fonts.com. Error: %error', ['%error' => $e->getMessage()]), 'error');
+    return FALSE;
+  }
+  $enabled_fonts = [];
+  foreach ($data->Fonts->Font as $font) {
+    $enabled_fonts[$font->FontID] = $font;
+  }
+  return $enabled_fonts;
+}
+
+/**
+ * Adds font to fonts.com project package.
+ *
+ * @param int $fid
+ *   Fonts.com font ID.
+ *
+ * @return bool
+ *   True if font added successfully. FALSE otherwise.
+ */
+function fontscom_api_add_font_to_current_project($fid) {
+  try {
+    $config = \Drupal::config('fontscom_api.settings');
+    $path = '/rest/json/Fonts/?wfspid=' . $config->get('project');
+    $uri = FONTSCOM_API_BASE_URL . $path;
+    $response = \Drupal::httpClient()->post($uri, [
+      'headers' => fontscom_api_headers($path),
+      'verify' => FALSE,
+      'body' => 'wfsfid=' . $fid,
+    ]);
+    $data = json_decode((string) $response->getBody());
+    fontscom_api_publish_updated_project();
+    return TRUE;
+  }
+  catch (Exception $e) {
+    drupal_set_message(t('There was an error adding font to Fonts.com project. Error: %error', ['%error' => Psr7\str($e->getResponse())]), 'error');
+    return FALSE;
+  }
+}
+
+/**
+ * Removes font from fonts.com project package.
+ *
+ * @param int $fid
+ *   Fonts.com font ID.
+ *
+ * @return bool
+ *   True if font removed successfully. FALSE otherwise.
+ */
+function fontscom_api_remove_font_from_current_project($fid) {
+  try {
+    $config = \Drupal::config('fontscom_api.settings');
+    $path = '/rest/json/Fonts/?wfspid=' . $config->get('project') . '&wfsfid=' . $fid;
+    $uri = FONTSCOM_API_BASE_URL . $path;
+    $response = \Drupal::httpClient()->delete($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    $data = json_decode((string) $response->getBody());
+    fontscom_api_publish_updated_project();
+    return TRUE;
+  }
+  catch (Exception $e) {
+    drupal_set_message(t('There was an error removing font from Fonts.com project. Error: %error', ['%error' => Psr7\str($e->getResponse())]), 'error');
+    return FALSE;
+  }
+}
+
+/**
+ * Updates fonts.com project package so updated font list is used.
+ *
+ * @return bool
+ *   True if projects updated successfully. FALSE otherwise.
+ */
+function fontscom_api_publish_updated_project() {
+  try {
+    $path = '/rest/json/Publish/';
+    $uri = FONTSCOM_API_BASE_URL . $path;
+    $response = \Drupal::httpClient()->get($uri, ['headers' => fontscom_api_headers($path), 'verify' => FALSE]);
+    return TRUE;
+  }
+  catch (Exception $e) {
+    drupal_set_message(t('There was an error publishing project on Fonts.com. Error: %error', ['%error' => Psr7\str($e->getResponse())]), 'error');
+    return FALSE;
+  }
+}
+
+/**
+ * Parses and adds additional data to fonts.com font object.
+ *
+ * @param object $fontscom_font
+ *   Fonts.com font object.
+ */
+function _fontscom_api_parse_imported_font($fontscom_font) {
+  $fontscom_font->name = $fontscom_font->FontName;
+  $fontscom_font->css_style = 'normal';
+  if (stripos('Italic', $fontscom_font->FontName) !== FALSE) {
+    $fontscom_font->css_style = 'italic';
+  }
+
+  $fontscom_font->css_weight = 400;
+  if (stripos('Extra Light', $fontscom_font->FontName) !== FALSE || stripos('Ultra Light', $fontscom_font->FontName) !== FALSE) {
+    $fontscom_font->css_weight = 100;
+  }
+  if (stripos('Thin', $fontscom_font->FontName) !== FALSE) {
+    $fontscom_font->css_weight = 200;
+  }
+  if (stripos('Light', $fontscom_font->FontName) !== FALSE) {
+    $fontscom_font->css_weight = 300;
+  }
+  if (stripos('Medium', $fontscom_font->FontName) !== FALSE) {
+    $fontscom_font->css_weight = 500;
+  }
+  elseif (stripos('SemiBold', $fontscom_font->FontName) !== FALSE || stripos('Semi Bold', $fontscom_font->FontName) !== FALSE) {
+    $fontscom_font->css_weight = 600;
+  }
+  elseif (stripos('Bold', $fontscom_font->FontName) !== FALSE) {
+    $fontscom_font->css_weight = 700;
+  }
+  elseif (stripos('Heavy', $fontscom_font->FontName) !== FALSE) {
+    $fontscom_font->css_weight = 800;
+  }
+  elseif (stripos('Black', $fontscom_font->FontName) !== FALSE) {
+    $fontscom_font->css_weight = 900;
+  }
+}
+
+/**
+ * Generates @font-face css for fonts.com font.
+ *
+ * @param Drupal\fontyourface\FontInterface $font
+ *   Font compatible with FontInterface.
+ *
+ * @return string
+ *   CSS to load font.
+ */
+function _fontscom_api_generate_font_css(FontInterface $font) {
+  $metadata = $font->getMetadata();
+  $data = "@font-face {\n";
+  $data .= "font-family: '{$font->css_family->value}';\n";
+  $lines = [];
+
+  if ($metadata['eot']) {
+    $data .= "src: url('{$metadata['eot']}');\n";
+    $lines[] = "url('{$metadata['eot']}?#iefix') format('embedded-opentype')";
+  }
+  if ($metadata['ttf']) {
+    $lines[] = "url('{$metadata['ttf']}') format('truetype')";
+  }
+  if ($metadata['woff']) {
+    $lines[] = "url('{$metadata['woff']}') format('woff')";
+  }
+  if ($metadata['svg']) {
+    $lines[] = "url('{$metadata['svg']}#{$css_family}') format('svg')";
+  }
+
+  $data .= 'src: ' . implode(', ', $lines) . ";\n";
+  $data .= "font-weight: normal;\n";
+  $data .= "font-style: normal;\n";
+  return $data . "}\n";
+}

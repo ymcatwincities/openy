@@ -1,0 +1,14 @@
+name: Social Feed Fetcher
+type: module
+description: 'Fetching social feeds from Facebook, Twitter, Instagram, and aggregates them into a content type.'
+configure: social_feed_fetcher.settings
+package: Other
+# core: 8.x
+dependencies:
+- drupal:node
+
+# Information added by Drupal.org packaging script on 2018-05-09
+version: '8.x-1.0-beta9'
+core: '8.x'
+project: 'social_feed_fetcher'
+datestamp: 1525877588

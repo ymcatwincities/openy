@@ -1,6 +1,0 @@
-enabled: 1
-login: mobile
-password: checkin
-message: 'Please enter username and password to get access.'
-_core:
-  default_config_hash: iOKJfQDAlt8nqCT-_SMy-lPgbnM6uIAmhkKQEBfRN1o

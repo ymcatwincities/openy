@@ -1,0 +1,437 @@
+<?php
+
+/**
+ * @file
+ * Contains fontyourface.module..
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Component\Utility\Html;
+use Drupal\taxonomy\Entity\Term;
+
+use Drupal\fontyourface\FontInterface;
+use Drupal\fontyourface\FontDisplayInterface;
+use Drupal\fontyourface\Entity\Font;
+use Drupal\fontyourface\Entity\FontDisplay;
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function fontyourface_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'page_attachments') {
+    // Move the fontyourface and submodules to be among the last to build on page.
+    $list = ['fontyourface'];
+    foreach (\Drupal::moduleHandler()->getImplementations('fontyourface_api') as $module_name) {
+      if (isset($implementations[$module_name])) {
+        $list[] = $module_name;
+      }
+    }
+    foreach ($list as $module_name) {
+      $group = $implementations[$module_name];
+      unset($implementations[$module_name]);
+      $implementations[$module_name] = $group;
+    }
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function fontyourface_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the fontyourface module.
+    case 'help.page.fontyourface':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Web font management tools.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_library_info_build().
+ */
+function fontyourface_library_info_build() {
+  $libraries = [];
+  $drupal_themes = \Drupal::service('theme_handler')->listInfo();
+  foreach ($drupal_themes as $key => $theme) {
+    $styles = FontDisplay::loadByTheme($key);
+    if (!empty($styles)) {
+      foreach ($styles as $style) {
+        $file_url = file_build_uri('fontyourface/font_display/' . $style->id() . '.css');
+        $libraries['font_display_' . $key]['css']['base'][$file_url] = [
+          'basename' => $file_url,
+        ];
+      }
+    }
+  }
+  return $libraries;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fontyourface_theme() {
+  return [
+    'font' => [
+      'render element' => 'elements',
+    ],
+    'font__full' => [
+      'render element' => 'elements',
+    ],
+    'font__teaser' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function fontyourface_page_attachments(&$page) {
+  $config = \Drupal::config('fontyourface.settings');
+  $fonts = &drupal_static('fontyourface_fonts', []);
+  // Load all enabled fonts regardless of theme if setting allows it.
+  if ($config->get('load_all_enabled_fonts')) {
+    foreach (Font::loadActivatedFonts() as $font) {
+      $fonts[$font->url->value] = $font;
+    }
+  }
+
+  $font_preview = &drupal_static('fontyourface_font_preview');
+  // On a font preview page, ONLY show the preview font and other base theme font.
+  if (empty($font_preview)) {
+    // We are dealing with a regular page.
+    $theme = \Drupal::theme()->getActiveTheme()->getName();
+    $styles = FontDisplay::loadByTheme($theme);
+    if (!empty($styles)) {
+      $page['#attached']['library'][] = 'fontyourface/font_display_' . $theme;
+      foreach ($styles as $style) {
+        $font = $style->getFont();
+        if (!empty($font)) {
+          $fonts[$font->url->value] = $font;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Adds body classes if certain regions have content.
+ */
+function fontyourface_preprocess_html(&$variables) {
+  $variables['attributes']['class'][] = 'fontyourface';
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function fontyourface_theme_suggestions_font(array $variables) {
+  return ['font__' . $variables['elements']['#view_mode']];
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function fontyourface_views_pre_render($view) {
+  if ($view->id() == 'fontyourface_font_manager') {
+    $view->element['#attached']['library'][] = 'fontyourface/fontyourface.admin';
+  }
+}
+
+/**
+ * Prepares variables for Font templates.
+ *
+ * Default template: font.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the user information and any
+ *   - attributes: HTML attributes for the containing element.
+ */
+function fontyourface_preprocess_font(array &$variables) {
+  // Fetch Font Entity Object.
+  $font = $variables['elements']['#font'];
+  $fonts = &drupal_static('fontyourface_fonts');
+  $fonts[$font->url->value] = $font;
+  $font_preview = &drupal_static('fontyourface_font_preview');
+  $font_preview = TRUE;
+  $title = Html::escape($font->name->value);
+
+  $variables['font_style'] = fontyourface_font_css($font, NULL, "\n");
+  $variables['font_style_inline'] = fontyourface_font_css($font);
+  $variables['font_title'] = \Drupal::l($title, $font->urlInfo());
+
+  // Helpful $content variable for templates.
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+
+  $variables['attributes']['class'] = ['font'];
+  if ($font->isDeactivated()) {
+    $url = Url::fromRoute('entity.font.activate', ['js' => 'nojs', 'font' => $font->id()], ['query' => \Drupal::destination()->getAsArray()]);
+    $url->setOptions(
+      [
+        'attributes' => [
+          'id' => 'font-status-' . $font->id(),
+          'class' => [
+            'font-status',
+            'disabled',
+            'use-ajax',
+          ],
+        ],
+      ]
+    );
+    $text = t('Enable');
+    $variables['attributes']['class'][] = 'disabled';
+  }
+  if ($font->isActivated()) {
+    $url = Url::fromRoute('entity.font.deactivate', ['js' => 'nojs', 'font' => $font->id()], ['query' => \Drupal::destination()->getAsArray()]);
+    $url->setOptions(
+      [
+        'attributes' => [
+          'id' => 'font-status-' . $font->id(),
+          'class' => [
+            'font-status',
+            'enabled',
+            'use-ajax',
+          ],
+        ],
+      ]
+    );
+    $text = t('Disable');
+    $variables['attributes']['class'][] = 'enabled';
+  }
+
+  $url->setOption('destination', Drupal::destination());
+  $variables['operation_links'] = Drupal::l($text, $url);
+}
+
+/**
+ * Prepares variables for Font templates.
+ *
+ * Default template: font--full.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the user information and any
+ *   - attributes: HTML attributes for the containing element.
+ */
+function fontyourface_preprocess_font__full(array &$variables) {
+  fontyourface_preprocess_font($variables);
+}
+
+/**
+ * Prepares variables for font teaser preview.
+ *
+ * Default template: font--teaser.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the user information and any
+ *   - attributes: HTML attributes for the containing element.
+ */
+function fontyourface_preprocess_font__teaser(array &$variables) {
+  fontyourface_preprocess_font($variables);
+}
+
+/**
+ * Saves/updates font.
+ *
+ * @param object $font_data
+ *   Simple stdclass rep of font for saving.
+ *
+ * @return Drupal\fontyourface\Entity\Font
+ *   Newly saved/updated font.
+ */
+function fontyourface_save_font($font_data) {
+  $font = Font::loadByUrl($font_data->url);
+  if (empty($font)) {
+    $font = Font::create();
+  }
+  $font->pid = $font_data->provider;
+  $font->url = $font_data->url;
+  $font->name = $font_data->name;
+  $font->css_family = !empty($font_data->css_family) ? $font_data->css_family : '';
+  $font->css_style = !empty($font_data->css_style) ? $font_data->css_style : '';
+  $font->css_weight = !empty($font_data->css_weight) ? $font_data->css_weight : '';
+  $font->foundry = !empty($font_data->foundry) ? $font_data->foundry : '';
+  $font->foundry_url = !empty($font_data->foundry_url) ? $font_data->foundry_url : '';
+  $font->license = !empty($font_data->license) ? $font_data->license : '';
+  $font->license_url = !empty($font_data->license_url) ? $font_data->license_url : '';
+  $font->designer = !empty($font_data->designer) ? $font_data->designer : '';
+  $font->designer_url = !empty($font_data->designer_url) ? $font_data->designer_url : '';
+  if (!empty($font_data->classification)) {
+    $font->field_classification = [];
+    foreach ($font_data->classification as $classification) {
+      $font->field_classification[] = [
+        'target_id' => _fontyourface_get_vocabulary_term($classification, 'font_classification'),
+      ];
+    }
+  }
+  if (!empty($font_data->language)) {
+    $font->field_supported_languages = [];
+    foreach ($font_data->language as $language) {
+      $font->field_supported_languages[] = [
+        'target_id' => _fontyourface_get_vocabulary_term($language, 'languages_supported'),
+      ];
+    }
+  }
+  $font->tags = [];
+  if (!empty($font_data->foundry)) {
+    $font->field_tags[] = [
+      'target_id' => _fontyourface_get_vocabulary_term($font_data->foundry, 'font_foundry'),
+    ];
+  }
+  if (!empty($font_data->designer)) {
+    $font->field_tags[] = [
+      'target_id' => _fontyourface_get_vocabulary_term($font_data->designer, 'font_designer'),
+    ];
+  }
+  $font->setMetadata(!empty($font_data->metadata) ? $font_data->metadata : []);
+  $font->status = FALSE;
+  if ($font->isActivated()) {
+    $font->status = TRUE;
+  }
+  $font->save();
+  return $font;
+}
+
+/**
+ * Creates CSS with any properties set on font.
+ *
+ * @param Drupal\fontyourface\FontInterface $font
+ *   The font object.
+ * @param Drupal\fontyourface\FontDisplayInterface $font_style
+ *   The font display object.
+ * @param string $separator
+ *   Approach to separating the resulting css.
+ *
+ * @return string
+ *   The font-family css.
+ */
+function fontyourface_font_css(FontInterface $font, FontDisplayInterface $font_style = NULL, $separator = ' ') {
+  $css = \Drupal::moduleHandler()->invokeAll('fontyourface_font_css', [
+    $font,
+    $font_style,
+    $separator,
+  ]);
+  if (!empty($css)) {
+    return implode("\n", $css);
+  }
+  $css = [];
+
+  // Enclose font family definition in single quotes if not already enclosed.
+  if ($font->css_family->value[0] === "'") {
+    $family_list = $font->css_family->value;
+  }
+  else {
+    $family_list = "'" . $font->css_family->value . "'";
+  }
+
+  if ($font_style !== NULL) {
+    if (!empty($font_style->getFallback())) {
+      $family_list .= ', ' . $font_style->getFallback();
+    }
+  }
+
+  $css[] = 'font-family: ' . $family_list . ';';
+  $css[] = 'font-style: ' . $font->css_style->value . ';';
+  $css[] = 'font-weight: ' . $font->css_weight->value . ';';
+
+  return implode($separator, $css);
+}
+
+/**
+ * Deletes fonts from a specific provider.
+ *
+ * @param string $provider
+ *   The providing submodule.
+ */
+function fontyourface_delete($provider) {
+
+  // Delete fonts, 50 at a time.
+  @set_time_limit(3600);
+  while (TRUE) {
+    $storage_handler = \Drupal::entityManager()->getStorage('font');
+    $fids = \Drupal::entityQuery('font')
+      ->condition('pid', $provider)
+      ->range(0, 50)
+      ->execute();
+    if (!empty($fids)) {
+      $fonts = $storage_handler->loadMultiple(array_keys($fids));
+      $storage_handler->delete($fonts);
+    }
+    else {
+      break;
+    }
+  }
+}
+
+/**
+ * Logs to watchdog if logging is enabled.
+ *
+ * @param string $message
+ *   Log message. This should be a literal string; see
+ *   https://drupal.org/node/323101 for more details.
+ * @param array $arguments
+ *   Arguments to replace placeholders, if there are any, in $message.
+ */
+function fontyourface_log($message, array $arguments) {
+  $config = \Drupal::config('fontyourface.settings');
+  if ($config->get('fontyourface_detailed_logging')) {
+    watchdog('@font-your-face', $message, $arguments, WATCHDOG_INFO);
+  }
+}
+
+/**
+ * Saves and generates font file based on font display config entity data.
+ *
+ * @param Drupal\fontyourface\FontDisplayInterface $style
+ *   Custom config font display entity.
+ *
+ * @return bool
+ *   TRUE if files save successfully. Throw any errors otherwise.
+ */
+function fontyourface_save_and_generate_font_display_css(FontDisplayInterface $style) {
+  $directory = file_build_uri('fontyourface/font_display');
+  file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+
+  $font = $style->getFont();
+  $css_file = $directory . '/' . $style->id() . '.css';
+  $css_file_data = $style->getSelectors() . ' { ' . fontyourface_font_css($font, $style) . ' }';
+  file_unmanaged_save_data($css_file_data, $css_file, FILE_EXISTS_REPLACE);
+
+  return TRUE;
+}
+
+/**
+ * Retrieves a tid for use from taxonomy.
+ *
+ * @param string $term_value
+ *   The taxonomy term string.
+ * @param string $vocabulary
+ *   The machine name of the vocabulary the term belongs to.
+ *
+ * @return int
+ *   The found/created taxonomy term id.
+ */
+function _fontyourface_get_vocabulary_term($term_value, $vocabulary) {
+  if ($terms = taxonomy_term_load_multiple_by_name($term_value, $vocabulary)) {
+    $term = reset($terms);
+  }
+  else {
+    $term = Term::create([
+      'name' => $term_value,
+      'vid' => $vocabulary,
+    ]);
+    $term->save();
+  }
+  return $term->id();
+}

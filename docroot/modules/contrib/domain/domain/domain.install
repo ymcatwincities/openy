@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Domain Access module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Installs the domain admin field on users.
+ */
+function domain_install() {
+  _domain_configure_field();
+}
+
+/**
+ * Implements hook_update_N().
+ *
+ * Installs the domain admin field on users.
+ */
+function domain_update_8001() {
+  _domain_configure_field();
+}
+
+/**
+ * Configures user form display to checkboxes widget for domain admin field.
+ */
+function _domain_configure_field() {
+  if ($display = \Drupal::entityTypeManager()->getStorage('entity_form_display')->load('user.user.default')) {
+    $display->setComponent(DOMAIN_ADMIN_FIELD, [
+      'type' => 'options_buttons',
+      'weight' => 50,
+    ])
+    ->save();
+  }
+}

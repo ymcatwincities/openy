@@ -1,0 +1,16 @@
+{
+  "name": "drupal/fontyourface",
+  "type": "drupal-module",
+  "description": "Web font management tools.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/fontyourface",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://drupal.org/project/issues/fontyourface",
+    "source": "http://cgit.drupalcode.org/fontyourface"
+  },
+  "require": {
+    "drupal/core": "8.*"
+  }
+}
