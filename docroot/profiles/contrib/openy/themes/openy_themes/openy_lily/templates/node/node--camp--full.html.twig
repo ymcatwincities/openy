@@ -1,15 +1,20 @@
 {#
 /**
  * @file
- * YMCA's theme implementation to display a node.
+ * Theme override to display a node.
  *
  * Available variables:
- * - node: Full node entity.
- *   - id: The node ID.
- *   - bundle: The type of the node, for example, "page" or "article".
- *   - authorid: The user ID of the node author.
- *   - createdtime: Time the node was published formatted in Unix timestamp.
- *   - changedtime: Time the node was changed formatted in Unix timestamp.
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
  * - label: The title of the node.
  * - content: All node items. Use {{ content }} to print them all,
  *   or print a subset such as {{ content.field_example }}. Use
@@ -59,89 +64,168 @@
  *   is an administrator.
  *
  * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
  */
 #}
 {%
   set classes = [
-    not is_front ? 'content',
     'node',
     'node--type-' ~ node.bundle|clean_class,
     node.isPromoted() ? 'node--promoted',
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-    'clearfix',
   ]
 %}
-{{ attach_library('classy/node') }}
+{%
+  set classes_header = [
+  'node--type-' ~ node.bundle|clean_class,
+  'branch-header',
+  'location-camp-header',
+]
+%}
+{% set address %}
+  {{ content.field_location_address }}
+{% endset %}
 
-<section class="locations-page-under-lead-copy lead-copy">
-  <div class="container">
-    <section class="messages">
-    </section>
-    <div class="row features">
-      <div class="col-sm-push-6 col-md-push-7 col-sm-offset-1 col-md-4 col-sm-5 call-to-action lead right">
-        <article class="richtext" id="component_180969">
-          {{ content.field_camp_links }}
-        </article>
-
-      </div>
-      <div class="col-sm-pull-6 col-md-pull-5 col-md-7 col-sm-6 lead">
-        <article class="richtext" id="component_180968">
-          {{ content.field_ygtc_content }}
-        </article>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr>
-
-<section{{ attributes.addClass(classes) }}>
-  <div class="container">
-    <section class="messages">
-    </section>
-    <div class="row">
-      <section class="main-promos promos even-heights">
-        {{ content.field_main_promos }}
-      </section>
-    </div>
-  </div>
-</section>
-
-{% if news_events or fb_id %}
-<section class="social">
-  <div class="container">
-    <div class="row">
-      {% if news_events %}
-      <div class="col-sm-7">
-        <h2>{{ 'News &amp; Events'|t }}</h2>
-        <div id="excerpt-source">
-          {{ news_events }}
+<article{{ attributes.addClass(classes_header) }}>
+  <div class="hidden-xs desktop">
+    <section class="masthead location-masthead">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 back-link">
+            {# @todo move this url out of the template #}
+            {{ link('Back to All Camps', 'internal:/camps' ) }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <span class="masthead-brand">{{ node.label }}</span>
+          </div>
+          {% if content.button_link is not empty %}
+            <div class="col-sm-4 text-center masthead-button" id="masthead-button">
+              {{ content.button_link }}
+            </div>
+          {% endif %}
         </div>
       </div>
-      {% endif %}
-      {% if fb_id %}
-      <div class="col-sm-5">
-        {# Facebook Likebox initialisation code. #}
-        <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1382702231950329";
-            fjs.parentNode.insertBefore(js, fjs);
-          }(document, 'script', 'facebook-jssdk'));
-        </script>
-        <h2>{{ 'On Facebook'|t }}</h2>
-        <div class="fb-page" data-href="https://www.facebook.com/{{ fb_id }}" data-width="500" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true">
-          <div class="fb-xfbml-parse-ignore">
-            <blockquote cite="https://www.facebook.com/{{ fb_id }}"><a href="https://www.facebook.com/{{ fb_id }}">{{ label }}</a></blockquote>
+    </section>
+    <div class="location-details masthead-menu">
+      <div class="container-fluid">
+        <div class="row directions-hours" id="directions-hours">
+          <div class="directions-hours-inner">
+            <div class="col-sm-2 col-md-2 phone clearfix">
+              <span class="tel">
+                <span class="glyphicon glyphicon-earphone bullet"></span>
+                {{ content.field_location_phone }}
+              </span>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-md-6 address clearfix">
+              <span class="glyphicon glyphicon-map-marker bullet"></span>
+              <span class="plaintext">
+                {{ address|striptags }}
+              </span>
+              <a class="directions" target="_blank" href="{{ content.directions_url }}">
+                {{ 'Directions'|t }}
+                <span class="glyphicon glyphicon-share"></span>
+              </a>
+            </div>
+            <div class="hours col-lg-4 col-md-4 col-sm-4 clearfix">
+              <a data-toggle="collapse" href="#camp-address" class="camp-address-toggle">
+                {{ 'Camp Office'|t }}
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              </a>
+              <div id="camp-address" class="camp-address all-hours collapse">
+                {{ address|striptags }}
+                {{ content.field_location_phone }}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      {% endif %}
     </div>
   </div>
-</section>
-{% endif %}
+  <div class="hidden-sm hidden-md hidden-lg mobile">
+    <div class="masthead location-masthead">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 back-link">
+            {# @todo move this url out of the template #}
+            {{ link('Back to All Camps', 'internal:/camps' ) }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <span class="masthead-brand">{{ node.label }}</span>
+          </div>
+          <div class="col-sm-4 text-center masthead-button" id="masthead-button">
+            {{ content.button_link }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="location-details masthead-menu">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="button" class="btn btn-link location-hours-toggle" data-toggle="collapse" data-target="#directions-hours-mobile">
+              <span class="glyphicon glyphicon-chevron-down pull-right"></span>
+                {{ 'Phone and Address'|t }}
+            </button>
+          </div>
+        </div>
+        <div class="row collapse directions-hours" id="directions-hours-mobile">
+          <div class="directions-hours-inner">
+            <div class="col-sm-3 col-md-2 phone clearfix">
+              <span class="tel">
+                <span class="glyphicon glyphicon-earphone bullet"></span>
+                {{ content.field_location_phone }}
+              </span>
+            </div>
+            <hr>
+            <div class="col-lg-6 col-sm-5 col-md-6 address clearfix">
+              <span class="glyphicon glyphicon-map-marker bullet"></span>
+              <span class="plaintext">
+                {{ address|striptags }}
+              </span>
+              <br>
+              <a class="directions" target="_blank" href="{{ content.directions_url }}">
+                {{ 'Directions'|t }}
+                <span class="glyphicon glyphicon-share"></span>
+              </a>
+            </div>
+            <hr>
+            <div class="hours col-lg-4 col-md-4 col-sm-4 clearfix">
+              <div id="camp-address" class="camp-address all-hours">
+                {{ address|striptags }}
+                {{ content.field_location_phone }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+{{ content.field_header_content }}
+
+{# Camp content #}
+<div class="container">
+  <div class="row">
+    <div class="main-region col-sm-12">
+      <article{{ attributes.addClass(classes) }}>
+        <h2>{{ 'Welcome to'|t }} {% spaceless %}{{ label }}{% endspaceless %}!</h2>
+        <hr>
+        <div{{ content_attributes.addClass('node__content') }}>
+          {{ content.field_content }}
+        </div>
+      </article>
+    </div>
+  </div>
+</div>
+
+{{ content.field_bottom_content }}

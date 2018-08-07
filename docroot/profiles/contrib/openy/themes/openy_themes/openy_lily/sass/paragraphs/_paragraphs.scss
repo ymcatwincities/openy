@@ -336,17 +336,6 @@
     }
   }
 }
-body.node--type-landing-page #small-text-banner {
-  &:before {
-    left: 7%;
-    width: 52%;
-  }
-
-  .header-image figure {
-    margin: 0;
-  }
-}
-
 
 #small-text-banner {
   position: relative;
@@ -404,7 +393,7 @@ body.node--type-landing-page #small-text-banner {
     @include breakpoint($desktop) {
       padding-right: 100px;
     }
-    @include breakpoint(0 767px) {
+    @include breakpoint(0 $tablet) {
       background-image: none !important;
       position: static;
       width: 100%;
@@ -576,7 +565,7 @@ body.node--type-landing-page #small-text-banner {
   padding: 10px 0 20px 0;
   margin-bottom: 20px;
   color: $darker-grey;
-  font-family: $font-family-cachet;
+  font-family: $font-family-sans-serif;
   font-weight: 200;
   line-height: 1.4;
   @include breakpoint ($tablet) {
@@ -629,7 +618,7 @@ body.node--type-landing-page #small-text-banner {
       }
       a {
         font-weight: bold;
-        font-family: $font-family-cachet;
+        font-family: 'Cachet', Helvetica, Arial, sans-serif;
       }
     }
   }

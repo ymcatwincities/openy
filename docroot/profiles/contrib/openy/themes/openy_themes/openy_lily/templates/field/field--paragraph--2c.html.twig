@@ -55,7 +55,16 @@
   {% else %}
     {% for item in items %}
       <div{{ attributes.addClass(classes) }}>
-        {{ item.content }}
+        {% set icon_class = item.content.field_icon_class.0 ? item.content.field_icon_class.0 : '' %}
+        {% set icon = item.content.field_icon.0 ? item.content.field_icon.0 : '' %}
+        {% if icon_class %}
+          <i class="fa fa-{{ icon_class }}" aria-hidden="true"></i>
+          <h4 {% if icon_class %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|raw|render }}</h4>
+        {% else %}
+          {{ item.content.field_icon }}
+          <h4 {% if icon %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|raw|render }}</h4>
+        {% endif %}
+        {{ item.content|without('field_icon', 'field_icon_class', 'field_sb_title') }}
       </div>
     {% endfor %}
   {% endif %}
