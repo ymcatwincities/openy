@@ -167,6 +167,22 @@ source:
         -
           content_id: group_schedules_groupex_pro
     -
+      id: pef_schedules_locations
+      title: 'PEF Schedules Locations'
+      alias: '/schedules/pef-schedules-locations'
+      layout: one_column
+      content_ids:
+        -
+          content_id: pef_schedules_locations_p
+    -
+      id: pef_schedules
+      title: 'PEF Schedules'
+      alias: '/schedules/pef-schedules'
+      layout: one_column
+      content_ids:
+        -
+          content_id: pef_schedules_p
+    -
       id: group_schedules_embedded
       title: 'Group Schedules (Embedded)'
       alias: '/schedules/group-schedules-embedded'
@@ -258,6 +274,8 @@ process:
           - openy_demo_lp_paragraph_embedded_groupexpro_schedule
           - openy_demo_lp_paragraph_group_schedules
           - openy_demo_lp_paragraph_all_amenities
+          - openy_demo_lp_paragraph_repeat_schedules_locations
+          - openy_demo_lp_paragraph_repeat_schedules
         source: content_id
       target_revision_id:
         plugin: migration
@@ -278,6 +296,8 @@ process:
           - openy_demo_lp_paragraph_embedded_groupexpro_schedule
           - openy_demo_lp_paragraph_group_schedules
           - openy_demo_lp_paragraph_all_amenities
+          - openy_demo_lp_paragraph_repeat_schedules_locations
+          - openy_demo_lp_paragraph_repeat_schedules
         source: content_id
   field_sidebar_content:
       plugin: iterator
@@ -320,5 +340,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_microsites_menu
     - openy_demo_lp_paragraph_all_amenities
     - openy_demo_lp_paragraph_loc_by_amnts
+    - openy_demo_lp_paragraph_repeat_schedules_locations
+    - openy_demo_lp_paragraph_repeat_schedules
   optional:
     - openy_demo_node_blog
