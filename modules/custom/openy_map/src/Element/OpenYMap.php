@@ -47,6 +47,7 @@ class OpenYMap extends RenderElement {
       default:
         $element['#attached']['library'][] = 'openy_map/leaflet';
         $element['#attached']['drupalSettings']['openyMapSettings']['engine'] = 'leaflet';
+        $element['#attached']['drupalSettings']['openyMapSettings']['default_location'] = urlencode(trim($settings->get('leaflet_location')));
       break;
     }
     $element['#attached']['drupalSettings']['openyMap'] = $element['#element_variables'];

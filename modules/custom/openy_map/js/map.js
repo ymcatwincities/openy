@@ -793,6 +793,8 @@
       search_center_marker: null,
       // The paddings for fitBounds method, depends on marker dimensions.
       fitBoundsOptions: null,
+      // Suffix for nominatim geocoder
+      default_search_location: null,
 
       // Checks if the provider library object has loaded
       libraryIsLoaded: function () {
@@ -950,7 +952,9 @@
       },
 
       geocode: function(query, callback) {
-        $.getJSON('https://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + query, callback);
+        var base = 'https://nominatim.openstreetmap.org/search?format=json&limit=5&q=';
+        var suffix = this.default_search_location ? '+' + this.default_search_location : '';
+        $.getJSON(base + query + suffix, callback);
       },
 
       apply_autocomplete_search: function (event, ui) {
@@ -1526,6 +1530,7 @@
         case 'leaflet':
         default:
           map = new Drupal.openyMapLeaflet();
+          map.default_search_location = settings.openyMapSettings.default_location;
           break;
       }
 

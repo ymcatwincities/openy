@@ -47,6 +47,7 @@ function openy_map_update_8002() {
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable('openy_map.settings');
   $config->set('map_engine', 'gmaps');
+  $config->set('leaflet_location', 'United States of America');
   $config->save(TRUE);
   _openy_map_absolutize_config_icon_urls();
 }

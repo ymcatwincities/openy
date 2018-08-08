@@ -99,6 +99,21 @@ class SettingsForm extends ConfigFormBase {
       ],
     ];
 
+    $form['leaflet_location'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Default search location'),
+      '#description' => $this->t('When search performs the results of the set location are prioritized, e.g. %ex1 or %ex2', [
+        '%ex1' => '"Houston, TX"',
+        '%ex2' => '"CA, United States of America"',
+      ]),
+      '#default_value' => !empty($config->get('leaflet_location')) ? $config->get('leaflet_location') : 'United States of America',
+      '#states' => [
+        'visible' => [
+          ':input[name="map_engine"]' => ['value' => 'leaflet'],
+       ],
+      ],
+    ];
+
     $form['title'] = [
       '#markup' => '<h2>' . $this->t('Location list page settings') . '</h2>',
     ];
@@ -209,6 +224,7 @@ class SettingsForm extends ConfigFormBase {
     }
 
     $config->set('map_engine', $form_state->getValue('map_engine'));
+    $config->set('leaflet_location', $form_state->getValue('leaflet_location'));
     $config->set('default_tags', $default_tags);
     $config->set('active_types', $active_types);
     $config->set('type_labels', $type_labels);
