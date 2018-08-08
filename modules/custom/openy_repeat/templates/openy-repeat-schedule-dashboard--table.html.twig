@@ -106,9 +106,12 @@
             </div>
           </div>
         </div>
-        <div id="no-result" v-if="propData.length < 1">
-          <h5>{{ 'No results'|t }}</h5>
+
+        <div class="schedules-empty_results" v-if="propData.length < 1">
+          <i class="fa fa-exclamation-circle"></i>
+          <span>{{ 'Sorry, no results were found with your search criteria. Please try another selection.'|t }}</span>
         </div>
+
       </div>
     </div>
   </results>
