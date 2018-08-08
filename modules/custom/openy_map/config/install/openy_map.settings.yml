@@ -1,4 +1,5 @@
 map_engine: leaflet
+leaflet_location: 'United States of America'
 default_tags:
   branch: 'YMCA'
   camp: 'Camps'
