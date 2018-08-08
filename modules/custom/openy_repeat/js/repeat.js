@@ -53,7 +53,7 @@
     getValuesCategories();
   });
 
-  // +/- toggle
+  // +/- Toggle.
   $('.schedule-dashboard__sidebar .navbar-header a[data-toggle], .form-group-wrapper label[data-toggle]').on('click', function() {
     $(this)
       .toggleClass('closed active')
@@ -61,7 +61,7 @@
       .toggleClass('fa-minus fa-plus');
   });
 
-  // PDF link show/hidden
+  // PDF link show/hidden.
   if ($('.field-prgf-repeat-schedules-pdf a').length > 0) {
     $('.btn-schedule-pdf')
       .removeClass('hidden')
@@ -109,7 +109,7 @@
     if (preSelectedCategory) {
       chkArray.push(preSelectedCategory);
       $('.form-group-category').parent().hide();
-      $('.category-column').hide();
+      $('.category-column').remove();
     }
 
     $(".form-group-category .box").each(function() {
@@ -127,10 +127,16 @@
   function displayInstructorOrNot() {
     var instructorDisplay = $('.field-prgf-repeat-schedule-instr').html();
     if (instructorDisplay != 'Display') {
-      $('.instructor-column').hide();
+      $('.instructor-column').remove();
     }
   }
   displayInstructorOrNot();
+
+  // Set number of column classes.
+  if ($('.schedules-data__header').length > 0) {
+    var colCount = $('.schedules-data__header > div').length;
+    $('.schedules-data').addClass('schedules-data__cols-' + colCount);
+  }
 
   var router = new VueRouter({
       mode: 'history',

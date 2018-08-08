@@ -17,6 +17,11 @@
 	}
 }
 
+.column-hidden {
+  display: none;
+  flex: none;
+}
+
 /* Content > Subheader */
 .schedule-dashboard__arrow {
   cursor: pointer;
@@ -243,16 +248,11 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
   color: black;
 }
 
-.schedules-data__header,
-.schedules-data__row {
-	flex-direction: column;
-	width: 100%;
-}
-
 /* row styles */
 .schedules-data__row {
 	padding: 14px 0;
 	display: flex;
+  flex-wrap: wrap;
 	color: #656565;
 }
 
@@ -260,7 +260,7 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 	color: #333;
 }
 
-.schedules-data__group p {
+.schedules-data__row p {
 	padding-top: 5px;
 }
 
@@ -269,24 +269,15 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 	background-color: #f0faf9;
 }
 
-/* grouped for mobile displays */
-.schedules-data__group {
-	display: flex;
-	flex: 1 1 auto;
-}
-
-.schedules-data__group:last-child {
-	align-items: center;
-}
-
-/* inner group divs */
-.schedules-data__group > div {
+/* mobile > headers & row */
+.schedules-data__header > div,
+.schedules-data__row > div {
 	padding: 8px 20px;
 	flex: 0 0 50%;
 }
 
 /* mobile > right col */
-.schedules-data__group > div:last-child {
+.schedules-data__row > div:nth-child(even) {
 	text-align: right;
 }
 
@@ -296,31 +287,44 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 		display: flex;
 	}
 
-	.schedules-data__header,
-	.schedules-data__row {
-		flex-direction: row;
-	}
-
 	.schedules-data__row {
 		padding: 0;
 	}
 
-	.schedules-data__group {
-    width: calc(100% / 3);
-	}
+  .schedules-data__header > div,
+  .schedules-data__row > div {
+    flex-basis: 0;
+    flex-grow: 1;
+    padding: 24px;
+  }
 
-	.schedules-data__group:last-child {
-		align-items: start;
-	}
+  .schedules-data__row > div:nth-child(even) {
+    text-align: left;
+  }
 
-	.schedules-data__group > div  {
-		padding: 24px;
-		width: 50%;
-	}
+  /*
+  * Set flexbox widths based on number of columns.
+  */
+  /* Doesn't have category or instructor columns. */
+  .schedules-data__cols-5 .schedules-data__header > div,
+  .schedules-data__cols-5 .schedules-data__row > div {
+    max-width: calc(100% / 5);
+  }
 
-	.schedules-data__group > div:last-child {
-		text-align: left;
-	}
+  /* Has category column. */
+  .schedules-data__cols-6 .schedules-data__header > div,
+  .schedules-data__cols-6 .schedules-data__row > div {
+    padding: 24px 15px;
+    max-width: calc(100% / 6);
+  }
+
+  /* Has category & instructor columns. */
+  .schedules-data__cols-7 .schedules-data__header > div,
+  .schedules-data__cols-7 .schedules-data__row > div {
+    padding: 24px 10px;
+    max-width: calc(100% / 7);
+  }
+
 }
 
 /* Hide values of fields so they can be accessed by javascript only. */
