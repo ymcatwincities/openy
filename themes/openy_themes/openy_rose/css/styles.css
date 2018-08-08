@@ -4138,10 +4138,13 @@ html.js .branch__updates_queue__button {
 .marker_tooltip article.node h3.location-item--title ~ .field-location-area {
   margin: 0 0 0.4em;
 }
+.marker_tooltip article.node h3.location-item--title + .node__content {
+  margin: 0;
+}
 .marker_tooltip article.node .node__content address.wrapper-field-location-address {
   margin-bottom: 0.4em;
 }
-.marker_tooltip article.node .node__content address.wrapper-field-location-address .field-location-address p.address {
+.marker_tooltip article.node .node__content address.wrapper-field-location-address .field-location-address .address {
   font-size: 12px;
   font-style: italic;
   margin: 0 0 0.5em 0.4em;
