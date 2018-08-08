@@ -144,16 +144,16 @@ dependencies:
   - openy_prgf_story_card
   - openy_prgf_promo_card
   - openy_prgf_secondary_description_sidebar
-  - openy_prgf_featured_blogs
+#  - openy_prgf_featured_blogs
   - openy_prgf_featured_highlights
   - openy_prgf_gallery
   - openy_prgf_teaser
   - openy_prgf_classes_listing
   - openy_prgf_class_sessions
-  - openy_prgf_blog_latest
-  - openy_prgf_blog_camp
-  - openy_prgf_blog_branch
-  - openy_prgf_blog_listing
+#  - openy_prgf_blog_latest
+#  - openy_prgf_blog_camp
+#  - openy_prgf_blog_branch
+#  - openy_prgf_blog_listing
   - openy_prgf_block_date
   - openy_prgf_loc_finder
   - openy_prgf_location_by_amenities
