@@ -999,6 +999,9 @@ html.js {
       ~ .field-location-area {
         margin: 0 0 0.4em;
       }
+      & + .node__content {
+        margin: 0;
+      }
     }
     .node__content {
       address.wrapper-field-location-address {
