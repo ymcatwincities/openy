@@ -928,3 +928,4 @@ function openy_update_8060() {
   $config_importer->importConfigs([
     'views.view.listing_news_posts',
   ]);
+}
