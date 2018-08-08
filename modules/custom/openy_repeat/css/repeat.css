@@ -17,6 +17,20 @@
 	}
 }
 
+/* No results text. */
+.schedules-empty_results {
+	margin-top: 3rem;
+	display: flex;
+	align-items: start;
+}
+
+.schedules-empty_results i {
+	font-size: 1.75rem;
+	color: #979797;
+	margin-right: 1rem;
+	padding-top: .15rem;
+}
+
 .column-hidden {
   display: none;
   flex: none;
