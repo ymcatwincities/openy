@@ -30,85 +30,73 @@
       <div class="schedules-data clearfix">
 
         <div class="schedules-data__header">
-          <div class="schedules-data__group">
-            <div>{{ 'Location'|t }}</div>
-            <div>{{ 'Class'|t }}</div>
-          </div>
-          <div class="schedules-data__group">
-            <div>{{ 'Time'|t }}</div>
-            <div class="category-column">{{ 'Category'|t }}</div>
-            <div class="instructor-column">{{ 'Instructor'|t }}</div>
-          </div>
-          <div class="schedules-data__group">
-            <div></div>
-            <div></div>
-          </div>
+          <div>{{ 'Location'|t }}</div>
+          <div>{{ 'Class'|t }}</div>}
+          <div>{{ 'Time'|t }}</div>
+          <div class="category-column">{{ 'Category'|t }}</div>
+          <div class="instructor-column">{{ 'Instructor'|t }}</div>
+          <div></div>
+          <div></div>
         </div>
 
         <div v-for="(item, index) in propData" class="schedules-data__row">
-          <div class="schedules-data__group">
 
-            {# location #}
-            <div v-cloak>
-              <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopup(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
-            </div>
-
-            {# class #}
-            <div v-cloak>
-              <strong><a class="schedule-dashboard__modal--class-link" role="button" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
-              <p>${ item.room }</p>
-            </div>
+          {# location #}
+          <div v-cloak>
+            <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopup(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
           </div>
 
-          <div class="schedules-data__group">
-
-            {# time #}
-            <div v-cloak>
-              <strong>${ item.time }</strong>
-              <p>
-                <span>${ item.duration_hours }{{ 'h'|t }}</span>
-                <span v-if="item.duration_minutes > 0">${ item.duration_minutes }{{ 'min'|t }}</span>
-                <span v-if="item.room">${ item.room }</span>
-              </p>
-            </div>
-
-            {# category #}
-            <div v-cloak class="category-column">
-              ${ item.category }
-            </div>
-
-            {# instructor #}
-            <div v-cloak class="instructor-column">
-              ${ item.instructor }
-            </div>
+          {# class #}
+          <div v-cloak>
+            <strong><a class="schedule-dashboard__modal--class-link" role="button" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
+            <p>${ item.room }</p>
           </div>
 
-          <div class="schedules-data__group">
+          {# time #}
+          <div v-cloak>
+            <strong>${ item.time }</strong>
+            <p>
+              <span>${ item.duration_hours }{{ 'h'|t }}</span>
+              <span v-if="item.duration_minutes > 0">${ item.duration_minutes }{{ 'min'|t }}</span>
+              <span v-if="item.room">${ item.room }</span>
+            </p>
+          </div>
 
-            {# add to calendar #}
-            <div v-cloak>
-              <span class="addtocalendar">
-                <var class="atc_event">
-                  <var class="atc_date_start">2018-07-06 05:10:00</var>
-                  <var class="atc_date_end">2018-07-06 06:10:00</var>
-                  <var class="atc_timezone">America/Chicago</var>
-                  <var class="atc_title">${ item.name }</var>
-                  <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.) Class will take place at Studio 2 -- Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
-                  <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
-                  <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
-                </var>
-              </span>
-            </div>
+          {# category #}
+          <div v-cloak class="category-column">
+            ${ item.category }
+          </div>
 
-            {# register btn #}
-            <div v-cloak>
-              <a v-bind:href="'/node/' + item.class" class="btn btn-primary">{{ 'Register'|t }}</a>
-            </div>
+          {# instructor #}
+          <div v-cloak class="instructor-column">
+            ${ item.instructor }
+          </div>
+
+          {# add to calendar #}
+          <div v-cloak>
+            <span class="addtocalendar">
+              <var class="atc_event">
+                <var class="atc_date_start">2018-07-06 05:10:00</var>
+                <var class="atc_date_end">2018-07-06 06:10:00</var>
+                <var class="atc_timezone">America/Chicago</var>
+                <var class="atc_title">${ item.name }</var>
+                <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.) Class will take place at Studio 2 -- Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
+                <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
+                <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
+              </var>
+            </span>
+          </div>
+
+          {# register btn #}
+          <div v-cloak>
+            <a v-bind:href="'/node/' + item.class" class="btn btn-primary">{{ 'Register'|t }}</a>
           </div>
         </div>
+
         <div id="no-result" v-if="propData.length < 1">
           <h5>{{ 'No results'|t }}</h5>
         </div>
+
       </div>
     </div>
   </results>
