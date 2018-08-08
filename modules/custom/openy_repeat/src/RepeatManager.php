@@ -219,30 +219,94 @@ class RepeatManager implements SessionInstanceManagerInterface {
     ];
 
     foreach ($session_schedule['dates'] as $schedule_item) {
-      // @todo: Make exclusions work.
       if ($schedule_item['frequency'] == 'weekly' || $schedule_item['frequency'] == 'daily') {
+        $start = $session_schedule['dates'][0]['period']['from'] . 'T' . $session_schedule['dates'][0]['time']['from'];
+        $end = $session_schedule['dates'][0]['period']['to'] . 'T' . $session_schedule['dates'][0]['time']['to'];
+        $dates[] = [
+          'from' => $start,
+          'to' => $end,
+        ];
+        $exclusions = self::reorderExclusions($session_schedule['exclusions']);
+        $combined_dates = self::combineDates($dates, $exclusions);
         foreach ($schedule_item['days'] as $day) {
-          $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
-          $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
-          $duration = round(abs($to_time - $from_time) / 60,2);
-          if ($duration == 1439) {
-            $abu=1;
+          foreach ($combined_dates as $date) {
+            $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
+            $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
+            $duration = round(abs($to_time - $from_time) / 60,2);
+
+            $session_instances[] = [
+              'start' => strtotime($date['from']),
+              'end' => strtotime($date['to']),
+              'year' => '*',
+              'month' => '*',
+              'day' => '*',
+              'week' => '*',
+              'weekday' => $weekday_mapping[$day],
+              'duration'=> $duration,
+            ];
           }
-          $session_instances[] = [
-            'start' => strtotime($schedule_item['period']['from'] . 'T' . $schedule_item['time']['from']),
-            'end' => strtotime($schedule_item['period']['to'] . 'T' . $schedule_item['time']['to']),
-            'year' => '*',
-            'month' => '*',
-            'day' => '*',
-            'week' => '*',
-            'weekday' => $weekday_mapping[$day],
-            'duration'=> $duration,
-          ];
         }
       }
     }
 
     return $session_instances;
+  }
+
+  /**
+   * Return exclusions in order from earlier for later.
+   *
+   * @param array $exclusions
+   *   Exclusions dates in session.
+   *
+   * @return array
+   */
+  public static function reorderExclusions($exclusions) {
+    $new_exclusions = [];
+    foreach ($exclusions as $exclusion) {
+      $from = strtotime($exclusion['from']);
+      $new_exclusions[$from] = $exclusion;
+    }
+    sort($new_exclusions);
+
+    return $new_exclusions;
+  }
+
+  /**
+   * Return combined dates.
+   *
+   * @param array $origin_dates
+   *   Start and End of the Session.
+   * @param array $exclusions
+   *   Exclusions dates in session.
+   *
+   * @return array
+   */
+  public static function combineDates($origin_dates, $exclusions) {
+    if (empty($exclusions) || !is_array($exclusions)) {
+      return $origin_dates;
+    }
+
+    $dates = array_merge($origin_dates, $exclusions);
+    $values = [];
+    foreach ($dates as $date) {
+      $values[] = $date['from'];
+      $values[] = $date['to'];
+    }
+    $end = $values[1];
+    unset($values[1]);
+
+    array_push($values, $end);
+    $new_values = array_chunk($values, 2);
+
+    $new_dates = [];
+    foreach ($new_values as $new_value) {
+      $new_dates[] = [
+        'from' => $new_value[0],
+        'to' => $new_value[1],
+      ];
+    }
+
+    return $new_dates;
   }
 
   /**
