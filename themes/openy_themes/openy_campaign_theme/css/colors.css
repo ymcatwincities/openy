@@ -201,46 +201,53 @@ body {
 }
 
 .form-item input + label:hover {
-  color: #C6168D;
+  color: #c6168d;
+}
+.form-item input:checked + label {
+  color: #5c2e91;
 }
 
 .activity .paragraph-background-container {
   background-color: #92278F;
-  background-image: -moz-linear-gradient(#c6168d, #92278F);
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
-  background-image: -webkit-linear-gradient(top, #c6168d, #92278F);
-  background-image: -o-linear-gradient(#c6168d, #92278F);
+  background-image: -moz-linear-gradient(#c6168d, #92278f);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278f));
+  background-image: -webkit-linear-gradient(top, #c6168d, #92278f);
+  background-image: -o-linear-gradient(#c6168d, #92278f);
 }
 
 .category-data {
-  background: #92278F;
+  background: #92278f;
   color: #fff;
 }
 
 .activity-data .categories ul li {
-  background-color: #92278F;
+  background-color: #92278f;
   color: #fff;
 }
 
 .activity .paragraph-background-container:before {
-  border-top: 30px solid #92278F;
+  border-top: 30px solid #92278f;
 }
 
-.calendar .month .date-data.active .weekday {
+.calendar .month .date-data.slick-current .weekday, .calendar .month .date-data.active .weekday {
   color: #c6168d;
 }
-.calendar .month .date-data.active .visits .visited {
-  background: #C6168D;
+.calendar .month .date-data.slick-current .visits .visited, .calendar .month .date-data.active .visits .visited {
+  background: #c6168d;
 }
-.calendar .month .date-data.active .visits .entriesNum {
-  color: #92278F;
+.calendar .month .date-data.slick-current .visits .entriesNum, .calendar .month .date-data.active .visits .entriesNum {
+  color: #92278f;
 }
 
-.calendar-wrapper .prev {
-  background: #C6168D;
+.calendar-wrapper .prev, .calendar-wrapper .slick-prev.slick-arrow {
+  background: #c6168d;
 }
-.calendar-wrapper .next {
-  background: #C6168D;
+.calendar-wrapper .next, .calendar-wrapper .slick-next.slick-arrow {
+  background: #c6168d;
+}
+
+.progress-row .point.active svg g {
+  fill: #c6168d;
 }
 
 .top-navs,

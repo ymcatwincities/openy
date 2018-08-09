@@ -205,7 +205,8 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
             $addIconAttr = ' data-icon="' . $relativeUrl . '"';
           }
 
-          $activities[$key][$tid]['#prefix'] .= '<span class="activity-name ' . str_replace(' ', '', $cleanName) . '"' . $addIconAttr . '>' . $cleanName . '</span>';
+          $preparedClass = str_replace([' ','!','"','#','$','%','&','\\',"'",'(',')','*','+',',','.','/',':',';','<','=','>','?','@','[',']','^','`','{','|','}','~'], '', $cleanName);
+          $activities[$key][$tid]['#prefix'] .= '<span class="activity-name ' . $preparedClass . '"' . $addIconAttr . '>' . $cleanName . '</span>';
         }
       }
 

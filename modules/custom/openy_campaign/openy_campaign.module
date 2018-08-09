@@ -21,6 +21,7 @@ use Drupal\Core\Link;
 use Drupal\openy_campaign\Controller\CampaignWinnerStreamController;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\OpenYLocaleDate;
+use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 
 define('CAMPAIGN_MENU_PAGES_MAX', 5);
 define('CAMPAIGN_THEME', 'openy_campaign_theme');
@@ -391,6 +392,87 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
 }
 
 /**
+ * Implements hook_preprocess_paragraph().
+ */
+function openy_campaign_preprocess_paragraph(&$variables) {
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+
+  // Campaign Info Blocks paragraph.
+  if ($paragraph->bundle() == 'campaign_info_blocks') {
+    /** @var \Drupal\openy_campaign\CampaignMenuService $campaignMenuService */
+    $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
+
+    // Check if needed blocks were set in Campaign page.
+    $campaign = $campaignMenuService->getCampaignNodeFromRoute();
+    $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
+    // If Enable Activities Counter checked - show "Activity count" block.
+    if ($campaign->field_enable_activities_counter->value) {
+      $activitiesOptions[] = 'field_enable_activities_counter';
+    }
+
+    // Render title field.
+    $content['title'] = $paragraph->field_prgf_title->view('full');
+
+    /** @var \Drupal\Core\Block\BlockManager $blockManager */
+    $blockManager = \Drupal::service('plugin.manager.block');
+
+    // Get and render needed blocks.
+    foreach (['left', 'right'] as $side) {
+      $render = [];
+      $col = 'field_prgf_' . $side . '_column';
+      $textField = 'field_prgf_' . $side . '_text';
+      // Check for not empty description field.
+      $descriptionFieldValue = $paragraph->{$textField}->value;
+      $descriptionField = str_replace("&nbsp;", '', strip_tags($descriptionFieldValue, '<drupal-entity>'));
+      if (!empty(trim($descriptionField))) {
+        $render[] = [
+          '#markup' => '<div class="' . $side . '-text">' .
+          check_markup($paragraph->{$textField}->value, $paragraph->{$textField}->format) .
+          '</div>',
+        ];
+      }
+      // Show selected blocks.
+      $column = $paragraph->{$col}->value;
+      if ($column && in_array($column, $activitiesOptions)) {
+        $renderBlock = [];
+        switch ($column) {
+          // Game block.
+          case 'field_prgf_campaign_game':
+            $block = $blockManager->createInstance('campaign_game_block', []);
+            $renderBlock = $block->build();
+            break;
+
+          // Show Visit Tracking. It will be displayed with enActvCounter = 0.
+          case 'field_prgf_activity_visits':
+            $block = $blockManager->createInstance('campaign_activity_visits_block', []);
+            $renderBlock = $block->build();
+            $renderBlock['goal_block']['#enActvCounter'] = 0;
+            break;
+
+          // Show Activity count. It will be displayed with enActvCounter = 1
+          case 'field_enable_activities_counter':
+            $userData = MemberCampaign::getMemberCampaignData($campaign->id());
+            $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
+            $countedActivities = MemberCampaignActivity::getTrackedActivities($memberCampaignID);
+
+            $renderBlock['goal_block'] = [
+              '#theme' => 'openy_campaign_visits_goal',
+              '#enActvCounter' => 1,
+              '#countedActv' => $countedActivities,
+              '#trackActvDesc' => !empty($campaign->get('field_tracking_actv_goal_desc')->value) ? $campaign->get('field_tracking_actv_goal_desc')->value : '',
+            ];
+            break;
+        }
+        $render[] = $renderBlock;
+      }
+      $content[$side] = $render;
+    }
+    $variables['content'] = $content;
+  }
+}
+
+/**
  * Implements hook_entity_presave().
  */
 function openy_campaign_node_presave(Node $node) {
@@ -685,6 +767,53 @@ function openy_campaign_form_node_campaign_edit_form_alter(&$form, FormStateInte
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add message about related nodes to the confirm form.
+ */
+function openy_campaign_form_node_campaign_page_delete_form_alter(&$form, &$form_state, $form_id) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof \Drupal\node\NodeInterface !== TRUE) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Entity\EntityStorageInterface $entityStorage */
+  $entityStorage = \Drupal::entityTypeManager()->getStorage('node');
+  /** @var \Drupal\Core\Entity\Query\QueryInterface $nodeQuery */
+  $nodeQuery = \Drupal::entityQuery('node');
+
+  // Check if Campaign page is referenced in any Campaign.
+  $landingQuery = $nodeQuery
+    ->condition('type', 'campaign');
+  $orGroup = $landingQuery->orConditionGroup()
+    // Campaign landing pages.
+    ->condition('field_campaign_pages', $node->id(), 'IN')
+    // Pause landidng page.
+    ->condition('field_pause_landing_page', $node->id())
+    // Campaign Menu.
+    ->condition('field_campaign_menu', '%' . $node->id() . '%', 'LIKE');
+  $nids = $landingQuery->condition($orGroup)->execute();
+
+  if (!empty($nids) && $campaigns = $entityStorage->loadMultiple($nids)) {
+    $campLinks = [];
+    foreach ($campaigns as $campaign) {
+      $campLinks[] = Link::fromTextAndUrl(
+        $campaign->label(),
+        Url::fromRoute('entity.node.edit_form', ['node' => $campaign->id()], ['attributes' => ['target' => '_blank'], 'html' => TRUE])
+      )->toString();
+    }
+
+    $form['warning'] = [
+      '#markup' => '<div class="messages messages--warning">' .
+        t('<strong>Please, check!<br>@title</strong> page is added to Campaign: ', ['@title' => $node->label()]) . implode(', ', $campLinks) .
+        '<br>' . t('First, you have to delete it from all Campaigns') .
+        '</div>',
+    ];
+    $form['actions']['submit']['#disabled'] = TRUE;
+  }
+}
+
+/**
  * {@inheritdoc}
  */
 function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $form_state) {
@@ -708,7 +837,9 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
     foreach ($campaign->get('field_campaign_pages')->getValue() as $item) {
       if (!empty($item)) {
         $campaignPage = Node::load($item['target_id']);
-        $campaignPages[$campaignPage->id()] = $campaignPage->getTitle();
+        if ($campaignPage) {
+          $campaignPages[$campaignPage->id()] = $campaignPage->getTitle();
+        }
       }
     }
     $campaignMenu = $campaign->get('field_campaign_menu')->getValue();

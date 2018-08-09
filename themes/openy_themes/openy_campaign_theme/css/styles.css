@@ -314,9 +314,6 @@ p {
 }
 
 @media (min-width: 80.625em) {
-  .paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
-    margin-bottom: 50px;
-  }
   .paragraph-background-container .title, .paragraph--type--campaign-winners .winners-branches-select .title {
     margin-bottom: 50px;
   }
@@ -470,6 +467,14 @@ p {
   min-height: 75px;
 }
 
+.paragraph--campaign-info-blocks .columns {
+  display: inline-block;
+  width: 100%;
+}
+.paragraph--campaign-info-blocks .info-column p:first-of-type {
+  margin-top: 20px;
+}
+
 body {
   padding-top: 0px !important;
 }
@@ -598,8 +603,8 @@ body {
   .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
-    margin-top: 60px;
-    margin-bottom: 70px;
+    margin-top: 20px;
+    margin-bottom: 30px;
   }
 }
 .page-node-type-campaign-page main[role="main"] .layout-content .main-region,
@@ -615,6 +620,12 @@ body {
 .path-team-member-registration .wrapper-field-content,
 .path-members-list .wrapper-field-content {
   background: #fff;
+}
+.page-node-type-campaign .wrapper-field-content:first-child .paragraph-2c-wrapper h4,
+.path-campaign-scorecards .wrapper-field-content:first-child .paragraph-2c-wrapper h4,
+.path-team-member-registration .wrapper-field-content:first-child .paragraph-2c-wrapper h4,
+.path-members-list .wrapper-field-content:first-child .paragraph-2c-wrapper h4 {
+  margin-top: 10px !important;
 }
 .page-node-type-campaign main[role="main"],
 .path-campaign-scorecards main[role="main"],
@@ -659,7 +670,7 @@ body {
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
-    margin-top: 0px;
+    margin-top: -403px;
     padding: 30px;
     box-shadow: 10px 20px 115px 10px;
   }
@@ -671,7 +682,7 @@ body {
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
-    margin-top: 0px;
+    margin-top: -245px;
     padding: 30px;
     box-shadow: 10px 20px 115px 10px;
   }
@@ -683,7 +694,7 @@ body {
   .path-members-list main[role="main"] .layout-content {
     margin-left: 125px;
     margin-right: 125px;
-    margin-top: 0px;
+    margin-top: -245px;
     padding: 40px;
     box-shadow: 10px 20px 115px 10px;
   }
@@ -709,8 +720,8 @@ body {
   .path-campaign-scorecards main[role="main"] .layout-content h1,
   .path-team-member-registration main[role="main"] .layout-content h1,
   .path-members-list main[role="main"] .layout-content h1 {
-    margin-top: 60px;
-    margin-bottom: 70px;
+    margin-top: 20px;
+    margin-bottom: 30px;
   }
 }
 .page-node-type-campaign main[role="main"] .layout-content .main-region,
@@ -718,6 +729,27 @@ body {
 .path-team-member-registration main[role="main"] .layout-content .main-region,
 .path-members-list main[role="main"] .layout-content .main-region {
   padding: 0px;
+}
+@media (min-width: 62em) {
+  .page-node-type-campaign.logged-in main[role="main"] .layout-content,
+  .path-campaign-scorecards.logged-in main[role="main"] .layout-content,
+  .path-team-member-registration.logged-in main[role="main"] .layout-content,
+  .path-members-list.logged-in main[role="main"] .layout-content {
+    margin-top: -400px;
+  }
+}
+@media (min-width: 80.625em) {
+  .page-node-type-campaign.logged-in main[role="main"] .layout-content,
+  .path-campaign-scorecards.logged-in main[role="main"] .layout-content,
+  .path-team-member-registration.logged-in main[role="main"] .layout-content,
+  .path-members-list.logged-in main[role="main"] .layout-content {
+    margin-top: -400px;
+  }
+}
+
+.path-team-member-registration main[role="main"] .layout-content,
+.path-members-list main[role="main"] .layout-content {
+  margin-top: 0;
 }
 
 .layout-container {
@@ -739,7 +771,7 @@ body {
 }
 #block-campaignmemberregister .content-wrapper {
   background-color: rgba(0, 0, 0, 0.2);
-  max-width: 800px;
+  max-width: 850px;
   padding: 40px 0px;
 }
 @media (min-width: 20em) {
@@ -899,9 +931,6 @@ body {
   }
 }
 
-.visits-goal .description {
-  text-align: center;
-}
 .visits-goal .uppercase {
   text-transform: uppercase;
 }
@@ -934,10 +963,14 @@ body {
   border-bottom: 4px solid #cecece;
   display: block;
 }
-.visits-goal .visits-goal-progress .point.active {
-  background: url("../img/active.png");
-  background-repeat: no-repeat;
-  background-position: center;
+.visits-goal .visits-goal-progress .point svg {
+  width: 33px;
+  margin-top: -6px;
+  margin-left: -12px;
+}
+.visits-goal .visits-goal-progress .point .point-count {
+  margin-top: -38px;
+  display: block;
 }
 .visits-goal .visits-goal-progress .point-1 {
   background-position: left !important;
@@ -1378,7 +1411,7 @@ footer .container .footer__nav nav ul > li a {
   background-color: #fff;
   background-repeat: no-repeat;
   cursor: pointer;
-  color: #c6168d;
+  color: #5c2e91;
   background-position: 26px 27px;
   white-space: normal;
   padding-right: 50px;
@@ -1548,6 +1581,77 @@ footer .container .footer__nav nav ul > li a {
   background-position: center 10px;
   background-repeat: no-repeat;
   background-size: 35px;
+  /*
+  &.Aquatics {
+    background-image: url('../img/swimming.png');
+    background-repeat: no-repeat;
+    @include breakpoint($screen-phone) {
+      background-position: center 15px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      background-position: center 50px;
+      background-size: auto;
+    }
+  }
+  &.Fitness {
+    background-image: url('../img/fitnes.png');
+    background-repeat: no-repeat;
+    background-position: 70px 50px;
+    @include breakpoint($screen-phone) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-sm) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-md) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      background-position: center 50px;
+      background-size: auto;
+    }
+  }
+  &.GroupExercise {
+    background-image: url('../img/groupex.png');
+    background-repeat: no-repeat;
+    @include breakpoint($screen-phone) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-sm) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      background-position: center 50px;
+      background-size: auto;
+    }
+  }
+  &.Community {
+    background-image: url('../img/community.png');
+    background-repeat: no-repeat;
+    @include breakpoint($screen-phone) {
+      background-position: center 5px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-sm) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-md) {
+      background-position: center 10px;
+      background-size: 35px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      background-position: center 50px;
+      background-size: auto;
+    }
+  }
+  */
 }
 @media (min-width: 20em) {
   .activity-data .categories ul li {
@@ -1567,105 +1671,12 @@ footer .container .footer__nav nav ul > li a {
     height: 200px;
     font-size: 22px;
     padding-top: 115px;
+    background-position: center 50px;
+    background-size: 70px;
   }
 }
 .activity-data .categories ul li.active {
   opacity: 1;
-}
-.activity-data .categories ul li.Aquatics {
-  background-image: url("../img/swimming.png");
-  background-repeat: no-repeat;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.Aquatics {
-    background-position: center 15px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.Aquatics {
-    background-position: center 50px;
-    background-size: auto;
-  }
-}
-.activity-data .categories ul li.Fitness {
-  background-image: url("../img/fitnes.png");
-  background-repeat: no-repeat;
-  background-position: 70px 50px;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.Fitness {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-data .categories ul li.Fitness {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 62em) {
-  .activity-data .categories ul li.Fitness {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.Fitness {
-    background-position: center 50px;
-    background-size: auto;
-  }
-}
-.activity-data .categories ul li.GroupExercise {
-  background-image: url("../img/groupex.png");
-  background-repeat: no-repeat;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 50px;
-    background-size: auto;
-  }
-}
-.activity-data .categories ul li.Community {
-  background-image: url("../img/community.png");
-  background-repeat: no-repeat;
-}
-@media (min-width: 20em) {
-  .activity-data .categories ul li.Community {
-    background-position: center 5px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-data .categories ul li.Community {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 62em) {
-  .activity-data .categories ul li.Community {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
-@media (min-width: 80.625em) {
-  .activity-data .categories ul li.Community {
-    background-position: center 50px;
-    background-size: auto;
-  }
 }
 
 .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {

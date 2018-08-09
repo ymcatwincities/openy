@@ -17,7 +17,7 @@
   background-color: #fff;
   background-repeat: no-repeat;
   cursor: pointer;
-  color: $pink;
+  color: $purple;
   background-position: 26px 27px;
   white-space: normal;
   padding-right: 50px;
@@ -191,12 +191,16 @@
         height: 200px;
         font-size: 22px;
         padding-top: 115px;
+
+        background-position: center 50px;
+        background-size: 70px;
       }
 
       &.active{
         opacity: 1;
       }
 
+      /*
       &.Aquatics {
         background-image: url('../img/swimming.png');
         background-repeat: no-repeat;
@@ -266,6 +270,7 @@
           background-size: auto;
         }
       }
+      */
     }
 
   }

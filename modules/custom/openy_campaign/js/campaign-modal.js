@@ -15,6 +15,11 @@
 
     });
 
+    // Add logged-in class to body.
+    if (drupalSettings.openy_campaign.isLoggedIn && !$('body').hasClass('logged-in')) {
+        $('body').addClass('logged-in');
+    }
+
     // Replace URL query string - IE10+
     $.fn.replaceQuery = function(fragment) {
         history.replaceState('', '', window.location.pathname + '?tab=' + fragment);
