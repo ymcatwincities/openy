@@ -142,7 +142,6 @@
 // Background container prgf type styles.
 @include breakpoint($screen-lg-desktop) {
   .paragraph-background-container {
-    margin-bottom: 50px;
     .title {
       margin-bottom: 50px;
     }
@@ -301,5 +300,16 @@
   }
   p:first-child {
     min-height: 75px;
+  }
+}
+
+// Campaign Info Blocks paragraph type
+.paragraph--campaign-info-blocks {
+  .columns {
+    display: inline-block;
+    width: 100%;
+  }
+  .info-column p:first-of-type {
+    margin-top: 20px;
   }
 }

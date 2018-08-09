@@ -72,30 +72,35 @@ body {
 
 
 // _forms.scss
-.form-item input + label {
-  //color: #C6168D;
-  &:hover{
-    color: #C6168D;
+.form-item {
+  input + label {
+    //color: $pink;
+    &:hover{
+      color: $pink;
+    }
+  }
+  input:checked + label {
+    color: $purple;
   }
 }
 .activity {
   .paragraph-background-container {
     background-color: #92278F;
-    background-image: -moz-linear-gradient(#c6168d, #92278F);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
-    background-image: -webkit-linear-gradient(top, #c6168d, #92278F);
-    background-image: -o-linear-gradient(#c6168d, #92278F);
+    background-image: -moz-linear-gradient($pink, $dark-magenta);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($pink), to($dark-magenta));
+    background-image: -webkit-linear-gradient(top, $pink, $dark-magenta);
+    background-image: -o-linear-gradient($pink, $dark-magenta);
   }
 }
 .category-data {
-  background: #92278F;
+  background: $dark-magenta;
   color: #fff;
 }
 
 .activity-data .categories {
   ul {
     li {
-      background-color: #92278F;
+      background-color: $dark-magenta;
       color: #fff;
     }
   }
@@ -103,33 +108,37 @@ body {
 
 .activity .paragraph-background-container {
   &:before {
-    border-top: 30px solid #92278F;
+    border-top: 30px solid $dark-magenta;
   }
 }
 .calendar .month {
   .date-data {
-    &.active .weekday{
-      color: $pink;
-    }
-    &.active {
+    &.slick-current, &.active {
+      .weekday{
+        color: $pink;
+      }
       .visits {
         .visited {
-          background: #C6168D;
+          background: $pink;
         }
         .entriesNum {
-          color: #92278F;
+          color: $dark-magenta;
         }
       }
     }
   }
 }
 .calendar-wrapper {
-  .prev {
-    background: #C6168D;
+  .prev, .slick-prev.slick-arrow {
+    background: $pink;
   }
-  .next {
-    background: #C6168D;
+  .next, .slick-next.slick-arrow {
+    background: $pink;
   }
+}
+
+.progress-row .point.active svg g {
+  fill: $pink;
 }
 
 // _header.scss

@@ -74,8 +74,8 @@ body {
           margin-bottom: 30px;
         }
         @include breakpoint($screen-md) {
-          margin-top: 60px;
-          margin-bottom: 70px;
+          margin-top: 20px;
+          margin-bottom: 30px;
         }
       }
       .main-region {
@@ -92,6 +92,9 @@ body {
 .path-members-list {
   .wrapper-field-content {
     background: #fff;
+    &:first-child .paragraph-2c-wrapper h4{
+      margin-top: 10px !important;
+    }
   }
   main[role="main"] {
     background-color: #ffffff;
@@ -113,21 +116,21 @@ body {
       @include breakpoint($screen-sm) {
         margin-left: 15px;
         margin-right: 15px;
-        margin-top: 0px;
+        margin-top: -403px;
         padding: 30px;
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-md) {
         margin-left: 15px;
         margin-right: 15px;
-        margin-top: 0px;
+        margin-top: -245px;
         padding: 30px;
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-lg-desktop) {
         margin-left: 125px;
         margin-right: 125px;
-        margin-top: 0px;
+        margin-top: -245px;
         padding: 40px;
         box-shadow: 10px 20px 115px 10px;
       }
@@ -143,8 +146,8 @@ body {
           margin-bottom: 30px;
         }
         @include breakpoint($screen-md) {
-          margin-top: 60px;
-          margin-bottom: 70px;
+          margin-top: 20px;
+          margin-bottom: 30px;
         }
       }
       .main-region {
@@ -152,9 +155,23 @@ body {
       }
     }
   }
+  // For logged members.
+  &.logged-in main[role="main"] .layout-content {
+    @include breakpoint($screen-md) {
+      margin-top: -400px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      margin-top: -400px;
+    }
+  }
 }
 
-
+.path-team-member-registration,
+.path-members-list {
+  main[role="main"] .layout-content {
+    margin-top: 0;
+  }
+}
 
 .layout-container {
   position: relative;
@@ -172,7 +189,7 @@ body {
   }
   .content-wrapper {
     background-color: rgba(0, 0, 0, 0.2);
-    max-width: 800px;
+    max-width: 850px;
     padding: 40px 0px;
 
     @include breakpoint($screen-phone) {
@@ -323,9 +340,6 @@ body {
 }
 
 .visits-goal {
-  .description {
-    text-align: center;
-  }
   .uppercase {
     text-transform: uppercase;
   }
@@ -356,11 +370,15 @@ body {
       float: left;
       border-bottom: 4px solid #cecece;
       display: block;
-    }
-    .point.active {
-      background: url('../img/active.png');
-      background-repeat: no-repeat;
-      background-position: center;
+      svg {
+        width: 33px;
+        margin-top: -6px;
+        margin-left: -12px;
+      }
+      .point-count {
+        margin-top: -38px;
+        display: block;
+      }
     }
     .point-1 {
       background-position: left !important;

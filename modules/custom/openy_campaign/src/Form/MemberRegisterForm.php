@@ -132,7 +132,7 @@ class MemberRegisterForm extends FormBase {
     $form['submit_ok'] = [
       '#type' => 'submit',
       '#name' => 'submit_ok',
-      '#value' => $this->t('Register'),
+      '#value' => $this->t('Sign in'),
       '#attributes' => [
         'class' => [
           'btn',
@@ -254,6 +254,26 @@ class MemberRegisterForm extends FormBase {
       return;
     }
 
+    // If User does not have an assigned branch he is now allowed to register.
+    $isEmptyBranch = empty($member->branch->entity);
+    if ($isEmptyBranch) {
+      $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
+      $errorAudience = check_markup(
+        $msgAudienceMessages['value'],
+        $msgAudienceMessages['format']
+      );
+      // Get error from Campaign node.
+      if (!empty($campaign->field_error_target_audience->value)) {
+        $errorAudience = check_markup(
+          $campaign->field_error_target_audience->value,
+          $campaign->field_error_target_audience->format
+        );
+      }
+
+      $form_state->setErrorByName('membership_id', $errorAudience);
+      return;
+    }
+
     $registrationType = 'site';
     // Check if we are need to output the mobile version.
     if (!empty($_GET['mobile'])) {
@@ -339,6 +359,7 @@ class MemberRegisterForm extends FormBase {
         // If Campaign is not started.
         if ($campaignStartDate >= new \DateTime()) {
           $msgNotStarted = $config->get('error_register_checkins_not_started');
+          $msgNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
           // TODO: use hook_theme instead of inline template.
           $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
           $modalTitle = t('Thank you!');
