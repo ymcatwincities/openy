@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Embedded GroupEx Pro Schedule'
+description: 'OpenY Paragraph Embedded GroupEx Pro Schedule.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - embedded_groupexpro_schedule
+  - field
+  - openy_prgf
+  - paragraphs
+  - plugin

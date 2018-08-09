@@ -1,0 +1,5 @@
+name: OpenY Tour
+type: module
+description: Implements extended functionality for Tours.
+core: 8.x
+package: OpenY

@@ -1,0 +1,11 @@
+name: Open Y Distribution
+mail: admin@example.com
+slogan: 'Open YMCA'
+page:
+  403: ''
+  404: ''
+  front: /user/login
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en

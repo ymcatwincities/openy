@@ -1,0 +1,19 @@
+add groupex form cache entities:
+  title: 'Create new Groupex Form Cache entities'
+
+administer groupex form cache entities:
+  title: 'Administer Groupex Form Cache entities'
+  description: 'Allow to access the administration form to configure Groupex Form Cache entities.'
+  restrict access: true
+
+delete groupex form cache entities:
+  title: 'Delete Groupex Form Cache entities'
+
+edit groupex form cache entities:
+  title: 'Edit Groupex Form Cache entities'
+
+view published groupex form cache entities:
+  title: 'View published Groupex Form Cache entities'
+
+view unpublished groupex form cache entities:
+  title: 'View unpublished Groupex Form Cache entities'

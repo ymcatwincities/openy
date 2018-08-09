@@ -1,0 +1,7 @@
+name: OpenY CKeditor
+type: module
+description: OpenY CKeditor module.
+core: 8.x
+package: OpenY
+dependencies:
+  - drupal:ckeditor

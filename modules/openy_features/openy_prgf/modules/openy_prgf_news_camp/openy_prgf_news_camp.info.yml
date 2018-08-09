@@ -1,0 +1,16 @@
+name: 'OpenY Paragraph Latest News Posts (Camp)'
+description: 'OpenY Paragraph Latest News Posts (Camp).'
+package: 'OpenY (Experimental)'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - node
+  - openy_loc_camp
+  - openy_node_news
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - user
+  - views
+  - views_infinite_scroll

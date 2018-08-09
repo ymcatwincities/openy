@@ -1,0 +1,5 @@
+openy_popups.admin:
+  title: 'OpenY Popups settings'
+  parent: system.admin_config_content
+  route_name: openy_popups.settings
+  weight: 100

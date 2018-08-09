@@ -1,0 +1,20 @@
+name: 'OpenY Class'
+description: 'OpenY Class.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - entity_reference_revisions
+  - field
+  - field_group
+  - menu_ui
+  - metatag
+  - node
+  - openy_node
+  - openy_node_activity
+  - paragraphs
+  - path
+  - pathauto
+  - scheduler
+  - text
+  - user

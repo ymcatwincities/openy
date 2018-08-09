@@ -1,0 +1,16 @@
+name: 'OpenY Paragraph Latest Blog Posts (Camp)'
+description: 'OpenY Paragraph Latest Blog Posts (Camp).'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - node
+  - openy_loc_camp
+  - openy_node_blog
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - user
+  - views
+  - views_infinite_scroll

@@ -1,0 +1,5 @@
+openy_addthis.settings:
+  title: 'Openy addThis'
+  parent: system.admin_config_services
+  description: 'Configure Openy addThis settings.'
+  route_name: openy_addthis.settings

@@ -1,0 +1,17 @@
+name: 'OpenY Paragraph 4 Columns'
+description: 'Implements a paragraph with 4 columns.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - block_content
+  - entity_browser_entity_form
+  - field
+  - inline_entity_form
+  - language
+  - link
+  - openy_prgf
+  - openy_prgf_1c
+  - openy_prgf_3c
+  - paragraphs
+  - text

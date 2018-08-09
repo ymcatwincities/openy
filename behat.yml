@@ -1,0 +1,75 @@
+default:
+  autoload:
+    '': tests/features/bootstrap
+  suites:
+    default:
+      paths:
+        features: '%paths.base%/tests/features'
+      contexts:
+        - FeatureContext
+        - OpenyDrupalContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+        - IntegratedExperts\BehatScreenshotExtension\Context\ScreenshotContext
+  formatters:
+    html:
+      output_path: %paths.base%/build/reports/behat
+    pretty:
+      decorated: true
+      verbose: false
+      time: true
+      language: en
+      output_path: null
+      multiline_arguments: true
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      selenium2: ~
+      files_path: %paths.base%/tests/files
+    Drupal\DrupalExtension:
+      api_driver: drupal
+      drush_driver: drush
+      drush:
+        root: '/var/www/docroot'
+      blackbox: ~
+      region_map:
+        header: '#page-head'
+        header_area: '#edit-group-header-area'
+        content: '.main-region'
+        content_area: '#edit-group-content-area'
+        sidebar: '.sidebar-rigeon'
+        sidebar_area: '#edit-group-sidebar-area'
+        footer: 'footer'
+        dropdown_menu: 'ul.nav.dropdown-menu'
+      selectors:
+        login_form_selector: '#user-login-form'
+        message_selector: '.status-message'
+        error_message_selector: 'status-message__alert p'
+        success_message_selector: '.status-message ul, .status-message p'
+      text:
+        log_out: "Log out"
+        log_in: "Log in"
+    Drupal\TqExtension:
+        wait_for_email: 10
+        wait_for_redirect: 60
+    #   email_account_strings: get_account_strings_for_email
+    #   email_accounts:
+    #     example1@email.com:
+    #     imap: imap.gmail.com:993/imap/ssl
+    #     username: example1@email.com
+    #     password: p4sswDstr_1
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      renderer: Twig
+      name: html
+      file_name: index
+      print_args: true
+      print_outp: true
+      loop_break: true
+    IntegratedExperts\BehatScreenshotExtension:
+      dir: %paths.base%/build/reports/behat/screenshots
+      fail: true #make screenshots on failure
+      purge: false #don't purge folder on each run
+imports:
+  - behat.local.yml

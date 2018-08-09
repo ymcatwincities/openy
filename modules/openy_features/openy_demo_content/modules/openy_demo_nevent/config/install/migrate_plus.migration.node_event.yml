@@ -1,0 +1,167 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_node_event
+id: openy_demo_node_event
+migration_tags:
+  - 'OpenY Demo Event'
+migration_group: openy_demo_nevent
+label: 'Import demo event posts'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Summer Event'
+      created: '2018-04-24 8:00am'
+      start_date: '2018-04-24T10:00:00'
+      end_date: '2018-04-24T11:00:00'
+      related: null
+      image: 2
+      promote: 1
+      addthis: 1
+      camp: 1      
+      body: >
+        <p>Ut vulputate rhoncus felis sed rhoncus. 
+        In ac laoreet ex. Aliquam leo arcu, ultrices ornare felis in, rutrum varius ante. 
+        Aliquam posuere velit eget ipsum vestibulum ullamcorper. 
+        Integer pellentesque elit eu sapien iaculis tristique. 
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; 
+        Aliquam blandit diam ut felis vulputate feugiat. Donec risus nunc, fringilla non nibh tempus, 
+        ultricies tristique dolor. Integer condimentum quis ligula eu sagittis. 
+        Phasellus nec vulputate justo, dignissim porttitor mi. 
+        Suspendisse pellentesque nisi ipsum, in vehicula neque tempor sed. 
+        Etiam interdum, risus in consequat laoreet, tortor dolor dictum est, quis accumsan odio ante sed tortor.</p>
+    -
+      id: 2
+      title: 'YMCA Event'
+      created: '2017-04-23 8:01am'
+      start_date: '2018-04-23T10:00:00'
+      end_date: '2018-04-23T11:00:00'
+      related: null
+      image: 4
+      promote: 0
+      addthis: 1
+      camp: 2      
+      body: >
+        <p>Ut vulputate rhoncus felis sed rhoncus. 
+        In ac laoreet ex. Aliquam leo arcu, ultrices ornare felis in, rutrum varius ante. 
+        Aliquam posuere velit eget ipsum vestibulum ullamcorper. 
+        Integer pellentesque elit eu sapien iaculis tristique. 
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; 
+        Aliquam blandit diam ut felis vulputate feugiat. Donec risus nunc, fringilla non nibh tempus, 
+        ultricies tristique dolor. Integer condimentum quis ligula eu sagittis. 
+        Phasellus nec vulputate justo, dignissim porttitor mi. 
+        Suspendisse pellentesque nisi ipsum, in vehicula neque tempor sed. 
+        Etiam interdum, risus in consequat laoreet, tortor dolor dictum est, quis accumsan odio ante sed tortor.</p>
+    -
+      id: 3
+      title: 'CityCon Event'
+      created: '2017-04-22 8:01am'
+      start_date: '2018-04-22T16:00:00'
+      end_date: '2018-04-22T17:00:00'
+      related: null
+      image: 6
+      promote: 0
+      addthis: 1
+      camp: 2      
+      body: >
+        <p>Ut vulputate rhoncus felis sed rhoncus. 
+        In ac laoreet ex. Aliquam leo arcu, ultrices ornare felis in, rutrum varius ante. 
+        Aliquam posuere velit eget ipsum vestibulum ullamcorper. 
+        Integer pellentesque elit eu sapien iaculis tristique. 
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; 
+        Aliquam blandit diam ut felis vulputate feugiat. Donec risus nunc, fringilla non nibh tempus, 
+        ultricies tristique dolor. Integer condimentum quis ligula eu sagittis. 
+        Phasellus nec vulputate justo, dignissim porttitor mi. 
+        Suspendisse pellentesque nisi ipsum, in vehicula neque tempor sed. 
+        Etiam interdum, risus in consequat laoreet, tortor dolor dictum est, quis accumsan odio ante sed tortor.</p>
+    -
+      id: 4
+      title: 'FanCon Event'
+      created: '2017-04-21 8:01am'
+      start_date: '2018-04-21T15:00:00'
+      end_date: '2018-04-21T17:00:00'
+      related: null
+      image: 7
+      promote: 0
+      addthis: 1
+      camp: 1      
+      body: >
+        <p>Ut vulputate rhoncus felis sed rhoncus. 
+        In ac laoreet ex. Aliquam leo arcu, ultrices ornare felis in, rutrum varius ante. 
+        Aliquam posuere velit eget ipsum vestibulum ullamcorper. 
+        Integer pellentesque elit eu sapien iaculis tristique. 
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; 
+        Aliquam blandit diam ut felis vulputate feugiat. Donec risus nunc, fringilla non nibh tempus, 
+        ultricies tristique dolor. Integer condimentum quis ligula eu sagittis. 
+        Phasellus nec vulputate justo, dignissim porttitor mi. 
+        Suspendisse pellentesque nisi ipsum, in vehicula neque tempor sed. 
+        Etiam interdum, risus in consequat laoreet, tortor dolor dictum est, quis accumsan odio ante sed tortor.</p>
+  ids:
+    id:
+      type: integer
+process:
+  title:
+    -
+      plugin: get
+      source: title
+  type:
+    -
+      plugin: default_value
+      default_value: event
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  promote:
+    -
+      plugin: get
+      source: promote
+  addthis:
+    -
+      plugin: get
+      source: addthis
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  created:
+    -
+      plugin: callback
+      callable: strtotime
+      source: created
+  field_event_description/value:
+    -
+      plugin: get
+      source: body
+  field_event_description/format:
+    -
+      plugin: default_value
+      default_value: full_html
+  field_event_dates/value:
+    -
+      plugin: get
+      source: start_date
+  field_event_dates/end_value:
+    -
+      plugin: get
+      source: end_date
+  field_event_image:
+    -
+      plugin: migration
+      migration: openy_demo_nevent_media_image
+      source: image
+  field_event_location:
+    - 
+      plugin: migration
+      migration: openy_demo_node_camp
+      source: camp
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - openy_demo_nevent_media_image
+    - openy_demo_node_camp
+  optional: {  }

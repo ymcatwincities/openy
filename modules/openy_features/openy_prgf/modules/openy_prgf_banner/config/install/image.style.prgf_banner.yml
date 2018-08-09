@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: prgf_banner
+label: 'Paragraph banner'
+effects:
+  c94915d9-c2d7-4953-a12e-342c71fac90a:
+    uuid: c94915d9-c2d7-4953-a12e-342c71fac90a
+    id: focal_point_scale_and_crop
+    weight: 2
+    data:
+      width: 960
+      height: 854
+      crop_type: focal_point

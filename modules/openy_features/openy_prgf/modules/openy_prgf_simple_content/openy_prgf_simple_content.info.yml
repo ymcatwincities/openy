@@ -1,0 +1,10 @@
+name: 'OpenY Paragraph Simple Content'
+description: 'OpenY Paragraph Simple Content.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - openy_prgf
+  - paragraphs
+  - text

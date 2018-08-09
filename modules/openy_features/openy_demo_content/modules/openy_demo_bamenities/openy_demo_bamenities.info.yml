@@ -1,0 +1,10 @@
+name: 'OpenY Demo Amenities Block'
+description: 'OpenY Demo Amenities Block.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
+  - openy_block_branch_amenities

@@ -1,0 +1,5 @@
+name: OpenY Font
+type: module
+description: OpenY Font Settings.
+core: 8.x
+package: OpenY

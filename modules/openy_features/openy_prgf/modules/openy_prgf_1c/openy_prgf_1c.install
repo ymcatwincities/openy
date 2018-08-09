@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Implement install hooks for module.
+ */
+
+/**
+ * Add field_prfg_display_line_above.
+ */
+function openy_prgf_1c_update_8001() {
+  // @see openy_prgf_4c_update_8001().
+}
+
+/**
+ * Change view mode for column field to full.
+ * @see https://github.com/ymcatwincities/openy/issues/824
+ */
+function openy_prgf_1c_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_1c');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.paragraph.1c.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.paragraph.1c.default',
+    'content'
+  );
+}

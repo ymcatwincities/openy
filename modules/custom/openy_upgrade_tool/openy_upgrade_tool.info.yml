@@ -1,0 +1,10 @@
+name: OpenY Upgrade Tool
+type: module
+description: Provide Upgrade Path Tool.
+core: 8.x
+package: OpenY
+php: 5.6
+dependencies:
+  - features
+  - config_import
+  - logger_entity

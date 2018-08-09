@@ -1,0 +1,10 @@
+name: 'OpenY Block Basic'
+description: 'OpenY Block Basic.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - block_content
+  - field
+  - openy_block
+  - text

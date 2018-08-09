@@ -1,0 +1,10 @@
+.webform-confirmation__message,
+.webform-confirmation__back {
+  margin: 20px 0;
+}
+
+.webform-confirmation__message {
+  font-size: 22px;
+  @include cachet();
+  font-weight: bold;
+}
