@@ -1,0 +1,18 @@
+name: 'OpenY Node Package'
+description: 'OpenY Node Package.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - entity_reference_revisions
+  - field
+  - image
+  - jquery_colorpicker
+  - metatag
+  - node
+  - openy_node
+  - paragraphs
+  - path
+  - taxonomy
+  - text
+  - tour

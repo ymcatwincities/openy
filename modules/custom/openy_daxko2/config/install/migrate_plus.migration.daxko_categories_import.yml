@@ -1,0 +1,75 @@
+langcode: en
+status: true
+dependencies: {  }
+id: daxko_categories_import
+migration_tags: null
+migration_group: daxko
+label: 'Import Daxko Categories'
+source:
+  plugin: csv
+  path: /tmp/categories.csv
+  delimiter: ','
+  enclosure: '"'
+  header_row_count: 0
+  keys:
+    - id
+  column_names:
+    -
+      id: Id
+    -
+      type: Type
+    -
+      title: Title
+    -
+      description: Description
+    -
+      activity: Activity
+process:
+  title: title
+  type:
+    plugin: default_value
+    default_value: class
+
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 13
+  uid:
+    plugin: default_value
+    default_value: 1
+
+  field_class_activity/target_id: activity
+  field_class_activity/target_revision_id: activity
+
+  field_class_description/value: description
+  field_class_description/format:
+    plugin: default_value
+    default_value: full_html
+
+  field_content:
+    -
+      plugin: default_value
+      default_value: class_sessions,branches_popup_class
+    -
+      plugin: openy_daxko_paragraph
+
+  field_sidebar_content:
+    -
+      plugin: default_value
+      default_value: class_location
+    -
+      plugin: openy_daxko_paragraph
+
+destination:
+  plugin: 'entity:node'
+  default_bundle: class
+
+migration_dependencies:
+  required:
+    - daxko_activity_import
+    - openy_demo_paragraph_class_location_01
+    - openy_demo_paragraph_class_sessions_01
+    - openy_demo_paragraph_branches_popup_class_01

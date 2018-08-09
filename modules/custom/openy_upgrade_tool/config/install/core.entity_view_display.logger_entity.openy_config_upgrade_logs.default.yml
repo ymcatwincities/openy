@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.logger_entity.openy_config_upgrade_logs.field_config_path
+    - field.field.logger_entity.openy_config_upgrade_logs.field_config_property
+    - logger_entity.logger_entity_type.openy_config_upgrade_logs
+  module:
+    - user
+id: logger_entity.openy_config_upgrade_logs.default
+targetEntityType: logger_entity
+bundle: openy_config_upgrade_logs
+mode: default
+content:
+  field_config_path:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_config_property:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

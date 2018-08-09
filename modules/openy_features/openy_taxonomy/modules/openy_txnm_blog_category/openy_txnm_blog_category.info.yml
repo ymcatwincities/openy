@@ -1,0 +1,14 @@
+name: 'OpenY Taxonomy Blog Category'
+description: 'OpenY Taxonomy Blog Category.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - ctools
+  - entity_reference_revisions
+  - field
+  - paragraphs
+  - path
+  - pathauto
+  - taxonomy
+  - text

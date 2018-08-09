@@ -1,0 +1,10 @@
+name: 'OpenY Paragraph Branches Popup (Class)'
+description: 'OpenY Paragraph Branches Popup (Class).'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - openy_prgf
+  - paragraphs
+  - plugin

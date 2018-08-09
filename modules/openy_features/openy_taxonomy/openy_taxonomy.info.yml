@@ -1,0 +1,8 @@
+name: 'OpenY Taxonomy Package'
+description: 'OpenY Taxonomy Package.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - tour
+  - taxonomy

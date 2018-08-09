@@ -1,0 +1,12 @@
+name: 'OpenY Media'
+description: 'OpenY Media.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - image
+  - media_entity
+  - rabbit_hole
+  - taxonomy
+  - user

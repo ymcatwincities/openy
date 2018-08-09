@@ -1,0 +1,7 @@
+name: 'OpenY Data Layer'
+description: 'OpenY Data Layer.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - datalayer

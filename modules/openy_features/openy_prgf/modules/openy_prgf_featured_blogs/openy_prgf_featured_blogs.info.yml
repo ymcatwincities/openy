@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Featured Blog Posts'
+description: 'OpenY Paragraph Featured Blog Posts.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - node
+  - openy_node_blog
+  - openy_prgf
+  - paragraphs

@@ -1,0 +1,13 @@
+name: 'OpenY Code Block'
+description: 'OpenY Code Block'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - datalayer
+  - entity_embed
+  - field
+  - filter
+  - language
+  - text
+version: 8.x-1.0

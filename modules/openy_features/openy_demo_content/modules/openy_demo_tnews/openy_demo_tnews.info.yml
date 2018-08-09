@@ -1,0 +1,11 @@
+name: 'OpenY Demo Taxonomy News Category'
+description: 'OpenY Demo Taxonomy News Category.'
+type: module
+core: 8.x
+package: OpenY (Experimental)
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
+  - openy_node_news
+  - taxonomy
