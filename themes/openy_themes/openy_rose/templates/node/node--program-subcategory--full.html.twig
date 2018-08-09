@@ -113,6 +113,10 @@ set classes = [
       <main class="main-region col-sm-8">
         {{ content.field_category_description }}
         {{ content.field_content }}
+
+        {% if content.addthis is not empty %}
+          {{ content.addthis }}
+        {% endif %}
       </main>
 
       {# Category sidebar #}
