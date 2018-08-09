@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ymcali_faq\Plugin\Field\FieldType;
+namespace Drupal\openy_prgf_faq\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;

@@ -1,6 +1,7 @@
-name: 'YMCAli Faq'
+name: 'OpenY Faq'
 type: module
 core: 8.x
+version: 0.1
 dependencies:
   - block
   - content_moderation
