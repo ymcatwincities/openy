@@ -114,8 +114,6 @@
         </div>
 
         <div class="schedule-dashboard__modal--body">
-
-            {# main data table #}
           <table class="table">
             <thead>
             <tr>
@@ -131,46 +129,29 @@
             </tr>
             <tr>
               <td><label>{{ 'Call'|t }}</label></td>
-              <td><a href="tel:${ locationPopup.phone }">${ locationPopup.phone }</a></td>
+              <td><a v-bind:href="'tel:' + locationPopup.phone">${ locationPopup.phone }</a></td>
             </tr>
             <tr>
               <td><label>{{ 'Email'|t }}</label></td>
-              <td><a href="mailto:${ locationPopup.email }">${ locationPopup.email }</a></td>
+              <td><a v-bind:href="'mailto:' + locationPopup.email">${ locationPopup.email }</a></td>
             </tr>
             <tr>
               <td><label>{{ 'Branch hours'|t }}</label></td>
               <td>
-
-                  {# branch hours table #}
-                <table class="table">
+                <table class="table" v-for="row in locationPopup.days">
                   <tr>
-                    <td>{{ 'Mon - Sat'|t }}</td>
-                    <td>{{ '8:00am - 9:00pm'|t }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ 'Sun'|t }}</td>
-                    <td>{{ '10:00am - 6:00pm'|t }}</td>
-                  </tr>
-                  <tr>
-                    <td>{{ 'Childcare'|t }}</td>
-                    <td>
-                        {{ 'Mon - Fri 10:00am - 6:00pm'|t }}<br/>
-                        {{ 'Sat - Sun 1:00pm - 5:00pm'|t }}
-                    </td>
+                    <td>${ row[0] }</td>
+                    <td>${ row[1] }</td>
                   </tr>
                 </table>
-
               </td>
             </tr>
           </table>
-            {# / main data table #}
-
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <button type="button" class="btn btn-lg btn-primary">{{ 'Button Text'|t }}</button>
+          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'Button Text'|t }}</a>
         </div>
-
       </div>
     </div>
   </div>
