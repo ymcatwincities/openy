@@ -1,5 +1,7 @@
 map_engine: leaflet
 leaflet_location: 'United States of America'
+leaflet_search_icon: '/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red.png'
+leaflet_search_icon_retina: '/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red_x2.png'
 default_tags:
   branch: 'YMCA'
   camp: 'Camps'
