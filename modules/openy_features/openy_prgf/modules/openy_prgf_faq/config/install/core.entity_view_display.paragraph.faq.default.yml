@@ -5,7 +5,7 @@ dependencies:
     - field.field.paragraph.faq.field_qa
     - paragraphs.paragraphs_type.faq
   module:
-    - ymcali_faq
+    - openy_prgf_faq
 id: paragraph.faq.default
 targetEntityType: paragraph
 bundle: faq

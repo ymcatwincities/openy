@@ -3,7 +3,7 @@
  * Faq paragraph behaviour.
  */
 (function ($) {
-  Drupal.behaviors.ymacaliFaqParagraph = {
+  Drupal.behaviors.openyFaqParagraph = {
     attach: function( context ) {
       $( context ).find( '.paragraph--type--faq-item' ).once( 'paragraphFaq' ).each( function () {
         // Q/A wrapper.

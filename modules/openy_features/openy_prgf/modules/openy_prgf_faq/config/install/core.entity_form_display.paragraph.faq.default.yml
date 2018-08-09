@@ -6,7 +6,7 @@ dependencies:
     - paragraphs.paragraphs_type.faq
   module:
     - content_moderation
-    - ymcali_faq
+    - openy_prgf_faq
 id: paragraph.faq.default
 targetEntityType: paragraph
 bundle: faq

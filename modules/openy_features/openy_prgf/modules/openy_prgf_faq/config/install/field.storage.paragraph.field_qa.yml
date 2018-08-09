@@ -3,13 +3,13 @@ status: true
 dependencies:
   module:
     - paragraphs
-    - ymcali_faq
+    - openy_prgf_faq
 id: paragraph.field_qa
 field_name: field_qa
 entity_type: paragraph
 type: faq
 settings: {  }
-module: ymcali_faq
+module: openy_prgf_faq
 locked: false
 cardinality: -1
 translatable: true

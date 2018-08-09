@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ymcali_faq\Plugin\Field\FieldFormatter;
+namespace Drupal\openy_prgf_faq\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;

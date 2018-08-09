@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains ymcali_faq specific functions.
+ * Contains openy_prgf_faq specific functions.
  */
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
@@ -11,8 +11,8 @@ use Drupal\Core\Entity\EntityInterface;
 /**
  * Implements hook_entity_view().
  */
-function ymcali_faq_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+function openy_prgf_faq_entity_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
   if ($entity->getEntityTypeId() == 'paragraph' && $entity->bundle() == 'faq') {
-    $build['#attached']['library'][] = 'ymcali_faq/paragraph';
+    $build['#attached']['library'][] = 'openy_prgf_faq/paragraph';
   }
 }

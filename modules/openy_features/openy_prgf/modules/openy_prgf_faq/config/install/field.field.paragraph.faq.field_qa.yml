@@ -6,7 +6,7 @@ dependencies:
     - paragraphs.paragraphs_type.faq
   module:
     - datalayer
-    - ymcali_faq
+    - openy_prgf_faq
 third_party_settings:
   datalayer:
     expose: 0
