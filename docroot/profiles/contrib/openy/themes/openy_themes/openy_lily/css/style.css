@@ -704,6 +704,9 @@ body {
 .toolbar-fixed.toolbar-horizontal .top-navs {
   margin-top: 39px;
 }
+.toolbar-fixed.toolbar-horizontal .sidebar {
+  top: 109px;
+}
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .viewport,
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .top-navs {
   margin-top: 79px;
@@ -14350,6 +14353,22 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     margin-top: 52px;
   }
 }
+@media (min-width: 47.9375em) and (max-width: 61.9375em) {
+  #search-box.expanded-search {
+    padding: 20px 15px;
+  }
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  #search-box {
+    display: none;
+  }
+}
+@media (min-width: 47.9375em) and (max-width: 62em) {
+  #search-box {
+    display: block;
+  }
+}
+
 @font-face {
   font-family: 'Cachet';
   src: url("../fonts/cachet/cachet-book.eot");
