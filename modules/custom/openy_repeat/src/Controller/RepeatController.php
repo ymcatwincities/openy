@@ -14,27 +14,6 @@ class RepeatController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function dashboard( Request $request, $location, $category = NULL) {
-    $checked_categories = [];
-    if (!empty($category)) {
-      $checked_categories = explode(',', $category);
-    }
-    $checked_locations = [];
-    if (!empty($location)) {
-      $checked_locations = explode(',', $location);
-    }
-    return [
-      '#theme' => 'openy_repeat_schedule_dashboard',
-      '#locations' => $this->getLocations(),
-      '#categories' => $this->getCategories(),
-      '#checked_locations' => $checked_locations,
-      '#checked_categories' => $checked_categories,
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function ajaxScheduler( Request $request, $location, $date, $category) {
     if (empty($date)) {
       $date = date('F j, l 00:00:00');
@@ -222,16 +201,6 @@ class RepeatController extends ControllerBase {
     $connection = \Drupal::database();
     $query = $connection->query($sql);
     return $query->fetchCol();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function locations() {
-    return [
-      '#theme' => 'openy_repeat_schedule_locations',
-      '#locations' => $this->getLocations(),
-    ];
   }
 
 }
