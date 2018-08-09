@@ -2,6 +2,7 @@ name: OpenY
 type: profile
 description: 'Open Y Drupal distribution.'
 core: 8.x
+version: '8.1.10'
 distribution:
   name: OpenY
   install:
@@ -92,16 +93,28 @@ dependencies:
   - custom_formatters
   - token_filter
   - views_field_formatter
+  - ctools
+  - lndr
+  - crop
+  - focal_point
+  - video
+  - media_entity_video
+  - easy_breadcrumb
+  - ckeditor_bootstrap_buttons
+  - fontyourface
+  - local_fonts
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
   - openy_media_document
   - openy_media_video
+  - openy_media_local_video
   - openy_node_mbrshp
   - openy_node
   - openy_block
   - openy_block_basic
   - openy_block_menu
+  - openy_code_block
   - openy_datalayer
   - openy_taxonomy
   - openy_txnm_amenities
@@ -120,6 +133,7 @@ dependencies:
   - openy_prgf_branches_popup_all
   - openy_prgf_branches_popup_class
   - openy_prgf_class_location
+  - openy_prgf_code_block
   - openy_prgf_simple_content
   - openy_prgf_schedule_search
   - openy_prgf_featured_content
@@ -127,7 +141,9 @@ dependencies:
   - openy_prgf_group_schedules
   - openy_prgf_story_card
   - openy_prgf_promo_card
+  - openy_prgf_secondary_description_sidebar
   - openy_prgf_featured_blogs
+  - openy_prgf_featured_highlights
   - openy_prgf_gallery
   - openy_prgf_teaser
   - openy_prgf_classes_listing
@@ -136,6 +152,7 @@ dependencies:
   - openy_prgf_blog_camp
   - openy_prgf_blog_branch
   - openy_prgf_blog_listing
+  - openy_prgf_block_date
   - openy_prgf_loc_finder
   - openy_prgf_mbrshp_calc
   - openy_prgf_microsites_menu
@@ -193,4 +210,5 @@ themes:
   - bartik
   - openy_rose
   - openy_admin
+  - openy_campaign_theme
   - seven

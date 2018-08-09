@@ -150,7 +150,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $element->fillField('Latitude', '47.293433');
     $element->fillField('Longitude', '-122.238717');
     $element->fillField('Phone', '+1234567890');
-    $element->findButton('Save and publish')->click();
+    $element->findButton('Save')->click();
   }
 
   /**

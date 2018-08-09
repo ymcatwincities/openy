@@ -15,7 +15,13 @@ function openy_node_program_update_dependencies() {
     ],
     8003 => [
       'openy' => 8015,
-    ]
+    ],
+    8008 => [
+      'openy_media_image' => 8004,
+    ],
+    8011 => [
+      'openy' => 8042,
+    ],
   ];
 
   return $dependencies;
@@ -181,4 +187,115 @@ function openy_node_program_update_8007() {
     'core.entity_form_display.node.program.default',
     'third_party_settings.field_group.group_header_area.format_settings.description'
   );
+}
+
+/**
+ * Update entity reference for field image.
+ */
+function openy_node_program_update_8008() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_program');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.node.program.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.node.program.default',
+    'content'
+  );
+}
+
+/**
+ * Update OpenY program node feature configs.
+ */
+function openy_node_program_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.media.image.node_program_header' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.node.program.default' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.node.program.full' => [
+      'dependencies.config',
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.node.program.teaser' => [
+      'dependencies.config',
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update OpenY node program feature configs for Blazy support.
+ */
+function openy_node_program_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.node_program_header',
+    'field.field.node.program.field_meta_tags',
+    'field.field.node.program.field_program_description',
+  ]);
+}
+
+/**
+ * Update OpenY node program feature config for Focal Point support.
+ */
+function openy_node_program_update_8011() {
+  $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'image.style.node_program_header' =>[
+      'dependencies',
+      'effects',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs for Drupal Core upgrade.
+ */
+function openy_node_program_update_8012() {
+  $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.program.default' => [
+      'content.langcode',
+      'content.status',
+      'content.addthis',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }

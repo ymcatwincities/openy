@@ -38,6 +38,8 @@ class OpenYMap extends RenderElement {
 
     $element['#attached']['library'][] = 'openy_map/openy_map';
     $element['#attached']['drupalSettings']['openyMap'] = $element['#element_variables'];
+    $tags = \Drupal::configFactory()->get('openy_map.settings')->get('default_tags');
+    $element['#attached']['drupalSettings']['openyMapSettings']['default_tags'] = array_keys(array_filter($tags));
 
     return $element;
   }

@@ -8,6 +8,7 @@ dependencies:
   module:
     - field_group
     - path
+    - scheduler
     - text
 third_party_settings:
   field_group:
@@ -29,6 +30,13 @@ targetEntityType: node
 bundle: activity
 mode: default
 content:
+  addthis:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    region: content
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 4
@@ -52,6 +60,13 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   path:
     type: path
     weight: 7
@@ -63,6 +78,19 @@ content:
     settings:
       display_label: true
     weight: 5
+    third_party_settings: {  }
+    region: content
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
     third_party_settings: {  }
     region: content
   sticky:
@@ -89,4 +117,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }

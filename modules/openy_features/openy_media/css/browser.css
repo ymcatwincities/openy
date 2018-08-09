@@ -52,17 +52,21 @@ nav.eb-tabs ul li.active a {
 }
 
 .view.view-documents-library .views-col .views-field,
-.view.view-videos-library .views-col .views-field {
+.view.view-videos-library .views-col .views-field,
+.view.view-local-videos-library .views-col .views-field {
   padding: 10px;
 }
+
 .view.view-documents-library .media,
-.view.view-videos-library .media {
+.view.view-videos-library .media,
+.view.view-local-videos-library .media {
   background-color: #efefef;
   padding: 10px;
 }
 
 .view.view-images-library .views-col.selected img,
 .view.view-documents-library .views-col.selected .media,
-.view.view-videos-library .views-col.selected .media {
+.view.view-videos-library .views-col.selected .media,
+.view.view-local-videos-library .views-col.selected .media {
   box-shadow: 0 0 10px #0089d0;
 }

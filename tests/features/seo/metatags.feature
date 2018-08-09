@@ -7,5 +7,5 @@ Feature: Meta tags
     When I go to "/node/add/landing_page"
     And I fill in "Title" with "Basic Landing"
     And I fill in "Page title" with "Random string for page title"
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see text "Random string for page title" in XML

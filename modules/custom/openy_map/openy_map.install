@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update routines.
+ */
+
+/**
+ * Import map default settings.
+ */
+function openy_map_update_8001() {
+  $cim = \Drupal::service('config_import.importer');
+  $cim->setDirectory(drupal_get_path('module', 'openy_map') . '/config/install');
+  $cim->importConfigs(['openy_map.settings']);
+}

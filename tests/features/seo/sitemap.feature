@@ -22,7 +22,7 @@ Feature: Sitemap
     When I go to "/node/add/blog"
     And I fill in "Title" with "Behat Sitemap Blog"
     And I select "BEHAT BRANCH 01" from "Location"
-    And I press "Save and publish"
+    And I press "Save"
     And I run cron
     And I am an anonymous user
     Then I go to "/sitemap.xml"

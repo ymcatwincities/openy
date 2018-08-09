@@ -155,6 +155,7 @@ class GroupexFormFull extends GroupexFormBase {
     $formatted_results = NULL;
     $conf = $this->configFactory->get('openy_group_schedules.settings');
     $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
+    $instructors_options = [];
 
     // Get location options.
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
@@ -378,7 +379,10 @@ class GroupexFormFull extends GroupexFormBase {
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
-      ]
+      ],
+      '#attributes' => [
+        'class' => ['btn'],
+      ],
     ];
 
     $form['groupex_pdf_link'] = [
@@ -407,7 +411,6 @@ class GroupexFormFull extends GroupexFormBase {
           'class' => [
             'btn',
             'btn-default',
-            'btn-xs',
             'pdf-link',
           ],
         ],
@@ -423,7 +426,7 @@ class GroupexFormFull extends GroupexFormBase {
 
     $form['result'] = [
       '#prefix' => '</div><div class="groupex-results">',
-      'results' => $formatted_results,
+      '#results' => $formatted_results,
       '#suffix' => '</div>',
       '#weight' => 10,
     ];
@@ -502,7 +505,6 @@ class GroupexFormFull extends GroupexFormBase {
         'class' => [
           'btn',
           'btn-default',
-          'btn-xs',
           'pdf-link',
         ],
       ],
@@ -522,6 +524,7 @@ class GroupexFormFull extends GroupexFormBase {
     $user_input = $form_state->getUserInput();
     $values = $form_state->getValues();
     $query = $this->state;
+    $filter_date = NULL;
     if (!isset($values['location']) && is_numeric($query['location'])) {
       $values['location_select'] = $values['location'] = $query['location'];
     }
@@ -529,9 +532,11 @@ class GroupexFormFull extends GroupexFormBase {
       $values['date_select'] = $values['date'] = $query['filter_date'];
     }
     $location = !empty($values['location_select']) ? $values['location_select'] : $values['location'];
-    $filter_date = !empty($values['date_select']) ? $values['date_select'] : $values['date'];
+    if (isset($values['date'])) {
+      $filter_date = !empty($values['date_select']) ? $values['date_select'] : $values['date'];
+    }
     if (isset($user_input['date_select']) && $user_input['date_select'] != $filter_date) {
-      $filter_date == $user_input;
+      $filter_date = $user_input;
     }
     $class = !empty($values['class_select']) ? $values['class_select'] : 'any';
     if ($class == 'any' && empty($user_input['class_select']) && is_numeric($query['class'])) {
@@ -587,7 +592,7 @@ class GroupexFormFull extends GroupexFormBase {
     }
 
     // Remove instructor parameter in case of no instructor selected.
-    if ($parameters['instructor'] == 'any') {
+    if (isset($parameters['instructor']) && $parameters['instructor'] == 'any') {
       unset($parameters['instructor']);
     }
 

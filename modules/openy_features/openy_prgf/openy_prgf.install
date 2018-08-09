@@ -85,3 +85,37 @@ function openy_prgf_update_8004() {
 function openy_prgf_update_8005() {
   \Drupal::service('module_installer')->install(['openy_prgf_webform']);
 }
+
+/**
+ * Enable Secondary Description and Sidebar paragraph module and update openy_prgf.settings.
+ */
+function openy_prgf_update_8006() {
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_secondary_description_sidebar',
+  ]);
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf');
+  $config .= '/config/install/';
+  $config .= 'openy_prgf.settings.yml';
+  $config_importer->update($config,
+    'openy_prgf.settings',
+    'fields_unset_paragraphs'
+  );
+}
+
+/**
+ * Enable Featured Highlights paragraph module and update openy_prgf.settings.
+ */
+function openy_prgf_update_8007() {
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_featured_highlights',
+  ]);
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf');
+  $config .= '/config/install/';
+  $config .= 'openy_prgf.settings.yml';
+  $config_importer->update($config,
+    'openy_prgf.settings',
+    'fields_unset_paragraphs'
+  );
+}

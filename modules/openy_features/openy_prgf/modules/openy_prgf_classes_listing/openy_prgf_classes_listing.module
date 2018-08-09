@@ -32,6 +32,25 @@ function openy_prgf_classes_listing_form_views_exposed_form_alter(&$form, FormSt
       if ($selectField == 'location') {
         $form[$selectField]['#options'] = openy_prgf_classes_listing_get_location_options();
       }
+
+      /**
+       * Check status of the program nodes. The VERF module doesn't do this. :(
+       * This isn't needed for locations, because they are the base filter and
+       * update automatically already.
+       */
+      if ($selectField != 'locations') {
+        $filter_ids = array_keys($form[$selectField]['#options']);
+        foreach ($filter_ids as $id) {
+          if (is_numeric($id)) {
+            $query = \Drupal::entityQuery('node');
+            $query->condition('status', 1);
+            $query->condition('nid', $id);
+            if (!$result = $query->execute()) {
+              unset($form[$selectField]['#options'][$id]);
+            }
+          }
+        }
+      }
     }
 
     $form['#attributes']['class'][] = 'container';

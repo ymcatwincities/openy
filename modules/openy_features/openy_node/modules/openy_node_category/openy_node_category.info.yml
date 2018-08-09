@@ -4,11 +4,14 @@ type: module
 core: 8.x
 package: OpenY
 dependencies:
+  - blazy
+  - datalayer
   - entity_browser
   - entity_clone
   - entity_reference_revisions
   - field
   - field_group
+  - focal_point
   - image
   - media_entity
   - menu_ui

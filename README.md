@@ -11,7 +11,7 @@
   http://openymca.org
 </p>
 <p align="center">
-  An open source platform for YMCAs, by YMCAs built on <a href="drupal.org">Drupal</a>.
+  An open source platform for YMCAs, by YMCAs built on <a href="https://drupal.org">Drupal</a>.
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@
 The Open Y platform is a content management system that uses Drupal 8 functionality and useful modules from YMCAs and digital partners. It’s easy and free to use — everyone is welcome to implement Open Y and run Open Y projects.
 
 # Demo
-You can always evaluate distribution by visiting demo website - http://sandbox.openymca.org. If you want to test admin access - login is `admin`, password is `openy`.
+You can always evaluate distribution by visiting demo website - http://sandbox.openymca.org. To get admin credentials to the sandbox - please [visit page for details](http://openymca.org/sandbox-details).
 
 ![OpenY Sandbox](docs/assets/sandbox.gif "OpenY Demo")
 

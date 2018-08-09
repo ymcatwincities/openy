@@ -28,12 +28,14 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   field_meta_tags:
     weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
   field_program_color:
     weight: 2
     label: hidden
@@ -41,12 +43,14 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_program_description:
     weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_program_icon:
     weight: 1
     label: hidden
@@ -55,6 +59,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_program_image:
     weight: 0
     label: hidden
@@ -63,6 +68,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_sidebar_content:
     weight: 5
     label: hidden
@@ -71,8 +77,11 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   links:
     weight: 6
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+    region: content
+hidden:
+  langcode: true

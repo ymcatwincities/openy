@@ -12,6 +12,7 @@ use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\block\Entity\Block;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Implements hook_preprocess_node().
@@ -142,18 +143,15 @@ function openy_rose_preprocess_input(array &$variables) {
  * Implements hook_preprocess_field().
  */
 function openy_rose_preprocess_field(array &$variables) {
-  // Logic for node.
-  if ($variables['entity_type'] == 'node') {
-    // Check if exist sidebar field.
-    if ($variables['field_name'] == 'field_sidebar_content') {
-      $variables['wrapper_tag'] = 'aside';
-    }
-    else {
-      $variables['wrapper_tag'] = 'section';
-    }
-  }
-  else {
-    $variables['wrapper_tag'] = 'div';
+  switch ($variables['entity_type']) {
+    // Logic for node.
+    case 'node':
+      // Check if exist sidebar field.
+      $variables['wrapper_tag'] = $variables['field_name'] == 'field_sidebar_content' ? 'aside' : 'section';
+      break;
+    default:
+      $variables['wrapper_tag'] = 'div';
+      break;
   }
 }
 
@@ -303,12 +301,6 @@ function openy_rose_preprocess_page(array &$variables) {
       }
     }
   }
-
-  // Check if we are need to output the mobile version.
-  if (!empty($_GET['mobile'])) {
-    $variables['is_mobile'] = \Drupal\Component\Utility\Xss::filter($_GET['mobile']);
-  }
-
 }
 
 /**
@@ -352,28 +344,51 @@ function openy_rose_theme_suggestions_slick_alter(array &$suggestions, array $va
  * Implements hook_preprocess_html().
  */
 function openy_rose_preprocess_html(&$variables) {
-  // Preprocess landing page.
-  if (!empty($variables['node_type']) && $variables['node_type'] == 'landing_page') {
+  // Preprocess the node to find all paragraphs and react on them.
+  if (!empty($variables['node_type'])) {
+    /** @var \Drupal\node\Entity\Node $node */
     $node = \Drupal::routeMatch()->getParameter('node');
-    // Load page header paragraphs.
-    if ($header = $node->field_header_content->getValue()) {
-      foreach ($header as $p) {
-        if ($paragraph = \Drupal::service('entity.manager')
+
+    $paragraph_field_ids = [];
+    // Get all the entity reference revisions fields.
+    $map = \Drupal::service('entity_field.manager')
+      ->getFieldMapByFieldType('entity_reference_revisions');
+
+    // Get all fields of the node with paragraphs.
+    $entity_type_id = 'node';
+    foreach ($map[$entity_type_id] as $name => $data) {
+      $target_type = FieldStorageConfig::loadByName($entity_type_id, $name)
+        ->getSetting('target_type');
+
+      if ($target_type == 'paragraph' && $node->hasField($name)) {
+        $paragraph_field_ids[] = $name;
+      }
+    }
+
+    // Come through all paragraphs of all fields and execute relevant actions.
+    foreach ($paragraph_field_ids as $field_id) {
+      $field = $node->$field_id->getValue();
+      foreach ($field as $p) {
+        /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+        $paragraph = \Drupal::service('entity.manager')
           ->getStorage('paragraph')
-          ->load($p['target_id'])
-        ) {
-          // Take action for microsites_menu paragraph.
-          if ($paragraph->bundle() == 'microsites_menu') {
-            // Add class to the body.
-            $variables['attributes']['class'][] = 'microsites-menu';
-            if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
-              $variables['attributes']['class'][] = 'microsites-menu--hide-main-menu';
-            }
+          ->load($p['target_id']);
+
+        // Take action for microsites_menu paragraph.
+        if ($paragraph->bundle() == 'microsites_menu') {
+          // Add class to the body.
+          $variables['attributes']['class'][] = 'microsites-menu';
+          if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
+            $variables['attributes']['class'][] = 'microsites-menu--hide-main-menu';
           }
+
+          // Finish search.
+          break 2;
         }
       }
     }
   }
+
   // Get title from node or page.
   if (isset($variables['node'])) {
     $variables['title'] = $variables['node']->title->value;

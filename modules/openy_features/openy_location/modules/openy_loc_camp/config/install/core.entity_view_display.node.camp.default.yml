@@ -94,4 +94,5 @@ hidden:
   field_camp_menu_links: true
   field_location_directions: true
   field_location_email: true
+  langcode: true
   links: true

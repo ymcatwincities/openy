@@ -31,7 +31,7 @@ Feature: Blog Content type
     And I scroll to "#cke_edit-field-blog-description-0-value" element
     And I should see an "#cke_edit-field-blog-description-0-value" element
     And I fill "This could be a draft for a wonderful post." in "Description" WYSIWYG editor
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Blog Post Behat test blog has been created."
     And I should see "This could be a draft for a wonderful post."
 
@@ -50,7 +50,7 @@ Feature: Blog Content type
     And I press "Select images"
     Then I switch back from an iframe
     And I wait for AJAX to finish
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Blog Post Behat Image Blog has been created."
     And I should see an ".field-blog-image .field-media-image img" element
 
@@ -75,7 +75,7 @@ Feature: Blog Content type
     And I press "Select images"
     Then I switch back from an iframe
     And I wait for AJAX to finish
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Blog Post Behat Gallery Blog has been created."
     And I should see an ".paragraph-gallery .field-media-image img" element
 
@@ -84,6 +84,6 @@ Feature: Blog Content type
     And I fill in "Title" with "Behat test AddThis in blog"
     And I select "BEHAT BRANCH 01" from "Location"
     And I fill in "Category" with "BEHAT CATEGORY ONE"
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Blog Post Behat test AddThis in blog has been created."
     And I should see an ".at-share-btn-elements" element

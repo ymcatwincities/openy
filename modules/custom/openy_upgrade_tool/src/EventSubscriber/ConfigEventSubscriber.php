@@ -138,7 +138,16 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
       // Skip new config.
       return;
     }
-    if ($original == $config->get()) {
+    $updated = $config->get();
+    // Unset 'openy_upgrade' to compare configs.
+    if (!empty($updated['openy_upgrade'])) {
+      unset($updated['openy_upgrade']);
+    }
+    if (!empty($original['openy_upgrade'])) {
+      unset($original['openy_upgrade']);
+    }
+
+    if ($original == $updated) {
       // Skip config without updates.
       return;
     }

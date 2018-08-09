@@ -8,19 +8,29 @@
 /**
  * Change display mode.
  */
-function openy_prgf_2с_update_8001() {
-  $config_importer = \Drupal::service('config_import.importer');
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_2c') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'core.entity_view_display.paragraph.2c.default',
-    ]
-  );
+function openy_prgf_2c_update_8001() {
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
 }
 
 /**
  * Add field_prfg_display_line_above.
  */
 function openy_prgf_2c_update_8002() {
-  // @see openy_prgf_4c_update_8001().
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+}
+
+/**
+ * Change view mode for columns fields to full.
+ * @see https://github.com/ymcatwincities/openy/issues/824
+ */
+function openy_prgf_2c_update_8003() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_2c');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.paragraph.2c.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.paragraph.2c.default',
+    'content'
+  );
 }

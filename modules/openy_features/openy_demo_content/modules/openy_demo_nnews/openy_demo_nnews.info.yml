@@ -1,0 +1,15 @@
+name: 'OpenY Demo Node News'
+description: 'OpenY Demo Node News.'
+type: module
+core: 8.x
+package: OpenY (Experimental)
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
+  - openy_demo_tnews
+  - openy_prgf_news_listing
+  - openy_prgf_news_latest
+  - openy_prgf_featured_news
+  - openy_prgf_news_branch
+  - openy_prgf_news_camp

@@ -9,14 +9,5 @@
  * Add field_prgf_ms_menu_hide_menu field to the paragraph.
  */
 function openy_prgf_microsites_menu_update_8001() {
-  $config_importer = \Drupal::service('config_import.importer');
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_microsites_menu') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'field.storage.paragraph.field_prgf_ms_menu_hide_menu',
-      'field.field.paragraph.microsites_menu.field_prgf_ms_menu_hide_menu',
-      'core.entity_form_display.paragraph.microsites_menu.default',
-      'core.entity_view_display.paragraph.microsites_menu.default',
-    ]
-  );
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
 }

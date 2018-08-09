@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_nlanding
+label: 'Landing Page'
+description: 'Imports landing page demo content.'
+module: openy_demo_nlanding

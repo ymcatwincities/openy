@@ -42,6 +42,7 @@ settings:
           items:
             - Blockquote
             - embed_video
+            - embed_local_video
             - embed_image
             - embed_document
         -
@@ -52,6 +53,7 @@ settings:
             - SpecialChar
             - Maximize
             - Language
+            - btbutton
   plugins:
     language:
       language_list: un

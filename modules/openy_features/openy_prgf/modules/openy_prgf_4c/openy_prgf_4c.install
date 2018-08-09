@@ -11,73 +11,28 @@
  * In some reason configuration for openy_prgf_4c must be importer first we got conf dependency error.
  */
 function openy_prgf_4c_update_8002() {
-
-  $remove = [
-    'core.entity_form_display.paragraph.4c.default',
-    'core.entity_view_display.paragraph.4c.default',
-  ];
-
-  $config_factory = Drupal::configFactory();
-  foreach ($remove as $item) {
-    $config_factory->getEditable($item)->delete();
-  }
-
-  $config_importer = \Drupal::service('config_import.importer');
-
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_1c') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'field.storage.paragraph.field_prfg_display_line_above',
-    ]
-  );
-
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_4c') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'field.field.paragraph.4c.field_prfg_display_line_above',
-      'core.entity_view_display.paragraph.4c.default',
-      'core.entity_form_display.paragraph.4c.default',
-    ]
-  );
-
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_1c') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'core.entity_form_display.paragraph.1c.default',
-      'core.entity_view_display.paragraph.1c.default',
-      'field.field.paragraph.1c.field_prfg_display_line_above',
-    ]
-  );
-
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_2c') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'field.field.paragraph.2c.field_prfg_display_line_above',
-      'core.entity_view_display.paragraph.2c.default',
-      'core.entity_form_display.paragraph.2c.default',
-    ]
-  );
-
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_3c') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'field.field.paragraph.3c.field_prfg_display_line_above',
-      'core.entity_view_display.paragraph.3c.default',
-      'core.entity_form_display.paragraph.3c.default',
-    ]
-  );
-
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
 }
 
 /**
  * Fix configs.
  */
 function openy_prgf_4c_update_8003() {
-  $config_importer = \Drupal::service('config_import.importer');
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_4c') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'field.field.paragraph.4c.field_prfg_display_line_above',
-    ]
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+}
+
+/**
+ * Change view mode for columns fields to full.
+ * @see https://github.com/ymcatwincities/openy/issues/824
+ */
+function openy_prgf_4c_update_8004() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_4c');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.paragraph.4c.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.paragraph.4c.default',
+    'content'
   );
 }

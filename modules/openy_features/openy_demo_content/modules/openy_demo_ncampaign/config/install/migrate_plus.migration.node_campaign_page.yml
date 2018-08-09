@@ -139,14 +139,11 @@ process:
     process:
       target_id:
         plugin: migration
-        migration:
-          - openy_demo_lp_paragraph_campaign_menu
+        migration: openy_demo_lp_paragraph_campaign_menu
         source: header_content_id
       target_revision_id:
         plugin: migration
-        migration:
-          - openy_demo_lp_paragraph_banner
-          - openy_demo_lp_paragraph_campaign_menu
+        migration: openy_demo_lp_paragraph_campaign_menu
         source: header_content_id
   field_content:
     plugin: iterator
@@ -178,5 +175,5 @@ migration_dependencies:
     - openy_demo_lp_paragraph_campaign_menu
     - openy_demo_lp_paragraph_campaign_game
     - openy_demo_lp_paragraph_campaign_winners
-  optional:
-    - openy_demo_node_blog
+  optional: { }
+

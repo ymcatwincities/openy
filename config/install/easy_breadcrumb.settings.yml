@@ -1,0 +1,11 @@
+include_home_segment: 1
+home_segment_title: Home
+include_title_segment: 1
+language_path_prefix_as_segment: 0
+use_menu_title_as_fallback: 1
+remove_repeated_segments: 1
+include_invalid_paths: 0
+excluded_paths: ''
+segments_separator: null
+title_segment_as_link: 0
+title_from_page_when_available: 1

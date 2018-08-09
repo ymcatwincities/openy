@@ -20,3 +20,15 @@ function openy_addthis_uninstall() {
   // Remove our base field from the schema.
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
+
+/**
+ * Add news to the list of content types.
+ */
+function openy_addthis_update_8001() {
+  /** @var \Drupal\Core\Config $config */
+  $config = \Drupal::configFactory()->getEditable('openy_addthis.settings');
+  $bundles = $config->get('bundles');
+  $bundles['news'] = 'news';
+  $config->set('bundles', $bundles);
+  $config->save();
+}

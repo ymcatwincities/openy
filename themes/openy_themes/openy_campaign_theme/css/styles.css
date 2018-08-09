@@ -1324,6 +1324,10 @@ footer .container .footer__nav nav ul > li a {
   display: inline-block;
   padding: 0px 15px;
 }
+.viewport .top-navs .page-head__logo {
+  top: 15px;
+  width: auto;
+}
 .viewport .top-navs .page-head__logo img {
   width: 50px;
   height: auto;
@@ -1336,6 +1340,7 @@ footer .container .footer__nav nav ul > li a {
   padding-right: 0px;
 }
 .viewport .top-navs .page-head__main-menu {
+  position: relative;
   padding-top: 30px;
 }
 .viewport .top-navs .page-head__main-menu a {
