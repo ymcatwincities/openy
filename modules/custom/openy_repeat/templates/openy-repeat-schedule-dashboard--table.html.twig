@@ -138,8 +138,8 @@
             <tr>
               <td><label>{{ 'Branch hours'|t }}</label></td>
               <td>
-                <table class="table" v-for="row in locationPopup.days">
-                  <tr>
+                <table class="table">
+                  <tr v-for="row in locationPopup.days">
                     <td>${ row[0] }</td>
                     <td>${ row[1] }</td>
                   </tr>
@@ -150,7 +150,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'Button Text'|t }}</a>
+          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View More'|t }}</a>
         </div>
       </div>
     </div>
