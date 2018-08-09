@@ -2,9 +2,6 @@
 .nav.dropdown-menu {
   background-color: $dark-blue;
   border: 1px solid $white;
-  //height: 442px;
-  //object-fit: contain;
-  //width: 1200px;
 }
 
 .nav-home {
@@ -36,7 +33,6 @@
   overflow: hidden;
   overflow-x: hidden;
   overflow-y: auto;
-  //padding-top: 9px;
   padding-right: inherit;
   height: auto;
   background: $blue;
@@ -195,6 +191,23 @@
       background: none;
     }
 
+    .nav-level-1.navbar-nav {
+      margin-left: 120px;
+    }
+
+    .nav-level-2 {
+      &:first-child a {
+        padding-left: 0;
+      }
+      > a {
+        @include breakpoint($screen-lg-desktop) {
+          padding-left: 25px;
+          padding-right: 25px;
+        }
+
+      }
+    }
+
     .nav-level-3 {
       padding-top: 25px;
 
@@ -206,10 +219,8 @@
 
         @include breakpoint($screen-lg-desktop) {
           display: block;
-          min-height: 134px;
         }
       }
-
 
       .section-icon {
         display: none;
@@ -233,15 +244,17 @@
 
   .nav-level-2 {
     > a {
-      padding-bottom: 25px;
+      padding-bottom: 10px;
 
       @include breakpoint($screen-lg-desktop) {
-        padding: 10px 25px 25px 25px;
+        padding: 10px 25px 9px 25px;
+        margin: 1px 1px 0 1px;
       }
 
       &:hover,
       &:focus {
         background: none;
+        z-index: $menu-z-index;
       }
     }
 
@@ -251,7 +264,7 @@
       border-left: 1px solid $light-grey;
       border-right: 1px solid $light-grey;
       border-bottom: 1px solid $dark-blue;
-      margin-top: -1px;
+      margin-top: -2px;
 
       > .dropdown-menu {
         margin-top: -1px;
@@ -260,12 +273,14 @@
       > a,
       > a:focus {
         position: relative;
-        z-index: 1001;
-        padding: 10px 14px 24px 14px;
+        z-index: $menu-z-index;
+        padding: 10px 14px 10px 14px;
         background: $dark-blue;
 
         @include breakpoint($screen-lg-desktop) {
-          padding: 10px 24px 24px 24px;
+          padding: 10px 25px 10px 25px;
+          margin: 0;
+          top: 1px;
         }
       }
     }

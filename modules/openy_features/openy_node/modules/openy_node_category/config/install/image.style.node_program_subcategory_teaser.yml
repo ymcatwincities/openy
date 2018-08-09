@@ -1,13 +1,16 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - focal_point
 name: node_program_subcategory_teaser
-label: 'Node Program subcategory teaser (260×220)'
+label: 'Node Program subcategory teaser (360×300)'
 effects:
-  a80a514e-c037-47e7-8b66-0eedb5c00ab0:
-    uuid: a80a514e-c037-47e7-8b66-0eedb5c00ab0
-    id: image_scale_and_crop
-    weight: 1
+  b4cf8a08-231a-49c0-a5e6-d759def992c6:
+    uuid: b4cf8a08-231a-49c0-a5e6-d759def992c6
+    id: focal_point_scale_and_crop
+    weight: 2
     data:
-      width: 260
-      height: 220
+      width: 360
+      height: 300
+      crop_type: focal_point

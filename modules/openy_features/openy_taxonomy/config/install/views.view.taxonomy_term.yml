@@ -303,6 +303,22 @@ display:
         options: {  }
       path: taxonomy/term/%
       display_extenders: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: '<h3 class="no-results">We are sorry, but no content available.</h3>'
+            format: full_html
+          plugin_id: text
+      defaults:
+        empty: false
     cache_metadata:
       contexts:
         - 'languages:language_interface'

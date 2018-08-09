@@ -32,6 +32,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_blog_color:
     weight: 109
     label: above
@@ -39,12 +40,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_blog_description:
     weight: 105
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_blog_image:
     weight: 104
     label: above
@@ -52,6 +55,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_blog_location:
     weight: 102
     label: above
@@ -59,6 +63,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_blog_related:
     weight: 107
     label: above
@@ -66,12 +71,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_blog_style:
     weight: 101
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
   field_blog_text_color:
     weight: 110
     label: above
@@ -79,6 +86,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_content:
     weight: 106
     label: above
@@ -87,12 +95,14 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   field_meta_tags:
     weight: 111
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
   field_sidebar_content:
     weight: 108
     label: above
@@ -101,8 +111,11 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+    region: content
+hidden:
+  langcode: true

@@ -36,6 +36,7 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
   field_facility_loc:
     weight: 113
     label: above
@@ -44,6 +45,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_facility_type:
     weight: 102
     label: above
@@ -51,12 +53,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_location_address:
     weight: 103
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
+    region: content
   field_location_area:
     weight: 101
     label: above
@@ -64,12 +68,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_location_coordinates:
     weight: 112
     label: above
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
+    region: content
   field_location_directions:
     weight: 109
     label: above
@@ -81,12 +87,14 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_location_email:
     weight: 108
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_location_fax:
     weight: 107
     label: above
@@ -94,6 +102,7 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   field_location_phone:
     weight: 106
     label: above
@@ -101,12 +110,14 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   field_meta_tags:
     weight: 114
     label: above
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
   field_sidebar_content:
     type: entity_reference_revisions_entity_view
     weight: 111
@@ -115,8 +126,11 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+    region: content
+hidden:
+  langcode: true

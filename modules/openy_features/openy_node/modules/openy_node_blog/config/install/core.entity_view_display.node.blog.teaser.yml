@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.blog.field_blog_style
     - field.field.node.blog.field_blog_text_color
     - field.field.node.blog.field_content
+    - field.field.node.blog.field_meta_tags
     - field.field.node.blog.field_sidebar_content
     - node.type.blog
   module:
@@ -29,6 +30,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
+    region: content
   field_blog_color:
     type: entity_reference_entity_view
     weight: 4
@@ -37,6 +39,7 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
+    region: content
   field_blog_image:
     type: entity_reference_entity_view
     weight: 2
@@ -45,12 +48,14 @@ content:
       view_mode: node_program_subcategory_teaser
       link: false
     third_party_settings: {  }
+    region: content
   field_blog_style:
     type: list_key
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_blog_text_color:
     type: entity_reference_entity_view
     weight: 5
@@ -59,13 +64,17 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
+    region: content
   links:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_blog_description: true
   field_blog_location: true
   field_blog_related: true
   field_content: true
+  field_meta_tags: true
   field_sidebar_content: true
+  langcode: true

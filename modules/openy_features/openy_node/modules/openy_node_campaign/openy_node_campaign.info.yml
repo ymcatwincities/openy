@@ -6,6 +6,7 @@ package: OpenY
 dependencies:
   - better_exposed_filters
   - block
+  - block_content
   - csv_serialization
   - ctools
   - datalayer
@@ -20,7 +21,11 @@ dependencies:
   - node
   - openy_campaign
   - openy_campaign_reference_with_text
+  - openy_interstitial
   - openy_loc_branch
+  - openy_menu_footer
+  - openy_menu_main
+  - openy_node_alert
   - openy_node_campaign_page
   - openy_node_landing
   - openy_txnm_fitness_category
@@ -31,6 +36,7 @@ dependencies:
   - rest
   - scheduler
   - serialization
+  - system
   - taxonomy
   - text
   - tzfield

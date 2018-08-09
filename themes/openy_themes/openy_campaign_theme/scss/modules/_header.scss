@@ -68,9 +68,13 @@
       padding: 0px 15px;
     }
 
-    .page-head__logo img {
-      width: 50px;
-      height: auto;
+    .page-head__logo {
+      top: 15px;
+      width: auto;
+      img {
+        width: 50px;
+        height: auto;
+      }
     }
 
     .campaign-menu {
@@ -83,6 +87,7 @@
     }
 
     .page-head__main-menu {
+      position: relative;
       padding-top: 30px;
       a {
         font-size: 16px;

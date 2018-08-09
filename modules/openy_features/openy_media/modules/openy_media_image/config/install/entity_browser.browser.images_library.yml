@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - media_entity.bundle.image
+    - views.view.images_library
   module:
     - dropzonejs_eb_widget
     - media_entity
@@ -32,11 +33,18 @@ widgets:
     id: view
   89e6e16d-6b22-45f4-b91a-f37edaa85f64:
     settings:
+      form_mode: default
       media_entity_bundle: image
       upload_location: 'public://[date:custom:Y]-[date:custom:m]'
       dropzone_description: 'Drop files here to upload them'
       max_filesize: 10M
       extensions: 'png jpg jpeg gif svg'
+      clientside_resize: false
+      resize_width: 0
+      resize_height: 0
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
       submit_text: 'Select images'
     uuid: 89e6e16d-6b22-45f4-b91a-f37edaa85f64
     weight: -10

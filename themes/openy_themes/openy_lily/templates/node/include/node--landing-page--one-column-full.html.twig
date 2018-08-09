@@ -1,0 +1,5 @@
+{% if content.field_content is not empty %}
+  <article{{ attributes.removeClass(header_classes).addClass(content_classes) }}>
+    {{ content.field_content }}
+  </article>
+{% endif %}

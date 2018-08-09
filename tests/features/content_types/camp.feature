@@ -45,7 +45,7 @@ Feature: Camp Content type
       | Latitude       | 46.293433      |
       | Longitude      | -123.238717    |
       | Phone          | +1234567890    |
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Camp Camp One has been created."
 
   Scenario: I see appropriate content on camp

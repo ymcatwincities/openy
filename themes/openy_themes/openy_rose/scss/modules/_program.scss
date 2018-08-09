@@ -78,7 +78,7 @@
     text-transform: uppercase;
     margin: 0 0 15px;
     @include breakpoint($screen-sm) {
-      font-size: 60px;
+      font-size: 50px;
       margin-bottom: 80px;
     }
   }
@@ -97,7 +97,7 @@
 
     .field-category-program {
       color: $white;
-      font-family: $font-style-cachet-ubuntu;
+      font-family: $font-style-sans;
       font-size: 28px;
       letter-spacing: -0.8px;
       line-height: 28px;
@@ -160,7 +160,7 @@
     @include breakpoint($screen-lg) {
       margin-bottom: 0;
       img {
-        max-width: 260px;
+        height: auto;
       }
     }
   }
@@ -190,7 +190,7 @@
       margin-top: 15px;
       @include breakpoint($screen-sm) {
         max-width: 360px;
-        font-size: 20px;
+        font-size: 18px;
         padding: 16px;
         margin-top: 25px;
       }

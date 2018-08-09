@@ -39,3 +39,4 @@ content:
     region: content
 hidden:
   field_mbrshp_info: true
+  langcode: true

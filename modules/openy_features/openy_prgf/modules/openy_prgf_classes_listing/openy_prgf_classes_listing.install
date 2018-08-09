@@ -111,3 +111,28 @@ function openy_prgf_classes_listing_update_8005() {
     'display.default.display_options.fields'
   );
 }
+
+/**
+ * Update classes listing view for core upgrade.
+ */
+function openy_prgf_classes_listing_update_8006() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_classes_listing');
+  $config .= '/config/install/';
+  $config .= 'views.view.classes_listing.yml';
+  $config_importer->update(
+    $config,
+    'views.view.classes_listing',
+    'display.default.display_options.fields'
+  );
+  $config_importer->update(
+    $config,
+    'views.view.classes_listing',
+    'display.default.cache_metadata'
+  );
+  $config_importer->update(
+    $config,
+    'views.view.classes_listing',
+    'display.search_form'
+  );
+}

@@ -1,0 +1,12 @@
+name: 'OpenY Date Block'
+description: 'Implements OpenY Date Block.'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - datetime
+  - entity_reference_revisions
+  - field
+  - language
+  - paragraphs
+version: 8.x-1.0

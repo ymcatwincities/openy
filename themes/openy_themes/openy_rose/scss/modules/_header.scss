@@ -3,6 +3,7 @@
 
   &__logo {
     display: inline-block;
+    width: 100%;
 
     @include breakpoint($screen-tablet) {
 
@@ -13,16 +14,62 @@
       display: block;
       padding-bottom: 9px;
       position: absolute;
-      z-index: 1001;
+      z-index: $menu-z-index;
     }
 
-    img {
+    .logo {
       height: 38px;
       margin: 16px;
 
       @include breakpoint($screen-desktop) {
-        height: 70px;
+        height: 84px;
+        margin-top: 23px;
       }
+    }
+
+    .aof {
+      display: none;
+
+      @include breakpoint($screen-desktop) {
+        display: inline;
+        height: 36px;
+        margin-left: -10px;
+        margin-top: 57px;
+      }
+    }
+
+    .site-logo {
+      @include breakpoint($screen-desktop) {
+        position: absolute;
+        width: 270px;
+      }
+    }
+
+    .site-slogan {
+      color: $lighter-grey;
+      display: block;
+      font-size: 16px;
+      height: 0;
+      left: 0;
+      margin: auto;
+      position: absolute;
+      right: 0;
+      text-align: center;
+      text-transform: uppercase;
+      top: 25px;
+      &:hover {
+        text-decoration: none;
+      }
+      @include breakpoint($screen-desktop) {
+        font-size: 20px;
+        left: auto;
+        top: 84px;
+        right: 16px;
+      }
+      @include breakpoint($screen-lg-desktop) {
+        right: 32px;
+      }
+
     }
   }
 
@@ -73,6 +120,12 @@
 
     border-bottom: 1px solid $medium-grey;
 
+    .navbar-nav {
+      @include breakpoint($screen-desktop) {
+        margin-right: 16px;
+      }
+    }
+
     .navbar-nav>li>a {
       text-shadow: none;
 
@@ -80,6 +133,10 @@
         padding-bottom: 12px;
         padding-top: 12px;
       }
+    }
+
+    .navbar-nav>li:last-child>a {
+      padding-right: 0;
     }
 
     a {
@@ -95,6 +152,10 @@
 
     @include breakpoint($screen-desktop) {
       border-bottom: none;
+      position: absolute;
+      top: 12px;
+      right: 0;
+
 
       a {
         font-size: 12px;
@@ -111,7 +172,7 @@
 
     a {
       @include cachet();
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 500;
       font-style: normal;
       font-stretch: normal;
@@ -121,12 +182,15 @@
 
     .navbar-nav>li>a {
       @include breakpoint($screen-tablet) {
-        padding-top: 10px;
+        padding-top: 9px;
       }
     }
 
     @include breakpoint($screen-desktop) {
       border-bottom: none;
+      position: absolute;
+      bottom: 0;
+
 
       .nav-level-2,
       .nav-level-3 {
@@ -138,6 +202,7 @@
       }
     }
   }
+
 }
 
 .search-input {
@@ -166,6 +231,10 @@
     border-bottom: none;
   }
 
+  .viewport &.affix {
+    height: $minimized-nav-height;
+  }
+
   .navbar-default {
     background: none;
     border: none;
@@ -182,6 +251,17 @@
 .viewport {
   overflow: hidden;
   -webkit-filter: none;
+  .affix {
+    .nav-global > .container > .row {
+      height: $minimized-nav-height;
+    }
+
+    .page-head__logo,
+    .page-head__top-menu {
+      display: none;
+    }
+
+  }
 }
 
 @include breakpoint(0 $screen-sm-max) {
@@ -258,7 +338,7 @@
       right: 0;
       bottom: 100%;
       left: -1px;
-      z-index: 1001;
+      z-index: $menu-z-index;
       display: block;
       background-color: rgba(0, 0, 0, 0);
       content: '';
@@ -350,6 +430,9 @@
   margin-bottom: 13px;
   margin-top: 13px;
   padding: 9px 6px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .navbar-default {
@@ -387,6 +470,7 @@
       .header-content {
         bottom: 0;
         position: absolute;
+        height: $top-nav-height;
 
         .page-head__search {
 
@@ -402,6 +486,7 @@
       width: 100%;
     }
   }
+
 }
 
 .toolbar-fixed {

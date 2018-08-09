@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_program_description
     - node.type.program
   module:
+    - datalayer
     - text
 third_party_settings:
   datalayer:

@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_theme().
@@ -85,4 +86,25 @@ function openy_ckeditor_tokens($type, $tokens, array $data, array $options, Bubb
  */
 function openy_ckeditor_page_attachments_alter(array &$attachments) {
   $attachments['#attached']['library'][] = 'openy_ckeditor/openy-ckeditor';
+}
+
+/**
+ * Implements hook_entity_embed_alter().
+ */
+function openy_ckeditor_entity_embed_alter(array &$build, EntityInterface $entity, array &$context) {
+  if (!isset($context['data-widget']) || $context['data-widget'] != 'drupalentity') {
+    return;
+  }
+  $view_mode = $build['#context']['data-entity-embed-display'];
+  switch ($view_mode) {
+    case 'view_mode:media.embedded_full':
+      $build['#context']['data-entity-embed-display'] = 'view_mode:media.full_without_blazy';
+      $build['entity']['#view_mode'] = 'full_without_blazy';
+      break;
+
+    case 'view_mode:media.embedded_half':
+      $build['#context']['data-entity-embed-display'] = 'view_mode:media.half_without_blazy';
+      $build['entity']['#view_mode'] = 'half_without_blazy';
+      break;
+  }
 }

@@ -24,6 +24,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_prgf_headline:
     weight: 0
     settings:
@@ -31,25 +32,29 @@ content:
       placeholder: 'Provide title here'
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_prgf_images:
     weight: 3
     settings:
       entity_browser: images_library
-      field_widget_display: label
+      field_widget_display: rendered_entity
       field_widget_edit: true
       field_widget_remove: true
       selection_mode: selection_append
+      field_widget_display_settings:
+        view_mode: thumbnail_for_preview
       open: false
-      field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
+    region: content
   field_prgf_link:
     weight: 2
     settings:
-      placeholder_url: '/subpage_uri'
+      placeholder_url: /subpage_uri
       placeholder_title: 'Subpage title'
     third_party_settings: {  }
     type: link_default
+    region: content
 hidden:
   created: true
   status: true

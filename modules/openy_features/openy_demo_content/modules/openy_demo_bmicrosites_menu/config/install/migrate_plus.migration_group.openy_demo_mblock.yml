@@ -3,5 +3,5 @@ status: true
 dependencies: {  }
 id: openy_demo_mblock
 label: 'Block'
-description: 'Imports block demo content.'
+description: 'Imports blocks that are being used for Microsites menu feature.'
 module: openy_demo_bmicrosites_menu

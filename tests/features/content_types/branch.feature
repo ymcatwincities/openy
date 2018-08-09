@@ -69,7 +69,7 @@ Feature: Branch Content type
       | Latitude       | 47.293433      |
       | Longitude      | -122.238717    |
       | Phone          | +1234567890    |
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Branch Branch One has been created."
 
   Scenario: I see appropriate content on branch
@@ -106,7 +106,7 @@ Feature: Branch Content type
     And I should see a "i.fa-user-plus" element
 
   @javascript
-  Scenario: I validate the perfered branch functionality
+  Scenario: I validate the preferred branch functionality
     Given I view node "behat_branch"
     Then I should see "Save as preferred branch"
     And I should not have the cookie "openy_preferred_branch"

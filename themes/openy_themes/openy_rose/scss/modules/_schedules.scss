@@ -55,7 +55,7 @@
       padding: 15px 0 25px;
       width: 100%;
       @include breakpoint($screen-sm) {
-        margin-right: 70px;
+        margin-right: 18px;
         padding: 15px 0;
         width: 90px;
       }
@@ -94,6 +94,30 @@
       background: $white url("../img/icons/input_calc_icon.png") no-repeat 95% center;
       padding-right: 20px;
       padding-left: 5px;
+    }
+  }
+  .form-item-display {
+    float: left;
+    display: inline-block;
+    padding: 10px 0 5px;
+    width: 100%;
+    @include breakpoint($screen-sm) {
+      padding: 15px 0;
+      margin-right: 18px;
+      width: 110px;
+    }
+    label {
+      font-size: 14px;
+      line-height: 1.6;
+      @include cachet();
+      color: $dark-grey;
+      margin-bottom: 0;
+      @include breakpoint($screen-sm) {
+        margin-bottom: 5px;
+      }
+    }
+    input {
+      display: block;
     }
   }
   .selects-container {
@@ -189,7 +213,7 @@
         border-radius: 4px;
         color: $light-blue;
         display: inline-block;
-        font-size: 14px;
+        font-size: 12px;
         height: 30px;
         line-height: 30px;
         text-transform: uppercase;
@@ -217,6 +241,13 @@
       }
     }
   }
+
+  .form-control  {
+    &[readonly], &[disabled] {
+      color: $dark_grey;
+      background: $lighter-grey;
+    }
+  }
 }
 
 #schedules-search-listing-wrapper {
@@ -229,8 +260,8 @@
       font-weight: 700;
 
       @include breakpoint($screen-sm) {
-        font-size: 44px;
-        line-height: 48px;
+        font-size: 40px;
+        line-height: 44px;
       }
       em {
         font-style: normal;
@@ -246,7 +277,7 @@
       line-height: inherit;
       font-weight: normal;
       @include breakpoint($screen-sm) {
-        font-size: 30px;
+        font-size: 28px;
       }
     }
     .schedule-sessions-group-slider {
@@ -335,6 +366,12 @@
       outline: none;
       text-decoration: none;
       position: relative;
+
+      &:hover {
+        h3 {
+          text-decoration: underline;
+        }
+      }
 
       .included-in-membership {
         background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
@@ -579,6 +616,16 @@
       a {
         color: $purple;
       }
+      .fa-refresh {
+        font-size: 12px;
+        color: $pink;
+        margin-left: 16px;
+        margin-right: 5px;
+      }
+      .sub {
+        font-size: 12px;
+        color: $pink;
+      }
     }
   }
 }
@@ -617,7 +664,7 @@
         flex-basis: 33%;
       }
       label {
-        @include helvetica-neue();
+        font-family: Verdana, sans-serif;
         font-size: 15px;
         margin: 0 0 0 7px;
         vertical-align: top;
@@ -633,8 +680,9 @@
   }
   .top-form-wrapper {
     background-color: $lighter-grey;
+    margin-top: 20px;
     overflow: hidden;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     .js-form-type-select,
     .js-form-type-date {
       margin: 0;
@@ -659,45 +707,43 @@
         display: none;
       }
     }
-  }
-  @include breakpoint($screen-tablet) {
-    #location-select-wrapper {
-      float: left;
-      margin-right: 30px;
-    }
-    #class-select-wrapper {
-      float: left;
-      margin-right: 30px;
+    > div {
+      margin-top: 20px;
+      @include breakpoint($screen-tablet) {
+        float: left;
+        margin-right: 30px;
+      }
     }
     #date-select-wrapper {
-      float: left;
-      margin-right: 30px;
-    }
-    #instructor-select-wrapper {
-      float: left;
-      margin-right: 30px;
+      max-width: 220px;
     }
     #submit-wrapper {
-      float: left;
-      margin: 2em 30px 0 0;
+      @include breakpoint($screen-tablet) {
+        margin: 46px 30px 0 0;
+      }
+      @include breakpoint($screen-md) {
+        clear: both;
+        float: left;
+        margin-top: 20px;
+      }
+      @include breakpoint($screen-lg) {
+        clear: none;
+        margin-top: 46px;
+      }
     }
-  }
-  .groupex-pdf-link-container {
-    margin-top: 10px;
-    @include breakpoint($screen-tablet) {
-      float: right;
-      margin: 5px 0 0 0;
-    }
-    a {
-      background-color: $purple;
-      border-radius: 0;
-      border: none;
-      color: #fff;
-      font-size: 18px;
-      height: 50px;
-      padding: 0 10px;
-      line-height: 50px;
-      text-transform: uppercase;
+    .groupex-pdf-link-container {
+      @include breakpoint($screen-tablet) {
+        margin-top: 46px;
+      }
+      @include breakpoint($screen-md) {
+        margin-top: 20px;
+      }
+      @include breakpoint($screen-lg) {
+        margin-top: 46px;
+      }
+      a {
+        color: #fff;
+      }
     }
   }
   .groupex-results {

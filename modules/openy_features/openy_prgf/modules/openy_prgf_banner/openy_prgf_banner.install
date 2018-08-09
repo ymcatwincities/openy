@@ -6,6 +6,22 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_prgf_banner_update_dependencies() {
+  $dependencies['openy_prgf_banner'] = [
+    8004 => [
+      'openy_media_image' => 8004,
+    ],
+    8007 => [
+      'openy' => 8042,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Update Paragraph banner with field_prgf_color in the Landing page.
  */
 function openy_prgf_banner_update_8001() {
@@ -96,4 +112,86 @@ function openy_prgf_banner_update_8003() {
     'field.field.paragraph.banner.field_prgf_color',
     'dependencies.module'
   );
+}
+
+/**
+ * Update entity reference for field image.
+ */
+function openy_prgf_banner_update_8004() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_banner');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.paragraph.banner.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.paragraph.banner.default',
+    'content'
+  );
+}
+
+/**
+ * Update OpenY banner paragraph feature configs.
+ */
+function openy_prgf_banner_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.banner.default' => [
+      'content',
+    ],
+    'core.entity_view_display.media.image.prgf_banner' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.paragraph.banner.default' => [
+      'content',
+    ],
+    'paragraphs.paragraphs_type.banner' => [
+      'behavior_plugins',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update OpenY paragraph banner feature configs for Blazy support.
+ */
+function openy_prgf_banner_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.prgf_banner',
+    'field.field.paragraph.banner.field_prgf_color.yml',
+  ]);
+}
+
+/**
+ * Update OpenY paragraph banner feature config for Focal Point support.
+ */
+function openy_prgf_banner_update_8007() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'image.style.prgf_banner' =>[
+      'dependencies',
+      'effects',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }

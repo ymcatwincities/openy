@@ -102,3 +102,18 @@
     }
   }
 }
+
+// Media.
+.media.view-mode-full {
+  margin: 20px auto;
+}
+
+/**
+ * Date picker.
+ *
+ * The date picker pop-up comes with a series of styles that are all em based.
+ * This should reduce it at the parent level to got most down to about 12px.
+ */
+.ui-datepicker {
+  font-size: 1em;
+}

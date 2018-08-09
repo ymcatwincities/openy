@@ -18,6 +18,7 @@ dependencies:
   module:
     - address
     - entity_reference_revisions
+    - link
     - telephone
     - user
 id: node.camp.full
@@ -92,4 +93,5 @@ hidden:
   field_location_coordinates: true
   field_location_email: true
   field_meta_tags: true
+  langcode: true
   links: true

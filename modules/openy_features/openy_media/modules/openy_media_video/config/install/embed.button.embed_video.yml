@@ -6,7 +6,7 @@ dependencies:
   module:
     - entity_embed
     - media_entity
-label: Video
+label: External Video
 id: embed_video
 type_id: entity
 type_settings:

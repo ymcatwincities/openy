@@ -159,9 +159,13 @@ class GroupexScheduleFetcher {
 
       $instructor_url_options['instructor'] = $item->instructor;
       // Here we need to remove redundant HTML if exists.
-      $pos = strpos($item->instructor, '<br>');
+      // Example: Melissa T.<br><span class="fa fa-refresh" aria-hidden="true"></span><span class="sub">Lucy T.</span>
+      $pos = strpos($item->instructor, '<span class="sub">');
       if (FALSE !== $pos) {
-        $instructor_url_options['instructor'] = substr_replace($item->instructor, '', $pos);
+        $original_instructor = substr_replace($item->instructor, '', 0, $pos);
+        $original_instructor = str_replace('<span class="sub">', '', $original_instructor);
+        $original_instructor = str_replace('</span>', '', $original_instructor);
+        $instructor_url_options['instructor'] = $original_instructor;
       }
 
       $instructor_url_options['class'] = 'any';
@@ -402,7 +406,7 @@ class GroupexScheduleFetcher {
     $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
 
     $options['query']['start'] = $date->getTimestamp();
-    $options['query']['end'] = $date->add(new \DateInterval($interval))->getTimestamp();
+    $options['query']['end'] = $date->add(new \DateInterval($interval))->modify('-1 day')->getTimestamp();
 
     $data = $this->request($options);
 
@@ -440,10 +444,15 @@ class GroupexScheduleFetcher {
       // Get day.
       $item->day = $item->date;
 
-      // Get start and end time.
-      preg_match("/(.*)-(.*)/i", $item->time, $output);
-      $item->start = $output[1];
-      $item->end = $output[2];
+      // Get start and end time. Add To Calendar does not support All Day events.
+      if ($item->time == "All Day") {
+        $item->start = "12:00am";
+        $item->end = "11:59pm";
+      } else {
+        preg_match("/(.*)-(.*)/i", $item->time, $output);
+        $item->start = $output[1];
+        $item->end = $output[2];
+      }
 
       // Get time of day.
       $datetime = new \DateTime($item->start);
@@ -522,35 +531,6 @@ class GroupexScheduleFetcher {
   private function processData() {
     $data = $this->filteredData;
 
-    // Groupex returns invalid date for the first day of the week.
-    // Example: tue, 02, Feb; wed, 27, Jan; thu, 28, Jan.
-    // So, processing.
-    if ($this->parameters['filter_length'] == 'week') {
-      // Get current day.
-      $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
-      $current_day = $date->format('N');
-      $current_date = $date->format('j');
-
-      // Search for the day equals current.
-      foreach ($data as &$item) {
-        $item_date = DrupalDateTime::createFromTimestamp($item->timestamp, $this->timezone);
-        if ($current_date == $item_date->format('j')) {
-          unset($item);
-          continue;
-        }
-
-        if ($current_day == $item_date->format('N')) {
-          // Set proper data.
-          $item_date->sub(new \DateInterval('P7D'));
-          $full_date = $item_date->format(GroupexRequestTrait::$dateFullFormat);
-          $item->date = $full_date;
-          $item->day = $full_date;
-          $item->timestamp = $item_date->format('U');
-        }
-
-      }
-    }
-
     // Replace <span class="subbed"> with normal text.
     foreach ($data as &$item) {
       preg_match('/<span class=\"subbed\".*><br>(.*)<\/span>/', $item->address_1, $test);
@@ -561,7 +541,7 @@ class GroupexScheduleFetcher {
       if (!empty($test1)) {
         $test1[1] = str_replace('(sub for ', '', $test1[1]);
         $test1[1] = str_replace(')', '', $test1[1]);
-        $item->instructor = str_replace($test1[0], '<br><span class="icon icon-loop2"></span><span class="sub">' . $test1[1] . '</span>', $item->instructor);
+        $item->instructor = str_replace($test1[0], '<br><span class="fa fa-refresh" aria-hidden="true"></span><span class="sub">' . $test1[1] . '</span>', $item->instructor);
       }
     }
 

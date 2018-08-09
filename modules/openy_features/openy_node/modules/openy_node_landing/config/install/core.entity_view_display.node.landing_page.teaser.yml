@@ -27,3 +27,4 @@ hidden:
   field_lp_layout: true
   field_meta_tags: true
   field_sidebar_content: true
+  langcode: true

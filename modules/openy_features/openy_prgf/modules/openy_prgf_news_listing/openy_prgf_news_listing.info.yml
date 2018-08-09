@@ -1,0 +1,19 @@
+name: 'OpenY News Posts listing'
+package: 'OpenY (Experimental)'
+description: 'OpenY News Posts listing.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - node
+  - openy_node_news
+  - openy_prgf
+  - openy_txnm_news_category
+  - paragraphs
+  - plugin
+  - taxonomy
+  - text
+  - user
+  - verf
+  - views
+  - views_infinite_scroll

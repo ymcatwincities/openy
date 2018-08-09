@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.latest_blog_posts.field_prgf_block
+    - field.field.paragraph.latest_blog_posts.field_prgf_title
     - paragraphs.paragraphs_type.latest_blog_posts
   module:
     - plugin
@@ -18,6 +19,14 @@ content:
     third_party_settings: {  }
     type: plugin_block_built
     region: content
+  field_prgf_title:
+    type: string
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
   created: true
   uid: true

@@ -20,6 +20,13 @@ targetEntityType: node
 bundle: alert
 mode: default
 content:
+  addthis:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    region: content
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 10
@@ -75,6 +82,13 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
   path:
     type: path
     weight: 30
@@ -93,6 +107,17 @@ content:
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
+  scheduler_settings:
+    weight: 20
+    region: content
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
@@ -122,4 +147,5 @@ content:
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

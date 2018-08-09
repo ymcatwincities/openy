@@ -13,11 +13,15 @@
   <div class="card">
     <h3><span class="fa fa-link" aria-hidden="true"></span>&nbsp;<a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a></h3>
     <div class="time">
-      <span class="icon icon-clock"></span><span class="hh-mm">{{ class.time }}</span> <span class="duration">{{ class.duration }}</span>
+      {% if class.time == '12:00am' %}
+        <span class="icon icon-clock"></span><span class="hh-mm">All Day</span>
+      {% else %}
+        <span class="icon icon-clock"></span><span class="hh-mm">{{ class.time }}</span> <span class="duration">{{ class.duration }}</span>
+      {% endif %}
     </div>
     <p>{{ class.studio }}</p>
     <div class="instructor">
-      <span class="fa fa-link" aria-hidden="true"></span><span class="fa fa-user" aria-hidden=true></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
+      <span class="fa fa-link" aria-hidden="true"></span><span class="fa fa-user" aria-hidden="true"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
     </div>
   </div>
   <div class="ical">

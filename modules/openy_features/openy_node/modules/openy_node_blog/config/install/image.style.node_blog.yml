@@ -1,13 +1,16 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - focal_point
 name: node_blog
 label: 'Node blog'
 effects:
-  dd6b02aa-6378-4d42-a2b3-57eaa0c52019:
-    uuid: dd6b02aa-6378-4d42-a2b3-57eaa0c52019
-    id: image_scale_and_crop
-    weight: 1
+  a0565d34-5211-41fb-ac86-1fa8d5b626ec:
+    uuid: a0565d34-5211-41fb-ac86-1fa8d5b626ec
+    id: focal_point_scale_and_crop
+    weight: 2
     data:
       width: 762
       height: 451
+      crop_type: focal_point

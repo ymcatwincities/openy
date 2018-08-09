@@ -29,7 +29,7 @@ Feature: Landing page Content type
     And I should see "Content Area"
     And I should see "Sidebar Area"
     And I should see "Bottom Area"
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Landing Page Basic Landing has been created."
 
   Scenario: I see appropriate content on landing page

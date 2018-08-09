@@ -2,7 +2,6 @@ global-styling:
   version: VERSION
   css:
     base:
-      //fonts.googleapis.com/css?family=Ubuntu+Condensed:400,700: {}
       css/vendor/bootstrap/bootstrap.css: {}
       css/vendor/bootstrap/bootstrap-theme.min.css: {}
     theme:
