@@ -3,6 +3,7 @@
 namespace Drupal\openy_repeat\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -134,44 +135,28 @@ class RepeatController extends ControllerBase {
    * Get detailed info about Location (aka branch).
    */
   public function getLocationsInfo() {
-    $sql = "SELECT
-              n.nid,
-              nd.title,
-              em.field_location_email_value AS email,
-              ph.field_location_phone_value AS phone,
-              CONCAT_WS(' ', ad.field_location_address_locality, ad.field_location_address_address_line1, ad.field_location_address_postal_code, ad.field_location_address_administrative_area, ad.field_location_address_country_code) AS adress,
-              bh.field_branch_hours_hours_mon AS Mon,
-              bh.field_branch_hours_hours_tue AS Tue,
-              bh.field_branch_hours_hours_wed AS Wed,
-              bh.field_branch_hours_hours_thu AS Thu,
-              bh.field_branch_hours_hours_fri AS Fri,
-              bh.field_branch_hours_hours_sat AS Sat,
-              bh.field_branch_hours_hours_sun AS Sun
-            FROM {node} n
-            INNER JOIN node__field_location_email em ON n.nid = em.entity_id AND em.bundle = 'branch'
-            INNER JOIN node__field_location_phone ph ON n.nid = ph.entity_id AND ph.bundle = 'branch'
-            LEFT JOIN node__field_location_address ad ON n.nid = ad.entity_id AND ad.bundle = 'branch'
-            INNER JOIN node__field_branch_hours bh ON n.nid = bh.entity_id AND bh.bundle = 'branch'
-            INNER JOIN node_field_data nd ON n.nid = nd.nid
-            WHERE n.type = 'branch'";
-
-    $connection = \Drupal::database();
-    $query = $connection->query($sql);
-    $select_data = $query->fetchAll();
+    $nids = \Drupal::entityQuery('node')
+      ->condition('type','branch')
+      ->execute();
+    $branches = Node::loadMultiple($nids);
 
     $data = [];
-    foreach ($select_data as $item) {
-      $days = [
-        'Mon' => $item->Mon,
-        'Tue' => $item->Tue,
-        'Wed' => $item->Wed,
-        'Thu' => $item->Thu,
-        'Fri' => $item->Fri,
-        'Sat' => $item->Sat,
-        'Sun' => $item->Sun
+    foreach ($branches as $node) {
+      $days = $node->get('field_branch_hours')->getValue();
+      $address = $node->get('field_location_address')->getValue();
+      if (!empty($address[0])) {
+        $address = array_filter($address[0]);
+        $address = implode(', ', $address);
+      }
+
+      $data[$node->title->value] = [
+        'nid' => $node->nid->value,
+        'title' => $node->title->value,
+        'email' => $node->field_location_email->value,
+        'phone' => $node->field_location_phone->value,
+        'address' => $address,
+        'days' => !empty($days[0]) ? $this->getFormattedHours($days[0]) : [],
       ];
-      $item->days = $this->getFormattedHours($days);
-      $data[$item->title] = $item;
     }
 
     return $data;
@@ -180,6 +165,12 @@ class RepeatController extends ControllerBase {
   public function getFormattedHours($data) {
     $lazy_hours = $groups = $rows = [];
     foreach ($data as $day => $value) {
+      // Do not process label. Store it name for later usage.
+      if ($day == 'hours_label') {
+        continue;
+      }
+
+      $day = str_replace('hours_', '', $day);
       $value = $value ? $value : 'closed';
       $lazy_hours[$day] = $value;
       if ($groups && end($groups)['value'] == $value) {
