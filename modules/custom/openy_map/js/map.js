@@ -887,7 +887,16 @@
       },
 
       init_map_center: function () {
-        this.search_center_marker = this.search_center_marker || L.marker(this.map.getCenter());
+        var icon = L.icon({
+          iconUrl: this.search_icon,
+          iconRetinaUrl: this.search_icon_retina,
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+        });
+        this.search_center_marker = this.search_center_marker || L.marker(this.map.getCenter(), {icon: icon});
 
         if (this.search_center_marker) {
           this.search_center_marker.removeFrom(this.map);
@@ -1527,6 +1536,8 @@
         default:
           map = new Drupal.openyMapLeaflet();
           map.default_search_location = settings.openyMapSettings.default_location;
+          map.search_icon = settings.openyMapSettings.search_icon;
+          map.search_icon_retina = settings.openyMapSettings.search_icon_retina;
           break;
       }
 

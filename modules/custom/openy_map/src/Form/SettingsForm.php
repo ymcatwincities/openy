@@ -139,17 +139,21 @@ class SettingsForm extends ConfigFormBase {
       $themePath = drupal_get_path('theme', $themeConfig->get('default')) . '/img/locations_icons';
       $fileOptions = $themeFiles = [];
       if (is_dir($themePath)) {
-        $themeFiles = array_values(array_diff(scandir($themePath), ['.', '..']));
+        $themeFiles = scandir($themePath);
         foreach ($themeFiles as $themeFile) {
-          $path = file_create_url($themePath . '/' . $themeFile);
+          $path = $themePath . '/' . $themeFile;
+          if (is_dir($path)) {
+            continue;
+          }
+          $path = file_create_url($path);
           $fileOptions[$path] = '<img src="' . $path . '" />';
         }
       }
       $openYMapPath = drupal_get_path('module', 'openy_map') . '/img';
-      $openYMapFiles = array_values(array_diff(scandir($openYMapPath), ['.', '..']));
-      foreach ($openYMapFiles as $imgFile) {
-        if (!in_array($imgFile, $themeFiles)) {
-          $path = file_create_url($openYMapPath . '/' . $imgFile);
+      foreach (scandir($openYMapPath) as $imgFile) {
+        $path = $openYMapPath . '/' . $imgFile;
+        if (!in_array($imgFile, $themeFiles) && !is_dir($path)) {
+          $path = file_create_url($path);
           $fileOptions[$path] = '<img src="' . $path . '" />';
         }
       }

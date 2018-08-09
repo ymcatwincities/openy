@@ -28,6 +28,10 @@ function _openy_map_absolutize_config_icon_urls() {
     }
   }
   $config->set('type_icons', $icons_config);
+  $search_icon = file_create_url('profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red.png');
+  $search_icon_retina = file_create_url('profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red_x2.png');
+  $config->set('leaflet_search_icon', $search_icon);
+  $config->set('leaflet_search_icon_retina', $search_icon_retina);
   $config->save(TRUE);
 }
 
