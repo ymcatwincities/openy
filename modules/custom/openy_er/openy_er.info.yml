@@ -1,0 +1,9 @@
+name: 'OpenY Entity Reference Tweaks'
+description: 'Provides additional Entity Reference selection plugins.'
+type: module
+core: 8.x
+package: OpenY
+version: '8.x-1.0'
+dependencies:
+  - field
+  - plugin

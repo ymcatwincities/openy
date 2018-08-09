@@ -7,6 +7,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\groupex_form_cache\GroupexFormCacheInterface;
 use Drupal\user\UserInterface;
 
@@ -214,6 +215,15 @@ class GroupexFormCache extends ContentEntityBase implements GroupexFormCacheInte
         'type' => 'language_select',
         'weight' => 10,
       ])
+      ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE)
+      ->setDefaultValue(LanguageInterface::LANGCODE_NOT_SPECIFIED)
+      ->setInitialValue(LanguageInterface::LANGCODE_NOT_SPECIFIED)
+      // @todo: Define this via an options provider once.
+      // https://www.drupal.org/node/2329937 is completed.
+      ->addPropertyConstraints('value', [
+        'AllowedValues' => ['callback' => __CLASS__ . '::getAllowedConfigurableLanguageCodes'],
+      ])
       ->setDisplayConfigurable('form', TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
@@ -225,6 +235,16 @@ class GroupexFormCache extends ContentEntityBase implements GroupexFormCacheInte
       ->setDescription(t('The time that the entity was last edited.'));
 
     return $fields;
+  }
+
+  /**
+   * Defines allowed configurable language codes for AllowedValues constraints.
+   *
+   * @return string[]
+   *   The allowed values.
+   */
+  public static function getAllowedConfigurableLanguageCodes() {
+    return array_keys(\Drupal::languageManager()->getLanguages(LanguageInterface::STATE_CONFIGURABLE));
   }
 
 }

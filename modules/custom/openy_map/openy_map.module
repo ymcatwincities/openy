@@ -5,6 +5,9 @@
  * Module file.
  */
 
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -15,6 +18,37 @@ function openy_map_theme() {
     ],
   ];
   return $items;
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function openy_map_entity_view_alter(&$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  if ($entity->getEntityTypeID() != 'node' || $display->getMode() != 'teaser') {
+    return;
+  }
+
+  $activeTypes = \Drupal::configFactory()->get('openy_map.settings')->get('active_types');
+  $activeTypes = !empty($activeTypes) ? array_keys(array_filter($activeTypes)) : [];
+  if (!in_array($entity->getType(), $activeTypes)) {
+    return;
+  }
+
+  // Add attribute with location data.
+  $typeLabels = \Drupal::config('openy_map.settings')->get('type_labels');
+  $values = [
+    'tags' => $typeLabels[$entity->getType()],
+  ];
+  $build['#attributes']['data-locations'] = json_encode($values);
+
+  $amenities = [];
+  if ($entity->hasField('field_location_amenities')) {
+    $entityAmenties = $entity->get('field_location_amenities')->getValue();
+    foreach ($entityAmenties as $amenity) {
+      $amenities[] = $amenity['target_id'];
+    }
+  }
+  $build['#attributes']['data-amenities'] = json_encode($amenities);
 }
 
 /**
@@ -33,5 +67,21 @@ function openy_map_library_info_alter(&$libraries, $extension) {
     $api_key = \Drupal::configFactory()->get('geolocation.settings')->get('google_map_api_key');
     unset($libraries['openy_map']['js'][$key]);
     $libraries['openy_map']['js'][$key . '?key=' . $api_key] = $value;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_map_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $variables['elements']['#node'];
+  $view_mode = $variables['elements']['#view_mode'];
+  // Check for active types.
+  $activeTypes = \Drupal::configFactory()->get('openy_map.settings')->get('active_types');
+  $activeTypes = !empty($activeTypes) ? array_keys(array_filter($activeTypes)) : [];
+  // Add universal template for all location content type teasers.
+  if ($view_mode == 'teaser' && $node->hasField('field_location_coordinates') && in_array($node->bundle(), $activeTypes)) {
+    $suggestions[] = 'node__location_type__teaser';
   }
 }

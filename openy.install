@@ -612,9 +612,16 @@ function openy_update_8047() {
 }
 
 /**
- * Update the configuration of the paragraph fields of OpenY nodes.
+ * Enable OpenY Redirect module.
  */
 function openy_update_8048() {
+  \Drupal::service('module_installer')->install(['openy_redirect']);
+}
+
+/**
+ * Update the configuration of the paragraph fields of OpenY nodes.
+ */
+function openy_update_8049() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
 
   $updatedFields = [
@@ -730,11 +737,170 @@ function openy_update_8048() {
 /**
  * Enable font-your-face module.
  */
-function openy_update_8049() {
+function openy_update_8050() {
   \Drupal::service('module_installer')->install(['fontyourface']);
   if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
     $message = 'OpenY Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module. 
         Please, <a href="/admin/appearance/font/local_font_config_entity">use it</a> to add purchased fonts to the site and uninstall OpenY Font module.';
     drupal_set_message($message, 'warning');
   }
+}
+
+/**
+ * Enable CSS Editor module and import the settings.
+ */
+function openy_update_8051() {
+  \Drupal::service('module_installer')->install(['css_editor'], TRUE);
+
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_manager = \Drupal::service('config.manager');
+  $config_factory = $config_manager->getConfigFactory();
+
+  $themes_list = [
+    'openy_rose',
+    'openy_lily',
+  ];
+
+  $update_fields = [
+    'css_enabled',
+    'css',
+    'plaintext_enabled',
+    'autopreview_enabled',
+    'preview_path',
+  ];
+
+  foreach ($themes_list as $theme) {
+    foreach ($update_fields as $field) {
+      $config_name = $theme . '.settings';
+      $config = drupal_get_path('theme', $theme);
+      $config .= '/config/install/';
+      $config .= $config_name . '.yml';
+
+      $configObj = $config_factory->getEditable($config_name);
+      if ($configObj->isNew() && empty($configObj->getOriginal())) {
+        continue;
+      }
+
+      $config_importer->update($config, $config_name, $field);
+    }
+  }
+}
+
+/**
+ * Enable OpenY Paragraph Location By Amenities.
+ */
+function openy_update_8052() {
+  \Drupal::service('module_installer')->install(['openy_prgf_location_by_amenities']);
+}
+
+/**
+ * Enable event module.
+ */
+function openy_update_8053() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    $modules = [
+      'openy_prgf_event_latest',
+      'openy_prgf_event_listing',
+      'openy_node_event',
+      'openy_demo_nevent',
+    ];
+
+    // Enable modules.
+    \Drupal::service('module_installer')->install($modules, TRUE);
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_event');
+    $importer->import('openy_demo_event_landing');
+  }
+}
+
+/**
+ * Enable OpenY Google Translate module and blocks.
+ */
+function openy_update_8054() {
+  \Drupal::service('module_installer')->install(['openy_gtranslate']);
+
+  $themes_list = [
+    'openy_rose' => '5a698466-f499-4dda-a084-4d61c1d0e902',
+    'openy_lily' => '5a698466-f499-4dda-a084-4d61c1d0e777',
+  ];
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::service('entity_type.manager');
+  foreach ($themes_list as $theme => $uuid) {
+    /** @var \Drupal\block_content\Entity\BlockContent $blockContent */
+    $blockContent = $entityTypeManager->getStorage('block_content')->create([
+      'type' => 'openy_gtranslate_block',
+      'info' => t('Google Translate Block'),
+      'uuid' => $uuid,
+    ]);
+    $blockContent->save();
+  }
+}
+
+/**
+ * Enable Social Posts.
+ */
+function openy_update_8055() {
+  \Drupal::service('module_installer')->install([
+    'openy_node_social_post',
+  ], TRUE);
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    // Enable modules.
+    \Drupal::service('module_installer')->install([
+      'openy_demo_nsocial_post',
+    ], TRUE);
+
+    // Run openy_demo_nsocial_post migration.
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_social_post');
+  }
+}
+
+/**
+ * Update Locations view and OpenY Map settings.
+ */
+function openy_update_8056() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $openyMapConfigDir = drupal_get_path('module', 'openy_map') . '/config/install';
+  $config_importer->setDirectory($openyMapConfigDir);
+  $config_importer->importConfigs(['openy_map.settings']);
+
+  $openyLocFinderConfigDir = drupal_get_path('module', 'openy_prgf_loc_finder') . '/config/install';
+  $config_importer->setDirectory($openyLocFinderConfigDir);
+  $config_importer->importConfigs(['views.view.locations']);
+}
+
+/**
+ * Message to delete "Search by Amenities" Limited Time Offer paragraph.
+ */
+function openy_update_8057() {
+  // Find Limited Time Offer paragraphs on Locations page.
+  $query = \Drupal::database()->select('node_field_data', 'n');
+  $query->condition('n.title', 'Locations');
+  $query->condition('n.type', 'landing_page');
+  $query->join('node__field_header_content', 'h', 'n.nid = h.entity_id AND n.vid = h.revision_id');
+  $query->condition('h.bundle', 'landing_page');
+  $query->join('paragraphs_item_field_data', 'par', 'h.field_header_content_target_revision_id = par.revision_id');
+  $query->condition('par.type', 'lto');
+  $query->addField('n', 'nid');
+  $resultField = $query->execute()->fetchField();
+  if ($resultField) {
+    $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and 
+      delete "Search by Amenities" Limited Time Offer paragraph in Header area. 
+      With Sidebar "Amenities" filter it became redundant.');
+    drupal_set_message($message, 'warning');
+  }
+}
+
+/**
+ * Uninstall Location Finder deprecated module.
+ */
+function openy_update_8058() {
+  \Drupal::service('module_installer')->uninstall(['location_finder']);
+}
+
+/**
+ * Enable OpenY Entity Reference Tweaks.
+ */
+function openy_update_8059() {
+  \Drupal::service('module_installer')->install(['openy_er']);
 }
