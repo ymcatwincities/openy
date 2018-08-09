@@ -887,12 +887,10 @@
       },
 
       init_map_center: function () {
-        // this.search_center_marker = this.search_center_marker || L.marker(this.center_point);
         this.search_center_marker = this.search_center_marker || L.marker(this.map.getCenter());
 
         if (this.search_center_marker) {
-          this.search_center_marker.setOpacity(0);
-          this.search_center_marker.addTo(this.map);
+          this.search_center_marker.removeFrom(this.map);
         }
       },
 
@@ -971,12 +969,12 @@
           this.search_center = this.map.getCenter();
         }
         this.distance_limit = '';
-        this.search_center_marker.setOpacity(0);
+        this.search_center_marker.removeFrom(this.maps);
         var bounds = L.latLngBounds();
         for (var i = 0; i < locations.length; i++) {
           var loc = locations[i];
           bounds.extend(loc.point);
-          loc.marker.setOpacity(1);
+          loc.marker.addTo(this.map);
         }
         this.map.fitBounds(bounds, this.fitBoundsOptions);
 
@@ -1025,7 +1023,7 @@
         this.distance_limit = '';
         if (this.search_center_point) {
           this.search_center_marker.setLatLng(this.search_center_point);
-          this.search_center_marker.setOpacity(1);
+          this.search_center_marker.addTo(this.map);
         }
         this.redraw_map_locations();
         this.draw_list_locations();
@@ -1388,7 +1386,7 @@
         for (var i = 0; i < locations.length; i++) {
           var loc = locations[i];
           bounds.extend(loc.point);
-          loc.marker.setOpacity(1);
+          loc.marker.addTo(this.map);
         }
 
         // Don't zoom in too far on only one marker.
@@ -1406,7 +1404,7 @@
       redraw_map_locations: function () {
         for (var i = 0; i < this.locations.length; i++) {
           var loc = this.locations[i];
-          loc.marker.setOpacity(0);
+          loc.marker.removeFrom(this.map);
         }
 
         this.draw_map_locations();
@@ -1481,11 +1479,9 @@
           var icon = loc.icon ? L.icon(icon_options) : new L.Icon.Default();
 
           var marker = L.marker(loc.point, {
-            opacity: 0,
             icon: icon
           });
-          marker.bindPopup(html).openPopup();
-          marker.addTo(this.map);
+          marker.bindPopup(html, { maxWidth: 180 }).openPopup();
           loc.marker = marker;
         }
       },
@@ -1493,7 +1489,7 @@
       draw_search_center: function () {
         if (this.search_center_point) {
           this.search_center_marker.setLatLng(this.search_center_point);
-          this.search_center_marker.setOpacity(1.0);
+          this.search_center_marker.addTo(this.map);
         }
       },
 
