@@ -1,0 +1,125 @@
+<?php
+
+/**
+ * @file Main module's file.
+ */
+
+/**
+ * Deploy Program Event Framework related landing pages.
+ */
+function openy_demo_nlanding_pef_pages() {
+  // Make sure that blocks are available.
+  openy_enable_module('openy_repeat');
+
+  $schedules_node = \Drupal\node\Entity\Node::create(
+    [
+      'type' => 'landing_page',
+      'title' => 'Schedules',
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'moderation_state' => 'published',
+      'field_lp_layout' => ['value' => 'one_column_clean'],
+    ]
+  );
+  $schedules_node->save();
+
+  $locations_node = \Drupal\node\Entity\Node::create(
+    [
+      'type' => 'landing_page',
+      'title' => 'Select location',
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'moderation_state' => 'published',
+      'field_lp_layout' => ['value' => 'one_column_clean'],
+    ]
+  );
+  $locations_node->save();
+
+  $schedules_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+    [
+      'type' => 'repeat_schedules',
+      'parent_id' => $schedules_node->id(),
+      'parent_type' => 'node',
+      'parent_field_name' => 'field_content',
+      'status' => 1,
+      'field_prgf_repeat_schedules_ref' => ['plugin_id' => 'repeat_schedules_block'],
+      'field_prgf_repeat_schedules_pref' => ['target_id' => $locations_node->id()]
+    ]
+  );
+  $schedules_paragraph->save();
+
+  $schedules_node->field_content->entity = $schedules_paragraph;
+  $schedules_node->save();
+
+  $location_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+    [
+      'type' => 'repeat_schedules_loc',
+      'parent_id' => $locations_node->id(),
+      'parent_type' => 'node',
+      'parent_field_name' => 'field_content',
+      'status' => 1,
+      'field_prgf_repeat_lschedules_ref' => ['plugin_id' => 'repeat_schedules_loc_block'],
+      'field_prgf_repeat_lschedules_prf' => ['target_id' => $schedules_node->id()]
+    ]
+  );
+  $location_paragraph->save();
+
+  $locations_node->field_content->entity = $location_paragraph;
+  $locations_node->save();
+
+  $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
+  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+    'title' => 'Program Schedules',
+    'link' => ['uri' => 'entity:node/' . $locations_node->id()],
+    'menu_name' => 'main',
+    'parent' => 'menu_link_content:' . $parent_menu_link->uuid(),
+    'expanded' => TRUE,
+  ]);
+  $menu_link->save();
+
+  $group_schedules_node = \Drupal\node\Entity\Node::create(
+    [
+      'type' => 'landing_page',
+      'title' => 'Group Exercises Schedules',
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'moderation_state' => 'published',
+      'field_lp_layout' => ['value' => 'one_column_clean'],
+    ]
+  );
+  $group_schedules_node->save();
+
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'activity')
+    ->condition('title', 'Group Exercise Classes');
+  $group_exercises_nid = reset($query->execute());
+
+  $group_schedules_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+    [
+      'type' => 'repeat_schedules',
+      'parent_id' => $group_schedules_node->id(),
+      'parent_type' => 'node',
+      'parent_field_name' => 'field_content',
+      'status' => 1,
+      'field_prgf_repeat_schedules_ref' => ['plugin_id' => 'repeat_schedules_block'],
+      'field_prgf_repeat_schedule_categ' => ['target_id' => $group_exercises_nid],
+      'field_prgf_repeat_schedule_instr' => ['value' => TRUE],
+    ]
+  );
+  $group_schedules_paragraph->save();
+
+  $group_schedules_node->field_content->entity = $group_schedules_paragraph;
+  $group_schedules_node->save();
+
+  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+    'title' => 'Group Program Schedules',
+    'link' => ['uri' => 'entity:node/' . $group_schedules_node->id()],
+    'menu_name' => 'main',
+    'parent' => 'menu_link_content:' . $parent_menu_link->uuid(),
+    'expanded' => TRUE,
+  ]);
+  $menu_link->save();
+}
