@@ -387,6 +387,9 @@ function openy_rose_preprocess_html(&$variables) {
         }
       }
     }
+    if (empty($variables['node'])) {
+      $variables['node'] = $node;
+    }
   }
 
   // Get title from node or page.
@@ -404,5 +407,18 @@ function openy_rose_preprocess_html(&$variables) {
 function openy_rose_theme_suggestions_form_alter(array &$suggestions, array $variables) {
   if (isset($variables['element']['#form_id'])) {
     array_push($suggestions, 'form__' . $variables['element']['#form_id']);
+  }
+}
+
+/**
+ * Preprocess paragraph - social list.
+ *
+ * @param $variables
+ */
+function openy_rose_preprocess_paragraph_social_list(&$variables) {
+  $block = $variables['content']['field_prgrf_sl_block'];
+  if (isset($block[0]['#name']) && isset($block[0]['#display_id'])) {
+    $variables['content']['posts'] = \Drupal::service('renderer')
+      ->render(views_embed_view($block[0]['#name'], $block[0]['#display_id']));
   }
 }

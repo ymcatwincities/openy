@@ -50,6 +50,8 @@ set classes = [
   <div class="col-sm-7 content">
     {{ content.field_prgf_title }}
     {{ content.field_prgf_description }}
-    <a href="{{ content.field_prgf_link.0['#url'] }}" class="btn btn-link blue">{{ content.field_prgf_link.0['#title'] }}</a>
+    {% if content.field_prgf_link|render|trim is not empty %}
+      <a href="{{ content.field_prgf_link.0['#url'] }}" class="btn btn-link blue">{{ content.field_prgf_link.0['#title'] }}</a>
+    {% endif %}
   </div>
 </article>

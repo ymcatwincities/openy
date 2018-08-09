@@ -97,20 +97,11 @@
               </button>
               {% block page_logo %}
                 {% if (page_class == 'is-camp') and (camp_section_image is not empty) %}
-                  <div>
-                    <div id="block-openy-lily-branding">
-                      <a href="{{ front_page }}" title="{{ "Home"|t }}" rel="{{ "home"|t }}">
-                        <img src="{{ camp_section_image }}" alt="{{ "Home"|t }}">
-                      </a>
-                      <div class="ymca-branding-slogan hidden-xs hidden-sm">
-                        {{ 'FOR YOUTH DEVELOPMENT'|t }} <sup>®</sup><br>
-                        {{ 'FOR HEALTHY LIVING'|t }}<br>
-                        {{ 'FOR SOCIAL RESPONSIBILITY'|t }}
-                      </div>
-                    </div>
-                  </div>
+                  <a href="{{ front_page }}" title="{{ "YMCA Twin Cities"|t }}" rel="{{ "YMCA Twin Cities"|t }}">
+                    <img src="{{ camp_section_image }}" alt="{{ "YMCA Twin Cities"|t }}">
+                  </a>
                 {% else %}
-                  {{ page.logo }}
+                  <a class="navbar-brand" href="{{ base_path }}" title="{{ "OpenY"|t }}" rel="{{ "OpenY"|t }}"></a>
                 {% endif %}
               {% endblock %}
             </div>

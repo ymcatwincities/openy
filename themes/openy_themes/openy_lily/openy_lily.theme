@@ -446,6 +446,13 @@ function openy_lily_preprocess_block(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_region().
+ */
+function openy_lily_preprocess_region(&$variables) {
+  $variables['attributes']['class'][] = $variables['elements']['#region'];
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openy_lily_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
@@ -581,6 +588,10 @@ function openy_lily_preprocess_html(&$variables) {
   }
   if (!is_array($variables['attributes'])) {
     $variables['attributes']->addClass($classes);
+  }
+
+  if (empty($variables['node']) && !empty($node)) {
+    $variables['node'] = $node;
   }
 }
 
@@ -867,4 +878,17 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
   // Change link text since URL is used as link text for
   // 'Separate link text and URL' format by default.
   $variables['items'][0]['content']['#url_title'] = $link_title;
+}
+
+/**
+ * Preprocess paragraph - social list.
+ *
+ * @param $variables
+ */
+function openy_rose_preprocess_paragraph_social_list(&$variables) {
+  $block = $variables['content']['field_prgrf_sl_block'];
+  if (isset($block[0]['#name']) && isset($block[0]['#display_id'])) {
+    $variables['content']['posts'] = \Drupal::service('renderer')
+      ->render(views_embed_view($block[0]['#name'], $block[0]['#display_id']));
+  }
 }

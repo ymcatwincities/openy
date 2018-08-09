@@ -49,11 +49,16 @@
 @import 'modules/location';
 @import 'modules/breadcrumbs';
 @import 'modules/video';
+@import 'modules/event';
+@import 'modules/social-post';
 
 // Paragraphs
 @import 'paragraphs/1c';
 @import 'paragraphs/amenities';
+@import 'paragraphs/location_by_amenities';
 @import 'paragraphs/lto';
+@import 'paragraphs/upcoming-events';
+@import 'paragraphs/event-post-listing';
 
 // Global state classes
 @import 'state/state';

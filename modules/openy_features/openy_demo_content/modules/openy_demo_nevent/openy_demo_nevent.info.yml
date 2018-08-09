@@ -1,0 +1,11 @@
+name: 'OpenY Demo Node Event'
+description: 'OpenY Demo Node Event.'
+type: module
+core: 8.x
+package: OpenY (Experimental)
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
+  - openy_prgf_event_latest
+  - openy_prgf_event_listing
