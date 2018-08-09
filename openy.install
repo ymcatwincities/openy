@@ -901,3 +901,17 @@ function openy_update_8058() {
     'field.field.node.alert.field_alert_visibility_state',
   ]);
 }
+
+/**
+ * Uninstall Location Finder deprecated module.
+ */
+function openy_update_8059() {
+  \Drupal::service('module_installer')->uninstall(['location_finder']);
+}
+
+/**
+ * Enable OpenY Entity Reference Tweaks.
+ */
+function openy_update_8060() {
+  \Drupal::service('module_installer')->install(['openy_er']);
+}
