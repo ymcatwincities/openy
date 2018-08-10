@@ -5,12 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_repeat_schedules_pref
     - node.type.landing_page
     - paragraphs.paragraphs_type.repeat_schedules
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_repeat_schedules_pref
+third_party_settings: {  }
 id: paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
 field_name: field_prgf_repeat_schedules_pref
 entity_type: paragraph

@@ -4,12 +4,7 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_repeat_schedule_instr
     - paragraphs.paragraphs_type.repeat_schedules
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_repeat_schedule_instr
+third_party_settings: { }
 id: paragraph.repeat_schedules.field_prgf_repeat_schedule_instr
 field_name: field_prgf_repeat_schedule_instr
 entity_type: paragraph

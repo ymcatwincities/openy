@@ -21,8 +21,9 @@ class OpenYGXPCategory extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
+    // Example of json we expect.
+    // {"title":"Cardio","description":"A great cardio experience...","activity":119}
     $value = json_decode($value, TRUE);
-//    {"title":"Cardio","description":"A great cardio experience...","activity":119}
 
     $nids = \Drupal::entityQuery('node')
       ->condition('title', $value['title'])
