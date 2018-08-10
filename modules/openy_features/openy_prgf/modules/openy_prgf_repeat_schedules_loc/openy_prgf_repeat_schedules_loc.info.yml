@@ -4,7 +4,6 @@ type: module
 core: 8.x
 package: OpenY
 dependencies:
-  - datalayer
   - field
   - node
   - openy_node_landing

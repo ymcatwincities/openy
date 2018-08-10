@@ -1,5 +1,5 @@
 openy_repeat:
-  version: VERSION
+  version: 0.1
   js:
     js/repeat.js: {}
     js/atc.js: {}
