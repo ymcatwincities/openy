@@ -154,7 +154,7 @@ class DataWrapper implements OpenyDataServiceInterface {
         continue;
       }
       $uri = !empty($typeIcons[$location->bundle()]) ? $typeIcons[$location->bundle()] :
-        '/' . drupal_get_path('module', 'location_finder') . "/img/map_icon_green.png";
+        '/' . drupal_get_path('module', 'openy_map') . "/img/map_icon_green.png";
       $pins[] = [
         'icon' => $uri,
         'tags' => [$tag],

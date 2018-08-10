@@ -82,8 +82,8 @@ class PopupsController extends ControllerBase {
       'closeOnEscape' => FALSE,
       'autoOpen' => TRUE,
       'position' => [
-        'my' => 'center top',
-        'at' => 'center top+10%',
+        'my' => 'center center',
+        'at' => 'center center',
       ],
     ];
   }

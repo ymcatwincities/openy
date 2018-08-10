@@ -1,0 +1,35 @@
+.two-column-fixed {
+  .affix,
+  .affix-bottom {
+    top: 126px;
+    position: static;
+
+    @include media-breakpoint-up(sm) {
+      width: 220px;
+      position: fixed;
+    }
+
+    @include media-breakpoint-up(md) {
+      width: 294px;
+    }
+
+    @include media-breakpoint-up(lg) {
+      width: 360px;
+    }
+
+    .toolbar-fixed & {
+      top: 166px;
+    }
+  }
+}
+
+.embedded-entity {
+  .media-image.view-mode-link {
+    display: inline;
+  }
+
+  img {
+    display: inline-block;
+    padding: 10px 0;
+  }
+}
