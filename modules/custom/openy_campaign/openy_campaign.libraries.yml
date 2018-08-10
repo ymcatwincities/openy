@@ -4,13 +4,16 @@ game_magic_ball:
       css/games/magic-ball.css: {}
   js:
     js/games/magic-ball.js: {}
+  version: 0.1
 
 campaign_winner_stream:
+  version: 0.1
   js:
     js/libs/jquery.marquee.min.js: {}
     js/marquee.js: {}
 
 game_scratchcard:
+  version: 0.1
   css:
     theme:
       css/games/scratchcard.css: {}
@@ -18,6 +21,7 @@ game_scratchcard:
     js/games/scratchcard.js: {}
 
 game_flip_cards:
+  version: 0.1
   css:
     theme:
       css/games/flip-cards.css: {}
@@ -25,18 +29,22 @@ game_flip_cards:
     js/games/flip-cards.js: {}
 
 campaign_modal:
+  version: 0.1
   js:
     js/campaign-modal.js: {}
 
 simply_counter:
+  version: 0.1
   js:
     js/simplyCountdown.min.js: {}
 
 moment:
+  version: 0.1
   js:
     js/libs/moment.js: {}
 
 campaign_countdown:
+  version: 0.1
   js:
     js/campaignCountdown.js: {}
   dependencies:
@@ -44,10 +52,12 @@ campaign_countdown:
     - openy_campaign/moment
 
 slick_carousel:
+  version: 0.1
   js:
     js/libs/slick/slick.js: {}
 
 activityTracking:
+  version: 0.1
   js:
     js/activityTracking.js: {}
   dependencies:
