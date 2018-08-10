@@ -1,10 +1,3 @@
-openy_repeat.schedules_dashboard:
-  path: '/schedules/group-exercise-classes'
-  defaults:
-    _controller: '\Drupal\openy_repeat\Controller\RepeatController::dashboard'
-    _title: 'Group exercise classes'
-  requirements:
-    _permission: 'access content'
 openy_repeat.schedules_ajax:
   path: '/schedules/get-event-data/{location}/{category}/{date}'
   defaults:
@@ -12,12 +5,5 @@ openy_repeat.schedules_ajax:
     location: ''
     category: ''
     date: '0'
-  requirements:
-    _permission: 'access content'
-openy_repeat.schedules_locations:
-  path: '/schedules/locations'
-  defaults:
-    _controller: '\Drupal\openy_repeat\Controller\RepeatController::locations'
-    _title: 'Group excercise classes'
   requirements:
     _permission: 'access content'

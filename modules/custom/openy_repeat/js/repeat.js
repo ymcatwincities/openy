@@ -55,10 +55,12 @@
 
   // +/- Toggle.
   $('.schedule-dashboard__sidebar .navbar-header a[data-toggle], .form-group-wrapper label[data-toggle]').on('click', function() {
-    $(this)
-      .toggleClass('closed active')
-      .find('i')
-      .toggleClass('fa-minus fa-plus');
+    if (!$('.' + $(this).attr('for')).hasClass('collapsing')) {
+      $(this)
+        .toggleClass('closed active')
+        .find('i')
+        .toggleClass('fa-minus fa-plus');
+    }
   });
 
   // PDF link show/hidden.
@@ -80,6 +82,22 @@
 
   function updateUrl(date, loc, cat) {
     router.push({ query: { date: date, locations: loc, categories: cat }});
+  }
+
+  function updateAtc() {
+    var dp = moment(datepicker.datepicker('getDate')).format('YYYY-MM-D');
+    $('.atc_date_start').each(function() {
+      var d = $(this).text(),
+          d1 = d.substring(0, 10),
+          r = d.replace(d1, dp);
+      $(this).html(r);
+    });
+    $('.atc_date_end').each(function() {
+      var d = $(this).text(),
+          d1 = d.substring(0, 10),
+          r = d.replace(d1, dp);
+      $(this).html(r);
+    });
   }
 
   function changeDateTitle(text) {
@@ -111,6 +129,11 @@
       $('.form-group-category').parent().hide();
       $('.category-column').remove();
     }
+
+    // If any categories should be excluded.
+    $('.field-prgf-repeat-schedule-excl').each(function(){
+      // TODO: Remove category filters.
+    });
 
     $(".form-group-category .box").each(function() {
       if ($(this).is(':checked')) {
@@ -154,6 +177,10 @@
         email: '',
         phone: '',
         title: ''
+      },
+      classPopup: {
+        title: '',
+        description: ''
       }
     },
     components: {
@@ -162,29 +189,37 @@
     mounted() {
       runAjaxRequest(this, currentDate, eventLocation, eventCategory);
       changeDateTitle(currentDate);
+      updateAtc();
     },
     watch: {
       'globalData.date': function(newValue, oldValue) {
         // this.$root.mounted();
-        runAjaxRequest(this, newValue, eventLocation);
+        runAjaxRequest(this, newValue, eventLocation, globalData.category);
         changeDateTitle(newValue);
         updateUrl(newValue, globalData.location, globalData.category);
+        updateAtc();
       },
       'globalData.location': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, newValue, globalData.category);
         updateUrl(currentDate, newValue, globalData.category);
+        updateAtc();
       },
       'globalData.category': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, globalData.location, newValue);
         updateUrl(currentDate, globalData.location, newValue);
+        updateAtc();
       }
     },
     methods: {
-      populatePopup: function(index) {
+      populatePopupL: function(index) {
         this.locationPopup = this.globalData.table[index].location_info;
+      },
+      populatePopupC: function(index) {console.log(this.globalData);
+        this.classPopup = this.globalData.table[index].class_info;
       }
     },
     updated: function() {
+      updateAtc();
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
