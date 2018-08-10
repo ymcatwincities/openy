@@ -41,6 +41,8 @@ class RepeatController extends ControllerBase {
               re.room,
               re.instructor as instructor,
               re.category,
+              re.register_url as register_url,
+              re.register_text as register_text,
               TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i'))) as time_start,
               TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%h:%i%p'))) as time_end,
               DATE_FORMAT(FROM_UNIXTIME(re.start), '%Y-%m-%d %T') as time_start_calendar,
@@ -98,7 +100,6 @@ class RepeatController extends ControllerBase {
       $result[$key]->location_info = $locations_info[$item->location];
       $result[$key]->class_info = $classes_info[$item->class];
     }
-
 
     return new JsonResponse($result);
   }

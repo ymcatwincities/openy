@@ -186,6 +186,12 @@ class RepeatManager implements SessionInstanceManagerInterface {
 
     $activity = reset($activities);
 
+    $reg_link = $session->field_session_reg_link->getValue();
+    if (!empty($reg_link[0]['uri'])) {
+      $register_url = $reg_link[0]['uri'];
+      $register_text = !empty($reg_link[0]['title']) ? $reg_link[0]['title'] : t('Register');
+    }
+
     // All references are in the chain, return data.
     return [
       'title2' => $session->label(),
@@ -201,6 +207,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
       'max_age' => $session->field_session_max_age->value,
       'instructor' => $instructor,
       'room' => $room,
+      'register_url' => !empty($register_url) ? $register_url : NULL,
+      'register_text' => !empty($register_text) ? $register_text : NULL,
     ];
   }
 
