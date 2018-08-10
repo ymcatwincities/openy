@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.repeat_schedules.field_prgf_block
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_categ
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_excl
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_instr
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pdf
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
-    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_ref
     - paragraphs.paragraphs_type.repeat_schedules
   module:
     - openy_repeat
@@ -17,6 +17,13 @@ targetEntityType: paragraph
 bundle: repeat_schedules
 mode: default
 content:
+  field_prgf_block:
+    weight: 6
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+    region: content
   field_prgf_repeat_schedule_categ:
     weight: 2
     label: hidden
@@ -52,13 +59,6 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-  field_prgf_repeat_schedules_ref:
-    weight: 0
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: plugin_block_built
-    region: content
 hidden:
   created: true
   uid: true

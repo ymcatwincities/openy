@@ -2,17 +2,21 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_prgf_repeat_schedules_ref
+    - field.storage.paragraph.field_prgf_block
     - paragraphs.paragraphs_type.repeat_schedules
   module:
+    - datalayer
     - plugin
-third_party_settings: { }
-id: paragraph.repeat_schedules.field_prgf_repeat_schedules_ref
-field_name: field_prgf_repeat_schedules_ref
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_prgf_block
+id: paragraph.repeat_schedules.field_prgf_block
+field_name: field_prgf_block
 entity_type: paragraph
 bundle: repeat_schedules
-label: 'Repeat Schedules Block'
-description: 'Reference to the Repeat Schedules block.'
+label: Block
+description: ''
 required: true
 translatable: true
 default_value:
@@ -23,7 +27,6 @@ default_value:
       label: 'Repeat Schedules Block'
       provider: openy_repeat
       label_display: '0'
-      enabled_locations: all
     plugin_configuration_schema_id: block.settings.repeat_schedules_block
 default_value_callback: ''
 settings: {  }

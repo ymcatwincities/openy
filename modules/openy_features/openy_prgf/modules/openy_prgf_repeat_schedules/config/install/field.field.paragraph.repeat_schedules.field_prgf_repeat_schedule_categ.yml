@@ -5,7 +5,6 @@ dependencies:
     - field.storage.paragraph.field_prgf_repeat_schedule_categ
     - node.type.activity
     - paragraphs.paragraphs_type.repeat_schedules
-third_party_settings: { }
 id: paragraph.repeat_schedules.field_prgf_repeat_schedule_categ
 field_name: field_prgf_repeat_schedule_categ
 entity_type: paragraph
