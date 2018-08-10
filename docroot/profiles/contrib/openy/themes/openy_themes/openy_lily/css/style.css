@@ -9075,10 +9075,10 @@ legend {
   padding-top: 40px;
   padding-bottom: 14px;
 }
-#page-footer #block-openy-lily-footersocialblock .field-block-content ul li {
+#page-footer #block-openy-lily-footersocialblock ul li {
   margin: 0 12px;
 }
-#page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
+#page-footer #block-openy-lily-footersocialblock ul li a {
   border: 3px solid #428bca;
   border-radius: 50%;
   width: 46px;
@@ -9091,7 +9091,7 @@ legend {
   position: relative;
   overflow: hidden;
 }
-#page-footer #block-openy-lily-footersocialblock .field-block-content ul li a:before {
+#page-footer #block-openy-lily-footersocialblock ul li a:before {
   position: absolute;
   top: 0;
   left: 0;
@@ -9100,10 +9100,10 @@ legend {
   text-align: center;
 }
 @media (min-width: 0) and (max-width: 48em) {
-  #page-footer #block-openy-lily-footersocialblock .field-block-content ul li {
+  #page-footer #block-openy-lily-footersocialblock ul li {
     margin: 0 5px;
   }
-  #page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
+  #page-footer #block-openy-lily-footersocialblock ul li a {
     width: 36px;
     height: 36px;
     line-height: 30px;
@@ -13964,6 +13964,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
 }
 
 .paragraph--type--secondary-description-sidebar {
+  font-family: "Cachet", Verdana, Arial, sans-serif;
   margin-bottom: 0;
   padding: 10px 0 20px 0;
 }
@@ -14314,6 +14315,37 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   padding-top: 14px;
 }
 
+#page-footer #block-openy-lily-footersocialblock ul li a.icon-youtube:before {
+  content: "\f167";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+.icon-facebook:before {
+  content: "\f09a";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+.icon-twitter:before {
+  content: "\f099";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+.icon-flickr:before {
+  content: "\f16e";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+.icon-instagram:before {
+  content: "\f16d";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+#page-footer #block-openy-lily-footermenucenter .nav li a {
+  font-family: "Cachet", Verdana, Arial, sans-serif;
+  font-size: 20px;
+  color: #a8a8a8;
+}
+
 .node--type-blog.node--view-mode-teaser .blog-category {
   font-family: "Cachet", Verdana, Arial, sans-serif;
 }
@@ -14353,6 +14385,19 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     margin-top: 52px;
   }
 }
+.path-frontpage .container .container-fluid, .path-frontpage .path-account .status-message .container-fluid, .path-account .path-frontpage .status-message .container-fluid {
+  padding: 0;
+  margin: 0;
+}
+
+.container .container-fluid, .path-account .status-message .container-fluid {
+  padding: 0;
+}
+
+.viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value {
+  line-height: 96px;
+}
+
 @media (min-width: 47.9375em) and (max-width: 61.9375em) {
   #search-box.expanded-search {
     padding: 20px 15px;
