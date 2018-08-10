@@ -86,7 +86,7 @@
     url += loc ? '/' + loc : '/0';
     url += cat ? '/' + cat : '/0';
     url += date ? '/' + date : '';
-    url += excl ? '&excl=' + excl.join(',') : '';
+    url += excl ? '?excl=' + excl.join(',') : '';
     $.getJSON(url, function(data) {
       self.globalData.table = data
     });
@@ -143,11 +143,17 @@
     }
 
     // If any categories should be excluded.
-    $('.field-prgf-repeat-schedule-excl').each(function(){
-      // TODO: Remove category filters.
+    var exclusionSettings = window.OpenY.field_prgf_repeat_schedule_excl || {};
+    var excl = [];
+    exclusionSettings.forEach(function(item){
+      excl.push(item.title);
     });
 
     $(".form-group-category .box").each(function() {
+      if (excl.indexOf($(this).attr('value')) !== -1) {
+        $(this).parent().hide();
+      }
+
       if ($(this).is(':checked')) {
         chkArray.push(this.value);
       }

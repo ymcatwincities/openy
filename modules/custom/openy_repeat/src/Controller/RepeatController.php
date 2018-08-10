@@ -79,6 +79,11 @@ class RepeatController extends ControllerBase {
       $sql .= "AND nd.title IN ( :locations[] )";
       $values[':locations[]'] = explode(',', $location);
     }
+    $exclusions = $request->get('excl');
+    if (!empty($exclusions)) {
+      $sql .= "AND re.category NOT IN ( :exclusions[] )";
+      $values[':exclusions[]'] = explode(',', $exclusions);
+    }
 
     $sql .= " ORDER BY re.start";
 

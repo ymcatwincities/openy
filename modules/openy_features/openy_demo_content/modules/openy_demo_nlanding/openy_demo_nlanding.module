@@ -1,15 +1,11 @@
 <?php
-
-/**
- * @file Main module's file.
- */
-
 /**
  * Deploy Program Event Framework related landing pages.
  */
 function openy_demo_nlanding_pef_pages() {
   // Make sure that blocks are available.
   openy_enable_module('openy_repeat');
+  drupal_flush_all_caches();
 
   $schedules_node = \Drupal\node\Entity\Node::create(
     [
@@ -37,6 +33,11 @@ function openy_demo_nlanding_pef_pages() {
   );
   $locations_node->save();
 
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'activity')
+    ->condition('title', 'Group Exercise Classes');
+  $group_exercises_nid = reset($query->execute());
+
   $schedules_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
     [
       'type' => 'repeat_schedules',
@@ -45,7 +46,10 @@ function openy_demo_nlanding_pef_pages() {
       'parent_field_name' => 'field_content',
       'status' => 1,
       'field_prgf_repeat_schedules_ref' => ['plugin_id' => 'repeat_schedules_block'],
-      'field_prgf_repeat_schedules_pref' => ['target_id' => $locations_node->id()]
+      'field_prgf_repeat_schedules_pref' => ['target_id' => $locations_node->id()],
+      'field_prgf_repeat_schedule_excl' => [
+        [ 'target_id' => $group_exercises_nid ],
+      ],
     ]
   );
   $schedules_paragraph->save();
@@ -61,7 +65,7 @@ function openy_demo_nlanding_pef_pages() {
       'parent_field_name' => 'field_content',
       'status' => 1,
       'field_prgf_repeat_lschedules_ref' => ['plugin_id' => 'repeat_schedules_loc_block'],
-      'field_prgf_repeat_lschedules_prf' => ['target_id' => $schedules_node->id()]
+      'field_prgf_repeat_lschedules_prf' => ['target_id' => $schedules_node->id()],
     ]
   );
   $location_paragraph->save();
@@ -92,10 +96,7 @@ function openy_demo_nlanding_pef_pages() {
   );
   $group_schedules_node->save();
 
-  $query = \Drupal::entityQuery('node')
-    ->condition('type', 'activity')
-    ->condition('title', 'Group Exercise Classes');
-  $group_exercises_nid = reset($query->execute());
+
 
   $group_schedules_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
     [
@@ -123,3 +124,8 @@ function openy_demo_nlanding_pef_pages() {
   ]);
   $menu_link->save();
 }
+
+/**
+ * @file Main module's file.
+ */
+
