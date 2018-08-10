@@ -15,7 +15,7 @@ source:
       id: 1
       field_ahb_title: 'All'
       field_ahb_description: |
-        <p>There is an existing FAQ question that directs people to the YouTube channel. An additional line of content could be added here to indicate that training videos have also been added inline in the admin, where applicable. http://www.openymca.org/faq
+        <p>There is an existing FAQ question that directs people to the YouTube channel. An additional line of content could be added here to indicate that training videos have also been added inline in the admin, where applicable. <a href="http://www.openymca.org/faq">http://www.openymca.org/faq</a>
            ARE THERE ANY TUTORIALS OR VIDEOS ON HOW TO USE AND SETUP OPEN Y?
         </p>
       field_ahb_video: 'https://www.youtube.com/channel/UC4hp3K9JFptqPZyNjJLvkJg/videos'
@@ -25,8 +25,8 @@ source:
       id: 2
       field_ahb_title: 'Open Y Install Tutorial for Tech Novices'
       field_ahb_description: |
-        <p>Video includes hosting setup instructions with DigitalOcean, should be public link outside of Admin console before Drupal site is setup. There is an existing FAQ question that directs people to the general YouTube channel. An additional line of content and link to this specific setup video could be added here. http://www.openymca.org/faq ARE THERE ANY TUTORIALS OR VIDEOS ON HOW TO USE AND SETUP OPEN Y?
-           If people need a refresher, the Help box could possibly be located in the /admin/config section
+        <p>Video includes hosting setup instructions with DigitalOcean, should be public link outside of Admin console before Drupal site is setup. There is an existing FAQ question that directs people to the general YouTube channel. An additional line of content and link to this specific setup video could be added here. <a href="http://www.openymca.org/faq">http://www.openymca.org/faq</a> ARE THERE ANY TUTORIALS OR VIDEOS ON HOW TO USE AND SETUP OPEN Y?
+           If people need a refresher, the Help box could possibly be located in the <a href="/admin/config">/admin/config</a> section
         </p>
       field_ahb_video: 'https://www.youtube.com/watch?v=O3BkmL2MpKU'
       field_ahb_pages: '<front>'
@@ -43,7 +43,7 @@ source:
       id: 4
       field_ahb_title: 'Date Based Component - Quick Start'
       field_ahb_description: |
-        <p>Related to scheduling content that is time based, which could be on any page/block. Example is about adding to landing page. https://www.evernote.com/l/AW_I2grxYrtD_qQpEJDjR9rkwRcspXyRtGY</p>
+        <p>Related to scheduling content that is time based, which could be on any page/block. Example is about adding to landing page. <a href="https://www.evernote.com/l/AW_I2grxYrtD_qQpEJDjR9rkwRcspXyRtGY">https://www.evernote.com/l/AW_I2grxYrtD_qQpEJDjR9rkwRcspXyRtGY</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=Ok5Gf23pVs0'
       field_ahb_pages: ''
       field_ahb_visibility: 'include'
@@ -75,7 +75,7 @@ source:
       id: 8
       field_ahb_title: 'OpenY: Demo Content'
       field_ahb_description: |
-        <p>Part of the installation process. See notes in "Open Y Install Tutorial for Tech Novices" for placement. Could be here http://sandbox.openymca.org/admin/structure/migrate/p>
+        <p>Part of the installation process. See notes in "Open Y Install Tutorial for Tech Novices" for placement. Could be here <a href="http://sandbox.openymca.org/admin/structure/migrate">http://sandbox.openymca.org/admin/structure/migrate</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=GcwNW3TDnjg'
       field_ahb_pages: '/admin/structure/migrate'
       field_ahb_visibility: 'include'
@@ -83,7 +83,7 @@ source:
       id: 9
       field_ahb_title: 'OpenY: Data Layer'
       field_ahb_description: |
-        <p>Covers Chrome Developer Tools to explore data layer. Possible relation to /content types, but perhaps too micro of a topic to place as a Help box in this section. http://sandbox.openymca.org/admin/structure/types (if anywhere)</p>
+        <p>Covers Chrome Developer Tools to explore data layer. Possible relation to <a href="/content">/content</a> types, but perhaps too micro of a topic to place as a Help box in this section. <a href="http://sandbox.openymca.org/admin/structure/types">http://sandbox.openymca.org/admin/structure/types</a> (if anywhere)</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=EDibwoQgIUY'
       field_ahb_pages: '/admin/structure/types'
       field_ahb_visibility: 'include'
@@ -115,7 +115,7 @@ source:
       id: 13
       field_ahb_title: 'Dr. Jeffrey Burns, Nathan Maehren talk about making a difference with Drupal - Open Y Edit'
       field_ahb_description: |
-        <p>Great video, but more marketing focused. Suggest it doesn't need to be in the Admin as a Help topic. There is an existing playlist "For Y Associations" that covers these types of topics on YouTube https://www.youtube.com/watch?v=HPsa8ZgLw1A&list=PL_QVggMcFfKY_80g0z3UPZL7_wn-27UUg</p>
+        <p>Great video, but more marketing focused. Suggest it doesn't need to be in the Admin as a Help topic. There is an existing playlist "For Y Associations" that covers these types of topics on YouTube <a href="https://www.youtube.com/watch?v=HPsa8ZgLw1A&list=PL_QVggMcFfKY_80g0z3UPZL7_wn-27UUg">https://www.youtube.com/watch?v=HPsa8ZgLw1A&list=PL_QVggMcFfKY_80g0z3UPZL7_wn-27UUg</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=HPsa8ZgLw1A'
       field_ahb_pages: ''
       field_ahb_visibility: 'include'
@@ -147,7 +147,7 @@ source:
       id: 17
       field_ahb_title: 'Blogs - How to Find and Edit Content'
       field_ahb_description: |
-        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of <a href="/content">/content</a> to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - <a href="https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk">https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=f_ZdYSdxDMY'
       field_ahb_pages: '/admin/content?title=&type=blog&status=All&langcode=All'
       field_ahb_visibility: 'include'
@@ -155,16 +155,15 @@ source:
       id: 18
       field_ahb_title: 'Blogs - Creating Blog Content and Customizing Links to Blog Posts'
       field_ahb_description: |
-        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of <a href="/content">/content</a> to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - <a href="https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk">https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=K4iK0TUxPS0'
-      field_ahb_pages: '/node/add/blog
-                        /admin/content'
+      field_ahb_pages: '/node/add/blog,/admin/content'
       field_ahb_visibility: 'include'
     -
       id: 19
       field_ahb_title: 'Blogs - Blog Paragraphs Components'
       field_ahb_description: |
-        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of <a href="/content">/content</a> to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - <a href="https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk">https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=D4vzq664QLg'
       field_ahb_pages: '/admin/structure/paragraphs_type'
       field_ahb_visibility: 'include'
@@ -172,7 +171,7 @@ source:
       id: 20
       field_ahb_title: 'Blogs - Anatomy'
       field_ahb_description: |
-        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of <a href="/content">/content</a> to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - <a href="https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk">https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=PTZkgOb8CFE'
       field_ahb_pages: '/node/add/blog'
       field_ahb_visibility: 'include'
@@ -180,7 +179,7 @@ source:
       id: 21
       field_ahb_title: 'Blogs - Overview'
       field_ahb_description: |
-        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of <a href="/content">/content</a> to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - <a href="https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk">https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=--gW0zj4wEc&t=7s'
       field_ahb_pages: '/node/add/blog'
       field_ahb_visibility: 'include'
@@ -188,7 +187,7 @@ source:
       id: 22
       field_ahb_title: 'OpenY: Taxonomy'
       field_ahb_description: |
-        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of /content to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</p>
+        <p>Can be found under Content (after filtering for blog content). It could be placed at the root of <a href="/content">/content</a> to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - <a href="https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk">https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=y9LPj0V6tt4'
       field_ahb_pages: '/admin/structure/taxonomy'
       field_ahb_visibility: 'include'
@@ -212,7 +211,7 @@ source:
       id: 25
       field_ahb_title: 'OpenY: Footer menu'
       field_ahb_description: |
-        <p>There are four footer menu topics; footer, center, left, right. Suggest the Help is at the root of /structure/menu NOTE there is already a playlist on YouTube for general customization and theme changes: https://www.youtube.com/watch?v=3--CzMz5DPk&list=PL_QVggMcFfKbcayynOt0pb_Uw7DAR7KIl</p>
+        <p>There are four footer menu topics; footer, center, left, right. Suggest the Help is at the root of <a href="/structure/menu">/structure/menu</a> NOTE there is already a playlist on YouTube for general customization and theme changes: <a href="https://www.youtube.com/watch?v=3--CzMz5DPk&list=PL_QVggMcFfKbcayynOt0pb_Uw7DAR7KIl">https://www.youtube.com/watch?v=3--CzMz5DPk&list=PL_QVggMcFfKbcayynOt0pb_Uw7DAR7KIl</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=XMT92r5GydM'
       field_ahb_pages: '/admin/structure/menu'
       field_ahb_visibility: 'include'
@@ -220,7 +219,7 @@ source:
       id: 26
       field_ahb_title: 'OpenY: Footer icons & copyright'
       field_ahb_description: |
-        <p>This is footer social icons and copyright. While it's easy enough to edit the blocks directly, help info could be placed either as a second link in /structure/menu above and/or here http://sandbox.openymca.org/admin/structure/block/block-content</p>
+        <p>This is footer social icons and copyright. While it's easy enough to edit the blocks directly, help info could be placed either as a second link in <a href="/structure/menu">/structure/menu</a> above and/or here <a href="http://sandbox.openymca.org/admin/structure/block/block-content">http://sandbox.openymca.org/admin/structure/block/block-content</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=BZMDljgK9A8'
       field_ahb_pages: '/admin/structure/block/block-content'
       field_ahb_visibility: 'include'
