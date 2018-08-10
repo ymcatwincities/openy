@@ -345,6 +345,7 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 .field-prgf-repeat-schedules-pdf,
 .field-prgf-repeat-schedules-pref,
 .field-prgf-repeat-schedule-categ,
+/*.field-prgf-repeat-schedule-excl,*/
 .field-prgf-repeat-schedule-instr {
 	display: none;
 }

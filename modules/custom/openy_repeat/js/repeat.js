@@ -112,6 +112,11 @@
       $('.category-column').remove();
     }
 
+    // If any categories should be excluded.
+    $('.field-prgf-repeat-schedule-excl').each(function(){
+      // TODO: Remove category filters.
+    });
+
     $(".form-group-category .box").each(function() {
       if ($(this).is(':checked')) {
         chkArray.push(this.value);
