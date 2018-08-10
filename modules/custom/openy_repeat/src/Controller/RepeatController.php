@@ -93,9 +93,12 @@ class RepeatController extends ControllerBase {
     $result = $query->fetchAll();
 
     $locations_info = $this->getLocationsInfo();
+    $classes_info = $this->getClassesInfo();
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
+      $result[$key]->class_info = $classes_info[$item->class];
     }
+
 
     return new JsonResponse($result);
   }
@@ -148,6 +151,28 @@ class RepeatController extends ControllerBase {
 
     return $data;
   }
+
+  /**
+   * Get detailed info about Class.
+   */
+  public function getClassesInfo() {
+    $nids = \Drupal::entityQuery('node')
+      ->condition('type','class')
+      ->execute();
+    $classes = Node::loadMultiple($nids);
+
+    $data = [];
+    foreach ($classes as $node) {
+      $data[$node->nid->value] = [
+        'nid' => $node->nid->value,
+        'title' => $node->title->value,
+        'description' => strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600)),
+      ];
+    }
+
+    return $data;
+  }
+
 
   public function getFormattedHours($data) {
     $lazy_hours = $groups = $rows = [];
