@@ -2,4 +2,5 @@ name: Personify
 type: module
 description: Provides Personify integration.
 core: 8.x
-package: OpenY
+version: 1.0-rc1
+package: OpenY Experimental
