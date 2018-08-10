@@ -14394,16 +14394,8 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   padding: 0;
 }
 
-.viewport .secondary_menu .openy-gtranslate {
-  display: none;
-}
-
-header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav li.language {
-  display: none !important;
-}
-
-#side-area ul li.language {
-  display: none;
+.viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value {
+  line-height: 96px;
 }
 
 @media (min-width: 47.9375em) and (max-width: 61.9375em) {
