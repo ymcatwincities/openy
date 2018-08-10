@@ -82,6 +82,22 @@
     router.push({ query: { date: date, locations: loc, categories: cat }});
   }
 
+  function updateAtc() {
+    var dp = moment(datepicker.datepicker('getDate')).format('YYYY-MM-D');
+    $('.atc_date_start').each(function() {console.log('abu');
+      var d = $(this).text(),
+          d1 = d.substring(0, 10),
+          r = d.replace(d1, dp);
+      $(this).html(r);
+    });
+    $('.atc_date_end').each(function() {
+      var d = $(this).text(),
+          d1 = d.substring(0, 10),
+          r = d.replace(d1, dp);
+      $(this).html(r);
+    });
+  }
+
   function changeDateTitle(text) {
     $('span.date').text(text);
     datepicker.datepicker('update', text);
@@ -167,6 +183,7 @@
     mounted() {
       runAjaxRequest(this, currentDate, eventLocation, eventCategory);
       changeDateTitle(currentDate);
+      updateAtc();
     },
     watch: {
       'globalData.date': function(newValue, oldValue) {
@@ -174,14 +191,17 @@
         runAjaxRequest(this, newValue, eventLocation);
         changeDateTitle(newValue);
         updateUrl(newValue, globalData.location, globalData.category);
+        updateAtc();
       },
       'globalData.location': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, newValue, globalData.category);
         updateUrl(currentDate, newValue, globalData.category);
+        updateAtc();
       },
       'globalData.category': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, globalData.location, newValue);
         updateUrl(currentDate, globalData.location, newValue);
+        updateAtc();
       }
     },
     methods: {
@@ -190,6 +210,7 @@
       }
     },
     updated: function() {
+      updateAtc();
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
