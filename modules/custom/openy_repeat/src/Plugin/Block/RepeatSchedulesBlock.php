@@ -41,8 +41,9 @@ class RepeatSchedulesBlock extends BlockBase {
   public function getCategories() {
     $sql = "SELECT title 
             FROM {node_field_data} n
-            WHERE n.type = 'program_subcategory'
-            AND n.status = '1'";
+            WHERE n.type = 'activity'
+            AND n.status = '1'
+            ORDER BY title ASC";
 
     $connection = \Drupal::database();
     $query = $connection->query($sql);

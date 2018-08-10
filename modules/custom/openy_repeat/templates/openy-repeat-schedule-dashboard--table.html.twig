@@ -43,18 +43,17 @@
 
           {# location #}
           <div v-cloak>
-            <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopup(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
+            <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupL(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
           </div>
 
           {# class #}
           <div v-cloak>
-            <strong><a class="schedule-dashboard__modal--class-link" role="button" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
-            <p>${ item.room }</p>
+            <strong><a class="schedule-dashboard__modal--class-link" role="button" v-on:click="populatePopupC(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
           </div>
 
           {# time #}
           <div v-cloak>
-            <strong>${ item.time }</strong>
+            <strong class="time">${ item.time_start } - ${ item.time_end }</strong>
             <p>
               <span>${ item.duration_hours }{{ 'h'|t }}</span>
               <span v-if="item.duration_minutes > 0">${ item.duration_minutes }{{ 'min'|t }}</span>
@@ -76,20 +75,20 @@
           <div v-cloak>
             <span class="addtocalendar">
               <var class="atc_event">
-                <var class="atc_date_start">2018-07-06 05:10:00</var>
-                <var class="atc_date_end">2018-07-06 06:10:00</var>
+                <var class="atc_date_start">${ item.time_start_calendar }</var>
+                <var class="atc_date_end">${ item.time_end_calendar }</var>
                 <var class="atc_timezone">America/Chicago</var>
                 <var class="atc_title">${ item.name }</var>
-                <var class="atc_description">Visit Cardio  with Kristi R.(sub for Tonya R.) Class will take place at Studio 2 -- Prior to your visit, please check this schedule at https://www.ymcamn.org to verify any changes that may have occurred.</var>
-                <var class="atc_location">15200 Hanson Boulevard, Andover, MN </var>
-                <var class="atc_organizer">Kristi R.&lt;span class="subbed" style="color: #cc0000;"&gt;&lt;br&gt;(sub for Tonya R.)&lt;/span&gt;</var>
+                <var class="atc_description"></var>
+                <var class="atc_location"></var>
+                <var class="atc_organizer"></var>
               </var>
             </span>
           </div>
 
           {# register btn #}
           <div v-cloak>
-            <a v-bind:href="'/node/' + item.class" class="btn btn-primary">{{ 'Register'|t }}</a>
+            <a v-if="item.register_url" v-bind:href="item.register_url" class="btn btn-primary">${ item.register_text }</a>
           </div>
         </div>
 
@@ -150,7 +149,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View More'|t }}</a>
+          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View branch'|t }}</a>
         </div>
       </div>
     </div>
@@ -166,30 +165,24 @@
         </div>
 
         <div class="schedule-dashboard__modal--body">
-
-            {# main data table #}
           <table class="table">
             <thead>
             <tr>
               <th>
-                <h4><strong>{{ 'Title'|t }}</strong></h4>
+                <h4><strong>${ classPopup.title }</strong></h4>
               </th>
             </tr>
             </thead>
-
             <tbody>
             <tr>
-              <td>
-                  {#<p>Description text. Nulla quis lorem ut libero malesuada feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>#}
-              </td>
+              <td>${ classPopup.description }</td>
             </tr>
             </tbody>
           </table>
-
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <button type="button" class="btn btn-lg btn-primary">{{ 'Button Text'|t }}</button>
+          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + classPopup.nid">{{ 'View More'|t }}</a>
         </div>
 
       </div>

@@ -184,13 +184,21 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $instructor = !$session->field_session_instructor->isEmpty() ? $session->field_session_instructor->value : '';
     $room = !$session->field_session_room->isEmpty() ? $session->field_session_room->value : '';
 
+    $activity = reset($activities);
+
+    $reg_link = $session->field_session_reg_link->getValue();
+    if (!empty($reg_link[0]['uri'])) {
+      $register_url = $reg_link[0]['uri'];
+      $register_text = !empty($reg_link[0]['title']) ? $reg_link[0]['title'] : t('Register');
+    }
+
     // All references are in the chain, return data.
     return [
       'title2' => $session->label(),
       'session' => $session->id(),
       'location' => $location_id,
       'facility' => !empty($facility) ? $facility->getTitle() : NULL,
-      'category' => !empty($program_subcategory) ? $program_subcategory->getTitle() : NULL,
+      'category' => !empty($activities) ? $activity->getTitle() : NULL,
       'class' => $class_id,
       'field_si_activity' => array_unique($activity_ids),
       'field_si_program_subcategory' => array_unique($program_subcategory_ids),
@@ -199,6 +207,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
       'max_age' => $session->field_session_max_age->value,
       'instructor' => $instructor,
       'room' => $room,
+      'register_url' => !empty($register_url) ? $register_url : NULL,
+      'register_text' => !empty($register_text) ? $register_text : NULL,
     ];
   }
 

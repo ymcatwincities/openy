@@ -374,15 +374,6 @@ source:
       parent_id: 36
       expanded: 0
       parent_link_path: 'schedules'
-    -
-      id: 40
-      title: 'Program Schedules'
-      menu_name: 'main'
-      link: 'schedules/locations'
-      weight: 3
-      parent_id: 36
-      expanded: 0
-      parent_link_path: 'schedules'
   ids:
     id:
       type: integer

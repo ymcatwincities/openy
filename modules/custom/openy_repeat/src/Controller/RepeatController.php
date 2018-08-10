@@ -15,27 +15,6 @@ class RepeatController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function dashboard( Request $request, $location, $category = NULL) {
-    $checked_categories = [];
-    if (!empty($category)) {
-      $checked_categories = explode(',', $category);
-    }
-    $checked_locations = [];
-    if (!empty($location)) {
-      $checked_locations = explode(',', $location);
-    }
-    return [
-      '#theme' => 'openy_repeat_schedule_dashboard',
-      '#locations' => $this->getLocations(),
-      '#categories' => $this->getCategories(),
-      '#checked_locations' => $checked_locations,
-      '#checked_categories' => $checked_categories,
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function ajaxScheduler( Request $request, $location, $date, $category) {
     if (empty($date)) {
       $date = date('F j, l 00:00:00');
@@ -48,6 +27,9 @@ class RepeatController extends ControllerBase {
     $week = date('W', $date);
     $weekday = date('N', $date);
 
+    $timestamp_start = $date;
+    $timestamp_end = $date + 24 * 60 * 60 * 60; // Next day.
+
     $sql = "SELECT DISTINCT
               n.nid,
               re.id,
@@ -59,7 +41,12 @@ class RepeatController extends ControllerBase {
               re.room,
               re.instructor as instructor,
               re.category,
-              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i%p'))) as time
+              re.register_url as register_url,
+              re.register_text as register_text,
+              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i'))) as time_start,
+              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%h:%i%p'))) as time_end,
+              DATE_FORMAT(FROM_UNIXTIME(re.start), '%Y-%m-%d %T') as time_start_calendar,
+              DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%Y-%m-%d %T') as time_end_calendar
             FROM {node} n
             RIGHT JOIN {repeat_event} re ON re.session = n.nid
             INNER JOIN node_field_data nd ON re.location = nd.nid
@@ -78,9 +65,9 @@ class RepeatController extends ControllerBase {
                 AND
                 (re.weekday = :weekday OR re.weekday = '*')
                 AND
-                (re.start <= UNIX_TIMESTAMP(NOW()))
+                (re.start <= :timestamp_end)
                 AND
-                (re.end >= UNIX_TIMESTAMP(NOW()))
+                (re.end >= :timestamp_start)
               )";
 
     $values = [];
@@ -100,14 +87,18 @@ class RepeatController extends ControllerBase {
     $values[':day'] = $day;
     $values[':week'] = $week;
     $values[':weekday'] = $weekday;
+    $values[':timestamp_start'] = $timestamp_start;
+    $values[':timestamp_end'] = $timestamp_end;
 
     $connection = \Drupal::database();
     $query = $connection->query($sql, $values);
     $result = $query->fetchAll();
 
     $locations_info = $this->getLocationsInfo();
+    $classes_info = $this->getClassesInfo();
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
+      $result[$key]->class_info = $classes_info[$item->class];
     }
 
     return new JsonResponse($result);
@@ -162,6 +153,28 @@ class RepeatController extends ControllerBase {
     return $data;
   }
 
+  /**
+   * Get detailed info about Class.
+   */
+  public function getClassesInfo() {
+    $nids = \Drupal::entityQuery('node')
+      ->condition('type','class')
+      ->execute();
+    $classes = Node::loadMultiple($nids);
+
+    $data = [];
+    foreach ($classes as $node) {
+      $data[$node->nid->value] = [
+        'nid' => $node->nid->value,
+        'title' => $node->title->value,
+        'description' => strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600)),
+      ];
+    }
+
+    return $data;
+  }
+
+
   public function getFormattedHours($data) {
     $lazy_hours = $groups = $rows = [];
     foreach ($data as $day => $value) {
@@ -196,33 +209,6 @@ class RepeatController extends ControllerBase {
     }
 
     return $rows;
-  }
-
-
-  /**
-   * Return Categories from chain "Session" -> "Class" -> "Activity" -> "Program sub-category".
-   *
-   * @return array
-   */
-  public function getCategories() {
-    $sql = "SELECT title 
-            FROM {node_field_data} n
-            WHERE n.type = 'program_subcategory'
-            AND n.status = '1'";
-
-    $connection = \Drupal::database();
-    $query = $connection->query($sql);
-    return $query->fetchCol();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function locations() {
-    return [
-      '#theme' => 'openy_repeat_schedule_locations',
-      '#locations' => $this->getLocations(),
-    ];
   }
 
 }
