@@ -892,15 +892,67 @@ function openy_update_8057() {
 }
 
 /**
- * Uninstall Location Finder deprecated module.
+ * Upgrade path for new alert fields.
  */
 function openy_update_8058() {
+  if (!\Drupal::service('module_handler')->moduleExists('openy_node_alert')) {
+    // Skip this update if module disabled.
+    return;
+  }
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_alert_visibility_pages',
+    'field.storage.node.field_alert_visibility_state',
+    'field.field.node.alert.field_alert_visibility_pages',
+    'field.field.node.alert.field_alert_visibility_state',
+  ]);
+}
+
+/**
+ * Uninstall Location Finder deprecated module.
+ */
+function openy_update_8059() {
   \Drupal::service('module_installer')->uninstall(['location_finder']);
 }
 
 /**
  * Enable OpenY Entity Reference Tweaks.
  */
-function openy_update_8059() {
+function openy_update_8060() {
   \Drupal::service('module_installer')->install(['openy_er']);
+}
+
+/**
+ * Upgrade path for new carnation theme.
+ */
+function openy_update_8061() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.branch.full',
+  ]);
+
+  $config_dir = drupal_get_path('module', 'openy_node_news') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.news.teaser',
+  ]);
+
+  $config_dir = drupal_get_path('module', 'openy_prgf_event_listing') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'views.view.listing_event_posts',
+  ]);
+
+  $config_dir = drupal_get_path('module', 'openy_prgf_news_listing') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'views.view.listing_news_posts',
+  ]);
 }

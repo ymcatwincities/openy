@@ -16,44 +16,46 @@ source:
       id: about_simple
       parent_id: about
       description: |
-        <h1><strong>The Y is a founding nonprofit organization, offering
-        health, hope, and opportunity:</strong></h1>
+        <h2>The Y is a founding nonprofit organization, offering
+        health, hope, and opportunity:</h2>
+        <br/>
         <ul>
           <li>
-            <h4>Parents find a safe, nurturing environment for their children
-            to stay active, be engaged, and learn positive values.</h4>
+            Parents find a safe, nurturing environment for their children
+            to stay active, be engaged, and learn positive values.
           </li>
           <li>
-            <h4>Children and teens play and develop self-confidence while
-            feeling accepted and supported. </h4>
+            Children and teens play and develop self-confidence while
+            feeling accepted and supported.
           </li>
           <li>
-            <h4>Former foster kids and homeless young people receive assistance
+            Former foster kids and homeless young people receive assistance
             with housing, employment, life skills, and other resources to learn
-            and work.</h4>
+            and work.
           </li>
           <li>
-            <h4>Adults connect with friends, pursue interests, and learn how to
-            live healthier.</h4>
+            Adults connect with friends, pursue interests, and learn how to
+            live healthier.
           </li>
           <li>
-            <h4>Families in crisis due to mental health, child abuse, neglect,
+            Families in crisis due to mental health, child abuse, neglect,
             or substance abuse receive support and resources from licensed
-            counselors.</h4>
+            counselors.
           </li>
           <li>
-            <h4>People from all backgrounds and walks of life come together to
-            volunteer and help strengthen their community. </h4>
+            People from all backgrounds and walks of life come together to
+            volunteer and help strengthen their community.
           </li>
         </ul>
-        <h2><strong>Nonprofit</strong></h2>
-        <h4>As a 501(c)3 nonprofit organization, the Y provides crucial
+        <br/>
+        <h3>Nonprofit</h3>
+        <p>As a 501(c)3 nonprofit organization, the Y provides crucial
         programs and services to more than 230,000 people every year. With the
         help of generous donors, we are able to provide more than 250 homeless
         youth safe, stable housing, 115,000 healthy meals to school-age youth,
         and more than $9.5 million in financial assistance to more than 27,000
         people to ensure everyone has a chance to succeed and belong at the Y.
-        </h4>
+        </p>
     -
       id: camp_page_1_simple
       parent_id: lp_camp_page_1

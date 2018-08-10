@@ -1,5 +1,6 @@
 .DS_Store
 .sass-cache/
+*.css.map
 .idea
 ./contrib
 ./libraries
@@ -7,7 +8,9 @@
 ./bin
 ./build/reports
 ./docroot
+node_modules
 vendor
 bin
+build/reports
 themes/openy_themes/*/.bundle/
 themes/openy_themes/*/.bundler/
