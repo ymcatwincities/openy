@@ -1,5 +1,5 @@
 name: 'OpenY Node News'
-package: 'OpenY (Experimental)'
+package: 'OpenY'
 description: 'OpenY Node News.'
 type: module
 core: 8.x
