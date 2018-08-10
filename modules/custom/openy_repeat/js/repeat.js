@@ -55,10 +55,12 @@
 
   // +/- Toggle.
   $('.schedule-dashboard__sidebar .navbar-header a[data-toggle], .form-group-wrapper label[data-toggle]').on('click', function() {
-    $(this)
-      .toggleClass('closed active')
-      .find('i')
-      .toggleClass('fa-minus fa-plus');
+    if (!$('.' + $(this).attr('for')).hasClass('collapsing')) {
+      $(this)
+        .toggleClass('closed active')
+        .find('i')
+        .toggleClass('fa-minus fa-plus');
+    }
   });
 
   // PDF link show/hidden.
