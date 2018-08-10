@@ -1,4 +1,4 @@
-name: 'OpenY Node - Social Post'
+name: 'OpenY Node Social Post'
 description: 'Features for content type: social post'
 type: module
 core: 8.x
