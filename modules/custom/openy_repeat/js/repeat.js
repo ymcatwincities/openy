@@ -86,7 +86,7 @@
 
   function updateAtc() {
     var dp = moment(datepicker.datepicker('getDate')).format('YYYY-MM-D');
-    $('.atc_date_start').each(function() {console.log('abu');
+    $('.atc_date_start').each(function() {
       var d = $(this).text(),
           d1 = d.substring(0, 10),
           r = d.replace(d1, dp);
@@ -177,6 +177,10 @@
         email: '',
         phone: '',
         title: ''
+      },
+      classPopup: {
+        title: '',
+        description: ''
       }
     },
     components: {
@@ -207,8 +211,11 @@
       }
     },
     methods: {
-      populatePopup: function(index) {
+      populatePopupL: function(index) {
         this.locationPopup = this.globalData.table[index].location_info;
+      },
+      populatePopupC: function(index) {console.log(this.globalData);
+        this.classPopup = this.globalData.table[index].class_info;
       }
     },
     updated: function() {
