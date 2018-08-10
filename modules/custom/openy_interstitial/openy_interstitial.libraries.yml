@@ -1,4 +1,5 @@
 openy_interstitial:
+  version: 0.1
   js:
     js/openy-interstitial.js: {}
   dependencies:
