@@ -1,5 +1,5 @@
 name: 'OpenY News Posts listing'
-package: 'OpenY (Experimental)'
+package: 'OpenY'
 description: 'OpenY News Posts listing.'
 type: module
 core: 8.x
