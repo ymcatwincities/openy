@@ -27,6 +27,9 @@ class RepeatController extends ControllerBase {
     $week = date('W', $date);
     $weekday = date('N', $date);
 
+    $timestamp_start = $date;
+    $timestamp_end = $date + 24 * 60 * 60 * 60; // Next day.
+
     $sql = "SELECT DISTINCT
               n.nid,
               re.id,
@@ -57,9 +60,9 @@ class RepeatController extends ControllerBase {
                 AND
                 (re.weekday = :weekday OR re.weekday = '*')
                 AND
-                (re.start <= UNIX_TIMESTAMP(NOW()))
+                (re.start <= :timestamp_end)
                 AND
-                (re.end >= UNIX_TIMESTAMP(NOW()))
+                (re.end >= :timestamp_start)
               )";
 
     $values = [];
@@ -79,6 +82,8 @@ class RepeatController extends ControllerBase {
     $values[':day'] = $day;
     $values[':week'] = $week;
     $values[':weekday'] = $weekday;
+    $values[':timestamp_start'] = $timestamp_start;
+    $values[':timestamp_end'] = $timestamp_end;
 
     $connection = \Drupal::database();
     $query = $connection->query($sql, $values);
@@ -175,23 +180,6 @@ class RepeatController extends ControllerBase {
     }
 
     return $rows;
-  }
-
-
-  /**
-   * Return Categories from chain "Session" -> "Class" -> "Activity" -> "Program sub-category".
-   *
-   * @return array
-   */
-  public function getCategories() {
-    $sql = "SELECT title 
-            FROM {node_field_data} n
-            WHERE n.type = 'program_subcategory'
-            AND n.status = '1'";
-
-    $connection = \Drupal::database();
-    $query = $connection->query($sql);
-    return $query->fetchCol();
   }
 
 }

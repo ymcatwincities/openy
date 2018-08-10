@@ -184,13 +184,15 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $instructor = !$session->field_session_instructor->isEmpty() ? $session->field_session_instructor->value : '';
     $room = !$session->field_session_room->isEmpty() ? $session->field_session_room->value : '';
 
+    $activity = reset($activities);
+
     // All references are in the chain, return data.
     return [
       'title2' => $session->label(),
       'session' => $session->id(),
       'location' => $location_id,
       'facility' => !empty($facility) ? $facility->getTitle() : NULL,
-      'category' => !empty($program_subcategory) ? $program_subcategory->getTitle() : NULL,
+      'category' => !empty($activities) ? $activity->getTitle() : NULL,
       'class' => $class_id,
       'field_si_activity' => array_unique($activity_ids),
       'field_si_program_subcategory' => array_unique($program_subcategory_ids),
