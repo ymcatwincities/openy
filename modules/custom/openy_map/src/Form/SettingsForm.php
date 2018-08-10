@@ -99,11 +99,11 @@ class SettingsForm extends ConfigFormBase {
           $fileOptions[$path] = '<img src="' . $path . '" />';
         }
       }
-      $locationFinderPath = drupal_get_path('module', 'location_finder') . '/img';
-      $locationFinderFiles = array_values(array_diff(scandir($locationFinderPath), ['.', '..']));
-      foreach ($locationFinderFiles as $locFile) {
-        if (!in_array($locFile, $themeFiles)) {
-          $path = file_create_url($locationFinderPath . '/' . $locFile);
+      $openYMapPath = drupal_get_path('module', 'openy_map') . '/img';
+      $openYMapFiles = array_values(array_diff(scandir($openYMapPath), ['.', '..']));
+      foreach ($openYMapFiles as $imgFile) {
+        if (!in_array($imgFile, $themeFiles)) {
+          $path = file_create_url($openYMapPath . '/' . $imgFile);
           $fileOptions[$path] = '<img src="' . $path . '" />';
         }
       }

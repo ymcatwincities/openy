@@ -532,6 +532,8 @@ display:
         - 'config:core.entity_view_display.node.program_subcategory.teaser'
         - 'config:core.entity_view_display.node.session.default'
         - 'config:core.entity_view_display.node.session.teaser'
+        - 'config:core.entity_view_display.node.social_post.default'
+        - 'config:core.entity_view_display.node.social_post.teaser'
         - 'config:field.storage.node.field_event_description'
         - 'config:views.view.listing_event_posts'
         - node_list
@@ -607,6 +609,8 @@ display:
         - 'config:core.entity_view_display.node.program_subcategory.teaser'
         - 'config:core.entity_view_display.node.session.default'
         - 'config:core.entity_view_display.node.session.teaser'
+        - 'config:core.entity_view_display.node.social_post.default'
+        - 'config:core.entity_view_display.node.social_post.teaser'
         - 'config:field.storage.node.field_event_description'
         - 'config:views.view.listing_event_posts'
         - node_list
