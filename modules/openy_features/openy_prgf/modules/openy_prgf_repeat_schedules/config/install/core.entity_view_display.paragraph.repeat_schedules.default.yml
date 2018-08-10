@@ -10,7 +10,7 @@ dependencies:
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_ref
     - paragraphs.paragraphs_type.repeat_schedules
   module:
-    - link
+    - openy_repeat
     - plugin
 id: paragraph.repeat_schedules.default
 targetEntityType: paragraph
@@ -20,48 +20,37 @@ content:
   field_prgf_repeat_schedule_categ:
     weight: 2
     label: hidden
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_label
+    type: openy_json
     region: content
   field_prgf_repeat_schedule_excl:
     weight: 3
     label: hidden
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_label
+    type: openy_json
     region: content
   field_prgf_repeat_schedule_instr:
     weight: 4
     label: hidden
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
+    settings: {  }
     third_party_settings: {  }
-    type: boolean
+    type: openy_json
     region: content
   field_prgf_repeat_schedules_pdf:
     weight: 5
     label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+    settings: {  }
     third_party_settings: {  }
-    type: link
+    type: openy_json
     region: content
   field_prgf_repeat_schedules_pref:
-    type: entity_reference_label
+    type: openy_json
     weight: 1
     region: content
     label: hidden
-    settings:
-      link: true
+    settings: {  }
     third_party_settings: {  }
   field_prgf_repeat_schedules_ref:
     weight: 0

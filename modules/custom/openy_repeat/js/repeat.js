@@ -3,7 +3,10 @@
     return;
   }
 
-  $('.clear-all').attr('href', $('.field-prgf-repeat-schedules-pref a').attr('href'));
+  var locationPage = window.OpenY.field_prgf_repeat_schedules_pref[0] || '';
+  if (locationPage) {
+    $('.clear-all').attr('href', locationPage.url).show();
+  }
 
   var currentDate = moment().format('MMMM D, dddd'),
       datepicker = $('#datepicker input'),
@@ -64,10 +67,11 @@
   });
 
   // PDF link show/hidden.
-  if ($('.field-prgf-repeat-schedules-pdf a').length > 0) {
+  var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
+  if (pdfLink) {
     $('.btn-schedule-pdf')
       .removeClass('hidden')
-      .attr('href', $('.field-prgf-repeat-schedules-pdf a').attr('href'));
+      .attr('href', pdfLink.url);
   }
 
   function runAjaxRequest(self, date, loc, cat) {
@@ -123,9 +127,9 @@
     var chkArray = [];
 
     // If there is preselected category, we hide filters and column.
-    var preSelectedCategory = $('.field-prgf-repeat-schedule-categ a').html();
+    var preSelectedCategory = window.OpenY.field_prgf_repeat_schedule_categ[0] || '';
     if (preSelectedCategory) {
-      chkArray.push(preSelectedCategory);
+      chkArray.push(preSelectedCategory.title);
       $('.form-group-category').parent().hide();
       $('.category-column').remove();
     }
@@ -148,8 +152,8 @@
 
   /* Check the settings of whether to display Instructor column or not */
   function displayInstructorOrNot() {
-    var instructorDisplay = $('.field-prgf-repeat-schedule-instr').html();
-    if (instructorDisplay != 'Display') {
+    var instructorDisplay = window.OpenY.field_prgf_repeat_schedule_instr[0].value;
+    if (parseInt(instructorDisplay) != 1) {
       $('.instructor-column').remove();
     }
   }
