@@ -333,6 +333,13 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
       ->setLabel(t('Duration'))
       ->setDescription(t('Duration of a session.'));
 
+    $fields['register_url'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Register URL'))
+      ->setDescription(t('URL of a register link.'));
+
+    $fields['register_text'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Register text'))
+      ->setDescription(t('Text of a register link.'));
 
     return $fields;
   }
