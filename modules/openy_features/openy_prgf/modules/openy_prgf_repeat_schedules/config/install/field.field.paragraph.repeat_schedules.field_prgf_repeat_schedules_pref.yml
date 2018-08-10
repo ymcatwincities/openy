@@ -15,8 +15,8 @@ id: paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
 field_name: field_prgf_repeat_schedules_pref
 entity_type: paragraph
 bundle: repeat_schedules
-label: 'Schedules page reference'
-description: ''
+label: 'Clear All link'
+description: 'Where the user is redirected when hit "Clear All" filters link. Should be a reference to the page with Locations selection. The link won''t be displayed if this value is empty.'
 required: false
 translatable: false
 default_value: {  }

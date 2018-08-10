@@ -345,11 +345,7 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 
 }
 
-/* Hide values of fields so they can be accessed by javascript only. */
-.field-prgf-repeat-schedules-pdf,
-.field-prgf-repeat-schedules-pref,
-.field-prgf-repeat-schedule-categ,
-/*.field-prgf-repeat-schedule-excl,*/
-.field-prgf-repeat-schedule-instr {
+/* Hide Clear All link. It is shown with javascript if present. */
+.clear-all {
 	display: none;
 }
