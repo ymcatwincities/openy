@@ -1,5 +1,8 @@
 Welcome to Location Finder project.
 
+### Note
+Module is deprecated in favor of extended OpenY Map functionality. Location blocks was moved to OpenY Map.
+
 ### About
 This module implements location page functionality.
 
