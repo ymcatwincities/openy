@@ -93,7 +93,6 @@ class ImportForm extends FormBase {
     $fp = fopen($filenamePrograms, 'w');
 
     $response = $client->request('GET', 'openy/view/' . $gxpClientId . '/' . $gxpLocationId);
-
     $programsResponse = json_decode((string) $response->getBody(), TRUE);
 
     if (empty($programsResponse)) {
@@ -102,9 +101,20 @@ class ImportForm extends FormBase {
     }
 
     foreach ($programsResponse as $row) {
-
       $startDate = (new \DateTime($row['start_date']))->format('Y-m-d');
       $endDate = (new \DateTime($row['end_date']))->format('Y-m-d');
+
+      $exclusions = [];
+      if (!empty($exclusions_values = $row['exclusions'])) {
+        foreach ($exclusions_values as $exclusion) {
+          $exclusionStart = (new \DateTime($exclusion . '00:00:00'))->format('Y-m-d\TH:i:s');
+          $exclusionEnd = (new \DateTime($exclusion . '24:00:00'))->format('Y-m-d\TH:i:s');
+          $exclusions[] = [
+            'value' => $exclusionStart,
+            'end_value' => $exclusionEnd,
+          ];
+        }
+      }
 
       $newRow = [
         'class_id' => $row['class_id'],
@@ -117,7 +127,7 @@ class ImportForm extends FormBase {
         'title' => $row['title'],
         'studio' => $row['studio'],
         'instructor' => $row['instructor'],
-        'exclusions' => isset($row['exclusions']) ? $row['exclusions'] : '',
+        'exclusions' => json_encode($exclusions),
         'times' => json_encode([
           'times' => [
             'start' => $row['patterns']['start_time'],
@@ -147,9 +157,7 @@ class ImportForm extends FormBase {
     // For some reason imported sessions (offerings) got status 13 instead of 1.
     // So update them manually or dive into the code and find the bug.
     $query = \Drupal::database()->update('node_field_data');
-    $query->fields([
-      'status' => '1',
-    ]);
+    $query->fields(['status' => '1']);
     $query->condition('status', 13);
     $query->execute();
 

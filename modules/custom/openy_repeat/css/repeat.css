@@ -1,6 +1,7 @@
 /*
 * Schedules Page.
 */
+
 [v-cloak] {
   display: none;
 }
@@ -11,24 +12,26 @@
 }
 
 @media (min-width: 992px) {
-	.schedule-dashboard__wrapper {
-		padding-top: 5rem;
-		padding-bottom: 5rem;
-	}
+  .schedule-dashboard__wrapper {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
 }
 
+
 /* No results text. */
+
 .schedules-empty_results {
-	margin-top: 3rem;
-	display: flex;
-	align-items: start;
+  margin-top: 3rem;
+  display: flex;
+  align-items: start;
 }
 
 .schedules-empty_results i {
-	font-size: 1.75rem;
-	color: #979797;
-	margin-right: 1rem;
-	padding-top: .15rem;
+  font-size: 1.75rem;
+  color: #979797;
+  margin-right: 1rem;
+  padding-top: .15rem;
 }
 
 .column-hidden {
@@ -36,112 +39,124 @@
   flex: none;
 }
 
+
 /* Content > Subheader */
+
 .schedule-dashboard__arrow {
   cursor: pointer;
 }
 
 .schedule-dashboard__arrow:hover {
-	opacity: .7;
+  opacity: .7;
 }
 
+
 /* remove styles from sidebar */
+
 .schedule-dashboard__sidebar .navbar-toggle {
-	border: none;
-	margin: 0;
-	padding: 0;
-	float: left;
-	position: static !important;
-	background: none !important;
+  border: none;
+  margin: 0;
+  padding: 0;
+  float: left;
+  position: static !important;
+  background: none !important;
 }
 
 body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .navbar-default,
 .schedule-dashboard__sidebar .navbar-default {
-	border: none;
-	box-shadow: none;
-	border-radius: 0;
-	background: none;
-	top: 0 !important;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  background: none;
+  top: 0 !important;
 }
 
 .schedule-dashboard__sidebar .navbar-header {
-	float: none;
+  float: none;
 }
 
 .schedule-dashboard__sidebar .navbar-header .row {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .schedule-dashboard__sidebar .navbar-header a[data-toggle] {
-	color: #4f4f4f;
-	text-decoration: none;
+  color: #4f4f4f;
+  text-decoration: none;
 }
 
 .schedule-dashboard__sidebar .navbar-collapse {
-	border: none;
-	padding: 0;
-}
-.schedule-dashboard__sidebar .closed .minus,
-.schedule-dashboard__sidebar .active .plus {
-	display: none;
-}
-.schedule-dashboard__sidebar .active .minus,
-.schedule-dashboard__sidebar .closed .plus {
-	display: inline;
+  border: none;
+  padding: 0;
 }
 
+.schedule-dashboard__sidebar .closed .minus,
+.schedule-dashboard__sidebar .active .plus {
+  display: none;
+}
+
+.schedule-dashboard__sidebar .active .minus,
+.schedule-dashboard__sidebar .closed .plus {
+  display: inline;
+}
+
+
 /* filter controls */
+
 .navbar-controls {
-	width: 100%;
-	display: flex;
+  width: 100%;
+  display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .navbar-controls__title {
-	font-size: 16px;
+  font-size: 16px;
 }
 
+
 /* form styling */
+
 .schedule-dashboard__sidebar .navbar-form {
-	margin: 2.5rem 0 0;
-	border: none;
-	padding: 0;
-	box-shadow: none;
+  margin: 2.5rem 0 0;
+  border: none;
+  padding: 0;
+  box-shadow: none;
 }
 
 .schedule-dashboard__sidebar .form-group-wrapper {
-	padding: 2.5rem 0 1.5rem;
-	border-top: 2px solid #d4d4d4;
+  padding: 2.5rem 0 1.5rem;
+  border-top: 2px solid #d4d4d4;
 }
 
-.schedule-dashboard__sidebar .form-group-wrapper > label {
+.schedule-dashboard__sidebar .form-group-wrapper>label {
   display: flex;
   align-items: center;
   justify-content: space-between;
-	margin-bottom: 1rem;
-	font-size: 16px;
+  margin-bottom: 1rem;
+  font-size: 16px;
 }
 
-.schedule-dashboard__sidebar .form-group-wrapper > label:hover {
-	opacity: .9;
+.schedule-dashboard__sidebar .form-group-wrapper>label:hover {
+  opacity: .9;
 }
 
 .schedule-dashboard__sidebar .form-group-wrapper,
-.schedule-dashboard__sidebar .form-group-wrapper > label,
+.schedule-dashboard__sidebar .form-group-wrapper>label,
 .schedule-dashboard__sidebar .navbar-form .form-control,
 .schedule-dashboard__sidebar .date {
-	width: 100%;
+  width: 100%;
 }
 
 .schedule-dashboard__sidebar .collapse.in {
-	padding-bottom: 1rem;
+  padding-bottom: 1rem;
 }
 
+
 /* custom checkboxes */
+
 .schedule-dashboard__sidebar .checkbox-wrapper label {
-	font-weight: normal;
+  font-weight: normal;
 }
 
 .schedule-dashboard__sidebar [type="checkbox"]:checked,
@@ -150,16 +165,16 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
   left: -9999px;
 }
 
-.schedule-dashboard__sidebar [type="checkbox"]:checked + label,
-.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label {
+.schedule-dashboard__sidebar [type="checkbox"]:checked+label,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label {
   position: relative;
   padding-left: 25px;
   cursor: pointer;
   display: inline-block;
 }
 
-.schedule-dashboard__sidebar [type="checkbox"]:checked + label:before,
-.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:before {
+.schedule-dashboard__sidebar [type="checkbox"]:checked+label:before,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:before {
   content: '';
   position: absolute;
   left: 0;
@@ -170,8 +185,8 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
   background: white;
 }
 
-.schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
-.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
+.schedule-dashboard__sidebar [type="checkbox"]:checked+label:after,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:after {
   content: '';
   width: 10px;
   height: 10px;
@@ -183,164 +198,151 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
   transition: all 0.2s ease;
 }
 
-.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:after {
   opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
 
-[type="checkbox"]:checked + label:after {
+[type="checkbox"]:checked+label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
 
 @media (min-width: 768px) {
-	.schedule-dashboard__sidebar .checkbox-wrapper {
-		padding-left: 15px;
-	}
-
-	.schedule-dashboard__sidebar [type="checkbox"]:checked + label,
-	.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label {
-		padding-left: 10px;
-	}
-
-	.schedule-dashboard__sidebar [type="checkbox"]:checked + label:before,
-	.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:before {
-		left: -15px;
-	}
-
-	.schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
-	.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
-		left: -12px;
-	}
+  .schedule-dashboard__sidebar .checkbox-wrapper {
+    padding-left: 15px;
+  }
+  .schedule-dashboard__sidebar [type="checkbox"]:checked+label,
+  .schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label {
+    padding-left: 10px;
+  }
+  .schedule-dashboard__sidebar [type="checkbox"]:checked+label:before,
+  .schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:before {
+    left: -15px;
+  }
+  .schedule-dashboard__sidebar [type="checkbox"]:checked+label:after,
+  .schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:after {
+    left: -12px;
+  }
 }
 
+
 /* dashboard main date heading */
+
 .schedule-dashboard__content--header h2 {
-	font-size: 22px;
-	margin-top: 0;
-	margin-bottom: 16px;
-	color: #333;
-	text-align: left;
+  font-size: 22px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #333;
+  text-align: left;
 }
 
 @media (min-width: 768px) {
-	.schedule-dashboard__content--header h2 {
-		font-size: 36px;
-	}
+  .schedule-dashboard__content--header h2 {
+    font-size: 36px;
+  }
 }
 
 .btn.btn-schedule-pdf {
-	border: 1px solid #d4d4d4;
-	background-color: #f4f4f4;
-	border-radius: 0;
-	box-shadow: none;
-	color: #333;
+  border: 1px solid #d4d4d4;
+  background-color: #f4f4f4;
+  border-radius: 0;
+  box-shadow: none;
+  color: #333;
 }
 
 .btn.btn-schedule-pdf:hover {
-	border: 1px solid #ccc;
-	background-color: #eee;
-	color: #333;
+  border: 1px solid #ccc;
+  background-color: #eee;
+  color: #333;
 }
 
 .btn.btn-schedule-pdf .fa {
-	margin-left: 10px;
+  margin-left: 10px;
 }
+
 
 /*
 * Main flex table data
 *
 */
+
+
 /* heading row */
+
 .schedules-data__header {
-	display: none;
+  display: none;
   text-transform: uppercase;
   font-weight: normal;
   border-bottom: 1px solid #c2c2c2;
   color: black;
 }
 
+
 /* row styles */
+
 .schedules-data__row {
-	padding: 14px 0;
-	display: flex;
+  padding: 14px 0;
+  display: flex;
   flex-wrap: wrap;
-	color: #656565;
+  color: #656565;
 }
 
 .schedules-data__row strong {
-	color: #333;
+  color: #333;
 }
 
 .schedules-data__row p {
-	padding-top: 5px;
+  padding-top: 5px;
 }
 
 .schedules-data__row .time {
-	text-transform: lowercase;
+  text-transform: lowercase;
+  white-space: nowrap;
 }
+
 
 /* striping bg */
+
 .schedules-data__row:nth-child(even) {
-	background-color: #f0faf9;
+  background-color: #f0faf9;
 }
+
 
 /* mobile > headers & row */
-.schedules-data__header > div,
-.schedules-data__row > div {
-	padding: 8px 20px;
-	flex: 0 0 50%;
+
+.schedules-data__header>div,
+.schedules-data__row>div {
+  padding: 8px 20px;
+  flex: 0 0 50%;
 }
+
 
 /* mobile > right col */
-.schedules-data__row > div:nth-child(even) {
-	text-align: right;
+
+.schedules-data__row>div:nth-child(even) {
+  text-align: right;
 }
 
+
 /* desktop */
+
 @media (min-width: 992px) {
-	.schedules-data__header {
-		display: flex;
-	}
-
-	.schedules-data__row {
-		padding: 0;
-	}
-
-  .schedules-data__header > div,
-  .schedules-data__row > div {
+  .schedules-data__header {
+    display: flex;
+  }
+  .schedules-data__row {
+    padding: 0;
+  }
+  .schedules-data__header>div,
+  .schedules-data__row>div {
     flex-basis: 0;
     flex-grow: 1;
     padding: 24px;
   }
-
-  .schedules-data__row > div:nth-child(even) {
+  .schedules-data__row>div:nth-child(even) {
     text-align: left;
   }
-
-  /*
-  * Set flexbox widths based on number of columns.
-  */
-  /* Doesn't have category or instructor columns. */
-  .schedules-data__cols-5 .schedules-data__header > div,
-  .schedules-data__cols-5 .schedules-data__row > div {
-    max-width: calc(100% / 5);
-  }
-
-  /* Has category column. */
-  .schedules-data__cols-6 .schedules-data__header > div,
-  .schedules-data__cols-6 .schedules-data__row > div {
-    padding: 24px 15px;
-    max-width: calc(100% / 6);
-  }
-
-  /* Has category & instructor columns. */
-  .schedules-data__cols-7 .schedules-data__header > div,
-  .schedules-data__cols-7 .schedules-data__row > div {
-    padding: 24px 10px;
-    max-width: calc(100% / 7);
-  }
-
 }
