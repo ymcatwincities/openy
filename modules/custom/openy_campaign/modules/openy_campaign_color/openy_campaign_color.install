@@ -64,12 +64,6 @@ function openy_campaign_color_requirements($phase) {
 }
 
 /**
- * Implements hook_install().
- */
-function openy_campaign_color_install() {
-}
-
-/**
  * Implements hook_uninstall().
  */
 function openy_campaign_color_uninstall() {
