@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * @file
+ * Main module's file.
+ */
+
 /**
  * Deploy Program Event Framework related landing pages.
  */
@@ -64,7 +70,7 @@ function openy_demo_nlanding_pef_pages() {
       'parent_type' => 'node',
       'parent_field_name' => 'field_content',
       'status' => 1,
-      'field_prgf_repeat_lschedules_ref' => ['plugin_id' => 'repeat_schedules_loc_block'],
+      'field_prgf_block' => ['plugin_id' => 'repeat_schedules_loc_block'],
       'field_prgf_repeat_lschedules_prf' => ['target_id' => $schedules_node->id()],
     ]
   );
@@ -105,7 +111,7 @@ function openy_demo_nlanding_pef_pages() {
       'parent_type' => 'node',
       'parent_field_name' => 'field_content',
       'status' => 1,
-      'field_prgf_repeat_schedules_ref' => ['plugin_id' => 'repeat_schedules_block'],
+      'field_prgf_block' => ['plugin_id' => 'repeat_schedules_block'],
       'field_prgf_repeat_schedule_categ' => ['target_id' => $group_exercises_nid],
       'field_prgf_repeat_schedule_instr' => ['value' => TRUE],
     ]
@@ -123,9 +129,45 @@ function openy_demo_nlanding_pef_pages() {
     'expanded' => TRUE,
   ]);
   $menu_link->save();
+
+  $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
+    foreach ($tables as $table) {
+      // Select all paragraphs that have "broken" as plugin_id.
+      $query = \Drupal::database()->select($table, 'ptable');
+      $query->fields('ptable');
+      $query->condition('ptable.' . $plugin_id_field, 'broken');
+      $broken_paragraphs = $query->execute()->fetchAll();
+
+      // Update to correct plugin_id based on data array.
+      foreach ($broken_paragraphs as $paragraph) {
+        $data = unserialize($paragraph->{$config_field});
+
+        if ($paragraph->bundle == 'repeat_schedules') {
+          $data['id'] = 'repeat_schedules_block';
+        }
+        elseif ($paragraph->bundle == 'repeat_schedules_loc') {
+          $data['id'] = 'repeat_schedules_loc_block';
+        }
+
+        $query = \Drupal::database()->update($table);
+        $query->fields([
+          $plugin_id_field => $data['id'],
+          $config_field => serialize($data),
+        ]);
+        $query->condition('bundle', $paragraph->bundle);
+        $query->condition('entity_id', $paragraph->entity_id);
+        $query->condition('revision_id', $paragraph->revision_id);
+        $query->condition('langcode', $paragraph->langcode);
+        $query->execute();
+      }
+    }
+  };
+
+  $process_paragraphs([
+    'paragraph__field_prgf_block',
+    'paragraph_revision__field_prgf_block',
+  ],
+    'field_prgf_block_plugin_id',
+    'field_prgf_block_plugin_configuration'
+  );
 }
-
-/**
- * @file Main module's file.
- */
-

@@ -6,7 +6,6 @@ dependencies:
     - paragraphs.paragraphs_type.repeat_schedules
   module:
     - link
-third_party_settings: { }
 id: paragraph.repeat_schedules.field_prgf_repeat_schedules_pdf
 field_name: field_prgf_repeat_schedules_pdf
 entity_type: paragraph
