@@ -3,6 +3,7 @@ type: module
 description: Provide way to import classes and sessions.
 core: 8.x
 package: OpenY
+configure: openy_gxp.settings
 dependencies:
   - migrate_tools
   - migrate_source_csv
