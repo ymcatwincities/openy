@@ -43,6 +43,9 @@ process:
   field_session_time:
     plugin: openy_gxp_schedule
     source: times
+  field_session_exclusions:
+    plugin: openy_gxp_exclusions
+    source: exclusions
   field_session_location/target_id:
     plugin: get
     source: location
