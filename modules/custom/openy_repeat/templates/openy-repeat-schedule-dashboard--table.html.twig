@@ -49,12 +49,11 @@
           {# class #}
           <div v-cloak>
             <strong><a class="schedule-dashboard__modal--class-link" role="button" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
-            <p>${ item.room }</p>
           </div>
 
           {# time #}
           <div v-cloak>
-            <strong>${ item.time }</strong>
+            <strong class="time">${ item.time_start } - ${ item.time_end }</strong>
             <p>
               <span>${ item.duration_hours }{{ 'h'|t }}</span>
               <span v-if="item.duration_minutes > 0">${ item.duration_minutes }{{ 'min'|t }}</span>
