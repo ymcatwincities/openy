@@ -2,4 +2,5 @@ name: Openy Campaign - Reference with text Field
 type: module
 description: Provides Field Type - Entity Reference With Text.
 core: 8.x
-package: OpenY
+version: 1.0-rc1
+package: OpenY Experimental
