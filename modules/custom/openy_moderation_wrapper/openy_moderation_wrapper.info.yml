@@ -3,3 +3,4 @@ type: module
 description: Content moderation functionality wrapper
 core: 8.x
 package: OpenY
+version: 8.x-1.0

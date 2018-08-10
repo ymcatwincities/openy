@@ -1,4 +1,4 @@
-name: 'Openy Block Menu'
+name: 'OpenY Block Menu'
 description: 'Implements custom block type with a links.'
 type: module
 core: 8.x

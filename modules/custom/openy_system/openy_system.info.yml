@@ -2,7 +2,7 @@ name: OpenY System
 type: module
 description: 'Handles general OpenY configuration for administrators.'
 package: OpenY
-version: VERSION
+version: 8.x-1.0
 core: 8.x
 configure: openy_system.modules_list
 dependencies:
