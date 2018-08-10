@@ -41,7 +41,10 @@ class RepeatController extends ControllerBase {
               re.room,
               re.instructor as instructor,
               re.category,
-              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i%p'))) as time
+              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i'))) as time_start,
+              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%h:%i%p'))) as time_end,
+              DATE_FORMAT(FROM_UNIXTIME(re.start), '%Y-%m-%d %T') as time_start_calendar,
+              DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%Y-%m-%d %T') as time_end_calendar
             FROM {node} n
             RIGHT JOIN {repeat_event} re ON re.session = n.nid
             INNER JOIN node_field_data nd ON re.location = nd.nid
