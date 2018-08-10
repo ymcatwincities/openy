@@ -278,6 +278,10 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 	padding-top: 5px;
 }
 
+.schedules-data__row .time {
+	text-transform: lowercase;
+}
+
 /* striping bg */
 .schedules-data__row:nth-child(even) {
 	background-color: #f0faf9;
