@@ -211,7 +211,6 @@
     },
     watch: {
       'globalData.date': function(newValue, oldValue) {
-        // this.$root.mounted();
         runAjaxRequest(this, newValue, eventLocation, globalData.category);
         changeDateTitle(newValue);
         updateUrl(newValue, globalData.location, globalData.category);
