@@ -88,7 +88,7 @@
 
           {# register btn #}
           <div v-cloak>
-            <a v-bind:href="'/node/' + item.class" class="btn btn-primary">{{ 'Register'|t }}</a>
+            <a v-if="item.register_url" v-bind:href="item.register_url" class="btn btn-primary">${ item.register_text }</a>
           </div>
         </div>
 
@@ -149,7 +149,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View More'|t }}</a>
+          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View branch'|t }}</a>
         </div>
       </div>
     </div>
