@@ -5,7 +5,7 @@
 
   var locationPage = window.OpenY.field_prgf_repeat_schedules_pref[0] || '';
   if (locationPage) {
-    $('.clear-all').attr('href', locationPage.url).show();
+    $('.clear-all').attr('href', locationPage.url).removeClass('hidden');
   }
 
   var currentDate = moment().format('MMMM D, dddd'),
@@ -75,10 +75,18 @@
   }
 
   function runAjaxRequest(self, date, loc, cat) {
+    // If there are any exclusions available from settings.
+    var exclusionSettings = window.OpenY.field_prgf_repeat_schedule_excl || {};
+    var excl = [];
+    exclusionSettings.forEach(function(item){
+      excl.push(item.title);
+    });
+
     var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
     url += loc ? '/' + loc : '/0';
     url += cat ? '/' + cat : '/0';
     url += date ? '/' + date : '';
+    url += excl ? '&excl=' + excl.join(',') : '';
     $.getJSON(url, function(data) {
       self.globalData.table = data
     });
