@@ -5,3 +5,34 @@
 .page_home #page-footer {
   padding-top: 14px;
 }
+
+#page-footer #block-openy-lily-footersocialblock ul li a.icon-youtube:before {
+  content: "\f167";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+.icon-facebook:before {
+  content: "\f09a";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+.icon-twitter:before {
+  content: "\f099";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+.icon-flickr:before {
+  content: "\f16e";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+.icon-instagram:before {
+  content: "\f16d";
+  font: normal normal normal 26px/1.6 FontAwesome;
+}
+
+#page-footer #block-openy-lily-footermenucenter .nav li a {
+  font-family: $font-family-cachet;
+  font-size: 20px;
+  color: #a8a8a8;
+}
