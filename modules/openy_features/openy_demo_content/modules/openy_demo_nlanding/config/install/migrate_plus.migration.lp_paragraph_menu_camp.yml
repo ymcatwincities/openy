@@ -4,7 +4,6 @@ dependencies:
   enforced:
     module:
       - openy_demo_nlanding
-      - openy_prgf_camp_menu
 id: openy_demo_lp_paragraph_menu_camp
 migration_tags: {  }
 migration_group: openy_demo_nlanding
