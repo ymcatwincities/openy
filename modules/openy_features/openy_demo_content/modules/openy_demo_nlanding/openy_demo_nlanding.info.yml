@@ -8,6 +8,3 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - openy_node_landing
-  - openy_node_session
-  - openy_session_instance
-  - openy_prgf_schedule_search
