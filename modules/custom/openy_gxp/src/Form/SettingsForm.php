@@ -39,7 +39,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Client Id'),
       '#default_value' => $config->get('client_id'),
-      '#description' => t('Your GroupExPro client id. Like 36.'),
+      '#description' => t('Your GroupExPro client id. Like 3.'),
     ];
 
     $form['activity'] = [

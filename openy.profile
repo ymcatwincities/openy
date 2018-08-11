@@ -268,6 +268,10 @@ function openy_import_content(array &$install_state) {
     unset($install_state['openy']['content']['webform']);
   }
 
+  // Import GroupExPro classes. They are not handled as content migration.
+  $importGxp = !empty($install_state['openy']['content']['gxp']);
+  unset($install_state['openy']['content']['gxp']);
+
   // Build required migrations operations arrays.
   _openy_import_content_helper($module_operations, $migrate_operations, 'required');
 
@@ -301,6 +305,11 @@ function openy_import_content(array &$install_state) {
   // Add demo content Program Event Framework landing pages manually. Do it as
   // so last step so menu items are in place.
   $migrate_operations[] = ['openy_demo_nlanding_pef_pages', []];
+
+  if ($importGxp) {
+    openy_enable_module('openy_gxp');
+    $migrate_operations[] = ['openy_gxp_import_tc', []];
+  }
 
   // Combine operations module enable before of migrations.
   return ['operations' => array_merge($module_operations, $migrate_operations)];
