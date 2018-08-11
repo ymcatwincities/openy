@@ -130,6 +130,8 @@ function openy_demo_nlanding_pef_pages() {
   ]);
   $menu_link->save();
 
+  // For some reason repeat blocks do not have block's id in their
+  // configuration. This is why we manually ensure they are set up.
   $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
     foreach ($tables as $table) {
       // Select all paragraphs that have "broken" as plugin_id.
