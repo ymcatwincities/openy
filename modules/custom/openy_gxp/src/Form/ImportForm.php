@@ -77,7 +77,7 @@ class ImportForm extends FormBase {
   /**
    * Generate CSV files with programs.
    */
-  public static function generateProgramsCSV($activityId, $gxpClientId, $gxpLocationId, $locationId, &$context) {
+  public static function generateProgramsCSV($activityId, $gxpClientId, $gxpLocationId, $locationId) {
     // Hardcoded URL for now for single location.
     $client = new Client(['base_uri' => 'https://www.groupexpro.com/gxp/api/']);
 
@@ -105,7 +105,7 @@ class ImportForm extends FormBase {
       $endDate = (new \DateTime($row['end_date']))->format('Y-m-d');
 
       $exclusions = [];
-      if (!empty($exclusions_values = $row['exclusions'])) {
+      if (isset($row['exclusions']) && !empty($exclusions_values = $row['exclusions'])) {
         foreach ($exclusions_values as $exclusion) {
           $exclusionStart = (new \DateTime($exclusion . '00:00:00'))->format('Y-m-d\TH:i:s');
           $exclusionEnd = (new \DateTime($exclusion . '24:00:00'))->format('Y-m-d\TH:i:s');

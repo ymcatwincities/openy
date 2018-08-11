@@ -102,8 +102,6 @@ function openy_demo_nlanding_pef_pages() {
   );
   $group_schedules_node->save();
 
-
-
   $group_schedules_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
     [
       'type' => 'repeat_schedules',
