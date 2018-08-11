@@ -241,6 +241,11 @@ process:
   field_prgf_description/format:
     plugin: default_value
     default_value: full_html
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: simple_content
 destination:
   plugin: 'entity:paragraph'
   default_bundle: simple_content

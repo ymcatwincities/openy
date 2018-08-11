@@ -41,6 +41,11 @@ process:
   parent_field_name:
     plugin: default_value
     default_value: field_content
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: schedule_search_list
 destination:
   plugin: 'entity:paragraph'
   default_bundle: schedule_search_list

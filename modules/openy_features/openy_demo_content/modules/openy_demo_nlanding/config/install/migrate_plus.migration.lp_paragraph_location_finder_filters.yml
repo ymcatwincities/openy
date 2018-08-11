@@ -44,6 +44,11 @@ process:
   field_prgf_lf_tags_style:
     plugin: default_value
     default_value: 'checkboxes'
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: prgf_location_finder_filters
 destination:
   plugin: 'entity:paragraph'
   default_bundle: prgf_location_finder_filters
