@@ -133,6 +133,17 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_bsimple' => [],
       'openy_demo_bamenities' => [],
     ],
+    'standard' => [
+      'openy_demo_nalert' => [],
+      'openy_demo_nlanding' => [],
+      'openy_demo_menu_main' => [],
+      'openy_demo_menu_footer' => [],
+      'openy_demo_webform' => [],
+      'openy_demo_ahb' => [],
+      'openy_demo_tcolor' => [],
+      'openy_demo_tamenities' => [],
+      'openy_demo_bfooter' => [],
+    ],
     'required' => [],
     'optional' => [
       'openy_demo_ahb' => [
