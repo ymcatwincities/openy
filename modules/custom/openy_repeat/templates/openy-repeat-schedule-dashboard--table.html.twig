@@ -92,9 +92,14 @@
           </div>
         </div>
 
-        <div class="schedules-empty_results" v-if="propData.length < 1">
+        <div class="schedules-empty_results hidden">
           <i class="fa fa-exclamation-circle"></i>
           <span>{{ 'Sorry, no results were found with your search criteria. Please try another selection.'|t }}</span>
+        </div>
+
+        <div class="schedules-loading">
+          <i class="fa fa-spinner"></i>
+          <span>{{ 'Loading...'|t }}</span>
         </div>
 
       </div>

@@ -87,8 +87,14 @@
     url += cat ? '/' + cat : '/0';
     url += date ? '/' + date : '';
     url += excl ? '?excl=' + excl.join(',') : '';
+    $('.schedules-empty_results').addClass('hidden');
+    $('.schedules-loading').removeClass('hidden');
     $.getJSON(url, function(data) {
-      self.globalData.table = data
+      self.globalData.table = data;
+      if (data.length === 0) {
+        $('.schedules-empty_results').removeClass('hidden');
+      }
+      $('.schedules-loading').addClass('hidden');
     });
   }
 
