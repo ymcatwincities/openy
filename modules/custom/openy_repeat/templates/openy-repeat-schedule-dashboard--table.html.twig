@@ -11,9 +11,9 @@
 <div class="row schedule-dashboard__content--header">
   <div class="col-sm-12 col-md-8">
     <h2>
-      <span class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
-      <span class="date"></span>
-      <span class="schedule-dashboard__arrow right" role="button"><i class="fa fa-angle-right"></i></span>
+      <span v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
+      <span class="date">${ dateFormatted }</span>
+      <span v-on:click.stop="forwardOneDay" class="schedule-dashboard__arrow right" role="button"><i class="fa fa-angle-right"></i></span>
     </h2>
   </div>
 
@@ -23,7 +23,7 @@
 </div>
 
 {# schedules table data #}
-<div id="app">
+<div>
   <results inline-template :prop-data="globalData.table">
     <div class="vue-template">
 
@@ -75,8 +75,8 @@
           <div v-cloak>
             <span class="addtocalendar">
               <var class="atc_event">
-                <var class="atc_date_start">${ item.time_start_calendar }</var>
-                <var class="atc_date_end">${ item.time_end_calendar }</var>
+                <var class="atc_date_start">${ addToCalendarDate(item.time_start_calendar) }</var>
+                <var class="atc_date_end">${ addToCalendarDate(item.time_end_calendar) }</var>
                 <var class="atc_timezone">America/Chicago</var>
                 <var class="atc_title">${ item.name }</var>
                 <var class="atc_description"></var>

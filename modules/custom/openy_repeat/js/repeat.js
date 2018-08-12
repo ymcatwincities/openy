@@ -9,20 +9,9 @@
   }
 
   var currentDate = moment().format('MMMM D, dddd'),
-      datepicker = $('#datepicker input'),
+      // datepicker = $('#datepicker input'),
       eventLocation = '',
       eventCategory = '';
-
-
-  // Attach the datepicker.
-  datepicker.datepicker({
-    format: "MM d, DD",
-    multidate: false,
-    keyboardNavigation: false,
-    forceParse: false,
-    autoclose: true,
-    todayHighlight: true
-  });
 
   var globalData = {
     date: currentDate,
@@ -30,23 +19,6 @@
     category: '',
     table: []
   };
-
-  datepicker.datepicker().on('changeDate', function() {
-    if ($(this).val() != '') {
-      currentDate = moment($(this).datepicker('getDate')).format('MMMM D, dddd');
-      globalData.date = currentDate;
-    }
-  });
-
-  $('.schedule-dashboard__arrow.right').on('click', function() {
-    currentDate = moment(datepicker.datepicker('getDate')).add(1, 'day').format('MMMM D, dddd');
-    globalData.date = currentDate;
-  });
-
-  $('.schedule-dashboard__arrow.left').on('click', function() {
-    currentDate = moment(datepicker.datepicker('getDate')).add(-1, 'day').format('MMMM D, dddd');
-    globalData.date = currentDate;
-  });
 
   $('.form-group-location .box').on('click', function() {
     getValuesLocations();
@@ -96,31 +68,11 @@
       }
       $('.schedules-loading').addClass('hidden');
     });
+    console.log('ajax ' + date + ' ' + loc + ' ' + cat);
   }
 
   function updateUrl(date, loc, cat) {
     router.push({ query: { date: date, locations: loc, categories: cat }});
-  }
-
-  function updateAtc() {
-    var dp = moment(datepicker.datepicker('getDate')).format('YYYY-MM-D');
-    $('.atc_date_start').each(function() {
-      var d = $(this).text(),
-          d1 = d.substring(0, 10),
-          r = d.replace(d1, dp);
-      $(this).html(r);
-    });
-    $('.atc_date_end').each(function() {
-      var d = $(this).text(),
-          d1 = d.substring(0, 10),
-          r = d.replace(d1, dp);
-      $(this).html(r);
-    });
-  }
-
-  function changeDateTitle(text) {
-    $('span.date').text(text);
-    datepicker.datepicker('update', text);
   }
 
   function getValuesLocations() {
@@ -196,6 +148,7 @@
     router,
     data: {
       globalData: globalData,
+      date: '',
       locationPopup: {
         address: '',
         email: '',
@@ -210,39 +163,69 @@
     components: {
       //Results
     },
+    created() {
+      var dateGet = this.$route.query.date;
+      if (dateGet) {
+        this.date = dateGet;
+      }
+      else {
+        this.date = moment().format('D MMM YYYY');
+      }
+    },
     mounted() {
-      runAjaxRequest(this, currentDate, eventLocation, eventCategory);
-      changeDateTitle(currentDate);
-      updateAtc();
+      /* It doesn't work if try to add datepicker in created. */
+      var component = this;
+      $('#datepicker input').datepicker({
+        format: "MM d, DD",
+        multidate: false,
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        todayHighlight: true
+      }).on('changeDate', function() {
+        if ($(this).val() != '') {
+          component.date = moment($(this).datepicker('getDate')).format('D MMM YYYY');
+        }
+      });
     },
     watch: {
-      'globalData.date': function(newValue, oldValue) {
+      'date': function(newValue, oldValue) {
         runAjaxRequest(this, newValue, eventLocation, globalData.category);
-        changeDateTitle(newValue);
         updateUrl(newValue, globalData.location, globalData.category);
-        updateAtc();
       },
       'globalData.location': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, newValue, globalData.category);
         updateUrl(currentDate, newValue, globalData.category);
-        updateAtc();
       },
       'globalData.category': function(newValue, oldValue) {
         runAjaxRequest(this, currentDate, globalData.location, newValue);
         updateUrl(currentDate, globalData.location, newValue);
-        updateAtc();
+      }
+    },
+    computed: {
+      dateFormatted: function(){
+        return moment(this.date).format('MMMM D, dddd');
       }
     },
     methods: {
       populatePopupL: function(index) {
         this.locationPopup = this.globalData.table[index].location_info;
       },
-      populatePopupC: function(index) {console.log(this.globalData);
+      populatePopupC: function(index) {
         this.classPopup = this.globalData.table[index].class_info;
+      },
+      backOneDay: function() {
+        this.date = moment(this.date).add(-1, 'day').format('D MMM YYYY');
+      },
+      forwardOneDay: function() {
+        this.date = moment(this.date).add(1, 'day').format('D MMM YYYY');
+      },
+      addToCalendarDate: function(dateTime) {
+        var dateTimeArray = dateTime.split(' ');
+        return moment(this.date).format('YYYY-MM-D') + ' ' + dateTimeArray[1];
       }
     },
     updated: function() {
-      updateAtc();
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
