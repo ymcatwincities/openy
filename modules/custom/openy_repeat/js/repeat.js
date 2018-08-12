@@ -20,14 +20,6 @@
     table: []
   };
 
-  $('.form-group-location .box').on('click', function() {
-    getValuesLocations();
-  });
-
-  $('.form-group-category .box').on('click', function() {
-    getValuesCategories();
-  });
-
   // +/- Toggle.
   $('.schedule-dashboard__sidebar .navbar-header a[data-toggle], .form-group-wrapper label[data-toggle]').on('click', function() {
     if (!$('.' + $(this).attr('for')).hasClass('collapsing')) {
@@ -45,82 +37,6 @@
       .removeClass('hidden')
       .attr('href', pdfLink.url);
   }
-
-  function runAjaxRequest(self, date, loc, cat) {
-    // If there are any exclusions available from settings.
-    var exclusionSettings = window.OpenY.field_prgf_repeat_schedule_excl || {};
-    var excl = [];
-    exclusionSettings.forEach(function(item){
-      excl.push(item.title);
-    });
-
-    var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
-    url += loc ? '/' + loc : '/0';
-    url += cat ? '/' + cat : '/0';
-    url += date ? '/' + date : '';
-    url += excl ? '?excl=' + excl.join(',') : '';
-    $('.schedules-empty_results').addClass('hidden');
-    $('.schedules-loading').removeClass('hidden');
-    $.getJSON(url, function(data) {
-      self.globalData.table = data;
-      if (data.length === 0) {
-        $('.schedules-empty_results').removeClass('hidden');
-      }
-      $('.schedules-loading').addClass('hidden');
-    });
-    console.log('ajax ' + date + ' ' + loc + ' ' + cat);
-  }
-
-  function updateUrl(date, loc, cat) {
-    router.push({ query: { date: date, locations: loc, categories: cat }});
-  }
-
-  function getValuesLocations() {
-    var chkArray = [];
-
-    $(".form-group-location .box").each(function() {
-      if ($(this).is(':checked')) {
-        chkArray.push(this.value);
-      }
-    });
-
-    eventLocation = chkArray.join(',');
-    globalData.location = eventLocation;
-  }
-  getValuesLocations();
-
-  function getValuesCategories() {
-    var chkArray = [];
-
-    // If there is preselected category, we hide filters and column.
-    var preSelectedCategory = window.OpenY.field_prgf_repeat_schedule_categ[0] || '';
-    if (preSelectedCategory) {
-      chkArray.push(preSelectedCategory.title);
-      $('.form-group-category').parent().hide();
-      $('.category-column').remove();
-    }
-
-    // If any categories should be excluded.
-    var exclusionSettings = window.OpenY.field_prgf_repeat_schedule_excl || {};
-    var excl = [];
-    exclusionSettings.forEach(function(item){
-      excl.push(item.title);
-    });
-
-    $(".form-group-category .box").each(function() {
-      if (excl.indexOf($(this).attr('value')) !== -1) {
-        $(this).parent().hide();
-      }
-
-      if ($(this).is(':checked')) {
-        chkArray.push(this.value);
-      }
-    });
-
-    eventCategory = chkArray.join(',');
-    globalData.category = eventCategory;
-  }
-  getValuesCategories();
 
   /* Check the settings of whether to display Instructor column or not */
   function displayInstructorOrNot() {
@@ -149,6 +65,9 @@
     data: {
       globalData: globalData,
       date: '',
+      locations: [],
+      categories: [],
+      categoriesExcluded: [],
       locationPopup: {
         address: '',
         email: '',
@@ -164,6 +83,14 @@
       //Results
     },
     created() {
+      var component = this;
+
+      // If there are any exclusions available from settings.
+      var exclusionSettings = window.OpenY.field_prgf_repeat_schedule_excl || {};
+      exclusionSettings.forEach(function(item){
+        component.categoriesExcluded.push(item.title);
+      });
+
       var dateGet = this.$route.query.date;
       if (dateGet) {
         this.date = dateGet;
@@ -171,6 +98,12 @@
       else {
         this.date = moment().format('D MMM YYYY');
       }
+
+      var locationsGet = this.$route.query.locations;
+      if (locationsGet) {
+        this.locations = locationsGet.split(',');
+      }
+
     },
     mounted() {
       /* It doesn't work if try to add datepicker in created. */
@@ -190,16 +123,13 @@
     },
     watch: {
       'date': function(newValue, oldValue) {
-        runAjaxRequest(this, newValue, eventLocation, globalData.category);
-        updateUrl(newValue, globalData.location, globalData.category);
+        this.runAjaxRequest();
       },
-      'globalData.location': function(newValue, oldValue) {
-        runAjaxRequest(this, currentDate, newValue, globalData.category);
-        updateUrl(currentDate, newValue, globalData.category);
+      'locations': function(newValue, oldValue) {
+        this.runAjaxRequest();
       },
-      'globalData.category': function(newValue, oldValue) {
-        runAjaxRequest(this, currentDate, globalData.location, newValue);
-        updateUrl(currentDate, globalData.location, newValue);
+      'categories': function(newValue, oldValue) {
+        this.runAjaxRequest();
       }
     },
     computed: {
@@ -208,6 +138,36 @@
       }
     },
     methods: {
+      runAjaxRequest: function() {
+        var component = this;
+
+        var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
+        url += this.locations.length > 0 ? '/' + this.locations.join(',') : '/0';
+        url += this.categories.length > 0 ? '/' + this.categories.join(',') : '/0';
+        url += this.date ? '/' + this.date : '';
+        url += this.categoriesExcluded.length > 0 ? '?excl=' + this.categoriesExcluded.join(',') : '';
+
+        $('.schedules-empty_results').addClass('hidden');
+        $('.schedules-loading').removeClass('hidden');
+
+        $.getJSON(url, function(data) {
+          component.globalData.table = data;
+          if (data.length === 0) {
+            $('.schedules-empty_results').removeClass('hidden');
+          }
+          $('.schedules-loading').addClass('hidden');
+        });
+
+        router.push({ query: {
+          date: this.date,
+          locations: this.locations.join(','),
+          categories: this.categories.join(',')
+        }});
+
+        console.log(this.date);
+        console.log(this.locations);
+        console.log(this.categories);
+      },
       populatePopupL: function(index) {
         this.locationPopup = this.globalData.table[index].location_info;
       },
@@ -223,6 +183,9 @@
       addToCalendarDate: function(dateTime) {
         var dateTimeArray = dateTime.split(' ');
         return moment(this.date).format('YYYY-MM-D') + ' ' + dateTimeArray[1];
+      },
+      categoryExcluded: function(category) {
+        return this.categoriesExcluded.indexOf(category) !== -1;
       }
     },
     updated: function() {

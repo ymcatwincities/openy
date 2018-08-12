@@ -62,7 +62,7 @@
               {% set loc_checked = "checked" %}
             {% endif %}
             <div class="checkbox-wrapper">
-              <input type="checkbox" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
+              <input type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
               <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
             </div>
           {% endfor %}
@@ -83,7 +83,7 @@
                   {% set cat_checked = "checked" %}
                 {% endif %}
               <div class="checkbox-wrapper">
-                <input type="checkbox" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
+                <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
                 <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
               </div>
             {% endfor %}
