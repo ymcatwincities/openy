@@ -1216,6 +1216,24 @@ source:
       sidebar:
         -
           sidebar_id: academic_success
+    -
+      id: class_cardio
+      title: 'Cardio'
+      activity: activity_cardio
+      body: |
+        <p>Cardio class.</p>
+    -
+      id: class_strength
+      title: 'Strength'
+      activity: activity_strength
+      body: |
+        <p>Strength class.</p>
+    -
+      id: class_forever_well
+      title: 'Forever Well:55+'
+      activity: activity_forever_well
+      body: |
+        <p>Forever Well class 55+.</p>
   ids:
     id:
       type: string

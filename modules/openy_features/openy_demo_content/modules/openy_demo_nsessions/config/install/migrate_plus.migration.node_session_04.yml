@@ -662,6 +662,54 @@ source:
       age_max: 18
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+    -
+      id: session_cardio
+      title: 'Cardio'
+      class: class_cardio
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_strength
+      title: 'Strength'
+      class: class_strength
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_forever_well
+      title: 'Forever well'
+      class: class_forever_well
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
   ids:
     id:
       type: string
