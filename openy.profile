@@ -330,6 +330,7 @@ function openy_install_features(array &$install_state) {
   $module_operations = [];
 
   $preset = $install_state['openy']['preset'];
+  \Drupal::state()->set('openy_preset', $preset);
   $modules = ConfigureProfileForm::getModulesToInstallWithDependencies($preset);
 
   foreach ($modules as $module) {
@@ -351,11 +352,17 @@ function openy_install_features(array &$install_state) {
 function openy_import_content(array &$install_state) {
   $module_operations = [];
   $migrate_operations = [];
-  $migration_tag = 'openy_complete_installation';
+  $preset = \Drupal::state()->get('openy_preset') ?: 'complete';
+  $preset_tags = [
+    'standard' => 'openy_standard_installation',
+    'extended' => 'openy_extended_installation',
+    'complete' => 'openy_complete_installation',
+  ];
+  $migration_tag = $preset_tags[$preset];
 
   if ($install_state['openy']['content']) {
     // If option  has been selected build demo modules installation operations array.
-    _openy_import_content_helper($module_operations, $migrate_operations, 'complete');
+    _openy_import_content_helper($module_operations, $migrate_operations, $preset);
     // Build migrations import operation array.
     $migrate_operations[] = ['openy_import_migration', (array) $migration_tag ];
   }
