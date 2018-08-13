@@ -100,6 +100,13 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
   display: inline;
 }
 
+@media (max-width: 768px) {
+  .clear-all {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
 
 /* filter controls */
 
