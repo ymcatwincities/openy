@@ -347,25 +347,27 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
   .schedules-data__row>div:nth-child(even) {
     text-align: left;
   }
+
+  /*
+  * Set flexbox widths based on number of columns.
+  */
+  /* Doesn't have category or instructor columns. */
+  .schedules-data__cols-5 .schedules-data__header > div,
+  .schedules-data__cols-5 .schedules-data__row > div {
+    max-width: calc(100% / 5);
+  }
+  /* Has category column. */
+  .schedules-data__cols-6 .schedules-data__header > div,
+  .schedules-data__cols-6 .schedules-data__row > div {
+    padding: 24px 12px;
+    max-width: calc(100% / 6);
+  }
+  /* Has category & instructor columns. */
+  .schedules-data__cols-7 .schedules-data__header > div,
+  .schedules-data__cols-7 .schedules-data__row > div {
+    padding: 24px 10px;
+    max-width: calc(100% / 7);
+  }
+
 }
 
-/*
-* Set flexbox widths based on number of columns.
-*/
-/* Doesn't have category or instructor columns. */
-.schedules-data__cols-5 .schedules-data__header > div,
-.schedules-data__cols-5 .schedules-data__row > div {
-  max-width: calc(100% / 5);
-}
-/* Has category column. */
-.schedules-data__cols-6 .schedules-data__header > div,
-.schedules-data__cols-6 .schedules-data__row > div {
-  padding: 24px 12px;
-  max-width: calc(100% / 6);
-}
-/* Has category & instructor columns. */
-.schedules-data__cols-7 .schedules-data__header > div,
-.schedules-data__cols-7 .schedules-data__row > div {
-  padding: 24px 10px;
-  max-width: calc(100% / 7);
-}
