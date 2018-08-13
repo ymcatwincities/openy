@@ -15,15 +15,19 @@ source:
     -
       id: blog_branch_1
       parent_id: 1
+      title: Demo Latest blog posts (branch) 1
     -
       id: blog_branch_2
       parent_id: 2
+      title: Demo Latest blog posts (branch) 2
     -
       id: blog_branch_3
       parent_id: 3
+      title: Demo Latest blog posts (branch) 3
     -
       id: blog_branch_4
       parent_id: 4
+      title: Demo Latest blog posts (branch) 4
   ids:
     id:
       type: string
@@ -49,9 +53,7 @@ process:
   parent_field_name:
     plugin: default_value
     default_value: field_content
-  field_prgf_title:
-    plugin: default_value
-    default_value: 'Blog posts (branch)'
+  field_prgf_title: title
 destination:
   plugin: 'entity:paragraph'
   default_bundle: latest_blog_posts_branch
