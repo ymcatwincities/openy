@@ -11,7 +11,7 @@
 function openy_prgf_featured_highlights_update_dependencies() {
   $dependencies['openy_prgf_featured_highlights'] = [
     8001 => [
-      'openy' => 8059,
+      'openy' => 8060,
     ],
   ];
 
