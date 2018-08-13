@@ -701,7 +701,6 @@ body {
 
   .viewport {
     position: relative;
-    z-index: 41;
     width: 100%;
   }
   .viewport.collapsing-in, .viewport.collapsing-out {
@@ -1212,7 +1211,6 @@ body {
   border-radius: 0;
   border: none;
   text-shadow: none;
-  text-transform: uppercase;
 }
 .btn.blue a, .blue.button a, .modal-body .button a {
   text-decoration: none;
@@ -5863,11 +5861,8 @@ iframe#ga_iframe {
 
 .addtocalendar {
   position: relative;
-  right: 15px;
-  top: -15px;
   display: inline-block;
   background: transparent !important;
-  float: right;
 }
 
 .atcb-link {
@@ -5886,9 +5881,18 @@ iframe#ga_iframe {
   visibility: hidden;
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
   width: 170px;
   z-index: 900;
+  border: 1px solid #bababa;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #AAA;
+}
+@media (min-width: 62em) {
+  .atcb-list {
+    left: auto;
+    right: 0;
+  }
 }
 
 .atcb-list,
@@ -5908,6 +5912,10 @@ iframe#ga_iframe {
   text-decoration: none;
   outline: none;
   display: block;
+  padding: 3px 10px;
+}
+.atcb-item-link:hover {
+  background-color: #ebebeb;
 }
 
 .atcb-item.hover,
@@ -6106,6 +6114,16 @@ body .branch-popup + .ui-widget-overlay {
 
 .ygs-popups-class-branches-form hr {
   margin: 0;
+  width: 100%;
+}
+
+.modal-dialog {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.modal-content {
   width: 100%;
 }
 
@@ -7532,22 +7550,6 @@ article .node--view-mode-flexible-content h2 a span {
 .node--type-event.node--view-mode-full .field-event-location .location-directions > a, .node--type-event.node--view-mode-full .field-event-location .addtocalendar > a {
   font-family: "Cachet W01 Bold", Verdana, sans-serif;
 }
-.node--type-event.node--view-mode-full .field-event-location .addtocalendar {
-  float: none;
-  top: 0;
-  right: 0;
-}
-.node--type-event.node--view-mode-full .field-event-location .addtocalendar .atcb-list {
-  border: 1px solid #bababa;
-  border-radius: 2px;
-  box-shadow: 0 0 5px #AAA;
-}
-.node--type-event.node--view-mode-full .field-event-location .addtocalendar a.atcb-item-link {
-  padding: 3px 10px;
-}
-.node--type-event.node--view-mode-full .field-event-location .addtocalendar a.atcb-item-link:hover {
-  background-color: #ebebeb;
-}
 .node--type-event.node--view-mode-full .field-event-location .contact {
   background-color: #f9f9f9;
 }
@@ -7697,6 +7699,63 @@ article .node--view-mode-flexible-content h2 a span {
     margin: 0.5em auto;
   }
 }
+.schedule-locations__wrapper {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .schedule-locations__wrapper {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.locations-header {
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+  .locations-header {
+    margin-bottom: 2rem;
+  }
+}
+.locations-header h4 {
+  font-size: 16px;
+}
+@media (min-width: 768px) {
+  .locations-header h4 {
+    font-size: 18px;
+  }
+}
+
+.schedule-locations__item label {
+  border-color: #ccc;
+  color: #4f4f4f;
+}
+.schedule-locations__item label.selected {
+  color: white;
+  border-color: #01A490;
+  background: #01A490;
+}
+
+.schedule-dashboard__sidebar {
+  color: #333333;
+}
+
+.schedule-dashboard__sidebar .form-group-wrapper {
+  border-color: #ccc;
+}
+
+.schedule-dashboard__modal--body .table h4 {
+  color: #0060af;
+}
+
+.schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
+  background: #01A490;
+}
+
+/* row striping */
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
