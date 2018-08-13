@@ -90,7 +90,7 @@
 
       // If there is preselected category, we hide filters and column.
       var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
-      if (limitCategories) {
+      if (limitCategories && limitCategories.length > 0) {
         // If we limit to one category. i.e. GroupExercises from GroupExPro
         if (limitCategories.length == 1) {
           component.categories.push(limitCategories[0].title);
