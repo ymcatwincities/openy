@@ -10,6 +10,7 @@
  */
 function openy_map_install() {
   _openy_map_absolutize_config_icon_urls();
+  _openy_map_set_default_location();
 }
 
 /**
@@ -27,12 +28,27 @@ function _openy_map_absolutize_config_icon_urls() {
       $url = $absolute_path;
     }
   }
-  $config->set('type_icons', $icons_config);
   $search_icon = file_create_url('profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red.png');
   $search_icon_retina = file_create_url('profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red_x2.png');
-  $config->set('leaflet_search_icon', $search_icon);
-  $config->set('leaflet_search_icon_retina', $search_icon_retina);
-  $config->save(TRUE);
+  $config->set('type_icons', $icons_config)
+    ->set('leaflet.search_icon', $search_icon)
+    ->set('leaflet.search_icon_retina', $search_icon_retina)
+    ->save(TRUE);
+}
+
+/**
+ * Helper function.
+ *
+ * Sets Open Y Maps Leaflet location setting by copying the value of system
+ * default location.
+ */
+function _openy_map_set_default_location() {
+  $config_factory = \Drupal::configFactory();
+  $countries = \Drupal::service('country_manager')->getList();
+  $default_country = $config_factory->get('system.date')->get('country.default');
+  $config_factory->getEditable('openy_map.settings')
+    ->set('leaflet.location', $countries[$default_country])
+    ->save(TRUE);
 }
 
 /**
@@ -49,9 +65,11 @@ function openy_map_update_8001() {
  */
 function openy_map_update_8002() {
   $config_factory = \Drupal::configFactory();
-  $config = $config_factory->getEditable('openy_map.settings');
-  $config->set('map_engine', 'gmaps');
-  $config->set('leaflet_location', 'United States of America');
-  $config->save(TRUE);
+  $config_factory->getEditable('openy_map.settings')
+    ->set('map_engine', 'gmaps')
+    ->set('leaflet.base_layer', 'Wikimedia')
+    ->save(TRUE);
+
   _openy_map_absolutize_config_icon_urls();
+  _openy_map_set_default_location();
 }

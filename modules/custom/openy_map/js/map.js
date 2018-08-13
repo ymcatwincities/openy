@@ -771,8 +771,41 @@
     };
   };
 
+  Drupal.baseLayerWikimedia = {
+    tilePattern: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+    options: {
+      attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
+      minZoom: 1,
+      maxZoom: 19
+    }
+  };
+
+  Drupal.baseLayerEsriWorldStreetMap = {
+    tilePattern: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+    options: {
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+    }
+  };
+
+  Drupal.baseLayerEsriNatGeoWorldMap = {
+    tilePattern: 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}',
+    options: {
+      attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+      maxZoom: 16
+    }
+  };
+
+  Drupal.baseLayerOpenStreetMapMapnik = {
+    tilePattern: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    options: {
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19
+    }
+  };
+
   Drupal.openyMapLeaflet = function () {
     return {
+      baseLayer: Drupal.baseLayerWikimedia,
       // Array of location data.
       locations: null,
       // URL of marker image.
@@ -878,10 +911,7 @@
       // Initializes the base map.
       init_map: function () {
         this.map = L.map(this.map_el[0]).setView([51.505, -0.09], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(this.map);
+        L.tileLayer(this.baseLayer.tilePattern, this.baseLayer.options).addTo(this.map);
 
         this.init_map_center();
       },
@@ -1538,6 +1568,23 @@
           map.default_search_location = settings.openyMapSettings.default_location;
           map.search_icon = settings.openyMapSettings.search_icon;
           map.search_icon_retina = settings.openyMapSettings.search_icon_retina;
+          switch (settings.openyMapSettings.base_layer) {
+            case 'Esri.WorldStreetMap':
+              map.baseLayer = Drupal.baseLayerEsriWorldStreetMap;
+              break;
+
+            case 'Esri.NatGeoWorldMap':
+              map.baseLayer = Drupal.baseLayerEsriNatGeoWorldMap;
+              break;
+
+            case 'OpenStreetMap.Mapnik':
+              map.baseLayer = Drupal.baseLayerOpenStreetMapMapnik;
+              break;
+
+            case 'Wikimedia':
+              map.baseLayer = Drupal.baseLayerWikimedia;
+              break;
+          }
           break;
       }
 
