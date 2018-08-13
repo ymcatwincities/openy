@@ -6,10 +6,6 @@ dependencies:
     - paragraphs.paragraphs_type.3c
   module:
     - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_3c_center
 id: paragraph.3c.field_prgf_3c_center
 field_name: field_prgf_3c_center
 entity_type: paragraph

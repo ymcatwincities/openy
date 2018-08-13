@@ -5,12 +5,7 @@ dependencies:
     - field.storage.node.field_alert_visibility_state
     - node.type.alert
   module:
-    - datalayer
     - options
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_alert_visibility_state
 id: node.alert.field_alert_visibility_state
 field_name: field_alert_visibility_state
 entity_type: node
