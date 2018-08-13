@@ -4,12 +4,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_1c_column
     - paragraphs.paragraphs_type.1c
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_1c_column
 id: paragraph.1c.field_prgf_1c_column
 field_name: field_prgf_1c_column
 entity_type: paragraph

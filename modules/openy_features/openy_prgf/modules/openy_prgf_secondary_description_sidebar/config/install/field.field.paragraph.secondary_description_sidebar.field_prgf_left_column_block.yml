@@ -5,12 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_left_column_block
     - paragraphs.paragraphs_type.secondary_description_sidebar
   module:
-    - datalayer
     - openy_er
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_left_column_block
 id: paragraph.secondary_description_sidebar.field_prgf_left_column_block
 field_name: field_prgf_left_column_block
 entity_type: paragraph

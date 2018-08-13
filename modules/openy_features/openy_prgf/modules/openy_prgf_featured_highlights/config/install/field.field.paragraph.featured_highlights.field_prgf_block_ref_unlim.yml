@@ -5,12 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_block_ref_unlim
     - paragraphs.paragraphs_type.featured_highlights
   module:
-    - datalayer
     - openy_er
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_block_ref_unlim
 id: paragraph.featured_highlights.field_prgf_block_ref_unlim
 field_name: field_prgf_block_ref_unlim
 entity_type: paragraph
