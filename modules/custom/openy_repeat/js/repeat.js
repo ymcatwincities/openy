@@ -36,9 +36,21 @@
   displayInstructorOrNot();
 
   // Set number of column classes.
-  if ($('.schedules-data__header').length > 0) {
-    var colCount = $('.schedules-data__header > div').length;
-    $('.schedules-data').addClass('schedules-data__cols-' + colCount);
+  function calculateColumns() {
+    if ($('.schedules-data__header').length > 0) {
+      var colCount = $('.schedules-data__header > div').length;
+      if ($('.schedules-data__row .register-btn').length === 0) {
+        colCount = colCount - 1;
+        $('.schedules-data__header > div').last().hide();
+      }
+      else {
+        $('.schedules-data__header > div').last().show();
+      }
+      $('.schedules-data')
+        .removeClass('schedules-data__cols-5')
+        .removeClass('schedules-data__cols-6')
+        .addClass('schedules-data__cols-' + colCount);
+    }
   }
 
   var router = new VueRouter({
@@ -180,6 +192,7 @@
       }
     },
     updated: function() {
+      calculateColumns();
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
