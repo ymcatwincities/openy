@@ -320,5 +320,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_microsites_menu
     - openy_demo_lp_paragraph_all_amenities
     - openy_demo_lp_paragraph_loc_by_amnts
+    - openy_demo_lp_paragraph_repeat_schedules_locations
+    - openy_demo_lp_paragraph_repeat_schedules
   optional:
     - openy_demo_node_blog

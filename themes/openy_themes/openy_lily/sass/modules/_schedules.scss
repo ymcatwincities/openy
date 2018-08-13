@@ -789,19 +789,14 @@ iframe#ga_iframe {
  * http://addtocalendar.com
  */
 
-/* Base */
-
-.addtocalendar var {
+addtocalendar var {
   display: none;
 }
 
 .addtocalendar {
   position: relative;
-  right: 15px;
-  top: -15px;
   display: inline-block;
   background: transparent !important;
-  float: right;
 }
 
 .atcb-link {
@@ -820,9 +815,17 @@ iframe#ga_iframe {
   visibility: hidden;
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
   width: 170px;
   z-index: 900;
+  border: 1px solid #bababa;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #AAA;
+
+  @include breakpoint($screen-desktop) {
+    left: auto;
+    right: 0;
+  }
 }
 
 .atcb-list,
@@ -842,6 +845,11 @@ iframe#ga_iframe {
   text-decoration: none;
   outline: none;
   display: block;
+  padding: 3px 10px;
+
+  &:hover {
+    background-color: $lighter-grey;
+  }
 }
 
 .atcb-item.hover,
