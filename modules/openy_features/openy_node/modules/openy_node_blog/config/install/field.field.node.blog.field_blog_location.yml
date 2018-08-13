@@ -4,12 +4,6 @@ dependencies:
   config:
     - field.storage.node.field_blog_location
     - node.type.blog
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_blog_location
 id: node.blog.field_blog_location
 field_name: field_blog_location
 entity_type: node

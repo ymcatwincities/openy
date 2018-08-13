@@ -4,12 +4,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_2c_right
     - paragraphs.paragraphs_type.2c
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_2c_right
 id: paragraph.2c.field_prgf_2c_right
 field_name: field_prgf_2c_right
 entity_type: paragraph

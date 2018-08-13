@@ -5,12 +5,7 @@ dependencies:
     - field.storage.node.field_event_dates
     - node.type.event
   module:
-    - datalayer
     - datetime_range
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_event_dates
 id: node.event.field_event_dates
 field_name: field_event_dates
 entity_type: node
