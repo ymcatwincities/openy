@@ -1086,18 +1086,6 @@
 
         this.map.setView(this.search_center_point, 14);
         if (position.coords.accuracy <= 15840) { // 3 miles.
-
-          // TODO: replace.
-          // this.geocoder.geocode({
-          //     'latLng': this.search_center_point
-          //   },
-          //   $.proxy(
-          //     function (results, status) {
-          //       if (results[0]) this.search_field_el.val(results[0].formatted_address);
-          //       this.apply_search();
-          //     },
-          //     this));
-
           navigator.geolocation.clearWatch(this.geolocation_watcher);
         }
 
