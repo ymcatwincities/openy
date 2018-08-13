@@ -56,6 +56,7 @@
       locations: [],
       categories: [],
       categoriesExcluded: [],
+      categoriesLimit: [],
       locationPopup: {
         address: '',
         email: '',
@@ -76,11 +77,26 @@
       });
 
       // If there is preselected category, we hide filters and column.
-      var preSelectedCategory = window.OpenY.field_prgf_repeat_schedule_categ[0] || '';
-      if (preSelectedCategory) {
-        component.categories.push(preSelectedCategory.title);
-        $('.form-group-category').parent().hide();
-        $('.category-column').remove();
+      var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
+      if (limitCategories) {
+        // If we limit to one category. i.e. GroupExercises from GroupExPro
+        if (limitCategories.length == 1) {
+          component.categories.push(limitCategories[0].title);
+          $('.form-group-category').parent().hide();
+          $('.category-column').remove();
+        }
+        else {
+          limitCategories.forEach(function(element){
+            component.categoriesLimit.push(element.title);
+          });
+
+          $('.form-group-category .checkbox-wrapper input').each(function(){
+            var value = $(this).attr('value');
+            if (component.categoriesLimit.indexOf(value) === -1) {
+              $(this).parent().hide();
+            }
+          });
+        }
       }
 
       var dateGet = this.$route.query.date;
@@ -133,14 +149,24 @@
     },
     methods: {
       runAjaxRequest: function() {
-        console.log('ajax');
         var component = this;
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
-        url += this.locations.length > 0 ? '/' + this.locations.join(',') : '/0';
-        url += this.categories.length > 0 ? '/' + this.categories.join(',') : '/0';
-        url += this.date ? '/' + this.date : '';
-        url += this.categoriesExcluded.length > 0 ? '?excl=' + this.categoriesExcluded.join(',') : '';
+        url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
+        url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(',')) : '/0';
+        url += this.date ? '/' + encodeURIComponent(this.date) : '';
+
+        var query = [];
+        if (this.categoriesExcluded.length > 0) {
+          query.push('excl=' + encodeURIComponent(this.categoriesExcluded.join(',')));
+        }
+        if (this.categoriesLimit.length > 1) {
+          query.push('limit=' + encodeURIComponent(this.categoriesLimit.join(',')));
+        }
+
+        if (query.length > 0) {
+          url += '?' + query.join('&');
+        }
 
         $('.schedules-empty_results').addClass('hidden');
         $('.schedules-loading').removeClass('hidden');

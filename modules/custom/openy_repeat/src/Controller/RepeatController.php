@@ -84,6 +84,11 @@ class RepeatController extends ControllerBase {
       $sql .= "AND re.category NOT IN ( :exclusions[] )";
       $values[':exclusions[]'] = explode(',', $exclusions);
     }
+    $limit = $request->get('limit');
+    if (!empty($limit)) {
+      $sql .= "AND re.category IN ( :limit[] )";
+      $values[':limit[]'] = explode(',', $limit);
+    }
 
     $sql .= " ORDER BY re.start";
 
