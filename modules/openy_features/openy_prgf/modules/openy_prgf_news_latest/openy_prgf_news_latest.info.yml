@@ -1,5 +1,5 @@
 name: 'OpenY Latest News Posts'
-package: 'OpenY
+package: 'OpenY'
 description: 'OpenY Latest News Posts.'
 type: module
 core: 8.x
