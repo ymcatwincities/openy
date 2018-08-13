@@ -8,18 +8,6 @@
     $('.clear-all').attr('href', locationPage.url).removeClass('hidden');
   }
 
-  var currentDate = moment().format('MMMM D, dddd'),
-      // datepicker = $('#datepicker input'),
-      eventLocation = '',
-      eventCategory = '';
-
-  var globalData = {
-    date: currentDate,
-    location: '',
-    category: '',
-    table: []
-  };
-
   // +/- Toggle.
   $('.schedule-dashboard__sidebar .navbar-header a[data-toggle], .form-group-wrapper label[data-toggle]').on('click', function() {
     if (!$('.' + $(this).attr('for')).hasClass('collapsing')) {
@@ -63,7 +51,7 @@
     el: '#app',
     router,
     data: {
-      globalData: globalData,
+      table: {},
       date: '',
       locations: [],
       categories: [],
@@ -86,6 +74,14 @@
       exclusionSettings.forEach(function(item){
         component.categoriesExcluded.push(item.title);
       });
+
+      // If there is preselected category, we hide filters and column.
+      var preSelectedCategory = window.OpenY.field_prgf_repeat_schedule_categ[0] || '';
+      if (preSelectedCategory) {
+        component.categories.push(preSelectedCategory.title);
+        $('.form-group-category').parent().hide();
+        $('.category-column').remove();
+      }
 
       var dateGet = this.$route.query.date;
       if (dateGet) {
@@ -137,6 +133,7 @@
     },
     methods: {
       runAjaxRequest: function() {
+        console.log('ajax');
         var component = this;
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
@@ -149,7 +146,7 @@
         $('.schedules-loading').removeClass('hidden');
 
         $.getJSON(url, function(data) {
-          component.globalData.table = data;
+          component.table = data;
           if (data.length === 0) {
             $('.schedules-empty_results').removeClass('hidden');
           }
@@ -163,10 +160,10 @@
         }});
       },
       populatePopupL: function(index) {
-        this.locationPopup = this.globalData.table[index].location_info;
+        this.locationPopup = this.table[index].location_info;
       },
       populatePopupC: function(index) {
-        this.classPopup = this.globalData.table[index].class_info;
+        this.classPopup = this.table[index].class_info;
       },
       backOneDay: function() {
         this.date = moment(this.date).add(-1, 'day').format('D MMM YYYY');
