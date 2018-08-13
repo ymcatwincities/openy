@@ -79,14 +79,10 @@
         description: ''
       }
     },
-    components: {
-      //Results
-    },
     created() {
       var component = this;
-
       // If there are any exclusions available from settings.
-      var exclusionSettings = window.OpenY.field_prgf_repeat_schedule_excl || {};
+      var exclusionSettings = window.OpenY.field_prgf_repeat_schedule_excl || [];
       exclusionSettings.forEach(function(item){
         component.categoriesExcluded.push(item.title);
       });
@@ -104,6 +100,19 @@
         this.locations = locationsGet.split(',');
       }
 
+      var categoriesGet = this.$route.query.categories;
+      if (categoriesGet) {
+        this.categories = categoriesGet.split(',');
+      }
+
+      this.runAjaxRequest();
+
+      // We add watchers dynamically otherwise initially there will be
+      // up to three requests as we are changing values while initializing
+      // from GET query parameters.
+      component.$watch('date', function(){ component.runAjaxRequest(); });
+      component.$watch('locations', function(){ component.runAjaxRequest(); });
+      component.$watch('categories', function(){ component.runAjaxRequest(); });
     },
     mounted() {
       /* It doesn't work if try to add datepicker in created. */
@@ -120,17 +129,6 @@
           component.date = moment($(this).datepicker('getDate')).format('D MMM YYYY');
         }
       });
-    },
-    watch: {
-      'date': function(newValue, oldValue) {
-        this.runAjaxRequest();
-      },
-      'locations': function(newValue, oldValue) {
-        this.runAjaxRequest();
-      },
-      'categories': function(newValue, oldValue) {
-        this.runAjaxRequest();
-      }
     },
     computed: {
       dateFormatted: function(){
@@ -163,10 +161,6 @@
           locations: this.locations.join(','),
           categories: this.categories.join(',')
         }});
-
-        console.log(this.date);
-        console.log(this.locations);
-        console.log(this.categories);
       },
       populatePopupL: function(index) {
         this.locationPopup = this.globalData.table[index].location_info;
