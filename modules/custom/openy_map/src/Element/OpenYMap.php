@@ -46,10 +46,12 @@ class OpenYMap extends RenderElement {
       case 'leaflet':
       default:
         $element['#attached']['library'][] = 'openy_map/leaflet';
-        $element['#attached']['drupalSettings']['openyMapSettings']['engine'] = 'leaflet';
-        $element['#attached']['drupalSettings']['openyMapSettings']['default_location'] = urlencode(trim($settings->get('leaflet_location')));
-        $element['#attached']['drupalSettings']['openyMapSettings']['search_icon'] = $settings->get('leaflet_search_icon');
-        $element['#attached']['drupalSettings']['openyMapSettings']['search_icon_retina'] = $settings->get('leaflet_search_icon_retina');
+        $mapSettings = &$element['#attached']['drupalSettings']['openyMapSettings'];
+        $mapSettings['engine'] = 'leaflet';
+        $mapSettings['default_location'] = urlencode(trim($settings->get('leaflet.location')));
+        $mapSettings['search_icon'] = $settings->get('leaflet.search_icon');
+        $mapSettings['search_icon_retina'] = $settings->get('leaflet.search_icon_retina');
+        $mapSettings['base_layer'] = $settings->get('leaflet.base_layer');
       break;
     }
     $element['#attached']['drupalSettings']['openyMap'] = $element['#element_variables'];

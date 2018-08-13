@@ -99,19 +99,42 @@ class SettingsForm extends ConfigFormBase {
       ],
     ];
 
-    $form['leaflet_location'] = [
+    $form['leaflet'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Leaflet Configuration'),
+      '#tree' => TRUE,
+      '#states' => [
+        'visible' => [
+          ':input[name="map_engine"]' => ['value' => 'leaflet'],
+        ],
+      ],
+    ];
+
+    $form['leaflet']['location'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Default search location'),
       '#description' => $this->t('When search performs the results of the set location are prioritized, e.g. %ex1 or %ex2', [
         '%ex1' => '"Houston, TX"',
         '%ex2' => '"CA, United States of America"',
       ]),
-      '#default_value' => !empty($config->get('leaflet_location')) ? $config->get('leaflet_location') : 'United States of America',
-      '#states' => [
-        'visible' => [
-          ':input[name="map_engine"]' => ['value' => 'leaflet'],
-       ],
-      ],
+      '#default_value' => !empty($config->get('leaflet.location')) ? $config->get('leaflet.location') : 'United States of America',
+    ];
+
+    $options = ['Wikimedia', 'Esri.WorldStreetMap', 'Esri.NatGeoWorldMap', 'OpenStreetMap.Mapnik'];
+    $options = array_combine($options, $options);
+    array_walk($options, function (&$value) {
+      $link = Link::fromTextAndUrl('preview',
+        Url::fromUri('https://leaflet-extras.github.io/leaflet-providers/preview/', [
+          'attributes' => ['target' => '_blank'],
+          'fragment' => 'filter=' . $value,
+        ]))->toString();
+      $value .= ' <small>(' . $link . ')</small>';
+    });
+    $form['leaflet']['base_layer'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Base layer'),
+      '#options' => $options,
+      '#default_value' => !empty($config->get('leaflet.base_layer')) ? $config->get('leaflet.base_layer') : 'Wikimedia',
     ];
 
     $form['title'] = [
@@ -228,7 +251,8 @@ class SettingsForm extends ConfigFormBase {
     }
 
     $config->set('map_engine', $form_state->getValue('map_engine'));
-    $config->set('leaflet_location', $form_state->getValue('leaflet_location'));
+    $config->set('leaflet.location', $form_state->getValue('leaflet')['location']);
+    $config->set('leaflet.base_layer', $form_state->getValue('leaflet')['base_layer']);
     $config->set('default_tags', $default_tags);
     $config->set('active_types', $active_types);
     $config->set('type_labels', $type_labels);
