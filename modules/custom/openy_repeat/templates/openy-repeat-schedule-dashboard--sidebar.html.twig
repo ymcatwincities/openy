@@ -1,0 +1,106 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - inheirted from 'openy-repeat-schedule-dashboard.html.twig'.
+ */
+#}
+
+<div class="navbar navbar-default">
+  <div class="navbar-header">
+
+    <div class="navbar-controls hidden-xs">
+      <span class="navbar-controls__title"><strong>{{ 'Filters'|t }}</strong></span>
+      <a href="#" class="clear-all hidden">{{ 'Clear all'|t }}</a>
+    </div>
+
+    <div class="row hidden-sm hidden-md hidden-lg">
+
+      {# mobile toggler button #}
+      <div class="col-xs-5">
+        <a data-toggle="collapse" data-target=".navbar-collapse" role="button" class="closed">
+          <strong><i class="fa fa-plus" aria-hidden="true"></i> <span class="plus">{{ 'Show Filters'|t }}</span> <span class="minus">{{ 'Hide Filters'|t }}</span></strong>
+        </a>
+      </div>
+
+      <div class="col-xs-7">
+        <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="navbar-collapse collapse">
+    <form class="navbar-form" role="search">
+
+      {# date picker #}
+      <div class="form-group-wrapper">
+        <label for="form-group-date" data-toggle="collapse" data-target=".form-group-date" role="button">
+          {{ 'Date'|t }} <i class="fa fa-calendar date-picker" aria-hidden="true"></i>
+        </label>
+        <div class="form-group-date collapse" aria-expanded="false">
+          <div class="date" id="datepicker">
+            <input type="text" class="form-control" v-model="dateFormatted">
+            <span class="input-group-addon hidden">
+              <span class="fa fa-calendar" aria-hidden="true"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {# location select list #}
+      {% if locations is not empty %}
+      <div class="form-group-wrapper">
+        <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button" class="active">
+          {{ 'Location'|t }} <i class="fa fa-minus" aria-hidden="true"></i>
+        </label>
+        <div class="form-group-location collapse in" aria-expanded="true">
+          {% for location in locations %}
+            {% set loc_checked = "t" %}
+            {% if checked_locations is not empty and location in checked_locations %}
+              {% set loc_checked = "checked" %}
+            {% endif %}
+            <div class="checkbox-wrapper">
+              <input type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
+              <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {# categories select list #}
+      {% if categories is not empty %}
+        <div class="form-group-wrapper">
+          <label for="form-group-category" data-toggle="collapse" data-target=".form-group-category" role="button" class="active">
+            {{ 'Category'|t }} <i class="fa fa-minus" aria-hidden="true"></i>
+          </label>
+          <div class="form-group-category collapse in" aria-expanded="true">
+            {% for category in categories %}
+                {% set cat_checked = "t" %}
+                {% if checked_categories is not empty and category in checked_categories %}
+                  {% set cat_checked = "checked" %}
+                {% endif %}
+              <div class="checkbox-wrapper">
+                <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
+                <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {# @todo: class name (implement) #}
+      <div class="form-group-wrapper hide">
+        <label for="form-group-class">
+          {{ 'Class name'|t }}
+        </label>
+        <div class="form-group-class">
+          <input type="text" class="form-control" placeholder="All" disabled>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
