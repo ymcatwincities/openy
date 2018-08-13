@@ -1234,6 +1234,84 @@ source:
       activity: activity_forever_well
       body: |
         <p>Forever Well class 55+.</p>
+    -
+      id: class_climbing_1
+      title: 'Climbing - Adult Rock Climbing - September'
+      activity:
+      body: |
+        <p>Climbing - Adult Rock Climbing - September</p>
+    -
+      id: class_climbing_2
+      title: 'Climbing - Adult Rock Climbing - October'
+      activity: activity_climbing_adult
+      body: |
+        <p>Climbing - Adult Rock Climbing - September</p>
+    -
+      id: class_climbing_3
+      title: 'Climbing - Parent/Child Climbing - September'
+      activity: activity_climbing_adult
+      body: |
+        <p>Climbing - Parent/Child Climbing - September </p>
+    -
+      id: class_climbing_4
+      title: 'Climbing - Parent/Child Climbing - September'
+      activity: activity_climbing_adult
+      body: |
+        <p>Climbing - Parent/Child Climbing - September</p>
+    -
+      id: class_cooking_1
+      title: 'Youth Cooking - Future Chefs'
+      activity: activity_cooking_classes
+      body: |
+        <p>Youth Cooking - Future Chefs</p>
+    -
+      id: class_aoa_1
+      title: 'AOA National Senior Health and Fitness Day'
+      activity: activity_health_wellness_workshops
+      body: |
+        <p>AOA National Senior Health and Fitness Day</p>
+    -
+      id: class_aoa_2
+      title: 'AOA Brain Agility - Class Fee, Spring 2017'
+      activity: activity_health_wellness_workshops
+      body: |
+        <p>AOA Brain Agility - Class Fee, Spring 2017</p>
+    -
+      id: class_aoa_3
+      title: 'AOA Brain Agility - Materials Fee, Spring 2017'
+      activity: activity_health_wellness_workshops
+      body: |
+        <p>AOA Brain Agility - Materials Fee, Spring 2017</p>
+    -
+      id: class_hi_1
+      title: 'LIVESTRONG at the YMCA'
+      activity: activity_health_improvement
+      body: |
+        <p>LIVESTRONG at the YMCA</p>
+    -
+      id: class_hi_2
+      title: 'Nutrition Consultation - Initial'
+      activity: activity_health_improvement
+      body: |
+        <p>Nutrition Consultation - Initial</p>
+    -
+      id: class_hi_3
+      title: 'ACT! Actively Changing Together'
+      activity: activity_health_improvement
+      body: |
+        <p>ACT! Actively Changing Together</p>
+    -
+      id: class_weight_1
+      title: 'Lose to Win for Men - Weight Loss Program'
+      activity: activity_weight_loss
+      body: |
+        <p>Lose to Win for Men - Weight Loss Program</p>
+    -
+      id: class_weight_2
+      title: 'Lose to Win - Weight Loss Program'
+      activity: activity_weight_loss
+      body: |
+        <p>Lose to Win - Weight Loss Program</p>
   ids:
     id:
       type: string
