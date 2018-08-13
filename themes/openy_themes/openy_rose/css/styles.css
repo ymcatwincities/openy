@@ -7838,6 +7838,13 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--all-amenities .views-element-container legend {
   color: #636466;
 }
+.paragraph--type--all-amenities .views-element-container legend span {
+  border-bottom: 1px solid #ccc;
+  color: #636466;
+  text-transform: none;
+  display: block;
+  margin: 20px 0;
+}
 .paragraph--type--all-amenities .views-element-container form {
   margin-bottom: 1em;
 }
@@ -7914,7 +7921,7 @@ article .node--view-mode-flexible-content h2 a span {
 
 .list-branch-amenities-wrapper h5 {
   font-size: 15px;
-  font-family: Verdana, sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title {
