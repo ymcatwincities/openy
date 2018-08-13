@@ -1330,7 +1330,7 @@ process:
   field_class_activity:
     plugin: migration
     migration: openy_demo_node_activity
-    no_stub: true
+    no_stub: false
     source: activity
   field_class_description/value: body
   field_class_description/format:
