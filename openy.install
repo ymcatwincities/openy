@@ -948,6 +948,7 @@ function openy_update_8061() {
     'views.view.listing_news_posts',
   ]);
 }
+
 /**
  * Enable OpenY Entity Reference Tweaks.
  */
@@ -1005,5 +1006,20 @@ function openy_update_8066() {
     \Drupal::configFactory()->getEditable('block.block.' . $new_id)
       ->set('id', $new_id)
       ->save(TRUE);
+  }
+}      
+
+/**
+ * Enable PEF paragraphs.
+ */
+function openy_update_8067() {
+  $modules = [
+    'openy_prgf_repeat_schedules',
+    'openy_prgf_repeat_schedules_loc',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
   }
 }
