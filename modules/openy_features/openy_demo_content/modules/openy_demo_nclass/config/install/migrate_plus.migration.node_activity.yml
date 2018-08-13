@@ -139,6 +139,34 @@ source:
       id: activity_forever_well
       title: 'Forever Well'
       subcategory: group_exercise_classes
+    -
+      id: activity_climbing_adult
+      title: 'Climbing - Adult'
+      subcategory: family_activities
+    -
+      id: activity_cooking_classes
+      title: 'Cooking Classes'
+      subcategory: family_activities
+    -
+      id: activity_health_wellness_workshops
+      title: '- Health & Wellness Workshops'
+      subcategory: family_activities
+    -
+      id: activity_health_improvement
+      title: 'Health Improvement'
+      subcategory: family_activities
+    -
+      id: activity_small_group_and_specialty_training
+      title: 'Small Group and Specialty Training'
+      subcategory: family_activities
+    -
+      id: activity_small_group_training_youth
+      title: 'Small Group Training - Youth'
+      subcategory: family_activities
+    -
+      id: activity_weight_loss
+      title: 'Weight Loss'
+      subcategory: family_activities
   ids:
     id:
       type: string
