@@ -40,15 +40,17 @@ function _openy_map_absolutize_config_icon_urls() {
  * Helper function.
  *
  * Sets Open Y Maps Leaflet location setting by copying the value of system
- * default location.
+ * default location if it exists.
  */
 function _openy_map_set_default_location() {
   $config_factory = \Drupal::configFactory();
   $countries = \Drupal::service('country_manager')->getList();
   $default_country = $config_factory->get('system.date')->get('country.default');
-  $config_factory->getEditable('openy_map.settings')
-    ->set('leaflet.location', $countries[$default_country])
-    ->save(TRUE);
+  if (!empty($countries[$default_country])) {
+    $config_factory->getEditable('openy_map.settings')
+      ->set('leaflet.location', $countries[$default_country])
+      ->save(TRUE);
+  }
 }
 
 /**

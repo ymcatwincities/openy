@@ -117,7 +117,7 @@ class SettingsForm extends ConfigFormBase {
         '%ex1' => '"Houston, TX"',
         '%ex2' => '"CA, United States of America"',
       ]),
-      '#default_value' => !empty($config->get('leaflet.location')) ? $config->get('leaflet.location') : 'United States of America',
+      '#default_value' => _openy_map_get_default_location(),
     ];
 
     $options = ['Wikimedia', 'Esri.WorldStreetMap', 'Esri.NatGeoWorldMap', 'OpenStreetMap.Mapnik'];
