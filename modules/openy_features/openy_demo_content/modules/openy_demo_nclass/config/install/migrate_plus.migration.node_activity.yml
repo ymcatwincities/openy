@@ -127,6 +127,18 @@ source:
       id: academic_success
       title: 'Academic Success'
       subcategory: academic_success
+    -
+      id: activity_cardio
+      title: 'Cardio'
+      subcategory: group_exercise_classes
+    -
+      id: activity_strength
+      title: 'Strength'
+      subcategory: group_exercise_classes
+    -
+      id: activity_forever_well
+      title: 'Forever Well'
+      subcategory: group_exercise_classes
   ids:
     id:
       type: string
