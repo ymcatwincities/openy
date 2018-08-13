@@ -218,7 +218,8 @@ class AdvancedHelpBlock extends ContentEntityBase implements AdvancedHelpBlockIn
 
     $fields['field_ahb_pages'] = BaseFieldDefinition::create('string_long')
       ->setLabel(t('Pages'))
-      ->setDescription(t('Specify pages by using their paths. Leave it empty, if you don\'t want show it anywhere. Enter one path per line. The \'*\' character is a wildcard. An example path is /user/* for every user page. <front> is the front page. '))
+      ->setDescription(t('Specify pages by using their paths. <b>Pages must be separated by comma.</b> Leave it empty, if you don\'t want show it anywhere. 
+                        The \'*\' character is a wildcard. An example path is /user/* for every user page. @front is the front page.', ['@front' => '<front>']))
       ->setTranslatable(TRUE)
       ->setSettings(
         array(
