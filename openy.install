@@ -948,3 +948,18 @@ function openy_update_8061() {
     'views.view.listing_news_posts',
   ]);
 }
+
+/**
+ * Enable PEF paragraphs.
+ */
+function openy_update_8062() {
+  $modules = [
+    'openy_prgf_repeat_schedules',
+    'openy_prgf_repeat_schedules_loc',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
