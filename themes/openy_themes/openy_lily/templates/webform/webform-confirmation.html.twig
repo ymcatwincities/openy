@@ -26,7 +26,7 @@
 
     {% if back %}
     <div class="webform-confirmation__back btn banner-btn">
-      <a href="{{ back_url }}" rel="back" title="{{ back_label }}"{{ back_attributes }}>{{ back_label }}</a>
+      <a href="{{ back_url }}" rel="back" title="{{ back_label }}"{{ back_attributes.addClass('btn btn-lg btn-outline-light') }}>{{ back_label }}</a>
     </div>
     {% endif %}
   </div>

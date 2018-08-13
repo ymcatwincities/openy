@@ -146,7 +146,7 @@ class GroupexScheduleFetcher {
         continue;
       }
       $class_url_options = $this->parameters;
-      $class_url_options['class'] = $item->class_id;
+      // $class_url_options['class'] = $item->class_id; //doesn't exist in API, needs to be added through processData().
       $class_url_options['filter_date'] = $current_date;
       $class_url_options['filter_length'] = 'week';
       $class_url_options['groupex_class'] = 'groupex_table_class_individual';
@@ -195,7 +195,7 @@ class GroupexScheduleFetcher {
           'time' => $item->start,
           'duration' => sprintf('%d min', trim($item->length)),
           'instructor' => $item->instructor,
-          'class_id' => $item->class_id,
+//          'class_id' => $item->class_id, //doesn't exist in API, needs to be added through processData().
           'class_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $class_url_options]),
           'instructor_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $instructor_url_options]),
           'date_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $date_url_options]),

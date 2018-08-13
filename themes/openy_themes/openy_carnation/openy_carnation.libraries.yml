@@ -1,0 +1,18 @@
+global-styling:
+  version: 1.x
+  css:
+    base:
+      //use.fontawesome.com/releases/v5.1.0/css/all.css: { type: external, minified: true }
+      dist/css/style.css: {}
+  js:
+    //use.fontawesome.com/95fd5fcc01.js: { type: external, minified: true }
+    dist/js/popper.min.js: {}
+    dist/js/bootstrap.min.js: {}
+    dist/js/jquery.matchHeight.min.js: {}
+    src/js/openy_carnation.js: {}
+
+  dependencies:
+    - core/jquery.once
+    - core/jquery.ui.datepicker
+    - core/drupal
+    - openy_rose/blog_slider
