@@ -185,6 +185,8 @@ dependencies:
   - openy_prgf_amenities
   - openy_prgf_lto
   - openy_node_social_post
+  - openy_prgf_repeat_schedules
+  - openy_prgf_repeat_schedules_loc
   # OpenY custom modules
   - openy_addthis
   - openy_branch_selector
@@ -197,7 +199,8 @@ dependencies:
   - openy_migrate
   - openy_moderation_wrapper
   - openy_popups
-  - openy_session_instance
+  - openy_repeat_entity
+  - openy_repeat
   - openy_schedules
   - openy_socrates
   - openy_map
