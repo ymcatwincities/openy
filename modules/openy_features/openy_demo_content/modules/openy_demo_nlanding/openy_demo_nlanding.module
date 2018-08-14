@@ -105,32 +105,44 @@ function openy_demo_nlanding_pef_pages() {
   $schedules_pages_to_create = [
     [
       'title' => 'Group Exercise Classes',
-      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'activity_ids' => [
+        $get_activity_id_by_title('Group Exercise Classes')
+      ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Programs & Activities',
-      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'activity_ids' => [
+        $get_activity_id_by_title('Group Exercise Classes')
+      ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Swim',
-      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'activity_ids' => [
+        $get_activity_id_by_title('Group Exercise Classes')
+      ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Personal Training',
-      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'activity_ids' => [
+        $get_activity_id_by_title('Group Exercise Classes')
+      ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Camp',
-      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'activity_ids' => [
+        $get_activity_id_by_title('Group Exercise Classes')
+      ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Kids & Teens',
-      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'activity_ids' => [
+        $get_activity_id_by_title('Group Exercise Classes')
+      ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
   ];
@@ -160,9 +172,15 @@ function openy_demo_nlanding_pef_pages() {
       );
       $node->save();
 
-      $activity_id = $page['activity_id'];
-      if (!$activity_id) {
-        throw new \Exception(sprintf('Failed to get activity id for page "%s"', $page['title']));
+      // Get activity IDs.
+      $activity_ids = [];
+      foreach ($page['activity_ids'] as $activity_id) {
+        $activity_id = $page['activity_id'];
+        if (!$activity_id) {
+          throw new \Exception(sprintf('Failed to get activity id for page "%s"', $page['title']));
+        }
+
+        $activity_ids[] = ['target_id' => $activity_id];
       }
 
       // Create schedules paragraph.
@@ -174,7 +192,7 @@ function openy_demo_nlanding_pef_pages() {
           'parent_field_name' => 'field_content',
           'status' => 1,
           'field_prgf_block' => ['plugin_id' => 'repeat_schedules_block'],
-          'field_prgf_repeat_schedule_categ' => ['target_id' => $activity_id],
+          'field_prgf_repeat_schedule_categ' => $activity_ids,
           'field_prgf_repeat_schedule_instr' => ['value' => TRUE],
         ]
       );
