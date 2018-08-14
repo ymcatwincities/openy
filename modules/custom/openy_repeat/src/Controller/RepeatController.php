@@ -177,7 +177,7 @@ class RepeatController extends ControllerBase {
       $data[$node->nid->value] = [
         'nid' => $node->nid->value,
         'title' => $node->title->value,
-        'description' => strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600)),
+        'description' => html_entity_decode(strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600))),
       ];
     }
 
