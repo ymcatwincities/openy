@@ -149,7 +149,7 @@ source:
       subcategory: family_activities
     -
       id: activity_health_wellness_workshops
-      title: '- Health & Wellness Workshops'
+      title: 'Health & Wellness Workshops'
       subcategory: family_activities
     -
       id: activity_health_improvement
