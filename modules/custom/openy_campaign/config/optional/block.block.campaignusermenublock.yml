@@ -3,10 +3,8 @@ status: true
 dependencies:
   module:
     - ctools
-  theme:
-    - openy_rose
 id: campaignusermenublock
-theme: openy_rose
+theme: openy_campaign_theme
 region: header
 weight: -7
 provider: null
