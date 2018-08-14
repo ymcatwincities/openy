@@ -1312,6 +1312,156 @@ source:
       activity: activity_weight_loss
       body: |
         <p>Lose to Win - Weight Loss Program</p>
+    -
+      id: class_swim_lessons_child_with_adult_1
+      title: 'Swim Lessons - Parent/Child Stage A: Water Discov'
+      activity: activity_swim_lessons_child_with_adult
+      body: |
+        <p>Swim Lessons - Parent/Child Stage A: Water Discov</p>
+    -
+      id: class_swim_lessons_child_with_adult_2
+      title: 'Swim Lessons - Parent/Child Stage B: Water Explor'
+      activity: activity_swim_lessons_child_with_adult
+      body: |
+        <p>Swim Lessons - Parent/Child Stage B: Water Explor</p>
+    -
+      id: class_swim_lessons_preschool_1
+      title: 'Swim Lessons - Preschool Stage 1: Water Acclimat'
+      activity: activity_swim_lessons_preschool
+      body: |
+        <p>Swim Lessons - Preschool Stage 1: Water Acclimat</p>
+    -
+      id: class_swim_lessons_preschool_2
+      title: 'Swim Lessons - Preschool Stage 2: Water Movement'
+      activity: activity_swim_lessons_preschool
+      body: |
+        <p>Swim Lessons - Preschool Stage 2: Water Movement</p>
+    -
+      id: class_swim_lessons_preschool_3
+      title: 'Swim Lessons - Preschool Stage 3: Water Stamina'
+      activity: activity_swim_lessons_preschool
+      body: |
+        <p>Swim Lessons - Preschool Stage 3: Water Stamina</p>
+    -
+      id: class_swim_lessons_preschool_4
+      title: 'Swim Lessons - Preschool Stage 4: Stroke Intro'
+      activity: activity_swim_lessons_preschool
+      body: |
+        <p>Swim Lessons - Preschool Stage 4: Stroke Intro</p>
+    -
+      id: class_swim_lessons_private_1
+      title: 'Swim Lesson - Private'
+      activity: activity_swim_lessons_private
+      body: |
+        <p>Swim Lesson - Private</p>
+    -
+      id: class_swim_lessons_teen_1
+      title: 'Swim Lessons - Teen Advanced'
+      activity: activity_swim_lessons_teen
+      body: |
+        <p>Swim Lessons - Teen Advanced</p>
+    -
+      id: class_swim_lessons_teen_2
+      title: 'Swim Lessons - Teen'
+      activity: activity_swim_lessons_teen
+      body: |
+        <p>Swim Lessons - Teen</p>
+    -
+      id: class_swim_lessons_teen_3
+      title: 'Swim Lessons - Teen Beginning'
+      activity: activity_swim_lessons_teen
+      body: |
+        <p>Swim Lessons - Teen Beginning</p>
+    -
+      id: class_swim_lessons_teen_4
+      title: 'Swim Lessons - Teen Intermediate'
+      activity: activity_swim_lessons_teen
+      body: |
+        <p>Swim Lessons - Teen Intermediate</p>
+    -
+      id: class_swim_lessons_youth_1
+      title: 'Swim Lessons - Youth Stage 4: Stroke Intro'
+      activity: activity_swim_lessons_youth
+      body: |
+        <p>Swim Lessons - Youth Stage 4: Stroke Intro</p>
+    -
+      id: class_swim_lessons_youth_2
+      title: 'Swim Lessons - Youth Stage 5: Stroke Devel'
+      activity: activity_swim_lessons_youth
+      body: |
+        <p>Swim Lessons - Youth Stage 5: Stroke Devel</p>
+    -
+      id: class_swim_lessons_youth_3
+      title: 'Swim Lessons - Youth Stage 6: Stroke Mechanics'
+      activity: activity_swim_lessons_youth
+      body: |
+        <p>Swim Lessons - Youth Stage 6: Stroke Mechanics</p>
+    -
+      id: class_swim_lessons_youth_4
+      title: 'Swim Lessons - Youth Stage 3: Water Stamina'
+      activity: activity_swim_lessons_youth
+      body: |
+        <p>Swim Lessons - Youth Stage 3: Water Stamina</p>
+    -
+      id: class_swim_lessons_youth_5
+      title: 'Swim Lessons - Youth Stage 1: Water Acclimat'
+      activity: activity_swim_lessons_youth
+      body: |
+        <p>Swim Lessons - Youth Stage 1: Water Acclimat</p>
+    -
+      id: class_swim_lessons_youth_6
+      title: 'Swim Lessons - Youth Stage 2: Water Movement'
+      activity: activity_swim_lessons_youth
+      body: |
+        <p>Swim Lessons - Youth Stage 2: Water Movement</p>
+    -
+      id: class_swim_team_1
+      title: 'Swim Team - Interest List'
+      activity: activity_swim_team
+      body: |
+        <p>Swim Team - Interest List</p>
+    -
+      id: class_drop-in-swim_1
+      title: 'Recreational Swim 3ft'
+      activity: activity_drop_in_swim
+      body: |
+        <p>Recreational Swim 3ft</p>
+    -
+      id: class_drop-in-swim_2
+      title: 'Wade Swim 2ft'
+      activity: activity_drop_in_swim
+      body: |
+        <p>Wade Swim 2ft</p>
+    -
+      id: class_drop-in-swim_3
+      title: 'Rec Swim with Slide'
+      activity: activity_drop_in_swim
+      body: |
+        <p>Rec Swim with Slide</p>
+    -
+      id: class_drop-in-swim_4
+      title: 'Adult Swim 5.5 ft'
+      activity: activity_drop_in_swim
+      body: |
+        <p>Adult Swim 5.5 ft</p>
+    -
+      id: class_drop-in-swim_5
+      title: 'Family Swim'
+      activity: activity_drop_in_swim
+      body: |
+        <p>Family Swim</p>
+    -
+      id: class_drop-in-swim_6
+      title: 'Recreatonal Swim'
+      activity: activity_drop_in_swim
+      body: |
+        <p>Recreatonal Swim</p>
+    -
+      id: class_drop-in-swim_7
+      title: 'Lap Swim'
+      activity: activity_drop_in_swim
+      body: |
+        <p>Lap Swim</p>
   ids:
     id:
       type: string
