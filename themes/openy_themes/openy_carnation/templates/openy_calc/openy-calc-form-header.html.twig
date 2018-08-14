@@ -1,0 +1,13 @@
+<h2 class="display-6 mb-3">{{ 'Find the Membership That’s Best For You'|t }}</h2>
+<p class="description purple mb-2">{{ 'Your membership gives you access to all YMCA branch locations!'|t }}</p>
+
+<ul class="nav nav-pills nav-fill mb-5">
+  {% for step in steps %}
+  <li class="nav-item{% if step.active %} active{% endif %}">
+    <div class="step-{{ step.number }}" data-toggle="tab" data-step="{{ step.number }}">
+      <span class="nav-pills__text">{{ step.number }}. {{ step.title }}</span>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+

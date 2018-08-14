@@ -19,6 +19,7 @@ source:
         -
           time: sports_classes_and_workshops_youth_fitness_challenge_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -33,7 +34,8 @@ source:
       times:
         -
           time: sports_classes_and_workshops_youth_homezone_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -49,6 +51,7 @@ source:
         -
           time: health_n_wellness_wrkshops_aoa_senior_health_and_fitness_day_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -63,7 +66,8 @@ source:
       times:
         -
           time: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -78,6 +82,7 @@ source:
         -
           time: health_n_wellness_wrkshps_aoa_brain_agility_mat_fee_spr_2017_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -91,7 +96,8 @@ source:
       times:
         -
           time: group_exercise_classes_hiit_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -106,6 +112,7 @@ source:
         -
           time: group_exercise_classes_hiit_metabolic_conditioning_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -119,7 +126,8 @@ source:
       times:
         -
           time: group_exercise_classes_moving_for_balance_spr_2017_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -134,6 +142,7 @@ source:
         -
           time: smll_grp_training_youth_small_group_training_tween_girl_power_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -148,7 +157,8 @@ source:
       times:
         -
           time: samll_group_training_youth_small_group_training_tween_titans_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: false
       ticket_required: false
       in_membership: false
@@ -162,6 +172,7 @@ source:
         -
           time: pilates_reformer_10_private_1hr_sessions_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -176,7 +187,8 @@ source:
       times:
         -
           time: private_yoga_10_1hour_sessions_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -192,6 +204,7 @@ source:
         -
           time: pilates_reformer_duet_10_1hour_sessions_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -206,7 +219,8 @@ source:
       times:
         -
           time: partner_personal_training_1_session_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -222,6 +236,7 @@ source:
         -
           time: health_improvement_livestrong_at_the_y_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -236,7 +251,8 @@ source:
       times:
         -
           time: health_improvement_nutrition_consultation_initial_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -251,6 +267,7 @@ source:
         -
           time: health_improvement_activly_changing_together_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -264,7 +281,8 @@ source:
       times:
         -
           time: climbing_adult_rock_climbing_sept_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -279,6 +297,7 @@ source:
         -
           time: climbing_adult_rock_climbing_oct_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -292,7 +311,8 @@ source:
       times:
         -
           time: climbing_adult_parent_child_sept_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -307,6 +327,7 @@ source:
         -
           time: climbing_adult_parent_child_oct_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -320,7 +341,8 @@ source:
       times:
         -
           time: small_group_and_specialty_training_adaptive_yoga_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -335,6 +357,7 @@ source:
         -
           time: smll_grp_and_specialty_training_pilates_reformer_level_1_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -348,7 +371,8 @@ source:
       times:
         -
           time: small_group_and_specialty_training_pilates_reformer_intro_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -363,6 +387,7 @@ source:
         -
           time: small_group_and_specialty_training_pilates_reformer_level_1_2_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: true
       in_membership: true
@@ -376,7 +401,8 @@ source:
       times:
         -
           time: weight_loss_lose_to_win_men_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: true
       in_membership: true
@@ -391,6 +417,7 @@ source:
         -
           time: weight_loss_lose_to_win_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: true
       in_membership: true
@@ -404,7 +431,8 @@ source:
       times:
         -
           time: b4_after_school_child_care_2016_17_woodmoor_non_school_days_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -420,6 +448,7 @@ source:
         -
           time: before_after_school_child_care_2016_17_woodmoor_after_plus_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -434,7 +463,8 @@ source:
       times:
         -
           time: before_after_school_child_care_2016_17_woodmoor_after_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -450,6 +480,7 @@ source:
         -
           time: before_after_school_child_care_2016_17_sunrise_before_after_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -464,7 +495,8 @@ source:
       times:
         -
           time: preschool_child_care_2016_17_northshore_pre_k_4_5yrs_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -480,6 +512,7 @@ source:
         -
           time: preschool_child_care_2016_17_northshore_preschool_30m_4yr_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -494,7 +527,8 @@ source:
       times:
         -
           time: discovery_day_camp_drop_off_carol_edwards_ctr_2017_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -510,6 +544,7 @@ source:
         -
           time: discovery_day_camp_drop_off_kenmore_elementary_2017_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -524,7 +559,8 @@ source:
       times:
         -
           time: discovery_day_camp_drop_off_Northshore_ymca_2017_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -540,6 +576,7 @@ source:
         -
           time: bold_one_wk_expeditions_cascade_challenge_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -554,7 +591,8 @@ source:
       times:
         -
           time: bld_1_wk_expeditions_backpacking_adventure_discovery_olympics_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: false
       ticket_required: false
       in_membership: false
@@ -568,6 +606,7 @@ source:
         -
           time: bold_one_wk_expeditions_river_and_rocks_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -582,7 +621,8 @@ source:
       times:
         -
           time: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -598,6 +638,7 @@ source:
         -
           time: earth_service_corps_about_yesc_2
       location: 2
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -612,7 +653,8 @@ source:
       times:
         -
           time: academic_success_2
-      location: 2
+      location: 1
+      facility: 92
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -664,6 +706,7 @@ process:
   field_session_max_age: age_max
   field_session_reg_link/uri: reg_uri
   field_session_reg_link/title: reg_title
+  field_session_plocation: facility
 destination:
   plugin: 'entity:node'
   default_bundle: session
