@@ -36,9 +36,21 @@
   displayInstructorOrNot();
 
   // Set number of column classes.
-  if ($('.schedules-data__header').length > 0) {
-    var colCount = $('.schedules-data__header > div').length;
-    $('.schedules-data').addClass('schedules-data__cols-' + colCount);
+  function calculateColumns() {
+    if ($('.schedules-data__header').length > 0) {
+      var colCount = $('.schedules-data__header > div').length;
+      if ($('.schedules-data__row .register-btn').length === 0) {
+        colCount = colCount - 1;
+        $('.schedules-data__header > div').last().hide();
+      }
+      else {
+        $('.schedules-data__header > div').last().show();
+      }
+      $('.schedules-data')
+        .removeClass('schedules-data__cols-5')
+        .removeClass('schedules-data__cols-6')
+        .addClass('schedules-data__cols-' + colCount);
+    }
   }
 
   var router = new VueRouter({
@@ -56,6 +68,7 @@
       locations: [],
       categories: [],
       categoriesExcluded: [],
+      categoriesLimit: [],
       locationPopup: {
         address: '',
         email: '',
@@ -76,11 +89,26 @@
       });
 
       // If there is preselected category, we hide filters and column.
-      var preSelectedCategory = window.OpenY.field_prgf_repeat_schedule_categ[0] || '';
-      if (preSelectedCategory) {
-        component.categories.push(preSelectedCategory.title);
-        $('.form-group-category').parent().hide();
-        $('.category-column').remove();
+      var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
+      if (limitCategories && limitCategories.length > 0) {
+        // If we limit to one category. i.e. GroupExercises from GroupExPro
+        if (limitCategories.length == 1) {
+          component.categories.push(limitCategories[0].title);
+          $('.form-group-category').parent().hide();
+          $('.category-column').remove();
+        }
+        else {
+          limitCategories.forEach(function(element){
+            component.categoriesLimit.push(element.title);
+          });
+
+          $('.form-group-category .checkbox-wrapper input').each(function(){
+            var value = $(this).attr('value');
+            if (component.categoriesLimit.indexOf(value) === -1) {
+              $(this).parent().hide();
+            }
+          });
+        }
       }
 
       var dateGet = this.$route.query.date;
@@ -133,14 +161,24 @@
     },
     methods: {
       runAjaxRequest: function() {
-        console.log('ajax');
         var component = this;
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
-        url += this.locations.length > 0 ? '/' + this.locations.join(',') : '/0';
-        url += this.categories.length > 0 ? '/' + this.categories.join(',') : '/0';
-        url += this.date ? '/' + this.date : '';
-        url += this.categoriesExcluded.length > 0 ? '?excl=' + this.categoriesExcluded.join(',') : '';
+        url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
+        url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(',')) : '/0';
+        url += this.date ? '/' + encodeURIComponent(this.date) : '';
+
+        var query = [];
+        if (this.categoriesExcluded.length > 0) {
+          query.push('excl=' + encodeURIComponent(this.categoriesExcluded.join(',')));
+        }
+        if (this.categoriesLimit.length > 1) {
+          query.push('limit=' + encodeURIComponent(this.categoriesLimit.join(',')));
+        }
+
+        if (query.length > 0) {
+          url += '?' + query.join('&');
+        }
 
         $('.schedules-empty_results').addClass('hidden');
         $('.schedules-loading').removeClass('hidden');
@@ -180,6 +218,7 @@
       }
     },
     updated: function() {
+      calculateColumns();
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
