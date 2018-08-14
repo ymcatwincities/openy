@@ -179,6 +179,34 @@ source:
       id: activity_small_group_training_youth
       title: 'Small Group Training - Youth'
       subcategory: personal_training
+    -
+      id: activity_swim_lessons_child_with_adult
+      title: 'Swim Lessons - Child with Adult'
+      subcategory: swim_lessons
+    -
+      id: activity_swim_lessons_preschool
+      title: 'Swim Lessons - Preschool'
+      subcategory: swim_lessons
+    -
+      id: activity_swim_lessons_private
+      title: 'Swim Lessons - Private'
+      subcategory: swim_lessons
+    -
+      id: activity_swim_lessons_teen
+      title: 'Swim Lessons - Teen'
+      subcategory: swim_lessons
+    -
+      id: activity_swim_lessons_youth
+      title: 'Swim Lessons - Youth'
+      subcategory: swim_lessons
+    -
+      id: activity_swim_team
+      title: 'Swim Team'
+      subcategory: swim_lessons
+    -
+      id: activity_drop_in_swim
+      title: 'Drop-In Swim'
+      subcategory: swim_lessons
   ids:
     id:
       type: string
