@@ -21,19 +21,10 @@ class CampaignScorecardService {
   protected $connection;
 
   /**
-   * The service container.
-   *
-   * @var \Symfony\Component\DependencyInjection\ContainerInterface
-   */
-  protected $container;
-
-  /**
    * @param \Drupal\Core\Database\Connection $connection
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    */
-  public function __construct(Connection $connection, ContainerInterface $container) {
+  public function __construct(Connection $connection) {
     $this->connection = $connection;
-    $this->container = $container;
   }
 
   /**
@@ -46,8 +37,7 @@ class CampaignScorecardService {
    */
   public static function create(Connection $connection, ContainerInterface $container) {
     return new static(
-      $container->get('database'),
-      $container->get('connection')
+      $container->get('database')
     );
   }
 

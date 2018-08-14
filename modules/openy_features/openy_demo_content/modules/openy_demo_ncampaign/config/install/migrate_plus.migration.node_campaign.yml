@@ -225,9 +225,6 @@ process:
       default_value:
         - field_prgf_campaign_activity
   # Activities handler.
-  #field_campaign_branch_target:
-  #    plugin: default_value
-  #    default_value: '3500'
   field_campaign_palette:
       plugin: default_value
       default_value:
@@ -254,66 +251,6 @@ process:
       plugin: default_value
       default_value:
         - 'America/Chicago'
-
-  #field_error_default
-  #field_error_default:
-  #      plugin: default_value
-  #      default_value:
-  #        - 'America/Chicago'
-
-  #field_enable_activities_counter
-  #field_enable_activities_counter:
-  #  plugin: default_value
-  #  default_value:
-  #    - 'America/Chicago'
-
-  #field_flip_cards_cover_image
-
-  #field_campaign_game_description
-  #field_campaign_game_description:
-  #  plugin: default_value
-  #  default_value:
-  #    - 'America/Chicago'
-
-  #field_campaign_prizes
-  #field_campaign_prizes:
-  #    plugin: default_value
-  #    default_value:
-  #      - 'America/Chicago'
-
-  #field_campaign_game_short_info
-  #field_campaign_game_short_info:
-  #    plugin: default_value
-  #    default_value:
-  #      - 'America/Chicago'
-
-  #field_campaign_game_title
-  #field_campaign_game_title:
-  #    plugin: default_value
-  #    default_value:
-  #      - 'America/Chicago'
-
-  #field_error_membership_id
-  #field_login_checkins_not_started
-  #field_successful_login
-  #field_campaign_age_maximum
-  #field_reg_already_registered
-  #field_error_member_is_inactive
-  #field_error_target_audience
-  #field_login_not_registered
-  #field_campaign_age_minimum
-  #field_pause_campaign
-  #field_campaign_prize_coefficient
-  #field_campaign_prize_nowin
-  #field_register_form_text
-  #field_campaign_registration_goal
-  #field_reg_checkins_not_started
-  #field_successful_registration
-  #field_utilization_activities
-  #field_campaign_utilization_goal
-  #field_campaign_winners_prizes
-  #field_campaign_stream_type
-
 
 destination:
   plugin: 'entity:node'
