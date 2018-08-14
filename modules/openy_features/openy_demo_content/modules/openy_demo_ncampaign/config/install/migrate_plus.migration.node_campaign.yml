@@ -1,0 +1,325 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncampaign
+id: openy_demo_node_campaign
+migration_tags: {  }
+migration_group: openy_demo_ncampaign
+label: 'Create demo campaign nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: challenge_campaign
+      title: 'Challenge yourself'
+      alias: '/challenge-yourself'
+      pause_page_id: challenge_yourself_pause
+      image: 1
+      landing_page_ids:
+        -
+          landing_page_id: challenge_yourself_preview
+        -
+          landing_page_id: challenge_yourself_registration_open
+        -
+          landing_page_id: challenge_yourself_started
+        -
+          landing_page_id: challenge_yourself_completed
+
+      campaign_menu_data:
+        -
+          landing_page_id: challenge_yourself_preview
+          links:
+            -
+              page: challenge_yourself_started
+              title: Challenge
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_rules
+              title: Detailed Rules
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_my_progress
+              title: My Progress
+              weight: 0
+              logged: 1
+        -
+          landing_page_id: challenge_yourself_registration_open
+          links:
+            -
+              page: challenge_yourself_preview
+              title: Pre-registration
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_rules
+              title: Detailed Rules
+              weight: 0
+              logged: 0
+        -
+          landing_page_id: challenge_yourself_started
+          links:
+            -
+              page: challenge_yourself_preview
+              title: Pre-registration
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_rules
+              title: Detailed Rules
+              weight: 0
+              logged: 0
+
+        -
+          landing_page_id: challenge_yourself_completed
+          links:
+            -
+              page: challenge_yourself_preview
+              title: Pre-registration
+              weight: 0
+              logged: 0
+            -
+              page: challenge_yourself_rules
+              title: Detailed Rules
+              weight: 0
+              logged: 0
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias:
+    plugin: get
+    source: alias
+
+
+  field_campaign_pages:
+    plugin: iterator
+    source: landing_page_ids
+    process:
+      target_id:
+        plugin: migration
+        migration: openy_demo_node_campaign_page
+        source: landing_page_id
+
+  field_campaign_menu:
+    plugin: campaign_menu
+    source: campaign_menu_data
+    migration: openy_demo_node_campaign_page
+
+  pause_target_id:
+    plugin: migration_lookup
+    migration: openy_demo_node_campaign_page
+    source: pause_page_id
+  field_pause_landing_page:
+    plugin: get
+    source: '@pause_target_id'
+  field_campaign_start_date:
+    -
+      plugin: default_value
+      default_value: '-1 month'
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: date_timestamp
+      to_format: 'Y-m-d\TH:i:s'
+  field_campaign_end_date:
+    -
+      plugin: default_value
+      default_value: '+1 month'
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: date_timestamp
+      to_format: 'Y-m-d\TH:i:s'
+  field_goal_check_ins_start_date:
+    -
+      plugin: default_value
+      default_value: '-3 months'
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: date_timestamp
+      to_format: 'Y-m-d\TH:i:s'
+  field_goal_check_ins_end_date:
+    -
+      plugin: default_value
+      default_value: '-1 month'
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: date_timestamp
+      to_format: 'Y-m-d\TH:i:s'
+  field_campaign_fitness_category:
+    plugin: default_value
+    default_value: fitness_category
+  field_limit_visits_goal:
+    plugin: default_value
+    default_value: 10
+  field_min_visits_goal:
+    plugin: default_value
+    default_value: 2
+  field_campaign_payment_types:
+    plugin: default_value
+    default_value:
+      - FP
+      - P3
+  field_campaign_membership_u_t:
+    plugin: default_value
+    default_value:
+      - adult
+      - dual
+      - family
+      - youth
+      - student
+      - contract
+  # Check back date
+  field_token_check_back_date:
+    plugin: default_value
+    default_value: 'check back on 22 of November'
+
+  field_token_login_link_text:
+    plugin: default_value
+    default_value: 'sign in here'
+  field_token_register_link_text:
+    plugin: default_value
+    default_value: 'register'
+  field_ways_to_earn_entries:
+    plugin: default_value
+    default_value:
+      - 1
+      - 2
+      - 3
+  field_campaign_expected_visits:
+      plugin: default_value
+      default_value: '3500'
+  # Main campaign image field.
+  field_campaign_image:
+      -
+        plugin: migration
+        migration: openy_demo_ncampaign_media_image
+        source: image
+  # Activities handler.
+  field_activities_options:
+      plugin: default_value
+      default_value:
+        - field_prgf_campaign_activity
+  # Activities handler.
+  #field_campaign_branch_target:
+  #    plugin: default_value
+  #    default_value: '3500'
+  field_campaign_palette:
+      plugin: default_value
+      default_value:
+        - purpleorchid
+  # Campaign members register start date.
+  field_campaign_reg_start_date:
+      -
+        plugin: default_value
+        default_value: '-3 days'
+      -
+        plugin: callback
+        callable: strtotime
+      -
+        plugin: date_timestamp
+        to_format: 'Y-m-d\TH:i:s'
+
+  # Campaign members register end date.
+  field_campaign_reg_end_date:
+      plugin: default_value
+      default_value: '+12 days'
+
+  # Campaign timezone.
+  field_campaign_timezone:
+      plugin: default_value
+      default_value:
+        - 'America/Chicago'
+
+  #field_error_default
+  #field_error_default:
+  #      plugin: default_value
+  #      default_value:
+  #        - 'America/Chicago'
+
+  #field_enable_activities_counter
+  #field_enable_activities_counter:
+  #  plugin: default_value
+  #  default_value:
+  #    - 'America/Chicago'
+
+  #field_flip_cards_cover_image
+
+  #field_campaign_game_description
+  #field_campaign_game_description:
+  #  plugin: default_value
+  #  default_value:
+  #    - 'America/Chicago'
+
+  #field_campaign_prizes
+  #field_campaign_prizes:
+  #    plugin: default_value
+  #    default_value:
+  #      - 'America/Chicago'
+
+  #field_campaign_game_short_info
+  #field_campaign_game_short_info:
+  #    plugin: default_value
+  #    default_value:
+  #      - 'America/Chicago'
+
+  #field_campaign_game_title
+  #field_campaign_game_title:
+  #    plugin: default_value
+  #    default_value:
+  #      - 'America/Chicago'
+
+  #field_error_membership_id
+  #field_login_checkins_not_started
+  #field_successful_login
+  #field_campaign_age_maximum
+  #field_reg_already_registered
+  #field_error_member_is_inactive
+  #field_error_target_audience
+  #field_login_not_registered
+  #field_campaign_age_minimum
+  #field_pause_campaign
+  #field_campaign_prize_coefficient
+  #field_campaign_prize_nowin
+  #field_register_form_text
+  #field_campaign_registration_goal
+  #field_reg_checkins_not_started
+  #field_successful_registration
+  #field_utilization_activities
+  #field_campaign_utilization_goal
+  #field_campaign_winners_prizes
+  #field_campaign_stream_type
+
+
+destination:
+  plugin: 'entity:node'
+  default_bundle: campaign
+migration_dependencies:
+  required:
+    - openy_demo_node_campaign_page
+    - openy_demo_ncampaign_media_image
+  optional: {  }
