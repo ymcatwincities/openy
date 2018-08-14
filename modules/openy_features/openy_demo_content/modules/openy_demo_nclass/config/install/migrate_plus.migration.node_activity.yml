@@ -15,102 +15,102 @@ source:
       id: swim_lessons_adult
       title: 'Swim Lessons - Adult'
       subcategory: swim_lessons
-    -
-      id: swim_lessons_child_with_adult
-      title: 'Swim Lessons - Child with Adult'
-      subcategory: swim_lessons
-    -
-      id: swim_lessons_private
-      title: 'Swim Lessons - Private'
-      subcategory: swim_lessons
-    -
-      id: swim_lessons_youth
-      title: 'Swim Lessons - Youth'
-      subcategory: swim_lessons
-    -
-      id: swim_lessons_preschool
-      title: 'Swim Lessons - Preschool'
-      subcategory: swim_lessons
-    -
-      id: swim_lessons_teen
-      title: 'Swim Lessons - Teen'
-      subcategory: swim_lessons
-    -
-      id: swim_team
-      title: 'Swim Team'
-      subcategory: swim_team
-    -
-      id: drop_in_swim
-      title: 'Drop-In Swim'
-      subcategory: drop_in_swim
-    -
-      id: kids_zone_activity_centers
-      title: 'Kids Zone Activity Centers'
-      subcategory: kids_zone_activity_centers
-    -
-      id: cooking_classes
-      title: 'Cooking Classes'
-      subcategory: cooking_and_crafts
-    -
-      id: arts_and_crafts
-      title: Arts & Crafts
-      subcategory: cooking_and_crafts
-    -
-      id: birthday_parties
-      title: 'Birthday Parties'
-      subcategory: family_activities
-    -
-      id: before_and_after_school_programs
-      title: 'Before & After School Programs'
-      subcategory: kids_university_and_enrichment_classes
-    -
-      id: academic_enrichment_youth
-      title: 'Academic Enrichment - Youth'
-      subcategory: kids_university_and_enrichment_classes
-    -
-      id: sports_classes_and_workshops_youth
-      title: 'Sports Classes & Workshops - Youth'
-      subcategory: sports
-    -
-      id: health_and_wellness_workshops
-      title: 'Health & Wellness Workshops'
-      subcategory: active_older_adults
+#    -
+#      id: swim_lessons_child_with_adult
+#      title: 'Swim Lessons - Child with Adult'
+#      subcategory: swim_lessons
+#    -
+#      id: swim_lessons_private
+#      title: 'Swim Lessons - Private'
+#      subcategory: swim_lessons
+#    -
+#      id: swim_lessons_youth
+#      title: 'Swim Lessons - Youth'
+#      subcategory: swim_lessons
+#    -
+#      id: swim_lessons_preschool
+#      title: 'Swim Lessons - Preschool'
+#      subcategory: swim_lessons
+#    -
+#      id: swim_lessons_teen
+#      title: 'Swim Lessons - Teen'
+#      subcategory: swim_lessons
+#    -
+#      id: swim_team
+#      title: 'Swim Team'
+#      subcategory: swim_team
+#    -
+#      id: drop_in_swim
+#      title: 'Drop-In Swim'
+#      subcategory: drop_in_swim
+#    -
+#      id: kids_zone_activity_centers
+#      title: 'Kids Zone Activity Centers'
+#      subcategory: kids_zone_activity_centers
+#    -
+#      id: cooking_classes
+#      title: 'Cooking Classes'
+#      subcategory: cooking_and_crafts
+#    -
+#      id: arts_and_crafts
+#      title: Arts & Crafts
+#      subcategory: cooking_and_crafts
+#    -
+#      id: birthday_parties
+#      title: 'Birthday Parties'
+#      subcategory: family_activities
+#    -
+#      id: before_and_after_school_programs
+#      title: 'Before & After School Programs'
+#      subcategory: kids_university_and_enrichment_classes
+#    -
+#      id: academic_enrichment_youth
+#      title: 'Academic Enrichment - Youth'
+#      subcategory: kids_university_and_enrichment_classes
+#    -
+#      id: sports_classes_and_workshops_youth
+#      title: 'Sports Classes & Workshops - Youth'
+#      subcategory: sports
+#    -
+#      id: health_and_wellness_workshops
+#      title: 'Health & Wellness Workshops'
+#      subcategory: active_older_adults
     -
       id: group_exercise_classes
       title: 'Group Exercise Classes'
       subcategory: group_exercise_classes
-    -
-      id: samll_group_training_youth
-      title: 'Small Group Training - Youth'
-      subcategory: health_and_fitness_for_kids_and_teens
-    -
-      id: personal_training
-      title: 'Personal Training'
-      subcategory: personal_training
-    -
-      id: health_improvement
-      title: 'Health Improvement'
-      subcategory: programs_for_health
-    -
-      id: climbing_adult
-      title: 'Climbing - Adult'
-      subcategory: recreation
-    -
-      id: small_group_and_specialty_training
-      title: 'Small Group and Specialty Training'
-      subcategory: small_group_and_specialty_training
-    -
-      id: weight_loss
-      title: 'Weight Loss'
-      subcategory: weight_loss
-    -
-      id: before_and_after_school_child_care
-      title: 'Before & After School Child Care'
-      subcategory: before_and_after_school_child_care
-    -
-      id: preschool_child_care
-      title: 'Preschool Child Care'
-      subcategory: preschool
+#    -
+#      id: samll_group_training_youth
+#      title: 'Small Group Training - Youth'
+#      subcategory: health_and_fitness_for_kids_and_teens
+#    -
+#      id: personal_training
+#      title: 'Personal Training'
+#      subcategory: personal_training
+#    -
+#      id: health_improvement
+#      title: 'Health Improvement'
+#      subcategory: programs_for_health
+#    -
+#      id: climbing_adult
+ #     title: 'Climbing - Adult'
+ #     subcategory: recreation
+#    -
+#      id: small_group_and_specialty_training
+#      title: 'Small Group and Specialty Training'
+#      subcategory: small_group_and_specialty_training
+#    -
+#      id: weight_loss
+#      title: 'Weight Loss'
+#      subcategory: weight_loss
+#    -
+#      id: before_and_after_school_child_care
+#      title: 'Before & After School Child Care'
+#      subcategory: before_and_after_school_child_care
+#   -
+#      id: preschool_child_care
+#      title: 'Preschool Child Care'
+#      subcategory: preschool
  #   -
  #     id: discovery_day_camp
  #     title: 'Discovery Day Camp'
@@ -119,14 +119,14 @@ source:
 #      id: bold_one_week_expeditions
 #      title: 'BOLD One-Week Expeditions'
 #      subcategory: bold_and_gold
-    -
-      id: earth_service_corps
-      title: 'Earth Service Corps'
-      subcategory: earth_service_corps
-    -
-      id: academic_success
-      title: 'Academic Success'
-      subcategory: academic_success
+#    -
+#      id: earth_service_corps
+#      title: 'Earth Service Corps'
+#      subcategory: earth_service_corps
+#    -
+#      id: academic_success
+#      title: 'Academic Success'
+#      subcategory: academic_success
     -
       id: activity_cardio
       title: 'Cardio'
@@ -155,14 +155,14 @@ source:
       id: activity_health_improvement
       title: 'Health Improvement'
       subcategory: family_activities
-    -
-      id: activity_small_group_and_specialty_training
-      title: 'Small Group and Specialty Training'
-      subcategory: family_activities
-    -
-      id: activity_small_group_training_youth
-      title: 'Small Group Training - Youth'
-      subcategory: family_activities
+#    -
+#      id: activity_small_group_and_specialty_training
+#      title: 'Small Group and Specialty Training'
+#      subcategory: family_activities
+#    -
+#      id: activity_small_group_training_youth
+#      title: 'Small Group Training - Youth'
+#      subcategory: family_activities
     -
       id: activity_weight_loss
       title: 'Weight Loss'
