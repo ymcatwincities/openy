@@ -9,7 +9,6 @@ dependencies:
   - block_content
   - csv_serialization
   - ctools
-  - datalayer
   - datetime
   - entity_reference_revisions
   - field

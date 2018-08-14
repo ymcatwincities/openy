@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_login_checkins_not_started
     - node.type.campaign
   module:
-    - datalayer
     - text
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_login_checkins_not_started
+third_party_settings: {}
 id: node.campaign.field_login_checkins_not_started
 field_name: field_login_checkins_not_started
 entity_type: node

@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_campaign_game_description
     - node.type.campaign
   module:
-    - datalayer
     - text
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_campaign_game_description
+third_party_settings: {}
 id: node.campaign.field_campaign_game_description
 field_name: field_campaign_game_description
 entity_type: node

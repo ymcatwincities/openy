@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_campaign_image
     - node.type.campaign
   module:
-    - datalayer
     - image
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_campaign_image
+third_party_settings: {}
 id: node.campaign.field_campaign_image
 field_name: field_campaign_image
 entity_type: node
@@ -24,7 +20,7 @@ default_value_callback: ''
 settings:
   file_directory: '[date:custom:Y]-[date:custom:m]'
   file_extensions: 'png gif jpg jpeg'
-  max_filesize: ''
+  max_filesize: 50M
   max_resolution: ''
   min_resolution: ''
   alt_field: true
