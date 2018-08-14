@@ -71,7 +71,7 @@ class CampaignLeadershipBlock extends BlockBase implements ContainerFactoryPlugi
    */
   public function build() {
     $block = [];
-    $block['#cache']['max-age'] = 0;
+    $block['#cache']['max-age'] = CAMPAIGN_CACHE_TIME;
 
     // Get campaign node from current page URL.
     /** @var \Drupal\node\Entity\Node $campaign */

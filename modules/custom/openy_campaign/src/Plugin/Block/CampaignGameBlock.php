@@ -80,6 +80,9 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
    */
   public function build() {
     $block = [];
+
+    // The block is rendered for each user separately.
+    // We can't cache it.
     $block['#cache']['max-age'] = 0;
 
     // Get current member
