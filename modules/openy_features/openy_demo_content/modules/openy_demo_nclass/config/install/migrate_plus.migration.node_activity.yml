@@ -215,6 +215,46 @@ source:
       id: activity_discovery_day_camp
       title: 'Discovery Day Camp'
       subcategory: day_camps
+    -
+      id: activity_academic_enrichment_youth
+      title: 'Academic Enrichment - Youth'
+      subcategory: health_and_fitness_for_kids_and_teens
+    -
+      id: activity_academic_success
+      title: 'Academic Success'
+      subcategory: health_and_fitness_for_kids_and_teens
+    -
+      id: activity_arts_crafts
+      title: 'Arts & Crafts'
+      subcategory: health_and_fitness_for_kids_and_teens
+    -
+      id: activity_before_after_school_child_care
+      title: 'Before & After School Child Care'
+      subcategory: health_and_fitness_for_kids_and_teens
+    -
+      id: activity_before_after_school_programs
+      title: 'Before & After School Programs'
+      subcategory: health_and_fitness_for_kids_and_teens
+    -
+      id: activity_birthday_parties
+      title: 'Birthday Parties'
+      subcategory: health_and_fitness_for_kids_and_teens
+    -
+      id: activity_earth_service_corps
+      title: 'Earth Service Corps'
+      subcategory: health_and_fitness_for_kids_and_teens
+    -
+      id: activity_kids_zone_activity_centers
+      title: 'Kids Zone Activity Centers'
+      subcategory: health_and_fitness_for_kids_and_teens
+    -
+      id: activity_preschool_child_care
+      title: 'Preschool Child Care'
+      subcategory: health_and_fitness_for_kids_and_teens
+    -
+      id: activity_sports_classes_workshops_youth
+      title: 'Sports Classes & Workshops - Youth'
+      subcategory: health_and_fitness_for_kids_and_teens
   ids:
     id:
       type: string

@@ -1564,6 +1564,114 @@ source:
       activity: activity_discovery_day_camp
       body: |
         <p>Discovery Camp: Drop-off - Northshore YMCA 2017</p>
+    -
+      id: class_academic_enrichment_youth_1
+      title: 'AM Fit & Fun'
+      activity: activity_academic_enrichment_youth
+      body: |
+        <p>AM Fit & Fun</p>
+    -
+      id: class_academic_success_1
+      title: 'Academic Success'
+      activity: activity_academic_success
+      body: |
+        <p>Academic Success</p>
+    -
+      id: class_activity_arts_crafts_1
+      title: 'May Crafternoon: Handprint Sunshines'
+      activity: aactivity_arts_crafts
+      body: |
+        <p>May Crafternoon: Handprint Sunshines</p>
+    -
+      id: class_activity_arts_crafts_2
+      title: 'April Earth Day Birdhouses'
+      activity: aactivity_arts_crafts
+      body: |
+        <p>April Earth Day Birdhouses</p>
+    -
+      id: class_activity_arts_crafts_3
+      title: 'Crafternoon'
+      activity: aactivity_arts_crafts
+      body: |
+        <p>Crafternoon</p>
+    -
+      id: class_before_after_school_child_care_1
+      title: '2016/17 Woodmoor - (f) Non-School Days'
+      activity: activity_before_after_school_child_care
+      body: |
+        <p>2016/17 Woodmoor - (f) Non-School Days</p>
+    -
+      id: class_before_after_school_child_care_2
+      title: '2016/17 Woodmoor - (b) After Plus Care'
+      activity: activity_before_after_school_child_care
+      body: |
+        <p>2016/17 Woodmoor - (b) After Plus Care</p>
+    -
+      id: class_before_after_school_child_care_3
+      title: '2016/17 Woodmoor - (c) After Care'
+      activity: activity_before_after_school_child_care
+      body: |
+        <p>2016/17 Woodmoor - (c) After Care</p>
+    -
+      id: class_before_after_school_child_care_4
+      title: '2016/17 Sunrise - (a) Before and After Care'
+      activity: activity_before_after_school_child_care
+      body: |
+        <p>2016/17 Sunrise - (a) Before and After Care</p>
+    -
+      id: class_before_after_school_programs_1
+      title: '2016/17 Bellevue: No School Days - Package Option'
+      activity: activity_before_after_school_programs
+      body: |
+        <p>2016/17 Bellevue: No School Days - Package Option</p>
+    -
+      id: class_birthday_parties_1
+      title: 'Room Rental'
+      activity: activity_birthday_parties
+      body: |
+        <p>Room Rental</p>
+    -
+      id: class_birthday_parties_2
+      title: 'Birthday Party'
+      activity: activity_birthday_parties
+      body: |
+        <p>Birthday Party</p>
+    -
+      id: class_earth_service_corps_1
+      title: 'Earth Service Corps About YEST'
+      activity: activity_earth_service_corps
+      body: |
+        <p>Earth Service Corps About YEST</p>
+    -
+      id: class_kids_zone_activity_centers_1
+      title: 'Kids Zone 4 wks - 11 yrs'
+      activity: activity_kids_zone_activity_centers
+      body: |
+        <p>Kids Zone 4 wks - 11 yrs</p>
+    -
+      id: class_preschool_child_care_1
+      title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
+      activity: activity_preschool_child_care
+      body: |
+        <p>2016/17 Northshore- Preschool Child Care (30m-4yr)</p>
+    -
+      id: class_preschool_child_care_2
+      title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
+      activity: activity_preschool_child_care
+      body: |
+        <p>2016/17 Northshore - Pre-K Child Care (4 - 5yrs)</p>
+    -
+      id: class_sports_classes_workshops_youth_1
+      title: 'HomeZone'
+      activity: activity_sports_classes_workshops_youth
+      body: |
+        <p>HomeZone</p>
+    -
+      id: class_sports_classes_workshops_youth_2
+      title: 'Youth Fitness Challenge'
+      activity: activity_sports_classes_workshops_youth
+      body: |
+        <p>Youth Fitness Challenge</p>
   ids:
     id:
       type: string
