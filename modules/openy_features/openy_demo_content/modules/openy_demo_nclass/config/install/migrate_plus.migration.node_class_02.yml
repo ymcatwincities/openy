@@ -1313,6 +1313,66 @@ source:
       body: |
         <p>Lose to Win - Weight Loss Program</p>
     -
+      id: class_personal_training_1
+      title: 'Pilates Reformer - 10, private 1 hr sessions'
+      activity: activity_personal_training
+      body: |
+        <p>Pilates Reformer - 10, private 1 hr sessions</p>
+    -
+      id: class_personal_training_2
+      title: 'Private Yoga - 10, 1-hour sessions'
+      activity: activity_personal_training
+      body: |
+        <p>Private Yoga - 10, 1-hour sessions</p>
+    -
+      id: class_personal_training_3
+      title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
+      activity: activity_personal_training
+      body: |
+        <p>Pilates Reformer - Duet - 10, 1 hour sessions</p>
+    -
+      id: class_personal_training_4
+      title: 'Partner Personal Training - 1 session'
+      activity: activity_personal_training
+      body: |
+        <p>Partner Personal Training - 1 session</p>
+    -
+      id: class_small_group_specialty_training_1
+      title: 'Small Group Training - Pilates Reformer Level I/II'
+      activity: activity_small_group_specialty_training
+      body: |
+        <p>Small Group Training - Pilates Reformer Level I/II</p>
+    -
+      id: class_small_group_specialty_training_2
+      title: 'Small Group Training - Adaptive Yoga'
+      activity: activity_small_group_specialty_training
+      body: |
+        <p>Small Group Training - Adaptive Yoga</p>
+    -
+      id: class_small_group_specialty_training_3
+      title: 'Small Group Training - Pilates Reformer Level I'
+      activity: activity_small_group_specialty_training
+      body: |
+        <p>Small Group Training - Pilates Reformer Level I</p>
+    -
+      id: class_small_group_specialty_training_4
+      title: 'Small Group Training - Pilates Reformer Intro'
+      activity: activity_small_group_specialty_training
+      body: |
+        <p>Small Group Training - Pilates Reformer Intro</p>
+    -
+      id: class_small_group_training_youth_1
+      title: 'Small Group Training - Tween Girl Power!'
+      activity: activity_small_group_training_youth
+      body: |
+         <p>Small Group Training - Tween Girl Power!</p>
+    -
+      id: class_small_group_training_youth_2
+      title: 'Small Group Training - Tween Titans'
+      activity: activity_small_group_training_youth
+      body: |
+         <p>Small Group Training - Tween Titans</p>
+    -
       id: class_swim_lessons_child_with_adult_1
       title: 'Swim Lessons - Parent/Child Stage A: Water Discov'
       activity: activity_swim_lessons_child_with_adult
@@ -1462,6 +1522,156 @@ source:
       activity: activity_drop_in_swim
       body: |
         <p>Lap Swim</p>
+    -
+      id: class_bold_one_week_expeditions_1
+      title: 'BOLD Cascade Challenge'
+      activity: activity_bold_one_week_expeditions
+      body: |
+        <p>BOLD Cascade Challenge</p>
+    -
+      id: class_bold_one_week_expeditions_2
+      title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
+      activity: activity_bold_one_week_expeditions
+      body: |
+        <p>A BOLD Backpacking Adventure: Discovery in the Olympics</p>
+    -
+      id: class_bold_one_week_expeditions_3
+      title: 'BOLD Rivers and Rocks'
+      activity: activity_bold_one_week_expeditions
+      body: |
+        <p>BOLD Rivers and Rocks</p>
+    -
+      id: class_bold_one_week_expeditions_4
+      title: 'BOLD Fishing and Backpacking in the North Cascades'
+      activity: activity_bold_one_week_expeditions
+      body: |
+        <p>BOLD Fishing and Backpacking in the North Cascades</p>
+    -
+      id: class_discovery_day_camp_1
+      title: 'Discover Camp: Drop-off - Carol Edwards Ctr. 2017'
+      activity: activity_discovery_day_camp
+      body: |
+        <p>Discover Camp: Drop-off - Carol Edwards Ctr. 2017</p>
+    -
+      id: class_discovery_day_camp_2
+      title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
+      activity: activity_discovery_day_camp
+      body: |
+        <p>Discovery Camp: Drop-off - Kenmore Elementary 2017</p>
+    -
+      id: class_discovery_day_camp_3
+      title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
+      activity: activity_discovery_day_camp
+      body: |
+        <p>Discovery Camp: Drop-off - Northshore YMCA 2017</p>
+    -
+      id: class_academic_enrichment_youth_1
+      title: 'AM Fit & Fun'
+      activity: activity_academic_enrichment_youth
+      body: |
+        <p>AM Fit & Fun</p>
+    -
+      id: class_academic_success_1
+      title: 'Academic Success'
+      activity: activity_academic_success
+      body: |
+        <p>Academic Success</p>
+    -
+      id: class_activity_arts_crafts_1
+      title: 'May Crafternoon: Handprint Sunshines'
+      activity: aactivity_arts_crafts
+      body: |
+        <p>May Crafternoon: Handprint Sunshines</p>
+    -
+      id: class_activity_arts_crafts_2
+      title: 'April Earth Day Birdhouses'
+      activity: aactivity_arts_crafts
+      body: |
+        <p>April Earth Day Birdhouses</p>
+    -
+      id: class_activity_arts_crafts_3
+      title: 'Crafternoon'
+      activity: aactivity_arts_crafts
+      body: |
+        <p>Crafternoon</p>
+    -
+      id: class_before_after_school_child_care_1
+      title: '2016/17 Woodmoor - (f) Non-School Days'
+      activity: activity_before_after_school_child_care
+      body: |
+        <p>2016/17 Woodmoor - (f) Non-School Days</p>
+    -
+      id: class_before_after_school_child_care_2
+      title: '2016/17 Woodmoor - (b) After Plus Care'
+      activity: activity_before_after_school_child_care
+      body: |
+        <p>2016/17 Woodmoor - (b) After Plus Care</p>
+    -
+      id: class_before_after_school_child_care_3
+      title: '2016/17 Woodmoor - (c) After Care'
+      activity: activity_before_after_school_child_care
+      body: |
+        <p>2016/17 Woodmoor - (c) After Care</p>
+    -
+      id: class_before_after_school_child_care_4
+      title: '2016/17 Sunrise - (a) Before and After Care'
+      activity: activity_before_after_school_child_care
+      body: |
+        <p>2016/17 Sunrise - (a) Before and After Care</p>
+    -
+      id: class_before_after_school_programs_1
+      title: '2016/17 Bellevue: No School Days - Package Option'
+      activity: activity_before_after_school_programs
+      body: |
+        <p>2016/17 Bellevue: No School Days - Package Option</p>
+    -
+      id: class_birthday_parties_1
+      title: 'Room Rental'
+      activity: activity_birthday_parties
+      body: |
+        <p>Room Rental</p>
+    -
+      id: class_birthday_parties_2
+      title: 'Birthday Party'
+      activity: activity_birthday_parties
+      body: |
+        <p>Birthday Party</p>
+    -
+      id: class_earth_service_corps_1
+      title: 'Earth Service Corps About YEST'
+      activity: activity_earth_service_corps
+      body: |
+        <p>Earth Service Corps About YEST</p>
+    -
+      id: class_kids_zone_activity_centers_1
+      title: 'Kids Zone 4 wks - 11 yrs'
+      activity: activity_kids_zone_activity_centers
+      body: |
+        <p>Kids Zone 4 wks - 11 yrs</p>
+    -
+      id: class_preschool_child_care_1
+      title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
+      activity: activity_preschool_child_care
+      body: |
+        <p>2016/17 Northshore- Preschool Child Care (30m-4yr)</p>
+    -
+      id: class_preschool_child_care_2
+      title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
+      activity: activity_preschool_child_care
+      body: |
+        <p>2016/17 Northshore - Pre-K Child Care (4 - 5yrs)</p>
+    -
+      id: class_sports_classes_workshops_youth_1
+      title: 'HomeZone'
+      activity: activity_sports_classes_workshops_youth
+      body: |
+        <p>HomeZone</p>
+    -
+      id: class_sports_classes_workshops_youth_2
+      title: 'Youth Fitness Challenge'
+      activity: activity_sports_classes_workshops_youth
+      body: |
+        <p>Youth Fitness Challenge</p>
   ids:
     id:
       type: string

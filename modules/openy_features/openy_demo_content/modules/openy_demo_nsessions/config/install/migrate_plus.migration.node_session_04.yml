@@ -919,6 +919,166 @@ source:
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
+      id: session_training_1
+      title: 'Pilates Reformer - 10, private 1 hr sessions'
+      class: class_personal_training_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_training_2
+      title: 'Private Yoga - 10, 1-hour sessions'
+      class: class_personal_training_2
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_training_3
+      title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
+      class: class_personal_training_3
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_training_4
+      title: 'Partner Personal Training - 1 session'
+      class: class_personal_training_4
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_training_5
+      title: 'Small Group Training - Pilates Reformer Level I/II'
+      class: class_small_group_specialty_training_1
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_training_6
+      title: 'Small Group Training - Adaptive Yoga'
+      class: class_small_group_specialty_training_2
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_training_7
+      title: 'Small Group Training - Pilates Reformer Level I'
+      class: class_small_group_specialty_training_3
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_training_8
+      title: 'Small Group Training - Pilates Reformer Intro'
+      class: class_small_group_specialty_training_4
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_training_9
+      title: 'Small Group Training - Tween Girl Power!'
+      class: class_small_group_training_youth_1
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_training_10
+      title: 'Small Group Training - Tween Titans'
+      class: class_small_group_training_youth_2
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
       id: session_swim_1
       title: 'Swim Lessons - Parent/Child Stage A: Water Discov'
       class: class_swim_lessons_child_with_adult_1
@@ -1306,6 +1466,406 @@ source:
       id: session_swim_25
       title: 'Lap Swim'
       class: class_drop-in-swim_7
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_1
+      title: 'BOLD Cascade Challenge'
+      class: class_bold_one_week_expeditions_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_2
+      title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
+      class: class_bold_one_week_expeditions_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_3
+      title: 'BOLD Rivers and Rocks'
+      class: class_bold_one_week_expeditions_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_4
+      title: 'BOLD Fishing and Backpacking in the North Cascades'
+      class: class_bold_one_week_expeditions_4
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_5
+      title: 'Discover Camp: Drop-off - Carol Edwards Ctr. 2017'
+      class: class_discovery_day_camp_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_6
+      title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
+      class: class_discovery_day_camp_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_7
+      title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
+      class: class_discovery_day_camp_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_1
+      title: 'AM Fit & Fun'
+      class: class_academic_enrichment_youth_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_2
+      title: 'Academic Success'
+      class: class_academic_success_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_3
+      title: 'May Crafternoon: Handprint Sunshines'
+      class: class_activity_arts_crafts_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_4
+      title: 'April Earth Day Birdhouses'
+      class: class_activity_arts_crafts_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_5
+      title: 'Crafternoon'
+      class: class_activity_arts_crafts_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_6
+      title: '2016/17 Woodmoor - (f) Non-School Days'
+      class: class_before_after_school_child_care_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_7
+      title: '2016/17 Woodmoor - (b) After Plus Care'
+      class: class_before_after_school_child_care_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_8
+      title: '2016/17 Woodmoor - (c) After Care'
+      class: class_before_after_school_child_care_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_9
+      title: '2016/17 Sunrise - (a) Before and After Care'
+      class: class_before_after_school_child_care_4
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_10
+      title: '2016/17 Bellevue: No School Days - Package Option'
+      class: class_before_after_school_programs_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_11
+      title: 'Room Rental'
+      class: class_birthday_parties_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_12
+      title: 'Birthday Party'
+      class: class_birthday_parties_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_13
+      title: 'Earth Service Corps About YEST'
+      class: class_earth_service_corps_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_14
+      title: 'Kids Zone 4 wks - 11 yrs'
+      class: class_kids_zone_activity_centers_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_15
+      title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
+      class: class_preschool_child_care_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_16
+      title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
+      class: class_preschool_child_care_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_17
+      title: 'HomeZone'
+      class: class_sports_classes_workshops_youth_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_kids_18
+      title: 'Youth Fitness Challenge'
+      class: class_sports_classes_workshops_youth_2
       times:
         -
           time: academic_success_2
