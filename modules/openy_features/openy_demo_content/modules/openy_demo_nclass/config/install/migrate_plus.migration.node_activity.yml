@@ -207,6 +207,14 @@ source:
       id: activity_drop_in_swim
       title: 'Drop-In Swim'
       subcategory: swim_lessons
+    -
+      id: activity_bold_one_week_expeditions
+      title: 'BOLD One-Week Expeditions'
+      subcategory: day_camps
+    -
+      id: activity_discovery_day_camp
+      title: 'Discovery Day Camp'
+      subcategory: day_camps
   ids:
     id:
       type: string

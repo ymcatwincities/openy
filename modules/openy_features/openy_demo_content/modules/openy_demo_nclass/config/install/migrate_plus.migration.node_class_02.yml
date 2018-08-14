@@ -1522,6 +1522,48 @@ source:
       activity: activity_drop_in_swim
       body: |
         <p>Lap Swim</p>
+    -
+      id: class_bold_one_week_expeditions_1
+      title: 'BOLD Cascade Challenge'
+      activity: activity_bold_one_week_expeditions
+      body: |
+        <p>BOLD Cascade Challenge</p>
+    -
+      id: class_bold_one_week_expeditions_2
+      title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
+      activity: activity_bold_one_week_expeditions
+      body: |
+        <p>A BOLD Backpacking Adventure: Discovery in the Olympics</p>
+    -
+      id: class_bold_one_week_expeditions_3
+      title: 'BOLD Rivers and Rocks'
+      activity: activity_bold_one_week_expeditions
+      body: |
+        <p>BOLD Rivers and Rocks</p>
+    -
+      id: class_bold_one_week_expeditions_4
+      title: 'BOLD Fishing and Backpacking in the North Cascades'
+      activity: activity_bold_one_week_expeditions
+      body: |
+        <p>BOLD Fishing and Backpacking in the North Cascades</p>
+    -
+      id: class_discovery_day_camp_1
+      title: 'Discover Camp: Drop-off - Carol Edwards Ctr. 2017'
+      activity: activity_discovery_day_camp
+      body: |
+        <p>Discover Camp: Drop-off - Carol Edwards Ctr. 2017</p>
+    -
+      id: class_discovery_day_camp_2
+      title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
+      activity: activity_discovery_day_camp
+      body: |
+        <p>Discovery Camp: Drop-off - Kenmore Elementary 2017</p>
+    -
+      id: class_discovery_day_camp_3
+      title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
+      activity: activity_discovery_day_camp
+      body: |
+        <p>Discovery Camp: Drop-off - Northshore YMCA 2017</p>
   ids:
     id:
       type: string
