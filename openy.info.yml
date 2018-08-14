@@ -165,7 +165,6 @@ dependencies:
   - openy_prgf_webform
   - openy_prgf_event_latest
   - openy_prgf_event_listing
-  - openy_prgf_campaign
   - openy_node_activity
   - openy_node_class
   - openy_node_session
