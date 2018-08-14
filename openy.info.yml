@@ -212,9 +212,7 @@ dependencies:
   - openy_calc
   - openy_data_wrapper
   - logger_entity
-  - openy_campaign
   - personify
-  - openy_interstitial
   - openy_redirect
   - advanced_help_block
   - openy_gtranslate
@@ -224,5 +222,4 @@ themes:
   - bartik
   - openy_rose
   - openy_admin
-  - openy_campaign_theme
   - seven
