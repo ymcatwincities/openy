@@ -1,0 +1,13 @@
+name: OpenY System
+type: module
+description: 'Handles general OpenY configuration for administrators.'
+package: OpenY
+version: 8.x-1.0-rc1
+core: 8.x
+configure: openy_system.modules_list
+dependencies:
+  # TODO: Show warning message in OpenY components page on openy_demo_webform uninstall
+  # "Be careful, if you use demo_form webform on site, module
+  # uninstall will remove all submissions and demo_form from site".
+  # Don't remove openy_demo_webform from dependencies until this message is ready.
+  - openy_demo_webform

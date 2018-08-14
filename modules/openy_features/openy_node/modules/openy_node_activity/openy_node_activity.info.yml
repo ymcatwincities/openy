@@ -1,17 +1,16 @@
-name: 'OpenY Activity'
+name: 'OpenY Node Activity'
 description: 'OpenY Activity.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - field
   - field_group
   - menu_ui
   - node
-  - openy_node_category
   - path
   - pathauto
   - rabbit_hole
-  - scheduler
   - text
   - user
