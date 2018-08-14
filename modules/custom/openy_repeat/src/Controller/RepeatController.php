@@ -6,6 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\Core\Cache\CacheBackendInterface;
 
 /**
  * {@inheritdoc}
@@ -136,28 +137,41 @@ class RepeatController extends ControllerBase {
    * Get detailed info about Location (aka branch).
    */
   public function getLocationsInfo() {
-    $nids = \Drupal::entityQuery('node')
-      ->condition('type','branch')
-      ->execute();
-    $branches = Node::loadMultiple($nids);
-
-    $data = [];
-    foreach ($branches as $node) {
-      $days = $node->get('field_branch_hours')->getValue();
-      $address = $node->get('field_location_address')->getValue();
-      if (!empty($address[0])) {
-        $address = array_filter($address[0]);
-        $address = implode(', ', $address);
+    $tags = [];
+    $data = &drupal_static(__FUNCTION__);
+    $cid = 'openy_repeat:locations_info';
+    if ($cache = \Drupal::cache()->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $nids = \Drupal::entityQuery('node')
+        ->condition('type','branch')
+        ->execute();
+      $nids_chunked = array_chunk($nids, 20, TRUE);
+      foreach ($nids_chunked as $chunk) {
+        $branches = Node::loadMultiple($chunk);
+        if (!empty($branches)) {
+          foreach ($branches as $node) {
+            $days = $node->get('field_branch_hours')->getValue();
+            $address = $node->get('field_location_address')->getValue();
+            if (!empty($address[0])) {
+              $address = array_filter($address[0]);
+              $address = implode(', ', $address);
+            }
+            $data[$node->title->value] = [
+              'nid' => $node->nid->value,
+              'title' => $node->title->value,
+              'email' => $node->field_location_email->value,
+              'phone' => $node->field_location_phone->value,
+              'address' => $address,
+              'days' => !empty($days[0]) ? $this->getFormattedHours($days[0]) : [],
+            ];
+            $tags[] = 'node:' . $node->nid->value;
+          }
+          unset($branches);
+        }
       }
-
-      $data[$node->title->value] = [
-        'nid' => $node->nid->value,
-        'title' => $node->title->value,
-        'email' => $node->field_location_email->value,
-        'phone' => $node->field_location_phone->value,
-        'address' => $address,
-        'days' => !empty($days[0]) ? $this->getFormattedHours($days[0]) : [],
-      ];
+      \Drupal::cache()->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, $tags);
     }
 
     return $data;
@@ -167,18 +181,32 @@ class RepeatController extends ControllerBase {
    * Get detailed info about Class.
    */
   public function getClassesInfo() {
-    $nids = \Drupal::entityQuery('node')
-      ->condition('type','class')
-      ->execute();
-    $classes = Node::loadMultiple($nids);
-
-    $data = [];
-    foreach ($classes as $node) {
-      $data[$node->nid->value] = [
-        'nid' => $node->nid->value,
-        'title' => $node->title->value,
-        'description' => html_entity_decode(strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600))),
-      ];
+    $tags = [];
+    $data = &drupal_static(__FUNCTION__);
+    $cid = 'openy_repeat:classes_info';
+    if ($cache = \Drupal::cache()->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $nids = \Drupal::entityQuery('node')
+        ->condition('type','class')
+        ->execute();
+      $nids_chunked = array_chunk($nids, 20, TRUE);
+      foreach ($nids_chunked as $chunk) {
+        $classes = Node::loadMultiple($chunk);
+        if (!empty($classes)) {
+          foreach ($classes as $node) {
+            $data[$node->nid->value] = [
+              'nid' => $node->nid->value,
+              'title' => $node->title->value,
+              'description' => html_entity_decode(strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600))),
+            ];
+            $tags[] = 'node:' . $node->nid->value;
+          }
+          unset($classes);
+        }
+      }
+      \Drupal::cache()->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, $tags);
     }
 
     return $data;
