@@ -5,12 +5,7 @@ dependencies:
     - field.storage.node.field_content
     - node.type.event
   module:
-    - datalayer
     - entity_reference_revisions
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_content
 id: node.event.field_content
 field_name: field_content
 entity_type: node

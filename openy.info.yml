@@ -203,6 +203,7 @@ dependencies:
   - openy_schedules
   - openy_socrates
   - openy_map
+  - openy_system
   - openy_tour
   - daxko
   - openy_programs_search

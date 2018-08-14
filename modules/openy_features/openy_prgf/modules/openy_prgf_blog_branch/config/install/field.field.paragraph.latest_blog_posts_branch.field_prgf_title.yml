@@ -4,12 +4,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_title
     - paragraphs.paragraphs_type.latest_blog_posts_branch
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_title
 id: paragraph.latest_blog_posts_branch.field_prgf_title
 field_name: field_prgf_title
 entity_type: paragraph

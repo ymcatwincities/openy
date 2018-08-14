@@ -3,13 +3,14 @@ description: 'Implements a paragraph with 2 columns.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - block_content
+  - datalayer
   - entity_browser_entity_form
   - field
   - inline_entity_form
   - language
   - openy_block_custom_simple
-  - openy_block_flexible_content
-  - openy_prgf_1c
+  - openy_prgf
   - paragraphs
