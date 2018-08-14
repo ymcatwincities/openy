@@ -196,7 +196,8 @@ class RepeatController extends ControllerBase {
    * Get detailed info about Location (aka branch).
    */
   public function getLocationsInfo() {
-    $data = $tags = [];
+    $data = [];
+    $tags = ['node_list'];
     $cid = 'openy_repeat:locations_info';
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
@@ -239,7 +240,8 @@ class RepeatController extends ControllerBase {
    * Get detailed info about Class.
    */
   public function getClassesInfo() {
-    $data = $tags = [];
+    $data = [];
+    $tags = ['node_list'];
     $cid = 'openy_repeat:classes_info';
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
