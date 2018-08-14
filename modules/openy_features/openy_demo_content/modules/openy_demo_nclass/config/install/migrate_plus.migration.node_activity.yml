@@ -168,6 +168,18 @@ source:
       title: 'Weight Loss'
       subcategory: family_activities
     -
+      id: activity_personal_training
+      title: 'Personal Training'
+      subcategory: personal_training
+    -
+      id: activity_small_group_specialty_training
+      title: 'Small Group and Specialty Training'
+      subcategory: personal_training
+    -
+      id: activity_small_group_training_youth
+      title: 'Small Group Training - Youth'
+      subcategory: personal_training
+    -
       id: activity_swim_lessons_child_with_adult
       title: 'Swim Lessons - Child with Adult'
       subcategory: swim_lessons
