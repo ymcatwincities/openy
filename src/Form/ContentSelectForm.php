@@ -37,6 +37,7 @@ class ContentSelectForm extends FormBase {
       'membership' => $this->t('Demo Memberships'),
       'webform' => $this->t('Demo Webform'),
       'gxp' => $this->t('GroupExPro classes from Twin Cities'),
+      'campaign' => $this->t('Demo Campaign (requires Landing Pages)'),
     ];
 
     $settings_options = [

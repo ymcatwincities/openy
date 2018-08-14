@@ -1,0 +1,11 @@
+name: 'OpenY Demo Node Campaign'
+description: 'OpenY Demo Node Campaign.'
+type: module
+core: 8.x
+version: 1.0-rc1
+package: OpenY Experimental
+dependencies:
+  - openy_demo_nlanding
+  - openy_demo_tfitness
+  - openy_node_campaign
+  - openy_prgf_campaign
