@@ -5,12 +5,7 @@ dependencies:
     - field.storage.paragraph.field_qa
     - paragraphs.paragraphs_type.faq
   module:
-    - datalayer
     - openy_prgf_faq
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_qa
 id: paragraph.faq.field_qa
 field_name: field_qa
 entity_type: paragraph

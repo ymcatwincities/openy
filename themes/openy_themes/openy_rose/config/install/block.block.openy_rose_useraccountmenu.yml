@@ -2,20 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.footer-menu-center
+    - system.menu.account
   module:
     - system
   theme:
     - openy_rose
-id: footermenucenter
+id: openy_rose_useraccountmenu
 theme: openy_rose
-region: footer_menus
-weight: -2
+region: mobile_menu
+weight: 0
 provider: null
-plugin: 'system_menu_block:footer-menu-center'
+plugin: 'system_menu_block:account'
 settings:
-  id: 'system_menu_block:footer-menu-center'
-  label: 'Footer menu center'
+  id: 'system_menu_block:account'
+  label: 'User account menu'
   provider: system
   label_display: '0'
   level: 1

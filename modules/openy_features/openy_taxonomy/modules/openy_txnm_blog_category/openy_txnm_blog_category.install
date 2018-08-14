@@ -16,7 +16,7 @@ function openy_txnm_blog_category_update_8001() {
     'core.entity_form_display.taxonomy_term.blog_category.default',
     'core.entity_view_display.taxonomy_term.blog_category.default',
     'field.field.taxonomy_term.blog_category.field_taxonomy_content',
-    'field.storage.taxonomy_term.field_taxonomy_content'
+    'field.storage.taxonomy_term.field_taxonomy_content',
   ]);
 }
 

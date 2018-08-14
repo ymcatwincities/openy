@@ -1,8 +1,9 @@
 name: 'OpenY Node News'
-package: 'OpenY (Experimental)'
+package: 'OpenY'
 description: 'OpenY Node News.'
 type: module
 core: 8.x
+version: '8.x-1.0'
 dependencies:
   - datalayer
   - entity_browser

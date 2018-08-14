@@ -11,3 +11,17 @@ function openy_popups_update_8001() {
   $config->set('location', 'All');
   $config->save(TRUE);
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_popups_uninstall() {
+  $configFactory = \Drupal::configFactory();
+  $configs = [
+    'image.style.locations_popup',
+    'openy_popups.settings',
+  ];
+  foreach ($configs as $config) {
+    $configFactory->getEditable($config)->delete();
+  }
+}

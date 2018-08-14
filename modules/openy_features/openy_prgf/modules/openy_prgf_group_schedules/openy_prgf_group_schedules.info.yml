@@ -3,6 +3,7 @@ description: 'Group Schedules paragraph.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - field
   - openy_group_schedules

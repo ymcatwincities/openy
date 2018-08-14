@@ -1,0 +1,8 @@
+openy_system.modules_list:
+  path: '/admin/modules/openy'
+  defaults:
+    _title: 'OpenY components'
+    _title_context: 'With components'
+    _form: 'Drupal\openy_system\Form\OpenyModulesListForm'
+  requirements:
+    _permission: 'administer openy modules'

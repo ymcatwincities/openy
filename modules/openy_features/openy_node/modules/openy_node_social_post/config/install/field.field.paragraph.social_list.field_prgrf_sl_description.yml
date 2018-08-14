@@ -5,12 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgrf_sl_description
     - paragraphs.paragraphs_type.social_list
   module:
-    - datalayer
     - text
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgrf_sl_description
 id: paragraph.social_list.field_prgrf_sl_description
 field_name: field_prgrf_sl_description
 entity_type: paragraph

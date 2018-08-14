@@ -2,18 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.basic_block
-    - block_content.type.code_block
-    - block_content.type.date_block
-    - block_content.type.simple_block
     - field.storage.paragraph.field_prgf_left_column_block
     - paragraphs.paragraphs_type.secondary_description_sidebar
   module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_left_column_block
+    - openy_er
 id: paragraph.secondary_description_sidebar.field_prgf_left_column_block
 field_name: field_prgf_left_column_block
 entity_type: paragraph
@@ -25,9 +17,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:block_content'
+  handler: 'default_no_dep:block_content'
   handler_settings:
-    target_bundles:
+    target_bundles: null
+    target_bundles_no_dep:
       basic_block: basic_block
       code_block: code_block
       date_block: date_block

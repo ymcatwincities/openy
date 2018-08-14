@@ -2,20 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.footer-menu-right
+    - system.menu.footer-menu-left
   module:
     - system
   theme:
     - openy_rose
-id: footermenuright
+id: openy_rose_fmenu_left
 theme: openy_rose
 region: footer_menus
-weight: -1
+weight: -3
 provider: null
-plugin: 'system_menu_block:footer-menu-right'
+plugin: 'system_menu_block:footer-menu-left'
 settings:
-  id: 'system_menu_block:footer-menu-right'
-  label: 'Footer menu right'
+  id: 'system_menu_block:footer-menu-left'
+  label: 'Footer menu left'
   provider: system
   label_display: '0'
   level: 1
