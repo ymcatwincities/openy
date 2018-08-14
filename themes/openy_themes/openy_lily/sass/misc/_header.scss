@@ -174,7 +174,6 @@ body {
   #main {
     transition: margin-left .2s;
     position: relative;
-    z-index: 95;
     .path-frontpage & {
       background: $white;
     }
