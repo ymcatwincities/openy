@@ -4,12 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_campaign_age_minimum
     - node.type.campaign
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_campaign_age_minimum
+third_party_settings: {}
 id: node.campaign.field_campaign_age_minimum
 field_name: field_campaign_age_minimum
 entity_type: node

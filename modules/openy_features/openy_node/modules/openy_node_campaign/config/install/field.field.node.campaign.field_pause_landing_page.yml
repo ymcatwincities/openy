@@ -5,12 +5,7 @@ dependencies:
     - field.storage.node.field_pause_landing_page
     - node.type.campaign
     - node.type.campaign_page
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_pause_landing_page
+third_party_settings: {}
 id: node.campaign.field_pause_landing_page
 field_name: field_pause_landing_page
 entity_type: node

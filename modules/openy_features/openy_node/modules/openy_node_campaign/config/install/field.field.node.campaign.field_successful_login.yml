@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_successful_login
     - node.type.campaign
   module:
-    - datalayer
     - text
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_successful_login
+third_party_settings: {}
 id: node.campaign.field_successful_login
 field_name: field_successful_login
 entity_type: node

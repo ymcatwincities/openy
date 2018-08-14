@@ -5,12 +5,7 @@ dependencies:
     - field.storage.node.field_campaign_pages
     - node.type.campaign
     - node.type.campaign_page
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_campaign_pages
+third_party_settings: {}
 id: node.campaign.field_campaign_pages
 field_name: field_campaign_pages
 entity_type: node

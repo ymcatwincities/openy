@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_ways_to_earn_entries
     - node.type.campaign
   module:
-    - datalayer
     - options
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_ways_to_earn_entries
+third_party_settings: {}
 id: node.campaign.field_ways_to_earn_entries
 field_name: field_ways_to_earn_entries
 entity_type: node

@@ -4,12 +4,7 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_place
     - paragraphs.paragraphs_type.campaign_winners_prizes
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_place
+third_party_settings: {}
 id: paragraph.campaign_winners_prizes.field_prgf_place
 field_name: field_prgf_place
 entity_type: paragraph

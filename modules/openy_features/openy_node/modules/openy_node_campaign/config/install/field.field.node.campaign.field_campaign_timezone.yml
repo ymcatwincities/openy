@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_campaign_timezone
     - node.type.campaign
   module:
-    - datalayer
     - tzfield
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_campaign_timezone
+third_party_settings: {}
 id: node.campaign.field_campaign_timezone
 field_name: field_campaign_timezone
 entity_type: node
