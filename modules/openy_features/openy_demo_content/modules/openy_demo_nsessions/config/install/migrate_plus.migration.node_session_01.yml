@@ -19,6 +19,7 @@ source:
         -
           time: swim_lessons_adult_begin
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: true
@@ -32,7 +33,8 @@ source:
       times:
         -
           time: swim_lessons_parent_child_a
-      location: 1
+      location: 2
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -48,6 +50,7 @@ source:
         -
           time: swim_lessons_parent_child_b
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -62,7 +65,8 @@ source:
       times:
         -
           time: swim_lessons_preschool_1
-      location: 1
+      location: 2
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -78,6 +82,7 @@ source:
         -
           time: swim_lessons_preschool_2
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -92,7 +97,8 @@ source:
       times:
         -
           time: swim_lessons_preschool_3
-      location: 1
+      location: 2
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -108,6 +114,7 @@ source:
         -
           time: swim_lessons_preschool_4
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: true
@@ -122,7 +129,8 @@ source:
       times:
         -
           time: swim_lessons_private
-      location: 1
+      location: 2
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -137,6 +145,7 @@ source:
         -
           time: swim_lessons_youth_1
       location: 1
+      facility: 94
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -149,7 +158,8 @@ source:
       times:
         -
           time: swim_lessons_youth_2
-      location: 1
+      location: 2
+      facility: 94
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -163,6 +173,7 @@ source:
         -
           time: swim_lessons_youth_3
       location: 1
+      facility: 94
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -175,7 +186,8 @@ source:
       times:
         -
           time: swim_lessons_youth_4
-      location: 1
+      location: 2
+      facility: 94
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -189,6 +201,7 @@ source:
         -
           time: swim_lessons_youth_5
       location: 1
+      facility: 94
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -201,7 +214,8 @@ source:
       times:
         -
           time: swim_lessons_youth_6
-      location: 1
+      location: 2
+      facility: 94
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -215,6 +229,7 @@ source:
         -
           time: swim_team_intrest_list
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -229,7 +244,8 @@ source:
       times:
         -
           time: swim_lessons_teen
-      location: 1
+      location: 2
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -245,6 +261,7 @@ source:
         -
           time: swim_lessons_teen_beginning
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -259,7 +276,8 @@ source:
       times:
         -
           time: swim_lessons_teen_intermediate
-      location: 1
+      location: 2
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -275,6 +293,7 @@ source:
         -
           time: swim_lessons_teen_advanced
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -289,7 +308,8 @@ source:
       times:
         -
           time: drop_in_swim_recreational_3ft
-      location: 1
+      location: 2
+      facility: 94
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -302,6 +322,7 @@ source:
         -
           time: drop_in_swim_wade_2ft
       location: 1
+      facility: 94
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -313,7 +334,8 @@ source:
       times:
         -
           time: drop_in_swim_rec_with_slide
-      location: 1
+      location: 2
+      facility: 94
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -326,6 +348,7 @@ source:
         -
           time: drop_in_swim_adult_5.5ft
       location: 1
+      facility: 94
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -338,7 +361,8 @@ source:
       times:
         -
           time: drop_in_swim_family
-      location: 1
+      location: 2
+      facility: 94
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -351,6 +375,7 @@ source:
         -
           time: drop_in_swim_recreational
       location: 1
+      facility: 94
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -362,7 +387,8 @@ source:
       times:
         -
           time: drop_in_swim_lap
-      location: 1
+      location: 2
+      facility: 94
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -375,6 +401,7 @@ source:
         -
           time: kids_zone_activity_centers_4wks_11yrs
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: false
@@ -388,7 +415,8 @@ source:
       times:
         -
           time: cooking_classes_future_chefs
-      location: 1
+      location: 2
+      facility: 94
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -404,6 +432,7 @@ source:
         -
           time: arts_and_crafts_maycrafternoon_handprint_sunshines
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -418,7 +447,8 @@ source:
       times:
         -
           time: arts_and_crafts_april_earth_day_bridhouses
-      location: 1
+      location: 2
+      facility: 94
       online_registration: false
       ticket_required: true
       in_membership: true
@@ -432,6 +462,7 @@ source:
         -
           time: arts_and_crafts_crafternoon
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -446,7 +477,8 @@ source:
       times:
         -
           time: birthday_parties_room_rental
-      location: 1
+      location: 2
+      facility: 94
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -460,6 +492,7 @@ source:
         -
           time: birthday_parties_birthday_party
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: true
       in_membership: true
@@ -472,7 +505,8 @@ source:
       times:
         -
           time: before_and_after_school_programs_2016_17_bellevue_no_school_days
-      location: 1
+      location: 2
+      facility: 94
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -488,6 +522,7 @@ source:
         -
           time: before_and_after_school_programs_am_fit_and_fun
       location: 1
+      facility: 94
       online_registration: true
       ticket_required: false
       in_membership: false
@@ -539,6 +574,7 @@ process:
   field_session_max_age: age_max
   field_session_reg_link/uri: reg_uri
   field_session_reg_link/title: reg_title
+  field_session_plocation: facility
 destination:
   plugin: 'entity:node'
   default_bundle: session

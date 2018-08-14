@@ -20,6 +20,7 @@ source:
           time: sports_classes_and_workshops_youth_fitness_challenge
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -33,8 +34,9 @@ source:
       times:
         -
           time: sports_classes_and_workshops_youth_homezone
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -50,6 +52,7 @@ source:
           time: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 12
@@ -63,8 +66,9 @@ source:
       times:
         -
           time: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 50
@@ -79,6 +83,7 @@ source:
           time: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 50
@@ -91,8 +96,9 @@ source:
       times:
         -
           time: group_exercise_classes_hiit
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -107,6 +113,7 @@ source:
           time: group_exercise_classes_hiit_metabolic_conditioning
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -119,8 +126,9 @@ source:
       times:
         -
           time: group_exercise_classes_moving_for_balance_spr_2017
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -135,6 +143,7 @@ source:
           time: samll_group_training_youth_small_group_training_tween_girl_power
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 10
@@ -148,7 +157,7 @@ source:
       times:
         -
           time: samll_group_training_youth_small_group_training_tween_titans
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: false
       in_membership: false
@@ -163,6 +172,7 @@ source:
           time: pilates_reformer_10_private_1hr_sessions
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -176,8 +186,9 @@ source:
       times:
         -
           time: private_yoga_10_1hour_sessions
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -193,6 +204,7 @@ source:
           time: pilates_reformer_duet_10_1hour_sessions
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 16
@@ -206,8 +218,9 @@ source:
       times:
         -
           time: partner_personal_training_1_session
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -223,6 +236,7 @@ source:
           time: health_improvement_livestrong_at_the_y
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 13
@@ -236,8 +250,9 @@ source:
       times:
         -
           time: health_improvement_nutrition_consultation_initial
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -252,6 +267,7 @@ source:
           time: health_improvement_activly_changing_together
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -264,8 +280,9 @@ source:
       times:
         -
           time: climbing_adult_rock_climbing_sept
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -280,6 +297,7 @@ source:
           time: climbing_adult_rock_climbing_oct
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -292,8 +310,9 @@ source:
       times:
         -
           time: climbing_adult_parent_child_sept
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -308,6 +327,7 @@ source:
           time: climbing_adult_parent_child_oct
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -320,8 +340,9 @@ source:
       times:
         -
           time: small_group_and_specialty_training_adaptive_yoga
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -336,6 +357,7 @@ source:
           time: small_group_and_specialty_training_pilates_reformer_level_1
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 18
@@ -348,7 +370,7 @@ source:
       times:
         -
           time: small_group_and_specialty_training_pilates_reformer_intro
-      location: 1
+      location: 2
       online_registration: false
       ticket_required: false
       in_membership: true
@@ -364,6 +386,7 @@ source:
           time: small_group_and_specialty_training_pilates_reformer_level_1_2
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: true
       in_membership: true
       age_min: 18
@@ -376,8 +399,9 @@ source:
       times:
         -
           time: weight_loss_lose_to_win_men
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: true
       in_membership: true
       age_min: 18
@@ -392,6 +416,7 @@ source:
           time: weight_loss_lose_to_win
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: true
       in_membership: true
       age_min: 18
@@ -404,8 +429,9 @@ source:
       times:
         -
           time: before_after_school_child_care_2016_17_woodmoor_non_school_days
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -421,6 +447,7 @@ source:
           time: before_after_school_child_care_2016_17_woodmoor_after_plus
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -434,8 +461,9 @@ source:
       times:
         -
           time: before_after_school_child_care_2016_17_woodmoor_after
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -451,6 +479,7 @@ source:
           time: before_after_school_child_care_2016_17_sunrise_before_after
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -464,8 +493,9 @@ source:
       times:
         -
           time: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -481,6 +511,7 @@ source:
           time: preschool_child_care_2016_17_northshore_preschool_30m_4yr
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -494,8 +525,9 @@ source:
       times:
         -
           time: discovery_day_camp_drop_off_carol_edwards_ctr_2017
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -511,6 +543,7 @@ source:
           time: discovery_day_camp_drop_off_kenmore_elementary_2017
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -524,8 +557,9 @@ source:
       times:
         -
           time: discovery_day_camp_drop_off_Northshore_ymca_2017
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -541,6 +575,7 @@ source:
           time: bold_one_wk_expeditions_cascade_challenge
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 12
@@ -554,7 +589,8 @@ source:
       times:
         -
           time: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
-      location: 1
+      location: 2
+      facility: 94
       online_registration: false
       ticket_required: false
       in_membership: false
@@ -569,6 +605,7 @@ source:
           time: bold_one_wk_expeditions_river_and_rocks
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -582,8 +619,9 @@ source:
       times:
         -
           time: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -599,6 +637,7 @@ source:
           time: earth_service_corps_about_yesc
       location: 1
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 13
@@ -612,8 +651,9 @@ source:
       times:
         -
           time: academic_success
-      location: 1
+      location: 2
       online_registration: true
+      facility: 94
       ticket_required: false
       in_membership: false
       age_min: 5
@@ -664,6 +704,7 @@ process:
   field_session_max_age: age_max
   field_session_reg_link/uri: reg_uri
   field_session_reg_link/title: reg_title
+  field_session_plocation: facility
 destination:
   plugin: 'entity:node'
   default_bundle: session

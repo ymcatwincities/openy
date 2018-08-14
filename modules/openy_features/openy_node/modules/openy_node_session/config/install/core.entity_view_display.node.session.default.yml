@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.session.field_session_exclusions
     - field.field.node.session.field_session_gender
     - field.field.node.session.field_session_in_mbrsh
+    - field.field.node.session.field_session_instructor
     - field.field.node.session.field_session_location
     - field.field.node.session.field_session_max_age
     - field.field.node.session.field_session_mbr_price
@@ -15,6 +16,7 @@ dependencies:
     - field.field.node.session.field_session_online
     - field.field.node.session.field_session_plocation
     - field.field.node.session.field_session_reg_link
+    - field.field.node.session.field_session_room
     - field.field.node.session.field_session_ticket
     - field.field.node.session.field_session_time
     - node.type.session
@@ -30,6 +32,14 @@ targetEntityType: node
 bundle: session
 mode: default
 content:
+  addthis:
+    label: hidden
+    type: string
+    weight: 100
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   field_session_class:
     weight: 101
     label: above
@@ -71,6 +81,14 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
+  field_session_instructor:
+    weight: 117
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_session_location:
     weight: 102
@@ -149,6 +167,14 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
+  field_session_room:
+    weight: 116
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_session_ticket:
     weight: 110

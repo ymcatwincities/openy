@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_blog_description
     - node.type.blog
   module:
+    - datalayer
     - text
 third_party_settings:
   datalayer:

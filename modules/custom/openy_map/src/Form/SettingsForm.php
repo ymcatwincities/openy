@@ -68,6 +68,75 @@ class SettingsForm extends ConfigFormBase {
     $config = $this->config('openy_map.settings');
     $form_state->setCached(FALSE);
 
+    $form['map_engine_title'] = [
+      '#markup' => '<h2>' . $this->t('Map provider') . '</h2>',
+    ];
+    $form['map_engine'] = [
+      '#type' => 'radios',
+      '#options' => [
+        'leaflet' => $this->t('Leaflet'),
+        'gmaps' => $this->t('Google Maps'),
+      ],
+      '#default_value' => !empty($config->get('map_engine')) ? $config->get('map_engine') : 'leaflet',
+      '#required' => TRUE,
+    ];
+
+    $form['gmaps_keys'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Google Maps Configuration'),
+      '#states' => [
+        'visible' => [
+          ':input[name="map_engine"]' => ['value' => 'gmaps'],
+        ],
+      ],
+    ];
+
+    $form['gmaps_keys']['info'] = [
+      '#type' => 'inline_template',
+      '#template' => '<p>Please find Google Maps keys here {{ link }}</p>',
+      '#context' => [
+        'link' => Link::createFromRoute('Geolocation settings', 'geolocation.settings'),
+      ],
+    ];
+
+    $form['leaflet'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Leaflet Configuration'),
+      '#tree' => TRUE,
+      '#states' => [
+        'visible' => [
+          ':input[name="map_engine"]' => ['value' => 'leaflet'],
+        ],
+      ],
+    ];
+
+    $form['leaflet']['location'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Default search location'),
+      '#description' => $this->t('When search performs the results of the set location are prioritized, e.g. %ex1 or %ex2', [
+        '%ex1' => '"Houston, TX"',
+        '%ex2' => '"CA, United States of America"',
+      ]),
+      '#default_value' => _openy_map_get_default_location(),
+    ];
+
+    $options = ['Wikimedia', 'Esri.WorldStreetMap', 'Esri.NatGeoWorldMap', 'OpenStreetMap.Mapnik'];
+    $options = array_combine($options, $options);
+    array_walk($options, function (&$value) {
+      $link = Link::fromTextAndUrl('preview',
+        Url::fromUri('https://leaflet-extras.github.io/leaflet-providers/preview/', [
+          'attributes' => ['target' => '_blank'],
+          'fragment' => 'filter=' . $value,
+        ]))->toString();
+      $value .= ' <small>(' . $link . ')</small>';
+    });
+    $form['leaflet']['base_layer'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Base layer'),
+      '#options' => $options,
+      '#default_value' => !empty($config->get('leaflet.base_layer')) ? $config->get('leaflet.base_layer') : 'Wikimedia',
+    ];
+
     $form['title'] = [
       '#markup' => '<h2>' . $this->t('Location list page settings') . '</h2>',
     ];
@@ -93,17 +162,21 @@ class SettingsForm extends ConfigFormBase {
       $themePath = drupal_get_path('theme', $themeConfig->get('default')) . '/img/locations_icons';
       $fileOptions = $themeFiles = [];
       if (is_dir($themePath)) {
-        $themeFiles = array_values(array_diff(scandir($themePath), ['.', '..']));
+        $themeFiles = scandir($themePath);
         foreach ($themeFiles as $themeFile) {
-          $path = file_create_url($themePath . '/' . $themeFile);
+          $path = $themePath . '/' . $themeFile;
+          if (is_dir($path)) {
+            continue;
+          }
+          $path = file_create_url($path);
           $fileOptions[$path] = '<img src="' . $path . '" />';
         }
       }
-      $locationFinderPath = drupal_get_path('module', 'location_finder') . '/img';
-      $locationFinderFiles = array_values(array_diff(scandir($locationFinderPath), ['.', '..']));
-      foreach ($locationFinderFiles as $locFile) {
-        if (!in_array($locFile, $themeFiles)) {
-          $path = file_create_url($locationFinderPath . '/' . $locFile);
+      $openYMapPath = drupal_get_path('module', 'openy_map') . '/img';
+      foreach (scandir($openYMapPath) as $imgFile) {
+        $path = $openYMapPath . '/' . $imgFile;
+        if (!in_array($imgFile, $themeFiles) && !is_dir($path)) {
+          $path = file_create_url($path);
           $fileOptions[$path] = '<img src="' . $path . '" />';
         }
       }
@@ -177,6 +250,9 @@ class SettingsForm extends ConfigFormBase {
       $type_icons[$id] = $form_state->getValue($id . '_icon');
     }
 
+    $config->set('map_engine', $form_state->getValue('map_engine'));
+    $config->set('leaflet.location', $form_state->getValue('leaflet')['location']);
+    $config->set('leaflet.base_layer', $form_state->getValue('leaflet')['base_layer']);
     $config->set('default_tags', $default_tags);
     $config->set('active_types', $active_types);
     $config->set('type_labels', $type_labels);

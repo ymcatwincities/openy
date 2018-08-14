@@ -3,6 +3,7 @@ description: 'OpenY Branch.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - address
   - datalayer
@@ -16,18 +17,14 @@ dependencies:
   - node
   - openy_field_custom_hours
   - openy_hours_formatter
-  - openy_prgf_microsites_menu
   - openy_location
   - openy_node
-  - openy_prgf_microsites_menu
   - openy_txnm_amenities
   - options
   - paragraphs
   - path
   - pathauto
   - rabbit_hole
-  - scheduler
   - taxonomy
   - telephone
-  - tour
   - user

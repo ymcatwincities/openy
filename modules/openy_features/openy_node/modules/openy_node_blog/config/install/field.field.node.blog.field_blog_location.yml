@@ -4,8 +4,6 @@ dependencies:
   config:
     - field.storage.node.field_blog_location
     - node.type.blog
-    - node.type.branch
-    - node.type.camp
 id: node.blog.field_blog_location
 field_name: field_blog_location
 entity_type: node
@@ -17,13 +15,14 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: 'default_no_dep:node'
   handler_settings:
-    target_bundles:
-      branch: branch
-      camp: camp
+    target_bundles: null
     sort:
       field: _none
-    auto_create: false
+    auto_create: 0
     auto_create_bundle: branch
+    target_bundles_no_dep:
+      branch: branch
+      camp: camp
 field_type: entity_reference
