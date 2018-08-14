@@ -13,6 +13,22 @@ function openy_demo_nlanding_pef_pages() {
   openy_enable_module('openy_repeat');
   drupal_flush_all_caches();
 
+  /**
+   * Get category ID by title.
+   *
+   * @param string $title
+   *   Category title.
+   *
+   * @return mixed
+   *   Category ID.
+   */
+  $get_activity_id_by_title = function ($title) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'activity')
+      ->condition('title', $title);
+    return reset($query->execute());
+  };
+
   $schedules_node = \Drupal\node\Entity\Node::create(
     [
       'type' => 'landing_page',
@@ -39,10 +55,7 @@ function openy_demo_nlanding_pef_pages() {
   );
   $locations_node->save();
 
-  $query = \Drupal::entityQuery('node')
-    ->condition('type', 'activity')
-    ->condition('title', 'Group Exercise Classes');
-  $group_exercises_nid = reset($query->execute());
+  $group_exercises_nid = $get_activity_id_by_title('Group Exercise Classes');
 
   $schedules_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
     [
@@ -89,44 +102,101 @@ function openy_demo_nlanding_pef_pages() {
   ]);
   $menu_link->save();
 
-  $group_schedules_node = \Drupal\node\Entity\Node::create(
+  $schedules_pages_to_create = [
     [
-      'type' => 'landing_page',
-      'title' => 'Group Exercises Schedules',
-      'langcode' => 'en',
-      'uid' => '1',
-      'status' => 1,
-      'moderation_state' => 'published',
-      'field_lp_layout' => ['value' => 'one_column_clean'],
-    ]
-  );
-  $group_schedules_node->save();
-
-  $group_schedules_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+      'title' => 'Group Exercise Classes',
+      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
     [
-      'type' => 'repeat_schedules',
-      'parent_id' => $group_schedules_node->id(),
-      'parent_type' => 'node',
-      'parent_field_name' => 'field_content',
-      'status' => 1,
-      'field_prgf_block' => ['plugin_id' => 'repeat_schedules_block'],
-      'field_prgf_repeat_schedule_categ' => ['target_id' => $group_exercises_nid],
-      'field_prgf_repeat_schedule_instr' => ['value' => TRUE],
-    ]
-  );
-  $group_schedules_paragraph->save();
+      'title' => 'Programs & Activities',
+      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+    [
+      'title' => 'Swim',
+      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+    [
+      'title' => 'Personal Training',
+      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+    [
+      'title' => 'Camp',
+      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+    [
+      'title' => 'Kids & Teens',
+      'activity_id' => $get_activity_id_by_title('Group Exercise Classes'),
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+  ];
 
-  $group_schedules_node->field_content->entity = $group_schedules_paragraph;
-  $group_schedules_node->save();
+  /**
+   * Populate schedules pages.
+   *
+   * @param array $pages
+   *   Array of pages.
+   *
+   * @throws \Exception
+   */
+  $pages_populate = function (array $pages) {
+    foreach ($pages as $page) {
+      // Create landing page.
+      /** @var \Drupal\node\Entity\Node $node */
+      $node = \Drupal\node\Entity\Node::create(
+        [
+          'type' => 'landing_page',
+          'title' => $page['title'],
+          'langcode' => 'en',
+          'uid' => '1',
+          'status' => 1,
+          'moderation_state' => 'published',
+          'field_lp_layout' => ['value' => 'one_column_clean'],
+        ]
+      );
+      $node->save();
 
-  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
-    'title' => 'Group Program Schedules',
-    'link' => ['uri' => 'entity:node/' . $group_schedules_node->id()],
-    'menu_name' => 'main',
-    'parent' => 'menu_link_content:' . $parent_menu_link->uuid(),
-    'expanded' => TRUE,
-  ]);
-  $menu_link->save();
+      $activity_id = $page['activity_id'];
+      if (!$activity_id) {
+        throw new \Exception(sprintf('Failed to get activity id for page "%s"', $page['title']));
+      }
+
+      // Create schedules paragraph.
+      $paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+        [
+          'type' => 'repeat_schedules',
+          'parent_id' => $node->id(),
+          'parent_type' => 'node',
+          'parent_field_name' => 'field_content',
+          'status' => 1,
+          'field_prgf_block' => ['plugin_id' => 'repeat_schedules_block'],
+          'field_prgf_repeat_schedule_categ' => ['target_id' => $activity_id],
+          'field_prgf_repeat_schedule_instr' => ['value' => TRUE],
+        ]
+      );
+      $paragraph->save();
+
+      // Update landing page with created paragraph.
+      $node->field_content->entity = $paragraph;
+      $node->save();
+
+      // Create menu link.
+      $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+        'title' => $page['title'],
+        'link' => ['uri' => 'entity:node/' . $node->id()],
+        'menu_name' => 'main',
+        'parent' => 'menu_link_content:' . $page['parent_menu_uuid'],
+        'expanded' => TRUE,
+      ]);
+      $menu_link->save();
+    }
+  };
+
+  $pages_populate($schedules_pages_to_create);
 
   // For some reason repeat blocks do not have block's id in their
   // configuration. This is why we manually ensure they are set up.
@@ -163,11 +233,12 @@ function openy_demo_nlanding_pef_pages() {
     }
   };
 
-  $process_paragraphs([
-    'paragraph__field_prgf_block',
-    'paragraph_revision__field_prgf_block',
-  ],
-    'field_prgf_block_plugin_id',
-    'field_prgf_block_plugin_configuration'
+  $process_paragraphs(
+    [
+      'paragraph__field_prgf_block',
+      'paragraph_revision__field_prgf_block',
+    ],
+   'field_prgf_block_plugin_id',
+   'field_prgf_block_plugin_configuration'
   );
 }
