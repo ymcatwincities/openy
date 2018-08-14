@@ -69,7 +69,7 @@ class InterstitialContentBlock extends BlockBase implements ContainerFactoryPlug
    */
   public function build() {
     $block = [];
-    $block['#cache']['max-age'] = 0;
+    $block['#cache']['max-age'] = INTERSTITIAL_BLOCK_CACHE_TIME;
 
     // Get all Interstitial page node
     $entity_query_service = $this->container->get('entity.query');
