@@ -158,6 +158,11 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
     }
   }
 
+  /**
+   * Get the list of members of all active campaigns.
+   *
+   * @return array
+   */
   private function getActiveCampaignMembers() {
     // Get the list of all active campaigns.
     $currentDate = new DrupalDateTime('now');
