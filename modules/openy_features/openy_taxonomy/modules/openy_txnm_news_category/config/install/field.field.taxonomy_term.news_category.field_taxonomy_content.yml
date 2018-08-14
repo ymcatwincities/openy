@@ -5,12 +5,7 @@ dependencies:
     - field.storage.taxonomy_term.field_taxonomy_content
     - taxonomy.vocabulary.news_category
   module:
-    - datalayer
     - entity_reference_revisions
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_taxonomy_content
 id: taxonomy_term.news_category.field_taxonomy_content
 field_name: field_taxonomy_content
 entity_type: taxonomy_term

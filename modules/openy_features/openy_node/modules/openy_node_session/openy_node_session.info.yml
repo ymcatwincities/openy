@@ -3,6 +3,7 @@ description: 'OpenY Session.'
 type: module
 core: 8.x
 package: OpenY
+version: 8.x-1.0
 dependencies:
   - content_moderation
   - datalayer
@@ -13,14 +14,9 @@ dependencies:
   - link
   - menu_ui
   - node
-  - openy_loc_branch
-  - openy_loc_camp
-  - openy_loc_facility
-  - openy_node_class
   - options
   - paragraphs
   - path
   - rabbit_hole
-  - scheduler
   - text
   - user

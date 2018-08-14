@@ -3,6 +3,7 @@ type: module
 description: Provide Upgrade Path Tool.
 core: 8.x
 package: OpenY
+version: 8.x-1.0
 php: 5.6
 dependencies:
   - features

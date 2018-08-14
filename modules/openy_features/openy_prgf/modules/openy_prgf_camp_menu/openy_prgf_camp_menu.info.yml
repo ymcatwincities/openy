@@ -3,8 +3,10 @@ description: 'OpenY Paragraph Camp Menu.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - field
   - openy_prgf
   - paragraphs
   - plugin
+  - openy_loc_camp

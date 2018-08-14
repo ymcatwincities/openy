@@ -4,12 +4,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_title
     - paragraphs.paragraphs_type.event_posts_listing
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_title
 id: paragraph.event_posts_listing.field_prgf_title
 field_name: field_prgf_title
 entity_type: paragraph

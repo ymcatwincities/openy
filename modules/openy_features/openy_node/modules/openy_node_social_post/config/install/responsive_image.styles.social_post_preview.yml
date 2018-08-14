@@ -2,11 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - image.style.node_program_subcategory_teaser
+    - image.style.medium
     - image.style.social_post_preview
-    - responsive_image.styles.social_post_preview
-  module:
-    - responsive_image
 id: social_post_preview
 label: 'Social post preview'
 image_style_mappings:
@@ -16,4 +13,4 @@ image_style_mappings:
     image_mapping_type: image_style
     image_mapping: social_post_preview
 breakpoint_group: responsive_image
-fallback_image_style: node_program_subcategory_teaser
+fallback_image_style: medium

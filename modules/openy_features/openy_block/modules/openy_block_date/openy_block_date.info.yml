@@ -1,5 +1,6 @@
 name: 'OpenY Date Block'
 description: 'Implements OpenY Date Block.'
+package: OpenY
 type: module
 core: 8.x
 dependencies:

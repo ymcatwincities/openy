@@ -2,7 +2,8 @@ name: OpenY Admin
 type: theme
 core: '8.x'
 base theme: seven
-
+package: OpenY
+version: 8.x-1.0
 libraries-override:
   seven/install-page:
     css:
