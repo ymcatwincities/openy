@@ -1,0 +1,44 @@
+.paragraph--type--single-teaser {
+  .content-tease-paragraph .image-wrapper {
+    text-align: center;
+    color: $white;
+    display: flex;
+    height: 500px;
+    background-size: cover !important;
+
+    .field-para-teaser-image img {
+      display: inline-block;
+    }
+
+    .content {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    h2 {
+      text-transform: uppercase;
+      color: $white;
+    }
+
+    hr.delimeter {
+      width: 150px;
+      height: 2px;
+      border: none;
+      background: $white;
+      opacity: 0.4;
+      margin-top: 35px;
+      margin-bottom: 35px;
+    }
+
+    .btn {
+      text-transform: uppercase;
+      border: 2px solid;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+}

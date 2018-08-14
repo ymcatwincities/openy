@@ -1,0 +1,71 @@
+//
+// Shared schedules styling.
+//
+.schedule-locations__wrapper {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+
+  @media (min-width: $screen-tablet) {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+
+
+//
+// Locations selection page.
+//
+.locations-header {
+  align-items: flex-end;
+  margin-bottom: 1rem;
+
+  @media (min-width: $screen-tablet) {
+    margin-bottom: 2rem;
+  }
+
+  // select heading
+  h4 {
+    font-size: 16px;
+
+    @media (min-width: $screen-tablet) {
+      font-size: 18px;
+    }
+  }
+}
+
+.schedule-locations__item label {
+  border-color: $light-grey;
+  color: $dark-grey;
+
+  &.selected {
+    color: white;
+    border-color: $yet-another-green;
+    background: $yet-another-green;
+  }
+}
+
+//
+// Schedules dashboard colours.
+//
+.schedule-dashboard__sidebar {
+  color: $darker-grey;
+}
+
+// dividers
+.schedule-dashboard__sidebar .form-group-wrapper {
+  border-color: $light-grey;
+}
+
+.schedule-dashboard__modal--body .table h4 {
+  color: $dark-blue;
+}
+
+// checkbox
+.schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
+  background: $yet-another-green;
+}
+
+/* row striping */
+.schedules-data__row:nth-child(even) { }

@@ -267,13 +267,38 @@ process:
   today_day_of_week_strtolower:
     -
       plugin: default_value
-      default_value: 'l'
+      default_value: '+6 days'
     -
       plugin: callback
-      callable: date
+      callable: strtotime
+    -
+      plugin: callback
+      callable: getdate
+    -
+      plugin: extract
+      index:
+        - weekday
     -
       plugin: callback
       callable: strtolower
+  today_day_of_week_strtolower2:
+    -
+      plugin: default_value
+      default_value: '+7 days'
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: callback
+      callable: getdate
+    -
+      plugin: extract
+      index:
+        - weekday
+    -
+      plugin: callback
+      callable: strtolower
+
   item_time:
     plugin: format_date
     from_format: 'g:i:s a'
@@ -300,6 +325,7 @@ process:
     plugin: default_value
     source:
       - '@today_day_of_week_strtolower'
+      - '@today_day_of_week_strtolower2'
     default_value: NULL
 destination:
   plugin: 'entity:paragraph'
