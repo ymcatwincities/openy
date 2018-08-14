@@ -1,5 +1,5 @@
-system.openy_modules_list:
-  route_name: openy_system.modules_list
-  base_route: system.modules_list
-  title: 'OpenY Components'
-  weight: 30
+#system.openy_modules_list:
+#  route_name: openy_system.modules_list
+#  base_route: system.modules_list
+#  title: 'OpenY Components'
+#  weight: 30
