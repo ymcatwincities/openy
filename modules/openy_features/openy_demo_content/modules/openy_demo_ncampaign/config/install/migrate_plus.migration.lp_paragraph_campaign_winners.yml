@@ -3,10 +3,10 @@ status: true
 dependencies:
   enforced:
     module:
-      - openy_demo_nlanding
+      - openy_demo_ncampaign
 id: openy_demo_lp_paragraph_campaign_winners
 migration_tags: {  }
-migration_group: openy_demo_nlanding
+migration_group: openy_demo_ncampaign
 label: 'Create Campaign Winners paragraph for demo landing pages'
 migration_dependencies: {  }
 source:

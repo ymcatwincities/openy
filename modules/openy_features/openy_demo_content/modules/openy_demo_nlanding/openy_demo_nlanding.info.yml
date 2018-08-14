@@ -11,4 +11,3 @@ dependencies:
   - openy_node_session
   - openy_session_instance
   - openy_prgf_schedule_search
-  - openy_prgf_campaign
