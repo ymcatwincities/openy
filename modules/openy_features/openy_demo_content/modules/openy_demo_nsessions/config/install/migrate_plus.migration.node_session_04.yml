@@ -1478,6 +1478,118 @@ source:
       age_max: 18
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+    -
+      id: session_camp_1
+      title: 'BOLD Cascade Challenge'
+      class: class_bold_one_week_expeditions_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_2
+      title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
+      class: class_bold_one_week_expeditions_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_3
+      title: 'BOLD Rivers and Rocks'
+      class: class_bold_one_week_expeditions_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_4
+      title: 'BOLD Fishing and Backpacking in the North Cascades'
+      class: class_bold_one_week_expeditions_4
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_5
+      title: 'Discover Camp: Drop-off - Carol Edwards Ctr. 2017'
+      class: class_discovery_day_camp_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_6
+      title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
+      class: class_discovery_day_camp_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_camp_7
+      title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
+      class: class_discovery_day_camp_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
   ids:
     id:
       type: string
