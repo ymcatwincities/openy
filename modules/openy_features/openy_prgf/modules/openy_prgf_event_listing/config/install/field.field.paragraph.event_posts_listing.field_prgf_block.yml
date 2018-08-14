@@ -5,12 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_block
     - paragraphs.paragraphs_type.event_posts_listing
   module:
-    - datalayer
     - plugin
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_block
 id: paragraph.event_posts_listing.field_prgf_block
 field_name: field_prgf_block
 entity_type: paragraph

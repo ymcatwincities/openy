@@ -7,14 +7,14 @@ dependencies:
     - views
   theme:
     - openy_rose
-id: views_block__alerts_header_alerts
+id: openy_rose_views_block__alerts_footer_alerts_local
 theme: openy_rose
-region: header
-weight: 0
+region: pre_footer
+weight: -6
 provider: null
-plugin: 'views_block:alerts-header_alerts'
+plugin: 'views_block:alerts-footer_alerts_local'
 settings:
-  id: 'views_block:alerts-header_alerts'
+  id: 'views_block:alerts-footer_alerts_local'
   label: ''
   provider: views
   label_display: '0'

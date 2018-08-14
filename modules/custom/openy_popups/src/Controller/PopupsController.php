@@ -12,37 +12,11 @@ use Drupal\node\NodeInterface;
 use Drupal\openy_popups\Form\BranchesForm;
 use Drupal\openy_popups\Form\ClassBranchesForm;
 use Drupal\file\Entity\File;
-use Drupal\openy_session_instance\SessionInstanceManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * {@inheritdoc}
  */
 class PopupsController extends ControllerBase {
-
-  /**
-   * The SessionInstanceManager.
-   *
-   * @var \Drupal\openy_session_instance\SessionInstanceManagerInterface
-   */
-  protected $sessionInstanceManager;
-
-  /**
-   * Creates a new PopupsController.
-   *
-   * @param SessionInstanceManager $session_instance_manager
-   *   The SessionInstanceManager.
-   */
-  public function __construct(SessionInstanceManager $session_instance_manager) {
-    $this->sessionInstanceManager = $session_instance_manager;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static($container->get('session_instance.manager'));
-  }
 
   /**
    * Branch Popup.
@@ -122,7 +96,7 @@ class PopupsController extends ControllerBase {
 
     if ($node) {
       // Check special cases (0 or 1 available location).
-      $locations = ClassBranchesForm::getBranchesList($node, $this->sessionInstanceManager);
+      $locations = ClassBranchesForm::getBranchesList($node);
       $locations = $locations['branch'] + $locations['camp'];
       if (!$locations) {
         // Show 'Class unavailable' popup.
