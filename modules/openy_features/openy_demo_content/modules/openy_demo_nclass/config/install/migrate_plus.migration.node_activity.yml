@@ -111,14 +111,14 @@ source:
       id: preschool_child_care
       title: 'Preschool Child Care'
       subcategory: preschool
-    -
-      id: discovery_day_camp
-      title: 'Discovery Day Camp'
-      subcategory: day_camps
-    -
-      id: bold_one_week_expeditions
-      title: 'BOLD One-Week Expeditions'
-      subcategory: bold_and_gold
+ #   -
+ #     id: discovery_day_camp
+ #     title: 'Discovery Day Camp'
+ #     subcategory: day_camps
+#    -
+#      id: bold_one_week_expeditions
+#      title: 'BOLD One-Week Expeditions'
+#      subcategory: bold_and_gold
     -
       id: earth_service_corps
       title: 'Earth Service Corps'
