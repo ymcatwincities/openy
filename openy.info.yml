@@ -211,6 +211,7 @@ dependencies:
   - openy_calc
   - openy_data_wrapper
   - logger_entity
+  - personify
   - openy_redirect
   - advanced_help_block
   - openy_gtranslate

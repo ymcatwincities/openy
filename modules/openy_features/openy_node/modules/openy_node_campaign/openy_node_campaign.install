@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * @see system_install()
+ */
+function openy_node_campaign_install() {
+
+}

@@ -1,0 +1,62 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_campaign
+      - openy_demo_ncampaign
+      - openy_prgf_campaign
+id: openy_demo_lp_paragraph_campaign_menu
+migration_tags: {  }
+migration_group: openy_demo_ncampaign
+label: 'Create Campaign Menu paragraph(s) for demo landing page nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: lp_campaign_menu_1
+      parent_id: challenge_yourself_started
+    -
+      id: lp_campaign_menu_2
+      parent_id: challenge_yourself_my_progress
+    -
+      id: lp_campaign_menu_3
+      parent_id: challenge_yourself_rules
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_ncampaign
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  parent_field_name:
+    plugin: default_value
+    default_value: field_content
+  field_prgf_campaign_menu/target_id:
+    plugin: default_value
+    default_value: 'campaign_menu_block'
+  field_prgf_campaign_menu/target_revision_id:
+    plugin: default_value
+    default_value: 'campaign_menu_block'
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: campaign_menu
+migration_dependencies:
+  required:
+    - openy_campaign
+    - openy_prgf_campaign

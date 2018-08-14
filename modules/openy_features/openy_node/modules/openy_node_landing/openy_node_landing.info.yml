@@ -5,6 +5,7 @@ core: 8.x
 package: OpenY
 version: 8.x-1.0
 dependencies:
+  - datalayer
   - entity_reference_revisions
   - field
   - field_group

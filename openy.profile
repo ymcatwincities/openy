@@ -115,6 +115,9 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_tfacility' => [
         'openy_demo_taxonomy_term_facility_type',
       ],
+      'openy_demo_tfitness' => [
+        'openy_demo_taxonomy_term_fitness_category',
+      ],
       'openy_demo_tamenities' => [
         'openy_demo_taxonomy_term_amenities',
       ],
@@ -176,6 +179,19 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_landing',
       ],
     ],
+    /*
+    'campaign' => [
+      'openy_demo_ncampaign' => [
+        'openy_demo_node_campaign_page',
+        'openy_demo_node_campaign',
+      ],
+    ],
+    'interstitial' => [
+      'openy_demo_ninterstitial' => [
+        'openy_demo_node_interstitial_page',
+      ],
+    ],
+    */
     'membership' => [
       'openy_demo_nmbrshp' => [
         'openy_demo_node_membership',
@@ -295,6 +311,12 @@ function openy_import_content(array &$install_state) {
     $install_state['openy']['content'][] = 'sessions_02';
     $install_state['openy']['content'][] = 'sessions_03';
     $install_state['openy']['content'][] = 'sessions_04';
+    $install_state['openy']['content'][] = 'interstitial';
+  }
+
+  // Campaign requires Landing.
+  if (in_array('campaign', $install_state['openy']['content']) && !in_array('landing', $install_state['openy']['content'])) {
+    $install_state['openy']['content'][] = 'landing';
   }
 
   // Build migrations operations arrays, for selected content.
