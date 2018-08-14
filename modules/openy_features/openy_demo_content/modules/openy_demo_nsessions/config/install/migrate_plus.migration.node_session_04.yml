@@ -918,6 +918,166 @@ source:
       age_max: 18
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+     -
+       id: session_training_1
+       title: 'Pilates Reformer - 10, private 1 hr sessions'
+       class: class_personal_training_1
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
+     -
+       id: session_training_2
+       title: 'Private Yoga - 10, 1-hour sessions'
+       class: class_personal_training_2
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
+     -
+       id: session_training_3
+       title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
+       class: class_personal_training_3
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
+     -
+       id: session_training_4
+       title: 'Partner Personal Training - 1 session'
+       class: class_personal_training_4
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
+     -
+       id: session_training_5
+       title: 'Small Group Training - Pilates Reformer Level I/II'
+       class: class_small_group_specialty_training_1
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
+     -
+       id: session_training_6
+       title: 'Small Group Training - Adaptive Yoga'
+       class: class_small_group_specialty_training_2
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
+     -
+       id: session_training_7
+       title: 'Small Group Training - Pilates Reformer Level I'
+       class: class_small_group_specialty_training_3
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
+     -
+       id: session_training_8
+       title: 'Small Group Training - Pilates Reformer Intro'
+       class: class_small_group_specialty_training_4
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
+     -
+       id: session_training_9
+       title: 'Small Group Training - Tween Girl Power!'
+       class: class_small_group_training_youth_1
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
+     -
+       id: session_training_10
+       title: 'Small Group Training - Tween Titans'
+       class: class_small_group_training_youth_2
+       times:
+         -
+           time: academic_success_2
+       location: 1
+       facility: 92
+       online_registration: true
+       ticket_required: false
+       in_membership: false
+       age_min: 5
+       age_max: 18
+       reg_uri: 'http://www.openymca.org'
+       reg_title: 'Register Now'
   ids:
     id:
       type: string

@@ -1312,6 +1312,66 @@ source:
       activity: activity_weight_loss
       body: |
         <p>Lose to Win - Weight Loss Program</p>
+    -
+      id: class_personal_training_1
+      title: 'Pilates Reformer - 10, private 1 hr sessions'
+      activity: activity_personal_training
+      body: |
+        <p>Pilates Reformer - 10, private 1 hr sessions</p>
+    -
+      id: class_personal_training_2
+      title: 'Private Yoga - 10, 1-hour sessions'
+      activity: activity_personal_training
+      body: |
+        <p>Private Yoga - 10, 1-hour sessions</p>
+    -
+      id: class_personal_training_3
+      title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
+      activity: activity_personal_training
+      body: |
+        <p>Pilates Reformer - Duet - 10, 1 hour sessions</p>
+    -
+      id: class_personal_training_4
+      title: 'Partner Personal Training - 1 session'
+      activity: activity_personal_training
+      body: |
+        <p>Partner Personal Training - 1 session</p>
+    -
+      id: class_small_group_specialty_training_1
+      title: 'Small Group Training - Pilates Reformer Level I/II'
+      activity: activity_small_group_specialty_training
+      body: |
+        <p>Small Group Training - Pilates Reformer Level I/II</p>
+    -
+      id: class_small_group_specialty_training_2
+      title: 'Small Group Training - Adaptive Yoga'
+      activity: activity_small_group_specialty_training
+      body: |
+        <p>Small Group Training - Adaptive Yoga</p>
+    -
+      id: class_small_group_specialty_training_3
+      title: 'Small Group Training - Pilates Reformer Level I'
+      activity: activity_small_group_specialty_training
+      body: |
+        <p>Small Group Training - Pilates Reformer Level I</p>
+    -
+      id: class_small_group_specialty_training_4
+      title: 'Small Group Training - Pilates Reformer Intro'
+      activity: activity_small_group_specialty_training
+      body: |
+        <p>Small Group Training - Pilates Reformer Intro</p>
+     -
+       id: class_small_group_training_youth_1
+       title: 'Small Group Training - Tween Girl Power!'
+       activity: activity_small_group_training_youth
+       body: |
+         <p>Small Group Training - Tween Girl Power!</p>
+     -
+       id: class_small_group_training_youth_2
+       title: 'Small Group Training - Tween Titans'
+       activity: activity_small_group_training_youth
+       body: |
+         <p>Small Group Training - Tween Titans</p>
   ids:
     id:
       type: string
