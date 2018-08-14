@@ -3,13 +3,11 @@ entity.mapping.collection:
   title: 'Mapping list'
   route_name: entity.mapping.collection
   description: 'List Mapping entities'
-  parent: openy_alters.admin_config_entities
-  weight: 100
+  parent: system.admin_structure
 
 # Mapping type menu items definition
 entity.mapping_type.collection:
-  title: 'Mapping type'
+  title: 'Mapping types'
   route_name: entity.mapping_type.collection
   description: 'List Mapping type (bundles)'
-  parent: openy_alters.admin_config_entities
-  weight: 99
+  parent: system.admin_structure
