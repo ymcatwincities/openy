@@ -175,6 +175,10 @@ class ImportForm extends FormBase {
    */
   public static function migrateOfferings($gxpLocationId) {
     $migration = \Drupal::service('plugin.manager.migration')->createInstance('gxp_offerings_import');
+    if (!$migration) {
+        drupal_set_message(t('Migration @gxp_offerings_import does not exist. Please check script that builds CSV file for import.', ['@gxp_offerings_import' => 'gxp_offerings_import']), 'error');
+        return;
+    }
 
     $source = $migration->getSourceConfiguration();
     $publicPath = \Drupal::service('file_system')->realpath('public://');
