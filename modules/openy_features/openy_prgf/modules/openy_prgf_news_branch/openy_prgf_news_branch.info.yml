@@ -1,8 +1,9 @@
 name: 'OpenY Paragraph Latest News Posts (Branch)'
 description: 'OpenY Paragraph Latest News Posts (Branch).'
-package: 'OpenY (Experimental)'
+package: 'OpenY'
 type: module
 core: 8.x
+version: '8.x-1.0'
 dependencies:
   - field
   - node

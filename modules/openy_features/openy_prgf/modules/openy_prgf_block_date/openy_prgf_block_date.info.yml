@@ -1,7 +1,9 @@
 name: 'OpenY Paragraph for Date Block'
 description: 'OpenY Paragraph shows content based on date and time (before, between, after).'
+package: OpenY
 type: module
 core: 8.x
+version: '8.x-1.0'
 dependencies:
   - block_content
   - entity_browser_entity_form

@@ -22,14 +22,34 @@ dependencies:
   module:
     - address
     - entity_reference_revisions
+    - link
     - openy_hours_formatter
     - telephone
     - user
+    - views_field_formatter
 id: node.branch.full
 targetEntityType: node
 bundle: branch
 mode: full
 content:
+  addthis:
+    label: hidden
+    type: views_field_formatter
+    weight: 8
+    region: content
+    settings:
+      view: ''
+      arguments:
+        field_value:
+          checked: true
+        entity_id:
+          checked: true
+        delta:
+          checked: true
+      hide_empty: false
+      multiple: false
+      implode_character: ''
+    third_party_settings: {  }
   field_bottom_content:
     type: entity_reference_revisions_entity_view
     weight: 5
@@ -71,9 +91,18 @@ content:
     third_party_settings: {  }
     type: address_plain
     region: content
+  field_location_amenities:
+    type: entity_reference_entity_view
+    weight: 9
+    region: content
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
   field_location_directions:
     type: link_separate
-    weight: 7
+    weight: 6
     region: content
     label: hidden
     settings:
@@ -85,7 +114,7 @@ content:
     third_party_settings: {  }
   field_location_fax:
     type: telephone_link
-    weight: 8
+    weight: 7
     region: content
     label: hidden
     settings:
@@ -100,7 +129,6 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
-  field_location_amenities: true
   field_location_area: true
   field_location_coordinates: true
   field_location_email: true

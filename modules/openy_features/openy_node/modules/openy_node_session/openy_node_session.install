@@ -1,6 +1,8 @@
 <?php
+
 /**
- * @file OpenY Node Session install file.
+ * @file
+ * OpenY Node Session install file.
  */
 
 /**
@@ -8,7 +10,7 @@
  */
 function openy_node_session_update_8001() {
   $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
@@ -52,7 +54,7 @@ function openy_node_session_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'field.field.node.session.field_session_class' =>[
+    'field.field.node.session.field_session_class' => [
       'description',
     ],
     'field.field.node.session.field_session_description' => [
@@ -184,6 +186,74 @@ function openy_node_session_update_8006() {
       'content.status',
       'content.addthis',
     ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs after entity reference handler update and configs actualization.
+ */
+function openy_node_session_update_8007() {
+  $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.node.session.field_session_class' => [
+      'dependencies',
+      'settings',
+    ],
+    'field.field.node.session.field_session_location' => [
+      'dependencies',
+      'settings',
+    ],
+    'field.field.node.session.field_session_plocation' => [
+      'dependencies',
+      'settings',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Add room and instructor fields.
+ */
+function openy_node_session_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
+
+  // Add two new fields.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.node.session.field_session_instructor',
+    'field.field.node.session.field_session_room',
+    'field.storage.node.field_session_instructor',
+    'field.storage.node.field_session_room',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.session.default' =>[
+      'dependencies',
+      'field_group',
+    ],
+    'core.entity_view_display.node.session.default' =>[
+      'dependencies',
+      'content',
+    ],
+    'field.field.node.session.field_session_plocation' =>[],
   ];
 
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');

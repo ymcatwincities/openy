@@ -69,7 +69,7 @@ function openy_hf_preprocess_html(&$variables) {
       $styles = \Drupal::service('asset.css.collection_renderer')->render(\Drupal::service('asset.resolver')->getCssAssets($assets, $optimize_css));
       foreach ($styles as $key => $style) {
         $variables['styles'][] = $style;
-        if (substr($style['#attributes']['href'], 0, 2) !== '//') {
+        if (isset($style['#attributes']['href']) && substr($style['#attributes']['href'], 0, 2) !== '//') {
           $variables['styles'][$key]['#attributes']['href'] = $base_url . $style['#attributes']['href'];
         }
       }
@@ -83,14 +83,14 @@ function openy_hf_preprocess_html(&$variables) {
       $scripts = \Drupal::service('asset.js.collection_renderer')->render($js_assets_header);
       foreach ($scripts as $key => $script) {
         $variables['scripts'][] = $script;
-        if (substr($script['#attributes']['href'], 0, 2) !== '//') {
+        if (isset($script['#attributes']['href']) && substr($script['#attributes']['href'], 0, 2) !== '//') {
           $variables['scripts'][$key]['#attributes']['href'] = $base_url . $script['#attributes']['href'];
         }
       }
       $scripts_bottom = \Drupal::service('asset.js.collection_renderer')->render($js_assets_footer);
       foreach ($scripts_bottom as $key => $script_bottom) {
         $variables['scripts_bottom'][] = $script_bottom;
-        if (substr($script_bottom['#attributes']['src'], 0, 2) !== '//') {
+        if (isset($script_bottom['#attributes']['src']) && substr($script_bottom['#attributes']['src'], 0, 2) !== '//') {
           $variables['scripts_bottom'][$key]['#attributes']['src'] = $base_url . $script_bottom['#attributes']['src'];
         }
       }

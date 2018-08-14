@@ -3,6 +3,7 @@ description: 'Provide paragraph containing Featured Highlight blocks.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - block_content
   - content_moderation
@@ -10,10 +11,7 @@ dependencies:
   - entity_browser_entity_form
   - field
   - inline_entity_form
-  - openy_block_basic
-  - openy_block_custom_simple
-  - openy_block_date
-  - openy_block_featured_highlights
+  - openy_er
   - openy_prgf
   - options
   - paragraphs
