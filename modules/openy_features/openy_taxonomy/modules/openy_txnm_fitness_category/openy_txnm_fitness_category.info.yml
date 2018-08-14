@@ -1,0 +1,15 @@
+name: 'OpenY Taxonomy Fitness Category'
+description: 'OpenY Taxonomy Fitness Category'
+type: module
+core: 8.x
+version: 1.0-rc1
+package: OpenY Experimental
+dependencies:
+  - datalayer
+  - field
+  - file
+  - language
+  - openy_svg_formatter
+  - path
+  - taxonomy
+  - text
