@@ -55,7 +55,7 @@
           <div v-cloak>
             <strong class="time">${ item.time_start } - ${ item.time_end }</strong>
             <p>
-              <span>${ item.duration_hours }{{ 'h'|t }}</span>
+              <span v-if="item.duration_hours > 0">${ item.duration_hours }{{ 'h'|t }}</span>
               <span v-if="item.duration_minutes > 0">${ item.duration_minutes }{{ 'min'|t }}</span>
               <span v-if="item.room">${ item.room }</span>
             </p>
