@@ -167,6 +167,18 @@ source:
       id: activity_weight_loss
       title: 'Weight Loss'
       subcategory: family_activities
+    -
+      id: activity_personal_training
+      title: 'Personal Training'
+      subcategory: personal_training
+    -
+      id: activity_small_group_specialty_training
+      title: 'Small Group and Specialty Training'
+      subcategory: personal_training
+    -
+      id: activity_small_group_training_youth
+      title: 'Small Group Training - Youth'
+      subcategory: personal_training
   ids:
     id:
       type: string
