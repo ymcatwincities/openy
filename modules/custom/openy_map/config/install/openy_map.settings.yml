@@ -1,3 +1,8 @@
+map_engine: leaflet
+leaflet:
+  base_layer: 'Wikimedia'
+  search_icon: '/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red.png'
+  search_icon_retina: '/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red_x2.png'
 default_tags:
   branch: 'YMCA'
   camp: 'Camps'
