@@ -23,11 +23,6 @@ function openy_install() {
     ->set('admin', 'seven')
     ->save(TRUE);
 
-
-  /*$theme_installer = \Drupal::service('theme_installer');
-  // Install OpenY Campaign theme.
-  $theme_installer->install(['openy_campaign_theme'], TRUE);*/
-
   // Enable the admin theme.
   $config_factory
     ->getEditable('node.settings')
@@ -42,9 +37,6 @@ function openy_install() {
 
   // Enable openy_node_alert after openy_rose theme is enabled to place blocks.
   $module_installer->install(['openy_node_alert'], TRUE);
-
-
-
 }
 
 /**
