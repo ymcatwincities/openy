@@ -26,6 +26,7 @@ use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 define('CAMPAIGN_MENU_PAGES_MAX', 5);
 define('CAMPAIGN_THEME', 'openy_campaign_theme');
 define('OPENY_THEME', 'openy_rose');
+define('CAMPAIGN_CACHE_TIME', 5 * 60);
 
 /**
  * Implements hook_theme().
@@ -595,7 +596,7 @@ function openy_campaign_entity_type_build(array &$entity_types) {
 function openy_campaign_node_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
   // Disable caching for the Campaign's pages.
   if (in_array($entity->bundle(), ['campaign', 'campaign_page'])) {
-    $build['#cache']['max-age'] = 0;
+    $build['#cache']['max-age'] = CAMPAIGN_CACHE_TIME;
     \Drupal::service('page_cache_kill_switch')->trigger();
   }
 }
