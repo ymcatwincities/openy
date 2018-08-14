@@ -6,11 +6,73 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
  * {@inheritdoc}
  */
 class RepeatController extends ControllerBase {
+
+  /**
+   * Cache default.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected $cache;
+
+  /**
+   * The Database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $database;
+
+  /**
+   * The entity query factory.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $entityQuery;
+
+  /**
+   * The EntityTypeManager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   */
+  protected $entity_type_manager;
+
+  /**
+   * Creates a new RepeatController.
+   *
+   * @param CacheBackendInterface $cache
+   *   Cache default.
+   * @param Connection $database
+   *   The Database connection.
+   * @param EntityTypeManager $entity_type_manager
+   *   The EntityTypeManager.
+   */
+  public function __construct(CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager) {
+    $this->cache = $cache;
+    $this->database = $database;
+    $this->entityQuery = $entity_query;
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('cache.default'),
+      $container->get('database'),
+      $container->get('entity.query'),
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -100,8 +162,7 @@ class RepeatController extends ControllerBase {
     $values[':timestamp_start'] = $timestamp_start;
     $values[':timestamp_end'] = $timestamp_end;
 
-    $connection = \Drupal::database();
-    $query = $connection->query($sql, $values);
+    $query = $this->database->query($sql, $values);
     $result = $query->fetchAll();
 
     $locations_info = $this->getLocationsInfo();
@@ -126,8 +187,7 @@ class RepeatController extends ControllerBase {
             INNER JOIN node_field_data nd ON l.field_session_location_target_id = nd.nid
             WHERE n.type = 'session'";
 
-    $connection = \Drupal::database();
-    $query = $connection->query($sql);
+    $query = $this->database->query($sql);
 
     return $query->fetchCol();
   }
@@ -136,28 +196,41 @@ class RepeatController extends ControllerBase {
    * Get detailed info about Location (aka branch).
    */
   public function getLocationsInfo() {
-    $nids = \Drupal::entityQuery('node')
-      ->condition('type','branch')
-      ->execute();
-    $branches = Node::loadMultiple($nids);
-
     $data = [];
-    foreach ($branches as $node) {
-      $days = $node->get('field_branch_hours')->getValue();
-      $address = $node->get('field_location_address')->getValue();
-      if (!empty($address[0])) {
-        $address = array_filter($address[0]);
-        $address = implode(', ', $address);
+    $tags = ['node_list'];
+    $cid = 'openy_repeat:locations_info';
+    if ($cache = $this->cache->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $nids = $this->entityQuery
+        ->get('node')
+        ->condition('type','branch')
+        ->execute();
+      $nids_chunked = array_chunk($nids, 20, TRUE);
+      foreach ($nids_chunked as $chunk) {
+        $branches = $this->entityTypeManager->getStorage('node')->loadMultiple($chunk);
+        if (!empty($branches)) {
+          foreach ($branches as $node) {
+            $days = $node->get('field_branch_hours')->getValue();
+            $address = $node->get('field_location_address')->getValue();
+            if (!empty($address[0])) {
+              $address = array_filter($address[0]);
+              $address = implode(', ', $address);
+            }
+            $data[$node->title->value] = [
+              'nid' => $node->nid->value,
+              'title' => $node->title->value,
+              'email' => $node->field_location_email->value,
+              'phone' => $node->field_location_phone->value,
+              'address' => $address,
+              'days' => !empty($days[0]) ? $this->getFormattedHours($days[0]) : [],
+            ];
+            $tags[] = 'node:' . $node->nid->value;
+          }
+        }
       }
-
-      $data[$node->title->value] = [
-        'nid' => $node->nid->value,
-        'title' => $node->title->value,
-        'email' => $node->field_location_email->value,
-        'phone' => $node->field_location_phone->value,
-        'address' => $address,
-        'days' => !empty($days[0]) ? $this->getFormattedHours($days[0]) : [],
-      ];
+      $this->cache->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, $tags);
     }
 
     return $data;
@@ -167,18 +240,32 @@ class RepeatController extends ControllerBase {
    * Get detailed info about Class.
    */
   public function getClassesInfo() {
-    $nids = \Drupal::entityQuery('node')
-      ->condition('type','class')
-      ->execute();
-    $classes = Node::loadMultiple($nids);
-
     $data = [];
-    foreach ($classes as $node) {
-      $data[$node->nid->value] = [
-        'nid' => $node->nid->value,
-        'title' => $node->title->value,
-        'description' => strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600)),
-      ];
+    $tags = ['node_list'];
+    $cid = 'openy_repeat:classes_info';
+    if ($cache = $this->cache->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $nids = $this->entityQuery
+        ->get('node')
+        ->condition('type','class')
+        ->execute();
+      $nids_chunked = array_chunk($nids, 20, TRUE);
+      foreach ($nids_chunked as $chunk) {
+        $classes = $this->entityTypeManager->getStorage('node')->loadMultiple($chunk);
+        if (!empty($classes)) {
+          foreach ($classes as $node) {
+            $data[$node->nid->value] = [
+              'nid' => $node->nid->value,
+              'title' => $node->title->value,
+              'description' => html_entity_decode(strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600))),
+            ];
+            $tags[] = 'node:' . $node->nid->value;
+          }
+        }
+      }
+      $this->cache->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, $tags);
     }
 
     return $data;
