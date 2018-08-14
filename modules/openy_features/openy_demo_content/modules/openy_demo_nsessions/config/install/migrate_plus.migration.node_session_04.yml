@@ -918,6 +918,406 @@ source:
       age_max: 18
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+    -
+      id: session_swim_1
+      title: 'Swim Lessons - Parent/Child Stage A: Water Discov'
+      class: class_swim_lessons_child_with_adult_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_2
+      title: 'Swim Lessons - Parent/Child Stage B: Water Explor'
+      class: class_swim_lessons_child_with_adult_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_3
+      title: 'Swim Lessons - Preschool Stage 1: Water Acclimat'
+      class: class_swim_lessons_preschool_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_4
+      title: 'Swim Lessons - Preschool Stage 2: Water Movement'
+      class: class_swim_lessons_preschool_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_5
+      title: 'Swim Lessons - Preschool Stage 3: Water Stamina'
+      class: class_swim_lessons_preschool_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_6
+      title: 'Swim Lessons - Preschool Stage 4: Stroke Intro'
+      class: class_swim_lessons_preschool_4
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_7
+      title: 'Swim Lesson - Private'
+      class: class_swim_lessons_private_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_8
+      title: 'Swim Lessons - Teen Advanced'
+      class: class_swim_lessons_teen_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_9
+      title: 'Swim Lessons - Teen'
+      class: class_swim_lessons_teen_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_10
+      title: 'Swim Lessons - Teen Beginning'
+      class: class_swim_lessons_teen_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_11
+      title: 'Swim Lessons - Teen Intermediate'
+      class: class_swim_lessons_teen_4
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_12
+      title: 'Swim Lessons - Youth Stage 4: Stroke Intro'
+      class: class_swim_lessons_youth_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_13
+      title: 'Swim Lessons - Youth Stage 5: Stroke Devel'
+      class: class_swim_lessons_youth_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_14
+      title: 'Swim Lessons - Youth Stage 6: Stroke Mechanics'
+      class: class_swim_lessons_youth_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_15
+      title: 'Swim Lessons - Youth Stage 3: Water Stamina'
+      class: class_swim_lessons_youth_4
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_16
+      title: 'Swim Lessons - Youth Stage 1: Water Acclimat'
+      class: class_swim_lessons_youth_5
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_17
+      title: 'Swim Lessons - Youth Stage 2: Water Movement'
+      class: class_swim_lessons_youth_6
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_18
+      title: 'Swim Team - Interest List'
+      class: class_swim_team_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_19
+      title: 'Recreational Swim 3ft'
+      class: class_drop-in-swim_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_20
+      title: 'Wade Swim 2ft'
+      class: class_drop-in-swim_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_21
+      title: 'Rec Swim with Slide'
+      class: class_drop-in-swim_3
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_22
+      title: 'Adult Swim 5.5 ft'
+      class: class_drop-in-swim_4
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_23
+      title: 'Family Swim'
+      class: class_drop-in-swim_5
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_24
+      title: 'Recreatonal Swim'
+      class: class_drop-in-swim_6
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: session_swim_25
+      title: 'Lap Swim'
+      class: class_drop-in-swim_7
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
   ids:
     id:
       type: string
