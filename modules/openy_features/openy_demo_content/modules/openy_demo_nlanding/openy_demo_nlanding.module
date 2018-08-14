@@ -92,15 +92,15 @@ function openy_demo_nlanding_pef_pages() {
   $locations_node->field_content->entity = $location_paragraph;
   $locations_node->save();
 
-  $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
-  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
-    'title' => 'Program Schedules',
-    'link' => ['uri' => 'entity:node/' . $locations_node->id()],
-    'menu_name' => 'main',
-    'parent' => 'menu_link_content:' . $parent_menu_link->uuid(),
-    'expanded' => TRUE,
-  ]);
-  $menu_link->save();
+//  $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
+//  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+//    'title' => 'Program Schedules',
+//    'link' => ['uri' => 'entity:node/' . $locations_node->id()],
+//    'menu_name' => 'main',
+//    'parent' => 'menu_link_content:' . $parent_menu_link->uuid(),
+//    'expanded' => TRUE,
+//  ]);
+//  $menu_link->save();
 
   $schedules_pages_to_create = [
     [
