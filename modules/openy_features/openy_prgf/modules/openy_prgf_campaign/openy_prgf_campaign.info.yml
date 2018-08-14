@@ -1,0 +1,15 @@
+name: 'OpenY Paragraph Campaign'
+description: 'Paragraphs related to Campaign'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - datalayer
+  - entity_reference_revisions
+  - field
+  - openy_campaign
+  - openy_prgf
+  - options
+  - paragraphs
+  - plugin
+  - text
