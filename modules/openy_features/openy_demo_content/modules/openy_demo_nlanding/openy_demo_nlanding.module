@@ -26,7 +26,8 @@ function openy_demo_nlanding_pef_pages() {
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'activity')
       ->condition('title', $title);
-    return reset($query->execute());
+    $result = $query->execute();
+    return reset($result);
   };
 
   $schedules_node = \Drupal\node\Entity\Node::create(
@@ -92,7 +93,7 @@ function openy_demo_nlanding_pef_pages() {
   $locations_node->field_content->entity = $location_paragraph;
   $locations_node->save();
 
-//  $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
+  $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
 //  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
 //    'title' => 'Program Schedules',
 //    'link' => ['uri' => 'entity:node/' . $locations_node->id()],
