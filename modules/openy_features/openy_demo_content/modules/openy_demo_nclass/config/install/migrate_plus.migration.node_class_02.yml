@@ -1361,16 +1361,16 @@ source:
       body: |
         <p>Small Group Training - Pilates Reformer Intro</p>
      -
-       id: class_small_group_training_youth_1
-       title: 'Small Group Training - Tween Girl Power!'
-       activity: activity_small_group_training_youth
-       body: |
+      id: class_small_group_training_youth_1
+      title: 'Small Group Training - Tween Girl Power!'
+      activity: activity_small_group_training_youth
+      body: |
          <p>Small Group Training - Tween Girl Power!</p>
      -
-       id: class_small_group_training_youth_2
-       title: 'Small Group Training - Tween Titans'
-       activity: activity_small_group_training_youth
-       body: |
+      id: class_small_group_training_youth_2
+      title: 'Small Group Training - Tween Titans'
+      activity: activity_small_group_training_youth
+      body: |
          <p>Small Group Training - Tween Titans</p>
   ids:
     id:
