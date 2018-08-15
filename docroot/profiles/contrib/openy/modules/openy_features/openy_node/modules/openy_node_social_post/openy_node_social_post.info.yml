@@ -1,0 +1,25 @@
+name: 'OpenY Node Social Post'
+description: 'Features for content type: social post'
+type: module
+core: 8.x
+version: 8.x-1.0
+package: OpenY
+dependencies:
+  - blazy
+  - content_moderation
+  - datalayer
+  - datetime
+  - field
+  - file
+  - image
+  - link
+  - menu_ui
+  - node
+  - paragraphs
+  - path
+  - plugin
+  - responsive_image
+  - social_feed_fetcher
+  - text
+  - user
+  - views
