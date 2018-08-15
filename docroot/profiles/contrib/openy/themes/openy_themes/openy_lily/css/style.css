@@ -14442,6 +14442,13 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   font-weight: normal;
   font-style: normal;
 }
+.breadcrumb-container .breadcrumb {
+  padding: 0;
+  margin-bottom: 0;
+  background-color: inherit;
+  border-radius: 0;
+}
+
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
