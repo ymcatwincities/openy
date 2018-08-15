@@ -3936,14 +3936,6 @@ html.js .branch__updates_queue__button {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-weight: bold;
 }
-.marker_tooltip .node--location-content-type.node--view-mode-teaser .location-item--title, .marker_tooltip
-.node--type-facility.node--view-mode-teaser .location-item--title, .marker_tooltip
-.node--type-branch.node--view-mode-teaser .location-item--title, .marker_tooltip
-.node--type-branch.node--view-mode-sidebar-teaser .location-item--title, .marker_tooltip
-.node--type-branch.node--view-mode-class-location .location-item--title, .marker_tooltip
-.node--type-camp.node--view-mode-teaser .location-item--title {
-  margin: 0 0 5px;
-}
 .node--location-content-type.node--view-mode-teaser .location-item--title + .node__content,
 .node--type-facility.node--view-mode-teaser .location-item--title + .node__content,
 .node--type-branch.node--view-mode-teaser .location-item--title + .node__content,
@@ -4125,6 +4117,56 @@ html.js .branch__updates_queue__button {
   content: ":";
   margin-left: -0.15em;
   margin-right: 0.25em;
+}
+
+.marker_tooltip {
+  color: #333333;
+  font-family: "Helvetica Neue", Verdana, sans-serif;
+  line-height: 1.2;
+}
+.marker_tooltip a {
+  color: #0089d0;
+}
+.marker_tooltip article.node h3.location-item--title {
+  margin: 0 0 0.5em;
+}
+.marker_tooltip article.node h3.location-item--title a {
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
+}
+.marker_tooltip article.node h3.location-item--title ~ .field-location-area {
+  margin: 0 0 0.4em;
+}
+.marker_tooltip article.node h3.location-item--title + .node__content {
+  margin: 0;
+}
+.marker_tooltip article.node .node__content address.wrapper-field-location-address {
+  margin-bottom: 0.4em;
+}
+.marker_tooltip article.node .node__content address.wrapper-field-location-address .field-location-address .address {
+  font-size: 12px;
+  font-style: italic;
+  margin: 0 0 0.5em 0.4em;
+}
+.marker_tooltip article.node .node__content .field-location-phone {
+  margin-bottom: 0.4em;
+}
+.marker_tooltip article.node .node__content .field-location-phone a {
+  font-size: 12px;
+}
+.marker_tooltip article.node .node__content .field-branch-hours h4 {
+  font-weight: bold;
+  margin-bottom: 0.35em;
+  margin-top: 0;
+}
+.marker_tooltip article.node .node__content table tr td {
+  font-style: italic;
+  font-size: 12px;
+  padding-left: 0.5em;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  top: 3px;
+  right: 3px;
 }
 
 .slick-dotted {
@@ -7838,6 +7880,13 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--all-amenities .views-element-container legend {
   color: #636466;
 }
+.paragraph--type--all-amenities .views-element-container legend span {
+  border-bottom: 1px solid #ccc;
+  color: #636466;
+  text-transform: none;
+  display: block;
+  margin: 20px 0;
+}
 .paragraph--type--all-amenities .views-element-container form {
   margin-bottom: 1em;
 }
@@ -7914,7 +7963,7 @@ article .node--view-mode-flexible-content h2 a span {
 
 .list-branch-amenities-wrapper h5 {
   font-size: 15px;
-  font-family: Verdana, sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title {

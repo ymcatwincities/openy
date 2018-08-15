@@ -60,13 +60,13 @@ function openy_map_library_info_alter(&$libraries, $extension) {
   }
 
   // Adding Google Maps API key.
-  foreach ($libraries['openy_map']['js'] as $key => $value) {
+  foreach ($libraries['gmaps']['js'] as $key => $value) {
     if ($key != 'https://maps.googleapis.com/maps/api/js') {
       continue;
     }
     $api_key = \Drupal::configFactory()->get('geolocation.settings')->get('google_map_api_key');
-    unset($libraries['openy_map']['js'][$key]);
-    $libraries['openy_map']['js'][$key . '?key=' . $api_key] = $value;
+    unset($libraries['gmaps']['js'][$key]);
+    $libraries['gmaps']['js'][$key . '?key=' . $api_key] = $value;
   }
 }
 
@@ -84,4 +84,20 @@ function openy_map_theme_suggestions_node_alter(array &$suggestions, array $vari
   if ($view_mode == 'teaser' && $node->hasField('field_location_coordinates') && in_array($node->bundle(), $activeTypes)) {
     $suggestions[] = 'node__location_type__teaser';
   }
+}
+
+/**
+ * Helper function.
+ *
+ * Returns default location set for leaflet.
+ */
+function _openy_map_get_default_location() {
+  $settings = \Drupal::configFactory()->get('openy_map.settings');
+  if ($default_location = $settings->get('leaflet.location')) {
+    return $default_location;
+  }
+  $countries = \Drupal::service('country_manager')->getList();
+  $default_country = \Drupal::configFactory()->get('system.date')->get('country.default');
+
+  return !empty($countries[$default_country]) ? $countries[$default_country] : 'United States of America';
 }

@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_meta_tags
     - node.type.landing_page
   module:
+    - datalayer
     - metatag
 id: node.landing_page.field_meta_tags
 field_name: field_meta_tags
