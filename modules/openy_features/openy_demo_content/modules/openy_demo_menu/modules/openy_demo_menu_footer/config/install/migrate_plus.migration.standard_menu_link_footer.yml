@@ -8,8 +8,10 @@ id: openy_demo_standard_menu_link_footer
 migration_tags:
   - openy_standard_installation
 migration_group: openy_demo_menu
-label: 'Create demo footer menu links'
-migration_dependencies: {}
+label: 'Create standard demo footer menu links'
+migration_dependencies:
+  required:
+    - openy_demo_node_landing
 source:
   plugin: embedded_data
   data_rows:

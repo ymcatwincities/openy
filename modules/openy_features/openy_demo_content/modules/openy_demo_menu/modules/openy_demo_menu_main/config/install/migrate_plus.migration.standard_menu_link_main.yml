@@ -8,7 +8,7 @@ id: openy_demo_standard_menu_link_main
 migration_tags:
   - openy_standard_installation
 migration_group: openy_demo_menu
-label: 'Create demo main menu links'
+label: 'Create standard demo main menu links'
 migration_dependencies:
   required:
     - openy_demo_menu_main_file

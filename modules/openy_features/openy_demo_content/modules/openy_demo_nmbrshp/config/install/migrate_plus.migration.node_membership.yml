@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_nmbrshp
 id: openy_demo_node_membership
-migration_tags: {  }
+migration_tags:
+  - openy_extended_installation
 migration_group: openy_demo_nmbrshp
 label: 'Create demo membership page nodes'
 source:

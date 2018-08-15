@@ -7,6 +7,8 @@ dependencies:
 id: openy_demo_event_landing
 migration_tags:
   - 'OpenY Demo Event'
+  - openy_extended_installation
+  - openy_complete_installation
 migration_group: openy_demo_nevent
 label: 'Create demo landing event page'
 source:
