@@ -54,6 +54,11 @@ process:
     plugin: default_value
     default_value: field_content
   field_prgf_title: title
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: latest_blog_posts_branch
 destination:
   plugin: 'entity:paragraph'
   default_bundle: latest_blog_posts_branch

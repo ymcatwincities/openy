@@ -4,7 +4,9 @@ dependencies:
   module:
     - openy_loc_branch
 id: openy_demo_node_branch
-migration_tags: {  }
+migration_tags:
+  - openy_extended_installation
+  - openy_complete_installation
 migration_group: openy_demo_nbranch
 label: 'Import demo branch posts'
 source:

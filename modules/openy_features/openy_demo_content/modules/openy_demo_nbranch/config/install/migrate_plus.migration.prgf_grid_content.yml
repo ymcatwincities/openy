@@ -143,6 +143,11 @@ process:
         migration:
           - openy_demo_prgf_grid_columns
         source: column_id
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: grid_content
 destination:
   plugin: 'entity:paragraph'
   default_bundle: grid_content
