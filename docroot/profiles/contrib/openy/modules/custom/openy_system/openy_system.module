@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * OpenY System module file.
+ */
+
+/**
+ * Perform necessary actions after OpenY modules are uninstalled.
+ *
+ * This function differs from hook_uninstall() in that it gives all other
+ * modules a chance to perform actions when a module is uninstalled, whereas
+ * hook_uninstall() is only called on the module actually being uninstalled.
+ *
+ * @param array $modules
+ *   An array of the modules that were uninstalled.
+ *
+ * @see hook_uninstall()
+ */
+function openy_system_modules_uninstalled(array $modules) {
+  $modules_manager = \Drupal::service('openy.modules_manager');
+  foreach ($modules as $module) {
+    if (strpos($module, 'openy_') !== FALSE) {
+      // Run post uninstall only for openy modules.
+      $modules_manager->postUninstall($module);
+    }
+  }
+}
