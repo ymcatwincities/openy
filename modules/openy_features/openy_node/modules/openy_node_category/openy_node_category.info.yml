@@ -8,6 +8,7 @@ dependencies:
   - blazy
   - datalayer
   - entity_browser
+  - entity_clone
   - entity_reference_revisions
   - field
   - field_group

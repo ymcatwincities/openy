@@ -174,6 +174,9 @@
             "drupal/plugin": {
                 "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/plugin_2647312_20.patch"
             },
+            "drupal/views_data_export": {
+                "2789531 - Support for batch operations": "https://www.drupal.org/files/issues/2789531-105.patch"
+            },
             "drupal/views_field_formatter": {
                 "2874811 - Add option to show/hide empty views": "https://www.drupal.org/files/issues/Option-added-to-hide-empty-views-2874811.patch"
             },
@@ -211,6 +214,7 @@
         "drupal/inline_entity_form": "1.0-beta1",
         "drupal/embed": "1.0",
         "drupal/entity_embed": "1.0-beta2",
+        "drupal/entity_clone": "^1.0@alpha",
         "drupal/views_block_filter_block": "1.x-dev",
         "drupal/plugin": "2.5",
         "drupal/migrate_plus": "3.0-beta1",
@@ -252,6 +256,8 @@
         "drupal/custom_formatters": "3.0-alpha1",
         "drupal/token_filter": "1.0-beta1",
         "drupal/views_field_formatter": "1.5",
+        "drupal/tzfield": "1.x-dev",
+        "drupal/views_data_export": "1.0-beta1",
         "drupal/lndr": "1.11",
         "doctrine/inflector": "1.1.*",
         "drupal/crop": "1.3",
