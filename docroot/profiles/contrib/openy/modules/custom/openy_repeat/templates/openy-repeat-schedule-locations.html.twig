@@ -1,0 +1,50 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - locations: locations of "repeat" entity for filter.
+ */
+ *
+ * BS4 classes:
+ * - col-md
+ * - d-none
+ *
+#}
+{{ attach_library('openy_repeat/openy_repeat.locations') }}
+
+<div class="container schedule-locations__wrapper px-3 px-lg-5">
+
+  <div class="locations-header row row-eq-height align-items-end">
+    <div class="col-12 col-xs-8">
+      <h4>{{ 'Select one or more locations'|t }}</h4>
+    </div>
+
+    {% if locations is not empty %}
+    <div class="col-12 col-xs-4 col-md text-right">
+      <button class="btn btn-primary btn-lg submit-locations js-submit-locations disabled">{{ 'Next'|t }}</button>
+    </div>
+    {% endif %}
+
+  </div>
+
+  <div class="js-locations-row row row-eq-height">
+    {% if locations is not empty %}
+      {% for partlocations in locations|batch(locations|length / 2, '') %}
+        <div class="col-xs-12 col-sm-4">
+          {% for loc in partlocations %}
+            {% if loc is not empty %}
+            <div class="schedule-locations__item">
+              <label>
+                <i class="fa fa-map-marker"></i>
+                <input type="checkbox" value="{{ loc }}" class="box js-location-box d-none hidden">
+                {{ loc }}
+              </label>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
