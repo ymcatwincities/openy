@@ -140,7 +140,7 @@ dependencies:
   - openy_prgf_schedule_search
   - openy_prgf_featured_content
   - openy_prgf_grid_content
-  - openy_prgf_group_schedules
+#  - openy_prgf_group_schedules
   - openy_prgf_story_card
   - openy_prgf_promo_card
   - openy_prgf_secondary_description_sidebar
@@ -186,7 +186,7 @@ dependencies:
   - openy_addthis
   - openy_branch_selector
   - openy_field_hours
-  - openy_group_schedules
+#  - openy_group_schedules
   - groupex_form_cache
   - openy_hf
   - openy_ckeditor

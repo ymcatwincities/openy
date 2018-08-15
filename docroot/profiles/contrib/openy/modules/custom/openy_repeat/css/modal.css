@@ -1,0 +1,96 @@
+.schedule-dashboard__modal {
+  font-size: 14px;
+}
+
+
+/* modal > content wrapper */
+
+.schedule-dashboard__modal .modal-content {
+  padding: 20px 0;
+  border-radius: 0;
+  border: none;
+  color: #333;
+}
+
+
+/* modal > header */
+
+.schedule-dashboard__modal--header {
+  padding: 0 20px;
+  display: block;
+  height: 50px;
+}
+
+.schedule-dashboard__modal--header button {
+  font-size: 27px;
+  opacity: .8;
+}
+
+
+/* modal > body */
+
+.schedule-dashboard__modal--body .table h4 {
+  font-size: 16px;
+}
+
+
+/* table headers */
+
+.schedule-dashboard__modal--body .table>thead>tr>th,
+.schedule-dashboard__modal--body .table>tbody>tr>th,
+.schedule-dashboard__modal--body .table>tfoot>tr>th {
+  padding: 15px 35px;
+  background: #F0FAF9;
+  border: 0;
+}
+
+
+/* table cells */
+
+.schedule-dashboard__modal--body .table>thead>tr>td,
+.schedule-dashboard__modal--body .table>tbody>tr>td,
+.schedule-dashboard__modal--body .table>tfoot>tr>td {
+  padding: 24px 30px 0 30px;
+  border: 0;
+}
+
+
+/* nested tables (ie. branch hours) */
+
+.schedule-dashboard__modal--body .table .table>thead>tr>th,
+.schedule-dashboard__modal--body .table .table>thead>tr>td,
+.schedule-dashboard__modal--body .table .table>tbody>tr>th,
+.schedule-dashboard__modal--body .table .table>tbody>tr>td,
+.schedule-dashboard__modal--body .table .table>tfoot>tr>th,
+.schedule-dashboard__modal--body .table .table>tfoot>tr>td {
+  padding: 0 10px 10px 0;
+}
+
+
+/* modal > footer */
+
+.schedule-dashboard__modal--footer {
+  text-align: center;
+}
+
+.schedule-dashboard__modal--footer .btn {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  .schedule-dashboard__modal {
+    font-size: 16px;
+  }
+  .schedule-dashboard__modal--header {
+    padding: 0;
+  }
+  .schedule-dashboard__modal .modal-content {
+    padding: 30px;
+  }
+  .schedule-dashboard__modal--body .table h4 {
+    font-size: 18px;
+  }
+  .schedule-dashboard__modal--footer .btn {
+    font-size: 18px;
+  }
+}
