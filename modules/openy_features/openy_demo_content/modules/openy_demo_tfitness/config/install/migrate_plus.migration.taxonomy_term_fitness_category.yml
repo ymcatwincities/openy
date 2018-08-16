@@ -2,7 +2,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: openy_demo_taxonomy_term_fitness_category
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_term
 label: 'Create demo fitness category term(s)'
 source:
