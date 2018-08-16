@@ -1,0 +1,5 @@
+autocomplete:
+  version: 1.0
+  css:
+    theme:
+      css/autocomplete.css: {}
