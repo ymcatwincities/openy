@@ -7869,9 +7869,6 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
 .viewport.expanded-mobile:after {
   opacity: 1;
 }
-.viewport.expanded-mobile #main {
-  margin-left: 100%;
-}
 
 header#page-head {
   width: 100%;
@@ -14317,33 +14314,34 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
 
 #page-footer #block-openy-lily-footersocialblock ul li a.icon-youtube:before {
   content: "\f167";
-  font: normal normal normal 26px/1.6 FontAwesome;
 }
 
 .icon-facebook:before {
   content: "\f09a";
-  font: normal normal normal 26px/1.6 FontAwesome;
 }
 
 .icon-twitter:before {
   content: "\f099";
-  font: normal normal normal 26px/1.6 FontAwesome;
 }
 
 .icon-flickr:before {
   content: "\f16e";
-  font: normal normal normal 26px/1.6 FontAwesome;
 }
 
 .icon-instagram:before {
   content: "\f16d";
-  font: normal normal normal 26px/1.6 FontAwesome;
 }
 
 #page-footer #block-openy-lily-footermenucenter .nav li a {
   font-family: "Cachet", Verdana, Arial, sans-serif;
   font-size: 20px;
   color: #a8a8a8;
+}
+
+#page-footer #block-openy-lily-footersocialblock ul li a.social-icon {
+  display: inline-block;
+  font-family: FontAwesome;
+  text-rendering: auto;
 }
 
 .node--type-blog.node--view-mode-teaser .blog-category {
