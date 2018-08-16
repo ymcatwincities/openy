@@ -917,39 +917,6 @@ function openy_update_8060() {
 }
 
 /**
- * Upgrade path for new carnation theme.
- */
-function openy_update_8061() {
-  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'core.entity_view_display.node.branch.full',
-  ]);
-
-  $config_dir = drupal_get_path('module', 'openy_node_news') . '/config/install/';
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'core.entity_view_display.node.news.teaser',
-  ]);
-
-  $config_dir = drupal_get_path('module', 'openy_prgf_event_listing') . '/config/install/';
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'views.view.listing_event_posts',
-  ]);
-
-  $config_dir = drupal_get_path('module', 'openy_prgf_news_listing') . '/config/install/';
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'views.view.listing_news_posts',
-  ]);
-}
-
-/**
  * Enable OpenY Entity Reference Tweaks.
  */
 function openy_update_8062() {
