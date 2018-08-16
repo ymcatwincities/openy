@@ -7,5 +7,6 @@ dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
+  - openy_node_blog
   - openy_demo_tblog
   - openy_demo_nbranch
