@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center">.
   <a href="http://www.openymca.org">
     <img alt="react-router" src="https://www.ymcamn.org/themes/custom/ymca/img/ymca-logo.svg" width="144">
   </a>
