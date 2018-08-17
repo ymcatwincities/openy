@@ -388,7 +388,7 @@ function openy_import_content(array &$install_state) {
 
   if ($install_state['openy']['content']) {
     // If option has been selected build demo modules installation operations array.
-    _openy_import_content_helper($module_operations, $migrate_operations, $preset);
+    _openy_import_content_helper($module_operations, $preset);
     // Add migration import by tag to migration operations array.
     $migrate_operations[] = ['openy_import_migration', (array) $migration_tag];
     if ($preset == 'complete') {
@@ -528,21 +528,16 @@ function openy_fix_configured_paragraph_blocks(array &$install_state) {
  *
  * @param array $module_operations
  *   List of module operations.
- * @param array $migrate_operations
- *   List of migrate operations.
  * @param string $key
  *   Key of the section in the mapping.
  */
-function _openy_import_content_helper(array &$module_operations, array &$migrate_operations, $key) {
+function _openy_import_content_helper(array &$module_operations, $key) {
   $modules = openy_demo_content_configs_map($key);
   if (empty($modules)) {
     return;
   }
   foreach ($modules as $key => $migrations) {
     $module_operations[] = ['openy_enable_module', (array) $key];
-    foreach ($migrations as $migration) {
-      $migrate_operations[] = ['openy_import_migration', (array) $migration];
-    }
   }
 }
 
