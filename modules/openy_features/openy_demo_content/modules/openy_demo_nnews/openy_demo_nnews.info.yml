@@ -2,6 +2,7 @@ name: 'OpenY Demo Node News'
 description: 'OpenY Demo Node News.'
 type: module
 core: 8.x
+version: 8.x-1.0
 package: OpenY (Experimental)
 dependencies:
   - migrate

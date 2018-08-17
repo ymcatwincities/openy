@@ -2,6 +2,7 @@ name: 'OpenY Demo AddThis'
 description: 'OpenY Demo AddThis.'
 type: module
 core: 8.x
+version: 8.x-1.0
 package: OpenY
 dependencies:
   - openy_addthis
