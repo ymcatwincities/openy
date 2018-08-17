@@ -399,8 +399,12 @@ function openy_import_content(array &$install_state) {
       $migrate_operations[] = ['openy_gxp_import_tc', []];
     }
   }
-  
-  // @todo Add home_alt if landing is not included.
+  else {
+    // Add homepage alternative if demo content is not enabled.
+    $module_operations[] = ['openy_enable_module', (array) 'openy_demo_nhome_alt'];
+    $migrate_operations[] = ['openy_import_migration', (array) 'openy_demo_home_alt'];
+  }
+
   // Combine operations module enable before of migrations.
   return ['operations' => array_merge($module_operations, $migrate_operations)];
 }
