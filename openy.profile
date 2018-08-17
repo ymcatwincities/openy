@@ -138,6 +138,7 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_ncampaign' => [],
       'openy_demo_ninterstitial' => [],
       */
+      'openy_gxp' => [],
     ],
     'standard' => [
       'openy_demo_nalert' => [],
@@ -386,24 +387,18 @@ function openy_import_content(array &$install_state) {
   $migration_tag = $preset_tags[$preset];
 
   if ($install_state['openy']['content']) {
-    // If option  has been selected build demo modules installation operations array.
+    // If option has been selected build demo modules installation operations array.
     _openy_import_content_helper($module_operations, $migrate_operations, $preset);
-    // Build migrations import operation array.
-    $migrate_operations[] = ['openy_import_migration', (array) $migration_tag ];
+    // Add migration import by tag to migration operations array.
+    $migrate_operations[] = ['openy_import_migration', (array) $migration_tag];
+    if ($preset == 'complete') {
+      // Add demo content Program Event Framework landing pages manually.
+      // Do it as the last step so menu items are in place.
+      $migrate_operations[] = ['openy_demo_nlanding_pef_pages', []];
+      // Import GroupExPro classes. They are not handled as content migration.
+      $migrate_operations[] = ['openy_gxp_import_tc', []];
+    }
   }
-  // @todo Fix below code for Import GroupExPro classes and PEF pages.
-  // Import GroupExPro classes. They are not handled as content migration.
-  // $importGxp = !empty($install_state['openy']['content']['gxp']);
-  // unset($install_state['openy']['content']['gxp']);
-
-  // Add demo content Program Event Framework landing pages manually. Do it as
-  // so last step so menu items are in place.
-  // $migrate_operations[] = ['openy_demo_nlanding_pef_pages', []];
-
-  // if ($importGxp) {
-  //   openy_enable_module('openy_gxp');
-  //  $migrate_operations[] = ['openy_gxp_import_tc', []];
-  // }
   
   // @todo Add home_alt if landing is not included.
   // Combine operations module enable before of migrations.
