@@ -8,3 +8,4 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - openy_demo_tarea
+  - openy_loc_branch

@@ -44,6 +44,8 @@ class ThirdPartyServicesForm extends FormBase {
 
     $form['#title'] = $this->t('3rd Party Services');
 
+    // TODO: output the fields only if the modules are installed.
+
     // Google Maps API key.
     $form['google_map_api_key'] = [
       '#type' => 'textfield',
@@ -248,16 +250,18 @@ class ThirdPartyServicesForm extends FormBase {
       $ga_config->save();
     }
 
-    $optimizely_id = $form_state->getValue('optimizely_id');
-    $optimizely_config->set('optimizely_id', $optimizely_id);
-    $optimizely_config->save();
-    // Update the default project / experiment entry with the account ID value.
-    Database::getConnection('default')->update('optimizely')
-      ->fields(array(
-        'project_code' => $optimizely_id,
-      ))
-      ->condition('oid', '1')
-      ->execute();
+    if (\Drupal::moduleHandler()->moduleExists('optimizely')) {
+      $optimizely_id = $form_state->getValue('optimizely_id');
+      $optimizely_config->set('optimizely_id', $optimizely_id);
+      $optimizely_config->save();
+      // Update the default project / experiment entry with the account ID value.
+      Database::getConnection('default')->update('optimizely')
+        ->fields([
+          'project_code' => $optimizely_id,
+        ])
+        ->condition('oid', '1')
+        ->execute();
+    }
 
     // Set Recaptcha settings if provided.
     if (!empty($form_state->getValue('recaptcha_site_key'))) {

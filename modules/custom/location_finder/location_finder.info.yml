@@ -7,3 +7,4 @@ package: OpenY
 dependencies:
   - openy_map
   - openy_socrates
+  - openy_data_wrapper

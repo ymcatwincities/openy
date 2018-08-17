@@ -9,3 +9,4 @@ dependencies:
   - migrate_tools
   - openy_demo_nblog
   - openy_prgf_camp_menu
+  - openy_loc_camp
