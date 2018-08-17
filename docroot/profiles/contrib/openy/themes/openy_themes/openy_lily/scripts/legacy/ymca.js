@@ -80,6 +80,25 @@
   };
 
   /**
+   * Mobile menu toggle.
+   */
+  Drupal.behaviors.mobileMenuToggle = {
+    attach: function (context, settings) {
+      $(".navbar-toggler", context).each(function () {
+        $(this).on('click', function (event) {
+          $(this).toggleClass('expanded-mobile');
+          $('#side-area, .viewport').toggleClass('expanded-mobile');
+        });
+      });
+      $(".sidebar-toggle", context).each(function () {
+        $(this).on('click', function (event) {
+          $('.viewport, .navbar-toggler').toggleClass('expanded-mobile');
+        });
+      });
+    }
+  };
+
+  /**
    * Mobile UX.
    */
   Drupal.behaviors.mobile_ux_sidebar_menu = {
