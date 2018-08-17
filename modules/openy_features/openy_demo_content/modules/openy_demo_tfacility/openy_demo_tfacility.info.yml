@@ -2,6 +2,7 @@ name: 'OpenY Demo Taxonomy Facility Type'
 description: 'OpenY Demo Taxonomy Facility Type.'
 type: module
 core: 8.x
+version: 8.x-1.0
 package: OpenY
 dependencies:
   - migrate

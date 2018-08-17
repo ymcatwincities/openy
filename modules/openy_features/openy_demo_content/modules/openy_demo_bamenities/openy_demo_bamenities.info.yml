@@ -1,7 +1,8 @@
-name: 'OpenY Demo Amenities Block'
-description: 'OpenY Demo Amenities Block.'
+name: 'OpenY Demo Block Amenities'
+description: 'OpenY Demo Block Amenities.'
 type: module
 core: 8.x
+version: 8.x-1.0
 package: OpenY
 dependencies:
   - migrate

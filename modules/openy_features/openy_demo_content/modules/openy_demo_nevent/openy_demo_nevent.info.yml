@@ -2,6 +2,7 @@ name: 'OpenY Demo Node Event'
 description: 'OpenY Demo Node Event.'
 type: module
 core: 8.x
+version: 8.x-1.0
 package: OpenY (Experimental)
 dependencies:
   - migrate
