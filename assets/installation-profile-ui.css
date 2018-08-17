@@ -1,0 +1,120 @@
+/* Tooltips */
+
+.openy-tooltip {
+  background: white !important;
+  border: 1px solid grey;
+  box-shadow: 0 0 15px grey;
+}
+
+.openy-tooltip .ui-tooltip-content {}
+
+.openy-tooltip .ui-tooltip-content p {
+  margin: 0 0 1em 0;
+}
+
+.tooltip-helper {
+  display: inline-block;
+  margin-left: 0.5em;
+}
+
+.tooltip-helper-icon {
+  color: white;
+  background-color: #0a5696;
+  border-radius: 12px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: normal;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  width: 24px;
+  transition: all 500ms;
+}
+
+.tooltip-helper-icon.small {
+  border-radius: 9px;
+  font-size: 14px;
+  height: 18px;
+  line-height: 18px;
+  width: 18px;
+}
+
+.tooltip-helper-icon:hover {
+  text-decoration: none;
+  background-color: #0c97ed;
+}
+
+.tooltip-helper-contents {
+  display: none;
+}
+
+/* Dialogs */
+.ui-widget-overlay.ui-front {
+  background-color: white;
+  opacity: 0.2;
+}
+
+.ui-dialog.dialog-package {
+  background-color: white;
+  box-shadow: 0 0 10px grey;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.dialog-package-titlebar {
+
+}
+
+.dialog-package-title {
+  font-weight: bold;
+}
+
+.dialog-package-titlebar-close {
+  display: block;
+  position: absolute;
+  right: 3px;
+  top: 4px;
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  outline: none;
+}
+
+.dialog-package-titlebar-close:hover,
+.dialog-package-titlebar-close:active {
+  background-color: lightgrey;
+}
+
+.ui-dialog-content.dialog-package-content {
+  min-height: 1em;
+}
+
+/* Form */
+.form-item-preset {
+  display: inline-block;
+}
+
+.form-item-preset label {
+  display: inline-block;
+}
+
+.form-item-preset select {
+  display: inline-block;
+}
+
+.package-description {
+  display: none;
+}
+
+.iframe-wrapper {
+  padding-bottom: 56.5%;
+  position: relative;
+  max-width: 100%;
+}
+
+.iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

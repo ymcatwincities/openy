@@ -8,3 +8,4 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - openy_demo_tcolor
+  - openy_node_alert
