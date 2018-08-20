@@ -4840,7 +4840,7 @@ object {
     position: relative !important;
   }
   .masthead {
-    padding-top: 50px;
+    padding-top: 0;
     min-height: 0;
   }
 }
@@ -5907,10 +5907,10 @@ a.wrapper:hover {
     }
     .masthead {
       min-height: 0;
-      padding-top: 0;
+      padding-top: 0 !important;
     }
     .viewport {
-      padding-top: 80px;
+      padding-top: 0;
     }
     .collapsing-in .nav-global, .in .nav-global, .collapsing-out .nav-global {
       position: absolute;
