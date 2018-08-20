@@ -53,11 +53,10 @@ dependencies:
   - features_ui
   - config_import
   - plugin
-  - migrate_plus
-  - migrate_tools
   - metatag
   - metatag_open_graph
   # OpenY
+  - advanced_help_block
   - openy_editor
   - openy_upgrade_tool
   - openy_migrate
@@ -68,6 +67,7 @@ dependencies:
   - openy_media_local_video
   - openy_media_video
   - openy_node_landing
+  - openy_redirect
   - openy_tour
   #- openy_user
   - openy_block_custom_simple
