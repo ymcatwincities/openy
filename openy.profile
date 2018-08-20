@@ -100,244 +100,77 @@ function openy_gtranslate_place_blocks(array &$install_state) {
  *   Mapping array.
  */
 function openy_demo_content_configs_map($key = NULL) {
-  // Maps selection to migrations.
+  // Maps installation presets to demo content.
   $map = [
     'complete' => [
-      'openy_demo_nalert' => [],
-      'openy_demo_nbranch' => [],
-      'openy_demo_ncamp' => [],
-      'openy_demo_nblog' => [],
-      'openy_demo_nnews' => [],
-      'openy_demo_nevent' => [],
-      'openy_demo_nfacility' => [],
-      'openy_demo_nlanding' => [],
-      'openy_demo_nmbrshp' => [],
-      'openy_demo_nprogram' => [],
-      'openy_demo_ncategory' => [],
-      'openy_demo_nclass' => [],
-      'openy_demo_nsessions' => [],
-      'openy_demo_menu_main' => [],
-      'openy_demo_menu_footer' => [],
-      'openy_demo_webform' => [],
-      'openy_demo_ahb' => [],
-      'openy_demo_nsocial_post' => [],
-      'openy_demo_tcolor' => [],
-      'openy_demo_tarea' => [],
-      'openy_demo_tblog' => [],
-      'openy_demo_tnews' => [ ],
-      'openy_demo_tfacility' => [],
-      'openy_demo_tamenities' => [],
-      'openy_demo_bfooter' => [],
-      'openy_demo_bmicrosites_menu' => [],
-      'openy_demo_addthis' => [],
-      'openy_demo_bsimple' => [],
-      'openy_demo_bamenities' => [],
-      'openy_demo_tfitness' => [],
+      'openy_demo_nalert',
+      'openy_demo_nbranch',
+      'openy_demo_ncamp',
+      'openy_demo_nblog',
+      'openy_demo_nnews',
+      'openy_demo_nevent',
+      'openy_demo_nfacility',
+      'openy_demo_nlanding',
+      'openy_demo_nmbrshp',
+      'openy_demo_nprogram',
+      'openy_demo_ncategory',
+      'openy_demo_nclass',
+      'openy_demo_nsessions',
+      'openy_demo_menu_main',
+      'openy_demo_menu_footer',
+      'openy_demo_webform',
+      'openy_demo_ahb',
+      'openy_demo_nsocial_post',
+      'openy_demo_tcolor',
+      'openy_demo_tarea',
+      'openy_demo_tblog',
+      'openy_demo_tnews',
+      'openy_demo_tfacility',
+      'openy_demo_tamenities',
+      'openy_demo_bfooter',
+      'openy_demo_bmicrosites_menu',
+      'openy_demo_addthis',
+      'openy_demo_bsimple',
+      'openy_demo_bamenities',
+      'openy_demo_tfitness',
       // @todo Uncomment this code when errors with Campaign demo content are fixed.
       /*
-      'openy_demo_ncampaign' => [],
-      'openy_demo_ninterstitial' => [],
+      'openy_demo_ncampaign',
+      'openy_demo_ninterstitial',
       */
-      'openy_gxp' => [],
+      'openy_gxp',
     ],
     'standard' => [
-      'openy_demo_nalert' => [],
-      'openy_demo_nlanding' => [],
-      'openy_demo_menu_main' => [],
-      'openy_demo_menu_footer' => [],
-      'openy_demo_webform' => [],
-      'openy_demo_ahb' => [],
-      'openy_demo_tcolor' => [],
-      'openy_demo_tamenities' => [],
-      'openy_demo_bfooter' => [],
+      'openy_demo_nalert',
+      'openy_demo_nlanding',
+      'openy_demo_menu_main',
+      'openy_demo_menu_footer',
+      'openy_demo_webform',
+      'openy_demo_ahb',
+      'openy_demo_tcolor',
+      'openy_demo_tamenities',
+      'openy_demo_bfooter',
     ],
     'extended' => [
-      'openy_demo_nalert' => [],
-      'openy_demo_nbranch' => [],
-      'openy_demo_nblog' => [],
-      'openy_demo_nevent' => [],
-      'openy_demo_nlanding' => [],
-      'openy_demo_nmbrshp' => [],
-      'openy_demo_menu_main' => [],
-      'openy_demo_menu_footer' => [],
-      'openy_demo_webform' => [],
-      'openy_demo_ahb' => [],
-      'openy_demo_tcolor' => [],
-      'openy_demo_tarea' => [],
-      'openy_demo_tamenities' => [],
-      'openy_demo_bfooter' => [],
-      'openy_demo_addthis' => [],
-      'openy_demo_bsimple' => [],
-      'openy_demo_bamenities' => [],
+      'openy_demo_nalert',
+      'openy_demo_nbranch',
+      'openy_demo_nblog',
+      'openy_demo_nevent',
+      'openy_demo_nlanding',
+      'openy_demo_nmbrshp',
+      'openy_demo_menu_main',
+      'openy_demo_menu_footer',
+      'openy_demo_webform',
+      'openy_demo_ahb',
+      'openy_demo_tcolor',
+      'openy_demo_tarea',
+      'openy_demo_tamenities',
+      'openy_demo_bfooter',
+      'openy_demo_addthis',
+      'openy_demo_bsimple',
+      'openy_demo_bamenities',
     ],
-    'required' => [],
-    'optional' => [
-      'openy_demo_ahb' => [
-        'openy_demo_entity_ahb',
-      ],
-      'openy_demo_nsocial_post' => [
-        'openy_demo_node_social_post',
-      ],
-      'openy_demo_tcolor' => [
-        'openy_demo_taxonomy_term_color',
-      ],
-      'openy_demo_tarea' => [
-        'openy_demo_taxonomy_term_area',
-      ],
-      'openy_demo_tblog' => [
-        'openy_demo_taxonomy_term_blog_category',
-      ],
-      'openy_demo_tnews' => [
-        'openy_demo_taxonomy_term_news_category',
-      ],
-      'openy_demo_tfacility' => [
-        'openy_demo_taxonomy_term_facility_type',
-      ],
-      'openy_demo_tfitness' => [
-        'openy_demo_taxonomy_term_fitness_category',
-      ],
-      'openy_demo_tamenities' => [
-        'openy_demo_taxonomy_term_amenities',
-      ],
-      'openy_demo_bfooter' => [
-        'openy_demo_block_content_footer',
-      ],
-      'openy_demo_bmicrosites_menu' => [
-        'openy_demo_block_microsites_menu',
-      ],
-      'openy_demo_addthis' => [],
-      'openy_demo_bsimple' => [
-        'openy_demo_block_content_simple',
-      ],
-      'openy_demo_bamenities' => [
-        'openy_demo_block_content_amenities',
-      ],
-    ],
-    'alerts' => [
-      'openy_demo_nalert' => [
-        'openy_demo_node_alert',
-      ],
-    ],
-    'branches' => [
-      'openy_demo_nbranch' => [
-        'openy_demo_node_branch',
-      ],
-    ],
-    'camps' => [
-      'openy_demo_ncamp' => [
-        'openy_demo_node_camp',
-        'openy_demo_node_camp_blog',
-      ],
-    ],
-    'blog' => [
-      'openy_demo_nblog' => [
-        'openy_demo_node_blog',
-      ],
-    ],
-    'news' => [
-      'openy_demo_nnews' => [
-        'openy_demo_node_news',
-        'openy_demo_news_landing',
-        'openy_demo_menu_link_footer_news',
-      ],
-    ],
-    'event' => [
-      'openy_demo_nevent' => [
-        'openy_demo_node_event',
-        'openy_demo_event_landing',
-      ],
-    ],
-    'facility' => [
-      'openy_demo_nfacility' => [
-        'openy_demo_node_facility',
-      ],
-    ],
-    'landing' => [
-      'openy_demo_nlanding' => [
-        'openy_demo_node_landing',
-      ],
-    ],
-    /*
-    'campaign' => [
-      'openy_demo_ncampaign' => [
-        'openy_demo_node_campaign_page',
-        'openy_demo_node_campaign',
-      ],
-    ],
-    'interstitial' => [
-      'openy_demo_ninterstitial' => [
-        'openy_demo_node_interstitial_page',
-      ],
-    ],
-    */
-    'membership' => [
-      'openy_demo_nmbrshp' => [
-        'openy_demo_node_membership',
-      ],
-    ],
-    'programs' => [
-      'openy_demo_nprogram' => [
-        'openy_demo_node_program',
-      ],
-    ],
-    'categories' => [
-      'openy_demo_ncategory' => [
-        'openy_demo_node_program_subcategory',
-      ],
-    ],
-    'activities' => [
-      'openy_demo_nclass' => [
-        'openy_demo_node_activity'
-      ]
-    ],
-    'classes_01' => [
-      'openy_demo_nclass' => [
-        'openy_demo_node_class_01',
-      ],
-    ],
-    'classes_02' => [
-      'openy_demo_nclass' => [
-        'openy_demo_node_class_02',
-      ],
-    ],
-    'sessions_01' => [
-      'openy_demo_nsessions' => [
-        'openy_demo_node_session_01',
-      ],
-    ],
-    'sessions_02' => [
-      'openy_demo_nsessions' => [
-        'openy_demo_node_session_02',
-      ],
-    ],
-    'sessions_03' => [
-      'openy_demo_nsessions' => [
-        'openy_demo_node_session_03',
-      ],
-    ],
-    'sessions_04' => [
-      'openy_demo_nsessions' => [
-        'openy_demo_node_session_04',
-      ],
-    ],
-    'home_alt' => [
-      'openy_demo_nhome_alt' => [
-        'openy_demo_node_home_alt_landing',
-      ],
-    ],
-    'menus' => [
-      'openy_demo_menu_main' => [
-        'openy_demo_menu_link_main',
-      ],
-      'openy_demo_menu_footer' => [
-        'openy_demo_menu_link_footer',
-      ],
-    ],
-    'webform' => [
-      'openy_demo_webform' => [
-        'openy_demo_webform_content',
-      ],
-    ],
+
   ];
   
   return array_key_exists($key, $map) ? $map[$key] : [];
@@ -536,8 +369,8 @@ function _openy_import_content_helper(array &$module_operations, $key) {
   if (empty($modules)) {
     return;
   }
-  foreach ($modules as $key => $migrations) {
-    $module_operations[] = ['openy_enable_module', (array) $key];
+  foreach ($modules as $module) {
+    $module_operations[] = ['openy_enable_module', (array) $module];
   }
 }
 
