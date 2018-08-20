@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_flip_cards_cover_image
     - node.type.campaign
   module:
-    - datalayer
     - image
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_flip_cards_cover_image
+third_party_settings: {}
 id: node.campaign.field_flip_cards_cover_image
 field_name: field_flip_cards_cover_image
 entity_type: node

@@ -17,6 +17,12 @@ function openy_addthis_install() {
  * Implements hook_uninstall().
  */
 function openy_addthis_uninstall() {
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('paragraph', 'paragraphs_type', 'addthis');
+  \Drupal::configFactory()
+    ->getEditable('openy_addthis.settings')
+    ->delete();
+
   // Remove our base field from the schema.
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }

@@ -6,12 +6,8 @@ dependencies:
     - node.type.branch
     - node.type.campaign
   module:
-    - datalayer
     - openy_campaign_reference_with_text
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_campaign_branch_target
+third_party_settings: {}
 id: node.campaign.field_campaign_branch_target
 field_name: field_campaign_branch_target
 entity_type: node

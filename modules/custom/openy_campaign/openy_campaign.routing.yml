@@ -230,7 +230,6 @@ openy_campaign.campaign_game_results:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\GameController::gameResults'
   requirements:
-    #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
     _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
@@ -240,7 +239,6 @@ openy_campaign.campaign_members:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showMembers'
   requirements:
-    #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
     _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
@@ -251,7 +249,6 @@ openy_campaign.campaign_winners:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showWinners'
   requirements:
-    #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
     _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
@@ -261,7 +258,6 @@ openy_campaign.campaign_reports_summary:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::showSummary'
   requirements:
-    #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
     _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
@@ -271,7 +267,6 @@ openy_campaign.campaign_reports_summary_members_csv:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::generateSummaryMembersCsv'
   requirements:
-    #_permission: 'administer retention campaign'
     _permission: 'view retention campaign reports'
 
 openy_campaign.campaign_reports_summary_activities_csv:
@@ -279,7 +274,6 @@ openy_campaign.campaign_reports_summary_activities_csv:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::generateSummaryActivitiesCsv'
   requirements:
-    #_permission: 'administer retention campaign'
     _permission: 'view retention campaign reports'
 
 openy_campaign.campaign_reports_activities:
@@ -287,7 +281,6 @@ openy_campaign.campaign_reports_activities:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::showActivities'
   requirements:
-    #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
     _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
@@ -297,7 +290,6 @@ openy_campaign.campaign_reports_live_scorecard:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::generateLiveScorecard'
   requirements:
-    #_permission: 'administer retention campaign'
     _permission: 'view retention campaign reports'
 
 

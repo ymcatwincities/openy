@@ -1,7 +1,6 @@
 name: OpenY Campaign
 type: theme
 description: 'YMCA campaign theme'
-package: YMCA
 core: 8.x
 version: 1.0-rc1
 package: OpenY Experimental

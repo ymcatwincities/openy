@@ -59,7 +59,7 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
-    $noCache = ['#cache' => ['max-age' => 0]];
+    $noCache = ['#cache' => ['max-age' => CAMPAIGN_CACHE_TIME]];
     // Extract Campaign node from route.
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 

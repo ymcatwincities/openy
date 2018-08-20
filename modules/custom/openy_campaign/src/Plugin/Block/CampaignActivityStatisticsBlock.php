@@ -84,6 +84,8 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    * {@inheritdoc}
    */
   public function build() {
+    // The block is rendered for each user separately.
+    // We can't cache it.
     $block['#cache']['max-age'] = 0;
 
     // Get campaign node from current page URL.

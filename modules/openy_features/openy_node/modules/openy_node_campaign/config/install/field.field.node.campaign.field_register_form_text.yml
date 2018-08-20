@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_register_form_text
     - node.type.campaign
   module:
-    - datalayer
     - text
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_register_form_text
+third_party_settings: {}
 id: node.campaign.field_register_form_text
 field_name: field_register_form_text
 entity_type: node

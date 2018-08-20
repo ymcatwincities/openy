@@ -5,40 +5,40 @@
     <tr>
       <th colspan="3"></th>
       <th class="separator"></th>
-      <th class="blue-outline" colspan="9" align="center">Registration</th>
+      <th class="blue-outline" colspan="9" align="center">{{ 'Registration'|t }}</th>
       <th class="separator"></th>
-      <th class="violet-outline" colspan="4" align="center">Utilization</th>
+      <th class="violet-outline" colspan="4" align="center">{{ 'Utilization'|t }}</th>
     </tr>
     <tr>
       <th class="green"></th>
-      <th class="green">Branch</th>
-      <th class="green">Total Members</th>
+      <th class="green">{{ 'Branch'|t }}</th>
+      <th class="green">{{ 'Total Members'|t }}</th>
       <th class="separator"></th>
-      <th class="blue" colspan="4" align="center">EARLY REG ({{ result.dates.registration_start }} - {{ result.dates.registration_end }})</th>
+      <th class="blue" colspan="4" align="center">{{ 'EARLY REG'|t }} ({{ result.dates.registration_start }} - {{ result.dates.registration_end }})</th>
       <th class="separator"></th>
-      <th class="blue" colspan="4" align="center">EARLY REG + CHALLENGE ({{ result.dates.registration_start }} - {{ result.dates.campaign_end }})</th>
+      <th class="blue" colspan="4" align="center">{{ 'EARLY REG + CHALLENGE'|t }} ({{ result.dates.registration_start }} - {{ result.dates.campaign_end }})</th>
       <th class="separator"></th>
-      <th class="violet" colspan="4" align="center"> CHALLENGE ({{ result.dates.campaign_start }} - {{ result.dates.campaign_end }})</th>
+      <th class="violet" colspan="4" align="center"> {{ 'CHALLENGE'|t }} ({{ result.dates.campaign_start }} - {{ result.dates.campaign_end }})</th>
     </tr>
     <tr>
       <th class="green-text">#</th>
-      <th class="green-text">Name</th>
-      <th class="green-text">Members&nbsp;1</th>
+      <th class="green-text">{{ 'Name'|t }}</th>
+      <th class="green-text">{{ 'Members 1'|t }}</th>
       <th class="separator"></th>
-      <th class="blue-text grey">REGISTRATION GOAL ({{ result.goals.registration_goal }}%)</th>
-      <th class="blue-text">ACTUAL As&nbsp;of&nbsp;{{ result.dates.actual_early_date }}</th>
-      <th class="blue-text"> % OF MEMBERS </th>
-      <th class="blue-text">% TO GOAL</th>
+      <th class="blue-text grey">{{ 'REGISTRATION GOAL'|t }} ({{ result.goals.registration_goal }}%)</th>
+      <th class="blue-text">{{ 'ACTUAL As of'|t }} {{ result.dates.actual_early_date }}</th>
+      <th class="blue-text"> {{ '% OF MEMBERS'|t }} </th>
+      <th class="blue-text">{{ '% TO GOAL'|t }}</th>
       <th class="separator"></th>
-      <th class="blue-text grey">REGISTRATION GOAL ({{ result.goals.registration_goal }}%)</th>
-      <th class="blue-text">ACTUAL As&nbsp;of&nbsp;{{ result.dates.actual_campaign_date }}</th>
-      <th class="blue-text"> % OF MEMBERS </th>
-      <th class="blue-text">% TO GOAL</th>
+      <th class="blue-text grey">{{ 'REGISTRATION GOAL'|t }} ({{ result.goals.registration_goal }}%)</th>
+      <th class="blue-text">{{ 'ACTUAL As of'|t }} {{ result.dates.actual_campaign_date }}</th>
+      <th class="blue-text"> {{ '% OF MEMBERS'|t }}</th>
+      <th class="blue-text">{{ '% TO GOAL'|t }}</th>
       <th class="separator"></th>
-      <th class="violet-text grey">UTILIZATION GOAL* ({{ result.goals.utilization_goal }}%)</th>
-      <th class="violet-text">ACTUAL As&nbsp;of&nbsp;{{ result.dates.actual_campaign_date }}</th>
-      <th class="violet-text grey">%&nbsp;OF REGISTERED MEMBERS</th>
-      <th class="violet-text grey">%&nbsp;TO&nbsp;GOAL Set&nbsp;{{ result.dates.actual_date }}</th>
+      <th class="violet-text grey">{{ 'UTILIZATION GOAL'|t }}* ({{ result.goals.utilization_goal }}%)</th>
+      <th class="violet-text">{{ 'ACTUAL As of'|t }} {{ result.dates.actual_campaign_date }}</th>
+      <th class="violet-text grey">{{ '% OF REGISTERED MEMBERS'|t }}</th>
+      <th class="violet-text grey">{{ '% TO GOAL Set'|t }} {{ result.dates.actual_date }}</th>
     </tr>
     </thead>
     <tbody class="table-hover">
@@ -91,7 +91,7 @@
     </tbody>
     <tfoot>
     <tr>
-      <td class="green" align="right" colspan="2">ASSOCIATION&nbsp;TOTAL:</td>
+      <td class="green" align="right" colspan="2">{{ 'ASSOCIATION TOTAL'|t }}:</td>
       <td class="green" align="right">{{ result.total.target }}</td>
       <th class="separator"></th>
       <td class="blue" >{{ result.total.registration_goal }}</td>
@@ -113,7 +113,7 @@
   </table>
     <br/>
   <div class="small">
-    Utilization goals were set based on the greater of either: (1) original registration goal, or (2) actual registered members by close of early-registration; meaning utilization goals do not take into account those members that registered after the close of early-registration.  Thus explaining how we could have only lower percentage of total registered members achieve their goal, but still exceed our “% to Goal” metric.
+    {{ 'Utilization goals were set based on the greater of either: (1) original registration goal, or (2) actual registered members by close of early-registration; meaning utilization goals do not take into account those members that registered after the close of early-registration.  Thus explaining how we could have only lower percentage of total registered members achieve their goal, but still exceed our “% to Goal” metric.'|t }}
   </div>
   {% else %}
     <h2>{{ result.empty }}</h2>

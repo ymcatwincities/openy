@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_campaign_stream_type
     - node.type.campaign
   module:
-    - datalayer
     - options
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_campaign_stream_type
+third_party_settings: {}
 id: node.campaign.field_campaign_stream_type
 field_name: field_campaign_stream_type
 entity_type: node

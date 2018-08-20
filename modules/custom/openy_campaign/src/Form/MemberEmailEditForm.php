@@ -30,6 +30,8 @@ class MemberEmailEditForm extends FormBase {
     $form['#prefix'] = '<div class="container">';
     $form['#suffix'] = '</div>';
 
+    // The block is rendered for each user separately.
+    // We can't cache it.
     $form['#cache'] = ['max-age' => 0];
 
     $form['member'] = [

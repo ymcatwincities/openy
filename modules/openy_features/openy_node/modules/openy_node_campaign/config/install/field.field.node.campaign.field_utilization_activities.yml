@@ -5,12 +5,8 @@ dependencies:
     - field.storage.node.field_utilization_activities
     - node.type.campaign
   module:
-    - datalayer
     - options
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_utilization_activities
+third_party_settings: {}
 id: node.campaign.field_utilization_activities
 field_name: field_utilization_activities
 entity_type: node

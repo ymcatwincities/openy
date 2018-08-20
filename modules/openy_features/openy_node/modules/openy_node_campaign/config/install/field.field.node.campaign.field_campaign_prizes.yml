@@ -6,12 +6,8 @@ dependencies:
     - node.type.campaign
     - paragraphs.paragraphs_type.campaign_prizes
   module:
-    - datalayer
     - entity_reference_revisions
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_campaign_prizes
+third_party_settings: {}
 id: node.campaign.field_campaign_prizes
 field_name: field_campaign_prizes
 entity_type: node

@@ -4,12 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_pause_campaign
     - node.type.campaign
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_pause_campaign
+third_party_settings: {}
 id: node.campaign.field_pause_campaign
 field_name: field_pause_campaign
 entity_type: node

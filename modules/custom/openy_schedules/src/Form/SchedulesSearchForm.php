@@ -183,6 +183,12 @@ class SchedulesSearchForm extends FormBase {
       foreach ($nodes as $id => $node) {
         $options[$map[$node->bundle()]][$id] = $node->getTitle();
       }
+      // Remove empty option categories.
+      foreach ($options as $key => $option) {
+        if (empty($option)) {
+          unset($options[$key]);
+        }
+      }
     }
 
     return $options;

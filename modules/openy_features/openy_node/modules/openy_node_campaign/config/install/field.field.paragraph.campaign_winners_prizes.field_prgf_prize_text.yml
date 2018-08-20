@@ -5,12 +5,8 @@ dependencies:
     - field.storage.paragraph.field_prgf_prize_text
     - paragraphs.paragraphs_type.campaign_winners_prizes
   module:
-    - datalayer
     - text
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_prize_text
+third_party_settings: {}
 id: paragraph.campaign_winners_prizes.field_prgf_prize_text
 field_name: field_prgf_prize_text
 entity_type: paragraph

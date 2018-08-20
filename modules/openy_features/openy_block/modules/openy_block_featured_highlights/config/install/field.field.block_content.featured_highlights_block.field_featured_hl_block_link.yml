@@ -5,12 +5,7 @@ dependencies:
     - block_content.type.featured_highlights_block
     - field.storage.block_content.field_featured_hl_block_link
   module:
-    - datalayer
     - link
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_featured_hl_block_link
 id: block_content.featured_highlights_block.field_featured_hl_block_link
 field_name: field_featured_hl_block_link
 entity_type: block_content

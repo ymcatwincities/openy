@@ -1,5 +1,6 @@
-name: 'OpenY paragraph code block'
+name: 'OpenY Paragraph Code Block'
 description: 'Code block paragraph'
+package: OpenY
 type: module
 core: 8.x
 dependencies:

@@ -2,6 +2,7 @@ name: 'OpenY Block Branch Amenities'
 description: 'Implements block with amenities list of the current branch.'
 type: module
 core: 8.x
+version: 8.x-1.0
 package: OpenY
 dependencies:
   - block_content
