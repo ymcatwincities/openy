@@ -5654,11 +5654,11 @@ a.wrapper:hover {
 
   .masthead {
     min-height: 0;
-    padding-top: 0;
+    padding-top: 0 !important;
   }
 
   .viewport {
-    padding-top: 80px;
+    padding-top: 0;
   }
 
   .collapsing-in .nav-global, .in .nav-global, .collapsing-out .nav-global {
@@ -7527,7 +7527,7 @@ article.site-alert ul li div {
   border: 1px solid #636466;
 }
 .site-alert--header .site-alert__wrapper, .site-alert--footer .site-alert__wrapper {
-  padding: 10px 35px 11px 59px;
+  padding: 10px;
 }
 .site-alert--header .site-alert__title, .site-alert--footer .site-alert__title {
   display: inline;
