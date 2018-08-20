@@ -28,22 +28,11 @@ class ContentSelectForm extends FormBase {
       0 => $this->t('No'),
     ];
 
-    $settings_options = [
-      'addthis' => $this->t('AddThis Demo Credentials'),
-    ];
-
     $form['content'] = [
       '#type' => 'radios',
       '#title' => $this->t('Do you want to install demo content?'),
       '#default_value' => 1,
       '#options' => $install_options,
-    ];
-
-    $form['settings'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Choose settings to import'),
-      '#default_value' => array_keys($settings_options),
-      '#options' => $settings_options,
     ];
 
     $form['actions'] = [
