@@ -4,12 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_token_check_back_date
     - node.type.campaign
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_token_check_back_date
+third_party_settings: {}
 id: node.campaign.field_token_check_back_date
 field_name: field_token_check_back_date
 entity_type: node

@@ -4,9 +4,6 @@ namespace Drupal\openy_popups\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
-use \Drupal\openy_session_instance\SessionInstanceManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 
 /**
  * Block with popup link.
@@ -17,49 +14,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
  *   category = @Translation("Paragraph Blocks")
  * )
  */
-class LocationPopupLink extends BlockBase implements ContainerFactoryPluginInterface  {
-
-  /**
-   * The SessionInstanceManager.
-   *
-   * @var \Drupal\openy_session_instance\SessionInstanceManagerInterface
-   */
-  protected $sessionInstanceManager;
-
-  /**
-   * Creates a new BranchSessionsForm.
-   *
-   * @param SessionInstanceManagerInterface $session_instance_manager
-   *   The SessionInstanceManager.
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, SessionInstanceManagerInterface $session_instance_manager) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->sessionInstanceManager = $session_instance_manager;
-  }
-
-  /**
-   * Create location popup link block.
-   *
-   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-   *   ContainerInterface object.
-   * @param array $configuration
-   *   Configuration array.
-   * @param $plugin_id
-   *   Plugin ID.
-   * @param $plugin_definition
-   *   Plugin Definition
-   *
-   * @return static
-   *   New LocationPopupLink.
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('session_instance.manager')
-    );
-  }
+class LocationPopupLink extends BlockBase {
 
   /**
    * {@inheritdoc}
@@ -109,7 +64,12 @@ class LocationPopupLink extends BlockBase implements ContainerFactoryPluginInter
       if ($node && $node->getType() == 'class') {
         $type = 'class';
         $nid = $node->id();
-        $location_count = $this->sessionInstanceManager->getLocationCountByClassNode($node);
+
+        $location_count = NULL;
+        if (\Drupal::hasService('session_instance.manager')) {
+          $location_count = \Drupal::service('session_instance.manager')
+            ->getLocationCountByClassNode($node);
+        }
       }
     }
     if ($node && $node->getType() == 'program_subcategory') {

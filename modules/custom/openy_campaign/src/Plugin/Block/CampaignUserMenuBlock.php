@@ -63,7 +63,8 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
   public function build() {
     $build = [];
 
-    // Disable block cache.
+    // The block is rendered for each user separately.
+    // We can't cache it.
     $build['#cache']['max-age'] = 0;
 
     // Extract Campaign node from route.

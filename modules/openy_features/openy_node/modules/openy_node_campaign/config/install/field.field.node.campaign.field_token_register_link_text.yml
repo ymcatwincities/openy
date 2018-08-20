@@ -4,12 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_token_register_link_text
     - node.type.campaign
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_token_login_link_text
+third_party_settings: {}
 id: node.campaign.field_token_register_link_text
 field_name: field_token_register_link_text
 entity_type: node

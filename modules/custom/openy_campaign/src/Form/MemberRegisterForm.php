@@ -206,32 +206,6 @@ class MemberRegisterForm extends FormBase {
       $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
     }
 
-    // TODO Add check length of $membershipID
-    // Check correct Membership ID - commented out, because IDs may contain letters.
-    /*if (!is_numeric($membershipID)) {
-      $form_state->setErrorByName('membership_id', $errorMembershipId);
-      return;
-    }*/
-
-    // Check MemberCampaign entity.
-    $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
-
-    // Registration attempt for already registered member.
-    // The validation is disabled in order to log in already registered users.
-    /*
-    if ($memberCampaignID) {
-      $msgAlreadyRegistered = $config->get('error_register_already_registered');
-      $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
-      // Get error from Campaign node.
-      if (!empty($campaign->field_reg_already_registered->value)) {
-        $errorAlreadyRegistered = check_markup($campaign->field_reg_already_registered->value, $campaign->field_reg_already_registered->format);
-      }
-
-      $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
-      return;
-    }
-    */
-
     /** @var \Drupal\openy_campaign\Entity\Member $member Load or create Temporary Member object. Will be saved by submit. */
     $member = Member::loadMemberFromCRMData($membershipID);
     if (($member instanceof Member === FALSE) || empty($member)) {
