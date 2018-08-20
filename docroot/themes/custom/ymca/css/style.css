@@ -4548,7 +4548,7 @@ object {
   position: relative !important;
 }
 .touch .masthead {
-  padding-top: 0;
+  padding-top: 50px;
   min-height: 0;
 }
 
