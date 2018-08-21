@@ -22,7 +22,11 @@ class UrlCacheContext extends RequestStackCacheContextBase implements CacheConte
    * {@inheritdoc}
    */
   public function getContext() {
-    return $this->requestStack->getCurrentRequest()->getUri();
+    $current_request = $this->requestStack->getCurrentRequest();
+    if (!$current_request) {
+      return NULL;
+    }
+    return $current_request->getUri();
   }
 
   /**
