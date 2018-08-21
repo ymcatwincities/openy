@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - openy_node_event
+  enforced:
+    module:
+      - openy_demo_nevent
 id: openy_demo_node_event
 migration_tags:
   - 'OpenY Demo Event'

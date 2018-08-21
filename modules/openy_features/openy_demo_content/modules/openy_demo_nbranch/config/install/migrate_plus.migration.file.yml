@@ -1,6 +1,9 @@
 dependencies:
   module:
     - file
+  enforced:
+    module:
+      - openy_demo_nbranch
 id: openy_demo_nbranch_file
 migration_tags: { }
 migration_group: openy_demo_nbranch
