@@ -3,6 +3,7 @@
 namespace Drupal\openy_repeat\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,6 +47,13 @@ class RepeatController extends ControllerBase {
   protected $entity_type_manager;
 
   /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
    * Creates a new RepeatController.
    *
    * @param CacheBackendInterface $cache
@@ -54,12 +62,15 @@ class RepeatController extends ControllerBase {
    *   The Database connection.
    * @param EntityTypeManager $entity_type_manager
    *   The EntityTypeManager.
+   * @param DateFormatterInterface $date_formatter
+   *   The Date formatter.
    */
-  public function __construct(CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager) {
+  public function __construct(CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter) {
     $this->cache = $cache;
     $this->database = $database;
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
+    $this->dateFormatter = $date_formatter;
   }
 
   /**
@@ -70,7 +81,8 @@ class RepeatController extends ControllerBase {
       $container->get('cache.default'),
       $container->get('database'),
       $container->get('entity.query'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('date.formatter')
     );
   }
 
@@ -105,10 +117,9 @@ class RepeatController extends ControllerBase {
               re.category,
               re.register_url as register_url,
               re.register_text as register_text,
-              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i'))) as time_start,
-              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%h:%i%p'))) as time_end,
-              DATE_FORMAT(FROM_UNIXTIME(re.start), '%Y-%m-%d %T') as time_start_calendar,
-              DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%Y-%m-%d %T') as time_end_calendar
+              re.start as start_timestamp,
+              re.end as end_timestamp,
+              re.duration as duration
             FROM {node} n
             RIGHT JOIN {repeat_event} re ON re.session = n.nid
             INNER JOIN node_field_data nd ON re.location = nd.nid
@@ -170,6 +181,14 @@ class RepeatController extends ControllerBase {
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
       $result[$key]->class_info = $classes_info[$item->class];
+
+      // Convert timezones for start_time and end_time.
+      $result[$key]->time_start = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'g:i');
+      $result[$key]->time_end = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'g:iA');
+
+      // Example of calendar format 2018-08-21 14:15:00.
+      $result[$key]->time_start_calendar = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->time_end_calendar = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'Y-m-d H:i:s');
     }
 
     return new JsonResponse($result);
