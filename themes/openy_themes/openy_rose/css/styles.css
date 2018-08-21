@@ -786,6 +786,14 @@ body {
   width: 100%;
 }
 
+.viewport .top-navs.affix .nav-global > .container > .row {
+  min-height: 41px;
+}
+.viewport .top-navs.affix .nav-global > .container > .row .header-content {
+  top: 0;
+  min-height: 41px;
+}
+
 .toolbar-fixed.toolbar-horizontal .viewport,
 .toolbar-fixed.toolbar-horizontal .top-navs {
   margin-top: 39px;
