@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - openy_loc_facility
+  enforced:
+    module:
+      - openy_demo_nfacility
 id: openy_demo_node_facility
 migration_tags: {  }
 migration_group: openy_demo_nfacility

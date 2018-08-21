@@ -1,6 +1,9 @@
 dependencies:
   module:
     - file
+  enforced:
+    module:
+      - openy_demo_ncategory
 id: openy_demo_ncategory_file
 migration_tags: { }
 migration_group: openy_demo_ncategory

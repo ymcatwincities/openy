@@ -1,6 +1,9 @@
 dependencies:
   module:
     - file
+  enforced:
+    module:
+      - openy_demo_nevent
 id: openy_demo_nevent_file
 migration_tags:
   - 'OpenY Demo Event'

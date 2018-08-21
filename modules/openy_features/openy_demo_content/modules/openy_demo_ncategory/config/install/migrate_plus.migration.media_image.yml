@@ -1,6 +1,9 @@
 dependencies:
   module:
     - openy_media_image
+  enforced:
+    module:
+      - openy_demo_ncategory
 id: openy_demo_ncategory_media_image
 migration_tags: { }
 migration_group: openy_demo_ncategory

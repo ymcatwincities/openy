@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+    enforced:
+        module:
+          - openy_demo_tamenities
 id: openy_demo_taxonomy_term_amenities
 migration_tags: {  }
 migration_group: openy_demo_term
