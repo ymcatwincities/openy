@@ -84,6 +84,7 @@ class ThirdPartyServicesForm extends FormBase {
       '#description' => $this->t('Your Optimizely account ID.</br>In order to use this module, you\'ll need an <a href="http://optimize.ly/OZRdc0" target="_blank">Optimizely account</a>. </br>See <a href="https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Optimizely.md" target="_blank">Open Y documentation</a> for Optimizely.'),
     ];
 
+    // Recaptcha keys.
     $form['recaptcha'] = [
       '#type' => 'details',
       '#title' => $this->t('Recaptcha Settings'),
@@ -113,22 +114,25 @@ class ThirdPartyServicesForm extends FormBase {
       '#type' => 'textfield',
     ];
 
-    $form['addthis']['public_id'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('AddThis public id'),
-      '#default_value' => $addthis_config->get('public_id'),
-      '#placeholder' => 'ra-xxxxxxxxxxxxxxx',
-      '#description' => $this->t('Your AddThis public id. Example: 
+    // AddThis ID.
+    if (\Drupal::moduleHandler()->moduleExists('openy_addthis')) {
+      $form['addthis']['public_id'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('AddThis public id'),
+        '#default_value' => $addthis_config->get('public_id'),
+        '#placeholder' => 'ra-xxxxxxxxxxxxxxx',
+        '#description' => $this->t('Your AddThis public id. Example: 
         ra-xxxxxxxxxxxxxxx. Currently we support only inline type.'),
-    ];
+      ];
+    }
 
+    // Lndr.
     $form['lndr'] = [
       '#type' => 'details',
       '#title' => $this->t('Lndr landing page builder'),
       '#open' => TRUE,
     ];
 
-    // Lndr.
     $form['lndr']['markup'] = [
       '#type' => 'markup',
       '#markup' => $this->t('<p>Lndr is a simple landing page builder that let you create campaigns, events and other landing pages. To learn more, please visit <a href=":url" target="_blank">http://www.lndr.co/</a></p>', [':url' => 'http://www.lndr.co']),
@@ -289,9 +293,12 @@ class ThirdPartyServicesForm extends FormBase {
       $lndr_config->save();
     }
 
-    $addthis_public_id = $form_state->getValue('public_id');
-    $addthis_config->set('public_id', $addthis_public_id);
-    $addthis_config->save();
+    // Set AddThis ID.
+    if (\Drupal::moduleHandler()->moduleExists('openy_addthis')) {
+      $addthis_public_id = $form_state->getValue('public_id');
+      $addthis_config->set('public_id', $addthis_public_id);
+      $addthis_config->save();
+    }
   }
 
   /**

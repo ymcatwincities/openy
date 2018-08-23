@@ -39,6 +39,11 @@ process:
     default_value: node
   # TODO: get parent_field_name from data?
   field_prgf_title: title
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: location_filter_by_amenities
 destination:
   plugin: 'entity:paragraph'
   default_bundle: location_filter_by_amenities

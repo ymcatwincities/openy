@@ -41,6 +41,11 @@ process:
   parent_field_name:
     plugin: default_value
     default_value: field_content
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: prgf_location_finder
 destination:
   plugin: 'entity:paragraph'
   default_bundle: prgf_location_finder

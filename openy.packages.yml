@@ -62,6 +62,7 @@ editorial_ext:
     - openy_block_featured_highlights
     - openy_prgf_block_date
     - openy_prgf_featured_highlights
+    - openy_block_branch_amenities
 
 membership:
   name: 'Membership'

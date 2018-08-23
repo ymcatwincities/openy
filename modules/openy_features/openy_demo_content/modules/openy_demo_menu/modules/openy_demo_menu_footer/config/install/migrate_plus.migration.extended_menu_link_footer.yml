@@ -1,0 +1,103 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_menu_footer
+id: openy_demo_extended_menu_link_footer
+migration_tags:
+  - openy_extended_installation
+migration_group: openy_demo_menu
+label: 'Create extended demo footer menu links'
+migration_dependencies:
+  required:
+    - openy_demo_node_landing
+source:
+  plugin: embedded_data
+  data_rows:
+  -
+    id: 8
+    title: 'Home'
+    menu_name: 'footer-menu-center'
+    link: 'openy'
+    weight: 1
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 9
+    title: 'Locations'
+    menu_name: 'footer-menu-center'
+    link: 'locations'
+    weight: 2
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 10
+    title: 'Blog'
+    menu_name: 'footer-menu-center'
+    link: 'blog'
+    weight: 4
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 11
+    title: 'Accelerator'
+    menu_name: 'footer-menu-center'
+    link: 'accelerator'
+    weight: 5
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 12
+    title: 'About'
+    menu_name: 'footer-menu-right'
+    link: 'about'
+    weight: 1
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 13
+    title: 'Give'
+    menu_name: 'footer-menu-right'
+    link: 'give'
+    weight: 2
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 14
+    title: 'Join'
+    menu_name: 'footer-menu-right'
+    link: 'join'
+    weight: 3
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  ids:
+    id:
+      type: integer
+process:
+  bundle:
+    plugin: default_value
+    default_value: menu_link_content
+  title: title
+  menu_name: menu_name
+  link/uri:
+    plugin: link_uri
+    source:
+    - link
+  weight: weight
+  expanded: expanded
+  parent:
+    plugin: menu_link_parent
+    source:
+    - parent_id
+    - menu_name
+    - parent_link_path
+destination:
+  plugin: entity:menu_link_content

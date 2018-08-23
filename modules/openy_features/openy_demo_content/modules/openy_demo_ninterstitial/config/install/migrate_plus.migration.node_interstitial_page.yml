@@ -2,7 +2,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: openy_demo_node_interstitial_page
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_ninterstitial
 label: 'Create demo interstitial page nodes'
 source:
