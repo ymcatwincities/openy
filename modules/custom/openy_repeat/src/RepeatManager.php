@@ -229,32 +229,52 @@ class RepeatManager implements SessionInstanceManagerInterface {
     ];
 
     foreach ($session_schedule['dates'] as $schedule_item) {
-      if ($schedule_item['frequency'] == 'weekly' || $schedule_item['frequency'] == 'daily') {
-        $start = $session_schedule['dates'][0]['period']['from'] . 'T' . $session_schedule['dates'][0]['time']['from'];
-        $end = $session_schedule['dates'][0]['period']['to'] . 'T' . $session_schedule['dates'][0]['time']['to'];
-        $dates[] = [
+      if (!$schedule_item['frequency'] == 'weekly' && !$schedule_item['frequency'] == 'daily') {
+        continue;
+      }
+      // Daily is the same as Weekly but on every day of the week.
+      if ($schedule_item['frequency'] == 'daily') {
+        $schedule_item['frequency'] = 'weekly';
+        $schedule_item['days'] = array_keys($weekday_mapping);
+      }
+      foreach ($schedule_item['days'] as $weekDay) {
+        // Starting period could start on Sunday. But we have Monday in the
+        // settings. This is why we need to adjust day to proper day of
+        // the week. Also similar thing with end date. We should move it back
+        // till it reaches specified day of the week.
+        $startDate = new \DateTime($schedule_item['period']['from']);
+        while (strtolower($startDate->format('l')) !== $weekDay) {
+          $startDate->modify('+1 day');
+        }
+        $endDate = new \DateTime($schedule_item['period']['to']);
+        while (strtolower($endDate->format('l')) !== $weekDay) {
+          $endDate->modify('-1 day');
+        }
+
+        $start = $startDate->format('Y-m-d') . 'T' . $schedule_item['time']['from'];
+        $end = $endDate->format('Y-m-d') . 'T' . $schedule_item['time']['to'];
+        $dates = [[
           'from' => $start,
           'to' => $end,
-        ];
+        ]];
         $exclusions = self::reorderExclusions($session_schedule['exclusions']);
-        $combined_dates = self::combineDates($dates, $exclusions, $schedule_item);
-        foreach ($schedule_item['days'] as $day) {
-          foreach ($combined_dates as $date) {
-            $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
-            $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
-            $duration = round(abs($to_time - $from_time) / 60,2);
+        $combined_dates = self::combineDates($dates, $exclusions);
 
-            $session_instances[] = [
-              'start' => strtotime($date['from']),
-              'end' => strtotime($date['to']),
-              'year' => '*',
-              'month' => '*',
-              'day' => '*',
-              'week' => '*',
-              'weekday' => $weekday_mapping[$day],
-              'duration'=> $duration,
-            ];
-          }
+        foreach ($combined_dates as $date) {
+          $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
+          $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
+          $duration = round(abs($to_time - $from_time) / 60,2);
+
+          $session_instances[] = [
+            'start' => strtotime($date['from']),
+            'end' => strtotime($date['to']),
+            'year' => '*',
+            'month' => '*',
+            'day' => '*',
+            'week' => '*',
+            'weekday' => $weekday_mapping[$weekDay],
+            'duration'=> $duration,
+          ];
         }
       }
     }
@@ -291,7 +311,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
    *
    * @return array
    */
-  public static function combineDates($origin_dates, $exclusions, $schedule_item) {
+  public static function combineDates($origin_dates, $exclusions) {
     if (empty($exclusions) || !is_array($exclusions)) {
       return $origin_dates;
     }
@@ -309,7 +329,6 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $resultingPeriods = [];
     $resultingPeriods[] = ['from' => clone $start];
 
-    $skipInstance = FALSE;
     $prevSkipInstance = FALSE;
 
     while ($start < $end) {
@@ -327,12 +346,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
       if ($skipInstance && !$prevSkipInstance) {
         $period = array_pop($resultingPeriods);
         $close = clone $start;
-        if ($schedule_item['frequency'] == 'weekly') {
-          $close->modify('-1 week');
-        }
-        else {
-          $close->modify('-1 day');
-        }
+        $close->modify('-1 week');
         $close->setTime($end->format('H'), $end->format('i'));
         $period['to'] = $close;
         array_push($resultingPeriods, $period);
@@ -343,13 +357,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
         $period = ['from' => clone $start];
         array_push($resultingPeriods, $period);
       }
-
-      if ($schedule_item['frequency'] == 'weekly') {
-        $start->modify('+1 week');
-      }
-      else {
-        $start->modify('+1 day');
-      }
+      $start->modify('+1 week');
       $prevSkipInstance = $skipInstance;
     }
 
@@ -392,19 +400,16 @@ class RepeatManager implements SessionInstanceManagerInterface {
     ];
     $dates = $node->field_session_time->referencedEntities();
     foreach ($dates as $date) {
-      if (empty($date) || empty($date->field_session_time_days->getValue()) || empty($date->field_session_time_date->getValue())) {
+      if (empty($date) || empty($date->field_session_time_date->getValue())) {
         continue;
       }
+
       $schedule_item = [
-        'frequency' => 'weekly',
+        'frequency' => $date->field_session_time_frequency->getValue()[0]['value'],
         'days' => [],
         'period' => [],
         'time' => [],
       ];
-
-      foreach ($date->field_session_time_days->getValue() as $value) {
-        $schedule_item['days'][] = $value['value'];
-      }
 
       $_period = $date->field_session_time_date->getValue()[0];
       $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value'] . 'Z'));
@@ -421,6 +426,12 @@ class RepeatManager implements SessionInstanceManagerInterface {
       }
       if (!isset($schedule['to']) || $schedule_item['period']['to'] > $schedule['to']) {
         $schedule['to'] = $schedule_item['period']['to'];
+      }
+
+      if ($schedule_item['frequency'] == 'weekly') {
+        foreach ($date->field_session_time_days->getValue() as $value) {
+          $schedule_item['days'][] = $value['value'];
+        }
       }
 
       $schedule['dates'][] = $schedule_item;
