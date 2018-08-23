@@ -37,3 +37,18 @@
   font-family: FontAwesome;
   text-rendering: auto;
 }
+
+#page-footer {
+  #block-openy-lily-footercopyrightblock {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    h5, p {
+      font-family: Verdana,Arial,sans-serif;
+      display: inline-block;
+      margin: 0;
+      font-size: 12px;
+      line-height: 20px;
+      color: $gray;
+    }
+  }
+}
