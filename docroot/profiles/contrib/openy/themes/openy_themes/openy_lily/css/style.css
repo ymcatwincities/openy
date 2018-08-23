@@ -14345,6 +14345,19 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   text-rendering: auto;
 }
 
+#page-footer #block-openy-lily-footercopyrightblock {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+#page-footer #block-openy-lily-footercopyrightblock h5, #page-footer #block-openy-lily-footercopyrightblock p {
+  font-family: Verdana,Arial,sans-serif;
+  display: inline-block;
+  margin: 0;
+  font-size: 12px;
+  line-height: 20px;
+  color: #a8a8a8;
+}
+
 .node--type-blog.node--view-mode-teaser .blog-category {
   font-family: "Cachet", Verdana, Arial, sans-serif;
 }
