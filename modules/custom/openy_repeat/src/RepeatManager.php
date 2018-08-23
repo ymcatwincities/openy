@@ -219,13 +219,13 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $session_instances = [];
 
     $weekday_mapping = [
-      'sunday' => '1',
-      'monday' => '2',
-      'tuesday' => '3',
-      'wednesday' => '4',
-      'thursday' => '5',
-      'friday' => '6',
-      'saturday' => '7',
+      'monday' => '1',
+      'tuesday' => '2',
+      'wednesday' => '3',
+      'thursday' => '4',
+      'friday' => '5',
+      'saturday' => '6',
+      'sunday' => '7',
     ];
 
     foreach ($session_schedule['dates'] as $schedule_item) {
@@ -237,7 +237,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
           'to' => $end,
         ];
         $exclusions = self::reorderExclusions($session_schedule['exclusions']);
-        $combined_dates = self::combineDates($dates, $exclusions);
+        $combined_dates = self::combineDates($dates, $exclusions, $schedule_item);
         foreach ($schedule_item['days'] as $day) {
           foreach ($combined_dates as $date) {
             $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
@@ -291,32 +291,84 @@ class RepeatManager implements SessionInstanceManagerInterface {
    *
    * @return array
    */
-  public static function combineDates($origin_dates, $exclusions) {
+  public static function combineDates($origin_dates, $exclusions, $schedule_item) {
     if (empty($exclusions) || !is_array($exclusions)) {
       return $origin_dates;
     }
 
-    $dates = array_merge($origin_dates, $exclusions);
-    $values = [];
-    foreach ($dates as $date) {
-      $values[] = $date['from'];
-      $values[] = $date['to'];
-    }
-    $end = $values[1];
-    unset($values[1]);
-
-    array_push($values, $end);
-    $new_values = array_chunk($values, 2);
-
-    $new_dates = [];
-    foreach ($new_values as $new_value) {
-      $new_dates[] = [
-        'from' => $new_value[0],
-        'to' => $new_value[1],
+    foreach ($exclusions as $key => $exclusion) {
+      $exclusions[$key] = [
+        'from' => new \DateTime($exclusion['from']),
+        'to' => new \DateTime($exclusion['to']),
       ];
     }
 
-    return $new_dates;
+    $start = new \DateTime($origin_dates[0]['from']);
+    $end = new \DateTime($origin_dates[0]['to']);
+
+    $resultingPeriods = [];
+    $resultingPeriods[] = ['from' => clone $start];
+
+    $skipInstance = FALSE;
+    $prevSkipInstance = FALSE;
+
+    while ($start < $end) {
+
+      // Check if this instance should be excluded.
+      $skipInstance = FALSE;
+      foreach ($exclusions as $exclusion) {
+        if ($start >= $exclusion['from'] && $start <= $exclusion['to']) {
+          $skipInstance = TRUE;
+          break;
+        }
+      }
+
+      // We just hit exclusion. Need to close previous resulting period.
+      if ($skipInstance && !$prevSkipInstance) {
+        $period = array_pop($resultingPeriods);
+        $close = clone $start;
+        if ($schedule_item['frequency'] == 'weekly') {
+          $close->modify('-1 week');
+        }
+        else {
+          $close->modify('-1 day');
+        }
+        $close->setTime($end->format('H'), $end->format('i'));
+        $period['to'] = $close;
+        array_push($resultingPeriods, $period);
+      }
+
+      // If exclusion just finished. We need to start new period.
+      if (!$skipInstance && $prevSkipInstance) {
+        $period = ['from' => clone $start];
+        array_push($resultingPeriods, $period);
+      }
+
+      if ($schedule_item['frequency'] == 'weekly') {
+        $start->modify('+1 week');
+      }
+      else {
+        $start->modify('+1 day');
+      }
+      $prevSkipInstance = $skipInstance;
+    }
+
+    // Do not forget to close last period.
+    $period = array_pop($resultingPeriods);
+    $period['to'] = $end;
+    array_push($resultingPeriods, $period);
+
+    // Now convert dates back to strings.
+    $result_dates = [];
+    foreach ($resultingPeriods as $period) {
+      // Example format 2018-01-08T05:15:00
+      $result_dates[] = [
+        'from' => $period['from']->format('Y-m-d\TH:i:s'),
+        'to' => $period['to']->format('Y-m-d\TH:i:s'),
+      ];
+    }
+
+    return $result_dates;
   }
 
   /**
@@ -635,6 +687,36 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $nids = $this->getLocationIDsByClassNode($node);
 
     return count($nids);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAgeIds(NodeInterface $session) {
+    $age_ids = [];
+    static $terms = [];
+    $s_min = !empty($session->field_session_min_age->value) ? $session->field_session_min_age->value : 0;
+    $s_max = !empty($session->field_session_max_age->value) ? $session->field_session_max_age->value : 0;
+
+    if (empty($terms)) {
+      $query = $this->entityQuery->get('taxonomy_term')
+        ->condition('vid', 'age');
+      $entity_ids = $query->execute();
+      $terms = $this->entityTypeManager
+        ->getStorage('taxonomy_term')
+        ->loadMultiple($entity_ids);
+    }
+
+    if (!empty($terms)) {
+      foreach ($terms as $id => $term) {
+        $ag_min = !empty($term->field_min_age->value) ? $term->field_min_age->value : 0;
+        $ag_max = !empty($term->field_max_age->value) ? $term->field_max_age->value : 0;
+        if (($s_min <= $ag_max || !$s_min || !$ag_max) && ($s_max >= $ag_min || !$s_max || !$ag_min)) {
+          $age_ids[] = $id;
+        }
+      }
+    }
+    return $age_ids;
   }
 
 }

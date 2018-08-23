@@ -4,6 +4,7 @@ namespace Drupal\openy_repeat\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -110,8 +111,8 @@ class RepeatController extends ControllerBase {
               nd.title as location,
               nds.title as name,
               re.class,
-              CAST(re.duration / 60 AS CHAR(1)) as duration_hours,
-              CAST(re.duration % 60 AS CHAR(2)) as duration_minutes,
+              re.session,
+              re.duration as duration,
               re.room,
               re.instructor as instructor,
               re.category,
@@ -163,8 +164,6 @@ class RepeatController extends ControllerBase {
       $values[':limit[]'] = explode(',', $limit);
     }
 
-    $sql .= " ORDER BY re.start";
-
     $values[':year'] = $year;
     $values[':month'] = $month;
     $values[':day'] = $day;
@@ -178,9 +177,12 @@ class RepeatController extends ControllerBase {
 
     $locations_info = $this->getLocationsInfo();
     $classes_info = $this->getClassesInfo();
+
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
       $result[$key]->class_info = $classes_info[$item->class];
+
+      $result[$key]->time_start_sort = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Hi');
 
       // Convert timezones for start_time and end_time.
       $result[$key]->time_start = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'g:i');
@@ -189,7 +191,18 @@ class RepeatController extends ControllerBase {
       // Example of calendar format 2018-08-21 14:15:00.
       $result[$key]->time_start_calendar = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Y-m-d H:i:s');
       $result[$key]->time_end_calendar = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'Y-m-d H:i:s');
+
+      // Durations.
+      $result[$key]->duration_minutes = $item->duration % 60;
+      $result[$key]->duration_hours = ($item->duration - $result[$key]->duration_minutes) / 60;
     }
+
+    usort($result, function($item1, $item2){
+      if ((int) $item1->time_start_sort == (int) $item2->time_start_sort) {
+        return 0;
+      }
+      return (int) $item1->time_start_sort < (int) $item2->time_start_sort ? -1 : 1;
+    });
 
     return new JsonResponse($result);
   }
