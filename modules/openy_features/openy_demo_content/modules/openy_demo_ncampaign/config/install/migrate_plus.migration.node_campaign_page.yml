@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_ncampaign
 id: openy_demo_node_campaign_page
-migration_tags: {  }
+migration_tags:
+  - openy_compete_installation
 migration_group: openy_demo_ncampaign
 label: 'Create demo campaign page nodes'
 source:

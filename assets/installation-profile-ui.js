@@ -23,7 +23,7 @@
         }
       });
 
-      $(".package > a", context).click(function(e) {
+      $(".package > a", context).on('click', function (e) {
         e.preventDefault();
         var $element = $(this);
         if (!$element.data('dialog')) {

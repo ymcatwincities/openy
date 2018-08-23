@@ -2,6 +2,7 @@ name: 'OpenY Demo Home Alternative'
 description: 'OpenY Demo Home Alternative.'
 type: module
 core: 8.x
+version: 8.x-1.0
 package: OpenY
 dependencies:
   - migrate

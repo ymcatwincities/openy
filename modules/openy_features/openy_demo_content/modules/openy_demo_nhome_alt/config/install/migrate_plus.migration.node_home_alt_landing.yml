@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_nhome_alt
 id: openy_demo_node_home_alt_landing
-migration_tags: {  }
+migration_tags:
+  - openy_demo_home_alt
 migration_group: openy_demo_nhome_alt
 label: 'Create demo home landing page nodes'
 source:

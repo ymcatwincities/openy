@@ -1,0 +1,112 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_menu_main
+id: openy_demo_extended_menu_link_main
+migration_tags:
+  - openy_extended_installation
+migration_group: openy_demo_menu
+label: 'Create extended demo main menu links'
+migration_dependencies:
+  required:
+    - openy_demo_menu_main_file
+    - openy_demo_node_landing
+source:
+  plugin: embedded_data
+  data_rows:
+  -
+    id: 1
+    title: 'Home'
+    menu_name: 'main'
+    link: 'internal:/'
+    weight: 1
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 9
+    title: 'Locations'
+    menu_name: 'main'
+    link: 'locations'
+    weight: 3
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 10
+    title: 'About'
+    menu_name: 'main'
+    link: 'about'
+    weight: 5
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 11
+    title: 'Give'
+    menu_name: 'main'
+    link: 'give'
+    weight: 6
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 12
+    title: 'Accelerator'
+    menu_name: 'main'
+    link: 'accelerator'
+    weight: 7
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 13
+    title: 'Blog'
+    menu_name: 'main'
+    link: 'blog'
+    weight: 8
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  -
+    id: 35
+    title: 'Join'
+    menu_name: 'main'
+    link: 'join'
+    weight: 9
+    parent_id: 0
+    expanded: 0
+    parent_link_path: ''
+  ids:
+    id:
+      type: integer
+process:
+  bundle:
+    plugin: default_value
+    default_value: menu_link_content
+  title: title
+  menu_name: menu_name
+  link/uri:
+    plugin: link_uri
+    source:
+    - link
+  weight: weight
+  expanded: expanded
+  parent:
+    plugin: menu_link_parent
+    source:
+    - parent_id
+    - menu_name
+    - parent_link_path
+  file_id:
+    plugin: migration
+    migration: openy_demo_menu_main_file
+    source: icon_id
+  opts:
+    plugin: openy_menu_icon
+    source: '@file_id'
+  link/options: '@opts'
+destination:
+  plugin: entity:menu_link_content
