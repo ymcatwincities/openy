@@ -144,6 +144,7 @@ class RegularUpdater {
 
     $membersData = [];
     foreach ($resArray as $item) {
+      // UTC dates from Drupal database.
       $startDate = \DateTime::createFromFormat('Y-m-d\TH:i:s', $item->start_date);
       $endDate = \DateTime::createFromFormat('Y-m-d\TH:i:s', $item->end_date);
 
@@ -153,7 +154,7 @@ class RegularUpdater {
         $endDate = $membersData[$item->member_id]['end_date'] < $endDate ? $endDate : $membersData[$item->member_id]['end_date'];
       }
 
-      $membersData[] = [
+      $membersData[$item->member_id] = [
         'member_id' => $item->member_id,
         'master_customer_id' => $item->personify_id,
         'start_date' => $startDate,

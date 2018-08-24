@@ -137,6 +137,8 @@ class CampaignScorecardService {
       $result['goals']['registration_goal'] = $registerGoal;
       $result['goals']['utilization_goal'] = $utilizationGoal;
 
+      $util_by_branch = $this->getCampaignUtilizationActivitiesByBranches($node);
+
       foreach ($branchList as $id => $branch) {
 
         $result['branches'][$id]['nid'] = $branch->personify_branch;
@@ -183,8 +185,8 @@ class CampaignScorecardService {
         $result['total']['reg_of_goal'] += $reg_of_goal;
 
         // Utilization calculation.
-        if ($reg_actual >= $goal) {
-          $util_goal = number_format($reg_actual * $utilizationGoal / 100);
+        if ($actual >= $goal) {
+          $util_goal = number_format($actual * $utilizationGoal / 100);
         }
         else {
           $util_goal = number_format($goal * $utilizationGoal / 100);
@@ -192,8 +194,7 @@ class CampaignScorecardService {
 
         $result['utilization'][$id]['goal'] = $util_goal;
 
-        $util_actual = $this->getCampaignUtilizationActivitiesByBranches($node);
-        $util_actual = isset($util_actual[$id]) ? $util_actual[$id] : 0;
+        $util_actual = isset($util_by_branch[$id]) ? $util_by_branch[$id] : 0;
         $result['utilization'][$id]['actual'] = $util_actual;
 
         if (!empty($reg_actual)) {
@@ -211,11 +212,13 @@ class CampaignScorecardService {
 
         // Utilization total.
         $result['total']['util_registration_goal'] += $util_goal;
-        $result['total']['util_actual'] += $util_actual;
         $result['total']['util_of_members'] += $util_of_member;
         $result['total']['util_of_goal'] += $util_of_goal;
 
       }
+
+      // Include results for members without branch ($id = 0 or '')
+      $result['total']['util_actual'] = array_sum($util_by_branch);
 
       $result['total']['of_members'] = number_format($result['total']['of_members'] / count($targets), 1);
       $result['total']['of_goal'] = number_format($result['total']['of_goal'] / count($targets), 1);
