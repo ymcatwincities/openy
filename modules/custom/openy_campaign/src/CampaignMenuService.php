@@ -473,7 +473,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $query->condition('mc.id', $memberCampaign->id());
 
     $query->groupBy('mc.goal');
-
+    $query->groupBy('mc.id');
     $query->having('COUNT(ch.id) > 0 AND COUNT(ch.id) >= mc.goal AND COUNT(ch.id) >= :minGoal', [':minGoal' => $minVisitsGoal]);
 
     $results = $query->execute()->fetchAll();
