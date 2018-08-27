@@ -18,3 +18,7 @@ Ex.:
 
 ```
 3. Make sure you see message with statistics per trainer and per location.
+
+### TODO
+
+ - Move `calculateReports()` to base class - it's identical.

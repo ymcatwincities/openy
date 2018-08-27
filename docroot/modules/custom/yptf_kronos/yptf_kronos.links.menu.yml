@@ -8,3 +8,8 @@ yptf_kronos_monday.settings:
   route_name: yptf_kronos_monday.settings
   parent: ymca_alters.admin_config_ymca_services
   description: 'Kronos service configuration for Monday.'
+yptf_kronos.mb_csv_upload:
+  title: Kronos MindBody CSV Upload
+  route_name: yptf_kronos.mb_csv_upload
+  parent: ymca_alters.admin_config_ymca_services
+  description: 'MindBody CSV file upload fro Kronos Integration.'
