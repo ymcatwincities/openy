@@ -47,7 +47,9 @@ class RepeatSchedulesBlock extends BlockBase {
 
     $connection = \Drupal::database();
     $query = $connection->query($sql);
-    return $query->fetchCol();
+    $result = $query->fetchCol();
+    natsort($result);
+    return $result;
   }
 
   /**
