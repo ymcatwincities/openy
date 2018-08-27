@@ -4,6 +4,7 @@ namespace Drupal\openy_repeat\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -89,7 +90,15 @@ class RepeatController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function ajaxScheduler( Request $request, $location, $date, $category) {
+  public function ajaxScheduler(Request $request, $location, $date, $category) {
+    $result = $this->getData($request, $location, $date, $category);
+    return new JsonResponse($result);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getData($request, $location, $date, $category) {
     if (empty($date)) {
       $date = date('F j, l 00:00:00');
     }
@@ -191,7 +200,7 @@ class RepeatController extends ControllerBase {
       $result[$key]->time_end_calendar = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'Y-m-d H:i:s');
     }
 
-    return new JsonResponse($result);
+    return $result;
   }
 
   /**
@@ -325,6 +334,149 @@ class RepeatController extends ControllerBase {
     }
 
     return $rows;
+  }
+
+  /**
+   * Returns PDF for specific parameters.
+   */
+  public function getPdf(Request $request) {
+    $content = $this->getPdfContent($request);
+    $settings = [
+      'body' => [
+        '#content' => [
+          'logo_url' => drupal_get_path('module', 'openy_repeat') . '/img/ymca_logo_black.png',
+          'result' => $content['content']['content'],
+          'header' => $content['content']['header']
+        ],
+        '#theme' => $content['theme']
+      ],
+    ];
+    \Drupal::service('openy_repeat_pdf_generator')->generatePDF($settings);
+  }
+
+  /**
+   * Returns content for a PDF.
+   */
+  public function getPdfContent($request) {
+    // Get all parameters from query.
+    $parameters = $request->query->all();
+    $category = !empty($parameters['category']) ? $parameters['category'] : '';
+    $location = !empty($parameters['locations']) ? $parameters['locations'] : '';
+    $date = !empty($parameters['date']) ? $parameters['date'] : '';
+    $mode = !empty($parameters['mode']) ? $parameters['mode'] : 'activity';
+
+    // Calculate first day of a week.
+    $date = strtotime($date);
+    $monday_timestamp = strtotime("last Monday", $date);
+    if (date('D', $date) === 'Mon') {
+      $monday_timestamp = $date;
+    }
+    $timestamp_start = $monday_timestamp;
+
+    $result = [];
+    // Create weekly schedule by getting results for every weekday.
+    for ($i = 1; $i <= 7; $i++) {
+      $date = DrupalDateTime::createFromTimestamp($timestamp_start)->format('F j, l 00:00:00');
+      $result[$date] = $this->getData($request, $location, $date, $category);
+      $timestamp_start += 86400;
+    }
+
+    // Group by activity.
+    if ($mode == 'activity') {
+      $result = $this->groupByActivity($result);
+      $theme = 'openy_repeat__pdf__table__activity';
+    }
+    // Group by day.
+    if ($mode == 'day') {
+      $result = $this->groupByDay($result);
+      $theme = 'openy_repeat__pdf__table__day';
+    }
+
+    $content = [
+      'content' => $result,
+      'theme' => $theme,
+    ];
+
+    return $content;
+  }
+
+  /**
+   * Group results by Activity & Location.
+   */
+  public function groupByActivity($result) {
+    if (empty($result)) {
+      return FALSE;
+    }
+    $date_keys = $formatted_result = [];
+
+    // Create weekdays array.
+    foreach ($result as $day => $data) {
+      $date_keys[$day] = [];
+    }
+    $arr_date_keys = array_keys($date_keys);
+    $first = reset($arr_date_keys);
+    $last = end($arr_date_keys);
+    $first = DrupalDateTime::createFromFormat('F j, l 00:00:00', $first)->format('F jS');
+    $last = DrupalDateTime::createFromFormat('F j, l 00:00:00', $last)->format('F jS');
+    $formatted_result['header'] = [
+      'dates' => $first . ' - ' . $last,
+    ];
+
+    // Create activities array pass weekdays array to each.
+    foreach ($result as $day => $data) {
+      foreach ($data as $session) {
+        $formatted_result['content'][$session->location][$session->name] = [
+          'room' => $session->room,
+          'dates' => $date_keys
+        ];
+      }
+    }
+    foreach ($result as $day => $data) {
+      foreach ($data as $session) {
+        $formatted_result['content'][$session->location][$session->name]['dates'][$day][] = [
+          'time' => $session->time_start . '-' . $session->time_end,
+          'category' => $session->category,
+        ];
+      }
+    }
+    return $formatted_result;
+  }
+
+
+  /**
+   * Group results by day.
+   */
+  public function groupByDay($result) {
+    if (empty($result)) {
+      return FALSE;
+    }
+    $date_keys = $formatted_result = [];
+
+    // Create weekdays array.
+    foreach ($result as $day => $data) {
+      $date_keys[$day] = [];
+    }
+    $arr_date_keys = array_keys($date_keys);
+    $first = reset($arr_date_keys);
+    $last = end($arr_date_keys);
+    $first = DrupalDateTime::createFromFormat('F j, l 00:00:00', $first)->format('F jS');
+    $last = DrupalDateTime::createFromFormat('F j, l 00:00:00', $last)->format('F jS');
+    $formatted_result['header'] = [
+      'dates' => $first . ' - ' . $last,
+    ];
+
+    foreach ($result as $day => $data) {
+      foreach ($data as $session) {
+        $weekday = DrupalDateTime::createFromFormat('F j, l 00:00:00', $day)->format('l');
+        $formatted_result['content'][$session->category . '|' .$session->location][$weekday][$session->time_start . '-' . $session->time_end][] = [
+          'room' => $session->room,
+          'name' => $session->name,
+          'category' => $session->category,
+          'instructor' => $session->instructor,
+        ];
+      }
+    }
+    return $formatted_result;
   }
 
 }
