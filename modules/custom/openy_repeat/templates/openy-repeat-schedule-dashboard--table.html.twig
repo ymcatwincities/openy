@@ -9,7 +9,7 @@
 
 {# date arrows & title #}
 <div class="row schedule-dashboard__content--header">
-  <div class="col-sm-12 col-md-8">
+  <div class="col-sm-12 col-md-7">
     <h2>
       <span v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
       <span class="date">${ dateFormatted }</span>
@@ -17,8 +17,9 @@
     </h2>
   </div>
 
-  <div class="hidden-xs hidden-sm col-md-4">
+  <div class="hidden-xs col-md-5">
     <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
+    <a class="btn btn-md btn-block btn-schedule-pdf-generate hidden" target="_blank">{{ 'View Weekly PDF of This Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
   </div>
 </div>
 
