@@ -102,7 +102,8 @@ class RepeatController extends ControllerBase {
     $weekday = date('N', $date);
 
     $timestamp_start = $date;
-    $timestamp_end = $date + 24 * 60 * 60 * 60; // Next day.
+    // Next day.
+    $timestamp_end = $date + 24 * 60 * 60;
 
     $sql = "SELECT DISTINCT
               n.nid,
