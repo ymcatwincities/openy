@@ -12,3 +12,10 @@ yptf_kronos_monday.settings:
     _title: 'Kronos Monday settings'
   requirements:
     _permission: 'administer site configuration'
+yptf_kronos.mb_csv_upload:
+  path: '/admin/config/ymca-services/kronos-mb-csv-upload'
+  defaults:
+    _form: '\Drupal\yptf_kronos\Form\KronosMBCSVUpload'
+    _title: 'Kronos MindBody CSV Upload'
+  requirements:
+    _permission: 'administer site configuration'
