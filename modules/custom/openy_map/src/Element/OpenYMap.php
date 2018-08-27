@@ -35,10 +35,27 @@ class OpenYMap extends RenderElement {
    *   Element
    */
   public static function processElement(array $element) {
-
+    $settings = \Drupal::configFactory()->get('openy_map.settings');
     $element['#attached']['library'][] = 'openy_map/openy_map';
+    switch ($settings->get('map_engine')) {
+      case 'gmaps':
+        $element['#attached']['library'][] = 'openy_map/gmaps';
+        $element['#attached']['drupalSettings']['openyMapSettings']['engine'] = 'gmaps';
+      break;
+
+      case 'leaflet':
+      default:
+        $element['#attached']['library'][] = 'openy_map/leaflet';
+        $mapSettings = &$element['#attached']['drupalSettings']['openyMapSettings'];
+        $mapSettings['engine'] = 'leaflet';
+        $mapSettings['default_location'] = urlencode(trim(_openy_map_get_default_location()));
+        $mapSettings['search_icon'] = $settings->get('leaflet.search_icon');
+        $mapSettings['search_icon_retina'] = $settings->get('leaflet.search_icon_retina');
+        $mapSettings['base_layer'] = $settings->get('leaflet.base_layer');
+      break;
+    }
     $element['#attached']['drupalSettings']['openyMap'] = $element['#element_variables'];
-    $tags = \Drupal::configFactory()->get('openy_map.settings')->get('default_tags');
+    $tags = $settings->get('default_tags');
     $element['#attached']['drupalSettings']['openyMapSettings']['default_tags'] = array_values(array_filter($tags));
     $element['#cache']['tags'][] = 'config:openy_map.settings';
 

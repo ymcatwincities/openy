@@ -1103,3 +1103,66 @@ html.js {
     margin-right: 0.25em;
   }
 }
+
+.marker_tooltip {
+  color: $darker-grey;
+  font-family: "Helvetica Neue", Verdana, sans-serif;
+  line-height: 1.2;
+  a {
+    color: $blue;
+  }
+  article.node {
+    h3.location-item--title {
+      margin:0 0 0.5em;
+      a {
+        @include cachet;
+      }
+      ~ .field-location-area {
+        margin: 0 0 0.4em;
+      }
+      & + .node__content {
+        margin: 0;
+      }
+    }
+    .node__content {
+      address.wrapper-field-location-address {
+        margin-bottom: 0.4em;
+        .field-location-address {
+          .address {
+            font-size: 12px;
+            font-style: italic;
+            margin: 0 0 0.5em 0.4em;
+          }
+        }
+      }
+      .field-location-phone {
+        display: block;
+        margin-bottom: 0.4em;
+        a {
+          font-size: 12px;
+        }
+      }
+      .field-branch-hours {
+        h4 {
+          font-weight: bold;
+          margin-bottom: 0.35em;
+          margin-top: 0;
+        }
+      }
+      table {
+        tr {
+          td {
+            font-style: italic;
+            font-size: 12px;
+            padding-left: 0.5em;
+          }
+        }
+      }
+    }
+  }
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  top: 3px;
+  right: 3px;
+}

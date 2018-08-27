@@ -6,10 +6,6 @@ dependencies:
     - paragraphs.paragraphs_type.embedded_groupexpro_schedule
   module:
     - plugin
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_block
 id: paragraph.embedded_groupexpro_schedule.field_prgf_block
 field_name: field_prgf_block
 entity_type: paragraph

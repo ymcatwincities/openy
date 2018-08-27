@@ -5,14 +5,12 @@
  * OpenY Entity Reference Tweaks module file.
  */
 
-use Drupal\Core\Form\FormStateInterface;
-
 /**
  * Implements hook_field_widget_form_alter().
  *
  * Alters default entity reference widget in favor of openy_er.
  */
-function openy_er_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+function openy_er_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
   $settings = $context['items']->getSettings();
   // Entity reference fields contain handler in form 'handler:entity_type'.
   if (!isset($settings['handler']) || !preg_match('/.*:.*/', $settings['handler'])) {

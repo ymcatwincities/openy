@@ -3,8 +3,10 @@ type: module
 description: OpenY membership calculator.
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - openy_map
   - openy_socrates
   - openy_mappings
+  - openy_node_mbrshp
   - daxko

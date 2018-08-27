@@ -6,10 +6,6 @@ dependencies:
     - taxonomy.vocabulary.blog_category
   module:
     - entity_reference_revisions
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_taxonomy_content
 id: taxonomy_term.blog_category.field_taxonomy_content
 field_name: field_taxonomy_content
 entity_type: taxonomy_term

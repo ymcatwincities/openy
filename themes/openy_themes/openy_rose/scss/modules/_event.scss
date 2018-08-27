@@ -55,22 +55,7 @@
       .location-directions > a, .addtocalendar > a {
         @include cachet-bold();
       }
-      .addtocalendar {
-        float: none;
-        top: 0;
-        right: 0;
-        .atcb-list {
-          border: 1px solid #bababa;
-          border-radius: 2px;
-          box-shadow: 0 0 5px #AAA;
-        }
-        a.atcb-item-link {
-          padding: 3px 10px;
-          &:hover {
-            background-color: $lighter-grey;
-          }
-        }
-      }
+
       .contact {
         background-color: #f9f9f9;
       }

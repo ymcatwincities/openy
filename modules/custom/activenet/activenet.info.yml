@@ -2,4 +2,5 @@ name: ActiveNet
 type: module
 description: Provides basic ActiveNet integration
 core: 8.x
+version: 8.x-1.0
 package: OpenY

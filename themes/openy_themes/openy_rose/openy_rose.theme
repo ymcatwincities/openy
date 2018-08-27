@@ -42,7 +42,8 @@ function openy_rose_preprocess_paragraph(array &$variables) {
  */
 function openy_rose_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   // Add content type suggestions for node types.
-  if ($node = \Drupal::request()->attributes->get('node')) {
+  $node = \Drupal::request()->attributes->get('node');
+  if ($node && is_object($node)) {
     $node_type = $node->getType();
     $page__node_pos = array_search('page__node', $suggestions);
     $page__node__type = 'page__node__' . $node_type;
@@ -235,7 +236,12 @@ function openy_rose_page_attachments_alter(array &$page) {
   // related to a camp, and the custom camp favicon has been set for the theme.
 
   // Exit if not a node page, or if the 'openy_loc_camp.camp_service' is not available.
-  if (!($node = \Drupal::request()->attributes->get('node')) || !($camp_service = \Drupal::service('openy_loc_camp.camp_service'))) {
+  if ( !\Drupal::hasService('openy_loc_camp.camp_service')) {
+    return;
+  }
+  $camp_service = \Drupal::service('openy_loc_camp.camp_service');
+  $node = \Drupal::request()->attributes->get('node');
+  if (!$node || !is_object($node)) {
     return;
   }
 
@@ -375,7 +381,7 @@ function openy_rose_preprocess_html(&$variables) {
           ->load($p['target_id']);
 
         // Take action for microsites_menu paragraph.
-        if ($paragraph->bundle() == 'microsites_menu') {
+        if ($paragraph && $paragraph->bundle() == 'microsites_menu') {
           // Add class to the body.
           $variables['attributes']['class'][] = 'microsites-menu';
           if ($paragraph->field_prgf_ms_menu_hide_menu->value) {

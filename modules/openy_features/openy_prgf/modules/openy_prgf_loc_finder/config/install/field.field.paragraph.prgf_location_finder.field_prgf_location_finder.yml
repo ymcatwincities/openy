@@ -6,10 +6,6 @@ dependencies:
     - paragraphs.paragraphs_type.prgf_location_finder
   module:
     - plugin
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_location_finder
 id: paragraph.prgf_location_finder.field_prgf_location_finder
 field_name: field_prgf_location_finder
 entity_type: paragraph

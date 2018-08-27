@@ -14,7 +14,7 @@ function openy_prgf_camp_menu_update_8001() {
 
   // Update multiple configurations.
   $configs = [
-    'core.entity_view_display.paragraph.camp_menu.default' =>[
+    'core.entity_view_display.paragraph.camp_menu.default' => [
       'content.field_prgf_block.region',
     ],
     'field.field.paragraph.camp_menu.field_prgf_block' => [
