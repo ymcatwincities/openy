@@ -2,6 +2,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: openy_demo_simple_block
-label: 'Block'
+label: 'Simple Block'
 description: 'Imports blocks that are being used in the Simple Content Component.'
 module: openy_demo_bsimple

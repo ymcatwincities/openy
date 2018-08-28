@@ -7,7 +7,7 @@ dependencies:
 id: openy_demo_nbranch_media_image
 migration_tags: { }
 migration_group: openy_demo_nbranch
-label: Media Images
+label: Import demo blog branch images
 source:
   plugin: embedded_data
   data_rows:

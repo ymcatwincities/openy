@@ -7,7 +7,7 @@ dependencies:
 id: openy_demo_ncategory_media_image
 migration_tags: { }
 migration_group: openy_demo_ncategory
-label: 'Demo program category media images'
+label: 'Import demo program category media images'
 source:
   plugin: embedded_data
   data_rows:

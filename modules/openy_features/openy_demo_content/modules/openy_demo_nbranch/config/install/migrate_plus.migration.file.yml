@@ -7,7 +7,7 @@ dependencies:
 id: openy_demo_nbranch_file
 migration_tags: { }
 migration_group: openy_demo_nbranch
-label: Files
+label: 'Import demo branch files'
 source:
   plugin: embedded_data
   data_rows:

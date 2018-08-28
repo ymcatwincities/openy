@@ -8,7 +8,7 @@ id: openy_demo_nnews_media_image
 migration_tags:
   - 'OpenY Demo News'
 migration_group: openy_demo_nnews
-label: Media Images
+label: Import demo news media images
 source:
   plugin: embedded_data
   data_rows:
