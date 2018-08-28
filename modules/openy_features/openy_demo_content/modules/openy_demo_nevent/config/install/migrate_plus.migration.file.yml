@@ -8,7 +8,7 @@ id: openy_demo_nevent_file
 migration_tags:
   - 'OpenY Demo Event'
 migration_group: openy_demo_nevent
-label: 'Files'
+label: 'Import demo event files'
 source:
   plugin: embedded_data
   data_rows:

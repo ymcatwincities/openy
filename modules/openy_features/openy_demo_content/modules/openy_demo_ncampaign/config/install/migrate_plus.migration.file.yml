@@ -7,7 +7,7 @@ dependencies:
 id: openy_demo_ncampaign_file
 migration_tags: { }
 migration_group: openy_demo_ncampaign
-label: Files
+label: 'Import demo campaign files'
 source:
   plugin: embedded_data
   data_rows:
