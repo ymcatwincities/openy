@@ -154,7 +154,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View branch'|t }}</a>
+          <a class="btn btn-lg btn-primary" v-bind:href="'{{ url('<front>') }}node/' + locationPopup.nid">{{ 'View branch'|t }}</a>
         </div>
       </div>
     </div>
@@ -187,7 +187,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + classPopup.nid">{{ 'View More'|t }}</a>
+          <a class="btn btn-lg btn-primary" v-bind:href="'{{ url('<front>') }}node/' + classPopup.nid">{{ 'View More'|t }}</a>
         </div>
 
       </div>
