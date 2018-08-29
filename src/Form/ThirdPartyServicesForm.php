@@ -47,72 +47,85 @@ class ThirdPartyServicesForm extends FormBase {
     // TODO: output the fields only if the modules are installed.
 
     // Google Maps API key.
-    $form['google_map_api_key'] = [
-      '#type' => 'textfield',
-      '#placeholder' => 'AIzaSyDIFPdDmDsBOFFZcmavCaAqHa3VNKkXLJc',
-      '#title' => $this->t('Google Maps API key'),
-      '#default_value' => $geo_loc_config->get('google_map_api_key'),
-      '#description' => $this->t('Google Maps requires users to use a valid API key. Using the <a href="https://console.developers.google.com/apis" target="_blank">Google API Manager</a>, you can enable the <em>Google Maps JavaScript API</em>. That will create (or reuse) a <em>Browser key</em> which you can paste here.'),
-    ];
+    if (\Drupal::moduleHandler()->moduleExists('geolocation')) {
+      $form['google_map_api_key'] = [
+        '#type' => 'textfield',
+        '#placeholder' => 'AIzaSyDIFPdDmDsBOFFZcmavCaAqHa3VNKkXLJc',
+        '#title' => $this->t('Google Maps API key'),
+        '#default_value' => $geo_loc_config->get('google_map_api_key'),
+        '#description' => $this->t('Google Maps requires users to use a valid API key. Using the <a href="https://console.developers.google.com/apis" target="_blank">Google API Manager</a>, you can enable the <em>Google Maps JavaScript API</em>. That will create (or reuse) a <em>Browser key</em> which you can paste here.'),
+      ];
+    }
 
     // Google Analytics Account ID.
-    $form['google_analytics_account'] = [
-      '#default_value' => $ga_config->get('account'),
-      '#description' => $this->t('This ID is unique to each site you want to track separately, and is in the form of UA-xxxxxxx-yy. To get a Web Property ID, <a href=":analytics">register your site with Google Analytics</a>, or if you already have registered your site, go to your Google Analytics Settings page to see the ID next to every site profile. <a href=":webpropertyid">Find more information in the documentation</a>.', [':analytics' => 'http://www.google.com/analytics/', ':webpropertyid' => Url::fromUri('https://developers.google.com/analytics/resources/concepts/gaConceptsAccounts', ['fragment' => 'webProperty'])->toString()]),
-      '#maxlength' => 20,
-      '#placeholder' => 'UA-',
-      '#title' => $this->t('Google Analytics Web Property ID'),
-      '#type' => 'textfield',
-    ];
+    if (\Drupal::moduleHandler()->moduleExists('google_analytics')) {
+      $form['google_analytics_account'] = [
+        '#default_value' => $ga_config->get('account'),
+        '#description' => $this->t('This ID is unique to each site you want to track separately, and is in the form of UA-xxxxxxx-yy. To get a Web Property ID, <a href=":analytics">register your site with Google Analytics</a>, or if you already have registered your site, go to your Google Analytics Settings page to see the ID next to every site profile. <a href=":webpropertyid">Find more information in the documentation</a>.', [':analytics' => 'http://www.google.com/analytics/',
+          ':webpropertyid' => Url::fromUri('https://developers.google.com/analytics/resources/concepts/gaConceptsAccounts', ['fragment' => 'webProperty'])
+            ->toString()
+        ]),
+        '#maxlength' => 20,
+        '#placeholder' => 'UA-',
+        '#title' => $this->t('Google Analytics Web Property ID'),
+        '#type' => 'textfield',
+      ];
+    }
 
     // Google Tag Manager Account ID.
-    $form['google_tag_manager_id'] = [
-      '#title' => $this->t('Google Tag Manager Container ID'),
-      '#description' => $this->t('The ID assigned by Google Tag Manager (GTM) for this website container. To get a container ID, <a href="https://tagmanager.google.com/">sign up for GTM</a> and create a container for your website.'),
-      '#default_value' => $gtm_config->get('container_id'),
-      '#attributes' => ['placeholder' => ['GTM-xxxxxx']],
-      '#maxlength' => 20,
-      '#type' => 'textfield',
-    ];
+    if (\Drupal::moduleHandler()->moduleExists('google_tag')) {
+      $form['google_tag_manager_id'] = [
+        '#title' => $this->t('Google Tag Manager Container ID'),
+        '#description' => $this->t('The ID assigned by Google Tag Manager (GTM) for this website container. To get a container ID, <a href="https://tagmanager.google.com/">sign up for GTM</a> and create a container for your website.'),
+        '#default_value' => $gtm_config->get('container_id'),
+        '#attributes' => ['placeholder' => ['GTM-xxxxxx']],
+        '#maxlength' => 20,
+        '#type' => 'textfield',
+      ];
+    }
 
     // Optimizely ID Number.
-    $form['optimizely_id'] = [
-      '#type' => 'textfield',
-      '#placeholder' => 'xxxxxxxxxx',
-      '#title' => $this->t('Optimizely ID Number'),
-      '#default_value' => $optimizely_config->get('optimizely_id'),
-      '#description' => $this->t('Your Optimizely account ID.</br>In order to use this module, you\'ll need an <a href="http://optimize.ly/OZRdc0" target="_blank">Optimizely account</a>. </br>See <a href="https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Optimizely.md" target="_blank">Open Y documentation</a> for Optimizely.'),
-    ];
+    if (\Drupal::moduleHandler()->moduleExists('optimizely')) {
+      $form['optimizely_id'] = [
+        '#type' => 'textfield',
+        '#placeholder' => 'xxxxxxxxxx',
+        '#title' => $this->t('Optimizely ID Number'),
+        '#default_value' => $optimizely_config->get('optimizely_id'),
+        '#description' => $this->t('Your Optimizely account ID.</br>In order to use this module, you\'ll need an <a href="http://optimize.ly/OZRdc0" target="_blank">Optimizely account</a>. </br>See <a href="https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Optimizely.md" target="_blank">Open Y documentation</a> for Optimizely.'),
+      ];
+    }
 
     // Recaptcha keys.
-    $form['recaptcha'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Recaptcha Settings'),
-      '#open' => TRUE,
-    ];
+    if (\Drupal::moduleHandler()->moduleExists('recaptcha')) {
+      $form['recaptcha'] = [
+        '#type' => 'details',
+        '#title' => $this->t('Recaptcha Settings'),
+        '#open' => TRUE,
+      ];
 
-    $form['recaptcha']['markup'] = [
-      '#type' => 'markup',
-      '#markup' => $this->t('<p>If you would like to use the <a href=":url" target="_blank">reCAPTCHA service</a> to reduce potential form spam, create an account and use the provided credentials below.</p>', [':url' => 'http://www.google.com/recaptcha']),
-    ];
+      $form['recaptcha']['markup'] = [
+        '#type' => 'markup',
+        '#markup' => $this->t('<p>If you would like to use the <a href=":url" target="_blank">reCAPTCHA service</a> to reduce potential form spam, create an account and use the provided credentials below.</p>', [':url' => 'http://www.google.com/recaptcha']),
+      ];
 
-    $form['recaptcha']['recaptcha_site_key'] = [
-      '#default_value' => $recaptcha_config->get('site_key'),
-      '#description' => $this->t('The site key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
-      '#placeholder' => '6LeQMCcUAAAAAL48HBex3MbH8UTazAH4Vr7cAHEz',
-      '#maxlength' => 40,
-      '#title' => $this->t('Site key'),
-      '#type' => 'textfield',
-    ];
+      $form['recaptcha']['recaptcha_site_key'] = [
+        '#default_value' => $recaptcha_config->get('site_key'),
+        '#description' => $this->t('The site key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
+        '#placeholder' => '6LeQMCcUAAAAAL48HBex3MbH8UTazAH4Vr7cAHEz',
+        '#maxlength' => 40,
+        '#title' => $this->t('Site key'),
+        '#type' => 'textfield',
+      ];
 
-    $form['recaptcha']['recaptcha_secret_key'] = [
-      '#default_value' => $recaptcha_config->get('secret_key'),
-      '#description' => $this->t('The secret key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
-      '#maxlength' => 40,
-      '#placeholder' => '6LeQMCcUAAAAAPHA6nB1Z0GLpPV8DqrIHzzaSEe6',
-      '#title' => $this->t('Secret key'),
-      '#type' => 'textfield',
-    ];
+      $form['recaptcha']['recaptcha_secret_key'] = [
+        '#default_value' => $recaptcha_config->get('secret_key'),
+        '#description' => $this->t('The secret key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
+        '#maxlength' => 40,
+        '#placeholder' => '6LeQMCcUAAAAAPHA6nB1Z0GLpPV8DqrIHzzaSEe6',
+        '#title' => $this->t('Secret key'),
+        '#type' => 'textfield',
+      ];
+    }
 
     // AddThis ID.
     if (\Drupal::moduleHandler()->moduleExists('openy_addthis')) {
@@ -126,26 +139,27 @@ class ThirdPartyServicesForm extends FormBase {
       ];
     }
 
-    // Lndr.
-    $form['lndr'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Lndr landing page builder'),
-      '#open' => TRUE,
-    ];
+    // Lndr API key.
+    if (\Drupal::moduleHandler()->moduleExists('lndr')) {
+      $form['lndr'] = [
+        '#type' => 'details',
+        '#title' => $this->t('Lndr landing page builder'),
+        '#open' => TRUE,
+      ];
 
-    $form['lndr']['markup'] = [
-      '#type' => 'markup',
-      '#markup' => $this->t('<p>Lndr is a simple landing page builder that let you create campaigns, events and other landing pages. To learn more, please visit <a href=":url" target="_blank">http://www.lndr.co/</a></p>', [':url' => 'http://www.lndr.co']),
-    ];
+      $form['lndr']['markup'] = [
+        '#type' => 'markup',
+        '#markup' => $this->t('<p>Lndr is a simple landing page builder that let you create campaigns, events and other landing pages. To learn more, please visit <a href=":url" target="_blank">http://www.lndr.co/</a></p>', [':url' => 'http://www.lndr.co']),
+      ];
 
-    // Google Analytics Account ID.
-    $form['lndr']['lndr_api_token'] = [
-      '#default_value' => $lndr_config->get('lndr_token'),
-      '#description' => $this->t('You can find your API token under your <a href=":analytics">user profile</a>.', [':analytics' => 'https://www.lndr.co/users/edit']),
-      '#placeholder' => '',
-      '#title' => $this->t('Lndr API key'),
-      '#type' => 'textfield',
-    ];
+      $form['lndr']['lndr_api_token'] = [
+        '#default_value' => $lndr_config->get('lndr_token'),
+        '#description' => $this->t('You can find your API token under your <a href=":analytics">user profile</a>.', [':analytics' => 'https://www.lndr.co/users/edit']),
+        '#placeholder' => '',
+        '#title' => $this->t('Lndr API key'),
+        '#type' => 'textfield',
+      ];
+    }
 
     $form['actions'] = [
       'continue' => [
@@ -230,14 +244,13 @@ class ThirdPartyServicesForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Save Google Maps API Key.
     $config_factory = \Drupal::service('config.factory');
-    $geo_loc_config = $config_factory->getEditable('geolocation.settings');
-    $optimizely_config = $config_factory->getEditable('optimizely.settings');
-    $addthis_config = $config_factory->getEditable('openy_addthis.settings');
-
-    $geo_loc_config->set('google_map_api_key', $form_state->getValue('google_map_api_key'));
-    $geo_loc_config->save();
+    // Save Google Maps API Key.
+    if (\Drupal::moduleHandler()->moduleExists('geolocation')) {
+      $geo_loc_config = $config_factory->getEditable('geolocation.settings');
+      $geo_loc_config->set('google_map_api_key', $form_state->getValue('google_map_api_key'));
+      $geo_loc_config->save();
+    }
 
     // Set Google Tag Manager Container ID & create snippets.
     if (!empty($form_state->getValue('google_tag_manager_id'))) {
@@ -255,6 +268,7 @@ class ThirdPartyServicesForm extends FormBase {
     }
 
     if (\Drupal::moduleHandler()->moduleExists('optimizely')) {
+      $optimizely_config = $config_factory->getEditable('optimizely.settings');
       $optimizely_id = $form_state->getValue('optimizely_id');
       $optimizely_config->set('optimizely_id', $optimizely_id);
       $optimizely_config->save();
@@ -274,7 +288,7 @@ class ThirdPartyServicesForm extends FormBase {
         ->set('site_key', $form_state->getValue('recaptcha_site_key'))
         ->set('secret_key', $form_state->getValue('recaptcha_secret_key'))
         ->save();
-      
+
       //Set default captcha config to use reCaptcha.
       $captcha_config = $config_factory->getEditable('captcha.settings');
       $captcha_config->set('default_validation', 'recaptcha/reCAPTCHA')
@@ -295,6 +309,7 @@ class ThirdPartyServicesForm extends FormBase {
 
     // Set AddThis ID.
     if (\Drupal::moduleHandler()->moduleExists('openy_addthis')) {
+      $addthis_config = $config_factory->getEditable('openy_addthis.settings');
       $addthis_public_id = $form_state->getValue('public_id');
       $addthis_config->set('public_id', $addthis_public_id);
       $addthis_config->save();
