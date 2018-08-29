@@ -8,6 +8,8 @@ use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\Core\Config\ConfigManager;
+use Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager;
 
 /**
  * Openy modules manager.
@@ -27,6 +29,20 @@ class OpenyModulesManager {
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   protected $configFactory;
+
+  /**
+   * Migration manager.
+   *
+   * @var \Drupal\Core\Config\ConfigManager
+   */
+  protected $configManager;
+
+  /**
+   * Migration manager.
+   *
+   * @var \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager
+   */
+  protected $migrationManager;
 
   /**
    * Configs prefixes that protected from manual deleting.
@@ -94,9 +110,11 @@ class OpenyModulesManager {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, MigrationConfigEntityPluginManager $migration_manager, ConfigManager $config_manager) {
     $this->entityTypeManager = $entity_type_manager;
     $this->configFactory = $config_factory;
+    $this->migrationManager = $migration_manager;
+    $this->configManager = $config_manager;
   }
 
   /**
@@ -248,6 +266,38 @@ class OpenyModulesManager {
       }
     }
     return $operation_success;
+  }
+
+
+  /**
+   * Destroy database migration data for migrations dependent from module.
+   *
+   * @param string $module_name
+   *   Module for destroy data.
+   *   Module should be added as enforced dependency in migration config.
+   */
+  public function destroyMigrationData($module_name) {
+    if (empty($module_name)) {
+      return;
+    }
+    // Get config entities that are dependent on module.
+    $dependencies = $this->configManager->findConfigEntityDependentsAsEntities('module', (array) $module_name);
+    // Create array of dependent migrations for module.
+    // That module should be listed in dependencies of migration config.
+    foreach ($dependencies as $dependency) {
+      /** @var \Drupal\migrate_plus\Entity\Migration $dependency */
+      if ($dependency->getEntityTypeId() == 'migration') {
+        $migration_list[] = $dependency->get('id');
+      }
+    }
+    if (!empty($migration_list)) {
+      $migrations = $this->migrationManager->createInstances($migration_list);
+      /** @var \Drupal\migrate\Plugin\Migration $migration */
+      foreach ($migrations as $migration) {
+        // Remove migration data in DB for this migration.
+        $migration->getIdMap()->destroy();
+      }
+    }
   }
 
   /**
@@ -410,5 +460,6 @@ class OpenyModulesManager {
     }
     $this->removeModuleConfigs(array_merge($module_install_configs, $module_optional_configs));
   }
+
 
 }
