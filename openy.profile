@@ -425,6 +425,11 @@ function openy_preprocess_block(&$variables) {
   }
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter.
+ *
+ * Add description how to use CSS Editor on the theme configuration page.
+ */
 function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (isset($form['css_editor'])) {
     // Add short manual how to use CSS Editor inside the theme.
@@ -448,6 +453,11 @@ function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form
   }
 }
 
+/**
+ * Implements hook_help().
+ *
+ * Add description how to use CSS Editor to help.
+ */
 function openy_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'system.theme_settings_theme':
@@ -462,5 +472,17 @@ function openy_help($route_name, RouteMatchInterface $route_match) {
       }
 
       break;
+  }
+}
+
+/**
+ * Implements hook_install_tasks_alter().
+ */
+function openy_install_tasks_alter(&$tasks, $install_state) {
+  // Remove 3rd party services installation task for standard preset.
+  if (!empty(\Drupal::state()->get('openy_preset')) &&
+    \Drupal::state()->get('openy_preset') == 'standard' &&
+    isset($tasks["openy_third_party_services"])) {
+      unset($tasks["openy_third_party_services"]);
   }
 }
