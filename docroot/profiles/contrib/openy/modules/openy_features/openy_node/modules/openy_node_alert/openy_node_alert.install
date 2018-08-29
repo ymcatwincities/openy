@@ -5,13 +5,16 @@
  * OpenY Node Alert install file.
  */
 
+use \Drupal\user\Entity\Role;
+use \Drupal\user\RoleInterface;
+
 /**
  * Implements hook_install().
  */
 function openy_node_alert_install() {
-  $roles = \Drupal\user\Entity\Role::loadMultiple([
-    \Drupal\user\RoleInterface::ANONYMOUS_ID,
-    \Drupal\user\RoleInterface::AUTHENTICATED_ID
+  $roles = Role::loadMultiple([
+    RoleInterface::ANONYMOUS_ID,
+    RoleInterface::AUTHENTICATED_ID
   ]);
 
   $permissions = [
