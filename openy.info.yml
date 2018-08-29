@@ -1,10 +1,10 @@
-name: OpenY
+name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
 core: 8.x
 version: '8.x-1.14-dev'
 distribution:
-  name: OpenY
+  name: Open Y
   install:
       theme: openy_admin
 php: 5.6
