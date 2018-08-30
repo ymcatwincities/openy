@@ -12050,9 +12050,11 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   }
 }
 .cdn-form-full .top-elements-wrapper h2 {
+  margin-right: 20px;
+  float: left;
   font-size: 30px;
   font-family: "Cachet Book", Arial, sans-serif;
-  margin-bottom: 20px;
+  margin-top: 10px;
   color: #2f2f2f;
 }
 .cdn-form-full .help-tip {
@@ -12223,7 +12225,7 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
     border: 1px solid #dadada;
     width: auto;
     float: none;
-    height: 40px;
+    height: 50px;
   }
 }
 .cdn-form-full .form-item-capacity {

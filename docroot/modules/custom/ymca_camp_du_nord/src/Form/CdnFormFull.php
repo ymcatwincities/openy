@@ -220,8 +220,12 @@ class CdnFormFull extends FormBase {
     $form['arrival_date'] = [
       '#type' => 'date',
       '#title' => t('Check in'),
-      '#prefix' => '<div class="top-elements-wrapper"><div class="container"><h2>' . $this->t('Search') . '</h2>',
       '#default_value' => $state['arrival_date'],
+    ];
+
+    $form['html']['element'] = [
+      '#type' => 'markup',
+      '#markup' => '<h2>Search</h2>',
     ];
 
     $form['departure_date'] = [
@@ -271,7 +275,6 @@ class CdnFormFull extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Search'),
       // Close top-elements-wrapper.
-      '#suffix' => '</div></div>',
       '#button_type' => 'primary',
     ];
 
