@@ -37,7 +37,6 @@ function openy_demo_nlanding_pef_pages() {
       'langcode' => 'en',
       'uid' => '1',
       'status' => 1,
-      'moderation_state' => 'published',
       'field_lp_layout' => ['value' => 'one_column_clean'],
     ]
   );
@@ -50,7 +49,6 @@ function openy_demo_nlanding_pef_pages() {
       'langcode' => 'en',
       'uid' => '1',
       'status' => 1,
-      'moderation_state' => 'published',
       'field_lp_layout' => ['value' => 'one_column_clean'],
     ]
   );
@@ -193,7 +191,6 @@ function openy_demo_nlanding_pef_pages() {
           'langcode' => 'en',
           'uid' => '1',
           'status' => 1,
-          'moderation_state' => 'published',
           'field_lp_layout' => ['value' => 'one_column_clean'],
         ]
       );
