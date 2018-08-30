@@ -207,6 +207,7 @@ class CdnFormFull extends FormBase {
     $formatted_results = NULL;
 
     $formatted_results = self::buildResults($form, $form_state);
+    $form['#theme'] = 'cdn_form_full';
 
     $form['#prefix'] = '<div id="cdn-full-form-wrapper">';
     $form['#suffix'] = '</div>';
@@ -218,14 +219,18 @@ class CdnFormFull extends FormBase {
 
     $form['arrival_date'] = [
       '#type' => 'date',
-      '#title' => t('Check-in Date'),
-      '#prefix' => '<div class="top-elements-wrapper"><div class="container"><h2>' . $this->t('Search') . '</h2>',
+      '#title' => t('Check in'),
       '#default_value' => $state['arrival_date'],
+    ];
+
+    $form['html']['element'] = [
+      '#type' => 'markup',
+      '#markup' => '<h2>Search</h2>',
     ];
 
     $form['departure_date'] = [
       '#type' => 'date',
-      '#title' => t('Check-out Date'),
+      '#title' => t('Check Out'),
       '#default_value' => $state['departure_date'],
     ];
 
@@ -241,15 +246,7 @@ class CdnFormFull extends FormBase {
       ],
     ];
 
-    $form['actions']['submit'] = [
-      '#type' => 'submit',
-      '#value' => $this->t('Search'),
-      // Close top-elements-wrapper.
-      '#suffix' => '</div></div>',
-      '#button_type' => 'primary',
-    ];
-
-    $this->cabinOptions = array_merge(['' => $this->t('All')], $this->cabinOptions);
+    $this->cabinOptions = array_merge(['' => $this->t('Cabin')], $this->cabinOptions);
     $form['cabin'] = [
       '#type' => 'select',
       '#prefix' => '<div class="bottom-elements-wrapper"><div class="container">',
@@ -268,10 +265,17 @@ class CdnFormFull extends FormBase {
 
     $form['capacity'] = [
       '#type' => 'select',
-      '#title' => t('Capacity'),
+      '#title' => t('People'),
       '#default_value' => $state['capacity'],
       '#options' => $this->capacityOptions,
       '#access' => !$state['cabin'] ? TRUE : FALSE,
+    ];
+
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Search'),
+      // Close top-elements-wrapper.
+      '#button_type' => 'primary',
     ];
 
     $form['results'] = [
@@ -447,7 +451,7 @@ class CdnFormFull extends FormBase {
    * Return Village options.
    */
   public function getVillageOptions() {
-    $options = ['all' => t('Show All')];
+    $options = ['all' => t('Village')];
     $mapping_ids = $this->entityQuery
       ->get('mapping')
       ->condition('type', 'cdn_prs_product')
@@ -470,7 +474,7 @@ class CdnFormFull extends FormBase {
    * Return Capacity options.
    */
   public function getCapacityOptions() {
-    $options = ['all' => t('Show All')];
+    $options = ['all' => t('People')];
     $cdn_products_ids = $this->entityQuery
       ->get('cdn_prs_product')
       ->execute();
