@@ -1,7 +1,5 @@
 import React from 'react';
-import { FormGroup, Label, Input } from 'reactstrap';
-// import './LevelItem.css';
-// import InformationModal from '../InformationModal/InformationModal';
+
 import renderHTML from 'react-render-html';
 
 let iconStyle = {
@@ -19,7 +17,6 @@ let linkStyle = {
 const HeaderAlertItem = ({ iconColor, label, linkTitle, linkUrl, description }) => (
     <div className="container header-alert">
         <div className="row site-alert__wrapper">
-
             {iconColor &&
                 <div className="site-alert__icon" style={iconStyle}>
                   <i className="fa fa-exclamation-circle" aria-hidden="true"></i>

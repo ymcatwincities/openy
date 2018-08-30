@@ -9,14 +9,16 @@
     "react-redux": "^5.0.7",
     "react-render-html": "^0.6.0",
     "react-scripts": "1.1.5",
+    "react-slick": "^0.23.1",
     "reactstrap": "^6.4.0",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts start ",
+    "build": "react-scripts build && cp -f build/static/js/main.*.js build/static/js/main.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
