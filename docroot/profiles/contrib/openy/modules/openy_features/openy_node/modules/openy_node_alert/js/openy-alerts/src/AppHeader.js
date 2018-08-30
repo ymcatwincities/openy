@@ -37,7 +37,10 @@ class App extends Component {
             speed: 500,
             slidesToShow: 1,
             slidesToScroll: 1,
-            arrows: false
+            arrows: false,
+            variableWidth: false,
+            centerMode: true,
+            centerPadding: '0px',
             // className: 'slick__slider',
         };
         const HeaderAlertItemList = () => {
