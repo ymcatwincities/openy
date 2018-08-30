@@ -2,16 +2,18 @@
 {{ form.form_token }}
 {{ form.form_id }}
 
-<div class="row">
-  <div class="col-md-12">
-    {{ form.arrival_date|without('#title') }}
-    {{ form.departure_date|without('#title') }}
-    {{ form.village|without('#title') }}
-    {{ form.capacity|without('#title') }}
-    <div class="cabin">
-       {{ form.cabin|without('#title')}}
+<div class="top-elements-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {{ form.html }}
+        {{ form.arrival_date|without('#title') }}
+        {{ form.departure_date|without('#title') }}
+        {{ form.village|without('#title') }}
+        {{ form.capacity|without('#title') }}
+        {{ form.cabin|without('#title') }}
+        {{ form.results }}
+      </div>
     </div>
-    </div>
-    {{ form.results }}
   </div>
 </div>
