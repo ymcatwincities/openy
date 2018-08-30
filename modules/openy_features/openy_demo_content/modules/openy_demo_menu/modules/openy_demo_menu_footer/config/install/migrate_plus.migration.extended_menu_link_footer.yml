@@ -15,69 +15,60 @@ migration_dependencies:
 source:
   plugin: embedded_data
   data_rows:
-  -
-    id: 8
-    title: 'Home'
-    menu_name: 'footer-menu-center'
-    link: 'openy'
-    weight: 1
-    parent_id: 0
-    expanded: 0
-    parent_link_path: ''
-  -
-    id: 9
-    title: 'Locations'
-    menu_name: 'footer-menu-center'
-    link: 'locations'
-    weight: 2
-    parent_id: 0
-    expanded: 0
-    parent_link_path: ''
-  -
-    id: 10
-    title: 'Blog'
-    menu_name: 'footer-menu-center'
-    link: 'blog'
-    weight: 4
-    parent_id: 0
-    expanded: 0
-    parent_link_path: ''
-  -
-    id: 11
-    title: 'Accelerator'
-    menu_name: 'footer-menu-center'
-    link: 'accelerator'
-    weight: 5
-    parent_id: 0
-    expanded: 0
-    parent_link_path: ''
-  -
-    id: 12
-    title: 'About'
-    menu_name: 'footer-menu-right'
-    link: 'about'
-    weight: 1
-    parent_id: 0
-    expanded: 0
-    parent_link_path: ''
-  -
-    id: 13
-    title: 'Give'
-    menu_name: 'footer-menu-right'
-    link: 'give'
-    weight: 2
-    parent_id: 0
-    expanded: 0
-    parent_link_path: ''
-  -
-    id: 14
-    title: 'Join'
-    menu_name: 'footer-menu-right'
-    link: 'join'
-    weight: 3
-    parent_id: 0
-    expanded: 0
-    parent_link_path: ''
+    -
+      id: 8
+      title: 'Home'
+      menu_name: 'footer-menu-center'
+      link: 'openy'
+      weight: 1
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 9
+      title: 'Locations'
+      menu_name: 'footer-menu-center'
+      link: 'locations'
+      weight: 2
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 11
+      title: 'Accelerator'
+      menu_name: 'footer-menu-center'
+      link: 'accelerator'
+      weight: 5
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 12
+      title: 'About'
+      menu_name: 'footer-menu-right'
+      link: 'about'
+      weight: 1
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 13
+      title: 'Give'
+      menu_name: 'footer-menu-right'
+      link: 'give'
+      weight: 2
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 14
+      title: 'Join'
+      menu_name: 'footer-menu-right'
+      link: 'join'
+      weight: 3
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
   ids:
     id:
       type: integer
