@@ -13,6 +13,7 @@ migration_dependencies:
   required:
     - openy_demo_menu_main_file
     - openy_demo_node_landing
+    - openy_demo_news_landing
 source:
   plugin: embedded_data
   data_rows:
@@ -49,6 +50,15 @@ source:
       menu_name: 'main'
       link: 'accelerator'
       weight: 7
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 13
+      title: 'News'
+      menu_name: 'main'
+      link: 'news'
+      weight: 8
       parent_id: 0
       expanded: 0
       parent_link_path: ''
