@@ -12029,6 +12029,9 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
 .cdn-form-full {
   background-color: #fff;
 }
+.cdn-form-full .form-item-cabin {
+  float: right !important;
+}
 .cdn-form-full .top-elements-wrapper {
   border-bottom: 1px solid #ddd;
   padding-top: 30px;
@@ -12047,9 +12050,11 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   }
 }
 .cdn-form-full .top-elements-wrapper h2 {
+  margin-right: 20px;
+  float: left;
   font-size: 30px;
   font-family: "Cachet Book", Arial, sans-serif;
-  margin-bottom: 20px;
+  margin-top: 10px;
   color: #2f2f2f;
 }
 .cdn-form-full .help-tip {
@@ -12147,6 +12152,9 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   background-color: #fff;
   text-transform: uppercase;
 }
+.cdn-form-full .form-item-village {
+  margin-left: 30px;
+}
 .cdn-form-full .form-item-village,
 .cdn-form-full .form-item-cabin,
 .cdn-form-full .form-item-capacity {
@@ -12160,7 +12168,7 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   .cdn-form-full .form-item-cabin,
   .cdn-form-full .form-item-capacity {
     float: left;
-    margin-right: 40px;
+    margin-right: 30px;
     border: none;
     background-color: transparent;
     height: auto;
@@ -12217,7 +12225,7 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
     border: 1px solid #dadada;
     width: auto;
     float: none;
-    height: 40px;
+    height: 50px;
   }
 }
 .cdn-form-full .form-item-capacity {

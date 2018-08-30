@@ -28,6 +28,9 @@ function ymca_camp_du_nord_help($route_name, RouteMatchInterface $route_match) {
  */
 function ymca_camp_du_nord_theme($existing, $type, $theme, $path) {
   return [
+    'cdn_form_full' => [
+      'render element' => 'form',
+    ],
     'cdn_results_wrapper' => [
       'variables' => [
         'teasers' => [],
