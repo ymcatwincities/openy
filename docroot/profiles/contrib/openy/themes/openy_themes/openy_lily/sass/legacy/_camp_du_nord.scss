@@ -14,9 +14,11 @@
       margin: 0 auto 25px;
     }
     h2 {
+      margin-right: 20px;
+      float: left;
       font-size: 30px;
       font-family: "Cachet Book", Arial, sans-serif;
-      margin-bottom: 20px;
+      margin-top: 10px;
       color: #2f2f2f;
     }
   }
@@ -163,7 +165,7 @@
         border: 1px solid #dadada;
         width: auto;
         float: none;
-        height: 40px;
+        height: 50px;
       }
     }
   }
