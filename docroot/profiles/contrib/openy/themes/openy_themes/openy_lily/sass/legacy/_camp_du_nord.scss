@@ -1,5 +1,8 @@
 .cdn-form-full {
   background-color: $white;
+  .form-item-cabin {
+    float: right !important;
+  }
   .top-elements-wrapper {
     border-bottom: 1px solid #ddd;
     @include clearfix();
@@ -104,6 +107,9 @@
       text-transform: uppercase;
     }
   }
+  .form-item-village {
+    margin-left: 30px;
+  }
   .form-item-village,
   .form-item-cabin,
   .form-item-capacity {
@@ -113,7 +119,7 @@
     line-height: 50px;
     @include breakpoint(768px) {
       float: left;
-      margin-right: 40px;
+      margin-right: 30px;
       border: none;
       background-color: transparent;
       height: auto;
