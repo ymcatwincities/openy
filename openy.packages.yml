@@ -19,6 +19,7 @@ news:
     - openy_node_news
     - openy_prgf_news_latest
     - openy_prgf_featured_news
+    - openy_prgf_news_listing
     - openy_txnm_news_category
 
 news_ext:
@@ -28,7 +29,6 @@ news_ext:
   modules:
     - openy_prgf_news_branch
     - openy_prgf_news_camp
-    - openy_prgf_news_listing
 
 editorial:
   name: 'Editorial Package'
