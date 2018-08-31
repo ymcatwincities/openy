@@ -1,7 +1,9 @@
+/*global location b:true*/
+/*global drupalSettings b:true*/
+/*eslint no-restricted-globals: ["warn", "drupalSettings"]*/
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import './App.css';
-// import './css/style.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HeaderAlertItem from './components/HeaderAlertItem/HeaderAlertItem';
@@ -23,14 +25,6 @@ class App extends Component {
     }
 
     render() {
-        const NextArrow = () => {
-            return <a href="#" data-role="none" className="slick-next slick-arrow" role="button"
-                      aria-disabled="false">Next</a>
-        };
-        const PrevArrow = () => {
-            return <a href="#" data-role="none" className="slick-prev slick-arrow slick-disabled" role="button"
-                      aria-disabled="true">Previous</a>
-        };
         var sliderSettings = {
             dots: false,
             infinite: false,
@@ -47,8 +41,8 @@ class App extends Component {
             if (this.props.header) {
                 return Object.keys(this.props.header).map(i => {
                     return this.props.header[i].map(a => {
-                        return <HeaderAlertItem key={a.title} label={a.title} iconColor={true} linkTitle={false}
-                                                description={a.description}/>
+                        return <HeaderAlertItem key={a.title} label={a.title} iconColor={a.iconColor} linkTitle={a.linkText} linkUrl={a.linkUrl}
+                                                description={a.description} txtColor={a.textColor} bgColor={a.bgColor}/>
                     });
                 })
             }
@@ -80,7 +74,15 @@ class App extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchAlerts('/locations/ridgedale_ymca');
+        let pathname = location.pathname.substring(1);
+        let baseUrl = drupalSettings.path.baseUrl;
+        if (baseUrl === '/') {
+            this.props.fetchAlerts(`/${pathname}`);
+            return;
+        } else {
+            let uri = `/${pathname}`.replace(new RegExp(baseUrl, 'g'),'');
+            this.props.fetchAlerts(uri);
+        }
     }
 }
 
