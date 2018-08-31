@@ -6,6 +6,7 @@ alert:
   css:
     component:
       css/openy_node_alert.css: {}
+      js/openy-alerts/build/static/css/main.css: {}
   dependencies:
     - core/jquery.cookie
     - core/jquery.once

@@ -13,8 +13,8 @@ const HeaderAlertItem = ({iconColor, label, linkTitle, linkUrl, description, bgC
     };
 
     let linkStyle = {
-        color: '#123456',
-        borderColor: '#123456'
+        color: txtColor ? `#${txtColor}` : 'white',
+        borderColor: txtColor ? `#${txtColor}` : 'white',
     };
     let alertStyle = {
         backgroundColor: bgColor ? `#${bgColor}` : 'blue',
