@@ -70,6 +70,7 @@ dependencies:
   - openy_redirect
   - openy_tour
   - openy_system
+  - openy_taxonomy
   #- openy_user
   - openy_block_custom_simple
 
