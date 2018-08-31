@@ -79,7 +79,7 @@ class App extends Component {
             this.props.fetchAlerts(`/${pathname}`);
             return;
         } else {
-            let uri = `/${pathname}`.replace(new RegExp(baseUrl, 'g'),'');
+            let uri = `//${pathname}`.replace(new RegExp(baseUrl, 'g'),'');
             this.props.fetchAlerts(uri);
         }
     }
