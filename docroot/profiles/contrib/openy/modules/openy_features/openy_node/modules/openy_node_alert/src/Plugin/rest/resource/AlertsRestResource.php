@@ -3,10 +3,10 @@
 namespace Drupal\openy_node_alert\Plugin\rest\resource;
 
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\Core\Url;
 use Drupal\rest\ModifiedResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
-use Drupal\views\Entity\View;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -79,7 +79,7 @@ class AlertsRestResource extends ResourceBase {
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity object.
    *
-   * @return \Drupal\rest\ResourceResponse
+   * @return \Drupal\rest\ModifiedResourceResponse
    *   The HTTP response object.
    *
    * @throws \Symfony\Component\HttpKernel\Exception\HttpException
@@ -96,6 +96,7 @@ class AlertsRestResource extends ResourceBase {
     $sendAlerts = [];
     /** @var \Drupal\node\Entity\Node $alert */
     foreach ($alerts as $alert) {
+      $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)->setAbsolute()->toString() : null;
       if ($alert->hasField('field_alert_belongs') && !$alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
         $refid = $alert->field_alert_belongs->target_id;
         $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $refid);
@@ -106,23 +107,30 @@ class AlertsRestResource extends ResourceBase {
         $sendAlerts[$alert->field_alert_place->value]['local'][] = [
           'title' => $alert->getTitle(),
           'textColor' => $alert->field_alert_text_color->entity->field_color->value,
+          'bgColor' => $alert->field_alert_color->entity->field_color->value,
           'description' => $alert->field_alert_description->value,
-          'color' => $alert->field_alert_color->entity->field_color->value,
+          'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
+          'linkUrl' => $url,
+          'linkText' => $alert->field_alert_link->title
         ];
+
       }
       elseif ($alert->hasField('field_alert_belongs') && $alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
         $sendAlerts[$alert->field_alert_place->value]['global'][] = [
           'title' => $alert->getTitle(),
           'textColor' => $alert->field_alert_text_color->entity->field_color->value,
+          'bgColor' => $alert->field_alert_color->entity->field_color->value,
           'description' => $alert->field_alert_description->value,
-          'color' => $alert->field_alert_color->entity->field_color->value,
+          'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
+          'linkUrl' => $url,
+          'linkText' => $alert->field_alert_link->title
         ];
       }
       else {
         throw new \HttpException('Field configuration for alerts is wrong');
       }
     }
-    return new ResourceResponse($sendAlerts, 200);
+    return new ModifiedResourceResponse($sendAlerts, 200);
   }
 
 }
