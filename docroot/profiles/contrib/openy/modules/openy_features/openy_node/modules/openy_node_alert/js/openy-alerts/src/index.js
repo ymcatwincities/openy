@@ -1,10 +1,8 @@
 /*global Drupal b:true*/
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
-import registerServiceWorker from './registerServiceWorker';
 
 import { Provider } from 'react-redux';
 import store from './stores/store';
@@ -13,12 +11,10 @@ import store from './stores/store';
 
 if (typeof Drupal === 'undefined') {
     ReactDOM.render(<Provider store={store}><AppHeader /></Provider>, document.getElementById('openy_alerts_app_header'));
-    // registerServiceWorker();
 }
 
 if (typeof Drupal === 'undefined') {
     ReactDOM.render(<Provider store={store}><AppFooter /></Provider>, document.getElementById('openy_alerts_app_footer'));
-    // registerServiceWorker();
 }
 else {
     Drupal.behaviors.openy_alerts_app = {

@@ -3,7 +3,6 @@
 /*eslint no-restricted-globals: ["warn", "drupalSettings"]*/
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import './App.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HeaderAlertItem from './components/HeaderAlertItem/HeaderAlertItem';
