@@ -61,7 +61,7 @@
   // Retrieve the data via vue.js.
   new Vue({
     el: '#app',
-    router,
+    router: router,
     data: {
       table: {},
       date: '',
