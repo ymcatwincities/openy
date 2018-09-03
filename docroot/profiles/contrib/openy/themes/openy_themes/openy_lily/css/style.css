@@ -14465,6 +14465,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   border-top: none !important;
   position: relative;
   padding-bottom: 35px;
+  margin-top: 0 !important;
 }
 @media (min-width: 768px) {
   .content-banner {
