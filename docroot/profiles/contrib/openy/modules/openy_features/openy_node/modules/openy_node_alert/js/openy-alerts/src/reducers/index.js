@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import init from './init';
 
 const reducer = combineReducers({
-    init,
+  init
 });
 
 export default reducer;

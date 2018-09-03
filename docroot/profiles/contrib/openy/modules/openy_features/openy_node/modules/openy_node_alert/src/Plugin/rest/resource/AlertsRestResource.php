@@ -111,7 +111,8 @@ class AlertsRestResource extends ResourceBase {
           'description' => $alert->field_alert_description->value,
           'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
           'linkUrl' => $url,
-          'linkText' => $alert->field_alert_link->title
+          'linkText' => $alert->field_alert_link->title,
+          'id' => $alert->id(),
         ];
 
       }
@@ -123,7 +124,8 @@ class AlertsRestResource extends ResourceBase {
           'description' => $alert->field_alert_description->value,
           'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
           'linkUrl' => $url,
-          'linkText' => $alert->field_alert_link->title
+          'linkText' => $alert->field_alert_link->title,
+          'id' => $alert->id(),
         ];
       }
       else {
