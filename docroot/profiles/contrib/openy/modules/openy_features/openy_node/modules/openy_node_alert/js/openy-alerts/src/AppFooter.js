@@ -36,19 +36,27 @@ class App extends Component {
       if (this.props.footer) {
         return Object.keys(this.props.footer).map(i => {
           return this.props.footer[i].map(a => {
-            return (
-              <HeaderAlertItem
-                key={a.id}
-                alertId={a.id}
-                label={a.title}
-                iconColor={a.iconColor}
-                linkTitle={a.linkText}
-                linkUrl={a.linkUrl}
-                description={a.description}
-                txtColor={a.textColor}
-                bgColor={a.bgColor}
-              />
-            );
+            if (
+              (typeof this.state.alerts_dismiss !== 'undefined' &&
+                !this.state.alerts_dismiss.includes(parseInt(a.id))) ||
+              typeof this.state.alerts_dismiss === 'undefined'
+            ) {
+              return (
+                <HeaderAlertItem
+                  key={parseInt(a.id)}
+                  alertId={parseInt(a.id)}
+                  label={a.title}
+                  iconColor={a.iconColor}
+                  linkTitle={a.linkText}
+                  linkUrl={a.linkUrl}
+                  description={a.description}
+                  txtColor={a.textColor}
+                  bgColor={a.bgColor}
+                />
+              );
+            } else {
+              return null;
+            }
           });
         });
       } else {
