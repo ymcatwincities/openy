@@ -104,11 +104,7 @@ class CdnFormFull extends FormBase {
       if ($nearest_date) {
         $nearest_date = $nearest_date[0];
         $nearest_date = substr($nearest_date, 0, 10);
-        $date = new \DateTime($nearest_date, $tz);
-        $timestamp = $date->format('U');
-        if ($timestamp > (REQUEST_TIME + (86400 * 3))) {
-          $default_arrival_date = $nearest_date;
-        }
+        $default_arrival_date = $nearest_date;
       }
       else {
         $dt = new \DateTime();
