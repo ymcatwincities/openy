@@ -1,0 +1,40 @@
+.content-banner {
+  border-top: none !important;
+  position: relative;
+  padding-bottom: 35px;
+
+  @media (min-width: 768px) {
+    margin: 40px 0;
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 7%;
+      z-index: 2;
+      width: 52%;
+      height: 100%;
+      background: inherit;
+      content: '';
+      -webkit-transform: skew(20deg);
+      -moz-transform: skew(20deg);
+      -ms-transform: skew(20deg);
+      transform: skew(20deg);
+    }
+  }
+
+  .header-copy {
+    z-index: 4;
+  }
+
+  .banner-title {
+    padding-top: 30px;
+    @media (min-width: 768px) {
+      padding-top: 30px;
+    }
+  }
+
+  .content-prgf-image {
+    @media (max-width: 767px) {
+      margin: 0 15px !important;
+    }
+  }
+}
