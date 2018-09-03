@@ -9,4 +9,5 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - openy_node_news
+  - openy_demo_taxonomy
   - taxonomy
