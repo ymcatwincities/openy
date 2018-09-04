@@ -1,0 +1,10 @@
+name: Ludwig
+type: module
+description: Provides a manual alternative to Composer.
+# core: 8.x
+
+# Information added by Drupal.org packaging script on 2017-07-03
+version: '8.x-1.0'
+core: '8.x'
+project: 'ludwig'
+datestamp: 1499081944
