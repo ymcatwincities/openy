@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - openy_daxko2
 id: daxko_categories_import
 migration_tags: null
 migration_group: daxko

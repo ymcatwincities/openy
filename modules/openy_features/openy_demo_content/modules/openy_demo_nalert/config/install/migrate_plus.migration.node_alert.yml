@@ -4,6 +4,7 @@ dependencies:
   enforced:
     module:
       - openy_node_alert
+      - openy_demo_nalert
 id: openy_demo_node_alert
 migration_tags:
   - openy_complete_installation
