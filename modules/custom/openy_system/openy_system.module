@@ -23,6 +23,8 @@ function openy_system_modules_uninstalled(array $modules) {
     if (strpos($module, 'openy_') !== FALSE) {
       // Run post uninstall only for openy modules.
       $modules_manager->postUninstall($module);
+      // Additionally destroy migration data for openy modules.
+      $modules_manager->destroyMigrationData($module);
     }
   }
 }

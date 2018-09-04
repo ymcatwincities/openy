@@ -116,6 +116,7 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_ncategory',
       'openy_demo_nclass',
       'openy_demo_nsessions',
+      'openy_demo_menu',
       'openy_demo_menu_main',
       'openy_demo_menu_footer',
       'openy_demo_webform',
@@ -133,6 +134,7 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_bsimple',
       'openy_demo_bamenities',
       'openy_demo_tfitness',
+      'openy_demo_taxonomy',
       // @todo Uncomment this code when errors with Campaign demo content are fixed.
       /*
       'openy_demo_ncampaign',
@@ -143,6 +145,7 @@ function openy_demo_content_configs_map($key = NULL) {
     'standard' => [
       'openy_demo_nalert',
       'openy_demo_nlanding',
+      'openy_demo_menu',
       'openy_demo_menu_main',
       'openy_demo_menu_footer',
       'openy_demo_webform',
@@ -150,6 +153,7 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_tcolor',
       'openy_demo_tamenities',
       'openy_demo_bfooter',
+      'openy_demo_taxonomy',
     ],
     'extended' => [
       'openy_demo_nalert',
@@ -158,6 +162,7 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_nevent',
       'openy_demo_nlanding',
       'openy_demo_nmbrshp',
+      'openy_demo_menu',
       'openy_demo_menu_main',
       'openy_demo_menu_footer',
       'openy_demo_webform',
@@ -169,6 +174,7 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_addthis',
       'openy_demo_bsimple',
       'openy_demo_bamenities',
+      'openy_demo_taxonomy',
     ],
 
   ];
@@ -211,6 +217,7 @@ function openy_install_features(array &$install_state) {
 function openy_import_content(array &$install_state) {
   $module_operations = [];
   $migrate_operations = [];
+  $uninstall_operations = [];
   $preset = \Drupal::state()->get('openy_preset') ?: 'complete';
   $preset_tags = [
     'standard' => 'openy_standard_installation',
@@ -231,15 +238,18 @@ function openy_import_content(array &$install_state) {
       // Import GroupExPro classes. They are not handled as content migration.
       $migrate_operations[] = ['openy_gxp_import_tc', []];
     }
+    // Build demo modules uninstall array to disable migrations with demo content/
+    _openy_remove_migrations_helper($uninstall_operations, $preset);
   }
   else {
     // Add homepage alternative if demo content is not enabled.
     $module_operations[] = ['openy_enable_module', (array) 'openy_demo_nhome_alt'];
     $migrate_operations[] = ['openy_import_migration', (array) 'openy_demo_home_alt'];
+    $uninstall_operations[] = ['openy_uninstall_module', (array) 'openy_demo_home_alt'];
   }
 
   // Combine operations module enable before of migrations.
-  return ['operations' => array_merge($module_operations, $migrate_operations)];
+  return ['operations' => array_merge($module_operations, $migrate_operations, $uninstall_operations)];
 }
 
 /**
@@ -375,6 +385,24 @@ function _openy_import_content_helper(array &$module_operations, $key) {
 }
 
 /**
+ * Demo content migrations remove helper.
+ *
+ * @param array $module_operations
+ *   List of module operations.
+ * @param string $key
+ *   Key of the section in the mapping.
+ */
+function _openy_remove_migrations_helper(array &$module_operations, $key) {
+  $modules = openy_demo_content_configs_map($key);
+  if (empty($modules)) {
+    return;
+  }
+  foreach ($modules as $module) {
+    $module_operations[] = ['openy_uninstall_module', (array) $module];
+  }
+}
+
+/**
  * Enable module with demo content.
  *
  * @param string $module_name
@@ -384,6 +412,18 @@ function openy_enable_module($module_name) {
   /** @var \Drupal\Core\Extension\ModuleInstaller $service */
   $service = \Drupal::service('module_installer');
   $service->install([$module_name]);
+}
+
+/**
+ * Uninstall module with demo content.
+ *
+ * @param string $module_name
+ *   Module name.
+ */
+function openy_uninstall_module($module_name) {
+  /** @var \Drupal\Core\Extension\ModuleInstaller $service */
+  $service = \Drupal::service('module_installer');
+  $service->uninstall([$module_name]);
 }
 
 /**

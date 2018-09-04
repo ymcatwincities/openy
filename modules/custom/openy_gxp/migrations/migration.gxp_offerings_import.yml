@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - openy_gxp
 id: gxp_offerings_import
 migration_tags: null
 migration_group: gxp

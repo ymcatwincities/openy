@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - openy_demo_bfooter
 id: openy_demo_block_content_footer
 migration_tags:
   - openy_complete_installation

@@ -1,11 +1,14 @@
 dependencies:
   module:
     - openy_media_image
+  enforced:
+    module:
+      - openy_demo_nevent
 id: openy_demo_nevent_media_image
 migration_tags:
   - 'OpenY Demo Event'
 migration_group: openy_demo_nevent
-label: Media Images
+label: Import demo event media images
 source:
   plugin: embedded_data
   data_rows:

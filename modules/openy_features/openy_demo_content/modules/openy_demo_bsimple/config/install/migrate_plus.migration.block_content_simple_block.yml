@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - openy_demo_bsimple
 id: openy_demo_block_content_simple
 migration_tags: {  }
 migration_group: openy_demo_simple_block

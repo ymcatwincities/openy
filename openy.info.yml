@@ -69,6 +69,7 @@ dependencies:
   - openy_node_landing
   - openy_redirect
   - openy_tour
+  - openy_system
   #- openy_user
   - openy_block_custom_simple
 
