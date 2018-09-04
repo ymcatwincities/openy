@@ -1,0 +1,7 @@
+ludwig.packages:
+  path: '/admin/reports/packages'
+  defaults:
+    _controller: '\Drupal\ludwig\Controller\PackageController::page'
+    _title: 'Packages'
+  requirements:
+    _permission: 'access site reports'
