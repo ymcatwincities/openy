@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_update_projects_alter().
+ */
+function ludwig_update_projects_alter(&$projects) {
+  $package_manager = \Drupal::service('ludwig.package_manager');
+  $packages = $package_manager->getPackages();
+  $providers = array_column($packages, 'provider', 'provider');
+  // Update Manager can't update Ludwig-managed modules
+  // because that would remove their packages.
+  foreach ($providers as $provider) {
+    unset($projects[$provider]);
+  }
+}

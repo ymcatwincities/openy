@@ -1,0 +1,47 @@
+{
+	"country_code": "NR",
+	"subdivisions": {
+		"Aiwo District": {
+			"iso_code": "NR-01"
+		},
+		"Anabar District": {
+			"iso_code": "NR-02"
+		},
+		"Anetan District": {
+			"iso_code": "NR-03"
+		},
+		"Anibare District": {
+			"iso_code": "NR-04"
+		},
+		"Baiti District": {
+			"iso_code": "NR-05"
+		},
+		"Boe District": {
+			"iso_code": "NR-06"
+		},
+		"Buada District": {
+			"iso_code": "NR-07"
+		},
+		"Denigomodu District": {
+			"iso_code": "NR-08"
+		},
+		"Ewa District": {
+			"iso_code": "NR-09"
+		},
+		"Ijuw District": {
+			"iso_code": "NR-10"
+		},
+		"Meneng District": {
+			"iso_code": "NR-11"
+		},
+		"Nibok District": {
+			"iso_code": "NR-12"
+		},
+		"Uaboe District": {
+			"iso_code": "NR-13"
+		},
+		"Yaren District": {
+			"iso_code": "NR-14"
+		}
+	}
+}
