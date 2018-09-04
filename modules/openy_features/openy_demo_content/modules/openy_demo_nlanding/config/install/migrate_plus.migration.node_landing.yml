@@ -267,7 +267,6 @@ process:
       target_id:
         plugin: migration
         migration:
-          - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
@@ -287,7 +286,6 @@ process:
       target_revision_id:
         plugin: migration
         migration:
-          - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
