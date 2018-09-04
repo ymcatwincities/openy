@@ -4,11 +4,11 @@ dependencies:
   enforced:
     module:
       - openy_demo_nlanding
-id: openy_demo_node_landing
+id: openy_demo_node_landing_extended
 migration_tags:
-  - openy_complete_installation
+  - openy_extended_installation
 migration_group: openy_demo_nlanding
-label: 'Create demo landing page nodes'
+label: 'Create demo landing page nodes for extended installation preset'
 source:
   plugin: embedded_data
   data_rows:
@@ -21,8 +21,6 @@ source:
         -
           header_content_id: homepage_banner
       content_ids:
-        -
-          content_id: homepage_latest_blog_posts
         -
           content_id: homepage_grid
         -
@@ -45,25 +43,10 @@ source:
       layout: one_column
       header_content_ids:
         -
-          header_content_id: give_microsites_menu
-        -
           header_content_id: give_gallery
       content_ids:
         -
           content_id: give_featured_content
-    -
-      id: blog
-      title: 'Blog'
-      alias: '/blog'
-      layout: one_column
-      header_content_ids:
-        -
-          header_content_id: blog_small_banner
-      content_ids:
-        -
-          content_id: blog_featured_blogs
-        -
-          content_id: blog_blog_posts_listing
     -
       id: accelerator
       title: 'Accelerator'
@@ -102,9 +85,6 @@ source:
       title: 'Camp Colman page'
       alias: '/camps/camp-colman/about'
       layout: one_column
-      header_content_ids:
-        -
-          header_content_id: lp_camp_menu_1
       content_ids:
         -
           content_id: camp_page_1_simple
@@ -113,9 +93,6 @@ source:
       title: 'Camp Orkila page'
       alias: '/camps/camp-orkila/about'
       layout: one_column
-      header_content_ids:
-        -
-          header_content_id: lp_camp_menu_2
       content_ids:
         -
           content_id: camp_page_2_simple
@@ -124,9 +101,6 @@ source:
       title: 'Camp Terry page'
       alias: '/camps/camp-terry/about'
       layout: one_column
-      header_content_ids:
-        -
-          header_content_id: lp_camp_menu_3
       content_ids:
         -
           content_id: camp_page_3_simple
@@ -141,43 +115,6 @@ source:
       content_ids:
         -
           content_id: join_member_calc
-    -
-      id: schedules
-      title: 'Schedules'
-      alias: '/schedules'
-      layout: one_column
-      header_content_ids:
-        -
-          header_content_id: schedules_small_banner
-        -
-          header_content_id: schedule_search_form
-      content_ids:
-        -
-          content_id: schedule_search_list
-        -
-          content_id: popup_schedules
-    -
-      id: group_schedules
-      title: 'Group Schedules'
-      alias: '/schedules/group-schedules'
-      layout: one_column
-      header_content_ids:
-        -
-          header_content_id: group_schedules
-      content_ids:
-        -
-          content_id: group_schedules_groupex_pro
-    -
-      id: group_schedules_embedded
-      title: 'Group Schedules (Embedded)'
-      alias: '/schedules/group-schedules-embedded'
-      layout: one_column
-      header_content_ids:
-        -
-          header_content_id: group_schedules_embedded
-      content_ids:
-        -
-          content_id: embedded_groupex_pro
     -
       id: amenities
       title: 'Amenities at each Y'
@@ -245,9 +182,7 @@ process:
           - openy_demo_lp_paragraph_gallery
           - openy_demo_lp_paragraph_small_banner
           - openy_demo_lp_paragraph_location_finder_filters
-          - openy_demo_lp_paragraph_schedule_search_form
-          - openy_demo_lp_paragraph_menu_camp
-          - openy_demo_lp_paragraph_microsites_menu
+
         source: header_content_id
       target_revision_id:
         plugin: migration
@@ -256,9 +191,6 @@ process:
           - openy_demo_lp_paragraph_gallery
           - openy_demo_lp_paragraph_small_banner
           - openy_demo_lp_paragraph_location_finder_filters
-          - openy_demo_lp_paragraph_schedule_search_form
-          - openy_demo_lp_paragraph_menu_camp
-          - openy_demo_lp_paragraph_microsites_menu
         source: header_content_id
   field_content:
     plugin: iterator
@@ -267,41 +199,23 @@ process:
       target_id:
         plugin: migration
         migration:
-          - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
-          - openy_demo_lp_paragraph_featured_blogs
           - openy_demo_lp_paragraph_grid_content
-          - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
-          - openy_demo_lp_paragraph_blog_posts_listing
-          - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
-          - openy_demo_lp_paragraph_schedule_search_list
-          - openy_demo_landing_paragraph_branches_popup_all
-          - openy_demo_lp_paragraph_embedded_groupexpro_schedule
-          - openy_demo_lp_paragraph_group_schedules
           - openy_demo_lp_paragraph_all_amenities
         source: content_id
       target_revision_id:
         plugin: migration
         migration:
-          - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
-          - openy_demo_lp_paragraph_featured_blogs
           - openy_demo_lp_paragraph_grid_content
-          - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
-          - openy_demo_lp_paragraph_blog_posts_listing
-          - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
-          - openy_demo_lp_paragraph_schedule_search_list
-          - openy_demo_landing_paragraph_branches_popup_all
-          - openy_demo_lp_paragraph_embedded_groupexpro_schedule
-          - openy_demo_lp_paragraph_group_schedules
           - openy_demo_lp_paragraph_all_amenities
         source: content_id
   field_sidebar_content:
@@ -326,26 +240,12 @@ migration_dependencies:
     - openy_demo_lp_paragraph_gallery
     - openy_demo_lp_paragraph_simple
     - openy_demo_lp_paragraph_featured_content
-    - openy_demo_lp_paragraph_featured_blogs
     - openy_demo_lp_paragraph_grid_content
     - openy_demo_lp_paragraph_teaser
     - openy_demo_lp_paragraph_banner
     - openy_demo_lp_paragraph_small_banner
-    - openy_demo_lp_paragraph_blog_posts_listing
-    - openy_demo_lp_paragraph_latest_blog_posts
     - openy_demo_lp_paragraph_location_finder_filters
     - openy_demo_lp_paragraph_location_finder
-    - openy_demo_lp_paragraph_menu_camp
     - openy_demo_lp_paragraph_membership_calculator
-    - openy_demo_lp_paragraph_schedule_search_form
-    - openy_demo_lp_paragraph_schedule_search_list
-    - openy_demo_landing_paragraph_branches_popup_all
-    - openy_demo_lp_paragraph_embedded_groupexpro_schedule
-    - openy_demo_lp_paragraph_group_schedules
-    - openy_demo_lp_paragraph_microsites_menu
     - openy_demo_lp_paragraph_all_amenities
     - openy_demo_lp_paragraph_loc_by_amnts
-    - openy_demo_lp_paragraph_repeat_schedules_locations
-    - openy_demo_lp_paragraph_repeat_schedules
-  optional:
-    - openy_demo_node_blog

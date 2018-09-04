@@ -4,12 +4,12 @@ dependencies:
   enforced:
     module:
       - openy_node_alert
-      - openy_demo_nalert
-id: openy_demo_node_alert
+id: openy_demo_node_alert_standard_extended
 migration_tags:
-  - openy_complete_installation
+  - openy_standard_installation
+  - openy_extended_installation
 migration_group: openy_demo_nalert
-label: 'Import demo alert posts'
+label: 'Import demo alert posts for standard/extended installation preset'
 source:
   plugin: embedded_data
   data_rows:
@@ -79,30 +79,6 @@ source:
       placement: 'footer'
       link_url: http://www.openymca.org/partners
       link_text: 'OpenY Partners'
-    -
-      id: 7
-      title: 'Be a part of OpenY'
-      description: |
-        <p>OpenY is growing, be a part of it's success!</p>
-      background_color: 7
-      text_color: 2
-      icon_color: 2
-      placement: 'header'
-      link_url: http://www.openymca.org
-      link_text: 'Build OpenY'
-      reference_id: blog
-    -
-      id: 8
-      title: 'OpenY the foundation you need'
-      description: |
-        <p>OpenY is the site foundation you need!</p>
-      background_color: 7
-      text_color: 2
-      icon_color: 2
-      placement: 'footer'
-      link_url: http://www.openymca.org
-      link_text: 'Get OpenY Now'
-      reference_id: blog
   ids:
     id:
       type: integer
@@ -166,18 +142,9 @@ process:
   field_alert_place: placement
   field_alert_link/uri: link_url
   field_alert_link/title: link_text
-  field_alert_belongs/target_id:
-    -
-      plugin: migration
-      migration: openy_demo_node_landing
-      source: reference_id
-    -
-      plugin: default_value
-      default_value: NULL
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
     - openy_demo_taxonomy_term_color
-    - openy_demo_node_landing
   optional: {  }

@@ -12,7 +12,7 @@ label: 'Create standard demo main menu links'
 migration_dependencies:
   required:
     - openy_demo_menu_main_file
-    - openy_demo_node_landing
+    - openy_demo_node_landing_standard
     - openy_demo_news_landing
 source:
   plugin: embedded_data
