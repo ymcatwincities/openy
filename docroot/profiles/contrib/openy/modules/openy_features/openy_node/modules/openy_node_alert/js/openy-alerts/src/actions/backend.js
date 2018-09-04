@@ -3,7 +3,6 @@ import API from '../api';
 export const FETCH_ALERTS_BEGIN = 'FETCH_ALERTS_BEGIN';
 export const FETCH_ALERTS_SUCCESS = 'FETCH_ALERTS_SUCCESS';
 export const FETCH_ALERTS_FAILURE = 'FETCH_ALERTS_FAILURE';
-export const SELECT_ACTIVITY_TYPE = 'SELECT_ACTIVITY_TYPE';
 
 export const fetchAlertsBegin = () => ({
   type: FETCH_ALERTS_BEGIN,
@@ -28,9 +27,3 @@ export function fetchAlerts(uri) {
       .catch(error => dispatch(fetchAlertsFailure(error)));
   };
 }
-
-export const selectActivityType = (activityTypeId, kidId) => ({
-  type: SELECT_ACTIVITY_TYPE,
-  activityTypeId,
-  kidId
-});
