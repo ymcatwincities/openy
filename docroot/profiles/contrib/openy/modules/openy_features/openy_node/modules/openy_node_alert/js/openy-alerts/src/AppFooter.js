@@ -102,10 +102,6 @@ class App extends Component {
       </div>
     );
   }
-
-  componentDidMount() {
-    // this.props.fetchAlerts('/locations/ridgedale_ymca');
-  }
 }
 
 const mapDispatchToProps = dispatch => {
