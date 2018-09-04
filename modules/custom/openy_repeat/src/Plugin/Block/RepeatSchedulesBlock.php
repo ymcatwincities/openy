@@ -3,6 +3,8 @@
 namespace Drupal\openy_repeat\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
 
 /**
  * Provides a 'Repeat Schedules' block.
@@ -65,6 +67,29 @@ class RepeatSchedulesBlock extends BlockBase {
     $checked_locations = [];
     if (!empty($locations)) {
       $checked_locations = explode(',', $locations);
+    }
+    // Find repeat_schedules paragraph.
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $paragraphs = $node->field_content->referencedEntities();
+    foreach ($paragraphs as $p) {
+      if ($p->bundle() == 'repeat_schedules') {
+        $pdf_only = !$p->field_prgf_rs_pdf_only_view->isEmpty() ? $p->field_prgf_rs_pdf_only_view->getValue()[0]['value'] : '';
+        // Setup redirect to PDF generation route if pdf only option is enabled.
+        if ($pdf_only) {
+          $p_categories = $p->field_prgf_repeat_schedule_categ->referencedEntities();
+          $q_p_categories = [];
+          foreach ($p_categories as $p_category) {
+            $q_p_categories[] = $p_category->getTitle();
+          }
+          $query = [
+            'category' => implode(',', $q_p_categories),
+            'mode' => 'day',
+          ];
+          $path = Url::fromRoute('openy_repeat.pdf', [], ['query' => $query])->toString();
+          $response = new RedirectResponse($path, 302);
+          $response->send();
+        }
+      }
     }
     return [
       '#theme' => 'openy_repeat_schedule_dashboard',

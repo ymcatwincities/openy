@@ -365,8 +365,14 @@ class RepeatController extends ControllerBase {
     $date = !empty($parameters['date']) ? $parameters['date'] : '';
     $mode = !empty($parameters['mode']) ? $parameters['mode'] : 'activity';
 
+    if (empty($date)) {
+      $date = time();
+    }
+    else {
+      $date = strtotime($date);
+    }
+
     // Calculate first day of a week.
-    $date = strtotime($date);
     $monday_timestamp = strtotime("last Monday", $date);
     if (date('D', $date) === 'Mon') {
       $monday_timestamp = $date;

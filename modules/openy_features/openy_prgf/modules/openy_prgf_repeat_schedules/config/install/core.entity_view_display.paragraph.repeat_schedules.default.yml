@@ -8,6 +8,7 @@ dependencies:
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_instr
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pdf
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
+    - field.field.paragraph.repeat_schedules.field_prgf_rs_pdf_only_view
     - paragraphs.paragraphs_type.repeat_schedules
   module:
     - openy_repeat
@@ -59,6 +60,16 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
+  field_prgf_rs_pdf_only_view:
+    weight: 7
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
 hidden:
   created: true
   uid: true
