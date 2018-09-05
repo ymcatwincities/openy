@@ -10,8 +10,3 @@ dependencies:
   - migrate_tools
   - openy_demo_tnews
   - openy_node_news
-  - openy_prgf_news_listing
-  - openy_prgf_news_latest
-  - openy_prgf_featured_news
-  - openy_prgf_news_branch
-  - openy_prgf_news_camp

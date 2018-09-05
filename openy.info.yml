@@ -53,26 +53,32 @@ dependencies:
   - features_ui
   - config_import
   - plugin
+  - simple_menu_icons
   - metatag
   - metatag_open_graph
+  - captcha
+  - image_captcha
+  - recaptcha
+  - admin_toolbar
+  - ckeditor_bootstrap_buttons
   # OpenY
-  - advanced_help_block
-  - openy_editor
-  - openy_upgrade_tool
-  - openy_migrate
+  - openy_media_image
+  - openy_media_document
+  - openy_media_video
+  - openy_media_local_video
+  - openy_taxonomy
+  - openy_node_landing
   - openy_menu_main
   - openy_menu_footer
-  - openy_media_document
-  - openy_media_image
-  - openy_media_local_video
-  - openy_media_video
-  - openy_node_landing
+  - openy_block_custom_simple
+  - openy_editor
+  - openy_migrate
   - openy_redirect
   - openy_tour
+  - advanced_help_block
+  - openy_upgrade_tool
   - openy_system
-  #- openy_user
-  - openy_block_custom_simple
-
+  - openy_taxonomy
 themes:
   - bartik
   - openy_rose
