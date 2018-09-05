@@ -58,7 +58,7 @@ class ConfigureProfileForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
     $form['#title'] = $this->t('Select installation type');
 
-    $installation_types = self::getInstallationTypes();
+    $installation_types = self::getInstallationTypes(function_exists('drush_main'));
     $presets = ['' => $this->t('Choose One')];
     foreach ($installation_types as $key => $type) {
       $presets[$key] = $this->t($type['name']);
