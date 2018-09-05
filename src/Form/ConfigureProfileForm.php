@@ -32,7 +32,7 @@ class ConfigureProfileForm extends FormBase {
     $installation_types = Yaml::decode(file_get_contents($path . '/openy.installation_types.yml'));
 
     foreach ($installation_types as $key => $installation_type) {
-      if (!empty($installation_type['hidden'])) {
+      if (!empty($installation_type['hidden']) && !$include_hidden) {
         unset($installation_types[$key]);
       }
     }
@@ -145,7 +145,7 @@ class ConfigureProfileForm extends FormBase {
    *   Presets info.
    */
   private static function getPresetsInfo() {
-    $installation_types = self::getInstallationTypes();
+    $installation_types = self::getInstallationTypes(TRUE);
     $presets_info = [];
     $packages_info = self::getPackages();
 
