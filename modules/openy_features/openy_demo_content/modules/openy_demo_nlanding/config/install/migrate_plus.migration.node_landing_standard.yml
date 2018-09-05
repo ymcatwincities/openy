@@ -44,7 +44,7 @@ source:
           header_content_id: give_gallery
       content_ids:
         -
-          content_id: give_featured_content
+          content_id: give_simple
     -
       id: accelerator
       title: 'Accelerator'
@@ -55,7 +55,7 @@ source:
           header_content_id: accelerator_gallery
       content_ids:
         -
-          content_id: accelerator_featured_content
+          content_id: accelerator_simple
         -
           content_id: accelerator_housing
         -
@@ -93,17 +93,6 @@ source:
       content_ids:
         -
           content_id: camp_page_3_simple
-    -
-      id: join
-      title: 'Join'
-      alias: '/join'
-      layout: one_column
-      header_content_ids:
-        -
-          header_content_id: join_gallery
-      content_ids:
-        -
-          content_id: join_member_calc
   ids:
     id:
       type: string
