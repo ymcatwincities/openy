@@ -9,8 +9,4 @@ dependencies:
   - field
   - language
   - node
-# - openy:openy_node_blog
-# - openy:openy_node_branch
-# - openy:openy_node_camp
-# - openy:openy_node_event
-# - openy:openy_node_testimonial
+  - openy_er
