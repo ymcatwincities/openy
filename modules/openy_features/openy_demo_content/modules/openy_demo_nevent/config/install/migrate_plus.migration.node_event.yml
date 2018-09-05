@@ -8,8 +8,8 @@ dependencies:
       - openy_demo_nevent
 id: openy_demo_node_event
 migration_tags:
-  - 'OpenY Demo Event'
   - openy_extended_installation
+  - openy_complete_installation
 migration_group: openy_demo_nevent
 label: 'Import demo event posts'
 source:
