@@ -171,7 +171,7 @@ webform:
   Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
-    - webform
+    - openy_prgf_webform
 
 translation:
   name: 'Translation'
