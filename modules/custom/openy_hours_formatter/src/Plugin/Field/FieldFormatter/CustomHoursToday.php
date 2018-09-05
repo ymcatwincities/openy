@@ -37,20 +37,17 @@ class CustomHoursToday extends CustomHoursFormatterDefault implements ContainerF
    *   The plugin_id for the formatter.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
-   *   The definition of the field to which the formatter is associated.
-   * @param array $settings
-   *   The formatter settings.
-   * @param string $label
-   *   The formatter label display setting.
-   * @param string $view_mode
-   *   The view mode.
-   * @param array $third_party_settings
-   *   Any third party settings.
+   * @param array $configuration
+   *   Configuration array.
    * @param \Drupal\Core\Routing\RouteMatchInterface $current_route_match
    *   Currently active route match object.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, RouteMatchInterface $current_route_match) {
+  public function __construct($plugin_id, $plugin_definition, array $configuration, RouteMatchInterface $current_route_match) {
+    $field_definition = $configuration['field_definition'];
+    $settings = $configuration['settings'];
+    $label = $configuration['label'];
+    $view_mode = $configuration['view_mode'];
+    $third_party_settings = $configuration['third_party_settings'];
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
 
     $this->currentRouteMatch = $current_route_match;
@@ -64,11 +61,7 @@ class CustomHoursToday extends CustomHoursFormatterDefault implements ContainerF
     return new static(
       $plugin_id,
       $plugin_definition,
-      $configuration['field_definition'],
-      $configuration['settings'],
-      $configuration['label'],
-      $configuration['view_mode'],
-      $configuration['third_party_settings'],
+      $configuration,
       $container->get('current_route_match')
     );
   }
@@ -109,7 +102,7 @@ class CustomHoursToday extends CustomHoursFormatterDefault implements ContainerF
     $fieldId = &drupal_static(__FUNCTION__);
     $fieldId++;
 
-    $elements[0] = [
+    $elements[] = [
       '#theme' => 'openy_hours_formatter',
       '#hours' => $lazy_hours_placeholder,
       '#week' => [
