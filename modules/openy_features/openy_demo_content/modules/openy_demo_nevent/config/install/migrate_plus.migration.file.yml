@@ -5,8 +5,7 @@ dependencies:
     module:
       - openy_demo_nevent
 id: openy_demo_nevent_file
-migration_tags:
-  - 'OpenY Demo Event'
+migration_tags: { }
 migration_group: openy_demo_nevent
 label: 'Import demo event files'
 source:
