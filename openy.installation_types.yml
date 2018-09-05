@@ -2,6 +2,7 @@ standard:
   name: Standard
   packages:
     - editorial
+    - news
     - webform
     - seo
     - alerts
@@ -10,11 +11,11 @@ extended:
   name: Extended
   packages:
     - editorial
-    - editorial_ext
+    - news
     - webform
     - seo
     - alerts
-    - blog
+    - editorial_ext
     - locations
     - membership
     - social_sharing

@@ -1,5 +1,5 @@
-name: 'OpenY Webform Demo'
-description: 'OpenY Webform Demo.'
+name: 'OpenY Demo Webform'
+description: 'OpenY Demo Webform.'
 type: module
 core: 8.x
 package: OpenY
