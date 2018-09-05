@@ -23,7 +23,7 @@ news:
     - openy_txnm_news_category
 
 news_ext:
-  name: 'News (extended) Package'
+  name: 'News (extended)'
   help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
   description: ''
   modules:
@@ -39,27 +39,25 @@ editorial:
              allowfullscreen></iframe>'
   description: '...'
   modules:
+    - easy_breadcrumb
+    - openy_block_basic
+    - openy_block_featured_highlights
+    - openy_block_menu
+    - openy_code_block
     - openy_prgf_1c
     - openy_prgf_2c
     - openy_prgf_3c
     - openy_prgf_4c
-    - openy_prgf_amenities
-    - openy_prgf_location_by_amenities
     - openy_prgf_banner
     - openy_prgf_code_block
     - openy_prgf_featured_highlights
     - openy_prgf_gallery
     - openy_prgf_grid_content
+    - openy_prgf_lto
     - openy_prgf_promo_card
     - openy_prgf_simple_content
     - openy_prgf_small_banner
     - openy_prgf_teaser
-    - easy_breadcrumb
-    - openy_block_basic
-    - openy_block_branch_amenities
-    - openy_block_featured_highlights
-    - openy_block_menu
-    - openy_code_block
 
 editorial_ext:
   name: 'Editorial (extended) Package'
@@ -190,34 +188,82 @@ locations:
   ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
-    - location_finder
     - openy_prgf_loc_finder
     - openy_loc_branch
+    - openy_prgf_amenities
+    - openy_prgf_location_by_amenities
+    - openy_block_branch_amenities
+
+helpers:
+  name: 'Helpers'
+  help: ''
+  description: '...'
+  modules:
+    - openy_mappings
+    - openy_migrate
+    - openy_socrates
+    - openy_socrates
+
+optimizely:
+  name: 'Optimizely'
+  help: ''
+  description: '...'
+  modules:
+   - optimizely
+
+retention_campaign:
+  name: 'Retention Campaign'
+  help: ''
+  description: '...'
+  modules:
+    - openy_campaign
+
+social:
+  name: 'Social'
+  help: ''
+  description: '...'
+  modules:
+    - openy_node_social_post
+
+scheduler:
+  name: 'Scheduler'
+  help: ''
+  description: '...'
+  modules:
+    - scheduler
+
+theme_customization:
+  name: 'Theme customization'
+  help: ''
+  description: '...'
+  modules:
+    - color
+    - openy_branch_selector
 
 locations_ext:
-  name: 'Locations (extended) Package'
+  name: 'Locations (extended)'
   help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
   <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
   quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
   ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
-  - openy_loc_facility
+    - openy_loc_facility
 
 popups:
-  name: 'Popups Package'
+  name: 'Popups'
   help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
   <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
   quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
   ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
-  - openy_prgf_branches_popup_all
-  - openy_prgf_branches_popup_class
-  - openy_popups
+    - openy_popups
+    - openy_prgf_branches_popup_all
+    - openy_prgf_branches_popup_class
 
 camps:
-  name: 'Camps Package'
+  name: 'Camps'
   help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
   <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
   quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
@@ -228,55 +274,59 @@ camps:
     - openy_loc_camp
 
 programs:
-  name: 'Programs Package'
+  name: 'Programs'
   help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
   <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
   quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
   ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
-    - openy_prgf_repeat_schedules
-    - openy_prgf_repeat_schedules_loc
-    - openy_prgf_categories_listing
-    - openy_prgf_classes_listing
-    - openy_prgf_class_location
-    - openy_prgf_class_sessions
-    - openy_prgf_schedule_search
     - openy_node_activity
     - openy_node_category
     - openy_node_class
     - openy_node_session
     - openy_node_program
+    - openy_prgf_repeat_schedules
+    - openy_prgf_repeat_schedules_loc
+    - openy_prgf_categories_listing
+    - openy_prgf_class_location
+    - openy_prgf_class_sessions
+    - openy_prgf_classes_listing
+    - openy_prgf_schedule_search
+
 
 groupexpro:
-  name: 'Integration: GroupEx Pro Package'
+  name: 'Integration: GroupEx Pro'
   help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
   <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
   quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
   ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
+    - groupex_form_cache
+    - openy_group_schedules
+    - openy_gxp
     - openy_prgf_embedded_groupexpro_schedule
     - openy_prgf_group_schedules
 
 activenet:
-  name: 'Integration: ActiveNet Package'
+  name: 'Integration: ActiveNet'
   help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
   <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
   quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
   ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
-  - activenet
+    - activenet
 
 daxko:
-  name: 'Integration: Daxko Package'
+  name: 'Integration: Daxko'
   help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
   <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
   quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
   ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
-  - daxko
-  - openy_daxko2
-  - openy_prgf_pgm_reg
+    - daxko
+    - openy_daxko2
+    - openy_prgf_pgm_reg
