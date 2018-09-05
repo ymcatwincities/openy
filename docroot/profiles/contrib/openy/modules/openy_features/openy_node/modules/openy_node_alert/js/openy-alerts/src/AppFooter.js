@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import HeaderAlertItem from './components/HeaderAlertItem/HeaderAlertItem';
 import Slider from 'react-slick';
+import cookie from 'react-cookies';
 
 import { fetchAlerts } from './actions/backend';
 
@@ -18,6 +19,10 @@ class App extends Component {
   }
   previous() {
     this.slider.slickPrev();
+  }
+
+  componentWillMount() {
+    this.state = { alerts_dismiss: cookie.load('alerts_dismiss') };
   }
 
   render() {

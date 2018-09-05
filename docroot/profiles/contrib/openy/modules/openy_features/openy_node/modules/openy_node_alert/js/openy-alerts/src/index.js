@@ -1,4 +1,6 @@
 /*global Drupal b:true*/
+/* eslint-disable import/first */
+console.log('OpenY Alerts initialising...');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AppHeader from './AppHeader';
@@ -28,11 +30,14 @@ if (typeof Drupal === 'undefined') {
     attach: context => {
       // Insert header region for alerts after <header> element.
       if (document.getElementById('openy_alerts_app_header') !== null) {
+        console.log('OpenY Alerts openy_alerts_app_header found...');
         return;
       }
       if (document.getElementById('openy_alerts_app_footer') !== null) {
+        console.log('OpenY Alerts openy_alerts_app_footer found...');
         return;
       }
+
       var e = document.createElement('div');
       e.innerHTML = '<div id="openy_alerts_app_header"></div>';
       while (e.firstChild) {
@@ -51,20 +56,41 @@ if (typeof Drupal === 'undefined') {
         document.getElementById('openy_alerts_app_header')
       );
       // Insert footer region for alerts inside "pre-footer" class element.
-
+      console.log('OpenY Alerts header initialised...');
       var f = document.createElement('div');
       f.innerHTML = '<div id="openy_alerts_app_footer"></div>';
-      while (f.firstChild) {
-        document
-          .getElementsByClassName('pre-footer')[0]
-          .appendChild(f.firstChild);
+      if (document.getElementsByClassName('pre-footer').length !== 0) {
+        // Lily theme...
+        while (f.firstChild) {
+          document
+            .getElementsByClassName('pre-footer')[0]
+            .appendChild(f.firstChild);
+        }
+        console.log('OpenY Alerts footer Lily initialised...');
+        ReactDOM.render(
+          <Provider store={store}>
+            <AppFooter />
+          </Provider>,
+          document.getElementById('openy_alerts_app_footer')
+        );
+      } else {
+        // Append after main anchor.
+        while (f.firstChild) {
+          document
+            .getElementById('main')
+            .parentNode.insertBefore(
+              f.firstChild,
+              document.getElementById('main').nextSibling
+            );
+        }
+        console.log('OpenY Alerts footer YGTC initialised...');
+        ReactDOM.render(
+          <Provider store={store}>
+            <AppFooter />
+          </Provider>,
+          document.getElementById('openy_alerts_app_footer')
+        );
       }
-      ReactDOM.render(
-        <Provider store={store}>
-          <AppFooter />
-        </Provider>,
-        document.getElementById('openy_alerts_app_footer')
-      );
     }
   };
 }
