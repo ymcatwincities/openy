@@ -426,16 +426,11 @@
   @include breakpoint($screen-desktop) {
     height: 600px;
   }
-
+}
+.paragraph--type--small-banner {
   img.media__element {
-    @include breakpoint($screen-desktop) {
-      bottom: -100%;
-      top: -100%;
-      left: 0;
-      right: 0;
-      margin: auto;
-      position: absolute;
-    }
+    height: auto;
+    width: auto;
   }
 }
 
@@ -470,14 +465,9 @@
         padding-bottom: 0 !important;
         position: relative;
       }
-    }
 
-    img.media__element {
-      width: 100% !important;
-      height: auto !important;
-
-      @include breakpoint($screen-desktop $screen-lg-desktop) {
-        width: 120% !important;
+      img.media__element {
+        object-fit: cover;
       }
     }
   }
