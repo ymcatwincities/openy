@@ -1853,15 +1853,10 @@ body {
     height: 600px;
   }
 }
-@media (min-width: 62em) {
-  .paragraph--type--banner img.media__element {
-    bottom: -100%;
-    top: -100%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    position: absolute;
-  }
+
+.paragraph--type--small-banner img.media__element {
+  height: auto;
+  width: auto;
 }
 
 .banner {
@@ -1904,14 +1899,8 @@ body {
     position: relative;
   }
 }
-.banner-image img.media__element {
-  width: 100% !important;
-  height: auto !important;
-}
-@media (min-width: 62em) and (max-width: 75em) {
-  .banner-image img.media__element {
-    width: 120% !important;
-  }
+.banner-image .media--image img.media__element {
+  object-fit: cover;
 }
 .banner-cta-section {
   padding-bottom: 18px;
