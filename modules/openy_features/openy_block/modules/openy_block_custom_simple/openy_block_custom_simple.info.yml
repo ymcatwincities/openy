@@ -12,4 +12,5 @@ dependencies:
   - link
   - media_entity
   - openy_block
+  - openy_media_image
   - text
