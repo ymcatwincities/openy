@@ -13,7 +13,7 @@ use Drupal\Core\Extension\MissingDependencyException;
 class ConfigureProfileForm extends FormBase {
 
   const DEFAULT_PRESET = 'none';
-  const DEFAULT_PRESET_DRUSH = 'standard';
+  const DEFAULT_PRESET_DRUSH = 'complete';
 
   /**
    * {@inheritdoc}
@@ -27,9 +27,15 @@ class ConfigureProfileForm extends FormBase {
    *
    * @return mixed
    */
-  public static function getInstallationTypes() {
+  public static function getInstallationTypes($include_hidden = FALSE) {
     $path = drupal_get_path('profile', 'openy');
     $installation_types = Yaml::decode(file_get_contents($path . '/openy.installation_types.yml'));
+
+    foreach ($installation_types as $key => $installation_type) {
+      if (!empty($installation_type['hidden'])) {
+        unset($installation_types[$key]);
+      }
+    }
 
     return $installation_types;
   }
