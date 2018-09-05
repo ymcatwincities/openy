@@ -49,15 +49,6 @@ source:
       parent_id: 0
       expanded: 0
       parent_link_path: ''
-    -
-      id: 14
-      title: 'Join'
-      menu_name: 'footer-menu-right'
-      link: 'join'
-      weight: 3
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
   ids:
     id:
       type: integer
