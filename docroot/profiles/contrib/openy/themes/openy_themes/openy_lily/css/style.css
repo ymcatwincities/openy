@@ -7682,11 +7682,13 @@ article.site-alert ul li div {
   z-index: 901;
 }
 
-.header-alerts-list div {
+.header-alerts-list div,
+.footer-alerts-list div {
   width: 100%;
 }
 
-.site-alert--header .site-alert__wrapper, .site-alert--footer .site-alert__wrapper {
+.site-alert--header .site-alert__wrapper,
+.site-alert--footer .site-alert__wrapper {
   padding: 10px;
 }
 
