@@ -229,32 +229,30 @@ class RepeatManager implements SessionInstanceManagerInterface {
     ];
 
     foreach ($session_schedule['dates'] as $schedule_item) {
-      if ($schedule_item['frequency'] == 'weekly' || $schedule_item['frequency'] == 'daily') {
-        $start = $session_schedule['dates'][0]['period']['from'] . 'T' . $session_schedule['dates'][0]['time']['from'];
-        $end = $session_schedule['dates'][0]['period']['to'] . 'T' . $session_schedule['dates'][0]['time']['to'];
-        $dates[] = [
-          'from' => $start,
-          'to' => $end,
-        ];
-        $exclusions = self::reorderExclusions($session_schedule['exclusions']);
-        $combined_dates = self::combineDates($dates, $exclusions, $schedule_item);
-        foreach ($schedule_item['days'] as $day) {
-          foreach ($combined_dates as $date) {
-            $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
-            $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
-            $duration = round(abs($to_time - $from_time) / 60,2);
+      $start = $session_schedule['dates'][0]['period']['from'] . 'T' . $session_schedule['dates'][0]['time']['from'];
+      $end = $session_schedule['dates'][0]['period']['to'] . 'T' . $session_schedule['dates'][0]['time']['to'];
+      $dates[] = [
+        'from' => $start,
+        'to' => $end,
+      ];
+      $exclusions = self::reorderExclusions($session_schedule['exclusions']);
+      $combined_dates = self::combineDates($dates, $exclusions, $schedule_item);
+      foreach ($schedule_item['days'] as $day) {
+        foreach ($combined_dates as $date) {
+          $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
+          $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
+          $duration = round(abs($to_time - $from_time) / 60,2);
 
-            $session_instances[] = [
-              'start' => strtotime($date['from']),
-              'end' => strtotime($date['to']),
-              'year' => '*',
-              'month' => '*',
-              'day' => '*',
-              'week' => '*',
-              'weekday' => $weekday_mapping[$day],
-              'duration'=> $duration,
-            ];
-          }
+          $session_instances[] = [
+            'start' => strtotime($date['from']),
+            'end' => strtotime($date['to']),
+            'year' => '*',
+            'month' => '*',
+            'day' => '*',
+            'week' => '*',
+            'weekday' => $weekday_mapping[$day],
+            'duration'=> $duration,
+          ];
         }
       }
     }
@@ -327,12 +325,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
       if ($skipInstance && !$prevSkipInstance) {
         $period = array_pop($resultingPeriods);
         $close = clone $start;
-        if ($schedule_item['frequency'] == 'weekly') {
-          $close->modify('-1 week');
-        }
-        else {
-          $close->modify('-1 day');
-        }
+        $close->modify('-1 week');
         $close->setTime($end->format('H'), $end->format('i'));
         $period['to'] = $close;
         array_push($resultingPeriods, $period);
@@ -344,12 +337,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
         array_push($resultingPeriods, $period);
       }
 
-      if ($schedule_item['frequency'] == 'weekly') {
-        $start->modify('+1 week');
-      }
-      else {
-        $start->modify('+1 day');
-      }
+      $start->modify('+1 week');
       $prevSkipInstance = $skipInstance;
     }
 
@@ -396,7 +384,6 @@ class RepeatManager implements SessionInstanceManagerInterface {
         continue;
       }
       $schedule_item = [
-        'frequency' => 'weekly',
         'days' => [],
         'period' => [],
         'time' => [],
