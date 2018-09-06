@@ -77,7 +77,7 @@ class App extends Component {
             {HeaderAlertItemList()}
           </Slider>
           <div className="container">
-            <div className="slick__counter">
+            <div className="slick__counter hidden">
               <span className="current" /> of <span className="total" />
             </div>
             <div className="slick__arrow">
