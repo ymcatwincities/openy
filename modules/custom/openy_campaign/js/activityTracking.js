@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Slider and AJAX call for 'Activity Tracking' block.
+ */
+
 Drupal.behaviors.activityTracking = {
     attach: function (context, settings) {
 

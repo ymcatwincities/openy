@@ -83,7 +83,7 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'openy-campaign-winners',
     ],
-    // Winners block text.
+    // Leadership block.
     'openy_campaign_leadership' => [
       'variables' => [
         'leaders' => [],
@@ -101,7 +101,6 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'variables' => [
         'goal' => NULL,
         'current' => NULL,
-        'title' => NULL,
         'goal_message' => NULL,
         'trackActvDesc' => NULL,
         'enActvCounter' => NULL,
