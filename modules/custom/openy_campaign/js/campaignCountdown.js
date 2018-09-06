@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Countdown to the end registration date for 'Register' block.
+ */
+
 Drupal.behaviors.campaignCountdown = {
     attach: function (context, settings) {
         if (Drupal.behaviors.campaignCountdown.length){

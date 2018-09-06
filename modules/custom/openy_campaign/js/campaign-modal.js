@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Modal dialog functionality with closing by timeout and redirects for Campaign login/logout process.
+ */
+
 (function ($, Drupal, drupalSettings) {
 
     'use strict';

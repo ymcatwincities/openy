@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Apply jQuery.marquee to draw Campaign Winners stream.
+ */
+
 (function ($, Drupal, drupalSettings) {
 
   $(function() {

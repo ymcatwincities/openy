@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Instant games: scratch card.
+ */
+
 var doc = document,
     cvs = doc.getElementById('j-cvs'), ctx,
     config = {

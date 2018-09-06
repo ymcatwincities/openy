@@ -1,3 +1,8 @@
+/**
+ * @file
+ * AJAX request to get Campaign Scorecard reports.
+ */
+
 (function ($, Drupal) {
 
   'use strict';
