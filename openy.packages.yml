@@ -202,7 +202,6 @@ helpers:
     - openy_mappings
     - openy_migrate
     - openy_socrates
-    - openy_socrates
 
 optimizely:
   name: 'Optimizely'
