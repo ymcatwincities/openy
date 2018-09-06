@@ -103,7 +103,8 @@ class RepeatController extends ControllerBase {
     $weekday = date('N', $date);
 
     $timestamp_start = $date;
-    $timestamp_end = $date + 24 * 60 * 60 * 60; // Next day.
+    // Next day.
+    $timestamp_end = $date + 24 * 60 * 60;
 
     $sql = "SELECT DISTINCT
               n.nid,
@@ -176,7 +177,12 @@ class RepeatController extends ControllerBase {
     $result = $query->fetchAll();
 
     $locations_info = $this->getLocationsInfo();
-    $classes_info = $this->getClassesInfo();
+
+    $classesIds = [];
+    foreach ($result as $key => $item) {
+      $classesIds[$item->class] = $item->class;
+    }
+    $classes_info = $this->getClassesInfo($classesIds);
 
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
@@ -271,18 +277,14 @@ class RepeatController extends ControllerBase {
   /**
    * Get detailed info about Class.
    */
-  public function getClassesInfo() {
+  public function getClassesInfo($nids) {
     $data = [];
-    $tags = ['node_list'];
-    $cid = 'openy_repeat:classes_info';
+    $tags = [];
+    $cid = 'openy_repeat:classes_info' . md5(json_encode($nids));
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
     }
     else {
-      $nids = $this->entityQuery
-        ->get('node')
-        ->condition('type','class')
-        ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
       foreach ($nids_chunked as $chunk) {
         $classes = $this->entityTypeManager->getStorage('node')->loadMultiple($chunk);
