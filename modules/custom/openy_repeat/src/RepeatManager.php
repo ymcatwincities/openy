@@ -229,14 +229,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
     ];
 
     foreach ($session_schedule['dates'] as $schedule_item) {
-      if (!$schedule_item['frequency'] == 'weekly' && !$schedule_item['frequency'] == 'daily') {
-        continue;
-      }
-      // Daily is the same as Weekly but on every day of the week.
-      if ($schedule_item['frequency'] == 'daily') {
-        $schedule_item['frequency'] = 'weekly';
-        $schedule_item['days'] = array_keys($weekday_mapping);
-      }
+      $schedule_item['days'] = array_keys($weekday_mapping);
       foreach ($schedule_item['days'] as $weekDay) {
         // Starting period could start on Sunday. But we have Monday in the
         // settings. This is why we need to adjust day to proper day of
@@ -405,7 +398,6 @@ class RepeatManager implements SessionInstanceManagerInterface {
       }
 
       $schedule_item = [
-        'frequency' => $date->field_session_time_frequency->getValue()[0]['value'],
         'days' => [],
         'period' => [],
         'time' => [],
@@ -428,10 +420,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
         $schedule['to'] = $schedule_item['period']['to'];
       }
 
-      if ($schedule_item['frequency'] == 'weekly') {
-        foreach ($date->field_session_time_days->getValue() as $value) {
-          $schedule_item['days'][] = $value['value'];
-        }
+      foreach ($date->field_session_time_days->getValue() as $value) {
+        $schedule_item['days'][] = $value['value'];
       }
 
       $schedule['dates'][] = $schedule_item;
