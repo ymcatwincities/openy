@@ -7,7 +7,7 @@ uid: 1
 template: false
 id: demo_form
 title: 'Demo Form'
-description: ''
+description: 'Open Y Demo Webform'
 elements: "demo_webform_title:\n  '#type': webform_markup\n  '#markup': '<h2>Contact Us</h2>'\nfirst_name:\n  '#type': textfield\n  '#title': 'First Name'\nlast_name:\n  '#type': textfield\n  '#title': 'Last Name'\nemail:\n  '#type': email\n  '#title': Email\naddress:\n  '#type': webform_address\n  '#title': Address\n  '#address__title': Street\n  '#address_2__access': false\n  '#state_province__access': false\n  '#country__access': false\nphone:\n  '#type': tel\n  '#title': Phone\ndemo_webform_captcha:\n  '#type': captcha\n  '#captcha_type': recaptcha/reCAPTCHA\n"
 css: "#webform-submission-demo-form-form .form-control {\r\n  max-width: 50%;\r\n}\r\n\r\n#webform-submission-demo-form-form fieldset {\r\n  border-bottom: 0 none;\r\n}\r\n\r\n#webform-submission-demo-form-form fieldset legend {\r\n  display: none;\r\n}\r\n\r\n#webform-submission-demo-form-form fieldset .form-item:first-child, \r\n#webform-submission-demo-form-form fieldset .form-actions:first-child, \r\n#webform-submission-demo-form-form fieldset .captcha:first-child {\r\n    margin-top: 0;\r\n}\r\n\r\n#webform-submission-demo-form-form fieldset .form-item:last-child, \r\n#webform-submission-demo-form-form fieldset .form-actions:last-child, \r\n#webform-submission-demo-form-form fieldset .captcha:last-child {\r\n    margin-bottom: 0;\r\n}"
 javascript: ''
