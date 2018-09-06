@@ -85,28 +85,29 @@ class App extends Component {
             <div className="slick__counter hidden">
               <span className="current" /> of <span className="total" />
             </div>
-            <div className="slick__arrow">
-              <a
-                href="#"
-                data-role="none"
-                className="slick-prev slick-arrow"
-                role="button"
-                aria-disabled="true"
-                onClick={this.previous}
-              >
-                Previous
-              </a>
-              <a
-                href="#"
-                data-role="none"
-                className="slick-next slick-arrow"
-                role="button"
-                aria-disabled="false"
-                onClick={this.next}
-              >
-                Next
-              </a>
-            </div>
+                  <div className="slick__arrow">
+                      <a
+                          href="#"
+                          data-role="none"
+                          className="slick-prev slick-arrow"
+                          role="button"
+                          aria-disabled="true"
+                          onClick={this.previous}
+                      >
+                          Previous
+                      </a>
+                      <a
+                          href="#"
+                          data-role="none"
+                          className="slick-next slick-arrow"
+                          role="button"
+                          aria-disabled="false"
+                          onClick={this.next}
+                      >
+                          Next
+                      </a>
+                  </div>
+
           </div>
         </div>
       </div>

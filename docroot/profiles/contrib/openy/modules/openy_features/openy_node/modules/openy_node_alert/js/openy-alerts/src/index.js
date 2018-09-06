@@ -2,6 +2,7 @@
 /* eslint-disable import/first */
 /*global location b:true*/
 /*eslint no-restricted-globals: ["warn", "drupalSettings"]*/
+/*global drupalSettings b:true*/
 console.log('OpenY Alerts initialising...');
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -31,7 +32,7 @@ if (typeof Drupal === 'undefined') {
   Drupal.behaviors.openy_alerts_app = {
     attach: context => {
       // Do not start on admin urls.
-      if (location.pathname.substring(1).startsWith('admin')) {
+      if (location.pathname.substring(1).startsWith('admin') || drupalSettings.path.currentPathIsAdmin === true) {
         return;
       }
       // Insert header region for alerts after <header> element.
