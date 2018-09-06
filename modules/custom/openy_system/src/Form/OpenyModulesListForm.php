@@ -4,30 +4,66 @@ namespace Drupal\openy_system\Form;
 
 use Drupal\system\Form\ModulesListForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\openy\Form\ConfigureProfileForm;
 
 /**
  * Provides openy modules installation interface.
  */
 class OpenyModulesListForm extends ModulesListForm {
 
-  protected $openyPackages = [
-    'OpenY',
-    'OpenY (Experimental)',
-    'YMCA Maryland',
-  ];
-
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildForm($form, $form_state);
 
-    // Remove all packages, that not related to OpenY.
-    foreach ($form['modules'] as $package => $modules) {
-      if (!in_array($package, $this->openyPackages)) {
-        unset($form['modules'][$package]);
-      }
+
+    $form['filters'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['table-filter', 'js-show'],
+      ],
+    ];
+
+    $form['filters']['text'] = [
+      '#type' => 'search',
+      '#title' => $this->t('Filter packages'),
+      '#title_display' => 'invisible',
+      '#size' => 30,
+      '#placeholder' => $this->t('Filter by name or description'),
+      '#description' => $this->t('Enter a part of the package name or description'),
+      '#attributes' => [
+        'class' => ['table-filter-text'],
+        'data-table' => '#system-modules-uninstall',
+        'autocomplete' => 'off',
+      ],
+    ];
+
+    // Iterate over each of the packages.
+    $form['modules']['#tree'] = TRUE;
+    foreach ($this->getPackages() as $key => $package) {
+      $name = $package["name"];
+      $form['modules'][$key][$name] = $this->buildPackageRow($package);
+      $form['modules'][$key][$name] ['#parents'] = ['modules', $key];
     }
+
+    // Add a wrapper around every package.
+    foreach (Element::children($form['modules']) as $package) {
+      $form['modules'][$package] += [
+        '#type' => 'details',
+        '#title' => $this->t($package),
+        '#open' => TRUE,
+        '#theme' => 'system_modules_details',
+        '#attributes' => ['class' => ['package-listing']],
+      ];
+    }
+    $form['#attached']['library'][] = 'system/drupal.system.modules';
+    $form['actions'] = ['#type' => 'actions'];
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Install'),
+      '#button_type' => 'primary',
+    ];
 
     // TODO: Also, before component removing - would be nice to add a step
     // with a list of entities and where they are used ( for paragraps ) to
@@ -36,4 +72,103 @@ class OpenyModulesListForm extends ModulesListForm {
     return $form;
   }
 
+
+  /**
+   * Builds a table row for the OpenY packages  page.
+   *
+   * @param array $module
+   *   The package for which to build the form row.
+   * @param $distribution
+   *
+   * @return array
+   *   The form row for the given module.
+   */
+  protected function buildPackageRow(array $module) {
+    // Get human readable names of  modules in package.
+    $module_names = [];
+    foreach ($module['modules'] as $name) {
+      $module_names[] = $this->moduleHandler->getName($name);
+    }
+    // Put module names to requires field of row.
+    $row['#requires'] = $module_names;
+    $row['name']['#markup'] = $module["name"];
+    $row['description']['#markup'] = $this->t($module["description"]);
+    $package_status = TRUE;
+    foreach ($module['modules'] as $module_name) {
+      if (!$this->moduleHandler->moduleExists($module_name)) {
+        $package_status = FALSE;
+      }
+    }
+    // Present a checkbox for installing and indicating the status of a module.
+    $row['enable'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Install'),
+      '#default_value' => $package_status,
+      '#disabled' => $package_status,
+    ];
+
+    return $row;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $packages = $this->getPackages();
+    $modules_to_install = [];
+    $values = $form_state->getValue('modules', FALSE);
+    // Get list of modules to install for selected to enable packages.
+    foreach ($values as $key => $value) {
+      if ($value['enable'] === 1) {
+        $modules_to_install = array_merge($modules_to_install, $packages[$key]['modules']);
+      }
+    }
+    // Remove from list installed modules.
+    foreach ($modules_to_install as $key => $module) {
+      if ($this->moduleHandler->moduleExists($module)) {
+        unset($modules_to_install[$key]);
+      }
+    }
+
+    // Install the given modules.
+    if (!empty($modules_to_install)) {
+      try {
+        $this->moduleInstaller->install($modules_to_install);
+        drupal_set_message($this->formatPlural(count($modules_to_install), 'Module %name has been enabled.', '@count modules have been enabled: %names.', [
+          '%name' => $modules_to_install[0],
+          '%names' => implode(', ', $modules_to_install),
+        ]));
+      } catch (PreExistingConfigException $e) {
+        $config_objects = $e->flattenConfigObjects($e->getConfigObjects());
+        drupal_set_message(
+          $this->formatPlural(
+            count($config_objects),
+            'Unable to install @extension, %config_names already exists in active configuration.',
+            'Unable to install @extension, %config_names already exist in active configuration.',
+            [
+              '%config_names' => implode(', ', $config_objects),
+              '@extension' => $modules_to_install[$e->getExtension()],
+            ]),
+          'error'
+        );
+        return;
+      } catch (UnmetDependenciesException $e) {
+        drupal_set_message(
+          $e->getTranslatedMessage($this->getStringTranslation(), $modules_to_install[$e->getExtension()]),
+          'error'
+        );
+        return;
+      }
+    }
+  }
+
+  /**
+   * Return packages array of Open Y profile.
+   *
+   * @return array
+   *   Packages array.
+   */
+  protected function getPackages() {
+    return ConfigureProfileForm::getPackages();
+  }
 }
