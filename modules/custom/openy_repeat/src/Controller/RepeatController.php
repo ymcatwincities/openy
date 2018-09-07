@@ -196,6 +196,7 @@ class RepeatController extends ControllerBase {
       // Example of calendar format 2018-08-21 14:15:00.
       $result[$key]->time_start_calendar = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Y-m-d H:i:s');
       $result[$key]->time_end_calendar = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->timezone = drupal_get_user_timezone();
     }
 
     return new JsonResponse($result);
