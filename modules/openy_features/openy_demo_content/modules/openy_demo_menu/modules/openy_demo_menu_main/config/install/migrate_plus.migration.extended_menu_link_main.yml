@@ -14,6 +14,7 @@ migration_dependencies:
     - openy_demo_menu_main_file
     - openy_demo_node_landing_extended
     - openy_demo_news_landing
+    - openy_demo_event_landing
 source:
   plugin: embedded_data
   data_rows:
@@ -72,11 +73,20 @@ source:
       expanded: 0
       parent_link_path: ''
     -
-      id: 35
+      id: 14
       title: 'Join'
       menu_name: 'main'
       link: 'join'
       weight: 9
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 15
+      title: 'Events'
+      menu_name: 'main'
+      link: 'events'
+      weight: 10
       parent_id: 0
       expanded: 0
       parent_link_path: ''

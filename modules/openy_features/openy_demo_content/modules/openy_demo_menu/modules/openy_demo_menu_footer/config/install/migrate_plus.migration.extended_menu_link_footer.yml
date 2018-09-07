@@ -12,6 +12,7 @@ label: 'Create extended demo footer menu links'
 migration_dependencies:
   required:
     - openy_demo_node_landing_extended
+    - openy_demo_event_landing
 source:
   plugin: embedded_data
   data_rows:
@@ -66,6 +67,15 @@ source:
       menu_name: 'footer-menu-right'
       link: 'join'
       weight: 3
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 15
+      title: 'Events'
+      menu_name: 'footer-menu-center'
+      link: 'events'
+      weight: 6
       parent_id: 0
       expanded: 0
       parent_link_path: ''
