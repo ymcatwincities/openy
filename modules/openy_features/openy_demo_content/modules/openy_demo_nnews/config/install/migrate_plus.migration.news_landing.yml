@@ -5,8 +5,7 @@ dependencies:
     module:
       - openy_demo_nnews
 id: openy_demo_news_landing
-migration_tags:
-  - 'OpenY Demo News'
+migration_tags: { }
 migration_group: openy_demo_nnews
 label: 'Create demo landing news page'
 source:
@@ -21,7 +20,7 @@ source:
           header_content_id: news_small_banner
       content_ids:
         -
-          content_id: news_news_posts_listing
+          content_id: news_latest_news_posts
   ids:
     id:
       type: string
@@ -67,12 +66,12 @@ process:
       target_id:
         plugin: migration
         migration:
-          - openy_demo_lp_paragraph_news_posts_listing
+          - openy_demo_lp_news_paragraph_latest_news_posts
         source: content_id
       target_revision_id:
         plugin: migration
         migration:
-          - openy_demo_lp_paragraph_news_posts_listing
+          - openy_demo_lp_news_paragraph_latest_news_posts
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -80,5 +79,5 @@ destination:
 migration_dependencies:
   required:
     - openy_demo_lp_paragraph_news_small_banner
-    - openy_demo_lp_paragraph_news_posts_listing
+    - openy_demo_lp_news_paragraph_latest_news_posts
     - openy_demo_node_news
