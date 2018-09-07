@@ -1,7 +1,11 @@
 blog:
   name: 'Blog Package'
-  description: "Blog Package provide a set of modules to use and maintain blog posts."
-  help: '<p>Awesome blog post package. See video - <a href="https://youtu.be/qTrGaisDWP0">https://youtu.be/qTrGaisDWP0</a><p>'
+  description: "Blog package provides a set of modules to maintain and create different blog post listings."
+  help: '<p>Using Blog package you can create and maintain blog posts and create flexible listings of blog posts. Watch a video below to learn more about blog anatomy.</p>
+  <iframe width="560" height="315"
+               src="https://www.youtube.com/embed/PTZkgOb8CFE"
+               frameborder="0" allow="autoplay; encrypted-media"
+               allowfullscreen></iframe>'
   modules:
     - openy_node_blog
     - openy_prgf_blog_listing
@@ -13,8 +17,8 @@ blog:
 
 news:
   name: 'News Package'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
-  description: ''
+  description: "News package provides a set of modules to maintain and create different news post listings."
+  help: '<p>Using News Package you can create and maintain news posts and create flexible listings of news posts.</p>'
   modules:
     - openy_node_news
     - openy_prgf_news_latest
@@ -23,21 +27,21 @@ news:
     - openy_txnm_news_category
 
 news_ext:
-  name: 'News (extended)'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
-  description: ''
+  name: 'News (extended) Package'
+  description: "Extended News package provides additional components for News Posts."
+  help: '<p>Using Extended News package you can extend and add variety of new components for News Posts, such as list of News Posts referenced to camp or branch.</p>'
   modules:
     - openy_prgf_news_branch
     - openy_prgf_news_camp
 
 editorial:
   name: 'Editorial Package'
-  help: '<p></p>
-      <iframe width="560" height="315"
-             src="https://www.youtube.com/embed/kpUqb1WPXJM"
-             frameborder="0" allow="autoplay; encrypted-media"
-             allowfullscreen></iframe>'
-  description: '...'
+  description: 'Editorial package provides content components that allow building flexible pages.'
+  help: '<p>Using Editorial package you can build basic content like Gallery, Banner, Blocks, Menus, Grid Content, Promo Cards and Breadcrumbs. Watch a video below to learn how components may be used.</p>
+  <iframe width="560" height="315"
+                 src="https://www.youtube.com/embed/JGdDCWtbNKY"
+                 frameborder="0" allow="autoplay; encrypted-media"
+                 allowfullscreen></iframe>'
   modules:
     - easy_breadcrumb
     - openy_block_basic
@@ -61,12 +65,8 @@ editorial:
 
 editorial_ext:
   name: 'Editorial (extended) Package'
-  help: '<p>Extended set of editorial breaks: layouts, blocks, paragraphs.</p>
-         <iframe width="560" height="315"
-             src="https://www.youtube.com/embed/kpUqb1WPXJM"
-             frameborder="0" allow="autoplay; encrypted-media"
-             allowfullscreen></iframe>'
-  description: '...'
+  description: "Extended Editorial package provides additional components for building landing pages."
+  help: '<p>Using Extended Editorial package you can add to landing pages blocks like Limited Time Offer, Featured Content, Date Based Block and other elements that will require extended knowledge for their configuration.</p>'
   modules:
     - openy_block_date
     - openy_prgf_block_date
@@ -76,12 +76,8 @@ editorial_ext:
 
 editorial_adv:
   name: 'Editorial (advanced) Package'
-  help: '<p>Advanced set of editorial breaks: story card, microsties menu.</p>
-         <iframe width="560" height="315"
-             src="https://www.youtube.com/embed/kpUqb1WPXJM"
-             frameborder="0" allow="autoplay; encrypted-media"
-             allowfullscreen></iframe>'
-  description: '...'
+  description: 'Advanced Editorial package provides additional components for building landing pages that require advanced configuration.'
+  help: '<p>Using Advanced Editorial package you can add to landing pages blocks like Story Card, Flexible Content, Microsites Menu and other elements that will require advanced knowledge for their configuration.</p>'
   modules:
     - openy_prgf_story_card
     - openy_block_flexible_content
@@ -89,13 +85,8 @@ editorial_adv:
 
 membership:
   name: 'Membership'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/qTrGaisDWP0" frameborder="0"
-      allow="autoplay; encrypted-media" allowfullscreen></iframe>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
+  description: 'Membership package provides an ability to create membership calculator page.'
+  help: '<p>Using Membership package you can create membership types, plug them into CRM and create join page.</p>'
   modules:
     - openy_node_mbrshp
     - openy_calc
@@ -103,90 +94,57 @@ membership:
 
 social_sharing:
   name: 'Social Sharing'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: ''
+  description: 'Social Sharing package provides integration with AddThis service.'
+  help: '<p>Using Social Sharing package you can enable social sharing buttons from <a href="http://www.addthis.com" target="_blank">www.addthis.com</a>.</p>'
   modules:
     - openy_addthis
 
 alerts:
   name: 'Alerts'
-  help: '<dl>
-            <dt>Definition list</dt>
-            <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-         aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-         commodo consequat.</dd>
-            <dt>Lorem ipsum dolor sit amet</dt>
-            <dd>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-         aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-         commodo consequat.</dd>
-         </dl>'
-  description: '...'
+  description: 'Alerts package provides an ability to create and manage website alerts.'
+  help: '<p>Using Alerts package you can create, select placement, select color schema and publish alerts that should notify visitors about important events or announcements.</p>'
   modules:
     - openy_node_alert
 
-analytics:
-  name: 'Analytics'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
-  tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
-  Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
-  modules:
-    - google_tag
-    - google_analytics
-
-embeddable_header_footer:
-  name: 'Embeddable header & footer'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
-  description: '...'
-  modules:
-    - openy_hf
-
-events:
-  name: 'Events'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
-  description: '...'
-  modules:
-    - openy_node_event
-    - openy_prgf_event_latest
-    - openy_prgf_event_listing
-
 seo:
   name: 'SEO'
-  help: '<ol>
-            <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-            <li>Aliquam tincidunt mauris eu risus.</li>
-            <li>Vestibulum auctor dapibus neque.</li>
-         </ol>'
-  description: '...'
+  description: 'SEO package allows improving compatibility with different search engines.'
+  help: "<p>Using SEO package you can create website's the sitemap and improve compatibility with different search engines.</p>"
   modules:
     - simple_sitemap
 
 webform:
   name: 'Webform'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum
-  tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.
-  Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
+  description: 'Webform package provides an ability to create and manage webforms on the website.'
+  help: '<p>Using Webform package you can create and maintain webforms that support the variety of available field formats and submit handlers. Via webforms you can capture leads, create questionnaires and another type of forms.</p>'
   modules:
     - openy_prgf_webform
 
-translation:
-  name: 'Translation'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
-  description: '...'
+analytics:
+  name: 'Analytics'
+  description: 'Analytics package provides an ability to integrate the website with analytic systems and capture website statistic.'
+  help: '<p>Using Analytics package you can configure an integration with Google Analytics or Google Tag Manager. Google Analytics gives you the tools you need to better understand your customers. Google Tag Manager helps make tag management simple, easy and reliable with tag management solutions that allow small businesses to deploy website tags.</p>'
   modules:
-    - openy_gtranslate
+    - google_tag
+    - google_analytics
+
+events:
+  name: 'Events'
+  description: "Events package provides a set of modules to maintain and create different events and listings."
+  help: '<p>Using Events package you can create and maintain Events and create flexible listings of events.</p>'
+  modules:
+    - openy_node_event
+    - openy_prgf_event_latest
+    - openy_prgf_event_listing
 
 locations:
   name: 'Locations Package'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
+  description: "Locations package provides a set of modules to maintain locations and create a location finder page with various filters."
+  help: '<p>Using Locations package you can maintain branches and create location finder page wit filters by address, zip, miles, and amenities. Watch a video below to learn how branch are setup.</p>
+  <iframe width="560" height="315"
+                 src="https://www.youtube.com/embed/l5rlwyyIaMk"
+                 frameborder="0" allow="autoplay; encrypted-media"
+                 allowfullscreen></iframe>'
   modules:
     - openy_prgf_loc_finder
     - openy_loc_branch
@@ -194,91 +152,25 @@ locations:
     - openy_prgf_location_by_amenities
     - openy_block_branch_amenities
 
-helpers:
-  name: 'Helpers'
-  help: ''
-  description: '...'
+translation:
+  name: 'Translation'
+  description: 'Translation package provides an ability to translate web pages.'
+  help: '<p>Using Translation package you can place a Google Translate widget on the page that will translate the content of the page on the fly to needed languages.</p>'
   modules:
-    - openy_mappings
-    - openy_migrate
-    - openy_socrates
-
-optimizely:
-  name: 'Optimizely'
-  help: ''
-  description: '...'
-  modules:
-   - optimizely
-
-retention_campaign:
-  name: 'Retention Campaign'
-  help: ''
-  description: '...'
-  modules:
-    - openy_campaign
-
-social:
-  name: 'Social'
-  help: ''
-  description: '...'
-  modules:
-    - openy_node_social_post
-
-scheduler:
-  name: 'Scheduler'
-  help: ''
-  description: '...'
-  modules:
-    - scheduler
-
-theme_customization:
-  name: 'Theme customization'
-  help: ''
-  description: '...'
-  modules:
-    - color
-    - openy_branch_selector
-
-locations_ext:
-  name: 'Locations (extended)'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
-  modules:
-    - openy_loc_facility
-
-popups:
-  name: 'Popups'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
-  modules:
-    - openy_popups
-    - openy_prgf_branches_popup_all
-    - openy_prgf_branches_popup_class
+    - openy_gtranslate
 
 camps:
   name: 'Camps'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
+  description: "Camps package provides a set of modules to maintain camps and add them to the location finder page."
+  help: '<p>Using Camps package you can create and maintain Camps and extend location finder page to include them.</p>'
   modules:
     - openy_prgf_camp_menu
     - openy_loc_camp
 
 programs:
   name: 'Programs'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
+  description: "Programs package provides a set of modules to maintain program, subcategories, activities and build Schedules page."
+  help: '<p>Using Programs package you can create and maintain program, subcategories, activities and build Schedules page. This package includes Program Event Framework and repeat schedules.</p>'
   modules:
     - openy_node_activity
     - openy_node_category
@@ -293,14 +185,82 @@ programs:
     - openy_prgf_classes_listing
     - openy_prgf_schedule_search
 
+scheduler:
+  name: 'Scheduler'
+  description: 'Scheduler package provides an ability to schedule publishing/unpublishing for the content.'
+  help: "<p>Using Scheduler package you can publish or unpublish website's content on specific date and time.</p>"
+  modules:
+    - scheduler
+
+theme_customization:
+  name: 'Theme customization'
+  description: 'Theme Customization package provides an ability to customize color schema of the theme.'
+  help: '<p>Using Theme Customization package you can tweak and alter default color schema of themes that are available out of the box. Watch a video below to learn how to customize your theme.</p>
+  <iframe width="560" height="315"
+                   src="https://www.youtube.com/embed/wj5rsd_suqY"
+                   frameborder="0" allow="autoplay; encrypted-media"
+                   allowfullscreen></iframe>'
+  modules:
+    - color
+    - openy_branch_selector
+
+locations_ext:
+  name: 'Locations (extended)'
+  description: "Extended Locations package provides additional components for building location finder page."
+  help: '<p>Using Extended Locations package create and maintain facilities and extend location finder page to include them.</p>'
+  modules:
+    - openy_loc_facility
+
+embeddable_header_footer:
+  name: 'Embeddable header & footer'
+  description: 'Embeddable header & footer package provides an ability to embed header or footer of the website in another system.'
+  help: "<p>Using Embeddable header & footer package you can re-use header or footer from your website within your CRM. That way you'll have a single point of styles.</p>"
+  modules:
+    - openy_hf
+
+helpers:
+  name: 'Helpers'
+  description: 'Helpers package provides helper modules for Open Y.'
+  help: 'Using Helpers package you can enable mappings, migrate and socrates feature that requires advanced knowledge.'
+  modules:
+    - openy_mappings
+    - openy_migrate
+    - openy_socrates
+
+optimizely:
+  name: 'Optimizely'
+  description: 'Optimizely package provides an ability to integrate the website with experimentation platform - Optimizely.'
+  help: '<p>Using Optimizely package you can configure an integration with experimentation platform - <a href="https://www.optimizely.com/" target="_blank">www.optimizely.com/</a>.</p>'
+  modules:
+   - optimizely
+
+retention_campaign:
+  name: 'Retention Campaign'
+  description: 'Retention Campaign package provides an ability to maintain and perform retention campaigns.'
+  help: 'Using Retention Campaign package you can enable and manage retention campaigns on the Open Y website.'
+  modules:
+    - openy_campaign
+
+social:
+  name: 'Social'
+  description: "Social package provides a set of modules to maintain and create different social posts."
+  help: '<p>Using Social Package you can create and maintain social posts and create flexible listings of social posts.</p>'
+  modules:
+    - openy_node_social_post
+
+popups:
+  name: 'Popups'
+  description: 'Popups package provides an ability to display popups with branch selection.'
+  help: "<p>Using Popups package you can display popups with branch selection on schedules and class pages.</p>"
+  modules:
+    - openy_popups
+    - openy_prgf_branches_popup_all
+    - openy_prgf_branches_popup_class
 
 groupexpro:
   name: 'Integration: GroupEx Pro'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
+  description: 'Integration with GroupEx Pro package provides an integration with CRM.'
+  help: "<p>Using Integration with GroupEx Pro you can plug in your Open Y website to the CRM.</p>"
   modules:
     - groupex_form_cache
     - openy_group_schedules
@@ -310,21 +270,15 @@ groupexpro:
 
 activenet:
   name: 'Integration: ActiveNet'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
+  description: 'Integration with ActiveNet package provides an integration with CRM.'
+  help: "<p>Using Integration with ActiveNet you can plug in your Open Y website to the CRM.</p>"
   modules:
     - activenet
 
 daxko:
   name: 'Integration: Daxko'
-  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-  <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
-  quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
-  ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
-  description: '...'
+  description: 'Integration with Daxko package provides an integration with CRM.'
+  help: "<p>Using Integration with Daxko you can plug in your Open Y website to the CRM.</p>"
   modules:
     - daxko
     - openy_daxko2
