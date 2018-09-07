@@ -1,0 +1,12 @@
+openy_system.openy:
+  title: Open Y
+  description: 'Configure Open Y distribution settings.'
+  parent: system.admin
+  route_name: openy_system.openy_config
+  weight: 0
+
+openy_system.openy_modules_list:
+  route_name: openy_system.modules_list
+  parent: openy_system.openy
+  title: 'Extend'
+  weight: 10
