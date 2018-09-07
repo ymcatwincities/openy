@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - openy_node_blog
+    - openy_node_news
   enforced:
     module:
       - openy_demo_ncamp
-id: openy_demo_node_camp_blog
+id: openy_demo_node_camp_news
 migration_tags: {  }
 migration_group: openy_demo_ncamp
-label: 'Import demo blog posts'
+label: 'Import demo news posts'
 source:
   plugin: embedded_data
   data_rows:
@@ -17,9 +17,6 @@ source:
       id: 1
       title: 'Camp Colman Stories'
       created: '2017-04-27 6:00am'
-      style: color
-      bg_color: 8
-      color: 1
       category: 1
       related: null
       promote: 1
@@ -32,9 +29,6 @@ source:
       id: 2
       title: 'Serving our community for over 100 years!'
       created: '2017-04-27 6:01am'
-      style: color
-      bg_color: 14
-      color: 1
       category: 2
       related: null
       promote: 1
@@ -53,9 +47,6 @@ source:
       id: 3
       title: 'Cheddar-Cannelini Fondue'
       created: '2017-04-27 6:02am'
-      style: color
-      bg_color: 9
-      color: 1
       category: 3
       related: 2
       promote: 1
@@ -88,9 +79,6 @@ source:
       id: 4
       title: 'How does the camp experience benifit your child?'
       created: '2017-04-27 6:03am'
-      style: color
-      bg_color: 14
-      color: 1
       category: 2
       related: 1
       promote: 1
@@ -103,7 +91,6 @@ source:
       id: 5
       title: 'Camp Orkila FAQ'
       created: '2017-04-27 6:04am'
-      style: news
       category: 2
       related: 1
       promote: 1
@@ -134,9 +121,6 @@ source:
       id: 6
       title: "Learn about camp Terry's history"
       created: '2017-04-27 6:05am'
-      style: color
-      bg_color: 8
-      color: 1
       category: 2
       related: 1
       promote: 1
@@ -168,7 +152,7 @@ process:
   type:
     -
       plugin: default_value
-      default_value: blog
+      default_value: news
   status:
     -
       plugin: default_value
@@ -186,39 +170,25 @@ process:
       plugin: callback
       callable: strtotime
       source: created
-  field_blog_style:
-    -
-      plugin: get
-      source: style
-  field_blog_color:
-    -
-      plugin: migration
-      migration: openy_demo_taxonomy_term_color
-      source: bg_color
-  field_blog_text_color:
-    -
-      plugin: migration
-      migration: openy_demo_taxonomy_term_color
-      source: color
-  field_blog_description/value:
+  field_news_description/value:
     -
       plugin: get
       source: body
-  field_blog_description/format:
+  field_news_description/format:
     -
       plugin: default_value
       default_value: full_html
-  field_blog_category:
+  field_news_category:
     -
       plugin: migration
-      migration: openy_demo_taxonomy_term_blog_category
+      migration: openy_demo_taxonomy_term_news_category
       source: category
-  field_blog_related:
+  field_news_related:
     -
       plugin: migration
-      migration: openy_demo_node_blog
+      migration: openy_demo_node_news
       source: related
-  field_blog_location:
+  field_news_location:
     -
       plugin: migration
       migration: openy_demo_node_camp
@@ -227,6 +197,7 @@ destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
-    - openy_demo_taxonomy_term_blog_category
+    - openy_demo_taxonomy_term_news_category
     - openy_demo_node_camp
+    - openy_demo_node_news
   optional: {  }

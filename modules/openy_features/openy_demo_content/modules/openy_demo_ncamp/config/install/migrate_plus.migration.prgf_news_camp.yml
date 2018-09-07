@@ -4,26 +4,26 @@ dependencies:
   enforced:
     module:
       - openy_demo_ncamp
-id: openy_demo_prgf_blog_camp
+id: openy_demo_prgf_news_camp
 migration_tags: {  }
 migration_group: openy_demo_ncamp
-label: 'Create latest blog posts (camp) paragraph(s) for demo camp page nodes'
+label: 'Create latest news posts (camp) paragraph(s) for demo camp page nodes'
 migration_dependencies: {  }
 source:
   plugin: embedded_data
   data_rows:
     -
-      id: blog_camp_1
+      id: news_camp_1
       parent_id: 1
-      title: Demo Latest blog posts (camp) 1
+      title: Demo Latest news posts (camp) 1
     -
-      id: blog_camp_2
+      id: news_camp_2
       parent_id: 2
-      title: Demo Latest blog posts (camp) 2
+      title: Demo Latest news posts (camp) 2
     -
-      id: blog_camp_3
+      id: news_camp_3
       parent_id: 3
-      title: Demo Latest blog posts (camp) 3
+      title: Demo Latest news posts (camp) 3
   ids:
     id:
       type: string
@@ -52,4 +52,4 @@ process:
   field_prgf_title: title
 destination:
   plugin: 'entity:paragraph'
-  default_bundle: latest_blog_posts_camp
+  default_bundle: latest_news_posts_camp
