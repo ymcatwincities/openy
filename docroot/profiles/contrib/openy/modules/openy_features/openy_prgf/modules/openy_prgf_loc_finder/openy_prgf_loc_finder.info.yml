@@ -7,7 +7,7 @@ dependencies:
   - field
   - node
   - openy_loc_branch
-  - openy_loc_camp
+#  - openy_loc_camp
   - openy_loc_facility
   - options
   - paragraphs
