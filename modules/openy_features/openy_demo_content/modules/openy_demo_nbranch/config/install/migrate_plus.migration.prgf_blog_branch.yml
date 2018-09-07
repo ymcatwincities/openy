@@ -4,30 +4,30 @@ dependencies:
   enforced:
     module:
       - openy_demo_nbranch
-id: openy_demo_prgf_blog_branch
+id: openy_demo_prgf_news_branch
 migration_tags: {  }
 migration_group: openy_demo_nbranch
-label: 'Create latest blog posts (branch) paragraph(s) for demo branch page nodes'
+label: 'Create latest news posts (branch) paragraph(s) for demo branch page nodes'
 migration_dependencies: {  }
 source:
   plugin: embedded_data
   data_rows:
     -
-      id: blog_branch_1
+      id: news_branch_1
       parent_id: 1
-      title: Demo Latest blog posts (branch) 1
+      title: Demo Latest news posts (branch) 1
     -
-      id: blog_branch_2
+      id: news_branch_2
       parent_id: 2
-      title: Demo Latest blog posts (branch) 2
+      title: Demo Latest news posts (branch) 2
     -
-      id: blog_branch_3
+      id: news_branch_3
       parent_id: 3
-      title: Demo Latest blog posts (branch) 3
+      title: Demo Latest news posts (branch) 3
     -
-      id: blog_branch_4
+      id: news_branch_4
       parent_id: 4
-      title: Demo Latest blog posts (branch) 4
+      title: Demo Latest news posts (branch) 4
   ids:
     id:
       type: string
@@ -58,7 +58,7 @@ process:
     plugin: skip_if_bundle_not_exist
     method: row
     entity: paragraph
-    bundle: latest_blog_posts_branch
+    bundle: latest_news_posts_branch
 destination:
   plugin: 'entity:paragraph'
-  default_bundle: latest_blog_posts_branch
+  default_bundle: latest_news_posts_branch
