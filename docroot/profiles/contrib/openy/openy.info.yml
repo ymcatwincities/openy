@@ -120,9 +120,9 @@ dependencies:
   - openy_taxonomy
   - openy_txnm_amenities
   - openy_txnm_color
-  - openy_location
-  - openy_loc_branch
-  - openy_loc_camp
+#  - openy_location
+#  - openy_loc_branch
+#  - openy_loc_camp
   - openy_loc_facility
   - openy_node_landing
   - openy_node_program

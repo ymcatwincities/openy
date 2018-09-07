@@ -14,7 +14,7 @@ dependencies:
   - metatag
   - node
   - openy_loc_branch
-  - openy_loc_camp
+#  - openy_loc_camp
   - openy_media_image
   - openy_node
   - openy_txnm_blog_category

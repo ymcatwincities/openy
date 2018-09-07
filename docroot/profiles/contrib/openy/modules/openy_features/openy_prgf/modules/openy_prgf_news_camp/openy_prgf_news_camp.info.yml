@@ -6,7 +6,7 @@ core: 8.x
 dependencies:
   - field
   - node
-  - openy_loc_camp
+#  - openy_loc_camp
   - openy_node_news
   - openy_prgf
   - paragraphs
