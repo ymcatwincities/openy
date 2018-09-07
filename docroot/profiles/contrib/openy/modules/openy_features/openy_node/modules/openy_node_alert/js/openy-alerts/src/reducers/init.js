@@ -56,8 +56,8 @@ export default function activityTypes(state = initState, action) {
         ...state,
         loading: false,
         alerts: alerts,
-        headerPager: newHeaderCount !== 1,
-        footerPager: newFooterCount !== 1
+        headerPager: newHeaderCount >= 2,
+        footerPager: newFooterCount >= 2
       };
 
     case FETCH_ALERTS_FAILURE:
@@ -175,8 +175,8 @@ export default function activityTypes(state = initState, action) {
       return {
         ...state,
         alerts: newAlerts,
-        headerPager: newHeaderCount !== 1,
-        footerPager: newFooterCount !== 1
+        headerPager: newHeaderCount >= 2,
+        footerPager: newFooterCount >= 2
       };
 
     default:
