@@ -53,8 +53,16 @@ export default function activityTypes(state = initState, action) {
             ) {
               return null;
             }
+            else {
+              return state.alerts.header.global[i];
+            }
           });
-          newAlerts.header = { global: newHeaderGlobal.filter(Boolean) };
+          if (typeof newAlerts.header === 'undefined') {
+              newAlerts.header = { global: newHeaderGlobal.filter(Boolean) };
+          }
+          else {
+              newAlerts.header.global = newHeaderGlobal.filter(Boolean);
+          }
         }
         if (state.alerts.header.hasOwnProperty('local')) {
           newHeaderLocal = Object.keys(state.alerts.header.local).map(i => {
@@ -64,8 +72,16 @@ export default function activityTypes(state = initState, action) {
             ) {
               return null;
             }
+            else {
+                return state.alerts.header.local[i];
+            }
           });
-          newAlerts.header = { local: newHeaderLocal.filter(Boolean) };
+            if (typeof newAlerts.header === 'undefined') {
+                newAlerts.header = { local: newHeaderLocal.filter(Boolean) };
+            }
+            else {
+                newAlerts.header.local = newHeaderLocal.filter(Boolean);
+            }
         }
       }
 
@@ -78,8 +94,16 @@ export default function activityTypes(state = initState, action) {
             ) {
               return null;
             }
+            else {
+                return state.alerts.footer.global[i];
+            }
           });
-          newAlerts.footer = { global: newFooterGlobal.filter(Boolean) };
+            if (typeof newAlerts.footer === 'undefined') {
+                newAlerts.footer = { global: newFooterGlobal.filter(Boolean) };
+            }
+            else {
+                newAlerts.footer.global = newFooterGlobal.filter(Boolean);
+            }
         }
         if (state.alerts.footer.hasOwnProperty('local')) {
           newFooterLocal = Object.keys(state.alerts.footer.local).map(i => {
@@ -89,8 +113,16 @@ export default function activityTypes(state = initState, action) {
             ) {
               return null;
             }
+            else {
+                return state.alerts.footer.local[i];
+            }
           });
-          newAlerts.footer = { local: newFooterLocal.filter(Boolean) };
+            if (typeof newAlerts.footer === 'undefined') {
+                newAlerts.footer = { local: newFooterLocal.filter(Boolean) };
+            }
+            else {
+                newAlerts.footer.local = newFooterLocal.filter(Boolean);
+            }
         }
       }
 

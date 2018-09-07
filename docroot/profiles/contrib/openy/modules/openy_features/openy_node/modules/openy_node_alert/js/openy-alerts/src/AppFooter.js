@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import HeaderAlertItem from './components/HeaderAlertItem/HeaderAlertItem';
+import FooterAlertItem from './components/FooterAlertItem/FooterAlertItem';
 import Slider from 'react-slick';
 import cookie from 'react-cookies';
 
@@ -37,9 +37,10 @@ class App extends Component {
       centerMode: true,
       centerPadding: '0px'
     };
-    const HeaderAlertItemList = () => {
+      let hil = null;
+    const FooterAlertItemList = () => {
       if (this.props.footer) {
-        return Object.keys(this.props.footer).map(i => {
+        hil = Object.keys(this.props.footer).map(i => {
           return this.props.footer[i].map(a => {
             if (
               (typeof this.state.alerts_dismiss !== 'undefined' &&
@@ -47,7 +48,7 @@ class App extends Component {
               typeof this.state.alerts_dismiss === 'undefined'
             ) {
               return (
-                <HeaderAlertItem
+                <FooterAlertItem
                   key={parseInt(a.id)}
                   alertId={parseInt(a.id)}
                   label={a.title}
@@ -64,6 +65,8 @@ class App extends Component {
             }
           });
         });
+          hil = hil.filter(Boolean);
+          return hil;
       } else {
         return null;
       }
@@ -74,7 +77,7 @@ class App extends Component {
           className={'footer-alerts-list alerts footer-alerts-list-processed'}
         >
           <Slider ref={c => (this.slider = c)} {...sliderSettings}>
-            {HeaderAlertItemList()}
+            {FooterAlertItemList()}
           </Slider>
           <div className="container">
             <div className="slick__counter hidden">
@@ -82,7 +85,7 @@ class App extends Component {
             </div>
             <div className="slick__arrow">
               <a
-                href="#"
+                href="#previous"
                 data-role="none"
                 className="slick-prev slick-arrow"
                 role="button"
@@ -92,7 +95,7 @@ class App extends Component {
                 Previous
               </a>
               <a
-                href="#"
+                href="#next"
                 data-role="none"
                 className="slick-next slick-arrow"
                 role="button"
