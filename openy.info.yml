@@ -64,6 +64,7 @@ dependencies:
   # OpenY
   - advanced_help_block
   - logger_entity
+  - openy_autocomplete_path
   - openy_block_custom_simple
   - openy_datalayer
   - openy_editor
