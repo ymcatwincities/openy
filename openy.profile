@@ -221,6 +221,9 @@ function openy_import_content(array &$install_state) {
   $migrate_operations = [];
   $uninstall_operations = [];
   $preset = \Drupal::state()->get('openy_preset') ?: 'complete';
+  if (function_exists('drush_print')) {
+    drush_print(dt('Preset: %preset', ['%preset' => $preset]));
+  }
   $preset_tags = [
     'standard' => 'openy_standard_installation',
     'extended' => 'openy_extended_installation',

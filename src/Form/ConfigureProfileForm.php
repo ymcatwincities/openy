@@ -13,7 +13,7 @@ use Drupal\Core\Extension\MissingDependencyException;
 class ConfigureProfileForm extends FormBase {
 
   const DEFAULT_PRESET = 'none';
-  const DEFAULT_PRESET_DRUSH = 'standard';
+  const DEFAULT_PRESET_DRUSH = 'complete';
 
   /**
    * {@inheritdoc}
@@ -27,9 +27,15 @@ class ConfigureProfileForm extends FormBase {
    *
    * @return mixed
    */
-  public static function getInstallationTypes() {
+  public static function getInstallationTypes($include_hidden = FALSE) {
     $path = drupal_get_path('profile', 'openy');
     $installation_types = Yaml::decode(file_get_contents($path . '/openy.installation_types.yml'));
+
+    foreach ($installation_types as $key => $installation_type) {
+      if (!empty($installation_type['hidden']) && !$include_hidden) {
+        unset($installation_types[$key]);
+      }
+    }
 
     return $installation_types;
   }
@@ -52,7 +58,7 @@ class ConfigureProfileForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
     $form['#title'] = $this->t('Select installation type');
 
-    $installation_types = self::getInstallationTypes();
+    $installation_types = self::getInstallationTypes(function_exists('drush_main'));
     $presets = ['' => $this->t('Choose One')];
     foreach ($installation_types as $key => $type) {
       $presets[$key] = $this->t($type['name']);
@@ -139,7 +145,7 @@ class ConfigureProfileForm extends FormBase {
    *   Presets info.
    */
   private static function getPresetsInfo() {
-    $installation_types = self::getInstallationTypes();
+    $installation_types = self::getInstallationTypes(TRUE);
     $presets_info = [];
     $packages_info = self::getPackages();
 
