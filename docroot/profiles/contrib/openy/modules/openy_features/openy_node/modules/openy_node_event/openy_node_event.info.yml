@@ -17,7 +17,7 @@ dependencies:
   - menu_ui
   - node
   - openy_loc_branch
-  - openy_loc_camp
+#  - openy_loc_camp
   - openy_media_image
   - openy_node
   - paragraphs
