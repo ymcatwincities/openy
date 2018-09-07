@@ -6,7 +6,7 @@ package: OpenY
 dependencies:
   - field
   - node
-  - openy_loc_camp
+#  - openy_loc_camp
   - openy_node_blog
   - openy_prgf
   - paragraphs
