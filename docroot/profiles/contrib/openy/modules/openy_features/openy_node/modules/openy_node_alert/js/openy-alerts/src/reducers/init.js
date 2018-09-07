@@ -7,12 +7,16 @@ import {
 import { CLOSE_ALERT } from '../actions/helpers';
 
 const initState = {
-  loading: false,
+  loading: true,
   error: null,
-  alerts: {}
+  alerts: {},
+  headerPager: false,
+  footerPager: false
 };
 
 export default function activityTypes(state = initState, action) {
+  let newHeaderCount = 0;
+  let newFooterCount = 0;
   switch (action.type) {
     case FETCH_ALERTS_BEGIN:
       return {
@@ -24,10 +28,36 @@ export default function activityTypes(state = initState, action) {
     case FETCH_ALERTS_SUCCESS:
       const alerts = action.payload;
 
+      if (
+        typeof alerts.header !== 'undefined' &&
+        typeof alerts.header.global !== 'undefined'
+      ) {
+        newHeaderCount = newHeaderCount + alerts.header.global.length;
+      }
+      if (
+        typeof alerts.header !== 'undefined' &&
+        typeof alerts.header.local !== 'undefined'
+      ) {
+        newHeaderCount = newHeaderCount + alerts.header.local.length;
+      }
+      if (
+        typeof alerts.footer !== 'undefined' &&
+        typeof alerts.footer.global !== 'undefined'
+      ) {
+        newFooterCount = newFooterCount + alerts.footer.global.length;
+      }
+      if (
+        typeof alerts.footer !== 'undefined' &&
+        typeof alerts.footer.local !== 'undefined'
+      ) {
+        newFooterCount = newFooterCount + alerts.footer.local.length;
+      }
       return {
         ...state,
         loading: false,
-        alerts: alerts
+        alerts: alerts,
+        headerPager: newHeaderCount !== 1,
+        footerPager: newFooterCount !== 1
       };
 
     case FETCH_ALERTS_FAILURE:
@@ -52,16 +82,14 @@ export default function activityTypes(state = initState, action) {
               parseInt(action.payload)
             ) {
               return null;
-            }
-            else {
+            } else {
               return state.alerts.header.global[i];
             }
           });
           if (typeof newAlerts.header === 'undefined') {
-              newAlerts.header = { global: newHeaderGlobal.filter(Boolean) };
-          }
-          else {
-              newAlerts.header.global = newHeaderGlobal.filter(Boolean);
+            newAlerts.header = { global: newHeaderGlobal.filter(Boolean) };
+          } else {
+            newAlerts.header.global = newHeaderGlobal.filter(Boolean);
           }
         }
         if (state.alerts.header.hasOwnProperty('local')) {
@@ -71,17 +99,15 @@ export default function activityTypes(state = initState, action) {
               parseInt(action.payload)
             ) {
               return null;
-            }
-            else {
-                return state.alerts.header.local[i];
+            } else {
+              return state.alerts.header.local[i];
             }
           });
-            if (typeof newAlerts.header === 'undefined') {
-                newAlerts.header = { local: newHeaderLocal.filter(Boolean) };
-            }
-            else {
-                newAlerts.header.local = newHeaderLocal.filter(Boolean);
-            }
+          if (typeof newAlerts.header === 'undefined') {
+            newAlerts.header = { local: newHeaderLocal.filter(Boolean) };
+          } else {
+            newAlerts.header.local = newHeaderLocal.filter(Boolean);
+          }
         }
       }
 
@@ -93,17 +119,15 @@ export default function activityTypes(state = initState, action) {
               parseInt(action.payload)
             ) {
               return null;
-            }
-            else {
-                return state.alerts.footer.global[i];
+            } else {
+              return state.alerts.footer.global[i];
             }
           });
-            if (typeof newAlerts.footer === 'undefined') {
-                newAlerts.footer = { global: newFooterGlobal.filter(Boolean) };
-            }
-            else {
-                newAlerts.footer.global = newFooterGlobal.filter(Boolean);
-            }
+          if (typeof newAlerts.footer === 'undefined') {
+            newAlerts.footer = { global: newFooterGlobal.filter(Boolean) };
+          } else {
+            newAlerts.footer.global = newFooterGlobal.filter(Boolean);
+          }
         }
         if (state.alerts.footer.hasOwnProperty('local')) {
           newFooterLocal = Object.keys(state.alerts.footer.local).map(i => {
@@ -112,23 +136,47 @@ export default function activityTypes(state = initState, action) {
               parseInt(action.payload)
             ) {
               return null;
-            }
-            else {
-                return state.alerts.footer.local[i];
+            } else {
+              return state.alerts.footer.local[i];
             }
           });
-            if (typeof newAlerts.footer === 'undefined') {
-                newAlerts.footer = { local: newFooterLocal.filter(Boolean) };
-            }
-            else {
-                newAlerts.footer.local = newFooterLocal.filter(Boolean);
-            }
+          if (typeof newAlerts.footer === 'undefined') {
+            newAlerts.footer = { local: newFooterLocal.filter(Boolean) };
+          } else {
+            newAlerts.footer.local = newFooterLocal.filter(Boolean);
+          }
         }
       }
 
+      if (
+        typeof newAlerts.header !== 'undefined' &&
+        typeof newAlerts.header.global !== 'undefined'
+      ) {
+        newHeaderCount = newHeaderCount + newAlerts.header.global.length;
+      }
+      if (
+        typeof newAlerts.header !== 'undefined' &&
+        typeof newAlerts.header.local !== 'undefined'
+      ) {
+        newHeaderCount = newHeaderCount + newAlerts.header.local.length;
+      }
+      if (
+        typeof newAlerts.footer !== 'undefined' &&
+        typeof newAlerts.footer.global !== 'undefined'
+      ) {
+        newFooterCount = newFooterCount + newAlerts.footer.global.length;
+      }
+      if (
+        typeof newAlerts.footer !== 'undefined' &&
+        typeof newAlerts.footer.local !== 'undefined'
+      ) {
+        newFooterCount = newFooterCount + newAlerts.footer.local.length;
+      }
       return {
         ...state,
-        alerts: newAlerts
+        alerts: newAlerts,
+        headerPager: newHeaderCount !== 1,
+        footerPager: newFooterCount !== 1
       };
 
     default:

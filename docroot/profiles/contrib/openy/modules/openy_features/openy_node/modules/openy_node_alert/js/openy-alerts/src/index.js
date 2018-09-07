@@ -32,7 +32,10 @@ if (typeof Drupal === 'undefined') {
   Drupal.behaviors.openy_alerts_app = {
     attach: context => {
       // Do not start on admin urls.
-      if (location.pathname.substring(1).startsWith('admin') || drupalSettings.path.currentPathIsAdmin === true) {
+      if (
+        location.pathname.substring(1).startsWith('admin') ||
+        drupalSettings.path.currentPathIsAdmin === true
+      ) {
         return;
       }
       // Insert header region for alerts after <header> element.
