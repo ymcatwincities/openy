@@ -188,11 +188,12 @@ locations:
   ultricies mi vitae est. Mauris placerat eleifend leo.</p>'
   description: '...'
   modules:
-    - openy_prgf_loc_finder
+    - openy_ckeditor
+    - openy_block_branch_amenities
     - openy_loc_branch
     - openy_prgf_amenities
+    - openy_prgf_loc_finder
     - openy_prgf_location_by_amenities
-    - openy_block_branch_amenities
 
 helpers:
   name: 'Helpers'
