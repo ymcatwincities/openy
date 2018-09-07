@@ -42,9 +42,10 @@ class App extends Component {
       centerMode: true,
       centerPadding: '0px'
     };
+    let hil = null;
     const HeaderAlertItemList = () => {
       if (this.props.header) {
-        return Object.keys(this.props.header).map(i => {
+          hil = Object.keys(this.props.header).map(i => {
           return this.props.header[i].map(a => {
             if (
               (typeof this.state.alerts_dismiss !== 'undefined' &&
@@ -69,6 +70,8 @@ class App extends Component {
             }
           });
         });
+          hil = hil.filter(Boolean);
+          return hil;
       } else {
         return null;
       }
@@ -87,7 +90,7 @@ class App extends Component {
             </div>
                   <div className="slick__arrow">
                       <a
-                          href="#"
+                          href="#previous"
                           data-role="none"
                           className="slick-prev slick-arrow"
                           role="button"
@@ -97,7 +100,7 @@ class App extends Component {
                           Previous
                       </a>
                       <a
-                          href="#"
+                          href="#next"
                           data-role="none"
                           className="slick-next slick-arrow"
                           role="button"
