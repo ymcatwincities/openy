@@ -233,10 +233,11 @@ function openy_lily_page_attachments_alter(array &$page) {
   // related to a camp, and the custom camp favicon has been set for the theme.
 
   // Exit if not a node page, or if the 'openy_loc_camp.camp_service' is not available.
-  if (!($node = \Drupal::request()->attributes->get('node')) || !($camp_service = \Drupal::service('openy_loc_camp.camp_service'))) {
+  if (!($node = \Drupal::request()->attributes->get('node')) || !(\Drupal::hasService('openy_loc_camp.camp_service'))) {
     return;
   }
 
+  $camp_service = \Drupal::service('openy_loc_camp.camp_service');
   // Exit if not a camp or related to a camp.
   if (!$camp_service->nodeHasOrIsCamp($node)) {
     return;
@@ -387,12 +388,14 @@ function openy_lily_preprocess_page(&$variables) {
   if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
     $node = $variables['node'];
     /** @var Drupal\openy_loc_camp\CampService $service */
-    if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
-      if ($service->nodeHasOrIsCamp($node)) {
-        $variables['page_class'] = 'is-camp';
-      }
-      if ($node->bundle() == 'branch') {
-        $variables['page_class'] = 'is-branch';
+    if (\Drupal::hasService('openy_loc_camp.camp_service')) {
+      if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
+        if ($service->nodeHasOrIsCamp($node)) {
+          $variables['page_class'] = 'is-camp';
+        }
+        if ($node->bundle() == 'branch') {
+          $variables['page_class'] = 'is-branch';
+        }
       }
     }
   }
