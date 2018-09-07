@@ -37,7 +37,7 @@ class App extends Component {
       centerMode: true,
       centerPadding: '0px'
     };
-      let hil = null;
+    let hil = null;
     const FooterAlertItemList = () => {
       if (this.props.footer) {
         hil = Object.keys(this.props.footer).map(i => {
@@ -65,8 +65,8 @@ class App extends Component {
             }
           });
         });
-          hil = hil.filter(Boolean);
-          return hil;
+        hil = hil.filter(Boolean);
+        return hil;
       } else {
         return null;
       }
@@ -83,7 +83,7 @@ class App extends Component {
             <div className="slick__counter hidden">
               <span className="current" /> of <span className="total" />
             </div>
-            <div className="slick__arrow">
+              {!this.props.footerPager && (<div className="slick__arrow">
               <a
                 href="#previous"
                 data-role="none"
@@ -104,7 +104,7 @@ class App extends Component {
               >
                 Next
               </a>
-            </div>
+            </div>)}
           </div>
         </div>
       </div>
@@ -124,7 +124,7 @@ const mapStateToProps = state => {
   return {
     alerts: state.init.alerts,
     header: state.init.alerts.header,
-    footer: state.init.alerts.footer
+    footerPager: state.init.footerPager
   };
 };
 
