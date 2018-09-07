@@ -83,28 +83,30 @@ class App extends Component {
             <div className="slick__counter hidden">
               <span className="current" /> of <span className="total" />
             </div>
-              {!this.props.footerPager && (<div className="slick__arrow">
-              <a
-                href="#previous"
-                data-role="none"
-                className="slick-prev slick-arrow"
-                role="button"
-                aria-disabled="true"
-                onClick={this.previous}
-              >
-                Previous
-              </a>
-              <a
-                href="#next"
-                data-role="none"
-                className="slick-next slick-arrow"
-                role="button"
-                aria-disabled="false"
-                onClick={this.next}
-              >
-                Next
-              </a>
-            </div>)}
+            {this.props.footerPager && (
+              <div className="slick__arrow">
+                <a
+                  href="#previous"
+                  data-role="none"
+                  className="slick-prev slick-arrow"
+                  role="button"
+                  aria-disabled="true"
+                  onClick={this.previous}
+                >
+                  Previous
+                </a>
+                <a
+                  href="#next"
+                  data-role="none"
+                  className="slick-next slick-arrow"
+                  role="button"
+                  aria-disabled="false"
+                  onClick={this.next}
+                >
+                  Next
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -123,7 +125,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     alerts: state.init.alerts,
-    header: state.init.alerts.header,
+    footer: state.init.alerts.footer,
     footerPager: state.init.footerPager
   };
 };
