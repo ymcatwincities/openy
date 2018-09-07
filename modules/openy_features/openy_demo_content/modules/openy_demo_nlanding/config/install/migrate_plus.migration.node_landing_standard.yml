@@ -22,6 +22,8 @@ source:
           header_content_id: homepage_banner
       content_ids:
         -
+          content_id: homepage_latest_news_posts
+        -
           content_id: homepage_grid
     -
       id: about
@@ -60,39 +62,6 @@ source:
           content_id: accelerator_housing
         -
           content_id: accelerator_education
-    -
-      id: lp_camp_page_1
-      title: 'Camp Colman page'
-      alias: '/camps/camp-colman/about'
-      layout: one_column
-      header_content_ids:
-        -
-          header_content_id: lp_camp_menu_1
-      content_ids:
-        -
-          content_id: camp_page_1_simple
-    -
-      id: lp_camp_page_2
-      title: 'Camp Orkila page'
-      alias: '/camps/camp-orkila/about'
-      layout: one_column
-      header_content_ids:
-        -
-          header_content_id: lp_camp_menu_2
-      content_ids:
-        -
-          content_id: camp_page_2_simple
-    -
-      id: lp_camp_page_3
-      title: 'Camp Terry page'
-      alias: '/camps/camp-terry/about'
-      layout: one_column
-      header_content_ids:
-        -
-          header_content_id: lp_camp_menu_3
-      content_ids:
-        -
-          content_id: camp_page_3_simple
   ids:
     id:
       type: string
@@ -169,6 +138,7 @@ process:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_grid_content
           - openy_demo_lp_paragraph_teaser
+          - openy_demo_lp_paragraph_latest_news_posts
         source: content_id
       target_revision_id:
         plugin: migration
@@ -176,6 +146,7 @@ process:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_grid_content
           - openy_demo_lp_paragraph_teaser
+          - openy_demo_lp_paragraph_latest_news_posts
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -185,6 +156,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_gallery
     - openy_demo_lp_paragraph_simple
     - openy_demo_lp_paragraph_grid_content
+    - openy_demo_lp_paragraph_latest_news_posts
     - openy_demo_lp_paragraph_teaser
     - openy_demo_lp_paragraph_banner
     - openy_demo_lp_paragraph_small_banner
