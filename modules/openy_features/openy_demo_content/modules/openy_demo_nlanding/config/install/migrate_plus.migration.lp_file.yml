@@ -7,7 +7,7 @@ dependencies:
 id: openy_demo_lp_file
 migration_tags: { }
 migration_group: openy_demo_nlanding
-label: 'Demo landing page files'
+label: 'Import demo landing page files'
 source:
   plugin: embedded_data
   data_rows:

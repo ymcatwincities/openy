@@ -2,6 +2,7 @@ name: 'OpenY Demo Node Program Subcategory'
 description: 'OpenY Demo Node Program Subcategory.'
 type: module
 core: 8.x
+version: 8.x-1.0
 package: OpenY
 dependencies:
   - migrate

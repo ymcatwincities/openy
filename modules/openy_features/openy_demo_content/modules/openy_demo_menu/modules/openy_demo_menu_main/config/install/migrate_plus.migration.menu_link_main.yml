@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_menu_main
 id: openy_demo_menu_link_main
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_menu
 label: 'Create demo main menu links'
 migration_dependencies:

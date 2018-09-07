@@ -54,6 +54,11 @@ process:
     plugin: migration
     migration: openy_demo_node_blog
     source: blog_ids
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: featured_blogs
 destination:
   plugin: 'entity:paragraph'
   default_bundle: featured_blogs

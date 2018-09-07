@@ -1,10 +1,13 @@
 dependencies:
   module:
     - openy_media_image
+  enforced:
+    module:
+      - openy_demo_nblog
 id: openy_demo_nblog_media_image
 migration_tags: { }
 migration_group: openy_demo_nblog
-label: Media Images
+label: Import demo blog media images
 source:
   plugin: embedded_data
   data_rows:

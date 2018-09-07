@@ -23,39 +23,16 @@ class ContentSelectForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
     $form['#title'] = $this->t('Content');
 
-    $options = [
-      'alerts' => $this->t('Demo Alerts'),
-      'branches' => $this->t('Demo Branches'),
-      'camps' => $this->t('Demo Camps'),
-      'blog' => $this->t('Demo Blog Posts'),
-      'news' => $this->t('Demo News Posts'),
-      'event' => $this->t('Demo Event Posts'),
-      'programs' => $this->t('Demo Programs & Categories'),
-      'landing' => $this->t('Demo Landing Pages'),
-      'menus' => $this->t('Demo Menus'),
-      'facility' => $this->t('Demo Facilities'),
-      'membership' => $this->t('Demo Memberships'),
-      'webform' => $this->t('Demo Webform'),
-      'gxp' => $this->t('GroupExPro classes from Twin Cities'),
-      'campaign' => $this->t('Demo Campaign (requires Landing Pages)'),
-    ];
-
-    $settings_options = [
-      'addthis' => $this->t('AddThis Demo Credentials'),
+    $install_options = [
+      1 => $this->t('Yes'),
+      0 => $this->t('No'),
     ];
 
     $form['content'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Choose content to import'),
-      '#default_value' => array_keys($options),
-      '#options' => $options,
-    ];
-
-    $form['settings'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Choose settings to import'),
-      '#default_value' => array_keys($settings_options),
-      '#options' => $settings_options,
+      '#type' => 'radios',
+      '#title' => $this->t('Do you want to install demo content?'),
+      '#default_value' => 1,
+      '#options' => $install_options,
     ];
 
     $form['actions'] = [
@@ -73,7 +50,7 @@ class ContentSelectForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $GLOBALS['install_state']['openy']['content'] = array_filter($form_state->getValue('content'));
+    $GLOBALS['install_state']['openy']['content'] = $form_state->getValue('content');
   }
 
 }

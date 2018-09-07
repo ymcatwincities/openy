@@ -5,6 +5,7 @@
  * Defines the OpenY Profile install screen by modifying the install form.
  */
 
+use Drupal\openy\Form\ConfigureProfileForm;
 use Drupal\openy\Form\ContentSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
 use Drupal\openy\Form\UploadFontMessageForm;
@@ -16,6 +17,15 @@ use Drupal\Core\Routing\RouteMatchInterface;
  */
 function openy_install_tasks() {
   return [
+    'openy_select_features' => [
+      'display_name' => t('Select installation type'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => ConfigureProfileForm::class,
+    ],
+    'openy_install_features' => [
+      'type' => 'batch',
+    ],
     'openy_select_content' => [
       'display_name' => t('Import demo content'),
       'display' => TRUE,
@@ -90,179 +100,111 @@ function openy_gtranslate_place_blocks(array &$install_state) {
  *   Mapping array.
  */
 function openy_demo_content_configs_map($key = NULL) {
-  // Maps selection to migrations.
+  // Maps installation presets to demo content.
   $map = [
-    'required' => [],
-    'optional' => [
-      'openy_demo_ahb' => [
-        'openy_demo_entity_ahb',
-      ],
-      'openy_demo_nsocial_post' => [
-        'openy_demo_node_social_post',
-      ],
-      'openy_demo_tcolor' => [
-        'openy_demo_taxonomy_term_color',
-      ],
-      'openy_demo_tarea' => [
-        'openy_demo_taxonomy_term_area',
-      ],
-      'openy_demo_tblog' => [
-        'openy_demo_taxonomy_term_blog_category',
-      ],
-      'openy_demo_tnews' => [
-        'openy_demo_taxonomy_term_news_category',
-      ],
-      'openy_demo_tfacility' => [
-        'openy_demo_taxonomy_term_facility_type',
-      ],
-      'openy_demo_tfitness' => [
-        'openy_demo_taxonomy_term_fitness_category',
-      ],
-      'openy_demo_tamenities' => [
-        'openy_demo_taxonomy_term_amenities',
-      ],
-      'openy_demo_bfooter' => [
-        'openy_demo_block_content_footer',
-      ],
-      'openy_demo_bmicrosites_menu' => [
-        'openy_demo_block_microsites_menu',
-      ],
-      'openy_demo_addthis' => [],
-      'openy_demo_bsimple' => [
-        'openy_demo_block_content_simple',
-      ],
-      'openy_demo_bamenities' => [
-        'openy_demo_block_content_amenities',
-      ],
+    'complete' => [
+      'openy_demo_nalert',
+      'openy_demo_nbranch',
+      'openy_demo_ncamp',
+      'openy_demo_nblog',
+      'openy_demo_nnews',
+      'openy_demo_nevent',
+      'openy_demo_nfacility',
+      'openy_demo_nlanding',
+      'openy_demo_nmbrshp',
+      'openy_demo_nprogram',
+      'openy_demo_ncategory',
+      'openy_demo_nclass',
+      'openy_demo_nsessions',
+      'openy_demo_menu',
+      'openy_demo_menu_main',
+      'openy_demo_menu_footer',
+      'openy_demo_webform',
+      'openy_demo_ahb',
+      'openy_demo_nsocial_post',
+      'openy_demo_tcolor',
+      'openy_demo_tarea',
+      'openy_demo_tblog',
+      'openy_demo_tnews',
+      'openy_demo_tfacility',
+      'openy_demo_tamenities',
+      'openy_demo_bfooter',
+      'openy_demo_bmicrosites_menu',
+      'openy_demo_addthis',
+      'openy_demo_bsimple',
+      'openy_demo_bamenities',
+      'openy_demo_tfitness',
+      'openy_demo_taxonomy',
+      // @todo Uncomment this code when errors with Campaign demo content are fixed.
+      /*
+      'openy_demo_ncampaign',
+      'openy_demo_ninterstitial',
+      */
+      'openy_gxp',
     ],
-    'alerts' => [
-      'openy_demo_nalert' => [
-        'openy_demo_node_alert',
-      ],
+    'standard' => [
+      'openy_demo_nalert',
+      'openy_demo_nlanding',
+      'openy_demo_menu',
+      'openy_demo_nnews',
+      'openy_demo_menu_main',
+      'openy_demo_menu_footer',
+      'openy_demo_webform',
+      'openy_demo_ahb',
+      'openy_demo_tcolor',
+      'openy_demo_tamenities',
+      'openy_demo_bfooter',
+      'openy_demo_taxonomy',
     ],
-    'branches' => [
-      'openy_demo_nbranch' => [
-        'openy_demo_node_branch',
-      ],
+    'extended' => [
+      'openy_demo_nalert',
+      'openy_demo_nbranch',
+      'openy_demo_nevent',
+      'openy_demo_nnews',
+      'openy_demo_nlanding',
+      'openy_demo_nmbrshp',
+      'openy_demo_menu',
+      'openy_demo_menu_main',
+      'openy_demo_menu_footer',
+      'openy_demo_webform',
+      'openy_demo_ahb',
+      'openy_demo_tnews',
+      'openy_demo_tcolor',
+      'openy_demo_tarea',
+      'openy_demo_tamenities',
+      'openy_demo_bfooter',
+      'openy_demo_addthis',
+      'openy_demo_bsimple',
+      'openy_demo_bamenities',
+      'openy_demo_taxonomy',
     ],
-    'camps' => [
-      'openy_demo_ncamp' => [
-        'openy_demo_node_camp',
-        'openy_demo_node_camp_blog',
-      ],
-    ],
-    'blog' => [
-      'openy_demo_nblog' => [
-        'openy_demo_node_blog',
-      ],
-    ],
-    'news' => [
-      'openy_demo_nnews' => [
-        'openy_demo_node_news',
-        'openy_demo_news_landing',
-        'openy_demo_menu_link_footer_news',
-      ],
-    ],
-    'event' => [
-      'openy_demo_nevent' => [
-        'openy_demo_node_event',
-        'openy_demo_event_landing',
-      ],
-    ],
-    'facility' => [
-      'openy_demo_nfacility' => [
-        'openy_demo_node_facility',
-      ],
-    ],
-    'landing' => [
-      'openy_demo_nlanding' => [
-        'openy_demo_node_landing',
-      ],
-    ],
-    /*
-    'campaign' => [
-      'openy_demo_ncampaign' => [
-        'openy_demo_node_campaign_page',
-        'openy_demo_node_campaign',
-      ],
-    ],
-    'interstitial' => [
-      'openy_demo_ninterstitial' => [
-        'openy_demo_node_interstitial_page',
-      ],
-    ],
-    */
-    'membership' => [
-      'openy_demo_nmbrshp' => [
-        'openy_demo_node_membership',
-      ],
-    ],
-    'programs' => [
-      'openy_demo_nprogram' => [
-        'openy_demo_node_program',
-      ],
-    ],
-    'categories' => [
-      'openy_demo_ncategory' => [
-        'openy_demo_node_program_subcategory',
-      ],
-    ],
-    'activities' => [
-      'openy_demo_nclass' => [
-        'openy_demo_node_activity'
-      ]
-    ],
-    'classes_01' => [
-      'openy_demo_nclass' => [
-        'openy_demo_node_class_01',
-      ],
-    ],
-    'classes_02' => [
-      'openy_demo_nclass' => [
-        'openy_demo_node_class_02',
-      ],
-    ],
-    'sessions_01' => [
-      'openy_demo_nsessions' => [
-        'openy_demo_node_session_01',
-      ],
-    ],
-    'sessions_02' => [
-      'openy_demo_nsessions' => [
-        'openy_demo_node_session_02',
-      ],
-    ],
-    'sessions_03' => [
-      'openy_demo_nsessions' => [
-        'openy_demo_node_session_03',
-      ],
-    ],
-    'sessions_04' => [
-      'openy_demo_nsessions' => [
-        'openy_demo_node_session_04',
-      ],
-    ],
-    'home_alt' => [
-      'openy_demo_nhome_alt' => [
-        'openy_demo_node_home_alt_landing',
-      ],
-    ],
-    'menus' => [
-      'openy_demo_menu_main' => [
-        'openy_demo_menu_link_main',
-      ],
-      'openy_demo_menu_footer' => [
-        'openy_demo_menu_link_footer',
-      ],
-    ],
-    'webform' => [
-      'openy_demo_webform' => [
-        'openy_demo_webform_content',
-      ],
-    ],
+
   ];
   
   return array_key_exists($key, $map) ? $map[$key] : [];
+}
+
+/**
+ * Create batch for enabling features.
+ *
+ * @param array $install_state
+ *   Installation parameters.
+ *
+ * @return array
+ *   Batch.
+ */
+function openy_install_features(array &$install_state) {
+  $module_operations = [];
+
+  $preset = $install_state['openy']['preset'];
+  \Drupal::state()->set('openy_preset', $preset);
+  $modules = ConfigureProfileForm::getModulesToInstallWithDependencies($preset);
+
+  foreach ($modules as $module) {
+    $module_operations[] = ['openy_enable_module', (array) $module];
+  }
+
+  return ['operations' => $module_operations];
 }
 
 /**
@@ -277,64 +219,39 @@ function openy_demo_content_configs_map($key = NULL) {
 function openy_import_content(array &$install_state) {
   $module_operations = [];
   $migrate_operations = [];
+  $uninstall_operations = [];
+  $preset = \Drupal::state()->get('openy_preset') ?: 'complete';
+  $preset_tags = [
+    'standard' => 'openy_standard_installation',
+    'extended' => 'openy_extended_installation',
+    'complete' => 'openy_complete_installation',
+  ];
+  $migration_tag = $preset_tags[$preset];
 
-  if (!empty($install_state['openy']['content']['webform'])) {
-    // Install webform feature - it's not handled as content migration.
-    openy_enable_module('openy_demo_webform');
-    unset($install_state['openy']['content']['webform']);
+  if ($install_state['openy']['content']) {
+    // If option has been selected build demo modules installation operations array.
+    _openy_import_content_helper($module_operations, $preset);
+    // Add migration import by tag to migration operations array.
+    $migrate_operations[] = ['openy_import_migration', (array) $migration_tag];
+    if ($preset == 'complete') {
+      // Add demo content Program Event Framework landing pages manually.
+      // Do it as the last step so menu items are in place.
+      $migrate_operations[] = ['openy_demo_nlanding_pef_pages', []];
+      // Import GroupExPro classes. They are not handled as content migration.
+      $migrate_operations[] = ['openy_gxp_import_tc', []];
+    }
+    // Build demo modules uninstall array to disable migrations with demo content/
+    _openy_remove_migrations_helper($uninstall_operations, $preset);
   }
-
-  // Import GroupExPro classes. They are not handled as content migration.
-  $importGxp = !empty($install_state['openy']['content']['gxp']);
-  unset($install_state['openy']['content']['gxp']);
-
-  // Build required migrations operations arrays.
-  _openy_import_content_helper($module_operations, $migrate_operations, 'required');
-
-  // Build optional migrations operations arrays, only if at least one option
-  // has been selected.
-  if (!empty($install_state['openy']['content'])) {
-    _openy_import_content_helper($module_operations, $migrate_operations, 'optional');
-  }
-
-  // Add home_alt if landing is not included.
-  if (!in_array('landing', $install_state['openy']['content'])) {
-    $install_state['openy']['content'][] = 'home_alt';
-  }
-
-  if (in_array('programs', $install_state['openy']['content'])) {
-    $install_state['openy']['content'][] = 'categories';
-    $install_state['openy']['content'][] = 'activities';
-    $install_state['openy']['content'][] = 'classes_01';
-    $install_state['openy']['content'][] = 'classes_02';
-    $install_state['openy']['content'][] = 'sessions_01';
-    $install_state['openy']['content'][] = 'sessions_02';
-    $install_state['openy']['content'][] = 'sessions_03';
-    $install_state['openy']['content'][] = 'sessions_04';
-    $install_state['openy']['content'][] = 'interstitial';
-  }
-
-  // Campaign requires Landing.
-  if (in_array('campaign', $install_state['openy']['content']) && !in_array('landing', $install_state['openy']['content'])) {
-    $install_state['openy']['content'][] = 'landing';
-  }
-
-  // Build migrations operations arrays, for selected content.
-  foreach ($install_state['openy']['content'] as $content) {
-    _openy_import_content_helper($module_operations, $migrate_operations, $content);
-  }
-
-  // Add demo content Program Event Framework landing pages manually. Do it as
-  // so last step so menu items are in place.
-  $migrate_operations[] = ['openy_demo_nlanding_pef_pages', []];
-
-  if ($importGxp) {
-    openy_enable_module('openy_gxp');
-    $migrate_operations[] = ['openy_gxp_import_tc', []];
+  else {
+    // Add homepage alternative if demo content is not enabled.
+    $module_operations[] = ['openy_enable_module', (array) 'openy_demo_nhome_alt'];
+    $migrate_operations[] = ['openy_import_migration', (array) 'openy_demo_home_alt'];
+    $uninstall_operations[] = ['openy_uninstall_module', (array) 'openy_demo_home_alt'];
   }
 
   // Combine operations module enable before of migrations.
-  return ['operations' => array_merge($module_operations, $migrate_operations)];
+  return ['operations' => array_merge($module_operations, $migrate_operations, $uninstall_operations)];
 }
 
 /**
@@ -368,6 +285,9 @@ function openy_discover_broken_paragraphs(array &$install_state) {
    */
   $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
     foreach ($tables as $table) {
+      if (!\Drupal::database()->schema()->tableExists($table)) {
+        continue;
+      }
       // Select all paragraphs that have "broken" as plugin_id.
       $query = \Drupal::database()->select($table, 'ptable');
       $query->fields('ptable');
@@ -418,6 +338,9 @@ function openy_fix_configured_paragraph_blocks(array &$install_state) {
   ];
 
   foreach ($tables as $table) {
+    if (!\Drupal::database()->schema()->tableExists($table)) {
+      continue;
+    }
     $query = \Drupal::database()
       ->select($table, 'ptable');
     $query->fields('ptable');
@@ -450,21 +373,34 @@ function openy_fix_configured_paragraph_blocks(array &$install_state) {
  *
  * @param array $module_operations
  *   List of module operations.
- * @param array $migrate_operations
- *   List of migrate operations.
  * @param string $key
  *   Key of the section in the mapping.
  */
-function _openy_import_content_helper(array &$module_operations, array &$migrate_operations, $key) {
+function _openy_import_content_helper(array &$module_operations, $key) {
   $modules = openy_demo_content_configs_map($key);
   if (empty($modules)) {
     return;
   }
-  foreach ($modules as $key => $migrations) {
-    $module_operations[] = ['openy_enable_module', (array) $key];
-    foreach ($migrations as $migration) {
-      $migrate_operations[] = ['openy_import_migration', (array) $migration];
-    }
+  foreach ($modules as $module) {
+    $module_operations[] = ['openy_enable_module', (array) $module];
+  }
+}
+
+/**
+ * Demo content migrations remove helper.
+ *
+ * @param array $module_operations
+ *   List of module operations.
+ * @param string $key
+ *   Key of the section in the mapping.
+ */
+function _openy_remove_migrations_helper(array &$module_operations, $key) {
+  $modules = openy_demo_content_configs_map($key);
+  if (empty($modules)) {
+    return;
+  }
+  foreach ($modules as $module) {
+    $module_operations[] = ['openy_uninstall_module', (array) $module];
   }
 }
 
@@ -481,14 +417,26 @@ function openy_enable_module($module_name) {
 }
 
 /**
- * Import single migration (with dependencies).
+ * Uninstall module with demo content.
  *
- * @param string $migration_id
- *   Migration ID.
+ * @param string $module_name
+ *   Module name.
  */
-function openy_import_migration($migration_id) {
+function openy_uninstall_module($module_name) {
+  /** @var \Drupal\Core\Extension\ModuleInstaller $service */
+  $service = \Drupal::service('module_installer');
+  $service->uninstall([$module_name]);
+}
+
+/**
+ * Import migrations with specified tag.
+ *
+ * @param string $migration_tag
+ *   Migration tag.
+ */
+function openy_import_migration($migration_tag) {
   $importer = \Drupal::service('openy_migrate.importer');
-  $importer->import($migration_id);
+  $importer->importByTag($migration_tag);
 }
 
 /**
@@ -519,6 +467,11 @@ function openy_preprocess_block(&$variables) {
   }
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter.
+ *
+ * Add description how to use CSS Editor on the theme configuration page.
+ */
 function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (isset($form['css_editor'])) {
     // Add short manual how to use CSS Editor inside the theme.
@@ -529,7 +482,7 @@ function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form
 
     $css_editor_info = [
       '#prefix' => '<div class="description">',
-      '#markup' => t('In order to change CSS on each particular page you 
+      '#markup' => t('In order to change CSS on each particular page you
       should use the following selectors:<br/>
       - .page-node-type-{node type};<br/>
       - .node-id-{node ID};<br/>
@@ -542,6 +495,11 @@ function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form
   }
 }
 
+/**
+ * Implements hook_help().
+ *
+ * Add description how to use CSS Editor to help.
+ */
 function openy_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'system.theme_settings_theme':
@@ -556,5 +514,17 @@ function openy_help($route_name, RouteMatchInterface $route_match) {
       }
 
       break;
+  }
+}
+
+/**
+ * Implements hook_install_tasks_alter().
+ */
+function openy_install_tasks_alter(&$tasks, $install_state) {
+  // Remove 3rd party services installation task for standard preset.
+  if (!empty(\Drupal::state()->get('openy_preset')) &&
+    \Drupal::state()->get('openy_preset') == 'standard' &&
+    isset($tasks["openy_third_party_services"])) {
+      unset($tasks["openy_third_party_services"]);
   }
 }

@@ -81,5 +81,4 @@ migration_dependencies:
   required:
     - openy_demo_lp_paragraph_news_small_banner
     - openy_demo_lp_paragraph_news_posts_listing
-  optional:
     - openy_demo_node_news

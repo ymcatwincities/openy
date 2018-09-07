@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - openy_demo_bmicrosites_menu
 id: openy_demo_block_microsites_menu
 migration_tags: {  }
 migration_group: openy_demo_mblock

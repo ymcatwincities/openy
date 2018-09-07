@@ -10,3 +10,4 @@ dependencies:
   - system
   - user
   - views
+  - openy_menu

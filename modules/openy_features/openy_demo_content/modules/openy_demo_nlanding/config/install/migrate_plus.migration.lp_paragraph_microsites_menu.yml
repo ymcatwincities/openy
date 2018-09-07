@@ -45,6 +45,11 @@ process:
     plugin: migration
     migration: openy_demo_block_microsites_menu
     source: block_id
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: microsites_menu
 destination:
   plugin: 'entity:paragraph'
   default_bundle: microsites_menu

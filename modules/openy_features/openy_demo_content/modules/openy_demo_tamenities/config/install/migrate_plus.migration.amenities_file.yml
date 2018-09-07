@@ -7,7 +7,7 @@ dependencies:
 id: openy_demo_amenities_file
 migration_tags: { }
 migration_group: openy_demo_term
-label: 'Demo Amenities files'
+label: 'Import demo amenities files'
 source:
   plugin: embedded_data
   data_rows:

@@ -135,6 +135,11 @@ process:
     -
       plugin: default_value
       default_value: NULL
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: featured_content
 destination:
   plugin: 'entity:paragraph'
   default_bundle: featured_content

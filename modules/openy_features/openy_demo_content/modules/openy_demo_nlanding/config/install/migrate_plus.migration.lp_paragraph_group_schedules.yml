@@ -41,6 +41,11 @@ process:
   parent_field_name:
     plugin: default_value
     default_value: field_header_content
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: group_schedules
 destination:
   plugin: 'entity:paragraph'
   default_bundle: group_schedules

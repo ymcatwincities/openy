@@ -4,6 +4,7 @@ dependencies:
   enforced:
     module:
       - openy_loc_branch
+      - openy_demo_nbranch
 id: openy_demo_prgf_grid_columns
 migration_tags: {  }
 migration_group: openy_demo_nbranch
@@ -376,6 +377,11 @@ process:
     plugin: default_value
     source: link_text
     default_value: NULL
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: grid_content
 destination:
   plugin: 'entity:paragraph'
   default_bundle: grid_columns

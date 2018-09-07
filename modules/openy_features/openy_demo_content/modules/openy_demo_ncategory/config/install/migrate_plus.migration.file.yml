@@ -1,10 +1,13 @@
 dependencies:
   module:
     - file
+  enforced:
+    module:
+      - openy_demo_ncategory
 id: openy_demo_ncategory_file
 migration_tags: { }
 migration_group: openy_demo_ncategory
-label: 'Demo program category files'
+label: 'Import demo program category files'
 source:
   plugin: embedded_data
   data_rows:

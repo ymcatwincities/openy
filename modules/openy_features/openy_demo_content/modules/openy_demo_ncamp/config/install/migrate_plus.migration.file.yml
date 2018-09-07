@@ -1,10 +1,13 @@
 dependencies:
   module:
     - file
+  enforced:
+    module:
+      - openy_demo_ncamp
 id: openy_demo_ncamp_file
 migration_tags: { }
 migration_group: openy_demo_ncamp
-label: Files
+label: 'Import demo camp files'
 source:
   plugin: embedded_data
   data_rows:
