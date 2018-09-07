@@ -35,7 +35,7 @@ source:
       category: 1
       related: null
       image: 2
-      promote: 0
+      promote: 1
       addthis: 1
       body: >
         <ul>
@@ -87,7 +87,7 @@ source:
       category: 2
       related: null
       image: 3
-      promote: 0
+      promote: 1
       addthis: 1
       body: >
         <p>By Glen Gunderson</p>
@@ -201,7 +201,7 @@ source:
       category: 4
       related: null
       image: 6
-      promote: 0
+      promote: 1
       addthis: 1
       body: >
         <p><strong>September 15 to October 15 celebrate LatinX Heritage Month with the YMCA. Join free events across
@@ -234,7 +234,7 @@ source:
       category: 5
       related: null
       image: 7
-      promote: 0
+      promote: 1
       addthis: 1
       body: >
         <h3>Breathe, Stretch, Re-charge</h3>
