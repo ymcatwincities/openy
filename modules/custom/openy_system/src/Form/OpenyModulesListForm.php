@@ -84,6 +84,10 @@ class OpenyModulesListForm extends ModulesListForm {
    *   The form row for the given module.
    */
   protected function buildPackageRow(array $module) {
+    // Set the basic properties. Should be present to avoid notices in template_preprocess_system_modules_details()
+    $row['#required'] = [];
+    $row['#requires'] = [];
+    $row['#required_by'] = [];
     // Get human readable names of  modules in package.
     $module_names = [];
     foreach ($module['modules'] as $name) {
@@ -116,11 +120,13 @@ class OpenyModulesListForm extends ModulesListForm {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $packages = $this->getPackages();
     $modules_to_install = [];
+    $packages_to_install = [];
     $values = $form_state->getValue('modules', FALSE);
     // Get list of modules to install for selected to enable packages.
     foreach ($values as $key => $value) {
       if ($value['enable'] === 1) {
         $modules_to_install = array_merge($modules_to_install, $packages[$key]['modules']);
+        $packages_to_install[] = $packages[$key]['name'];
       }
     }
     // Remove from list installed modules.
@@ -134,9 +140,9 @@ class OpenyModulesListForm extends ModulesListForm {
     if (!empty($modules_to_install)) {
       try {
         $this->moduleInstaller->install($modules_to_install);
-        drupal_set_message($this->formatPlural(count($modules_to_install), 'Module %name has been enabled.', '@count modules have been enabled: %names.', [
-          '%name' => $modules_to_install[0],
-          '%names' => implode(', ', $modules_to_install),
+        drupal_set_message($this->formatPlural(count($packages_to_install), 'Package %name has been enabled.', '@count packages have been enabled: %names.', [
+          '%name' => $packages_to_install[0],
+          '%names' => implode(', ', $packages_to_install),
         ]));
       } catch (PreExistingConfigException $e) {
         $config_objects = $e->flattenConfigObjects($e->getConfigObjects());
