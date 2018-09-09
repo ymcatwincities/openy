@@ -4,6 +4,7 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
+  - better_exposed_filters
   - content_moderation
   - datalayer
   - field
@@ -12,3 +13,4 @@ dependencies:
   - paragraphs
   - views
   - views_field_formatter
+  - views_block_filter_block

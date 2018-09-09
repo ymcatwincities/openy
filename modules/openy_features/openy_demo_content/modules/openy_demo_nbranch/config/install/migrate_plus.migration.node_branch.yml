@@ -50,7 +50,7 @@ source:
         -
           content_id: branch_3c_1
         -
-          content_id: blog_branch_1
+          content_id: news_branch_1
         -
           content_id: group_schedules_1
         -
@@ -87,7 +87,7 @@ source:
         -
           content_id: branch_3c_2
         -
-          content_id: blog_branch_2
+          content_id: news_branch_2
         -
           content_id: group_schedules_2
         -
@@ -131,7 +131,7 @@ source:
         -
           content_id: branch_3c_3
         -
-          content_id: blog_branch_3
+          content_id: news_branch_3
         -
           content_id: group_schedules_3
         -
@@ -162,7 +162,7 @@ source:
         -
           content_id: branch_3c_4
         -
-          content_id: blog_branch_4
+          content_id: news_branch_4
         -
           content_id: group_schedules_4
         -
@@ -248,7 +248,7 @@ process:
         target_id:
           plugin: migration
           migration:
-            - openy_demo_prgf_blog_branch
+            - openy_demo_prgf_news_branch
             - openy_demo_prgf_grid_content
             - openy_demo_prgf_group_schedules
             - openy_demo_prgf_3c_branch
@@ -256,7 +256,7 @@ process:
         target_revision_id:
           plugin: migration
           migration:
-            - openy_demo_prgf_blog_branch
+            - openy_demo_prgf_news_branch
             - openy_demo_prgf_grid_content
             - openy_demo_prgf_group_schedules
             - openy_demo_prgf_3c_branch
@@ -278,7 +278,7 @@ migration_dependencies:
     - openy_demo_taxonomy_term_area
     - openy_demo_taxonomy_term_amenities
     - openy_demo_prgf_gallery
-    - openy_demo_prgf_blog_branch
+    - openy_demo_prgf_news_branch
     - openy_demo_prgf_grid_content
     - openy_demo_prgf_group_schedules
     - openy_demo_prgf_3c_branch
