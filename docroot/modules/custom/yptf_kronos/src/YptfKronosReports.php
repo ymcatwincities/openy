@@ -445,11 +445,11 @@ class YptfKronosReports {
     $this->kronosData = FALSE;
     $kronos_report_day = $this->kronosReportDay;
     $kronos_shift_days = $this->kronosReportShiftDays;
-    if ($week_day = date("w") < 2) {
-      foreach ($kronos_shift_days as &$kronos_shift_day) {
-        $kronos_shift_day -= 7;
-      }
-    }
+//    if ($week_day = date("w") < 2) {
+//      foreach ($kronos_shift_days as &$kronos_shift_day) {
+//        $kronos_shift_day -= 7;
+//      }
+//    }
     $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day));
     $kronos_data_raw = $kronos_file = '';
     foreach ($kronos_shift_days as $shift) {
