@@ -537,8 +537,8 @@ class YptfKronosReports {
 
           $tokens['body'] = $enabled_setting ? str_replace($report_tokens[$report_type], $token['report'], $body) : $body;
           $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
-          $tokens['subject'] = str_replace('[report-start-date]', date("d/m/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
-          $tokens['subject'] = str_replace('[report-end-date]', date("d/m/Y", strtotime($this->dates['EndDate'])), $tokens['subject']);
+          $tokens['subject'] = str_replace('[report-start-date]', date("m/d/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
+          $tokens['subject'] = str_replace('[report-end-date]', date("m/d/Y", strtotime($this->dates['EndDate'])), $tokens['subject']);
 
           // Check whether we need to send the emails.
           if ($this->hasErrors() && $this->sendWithErrors == FALSE) {
