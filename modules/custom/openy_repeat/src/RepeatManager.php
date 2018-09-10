@@ -219,42 +219,55 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $session_instances = [];
 
     $weekday_mapping = [
-      'sunday' => '1',
-      'monday' => '2',
-      'tuesday' => '3',
-      'wednesday' => '4',
-      'thursday' => '5',
-      'friday' => '6',
-      'saturday' => '7',
+      'monday' => '1',
+      'tuesday' => '2',
+      'wednesday' => '3',
+      'thursday' => '4',
+      'friday' => '5',
+      'saturday' => '6',
+      'sunday' => '7',
     ];
 
     foreach ($session_schedule['dates'] as $schedule_item) {
-      if ($schedule_item['frequency'] == 'weekly' || $schedule_item['frequency'] == 'daily') {
-        $start = $session_schedule['dates'][0]['period']['from'] . 'T' . $session_schedule['dates'][0]['time']['from'];
-        $end = $session_schedule['dates'][0]['period']['to'] . 'T' . $session_schedule['dates'][0]['time']['to'];
-        $dates[] = [
+      $schedule_item['days'] = array_keys($weekday_mapping);
+      foreach ($schedule_item['days'] as $weekDay) {
+        // Starting period could start on Sunday. But we have Monday in the
+        // settings. This is why we need to adjust day to proper day of
+        // the week. Also similar thing with end date. We should move it back
+        // till it reaches specified day of the week.
+        $startDate = new \DateTime($schedule_item['period']['from']);
+        while (strtolower($startDate->format('l')) !== $weekDay) {
+          $startDate->modify('+1 day');
+        }
+        $endDate = new \DateTime($schedule_item['period']['to']);
+        while (strtolower($endDate->format('l')) !== $weekDay) {
+          $endDate->modify('-1 day');
+        }
+
+        $start = $startDate->format('Y-m-d') . 'T' . $schedule_item['time']['from'];
+        $end = $endDate->format('Y-m-d') . 'T' . $schedule_item['time']['to'];
+        $dates = [[
           'from' => $start,
           'to' => $end,
-        ];
+        ]];
         $exclusions = self::reorderExclusions($session_schedule['exclusions']);
         $combined_dates = self::combineDates($dates, $exclusions);
-        foreach ($schedule_item['days'] as $day) {
-          foreach ($combined_dates as $date) {
-            $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
-            $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
-            $duration = round(abs($to_time - $from_time) / 60,2);
 
-            $session_instances[] = [
-              'start' => strtotime($date['from']),
-              'end' => strtotime($date['to']),
-              'year' => '*',
-              'month' => '*',
-              'day' => '*',
-              'week' => '*',
-              'weekday' => $weekday_mapping[$day],
-              'duration'=> $duration,
-            ];
-          }
+        foreach ($combined_dates as $date) {
+          $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
+          $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
+          $duration = round(abs($to_time - $from_time) / 60,2);
+
+          $session_instances[] = [
+            'start' => strtotime($date['from']),
+            'end' => strtotime($date['to']),
+            'year' => '*',
+            'month' => '*',
+            'day' => '*',
+            'week' => '*',
+            'weekday' => $weekday_mapping[$weekDay],
+            'duration'=> $duration,
+          ];
         }
       }
     }
@@ -296,27 +309,67 @@ class RepeatManager implements SessionInstanceManagerInterface {
       return $origin_dates;
     }
 
-    $dates = array_merge($origin_dates, $exclusions);
-    $values = [];
-    foreach ($dates as $date) {
-      $values[] = $date['from'];
-      $values[] = $date['to'];
-    }
-    $end = $values[1];
-    unset($values[1]);
-
-    array_push($values, $end);
-    $new_values = array_chunk($values, 2);
-
-    $new_dates = [];
-    foreach ($new_values as $new_value) {
-      $new_dates[] = [
-        'from' => $new_value[0],
-        'to' => $new_value[1],
+    foreach ($exclusions as $key => $exclusion) {
+      $exclusions[$key] = [
+        'from' => new \DateTime($exclusion['from']),
+        'to' => new \DateTime($exclusion['to']),
       ];
     }
 
-    return $new_dates;
+    $start = new \DateTime($origin_dates[0]['from']);
+    $end = new \DateTime($origin_dates[0]['to']);
+
+    $resultingPeriods = [];
+    $resultingPeriods[] = ['from' => clone $start];
+
+    $prevSkipInstance = FALSE;
+
+    while ($start < $end) {
+
+      // Check if this instance should be excluded.
+      $skipInstance = FALSE;
+      foreach ($exclusions as $exclusion) {
+        if ($start >= $exclusion['from'] && $start <= $exclusion['to']) {
+          $skipInstance = TRUE;
+          break;
+        }
+      }
+
+      // We just hit exclusion. Need to close previous resulting period.
+      if ($skipInstance && !$prevSkipInstance) {
+        $period = array_pop($resultingPeriods);
+        $close = clone $start;
+        $close->modify('-1 week');
+        $close->setTime($end->format('H'), $end->format('i'));
+        $period['to'] = $close;
+        array_push($resultingPeriods, $period);
+      }
+
+      // If exclusion just finished. We need to start new period.
+      if (!$skipInstance && $prevSkipInstance) {
+        $period = ['from' => clone $start];
+        array_push($resultingPeriods, $period);
+      }
+      $start->modify('+1 week');
+      $prevSkipInstance = $skipInstance;
+    }
+
+    // Do not forget to close last period.
+    $period = array_pop($resultingPeriods);
+    $period['to'] = $end;
+    array_push($resultingPeriods, $period);
+
+    // Now convert dates back to strings.
+    $result_dates = [];
+    foreach ($resultingPeriods as $period) {
+      // Example format 2018-01-08T05:15:00
+      $result_dates[] = [
+        'from' => $period['from']->format('Y-m-d\TH:i:s'),
+        'to' => $period['to']->format('Y-m-d\TH:i:s'),
+      ];
+    }
+
+    return $result_dates;
   }
 
   /**
@@ -340,19 +393,15 @@ class RepeatManager implements SessionInstanceManagerInterface {
     ];
     $dates = $node->field_session_time->referencedEntities();
     foreach ($dates as $date) {
-      if (empty($date) || empty($date->field_session_time_days->getValue()) || empty($date->field_session_time_date->getValue())) {
+      if (empty($date) || empty($date->field_session_time_date->getValue())) {
         continue;
       }
+
       $schedule_item = [
-        'frequency' => 'weekly',
         'days' => [],
         'period' => [],
         'time' => [],
       ];
-
-      foreach ($date->field_session_time_days->getValue() as $value) {
-        $schedule_item['days'][] = $value['value'];
-      }
 
       $_period = $date->field_session_time_date->getValue()[0];
       $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value'] . 'Z'));
@@ -369,6 +418,10 @@ class RepeatManager implements SessionInstanceManagerInterface {
       }
       if (!isset($schedule['to']) || $schedule_item['period']['to'] > $schedule['to']) {
         $schedule['to'] = $schedule_item['period']['to'];
+      }
+
+      foreach ($date->field_session_time_days->getValue() as $value) {
+        $schedule_item['days'][] = $value['value'];
       }
 
       $schedule['dates'][] = $schedule_item;
@@ -635,6 +688,36 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $nids = $this->getLocationIDsByClassNode($node);
 
     return count($nids);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAgeIds(NodeInterface $session) {
+    $age_ids = [];
+    static $terms = [];
+    $s_min = !empty($session->field_session_min_age->value) ? $session->field_session_min_age->value : 0;
+    $s_max = !empty($session->field_session_max_age->value) ? $session->field_session_max_age->value : 0;
+
+    if (empty($terms)) {
+      $query = $this->entityQuery->get('taxonomy_term')
+        ->condition('vid', 'age');
+      $entity_ids = $query->execute();
+      $terms = $this->entityTypeManager
+        ->getStorage('taxonomy_term')
+        ->loadMultiple($entity_ids);
+    }
+
+    if (!empty($terms)) {
+      foreach ($terms as $id => $term) {
+        $ag_min = !empty($term->field_min_age->value) ? $term->field_min_age->value : 0;
+        $ag_max = !empty($term->field_max_age->value) ? $term->field_max_age->value : 0;
+        if (($s_min <= $ag_max || !$s_min || !$ag_max) && ($s_max >= $ag_min || !$s_max || !$ag_min)) {
+          $age_ids[] = $id;
+        }
+      }
+    }
+    return $age_ids;
   }
 
 }
