@@ -4,16 +4,16 @@ dependencies:
   enforced:
     module:
       - openy_demo_nlanding
-id: openy_demo_lp_paragraph_latest_blog_posts
+id: openy_demo_lp_paragraph_latest_news_posts
 migration_tags: {  }
 migration_group: openy_demo_nlanding
-label: 'Create latest blog posts paragraph(s) for demo landing page nodes'
+label: 'Create latest news posts paragraph(s) for demo landing page nodes'
 migration_dependencies: {  }
 source:
   plugin: embedded_data
   data_rows:
     -
-      id: homepage_latest_blog_posts
+      id: homepage_latest_news_posts
       parent_id: homepage
   ids:
     id:
@@ -45,7 +45,7 @@ process:
     plugin: skip_if_bundle_not_exist
     method: row
     entity: paragraph
-    bundle: latest_blog_posts
+    bundle: latest_news_posts
 destination:
   plugin: 'entity:paragraph'
-  default_bundle: latest_blog_posts
+  default_bundle: latest_news_posts

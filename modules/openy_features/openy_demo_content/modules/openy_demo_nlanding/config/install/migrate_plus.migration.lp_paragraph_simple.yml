@@ -211,6 +211,41 @@ source:
         <p>Today’s quote is: “If it doesn’t challenge you, it won’t change you.”- Fred Devito</p>
         <p>Challenge yourself today. What will you do? Maybe it is trying a new class at the Y or
         sign up for that 5k you have always wanted to run. Whatever it is, make sure its challenging!</p>
+    -
+      id: give_simple
+      parent_id: give
+      description: |
+        <h2 class="h1"><div class="field-prgf-headline">Why Give to the Y</div></h2>
+        <div class="description">
+        <div class="field-prgf-description"><p>
+        Everyone knows the Y as a place to camp, swim, or exercise. Yet, the
+        Y is so much more. As a 501(c)3 nonprofit organization, we provide
+        crucial programs and services to more than 230,000 people every year.
+        With the help of generous donors, we are able to provide more than 250
+        homeless youth safe, stable housing, 115,000 healthy meals to
+        school-age youth, and more than $9.5 million in financial assistance to
+        more than 27,000 people to ensure everyone has a chance to succeed and
+        belong at the Y.
+        </p>
+        <p><strong><font face="Verdana" size="5">Addressing Critical Local
+        Needs</font></strong></p>
+        </div></div>
+    -
+      id: accelerator_simple
+      parent_id: accelerator
+      description: |
+        <h2 class="h1"><div class="field-prgf-headline">About Accelerator YMCA</div></h2>
+        <div class="description">
+        <div class="field-prgf-description"><p>
+        At the Y, strengthening community is our cause. We provide crucial
+        programs and services to more than 230,000 people every year, including
+        safe, stable housing for more than 350 homeless young people, crisis
+        intervention for 3,500 young people and their families, and 115,000
+        healthy meals to school-age kids. We make it our mission to serve the
+        most underserved populations in our community and ensure that every
+        young person has the opportunity to be safe, successful and happy.
+        </p>
+        </div></div>
   ids:
     id:
       type: string

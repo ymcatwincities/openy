@@ -54,6 +54,7 @@ editorial:
     - openy_prgf_4c
     - openy_prgf_banner
     - openy_prgf_code_block
+    - openy_prgf_faq
     - openy_prgf_featured_highlights
     - openy_prgf_gallery
     - openy_prgf_grid_content
@@ -106,6 +107,30 @@ alerts:
   modules:
     - openy_node_alert
 
+analytics:
+  name: 'Analytics'
+  description: 'Analytics package provides an ability to integrate the website with analytic systems and capture website statistic.'
+  help: '<p>Using Analytics package you can configure an integration with Google Analytics or Google Tag Manager. Google Analytics gives you the tools you need to better understand your customers. Google Tag Manager helps make tag management simple, easy and reliable with tag management solutions that allow small businesses to deploy website tags.</p>'
+  modules:
+    - google_tag
+    - google_analytics
+
+embeddable_header_footer:
+  name: 'Embeddable header & footer'
+  description: 'Embeddable header & footer package provides an ability to embed header or footer of the website in another system.'
+  help: "<p>Using Embeddable header & footer package you can re-use header or footer from your website within your CRM. That way you'll have a single point of styles.</p>"
+  modules:
+    - openy_hf
+
+events:
+  name: 'Events'
+  description: "Events package provides a set of modules to maintain and create different events and listings."
+  help: '<p>Using Events package you can create and maintain Events and create flexible listings of events.</p>'
+  modules:
+    - openy_node_event
+    - openy_prgf_event_latest
+    - openy_prgf_event_listing
+
 seo:
   name: 'SEO'
   description: 'SEO package allows improving compatibility with different search engines.'
@@ -120,22 +145,12 @@ webform:
   modules:
     - openy_prgf_webform
 
-analytics:
-  name: 'Analytics'
-  description: 'Analytics package provides an ability to integrate the website with analytic systems and capture website statistic.'
-  help: '<p>Using Analytics package you can configure an integration with Google Analytics or Google Tag Manager. Google Analytics gives you the tools you need to better understand your customers. Google Tag Manager helps make tag management simple, easy and reliable with tag management solutions that allow small businesses to deploy website tags.</p>'
+translation:
+  name: 'Translation'
+  description: 'Translation package provides an ability to translate web pages.'
+  help: '<p>Using Translation package you can place a Google Translate widget on the page that will translate the content of the page on the fly to needed languages.</p>'
   modules:
-    - google_tag
-    - google_analytics
-
-events:
-  name: 'Events'
-  description: "Events package provides a set of modules to maintain and create different events and listings."
-  help: '<p>Using Events package you can create and maintain Events and create flexible listings of events.</p>'
-  modules:
-    - openy_node_event
-    - openy_prgf_event_latest
-    - openy_prgf_event_listing
+    - openy_gtranslate
 
 locations:
   name: 'Locations Package'
@@ -146,77 +161,12 @@ locations:
                  frameborder="0" allow="autoplay; encrypted-media"
                  allowfullscreen></iframe>'
   modules:
-    - openy_prgf_loc_finder
+    - openy_ckeditor
+    - openy_block_branch_amenities
     - openy_loc_branch
     - openy_prgf_amenities
+    - openy_prgf_loc_finder
     - openy_prgf_location_by_amenities
-    - openy_block_branch_amenities
-
-translation:
-  name: 'Translation'
-  description: 'Translation package provides an ability to translate web pages.'
-  help: '<p>Using Translation package you can place a Google Translate widget on the page that will translate the content of the page on the fly to needed languages.</p>'
-  modules:
-    - openy_gtranslate
-
-camps:
-  name: 'Camps'
-  description: "Camps package provides a set of modules to maintain camps and add them to the location finder page."
-  help: '<p>Using Camps package you can create and maintain Camps and extend location finder page to include them.</p>'
-  modules:
-    - openy_prgf_camp_menu
-    - openy_loc_camp
-
-programs:
-  name: 'Programs'
-  description: "Programs package provides a set of modules to maintain program, subcategories, activities and build Schedules page."
-  help: '<p>Using Programs package you can create and maintain program, subcategories, activities and build Schedules page. This package includes Program Event Framework and repeat schedules.</p>'
-  modules:
-    - openy_node_activity
-    - openy_node_category
-    - openy_node_class
-    - openy_node_session
-    - openy_node_program
-    - openy_prgf_repeat_schedules
-    - openy_prgf_repeat_schedules_loc
-    - openy_prgf_categories_listing
-    - openy_prgf_class_location
-    - openy_prgf_class_sessions
-    - openy_prgf_classes_listing
-    - openy_prgf_schedule_search
-
-scheduler:
-  name: 'Scheduler'
-  description: 'Scheduler package provides an ability to schedule publishing/unpublishing for the content.'
-  help: "<p>Using Scheduler package you can publish or unpublish website's content on specific date and time.</p>"
-  modules:
-    - scheduler
-
-theme_customization:
-  name: 'Theme customization'
-  description: 'Theme Customization package provides an ability to customize color schema of the theme.'
-  help: '<p>Using Theme Customization package you can tweak and alter default color schema of themes that are available out of the box. Watch a video below to learn how to customize your theme.</p>
-  <iframe width="560" height="315"
-                   src="https://www.youtube.com/embed/wj5rsd_suqY"
-                   frameborder="0" allow="autoplay; encrypted-media"
-                   allowfullscreen></iframe>'
-  modules:
-    - color
-    - openy_branch_selector
-
-locations_ext:
-  name: 'Locations (extended)'
-  description: "Extended Locations package provides additional components for building location finder page."
-  help: '<p>Using Extended Locations package create and maintain facilities and extend location finder page to include them.</p>'
-  modules:
-    - openy_loc_facility
-
-embeddable_header_footer:
-  name: 'Embeddable header & footer'
-  description: 'Embeddable header & footer package provides an ability to embed header or footer of the website in another system.'
-  help: "<p>Using Embeddable header & footer package you can re-use header or footer from your website within your CRM. That way you'll have a single point of styles.</p>"
-  modules:
-    - openy_hf
 
 helpers:
   name: 'Helpers'
@@ -248,6 +198,32 @@ social:
   modules:
     - openy_node_social_post
 
+scheduler:
+  name: 'Scheduler'
+  description: 'Scheduler package provides an ability to schedule publishing/unpublishing for the content.'
+  help: "<p>Using Scheduler package you can publish or unpublish website's content on specific date and time.</p>"
+  modules:
+    - scheduler
+
+theme_customization:
+  name: 'Theme customization'
+  description: 'Theme Customization package provides an ability to customize color schema of the theme.'
+  help: '<p>Using Theme Customization package you can tweak and alter default color schema of themes that are available out of the box. Watch a video below to learn how to customize your theme.</p>
+  <iframe width="560" height="315"
+                   src="https://www.youtube.com/embed/wj5rsd_suqY"
+                   frameborder="0" allow="autoplay; encrypted-media"
+                   allowfullscreen></iframe>'
+  modules:
+    - color
+    - openy_branch_selector
+
+locations_ext:
+  name: 'Locations (extended)'
+  description: "Extended Locations package provides additional components for building location finder page."
+  help: '<p>Using Extended Locations package create and maintain facilities and extend location finder page to include them.</p>'
+  modules:
+    - openy_loc_facility
+
 popups:
   name: 'Popups'
   description: 'Popups package provides an ability to display popups with branch selection.'
@@ -256,6 +232,32 @@ popups:
     - openy_popups
     - openy_prgf_branches_popup_all
     - openy_prgf_branches_popup_class
+
+camps:
+  name: 'Camps'
+  description: "Camps package provides a set of modules to maintain camps and add them to the location finder page."
+  help: '<p>Using Camps package you can create and maintain Camps and extend location finder page to include them.</p>'
+  modules:
+    - openy_prgf_camp_menu
+    - openy_loc_camp
+
+programs:
+  name: 'Programs'
+  description: "Programs package provides a set of modules to maintain program, subcategories, activities and build Schedules page."
+  help: '<p>Using Programs package you can create and maintain program, subcategories, activities and build Schedules page. This package includes Program Event Framework and repeat schedules.</p>'
+  modules:
+    - openy_node_activity
+    - openy_node_category
+    - openy_node_class
+    - openy_node_session
+    - openy_node_program
+    - openy_prgf_repeat_schedules
+    - openy_prgf_repeat_schedules_loc
+    - openy_prgf_categories_listing
+    - openy_prgf_class_location
+    - openy_prgf_class_sessions
+    - openy_prgf_classes_listing
+    - openy_prgf_schedule_search
 
 groupexpro:
   name: 'Integration: GroupEx Pro'
@@ -283,3 +285,42 @@ daxko:
     - daxko
     - openy_daxko2
     - openy_prgf_pgm_reg
+
+demo:
+  name: 'Demo Content'
+  description: 'Demo content package allows to install sample content for Open Y Platform.'
+  help: '<p>Using Demo content package you can install sample content and populate CMS with real-world content.</p>'
+  mod§ules:
+    - openy_demo_addthis
+    - openy_demo_ahb
+    - openy_demo_bamenities
+    - openy_demo_bfooter
+    - openy_demo_bmicrosites_menu
+    - openy_demo_bsimple
+    - openy_demo_menu
+    - openy_demo_nalert
+    - openy_demo_nblog
+    - openy_demo_nbranch
+    - openy_demo_ncamp
+    - openy_demo_ncampaign
+    - openy_demo_ncategory
+    - openy_demo_nclass
+    - openy_demo_nevent
+    - openy_demo_nfacility
+    - openy_demo_nhome_alt
+    - openy_demo_ninterstitial
+    - openy_demo_nlanding
+    - openy_demo_nmbrshp
+    - openy_demo_nnews
+    - openy_demo_nprogram
+    - openy_demo_nsessions
+    - openy_demo_nsocial_post
+    - openy_demo_tamenities
+    - openy_demo_tarea
+    - openy_demo_taxonomy
+    - openy_demo_tblog
+    - openy_demo_tcolor
+    - openy_demo_tfacility
+    - openy_demo_tfitness
+    - openy_demo_tnews
+    - openy_demo_webform

@@ -285,6 +285,7 @@ class ConfigureProfileForm extends FormBase {
 
     $modules = self::getModulesToInstall($preset);
     $form['debug'] = [
+      '#access' => FALSE,
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
       '#title' => $this->t('Debug info'),
