@@ -160,7 +160,6 @@ process:
           - openy_demo_lp_paragraph_gallery
           - openy_demo_lp_paragraph_small_banner
           - openy_demo_lp_paragraph_location_finder_filters
-
         source: header_content_id
       target_revision_id:
         plugin: migration
@@ -181,6 +180,7 @@ process:
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_grid_content
           - openy_demo_lp_paragraph_teaser
+          - openy_demo_lp_paragraph_latest_news_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_all_amenities
@@ -192,6 +192,7 @@ process:
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_grid_content
           - openy_demo_lp_paragraph_teaser
+          - openy_demo_lp_paragraph_latest_news_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_all_amenities
@@ -219,6 +220,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_simple
     - openy_demo_lp_paragraph_featured_content
     - openy_demo_lp_paragraph_grid_content
+    - openy_demo_lp_paragraph_latest_news_posts
     - openy_demo_lp_paragraph_teaser
     - openy_demo_lp_paragraph_banner
     - openy_demo_lp_paragraph_small_banner
