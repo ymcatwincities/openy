@@ -41,6 +41,7 @@ We are using [composer](https://getcomposer.org/) for initiating new project tre
 
 ```
 composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction
+cd MY_PROJECT && composer update
 ```
 
 In order to properly install OpenY Distribution, we have separate composer project - [openy-project](https://github.com/ymcatwincities/openy-project). Please read detailed installation instructions [here](https://github.com/ymcatwincities/openy-project).

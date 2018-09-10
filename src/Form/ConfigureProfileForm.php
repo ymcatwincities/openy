@@ -323,14 +323,14 @@ class ConfigureProfileForm extends FormBase {
 
   private function getExtendedPackagesMarkup() {
     $output = '<h3>The following extended features will not be installed however they can be easily added in the future:';
-    $output .= $this->buildQuestionMark('<p>Some markup for extended packages goes here</p>');
+    $output .= $this->buildQuestionMark('<p>You can enable these feature any time from the admin interface in the CMS.</p>');
     $output .= '</h3>';
     return $output;
   }
 
   private function getExperimentalModulesMarkup() {
     $output = '<h3>Custom and experimental modules can also be installed in the future';
-    $output .= $this->buildQuestionMark('<p>Some markup goes here</p>');
+    $output .= $this->buildQuestionMark('<p>Open Y also has experimental features, but be aware that those features are experimental may not be stable.</p>');
     $output .= '</h3>';
     return $output;
   }
