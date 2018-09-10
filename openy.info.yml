@@ -17,68 +17,70 @@ dependencies:
   - ckeditor
   - color
   - config
-  - contextual
   - contact
-  - menu_link_content
+  - contextual
+  - dblog
   - datetime
   - datetime_range
-  - quickedit
   - editor
   - entity_reference
+  - field_ui
+  - file
   - help
   - history
   - image
+  - link
+  - menu_link_content
   - menu_ui
+  - migrate
   - node
   - options
-  - path
   - page_cache
-  - telephone
-  - taxonomy
-  - text
-  - dblog
+  - path
+  - quickedit
+  - rdf
   - shortcut
   - system
+  - taxonomy
+  - telephone
+  - text
   - toolbar
-  - field_ui
-  - file
-  - rdf
   - views
   - views_ui
-  - link
-  - migrate
   - tour
   # Contrib modules.
+  - admin_toolbar
+  - captcha
+  - ckeditor_bootstrap_buttons
+  - config_import
   - features
   - features_ui
-  - config_import
-  - plugin
-  - simple_menu_icons
+  - image_captcha
   - metatag
   - metatag_open_graph
-  - captcha
-  - image_captcha
+  - plugin
   - recaptcha
-  - admin_toolbar
-  - ckeditor_bootstrap_buttons
+  - simple_menu_icons
   # OpenY
+  - advanced_help_block
+  - logger_entity
+  - openy_autocomplete_path
+  - openy_block_custom_simple
+  - openy_datalayer
+  - openy_editor
+  - openy_menu_main
+  - openy_menu_footer
   - openy_media_image
   - openy_media_document
   - openy_media_video
   - openy_media_local_video
-  - openy_taxonomy
-  - openy_node_landing
-  - openy_menu_main
-  - openy_menu_footer
-  - openy_block_custom_simple
-  - openy_editor
   - openy_migrate
+  - openy_node_landing
   - openy_redirect
-  - openy_tour
-  - advanced_help_block
-  - openy_upgrade_tool
   - openy_system
   - openy_taxonomy
+  - openy_tour
+  - openy_upgrade_tool
 themes:
   - bartik
   - openy_rose
