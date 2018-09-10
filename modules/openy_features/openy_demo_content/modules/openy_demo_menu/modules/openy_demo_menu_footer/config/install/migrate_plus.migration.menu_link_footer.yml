@@ -10,9 +10,10 @@ migration_tags:
 migration_group: openy_demo_menu
 label: 'Create demo footer menu links'
 migration_dependencies:
-  - openy_demo_node_program_subcategory
-  - openy_demo_node_program
-  - openy_demo_node_landing
+  required:
+    - openy_demo_node_program_subcategory
+    - openy_demo_node_program
+    - openy_demo_node_landing
 source:
   plugin: embedded_data
   data_rows:
