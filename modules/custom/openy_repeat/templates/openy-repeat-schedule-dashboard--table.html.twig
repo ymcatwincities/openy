@@ -35,8 +35,8 @@
           <div>{{ 'Time'|t }}</div>
           <div class="category-column">{{ 'Category'|t }}</div>
           <div class="instructor-column">{{ 'Instructor'|t }}</div>
-          <div></div>
-          <div></div>
+          <div class="calendar-column"></div>
+          <div class="register-column"></div>
         </div>
 
         <div v-for="(item, index) in propData" class="schedules-data__row">
@@ -72,7 +72,7 @@
           </div>
 
           {# add to calendar #}
-          <div v-cloak>
+          <div v-cloak class="calendar-column">
             <span class="addtocalendar">
               <var class="atc_event">
                 <var class="atc_date_start">${ addToCalendarDate(item.time_start_calendar) }</var>
@@ -87,7 +87,7 @@
           </div>
 
           {# register btn #}
-          <div v-cloak v-if="item.register_url" >
+          <div v-cloak class="register-column" v-if="item.register_url" >
             <a v-bind:href="item.register_url" class="btn btn-primary register-btn">${ item.register_text }</a>
           </div>
         </div>
