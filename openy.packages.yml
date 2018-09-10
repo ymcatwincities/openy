@@ -280,3 +280,42 @@ daxko:
   - daxko
   - openy_daxko2
   - openy_prgf_pgm_reg
+
+demo:
+  name: 'Demo Content'
+  help: '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>'
+  description: ''
+  modules:
+    - openy_demo_addthis
+    - openy_demo_ahb
+    - openy_demo_bamenities
+    - openy_demo_bfooter
+    - openy_demo_bmicrosites_menu
+    - openy_demo_bsimple
+    - openy_demo_menu
+    - openy_demo_nalert
+    - openy_demo_nblog
+    - openy_demo_nbranch
+    - openy_demo_ncamp
+    - openy_demo_ncampaign
+    - openy_demo_ncategory
+    - openy_demo_nclass
+    - openy_demo_nevent
+    - openy_demo_nfacility
+    - openy_demo_nhome_alt
+    - openy_demo_ninterstitial
+    - openy_demo_nlanding
+    - openy_demo_nmbrshp
+    - openy_demo_nnews
+    - openy_demo_nprogram
+    - openy_demo_nsessions
+    - openy_demo_nsocial_post
+    - openy_demo_tamenities
+    - openy_demo_tarea
+    - openy_demo_taxonomy
+    - openy_demo_tblog
+    - openy_demo_tcolor
+    - openy_demo_tfacility
+    - openy_demo_tfitness
+    - openy_demo_tnews
+    - openy_demo_webform
