@@ -35,9 +35,13 @@ env:
     - { name: 'config-set', status: true, arguments: "system.file path.temporary /tmp -y" }
     - { name: 'config-set', status: true, arguments: "mailsystem.settings defaults.sender SMTPMailSystem" }
     - { name: 'config-set', status: true, arguments: "smtp.settings smtp_on 1" }
+    - { name: 'config-set', status: true, arguments: "smtp.settings smtp_port 1025" }
+    - { name: 'config-set', status: true, arguments: "smtp.settings smtp_protocol standard" }
+    - { name: 'config-set', status: true, arguments: "smtp.settings smtp_username ''" }
+    - { name: 'config-set', status: true, arguments: "smtp.settings smtp_password ''" }
     - { name: 'config-set', status: true, arguments: "smtp.settings smtp_host ygtc.cibox.tools" }
     - { name: 'config-set', status: true, arguments: "smtp.settings smtp_from from_www_smtp@localhost.com" }
-    - { name: 'config-set', status: true, arguments: "smtp.settings smtp_fromname Testing Emails" }
+    - { name: 'config-set', status: true, arguments: "smtp.settings smtp_fromname 'Testing Emails'" }
     - { name: 'config-import', status: false, arguments: "staging -y --partial" }
     - { name: 'ciboxcr', status: true, arguments: "" }
     - { name: 'cr', status: true, arguments: "" }
