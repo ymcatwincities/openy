@@ -137,6 +137,11 @@ $module: 'site-alert';
   }
 }
 
+.header-alerts-list  div,
+.footer-alerts-list div {
+  width: 100%;
+}
+
 .header-alerts-list,
 .footer-alerts-list {
   .slick-slider {
