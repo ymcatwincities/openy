@@ -109,8 +109,13 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
     }
 
     $account = $this->currentUser()->id();
-    // Store the modules values for 6 hours. This expiration time is also used in
-    // the form cache.
+    // Get packages names to display in confirmation form.
+    $uninstall_packages = array_map(function ($package) use ($profile_packages) {
+      return $profile_packages[$package]['name'];
+    }, $uninstall);
+    // Store the packages names and modules values for 6 hours.
+    // This expiration time is also used in the form cache.
+    $this->keyValueExpirable->setWithExpire($account . '_packages', $uninstall_packages, 6 * 60 * 60);
     $this->keyValueExpirable->setWithExpire($account, $modules, 6 * 60 * 60);
 
     // Redirect to the confirm form.
