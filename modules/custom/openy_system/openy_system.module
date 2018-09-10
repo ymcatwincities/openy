@@ -28,3 +28,11 @@ function openy_system_modules_uninstalled(array $modules) {
     }
   }
 }
+
+/**
+ * Implements hook_page_attachments().
+ */
+function openy_system_page_attachments(array &$attachments) {
+  // Open Y System admin menu CSS.
+  $attachments['#attached']['library'][] = 'openy_system/admin_menu';
+}
