@@ -5,6 +5,30 @@
  * OpenY Node Alert install file.
  */
 
+use \Drupal\user\Entity\Role;
+use \Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function openy_node_alert_install() {
+  $roles = Role::loadMultiple([
+    RoleInterface::ANONYMOUS_ID,
+    RoleInterface::AUTHENTICATED_ID
+  ]);
+
+  $permissions = [
+    "restful get alerts_rest_resource",
+  ];
+
+  foreach ($roles as $role) {
+    foreach ($permissions as $permission) {
+      $role->grantPermission($permission);
+    }
+    $role->save();
+  }
+}
+
 /**
  * Update Alert for rabbit hole, hiding pages from anonymous users.
  */
@@ -132,4 +156,35 @@ function openy_node_alert_update_8005() {
       $config_updater->update($config, $config_name, $param);
     }
   }
+}
+
+/**
+ * Update permissions.
+ */
+function openy_node_alert_update_8006() {
+
+  $configs_to_remove = [
+    'yptf_kronos_monday.settings',
+    'block.block.views_block__alerts_footer_alerts',
+    'block.block.views_block__alerts_footer_alerts_local',
+    'block.block.views_block__alerts_header_alerts',
+    'block.block.views_block__alerts_header_alerts_local',
+    'block.block.openy_lily_views_block__alerts_footer_alerts',
+    'block.block.openy_lily_views_block__alerts_footer_alerts_local',
+    'block.block.openy_lily_views_block__alerts_header_alerts',
+    'block.block.openy_lily_views_block__alerts_header_alerts_local',
+    'views.view.alerts'
+  ];
+  foreach ($configs_to_remove as $config) {
+    \Drupal::configFactory()->getEditable($config)->delete();
+  }
+  
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Import new configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rest.resource.alerts_rest_resource',
+  ]);
+  openy_node_alert_install();
 }
