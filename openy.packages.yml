@@ -23,7 +23,6 @@ news:
     - openy_node_news
     - openy_prgf_news_latest
     - openy_prgf_featured_news
-    - openy_prgf_news_listing
     - openy_txnm_news_category
 
 news_ext:
@@ -33,6 +32,7 @@ news_ext:
   modules:
     - openy_prgf_news_branch
     - openy_prgf_news_camp
+    - openy_prgf_news_listing
 
 editorial:
   name: 'Editorial Package'
@@ -58,7 +58,6 @@ editorial:
     - openy_prgf_featured_highlights
     - openy_prgf_gallery
     - openy_prgf_grid_content
-    - openy_prgf_lto
     - openy_prgf_promo_card
     - openy_prgf_simple_content
     - openy_prgf_small_banner
