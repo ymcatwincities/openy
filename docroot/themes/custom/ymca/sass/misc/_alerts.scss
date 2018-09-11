@@ -145,6 +145,7 @@ $module: 'site-alert';
 
 .header-alerts-list,
 .footer-alerts-list {
+  overflow: hidden;
   .slick-slider {
     margin-bottom: 0;
   }

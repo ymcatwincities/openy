@@ -7574,6 +7574,7 @@ article.site-alert ul li div {
 
 .header-alerts-list,
 .footer-alerts-list {
+  overflow: hidden;
   /* Arrows */
 }
 .header-alerts-list .slick-slider,

@@ -23,6 +23,11 @@ article.site-alert {
   height: 100%;
 }
 
+.header-alerts-list,
+.footer-alerts-list {
+  overflow: hidden;
+}
+
 .site-alert--header .site-alert__wrapper,
 .site-alert--footer .site-alert__wrapper {
   padding: 10px;
