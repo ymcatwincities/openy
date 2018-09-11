@@ -140,10 +140,12 @@ $module: 'site-alert';
 .header-alerts-list  div,
 .footer-alerts-list div {
   width: 100%;
+  height: 100%;
 }
 
 .header-alerts-list,
 .footer-alerts-list {
+  overflow: hidden;
   .slick-slider {
     margin-bottom: 0;
   }
