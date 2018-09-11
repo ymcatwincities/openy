@@ -229,7 +229,6 @@ class RepeatManager implements SessionInstanceManagerInterface {
     ];
 
     foreach ($session_schedule['dates'] as $schedule_item) {
-      $schedule_item['days'] = array_keys($weekday_mapping);
       foreach ($schedule_item['days'] as $weekDay) {
         // Starting period could start on Sunday. But we have Monday in the
         // settings. This is why we need to adjust day to proper day of
