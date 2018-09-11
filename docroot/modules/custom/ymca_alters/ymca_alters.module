@@ -451,6 +451,54 @@ function ymca_alters_query_needs_review_alter($query) {
 }
 
 /**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatchInterface $route_match, array $context) {
+  // Add breadcrumbs trailing title to all pages, except filtered.
+  $node = $route_match->getParameter('node');
+  $path_info = explode('/', \Drupal::request()->getPathInfo());
+
+  // Skip frontpage.
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    return;
+  }
+
+  // Skip blog post.
+  if (is_object($node) && $node->bundle() == 'blog') {
+    return;
+  }
+
+  // Skip blog archive and blog type pages.
+  if (!$node && isset($path_info[1]) && $path_info[1] == 'blog' && isset($path_info[2])) {
+    return;
+  }
+
+  // Skip news archive.
+  if (isset($path_info[2]) && $path_info[2] == 'ymca_news_archive') {
+    return;
+  }
+
+  // Skip paths.
+  $paths = [
+    'news__events',
+    'blog',
+    'search_results',
+    'news',
+  ];
+
+  foreach ($paths as $item) {
+    if (end($path_info) == $item) {
+      return;
+    }
+  }
+
+  $title = \Drupal::service('title_resolver')
+    ->getTitle(\Drupal::request(), $route_match->getRouteObject());
+  $breadcrumb->addLink(Link::createFromRoute($title, '<none>'));
+  $breadcrumb->addCacheContexts(['url.path']);
+}
+
+/**
  * Implements hook_block_build_alter().
  */
 function ymca_alters_block_build_alter(array &$build, BlockPluginInterface $block) {
