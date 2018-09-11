@@ -15,7 +15,6 @@ dependencies:
   - media_entity
   - media_entity_document
   - openy_media
-  - openy_media_document
   - path
   - taxonomy
   - user
