@@ -33,7 +33,6 @@ Drupal.behaviors.activityTracking = {
                         settings: {
                             slidesToShow: 5,
                             slidesToScroll: 3
-                            //infinite: true,
                         }
                     },
                     {

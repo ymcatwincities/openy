@@ -177,7 +177,7 @@
 }
 
 
-// General paragraph columns styles
+// General paragraph columns styles.
 .block-description--wrapper {
   .block-description--text {
     vertical-align: top;
@@ -238,7 +238,7 @@
   }
 }
 
-// Specific styles for the "Campaign" node type
+// Specific styles for the "Campaign" node type.
 .page-node-type-campaign {
   .columns .paragraph-container {
     @include breakpoint($screen-phone) {
@@ -250,7 +250,7 @@
   }
 }
 
-// Specific styles for the "Campaign page" node type
+// Specific styles for the "Campaign page" node type.
 .page-node-type-campaign-page,
 .path-campaign-game {
   .paragraph-background-container {
@@ -303,7 +303,7 @@
   }
 }
 
-// Campaign Info Blocks paragraph type
+// Campaign Info Blocks paragraph type.
 .paragraph--campaign-info-blocks {
   .columns {
     display: inline-block;

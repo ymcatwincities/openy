@@ -343,7 +343,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    * Get all active Campaign nodes.
    */
   public function getActiveCampaigns() {
-    // All dates store in database in UTC timezone
+    // All dates are stored in database in UTC timezone.
     // Get current datetime in UTC timezone.
     $dt = new \DateTime('now', new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
     $now = DrupalDateTime::createFromDateTime($dt);

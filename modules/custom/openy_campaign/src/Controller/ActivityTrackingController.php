@@ -161,8 +161,7 @@ class ActivityTrackingController extends ControllerBase {
         }
       }
 
-      // To prevent duplicate activities creation we need to check
-      // if the activity was not created earlier.
+      // To prevent duplicate activities creation we need to check if the activity was not created earlier.
       $query = \Drupal::entityQuery('openy_campaign_memb_camp_actv')
         ->condition('member_campaign', $memberCampaignId)
         ->condition('activity', $activityTermId)

@@ -202,7 +202,7 @@ class CampaignScorecardService {
 
         // Utilization total.
         $result['total']['util_registration_goal'] += $util_goal;
-        // Doesn't include results for members without branch ($id = 0 or '')
+        // Doesn't include results for members without branch ($id = 0 or '').
         $result['total']['util_actual'] += $util_actual;
         $result['total']['util_of_members'] += $util_of_member;
         $result['total']['util_of_goal'] += $util_of_goal;

@@ -450,7 +450,7 @@ function openy_campaign_preprocess_paragraph(&$variables) {
             $renderBlock['goal_block']['#enActvCounter'] = 0;
             break;
 
-          // Show Activity count. It will be displayed with enActvCounter = 1
+          // Show Activity count. It will be displayed with enActvCounter = 1.
           case 'field_enable_activities_counter':
             $userData = MemberCampaign::getMemberCampaignData($campaign->id());
             $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
@@ -477,8 +477,7 @@ function openy_campaign_preprocess_paragraph(&$variables) {
  */
 function openy_campaign_node_presave(Node $node) {
   if ($node->bundle() == 'campaign') {
-    // Add 'Enable Activities Counter' checkbox
-    // to the terms of the selected vocabulary.
+    // Add 'Enable Activities Counter' checkbox to the terms of the selected vocabulary.
     $enableActivitiesCounter = $node->field_enable_activities_counter->value;
     $activitiesVocabulary = $node->field_campaign_fitness_category->target_id;
 

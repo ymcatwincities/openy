@@ -199,7 +199,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
 
           $activities[$key][$tid] = $activityTrackingForm;
 
-          // Get term icon
+          // Get term icon.
           $iconUri = $term->field_activity_icon->entity;
           $addIconAttr = '';
           if (!empty($iconUri)) {
