@@ -119,6 +119,26 @@ class LocationMappingRepository {
   }
 
   /**
+   * Load all location mappings where MindBody ID is present.
+   *
+   * @return array
+   *   An array of found location mapping objects sorted by name.
+   */
+  public function loadAllLocationsWithMindBodyId() {
+    $mapping_ids = $this->queryFactory
+      ->get('mapping')
+      ->condition('type', self::TYPE)
+      ->condition('field_mindbody_id', 0, '>')
+      ->sort('name', 'ASC')
+      ->execute();
+    if (!$mapping_ids) {
+      return [];
+    }
+
+    return $this->storage->loadMultiple($mapping_ids);
+  }
+
+  /**
    * Return all Groupex location IDs.
    *
    * @return array

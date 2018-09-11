@@ -1,10 +1,9 @@
 alert:
-  version: VERSION
+  version: 0.4
   js:
-    js/openy_node_alert.js: {}
+    js/openy-alerts/build/static/js/main.js: {preprocess: false}
   css:
     component:
-      css/openy_node_alert.css: {}
+      js/openy-alerts/build/static/css/main.css: {preprocess: false}
   dependencies:
-    - core/jquery.cookie
-    - core/jquery.once
+    - core/drupal
