@@ -4,9 +4,6 @@ services:
     arguments: ['yptf_kronos_reports']
   yptf_kronos_reports.generate:
     class: Drupal\yptf_kronos\YptfKronosReports
-    arguments: ['@config.factory', '@mindbody_cache_proxy.client', '@logger.channel.yptf_kronos_reports',  '@plugin.manager.mail', '@renderer', '@language_manager']
-  yptf_kronos_reports.generate_monday:
-    class: Drupal\yptf_kronos\YptfKronosReportsMonday
     arguments:
       - '@config.factory'
       - '@mindbody_cache_proxy.client'

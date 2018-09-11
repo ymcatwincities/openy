@@ -9,47 +9,31 @@
  * Implements hook_drush_command().
  */
 function yptf_kronos_drush_command() {
-  $items['yptf_kronos-generate'] = [
-    'description' => 'Generate Email reports.',
-    'callback' => 'drush_yptf_kronos_generate',
+  $items['yptf_kronos_generate_tue'] = [
+    'description' => 'Generate Tuesday Email reports.',
+    'callback' => 'drush_yptf_kronos_generate_tue',
     'drupal dependencies' => ['yptf_kronos'],
-    'arguments' => [
-      'request_number' => 'Request number for MB.',
-    ],
     'aliases' => ['ykgt']
   ];
-  $items['yptf_kronos_generate_monday'] = [
-    'description' => 'Generate Email reports for Monday.',
-    'callback' => 'drush_yptf_kronos_generate_monday',
+  $items['yptf_kronos_generate_mon'] = [
+    'description' => 'Generate Monday Email reports.',
+    'callback' => 'drush_yptf_kronos_generate_mon',
     'drupal dependencies' => ['yptf_kronos'],
-    'arguments' => [
-      'request_number' => 'Request number for MB.',
-    ],
     'aliases' => ['ykgm']
   ];
   return $items;
 }
 
 /**
- * Callback function for hook_drush_command().
- *
- * Generate email reports.
- *
- * @param int $request_number
- *   Request number to MB.
+ * Generate Tuesday email reports.
  */
-function drush_yptf_kronos_generate($request_number = 0) {
-  \Drupal::service('yptf_kronos_reports.generate')->generateReports($request_number);
+function drush_yptf_kronos_generate_tue() {
+  \Drupal::service('yptf_kronos_reports.generate')->generateReports('tuesday');
 }
 
 /**
- * Callback function for hook_drush_command().
- *
- * Generate email reports for monday.
- *
- * @param int $request_number
- *   Request number to MB.
+ * Generate Monday email reports.
  */
-function drush_yptf_kronos_generate_monday($request_number = 0) {
-  \Drupal::service('yptf_kronos_reports.generate_monday')->generateReports($request_number);
+function drush_yptf_kronos_generate_mon() {
+  \Drupal::service('yptf_kronos_reports.generate')->generateReports('monday');
 }
