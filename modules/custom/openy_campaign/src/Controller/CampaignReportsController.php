@@ -341,8 +341,7 @@ class CampaignReportsController extends ControllerBase {
     foreach ($activities as $activity) {
       // Fetch subcategory.
       $subcategory = Term::load($activity->mca_activity);
-      // In case if some categories have been removed during the challenge,
-      // we need to skip it from the calculation.
+      // In case if some categories have been removed during the challenge, we need to skip it from the calculation.
       if (empty($subcategory)) {
         --$data['totalActivities'];
         continue;
