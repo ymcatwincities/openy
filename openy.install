@@ -1021,3 +1021,20 @@ function openy_update_8067() {
     ]);
   }
 }
+
+/**
+ * Update footer blocks config names and ids.
+ */
+function openy_update_8068() {
+  $configs = [
+    'footercopyrightblock' => 'openy_rose_footercopyrightblock',
+    'footersocialblock' => 'openy_rose_footersocialblock',
+  ];
+  foreach ($configs as $old_id => $new_id) {
+    \Drupal::configFactory()
+      ->rename('block.block.' . $old_id, 'block.block.' . $new_id);
+    \Drupal::configFactory()->getEditable('block.block.' . $new_id)
+      ->set('id', $new_id)
+      ->save(TRUE);
+  }
+}
