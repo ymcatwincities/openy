@@ -811,6 +811,7 @@ function openy_update_8054() {
   $themes_list = [
     'openy_rose' => '5a698466-f499-4dda-a084-4d61c1d0e902',
     'openy_lily' => '5a698466-f499-4dda-a084-4d61c1d0e777',
+    'openy_carnation' => '32fa8958-20d7-41e0-9e7c-a5768bf6dfac',
   ];
   /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
   $entityTypeManager = \Drupal::service('entity_type.manager');
