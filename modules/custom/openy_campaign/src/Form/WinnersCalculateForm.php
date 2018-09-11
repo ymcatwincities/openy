@@ -97,7 +97,7 @@ class WinnersCalculateForm extends FormBase {
     // Get all enabled activities list.
     $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
 
-    $enableVisitsGoal = in_array('field_prgf_activity_visits', $activitiesOptions) ? TRUE : FALSE;
+    $enableVisitsGoal = in_array('field_prgf_activity_visits', $activitiesOptions);
     $form['generate']['visits_goal'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Run Visit Goal Random Drawing'),
@@ -170,7 +170,7 @@ class WinnersCalculateForm extends FormBase {
     }
 
     // Define should we calculate winners for Visits goal.
-    $isVisitsGoal = !empty($form_state->getValue('visits_goal')) ? TRUE : FALSE;
+    $isVisitsGoal = !empty($form_state->getValue('visits_goal'));
 
     $operations = [
       [[get_class($this), 'deleteWinners'], [$campaignId, $isVisitsGoal]],
