@@ -17,4 +17,18 @@ article.site-alert {
   position: relative;
   z-index: 901;
 }
+.header-alerts-list  div,
+.footer-alerts-list div {
+  width: 100%;
+  height: 100%;
+}
 
+.header-alerts-list,
+.footer-alerts-list {
+  overflow: hidden;
+}
+
+.site-alert--header .site-alert__wrapper,
+.site-alert--footer .site-alert__wrapper {
+  padding: 10px;
+}
