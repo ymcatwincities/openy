@@ -7,9 +7,9 @@ Drupal.behaviors.activityTracking = {
     attach: function (context, settings) {
 
         function countEntry() {
-            jQuery('div.date-data').each(function (ind, val) {
-                var itemDate = jQuery(val).data('date');
-                var entryContainer = jQuery('.activity-data').find('div.' + itemDate);
+            $('div.date-data').each(function (ind, val) {
+                var itemDate = $(val).data('date');
+                var entryContainer = $('.activity-data').find('div.' + itemDate);
                 var entryCount = entryContainer.find('input[type="checkbox"]:checked').length;
                 if (entryCount !== 0) {
                     $(val).find('.entriesNum').html(Drupal.t('You have @entryCount entries today', {'@entryCount': entryCount}));
@@ -158,15 +158,15 @@ Drupal.behaviors.activityTracking = {
                 $(relatedActivity).on('keypress', function (e) {
                   if (e.keyCode == 13) {
                       e.preventDefault();
-                      _$self.val(jQuery(this).find('.preudo-activity-counter').val());
+                      _$self.val($(this).find('.preudo-activity-counter').val());
                       relatedActivity.find('input.form-checkbox').trigger('change');
-                      jQuery(this).find('.preudo-activity-counter').blur();
+                      $(this).find('.preudo-activity-counter').blur();
                       return false;
                   }
                 });
                 // Update counter value by loosing focus from the input.
                 $(relatedActivity).on('focusout', function () {
-                    _$self.val(jQuery(this).find('.preudo-activity-counter').val());
+                    _$self.val($(this).find('.preudo-activity-counter').val());
                     relatedActivity.find('input.form-checkbox').trigger('change');
                 });
                 // Make activity checked by user focus.
