@@ -18,6 +18,9 @@
   Drupal.behaviors.openy_campaign_color_backend = {
       attach: function (context, settings) {
 
+          /**
+           * Initiate color picker.
+           */
           function init() {
             var colorSelector = form.find('#edit-scheme');
             var schemes = settings.color.schemes;
@@ -86,7 +89,7 @@
               form.find('#edit-scheme').each(function () {
                   this.selectedIndex = this.options.length - 1;
               });
-          };
+          }
       }
   }
 
