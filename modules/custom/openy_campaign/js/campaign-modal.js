@@ -32,7 +32,7 @@
 
 
     $.fn.closeDialogByClick = function() {
-        $(".ui-widget-overlay").click(function () {
+        $(".ui-widget-overlay").on('click', function (e) {
             $("#drupal-modal").dialog( "close" );
         });
     };

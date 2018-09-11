@@ -7,7 +7,7 @@
 
   $(function() {
     $('.marquee').marquee();
-    $('#campaign-winner-stream').find('.close').click(function(event) {
+    $('#campaign-winner-stream').find('.close').on('click', function(event) {
       $('#campaign-winner-stream').remove();
     });
   });
