@@ -7566,6 +7566,11 @@ article.site-alert ul li div {
   color: #fff;
 }
 
+.header-alerts-list div,
+.footer-alerts-list div {
+  width: 100%;
+}
+
 .header-alerts-list,
 .footer-alerts-list {
   /* Arrows */
