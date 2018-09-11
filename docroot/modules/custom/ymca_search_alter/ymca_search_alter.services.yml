@@ -6,4 +6,4 @@ services:
   ymca_search_alter.breadcrumb:
     class: Drupal\ymca_search_alter\SearchResultsBreadcrumbBuilder
     tags:
-      - { name: breadcrumb_builder, priority: 100 }
+      - { name: breadcrumb_builder, priority: 3700 }
