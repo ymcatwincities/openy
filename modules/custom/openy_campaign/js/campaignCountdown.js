@@ -8,7 +8,7 @@ Drupal.behaviors.campaignCountdown = {
         if (Drupal.behaviors.campaignCountdown.length){
             return;
         }
-        jQuery('.countdown').html('');
+        $('.countdown').html('');
 
         // Parse campaign end registration date to the Date object
         var dateObj = moment(settings.campaignSettings.endRegDate + '.0000Z');
