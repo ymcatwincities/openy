@@ -1,0 +1,12 @@
+name: Openy Campaign
+type: module
+description: Provides custom functionality for campaigns.
+core: 8.x
+version: 1.0-rc1
+package: OpenY Experimental
+dependencies:
+  - block
+  - scheduler
+  - openy_node_campaign
+  - personify
+  - openy_campaign_color

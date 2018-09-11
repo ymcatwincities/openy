@@ -2,7 +2,7 @@ name: OpenY
 type: profile
 description: 'Open Y Drupal distribution.'
 core: 8.x
-version: '8.1.12-dev'
+version: '8.x-1.14-dev'
 distribution:
   name: OpenY
   install:
@@ -105,6 +105,7 @@ dependencies:
   - local_fonts
   - css_editor
   # OpenY features.
+  - openy_er
   - openy_svg_formatter
   - openy_media_image
   - openy_media_document
@@ -183,6 +184,8 @@ dependencies:
   - openy_prgf_amenities
   - openy_prgf_lto
   - openy_node_social_post
+  - openy_prgf_repeat_schedules
+  - openy_prgf_repeat_schedules_loc
   # OpenY custom modules
   - openy_addthis
   - openy_branch_selector
@@ -193,23 +196,26 @@ dependencies:
   - openy_ckeditor
   - openy_hours_formatter
   - openy_migrate
-  - openy_map
   - openy_moderation_wrapper
   - openy_popups
-  - openy_session_instance
+  - openy_repeat_entity
+  - openy_repeat
   - openy_schedules
   - openy_socrates
+  - openy_map
+  - openy_system
   - openy_tour
-  - location_finder
   - daxko
   - openy_programs_search
   - openy_mappings
   - openy_calc
   - openy_data_wrapper
   - logger_entity
+  - personify
   - openy_redirect
   - advanced_help_block
   - openy_gtranslate
+  - openy_autocomplete_path
 
 themes:
   - bartik

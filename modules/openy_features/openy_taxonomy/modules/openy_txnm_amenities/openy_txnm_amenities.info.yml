@@ -1,5 +1,7 @@
 name: 'OpenY Taxonomy Amenities'
 description: 'OpenY Taxonomy Amenities.'
+package: OpenY
+version: '8.x-1.0'
 type: module
 core: 8.x
 dependencies:

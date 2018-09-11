@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: 2c
 label: '2 columns'
+icon_uuid: null
+description: 'Paragraph with 2 columns.'
+behavior_plugins: {  }

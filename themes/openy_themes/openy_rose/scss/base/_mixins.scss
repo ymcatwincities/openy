@@ -2,6 +2,10 @@
   font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 
+@mixin verdana() {
+  font-family: Verdana, Geneva, sans-serif;
+}
+
 @mixin cachet-medium() {
   font-family: "Cachet W01 Medium", Verdana, sans-serif;
 }

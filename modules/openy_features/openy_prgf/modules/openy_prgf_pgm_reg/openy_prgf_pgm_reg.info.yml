@@ -3,6 +3,7 @@ description: 'Provide a paragraph with a Program Registration Block for Landing 
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - field
   - openy_programs_search
