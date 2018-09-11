@@ -99,7 +99,7 @@ dependencies:
   - focal_point
   - video
   - media_entity_video
-#  - easy_breadcrumb
+  - easy_breadcrumb
   - ckeditor_bootstrap_buttons
   - fontyourface
   - local_fonts
