@@ -3,6 +3,7 @@ description: 'OpenY Node Alert.'
 type: module
 core: 8.x
 package: OpenY
+version: 8.x-1.0
 dependencies:
   - block
   - field
@@ -10,17 +11,6 @@ dependencies:
   - link
   - menu_ui
   - node
-  - openy_loc_branch
-  - openy_loc_camp
-  - openy_loc_facility
-  - openy_node_activity
-  - openy_node_blog
-  - openy_node_category
-  - openy_node_class
-  - openy_node_landing
-  - openy_node_mbrshp
-  - openy_node_program
-  - openy_node_session
   - openy_txnm_color
   - options
   - path

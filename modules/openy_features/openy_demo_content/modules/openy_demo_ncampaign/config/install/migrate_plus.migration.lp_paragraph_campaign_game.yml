@@ -1,0 +1,52 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncampaign
+id: openy_demo_lp_paragraph_campaign_game
+migration_tags: {  }
+migration_group: openy_demo_ncampaign
+label: 'Create Campaign Game paragraph for demo landing pages'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: challenge_yourself_campaign_game
+      parent_id: challenge_yourself_my_progress
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_campaign_page
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  field_prgf_campaign_game/target_id:
+    plugin: default_value
+    default_value: 'campaign_game_block'
+  field_prgf_campaign_game/target_revision_id:
+    plugin: default_value
+    default_value: 'campaign_game_block'
+  # TODO: get parent_field_name from data?
+  parent_field_name:
+    plugin: default_value
+    default_value: field_content
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: campaign_game

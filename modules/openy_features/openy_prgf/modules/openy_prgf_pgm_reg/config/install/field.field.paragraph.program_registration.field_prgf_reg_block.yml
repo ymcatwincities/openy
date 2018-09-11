@@ -6,10 +6,6 @@ dependencies:
     - paragraphs.paragraphs_type.program_registration
   module:
     - plugin
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_reg_block
 id: paragraph.program_registration.field_prgf_reg_block
 field_name: field_prgf_reg_block
 entity_type: paragraph

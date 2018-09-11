@@ -6,10 +6,6 @@ dependencies:
     - paragraphs.paragraphs_type.group_schedules
   module:
     - plugin
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_schedules_ref
 id: paragraph.group_schedules.field_prgf_schedules_ref
 field_name: field_prgf_schedules_ref
 entity_type: paragraph

@@ -1,8 +1,9 @@
-name: 'Openy Block Flexible Content'
+name: 'OpenY Block Flexible Content'
 description: 'Implements Flexible Content Block'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - block_content
   - field

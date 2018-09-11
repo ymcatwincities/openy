@@ -12,7 +12,7 @@ function openy_loc_facility_update_dependencies() {
   $dependencies['openy_loc_facility'] = [
     8002 => [
       'openy_node' => 8003,
-    ]
+    ],
   ];
 
   return $dependencies;
@@ -58,17 +58,17 @@ function openy_loc_facility_update_8002() {
     'field.field.node.' . $bundle . '.field_meta_tags',
     'simple_sitemap.bundle_settings.' . $bundle . '.landing_page',
   ]);
-  // Dependencies
+  // Dependencies.
   $config = drupal_get_path('module', $module) . $module . '.info.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, $module . '.info', 'dependencies');
-  // Entity form
+  // Entity form.
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_form_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.config');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.module');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'content.field_meta_tags');
-  // Entity view display
+  // Entity view display.
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_view_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
@@ -99,7 +99,7 @@ function openy_loc_facility_update_8004() {
     'core.entity_view_display.node.facility.full' => [
       'dependencies.config',
       'content.field_facility_loc.settings.view_mode',
-      'content.field_location_phone.label'
+      'content.field_location_phone.label',
     ],
   ];
 
@@ -132,7 +132,7 @@ function openy_loc_facility_update_8005() {
  */
 function openy_loc_facility_update_8006() {
   $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
@@ -228,6 +228,29 @@ function openy_loc_facility_update_8010() {
     ],
   ];
 
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs after entity reference handler update and configs actualization.
+ */
+function openy_loc_facility_update_8011() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  $configs = [
+    'field.field.node.facility.field_facility_loc' => [
+      'description',
+      'settings',
+    ],
+    'core.entity_form_display.node.facility.default' => [
+      'content.redirect',
+    ],
+  ];
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
