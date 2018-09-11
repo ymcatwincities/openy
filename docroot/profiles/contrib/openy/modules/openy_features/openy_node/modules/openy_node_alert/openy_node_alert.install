@@ -193,10 +193,10 @@ function openy_node_alert_update_8006() {
 /**
  * Update permissions.
  */
-function openy_node_alert_update_8006() {
+function openy_node_alert_update_8007() {
 
   $configs_to_remove = [
-    'yptf_kronos_monday.settings',
+//    'yptf_kronos_monday.settings',
     'block.block.views_block__alerts_footer_alerts',
     'block.block.views_block__alerts_footer_alerts_local',
     'block.block.views_block__alerts_header_alerts',
