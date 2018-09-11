@@ -93,7 +93,6 @@ class ActivityTrackingController extends ControllerBase {
     $activitiesCountMaxPerEntry = $config->get('activities_count_max_per_entry');
     $activitiesCountMaxPerActivity = $config->get('activities_count_max_per_activity');
 
-
     $dateRoute = \DateTime::createFromFormat('Y-m-d', $visit_date);
     $date = new \DateTime($dateRoute->format('d-m-Y'));
     $dateStamp = $date->format('U');

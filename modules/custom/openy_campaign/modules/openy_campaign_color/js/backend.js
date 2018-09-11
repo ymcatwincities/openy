@@ -49,7 +49,6 @@
             init();
           });
 
-
           /**
            * Callback for Farbtastic when a new color is chosen.
            *
@@ -73,7 +72,6 @@
               // Change input value.
               if ($(input).val() && $(input).val() !== color) {
                   $(input).val(color);
-
 
                   // Reset colorScheme selector.
                   if (!colorScheme) {

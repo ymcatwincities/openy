@@ -795,7 +795,6 @@ function openy_campaign_form_node_campaign_page_delete_form_alter(&$form, &$form
   }
 }
 
-
 /**
  * Render admin block with Campaign menu links.
  *
@@ -919,7 +918,6 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
   }
 }
 
-
 /**
  * Save campaign menu links.
  *
@@ -990,7 +988,6 @@ function openy_campaign_campaign_menu_field_submit(&$form, FormStateInterface $f
     }
   }
 }
-
 
 /**
  * Preprocess System Branding block variables.

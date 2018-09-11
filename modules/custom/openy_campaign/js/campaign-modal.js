@@ -7,7 +7,6 @@
 
     'use strict';
 
-
     // Prevent pages being opening that require user being logged in.
     $('.login').each(function(ind, item) {
         if (!drupalSettings.openy_campaign.isLoggedIn) {
@@ -29,7 +28,6 @@
     $.fn.replaceQuery = function(fragment) {
         history.replaceState('', '', window.location.pathname + '?tab=' + fragment);
     };
-
 
     $.fn.closeDialogByClick = function() {
         $(".ui-widget-overlay").on('click', function (e) {
