@@ -1,5 +1,5 @@
 .toolbar-icon-openy-system-openy:before {
-  background-image: url(../images/icon-gear.png);
+  background-image: url(../images/icon-gear-inactive.png);
 }
 
 .toolbar-icon-openy-system-openy:active:before,
