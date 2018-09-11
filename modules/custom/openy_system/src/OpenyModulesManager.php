@@ -85,10 +85,10 @@ class OpenyModulesManager {
       'bundle_field' => 'type',
     ],
     // TODO: fix media_entity info after switching to core media.
-    'media_entity' => [
+    'media' => [
       'prefix' => 'media_entity.bundle',
       'config_entity_type' => 'media_bundle',
-      'bundle_field' => 'type',
+      'bundle_field' => 'bundle',
     ],
     'taxonomy_term' => [
       'prefix' => 'taxonomy.vocabulary',
