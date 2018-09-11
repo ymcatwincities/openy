@@ -36,8 +36,8 @@
           <div>{{ 'Time'|t }}</div>
           <div class="category-column">{{ 'Category'|t }}</div>
           <div class="instructor-column">{{ 'Instructor'|t }}</div>
-          <div></div>
-          <div></div>
+          <div class="calendar-column"></div>
+          <div class="register-column"></div>
         </div>
 
         <div v-for="(item, index) in propData" class="schedules-data__row">
@@ -73,12 +73,12 @@
           </div>
 
           {# add to calendar #}
-          <div v-cloak>
+          <div v-cloak class="calendar-column">
             <span class="addtocalendar">
               <var class="atc_event">
                 <var class="atc_date_start">${ addToCalendarDate(item.time_start_calendar) }</var>
                 <var class="atc_date_end">${ addToCalendarDate(item.time_end_calendar) }</var>
-                <var class="atc_timezone">America/Chicago</var>
+                <var class="atc_timezone">${ item.timezone }</var>
                 <var class="atc_title">${ item.name }</var>
                 <var class="atc_description"></var>
                 <var class="atc_location"></var>
@@ -88,7 +88,7 @@
           </div>
 
           {# register btn #}
-          <div v-cloak v-if="item.register_url" >
+          <div v-cloak class="register-column" v-if="item.register_url" >
             <a v-bind:href="item.register_url" class="btn btn-primary register-btn">${ item.register_text }</a>
           </div>
         </div>
@@ -155,7 +155,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View branch'|t }}</a>
+          <a class="btn btn-lg btn-primary" v-bind:href="'{{ url('<front>') }}node/' + locationPopup.nid">{{ 'View branch'|t }}</a>
         </div>
       </div>
     </div>
@@ -188,7 +188,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <a class="btn btn-lg btn-primary" v-bind:href="'node/' + classPopup.nid">{{ 'View More'|t }}</a>
+          <a class="btn btn-lg btn-primary" v-bind:href="'{{ url('<front>') }}node/' + classPopup.nid">{{ 'View More'|t }}</a>
         </div>
 
       </div>
