@@ -432,7 +432,6 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     return $goalWinners;
   }
 
-
   /**
    * Get achieved Visit Goal members by branch.
    *

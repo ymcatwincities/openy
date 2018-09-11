@@ -57,7 +57,6 @@ class MemberCampaignCheckins extends FieldPluginBase {
     $start->setTimezone($siteDefaultTimezone);
     $start->setTime(0, 0, 0);
 
-
     /** @var \DateTime $end */
     $end = $campaign->field_campaign_end_date->date;
     $end->setTimezone($siteDefaultTimezone);

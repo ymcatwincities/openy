@@ -461,7 +461,6 @@ class MemberRegisterForm extends FormBase {
         $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
       }
 
-
       return $response;
     }
 

@@ -86,7 +86,6 @@
   background: #01a490;
 }
 
-
 .flip-cards .card.flipped {
   transform: rotateY( 180deg );
   -webkit-transform: rotateY(180deg);
