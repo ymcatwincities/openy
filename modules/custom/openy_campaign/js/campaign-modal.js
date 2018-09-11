@@ -60,7 +60,7 @@
             }
 
             window.location = redirectPath;
-        }, 3000);
+        }, 1000);
     };
 
     function getParameterByName(name) {
