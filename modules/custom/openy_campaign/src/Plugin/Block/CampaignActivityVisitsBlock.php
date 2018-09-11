@@ -87,7 +87,7 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
     // Get all enabled activities list.
     $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
 
-    $enableVisitsGoal = in_array('field_prgf_activity_visits', $activitiesOptions) ? TRUE : FALSE;
+    $enableVisitsGoal = in_array('field_prgf_activity_visits', $activitiesOptions);
 
     if ($enableVisitsGoal && MemberCampaign::isLoggedIn($campaign->id())) {
       // Show Visits goal block.

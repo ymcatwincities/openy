@@ -354,7 +354,7 @@ class CampaignScorecardService {
     $localTime = OpenYLocaleDate::createDateFromFormat(date('c'));
     $localTime->convertTimezone($campaignTimezone);
 
-    return ($localTime > $localeCampaignStart) ? TRUE : FALSE;
+    return $localTime > $localeCampaignStart;
   }
 
 }
