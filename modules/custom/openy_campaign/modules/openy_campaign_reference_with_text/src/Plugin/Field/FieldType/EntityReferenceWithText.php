@@ -43,7 +43,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $settings = $field_definition->getSettings();
-    $target_type_info = \Drupal::entityManager()->getDefinition($settings['target_type']);
+    $target_type_info = \Drupal::entityTypeManager()->getDefinition($settings['target_type']);
 
     // Add our properties.
     $properties['target_id'] = DataReferenceTargetDefinition::create('integer')
@@ -75,7 +75,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     $target_type = $field_definition->getSetting('target_type');
-    $target_type_info = \Drupal::entityManager()->getDefinition($target_type);
+    $target_type_info = \Drupal::entityTypeManager()->getDefinition($target_type);
 
     $columns = [
       'target_id' => [
@@ -112,7 +112,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
     $elements['target_type'] = [
       '#type' => 'select',
       '#title' => t('Type of item to reference'),
-      '#options' => \Drupal::entityManager()->getEntityTypeLabels(TRUE),
+      '#options' => \Drupal::entityTypeManager()->getEntityTypeLabels(TRUE),
       '#default_value' => $this->getSetting('target_type'),
       '#required' => TRUE,
       '#disabled' => $has_data,
