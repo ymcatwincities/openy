@@ -13,7 +13,6 @@ dependencies:
   - image
   - media_entity
   - openy_media
-  - openy_media_video
   - path
   - taxonomy
   - user
