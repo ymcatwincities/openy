@@ -377,4 +377,6 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
   }
 
 }
-
+.schedule-dashboard__sidebar .checkbox-room-wrapper {
+  padding-left: 15px;
+}
