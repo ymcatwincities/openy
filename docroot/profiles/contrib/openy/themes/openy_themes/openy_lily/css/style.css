@@ -12299,8 +12299,8 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-submit {
-    float: left;
-    margin-top: 38px;
+    float: right !important;
+    margin-top: 0;
     width: 150px;
   }
 }
