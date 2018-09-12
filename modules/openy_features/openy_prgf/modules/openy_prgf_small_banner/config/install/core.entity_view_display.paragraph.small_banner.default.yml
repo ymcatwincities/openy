@@ -26,9 +26,10 @@ content:
   field_prgf_description:
     weight: 3
     label: hidden
-    settings: {  }
+    settings:
+      trim_length: 600
     third_party_settings: {  }
-    type: text_default
+    type: text_trimmed
     region: content
   field_prgf_headline:
     weight: 0
