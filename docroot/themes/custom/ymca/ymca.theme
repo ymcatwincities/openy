@@ -741,7 +741,7 @@ function ymca_preprocess_search_results_page(&$vars) {
       $vars['categories'][] = $link;
     }
     // Pass Archive block data to the Search The Blog block.
-    if ($archive_lists = ymca_get_archive_data('blog')) {
+    if ($archive_lists = _ymca_get_archive_data('blog')) {
       $vars['archive_lists'] = $archive_lists;
     }
   }
