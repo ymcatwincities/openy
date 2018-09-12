@@ -19,9 +19,10 @@
 
       {# mobile toggler button #}
       <div class="col-5">
-        <a data-toggle="collapse" data-target=".navbar-collapse" role="button" class="collapsed">
+        <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
           <strong>
-            <i class="fa fa-plus" aria-hidden="true"></i>
+            <i class="fa fa-plus plus" aria-hidden="true"></i>
+            <i class="fa fa-minus minus" aria-hidden="true"></i>
             <span class="plus">{{ 'Show Filters'|t }}</span>
             <span class="minus">{{ 'Hide Filters'|t }}</span>
           </strong>
@@ -35,11 +36,11 @@
 
   </div>
 
-  <div class="navbar-collapse collapse w-100">
+  <div id="schedules-filters" class="navbar-collapse collapse w-100">
     <form class="navbar-form w-100" role="search">
 
       {# date picker #}
-      <div class="form-group-wrapper">
+      <div class="form-group-wrapper pt-4 pb-2">
         <label for="form-group-date" data-toggle="collapse" data-target=".form-group-date" role="button">
           {{ 'Date'|t }} <i class="fa fa-calendar date-picker" aria-hidden="true"></i>
         </label>
@@ -55,9 +56,11 @@
 
       {# location select list #}
       {% if locations is not empty %}
-      <div class="form-group-wrapper">
-        <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button" class="active">
-          {{ 'Location'|t }} <i class="fa fa-minus" aria-hidden="true"></i>
+      <div class="form-group-wrapper pt-4 pb-2">
+        <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button" class="expanded" aria-expanded="true">
+          {{ 'Location'|t }}
+          <i class="fa fa-minus minus" aria-hidden="true"></i>
+          <i class="fa fa-plus plus" aria-hidden="true"></i>
         </label>
         <div class="form-group-location collapse show" aria-expanded="true">
           {% for location in locations %}
@@ -76,9 +79,11 @@
 
       {# categories select list #}
       {% if categories is not empty %}
-        <div class="form-group-wrapper">
-          <label for="form-group-category" data-toggle="collapse" data-target=".form-group-category" role="button" class="active">
-            {{ 'Category'|t }} <i class="fa fa-minus" aria-hidden="true"></i>
+        <div class="form-group-wrapper pt-4 pb-2">
+          <label for="form-group-category" data-toggle="collapse" data-target=".form-group-category" role="button" class="expanded" aria-expanded="true">
+            {{ 'Category'|t }}
+            <i class="fa fa-minus minus" aria-hidden="true"></i>
+            <i class="fa fa-plus plus" aria-hidden="true"></i>
           </label>
           <div class="form-group-category collapse show" aria-expanded="true">
             {% for category in categories %}
@@ -96,14 +101,14 @@
       {% endif %}
 
       {# @todo: class name (implement) #}
-      <div class="form-group-wrapper d-none">
-        <label for="form-group-class">
-          {{ 'Class name'|t }}
-        </label>
-        <div class="form-group-class">
-          <input type="text" class="form-control" placeholder="All" disabled>
-        </div>
-      </div>
+      {#<div class="form-group-wrapper pt-4 pb-2 d-none">#}
+        {#<label for="form-group-class">#}
+          {#{{ 'Class name'|t }}#}
+        {#</label>#}
+        {#<div class="form-group-class">#}
+          {#<input type="text" class="form-control" placeholder="All" disabled>#}
+        {#</div>#}
+      {#</div>#}
 
     </form>
   </div>

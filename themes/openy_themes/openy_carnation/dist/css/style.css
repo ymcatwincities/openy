@@ -7460,7 +7460,7 @@ a.text-black:hover, a.text-black:focus {
   z-index: 900;
   border: 1px solid #bababa;
   border-radius: 2px;
-  box-shadow: 0 0 5px #AAA; }
+  box-shadow: 0 0 5px #aaa; }
   @media (min-width: 768px) {
     .atcb-list {
       left: auto;
