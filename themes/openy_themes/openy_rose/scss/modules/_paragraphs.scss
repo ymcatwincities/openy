@@ -428,9 +428,29 @@
   }
 }
 .paragraph--type--small-banner {
-  img.media__element {
-    height: auto;
-    width: auto;
+  overflow: hidden;
+  max-height: 250px;
+
+  .banner-image {
+    top: 0;
+    bottom: 0;
+
+    .banner-image-wrapper {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .field-prgf-image, .media-image, .field-media-image {
+        flex-grow: 1;
+        display: flex;
+      }
+
+      .field-media-image {
+        .media--image {
+          height: auto;
+        }
+      }
+    }
   }
 }
 
