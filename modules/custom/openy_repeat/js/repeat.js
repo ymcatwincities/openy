@@ -10,20 +10,23 @@
 
   // +/- Toggle.
   $('.schedule-dashboard__sidebar .navbar-header a[data-toggle], .form-group-wrapper label[data-toggle]').on('click', function() {
-    if (!$('.' + $(this).attr('for')).hasClass('collapsing')) {
+    // if (!$('.' + $(this).attr('for')).hasClass('collapsing')) {
+    console.log('test');
       $(this)
-        .toggleClass('closed active')
+        // .toggleClass('closed active')
         .find('i')
         .toggleClass('fa-minus fa-plus');
-    }
+    // }
   });
 
   // PDF link show/hidden.
-  var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
-  if (pdfLink) {
-    $('.btn-schedule-pdf')
-      .removeClass('hidden')
-      .attr('href', pdfLink.url);
+  if(window.OpenY.field_prgf_repeat_schedules_pdf) {
+    var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
+    if (pdfLink) {
+      $('.btn-schedule-pdf')
+        .removeClass('hidden')
+        .attr('href', pdfLink.url);
+    }
   }
 
   /* Check the settings of whether to display Instructor column or not */

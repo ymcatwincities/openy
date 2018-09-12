@@ -7455,9 +7455,16 @@ a.text-black:hover, a.text-black:focus {
   visibility: hidden;
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
   width: 170px;
-  z-index: 900; }
+  z-index: 900;
+  border: 1px solid #bababa;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #AAA; }
+  @media (min-width: 768px) {
+    .atcb-list {
+      left: auto;
+      right: 0; } }
 
 .atcb-list,
 .atcb-item {
@@ -7473,7 +7480,10 @@ a.text-black:hover, a.text-black:focus {
 .atcb-item-link {
   text-decoration: none;
   outline: none;
-  display: block; }
+  display: block;
+  padding: 3px 10px; }
+  .atcb-item-link:hover {
+    background-color: #ccc; }
 
 .atcb-item.hover,
 .atcb-item:hover {
