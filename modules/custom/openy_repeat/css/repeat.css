@@ -95,20 +95,13 @@ a.collapsed .minus {
   display: none;
 }
 
-a[aria-expanded=true] .plus {
+/* Toggle +/- */
+a[data-toggle][aria-expanded=true] .plus,
+label[data-toggle][aria-expanded=true] .plus,
+label.expanded:not(.collapsed) .plus,
+label[aria-expanded=false] .minus {
   display: none;
 }
-
-
-/*.schedule-dashboard__sidebar .collapsed .minus,*/
-/*.schedule-dashboard__sidebar .active .plus {*/
-  /*display: none;*/
-/*}*/
-
-/*.schedule-dashboard__sidebar .active .minus,*/
-/*.schedule-dashboard__sidebar .closed .plus {*/
-  /*display: inline;*/
-/*}*/
 
 @media (max-width: 768px) {
   .clear-all {
@@ -261,7 +254,7 @@ a[aria-expanded=true] .plus {
 
 @media (min-width: 768px) {
   .schedule-dashboard__content--header h2 {
-    font-size: 36px;
+    font-size: 32px;
   }
 }
 
