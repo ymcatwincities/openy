@@ -22,7 +22,7 @@ source:
           header_content_id: homepage_banner
       content_ids:
         -
-          content_id: homepage_latest_blog_posts
+          content_id: homepage_latest_news_posts
         -
           content_id: homepage_grid
         -
@@ -274,7 +274,7 @@ process:
           - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
           - openy_demo_lp_paragraph_blog_posts_listing
-          - openy_demo_lp_paragraph_latest_blog_posts
+          - openy_demo_lp_paragraph_latest_news_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
@@ -293,7 +293,7 @@ process:
           - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
           - openy_demo_lp_paragraph_blog_posts_listing
-          - openy_demo_lp_paragraph_latest_blog_posts
+          - openy_demo_lp_paragraph_latest_news_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
@@ -330,7 +330,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_banner
     - openy_demo_lp_paragraph_small_banner
     - openy_demo_lp_paragraph_blog_posts_listing
-    - openy_demo_lp_paragraph_latest_blog_posts
+    - openy_demo_lp_paragraph_latest_news_posts
     - openy_demo_lp_paragraph_location_finder_filters
     - openy_demo_lp_paragraph_location_finder
     - openy_demo_lp_paragraph_menu_camp
