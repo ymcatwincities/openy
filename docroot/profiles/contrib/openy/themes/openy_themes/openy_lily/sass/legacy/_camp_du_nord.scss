@@ -209,8 +209,8 @@
     height: 50px;
     width: 100%;
     @include breakpoint(768px) {
-      float: left;
-      margin-top: 38px;
+      float: right !important;
+      margin-top: 0;
       width: 150px;
     }
   }
