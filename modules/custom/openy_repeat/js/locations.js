@@ -27,6 +27,12 @@
 
       // Attach location arguments to url on submit.
       $('.js-submit-locations', context).once('openy-submit-locations').click(function() {
+        if ($(this).hasClass('disabled')) {
+          if ($(this).parent().find('.error').length === 0) {
+            $(this).before('<div class="error">' + Drupal.t('Please choose the location') + '</div>');
+          }
+          return false;
+        }
         var chkArray = [];
         $(".js-locations-row .js-location-box").each(function() {
           if ($(this).is(':checked')) {
@@ -44,7 +50,11 @@
   // Toggle disable the submit button.
   var toggleSubmit = function(context) {
     if($('.schedule-locations__item label.selected').length > 0) {
-      $('.js-submit-locations', context).removeClass('disabled');
+      $('.js-submit-locations', context)
+        .removeClass('disabled')
+        .parent()
+        .find('.error')
+        .remove();
     } else {
       $('.js-submit-locations', context).addClass('disabled');
     }
