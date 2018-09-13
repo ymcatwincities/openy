@@ -880,13 +880,17 @@ class YptfKronosReports {
 
       $row = str_getcsv($line);
       $rows[$i] = array_combine($titles, $row);
-      $empId = $this->getEmpIdByNameFromKronosData($rows[$i]['Staff'], $kronosData);
-      if ($empId) {
-        $rows[$i]['EmpID'] = $empId;
+
+      if (!isset($rows[$i]['EmpID']) || empty($rows[$i]['EmpID'])) {
+        $empId = $this->getEmpIdByNameFromKronosData($rows[$i]['Staff'], $kronosData);
+        if ($empId) {
+          $rows[$i]['EmpID'] = $empId;
+        }
+        else {
+          $notFound[] = $rows[$i]['Staff'];
+        }
       }
-      else {
-        $notFound[] = $rows[$i]['Staff'];
-      }
+
     }
 
     $this->mindbodyData = $rows;
