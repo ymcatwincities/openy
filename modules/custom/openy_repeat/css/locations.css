@@ -41,3 +41,8 @@
 .field-prgf-repeat-lschedules-prf {
   display: none;
 }
+
+.text-right .error {
+  color: #a51b00;
+  font-size: 12px;
+}
