@@ -1,8 +1,8 @@
 .cdn-form-full {
   background-color: $white;
-  .form-item-cabin {
-    float: right !important;
-  }
+  //.form-item-cabin {
+  //  float: right !important;
+  //}
   .top-elements-wrapper {
     border-bottom: 1px solid #ddd;
     @include clearfix();
@@ -110,7 +110,10 @@
     }
   }
   .form-item-village {
-    margin-left: 30px;
+    margin-left: 0;
+    @include breakpoint(768px) {
+      margin-left: 20px;
+    }
   }
   .form-item-village,
   .form-item-cabin,
@@ -121,7 +124,6 @@
     line-height: 50px;
     @include breakpoint(768px) {
       float: left;
-      margin-right: 30px;
       border: none;
       background-color: transparent;
       height: auto;
@@ -164,8 +166,9 @@
       @include breakpoint(768px) {
         border: 1px solid #dadada;
         width: auto;
-        float: none;
+        float: left;
         height: 50px;
+        margin-right: 20px;
       }
     }
   }
@@ -208,6 +211,7 @@
     font-weight: bold;
     height: 50px;
     width: 100%;
+    float: none;
     @include breakpoint(768px) {
       float: right !important;
       margin-top: 0;
