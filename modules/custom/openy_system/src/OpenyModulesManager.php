@@ -461,5 +461,4 @@ class OpenyModulesManager {
     $this->removeModuleConfigs(array_merge($module_install_configs, $module_optional_configs));
   }
 
-
 }
