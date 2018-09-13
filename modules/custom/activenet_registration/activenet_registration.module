@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Contains activenet_registration.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+ /**
+ * Implements hook_help().
+ */
+function activenet_registration_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.activenet_registration':
+      $output = '<h3>' . t('Active Net Registration for communities') . '</h3>';
+      $output .= '<p>' . t('Instructions about selections go here.') . '</p>';
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function activenet_registration_theme($existing, $type, $theme, $path) {
+  return [
+    'activenet_activity_registration' => [
+      'variables' => [
+        'name' => NULL,
+        'registration_url' => NULL,
+        'gender' => NULL,
+        'site_name' => NULL,
+        'date_start' => NULL,
+        'date_end' => NULL,
+        'date_pattern' => NULL,
+      ],
+    ],
+    'activenet_flex_registration' =>[
+      'variables' => [
+        'name' => NULL,
+        'registration_url' => NULL,
+        'gender' => NULL,
+        'site_name' => NULL,
+      ],
+    ],
+    'activenet_site' =>[
+      'variables' => [
+        'site_id' => NULL,
+        'site_name' => NULL,
+      ],
+    ],
+  ];
+}

@@ -1,0 +1,7 @@
+activenet_registration.settings:
+  path: '/admin/config/services/activenet/registration'
+  defaults:
+    _form: '\Drupal\activenet_registration\Form\SettingsForm'
+    _title: 'ActiveNet Communities Registration settings'
+  requirements:
+    _permission: 'administer activenet registration'
