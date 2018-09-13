@@ -1,0 +1,211 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_taxonomy_term_fitness_category
+migration_tags: {  }
+migration_group: openy_demo_term
+label: 'Create demo fitness category term(s)'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      name: Aquatics
+      parent: 0
+    -
+      id: 2
+      name: Fitness
+      parent: 0
+    -
+      id: 3
+      name: Group Exercise
+      parent: 0
+    -
+      id: 4
+      name: Community
+      parent: 0
+    -
+      id: 5
+      name: Lap Pool
+      parent: 1
+    -
+      id: 6
+      name: Water Slide
+      parent: 1
+    -
+      id: 7
+      name: Sauna
+      parent: 1
+    -
+      id: 8
+      name: Splash Deck
+      parent: 1
+    -
+      id: 9
+      name: Steam Room
+      parent: 1
+    -
+      id: 10
+      name: Swim Lessons
+      parent: 1
+    -
+      id: 11
+      name: Using the whirlpool
+      parent: 1
+    -
+      id: 12
+      name: Vortex Pool
+      parent: 1
+    -
+      id: 13
+      name: Warm-Water Leisure Pool
+      parent: 1
+    -
+      id: 14
+      name: Whirlpool
+      parent: 1
+    -
+      id: 14
+      name: Buddy Training
+      parent: 2
+    -
+      id: 15
+      name: Equipment Orientation
+      parent: 2
+    -
+      id: 16
+      name: Climbing Wall
+      parent: 2
+    -
+      id: 17
+      name: Cardio Machine
+      parent: 2
+    -
+      id: 18
+      name: Fitness Assessment
+      parent: 2
+    -
+      id: 19
+      name: Open Gym
+      parent: 2
+    -
+      id: 20
+      name: Outdoor Trail
+      parent: 2
+    -
+      id: 21
+      name: Personal Training
+      parent: 2
+    -
+      id: 22
+      name: Racquet/Handball
+      parent: 2
+    -
+      id: 23
+      name: Strength Machine
+      parent: 2
+    -
+      id: 24
+      name: Using weights
+      parent: 2
+    -
+      id: 25
+      name: Weights
+      parent: 2
+    -
+      id: 26
+      name: Youth Sports
+      parent: 2
+    -
+      id: 27
+      name: Indoor Track
+      parent: 2
+    -
+      id: 28
+      name: Personal Consultation
+      parent: 2
+    -
+      id: 29
+      name: Stretching/Mobility equipment
+      parent: 2
+    -
+      id: 30
+      name: Small-Group Training Class
+      parent: 3
+    -
+      id: 31
+      name: Group Exercise Class
+      parent: 3
+    -
+      id: 32
+      name: ForeverWell Class
+      parent: 3
+    -
+      id: 33
+      name: Kids & Family Class
+      parent: 3
+    -
+      id: 34
+      name: Water Exercise Class
+      parent: 3
+    -
+      id: 35
+      name: Did sit-ups during TV commercial
+      parent: 4
+    -
+      id: 36
+      name: Family bike ride
+      parent: 4
+    -
+      id: 37
+      name: Volunteered
+      parent: 4
+    -
+      id: 38
+      name: Biked to work
+      parent: 4
+    -
+      id: 39
+      name: Did household chores
+      parent: 4
+    -
+      id: 40
+      name: Coached a sports team
+      parent: 4
+    -
+      id: 41
+      name: Worked out outside
+      parent: 4
+    -
+      id: 42
+      name: Family park day
+      parent: 4
+    -
+      id: 43
+      name: Other
+      parent: 4
+    -
+      id: 44
+      name: Walked to the bus
+      parent: 4
+  ids:
+    id:
+      type: integer
+process:
+  name: name
+  vid:
+    plugin: default_value
+    default_value: fitness_category
+  parent:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: parent
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_fitness_category
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies:
+  required: {  }
+  optional: {  }

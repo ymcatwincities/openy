@@ -1,0 +1,17 @@
+global-styling:
+  version: 1.0-rc1
+  css:
+    base:
+      css/vendor/bootstrap/bootstrap.css: {}
+      css/vendor/bootstrap/bootstrap-theme.min.css: {}
+    theme:
+      css/styles.css: {}
+      css/colors.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.tabs
+    - core/jquery.ui.core
+    - core/jquery.ui.widget
+    - core/drupal
+    - core/drupalSettings

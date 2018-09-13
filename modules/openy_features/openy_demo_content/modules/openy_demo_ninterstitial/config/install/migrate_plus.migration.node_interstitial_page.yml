@@ -1,0 +1,59 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_node_interstitial_page
+migration_tags: {  }
+migration_group: openy_demo_ninterstitial
+label: 'Create demo interstitial page nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: interstitial_page
+      title: 'Interstitial Content'
+      alias: '/interstitial_page'
+      body: >
+        <p>Some text for popup.&nbsp;</p>
+        <p>Lorem ipsum <strong>dolor</strong><strong> </strong><strong>sit</strong><strong> </strong><strong>amet</strong><strong>,
+        </strong><strong>consectetur</strong><strong> </strong><strong>adipiscing</strong><strong> </strong><strong>elit</strong>.
+        Aliquam et sollicitudin felis, non volutpat dolor.</p>
+        <p>Cras fermentum, nibh at ultrices luctus, <strong>erat odio faucibus tortor</strong>, sed egestas enim magna et nibh.</p>
+        <p>Nam feugiat odio ac felis imperdiet aliquet. Donec pretium pretium velit a volutpat. Vivamus maximus eros eget
+        libero sodales rhoncus. Phasellus porta ligula sed scelerisque blandit. Sed egestas eget nunc vitae congue. Proin bibendum gravida ultricies.</p>
+      dialog_title: 'Terms and Conditions'
+      show_times: 3
+      close_time: 5
+      close_interaction: 1
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  title: title
+  path/alias: alias
+  body/value: body
+  body/format:
+    plugin: default_value
+    default_value: full_html
+  field_dialog_title: dialog_title
+  field_show_times: show_times
+  field_close_time: close_time
+  field_close_interaction: close_interaction
+destination:
+  plugin: 'entity:node'
+  default_bundle: interstitial_page
+migration_dependencies:
+  required: {  }
+  optional: {  }

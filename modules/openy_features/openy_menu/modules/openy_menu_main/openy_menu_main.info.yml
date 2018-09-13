@@ -1,8 +1,9 @@
-name: 'Openy Menu Main'
+name: 'OpenY Menu Main'
 description: 'Openy Menu Main.'
 type: module
 core: 8.x
 package: OpenY
+version: 8.x-1.0
 dependencies:
   - block
   - node

@@ -77,6 +77,7 @@ display:
       style:
         type: default
         options:
+          grouping: {  }
           row_class: ''
           default_row_class: true
           uses_fields: false
@@ -202,8 +203,9 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: text_default
-          settings: {  }
+          type: text_trimmed
+          settings:
+            trim_length: 300
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -520,6 +522,9 @@ display:
         - 'config:core.entity_view_display.node.camp.teaser'
         - 'config:core.entity_view_display.node.class.default'
         - 'config:core.entity_view_display.node.class.teaser'
+        - 'config:core.entity_view_display.node.event.default'
+        - 'config:core.entity_view_display.node.event.full'
+        - 'config:core.entity_view_display.node.event.teaser'
         - 'config:core.entity_view_display.node.facility.default'
         - 'config:core.entity_view_display.node.facility.full'
         - 'config:core.entity_view_display.node.facility.teaser'
@@ -541,6 +546,8 @@ display:
         - 'config:core.entity_view_display.node.program_subcategory.teaser'
         - 'config:core.entity_view_display.node.session.default'
         - 'config:core.entity_view_display.node.session.teaser'
+        - 'config:core.entity_view_display.node.social_post.default'
+        - 'config:core.entity_view_display.node.social_post.teaser'
         - 'config:field.storage.node.field_news_description'
         - 'config:views.view.listing_news_posts'
         - node_list
@@ -583,6 +590,9 @@ display:
         - 'config:core.entity_view_display.node.camp.teaser'
         - 'config:core.entity_view_display.node.class.default'
         - 'config:core.entity_view_display.node.class.teaser'
+        - 'config:core.entity_view_display.node.event.default'
+        - 'config:core.entity_view_display.node.event.full'
+        - 'config:core.entity_view_display.node.event.teaser'
         - 'config:core.entity_view_display.node.facility.default'
         - 'config:core.entity_view_display.node.facility.full'
         - 'config:core.entity_view_display.node.facility.teaser'
@@ -604,6 +614,8 @@ display:
         - 'config:core.entity_view_display.node.program_subcategory.teaser'
         - 'config:core.entity_view_display.node.session.default'
         - 'config:core.entity_view_display.node.session.teaser'
+        - 'config:core.entity_view_display.node.social_post.default'
+        - 'config:core.entity_view_display.node.social_post.teaser'
         - 'config:field.storage.node.field_news_description'
         - 'config:views.view.listing_news_posts'
         - node_list

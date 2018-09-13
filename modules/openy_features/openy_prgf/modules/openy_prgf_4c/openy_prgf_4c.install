@@ -6,6 +6,19 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_prgf_4c_update_dependencies() {
+  $dependencies['openy_prgf_4c'] = [
+    8005 => [
+      'openy' => 8060,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Add field_prfg_display_line_above for openy_prgf_1c, openy_prgf_2c, openy_prgf_3c, openy_prgf_4c.
  *
  * In some reason configuration for openy_prgf_4c must be importer first we got conf dependency error.
@@ -35,4 +48,20 @@ function openy_prgf_4c_update_8004() {
     'core.entity_view_display.paragraph.4c.default',
     'content'
   );
+}
+
+/**
+ * Update configs of the entity reference fields.
+ */
+function openy_prgf_4c_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_4c') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.paragraph.4c.field_prgf_4c_1st',
+    'field.field.paragraph.4c.field_prgf_4c_2nd',
+    'field.field.paragraph.4c.field_prgf_4c_3rd',
+    'field.field.paragraph.4c.field_prgf_4c_4th',
+    'paragraphs.paragraphs_type.4c',
+  ]);
 }

@@ -6,10 +6,6 @@ dependencies:
     - node.type.class
   module:
     - entity_reference_revisions
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_header_content
 id: node.class.field_header_content
 field_name: field_header_content
 entity_type: node

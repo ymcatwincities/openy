@@ -122,7 +122,7 @@ function openy_node_category_update_8005() {
   $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'field.field.node.program_subcategory.field_bottom_content' =>[
+    'field.field.node.program_subcategory.field_bottom_content' => [
       'description',
     ],
     'field.field.node.program_subcategory.field_category_color' => [
@@ -165,7 +165,7 @@ function openy_node_category_update_8005() {
  */
 function openy_node_category_update_8006() {
   $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
@@ -253,7 +253,7 @@ function openy_node_category_update_8012() {
   $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'image.style.node_program_subcategory_teaser' =>[
+    'image.style.node_program_subcategory_teaser' => [
       'dependencies',
       'effects',
     ],
@@ -303,6 +303,33 @@ function openy_node_category_update_8014() {
     ],
   ];
 
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs after entity reference handler update and configs actualization.
+ */
+function openy_node_category_update_8015() {
+  $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
+  $configs = [
+    'core.entity_view_display.node.program_subcategory.default' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.program_subcategory.full' => [
+      'dependencies.config',
+      'hidden',
+    ],
+    'core.entity_view_display.node.program_subcategory.teaser' => [
+      'dependencies.config',
+      'hidden',
+    ],
+  ];
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';

@@ -1,5 +1,9 @@
 .breadcrumb-container {
   background: $grey26;
+  .breadcrumb {
+    background-color: inherit;
+    margin-bottom: 0;
+  }
   ol {
     list-style-type: none;
     margin: 0;
