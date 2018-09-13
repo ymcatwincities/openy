@@ -426,15 +426,30 @@
   @include breakpoint($screen-desktop) {
     height: 600px;
   }
+}
+.paragraph--type--small-banner {
+  overflow: hidden;
+  max-height: 250px;
 
-  img.media__element {
-    @include breakpoint($screen-desktop) {
-      bottom: -100%;
-      top: -100%;
-      left: 0;
-      right: 0;
-      margin: auto;
-      position: absolute;
+  .banner-image {
+    top: 0;
+    bottom: 0;
+
+    .banner-image-wrapper {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .field-prgf-image, .media-image, .field-media-image {
+        flex-grow: 1;
+        display: flex;
+      }
+
+      .field-media-image {
+        .media--image {
+          height: auto;
+        }
+      }
     }
   }
 }
@@ -470,14 +485,9 @@
         padding-bottom: 0 !important;
         position: relative;
       }
-    }
 
-    img.media__element {
-      width: 100% !important;
-      height: auto !important;
-
-      @include breakpoint($screen-desktop $screen-lg-desktop) {
-        width: 120% !important;
+      img.media__element {
+        object-fit: cover;
       }
     }
   }
