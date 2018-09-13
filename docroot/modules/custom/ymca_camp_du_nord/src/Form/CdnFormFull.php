@@ -219,11 +219,6 @@ class CdnFormFull extends FormBase {
       '#default_value' => $state['arrival_date'],
     ];
 
-    $form['html']['element'] = [
-      '#type' => 'markup',
-      '#markup' => '<h2>Search</h2>',
-    ];
-
     $form['departure_date'] = [
       '#type' => 'date',
       '#title' => t('Check Out'),
@@ -245,7 +240,6 @@ class CdnFormFull extends FormBase {
     $this->cabinOptions = array_merge(['' => $this->t('Cabin')], $this->cabinOptions);
     $form['cabin'] = [
       '#type' => 'select',
-      '#prefix' => '<div class="bottom-elements-wrapper"><div class="container">',
       '#title' => t('Cabin'),
       '#default_value' => $state['cid'],
       '#options' => $this->cabinOptions,
@@ -278,7 +272,6 @@ class CdnFormFull extends FormBase {
       // Close bottom-elements-wrapper.
       '#prefix' => '</div></div><div class="cdn-results">',
       '#markup' => render($formatted_results),
-      '#suffix' => '</div>',
       '#weight' => 10,
     ];
 
