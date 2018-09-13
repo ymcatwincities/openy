@@ -143,7 +143,7 @@ function openy_prgf_small_banner_update_8006() {
   $config_dir = drupal_get_path('module', 'openy_prgf_small_banner') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'image.style.prgf_small_banner' =>[
+    'image.style.prgf_small_banner' => [
       'dependencies',
       'effects',
     ],
@@ -155,5 +155,22 @@ function openy_prgf_small_banner_update_8006() {
     foreach ($params as $param) {
       $config_updater->update($config, $config_name, $param);
     }
+  }
+}
+
+/**
+ * Update prgf_small_banner image style.
+ */
+function openy_prgf_small_banner_update_8007() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_small_banner') . '/config/install/';
+  $configs = [
+    'image.style.prgf_small_banner' => 'effects',
+    'core.entity_view_display.paragraph.small_banner.default' => 'content.field_prgf_description',
+  ];
+
+  foreach ($configs as $config_name => $config_param) {
+    $config = $config_dir . $config_name . '.yml';
+    \Drupal::service('openy_upgrade_tool.param_updater')
+      ->update($config, $config_name, $config_param);
   }
 }
