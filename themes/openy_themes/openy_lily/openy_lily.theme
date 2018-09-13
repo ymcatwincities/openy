@@ -233,7 +233,12 @@ function openy_lily_page_attachments_alter(array &$page) {
   // related to a camp, and the custom camp favicon has been set for the theme.
 
   // Exit if not a node page, or if the 'openy_loc_camp.camp_service' is not available.
-  if (!($node = \Drupal::request()->attributes->get('node')) || !($camp_service = \Drupal::service('openy_loc_camp.camp_service'))) {
+  if ( !\Drupal::hasService('openy_loc_camp.camp_service')) {
+    return;
+  }
+  $camp_service = \Drupal::service('openy_loc_camp.camp_service');
+  $node = \Drupal::request()->attributes->get('node');
+  if (!$node || !is_object($node)) {
     return;
   }
 
@@ -545,7 +550,7 @@ function openy_lily_preprocess_html(&$variables) {
           ->load($p['target_id'])
         ) {
           // Take action for microsites_menu paragraph.
-          if ($paragraph->bundle() == 'microsites_menu') {
+          if ($paragraph && $paragraph->bundle() == 'microsites_menu') {
             // Add class to the body.
             $variables['attributes']['class'][] = 'microsites-menu';
             if ($paragraph->field_prgf_ms_menu_hide_menu->value) {

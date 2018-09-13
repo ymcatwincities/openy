@@ -5,12 +5,7 @@ dependencies:
     - field.storage.node.field_event_description
     - node.type.event
   module:
-    - datalayer
     - text
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_event_description
 id: node.event.field_event_description
 field_name: field_event_description
 entity_type: node

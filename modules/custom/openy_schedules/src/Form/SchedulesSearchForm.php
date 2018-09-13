@@ -14,7 +14,7 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
-use Drupal\openy_session_instance\SessionInstanceManager;
+use Drupal\openy_repeat\RepeatManager;
 use Drupal\openy_session_instance\Entity\SessionInstanceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -79,7 +79,7 @@ class SchedulesSearchForm extends FormBase {
    *   The entity query factory.
    * @param EntityTypeManager $entity_type_manager
    *   The EntityTypeManager.
-   * @param SessionInstanceManager $session_instance_manager
+   * @param RepeatManager $session_instance_manager
    *   The SessionInstanceManager.
    */
   public function __construct(
@@ -87,7 +87,7 @@ class SchedulesSearchForm extends FormBase {
     RequestStack $request_stack,
     QueryFactory $entity_query,
     EntityTypeManager $entity_type_manager,
-    SessionInstanceManager $session_instance_manager
+    RepeatManager $session_instance_manager
   ) {
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
@@ -182,6 +182,12 @@ class SchedulesSearchForm extends FormBase {
         ->loadMultiple($entity_ids);
       foreach ($nodes as $id => $node) {
         $options[$map[$node->bundle()]][$id] = $node->getTitle();
+      }
+      // Remove empty option categories.
+      foreach ($options as $key => $option) {
+        if (empty($option)) {
+          unset($options[$key]);
+        }
       }
     }
 

@@ -1,3 +1,8 @@
+map_engine: leaflet
+leaflet:
+  base_layer: 'Wikimedia'
+  search_icon: '/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red.png'
+  search_icon_retina: '/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red_x2.png'
 default_tags:
   branch: 'YMCA'
   camp: 'Camps'
@@ -15,6 +20,6 @@ active_types:
   camp: 'Camps'
   facility: 'Facilities'
 type_icons:
-  branch: '/profiles/contrib/openy/modules/custom/location_finder/img/map_icon_blue.png'
-  camp: '/profiles/contrib/openy/modules/custom/location_finder/img/map_icon_green.png'
-  facility: '/profiles/contrib/openy/modules/custom/location_finder/img/map_icon_green.png'
+  branch: '/profiles/contrib/openy/modules/custom/openy_map/img/map_icon_blue.png'
+  camp: '/profiles/contrib/openy/modules/custom/openy_map/img/map_icon_green.png'
+  facility: '/profiles/contrib/openy/modules/custom/openy_map/img/map_icon_green.png'

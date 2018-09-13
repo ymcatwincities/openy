@@ -3,12 +3,10 @@ description: 'OpenY Paragraph Secondary Description and Sidebar.'
 type: module
 core: 8.x
 package: OpenY
+version: '8.x-1.0'
 dependencies:
   - datalayer
   - field
-  - openy_block_basic
-  - openy_block_custom_simple
-  - openy_block_date
-  - openy_code_block
+  - openy_er
   - paragraphs
   - text

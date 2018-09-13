@@ -194,8 +194,32 @@ process:
     source: language
     default_value: und
   status:
-    plugin: default_value
-    default_value: 1
+    -
+      plugin: get
+      source: publish_status
+    -
+      plugin: default_value
+      default_value: 1
+  publish_on:
+    -
+      plugin: get
+      source: publish_date
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: default_value
+      default_value: null
+  unpublish_on:
+    -
+      plugin: get
+      source: unpublish_date
+    -
+      plugin: callback
+      callable: strtotime
+    -
+      plugin: default_value
+      default_value: null
   uid:
     plugin: default_value
     default_value: 1
@@ -320,5 +344,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_microsites_menu
     - openy_demo_lp_paragraph_all_amenities
     - openy_demo_lp_paragraph_loc_by_amnts
+    - openy_demo_lp_paragraph_repeat_schedules_locations
+    - openy_demo_lp_paragraph_repeat_schedules
   optional:
     - openy_demo_node_blog

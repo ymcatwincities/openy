@@ -282,25 +282,22 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
     $builder = $this->entityTypeManager->getViewBuilder('node');
     $locations = $storage->loadMultiple($location_ids);
 
+    // Get labels and icons for every bundle from OpenY Map config.
+    $typeIcons = $this->configFactory->get('openy_map.settings')->get('type_icons');
+    $typeLabels = $this->configFactory->get('openy_map.settings')->get('type_labels');
+    $tag = $typeLabels['branch'];
     $pins = [];
     foreach ($locations as $location) {
       $view = $builder->view($location, 'membership_teaser');
       $coordinates = $location->get('field_location_coordinates')->getValue();
-      $tags = [];
-      switch ($location->getType()) {
-        case 'branch':
-          $tags[] = t('YMCA');
-          $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_blue.png');
-          break;
-
-        case 'camp':
-          $tags[] = t('Camps');
-          $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_green.png');
-          break;
+      if (!$coordinates) {
+        continue;
       }
+      $uri = !empty($typeIcons[$location->bundle()]) ? $typeIcons[$location->bundle()] :
+        '/' . drupal_get_path('module', 'openy_map') . "/img/map_icon_green.png";
       $pins[] = [
-        'icon' => $icon,
-        'tags' => $tags,
+        'icon' => $uri,
+        'tags' => [$tag],
         'lat' => round($coordinates[0]['lat'], 5),
         'lng' => round($coordinates[0]['lng'], 5),
         'name' => $location->label(),
