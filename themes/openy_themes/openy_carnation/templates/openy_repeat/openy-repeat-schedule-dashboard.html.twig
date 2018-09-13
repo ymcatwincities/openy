@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - locations: locations of "repeat" entity for filter.
+ * - categories: categories of "repeat" entity for filter.
+ */
+#}
+{{ attach_library('openy_repeat/openy_repeat') }}
+<div class="container schedule-dashboard__wrapper" id="app">
+  <div class="row">
+
+    {# sidebar #}
+    <div class="col-12 col-md-4 col-lg-3 schedule-dashboard__sidebar">
+      {% include '@openy_carnation/openy_repeat/openy-repeat-schedule-dashboard--sidebar.html.twig' %}
+    </div>
+
+    {# main table #}
+    <div class="col schedule-dashboard__content main-table">
+      {% include '@openy_carnation/openy_repeat/openy-repeat-schedule-dashboard--table.html.twig' %}
+    </div>
+
+  </div>
+</div>
