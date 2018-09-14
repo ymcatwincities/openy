@@ -12232,7 +12232,6 @@ body.node--type-location #groupex-full-form-wrapper #location-select-wrapper {
   box-shadow: none;
   padding-right: 25px;
   border: none;
-  width: 70%;
   float: right;
 }
 @media (min-width: 48em) {
