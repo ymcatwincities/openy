@@ -134,7 +134,7 @@ class CdnFormFull extends FormBase {
       'village' => isset($query['village']) && is_numeric($query['village']) ? $query['village'] : 'all',
       'arrival_date' => isset($query['arrival_date']) ? $query['arrival_date'] : $default_arrival_date,
       'departure_date' => isset($query['departure_date']) ? $query['departure_date'] : $default_departure_date,
-      'range' => isset($query['range']) ? $query['range'] : 3,
+      'range' => isset($query['range']) ? $query['range'] : 0,
       'capacity' => isset($query['capacity']) ? $query['capacity'] : 'all',
       'show' => isset($query['show']) ? $query['show'] : 'all',
       'cabin' => '',
@@ -228,7 +228,7 @@ class CdnFormFull extends FormBase {
     $form['range'] = [
       '#type' => 'select',
       '#title' => t('Expand date range by'),
-      '#default_value' => !is_null($state['range']) ? $state['range'] : 3,
+      '#default_value' => !is_null($state['range']) ? $state['range'] : 0,
       '#options' => [
         0 => '+/- 0 Days',
         3 => '+/- 3 Days',
