@@ -15,8 +15,17 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $installed_packages = [];
     $packages = ConfigureProfileForm::getPackages();
-
+    // Get array of fully installed packages.
+    foreach ($packages as $key => $package) {
+      foreach ($package['modules'] as $module_name) {
+        if ($this->moduleHandler->moduleExists($module_name)) {
+          $installed_packages[$key] = $packages[$key];
+          break;
+        }
+      }
+    }
     $form['filters'] = [
       '#type' => 'container',
       '#attributes' => [
@@ -38,9 +47,9 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
       ],
     ];
 
-    // Iterate over each of the packages.
+    // Iterate over each of the installed packages.
     $form['uninstall'] = ['#tree' => TRUE];
-    foreach ($packages as $key => $package) {
+    foreach ($installed_packages as $key => $package) {
 
       $name = $package["name"];
       $form['modules'][$key]['#module_name'] = $name;
@@ -52,14 +61,6 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
         '#title' => $this->t('Uninstall @module package', ['@module' => $name]),
         '#title_display' => 'invisible',
       ];
-      $package_disabled = TRUE;
-      foreach ($package['modules'] as $module_name) {
-        if ($this->moduleHandler->moduleExists($module_name)) {
-          $package_disabled = FALSE;
-          break;
-        }
-      }
-      $form['uninstall'][$key]['#disabled'] = $package_disabled;
     }
 
     $form['#attached']['library'][] = 'system/drupal.system.modules';
