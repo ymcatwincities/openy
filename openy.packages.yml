@@ -1,5 +1,5 @@
 blog:
-  name: 'Blog Package'
+  name: 'Blog'
   description: "Blog package provides a set of modules to maintain and create different blog post listings."
   help: '<p>Using Blog package you can create and maintain blog posts and create flexible listings of blog posts. Watch a video below to learn more about blog anatomy.</p>
   <iframe width="560" height="315"
@@ -16,7 +16,7 @@ blog:
     - openy_txnm_blog_category
 
 news:
-  name: 'News Package'
+  name: 'News'
   description: "News package provides a set of modules to maintain and create different news post listings."
   help: '<p>Using News Package you can create and maintain news posts and create flexible listings of news posts.</p>'
   modules:
@@ -26,7 +26,7 @@ news:
     - openy_txnm_news_category
 
 news_ext:
-  name: 'News (extended) Package'
+  name: 'News Extended'
   description: "Extended News package provides additional components for News Posts."
   help: '<p>Using Extended News package you can extend and add variety of new components for News Posts, such as list of News Posts referenced to camp or branch.</p>'
   modules:
@@ -35,7 +35,7 @@ news_ext:
     - openy_prgf_news_listing
 
 editorial:
-  name: 'Editorial Package'
+  name: 'Editorial'
   description: 'Editorial package provides content components that allow building flexible pages.'
   help: '<p>Using Editorial package you can build basic content like Gallery, Banner, Blocks, Menus, Grid Content, Promo Cards and Breadcrumbs. Watch a video below to learn how components may be used.</p>
   <iframe width="560" height="315"
@@ -64,7 +64,7 @@ editorial:
     - openy_prgf_teaser
 
 editorial_ext:
-  name: 'Editorial (extended) Package'
+  name: 'Editorial Extended'
   description: "Extended Editorial package provides additional components for building landing pages."
   help: '<p>Using Extended Editorial package you can add to landing pages blocks like Limited Time Offer, Featured Content, Date Based Block and other elements that will require extended knowledge for their configuration.</p>'
   modules:
@@ -75,7 +75,7 @@ editorial_ext:
     - openy_prgf_secondary_description_sidebar
 
 editorial_adv:
-  name: 'Editorial (advanced) Package'
+  name: 'Editorial Advanced'
   description: 'Advanced Editorial package provides additional components for building landing pages that require advanced configuration.'
   help: '<p>Using Advanced Editorial package you can add to landing pages blocks like Story Card, Flexible Content, Microsites Menu and other elements that will require advanced knowledge for their configuration.</p>'
   modules:
@@ -152,7 +152,7 @@ translation:
     - openy_gtranslate
 
 locations:
-  name: 'Locations Package'
+  name: 'Locations'
   description: "Locations package provides a set of modules to maintain locations and create a location finder page with various filters."
   help: '<p>Using Locations package you can maintain branches and create location finder page wit filters by address, zip, miles, and amenities. Watch a video below to learn how branch are setup.</p>
   <iframe width="560" height="315"
@@ -217,7 +217,7 @@ theme_customization:
     - openy_branch_selector
 
 locations_ext:
-  name: 'Locations (extended)'
+  name: 'Locations Extended'
   description: "Extended Locations package provides additional components for building location finder page."
   help: '<p>Using Extended Locations package create and maintain facilities and extend location finder page to include them.</p>'
   modules:
@@ -289,7 +289,7 @@ demo:
   name: 'Demo Content'
   description: 'Demo content package allows to install sample content for Open Y Platform.'
   help: '<p>Using Demo content package you can install sample content and populate CMS with real-world content.</p>'
-  mod§ules:
+  modules:
     - openy_demo_addthis
     - openy_demo_ahb
     - openy_demo_bamenities
