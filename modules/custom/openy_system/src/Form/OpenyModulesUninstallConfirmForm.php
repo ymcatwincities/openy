@@ -45,7 +45,13 @@ class OpenyModulesUninstallConfirmForm extends ModulesUninstallConfirmForm {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    parent::submitForm($form, $form_state);
+    // Clear the key value store entry.
+    $account = $this->currentUser()->id();
+    $this->keyValueExpirable->delete($account);
+    $this->keyValueExpirable->delete($account. '_packages');
+    // Uninstall the modules.
+    $this->moduleInstaller->uninstall($this->modules);
+    drupal_set_message($this->t('The selected packages have been uninstalled.'));
     // Set redirect to project uninstall page
     $form_state->setRedirect('openy_system.modules_uninstall');
   }
