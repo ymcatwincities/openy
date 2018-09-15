@@ -34,7 +34,7 @@ class OpenyModulesListForm extends ModulesListForm {
       '#description' => $this->t('Enter a part of the package name or description'),
       '#attributes' => [
         'class' => ['table-filter-text'],
-        'data-table' => '#system-modules-uninstall',
+        'data-table' => '#system-modules',
         'autocomplete' => 'off',
       ],
     ];
@@ -76,29 +76,35 @@ class OpenyModulesListForm extends ModulesListForm {
   /**
    * Builds a table row for the OpenY packages  page.
    *
-   * @param array $module
+   * @param array $package
    *   The package for which to build the form row.
-   * @param $distribution
    *
    * @return array
    *   The form row for the given module.
    */
-  protected function buildPackageRow(array $module) {
+  protected function buildPackageRow(array $package) {
     // Set the basic properties. Should be present to avoid notices in template_preprocess_system_modules_details()
     $row['#required'] = [];
     $row['#requires'] = [];
     $row['#required_by'] = [];
-    // Get human readable names of  modules in package.
+
+    $modules = system_rebuild_module_data();
+    // Get human readable names and status of modules in package.
     $module_names = [];
-    foreach ($module['modules'] as $name) {
-      $module_names[] = $this->moduleHandler->getName($name);
+    foreach ($package['modules'] as $name) {
+      if ($modules[$name]->status) {
+        $module_names[] = $modules[$name]->info["name"];
+      }
+      else {
+        $module_names[] = $modules[$name]->info["name"] . $this->t(' (disabled)');
+      }
     }
-    // Put module names to requires field of row.
+    // Put module names and status to requires field of row.
     $row['#requires'] = $module_names;
-    $row['name']['#markup'] = $module["name"];
-    $row['description']['#markup'] = $this->t($module["description"]);
+    $row['name']['#markup'] = $package["name"];
+    $row['description']['#markup'] = $this->t($package["description"]);
     $package_status = TRUE;
-    foreach ($module['modules'] as $module_name) {
+    foreach ($package['modules'] as $module_name) {
       if (!$this->moduleHandler->moduleExists($module_name)) {
         $package_status = FALSE;
       }
