@@ -15,10 +15,10 @@ use Drupal\node\NodeInterface;
 class GameController extends ControllerBase {
 
   /**
-   * Possible games list: ['magic_ball', 'scratchcard', 'flip_cards'].
+   * Possible games list: ['magic_ball', 'scratchcard', 'flip_cards', 'spin_the_wheel'].
    */
 
-  static $gamesList = ['flip_cards'];
+  static $gamesList = ['flip_cards', 'spin_the_wheel'];
   /**
    * The entity repository.
    *
@@ -94,8 +94,10 @@ class GameController extends ControllerBase {
     $title = $campaign->field_campaign_game_title->value;
     $description = $campaign->field_campaign_game_description->value;
 
-    // Select random game type from the list.
-    $gameType = self::$gamesList[array_rand(self::$gamesList)];
+    $gameType = $campaign->field_campaign_game_type->value;
+    if (!in_array($gameType, self::$gamesList)) {
+      return;
+    }
 
     $isWinner = $gameResult['is_winner'];
     $result = $gameResult['result'];
