@@ -9140,7 +9140,6 @@ header#page-head .top-navs {
 @media (min-width: 767px) {
   body.node--type-article #openy_alerts_app_header {
     position: relative;
-    padding-top: 160px;
   }
 }
 @media (min-width: 768px) {
