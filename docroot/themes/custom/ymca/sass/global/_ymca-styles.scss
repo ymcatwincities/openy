@@ -1283,7 +1283,7 @@ header#page-head .top-navs{
 }
 
 @media (min-width: 767px) {
-  body #openy_alerts_app_header {
+  body.internal-template  #openy_alerts_app_header {
     position: relative;
     padding-top: 160px;
   }
