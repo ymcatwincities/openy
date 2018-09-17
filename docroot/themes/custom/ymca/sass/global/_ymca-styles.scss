@@ -1281,7 +1281,8 @@ header#page-head .top-navs{
 }
 
 @media (min-width: 768px) {
-  .internal-template .page-middle {
-    margin-top: 0px;
+  .internal-template .page-middle,
+  .landing-template.toolbar-horizontal .page-middle {
+    margin-top: 0;
   }
 }
