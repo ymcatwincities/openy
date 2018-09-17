@@ -25,6 +25,8 @@ class ConfigureProfileForm extends FormBase {
   /**
    * Loads available installation types.
    *
+   * @param bool $include_hidden
+   *
    * @return mixed
    */
   public static function getInstallationTypes($include_hidden = FALSE) {
@@ -48,7 +50,6 @@ class ConfigureProfileForm extends FormBase {
   public static function getPackages() {
     $path = drupal_get_path('profile', 'openy');
     $packages = Yaml::decode(file_get_contents($path . '/openy.packages.yml'));
-
     return $packages;
   }
 
@@ -72,11 +73,15 @@ class ConfigureProfileForm extends FormBase {
       '#default_value' => $default_preset,
       '#required' => TRUE,
     ];
-
     $form['preset_info'] = [
       '#type' => '#markup',
       '#markup' => self::buildQuestionMark($this->getOverallPresetsDescription()),
     ];
+    $form['preset_top_info'] = [
+      '#type' => '#markup',
+      '#markup' => $this->t("
+<p>Standard is the recommended version of Open Y for the majority of Y associations. If you are unsure of which version to pick, start with Standard.</p> ")
+      ,];
 
     // Preset specific content.
     foreach ($presets as $preset => $name) {
@@ -201,7 +206,8 @@ class ConfigureProfileForm extends FormBase {
    *
    * @param $preset
    *
-   * @return string
+   * @return array
+   * @throws \Drupal\Core\Extension\MissingDependencyException
    */
   private function getSelectedPresetMarkup($preset) {
     $presets = self::getPresetsInfo();
@@ -322,7 +328,7 @@ class ConfigureProfileForm extends FormBase {
   }
 
   private function getExtendedPackagesMarkup() {
-    $output = '<h3>The following extended features will not be installed however they can be easily added in the future:';
+    $output = '<h3>The following features will not be installed however they can be easily added in the future:';
     $output .= $this->buildQuestionMark('<p>You can enable these feature any time from the admin interface in the CMS.</p>');
     $output .= '</h3>';
     return $output;
@@ -360,7 +366,10 @@ class ConfigureProfileForm extends FormBase {
   /**
    * @param array $module_list
    *
+   * @param bool $only_dependencies
+   *
    * @return array|bool
+   * @throws \Drupal\Core\Extension\MissingDependencyException
    */
   public static function getDependencies(array $module_list, $only_dependencies = FALSE) {
     $module_list_orig = $module_list;
