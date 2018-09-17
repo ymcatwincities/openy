@@ -9138,7 +9138,8 @@ header#page-head .top-navs {
   }
 }
 @media (min-width: 767px) {
-  body.landing-template #openy_alerts_app_header {
+  body.landing-template #openy_alerts_app_header,
+  body.locations-camps-template #openy_alerts_app_header {
     position: relative;
     padding-top: 0;
   }
