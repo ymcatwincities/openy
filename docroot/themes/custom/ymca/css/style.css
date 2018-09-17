@@ -9138,13 +9138,19 @@ header#page-head .top-navs {
   }
 }
 @media (min-width: 767px) {
-  body.node--type-article #openy_alerts_app_header {
+  body.landing-template #openy_alerts_app_header {
     position: relative;
+    padding-top: 0;
+  }
+}
+@media (min-width: 767px) {
+  body #openy_alerts_app_header {
+    position: relative;
+    padding-top: 160px;
   }
 }
 @media (min-width: 768px) {
-  .internal-template .page-middle,
-  .landing-template.toolbar-horizontal .page-middle {
+  .internal-template .page-middle {
     margin-top: 0;
   }
 }
