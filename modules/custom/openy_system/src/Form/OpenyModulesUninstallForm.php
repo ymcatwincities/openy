@@ -16,10 +16,12 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $installed_packages = [];
+    $validation_reasons = [];
     $packages = ConfigureProfileForm::getPackages();
     // Get array of fully installed packages.
     foreach ($packages as $key => $package) {
       foreach ($package['modules'] as $module_name) {
+        $validation_reasons = array_merge($validation_reasons, $this->moduleInstaller->validateUninstall([$module_name]));
         if ($this->moduleHandler->moduleExists($module_name)) {
           $installed_packages[$key] = $packages[$key];
           break;
@@ -61,8 +63,22 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
         '#title' => $this->t('Uninstall @module package', ['@module' => $name]),
         '#title_display' => 'invisible',
       ];
-    }
 
+      $form['uninstall'][$key]['#disabled'] = FALSE;
+      foreach ($package['modules'] as $module_key) {
+        // If a validator returns reasons not to uninstall a module in a package,
+        // list the reasons and disable the check box.
+        if (isset($validation_reasons[$module_key])) {
+          if (isset($form['modules'][$key]['#validation_reasons'])) {
+            $form['modules'][$key]['#validation_reasons'] = array_merge($form['modules'][$key]['#validation_reasons'], $validation_reasons[$module_key]);
+          }
+          else {
+            $form['modules'][$key]['#validation_reasons'] = $validation_reasons[$module_key];
+          }
+          $form['uninstall'][$key]['#disabled'] = TRUE;
+        }
+      }
+    }
     $form['#attached']['library'][] = 'system/drupal.system.modules';
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
