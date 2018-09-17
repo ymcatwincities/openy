@@ -1275,7 +1275,15 @@ header#page-head .top-navs{
   }
 }
 @media (min-width: 767px) {
-  body.node--type-article #openy_alerts_app_header {
+  body.landing-template #openy_alerts_app_header,
+  body.locations-camps-template #openy_alerts_app_header {
+    position: relative;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 767px) {
+  body.internal-template  #openy_alerts_app_header {
     position: relative;
     padding-top: 160px;
   }
@@ -1283,6 +1291,6 @@ header#page-head .top-navs{
 
 @media (min-width: 768px) {
   .internal-template .page-middle {
-    margin-top: 0px;
+    margin-top: 0;
   }
 }
