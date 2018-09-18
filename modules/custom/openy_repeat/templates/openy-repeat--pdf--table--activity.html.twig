@@ -10,6 +10,7 @@
 #}
 <div class="openy-repeat--pdf--table--activity">
   <div class="content">
+    {% set i = 0 %}
     {% for key, item in content.result %}
       <div class="header">
         <div class="branding">
@@ -20,37 +21,40 @@
         </div>
       </div>
       <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>{{ 'Monday'|t }}</th>
-          <th>{{ 'Tuesday'|t }}</th>
-          <th>{{ 'Wednesday'|t }}</th>
-          <th>{{ 'Thursday'|t }}</th>
-          <th>{{ 'Friday'|t }}</th>
-          <th>{{ 'Saturday'|t }}</th>
-          <th>{{ 'Sunday'|t }}</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for key, item in item %}
-        <tr>
-          <td>
-            <strong>{{ key }}</strong> <br/> {{ item.room }}
-          </td>
-          {% for key, item in item.dates %}
+        <thead>
+          <tr>
+            <th></th>
+            <th>{{ 'Monday'|t }}</th>
+            <th>{{ 'Tuesday'|t }}</th>
+            <th>{{ 'Wednesday'|t }}</th>
+            <th>{{ 'Thursday'|t }}</th>
+            <th>{{ 'Friday'|t }}</th>
+            <th>{{ 'Saturday'|t }}</th>
+            <th>{{ 'Sunday'|t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for key, item in item %}
+          <tr>
             <td>
-              {% for key, item in item %}
-                <p>{{ item.time }}</p>
-                <p>({{ item.category }})</p><br/>
-              {% endfor %}
+              <strong>{{ key }}</strong> <br/> {{ item.room }}
             </td>
-          {% endfor %}
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-    <tocpagebreak/>
+            {% for key, item in item.dates %}
+              <td>
+                {% for key, item in item %}
+                  <p>{{ item.time }}</p>
+                  <p>({{ item.category }})</p><br/>
+                {% endfor %}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% set i = i + 1 %}
+      {% if i != content.result|length %}
+        <newpage>
+      {% endif %}
     {% endfor %}
   </div>
 </div>
