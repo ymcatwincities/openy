@@ -10,6 +10,7 @@
 #}
 <div class="openy-repeat--pdf--table--day">
   <div class="content">
+    {% set i = 0 %}
     {% for key, item in content.result %}
       <div class="header">
         <div class="branding">
@@ -40,7 +41,10 @@
           </tbody>
         </table>
       {% endfor %}
-      <tocpagebreak/>
+      {% set i = i + 1 %}
+      {% if i != content.result|length %}
+      <newpage>
+      {% endif %}
     {% endfor %}
   </div>
 </div>
