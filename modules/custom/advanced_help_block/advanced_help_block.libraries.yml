@@ -3,6 +3,7 @@ ahb_modal:
   css:
     theme:
      /libraries/grt-youtube-popup/grt-youtube-popup.css: {}
+     library/css/ahb.css: {}
   js:
     /libraries/grt-youtube-popup/grt-youtube-popup.js: {}
     library/js/ahb.js: {}

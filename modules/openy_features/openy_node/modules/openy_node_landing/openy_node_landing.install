@@ -18,7 +18,7 @@ function openy_node_landing_update_dependencies() {
     ],
     8003 => [
       'openy' => 8015,
-    ]
+    ],
   ];
 
   return $dependencies;
@@ -29,7 +29,7 @@ function openy_node_landing_update_dependencies() {
  */
 function openy_node_landing_update_8001() {
   $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
@@ -38,7 +38,7 @@ function openy_node_landing_update_8001() {
 
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.landing_page.default' =>[
+    'core.entity_form_display.node.landing_page.default' => [
       'dependencies.config',
       'third_party_settings.field_group.group_bottom_area',
       'content.field_bottom_content',
@@ -73,7 +73,7 @@ function openy_node_landing_update_8001() {
 function openy_node_landing_update_8002() {
   $module = 'openy_node_landing';
   $bundle = 'landing_page';
-  // Field definitions
+  // Field definitions.
   $config_dir = drupal_get_path('module', $module) . '/config/install';
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
@@ -81,17 +81,17 @@ function openy_node_landing_update_8002() {
     'field.field.node.' . $bundle . '.field_meta_tags',
     'simple_sitemap.bundle_settings.' . $bundle . '.landing_page',
   ]);
-  // Dependencies
+  // Dependencies.
   $config = drupal_get_path('module', $module) . $module . '.info.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, $module . '.info', 'dependencies');
-  // Entity form
+  // Entity form.
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_form_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.config');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.module');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'content.field_meta_tags');
-  // Entity view display
+  // Entity view display.
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_view_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
@@ -239,7 +239,7 @@ function openy_node_landing_update_8009() {
 }
 
 /**
-* Update feature configs for Drupal Core upgrade.
+ * Update feature configs for Drupal Core upgrade.
  */
 function openy_node_landing_update_8010() {
   $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';

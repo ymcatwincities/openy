@@ -2,6 +2,7 @@ name: OpenY Session instance
 type: module
 description: Provides Session scheduled instance entity and to maintain high performance for schedule-related stuff.
 core: 8.x
+version: 8.x-1.0
 package: OpenY
 dependencies:
   - entity_reference

@@ -86,7 +86,7 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
         'uri' => 'internal:/',
         'options' => [
           'attributes' => [
-            'class' => ['language hidden-md hidden-lg'],
+            'class' => ['language hidden-md hidden-lg d-block d-md-none'],
           ],
         ],
       ],

@@ -5,12 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_description
     - paragraphs.paragraphs_type.small_banner
   module:
-    - datalayer
     - text
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_description
 id: paragraph.small_banner.field_prgf_description
 field_name: field_prgf_description
 entity_type: paragraph
