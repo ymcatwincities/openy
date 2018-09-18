@@ -66,7 +66,7 @@
   // Retrieve the data via vue.js.
   new Vue({
     el: '#app',
-    router,
+    router: router,
     data: {
       table: {},
       date: '',
@@ -201,6 +201,9 @@
           locations: this.locations.join(','),
           categories: this.categories.join(',')
         }});
+
+        // Change PDF button query on each request.
+        $('.btn-schedule-pdf-generate').attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf?' + query.join('&'));
       },
       populatePopupL: function(index) {
         this.locationPopup = this.table[index].location_info;
@@ -227,9 +230,6 @@
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
-      $('.btn-schedule-pdf-generate').on('click', function (e) {
-        $(this).attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf' + window.location.search);
-      });
     },
     delimiters: ["${","}"]
   });
