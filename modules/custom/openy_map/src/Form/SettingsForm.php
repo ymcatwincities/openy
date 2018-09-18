@@ -217,7 +217,7 @@ class SettingsForm extends ConfigFormBase {
           '#title' => $this->t('Locations Map icon'),
           '#default_value' => !empty($config->get('type_icons')[$id]) ? $config->get('type_icons')[$id] : array_keys($fileOptions)[0],
           '#options' => $fileOptions,
-          '#description' => $this->t('Choose content type map icon. To redefine icons add file in <b>{default_theme}/img/location_icons</b> directory in active default theme'),
+          '#description' => $this->t('Choose content type map icon. To redefine icons add file in <b>{default_theme}/img/locations_icons</b> directory in active default theme'),
           '#required' => TRUE,
           '#multiple' => FALSE,
           '#suffix' => '</div>',

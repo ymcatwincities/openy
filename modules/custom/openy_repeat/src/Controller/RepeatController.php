@@ -111,7 +111,8 @@ class RepeatController extends ControllerBase {
     $weekday = date('N', $date);
 
     $timestamp_start = $date;
-    $timestamp_end = $date + 24 * 60 * 60 * 60; // Next day.
+    // Next day.
+    $timestamp_end = $date + 24 * 60 * 60;
 
     $sql = "SELECT DISTINCT
               n.nid,
@@ -119,8 +120,8 @@ class RepeatController extends ControllerBase {
               nd.title as location,
               nds.title as name,
               re.class,
-              CAST(re.duration / 60 AS CHAR(1)) as duration_hours,
-              CAST(re.duration % 60 AS CHAR(2)) as duration_minutes,
+              re.session,
+              re.duration as duration,
               re.room,
               re.instructor as instructor,
               re.category,
@@ -172,8 +173,6 @@ class RepeatController extends ControllerBase {
       $values[':limit[]'] = explode(',', $limit);
     }
 
-    $sql .= " ORDER BY re.start";
-
     $values[':year'] = $year;
     $values[':month'] = $month;
     $values[':day'] = $day;
@@ -186,10 +185,18 @@ class RepeatController extends ControllerBase {
     $result = $query->fetchAll();
 
     $locations_info = $this->getLocationsInfo();
-    $classes_info = $this->getClassesInfo();
+
+    $classesIds = [];
+    foreach ($result as $key => $item) {
+      $classesIds[$item->class] = $item->class;
+    }
+    $classes_info = $this->getClassesInfo($classesIds);
+
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
       $result[$key]->class_info = $classes_info[$item->class];
+
+      $result[$key]->time_start_sort = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Hi');
 
       // Convert timezones for start_time and end_time.
       $result[$key]->time_start = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'g:i');
@@ -198,7 +205,19 @@ class RepeatController extends ControllerBase {
       // Example of calendar format 2018-08-21 14:15:00.
       $result[$key]->time_start_calendar = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Y-m-d H:i:s');
       $result[$key]->time_end_calendar = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->timezone = drupal_get_user_timezone();
+
+      // Durations.
+      $result[$key]->duration_minutes = $item->duration % 60;
+      $result[$key]->duration_hours = ($item->duration - $result[$key]->duration_minutes) / 60;
     }
+
+    usort($result, function($item1, $item2){
+      if ((int) $item1->time_start_sort == (int) $item2->time_start_sort) {
+        return 0;
+      }
+      return (int) $item1->time_start_sort < (int) $item2->time_start_sort ? -1 : 1;
+    });
 
     return $result;
   }
@@ -267,18 +286,14 @@ class RepeatController extends ControllerBase {
   /**
    * Get detailed info about Class.
    */
-  public function getClassesInfo() {
+  public function getClassesInfo($nids) {
     $data = [];
-    $tags = ['node_list'];
-    $cid = 'openy_repeat:classes_info';
+    $tags = [];
+    $cid = 'openy_repeat:classes_info' . md5(json_encode($nids));
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
     }
     else {
-      $nids = $this->entityQuery
-        ->get('node')
-        ->condition('type','class')
-        ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
       foreach ($nids_chunked as $chunk) {
         $classes = $this->entityTypeManager->getStorage('node')->loadMultiple($chunk);
@@ -360,8 +375,8 @@ class RepeatController extends ControllerBase {
   public function getPdfContent($request) {
     // Get all parameters from query.
     $parameters = $request->query->all();
-    $category = !empty($parameters['category']) ? $parameters['category'] : '';
-    $location = !empty($parameters['locations']) ? $parameters['locations'] : '';
+    $category = !empty($parameters['category']) ? $parameters['category'] : '0';
+    $location = !empty($parameters['locations']) ? $parameters['locations'] : '0';
     $date = !empty($parameters['date']) ? $parameters['date'] : '';
     $mode = !empty($parameters['mode']) ? $parameters['mode'] : 'activity';
 
