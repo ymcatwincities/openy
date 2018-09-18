@@ -111,6 +111,10 @@
 
       {{ content.field_category_description }}
       {{ content.field_content }}
+
+      {% if content.addthis is not empty %}
+        {{ content.addthis }}
+      {% endif %}
       <div class="hidden-print hidden">
         {{ content.field_category_thrustcode }}
       </div>

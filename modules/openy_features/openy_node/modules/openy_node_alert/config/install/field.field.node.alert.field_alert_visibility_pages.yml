@@ -4,12 +4,6 @@ dependencies:
   config:
     - field.storage.node.field_alert_visibility_pages
     - node.type.alert
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_alert_visibility_pages
 id: node.alert.field_alert_visibility_pages
 field_name: field_alert_visibility_pages
 entity_type: node

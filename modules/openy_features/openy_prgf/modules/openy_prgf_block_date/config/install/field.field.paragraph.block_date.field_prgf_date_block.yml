@@ -5,12 +5,6 @@ dependencies:
     - block_content.type.date_block
     - field.storage.paragraph.field_prgf_date_block
     - paragraphs.paragraphs_type.block_date
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_date_block
 id: paragraph.block_date.field_prgf_date_block
 field_name: field_prgf_date_block
 entity_type: paragraph

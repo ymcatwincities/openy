@@ -1,6 +1,0 @@
-services:
-  location_finder.data_wrapper:
-    class: Drupal\location_finder\LocationFinderDataWrapper
-    arguments: ['@entity.query', '@renderer', '@entity.manager', '@socrates', '@config.factory']
-    tags:
-      - { name: "openy_data_service", priority: 100 }

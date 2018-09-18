@@ -15,12 +15,15 @@ source:
     -
       id: blog_camp_1
       parent_id: 1
+      title: Demo Latest blog posts (camp) 1
     -
       id: blog_camp_2
       parent_id: 2
+      title: Demo Latest blog posts (camp) 2
     -
       id: blog_camp_3
       parent_id: 3
+      title: Demo Latest blog posts (camp) 3
   ids:
     id:
       type: string
@@ -46,6 +49,7 @@ process:
   parent_field_name:
     plugin: default_value
     default_value: field_content
+  field_prgf_title: title
 destination:
   plugin: 'entity:paragraph'
   default_bundle: latest_blog_posts_camp

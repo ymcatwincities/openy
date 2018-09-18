@@ -4,7 +4,6 @@ dependencies:
   enforced:
     module:
       - openy_node_alert
-      - openy_demo_nlanding
 id: openy_demo_node_alert
 migration_tags: {  }
 migration_group: openy_demo_nalert

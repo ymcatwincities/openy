@@ -5,12 +5,6 @@ dependencies:
     - field.storage.paragraph.field_prgf_color
     - paragraphs.paragraphs_type.banner
     - taxonomy.vocabulary.color
-  module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_prgf_color
 id: paragraph.banner.field_prgf_color
 field_name: field_prgf_color
 entity_type: paragraph
