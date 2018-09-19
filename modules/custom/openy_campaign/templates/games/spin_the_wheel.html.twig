@@ -1,0 +1,10 @@
+<div class="spin-the-wheel">
+  <h1>{{ title }}</h1>
+  {{ description }}
+  <section class="container">
+    {% if isWinner %}
+      <h3>{{ messageTitle }}</h3>
+      <p>{{ message|raw }}</p>
+    {% endif %}
+  </section>
+</div>
