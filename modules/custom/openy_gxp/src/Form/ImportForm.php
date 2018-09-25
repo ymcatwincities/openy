@@ -101,6 +101,10 @@ class ImportForm extends FormBase {
     }
 
     foreach ($programsResponse as $row) {
+      if (empty($row['title'])) {
+        continue;
+      }
+
       $startDate = (new \DateTime($row['start_date']))->format('Y-m-d');
       $endDate = (new \DateTime($row['end_date']))->format('Y-m-d');
 
@@ -188,6 +192,13 @@ class ImportForm extends FormBase {
       drupal_set_message(t('File @file does not exist. Please check script that builds CSV file for import.', ['@file' => $filePath]), 'error');
       return;
     }
+
+    $config = \Drupal::configFactory()->get('openy_gxp.settings');
+    \Drupal::logger('openy_gxp')->info('Start migrating location @file, @url', [
+      '@file' => $filePath,
+      '@url' => 'https://www.groupexpro.com/gxp/api/' . 'openy/view/' . $config->get('client_id') . '/' . $gxpLocationId,
+    ]);
+
     $source['path'] = $filePath;
     $migration->set('source', $source);
 
