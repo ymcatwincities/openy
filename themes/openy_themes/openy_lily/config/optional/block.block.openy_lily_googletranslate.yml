@@ -1,13 +1,9 @@
-uuid: 5a698466-f499-4dda-a084-4d61c1d0e902
+uuid: 5a698466-f499-4dda-a084-4d61c1d0e777
 langcode: en
 status: true
-dependencies:
-  module:
-    - openy_gtranslate
-  theme:
-    - openy_rose
-id: openy_rose_googletranslate
-theme: openy_rose
+dependencies: { }
+id: openy_lily_googletranslate
+theme: openy_lily
 region: secondary_menu
 weight: 49
 provider: null

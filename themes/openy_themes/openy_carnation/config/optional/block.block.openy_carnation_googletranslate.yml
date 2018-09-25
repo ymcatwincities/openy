@@ -1,11 +1,7 @@
 uuid: 32fa8958-20d7-41e0-9e7c-a5768bf6dfac
 langcode: en
 status: true
-dependencies:
-  module:
-    - openy_gtranslate
-  theme:
-    - openy_carnation
+dependencies: { }
 id: openy_carnation_googletranslate
 theme: openy_carnation
 region: secondary_menu
