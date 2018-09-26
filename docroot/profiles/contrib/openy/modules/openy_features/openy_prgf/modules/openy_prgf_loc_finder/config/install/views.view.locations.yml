@@ -3,9 +3,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - node.type.branch
-    - node.type.camp
-    - node.type.facility
+#    - node.type.branch
+#    - node.type.camp
+#    - node.type.facility
   module:
     - node
     - user
@@ -129,7 +129,7 @@ display:
           table: node_field_data
           field: type
           value:
-            branch: branch
+            location: location
           entity_type: node
           entity_field: type
           plugin_id: bundle
