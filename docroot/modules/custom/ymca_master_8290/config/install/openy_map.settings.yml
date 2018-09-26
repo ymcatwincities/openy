@@ -1,0 +1,26 @@
+map_engine: leaflet
+leaflet:
+  base_layer: Wikimedia
+  search_icon: 'https://www.ymcamn.org/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red.png'
+  search_icon_retina: 'https://www.ymcamn.org/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red_x2.png'
+  location: 'United States'
+default_tags:
+  location: Location
+  branch: ''
+  camp: ''
+block_labels:
+  location: Location
+  branch: Branch
+  camp: Camp
+type_labels:
+  location: Location
+  branch: Branch
+  camp: Camp
+active_types:
+  location: Location
+  branch: ''
+  camp: Camp
+type_icons:
+  location: 'https://www.ymcamn.org/profiles/contrib/openy/modules/custom/openy_map/img/map_icon_blue.png'
+  branch: 'https://www.ymcamn.org/profiles/contrib/openy/modules/custom/openy_map/img/map_icon_blue.png'
+  camp: 'https://www.ymcamn.org/profiles/contrib/openy/modules/custom/openy_map/img/map_icon_green.png'
