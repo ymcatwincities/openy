@@ -1,6 +1,0 @@
-name: OpenY Field Hours
-type: module
-description: Provides custom fields for working hours.
-core: 8.x
-version: 8.x-1.0
-package: OpenY

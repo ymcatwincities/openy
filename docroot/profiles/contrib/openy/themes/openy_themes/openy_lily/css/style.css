@@ -3823,6 +3823,9 @@ html.js .branch__updates_queue__button {
 }
 
 .node--type-facility.node--view-mode-teaser,
+.node--type-location.node--view-mode-teaser,
+.node--type-location.node--view-mode-sidebar-teaser,
+.node--type-location.node--view-mode-class-location,
 .node--type-branch.node--view-mode-teaser,
 .node--type-branch.node--view-mode-sidebar-teaser,
 .node--type-branch.node--view-mode-class-location,
@@ -3835,6 +3838,9 @@ html.js .branch__updates_queue__button {
   font-size: 15px;
 }
 [class*="sidebar"] .node--type-facility.node--view-mode-teaser, [class*="sidebar"]
+.node--type-location.node--view-mode-teaser, [class*="sidebar"]
+.node--type-location.node--view-mode-sidebar-teaser, [class*="sidebar"]
+.node--type-location.node--view-mode-class-location, [class*="sidebar"]
 .node--type-branch.node--view-mode-teaser, [class*="sidebar"]
 .node--type-branch.node--view-mode-sidebar-teaser, [class*="sidebar"]
 .node--type-branch.node--view-mode-class-location, [class*="sidebar"]
@@ -3844,6 +3850,9 @@ html.js .branch__updates_queue__button {
   border-color: #ccc;
 }
 [class*="sidebar"] .node--type-facility.node--view-mode-teaser > span, [class*="sidebar"]
+.node--type-location.node--view-mode-teaser > span, [class*="sidebar"]
+.node--type-location.node--view-mode-sidebar-teaser > span, [class*="sidebar"]
+.node--type-location.node--view-mode-class-location > span, [class*="sidebar"]
 .node--type-branch.node--view-mode-teaser > span, [class*="sidebar"]
 .node--type-branch.node--view-mode-sidebar-teaser > span, [class*="sidebar"]
 .node--type-branch.node--view-mode-class-location > span, [class*="sidebar"]
@@ -3851,6 +3860,9 @@ html.js .branch__updates_queue__button {
   display: block;
 }
 [class*="sidebar"] .node--type-facility.node--view-mode-teaser .location-item--title, [class*="sidebar"]
+.node--type-location.node--view-mode-teaser .location-item--title, [class*="sidebar"]
+.node--type-location.node--view-mode-sidebar-teaser .location-item--title, [class*="sidebar"]
+.node--type-location.node--view-mode-class-location .location-item--title, [class*="sidebar"]
 .node--type-branch.node--view-mode-teaser .location-item--title, [class*="sidebar"]
 .node--type-branch.node--view-mode-sidebar-teaser .location-item--title, [class*="sidebar"]
 .node--type-branch.node--view-mode-class-location .location-item--title, [class*="sidebar"]
@@ -3858,6 +3870,9 @@ html.js .branch__updates_queue__button {
   display: inline-block;
 }
 [class*="sidebar"] .node--type-facility.node--view-mode-teaser .location-item--title a, [class*="sidebar"]
+.node--type-location.node--view-mode-teaser .location-item--title a, [class*="sidebar"]
+.node--type-location.node--view-mode-sidebar-teaser .location-item--title a, [class*="sidebar"]
+.node--type-location.node--view-mode-class-location .location-item--title a, [class*="sidebar"]
 .node--type-branch.node--view-mode-teaser .location-item--title a, [class*="sidebar"]
 .node--type-branch.node--view-mode-sidebar-teaser .location-item--title a, [class*="sidebar"]
 .node--type-branch.node--view-mode-class-location .location-item--title a, [class*="sidebar"]
@@ -3865,6 +3880,9 @@ html.js .branch__updates_queue__button {
   color: #5c2e91;
 }
 [class*="sidebar"] .node--type-facility.node--view-mode-teaser .edit-class-popup, [class*="sidebar"]
+.node--type-location.node--view-mode-teaser .edit-class-popup, [class*="sidebar"]
+.node--type-location.node--view-mode-sidebar-teaser .edit-class-popup, [class*="sidebar"]
+.node--type-location.node--view-mode-class-location .edit-class-popup, [class*="sidebar"]
 .node--type-branch.node--view-mode-teaser .edit-class-popup, [class*="sidebar"]
 .node--type-branch.node--view-mode-sidebar-teaser .edit-class-popup, [class*="sidebar"]
 .node--type-branch.node--view-mode-class-location .edit-class-popup, [class*="sidebar"]
@@ -3873,6 +3891,9 @@ html.js .branch__updates_queue__button {
   margin-left: 10px;
 }
 .marker_tooltip .node--type-facility.node--view-mode-teaser, .marker_tooltip
+.node--type-location.node--view-mode-teaser, .marker_tooltip
+.node--type-location.node--view-mode-sidebar-teaser, .marker_tooltip
+.node--type-location.node--view-mode-class-location, .marker_tooltip
 .node--type-branch.node--view-mode-teaser, .marker_tooltip
 .node--type-branch.node--view-mode-sidebar-teaser, .marker_tooltip
 .node--type-branch.node--view-mode-class-location, .marker_tooltip
@@ -3884,6 +3905,9 @@ html.js .branch__updates_queue__button {
   min-height: auto;
 }
 .node--type-facility.node--view-mode-teaser .location-item--title,
+.node--type-location.node--view-mode-teaser .location-item--title,
+.node--type-location.node--view-mode-sidebar-teaser .location-item--title,
+.node--type-location.node--view-mode-class-location .location-item--title,
 .node--type-branch.node--view-mode-teaser .location-item--title,
 .node--type-branch.node--view-mode-sidebar-teaser .location-item--title,
 .node--type-branch.node--view-mode-class-location .location-item--title,
@@ -3893,6 +3917,9 @@ html.js .branch__updates_queue__button {
   font-weight: bold;
 }
 .marker_tooltip .node--type-facility.node--view-mode-teaser .location-item--title, .marker_tooltip
+.node--type-location.node--view-mode-teaser .location-item--title, .marker_tooltip
+.node--type-location.node--view-mode-sidebar-teaser .location-item--title, .marker_tooltip
+.node--type-location.node--view-mode-class-location .location-item--title, .marker_tooltip
 .node--type-branch.node--view-mode-teaser .location-item--title, .marker_tooltip
 .node--type-branch.node--view-mode-sidebar-teaser .location-item--title, .marker_tooltip
 .node--type-branch.node--view-mode-class-location .location-item--title, .marker_tooltip
@@ -3900,6 +3927,9 @@ html.js .branch__updates_queue__button {
   margin: 0 0 5px;
 }
 .node--type-facility.node--view-mode-teaser .location-item--title + .node__content,
+.node--type-location.node--view-mode-teaser .location-item--title + .node__content,
+.node--type-location.node--view-mode-sidebar-teaser .location-item--title + .node__content,
+.node--type-location.node--view-mode-class-location .location-item--title + .node__content,
 .node--type-branch.node--view-mode-teaser .location-item--title + .node__content,
 .node--type-branch.node--view-mode-sidebar-teaser .location-item--title + .node__content,
 .node--type-branch.node--view-mode-class-location .location-item--title + .node__content,
@@ -3907,6 +3937,12 @@ html.js .branch__updates_queue__button {
   margin: 33px 0 0;
 }
 .node--type-facility.node--view-mode-teaser .location-item--title ~ .field-location-area, .node--type-facility.node--view-mode-teaser .location-item--title ~ .field-location-state,
+.node--type-location.node--view-mode-teaser .location-item--title ~ .field-location-area,
+.node--type-location.node--view-mode-teaser .location-item--title ~ .field-location-state,
+.node--type-location.node--view-mode-sidebar-teaser .location-item--title ~ .field-location-area,
+.node--type-location.node--view-mode-sidebar-teaser .location-item--title ~ .field-location-state,
+.node--type-location.node--view-mode-class-location .location-item--title ~ .field-location-area,
+.node--type-location.node--view-mode-class-location .location-item--title ~ .field-location-state,
 .node--type-branch.node--view-mode-teaser .location-item--title ~ .field-location-area,
 .node--type-branch.node--view-mode-teaser .location-item--title ~ .field-location-state,
 .node--type-branch.node--view-mode-sidebar-teaser .location-item--title ~ .field-location-area,
@@ -3918,6 +3954,9 @@ html.js .branch__updates_queue__button {
   margin: 20px 0 33px;
 }
 .node--type-facility.node--view-mode-teaser .branch-hours,
+.node--type-location.node--view-mode-teaser .branch-hours,
+.node--type-location.node--view-mode-sidebar-teaser .branch-hours,
+.node--type-location.node--view-mode-class-location .branch-hours,
 .node--type-branch.node--view-mode-teaser .branch-hours,
 .node--type-branch.node--view-mode-sidebar-teaser .branch-hours,
 .node--type-branch.node--view-mode-class-location .branch-hours,
@@ -3925,6 +3964,9 @@ html.js .branch__updates_queue__button {
   margin-top: 15px;
 }
 .node--type-facility.node--view-mode-teaser .branch-hours td:first-child,
+.node--type-location.node--view-mode-teaser .branch-hours td:first-child,
+.node--type-location.node--view-mode-sidebar-teaser .branch-hours td:first-child,
+.node--type-location.node--view-mode-class-location .branch-hours td:first-child,
 .node--type-branch.node--view-mode-teaser .branch-hours td:first-child,
 .node--type-branch.node--view-mode-sidebar-teaser .branch-hours td:first-child,
 .node--type-branch.node--view-mode-class-location .branch-hours td:first-child,
@@ -3932,6 +3974,9 @@ html.js .branch__updates_queue__button {
   padding-right: 10px;
 }
 .node--type-facility.node--view-mode-teaser .field-location-area,
+.node--type-location.node--view-mode-teaser .field-location-area,
+.node--type-location.node--view-mode-sidebar-teaser .field-location-area,
+.node--type-location.node--view-mode-class-location .field-location-area,
 .node--type-branch.node--view-mode-teaser .field-location-area,
 .node--type-branch.node--view-mode-sidebar-teaser .field-location-area,
 .node--type-branch.node--view-mode-class-location .field-location-area,
@@ -3945,6 +3990,9 @@ html.js .branch__updates_queue__button {
 }
 @media (min-width: 48em) and (max-width: 62em) {
   .node--type-facility.node--view-mode-teaser .field-location-area,
+  .node--type-location.node--view-mode-teaser .field-location-area,
+  .node--type-location.node--view-mode-sidebar-teaser .field-location-area,
+  .node--type-location.node--view-mode-class-location .field-location-area,
   .node--type-branch.node--view-mode-teaser .field-location-area,
   .node--type-branch.node--view-mode-sidebar-teaser .field-location-area,
   .node--type-branch.node--view-mode-class-location .field-location-area,
@@ -3953,6 +4001,9 @@ html.js .branch__updates_queue__button {
   }
 }
 .node--type-facility.node--view-mode-teaser .field-location-area a,
+.node--type-location.node--view-mode-teaser .field-location-area a,
+.node--type-location.node--view-mode-sidebar-teaser .field-location-area a,
+.node--type-location.node--view-mode-class-location .field-location-area a,
 .node--type-branch.node--view-mode-teaser .field-location-area a,
 .node--type-branch.node--view-mode-sidebar-teaser .field-location-area a,
 .node--type-branch.node--view-mode-class-location .field-location-area a,
@@ -3962,6 +4013,12 @@ html.js .branch__updates_queue__button {
 }
 .node--type-facility.node--view-mode-teaser .label-for-field-address,
 .node--type-facility.node--view-mode-teaser .label-for-field-phone,
+.node--type-location.node--view-mode-teaser .label-for-field-address,
+.node--type-location.node--view-mode-teaser .label-for-field-phone,
+.node--type-location.node--view-mode-sidebar-teaser .label-for-field-address,
+.node--type-location.node--view-mode-sidebar-teaser .label-for-field-phone,
+.node--type-location.node--view-mode-class-location .label-for-field-address,
+.node--type-location.node--view-mode-class-location .label-for-field-phone,
 .node--type-branch.node--view-mode-teaser .label-for-field-address,
 .node--type-branch.node--view-mode-teaser .label-for-field-phone,
 .node--type-branch.node--view-mode-sidebar-teaser .label-for-field-address,
@@ -4058,6 +4115,68 @@ html.js .branch__updates_queue__button {
   content: ":";
   margin-left: -0.15em;
   margin-right: 0.25em;
+}
+
+.marker_tooltip {
+  color: #333333;
+  font-family: "Helvetica Neue", Verdana, sans-serif;
+  line-height: 1.2;
+}
+
+.marker_tooltip a {
+  color: #0089d0;
+}
+
+.marker_tooltip article.node h3.location-item--title {
+  margin: 0 0 0.5em;
+}
+
+.marker_tooltip article.node h3.location-item--title a {
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
+}
+
+.marker_tooltip article.node h3.location-item--title ~ .field-location-area {
+  margin: 0 0 0.4em;
+}
+
+.marker_tooltip article.node h3.location-item--title + .node__content {
+  margin: 0;
+}
+
+.marker_tooltip article.node .node__content address.wrapper-field-location-address {
+  margin-bottom: 0.4em;
+}
+
+.marker_tooltip article.node .node__content address.wrapper-field-location-address .field-location-address .address {
+  font-size: 12px;
+  font-style: italic;
+  margin: 0 0 0.5em 0.4em;
+}
+
+.marker_tooltip article.node .node__content .field-location-phone {
+  display: block;
+  margin-bottom: 0.4em;
+}
+
+.marker_tooltip article.node .node__content .field-location-phone a {
+  font-size: 12px;
+}
+
+.marker_tooltip article.node .node__content .field-branch-hours h4 {
+  font-weight: bold;
+  margin-bottom: 0.35em;
+  margin-top: 0;
+}
+
+.marker_tooltip article.node .node__content table tr td {
+  font-style: italic;
+  font-size: 12px;
+  padding-left: 0.5em;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  top: 3px;
+  right: 3px;
 }
 
 .slick-dotted {
