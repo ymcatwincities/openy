@@ -147,9 +147,12 @@ class DataWrapper implements OpenyDataServiceInterface {
     $typeLabels = $this->configFactory->get('openy_map.settings')->get('type_labels');
     $tag = $typeLabels[$type];
     $pins = [];
+    $coordinates = NULL;
     foreach ($locations as $location) {
       $view = $builder->view($location, 'teaser');
-      $coordinates = $location->get('field_location_coordinates')->getValue();
+      if ($location->hasField('field_location_coordinates')) {
+        $coordinates = $location->get('field_location_coordinates')->getValue();
+      }
       if (!$coordinates) {
         continue;
       }
