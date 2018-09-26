@@ -1,5 +1,0 @@
-openy_map.admin:
-  title: 'OpenY Map settings'
-  parent: system.admin_config_services
-  route_name: openy_map.settings
-  weight: 100
