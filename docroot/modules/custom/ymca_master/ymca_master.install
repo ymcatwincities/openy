@@ -6669,3 +6669,11 @@ function ymca_master_update_8289() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['openy_prgreg_api'], TRUE);
 }
+
+/**
+ * Setup Camps and Locations for the leaflet.
+ */
+function ymca_master_update_8290() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['ymca_master_8290'], TRUE);
+}
