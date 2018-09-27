@@ -14,6 +14,13 @@ class OpenyModulesUninstallConfirmForm extends ModulesUninstallConfirmForm {
   /**
    * {@inheritdoc}
    */
+  public function getDescription() {
+    return $this->t('Would you like to continue with uninstalling the above?</br><p style="color:red">Data and content within these packages can <b>not</b> be recovered from the Open Y Admin Interface after clicking "Uninstall".</p>');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
     $form['#attached']['library'][] = 'openy_system/openy_system';
@@ -29,7 +36,7 @@ class OpenyModulesUninstallConfirmForm extends ModulesUninstallConfirmForm {
       return $this->redirect('openy_system.modules_uninstall');
     }
 
-    $form['text']['#markup'] = '<p>' . $this->t('The following Open Y packages will be completely uninstalled from your site, and <em>all data from these packages will be lost</em>!') . '</p>';
+    $form['text']['#markup'] = '<p>' . $this->t('The following Open Y packages will be completely uninstalled from your site, and <em>all data and content from these packages will be lost</em>!') . '</p>';
     $form['modules'] = [
       '#theme' => 'item_list',
       '#items' => $packages,

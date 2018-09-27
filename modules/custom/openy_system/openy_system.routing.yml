@@ -9,7 +9,7 @@ openy_system.modules_list:
 openy_system.modules_uninstall:
   path: '/admin/openy/extend/uninstall'
   defaults:
-    _title: 'OpenY Uninstall'
+    _title: 'OpenY Package Uninstall'
     _title_context: 'With components'
     _form: 'Drupal\openy_system\Form\OpenyModulesUninstallForm'
   requirements:
@@ -18,7 +18,7 @@ openy_system.modules_uninstall_confirm:
   path: '/admin/openy/extend/uninstall/confirm'
   defaults:
     _form: 'Drupal\openy_system\Form\OpenyModulesUninstallConfirmForm'
-    _title: 'Confirm project uninstall'
+    _title: 'Confirm package uninstall'
   requirements:
     _permission: 'administer openy modules'
 openy_system.openy_config:
