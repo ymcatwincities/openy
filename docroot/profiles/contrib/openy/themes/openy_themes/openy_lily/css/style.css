@@ -3739,12 +3739,6 @@ html.js .branch__updates_queue__button {
     margin: -10px -10px -10px 10px;
   }
 }
-@media (min-width: 0) and (max-width: 30em) {
-  .form__locations .zip-code,
-  .form__locations .distance {
-    display: none;
-  }
-}
 
 .tag_filters img {
   margin: -2px 0 0 3px;
