@@ -1,7 +1,7 @@
 openy_system.modules_list:
   path: '/admin/openy/extend/list'
   defaults:
-    _title: 'OpenY components'
+    _title: 'Open Y components'
     _title_context: 'With components'
     _form: 'Drupal\openy_system\Form\OpenyModulesListForm'
   requirements:
@@ -9,7 +9,7 @@ openy_system.modules_list:
 openy_system.modules_uninstall:
   path: '/admin/openy/extend/uninstall'
   defaults:
-    _title: 'OpenY Package Uninstall'
+    _title: 'Open Y Package Uninstall'
     _title_context: 'With components'
     _form: 'Drupal\openy_system\Form\OpenyModulesUninstallForm'
   requirements:
