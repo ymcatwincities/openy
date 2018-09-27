@@ -139,6 +139,30 @@
                     "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "vuejs/vue",
+                "version": "2.5.17",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/vuejs/vue/archive/v2.5.17.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "vuejs/vue-router",
+                "version": "3.0.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/vuejs/vue-router/archive/v3.0.1.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
@@ -153,11 +177,11 @@
     },
     "extra": {
         "installer-paths": {
-            "docroot/core": ["type:drupal-core"],
-            "docroot/modules/contrib/{$name}": ["type:drupal-module"],
-            "docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
-            "docroot/libraries/{$name}": ["type:drupal-library"]
+            "../../../../docroot/core": ["type:drupal-core"],
+            "../../../../docroot/modules/contrib/{$name}": ["type:drupal-module"],
+            "../../../../docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "../../../../docroot/themes/contrib/{$name}": ["type:drupal-theme"],
+            "../../../../docroot/libraries/{$name}": ["type:drupal-library"]
         },
         "patches": {
             "drupal/simple_menu_icons": {
@@ -271,6 +295,8 @@
         "drupal/domain": "1.0-alpha13",
         "drupal/domain_theme_switch": "1.3",
         "drupal/social_feed_fetcher": "^1.0",
-        "symfony/dom-crawler": "v3.4.12"
+        "symfony/dom-crawler": "v3.4.12",
+        "vuejs/vue": "^2.5",
+        "vuejs/vue-router": "3.0.1"
     }
 }
