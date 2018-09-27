@@ -1,0 +1,4 @@
+openy_system:
+  version: 1.x
+  js:
+    js/openy_system.js: {}
