@@ -244,7 +244,7 @@ function openy_import_content(array &$install_state) {
       // Import GroupExPro classes. They are not handled as content migration.
       $migrate_operations[] = ['openy_gxp_import_tc', []];
     }
-    // Build demo modules uninstall array to disable migrations with demo content/
+    // Build demo modules uninstall array to disable migrations with demo content.
     _openy_remove_migrations_helper($uninstall_operations, $preset);
   }
   else {
@@ -413,6 +413,8 @@ function _openy_remove_migrations_helper(array &$module_operations, $key) {
  *
  * @param string $module_name
  *   Module name.
+ *
+ * @throws \Drupal\Core\Extension\MissingDependencyException
  */
 function openy_enable_module($module_name) {
   /** @var \Drupal\Core\Extension\ModuleInstaller $service */
