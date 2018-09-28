@@ -5,6 +5,8 @@
  * OpenY System module file.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
+
 /**
  * Perform necessary actions after OpenY modules are uninstalled.
  *
@@ -35,4 +37,13 @@ function openy_system_modules_uninstalled(array $modules) {
 function openy_system_page_attachments(array &$attachments) {
   // Open Y System admin menu CSS.
   $attachments['#attached']['library'][] = 'openy_system/admin_menu';
+}
+
+/**
+ * Implements hook_help().
+ */
+function openy_system_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name == 'openy_system.modules_uninstall') {
+    return '<p>' . t('The uninstall process removes all data related to a package.') . '</p>';
+  }
 }
