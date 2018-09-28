@@ -91,22 +91,29 @@ function openy_session_instance_actualize_sessions(EntityInterface $entity) {
       return;
     }
 
-    $map_select = [
-      'class' => 'class',
-      'activity' => 'field_si_activity',
-      'program_subcategory' => 'field_si_program_subcategory',
-      'program' => 'field_si_program',
-    ];
-
-    $session_instances = $session_instance_manager
-      ->getSessionInstancesByParams([$map_select[$bundle] => [$entity->id()]]);
-
-    if (!$session_instances) {
-      return;
+    $entity_ids = [$entity->id()];
+    if ($bundle == 'program_subcategory') {
+      $entity_ids = \Drupal::entityQuery('node')
+        ->condition('type', 'activity')
+        ->condition('field_activity_category', $entity_ids, 'IN')
+        ->execute();
+      $bundle = 'activity';
     }
 
-    foreach ($session_instances as $session_instance) {
-      $session_ids[$session_instance->session->target_id] = $session_instance->session->target_id;
+    if ($bundle == 'activity') {
+      $entity_ids = \Drupal::entityQuery('node')
+        ->condition('type', 'class')
+        ->condition('field_class_activity', $entity_ids, 'IN')
+        ->execute();
+      $bundle = 'class';
+    }
+
+    if ($bundle == 'class') {
+      $entity_ids = \Drupal::entityQuery('node')
+        ->condition('type', 'session')
+        ->condition('field_session_class', $entity_ids, 'IN')
+        ->execute();
+      $session_ids = $entity_ids;
     }
   }
 

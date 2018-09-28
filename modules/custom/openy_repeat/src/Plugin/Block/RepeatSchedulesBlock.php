@@ -25,12 +25,15 @@ class RepeatSchedulesBlock extends BlockBase {
             FROM {node} n
             INNER JOIN node__field_session_location l ON n.nid = l.entity_id AND l.bundle = 'session'
             INNER JOIN node_field_data nd ON l.field_session_location_target_id = nd.nid
-            WHERE n.type = 'session'";
+            WHERE n.type = 'session'
+            ORDER BY location ASC";
 
     $connection = \Drupal::database();
     $query = $connection->query($sql);
 
-    return $query->fetchCol();
+    $result = $query->fetchCol();
+    natsort($result);
+    return $result;
   }
 
   /**
@@ -47,7 +50,9 @@ class RepeatSchedulesBlock extends BlockBase {
 
     $connection = \Drupal::database();
     $query = $connection->query($sql);
-    return $query->fetchCol();
+    $result = $query->fetchCol();
+    natsort($result);
+    return $result;
   }
 
   /**

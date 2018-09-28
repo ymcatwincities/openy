@@ -26,7 +26,9 @@
       // Marker designating the center point.
       search_center_marker: null,
       // Geocoder.
-      geocoder: typeof google.maps !== 'undefined' ? new google.maps.Geocoder() : {},
+      geocoder: function() {
+        return typeof google.maps !== 'undefined' ? new google.maps.Geocoder() : {};
+      },
 
       // Checks if the provider library object has loaded
       libraryIsLoaded: function () {
@@ -189,7 +191,7 @@
           }
         };
 
-        this.geocoder.geocode({
+        this.geocoder().geocode({
           'address': q
         }, $.proxy(f, this));
       },
@@ -286,7 +288,7 @@
         this.map.setZoom(14);
         if (position.coords.accuracy <= 15840) { // 3 miles.
 
-          this.geocoder.geocode({
+          this.geocoder().geocode({
               'latLng': this.search_center_point
             },
             $.proxy(
@@ -1542,6 +1544,10 @@
 
   Drupal.behaviors.openyMap = {
     attach: function (context, settings) {
+      if (typeof settings.openyMap === 'undefined' || typeof settings.openyMapSettings === 'undefined') {
+        return;
+      }
+
       var data = settings.openyMap;
       var map;
 
