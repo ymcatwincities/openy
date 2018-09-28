@@ -6671,6 +6671,22 @@ function ymca_master_update_8289() {
 }
 
 /**
+ * Setup Camps and Locations for the leaflet.
+ */
+function ymca_master_update_8292() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['ymca_master_8290'], TRUE);
+}
+
+/**
+ * Setup Camps and Locations for the leaflet.
+ */
+function ymca_master_update_8293() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['openy_prgf_loc_finder'], TRUE);
+  \Drupal::service('module_installer')->install(['openy_data_wrapper'], TRUE);
+}
+/**
  * Update config.
  */
 function ymca_master_update_8290() {
