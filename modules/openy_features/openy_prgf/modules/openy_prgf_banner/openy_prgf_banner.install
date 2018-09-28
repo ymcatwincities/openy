@@ -181,7 +181,7 @@ function openy_prgf_banner_update_8007() {
   $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'image.style.prgf_banner' =>[
+    'image.style.prgf_banner' => [
       'dependencies',
       'effects',
     ],
@@ -194,4 +194,15 @@ function openy_prgf_banner_update_8007() {
       $config_updater->update($config, $config_name, $param);
     }
   }
+}
+
+/**
+ * Update prgf_banner image style.
+ */
+function openy_prgf_banner_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
+  $config_name = 'image.style.prgf_banner';
+  $config = $config_dir . $config_name . '.yml';
+  \Drupal::service('openy_upgrade_tool.param_updater')
+    ->update($config, $config_name, 'effects');
 }
