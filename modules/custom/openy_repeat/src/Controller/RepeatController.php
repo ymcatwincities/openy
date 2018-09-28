@@ -363,7 +363,13 @@ class RepeatController extends ControllerBase {
           'result' => $content['content']['content'],
           'header' => $content['content']['header']
         ],
-        '#theme' => $content['theme']
+        '#theme' => $content['theme'],
+        '#cache' => [
+          'max-age' => 0
+        ],
+      ],
+      '#cache' => [
+        'max-age' => 0
       ],
     ];
     \Drupal::service('openy_repeat_pdf_generator')->generatePDF($settings);
@@ -375,7 +381,8 @@ class RepeatController extends ControllerBase {
   public function getPdfContent($request) {
     // Get all parameters from query.
     $parameters = $request->query->all();
-    $category = !empty($parameters['category']) ? $parameters['category'] : '0';
+    $category = !empty($parameters['categories']) ? $parameters['categories'] : '0';
+    $rooms = !empty($parameters['rooms']) ? $parameters['rooms'] : '';
     $location = !empty($parameters['locations']) ? $parameters['locations'] : '0';
     $date = !empty($parameters['date']) ? $parameters['date'] : '';
     $mode = !empty($parameters['mode']) ? $parameters['mode'] : 'activity';
@@ -401,15 +408,17 @@ class RepeatController extends ControllerBase {
       $result[$date] = $this->getData($request, $location, $date, $category);
       $timestamp_start += 86400;
     }
-
+    if (!empty($rooms)) {
+      $rooms = explode(',', $rooms);
+    }
     // Group by activity.
     if ($mode == 'activity') {
-      $result = $this->groupByActivity($result);
+      $result = $this->groupByActivity($result, $rooms);
       $theme = 'openy_repeat__pdf__table__activity';
     }
     // Group by day.
     if ($mode == 'day') {
-      $result = $this->groupByDay($result);
+      $result = $this->groupByDay($result, $rooms);
       $theme = 'openy_repeat__pdf__table__day';
     }
 
@@ -424,7 +433,7 @@ class RepeatController extends ControllerBase {
   /**
    * Group results by Activity & Location.
    */
-  public function groupByActivity($result) {
+  public function groupByActivity($result, $rooms) {
     if (empty($result)) {
       return FALSE;
     }
@@ -445,7 +454,21 @@ class RepeatController extends ControllerBase {
 
     // Create activities array pass weekdays array to each.
     foreach ($result as $day => $data) {
-      foreach ($data as $session) {
+      foreach ($data as $key => $session) {
+        // Additionally filter by room.
+        if (!empty($rooms) && !in_array($session->location . '||' . $session->room, $rooms)) {
+          $location_found = FALSE;
+          foreach ($rooms as $room) {
+            // Keep locations with no selected rooms (means all are selected).
+            if (strpos($room, $session->location) !== FALSE) {
+              $location_found = TRUE;
+            }
+          }
+          if ($location_found) {
+            unset($result[$day][$key]);
+            continue;
+          }
+        }
         $formatted_result['content'][$session->location][$session->name] = [
           'room' => $session->room,
           'dates' => $date_keys
@@ -467,7 +490,7 @@ class RepeatController extends ControllerBase {
   /**
    * Group results by day.
    */
-  public function groupByDay($result) {
+  public function groupByDay($result, $rooms) {
     if (empty($result)) {
       return FALSE;
     }
@@ -487,7 +510,21 @@ class RepeatController extends ControllerBase {
     ];
 
     foreach ($result as $day => $data) {
-      foreach ($data as $session) {
+      foreach ($data as $key => $session) {
+        // Additionally filter by room.
+        if (!empty($rooms) && !in_array($session->location . '||' . $session->room, $rooms)) {
+          $location_found = FALSE;
+          foreach ($rooms as $room) {
+            // Keep locations with no selected rooms (means all are selected).
+            if (strpos($room, $session->location) !== FALSE) {
+              $location_found = TRUE;
+            }
+          }
+          if ($location_found) {
+            unset($result[$day][$key]);
+            continue;
+          }
+        }
         $weekday = DrupalDateTime::createFromFormat('F j, l 00:00:00', $day)->format('l');
         $formatted_result['content'][$session->category . '|' .$session->location][$weekday][$session->time_start . '-' . $session->time_end][] = [
           'room' => $session->room,

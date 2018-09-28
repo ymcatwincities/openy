@@ -18,7 +18,7 @@
     }
   });
 
-  // PDF link handlers.
+  // PDF link show/hidden.
   var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
   if (pdfLink) {
     $('.btn-schedule-pdf')
@@ -68,8 +68,9 @@
     el: '#app',
     router: router,
     data: {
-      table: {},
+      table: [],
       date: '',
+      room: [],
       locations: [],
       categories: [],
       categoriesExcluded: [],
@@ -162,6 +163,59 @@
     computed: {
       dateFormatted: function(){
         return moment(this.date).format('MMMM D, dddd');
+      },
+      roomFilters: function() {
+        var availableRooms = [];
+        this.table.forEach(function(element){
+          if (typeof availableRooms[element.location] === 'undefined') {
+            availableRooms[element.location] = [];
+          }
+          if (element.room) {
+            availableRooms[element.location][element.room] = element.room;
+          }
+        });
+
+        var resultRooms = [];
+        this.locations.forEach(function(location){
+          if (typeof availableRooms[location] != 'undefined') {
+            availableRooms[location] = Object.keys(availableRooms[location]);
+            if (availableRooms[location].length > 0) {
+              resultRooms[location] = availableRooms[location].sort();
+            }
+          }
+        });
+
+        return resultRooms;
+      },
+      filteredTable: function() {
+        var filterByRoom = [];
+
+        this.room.forEach(function(roomItem) {
+          var split = roomItem.split('||');
+          var locationName = split[0];
+          var roomName = split[1];
+          if (typeof filterByRoom[locationName] === 'undefined') {
+            filterByRoom[locationName] = [];
+          }
+          filterByRoom[locationName].push(roomName);
+        });
+
+        var locationsToFilter = Object.keys(filterByRoom);
+        var resultTable = [];
+        this.table.forEach(function(item){
+          // If we are not filtering rooms of this location -- skip it.
+          if (locationsToFilter.indexOf(item.location) === -1) {
+            resultTable.push(item);
+            return;
+          }
+
+          // Check if class in this room should be kept.
+          if (filterByRoom[item.location].indexOf(item.room) !== -1) {
+            resultTable.push(item);
+          }
+        });
+
+        return resultTable;
       }
     },
     methods: {
@@ -201,9 +255,6 @@
           locations: this.locations.join(','),
           categories: this.categories.join(',')
         }});
-
-        // Change PDF button query on each request.
-        $('.btn-schedule-pdf-generate').attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf?' + query.join('&'));
       },
       populatePopupL: function(index) {
         this.locationPopup = this.table[index].location_info;
@@ -223,6 +274,15 @@
       },
       categoryExcluded: function(category) {
         return this.categoriesExcluded.indexOf(category) !== -1;
+      },
+      getRoomFilter: function(location) {
+        if (typeof this.roomFilters[location] === 'undefined') {
+          return false;
+        }
+        return this.roomFilters[location];
+      },
+      generateId: function(string) {
+        return string.replace(/[\W_]+/g, "-");
       }
     },
     updated: function() {
@@ -230,6 +290,31 @@
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
+      // Additionally collect checked rooms filter options.
+      $('.btn-schedule-pdf-generate').on('click', function () {
+        var rooms_checked = [],
+            limit = [];
+        $('.checkbox-room-wrapper input').each(function () {
+          if ($(this).is(':checked')) {
+            rooms_checked.push(encodeURIComponent($(this).val()));
+          }
+        });
+        rooms_checked = rooms_checked.join(',');
+        var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
+        if (limitCategories && limitCategories.length > 0) {
+          if (limitCategories.length == 1) {
+            limit.push(limitCategories[0].title);
+          }
+          else {
+            limitCategories.forEach(function(element){
+              limit.push(element.title);
+            });
+          }
+        }
+        limit = limit.join(',');
+        var pdf_query = window.location.search + '&rooms=' + rooms_checked + '&limit=' + limit;
+        $('.btn-schedule-pdf-generate').attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf' + pdf_query);
+      });
     },
     delimiters: ["${","}"]
   });

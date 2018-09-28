@@ -395,3 +395,6 @@ label[aria-expanded=false] .minus {
 
 }
 
+.schedule-dashboard__sidebar .checkbox-room-wrapper {
+  padding-left: 15px;
+}
