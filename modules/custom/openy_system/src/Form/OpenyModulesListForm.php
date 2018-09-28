@@ -96,7 +96,7 @@ class OpenyModulesListForm extends ModulesListForm {
         $module_names[] = $modules[$name]->info["name"];
       }
       else {
-        $module_names[] = $modules[$name]->info["name"] . $this->t(' (disabled)');
+        $module_names[] = $modules[$name]->info["name"] . ' (' . $this->t('disabled') . ')';
       }
     }
     // Put module names and status to requires field of row.

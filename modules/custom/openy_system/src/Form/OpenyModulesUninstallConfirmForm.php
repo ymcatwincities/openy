@@ -4,7 +4,7 @@ namespace Drupal\openy_system\Form;
 
 use Drupal\system\Form\ModulesUninstallConfirmForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\openy\Form\ConfigureProfileForm;
+use Drupal\Core\Url;
 
 /**
  * Builds a confirmation form to uninstall selected Open Y project packages.
@@ -15,7 +15,14 @@ class OpenyModulesUninstallConfirmForm extends ModulesUninstallConfirmForm {
    * {@inheritdoc}
    */
   public function getDescription() {
-    return $this->t('Would you like to continue with uninstalling the above?</br><p style="color:red">Data and content within these packages can <b>not</b> be recovered from the Open Y Admin Interface after clicking "Uninstall".</p>');
+    return $this->t('Would you like to continue with uninstalling the above?</br><div class="messages messages--warning">Data and content within these packages can <b>not</b> be recovered from the Open Y Admin Interface after clicking "Uninstall".</div>');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCancelUrl() {
+    return new Url('openy_system.modules_uninstall');
   }
 
   /**
