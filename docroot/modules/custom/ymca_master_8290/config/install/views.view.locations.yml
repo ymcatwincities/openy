@@ -3,9 +3,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-#    - node.type.branch
-#    - node.type.camp
-#    - node.type.facility
+    - node.type.camp
+    - node.type.location
   module:
     - node
     - user

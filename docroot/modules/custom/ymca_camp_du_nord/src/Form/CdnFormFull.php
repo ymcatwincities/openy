@@ -134,7 +134,7 @@ class CdnFormFull extends FormBase {
       'village' => isset($query['village']) && is_numeric($query['village']) ? $query['village'] : 'all',
       'arrival_date' => isset($query['arrival_date']) ? $query['arrival_date'] : $default_arrival_date,
       'departure_date' => isset($query['departure_date']) ? $query['departure_date'] : $default_departure_date,
-      'range' => isset($query['range']) ? $query['range'] : 3,
+      'range' => isset($query['range']) ? $query['range'] : 0,
       'capacity' => isset($query['capacity']) ? $query['capacity'] : 'all',
       'show' => isset($query['show']) ? $query['show'] : 'all',
       'cabin' => '',
@@ -219,11 +219,6 @@ class CdnFormFull extends FormBase {
       '#default_value' => $state['arrival_date'],
     ];
 
-    $form['html']['element'] = [
-      '#type' => 'markup',
-      '#markup' => '<h2>Search</h2>',
-    ];
-
     $form['departure_date'] = [
       '#type' => 'date',
       '#title' => t('Check Out'),
@@ -233,7 +228,7 @@ class CdnFormFull extends FormBase {
     $form['range'] = [
       '#type' => 'select',
       '#title' => t('Expand date range by'),
-      '#default_value' => !is_null($state['range']) ? $state['range'] : 3,
+      '#default_value' => !is_null($state['range']) ? $state['range'] : 0,
       '#options' => [
         0 => '+/- 0 Days',
         3 => '+/- 3 Days',
@@ -245,7 +240,6 @@ class CdnFormFull extends FormBase {
     $this->cabinOptions = array_merge(['' => $this->t('Cabin')], $this->cabinOptions);
     $form['cabin'] = [
       '#type' => 'select',
-      '#prefix' => '<div class="bottom-elements-wrapper"><div class="container">',
       '#title' => t('Cabin'),
       '#default_value' => $state['cid'],
       '#options' => $this->cabinOptions,
@@ -278,7 +272,6 @@ class CdnFormFull extends FormBase {
       // Close bottom-elements-wrapper.
       '#prefix' => '</div></div><div class="cdn-results">',
       '#markup' => render($formatted_results),
-      '#suffix' => '</div>',
       '#weight' => 10,
     ];
 

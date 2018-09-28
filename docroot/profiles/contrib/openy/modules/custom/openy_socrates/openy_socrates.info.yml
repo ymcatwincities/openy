@@ -1,5 +1,6 @@
-name: Socrates
+name: OpenY Socrates
 type: module
 description: Smart middleware facade service for connecting different bits of code.
 core: 8.x
+version: 8.x-1.0
 package: OpenY

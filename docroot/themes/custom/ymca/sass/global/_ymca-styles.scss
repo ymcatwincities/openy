@@ -1321,3 +1321,40 @@ body.node--type-article {
 body.independent-footer .toolbar {
   display: none;
 }
+
+
+header#page-head:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+header#page-head .top-navs{
+  height: auto !important;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 60px !important;
+  }
+}
+@media (min-width: 767px) {
+  body.landing-template #openy_alerts_app_header,
+  body.locations-camps-template #openy_alerts_app_header {
+    position: relative;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 767px) {
+  body.internal-template  #openy_alerts_app_header {
+    position: relative;
+    padding-top: 160px;
+  }
+}
+
+@media (min-width: 768px) {
+  .internal-template .page-middle {
+    margin-top: 0;
+  }
+}
