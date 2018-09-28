@@ -6689,7 +6689,7 @@ function ymca_master_update_8293() {
 /**
  * Update config.
  */
-function ymca_master_update_8290() {
+function ymca_master_update_8294() {
   $path = drupal_get_path('module', 'ymca_master');
   \Drupal::service('config_import.importer')->importConfigs([
     $path . '/config/optional/block.block.openygoogletranslate.yml',
@@ -6699,7 +6699,7 @@ function ymca_master_update_8290() {
 /**
  * Enable ludwig.
  */
-function ymca_master_update_8291() {
+function ymca_master_update_8295() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['ludwig'], TRUE);
 }
