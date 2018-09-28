@@ -7,7 +7,7 @@ ymca_frontend.location_schedules:
     _permission: 'access YMCA location schedules'
 
 ymca_frontend.locations:
-  path: 'locations'
+  path: 'old_locations'
   defaults:
     _controller: '\Drupal\ymca_frontend\Controller\YMCALocationsController::content'
     _title_callback: '\Drupal\ymca_frontend\Controller\YMCALocationsController::setTitle'
