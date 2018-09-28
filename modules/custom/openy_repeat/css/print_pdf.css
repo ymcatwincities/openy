@@ -30,12 +30,15 @@
 .openy-repeat--pdf--table--activity table td {
   padding: 5px 5px;
   border: 1px solid #aaa;
-  font-size: 14px;
+  font-size: 10px;
   font-family: "Cachet Book", sans-serif;
   text-align: left;
   vertical-align: top;
+  width: 12%;
 }
-
+.openy-repeat--pdf--table--activity table td:first-child {
+  width: 16%;
+}
 .openy-repeat--pdf--table--day .header {
   margin-bottom: 20px;
 }
