@@ -73,9 +73,12 @@ class GameController extends ControllerBase {
     /** @var \Drupal\Node\Entity\Node $campaign */
     $campaign = $game->member->entity->campaign->entity;
 
+    /** @var \Drupal\openy_campaign\CampaignMenuService $campaignMenuService */
+    $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
+    $pallete = $campaignMenuService->getCampaignPalette($campaign);
+
     if (!empty($gameResult['already_used_chance'])) {
       $link = Link::fromTextAndUrl(t('Back to Campaign'), new Url('entity.node.canonical', ['node' => $campaign->id()]))->toString();
-
       return [
         '#markup' => $link . ' You have played this chance already. Your result: ' . $result,
       ];
@@ -130,6 +133,7 @@ class GameController extends ControllerBase {
         ],
         'drupalSettings' => [
           'openy_campaign' => [
+            'pallete' => $pallete['colors'],
             'result' => $result,
           ],
         ],
@@ -159,7 +163,7 @@ class GameController extends ControllerBase {
    *
    * @return array
    */
-  private function generateGameResult($uuid) {
+  public function generateGameResult($uuid) {
     /** @var \Drupal\openy_campaign\Entity\MemberGame $game */
     $game = $this->entityRepository->loadEntityByUuid('openy_campaign_member_game', $uuid);
 

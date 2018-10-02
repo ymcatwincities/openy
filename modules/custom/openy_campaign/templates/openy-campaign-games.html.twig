@@ -8,6 +8,7 @@
    </div>
     {{ form | without('label', 'cover_image' ) }}
 {% endif %}
+
 {% if game_type == 'spin_the_wheel' %}
     <p>{{ form.label }}</p>
     {{ form | without('label', 'cover_image' ) }}
