@@ -14,7 +14,7 @@
     attach: function (context, settings) {
       var alertModals = $('.alert-modal', context);
 
-      $(window).on('load',function() {
+      $(window).on('load', function () {
         if (alertModals.length) {
           alertModals.modal('show');
         }
@@ -31,7 +31,8 @@
       if (bannerHeader.length > 0) {
         $('.banner-zone-node').once('openy-move-banners').append(bannerHeader.eq(0));
         $('body').addClass('with-banner');
-      } else {
+      }
+      else {
         $('body').addClass('without-banner');
       }
     }
@@ -80,7 +81,7 @@
 
       searchBtn.once('openy-search-toggle-hide').on('click', function () {
         mainMenuLinks.removeClass('show').addClass('fade');
-        setTimeout(function() {
+        setTimeout(function () {
           searchInput.focus();
         }, 500);
       });
@@ -97,14 +98,21 @@
   Drupal.behaviors.openyMobileMenu = {
     attach: function (context, settings) {
       var sidebar = $('#sidebar');
-      var $target = $('.top-navs');
+      var topNav = $('.top-navs');
 
       sidebar.on('show.bs.collapse', function () {
-        $target.addClass('menu-in');
+        topNav.addClass('menu-in');
       });
 
       sidebar.on('hide.bs.collapse', function () {
-        $target.removeClass('menu-in');
+        topNav.removeClass('menu-in');
+      });
+
+      $(window).resize(function() {
+        if($(window).width() > 991) {
+          topNav.removeClass('menu-in');
+          sidebar.collapse('hide');
+        }
       });
     }
   };
@@ -129,11 +137,12 @@
    */
   Drupal.behaviors.openyHeaderAffix = {
     attach: function (context, settings) {
-      $(window).once('openy-affix', context).on('scroll', function(event) {
+      $(window).once('openy-affix', context).on('scroll', function (event) {
         var scrollValue = $(window).scrollTop();
         if (scrollValue === settings.scrollTopPx || scrollValue > 1) {
           $('.top-navs').addClass('affix');
-        } else if (scrollValue === settings.scrollTopPx || scrollValue < 1) {
+        }
+        else if (scrollValue === settings.scrollTopPx || scrollValue < 1) {
           $('.top-navs').removeClass('affix');
         }
       });
@@ -188,7 +197,8 @@
             $this.attr('type', 'password');
             $this.removeClass("show");
             $(this).removeClass("btn-outline-primary");
-          } else {
+          }
+          else {
             $this.attr('type', 'text');
             $this.val($("#passeye-" + i).val());
             $this.addClass("show");
@@ -237,7 +247,7 @@
    */
   Drupal.behaviors.openySubCategoryClassesTheme = {
     attach: function (context, settings) {
-      $('.sub-category-classes-view').once().each(function() {
+      $('.sub-category-classes-view').once().each(function () {
         var view = $(this);
 
         // Initialize Slick.
@@ -249,8 +259,8 @@
           slidesToScroll: 3,
           prevArrow: '<button type="button" class="slick-prev" value="' + Drupal.t('Previous') + '" title="' + Drupal.t('Previous') + '">' + Drupal.t('Previous') + '<i class="fa fa-chevron-left" aria-hidden="true"></i></button>',
           nextArrow: '<button type="button" class="slick-next" value="' + Drupal.t('Next') + '" title="' + Drupal.t('Next') + '">' + Drupal.t('Next') + '<i class="fa fa-chevron-right" aria-hidden="true"></i></button>',
-          customPaging: function(slider, i) {
-            return '<button type="button" data-role="none" aria-hidden="true" role="button" tabindex="' + i + '" value="' + Drupal.t('Slide set @i', {'@i': i+1}) + '" title="' + Drupal.t('Slide set @i', {'@i': i+1}) + '">' + (i+1) + '</button>';
+          customPaging: function (slider, i) {
+            return '<button type="button" data-role="none" aria-hidden="true" role="button" tabindex="' + i + '" value="' + Drupal.t('Slide set @i', {'@i': i + 1}) + '" title="' + Drupal.t('Slide set @i', {'@i': i + 1}) + '">' + (i + 1) + '</button>';
           },
           responsive: [
             {
@@ -278,15 +288,15 @@
 
         // Filters actions.
         view.find('.add-filters')
-          .on('click', function(e) {
+          .on('click', function (e) {
             e.preventDefault();
             view.find('.selects-container, .actions-wrapper').removeClass('hidden-xs');
             view.find('.close-filters').removeClass('hidden');
             view.find('.filters-container').addClass('hidden');
             $(this).addClass('hidden');
-        });
+          });
         view.find('.close-filters')
-          .on('click', function(e) {
+          .on('click', function (e) {
             e.preventDefault();
             view.find('.selects-container, .actions-wrapper').addClass('hidden-xs');
             view.find('.add-filters').removeClass('hidden');
@@ -295,7 +305,7 @@
           });
 
         view.find('.js-form-type-select select')
-          .change(function() {
+          .change(function () {
             if ($(window).width() > 767) {
               view.find('.js-form-type-select select').attr('readonly', true);
               view.find('form .form-actions input:eq(0)').trigger('click');
@@ -303,7 +313,7 @@
           });
 
         view.find('.filter .remove')
-          .on('click', function(e) {
+          .on('click', function (e) {
             e.preventDefault();
             view.parents('.filter').remove();
             view.find('select option[value="' + $(this).data('id') + '"]').attr('selected', false);
@@ -315,9 +325,9 @@
           });
 
         view.find('.clear')
-          .on('click', function(e) {
+          .on('click', function (e) {
             e.preventDefault();
-            view.find('.filters-container').find('a.remove').each(function() {
+            view.find('.filters-container').find('a.remove').each(function () {
               view.find('select option[value="' + $(this).data('id') + '"]').attr('selected', false);
             });
             view.find('.js-form-type-select select').attr('readonly', true);

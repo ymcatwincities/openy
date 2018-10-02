@@ -11024,6 +11024,7 @@ a[href="#step2"] {
   height: 0; }
   .nav-home .dropdown-menu.show {
     display: flex;
+    flex-wrap: wrap;
     height: auto; }
 
 .viewport .page-head__main-menu .nav-level-2 {

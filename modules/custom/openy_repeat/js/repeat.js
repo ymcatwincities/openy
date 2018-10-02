@@ -256,11 +256,19 @@
           categories: this.categories.join(',')
         }});
       },
-      populatePopupL: function(index) {
-        this.locationPopup = this.table[index].location_info;
+      populatePopupL: function(location_name) {
+        for (var i = 0; i < this.table.length; i++) {
+          if (this.table[i].location === location_name) {
+            this.locationPopup = this.table[i].location_info;
+          }
+        }
       },
-      populatePopupC: function(index) {
-        this.classPopup = this.table[index].class_info;
+      populatePopupC: function(class_id) {
+        for (var i = 0; i < this.table.length; i++) {
+          if (this.table[i].class === class_id) {
+            this.classPopup = this.table[i].class_info;
+          }
+        }
       },
       backOneDay: function() {
         this.date = moment(this.date).add(-1, 'day').format('D MMM YYYY');

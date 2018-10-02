@@ -7811,6 +7811,11 @@ article .node--view-mode-flexible-content h2 a span {
 }
 
 /* row striping */
+.schedule-dashboard__content .day-label h2 {
+  display: flex;
+  justify-content: space-between;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }

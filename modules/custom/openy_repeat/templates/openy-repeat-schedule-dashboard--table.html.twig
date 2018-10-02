@@ -9,7 +9,7 @@
 
 {# date arrows & title #}
 <div class="row schedule-dashboard__content--header">
-  <div class="col-sm-12 col-md-8">
+  <div class="col-sm-12 col-md-8 day-label">
     <h2>
       <span v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
       <span class="date">${ dateFormatted }</span>
@@ -44,12 +44,12 @@
 
           {# location #}
           <div v-cloak>
-            <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupL(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
+            <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupL(item.location)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
           </div>
 
           {# class #}
           <div v-cloak>
-            <strong><a class="schedule-dashboard__modal--class-link" role="button" v-on:click="populatePopupC(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
+            <strong><a class="schedule-dashboard__modal--class-link" role="button" v-on:click="populatePopupC(item.class)" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
           </div>
 
           {# time #}
