@@ -8,15 +8,18 @@
   var devices = {
     mobile: {
       'maxWidth': 300,
-      'ppm': 12
+      'ppm': 12,
+      'viewHeight': 280,
     },
     tablet: {
       'maxWidth': 500,
-      'ppm': 24
+      'ppm': 24,
+      'viewHeight': 380,
     },
     desktop: {
       'maxWidth': 750,
-      'ppm': 24
+      'ppm': 24,
+      'viewHeight': 550,
     }
   };
 
@@ -24,19 +27,24 @@
 
   var _ppm = 24; // default value
   var _viewWidth = $('.spin-the-wheel-inner').innerWidth() - ($('.spin-the-wheel-inner').innerWidth() * 0.02);
-  var _viewHeight = 550;
-  if (window.innerWidth < 1024) {
+  var _viewHeight = devices.desktop.viewHeight;
+  if (window.innerWidth < 430) {
     _ppm = devices.mobile.ppm;
+    _viewHeight = devices.mobile.viewHeight;
     //_viewWidth = devices.mobile.maxWidth;
   }
   else if (window.innerWidth < 760) {
     _ppm = devices.tablet.ppm;
+    _viewHeight = devices.tablet.viewHeight;
     // _viewWidth = devices.tablet.maxWidth;
   }
-  else if (window.innerWidth < 420) {
+  else if (window.innerWidth < 1024) {
     _ppm = devices.desktop.ppm;
+    _viewHeight = devices.desktop.viewHeight;
     // _viewWidth = devices.desktop.maxWidth;
   }
+  console.log(window.innerWidth);
+  console.log(_viewHeight);
 
 // canvas settings
   var viewWidth = _viewWidth,
@@ -369,7 +377,7 @@
 /////////////////////////////
 // your reward
 /////////////////////////////
-  Particle = function (p0, p1, p2, p3) {
+  var Particle = function (p0, p1, p2, p3) {
     this.p0 = p0;
     this.p1 = p1;
     this.p2 = p2;

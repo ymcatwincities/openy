@@ -1377,6 +1377,16 @@ footer .container .footer__nav nav ul > li a {
   padding-left: 15px;
 }
 
+.top-navs .page-head__logo {
+  position: relative;
+  top: 15px;
+  width: auto;
+}
+.top-navs .page-head__logo img {
+  width: 50px;
+  height: auto;
+}
+
 .top-navs {
   z-index: 100;
 }
