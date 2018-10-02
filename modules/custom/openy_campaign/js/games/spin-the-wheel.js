@@ -159,10 +159,6 @@
       $('.load-bar').hide();
       $('.centered').css('opacity', '0.5');
     }
-
-    if (wheelSpinning === false && wheelStopped === true && arrow.hasStopped()) {
-
-    }
   }
 
   function draw() {

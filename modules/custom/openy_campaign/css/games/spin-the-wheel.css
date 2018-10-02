@@ -1,4 +1,3 @@
-
 .spin-the-wheel-inner {
     position: relative;
 }
@@ -7,7 +6,6 @@
     position: absolute;
     top: 220px;
     left: 415px;
-    background: orange;
     width: 300px;
     text-align: center;
 }
@@ -26,14 +24,12 @@
 
 .game-result--header {
     text-transform: uppercase;
-    color: #E87529;
 }
 
 .game-result--body {
     width: 400px;
-    border: 10px solid #DA5024;
+    border: 10px solid;
     border-radius: 10px;
-    background: #E87529;
     color: #fff;
     text-align: center;
     text-transform: uppercase;
@@ -72,17 +68,14 @@
 }
 
 .bar:nth-child(1) {
-    background-color: #da4733;
     animation: loading 3s linear infinite;
 }
 
 .bar:nth-child(2) {
-    background-color: #3b78e7;
     animation: loading 3s linear 1s infinite;
 }
 
 .bar:nth-child(3) {
-    background-color: #fdba2c;
     animation: loading 3s linear 2s infinite;
 }
 
