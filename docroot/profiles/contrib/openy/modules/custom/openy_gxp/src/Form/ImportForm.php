@@ -55,6 +55,7 @@ class ImportForm extends FormBase {
       $locationName = trim($locationName);
       $nids = \Drupal::entityQuery('node')
         ->condition('title', $locationName)
+        ->condition('type', 'location')
         ->execute();
       if (!empty($nids)) {
         $operations[] = ['Drupal\openy_gxp\Form\ImportForm::generateProgramsCSV', [$config->get('activity'), $config->get('client_id'), $gxpLocationId, reset($nids)]];
@@ -175,6 +176,10 @@ class ImportForm extends FormBase {
    */
   public static function migrateOfferings($gxpLocationId) {
     $migration = \Drupal::service('plugin.manager.migration')->createInstance('gxp_offerings_import');
+    if (!$migration) {
+        drupal_set_message(t('Migration @gxp_offerings_import does not exist. Please check script that builds CSV file for import.', ['@gxp_offerings_import' => 'gxp_offerings_import']), 'warning');
+        return TRUE;
+    }
 
     $source = $migration->getSourceConfiguration();
     $publicPath = \Drupal::service('file_system')->realpath('public://');
