@@ -3,6 +3,7 @@
 namespace Drupal\openy_repeat\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\paragraphs\Entity\Paragraph;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
 
@@ -78,6 +79,7 @@ class RepeatSchedulesBlock extends BlockBase {
     $paragraphs = $node->field_content->referencedEntities();
     foreach ($paragraphs as $p) {
       if ($p->bundle() == 'repeat_schedules') {
+        $filters = self::getFiltersSettings($p);
         $pdf_only = !$p->field_prgf_rs_pdf_only_view->isEmpty() ? $p->field_prgf_rs_pdf_only_view->getValue()[0]['value'] : '';
         // Setup redirect to PDF generation route if pdf only option is enabled.
         if ($pdf_only) {
@@ -102,8 +104,31 @@ class RepeatSchedulesBlock extends BlockBase {
       '#categories' => $this->getCategories(),
       '#checked_locations' => $checked_locations,
       '#checked_categories' => $checked_categories,
+      '#filters' => $filters,
       '#cache' => ['contexts' => ['url.path', 'url.query_args']],
     ];
+  }
+
+  /**
+   * Gets value of paragraph filters field.
+   *
+   * @param \Drupal\paragraphs\Entity\Paragraph $p
+   *  The paragraph to take data from.
+   *
+   * @return array
+   *  An associative array of values.
+   */
+  public static function getFiltersSettings(Paragraph $p) {
+    if ($p->field_prgf_repeat_schedule_filt->isEmpty()) {
+      return [];
+    }
+
+    $filters = [];
+    foreach ($p->field_prgf_repeat_schedule_filt->getValue() as $f) {
+      $filters[$f['value']] = $f['value'];
+    }
+
+    return $filters;
   }
 
 }

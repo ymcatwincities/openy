@@ -7,6 +7,7 @@
 
 /**
  * Update Repeat Schedules prgf with changes related to PDF generation.
+ * Add filter visibility option.
  */
 function openy_prgf_repeat_schedules_update_8001() {
   $config_dir = drupal_get_path('module', 'openy_prgf_repeat_schedules') . '/config/install/';
@@ -17,5 +18,7 @@ function openy_prgf_repeat_schedules_update_8001() {
     'core.entity_view_display.paragraph.repeat_schedules.default',
     'field.field.paragraph.repeat_schedules.field_prgf_rs_pdf_only_view',
     'field.storage.paragraph.field_prgf_rs_pdf_only_view',
+    'field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_filt',
+    'field.storage.paragraph.field_prgf_repeat_schedule_filt',
   ]);
 }
