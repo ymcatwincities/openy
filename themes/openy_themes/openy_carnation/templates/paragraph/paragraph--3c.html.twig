@@ -45,7 +45,7 @@
   ]
 %}
 
-{% if paragraph.field_prfg_display_line_above.value %}
+{% if paragraph.field_prfg_display_line_above.0.value == 1 %}
   {% set classes = classes|merge(['block-description--wrapper--outline--top']) %}
 {% endif %}
 
