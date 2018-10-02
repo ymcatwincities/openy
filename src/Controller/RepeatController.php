@@ -3,14 +3,89 @@
 namespace Drupal\openy_repeat\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
  * {@inheritdoc}
  */
 class RepeatController extends ControllerBase {
+
+  /**
+   * Cache default.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected $cache;
+
+  /**
+   * The Database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $database;
+
+  /**
+   * The entity query factory.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $entityQuery;
+
+  /**
+   * The EntityTypeManager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   */
+  protected $entity_type_manager;
+
+  /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
+   * Creates a new RepeatController.
+   *
+   * @param CacheBackendInterface $cache
+   *   Cache default.
+   * @param Connection $database
+   *   The Database connection.
+   * @param EntityTypeManager $entity_type_manager
+   *   The EntityTypeManager.
+   * @param DateFormatterInterface $date_formatter
+   *   The Date formatter.
+   */
+  public function __construct(CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter) {
+    $this->cache = $cache;
+    $this->database = $database;
+    $this->entityQuery = $entity_query;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->dateFormatter = $date_formatter;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('cache.default'),
+      $container->get('database'),
+      $container->get('entity.query'),
+      $container->get('entity_type.manager'),
+      $container->get('date.formatter')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -28,7 +103,8 @@ class RepeatController extends ControllerBase {
     $weekday = date('N', $date);
 
     $timestamp_start = $date;
-    $timestamp_end = $date + 24 * 60 * 60 * 60; // Next day.
+    // Next day.
+    $timestamp_end = $date + 24 * 60 * 60;
 
     $sql = "SELECT DISTINCT
               n.nid,
@@ -36,17 +112,16 @@ class RepeatController extends ControllerBase {
               nd.title as location,
               nds.title as name,
               re.class,
-              CAST(re.duration / 60 AS CHAR(1)) as duration_hours,
-              CAST(re.duration % 60 AS CHAR(2)) as duration_minutes,
+              re.session,
+              re.duration as duration,
               re.room,
               re.instructor as instructor,
               re.category,
               re.register_url as register_url,
               re.register_text as register_text,
-              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i'))) as time_start,
-              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%h:%i%p'))) as time_end,
-              DATE_FORMAT(FROM_UNIXTIME(re.start), '%Y-%m-%d %T') as time_start_calendar,
-              DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%Y-%m-%d %T') as time_end_calendar
+              re.start as start_timestamp,
+              re.end as end_timestamp,
+              re.duration as duration
             FROM {node} n
             RIGHT JOIN {repeat_event} re ON re.session = n.nid
             INNER JOIN node_field_data nd ON re.location = nd.nid
@@ -90,8 +165,6 @@ class RepeatController extends ControllerBase {
       $values[':limit[]'] = explode(',', $limit);
     }
 
-    $sql .= " ORDER BY re.start";
-
     $values[':year'] = $year;
     $values[':month'] = $month;
     $values[':day'] = $day;
@@ -100,16 +173,43 @@ class RepeatController extends ControllerBase {
     $values[':timestamp_start'] = $timestamp_start;
     $values[':timestamp_end'] = $timestamp_end;
 
-    $connection = \Drupal::database();
-    $query = $connection->query($sql, $values);
+    $query = $this->database->query($sql, $values);
     $result = $query->fetchAll();
 
     $locations_info = $this->getLocationsInfo();
-    $classes_info = $this->getClassesInfo();
+
+    $classesIds = [];
+    foreach ($result as $key => $item) {
+      $classesIds[$item->class] = $item->class;
+    }
+    $classes_info = $this->getClassesInfo($classesIds);
+
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
       $result[$key]->class_info = $classes_info[$item->class];
+
+      $result[$key]->time_start_sort = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Hi');
+
+      // Convert timezones for start_time and end_time.
+      $result[$key]->time_start = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'g:i');
+      $result[$key]->time_end = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'g:iA');
+
+      // Example of calendar format 2018-08-21 14:15:00.
+      $result[$key]->time_start_calendar = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->time_end_calendar = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->timezone = drupal_get_user_timezone();
+
+      // Durations.
+      $result[$key]->duration_minutes = $item->duration % 60;
+      $result[$key]->duration_hours = ($item->duration - $result[$key]->duration_minutes) / 60;
     }
+
+    usort($result, function($item1, $item2){
+      if ((int) $item1->time_start_sort == (int) $item2->time_start_sort) {
+        return 0;
+      }
+      return (int) $item1->time_start_sort < (int) $item2->time_start_sort ? -1 : 1;
+    });
 
     return new JsonResponse($result);
   }
@@ -126,8 +226,7 @@ class RepeatController extends ControllerBase {
             INNER JOIN node_field_data nd ON l.field_session_location_target_id = nd.nid
             WHERE n.type = 'session'";
 
-    $connection = \Drupal::database();
-    $query = $connection->query($sql);
+    $query = $this->database->query($sql);
 
     return $query->fetchCol();
   }
@@ -136,28 +235,41 @@ class RepeatController extends ControllerBase {
    * Get detailed info about Location (aka branch).
    */
   public function getLocationsInfo() {
-    $nids = \Drupal::entityQuery('node')
-      ->condition('type','branch')
-      ->execute();
-    $branches = Node::loadMultiple($nids);
-
     $data = [];
-    foreach ($branches as $node) {
-      $days = $node->get('field_branch_hours')->getValue();
-      $address = $node->get('field_location_address')->getValue();
-      if (!empty($address[0])) {
-        $address = array_filter($address[0]);
-        $address = implode(', ', $address);
+    $tags = ['node_list'];
+    $cid = 'openy_repeat:locations_info';
+    if ($cache = $this->cache->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $nids = $this->entityQuery
+        ->get('node')
+        ->condition('type','location')
+        ->execute();
+      $nids_chunked = array_chunk($nids, 20, TRUE);
+      foreach ($nids_chunked as $chunk) {
+        $branches = $this->entityTypeManager->getStorage('node')->loadMultiple($chunk);
+        if (!empty($branches)) {
+          foreach ($branches as $node) {
+            $days = $node->get('field_branch_hours')->getValue();
+            $address = $node->get('field_location_address')->getValue();
+            if (!empty($address[0])) {
+              $address = array_filter($address[0]);
+              $address = implode(', ', $address);
+            }
+            $data[$node->title->value] = [
+              'nid' => $node->nid->value,
+              'title' => $node->title->value,
+              'email' => $node->field_location_email->value,
+              'phone' => $node->field_location_phone->value,
+              'address' => $address,
+              'days' => !empty($days[0]) ? $this->getFormattedHours($days[0]) : [],
+            ];
+            $tags[] = 'node:' . $node->nid->value;
+          }
+        }
       }
-
-      $data[$node->title->value] = [
-        'nid' => $node->nid->value,
-        'title' => $node->title->value,
-        'email' => $node->field_location_email->value,
-        'phone' => $node->field_location_phone->value,
-        'address' => $address,
-        'days' => !empty($days[0]) ? $this->getFormattedHours($days[0]) : [],
-      ];
+      $this->cache->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, $tags);
     }
 
     return $data;
@@ -166,19 +278,29 @@ class RepeatController extends ControllerBase {
   /**
    * Get detailed info about Class.
    */
-  public function getClassesInfo() {
-    $nids = \Drupal::entityQuery('node')
-      ->condition('type','class')
-      ->execute();
-    $classes = Node::loadMultiple($nids);
-
+  public function getClassesInfo($nids) {
     $data = [];
-    foreach ($classes as $node) {
-      $data[$node->nid->value] = [
-        'nid' => $node->nid->value,
-        'title' => $node->title->value,
-        'description' => strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600)),
-      ];
+    $tags = [];
+    $cid = 'openy_repeat:classes_info' . md5(json_encode($nids));
+    if ($cache = $this->cache->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $nids_chunked = array_chunk($nids, 20, TRUE);
+      foreach ($nids_chunked as $chunk) {
+        $classes = $this->entityTypeManager->getStorage('node')->loadMultiple($chunk);
+        if (!empty($classes)) {
+          foreach ($classes as $node) {
+            $data[$node->nid->value] = [
+              'nid' => $node->nid->value,
+              'title' => $node->title->value,
+              'description' => html_entity_decode(strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600))),
+            ];
+            $tags[] = 'node:' . $node->nid->value;
+          }
+        }
+      }
+      $this->cache->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, $tags);
     }
 
     return $data;
