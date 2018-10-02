@@ -87,7 +87,7 @@
       {% endif %}
 
       {# categories select list #}
-      {% if categories is not empty %}
+      {% if categories is not empty and filters.category %}
         <div class="form-group-wrapper">
           <label for="form-group-category" data-toggle="collapse" data-target="#form-group-category" role="button" class="expanded" aria-controls="form-group-category">
             {{ 'Category'|t }}
