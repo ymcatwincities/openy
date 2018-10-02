@@ -8,14 +8,27 @@
     $('.clear-all').attr('href', locationPage.url).removeClass('hidden');
   }
 
-  // PDF link show/hidden.
-  if(window.OpenY.field_prgf_repeat_schedules_pdf) {
-    var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
-    if (pdfLink) {
-      $('.btn-schedule-pdf')
-        .removeClass('hidden')
-        .attr('href', pdfLink.url);
+  // +/- Toggle.
+  $('.schedule-dashboard__sidebar .navbar-header a[data-toggle], .form-group-wrapper label[data-toggle]').on('click', function() {
+    if (!$('.' + $(this).attr('for')).hasClass('collapsing')) {
+      $(this)
+        .toggleClass('closed active')
+        .find('i')
+        .toggleClass('fa-minus fa-plus');
     }
+  });
+
+  // PDF link show/hidden.
+  var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
+  if (pdfLink) {
+    $('.btn-schedule-pdf')
+      .removeClass('hidden')
+      .attr('href', pdfLink.url);
+  }
+  else {
+    $('.btn-schedule-pdf-generate')
+      .removeClass('hidden')
+      .attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf' + window.location.search);
   }
 
   /* Check the settings of whether to display Instructor column or not */
@@ -285,6 +298,31 @@
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
+      // Additionally collect checked rooms filter options.
+      $('.btn-schedule-pdf-generate').on('click', function () {
+        var rooms_checked = [],
+            limit = [];
+        $('.checkbox-room-wrapper input').each(function () {
+          if ($(this).is(':checked')) {
+            rooms_checked.push(encodeURIComponent($(this).val()));
+          }
+        });
+        rooms_checked = rooms_checked.join(',');
+        var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
+        if (limitCategories && limitCategories.length > 0) {
+          if (limitCategories.length == 1) {
+            limit.push(limitCategories[0].title);
+          }
+          else {
+            limitCategories.forEach(function(element){
+              limit.push(element.title);
+            });
+          }
+        }
+        limit = limit.join(',');
+        var pdf_query = window.location.search + '&rooms=' + rooms_checked + '&limit=' + limit;
+        $('.btn-schedule-pdf-generate').attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf' + pdf_query);
+      });
     },
     delimiters: ["${","}"]
   });
