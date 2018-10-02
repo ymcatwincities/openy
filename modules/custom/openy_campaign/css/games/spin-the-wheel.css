@@ -4,10 +4,17 @@
 
 .spin-the-wheel-inner .start {
     position: absolute;
-    top: 220px;
-    left: 415px;
-    width: 300px;
+    top: calc(50% - 90px);
+    left: calc(50% - 130px);
+    width: 250px;
     text-align: center;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 430px) {
+    .spin-the-wheel-inner .start {
+        top: calc(50% - 60px);
+    }
 }
 
 .centered {
@@ -17,9 +24,10 @@
 .game-result {
     display: none;
     margin: 0 auto;
-    width: 600px;
+    max-width: 600px;
     text-align: center;
     margin-bottom: 150px;
+    width: 90%;
 }
 
 .game-result--header {
@@ -27,13 +35,14 @@
 }
 
 .game-result--body {
-    width: 400px;
+    max-width: 400px;
+    width: 100%;
     border: 10px solid;
     border-radius: 10px;
     color: #fff;
     text-align: center;
     text-transform: uppercase;
-    padding: 70px;
+    padding: 15%;
     font-size: 40px;
     margin: 0 auto;
 }
@@ -80,7 +89,18 @@
 }
 
 @keyframes loading {
-    from {left: 50%; width: 0;z-index:100;}
-    33.3333% {left: 0; width: 100%;z-index: 10;}
-    to {left: 0; width: 100%;}
+    from {
+        left: 50%;
+        width: 0;
+        z-index: 100;
+    }
+    33.3333% {
+        left: 0;
+        width: 100%;
+        z-index: 10;
+    }
+    to {
+        left: 0;
+        width: 100%;
+    }
 }
