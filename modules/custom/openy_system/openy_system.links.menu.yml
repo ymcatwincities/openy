@@ -5,8 +5,25 @@ openy_system.openy:
   route_name: openy_system.openy_config
   weight: 0
 
-openy_system.openy_modules_list:
-  route_name: openy_system.modules_list
+openy_system.extend_index:
+  title: Extend
+  route_name: openy_system.extend_index
   parent: openy_system.openy
-  title: 'Extend'
+  description: 'Configure Open Y packages.'
+  position: left
+  weight: -20
+
+openy_system.openy_modules_list:
+  title: 'List'
+  parent: openy_system.extend_index
+  description: 'List Open Y packages.'
   weight: 10
+  route_name: openy_system.modules_list
+
+
+openy_system.openy_modules_uninstall:
+  title: 'Uninstall'
+  parent: openy_system.extend_index
+  description: 'Uninstall Open Y packages.'
+  weight: 20
+  route_name: openy_system.modules_uninstall

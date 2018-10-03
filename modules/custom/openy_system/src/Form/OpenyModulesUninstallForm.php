@@ -15,8 +15,19 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $installed_packages = [];
+    $validation_reasons = [];
     $packages = ConfigureProfileForm::getPackages();
-
+    // Get array of fully installed packages.
+    foreach ($packages as $key => $package) {
+      foreach ($package['modules'] as $module_name) {
+        $validation_reasons = array_merge($validation_reasons, $this->moduleInstaller->validateUninstall([$module_name]));
+        if ($this->moduleHandler->moduleExists($module_name)) {
+          $installed_packages[$key] = $packages[$key];
+          break;
+        }
+      }
+    }
     $form['filters'] = [
       '#type' => 'container',
       '#attributes' => [
@@ -38,9 +49,9 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
       ],
     ];
 
-    // Iterate over each of the packages.
+    // Iterate over each of the installed packages.
     $form['uninstall'] = ['#tree' => TRUE];
-    foreach ($packages as $key => $package) {
+    foreach ($installed_packages as $key => $package) {
 
       $name = $package["name"];
       $form['modules'][$key]['#module_name'] = $name;
@@ -52,16 +63,22 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
         '#title' => $this->t('Uninstall @module package', ['@module' => $name]),
         '#title_display' => 'invisible',
       ];
-      $package_disabled = TRUE;
-      foreach ($package['modules'] as $module_name) {
-        if ($this->moduleHandler->moduleExists($module_name)) {
-          $package_disabled = FALSE;
-          break;
+
+      $form['uninstall'][$key]['#disabled'] = FALSE;
+      foreach ($package['modules'] as $module_key) {
+        // If a validator returns reasons not to uninstall a module in a package,
+        // list the reasons and disable the check box.
+        if (isset($validation_reasons[$module_key])) {
+          if (isset($form['modules'][$key]['#validation_reasons'])) {
+            $form['modules'][$key]['#validation_reasons'] = array_merge($form['modules'][$key]['#validation_reasons'], $validation_reasons[$module_key]);
+          }
+          else {
+            $form['modules'][$key]['#validation_reasons'] = $validation_reasons[$module_key];
+          }
+          $form['uninstall'][$key]['#disabled'] = TRUE;
         }
       }
-      $form['uninstall'][$key]['#disabled'] = $package_disabled;
     }
-
     $form['#attached']['library'][] = 'system/drupal.system.modules';
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
@@ -109,8 +126,13 @@ class OpenyModulesUninstallForm extends ModulesUninstallForm {
     }
 
     $account = $this->currentUser()->id();
-    // Store the modules values for 6 hours. This expiration time is also used in
-    // the form cache.
+    // Get packages names to display in confirmation form.
+    $uninstall_packages = array_map(function ($package) use ($profile_packages) {
+      return $profile_packages[$package]['name'];
+    }, $uninstall);
+    // Store the packages names and modules values for 6 hours.
+    // This expiration time is also used in the form cache.
+    $this->keyValueExpirable->setWithExpire($account . '_packages', $uninstall_packages, 6 * 60 * 60);
     $this->keyValueExpirable->setWithExpire($account, $modules, 6 * 60 * 60);
 
     // Redirect to the confirm form.
