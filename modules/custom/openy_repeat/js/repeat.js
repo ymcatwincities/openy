@@ -201,7 +201,9 @@
           availableClasses[classname] = classname;
         });
 
-        return Object.keys(availableClasses).sort();
+        availableClasses = Object.keys(availableClasses);
+        availableClasses.alphanumSort();
+        return availableClasses;
       },
       filteredTable: function() {
         var filterByRoom = [];
