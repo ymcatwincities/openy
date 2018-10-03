@@ -8218,6 +8218,34 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
+.paragraph--type--secondary-description-sidebar {
+  background: #e5e5e5;
+  padding: 10px 0 20px 0;
+  margin-bottom: 20px;
+  color: #333333;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 200;
+  line-height: 1.4;
+}
+@media (min-width: 48em) {
+  .paragraph--type--secondary-description-sidebar {
+    margin-bottom: 40px;
+    padding: 0;
+  }
+}
+.paragraph--type--secondary-description-sidebar .left {
+  font-size: 18px;
+  padding: 15px 0;
+}
+.paragraph--type--secondary-description-sidebar .right {
+  padding: 15px 0;
+  text-align: right;
+  font-size: 18px;
+}
+.paragraph--type--secondary-description-sidebar .right a {
+  font-weight: bold;
+}
+
 a:focus,
 input:focus,
 select:focus,
