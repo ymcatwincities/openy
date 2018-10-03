@@ -24,10 +24,37 @@ class OpenYGXPCategory extends ProcessPluginBase {
     // Example of json we expect.
     // {"title":"Cardio","description":"A great cardio experience...","activity":119}
     $value = json_decode($value, TRUE);
+//    die(print_r($value, TRUE));
+    if (!$value['activity']) {
+      $config = \Drupal::configFactory()->get('openy_gxp.settings');
+      $program_subcategory = $config->get('activity');
+      $nids = \Drupal::entityQuery('node')
+        ->condition('title', $value['title'])
+        ->condition('field_activity_category', $program_subcategory)
+//        ->condition('field_activity_description', $value['description'])
+        ->execute();
+      if (empty($nids)) {
+        $activity = Node::create([
+          'uid' => 1,
+          'lang' => 'und',
+          'type' => 'activity',
+          'title' => $value['title'],
+          'field_activity_description' => [[
+            'value' => $value['description'],
+            'format' => 'full_html'
+          ]],
+          'field_activity_category' => [['target_id' => $program_subcategory]],
+        ]);
+        $activity->save();
+      }
+      else {
+        $activity = Node::load(reset($nids));
+      }
+    }
 
     $nids = \Drupal::entityQuery('node')
       ->condition('title', $value['title'])
-      ->condition('field_class_activity', $value['activity'])
+      ->condition('field_class_activity', $activity->id())
       ->condition('field_class_description', $value['description'])
       ->execute();
 
@@ -54,7 +81,7 @@ class OpenYGXPCategory extends ProcessPluginBase {
           'value' => $value['description'],
           'format' => 'full_html'
         ]],
-        'field_class_activity' => [['target_id' => $value['activity']]],
+        'field_class_activity' => [['target_id' => $activity->id()]],
         'field_content' => $paragraps,
       ]);
       $node->save();
