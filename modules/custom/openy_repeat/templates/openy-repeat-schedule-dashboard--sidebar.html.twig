@@ -109,15 +109,24 @@
         </div>
       {% endif %}
 
-      {# @todo: class name (implement) #}
-      {#<div class="form-group-wrapper hide">#}
-        {#<label for="form-group-class">#}
-          {#{{ 'Class name'|t }}#}
-        {#</label>#}
-        {#<div class="form-group-class">#}
-          {#<input type="text" class="form-control" placeholder="All" disabled>#}
-        {#</div>#}
-      {#</div>#}
+      {# class name select list #}
+      {% if filters.classname %}
+        <div v-if="getClassFilter()" class="form-group-wrapper">
+          <label for="form-group-classname" data-toggle="collapse" data-target="#form-group-classname" role="button" class="expanded" aria-controls="form-group-classname">
+              {{ 'Class name'|t }}
+            <i class="fa fa-minus minus" aria-hidden="true"></i>
+            <i class="fa fa-plus plus" aria-hidden="true"></i>
+          </label>
+          <div id="form-group-classname" class="form-group-classname collapse in hggg" aria-expanded="true">
+            <div v-for="classFilter in getClassFilter()" class="checkbox-wrapper">
+              <input type="checkbox" v-model="className" v-bind:value="classFilter" v-bind:id="generateId(classFilter)" class="box"/>
+              <label v-bind:for="generateId(classFilter)">
+                ${ classFilter }
+              </label>
+            </div>
+          </div>
+        </div>
+      {% endif %}
 
     </form>
   </div>

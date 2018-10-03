@@ -75,6 +75,7 @@
       categories: [],
       categoriesExcluded: [],
       categoriesLimit: [],
+      className: [],
       locationPopup: {
         address: '',
         email: '',
@@ -187,6 +188,21 @@
 
         return resultRooms;
       },
+      classFilters: function() {
+        var availableClasses = [];
+        this.table.forEach(function(element) {
+          if (element.class_info.title) {
+            availableClasses[element.class_info.title] = element.class_info.title;
+          }
+        });
+
+        // Already selected options.
+        this.className.forEach(function(classname) {
+          availableClasses[classname] = classname;
+        });
+
+        return Object.keys(availableClasses).sort();
+      },
       filteredTable: function() {
         var filterByRoom = [];
 
@@ -202,17 +218,26 @@
 
         var locationsToFilter = Object.keys(filterByRoom);
         var resultTable = [];
+        var self = this;
         this.table.forEach(function(item){
-          // If we are not filtering rooms of this location -- skip it.
-          if (locationsToFilter.indexOf(item.location) === -1) {
-            resultTable.push(item);
+          if (locationsToFilter.length > 0) {
+            // If we are not filtering rooms of this location -- skip it.
+            if (locationsToFilter.indexOf(item.location) === -1) {
+              return;
+            }
+
+            // Check if class in this room should be kept.
+            if (filterByRoom[item.location].indexOf(item.room) === -1) {
+              return;
+            }
+          }
+
+          // Check if class fits classname filter.
+          if (self.className.length > 0 && self.className.indexOf(item.class_info.title) === -1) {
             return;
           }
 
-          // Check if class in this room should be kept.
-          if (filterByRoom[item.location].indexOf(item.room) !== -1) {
-            resultTable.push(item);
-          }
+          resultTable.push(item);
         });
 
         return resultTable;
@@ -280,6 +305,9 @@
           return false;
         }
         return this.roomFilters[location];
+      },
+      getClassFilter: function() {
+        return this.classFilters;
       },
       generateId: function(string) {
         return string.replace(/[\W_]+/g, "-");
