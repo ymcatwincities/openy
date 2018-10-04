@@ -14434,6 +14434,12 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     float: left;
   }
 }
+@media (min-width: 62em) {
+  .path-headerhtml .viewport .secondary_menu .openy-gtranslate {
+    display: none;
+  }
+}
+
 .page_home .pre-footer {
   margin-top: 0;
 }
