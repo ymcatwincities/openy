@@ -497,8 +497,9 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
   $current_links = $breadcrumb->getLinks();
   /** @var \Drupal\Core\Link $last */
   $last = end($current_links);
+
   // Remove trailing duplicate.
-  if ($last->getText() != $title) {
+  if ($last && $last->getText() != $title) {
     $breadcrumb->addLink(Link::createFromRoute($title, '<none>'));
   }
 
