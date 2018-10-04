@@ -12,7 +12,7 @@
   <div class="col-sm-12 col-md-8 day-label">
     <h2>
       <span v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
-      <span class="date">${ dateFormatted }</span>
+      <span class="date" v-cloak>${ dateFormatted }</span>
       <span v-on:click.stop="forwardOneDay" class="schedule-dashboard__arrow right" role="button"><i class="fa fa-angle-right"></i></span>
     </h2>
   </div>
