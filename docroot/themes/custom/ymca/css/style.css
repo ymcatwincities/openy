@@ -13051,6 +13051,16 @@ body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tic
   display: none !important;
 }
 
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0px !important;
+}
+
+body {
+  top: 0px !important;
+}
+
 .banner {
   background: #424242;
   overflow: hidden;
