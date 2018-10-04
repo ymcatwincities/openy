@@ -14638,19 +14638,6 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   }
 }
 
-body .sidebar .top-bar .fa {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-body .sidebar .top-bar .fa-home:before {
-  content: "\f015";
-  font-family: 'FontAwesome';
-}
-
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
