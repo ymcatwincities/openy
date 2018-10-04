@@ -110,12 +110,45 @@ class GameController extends ControllerBase {
     $config = \Drupal::config('openy_campaign.general_settings');
     $messageNumber = mt_rand(1, 5);
     $message = $config->get('instant_game_' . ($isWinner ? 'win' : 'loose') . '_message_' . $messageNumber);
+
     $message = check_markup($message['value'], $message['format']);
     $messageTitle = $config->get('instant_game_' . ($isWinner ? 'win' : 'loose') . ' _title');
     $messageTitle = check_markup($messageTitle['value'], $messageTitle['format']);
 
     if ($isWinner) {
       $message = str_replace('[game:result]', $result, $message);
+    }
+
+    $isUnplayedGamesExist = \Drupal::service('openy_campaign.game_service')->isUnplayedGamesExist($campaign);
+
+    $nextGame = NULL;
+    $nextGameUrl = '';
+    if ($isUnplayedGamesExist) {
+      $unPlayedGames = \Drupal::service('openy_campaign.game_service')->getUnplayedGames($campaign);
+      $nextGame = reset($unPlayedGames);
+      $nextGameUrl = Link::fromTextAndUrl(t('Play again'), Url::fromRoute('openy_campaign.campaign_game', [
+          'uuid' => $nextGame->uuid()
+        ], [
+          'query' => [
+            'campaign_id' => $campaign->id()
+          ],
+          'attributes' => [
+            'class' => [
+              'btn'
+            ]
+          ]
+        ]));
+    } else {
+      $activePage = $campaignMenuService->getActiveCampaignPage($campaign);
+      $nextGameUrl = Link::fromTextAndUrl(t('Back to campaign'), Url::fromRoute('entity.node.canonical', [
+        'node' => $activePage->id()
+      ], [
+        'attributes' => [
+          'class' => [
+            'btn'
+          ]
+        ]
+      ]));
     }
 
     return [
@@ -127,6 +160,8 @@ class GameController extends ControllerBase {
       '#message' => $message,
       '#messageTitle' => $messageTitle,
       '#isWinner' => $isWinner,
+      '#isUnplayedGamesExist' => $isUnplayedGamesExist,
+      '#nextGameUrl' => $nextGameUrl,
       '#attached' => [
         'library' => [
           'openy_campaign/game_' . $gameType,

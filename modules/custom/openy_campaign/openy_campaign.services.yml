@@ -18,3 +18,7 @@ services:
     class: Drupal\openy_campaign\Theme\ThemeNegotiator
     tags:
       - { name: theme_negotiator, priority: 0 }
+
+  openy_campaign.game_service:
+    class: Drupal\openy_campaign\GameService
+    arguments: ['@entity_type.manager']
