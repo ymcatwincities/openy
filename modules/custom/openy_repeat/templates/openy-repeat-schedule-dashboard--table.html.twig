@@ -19,12 +19,13 @@
 
   <div class="hidden-xs hidden-sm col-md-4">
     <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
+    <a class="btn btn-md btn-block btn-schedule-pdf-generate hidden" target="_blank">{{ 'Weekly PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
   </div>
 </div>
 
 {# schedules table data #}
 <div>
-  <results inline-template :prop-data="table">
+  <results inline-template :prop-data="filteredTable">
     <div class="vue-template">
 
       <div class="schedules-data clearfix">
@@ -43,12 +44,20 @@
 
           {# location #}
           <div v-cloak>
+<<<<<<< HEAD
             <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="$parent.populatePopupL(item.location)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
+=======
+            <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupL(item.location)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
+>>>>>>> d85a1431eacf76f89f18f49e2901211aedbdc22a
           </div>
 
           {# class #}
           <div v-cloak>
+<<<<<<< HEAD
             <strong><a class="schedule-dashboard__modal--class-link" role="button" v-on:click="$parent.populatePopupC(item.class)" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
+=======
+            <strong><a class="schedule-dashboard__modal--class-link" role="button" v-on:click="populatePopupC(item.class)" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
+>>>>>>> d85a1431eacf76f89f18f49e2901211aedbdc22a
           </div>
 
           {# time #}

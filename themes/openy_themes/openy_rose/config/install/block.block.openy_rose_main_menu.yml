@@ -6,6 +6,7 @@ dependencies:
     - system.menu.main
   module:
     - system
+    - openy_menu_main
   theme:
     - openy_rose
 id: openy_rose_main_menu
