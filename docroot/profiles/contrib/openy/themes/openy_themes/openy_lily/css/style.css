@@ -7195,6 +7195,16 @@ article .node--view-mode-flexible-content h2 a span {
   font-size: 22px;
 }
 
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0px !important;
+}
+
+body {
+  top: 0px !important;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
