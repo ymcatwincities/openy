@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Languages Supported'
+vid: languages_supported
+description: 'The languages supported by the font.'
+hierarchy: 0
+weight: 0

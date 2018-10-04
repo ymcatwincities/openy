@@ -6673,7 +6673,7 @@ function ymca_master_update_8289() {
 /**
  * Setup Camps and Locations for the leaflet.
  */
-function ymca_master_update_8290() {
+function ymca_master_update_8292() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['ymca_master_8290'], TRUE);
 }
@@ -6681,8 +6681,25 @@ function ymca_master_update_8290() {
 /**
  * Setup Camps and Locations for the leaflet.
  */
-function ymca_master_update_8291() {
+function ymca_master_update_8293() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['openy_prgf_loc_finder'], TRUE);
   \Drupal::service('module_installer')->install(['openy_data_wrapper'], TRUE);
+}
+/**
+ * Update config.
+ */
+function ymca_master_update_8294() {
+  $path = drupal_get_path('module', 'ymca_master');
+  \Drupal::service('config_import.importer')->importConfigs([
+    $path . '/config/optional/block.block.openygoogletranslate.yml',
+  ]);
+}
+
+/**
+ * Enable ludwig.
+ */
+function ymca_master_update_8295() {
+  drupal_flush_all_caches();
+  \Drupal::service('module_installer')->install(['ludwig'], TRUE);
 }

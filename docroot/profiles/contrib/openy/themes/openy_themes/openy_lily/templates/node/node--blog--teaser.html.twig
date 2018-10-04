@@ -1,15 +1,20 @@
 {#
 /**
  * @file
- * YMCA's theme implementation to display a node.
+ * Theme override to display a node.
  *
  * Available variables:
- * - node: Full node entity.
- *   - id: The node ID.
- *   - bundle: The type of the node, for example, "page" or "article".
- *   - authorid: The user ID of the node author.
- *   - createdtime: Time the node was published formatted in Unix timestamp.
- *   - changedtime: Time the node was changed formatted in Unix timestamp.
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
  * - label: The title of the node.
  * - content: All node items. Use {{ content }} to print them all,
  *   or print a subset such as {{ content.field_example }}. Use
@@ -59,18 +64,65 @@
  *   is an administrator.
  *
  * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
  */
 #}
+{% set classes = [
+'node',
+'node--type-' ~ node.bundle|clean_class,
+node.isPromoted() ? 'node--promoted',
+node.isSticky() ? 'node--sticky',
+not node.isPublished() ? 'node--unpublished',
+view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+node.field_blog_style.value ? 'blog-' ~ node.field_blog_style.value|clean_class : 'blog-story',
+] %}
+{% set category_default = node.bundle|clean_class|capitalize %}
+{% set category = content.field_blog_category[0]['#title'] ? content.field_blog_category[0]['#title'] : category_default|t %}
+{% set color = content.field_blog_text_color['#items'].entity.field_color.value ? 'color: #' ~ content.field_blog_text_color['#items'].entity.field_color.value ~ ';' : null %}
+{% set bg_color  = content.field_blog_color['#items'].entity.field_color.value ? 'background-color: #' ~ content.field_blog_color['#items'].entity.field_color.value ~ '; ' : null %}
+{% set cat_bg_color = 'background-color: #' ~ content.field_category_color['#items'].entity.field_color.value %}
+{% set description %}
+  {{ content.field_blog_description }}
+{% endset %}
 
-{#<div class="post-excerpt clearfix">#}
-  <div class="post-excerpt-image">
-    {{ content.field_image }}
-  </div>
-  <div class="post-excerpt-content">
-    <h2 class="post-title"><a href="{{ url }}">{{ label }}</a></h2>
-    {{ content.field_summary }}
-    <p class="comments_count">
-      <a href="{{ url }}" class="read-more">Continue Reading</a>
-    </p>
-  </div>
-{#</div>#}
+<article{{ attributes.addClass(classes) }}>
+  <a href="{{ url }}" rel="bookmark">
+    <div class="inner-wrapper" {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', bg_color ~ color) }}{% endif %}>
+      <div class="blog-up">
+        <span class="category" style="{{ cat_bg_color }}">
+          {{ category }}
+        </span>
+        {% if ( node.field_blog_style.value == "photo" ) %}
+          {% if content.field_blog_image['#field_type'] %}
+            {{ content.field_blog_image }}
+          {% else %}
+            <div class="default-img">
+              <img src="{{ directory }}/logo.png">
+            </div>
+          {% endif %}
+        {% else %}
+          <div class="default-img">
+          </div>
+        {% endif %}
+      </div>
+      <div class="blog-heading">
+        {% if ( node.field_blog_style.value == "story" ) %}
+          <div class="story-card">
+            <div class="quote">
+              {% include active_theme_path() ~ '/img/icons/quote_purple.svg' %}
+            </div>
+          </div>
+        {% endif %}
+        <h2 {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
+          {{ label }}
+        </h2>
+        <p {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
+          {{ description|striptags }}
+        </p>
+      </div>
+    </div>
+  </a>
+</article>

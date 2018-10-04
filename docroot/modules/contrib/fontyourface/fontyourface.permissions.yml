@@ -1,0 +1,4 @@
+administer font entities:
+  title: 'Administer Font entities'
+  description: 'Allow to access the administration form to configure Font entities.'
+  restrict access: true

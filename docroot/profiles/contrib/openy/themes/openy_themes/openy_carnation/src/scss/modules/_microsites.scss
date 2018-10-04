@@ -1,0 +1,29 @@
+.microsites-menu.microsites-menu--hide-main-menu .nav-home .navbar-nav {
+  visibility: hidden;
+}
+
+.camp-menu__wrapper,
+.microsites-menu__wrapper {
+  background: $primary-darker;
+
+  a {
+    @include cachet();
+    color: inherit;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 10px 15px;
+
+    &:hover {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

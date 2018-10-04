@@ -1,0 +1,20 @@
+machine:
+  environment:
+    # Add composer bin to path.
+    PATH: "$HOME/.config/composer/vendor/bin:$PATH"
+
+dependencies:
+  cache_directories:
+    - ~/.composer/cache
+  pre:
+    - rm /opt/circleci/php/$(phpenv global)/etc/conf.d/xdebug.ini
+  override:
+    - cd $HOME/$CIRCLE_PROJECT_REPONAME && composer install --no-progress --no-interaction
+    - scripts/selenium-install.sh
+    - 'java -jar /var/tmp/selenium-server-standalone.jar -trustAllSSLCertificates -Dwebdriver.chrome.driver=/var/tmp/chromedriver':
+          background: true
+
+test:
+  override:
+    - composer cs
+    - composer test

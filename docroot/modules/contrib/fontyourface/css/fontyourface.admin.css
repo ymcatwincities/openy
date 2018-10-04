@@ -1,0 +1,57 @@
+
+.view-fontyourface-font-manager .fontyourface-font-manager-item {
+  float: left;
+  height: 162px;
+  margin: 8px;
+  position: relative;
+  width: 172px;
+  list-style: outside none none;
+  padding: 10px;
+}
+
+.view-fontyourface-font-manager .font {
+  height: 162px;
+  border: solid 1px #ccc;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.fontyourface-header {
+  height: 70px;
+}
+
+.fontyourface-header h4, .fontyourface-header h5 {
+  margin: 0;
+}
+
+.fontyourface-header h4{
+  height: 40px;
+}
+
+.view-fontyourface-font-manager .fontyourface-preview {
+  margin-top: 5px;
+}
+
+.fontyourface-operations a {
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-radius: 0 0 8px 8px;
+  border-right: 1px solid #ccc;
+  display: block;
+  height: 20px;
+  left: 0px;
+  margin: 0 10px 10px;
+  padding: 5px 10px;
+  position: absolute;
+  bottom: -11px;
+  width: 150px;
+  background-color: #EEE;
+}
+
+.view-fontyourface-font-manager .font.enabled {
+  background-color: #DFD;
+}
+
+.view-fontyourface-font-manager .font.enabled .fontyourface-operations a {
+  background-color: #BDB;
+}

@@ -1,0 +1,6 @@
+domain_theme_switch.domain_theme:
+  title: Domain theme switch
+  route_name: domain_theme_switch.settings
+  description: 'Manage theme for specific domains.'
+  parent: domain.admin
+  weight: 10

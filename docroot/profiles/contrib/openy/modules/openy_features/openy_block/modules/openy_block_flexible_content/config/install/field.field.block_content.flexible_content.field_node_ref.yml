@@ -5,7 +5,7 @@ dependencies:
     - block_content.type.flexible_content
     - field.storage.block_content.field_node_ref
     - node.type.blog
-    #- node.type.branch
+    - node.type.branch
     - node.type.camp
 id: block_content.flexible_content.field_node_ref
 field_name: field_node_ref

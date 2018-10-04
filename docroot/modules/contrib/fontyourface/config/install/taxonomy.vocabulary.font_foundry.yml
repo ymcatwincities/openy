@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Font Foundry'
+vid: font_foundry
+description: 'Font Foundry'
+hierarchy: 0
+weight: 0

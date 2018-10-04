@@ -1,0 +1,16 @@
+name: "Domain module hook tests"
+description: "Support module for domain hook testing."
+type: module
+package: Testing
+# version: VERSION
+# core: 8.x
+hidden: TRUE
+
+dependencies:
+  - domain
+
+# Information added by Drupal.org packaging script on 2018-03-08
+version: '8.x-1.0-alpha13'
+core: '8.x'
+project: 'domain'
+datestamp: 1520519900

@@ -29,6 +29,7 @@
     not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
     node_type ? 'node--type-' ~ node_type|clean_class,
     db_offline ? 'db-offline',
+    node ? 'node-id-' ~ node.id,
   ]
 %}
 {% set page_title = is_front ? front_title : head_title.title %}

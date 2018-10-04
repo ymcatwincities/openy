@@ -1,0 +1,85 @@
+# Schema for the configuration files of the Domain module.
+domain.settings:
+  type: config_object
+  label: 'Domain settings'
+  mapping:
+    allow_non_ascii:
+      type: boolean
+      label: 'Allow non-ASCII characters'
+    www_prefix:
+      type: boolean
+      label: 'Ignore www prefix when negotiating domains'
+    login_paths:
+      type: text
+      label: 'Paths that should be accessible for inactive domains'
+    css_classes:
+      type: text
+      label: 'Custom css classes to apply to the body tag of each domain'
+
+domain.record.*:
+  type: config_entity
+  label: 'Domain record'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    uuid:
+      type: string
+      label: 'ID'
+    domain_id:
+      type: integer
+      label: 'Domain ID'
+    hostname:
+      type: string
+      label: 'Hostname'
+    name:
+      type: label
+      label: 'Name'
+    scheme:
+      type: string
+      label: 'Scheme'
+    status:
+      type: boolean
+      label: 'Status'
+    weight:
+      type: integer
+      label: 'Weight'
+    is_default:
+      type: boolean
+      label: 'Default domain'
+
+action.configuration.domain_default_action:
+  type: action_configuration_default
+  label: 'Set default domain record'
+action.configuration.domain_delete_action:
+  type: action_configuration_default
+  label: 'Delete domain record'
+action.configuration.domain_disable_action:
+  type: action_configuration_default
+  label: 'Disable domain record'
+action.configuration.domain_enable_action:
+  type: action_configuration_default
+  label: 'Enable domain record'
+
+block.settings.domain_nav_block:
+  type: block_settings
+  label: 'Domain navigation block'
+  mapping:
+    link_options:
+      type: string
+      label: 'Link paths'
+    link_theme:
+      type: string
+      label: 'Link theme'
+    link_label:
+      type: string
+      label: 'Link text'
+
+condition.plugin.domain:
+  type: condition.plugin
+  mapping:
+    domains:
+      type: sequence
+      sequence:
+        type: string
+

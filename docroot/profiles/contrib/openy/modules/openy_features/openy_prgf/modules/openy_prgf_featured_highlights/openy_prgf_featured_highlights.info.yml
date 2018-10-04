@@ -11,6 +11,8 @@ dependencies:
   - field
   - inline_entity_form
   - openy_block_basic
+  - openy_block_custom_simple
+  - openy_block_date
   - openy_block_featured_highlights
   - openy_prgf
   - options

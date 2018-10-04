@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Domain Access module.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Installs the default domain field on nodes. We don't do this via schema.yml
+ * files because we have an unknown number of node types.
+ */
+function domain_access_install() {
+  if (\Drupal::isConfigSyncing()) {
+    // Configuration is assumed to already be checked by the config importer
+    // validation events.
+    return;
+  }
+  // Assign domain access to bundles.
+  $list['user'] = 'user';
+
+  $node_types = \Drupal::entityTypeManager()->getStorage('node_type')->loadMultiple();
+  foreach ($node_types as $type => $info) {
+    $list[$type] = 'node';
+  }
+  // Install our fields.
+  foreach ($list as $bundle => $entity_type) {
+    domain_access_confirm_fields($entity_type, $bundle);
+  }
+  // Install our actions.
+  $domains = \Drupal::service('entity_type.manager')->getStorage('domain')->loadMultiple();
+  foreach ($domains as $domain) {
+    domain_access_domain_insert($domain);
+  }
+}

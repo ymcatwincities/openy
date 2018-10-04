@@ -1,9 +1,0 @@
-uuid: fa2ea24e-46b5-4a2a-ab32-f225c108ac46
-langcode: en
-status: true
-dependencies: {  }
-name: 'Staff type'
-vid: staff_type
-description: 'Recipients for report email'
-hierarchy: 0
-weight: 0

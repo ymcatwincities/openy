@@ -36,28 +36,6 @@
             width: 100%;
             text-align: center;
           }
-          &.social-icon {
-            display: inline-block;
-            font-family: FontAwesome;
-            text-rendering: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-          }
-          &.icon-facebook:before {
-            content: "\f09a";
-          }
-          &.icon-twitter:before {
-            content: "\f099";
-          }
-          &.icon-youtube:before {
-            content: "\f167";
-          }
-          &.icon-flickr:before {
-            content: "\f16e";
-          }
-          &.icon-instagram:before {
-            content: "\f16d";
-          }
         }
       }
       @include breakpoint(0 $tablet) {
@@ -80,7 +58,6 @@
       li {
         display: inline-block;
         a {
-          font-family: $font-family-cachet;
           font-size: 20px;
           color: $gray;
           &:focus,
@@ -94,17 +71,17 @@
     }
   }
   #block-openy-lily-footercopyrightblock {
-    padding-top: 20px;
+    padding-top: 40px;
     padding-bottom: 10px;
     text-align: center;
     .contextual {
       top: -20px;
     }
-    h5, p {
-      font-family: Verdana, Arial,sans-serif;
+    p {
+      @include cachet();
       display: inline-block;
       margin: 0;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 20px;
       color: $gray;
       &:first-child {

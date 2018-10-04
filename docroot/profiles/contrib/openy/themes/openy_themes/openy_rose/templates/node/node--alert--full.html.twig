@@ -78,12 +78,6 @@
   {% include 'node--alert--node-alert-footer.html.twig' %}
 {% endif %}
 <ul>
-  {{ node.field_alert_belongs.value }}
-  {% if node.field_alert_belongs.value is not empty %}
-    <li>{{ 'Rendered on'|t }} {{ content.field_alert_belongs }}</li>
-  {% else %}
-    <li>{{ 'Rendered on all pages.'|t }}</li>
-  {% endif %}
   {% if is_header %}
     <li>{{ 'Displayed in the header.'|t }}</li>
   {% else %}

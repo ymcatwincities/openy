@@ -56,15 +56,41 @@
  * @see html.html.twig
  */
 #}
-{% include "@openy_lily/include/sidebar-search-and-menu.html.twig" %}
 <div class="layout-container {{ page_class }}">
+
+  {% include "@openy_lily/include/sidebar-search-and-menu.html.twig" %}
+  <div id="side-area">
+    <div class="top-side">
+      <form class="clearfix" method="get" action="{{ search_view_content_path }}">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" name="search" class="form-control">
+            <span class="input-group-btn">
+            <button class="btn btn-info" type="submit">{{ "SEARCH"|t }}</button>
+          </span>
+          </div>
+        </div>
+      </form>
+      {% if ccc_logged_in %}
+        {{ ccc_logged_menu }}
+      {% elseif not ccc_logged_in and logged_in %}
+        {{ ccc_anonymous_menu }}
+      {% elseif logged_in %}
+        {{ logged_menu }}
+      {% endif %}
+    </div>
+    {% block mobile_menu %}
+      {{ page.mobile_menu }}
+    {% endblock %}
+  </div>{# /#side-area #}
+
   <div class="viewport">
     <header id="page-head" class="page-head">
       <div class="top-navs">
         <nav class="nav-global navbar-default navbar">
           <div class="container-fluid">
             <div class="navbar-header">
-              <button class="navbar-toggler" data-toggle="collapse" data-target=".sidebar-left">
+              <button class="navbar-toggler">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -75,7 +101,7 @@
                     <img src="{{ camp_section_image }}" alt="{{ "YMCA Twin Cities"|t }}">
                   </a>
                 {% else %}
-                  <a class="navbar-brand" href="{{ base_path }}" title="{{ "YMCA Twin Cities"|t }}" rel="{{ "YMCA Twin Cities"|t }}"></a>
+                  <a class="navbar-brand" href="{{ base_path }}" title="{{ "OpenY"|t }}" rel="{{ "OpenY"|t }}"></a>
                 {% endif %}
               {% endblock %}
             </div>
@@ -142,18 +168,5 @@
       </a>
     </div>{# /.return-to-top #}
   </div>{# /.viewport #}
-  <div id="modal" class="modal fade">
-    <div class="modal-cover"></div>
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
-          <div id="modal-title" class="modal-title"></div>
-        </div>
-        <div id="modal-body" class="modal-body"></div>
-      </div>
-    </div>
-  </div>
-</div>{# /.layout-container #}
 
-{% include '@ymca/template-scripts.html' %}
+</div>{# /.layout-container #}

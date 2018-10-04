@@ -1,0 +1,4 @@
+domain administration theme:
+  title: 'Use domain admin theme'
+  description: 'Allow user to use the admin theme for domain'
+  restrict access: TRUE

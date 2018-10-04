@@ -2,12 +2,12 @@ services:
   ymca_breadcrumb.blog_node:
     class: Drupal\ymca_breadcrumb\YMCANewsBlogBreadcrumbBuilder
     tags:
-      - { name: breadcrumb_builder, priority: 100 }
+      - { name: breadcrumb_builder, priority: 3900 }
   ymca_breadcrumb.camp_blog_node:
     class: Drupal\ymca_breadcrumb\YMCABlogCampLocationBreadcrumbBuilder
     arguments: ['@router.request_context', '@access_manager', '@router', '@path_processor_manager', '@config.factory',  '@title_resolver', '@current_user', '@path.current']
     tags:
-      - { name: breadcrumb_builder, priority: 150 }
+      - { name: breadcrumb_builder, priority: 4000 }
   ymca_breadcrumb.news_blog_listings:
     class: Drupal\ymca_breadcrumb\YMCANewsBlogListingsBreadcrumbBuilder
     tags:
