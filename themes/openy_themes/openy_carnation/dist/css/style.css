@@ -8354,8 +8354,13 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
   .block-description--4 .field-icon .field-image {
     width: 100%; }
 
+.block-description--3 .block-description--text > h2 {
+  border-bottom: none; }
+
 .block-description--wrapper--outline--top .block-description--text {
   border-top: 1px solid #4f4f4f; }
+  .block-description--wrapper--outline--top .block-description--text h2 {
+    border-bottom: 5px solid #c6168d; }
 
 .block-description--wrapper--outline--top.paragraph-1c-wrapper {
   border-top: 1px solid #4f4f4f; }
