@@ -4,10 +4,13 @@
 
     <div class="game-result">
         <section class="container">
-
             <div class="game-result--header">
                 <h3 class="title">{{ messageTitle }}</h3>
-                <p>{{ message|raw }}</p>
+                <div class="description">{{ message|raw }}</div>
+                <div class="play-again">
+                    {{ nextGameUrl }}
+                    <br/>
+                </div>
             </div>
             <div class="game-result--body">
                 <div class="card--wrapper">

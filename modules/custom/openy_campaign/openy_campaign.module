@@ -165,6 +165,9 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
         'isWinner' => NULL,
         'message' => NULL,
         'messageTitle' => NULL,
+        'isUnplayedGamesExist' => NULL,
+        'nextGameUrl' => NULL,
+        'campaignUrl' => NULL
       ],
       'template' => 'games/spin_the_wheel',
     ],

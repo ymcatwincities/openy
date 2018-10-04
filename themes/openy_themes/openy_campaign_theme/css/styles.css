@@ -1193,6 +1193,10 @@ button:active, button:focus {
   font-weight: 400;
 }
 
+.play-again {
+  margin-bottom: 25px;
+}
+
 footer {
   background-color: inherit !important;
 }

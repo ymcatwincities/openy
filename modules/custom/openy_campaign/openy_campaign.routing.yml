@@ -195,13 +195,6 @@ openy_campaign.campaign_game:
     _permission: 'access content'
 
 openy_campaign.campaign_games:
-  path: '/campaign-game/generate_result/{uuid}'
-  defaults:
-    _controller: '\Drupal\openy_campaign\Controller\GameController::generateGameResult'
-  requirements:
-    _permission: 'access content'
-
-openy_campaign.campaign_games:
   path: '/node/{node}/game'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\GameController::playGamePage'
