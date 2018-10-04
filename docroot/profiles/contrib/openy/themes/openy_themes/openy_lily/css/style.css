@@ -14434,6 +14434,12 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     float: left;
   }
 }
+@media (min-width: 62em) {
+  .path-headerhtml .viewport .secondary_menu .openy-gtranslate {
+    display: none;
+  }
+}
+
 .page_home .pre-footer {
   margin-top: 0;
 }
@@ -14630,6 +14636,19 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   .content-banner .content-prgf-image {
     margin: 0 15px !important;
   }
+}
+
+body .sidebar .top-bar .fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body .sidebar .top-bar .fa-home:before {
+  content: "\f015";
+  font-family: 'FontAwesome';
 }
 
 [class^="icon-"], [class*=" icon-"] {
