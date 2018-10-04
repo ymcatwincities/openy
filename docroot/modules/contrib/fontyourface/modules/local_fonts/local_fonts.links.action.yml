@@ -1,0 +1,5 @@
+entity.local_font_config_entity.add_form:
+  route_name: 'entity.local_font_config_entity.add_form'
+  title: 'Add Custom Font'
+  appears_on:
+    - entity.local_font_config_entity.collection

@@ -1,0 +1,162 @@
+<?php
+
+/**
+ * @file
+ * Defines a Domain concept for use with Drupal.
+ */
+
+use Drupal\Core\Url;
+use Drupal\domain\DomainInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Component\Utility\Html;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * The name of the node access control field.
+ */
+const DOMAIN_ADMIN_FIELD = 'field_domain_admin';
+
+/**
+ * Entity URI callback.
+ *
+ * @param \Drupal\domain\DomainInterface $domain
+ *   The Domain object.
+ *
+ * @return \Drupal\Core\Url
+ *   The Domain URL.
+ */
+function domain_uri(DomainInterface $domain) {
+  return Url::fromUri($domain->getPath(), ['absolute' => TRUE]);
+}
+
+/**
+ * Implements hook_entity_load().
+ *
+ * The $domain->path and $domain->uri properties are derived from data in the
+ * {domain} table. We use the hook system to load that data to indicate that
+ * the data is not native to the object.
+ *
+ * This action is performed in hook_entity_load(), which precedes the running
+ * of hook_domain_load() and ensures that our data is present for other modules.
+ */
+function domain_entity_load(array $entities, $entity_type) {
+  if ($entity_type == 'domain') {
+    foreach ($entities as $domain) {
+      $domain->setPath();
+      $domain->setUrl();
+    }
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function domain_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'domain.admin':
+      $output = t('<p>The following domains have been created for your site.  The currently active domain
+                     <strong>is shown in boldface</strong>. You may click on a domain to change the currently active domain.
+                     </p>');
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function domain_token_info() {
+  return \Drupal::service('domain.token')->getTokenInfo();
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function domain_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+  return \Drupal::service('domain.token')->getTokens($type, $tokens, $data, $options, $bubbleable_metadata);
+}
+
+
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function domain_preprocess_html(array &$variables) {
+  // Add class to body tag, if set.
+  $config = \Drupal::config('domain.settings');
+  if ($string = $config->get('css_classes')) {
+    $token = \Drupal::token();
+    // Prepare the classes proparly, with one class per string.
+    $classes = explode(' ', trim($string));
+    foreach ($classes as $class) {
+      // Ensure no leading or trailing space.
+      $class = trim($class);
+      if (!empty($class)) {
+        $variables['attributes']['class'][] = Html::getClass($token->replace($class));
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\user\UserForm.
+ *
+ * Handle settings that the user cannot access.
+ */
+function domain_form_user_form_alter(&$form, &$form_state, $form_id) {
+  // Add the options hidden from the user silently to the form.
+  $manager = \Drupal::service('domain.element_manager');
+  $form = $manager->setFormOptions($form, $form_state, DOMAIN_ADMIN_FIELD);
+}
+
+/**
+ * Implements hook_domain_references_alter().
+ */
+function domain_domain_references_alter($query, $account, $context) {
+  // Restrict domains by assignment, being sure only to act on the admin field.
+  if ($context['field_type'] == 'admin' && $context['entity_type'] == 'user') {
+    if ($account->hasPermission('administer domains')) {
+      // Do nothing.
+    }
+    elseif ($account->hasPermission('assign domain administrators')) {
+      $allowed = \Drupal::service('domain.element_manager')->getFieldValues($account, DOMAIN_ADMIN_FIELD);
+      $query->condition('id', array_keys($allowed), 'IN');
+    }
+    else {
+      // Remove all options.
+      $query->condition('id', '-no-possible-match-');
+    }
+  }
+}
+
+/**
+ * Implements hook_views_data_alter.
+ */
+function domain_views_data_alter(array &$data) {
+  $table = 'user__' . DOMAIN_ADMIN_FIELD;
+  // Since domains are not stored in the database, relationships cannot be used.
+  unset($data[$table][DOMAIN_ADMIN_FIELD]['relationship']);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function domain_theme() {
+  return [
+    'domain_nav_block' => [
+      'render element' => 'items',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for block templates.
+ *
+ * Default template: domain-nav-block.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - items: An array of labels and urls for use in the list.
+ *     Properties used: 'label', 'url', 'active'
+ */
+function template_preprocess_domain_nav_block(&$variables) {
+  $variables['items'] = $variables['items']['#items'];
+}

@@ -8,6 +8,4 @@ dependencies:
   - editor
   - entity_embed
   - filter
-  - rel_to_abs
   - token_filter
-  - ymca_entity_embed

@@ -1,0 +1,241 @@
+<?php
+
+/**
+ * @file
+ * Google Fonts module file.
+ */
+
+use Drupal\Core\Link;
+
+/**
+ * Implements hook_fontyourface_api().
+ */
+function google_fonts_api_fontyourface_api() {
+  return [
+    'version' => '3',
+    'name' => 'Google Fonts',
+  ];
+}
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Use this hook instead of hook_install, because the route "font.settings" is
+ * not defined otherwise.
+ */
+function google_fonts_api_modules_installed($modules) {
+  if (in_array('google_fonts_api', $modules)) {
+    drupal_set_message(t('Due to the number of fonts, automated import from install for Google Fonts is disabled. Please use @link to import Google Fonts.', ['@link' => Link::createFromRoute('@font-your-face settings', 'font.settings')->toString()]));
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function google_fonts_api_page_attachments(&$page) {
+  $enabled_fonts = &drupal_static('fontyourface_fonts', []);
+  $fonts = [];
+  foreach ($enabled_fonts as $font) {
+    if ($font->pid->value == 'google_fonts_api') {
+      $fonts[] = $font;
+    }
+  }
+  $url = google_fonts_api_generate_font_family_css($fonts);
+  if (!empty($url)) {
+    $page['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'link',
+        '#attributes' => [
+          'rel' => 'stylesheet',
+          'href' => $url,
+          'media' => 'all',
+        ],
+      ], 'fontyourface-google-fonts-api',
+    ];
+  }
+}
+
+/**
+ * Generates font family css for multiple fonts.
+ *
+ * @param array $fonts
+ *   Array of FontInterface objects.
+ *
+ * @return string
+ *   URL to load fonts on page.
+ */
+function google_fonts_api_generate_font_family_css(array $fonts) {
+  $url = '';
+  $paths = [];
+  foreach ($fonts as $font) {
+    if ($font->pid->value == 'google_fonts_api') {
+      $metadata = $font->getMetadata();
+      $path_parts = explode(':', $metadata['path']);
+
+      $all_subsets[$metadata['subset']] = $metadata['subset'];
+
+      if (!isset($paths[$path_parts[0]])) {
+        $paths[$path_parts[0]] = [];
+      }
+
+      if (count($path_parts) > 1) {
+        $paths[$path_parts[0]][$path_parts[1]] = $path_parts[1];
+      }
+      else {
+        $paths[$path_parts[0]]['regular'] = 'regular';
+      }
+    }
+  }
+
+  if (count($paths) > 0) {
+
+    $families = [];
+
+    foreach ($paths as $family => $variants) {
+      $families[$family] = urlencode($family) . ':' . implode(',', $variants);
+    }
+
+    $base = 'https://fonts.googleapis.com/css?family=';
+
+    $url = $base . implode('|', $families) . '&subset=' . implode(',', $all_subsets);
+
+  }
+  return $url;
+}
+
+/**
+ * Implements hook_fontyourface_import().
+ */
+function google_fonts_api_fontyourface_import($font_context = []) {
+  $context = $font_context;
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['fonts'] = _google_fonts_api_get_fonts_from_api();
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($context['sandbox']['fonts']);
+  }
+  $font = array_pop($context['sandbox']['fonts']);
+  if (!empty($font)) {
+    if (!isset($font->tags)) {
+      $font->tags = [];
+    }
+    fontyourface_save_font($font);
+    $context['message'] = "Imported {$context['sandbox']['progress']} of {$context['sandbox']['max']}";
+    $context['sandbox']['progress'] = $context['sandbox']['max'] - count($context['sandbox']['fonts']);
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+  else {
+    drupal_set_message(t('Imported @count fonts from Google Fonts', ['@count' => $context['sandbox']['progress']]));
+  }
+  return $context;
+}
+
+/**
+ * Retrieves fonts from api and parses them for consumption.
+ *
+ * @return array
+ *   List of fonts ready for ingesting as FontInterface objects.
+ */
+function _google_fonts_api_get_fonts_from_api() {
+  // Return the JSON object with all available fonts
+  // For now, it uses the API key of BarisW (co-maintainer of this module)
+  // This key is limited to 10.000 requests per day, which should be
+  // sufficient as it is only used when selecting fonts in the admin interface.
+  // After that, the fonts are stored in Drupal.
+  try {
+    $uri = 'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBgeqKlFdYj3Y7VwmrEXnXzpnx5TfKXG4o';
+    $response = \Drupal::httpClient()->get($uri, ['headers' => ['Accept' => 'text/plain'], 'verify' => FALSE]);
+    $data = (string) $response->getBody();
+  }
+  catch (RequestException $e) {
+    drupal_set_message(t('The list of Google Fonts could not be fetched. Verify that your server can connect the Google Servers (https://www.googleapis.com). Error: %error', ['%error' => $response->error]), 'error');
+    return FALSE;
+  }
+
+  $json_results = json_decode($data);
+
+  return _google_fonts_api_convert_api_results($json_results->items);
+}
+
+/**
+ * Converts the Google Fonts API JSON results to a generic Fonts object array.
+ *
+ * @param array $json_font_list
+ *   Array of Google Font objects.
+ *
+ * @return array
+ *   Array of objects compatible with Fontyourface interface.
+ */
+function _google_fonts_api_convert_api_results(array $json_font_list) {
+  $fonts = [];
+  foreach ($json_font_list as $json_font) {
+    foreach ($json_font->variants as $json_font_variant) {
+      foreach ($json_font->subsets as $json_font_subset) {
+
+        $font_id = $json_font->family . ' ' . $json_font_variant . ' (' . $json_font_subset . ')';
+
+        switch ($json_font_variant) {
+          case 'regular':
+            $css_style = 'normal';
+            $css_weight = 'normal';
+            break;
+
+          case 'italic':
+            $css_style = 'italic';
+            $css_weight = 'normal';
+            break;
+
+          case 'bold':
+            $css_style = 'normal';
+            $css_weight = 'bold';
+            break;
+
+          case 'bolditalic':
+            $css_style = 'italic';
+            $css_weight = 'bold';
+            break;
+
+          default:
+            // For all other cases (eg 400 or 400italic).
+            if (is_numeric($json_font_variant)) {
+              // Variant is a number, like 400.
+              $css_style = 'normal';
+              $css_weight = $json_font_variant;
+            }
+            elseif (is_numeric(substr($json_font_variant, 0, 3))) {
+              // Variant is a combined string of number and string, like 400italic.
+              // The numeric part is always three characters long, so we can split it easily.
+              $css_style = substr($json_font_variant, 3);
+              $css_weight = substr($json_font_variant, 0, 3);
+            }
+        }
+
+        $fonts[$font_id] = new stdClass();
+        $fonts[$font_id]->name = $font_id;
+        $fonts[$font_id]->url = 'https://www.google.com/webfonts/family?family=' . $json_font->family . '&subset=' . $json_font_subset . '#' . $json_font_variant;
+        $fonts[$font_id]->provider = 'google_fonts_api';
+        $fonts[$font_id]->css_family = $json_font->family;
+        $fonts[$font_id]->css_style = $css_style;
+        $fonts[$font_id]->css_weight = $css_weight;
+        $fonts[$font_id]->designer = '';
+        $fonts[$font_id]->designer_url = '';
+        $fonts[$font_id]->foundry = '';
+        $fonts[$font_id]->foundry_url = '';
+        $fonts[$font_id]->license = '';
+        $fonts[$font_id]->license_url = '';
+        $fonts[$font_id]->classification = [
+          $json_font->category,
+        ];
+        $fonts[$font_id]->language = [
+          $json_font_subset,
+        ];
+        $fonts[$font_id]->metadata = [
+          'path' => $json_font->family . ':' . $json_font_variant,
+          'subset' => $json_font_subset,
+        ];
+      }
+    }
+  }
+
+  return $fonts;
+}

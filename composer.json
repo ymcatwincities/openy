@@ -1,0 +1,208 @@
+{
+    "name": "ymcatwincities/openy-project",
+    "description": "Project template for OpenY projects with composer",
+    "type": "project",
+    "license": "GPL-2.0+",
+    "require": {
+        "ymcatwincities/openy": "8.1.11",
+        "composer/installers": "^1.2",
+        "drupal-composer/drupal-scaffold": "^2.2",
+        "cweagans/composer-patches": "~1.0",
+        "drupal/address": "1.2.0"
+    },
+    "require-dev": {
+        "ymcatwincities/openy-cibox-build": "dev-master",
+        "ymcatwincities/openy-cibox-vm": "dev-master",
+        "ymcatwincities/openy-docksal": "dev-master",
+        "drupal/drupal-driver": "~1.0",
+        "drupal/drupal-extension": "^3.2",
+        "behat/behat": "^3.0",
+        "behat/mink": "~1.7",
+        "behat/mink-goutte-driver": "~1.2",
+        "emuse/behat-html-formatter": "^0.1.0",
+        "drupal/tqextension": "dev-drupal-8",
+        "integratedexperts/behat-screenshot": "^0.6.2",
+        "consolidation/robo": "^1.1.5"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-kenwheeler/slick",
+                "version": "1.6.0",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/kenwheeler/slick",
+                    "type": "git",
+                    "reference": "1.6.0"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-dinbror/blazy",
+                "version": "1.8.2",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/dinbror/blazy",
+                    "type": "git",
+                    "reference": "1.8.2"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-gdsmith/jquery.easing",
+                "version": "1.4.1",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/gdsmith/jquery.easing",
+                    "type": "git",
+                    "reference": "1.4.1"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-enyo/dropzone",
+                "version": "4.3.0",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/enyo/dropzone",
+                    "type": "git",
+                    "reference": "v4.3.0"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-jaypan/jquery_colorpicker",
+                "version": "1.0.1",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/jaypan/jquery_colorpicker",
+                    "type": "git",
+                    "reference": "da978ae124c57817021b3166a31881876882f5f9"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/panelbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/colorbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/colordialog",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colordialog/releases/colordialog_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/glyphicons",
+                "version": "2.2",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/glyphicons/releases/glyphicons_2.2.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-smonetti/btbutton",
+                "version": "1.0.1",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/smonetti/btbutton",
+                    "type": "git",
+                    "reference": "1620254d294a209bdf18cc0bc7b131d2ffaa10db"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "grt-youtube-popup",
+                "version": "1.0.0",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/grt107/grt-youtube-popup",
+                    "type": "git",
+                    "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
+                }
+            }
+        }
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "@cibox-build",
+            "@cibox-vm",
+            "@docksal",
+            "bash scripts/remove_vendor_git_folders.sh || :"
+        ],
+        "post-update-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+            "@cibox-build",
+            "@cibox-vm",
+            "@docksal",
+            "bash scripts/remove_vendor_git_folders.sh || :"
+        ],
+        "cibox-build": "[ -d ./vendor/ymcatwincities/openy-cibox-build ] && (rsync -r --exclude=composer.json --exclude=.gitignore --exclude=.git ./vendor/ymcatwincities/openy-cibox-build/ ./docroot) || (rm -rf ./docroot/devops ./docroot/*.sh ./docroot/*.yml ./docroot/*.md ./docroot/ansible.cfg)",
+        "cibox-vm": "[ -d ./vendor/ymcatwincities/openy-cibox-vm ] && (rsync -r --exclude=composer.json --exclude=README.md --exclude=.gitignore --exclude=.git --exclude=LICENSE ./vendor/ymcatwincities/openy-cibox-vm/ ./) || (rm -rf cibox provisioning Vagrantfile .vagrant backup cache)",
+        "docksal": "[ -d ./vendor/ymcatwincities/openy-docksal ] && (rsync -r --exclude=composer.json --exclude=.git --exclude=README.md ./vendor/ymcatwincities/openy-docksal/ ./) || (rm -rf .docksal build.sh)"
+    },
+    "extra": {
+        "installer-paths": {
+            "docroot/core": ["type:drupal-core"],
+            "docroot/libraries/{$name}": ["type:drupal-library"],
+            "docroot/modules/contrib/{$name}": ["type:drupal-module"],
+            "docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "enable-patching": true
+    },
+    "config": {
+        "bin-dir": "vendor/bin/",
+        "secure-http": false
+    }
+}

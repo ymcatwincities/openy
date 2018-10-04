@@ -50,6 +50,15 @@ function location_finder_entity_view_alter(&$build, EntityInterface $entity, Ent
     'tags' => $tags,
   ];
   $build['#attributes']['data-locations'] = json_encode($values);
+
+  $amenities = [];
+  if ($entity->hasField('field_location_amenities')) {
+    $entityAmenties = $entity->get('field_location_amenities')->getValue();
+    foreach ($entityAmenties as $amenity) {
+      $amenities[] = $amenity['target_id'];
+    }
+  }
+  $build['#attributes']['data-amenities'] = json_encode($amenities);
 }
 
 /**

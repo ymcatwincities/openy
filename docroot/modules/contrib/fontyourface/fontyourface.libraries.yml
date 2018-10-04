@@ -1,0 +1,9 @@
+fontyourface.admin:
+  version: VERSION
+  css:
+    component:
+      css/fontyourface.admin.css: {}
+  js:
+    js/fontyourface.admin.js: {}
+  dependencies:
+    - core/jquery

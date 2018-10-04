@@ -1,0 +1,20 @@
+uuid: b201bdc5-d8c6-4fab-952a-74697ba95cef
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_gtranslate
+  theme:
+    - ymca
+id: openygoogletranslate
+theme: ymca
+region: secondary_menu
+weight: -15
+provider: null
+plugin: openy_gtranslate_block
+settings:
+  id: openy_gtranslate_block
+  label: 'OpenY Google Translate'
+  provider: openy_gtranslate
+  label_display: '0'
+visibility: {  }

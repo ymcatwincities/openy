@@ -1,0 +1,271 @@
+<?php
+
+/**
+ * @file
+ * Domain-based path rewrites for content.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\domain\DomainRedirectResponse;
+
+/**
+ * Defines the name of the source domain field.
+ */
+const DOMAIN_SOURCE_FIELD = 'field_domain_source';
+
+/**
+ * Creates our fields for an entity bundle.
+ *
+ * @param string $entity_type
+ *   The entity type being created. Node and user are supported.
+ * @param string $bundle
+ *   The bundle being created.
+ *
+ * @see domain_source_node_type_insert()
+ * @see domain_source_install()
+ */
+function domain_source_confirm_fields($entity_type, $bundle) {
+  $id = $entity_type . '.' . $bundle . '.' . DOMAIN_SOURCE_FIELD;
+  $field_config_storage = \Drupal::entityTypeManager()->getStorage('field_config');
+
+  if (!$field = $field_config_storage->load($id)) {
+    $field = array(
+      'field_name' => DOMAIN_SOURCE_FIELD,
+      'entity_type' => $entity_type,
+      'label' => 'Domain Source',
+      'bundle' => $bundle,
+      'required' => FALSE,
+      'description' => 'Select the canonical domain for this content.',
+      'settings' => array(
+        'handler' => 'default:domain',
+        // Handler_settings are deprecated but seem to be necessary here.
+        'handler_settings' => [
+          'target_bundles' => NULL,
+          'sort' => ['field' => 'weight', 'direction' => 'ASC'],
+        ],
+        'target_bundles' => NULL,
+        'sort' => ['field' => 'weight', 'direction' => 'ASC'],
+      ),
+    );
+    $field_config = $field_config_storage->create($field);
+    $field_config->save();
+  }
+
+  // Tell the form system how to behave. Default to radio buttons.
+  if ($display = \Drupal::entityTypeManager()->getStorage('entity_form_display')->load($entity_type . '.' .  $bundle . '.default')) {
+    $display->setComponent(DOMAIN_SOURCE_FIELD, [
+      'type' => 'options_select',
+      'weight' => 42,
+    ])->save();
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ *
+ * Creates our fields when new node types are created.
+ *
+ * @TODO: Make this possible for all entity types.
+ */
+function domain_source_node_type_insert(EntityInterface $entity) {
+  /** @var \Drupal\Core\Config\Entity\ConfigEntityInterface $entity */
+  if (!$entity->isSyncing()) {
+    // Do not fire hook when config sync in progress.
+    domain_source_confirm_fields('node', $entity->id());
+  }
+}
+
+/**
+ * Returns the source domain associated to an entity.
+ *
+ * @param Drupal\Core\Entity\EntityInterface $entity
+ *   The entity to check.
+ *
+ * @return string|NULL
+ *   The value assigned to the entity, either a domain id string or NULL.
+ */
+function domain_source_get(EntityInterface $entity) {
+  $source = NULL;
+
+  if (!isset($entity->{DOMAIN_SOURCE_FIELD})) {
+    return $source;
+  }
+
+  $value = $entity->get(DOMAIN_SOURCE_FIELD)->offsetGet(0);
+  if (!empty($value)) {
+    $target_id = $value->target_id;
+    if ($domain = \Drupal::service('entity_type.manager')->getStorage('domain')->load($target_id)) {
+      $source = $domain->id();
+    }
+  }
+  return $source;
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Find forms that contain the domain source field and allow those to handle
+ * redirects properly.
+ */
+function domain_source_form_alter(&$form, &$form_state, $form_id) {
+  $object = $form_state->getFormObject();
+  // Set up our TrustedRedirect handler for form saves.
+  if (isset($form[DOMAIN_SOURCE_FIELD]) && !empty($object) && is_callable([$object, 'getEntity']) && $entity = $object->getEntity()) {
+    foreach ($form['actions'] as $key => $element) {
+      // Redirect submit handlers, but not the preview button.
+      if ($key != 'preview' && isset($element['#type']) && $element['#type'] == 'submit') {
+        $form['actions'][$key]['#submit'][] = 'domain_source_form_submit';
+      }
+    }
+  }
+}
+
+/**
+ * Validate form submissions.
+ */
+function domain_source_form_validate($element, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+  // This is only run if Domain Access is present.
+  if (isset($values[DOMAIN_SOURCE_FIELD]) && is_array($values[DOMAIN_SOURCE_FIELD]) && isset($values[DOMAIN_ACCESS_FIELD])) {
+    $access_values = $values[DOMAIN_ACCESS_FIELD];
+    $source_value = current($values[DOMAIN_SOURCE_FIELD]);
+  }
+  // If no value is selected, that's acceptable. Else run through a check.
+  // Note that the _none selection returns as [FALSE].
+  $source_set = empty($source_value);
+  foreach ($access_values as $value) {
+    // Core is inconsistent depending on the field order.
+    // See https://www.drupal.org/project/domain/issues/2945771#comment-12493199
+    if (is_array($value) && $value == $source_value) {
+      $source_set = TRUE;
+    }
+    elseif (is_string($value) && !empty($source_value['target_id']) && $value == $source_value['target_id']) {
+      $source_set = TRUE;
+    }
+  }
+  if (!$source_set) {
+    $form_state->setError($element, t('The source domain must be selected as a publishing option.'));
+  }
+}
+
+/**
+ * Redirect form submissions to other domains.
+ */
+function domain_source_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // Ensure that we have saved an entity.
+  if ($object = $form_state->getFormObject()) {
+    $url = $object->getEntity()->url();
+  }
+  // Validate that the URL will be considered "external" by Drupal, which means
+  // that a scheme value will be present.
+  if (!empty($url)) {
+    $uri_parts = parse_url($url);
+    // If necessary and secure, issue a TrustedRedirectResponse to the new URL.
+    if (!empty($uri_parts['host'])) {
+      // Pass a redirect if necessary.
+      if (DomainRedirectResponse::checkTrustedHost($uri_parts['host'])) {
+        $response = new TrustedRedirectResponse($url);
+        $form_state->setResponse($response);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
+ */
+function domain_source_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add the options hidden from the user silently to the form.
+  $manager = \Drupal::service('domain_source.element_manager');
+  $hide = TRUE;
+  $form = $manager->setFormOptions($form, $form_state, DOMAIN_SOURCE_FIELD, $hide);
+  // Add validation if Domain Access is installed.
+  if (defined('DOMAIN_ACCESS_FIELD') && isset($form[DOMAIN_ACCESS_FIELD])) {
+    $form[DOMAIN_SOURCE_FIELD]['#element_validate'] = array('domain_source_form_validate');
+    // If using a select field, load the JS to show/hide options.
+    if ($form[DOMAIN_SOURCE_FIELD]['widget']['#type'] == 'select') {
+      $form['#attached']['library'][] = 'domain_source/drupal.domain_source';
+    }
+  }
+}
+
+/**
+ * Implements hook_views_data_alter.
+ */
+function domain_source_views_data_alter(array &$data) {
+  $table = 'node__' . DOMAIN_SOURCE_FIELD;
+  $data[$table][DOMAIN_SOURCE_FIELD]['field']['id'] = 'domain_source';
+  $data[$table][DOMAIN_SOURCE_FIELD . '_target_id']['filter']['id'] = 'domain_source';
+  // Since domains are not stored in the database, relationships cannot be used.
+  unset($data[$table][DOMAIN_SOURCE_FIELD]['relationship']);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add options for domain source when using Devel Generate.
+ */
+function domain_source_form_devel_generate_form_content_alter(&$form, &$form_state, $form_id) {
+  // Add our element to the Devel generate form.
+  $list = ['_derive' => t('Derive from domain selection')];
+  $list += \Drupal::service('entity_type.manager')->getStorage('domain')->loadOptionsList();
+  $form['domain_source'] = array(
+    '#title' => t('Domain source'),
+    '#type' => 'checkboxes',
+    '#options' => $list,
+    '#weight' => 4,
+    '#multiple' => TRUE,
+    '#size' => count($list) > 5 ? 5 : count($list),
+    '#default_value' => ['_derive'],
+    '#description' => t('Sets the source domain for created nodes.'),
+  );
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ *
+ * Fires only if Devel Generate module is present, to assign test nodes to
+ * domains.
+ */
+function domain_source_node_presave(EntityInterface $node) {
+  domain_source_presave_generate($node);
+}
+
+/**
+ * Handles presave operations for devel generate.
+ */
+function domain_source_presave_generate(EntityInterface $entity) {
+  // Handle devel module settings.
+  $exists = \Drupal::moduleHandler()->moduleExists('devel_generate');
+  $values = [];
+  $selections = [];
+  if ($exists && isset($entity->devel_generate)) {
+    // If set by the form.
+    if (isset($entity->devel_generate['domain_access'])) {
+      $selection = array_filter($entity->devel_generate['domain_access']);
+      if (isset($selection['random-selection'])) {
+        $domains = \Drupal::service('entity_type.manager')->getStorage('domain')->loadMultiple();
+        $selections = array_rand($domains, ceil(rand(1, count($domains))));
+      }
+      else {
+        $selections = array_keys($selection);
+      }
+    }
+    if (isset($entity->devel_generate['domain_source'])) {
+      $selection = $entity->devel_generate['domain_source'];
+      if ($selection == '_derive') {
+        if (!empty($selections)) {
+          $values[DOMAIN_SOURCE_FIELD] = current($selections);
+        }
+        else {
+          $values[DOMAIN_SOURCE_FIELD] = NULL;
+        }
+      }
+      foreach ($values as $name => $value) {
+        $entity->set($name, $value);
+      }
+    }
+  }
+}

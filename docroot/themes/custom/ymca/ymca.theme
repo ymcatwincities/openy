@@ -726,53 +726,6 @@ function ymca_preprocess_pager(&$vars) {
 }
 
 /**
- * Implements hook_preprocess_views_view().
- */
-function ymca_preprocess_views_view(&$vars) {
-  if ($vars['view']->id() == 'ymca_twin_cities_blog' || $vars['view']->id() == 'ymca_twin_cities_blog_archive') {
-    if ($vars['view']->current_display == 'blog_page') {
-      $vars['base_path'] = base_path();
-      $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
-      foreach ($available_terms as $name => $tid) {
-        $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
-        $vars['categories'][] = $link;
-        // Pass Archive block data to the Search The Blog block.
-        if ($archive_lists = ymca_get_archive_data('blog')) {
-          $vars['archive_lists'] = $archive_lists;
-        }
-      }
-    }
-  }
-
-  if ($vars['view']->id() == 'ymca_news' || $vars['view']->id() == 'ymca_news_archive') {
-    if ($vars['view']->current_display == 'page_news') {
-      $vars['base_path'] = base_path();
-      // Pass Archive block data to the YMCA News Archive block.
-      if ($archive_lists = ymca_get_archive_data('news')) {
-        $vars['archive_lists'] = $archive_lists;
-      }
-    }
-  }
-
-  if ($vars['view']->id() == 'ymca_taxonomy_term' && $vars['view']->current_display == 'page_1') {
-    $vars['base_path'] = base_path();
-
-    $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
-    foreach ($available_terms as $name => $tid) {
-      $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
-      $vars['categories'][] = $link;
-    }
-    // Pass Archive block data to the Search The Blog block.
-    if ($archive_lists = ymca_get_archive_data('blog')) {
-      $vars['archive_lists'] = $archive_lists;
-    }
-  }
-
-  // Sets the search path.
-  $vars['search_view_content_path'] = Url::fromRoute('search.view_content');
-}
-
-/**
  * Implements template_preprocess_search_results_page().
  */
 function ymca_preprocess_search_results_page(&$vars) {
@@ -788,82 +741,10 @@ function ymca_preprocess_search_results_page(&$vars) {
       $vars['categories'][] = $link;
     }
     // Pass Archive block data to the Search The Blog block.
-    if ($archive_lists = ymca_get_archive_data('blog')) {
+    if ($archive_lists = _ymca_get_archive_data('blog')) {
       $vars['archive_lists'] = $archive_lists;
     }
   }
-}
-
-/**
- * Returns an array with archive list data for blog and news.
- */
-function ymca_get_archive_data($context) {
-  if ($context == 'news') {
-    $query = \Drupal::entityQuery('node')
-      ->condition('status', 1)
-      ->condition('field_tags.target_id', 6)
-      ->condition('type', 'blog')
-      ->sort('created', 'DESC');
-    $url_key = '/news/ymca_news_archive/';
-    $nids = $query->execute();
-  }
-  if ($context == 'blog') {
-    $query1 = \Drupal::entityQuery('node')
-      ->condition('status', 1)
-      ->condition('field_tags.target_id', NULL, 'IS NULL')
-      ->condition('type', 'blog')
-      ->sort('created', 'DESC');
-    $query2 = \Drupal::entityQuery('node')
-      ->condition('status', 1)
-      ->condition('field_tags.target_id', TERM_TID_NEWS, '<>')
-      ->condition('type', 'blog')
-      ->sort('created', 'DESC');
-    $blog_nids = $query1->execute();
-    $other_nids = $query2->execute();
-    $nids = array_merge($blog_nids, $other_nids);
-    $url_key = '/blog/archive/';
-  }
-
-  if (empty($nids)) {
-    return;
-  }
-
-  $nodes = entity_load_multiple('node', $nids);
-  $years = array();
-  foreach ($nodes as $node) {
-    $year = date('Y', $node->getCreatedTime());
-    $number = date('m', $node->getCreatedTime());
-    $active = FALSE;
-    if (\Drupal::routeMatch()->getRawParameter('arg_0') == $year && \Drupal::routeMatch()->getRawParameter('arg_1') == $number) {
-      $active = TRUE;
-    }
-    $month = array(
-      'title' => date('F', $node->getCreatedTime()),
-      'number' => $number,
-      'url' => Drupal\Core\Url::fromUri('internal:' . $url_key . $year . '/' . date('m', $node->getCreatedTime())),
-      'active' => $active ? TRUE : FALSE,
-    );
-    $data[$year]['expanded'] = '';
-    if (\Drupal::routeMatch()->getRawParameter('arg_0') == $year) {
-      $data[$year]['expanded'] = 'expanded';
-    }
-    if (!isset($data[$year]['months'])) {
-      $data[$year]['months'] = [];
-    }
-    if (!in_array($month, $data[$year]['months'])) {
-      $data[$year]['months'][] = $month;
-    }
-  }
-
-  // Remove 2011, 2012 years from archive.
-  if (isset($data['2011'])) {
-    unset($data['2011']);
-  }
-  if (isset($data['2012'])) {
-    unset($data['2012']);
-  }
-
-  return $data;
 }
 
 /**

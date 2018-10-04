@@ -1,0 +1,117 @@
+<?php
+
+/**
+ * @file
+ * Local Fonts module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\local_fonts\Entity\LocalFontConfigEntity;
+
+/**
+ * Implements hook_fontyourface_api().
+ */
+function local_fonts_fontyourface_api() {
+  return [
+    'version' => '3',
+    'name' => 'Custom Fonts',
+  ];
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function local_fonts_page_attachments(&$page) {
+  $enabled_fonts = &drupal_static('fontyourface_fonts', []);
+  foreach ($enabled_fonts as $font) {
+    if ($font->pid->value == 'local_fonts') {
+      $metadata = $font->getMetadata();
+      $font_id = $metadata['id'];
+      $directory = file_build_uri('fontyourface/local_fonts/' . $font_id);
+      $page['#attached']['html_head'][] = [
+        [
+          '#type' => 'html_tag',
+          '#tag' => 'link',
+          '#attributes' => [
+            'rel' => 'stylesheet',
+            'href' => file_create_url($directory . '/font.css'),
+            'media' => 'all',
+          ],
+        ], 'local-fonts-' . $font_id,
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function local_fonts_entity_presave(EntityInterface $entity) {
+  if ($entity instanceof LocalFontConfigEntity) {
+    // Save and generate necessary font files.
+    local_fonts_save_and_generate_css($entity);
+
+    // Save Font in FYF DB storage.
+    $font_data = new \stdClass();
+    $font_data->name = $entity->label();
+    $font_data->url = 'local_fonts://' . $entity->id();
+    $font_data->provider = 'local_fonts';
+    $font_data->css_family = $entity->font_family;
+    $font_data->css_weight = $entity->font_weight;
+    $font_data->css_style = $entity->font_style;
+    $font_data->classification = array_filter($entity->font_classification);
+    $font_data->language = [
+      'English',
+    ];
+    $font_data->metadata = [
+      'id' => $entity->id(),
+    ];
+    fontyourface_save_font($font_data);
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function local_fonts_entity_delete(EntityInterface $entity) {
+  if ($entity instanceof LocalFontConfigEntity) {
+    $font_id = 'local_fonts://' . $entity->id();
+    $fids = \Drupal::entityQuery('font')
+      ->condition('url', $font_id)
+      ->range(0, 50)
+      ->execute();
+    if (!empty($fids)) {
+      $storage_handler = \Drupal::entityManager()->getStorage('font');
+      $fonts = $storage_handler->loadMultiple(array_keys($fids));
+      $storage_handler->delete($fonts);
+    }
+  }
+}
+
+/**
+ * Saves and generates font file based on font config entity data.
+ *
+ * @param Drupal\local_fonts\Entity\LocalFontConfigEntity $font_entity
+ *   Custom config font entity.
+ *
+ * @return bool
+ *   TRUE if files save successfully. Throw any errors otherwise.
+ */
+function local_fonts_save_and_generate_css(LocalFontConfigEntity $font_entity) {
+  $directory = file_build_uri('fontyourface/local_fonts/' . $font_entity->id());
+  $css_file = $directory . '/font.css';
+  $font_file = $directory . '/font.woff';
+  file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+
+  $css_file_data = "@font-face {\n";
+  $css_file_data .= "font-family: '" . $font_entity->font_family . "';\n";
+  $css_file_data .= "font-weight: " . $font_entity->font_weight . ";\n";
+  $css_file_data .= "font-style: " . $font_entity->font_style . ";\n";
+  $css_file_data .= "src: url('font.woff') format('woff');\n";
+  $css_file_data .= "}\n";
+
+  file_unmanaged_save_data(base64_decode($font_entity->getFontWoffData()), $font_file, FILE_EXISTS_REPLACE);
+  file_unmanaged_save_data($css_file_data, $css_file, FILE_EXISTS_REPLACE);
+
+  return TRUE;
+}

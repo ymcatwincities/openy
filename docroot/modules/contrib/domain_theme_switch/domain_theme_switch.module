@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Domain theme Switcher.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function domain_theme_switch_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'domain_theme_switch.settings':
+      $output = t('<p>Find the list of domains and select the theme against each domain.
+          You may select the theme corresponding to each domain and if you leave 
+          them blank then default theme will load.</p>');
+      return $output;
+  }
+}

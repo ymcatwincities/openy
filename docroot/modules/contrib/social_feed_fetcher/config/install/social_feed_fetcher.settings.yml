@@ -1,0 +1,21 @@
+facebook_enabled: 0
+fb_page_name: ''
+fb_app_id: ''
+fb_secret_key: ''
+fb_no_feeds: 10
+
+instagram_enabled: 0
+in_client_id: ''
+in_redirect_uri: ''
+in_auth_link: ''
+in_access_token: ''
+in_picture_count: 3
+in_picture_resolution: ''
+in_post_link: ''
+
+twitter_enabled: 0
+tw_consumer_key: ''
+tw_consumer_secret: ''
+tw_access_token: ''
+tw_access_token_secret: ''
+tw_count: 3

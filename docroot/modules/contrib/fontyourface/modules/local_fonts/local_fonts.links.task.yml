@@ -1,0 +1,7 @@
+# Local Font Config Entity Routing Definition.
+entity.local_font_config_entity.collection:
+  title: 'Custom Fonts'
+  route_name: entity.local_font_config_entity.collection
+  description: 'List Custom Font (bundles)'
+  parent_id: entity.font.collection
+  weight: 10

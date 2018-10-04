@@ -14,7 +14,7 @@
       display: block;
       padding-bottom: 9px;
       position: absolute;
-      z-index: 1001;
+      z-index: $menu-z-index;
     }
 
     .logo {
@@ -22,32 +22,33 @@
       margin: 16px;
 
       @include breakpoint($screen-desktop) {
-        height: 70px;
+        height: 84px;
+        margin-top: 23px;
       }
     }
 
     .aof {
       display: none;
 
-      @include breakpoint($screen-lg-desktop) {
+      @include breakpoint($screen-desktop) {
         display: inline;
-        height: 33px;
-        margin-left: -22px;
-        margin-top: 35px;
+        height: 36px;
+        margin-left: -10px;
+        margin-top: 57px;
       }
     }
 
     .site-logo {
       @include breakpoint($screen-desktop) {
         position: absolute;
-        width: 250px;
+        width: 270px;
       }
     }
 
     .site-slogan {
       color: $lighter-grey;
       display: block;
-      font-size: 13px;
+      font-size: 16px;
       height: 0;
       left: 0;
       margin: auto;
@@ -55,21 +56,20 @@
       right: 0;
       text-align: center;
       text-transform: uppercase;
-      top: 20px;
+      top: 25px;
       &:hover {
         text-decoration: none;
       }
-      @include breakpoint($screen-tablet) {
-        font-size: 14px;
-      }
       @include breakpoint($screen-desktop) {
-        top: 10px;
+        font-size: 20px;
+        left: auto;
+        top: 84px;
+        right: 16px;
+      }
+      @include breakpoint($screen-lg-desktop) {
+        right: 32px;
       }
 
-      span {
-        border-bottom: 1px solid $light-blue;
-        padding: 0 5px 8px 5px;
-      }
     }
   }
 
@@ -120,6 +120,12 @@
 
     border-bottom: 1px solid $medium-grey;
 
+    .navbar-nav {
+      @include breakpoint($screen-desktop) {
+        margin-right: 16px;
+      }
+    }
+
     .navbar-nav>li>a {
       text-shadow: none;
 
@@ -127,6 +133,10 @@
         padding-bottom: 12px;
         padding-top: 12px;
       }
+    }
+
+    .navbar-nav>li:last-child>a {
+      padding-right: 0;
     }
 
     a {
@@ -142,6 +152,10 @@
 
     @include breakpoint($screen-desktop) {
       border-bottom: none;
+      position: absolute;
+      top: 12px;
+      right: 0;
+
 
       a {
         font-size: 12px;
@@ -155,6 +169,7 @@
   }
   .is-camp &__main-menu,
   &__main-menu {
+    top: 0;
 
     a {
       @include cachet();
@@ -168,12 +183,14 @@
 
     .navbar-nav>li>a {
       @include breakpoint($screen-tablet) {
-        padding-top: 10px;
+        padding-top: 9px;
       }
     }
 
     @include breakpoint($screen-desktop) {
       border-bottom: none;
+      position: absolute;
+      top: 125px;
 
       .nav-level-2,
       .nav-level-3 {
@@ -185,6 +202,7 @@
       }
     }
   }
+
 }
 
 .search-input {
@@ -209,8 +227,16 @@
   background-color: $blue;
 
   .viewport & {
-    height: $top-nav-height;
+    min-height: $top-nav-height;
     border-bottom: none;
+  }
+
+  .viewport &.affix {
+    min-height: $minimized-nav-height;
+    height: $minimized-nav-height;
+    .page-head__main-menu {
+      top: 0;
+    }
   }
 
   .navbar-default {
@@ -229,6 +255,17 @@
 .viewport {
   overflow: hidden;
   -webkit-filter: none;
+  .affix {
+    .nav-global > .container > .row {
+      height: $minimized-nav-height;
+    }
+
+    .page-head__logo,
+    .page-head__top-menu {
+      display: none;
+    }
+
+  }
 }
 
 @include breakpoint(0 $screen-sm-max) {
@@ -305,7 +342,7 @@
       right: 0;
       bottom: 100%;
       left: -1px;
-      z-index: 1001;
+      z-index: $menu-z-index;
       display: block;
       background-color: rgba(0, 0, 0, 0);
       content: '';
@@ -431,16 +468,14 @@
 .viewport {
   .nav-global {
     > .container > .row {
-      height: $top-nav-height;
+      min-height: $top-nav-height;
       position: relative;
 
       .header-content {
         bottom: 0;
         position: absolute;
+        min-height: $top-nav-height;
 
-        .page-head__search {
-
-        }
       }
     }
   }
@@ -452,6 +487,7 @@
       width: 100%;
     }
   }
+
 }
 
 .toolbar-fixed {
@@ -520,5 +556,13 @@
     .top-navs {
       margin-left: 150px;
     }
+  }
+}
+
+// Google translate styles.
+.translated-ltr,
+.translated-rtl {
+  .top-navs {
+    margin-top: 39px;
   }
 }

@@ -152,8 +152,6 @@ class ConfigUpdater extends ConfigImporterService {
    *   TRUE if config was changed.
    */
   public function isManuallyChanged($config_name) {
-    // Change global logic to not skip from updating.
-    return FALSE;
     $configs = $this->loggerEntityStorage->loadByProperties([
       'type' => 'openy_config_upgrade_logs',
       'name' => $config_name,

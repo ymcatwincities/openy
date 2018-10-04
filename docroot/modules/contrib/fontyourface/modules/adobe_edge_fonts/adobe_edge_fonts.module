@@ -1,0 +1,222 @@
+<?php
+
+/**
+ * @file
+ * Adobe Edge Fonts module file.
+ */
+
+use Drupal\Core\Link;
+
+/**
+ * Implements hook_fontyourface_api().
+ */
+function adobe_edge_fonts_fontyourface_api() {
+  return [
+    'version' => '3',
+    'name' => 'Adobe Edge',
+  ];
+}
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Use this hook instead of hook_install, because the route "font.settings" is
+ * not defined otherwise.
+ */
+function adobe_edge_fonts_modules_installed($modules) {
+  if (in_array('adobe_edge_fonts', $modules)) {
+    drupal_set_message(t('Due to the number of fonts, automated import from install for Adobe Edge Fonts is disabled. Please use @link to import Adobe Edge Fonts.', ['@link' => Link::createFromRoute('@font-your-face settings', 'font.settings')->toString()]));
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function adobe_edge_fonts_page_attachments(&$page) {
+  $enabled_fonts = &drupal_static('fontyourface_fonts', []);
+  $fonts = [];
+  foreach ($enabled_fonts as $font) {
+    if ($font->pid->value == 'adobe_edge_fonts') {
+      $fonts[] = $font;
+    }
+  }
+  $url = adobe_edge_fonts_generate_font_family_css($fonts);
+  if (!empty($url)) {
+    $page['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#attributes' => [
+          'src' => $url,
+        ],
+      ], 'fontyourface-adobe-edge-fonts',
+    ];
+  }
+}
+
+/**
+ * Implements hook_fontyourface_import().
+ */
+function adobe_edge_fonts_fontyourface_import($font_context = []) {
+  $context = $font_context;
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['fonts'] = _adobe_edge_fonts_get_fonts_from_api();
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($context['sandbox']['fonts']);
+  }
+  $font = array_pop($context['sandbox']['fonts']);
+  if (!empty($font)) {
+    fontyourface_save_font($font);
+    $context['message'] = "Imported {$context['sandbox']['progress']} of {$context['sandbox']['max']}";
+    $context['sandbox']['progress'] = $context['sandbox']['max'] - count($context['sandbox']['fonts']);
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+  else {
+    drupal_set_message(t('Imported @count fonts from Adobe Edge', ['@count' => $context['sandbox']['progress']]));
+  }
+  return $context;
+}
+
+/**
+ * Generates font family css for multiple fonts.
+ *
+ * @param array $fonts
+ *   Array of FontInterface objects.
+ *
+ * @return string
+ *   URL to load fonts on page.
+ */
+function adobe_edge_fonts_generate_font_family_css(array $fonts) {
+  $font_list = $families = [];
+  $url = '';
+  foreach ($fonts as $font) {
+    $metadata = $font->getMetadata();
+    $font_list[$font->css_family->value][] = $metadata['subset'];
+  }
+  foreach ($font_list as $key => $font) {
+    $families[] = $key . ':' . implode(',', $font);
+  }
+  if (!empty($families)) {
+    $url = 'https://use.edgefonts.net/' . implode(';', $families) . '.js';
+  }
+  return $url;
+}
+
+/**
+ * Retrieves fonts from api and parses them for consumption.
+ *
+ * @return array
+ *   List of fonts ready for ingesting as FontInterface objects.
+ */
+function _adobe_edge_fonts_get_fonts_from_api() {
+  try {
+    $uri = 'https://edgewebfonts.adobe.com/data/fontData.json';
+    $response = \Drupal::httpClient()->get($uri, ['headers' => ['Accept' => 'text/plain'], 'verify' => FALSE]);
+    $data = (string) $response->getBody();
+  }
+  catch (RequestException $e) {
+    drupal_set_message(t('The list of Adobe Edge Fonts could not be fetched. Verify that your server can connect the Adobe Edge Servers (https://edgewebfonts.adobe.com). Error: %error', ['%error' => $e->error]), 'error');
+    return FALSE;
+  }
+
+  $json_fonts_results = json_decode($data);
+  return _adobe_edge_fonts_convert_api_results($json_fonts_results->families);
+}
+
+/**
+ * Converts Adobe Edge Fonts json data into font-compatible format.
+ *
+ * @param array $json_fonts
+ *   Fonts returned from Adobe Edge json endpoint.
+ *
+ * @return array
+ *   Array of objects compatible with Fontyourface interface.
+ */
+function _adobe_edge_fonts_convert_api_results(array $json_fonts) {
+  $fonts = [];
+  foreach ($json_fonts as $json_font) {
+    foreach ($json_font->variations as $json_font_variant) {
+      $font_id = $json_font->name . ' ' . $json_font_variant->name;
+      $css_style = substr($json_font_variant->fvd, 0, 1);
+      $css_weight = substr($json_font_variant->fvd, 1, 1) * 100;
+
+      // Defaults for css style.
+      if ($css_style == 'i') {
+        $css_style = 'italic';
+      }
+      else {
+        $css_style = 'normal';
+      }
+
+      if ($css_weight == '400') {
+        $css_weight = 'normal';
+      }
+      elseif ($css_weight == '700') {
+        $css_weight = 'bold';
+      }
+
+      $font = new stdClass();
+      $font->name = $font_id;
+      $font->url = 'https://edgewebfonts.adobe.com/?font=' . $json_font->slug . '&fvd=' . $json_font_variant->fvd;
+      $font->provider = 'adobe_edge_fonts';
+      $font->css_family = $json_font->slug;
+      $font->css_style = $css_style;
+      $font->css_weight = $css_weight;
+      $font->designer = '';
+      $font->designer_url = '';
+      $font->foundry = '';
+      $font->foundry_url = '';
+      $font->license = 'Font license';
+      $font->license_url = $json_font_variant->eula;
+      $font->classification = $json_font->classification;
+      $font->language = _adobe_edge_fonts_human_languages($json_font->language);
+      $font->tags = [
+        $json_font->contrast,
+      ];
+      $font->metadata = [
+        'id' => $json_font->id,
+        'subset' => $json_font_variant->fvd,
+        'capitals' => $json_font->capitals,
+        'classification' => $json_font->classification,
+        'contrast' => $json_font->contrast,
+        'language' => $json_font->language,
+        'number_style' => $json_font->number_style,
+      ];
+      $fonts[$font_id] = $font;
+    }
+  }
+  return $fonts;
+}
+
+/**
+ * Returns list of human-readable languages.
+ *
+ * @param array $list
+ *   List of allowed languages.
+ *
+ * @return array
+ *   List of allowed lanaguages.
+ */
+function _adobe_edge_fonts_human_languages(array $list) {
+  $languages = [
+    'ca' => 'Catalan',
+    'cs' => 'Czech',
+    'de' => 'German',
+    'en' => 'English',
+    'es' => 'Spanish',
+    'fr' => 'French',
+    'it' => 'Italian',
+    'nl' => 'Dutch',
+    'pl' => 'Polish',
+    'pt' => 'Portuguese',
+    'ru' => 'Russian',
+    'sv' => 'Swedish',
+  ];
+  $new_list = [];
+  foreach ($list as $item) {
+    if (isset($languages[$item])) {
+      $new_list[$item] = $languages[$item];
+    }
+  }
+  return $new_list;
+}

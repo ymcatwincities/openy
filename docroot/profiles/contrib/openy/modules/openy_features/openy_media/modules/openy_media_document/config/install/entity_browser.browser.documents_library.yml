@@ -21,6 +21,25 @@ selection_display_configuration: {  }
 widget_selector: tabs
 widget_selector_configuration: {  }
 widgets:
+  1f11fa0d-5edb-4b81-8574-300f3db25b5a:
+    settings:
+      media_entity_bundle: document
+      upload_location: 'public://[date:custom:Y]-[date:custom:m]'
+      dropzone_description: 'Drop files here to upload them'
+      max_filesize: 10M
+      extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'
+      clientside_resize: false
+      resize_width: 0
+      resize_height: 0
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
+      submit_text: 'Select documents'
+      auto_select: false
+    uuid: 1f11fa0d-5edb-4b81-8574-300f3db25b5a
+    weight: 1
+    label: 'Upload Documents'
+    id: dropzonejs_media_entity
   91174dcf-a572-4366-8a6d-76f238ffe1eb:
     settings:
       view: documents_library
@@ -28,25 +47,6 @@ widgets:
       submit_text: 'Select documents'
       auto_select: false
     uuid: 91174dcf-a572-4366-8a6d-76f238ffe1eb
-    weight: -9
+    weight: 2
     label: 'Select Documents'
     id: view
-  3b3006a7-ee0c-4566-848e-71ad9581af12:
-    settings:
-      form_mode: default
-      media_entity_bundle: document
-      upload_location: 'public://[date:custom:Y]-[date:custom:m]'
-      dropzone_description: 'Drop files here to upload them'
-      max_filesize: 10M
-      extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'
-      clientside_resize: false
-      resize_width: null
-      resize_height: null
-      resize_quality: !!float 1
-      resize_method: contain
-      thumbnail_method: contain
-      submit_text: 'Select documents'
-    uuid: 3b3006a7-ee0c-4566-848e-71ad9581af12
-    weight: -10
-    label: 'Upload Documents'
-    id: dropzonejs_media_entity_inline_entity_form
