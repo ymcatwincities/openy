@@ -1,0 +1,4 @@
+services:
+  asset.css.MISSPELLEDcollection_renderer:
+    class: Drupal\fontyourface\Asset\FontYourFaceInlineCssCollectionRenderer
+    arguments: [ '@state' ]

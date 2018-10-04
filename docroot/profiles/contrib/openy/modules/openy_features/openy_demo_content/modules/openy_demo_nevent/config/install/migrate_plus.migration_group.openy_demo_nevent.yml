@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_nevent
+label: 'Event'
+description: 'Imports event demo content.'
+module: openy_demo_nevent

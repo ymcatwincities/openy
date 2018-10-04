@@ -1,0 +1,23 @@
+default:
+  autoload: [ %paths.base%/tests/behat/bootstrap ]
+  suites:
+    default:
+      paths: [ %paths.base%/tests/behat/features ]
+      contexts:
+        - IntegratedExperts\BehatPhpServer\PhpServerContext:
+          -
+            docroot: %paths.base%/tests/behat/features/fixtures
+        - IntegratedExperts\BehatScreenshotExtension\Context\ScreenshotContext
+        - FeatureContext:
+          -
+            screenshot_dir: %paths.base%/screenshots
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      files_path: %paths.base%/tests/behat/features/fixtures
+      selenium2: ~
+      browser_name: chrome
+    IntegratedExperts\BehatScreenshotExtension:
+      dir: %paths.base%/screenshots
+      fail: true
+      purge: true

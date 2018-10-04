@@ -1,0 +1,91 @@
+@import "variables";
+
+.paragraphs-dragdrop {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  min-height: 50px;
+
+  &:empty {
+     border: 1px dashed $grey-dark;
+     margin-bottom: 10px;
+   }
+
+  .paragraphs-dragdrop {
+    margin-left: 10px;
+    margin-right: 5px;
+
+    @media all and (min-width: 780px) {
+      margin-left: 20px;
+    }
+  }
+
+  > li {
+    min-height: 30px;
+    margin: 10px 0;
+    padding: 3px;
+    border: 1px solid $grey-dark;
+    border-left-width: 10px;
+    transition: border .5s ease;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: move;
+  }
+
+  .paragraphs-summary-wrapper {
+    display: flex;
+    padding: 5px;
+  }
+
+  strong {
+    white-space: nowrap;
+  }
+
+  .paragraphs-dragdrop-wrapper {
+    margin-left: 39px;
+    margin-top: 20px;
+  }
+
+  > li .paragraphs-summary-wrapper > div {
+    flex-grow: 1;
+    margin-left: 10px;
+  }
+
+  .sortable-drag {
+    opacity: 0;
+  }
+
+  > .sortable-ghost,
+  .sortable-chosen {
+    opacity: 1;
+    border-left-color: black;
+  }
+
+  .tabledrag-handle {
+    float: left;
+    padding: 5px;
+    align-self: flex-start;
+
+    [dir="rtl"] & {
+      float: right;
+    }
+
+    .touchevents & {
+      padding: 0 0 0 5px;
+      margin-top: -5px;
+    }
+  }
+}
+
+.js .field--widget-paragraphs .paragraphs-dragdrop .field--widget-paragraphs {
+  margin-left: 5px;
+}
+
+.field-dragdrop-mode-submit {
+  margin-right: 10px;
+}
+
+.paragraphs-dragdrop-wrapper {
+  padding-top: 10px;
+}

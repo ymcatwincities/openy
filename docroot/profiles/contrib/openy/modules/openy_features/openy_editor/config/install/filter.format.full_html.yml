@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - editor
-    - entity_embed
-    - rel_to_abs
-    - token_filter
-    - ymca_entity_embed
+  - editor
+  - entity_embed
+  - rel_to_abs
+  - token_filter
+  - ymca_entity_embed
 name: 'Full HTML'
 format: full_html
 weight: -10

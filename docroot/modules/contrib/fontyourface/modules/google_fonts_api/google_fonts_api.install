@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Google Fonts install file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function google_fonts_api_install() {
+  module_set_weight('google_fonts_api', 10);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function google_fonts_api_uninstall() {
+  fontyourface_delete('google_fonts_api');
+}

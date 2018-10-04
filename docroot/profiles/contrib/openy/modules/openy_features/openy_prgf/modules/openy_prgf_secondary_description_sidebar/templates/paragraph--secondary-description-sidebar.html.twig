@@ -36,27 +36,20 @@
  * @ingroup themeable
  */
 #}
-{% if content.field_prgf_right_column_block[0] is empty %}
-  {% set left_column_classes  = 'col-sm-12 left' %}
-{% else %}
-  {% set left_column_classes  = 'col-sm-6 left' %}
-{% endif %}
 {% set classes = [
-  'paragraph',
-  'paragraph--type--' ~ paragraph.bundle|clean_class,
-  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+'paragraph',
+'paragraph--type--' ~ paragraph.bundle|clean_class,
+view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ] %}
 <div{{ attributes.addClass(classes) }}>
   <div class="container-fluid">
     <div class="row">
-      <div class="{{ left_column_classes }}">
+      <div class="col-sm-6 left">
         {{ content.field_prgf_left_column_block }}
       </div>
-      {% if content.field_prgf_right_column_block[0] is not empty %}
       <div class="col-sm-5 col-sm-offset-1 right">
         {{ content.field_prgf_right_column_block }}
       </div>
-      {% endif %}
     </div>
   </div>
 </div>

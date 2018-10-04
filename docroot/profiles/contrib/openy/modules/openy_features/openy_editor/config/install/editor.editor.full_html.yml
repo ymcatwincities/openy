@@ -2,69 +2,69 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.full_html
+  - filter.format.full_html
   module:
-    - ckeditor
+  - ckeditor
 format: full_html
 editor: ckeditor
 settings:
   toolbar:
     rows:
+    -
       -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - Strike
-            - Superscript
-            - Subscript
-            - '-'
-            - RemoveFormat
-        -
-          name: Linking
-          items:
-            - DrupalLink
-            - DrupalUnlink
-            - Linkit
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Media
-          items:
-            - Blockquote
-            - Table
-            - HorizontalRule
-            - block
-            - menu_link
-            - file_browser
-            - webform
-            - embed_document
-            - embed_image
-        -
-          name: 'Block Formatting'
-          items:
-            - Format
-            - Styles
-        -
-          name: Tools
-          items:
-            - ShowBlocks
-            - Source
-        -
-          name: Templates
-          items:
-            - ColumnButton2x
-            - ColumnButton3x
-            - SportsPromo
-            - Green3Columns
-            - ClinicsSchedule
-            - SessionSchedules
-            - SportsTopSubheader
-            - TextColor
+        name: Formatting
+        items:
+        - Bold
+        - Italic
+        - Strike
+        - Superscript
+        - Subscript
+        - '-'
+        - RemoveFormat
+      -
+        name: Linking
+        items:
+        - DrupalLink
+        - DrupalUnlink
+        - Linkit
+      -
+        name: Lists
+        items:
+        - BulletedList
+        - NumberedList
+      -
+        name: Media
+        items:
+        - Blockquote
+        - Table
+        - HorizontalRule
+        - block
+        - menu_link
+        - file_browser
+        - webform
+        - embed_document
+        - embed_image
+      -
+        name: 'Block Formatting'
+        items:
+        - Format
+        - Styles
+      -
+        name: Tools
+        items:
+        - ShowBlocks
+        - Source
+      -
+        name: Templates
+        items:
+        - ColumnButton2x
+        - ColumnButton3x
+        - SportsPromo
+        - Green3Columns
+        - ClinicsSchedule
+        - SessionSchedules
+        - SportsTopSubheader
+        - TextColor
   plugins:
     stylescombo:
       styles: "p.button|Button\r\nspan.icon-clock|Clock icon"

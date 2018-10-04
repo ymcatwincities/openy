@@ -1,0 +1,12 @@
+services:
+  ludwig.ludwig_download:
+    class: Drupal\ludwig\Command\DownloadCommand
+    arguments: ['@ludwig.package_manager', '@ludwig.package_downloader', '@console.chain_queue']
+    tags:
+      - { name: drupal.command }
+  ludwig.ludwig_list:
+    class: Drupal\ludwig\Command\ListCommand
+    arguments: ['@ludwig.package_manager']
+    tags:
+      - { name: drupal.command }
+

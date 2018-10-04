@@ -1,0 +1,11 @@
+views.filter_value.fontyourface_font_pid:
+  type: string
+  label: 'Font Provider'
+
+views.filter_value.fontyourface_font_style:
+  type: string
+  label: 'CSS Style'
+
+views.filter_value.fontyourface_font_weight:
+  type: string
+  label: 'CSS Weight'

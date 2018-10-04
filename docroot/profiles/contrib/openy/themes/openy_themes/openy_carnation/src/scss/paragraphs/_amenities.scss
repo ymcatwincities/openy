@@ -1,0 +1,141 @@
+.paragraph--type--all-amenities {
+  .field-field-prgf-amnts-view {
+    table {
+      width: 100%;
+
+      tr {
+        border: none;
+        padding: 0;
+      }
+
+      td {
+        padding: 7px 10px;
+      }
+
+      tr:nth-child(odd) td {
+        background-color: $primary;
+      }
+
+      tr:nth-child(even) td {
+        background-color: $primary-darker;
+      }
+    }
+
+    .views-field-title {
+      font-size: 16px;
+
+      a {
+        @include cachet();
+        color: $white;
+      }
+    }
+  }
+
+  .views-field-field-location-amenities {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      display: inline-block;
+      margin: 1px 5px;
+    }
+  }
+
+  .field-amenities-icon {
+    background-color: $white;
+    border-radius: 32px;
+    padding: 4px;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+
+    svg * {
+      fill: $primary-darker;
+    }
+  }
+
+  .views-element-container {
+    margin-bottom: 40px;
+
+    legend {
+      color: $gray-400;
+
+      span {
+        border-bottom: 1px solid #ccc;
+        color: $gray-400;
+        text-transform: none;
+        display: block;
+        margin: 20px 0;
+      }
+    }
+
+    form {
+      margin-bottom: 1em;
+
+      fieldset {
+        margin: 0;
+      }
+
+      .fieldgroup.form-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+
+        // checkboxes
+        .form-item {
+          margin: 0 0 5px;
+          display: flex;
+          align-items: center;
+          width: 100%;
+
+          @include media-breakpoint-up(md){
+            width: 50%;
+          }
+
+          @include media-breakpoint-up(lg){
+            width: 33.33333%;
+          }
+
+          .field-amenities-icon {
+            padding: 2px;
+            width: 30px;
+            height: 30px;
+            margin: 0 4px;
+          }
+
+          label {
+            > div {
+              display: flex;
+              align-items: center;
+            }
+
+            .field-amenities-icon-wrapper {
+              vertical-align: middle;
+            }
+
+            .term-name {
+              padding-right: 20px;
+            }
+
+            svg * {
+              fill: $blue;
+              color: $green-aa;
+            }
+
+          }
+        }
+
+      }
+    }
+  }
+
+  .views-field-field-location-amenities .term-name {
+    display: none;
+  }
+}
+
+.list-branch-amenities-wrapper h5 {
+  font-size: 15px;
+}

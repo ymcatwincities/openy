@@ -1,0 +1,7 @@
+# Custom Font menu items definition
+entity.local_font_config_entity.collection:
+  title: 'Custom Fonts'
+  route_name: entity.local_font_config_entity.collection
+  description: 'List Custom Font (bundles)'
+  parent: entity.font.collection
+  weight: 10

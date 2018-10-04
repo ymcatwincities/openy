@@ -45,7 +45,9 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 'banner--small',
 ] %}
 {% set color = '#' ~ content.field_prgf_color['#items'].entity.field_color.value %}
-{% if content.image_path is empty %}
+{% set description_text = content.field_prgf_description.0['#text'] is not empty %}
+{% set background = content.field_prgf_image['#field_name'] %}
+{% if background is empty %}
   {% set col_size %}
     col-sm-12
   {% endset %}

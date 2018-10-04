@@ -56,23 +56,24 @@
  * @see html.html.twig
  */
 #}
-<div class="layout-container {{ page_class }}">
-  <div class="viewport">
-    <footer id="page-footer" class="page-footer text-center footer-themes-b">
-      <div class="container">
-        {% if page.footer_menu %}
-          {{ page.footer_menu }}
+<footer class="footer">
+  <div class="container">
+    <div class="col-sm-2 col-xs-4 hidden-sm hidden-md">
+      {% block footer_image_link %}
+        {% set background_image = '' %}
+        {% if footer_logo %}
+          {% set background_image = " style='background-image: url(" ~ file_url(footer_logo) ~ ")'" %}
         {% endif %}
-        <div class="col-sm-12 social-disclaimer">
-          {{ page.footer_social }}
-        </div>
+        <a href="{{ front_page }}" class="footer__brand brand" title="{{ "Site-logo"|t }}"{{ background_image|raw }}></a>
+      {% endblock %}
+    </div>
+    <div class="col-xs-8 col-sm-12 col-md-7 col-lg-6">
+      <div class="footer__nav row">
+        {{ page.footer_menus }}
       </div>
-    </footer>{# /#page-footer #}
-
-    <div class="text-center return-to-top" data-spy="affix" data-offset-top="52">
-      <a href="#top" class="btn btn-default">
-        <span class="glyphicon glyphicon-chevron-up"></span>
-      </a>
-    </div>{# /.return-to-top #}
-  </div>{# /.viewport #}
-</div>{# /.layout-container #}
+    </div>
+    <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4 footer__social">
+      {{ page.footer_social }}
+    </div>
+  </div>
+</footer>

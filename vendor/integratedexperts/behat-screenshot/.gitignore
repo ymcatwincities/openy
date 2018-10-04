@@ -1,0 +1,6 @@
+vendor
+Vagrantfile
+.beetbox
+composer.lock
+.vagrant
+screenshots

@@ -1,0 +1,4 @@
+ludwig.packages:
+  route_name: ludwig.packages
+  base_route: ludwig.packages
+  title: 'List'

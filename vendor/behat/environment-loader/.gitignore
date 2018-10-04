@@ -1,0 +1,16 @@
+# Ignore files which names start from dot.
+.*
+
+# Track this file.
+!.gitignore
+
+# Do not ignore configurations of CI services.
+!.travis.yml
+!.styleci.yml
+!.scrutinizer.yml
+
+# Ignore files with extensions.
+*.lock
+
+# Ignore directories.
+vendor/

@@ -57,11 +57,13 @@
   sudo: yes
   shell: "{{ php_env_vars }} drush cc drush -l {{ site_url }}"
   when: rebuild_registry and registry_rebuild_installed.stdout == "0"
+  ignore_errors: true
 
 - name: Rebuilding drupal registry
   sudo: yes
   shell: "{{ php_env_vars }} drush -y rr -l {{ site_url }} || true"
   when: rebuild_registry
+  ignore_errors: true
 
 # Update database.
 - name: Updating database

@@ -183,9 +183,6 @@ body {
     &:after {
       opacity: 1;
     }
-    #main {
-      margin-left: 100%;
-    }
   }
 }
 
@@ -665,4 +662,17 @@ header#page-head {
 
 .csstransitions.no-smil .affix .navbar-brand {
   background-image: url(../img/ymca-logo-full.png);
+}
+
+// Google translate styles.
+.translated-ltr,
+.translated-rtl {
+  header#page-head .top-navs {
+    .nav-global {
+      margin-top: 39px !important;
+    }
+    .nav-wrapper .main-nav.affix {
+      top: 139px;
+    }
+  }
 }
