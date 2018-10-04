@@ -258,7 +258,8 @@ label[aria-expanded=false] .minus {
   }
 }
 
-.btn.btn-schedule-pdf {
+.btn.btn-schedule-pdf,
+.btn.btn-schedule-pdf-generate {
   border: 1px solid #d4d4d4;
   background-color: #f4f4f4;
   border-radius: 0;
@@ -266,13 +267,15 @@ label[aria-expanded=false] .minus {
   color: #333;
 }
 
-.btn.btn-schedule-pdf:hover {
+.btn.btn-schedule-pdf:hover,
+.btn.btn-schedule-pdf-generate:hover {
   border: 1px solid #ccc;
   background-color: #eee;
   color: #333;
 }
 
-.btn.btn-schedule-pdf .fa {
+.btn.btn-schedule-pdf .fa,
+.btn.btn-schedule-pdf-generate .fa {
   margin-left: 10px;
 }
 
@@ -392,3 +395,6 @@ label[aria-expanded=false] .minus {
 
 }
 
+.schedule-dashboard__sidebar .checkbox-room-wrapper {
+  padding-left: 15px;
+}
