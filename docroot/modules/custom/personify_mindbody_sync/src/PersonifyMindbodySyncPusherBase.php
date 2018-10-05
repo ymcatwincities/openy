@@ -554,7 +554,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       $result = $this->client->call('ClientService', 'GetClientPurchases', $params, FALSE);
 
       if (200 !== $result->GetClientPurchasesResult->ErrorCode) {
-        $this->logger->error('Get non 200 code on ClientService with response', serialize($result->GetClientPurchasesResult));
+        $this->logger->error('Get non 200 code on ClientService with response %response', ['%response' => serialize($result->GetClientPurchasesResult)]);
         return FALSE;
       }
 
