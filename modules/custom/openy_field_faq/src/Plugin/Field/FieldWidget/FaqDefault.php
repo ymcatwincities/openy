@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_prgf_faq\Plugin\Field\FieldWidget;
+namespace Drupal\openy_field_faq\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;

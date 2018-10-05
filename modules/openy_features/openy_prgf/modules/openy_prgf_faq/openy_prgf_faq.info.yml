@@ -1,12 +1,13 @@
-name: 'OpenY Faq'
+name: 'OpenY Paragraph FAQ'
+description: 'OpenY Paragraph FAQ.'
 type: module
 core: 8.x
-version: 0.1
+package: OpenY
+version: '8.x-1.0'
 dependencies:
   - block
-  - content_moderation
-  - datalayer
   - field
+  - openy_field_faq
   - paragraphs
   - text
   - views
