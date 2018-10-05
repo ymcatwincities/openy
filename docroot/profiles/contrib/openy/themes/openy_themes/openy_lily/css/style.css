@@ -14648,6 +14648,40 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   }
 }
 
+#block-openy-lily-googletranslate {
+  background: transparent;
+}
+#block-openy-lily-googletranslate .openy-google-translate {
+  margin-bottom: 4px;
+}
+#block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget {
+  line-height: 34px;
+  padding: 15px;
+  font-size: 16px;
+  color: #777;
+  border-top: 2px solid transparent;
+  max-height: 100px;
+}
+#block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget:hover {
+  border-top: 2px solid #aa228d;
+  background: #fff;
+  color: #231f20;
+}
+#block-openy-lily-googletranslate .openy-google-translate select {
+  font-size: 16px;
+  background: transparent;
+  border: none;
+}
+
+.translated-ltr header#page-head .top-navs .nav-global {
+  margin-top: 0 !important;
+}
+
+.translated-ltr header#page-head .top-navs .nav-wrapper .main-nav.affix,
+.translated-rtl header#page-head .top-navs .nav-wrapper .main-nav.affix {
+  top: 100px;
+}
+
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
