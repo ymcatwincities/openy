@@ -13,6 +13,12 @@ class PersonifyMindbodySyncFetcherFast extends PersonifyMindbodySyncFetcherBase 
    * {@inheritdoc}
    */
   public function fetch() {
+    $mode = 'production';
+    if (!$this->isProduction) {
+      $mode = 'testing';
+    }
+
+    $this->logger->debug(sprintf('Personify -> MindBody Sync operates in "%s" mode', $mode));
     $this->logger->debug('The Pull from Personify has been started.');
 
     $date = $this->wrapper->getCurrentTime();
