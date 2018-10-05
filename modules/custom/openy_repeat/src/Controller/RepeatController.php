@@ -3,6 +3,8 @@
 namespace Drupal\openy_repeat\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,6 +48,13 @@ class RepeatController extends ControllerBase {
   protected $entity_type_manager;
 
   /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
    * Creates a new RepeatController.
    *
    * @param CacheBackendInterface $cache
@@ -54,12 +63,15 @@ class RepeatController extends ControllerBase {
    *   The Database connection.
    * @param EntityTypeManager $entity_type_manager
    *   The EntityTypeManager.
+   * @param DateFormatterInterface $date_formatter
+   *   The Date formatter.
    */
-  public function __construct(CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager) {
+  public function __construct(CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter) {
     $this->cache = $cache;
     $this->database = $database;
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
+    $this->dateFormatter = $date_formatter;
   }
 
   /**
@@ -70,14 +82,23 @@ class RepeatController extends ControllerBase {
       $container->get('cache.default'),
       $container->get('database'),
       $container->get('entity.query'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('date.formatter')
     );
   }
 
   /**
    * {@inheritdoc}
    */
-  public function ajaxScheduler( Request $request, $location, $date, $category) {
+  public function ajaxScheduler(Request $request, $location, $date, $category) {
+    $result = $this->getData($request, $location, $date, $category);
+    return new JsonResponse($result);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getData($request, $location, $date, $category) {
     if (empty($date)) {
       $date = date('F j, l 00:00:00');
     }
@@ -90,7 +111,8 @@ class RepeatController extends ControllerBase {
     $weekday = date('N', $date);
 
     $timestamp_start = $date;
-    $timestamp_end = $date + 24 * 60 * 60 * 60; // Next day.
+    // Next day.
+    $timestamp_end = $date + 24 * 60 * 60;
 
     $sql = "SELECT DISTINCT
               n.nid,
@@ -98,17 +120,16 @@ class RepeatController extends ControllerBase {
               nd.title as location,
               nds.title as name,
               re.class,
-              CAST(re.duration / 60 AS CHAR(1)) as duration_hours,
-              CAST(re.duration % 60 AS CHAR(2)) as duration_minutes,
+              re.session,
+              re.duration as duration,
               re.room,
               re.instructor as instructor,
               re.category,
               re.register_url as register_url,
               re.register_text as register_text,
-              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start), '%h:%i'))) as time_start,
-              TRIM(LEADING '0' FROM (DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%h:%i%p'))) as time_end,
-              DATE_FORMAT(FROM_UNIXTIME(re.start), '%Y-%m-%d %T') as time_start_calendar,
-              DATE_FORMAT(FROM_UNIXTIME(re.start + re.duration * 60), '%Y-%m-%d %T') as time_end_calendar
+              re.start as start_timestamp,
+              re.end as end_timestamp,
+              re.duration as duration
             FROM {node} n
             RIGHT JOIN {repeat_event} re ON re.session = n.nid
             INNER JOIN node_field_data nd ON re.location = nd.nid
@@ -152,8 +173,6 @@ class RepeatController extends ControllerBase {
       $values[':limit[]'] = explode(',', $limit);
     }
 
-    $sql .= " ORDER BY re.start";
-
     $values[':year'] = $year;
     $values[':month'] = $month;
     $values[':day'] = $day;
@@ -166,13 +185,41 @@ class RepeatController extends ControllerBase {
     $result = $query->fetchAll();
 
     $locations_info = $this->getLocationsInfo();
-    $classes_info = $this->getClassesInfo();
+
+    $classesIds = [];
+    foreach ($result as $key => $item) {
+      $classesIds[$item->class] = $item->class;
+    }
+    $classes_info = $this->getClassesInfo($classesIds);
+
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
       $result[$key]->class_info = $classes_info[$item->class];
+
+      $result[$key]->time_start_sort = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Hi');
+
+      // Convert timezones for start_time and end_time.
+      $result[$key]->time_start = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'g:i');
+      $result[$key]->time_end = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'g:iA');
+
+      // Example of calendar format 2018-08-21 14:15:00.
+      $result[$key]->time_start_calendar = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->time_end_calendar = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->timezone = drupal_get_user_timezone();
+
+      // Durations.
+      $result[$key]->duration_minutes = $item->duration % 60;
+      $result[$key]->duration_hours = ($item->duration - $result[$key]->duration_minutes) / 60;
     }
 
-    return new JsonResponse($result);
+    usort($result, function($item1, $item2){
+      if ((int) $item1->time_start_sort == (int) $item2->time_start_sort) {
+        return 0;
+      }
+      return (int) $item1->time_start_sort < (int) $item2->time_start_sort ? -1 : 1;
+    });
+
+    return $result;
   }
 
   /**
@@ -239,18 +286,14 @@ class RepeatController extends ControllerBase {
   /**
    * Get detailed info about Class.
    */
-  public function getClassesInfo() {
+  public function getClassesInfo($nids) {
     $data = [];
-    $tags = ['node_list'];
-    $cid = 'openy_repeat:classes_info';
+    $tags = [];
+    $cid = 'openy_repeat:classes_info' . md5(json_encode($nids));
     if ($cache = $this->cache->get($cid)) {
       $data = $cache->data;
     }
     else {
-      $nids = $this->entityQuery
-        ->get('node')
-        ->condition('type','class')
-        ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
       foreach ($nids_chunked as $chunk) {
         $classes = $this->entityTypeManager->getStorage('node')->loadMultiple($chunk);
@@ -306,6 +349,192 @@ class RepeatController extends ControllerBase {
     }
 
     return $rows;
+  }
+
+  /**
+   * Returns PDF for specific parameters.
+   */
+  public function getPdf(Request $request) {
+    $content = $this->getPdfContent($request);
+    $settings = [
+      'body' => [
+        '#content' => [
+          'logo_url' => drupal_get_path('module', 'openy_repeat') . '/img/ymca_logo_black.png',
+          'result' => $content['content']['content'],
+          'header' => $content['content']['header']
+        ],
+        '#theme' => $content['theme'],
+        '#cache' => [
+          'max-age' => 0
+        ],
+      ],
+      '#cache' => [
+        'max-age' => 0
+      ],
+    ];
+    \Drupal::service('openy_repeat_pdf_generator')->generatePDF($settings);
+  }
+
+  /**
+   * Returns content for a PDF.
+   */
+  public function getPdfContent($request) {
+    // Get all parameters from query.
+    $parameters = $request->query->all();
+    $category = !empty($parameters['categories']) ? $parameters['categories'] : '0';
+    $rooms = !empty($parameters['rooms']) ? $parameters['rooms'] : '';
+    $location = !empty($parameters['locations']) ? $parameters['locations'] : '0';
+    $date = !empty($parameters['date']) ? $parameters['date'] : '';
+    $mode = !empty($parameters['mode']) ? $parameters['mode'] : 'activity';
+
+    if (empty($date)) {
+      $date = time();
+    }
+    else {
+      $date = strtotime($date);
+    }
+
+    // Calculate first day of a week.
+    $monday_timestamp = strtotime("last Monday", $date);
+    if (date('D', $date) === 'Mon') {
+      $monday_timestamp = $date;
+    }
+    $timestamp_start = $monday_timestamp;
+
+    $result = [];
+    // Create weekly schedule by getting results for every weekday.
+    for ($i = 1; $i <= 7; $i++) {
+      $date = DrupalDateTime::createFromTimestamp($timestamp_start)->format('F j, l 00:00:00');
+      $result[$date] = $this->getData($request, $location, $date, $category);
+      $timestamp_start += 86400;
+    }
+    if (!empty($rooms)) {
+      $rooms = explode(',', $rooms);
+    }
+    // Group by activity.
+    if ($mode == 'activity') {
+      $result = $this->groupByActivity($result, $rooms);
+      $theme = 'openy_repeat__pdf__table__activity';
+    }
+    // Group by day.
+    if ($mode == 'day') {
+      $result = $this->groupByDay($result, $rooms);
+      $theme = 'openy_repeat__pdf__table__day';
+    }
+
+    $content = [
+      'content' => $result,
+      'theme' => $theme,
+    ];
+
+    return $content;
+  }
+
+  /**
+   * Group results by Activity & Location.
+   */
+  public function groupByActivity($result, $rooms) {
+    if (empty($result)) {
+      return FALSE;
+    }
+    $date_keys = $formatted_result = [];
+
+    // Create weekdays array.
+    foreach ($result as $day => $data) {
+      $date_keys[$day] = [];
+    }
+    $arr_date_keys = array_keys($date_keys);
+    $first = reset($arr_date_keys);
+    $last = end($arr_date_keys);
+    $first = DrupalDateTime::createFromFormat('F j, l 00:00:00', $first)->format('F jS');
+    $last = DrupalDateTime::createFromFormat('F j, l 00:00:00', $last)->format('F jS');
+    $formatted_result['header'] = [
+      'dates' => $first . ' - ' . $last,
+    ];
+
+    // Create activities array pass weekdays array to each.
+    foreach ($result as $day => $data) {
+      foreach ($data as $key => $session) {
+        // Additionally filter by room.
+        if (!empty($rooms) && !in_array($session->location . '||' . $session->room, $rooms)) {
+          $location_found = FALSE;
+          foreach ($rooms as $room) {
+            // Keep locations with no selected rooms (means all are selected).
+            if (strpos($room, $session->location) !== FALSE) {
+              $location_found = TRUE;
+            }
+          }
+          if ($location_found) {
+            unset($result[$day][$key]);
+            continue;
+          }
+        }
+        $formatted_result['content'][$session->location][$session->name] = [
+          'room' => $session->room,
+          'dates' => $date_keys
+        ];
+      }
+    }
+    foreach ($result as $day => $data) {
+      foreach ($data as $session) {
+        $formatted_result['content'][$session->location][$session->name]['dates'][$day][] = [
+          'time' => $session->time_start . '-' . $session->time_end,
+          'category' => $session->category,
+        ];
+      }
+    }
+    return $formatted_result;
+  }
+
+
+  /**
+   * Group results by day.
+   */
+  public function groupByDay($result, $rooms) {
+    if (empty($result)) {
+      return FALSE;
+    }
+    $date_keys = $formatted_result = [];
+
+    // Create weekdays array.
+    foreach ($result as $day => $data) {
+      $date_keys[$day] = [];
+    }
+    $arr_date_keys = array_keys($date_keys);
+    $first = reset($arr_date_keys);
+    $last = end($arr_date_keys);
+    $first = DrupalDateTime::createFromFormat('F j, l 00:00:00', $first)->format('F jS');
+    $last = DrupalDateTime::createFromFormat('F j, l 00:00:00', $last)->format('F jS');
+    $formatted_result['header'] = [
+      'dates' => $first . ' - ' . $last,
+    ];
+
+    foreach ($result as $day => $data) {
+      foreach ($data as $key => $session) {
+        // Additionally filter by room.
+        if (!empty($rooms) && !in_array($session->location . '||' . $session->room, $rooms)) {
+          $location_found = FALSE;
+          foreach ($rooms as $room) {
+            // Keep locations with no selected rooms (means all are selected).
+            if (strpos($room, $session->location) !== FALSE) {
+              $location_found = TRUE;
+            }
+          }
+          if ($location_found) {
+            unset($result[$day][$key]);
+            continue;
+          }
+        }
+        $weekday = DrupalDateTime::createFromFormat('F j, l 00:00:00', $day)->format('l');
+        $formatted_result['content'][$session->category . '|' .$session->location][$weekday][$session->time_start . '-' . $session->time_end][] = [
+          'room' => $session->room,
+          'name' => $session->name,
+          'category' => $session->category,
+          'instructor' => $session->instructor,
+        ];
+      }
+    }
+    return $formatted_result;
   }
 
 }

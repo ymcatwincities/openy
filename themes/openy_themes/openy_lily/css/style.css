@@ -4131,7 +4131,7 @@ html.js .branch__updates_queue__button {
   line-height: 1.2;
 }
 .marker_tooltip a {
-  color: #0089d0;
+  color: #428bca;
 }
 .marker_tooltip article.node h3.location-item--title {
   margin: 0 0 0.5em;
@@ -5587,7 +5587,7 @@ iframe#ga_iframe {
  * AddToCalendar Blue Style
  * http://addtocalendar.com
  */
-addtocalendar var {
+.addtocalendar var {
   display: none;
 }
 
@@ -7276,7 +7276,6 @@ article .node--view-mode-flexible-content h2 a span {
     margin: 0.5em auto;
   }
 }
-
 .schedule-locations__wrapper {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
