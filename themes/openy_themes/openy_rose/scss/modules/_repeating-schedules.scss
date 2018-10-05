@@ -69,3 +69,12 @@
 
 /* row striping */
 .schedules-data__row:nth-child(even) { }
+
+.schedule-dashboard__content {
+  .day-label {
+    h2 {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
