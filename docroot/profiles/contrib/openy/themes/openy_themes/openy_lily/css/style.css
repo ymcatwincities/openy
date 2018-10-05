@@ -14001,6 +14001,14 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     display: block !important;
   }
 }
+header#page-head .top-navs #block-topmenu2 .nav li a,
+header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a,
+header#page-head .top-navs #block-anonymoususersmenu .nav li a,
+header#page-head .top-navs #block-openy-lily-user-menu .nav li a,
+header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li a,
+header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
+  margin-bottom: 2px;
+}
 @media (min-width: 0) and (max-width: 47.9375em) {
   header#page-head #block-openy-lily-branding .ymca-branding-slogan {
     display: none;
@@ -14652,25 +14660,25 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   background: transparent;
 }
 #block-openy-lily-googletranslate .openy-google-translate {
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 #block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget {
-  line-height: 34px;
-  padding: 15px;
-  font-size: 16px;
-  color: #777;
   border-top: 2px solid transparent;
+  color: #777;
+  line-height: 34px;
+  font-size: 16px;
   max-height: 100px;
+  padding: 15px;
 }
 #block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget:hover {
-  border-top: 2px solid #aa228d;
   background: #fff;
+  border-top: 2px solid #aa228d;
   color: #231f20;
 }
 #block-openy-lily-googletranslate .openy-google-translate select {
-  font-size: 16px;
   background: transparent;
   border: none;
+  font-size: 16px;
 }
 
 .translated-ltr header#page-head .top-navs .nav-global {
