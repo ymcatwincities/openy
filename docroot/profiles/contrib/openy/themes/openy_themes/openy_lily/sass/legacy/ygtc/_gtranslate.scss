@@ -1,0 +1,36 @@
+#block-openy-lily-googletranslate {
+  background: transparent;
+
+  .openy-google-translate {
+     margin-bottom: 5px;
+
+    .goog-te-gadget {
+      line-height: 73px;
+      border-top: 2px solid transparent;
+      color: #777;
+      font-size: 16px;
+      max-height: 100px;
+      padding: 15px;
+      &:hover {
+        background: #fff;
+        border-top: 2px solid #aa228d;
+        color: $black;
+      }
+    }
+  }
+
+  .openy-google-translate select {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+  }
+}
+
+.translated-ltr header#page-head .top-navs .nav-global {
+  margin-top: 0 !important;
+}
+
+.translated-ltr header#page-head .top-navs .nav-wrapper .main-nav.affix,
+.translated-rtl header#page-head .top-navs .nav-wrapper .main-nav.affix {
+  top: 100px;
+}
