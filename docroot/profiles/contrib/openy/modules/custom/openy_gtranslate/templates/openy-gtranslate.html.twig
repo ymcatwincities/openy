@@ -8,7 +8,13 @@
 <div class="openy-google-translate" id="google_translate_element"></div>
 <script type="text/javascript">
   function googleTranslateElementInit() {
-    new google.translate.TranslateElement({pageLanguage: drupalSettings.path.currentLanguage, layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    new google.translate.TranslateElement(
+      {pageLanguage: drupalSettings.path.currentLanguage, layout: google.translate.TranslateElement.InlineLayout.VERTICAL},
+      'google_translate_element');
+      if(typeof(document.querySelector) == 'function') {
+         document.querySelector('.goog-logo-link').setAttribute('style', 'display: none');
+         document.querySelector('.goog-te-gadget').setAttribute('style', 'font-size: 0');
+      }
   }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

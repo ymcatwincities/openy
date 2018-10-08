@@ -7195,6 +7195,16 @@ article .node--view-mode-flexible-content h2 a span {
   font-size: 22px;
 }
 
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0px !important;
+}
+
+body {
+  top: 0px !important;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
@@ -13991,6 +14001,14 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     display: block !important;
   }
 }
+header#page-head .top-navs #block-topmenu2 .nav li a,
+header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a,
+header#page-head .top-navs #block-anonymoususersmenu .nav li a,
+header#page-head .top-navs #block-openy-lily-user-menu .nav li a,
+header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li a,
+header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
+  margin-bottom: 2px;
+}
 @media (min-width: 0) and (max-width: 47.9375em) {
   header#page-head #block-openy-lily-branding .ymca-branding-slogan {
     display: none;
@@ -14636,6 +14654,40 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   .content-banner .content-prgf-image {
     margin: 0 15px !important;
   }
+}
+
+#block-openy-lily-googletranslate {
+  background: transparent;
+}
+#block-openy-lily-googletranslate .openy-google-translate {
+  margin-bottom: 5px;
+}
+#block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget {
+  line-height: 73px;
+  border-top: 2px solid transparent;
+  color: #777;
+  font-size: 16px;
+  max-height: 100px;
+  padding: 15px;
+}
+#block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget:hover {
+  background: #fff;
+  border-top: 2px solid #aa228d;
+  color: #231f20;
+}
+#block-openy-lily-googletranslate .openy-google-translate select {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+}
+
+.translated-ltr header#page-head .top-navs .nav-global {
+  margin-top: 0 !important;
+}
+
+.translated-ltr header#page-head .top-navs .nav-wrapper .main-nav.affix,
+.translated-rtl header#page-head .top-navs .nav-wrapper .main-nav.affix {
+  top: 100px;
 }
 
 [class^="icon-"], [class*=" icon-"] {
