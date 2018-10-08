@@ -133,6 +133,13 @@ header#page-head {
       @include breakpoint (768px 992px) {
         display: block !important;
       }
+      .nav {
+        li {
+          a {
+            margin-bottom: 2px;
+          }
+        }
+      }
     }
   }
 
