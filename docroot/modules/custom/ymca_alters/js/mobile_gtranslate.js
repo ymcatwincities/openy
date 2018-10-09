@@ -10,13 +10,9 @@
    */
   Drupal.behaviors.MobileGTranslate = {
     attach: function (context) {
+      var el = $('#google_translate_element');
       $(".navbar-toggler").on('click', function () {
-        setTimeout(function () {
-          var el = $('#block-openy-lily-googletranslate');
-          console.log('test');
-          el.addClass('mobile');
-          $(el).appendTo('#sidebar-nav > li > ul > li.more');
-        }, 100);
+        el.appendTo('#sidebar-nav > li > ul > li.more');
       });
     }
   };
