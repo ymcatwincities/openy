@@ -1,9 +1,0 @@
-openy_repeat.schedules_ajax:
-  path: '/schedules/get-event-data/{location}/{category}/{date}'
-  defaults:
-    _controller: '\Drupal\openy_repeat\Controller\RepeatController::ajaxScheduler'
-    location: ''
-    category: ''
-    date: '0'
-  requirements:
-    _permission: 'access content'
