@@ -86,7 +86,7 @@
         description: ''
       }
     },
-    created() {
+    created: function() {
       var component = this;
       // If there are any exclusions available from settings.
       var exclusionSettings = window.OpenY.field_prgf_repeat_schedule_excl || [];
@@ -144,7 +144,7 @@
       component.$watch('locations', function(){ component.runAjaxRequest(); });
       component.$watch('categories', function(){ component.runAjaxRequest(); });
     },
-    mounted() {
+    mounted: function() {
       /* It doesn't work if try to add datepicker in created. */
       var component = this;
       $('#datepicker input').datepicker({
