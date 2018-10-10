@@ -34,3 +34,27 @@
 .translated-rtl header#page-head .top-navs .nav-wrapper .main-nav.affix {
   top: 100px;
 }
+
+@media (max-width: 767px) {
+
+  .openy-google-translate {
+    .goog-te-gadget {
+      padding: 20px 15px;
+    }
+  }
+  .openy-google-translate {
+    background: #0089d1;
+    font-family: "Cachet", Arial, sans-serif;
+    text-shadow: none;
+  }
+  .goog-te-combo {
+    border: none;
+    background: none;
+    color: #fff;
+    text-transform: uppercase;
+    width: 100%;
+    option {
+      color: $black;
+    }
+  }
+}
