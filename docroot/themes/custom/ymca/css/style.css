@@ -13106,6 +13106,9 @@ body {
   .openy-google-translate select:hover {
     color: #fff;
   }
+  .openy-google-translate .goog-te-gadget {
+    padding: 15px 11px;
+  }
   .openy-google-translate .goog-te-gadget:hover {
     background: none;
     border-top: none;
