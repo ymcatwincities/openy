@@ -17,6 +17,16 @@ class KronosMBCSVHistory extends FormBase {
   const DIR = 'mb_kronos_history';
 
   /**
+   * MindBody file format.
+   */
+  const MINDBODY_CSV_FILE_FORMAT = 'MB_%s--%s.csv';
+
+  /**
+   * Output MindBody file date format .
+   */
+  const DATE_OUTPUT_FORMAT = 'Y-m-d';
+
+  /**
    * URI for destination directory.
    *
    * @var string
@@ -145,6 +155,28 @@ class KronosMBCSVHistory extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $form_state->setRebuild();
+
+    // Move the file to appropriate place.
+    $file = $form_state->getValue(['file']);
+    /** @var \Drupal\file\FileInterface $file */
+    $file = \Drupal::entityTypeManager()->getStorage('file')->load($file[0]);
+
+    // Format destination name.
+    $dates = $form_state->getValue('dates');
+    $startDate = \DateTime::createFromFormat('U', $dates[0]);
+    $endDate = \DateTime::createFromFormat('U', $dates[1]);
+    $destinationName = sprintf(
+      self::MINDBODY_CSV_FILE_FORMAT,
+      $startDate->format(self::DATE_OUTPUT_FORMAT),
+      $endDate->format(self::DATE_OUTPUT_FORMAT)
+    );
+
+    $destination = sprintf('%s/%s', $this->destinationUri, $destinationName);
+
+    $file = file_move($file, $destination, FILE_EXISTS_REPLACE);
+    $file->setPermanent();
+    $file->save();
+
     $generator = \Drupal::service('yptf_kronos_reports.generate');
 
     // Get dates from the file.
