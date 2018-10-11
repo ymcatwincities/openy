@@ -193,8 +193,7 @@ class YptfKronosReports {
    *   FALSE in case .
    */
   public function generateReports($day) {
-    if (!in_array($day, ['tuesday', 'monday'])) {
-      $this->logger->error('Report type "%type" is not supported.', ['%type' => $day]);
+    if (!$this->dayIsSupported($day)) {
       return FALSE;
     }
 
@@ -219,6 +218,50 @@ class YptfKronosReports {
     }
 
     return TRUE;
+  }
+
+  /**
+   * Checks if day is supported.
+   *
+   * @param string $day
+   *   Day name.
+   *
+   * @return bool
+   *   TRUE if day is supported.
+   */
+  private function dayIsSupported($day) {
+    if (!in_array($day, ['tuesday', 'monday'])) {
+      $this->logger->error('Report type "%type" is not supported.', ['%type' => $day]);
+      return FALSE;
+    }
+
+    return TRUE;
+  }
+
+  /**
+   * Generates HTML reports.
+   *
+   * @param string $day
+   *   Day of the report.
+   * @param array $dates
+   *   Keyed array with "start" and "end" timestamps.
+   *
+   * @return string
+   *   HTML for report.
+   *
+   */
+  public function generateHtmlReports($day, $dates = []) {
+    if (!$this->dayIsSupported($day)) {
+      drupal_set_message(t('Day is not supported'));
+      return FALSE;
+    }
+
+    if (empty($dates)) {
+      drupal_set_message(t('Timestamps for "start" and "end" dates are required.'));
+      return FALSE;
+    }
+
+    return '<p>Here will be the report!</p>';
   }
 
   /**
