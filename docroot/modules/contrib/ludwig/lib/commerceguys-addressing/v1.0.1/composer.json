@@ -1,0 +1,41 @@
+{
+    "name": "commerceguys/addressing",
+    "type": "library",
+    "description": "Addressing library powered by CLDR and Google's address data.",
+    "keywords": ["postal", "address", "internationalization", "localization"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.5.0",
+        "doctrine/collections": "~1.0"
+    },
+    "require-dev": {
+        "symfony/validator": ">=3.2",
+        "phpunit/phpunit": "~4.0",
+        "mikey179/vfsStream": "1.*",
+        "squizlabs/php_codesniffer": "2.*"
+    },
+    "suggest": {
+        "symfony/validator": "to validate addresses"
+    },
+    "autoload": {
+        "psr-4": { "CommerceGuys\\Addressing\\": "src" }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CommerceGuys\\Addressing\\Tests\\": "tests"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bojan Zivanovic"
+        },
+        {
+            "name": "Damien Tournoud"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}
