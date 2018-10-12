@@ -27,7 +27,7 @@ class CountryItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    return array(
+    return [
       'columns' => [
         'value' => [
           'type' => 'char',
@@ -38,7 +38,7 @@ class CountryItem extends FieldItemBase {
       'indexes' => [
         'value' => ['value'],
       ],
-    );
+    ];
   }
 
   /**

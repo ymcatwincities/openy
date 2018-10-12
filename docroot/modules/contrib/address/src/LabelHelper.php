@@ -15,6 +15,30 @@ use CommerceGuys\Addressing\AddressFormat\AddressFormat;
 class LabelHelper {
 
   /**
+   * Gets the generic field labels.
+   *
+   * Intended primarily for backend settings screens.
+   *
+   * @return string[]
+   *   The field labels, keyed by field.
+   */
+  public static function getGenericFieldLabels() {
+    return [
+      AddressField::GIVEN_NAME => t('First name', [], ['context' => 'Address label']),
+      AddressField::ADDITIONAL_NAME => t('Middle name', [], ['context' => 'Address label']),
+      AddressField::FAMILY_NAME => t('Last name', [], ['context' => 'Address label']),
+      AddressField::ORGANIZATION => t('Company', [], ['context' => 'Address label']),
+      AddressField::ADDRESS_LINE1 => t('Address line 1', [], ['context' => 'Address label']),
+      AddressField::ADDRESS_LINE2 => t('Address line 2', [], ['context' => 'Address label']),
+      AddressField::POSTAL_CODE => t('Postal code', [], ['context' => 'Address label']),
+      AddressField::SORTING_CODE => t('Sorting code', [], ['context' => 'Address label']),
+      AddressField::DEPENDENT_LOCALITY => t('Dependent locality (e.g. Neighbourhood)', [], ['context' => 'Address label']),
+      AddressField::LOCALITY => t('Locality (e.g. City)', [], ['context' => 'Address label']),
+      AddressField::ADMINISTRATIVE_AREA => t('Administrative area (e.g. State or Province)', [], ['context' => 'Address label']),
+    ];
+  }
+
+  /**
    * Gets the field labels suitable for the given address format.
    *
    * Intended to be shown to the end user, they sometimes use a more familiar
@@ -34,43 +58,19 @@ class LabelHelper {
     $postal_code_type = $address_format->getPostalCodeType();
 
     return [
-      AddressField::ADMINISTRATIVE_AREA => self::getAdministrativeAreaLabel($administrative_area_type),
-      AddressField::LOCALITY => self::getLocalityLabel($locality_type),
-      AddressField::DEPENDENT_LOCALITY => self::getDependentLocalityLabel($dependent_locality_type),
-      AddressField::POSTAL_CODE => self::getPostalCodeLabel($postal_code_type),
-      // Google's library always labels the sorting code field as "Cedex".
-      AddressField::SORTING_CODE => t('Cedex', [], ['context' => 'Address label']),
+      AddressField::GIVEN_NAME => t('First name', [], ['context' => 'Address label']),
+      AddressField::ADDITIONAL_NAME => t('Middle name', [], ['context' => 'Address label']),
+      AddressField::FAMILY_NAME => t('Last name', [], ['context' => 'Address label']),
+      AddressField::ORGANIZATION => t('Company', [], ['context' => 'Address label']),
       AddressField::ADDRESS_LINE1 => t('Street address', [], ['context' => 'Address label']),
       // The address line 2 label is usually shown only to screen-reader users.
       AddressField::ADDRESS_LINE2 => t('Street address line 2', [], ['context' => 'Address label']),
-      AddressField::ORGANIZATION => t('Company', [], ['context' => 'Address label']),
-      AddressField::GIVEN_NAME => t('First name', [], ['context' => 'Address label']),
-      AddressField::ADDITIONAL_NAME => t('Middle name', [], ['context' => 'Address label']),
-      AddressField::FAMILY_NAME => t('Last name', [], ['context' => 'Address label']),
-    ];
-  }
-
-  /**
-   * Gets the generic field labels.
-   *
-   * Intended primarily for backend settings screens.
-   *
-   * @return string[]
-   *   The field labels, keyed by field.
-   */
-  public static function getGenericFieldLabels() {
-    return [
-      AddressField::ADMINISTRATIVE_AREA => t('Administrative area', [], ['context' => 'Address label']),
-      AddressField::LOCALITY => t('Locality', [], ['context' => 'Address label']),
-      AddressField::DEPENDENT_LOCALITY => t('Dependent locality', [], ['context' => 'Address label']),
-      AddressField::POSTAL_CODE => t('Postal code', [], ['context' => 'Address label']),
-      AddressField::SORTING_CODE => t('Sorting code', [], ['context' => 'Address label']),
-      AddressField::ADDRESS_LINE1 => t('Address line 1', [], ['context' => 'Address label']),
-      AddressField::ADDRESS_LINE2 => t('Address line 2', [], ['context' => 'Address label']),
-      AddressField::ORGANIZATION => t('Company', [], ['context' => 'Address label']),
-      AddressField::GIVEN_NAME => t('First name', [], ['context' => 'Address label']),
-      AddressField::ADDITIONAL_NAME => t('Middle name', [], ['context' => 'Address label']),
-      AddressField::FAMILY_NAME => t('Last name', [], ['context' => 'Address label']),
+      AddressField::POSTAL_CODE => self::getPostalCodeLabel($postal_code_type),
+      // Google's library always labels the sorting code field as "Cedex".
+      AddressField::SORTING_CODE => t('Cedex', [], ['context' => 'Address label']),
+      AddressField::DEPENDENT_LOCALITY => self::getDependentLocalityLabel($dependent_locality_type),
+      AddressField::LOCALITY => self::getLocalityLabel($locality_type),
+      AddressField::ADMINISTRATIVE_AREA => self::getAdministrativeAreaLabel($administrative_area_type),
     ];
   }
 

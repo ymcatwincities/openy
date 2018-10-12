@@ -120,9 +120,9 @@ class AdministrativeAreaFilterTest extends BrowserTestBase {
   }
 
   /**
-   * Test that the static vs. dynamic label feature works properly.
+   * Tests dynamic administrative area labels.
    */
-  public function testAdministrativeAreaLabels() {
+  public function testDynamicAdministrativeAreaLabels() {
     $static_label = 'Administrative area (static label)';
     $dynamic_labels = [
       'AE' => 'Emirate',
@@ -130,27 +130,12 @@ class AdministrativeAreaFilterTest extends BrowserTestBase {
       'CA' => 'Province',
       'US' => 'State',
     ];
-
-    // Force the view into our expected configuration. Use contextual filter
-    // to set the country, and start with static labels.
     $view = Views::getView('address_test_filter_administrative_area');
     $filters = $view->getDisplay()->getOption('filters');
     $filters['field_address_test_administrative_area']['country']['country_source'] = 'argument';
     $filters['field_address_test_administrative_area']['country']['country_argument_id'] = 'field_address_test_country_code';
-    $filters['field_address_test_administrative_area']['expose']['label_type'] = 'static';
-    $filters['field_address_test_administrative_area']['expose']['label'] = $static_label;
-    $view->getDisplay()->overrideOption('filters', $filters);
-    $view->save();
-
-    foreach ($dynamic_labels as $country => $dynamic_label) {
-      $this->drupalGet("address-test/views/filter-administrative-area/$country");
-      $this->assertSession()->pageTextContains($static_label);
-      $this->assertSession()->pageTextNotContains($dynamic_label);
-    }
-
-    // Configure for dynamic labels and test again.
-    $view = Views::getView('address_test_filter_administrative_area');
     $filters['field_address_test_administrative_area']['expose']['label_type'] = 'dynamic';
+    $filters['field_address_test_administrative_area']['expose']['label'] = $static_label;
     $view->getDisplay()->overrideOption('filters', $filters);
     $view->save();
 
