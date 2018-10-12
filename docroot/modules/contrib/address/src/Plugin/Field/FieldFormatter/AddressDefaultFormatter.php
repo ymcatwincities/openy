@@ -6,7 +6,7 @@ use CommerceGuys\Addressing\AddressFormat\AddressField;
 use CommerceGuys\Addressing\AddressFormat\AddressFormat;
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
 use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
-use CommerceGuys\Addressing\LocaleHelper;
+use CommerceGuys\Addressing\Locale;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Drupal\address\AddressInterface;
 use Drupal\address\FieldHelper;
@@ -145,18 +145,9 @@ class AddressDefaultFormatter extends FormatterBase implements ContainerFactoryP
     $address_format = $this->addressFormatRepository->get($country_code);
     $values = $this->getValues($address, $address_format);
 
-    $element = [];
-    $element['address_format'] = [
-      '#type' => 'value',
-      '#value' => $address_format,
-    ];
-    $element['locale'] = [
-      '#type' => 'value',
-      '#value' => $address->getLocale(),
-    ];
-    $element['country_code'] = [
-      '#type' => 'value',
-      '#value' => $country_code,
+    $element = [
+      '#address_format' => $address_format,
+      '#locale' => $address->getLocale(),
     ];
     $element['country'] = [
       '#type' => 'html_tag',
@@ -195,11 +186,11 @@ class AddressDefaultFormatter extends FormatterBase implements ContainerFactoryP
    */
   public static function postRender($content, array $element) {
     /** @var \CommerceGuys\Addressing\AddressFormat\AddressFormat $address_format */
-    $address_format = $element['address_format']['#value'];
-    $locale = $element['locale']['#value'];
+    $address_format = $element['#address_format'];
+    $locale = $element['#locale'];
     // Add the country to the bottom or the top of the format string,
     // depending on whether the format is minor-to-major or major-to-minor.
-    if (LocaleHelper::match($address_format->getLocale(), $locale)) {
+    if (Locale::matchCandidates($address_format->getLocale(), $locale)) {
       $format_string = '%country' . "\n" . $address_format->getLocalFormat();
     }
     else {
@@ -283,7 +274,7 @@ class AddressDefaultFormatter extends FormatterBase implements ContainerFactoryP
       // Remember the original value so that it can be used for $parents.
       $original_values[$field] = $values[$field];
       // Replace the value with the expected code.
-      $use_local_name = LocaleHelper::match($address->getLocale(), $subdivision->getLocale());
+      $use_local_name = Locale::matchCandidates($address->getLocale(), $subdivision->getLocale());
       $values[$field] = $use_local_name ? $subdivision->getLocalCode() : $subdivision->getCode();
       if (!$subdivision->hasChildren()) {
         // The current subdivision has no children, stop.
