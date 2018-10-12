@@ -2,8 +2,9 @@
 
 namespace Drupal\address\Plugin\views\field;
 
-use CommerceGuys\Addressing\LocaleHelper;
+use CommerceGuys\Addressing\Locale;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -57,10 +58,32 @@ class Subdivision extends FieldPluginBase {
   /**
    * {@inheritdoc}
    */
+  protected function defineOptions() {
+    $options = parent::defineOptions();
+    $options['display_name'] = ['default' => TRUE];
+
+    return $options;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+    $form['display_name'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Display the subdivision name instead of the subdivision code'),
+      '#default_value' => !empty($this->options['display_name']),
+    ];
+    parent::buildOptionsForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function render(ResultRow $values) {
     $value = $this->getValue($values);
-    if (empty($value)) {
-      return '';
+    if (empty($value) || empty($this->options['display_name'])) {
+      return $this->sanitizeValue($value);
     }
 
     $entity = $this->getEntity($values);
@@ -93,9 +116,8 @@ class Subdivision extends FieldPluginBase {
     }
     /** @var \CommerceGuys\Addressing\Subdivision\Subdivision $subdivision */
     $subdivision = $this->subdivisionRepository->get($code, $parents);
-    // @todo Allow a choice between subdivision code and name.
     if ($subdivision) {
-      $use_local_name = LocaleHelper::match($address->getLocale(), $subdivision->getLocale());
+      $use_local_name = Locale::matchCandidates($address->getLocale(), $subdivision->getLocale());
       $value = $use_local_name ? $subdivision->getLocalName() : $subdivision->getName();
     }
 

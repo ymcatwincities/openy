@@ -102,14 +102,24 @@ field.field_settings.address:
       label: 'Available countries'
       sequence:
         - type: string
+    langcode_override:
+      type: string
+      label: 'Language override'
+    field_overrides:
+      type: sequence
+      label: 'Field overrides'
+      sequence:
+        type: mapping
+        mapping:
+          override:
+            type: string
+            label: 'Override'
+    # Deprecated, replaced by field_overrides.
     fields:
       type: sequence
       label: 'Used fields'
       sequence:
         - type: string
-    langcode_override:
-      type: string
-      label: 'Language override'
 
 field.field_settings.address_country:
   type: mapping
@@ -146,6 +156,22 @@ field.widget.settings.address_zone_default:
     show_label_field:
       type: boolean
       label: 'Show the zone label field'
+
+views.field.country_code:
+  type: views_field
+  label: 'Country code'
+  mapping:
+    display_name:
+      type: boolean
+      label: 'Display the country name instead of the country code'
+
+views.field.subdivision:
+  type: views_field
+  label: 'Subdivision'
+  mapping:
+    display_name:
+      type: boolean
+      label: 'Display the subdivision name instead of the subdivision code'
 
 views.filter.country_code:
   type: views.filter.in_operator

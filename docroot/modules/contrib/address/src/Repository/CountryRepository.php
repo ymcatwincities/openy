@@ -2,8 +2,7 @@
 
 namespace Drupal\address\Repository;
 
-use CommerceGuys\Intl\Country\CountryRepository as ExternalCountryRepository;
-use CommerceGuys\Addressing\Country\CountryRepositoryInterface as ExternalCountryRepositoryInterface;
+use CommerceGuys\Addressing\Country\CountryRepository as ExternalCountryRepository;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 
@@ -12,7 +11,7 @@ use Drupal\Core\Language\LanguageManagerInterface;
  *
  * Countries are stored on disk in JSON and cached inside Drupal.
  */
-class CountryRepository extends ExternalCountryRepository implements ExternalCountryRepositoryInterface {
+class CountryRepository extends ExternalCountryRepository {
 
   /**
    * The cache backend.
@@ -53,38 +52,10 @@ class CountryRepository extends ExternalCountryRepository implements ExternalCou
     else {
       $filename = $this->definitionPath . $locale . '.json';
       $this->definitions[$locale] = json_decode(file_get_contents($filename), TRUE);
-      // Merge-in base definitions.
-      $base_definitions = $this->loadBaseDefinitions();
-      foreach ($this->definitions[$locale] as $countryCode => $definition) {
-        $this->definitions[$locale][$countryCode] += $base_definitions[$countryCode];
-      }
       $this->cache->set($cache_key, $this->definitions[$locale], CacheBackendInterface::CACHE_PERMANENT, ['countries']);
     }
 
     return $this->definitions[$locale];
-  }
-
-  /**
-   * Loads the base country definitions.
-   *
-   * @return array
-   *   The base country definitions.
-   */
-  protected function loadBaseDefinitions() {
-    if (!empty($this->baseDefinitions)) {
-      return $this->baseDefinitions;
-    }
-
-    $cache_key = 'address.countries.base';
-    if ($cached = $this->cache->get($cache_key)) {
-      $this->baseDefinitions = $cached->data;
-    }
-    else {
-      $this->baseDefinitions = json_decode(file_get_contents($this->definitionPath . 'base.json'), TRUE);
-      $this->cache->set($cache_key, $this->baseDefinitions, CacheBackendInterface::CACHE_PERMANENT, ['countries']);
-    }
-
-    return $this->baseDefinitions;
   }
 
 }
