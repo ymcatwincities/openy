@@ -314,7 +314,7 @@ function openy_lily_preprocess_page(&$variables) {
   }
   else {
     // @todo move out from the theme.
-    $variables['search_view_content_path'] = Url::fromUri('internal:/search')
+    $variables['search_view_content_path'] = Url::fromUri('internal:/search_results')
       ->toString();
   }
 
