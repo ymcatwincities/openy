@@ -247,28 +247,28 @@ class ZoneTerritory extends FormElement {
     $checkbox_path .= '[' . implode('][', $checkbox_parents) . ']';
 
     $element['included_postal_codes'] = [
-      '#type' => 'textfield',
+      '#type' => 'textarea',
       '#title' => t('Included postal codes'),
       '#description' => t('A regular expression ("/(35|38)[0-9]{3}/") or comma-separated list, including ranges ("98, 100:200")'),
       '#default_value' => $value['included_postal_codes'],
+      '#rows' => 1,
       '#states' => [
         'visible' => [
           ':input[name="' . $checkbox_path . '"]' => ['checked' => TRUE],
         ],
       ],
-      '#size' => 35,
     ];
     $element['excluded_postal_codes'] = [
-      '#type' => 'textfield',
+      '#type' => 'textarea',
       '#title' => t('Excluded postal codes'),
       '#description' => t('A regular expression ("/(35|38)[0-9]{3}/") or comma-separated list, including ranges ("98, 100:200")'),
       '#default_value' => $value['excluded_postal_codes'],
+      '#rows' => 1,
       '#states' => [
         'visible' => [
           ':input[name="' . $checkbox_path . '"]' => ['checked' => TRUE],
         ],
       ],
-      '#size' => 35,
     ];
 
     return $element;
