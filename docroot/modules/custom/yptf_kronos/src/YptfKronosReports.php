@@ -284,8 +284,41 @@ class YptfKronosReports {
       return FALSE;
     }
 
-    // @todo Process $this->reports and generate HTML.
-    return '<p>Here will be the report!</p>';
+    $output = '';
+    $reportLeadership = null;
+    $reports = [];
+
+    /** @var \Drupal\ymca_mappings\LocationMappingRepository $locationRepository */
+    $locationRepository = \Drupal::service('ymca_mappings.location_repository');
+    $locations = $locationRepository->loadAllLocationsWithMindBodyId();
+    foreach ($locations as $mapping) {
+      $location = $mapping->get('field_location_ref')->first()->get('entity')->getTarget()->getValue();
+      if (!$location) {
+        $this->logger->error('Failed to load location from mapping %id', ['%id' => $mapping->id()]);
+        continue;
+      }
+
+      if (is_null($reportLeadership)) {
+        $reportLeadership = $this->createReportTable($location->id())['report'];
+      }
+
+      $table = $this->createReportTable($location->id(), 'pt_managers');
+      $reports[$location->id()] = [
+        'id' => $location->id(),
+        'name' => $location->label(),
+        'table' => $table['report'],
+      ];
+    }
+
+    $output .= '<h4>Leadership Report</h4>';
+    $output .= $reportLeadership;
+
+    foreach ($reports as $reportItem) {
+      $output .= "<h4>$reportItem[name]</h4>";
+      $output .= $reportItem['table'];
+    }
+
+    return $output;
   }
 
   /**
