@@ -7,8 +7,8 @@ dependencies:
   - address
   - views
 
-# Information added by Drupal.org packaging script on 2017-09-20
-version: '8.x-1.2'
+# Information added by Drupal.org packaging script on 2018-05-23
+version: '8.x-1.4'
 core: '8.x'
 project: 'address'
-datestamp: 1505896147
+datestamp: 1527081787
