@@ -1,0 +1,77 @@
+{
+	"country_code": "SO",
+	"subdivisions": {
+		"AD": {
+			"name": "Awdal",
+			"iso_code": "SO-AW"
+		},
+		"BK": {
+			"name": "Bakool",
+			"iso_code": "SO-BK"
+		},
+		"BN": {
+			"name": "Banaadir",
+			"iso_code": "SO-BN"
+		},
+		"BR": {
+			"name": "Bari",
+			"iso_code": "SO-BR"
+		},
+		"BY": {
+			"name": "Bay",
+			"iso_code": "SO-BY"
+		},
+		"GG": {
+			"name": "Galguduud",
+			"iso_code": "SO-GA"
+		},
+		"GD": {
+			"name": "Gedo",
+			"iso_code": "SO-GE"
+		},
+		"HR": {
+			"name": "Hiiraan",
+			"iso_code": "SO-HI"
+		},
+		"JD": {
+			"name": "Jubbada Dhexe",
+			"iso_code": "SO-JD"
+		},
+		"JH": {
+			"name": "Jubbada Hoose",
+			"iso_code": "SO-JH"
+		},
+		"MD": {
+			"name": "Mudug",
+			"iso_code": "SO-MU"
+		},
+		"NG": {
+			"name": "Nugaal",
+			"iso_code": "SO-NU"
+		},
+		"SG": {
+			"name": "Sanaag",
+			"iso_code": "SO-SA"
+		},
+		"SD": {
+			"name": "Shabeellaha Dhexe",
+			"iso_code": "SO-SD"
+		},
+		"SH": {
+			"name": "Shabeellaha Hoose",
+			"iso_code": "SO-SH"
+		},
+		"SL": {
+			"name": "Sool",
+			"iso_code": "SO-SO"
+		},
+		"TG": {
+			"name": "Togdheer",
+			"iso_code": "SO-TO"
+		},
+		"WG": {
+			"name": "Woqooyi Galbeed",
+			"iso_code": "SO-WO"
+		}
+	}
+}

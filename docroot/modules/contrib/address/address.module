@@ -67,3 +67,14 @@ function _address_update_entity($entity, $field_name) {
     $address->dependent_locality = $update_helper::updateSubdivision($address->dependent_locality);
   }
 }
+
+/**
+ * Implements hook_module_implements_alter() for hook_tokens.
+ */
+function address_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'tokens') {
+    $group = $implementations['address'];
+    unset($implementations['address']);
+    $implementations['address'] = $group;
+  }
+}

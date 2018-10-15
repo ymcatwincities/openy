@@ -1,8 +1,8 @@
 {
   "require": {
     "commerceguys/addressing": {
-      "version" : "v1.0.0-beta3",
-      "url": "https://github.com/commerceguys/addressing/archive/v1.0.0-beta3.zip"
+      "version" : "v1.0.1",
+      "url": "https://github.com/commerceguys/addressing/archive/v1.0.1.zip"
     }
   }
 }
