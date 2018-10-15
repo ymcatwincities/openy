@@ -3,6 +3,8 @@
 namespace Drupal\address\Plugin\Field\FieldType;
 
 use CommerceGuys\Addressing\AddressFormat\AddressField;
+use CommerceGuys\Addressing\AddressFormat\FieldOverride;
+use CommerceGuys\Addressing\AddressFormat\FieldOverrides;
 use Drupal\address\AddressInterface;
 use Drupal\address\LabelHelper;
 use Drupal\Core\Field\FieldItemBase;
@@ -136,8 +138,10 @@ class AddressItem extends FieldItemBase implements AddressInterface {
    */
   public static function defaultFieldSettings() {
     return self::defaultCountrySettings() + [
-      'fields' => array_values(AddressField::getAll()),
       'langcode_override' => '',
+      'field_overrides' => [],
+      // Replaced by field_overrides.
+      'fields' => [],
     ];
   }
 
@@ -155,14 +159,6 @@ class AddressItem extends FieldItemBase implements AddressInterface {
     }
 
     $element = $this->countrySettingsForm($form, $form_state);
-    $element['fields'] = [
-      '#type' => 'checkboxes',
-      '#title' => $this->t('Used fields'),
-      '#description' => $this->t('Note: an address used for postal purposes needs all of the above fields.'),
-      '#default_value' => $this->getSetting('fields'),
-      '#options' => LabelHelper::getGenericFieldLabels(),
-      '#required' => TRUE,
-    ];
     $element['langcode_override'] = [
       '#type' => 'select',
       '#title' => $this->t('Language override'),
@@ -173,7 +169,81 @@ class AddressItem extends FieldItemBase implements AddressInterface {
       '#access' => \Drupal::languageManager()->isMultilingual(),
     ];
 
+    $element['field_overrides_title'] = [
+      '#type' => 'item',
+      '#title' => $this->t('Field overrides'),
+      '#description' => $this->t('Use field overrides to override the country-specific address format, forcing specific fields to always be hidden, optional, or required.'),
+    ];
+    $element['field_overrides'] = [
+      '#type' => 'table',
+      '#header' => [
+        $this->t('Field'),
+        $this->t('Override'),
+      ],
+      '#element_validate' => [[get_class($this), 'fieldOverridesValidate']],
+    ];
+    $field_overrides = $this->getFieldOverrides();
+    foreach (LabelHelper::getGenericFieldLabels() as $field_name => $label) {
+      $override = isset($field_overrides[$field_name]) ? $field_overrides[$field_name] : '';
+
+      $element['field_overrides'][$field_name] = [
+        'field_label' => [
+          '#type' => 'markup',
+          '#markup' => $label,
+        ],
+        'override' => [
+          '#type' => 'select',
+          '#options' => [
+            FieldOverride::HIDDEN => t('Hidden'),
+            FieldOverride::OPTIONAL => t('Optional'),
+            FieldOverride::REQUIRED => t('Required'),
+          ],
+          '#default_value' => $override,
+          '#empty_option' => $this->t('- No override -'),
+        ],
+      ];
+    }
+
     return $element;
+  }
+
+  /**
+   * Form element validation handler: Removes empty field overrides.
+   *
+   * @param array $element
+   *   The field overrides form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state of the entire form.
+   */
+  public static function fieldOverridesValidate(array $element, FormStateInterface $form_state) {
+    $overrides = $form_state->getValue($element['#parents']);
+    $overrides = array_filter($overrides, function ($data) {
+      return !empty($data['override']);
+    });
+    $form_state->setValue($element['#parents'], $overrides);
+  }
+
+  /**
+   * Gets the field overrides for the current field.
+   *
+   * @return array
+   *   FieldOverride constants keyed by AddressField constants.
+   */
+  public function getFieldOverrides() {
+    $field_overrides = [];
+    if ($fields = $this->getSetting('fields')) {
+      $unused_fields = array_diff(AddressField::getAll(), $fields);
+      foreach ($unused_fields as $field) {
+        $field_overrides[$field] = FieldOverride::HIDDEN;
+      }
+    }
+    else {
+      foreach ($this->getSetting('field_overrides') as $field => $data) {
+        $field_overrides[$field] = $data['override'];
+      }
+    }
+
+    return $field_overrides;
   }
 
   /**
@@ -226,7 +296,7 @@ class AddressItem extends FieldItemBase implements AddressInterface {
   public function getConstraints() {
     $constraints = parent::getConstraints();
     $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
-    $enabled_fields = array_filter($this->getSetting('fields'));
+    $field_overrides = new FieldOverrides($this->getFieldOverrides());
     $constraints[] = $constraint_manager->create('ComplexData', [
       'country_code' => [
         'Country' => [
@@ -234,7 +304,7 @@ class AddressItem extends FieldItemBase implements AddressInterface {
         ],
       ],
     ]);
-    $constraints[] = $constraint_manager->create('AddressFormat', ['fields' => $enabled_fields]);
+    $constraints[] = $constraint_manager->create('AddressFormat', ['fieldOverrides' => $field_overrides]);
 
     return $constraints;
   }

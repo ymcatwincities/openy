@@ -202,7 +202,7 @@ class AddressDefaultWidget extends WidgetBase implements ContainerFactoryPluginI
       '#default_value' => $value,
       '#required' => $this->fieldDefinition->isRequired(),
       '#available_countries' => $item->getAvailableCountries(),
-      '#used_fields' => $this->getFieldSetting('fields'),
+      '#field_overrides' => $item->getFieldOverrides(),
     ];
 
     return $element;
