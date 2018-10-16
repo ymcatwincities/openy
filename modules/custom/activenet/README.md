@@ -13,8 +13,14 @@ print_r($centers); //returns json response of all centers
 All available methods:
 ```
 getSites()
+getCenters()
 getActivities()
+getActivityTypes()
+getActivityCategories()
+getActivityOtherCategories()
 getFlexRegPrograms()
+getFlexRegProgramTypes()
 getMembershipPackages()
 getMembershipCategories()
+getActivityDetail($id)
 ```
