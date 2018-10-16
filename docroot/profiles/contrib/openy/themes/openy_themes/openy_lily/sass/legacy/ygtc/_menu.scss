@@ -8,3 +8,10 @@
     float: left;
   }
 }
+.path-headerhtml {
+  @media (min-width: 62em) {
+    .viewport .secondary_menu .openy-gtranslate {
+      display: none;
+    }
+  }
+}

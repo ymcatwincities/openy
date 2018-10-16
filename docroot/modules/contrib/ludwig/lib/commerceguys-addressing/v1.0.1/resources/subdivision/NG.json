@@ -1,0 +1,116 @@
+{
+	"country_code": "NG",
+	"subdivisions": {
+		"Abia": {
+			"iso_code": "NG-AB"
+		},
+		"Adamawa": {
+			"iso_code": "NG-AD"
+		},
+		"Akwa Ibom": {
+			"iso_code": "NG-AK"
+		},
+		"Anambra": {
+			"iso_code": "NG-AN"
+		},
+		"Bauchi": {
+			"iso_code": "NG-BA"
+		},
+		"Bayelsa": {
+			"iso_code": "NG-BY"
+		},
+		"Benue": {
+			"iso_code": "NG-BE"
+		},
+		"Borno": {
+			"iso_code": "NG-BO"
+		},
+		"Cross River": {
+			"iso_code": "NG-CR"
+		},
+		"Delta": {
+			"iso_code": "NG-DE"
+		},
+		"Ebonyi": {
+			"iso_code": "NG-EB"
+		},
+		"Edo": {
+			"iso_code": "NG-ED"
+		},
+		"Ekiti": {
+			"iso_code": "NG-EK"
+		},
+		"Enugu": {
+			"iso_code": "NG-EN"
+		},
+		"Federal Capital Territory": {
+			"iso_code": "NG-FC"
+		},
+		"Gombe": {
+			"iso_code": "NG-GO"
+		},
+		"Imo": {
+			"iso_code": "NG-IM"
+		},
+		"Jigawa": {
+			"iso_code": "NG-JI"
+		},
+		"Kaduna": {
+			"iso_code": "NG-KD"
+		},
+		"Kano": {
+			"iso_code": "NG-KN"
+		},
+		"Katsina": {
+			"iso_code": "NG-KT"
+		},
+		"Kebbi": {
+			"iso_code": "NG-KE"
+		},
+		"Kogi": {
+			"iso_code": "NG-KO"
+		},
+		"Kwara": {
+			"iso_code": "NG-KW"
+		},
+		"Lagos": {
+			"iso_code": "NG-LA"
+		},
+		"Nasarawa": {
+			"iso_code": "NG-NA"
+		},
+		"Niger": {
+			"iso_code": "NG-NI"
+		},
+		"Ogun State": {
+			"iso_code": "NG-OG"
+		},
+		"Ondo": {
+			"iso_code": "NG-ON"
+		},
+		"Osun": {
+			"iso_code": "NG-OS"
+		},
+		"Oyo": {
+			"iso_code": "NG-OY"
+		},
+		"Plateau": {
+			"iso_code": "NG-PL"
+		},
+		"Rivers": {
+			"iso_code": "NG-RI"
+		},
+		"Sokoto": {
+			"iso_code": "NG-SO"
+		},
+		"Taraba": {
+			"iso_code": "NG-TA"
+		},
+		"Yobe": {
+			"iso_code": "NG-YO"
+		},
+		"Zamfara": {
+			"iso_code": "NG-ZA"
+		}
+	}
+}
