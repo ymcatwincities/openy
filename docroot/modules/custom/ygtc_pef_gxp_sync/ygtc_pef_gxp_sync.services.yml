@@ -4,10 +4,14 @@ services:
     arguments: ['ygtc_pef_gxp_sync']
   ygtc_pef_gxp_sync.wrapper:
     class: Drupal\ygtc_pef_gxp_sync\syncer\Wrapper
-    arguments: ['@entity.query']
+    arguments: []
   ygtc_pef_gxp_sync.fetcher:
     class: Drupal\ygtc_pef_gxp_sync\syncer\Fetcher
-    arguments: ['@ygtc_pef_gxp_sync.wrapper', '@logger.channel.ygtc_pef_gxp_sync']
+    arguments:
+      - '@ygtc_pef_gxp_sync.wrapper'
+      - '@logger.channel.ygtc_pef_gxp_sync'
+      - '@http_client'
+      - '@ymca_mappings.location_repository'
   ygtc_pef_gxp_sync.saver:
     class: Drupal\ygtc_pef_gxp_sync\syncer\Saver
     arguments: ['@ygtc_pef_gxp_sync.wrapper', '@logger.channel.ygtc_pef_gxp_sync']

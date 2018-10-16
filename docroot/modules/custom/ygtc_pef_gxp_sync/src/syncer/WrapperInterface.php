@@ -15,11 +15,19 @@ interface WrapperInterface {
   public function getSourceData();
 
   /**
+   * Get processed data.
+   */
+  public function getProcessedData();
+
+  /**
    * Set source data.
+   *
+   * @param int $locationId
+   *   YGTC Location ID.
    *
    * @param array $data
    *   Source data.
    */
-  public function setSourceData(array $data);
+  public function setSourceData($locationId, array $data);
 
 }
