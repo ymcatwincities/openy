@@ -256,19 +256,11 @@
           categories: this.categories.join(',')
         }});
       },
-      populatePopupL: function(location_name) {
-        for (var i = 0; i < this.table.length; i++) {
-          if (this.table[i].location === location_name) {
-            this.locationPopup = this.table[i].location_info;
-          }
-        }
+      populatePopupL: function(index) {
+        this.locationPopup = this.filteredTable[index].location_info;
       },
-      populatePopupC: function(class_id) {
-        for (var i = 0; i < this.table.length; i++) {
-          if (this.table[i].class === class_id) {
-            this.classPopup = this.table[i].class_info;
-          }
-        }
+      populatePopupC: function(index) {
+        this.classPopup = this.filteredTable[index].class_info;
       },
       backOneDay: function() {
         this.date = moment(this.date).add(-1, 'day').format('D MMM YYYY');
