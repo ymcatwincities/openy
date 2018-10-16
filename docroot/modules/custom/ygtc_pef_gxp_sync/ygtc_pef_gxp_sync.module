@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Run syncer.
+ */
+function ygtc_pef_gxp_sync_run() {
+  try {
+    ymca_sync_run("ygtc_pef_gxp_sync.syncer", "proceed");
+  }
+  catch (Exception $e) {
+    \Drupal::logger('ygtc_pef_gxp_sync')
+      ->error('Failed to run syncer with message: %message', ['%message' => $e->getMessage()]);
+  }
+}
+
+/**
+ * Implements hook_ymca_sync_description_alter().
+ */
+function ygtc_pef_gxp_sync_ymca_sync_description_alter(&$items) {
+  $items[] = t('ygtc_pef_gxp_sync.syncer - Synchronize Groupex schedules to PEF.');
+}
