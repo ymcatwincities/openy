@@ -1007,7 +1007,7 @@ function openy_update_8066() {
       ->set('id', $new_id)
       ->save(TRUE);
   }
-}      
+}
 
 /**
  * Enable PEF paragraphs.
@@ -1022,4 +1022,14 @@ function openy_update_8067() {
       $module,
     ]);
   }
+}
+
+/**
+ * Update Branch Hours field.
+ */
+function openy_update_8068() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $branchLocationConfig = drupal_get_path('module', 'openy_loc_branch') . '/config/install';
+  $config_importer->setDirectory($branchLocationConfig);
+  $config_importer->importConfigs(['field.storage.node.field_branch_hours']);
 }

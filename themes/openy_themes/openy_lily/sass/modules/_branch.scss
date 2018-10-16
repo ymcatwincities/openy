@@ -58,6 +58,22 @@
       color: $white;
     }
 
+    .branch-hours-wrapper {
+      width: 100%;
+      margin: 0;
+      border: none;
+      ul.branch-hours {
+        word-wrap: break-word;
+        white-space: initial;
+        list-style: none;
+        & > li {
+          padding-bottom: 15px;
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
+      }
+    }
     .today-hours {
       .today {
         margin-right: 10px;
@@ -71,12 +87,6 @@
         width: 240px;
         left: -15px;
         z-index: 1;
-        td {
-          padding: 0 10px 5px 0;
-          &:first-child {
-            white-space: nowrap;
-          }
-        }
       }
       .dropdown-toggle {
         @include cachet();
@@ -376,6 +386,17 @@
 
 .branch-content {
   margin-top: 40px;
+}
+
+.node--type-branch {
+  .field-branch-hours td,
+  .branch-hours td {
+    padding: 0 0 5px 0;
+    &:first-child {
+      white-space: nowrap;
+      padding-right: 5px;
+    }
+  }
 }
 
 html.js {

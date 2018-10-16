@@ -4,6 +4,11 @@ namespace Drupal\openy_hours_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\openy_field_custom_hours\Plugin\Field\FieldFormatter\CustomHoursFormatterDefault;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation for openy_custom_hours formatter.
@@ -16,83 +21,106 @@ use Drupal\openy_field_custom_hours\Plugin\Field\FieldFormatter\CustomHoursForma
  *   }
  * )
  */
-class CustomHoursToday extends CustomHoursFormatterDefault {
+class CustomHoursToday extends CustomHoursFormatterDefault implements ContainerFactoryPluginInterface {
+
+  /**
+   * Currently active route match object.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $currentRouteMatch;
+
+  /**
+   * Constructs an AddressDefaultFormatter object.
+   *
+   * @param string $plugin_id
+   *   The plugin_id for the formatter.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param array $configuration
+   *   Configuration array.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $current_route_match
+   *   Currently active route match object.
+   */
+  public function __construct($plugin_id, $plugin_definition, array $configuration, RouteMatchInterface $current_route_match) {
+    $field_definition = $configuration['field_definition'];
+    $settings = $configuration['settings'];
+    $label = $configuration['label'];
+    $view_mode = $configuration['view_mode'];
+    $third_party_settings = $configuration['third_party_settings'];
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+
+    $this->currentRouteMatch = $current_route_match;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    // @see \Drupal\Core\Field\FormatterPluginManager::createInstance().
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration,
+      $container->get('current_route_match')
+    );
+  }
 
   /**
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $elements = [];
-    $lazy_hours = [];
-    foreach ($items as $delta => $item) {
-      $groups = [];
-      $rows = [];
-      $label = '';
+    $elementsParent = parent::viewElements($items, $langcode);
 
+    $lazy_hours = $lazy_hours_placeholder = [];
+    foreach ($items as $delta => $item) {
       // Group days by their values.
       foreach ($item as $i_item) {
-        // Do not process label. Store it name for later usage.
         $name = $i_item->getName();
-        if ($name == 'hours_label') {
-          $label = $i_item->getValue();
-          continue;
-        }
-
         $day = str_replace('hours_', '', $name);
         $value = $i_item->getValue() ? $i_item->getValue() : 'closed';
-        $lazy_hours[$day] = $value;
-        if ($groups && end($groups)['value'] == $value) {
-          $array_keys = array_keys($groups);
-          $group = &$groups[end($array_keys)];
-          $group['days'][] = $day;
-        }
-        else {
-          $groups[] = [
-            'value' => $value,
-            'days' => [$day],
-          ];
+        // Do not process label.
+        if ($day != 'label') {
+          $lazy_hours[$day] = $value;
         }
       }
 
-      foreach ($groups as $group_item) {
-        $title = sprintf('%s - %s', ucfirst(reset($group_item['days'])), ucfirst(end($group_item['days'])));
-        if (count($group_item['days']) == 1) {
-          $title = ucfirst(reset($group_item['days']));
-        }
-        $hours = $group_item['value'];
-        $rows[] = [$title . ':', $hours];
+      if ($delta == 0) {
+        $lazy_hours_placeholder = [
+          '#lazy_builder' => [
+            'openy_hours_formatter.hours_today:generateHoursToday',
+            $lazy_hours,
+          ],
+          '#create_placeholder' => TRUE,
+        ];
       }
-
-      $lazy_hours_placeholder = [
-        '#lazy_builder' => [
-          'openy_hours_formatter.hours_today:generateHoursToday',
-          $lazy_hours,
-        ],
-        '#create_placeholder' => TRUE,
-      ];
-
-      $elements[$delta] = [
-        '#theme' => 'openy_hours_formatter',
-        '#hours' => $lazy_hours_placeholder,
-        '#week' => [
-          'title' => [
-            '#type' => 'html_tag',
-            '#tag' => 'h5',
-            '#value' => $label,
-          ],
-          'table' => [
-            '#theme' => 'table',
-            '#header' => [],
-            '#rows' => $rows,
-          ],
-        ],
-        '#attached' => [
-          'library' => [
-            'openy_hours_formatter/openy_hours_formatter',
-          ],
-        ],
-      ];
     }
+
+    // Create unique Id for field in case another openy_custom_hours field will use this FieldFormatter.
+    $node = $this->currentRouteMatch->getParameter('node');
+    $nid = ($node instanceof NodeInterface) ? $node->id() : '';
+    $fieldId = &drupal_static(__FUNCTION__);
+    $fieldId++;
+
+    $elements[] = [
+      '#theme' => 'openy_hours_formatter',
+      '#hours' => $lazy_hours_placeholder,
+      '#week' => [
+        '#theme' => 'item_list',
+        '#attributes' => [
+          'class' => [
+            'branch-hours',
+          ],
+        ],
+        '#items' => $elementsParent,
+      ],
+      '#id' => $nid . $fieldId,
+      '#attached' => [
+        'library' => [
+          'openy_hours_formatter/openy_hours_formatter',
+        ],
+      ],
+    ];
 
     return $elements;
   }

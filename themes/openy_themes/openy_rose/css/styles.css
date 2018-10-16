@@ -3123,6 +3123,22 @@ body {
 .branch-header .desktop a {
   color: #fff;
 }
+.branch-header .desktop .branch-hours-wrapper {
+  width: 100%;
+  margin: 0;
+  border: none;
+}
+.branch-header .desktop .branch-hours-wrapper ul.branch-hours {
+  word-wrap: break-word;
+  white-space: initial;
+  list-style: none;
+}
+.branch-header .desktop .branch-hours-wrapper ul.branch-hours > li {
+  padding-bottom: 15px;
+}
+.branch-header .desktop .branch-hours-wrapper ul.branch-hours > li:last-child {
+  padding-bottom: 0;
+}
 .branch-header .desktop .today-hours .today {
   margin-right: 10px;
 }
@@ -3135,12 +3151,6 @@ body {
   width: 240px;
   left: -15px;
   z-index: 1;
-}
-.branch-header .desktop .today-hours .branch-hours td {
-  padding: 0 10px 5px 0;
-}
-.branch-header .desktop .today-hours .branch-hours td:first-child {
-  white-space: nowrap;
 }
 .branch-header .desktop .today-hours .dropdown-toggle {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
@@ -3407,6 +3417,16 @@ body {
 
 .branch-content {
   margin-top: 40px;
+}
+
+.node--type-branch .field-branch-hours td,
+.branch-header .branch-hours td {
+  padding: 0 0 5px 0;
+}
+.node--type-branch .field-branch-hours td:first-child,
+.branch-header .branch-hours td:first-child {
+  white-space: nowrap;
+  padding-right: 5px;
 }
 
 html.js .branch__updates_queue__button {
