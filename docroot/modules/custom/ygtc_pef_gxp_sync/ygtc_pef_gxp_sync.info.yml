@@ -1,0 +1,7 @@
+name: YGTC PEF GXP Sync
+type: module
+description: Synchronize Groupex schedules to PEF for YGTC.
+package: YGTC
+core: 8.x
+dependencies:
+  - ymca_sync:ymca_sync
