@@ -264,3 +264,25 @@ function openy_node_session_update_8008() {
     }
   }
 }
+
+/**
+ * Update to get fields from prgreg.
+ */
+function openy_node_session_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
+
+  // Add two new fields.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_productid',
+    'field.storage.node.field_availability',
+    'field.field.node.session.field_productid',
+    'field.field.node.session.field_availability',
+    'core.entity_form_display.node.session.default',
+    'core.entity_view_display.node.session.default',
+    'field.field.node.session.field_session_class',
+    'field.field.node.session.field_session_location',
+    'field.field.node.session.field_session_plocation',
+  ]);
+}
