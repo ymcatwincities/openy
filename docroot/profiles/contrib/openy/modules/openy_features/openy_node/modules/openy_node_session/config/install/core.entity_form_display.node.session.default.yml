@@ -2,11 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.session.field_availability
+    - field.field.node.session.field_productid
     - field.field.node.session.field_session_class
     - field.field.node.session.field_session_description
     - field.field.node.session.field_session_exclusions
     - field.field.node.session.field_session_gender
     - field.field.node.session.field_session_in_mbrsh
+    - field.field.node.session.field_session_instructor
     - field.field.node.session.field_session_location
     - field.field.node.session.field_session_max_age
     - field.field.node.session.field_session_mbr_price
@@ -15,10 +18,12 @@ dependencies:
     - field.field.node.session.field_session_online
     - field.field.node.session.field_session_plocation
     - field.field.node.session.field_session_reg_link
+    - field.field.node.session.field_session_room
     - field.field.node.session.field_session_ticket
     - field.field.node.session.field_session_time
     - node.type.session
   module:
+    - content_moderation
     - datetime_range
     - field_group
     - link
@@ -30,6 +35,7 @@ third_party_settings:
   field_group:
     group_session_info:
       children:
+        - field_session_instructor
         - field_session_description
         - field_session_gender
         - field_session_online
@@ -38,7 +44,7 @@ third_party_settings:
         - field_session_max_age
         - field_session_reg_link
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: tab
       format_settings:
         id: ''
@@ -53,7 +59,7 @@ third_party_settings:
         - field_session_mbr_price
         - field_session_nmbr_price
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: tab
       format_settings:
         id: ''
@@ -66,8 +72,9 @@ third_party_settings:
       children:
         - field_session_location
         - field_session_plocation
+        - field_session_room
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: tab
       format_settings:
         id: ''
@@ -81,7 +88,7 @@ third_party_settings:
         - field_session_time
         - field_session_exclusions
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: tab
       format_settings:
         id: ''
@@ -99,14 +106,28 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 13
     region: content
     third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 7
+    weight: 8
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_availability:
+    weight: 28
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_productid:
+    weight: 29
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
     region: content
   field_session_class:
     weight: 1
@@ -118,7 +139,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_session_description:
-    weight: 7
+    weight: 14
     settings:
       rows: 5
       placeholder: ''
@@ -132,7 +153,7 @@ content:
     type: daterange_default
     region: content
   field_session_gender:
-    weight: 8
+    weight: 15
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -144,6 +165,14 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
+  field_session_instructor:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_session_location:
     weight: 11
     settings:
@@ -154,7 +183,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_session_max_age:
-    weight: 12
+    weight: 19
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -168,7 +197,7 @@ content:
     type: number
     region: content
   field_session_min_age:
-    weight: 11
+    weight: 18
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -182,7 +211,7 @@ content:
     type: number
     region: content
   field_session_online:
-    weight: 9
+    weight: 16
     settings:
       display_label: true
     third_party_settings: {  }
@@ -198,15 +227,23 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_session_reg_link:
-    weight: 13
+    weight: 20
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
     region: content
+  field_session_room:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_session_ticket:
-    weight: 10
+    weight: 17
     settings:
       display_label: true
     third_party_settings: {  }
@@ -221,6 +258,7 @@ content:
       edit_mode: closed
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     region: content
   langcode:
@@ -230,9 +268,15 @@ content:
     settings:
       include_locked: true
     third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 17
+    settings: {  }
+    region: content
+    third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -240,27 +284,35 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 8
+    weight: 9
     third_party_settings: {  }
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 14
     region: content
     settings: {  }
+    third_party_settings: {  }
+  redirect:
+    type: string_textfield
+    weight: 16
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 121
+    weight: 18
     third_party_settings: {  }
     region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 11
     third_party_settings: {  }
     region: content
   title:
@@ -273,7 +325,7 @@ content:
     region: content
   uid:
     type: entity_reference_autocomplete
-    weight: 6
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 60
@@ -282,7 +334,7 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
