@@ -6,7 +6,7 @@ use CommerceGuys\Addressing\AddressFormat\AddressField;
 use CommerceGuys\Addressing\AddressFormat\AddressFormat;
 use CommerceGuys\Addressing\AddressFormat\AddressFormatRepositoryInterface;
 use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
-use CommerceGuys\Addressing\LocaleHelper;
+use CommerceGuys\Addressing\Locale;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepositoryInterface;
 use Drupal\address\AddressInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -199,7 +199,7 @@ class AddressPlainFormatter extends FormatterBase implements ContainerFactoryPlu
       // Remember the original value so that it can be used for $parents.
       $original_values[$field] = $value;
       // Replace the value with the expected code.
-      if (LocaleHelper::match($address->getLocale(), $subdivision->getLocale())) {
+      if (Locale::matchCandidates($address->getLocale(), $subdivision->getLocale())) {
         $values[$field] = [
           'code' => $subdivision->getLocalCode(),
           'name' => $subdivision->getLocalName(),

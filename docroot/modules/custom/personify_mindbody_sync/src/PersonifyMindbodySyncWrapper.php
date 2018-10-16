@@ -2,6 +2,7 @@
 
 namespace Drupal\personify_mindbody_sync;
 
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\Query\QueryFactoryInterface;
 use Drupal\personify_mindbody_sync\Entity\PersonifyMindbodyCache;
@@ -71,13 +72,23 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
   protected $query;
 
   /**
+   * Config factory.
+   *
+   * @var ConfigFactory
+   */
+  protected $configFactory;
+
+  /**
    * PersonifyMindbodySyncWrapper constructor.
    *
    * @param QueryFactory $query
    *   Query factory.
+   * @param ConfigFactory $configFactory
+   *   Query factory.
    */
-  public function __construct(QueryFactory $query) {
+  public function __construct(QueryFactory $query, ConfigFactory $configFactory) {
     $this->query = $query;
+    $this->configFactory = $configFactory;
   }
 
   /**
@@ -188,7 +199,24 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
    */
   public function getCurrentTime() {
     $current_time = new \DateTime('now', $this->getPersonifyTimezone());
-    $interval = new \DateInterval(self::DATE_OFFSET);
+
+    // Try to load date offset from config.
+    $offset = $this->configFactory->get('personify_mindbody_sync.settings')->get('personify_date_offset');
+    if (!$offset) {
+      // Use default offset if no config was found.
+      $offset = self::DATE_OFFSET;
+    }
+
+    // We have to make sure that interval string provided by config is parsed OK.
+    try {
+      $interval = new \DateInterval($offset);
+    }
+    catch (\Exception $e) {
+      // The offset is hardcoded and should always work, so no try/catch here.
+      /** @noinspection PhpUnhandledExceptionInspection */
+      $interval = new \DateInterval(self::DATE_OFFSET);
+    }
+
     $current_time->sub($interval);
     return $current_time->format(self::PERSONIFY_DATE_FORMAT);
   }
