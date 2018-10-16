@@ -44,7 +44,16 @@ class Wrapper implements WrapperInterface {
    *  Processed data.
    */
   private function process(array $data) {
-    return $data;
+    $processed = [];
+
+    foreach ($data as $locationId => $locationItems) {
+      foreach ($locationItems as $item) {
+        $item['ygtc_location_id'] = $locationId;
+        $processed[] = $item;
+      }
+    }
+
+    return $processed;
   }
 
 }
