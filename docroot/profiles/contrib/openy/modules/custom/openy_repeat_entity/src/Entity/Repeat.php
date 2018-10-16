@@ -341,6 +341,27 @@ class Repeat extends ContentEntityBase implements RepeatInterface {
       ->setLabel(t('Register text'))
       ->setDescription(t('Text of a register link.'));
 
+    $fields['productid'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Product ID'))
+      ->setDescription(t('Unique ID for the product from external or internal system.'))
+      ->setReadOnly(FALSE);
+    $fields['availability'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Availability counter'))
+      ->setDescription(t('Number of products available to book or purchase.'))
+      ->setReadOnly(FALSE)
+      ->setDefaultValue(0);
+    $fields['program_category'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Program Category'))
+      ->setDescription(t('Reference to the Program Category.'))
+      ->setSetting('target_type', 'node')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'entity_reference_label',
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+      ]);
+
     return $fields;
   }
 }
