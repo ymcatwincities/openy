@@ -42,7 +42,13 @@ class Saver implements SaverInterface {
    * {@inheritdoc}
    */
   public function save() {
-    $a = 10;
+    $data = $this->wrapper->getProcessedData();
+
+    // @todo Loop over data and create the appropriate entities.
+    // @todo Create field_session_class paragraph.
+    // @todo Create field_session_time paragraph.
+    // @todo Create field_session_exclusions paragraph.
+    // @todo Create session instance itself.
   }
 
 }
