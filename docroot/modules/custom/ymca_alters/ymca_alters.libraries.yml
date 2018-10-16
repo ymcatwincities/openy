@@ -33,3 +33,10 @@ blocks:
   dependencies:
     - core/drupal
     - core/jquery
+mobile_gtranslate:
+  version: 1.x
+  js:
+    js/mobile_gtranslate.js: {}
+  dependencies:
+  - core/drupal
+  - core/jquery
