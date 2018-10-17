@@ -71,15 +71,75 @@ class Saver implements SaverInterface {
               '%message' => $exception->getMessage()
             ]
           );
+        continue;
       }
 
-      // @todo Loop over data and create the appropriate entities.
-      // @todo Create field_session_time paragraph.
+      // Get session time paragraph.
+      try {
+        $sessionTime = $this->getSessionTime($item);
+      }
+      catch (\Exception $exception) {
+        $this->logger
+          ->error(
+            'Failed to get session time for Groupex class %class with message %message',
+            [
+              '%class' => $item['class_id'],
+              '%message' => $exception->getMessage()
+            ]
+          );
+        continue;
+      }
+
       // @todo Create field_session_exclusions paragraph.
       // @todo Create session instance itself.
 
       $a = 10;
     }
+  }
+
+  /**
+   * Create session time paragraph.
+   *
+   * @param array $class
+   *   Class properties.
+   *
+   * @return array
+   *   Paragraph ID & Revision ID.
+   *
+   * @throws \Exception
+   */
+  private function getSessionTime(array $class) {
+    $times = $class['patterns'];
+
+    // Convert to UTC timezone to save to database.
+    $siteTimezone = new \DateTimeZone(drupal_get_user_timezone());
+    $gmtTimezone = new \DateTimeZone('GMT');
+
+    $startTime = new \DateTime($class['start_date'] . ' ' . $times['start_time'] . ':00', $siteTimezone);
+    $startTime->setTimezone($gmtTimezone);
+
+    $endTime = new \DateTime($class['end_date'] . ' ' . $times['end_time'] . ':00', $siteTimezone);
+    $endTime->setTimezone($gmtTimezone);
+
+    $startDate = $startTime->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $endDate = $endTime->format(DATETIME_DATETIME_STORAGE_FORMAT);
+
+    if (!isset($times['day']) || empty($times['day'])) {
+      throw new \Exception(sprintf('Day was not found for the class %s', $class['class_id']));
+    }
+
+    $days[] = strtolower($times['day']);
+
+    $paragraph = Paragraph::create(['type' => 'session_time' ]);
+    $paragraph->set('field_session_time_days', $days);
+    $paragraph->set('field_session_time_date', ['value' => $startDate, 'end_value' => $endDate]);
+    $paragraph->isNew();
+    $paragraph->save();
+
+    return [
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+    ];
   }
 
   /**
