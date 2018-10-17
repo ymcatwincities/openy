@@ -20,6 +20,16 @@ To run the process use the next code:
   
   * With Drush:
   `drush ev 'ymca_sync_run("personify_mindbody_sync.syncer", "proceed");'`
+  
+## Fast Syncer configuration
+
+By default, the fast syncer fetches Personify data for the last hour.
+This interval can be changed via settings.
+
+    `drush cset personify_mindbody_sync.settings personify_date_offset P1D`
+    
+Please, look the documentation how to provide the right intervals:
+http://php.net/manual/en/class.dateinterval.php
 
 ## Help methods
 
