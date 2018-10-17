@@ -2,8 +2,7 @@
 
 namespace Drupal\address\Plugin\Validation\Constraint;
 
-use CommerceGuys\Addressing\AddressFormat\AddressField;
-use Symfony\Component\Validator\Constraint;
+use CommerceGuys\Addressing\Validator\Constraints\AddressFormatConstraint as ExternalAddressFormatConstraint;
 
 /**
  * Address format constraint.
@@ -14,30 +13,10 @@ use Symfony\Component\Validator\Constraint;
  *   type = { "address" }
  * )
  */
-class AddressFormatConstraint extends Constraint {
+class AddressFormatConstraint extends ExternalAddressFormatConstraint {
 
-  public $fields;
   public $blankMessage = '@name field must be blank.';
   public $notBlankMessage = '@name field is required.';
   public $invalidMessage = '@name field is not in the right format.';
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct($options = NULL) {
-    parent::__construct($options);
-
-    // Validate all fields by default.
-    if (empty($this->fields)) {
-      $this->fields = array_values(AddressField::getAll());
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getTargets() {
-    return self::CLASS_CONSTRAINT;
-  }
 
 }

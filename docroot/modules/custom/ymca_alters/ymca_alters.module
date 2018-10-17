@@ -332,6 +332,9 @@ function ymca_alters_page_attachments(array &$page) {
   // Add original promo blocks decorator.
   $page['#attached']['library'][] = 'ymca_alters/promo_blocks';
 
+  // Add mobile google translate.
+  $page['#attached']['library'][] = 'ymca_alters/mobile_gtranslate';
+
   // Alter CSS for File Browser, Content Browser.
   $theme = \Drupal::theme()->getActiveTheme()->getName();
   if ($theme == 'seven') {
@@ -497,8 +500,9 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
   $current_links = $breadcrumb->getLinks();
   /** @var \Drupal\Core\Link $last */
   $last = end($current_links);
+
   // Remove trailing duplicate.
-  if ($last->getText() != $title) {
+  if ($last && $last->getText() != $title) {
     $breadcrumb->addLink(Link::createFromRoute($title, '<none>'));
   }
 

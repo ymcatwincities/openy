@@ -1,5 +1,5 @@
 @import 'compass';
-@import 'breakpoint';
+//@import 'breakpoint';
 @import 'bootstrap/variables';
 @import 'base/decor';
 @import 'base/mixins';
@@ -28,6 +28,7 @@
 @import 'misc/camp_du_nord';
 @import 'blocks/block-description';
 @import 'misc/sidebar';
+@import "base/gtranslate";
 
 @import 'paragraphs/banner';
 @import 'paragraphs/content-banner';

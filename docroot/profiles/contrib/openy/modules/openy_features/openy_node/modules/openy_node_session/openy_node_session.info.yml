@@ -3,7 +3,10 @@ description: 'OpenY Session.'
 type: module
 core: 8.x
 package: OpenY
+version: 8.x-1.0-ygtc-backport
 dependencies:
+  - content_moderation
+  - datalayer
   - datetime_range
   - entity_reference_revisions
   - field
@@ -11,9 +14,6 @@ dependencies:
   - link
   - menu_ui
   - node
-  - openy_loc_branch
-#  - openy_loc_camp
-  - openy_loc_facility
   - openy_node_class
   - options
   - paragraphs

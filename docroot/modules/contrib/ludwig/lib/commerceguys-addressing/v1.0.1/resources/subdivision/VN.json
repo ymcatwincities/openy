@@ -1,0 +1,258 @@
+{
+	"country_code": "VN",
+	"locale": "vi",
+	"subdivisions": {
+		"An Giang Province": {
+			"local_code": "An Giang",
+			"iso_code": "VN-44"
+		},
+		"Ba Ria-Vung Tau Province": {
+			"local_code": "Bà Rịa–Vũng Tàu",
+			"iso_code": "VN-43"
+		},
+		"Bac Lieu Province": {
+			"local_code": "Bạc Liêu",
+			"iso_code": "VN-55"
+		},
+		"Bac Giang Province": {
+			"local_code": "Bắc Giang",
+			"iso_code": "VN-54"
+		},
+		"Bac Kan Province": {
+			"local_code": "Bắc Kạn",
+			"iso_code": "VN-53"
+		},
+		"Bac Ninh Province": {
+			"local_code": "Bắc Ninh",
+			"iso_code": "VN-56"
+		},
+		"Ben Tre Province": {
+			"local_code": "Bến Tre",
+			"iso_code": "VN-50"
+		},
+		"Binh Duong Province": {
+			"local_code": "Bình Dương",
+			"iso_code": "VN-57"
+		},
+		"Binh Dinh Province": {
+			"local_code": "Bình Định",
+			"iso_code": "VN-31"
+		},
+		"Binh Phuoc Province": {
+			"local_code": "Bình Phước",
+			"iso_code": "VN-58"
+		},
+		"Binh Thuan Province": {
+			"local_code": "Bình Thuận",
+			"iso_code": "VN-40"
+		},
+		"Ca Mau Province": {
+			"local_code": "Cà Mau",
+			"iso_code": "VN-59"
+		},
+		"Cao Bang Province": {
+			"local_code": "Cao Bằng",
+			"iso_code": "VN-04"
+		},
+		"Can Tho City": {
+			"local_code": "Cần Thơ",
+			"iso_code": "VN-CT"
+		},
+		"Da Nang City": {
+			"local_code": "Đà Nẵng",
+			"iso_code": "VN-DN"
+		},
+		"Dak Lak Province": {
+			"local_code": "Đắk Lắk",
+			"iso_code": "VN-33"
+		},
+		"Dak Nong Province": {
+			"local_code": "Đăk Nông",
+			"iso_code": "VN-72"
+		},
+		"Dien Bien Province": {
+			"local_code": "Điện Biên",
+			"iso_code": "VN-71"
+		},
+		"Dong Nai Province": {
+			"local_code": "Đồng Nai",
+			"iso_code": "VN-39"
+		},
+		"Dong Thap Province": {
+			"local_code": "Đồng Tháp",
+			"iso_code": "VN-45"
+		},
+		"Gia Lai Province": {
+			"local_code": "Gia Lai",
+			"iso_code": "VN-30"
+		},
+		"Ha Giang Province": {
+			"local_code": "Hà Giang",
+			"iso_code": "VN-03"
+		},
+		"Ha Nam Province": {
+			"local_code": "Hà Nam",
+			"iso_code": "VN-63"
+		},
+		"Hanoi City": {
+			"local_code": "Hà Nội",
+			"iso_code": "VN-HN"
+		},
+		"Ha Tinh Province": {
+			"local_code": "Hà Tĩnh",
+			"iso_code": "VN-23"
+		},
+		"Hai Duong Province": {
+			"local_code": "Hải Dương",
+			"iso_code": "VN-61"
+		},
+		"Haiphong City": {
+			"local_code": "Hải Phòng",
+			"iso_code": "VN-HP"
+		},
+		"Hau Giang Province": {
+			"local_code": "Hậu Giang",
+			"iso_code": "VN-73"
+		},
+		"Hoa Binh Province": {
+			"local_code": "Hòa Bình",
+			"iso_code": "VN-14"
+		},
+		"Hung Yen Province": {
+			"local_code": "Hưng Yên",
+			"iso_code": "VN-66"
+		},
+		"Khanh Hoa Province": {
+			"local_code": "Khánh Hòa",
+			"iso_code": "VN-34"
+		},
+		"Kien Giang Province": {
+			"local_code": "Kiên Giang",
+			"iso_code": "VN-47"
+		},
+		"Kon Tum Province": {
+			"local_code": "Kon Tum",
+			"iso_code": "VN-28"
+		},
+		"Lai Chau Province": {
+			"local_code": "Lai Châu",
+			"iso_code": "VN-01"
+		},
+		"Lang Song Province": {
+			"local_code": "Lạng Sơn",
+			"iso_code": "VN-09"
+		},
+		"Lao Cai Province": {
+			"local_code": "Lào Cai",
+			"iso_code": "VN-02"
+		},
+		"Lam Dong Province": {
+			"local_code": "Lâm Đồng",
+			"iso_code": "VN-35"
+		},
+		"Long An Province": {
+			"local_code": "Long An",
+			"iso_code": "VN-41"
+		},
+		"Nam Dinh Province": {
+			"local_code": "Nam Định",
+			"iso_code": "VN-67"
+		},
+		"Nghe An Province": {
+			"local_code": "Nghệ An",
+			"iso_code": "VN-22"
+		},
+		"Ninh Binh Province": {
+			"local_code": "Ninh Bình",
+			"iso_code": "VN-18"
+		},
+		"Ninh Thuan Province": {
+			"local_code": "Ninh Thuận",
+			"iso_code": "VN-36"
+		},
+		"Phu Tho Province": {
+			"local_code": "Phú Thọ",
+			"iso_code": "VN-68"
+		},
+		"Phu Yen Province": {
+			"local_code": "Phú Yên",
+			"iso_code": "VN-32"
+		},
+		"Quang Binh Province": {
+			"local_code": "Quảng Bình",
+			"iso_code": "VN-24"
+		},
+		"Quang Nam Province": {
+			"local_code": "Quảng Nam",
+			"iso_code": "VN-27"
+		},
+		"Quang Ngai Province": {
+			"local_code": "Quảng Ngãi",
+			"iso_code": "VN-29"
+		},
+		"Quang Ninh Province": {
+			"local_code": "Quảng Ninh",
+			"iso_code": "VN-13"
+		},
+		"Quang Tri Province": {
+			"local_code": "Quảng Trị",
+			"iso_code": "VN-25"
+		},
+		"Soc Trang Province": {
+			"local_code": "Sóc Trăng",
+			"iso_code": "VN-52"
+		},
+		"Son La Province": {
+			"local_code": "Sơn La",
+			"iso_code": "VN-05"
+		},
+		"Tay Ninh Province": {
+			"local_code": "Tây Ninh",
+			"iso_code": "VN-37"
+		},
+		"Thai Binh Province": {
+			"local_code": "Thái Bình",
+			"iso_code": "VN-20"
+		},
+		"Thai Nguyen Province": {
+			"local_code": "Thái Nguyên",
+			"iso_code": "VN-69"
+		},
+		"Thanh Hoa Province": {
+			"local_code": "Thanh Hóa",
+			"iso_code": "VN-21"
+		},
+		"Ho Chi Minh City": {
+			"local_code": "Thành phố Hồ Chí Minh",
+			"iso_code": "VN-SG"
+		},
+		"Thua Thien-Hue Province": {
+			"local_code": "Thừa Thiên–Huế",
+			"iso_code": "VN-26"
+		},
+		"Tien Giang Province": {
+			"local_code": "Tiền Giang",
+			"iso_code": "VN-46"
+		},
+		"Tra Vinh Province": {
+			"local_code": "Trà Vinh",
+			"iso_code": "VN-51"
+		},
+		"Tuyen Quang Province": {
+			"local_code": "Tuyên Quang",
+			"iso_code": "VN-07"
+		},
+		"Vinh Long Province": {
+			"local_code": "Vĩnh Long",
+			"iso_code": "VN-49"
+		},
+		"Vinh Phuc Province": {
+			"local_code": "Vĩnh Phúc",
+			"iso_code": "VN-70"
+		},
+		"Yen Bai Province": {
+			"local_code": "Yên Bái",
+			"iso_code": "VN-06"
+		}
+	}
+}
