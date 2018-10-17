@@ -57,44 +57,109 @@ class Saver implements SaverInterface {
   public function save() {
     $data = $this->wrapper->getProcessedData();
 
+    // Loop over processed data and create session entities.
     foreach ($data as $item) {
-      // Get/Create class.
       try {
-        $class = $this->getClass($item);
+        $this->createSession($item);
       }
       catch (\Exception $exception) {
         $this->logger
           ->error(
-            'Failed to get class for Groupex class %class with message %message',
-            [
-              '%class' => $item['class_id'],
-              '%message' => $exception->getMessage()
-            ]
+            'Failed to create a session with error message: %message',
+            ['%message' => $exception->getMessage()]
           );
         continue;
       }
-
-      // Get session time paragraph.
-      try {
-        $sessionTime = $this->getSessionTime($item);
-      }
-      catch (\Exception $exception) {
-        $this->logger
-          ->error(
-            'Failed to get session time for Groupex class %class with message %message',
-            [
-              '%class' => $item['class_id'],
-              '%message' => $exception->getMessage()
-            ]
-          );
-        continue;
-      }
-
-      // @todo Create field_session_exclusions paragraph.
-      // @todo Create session instance itself.
-
-      $a = 10;
     }
+  }
+
+  /**
+   * Create session.
+   *
+   * @param array $class
+   *   Class properties.
+   *
+   * @throws \Exception
+   */
+  private function createSession(array $class) {
+    // Get/Create class.
+    try {
+      $sessionClass = $this->getClass($class);
+    }
+    catch (\Exception $exception) {
+      $message = sprintf(
+        'Failed to get class for Groupex class %s with message %s',
+        $class['class_id'],
+        $exception->getMessage()
+      );
+      throw new \Exception($message);
+    }
+
+    // Get session time paragraph.
+    try {
+      $sessionTime = $this->getSessionTime($class);
+    }
+    catch (\Exception $exception) {
+      $message = sprintf(
+        'Failed to get session time for Groupex class %s with message %s',
+        $class['class_id'],
+        $exception->getMessage()
+      );
+      throw new \Exception($message);
+    }
+
+    // Get session_exclusions.
+    $sessionExclusions = $this->getSessionExclusions($class);
+
+    $session = Node::create([
+      'uid' => 1,
+      'lang' => 'und',
+      'type' => 'session',
+      'title' => $class['title'],
+    ]);
+
+    $session->set('field_session_class', $sessionClass);
+    $session->set('field_session_time', $sessionTime);
+    $session->set('field_session_exclusions', $sessionExclusions);
+    $session->set('field_session_location', ['target_id' => $class['ygtc_location_id']]);
+    $session->set('field_session_room', $class['studio']);
+    $session->set('field_session_instructor', $class['instructor']);
+    $session->set('field_productid', $class['class_id']);
+
+    // YGTC has to have unpublished sessions.
+    $session->setUnpublished();
+
+    $session->save();
+    $this->logger
+      ->debug(
+        'Session has been created. ID: %id',
+        ['%id' => $session->id()]
+      );
+  }
+
+  /**
+   * Get session exclusions.
+   *
+   * @param array $class
+   *   Class properties.
+   *
+   * @return array
+   *   Exclusions.
+   */
+  private function getSessionExclusions(array $class) {
+    $exclusions = [];
+    if (isset($class['exclusions'])) {
+      foreach ($class['exclusions'] as $exclusion) {
+        $exclusionStart = (new \DateTime($exclusion . '00:00:00'))->format('Y-m-d\TH:i:s');
+        $exclusionEnd = (new \DateTime($exclusion . '24:00:00'))->format('Y-m-d\TH:i:s');
+        $exclusions[] = [
+          'value' => $exclusionStart,
+          'end_value' => $exclusionEnd,
+        ];
+      }
+    }
+
+    return $exclusions;
   }
 
   /**
@@ -173,6 +238,8 @@ class Saver implements SaverInterface {
         ]],
         'field_activity_category' => [['target_id' => $this->programSubcategory]],
       ]);
+
+      // @todo Check whether we need unpublish the entity.
       $activity->save();
     }
     else {
@@ -215,6 +282,8 @@ class Saver implements SaverInterface {
         'field_class_activity' => [['target_id' => $activity->id()]],
         'field_content' => $paragraphs,
       ]);
+
+      // @todo Check whether we need unpublish the entity.
       $class->save();
     }
 
