@@ -336,7 +336,8 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
 
     // It's not published.
     if (!$node->isPublished()) {
-      return;
+      // @todo YGTC requires unpublished session. Fix it.
+      // return;
     }
 
     // The session isn't complete or the chain is broken.
