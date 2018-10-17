@@ -4,7 +4,7 @@ services:
     arguments: ['personify_mindbody_sync']
   personify_mindbody_sync.wrapper:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncWrapper
-    arguments: ['@entity.query']
+    arguments: ['@entity.query', '@config.factory']
   personify_mindbody_sync.fetcher_fast:
     class: Drupal\personify_mindbody_sync\PersonifyMindbodySyncFetcherFast
     arguments: ['@personify_mindbody_sync.wrapper', '@http_client', '@config.factory', '@logger.channel.personify_mindbody_sync']

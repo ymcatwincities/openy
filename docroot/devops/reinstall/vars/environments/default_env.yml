@@ -30,6 +30,7 @@ env:
     - { name: 'Enable yptf_kronos_monday', status: true, arguments: "bin/drupal moi yptf_kronos_monday openy_theme_override"}
     - { name: 'Run proper hook update', status: true, arguments: "bin/drupal update:execute openy_block_custom_simple"}
     - { name: 'enable all modules from Openy profile', status: true, arguments: "cd profiles/contrib/openy && sh yparse.sh | xargs drush en -y"}
+    - { name: 'Entity update', status: true, arguments: "drush entup -y"}
   modules:
     - { name: 'dblog stage_file_proxy', status: true }
   drush_commands:

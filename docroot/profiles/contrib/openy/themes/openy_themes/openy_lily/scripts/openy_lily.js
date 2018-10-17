@@ -110,6 +110,26 @@
           $('#block-openy-lily-main-menu .dropdown-toggle').removeClass('expanded-menu');
         }
       });
+      $('#block-topmenu2 .dropdown-toggle', context).each(function () {
+        var $menuItem = $("#block-topmenu2 .dropdown-toggle");
+        var $container = $("#main");
+        $(this).on('click', function (e) {
+          $(this).toggleClass('expanded-menu');
+          $($menuItem).not($(this)).removeClass('expanded-menu');
+          e.preventDefault();
+          $($container).removeClass('expanded-menu');
+          if ($(this).hasClass('expanded-menu')) {
+            $($container).addClass('expanded-menu');
+          }
+        });
+      });
+      $(document).mouseup(function (e) {
+        var $container = $("#block-topmenu2");
+        if (!$container.is(e.target) && $container.has(e.target).length === 0) {
+          $('#main').removeClass('expanded-menu');
+          $('#block-topmenu2 .dropdown-toggle').removeClass('expanded-menu');
+        }
+      });
     }
   };
 

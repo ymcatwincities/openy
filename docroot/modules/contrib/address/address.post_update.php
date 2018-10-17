@@ -43,3 +43,10 @@ function address_post_update_convert_names_subdivisions(&$sandbox = NULL) {
  * @} End of "addtogroup updates-8.x-1.0-rc1".
  */
 
+
+/**
+ * Clear caches to receive the new country list.
+ */
+function address_post_update_clear_country_list() {
+  // An empty update will flush caches.
+}

@@ -70,7 +70,7 @@ class CountryCode extends FieldPluginBase {
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     $form['display_name'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Display the localized country name instead of the two character country code'),
+      '#title' => $this->t('Display the country name instead of the country code'),
       '#default_value' => !empty($this->options['display_name']),
     ];
     parent::buildOptionsForm($form, $form_state);

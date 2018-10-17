@@ -3,9 +3,15 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_session_location
-    - node.type.branch
     - node.type.camp
+    - node.type.location
     - node.type.session
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: ''
 id: node.session.field_session_location
 field_name: field_session_location
 entity_type: node
@@ -20,10 +26,10 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      branch: branch
       camp: camp
+      location: location
     sort:
       field: _none
     auto_create: false
-    auto_create_bundle: branch
+    auto_create_bundle: camp
 field_type: entity_reference
