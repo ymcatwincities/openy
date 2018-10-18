@@ -428,3 +428,11 @@ function openy_rose_preprocess_paragraph_social_list(&$variables) {
       ->render(views_embed_view($block[0]['#name'], $block[0]['#display_id']));
   }
 }
+
+/**
+ * Implements hook_preprocess().
+ */
+function openy_rose_preprocess(array &$variables) {
+  $variables['base_path'] = base_path();
+  $variables['directory'] =  drupal_get_path('theme', 'openy_rose');
+}
