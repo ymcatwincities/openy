@@ -31,6 +31,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   name:
     -
       plugin: get
