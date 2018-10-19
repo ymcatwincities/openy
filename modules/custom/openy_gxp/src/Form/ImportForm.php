@@ -120,6 +120,9 @@ class ImportForm extends FormBase {
         }
       }
 
+      $register_url = isset($row['reservation_id']) && !empty($row['reservation_id']) ? 'https://www.groupexpro.com/gxp/reservations/start/index/' . $row['reservation_id'] : '';
+      $register_button_text = !empty($register_url) ? (string) t('Sign Up') : '';
+
       $newRow = [
         'class_id' => $row['class_id'],
         'category' => json_encode([
@@ -141,6 +144,8 @@ class ImportForm extends FormBase {
           'start_date' => $startDate,
           'end_date' => $endDate,
         ]),
+        'register_url' => $register_url,
+        'register_button_text' => $register_button_text,
         // Add unique ID as class_id is not.
         'unique_id' => md5(serialize($row)),
       ];
