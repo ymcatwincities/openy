@@ -25,6 +25,14 @@ class GameService {
     $this->entityTypeManager = $entity_type_manager;
   }
 
+  /**
+   * Check if the user has more game chances in the selected campaign.
+   *
+   * @param \Drupal\node\NodeInterface $campaign
+   *
+   * @return bool
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   */
   public function isUnplayedGamesExist(NodeInterface $campaign) {
     if (!empty($this->getUnplayedGames($campaign))) {
       return TRUE;
@@ -32,6 +40,14 @@ class GameService {
     return FALSE;
   }
 
+  /**
+   * Get the list of available game chances.
+   *
+   * @param \Drupal\node\NodeInterface $campaign
+   *
+   * @return array
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   */
   public function getUnplayedGames(NodeInterface $campaign) {
 
     $userData = MemberCampaign::getMemberCampaignData($campaign->id());
@@ -51,5 +67,34 @@ class GameService {
       $unplayedGames[] = $game;
     }
     return $unplayedGames;
+  }
+
+  /**
+   * Determines if the member was a winner at least once.
+   *
+   * @param \Drupal\node\NodeInterface $campaign
+   *
+   * @return bool
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   */
+  public function isMemberWinner(NodeInterface $campaign) {
+    $isWinner = FALSE;
+
+    $looseString = $campaign->field_campaign_prize_nowin->value;
+    $userData = MemberCampaign::getMemberCampaignData($campaign->id());
+    $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
+
+    $query = $this->entityTypeManager->getStorage('openy_campaign_member_game')->getQuery();
+    $gameIds = $query->condition('member', $memberCampaignID)
+      ->execute();
+
+    $games = MemberGame::loadMultiple($gameIds);
+    foreach ($games as $game) {
+      if (!empty($game->result->value) && $game->result->value != $looseString) {
+        $isWinner = TRUE;
+      }
+    }
+
+    return $isWinner;
   }
 }

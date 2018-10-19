@@ -27,11 +27,30 @@ class GameBlockForm extends FormBase {
     $msgGameNoGames = $config->get('track_activity_game_no_games');
     $msgGameNoGames = check_markup($msgGameNoGames['value'], $msgGameNoGames['format']);
 
+    $msgGameAlreadyWinner = $config->get('track_activity_game_already_winner');
+    $msgGameAlreadyWinner = check_markup($msgGameAlreadyWinner['value'], $msgGameAlreadyWinner['format']);
+
     $msgGameRemainingOne = $config->get('track_activity_game_games_remaining_one');
     $msgGameRemainingOne = check_markup($msgGameRemainingOne['value'], $msgGameRemainingOne['format']);
 
     $msgGameRemainingMultiple = $config->get('track_activity_game_games_remaining_multiple');
     $msgGameRemainingMultiple = check_markup($msgGameRemainingMultiple['value'], $msgGameRemainingMultiple['format']);
+
+    /** @var \Drupal\Node\Entity\Node $campaign */
+    $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
+    $isAllowedToPlay = TRUE;
+    if ($campaign->field_campaign_game_one_time_win->value == 1 &&
+      \Drupal::service('openy_campaign.game_service')->isMemberWinner($campaign)) {
+      $isAllowedToPlay = FALSE;
+    }
+
+    if (!$isAllowedToPlay) {
+      return [
+        'message' => [
+          '#markup' => $msgGameAlreadyWinner,
+        ],
+      ];
+    }
 
     if (empty($unplayedGames)) {
       return [
@@ -46,8 +65,7 @@ class GameBlockForm extends FormBase {
       '#value' => $unplayedGames,
     ];
 
-    /** @var \Drupal\Node\Entity\Node $campaign */
-    $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
+
     $coverImagePath = NULL;
     if (!empty($campaign->field_flip_cards_cover_image->entity)) {
       /** @var \Drupal\file\Entity\File $coverImage */
