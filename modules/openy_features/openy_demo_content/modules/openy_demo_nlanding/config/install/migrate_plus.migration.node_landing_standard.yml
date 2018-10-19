@@ -69,7 +69,7 @@ process:
   langcode:
     plugin: default_value
     source: language
-    default_value: und
+    default_value: en
   status:
     -
       plugin: get

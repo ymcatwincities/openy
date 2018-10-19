@@ -41,6 +41,10 @@ source:
     uri_file: 'public:/'
     module: openy_demo_nnews
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   module_path:
     plugin: module_path
     source: constants/module
