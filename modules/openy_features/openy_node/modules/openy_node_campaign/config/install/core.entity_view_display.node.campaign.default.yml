@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_expected_visits
     - field.field.node.campaign.field_campaign_fitness_category
     - field.field.node.campaign.field_campaign_game_description
+    - field.field.node.campaign.field_campaign_game_one_time_win
     - field.field.node.campaign.field_campaign_game_short_info
     - field.field.node.campaign.field_campaign_game_title
     - field.field.node.campaign.field_campaign_game_type
@@ -125,6 +126,16 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_campaign_game_one_time_win:
+    weight: 148
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_campaign_game_short_info:
     weight: 139
