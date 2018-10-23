@@ -267,6 +267,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   field_ahb_title: field_ahb_title
   field_ahb_description/value: field_ahb_description
   field_ahb_description/format:
