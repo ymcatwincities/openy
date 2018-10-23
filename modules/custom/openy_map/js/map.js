@@ -1407,7 +1407,9 @@
 
         // If the location list is empty, don't adjust the map at all.
         if (locations.length === 0) {
-          this.map.setView(this.search_center_point);
+          if (this.search_center_point !== null) {
+            this.map.setView(this.search_center_point);
+          }
           return;
         }
 
