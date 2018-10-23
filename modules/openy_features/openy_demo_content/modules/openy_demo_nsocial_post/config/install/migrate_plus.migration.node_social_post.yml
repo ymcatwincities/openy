@@ -56,6 +56,10 @@ source:
     id:
       type: string
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   type:
     plugin: default_value
     default_value: social_post
