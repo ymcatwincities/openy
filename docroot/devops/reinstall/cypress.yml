@@ -7,5 +7,5 @@
   sudo: yes
   
 - name: Build application
-  shell: cd cypress && node_modules/cypress/bin/cypress run > ../build_reports/cypress.txt
+  shell: cd cypress && node_modules/cypress/bin/cypress run > ../../build_reports/cypress.txt
   sudo: yes
