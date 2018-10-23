@@ -11,9 +11,9 @@
 <div class="row schedule-dashboard__content--header">
   <div class="col-sm-12 col-md-8 day-label">
     <h2>
-      <span v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button"><i class="fa fa-angle-left"></i></span>
+      <button v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button" aria-label="previous date"><i class="fa fa-angle-left"></i></button>
       <span class="date" v-cloak>${ dateFormatted }</span>
-      <span v-on:click.stop="forwardOneDay" class="schedule-dashboard__arrow right" role="button"><i class="fa fa-angle-right"></i></span>
+      <button v-on:click.stop="forwardOneDay" class="schedule-dashboard__arrow right" role="button" aria-label="next date"><i class="fa fa-angle-right"></i></button>
     </h2>
   </div>
 
