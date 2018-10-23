@@ -7,11 +7,11 @@
   sudo: yes
 
 - name: Make sure "build_reports" already exists
-    file:
-      path: build_reports
-      state: directory
-      mode: 0777
-    sudo: yes
+  file:
+    path: build_reports
+    state: directory
+    mode: 0777
+  sudo: yes
 
 - name: Run tests
   shell: cd cypress && node_modules/cypress/bin/cypress run > ../build_reports/cypress.txt
