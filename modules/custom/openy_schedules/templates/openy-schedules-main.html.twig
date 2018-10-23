@@ -23,7 +23,7 @@
         </h2>
         <div class="schedule-sessions-group-slider">
           {% for teaser in group %}
-            <a class="views-row row-eq-height" href="{{ teaser.url }}" target="_blank">
+            <a class="views-row row-eq-height" href="{{ teaser.url }}" target="_blank" title="{{ teaser.label }}">
               {% if teaser.included_in_membership %}
                 <div class="included-in-membership"></div>
               {% endif %}

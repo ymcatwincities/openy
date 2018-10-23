@@ -26,7 +26,7 @@
       </h2>
       <div class="schedule-sessions-group-slider">
         {% for key, teaser in group %}
-        <a class="views-row row-eq-height" href="{{ teaser.url }}" target="_blank">
+        <a class="views-row row-eq-height" href="{{ teaser.url }}" target="_blank" title="{{ teaser.label }}">
           <article role="article" class="node node--type-class node--promoted node--view-mode-teaser">
             {% if teaser.included_in_membership %}
               <div class="included-in-membership"></div>
