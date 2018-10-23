@@ -65,3 +65,6 @@
 
   - include: devops/reinstall/reactapps.yml
     tags: [ 'react-commands' ]
+
+  - include: devops/reinstall/cypress.yml
+    tags: [ 'cypress-commands' ]

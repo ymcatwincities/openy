@@ -1,0 +1,11 @@
+---
+
+# This script contains commands to run cypress.io tests from docroot/cypress directory.
+
+- name: Install dependencies
+  shell: cd cypress && yarn install
+  sudo: yes
+  
+- name: Build application
+  shell: cd cypress && node_modules/cypress/bin/cypress run
+  sudo: yes
