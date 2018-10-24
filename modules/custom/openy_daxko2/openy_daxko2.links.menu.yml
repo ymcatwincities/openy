@@ -1,10 +1,11 @@
 openy_daxko2.import:
   title: 'Sync Daxko'
-  parent: system.admin_content
+  parent: openy_system.openy_integration_daxko
   route_name: openy_daxko2.import
+  weight: 110
 
 openy_daxko2.admin:
   title: 'Daxko2 settings'
-  parent: system.admin_config_services
+  parent: openy_system.openy_integration_daxko
   route_name: openy_daxko2.settings
   weight: 100

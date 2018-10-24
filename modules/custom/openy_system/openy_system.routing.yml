@@ -1,3 +1,19 @@
+openy_system.openy_config:
+  path: '/admin/openy'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Open Y'
+  requirements:
+    _permission: 'access administration pages'
+
+openy_system.extend_index:
+  path: '/admin/openy/extend'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Extend'
+  requirements:
+    _permission: 'administer openy modules'
+
 openy_system.modules_list:
   path: '/admin/openy/extend/list'
   defaults:
@@ -6,6 +22,7 @@ openy_system.modules_list:
     _form: 'Drupal\openy_system\Form\OpenyModulesListForm'
   requirements:
     _permission: 'administer openy modules'
+
 openy_system.modules_uninstall:
   path: '/admin/openy/extend/uninstall'
   defaults:
@@ -14,6 +31,7 @@ openy_system.modules_uninstall:
     _form: 'Drupal\openy_system\Form\OpenyModulesUninstallForm'
   requirements:
     _permission: 'administer openy modules'
+
 openy_system.modules_uninstall_confirm:
   path: '/admin/openy/extend/uninstall/confirm'
   defaults:
@@ -21,17 +39,19 @@ openy_system.modules_uninstall_confirm:
     _title: 'Confirm package uninstall'
   requirements:
     _permission: 'administer openy modules'
-openy_system.openy_config:
-  path: '/admin/openy'
+
+openy_system.openy_integration:
+  path: '/admin/openy/integration'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Open Y'
+    _title: 'Integration'
   requirements:
-    _permission: 'administer openy modules'
-openy_system.extend_index:
-  path: '/admin/openy/extend'
+    _permission: 'access administration pages'
+
+openy_system.openy_integration_daxko:
+  path: '/admin/openy/integration/daxko'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Extend'
+    _title: 'Daxko'
   requirements:
-    _permission: 'administer openy modules'
+    _permission: 'administer daxko'
