@@ -8,14 +8,18 @@
  */
 function openy_demo_nlanding_install() {
   // Set account id 36, for groupex pro schedule and embedded groupex pro
-  // schedule.
+  // schedule if needed modules enabled.
   $config_factory = Drupal::configFactory();
-  $config_factory
-    ->getEditable('embedded_groupexpro_schedule.settings')
-    ->set('account', 36)
-    ->save();
-  $config_factory
-    ->getEditable('openy_group_schedules.settings')
-    ->set('account_id', 36)
-    ->save();
+  if (\Drupal::service('module_handler')->moduleExists('embedded_groupexpro_schedule')) {
+    $config_factory
+      ->getEditable('embedded_groupexpro_schedule.settings')
+      ->set('account', 36)
+      ->save();
+  }
+  if (\Drupal::service('module_handler')->moduleExists('openy_group_schedules')) {
+    $config_factory
+      ->getEditable('openy_group_schedules.settings')
+      ->set('account_id', 36)
+      ->save();
+  }
 }
