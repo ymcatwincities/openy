@@ -27,3 +27,19 @@ openy_system.openy_modules_uninstall:
   description: 'Uninstall Open Y packages.'
   weight: 20
   route_name: openy_system.modules_uninstall
+
+openy_system.openy_integration:
+  title: Integration
+  route_name: openy_system.openy_integration
+  parent: openy_system.openy
+  description: 'Configure Open Y integration with third party services.'
+  position: left
+  weight: -10
+
+openy_system.openy_integration_daxko:
+  title: Daxko
+  route_name: openy_system.openy_integration_daxko
+  parent: openy_system.openy_integration
+  description: 'Configure Open Y integration with Daxko services.'
+  position: left
+  weight: 0
