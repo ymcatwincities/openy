@@ -1,5 +1,5 @@
 openy_addthis.settings:
-  path: '/admin/config/services/openy-addthis'
+  path: '/admin/openy/settings/openy-addthis'
   defaults:
     _form: 'Drupal\openy_addthis\Form\OpenyAddThisSettingsForm'
     _title: 'Openy addThis'

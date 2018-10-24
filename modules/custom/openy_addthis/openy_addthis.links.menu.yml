@@ -1,5 +1,6 @@
 openy_addthis.settings:
-  title: 'Openy addThis'
-  parent: system.admin_config_services
-  description: 'Configure Openy addThis settings.'
+  title: 'addThis settings'
+  parent: openy_system.openy_settings
+  description: 'Configure Open Y addThis settings.'
   route_name: openy_addthis.settings
+  weight: 110
