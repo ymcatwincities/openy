@@ -21,6 +21,11 @@ use Drupal\Core\Url;
 class CdnFormFull extends FormBase {
 
   /**
+   *  Offset to add to current date.
+   */
+  const START_DAYS_OFFSET = 1;
+
+  /**
    * The entity query factory.
    *
    * @var \Drupal\Core\Entity\Query\QueryFactory
@@ -90,15 +95,22 @@ class CdnFormFull extends FormBase {
 
     $query = $this->getRequest()->query->all();
 
-    $tz = new \DateTimeZone(\Drupal::config('system.date')
-      ->get('timezone.default'));
+    $tz = new \DateTimeZone(\Drupal::config('system.date')->get('timezone.default'));
     $default_arrival_date = NULL;
     if (!empty($query['arrival_date'])) {
       $dt = new \DateTime($query['arrival_date'], $tz);
       $default_arrival_date = $dt->format('Y-m-d');
     }
     else {
-      $nearest_date = $this->database->query('SELECT cstartdate.field_cdn_prd_start_date_value FROM {cdn_prs_product__field_cdn_prd_start_date} cstartdate LEFT JOIN {cdn_prs_product__field_cdn_prd_capacity_left} cleft ON cstartdate.entity_id = cleft.entity_id WHERE cleft.field_cdn_prd_capacity_left_value != 0 ORDER BY cstartdate.field_cdn_prd_start_date_value ASC LIMIT 1')
+      $nearest_date = $this->database->query(
+        'SELECT cstartdate.field_cdn_prd_start_date_value
+        FROM {cdn_prs_product__field_cdn_prd_start_date} cstartdate
+        LEFT JOIN {cdn_prs_product__field_cdn_prd_capacity_left} cleft ON cstartdate.entity_id = cleft.entity_id
+        WHERE cleft.field_cdn_prd_capacity_left_value != 0
+        AND cstartdate.field_cdn_prd_start_date_value >= (NOW() + INTERVAL :offset DAY)
+        ORDER BY cstartdate.field_cdn_prd_start_date_value ASC LIMIT 1',
+        [':offset' => self::START_DAYS_OFFSET]
+      )
         ->fetchCol();
 
       if ($nearest_date) {
@@ -109,7 +121,7 @@ class CdnFormFull extends FormBase {
       else {
         $dt = new \DateTime();
         $dt->setTimezone($tz);
-        $dt->setTimestamp(REQUEST_TIME + (86400 * 3));
+        $dt->setTimestamp(REQUEST_TIME + (86400 * self::START_DAYS_OFFSET));
         $default_arrival_date = $dt->format('Y-m-d');
       }
 
@@ -372,8 +384,7 @@ class CdnFormFull extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $today = new DrupalDateTime();
-    $today_modified = new DrupalDateTime('+ 2 days');
+    $today_modified = new DrupalDateTime('+ ' . self::START_DAYS_OFFSET . ' day');
     $arrival_date = $form_state->getValue('arrival_date');
     $departure_date = $form_state->getValue('departure_date');
     $arrival_date = DrupalDateTime::createFromFormat('Y-m-d', $arrival_date);
@@ -383,9 +394,13 @@ class CdnFormFull extends FormBase {
     if ($range->days > 30) {
       $form_state->setErrorByName('departure_date', t('Please select less than 30 days for date range.'));
     }
-    // Check if arrival date less than today + 3 days.
+    // Check if arrival date less than the offset.
     if ($today_modified > $arrival_date) {
-      $form_state->setErrorByName('arrival_date', t('Please select an arrival date at least 3 days from today which includes today.'));
+      $message = t(
+        'Please select an arrival date at least @offset days from today which includes today.',
+        ['@offset' => self::START_DAYS_OFFSET + 1]
+      );
+      $form_state->setErrorByName('arrival_date', $message);
     }
     // Check if arrival date less than departure.
     if ($arrival_date >= $departure_date) {
