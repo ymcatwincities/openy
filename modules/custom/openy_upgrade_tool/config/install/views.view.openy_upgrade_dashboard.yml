@@ -421,13 +421,13 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/config/development/openy-upgrade-dashboard
+      path: admin/openy/development/openy-upgrade-dashboard
       menu:
         type: normal
-        title: 'OpenY upgrade dashboard'
+        title: 'Upgrade dashboard'
         description: 'List of manually changed configs.'
         expanded: false
-        parent: system.admin_config_development
+        parent: openy_system.openy_development
         weight: 0
         context: '0'
         menu_name: admin

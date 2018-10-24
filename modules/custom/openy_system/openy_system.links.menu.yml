@@ -59,3 +59,35 @@ openy_system.openy_integration_activenet:
   description: 'Configure Open Y integration with ActiveNet service.'
   position: left
   weight: 20
+
+openy_system.openy_settings:
+  title: Settings
+  route_name: openy_system.openy_settings
+  parent: openy_system.openy
+  description: 'Configure Open Y settings.'
+  position: left
+  weight: 0
+
+openy_system.openy_settings_mappings:
+  title: Mappings
+  route_name: openy_system.openy_settings_mappings
+  parent: openy_system.openy_settings
+  description: 'Configure and list mappings'
+  position: left
+  weight: 140
+
+openy_system.openy_retention_campaign:
+  title: Open Y Retention Campaign
+  route_name: openy_system.openy_retention_campaign
+  parent: openy_system.openy
+  description: 'Configure Open Y Retention Campaign.'
+  position: left
+  weight: 10
+
+openy_system.openy_development:
+  title: Development
+  route_name: openy_system.openy_development
+  parent: openy_system.openy
+  description: 'Show Open Y development information.'
+  position: left
+  weight: 20

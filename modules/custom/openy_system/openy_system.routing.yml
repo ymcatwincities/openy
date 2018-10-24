@@ -71,3 +71,35 @@ openy_system.openy_integration_activenet:
     _title: 'ActiveNet'
   requirements:
     _permission: 'administer site configuration'
+
+openy_system.openy_settings:
+  path: /admin/openy/settings
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+openy_system.openy_settings_mappings:
+  path: /admin/openy/settings/mappings
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Mappings'
+  requirements:
+    _permission: 'administer site configuration'
+
+openy_system.openy_retention_campaign:
+  path: /admin/openy/retention-campaign
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'OpenY Retention Campaign'
+  requirements:
+    _permission: 'administer site configuration'
+
+openy_system.openy_development:
+  path: /admin/openy/development
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Development'
+  requirements:
+    _permission: 'administer site configuration'
