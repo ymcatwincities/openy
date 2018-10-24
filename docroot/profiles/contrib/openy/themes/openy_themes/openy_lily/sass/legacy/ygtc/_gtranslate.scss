@@ -3,14 +3,15 @@
 
   .openy-google-translate {
      margin-bottom: 5px;
+    height: 100px;
 
     .goog-te-gadget {
-      line-height: 73px;
+      //line-height: 73px;
       border-top: 2px solid transparent;
       color: #777;
       font-size: 16px;
       max-height: 100px;
-      padding: 15px;
+      padding: 40px 15px;
       &:hover {
         background: #fff;
         border-top: 2px solid #aa228d;
@@ -19,6 +20,7 @@
 
       .goog-te-combo {
         font-family: "Cachet", Arial, sans-serif;
+        margin: -4px 0 4px;
       }
     }
   }
