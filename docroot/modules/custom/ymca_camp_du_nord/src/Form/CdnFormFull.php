@@ -102,14 +102,19 @@ class CdnFormFull extends FormBase {
       $default_arrival_date = $dt->format('Y-m-d');
     }
     else {
+      $now = new \DateTime('now', $tz);
+      $nowTimestamp = $now->format('U');
       $nearest_date = $this->database->query(
         'SELECT cstartdate.field_cdn_prd_start_date_value
         FROM {cdn_prs_product__field_cdn_prd_start_date} cstartdate
         LEFT JOIN {cdn_prs_product__field_cdn_prd_capacity_left} cleft ON cstartdate.entity_id = cleft.entity_id
         WHERE cleft.field_cdn_prd_capacity_left_value != 0
-        AND cstartdate.field_cdn_prd_start_date_value >= (NOW() + INTERVAL :offset DAY)
+        AND cstartdate.field_cdn_prd_start_date_value >= (FROM_UNIXTIME(:now) + INTERVAL :offset DAY)
         ORDER BY cstartdate.field_cdn_prd_start_date_value ASC LIMIT 1',
-        [':offset' => self::START_DAYS_OFFSET]
+        [
+          ':now' => $nowTimestamp,
+          ':offset' => self::START_DAYS_OFFSET,
+        ]
       )
         ->fetchCol();
 
