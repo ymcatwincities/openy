@@ -14661,14 +14661,14 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
 }
 #block-openy-lily-googletranslate .openy-google-translate {
   margin-bottom: 5px;
+  height: 100px;
 }
 #block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget {
-  line-height: 73px;
   border-top: 2px solid transparent;
   color: #777;
   font-size: 16px;
   max-height: 100px;
-  padding: 15px;
+  padding: 40px 15px;
 }
 #block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget:hover {
   background: #fff;
@@ -14677,6 +14677,7 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
 }
 #block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget .goog-te-combo {
   font-family: "Cachet", Arial, sans-serif;
+  margin: -4px 0 4px;
 }
 #block-openy-lily-googletranslate .openy-google-translate select {
   background: transparent;
