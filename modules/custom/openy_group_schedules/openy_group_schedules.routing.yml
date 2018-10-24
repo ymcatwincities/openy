@@ -19,11 +19,12 @@ openy_group_schedules.all_schedules_search_results:
     _title: Group exercise search results
   requirements:
     _permission: access content
+
 openy_group_schedules.settings:
-  path: /admin/config/services/openy_group_schedules/settings
+  path: /admin/openy/integration/groupex-pro/group_schedules_settings
   defaults:
     _form: \Drupal\openy_group_schedules\Form\GroupexSettingsForm
-    _title: GroupEx settings
+    _title: GroupEx Pro Schedules settings
   requirements:
     _permission: 'administer site configuration'
 

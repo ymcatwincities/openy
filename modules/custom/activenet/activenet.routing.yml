@@ -1,5 +1,5 @@
 activenet.settings:
-  path: '/admin/config/services/activenet'
+  path: '/admin/openy/integration/activenet/settings'
   defaults:
     _form: '\Drupal\activenet\Form\SettingsForm'
     _title: 'ActiveNet settings'

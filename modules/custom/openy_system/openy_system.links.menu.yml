@@ -40,6 +40,22 @@ openy_system.openy_integration_daxko:
   title: Daxko
   route_name: openy_system.openy_integration_daxko
   parent: openy_system.openy_integration
-  description: 'Configure Open Y integration with Daxko services.'
+  description: 'Configure Open Y integration with Daxko service.'
   position: left
   weight: 0
+
+openy_system.openy_integration_groupexpro:
+  title: GroupEx Pro
+  route_name: openy_system.openy_integration_groupexpro
+  parent: openy_system.openy_integration
+  description: 'Configure Open Y integration with GroupEx Pro service.'
+  position: left
+  weight: 10
+
+openy_system.openy_integration_activenet:
+  title: ActiveNet
+  route_name: openy_system.openy_integration_activenet
+  parent: openy_system.openy_integration
+  description: 'Configure Open Y integration with ActiveNet service.'
+  position: left
+  weight: 20

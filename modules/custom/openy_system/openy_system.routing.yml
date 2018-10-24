@@ -41,7 +41,7 @@ openy_system.modules_uninstall_confirm:
     _permission: 'administer openy modules'
 
 openy_system.openy_integration:
-  path: '/admin/openy/integration'
+  path: /admin/openy/integration
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'Integration'
@@ -49,9 +49,25 @@ openy_system.openy_integration:
     _permission: 'access administration pages'
 
 openy_system.openy_integration_daxko:
-  path: '/admin/openy/integration/daxko'
+  path: /admin/openy/integration/daxko
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
     _title: 'Daxko'
   requirements:
     _permission: 'administer daxko'
+
+openy_system.openy_integration_groupexpro:
+  path: /admin/openy/integration/groupex-pro
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'GroupEx Pro'
+  requirements:
+    _permission: 'administer site configuration'
+
+openy_system.openy_integration_activenet:
+  path: /admin/openy/integration/activenet
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'ActiveNet'
+  requirements:
+    _permission: 'administer site configuration'
