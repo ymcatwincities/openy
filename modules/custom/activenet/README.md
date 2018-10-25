@@ -1,6 +1,6 @@
 This module creates API endpoints for ActiveNet. After enabling the module, you should be able to input the config into the admin and use the ActiveNetClient class.
 
-1. Enter activenet creds at /admin/config/services/activenet 
+1. Enter ActiveNet creds at admin/openy/integration/activenet/settings
 2. In your theme.theme file or a custom module:
 
 ```
