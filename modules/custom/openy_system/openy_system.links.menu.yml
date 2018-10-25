@@ -68,13 +68,7 @@ openy_system.openy_settings:
   position: left
   weight: 0
 
-openy_system.openy_settings_mappings:
-  title: Mappings
-  route_name: openy_system.openy_settings_mappings
-  parent: openy_system.openy_settings
-  description: 'Configure and list mappings'
-  position: left
-  weight: 140
+
 
 openy_system.openy_retention_campaign:
   title: Open Y Retention Campaign
