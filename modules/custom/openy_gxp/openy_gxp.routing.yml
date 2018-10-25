@@ -2,7 +2,7 @@ openy_gxp.import:
   path: /admin/openy/integration/groupex-pro/gxp-import
   defaults:
     _form: '\Drupal\openy_gxp\Form\ImportForm'
-    _title: 'Run GroupExPro Import'
+    _title: 'Run GroupEx Pro Import'
   requirements:
     _permission: 'administer site configuration'
 
@@ -10,6 +10,6 @@ openy_gxp.settings:
   path: /admin/openy/integration/groupex-pro/gxp
   defaults:
     _form: '\Drupal\openy_gxp\Form\SettingsForm'
-    _title: 'GroupExPro settings'
+    _title: 'GroupEx Pro settings'
   requirements:
     _permission: 'administer gxp'
