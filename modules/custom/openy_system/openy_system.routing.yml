@@ -10,7 +10,7 @@ openy_system.extend_index:
   path: '/admin/openy/extend'
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Extend'
+    _title: 'Extend Open Y'
   requirements:
     _permission: 'administer openy modules'
 
@@ -44,7 +44,7 @@ openy_system.openy_integration:
   path: /admin/openy/integration
   defaults:
     _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Integration'
+    _title: 'Open Y Integration'
   requirements:
     _permission: 'access administration pages'
 

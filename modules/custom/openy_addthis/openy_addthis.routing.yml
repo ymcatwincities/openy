@@ -2,7 +2,7 @@ openy_addthis.settings:
   path: '/admin/openy/settings/openy-addthis'
   defaults:
     _form: 'Drupal\openy_addthis\Form\OpenyAddThisSettingsForm'
-    _title: 'Openy addThis'
+    _title: 'AddThis settings'
   requirements:
     _permission: 'administer site configuration'
 

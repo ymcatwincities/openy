@@ -29,7 +29,7 @@ openy_system.openy_modules_uninstall:
   route_name: openy_system.modules_uninstall
 
 openy_system.openy_integration:
-  title: Integration
+  title: Integrations
   route_name: openy_system.openy_integration
   parent: openy_system.openy
   description: 'Configure Open Y integration with third party services.'
@@ -67,8 +67,6 @@ openy_system.openy_settings:
   description: 'Configure Open Y settings.'
   position: left
   weight: 0
-
-
 
 openy_system.openy_development:
   title: Development

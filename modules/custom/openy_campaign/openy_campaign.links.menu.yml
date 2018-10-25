@@ -1,7 +1,7 @@
 # Define the menu links for this module
 
 openy_campaign.openy_retention_campaign:
-  title: Open Y Retention Campaign
+  title: Retention Campaign
   route_name: openy_campaign.openy_retention_campaign
   parent: openy_system.openy
   description: 'Configure Open Y Retention Campaign.'
@@ -16,6 +16,6 @@ entity.openy_campaign_member.collection:
 openy_campaign.settings:
   title: 'Settings'
   route_name: openy_campaign.settings
-  description: 'Configure Open Y retention campaign settings.'
+  description: 'Configure Open Y Retention Campaign settings.'
   parent: openy_campaign.openy_retention_campaign
 
