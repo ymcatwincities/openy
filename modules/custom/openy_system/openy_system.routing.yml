@@ -80,13 +80,7 @@ openy_system.openy_settings:
   requirements:
     _permission: 'administer site configuration'
 
-openy_system.openy_settings_mappings:
-  path: /admin/openy/settings/mappings
-  defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Mappings'
-  requirements:
-    _permission: 'administer site configuration'
+
 
 openy_system.openy_retention_campaign:
   path: /admin/openy/retention-campaign
