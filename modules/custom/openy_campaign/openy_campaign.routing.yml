@@ -1,7 +1,7 @@
 # Route name can be used in several place (links, redirects, local actions etc.)
 # Member entity routes
 entity.openy_campaign_member.canonical:
-  path: '/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}'
+  path: '/admin/openy/retention-campaign/openy-campaign-member/{openy_campaign_member}'
   defaults:
     _entity_view: 'openy_campaign_member'
     _title: 'OpenY Campaign: Member List'
@@ -9,7 +9,7 @@ entity.openy_campaign_member.canonical:
     _entity_access: 'openy_campaign_member.view'
 
 entity.openy_campaign_member.collection:
-  path: '/admin/config/openy-entities/openy-campaign-member/list'
+  path: '/admin/openy/retention-campaign/openy-campaign-member/list'
   defaults:
     _entity_list: 'openy_campaign_member'
     _title: 'OpenY Campaign: Member List'
@@ -17,7 +17,7 @@ entity.openy_campaign_member.collection:
     _permission: 'view member entity'
 
 entity.openy_campaign_member.add:
-  path: '/admin/config/openy-entities/openy-campaign-member/add'
+  path: '/admin/openy/retention-campaign/openy-campaign-member/add'
   defaults:
     _entity_form: openy_campaign_member.add
     _title: 'Add OpenY Member'
@@ -25,7 +25,7 @@ entity.openy_campaign_member.add:
     _entity_create_access: 'openy_campaign_member'
 
 entity.openy_campaign_member.edit_form:
-  path: '/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}/edit'
+  path: '/admin/openy/retention-campaign/openy-campaign-member/{openy_campaign_member}/edit'
   defaults:
     _entity_form: openy_campaign_member.edit
     _title: 'Edit OpenY Member'
@@ -33,7 +33,7 @@ entity.openy_campaign_member.edit_form:
     _entity_access: 'openy_campaign_member.edit'
 
 entity.openy_campaign_member.delete_form:
-  path: '/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}/delete'
+  path: '/admin/openy/retention-campaign/openy-campaign-member/{openy_campaign_member}/delete'
   defaults:
     _entity_form: openy_campaign_member.delete
     _title: 'Delete OpenY Member'
@@ -41,7 +41,7 @@ entity.openy_campaign_member.delete_form:
     _entity_access: 'openy_campaign_member.delete'
 
 openy_campaign.openy_campaign_member.delete_all:
-  path: '/admin/config/openy-entities/openy-campaign-member/delete-all'
+  path: '/admin/openy/retention-campaign/openy-campaign-member/delete-all'
   defaults:
     _form: '\Drupal\openy_campaign\Form\DeleteAllMembersForm'
     _title: 'OpenY Campaign Delete All Members'
@@ -50,7 +50,7 @@ openy_campaign.openy_campaign_member.delete_all:
 
 # MemberCampaign entity routes.
 entity.openy_campaign_member_campaign.canonical:
-  path: '/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}'
+  path: '/admin/openy/retention-campaign/openy-campaign-member-campaign/{openy_campaign_member_campaign}'
   defaults:
     _entity_view: 'openy_campaign_member_campaign'
     _title: 'OpenY Campaign: Member Campaign List'
@@ -58,7 +58,7 @@ entity.openy_campaign_member_campaign.canonical:
     _entity_access: 'openy_campaign_member.view'
 
 entity.openy_campaign_member_campaign.collection:
-  path: '/admin/config/openy-entities/openy-campaign-member-campaign/list'
+  path: '/admin/openy/retention-campaign/openy-campaign-member-campaign/list'
   defaults:
     _entity_list: 'openy_campaign_member_campaign'
     _title: 'OpenY Campaign: Member Campaign List'
@@ -66,7 +66,7 @@ entity.openy_campaign_member_campaign.collection:
     _permission: 'view member entity'
 
 entity.openy_campaign_member_campaign.add:
-  path: '/admin/config/openy-entities/openy-campaign-member-campaign/add'
+  path: '/admin/openy/retention-campaign/openy-campaign-member-campaign/add'
   defaults:
     _entity_form: openy_campaign_member_campaign.add
     _title: 'Add OpenY Member Campaign'
@@ -74,7 +74,7 @@ entity.openy_campaign_member_campaign.add:
     _entity_create_access: 'openy_campaign_member'
 
 entity.openy_campaign_member_campaign.edit_form:
-  path: '/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}/edit'
+  path: '/admin/openy/retention-campaign/openy-campaign-member-campaign/{openy_campaign_member_campaign}/edit'
   defaults:
     _entity_form: openy_campaign_member_campaign.edit
     _title: 'Edit OpenY Member Campaign'
@@ -82,7 +82,7 @@ entity.openy_campaign_member_campaign.edit_form:
     _entity_access: 'openy_campaign_member.edit'
 
 entity.openy_campaign_member_campaign.delete_form:
-  path: '/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}/delete'
+  path: '/admin/openy/retention-campaign/openy-campaign-member-campaign/{openy_campaign_member_campaign}/delete'
   defaults:
     _entity_form: openy_campaign_member_campaign.delete
     _title: 'Delete OpenY Member Campaign'
@@ -91,7 +91,7 @@ entity.openy_campaign_member_campaign.delete_form:
 
 # Mapping Branch entity routes.
 entity.openy_campaign_mapping_branch.canonical:
-  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}'
+  path: '/admin/openy/retention-campaign/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}'
   defaults:
     _entity_view: 'openy_campaign_mapping_branch'
     _title: 'OpenY Campaign: Mapping Branch List'
@@ -99,7 +99,7 @@ entity.openy_campaign_mapping_branch.canonical:
     _entity_access: 'openy_campaign_member.view'
 
 entity.openy_campaign_mapping_branch.collection:
-  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/list'
+  path: '/admin/openy/retention-campaign/openy-campaign-mapping-branch/list'
   defaults:
     _entity_list: 'openy_campaign_mapping_branch'
     _title: 'OpenY Campaign: Mapping Branch List'
@@ -107,7 +107,7 @@ entity.openy_campaign_mapping_branch.collection:
     _permission: 'view member entity'
 
 entity.openy_campaign_mapping_branch.add:
-  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/add'
+  path: '/admin/openy/retention-campaign/openy-campaign-mapping-branch/add'
   defaults:
     _entity_form: openy_campaign_mapping_branch.add
     _title: 'Add OpenY Mapping Branch'
@@ -115,7 +115,7 @@ entity.openy_campaign_mapping_branch.add:
     _entity_create_access: 'openy_campaign_member'
 
 entity.openy_campaign_mapping_branch.edit_form:
-  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/edit'
+  path: '/admin/openy/retention-campaign/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/edit'
   defaults:
     _entity_form: openy_campaign_mapping_branch.edit
     _title: 'Edit OpenY Mapping Branch'
@@ -123,7 +123,7 @@ entity.openy_campaign_mapping_branch.edit_form:
     _permission: 'edit member entity'
 
 entity.openy_campaign_mapping_branch.delete_form:
-  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/delete'
+  path: '/admin/openy/retention-campaign/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/delete'
   defaults:
     _entity_form: openy_campaign_mapping_branch.delete
     _title: 'Delete OpenY Mapping Branch'
@@ -132,7 +132,7 @@ entity.openy_campaign_mapping_branch.delete_form:
 
 # Module settings form
 openy_campaign.settings:
-  path: '/admin/config/system/openy-campaign'
+  path: 'admin/openy/retention-campaign/settings'
   defaults:
     _form: '\Drupal\openy_campaign\Form\SettingsForm'
     _title: 'OpenY Campaign Settings'
@@ -298,3 +298,11 @@ openy_campaign.ajax_campaign_scorecard:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::ajaxCallbackGenerateLiveScorecard'
   requirements:
     _permission: 'access content'
+
+openy_campaign.openy_retention_campaign:
+  path: /admin/openy/retention-campaign
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'OpenY Retention Campaign'
+  requirements:
+    _permission: 'administer site configuration'

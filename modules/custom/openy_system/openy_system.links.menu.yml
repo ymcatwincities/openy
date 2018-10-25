@@ -70,14 +70,6 @@ openy_system.openy_settings:
 
 
 
-openy_system.openy_retention_campaign:
-  title: Open Y Retention Campaign
-  route_name: openy_system.openy_retention_campaign
-  parent: openy_system.openy
-  description: 'Configure Open Y Retention Campaign.'
-  position: left
-  weight: 10
-
 openy_system.openy_development:
   title: Development
   route_name: openy_system.openy_development
