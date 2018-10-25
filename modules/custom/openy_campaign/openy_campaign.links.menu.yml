@@ -19,4 +19,3 @@ openy_campaign.settings:
   description: 'Configure Open Y retention campaign settings.'
   parent: openy_campaign.openy_retention_campaign
 
-
