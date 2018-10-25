@@ -2,8 +2,8 @@
 
 Uses APIv2 https://api.daxko.com/v3/docs/api/index.html
 
- - Imports Daxko Categories into OpenY Classes.
- - Imports Daxko Offerings into OpenY Sessions.
+ - Imports Daxko Categories into Open Y Classes.
+ - Imports Daxko Offerings into Open Y Sessions.
 
 See Settings page at admin/openy/integration/daxko/daxko2 that needs to be filled before running import.
 
