@@ -609,7 +609,7 @@ function openy_campaign_entity_type_build(array &$entity_types) {
 }
 
 /**
- * Implements hook_entity_type_build().
+ * Implements hook_node_view_alter().
  */
 function openy_campaign_node_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
   // Disable caching for the Campaign's pages.
