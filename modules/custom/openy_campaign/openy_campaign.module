@@ -620,13 +620,9 @@ function openy_campaign_node_view_alter(array &$build, Drupal\Core\Entity\Entity
 
 /**
  * Implements hook_form_FORM_ID_alter().
- *
- * Forbid editing some Member entity fields from admin panel.
- *
- * @param $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
 function openy_campaign_form_openy_campaign_member_edit_form_alter(&$form, FormStateInterface $form_state) {
+  // Forbid editing some Member entity fields from admin panel.
   $readonlyFields = [
     'membership_id',
     'personify_id',
