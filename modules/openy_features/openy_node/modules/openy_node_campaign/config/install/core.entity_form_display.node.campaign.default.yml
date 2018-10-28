@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_expected_visits
     - field.field.node.campaign.field_campaign_fitness_category
     - field.field.node.campaign.field_campaign_game_description
+    - field.field.node.campaign.field_campaign_game_one_time_win
     - field.field.node.campaign.field_campaign_game_short_info
     - field.field.node.campaign.field_campaign_game_title
     - field.field.node.campaign.field_campaign_game_type
@@ -209,6 +210,7 @@ third_party_settings:
       children:
         - field_campaign_game_title
         - field_campaign_game_type
+        - field_campaign_game_one_time_win
         - field_campaign_game_short_info
         - field_campaign_game_description
         - field_campaign_prizes
@@ -292,7 +294,7 @@ content:
     type: datetime_default
     region: content
   field_campaign_expected_visits:
-    weight: 53
+    weight: 54
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -305,15 +307,22 @@ content:
     type: options_select
     region: content
   field_campaign_game_description:
-    weight: 50
+    weight: 51
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
     region: content
-  field_campaign_game_short_info:
+  field_campaign_game_one_time_win:
     weight: 49
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_campaign_game_short_info:
+    weight: 50
     settings:
       rows: 5
       placeholder: ''
@@ -364,14 +373,14 @@ content:
     type: options_buttons
     region: content
   field_campaign_prize_coefficient:
-    weight: 54
+    weight: 55
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_campaign_prize_nowin:
-    weight: 52
+    weight: 53
     settings:
       size: 60
       placeholder: ''
@@ -380,7 +389,7 @@ content:
     region: content
   field_campaign_prizes:
     type: entity_reference_paragraphs
-    weight: 51
+    weight: 52
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -496,7 +505,7 @@ content:
     type: text_textarea
     region: content
   field_flip_cards_cover_image:
-    weight: 56
+    weight: 57
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -640,7 +649,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_ways_to_earn_entries:
-    weight: 55
+    weight: 56
     settings: {  }
     third_party_settings: {  }
     type: options_buttons

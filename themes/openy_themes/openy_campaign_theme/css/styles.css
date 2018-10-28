@@ -1193,6 +1193,10 @@ button:active, button:focus {
   font-weight: 400;
 }
 
+.play-again {
+  margin-bottom: 25px;
+}
+
 footer {
   background-color: inherit !important;
 }
@@ -1375,6 +1379,35 @@ footer .container .footer__nav nav ul > li a {
   width: 100%;
   padding-top: 15px;
   padding-left: 15px;
+}
+
+.top-navs .page-head__logo {
+  top: 15px;
+  width: auto;
+}
+@media (min-width: 20em) {
+  .top-navs .page-head__logo {
+    position: relative;
+  }
+}
+@media (min-width: 48em) {
+  .top-navs .page-head__logo {
+    position: relative;
+  }
+}
+@media (min-width: 62em) {
+  .top-navs .page-head__logo {
+    position: absolute;
+  }
+}
+@media (min-width: 80.625em) {
+  .top-navs .page-head__logo {
+    position: absolute;
+  }
+}
+.top-navs .page-head__logo img {
+  width: 50px;
+  height: auto;
 }
 
 .top-navs {
