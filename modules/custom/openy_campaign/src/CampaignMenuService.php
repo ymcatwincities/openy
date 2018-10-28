@@ -601,7 +601,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    * @return string
    */
   private function timeAgo($timestamp) {
-    $now = new \DateTime("now");
+    $now = new \DateTime('now');
     $date = new \DateTime();
     $date->setTimestamp($timestamp);
     $datediff = date_diff($now, $date);
