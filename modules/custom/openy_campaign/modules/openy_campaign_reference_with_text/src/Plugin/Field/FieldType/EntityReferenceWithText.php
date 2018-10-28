@@ -79,7 +79,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
 
     $columns = [
       'target_id' => [
-        'description' => 'The ID of the target entity.',
+        'description' => t('The ID of the target entity.'),
         'type' => 'int',
         // If the target entities act as bundles for another entity type,
         // their IDs should not exceed the maximum length for bundles.
