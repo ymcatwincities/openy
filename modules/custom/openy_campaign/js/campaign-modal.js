@@ -13,7 +13,7 @@
             $(item).on('click', function(e) {
                e.preventDefault();
                var campaignId = drupalSettings.openy_campaign.campaignId;
-                Drupal.ajax({url: '/campaign/login/' + campaignId}).execute();
+                Drupal.ajax({url: drupalSettings.path.baseUrl + 'campaign/login/' + campaignId}).execute();
             });
         }
 

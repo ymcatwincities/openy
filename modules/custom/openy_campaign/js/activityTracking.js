@@ -122,7 +122,7 @@ Drupal.behaviors.activityTracking = {
             var data = $(e.target).parents('.activity-daily-data').find('input[name="date"]').val();
 
             $.post(
-                '/campaign-save-activity/' + data,
+                drupalSettings.path.baseUrl + 'campaign-save-activity/' + data,
                 formData.serialize(),
                 function (data) {
                     countEntry();
