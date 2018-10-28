@@ -1,7 +1,3 @@
-@font-face {
-  font-family: "Cachet W01 Book";
-  src: url("../fonts/CachetBook.ttf");
-}
 body {
   color: #636466;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
