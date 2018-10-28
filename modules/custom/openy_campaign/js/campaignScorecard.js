@@ -15,7 +15,7 @@
           $('#scorecard-wrapper').html('');
 
           $.ajax({
-            url : '/ajaxCallback/campaignScorecard/' + $(this).val(),
+            url : drupalSettings.path.baseUrl + 'ajaxCallback/campaignScorecard/' + $(this).val(),
             data: {"node": $(this).val() },
             type: 'GET',
 
