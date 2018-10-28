@@ -153,6 +153,25 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'template' => 'games/flip-cards',
     ],
 
+
+    // Instant Game: Spin the wheel.
+    'openy_campaign_game_spin_the_wheel' => [
+      'variables' => [
+        'link' => NULL,
+        'result' => NULL,
+        'title' => NULL,
+        'description' => NULL,
+        'coverImagePath' => NULL,
+        'isWinner' => NULL,
+        'message' => NULL,
+        'messageTitle' => NULL,
+        'isUnplayedGamesExist' => NULL,
+        'nextGameUrl' => NULL,
+        'campaignUrl' => NULL
+      ],
+      'template' => 'games/spin_the_wheel',
+    ],
+
     // Scorecard.
     'openy_campaign_scorecard' => [
       'variables' => [

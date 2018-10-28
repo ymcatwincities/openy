@@ -267,4 +267,33 @@ body {
   background-color: #c6168d;
 }
 
+.spin-the-wheel-inner .start {
+  background: #5c2e91;
+}
+
+.game-result--header {
+  color: #5c2e91;
+}
+
+.game-result--body {
+  border-color: #92278f;
+  background: #c6168d;
+}
+
+.load-bar {
+  background-color: #c6168d;
+}
+
+.bar:nth-child(1) {
+  background-color: #5c2e91;
+}
+
+.bar:nth-child(2) {
+  background-color: #92278f;
+}
+
+.bar:nth-child(3) {
+  background-color: #c6168d;
+}
+
 /*# sourceMappingURL=colors.css.map */

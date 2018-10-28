@@ -161,3 +161,32 @@ body {
     }
   }
 }
+
+.spin-the-wheel-inner .start {
+  background: $purple;
+}
+
+.game-result--header {
+  color: $purple;
+}
+
+.game-result--body {
+  border-color: $dark-magenta;
+  background: $pink;
+}
+
+.load-bar {
+  background-color: $pink;
+}
+
+.bar:nth-child(1) {
+  background-color: $purple;
+}
+
+.bar:nth-child(2) {
+  background-color: $dark-magenta;
+}
+
+.bar:nth-child(3) {
+  background-color: $pink;
+}
