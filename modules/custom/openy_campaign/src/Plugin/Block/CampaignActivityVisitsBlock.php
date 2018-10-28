@@ -74,8 +74,10 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
     $block = [];
 
     // The block is rendered for each user separately.
-    // We can't cache it.
-    $block['#cache']['max-age'] = 0;
+    // It should be invalidated when a new visit is added.
+    $block['#cache'] = [
+      'max-age' => 3600,
+    ];
 
     // Get campaign node from current page URL.
     /** @var \Drupal\node\Entity\Node $campaign */
@@ -92,8 +94,8 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
     if ($enableVisitsGoal && MemberCampaign::isLoggedIn($campaign->id())) {
       // Show Visits goal block.
       $userData = MemberCampaign::getMemberCampaignData($campaign->id());
-      $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
-      $memberCampaign = MemberCampaign::load($memberCampaignID);
+      $memberCampaignId = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
+      $memberCampaign = MemberCampaign::load($memberCampaignId);
 
       $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
       $campaignStartDate->setTime(0, 0, 0);
@@ -116,7 +118,13 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
         $desc = $campaign->get('field_tracking_actv_goal_desc')->value;
       }
 
-      $countedActivities = MemberCampaignActivity::getTrackedActivities($memberCampaignID);
+      $countedActivities = MemberCampaignActivity::getTrackedActivities($memberCampaignId);
+
+      // Create a cache for each member separately.
+      $block['#cache'] = [
+        'tags' => ['member_campaign:' . $memberCampaignId],
+        'max-age' => 86400,
+      ];
 
       $block['goal_block'] = [
         '#theme' => 'openy_campaign_visits_goal',

@@ -116,9 +116,6 @@ class GameController extends ControllerBase {
    * Play one Game page.
    */
   public function playOneGamePage($uuid) {
-    // Disable response caching.
-    \Drupal::service('page_cache_kill_switch')->trigger();
-
     $gameResult = $this->generateGameResult($uuid);
 
     /** @var \Drupal\openy_campaign\Entity\MemberGame $game */

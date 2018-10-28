@@ -85,8 +85,10 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    */
   public function build() {
     // The block is rendered for each user separately.
-    // We can't cache it.
-    $block['#cache']['max-age'] = 0;
+    // It should be invalidated when user tracks the activity.
+    $block['#cache'] = [
+      'max-age' => 3600,
+    ];
 
     // Get campaign node from current page URL.
     /** @var \Drupal\node\Entity\Node $campaign */
@@ -214,6 +216,12 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
 
       $start->modify('+1 day');
     }
+
+    // Create a cache for each member separately.
+    $block['#cache'] = [
+      'tags' => ['member_campaign:' . $memberCampaignId],
+      'max-age' => 3600,
+    ];
 
     $block['#activities'] = $activities;
     $block['#theme'] = 'openy_campaign_activity_block';

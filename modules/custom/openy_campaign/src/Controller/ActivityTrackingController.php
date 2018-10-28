@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Controller;
 
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -45,20 +46,36 @@ class ActivityTrackingController extends ControllerBase {
   protected $entityTypeManager;
 
   /**
+   * Cache invalidator service.
+   *
+   * @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface
+   */
+  protected $cacheTagsInvalidator;
+
+  /**
    * The ModalFormExampleController constructor.
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
+   * @param $request_stack
    * @param \Drupal\Core\Database\Connection $connection
    *   The database connection service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cache_tags_invalidator
    */
-  public function __construct(FormBuilder $formBuilder, $request_stack, Connection $connection, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    FormBuilder $formBuilder,
+    $request_stack,
+    Connection $connection,
+    EntityTypeManagerInterface $entity_type_manager,
+    CacheTagsInvalidatorInterface $cache_tags_invalidator
+  ) {
     $this->formBuilder = $formBuilder;
     $this->request_stack = $request_stack;
     $this->connection = $connection;
     $this->entityTypeManager = $entity_type_manager;
+    $this->cacheTagsInvalidator = $cache_tags_invalidator;
   }
 
   /**
@@ -74,7 +91,8 @@ class ActivityTrackingController extends ControllerBase {
       $container->get('form_builder'),
       $container->get('request_stack'),
       $container->get('database'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('cache_tags.invalidator')
     );
   }
 
@@ -97,9 +115,13 @@ class ActivityTrackingController extends ControllerBase {
     $date = new \DateTime($dateRoute->format('d-m-Y'));
     $dateStamp = $date->format('U');
     $activityIds = $params['activities'];
-    $activities_count = $params['activities_count'] ?? [];
+    $activities_count = isset($params['activities_count']) ? $params['activities_count'] : [];
 
     $memberCampaignId = $params['member_campaign_id'];
+
+    // Invalidate all data of the active user.
+    $this->cacheTagsInvalidator->invalidateTags(['member_campaign:' . $memberCampaignId]);
+
     $topTermId = $params['top_term_id'];
 
     $term = Term::load($topTermId);

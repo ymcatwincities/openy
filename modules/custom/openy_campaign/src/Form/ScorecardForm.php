@@ -66,8 +66,7 @@ class ScorecardForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     // The block should always show the most actual data.
-    // We can't cache it.
-    $form['#cache'] = ['max-age' => 0];
+    $form['#cache'] = ['max-age' => CAMPAIGN_CACHE_TIME];
 
     $form['#prefix'] = '<div class="container">';
     $form['#suffix'] = '</div>';

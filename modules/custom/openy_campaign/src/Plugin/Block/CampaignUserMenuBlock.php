@@ -64,8 +64,10 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
     $build = [];
 
     // The block is rendered for each user separately.
-    // We can't cache it.
-    $build['#cache']['max-age'] = 0;
+    $block['#cache'] = [
+      'max-age' => 3600,
+      'tags' => ['user_menu'],
+    ];
 
     // Extract Campaign node from route.
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
@@ -97,6 +99,12 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
             'logout'
           ],
         ],
+      ];
+
+      // Create a cache for each member separately.
+      $block['#cache'] = [
+        'tags' => ['member:' . $userData['member_id']],
+        'max-age' => 86400,
       ];
     }
     else {
