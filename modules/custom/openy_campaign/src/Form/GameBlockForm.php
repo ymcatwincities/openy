@@ -22,7 +22,7 @@ class GameBlockForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $unplayedGames = NULL) {
     // Get default values from settings.
-    $config = \Drupal::config('openy_campaign.general_settings');
+    $config = $this->config('openy_campaign.general_settings');;
 
     $msgGameNoGames = $config->get('track_activity_game_no_games');
     $msgGameNoGames = check_markup($msgGameNoGames['value'], $msgGameNoGames['format']);
