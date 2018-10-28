@@ -50,7 +50,7 @@
                         {% endfor %}
                     </div>
 
-                    <div style="clear:both;"></div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
             {# key should match 2017-08-12 pattern #}
             {%  if key matches '/^[\\d]\{4\}-[\\d]\{2\}-[\\d]\{2\}$/' %}
 
-                <div class="activity-daily-data {{ key }}" style="display:none">
+                <div class="activity-daily-data {{ key }}" class="hidden">
                     {% set row = attribute(activities, key) %}
                     {% for formKey in row|keys %}
                         {%  if formKey matches '/^[\\d]+$/' %}
