@@ -128,9 +128,9 @@ class GameController extends ControllerBase {
     $pallete = $this->campaignMenuService->getCampaignPalette($campaign);
 
     if (!empty($gameResult['already_used_chance'])) {
-      $link = Link::fromTextAndUrl(t('Back to Campaign'), new Url('entity.node.canonical', ['node' => $campaign->id()]))->toString();
+      $link = Link::fromTextAndUrl($this->t('Back to Campaign'), new Url('entity.node.canonical', ['node' => $campaign->id()]))->toString();
       return [
-        '#markup' => $link . ' You have played this chance already. Your result: ' . $result,
+        '#markup' => $link . ' ' . $this->t('You have played this chance already. Your result: @result.', ['@result' => $result]),
       ];
     }
 
@@ -180,7 +180,7 @@ class GameController extends ControllerBase {
     if ($isUnplayedGamesExist && $isAllowedToPlay) {
       $unPlayedGames = $this->gameService->getUnplayedGames($campaign);
       $nextGame = reset($unPlayedGames);
-      $nextGameUrl = Link::fromTextAndUrl(t('Play again'), Url::fromRoute('openy_campaign.campaign_game', [
+      $nextGameUrl = Link::fromTextAndUrl($this->t('Play again'), Url::fromRoute('openy_campaign.campaign_game', [
           'uuid' => $nextGame->uuid()
         ], [
           'query' => [
@@ -194,7 +194,7 @@ class GameController extends ControllerBase {
         ]));
     } else {
       $activePage = $this->campaignMenuService->getActiveCampaignPage($campaign);
-      $nextGameUrl = Link::fromTextAndUrl(t('Back to campaign'), Url::fromRoute('entity.node.canonical', [
+      $nextGameUrl = Link::fromTextAndUrl($this->t('Back to campaign'), Url::fromRoute('entity.node.canonical', [
         'node' => $activePage->id()
       ], [
         'attributes' => [
@@ -295,7 +295,7 @@ class GameController extends ControllerBase {
     $randomNumber = mt_rand(0, $expected);
     $result = $campaign->field_campaign_prize_nowin->value;
     if (empty($result)) {
-      $result = 'Did not win.';
+      $result = $this->t('Did not win.');
     }
     foreach ($ranges as $range) {
       if ($randomNumber >= $range['min'] && $randomNumber < $range['max']) {

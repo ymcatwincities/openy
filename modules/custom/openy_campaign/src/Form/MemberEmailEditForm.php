@@ -48,7 +48,7 @@ class MemberEmailEditForm extends FormBase {
 
     $form['membership_id'] = [
       '#type' => 'item',
-      '#title' => 'Membership ID',
+      '#title' => $this->t('Membership ID'),
       '#title_display' => 'before',
       '#markup' => $member->getMemberId(),
     ];
