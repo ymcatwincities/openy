@@ -56,7 +56,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
 
     $properties['entity'] = DataReferenceDefinition::create('entity')
       ->setLabel($target_type_info->getLabel())
-      ->setDescription(new TranslatableMarkup('The referenced entity'))
+      ->setDescription(t('The referenced entity'))
       // The entity object is computed out of the entity ID.
       ->setComputed(TRUE)
       ->setReadOnly(FALSE)
@@ -111,7 +111,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
 
     $elements['target_type'] = [
       '#type' => 'select',
-      '#title' => t('Type of item to reference'),
+      '#title' => $this->t('Type of item to reference'),
       '#options' => \Drupal::entityTypeManager()->getEntityTypeLabels(TRUE),
       '#default_value' => $this->getSetting('target_type'),
       '#required' => TRUE,

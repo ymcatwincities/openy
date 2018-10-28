@@ -338,7 +338,7 @@ class MemberRegisterForm extends FormBase {
           $msgNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
           // TODO: use hook_theme instead of inline template.
           $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
-          $modalTitle = t('Thank you!');
+          $modalTitle = $this->t('Thank you!');
         }
         else {
           MemberCampaign::login($membershipID, $campaignID);
@@ -346,7 +346,7 @@ class MemberRegisterForm extends FormBase {
           $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
           // TODO: use hook_theme instead of inline template.
           $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
-          $modalTitle = t('Thank you!');
+          $modalTitle = $this->t('Thank you!');
         }
         $modalPopup = [
           '#theme' => 'openy_campaign_popup',
@@ -448,7 +448,7 @@ class MemberRegisterForm extends FormBase {
         $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
         // TODO: use hook_theme instead of inline template.
         $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
-        $modalTitle = t('Thank you!');
+        $modalTitle = $this->t('Thank you!');
 
         $modalPopup = [
           '#theme' => 'openy_campaign_popup',
