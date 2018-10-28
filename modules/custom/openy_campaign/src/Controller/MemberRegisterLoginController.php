@@ -3,6 +3,7 @@
 namespace Drupal\openy_campaign\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\InvokeCommand;
@@ -25,13 +26,22 @@ class MemberRegisterLoginController extends ControllerBase {
   protected $formBuilder;
 
   /**
+   * Cache invalidator service.
+   *
+   * @var \Drupal\Core\Cache\CacheTagsInvalidatorInterface
+   */
+  protected $cacheTagsInvalidator;
+
+  /**
    * The ModalFormExampleController constructor.
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
+   * @param \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cache_tags_invalidator
    */
-  public function __construct(FormBuilder $formBuilder) {
+  public function __construct(FormBuilder $formBuilder, CacheTagsInvalidatorInterface $cache_tags_invalidator) {
     $this->formBuilder = $formBuilder;
+    $this->cacheTagsInvalidator = $cache_tags_invalidator;
   }
 
   /**
@@ -44,7 +54,8 @@ class MemberRegisterLoginController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('form_builder')
+      $container->get('form_builder'),
+      $container->get('cache_tags.invalidator')
     );
   }
 
@@ -115,6 +126,9 @@ class MemberRegisterLoginController extends ControllerBase {
 
     // Close dialog and redirect ot Campaign main page.
     $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
+
+    // Invalidate all data of the active user.
+    $this->cacheTagsInvalidator->invalidateTags(['member_campaign:' . $memberCampaignId]);
 
     return $response;
   }

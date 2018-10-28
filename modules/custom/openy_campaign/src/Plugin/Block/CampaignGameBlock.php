@@ -98,8 +98,10 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
     $block = [];
 
     // The block is rendered for each user separately.
-    // We can't cache it.
-    $block['#cache']['max-age'] = 0;
+    // It should be invalidated when a new game chance is added.
+    $block['#cache'] = [
+      'max-age' => 3600,
+    ];
 
     // Get campaign node from current page.
     /** @var \Drupal\Node\Entity\Node $campaign */
