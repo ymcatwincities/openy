@@ -11,6 +11,7 @@ use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use http\Env\Request;
 
 /**
  * Form for the Member Registration popup.
@@ -250,7 +251,8 @@ class MemberRegisterForm extends FormBase {
 
     $registrationType = 'site';
     // Check if we are need to output the mobile version.
-    if (!empty($_GET['mobile'])) {
+    $isMobile = $this->requestStack->getCurrentRequest()->get('mobile');
+    if (!empty($isMobile)) {
       $registrationType = 'mobile';
     }
     /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
