@@ -9,5 +9,5 @@ entity.openy_campaign_member.collection:
 openy_campaign.settings:
   title: 'OpenY Campaign Settings'
   route_name: openy_campaign.settings
-  description: 'Settings for a OpenY retention campaign.'
+  description: 'Settings for an OpenY retention campaign.'
   parent: system.admin_config_system
