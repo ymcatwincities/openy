@@ -64,7 +64,7 @@ class MemberEmailEditForm extends FormBase {
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => t('Update'),
+      '#value' => $this->t('Update'),
     ];
 
     return $form;
