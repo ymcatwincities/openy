@@ -62,10 +62,14 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
    */
-  public function __construct(ContainerInterface $container, array $configuration, $plugin_id,
-                              $plugin_definition, FormBuilderInterface $formBuilder,
-                              CampaignMenuServiceInterface $campaign_menu_service, GameService $game_service) {
+  public function __construct(ContainerInterface $container,
+    array $configuration, $plugin_id, $plugin_definition,
+    FormBuilderInterface $formBuilder,
+    CampaignMenuServiceInterface $campaign_menu_service,
+    GameService $game_service
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+
     $this->formBuilder = $formBuilder;
     $this->container = $container;
     $this->campaignMenuService = $campaign_menu_service;

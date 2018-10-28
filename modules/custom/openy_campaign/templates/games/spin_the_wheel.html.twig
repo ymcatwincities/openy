@@ -16,9 +16,9 @@
                 <div class="card--wrapper">
                     <div class="card">
                         {% if isWinner %}
-                            Win
+                            {{ Win|t }}
                         {% else %}
-                            Loose
+                            {{ Loose|t }}
                         {% endif %}
                     </div>
                 </div>
@@ -28,9 +28,9 @@
     <div class="spin-the-wheel-inner">
         <div id="container" class="centered">
             <canvas id="drawing_canvas"></canvas>
-            <div id="status_label">loading...</div>
+            <div id="status_label">{{ loading...|t }}</div>
         </div>
-        <div class="active start btn">Spin the wheel</div>
+        <div class="active start btn">{{ Spin the wheel|t }}</div>
     </div>
 
 </div>

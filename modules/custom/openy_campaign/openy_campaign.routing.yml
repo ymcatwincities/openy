@@ -201,7 +201,6 @@ openy_campaign.campaign_games:
   requirements:
     _permission: 'access content'
 
-
 # List of Members for Team Members visitors
 # @TODO Access check
 openy_campaign.team_member.list:

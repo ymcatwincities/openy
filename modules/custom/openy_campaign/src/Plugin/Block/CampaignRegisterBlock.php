@@ -154,7 +154,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
             'startDate' => $utcCampaignStart,
             'endDate' => $utcCampaignEnd,
             'startRegDate' => $utcCampaignRegStart,
-            'endRegDate' => $utcCampaignRegEnd
+            'endRegDate' => $utcCampaignRegEnd,
           ]
         ]
       ],
