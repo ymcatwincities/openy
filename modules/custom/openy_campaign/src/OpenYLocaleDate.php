@@ -10,8 +10,19 @@ use DateTimeZone;
  */
 class OpenYLocaleDate {
 
+  /**
+   * @var \DateTime
+   */
   protected $date;
+
+  /**
+   * @var string
+   */
   protected $siteTimezone;
+
+  /**
+   * @var \DateTimeZone
+   */
   protected $convertedTimezone;
 
   /**

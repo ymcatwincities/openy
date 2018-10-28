@@ -13,9 +13,9 @@ use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
-use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBuilder;
 use Drupal\openy_campaign\Entity\MemberCampaignActivity;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class ActivityTrackingController.
@@ -29,6 +29,11 @@ class ActivityTrackingController extends ControllerBase {
    */
   protected $formBuilder;
 
+  /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
   protected $request_stack;
 
   /**
@@ -57,7 +62,8 @@ class ActivityTrackingController extends ControllerBase {
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
-   * @param $request_stack
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
    * @param \Drupal\Core\Database\Connection $connection
    *   The database connection service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -66,7 +72,7 @@ class ActivityTrackingController extends ControllerBase {
    */
   public function __construct(
     FormBuilder $formBuilder,
-    $request_stack,
+    RequestStack $request_stack,
     Connection $connection,
     EntityTypeManagerInterface $entity_type_manager,
     CacheTagsInvalidatorInterface $cache_tags_invalidator
