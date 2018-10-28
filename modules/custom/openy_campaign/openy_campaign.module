@@ -777,7 +777,7 @@ function openy_campaign_form_node_campaign_page_delete_form_alter(&$form, &$form
   /** @var \Drupal\Core\Entity\EntityStorageInterface $entityStorage */
   $entityStorage = \Drupal::entityTypeManager()->getStorage('node');
   /** @var \Drupal\Core\Entity\Query\QueryInterface $nodeQuery */
-  $nodeQuery = \Drupal::entityQuery('node');
+  $nodeQuery = $entityStorage->getQuery();
 
   // Check if Campaign page is referenced in any Campaign.
   $landingQuery = $nodeQuery
