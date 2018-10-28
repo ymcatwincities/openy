@@ -615,7 +615,6 @@ function openy_campaign_node_view_alter(array &$build, Drupal\Core\Entity\Entity
   // Disable caching for the Campaign's pages.
   if (in_array($entity->bundle(), ['campaign', 'campaign_page'])) {
     $build['#cache']['max-age'] = CAMPAIGN_CACHE_TIME;
-    \Drupal::service('page_cache_kill_switch')->trigger();
   }
 }
 
