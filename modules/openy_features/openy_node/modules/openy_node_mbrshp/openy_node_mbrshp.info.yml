@@ -1,9 +1,9 @@
-name: 'OpenY Membership'
+name: OpenY Node Membership
 description: 'OpenY Membership.'
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - entity_browser
   - entity_reference_revisions
