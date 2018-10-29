@@ -19,3 +19,10 @@ yptf_kronos.mb_csv_upload:
     _title: 'Kronos MindBody CSV Upload'
   requirements:
     _permission: 'administer site configuration'
+yptf_kronos.mb_csv_history:
+  path: '/admin/config/ymca-services/kronos-mb-csv-history'
+  defaults:
+    _form: '\Drupal\yptf_kronos\Form\KronosMBCSVHistory'
+    _title: 'Kronos MindBody CSV History'
+  requirements:
+    _permission: 'administer site configuration'
