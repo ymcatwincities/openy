@@ -2,16 +2,43 @@
 
 namespace Drupal\openy_campaign\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\openy_campaign\Entity\Member;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Form controller for the Simplified Team Member Registration Portal form.
+ * Form controller for the Member Email Edit form.
  *
  * @ingroup openy_campaign_member
  */
 class MemberEmailEditForm extends FormBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * MemberEmailEditForm constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -25,7 +52,7 @@ class MemberEmailEditForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $member_id = NULL) {
     /** @var \Drupal\openy_campaign\Entity\Member $member */
-    $member = Member::load($member_id);
+    $member = $this->entityTypeManager->getStorage('openy_campaign_member')->load($member_id);
 
     $form['#prefix'] = '<div class="container">';
     $form['#suffix'] = '</div>';

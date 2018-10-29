@@ -4,7 +4,11 @@ namespace Drupal\openy_campaign\Entity\Controller;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 
 /**
  * Provides a list controller for openy_campaign_mapping_branch entity.
@@ -12,6 +16,37 @@ use Drupal\taxonomy\Entity\Term;
  * @ingroup openy_campaign_mapping_branch
  */
 class MappingListBuilder extends EntityListBuilder {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * MappingListBuilder constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entityType
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   */
+  public function __construct(EntityTypeInterface $entityType, EntityStorageInterface $storage, EntityTypeManagerInterface $entityTypeManager) {
+    parent::__construct($entityType, $storage);
+    $this->entityTypeManager = $entityTypeManager;
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entityType) {
+    return new static(
+      $entityType,
+      $container->get('entity.manager')->getStorage($entityType->id()),
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -41,7 +76,8 @@ class MappingListBuilder extends EntityListBuilder {
     $row['region'] = '';
     if (!empty($entity->branch->entity->field_location_area->target_id)) {
       $regionTid = $entity->branch->entity->field_location_area->target_id;
-      $row['region'] = Term::load($regionTid)->getName();
+      /** @var \Drupal\taxonomy\TermStorageInterface $termStorage */
+      $row['region'] = $this->entityTypeManager->getStorage('taxonomy_term')->load($regionTid)->getName();
     }
 
     return $row + parent::buildRow($entity);

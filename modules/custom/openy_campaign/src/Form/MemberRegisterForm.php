@@ -5,13 +5,14 @@ namespace Drupal\openy_campaign\Form;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
-use http\Env\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form for the Member Registration popup.
@@ -19,6 +20,33 @@ use http\Env\Request;
  * @ingroup openy_campaign_member
  */
 class MemberRegisterForm extends FormBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * MemberRegisterForm constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager')
+    );
+  }
+
 
   protected static $containerId = 'modal_openy_campaign_register_form';
 
@@ -190,7 +218,7 @@ class MemberRegisterForm extends FormBase {
     $membershipID = $form_state->getValue('membership_id');
 
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaign = Node::load($campaignID);
+    $campaign = $this->entityTypeManager->getStorage('node')-load($campaignID);
 
     $config = $this->config('openy_campaign.general_settings');
     $msgDefault = $config->get('error_msg_default');

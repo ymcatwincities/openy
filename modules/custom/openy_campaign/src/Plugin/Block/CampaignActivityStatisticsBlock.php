@@ -6,11 +6,9 @@ use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
-use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 use Drupal\openy_campaign\Entity\MemberCheckin;
-use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -58,8 +56,17 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    *   The plugin implementation definition.
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, CampaignMenuServiceInterface $campaign_menu_service, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    FormBuilderInterface $formBuilder,
+    CampaignMenuServiceInterface $campaign_menu_service,
+    EntityTypeManagerInterface $entity_type_manager
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
     $this->campaignMenuService = $campaign_menu_service;
@@ -109,17 +116,22 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
       return [];
     }
 
+    /** @var \Drupal\node\NodeStorage $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
+    /** @var \Drupal\taxonomy\TermStorageInterface $termStorage */
+    $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $memberCheckinStorage = $this->entityTypeManager->getStorage('openy_campaign_member_checkin');
+    /** @var \Drupal\taxonomy\VocabularyStorageInterface $vocabularyStorage */
+    $vocabularyStorage = $this->entityTypeManager->getStorage('taxonomy_vocabulary');
+
     $activities = [];
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaign = Node::load($campaignId);
+    $campaign = $nodeStorage->load($campaignId);
 
     /** @var \Drupal\taxonomy\Entity\Vocabulary $vocabulary */
     $vocabulary = $campaign->field_campaign_fitness_category->entity;
-    /** @var \Drupal\taxonomy\VocabularyStorageInterface $vocabularyStorage */
-    $vocabularyStorage = $this->entityTypeManager->getStorage('taxonomy_vocabulary');
     $tids = $vocabularyStorage->getToplevelTids([$vocabulary->id()]);
-
-    $terms = Term::loadMultiple($tids);
+    $terms = $termStorage->loadMultiple($tids);
 
     /** @var \DateTime $start */
     $start = $campaign->field_campaign_start_date->date;
@@ -142,7 +154,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     $facilityCheckInIds = MemberCheckin::getFacilityCheckIns($memberCampaignData['member_id'], $start, $end);
     $checkinRecords = [];
 
-    foreach (MemberCheckin::loadMultiple($facilityCheckInIds) as $checkIn) {
+    foreach ($memberCheckinStorage->loadMultiple($facilityCheckInIds) as $checkIn) {
       $checkInDate = new \DateTime('@' . $checkIn->date->value);
       $checkinRecords[$checkInDate->format('Y-m-d')] = $checkInDate->format('Y-m-d');
     }
@@ -168,7 +180,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
        */
       foreach ($terms as $tid => $term) {
 
-        $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($vocabulary->id(), $tid, 1, TRUE);
+        $childTerms = $termStorage->loadTree($vocabulary->id(), $tid, 1, TRUE);
         $childTermIds = [];
         /** @var \Drupal\taxonomy\Entity\Term $childTerm */
         foreach ($childTerms as $childTerm) {
@@ -192,7 +204,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
         else {
           $form_class = ('Drupal\openy_campaign\Form\ActivityTrackingModalForm');
 
-          $activityTrackingForm = \Drupal::formBuilder()->getForm(
+          $activityTrackingForm = $this->formBuilder->getForm(
             $form_class,
             $key,
             $memberCampaignId,

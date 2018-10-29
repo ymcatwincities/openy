@@ -280,7 +280,8 @@ function openy_campaign_tokens($type, $tokens, array $data, array $options, Bubb
         if (!empty($campaign) && MemberCampaign::isLoggedIn($campaign->id())) {
           $userData = MemberCampaign::getMemberCampaignData($campaign->id());
           $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
-          $memberCampaign = MemberCampaign::load($memberCampaignID);
+          /** @var MemberCampaign $memberCampaign */
+          $memberCampaign = \Drupal::entityTypeManager()->getStorage('openy_campaign_member_campaign')->load($memberCampaignID);
           if (!empty($memberCampaign)) {
             $goal = (int) $memberCampaign->getGoal();
           }
@@ -836,7 +837,8 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
     $campaign = $form_state->getFormObject()->getEntity();
     foreach ($campaign->get('field_campaign_pages')->getValue() as $item) {
       if (!empty($item)) {
-        $campaignPage = Node::load($item['target_id']);
+        /** @var Node $campaignPage */
+        $campaignPage = \Drupal::entityTypeManager()->getStorage('node')->load($item['target_id']);
         if ($campaignPage) {
           $campaignPages[$campaignPage->id()] = $campaignPage->getTitle();
         }
@@ -882,7 +884,8 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
 
       $page = NULL;
       if (!empty($linksRow['page'])) {
-        $page = Node::load($linksRow['page'][0]['target_id']);
+        /** @var Node $page */
+        $page = \Drupal::entityTypeManager()->getStorage('node')->load($linksRow['page'][0]['target_id']);
       }
 
       $menuBlock['links'][$row]['page'] = [
@@ -971,7 +974,8 @@ function openy_campaign_campaign_menu_field_submit(&$form, FormStateInterface $f
       if (empty($id)) {
         continue;
       }
-      $campaignPage = Node::load($id);
+      /** @var Node $campaignPage */
+      $campaignPage = \Drupal::entityTypeManager()->getStorage('node')->load($id);
       if ($campaignPage->hasField('field_campaign_parent')) {
         $campaignPage->set('field_campaign_parent', $campaign);
         $campaignPage->save();

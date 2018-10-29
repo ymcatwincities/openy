@@ -6,7 +6,6 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeInterface;
-use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -84,7 +83,8 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     RouteMatchInterface $route_match,
     RendererInterface $renderer,
     Connection $connection,
-    ConfigFactoryInterface $config_factory) {
+    ConfigFactoryInterface $config_factory
+  ) {
     $this->entityTypeManager = $entity_type_manager;
     $this->container = $container;
     $this->routeMatch = $route_match;
@@ -140,10 +140,12 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       }
     }
 
+    /** @var \Drupal\node\NodeStorage $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
+
     // Get Campaign node with reference to given Landing page node.
-    $entity_query_service = $this->container->get('entity.query');
     /** @var \Drupal\Core\Entity\Query\QueryInterface $query */
-    $query = $entity_query_service->get('node')
+    $query = $nodeStorage->getQuery()
       ->condition('status', 1)
       ->condition('type', 'campaign');
     $orGroup = $query->orConditionGroup()
@@ -152,7 +154,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $nids = $query->condition($orGroup)->execute();
 
     /** @var \Drupal\node\NodeInterface $campaign */
-    $campaign = $this->entityTypeManager->getStorage('node')->load(reset($nids));
+    $campaign = $nodeStorage->load(reset($nids));
 
     return $campaign;
   }
@@ -261,9 +263,11 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         $landingPageIds[] = $field['target_id'];
       }
     }
+    /** @var \Drupal\node\NodeStorage $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
 
     // Load Landing page and check if it's published.
-    $landingPages = Node::loadMultiple($landingPageIds);
+    $landingPages = $nodeStorage->loadMultiple($landingPageIds);
     /** @var \Drupal\node\Entity\Node $node */
     foreach ($landingPages as $node) {
       if ($node->isPublished()) {
@@ -273,7 +277,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
 
     // If all pages are disabled, show Pause page.
     if (empty($publishedPages) && isset($fieldPauseLandingPage[0]['target_id'])) {
-      return Node::load($fieldPauseLandingPage[0]['target_id']);
+      return $nodeStorage->load($fieldPauseLandingPage[0]['target_id']);
     }
 
     return reset($publishedPages);
@@ -348,13 +352,16 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $dt = new \DateTime('now', new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
     $now = DrupalDateTime::createFromDateTime($dt);
 
-    $campaignIds = $this->entityTypeManager->getStorage('node')->getQuery()
+    /** @var \Drupal\node\NodeStorage $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
+
+    $campaignIds = $nodeStorage->getQuery()
       ->condition('type', 'campaign')
       ->condition('status', TRUE)
       ->condition('field_campaign_end_date', $now->format(DATETIME_DATETIME_STORAGE_FORMAT), '>=')
       ->sort('created', 'DESC')
       ->execute();
-    $campaigns = $this->entityTypeManager->getStorage('node')->loadMultiple($campaignIds);
+    $campaigns = $nodeStorage->loadMultiple($campaignIds);
 
     return !empty($campaigns) ? $campaigns : NULL;
   }
