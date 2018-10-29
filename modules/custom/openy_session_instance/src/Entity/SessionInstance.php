@@ -48,11 +48,11 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "location" = "location"
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/session_instance/{session_instance}",
- *     "add-form" = "/admin/structure/session_instance/add",
- *     "edit-form" = "/admin/structure/session_instance/{session_instance}/edit",
- *     "delete-form" = "/admin/structure/session_instance/{session_instance}/delete",
- *     "collection" = "/admin/structure/session_instance",
+ *     "canonical" = "/admin/content/session_instance/{session_instance}",
+ *     "add-form" = "/admin/content/session_instance/add",
+ *     "edit-form" = "/admin/content/session_instance/{session_instance}/edit",
+ *     "delete-form" = "/admin/content/session_instance/{session_instance}/delete",
+ *     "collection" = "/admin/content/session_instance",
  *   },
  *   field_ui_base_route = "session_instance.settings"
  * )
