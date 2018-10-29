@@ -14,7 +14,7 @@
   sudo: yes
 
 - name: Run tests
-  shell: env CYPRESS_baseUrl="{{ site_url }}" node_modules/cypress/bin/cypress run > ../../build_reports/cypress.txt
+  shell: env CYPRESS_baseUrl="{{ site_url }}" node_modules/cypress/bin/cypress run --reporter=doc  > ../../build_reports/cypress.html
   args:
     chdir: cypress
   sudo: yes
