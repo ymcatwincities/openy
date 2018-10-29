@@ -14,7 +14,7 @@ openy_system.extend_index:
   weight: -20
 
 openy_system.openy_modules_list:
-  title: 'List'
+  title: 'Install'
   parent: openy_system.extend_index
   description: 'List Open Y packages.'
   weight: 10
@@ -28,34 +28,34 @@ openy_system.openy_modules_uninstall:
   weight: 20
   route_name: openy_system.modules_uninstall
 
-openy_system.openy_integration:
+openy_system.openy_integrations:
   title: Integrations
-  route_name: openy_system.openy_integration
+  route_name: openy_system.openy_integrations
   parent: openy_system.openy
-  description: 'Configure Open Y integration with third party services.'
+  description: 'Configure Open Y integrations with third party services.'
   position: left
   weight: -10
 
-openy_system.openy_integration_daxko:
+openy_system.openy_integrations_daxko:
   title: Daxko
-  route_name: openy_system.openy_integration_daxko
-  parent: openy_system.openy_integration
+  route_name: openy_system.openy_integrations_daxko
+  parent: openy_system.openy_integrations
   description: 'Configure Open Y integration with Daxko service.'
   position: left
   weight: 0
 
-openy_system.openy_integration_groupexpro:
+openy_system.openy_integrations_groupexpro:
   title: GroupEx Pro
-  route_name: openy_system.openy_integration_groupexpro
-  parent: openy_system.openy_integration
+  route_name: openy_system.openy_integrations_groupexpro
+  parent: openy_system.openy_integrations
   description: 'Configure Open Y integration with GroupEx Pro service.'
   position: left
   weight: 10
 
-openy_system.openy_integration_activenet:
+openy_system.openy_integrations_activenet:
   title: ActiveNet
-  route_name: openy_system.openy_integration_activenet
-  parent: openy_system.openy_integration
+  route_name: openy_system.openy_integrations_activenet
+  parent: openy_system.openy_integrations
   description: 'Configure Open Y integration with ActiveNet service.'
   position: left
   weight: 20
