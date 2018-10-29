@@ -12,13 +12,13 @@ use Drupal\groupex_form_cache\GroupexFormCacheInterface;
 use Drupal\user\UserInterface;
 
 /**
- * Defines the Groupex Form Cache entity.
+ * Defines the GroupEx Pro Form Cache entity.
  *
  * @ingroup groupex_form_cache
  *
  * @ContentEntityType(
  *   id = "groupex_form_cache",
- *   label = @Translation("Groupex Form Cache"),
+ *   label = @Translation("GroupEx Pro Form Cache"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\groupex_form_cache\GroupexFormCacheListBuilder",
@@ -46,11 +46,11 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/config/ymca-entities/groupex_form_cache/{groupex_form_cache}",
- *     "add-form" = "/admin/config/ymca-entities/groupex_form_cache/add",
- *     "edit-form" = "/admin/config/ymca-entities/groupex_form_cache/{groupex_form_cache}/edit",
- *     "delete-form" = "/admin/config/ymca-entities/groupex_form_cache/{groupex_form_cache}/delete",
- *     "collection" = "/admin/config/ymca-entities/groupex_form_cache",
+ *     "canonical" = "/admin/openy/integrations/groupex-pro/groupex_form_cache/{groupex_form_cache}",
+ *     "add-form" = "/admin/openy/integrations/groupex-pro/groupex_form_cache/add",
+ *     "edit-form" = "/admin/openy/integrations/groupex-pro/groupex_form_cache/{groupex_form_cache}/edit",
+ *     "delete-form" = "/admin/openy/integrations/groupex-pro/groupex_form_cache/{groupex_form_cache}/delete",
+ *     "collection" = "/admin/openy/integrations/groupex-pro/groupex_form_cache",
  *   },
  *   field_ui_base_route = "groupex_form_cache.settings"
  * )
@@ -150,16 +150,16 @@ class GroupexFormCache extends ContentEntityBase implements GroupexFormCacheInte
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the Groupex Form Cache entity.'))
+      ->setDescription(t('The ID of the GroupEx Pro Form Cache entity.'))
       ->setReadOnly(TRUE);
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the Groupex Form Cache entity.'))
+      ->setDescription(t('The UUID of the GroupEx Pro Form Cache entity.'))
       ->setReadOnly(TRUE);
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Groupex Form Cache entity.'))
+      ->setDescription(t('The user ID of author of the GroupEx Pro Form Cache entity.'))
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
@@ -185,7 +185,7 @@ class GroupexFormCache extends ContentEntityBase implements GroupexFormCacheInte
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Groupex Form Cache entity.'))
+      ->setDescription(t('The name of the GroupEx Pro Form Cache entity.'))
       ->setSettings([
         'max_length' => 50,
         'text_processing' => 0,
@@ -205,12 +205,12 @@ class GroupexFormCache extends ContentEntityBase implements GroupexFormCacheInte
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
-      ->setDescription(t('A boolean indicating whether the Groupex Form Cache is published.'))
+      ->setDescription(t('A boolean indicating whether the GroupEx Pro Form Cache is published.'))
       ->setDefaultValue(TRUE);
 
     $fields['langcode'] = BaseFieldDefinition::create('language')
       ->setLabel(t('Language code'))
-      ->setDescription(t('The language code for the Groupex Form Cache entity.'))
+      ->setDescription(t('The language code for the GroupEx Pro Form Cache entity.'))
       ->setDisplayOptions('form', [
         'type' => 'language_select',
         'weight' => 10,

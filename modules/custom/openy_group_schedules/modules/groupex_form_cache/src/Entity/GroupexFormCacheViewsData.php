@@ -6,7 +6,7 @@ use Drupal\views\EntityViewsData;
 use Drupal\views\EntityViewsDataInterface;
 
 /**
- * Provides Views data for Groupex Form Cache entities.
+ * Provides Views data for GroupEx Pro Form Cache entities.
  */
 class GroupexFormCacheViewsData extends EntityViewsData implements EntityViewsDataInterface {
 
@@ -18,8 +18,8 @@ class GroupexFormCacheViewsData extends EntityViewsData implements EntityViewsDa
 
     $data['groupex_form_cache']['table']['base'] = [
       'field' => 'id',
-      'title' => $this->t('Groupex Form Cache'),
-      'help' => $this->t('The Groupex Form Cache ID.'),
+      'title' => $this->t('GroupEx Pro Form Cache'),
+      'help' => $this->t('The GroupEx Pro Form Cache ID.'),
     ];
 
     return $data;
