@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Theme;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Theme\ThemeNegotiatorInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
@@ -9,6 +10,23 @@ use Drupal\Core\Routing\RouteMatchInterface;
  * {@inheritdoc}
  */
 class ThemeNegotiator implements ThemeNegotiatorInterface {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Creates a new ThemeNegotiator.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
 
   /**
    * {@inheritdoc}
@@ -42,7 +60,7 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
       }
 
       // Check if requested node uses in campaign.
-      $query = \Drupal::entityQuery('node')
+      $query = $this->entityTypeManager->getStorage('node')->getQuery()
         ->condition('status', 1)
         ->condition('type', 'campaign');
       $orGroup = $query->orConditionGroup()

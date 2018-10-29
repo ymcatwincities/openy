@@ -2,8 +2,12 @@
 
 namespace Drupal\openy_campaign\Plugin\QueueWorker;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\QueueWorkerBase;
-use Drupal\openy_campaign\Entity\MemberCheckIn;
+use Drupal\openy_campaign\CRMClientFactory;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Updates member checkins for retention campaign.
@@ -14,7 +18,14 @@ use Drupal\openy_campaign\Entity\MemberCheckIn;
  *   cron = {"time" = 60}
  * )
  */
-class MemberVisitsWorkerUpdate extends QueueWorkerBase {
+class MemberVisitsWorkerUpdate extends QueueWorkerBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * Campaign start date.
@@ -31,10 +42,56 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
   protected $dateClose;
 
   /**
+   * @var \Drupal\openy_campaign\CRMClientFactory
+   */
+  protected $clientFactory;
+
+  /**
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $logger;
+
+
+  /**
+   * Constructs a new class instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager service.
+   * @param \Drupal\openy_campaign\CRMClientFactory $clientFactory
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
+   */
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    EntityTypeManagerInterface $entity_type_manager,
+    CRMClientFactory $clientFactory,
+    LoggerChannelFactoryInterface $logger
+  ) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->entityTypeManager = $entity_type_manager;
+    $this->clientFactory = $clientFactory;
+    $this->logger = $logger;
+  }
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('entity_type.manager'),
+      $container->get('openy_campaign.client_factory'),
+      $container->get('logger.factory')
+    );
   }
 
   /**
@@ -43,15 +100,16 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
   public function processItem($data) {
     // Get info from CRM.
     /** @var $client \Drupal\openy_campaign\CRMClientInterface */
-    $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
+    $client = $this->clientFactory->getClient();
 
     $results = $client->getVisitsBatch($data['items'], $data['date_from'], $data['date_to']);
     if (!empty($results->ErrorMessage)) {
-      $logger = \Drupal::logger('openy_campaign_queue');
+      $logger = $this->logger->get('openy_campaign_queue');
       $logger->alert('Could not retrieve visits information for members for batch operation');
       return;
     }
 
+    $memberCheckinStorage = $this->entityTypeManager->getStorage('openy_campaign_member_checkin');
     foreach ($results->FacilityVisitCustomerRecord as $item) {
       if (!isset($item->TotalVisits) || $item->TotalVisits == 0) {
         continue;
@@ -61,7 +119,7 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
       $dateFrom = $data['date_from'];
       $timestampFrom = $dateFrom->getTimestamp();
 
-      $checkin_ids = \Drupal::entityQuery('openy_campaign_member_checkin')
+      $checkin_ids = $memberCheckinStorage->getQuery()
         ->condition('member', $member_id)
         ->condition('date', $timestampFrom)
         ->execute();
@@ -72,7 +130,7 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
       }
 
       // Create check-in record.
-      $checkin = MemberCheckIn::create([
+      $checkin = $memberCheckinStorage->create([
         'date' => $timestampFrom,
         'checkin' => TRUE,
         'member' => $member_id,

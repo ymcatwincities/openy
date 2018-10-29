@@ -2,10 +2,12 @@
 
 namespace Drupal\openy_campaign\Plugin\views\field;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberCheckin;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Checkins handler for the member entity.
@@ -15,6 +17,40 @@ use Drupal\views\ResultRow;
  * @ViewsField("member_campaign_checkins")
  */
 class MemberCampaignCheckins extends FieldPluginBase {
+
+  /**
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * Constructs a EntityLabel object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $configFactory) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+
+    $this->configFactory = $configFactory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('config.factory')
+    );
+  }
 
   /**
    * @{inheritdoc}
@@ -47,7 +83,7 @@ class MemberCampaignCheckins extends FieldPluginBase {
     $campaign = $entity->getCampaign();
 
     // Get site timezone.
-    $config = \Drupal::config('system.date');
+    $config = $this->configFactory->get('system.date');
     $configSiteDefaultTimezone = !empty($config->get('timezone.default')) ? $config->get('timezone.default') : date_default_timezone_get();
     $siteDefaultTimezone = new \DateTimeZone($configSiteDefaultTimezone);
 

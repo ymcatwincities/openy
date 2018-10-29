@@ -3,6 +3,7 @@
 namespace Drupal\openy_campaign;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Queue\QueueFactory;
@@ -41,6 +42,11 @@ class RegularUpdater {
   protected $queueFactory;
 
   /**
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
    * Creates a new RegularUpdater.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -51,12 +57,20 @@ class RegularUpdater {
    *   The logger channel factory.
    * @param \Drupal\Core\Queue\QueueFactory $queue_factory
    *   The queue factory.
+   * @param \Drupal\Core\Database\Connection $connection
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, QueueFactory $queue_factory) {
+  public function __construct(
+    ConfigFactoryInterface $config_factory,
+    EntityTypeManagerInterface $entity_type_manager,
+    LoggerChannelFactoryInterface $logger_factory,
+    QueueFactory $queue_factory,
+    Connection $connection
+  ) {
     $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
     $this->loggerFactory = $logger_factory;
     $this->queueFactory = $queue_factory;
+    $this->connection = $connection;
   }
 
   /**
@@ -122,9 +136,8 @@ class RegularUpdater {
    * @return array
    */
   private function getAllMembersDataForQueue() {
-    $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
-    $query = $connection->select('node_field_data', 'n');
+    $query = $this->connection->select('node_field_data', 'n');
     $query->condition('n.status', 1);
     $query->condition('n.type', 'campaign');
 

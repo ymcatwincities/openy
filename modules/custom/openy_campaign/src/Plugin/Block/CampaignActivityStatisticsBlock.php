@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Plugin\Block;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -46,6 +47,11 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
   protected $entityTypeManager;
 
   /**
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
    * Constructs a new Block instance.
    *
    * @param array $configuration
@@ -58,6 +64,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    *   Form builder.
    * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Component\Datetime\TimeInterface $time
    */
   public function __construct(
     array $configuration,
@@ -65,12 +72,14 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     $plugin_definition,
     FormBuilderInterface $formBuilder,
     CampaignMenuServiceInterface $campaign_menu_service,
-    EntityTypeManagerInterface $entity_type_manager
+    EntityTypeManagerInterface $entity_type_manager,
+    TimeInterface $time
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
     $this->campaignMenuService = $campaign_menu_service;
     $this->entityTypeManager = $entity_type_manager;
+    $this->time = $time;
   }
 
   /**
@@ -83,7 +92,8 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
       $plugin_definition,
       $container->get('form_builder'),
       $container->get('openy_campaign.campaign_menu_handler'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('datetime.time')
     );
   }
 
@@ -164,7 +174,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
       $key = $start->format('Y-m-d');
 
       $disabled = FALSE;
-      if (\Drupal::time()->getRequestTime() < $start->format('U')) {
+      if ($this->time->getRequestTime() < $start->format('U')) {
         $disabled = TRUE;
       }
 

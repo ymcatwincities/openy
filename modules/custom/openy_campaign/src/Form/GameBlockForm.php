@@ -4,11 +4,69 @@ namespace Drupal\openy_campaign\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
+use Drupal\Core\Theme\ThemeManagerInterface;
+use Drupal\openy_campaign\CampaignMenuService;
+use Drupal\openy_campaign\GameService;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a "openy_campaign_game_block_form" form.
  */
 class GameBlockForm extends FormBase {
+
+  /**
+   * @var \Drupal\openy_campaign\CampaignMenuService
+   */
+  protected $campaignMenuService;
+
+  /**
+   * @var \Drupal\openy_campaign\GameService
+   */
+  protected $gameService;
+
+  /**
+   * @var \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface
+   */
+  protected $streamWrapperManager;
+
+  /**
+   * @var \Drupal\Core\Theme\ThemeManagerInterface
+   */
+  protected $themeManager;
+
+  /**
+   * GameBlockForm constructor.
+   *
+   * @param \Drupal\openy_campaign\CampaignMenuService $campaignMenuService
+   * @param \Drupal\openy_campaign\GameService $gameService
+   * @param \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface $streamWrapperManager
+   * @param \Drupal\Core\Theme\ThemeManagerInterface $themeManager
+   */
+  public function __construct(
+    CampaignMenuService $campaignMenuService,
+    GameService $gameService,
+    StreamWrapperManagerInterface $streamWrapperManager,
+    ThemeManagerInterface $themeManager
+  ) {
+    $this->campaignMenuService = $campaignMenuService;
+    $this->gameService = $gameService;
+    $this->streamWrapperManager = $streamWrapperManager;
+    $this->themeManager = $themeManager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('openy_campaign.campaign_menu_handler'),
+      $container->get('openy_campaign.game_service'),
+      $container->get('stream_wrapper_manager'),
+      $container->get('theme.manager')
+    );
+  }
+
 
   /**
    * {@inheritdoc}
@@ -37,10 +95,10 @@ class GameBlockForm extends FormBase {
     $msgGameRemainingMultiple = check_markup($msgGameRemainingMultiple['value'], $msgGameRemainingMultiple['format']);
 
     /** @var \Drupal\Node\Entity\Node $campaign */
-    $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
+    $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
     $isAllowedToPlay = TRUE;
     if ($campaign->field_campaign_game_one_time_win->value == 1 &&
-      \Drupal::service('openy_campaign.game_service')->isMemberWinner($campaign)) {
+      $this->gameService->isMemberWinner($campaign)) {
       $isAllowedToPlay = FALSE;
     }
 
@@ -70,10 +128,10 @@ class GameBlockForm extends FormBase {
     if (!empty($campaign->field_flip_cards_cover_image->entity)) {
       /** @var \Drupal\file\Entity\File $coverImage */
       $coverImage = $campaign->field_flip_cards_cover_image->entity;
-      $coverImagePath = \Drupal::service('stream_wrapper_manager')->getViaUri($coverImage->getFileUri())->getExternalUrl();
+      $coverImagePath = $this->streamWrapperManager->getViaUri($coverImage->getFileUri())->getExternalUrl();
     }
     else {
-      $coverImagePath = base_path() . \Drupal::theme()->getActiveTheme()->getPath() . '/img/instant_game_cover_1.png';
+      $coverImagePath = base_path() . $this->themeManager->getActiveTheme()->getPath() . '/img/instant_game_cover_1.png';
     }
 
     $form['label'] = [

@@ -1,6 +1,7 @@
 services:
   openy_campaign.client_factory:
     class: Drupal\openy_campaign\CRMClientFactory
+    arguments: ['@config.factory', '@service_container']
 
   openy_campaign.campaign_menu_handler:
     class: Drupal\openy_campaign\CampaignMenuService
@@ -8,7 +9,7 @@ services:
 
   openy_campaign.regular_updater:
     class: Drupal\openy_campaign\RegularUpdater
-    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@queue']
+    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@queue', '@database']
 
   openy_campaign.generate_campaign_scorecard:
     class: Drupal\openy_campaign\CampaignScorecardService
@@ -16,6 +17,7 @@ services:
 
   theme.negotiator.openy_campaign:
     class: Drupal\openy_campaign\Theme\ThemeNegotiator
+    arguments: ['@entity_type.manager']
     tags:
       - { name: theme_negotiator, priority: 0 }
 
