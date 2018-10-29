@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Entity\Controller;
 
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -24,16 +25,27 @@ class MemberListBuilder extends EntityListBuilder {
   protected $entityTypeManager;
 
   /**
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
    * MappingListBuilder constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeInterface $entityType
    * @param \Drupal\Core\Entity\EntityStorageInterface $storage
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   * @param \Drupal\Core\Database\Connection $connection
    */
-  public function __construct(EntityTypeInterface $entityType, EntityStorageInterface $storage, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(
+    EntityTypeInterface $entityType,
+    EntityStorageInterface $storage,
+    EntityTypeManagerInterface $entityTypeManager,
+    Connection $connection
+  ) {
     parent::__construct($entityType, $storage);
     $this->entityTypeManager = $entityTypeManager;
-
+    $this->connection = $connection;
   }
 
   /**
@@ -43,7 +55,8 @@ class MemberListBuilder extends EntityListBuilder {
     return new static(
       $entityType,
       $container->get('entity.manager')->getStorage($entityType->id()),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('database')
     );
   }
 
@@ -96,9 +109,8 @@ class MemberListBuilder extends EntityListBuilder {
     $row['checkins'] = count($memberCheckins);
 
     // Get Campaign titles list for this Member.
-    $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
-    $query = $connection->select('openy_campaign_member', 'm');
+    $query = $this->connection->select('openy_campaign_member', 'm');
     $query->condition('m.id', $entity->id());
     $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
     $query->join('node_field_data', 'n', 'n.nid = mc.campaign');

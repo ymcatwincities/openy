@@ -12,6 +12,7 @@ use Drupal\Core\Form\FormBuilder;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class MembersController.
@@ -33,15 +34,26 @@ class MemberRegisterLoginController extends ControllerBase {
   protected $cacheTagsInvalidator;
 
   /**
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * The ModalFormExampleController constructor.
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
    * @param \Drupal\Core\Cache\CacheTagsInvalidatorInterface $cache_tags_invalidator
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    */
-  public function __construct(FormBuilder $formBuilder, CacheTagsInvalidatorInterface $cache_tags_invalidator) {
+  public function __construct(
+    FormBuilder $formBuilder,
+    CacheTagsInvalidatorInterface $cache_tags_invalidator,
+    RequestStack $requestStack
+  ) {
     $this->formBuilder = $formBuilder;
     $this->cacheTagsInvalidator = $cache_tags_invalidator;
+    $this->requestStack = $requestStack;
   }
 
   /**
@@ -55,7 +67,8 @@ class MemberRegisterLoginController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('form_builder'),
-      $container->get('cache_tags.invalidator')
+      $container->get('cache_tags.invalidator'),
+      $container->get('request_stack')
     );
   }
 
@@ -73,7 +86,7 @@ class MemberRegisterLoginController extends ControllerBase {
     $actionsArray = ['login', 'registration'];
     $action = (in_array($action, $actionsArray)) ? $action : 'login';
 
-    $is_ajax = \Drupal::request()->isXmlHttpRequest();
+    $is_ajax = $this->requestStack->isXmlHttpRequest();
     if (!$is_ajax) {
       return new RedirectResponse(Url::fromRoute('entity.node.canonical', ['node' => $campaign_id])->toString());
     }
@@ -126,9 +139,6 @@ class MemberRegisterLoginController extends ControllerBase {
 
     // Close dialog and redirect ot Campaign main page.
     $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
-
-    // Invalidate all data of the active user.
-    $this->cacheTagsInvalidator->invalidateTags(['member_campaign:' . $memberCampaignId]);
 
     return $response;
   }

@@ -7,11 +7,13 @@ use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Drupal\openy_campaign\RegularUpdater;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -29,13 +31,31 @@ class MemberRegisterForm extends FormBase {
   protected $entityTypeManager;
 
   /**
+   * @var \Drupal\Core\Form\FormBuilderInterface
+   */
+  protected $formBuilder;
+
+  /**
+   * @var \Drupal\openy_campaign\RegularUpdater
+   */
+  protected $regularUpdater;
+
+  /**
    * MemberRegisterForm constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
+   * @param \Drupal\openy_campaign\RegularUpdater $regularUpdater
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    FormBuilderInterface $formBuilder,
+    RegularUpdater $regularUpdater
+  ) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->formBuilder = $formBuilder;
+    $this->regularUpdater = $regularUpdater;
   }
 
   /**
@@ -43,10 +63,11 @@ class MemberRegisterForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('form_builder'),
+      $container->get('openy_campaign.regular_updater')
     );
   }
-
 
   protected static $containerId = 'modal_openy_campaign_register_form';
 
@@ -391,7 +412,7 @@ class MemberRegisterForm extends FormBase {
       }
 
       // Rebuild form with new $form and $form_state values.
-      $new_form = \Drupal::formBuilder()
+      $new_form = $this->formBuilder
         ->rebuildForm($this->getFormId(), $form_state, $form);
 
       // Refreshing form.
@@ -430,10 +451,6 @@ class MemberRegisterForm extends FormBase {
       $memberCampaign->defineGoal();
       $memberCampaign->save();
 
-      // Get visits history from CRM for the past Campaign dates.
-      /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
-      $regularUpdater = \Drupal::service('openy_campaign.regular_updater');
-
       // Get visits history from Campaign start to yesterday date.
       $dateFrom = $campaignStartDate->setTime(0, 0, 0);
       $dateTo = new \DateTime();
@@ -444,7 +461,7 @@ class MemberRegisterForm extends FormBase {
         'start_date' => $dateFrom,
         'end_date' => $campaignEndDate,
       ];
-      $regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
+      $this->regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
       // Get default values from settings.
       $config = $this->config('openy_campaign.general_settings');
