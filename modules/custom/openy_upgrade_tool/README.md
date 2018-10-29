@@ -1,7 +1,7 @@
 # OpenY upgrade tool
 This module add the ability to upgrade OpenY configs and log manual config changes.
 
-### OpenY upgrade dashboard
+### Open Y upgrade dashboard
 - /admin/openy/development/openy-upgrade-dashboard - On this page you can see list of manually changed configs that has conflicts with updates from openy and diff between current config version and config from update.
 - /admin/config/logger_entity - On this page you can see list of all manually changed configs.
 
