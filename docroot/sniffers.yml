@@ -244,5 +244,5 @@
 
   - name: Cypress Reports
     sudo: yes
-    lineinfile: dest={{ workspace_root }}/{{ artifacts_file }} line="Cypress reports could be found at {{ build_reports_dir }}/cypress.html" create=yes state=present
+    lineinfile: dest={{ workspace_root }}/{{ artifacts_file }} line="Cypress reports could be found at {{ webroot }}/build_reports/cypress.html" create=yes state=present
 
