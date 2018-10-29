@@ -28,7 +28,7 @@
   sudo: yes
 
 - name: Output test results body
-  shell: echo "{{ report.std_out }}" >> cypress.html
+  shell: echo "{{ report.stdout }}" >> cypress.html
   args:
     chdir: build_reports
   sudo: yes
