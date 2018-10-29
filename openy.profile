@@ -328,6 +328,20 @@ function openy_discover_broken_paragraphs(array &$install_state) {
     'field_prgf_schedules_ref_plugin_id',
     'field_prgf_schedules_ref_plugin_configuration'
   );
+  $process_paragraphs([
+    'paragraph__field_prgf_location_finder',
+    'paragraph_revision__field_prgf_location_finder',
+  ],
+    'field_prgf_location_finder_plugin_id',
+    'field_prgf_location_finder_plugin_configuration'
+  );
+  $process_paragraphs([
+    'paragraph__field_prgf_location_finder',
+    'paragraph_revision__field_prgf_location_finder',
+  ],
+    'field_prgf_location_finder_plugin_id',
+    'field_prgf_location_finder_plugin_configuration'
+  );
 }
 
 /**
