@@ -6,7 +6,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactory;
 
 /**
- * Groupex helper.
+ * GroupEx Pro helper.
  *
  * @package Drupal\openy_group_schedules.
  */
