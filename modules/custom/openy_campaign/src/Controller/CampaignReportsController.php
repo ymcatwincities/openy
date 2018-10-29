@@ -2,16 +2,16 @@
 
 namespace Drupal\openy_campaign\Controller;
 
-use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilder;
 use Drupal\Core\Link;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\openy_campaign\CampaignScorecardService;
 use Drupal\openy_session_instance\SessionInstanceManager;
-use Drupal\taxonomy\Entity\Term;
 use League\Csv\Writer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
@@ -51,6 +51,16 @@ class CampaignReportsController extends ControllerBase {
   protected $sessionInstanceManager;
 
   /**
+   * @var \Drupal\openy_campaign\CampaignScorecardService
+   */
+  protected $campaignScorecardService;
+
+  /**
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * The CampaignReportsController constructor.
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
@@ -60,12 +70,23 @@ class CampaignReportsController extends ControllerBase {
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager service.
    * @param \Drupal\openy_session_instance\SessionInstanceManager $sessionInstanceManager
+   * @param \Drupal\openy_campaign\CampaignScorecardService $campaignScorecardService
+   * @param \Drupal\Core\Render\RendererInterface $renderer
    */
-  public function __construct(FormBuilder $formBuilder, Connection $connection, EntityTypeManagerInterface $entityTypeManager, SessionInstanceManager $sessionInstanceManager) {
+  public function __construct(
+    FormBuilder $formBuilder,
+    Connection $connection,
+    EntityTypeManagerInterface $entityTypeManager,
+    SessionInstanceManager $sessionInstanceManager,
+    CampaignScorecardService $campaignScorecardService,
+    RendererInterface $renderer
+  ) {
     $this->formBuilder = $formBuilder;
     $this->connection = $connection;
     $this->entityTypeManager = $entityTypeManager;
     $this->sessionInstanceManager = $sessionInstanceManager;
+    $this->campaignScorecardService = $campaignScorecardService;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -81,7 +102,9 @@ class CampaignReportsController extends ControllerBase {
       $container->get('form_builder'),
       $container->get('database'),
       $container->get('entity_type.manager'),
-      $container->get('session_instance.manager')
+      $container->get('session_instance.manager'),
+      $container->get('openy_campaign.generate_campaign_scorecard'),
+      $container->get('renderer')
     );
   }
 
@@ -249,7 +272,7 @@ class CampaignReportsController extends ControllerBase {
    */
   private function getSummary($node) {
     if (!($node instanceof NodeInterface)) {
-      $node = Node::load($node);
+      $node = $this->entityTypeManager->getStorage('node')->load($node);
     }
 
     $registeredMembers = $this->calculateRegisteredMembers($node);
@@ -337,10 +360,12 @@ class CampaignReportsController extends ControllerBase {
     $data = [];
 
     $data['totalActivities'] = count($activities);
+    /** @var \Drupal\taxonomy\TermStorageInterface $termStorage */
+    $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
 
     foreach ($activities as $activity) {
       // Fetch subcategory.
-      $subcategory = Term::load($activity->mca_activity);
+      $subcategory = $termStorage->load($activity->mca_activity);
       // In case if some categories have been removed during the challenge, we need to skip it from the calculation.
       if (empty($subcategory)) {
         --$data['totalActivities'];
@@ -348,7 +373,7 @@ class CampaignReportsController extends ControllerBase {
       }
 
       // Fetch category.
-      $ancestors = $this->entityTypeManager->getStorage("taxonomy_term")->loadAllParents($subcategory->id());
+      $ancestors = $termStorage->loadAllParents($subcategory->id());
       $ancestors = array_reverse($ancestors);
       /** @var \Drupal\taxonomy\Entity\Term $category */
       $category = reset($ancestors);
@@ -410,9 +435,7 @@ class CampaignReportsController extends ControllerBase {
    * @return array|bool
    */
   public function generateLiveScorecard(Node $node) {
-
-    $result = \Drupal::service('openy_campaign.generate_campaign_scorecard')->generateLiveScorecard($node);
-
+    $result = $this->campaignScorecardService->generateLiveScorecard($node);
     return $result;
   }
 
@@ -420,10 +443,9 @@ class CampaignReportsController extends ControllerBase {
    * AJAX callback for the different campaigns.
    */
   public function ajaxCallbackGenerateLiveScorecard($node) {
-    $node = Node::load($node);
-    $result = \Drupal::service('openy_campaign.generate_campaign_scorecard')->generateLiveScorecard($node);
-    $renderer = \Drupal::service('renderer');
-    return new Response($renderer->render($result));
+    $node = $this->entityTypeManager->getStorage('node')->load($node);
+    $result = $this->campaignScorecardService->generateLiveScorecard($node);
+    return new Response($this->renderer->render($result));
   }
 
 }

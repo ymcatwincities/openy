@@ -5,12 +5,14 @@ namespace Drupal\openy_campaign\Form;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\OpenYLocaleDate;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form for the Member Login popup.
@@ -18,6 +20,32 @@ use Drupal\openy_campaign\OpenYLocaleDate;
  * @ingroup openy_campaign_member
  */
 class MemberLoginForm extends FormBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * MemberLoginForm constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -105,7 +133,7 @@ class MemberLoginForm extends FormBase {
     $membershipID = $form_state->getValue('membership_id');
 
     /** @var \Drupal\node\Entity\Node $campaign Current campaign. */
-    $campaign = Node::load($campaignID);
+    $campaign = $this->entityTypeManager->getStorage('node')->load($campaignID);
 
     // Don't allow inactive members to login.
     $member = Member::loadMemberFromCRMData($membershipID);
@@ -218,7 +246,7 @@ class MemberLoginForm extends FormBase {
       $landingPageId = $form_state->getValue('landing_page_id');
       $queryParameters = [];
       if (!empty($landingPageId)) {
-        $landingPage = Node::load($landingPageId);
+        $landingPage = $this->entityTypeManager->getStorage('node')->load($landingPageId);
         $queryParameters = [trim($landingPage->toUrl()->toString(), "/")];
       }
 

@@ -6,10 +6,7 @@ use Drupal\Core\Cache\CacheTagsInvalidatorInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\node\Entity\Node;
-use Drupal\openy_campaign\Entity\CampaignUtilizationActivitiy;
 use Drupal\openy_campaign\Entity\MemberCampaign;
-use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
@@ -111,6 +108,14 @@ class ActivityTrackingController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function saveTrackingInfo($visit_date) {
+    $memberCampaignActivityStorage = $this->entityTypeManager->getStorage('openy_campaign_memb_camp_actv');
+    /** @var \Drupal\taxonomy\TermStorageInterface $termStorage */
+    $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $memberCampaignStorage = $this->entityTypeManager->getStorage('openy_campaign_member_campaign');
+    $utilizationActivityStorage = $this->entityTypeManager->getStorage('openy_campaign_util_activity');
+    /** @var \Drupal\node\NodeStorage $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
+
     $params = $this->request_stack->getCurrentRequest()->request->all();
 
     $config = $this->config('openy_campaign.general_settings');
@@ -130,8 +135,9 @@ class ActivityTrackingController extends ControllerBase {
 
     $topTermId = $params['top_term_id'];
 
-    $term = Term::load($topTermId);
-    $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
+    /** @var \Drupal\taxonomy\Entity\Term $term */
+    $term = $termStorage->load($topTermId);
+    $childTerms = $termStorage->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
     $activityTerms = [];
     /** @var \Drupal\taxonomy\Entity\Term $term */
     foreach ($childTerms as $term) {
@@ -141,11 +147,15 @@ class ActivityTrackingController extends ControllerBase {
     // Delete all records first.
     $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, $activityTerms);
 
-    entity_delete_multiple('openy_campaign_memb_camp_actv', $existingActivityIds);
+    $entities = $memberCampaignActivityStorage->loadMultiple($existingActivityIds);
+    $memberCampaignActivityStorage->delete($entities);
 
-    $memberCampaign = MemberCampaign::load($memberCampaignId);
+    /** @var MemberCampaign $memberCampaign */
+    $memberCampaign = $memberCampaignStorage->load($memberCampaignId);
     $campaignId = $memberCampaign->getCampaign()->id();
-    $campaign = Node::load($campaignId);
+
+    $campaign = $nodeStorage->load($campaignId);
+
     $utilizationActivities = $campaign->get('field_utilization_activities')->getValue();
     $allowedActivities = [];
     foreach ($utilizationActivities as $utilizationActivity) {
@@ -189,7 +199,7 @@ class ActivityTrackingController extends ControllerBase {
       }
 
       // To prevent duplicate activities creation we need to check if the activity was not created earlier.
-      $query = \Drupal::entityQuery('openy_campaign_memb_camp_actv')
+      $query = $memberCampaignActivityStorage->getQuery()
         ->condition('member_campaign', $memberCampaignId)
         ->condition('activity', $activityTermId)
         ->condition('date', $dateStamp)
@@ -206,12 +216,12 @@ class ActivityTrackingController extends ControllerBase {
         'count' => floatval($activityCount),
       ];
 
-      $activity = MemberCampaignActivity::create($preparedData);
+      $activity = $memberCampaignActivityStorage->create($preparedData);
       $activity->save();
 
       // Mark user for activate utilization activity.
       if ($saveUtilizationActivity && !$utilizationActivitySaved) {
-        $loadedEntity = \Drupal::entityQuery('openy_campaign_util_activity')
+        $loadedEntity = $utilizationActivityStorage->getQuery()
           ->condition('member_campaign', $memberCampaignId)
           ->execute();
 
@@ -221,7 +231,7 @@ class ActivityTrackingController extends ControllerBase {
             'created' => time(),
             'activity_type' => 'tracking'
           ];
-          $campaignUtilizationActivity = CampaignUtilizationActivitiy::create($preparedActivityData);
+          $campaignUtilizationActivity = $utilizationActivityStorage->create($preparedActivityData);
           $campaignUtilizationActivity->save();
 
           $utilizationActivitySaved = TRUE;
@@ -237,11 +247,12 @@ class ActivityTrackingController extends ControllerBase {
    */
   public function openModalForm($visit_date, $member_campaign_id, $top_term_id) {
     $response = new AjaxResponse();
+    $memberCampaignStorage = $this->entityTypeManager->getStorage('openy_campaign_member_campaign');
 
     // Get the modal form using the form builder.
     $activityTrackingModalForm = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityTrackingModalForm', $visit_date, $member_campaign_id, $top_term_id);
 
-    $memberCampaign = MemberCampaign::load($member_campaign_id);
+    $memberCampaign = $memberCampaignStorage->load($member_campaign_id);
     /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $memberCampaign->getCampaign();
     // If member logged in.
