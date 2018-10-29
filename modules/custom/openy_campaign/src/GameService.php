@@ -53,11 +53,13 @@ class GameService {
     $userData = MemberCampaign::getMemberCampaignData($campaign->id());
     $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
 
-    $query = $this->entityTypeManager->getStorage('openy_campaign_member_game')->getQuery();
+    $memberGameStorage = $this->entityTypeManager->getStorage('openy_campaign_member_game');
+
+    $query = $memberGameStorage->getQuery();
     $gameIds = $query->condition('member', $memberCampaignID)
       ->execute();
 
-    $games = MemberGame::loadMultiple($gameIds);
+    $games = $memberGameStorage->loadMultiple($gameIds);
     $unplayedGames = [];
     foreach ($games as $game) {
       if (!empty($game->result->value)) {
@@ -84,11 +86,12 @@ class GameService {
     $userData = MemberCampaign::getMemberCampaignData($campaign->id());
     $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
 
-    $query = $this->entityTypeManager->getStorage('openy_campaign_member_game')->getQuery();
+    $memberGameStorage = $this->entityTypeManager->getStorage('openy_campaign_member_game');
+    $query = $memberGameStorage->getQuery();
     $gameIds = $query->condition('member', $memberCampaignID)
       ->execute();
 
-    $games = MemberGame::loadMultiple($gameIds);
+    $games = $memberGameStorage->loadMultiple($gameIds);
     foreach ($games as $game) {
       if (!empty($game->result->value) && $game->result->value != $looseString) {
         $isWinner = TRUE;
