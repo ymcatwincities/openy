@@ -2,6 +2,8 @@
 
 namespace Drupal\ygtc_pef_gxp_sync\syncer;
 
+use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\ymca_mappings\LocationMappingRepository;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
@@ -52,22 +54,32 @@ class Fetcher implements FetcherInterface {
   protected $mappingRepository;
 
   /**
+   * Config.
+   *
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  protected $config;
+
+  /**
    * Fetcher constructor.
    *
    * @param \Drupal\ygtc_pef_gxp_sync\syncer\WrapperInterface $wrapper
    *   Wrapper.
    * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
    *   Logger.
-   * @param \GuzzleHttp\ClientInterface
+   * @param \GuzzleHttp\ClientInterface $client
    *   Http client.
    * @param \Drupal\ymca_mappings\LocationMappingRepository $mappingRepository
    *   Location mapping repo.
+   * @param \Drupal\Core\Config\ImmutableConfig $config
+   *   Config.
    */
-  public function __construct(WrapperInterface $wrapper, LoggerChannel $loggerChannel, HttpClientInterface $client, LocationMappingRepository $mappingRepository) {
+  public function __construct(WrapperInterface $wrapper, LoggerChannel $loggerChannel, HttpClientInterface $client, LocationMappingRepository $mappingRepository, ImmutableConfig $config) {
     $this->wrapper = $wrapper;
     $this->logger = $loggerChannel;
     $this->client = $client;
     $this->mappingRepository = $mappingRepository;
+    $this->config = $config;
   }
 
   /**
@@ -78,8 +90,9 @@ class Fetcher implements FetcherInterface {
 
     $locations = $this->mappingRepository->loadAllLocationsWithGroupExId();
 
-    // @todo Get only one location for debugging.
-    $locations = array_slice($locations, 0, 1);
+    if (!$this->config->get('is_production')) {
+      $locations = array_slice($locations, 0, 1);
+    }
 
     foreach ($locations as $location) {
       $locationGpxId = $location->field_groupex_id->value;
