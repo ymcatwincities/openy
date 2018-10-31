@@ -13,10 +13,10 @@
   <div class="filters">
     <div class="label">{{ 'Filtered by:'|t }}</div>
     {% for key, value in filters %}
-    <div class="filter">{{ value }}<a href="#" data-id="{{ key }}" class="remove"><i class="fa fa-close" aria-hidden="true"></i></a></div>
+    <div class="filter">{{ value }}<a href="#" data-id="{{ key }}" class="remove" title="{{ 'Clear !key filter'|t({ '!key': key }) }}"><i class="fa fa-close" aria-hidden="true"></i></a></div>
     {% endfor %}
   </div>
 </div>
 <div class="reset-wrapper">
-  <a href="#" class="clear">{{ 'Clear All'|t }}</a>
+  <a href="#" class="clear" title="{{ 'Clear All'|t }}">{{ 'Clear All'|t }}</a>
 </div>
