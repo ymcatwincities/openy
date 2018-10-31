@@ -3,7 +3,7 @@
 namespace Drupal\ygtc_pef_gxp_sync\syncer;
 
 /**
- * Class Wrapper
+ * Interface Wrapper.
  *
  * @package Drupal\ygtc_pef_gxp_sync\syncer.
  */
@@ -24,7 +24,6 @@ interface WrapperInterface {
    *
    * @param int $locationId
    *   YGTC Location ID.
-   *
    * @param array $data
    *   Source data.
    */

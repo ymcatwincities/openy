@@ -335,8 +335,8 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
     $this->deleteSessionInstancesBySession($node);
 
     // It's not published.
-    if (!$node->isPublished()) {
-      // @todo YGTC requires unpublished session. Fix it.
+    // @todo YGTC requires unpublished session. Fix it.
+    if (FALSE && !$node->isPublished()) {
       // return;
     }
 

@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Module file.
+ */
+
+/**
  * Run syncer.
  */
 function ygtc_pef_gxp_sync_run() {
