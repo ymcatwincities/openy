@@ -24,3 +24,12 @@ function ygtc_pef_gxp_sync_run() {
 function ygtc_pef_gxp_sync_ymca_sync_description_alter(&$items) {
   $items[] = t('ygtc_pef_gxp_sync.syncer - Synchronize Groupex schedules to PEF.');
 }
+
+/**
+ * Implements hook_entity_delete().
+ */
+function ygtc_pef_gxp_sync_entity_delete($entity) {
+  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'session') {
+    \Drupal::database()->delete('ygtc_pef_gxp_mapping')->condition('session', $entity->id())->execute();
+  }
+}
