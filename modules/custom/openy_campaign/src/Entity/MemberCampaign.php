@@ -38,10 +38,10 @@ use Drupal\openy_campaign\MemberInterface;
  *     "label" = "campaign"
  *   },
  *   links = {
- *     "canonical" = "/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}",
- *     "edit-form" = "/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}/edit",
- *     "delete-form" = "/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}/delete",
- *     "collection" = "/admin/config/openy-entities/openy-campaign-member-campaign/list"
+ *     "canonical" = "/admin/openy/retention-campaign/openy-campaign-member-campaign/{openy_campaign_member_campaign}",
+ *     "edit-form" = "/admin/openy/retention-campaign/openy-campaign-member-campaign/{openy_campaign_member_campaign}/edit",
+ *     "delete-form" = "/admin/openy/retention-campaign/openy-campaign-member-campaign/{openy_campaign_member_campaign}/delete",
+ *     "collection" = "/admin/openy/retention-campaign/openy-campaign-member-campaign/list"
  *   },
  * )
  */
