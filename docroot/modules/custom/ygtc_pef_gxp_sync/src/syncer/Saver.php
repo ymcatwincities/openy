@@ -6,6 +6,7 @@ use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\ygtc_pef_gxp_sync\Entity\YgtcPefGxpMapping;
 
 /**
  * Class Saver.
@@ -74,7 +75,14 @@ class Saver implements SaverInterface {
     // Loop over processed data and create session entities.
     foreach ($data as $item) {
       try {
-        $this->createSession($item);
+        $session = $this->createSession($item);
+        $mapping  = YgtcPefGxpMapping::create(
+          [
+            'session' => $session,
+            'md5' => md5(serialize($item)),
+          ]
+        );
+        $mapping->save();
       }
       catch (\Exception $exception) {
         $this->logger
@@ -92,6 +100,9 @@ class Saver implements SaverInterface {
    *
    * @param array $class
    *   Class properties.
+   *
+   * @return \Drupal\Core\Entity\ContentEntityInterface
+   *   Session node.
    *
    * @throws \Exception
    */
@@ -148,6 +159,8 @@ class Saver implements SaverInterface {
         'Session has been created. ID: %id',
         ['%id' => $session->id()]
       );
+
+    return $session;
   }
 
   /**
