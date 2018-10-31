@@ -2,6 +2,7 @@
 
 namespace Drupal\ygtc_pef_gxp_sync\syncer;
 
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
@@ -35,18 +36,27 @@ class Saver implements SaverInterface {
   protected $programSubcategory;
 
   /**
+   * Config.
+   *
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  protected $config;
+
+  /**
    * Saver constructor.
    *
    * @param \Drupal\ygtc_pef_gxp_sync\syncer\WrapperInterface $wrapper
    *   Wrapper.
    * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
    *   Logger.
+   * @param \Drupal\Core\Config\ImmutableConfig $config
+   *   Config.
    */
-  public function __construct(WrapperInterface $wrapper, LoggerChannel $loggerChannel) {
+  public function __construct(WrapperInterface $wrapper, LoggerChannel $loggerChannel, ImmutableConfig $config) {
     $this->wrapper = $wrapper;
     $this->logger = $loggerChannel;
+    $this->config = $config;
 
-    // @todo Get from module's config.
     $config = \Drupal::configFactory()->get('openy_gxp.settings');
     $this->programSubcategory = $config->get('activity');
   }
@@ -56,6 +66,10 @@ class Saver implements SaverInterface {
    */
   public function save() {
     $data = $this->wrapper->getProcessedData();
+
+    if (!$this->config->get('is_production')) {
+      $data = array_slice($data, 0, 1);
+    }
 
     // Loop over processed data and create session entities.
     foreach ($data as $item) {
@@ -126,7 +140,6 @@ class Saver implements SaverInterface {
     $session->set('field_session_instructor', $class['instructor']);
     $session->set('field_productid', $class['class_id']);
 
-    // YGTC has to have unpublished sessions.
     $session->setUnpublished();
 
     $session->save();
@@ -195,7 +208,7 @@ class Saver implements SaverInterface {
 
     $days[] = strtolower($times['day']);
 
-    $paragraph = Paragraph::create(['type' => 'session_time' ]);
+    $paragraph = Paragraph::create(['type' => 'session_time']);
     $paragraph->set('field_session_time_days', $days);
     $paragraph->set('field_session_time_date', ['value' => $startDate, 'end_value' => $endDate]);
     $paragraph->isNew();
@@ -214,6 +227,7 @@ class Saver implements SaverInterface {
    *   Class properties.
    *
    * @return array
+   *   Class.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -232,10 +246,12 @@ class Saver implements SaverInterface {
         'lang' => 'und',
         'type' => 'activity',
         'title' => $class['title'],
-        'field_activity_description' => [[
-          'value' => $class['description'],
-          'format' => 'full_html'
-        ]],
+        'field_activity_description' => [
+          [
+            'value' => $class['description'],
+            'format' => 'full_html'
+          ]
+        ],
         'field_activity_category' => [['target_id' => $this->programSubcategory]],
       ]);
 
@@ -262,7 +278,7 @@ class Saver implements SaverInterface {
     else {
       $paragraphs = [];
       foreach (['class_sessions', 'branches_popup_class'] as $type) {
-        $paragraph = Paragraph::create(['type' => $type ]);
+        $paragraph = Paragraph::create(['type' => $type]);
         $paragraph->isNew();
         $paragraph->save();
         $paragraphs[] = [
@@ -275,11 +291,17 @@ class Saver implements SaverInterface {
         'lang' => 'und',
         'type' => 'class',
         'title' => $class['title'],
-        'field_class_description' => [[
-          'value' => $class['description'],
-          'format' => 'full_html'
-        ]],
-        'field_class_activity' => [['target_id' => $activity->id()]],
+        'field_class_description' => [
+          [
+            'value' => $class['description'],
+            'format' => 'full_html'
+          ]
+        ],
+        'field_class_activity' => [
+          [
+            'target_id' => $activity->id()
+          ]
+        ],
         'field_content' => $paragraphs,
       ]);
 

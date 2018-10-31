@@ -1,7 +1,13 @@
 services:
   logger.channel.ygtc_pef_gxp_sync:
     parent: logger.channel_base
-    arguments: ['ygtc_pef_gxp_sync']
+    arguments:
+     - 'ygtc_pef_gxp_sync'
+  config.ygtc_pef_gxp_sync.immutable:
+    class: \Drupal\Core\Config\ImmutableConfig
+    factory: config.factory:get
+    arguments:
+      - 'ygtc_pef_gxp_sync.settings'
   ygtc_pef_gxp_sync.wrapper:
     class: Drupal\ygtc_pef_gxp_sync\syncer\Wrapper
     arguments: []
@@ -12,9 +18,13 @@ services:
       - '@logger.channel.ygtc_pef_gxp_sync'
       - '@http_client'
       - '@ymca_mappings.location_repository'
+      - '@config.ygtc_pef_gxp_sync.immutable'
   ygtc_pef_gxp_sync.saver:
     class: Drupal\ygtc_pef_gxp_sync\syncer\Saver
-    arguments: ['@ygtc_pef_gxp_sync.wrapper', '@logger.channel.ygtc_pef_gxp_sync']
+    arguments:
+      - '@ygtc_pef_gxp_sync.wrapper'
+      - '@logger.channel.ygtc_pef_gxp_sync'
+      - '@config.ygtc_pef_gxp_sync.immutable'
   ygtc_pef_gxp_sync.syncer:
     class: Drupal\ymca_sync\Syncer
     arguments: []

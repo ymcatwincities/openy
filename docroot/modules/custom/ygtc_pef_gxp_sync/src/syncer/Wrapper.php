@@ -3,7 +3,7 @@
 namespace Drupal\ygtc_pef_gxp_sync\syncer;
 
 /**
- * Class Wrapper
+ * Class Wrapper.
  *
  * @package Drupal\ygtc_pef_gxp_sync\syncer.
  */
@@ -30,6 +30,9 @@ class Wrapper implements WrapperInterface {
     $this->sourceData[$locationId] = $data;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getProcessedData() {
     return $this->process($this->getSourceData());
   }
@@ -41,7 +44,7 @@ class Wrapper implements WrapperInterface {
    *   Source data.
    *
    * @return array
-   *  Processed data.
+   *   Processed data.
    */
   private function process(array $data) {
     $processed = [];
