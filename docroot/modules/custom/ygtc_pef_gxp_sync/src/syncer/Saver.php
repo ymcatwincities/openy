@@ -87,12 +87,58 @@ class Saver implements SaverInterface {
   /**
    * {@inheritdoc}
    */
+  public function clean() {
+    $data = $this->wrapper->getProcessedData();
+    if (!$this->config->get('is_production')) {
+      $data = array_slice($data, 0, 2);
+    }
+
+    // Get session IDs from source data.
+    $sourceIds = array_map(function ($item) {
+      return $item['class_id'];
+    }, $data);
+
+    // Get session IDs from mapping items.
+    $mappings = \Drupal::database()->select('ygtc_pef_gxp_mapping', 'mapping')
+      ->fields('mapping', ['session', 'product_id'])
+      ->execute()
+      ->fetchAllAssoc('product_id');
+    $existingIds = array_keys($mappings);
+
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
+
+    // Compare the arrays and remove orphaned local sessions.
+    $diff = array_diff($existingIds, $sourceIds);
+
+    // Foreach all found ids and delete corresponding sessions.
+    foreach ($diff as $productIdToDelete) {
+      $mappingToDelete = $mappings[$productIdToDelete];
+      $existingSession = $nodeStorage->load($mappingToDelete->session);
+      if ($existingSession) {
+        $message = 'The source data with class ID %class for session %session was not found. The session will be deleted.';
+        $this->logger->info($message, [
+          [
+            '%class' => $productIdToDelete,
+            '%session' => $existingSession->id(),
+          ]
+        ]);
+        $nodeStorage->delete([$existingSession]);
+      }
+    }
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function save() {
     $data = $this->wrapper->getProcessedData();
 
     if (!$this->config->get('is_production')) {
-      $data = array_slice($data, 0, 1);
+      $data = array_slice($data, 0, 2);
     }
+
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
 
     // Loop over processed data and create session entities.
     foreach ($data as $item) {
@@ -110,7 +156,6 @@ class Saver implements SaverInterface {
         }
 
         // Source data is changed. Let's remove current item.
-        $nodeStorage = $this->entityTypeManager->getStorage('node');
         $existingSession = $nodeStorage->load($mappingItem->session->target_id);
         if ($existingSession) {
           $message = 'The source data with class ID %class for session %session was updated. The session will be recreated.';
