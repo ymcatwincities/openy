@@ -37,5 +37,6 @@ services:
     calls:
       - [addStep, ['@ygtc_pef_gxp_sync.fetcher', 'fetch']]
       - [addStep, ['@ygtc_pef_gxp_sync.saver', 'save']]
+      - [addStep, ['@ygtc_pef_gxp_sync.saver', 'clean']]
     tags:
       - { name: syncer }

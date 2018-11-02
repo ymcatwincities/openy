@@ -4,6 +4,11 @@ namespace Drupal\ygtc_pef_gxp_sync;
 
 use Drupal\Core\Entity\EntityTypeManager;
 
+/**
+ * Class YgtcPefGxpMappingRepository.
+ *
+ * @package Drupal\ygtc_pef_gxp_sync
+ */
 class YgtcPefGxpMappingRepository {
 
   /**
@@ -26,7 +31,8 @@ class YgtcPefGxpMappingRepository {
   /**
    * Get mapping items by product id.
    *
-   * @param $productId
+   * @param string $productId
+   *   Product ID.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
    *   The list of founded items.
