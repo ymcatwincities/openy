@@ -5914,6 +5914,9 @@ a[href="#step2"] {
   margin-bottom: 30px;
   text-transform: uppercase;
 }
+#membership-calc-wrapper .h4 {
+  font-size: 18px;
+}
 #membership-calc-wrapper .description {
   margin-bottom: -0.5em;
 }
