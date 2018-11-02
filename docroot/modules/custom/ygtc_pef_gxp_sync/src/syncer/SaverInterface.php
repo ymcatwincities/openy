@@ -10,8 +10,13 @@ namespace Drupal\ygtc_pef_gxp_sync\syncer;
 interface SaverInterface {
 
   /**
-   * Save item.
+   * Save items.
    */
   public function save();
+
+  /**
+   * Remove orphaned items from database.
+   */
+  public function clean();
 
 }

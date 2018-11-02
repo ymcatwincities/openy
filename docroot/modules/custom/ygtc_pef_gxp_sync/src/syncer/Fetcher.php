@@ -91,7 +91,7 @@ class Fetcher implements FetcherInterface {
     $locations = $this->mappingRepository->loadAllLocationsWithGroupExId();
 
     if (!$this->config->get('is_production')) {
-      $locations = array_slice($locations, 0, 1);
+      $locations = array_slice($locations, 0, 2);
     }
 
     foreach ($locations as $location) {
