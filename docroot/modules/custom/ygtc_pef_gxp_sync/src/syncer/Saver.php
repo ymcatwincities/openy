@@ -3,10 +3,12 @@
 namespace Drupal\ygtc_pef_gxp_sync\syncer;
 
 use Drupal\Core\Config\ImmutableConfig;
+use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\ygtc_pef_gxp_sync\Entity\YgtcPefGxpMapping;
+use Drupal\ygtc_pef_gxp_sync\YgtcPefGxpMappingRepository;
 
 /**
  * Class Saver.
@@ -44,6 +46,20 @@ class Saver implements SaverInterface {
   protected $config;
 
   /**
+   * Mapping repository.
+   *
+   * @var \Drupal\ygtc_pef_gxp_sync\YgtcPefGxpMappingRepository
+   */
+  protected $mappingRepository;
+
+  /**
+   * Entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   */
+  protected $entityTypeManager;
+
+  /**
    * Saver constructor.
    *
    * @param \Drupal\ygtc_pef_gxp_sync\syncer\WrapperInterface $wrapper
@@ -52,11 +68,17 @@ class Saver implements SaverInterface {
    *   Logger.
    * @param \Drupal\Core\Config\ImmutableConfig $config
    *   Config.
+   * @param \Drupal\ygtc_pef_gxp_sync\YgtcPefGxpMappingRepository $mappingRepository
+   *   Mapping repository.
+   * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
+   *   Entity type manager.
    */
-  public function __construct(WrapperInterface $wrapper, LoggerChannel $loggerChannel, ImmutableConfig $config) {
+  public function __construct(WrapperInterface $wrapper, LoggerChannel $loggerChannel, ImmutableConfig $config, YgtcPefGxpMappingRepository $mappingRepository, EntityTypeManager $entityTypeManager) {
     $this->wrapper = $wrapper;
     $this->logger = $loggerChannel;
     $this->config = $config;
+    $this->mappingRepository = $mappingRepository;
+    $this->entityTypeManager = $entityTypeManager;
 
     $config = \Drupal::configFactory()->get('openy_gxp.settings');
     $this->programSubcategory = $config->get('activity');
@@ -74,12 +96,41 @@ class Saver implements SaverInterface {
 
     // Loop over processed data and create session entities.
     foreach ($data as $item) {
+      $md5 = md5(serialize($item));
+
+      // Check if corresponding session exists and is up to date.
+      $mappingItems = $this->mappingRepository->getMappingByProductId($item['class_id']);
+      if ($mappingItems) {
+
+        // Compare source item & existing one.
+        $mappingItem = reset($mappingItems);
+        if ($mappingItem->md5->value === $md5) {
+          // Item exists and identical. Skipping...
+          continue;
+        }
+
+        // Source data is changed. Let's remove current item.
+        $nodeStorage = $this->entityTypeManager->getStorage('node');
+        $existingSession = $nodeStorage->load($mappingItem->session->target_id);
+        if ($existingSession) {
+          $message = 'The source data with class ID %class for session %session was updated. The session will be recreated.';
+          $this->logger->info($message, [
+            [
+              '%class' => $item['class_id'],
+              '%session' => $existingSession->id(),
+            ]
+          ]);
+          $nodeStorage->delete([$existingSession]);
+        }
+      }
+
       try {
         $session = $this->createSession($item);
         $mapping  = YgtcPefGxpMapping::create(
           [
             'session' => $session,
             'md5' => md5(serialize($item)),
+            'product_id' => $item['class_id'],
           ]
         );
         $mapping->save();
@@ -149,7 +200,6 @@ class Saver implements SaverInterface {
     $session->set('field_session_location', ['target_id' => $class['ygtc_location_id']]);
     $session->set('field_session_room', $class['studio']);
     $session->set('field_session_instructor', $class['instructor']);
-    $session->set('field_productid', $class['class_id']);
 
     $session->setUnpublished();
 
