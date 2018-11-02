@@ -72,6 +72,26 @@ class YgtcPefGxpMapping extends ContentEntityBase implements YgtcPefGxpMappingIn
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['product_id'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Product ID'))
+      ->setDescription(t('Used to map source Product ID.'))
+      ->setRequired(TRUE)
+      ->setSettings(array(
+        'default_value' => '',
+        'max_length' => 32,
+      ))
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => 0,
+      ))
+      ->setDisplayOptions('form', array(
+        'type' => 'string_textfield',
+        'weight' => 0,
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     return $fields;
   }
 
