@@ -7,6 +7,7 @@
 
 use Drupal\openy\Form\ConfigureProfileForm;
 use Drupal\openy\Form\ContentSelectForm;
+use Drupal\openy\Form\ThemeSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
 use Drupal\openy\Form\UploadFontMessageForm;
 use Drupal\Core\Form\FormStateInterface;
@@ -24,6 +25,15 @@ function openy_install_tasks() {
       'function' => ConfigureProfileForm::class,
     ],
     'openy_install_features' => [
+      'type' => 'batch',
+    ],
+    'openy_select_theme' => [
+      'display_name' => t('Select theme'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => ThemeSelectForm::class,
+    ],
+    'openy_install_theme' => [
       'type' => 'batch',
     ],
     'openy_select_content' => [
@@ -209,6 +219,30 @@ function openy_install_features(array &$install_state) {
 }
 
 /**
+ * Create batch for install and set default theme.
+ *
+ * @param array $install_state
+ *   Installation parameters.
+ *
+ * @return array
+ *   Batch.
+ */
+function openy_install_theme(array &$install_state) {
+  $theme = $install_state['openy']['theme'];
+  if (function_exists(  'drush_print')) {
+    drush_print(dt('Theme: %theme', ['%theme' => $theme]));
+  }
+  $config_factory = Drupal::configFactory();
+  // Set the default theme.
+  $config_factory
+    ->getEditable('system.theme')
+    ->set('default', $theme)
+    ->save(TRUE);
+  $theme_operations[] = ['openy_enable_theme', (array) $theme];
+  return ['operations' => $theme_operations];
+}
+
+/**
  * Create batch for content import.
  *
  * @param array $install_state
@@ -246,6 +280,9 @@ function openy_import_content(array &$install_state) {
     }
     // Build demo modules uninstall array to disable migrations with demo content.
     _openy_remove_migrations_helper($uninstall_operations, $preset);
+    if (function_exists('drush_print')) {
+      drush_print(dt('Demo content enabled'));
+    }
   }
   else {
     // Add homepage alternative if demo content is not enabled.
@@ -409,7 +446,7 @@ function _openy_remove_migrations_helper(array &$module_operations, $key) {
 }
 
 /**
- * Enable module with demo content.
+ * Enable module.
  *
  * @param string $module_name
  *   Module name.
@@ -423,7 +460,21 @@ function openy_enable_module($module_name) {
 }
 
 /**
- * Uninstall module with demo content.
+ * Enable theme.
+ *
+ * @param string $theme_name
+ *   Module name.
+ *
+ * @throws \Drupal\Core\Extension\ExtensionNameLengthException
+ */
+function openy_enable_theme($theme_name) {
+  /** @var \Drupal\Core\Extension\ThemeInstaller $service */
+  $service = \Drupal::service('theme_installer');
+  $service->install([$theme_name]);
+}
+
+/**
+ * Uninstall module.
  *
  * @param string $module_name
  *   Module name.

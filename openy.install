@@ -15,11 +15,9 @@
 function openy_install() {
   $config_factory = Drupal::configFactory();
   $module_installer = Drupal::service('module_installer');
-
   // Set the default and admin theme.
   $config_factory
     ->getEditable('system.theme')
-    ->set('default', 'openy_rose')
     ->set('admin', 'seven')
     ->save(TRUE);
 
