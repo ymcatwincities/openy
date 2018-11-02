@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e0dfb9106c8d7641986a62c4609528a",
+    "content-hash": "9eda4eef693fa831ae89fd65046439ec",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -173,16 +173,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "049797d727261bf27f2690430d935067710049c2"
+                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/049797d727261bf27f2690430d935067710049c2",
-                "reference": "049797d727261bf27f2690430d935067710049c2",
+                "url": "https://api.github.com/repos/composer/installers/zipball/cfcca6b1b60bc4974324efb5783c13dca6932b5b",
+                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b",
                 "shasum": ""
             },
             "require": {
@@ -289,7 +289,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2017-12-29T09:13:20+00:00"
+            "time": "2018-08-27T06:10:37+00:00"
         },
         {
             "name": "composer/semver",
@@ -4570,11 +4570,17 @@
         },
         {
             "name": "drupal/simple_menu_icons",
-            "version": "dev-1.x",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/simple_menu_icons",
-                "reference": "1780b0ffe3b508085823b4a72e6a2512fcfde7b9"
+                "reference": "8.x-2.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simple_menu_icons-8.x-2.1.zip",
+                "reference": "8.x-2.1",
+                "shasum": "75c03856a7a83b1b788bc6693a55987cf1ace686"
             },
             "require": {
                 "drupal/core": "*"
@@ -4582,20 +4588,15 @@
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-beta5+3-dev",
-                    "datestamp": "1475508576",
+                    "version": "8.x-2.1",
+                    "datestamp": "1517693280",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch",
-                    "2880544 - The theme implementations may not be rendered until all modules are loaded": "https://www.drupal.org/files/issues/theme-implementations-exception-2880544.patch",
-                    "2937058 - Clear cache performance improvement": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4632,8 +4633,7 @@
             "homepage": "https://www.drupal.org/project/simple_menu_icons",
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_menu_icons"
-            },
-            "time": "2016-10-03T15:25:52+00:00"
+            }
         },
         {
             "name": "drupal/simple_sitemap",
@@ -9774,7 +9774,6 @@
         "drupal/media_entity_document": 20,
         "drupal/entity_clone": 15,
         "drupal/views_block_filter_block": 20,
-        "drupal/simple_menu_icons": 20,
         "drupal/libraries": 20,
         "drupal/datalayer": 20,
         "drupal/tzfield": 20,
@@ -9783,7 +9782,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6"
+        "php": "^7.1"
     },
     "platform-dev": []
 }
