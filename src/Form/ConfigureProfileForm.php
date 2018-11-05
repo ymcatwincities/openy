@@ -50,6 +50,11 @@ class ConfigureProfileForm extends FormBase {
   public static function getPackages() {
     $path = drupal_get_path('profile', 'openy');
     $packages = Yaml::decode(file_get_contents($path . '/openy.packages.yml'));
+    // Demo content package should be hidden.
+    if (isset($packages['demo'])) {
+      unset($packages['demo']);
+    }
+
     return $packages;
   }
 
