@@ -13,3 +13,8 @@ yptf_kronos.mb_csv_upload:
   route_name: yptf_kronos.mb_csv_upload
   parent: ymca_alters.admin_config_ymca_services
   description: 'MindBody CSV file upload fro Kronos Integration.'
+yptf_kronos.mb_csv_history:
+  title: Kronos MindBody CSV History
+  route_name: yptf_kronos.mb_csv_history
+  parent: ymca_alters.admin_config_ymca_services
+  description: 'Kronos MindBody CSV History.'

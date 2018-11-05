@@ -24,11 +24,6 @@ class YptfKronosReports {
   const MINDBODY_CSV_FILE_FORMAT = 'MB_%s--%s.csv';
 
   /**
-   * MindBody CSV dir.
-   */
-  const MINDBODY_CSV_FILE_DIR = 'mb_kronos_reports';
-
-  /**
    * Whether to send emails if there are errors.
    *
    * @var bool
@@ -158,6 +153,20 @@ class YptfKronosReports {
   protected $reportCalculated = FALSE;
 
   /**
+   * Indicates that we should search Kronos file by fixed dates.
+   *
+   * @var bool
+   */
+  protected $fixedKronosDates;
+
+  /**
+   * Mindbody dir with CSV files.
+   *
+   * @var string
+   */
+  protected $mindBodyCSVFileDir = 'mb_kronos_reports';
+
+  /**
    * YmcaMindbodyExamples constructor.
    *
    * @param ConfigFactory $config_factory
@@ -193,8 +202,7 @@ class YptfKronosReports {
    *   FALSE in case .
    */
   public function generateReports($day) {
-    if (!in_array($day, ['tuesday', 'monday'])) {
-      $this->logger->error('Report type "%type" is not supported.', ['%type' => $day]);
+    if (!$this->dayIsSupported($day)) {
       return FALSE;
     }
 
@@ -219,6 +227,98 @@ class YptfKronosReports {
     }
 
     return TRUE;
+  }
+
+  /**
+   * Checks if day is supported.
+   *
+   * @param string $day
+   *   Day name.
+   *
+   * @return bool
+   *   TRUE if day is supported.
+   */
+  private function dayIsSupported($day) {
+    if (!in_array($day, ['tuesday', 'monday'])) {
+      $this->logger->error('Report type "%type" is not supported.', ['%type' => $day]);
+      return FALSE;
+    }
+
+    return TRUE;
+  }
+
+  /**
+   * Generates HTML reports.
+   *
+   * @param string $day
+   *   Day of the report.
+   * @param array $dates
+   *   Keyed array with "start" and "end" timestamps.
+   *
+   * @return string
+   *   HTML for report.
+   *
+   */
+  public function generateHtmlReports($day, $dates = []) {
+    if (!$this->dayIsSupported($day)) {
+      drupal_set_message(t('Day is not supported'), 'error');
+      return FALSE;
+    }
+
+    if (empty($dates)) {
+      drupal_set_message(t('Timestamps for "start" and "end" dates are required.'), 'error');
+      return FALSE;
+    }
+
+    $this->mindBodyCSVFileDir = 'mb_kronos_history';
+    $this->reportDay = $day;
+    $this->fixedKronosDates = TRUE;
+    $this->dates['StartDate'] = date('Y-m-d', $dates[0]);
+    $this->dates['EndDate'] = date('Y-m-d', $dates[1]);
+
+    try {
+      $this->calculateReports();
+    }
+    catch (\Exception $e) {
+      drupal_set_message($e->getMessage(), 'error');
+      return FALSE;
+    }
+
+    $output = '';
+    $reportLeadership = null;
+    $reports = [];
+
+    /** @var \Drupal\ymca_mappings\LocationMappingRepository $locationRepository */
+    $locationRepository = \Drupal::service('ymca_mappings.location_repository');
+    $locations = $locationRepository->loadAllLocationsWithMindBodyId();
+    foreach ($locations as $mapping) {
+      $location = $mapping->get('field_location_ref')->first()->get('entity')->getTarget()->getValue();
+      if (!$location) {
+        $this->logger->error('Failed to load location from mapping %id', ['%id' => $mapping->id()]);
+        continue;
+      }
+
+      if (is_null($reportLeadership)) {
+        $reportLeadership = $this->createReportTable($location->id())['report'];
+      }
+
+      $table = $this->createReportTable($location->id(), 'pt_managers');
+      $reports[$location->id()] = [
+        'id' => $location->id(),
+        'name' => $location->label(),
+        'table' => $table['report'],
+      ];
+    }
+
+    $output .= '<h4>Leadership Report</h4>';
+    $output .= $reportLeadership;
+
+    foreach ($reports as $reportItem) {
+      $output .= "<h4>$reportItem[name]</h4>";
+      $output .= $reportItem['table'];
+    }
+
+    return $output;
   }
 
   /**
@@ -442,34 +542,45 @@ class YptfKronosReports {
       'tuesday' => 'WFC'
     ];
 
-    $this->kronosData = FALSE;
-    $kronos_report_day = $this->kronosReportDay;
-    $kronos_shift_days = $this->kronosReportShiftDays;
-//    if ($week_day = date("w") < 2) {
-//      foreach ($kronos_shift_days as &$kronos_shift_day) {
-//        $kronos_shift_day -= 7;
-//      }
-//    }
-    $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day));
-    $kronos_data_raw = $kronos_file = '';
-    foreach ($kronos_shift_days as $shift) {
-      $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
-      $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
-      $file_prefix = $fileMapping[$this->reportDay];
-      $kronos_file = sprintf('%s/wf_reports/%s_%s.json', $kronos_path_to_file, $file_prefix, $kronos_file_name_date);
+    // Wrap here old code.
+    if (!$this->fixedKronosDates) {
+      $this->kronosData = FALSE;
+      $kronos_report_day = $this->kronosReportDay;
+      $kronos_shift_days = $this->kronosReportShiftDays;
+      $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day));
+      $kronos_data_raw = $kronos_file = '';
+      foreach ($kronos_shift_days as $shift) {
+        $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
+        $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+        $file_prefix = $fileMapping[$this->reportDay];
+        $kronos_file = sprintf('%s/wf_reports/%s_%s.json', $kronos_path_to_file, $file_prefix, $kronos_file_name_date);
 
-      file_exists($kronos_file) ? $kronos_data_raw = file_get_contents($kronos_file) : '';
-      if (!empty($kronos_data_raw)) {
-        break;
+        file_exists($kronos_file) ? $kronos_data_raw = file_get_contents($kronos_file) : '';
+        if (!empty($kronos_data_raw)) {
+          break;
+        }
       }
+
+      if (!$kronos_data_raw) {
+        throw new \Exception(sprintf('Failed to load Kronos file: %s', $kronos_file));
+      }
+
+      $this->dates['EndDate'] = date('Y-m-d', strtotime($kronos_file_name_date));
+      $this->dates['StartDate'] = date('Y-m-d', strtotime($kronos_file_name_date . ' -13 days'));
     }
 
-    if (!$kronos_data_raw) {
+    $kronos_file_name_date = date('Y-m-d', strtotime($this->dates['EndDate']));
+    $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+    $file_prefix = $fileMapping[$this->reportDay];
+    $kronos_file = sprintf('%s/wf_reports/%s_%s.json', $kronos_path_to_file, $file_prefix, $kronos_file_name_date);
+
+    if (!file_exists($kronos_file)) {
       throw new \Exception(sprintf('Failed to load Kronos file: %s', $kronos_file));
     }
 
-    $this->dates['EndDate'] = date('Y-m-d', strtotime($kronos_file_name_date));
-    $this->dates['StartDate'] = date('Y-m-d', strtotime($kronos_file_name_date . ' -13 days'));
+    if (!$kronos_data_raw = file_get_contents($kronos_file)) {
+      throw new \Exception(sprintf('Failed to load data from Kronos file: %s', $kronos_file));
+    }
 
     return $this->kronosData = json_decode($kronos_data_raw);
   }
@@ -855,7 +966,7 @@ class YptfKronosReports {
   protected function getMindBodyCSVData(array $kronosData) {
     $reportDates = $this->getReportDates();
     $fileName = sprintf('MB_%s--%s.csv', $reportDates['StartDate'], $reportDates['EndDate']);
-    $filesDir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/' . self::MINDBODY_CSV_FILE_DIR;
+    $filesDir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/' . $this->mindBodyCSVFileDir;
     $filePath = $filesDir . '/' . $fileName;
 
     if (!file_exists($filePath)) {
