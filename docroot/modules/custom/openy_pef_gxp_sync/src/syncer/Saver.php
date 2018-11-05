@@ -150,7 +150,7 @@ class Saver implements SaverInterface {
 
         // Compare source item & existing one.
         $mappingItem = reset($mappingItems);
-        if ($mappingItem->crc32->value === $hash) {
+        if ($mappingItem->hash->value === $hash) {
           // Item exists and identical. Skipping...
           continue;
         }
