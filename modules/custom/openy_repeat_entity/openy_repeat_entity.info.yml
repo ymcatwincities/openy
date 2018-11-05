@@ -2,5 +2,5 @@ name: OpenY Repeat Entity
 type: module
 description: Repeat entity for framework of repeatable events.
 core: 8.x
-version: 1.0-rc1
+version: 8.x-1.0-rc1
 package: OpenY
