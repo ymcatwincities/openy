@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\ygtc_pef_gxp_sync\syncer;
+namespace Drupal\openy_pef_gxp_sync\syncer;
 
 /**
  * Interface Wrapper.
  *
- * @package Drupal\ygtc_pef_gxp_sync\syncer.
+ * @package Drupal\openy_pef_gxp_sync\syncer.
  */
 interface WrapperInterface {
 

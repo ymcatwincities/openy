@@ -1,26 +1,26 @@
 <?php
 
-namespace Drupal\ygtc_pef_gxp_sync\syncer;
+namespace Drupal\openy_pef_gxp_sync\syncer;
 
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
-use Drupal\ygtc_pef_gxp_sync\Entity\YgtcPefGxpMapping;
-use Drupal\ygtc_pef_gxp_sync\YgtcPefGxpMappingRepository;
+use Drupal\openy_pef_gxp_sync\Entity\OpenYPefGxpMapping;
+use Drupal\openy_pef_gxp_sync\OpenYPefGxpMappingRepository;
 
 /**
  * Class Saver.
  *
- * @package Drupal\ygtc_pef_gxp_sync\syncer
+ * @package Drupal\openy_pef_gxp_sync\syncer
  */
 class Saver implements SaverInterface {
 
   /**
    * Wrapper.
    *
-   * @var \Drupal\ygtc_pef_gxp_sync\syncer\WrapperInterface
+   * @var \Drupal\openy_pef_gxp_sync\syncer\WrapperInterface
    */
   protected $wrapper;
 
@@ -48,7 +48,7 @@ class Saver implements SaverInterface {
   /**
    * Mapping repository.
    *
-   * @var \Drupal\ygtc_pef_gxp_sync\YgtcPefGxpMappingRepository
+   * @var \Drupal\openy_pef_gxp_sync\OpenYPefGxpMappingRepository
    */
   protected $mappingRepository;
 
@@ -62,18 +62,18 @@ class Saver implements SaverInterface {
   /**
    * Saver constructor.
    *
-   * @param \Drupal\ygtc_pef_gxp_sync\syncer\WrapperInterface $wrapper
+   * @param \Drupal\openy_pef_gxp_sync\syncer\WrapperInterface $wrapper
    *   Wrapper.
    * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
    *   Logger.
    * @param \Drupal\Core\Config\ImmutableConfig $config
    *   Config.
-   * @param \Drupal\ygtc_pef_gxp_sync\YgtcPefGxpMappingRepository $mappingRepository
+   * @param \Drupal\openy_pef_gxp_sync\OpenYPefGxpMappingRepository $mappingRepository
    *   Mapping repository.
    * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
    *   Entity type manager.
    */
-  public function __construct(WrapperInterface $wrapper, LoggerChannel $loggerChannel, ImmutableConfig $config, YgtcPefGxpMappingRepository $mappingRepository, EntityTypeManager $entityTypeManager) {
+  public function __construct(WrapperInterface $wrapper, LoggerChannel $loggerChannel, ImmutableConfig $config, OpenYPefGxpMappingRepository $mappingRepository, EntityTypeManager $entityTypeManager) {
     $this->wrapper = $wrapper;
     $this->logger = $loggerChannel;
     $this->config = $config;
@@ -99,7 +99,7 @@ class Saver implements SaverInterface {
     }, $data);
 
     // Get session IDs from mapping items.
-    $mappings = \Drupal::database()->select('ygtc_pef_gxp_mapping', 'mapping')
+    $mappings = \Drupal::database()->select('openy_pef_gxp_mapping', 'mapping')
       ->fields('mapping', ['session', 'product_id'])
       ->execute()
       ->fetchAllAssoc('product_id');
@@ -171,7 +171,7 @@ class Saver implements SaverInterface {
 
       try {
         $session = $this->createSession($item);
-        $mapping  = YgtcPefGxpMapping::create(
+        $mapping  = OpenYPefGxpMapping::create(
           [
             'session' => $session,
             'md5' => md5(serialize($item)),
