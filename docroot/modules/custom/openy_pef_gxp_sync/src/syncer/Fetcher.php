@@ -1,8 +1,7 @@
 <?php
 
-namespace Drupal\ygtc_pef_gxp_sync\syncer;
+namespace Drupal\openy_pef_gxp_sync\syncer;
 
-use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\ymca_mappings\LocationMappingRepository;
@@ -11,7 +10,7 @@ use GuzzleHttp\ClientInterface as HttpClientInterface;
 /**
  * Class Fetcher.
  *
- * @package Drupal\ygtc_pef_gxp_sync\syncer
+ * @package Drupal\openy_pef_gxp_sync\syncer
  */
 class Fetcher implements FetcherInterface {
 
@@ -28,7 +27,7 @@ class Fetcher implements FetcherInterface {
   /**
    * Wrapper.
    *
-   * @var \Drupal\ygtc_pef_gxp_sync\syncer\WrapperInterface
+   * @var \Drupal\openy_pef_gxp_sync\syncer\WrapperInterface
    */
   protected $wrapper;
 
@@ -63,7 +62,7 @@ class Fetcher implements FetcherInterface {
   /**
    * Fetcher constructor.
    *
-   * @param \Drupal\ygtc_pef_gxp_sync\syncer\WrapperInterface $wrapper
+   * @param \Drupal\openy_pef_gxp_sync\syncer\WrapperInterface $wrapper
    *   Wrapper.
    * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
    *   Logger.

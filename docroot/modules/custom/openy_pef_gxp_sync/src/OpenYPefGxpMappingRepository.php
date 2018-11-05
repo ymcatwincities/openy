@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\ygtc_pef_gxp_sync;
+namespace Drupal\openy_pef_gxp_sync;
 
 use Drupal\Core\Entity\EntityTypeManager;
 
 /**
- * Class YgtcPefGxpMappingRepository.
+ * Class OpenYPefGxpMappingRepository.
  *
- * @package Drupal\ygtc_pef_gxp_sync
+ * @package Drupal\openy_pef_gxp_sync
  */
-class YgtcPefGxpMappingRepository {
+class OpenYPefGxpMappingRepository {
 
   /**
    * Entity type manager.
@@ -19,7 +19,7 @@ class YgtcPefGxpMappingRepository {
   protected $entityTypeManager;
 
   /**
-   * YgtcPefGxpMappingRepository constructor.
+   * OpenYPefGxpMappingRepository constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
    *   Entity type manager.
@@ -41,7 +41,7 @@ class YgtcPefGxpMappingRepository {
    */
   public function getMappingByProductId($productId) {
     return $this->entityTypeManager
-      ->getStorage('ygtc_pef_gxp_mapping')
+      ->getStorage('openy_pef_gxp_mapping')
       ->loadByProperties(['product_id' => $productId]);
   }
 
