@@ -6705,9 +6705,9 @@ function ymca_master_update_8295() {
 }
 
 /**
- * Enable ygtc_pef_gxp_sync.
+ * Enable openy_pef_gxp_sync.
  */
 function ymca_master_update_8296() {
   drupal_flush_all_caches();
-  \Drupal::service('module_installer')->install(['ygtc_pef_gxp_sync'], TRUE);
+  \Drupal::service('module_installer')->install(['openy_pef_gxp_sync'], TRUE);
 }

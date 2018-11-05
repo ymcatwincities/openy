@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ygtc_pef_gxp_sync\Entity;
+namespace Drupal\openy_pef_gxp_sync\Entity;
 
 use Drupal\Core\Annotation\Translation;
 use Drupal\Core\Entity\Annotation\ContentEntityType;
@@ -12,9 +12,9 @@ use Drupal\Core\Field\BaseFieldDefinition;
  * Defines the repeat entity class.
  *
  * @ContentEntityType(
- *   id = "ygtc_pef_gxp_mapping",
+ *   id = "openy_pef_gxp_mapping",
  *   label = @Translation("Ygtc PEF GXP Mapping"),
- *   base_table = "ygtc_pef_gxp_mapping",
+ *   base_table = "openy_pef_gxp_mapping",
  *   entity_keys = {
  *     "id" = "id",
  *     "uuid" = "uuid"
@@ -24,7 +24,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   admin_permission = "administer site configuration",
  * )
  */
-class YgtcPefGxpMapping extends ContentEntityBase implements YgtcPefGxpMappingInterface {
+class OpenYPefGxpMapping extends ContentEntityBase implements OpenYPefGxpMappingInterface {
 
   /**
    * {@inheritdoc}
