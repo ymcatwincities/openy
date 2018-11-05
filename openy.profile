@@ -69,6 +69,9 @@ function openy_install_tasks() {
     'openy_gtranslate_place_blocks' => [
       'type' => 'batch',
     ],
+    'openy_install_finish' => [
+      'type' => 'batch',
+    ],
   ];
 }
 
@@ -407,6 +410,18 @@ function openy_fix_configured_paragraph_blocks(array &$install_state) {
       $query->execute();
     }
   }
+}
+
+/**
+ * Run final Open Y profile install procedures.
+ */
+function openy_install_finish(array &$install_state) {
+  // Rerun install all available optional config that appeared after
+  // installation of Open Y modules and themes.
+  // We need to run this because during a drupal installation
+  // optional configuration is installed only once at the
+  // end of the core installation process.
+  \Drupal::service('config.installer')->installOptionalConfig();
 }
 
 /**
