@@ -142,7 +142,7 @@ class Saver implements SaverInterface {
 
     // Loop over processed data and create session entities.
     foreach ($data as $item) {
-      $md5 = md5(serialize($item));
+      $hash = crc32(serialize($item));
 
       // Check if corresponding session exists and is up to date.
       $mappingItems = $this->mappingRepository->getMappingByProductId($item['class_id']);
@@ -150,7 +150,7 @@ class Saver implements SaverInterface {
 
         // Compare source item & existing one.
         $mappingItem = reset($mappingItems);
-        if ($mappingItem->md5->value === $md5) {
+        if ($mappingItem->crc32->value === $hash) {
           // Item exists and identical. Skipping...
           continue;
         }
@@ -174,7 +174,7 @@ class Saver implements SaverInterface {
         $mapping  = OpenYPefGxpMapping::create(
           [
             'session' => $session,
-            'md5' => md5(serialize($item)),
+            'crc32' => crc32(serialize($item)),
             'product_id' => $item['class_id'],
           ]
         );

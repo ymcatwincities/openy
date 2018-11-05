@@ -13,7 +13,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *
  * @ContentEntityType(
  *   id = "openy_pef_gxp_mapping",
- *   label = @Translation("Ygtc PEF GXP Mapping"),
+ *   label = @Translation("OpenY PEF GXP Mapping"),
  *   base_table = "openy_pef_gxp_mapping",
  *   entity_keys = {
  *     "id" = "id",
@@ -52,13 +52,13 @@ class OpenYPefGxpMapping extends ContentEntityBase implements OpenYPefGxpMapping
         'type' => 'entity_reference_autocomplete'
       ]);
 
-    $fields['md5'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('MD5 hash of source object'))
+    $fields['hash'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('crc32 hash of source object'))
       ->setDescription(t('Used to compare with source data object.'))
       ->setRequired(TRUE)
       ->setSettings(array(
         'default_value' => '',
-        'max_length' => 32,
+        'max_length' => 9,
       ))
       ->setDisplayOptions('view', array(
         'label' => 'above',
