@@ -154,6 +154,9 @@ locations:
     - openy_prgf_amenities
     - openy_prgf_loc_finder
     - openy_prgf_location_by_amenities
+    - openy_field_hours
+    - openy_field_custom_hours
+    - openy_field_holiday_hours
 
 locations_ext:
   name: 'Locations Extended'
@@ -324,3 +327,11 @@ demo:
     - openy_demo_tfitness
     - openy_demo_tnews
     - openy_demo_webform
+
+integration:
+  name: 'Continuous Integration'
+  description: 'Continuous Integration package helps with Continuous Integration for the Open Y distribution.'
+  help: '<p>Continuous Integration package aims to help with Continuous Integration for the Open Y distribution.
+  Initially, this package was used for enabling domains with different themes (design) per domain.</p>'
+  modules:
+    - openy_development
