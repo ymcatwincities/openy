@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Entity;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -502,7 +503,10 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $membershipIDs[$campaignID] = $membershipID;
       $fullName = (!empty($member) && !empty($member->getFullName())) ? $member->getFullName() : t('Team member');
       $fullNames[$campaignID] = $fullName;
-      $memberIDs[$campaignID] = !empty($member) ? $member->id() : '';
+      $memberId = !empty($member) ? $member->id() : '';
+      $memberIDs[$campaignID] = $memberId;
+
+      Cache::invalidateTags(['member:' . $memberId]);
 
       $session->set('openy_campaign', [
         'member_ids' => $memberIDs,
@@ -548,6 +552,8 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
 
       $memberID = $fullNames[$campaignID];
       $newMemberIDs = array_diff($memberIDs, [$memberID]);
+
+      Cache::invalidateTags(['member:' . $memberID]);
 
       $session->set('openy_campaign', [
         'campaign_ids' => $newCampaignIDs,
@@ -633,6 +639,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
         'chance_type' => MemberGame::TYPE_REGISTER,
       ]);
       $game->save();
+      Cache::invalidateTags(['member_campaign:' . $this->id()]);
     }
 
     return $return;

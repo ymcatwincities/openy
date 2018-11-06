@@ -32,8 +32,13 @@
         var slick = self.parents('.slick__slider').first();
         // Remove dismissed alerts.
         if ($.inArray(nid, dismissed) != -1) {
-          if (slick.length > 0) {
-            slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index());
+          var index = self.parents('.slick__slide').eq(0).index();
+          if (slick.length > 0 && index > 0) {
+            var slickCheck = slick.slick('slickRemove', index -1);
+            if(!slickCheck) {
+              self.remove();
+              slick.parents('.slick-track').prevObject.remove();
+            }
           }
           else {
             self.remove();
@@ -41,7 +46,11 @@
         }
         $('.site-alert__dismiss', self).on('click', function () {
           if (slick.length > 0) {
-            slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index());
+            var slickCheck = slick.slick('slickRemove', self.parents('.slick__slide').eq(0).index()-1);
+            if(!slickCheck) {
+              self.remove();
+              slick.parents('.slick-track').prevObject.remove();
+            }
           }
           else {
             self.remove();

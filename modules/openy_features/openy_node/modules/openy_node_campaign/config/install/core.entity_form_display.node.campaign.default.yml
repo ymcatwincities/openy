@@ -10,8 +10,10 @@ dependencies:
     - field.field.node.campaign.field_campaign_expected_visits
     - field.field.node.campaign.field_campaign_fitness_category
     - field.field.node.campaign.field_campaign_game_description
+    - field.field.node.campaign.field_campaign_game_one_time_win
     - field.field.node.campaign.field_campaign_game_short_info
     - field.field.node.campaign.field_campaign_game_title
+    - field.field.node.campaign.field_campaign_game_type
     - field.field.node.campaign.field_campaign_image
     - field.field.node.campaign.field_campaign_membership_u_t
     - field.field.node.campaign.field_campaign_menu
@@ -26,6 +28,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_registration_goal
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_stream_type
+    - field.field.node.campaign.field_campaign_technical_name
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
@@ -51,6 +54,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - image.style.thumbnail
@@ -76,7 +80,7 @@ third_party_settings:
         - field_campaign_payment_types
         - group_age_range
       parent_name: ''
-      weight: 15
+      weight: 17
       format_type: fieldset
       format_settings:
         id: ''
@@ -105,7 +109,7 @@ third_party_settings:
         - field_campaign_end_date
         - field_campaign_timezone
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         id: ''
@@ -120,7 +124,7 @@ third_party_settings:
         - field_goal_check_ins_start_date
         - field_goal_check_ins_end_date
       parent_name: ''
-      weight: 14
+      weight: 16
       format_type: fieldset
       format_settings:
         label: 'Visits goal'
@@ -136,7 +140,7 @@ third_party_settings:
         - group_registration_messages
         - group_general_messages
       parent_name: ''
-      weight: 19
+      weight: 21
       format_type: fieldset
       format_settings:
         id: ''
@@ -205,6 +209,8 @@ third_party_settings:
     group_instant_win_game:
       children:
         - field_campaign_game_title
+        - field_campaign_game_type
+        - field_campaign_game_one_time_win
         - field_campaign_game_short_info
         - field_campaign_game_description
         - field_campaign_prizes
@@ -214,7 +220,7 @@ third_party_settings:
         - field_ways_to_earn_entries
         - field_flip_cards_cover_image
       parent_name: ''
-      weight: 20
+      weight: 22
       format_type: details
       format_settings:
         id: ''
@@ -227,7 +233,7 @@ third_party_settings:
         - field_campaign_pages
         - field_pause_landing_page
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         id: ''
@@ -255,7 +261,7 @@ content:
     region: content
   field_activities_options:
     type: options_buttons
-    weight: 12
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -288,28 +294,35 @@ content:
     type: datetime_default
     region: content
   field_campaign_expected_visits:
-    weight: 52
+    weight: 54
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_campaign_fitness_category:
-    weight: 16
+    weight: 18
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_campaign_game_description:
-    weight: 49
+    weight: 51
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_campaign_game_one_time_win:
+    weight: 49
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_campaign_game_short_info:
-    weight: 48
+    weight: 50
     settings:
       rows: 5
       placeholder: ''
@@ -324,8 +337,14 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_campaign_game_type:
+    weight: 48
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_campaign_image:
-    weight: 8
+    weight: 9
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -354,14 +373,14 @@ content:
     type: options_buttons
     region: content
   field_campaign_prize_coefficient:
-    weight: 53
+    weight: 55
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_campaign_prize_nowin:
-    weight: 51
+    weight: 53
     settings:
       size: 60
       placeholder: ''
@@ -370,7 +389,7 @@ content:
     region: content
   field_campaign_prizes:
     type: entity_reference_paragraphs
-    weight: 50
+    weight: 52
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -408,10 +427,18 @@ content:
     region: content
   field_campaign_stream_type:
     type: options_select
-    weight: 18
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_campaign_technical_name:
+    weight: 8
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_campaign_timezone:
     weight: 21
     settings: {  }
@@ -428,7 +455,7 @@ content:
     third_party_settings: {  }
   field_campaign_winners_prizes:
     type: entity_reference_paragraphs
-    weight: 17
+    weight: 19
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -439,7 +466,7 @@ content:
     third_party_settings: {  }
     region: content
   field_enable_activities_counter:
-    weight: 13
+    weight: 14
     settings:
       display_label: true
     third_party_settings: {  }
@@ -478,7 +505,7 @@ content:
     type: text_textarea
     region: content
   field_flip_cards_cover_image:
-    weight: 55
+    weight: 57
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -528,7 +555,7 @@ content:
     type: number
     region: content
   field_pause_campaign:
-    weight: 9
+    weight: 10
     settings:
       display_label: true
     third_party_settings: {  }
@@ -607,6 +634,14 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_tracking_actv_goal_desc:
+    weight: 15
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_utilization_activities:
     type: options_buttons
     weight: 16
@@ -614,7 +649,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_ways_to_earn_entries:
-    weight: 54
+    weight: 56
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
@@ -663,7 +698,7 @@ content:
     third_party_settings: {  }
     region: content
   url_redirects:
-    weight: 21
+    weight: 23
     region: content
     settings: {  }
     third_party_settings: {  }

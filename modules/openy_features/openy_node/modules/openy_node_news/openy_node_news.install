@@ -39,9 +39,21 @@ function openy_node_news_update_8002() {
 }
 
 /**
+ * Update feature configs.
+ */
+function openy_node_news_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_node_news') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.news.teaser',
+  ]);
+}
+
+/**
  * Update feature configs after entity reference handler update and descriptions actualization.
  */
-function openy_node_news_update_8012() {
+function openy_node_news_update_8004() {
   $config_dir = drupal_get_path('module', 'openy_node_news') . '/config/install/';
   // Update multiple configurations.
   $configs = [
@@ -79,7 +91,7 @@ function openy_node_news_update_8012() {
 /**
  * Update node news image view mode for teaser.
  */
-function openy_node_news_update_8014() {
+function openy_node_news_update_8005() {
   $config_dir = drupal_get_path('module', 'openy_node_news') . '/config/install/';
   $configs = [
     'core.entity_view_display.node.news.teaser' => [

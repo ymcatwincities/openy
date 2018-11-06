@@ -586,7 +586,7 @@ class Member extends ContentEntityBase implements MemberInterface {
     $result = $query->execute();
     if (!empty($result)) {
       $memberID = reset($result);
-      $member = Member::load($memberID);
+      $member = self::load($memberID);
 
       // Update Member entity with values from CRM.
       foreach ($memberValues as $field => $value) {

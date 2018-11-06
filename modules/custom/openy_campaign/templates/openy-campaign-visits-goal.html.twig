@@ -1,3 +1,20 @@
+{#
+/**
+ * @file
+ * Theme implementation for Visits goal / Activity count block.
+ *
+ * Available variables
+ * - goal: Visits goal. How many visits member should do to reach the campaign goal.
+ * - current: Current checkins number.
+ * - goal_message: My Visits block text from Track Activity page. Get from module settings form '/admin/config/system/openy-campaign'.
+ * - trackActvDesc: Description text from 'field_tracking_actv_goal_desc' field.
+ * - enActvCounter: Show Activity count with enActvCounter = 1. Show Visit Tracking with enActvCounter = 0.
+ * - countedActv: Array with counted activities groupped by name.
+ *
+ * @ingroup themeable
+ */
+#}
+
 <div class="visits-goal">
     {% if enActvCounter == true %}
         <div class="description">

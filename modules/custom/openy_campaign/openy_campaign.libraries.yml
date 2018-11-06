@@ -28,6 +28,20 @@ game_flip_cards:
   js:
     js/games/flip-cards.js: {}
 
+p2:
+  js:
+    js/libs/p2.min.js: {}
+
+game_spin_the_wheel:
+  css:
+    theme:
+      css/games/spin-the-wheel.css: {}
+  js:
+    js/games/spin-the-wheel.js: {}
+  dependencies:
+    - core/jquery
+    - openy_campaign/p2
+
 campaign_modal:
   version: 0.1
   js:

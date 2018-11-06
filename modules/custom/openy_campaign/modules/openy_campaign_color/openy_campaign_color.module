@@ -38,6 +38,8 @@ function openy_campaign_color_form_node_campaign_form_alter(&$form, FormStateInt
 
 /**
  * Alter form by adding OpenY palettes.
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
 function openy_campaign_color_form_node_campaign_palette(&$form, FormStateInterface $form_state) {
   if (color_get_info(OPENY_THEME) && function_exists('gd_info')) {

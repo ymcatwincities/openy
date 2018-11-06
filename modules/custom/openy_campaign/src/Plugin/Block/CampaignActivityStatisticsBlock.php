@@ -2,15 +2,14 @@
 
 namespace Drupal\openy_campaign\Plugin\Block;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
-use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 use Drupal\openy_campaign\Entity\MemberCheckin;
-use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -48,6 +47,11 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
   protected $entityTypeManager;
 
   /**
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
    * Constructs a new Block instance.
    *
    * @param array $configuration
@@ -58,12 +62,24 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    *   The plugin implementation definition.
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
+   * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Component\Datetime\TimeInterface $time
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, CampaignMenuServiceInterface $campaign_menu_service, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    FormBuilderInterface $formBuilder,
+    CampaignMenuServiceInterface $campaign_menu_service,
+    EntityTypeManagerInterface $entity_type_manager,
+    TimeInterface $time
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
     $this->campaignMenuService = $campaign_menu_service;
     $this->entityTypeManager = $entity_type_manager;
+    $this->time = $time;
   }
 
   /**
@@ -76,7 +92,8 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
       $plugin_definition,
       $container->get('form_builder'),
       $container->get('openy_campaign.campaign_menu_handler'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('datetime.time')
     );
   }
 
@@ -85,8 +102,10 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    */
   public function build() {
     // The block is rendered for each user separately.
-    // We can't cache it.
-    $block['#cache']['max-age'] = 0;
+    // It should be invalidated when user tracks the activity.
+    $block['#cache'] = [
+      'max-age' => 3600,
+    ];
 
     // Get campaign node from current page URL.
     /** @var \Drupal\node\Entity\Node $campaign */
@@ -107,17 +126,22 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
       return [];
     }
 
+    /** @var \Drupal\node\NodeStorage $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
+    /** @var \Drupal\taxonomy\TermStorageInterface $termStorage */
+    $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $memberCheckinStorage = $this->entityTypeManager->getStorage('openy_campaign_member_checkin');
+    /** @var \Drupal\taxonomy\VocabularyStorageInterface $vocabularyStorage */
+    $vocabularyStorage = $this->entityTypeManager->getStorage('taxonomy_vocabulary');
+
     $activities = [];
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaign = Node::load($campaignId);
+    $campaign = $nodeStorage->load($campaignId);
 
     /** @var \Drupal\taxonomy\Entity\Vocabulary $vocabulary */
     $vocabulary = $campaign->field_campaign_fitness_category->entity;
-    /** @var \Drupal\taxonomy\VocabularyStorageInterface $vocabularyStorage */
-    $vocabularyStorage = $this->entityTypeManager->getStorage('taxonomy_vocabulary');
     $tids = $vocabularyStorage->getToplevelTids([$vocabulary->id()]);
-
-    $terms = Term::loadMultiple($tids);
+    $terms = $termStorage->loadMultiple($tids);
 
     /** @var \DateTime $start */
     $start = $campaign->field_campaign_start_date->date;
@@ -140,7 +164,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     $facilityCheckInIds = MemberCheckin::getFacilityCheckIns($memberCampaignData['member_id'], $start, $end);
     $checkinRecords = [];
 
-    foreach (MemberCheckin::loadMultiple($facilityCheckInIds) as $checkIn) {
+    foreach ($memberCheckinStorage->loadMultiple($facilityCheckInIds) as $checkIn) {
       $checkInDate = new \DateTime('@' . $checkIn->date->value);
       $checkinRecords[$checkInDate->format('Y-m-d')] = $checkInDate->format('Y-m-d');
     }
@@ -150,7 +174,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
       $key = $start->format('Y-m-d');
 
       $disabled = FALSE;
-      if (\Drupal::time()->getRequestTime() < $start->format('U')) {
+      if ($this->time->getRequestTime() < $start->format('U')) {
         $disabled = TRUE;
       }
 
@@ -166,7 +190,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
        */
       foreach ($terms as $tid => $term) {
 
-        $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($vocabulary->id(), $tid, 1, TRUE);
+        $childTerms = $termStorage->loadTree($vocabulary->id(), $tid, 1, TRUE);
         $childTermIds = [];
         /** @var \Drupal\taxonomy\Entity\Term $childTerm */
         foreach ($childTerms as $childTerm) {
@@ -190,7 +214,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
         else {
           $form_class = ('Drupal\openy_campaign\Form\ActivityTrackingModalForm');
 
-          $activityTrackingForm = \Drupal::formBuilder()->getForm(
+          $activityTrackingForm = $this->formBuilder->getForm(
             $form_class,
             $key,
             $memberCampaignId,
@@ -199,7 +223,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
 
           $activities[$key][$tid] = $activityTrackingForm;
 
-          // Get term icon
+          // Get term icon.
           $iconUri = $term->field_activity_icon->entity;
           $addIconAttr = '';
           if (!empty($iconUri)) {
@@ -214,6 +238,12 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
 
       $start->modify('+1 day');
     }
+
+    // Create a cache for each member separately.
+    $block['#cache'] = [
+      'tags' => ['member_campaign:' . $memberCampaignId],
+      'max-age' => 3600,
+    ];
 
     $block['#activities'] = $activities;
     $block['#theme'] = 'openy_campaign_activity_block';
