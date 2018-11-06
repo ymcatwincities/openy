@@ -852,11 +852,10 @@ function openy_update_8056() {
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $openyMapConfigDir = drupal_get_path('module', 'openy_map') . '/config/install';
   $config_importer->setDirectory($openyMapConfigDir);
-  $config_importer->importConfigs(['openy_map.settings']);
-
-  $openyLocFinderConfigDir = drupal_get_path('module', 'openy_prgf_loc_finder') . '/config/install';
-  $config_importer->setDirectory($openyLocFinderConfigDir);
-  $config_importer->importConfigs(['views.view.locations']);
+  $config_importer->importConfigs([
+    'openy_map.settings',
+    'views.view.locations',
+    ]);
 }
 
 /**
