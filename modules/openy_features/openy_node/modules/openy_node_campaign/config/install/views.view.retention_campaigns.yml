@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.storage.node.field_campaign_technical_name
     - node.type.campaign
     - node.type.campaign_page
     - system.menu.admin
@@ -705,7 +706,8 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       max-age: 0
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.field_campaign_technical_name'
   retention_campaigns:
     display_options:
       path: admin/content/campaigns
@@ -738,4 +740,5 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       max-age: 0
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.field_campaign_technical_name'

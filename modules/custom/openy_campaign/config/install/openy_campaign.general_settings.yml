@@ -40,6 +40,9 @@ track_activity_my_visits:
 track_activity_game_no_games:
   value: '<p>You do not have any games available.</p>'
   format: full_html
+track_activity_game_already_winner:
+  value: '<p>You have already won the prize.</p>'
+  format: full_html
 track_activity_game_games_remaining_one:
   value: '<p>You have one game remaining.</p>'
   format: full_html

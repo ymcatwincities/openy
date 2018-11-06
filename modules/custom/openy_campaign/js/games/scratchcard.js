@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Instant games: scratch card.
+ */
+
 var doc = document,
     cvs = doc.getElementById('j-cvs'), ctx,
     config = {
@@ -72,7 +77,7 @@ function scratchLine(cvs, x, y, fresh) {
   style.lineHeight = style.lineHeight == '1' ? '1.1' : '1';
 
   diffTransSize(ctx, 0.5, function() {
-    document.getElementById('title').innerHTML ='50% complete';
+    document.getElementById('title').innerHTML = Drupal.t('50% complete');
   });
 }
 function setupCanvases() {

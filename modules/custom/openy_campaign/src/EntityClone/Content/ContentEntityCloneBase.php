@@ -4,7 +4,6 @@ namespace Drupal\openy_campaign\EntityClone\Content;
 
 use Drupal\entity_clone\EntityClone\Content\ContentEntityCloneBase as EntityCloneContentBase;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\Entity\Node;
 
 /**
  * Class ContentEntityCloneBase.
@@ -20,13 +19,16 @@ class ContentEntityCloneBase extends EntityCloneContentBase {
       return $clonedEntity;
     }
 
+    /** @var \Drupal\node\NodeStorage $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
+
     // Make clones of all referenced pages.
     if ($clonedEntity->hasField('field_pause_landing_page')) {
       $values = $clonedEntity->get('field_pause_landing_page')->getValue();
 
       if (!empty($values)) {
         $nid = $values[0]['target_id'];
-        $landingPage = Node::load($nid);
+        $landingPage = $nodeStorage->load($nid);
         $clonedLandingPage = $landingPage->createDuplicate();
         $clonedLandingPage->save();
         $clonedEntity->set('field_pause_landing_page', $clonedLandingPage->id());
@@ -38,7 +40,7 @@ class ContentEntityCloneBase extends EntityCloneContentBase {
       $landingPageIds = [];
       foreach ($fieldCampaignPages as $field) {
         $nid = $field['target_id'];
-        $landingPage = Node::load($nid);
+        $landingPage = $nodeStorage->load($nid);
         $clonedLandingPage = $landingPage->createDuplicate();
         $clonedLandingPage->save();
         $landingPageIds[] = $clonedLandingPage->id();

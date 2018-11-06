@@ -223,6 +223,13 @@ class SettingsForm extends ConfigFormBase {
       '#format' => $config->get('track_activity_game_no_games')['format'],
       '#description' => $this->t('Track Activity page: The Game block. "No games available" message.'),
     ];
+    $form['activity_messages']['track_activity_game_already_winner'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Track Activity page: The Game - Already A Winner'),
+      '#default_value' => $config->get('track_activity_game_already_winner')['value'],
+      '#format' => $config->get('track_activity_game_already_winner')['format'],
+      '#description' => $this->t('Track Activity page: The Game block. "You have already won the prize" message.'),
+    ];
     $form['activity_messages']['track_activity_game_games_remaining_one'] = [
       '#type' => 'text_format',
       '#title' => $this->t('Track Activity page: The Game - One Game Remaining text'),
@@ -317,7 +324,8 @@ class SettingsForm extends ConfigFormBase {
     // Tracking Activity page messages.
     $config->set('track_activity_my_visits', $form_state->getValue('track_activity_my_visits'));
     $config->set('track_activity_game_no_games', $form_state->getValue('track_activity_game_no_games'));
-    $config->set('track_activity_game_games_remaining_one', $form_state->getValue('track_activity_game_games_remaining_one'));
+    $config->set('track_activity_game_no_games', $form_state->getValue('track_activity_game_no_games'));
+    $config->set('track_activity_game_already_winner', $form_state->getValue('track_activity_game_already_winner'));
     $config->set('track_activity_game_games_remaining_multiple', $form_state->getValue('track_activity_game_games_remaining_multiple'));
     // Winners Stream text.
     $config->set('stream_text_game', $form_state->getValue('stream_text_game'));

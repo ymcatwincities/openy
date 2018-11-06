@@ -28,6 +28,12 @@ use Drupal\openy_campaign\MemberCampaignActivityInterface;
  */
 class MemberGame extends ContentEntityBase implements MemberCampaignActivityInterface {
 
+  /*
+   * The way how a user gets a game chance:
+   * - for the registration;
+   * - for the check-in into the branch;
+   * - for tracking an activity.
+   */
   const TYPE_REGISTER = 1;
   const TYPE_CHECKIN = 2;
   const TYPE_ACTIVITY = 3;
