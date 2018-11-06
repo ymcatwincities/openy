@@ -38,10 +38,13 @@ class OpenyModulesListForm extends ModulesListForm {
         'autocomplete' => 'off',
       ],
     ];
-
+    $packages_array = $this->getPackages();
     // Iterate over each of the packages.
     $form['modules']['#tree'] = TRUE;
-    foreach ($this->getPackages() as $key => $package) {
+    foreach ($packages_array as $key => $package) {
+      if ($key == 'demo') {
+        continue;
+      }
       $name = $package["name"];
       $form['modules'][$key][$name] = $this->buildPackageRow($package);
       $form['modules'][$key][$name] ['#parents'] = ['modules', $key];
@@ -51,7 +54,7 @@ class OpenyModulesListForm extends ModulesListForm {
     foreach (Element::children($form['modules']) as $package) {
       $form['modules'][$package] += [
         '#type' => 'details',
-        '#title' => $this->t($package),
+        '#title' => $this->t($packages_array[$package]['name']),
         '#open' => TRUE,
         '#theme' => 'system_modules_details',
         '#attributes' => ['class' => ['package-listing']],
