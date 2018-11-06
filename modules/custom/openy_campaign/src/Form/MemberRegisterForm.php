@@ -5,12 +5,16 @@ namespace Drupal\openy_campaign\Form;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Drupal\openy_campaign\RegularUpdater;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form for the Member Registration popup.
@@ -18,6 +22,52 @@ use Drupal\openy_campaign\Entity\MemberCampaign;
  * @ingroup openy_campaign_member
  */
 class MemberRegisterForm extends FormBase {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * @var \Drupal\Core\Form\FormBuilderInterface
+   */
+  protected $formBuilder;
+
+  /**
+   * @var \Drupal\openy_campaign\RegularUpdater
+   */
+  protected $regularUpdater;
+
+  /**
+   * MemberRegisterForm constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
+   * @param \Drupal\openy_campaign\RegularUpdater $regularUpdater
+   */
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    FormBuilderInterface $formBuilder,
+    RegularUpdater $regularUpdater
+  ) {
+    $this->entityTypeManager = $entity_type_manager;
+    $this->formBuilder = $formBuilder;
+    $this->regularUpdater = $regularUpdater;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager'),
+      $container->get('form_builder'),
+      $container->get('openy_campaign.regular_updater')
+    );
+  }
 
   protected static $containerId = 'modal_openy_campaign_register_form';
 
@@ -52,8 +102,8 @@ class MemberRegisterForm extends FormBase {
     $step_value = $form_state->getValue('step');
 
     // Determine step of the form - which screen to show.
-    // 1 - enter Member ID;
-    // 2 - confirm email address from Personify;
+    // 1 - enter Member ID.
+    // 2 - confirm email address from Personify.
     // 3 - manually enter email address.
     if ($step_value) {
       $step = $step_value;
@@ -189,7 +239,7 @@ class MemberRegisterForm extends FormBase {
     $membershipID = $form_state->getValue('membership_id');
 
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaign = Node::load($campaignID);
+    $campaign = $this->entityTypeManager->getStorage('node')-load($campaignID);
 
     $config = $this->config('openy_campaign.general_settings');
     $msgDefault = $config->get('error_msg_default');
@@ -250,7 +300,8 @@ class MemberRegisterForm extends FormBase {
 
     $registrationType = 'site';
     // Check if we are need to output the mobile version.
-    if (!empty($_GET['mobile'])) {
+    $isMobile = $this->requestStack->getCurrentRequest()->get('mobile');
+    if (!empty($isMobile)) {
       $registrationType = 'mobile';
     }
     /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
@@ -336,7 +387,7 @@ class MemberRegisterForm extends FormBase {
           $msgNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
           // TODO: use hook_theme instead of inline template.
           $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
-          $modalTitle = t('Thank you!');
+          $modalTitle = $this->t('Thank you!');
         }
         else {
           MemberCampaign::login($membershipID, $campaignID);
@@ -344,7 +395,7 @@ class MemberRegisterForm extends FormBase {
           $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
           // TODO: use hook_theme instead of inline template.
           $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
-          $modalTitle = t('Thank you!');
+          $modalTitle = $this->t('Thank you!');
         }
         $modalPopup = [
           '#theme' => 'openy_campaign_popup',
@@ -361,7 +412,7 @@ class MemberRegisterForm extends FormBase {
       }
 
       // Rebuild form with new $form and $form_state values.
-      $new_form = \Drupal::formBuilder()
+      $new_form = $this->formBuilder
         ->rebuildForm($this->getFormId(), $form_state, $form);
 
       // Refreshing form.
@@ -400,10 +451,6 @@ class MemberRegisterForm extends FormBase {
       $memberCampaign->defineGoal();
       $memberCampaign->save();
 
-      // Get visits history from CRM for the past Campaign dates.
-      /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
-      $regularUpdater = \Drupal::service('openy_campaign.regular_updater');
-
       // Get visits history from Campaign start to yesterday date.
       $dateFrom = $campaignStartDate->setTime(0, 0, 0);
       $dateTo = new \DateTime();
@@ -414,7 +461,7 @@ class MemberRegisterForm extends FormBase {
         'start_date' => $dateFrom,
         'end_date' => $campaignEndDate,
       ];
-      $regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
+      $this->regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
       // Get default values from settings.
       $config = $this->config('openy_campaign.general_settings');
@@ -446,7 +493,7 @@ class MemberRegisterForm extends FormBase {
         $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
         // TODO: use hook_theme instead of inline template.
         $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
-        $modalTitle = t('Thank you!');
+        $modalTitle = $this->t('Thank you!');
 
         $modalPopup = [
           '#theme' => 'openy_campaign_popup',
@@ -460,7 +507,6 @@ class MemberRegisterForm extends FormBase {
         // Close dialog and redirect to Campaign main page.
         $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
       }
-
 
       return $response;
     }

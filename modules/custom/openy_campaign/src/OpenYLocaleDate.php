@@ -10,8 +10,19 @@ use DateTimeZone;
  */
 class OpenYLocaleDate {
 
+  /**
+   * @var \DateTime
+   */
   protected $date;
+
+  /**
+   * @var string
+   */
   protected $siteTimezone;
+
+  /**
+   * @var \DateTimeZone
+   */
   protected $convertedTimezone;
 
   /**
@@ -28,7 +39,7 @@ class OpenYLocaleDate {
    *
    * @return \DateTime
    */
-  public function getDate(): DateTime {
+  public function getDate() {
     return $this->date;
   }
 
@@ -37,7 +48,7 @@ class OpenYLocaleDate {
    *
    * @return int
    */
-  public function getTimestamp(): int {
+  public function getTimestamp() {
     return $this->date->getTimestamp();
   }
 
@@ -46,7 +57,7 @@ class OpenYLocaleDate {
    *
    * @return bool
    */
-  public function dateExpired(): bool {
+  public function dateExpired() {
     $fromTimeZone = !empty($this->convertedTimezone) ? $this->convertedTimezone : new DateTimeZone($this->siteTimezone);
     $localeCurrent = new OpenYLocaleDate();
     $localeCurrent->setDateByTimezone(new DateTimeZone($this->siteTimezone));
@@ -69,7 +80,7 @@ class OpenYLocaleDate {
    *
    * @return \DateTime
    */
-  public function convertTimezone(DateTimeZone $fromTimezone, DateTimeZone $toTimezone = NULL): DateTime {
+  public function convertTimezone(DateTimeZone $fromTimezone, DateTimeZone $toTimezone = NULL) {
     $toTimezone = !empty($toTimezone) ? $toTimezone : new DateTimeZone($this->siteTimezone);
     $this->convertedTimezone = $fromTimezone;
     $new_date = new DateTime();
@@ -113,8 +124,9 @@ class OpenYLocaleDate {
    * Sets the date from a datetime accepted formatted string.
    *
    * @param string $date
+   * @param \DateTimeZone|null $dateTimeZone
    */
-  public function setDateFromFormat(string $date = 'now', DateTimeZone $dateTimeZone = NULL) {
+  public function setDateFromFormat($date = 'now', DateTimeZone $dateTimeZone = NULL) {
     $dateTimeZone = !empty($dateTimeZone) ? $dateTimeZone : new DateTimeZone('UTC');
     $this->date = new DateTime($date);
     $this->date->setTimezone($dateTimeZone);
@@ -128,7 +140,7 @@ class OpenYLocaleDate {
    * @param string $timestamp
    * @param \DateTimeZone $dateTimeZone
    */
-  public function setDateFromTimeStamp(string $timestamp, DateTimeZone $dateTimeZone) {
+  public function setDateFromTimeStamp($timestamp, DateTimeZone $dateTimeZone) {
     $dateTimeZone = !empty($dateTimeZone) ? $dateTimeZone : new DateTimeZone('UTC');
     $this->date = new DateTime('now');
     $this->date->setTimestamp($timestamp);
@@ -143,7 +155,7 @@ class OpenYLocaleDate {
    *
    * @return \Drupal\openy_campaign\OpenYLocaleDate
    */
-  public static function createDateFromFormat(string $date = 'now', DateTimeZone $dateTimeZone = NULL): OpenYLocaleDate {
+  public static function createDateFromFormat($date = 'now', DateTimeZone $dateTimeZone = NULL) {
     $openYLocaleDate = new OpenYLocaleDate();
     $openYLocaleDate->setDateFromFormat($date, $dateTimeZone);
     return $openYLocaleDate;
@@ -157,7 +169,7 @@ class OpenYLocaleDate {
    *
    * @return \Drupal\openy_campaign\OpenYLocaleDate
    */
-  public static function createDateFromTimestamp(string $timestamp, DateTimeZone $dateTimeZone = NULL): OpenYLocaleDate {
+  public static function createDateFromTimestamp($timestamp, DateTimeZone $dateTimeZone = NULL) {
     $openYLocaleDate = new OpenYLocaleDate();
     $openYLocaleDate->setDateFromTimeStamp($timestamp, $dateTimeZone);
     return $openYLocaleDate;
@@ -171,7 +183,7 @@ class OpenYLocaleDate {
    *
    * @return \Drupal\openy_campaign\OpenYLocaleDate
    */
-  public static function createDateFromDateTime(DateTime $dateTime, DateTimeZone $dateTimeZone = NULL): OpenYLocaleDate {
+  public static function createDateFromDateTime(DateTime $dateTime, DateTimeZone $dateTimeZone = NULL) {
     $openYLocaleDate = new OpenYLocaleDate();
     $openYLocaleDate->setDateFromDateTime($dateTime, $dateTimeZone);
     return $openYLocaleDate;

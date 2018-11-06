@@ -1,7 +1,20 @@
+{#
+/**
+ * @file
+ * Theme implementation for Campaign register block.
+ *
+ * Available variables
+ * - base_path: Site base URL path.
+ * - campaign: Current campaign node.
+ * - campaignDates: Campaign dates.
+ * - activeRegistration: (bool) Define if we need to show register block or not.
+ * - form: MemberRegistrationSimpleForm form.
+ *
+ * @ingroup themeable
+ */
+#}
+
 <style scoped>
-    #block-campaignmemberregister .container {
-        height: 100%
-    }
     @media (min-width: 760px) { /* or 301 if you want really the same as previously.  */
         .page-node-type-campaign #block-campaignmemberregister .container,
         .page-node-type-campaign-page #block-campaignmemberregister .container,
