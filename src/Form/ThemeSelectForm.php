@@ -14,6 +14,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ThemeSelectForm extends FormBase {
 
+  const DEFAULT_THEME = 'openy_rose';
+
   /**
    * The theme handler.
    *
@@ -94,7 +96,7 @@ class ThemeSelectForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Select your preferred Open Y theme'),
       '#options' => $themes_options,
-      '#default_value' => reset($openy_themes),
+      '#default_value' => $this->getDefaultTheme(),
     ];
 
     // Theme specific content.
@@ -156,6 +158,20 @@ class ThemeSelectForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $GLOBALS['install_state']['openy']['theme'] = $form_state->getValue('theme');
+  }
+
+  /**
+   * Returns default theme machine name.
+   *
+   * @return string
+   *   Default preset machine name.
+   */
+  private function getDefaultTheme() {
+    if (!empty($GLOBALS['install_state']['forms'][$this->getFormId()]['theme'])) {
+      return $GLOBALS['install_state']['forms'][$this->getFormId()]['theme'];
+    };
+
+    return self::DEFAULT_THEME;
   }
 
 }
