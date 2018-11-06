@@ -1,3 +1,18 @@
+alerts:
+  name: 'Alerts'
+  description: 'Alerts package provides an ability to create and manage website alerts.'
+  help: '<p>Using Alerts package you can create, select placement, select color schema and publish alerts that should notify visitors about important events or announcements.</p>'
+  modules:
+    - openy_node_alert
+
+analytics:
+  name: 'Analytics'
+  description: 'Analytics package provides an ability to integrate the website with analytic systems and capture website statistic.'
+  help: '<p>Using Analytics package you can configure an integration with Google Analytics or Google Tag Manager. Google Analytics gives you the tools you need to better understand your customers. Google Tag Manager helps make tag management simple, easy and reliable with tag management solutions that allow small businesses to deploy website tags.</p>'
+  modules:
+    - google_tag
+    - google_analytics
+
 blog:
   name: 'Blog'
   description: "Blog package provides a set of modules to maintain and create different blog post listings."
@@ -15,24 +30,13 @@ blog:
     - openy_prgf_blog_latest
     - openy_txnm_blog_category
 
-news:
-  name: 'News'
-  description: "News package provides a set of modules to maintain and create different news post listings."
-  help: '<p>Using News Package you can create and maintain news posts and create flexible listings of news posts.</p>'
+camps:
+  name: 'Camps'
+  description: "Camps package provides a set of modules to maintain camps and add them to the location finder page."
+  help: '<p>Using Camps package you can create and maintain Camps and extend location finder page to include them.</p>'
   modules:
-    - openy_node_news
-    - openy_prgf_news_latest
-    - openy_prgf_featured_news
-    - openy_txnm_news_category
-
-news_ext:
-  name: 'News Extended'
-  description: "Extended News package provides additional components for News Posts."
-  help: '<p>Using Extended News package you can extend and add variety of new components for News Posts, such as list of News Posts referenced to camp or branch.</p>'
-  modules:
-    - openy_prgf_news_branch
-    - openy_prgf_news_camp
-    - openy_prgf_news_listing
+    - openy_prgf_camp_menu
+    - openy_loc_camp
 
 editorial:
   name: 'Editorial'
@@ -83,37 +87,6 @@ editorial_adv:
     - openy_block_flexible_content
     - openy_prgf_microsites_menu
 
-membership:
-  name: 'Membership'
-  description: 'Membership package provides an ability to create membership calculator page.'
-  help: '<p>Using Membership package you can create membership types, plug them into CRM and create join page.</p>'
-  modules:
-    - openy_node_mbrshp
-    - openy_calc
-    - openy_prgf_mbrshp_calc
-
-social_sharing:
-  name: 'Social Sharing'
-  description: 'Social Sharing package provides integration with AddThis service.'
-  help: '<p>Using Social Sharing package you can enable social sharing buttons from <a href="http://www.addthis.com" target="_blank">www.addthis.com</a>.</p>'
-  modules:
-    - openy_addthis
-
-alerts:
-  name: 'Alerts'
-  description: 'Alerts package provides an ability to create and manage website alerts.'
-  help: '<p>Using Alerts package you can create, select placement, select color schema and publish alerts that should notify visitors about important events or announcements.</p>'
-  modules:
-    - openy_node_alert
-
-analytics:
-  name: 'Analytics'
-  description: 'Analytics package provides an ability to integrate the website with analytic systems and capture website statistic.'
-  help: '<p>Using Analytics package you can configure an integration with Google Analytics or Google Tag Manager. Google Analytics gives you the tools you need to better understand your customers. Google Tag Manager helps make tag management simple, easy and reliable with tag management solutions that allow small businesses to deploy website tags.</p>'
-  modules:
-    - google_tag
-    - google_analytics
-
 embeddable_header_footer:
   name: 'Embeddable header & footer'
   description: 'Embeddable header & footer package provides an ability to embed header or footer of the website in another system.'
@@ -130,26 +103,41 @@ events:
     - openy_prgf_event_latest
     - openy_prgf_event_listing
 
-seo:
-  name: 'SEO'
-  description: 'SEO package allows improving compatibility with different search engines.'
-  help: "<p>Using SEO package you can create website's the sitemap and improve compatibility with different search engines.</p>"
+helpers:
+  name: 'Helpers'
+  description: 'Helpers package provides helper modules for Open Y.'
+  help: 'Using Helpers package you can enable mappings, migrate and socrates feature that requires advanced knowledge.'
   modules:
-    - simple_sitemap
+    - openy_mappings
+    - openy_migrate
+    - openy_socrates
 
-webform:
-  name: 'Webform'
-  description: 'Webform package provides an ability to create and manage webforms on the website.'
-  help: '<p>Using Webform package you can create and maintain webforms that support the variety of available field formats and submit handlers. Via webforms you can capture leads, create questionnaires and another type of forms.</p>'
+activenet:
+  name: 'Integration: ActiveNet'
+  description: 'Integration with ActiveNet package provides an integration with CRM.'
+  help: "<p>Using Integration with ActiveNet you can plug in your Open Y website to the CRM.</p>"
   modules:
-    - openy_prgf_webform
+    - activenet
 
-translation:
-  name: 'Translation'
-  description: 'Translation package provides an ability to translate web pages.'
-  help: '<p>Using Translation package you can place a Google Translate widget on the page that will translate the content of the page on the fly to needed languages.</p>'
+daxko:
+  name: 'Integration: Daxko'
+  description: 'Integration with Daxko package provides an integration with CRM.'
+  help: "<p>Using Integration with Daxko you can plug in your Open Y website to the CRM.</p>"
   modules:
-    - openy_gtranslate
+    - daxko
+    - openy_daxko2
+    - openy_prgf_pgm_reg
+
+groupexpro:
+  name: 'Integration: GroupEx Pro'
+  description: 'Integration with GroupEx Pro package provides an integration with CRM.'
+  help: "<p>Using Integration with GroupEx Pro you can plug in your Open Y website to the CRM.</p>"
+  modules:
+    - groupex_form_cache
+    - openy_group_schedules
+    - openy_gxp
+    - openy_prgf_embedded_groupexpro_schedule
+    - openy_prgf_group_schedules
 
 locations:
   name: 'Locations'
@@ -167,61 +155,47 @@ locations:
     - openy_prgf_loc_finder
     - openy_prgf_location_by_amenities
 
-helpers:
-  name: 'Helpers'
-  description: 'Helpers package provides helper modules for Open Y.'
-  help: 'Using Helpers package you can enable mappings, migrate and socrates feature that requires advanced knowledge.'
-  modules:
-    - openy_mappings
-    - openy_migrate
-    - openy_socrates
-
-optimizely:
-  name: 'Optimizely'
-  description: 'Optimizely package provides an ability to integrate the website with experimentation platform - Optimizely.'
-  help: '<p>Using Optimizely package you can configure an integration with experimentation platform - <a href="https://www.optimizely.com/" target="_blank">www.optimizely.com/</a>.</p>'
-  modules:
-   - optimizely
-
-retention_campaign:
-  name: 'Retention Campaign'
-  description: 'Retention Campaign package provides an ability to maintain and perform retention campaigns.'
-  help: 'Using Retention Campaign package you can enable and manage retention campaigns on the Open Y website.'
-  modules:
-    - openy_campaign
-
-social:
-  name: 'Social'
-  description: "Social package provides a set of modules to maintain and create different social posts."
-  help: '<p>Using Social Package you can create and maintain social posts and create flexible listings of social posts.</p>'
-  modules:
-    - openy_node_social_post
-
-scheduler:
-  name: 'Scheduler'
-  description: 'Scheduler package provides an ability to schedule publishing/unpublishing for the content.'
-  help: "<p>Using Scheduler package you can publish or unpublish website's content on specific date and time.</p>"
-  modules:
-    - scheduler
-
-theme_customization:
-  name: 'Theme customization'
-  description: 'Theme Customization package provides an ability to customize color schema of the theme.'
-  help: '<p>Using Theme Customization package you can tweak and alter default color schema of themes that are available out of the box. Watch a video below to learn how to customize your theme.</p>
-  <iframe width="560" height="315"
-                   src="https://www.youtube.com/embed/wj5rsd_suqY"
-                   frameborder="0" allow="autoplay; encrypted-media"
-                   allowfullscreen></iframe>'
-  modules:
-    - color
-    - openy_branch_selector
-
 locations_ext:
   name: 'Locations Extended'
   description: "Extended Locations package provides additional components for building location finder page."
   help: '<p>Using Extended Locations package create and maintain facilities and extend location finder page to include them.</p>'
   modules:
     - openy_loc_facility
+
+membership:
+  name: 'Membership'
+  description: 'Membership package provides an ability to create membership calculator page.'
+  help: '<p>Using Membership package you can create membership types, plug them into CRM and create join page.</p>'
+  modules:
+    - openy_node_mbrshp
+    - openy_calc
+    - openy_prgf_mbrshp_calc
+
+news:
+  name: 'News'
+  description: "News package provides a set of modules to maintain and create different news post listings."
+  help: '<p>Using News Package you can create and maintain news posts and create flexible listings of news posts.</p>'
+  modules:
+    - openy_node_news
+    - openy_prgf_news_latest
+    - openy_prgf_featured_news
+    - openy_txnm_news_category
+
+news_ext:
+  name: 'News Extended'
+  description: "Extended News package provides additional components for News Posts."
+  help: '<p>Using Extended News package you can extend and add variety of new components for News Posts, such as list of News Posts referenced to camp or branch.</p>'
+  modules:
+    - openy_prgf_news_branch
+    - openy_prgf_news_camp
+    - openy_prgf_news_listing
+
+optimizely:
+  name: 'Optimizely'
+  description: 'Optimizely package provides an ability to integrate the website with experimentation platform - Optimizely.'
+  help: '<p>Using Optimizely package you can configure an integration with experimentation platform - <a href="https://www.optimizely.com/" target="_blank">www.optimizely.com/</a>.</p>'
+  modules:
+    - optimizely
 
 popups:
   name: 'Popups'
@@ -231,14 +205,6 @@ popups:
     - openy_popups
     - openy_prgf_branches_popup_all
     - openy_prgf_branches_popup_class
-
-camps:
-  name: 'Camps'
-  description: "Camps package provides a set of modules to maintain camps and add them to the location finder page."
-  help: '<p>Using Camps package you can create and maintain Camps and extend location finder page to include them.</p>'
-  modules:
-    - openy_prgf_camp_menu
-    - openy_loc_camp
 
 programs:
   name: 'Programs'
@@ -258,32 +224,67 @@ programs:
     - openy_prgf_classes_listing
     - openy_prgf_schedule_search
 
-groupexpro:
-  name: 'Integration: GroupEx Pro'
-  description: 'Integration with GroupEx Pro package provides an integration with CRM.'
-  help: "<p>Using Integration with GroupEx Pro you can plug in your Open Y website to the CRM.</p>"
+retention_campaign:
+  name: 'Retention Campaign'
+  description: 'Retention Campaign package provides an ability to maintain and perform retention campaigns.'
+  help: 'Using Retention Campaign package you can enable and manage retention campaigns on the Open Y website.'
   modules:
-    - groupex_form_cache
-    - openy_group_schedules
-    - openy_gxp
-    - openy_prgf_embedded_groupexpro_schedule
-    - openy_prgf_group_schedules
+    - openy_campaign
 
-activenet:
-  name: 'Integration: ActiveNet'
-  description: 'Integration with ActiveNet package provides an integration with CRM.'
-  help: "<p>Using Integration with ActiveNet you can plug in your Open Y website to the CRM.</p>"
+scheduler:
+  name: 'Scheduler'
+  description: 'Scheduler package provides an ability to schedule publishing/unpublishing for the content.'
+  help: "<p>Using Scheduler package you can publish or unpublish website's content on specific date and time.</p>"
   modules:
-    - activenet
+    - scheduler
 
-daxko:
-  name: 'Integration: Daxko'
-  description: 'Integration with Daxko package provides an integration with CRM.'
-  help: "<p>Using Integration with Daxko you can plug in your Open Y website to the CRM.</p>"
+seo:
+  name: 'SEO'
+  description: 'SEO package allows improving compatibility with different search engines.'
+  help: "<p>Using SEO package you can create website's the sitemap and improve compatibility with different search engines.</p>"
   modules:
-    - daxko
-    - openy_daxko2
-    - openy_prgf_pgm_reg
+    - simple_sitemap
+
+social:
+  name: 'Social'
+  description: "Social package provides a set of modules to maintain and create different social posts."
+  help: '<p>Using Social Package you can create and maintain social posts and create flexible listings of social posts.</p>'
+  modules:
+    - openy_node_social_post
+
+
+social_sharing:
+  name: 'Social Sharing'
+  description: 'Social Sharing package provides integration with AddThis service.'
+  help: '<p>Using Social Sharing package you can enable social sharing buttons from <a href="http://www.addthis.com" target="_blank">www.addthis.com</a>.</p>'
+  modules:
+    - openy_addthis
+
+theme_customization:
+  name: 'Theme customization'
+  description: 'Theme Customization package provides an ability to customize color schema of the theme.'
+  help: '<p>Using Theme Customization package you can tweak and alter default color schema of themes that are available out of the box. Watch a video below to learn how to customize your theme.</p>
+  <iframe width="560" height="315"
+                   src="https://www.youtube.com/embed/wj5rsd_suqY"
+                   frameborder="0" allow="autoplay; encrypted-media"
+                   allowfullscreen></iframe>'
+  modules:
+    - color
+    - openy_branch_selector
+
+translation:
+  name: 'Translation'
+  description: 'Translation package provides an ability to translate web pages.'
+  help: '<p>Using Translation package you can place a Google Translate widget on the page that will translate the content of the page on the fly to needed languages.</p>'
+  modules:
+    - openy_gtranslate
+
+webform:
+  name: 'Webform'
+  description: 'Webform package provides an ability to create and manage webforms on the website.'
+  help: '<p>Using Webform package you can create and maintain webforms that support the variety of available field formats and submit handlers. Via webforms you can capture leads, create questionnaires and another type of forms.</p>'
+  modules:
+    - openy_prgf_webform
 
 demo:
   name: 'Demo Content'
