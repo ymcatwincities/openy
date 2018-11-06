@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Instant games: flip cards.
+ */
+
 (function ($, Drupal, drupalSettings) {
 
   'use strict';

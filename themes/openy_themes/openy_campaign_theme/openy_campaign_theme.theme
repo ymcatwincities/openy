@@ -20,6 +20,11 @@ function openy_campaign_theme_preprocess_paragraph(array &$variables) {
   $variables['content']['#suffix'] = '</div>';
 }
 
+/**
+ * Injects colors files according to the predefined palette.
+ *
+ * @param $variables
+ */
 function openy_campaign_theme_preprocess_html(&$variables) {
   // Get campaign node from current page URL.
   /** @var \Drupal\node\Entity\Node $campaign */

@@ -2,9 +2,13 @@
 
 namespace Drupal\openy_campaign\Entity\Controller;
 
+use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a list controller for ymca_campaign_member entity.
@@ -12,6 +16,49 @@ use Drupal\taxonomy\Entity\Term;
  * @ingroup openy_campaign_member
  */
 class MemberListBuilder extends EntityListBuilder {
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
+   * MappingListBuilder constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entityType
+   * @param \Drupal\Core\Entity\EntityStorageInterface $storage
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   * @param \Drupal\Core\Database\Connection $connection
+   */
+  public function __construct(
+    EntityTypeInterface $entityType,
+    EntityStorageInterface $storage,
+    EntityTypeManagerInterface $entityTypeManager,
+    Connection $connection
+  ) {
+    parent::__construct($entityType, $storage);
+    $this->entityTypeManager = $entityTypeManager;
+    $this->connection = $connection;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entityType) {
+    return new static(
+      $entityType,
+      $container->get('entity.manager')->getStorage($entityType->id()),
+      $container->get('entity_type.manager'),
+      $container->get('database')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -37,7 +84,7 @@ class MemberListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\openy_campaign\Entity\Member */
+    /** @var \Drupal\openy_campaign\Entity\Member $entity */
     $row['id'] = $entity->id();
     $row['name'] = $entity->getFullName();
     $row['mail'] = $entity->getEmail();
@@ -47,7 +94,7 @@ class MemberListBuilder extends EntityListBuilder {
     $row['region'] = '';
     if (!empty($branch)) {
       /** @var \Drupal\taxonomy\Entity\Term $locationName */
-      $locationName = Term::load($branch->field_location_area->target_id);
+      $locationName = $this->entityTypeManager->getStorage('taxonomy_term')->load($branch->field_location_area->target_id);
       $region = !empty($locationName) ? ' (' . $locationName->getName() . ')' : '';
       $row['region'] = $branch->getTitle() . $region;
     }
@@ -56,15 +103,14 @@ class MemberListBuilder extends EntityListBuilder {
     $row['is_employee'] = $entity->isMemberEmployee() ? $this->t('Yes') : $this->t('No');
 
     // Get Checkins from MemberCheckin entity.
-    $memberCheckins = \Drupal::entityQuery('openy_campaign_member_checkin')
+    $memberCheckins = $this->entityTypeManager->getStorage('openy_campaign_member_checkin')->getQuery()
       ->condition('member', $entity->id())
       ->execute();
     $row['checkins'] = count($memberCheckins);
 
     // Get Campaign titles list for this Member.
-    $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
-    $query = $connection->select('openy_campaign_member', 'm');
+    $query = $this->connection->select('openy_campaign_member', 'm');
     $query->condition('m.id', $entity->id());
     $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
     $query->join('node_field_data', 'n', 'n.nid = mc.campaign');
