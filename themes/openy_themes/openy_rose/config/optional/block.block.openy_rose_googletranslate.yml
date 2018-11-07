@@ -1,7 +1,9 @@
 uuid: 5a698466-f499-4dda-a084-4d61c1d0e902
 langcode: en
 status: true
-dependencies: { }
+dependencies:
+  module:
+    - openy_gtranslate
 id: openy_rose_googletranslate
 theme: openy_rose
 region: secondary_menu
