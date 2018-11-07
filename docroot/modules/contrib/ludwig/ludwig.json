@@ -3,6 +3,10 @@
     "commerceguys/addressing": {
       "version" : "v1.0.1",
       "url": "https://github.com/commerceguys/addressing/archive/v1.0.1.zip"
+    },
+    "League/Csv": {
+      "version" : "7.1.2",
+      "url": "https://github.com/thephpleague/csv/archive/7.1.2.zip"
     }
   }
 }
