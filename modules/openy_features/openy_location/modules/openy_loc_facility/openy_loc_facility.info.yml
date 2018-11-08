@@ -1,5 +1,5 @@
-name: 'OpenY Facility'
-description: 'OpenY Facility.'
+name: Open Y Facility
+description: Provides a Facility content type.
 type: module
 core: 8.x
 package: OpenY

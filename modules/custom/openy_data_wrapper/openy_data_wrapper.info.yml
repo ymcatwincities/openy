@@ -1,4 +1,4 @@
-name: OpenY Data Wrapper
+name: Open Y Data Wrapper
 type: module
 description: Provide data for membership calculator and location finder.
 core: 8.x

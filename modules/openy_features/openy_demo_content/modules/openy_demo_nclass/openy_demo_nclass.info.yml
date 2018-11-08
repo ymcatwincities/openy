@@ -1,5 +1,5 @@
-name: 'OpenY Demo Node Class'
-description: 'OpenY Demo Node Class.'
+name: 'Open Y Demo Node Class'
+description: Stores migrations to import demo class nodes.
 type: module
 core: 8.x
 version: 8.x-1.0

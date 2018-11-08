@@ -1,5 +1,5 @@
-name: 'OpenY Demo Node Blog'
-description: 'OpenY Demo Node Blog.'
+name: 'Open Y Demo Node Blog'
+description: Stores migrations to import demo blog posts.
 type: module
 core: 8.x
 version: 8.x-1.0

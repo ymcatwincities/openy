@@ -1,5 +1,5 @@
-name: 'OpenY Demo Taxonomy Color'
-description: 'OpenY Demo Taxonomy Color.'
+name: Open Y Demo Taxonomy Color
+description: Stores migrations to import demo color taxonomy terms.
 type: module
 core: 8.x
 version: 8.x-1.0

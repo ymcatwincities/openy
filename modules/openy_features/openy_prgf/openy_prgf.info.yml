@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Package'
-description: 'Bundle of paragraph modules for OpenY, and their common configuration.'
+name: Open Y Paragraph Package
+description: Bundle of paragraph modules for Open Y, and their common configuration.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - field
   - link

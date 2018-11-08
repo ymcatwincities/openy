@@ -1,5 +1,5 @@
-name: 'OpenY Paragraph Repeat Schedules Locations'
-description: 'Repeat Schedules Locations paragraph.'
+name: Open Y Paragraph Repeat Schedules Locations
+description: Provides a dynamic paragraph to render repeat schedules for locations.
 type: module
 core: 8.x
 package: OpenY

@@ -1,5 +1,5 @@
-name: 'OpenY Demo Node Facility'
-description: 'OpenY Demo Node Facility.'
+name: 'Open Y Demo Node Facility'
+description: Stores migrations to import demo facility nodes.
 type: module
 core: 8.x
 version: 8.x-1.0

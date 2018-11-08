@@ -1,5 +1,5 @@
-name: 'OpenY Demo Block Microsites Menu'
-description: 'OpenY Demo Block Microsites Menu.'
+name: Open Y Demo Block Microsites Menu
+description: Stores migrations to import demo MIcrosites menu.
 type: module
 core: 8.x
 version: 8.x-1.0

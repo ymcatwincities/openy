@@ -1,5 +1,5 @@
-name: 'OpenY User'
-description: 'OpenY User.'
+name: Open Y User
+description: Stores configuration for user roles used in Open Y and related user settings.
 type: module
 core: 8.x
 version: 8.x-1.0

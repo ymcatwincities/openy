@@ -1,5 +1,5 @@
-name: OpenY Demo Node Event
-description: 'OpenY Demo Node Event.'
+name: Open Y Demo Node Event
+description: Stores migrations to import demo event nodes.
 type: module
 core: 8.x
 version: 8.x-1.0

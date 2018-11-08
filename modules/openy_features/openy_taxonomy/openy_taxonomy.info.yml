@@ -1,5 +1,5 @@
-name: 'OpenY Taxonomy Package'
-description: 'OpenY Taxonomy Package.'
+name: Open Y Taxonomy Package
+description: Bundle of taxonomy modules for OpenY, and their common configuration.
 type: module
 core: 8.x
 version: 8.x-1.0

@@ -1,5 +1,5 @@
-name: 'OpenY Node Blog'
-description: 'OpenY Node Blog.'
+name: Open Y Node Blog
+description: Provides a Blog content type and related configuration.
 type: module
 core: 8.x
 package: OpenY

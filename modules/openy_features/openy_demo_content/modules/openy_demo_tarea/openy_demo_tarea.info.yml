@@ -1,5 +1,5 @@
-name: 'OpenY Demo Taxonomy Area'
-description: 'OpenY Demo Taxonomy Area.'
+name: Open Y Demo Taxonomy Area
+description: Stores migrations to import demo area taxonomy terms.
 type: module
 core: 8.x
 version: 8.x-1.0

@@ -1,5 +1,5 @@
-name: 'OpenY Demo Taxonomy Fitness Category'
-description: 'OpenY Demo Taxonomy Fitness Category.'
+name: Open Y Demo Taxonomy Fitness Category
+description: Stores migrations to import demo fitness category taxonomy terms.
 type: module
 core: 8.x
 version: 8.x-1.0-rc1

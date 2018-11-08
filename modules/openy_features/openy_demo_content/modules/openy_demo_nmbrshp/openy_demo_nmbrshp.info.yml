@@ -1,5 +1,5 @@
-name: 'OpenY Demo Node Membership'
-description: 'OpenY Demo Node Membership.'
+name: Open Y Demo Node Membership
+description: Stores migrations to import demo membership nodes.
 type: module
 core: 8.x
 version: 8.x-1.0

@@ -1,5 +1,5 @@
-name: 'OpenY Demo Home Alternative'
-description: 'OpenY Demo Home Alternative.'
+name: Open Y Demo Node Home Alternative
+description: Stores migrations to import alternative demo home page when demo content disabled.
 type: module
 core: 8.x
 version: 8.x-1.0

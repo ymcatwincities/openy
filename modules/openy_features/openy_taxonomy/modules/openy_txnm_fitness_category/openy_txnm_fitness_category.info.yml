@@ -1,5 +1,5 @@
-name: OpenY Taxonomy Fitness Category
-description: OpenY Taxonomy Fitness Category
+name: Open Y Taxonomy Fitness Category
+description: Provides a fitness category taxonomy vocabulary and related configuration.
 type: module
 core: 8.x
 version: 8.x-1.0-rc1

@@ -1,5 +1,5 @@
-name: 'OpenY Demo Taxonomy Package'
-description: 'OpenY Demo Taxonomy Package.'
+name: Open Y Demo Taxonomy Package
+description: Stores migration group for demo taxonomy terms.
 type: module
 core: 8.x
 version: 8.x-1.0

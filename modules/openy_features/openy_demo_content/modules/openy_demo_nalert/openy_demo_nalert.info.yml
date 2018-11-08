@@ -1,5 +1,5 @@
-name: 'OpenY Demo Node Alert'
-description: 'OpenY Demo Node Alert.'
+name: 'Open Y Demo Node Alert'
+description: Stores migrations to import demo alerts.
 type: module
 core: 8.x
 version: 8.x-1.0

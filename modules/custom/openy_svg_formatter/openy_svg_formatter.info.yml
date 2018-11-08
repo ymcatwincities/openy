@@ -1,6 +1,6 @@
-name: OpenY SVG formatter
+name: Open Y SVG formatter
 type: module
-description: Add SVG formatter to file field.
+description: Adds a SVG formatter to file field.
 core: 8.x
 version: 8.x-1.0
 package: OpenY

@@ -1,5 +1,5 @@
-name: OpenY Node Program
-description: 'OpenY Program.'
+name: Open Y Node Program
+description: Provides a Program content type and related configuration.
 type: module
 core: 8.x
 package: OpenY

@@ -1,9 +1,9 @@
-name: 'OpenY Block Basic'
-description: 'OpenY Block Basic.'
+name:  Open Y Block Basic
+description: Implements a simple block with description.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - block_content
   - field

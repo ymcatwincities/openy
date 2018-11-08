@@ -1,4 +1,5 @@
-name: 'OpenY Editor'
+name: Open Y Editor
+description: Stores an editor and text filters configuration.
 type: module
 core: 8.x
 package: OpenY

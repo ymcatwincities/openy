@@ -1,6 +1,6 @@
-name: OpenY Mappings
+name: Open Y Mappings
 type: module
-description: OpenY data mappings.
+description: Provides a Mapping entity type and features.
 core: 8.x
 version: 8.x-1.0
 package: OpenY

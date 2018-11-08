@@ -1,6 +1,6 @@
-name: OpenY Upgrade Tool
+name: Open Y Upgrade Tool
 type: module
-description: Provide Upgrade Path Tool.
+description: Provides an Upgrade Path tool.
 core: 8.x
 package: OpenY
 version: 8.x-1.0

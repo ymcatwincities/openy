@@ -1,5 +1,5 @@
-name: OpenY Demo Node News
-description: 'OpenY Demo Node News.'
+name: Open Y Demo Node News
+description: Stores migrations to import demo news nodes.
 type: module
 core: 8.x
 version: 8.x-1.0

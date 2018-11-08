@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Teaser'
-description: 'OpenY Paragraph Teaser.'
+name: Open Y Paragraph Teaser
+description: Provides a paragraph to display teaser.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - blazy
   - entity_browser

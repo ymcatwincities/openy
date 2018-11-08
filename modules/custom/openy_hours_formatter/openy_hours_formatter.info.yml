@@ -1,6 +1,6 @@
-name: OpenY Hours Formatter
+name: Open Y Hours Formatter
 type: module
-description: Displays working hours
+description: Provides a formatter to display working hours.
 core: 8.x
 version: 8.x-1.0
 package: OpenY

@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Gallery'
-description: 'OpenY Paragraph Gallery.'
+name: Open Y Paragraph Gallery
+description: Provides a paragraph to display gallery content.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - blazy
   - entity_browser

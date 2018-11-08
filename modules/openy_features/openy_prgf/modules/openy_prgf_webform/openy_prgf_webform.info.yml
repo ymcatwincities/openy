@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Webform'
-description: 'OpenY Paragraph Webform.'
+name: Open Y Paragraph Webform
+description: Provides a paragraph to display webform.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - datalayer
   - field

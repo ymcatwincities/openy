@@ -1,9 +1,9 @@
-name: 'OpenY Taxonomy Color'
-description: 'OpenY Taxonomy Color.'
+name: Open Y Taxonomy Color
+description: Provides a color taxonomy vocabulary and related configuration.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - field
   - jquery_colorpicker
