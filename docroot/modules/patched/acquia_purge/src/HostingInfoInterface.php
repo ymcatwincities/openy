@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\acquia_purge\HostingInfoInterface.
- */
-
 namespace Drupal\acquia_purge;
 
 /**
@@ -45,12 +40,28 @@ interface HostingInfoInterface {
   public function getSiteGroup();
 
   /**
+   * Get a unique identifier for this Acquia site.
+   *
+   * @return string
+   *   Unique string for this Drupal instance, even within multisites!
+   */
+  public function getSiteIdentifier();
+
+  /**
    * Get the Acquia site name.
    *
    * @return string
    *   The site group, e.g. 'sitedev' or '' when unavailable.
    */
   public function getSiteName();
+
+  /**
+   * Get the Drupal site path.
+   *
+   * @return string
+   *   The site path, e.g. 'site/default' or 'site/mysecondsite'.
+   */
+  public function getSitePath();
 
   /**
    * Determine whether the current hosting environment is Acquia Cloud or not.

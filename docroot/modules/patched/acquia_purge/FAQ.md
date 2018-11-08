@@ -1,6 +1,9 @@
 [//]: # ( clear&&curl -s -F input_files[]=@FAQ.md -F from=markdown -F to=html http://c.docverter.com/convert|tail -n+11|head -n-2 )
 [//]: # ( curl -s -F input_files[]=@FAQ.md -F from=markdown -F to=pdf http://c.docverter.com/convert>FAQ.pdf )
 
+# THIS DOCUMENT IS OUTDATED AND NEEDS TO BE REWRITTEN!
+---
+
 #  Frequently asked questions
 
 #### I'm running a multisite, will it work?
