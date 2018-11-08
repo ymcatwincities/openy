@@ -1,5 +1,5 @@
 openy_daxko2.import:
-  path: '/admin/openy/integration/daxko/daxko-import'
+  path: '/admin/openy/integrations/daxko/daxko-import'
   defaults:
     _form: '\Drupal\openy_daxko2\Form\ImportForm'
     _title: 'Run Daxko Import'
@@ -7,7 +7,7 @@ openy_daxko2.import:
     _permission: 'administer site configuration'
 
 openy_daxko2.settings:
-  path: '/admin/openy/integration/daxko/daxko2'
+  path: '/admin/openy/integrations/daxko/daxko2'
   defaults:
     _form: '\Drupal\openy_daxko2\Form\SettingsForm'
     _title: 'Daxko settings'
