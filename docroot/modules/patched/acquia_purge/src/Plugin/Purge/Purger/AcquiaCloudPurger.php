@@ -1,19 +1,21 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\acquia_purge\Plugin\Purge\Purger\HttpPurger.
- */
-
 namespace Drupal\acquia_purge\Plugin\Purge\Purger;
 
-use Symfony\Component\HttpFoundation\Request;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Promise;
+use GuzzleHttp\Pool;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\State\StateInterface;
+use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\purge\Plugin\Purge\Purger\PurgerBase;
 use Drupal\purge\Plugin\Purge\Purger\PurgerInterface;
 use Drupal\purge\Plugin\Purge\Invalidation\InvalidationInterface;
 use Drupal\acquia_purge\HostingInfoInterface;
+use Drupal\acquia_purge\Hash;
 
 /**
  * Acquia Cloud.
@@ -25,54 +27,59 @@ use Drupal\acquia_purge\HostingInfoInterface;
  *   cooldown_time = 0.2,
  *   description = @Translation("Invalidates Varnish powered load balancers on your Acquia Cloud site."),
  *   multi_instance = FALSE,
- *   types = {"url"},
+ *   types = {"url", "wildcardurl", "tag", "everything"},
  * )
  */
 class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
 
   /**
-   * The number of HTTP requests executed in parallel during purging.
+   * Maximum number of requests to send concurrently.
    */
-  const PARALLEL_REQUESTS = 6;
+  const CONCURRENCY = 6;
 
   /**
-   * The number of seconds before a purge attempt times out.
+   * Float describing the number of seconds to wait while trying to connect to
+   * a server.
    */
-  const REQUEST_TIMEOUT = 2;
+  const CONNECT_TIMEOUT = 1.5;
+
+  /**
+   * Float describing the timeout of the request in seconds.
+   */
+  const TIMEOUT = 3.0;
+
+  /**
+   * Batches of cache tags are split up into multiple requests to prevent HTTP
+   * request headers from growing too large or Varnish refusing to process them.
+   */
+  const TAGS_GROUPED_BY = 15;
+
+  /**
+   * The Guzzle HTTP client.
+   *
+   * @var \GuzzleHttp\Client
+   */
+  protected $client;
+
+  /**
+   * Supporting variable for ::debug(), which keeps a call graph in it.
+   *
+   * @var string[]
+   */
+  protected $debug = [];
 
   /**
    * @var \Drupal\acquia_purge\HostingInfoInterface
    */
-  protected $acquiaPurgeHostinginfo;
-
-  /**
-   * The state key value store.
-   *
-   * @var \Drupal\Core\State\StateInterface
-   */
-  protected $state;
-
-  /**
-   * Associative array with invalidation type (key) and measurement (value).
-   *
-   * @var float[]
-   */
-  protected $typeMeasurements = [];
-
-  /**
-   * The name of the state API key in which type measurements are stored.
-   *
-   * @var string
-   */
-  protected $typeMeasurementsStateKey = 'acquia_purge_type_measurements';
+  protected $hostingInfo;
 
   /**
    * Constructs a AcquiaCloudPurger object.
    *
    * @param \Drupal\acquia_purge\HostingInfoInterface $acquia_purge_hostinginfo
    *   Technical information accessors for the Acquia Cloud environment.
-   * @param \Drupal\Core\State\StateInterface $state
-   *   The state key value store.
+   * @param \GuzzleHttp\ClientInterface $http_client
+   *   An HTTP client that can perform remote requests.
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
    * @param string $plugin_id
@@ -80,11 +87,10 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
    */
-  function __construct(HostingInfoInterface $acquia_purge_hostinginfo, StateInterface $state, array $configuration, $plugin_id, $plugin_definition) {
+  public function __construct(HostingInfoInterface $acquia_purge_hostinginfo, ClientInterface $http_client, array $configuration, $plugin_id, $plugin_definition) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->acquiaPurgeHostingInfo = $acquia_purge_hostinginfo;
-    $this->typeMeasurements = $state->get($this->typeMeasurementsStateKey, []);
-    $this->state = $state;
+    $this->client = $http_client;
+    $this->hostingInfo = $acquia_purge_hostinginfo;
   }
 
   /**
@@ -93,7 +99,7 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $container->get('acquia_purge.hostinginfo'),
-      $container->get('state'),
+      $container->get('http_client'),
       $configuration,
       $plugin_id,
       $plugin_definition
@@ -101,139 +107,170 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Log the caller graph using $this->logger()->debug() messages.
+   *
+   * @param string $caller
+   *   Name of the PHP method that is calling ::debug().
    */
-  public function delete() {
-    $this->state->delete($this->typeMeasurementsStateKey);
+  protected function debug($caller) {
+    if (!$this->logger()->isDebuggingEnabled()) {
+      return;
+    }
+
+    // Generate a caller name used both in logging and call counting.
+    $caller = str_replace(
+      $this->getClassName(__CLASS__),
+      '',
+      $this->getClassName($caller)
+    );
+
+    // Define a simple closure to print with prefixed indentation.
+    $log = function($output) {
+      $space = str_repeat('  ', count($this->debug));
+      $this->logger()->debug($space . $output);
+    };
+
+    if (!in_array($caller, $this->debug)) {
+      $this->debug[] = $caller;
+      $log("--> $caller():");
+    }
+    else {
+      unset($this->debug[array_search($caller, $this->debug)]);
+      $log("      (finished)");
+    }
   }
 
   /**
-   * Execute a set of HTTP requests.
+   * Extract debug information from a request.
    *
-   * Executes a set of HTTP requests using the cUrl PHP extension and adds
-   * resulting information to the ->attributes parameter bag on each request
-   * object. It will perform parallel processing to reduce the PHP execution
-   * time taken.
+   * @param \Psr\Http\Message\RequestInterface $r
+   *   The HTTP request object.
    *
-   * @param \Symfony\Component\HttpFoundation\Request[] $requests
-   *   Unassociative list of Request objects to execute. When the 'connect_to'
-   *   attribute key is present, this value will be used to connect to instead
-   *   of the 'host' header.
-   *
-   * @return void
+   * @return string[]
    */
-  protected function executeRequests(array $requests) {
-
-    // Presort the request objects in request groups based on the maximum amount
-    // of requests we can perform in parallel. Max SELF::PARALLEL_REQUESTS each!
-    $request_groups = [];
-    $unprocessed = count($requests);
-    reset($requests);
-    while ($unprocessed > 0) {
-      $group = [];
-      for ($n = 0; $n < SELF::PARALLEL_REQUESTS; $n++) {
-        if (!is_null($i = key($requests))) {
-          $group[] = $requests[$i];
-          $unprocessed--;
-          next($requests);
-        }
-      }
-      if (count($group)) {
-        $request_groups[] = $group;
-      }
+  protected function debugInfoForRequest(RequestInterface $r) {
+    $info = [];
+    $info['req http']   = $r->getProtocolVersion();
+    $info['req uri']    = $r->getUri()->__toString();
+    $info['req method'] = $r->getMethod();
+    $info['req headers'] = [];
+    foreach ($r->getHeaders() as $h => $v) {
+      $info['req headers'][] = $h . ': ' . $r->getHeaderLine($h);
     }
+    return $info;
+  }
 
-    // Perform HTTP processing for each request group.
-    foreach ($request_groups as $group) {
-      $multihandler = (count($group) === 1) ? FALSE : curl_multi_init();
-
-      // Prepare the cUrl handlers for each Request.
-      foreach ($group as $r) {
-        $handler = curl_init();
-        curl_setopt($handler, CURLOPT_TIMEOUT, SELF::REQUEST_TIMEOUT);
-        curl_setopt($handler, CURLOPT_CUSTOMREQUEST, $r->getMethod());
-        curl_setopt($handler, CURLOPT_FAILONERROR, TRUE);
-        curl_setopt($handler, CURLOPT_RETURNTRANSFER, TRUE);
-        $r->attributes->set('curl_handler', $handler);
-
-        // Confgure the URL to connect to on the handler.
-        $url = $r->getUri();
-        if ($connect_to = $r->attributes->get('connect_to')) {
-          $url = str_replace($r->getHttpHost(), $connect_to, $url);
-        }
-        curl_setopt($handler, CURLOPT_URL, $url);
-
-        // Generate and set the list of headers to send.
-        $headers = [];
-        foreach (explode("\r\n", trim($r->headers->__toString())) as $line) {
-          $headers[] = $line;
-        }
-        curl_setopt($handler, CURLOPT_HTTPHEADER, $headers);
-
-        // For requests over SSL, we disable host and peer verification. This
-        // is usually a red flag to the security concerned, but avoids a great
-        // deal of trouble with self-signed certificates. Above all, this is
-        // only used for external cache invalidation.
-        if ($r->isSecure()) {
-          curl_setopt($handler, CURLOPT_SSL_VERIFYHOST, FALSE);
-          curl_setopt($handler, CURLOPT_SSL_VERIFYPEER, FALSE);
-        }
-
-        // With parallel processing, add this resource to the multihandler.
-        if (is_resource($multihandler)) {
-          curl_multi_add_handle($multihandler, $handler);
-        }
-      }
-
-      // Let cUrl execute the requests (single mode or multihandling).
-      if (is_resource($multihandler)) {
-        $active = NULL;
-        do {
-          $mrc = curl_multi_exec($multihandler, $active);
-        } while ($mrc == CURLM_CALL_MULTI_PERFORM);
-        while ($active && $mrc == CURLM_OK) {
-          if (curl_multi_select($multihandler) != -1) {
-            do {
-              $mrc = curl_multi_exec($multihandler, $active);
-            } while ($mrc == CURLM_CALL_MULTI_PERFORM);
-          }
-        }
-      }
-      else {
-        $handler = $group[0]->attributes->get('curl_handler');
-        curl_exec($handler);
-        $single_info = ['result' => curl_errno($handler)];
-      }
-
-      // Query the handlers to put the results as attributes onto the request.
-      foreach ($group as $r) {
-        if (!($handler = $r->attributes->get('curl_handler'))) {
-          continue;
-        }
-
-        // Set the general request results as attributes to the request.
-        if (is_resource($multihandler)) {
-          $info = curl_multi_info_read($multihandler);
-        }
-        else {
-          $info = $single_info;
-        }
-        $r->attributes->set('curl_result', $info['result']);
-        $r->attributes->set('curl_result_ok', $info['result'] == CURLE_OK);
-
-        // Add all other cUrl information as attributes to the request.
-        foreach (curl_getinfo($handler) as $key => $value) {
-          $r->attributes->set('curl_' . $key, $value);
-        }
-
-        // Remove all cUrl resources except the results of course.
-        if (is_resource($multihandler)) {
-          curl_multi_remove_handle($multihandler, $handler);
-        }
-        curl_close($handler);
-        $r->attributes->remove('curl_handler');
-      }
+  /**
+   * Extract debug information from a response.
+   *
+   * @param \Psr\Http\Message\ResponseInterface $r
+   *   The HTTP response object.
+   * @param \GuzzleHttp\Exception\RequestException $r
+   *   Optional exception in case of failures.
+   *
+   * @return string[]
+   */
+  protected function debugInfoForResponse(ResponseInterface $r, RequestException $e = NULL) {
+    $info = [];
+    $info['rsp http'] = $r->getProtocolVersion();
+    $info['rsp status'] = $r->getStatusCode();
+    $info['rsp reason'] = $r->getReasonPhrase();
+    if (!is_null($e)) {
+      $info['rsp summary'] = json_encode($e->getResponseBodySummary($r));
     }
+    $info['rsp headers'] = [];
+    foreach ($r->getHeaders() as $h => $v) {
+      $info['rsp headers'][] = $h . ': ' . $r->getHeaderLine($h);
+    }
+    return $info;
+  }
+
+  /**
+   * Generate a short and readable class name.
+   *
+   * @param string|object $class
+   *   Fully namespaced class or an instantiated object.
+   *
+   * @return string
+   */
+  protected function getClassName($class) {
+    if (is_object($class)) {
+      $class = get_class($class);
+    }
+    if ($pos = strrpos($class, '\\')) {
+      $class = substr($class, $pos + 1);
+    }
+    return $class;
+  }
+
+  /**
+   * Retrieve request options used for all of Acquia Purge's balancer requests.
+   *
+   * @param array[] $extra
+   *   Associative array of options to merge onto the standard ones.
+   *
+   * @return array
+   */
+  protected function getGlobalOptions(array $extra = []) {
+    $opt = [
+      // Disable exceptions for 4XX HTTP responses, those aren't failures to us.
+      'http_errors' => FALSE,
+
+      // Prevent inactive balancers from sucking all runtime up.
+      'connect_timeout' => self::CONNECT_TIMEOUT,
+
+      // Prevent unresponsive balancers from making Drupal slow.
+      'timeout' => self::TIMEOUT,
+
+      // Deliberately disable SSL verification to prevent unsigned certificates
+      // from breaking down a website when purging a https:// URL!
+      'verify' => FALSE,
+
+      // Trigger \Drupal\acquia_purge\Http\LoadBalancerMiddleware which acts as
+      // honest broker by throwing the right exceptions for our bal requests.
+      'acquia_purge_middleware' => TRUE,
+    ];
+    return array_merge($opt, $extra);
+  }
+
+  /**
+   * Concurrently execute the given requests.
+   *
+   * @param string $caller
+   *   Name of the PHP method that is executing the requests.
+   * @param \Closure $requests
+   *   Generator yielding requests which will be passed to \GuzzleHttp\Pool.
+   */
+  protected function getResultsConcurrently($caller, $requests) {
+    $this->debug(__METHOD__);
+    $results = [];
+
+    // Create a concurrently executed Pool which collects a boolean per request.
+    $pool = new Pool($this->client, $requests(), [
+      'options' => $this->getGlobalOptions(),
+      'concurrency' => self::CONCURRENCY,
+      'fulfilled' => function($response, $result_id) use (&$results) {
+        if ($this->logger()->isDebuggingEnabled()) {
+          $this->debug(__METHOD__ . '::fulfilled');
+          $this->logDebugTable($this->debugInfoForResponse($response));
+        }
+        $results[$result_id][] = TRUE;
+      },
+      'rejected' => function($reason, $result_id) use (&$results, $caller) {
+        $this->debug(__METHOD__ . '::rejected');
+        $this->logFailedRequest($caller, $reason);
+        $results[$result_id][] = FALSE;
+      },
+    ]);
+
+    // Initiate the transfers and create a promise.
+    $promise = $pool->promise();
+
+    // Force the pool of requests to complete.
+    $promise->wait();
+
+    $this->debug(__METHOD__);
+    return $results;
   }
 
   /**
@@ -244,7 +281,7 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
     // execution time. Although always respected as outer limit, it will be lower
     // in practice as PHP resource limits (max execution time) bring it further
     // down. However, the maximum amount of requests will be higher on the CLI.
-    $balancers = count($this->acquiaPurgeHostingInfo->getBalancerAddresses());
+    $balancers = count($this->hostingInfo->getBalancerAddresses());
     if ($balancers) {
       return intval(ceil(200 / $balancers));
     }
@@ -275,37 +312,98 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
    * @see \Drupal\purge\Plugin\Purge\Purger\PurgerInterface::routeTypeToMethod()
    */
   public function invalidateTags(array $invalidations) {
-    throw new \Exception(__METHOD__);
-    // $logger = \Drupal::logger('purge_purger_http');
-    //
-    // // Iterate every single object and fire a request per object.
-    // foreach ($invalidations as $invalidation) {
-    //   $token_data = ['invalidation' => $invalidation];
-    //   $uri = $this->getUri($token_data);
-    //   $opt = $this->getOptions($token_data);
-    //
-    //   try {
-    //     $this->client->request($this->settings->request_method, $uri, $opt);
-    //     $invalidation->setState(InvalidationInterface::SUCCEEDED);
-    //   }
-    //   catch (\Exception $e) {
-    //     $invalidation->setState(InvalidationInterface::FAILED);
-    //     $headers = $opt['headers'];
-    //     unset($opt['headers']);
-    //     $logger->emergency(
-    //       "%exception thrown by %id, invalidation marked as failed. URI: %uri# METHOD: %request_method# HEADERS: %headers#mOPT: %opt#MSG: %exceptionmsg#",
-    //       [
-    //         '%exception' => get_class($e),
-    //         '%exceptionmsg' => $e->getMessage(),
-    //         '%request_method' => $this->settings->request_method,
-    //         '%opt' => $this->exportDebuggingSymbols($opt),
-    //         '%headers' => $this->exportDebuggingSymbols($headers),
-    //         '%uri' => $uri,
-    //         '%id' => $this->getid()
-    //       ]
-    //     );
-    //   }
-    // }
+    $this->debug(__METHOD__);
+
+    // Set invalidation states to PROCESSING. Detect tags with spaces in them,
+    // as space is the only character Drupal core explicitely forbids in tags.
+    foreach ($invalidations as $invalidation) {
+      $tag = $invalidation->getExpression();
+      if (strpos($tag, ' ') !== FALSE) {
+        $invalidation->setState(InvalidationInterface::FAILED);
+        $this->logger->error(
+          "Tag '%tag' contains a space, this is forbidden.", ['%tag' => $tag]
+        );
+      }
+      else {
+        $invalidation->setState(InvalidationInterface::PROCESSING);
+      }
+    }
+
+    // Create grouped sets of 12 so that we can spread out the BAN load.
+    $group = 0;
+    $groups = [];
+    foreach ($invalidations as $invalidation) {
+      if ($invalidation->getState() !== InvalidationInterface::PROCESSING) {
+        continue;
+      }
+      if (!isset($groups[$group])) {
+        $groups[$group] = ['tags' => [], ['objects' => []]];
+      }
+      if (count($groups[$group]['tags']) >= self::TAGS_GROUPED_BY) {
+        $group++;
+      }
+      $groups[$group]['objects'][] = $invalidation;
+      $groups[$group]['tags'][] = $invalidation->getExpression();
+    }
+
+    // Test if we have at least one group of tag(s) to purge, if not, bail.
+    if (!count($groups)) {
+      foreach ($invalidations as $invalidation) {
+        $invalidation->setState(InvalidationInterface::FAILED);
+      }
+      return;
+    }
+
+    // Now create requests for all groups of tags.
+    $site = $this->hostingInfo->getSiteIdentifier();
+    $ipv4_addresses = $this->hostingInfo->getBalancerAddresses();
+    $requests = function() use ($groups, $ipv4_addresses, $site) {
+      foreach ($groups as $group_id => $group) {
+        $tags = implode(' ', Hash::cacheTags($group['tags']));
+        foreach ($ipv4_addresses as $ipv4) {
+          yield $group_id => function($poolopt) use ($site, $tags, $ipv4) {
+            $opt = [
+              'headers' => [
+                'X-Acquia-Purge' => $site,
+                'X-Acquia-Purge-Tags' => $tags,
+                'Accept-Encoding' => 'gzip',
+                'User-Agent' => 'Acquia Purge',
+              ]
+            ];
+            if (is_array($poolopt) && count($poolopt)) {
+              $opt = array_merge($poolopt, $opt);
+            }
+            return $this->client->requestAsync('BAN', "http://$ipv4/tags", $opt);
+          };
+        }
+      }
+    };
+
+    // Execute the requests generator and retrieve the results.
+    $results = $this->getResultsConcurrently('invalidateTags', $requests);
+
+    // Triage the results and set all invalidation states correspondingly.
+    foreach ($groups as $group_id => $group) {
+      if ((!isset($results[$group_id])) || (!count($results[$group_id]))) {
+        foreach ($group['objects'] as $invalidation) {
+          $invalidation->setState(InvalidationInterface::FAILED);
+        }
+      }
+      else {
+        if (in_array(FALSE, $results[$group_id])) {
+          foreach ($group['objects'] as $invalidation) {
+            $invalidation->setState(InvalidationInterface::FAILED);
+          }
+        }
+        else {
+          foreach ($group['objects'] as $invalidation) {
+            $invalidation->setState(InvalidationInterface::SUCCEEDED);
+          }
+        }
+      }
+    }
+
+    $this->debug(__METHOD__);
   }
 
   /**
@@ -315,59 +413,258 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
    * @see \Drupal\purge\Plugin\Purge\Purger\PurgerInterface::routeTypeToMethod()
    */
   public function invalidateUrls(array $invalidations) {
-    $balancer_addresses = $this->acquiaPurgeHostingInfo->getBalancerAddresses();
-    $balancer_token = $this->acquiaPurgeHostingInfo->getBalancerToken();
+    $this->debug(__METHOD__);
 
-    // Set all invalidation states to PROCESSING before we kick off purging.
+    // Change all invalidation objects into the PROCESS state before kickoff.
+    foreach ($invalidations as $inv) {
+      $inv->setState(InvalidationInterface::PROCESSING);
+    }
+
+    // Generate request objects for each balancer/invalidation combination.
+    $ipv4_addresses = $this->hostingInfo->getBalancerAddresses();
+    $token = $this->hostingInfo->getBalancerToken();
+    $requests = function() use ($invalidations, $ipv4_addresses, $token) {
+      foreach ($invalidations as $inv) {
+        foreach ($ipv4_addresses as $ipv4) {
+          yield $inv->getId() => function($poolopt) use ($inv, $ipv4, $token) {
+            $uri = $inv->getExpression();
+            $host = parse_url($uri, PHP_URL_HOST);
+            $uri = str_replace($host, $ipv4, $uri);
+            $opt = [
+              'headers' => [
+                'X-Acquia-Purge' => $token,
+                'Accept-Encoding' => 'gzip',
+                'User-Agent' => 'Acquia Purge',
+                'Host' => $host,
+              ]
+            ];
+            if (is_array($poolopt) && count($poolopt)) {
+              $opt = array_merge($poolopt, $opt);
+            }
+            return $this->client->requestAsync('PURGE', $uri, $opt);
+          };
+        }
+      }
+    };
+
+    // Execute the requests generator and retrieve the results.
+    $results = $this->getResultsConcurrently('invalidateUrls', $requests);
+
+    // Triage the results and set all invalidation states correspondingly.
+    foreach ($invalidations as $invalidation) {
+      $inv_id = $invalidation->getId();
+      if ((!isset($results[$inv_id])) || (!count($results[$inv_id]))) {
+        $invalidation->setState(InvalidationInterface::FAILED);
+      }
+      else {
+        if (in_array(FALSE, $results[$inv_id])) {
+          $invalidation->setState(InvalidationInterface::FAILED);
+        }
+        else {
+          $invalidation->setState(InvalidationInterface::SUCCEEDED);
+        }
+      }
+    }
+
+    $this->debug(__METHOD__);
+  }
+
+  /**
+   * Invalidate URLs that contain the wildcard character "*".
+   *
+   * @see \Drupal\purge\Plugin\Purge\Purger\PurgerInterface::invalidate()
+   * @see \Drupal\purge\Plugin\Purge\Purger\PurgerInterface::routeTypeToMethod()
+   */
+  public function invalidateWildcardUrls(array $invalidations) {
+    $this->debug(__METHOD__);
+
+    // Change all invalidation objects into the PROCESS state before kickoff.
+    foreach ($invalidations as $inv) {
+      $inv->setState(InvalidationInterface::PROCESSING);
+    }
+
+    // Generate request objects for each balancer/invalidation combination.
+    $ipv4_addresses = $this->hostingInfo->getBalancerAddresses();
+    $token = $this->hostingInfo->getBalancerToken();
+    $requests = function() use ($invalidations, $ipv4_addresses, $token) {
+      foreach ($invalidations as $inv) {
+        foreach ($ipv4_addresses as $ipv4) {
+          yield $inv->getId() => function($poolopt) use ($inv, $ipv4, $token) {
+            $uri = str_replace('https://', 'http://', $inv->getExpression());
+            $host = parse_url($uri, PHP_URL_HOST);
+            $uri = str_replace($host, $ipv4, $uri);
+            $opt = [
+              'headers' => [
+                'X-Acquia-Purge' => $token,
+                'Accept-Encoding' => 'gzip',
+                'User-Agent' => 'Acquia Purge',
+                'Host' => $host,
+              ]
+            ];
+            if (is_array($poolopt) && count($poolopt)) {
+              $opt = array_merge($poolopt, $opt);
+            }
+            return $this->client->requestAsync('BAN', $uri, $opt);
+          };
+        }
+      }
+    };
+
+    // Execute the requests generator and retrieve the results.
+    $results = $this->getResultsConcurrently('invalidateWildcardUrls', $requests);
+
+    // Triage the results and set all invalidation states correspondingly.
+    foreach ($invalidations as $invalidation) {
+      $inv_id = $invalidation->getId();
+      if ((!isset($results[$inv_id])) || (!count($results[$inv_id]))) {
+        $invalidation->setState(InvalidationInterface::FAILED);
+      }
+      else {
+        if (in_array(FALSE, $results[$inv_id])) {
+          $invalidation->setState(InvalidationInterface::FAILED);
+        }
+        else {
+          $invalidation->setState(InvalidationInterface::SUCCEEDED);
+        }
+      }
+    }
+
+    $this->debug(__METHOD__);
+  }
+
+  /**
+   * Invalidate the entire website.
+   *
+   * This supports invalidation objects of the type 'everything'. Because many
+   * load balancers on Acquia Cloud host multiple websites (e.g. sites in a
+   * multisite) this will only affect the current site instance. This works
+   * because all Varnish-cached resources are tagged with a unique identifier
+   * coming from hostingInfo::getSiteIdentifier().
+   *
+   * @see \Drupal\purge\Plugin\Purge\Purger\PurgerInterface::invalidate()
+   * @see \Drupal\purge\Plugin\Purge\Purger\PurgerInterface::routeTypeToMethod()
+   */
+  public function invalidateEverything(array $invalidations) {
+    $this->debug(__METHOD__);
+
+    // Set the 'everything' object(s) into processing mode.
     foreach ($invalidations as $invalidation) {
       $invalidation->setState(InvalidationInterface::PROCESSING);
     }
 
-    // Define HTTP requests for every URL*BAL that we are going to invalidate.
-    $requests = [];
-    foreach ($invalidations as $invalidation) {
-      foreach ($balancer_addresses as $balancer_address) {
-        $r = Request::create($invalidation->getExpression(), 'PURGE');
-        $r->attributes->set('connect_to', $balancer_address);
-        $r->attributes->set('invalidation_id', $invalidation->getId());
-        $r->headers->remove('Accept-Language');
-        $r->headers->remove('Accept-Charset');
-        $r->headers->remove('Accept');
-        $r->headers->set('X-Acquia-Purge', $balancer_token);
-        $r->headers->set('Accept-Encoding', 'gzip');
-        $r->headers->set('User-Agent', 'Acquia Purge');
-        $requests[] = $r;
+    // Fetch the site identifier and start with a successive outcome.
+    $overall_success = TRUE;
+
+    // Synchronously request each balancer to wipe out everything for this site.
+    foreach ($this->hostingInfo->getBalancerAddresses() as $ip_address) {
+      try {
+        $this->client->request('BAN', 'http://' . $ip_address . '/site', [
+          'acquia_purge_middleware' => TRUE,
+          'connect_timeout' => self::CONNECT_TIMEOUT,
+          'http_errors' => FALSE,
+          'timeout' => self::TIMEOUT,
+          'headers' => [
+            'X-Acquia-Purge' => $this->hostingInfo->getSiteIdentifier(),
+            'Accept-Encoding' => 'gzip',
+            'User-Agent' => 'Acquia Purge',
+          ]
+        ]);
+      }
+      catch (\Exception $e) {
+        $this->logFailedRequest('invalidateEverything', $e);
+        $overall_success = FALSE;
       }
     }
 
-    // Perform the requests, results will be set as attributes onto the objects.
-    $this->executeRequests($requests);
-
-    // Collect all results per invalidation object based on the cUrl data.
-    $results = [];
-    foreach ($requests as $request) {
-      if (!is_null($inv_id = $request->attributes->get('invalidation_id'))) {
-
-        // URLs not in varnish return 404, that's also seen as a success.
-        if ($request->attributes->get('curl_http_code') === 404) {
-          $results[$inv_id][] = TRUE;
-        }
-        else {
-          $results[$inv_id][] = $request->attributes->get('curl_result_ok');
-        }
+    // Set the object states according to our overall result.
+    foreach ($invalidations as $invalidation) {
+      if ($overall_success) {
+        $invalidation->setState(InvalidationInterface::SUCCEEDED);
+      }
+      else {
+        $invalidation->setState(InvalidationInterface::FAILED);
       }
     }
 
-    // Triage and set all invalidation states correctly.
-    foreach ($invalidations as $invalidation) {
-      $inv_id = $invalidation->getId();
-      if (isset($results[$inv_id]) && count($results[$inv_id])) {
-        if (!in_array(FALSE, $results[$inv_id])) {
-          $invalidation->setState(InvalidationInterface::SUCCEEDED);
-          continue;
+    $this->debug(__METHOD__);
+  }
+
+  /**
+   * Render debugging information as table to $this->logger()->debug().
+   *
+   * @param mixed[] $table
+   *   Associative array with each key being the row title. Each value can be
+   *   a string, or when it is a array itself, the row will be repeated.
+   * @param int $left
+   *   Amount of characters that the left size of the table can be long.
+   */
+  protected function logDebugTable(array $table, $left = 15) {
+    $longest_key = max(array_map('strlen', array_keys($table)));
+    $logger = $this->logger();
+    if ($longest_key > $left) {
+      $left = $longest_key;
+    }
+    foreach ($table as $title => $value) {
+      $spacing = str_repeat(' ', $left - strlen($title));
+      $title = strtoupper($title) . $spacing . ' | ';
+      if (is_array($value)) {
+        foreach ($value as $repeated_value) {
+          $logger->debug($title . $repeated_value);
         }
       }
-      $invalidation->setState(InvalidationInterface::SUCCEEDED);
+      else {
+        $logger->debug($title . $value);
+      }
+    }
+  }
+
+  /**
+   * Write an error to the log for a failed request.
+   *
+   * @param string $caller
+   *   Name of the PHP method that executed the request.
+   * @param \Exception $e
+   *   The exception thrown by Guzzle.
+   */
+  protected function logFailedRequest($caller, \Exception $e) {
+    $msg = "::@caller() -> @class:";
+    $vars = [
+      '@caller' => $caller,
+      '@class' => $this->getClassName($e),
+      '@msg' => $e->getMessage(),
+    ];
+
+    // Add request information when this is present in the exception.
+    if ($e instanceof ConnectException) {
+      $vars['@msg'] = str_replace(
+        '(see http://curl.haxx.se/libcurl/c/libcurl-errors.html)',
+        '', $e->getMessage());
+      $vars['@msg'] .= '; This is allowed to happen accidentally when load'
+        . ' balancers are slow. However, if all cache invalidations fail, your'
+        . ' queue may stall and you should file a ticket with Acquia support!';
+    }
+    elseif ($e instanceof RequestException) {
+      $req = $e->getRequest();
+      $msg .= " HTTP @status; @method @uri;";
+      $vars['@uri'] = $req->getUri();
+      $vars['@method'] = $req->getMethod();
+      $vars['@status'] = $e->hasResponse() ? $e->getResponse()->getStatusCode() : '???';
+    }
+
+    // Log the normal message to the emergency output stream.
+    $this->logger()->emergency("$msg @msg", $vars);
+
+    // In debugging mode, follow with quite some more data.
+    if ($this->logger()->isDebuggingEnabled()) {
+      $table = ['exception' => get_class($e)];
+      if ($e instanceof RequestException) {
+        $table = array_merge($table, $this->debugInfoForRequest($e->getRequest()));
+        $table['rsp'] = ($has_rsp = $e->hasResponse()) ? 'YES' : 'No response';
+        if ($has_rsp && ($rsp = $e->getResponse())) {
+          $table = array_merge($table, $this->debugInfoForResponse($rsp, $e));
+        }
+      }
+      $this->logDebugTable($table);
     }
   }
 
@@ -376,17 +673,12 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
    */
   public function routeTypeToMethod($type) {
     $methods = [
-      'tag'  => 'invalidateTags',
-      'url'  => 'invalidateUrls',
+      'tag'         => 'invalidateTags',
+      'url'         => 'invalidateUrls',
+      'wildcardurl' => 'invalidateWildcardUrls',
+      'everything'  => 'invalidateEverything'
     ];
     return isset($methods[$type]) ? $methods[$type] : 'invalidate';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getTimeHint() {
-    return 10.0;
   }
 
 }
