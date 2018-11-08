@@ -11243,7 +11243,8 @@ body.path-search #block-mainpagecontent li {
   transition: all 0.5s ease;
   background-color: #F5F5F5 !important;
 }
-.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h2 {
+.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h2,
+.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h3 {
   color: #635f5f;
   font-weight: bold;
   margin-top: 8px;
@@ -11254,7 +11255,8 @@ body.path-search #block-mainpagecontent li {
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
-.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h2:after {
+.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h2:after,
+.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h3:after {
   margin: 10px 10px 0;
   display: inline-block;
   color: white;
@@ -11309,7 +11311,9 @@ body.path-search #block-mainpagecontent li {
 .node--type-blog.node--view-mode-teaser.blog-news h2, .node--type-blog.node--view-mode-teaser.blog-color h2, .node--type-blog.node--view-mode-teaser.blog-story h2 {
   margin-top: 0;
 }
-.node--type-blog.node--view-mode-teaser.blog-news h2, .node--type-blog.node--view-mode-teaser.blog-color h2 {
+.node--type-blog.node--view-mode-teaser.blog-news h2,
+.node--type-blog.node--view-mode-teaser.blog-news h3, .node--type-blog.node--view-mode-teaser.blog-color h2,
+.node--type-blog.node--view-mode-teaser.blog-color h3 {
   font-size: 30px;
   margin-bottom: 10px;
 }
@@ -11347,14 +11351,17 @@ body.path-search #block-mainpagecontent li {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   margin-bottom: 10px;
 }
-.blog-related h2 {
+.blog-related h2,
+.blog-related h3 {
   margin-top: 0;
 }
-.blog-related h2 a {
+.blog-related h2 a,
+.blog-related h3 a {
   font-size: 18px;
   color: #428bca !important;
 }
-.blog-related h2 a:after {
+.blog-related h2 a:after,
+.blog-related h3 a:after {
   margin-left: 10px;
   position: static;
   content: 'o';
