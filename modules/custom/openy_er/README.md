@@ -1,6 +1,6 @@
-### OpenY Entity Reference Tweaks module.
+### Open Y Entity Reference Tweaks module.
 
-The idea of the module is to provide enhancements to the Core entity reference fields in OpenY installation profile purposes.
+The idea of the module is to provide enhancements to the Core entity reference fields in Open Y installation profile purposes.
 
 #### Entity Reference Selection Handler plugins
 
@@ -12,7 +12,7 @@ Default Selection Handlers put dependency for each single bundle setup there, be
 `SelectionNoDependecyTrait` is useful for inheriting from existing entity type specific selection handlers (see NodeSelectionNoDependency implementation as example).
 See [Traits Precendence](http://php.net/manual/en/language.oop5.traits.php#language.oop5.traits.precedence) section to understand how PHP handles method overrides when traits are used.
 
-#### Migrating from core selection handlers to OpenY selection handlers
+#### Migrating from core selection handlers to Open Y selection handlers
 
 - Go to the required entity refrence field configuration page that is provided by Field UI
 - Find "REFERENCE TYPE" section that contains "Reference method" field and a set of checkboxes for bundles limiting
