@@ -282,7 +282,7 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
     $builder = $this->entityTypeManager->getViewBuilder('node');
     $locations = $storage->loadMultiple($location_ids);
 
-    // Get labels and icons for every bundle from OpenY Map config.
+    // Get labels and icons for every bundle from Open Y Map config.
     $typeIcons = $this->configFactory->get('openy_map.settings')->get('type_icons');
     $typeLabels = $this->configFactory->get('openy_map.settings')->get('type_labels');
     $tag = $typeLabels['branch'];

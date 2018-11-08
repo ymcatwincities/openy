@@ -4,7 +4,7 @@ dependencies:
   module:
     - taxonomy
 id: openy-taxonomy-vocabulary
-label: 'OpenY Taxonomy vocabulary'
+label: 'Open Y Taxonomy vocabulary'
 module: openy_taxonomy
 routes:
   - route_name: entity.taxonomy_vocabulary.overview_form

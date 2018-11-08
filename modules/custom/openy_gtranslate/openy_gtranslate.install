@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Installation file for OpenY Google Translate module.
+ * Installation file for Open Y Google Translate module.
  */
 
 use Drupal\menu_link_content\Entity\MenuLinkContent;

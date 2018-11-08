@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Landing install file.
+ * Open Y Landing install file.
  */
 
 /**
@@ -203,7 +203,7 @@ function openy_node_landing_update_8008() {
 }
 
 /**
- * Update OpenY landing node feature configs.
+ * Update Open Y landing node feature configs.
  */
 function openy_node_landing_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';

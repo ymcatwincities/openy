@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Session install file.
+ * Open Y Node Session install file.
  */
 
 /**
@@ -141,7 +141,7 @@ function openy_node_session_update_8003() {
 }
 
 /**
- * Update OpenY session node feature configs.
+ * Update Open Y session node feature configs.
  */
 function openy_node_session_update_8004() {
   $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';

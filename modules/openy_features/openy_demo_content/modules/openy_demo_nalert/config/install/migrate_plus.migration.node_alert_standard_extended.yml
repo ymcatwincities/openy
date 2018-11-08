@@ -15,18 +15,18 @@ source:
   data_rows:
     -
       id: 1
-      title: 'OpenY Distribution'
+      title: 'Open Y Distribution'
       description: |
-        <p>Visit the OpenY Distribution site.</p>
+        <p>Visit the Open Y Distribution site.</p>
       background_color: 12
       text_color: 2
       icon_color: 2
       placement: 'header'
       link_url: http://www.openymca.org
-      link_text: 'OpenY Distribution'
+      link_text: 'Open Y Distribution'
     -
       id: 2
-      title: 'About OpenY'
+      title: 'About Open Y'
       description: |
         <p>Learn more about OpenY.</p>
       background_color: 6

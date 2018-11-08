@@ -1,6 +1,6 @@
 /**
  * @file
- * OpenY Node Event JS.
+ * Open Y Node Event JS.
  */
 
 (function ($) {

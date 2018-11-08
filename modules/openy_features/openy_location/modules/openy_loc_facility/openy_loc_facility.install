@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Facility install file.
+ * Open Y Facility install file.
  */
 
 /**
@@ -184,7 +184,7 @@ function openy_loc_facility_update_8008() {
 }
 
 /**
- * Update OpenY facility location paragraph feature configs.
+ * Update Open Y facility location paragraph feature configs.
  */
 function openy_loc_facility_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';

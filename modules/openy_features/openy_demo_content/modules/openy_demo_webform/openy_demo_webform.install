@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Demo Webform install file.
+ * Open Y Demo Webform install file.
  */
 
 use Drupal\Core\Config\FileStorage;

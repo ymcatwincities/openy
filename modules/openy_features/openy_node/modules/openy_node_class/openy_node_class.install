@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Class install file.
+ * Open Y Node Class install file.
  */
 
 /**
@@ -248,7 +248,7 @@ function openy_node_class_update_8008() {
 }
 
 /**
- * Update OpenY class node feature configs.
+ * Update Open Y class node feature configs.
  */
 function openy_node_class_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Blog install file.
+ * Open Y Node Blog install file.
  */
 
 /**
@@ -210,7 +210,7 @@ function openy_node_blog_update_8008() {
 }
 
 /**
- * Update OpenY node blog feature configs.
+ * Update Open Y node blog feature configs.
  */
 function openy_node_blog_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_node_blog') . '/config/install/';
@@ -250,7 +250,7 @@ function openy_node_blog_update_8009() {
 }
 
 /**
- * Update OpenY node blog feature configs for Focal Point support.
+ * Update Open Y node blog feature configs for Focal Point support.
  */
 function openy_node_blog_update_8010() {
   $config_dir = drupal_get_path('module', 'openy_node_blog') . '/config/install/';

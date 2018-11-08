@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Category install file.
+ * Open Y Node Category install file.
  */
 
 /**
@@ -219,7 +219,7 @@ function openy_node_category_update_8009() {
 }
 
 /**
- * Update OpenY node category feature configs for Blazy support.
+ * Update Open Y node category feature configs for Blazy support.
  */
 function openy_node_category_update_8010() {
   $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
@@ -247,7 +247,7 @@ function openy_node_category_update_8011() {
 }
 
 /**
- * Update OpenY node category feature config for Focal Point support.
+ * Update Open Y node category feature config for Focal Point support.
  */
 function openy_node_category_update_8012() {
   $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
@@ -292,7 +292,7 @@ function openy_node_category_update_8013() {
 }
 
 /**
- * Update OpenY node category feature config for image style update.
+ * Update Open Y node category feature config for image style update.
  */
 function openy_node_category_update_8014() {
   $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';

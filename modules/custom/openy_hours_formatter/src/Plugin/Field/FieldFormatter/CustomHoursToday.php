@@ -10,7 +10,7 @@ use Drupal\openy_field_custom_hours\Plugin\Field\FieldFormatter\CustomHoursForma
  *
  * @FieldFormatter(
  *   id = "openy_today_custom_hours",
- *   label = @Translation("OpenY Today's hours"),
+ *   label = @Translation("Open Y Today's hours"),
  *   field_types = {
  *     "openy_custom_hours"
  *   }

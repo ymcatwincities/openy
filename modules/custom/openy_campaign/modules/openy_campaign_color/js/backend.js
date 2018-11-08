@@ -1,6 +1,6 @@
 /**
  * @file
- * Attaches the behaviors for the OpenY Campaign Color module.
+ * Attaches the behaviors for the Open Y Campaign Color module.
  */
 
 (function ($, Drupal) {
