@@ -34,10 +34,10 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "label" = "branch",
  *   },
  *   links = {
- *     "canonical" = "/admin/config/openy-entities/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}",
- *     "edit-form" = "/admin/config/openy-entities/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/edit",
- *     "delete-form" = "/admin/config/openy-entities/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/delete",
- *     "collection" = "/admin/config/openy-entities/openy-campaign-mapping-branch/list"
+ *     "canonical" = "/admin/openy/retention-campaign/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}",
+ *     "edit-form" = "/admin/openy/retention-campaign/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/edit",
+ *     "delete-form" = "/admin/openy/retention-campaign/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/delete",
+ *     "collection" = "/admin/openy/retention-campaign/openy-campaign-mapping-branch/list"
  *   },
  * )
  */
