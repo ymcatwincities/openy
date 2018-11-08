@@ -1,4 +1,4 @@
-### OpenY Daxko integration. 
+### Open Y Daxko integration. 
 
 Uses APIv2 https://api.daxko.com/v3/docs/api/index.html
 
