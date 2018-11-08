@@ -175,7 +175,7 @@ class ConfigUpdater extends ConfigImporterService {
   private function logConfigImportError($file, $config) {
     $this->updateLoggerEntity($file, $config);
     $dashboard_url = Url::fromRoute('view.openy_upgrade_dashboard.page_1');
-    $dashboard_link = Link::fromTextAndUrl(t('OpenY upgrade dashboard'), $dashboard_url);
+    $dashboard_link = Link::fromTextAndUrl(t('Open Y upgrade dashboard'), $dashboard_url);
     $this->logger->error($this->t('Could not update config @name. Please add this changes manual. More info here - @link.',
       [
         '@name' => $config,

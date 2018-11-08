@@ -35,10 +35,10 @@ use Drupal\openy_campaign\MemberInterface;
  *     "label" = "membership_id",
  *   },
  *   links = {
- *     "canonical" = "/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}",
- *     "edit-form" = "/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}/edit",
- *     "delete-form" = "/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}/delete",
- *     "collection" = "/admin/config/openy-entities/openy-campaign-member/list"
+ *     "canonical" = "/admin/openy/retention-campaign/openy-campaign-member/{openy_campaign_member}",
+ *     "edit-form" = "/admin/openy/retention-campaign/openy-campaign-member/{openy_campaign_member}/edit",
+ *     "delete-form" = "/admin/openy/retention-campaign/openy-campaign-member/{openy_campaign_member}/delete",
+ *     "collection" = "/admin/openy/retention-campaign/openy-campaign-member/list"
  *   },
  * )
  */

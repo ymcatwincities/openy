@@ -1,6 +1,6 @@
-name: OpenY addThis
+name: OpenY AddThis
 type: module
-description: Openy addThis
+description: Openy AddThis
 core: 8.x
 package: OpenY
 version: '8.x-1.0'
