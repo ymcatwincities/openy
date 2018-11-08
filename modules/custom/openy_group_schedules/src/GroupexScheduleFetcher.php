@@ -7,7 +7,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
- * Fetches and prepares Groupex data.
+ * Fetches and prepares GroupEx Pro data.
  *
  * @package Drupal\openy_group_schedules.
  */
@@ -87,7 +87,7 @@ class GroupexScheduleFetcher {
    * GroupexScheduleFetcher constructor.
    *
    * @param GroupexHelper $groupex_helper
-   *   The Groupex helper.
+   *   The GroupEx Pro helper.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory.
    * @param null|array $parameters
@@ -503,7 +503,7 @@ class GroupexScheduleFetcher {
       });
     }
 
-    // Groupex response have some redundant data. Filter it out.
+    // GroupEx Pro response have some redundant data. Filter it out.
     if ($param['filter_length'] == 'day') {
       // Filter out by the date. Cut off days before.
       $filtered = array_filter($filtered, function ($item) use ($param) {

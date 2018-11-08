@@ -34,10 +34,10 @@ use Drupal\openy_campaign\CampaignUtilizationActivityInterface;
  *     "label" = "campaign"
  *   },
  *   links = {
- *     "canonical" = "/admin/config/openy-entities/openy-campaign-utilization-activity/{openy_campaign_util_activity}",
- *     "edit-form" = "/admin/config/openy-entities/openy-campaign-utilization-activity/{openy_campaign_util_activity}/edit",
- *     "delete-form" = "/admin/config/openy-entities/openy-campaign-utilization-activity/{openy_campaign_util_activity}/delete",
- *     "collection" = "/admin/config/openy-entities/openy-campaign-utilization-activity/list"
+ *     "canonical" = "/admin/openy/retention-campaign/openy-campaign-utilization-activity/{openy_campaign_util_activity}",
+ *     "edit-form" = "/admin/openy/retention-campaign/openy-campaign-utilization-activity/{openy_campaign_util_activity}/edit",
+ *     "delete-form" = "/admin/openy/retention-campaign/openy-campaign-utilization-activity/{openy_campaign_util_activity}/delete",
+ *     "collection" = "/admin/openy/retention-campaign/openy-campaign-utilization-activity/list"
  *   },
  * )
  */

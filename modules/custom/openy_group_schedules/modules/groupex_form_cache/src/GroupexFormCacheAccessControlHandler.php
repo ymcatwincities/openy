@@ -8,7 +8,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
 
 /**
- * Access controller for the Groupex Form Cache entity.
+ * Access controller for the GroupEx Pro Form Cache entity.
  *
  * @see \Drupal\groupex_form_cache\Entity\GroupexFormCache.
  */

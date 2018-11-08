@@ -1,9 +1,9 @@
-name: GroupExPro integration Program Events Framework
+name: GroupEx Pro integration Program Events Framework
 type: module
 description: Provide way to import classes and sessions.
 core: 8.x
 version: 8.x-1.0-rc1
-package: OpenY
+package: OpenY (Experimental)
 configure: openy_gxp.settings
 dependencies:
   - migrate_tools
