@@ -41,9 +41,9 @@
 
       {# date picker #}
       <div class="form-group-wrapper">
-        <label for="form-group-date" data-toggle="collapse" data-target=".form-group-date" role="button">
+        <label for="form-group-date">
           {{ 'Date'|t }}
-          <i class="fa fa-calendar date-picker" aria-hidden="true"></i>
+          <button class="show-date-filter" data-toggle="collapse" type="button" data-target=".form-group-date" role="button" aria-label="{{ 'Show date filter'|t }}"><i class="fa fa-calendar date-picker"></i></button>
         </label>
         <div class="form-group-date collapse" aria-expanded="false">
           <div class="date" id="datepicker">
