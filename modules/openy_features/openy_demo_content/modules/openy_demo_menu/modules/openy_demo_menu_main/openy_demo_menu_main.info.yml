@@ -1,5 +1,5 @@
-name: 'OpenY Demo Menu Main'
-description: 'OpenY Demo Menu Main.'
+name: Open Y Demo Menu Main
+description: Stores migrations to import demo Main menu.
 type: module
 core: 8.x
 version: 8.x-1.0

@@ -1,5 +1,5 @@
-name: 'OpenY Demo Taxonomy Facility Type'
-description: 'OpenY Demo Taxonomy Facility Type.'
+name: Open Y Demo Taxonomy Facility Type
+description: Stores migrations to import demo facility type taxonomy terms.
 type: module
 core: 8.x
 version: 8.x-1.0

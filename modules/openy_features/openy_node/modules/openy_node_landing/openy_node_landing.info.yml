@@ -1,5 +1,5 @@
-name: OpenY Node Landing
-description: 'OpenY Landing.'
+name: Open Y Node Landing
+description: Provides a Landing page content type.
 type: module
 core: 8.x
 package: OpenY

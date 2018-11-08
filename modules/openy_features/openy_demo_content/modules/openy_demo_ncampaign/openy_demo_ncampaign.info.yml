@@ -1,5 +1,5 @@
-name: 'OpenY Demo Node Campaign'
-description: 'OpenY Demo Node Campaign.'
+name: Open Y Demo Node Campaign
+description: Stores migrations to import demo campaign nodes.
 type: module
 core: 8.x
 version: 8.x-1.0-rc1

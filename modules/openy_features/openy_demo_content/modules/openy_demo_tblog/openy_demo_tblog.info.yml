@@ -1,5 +1,5 @@
-name: 'OpenY Demo Taxonomy Blog Category'
-description: 'OpenY Demo Taxonomy Blog Category.'
+name: Open Y Demo Taxonomy Blog Category
+description: Stores migrations to import demo blog category taxonomy terms.
 type: module
 core: 8.x
 version: 8.x-1.0

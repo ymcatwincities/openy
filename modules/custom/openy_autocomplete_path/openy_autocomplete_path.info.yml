@@ -1,6 +1,6 @@
-name: OpenY Autocomplete Path
+name: Open Y Autocomplete Path
 type: module
-description: Implements autocomplete matcher with path in the label.
+description: Implements an autocomplete matcher with path in the label.
 core: 8.x
 package: OpenY
 version: 8.x-1.0

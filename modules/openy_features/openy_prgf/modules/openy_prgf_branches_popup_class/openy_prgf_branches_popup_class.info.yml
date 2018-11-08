@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Branches Popup (Class)'
-description: 'OpenY Paragraph Branches Popup (Class).'
+name: Open Y Paragraph Branches Popup (Class)
+description: Provides a dynamic paragraph that renders location selection popup filtered by class.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - field
   - openy_prgf

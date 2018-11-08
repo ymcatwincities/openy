@@ -1,5 +1,5 @@
-name: 'OpenY Demo Node Branch'
-description: 'OpenY Demo Node Branch.'
+name: 'Open Y Demo Node Branch'
+description: Stores migrations to import demo branch nodes.
 type: module
 core: 8.x
 version: 8.x-1.0

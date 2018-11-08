@@ -1,6 +1,6 @@
-name: OpenY Map
+name: Open Y Map
 type: module
-description: Renders map with locations. Provides blocks for Locations page.
+description: Renders a map with locations. Provides blocks for Locations page.
 core: 8.x
 version: 8.x-1.0
 package: OpenY

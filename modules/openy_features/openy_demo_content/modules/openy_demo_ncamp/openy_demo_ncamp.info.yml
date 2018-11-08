@@ -1,5 +1,5 @@
-name: 'OpenY Demo Node Camp'
-description: 'OpenY Demo Node Camp.'
+name: 'Open Y Demo Node Camp'
+description: Stores migrations to import demo camp nodes.
 type: module
 core: 8.x
 version: 8.x-1.0

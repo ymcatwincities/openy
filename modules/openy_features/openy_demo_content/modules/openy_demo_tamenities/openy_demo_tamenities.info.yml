@@ -1,5 +1,5 @@
-name: 'OpenY Demo Taxonomy Amenities'
-description: 'OpenY Demo Taxonomy Amenities.'
+name: Open Y Demo Taxonomy Amenities
+description: Stores migrations to import demo amenities taxonomy terms.
 type: module
 core: 8.x
 version: 8.x-1.0

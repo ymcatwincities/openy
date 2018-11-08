@@ -1,6 +1,6 @@
-name: OpenY Migrate
+name: Open Y Migrate
 type: module
-description: Provides various migration tools and helpers
+description: Provides various migration tools and helpers.
 core: 8.x
 package: OpenY
 version: 8.x-1.0

@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Featured Content'
-description: 'OpenY Paragraph Featured Content.'
+name: Open Y Paragraph Featured Content
+description: Provides a dynamic paragraph that renders featured content listing with various grid style.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - blazy
   - field

@@ -1,5 +1,5 @@
-name: 'OpenY Demo Menu Footer'
-description: 'OpenY Demo Menu Footer.'
+name: 'Open Y Demo Menu Footer'
+description: Stores migrations to import demo Footer menu.
 type: module
 core: 8.x
 version: 8.x-1.0

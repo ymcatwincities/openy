@@ -1,5 +1,5 @@
-name: 'OpenY Demo Block Footer'
-description: 'OpenY Demo Block Footer.'
+name: Open Y Demo Block Footer
+description: Stores migrations to import demo Footer blocks.
 type: module
 core: 8.x
 version: 8.x-1.0

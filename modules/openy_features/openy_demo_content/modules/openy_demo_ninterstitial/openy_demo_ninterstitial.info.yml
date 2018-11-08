@@ -1,5 +1,5 @@
-name: 'OpenY Demo Node Interstitial Page'
-description: 'OpenY Demo Node Interstitial Page.'
+name: 'Open Y Demo Node Interstitial Page'
+description: Stores migrations to import demo interstitial nodes.
 type: module
 core: 8.x
 version: 8.x-1.0-rc1

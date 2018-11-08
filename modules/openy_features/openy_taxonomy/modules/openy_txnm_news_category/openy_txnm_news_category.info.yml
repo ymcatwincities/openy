@@ -1,9 +1,9 @@
-name: 'OpenY Taxonomy News Category'
-description: 'OpenY Taxonomy News Category.'
-package: 'OpenY'
+name: Open Y Taxonomy News Category
+description: Provides a news category taxonomy vocabulary and related configuration.
+package: OpenY
 type: module
 core: 8.x
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - ctools
   - entity_reference_revisions

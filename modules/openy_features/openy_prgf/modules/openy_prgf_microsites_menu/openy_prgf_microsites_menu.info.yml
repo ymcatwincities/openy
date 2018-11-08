@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Microsites Menu'
-description: 'Provide paragraph containing a microsites menu block.'
+name: Open Y Paragraph Microsites Menu
+description: Provides a paragraph to render a microsites menu block.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - block_content
   - entity_browser_entity_form

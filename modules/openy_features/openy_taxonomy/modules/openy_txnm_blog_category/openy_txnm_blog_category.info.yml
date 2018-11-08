@@ -1,9 +1,9 @@
-name: 'OpenY Taxonomy Blog Category'
-description: 'OpenY Taxonomy Blog Category.'
+name: Open Y Taxonomy Blog Category
+description: Provides a blog category taxonomy vocabulary and related configuration.
 type: module
 core: 8.x
 package: OpenY
-version: '8.x-1.0'
+version: 8.x-1.0
 dependencies:
   - ctools
   - entity_reference_revisions

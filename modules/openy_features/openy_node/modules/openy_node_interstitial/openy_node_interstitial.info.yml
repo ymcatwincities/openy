@@ -1,5 +1,5 @@
-name: 'OpenY Node Interstitial Page'
-description: 'Provides Interstitial Page content type and related configuration. Content type for Interstitial Content Block settings and content'
+name: Open Y Node Interstitial Page
+description: Provides an Interstitial Page content type and related configuration. Content type for Interstitial Content Block settings and content
 type: module
 core: 8.x
 package: OpenY

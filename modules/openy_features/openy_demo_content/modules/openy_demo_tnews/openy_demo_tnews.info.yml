@@ -1,5 +1,5 @@
-name: OpenY Demo Taxonomy News Category
-description: 'OpenY Demo Taxonomy News Category.'
+name: Open Y Demo Taxonomy News Category
+description: Stores migrations to import demo news category taxonomy terms.
 type: module
 core: 8.x
 version: 8.x-1.0

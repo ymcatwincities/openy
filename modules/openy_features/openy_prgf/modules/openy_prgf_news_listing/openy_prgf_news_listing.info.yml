@@ -1,6 +1,6 @@
-name: OpenY Paragraph News Posts listing
+name: Open Y Paragraph News Posts listing
 package: OpenY
-description: 'OpenY News Posts listing.'
+description: Provides a dynamic paragraph that renders news posts listing with exposed filters.
 type: module
 core: 8.x
 version: 8.x-1.0

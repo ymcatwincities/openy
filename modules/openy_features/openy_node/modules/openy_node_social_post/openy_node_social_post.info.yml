@@ -1,5 +1,5 @@
-name: 'OpenY Node Social Post'
-description: 'Features for content type: social post'
+name: Open Y Node Social Post
+description: Provides a News post content type and related configuration.
 type: module
 core: 8.x
 version: 8.x-1.0

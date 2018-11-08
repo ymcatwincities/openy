@@ -1,5 +1,5 @@
-name: OpenY Node Program Subcategory
-description: 'OpenY Program Subcategory.'
+name: Open Y Node Program Subcategory
+description: Provides a Program Subcategory content type and related configuration.
 type: module
 core: 8.x
 package: OpenY

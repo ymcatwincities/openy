@@ -1,5 +1,5 @@
-name: 'OpenY Demo AddThis'
-description: 'OpenY Demo AddThis.'
+name: Open Y Demo AddThis
+description: Enables AddThis service demo functionality.
 type: module
 core: 8.x
 version: 8.x-1.0

@@ -1,5 +1,5 @@
-name: 'OpenY Demo Block Simple'
-description: 'OpenY Demo Block Simple.'
+name: 'Open Y Demo Block Simple'
+description: Stores migrations to import demo Simple blocks.
 type: module
 core: 8.x
 version: 8.x-1.0

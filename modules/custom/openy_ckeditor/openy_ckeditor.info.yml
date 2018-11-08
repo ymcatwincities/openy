@@ -1,6 +1,6 @@
-name: OpenY CKeditor
+name: Open Y CKEditor
 type: module
-description: OpenY CKeditor module.
+description: Provides plugins and adjustments of CKEditor.
 core: 8.x
 version: 8.x-1.0
 package: OpenY

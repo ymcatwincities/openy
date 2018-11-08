@@ -1,6 +1,6 @@
-name: OpenY Paragraph Latest News Posts
+name: Open Y Paragraph Latest News Posts
 package: OpenY
-description: 'OpenY Latest News Posts.'
+description: Provides a dynamic paragraph that renders latest news posts teasers.
 type: module
 core: 8.x
 version: 8.x-1.0

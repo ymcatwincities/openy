@@ -1,5 +1,5 @@
-name: 'OpenY Code Block'
-description: 'OpenY Code Block'
+name: Open Y Block Code
+description: Implements a custom block to insert code that displays embedded data.
 package: OpenY
 type: module
 core: 8.x

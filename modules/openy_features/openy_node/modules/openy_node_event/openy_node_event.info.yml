@@ -1,5 +1,5 @@
-name: 'OpenY Node Event'
-description: 'Event-related OpenY site configuration'
+name: Open Y Node Event
+description: Provides an Event content type and related configuration.
 type: module
 package: OpenY
 core: 8.x
