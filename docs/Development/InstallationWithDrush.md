@@ -7,9 +7,10 @@ Basically you use something like this:
 drush site-install openy --account-pass=password --db-url="mysql://user:pass@host:3306/db" --root=/var/www/docroot
 ```
 
-Standard OpenY profile preset is used in this case.
+Complete OpenY profile preset and OpenY Rose theme is used in this case.
 
-You can set which preset must be installed by specifying it with 'openy_configure_profile.preset' variable, e.g.:
+You can set which preset must be installed by specifying it with `openy_configure_profile.preset` variable, and theme with 
+`openy_theme_select.theme`variable e.g.:
 ```
-drush site-install openy --account-pass=password --db-url="mysql://user:pass@host:3306/db" --root=/var/www/docroot openy_configure_profile.preset=extended
+drush site-install openy --account-pass=password --db-url="mysql://user:pass@host:3306/db" --root=/var/www/docroot openy_configure_profile.preset=extended openy_theme_select.theme=openy_rose
 ```

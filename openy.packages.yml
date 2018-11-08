@@ -289,6 +289,7 @@ webform:
   modules:
     - openy_prgf_webform
 
+# Demo content package added only for uninstall purpose. It should be hidden in install lists.
 demo:
   name: 'Demo Content'
   description: 'Demo content package allows to install sample content for Open Y Platform.'

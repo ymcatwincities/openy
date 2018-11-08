@@ -16,7 +16,7 @@ use Drupal\openy_group_schedules\GroupexScheduleFetcher;
 use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
- * Implements Groupex Full Form.
+ * Implements GroupEx Pro Full Form.
  */
 class GroupexFormFull extends GroupexFormBase {
 
@@ -49,7 +49,7 @@ class GroupexFormFull extends GroupexFormBase {
   protected $state;
 
   /**
-   * The Groupex Helper.
+   * The GroupEx Pro Helper.
    *
    * @var \Drupal\openy_group_schedules\GroupexHelper
    */
@@ -79,7 +79,7 @@ class GroupexFormFull extends GroupexFormBase {
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The entity type manager.
    * @param \Drupal\openy_group_schedules\GroupexHelper $groupex_helper
-   *   The Groupex helper.
+   *   The GroupEx Pro helper.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory.
    */
