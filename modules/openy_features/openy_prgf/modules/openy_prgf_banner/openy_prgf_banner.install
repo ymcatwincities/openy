@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Paragraph banner install file.
+ * Open Y Paragraph banner install file.
  */
 
 /**
@@ -130,7 +130,7 @@ function openy_prgf_banner_update_8004() {
 }
 
 /**
- * Update OpenY banner paragraph feature configs.
+ * Update Open Y banner paragraph feature configs.
  */
 function openy_prgf_banner_update_8005() {
   $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
@@ -161,7 +161,7 @@ function openy_prgf_banner_update_8005() {
 }
 
 /**
- * Update OpenY paragraph banner feature configs for Blazy support.
+ * Update Open Y paragraph banner feature configs for Blazy support.
  */
 function openy_prgf_banner_update_8006() {
   $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
@@ -175,7 +175,7 @@ function openy_prgf_banner_update_8006() {
 }
 
 /**
- * Update OpenY paragraph banner feature config for Focal Point support.
+ * Update Open Y paragraph banner feature config for Focal Point support.
  */
 function openy_prgf_banner_update_8007() {
   $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';

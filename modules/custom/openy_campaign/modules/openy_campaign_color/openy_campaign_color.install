@@ -53,7 +53,7 @@ function openy_campaign_color_requirements($phase) {
         ],
       ];
       $requirements['openy_campaign_color_snippet_directory'] = [
-        'title' => t('OpenY Campaign Color snippet directory'),
+        'title' => t('Open Y Campaign Color snippet directory'),
         'description' => $description,
         'severity' => REQUIREMENT_ERROR,
         'value' => $value,

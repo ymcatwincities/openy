@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Session instance module file.
+ * Open Y Session instance module file.
  */
 
 use Drupal\Core\Entity\EntityInterface;

@@ -2,12 +2,12 @@
 
 /**
  * @file
- * OpenY Editor install file.
+ * Open Y Editor install file.
  */
 
 
 /**
- * Update OpenY editor feature configs.
+ * Update Open Y editor feature configs.
  */
 function openy_editor_update_8001() {
   $config_dir = drupal_get_path('module', 'openy_editor') . '/config/install/';

@@ -34,12 +34,12 @@ class FontSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('openy_font.settings');
 
-    $form['#title'] = $this->t('OpenY Font Settings');
+    $form['#title'] = $this->t('Open Y Font Settings');
 
     if (\Drupal::service('module_handler')->moduleExists('fontyourface')) {
       $message = $this->t('
-        OpenY Font module was replaced in favor of <a href=":href">FontYourFace</a> module. 
-        Please, <a href=":custom">use it</a> to add purchased fonts to the site and uninstall OpenY Font module.', [
+        Open Y Font module was replaced in favor of <a href=":href">FontYourFace</a> module. 
+        Please, <a href=":custom">use it</a> to add purchased fonts to the site and uninstall Open Y Font module.', [
           ':href' => 'https://www.drupal.org/project/fontyourface',
           ':custom' => '/admin/appearance/font/local_font_config_entity']);
       $form['warning'] = [
@@ -48,7 +48,7 @@ class FontSettingsForm extends ConfigFormBase {
     }
 
     $form['intro'] = [
-      '#markup' => '<p>' . $this->t('To use Cachet font (Bold, Book, Medium), you must purchase a license from fonts.com. <ol><li>Purchase appropriate font on <a href=":link" target="_blank">fonts.com</a>.</li><li>Download archive with fonts.</li><li>Unarchive fonts.</li><li>Upload fonts into appropriate fields (field name should match to font name).</li></ol>Upon installation, uploaded fonts will be used on the OpenY website.', [
+      '#markup' => '<p>' . $this->t('To use Cachet font (Bold, Book, Medium), you must purchase a license from fonts.com. <ol><li>Purchase appropriate font on <a href=":link" target="_blank">fonts.com</a>.</li><li>Download archive with fonts.</li><li>Unarchive fonts.</li><li>Upload fonts into appropriate fields (field name should match to font name).</li></ol>Upon installation, uploaded fonts will be used on the Open Y website.', [
           ':link' => 'https://www.fonts.com/font/monotype/cachet',
         ]) . '</p>',
     ];

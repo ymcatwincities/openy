@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Camp install file.
+ * Open Y Camp install file.
  */
 
 /**
@@ -241,7 +241,7 @@ function openy_loc_camp_update_8008() {
 }
 
 /**
- * Update OpenY camp location paragraph feature configs.
+ * Update Open Y camp location paragraph feature configs.
  */
 function openy_loc_camp_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_loc_camp') . '/config/install/';

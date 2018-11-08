@@ -1,6 +1,6 @@
 <?php
 /**
- * @file OpenY Paragraph classes listing module file.
+ * @file Open Y Paragraph classes listing module file.
  */
 
 use \Drupal\Core\Form\FormStateInterface;
