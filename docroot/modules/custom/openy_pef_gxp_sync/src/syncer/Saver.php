@@ -117,10 +117,8 @@ class Saver implements SaverInterface {
       if ($existingSession) {
         $message = 'The source data with class ID @class for session @session was not found. The session will be deleted.';
         $this->logger->info($message, [
-          [
-            '@class' => $productIdToDelete,
-            '@session' => $existingSession->id(),
-          ]
+          '@class' => $productIdToDelete,
+          '@session' => $existingSession->id(),
         ]);
         $nodeStorage->delete([$existingSession]);
       }
@@ -160,10 +158,8 @@ class Saver implements SaverInterface {
         if ($existingSession) {
           $message = 'The source data with class ID @class for session @session was updated. The session will be recreated.';
           $this->logger->info($message, [
-            [
-              '@class' => $item['class_id'],
-              '@session' => $existingSession->id(),
-            ]
+            '@class' => $item['class_id'],
+            '@session' => $existingSession->id(),
           ]);
           $nodeStorage->delete([$existingSession]);
         }
