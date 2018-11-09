@@ -14,7 +14,7 @@ source:
   data_rows:
     -
       id: homepage
-      title: 'OpenY'
+      title: 'Open Y'
       alias: ''
       layout: one_column
       header_content_ids:
