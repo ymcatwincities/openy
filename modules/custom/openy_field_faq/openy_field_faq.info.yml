@@ -1,7 +1,7 @@
-name: OpenY FAQ
+name: Open Y FAQ
 type: module
-description: Provides custom field for FAQ
+description: Provides a FAQ field type.
 core: 8.x
-package: OpenY
+package: Open Y
 version: 8.x-1.0
 dependencies: { }
