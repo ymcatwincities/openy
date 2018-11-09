@@ -22,7 +22,7 @@
   register: report
 
 - name: Output test results header
-  shell: echo "<!DOCTYPE html><html><head><title>Build results for {{ site_url }}</title></head><body><code>" > cypress.html
+  shell: echo "<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Build results for {{ site_url }}</title></head><body><code>" > cypress.html
   args:
     chdir: build_reports
   sudo: yes
