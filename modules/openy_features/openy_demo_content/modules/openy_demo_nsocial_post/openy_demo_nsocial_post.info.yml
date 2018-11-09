@@ -1,9 +1,9 @@
-name: 'OpenY Demo Node Social Post'
-description: 'OpenY Demo Node Social Post.'
+name: Open Y Demo Node Social Post
+description: Stores migrations to create demo social post nodes.
 type: module
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - migrate
   - migrate_plus

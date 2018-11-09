@@ -1,2 +1,2 @@
-## OpenY Configs
-Contains the OpenY configs.
+## Open Y Configs
+Contains the Open Y configs.

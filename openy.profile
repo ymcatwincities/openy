@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Defines the OpenY Profile install screen by modifying the install form.
+ * Defines the Open Y Profile install screen by modifying the install form.
  */
 
 use Drupal\openy\Form\ConfigureProfileForm;
@@ -77,7 +77,7 @@ function openy_install_tasks() {
 
 /**
  * Create Google Translate block content.
- * Block already added from OpenY Google Translate module configs.
+ * Block already added from Open Y Google Translate module configs.
  */
 function openy_gtranslate_place_blocks(array &$install_state) {
   $moduleHandler = \Drupal::service('module_handler');
@@ -305,7 +305,7 @@ function openy_set_frontpage(array &$install_state) {
   // Set homepage by node id but checking it first by title only.
   $query = \Drupal::entityQuery('node')
     ->condition('status', 1)
-    ->condition('title', 'OpenY');
+    ->condition('title', 'Open Y');
   $nids = $query->execute();
   $config_factory = Drupal::configFactory();
   $config_factory->getEditable('system.site')->set('page.front', '/node/' . reset($nids))->save();

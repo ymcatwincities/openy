@@ -17,7 +17,7 @@ source:
     -
       id: blog_small_banner
       parent_id: blog
-      headline: 'OpenY Blog'
+      headline: 'Open Y Blog'
       color: 17
     -
       id: locations_small_banner

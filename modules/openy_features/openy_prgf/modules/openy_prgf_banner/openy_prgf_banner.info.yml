@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Banner'
-description: 'OpenY Paragraph Banner.'
+name: Open Y Paragraph Banner
+description: Implements a paragraph with banner content.
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - blazy
   - datalayer

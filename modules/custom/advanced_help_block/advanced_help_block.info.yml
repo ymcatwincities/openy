@@ -1,9 +1,9 @@
 name: Advanced Help Block
 type: module
-description: Module for advanced help blocks which can be shown on the selected pages.
+description: Provides advanced help blocks which can be shown on the selected pages.
 core: 8.x
-version: 1.0
-package: Custom
+version: 8.x-1.0
+package: Open Y
 dependencies:
   - field_group
   - text

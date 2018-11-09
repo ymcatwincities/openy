@@ -1,9 +1,9 @@
-name: 'OpenY Demo Advanced Help Blocks'
-description: 'OpenY Demo Advanced Help Blocks.'
+name: Open Y Demo Advanced Help Blocks
+description: Stores migrations to import demo Advanced help blocks.
 type: module
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - migrate
   - migrate_plus

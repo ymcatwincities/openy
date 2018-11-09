@@ -1,7 +1,7 @@
-name: 'OpenY Node Event'
-description: 'Event-related OpenY site configuration'
+name: Open Y Node Event
+description: Provides an Event content type and related configuration.
 type: module
-package: OpenY
+package: Open Y
 core: 8.x
 version: 8.x-1.0
 dependencies:

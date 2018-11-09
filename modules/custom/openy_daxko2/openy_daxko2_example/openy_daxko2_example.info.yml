@@ -3,6 +3,6 @@ type: module
 description: Example of session to activities and session to location mapping.
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - openy_daxko2

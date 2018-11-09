@@ -1,9 +1,9 @@
-name: 'OpenY Media'
-description: 'OpenY Media.'
+name:  Open Y Media
+description: Stores media entity modules and shared configuration.
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - image

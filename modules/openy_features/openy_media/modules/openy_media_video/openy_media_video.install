@@ -30,7 +30,7 @@ function openy_media_video_update_8001() {
 }
 
 /**
- * Update OpenY media video feature configs.
+ * Update Open Y media video feature configs.
  */
 function openy_media_video_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_media_video') . '/config/install/';

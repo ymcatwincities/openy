@@ -1,8 +1,8 @@
-name: OpenY Node Membership
-description: 'OpenY Membership.'
+name: Open Y Node Membership
+description: Provides a News post content type and related configuration.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
 version: 8.x-1.0
 dependencies:
   - entity_browser

@@ -6,7 +6,7 @@ dependencies:
       - openy_demo_nnews
 id: openy_demo_lp_paragraph_news_posts_listing
 migration_tags:
-  - 'OpenY Demo News'
+  - 'Open Y Demo News'
 migration_group: openy_demo_nnews
 label: 'Create news posts listing paragraph(s) for demo landing page nodes'
 migration_dependencies: {  }

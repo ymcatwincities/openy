@@ -12,7 +12,7 @@ provider: null
 plugin: openy_gtranslate_block
 settings:
   id: openy_gtranslate_block
-  label: 'OpenY Google Translate'
+  label: 'Open Y Google Translate'
   provider: openy_gtranslate
   label_display: '0'
 visibility: {  }

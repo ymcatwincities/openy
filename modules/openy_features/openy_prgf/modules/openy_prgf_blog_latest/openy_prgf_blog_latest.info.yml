@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Latest Blog Posts'
-description: 'OpenY Paragraph Latest Blog Posts.'
+name: Open Y Paragraph Latest Blog Posts
+description: Provides a dynamic paragraph that renders the latest blog posts that are promoted to the front page.
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - node

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Membership install file.
+ * Open Y Node Membership install file.
  */
 
 /**
@@ -177,7 +177,7 @@ function openy_node_mbrshp_update_8008() {
 }
 
 /**
- * Update OpenY membership node feature configs.
+ * Update Open Y membership node feature configs.
  */
 function openy_node_mbrshp_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';

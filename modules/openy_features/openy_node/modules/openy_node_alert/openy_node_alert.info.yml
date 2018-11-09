@@ -1,8 +1,8 @@
-name: 'OpenY Node Alert'
-description: 'OpenY Node Alert.'
+name: Open Y Node Alert
+description: Provides an Alert content type and related configuration.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
 version: 8.x-1.0
 dependencies:
   - block

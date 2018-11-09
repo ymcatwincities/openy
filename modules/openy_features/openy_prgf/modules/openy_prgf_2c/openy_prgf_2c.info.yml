@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph 2 Columns'
+name: Open Y Paragraph 2 Columns
 description: 'Implements a paragraph with 2 columns.'
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - block_content
   - datalayer

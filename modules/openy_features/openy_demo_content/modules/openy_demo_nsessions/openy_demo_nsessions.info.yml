@@ -1,9 +1,9 @@
-name: 'OpenY Demo Node Sessions'
-description: 'OpenY Demo Node Sessions.'
+name: Open Y Demo Node Sessions
+description: Stores migrations to create demo session nodes.
 type: module
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - migrate
   - migrate_plus
