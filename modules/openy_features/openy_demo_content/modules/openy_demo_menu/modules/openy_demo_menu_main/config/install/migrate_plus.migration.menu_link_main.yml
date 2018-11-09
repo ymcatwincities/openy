@@ -15,6 +15,11 @@ migration_dependencies:
     - openy_demo_node_program_subcategory
     - openy_demo_node_program
     - openy_demo_node_landing
+    - openy_demo_node_social_post
+    - openy_demo_node_camp_news
+    - openy_demo_node_facility
+    - openy_demo_node_class_01
+    - openy_demo_node_class_02
 source:
   plugin: embedded_data
   data_rows:
