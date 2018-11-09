@@ -33,7 +33,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 3
-      field_ahb_title: 'OpenY anti spam protection - reCaptcha'
+      field_ahb_title: 'Open Y anti spam protection - reCaptcha'
       field_ahb_description: |
         <p>Suggest to put on webforms page (where editors create new webforms)</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=nHo2uL-bPyM'
@@ -57,15 +57,15 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 6
-      field_ahb_title: 'OpenY: How to Change Styles and Create Custom Theme'
+      field_ahb_title: 'Open Y: How to Change Styles and Create Custom Theme'
       field_ahb_description: |
-        <p>This video is relevant to the OpenY Rose (default theme)</p>
+        <p>This video is relevant to the Open Y Rose (default theme)</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=c1WXlyHXlrU'
       field_ahb_pages: '/admin/appearance/settings/openy_rose'
       field_ahb_visibility: 'include'
     -
       id: 7
-      field_ahb_title: 'OpenY: Upgrade Path Dashboard'
+      field_ahb_title: 'Open Y: Upgrade Path Dashboard'
       field_ahb_description: |
         <p></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=ThpCX6T4q6c'
@@ -73,7 +73,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 8
-      field_ahb_title: 'OpenY: Demo Content'
+      field_ahb_title: 'Open Y: Demo Content'
       field_ahb_description: |
         <p>Part of the installation process. See notes in "Open Y Install Tutorial for Tech Novices" for placement. Could be here <a href="http://sandbox.openymca.org/admin/structure/migrate">http://sandbox.openymca.org/admin/structure/migrate</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=GcwNW3TDnjg'
@@ -81,7 +81,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 9
-      field_ahb_title: 'OpenY: Data Layer'
+      field_ahb_title: 'Open Y: Data Layer'
       field_ahb_description: |
         <p>Covers Chrome Developer Tools to explore data layer. Possible relation to <a href="/content">/content</a> types, but perhaps too micro of a topic to place as a Help box in this section. <a href="http://sandbox.openymca.org/admin/structure/types">http://sandbox.openymca.org/admin/structure/types</a> (if anywhere)</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=EDibwoQgIUY'
@@ -121,7 +121,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 14
-      field_ahb_title: 'OpenY: Branch'
+      field_ahb_title: 'Open Y: Branch'
       field_ahb_description: |
         <p>User is directed here during the video. Manage > Content > Add Content > Branch</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=l5rlwyyIaMk'
@@ -129,7 +129,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 15
-      field_ahb_title: 'OpenY: Landing Page Wizard'
+      field_ahb_title: 'Open Y: Landing Page Wizard'
       field_ahb_description: |
         <p>User is directed here during the video. Manage > Content > Add Content > Landing Page</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=JGdDCWtbNKY'
@@ -137,7 +137,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 16
-      field_ahb_title: 'OpenY: Content Overview'
+      field_ahb_title: 'Open Y: Content Overview'
       field_ahb_description: |
         <p></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=UNYCB9XegDE'
@@ -185,7 +185,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 22
-      field_ahb_title: 'OpenY: Taxonomy'
+      field_ahb_title: 'Open Y: Taxonomy'
       field_ahb_description: |
         <p>Can be found under Content (after filtering for blog content). It could be placed at the root of <a href="/content">/content</a> to be able to find easier, and/or add individual links to each section. Given there are a number of tutorials, suggest linking to the existing playlist on YouTube and have one link - <a href="https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk">https://www.youtube.com/watch?v=--gW0zj4wEc&list=PL_QVggMcFfKZZlVzNcVaIWCl4WwcOr9Jk</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=y9LPj0V6tt4'
@@ -193,15 +193,15 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 23
-      field_ahb_title: 'OpenY: Logos'
+      field_ahb_title: 'Open Y: Logos'
       field_ahb_description: |
-        <p>This video is relevant to the OpenY Rose (default theme)</p>
+        <p>This video is relevant to the Open Y Rose (default theme)</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=lrGMihUyyDE'
       field_ahb_pages: '/admin/appearance/settings/openy_rose'
       field_ahb_visibility: 'include'
     -
       id: 24
-      field_ahb_title: 'OpenY: Customizable theme'
+      field_ahb_title: 'Open Y: Customizable theme'
       field_ahb_description: |
         <p>Similar to above, related to Open Y Rose (default theme)</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=wj5rsd_suqY'
@@ -209,7 +209,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 25
-      field_ahb_title: 'OpenY: Footer menu'
+      field_ahb_title: 'Open Y: Footer menu'
       field_ahb_description: |
         <p>There are four footer menu topics; footer, center, left, right. Suggest the Help is at the root of <a href="/structure/menu">/structure/menu</a> NOTE there is already a playlist on YouTube for general customization and theme changes: <a href="https://www.youtube.com/watch?v=3--CzMz5DPk&list=PL_QVggMcFfKbcayynOt0pb_Uw7DAR7KIl">https://www.youtube.com/watch?v=3--CzMz5DPk&list=PL_QVggMcFfKbcayynOt0pb_Uw7DAR7KIl</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=XMT92r5GydM'
@@ -217,7 +217,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 26
-      field_ahb_title: 'OpenY: Footer icons & copyright'
+      field_ahb_title: 'Open Y: Footer icons & copyright'
       field_ahb_description: |
         <p>This is footer social icons and copyright. While it's easy enough to edit the blocks directly, help info could be placed either as a second link in <a href="/structure/menu">/structure/menu</a> above and/or here <a href="http://sandbox.openymca.org/admin/structure/block/block-content">http://sandbox.openymca.org/admin/structure/block/block-content</a></p>
       field_ahb_video: 'https://www.youtube.com/watch?v=BZMDljgK9A8'
@@ -225,7 +225,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 27
-      field_ahb_title: 'OpenY: User Menu'
+      field_ahb_title: 'Open Y: User Menu'
       field_ahb_description: |
         <p>My Account and Log Out menus</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=kcOKZVM-hzg'
@@ -233,7 +233,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 28
-      field_ahb_title: 'OpenY: Header Menu'
+      field_ahb_title: 'Open Y: Header Menu'
       field_ahb_description: |
         <p>My Account and Log Out menus</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=3--CzMz5DPk'
@@ -249,7 +249,7 @@ source:
       field_ahb_visibility: 'include'
     -
       id: 30
-      field_ahb_title: 'OpenY Development: Debugging JavaScript Behat tests'
+      field_ahb_title: 'Open Y Development: Debugging JavaScript Behat tests'
       field_ahb_description: |
         <p>Behat tests could apply to any functional area and is configured outside of the Drupal Admin.</p>
       field_ahb_video: 'https://www.youtube.com/watch?v=RSsQLVVhldc'
