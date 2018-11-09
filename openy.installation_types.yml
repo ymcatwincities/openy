@@ -48,6 +48,8 @@ complete:
     - optimizely
     - popups
     - programs
+#    @todo Uncomment this code when errors with Retention Campaign modules will be fixed.
+#    - retention_campaign
     - seo
     - social
     - social_sharing

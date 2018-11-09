@@ -233,6 +233,7 @@ retention_campaign:
   help: 'Using Retention Campaign package you can enable and manage retention campaigns on the Open Y website.'
   modules:
     - openy_campaign
+    - openy_prgf_campaign
 
 scheduler:
   name: 'Scheduler'

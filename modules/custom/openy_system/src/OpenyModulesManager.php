@@ -222,8 +222,8 @@ class OpenyModulesManager {
             ], RfcLogLevel::NOTICE);
             $operation_success = FALSE;
           }
-
-          if ($parent_type && $parent_id) {
+          // Check that parent entity type is not paragraph.
+          if ($parent_type && $parent_id && $parent_type != 'paragraph') {
             // Load parent entity after paragraph deleting and re-save.
             $storage = $this->entityTypeManager->getStorage($parent_type);
             $storage->resetCache([$parent_id]);
