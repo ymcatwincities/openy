@@ -14,12 +14,11 @@
   sudo: yes
 
 - name: Run tests
-  shell: env CYPRESS_baseUrl="{{ site_url }}" node_modules/cypress/bin/cypress run --reporter=doc
+  shell: env CYPRESS_baseUrl="{{ site_url }}" node_modules/cypress/bin/cypress run --reporter=doc > ../build_reports/cypress.stdout
   args:
     chdir: cypress
   sudo: yes
   ignore_errors: true
-  register: report
 
 - name: Output test results header
   shell: echo '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Build results for {{ site_url }}</title></head><body><pre>' > cypress.html
@@ -28,7 +27,7 @@
   sudo: yes
 
 - name: Output test results body
-  shell: echo "{{ report.stdout }}" >> cypress.html
+  shell: cat cypress.stdout >> cypress.html
   args:
     chdir: build_reports
   sudo: yes
