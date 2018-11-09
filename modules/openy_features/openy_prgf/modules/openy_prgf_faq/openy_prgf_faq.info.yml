@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph FAQ'
-description: 'OpenY Paragraph FAQ.'
+name: Open Y Paragraph FAQ
+description: Provides a paragraph with FAQ field
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - block
   - field
