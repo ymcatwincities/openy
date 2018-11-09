@@ -1,6 +1,6 @@
 /**
  * @file
- * OpenY Carnation JS.
+ * Open Y Carnation JS.
  */
 (function ($) {
 

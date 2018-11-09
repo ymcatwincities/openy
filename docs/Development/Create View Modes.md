@@ -1,7 +1,7 @@
 # How to Create new View mode and use
 As with any other entity in drupal, when it comes to render the rendering it in different contexts, you might want to have specific viewmodes.
 
-Here you can find instructions how you can add new view modes into embedded entity form on OpenY distribution.
+Here you can find instructions how you can add new view modes into embedded entity form on Open Y distribution.
 
 ## How-to create new View mode 
 1. Go to 'View modes' page: Structure -> Display modes -> View modes (or visit the URL: /admin/structure/display-modes/view )

@@ -1,7 +1,7 @@
-name: OpenY System
+name: Open Y System
 type: module
-description: 'Handles general OpenY configuration for administrators.'
-package: OpenY
+description: Handles general Open Y configuration for administrators.
+package: Open Y
 version: 8.x-1.0
 core: 8.x
 configure: openy_system.modules_list

@@ -1,12 +1,12 @@
 <?php
 /**
- * OpenY Robo commands.
+ * Open Y Robo commands.
  *
  * @see http://robo.li/
  */
 class RoboFile extends \Robo\Tasks {
   /**
-   * Create OpenY project https://github.com/ymcatwincities/openy-project without installation.
+   * Create Open Y project https://github.com/ymcatwincities/openy-project without installation.
    *
    * @param string $path
    *   Installation path that will be used to create "openy-project" folder.
@@ -57,7 +57,7 @@ class RoboFile extends \Robo\Tasks {
   }
 
   /**
-   * Installs OpenY from fork as dependency.
+   * Installs Open Y from fork as dependency.
    *
    * @param string $path
    *   Installation path where "openy-project" is placed.

@@ -61,7 +61,7 @@ dependencies:
   - plugin
   - recaptcha
   - simple_menu_icons
-  # OpenY
+  # Open Y
   - advanced_help_block
   - logger_entity
   - openy_autocomplete_path

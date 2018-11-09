@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install and uninstall functions for the OpenY installation profile.
+ * Install and uninstall functions for the Open Y installation profile.
  */
 
 /**
@@ -216,7 +216,7 @@ function openy_update_8014() {
 }
 
 /**
- * Enable OpenY Session Instance & OpenY Moderation wrapper.
+ * Enable Open Y Session Instance & Open Y Moderation wrapper.
  */
 function openy_update_8015() {
   // Enable module.
@@ -229,7 +229,7 @@ function openy_update_8015() {
 }
 
 /**
- * Enable OpenY paragraph Embedded GroupEx Pro Schedule module.
+ * Enable Open Y Paragraph Embedded GroupEx Pro Schedule module.
  */
 function openy_update_8016() {
   \Drupal::service('module_installer')->install(['openy_prgf_embedded_groupexpro_schedule']);
@@ -264,7 +264,7 @@ function openy_update_8019() {
 }
 
 /**
- * Enable OpenY Branch Selector module.
+ * Enable Open Y Branch Selector module.
  */
 function openy_update_8020() {
   // Enable module.
@@ -301,7 +301,7 @@ function openy_update_8022() {
 }
 
 /**
- * Enable modules: OpenY Popups, OpenY Paragraph Branches Popup (All), and OpenY Paragraph Branches Popup (Class).
+ * Enable modules: Open Y Popups, Open Y Paragraph Branches Popup (All), and Open Y Paragraph Branches Popup (Class).
  */
 function openy_update_8023() {
   // Enable module.
@@ -497,7 +497,7 @@ function openy_update_8038() {
 }
 
 /**
- * Enable OpenY Block Date.
+ * Enable Open Y Block Date.
  */
 function openy_update_8039() {
   \Drupal::service('module_installer')->install(['openy_prgf_block_date'], TRUE);
@@ -599,14 +599,14 @@ function openy_update_8047() {
 }
 
 /**
- * Enable OpenY Redirect module.
+ * Enable Open Y Redirect module.
  */
 function openy_update_8048() {
   \Drupal::service('module_installer')->install(['openy_redirect']);
 }
 
 /**
- * Update the configuration of the paragraph fields of OpenY nodes.
+ * Update the configuration of the paragraph fields of Open Y nodes.
  */
 function openy_update_8049() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
@@ -727,8 +727,8 @@ function openy_update_8049() {
 function openy_update_8050() {
   \Drupal::service('module_installer')->install(['fontyourface']);
   if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
-    $message = 'OpenY Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module.
-        Please, <a href="/admin/appearance/font/local_font_config_entity">use it</a> to add purchased fonts to the site and uninstall OpenY Font module.';
+    $message = 'Open Y Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module.
+        Please, <a href="/admin/appearance/font/local_font_config_entity">use it</a> to add purchased fonts to the site and uninstall Open Y Font module.';
     drupal_set_message($message, 'warning');
   }
 }
@@ -774,7 +774,7 @@ function openy_update_8051() {
 }
 
 /**
- * Enable OpenY Paragraph Location By Amenities.
+ * Enable Open Y Paragraph Location By Amenities.
  */
 function openy_update_8052() {
   \Drupal::service('module_installer')->install(['openy_prgf_location_by_amenities']);
@@ -801,7 +801,7 @@ function openy_update_8053() {
 }
 
 /**
- * Enable OpenY Google Translate module and blocks.
+ * Enable Open Y Google Translate module and blocks.
  */
 function openy_update_8054() {
   \Drupal::service('module_installer')->install(['openy_gtranslate']);
@@ -844,7 +844,7 @@ function openy_update_8055() {
 }
 
 /**
- * Update Locations view and OpenY Map settings.
+ * Update Locations view and Open Y Map settings.
  */
 function openy_update_8056() {
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
@@ -905,21 +905,21 @@ function openy_update_8059() {
 }
 
 /**
- * Enable OpenY Entity Reference Tweaks.
+ * Enable Open Y Entity Reference Tweaks.
  */
 function openy_update_8060() {
   \Drupal::service('module_installer')->install(['openy_er']);
 }
 
 /**
- * Enable OpenY Entity Reference Tweaks.
+ * Enable Open Y Entity Reference Tweaks.
  */
 function openy_update_8062() {
   \Drupal::service('module_installer')->install(['openy_er']);
 }
 
 /**
- * Enable OpenY System.
+ * Enable Open Y System.
  */
 function openy_update_8063() {
   \Drupal::service('module_installer')->install(['openy_system']);

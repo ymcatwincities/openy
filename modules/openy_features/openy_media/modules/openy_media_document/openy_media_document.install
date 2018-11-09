@@ -50,7 +50,7 @@ function openy_media_document_update_8001() {
 }
 
 /**
- * Update OpenY Media Document feature config.
+ * Update Open Y Media Document feature config.
  */
 function openy_media_document_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_media_document') . '/config/install/';

@@ -1,9 +1,9 @@
-name: OpenY Paragraph Program Registration
-description: 'Provide a paragraph with a Program Registration Block for Landing page.'
+name: Open Y Paragraph Program Registration
+description: Provides a paragraph with a Program Registration Block for Landing page.
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - openy_programs_search

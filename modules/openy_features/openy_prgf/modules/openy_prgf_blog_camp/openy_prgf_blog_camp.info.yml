@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Latest Blog Posts (Camp)'
-description: 'OpenY Paragraph Latest Blog Posts (Camp).'
+name: Open Y Paragraph Latest Blog Posts (Camp)
+description: Provides a dynamic paragraph that renders the latest blog posts associated with a camp.
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - node

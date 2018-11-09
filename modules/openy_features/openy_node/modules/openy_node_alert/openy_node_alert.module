@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Alert module file.
+ * Open Y Node Alert module file.
  */
 
 use Drupal\Component\Utility\Unicode;

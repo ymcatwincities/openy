@@ -119,7 +119,7 @@ function openy_media_image_update_8004() {
 }
 
 /**
- * Update OpenY media image feature configs.
+ * Update Open Y media image feature configs.
  */
 function openy_media_image_update_8005() {
   $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
@@ -168,7 +168,7 @@ function openy_media_image_update_8005() {
 }
 
 /**
- * Update OpenY media image feature configs for Blazy support.
+ * Update Open Y media image feature configs for Blazy support.
  */
 function openy_media_image_update_8006() {
   $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
@@ -184,7 +184,7 @@ function openy_media_image_update_8006() {
 }
 
 /**
- * Import OpenY media image view modes without Blazy support.
+ * Import Open Y media image view modes without Blazy support.
  */
 function openy_media_image_update_8007() {
   $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
@@ -198,7 +198,7 @@ function openy_media_image_update_8007() {
 }
 
 /**
- * Import OpenY media image style "Thumbnail focal point".
+ * Import Open Y media image style "Thumbnail focal point".
  */
 function openy_media_image_update_8008() {
   $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';

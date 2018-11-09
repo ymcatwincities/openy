@@ -1,9 +1,9 @@
-name: 'OpenY Demo Node Program'
-description: 'OpenY Demo Node Program.'
+name: 'Open Y Demo Node Program'
+description: Stores migrations to create demo program subcategory nodes.
 type: module
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - migrate
   - migrate_plus

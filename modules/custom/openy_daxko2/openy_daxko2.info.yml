@@ -1,9 +1,9 @@
 name: Daxko API v2 integration
 type: module
-description: Provide way to import classes and sessions.
+description: Provides a way to import Daxko classes and sessions
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - migrate_tools
   - migrate_source_csv

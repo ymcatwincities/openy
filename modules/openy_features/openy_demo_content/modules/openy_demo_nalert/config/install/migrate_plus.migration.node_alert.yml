@@ -15,93 +15,93 @@ source:
   data_rows:
     -
       id: 1
-      title: 'OpenY Distribution'
+      title: 'Open Y Distribution'
       description: |
-        <p>Visit the OpenY Distribution site.</p>
+        <p>Visit the Open Y Distribution site.</p>
       background_color: 12
       text_color: 2
       icon_color: 2
       placement: 'header'
       link_url: http://www.openymca.org
-      link_text: 'OpenY Distribution'
+      link_text: 'Open Y Distribution'
     -
       id: 2
-      title: 'About OpenY'
+      title: 'About Open Y'
       description: |
-        <p>Learn more about OpenY.</p>
+        <p>Learn more about Open Y.</p>
       background_color: 6
       text_color: 1
       icon_color: 4
       placement: 'header'
       link_url: http://www.openymca.org/about
-      link_text: 'About OpenY'
+      link_text: 'About Open Y'
     -
       id: 3
-      title: 'OpenY Features'
+      title: 'Open Y Features'
       description: |
-        <p>See everything OpenY has to offer.</p>
+        <p>See everything Open Y has to offer.</p>
       background_color: 4
       text_color: 2
       icon_color: 2
       placement: 'header'
       link_url: http://www.openymca.org/features
-      link_text: 'OpenY Features'
+      link_text: 'Open Y Features'
     -
       id: 4
-      title: 'OpenY FAQ'
+      title: 'Open Y FAQ'
       description: |
-        <p>Have questions about OpenY? Visit the FAQ.</p>
+        <p>Have questions about Open Y? Visit the FAQ.</p>
       background_color: 3
       text_color: 2
       icon_color: 2
       placement: 'footer'
       link_url: http://www.openymca.org/faq
-      link_text: 'OpenY FAQ'
+      link_text: 'Open Y FAQ'
     -
       id: 5
-      title: 'OpenY Community'
+      title: 'Open Y Community'
       description: |
-        <p>Get more involved with the OpenY community.</p>
+        <p>Get more involved with the Open Y community.</p>
       background_color: 15
       text_color: 2
       icon_color: 2
       placement: 'footer'
       link_url: http://www.openymca.org/community
-      link_text: 'OpenY Community'
+      link_text: 'Open Y Community'
     -
       id: 6
-      title: 'OpenY Partners'
+      title: 'Open Y Partners'
       description: |
-        <p>See who OpenY is working with on our partners page.</p>
+        <p>See who Open Y is working with on our partners page.</p>
       background_color: 11
       text_color: 2
       icon_color: 2
       placement: 'footer'
       link_url: http://www.openymca.org/partners
-      link_text: 'OpenY Partners'
+      link_text: 'Open Y Partners'
     -
       id: 7
-      title: 'Be a part of OpenY'
+      title: 'Be a part of Open Y'
       description: |
-        <p>OpenY is growing, be a part of it's success!</p>
+        <p>Open Y is growing, be a part of it's success!</p>
       background_color: 7
       text_color: 1
       icon_color: 2
       placement: 'header'
       link_url: http://www.openymca.org
-      link_text: 'Build OpenY'
+      link_text: 'Build Open Y'
       reference_id: blog
     -
       id: 8
-      title: 'OpenY the foundation you need'
+      title: 'Open Y the foundation you need'
       description: |
-        <p>OpenY is the site foundation you need!</p>
+        <p>Open Y is the site foundation you need!</p>
       background_color: 7
       text_color: 1
       icon_color: 2
       placement: 'footer'
       link_url: http://www.openymca.org
-      link_text: 'Get OpenY Now'
+      link_text: 'Get Open Y Now'
       reference_id: blog
   ids:
     id:

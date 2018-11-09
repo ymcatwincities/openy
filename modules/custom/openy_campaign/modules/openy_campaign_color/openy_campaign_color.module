@@ -37,7 +37,7 @@ function openy_campaign_color_form_node_campaign_form_alter(&$form, FormStateInt
 }
 
 /**
- * Alter form by adding OpenY palettes.
+ * Alter form by adding Open Y palettes.
  * @param $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */

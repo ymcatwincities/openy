@@ -1,8 +1,8 @@
-name: OpenY Continuous Integration
-description: 'Continuous Integration helpers.'
+name: Open Y Continuous Integration
+description: Provides Continuous Integration helpers.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
 dependencies:
   - block
   - domain
@@ -12,4 +12,4 @@ dependencies:
   - domain
   - domain_theme_switch
 version: 8.x-1.0
-# @todo Module machine name should be changed to openy_ci after upgrade all sites to OpenY 2.0
+# @todo Module machine name should be changed to openy_ci after upgrade all sites to Open Y 2.0
