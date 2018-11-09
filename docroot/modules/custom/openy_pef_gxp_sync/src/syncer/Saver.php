@@ -115,11 +115,11 @@ class Saver implements SaverInterface {
       $mappingToDelete = $mappings[$productIdToDelete];
       $existingSession = $nodeStorage->load($mappingToDelete->session);
       if ($existingSession) {
-        $message = 'The source data with class ID %class for session %session was not found. The session will be deleted.';
+        $message = 'The source data with class ID @class for session @session was not found. The session will be deleted.';
         $this->logger->info($message, [
           [
-            '%class' => $productIdToDelete,
-            '%session' => $existingSession->id(),
+            '@class' => $productIdToDelete,
+            '@session' => $existingSession->id(),
           ]
         ]);
         $nodeStorage->delete([$existingSession]);
@@ -142,7 +142,7 @@ class Saver implements SaverInterface {
 
     // Loop over processed data and create session entities.
     foreach ($data as $item) {
-      $hash = crc32(serialize($item));
+      $hash = (string) crc32(serialize($item));
 
       // Check if corresponding session exists and is up to date.
       $mappingItems = $this->mappingRepository->getMappingByProductId($item['class_id']);
@@ -158,11 +158,11 @@ class Saver implements SaverInterface {
         // Source data is changed. Let's remove current item.
         $existingSession = $nodeStorage->load($mappingItem->session->target_id);
         if ($existingSession) {
-          $message = 'The source data with class ID %class for session %session was updated. The session will be recreated.';
+          $message = 'The source data with class ID @class for session @session was updated. The session will be recreated.';
           $this->logger->info($message, [
             [
-              '%class' => $item['class_id'],
-              '%session' => $existingSession->id(),
+              '@class' => $item['class_id'],
+              '@session' => $existingSession->id(),
             ]
           ]);
           $nodeStorage->delete([$existingSession]);
@@ -174,7 +174,7 @@ class Saver implements SaverInterface {
         $mapping  = OpenYPefGxpMapping::create(
           [
             'session' => $session,
-            'crc32' => crc32(serialize($item)),
+            'hash' => crc32(serialize($item)),
             'product_id' => $item['class_id'],
           ]
         );
@@ -183,8 +183,8 @@ class Saver implements SaverInterface {
       catch (\Exception $exception) {
         $this->logger
           ->error(
-            'Failed to create a session with error message: %message',
-            ['%message' => $exception->getMessage()]
+            'Failed to create a session with error message: @message',
+            ['@message' => $exception->getMessage()]
           );
         continue;
       }
@@ -251,8 +251,8 @@ class Saver implements SaverInterface {
     $session->save();
     $this->logger
       ->debug(
-        'Session has been created. ID: %id',
-        ['%id' => $session->id()]
+        'Session has been created. ID: @id',
+        ['@id' => $session->id()]
       );
 
     return $session;
