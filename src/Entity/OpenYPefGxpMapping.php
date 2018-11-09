@@ -58,7 +58,7 @@ class OpenYPefGxpMapping extends ContentEntityBase implements OpenYPefGxpMapping
       ->setRequired(TRUE)
       ->setSettings(array(
         'default_value' => '',
-        'max_length' => 9,
+        'max_length' => 10,
       ))
       ->setDisplayOptions('view', array(
         'label' => 'above',
