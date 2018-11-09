@@ -3,6 +3,6 @@ description: Stores migrations to import demo Footer menu.
 type: module
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - openy_demo_menu

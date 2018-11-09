@@ -3,6 +3,6 @@ type: module
 description: Provides a link to save location as My YMCA.
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - openy_loc_branch

@@ -3,7 +3,7 @@ description: Bundle of taxonomy modules for Open Y, and their common configurati
 type: module
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - entity_reference_revisions
   - paragraphs

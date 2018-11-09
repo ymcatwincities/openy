@@ -3,7 +3,7 @@ description: Provides a News post content type and related configuration.
 type: module
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - blazy
   - content_moderation

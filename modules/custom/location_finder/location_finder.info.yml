@@ -3,7 +3,7 @@ type: module
 description: Provides a Locations page functionality. Module is deprecated in favor of extended OpenY Map functionality.
 core: 8.x
 version: 8.x-1.0
-package: OpenY (Deprecated)
+package: Open Y (Deprecated)
 dependencies:
   - openy_map
   - openy_socrates

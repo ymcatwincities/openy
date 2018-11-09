@@ -3,7 +3,7 @@ type: module
 description: Provides a Session scheduled instance entity to maintain high performance for schedule-related stuff.
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - entity_reference
   - views

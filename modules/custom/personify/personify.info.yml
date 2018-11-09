@@ -3,4 +3,4 @@ type: module
 description: Provides an Personify integration.
 core: 8.x
 version: 8.x-1.0-rc1
-package: OpenY (Experimental)
+package: Open Y (Experimental)

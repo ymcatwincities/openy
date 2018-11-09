@@ -3,4 +3,4 @@ type: module
 description: Provides an integration with GroupEx Pro.
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y

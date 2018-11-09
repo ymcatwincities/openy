@@ -1,6 +1,6 @@
 name: Open Y Paragraph Latest News Posts (Camp)
 description: Provides a dynamic paragraph that renders the latest news posts associated with a camp.
-package: OpenY
+package: Open Y
 type: module
 core: 8.x
 version: 8.x-1.0

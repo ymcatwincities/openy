@@ -3,4 +3,4 @@ type: module
 description: Provides a basic Daxko integration.
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y

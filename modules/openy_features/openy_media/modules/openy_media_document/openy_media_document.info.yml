@@ -3,7 +3,7 @@ description: Provides a Document media entity and features.
 type: module
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - dropzonejs_eb_widget
   - embed

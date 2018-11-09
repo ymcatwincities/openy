@@ -3,6 +3,6 @@ type: module
 description: Provides an Embedded GroupEx Pro Schedule element and block.
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - block
