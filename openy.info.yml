@@ -55,7 +55,9 @@ dependencies:
   - config_import
   - features
   - features_ui
+  - fontyourface
   - image_captcha
+  - local_fonts
   - metatag
   - metatag_open_graph
   - plugin
