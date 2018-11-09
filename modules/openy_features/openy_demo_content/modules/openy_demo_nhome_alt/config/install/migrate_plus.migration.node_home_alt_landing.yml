@@ -14,7 +14,7 @@ source:
   data_rows:
     -
       id: homepage
-      title: 'OpenY'
+      title: 'Open Y'
       content_ids:
         -
           content_id: home_alt_simple
