@@ -10,7 +10,7 @@ Open Y release.
 
 # How to patch Open Y via composer?
 
-If you followed instructions [docs/Development/Start new Open Y project](https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Start%20new%20Open Y%20project.md)
+If you followed instructions [docs/Development/Start new Open Y project](https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Start%20new%20OpenY%20project.md)
 and you have configured `composer.json` you need just to do a few simple steps:
 1. Build a link to a patch using pull request ID
     ```
