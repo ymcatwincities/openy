@@ -3,7 +3,7 @@ description: Implements a simple block with a title, body, icon and link.
 type: module
 core: 8.x
 version: 8.x-1.0
-package: OpenY
+package: Open Y
 dependencies:
   - block_content
   - entity_browser

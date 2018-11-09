@@ -3,4 +3,4 @@ type: module
 description: Provides an Entity Reference With Text field type.
 core: 8.x
 version: 8.x-1.0-rc1
-package: OpenY (Experimental)
+package: Open Y (Experimental)

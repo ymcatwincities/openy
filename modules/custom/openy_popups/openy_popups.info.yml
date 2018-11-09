@@ -2,5 +2,5 @@ name: Open Y Popups
 type: module
 description: Implements a popup windows for Open Y locations.
 core: 8.x
-package: OpenY
+package: Open Y
 version: 8.x-1.0

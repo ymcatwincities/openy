@@ -3,7 +3,7 @@ type: module
 description: Provides a custom functionality for campaigns colors.
 core: 8.x
 version: 8.x-1.0-rc1
-package: OpenY (Experimental)
+package: Open Y (Experimental)
 dependencies:
   - openy_node_campaign
   - personify

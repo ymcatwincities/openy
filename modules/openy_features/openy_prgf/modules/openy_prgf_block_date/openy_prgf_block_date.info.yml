@@ -1,6 +1,6 @@
 name: Open Y Paragraph for Date Block
 description: Provides a paragraph that renders Date block based on date and time (before, between, after).
-package: OpenY
+package: Open Y
 type: module
 core: 8.x
 version: 8.x-1.0

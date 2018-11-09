@@ -1,7 +1,7 @@
-name: 'OpenY Lily'
+name: Open Y Lily
 type: theme
 description: 'YMCA brand compliant and customizable.'
-package: OpenY
+package: Open Y
 version: 8.x-1.0
 core: 8.x
 base theme: false
