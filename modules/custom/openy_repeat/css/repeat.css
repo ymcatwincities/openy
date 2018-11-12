@@ -398,3 +398,9 @@ label[aria-expanded=false] .minus {
 .schedule-dashboard__sidebar .checkbox-room-wrapper {
   padding-left: 15px;
 }
+
+button.show-date-filter {
+  background: none;
+  border: none;
+  padding: 0;
+}

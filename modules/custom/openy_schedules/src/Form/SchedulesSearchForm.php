@@ -911,6 +911,7 @@ class SchedulesSearchForm extends FormBase {
         }
         $rounded_time = $hour . ':' . $minute . ' ' . $timestamp->format('a');
         $content[$rounded_time][$session_instance->session->target_id] = [
+          'label' => $class->getTitle(),
           'teaser' => node_view($class, 'teaser'),
           'included_in_membership' => $included_in_membership,
           'ticket_required' => $ticket_required,
