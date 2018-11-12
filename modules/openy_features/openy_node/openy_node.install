@@ -37,7 +37,7 @@ function openy_node_update_8001() {
 function openy_node_update_8002() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_node');
-  $config .= '/config/install/';
+  $config .= '/config/optional/';
   $config .= 'tour.tour.openy-node-add.yml';
   $config_importer->update($config, 'tour.tour.openy-node-add', 'tips');
 }
@@ -79,7 +79,7 @@ function openy_node_update_8004() {
 function openy_node_update_8005() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_node');
-  $config .= '/config/install/';
+  $config .= '/config/optional/';
   $config .= 'tour.tour.openy-landing-page-add.yml';
   $config_importer->update($config, 'tour.tour.openy-landing-page-add', 'tips');
 }
