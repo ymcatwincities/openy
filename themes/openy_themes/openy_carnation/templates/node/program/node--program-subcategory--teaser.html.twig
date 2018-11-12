@@ -85,6 +85,6 @@ set classes = [
   <div class="col-md-7 content">
     <h2>{{ label }}</h2>
     {{ content.field_category_description }}
-    <a href="{{ url }}" class="btn btn-outline-primary d-block d-lg-inline-block">{{ 'Open category'|t }}</a>
+    <a href="{{ url }}" class="btn btn-outline-primary d-block d-lg-inline-block" aria-label="{{ node.label }} {{ 'read more'|t }}">{{ 'Open category'|t }}</a>
   </div>
 </article>
