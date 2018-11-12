@@ -15,8 +15,8 @@ openy_campaign_member.delete_confirm:
   weight: 10
 
 openy_campaign.settings:
-  title: 'OpenY Campaign Settings'
-  description: 'OpenY Campaign Settings'
+  title: 'Open Y Campaign Settings'
+  description: 'Open Y Campaign Settings'
   route_name: openy_campaign.settings
   base_route: system.admin_config_system
 
