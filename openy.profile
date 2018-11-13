@@ -154,7 +154,6 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_ncampaign',
       'openy_demo_ninterstitial',
       */
-      'openy_gxp',
     ],
     'standard' => [
       'openy_demo_nalert',

@@ -5,6 +5,16 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_prgf_class_location_uninstall() {
+  // Remove paragraphs before module uninstall to avoid error with missing service
+  // that used in class_location block.
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('paragraph', 'paragraphs_type', 'class_location');
+}
+
+/**
  * Update class location paragraph configuration.
  */
 function openy_prgf_class_location_update_8001() {
