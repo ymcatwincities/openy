@@ -8,6 +8,7 @@
  */
 
 use Drupal\block\Entity\Block;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Template\Attribute;
@@ -69,10 +70,20 @@ function openy_carnation_preprocess_block(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_carnation_preprocess_menu(&$variables) {
+  if ($variables['menu_name'] === 'main') {
+    $variables['display_search'] = theme_get_setting('display_search_form');
+  }
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function openy_carnation_preprocess_page(array &$variables) {
   $variables['relative_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
+  $variables['display_search'] = theme_get_setting('display_search_form');
 }
 
 /**
@@ -187,4 +198,15 @@ function openy_carnation_theme_suggestions_form_alter(array &$suggestions, array
   if (isset($variables['element']['#form_id'])) {
     array_push($suggestions, 'form__' . $variables['element']['#form_id']);
   }
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['theme_settings']['display_search_form'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display the search form'),
+    '#default_value' => theme_get_setting('display_search_form'),
+  ];
 }
