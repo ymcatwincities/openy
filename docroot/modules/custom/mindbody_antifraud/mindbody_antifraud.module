@@ -1,0 +1,9 @@
+<?php
+/**
+ * @file
+ * MindBody anti fraud protection module.
+ */
+
+function mindbody_antifraud_scan() {
+  \Drupal::service('mindbody_anti_fraud.scanner')->scan();
+}
