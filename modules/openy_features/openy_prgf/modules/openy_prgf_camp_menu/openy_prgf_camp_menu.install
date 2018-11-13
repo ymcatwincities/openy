@@ -6,6 +6,17 @@
  */
 
 /**
+ * Implements hook_uninstall().
+ */
+function openy_prgf_camp_menu_uninstall() {
+  // Remove paragraphs before module uninstall to avoid error with missing service
+  // that used in camp_menu block.
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('paragraph', 'paragraphs_type', 'camp_menu');
+}
+
+
+/**
  * Update Paragraph Camp Menu field_prgf_block.
  */
 function openy_prgf_camp_menu_update_8001() {
