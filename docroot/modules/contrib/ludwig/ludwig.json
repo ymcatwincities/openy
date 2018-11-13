@@ -7,6 +7,10 @@
     "League/Csv": {
       "version" : "7.1.2",
       "url": "https://github.com/thephpleague/csv/archive/7.1.2.zip"
+    },
+    "alek13/slack": {
+      "version" : "1.10.1",
+      "url": "https://github.com/php-slack/slack/archive/1.10.1.zip"
     }
   }
 }
