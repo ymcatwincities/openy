@@ -5,6 +5,7 @@ namespace Drupal\mindbody_antifraud;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\State\StateInterface;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
+use Maknz\Slack;
 
 class MindbodyAntiFraudScanner {
 
@@ -44,9 +45,9 @@ class MindbodyAntiFraudScanner {
    * Method to scan data within external MindBody service.
    */
   public function scan() {
-    // TODO: Get All staff IDs.
+    // Get All staff IDs.
     $staffparams = [
-      'PageSize' => 10,
+      'PageSize' => 1000,
       'UserCredentials' =>
         [
           'Username' => 'andrii.podanenko',
@@ -54,7 +55,7 @@ class MindbodyAntiFraudScanner {
           'SiteIDs' => [249173],
         ],
     ];
-    $staffresponse = $this->proxy->call('StaffService', 'GetStaff', $staffparams, FALSE);
+    $staffresponse = $this->proxy->call('StaffService', 'GetStaff', $staffparams, TRUE);
     if ($staffresponse->GetStaffResult && $staffresponse->GetStaffResult->StaffMembers && count($staffresponse->GetStaffResult->StaffMembers->Staff)) {
       $staffIds = [];
       foreach ($staffresponse->GetStaffResult->StaffMembers->Staff as $staff) {
@@ -65,9 +66,8 @@ class MindbodyAntiFraudScanner {
       throw new \Exception('Cannot receive staff members from MindBody');
     }
 
-    // TODO: Get All Appointments for the previous month ending yesterday 23:59 CST.
-
-    $staffChunks = array_chunk($staffIds, 25);
+    // Get All Appointments for the previous month ending yesterday 23:59 CST.
+    $staffChunks = array_chunk($staffIds, 5);
     $appointments = [];
     foreach ($staffChunks as $staffChunk) {
       $params = [
@@ -79,13 +79,13 @@ class MindbodyAntiFraudScanner {
             'SiteIDs' => [249173],
           ],
         'StaffIDs' => $staffChunk,
-        'StartDate' => date('Y-m-d',strtotime("-32 days")),
-        'EndDate' => date('Y-m-d',strtotime("-1 days")),
+        'StartDate' => date('Y-m-d', strtotime("-32 days")),
+        'EndDate' => date('Y-m-d', strtotime("-1 days")),
       ];
-
+      // We can't cache, because we'd miss important information.
       $response = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
       if ($response->GetStaffAppointmentsResult && $response->GetStaffAppointmentsResult->Appointments && count($response->GetStaffAppointmentsResult->Appointments->Appointment)) {
-        $appointments += $response->GetStaffAppointmentsResult->Appointments->Appointment;
+        $appointments = array_merge($appointments, $response->GetStaffAppointmentsResult->Appointments->Appointment);
       }
     }
     if (count($appointments)) {
@@ -94,16 +94,73 @@ class MindbodyAntiFraudScanner {
       if ($this->state->get('mindbody_fraud_max_app_id') > $max) {
         throw new \Exception('General Logic Failure: previous sync was newer than current one.');
       }
-      // TODO: If Latest Appointment ID exists - remove older appointments from array.
+      // If Latest Appointment ID exists - remove older appointments from array.
       $previousId = $this->state->get('mindbody_fraud_max_app_id');
+      $frauds = [];
       if ($previousId > 0) {
-        $fraud = $this->getFraudAppointments($appointments, $previousId);
+        $frauds = $this->getFraudAppointments($appointments, $previousId);
+        // All that wasn't removed - is fraud. Send a message.
+        if (count($frauds)) {
+          $settings = [
+            'username' => 'MBbot',
+            'channel' => 'mindbody_antifraud',
+            'link_names' => TRUE,
+          ];
+          $client = new \Maknz\Slack\Client('https://hooks.slack.com/services/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', $settings);
+          $slackFields = [];
+          foreach ($frauds as $fraud) {
+            $slackFields = [
+              [
+                'title' => 'DateTime',
+                'value' => $fraud->StartDateTime,
+                'short' => TRUE,
+              ],
+              [
+                'title' => 'Location ID',
+                'value' => $fraud->Location->ID,
+                'short' => TRUE,
+              ],
+              [
+                'title' => 'Customer Name',
+                'value' => $fraud->Client->FirstName . ' ' . $fraud->Client->LastName,
+                'short' => TRUE,
+              ],
+              [
+                'title' => 'Customer ID',
+                'value' => $fraud->Client->UniqueID,
+                'short' => TRUE,
+              ],
+              [
+                'title' => 'Trainer Name',
+                'value' => $fraud->Staff->Name,
+                'short' => TRUE,
+              ],
+              [
+                'title' => 'Created/detected',
+                'value' => date('Y-m-d'),
+                'short' => TRUE,
+              ],
+            ];
+            $client->to('#mindbody_antifraud')->attach([
+              'fallback' => 'Possible Fraud Appointment detected',
+              'text' => 'Possible Fraud Appointment detected',
+              'color' => 'danger',
+              'fields' => $slackFields,
+            ])->send('Possible Fraud Appointment detected');
+
+            $this->logger->warning('Possible fraud detected: DateTime @dt Location ID @lid Client Name @cname Customer ID @cid Trainer Name @tname', [
+              '@dt' => $fraud->StartDateTime,
+              '@lid' => $fraud->Location->ID,
+              '@cname' => $fraud->Client->FirstName . ' ' . $fraud->Client->LastName,
+              '@cid' => $fraud->Client->UniqueID,
+              '@tname' => $fraud->Staff->Name
+            ]);
+          }
+        }
       }
       $this->state->set('mindbody_fraud_max_app_id', $max);
       $this->logger->debug('Latest appointment ID: @id', ['@id' => $max]);
     }
-
-    // TODO: All doesn't removed - is fraud. Send a message.
   }
 
   /**
@@ -122,16 +179,22 @@ class MindbodyAntiFraudScanner {
   }
 
   /**
+   * Get possible fraud appointments based on previous ID and date.
    *
    * @param array $appointments
+   *
    * @param $previousId
+   *
+   * @return array|null
+   *
+   * @throws \Exception
    */
   private function getFraudAppointments(array $appointments, $previousId) {
     $filtered = [];
     $fraud = [];
     // Remove appointments by ID.
     foreach ($appointments as $appointment) {
-      if (TRUE || $appointment->ID > $previousId) {
+      if ($appointment->ID > $previousId) {
         $filtered[$appointment->ID] = $appointment;
       }
     }
@@ -145,11 +208,9 @@ class MindbodyAntiFraudScanner {
     foreach ($filtered as $candidate) {
       $mbDateTime = $date_from::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $candidate->StartDateTime, $tz);
       $mbDateTime_timestamp = $mbDateTime->getTimestamp();
+      // Create fraud Visit into the past manually via MondBody UI to test this is working.
       if ($mbDateTime_timestamp < $yesterday_timestamp) {
         $fraud[$candidate->ID] = $candidate;
-      }
-      else {
-        $i = 0;
       }
     }
 

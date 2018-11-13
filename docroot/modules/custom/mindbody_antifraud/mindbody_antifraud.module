@@ -1,7 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: podarok
- * Date: 11/13/18
- * Time: 12:44 PM
+ * @file
+ * MindBody anti fraud protection module.
  */
+
+function mindbody_antifraud_scan() {
+  \Drupal::service('mindbody_anti_fraud.scanner')->scan();
+}
