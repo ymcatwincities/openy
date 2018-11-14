@@ -84,7 +84,7 @@ function openy_prgf_classes_listing_update_8004() {
 
   // Update multiple configurations.
   $configs = [
-    'views.view.classes_listing.yml' => [
+    'views.view.classes_listing' => [
       'display.default.cache_metadata.tags',
       'display.search_form.cache_metadata.tags',
     ],

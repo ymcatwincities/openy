@@ -69,14 +69,14 @@
     </div>
     {% block slick_arrow %}
       <div{{ arrow_attributes.addClass(arrow_classes) }}>
-        <a href="#" data-role="none" class="slick-prev slick-arrow" role="button" aria-disabled="false">{{ 'Previous'|t }}</a>
+        <a href="#" data-role="none" class="slick-prev slick-arrow" role="button" aria-disabled="false" title="{{ 'Previous alert message'|t }}"></a>
         {% if arrow_down_attributes is defined %}
           <button{{ arrow_down_attributes.addClass('slick-down')
             .setAttribute('type', 'button')
             .setAttribute('data-target', settings.downArrowTarget)
             .setAttribute('data-offset', settings.downArrowOffset) }}></button>
         {% endif %}
-        <a href="#" data-role="none" class="slick-next slick-arrow" role="button" aria-disabled="false">{{ 'Next'|t }}</a>
+        <a href="#" data-role="none" class="slick-next slick-arrow" role="button" aria-disabled="false" title="{{ 'Next alert message'|t }}"></a>
       </div>
     {% endblock %}
   {% endif %}
