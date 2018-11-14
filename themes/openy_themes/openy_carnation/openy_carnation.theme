@@ -204,9 +204,16 @@ function openy_carnation_theme_suggestions_form_alter(array &$suggestions, array
  * Implements hook_form_system_theme_settings_alter().
  */
 function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
-  $form['theme_settings']['display_search_form'] = [
+  $form['search'] = [
+    '#type' => 'details',
+    '#title' => t('Search'),
+    '#open' => TRUE,
+  ];
+
+  $form['search']['display_search_form'] = [
     '#type' => 'checkbox',
     '#title' => t('Display the search form'),
-    '#default_value' => theme_get_setting('display_search_form'),
+    '#default_value' => theme_get_setting('display_search_form', 'openy_carnation'),
+    '#description' => t('Show search form in the header'),
   ];
 }
