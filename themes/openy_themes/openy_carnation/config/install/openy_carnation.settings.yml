@@ -11,4 +11,4 @@ logo:
   use_default: 0
 schemas:
   openy_carnation: 8000
-display_search_form: true
+display_search_form: 1
