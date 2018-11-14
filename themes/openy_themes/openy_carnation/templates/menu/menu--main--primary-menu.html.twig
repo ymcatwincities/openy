@@ -28,7 +28,7 @@
 #}
 {{ menus.menu_links(items, attributes, 0, display_search) }}
 
-{% macro menu_links(items, attributes, menu_level) %}
+{% macro menu_links(items, attributes, menu_level, display_search) %}
   {% import _self as menus %}
   {% if items %}
     <ul{{ attributes.addClass('navbar nav nav-fill align-items-center nav-level-1 p-0 m-0') }}>
