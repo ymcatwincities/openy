@@ -88,6 +88,6 @@ set classes = [
   </div>
   <div class="col-sm-7 content">
     {{ content.field_category_description }}
-    <a href="{{ url }}" title="{{ node.label }}" class="btn btn-link blue">{{ 'Open category'|t }}</a>
+    <a href="{{ url }}" title="{{ node.label }}" class="btn btn-link blue" aria-label="{{ node.label }} {{ 'read more'|t }}">{{ 'Open category'|t }}</a>
   </div>
 </article>
