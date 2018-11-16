@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\linkit_entity_attributes\Plugin\Linkit\Attribute\Uuid.
- */
-
 namespace Drupal\linkit_entity_attributes\Plugin\Linkit\Attribute;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -47,8 +42,8 @@ class Uuid extends ConfigurableAttributeBase {
    */
   public function defaultConfiguration() {
     return parent::defaultConfiguration() + [
-        'automatic_uuid' => TRUE,
-      ];
+      'automatic_uuid' => TRUE,
+    ];
   }
 
   /**

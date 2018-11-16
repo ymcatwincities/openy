@@ -71,7 +71,7 @@ class MigrationImporter implements MigrationImporterInterface {
 
     self::migrateHeaderArea($lp_node, $node);
 
-    // Content Area
+    // Content Area.
     self::migrateContentArea($lp_node, $node);
 
     // Sidebar area.
@@ -262,7 +262,7 @@ class MigrationImporter implements MigrationImporterInterface {
       ];
     }
 
-    // Secondary Sidebar
+    // Secondary Sidebar.
     if (!empty($secondary_sidebar)) {
       $block_id = self::tryFindBlock($secondary_sidebar);
       if (!$block_id) {
@@ -292,10 +292,11 @@ class MigrationImporter implements MigrationImporterInterface {
   /**
    * Try to find a block with the same content.
    *
-   * @param $block_content
+   * @param string $block_content
    *   Block content.
+   *
    * @return bool|int
-   *  Block ID or FALSE.
+   *   Block ID or FALSE.
    */
   final public static function tryFindBlock($block_content) {
     $query = \Drupal::database()

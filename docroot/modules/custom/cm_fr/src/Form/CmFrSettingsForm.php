@@ -75,7 +75,10 @@ class CmFrSettingsForm extends ConfigFormBase implements ContainerAwareInterface
             }
 
             foreach ($list_of_links as $lexport) {
-              $csv[] = ['https://www.ymcamn.org/' . str_replace('$id', $finds->{$tdata['id']}, $tdata['edit_pattern']), $lexport];
+              $csv[] = [
+                'https://www.ymcamn.org/' . str_replace('$id', $finds->{$tdata['id']}, $tdata['edit_pattern']),
+                $lexport
+              ];
             }
           }
         }
@@ -85,16 +88,16 @@ class CmFrSettingsForm extends ConfigFormBase implements ContainerAwareInterface
 
     $f = fopen('php://memory', 'w');
     foreach ($csv as $line) {
-      // generate csv lines from the inner arrays
+      // Generate csv lines from the inner arrays.
       fputcsv($f, $line, ';');
     }
     $filename = "export.csv";
     fseek($f, 0);
-    // tell the browser it's going to be a csv file
+    // Tell the browser it's going to be a csv file.
     header('Content-Type: application/csv');
-    // tell the browser we want to save it instead of displaying it
-    header('Content-Disposition: attachment; filename="'.$filename.'";');
-    // make php send the generated csv lines to the browser
+    // Tell the browser we want to save it instead of displaying it.
+    header('Content-Disposition: attachment; filename="' . $filename . '";');
+    // Make php send the generated csv lines to the browser.
     fpassthru($f);
     fclose($f);
 

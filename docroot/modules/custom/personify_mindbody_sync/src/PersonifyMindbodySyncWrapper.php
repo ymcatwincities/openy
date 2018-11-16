@@ -213,7 +213,7 @@ class PersonifyMindbodySyncWrapper implements PersonifyMindbodySyncWrapperInterf
     }
     catch (\Exception $e) {
       // The offset is hardcoded and should always work, so no try/catch here.
-      /** @noinspection PhpUnhandledExceptionInspection */
+      /* @noinspection PhpUnhandledExceptionInspection */
       $interval = new \DateInterval(self::DATE_OFFSET);
     }
 
