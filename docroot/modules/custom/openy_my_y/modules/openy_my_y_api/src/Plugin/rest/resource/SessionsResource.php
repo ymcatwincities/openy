@@ -17,7 +17,9 @@ class SessionsResource extends MyYResourceBase {
 
   /**
    * Responds to entity GET requests.
+   *
    * @return \Drupal\rest\ModifiedResourceResponse
+   *   Response.
    */
   public function get($uid = NULL) {
     /** @var \Drupal\mindbody_cache_proxy\MindbodyCacheProxy $client */
@@ -47,7 +49,8 @@ class SessionsResource extends MyYResourceBase {
         $request,
         TRUE
       );
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       return $this->prepareResponse([
         'status' => FALSE,
         'message' => $e->getMessage(),
