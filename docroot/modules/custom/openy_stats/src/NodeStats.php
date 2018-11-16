@@ -24,19 +24,19 @@ class NodeStats {
         $stats[$data['type']] = [];
       }
       if ($data['status'] == '0') {
-        $stats[$data['type']]['unpublished'] = (int)$data['count'];
+        $stats[$data['type']]['unpublished'] = (int) $data['count'];
 
       }
       elseif ($data['status'] == '1') {
-        $stats[$data['type']]['published'] = (int)$data['count'];
+        $stats[$data['type']]['published'] = (int) $data['count'];
       }
     }
 
     foreach ($stats as &$module) {
-      if (!isset ($module['unpublished'])) {
+      if (!isset($module['unpublished'])) {
         $module['unpublished'] = 0;
       }
-      if (!isset ($module['published'])) {
+      if (!isset($module['published'])) {
         $module['published'] = 0;
       }
       $module['total'] = $module['unpublished'] + $module['published'];
