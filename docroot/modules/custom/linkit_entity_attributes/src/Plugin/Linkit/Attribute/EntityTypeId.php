@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\linkit_entity_attributes\Plugin\Linkit\Attribute\EntityTypeId.
- */
-
 namespace Drupal\linkit_entity_attributes\Plugin\Linkit\Attribute;
 
 use Drupal\Core\Form\FormStateInterface;

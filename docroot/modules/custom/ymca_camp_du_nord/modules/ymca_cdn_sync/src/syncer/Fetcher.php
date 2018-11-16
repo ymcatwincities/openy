@@ -169,7 +169,7 @@ class Fetcher implements FetcherInterface {
           $b++;
           $products[] = $product;
         }
-        $this->logger->notice($a . ' skipped. '. $b .' imported. ' . $c . ' total');
+        $this->logger->notice($a . ' skipped. ' . $b . ' imported. ' . $c . ' total');
       }
       else {
         $msg = 'Got %code response from Personify: %msg';

@@ -10,7 +10,7 @@ use Drupal\ymca_cdn_product\Entity\CdnPrsProductInterface;
  *
  * @package Drupal\ymca_cdn_product
  */
-Interface CdnPrsProductRepositoryInterface {
+interface CdnPrsProductRepositoryInterface {
 
   /**
    * Remove all entities.
@@ -31,7 +31,7 @@ Interface CdnPrsProductRepositoryInterface {
   /**
    * Get Product by Personify ID.
    *
-   * @param $id
+   * @param int $id
    *   ID.
    *
    * @return CdnPrsProduct
@@ -53,7 +53,7 @@ Interface CdnPrsProductRepositoryInterface {
   /**
    * Remove product.
    *
-   * @param $id
+   * @param int $id
    *   Entity ID.
    */
   public function removeProduct($id);
