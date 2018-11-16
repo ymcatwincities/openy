@@ -3,7 +3,7 @@
 namespace Drupal\openy_stats;
 
 /**
- * Class ParagraphStats
+ * Class ParagraphStats.
  *
  * @package Drupal\openy_stats
  */
