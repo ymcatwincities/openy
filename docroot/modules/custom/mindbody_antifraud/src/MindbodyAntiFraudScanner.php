@@ -8,7 +8,7 @@ use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
 use Maknz\Slack\Client;
 
 /**
- * Class MindbodyAntiFraudScanner
+ * Class MindbodyAntiFraudScanner.
  *
  * @package Drupal\mindbody_antifraud
  */
@@ -192,7 +192,7 @@ class MindbodyAntiFraudScanner {
    * @param array $appointments
    *   List of appointments to process.
    *
-   * @param $previousId
+   * @param int $previousId
    *   ID of previous appointment ( previous run maximum )
    *
    * @return array|null
