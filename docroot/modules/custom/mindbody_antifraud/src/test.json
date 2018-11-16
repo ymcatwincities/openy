@@ -1,0 +1,47 @@
+{
+  "name": "OpenY Composer Mirror",
+  "homepage": "http://localhost:4680",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/ymcatwincities/openy-project"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/ymcatwincities/openy"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/enyo/dropzone"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/jaypan/jquery_colorpicker"
+    },
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": {
+    "ymcatwincities/openy-project": "8.1.x-dev",
+    "ymcatwincities/openy": "8.*.*"
+  },
+  "require-dependencies": true,
+  "archive": {
+    "directory": "dist",
+    "skip-dev": true,
+    "absolute-directory": "/var/www/mirror/satis/dist",
+    "blacklist": [
+      "drupal/core"
+    ],
+    "checksum": true,
+    "ignore-filters": false,
+    "override-dist-type": true,
+    "rearchive": false
+  }
+}
