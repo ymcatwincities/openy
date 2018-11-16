@@ -102,8 +102,8 @@ class KronosMBCSVHistory extends FormBase {
           '#tag' => 'h3',
           '#value' => sprintf(
             'Results for %s - %s',
-            date( "m/d/Y", $dates[0]),
-            date( "m/d/Y", $dates[1])
+            date("m/d/Y", $dates[0]),
+            date("m/d/Y", $dates[1])
           )
         ];
 
