@@ -21,7 +21,7 @@ use Drupal\Core\Url;
 class CdnFormFull extends FormBase {
 
   /**
-   *  Offset to add to current date.
+   * Offset to add to current date.
    */
   const START_DAYS_OFFSET = 1;
 
@@ -144,7 +144,6 @@ class CdnFormFull extends FormBase {
       $dt->setTimestamp($timestamp + (86400 * 7));
       $default_departure_date = $dt->format('Y-m-d');
     }
-
 
     $state = [
       'ids' => isset($query['ids']) && is_numeric($query['ids']) ? $query['ids'] : '',
@@ -615,7 +614,6 @@ class CdnFormFull extends FormBase {
         $code = $product->field_cdn_prd_code->value;
         $code = substr($code, 0, 14);
         $arrival_date = new \DateTime($query['arrival_date']);
-        //$arrival_date->modify('+ 3 days');
         $departure_date = new \DateTime($query['departure_date']);
         if (!empty($query['range'])) {
           for ($i = 0; $i < $query['range']; $i++) {
@@ -682,7 +680,6 @@ class CdnFormFull extends FormBase {
    *
    * @param array $view
    *   Fetched view with products.
-   *
    * @param object $period
    *   Chosen dates period.
    *
@@ -763,7 +760,6 @@ class CdnFormFull extends FormBase {
    *
    * @param array $builds
    *   Render array with data.
-   *
    * @param object $period
    *   Chosen dates period.
    *
