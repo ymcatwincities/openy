@@ -5,8 +5,13 @@ namespace Drupal\mindbody_antifraud;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\State\StateInterface;
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
-use Maknz\Slack;
+use Maknz\Slack\Client;
 
+/**
+ * Class MindbodyAntiFraudScanner
+ *
+ * @package Drupal\mindbody_antifraud
+ */
 class MindbodyAntiFraudScanner {
 
   /**
@@ -34,6 +39,7 @@ class MindbodyAntiFraudScanner {
    * MindbodyAntiFraudScanner constructor.
    *
    * @param \Drupal\Core\Logger\LoggerChannel $loggerChannel
+   *   Channel for logging.
    */
   public function __construct(LoggerChannel $loggerChannel, MindbodyCacheProxy $proxy, StateInterface $state) {
     $this->logger = $loggerChannel;
@@ -106,7 +112,7 @@ class MindbodyAntiFraudScanner {
             'channel' => 'mindbody_antifraud',
             'link_names' => TRUE,
           ];
-          $client = new \Maknz\Slack\Client('https://hooks.slack.com/services/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', $settings);
+          $client = new Client('https://hooks.slack.com/services/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', $settings);
           $slackFields = [];
           foreach ($frauds as $fraud) {
             $slackFields = [
@@ -153,7 +159,7 @@ class MindbodyAntiFraudScanner {
               '@lid' => $fraud->Location->ID,
               '@cname' => $fraud->Client->FirstName . ' ' . $fraud->Client->LastName,
               '@cid' => $fraud->Client->UniqueID,
-              '@tname' => $fraud->Staff->Name
+              '@tname' => $fraud->Staff->Name,
             ]);
           }
         }
@@ -167,8 +173,10 @@ class MindbodyAntiFraudScanner {
    * Returns max appointment id from an array.
    *
    * @param array $appointments
+   *   List of appointments to process.
    *
    * @return mixed
+   *   Max ID from the array.
    */
   private function getMaxAppointmentId(array $appointments) {
     $sorted = [];
@@ -182,10 +190,13 @@ class MindbodyAntiFraudScanner {
    * Get possible fraud appointments based on previous ID and date.
    *
    * @param array $appointments
+   *   List of appointments to process.
    *
    * @param $previousId
+   *   ID of previous appointment ( previous run maximum )
    *
    * @return array|null
+   *   Array of appointments.
    *
    * @throws \Exception
    */
@@ -216,4 +227,5 @@ class MindbodyAntiFraudScanner {
 
     return $fraud;
   }
+
 }
