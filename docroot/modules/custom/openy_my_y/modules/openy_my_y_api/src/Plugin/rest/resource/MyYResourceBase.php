@@ -5,6 +5,11 @@ namespace Drupal\openy_my_y_api\Plugin\rest\resource;
 use Drupal\rest\ModifiedResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
 
+/**
+ * Class MyYResourceBase.
+ *
+ * @package Drupal\openy_my_y_api\Plugin\rest\resource
+ */
 abstract class MyYResourceBase extends ResourceBase {
 
   /**
