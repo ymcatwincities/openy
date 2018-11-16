@@ -7,13 +7,13 @@ use Drupal\Core\Entity\EntityInterface;
 /**
  * Interface MigrationImporterInterface.
  */
-interface MigrationImporterInterface  {
+interface MigrationImporterInterface {
 
   /**
    * Migrate node.
    *
    * @param \Drupal\Core\Entity\EntityInterface $node
-   *  Node to be migrated.
+   *   Node to be migrated.
    */
   public static function migrate(EntityInterface $node);
 
