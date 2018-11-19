@@ -122,20 +122,6 @@ class YptfKronosReports {
   protected $programIDs = ['PT' => 2, 'BT' => 4];
 
   /**
-   * Report date of Kronos file.
-   *
-   * @var string
-   */
-  protected $kronosReportDay = 'last Saturday';
-
-  /**
-   * Report shift date of Kronos file.
-   *
-   * @var array
-   */
-  protected $kronosReportShiftDays = [0, -7];
-
-  /**
    * Kronos Training program.
    *
    * @var array
@@ -346,7 +332,13 @@ class YptfKronosReports {
         if (in_array($item->job, $this->kronosTrainingId)) {
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
           if (!$location_id) {
-            throw new \Exception(sprintf('Failed to get MindBody Location ID by Personify ID: %d', $item->locNo));
+            $this->logger->error(
+              'Failed to get MindBody Location ID by Personify ID: @personify_id',
+              [
+                '@personify_id' => $item->locNo
+              ]
+            );
+            continue;
           }
 
           // Skip this location if it's suppressed.
@@ -404,7 +396,13 @@ class YptfKronosReports {
         }
         $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($brCode);
         if (!$location_id) {
-          throw new \Exception(sprintf('Failed to get MindBody Location ID by Personify ID: %d', $item->locNo));
+          $this->logger->error(
+            'Failed to get MindBody Location ID by Personify ID: @personify_id',
+            [
+              '@personify_id' => $item->locNo
+            ]
+          );
+          continue;
         }
 
         // Skip this location if it's suppressed.
@@ -519,18 +517,12 @@ class YptfKronosReports {
    * Get initial Dates.
    */
   public function getInitialDates() {
-    $kronos_report_day = $this->kronosReportDay;
-    $kronos_shift_days = $this->kronosReportShiftDays;
-    if ($week_day = date("w") < 2) {
-      foreach ($kronos_shift_days as &$kronos_shift_day) {
-        $kronos_shift_day -= 7;
-      }
-    }
-    $this->dates['EndDate'] = date('Y-m-d', strtotime($kronos_report_day));
-    $this->dates['StartDate'] = date(
-      'Y-m-d',
-      strtotime($kronos_report_day . ' -13 days')
-    );
+    $dateTime = new \DateTime('-2 weeks sunday');
+    $this->dates['StartDate'] = $dateTime->format('Y-m-d');
+
+    $interval = new \DateInterval('P13D');
+    $dateTime->add($interval);
+    $this->dates['EndDate'] = $dateTime->format('Y-m-d');
   }
 
   /**
@@ -546,34 +538,6 @@ class YptfKronosReports {
       'monday' => 'WFCMon',
       'tuesday' => 'WFC',
     ];
-
-    // Wrap here old code.
-    if (!$this->fixedKronosDates) {
-      $this->kronosData = FALSE;
-      $kronos_report_day = $this->kronosReportDay;
-      $kronos_shift_days = $this->kronosReportShiftDays;
-      $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day));
-      $kronos_data_raw = $kronos_file = '';
-      foreach ($kronos_shift_days as $shift) {
-        $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
-        $kronos_path_to_file = \Drupal::service('file_system')
-          ->realpath(file_default_scheme() . "://");
-        $file_prefix = $fileMapping[$this->reportDay];
-        $kronos_file = sprintf('%s/wf_reports/%s_%s.json', $kronos_path_to_file, $file_prefix, $kronos_file_name_date);
-
-        file_exists($kronos_file) ? $kronos_data_raw = file_get_contents($kronos_file) : '';
-        if (!empty($kronos_data_raw)) {
-          break;
-        }
-      }
-
-      if (!$kronos_data_raw) {
-        throw new \Exception(sprintf('Failed to load Kronos file: %s', $kronos_file));
-      }
-
-      $this->dates['EndDate'] = date('Y-m-d', strtotime($kronos_file_name_date));
-      $this->dates['StartDate'] = date('Y-m-d', strtotime($kronos_file_name_date . ' -13 days'));
-    }
 
     $kronos_file_name_date = date('Y-m-d', strtotime($this->dates['EndDate']));
     $kronos_path_to_file = \Drupal::service('file_system')
