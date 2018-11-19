@@ -134,3 +134,9 @@
 {% if node.field_lp_layout.value != "one_column_clean" %}
 </div>
 {% endif %}
+
+{% if content.field_bottom_content is defined and content.field_bottom_content|render|trim is not empty %}
+<div id="bottom-region">
+  {{ content.field_bottom_content }}
+</div>
+{% endif %}
