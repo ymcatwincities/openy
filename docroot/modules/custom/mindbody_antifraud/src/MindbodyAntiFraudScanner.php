@@ -191,7 +191,6 @@ class MindbodyAntiFraudScanner {
    *
    * @param array $appointments
    *   List of appointments to process.
-   *
    * @param int $previousId
    *   ID of previous appointment ( previous run maximum )
    *
