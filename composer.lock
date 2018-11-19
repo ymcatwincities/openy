@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e2ac47461de81d7acec27228e428207",
+    "content-hash": "4421d5702013133fe77aac875ab46669",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -3235,17 +3235,17 @@
         },
         {
             "name": "drupal/google_tag",
-            "version": "1.1.0",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/google_tag",
-                "reference": "8.x-1.1"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/google_tag-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "69c434d465ccf7c180c39c3bfba7e1ae34aaaad7"
+                "url": "https://ftp.drupal.org/files/projects/google_tag-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "eaaa2dd1bc1d74a31dc2087d9390096e11d12ee5"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -3256,16 +3256,14 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1",
+                    "version": "8.x-1.0",
                     "datestamp": "1534988884",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
                 },
-                "patches_applied": {
-                    "2974638 - Install file calls functions in .module before loading them": "https://www.drupal.org/files/issues/2018-10-10/2974638-install-file-calls-functions-before-loading-module-6.patch"
-                }
+                "patches_applied": []
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [

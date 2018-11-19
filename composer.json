@@ -242,7 +242,7 @@
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
         "drupal/optimizely": "3.1",
-        "drupal/google_tag": "1.1",
+        "drupal/google_tag": "1.0",
         "drupal/google_analytics": "2.3",
         "drupal/simple_sitemap": "2.12",
         "drupal/redirect": "1.3",
