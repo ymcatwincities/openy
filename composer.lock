@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2f22e665a0dbd22cb54f63762d11816",
+    "content-hash": "0e2ac47461de81d7acec27228e428207",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -3262,6 +3262,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "2974638 - Install file calls functions in .module before loading them": "https://www.drupal.org/files/issues/2018-10-10/2974638-install-file-calls-functions-before-loading-module-6.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",

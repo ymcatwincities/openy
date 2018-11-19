@@ -180,6 +180,9 @@
             "drupal/migrate_tools": {
                 "3014095 - Not compatible with Drupal 8.4 due to usage of tempstore.private service": "https://www.drupal.org/files/issues/2018-11-15/check-if-service-exists-3014095-1.patch"
             },
+            "drupal/google_tag": {
+                "2974638 - Install file calls functions in .module before loading them": "https://www.drupal.org/files/issues/2018-10-10/2974638-install-file-calls-functions-before-loading-module-6.patch"
+            },
             "drupal/core": {
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
