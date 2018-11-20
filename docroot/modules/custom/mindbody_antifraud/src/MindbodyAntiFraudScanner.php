@@ -202,9 +202,13 @@ class MindbodyAntiFraudScanner {
   private function getFraudAppointments(array $appointments, $previousId) {
     $filtered = [];
     $fraud = [];
+    $whitelistedProgramNames = [
+      'Member Engagements',
+      'Internal Staff Appointments'
+    ];
     // Remove appointments by ID.
     foreach ($appointments as $appointment) {
-      if ($appointment->ID > $previousId) {
+      if ($appointment->ID > $previousId && !in_array($appointment->Program->Name, $whitelistedProgramNames)) {
         $filtered[$appointment->ID] = $appointment;
       }
     }
