@@ -202,16 +202,24 @@ class MindbodyAntiFraudScanner {
   private function getFraudAppointments(array $appointments, $previousId) {
     $filtered = [];
     $fraud = [];
+    
     $whitelistedProgramNames = [
       'Member Engagements',
       'Internal Staff Appointments'
     ];
-    // Remove appointments by ID.
+
     foreach ($appointments as $appointment) {
-      if ($appointment->ID > $previousId && !in_array($appointment->Program->Name, $whitelistedProgramNames)) {
-        $filtered[$appointment->ID] = $appointment;
+      // Remove appointments by ID.
+      if ($appointment->ID < $previousId) {
+        continue;
       }
+      // Remove whitelisted appointments.
+      if (in_array($appointment->Program->Name, $whitelistedProgramNames)) {
+        continue;
+      }
+      $filtered[$appointment->ID] = $appointment;
     }
+
     $tz = new \DateTimeZone('America/Chicago');
     $date_from = new \DateTime();
     $date_from->setTimezone($tz);
