@@ -51,6 +51,17 @@ For development environment please read documentation [openy-project](https://gi
 
 Other development information you can find at [docs/Development](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development).
 
+## Open Y 2.0 beta
+
+Please read detailed installation instructions [here](https://github.com/ymcatwincities/openy-project).
+
+```
+composer create-project ymcatwincities/openy-project:8.2.x-dev MY_PROJECT --no-interaction --no-dev
+cd MY_PROJECT && composer update
+```
+
+This command will build project based on [**latest 8.2 beta**](https://github.com/ymcatwincities/openy/releases) release.
+
 # Documentation
 - [Documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs)
 - [Installation instructions](https://github.com/ymcatwincities/openy-project#installation)
