@@ -213,7 +213,7 @@ function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInter
   $form['search']['display_search_form'] = [
     '#type' => 'checkbox',
     '#title' => t('Display the search form'),
-    '#default_value' => theme_get_setting('display_search_form', 'openy_carnation'),
+    '#default_value' => theme_get_setting('display_search_form'),
     '#description' => t('Show search form in the header'),
   ];
 }
