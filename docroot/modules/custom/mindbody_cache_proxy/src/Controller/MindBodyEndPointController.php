@@ -57,6 +57,7 @@ class MindBodyEndPointController extends ControllerBase {
    * Provides "status" endpoint.
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   Json formatted response.
    */
   public function endPointStatus() {
     // We should increment 'miss' count each time endpoint accessed.
@@ -70,6 +71,8 @@ class MindBodyEndPointController extends ControllerBase {
    * Check access to "status" endpoint.
    *
    * @return \Drupal\Core\Access\AccessResult
+   *   If $condition is TRUE, isAllowed() will be TRUE, otherwise isNeutral()
+   *   will be TRUE.
    */
   public function endPointStatusAccess() {
     // Allow endpoint only on the primary host.

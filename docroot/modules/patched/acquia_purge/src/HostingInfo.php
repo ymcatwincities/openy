@@ -1,14 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\acquia_purge\HostingInfo.
- */
-
 namespace Drupal\acquia_purge;
 
+use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\Core\DrupalKernel;
 use Drupal\Core\Site\Settings;
 use Drupal\acquia_purge\HostingInfoInterface;
+use Drupal\acquia_purge\Hash;
 
 /**
  * Provides technical information accessors for the Acquia Cloud environment.
@@ -37,6 +35,13 @@ class HostingInfo implements HostingInfoInterface {
   protected $balancerToken = '';
 
   /**
+  * Whether the current hosting environment is Acquia Cloud or not.
+  *
+  * @var bool
+  */
+  protected $isThisAcquiaCloud = FALSE;
+
+  /**
    * The Acquia site environment.
    *
    * @var string
@@ -51,6 +56,13 @@ class HostingInfo implements HostingInfoInterface {
   protected $siteGroup = '';
 
   /**
+   * Unique identifier for this site.
+   *
+   * @var string
+   */
+  protected $siteIdentifier = '';
+
+  /**
    * The Acquia site name.
    *
    * @var string
@@ -58,19 +70,24 @@ class HostingInfo implements HostingInfoInterface {
   protected $siteName = '';
 
   /**
-   * Whether the current hosting environment is Acquia Cloud or not.
+   * The Drupal site path.
    *
-   * @var bool
+   * @var string
    */
-  protected $isThisAcquiaCloud = FALSE;
+  protected $sitePath = '';
 
   /**
    * Constructs a HostingInfo object.
    *
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
    * @param \Drupal\Core\Site\Settings $settings
    *   Drupal site settings object.
    */
-  public function __construct(Settings $settings) {
+  public function __construct(RequestStack $request_stack, Settings $settings) {
+
+    // Generate the Drupal sitepath by querying the SitePath from this request.
+    $this->sitePath = DrupalKernel::findSitePath($request_stack->getCurrentRequest());
 
     // Take the IP addresses from the 'reverse_proxies' setting.
     if (is_array($reverse_proxies = $settings->get('reverse_proxies'))) {
@@ -84,7 +101,7 @@ class HostingInfo implements HostingInfoInterface {
     // Call the AH_INFO_FUNCTION and take the keys 'sitename' and 'sitegroup'.
     $function = SELF::AH_INFO_FUNCTION;
     if (function_exists($function)) {
-      if (is_array($info = $function())) {
+      if (is_array($info = $function ())) {
         if (isset($info['environment'])) {
           if (is_string($info['environment']) && $info['environment']) {
             $this->siteEnvironment = $info['environment'];
@@ -102,6 +119,11 @@ class HostingInfo implements HostingInfoInterface {
         }
       }
     }
+    else if(!empty($GLOBALS['gardens_site_settings'])) {
+      $this->siteEnvironment = $GLOBALS['gardens_site_settings']['env'];
+      $this->siteGroup = $GLOBALS['gardens_site_settings']['site'];
+      $this->siteName = $this->siteGroup . '.' . $this->siteEnvironment;
+    }
 
     // Determine the authentication token is going to be, usually the site name.
     $this->balancerToken = $this->siteName;
@@ -111,14 +133,20 @@ class HostingInfo implements HostingInfoInterface {
       }
     }
 
+    // Use the sitename and site path directory as site identifier.
+    $this->siteIdentifier = Hash::siteIdentifier(
+      $this->siteName,
+      $this->sitePath
+    );
+
     // Test the gathered information to determine if this is/isn't Acquia Cloud.
     $this->isThisAcquiaCloud =
       count($this->balancerAddresses)
       && $this->balancerToken
       && $this->siteEnvironment
+      && $this->siteIdentifier
       && $this->siteName
-      && $this->siteGroup
-      && function_exists('curl_init');
+      && $this->siteGroup;
   }
 
   /**
@@ -152,8 +180,22 @@ class HostingInfo implements HostingInfoInterface {
   /**
    * {@inheritdoc}
    */
+  public function getSiteIdentifier() {
+    return $this->siteIdentifier;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getSiteName() {
     return $this->siteName;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSitePath() {
+    return $this->sitePath;
   }
 
   /**

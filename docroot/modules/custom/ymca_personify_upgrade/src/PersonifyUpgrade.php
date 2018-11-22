@@ -53,7 +53,7 @@ class PersonifyUpgrade {
     $entities = $this->replaceLinks($data);
     // Setup batch process to save entities.
     $operations = [];
-    $entities = array_chunk($entities, 10, true);
+    $entities = array_chunk($entities, 10, TRUE);
     foreach ($entities as $row) {
       $operations[] = [
         '\Drupal\ymca_personify_upgrade\PersonifyUpgrade::saveEntities',
@@ -71,7 +71,7 @@ class PersonifyUpgrade {
   /**
    * Save Entities.
    */
-  public static function saveEntities($entities, &$context){
+  public static function saveEntities($entities, &$context) {
     $message = 'Updating Links...';
     if (empty($context['results'])) {
       $context['results'] = 0;
@@ -211,7 +211,7 @@ class PersonifyUpgrade {
     $types = ['block', 'node', 'redirect'];
     foreach ($paths as $path) {
       $parts = explode('/', $path);
-      $id = null;
+      $id = NULL;
       foreach ($parts as $part) {
         if (is_numeric($part)) {
           $id = $part;
@@ -232,7 +232,7 @@ class PersonifyUpgrade {
   /**
    * Finish callback for batch process.
    */
-  function finishedCallback($success, $results, $operations) {
+  public function finishedCallback($success, $results, $operations) {
     // The 'success' parameter means no fatal PHP errors were detected. All
     // other error management should be handled using 'results'.
     if ($success) {
