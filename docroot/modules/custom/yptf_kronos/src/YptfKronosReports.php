@@ -122,20 +122,6 @@ class YptfKronosReports {
   protected $programIDs = ['PT' => 2, 'BT' => 4];
 
   /**
-   * Report date of Kronos file.
-   *
-   * @var string
-   */
-  protected $kronosReportDay = 'last Saturday';
-
-  /**
-   * Report shift date of Kronos file.
-   *
-   * @var array
-   */
-  protected $kronosReportShiftDays = [0, -7];
-
-  /**
    * Kronos Training program.
    *
    * @var array
@@ -220,7 +206,7 @@ class YptfKronosReports {
         'Failed to run reports for %day. Error: %error',
         [
           '%day' => Unicode::ucfirst($this->reportDay),
-          '%error' => $e->getMessage()
+          '%error' => $e->getMessage(),
         ]
       );
       return FALSE;
@@ -255,9 +241,10 @@ class YptfKronosReports {
    * @param array $dates
    *   Keyed array with "start" and "end" timestamps.
    *
-   * @return string
+   * @return bool|string
    *   HTML for report.
    *
+   * @throws \Exception
    */
   public function generateHtmlReports($day, $dates = []) {
     if (!$this->dayIsSupported($day)) {
@@ -285,14 +272,18 @@ class YptfKronosReports {
     }
 
     $output = '';
-    $reportLeadership = null;
+    $reportLeadership = NULL;
     $reports = [];
 
     /** @var \Drupal\ymca_mappings\LocationMappingRepository $locationRepository */
     $locationRepository = \Drupal::service('ymca_mappings.location_repository');
     $locations = $locationRepository->loadAllLocationsWithMindBodyId();
     foreach ($locations as $mapping) {
-      $location = $mapping->get('field_location_ref')->first()->get('entity')->getTarget()->getValue();
+      $location = $mapping->get('field_location_ref')
+        ->first()
+        ->get('entity')
+        ->getTarget()
+        ->getValue();
       if (!$location) {
         $this->logger->error('Failed to load location from mapping %id', ['%id' => $mapping->id()]);
         continue;
@@ -341,7 +332,13 @@ class YptfKronosReports {
         if (in_array($item->job, $this->kronosTrainingId)) {
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
           if (!$location_id) {
-            throw new \Exception(sprintf('Failed to get MindBody Location ID by Personify ID: %d', $item->locNo));
+            $this->logger->error(
+              'Failed to get MindBody Location ID by Personify ID: @personify_id',
+              [
+                '@personify_id' => $item->locNo
+              ]
+            );
+            continue;
           }
 
           // Skip this location if it's suppressed.
@@ -389,17 +386,23 @@ class YptfKronosReports {
       }
     }
 
-    if ($this->getMindBodyCSVData($this->kronosData)) {
+    if ($this->getMindBodyCsvData($this->kronosData)) {
       // Calculate MB data.
       foreach ($this->mindbodyData as $mb_id => $item) {
         // Get MB location ID.
-        $brCode = $this->getBranchCodeIdByMBLocationName($item['Location']);
+        $brCode = $this->getBranchCodeIdByMbLocationName($item['Location']);
         if (!$brCode) {
           throw new \Exception(sprintf('Failed to get Personify Location ID by MB Location Name: %s', $item['Location']));
         }
         $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($brCode);
         if (!$location_id) {
-          throw new \Exception(sprintf('Failed to get MindBody Location ID by Personify ID: %d', $item->locNo));
+          $this->logger->error(
+            'Failed to get MindBody Location ID by Personify ID: @personify_id',
+            [
+              '@personify_id' => $item->locNo
+            ]
+          );
+          continue;
         }
 
         // Skip this location if it's suppressed.
@@ -452,7 +455,7 @@ class YptfKronosReports {
         }
         if ($mb_flag && $wf_flag) {
           // We can't divide by zero, setting variance to be "-" in that case.
-          if ($trainer['wf_hours'] != 0)  {
+          if ($trainer['wf_hours'] != 0) {
             $trainer['variance'] = round((1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100);
             $trainer['variance'] .= '%';
           }
@@ -514,18 +517,12 @@ class YptfKronosReports {
    * Get initial Dates.
    */
   public function getInitialDates() {
-    $kronos_report_day = $this->kronosReportDay;
-    $kronos_shift_days = $this->kronosReportShiftDays;
-    if ($week_day = date("w") < 2) {
-      foreach ($kronos_shift_days as &$kronos_shift_day) {
-        $kronos_shift_day -= 7;
-      }
-    }
-    $this->dates['EndDate'] = date('Y-m-d', strtotime($kronos_report_day));
-    $this->dates['StartDate'] = date(
-      'Y-m-d',
-      strtotime($kronos_report_day . ' -13 days')
-    );
+    $dateTime = new \DateTime('-2 weeks sunday');
+    $this->dates['StartDate'] = $dateTime->format('Y-m-d');
+
+    $interval = new \DateInterval('P13D');
+    $dateTime->add($interval);
+    $this->dates['EndDate'] = $dateTime->format('Y-m-d');
   }
 
   /**
@@ -539,38 +536,12 @@ class YptfKronosReports {
   public function getKronosData() {
     $fileMapping = [
       'monday' => 'WFCMon',
-      'tuesday' => 'WFC'
+      'tuesday' => 'WFC',
     ];
 
-    // Wrap here old code.
-    if (!$this->fixedKronosDates) {
-      $this->kronosData = FALSE;
-      $kronos_report_day = $this->kronosReportDay;
-      $kronos_shift_days = $this->kronosReportShiftDays;
-      $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day));
-      $kronos_data_raw = $kronos_file = '';
-      foreach ($kronos_shift_days as $shift) {
-        $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
-        $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
-        $file_prefix = $fileMapping[$this->reportDay];
-        $kronos_file = sprintf('%s/wf_reports/%s_%s.json', $kronos_path_to_file, $file_prefix, $kronos_file_name_date);
-
-        file_exists($kronos_file) ? $kronos_data_raw = file_get_contents($kronos_file) : '';
-        if (!empty($kronos_data_raw)) {
-          break;
-        }
-      }
-
-      if (!$kronos_data_raw) {
-        throw new \Exception(sprintf('Failed to load Kronos file: %s', $kronos_file));
-      }
-
-      $this->dates['EndDate'] = date('Y-m-d', strtotime($kronos_file_name_date));
-      $this->dates['StartDate'] = date('Y-m-d', strtotime($kronos_file_name_date . ' -13 days'));
-    }
-
     $kronos_file_name_date = date('Y-m-d', strtotime($this->dates['EndDate']));
-    $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+    $kronos_path_to_file = \Drupal::service('file_system')
+      ->realpath(file_default_scheme() . "://");
     $file_prefix = $fileMapping[$this->reportDay];
     $kronos_file = sprintf('%s/wf_reports/%s_%s.json', $kronos_path_to_file, $file_prefix, $kronos_file_name_date);
 
@@ -629,7 +600,7 @@ class YptfKronosReports {
           if ($report_type == 'leadership') {
             $token = $this->createReportTable('', $report_type, $enabled_setting);
           }
-          elseif(!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
+          elseif (!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
             $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type, $enabled_setting);
           }
           else {
@@ -665,7 +636,8 @@ class YptfKronosReports {
               $lang,
               $tokens
             );
-          } catch (\Exception $e) {
+          }
+          catch (\Exception $e) {
             throw new \Exception(sprintf('Failed to send email with error: %s', $e->getMessage()));
           }
         }
@@ -730,7 +702,8 @@ class YptfKronosReports {
           $data['messages'] = '';
           if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
             $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
-            $admin_emails = $config = $this->configFactory->get($this->getCurrentConfigName())->get('admin_emails');
+            $admin_emails = $config = $this->configFactory->get($this->getCurrentConfigName())
+              ->get('admin_emails');
             $data['admin_mail_raw'] = '';
             $data['admin_mail'] = '';
             if (!empty($admin_emails)) {
@@ -805,7 +778,8 @@ class YptfKronosReports {
    */
   public function sendErrorReports() {
     if (isset($this->reports['messages']['error_reports'])) {
-      $admin_emails = $config = $this->configFactory->get($this->getCurrentConfigName())->get('admin_emails');
+      $admin_emails = $config = $this->configFactory->get($this->getCurrentConfigName())
+        ->get('admin_emails');
       if (!empty($admin_emails)) {
         $admin_emails = explode(',', $admin_emails);
         foreach ($admin_emails as $index => $email) {
@@ -833,7 +807,8 @@ class YptfKronosReports {
               $lang,
               $tokens
             );
-          } catch (\Exception $e) {
+          }
+          catch (\Exception $e) {
             $msg = 'Failed to send Error email report. Error: %error';
             $this->logger->notice($msg, ['%error' => $e->getMessage()]);
           }
@@ -848,9 +823,10 @@ class YptfKronosReports {
    * @param string $name
    *   MindBody location name.
    *
-   * @return null
+   * @return mixed
+   *   NULL ot branch code.
    */
-  protected function getBranchCodeIdByMBLocationName($name) {
+  protected function getBranchCodeIdByMbLocationName($name) {
     $mapping = $this->getLocationNamesMapping();
     foreach ($mapping as $item) {
       if (trim($name) === trim($item['mb'])) {
@@ -888,9 +864,9 @@ class YptfKronosReports {
   /**
    * Add error to the array of errors.
    *
-   * @param $key
+   * @param mixed $key
    *   Error key. Will be marked with bold in the email.
-   * @param $item
+   * @param string $item
    *   Error description.
    */
   protected function addError($key, $item) {
@@ -963,10 +939,11 @@ class YptfKronosReports {
    *
    * @throws \Exception
    */
-  protected function getMindBodyCSVData(array $kronosData) {
+  protected function getMindBodyCsvData(array $kronosData) {
     $reportDates = $this->getReportDates();
     $fileName = sprintf('MB_%s--%s.csv', $reportDates['StartDate'], $reportDates['EndDate']);
-    $filesDir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/' . $this->mindBodyCSVFileDir;
+    $filesDir = \Drupal::service('file_system')
+        ->realpath(file_default_scheme() . "://") . '/' . $this->mindBodyCSVFileDir;
     $filePath = $filesDir . '/' . $fileName;
 
     if (!file_exists($filePath)) {
@@ -979,7 +956,7 @@ class YptfKronosReports {
     $titles = str_getcsv($lines[1]);
 
     // Remove headers.
-    array_splice ($lines, 0,2);
+    array_splice($lines, 0, 2);
 
     $rows = [];
     $notFound = [];
@@ -1021,25 +998,53 @@ class YptfKronosReports {
       ['kronos' => 'Burnsville', 'mb' => 'Burnsville YMCA', 'brcode' => 30],
       ['kronos' => 'Eagan', 'mb' => 'Eagan YMCA', 'brcode' => 82],
       ['kronos' => 'Elk River', 'mb' => 'Elk River YMCA', 'brcode' => 34],
-      ['kronos' => 'Emma B Howe', 'mb' => 'Emma B. Howe - Coon Rapids YMCA', 'brcode' => 27],
+      [
+        'kronos' => 'Emma B Howe',
+        'mb' => 'Emma B. Howe - Coon Rapids YMCA',
+        'brcode' => 27,
+      ],
       ['kronos' => 'Forest Lake', 'mb' => 'Forest Lake YMCA', 'brcode' => 38],
       ['kronos' => 'Hastings', 'mb' => 'Hastings YMCA', 'brcode' => 85],
       ['kronos' => 'Hudson', 'mb' => 'Hudson YMCA', 'brcode' => 84],
       ['kronos' => 'Lino Lakes', 'mb' => 'Lino Lakes YMCA', 'brcode' => 81],
-      ['kronos' => 'Maplewood Comm Ctr', 'mb' => 'Maplewood YMCA', 'brcode' => 87],
+      [
+        'kronos' => 'Maplewood Comm Ctr',
+        'mb' => 'Maplewood YMCA',
+        'brcode' => 87,
+      ],
       ['kronos' => 'New Hope', 'mb' => 'New Hope YMCA', 'brcode' => 24],
       ['kronos' => 'Ridgedale', 'mb' => 'Ridgedale YMCA', 'brcode' => 22],
       ['kronos' => 'River Valley', 'mb' => 'River Valley YMCA', 'brcode' => 36],
       ['kronos' => 'Rochester', 'mb' => 'Rochester YMCA', 'brcode' => 50],
       ['kronos' => 'Shoreview', 'mb' => 'Shoreview YMCA', 'brcode' => 89],
       ['kronos' => 'Southdale', 'mb' => 'Southdale YMCA', 'brcode' => 20],
-      ['kronos' => 'St Paul Downtown', 'mb' => 'St. Paul Downtown YMCA', 'brcode' => 75],
-      ['kronos' => 'St Paul Eastside', 'mb' => 'St. Paul Eastside YMCA', 'brcode' => 76],
-      ['kronos' => 'West St Paul', 'mb' => 'West St. Paul YMCA', 'brcode' => 70],
-      ['kronos' => 'White Bear Lake', 'mb' => 'White Bear Lake YMCA', 'brcode' => 88],
+      [
+        'kronos' => 'St Paul Downtown',
+        'mb' => 'St. Paul Downtown YMCA',
+        'brcode' => 75,
+      ],
+      [
+        'kronos' => 'St Paul Eastside',
+        'mb' => 'St. Paul Eastside YMCA',
+        'brcode' => 76,
+      ],
+      [
+        'kronos' => 'West St Paul',
+        'mb' => 'West St. Paul YMCA',
+        'brcode' => 70,
+      ],
+      [
+        'kronos' => 'White Bear Lake',
+        'mb' => 'White Bear Lake YMCA',
+        'brcode' => 88,
+      ],
       ['kronos' => 'Woodbury', 'mb' => 'Woodbury YMCA', 'brcode' => 83],
       ['kronos' => 'Mpls Downtown', 'mb' => 'Dayton YMCA', 'brcode' => 17],
-      ['kronos' => 'Heritage Park', 'mb' => 'Cora McCorvey YMCA', 'brcode' => 18],
+      [
+        'kronos' => 'Heritage Park',
+        'mb' => 'Cora McCorvey YMCA',
+        'brcode' => 18,
+      ],
       ['kronos' => 'St Paul Midway', 'mb' => 'Midway YMCA', 'brcode' => 77],
     ];
   }
