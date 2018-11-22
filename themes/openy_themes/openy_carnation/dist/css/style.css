@@ -9973,18 +9973,18 @@ article .node--view-mode-flexible-content h2 {
     background: black;
     font-size: 15px;
     color: #636466; }
-    .footer .footer__copyright #block-openy-carnation-footermenuright ul {
+    .footer .footer__copyright .block-openy-carnation-footer-menu-right-menu ul {
       text-align: right;
       padding: 0;
       margin: 0; }
-      .footer .footer__copyright #block-openy-carnation-footermenuright ul li {
+      .footer .footer__copyright .block-openy-carnation-footer-menu-right-menu ul li {
         margin-right: 8px;
         display: inline-block; }
-        .footer .footer__copyright #block-openy-carnation-footermenuright ul li a {
+        .footer .footer__copyright .block-openy-carnation-footer-menu-right-menu ul li a {
           font-size: 15px;
           padding: 0;
           color: #fff; }
-          .footer .footer__copyright #block-openy-carnation-footermenuright ul li a:hover {
+          .footer .footer__copyright .block-openy-carnation-footer-menu-right-menu ul li a:hover {
             color: #fff;
             background: none;
             text-decoration: underline !important; }
