@@ -9,11 +9,18 @@ openy_repeat:
       css/modal.css: {}
       css/print.css: { media: print }
   dependencies:
+    - openy_repeat/polyfill
     - openy_repeat/openy_repeat.vue
     - openy_repeat/openy_repeat.vue_router
     - openy_repeat/openy_repeat.vue.table
     - openy_repeat/open_repeat.moment
     - openy_repeat/open_repeat.bootstrap-datepicker
+    - openy_repeat/openy_repeat.natsort
+
+polyfill:
+  version: 0.1
+  js:
+    https://cdn.polyfill.io/v2/polyfill.min.js: { type: external }
 
 openy_repeat.vue:
   version: 0.1

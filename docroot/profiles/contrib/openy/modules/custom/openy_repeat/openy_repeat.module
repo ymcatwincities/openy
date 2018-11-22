@@ -23,5 +23,20 @@ function openy_repeat_theme() {
         'locations' => [],
       ],
     ],
+    'openy_repeat__pdf__body' => [
+      'variables' => [
+        'content' => [],
+      ],
+    ],
+    'openy_repeat__pdf__table__activity' => [
+      'variables' => [
+        'content' => [],
+      ],
+    ],
+    'openy_repeat__pdf__table__day' => [
+      'variables' => [
+        'content' => [],
+      ],
+    ],
   ];
 }
