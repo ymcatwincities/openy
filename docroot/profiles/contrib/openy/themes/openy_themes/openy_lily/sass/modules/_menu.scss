@@ -196,6 +196,10 @@
   .openy-gtranslate {
     display: none;
     vertical-align: text-bottom;
+    @media (min-width: 768px){
+      display: inline-block;
+      float: right;
+    }
     .goog-te-gadget-simple {
       background-color: transparent;
       border: none;
@@ -231,6 +235,15 @@
         -ms-transition: all 0.2s linear;
         -o-transition: all 0.2s linear;
         transition: all 0.2s linear;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .secondary_menu {
+      float: right;
+      nav {
+        display: inline-block !important;
       }
     }
   }
