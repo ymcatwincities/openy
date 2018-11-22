@@ -1,9 +1,13 @@
 <?php
 
 /**
- * @file Module routines.
+ * @file
+ * Module file.
  */
 
+/**
+ * Implements hook_entity_matcher_matches_alter().
+ */
 function linkit_entity_attributes_linkit_entity_matcher_matches_alter(&$alterable) {
 
   if (isset($alterable['match']) && isset($alterable['entity'])) {

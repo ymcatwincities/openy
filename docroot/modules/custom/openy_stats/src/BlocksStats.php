@@ -3,7 +3,7 @@
 namespace Drupal\openy_stats;
 
 /**
- * Class BlocksStats
+ * Class BlocksStats.
  *
  * @package Drupal\openy_stats
  */

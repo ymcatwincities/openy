@@ -907,6 +907,12 @@ body {
   display: none;
   vertical-align: text-bottom;
 }
+@media (min-width: 768px) {
+  .viewport .openy-gtranslate {
+    display: inline-block;
+    float: right;
+  }
+}
 .viewport .openy-gtranslate .goog-te-gadget-simple {
   background-color: transparent;
   border: none;
@@ -943,6 +949,14 @@ body {
   background-color: #fff;
   color: #000;
   border-top: 2px solid #aa228d;
+}
+@media (min-width: 768px) {
+  .viewport .secondary_menu {
+    float: right;
+  }
+  .viewport .secondary_menu nav {
+    display: inline-block !important;
+  }
 }
 @media (min-width: 62em) {
   .viewport .secondary_menu {
@@ -13981,8 +13995,12 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     display: block !important;
   }
 }
+@media (min-width: 48em) and (max-width: 62em) {
+  header#page-head .top-navs #block-topmenu2 {
+    display: inline-block !important;
+  }
+}
 @media (min-width: 0) and (max-width: 47.9375em) {
-  header#page-head .top-navs #block-topmenu2,
   header#page-head .top-navs #block-anonymoususersmenu--2,
   header#page-head .top-navs #block-anonymoususersmenu,
   header#page-head .top-navs #block-openy-lily-user-menu,
@@ -13992,7 +14010,6 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   }
 }
 @media (min-width: 48em) and (max-width: 62em) {
-  header#page-head .top-navs #block-topmenu2,
   header#page-head .top-navs #block-anonymoususersmenu--2,
   header#page-head .top-navs #block-anonymoususersmenu,
   header#page-head .top-navs #block-openy-lily-user-menu,
@@ -14001,7 +14018,6 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
     display: block !important;
   }
 }
-header#page-head .top-navs #block-topmenu2 .nav li a,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a,
 header#page-head .top-navs #block-anonymoususersmenu .nav li a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a,
@@ -14452,7 +14468,7 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
     float: left;
   }
 }
-@media (min-width: 62em) {
+@media (min-width: 768px) {
   .path-headerhtml .viewport .secondary_menu .openy-gtranslate {
     display: none;
   }

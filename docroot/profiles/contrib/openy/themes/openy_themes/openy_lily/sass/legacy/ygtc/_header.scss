@@ -121,7 +121,12 @@ header#page-head {
       }
     }
 
-    #block-topmenu2,
+    #block-topmenu2 {
+      @include breakpoint (768px 992px) {
+        display: inline-block !important;
+      }
+    }
+
     #block-anonymoususersmenu--2,
     #block-anonymoususersmenu,
     #block-openy-lily-user-menu,
