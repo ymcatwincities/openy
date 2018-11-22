@@ -29,7 +29,7 @@ class Locations extends ResourceBase {
     $data = ['results' => $results];
 
     $defaults['timestamp'] = \Drupal::time()->getRequestTime();
-    $defaults['status'] = true;
+    $defaults['status'] = TRUE;
     $defaults['message'] = "OK";
 
     $data = array_merge($defaults, $data);

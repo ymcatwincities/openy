@@ -629,7 +629,7 @@ function ymca_alters_preprocess_file_link(&$variables) {
           'absolute' => TRUE,
           'attributes' => ['target' => '_blank', 'class' => 'button']
         ]);
-        $project_link = Link::fromTextAndUrl(t('Replace: ' . $variables['file']->filename->value), $url);
+        $project_link = Link::fromTextAndUrl(t('Replace: @filename', ['@filename' => $variables['file']->filename->value]), $url);
         $project_link = $project_link->toRenderable();
         $variables['link'] = $project_link;
       }
@@ -646,7 +646,7 @@ function ymca_alters_preprocess_views_view(&$vars) {
       $vars['base_path'] = base_path();
       $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
       foreach ($available_terms as $name => $tid) {
-        $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
+        $link = new Link(t($name), Url::fromUri('internal:/taxonomy/term/' . $tid));
         $vars['categories'][] = $link;
         // Pass Archive block data to the Search The Blog block.
         if ($archive_lists = _ymca_get_archive_data('blog')) {
@@ -671,7 +671,7 @@ function ymca_alters_preprocess_views_view(&$vars) {
 
     $available_terms = \Drupal::config('ymca_frontend.settings')->get('blog_available_terms');
     foreach ($available_terms as $name => $tid) {
-      $link = new \Drupal\Core\Link(t($name), Drupal\Core\Url::fromUri('internal:/taxonomy/term/' . $tid));
+      $link = new Link(t($name), Url::fromUri('internal:/taxonomy/term/' . $tid));
       $vars['categories'][] = $link;
     }
     // Pass Archive block data to the Search The Blog block.
@@ -730,7 +730,7 @@ function _ymca_get_archive_data($context) {
     $month = array(
       'title' => date('F', $node->getCreatedTime()),
       'number' => $number,
-      'url' => Drupal\Core\Url::fromUri('internal:' . $url_key . $year . '/' . date('m', $node->getCreatedTime())),
+      'url' => Url::fromUri('internal:' . $url_key . $year . '/' . date('m', $node->getCreatedTime())),
       'active' => $active ? TRUE : FALSE,
     );
     $data[$year]['expanded'] = '';

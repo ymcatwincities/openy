@@ -397,6 +397,22 @@ RewriteRule ^$ https://www.ymcamn.org/locations/burnsville_ymca? [L,R=301]
 RewriteCond %{HTTP_HOST} ^campdunord\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_du_nord? [L,R=301]
 
+# 301 --- http://campnl.org => https://www.ymcamn.org/camps/camp_du_nord/family_camp/summer/camp_northern_lights
+RewriteCond %{HTTP_HOST} ^campnl\.org$
+RewriteRule ^$ https://www.ymcamn.org/camps/camp_du_nord/family_camp/summer/camp_northern_lights? [L,R=301]
+
+# 301 --- http://campnorthernlights.org => https://www.ymcamn.org/camps/camp_du_nord/family_camp/summer/camp_northern_lights
+RewriteCond %{HTTP_HOST} ^campnorthernlights\.org$
+RewriteRule ^$ https://www.ymcamn.org/camps/camp_du_nord/family_camp/summer/camp_northern_lights? [L,R=301]
+
+# 301 --- http://www.campnl.org => https://www.ymcamn.org/camps/camp_du_nord/family_camp/summer/camp_northern_lights
+RewriteCond %{HTTP_HOST} ^www\.campnl\.org$
+RewriteRule ^$ https://www.ymcamn.org/camps/camp_du_nord/family_camp/summer/camp_northern_lights? [L,R=301]
+
+# 301 --- http://www.campnorthernlights.org => https://www.ymcamn.org/camps/camp_du_nord/family_camp/summer/camp_northern_lights
+RewriteCond %{HTTP_HOST} ^www\.campnorthernlights\.org$
+RewriteRule ^$ https://www.ymcamn.org/camps/camp_du_nord/family_camp/summer/camp_northern_lights? [L,R=301]
+
 # 301 --- http://campicaghowan.org => http://www.ymcamn.org/camps/camp_icaghowan
 RewriteCond %{HTTP_HOST} ^campicaghowan\.org$
 RewriteRule ^$ https://www.ymcamn.org/camps/camp_icaghowan? [L,R=301]

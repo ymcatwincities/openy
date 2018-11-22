@@ -14,6 +14,9 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\webforms\LocationTitleItemList;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
  * Prepares variables for individual form element templates.
@@ -266,7 +269,7 @@ function webforms_entity_embed_display_plugins_for_context_alter($definitions_fo
  * Implements hook_ENTITY_TYPE_embed_alter().
  */
 function webforms_contact_form_embed_alter(&$build, $entity, $context) {
-  if (isset($context['data-entity-embed-settings'])){
+  if (isset($context['data-entity-embed-settings'])) {
     foreach ($context['data-entity-embed-settings'] as $field_name => $default_value) {
       if (!empty($build[$field_name]['widget'][0]['option_emails']) && $default_value != -1) {
         $build[$field_name]['widget'][0]['option_emails']['#default_value'] = $default_value;
@@ -292,18 +295,18 @@ function webforms_file_access(EntityInterface $entity, $operation, AccountInterf
 /**
  * Implements hook_entity_base_field_info_alter().
  */
-function webforms_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle) {
+function webforms_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
   if ($entity_type->id() == 'contact_message') {
     /** @var FieldConfig $field */
     foreach ($fields as $field) {
       if ($field->getType() == 'options_email_item') {
         $machineName = sprintf('csv_%s', $field->getName());
         $label = sprintf('%s (CSV Export)', $field->label());
-        $fields[$machineName] = \Drupal\Core\Field\BaseFieldDefinition::create('string')
+        $fields[$machineName] = BaseFieldDefinition::create('string')
           ->setName($machineName)
           ->setLabel($label)
           ->setComputed(TRUE)
-          ->setClass(\Drupal\webforms\LocationTitleItemList::class)
+          ->setClass(LocationTitleItemList::class)
           ->setDisplayConfigurable('view', TRUE)
           ->setDisplayOptions('view', [
             'label' => 'hidden',
