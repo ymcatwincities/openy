@@ -192,7 +192,7 @@
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
-        "drupal/core": "~8.4.8",
+        "drupal/core": "~8.6.0",
         "drupal/features": "3.5",
         "drupal/confi": "1.4",
         "drupal/config_update": "1.5",
@@ -273,5 +273,5 @@
         "drupal/social_feed_fetcher": "^1.0",
         "symfony/dom-crawler": "v4.1.3",
         "mpdf/mpdf": "^7.1"
-    }
+    },
 }
