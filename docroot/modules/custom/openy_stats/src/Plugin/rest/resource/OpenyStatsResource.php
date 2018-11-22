@@ -21,7 +21,9 @@ class OpenyStatsResource extends ResourceBase {
 
   /**
    * Responds to entity GET requests.
+   *
    * @return \Drupal\rest\ResourceResponse
+   *   Response.
    */
   public function get($endpoint) {
     $client_ip = \Drupal::request()->getClientIp();
@@ -67,6 +69,7 @@ class OpenyStatsResource extends ResourceBase {
           // @todo Create ability to pass arguments from current_call array.
           $result = \Drupal::service($service_name)->$service_method();
           break;
+
         default:
           break;
       }

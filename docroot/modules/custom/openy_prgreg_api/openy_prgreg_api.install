@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Program Registration global routines.
+ */
+
 use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 

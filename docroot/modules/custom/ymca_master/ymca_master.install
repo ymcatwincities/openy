@@ -5087,6 +5087,7 @@ function ymca_master_update_8236() {
     ]
   );
 }
+
 /**
  * Replace field_content with field_ygtc_content in all related configs.
  */
@@ -5399,7 +5400,7 @@ function ymca_master_update_8252() {
   $blockEntityManager = \Drupal::service('entity.manager')->getStorage('block');
   $block = $blockEntityManager->create(
     array(
-      'id'=> 'topmenu2',
+      'id' => 'topmenu2',
       'plugin' => 'system_menu_block:top_menu_2',
       'theme' => 'openy_lily',
     )
@@ -5474,7 +5475,7 @@ function ymca_master_update_8253() {
       ],
     ],
   ];
-  foreach($menu_tree as $key => $menu_link) {
+  foreach ($menu_tree as $key => $menu_link) {
     $first_level = MenuLinkContent::create([
       'title' => $menu_link['title'],
       'link' => ['uri' => 'internal:' . $menu_link['uri']],
@@ -5500,7 +5501,7 @@ function ymca_master_update_8253() {
 }
 
 /**
-  * Install Block wrapper.
+ * Install Block wrapper.
  */
 function ymca_master_update_8254() {
   \Drupal::service('module_installer')->install([
@@ -5788,7 +5789,6 @@ function ymca_master_update_8262() {
     ]
   );
 }
-
 
 /**
  * Prepare db before migration.
@@ -6224,7 +6224,7 @@ function ymca_master_update_8273() {
     'field_header_content_target_id',
     'field_header_content_target_revision_id',
   ]);
-  $query->condition('p.type','small_banner');
+  $query->condition('p.type', 'small_banner');
   $query->condition('n.entity_id', $list, 'IN');
   $result = $query->execute();
 
@@ -6285,7 +6285,12 @@ function ymca_master_update_8274() {
   $field_name = 'field_image';
 
   $fieldHelper = \Drupal::service('openy_tools.field_helper');
-  $fieldHelper->remove('block_content', ['image_block', 'promo_block', 'slide_show_item'], $field_name, TRUE);
+  $fieldHelper->remove(
+    'block_content',
+    ['image_block', 'promo_block', 'slide_show_item'],
+    $field_name,
+    TRUE
+  );
 
   $config_importer = \Drupal::service('config_import.importer');
 
@@ -6506,6 +6511,7 @@ function ymca_master_update_8277() {
           ]
         );
         break;
+
       case 'document':
       case 'archive':
         $id = $file->id();
@@ -6532,8 +6538,10 @@ function ymca_master_update_8277() {
           ]
         );
         break;
+
       case 'audio':
         continue;
+
       case 'video':
         continue;
     }
@@ -6686,6 +6694,7 @@ function ymca_master_update_8293() {
   \Drupal::service('module_installer')->install(['openy_prgf_loc_finder'], TRUE);
   \Drupal::service('module_installer')->install(['openy_data_wrapper'], TRUE);
 }
+
 /**
  * Update config.
  */
