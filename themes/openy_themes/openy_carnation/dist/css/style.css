@@ -10585,6 +10585,9 @@ article .node--view-mode-flexible-content h2 {
 .openy-map-canvas {
   height: 500px; }
 
+.openy-map-canvas.openy-map {
+  z-index: 5; }
+
 .field-location-address {
   position: relative;
   padding-left: 25px; }
