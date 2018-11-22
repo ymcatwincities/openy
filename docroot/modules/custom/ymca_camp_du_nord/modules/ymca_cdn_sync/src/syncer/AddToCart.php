@@ -82,7 +82,7 @@ class AddToCart implements AddToCartInterface {
    * @param \Drupal\Core\Entity\Query\QueryFactory $entity_query
    *   The entity query factory.
    */
-  public function __construct(Client $client, LoggerChannelInterface $logger, ConfigFactoryInterface $config, WrapperInterface $wrapper, QueryFactory $entity_query,  EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(Client $client, LoggerChannelInterface $logger, ConfigFactoryInterface $config, WrapperInterface $wrapper, QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager) {
     $this->client = $client;
     $this->logger = $logger;
     $this->config = $config;
@@ -905,7 +905,6 @@ class AddToCart implements AddToCartInterface {
       if ($response->getStatusCode() == '200') {
         $contents = $response->getBody()->getContents();
         $xml = simplexml_load_string($contents);
-        if ($xml->Success) {}
       }
       else {
         $msg = 'Got %code response from Personify: %msg';
