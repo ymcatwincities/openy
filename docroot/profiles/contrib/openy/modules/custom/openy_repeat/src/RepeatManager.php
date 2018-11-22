@@ -201,9 +201,6 @@ class RepeatManager implements SessionInstanceManagerInterface {
       'location' => $location_id,
       'facility' => !empty($facility) ? $facility->getTitle() : NULL,
       'category' => !empty($activities) ? $activity->getTitle() : NULL,
-      'program_category' => !empty($activities) ? $activity->field_activity_category->target_id : NULL,
-      'productid' => $session->field_productid->value,
-      'availability' => $session->field_availability->value,
       'class' => $class_id,
       'field_si_activity' => array_unique($activity_ids),
       'field_si_program_subcategory' => array_unique($program_subcategory_ids),
@@ -458,7 +455,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
     // It's not published.
     // @todo YGTC requires unpublished session. Fix it.
     if (FALSE && !$node->isPublished()) {
-       return;
+      return;
     }
 
     // The session isn't complete or the chain is broken.
