@@ -8428,13 +8428,13 @@ header#page-head.tiny .top-navs #block-anonymoususersmenu--2 li a,
 header#page-head.tiny .top-navs #block-openy-lily-user-menu li a,
 header#page-head.tiny .top-navs #block-cccuseraccountmenu li a,
 header#page-head.tiny .top-navs #block-cccuseraccountmenu--2 li a {
-  line-height: 19px;
+  line-height: 68px;
 }
 header#page-head.tiny .top-navs #block-topmenu2 ul li:first-child a,
 header#page-head.tiny .top-navs #block-openy-lily-user-menu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu--2 ul li:first-child a {
-  margin: 9px 5px 0 0;
+  margin: 36px 5px 0 0;
 }
 header#page-head.tiny .top-navs #block-openy-lily-main-menu .nav-level-2 > a {
   padding: 21px 0;
