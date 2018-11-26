@@ -143,7 +143,7 @@ class Saver implements SaverInterface {
       $hash = (string) crc32(serialize($item));
 
       // Check if corresponding session exists and is up to date.
-      $mappingItems = $this->mappingRepository->getMappingByProductId($item['class_id']);
+      $mappingItems = $this->mappingRepository->getMappingByHash($hash);
       if ($mappingItems) {
 
         // Compare source item & existing one.
