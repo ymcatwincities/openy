@@ -102,6 +102,7 @@ class RepeatSchedulesBlock extends BlockBase {
       '#categories' => $this->getCategories(),
       '#checked_locations' => $checked_locations,
       '#checked_categories' => $checked_categories,
+      '#cache' => ['contexts' => ['url.path', 'url.query_args']],
     ];
   }
 

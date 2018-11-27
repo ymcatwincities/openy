@@ -282,6 +282,17 @@
           categories: this.categories.join(',')
         }});
       },
+      toggleParentClass: function(event) {
+        if (event.target.parentElement.classList.contains('skip-checked')) {
+          event.target.parentElement.classList.remove('skip-checked');
+          if (!event.target.parentElement.classList.contains('skip-t')) {
+            event.target.parentElement.classList.add('skip-t');
+          }
+        }
+        else {
+          event.target.parentElement.classList.toggle("skip-t");
+        }
+      },
       populatePopupL: function(index) {
         this.locationPopup = this.filteredTable[index].location_info;
       },
