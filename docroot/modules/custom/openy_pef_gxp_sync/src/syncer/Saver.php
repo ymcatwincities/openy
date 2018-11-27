@@ -338,7 +338,7 @@ class Saver implements SaverInterface {
   private function getClass(array $class) {
     // Try to get existing activity.
     $existingActivities = \Drupal::entityQuery('node')
-      ->condition('title', $class['title'])
+      ->condition('title', $class['category'])
       ->condition('type', 'activity')
       ->condition('field_activity_category', $this->programSubcategory)
       ->execute();
@@ -349,7 +349,7 @@ class Saver implements SaverInterface {
         'uid' => 1,
         'lang' => 'und',
         'type' => 'activity',
-        'title' => $class['title'],
+        'title' => $class['category'],
         'field_activity_description' => [
           [
             'value' => $class['description'],
