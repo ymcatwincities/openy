@@ -16,5 +16,4 @@ dependencies:
   - openy_repeat
   - paragraphs
   - plugin
-  - ymca_master_8290
 version: 8.x-1.1-ygtconly
