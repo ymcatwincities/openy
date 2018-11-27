@@ -175,7 +175,7 @@
                 "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/plugin_2647312_20.patch"
             },
             "drupal/views_field_formatter": {
-                "2980093 - Can't uninstall module": "https://www.drupal.org/files/issues/2018-10-05/ViewsFieldFormatter-get_on_null-2980093-13_0.patch"
+                "2980093 - Can't uninstall module": "https://gist.githubusercontent.com/AndreyMaximov/fdf9128022266188cbce2cc82be3d099/raw/7797fd965915de32820e04fcb4c8189ac427fb62/2980093_viewsfieldformatter_get_on_null.patch"
             },
             "drupal/views_data_export": {
                 "2789531 - Support for batch operations": "https://www.drupal.org/files/issues/2789531-105.patch"
