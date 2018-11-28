@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Paragraph Gallery install file.
+ * Open Y Paragraph Gallery install file.
  */
 
 /**
@@ -37,7 +37,7 @@ function openy_prgf_gallery_update_8001() {
 }
 
 /**
- * Update OpenY gallery paragraph feature configs.
+ * Update Open Y gallery paragraph feature configs.
  */
 function openy_prgf_gallery_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';
@@ -68,7 +68,7 @@ function openy_prgf_gallery_update_8002() {
 }
 
 /**
- * Update OpenY paragraph gallery feature configs for Blazy support.
+ * Update Open Y paragraph gallery feature configs for Blazy support.
  */
 function openy_prgf_gallery_update_8003() {
   $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';
@@ -81,7 +81,7 @@ function openy_prgf_gallery_update_8003() {
 }
 
 /**
- * Update OpenY paragraph gallery feature config for Focal Point support.
+ * Update Open Y paragraph gallery feature config for Focal Point support.
  */
 function openy_prgf_gallery_update_8004() {
   $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';

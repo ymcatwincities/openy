@@ -2,8 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - block_content.type.flexible_content
-    - block_content.type.simple_block
     - field.storage.paragraph.field_prgf_2c_left
     - paragraphs.paragraphs_type.2c
 id: paragraph.2c.field_prgf_2c_left
@@ -17,13 +15,14 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:block_content'
+  handler: 'default_no_dep:block_content'
   handler_settings:
-    target_bundles:
-      flexible_content: flexible_content
-      simple_block: simple_block
+    target_bundles: null
     sort:
       field: _none
-    auto_create: true
-    auto_create_bundle: ''
+    auto_create: 1
+    auto_create_bundle: flexible_content
+    target_bundles_no_dep:
+      flexible_content: flexible_content
+      simple_block: simple_block
 field_type: entity_reference

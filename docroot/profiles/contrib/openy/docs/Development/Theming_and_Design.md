@@ -1,4 +1,4 @@
-Welcome to OpenY Theming and Design documentation.
+Welcome to Open Y Theming and Design documentation.
 
 ### How to change styles on content type level
 

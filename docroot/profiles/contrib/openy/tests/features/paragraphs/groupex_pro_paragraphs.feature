@@ -3,10 +3,10 @@ Feature: GroupEx Pro paragraphs
 
   Background: GroupEx Pro test setup
     Given I am logged in as a user with the "Administrator" role
-    Then I go to "/admin/config/services/openy_group_schedules/settings"
+    Then I go to "/admin/openy/integrations/groupex-pro/group_schedules_settings"
     And I fill in "GroupEx Account ID" with "36"
     Then I press the "Save configuration" button
-    Then I go to "/admin/config/services/groupexpro"
+    Then I go to "/admin/openy/integrations/groupex-pro/groupexpro"
     And I fill in "GroupEx Pro Account" with "36"
     Then I press the "Save configuration" button
     Given I am logged in as a user with the "Editor" role

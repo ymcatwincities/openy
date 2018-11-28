@@ -1,8 +1,9 @@
-name: 'OpenY Paragraph Categories Listing'
-description: 'OpenY Paragraph Categories Listing.'
+name: Open Y Paragraph Categories Listing
+description: Provides a dynamic paragraph that renders all published categories according to current program page.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - node
