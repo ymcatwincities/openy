@@ -16,7 +16,7 @@ field_name: field_news_category
 entity_type: node
 bundle: news
 label: Category
-description: ''
+description: 'Reference field for choosing the term from "News Category" vocabulary. Multiple Values.'
 required: false
 translatable: true
 default_value: {  }

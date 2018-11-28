@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.news.field_sidebar_content
     - node.type.news
   module:
+    - text
     - user
 id: node.news.teaser
 targetEntityType: node
@@ -37,12 +38,20 @@ content:
       link: true
     third_party_settings: {  }
     region: content
+  field_news_description:
+    type: text_trimmed
+    weight: 3
+    region: content
+    label: hidden
+    settings:
+      trim_length: 400
+    third_party_settings: {  }
   field_news_image:
     type: entity_reference_entity_view
     weight: 2
     label: hidden
     settings:
-      view_mode: node_program_subcategory_teaser
+      view_mode: node_news_teaser
       link: false
     third_party_settings: {  }
     region: content
@@ -54,7 +63,6 @@ content:
 hidden:
   field_content: true
   field_meta_tags: true
-  field_news_description: true
   field_news_location: true
   field_news_related: true
   field_sidebar_content: true

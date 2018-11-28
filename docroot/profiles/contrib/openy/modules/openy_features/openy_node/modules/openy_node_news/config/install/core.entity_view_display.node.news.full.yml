@@ -44,7 +44,7 @@ content:
     type: entity_reference_label
     weight: 6
     region: content
-    label: inline
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -68,7 +68,7 @@ content:
     type: entity_reference_label
     weight: 7
     region: content
-    label: inline
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }

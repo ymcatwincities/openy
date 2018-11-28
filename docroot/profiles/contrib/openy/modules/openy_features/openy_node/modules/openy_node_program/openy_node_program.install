@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Program install file.
+ * Open Y Node Program install file.
  */
 
 /**
@@ -205,7 +205,7 @@ function openy_node_program_update_8008() {
 }
 
 /**
- * Update OpenY program node feature configs.
+ * Update Open Y program node feature configs.
  */
 function openy_node_program_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
@@ -241,7 +241,7 @@ function openy_node_program_update_8009() {
 }
 
 /**
- * Update OpenY node program feature configs for Blazy support.
+ * Update Open Y node program feature configs for Blazy support.
  */
 function openy_node_program_update_8010() {
   $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
@@ -256,7 +256,7 @@ function openy_node_program_update_8010() {
 }
 
 /**
- * Update OpenY node program feature config for Focal Point support.
+ * Update Open Y node program feature config for Focal Point support.
  */
 function openy_node_program_update_8011() {
   $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';

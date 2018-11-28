@@ -1,6 +1,8 @@
 <?php
+
 /**
- * @file OpenY Node Class install file.
+ * @file
+ * Open Y Node Class install file.
  */
 
 /**
@@ -10,7 +12,7 @@ function openy_node_class_update_dependencies() {
   $dependencies['openy_node_class'] = [
     8002 => [
       'openy_node' => 8003,
-    ]
+    ],
   ];
 
   return $dependencies;
@@ -41,7 +43,7 @@ function openy_node_class_update_8001() {
  */
 function openy_node_class_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
@@ -150,7 +152,7 @@ function openy_node_class_update_8004() {
   $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'field.field.node.class.field_bottom_content' =>[
+    'field.field.node.class.field_bottom_content' => [
       'description',
     ],
     'field.field.node.class.field_class_activity' => [
@@ -185,7 +187,7 @@ function openy_node_class_update_8004() {
  */
 function openy_node_class_update_8005() {
   $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
@@ -246,7 +248,7 @@ function openy_node_class_update_8008() {
 }
 
 /**
- * Update OpenY class node feature configs.
+ * Update Open Y class node feature configs.
  */
 function openy_node_class_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
