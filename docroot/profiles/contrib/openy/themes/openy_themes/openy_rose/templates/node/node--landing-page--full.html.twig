@@ -67,29 +67,40 @@
  */
 #}
 {%
-  set header_classes = [
-    'landing-header',
-    node.field_lp_layout.value|clean_class,
-  ]
+  set header_attributes = create_attribute()
 %}
 {%
-  set header_content_classes = ['content']
+  set header_classes = [
+    'landing-header',
+    node.field_lp_layout.value|clean_class
+  ]
 %}
+
+{%  set header_content_attributes = create_attribute() %}
+{%
+  set header_content_classes = [
+    'content'
+  ]
+%}
+{% set content_attributes = create_attribute() %}
 {%
   set content_classes = [
     'landing-content',
-    node.field_lp_layout.value|clean_class,
+    node.field_lp_layout.value|clean_class
   ]
 %}
+
 {%
-  set sidebar_classes = [
-    'landing-sidebar',
+  set sidebar_attributes = create_attribute()
+%}
+{% set sidebar_classes = [
+    'landing-sidebar'
   ]
 %}
 
 {% if content.field_header_content is not empty %}
-  <div{{ attributes.addClass(header_classes) }}>
-    <div{{ content_attributes.addClass(header_content_classes) }}>
+  <div{{ header_attributes.addClass(header_classes) }}>
+    <div{{ content_attributes }}>
       <div class="main">
         {{ content.field_header_content }}
       </div>
@@ -107,7 +118,7 @@
     {% endif %}
 
     {% if content.field_content is not empty %}
-      <div{{ attributes.addClass(content_classes) }}>
+      <div{{ content_attributes.addClass(content_classes) }}>
         {% if node.field_lp_layout.value == "one_column" %}
         <div class="main-region col-sm-12">
           {% endif %}
@@ -116,12 +127,17 @@
             <div class="main-region col-sm-8">
               {% endif %}
               {{ content.field_content }}
+
+              {% if content.addthis is not empty %}
+                {{ content.addthis }}
+              {% endif %}
+
               {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
             </div>
             <div class="sidebar-region col-sm-4">
               {% endif %}
               {% if content.field_sidebar_content.0 %}
-              <aside{{ attributes.addClass(sidebar_classes) }}>
+              <aside{{ sidebar_attributes.addClass(sidebar_classes) }}>
                 {{ content.field_sidebar_content }}
               </aside>
               {% endif %}

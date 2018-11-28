@@ -36,24 +36,20 @@
  * @ingroup themeable
  */
 #}
-{%
-set classes = [
-  'paragraph',
-  'story-card',
-  'sidebar-card',
-  'paragraph--type--' ~ paragraph.bundle|clean_class,
-  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-]
-%}
+{% set classes = [
+'paragraph',
+'paragraph--type--' ~ paragraph.bundle|clean_class,
+view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+] %}
 <div{{ attributes.addClass(classes) }}>
-  <a href="{{ content.field_prgf_link.0['#url'] }}">
-    {{ content.field_prgf_title }}
-    <div class="quote">
-      {% include base_path ~ directory ~ '/img/icons/quote_purple.svg' %}
-      {{ content.field_prgf_headline }}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 left">
+        {{ content.field_prgf_left_column_block }}
+      </div>
+      <div class="col-sm-5 col-sm-offset-1 right">
+        {{ content.field_prgf_right_column_block }}
+      </div>
     </div>
-    <div class="link">
-      {{ content.field_prgf_link.0['#title'] }}
-    </div>
-  </a>
+  </div>
 </div>
