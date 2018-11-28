@@ -1,0 +1,3 @@
+entity_clone.clone:
+  deriver: 'Drupal\entity_clone\Plugin\Derivative\DynamicLocalTasks'
+  weight: 100

@@ -39,7 +39,7 @@ class FacebookNodeProcessor extends PluginNodeProcessorPluginBase {
           'options' => [],
         ],
         'field_sp_image' => [
-          'target_id' => social_feed_fetcher_save_file($data_item['image'], 'public://facebook/'),
+          'target_id' => social_feed_fetcher_save_file($data_item['picture'], 'public://facebook/'),
         ],
         'field_posted' => [
           'value' => $this->setPostTime($data_item['created_time']),
