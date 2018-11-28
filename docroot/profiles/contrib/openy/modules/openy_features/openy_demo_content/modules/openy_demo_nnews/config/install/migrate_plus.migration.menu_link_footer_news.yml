@@ -6,7 +6,10 @@ dependencies:
       - openy_demo_nnews
 id: openy_demo_menu_link_footer_news
 migration_tags:
-  - 'OpenY Demo News'
+  - 'Open Y Demo News'
+  - openy_standard_installation
+  - openy_extended_installation
+  - openy_complete_installation
 migration_group: openy_demo_nnews
 label: 'Create news demo footer menu link'
 migration_dependencies:
@@ -28,6 +31,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   bundle:
     plugin: default_value
     default_value: menu_link_content

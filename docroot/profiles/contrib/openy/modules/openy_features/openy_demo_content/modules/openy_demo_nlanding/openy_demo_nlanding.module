@@ -26,7 +26,8 @@ function openy_demo_nlanding_pef_pages() {
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'activity')
       ->condition('title', $title);
-    return reset($query->execute());
+    $result = $query->execute();
+    return reset($result);
   };
 
   $schedules_node = \Drupal\node\Entity\Node::create(
@@ -36,7 +37,6 @@ function openy_demo_nlanding_pef_pages() {
       'langcode' => 'en',
       'uid' => '1',
       'status' => 1,
-      'moderation_state' => 'published',
       'field_lp_layout' => ['value' => 'one_column_clean'],
     ]
   );
@@ -49,7 +49,6 @@ function openy_demo_nlanding_pef_pages() {
       'langcode' => 'en',
       'uid' => '1',
       'status' => 1,
-      'moderation_state' => 'published',
       'field_lp_layout' => ['value' => 'one_column_clean'],
     ]
   );
@@ -93,55 +92,81 @@ function openy_demo_nlanding_pef_pages() {
   $locations_node->save();
 
   $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
-  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
-    'title' => 'Program Schedules',
-    'link' => ['uri' => 'entity:node/' . $locations_node->id()],
-    'menu_name' => 'main',
-    'parent' => 'menu_link_content:' . $parent_menu_link->uuid(),
-    'expanded' => TRUE,
-  ]);
-  $menu_link->save();
+//  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+//    'title' => 'Program Schedules',
+//    'link' => ['uri' => 'entity:node/' . $locations_node->id()],
+//    'menu_name' => 'main',
+//    'parent' => 'menu_link_content:' . $parent_menu_link->uuid(),
+//    'expanded' => TRUE,
+//  ]);
+//  $menu_link->save();
 
   $schedules_pages_to_create = [
     [
       'title' => 'Group Exercise Classes',
       'activity_ids' => [
-        $get_activity_id_by_title('Group Exercise Classes')
+        $get_activity_id_by_title('Cardio'),
+        $get_activity_id_by_title('Strength'),
+        $get_activity_id_by_title('Forever Well'),
       ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Programs & Activities',
       'activity_ids' => [
-        $get_activity_id_by_title('Group Exercise Classes')
+        $get_activity_id_by_title('Climbing - Adult'),
+        $get_activity_id_by_title('Cooking Classes'),
+        $get_activity_id_by_title('Health & Wellness Workshops'),
+        $get_activity_id_by_title('Health Improvement'),
+        $get_activity_id_by_title('Small Group and Specialty Training'),
+        $get_activity_id_by_title('Small Group Training - Youth'),
+        $get_activity_id_by_title('Weight Loss'),
       ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Swim',
       'activity_ids' => [
-        $get_activity_id_by_title('Group Exercise Classes')
+        $get_activity_id_by_title('Swim Lessons - Child with Adult'),
+        $get_activity_id_by_title('Swim Lessons - Preschool'),
+        $get_activity_id_by_title('Swim Lessons - Private'),
+        $get_activity_id_by_title('Swim Lessons - Teen'),
+        $get_activity_id_by_title('Swim Lessons - Youth'),
+        $get_activity_id_by_title('Swim Team'),
+        $get_activity_id_by_title('Drop-In Swim'),
       ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Personal Training',
       'activity_ids' => [
-        $get_activity_id_by_title('Group Exercise Classes')
+        $get_activity_id_by_title('Personal Training'),
+        $get_activity_id_by_title('Small Group and Specialty Training'),
+        $get_activity_id_by_title('Small Group Training - Youth'),
       ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Camp',
       'activity_ids' => [
-        $get_activity_id_by_title('Group Exercise Classes')
+        $get_activity_id_by_title('BOLD One-Week Expeditions'),
+        $get_activity_id_by_title('Discovery Day Camp'),
       ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
     [
       'title' => 'Kids & Teens',
       'activity_ids' => [
-        $get_activity_id_by_title('Group Exercise Classes')
+        $get_activity_id_by_title('Academic Enrichment - Youth'),
+        $get_activity_id_by_title('Academic Success'),
+        $get_activity_id_by_title('Arts & Crafts'),
+        $get_activity_id_by_title('Before & After School Child Care'),
+        $get_activity_id_by_title('Before & After School Programs'),
+        $get_activity_id_by_title('Birthday Parties'),
+        $get_activity_id_by_title('Earth Service Corps'),
+        $get_activity_id_by_title('Kids Zone Activity Centers'),
+        $get_activity_id_by_title('Preschool Child Care'),
+        $get_activity_id_by_title('Sports Classes & Workshops - Youth'),
       ],
       'parent_menu_uuid' => $parent_menu_link->uuid(),
     ],
@@ -166,7 +191,6 @@ function openy_demo_nlanding_pef_pages() {
           'langcode' => 'en',
           'uid' => '1',
           'status' => 1,
-          'moderation_state' => 'published',
           'field_lp_layout' => ['value' => 'one_column_clean'],
         ]
       );
@@ -175,11 +199,6 @@ function openy_demo_nlanding_pef_pages() {
       // Get activity IDs.
       $activity_ids = [];
       foreach ($page['activity_ids'] as $activity_id) {
-        $activity_id = $page['activity_id'];
-        if (!$activity_id) {
-          throw new \Exception(sprintf('Failed to get activity id for page "%s"', $page['title']));
-        }
-
         $activity_ids[] = ['target_id' => $activity_id];
       }
 

@@ -1,6 +1,9 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - openy_demo_ncamp
   module:
     - openy_loc_camp
     - openy_prgf_camp_menu
@@ -108,6 +111,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   title:
     -
       plugin: get
