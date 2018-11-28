@@ -1,7 +1,7 @@
 {
   "name": "Carnation",
   "version": "1.0.0",
-  "description": "Front-end package management for the OpenY carnation theme.",
+  "description": "Front-end package management for the Open Y carnation theme.",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
