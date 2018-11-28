@@ -1,8 +1,9 @@
-name: 'Openy Block Menu'
+name:  Open Y Block Menu
 description: 'Implements custom block type with a links.'
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - block_content
   - field
