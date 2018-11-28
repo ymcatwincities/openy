@@ -68,11 +68,11 @@
 
     &.show {
       display: flex;
+      flex-wrap: wrap;
       height: auto;
     }
   }
 }
-
 
 .viewport {
   .page-head__main-menu {
