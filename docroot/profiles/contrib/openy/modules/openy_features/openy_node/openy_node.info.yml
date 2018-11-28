@@ -1,8 +1,9 @@
-name: 'OpenY Node Package'
-description: 'OpenY Node Package.'
+name: Open Y Node Package
+description: Bundle of custom content type modules for Open Y, and their common configuration.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - entity_reference_revisions
   - field
@@ -10,9 +11,7 @@ dependencies:
   - jquery_colorpicker
   - metatag
   - node
-  - openy_node
   - paragraphs
   - path
   - taxonomy
   - text
-  - tour
