@@ -42,7 +42,7 @@ class Entry extends Extension\AbstractEntry
             return $this->data[$name];
         }
 
-        $licenses = [];
+        $licenses = array();
         $list = $this->xpath->evaluate($this->getXpathPrefix() . '//cc:license');
 
         if ($list->length) {

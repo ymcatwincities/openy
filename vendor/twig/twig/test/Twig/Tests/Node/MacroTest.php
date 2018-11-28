@@ -59,10 +59,6 @@ public function getfoo(\$__foo__ = null, \$__bar__ = "Foo"$declaration)
         ob_end_clean();
 
         throw \$e;
-    } catch (Throwable \$e) {
-        ob_end_clean();
-
-        throw \$e;
     }
 
     return ('' === \$tmp = ob_get_clean()) ? '' : new Twig_Markup(\$tmp, \$this->env->getCharset());

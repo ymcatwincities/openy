@@ -3,8 +3,8 @@
 /*
  * This file is part of Twig.
  *
- * (c) Fabien Potencier
- * (c) Armin Ronacher
+ * (c) 2009 Fabien Potencier
+ * (c) 2009 Armin Ronacher
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,8 +22,6 @@
  *  </ul>
  * {% endif %}
  * </pre>
- *
- * @final
  */
 class Twig_TokenParser_If extends Twig_TokenParser
 {
@@ -58,7 +56,7 @@ class Twig_TokenParser_If extends Twig_TokenParser
                     break;
 
                 default:
-                    throw new Twig_Error_Syntax(sprintf('Unexpected end of template. Twig was looking for the following tags "else", "elseif", or "endif" to close the "if" block started at line %d).', $lineno), $stream->getCurrent()->getLine(), $stream->getSourceContext());
+                    throw new Twig_Error_Syntax(sprintf('Unexpected end of template. Twig was looking for the following tags "else", "elseif", or "endif" to close the "if" block started at line %d).', $lineno), $stream->getCurrent()->getLine(), $stream->getFilename());
             }
         }
 
@@ -82,5 +80,3 @@ class Twig_TokenParser_If extends Twig_TokenParser
         return 'if';
     }
 }
-
-class_alias('Twig_TokenParser_If', 'Twig\TokenParser\IfTokenParser', false);

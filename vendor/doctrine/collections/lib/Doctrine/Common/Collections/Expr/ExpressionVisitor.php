@@ -28,7 +28,7 @@ namespace Doctrine\Common\Collections\Expr;
 abstract class ExpressionVisitor
 {
     /**
-     * Converts a comparison expression into the target query language output.
+     * Convert a comparison expression into the target query language output
      *
      * @param Comparison $comparison
      *
@@ -37,7 +37,7 @@ abstract class ExpressionVisitor
     abstract public function walkComparison(Comparison $comparison);
 
     /**
-     * Converts a value expression into the target query language part.
+     * Convert a value expression into the target query language part.
      *
      * @param Value $value
      *
@@ -46,7 +46,7 @@ abstract class ExpressionVisitor
     abstract public function walkValue(Value $value);
 
     /**
-     * Converts a composite expression into the target query language output.
+     * Convert a composite expression into the target query language output
      *
      * @param CompositeExpression $expr
      *
@@ -55,13 +55,11 @@ abstract class ExpressionVisitor
     abstract public function walkCompositeExpression(CompositeExpression $expr);
 
     /**
-     * Dispatches walking an expression to the appropriate handler.
+     * Dispatch walking an expression to the appropriate handler.
      *
-     * @param Expression $expr
+     * @param Expression
      *
      * @return mixed
-     *
-     * @throws \RuntimeException
      */
     public function dispatch(Expression $expr)
     {
@@ -80,3 +78,4 @@ abstract class ExpressionVisitor
         }
     }
 }
+

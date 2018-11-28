@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @see       http://github.com/zendframework/zend-diactoros for the canonical source repository
- * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
  */
 
@@ -13,12 +13,6 @@ use InvalidArgumentException;
 use Psr\Http\Message\StreamInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\Stream;
-
-use function get_class;
-use function gettype;
-use function is_object;
-use function is_string;
-use function sprintf;
 
 /**
  * HTML response.
@@ -47,7 +41,7 @@ class HtmlResponse extends Response
         parent::__construct(
             $this->createBody($html),
             $status,
-            $this->injectContentType('text/html; charset=utf-8', $headers)
+            $this->injectContentType('text/html', $headers)
         );
     }
 
@@ -74,7 +68,6 @@ class HtmlResponse extends Response
 
         $body = new Stream('php://temp', 'wb+');
         $body->write($html);
-        $body->rewind();
         return $body;
     }
 }

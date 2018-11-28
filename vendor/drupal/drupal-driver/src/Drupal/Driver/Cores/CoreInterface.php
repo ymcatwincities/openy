@@ -118,7 +118,7 @@ interface CoreInterface {
    * @param array $permissions
    *   An array of permissions to create the role with.
    *
-   * @return int|string
+   * @return int
    *   The created role name.
    */
   public function roleCreate(array $permissions);
@@ -134,8 +134,6 @@ interface CoreInterface {
   /**
    * Get FieldHandler class.
    *
-   * @param object $entity
-   *   The entity object.
    * @param string $entity_type
    *   Entity type machine name.
    * @param string $field_name
@@ -217,23 +215,5 @@ interface CoreInterface {
    *   Value to associate with identifier.
    */
   public function configSet($name, $key, $value);
-
-  /**
-   * Create an entity.
-   *
-   * @param string $entity_type
-   *   Entity type machine name.
-   * @param object $entity
-   *   The field values and properties desired for the new entity.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   A new entity object.
-   */
-  public function entityCreate($entity_type, $entity);
-
-  /**
-   * Delete an entity.
-   */
-  public function entityDelete($entity_type, $entity);
 
 }

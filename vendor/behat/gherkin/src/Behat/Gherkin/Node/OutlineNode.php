@@ -208,8 +208,7 @@ class OutlineNode implements ScenarioInterface
                 $this->tags,
                 $this->getSteps(),
                 $row,
-                $this->table->getRowLine($rowNum + 1),
-                $this->getTitle()
+                $this->table->getRowLine($rowNum + 1)
             );
         }
 

@@ -116,34 +116,12 @@ class MinkContext extends MinkExtension implements TranslatableContext {
   /**
    * Wait for AJAX to finish.
    *
-   * @see \Drupal\FunctionalJavascriptTests\JSWebAssert::assertWaitOnAjaxRequest()
-   *
    * @Given I wait for AJAX to finish
    */
   public function iWaitForAjaxToFinish() {
-    $condition = <<<JS
-    (function() {
-      function isAjaxing(instance) {
-        return instance && instance.ajaxing === true;
-      }
-      var d7_not_ajaxing = true;
-      if (typeof Drupal !== 'undefined' && typeof Drupal.ajax !== 'undefined' && typeof Drupal.ajax.instances === 'undefined') {
-        for(var i in Drupal.ajax) { if (isAjaxing(Drupal.ajax[i])) { d7_not_ajaxing = false; } }
-      }
-      var d8_not_ajaxing = (typeof Drupal === 'undefined' || typeof Drupal.ajax === 'undefined' || typeof Drupal.ajax.instances === 'undefined' || !Drupal.ajax.instances.some(isAjaxing))
-      return (
-        // Assert no AJAX request is running (via jQuery or Drupal) and no
-        // animation is running.
-        (typeof jQuery === 'undefined' || (jQuery.active === 0 && jQuery(':animated').length === 0)) &&
-        d7_not_ajaxing && d8_not_ajaxing
-      );
-    }());
-JS;
-    $result = $this->getSession()->wait(5000, $condition);
-    if (!$result) {
-      throw new \RuntimeException('Unable to complete AJAX request.');
-    }
+    $this->getSession()->wait(5000, '(typeof(jQuery)=="undefined" || (0 === jQuery.active && 0 === jQuery(\':animated\').length))');
   }
+
   /**
    * Presses button with specified id|name|title|alt|value.
    *
@@ -557,8 +535,7 @@ JS;
       throw new \Exception(sprintf('The radio button with "%s" was not found on the page %s', $id ? $id : $label, $this->getSession()->getCurrentUrl()));
     }
     $value = $radiobutton->getAttribute('value');
-    $radio_id = $radiobutton->getAttribute('id');
-    $labelonpage = $element->find('css', "label[for='$radio_id']")->getText();
+    $labelonpage = $radiobutton->getParent()->getText();
     if ($label != $labelonpage) {
       throw new \Exception(sprintf("Button with id '%s' has label '%s' instead of '%s' on the page %s", $id, $labelonpage, $label, $this->getSession()->getCurrentUrl()));
     }

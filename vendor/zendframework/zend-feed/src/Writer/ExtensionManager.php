@@ -12,7 +12,7 @@ namespace Zend\Feed\Writer;
 /**
  * Default implementation of ExtensionManagerInterface
  *
- * Decorator for an ExtensionManagerInstance.
+ * Decorator of ExtensionPluginManager.
  */
 class ExtensionManager implements ExtensionManagerInterface
 {
@@ -22,14 +22,14 @@ class ExtensionManager implements ExtensionManagerInterface
      * Constructor
      *
      * Seeds the extension manager with a plugin manager; if none provided,
-     * creates and decorates an instance of StandaloneExtensionManager.
+     * creates an instance.
      *
-     * @param  null|ExtensionManagerInterface $pluginManager
+     * @param  null|ExtensionPluginManager $pluginManager
      */
-    public function __construct(ExtensionManagerInterface $pluginManager = null)
+    public function __construct(ExtensionPluginManager $pluginManager = null)
     {
         if (null === $pluginManager) {
-            $pluginManager = new StandaloneExtensionManager();
+            $pluginManager = new ExtensionPluginManager();
         }
         $this->pluginManager = $pluginManager;
     }
@@ -37,7 +37,7 @@ class ExtensionManager implements ExtensionManagerInterface
     /**
      * Method overloading
      *
-     * Proxy to composed ExtensionManagerInterface instance.
+     * Proxy to composed ExtensionPluginManager instance.
      *
      * @param  string $method
      * @param  array $args
@@ -46,14 +46,14 @@ class ExtensionManager implements ExtensionManagerInterface
      */
     public function __call($method, $args)
     {
-        if (! method_exists($this->pluginManager, $method)) {
+        if (!method_exists($this->pluginManager, $method)) {
             throw new Exception\BadMethodCallException(sprintf(
                 'Method by name of %s does not exist in %s',
                 $method,
                 __CLASS__
             ));
         }
-        return call_user_func_array([$this->pluginManager, $method], $args);
+        return call_user_func_array(array($this->pluginManager, $method), $args);
     }
 
     /**

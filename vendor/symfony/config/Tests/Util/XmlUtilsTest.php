@@ -9,12 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Config\Tests\Util;
+namespace Symfony\Component\Config\Tests\Loader;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Util\XmlUtils;
 
-class XmlUtilsTest extends TestCase
+class XmlUtilsTest extends \PHPUnit_Framework_TestCase
 {
     public function testLoadFile()
     {
@@ -48,32 +47,18 @@ class XmlUtilsTest extends TestCase
             $this->assertContains('XSD file or callable', $e->getMessage());
         }
 
-        $mock = $this->getMockBuilder(__NAMESPACE__.'\Validator')->getMock();
+        $mock = $this->getMock(__NAMESPACE__.'\Validator');
         $mock->expects($this->exactly(2))->method('validate')->will($this->onConsecutiveCalls(false, true));
 
         try {
             XmlUtils::loadFile($fixtures.'valid.xml', array($mock, 'validate'));
             $this->fail();
         } catch (\InvalidArgumentException $e) {
-            $this->assertRegExp('/The XML file ".+" is not valid\./', $e->getMessage());
+            $this->assertContains('is not valid', $e->getMessage());
         }
 
         $this->assertInstanceOf('DOMDocument', XmlUtils::loadFile($fixtures.'valid.xml', array($mock, 'validate')));
         $this->assertSame(array(), libxml_get_errors());
-    }
-
-    /**
-     * @expectedException \Symfony\Component\Config\Util\Exception\InvalidXmlException
-     * @expectedExceptionMessage The XML is not valid
-     */
-    public function testParseWithInvalidValidatorCallable()
-    {
-        $fixtures = __DIR__.'/../Fixtures/Util/';
-
-        $mock = $this->getMockBuilder(__NAMESPACE__.'\Validator')->getMock();
-        $mock->expects($this->once())->method('validate')->willReturn(false);
-
-        XmlUtils::parse(file_get_contents($fixtures.'valid.xml'), array($mock, 'validate'));
     }
 
     public function testLoadFileWithInternalErrorsEnabled()
@@ -165,14 +150,7 @@ class XmlUtilsTest extends TestCase
     public function testLoadEmptyXmlFile()
     {
         $file = __DIR__.'/../Fixtures/foo.xml';
-
-        if (method_exists($this, 'expectException')) {
-            $this->expectException('InvalidArgumentException');
-            $this->expectExceptionMessage(sprintf('File %s does not contain valid XML, it is empty.', $file));
-        } else {
-            $this->setExpectedException('InvalidArgumentException', sprintf('File %s does not contain valid XML, it is empty.', $file));
-        }
-
+        $this->setExpectedException('InvalidArgumentException', sprintf('File %s does not contain valid XML, it is empty.', $file));
         XmlUtils::loadFile($file);
     }
 
@@ -194,10 +172,15 @@ class XmlUtilsTest extends TestCase
             } catch (\InvalidArgumentException $e) {
                 $this->assertEquals(sprintf('File %s does not contain valid XML, it is empty.', $file), $e->getMessage());
             }
-        } finally {
+        } catch (\Exception $e) {
             restore_error_handler();
             error_reporting($errorReporting);
+
+            throw $e;
         }
+
+        restore_error_handler();
+        error_reporting($errorReporting);
 
         $disableEntities = libxml_disable_entity_loader(true);
         libxml_disable_entity_loader($disableEntities);

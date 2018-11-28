@@ -1,4 +1,22 @@
 <?php
+/*
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the MIT license. For more information, see
+ * <http://www.doctrine-project.org>.
+ */
+
 namespace Doctrine\Common\Util;
 
 use Doctrine\Common\Persistence\Proxy;
@@ -9,8 +27,6 @@ use Doctrine\Common\Persistence\Proxy;
  *
  * @author Benjamin Eberlei <kontakt@beberlei.de>
  * @author Johannes Schmitt <schmittjoh@gmail.com>
- *
- * @deprecated The ClassUtils class is deprecated.
  */
 class ClassUtils
 {
@@ -23,7 +39,7 @@ class ClassUtils
      */
     public static function getRealClass($class)
     {
-        if (false === $pos = strrpos($class, '\\' . Proxy::MARKER . '\\')) {
+        if (false === $pos = strrpos($class, '\\'.Proxy::MARKER.'\\')) {
             return $class;
         }
 
@@ -51,7 +67,7 @@ class ClassUtils
      */
     public static function getParentClass($className)
     {
-        return get_parent_class(self::getRealClass($className));
+        return get_parent_class( self::getRealClass( $className ) );
     }
 
     /**
@@ -63,7 +79,7 @@ class ClassUtils
      */
     public static function newReflectionClass($class)
     {
-        return new \ReflectionClass(self::getRealClass($class));
+        return new \ReflectionClass( self::getRealClass( $class ) );
     }
 
     /**
@@ -71,11 +87,11 @@ class ClassUtils
      *
      * @param object $object
      *
-     * @return \ReflectionClass
+     * @return \ReflectionObject
      */
     public static function newReflectionObject($object)
     {
-        return self::newReflectionClass(self::getClass($object));
+        return self::newReflectionClass( self::getClass( $object ) );
     }
 
     /**
@@ -88,6 +104,6 @@ class ClassUtils
      */
     public static function generateProxyClassName($className, $proxyNamespace)
     {
-        return rtrim($proxyNamespace, '\\') . '\\' . Proxy::MARKER . '\\' . ltrim($className, '\\');
+        return rtrim($proxyNamespace, '\\') . '\\'.Proxy::MARKER.'\\' . ltrim($className, '\\');
     }
 }

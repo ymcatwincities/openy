@@ -3,8 +3,8 @@
 /*
  * This file is part of Twig.
  *
- * (c) Fabien Potencier
- * (c) Armin Ronacher
+ * (c) 2009 Fabien Potencier
+ * (c) 2009 Armin Ronacher
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,18 +21,11 @@
  */
 class Twig_Node_Module extends Twig_Node
 {
-    private $source;
-
-    public function __construct(Twig_NodeInterface $body, Twig_Node_Expression $parent = null, Twig_NodeInterface $blocks, Twig_NodeInterface $macros, Twig_NodeInterface $traits, $embeddedTemplates, $name, $source = '')
+    public function __construct(Twig_NodeInterface $body, Twig_Node_Expression $parent = null, Twig_NodeInterface $blocks, Twig_NodeInterface $macros, Twig_NodeInterface $traits, $embeddedTemplates, $filename)
     {
-        if (!$name instanceof Twig_Source) {
-            @trigger_error(sprintf('Passing a string as the $name argument of %s() is deprecated since version 1.27. Pass a Twig_Source instance instead.', __METHOD__), E_USER_DEPRECATED);
-            $this->source = new Twig_Source($source, $name);
-        } else {
-            $this->source = $name;
-        }
-
-        $nodes = array(
+        // embedded templates are set as attributes so that they are only visited once by the visitors
+        parent::__construct(array(
+            'parent' => $parent,
             'body' => $body,
             'blocks' => $blocks,
             'macros' => $macros,
@@ -42,23 +35,11 @@ class Twig_Node_Module extends Twig_Node
             'constructor_start' => new Twig_Node(),
             'constructor_end' => new Twig_Node(),
             'class_end' => new Twig_Node(),
-        );
-        if (null !== $parent) {
-            $nodes['parent'] = $parent;
-        }
-
-        // embedded templates are set as attributes so that they are only visited once by the visitors
-        parent::__construct($nodes, array(
-            // source to be remove in 2.0
-            'source' => $this->source->getCode(),
-            // filename to be remove in 2.0 (use getTemplateName() instead)
-            'filename' => $this->source->getName(),
+        ), array(
+            'filename' => $filename,
             'index' => null,
             'embedded_templates' => $embeddedTemplates,
         ), 1);
-
-        // populate the template name of all node children
-        $this->setTemplateName($this->source->getName());
     }
 
     public function setIndex($index)
@@ -86,7 +67,7 @@ class Twig_Node_Module extends Twig_Node
         if (
             count($this->getNode('blocks'))
             || count($this->getNode('traits'))
-            || !$this->hasNode('parent')
+            || null === $this->getNode('parent')
             || $this->getNode('parent') instanceof Twig_Node_Expression_Constant
             || count($this->getNode('constructor_start'))
             || count($this->getNode('constructor_end'))
@@ -108,19 +89,14 @@ class Twig_Node_Module extends Twig_Node
 
         $this->compileDebugInfo($compiler);
 
-        $this->compileGetSource($compiler);
-
-        $this->compileGetSourceContext($compiler);
-
         $this->compileClassFooter($compiler);
     }
 
     protected function compileGetParent(Twig_Compiler $compiler)
     {
-        if (!$this->hasNode('parent')) {
+        if (null === $parent = $this->getNode('parent')) {
             return;
         }
-        $parent = $this->getNode('parent');
 
         $compiler
             ->write("protected function doGetParent(array \$context)\n", "{\n")
@@ -136,9 +112,9 @@ class Twig_Node_Module extends Twig_Node
                 ->raw('$this->loadTemplate(')
                 ->subcompile($parent)
                 ->raw(', ')
-                ->repr($this->source->getName())
+                ->repr($compiler->getFilename())
                 ->raw(', ')
-                ->repr($parent->getTemplateLine())
+                ->repr($this->getNode('parent')->getLine())
                 ->raw(')')
             ;
         }
@@ -154,9 +130,9 @@ class Twig_Node_Module extends Twig_Node
     {
         $compiler
             ->write("\n\n")
-            // if the template name contains */, add a blank to avoid a PHP parse error
-            ->write('/* '.str_replace('*/', '* /', $this->source->getName())." */\n")
-            ->write('class '.$compiler->getEnvironment()->getTemplateClass($this->source->getName(), $this->getAttribute('index')))
+            // if the filename contains */, add a blank to avoid a PHP parse error
+            ->write('/* '.str_replace('*/', '* /', $this->getAttribute('filename'))." */\n")
+            ->write('class '.$compiler->getEnvironment()->getTemplateClass($this->getAttribute('filename'), $this->getAttribute('index')))
             ->raw(sprintf(" extends %s\n", $compiler->getEnvironment()->getBaseTemplateClass()))
             ->write("{\n")
             ->indent()
@@ -173,17 +149,17 @@ class Twig_Node_Module extends Twig_Node
         ;
 
         // parent
-        if (!$this->hasNode('parent')) {
+        if (null === $parent = $this->getNode('parent')) {
             $compiler->write("\$this->parent = false;\n\n");
-        } elseif (($parent = $this->getNode('parent')) && $parent instanceof Twig_Node_Expression_Constant) {
+        } elseif ($parent instanceof Twig_Node_Expression_Constant) {
             $compiler
                 ->addDebugInfo($parent)
                 ->write('$this->parent = $this->loadTemplate(')
                 ->subcompile($parent)
                 ->raw(', ')
-                ->repr($this->source->getName())
+                ->repr($compiler->getFilename())
                 ->raw(', ')
-                ->repr($parent->getTemplateLine())
+                ->repr($this->getNode('parent')->getLine())
                 ->raw(");\n")
             ;
         }
@@ -301,8 +277,7 @@ class Twig_Node_Module extends Twig_Node
             ->subcompile($this->getNode('body'))
         ;
 
-        if ($this->hasNode('parent')) {
-            $parent = $this->getNode('parent');
+        if (null !== $parent = $this->getNode('parent')) {
             $compiler->addDebugInfo($parent);
             if ($parent instanceof Twig_Node_Expression_Constant) {
                 $compiler->write('$this->parent');
@@ -339,7 +314,7 @@ class Twig_Node_Module extends Twig_Node
             ->write("public function getTemplateName()\n", "{\n")
             ->indent()
             ->write('return ')
-            ->repr($this->source->getName())
+            ->repr($this->getAttribute('filename'))
             ->raw(";\n")
             ->outdent()
             ->write("}\n\n")
@@ -355,7 +330,7 @@ class Twig_Node_Module extends Twig_Node
         //
         // Put another way, a template can be used as a trait if it
         // only contains blocks and use statements.
-        $traitable = !$this->hasNode('parent') && 0 === count($this->getNode('macros'));
+        $traitable = null === $this->getNode('parent') && 0 === count($this->getNode('macros'));
         if ($traitable) {
             if ($this->getNode('body') instanceof Twig_Node_Body) {
                 $nodes = $this->getNode('body')->getNode(0);
@@ -405,37 +380,6 @@ class Twig_Node_Module extends Twig_Node
             ->indent()
             ->write(sprintf("return %s;\n", str_replace("\n", '', var_export(array_reverse($compiler->getDebugInfo(), true), true))))
             ->outdent()
-            ->write("}\n\n")
-        ;
-    }
-
-    protected function compileGetSource(Twig_Compiler $compiler)
-    {
-        $compiler
-            ->write("/** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */\n")
-            ->write("public function getSource()\n", "{\n")
-            ->indent()
-            ->write("@trigger_error('The '.__METHOD__.' method is deprecated since version 1.27 and will be removed in 2.0. Use getSourceContext() instead.', E_USER_DEPRECATED);\n\n")
-            ->write('return $this->getSourceContext()->getCode();')
-            ->raw("\n")
-            ->outdent()
-            ->write("}\n\n")
-        ;
-    }
-
-    protected function compileGetSourceContext(Twig_Compiler $compiler)
-    {
-        $compiler
-            ->write("public function getSourceContext()\n", "{\n")
-            ->indent()
-            ->write('return new Twig_Source(')
-            ->string($compiler->getEnvironment()->isDebug() ? $this->source->getCode() : '')
-            ->raw(', ')
-            ->string($this->source->getName())
-            ->raw(', ')
-            ->string($this->source->getPath())
-            ->raw(");\n")
-            ->outdent()
             ->write("}\n")
         ;
     }
@@ -447,15 +391,13 @@ class Twig_Node_Module extends Twig_Node
                 ->write(sprintf('%s = $this->loadTemplate(', $var))
                 ->subcompile($node)
                 ->raw(', ')
-                ->repr($node->getTemplateName())
+                ->repr($compiler->getFilename())
                 ->raw(', ')
-                ->repr($node->getTemplateLine())
+                ->repr($node->getLine())
                 ->raw(");\n")
             ;
         } else {
-            throw new LogicException('Trait templates can only be constant nodes.');
+            throw new LogicException('Trait templates can only be constant nodes');
         }
     }
 }
-
-class_alias('Twig_Node_Module', 'Twig\Node\ModuleNode', false);

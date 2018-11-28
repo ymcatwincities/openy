@@ -2,7 +2,7 @@
 namespace Robo\Task\Vcs;
 
 use Robo\Task\CommandStack;
-use Robo\Common\ProcessUtils;
+use Symfony\Component\Process\ProcessUtils;
 
 /**
  * Runs Git commands in stack. You can use `stopOnFail()` to point that stack should be terminated on first fail.

@@ -28,25 +28,6 @@ class Html5Test extends TestCase
         return $out;
     }
 
-
-    public function testImageTagsInSvg()
-    {
-        $html = "<!DOCTYPE html>
-                    <html>
-                        <head>
-                            <title>foo</title>
-                        </head>
-                        <body>
-                            <svg>
-                                <image height=\"10\" width=\"10\"></image>
-                            </svg>
-                        </body>
-                    </html>";
-        $doc = $this->html5->loadHTML($html);
-        $this->assertInstanceOf('DOMElement', $doc->getElementsByTagName('image')->item(0));
-        $this->assertEmpty($this->html5->getErrors());
-    }
-
     public function testLoadOptions()
     {
         // doc
@@ -109,21 +90,6 @@ class Html5Test extends TestCase
         $dom = $this->html5->loadHTML($contents);
         $this->assertInstanceOf('\DOMDocument', $dom);
         $this->assertEmpty($this->html5->getErrors());
-    }
-
-    public function testLoadHTMLWithComments()
-    {
-        $contents = '<!--[if lte IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]> <!--><html class="no-js" lang="en"><!--<![endif]-->
-</html>';
-
-        $dom = $this->html5->loadHTML($contents);
-        $this->assertInstanceOf('\DOMDocument', $dom);
-
-        $expected = '<!DOCTYPE html>
-<!--[if lte IE 8]> <html class="no-js lt-ie9" lang="en"> <![endif]--><!--[if gt IE 8]> <!--><html class="no-js" lang="en"><!--<![endif]--></html>
-';
-        $this->assertEquals($expected, $this->html5->saveHTML($dom));
     }
 
     public function testLoadHTMLFragment()
@@ -336,9 +302,6 @@ class Html5Test extends TestCase
 
     public function testAttributes()
     {
-        $res = $this->cycle('<use xlink:href="#svg-track" xmlns:xlink="http://www.w3.org/1999/xlink"></use>');
-        $this->assertContains('<use xlink:href="#svg-track" xmlns:xlink="http://www.w3.org/1999/xlink"></use>', $res);
-
         $res = $this->cycle('<div attr="val">FOO</div>');
         $this->assertRegExp('|<div attr="val">FOO</div>|', $res);
 
@@ -413,21 +376,6 @@ class Html5Test extends TestCase
 
         $res = $this->cycleFragment('<a>Apples &amp; bananas.</a>');
         $this->assertRegExp('|Apples &amp; bananas.|', $res);
-
-        $res = $this->cycleFragment('<p>R&D</p>');
-        $this->assertRegExp('|R&amp;D|', $res);
-    }
-
-    public function testCaseSensitiveTags()
-    {
-        $dom = $this->html5->loadHTML(
-            '<html><body><Button color="red">Error</Button></body></html>',
-            array(
-                "xmlNamespaces" => true
-            )
-        );
-        $out = $this->html5->saveHTML($dom);
-        $this->assertRegExp('|<html><body><Button color="red">Error</Button></body></html>|', $out);
     }
 
     public function testComment()

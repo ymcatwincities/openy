@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @see       http://github.com/zendframework/zend-diactoros for the canonical source repository
- * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
  */
 
@@ -11,14 +11,6 @@ namespace Zend\Diactoros;
 
 use Psr\Http\Message\StreamInterface;
 use UnexpectedValueException;
-
-use function array_pop;
-use function implode;
-use function ltrim;
-use function preg_match;
-use function sprintf;
-use function str_replace;
-use function ucwords;
 
 /**
  * Provides base functionality for request and response de/serialization

@@ -21,19 +21,20 @@ class ExpanderTest extends \PHPUnit_Framework_TestCase
     public function testExpandArrayProperties($filename, $reference_array)
     {
         $array = Yaml::parse(file_get_contents(__DIR__ . "/../resources/$filename"));
-        putenv("test=gomjabbar");
         $expanded = Expander::expandArrayProperties($array);
-        $this->assertEquals('gomjabbar', $expanded['env-test']);
         $this->assertEquals('Frank Herbert 1965', $expanded['book']['copyright']);
         $this->assertEquals('Paul Atreides', $expanded['book']['protaganist']);
         $this->assertEquals('Dune by Frank Herbert', $expanded['summary']);
         $this->assertEquals('${book.media.1}, hardcover', $expanded['available-products']);
         $this->assertEquals('Dune', $expanded['product-name']);
-        $this->assertEquals(Yaml::dump($array['inline-array'], 0), $expanded['expand-array']);
+        $this->assertEquals('${book}', $expanded['expand-array']);
 
         $expanded = Expander::expandArrayProperties($array, $reference_array);
         $this->assertEquals('Dune Messiah, and others.', $expanded['sequels']);
         $this->assertEquals('Dune Messiah', $expanded['book']['nested-reference']);
+
+        // Attempt to expand an entire array. This should not work.
+        $this->assertEquals('${book}', $expanded['expand-array']);
     }
 
     /**

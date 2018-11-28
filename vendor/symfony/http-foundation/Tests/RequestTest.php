@@ -1039,7 +1039,7 @@ class RequestTest extends TestCase
         $req = new Request(array(), array(), array(), array(), array(), array(), 'MyContent');
         $resource = $req->getContent(true);
 
-        $this->assertInternalType('resource', $resource);
+        $this->assertTrue(is_resource($resource));
         $this->assertEquals('MyContent', stream_get_contents($resource));
     }
 
@@ -1060,7 +1060,7 @@ class RequestTest extends TestCase
      */
     public function testGetContentCantBeCalledTwiceWithResources($first, $second)
     {
-        if (\PHP_VERSION_ID >= 50600) {
+        if (PHP_VERSION_ID >= 50600) {
             $this->markTestSkipped('PHP >= 5.6 allows to open php://input several times.');
         }
 

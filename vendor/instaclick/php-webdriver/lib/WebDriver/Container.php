@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2017 Facebook. All Rights Reserved.
+ * Copyright 2004-2013 Facebook. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ abstract class Container extends AbstractWebDriver
         $locatorJson = $this->parseArgs('element', func_get_args());
 
         try {
-            $result = $this->curl(
+            $results = $this->curl(
                 'POST',
                 '/element',
                 $locatorJson
@@ -71,18 +71,17 @@ abstract class Container extends AbstractWebDriver
                 sprintf(
                     "Element not found with %s, %s\n\n%s",
                     $locatorJson['using'],
-                    $locatorJson['value'],
+		    $locatorJson['value'],
                     $e->getMessage()
                 ),
                 $e
             );
         }
 
-        $element = $this->webDriverElement($result['value']);
+        $element = $this->webDriverElement($results['value']);
 
         if ($element === null) {
-            throw WebDriverException::factory(
-                WebDriverException::NO_SUCH_ELEMENT,
+            throw WebDriverException::factory(WebDriverException::NO_SUCH_ELEMENT,
                 sprintf(
                     "Element not found with %s, %s\n",
                     $locatorJson['using'],
@@ -110,22 +109,19 @@ abstract class Container extends AbstractWebDriver
     {
         $locatorJson = $this->parseArgs('elements', func_get_args());
 
-        $result = $this->curl(
+        $results = $this->curl(
             'POST',
             '/elements',
             $locatorJson
         );
 
-        if (!is_array($result['value'])) {
+        if (!is_array($results['value'])) {
             return array();
         }
 
-        return array_filter(
-            array_map(
-                array($this, 'webDriverElement'),
-                $result['value']
-            )
-        );
+        return array_filter(array_map(
+            array($this, 'webDriverElement'), $results['value']
+        ));
     }
 
     /**
@@ -151,14 +147,12 @@ abstract class Container extends AbstractWebDriver
 
             case 1:
                 $arg = $argv[0];
-
                 if (is_array($arg)) {
                     $using = $arg['using'];
                     $value = $arg['value'];
                     break;
                 }
 
-                // fall through
             default:
                 throw WebDriverException::factory(
                     WebDriverException::JSON_PARAMETERS_EXPECTED,
