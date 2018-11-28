@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * @file
+ * Contains entity_clone.module.
+ */
+
+use Drupal\Core\Entity\ContentEntityTypeInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Config\Entity\ConfigEntityTypeInterface;
+
+/**
+ * Implements hook_help().
+ */
+function entity_clone_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the entity_clone module.
+    case 'help.page.entity_clone':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides a new operation to clone all Entities.') . '</p>';
+      return $output;
+
+    default:
+      return;
+
+  }
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ */
+function entity_clone_entity_type_build(array &$entity_types) {
+  $specific_handler = [
+    'file' => [
+      'entity_clone' => '\Drupal\entity_clone\EntityClone\Content\FileEntityClone',
+    ],
+    'user' => [
+      'entity_clone' => '\Drupal\entity_clone\EntityClone\Content\UserEntityClone',
+    ],
+    'field_config' => [
+      'entity_clone' => '\Drupal\entity_clone\EntityClone\Config\FieldConfigEntityClone',
+      'entity_clone_form' => '\Drupal\entity_clone\EntityClone\Config\ConfigEntityCloneFormBase',
+    ],
+    'node_type' => [
+      'entity_clone' => '\Drupal\entity_clone\EntityClone\Config\ConfigWithFieldEntityClone',
+      'entity_clone_form' => '\Drupal\entity_clone\EntityClone\Config\ConfigEntityCloneFormBase',
+    ],
+    'comment_type' => [
+      'entity_clone' => '\Drupal\entity_clone\EntityClone\Config\ConfigWithFieldEntityClone',
+      'entity_clone_form' => '\Drupal\entity_clone\EntityClone\Config\ConfigEntityCloneFormBase',
+    ],
+    'block_content_type' => [
+      'entity_clone' => '\Drupal\entity_clone\EntityClone\Config\ConfigWithFieldEntityClone',
+      'entity_clone_form' => '\Drupal\entity_clone\EntityClone\Config\ConfigEntityCloneFormBase',
+    ],
+    'contact_form' => [
+      'entity_clone' => '\Drupal\entity_clone\EntityClone\Config\ConfigWithFieldEntityClone',
+      'entity_clone_form' => '\Drupal\entity_clone\EntityClone\Config\ConfigEntityCloneFormBase',
+    ],
+  ];
+
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  foreach ($entity_types as &$entity_type) {
+    if (isset($specific_handler[$entity_type->id()])) {
+      $entity_type->setHandlerClass('entity_clone', $specific_handler[$entity_type->id()]['entity_clone']);
+      if (isset($specific_handler[$entity_type->id()]['entity_clone_form'])) {
+        $entity_type->setHandlerClass('entity_clone_form', $specific_handler[$entity_type->id()]['entity_clone_form']);
+      }
+    }
+    elseif (!$entity_type->getHandlerClass('entity_clone') && $entity_type instanceof ContentEntityTypeInterface) {
+      $entity_type->setHandlerClass('entity_clone', '\Drupal\entity_clone\EntityClone\Content\ContentEntityCloneBase');
+    }
+    elseif (!$entity_type->getHandlerClass('entity_clone') && $entity_type instanceof ConfigEntityTypeInterface) {
+      $entity_type->setHandlerClass('entity_clone', '\Drupal\entity_clone\EntityClone\Config\ConfigEntityCloneBase');
+      $entity_type->setHandlerClass('entity_clone_form', '\Drupal\entity_clone\EntityClone\Config\ConfigEntityCloneFormBase');
+    }
+  }
+}
+
+/**
+ * Declares entity operations.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity on which the linked operations will be performed.
+ *
+ * @return array
+ *   An operations array as returned by
+ *   EntityListBuilderInterface::getOperations().
+ *
+ * @see \Drupal\Core\Entity\EntityListBuilderInterface::getOperations()
+ */
+function entity_clone_entity_operation(EntityInterface $entity) {
+  if ($entity->hasLinkTemplate('clone-form')) {
+    return [
+      'clone' => [
+        'title' => t('Clone'),
+        'weight' => 50,
+        'url' => $entity->toUrl('clone-form'),
+      ],
+    ];
+  }
+
+  return [];
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function entity_clone_entity_type_alter(array &$entity_types) {
+  foreach ($entity_types as $entity_type_id => $entity_type) {
+    $entity_type->setLinkTemplate('clone-form', "/entity_clone/$entity_type_id/{{$entity_type_id}}");
+  }
+}

@@ -1,0 +1,14 @@
+name: 'Views Data Export'
+type: module
+description: 'Plugin to export views data into various file formats.'
+package: 'Views'
+# core: 8.x
+dependencies:
+  - rest
+  - csv_serialization
+
+# Information added by Drupal.org packaging script on 2018-05-02
+version: '8.x-1.0-beta1'
+core: '8.x'
+project: 'views_data_export'
+datestamp: 1525280296

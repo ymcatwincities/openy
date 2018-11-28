@@ -2,8 +2,8 @@
 
 namespace Drupal\media_entity\Form;
 
-use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityDeleteForm;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -13,20 +13,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class MediaBundleDeleteConfirm extends EntityDeleteForm {
 
   /**
-   * The query factory to create entity queries.
+   * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $queryFactory;
+  protected $entityTypeManager;
 
   /**
    * Constructs a new MediaBundleDeleteConfirm object.
    *
-   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
-   *   The entity query object.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
    */
-  public function __construct(QueryFactory $query_factory) {
-    $this->queryFactory = $query_factory;
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -34,7 +34,7 @@ class MediaBundleDeleteConfirm extends EntityDeleteForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.query')
+      $container->get('entity_type.manager')
     );
   }
 
@@ -42,7 +42,7 @@ class MediaBundleDeleteConfirm extends EntityDeleteForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $num_entities = $this->queryFactory->get('media')
+    $num_entities = $this->entityTypeManager->getStorage('media')->getQuery()
       ->condition('bundle', $this->entity->id())
       ->count()
       ->execute();
