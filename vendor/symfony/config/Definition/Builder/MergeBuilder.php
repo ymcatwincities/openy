@@ -22,6 +22,11 @@ class MergeBuilder
     public $allowFalse = false;
     public $allowOverwrite = true;
 
+    /**
+     * Constructor.
+     *
+     * @param NodeDefinition $node The related node
+     */
     public function __construct(NodeDefinition $node)
     {
         $this->node = $node;
@@ -32,7 +37,7 @@ class MergeBuilder
      *
      * @param bool $allow
      *
-     * @return $this
+     * @return MergeBuilder
      */
     public function allowUnset($allow = true)
     {
@@ -46,7 +51,7 @@ class MergeBuilder
      *
      * @param bool $deny Whether the overwriting is forbidden or not
      *
-     * @return $this
+     * @return MergeBuilder
      */
     public function denyOverwrite($deny = true)
     {
@@ -58,7 +63,7 @@ class MergeBuilder
     /**
      * Returns the related node.
      *
-     * @return NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition
+     * @return NodeDefinition
      */
     public function end()
     {

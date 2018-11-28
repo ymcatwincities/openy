@@ -15,7 +15,7 @@ abstract class Exception extends \Exception {
    *
    * @param string $message
    *   The exception message.
-   * @param \Drupal\Driver\DriverInterface $driver
+   * @param DriverInterface $driver
    *   The driver where the exception occurred.
    * @param int $code
    *   Optional exception code. Defaults to 0.

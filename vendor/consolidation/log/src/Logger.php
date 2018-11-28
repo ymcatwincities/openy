@@ -11,14 +11,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\StringInput;
 
 /**
- * Replacement for Symfony\Component\Console\Logger\ConsoleLogger.
- * Each of the different log level messages are routed through the
- * corresponding SymfonyStyle formatting method.  Log messages are
- * always sent to stderr if the provided output object implements
- * ConsoleOutputInterface.
- *
- * Note that this class could extend ConsoleLogger if some methods
- * of that class were declared 'protected' instead of 'private'.
+ * Extend Symfony\Component\Console\Logger\ConsoleLogger
+ * so that each of the different log level messages are
+ * routed through the corresponding SymfonyStyle formatting
+ * method.  Log messages are always sent to stderr if the
+ * provided output object implements ConsoleOutputInterface.
  *
  * @author Greg Anderson <greg.1.anderson@greenknowe.org>
  */
@@ -62,6 +59,8 @@ class Logger extends AbstractLogger // extends ConsoleLogger
      */
     public function __construct(OutputInterface $output, array $verbosityLevelMap = array(), array $formatLevelMap = array(), array $formatFunctionMap = array())
     {
+        // parent::__construct($output, $verbosityLevelMap, $formatLevelMap);
+
         $this->output = $output;
 
         $this->verbosityLevelMap = $verbosityLevelMap + $this->verbosityLevelMap;
@@ -130,17 +129,6 @@ class Logger extends AbstractLogger // extends ConsoleLogger
         return $this->errorStreamWrapper;
     }
 
-    protected function getOutputStreamForLogLevel($level)
-    {
-        // Write to the error output if necessary and available.
-        // Usually, loggers that log to a terminal should send
-        // all log messages to stderr.
-        if (array_key_exists($level, $this->formatLevelMap) && ($this->formatLevelMap[$level] !== self::ERROR)) {
-            return $this->getOutputStreamWrapper();
-        }
-        return $this->getErrorStreamWrapper();
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -164,33 +152,20 @@ class Logger extends AbstractLogger // extends ConsoleLogger
         // Write to the error output if necessary and available.
         // Usually, loggers that log to a terminal should send
         // all log messages to stderr.
-        $outputStreamWrapper = $this->getOutputStreamForLogLevel($level);
+        if (array_key_exists($level, $this->formatLevelMap) && ($this->formatLevelMap[$level] !== self::ERROR)) {
+            $outputStreamWrapper = $this->getOutputStreamWrapper();
+        } else {
+            $outputStreamWrapper = $this->getErrorStreamWrapper();
+        }
 
         // Ignore messages that are not at the right verbosity level
         if ($this->getOutputStream()->getVerbosity() >= $this->verbosityLevelMap[$level]) {
-            $this->doLog($outputStreamWrapper, $level, $message, $context);
+            $formatFunction = 'log';
+            if (array_key_exists($level, $this->formatFunctionMap)) {
+                $formatFunction = $this->formatFunctionMap[$level];
+            }
+            $this->getLogOutputStyler()->$formatFunction($outputStreamWrapper, $level, $this->interpolate($message, $this->getLogOutputStyler()->style($context)), $context);
         }
-    }
-
-    /**
-     * Interpolate and style the message, and then send it to the log.
-     */
-    protected function doLog($outputStreamWrapper, $level, $message, $context)
-    {
-        $formatFunction = 'log';
-        if (array_key_exists($level, $this->formatFunctionMap)) {
-            $formatFunction = $this->formatFunctionMap[$level];
-        }
-        $interpolated = $this->interpolate(
-            $message,
-            $this->getLogOutputStyler()->style($context)
-        );
-        $this->getLogOutputStyler()->$formatFunction(
-            $outputStreamWrapper,
-            $level,
-            $interpolated,
-            $context
-        );
     }
 
     public function success($message, array $context = array())
@@ -229,6 +204,7 @@ class Logger extends AbstractLogger // extends ConsoleLogger
      * Send all log messages to stderr. Symfony should have the same default.
      * See: https://en.wikipedia.org/wiki/Standard_streams
      *   "Standard error was added to Unix after several wasted phototypesetting runs ended with error messages being typeset instead of displayed on the user's terminal."
+     *
      */
     private $formatLevelMap = [
         LogLevel::EMERGENCY => self::ERROR,

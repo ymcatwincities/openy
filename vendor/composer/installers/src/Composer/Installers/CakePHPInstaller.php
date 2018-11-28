@@ -2,6 +2,7 @@
 namespace Composer\Installers;
 
 use Composer\DependencyResolver\Pool;
+use Composer\Package\PackageInterface;
 
 class CakePHPInstaller extends BaseInstaller
 {
@@ -74,6 +75,7 @@ class CakePHPInstaller extends BaseInstaller
                 $installed = new $constraintClass('=', $package->getVersion());
                 if ($cake3->matches($installed)) {
                     return true;
+                    break;
                 }
             }
         }

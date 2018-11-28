@@ -167,7 +167,7 @@ class ProgressIndicator
 
     /**
      * Erase progress indicator and ensure it never returns.  Used
-     * only during error handlers or to permanently remove the progress bar.
+     * only during error handlers.
      */
     public function disableProgressIndicator()
     {

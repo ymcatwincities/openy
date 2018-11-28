@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,18 +25,19 @@ use \Memcache;
 /**
  * Memcache cache provider.
  *
- * @link   www.doctrine-project.org
- * @since  2.0
- * @author Benjamin Eberlei <kontakt@beberlei.de>
- * @author Guilherme Blanco <guilhermeblanco@hotmail.com>
- * @author Jonathan Wage <jonwage@gmail.com>
- * @author Roman Borschel <roman@code-factory.org>
- * @author David Abdemoulaie <dave@hobodave.com>
+ * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
+ * @link    www.doctrine-project.org
+ * @since   2.0
+ * @author  Benjamin Eberlei <kontakt@beberlei.de>
+ * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
+ * @author  Jonathan Wage <jonwage@gmail.com>
+ * @author  Roman Borschel <roman@code-factory.org>
+ * @author  David Abdemoulaie <dave@hobodave.com>
  */
 class MemcacheCache extends CacheProvider
 {
     /**
-     * @var Memcache|null
+     * @var Memcache
      */
     private $memcache;
 
@@ -43,8 +45,6 @@ class MemcacheCache extends CacheProvider
      * Sets the memcache instance to use.
      *
      * @param Memcache $memcache
-     *
-     * @return void
      */
     public function setMemcache(Memcache $memcache)
     {
@@ -54,7 +54,7 @@ class MemcacheCache extends CacheProvider
     /**
      * Gets the memcache instance used by the cache.
      *
-     * @return Memcache|null
+     * @return Memcache
      */
     public function getMemcache()
     {
@@ -74,11 +74,7 @@ class MemcacheCache extends CacheProvider
      */
     protected function doContains($id)
     {
-        $flags = null;
-        $this->memcache->get($id, $flags);
-        
-        //if memcache has changed the value of "flags", it means the value exists
-        return ($flags !== null);
+        return (bool) $this->memcache->get($id);
     }
 
     /**
@@ -97,8 +93,7 @@ class MemcacheCache extends CacheProvider
      */
     protected function doDelete($id)
     {
-        // Memcache::delete() returns false if entry does not exist
-        return $this->memcache->delete($id) || ! $this->doContains($id);
+        return $this->memcache->delete($id);
     }
 
     /**
@@ -115,12 +110,12 @@ class MemcacheCache extends CacheProvider
     protected function doGetStats()
     {
         $stats = $this->memcache->getStats();
-        return [
+        return array(
             Cache::STATS_HITS   => $stats['get_hits'],
             Cache::STATS_MISSES => $stats['get_misses'],
             Cache::STATS_UPTIME => $stats['uptime'],
-            Cache::STATS_MEMORY_USAGE     => $stats['bytes'],
-            Cache::STATS_MEMORY_AVAILABLE => $stats['limit_maxbytes'],
-        ];
+            Cache::STATS_MEMORY_USAGE       => $stats['bytes'],
+            Cache::STATS_MEMORY_AVAILIABLE  => $stats['limit_maxbytes'],
+        );
     }
 }

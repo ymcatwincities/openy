@@ -1,14 +1,18 @@
 <?php
 
+/**
+ * @file
+ * Contains \DrupalComposer\DrupalScaffold\Tests\PluginTest.
+ */
+
 namespace DrupalComposer\DrupalScaffold\Tests;
 
 use Composer\Util\Filesystem;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Tests composer plugin functionality.
  */
-class PluginTest extends TestCase {
+class PluginTest extends \PHPUnit_Framework_TestCase {
 
   /**
    * @var \Composer\Util\Filesystem
@@ -31,7 +35,7 @@ class PluginTest extends TestCase {
   protected $tmpReleaseTag;
 
   /**
-   * SetUp test.
+   * SetUp test
    */
   public function setUp() {
     $this->rootDir = realpath(realpath(__DIR__ . '/..'));
@@ -48,11 +52,12 @@ class PluginTest extends TestCase {
   }
 
   /**
-   * TearDown.
+   * tearDown
    *
    * @return void
    */
-  public function tearDown() {
+  public function tearDown()
+  {
     $this->fs->removeDirectory($this->tmpDir);
     $this->git(sprintf('tag -d "%s"', $this->tmpReleaseTag));
   }
@@ -63,52 +68,35 @@ class PluginTest extends TestCase {
   public function testComposerInstallAndUpdate() {
     $exampleScaffoldFile = $this->tmpDir . DIRECTORY_SEPARATOR . 'index.php';
     $this->assertFileNotExists($exampleScaffoldFile, 'Scaffold file should not be exist.');
-    $this->composer('install --no-dev --prefer-dist');
+    $this->composer('install');
     $this->assertFileExists($this->tmpDir . DIRECTORY_SEPARATOR . 'core', 'Drupal core is installed.');
     $this->assertFileExists($exampleScaffoldFile, 'Scaffold file should be automatically installed.');
     $this->fs->remove($exampleScaffoldFile);
     $this->assertFileNotExists($exampleScaffoldFile, 'Scaffold file should not be exist.');
-    $this->composer('drupal:scaffold');
-    $this->assertFileExists($exampleScaffoldFile, 'Scaffold file should be installed by "drupal:scaffold" command.');
+    $this->composer('drupal-scaffold');
+    $this->assertFileExists($exampleScaffoldFile, 'Scaffold file should be installed by "drupal-scaffold" command.');
 
-    foreach (['8.0.1', '8.1.x-dev', '8.3.0', '8.5.x-dev'] as $version) {
+    foreach (['8.0.1', '8.1.x-dev'] as $version) {
       // We touch a scaffold file, so we can check the file was modified after
       // the scaffold update.
       touch($exampleScaffoldFile);
       $mtime_touched = filemtime($exampleScaffoldFile);
-      // Requiring a newer version triggers "composer update".
-      $this->composer('require --update-with-dependencies --prefer-dist --update-no-dev drupal/core:"' . $version . '"');
+      // Requiring a newer version triggers "composer update"
+      $this->composer('require --update-with-dependencies drupal/core:"' . $version .'"');
       clearstatcache();
       $mtime_after = filemtime($exampleScaffoldFile);
       $this->assertNotEquals($mtime_after, $mtime_touched, 'Scaffold file was modified by composer update. (' . $version . ')');
-      switch ($version) {
-        case '8.0.1':
-        case '8.1.x-dev':
-          $this->assertFileExists($this->tmpDir . DIRECTORY_SEPARATOR . '.eslintrc');
-          $this->assertFileNotExists($this->tmpDir . DIRECTORY_SEPARATOR . '.eslintrc.json');
-          $this->assertFileNotExists($this->tmpDir . DIRECTORY_SEPARATOR . '.ht.router.php');
-          break;
-
-        case '8.3.0':
-          // Note we don't clean up .eslintrc file.
-          $this->assertFileExists($this->tmpDir . DIRECTORY_SEPARATOR . '.eslintrc');
-          $this->assertFileExists($this->tmpDir . DIRECTORY_SEPARATOR . '.eslintrc.json');
-          $this->assertFileNotExists($this->tmpDir . DIRECTORY_SEPARATOR . '.ht.router.php');
-          break;
-
-        case '8.5.x-dev':
-          $this->assertFileExists($this->tmpDir . DIRECTORY_SEPARATOR . '.eslintrc');
-          $this->assertFileExists($this->tmpDir . DIRECTORY_SEPARATOR . '.eslintrc.json');
-          $this->assertFileExists($this->tmpDir . DIRECTORY_SEPARATOR . '.ht.router.php');
-          break;
-      }
     }
 
-    // We touch a scaffold file, so we can check the file was modified by the
-    // custom command.
-    file_put_contents($exampleScaffoldFile, 1);
-    $this->composer('drupal:scaffold');
-    $this->assertNotEquals(file_get_contents($exampleScaffoldFile), 1, 'Scaffold file was modified by custom command.');
+    // We touch a scaffold file, so we can check the file was modified after
+    // the custom commandscaffold update.
+    touch($exampleScaffoldFile);
+    clearstatcache();
+    $mtime_touched = filemtime($exampleScaffoldFile);
+    $this->composer('drupal-scaffold');
+    clearstatcache();
+    $mtime_after = filemtime($exampleScaffoldFile);
+    $this->assertNotEquals($mtime_after, $mtime_touched, 'Scaffold file was modified by custom command.');
   }
 
   /**
@@ -141,12 +129,15 @@ class PluginTest extends TestCase {
         array(
           'type' => 'vcs',
           'url' => $this->rootDir,
-        ),
+        )
       ),
       'require' => array(
         'drupal-composer/drupal-scaffold' => $this->tmpReleaseTag,
         'composer/installers' => '^1.0.20',
         'drupal/core' => '8.0.0',
+      ),
+      'scripts' => array(
+        'drupal-scaffold' =>  'DrupalComposer\\DrupalScaffold\\Plugin::scaffold'
       ),
       'minimum-stability' => 'dev',
     );
@@ -156,7 +147,7 @@ class PluginTest extends TestCase {
    * Wrapper for the composer command.
    *
    * @param string $command
-   *   Composer command name, arguments and/or options.
+   *   Composer command name, arguments and/or options
    */
   protected function composer($command) {
     chdir($this->tmpDir);
@@ -189,7 +180,6 @@ class PluginTest extends TestCase {
     if (is_dir($directory)) {
       $this->fs->removeDirectory($directory);
     }
-    mkdir($directory, 0777, TRUE);
+    mkdir($directory, 0777, true);
   }
-
 }

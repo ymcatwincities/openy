@@ -11,8 +11,6 @@
 namespace Behat\Behat\Context\Environment\Handler;
 
 use Behat\Behat\Context\Argument\SuiteScopedResolverFactory;
-use Behat\Behat\Context\Argument\SuiteScopedResolverFactoryAdapter;
-use Behat\Behat\Context\Argument\ArgumentResolverFactory;
 use Behat\Behat\Context\Argument\NullFactory;
 use Behat\Behat\Context\ContextClass\ClassResolver;
 use Behat\Behat\Context\ContextFactory;
@@ -38,7 +36,7 @@ final class ContextEnvironmentHandler implements EnvironmentHandler
      */
     private $contextFactory;
     /**
-     * @var ArgumentResolverFactory
+     * @var SuiteScopedResolverFactory
      */
     private $resolverFactory;
     /**
@@ -49,17 +47,12 @@ final class ContextEnvironmentHandler implements EnvironmentHandler
     /**
      * Initializes handler.
      *
-     * @param ContextFactory                                     $factory
-     * @param ArgumentResolverFactory|SuiteScopedResolverFactory $resolverFactory
+     * @param ContextFactory             $factory
+     * @param SuiteScopedResolverFactory $resolverFactory
      */
-    public function __construct(ContextFactory $factory, $resolverFactory = null)
+    public function __construct(ContextFactory $factory, SuiteScopedResolverFactory $resolverFactory = null)
     {
         $this->contextFactory = $factory;
-
-        if ($resolverFactory && !$resolverFactory instanceof ArgumentResolverFactory) {
-            $resolverFactory = new SuiteScopedResolverFactoryAdapter($resolverFactory);
-        }
-
         $this->resolverFactory = $resolverFactory ?: new NullFactory();
     }
 
@@ -115,7 +108,7 @@ final class ContextEnvironmentHandler implements EnvironmentHandler
         }
 
         $environment = new InitializedContextEnvironment($uninitializedEnvironment->getSuite());
-        $resolvers = $this->resolverFactory->createArgumentResolvers($environment);
+        $resolvers = $this->resolverFactory->generateArgumentResolvers($uninitializedEnvironment->getSuite());
 
         foreach ($uninitializedEnvironment->getContextClassesWithArguments() as $class => $arguments) {
             $context = $this->contextFactory->createContext($class, $arguments, $resolvers);

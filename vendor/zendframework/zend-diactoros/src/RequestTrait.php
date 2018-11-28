@@ -1,7 +1,9 @@
 <?php
 /**
- * @see       https://github.com/zendframework/zend-diactoros for the canonical source repository
- * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @see       http://github.com/zendframework/zend-diactoros for the canonical source repository
+ * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
  */
 
@@ -10,15 +12,6 @@ namespace Zend\Diactoros;
 use InvalidArgumentException;
 use Psr\Http\Message\StreamInterface;
 use Psr\Http\Message\UriInterface;
-
-use function array_keys;
-use function get_class;
-use function gettype;
-use function is_object;
-use function is_string;
-use function preg_match;
-use function sprintf;
-use function strtolower;
 
 /**
  * Trait with common request behaviors.
@@ -29,11 +22,14 @@ use function strtolower;
  * the environment. As such, this trait exists to provide the common code
  * between both client-side and server-side requests, and each can then
  * use the headers functionality required by their implementations.
+ *
+ * @property array $headers
+ * @property array $headerNames
+ * @property StreamInterface $stream
+ * @method bool hasHeader(string $header)
  */
 trait RequestTrait
 {
-    use MessageTrait;
-
     /**
      * @var string
      */
@@ -47,7 +43,7 @@ trait RequestTrait
     private $requestTarget;
 
     /**
-     * @var UriInterface
+     * @var null|UriInterface
      */
     private $uri;
 
@@ -56,7 +52,7 @@ trait RequestTrait
      *
      * Used by constructors.
      *
-     * @param null|string|UriInterface $uri URI for the request, if any.
+     * @param null|string $uri URI for the request, if any.
      * @param null|string $method HTTP method for the request, if any.
      * @param string|resource|StreamInterface $body Message body, if any.
      * @param array $headers Headers for the message, if any.
@@ -64,52 +60,33 @@ trait RequestTrait
      */
     private function initialize($uri = null, $method = null, $body = 'php://memory', array $headers = [])
     {
+        if (! $uri instanceof UriInterface && ! is_string($uri) && null !== $uri) {
+            throw new InvalidArgumentException(
+                'Invalid URI provided; must be null, a string, or a Psr\Http\Message\UriInterface instance'
+            );
+        }
+
         $this->validateMethod($method);
 
-        $this->method = $method ?: '';
-        $this->uri    = $this->createUri($uri);
-        $this->stream = $this->getStream($body, 'wb+');
-
-        $this->setHeaders($headers);
-
-        // per PSR-7: attempt to set the Host header from a provided URI if no
-        // Host header is provided
-        if (! $this->hasHeader('Host') && $this->uri->getHost()) {
-            $this->headerNames['host'] = 'Host';
-            $this->headers['Host'] = [$this->getHostFromUri()];
+        if (! is_string($body) && ! is_resource($body) && ! $body instanceof StreamInterface) {
+            throw new InvalidArgumentException(
+                'Body must be a string stream resource identifier, '
+                . 'an actual stream resource, '
+                . 'or a Psr\Http\Message\StreamInterface implementation'
+            );
         }
-    }
 
-    /**
-     * Create and return a URI instance.
-     *
-     * If `$uri` is a already a `UriInterface` instance, returns it.
-     *
-     * If `$uri` is a string, passes it to the `Uri` constructor to return an
-     * instance.
-     *
-     * If `$uri is null, creates and returns an empty `Uri` instance.
-     *
-     * Otherwise, it raises an exception.
-     *
-     * @param null|string|UriInterface $uri
-     * @return UriInterface
-     * @throws InvalidArgumentException
-     */
-    private function createUri($uri)
-    {
-        if ($uri instanceof UriInterface) {
-            return $uri;
-        }
         if (is_string($uri)) {
-            return new Uri($uri);
+            $uri = new Uri($uri);
         }
-        if ($uri === null) {
-            return new Uri();
-        }
-        throw new InvalidArgumentException(
-            'Invalid URI provided; must be null, a string, or a Psr\Http\Message\UriInterface instance'
-        );
+
+        $this->method = $method ?: '';
+        $this->uri    = $uri ?: new Uri();
+        $this->stream = ($body instanceof StreamInterface) ? $body : new Stream($body, 'r');
+
+        list($this->headerNames, $headers) = $this->filterHeaders($headers);
+        $this->assertHeaders($headers);
+        $this->headers = $headers;
     }
 
     /**
@@ -132,6 +109,10 @@ trait RequestTrait
     {
         if (null !== $this->requestTarget) {
             return $this->requestTarget;
+        }
+
+        if (! $this->uri) {
+            return '/';
         }
 
         $target = $this->uri->getPath();
@@ -268,16 +249,6 @@ trait RequestTrait
         }
 
         $new->headerNames['host'] = 'Host';
-
-        // Remove an existing host header if present, regardless of current
-        // de-normalization of the header name.
-        // @see https://github.com/zendframework/zend-diactoros/issues/91
-        foreach (array_keys($new->headers) as $header) {
-            if (strtolower($header) === 'host') {
-                unset($new->headers[$header]);
-            }
-        }
-
         $new->headers['Host'] = [$host];
 
         return $new;
@@ -320,5 +291,19 @@ trait RequestTrait
         $host  = $this->uri->getHost();
         $host .= $this->uri->getPort() ? ':' . $this->uri->getPort() : '';
         return $host;
+    }
+
+    /**
+     * Ensure header names and values are valid.
+     *
+     * @param array $headers
+     * @throws InvalidArgumentException
+     */
+    private function assertHeaders(array $headers)
+    {
+        foreach ($headers as $name => $headerValues) {
+            HeaderSecurity::assertValidName($name);
+            array_walk($headerValues, __NAMESPACE__ . '\HeaderSecurity::assertValid');
+        }
     }
 }

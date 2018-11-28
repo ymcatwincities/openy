@@ -65,21 +65,14 @@ abstract class AbstractComparisonValidatorTestCase extends ConstraintValidatorTe
         return $result;
     }
 
-    public function provideInvalidConstraintOptions()
-    {
-        return array(
-            array(null),
-            array(array()),
-        );
-    }
-
     /**
-     * @dataProvider provideInvalidConstraintOptions
      * @expectedException \Symfony\Component\Validator\Exception\ConstraintDefinitionException
      */
-    public function testThrowsConstraintExceptionIfNoValueOrProperty($options)
+    public function testThrowsConstraintExceptionIfNoValueOrProperty()
     {
-        $this->createConstraint($options);
+        $comparison = $this->createConstraint(array());
+
+        $this->validator->validate('some value', $comparison);
     }
 
     /**
@@ -170,11 +163,11 @@ abstract class AbstractComparisonValidatorTestCase extends ConstraintValidatorTe
     abstract public function provideInvalidComparisons();
 
     /**
-     * @param array|null $options Options for the constraint
+     * @param array $options Options for the constraint
      *
      * @return Constraint
      */
-    abstract protected function createConstraint(array $options = null);
+    abstract protected function createConstraint(array $options);
 
     /**
      * @return string|null

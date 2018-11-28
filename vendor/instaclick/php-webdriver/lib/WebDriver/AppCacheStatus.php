@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2012-2017 Anthon Pang. All Rights Reserved.
+ * Copyright 2012-2013 Anthon Pang. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ final class AppCacheStatus
     /**
      * Application cache status
      *
-     * @see https://code.google.com/p/selenium/source/browse/java/client/src/org/openqa/selenium/html5/AppCacheStatus.java
+     * @see https://github.com/Selenium2/Selenium2/blob/master/java/client/src/org/openqa/selenium/html5/AppCacheStatus.java
      */
     const UNCACHED     = 0;
     const IDLE         = 1;

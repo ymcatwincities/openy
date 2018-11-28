@@ -1,5 +1,6 @@
 {
     "name": "guzzlehttp/promises",
+    "type": "library",
     "description": "Guzzle promises library",
     "keywords": ["promise"],
     "license": "MIT",
@@ -20,15 +21,11 @@
         "psr-4": {
             "GuzzleHttp\\Promise\\": "src/"
         },
-        "files": ["src/functions_include.php"]
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-ci": "vendor/bin/phpunit --coverage-text"
+        "files": ["src/functions.php"]
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.4-dev"
+            "dev-master": "1.0-dev"
         }
     }
 }

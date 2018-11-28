@@ -3,10 +3,10 @@
 /**
  * This class is adapted from code coming from Zend Framework.
  *
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://framework.zend.com/license/new-bsd New BSD License
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-class Twig_Test_EscapingTest extends \PHPUnit\Framework\TestCase
+class Twig_Test_EscapingTest extends PHPUnit_Framework_TestCase
 {
     /**
      * All character encodings supported by htmlspecialchars().
@@ -51,15 +51,13 @@ class Twig_Test_EscapingTest extends \PHPUnit\Framework\TestCase
 
     protected $jsSpecialChars = array(
         /* HTML special chars - escape without exception to hex */
-        '<' => '\\u003C',
-        '>' => '\\u003E',
-        '\'' => '\\u0027',
-        '"' => '\\u0022',
-        '&' => '\\u0026',
-        '/' => '\\/',
+        '<' => '\\x3C',
+        '>' => '\\x3E',
+        '\'' => '\\x27',
+        '"' => '\\x22',
+        '&' => '\\x26',
         /* Characters beyond ASCII value 255 to unicode escape */
         'Ā' => '\\u0100',
-        '😀' => '\\uD83D\\uDE00',
         /* Immune chars excluded */
         ',' => ',',
         '.' => '.',
@@ -72,14 +70,12 @@ class Twig_Test_EscapingTest extends \PHPUnit\Framework\TestCase
         '0' => '0',
         '9' => '9',
         /* Basic control characters and null */
-        "\r" => '\r',
-        "\n" => '\n',
-        "\x08" => '\b',
-        "\t" => '\t',
-        "\x0C" => '\f',
-        "\0" => '\\u0000',
+        "\r" => '\\x0D',
+        "\n" => '\\x0A',
+        "\t" => '\\x09',
+        "\0" => '\\x00',
         /* Encode spaces for quoteless attribute protection */
-        ' ' => '\\u0020',
+        ' ' => '\\x20',
     );
 
     protected $urlSpecialChars = array(
@@ -148,9 +144,9 @@ class Twig_Test_EscapingTest extends \PHPUnit\Framework\TestCase
 
     protected $env;
 
-    protected function setUp()
+    public function setUp()
     {
-        $this->env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock());
+        $this->env = new Twig_Environment($this->getMock('Twig_LoaderInterface'));
     }
 
     public function testHtmlEscapingConvertsSpecialChars()
@@ -254,7 +250,7 @@ class Twig_Test_EscapingTest extends \PHPUnit\Framework\TestCase
                 .chr($codepoint >> 6 & 0x3f | 0x80)
                 .chr($codepoint & 0x3f | 0x80);
         }
-        throw new Exception('Codepoint requested outside of Unicode range.');
+        throw new Exception('Codepoint requested outside of Unicode range');
     }
 
     public function testJavascriptEscapingEscapesOwaspRecommendedRanges()

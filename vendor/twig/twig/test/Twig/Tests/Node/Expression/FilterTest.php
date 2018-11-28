@@ -25,7 +25,7 @@ class Twig_Tests_Node_Expression_FilterTest extends Twig_Test_NodeTestCase
 
     public function getTests()
     {
-        $environment = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock());
+        $environment = new Twig_Environment($this->getMock('Twig_LoaderInterface'));
         $environment->addFilter(new Twig_SimpleFilter('bar', 'bar', array('needs_environment' => true)));
         $environment->addFilter(new Twig_SimpleFilter('barbar', 'twig_tests_filter_barbar', array('needs_context' => true, 'is_variadic' => true)));
 
@@ -118,7 +118,7 @@ class Twig_Tests_Node_Expression_FilterTest extends Twig_Test_NodeTestCase
 
     /**
      * @expectedException        Twig_Error_Syntax
-     * @expectedExceptionMessage Value for argument "from" is required for filter "replace" at line 1.
+     * @expectedExceptionMessage Value for argument "from" is required for filter "replace".
      */
     public function testCompileWithMissingNamedArgument()
     {

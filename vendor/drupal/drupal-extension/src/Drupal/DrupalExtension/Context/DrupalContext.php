@@ -61,7 +61,7 @@ class DrupalContext extends RawDrupalContext implements TranslatableContext {
       }
 
       // Login.
-      $this->login($user);
+      $this->login();
     }
   }
 
@@ -101,7 +101,7 @@ class DrupalContext extends RawDrupalContext implements TranslatableContext {
       }
 
       // Login.
-      $this->login($user);
+      $this->login();
     }
   }
 
@@ -110,38 +110,37 @@ class DrupalContext extends RawDrupalContext implements TranslatableContext {
    * @Given I am logged in as :name
    */
   public function assertLoggedInByName($name) {
-    $manager = $this->getUserManager();
+    if (!isset($this->users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
 
     // Change internal current user.
-    $manager->setCurrentUser($manager->getUser($name));
+    $this->user = $this->users[$name];
 
     // Login.
-    $this->login($manager->getUser($name));
+    $this->login();
   }
 
   /**
    * @Given I am logged in as a user with the :permissions permission(s)
    */
   public function assertLoggedInWithPermissions($permissions) {
-    // Create a temporary role with given permissions.
-    $permissions = array_map('trim', explode(',', $permissions));
-    $role = $this->getDriver()->roleCreate($permissions);
-
     // Create user.
     $user = (object) array(
       'name' => $this->getRandom()->name(8),
       'pass' => $this->getRandom()->name(16),
-      'role' => $role,
     );
     $user->mail = "{$user->name}@example.com";
     $this->userCreate($user);
 
-    // Assign the temporary role with given permissions.
-    $this->getDriver()->userAddRole($user, $role);
-    $this->roles[] = $role;
+    // Create and assign a temporary role with given permissions.
+    $permissions = explode(',', $permissions);
+    $rid = $this->getDriver()->roleCreate($permissions);
+    $this->getDriver()->userAddRole($user, $rid);
+    $this->roles[] = $rid;
 
     // Login.
-    $this->login($user);
+    $this->login();
   }
 
   /**
@@ -247,7 +246,7 @@ class DrupalContext extends RawDrupalContext implements TranslatableContext {
    * @Given I am viewing my :type (content )with the title :title
    */
   public function createMyNode($type, $title) {
-    if ($this->getUserManager()->currentUserIsAnonymous()) {
+    if (!isset($this->user->uid)) {
       throw new \Exception(sprintf('There is no current logged in user to create a node for.'));
     }
 
@@ -255,7 +254,7 @@ class DrupalContext extends RawDrupalContext implements TranslatableContext {
       'title' => $title,
       'type' => $type,
       'body' => $this->getRandom()->name(255),
-      'uid' => $this->getUserManager()->getCurrentUser()->uid,
+      'uid' => $this->user->uid,
     );
     $saved = $this->nodeCreate($node);
 

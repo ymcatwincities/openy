@@ -6,21 +6,21 @@ Twig supports __call() for attributes
 --DATA--
 class TestClassForMagicCallAttributes
 {
-    public function getBar()
+  public function getBar()
+  {
+    return 'bar_from_getbar';
+  }
+
+  public function __call($method, $arguments)
+  {
+    if ('foo' === $method)
     {
-        return 'bar_from_getbar';
+      return 'foo_from_call';
     }
 
-    public function __call($method, $arguments)
-    {
-        if ('foo' === $method) {
-            return 'foo_from_call';
-        }
-
-        return false;
-    }
+    return false;
+  }
 }
-
 return array('foo' => new TestClassForMagicCallAttributes())
 --EXPECT--
 foo_from_call

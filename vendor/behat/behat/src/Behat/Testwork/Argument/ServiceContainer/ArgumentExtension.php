@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Enables argument organisers for Testwork.
+ * Enables argument organises for the Testwork.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */

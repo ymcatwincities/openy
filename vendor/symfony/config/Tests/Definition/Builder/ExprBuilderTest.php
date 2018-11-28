@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\Config\Tests\Definition\Builder;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class ExprBuilderTest extends TestCase
+class ExprBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testAlwaysExpression()
     {
@@ -76,21 +75,6 @@ class ExprBuilderTest extends TestCase
         $this->assertFinalizedValueIs('value', $test);
     }
 
-    public function testIfEmptyExpression()
-    {
-        $test = $this->getTestBuilder()
-            ->ifEmpty()
-            ->then($this->returnClosure('new_value'))
-        ->end();
-        $this->assertFinalizedValueIs('new_value', $test, array('key' => array()));
-
-        $test = $this->getTestBuilder()
-            ->ifEmpty()
-            ->then($this->returnClosure('new_value'))
-        ->end();
-        $this->assertFinalizedValueIs('value', $test);
-    }
-
     public function testIfArrayExpression()
     {
         $test = $this->getTestBuilder()
@@ -146,25 +130,6 @@ class ExprBuilderTest extends TestCase
     }
 
     /**
-     * @dataProvider castToArrayValues
-     */
-    public function testcastToArrayExpression($configValue, $expectedValue)
-    {
-        $test = $this->getTestBuilder()
-            ->castToArray()
-        ->end();
-        $this->assertFinalizedValueIs($expectedValue, $test, array('key' => $configValue));
-    }
-
-    public function castToArrayValues()
-    {
-        yield array('value', array('value'));
-        yield array(-3.14, array(-3.14));
-        yield array(null, array(null));
-        yield array(array('value'), array('value'));
-    }
-
-    /**
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testThenInvalid()
@@ -183,26 +148,6 @@ class ExprBuilderTest extends TestCase
             ->thenUnset()
         ->end();
         $this->assertEquals(array(), $this->finalizeTestBuilder($test));
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify an if part.
-     */
-    public function testEndIfPartNotSpecified()
-    {
-        $this->getTestBuilder()->end();
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage You must specify a then part.
-     */
-    public function testEndThenPartNotSpecified()
-    {
-        $builder = $this->getTestBuilder();
-        $builder->ifPart = 'test';
-        $builder->end();
     }
 
     /**

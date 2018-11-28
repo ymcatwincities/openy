@@ -11,27 +11,18 @@
 
 namespace Symfony\Component\Config\Tests\Definition\Builder;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\EnumNodeDefinition;
 
-class EnumNodeDefinitionTest extends TestCase
+class EnumNodeDefinitionTest extends \PHPUnit_Framework_TestCase
 {
-    public function testWithOneValue()
-    {
-        $def = new EnumNodeDefinition('foo');
-        $def->values(array('foo'));
-
-        $node = $def->getNode();
-        $this->assertEquals(array('foo'), $node->getValues());
-    }
-
-    public function testWithOneDistinctValue()
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage ->values() must be called with at least two distinct values.
+     */
+    public function testNoDistinctValues()
     {
         $def = new EnumNodeDefinition('foo');
         $def->values(array('foo', 'foo'));
-
-        $node = $def->getNode();
-        $this->assertEquals(array('foo'), $node->getValues());
     }
 
     /**
@@ -44,16 +35,6 @@ class EnumNodeDefinitionTest extends TestCase
         $def->getNode();
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage ->values() must be called with at least one value.
-     */
-    public function testWithNoValues()
-    {
-        $def = new EnumNodeDefinition('foo');
-        $def->values(array());
-    }
-
     public function testGetNode()
     {
         $def = new EnumNodeDefinition('foo');
@@ -61,17 +42,5 @@ class EnumNodeDefinitionTest extends TestCase
 
         $node = $def->getNode();
         $this->assertEquals(array('foo', 'bar'), $node->getValues());
-    }
-
-    public function testSetDeprecated()
-    {
-        $def = new EnumNodeDefinition('foo');
-        $def->values(array('foo', 'bar'));
-        $def->setDeprecated('The "%path%" node is deprecated.');
-
-        $node = $def->getNode();
-
-        $this->assertTrue($node->isDeprecated());
-        $this->assertSame('The "foo" node is deprecated.', $def->getNode()->getDeprecationMessage($node->getName(), $node->getPath()));
     }
 }

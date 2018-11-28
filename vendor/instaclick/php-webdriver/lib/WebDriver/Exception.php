@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2017 Facebook. All Rights Reserved.
+ * Copyright 2004-2013 Facebook. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -86,6 +86,7 @@ abstract class Exception extends \Exception
     const UNEXPECTED_PARAMETERS = -5;
     const INVALID_REQUEST = -6;
     const UNKNOWN_LOCATOR_STRATEGY = -7;
+    const WEBTEST_ASSERTION = -8;
 
     private static $errs = array(
 //      self::SUCCESS => array('Success', 'This should never be thrown!'),
@@ -122,6 +123,7 @@ abstract class Exception extends \Exception
         self::UNEXPECTED_PARAMETERS => array('UnexpectedParameters', 'This command does not expect this number of parameters.'),
         self::INVALID_REQUEST => array('InvalidRequest', 'This command does not support this HTTP request method.'),
         self::UNKNOWN_LOCATOR_STRATEGY => array('UnknownLocatorStrategy', 'This locator strategy is not supported.'),
+        self::WEBTEST_ASSERTION => array('WebTestAssertion', 'WebTest assertion failed.'),
     );
 
     /**

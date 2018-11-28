@@ -1,0 +1,18 @@
+---
+- name: Generate commentinfo.md file
+  shell: 'echo "===============" > {{ workspace }}/commentinfo.md'
+  when: recreate_commentinfo
+
+- name: Make sure folder is not exist
+  file:
+    path: " {{ destination }}"
+    state: absent
+
+- name: Sync files into docroot
+  shell: "cp -R {{ source }}/ {{ destination }}"
+
+#- name: Sync OpenY profile
+#  shell: "mv {{ profile_source }}/ {{ destination }}/{{ profile_destination }}"
+
+- name: Folder permissions
+  shell: "sudo chown -R www-data:jenkins {{ destination }}"

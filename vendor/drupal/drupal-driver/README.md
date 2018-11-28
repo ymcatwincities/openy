@@ -1,9 +1,3 @@
-<?php
-
-/**
- * @file
- */
-?>
 [![Build Status](https://travis-ci.org/jhedstrom/DrupalDriver.svg?branch=master)](https://travis-ci.org/jhedstrom/DrupalDriver)
 
 Provides a collection of light-weight drivers with a common interface for interacting with [Drupal](http://drupal.org). These are generally intended for testing, and are not meant to be API-complete.
@@ -41,6 +35,7 @@ $> php composer.phar install
 <?php
 
 use Drupal\Driver\DrupalDriver;
+use Drupal\Driver\Cores\Drupal8;
 
 require 'vendor/autoload.php';
 

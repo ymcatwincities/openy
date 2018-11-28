@@ -62,7 +62,6 @@ class BrowserStackFactory extends Selenium2Factory
                 ->booleanNode('browserstack-debug')->end()
                 ->booleanNode('browserstack-tunnel')->end()
                 ->booleanNode('emulator')->end()
-                ->booleanNode('acceptSslCert')->end()
             ->end()
         ;
 

@@ -31,15 +31,10 @@
 wget http://robo.li/robo.phar
 ```
 
-To install globally put `robo.phar` in `/usr/bin`. (`/usr/local/bin/` in OSX 10.11+)
+To install globally put `robo.phar` in `/usr/bin`.
 
 ```
 chmod +x robo.phar && sudo mv robo.phar /usr/bin/robo
-```
-
-OSX 10.11+
-```
-chmod +x robo.phar && sudo mv robo.phar /usr/local/bin/robo
 ```
 
 Now you can use it just like `robo`.

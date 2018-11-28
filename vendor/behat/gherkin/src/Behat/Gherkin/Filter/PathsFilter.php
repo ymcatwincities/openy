@@ -29,15 +29,7 @@ class PathsFilter extends SimpleFilter
      */
     public function __construct(array $paths)
     {
-        $this->filterPaths = array_map(
-            function ($realpath) {
-                return rtrim($realpath, DIRECTORY_SEPARATOR) .
-                    (is_dir($realpath) ? DIRECTORY_SEPARATOR : '');
-            },
-            array_filter(
-                array_map('realpath', $paths)
-            )
-        );
+        $this->filterPaths = array_map('realpath', $paths);
     }
 
     /**
@@ -50,7 +42,11 @@ class PathsFilter extends SimpleFilter
     public function isFeatureMatch(FeatureNode $feature)
     {
         foreach ($this->filterPaths as $path) {
-            if (0 === strpos(realpath($feature->getFile()), $path)) {
+            if (!$path) {
+                continue;
+            }
+
+            if (0 === strpos($feature->getFile(), $path)) {
                 return true;
             }
         }

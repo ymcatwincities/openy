@@ -24,11 +24,11 @@ class SelfUpdateCommand extends Command
 
     public function __construct($applicationName = null, $currentVersion = null, $gitHubRepository = null)
     {
+        parent::__construct(self::SELF_UPDATE_COMMAND_NAME);
+
         $this->applicationName = $applicationName;
         $this->currentVersion = $currentVersion;
         $this->gitHubRepository = $gitHubRepository;
-
-        parent::__construct(self::SELF_UPDATE_COMMAND_NAME);
     }
 
     /**
@@ -36,15 +36,13 @@ class SelfUpdateCommand extends Command
      */
     protected function configure()
     {
-        $app = $this->applicationName;
-
         $this
             ->setAliases(array('update'))
-            ->setDescription("Updates $app to the latest version.")
+            ->setDescription('Updates the robo.phar to the latest version.')
             ->setHelp(
                 <<<EOT
 The <info>self-update</info> command checks github for newer
-versions of $app and if found, installs the latest.
+versions of robo and if found, installs the latest.
 EOT
             );
     }

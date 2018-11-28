@@ -1,37 +1,17 @@
 <?php
 /**
- * @see       https://github.com/zendframework/zend-diactoros for the canonical source repository
- * @copyright Copyright (c) 2015-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * Zend Framework (http://framework.zend.com/)
+ *
+ * @see       http://github.com/zendframework/zend-diactoros for the canonical source repository
+ * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
  */
 
 namespace Zend\Diactoros;
 
 use InvalidArgumentException;
-use Psr\Http\Message\StreamInterface;
 use RuntimeException;
-
-use function array_key_exists;
-use function fclose;
-use function feof;
-use function fopen;
-use function fread;
-use function fseek;
-use function fstat;
-use function ftell;
-use function fwrite;
-use function get_resource_type;
-use function is_int;
-use function is_resource;
-use function is_string;
-use function restore_error_handler;
-use function set_error_handler;
-use function stream_get_contents;
-use function stream_get_meta_data;
-use function strstr;
-
-use const E_WARNING;
-use const SEEK_SET;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Implementation of PSR HTTP streams
@@ -39,7 +19,7 @@ use const SEEK_SET;
 class Stream implements StreamInterface
 {
     /**
-     * @var resource|null
+     * @var resource
      */
     protected $resource;
 
@@ -55,7 +35,23 @@ class Stream implements StreamInterface
      */
     public function __construct($stream, $mode = 'r')
     {
-        $this->setStream($stream, $mode);
+        $this->stream = $stream;
+
+        if (is_resource($stream)) {
+            $this->resource = $stream;
+        } elseif (is_string($stream)) {
+            set_error_handler(function ($errno, $errstr) {
+                throw new InvalidArgumentException(
+                    'Invalid file provided for stream; must be a valid path with valid permissions'
+                );
+            }, E_WARNING);
+            $this->resource = fopen($stream, $mode);
+            restore_error_handler();
+        } else {
+            throw new InvalidArgumentException(
+                'Invalid stream provided; must be a string stream identifier or resource'
+            );
+        }
     }
 
     /**
@@ -68,10 +64,7 @@ class Stream implements StreamInterface
         }
 
         try {
-            if ($this->isSeekable()) {
-                $this->rewind();
-            }
-
+            $this->rewind();
             return $this->getContents();
         } catch (RuntimeException $e) {
             return '';
@@ -112,7 +105,26 @@ class Stream implements StreamInterface
      */
     public function attach($resource, $mode = 'r')
     {
-        $this->setStream($resource, $mode);
+        $error = null;
+        if (! is_resource($resource) && is_string($resource)) {
+            set_error_handler(function ($e) use (&$error) {
+                $error = $e;
+            }, E_WARNING);
+            $resource = fopen($resource, $mode);
+            restore_error_handler();
+        }
+
+        if ($error) {
+            throw new InvalidArgumentException('Invalid stream reference provided');
+        }
+
+        if (! is_resource($resource)) {
+            throw new InvalidArgumentException(
+                'Invalid stream provided; must be a string stream identifier or resource'
+            );
+        }
+
+        $this->resource = $resource;
     }
 
     /**
@@ -125,11 +137,7 @@ class Stream implements StreamInterface
         }
 
         $stats = fstat($this->resource);
-        if ($stats !== false) {
-            return $stats['size'];
-        }
-
-        return null;
+        return $stats['size'];
     }
 
     /**
@@ -314,46 +322,5 @@ class Stream implements StreamInterface
         }
 
         return $metadata[$key];
-    }
-
-    /**
-     * Set the internal stream resource.
-     *
-     * @param string|resource $stream String stream target or stream resource.
-     * @param string $mode Resource mode for stream target.
-     * @throws InvalidArgumentException for invalid streams or resources.
-     */
-    private function setStream($stream, $mode = 'r')
-    {
-        $error    = null;
-        $resource = $stream;
-
-        if (is_string($stream)) {
-            set_error_handler(function ($e) use (&$error) {
-                if ($e !== E_WARNING) {
-                    return;
-                }
-
-                $error = $e;
-            });
-            $resource = fopen($stream, $mode);
-            restore_error_handler();
-        }
-
-        if ($error) {
-            throw new InvalidArgumentException('Invalid stream reference provided');
-        }
-
-        if (! is_resource($resource) || 'stream' !== get_resource_type($resource)) {
-            throw new InvalidArgumentException(
-                'Invalid stream provided; must be a string stream identifier or stream resource'
-            );
-        }
-
-        if ($stream !== $resource) {
-            $this->stream = $stream;
-        }
-
-        $this->resource = $resource;
     }
 }

@@ -2,11 +2,10 @@
     "name": "drupal-composer/drupal-scaffold",
     "description": "Composer Plugin for updating the Drupal scaffold files when using drupal/core",
     "type": "composer-plugin",
-    "license": "GPL-2.0-or-later",
+    "license": "GPL-2.0+",
     "require": {
         "php": ">=5.4.5",
-        "composer-plugin-api": "^1.0.0",
-        "composer/semver": "^1.4"
+        "composer-plugin-api": "^1.0.0"
     },
     "autoload": {
         "psr-4": {
@@ -19,33 +18,8 @@
             "dev-master": "2.0.x-dev"
         }
     },
-    "scripts": {
-        "cs": "phpcs --standard=PSR2 -n src",
-        "cbf": "phpcbf --standard=PSR2 -n src",
-        "unit": "phpunit --colors=always",
-        "lint": [
-            "find src -name '*.php' -print0 | xargs -0 -n1 php -l"
-        ],
-        "test": [
-            "@lint",
-            "@unit"
-        ],
-        "scenario": ".scenarios.lock/install",
-        "post-update-cmd": [
-            "create-scenario phpunit4 'phpunit/phpunit:^4.8.36' --platform-php '5.5.27'"
-        ]
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "sort-packages": true,
-        "platform": {
-            "php": "7.0.8"
-        }
-    },
     "require-dev": {
         "composer/composer": "dev-master",
-        "g1a/composer-test-scenarios": "^2.1.0",
-        "phpunit/phpunit": "^6",
-        "squizlabs/php_codesniffer": "^2.8"
+        "phpunit/phpunit": "^4.4.0"
     }
 }
