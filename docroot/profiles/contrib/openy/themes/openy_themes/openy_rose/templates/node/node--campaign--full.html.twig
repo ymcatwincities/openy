@@ -70,40 +70,20 @@
  *   in different view modes.
  */
 #}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
 
-{% set background_color = '#' ~ content.field_alert_color['#items'].entity.field_color.value %}
-{% set text_color = '#' ~ content.field_alert_text_color['#items'].entity.field_color.value %}
-{% set bg_color = 'background-color: '  ~  background_color %}
-{% set txt_color = 'color: ' ~ text_color %}
-{% set link_title = content.field_alert_link.0['#title'] %}
-{% set link_url = content.field_alert_link.0['#url'] %}
-
-{% if content.field_alert_icon_color['#items'].entity.field_color.value is not empty %}
-  {% set icon_color = '#' ~ content.field_alert_icon_color['#items'].entity.field_color.value %}
-{% endif %}
-
-<div {{ attributes.setAttribute('style', bg_color ~ '; ' ~ txt_color) }}>
-  <div class="container header-alert">
-    <div class="row site-alert__wrapper">
-      {% if icon_color is defined %}
-        <div class="site-alert__icon" style="color: {{ icon_color }}">
-          <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-        </div>
-      {% endif %}
-      <div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
-        <div class="site-alert__title">{{ label }}</div>
-        <div class="site-alert__content header-alert__content">
-          {{ content.field_alert_description }}
-        </div>
-      </div>
-      {% if link_title %}
-        <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 site-alert__cta">
-          <div class="field-alert-link">
-            <a href="{{ link_url }}" style="color: {{ text_color }}; border-color: {{ text_color}}">{{ link_title }}</a>
-          </div>
-        </div>
-      {% endif %}
-      <a href="#" class="site-alert__dismiss" title="{{ 'Close alert message'|t }}"><i class="fa fa-times" aria-hidden="true"><span class="visually-hidden">{{ 'Close alert'|t }}</span></i></a>
-    </div>
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content.landing_page }}
   </div>
-</div>
+
+</article>
