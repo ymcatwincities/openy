@@ -426,15 +426,30 @@
   @include breakpoint($screen-desktop) {
     height: 600px;
   }
+}
+.paragraph--type--small-banner {
+  overflow: hidden;
+  max-height: 250px;
 
-  img.media__element {
-    @include breakpoint($screen-desktop) {
-      bottom: -100%;
-      top: -100%;
-      left: 0;
-      right: 0;
-      margin: auto;
-      position: absolute;
+  .banner-image {
+    top: 0;
+    bottom: 0;
+
+    .banner-image-wrapper {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .field-prgf-image, .media-image, .field-media-image {
+        flex-grow: 1;
+        display: flex;
+      }
+
+      .field-media-image {
+        .media--image {
+          height: auto;
+        }
+      }
     }
   }
 }
@@ -470,14 +485,9 @@
         padding-bottom: 0 !important;
         position: relative;
       }
-    }
 
-    img.media__element {
-      width: 100% !important;
-      height: auto !important;
-
-      @include breakpoint($screen-desktop $screen-lg-desktop) {
-        width: 120% !important;
+      img.media__element {
+        object-fit: cover;
       }
     }
   }
@@ -549,11 +559,6 @@
   }
 
   &--small {
-    min-height: 105px;
-
-    @include breakpoint($screen-desktop) {
-      min-height: 160px;
-    }
 
     .banner-image {
       display: none;
@@ -574,12 +579,12 @@
       padding: 13px 0;
 
       @include breakpoint($screen-desktop) {
-        padding: 30px 0;
+        padding: 36px 0;
       }
     }
 
     .banner-title {
-      margin: 0 0 10px;
+      margin: 0;
       max-width: 700px;
     }
 

@@ -50,6 +50,8 @@
 @import 'modules/breadcrumbs';
 @import 'modules/video';
 @import 'modules/event';
+@import 'modules/social-post';
+@import 'modules/repeating-schedules';
 
 // Paragraphs
 @import 'paragraphs/1c';
@@ -58,6 +60,10 @@
 @import 'paragraphs/lto';
 @import 'paragraphs/upcoming-events';
 @import 'paragraphs/event-post-listing';
+@import 'paragraphs/secondary_description';
 
 // Global state classes
 @import 'state/state';
+
+// Decoupled from modules
+@import '../../scss/modules';
