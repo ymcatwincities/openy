@@ -6,7 +6,7 @@ dependencies:
       - openy_demo_nnews
 id: openy_demo_lp_paragraph_news_small_banner
 migration_tags:
-  - 'OpenY Demo News'
+  - 'Open Y Demo News'
 migration_group: openy_demo_nnews
 label: 'Create small banner paragraph(s) for demo landing page nodes'
 migration_dependencies:
@@ -18,7 +18,7 @@ source:
     -
       id: news_small_banner
       parent_id: news
-      headline: 'OpenY News'
+      headline: 'Open Y News'
       color: 17
   ids:
     id:
@@ -27,7 +27,7 @@ process:
   langcode:
     plugin: default_value
     source: language
-    default_value: und
+    default_value: en
   status:
     plugin: default_value
     default_value: 1
@@ -51,6 +51,11 @@ process:
     plugin: migration
     migration: openy_demo_taxonomy_term_color
     source: color
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: small_banner
 destination:
   plugin: 'entity:paragraph'
   default_bundle: small_banner

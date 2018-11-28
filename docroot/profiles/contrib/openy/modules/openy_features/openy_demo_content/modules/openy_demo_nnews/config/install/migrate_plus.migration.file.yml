@@ -1,11 +1,14 @@
 dependencies:
   module:
     - file
+  enforced:
+    module:
+      - openy_demo_nnews
 id: openy_demo_nnews_file
 migration_tags:
-  - 'OpenY Demo News'
+  - 'Open Y Demo News'
 migration_group: openy_demo_nnews
-label: 'Files'
+label: 'Import demo news files'
 source:
   plugin: embedded_data
   data_rows:
@@ -38,6 +41,10 @@ source:
     uri_file: 'public:/'
     module: openy_demo_nnews
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   module_path:
     plugin: module_path
     source: constants/module

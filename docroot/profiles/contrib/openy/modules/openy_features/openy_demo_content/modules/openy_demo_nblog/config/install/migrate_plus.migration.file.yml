@@ -1,10 +1,13 @@
 dependencies:
   module:
     - file
+  enforced:
+    module:
+      - openy_demo_nblog
 id: openy_demo_nblog_file
 migration_tags: { }
 migration_group: openy_demo_nblog
-label: Files
+label: 'Import demo blog files'
 source:
   plugin: embedded_data
   data_rows:
@@ -46,6 +49,10 @@ source:
     uri_file: 'public:/'
     module: openy_demo_nblog
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   module_path:
     plugin: module_path
     source: constants/module

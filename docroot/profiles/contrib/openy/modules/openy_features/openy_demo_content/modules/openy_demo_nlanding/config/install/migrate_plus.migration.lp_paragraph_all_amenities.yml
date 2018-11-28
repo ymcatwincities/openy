@@ -22,7 +22,7 @@ process:
   langcode:
     plugin: default_value
     source: language
-    default_value: und
+    default_value: en
   status:
     plugin: default_value
     default_value: 1
@@ -43,6 +43,11 @@ process:
       plugin: migration
       migration: openy_demo_taxonomy_term_amenities
       source: amnts_ids
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: all_amenities
 destination:
   plugin: 'entity:paragraph'
   default_bundle: all_amenities

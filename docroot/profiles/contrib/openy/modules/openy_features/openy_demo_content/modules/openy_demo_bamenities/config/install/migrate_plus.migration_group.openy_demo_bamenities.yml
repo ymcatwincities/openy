@@ -2,6 +2,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: openy_demo_branch_amenities
-label: 'Block'
+label: 'Branch Amenities Block'
 description: 'Imports blocks that are being used for Branch Amenities feature.'
 module: openy_demo_bamenities

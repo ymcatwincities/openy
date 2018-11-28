@@ -3,21 +3,18 @@ status: true
 dependencies:
   enforced:
     module:
-      - openy_demo_nlanding
-id: openy_demo_lp_paragraph_lto
+      - openy_demo_ncampaign
+id: openy_demo_lp_paragraph_campaign_winners
 migration_tags: {  }
-migration_group: openy_demo_nlanding
-label: 'Create Limited Time Offer paragraph(s) for demo landing page nodes'
+migration_group: openy_demo_ncampaign
+label: 'Create Campaign Winners paragraph for demo landing pages'
 migration_dependencies: {  }
 source:
   plugin: embedded_data
   data_rows:
     -
-      id: locations_lto_amenities
-      parent_id: locations
-      title: 'Search by amenities'
-      link_uri: 'internal:/amenities'
-      link_title: 'Search by amenities'
+      id: challenge_yourself_campaign_winners
+      parent_id: challenge_yourself_completed
   ids:
     id:
       type: string
@@ -25,7 +22,7 @@ process:
   langcode:
     plugin: default_value
     source: language
-    default_value: und
+    default_value: en
   status:
     plugin: default_value
     default_value: 1
@@ -40,13 +37,17 @@ process:
   parent_type:
     plugin: default_value
     default_value: node
+  field_prgf_campaign_winners/target_id:
+    plugin: default_value
+    default_value: 'campaign_winners_block'
+  field_prgf_campaign_winners/target_revision_id:
+    plugin: default_value
+    default_value: 'campaign_winners_block'
   # TODO: get parent_field_name from data?
-  field_lto_title: title
-  field_lto_subtitle:
-      plugin: default_value
-      default_value: ''
-  field_lto_link/uri: link_uri
-  field_lto_link/title: link_title
+  parent_field_name:
+    plugin: default_value
+    default_value: field_content
+
 destination:
   plugin: 'entity:paragraph'
-  default_bundle: lto
+  default_bundle: campaign_winners

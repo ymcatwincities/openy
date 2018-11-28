@@ -3,9 +3,12 @@ status: true
 dependencies:
   module:
     - openy_node_news
+  enforced:
+    module:
+      - openy_demo_nnews
 id: openy_demo_node_news
 migration_tags:
-  - 'OpenY Demo News'
+  - 'Open Y Demo News'
 migration_group: openy_demo_nnews
 label: 'Import demo news posts'
 source:
@@ -32,7 +35,7 @@ source:
       category: 1
       related: null
       image: 2
-      promote: 0
+      promote: 1
       addthis: 1
       body: >
         <ul>
@@ -84,7 +87,7 @@ source:
       category: 2
       related: null
       image: 3
-      promote: 0
+      promote: 1
       addthis: 1
       body: >
         <p>By Glen Gunderson</p>
@@ -198,7 +201,7 @@ source:
       category: 4
       related: null
       image: 6
-      promote: 0
+      promote: 1
       addthis: 1
       body: >
         <p><strong>September 15 to October 15 celebrate LatinX Heritage Month with the YMCA. Join free events across
@@ -231,7 +234,7 @@ source:
       category: 5
       related: null
       image: 7
-      promote: 0
+      promote: 1
       addthis: 1
       body: >
         <h3>Breathe, Stretch, Re-charge</h3>
@@ -253,6 +256,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   title:
     -
       plugin: get

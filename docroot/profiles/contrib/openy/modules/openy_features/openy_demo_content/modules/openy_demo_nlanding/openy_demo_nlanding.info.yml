@@ -1,13 +1,11 @@
-name: 'OpenY Demo Node Landing Page'
-description: 'OpenY Demo Node Landing Page.'
+name: 'Open Y Demo Node Landing Page'
+description: Stores migrations to import demo landing pages.
 type: module
 core: 8.x
-package: OpenY
+version: 8.x-1.0
+package: Open Y
 dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
   - openy_node_landing
-  - openy_node_session
-  - openy_session_instance
-  - openy_prgf_schedule_search
