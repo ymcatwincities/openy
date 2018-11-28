@@ -1,8 +1,9 @@
-name: 'OpenY Block Custom Simple'
-description: 'Implements simple block with a body.'
+name: Open Y Block Custom Simple
+description: Implements a simple block with a title, body, icon and link.
 type: module
 core: 8.x
-package: OpenY
+version: 8.x-1.0
+package: Open Y
 dependencies:
   - block_content
   - entity_browser
@@ -11,4 +12,5 @@ dependencies:
   - link
   - media_entity
   - openy_block
+  - openy_media_image
   - text
