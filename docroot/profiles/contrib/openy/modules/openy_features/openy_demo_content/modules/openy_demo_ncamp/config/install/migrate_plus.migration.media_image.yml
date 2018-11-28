@@ -1,10 +1,13 @@
 dependencies:
   module:
     - openy_media_image
+  enforced:
+    module:
+      - openy_demo_ncamp
 id: openy_demo_ncamp_media_image
 migration_tags: { }
 migration_group: openy_demo_ncamp
-label: Media Images
+label: Import demo blog camp images
 source:
   plugin: embedded_data
   data_rows:
@@ -48,6 +51,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   name:
     -
       plugin: get

@@ -3,6 +3,9 @@ status: true
 dependencies:
   module:
     - openy_node_blog
+  enforced:
+    module:
+      - openy_demo_nblog
 id: openy_demo_node_blog
 migration_tags: {  }
 migration_group: openy_demo_nblog
@@ -329,6 +332,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   title:
     -
       plugin: get

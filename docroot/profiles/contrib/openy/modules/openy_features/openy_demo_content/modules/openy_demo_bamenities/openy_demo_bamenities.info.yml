@@ -1,8 +1,9 @@
-name: 'OpenY Demo Amenities Block'
-description: 'OpenY Demo Amenities Block.'
+name: Open Y Demo Block Amenities
+description: Stores migrations to import demo Amenities blocks.
 type: module
 core: 8.x
-package: OpenY
+version: 8.x-1.0
+package: Open Y
 dependencies:
   - migrate
   - migrate_plus

@@ -5,10 +5,15 @@ dependencies:
     module:
       - openy_demo_menu_footer
 id: openy_demo_menu_link_footer
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_menu
 label: 'Create demo footer menu links'
-migration_dependencies: {}
+migration_dependencies:
+  required:
+    - openy_demo_node_program_subcategory
+    - openy_demo_node_program
+    - openy_demo_node_landing
 source:
   plugin: embedded_data
   data_rows:
@@ -169,6 +174,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   bundle:
     plugin: default_value
     default_value: menu_link_content

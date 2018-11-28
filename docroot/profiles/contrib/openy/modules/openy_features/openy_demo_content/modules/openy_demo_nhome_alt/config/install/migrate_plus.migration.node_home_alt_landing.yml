@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_nhome_alt
 id: openy_demo_node_home_alt_landing
-migration_tags: {  }
+migration_tags:
+  - openy_demo_home_alt
 migration_group: openy_demo_nhome_alt
 label: 'Create demo home landing page nodes'
 source:
@@ -13,7 +14,7 @@ source:
   data_rows:
     -
       id: homepage
-      title: 'OpenY'
+      title: 'Open Y'
       content_ids:
         -
           content_id: home_alt_simple
@@ -24,7 +25,7 @@ process:
   langcode:
     plugin: default_value
     source: language
-    default_value: und
+    default_value: en
   status:
     plugin: default_value
     default_value: 1
