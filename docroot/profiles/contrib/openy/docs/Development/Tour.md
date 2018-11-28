@@ -1,6 +1,6 @@
 # How to use Tour for modules
 
-### How to use OpenY Tour Token with Tour
+### How to use Open Y Tour Token with Tour
 
 In someone modules have tour tips and for more interactivity, you can add a token with a click to any selector.
 

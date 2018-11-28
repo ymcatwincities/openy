@@ -43,22 +43,22 @@ Feature: Static Paragraphs
       | field_prgf_headline    | BEHAT SMALL BANNER |
       | field_prgf_image       | image_01           |
       | field_prgf_color       | green              |
-      | field_prgf_description | Enjoy the OpenY    |
+      | field_prgf_description | Enjoy the Open Y    |
     And I create large paragraph of type banner:
       | KEY                    | behat_banner        |
       | field_prgf_headline    | BEHAT BANNER        |
       | field_prgf_image       | image_01            |
       | field_prgf_color       | green               |
-      | field_prgf_description | Enjoy the OpenY     |
+      | field_prgf_description | Enjoy the Open Y     |
       | field_prgf_link:uri    | http://openymca.org |
-      | :title                 | Read about OpenY    |
+      | :title                 | Read about Open Y    |
     And I create large paragraph of type gallery:
       | KEY                    | behat_gallery                      |
       | field_prgf_headline    | BEHAT GALLERY                      |
       | field_prgf_images      | gallery_image_01, gallery_image_02 |
       | field_prgf_description | The description is here.           |
       | field_prgf_link:uri    | http://openymca.org                |
-      | :title                 | Read about OpenY                   |
+      | :title                 | Read about Open Y                   |
     And I create paragraph of type simple_content:
       | KEY          | field_prgf_description |
       | behat_simple | Simple text is here.   |
@@ -76,16 +76,16 @@ Feature: Static Paragraphs
     And I create large paragraph of type promo_card:
       | KEY                    | behat_promo_card                      |
       | field_prgf_title       | BEHAT PROMO                           |
-      | field_prgf_headline    | OpenY is free to try!                 |
+      | field_prgf_headline    | Open Y is free to try!                 |
       | field_prgf_description | Setup a website and see how it works. |
       | field_prgf_link:uri    | http://openymca.org                   |
       | :title                 | Go!                                   |
     And I create large paragraph of type story_card:
       | KEY                 | behat_story_card                          |
       | field_prgf_title    | BEHAT NEW STORY                           |
-      | field_prgf_headline | I discovered OpenY. And that looks great! |
+      | field_prgf_headline | I discovered Open Y. And that looks great! |
       | field_prgf_link:uri | http://openymca.org                       |
-      | :title              | Discover OpenY                            |
+      | :title              | Discover Open Y                            |
     And I create large paragraph of type teaser:
       | KEY                    | behat_teaser           |
       | field_prgf_title       | BEHAT MY TEASER        |
@@ -123,21 +123,21 @@ Feature: Static Paragraphs
     Given I view node "landing_small_banner"
     Then I should see "BEHAT SMALL BANNER"
     And I should see a ".paragraph--type--small-banner .banner-image img" element
-    And I should see the text "Enjoy the OpenY"
+    And I should see the text "Enjoy the Open Y"
 
   Scenario: See Banner On Landing Page
     Given I view node "landing_banner"
     Then I should see the heading "BEHAT BANNER"
     And I should see a ".paragraph--type--banner .banner-image img" element
-    And I should see the text "Enjoy the OpenY"
-    And I should see the link "Read about OpenY"
+    And I should see the text "Enjoy the Open Y"
+    And I should see the link "Read about Open Y"
 
   Scenario: See Gallery On Landing Page
     Given I view node "landing_gallery"
     Then I should see the heading "BEHAT GALLERY"
     And I should see "The description is here."
     And I should see a ".carousel img" element
-    And I should see the link "Read about OpenY"
+    And I should see the link "Read about Open Y"
 
   Scenario: See Simple Content On Landing Page
     Given I view node "landing_simple"
@@ -153,15 +153,15 @@ Feature: Static Paragraphs
   Scenario: See Promo Card On Landing Page
     Given I view node "landing_promo"
     Then I should see the heading "BEHAT PROMO"
-    And I should see the heading "OpenY is free to try!"
+    And I should see the heading "Open Y is free to try!"
     And I should see "Setup a website and see how it works."
     And I should see the link "Go!"
 
   Scenario: See Story Card On Landing Page
     Given I view node "landing_story"
     Then I should see the heading "BEHAT NEW STORY"
-    And I should see "I discovered OpenY. And that looks great!"
-    And I should see the link "Discover OpenY"
+    And I should see "I discovered Open Y. And that looks great!"
+    And I should see the link "Discover Open Y"
 
   Scenario: See Teaser On Landing Page
     Given I view node "landing_teaser"

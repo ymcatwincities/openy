@@ -1,6 +1,8 @@
 <?php
+
 /**
- * @file OpenY Paragraph Embedded GroupEx Pro Schedule install file.
+ * @file
+ * Open Y Paragraph Embedded GroupEx Pro Schedule install file.
  */
 
 /**
@@ -17,7 +19,7 @@ function openy_prgf_embedded_groupexpro_schedule_update_8001() {
     ],
     'field.field.paragraph.embedded_groupexpro_schedule.field_prgf_block' => [
       'dependencies.module',
-    ]
+    ],
   ];
 
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');

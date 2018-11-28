@@ -1,6 +1,8 @@
 <?php
+
 /**
- * @file OpenY paragraph classes listing install.
+ * @file
+ * Open Y paragraph classes listing install.
  */
 
 /**
@@ -11,7 +13,7 @@ function openy_prgf_classes_listing_update_8001() {
 
   // Update multiple configurations.
   $configs = [
-    'views.view.classes_listing' =>[
+    'views.view.classes_listing' => [
       'display.default.display_options.filters',
       'display.default.display_options.filter_groups',
     ],
@@ -54,7 +56,7 @@ function openy_prgf_classes_listing_update_8003() {
       'content.field_prgf_block',
     ],
     'core.entity_view_display.paragraph.classes_listing_filters.default' => [
-      'content.field_prgf_block'
+      'content.field_prgf_block',
     ],
     'views.view.classes_listing' => [
       'display.default.display_options.field.nid',
@@ -82,7 +84,7 @@ function openy_prgf_classes_listing_update_8004() {
 
   // Update multiple configurations.
   $configs = [
-    'views.view.classes_listing.yml' => [
+    'views.view.classes_listing' => [
       'display.default.cache_metadata.tags',
       'display.search_form.cache_metadata.tags',
     ],

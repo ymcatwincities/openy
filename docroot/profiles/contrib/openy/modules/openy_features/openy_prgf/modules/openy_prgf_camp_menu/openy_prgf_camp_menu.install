@@ -2,8 +2,19 @@
 
 /**
  * @file
- * OpenY Paragraph Camp Menu install file.
+ * Open Y Paragraph Camp Menu install file.
  */
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_prgf_camp_menu_uninstall() {
+  // Remove paragraphs before module uninstall to avoid error with missing service
+  // that used in camp_menu block.
+  \Drupal::service('openy.modules_manager')
+    ->removeEntityBundle('paragraph', 'paragraphs_type', 'camp_menu');
+}
+
 
 /**
  * Update Paragraph Camp Menu field_prgf_block.
@@ -14,7 +25,7 @@ function openy_prgf_camp_menu_update_8001() {
 
   // Update multiple configurations.
   $configs = [
-    'core.entity_view_display.paragraph.camp_menu.default' =>[
+    'core.entity_view_display.paragraph.camp_menu.default' => [
       'content.field_prgf_block.region',
     ],
     'field.field.paragraph.camp_menu.field_prgf_block' => [

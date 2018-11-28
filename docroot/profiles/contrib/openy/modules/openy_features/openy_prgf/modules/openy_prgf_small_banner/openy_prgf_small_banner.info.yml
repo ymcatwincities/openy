@@ -1,8 +1,9 @@
-name: 'OpenY Paragraph Small Banner'
-description: 'OpenY Paragraph Small Banner.'
+name: Open Y Paragraph Small Banner
+description: Provides a paragraph to display small banner.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - blazy
   - datalayer

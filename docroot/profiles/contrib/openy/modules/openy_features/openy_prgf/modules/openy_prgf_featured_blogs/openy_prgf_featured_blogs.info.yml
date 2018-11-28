@@ -1,8 +1,9 @@
-name: 'OpenY Paragraph Featured Blog Posts'
-description: 'OpenY Paragraph Featured Blog Posts.'
+name: Open Y Paragraph Featured Blog Posts
+description: Provides a dynamic paragraph that renders featured blog posts listing.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - node

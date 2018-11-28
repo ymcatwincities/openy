@@ -1,8 +1,9 @@
-name: 'OpenY Paragraph Schedule Search'
-description: 'OpenY Paragraph Schedule Search.'
+name: Open Y Paragraph Schedule Search
+description: Provides a paragraph to render session instances list and paragraph to filter that list.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - openy_prgf
