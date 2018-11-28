@@ -31,4 +31,9 @@ class ResourceStub implements SelfCheckingResourceInterface
     {
         return $this->fresh;
     }
+
+    public function getResource()
+    {
+        return 'stub';
+    }
 }

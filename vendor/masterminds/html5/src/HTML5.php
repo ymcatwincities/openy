@@ -166,10 +166,9 @@ class HTML5
     public function parse(\Masterminds\HTML5\Parser\InputStream $input, array $options = array())
     {
         $this->errors = array();
-        $options = array_merge($this->getOptions(), $options);
-        $events = new DOMTreeBuilder(false, $options);
+        $events = new DOMTreeBuilder(false, array_merge($this->getOptions(), $options));
         $scanner = new Scanner($input);
-        $parser = new Tokenizer($scanner, $events, !empty($options['xmlNamespaces']) ? Tokenizer::CONFORMANT_XML: Tokenizer::CONFORMANT_HTML);
+        $parser = new Tokenizer($scanner, $events);
 
         $parser->parse();
         $this->errors = $events->getErrors();
@@ -185,10 +184,9 @@ class HTML5
      */
     public function parseFragment(\Masterminds\HTML5\Parser\InputStream $input, array $options = array())
     {
-        $options = array_merge($this->getOptions(), $options);
-        $events = new DOMTreeBuilder(true, $options);
+        $events = new DOMTreeBuilder(true, array_merge($this->getOptions(), $options));
         $scanner = new Scanner($input);
-        $parser = new Tokenizer($scanner, $events, !empty($options['xmlNamespaces']) ? Tokenizer::CONFORMANT_XML: Tokenizer::CONFORMANT_HTML);
+        $parser = new Tokenizer($scanner, $events);
 
         $parser->parse();
         $this->errors = $events->getErrors();

@@ -39,34 +39,16 @@ class TaskForEach extends BaseTask implements NestedCollectionInterface, Builder
      */
     protected $context = [];
 
-    /**
-     * @var array $iterable
-     */
-    protected $iterable = [];
+    protected $iterable;
 
     /**
      * @var \Robo\Collection\NestedCollectionInterface
      */
     protected $parentCollection;
 
-    /**
-     * @var array $iterable
-     */
-    public function __construct($iterable = [])
-    {
-        $this->setIterable($iterable);
-    }
-
-    /**
-     * @param array $iterable
-     *
-     * @return $this
-     */
-    public function setIterable($iterable)
+    public function __construct($iterable)
     {
         $this->iterable = $iterable;
-
-        return $this;
     }
 
     /**
@@ -167,7 +149,7 @@ class TaskForEach extends BaseTask implements NestedCollectionInterface, Builder
     public function progressIndicatorSteps()
     {
         $multiplier = count($this->functionStack);
-        if (!empty($this->countingStack) && count($this->iterable)) {
+        if (!empty($this->countingStack)) {
             $value = reset($this->iterable);
             $key = key($this->iterable);
             foreach ($this->countingStack as $fn) {

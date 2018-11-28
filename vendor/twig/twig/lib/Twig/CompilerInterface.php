@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) Fabien Potencier
+ * (c) 2009 Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -21,7 +21,9 @@ interface Twig_CompilerInterface
     /**
      * Compiles a node.
      *
-     * @return $this
+     * @param Twig_NodeInterface $node The node to compile
+     *
+     * @return Twig_CompilerInterface The current compiler instance
      */
     public function compile(Twig_NodeInterface $node);
 

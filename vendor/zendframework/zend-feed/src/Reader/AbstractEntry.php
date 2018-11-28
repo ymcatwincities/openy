@@ -20,7 +20,7 @@ abstract class AbstractEntry
      *
      * @var array
      */
-    protected $data = [];
+    protected $data = array();
 
     /**
      * DOM document object
@@ -55,7 +55,7 @@ abstract class AbstractEntry
      *
      * @var array
      */
-    protected $extensions = [];
+    protected $extensions = array();
 
     /**
      * Constructor
@@ -121,7 +121,7 @@ abstract class AbstractEntry
         $dom = new DOMDocument('1.0', $this->getEncoding());
         $entry = $dom->importNode($this->getElement(), true);
         $dom->appendChild($entry);
-        return $dom->saveXML();
+        return $dom->saveXml();
     }
 
     /**
@@ -141,7 +141,7 @@ abstract class AbstractEntry
      */
     public function getXpath()
     {
-        if (! $this->xpath) {
+        if (!$this->xpath) {
             $this->setXpath(new DOMXPath($this->getDomDocument()));
         }
         return $this->xpath;
@@ -195,7 +195,7 @@ abstract class AbstractEntry
     {
         foreach ($this->extensions as $extension) {
             if (method_exists($extension, $method)) {
-                return call_user_func_array([$extension, $method], $args);
+                return call_user_func_array(array($extension, $method), $args);
             }
         }
         throw new Exception\BadMethodCallException('Method: ' . $method
@@ -207,10 +207,8 @@ abstract class AbstractEntry
      *
      * @return void
      */
-    // @codingStandardsIgnoreStart
     protected function _loadExtensions()
     {
-        // @codingStandardsIgnoreEnd
         $all = Reader::getExtensions();
         $feed = $all['entry'];
         foreach ($feed as $extension) {

@@ -1,39 +1,5 @@
 # Changelog
 
-### 1.3.0 5/26/2018
-
-* Add EnvConfig to Robo: set configuration values via environment variables (#737)
-
-### 1.2.4 5/25/2018
-
-* Update 'Robo as a Framework' documentation to recommend https://github.com/g1a/starter
-* Allow CommandStack to exec other tasks by Scott Falkingham (#726)
-* Fix double escape when specifying a remoteShell with rsync by Rob Peck (#715)
-
-### 1.2.3 4/5/2018
-
-* Hide progress indicator prior to 'exec'. (#707)
-* Dependencies.io config for version 2 preview by Dave Gaeddert (#699)
-* Fix path to test script in try:para
-* Correctly parameterize the app name in the self:update command help text.
-* Refuse to start 'release' script if phar.readonly is set.
-
-### 1.2.2 2/27/2018
-
-* Experimental robo plugin mechanism (backwards compatibility not yet guarenteed)
-* Allow traits to be documented
-* Do not export scenarios directory
-* *Breaking* Typo in `\Robo\Runner:errorCondtion()` fixed as `\Robo\Runner:errorCondition()`.
-
-### 1.2.1 12/28/2017
-
-* Fixes to tests / build only.
-
-### 1.2.0 12/12/2017
-
-* Support Symfony 4 Components (#651)
-* Test multiple composer dependency permutations with https://github.com/greg-1-anderson/composer-test-scenarios
-
 ### 1.1.5 10/25/2017
 
 * Load option default values from $input for all options defined in the Application's input definition (#642)

@@ -13,29 +13,9 @@
         {"name": "Johannes Schmitt", "email": "schmittjoh@gmail.com"}
     ],
     "require": {
-        "php": "~7.1"
-    },
-    "require-dev": {
-        "alcaeus/mongo-php-adapter": "^1.1",
-        "mongodb/mongodb": "^1.1",
-        "phpunit/phpunit": "^5.7",
-        "predis/predis":   "~1.0"
-    },
-    "suggest": {
-        "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
-    },
-    "conflict": {
-        "doctrine/common": ">2.2,<2.4"
+        "php": ">=5.3.2"
     },
     "autoload": {
-        "psr-4": { "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache" }
-    },
-    "autoload-dev": {
-        "psr-4": { "Doctrine\\Tests\\": "tests/Doctrine/Tests" }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.7.x-dev"
-        }
+        "psr-0": { "Doctrine\\Common\\Cache\\": "lib/" }
     }
 }

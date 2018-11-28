@@ -8,7 +8,6 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\taxonomy\TermInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,6 +61,10 @@ class Drupal8 extends AbstractCore {
     if (!in_array($node->type, array_keys($bundles))) {
       throw new \Exception("Cannot create content because provided content type '$node->type' does not exist.");
     }
+    // Default status to 1 if not set.
+    if (!isset($node->status)) {
+      $node->status = 1;
+    }
     // If 'author' is set, remap it to 'uid'.
     if (isset($node->author)) {
       $user = user_load_by_name($node->author);
@@ -70,7 +73,7 @@ class Drupal8 extends AbstractCore {
       }
     }
     $this->expandEntityFields('node', $node);
-    $entity = Node::create((array) $node);
+    $entity = entity_create('node', (array) $node);
     $entity->save();
 
     $node->nid = $entity->id();
@@ -288,7 +291,7 @@ class Drupal8 extends AbstractCore {
 
     $_SERVER['REQUEST_URI'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['PHP_SELF'];
     $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-    $_SERVER['REQUEST_METHOD'] = NULL;
+    $_SERVER['REQUEST_METHOD']  = NULL;
 
     $_SERVER['SERVER_SOFTWARE'] = NULL;
     $_SERVER['HTTP_USER_AGENT'] = NULL;
@@ -298,10 +301,6 @@ class Drupal8 extends AbstractCore {
     if (!file_exists($conf_file)) {
       throw new BootstrapException(sprintf('Could not find a Drupal settings.php file at "%s"', $conf_file));
     }
-    $drushrc_file = $this->drupalRoot . "/$conf_path/drushrc.php";
-    if (file_exists($drushrc_file)) {
-      require_once $drushrc_file;
-    }
   }
 
   /**
@@ -309,15 +308,6 @@ class Drupal8 extends AbstractCore {
    */
   public function termCreate(\stdClass $term) {
     $term->vid = $term->vocabulary_machine_name;
-
-    if (isset($term->parent)) {
-      $parent = \taxonomy_term_load_multiple_by_name($term->parent, $term->vocabulary_machine_name);
-      if (!empty($parent)) {
-        $parent = reset($parent);
-        $term->parent = $parent->id();
-      }
-    }
-
     $this->expandEntityFields('taxonomy_term', $term);
     $entity = Term::create((array) $term);
     $entity->save();
@@ -428,46 +418,6 @@ class Drupal8 extends AbstractCore {
     \Drupal::configFactory()->getEditable($name)
       ->set($key, $value)
       ->save();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function entityCreate($entity_type, $entity) {
-    // If the bundle field is empty, put the inferred bundle value in it.
-    $bundle_key = \Drupal::entityManager()->getDefinition($entity_type)->getKey('bundle');
-    if (!isset($entity->$bundle_key) && isset($entity->step_bundle)) {
-      $entity->$bundle_key = $entity->step_bundle;
-    }
-
-    // Throw an exception if a bundle is specified but does not exist.
-    if (isset($entity->$bundle_key) && ($entity->$bundle_key !== NULL)) {
-      $bundles = \Drupal::entityManager()->getBundleInfo($entity_type);
-      if (!in_array($entity->$bundle_key, array_keys($bundles))) {
-        throw new \Exception("Cannot create entity because provided bundle '$entity->$bundle_key' does not exist.");
-      }
-    }
-    if (empty($entity_type)) {
-      throw new \Exception("You must specify an entity type to create an entity.");
-    }
-
-    $this->expandEntityFields($entity_type, $entity);
-    $createdEntity = entity_create($entity_type, (array) $entity);
-    $createdEntity->save();
-
-    $entity->id = $createdEntity->id();
-
-    return $entity;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function entityDelete($entity_type, $entity) {
-    $entity = $entity instanceof ContentEntityInterface ? $entity : entity_load($entity_type, $entity->id);
-    if ($entity instanceof ContentEntityInterface) {
-      $entity->delete();
-    }
   }
 
 }

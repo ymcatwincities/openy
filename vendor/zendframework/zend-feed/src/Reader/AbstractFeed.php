@@ -20,7 +20,7 @@ abstract class AbstractFeed implements Feed\FeedInterface
      *
      * @var array
      */
-    protected $data = [];
+    protected $data = array();
 
     /**
      * Parsed feed data in the shape of a DOMDocument
@@ -34,7 +34,7 @@ abstract class AbstractFeed implements Feed\FeedInterface
      *
      * @var array
      */
-    protected $entries = [];
+    protected $entries = array();
 
     /**
      * A pointer for the iterator to keep track of the entries array
@@ -55,7 +55,7 @@ abstract class AbstractFeed implements Feed\FeedInterface
      *
      * @var array
      */
-    protected $extensions = [];
+    protected $extensions = array();
 
     /**
      * Original Source URI (set if imported from a URI)
@@ -168,7 +168,7 @@ abstract class AbstractFeed implements Feed\FeedInterface
      */
     public function saveXml()
     {
-        return $this->getDomDocument()->saveXML();
+        return $this->getDomDocument()->saveXml();
     }
 
     /**
@@ -248,7 +248,7 @@ abstract class AbstractFeed implements Feed\FeedInterface
     {
         foreach ($this->extensions as $extension) {
             if (method_exists($extension, $method)) {
-                return call_user_func_array([$extension, $method], $args);
+                return call_user_func_array(array($extension, $method), $args);
             }
         }
         throw new Exception\BadMethodCallException('Method: ' . $method

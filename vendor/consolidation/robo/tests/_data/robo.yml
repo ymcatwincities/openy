@@ -1,0 +1,11 @@
+command:
+  test:
+    simple-list:
+      options:
+        a: '12'
+        b: '13'
+task:
+  Base:
+    Exec:
+      settings:
+        dir: /some/dir

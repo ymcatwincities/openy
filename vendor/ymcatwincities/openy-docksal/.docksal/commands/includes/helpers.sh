@@ -35,3 +35,34 @@ progress_bar ()
     printf "]"
     echo
 }
+
+# Copy a settings file.
+# Skips if the destination file already exists.
+# @param $1 source file
+# @param $2 destination file
+copy_settings_file()
+{
+  local source="$1"
+  local dest="$2"
+
+  if [[ ! -f $dest ]]; then
+    echo "Copying ${dest}..."
+    cp $source $dest
+  else
+    echo-yellow "${dest} already in place."
+  fi
+}
+
+# Fix file/folder permissions
+# @param $1 site directory path (example - {DOCROOT_PATH}/sites/default)
+fix_permissions ()
+{
+  local SITE_DIR="$1"
+  echo-green "Making site directory writable..."
+  mkdir -p "${SITE_DIR}/files"
+  chmod 755 "$SITE_DIR"
+  chmod 777 "${SITE_DIR}/files"
+
+  mkdir -p "${SITE_DIR}/files/config/sync"
+  chmod 777 "${SITE_DIR}/files/config/sync"
+}

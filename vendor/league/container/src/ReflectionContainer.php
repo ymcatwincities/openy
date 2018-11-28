@@ -6,6 +6,7 @@ use League\Container\Argument\ArgumentResolverInterface;
 use League\Container\Argument\ArgumentResolverTrait;
 use League\Container\Exception\NotFoundException;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionFunction;
 use ReflectionMethod;
 
@@ -61,10 +62,6 @@ class ReflectionContainer implements
         }
 
         if (is_array($callable)) {
-            if (is_string($callable[0])) {
-                $callable[0] = $this->getContainer()->get($callable[0]);
-            }
-
             $reflection = new ReflectionMethod($callable[0], $callable[1]);
 
             if ($reflection->isStatic()) {
@@ -72,12 +69,6 @@ class ReflectionContainer implements
             }
 
             return $reflection->invokeArgs($callable[0], $this->reflectArguments($reflection, $args));
-        }
-
-        if (is_object($callable)) {
-            $reflection = new ReflectionMethod($callable, '__invoke');
-
-            return $reflection->invokeArgs($callable, $this->reflectArguments($reflection, $args));
         }
 
         $reflection = new ReflectionFunction($callable);

@@ -73,7 +73,7 @@ final class EnvironmentLoader
         // Remove the "ServiceContainer" from the namespace of the extension object.
         $this->namespace = rtrim(str_replace('ServiceContainer', '', $reflection->getNamespaceName()), '\\');
         // Remove the name of file and "ServiceContainer" from the path to extension.
-        $this->path = implode(DIRECTORY_SEPARATOR, array_slice(explode(DIRECTORY_SEPARATOR, $reflection->getFileName()), 0, -2));
+        $this->path = implode('/', array_slice(explode('/', $reflection->getFileName()), 0, -2));
         $this->container = $container;
         // To not care about string format.
         $this->configKey = strtolower($extension->getConfigKey());
@@ -93,7 +93,7 @@ final class EnvironmentLoader
         $this->extendContainer(EnvironmentExtension::READER_TAG, new Definition(
             sprintf('%s\EnvironmentReader', __NAMESPACE__),
             [$this->path, $this->namespace]
-        ), 'behat');
+        ));
 
         $this->addDefinition(
             'Context',
@@ -112,17 +112,12 @@ final class EnvironmentLoader
     public function addEnvironmentReader(array $arguments = [])
     {
         // Full namespace: <EXTENSION_NAMESPACE>\Environment\<EXTENSION_CONFIG_KEY>EnvironmentReader.
-        // For example we have registered extension at namespace: "Behat\TqExtension". Class, which
-        // implements extension interface, located at "Behat\TqExtension\ServiceContainer\TqExtension"
-        // and its method, "getConfigKey()", returns the "tq" string. In this case the full namespace
-        // of the reader object will be: "Behat\TqExtension\Environment\TqEnvironmentReader" and its
-        // constructor will have a set of arguments that were passed to this method.
         $this->addDefinition(
             'Environment',
             'Reader',
             EnvironmentExtensionReader::class,
             EnvironmentExtension::READER_TAG,
-            array_merge([$this->namespace, $this->path], $arguments)
+            array_merge($arguments, [$this->namespace, $this->path])
         );
     }
 
@@ -142,11 +137,16 @@ final class EnvironmentLoader
      * @param string $subNamespace
      * @param string $objectType
      * @param string $interface
-     * @param string $tag
+     * @param string$tag
      * @param array $arguments
      */
     private function addDefinition($subNamespace, $objectType, $interface, $tag, array $arguments = [])
     {
+        // For example we have registered extension at namespace: "Behat\TqExtension". Class, which
+        // implements extension interface, located at "Behat\TqExtension\ServiceContainer\TqExtension"
+        // and its method, "getConfigKey()", returns the "tq" string. In this case the full namespace
+        // of the reader object will be: "Behat\TqExtension\Environment\TqEnvironmentReader" and its
+        // constructor will have a set of arguments that were passed to this method.
         $class = sprintf($this->classPath, $subNamespace) . $subNamespace . $objectType;
 
         if (!class_exists($class)) {
@@ -165,16 +165,11 @@ final class EnvironmentLoader
      *
      * @param string $tag
      * @param Definition $definition
-     * @param string $identifier
      */
-    private function extendContainer($tag, Definition $definition, $identifier = '')
+    private function extendContainer($tag, Definition $definition)
     {
-        if ('' !== $identifier) {
-            $identifier .= '.';
-        }
-
         $this->container
-          ->setDefinition("$this->configKey.$identifier$tag", $definition)
+          ->setDefinition("$this->configKey.$tag", $definition)
           ->addTag($tag);
     }
 }

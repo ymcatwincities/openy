@@ -7,7 +7,7 @@ sites.
 
 [![Build Status](https://travis-ci.org/jhedstrom/drupalextension.png?branch=master)](https://travis-ci.org/jhedstrom/drupalextension)
 
-The Drupal Extension 4.x supports Drupal 6, 7 and 8, utilizes Behat 3.2+ and
+The Drupal Extension 3.3.x supports Drupal 6, 7 and 8, utilizes Behat 3.2+ and
 runs on PHP 5.5+. It is compatible with Symfony components 2.x as well as 3.x
 so it can be used on Drupal 8.4.x.
 
@@ -71,13 +71,6 @@ the [Full documentation](https://behat-drupal-extension.readthedocs.org)
 
 1. Start adding your [feature files](http://behat.org/en/latest/user_guide/gherkin.html) 
    to the `features` directory of your repository.
-
-## Credits
-
- * Originally developed by [Jonathan Hedstrom](https://github.com/jhedstrom) with great help from [eliza411](https://github.com/eliza411)
- * Maintainers
-   * [Pieter Frenssen](https://github.com/pfrenssen)
-   * [All these great contributors](https://github.com/jhedstrom/drupalextension/graphs/contributors)
 
 ## Additional resources
 

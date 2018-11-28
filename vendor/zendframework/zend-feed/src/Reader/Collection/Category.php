@@ -21,9 +21,9 @@ class Category extends AbstractCollection
      */
     public function getValues()
     {
-        $categories = [];
+        $categories = array();
         foreach ($this->getIterator() as $element) {
-            if (isset($element['label']) && ! empty($element['label'])) {
+            if (isset($element['label']) && !empty($element['label'])) {
                 $categories[] = $element['label'];
             } else {
                 $categories[] = $element['term'];

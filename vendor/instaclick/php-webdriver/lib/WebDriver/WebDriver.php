@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2017 Facebook. All Rights Reserved.
+ * Copyright 2004-2013 Facebook. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ namespace WebDriver;
  *
  * @method status
  */
-class WebDriver extends AbstractWebDriver implements WebDriverInterface
+final class WebDriver extends AbstractWebDriver
 {
     /**
      * {@inheritdoc}
@@ -42,7 +42,13 @@ class WebDriver extends AbstractWebDriver implements WebDriverInterface
     }
 
     /**
-     * {@inheritdoc}
+     * New Session: /session (POST)
+     * Get session object for chaining
+     *
+     * @param array|string $requiredCapabilities Required capabilities (or browser name)
+     * @param array        $desiredCapabilities  Desired capabilities
+     *
+     * @return \WebDriver\Session
      */
     public function session($requiredCapabilities = Browser::FIREFOX, $desiredCapabilities = array())
     {
@@ -59,22 +65,24 @@ class WebDriver extends AbstractWebDriver implements WebDriverInterface
         );
 
         // optional
-        if (! empty($requiredCapabilities)) {
+        if ( ! empty($requiredCapabilities)) {
             $parameters['requiredCapabilities'] = $requiredCapabilities;
         }
 
-        $result = $this->curl(
+        $results = $this->curl(
             'POST',
             '/session',
             $parameters,
             array(CURLOPT_FOLLOWLOCATION => true)
         );
 
-        return new Session($result['sessionUrl']);
+        return new Session($results['sessionUrl']);
     }
 
     /**
-     * {@inheritdoc}
+     * Get list of currently active sessions
+     *
+     * @return array an array of \WebDriver\Session objects
      */
     public function sessions()
     {

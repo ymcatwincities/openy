@@ -8,7 +8,6 @@ use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Input\InputOption;
 
 class ConfigForCommand implements EventSubscriberInterface
 {
@@ -43,52 +42,26 @@ class ConfigForCommand implements EventSubscriberInterface
     public function injectConfiguration(ConsoleCommandEvent $event)
     {
         $command = $event->getCommand();
-        $this->injectConfigurationForGlobalOptions($event->getInput());
-        $this->injectConfigurationForCommand($command, $event->getInput());
+        $this->injectConfigurationForCommand($command);
 
         $targetOfHelpCommand = $this->getHelpCommandTarget($command, $event->getInput());
         if ($targetOfHelpCommand) {
-            $this->injectConfigurationForCommand($targetOfHelpCommand, $event->getInput());
+            $this->injectConfigurationForCommand($targetOfHelpCommand);
         }
     }
 
-    protected function injectConfigurationForGlobalOptions($input)
-    {
-        if (!$this->application) {
-            return;
-        }
-
-        $configGroup = new ConfigFallback($this->config, 'options');
-
-        $definition = $this->application->getDefinition();
-        $options = $definition->getOptions();
-
-        return $this->injectConfigGroupIntoOptions($configGroup, $options, $input);
-    }
-
-    protected function injectConfigurationForCommand($command, $input)
+    protected function injectConfigurationForCommand($command)
     {
         $commandName = $command->getName();
         $commandName = str_replace(':', '.', $commandName);
-        $configGroup = new ConfigFallback($this->config, $commandName, 'command.', '.options.');
-
         $definition = $command->getDefinition();
         $options = $definition->getOptions();
-
-        return $this->injectConfigGroupIntoOptions($configGroup, $options, $input);
-    }
-
-    protected function injectConfigGroupIntoOptions($configGroup, $options, $input)
-    {
+        $configGroup = new ConfigFallback($this->config, $commandName, 'command.', '.options.');
         foreach ($options as $option => $inputOption) {
             $key = str_replace('.', '-', $option);
             $value = $configGroup->get($key);
             if ($value !== null) {
-                if (is_bool($value) && ($value == true)) {
-                    $input->setOption($key, $value);
-                } elseif ($inputOption->acceptValue()) {
-                    $inputOption->setDefault($value);
-                }
+                $inputOption->setDefault($value);
             }
         }
     }

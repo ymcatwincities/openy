@@ -44,16 +44,16 @@ class Cookie
     /**
      * Sets a cookie.
      *
-     * @param string      $name         The cookie name
-     * @param string      $value        The value of the cookie
-     * @param string|null $expires      The time the cookie expires
-     * @param string|null $path         The path on the server in which the cookie will be available on
-     * @param string      $domain       The domain that the cookie is available
-     * @param bool        $secure       Indicates that the cookie should only be transmitted over a secure HTTPS connection from the client
-     * @param bool        $httponly     The cookie httponly flag
-     * @param bool        $encodedValue Whether the value is encoded or not
+     * @param string $name         The cookie name
+     * @param string $value        The value of the cookie
+     * @param string $expires      The time the cookie expires
+     * @param string $path         The path on the server in which the cookie will be available on
+     * @param string $domain       The domain that the cookie is available
+     * @param bool   $secure       Indicates that the cookie should only be transmitted over a secure HTTPS connection from the client
+     * @param bool   $httponly     The cookie httponly flag
+     * @param bool   $encodedValue Whether the value is encoded or not
      */
-    public function __construct(string $name, ?string $value, string $expires = null, string $path = null, string $domain = '', bool $secure = false, bool $httponly = true, bool $encodedValue = false)
+    public function __construct($name, $value, $expires = null, $path = null, $domain = '', $secure = false, $httponly = true, $encodedValue = false)
     {
         if ($encodedValue) {
             $this->value = urldecode($value);
@@ -65,8 +65,8 @@ class Cookie
         $this->name = $name;
         $this->path = empty($path) ? '/' : $path;
         $this->domain = $domain;
-        $this->secure = $secure;
-        $this->httponly = $httponly;
+        $this->secure = (bool) $secure;
+        $this->httponly = (bool) $httponly;
 
         if (null !== $expires) {
             $timestampAsDateTime = \DateTime::createFromFormat('U', $expires);
@@ -112,8 +112,8 @@ class Cookie
     /**
      * Creates a Cookie instance from a Set-Cookie header value.
      *
-     * @param string      $cookie A Set-Cookie header value
-     * @param string|null $url    The base URL
+     * @param string $cookie A Set-Cookie header value
+     * @param string $url    The base URL
      *
      * @return static
      *
@@ -169,7 +169,7 @@ class Cookie
                 continue;
             }
 
-            if (2 === \count($elements = explode('=', $part, 2))) {
+            if (2 === count($elements = explode('=', $part, 2))) {
                 if ('expires' === strtolower($elements[0])) {
                     $elements[1] = self::parseDate($elements[1]);
                 }
@@ -193,7 +193,7 @@ class Cookie
     private static function parseDate($dateValue)
     {
         // trim single quotes around date if present
-        if (($length = \strlen($dateValue)) > 1 && "'" === $dateValue[0] && "'" === $dateValue[$length - 1]) {
+        if (($length = strlen($dateValue)) > 1 && "'" === $dateValue[0] && "'" === $dateValue[$length - 1]) {
             $dateValue = substr($dateValue, 1, -1);
         }
 
@@ -242,7 +242,7 @@ class Cookie
     /**
      * Gets the expires time of the cookie.
      *
-     * @return string|null The cookie expires time
+     * @return string The cookie expires time
      */
     public function getExpiresTime()
     {

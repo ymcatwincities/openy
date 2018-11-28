@@ -77,10 +77,6 @@ class Cookie
         $this->httpOnly = (bool) $httpOnly;
         $this->raw = (bool) $raw;
 
-        if (null !== $sameSite) {
-            $sameSite = strtolower($sameSite);
-        }
-
         if (!in_array($sameSite, array(self::SAMESITE_LAX, self::SAMESITE_STRICT, null), true)) {
             throw new \InvalidArgumentException('The "sameSite" parameter value is not valid.');
         }
@@ -100,7 +96,7 @@ class Cookie
         if ('' === (string) $this->getValue()) {
             $str .= 'deleted; expires='.gmdate('D, d-M-Y H:i:s T', time() - 31536001);
         } else {
-            $str .= $this->isRaw() ? $this->getValue() : rawurlencode($this->getValue());
+            $str .= $this->isRaw() ? $this->getValue() : urlencode($this->getValue());
 
             if (0 !== $this->getExpiresTime()) {
                 $str .= '; expires='.gmdate('D, d-M-Y H:i:s T', $this->getExpiresTime());

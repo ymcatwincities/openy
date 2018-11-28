@@ -3,7 +3,6 @@
 namespace League\Container;
 
 use Interop\Container\ContainerInterface as InteropContainerInterface;
-use League\Container\Argument\RawArgumentInterface;
 use League\Container\Definition\DefinitionFactory;
 use League\Container\Definition\DefinitionFactoryInterface;
 use League\Container\Definition\DefinitionInterface;
@@ -81,19 +80,24 @@ class Container implements ContainerInterface
      */
     public function get($alias, array $args = [])
     {
-        try {
-            return $this->getFromThisContainer($alias, $args);
-        } catch (NotFoundException $exception) {
-            if ($this->providers->provides($alias)) {
-                $this->providers->register($alias);
+        $service = $this->getFromThisContainer($alias, $args);
 
-                return $this->getFromThisContainer($alias, $args);
-            }
+        if ($service === false && $this->providers->provides($alias)) {
+            $this->providers->register($alias);
+            $service = $this->getFromThisContainer($alias, $args);
+        }
 
-            $resolved = $this->getFromDelegate($alias, $args);
+        if ($service !== false) {
+            return $service;
+        }
 
+        if ($resolved = $this->getFromDelegate($alias, $args)) {
             return $this->inflectors->inflect($resolved);
         }
+
+        throw new NotFoundException(
+            sprintf('Alias (%s) is not being managed by the container', $alias)
+        );
     }
 
     /**
@@ -131,10 +135,6 @@ class Container implements ContainerInterface
      */
     public function add($alias, $concrete = null, $share = false)
     {
-        unset($this->shared[$alias]);
-        unset($this->definitions[$alias]);
-        unset($this->sharedDefinitions[$alias]);
-
         if (is_null($concrete)) {
             $concrete = $alias;
         }
@@ -263,10 +263,7 @@ class Container implements ContainerInterface
             continue;
         }
 
-        throw new NotFoundException(
-            sprintf('Alias (%s) is not being managed by the container', $alias)
-        );
-
+        return false;
     }
 
     /**
@@ -279,11 +276,7 @@ class Container implements ContainerInterface
     protected function getFromThisContainer($alias, array $args = [])
     {
         if ($this->hasShared($alias, true)) {
-            $shared = $this->inflectors->inflect($this->shared[$alias]);
-            if ($shared instanceof RawArgumentInterface) {
-                return $shared->getValue();
-            }
-            return $shared;
+            return $this->inflectors->inflect($this->shared[$alias]);
         }
 
         if (array_key_exists($alias, $this->sharedDefinitions)) {
@@ -298,8 +291,6 @@ class Container implements ContainerInterface
             );
         }
 
-        throw new NotFoundException(
-            sprintf('Alias (%s) is not being managed by the container', $alias)
-        );
+        return false;
     }
 }

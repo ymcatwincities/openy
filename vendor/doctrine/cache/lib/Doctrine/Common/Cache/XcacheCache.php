@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,13 +23,14 @@ namespace Doctrine\Common\Cache;
 /**
  * Xcache cache driver.
  *
- * @link   www.doctrine-project.org
- * @since  2.0
- * @author Benjamin Eberlei <kontakt@beberlei.de>
- * @author Guilherme Blanco <guilhermeblanco@hotmail.com>
- * @author Jonathan Wage <jonwage@gmail.com>
- * @author Roman Borschel <roman@code-factory.org>
- * @author David Abdemoulaie <dave@hobodave.com>
+ * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
+ * @link    www.doctrine-project.org
+ * @since   2.0
+ * @author  Benjamin Eberlei <kontakt@beberlei.de>
+ * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
+ * @author  Jonathan Wage <jonwage@gmail.com>
+ * @author  Roman Borschel <roman@code-factory.org>
+ * @author  David Abdemoulaie <dave@hobodave.com>
  */
 class XcacheCache extends CacheProvider
 {
@@ -71,25 +73,21 @@ class XcacheCache extends CacheProvider
     {
         $this->checkAuthorization();
 
-        xcache_clear_cache(XC_TYPE_VAR);
+        xcache_clear_cache(XC_TYPE_VAR, 0);
 
         return true;
     }
 
     /**
-     * Checks that xcache.admin.enable_auth is Off.
+     * Checks that xcache.admin.enable_auth is Off
      *
+     * @throws \BadMethodCallException When xcache.admin.enable_auth is On
      * @return void
-     *
-     * @throws \BadMethodCallException When xcache.admin.enable_auth is On.
      */
     protected function checkAuthorization()
     {
         if (ini_get('xcache.admin.enable_auth')) {
-            throw new \BadMethodCallException(
-                'To use all features of \Doctrine\Common\Cache\XcacheCache, '
-                . 'you must set "xcache.admin.enable_auth" to "Off" in your php.ini.'
-            );
+            throw new \BadMethodCallException('To use all features of \Doctrine\Common\Cache\XcacheCache, you must set "xcache.admin.enable_auth" to "Off" in your php.ini.');
         }
     }
 
@@ -101,12 +99,12 @@ class XcacheCache extends CacheProvider
         $this->checkAuthorization();
 
         $info = xcache_info(XC_TYPE_VAR, 0);
-        return [
+        return array(
             Cache::STATS_HITS   => $info['hits'],
             Cache::STATS_MISSES => $info['misses'],
             Cache::STATS_UPTIME => null,
-            Cache::STATS_MEMORY_USAGE      => $info['size'],
-            Cache::STATS_MEMORY_AVAILABLE  => $info['avail'],
-        ];
+            Cache::STATS_MEMORY_USAGE       => $info['size'],
+            Cache::STATS_MEMORY_AVAILIABLE  => $info['avail'],
+        );
     }
 }
