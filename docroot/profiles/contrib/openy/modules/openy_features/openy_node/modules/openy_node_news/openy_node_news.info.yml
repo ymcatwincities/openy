@@ -1,8 +1,9 @@
-name: 'OpenY Node News'
-package: 'OpenY (Experimental)'
-description: 'OpenY Node News.'
+name: Open Y Node News
+package: Open Y
+description: Provides a News post content type and related configuration.
 type: module
 core: 8.x
+version: 8.x-1.0
 dependencies:
   - datalayer
   - entity_browser

@@ -6,10 +6,6 @@ dependencies:
     - node.type.program_subcategory
   module:
     - entity_reference_revisions
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_bottom_content
 id: node.program_subcategory.field_bottom_content
 field_name: field_bottom_content
 entity_type: node
