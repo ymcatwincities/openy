@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Activity install file.
+ * Open Y Node Activity install file.
  */
 
 /**
@@ -66,7 +66,7 @@ function openy_node_activity_update_8004() {
 }
 
 /**
- * Update OpenY activity node feature configs.
+ * Update Open Y activity node feature configs.
  */
 function openy_node_activity_update_8005() {
   $config_dir = drupal_get_path('module', 'openy_node_activity') . '/config/install/';
@@ -104,6 +104,28 @@ function openy_node_activity_update_8006() {
       'content.langcode',
       'content.status',
       'content.addthis',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update entity reference handler for field_activity_category.
+ */
+function openy_node_activity_update_8007() {
+  $config_dir = drupal_get_path('module', 'openy_node_activity') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.node.activity.field_activity_category' => [
+      'dependencies.config',
+      'settings',
     ],
   ];
 
