@@ -4,7 +4,7 @@ dependencies:
   module:
     - menu_ui
 id: openy-menu-management
-label: 'OpenY Menu Management'
+label: 'Open Y Menu Management'
 module: openy_menu
 routes:
   - route_name: entity.menu.edit_form

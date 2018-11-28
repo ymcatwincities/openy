@@ -1,15 +1,12 @@
-name: 'Openy Block Flexible Content'
-description: 'Implements Flexible Content Block'
+name: Open Y Block Flexible Content
+description: Implements a block to display referenced node content in flexible view mode.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - block_content
   - field
   - language
   - node
-# - openy:openy_node_blog
-# - openy:openy_node_branch
-# - openy:openy_node_camp
-# - openy:openy_node_event
-# - openy:openy_node_testimonial
+  - openy_er

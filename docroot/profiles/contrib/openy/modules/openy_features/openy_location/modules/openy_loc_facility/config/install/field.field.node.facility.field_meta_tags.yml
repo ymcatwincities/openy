@@ -6,10 +6,6 @@ dependencies:
     - node.type.facility
   module:
     - metatag
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_meta_tags
 id: node.facility.field_meta_tags
 field_name: field_meta_tags
 entity_type: node
