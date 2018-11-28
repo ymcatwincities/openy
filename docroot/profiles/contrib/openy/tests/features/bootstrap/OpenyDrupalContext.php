@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenyDrupalContext for OpenY project.
+ * OpenyDrupalContext for Open Y project.
  */
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;

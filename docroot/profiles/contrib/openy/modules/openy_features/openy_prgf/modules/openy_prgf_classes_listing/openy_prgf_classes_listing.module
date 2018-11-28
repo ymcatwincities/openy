@@ -1,6 +1,6 @@
 <?php
 /**
- * @file OpenY Paragraph classes listing module file.
+ * @file Open Y Paragraph classes listing module file.
  */
 
 use \Drupal\Core\Form\FormStateInterface;
@@ -85,6 +85,12 @@ function openy_prgf_classes_listing_get_location_options() {
 
     foreach ($nodes as $id => $node) {
       $options[$map[$node->bundle()]][$id] = $node->getTitle();
+    }
+    // Remove empty option categories.
+    foreach ($options as $key => $option) {
+      if (empty($option)) {
+        unset($options[$key]);
+      }
     }
   }
 

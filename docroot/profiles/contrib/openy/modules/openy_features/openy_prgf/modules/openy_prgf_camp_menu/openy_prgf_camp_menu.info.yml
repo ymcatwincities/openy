@@ -1,10 +1,12 @@
-name: 'OpenY Paragraph Camp Menu'
-description: 'OpenY Paragraph Camp Menu.'
+name: Open Y Paragraph Camp Menu
+description: Provides a paragraph that renders camp featured menu.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - openy_prgf
   - paragraphs
   - plugin
+  - openy_loc_camp

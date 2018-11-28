@@ -1,4 +1,4 @@
 services:
   openy.modules_manager:
     class: Drupal\openy_system\OpenyModulesManager
-    arguments: ['@entity_type.manager', '@config.factory']
+    arguments: ['@entity_type.manager', '@config.factory', '@plugin.manager.config_entity_migration', '@config.manager' ]

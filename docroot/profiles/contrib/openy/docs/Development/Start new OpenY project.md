@@ -1,15 +1,15 @@
-Here you can find instructions how you can start project based on OpenY distribution.
+Here you can find instructions how you can start project based on Open Y distribution.
 
-# New project from scratch based on OpenY
+# New project from scratch based on Open Y
 
 In order to start new project from scratch, you can use [installation instructions](https://github.com/ymcatwincities/openy-project#installation) that will build your project and even add development environment.
 
 
-# Add OpenY to existing Drupal 8 project
+# Add Open Y to existing Drupal 8 project
 
 Please take a look at the full `composer.json` file below that you should eventually get.
 <details> 
-  <summary><strong>Example composer.json (Drupal 8.3.2 + OpenY 1.2)</strong></summary>
+  <summary><strong>Example composer.json (Drupal 8.3.2 + Open Y 1.2)</strong></summary>
 
 ```
 {
@@ -250,7 +250,7 @@ Installer path will look like this:
 8. Remove `"replace"` section from your `composer.json`
 
 9. (Optional) If you keep `vendor` folder in your git repository, we recommend to clean up project from `.git` folder inside modules and libraries. To do so
-- Add cleaner script to your project from [OpenY composer package](https://github.com/ymcatwincities/openy-project/blob/8.1.x/scripts/remove_vendor_git_folders.sh). You can just copy it and paste onto your project.
+- Add cleaner script to your project from [Open Y composer package](https://github.com/ymcatwincities/openy-project/blob/8.1.x/scripts/remove_vendor_git_folders.sh). You can just copy it and paste onto your project.
 - [Adjust folders](https://github.com/ymcatwincities/openy-project/blob/8.1.x/scripts/remove_vendor_git_folders.sh#L4) that you would like to cleanup
 - Execute it in `post-install-cmd` and `post-update-cmd`:
 
@@ -273,14 +273,14 @@ In this section you can learn how to configure development environment and CI se
 
 1. Generate project based on [this quickstart](http://docs.cibox.tools/en/latest/Quickstart/#prepare-github-project)
   
-2. Add OpenY to the project using (Add OpenY to already existing Drupal 8 project)
+2. Add Open Y to the project using (Add Open Y to already existing Drupal 8 project)
   
 3. Init git and add initial commit
 
   ```bash
   cd OPENY_PROJECT
   git init
-  git commit -m "Init OpenY project"
+  git commit -m "Init Open Y project"
   git remote add origin git@github.com:NAMESPACE/PROJECT.git
   git push -u origin master
   ```
@@ -296,7 +296,7 @@ In this section you can learn how to configure development environment and CI se
 * Setup hosting STAGE environment (it should be a 1:1 copy of existing or expected hosting account for ability to provide performance testing there)
 * Setup deployment plans for CI by reusing DEMO builder job
 
-# Install OpenY on [DigitalOcean](http://bit.ly/cibox-digitalocean)
+# Install Open Y on [DigitalOcean](http://bit.ly/cibox-digitalocean)
 
 1. Create new Droplet using "One-click apps" image `Drupal 8.*.* on 14.04`
 2. Login to server [via SSH](https://www.digitalocean.com/community/tutorials/how-to-connect-to-your-droplet-with-ssh) or [web console](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-console-to-access-your-droplet)
@@ -305,7 +305,7 @@ In this section you can learn how to configure development environment and CI se
   ```bash
   bash <(curl -s https://raw.githubusercontent.com/ymcatwincities/openy/8.x-1.x/build/openy-digital-ocean.sh)
   ```
-4. Open link(e.g. http://IP/core/install.php) from console output and finish OpenY installation
+4. Open link(e.g. http://IP/core/install.php) from console output and finish Open Y installation
 
 ## Video tutorial
 [![Open Y v1.0b - Install Tutorial](https://img.youtube.com/vi/RCvsLANsbm8/0.jpg)](https://youtu.be/RCvsLANsbm8)

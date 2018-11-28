@@ -1,5 +1,6 @@
-name: 'OpenY paragraph code block'
-description: 'Code block paragraph'
+name: Open Y Paragraph Code Block
+description: Provides a paragraph that renders Code block.
+package: Open Y
 type: module
 core: 8.x
 dependencies:
