@@ -8428,13 +8428,13 @@ header#page-head.tiny .top-navs #block-anonymoususersmenu--2 li a,
 header#page-head.tiny .top-navs #block-openy-lily-user-menu li a,
 header#page-head.tiny .top-navs #block-cccuseraccountmenu li a,
 header#page-head.tiny .top-navs #block-cccuseraccountmenu--2 li a {
-  line-height: 68px;
+  line-height: 19px;
 }
 header#page-head.tiny .top-navs #block-topmenu2 ul li:first-child a,
 header#page-head.tiny .top-navs #block-openy-lily-user-menu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu--2 ul li:first-child a {
-  margin: 36px 5px 0 0;
+  margin: 9px 5px 0 0;
 }
 header#page-head.tiny .top-navs #block-openy-lily-main-menu .nav-level-2 > a {
   padding: 21px 0;
@@ -13898,6 +13898,20 @@ header#page-head:after {
     position: relative;
   }
 }
+header#page-head.tiny .top-navs #block-topmenu2 li a,
+header#page-head.tiny .top-navs #block-anonymoususersmenu li a,
+header#page-head.tiny .top-navs #block-anonymoususersmenu--2 li a,
+header#page-head.tiny .top-navs #block-openy-lily-user-menu li a,
+header#page-head.tiny .top-navs #block-cccuseraccountmenu li a,
+header#page-head.tiny .top-navs #block-cccuseraccountmenu--2 li a {
+  line-height: 68px;
+}
+header#page-head.tiny .top-navs #block-topmenu2 ul li:first-child a,
+header#page-head.tiny .top-navs #block-openy-lily-user-menu ul li:first-child a,
+header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a,
+header#page-head.tiny .top-navs #block-anonymoususersmenu--2 ul li:first-child a {
+  margin: 36px 5px 0 0;
+}
 header#page-head .top-navs {
   height: auto !important;
   background-color: transparent;
@@ -14734,6 +14748,18 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
     color: #231f20;
   }
 }
+.path-frontpage .masthead .find-locations .location-search {
+  right: 0;
+}
+@media (min-width: 48em) and (max-width: 93.6875em) {
+  .path-frontpage .masthead .location-search {
+    top: 15px;
+  }
+  .path-frontpage .masthead .location-search-collapse {
+    margin-top: 20px;
+  }
+}
+
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
