@@ -6712,3 +6712,22 @@ function ymca_master_update_8295() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['ludwig'], TRUE);
 }
+
+/**
+ * Enable openy_pef_gxp_sync.
+ */
+function ymca_master_update_8296() {
+  drupal_flush_all_caches();
+  $installer = \Drupal::service('module_installer');
+  $modules = [
+    'openy_pef_gxp_sync',
+    'openy_gxp',
+    'openy_repeat',
+    'openy_prgf_repeat_schedules_loc',
+    'openy_prgf_repeat_schedules',
+  ];
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
+}

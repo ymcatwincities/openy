@@ -11,6 +11,10 @@
     "alek13/slack": {
       "version" : "1.10.1",
       "url": "https://github.com/php-slack/slack/archive/1.10.1.zip"
+    },
+    "mpdf/mpdf": {
+      "version" : "7.1.0",
+      "url": "https://github.com/mpdf/mpdf/archive/v7.1.0.zip"
     }
   }
 }
