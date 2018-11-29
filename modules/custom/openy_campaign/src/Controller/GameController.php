@@ -320,7 +320,8 @@ class GameController extends ControllerBase {
       'expected' => $expected,
       'coeff' => $coefficient,
       'ranges' => array_map(function ($item) {
-        return $item['min'] . '-' . $item['max'] . ':' . substr($item['description'], 0, 10);
+        //return $item['min'] . '-' . $item['max'] . ':' . substr($item['description'], 0, 10);
+        return $item['min'] . '-' . $item['max'];
       }, $ranges),
     ]);
 
