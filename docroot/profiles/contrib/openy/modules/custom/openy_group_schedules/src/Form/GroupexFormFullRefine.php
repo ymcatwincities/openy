@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\openy_group_schedules\GroupexScheduleFetcher;
 
 /**
- * Implements Groupex Full Refine Form.
+ * Implements GroupEx Pro Full Refine Form.
  */
 class GroupexFormFullRefine extends GroupexFormBase {
 

@@ -5,7 +5,7 @@ namespace Drupal\openy_group_schedules\Form;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Implements Groupex form for location.
+ * Implements GroupEx Pro form for location.
  */
 class GroupexFormLocation extends GroupexFormBase {
 
