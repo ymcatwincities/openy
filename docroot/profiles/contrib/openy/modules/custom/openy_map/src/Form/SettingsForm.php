@@ -164,20 +164,20 @@ class SettingsForm extends ConfigFormBase {
       if (is_dir($themePath)) {
         $themeFiles = scandir($themePath);
         foreach ($themeFiles as $themeFile) {
-          $path = $themePath . '/' . $themeFile;
-          if (is_dir($path)) {
+          $relative_path = $themePath . '/' . $themeFile;
+          if (is_dir($relative_path)) {
             continue;
           }
-          $path = file_create_url($path);
-          $fileOptions[$path] = '<img src="' . $path . '" />';
+          $path = file_create_url($relative_path);
+          $fileOptions[$relative_path] = '<img src="' . $path . '" />';
         }
       }
       $openYMapPath = drupal_get_path('module', 'openy_map') . '/img';
       foreach (scandir($openYMapPath) as $imgFile) {
-        $path = $openYMapPath . '/' . $imgFile;
-        if (!in_array($imgFile, $themeFiles) && !is_dir($path)) {
-          $path = file_create_url($path);
-          $fileOptions[$path] = '<img src="' . $path . '" />';
+        $relative_path = $openYMapPath . '/' . $imgFile;
+        if (!in_array($imgFile, $themeFiles) && !is_dir($relative_path)) {
+          $path = file_create_url($relative_path);
+          $fileOptions[$relative_path] = '<img src="' . $path . '" />';
         }
       }
 

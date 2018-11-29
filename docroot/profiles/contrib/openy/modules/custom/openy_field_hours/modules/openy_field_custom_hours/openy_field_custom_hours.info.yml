@@ -1,8 +1,8 @@
-name: OpenY Field Custom Hours
+name: Open Y Field Custom Hours
 type: module
-description: Add working hours field with custom title
+description: Adds a working hours field with custom title.
 core: 8.x
-package: OpenY
+package: Open Y
 version: 8.x-1.0
 dependencies:
   - openy_field_hours
