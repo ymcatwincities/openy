@@ -47,11 +47,11 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/mappings/mapping/{mapping}",
- *     "add-form" = "/admin/structure/mappings/mapping/add/{mapping_type}",
- *     "edit-form" = "/admin/structure/mappings/mapping/{mapping}/edit",
- *     "delete-form" = "/admin/structure/mappings/mapping/{mapping}/delete",
- *     "collection" = "/admin/structure/mappings/mapping",
+ *     "canonical" = "/admin/openy/settings/mappings/mapping/{mapping}",
+ *     "add-form" = "/admin/openy/settings/mappings/mapping/add/{mapping_type}",
+ *     "edit-form" = "/admin/openy/settings/mappings/mapping/{mapping}/edit",
+ *     "delete-form" = "/admin/openy/settings/mappings/mapping/{mapping}/delete",
+ *     "collection" = "/admin/openy/settings/mappings/mapping",
  *   },
  *   bundle_entity_type = "mapping_type",
  *   field_ui_base_route = "entity.mapping_type.edit_form"
