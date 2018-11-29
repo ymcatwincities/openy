@@ -14734,6 +14734,18 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
     color: #231f20;
   }
 }
+.path-frontpage .masthead .find-locations .location-search {
+  right: 0;
+}
+@media (min-width: 48em) and (max-width: 93.6875em) {
+  .path-frontpage .masthead .location-search {
+    top: 15px;
+  }
+  .path-frontpage .masthead .location-search-collapse {
+    margin-top: 20px;
+  }
+}
+
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
