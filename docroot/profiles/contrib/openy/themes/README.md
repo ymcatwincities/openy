@@ -1,2 +1,2 @@
-## OpenY Themes
-Contains the OpenY themes.
+## Open Y Themes
+Contains the Open Y themes.
