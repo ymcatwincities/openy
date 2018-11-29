@@ -41,7 +41,7 @@ function ymca_master_update_dependencies() {
 
   $dependencies['openy_prgf_event_listing'] = [
     8001 => [
-      'openy_node_session' => 8008,
+      'openy_node_session' => 8009,
     ],
   ];
 
