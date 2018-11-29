@@ -55,9 +55,10 @@ class ImportForm extends FormBase {
       $locationName = trim($locationName);
       $nids = \Drupal::entityQuery('node')
         ->condition('title', $locationName)
+        ->condition('type', 'location')
         ->execute();
       if (!empty($nids)) {
-        $operations[] = ['Drupal\openy_gxp\Form\ImportForm::generateProgramsCSV', [$config->get('activity'), $config->get('client_id'), $gxpLocationId, reset($nids)]];
+        $operations[] = ['Drupal\openy_gxp\Form\ImportForm::generateProgramsCSV', [NULL, $config->get('client_id'), $gxpLocationId, reset($nids)]];
         $operations[] = ['Drupal\openy_gxp\Form\ImportForm::migrateOfferings', [$gxpLocationId]];
       }
       else {
