@@ -1,7 +1,7 @@
 Welcome to Socrates
 =====
 
-Socrates is an OOP representation of https://en.wikipedia.org/wiki/Strategy_pattern for OpenY to cover needs of
+Socrates is an OOP representation of https://en.wikipedia.org/wiki/Strategy_pattern for Open Y to cover needs of
 pluggable distributed Data Wrapper services by priority.
 
 Basically, if you have a membership calculator which should be used for display same thing but for different Data
