@@ -38,7 +38,16 @@ body.modal-open {
 }
 .modal-open {
   header#page-head {
-    display: none;
+    display: block;
+    .top-navs .nav-wrapper {
+      z-index: 1;
+    }
+  }
+}
+
+.modal-open{
+  header#page-head .top-navs .nav-global  {
+    z-index: 1;
   }
 }
 

@@ -1,0 +1,7 @@
+name: OpenY PEF GXP Sync
+type: module
+description: Synchronizes Groupex schedules to PEF.
+package: YGTC
+core: 8.x
+dependencies:
+  - ymca_sync:ymca_sync
