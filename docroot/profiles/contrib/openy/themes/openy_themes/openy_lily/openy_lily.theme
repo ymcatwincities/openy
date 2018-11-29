@@ -238,6 +238,11 @@ function openy_lily_page_attachments_alter(array &$page) {
   }
 
   $camp_service = \Drupal::service('openy_loc_camp.camp_service');
+  $node = \Drupal::request()->attributes->get('node');
+  if (!$node || !is_object($node)) {
+    return;
+  }
+
   // Exit if not a camp or related to a camp.
   if (!$camp_service->nodeHasOrIsCamp($node)) {
     return;
@@ -388,14 +393,12 @@ function openy_lily_preprocess_page(&$variables) {
   if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
     $node = $variables['node'];
     /** @var Drupal\openy_loc_camp\CampService $service */
-    if (\Drupal::hasService('openy_loc_camp.camp_service')) {
-      if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
-        if ($service->nodeHasOrIsCamp($node)) {
-          $variables['page_class'] = 'is-camp';
-        }
-        if ($node->bundle() == 'branch') {
-          $variables['page_class'] = 'is-branch';
-        }
+    if (\Drupal::hasService('openy_loc_camp.camp_service') && $service = \Drupal::service('openy_loc_camp.camp_service')) {
+      if ($service->nodeHasOrIsCamp($node)) {
+        $variables['page_class'] = 'is-camp';
+      }
+      if ($node->bundle() == 'branch') {
+        $variables['page_class'] = 'is-branch';
       }
     }
   }
@@ -548,7 +551,7 @@ function openy_lily_preprocess_html(&$variables) {
           ->load($p['target_id'])
         ) {
           // Take action for microsites_menu paragraph.
-          if ($paragraph->bundle() == 'microsites_menu') {
+          if ($paragraph && $paragraph->bundle() == 'microsites_menu') {
             // Add class to the body.
             $variables['attributes']['class'][] = 'microsites-menu';
             if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
@@ -881,4 +884,17 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
   // Change link text since URL is used as link text for
   // 'Separate link text and URL' format by default.
   $variables['items'][0]['content']['#url_title'] = $link_title;
+}
+
+/**
+ * Preprocess paragraph - social list.
+ *
+ * @param $variables
+ */
+function openy_rose_preprocess_paragraph_social_list(&$variables) {
+  $block = $variables['content']['field_prgrf_sl_block'];
+  if (isset($block[0]['#name']) && isset($block[0]['#display_id'])) {
+    $variables['content']['posts'] = \Drupal::service('renderer')
+      ->render(views_embed_view($block[0]['#name'], $block[0]['#display_id']));
+  }
 }

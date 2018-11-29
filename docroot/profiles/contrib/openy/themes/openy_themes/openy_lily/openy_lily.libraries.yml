@@ -19,7 +19,6 @@ global-styling:
     scripts/legacy/helpful_routines.min.js: {}
     scripts/legacy/live_components.min.js: {}
     scripts/legacy/init-templates.js: {}
-    scripts/legacy/bootstrap.min.js: {}
     scripts/legacy/plugins.min.js: {}
     scripts/legacy/main.min.js: {}
     scripts/openy_lily.js: {}

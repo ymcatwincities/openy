@@ -142,6 +142,14 @@
         $(this).on('click', function (event) {
           $(this).toggleClass('expanded-mobile');
           $('#side-area, .viewport').toggleClass('expanded-mobile');
+          if ($('#side-area').hasClass('expanded-mobile')) {
+            $('#side-area').removeAttr('aria-hidden');
+            $('.viewport').attr('aria-hidden', 'true');
+          }
+          else {
+            $('#side-area').attr('aria-hidden', 'true');
+            $('.viewport').removeAttr('aria-hidden');
+          }
         });
       });
     }

@@ -5,8 +5,7 @@ dependencies:
     - system.menu.footer-menu-right
   module:
     - system
-  theme:
-    - openy_lily
+    - openy_menu_footer
 id: openy_lily_footermenuright
 theme: openy_lily
 region: footer_menu
