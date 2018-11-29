@@ -795,6 +795,52 @@ class UrlTest extends UnitTestCase {
   }
 
   /**
+   * Tests the fromUri() method with external URI without scheme.
+   *
+   * @covers ::fromUri
+   */
+  public function testFromUriWithExternalUrlWithoutScheme() {
+    $this->setExpectedException(\InvalidArgumentException::class);
+    Url::fromUri('example.com:8080');
+  }
+
+  /**
+   * Tests the fromUri() method with a URI of the <scheme>:<path> type when path
+   * contains only digits.
+   *
+   * @covers ::fromUri
+   *
+   * @dataProvider providerTestFromUriDigitsPath
+   */
+  public function testFromUriDigitsPath($uri) {
+    $url = Url::fromUri($uri);
+    $this->assertSame($url->toUriString(), $uri);
+  }
+
+  /**
+   * Data provider for testFromUriDigitsPath().
+   */
+  public function providerTestFromUriDigitsPath() {
+    return [
+      'tel_short_number1' => ['tel:0'],
+      'tel_short_number2' => ['tel:65535'],
+      'tel_short_number3' => ['tel:65536'],
+      'tel_short_number4' => ['tel:911'],
+      'tel_long_number' => ['tel:600000'],
+      'coap_tcp_short_number1' => ['coap+tcp:0'],
+      'coap_tcp_short_number2' => ['coap+tcp:65535'],
+      'coap_tcp_short_number3' => ['coap+tcp:65536'],
+      'coap_tcp_short_number4' => ['coap+tcp:911'],
+      'coap_tcp_long_number' => ['coap+tcp:600000'],
+      'ms_word_short_number1' => ['ms-word:0'],
+      'ms_word_short_number2' => ['ms-word:65535'],
+      'ms_word_short_number3' => ['ms-word:65536'],
+      'ms_word_short_number4' => ['ms-word:911'],
+      'ms_word_long_number' => ['ms-word:600000'],
+    ];
+  }
+
+  /**
    * Tests the toUriString() method with route: URIs.
    *
    * @covers ::toUriString
