@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY upgrade tool install file.
+ * Open Y upgrade tool install file.
  */
 
 /**
@@ -18,6 +18,27 @@ function openy_upgrade_tool_update_8001() {
     'display.default.display_plugin.display_options.access',
     'display.default.cache_metadata.contexts',
     'display.page_1.cache_metadata.contexts'
+  ];
+  foreach ($params as $param) {
+    $config_importer->update($config,
+      'views.view.openy_upgrade_dashboard',
+      $param
+    );
+  }
+}
+
+/**
+ * Update path, title and parent menu for upgrade dashboard.
+ */
+function openy_upgrade_tool_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_upgrade_tool');
+  $config .= '/config/install/';
+  $config .= 'views.view.openy_upgrade_dashboard.yml';
+  $params = [
+    'display.page_1.display_options.path',
+    'display.page_1.display_options.menu.parent',
+    'display.page_1.display_options.menu.title',
   ];
   foreach ($params as $param) {
     $config_importer->update($config,

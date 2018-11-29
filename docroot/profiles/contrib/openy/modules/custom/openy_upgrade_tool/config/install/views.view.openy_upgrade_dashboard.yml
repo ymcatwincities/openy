@@ -10,7 +10,7 @@ dependencies:
     - logger_entity
     - user
 id: openy_upgrade_dashboard
-label: 'OpenY upgrade dashboard'
+label: 'Open Y upgrade dashboard'
 module: views
 description: 'Show not updated configs'
 tag: ''
@@ -375,7 +375,7 @@ display:
           entity_type: logger_entity
           entity_field: changed
           plugin_id: date
-      title: 'OpenY upgrade dashboard'
+      title: 'Open Y upgrade dashboard'
       header:
         area_text_custom:
           id: area_text_custom
@@ -386,7 +386,7 @@ display:
           admin_label: ''
           empty: false
           tokenize: false
-          content: "<h1>OpenY upgrade dashboard</h1>\n<p>These configs have been changed manually, that's why we cannot import them. Please fix conflicts below and then you'll get updates from OpenY for affected components.</p>\n<p>Upon fixing the conflict, please delete message from dashboard to let system know that conflict has been resolved, otherwise all updates for the component will be skipped.</p>"
+          content: "<h1>Open Y upgrade dashboard</h1>\n<p>These configs have been changed manually, that's why we cannot import them. Please fix conflicts below and then you'll get updates from Open Y for affected components.</p>\n<p>Upon fixing the conflict, please delete message from dashboard to let system know that conflict has been resolved, otherwise all updates for the component will be skipped.</p>"
           plugin_id: text_custom
       footer: {  }
       empty:
@@ -399,7 +399,7 @@ display:
           admin_label: ''
           empty: true
           tokenize: false
-          content: "<h1>OpenY upgrade dashboard</h1>\n<p>No conflicts found during OpenY upgrade.</p>"
+          content: "<h1>Open Y upgrade dashboard</h1>\n<p>No conflicts found during Open Y upgrade.</p>"
           plugin_id: text_custom
       relationships: {  }
       arguments: {  }
@@ -421,13 +421,13 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/config/development/openy-upgrade-dashboard
+      path: admin/openy/development/openy-upgrade-dashboard
       menu:
         type: normal
-        title: 'OpenY upgrade dashboard'
+        title: 'Upgrade dashboard'
         description: 'List of manually changed configs.'
         expanded: false
-        parent: system.admin_config_development
+        parent: openy_system.openy_development
         weight: 0
         context: '0'
         menu_name: admin
