@@ -1,4 +1,4 @@
-# Groupex Form Cache routing definition
+# GroupEx Pro Form Cache routing definition
 groupex_form_cache.settings_tab:
   route_name: groupex_form_cache.settings
   title: 'Settings'

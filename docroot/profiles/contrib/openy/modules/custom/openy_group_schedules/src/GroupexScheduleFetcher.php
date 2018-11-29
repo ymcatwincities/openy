@@ -7,7 +7,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
- * Fetches and prepares Groupex data.
+ * Fetches and prepares GroupEx Pro data.
  *
  * @package Drupal\openy_group_schedules.
  */
@@ -87,7 +87,7 @@ class GroupexScheduleFetcher {
    * GroupexScheduleFetcher constructor.
    *
    * @param GroupexHelper $groupex_helper
-   *   The Groupex helper.
+   *   The GroupEx Pro helper.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory.
    * @param null|array $parameters
@@ -146,7 +146,7 @@ class GroupexScheduleFetcher {
         continue;
       }
       $class_url_options = $this->parameters;
-      $class_url_options['class'] = $item->class_id;
+      // $class_url_options['class'] = $item->class_id; //doesn't exist in API, needs to be added through processData().
       $class_url_options['filter_date'] = $current_date;
       $class_url_options['filter_length'] = 'week';
       $class_url_options['groupex_class'] = 'groupex_table_class_individual';
@@ -195,7 +195,7 @@ class GroupexScheduleFetcher {
           'time' => $item->start,
           'duration' => sprintf('%d min', trim($item->length)),
           'instructor' => $item->instructor,
-          'class_id' => $item->class_id,
+//          'class_id' => $item->class_id, //doesn't exist in API, needs to be added through processData().
           'class_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $class_url_options]),
           'instructor_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $instructor_url_options]),
           'date_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $date_url_options]),
@@ -406,7 +406,7 @@ class GroupexScheduleFetcher {
     $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
 
     $options['query']['start'] = $date->getTimestamp();
-    $options['query']['end'] = $date->add(new \DateInterval($interval))->getTimestamp();
+    $options['query']['end'] = $date->add(new \DateInterval($interval))->modify('-1 day')->getTimestamp();
 
     $data = $this->request($options);
 
@@ -503,7 +503,7 @@ class GroupexScheduleFetcher {
       });
     }
 
-    // Groupex response have some redundant data. Filter it out.
+    // GroupEx Pro response have some redundant data. Filter it out.
     if ($param['filter_length'] == 'day') {
       // Filter out by the date. Cut off days before.
       $filtered = array_filter($filtered, function ($item) use ($param) {
@@ -530,35 +530,6 @@ class GroupexScheduleFetcher {
    */
   private function processData() {
     $data = $this->filteredData;
-
-    // Groupex returns invalid date for the first day of the week.
-    // Example: tue, 02, Feb; wed, 27, Jan; thu, 28, Jan.
-    // So, processing.
-    if ($this->parameters['filter_length'] == 'week') {
-      // Get current day.
-      $date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
-      $current_day = $date->format('N');
-      $current_date = $date->format('j');
-
-      // Search for the day equals current.
-      foreach ($data as &$item) {
-        $item_date = DrupalDateTime::createFromTimestamp($item->timestamp, $this->timezone);
-        if ($current_date == $item_date->format('j')) {
-          unset($item);
-          continue;
-        }
-
-        if ($current_day == $item_date->format('N')) {
-          // Set proper data.
-          $item_date->sub(new \DateInterval('P7D'));
-          $full_date = $item_date->format(GroupexRequestTrait::$dateFullFormat);
-          $item->date = $full_date;
-          $item->day = $full_date;
-          $item->timestamp = $item_date->format('U');
-        }
-
-      }
-    }
 
     // Replace <span class="subbed"> with normal text.
     foreach ($data as &$item) {
