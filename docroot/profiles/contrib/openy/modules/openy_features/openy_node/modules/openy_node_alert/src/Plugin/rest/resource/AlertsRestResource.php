@@ -96,40 +96,42 @@ class AlertsRestResource extends ResourceBase {
     $sendAlerts = [];
     /** @var \Drupal\node\Entity\Node $alert */
     foreach ($alerts as $alert) {
-      $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)->setAbsolute()->toString() : null;
-      if ($alert->hasField('field_alert_belongs') && !$alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
-        $refid = $alert->field_alert_belongs->target_id;
-        $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $refid);
-        if ($_GET['uri'] != $alias) {
-          // Do not show alerts for not current page.
-          continue;
-        }
-        $sendAlerts[$alert->field_alert_place->value]['local'][] = [
-          'title' => $alert->getTitle(),
-          'textColor' => $alert->field_alert_text_color->entity->field_color->value,
-          'bgColor' => $alert->field_alert_color->entity->field_color->value,
-          'description' => $alert->field_alert_description->value,
-          'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
-          'linkUrl' => $url,
-          'linkText' => $alert->field_alert_link->title,
-          'id' => $alert->id(),
-        ];
+      if (!$alert->hasField('field_alert_visibility_pages')) {
+        $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)->setAbsolute()->toString() : null;
+        if ($alert->hasField('field_alert_belongs') && !$alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
+          $refid = $alert->field_alert_belongs->target_id;
+          $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $refid);
+          if ($_GET['uri'] != $alias) {
+            // Do not show alerts for not current page.
+            continue;
+          }
+          $sendAlerts[$alert->field_alert_place->value]['local'][] = [
+            'title' => $alert->getTitle(),
+            'textColor' => $alert->field_alert_text_color->entity->field_color->value,
+            'bgColor' => $alert->field_alert_color->entity->field_color->value,
+            'description' => $alert->field_alert_description->value,
+            'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
+            'linkUrl' => $url,
+            'linkText' => $alert->field_alert_link->title,
+            'id' => $alert->id(),
+          ];
 
-      }
-      elseif ($alert->hasField('field_alert_belongs') && $alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
-        $sendAlerts[$alert->field_alert_place->value]['global'][] = [
-          'title' => $alert->getTitle(),
-          'textColor' => $alert->field_alert_text_color->entity->field_color->value,
-          'bgColor' => $alert->field_alert_color->entity->field_color->value,
-          'description' => $alert->field_alert_description->value,
-          'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
-          'linkUrl' => $url,
-          'linkText' => $alert->field_alert_link->title,
-          'id' => $alert->id(),
-        ];
-      }
-      else {
-        throw new \HttpException('Field configuration for alerts is wrong');
+        }
+        elseif ($alert->hasField('field_alert_belongs') && $alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
+          $sendAlerts[$alert->field_alert_place->value]['global'][] = [
+            'title' => $alert->getTitle(),
+            'textColor' => $alert->field_alert_text_color->entity->field_color->value,
+            'bgColor' => $alert->field_alert_color->entity->field_color->value,
+            'description' => $alert->field_alert_description->value,
+            'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
+            'linkUrl' => $url,
+            'linkText' => $alert->field_alert_link->title,
+            'id' => $alert->id(),
+          ];
+        }
+        else {
+          throw new \HttpException('Field configuration for alerts is wrong');
+        }
       }
     }
     return new ModifiedResourceResponse($sendAlerts, 200);
