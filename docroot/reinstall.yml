@@ -64,4 +64,10 @@
     tags: [ 'drush-commands' ]
 
   - include: devops/reinstall/reactapps.yml
+    when: reactapps
     tags: [ 'react-commands' ]
+
+  - include: devops/reinstall/cypress.yml
+    when: cypress_run
+    tags: [ 'cypress-commands' ]
+

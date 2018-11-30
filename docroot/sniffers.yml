@@ -242,3 +242,7 @@
     sudo: yes
     lineinfile: dest={{ workspace_root }}/{{ artifacts_file }} line="Program Registration App installed at {{ webroot }}/reactapps/prgreg/build/" create=yes state=present
 
+  - name: Cypress Reports
+    sudo: yes
+    lineinfile: dest={{ workspace_root }}/{{ artifacts_file }} line="Cypress reports could be found at {{ webroot }}/build_reports/cypress.html" create=yes state=present
+
