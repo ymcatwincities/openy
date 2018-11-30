@@ -13,11 +13,20 @@
     mode: 0777
   sudo: yes
 
-- name: Run tests
+- name: Run all tests
   shell: env CYPRESS_baseUrl="{{ site_url }}" node_modules/cypress/bin/cypress run --reporter=doc > ../build_reports/cypress.stdout
   args:
     chdir: cypress
   sudo: yes
+  when: all_cypress_tests
+  ignore_errors: true
+
+- name: Run specific test
+  shell: env CYPRESS_baseUrl="{{ site_url }}" node_modules/cypress/bin/cypress run --spec "cypress/integration/{{ cypress_test_to_run }}" --reporter=doc > ../build_reports/cypress.stdout
+  args:
+    chdir: cypress
+  sudo: yes
+  when: all_cypress_tests == "false"
   ignore_errors: true
 
 - name: Output test results header
@@ -37,3 +46,4 @@
   args:
     chdir: build_reports
   sudo: yes
+
