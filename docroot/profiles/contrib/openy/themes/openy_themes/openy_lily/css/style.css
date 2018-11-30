@@ -14990,6 +14990,14 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
     color: #231f20;
   }
 }
+.schedule-dashboard__modal .modal-dialog {
+  margin: 0 auto;
+}
+.schedule-dashboard__modal .modal-content {
+  border: 1px solid #d4d4d4;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
 [class^="icon-"], [class*=" icon-"] {
   font-family: 'icomoon';
   speak: none;
