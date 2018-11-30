@@ -1,13 +1,11 @@
-name: 'Open Y Node Alert'
-description: 'Provides an Alert content type and related configuration.'
+name: Open Y Node Alert
+description: Provides an Alert content type and related configuration.
 type: module
 core: 8.x
-package: 'Open Y'
-version: 8.x-1.1-ygtcbackport
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - block
-  - content_moderation
-  - datalayer
   - field
   - field_group
   - link
@@ -15,7 +13,6 @@ dependencies:
   - node
   - openy_txnm_color
   - options
-  - panelizer
   - path
   - pathauto
   - rabbit_hole
