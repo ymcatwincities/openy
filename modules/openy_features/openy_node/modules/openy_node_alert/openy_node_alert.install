@@ -1,0 +1,196 @@
+<?php
+
+/**
+ * @file
+ * Open Y Node Alert install file.
+ */
+
+/**
+ * Update Alert for rabbit hole, hiding pages from anonymous users.
+ */
+function openy_node_alert_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Import new configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rabbit_hole.behavior_settings.node_type_alert',
+  ]);
+}
+
+/**
+ * Import scheduler config.
+ */
+function openy_node_alert_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.alert.default' => [
+      'dependencies.module',
+      'content.publish_on',
+      'content.unpublish_on',
+    ],
+    'node.type.alert' => [
+      'dependencies.module',
+      'third_party_settings.scheduler',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update description for fields.
+ */
+function openy_node_alert_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.node.alert.field_alert_color' => [
+      'description',
+    ],
+    'field.field.node.alert.field_alert_description' => [
+      'description',
+    ],
+    'field.field.node.alert.field_alert_link' => [
+      'description',
+    ],
+    'field.field.node.alert.field_alert_place' => [
+      'description',
+    ],
+    'field.field.node.alert.field_alert_text_color' => [
+      'description',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update Open Y alert node feature configs.
+ */
+function openy_node_alert_update_8004() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.alert.default' => [
+      'content',
+    ],
+    'core.entity_view_display.node.alert.default' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.alert.node_alert_footer' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.alert.node_alert_header' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.alert.teaser' => [
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs for Drupal Core upgrade.
+ */
+function openy_node_alert_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.alert.default' => [
+      'content.langcode',
+      'content.status',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs for Drupal Alert CT upgrade.
+ */
+function openy_node_alert_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.alert.default' => [
+      'dependencies.config',
+      'content',
+    ],
+    'core.entity_view_display.node.alert.node_alert_footer' => [
+      'content',
+    ],
+    'core.entity_view_display.node.alert.node_alert_header' => [
+      'content',
+    ],
+    'core.entity_form_display.node.alert.default' => [
+      'dependencies.config',
+      'third_party_settings',
+      'content',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+
+  // Import new configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_alert_visibility_pages',
+    'field.storage.node.field_alert_visibility_state',
+    'field.field.node.alert.field_alert_visibility_pages',
+    'field.field.node.alert.field_alert_visibility_state',
+  ]);
+}
+
+/**
+ * Rename alert blocks configs.
+ */
+function openy_node_alert_update_8007() {
+  $configs = [
+    'views_block__alerts_footer_alerts' => 'openy_rose_views_block__alerts_footer_alerts',
+    'views_block__alerts_footer_alerts_local' => 'openy_rose_views_block__alerts_footer_alerts_local',
+    'views_block__alerts_header_alerts' => 'openy_rose_views_block__alerts_header_alerts',
+    'views_block__alerts_header_alerts_local' =>'openy_rose_views_block__alerts_header_alerts_local',
+  ];
+  foreach ($configs as $old_id => $new_id) {
+    \Drupal::configFactory()
+      ->rename('block.block.' . $old_id, 'block.block.' . $new_id);
+    \Drupal::configFactory()->getEditable('block.block.' . $new_id)
+      ->set('id', $new_id)
+      ->save(TRUE);
+  }
+}
