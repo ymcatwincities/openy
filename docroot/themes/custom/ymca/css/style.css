@@ -4475,7 +4475,7 @@ object {
 }
 
 .sidebar.collapse {
-  width: 0 !important;
+  width: 100% !important;
 }
 .sidebar .overview:after {
   content: ' Overview';
