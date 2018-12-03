@@ -4634,7 +4634,6 @@ object {
   background: #363636;
 }
 .android .sidebar.collapse {
-  overflow: hidden !important;
   width: 0;
 }
 .android .alert-dismissable .close {
