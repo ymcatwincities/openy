@@ -451,6 +451,7 @@ header#page-head {
             border-top: 2px solid transparent;
             line-height: 68px;
             font-size: 16px;
+            margin-bottom: 2px;
             @include breakpoint (768px 991px) {
               margin-top: 0;
               padding: 15px 6px;
