@@ -133,6 +133,9 @@ class AlertsRestResource extends ResourceBase {
           throw new \HttpException('Field configuration for alerts is wrong');
         }
       }
+      else {
+        // TODO: Implement new logic from OpenY code.
+      }
     }
     return new ModifiedResourceResponse($sendAlerts, 200);
   }
