@@ -8378,6 +8378,7 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
   border-top: 2px solid transparent;
   line-height: 68px;
   font-size: 16px;
+  margin-bottom: 2px;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -ms-transition: all 0.2s linear;
@@ -11465,6 +11466,68 @@ body.path-search #block-mainpagecontent li {
   -o-user-select: none;
 }
 
+#block-openy-lily-googletranslate {
+  background: transparent;
+}
+#block-openy-lily-googletranslate .openy-google-translate {
+  margin-bottom: 5px;
+  height: 100px;
+}
+#block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget {
+  border-top: 2px solid transparent;
+  color: #777;
+  font-size: 16px;
+  max-height: 100px;
+  padding: 40px 15px;
+}
+#block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget:hover {
+  background: #fff;
+  border-top: 2px solid #aa228d;
+  color: #231f20;
+}
+#block-openy-lily-googletranslate .openy-google-translate .goog-te-gadget .goog-te-combo {
+  font-family: "Cachet", Arial, sans-serif;
+  margin: -4px 0 4px;
+}
+#block-openy-lily-googletranslate .openy-google-translate select {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+}
+
+.translated-ltr header#page-head .top-navs .nav-global {
+  margin-top: 0 !important;
+}
+
+.translated-ltr header#page-head .top-navs .nav-wrapper .main-nav.affix,
+.translated-rtl header#page-head .top-navs .nav-wrapper .main-nav.affix {
+  top: 100px;
+}
+
+@media (max-width: 767px) {
+  .openy-google-translate .goog-te-gadget {
+    padding: 20px 11px;
+  }
+
+  .openy-google-translate {
+    background: #0089d1;
+    font-family: "Cachet", Arial, sans-serif;
+    text-shadow: none;
+  }
+
+  .goog-te-combo {
+    font-size: 20px !important;
+    border: none;
+    background: none;
+    color: #fff;
+    text-transform: uppercase;
+    width: 100%;
+    font-family: "Cachet", Arial, sans-serif !important;
+  }
+  .goog-te-combo option {
+    color: #231f20;
+  }
+}
 .align-left {
   margin: 0 15px 15px 0;
 }
