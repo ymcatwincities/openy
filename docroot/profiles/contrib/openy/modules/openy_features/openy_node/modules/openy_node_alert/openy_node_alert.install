@@ -225,8 +225,6 @@ function openy_node_alert_update_8007() {
  * Update permissions. Remove old configs.
  */
 function openy_node_alert_update_8009() {
-  openy_node_alert_update_8006();
-  openy_node_alert_update_8007();
   $configs_to_remove = [
     //    'yptf_kronos_monday.settings',
     'block.block.views_block__alerts_footer_alerts',
@@ -352,6 +350,6 @@ function openy_node_alert_update_8010() {
     }
 
     // Fields are purged on cron.
-    field_purge_batch(10);
+    //field_purge_batch(10);
   }
 }
