@@ -198,8 +198,14 @@ class Block extends ConfigEntityBase implements BlockInterface, EntityWithPlugin
       return $settings['label'];
     }
     else {
-      $definition = $this->getPlugin()->getPluginDefinition();
-      return $definition['admin_label'];
+      if ($this->getPlugin()) {
+        $definition = $this->getPlugin()->getPluginDefinition();
+        return $definition['admin_label'];
+      }
+      else {
+        return 'Unknown block Entity found';
+      }
+
     }
   }
 
