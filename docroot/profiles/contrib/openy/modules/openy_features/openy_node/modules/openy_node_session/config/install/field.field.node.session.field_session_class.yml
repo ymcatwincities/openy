@@ -6,10 +6,6 @@ dependencies:
     - node.type.session
   module:
     - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: ''
 id: node.session.field_session_class
 field_name: field_session_class
 entity_type: node
@@ -31,3 +27,4 @@ settings:
     target_bundles_no_dep:
       class: class
 field_type: entity_reference
+openy_upgrade: true

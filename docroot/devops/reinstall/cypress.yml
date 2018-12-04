@@ -1,0 +1,49 @@
+---
+
+# This script contains commands to run cypress.io tests from docroot/cypress directory.
+
+- name: Install dependencies
+  shell: cd cypress && yarn install
+  sudo: yes
+
+- name: Make sure "build_reports" already exists
+  file:
+    path: build_reports
+    state: directory
+    mode: 0777
+  sudo: yes
+
+- name: Run all tests
+  shell: env CYPRESS_baseUrl="{{ site_url }}" node_modules/cypress/bin/cypress run --reporter=doc > ../build_reports/cypress.stdout
+  args:
+    chdir: cypress
+  sudo: yes
+  when: all_cypress_tests
+  ignore_errors: true
+
+- name: Run specific test
+  shell: env CYPRESS_baseUrl="{{ site_url }}" node_modules/cypress/bin/cypress run --spec "cypress/integration/{{ cypress_test_to_run }}" --reporter=doc > ../build_reports/cypress.stdout
+  args:
+    chdir: cypress
+  sudo: yes
+  when: all_cypress_tests == "false"
+  ignore_errors: true
+
+- name: Output test results header
+  shell: echo '<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Build results for {{ site_url }}</title></head><body><pre>' > cypress.html
+  args:
+    chdir: build_reports
+  sudo: yes
+
+- name: Output test results body
+  shell: cat cypress.stdout >> cypress.html
+  args:
+    chdir: build_reports
+  sudo: yes
+
+- name: Output test results tail
+  shell: echo "</pre></body></html>" >> cypress.html
+  args:
+    chdir: build_reports
+  sudo: yes
+

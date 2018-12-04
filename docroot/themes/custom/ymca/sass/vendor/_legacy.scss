@@ -1598,6 +1598,7 @@ li.current.home > a {
 }
 
 .navbar-default .navbar-nav > li > a {
+  line-height: 68px;
   padding-right: 10px;
   padding-left: 10px;
   text-shadow: 0 1px #FFF;
@@ -1847,7 +1848,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 .affix .nav-global .navbar-nav a, .touch .nav-global .navbar-nav a {
-  line-height: 18px;
+  line-height: 68px;
 }
 
 .navbar-default .navbar-brand {
