@@ -556,7 +556,6 @@ body {
   top: 0;
   bottom: 0;
   z-index: 40;
-  display: block !important;
   visibility: visible;
   overflow: hidden;
   overflow-x: hidden;
@@ -568,7 +567,6 @@ body {
   border-right: 5px solid #272727;
   background: #414141;
   -webkit-overflow-scrolling: touch;
-
   &.collapsing-out {
     -webkit-transition: visibility 0s .4s linear;
     -moz-transition: visibility 0s .4s linear;
@@ -4764,7 +4762,7 @@ object {
 
 .sidebar {
   &.collapse {
-    width: 0 !important;
+    width: 100% !important;
   }
   .overview:after {
     content: ' Overview';
@@ -4937,8 +4935,6 @@ object {
 .android {
   background: #363636;
   .sidebar.collapse {
-    display: none !important;
-    overflow: hidden !important;
     width: 0;
   }
   .alert-dismissable .close {
@@ -5275,7 +5271,7 @@ a.wrapper:hover {
     float: right;
   }
   .sidebar {
-    visibility: hidden;
+    visibility: visible;
   }
   .columns-2 .scroll .group-ex-carousel-inner, .columns-1 .scroll .group-ex-carousel-inner {
     border: 0;
@@ -5286,23 +5282,7 @@ a.wrapper:hover {
   .columns-2 .slider-container, .columns-1 .slider-container {
     display: none !important;
   }
-  body:before {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 32;
-    display: block;
-    visibility: hidden;
-    background: transparent;
-    content: '';
-    -webkit-transition: background-color .3s ease-out,visibility 0s .3s linear;
-    -moz-transition: background-color .3s ease-out,visibility 0s .3s linear;
-    -ms-transition: background-color .3s ease-out,visibility 0s .3s linear;
-    -o-transition: background-color .3s ease-out,visibility 0s .3s linear;
-    transition: background-color .3s ease-out,visibility 0s .3s linear;
-  }
+
   .lt-ie9 body:before {
     display: none;
   }
