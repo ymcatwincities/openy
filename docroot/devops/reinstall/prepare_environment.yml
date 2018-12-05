@@ -16,6 +16,7 @@
 - name: Set writable default dir
   sudo: yes
   file: dest={{ sites_default_dir}} mode=777 state=directory recurse=yes
+  ignore_errors: yes
 
 - name: Set writable files dir
   sudo: yes

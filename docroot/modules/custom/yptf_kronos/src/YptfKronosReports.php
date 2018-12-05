@@ -24,6 +24,11 @@ class YptfKronosReports {
   const MINDBODY_CSV_FILE_FORMAT = 'MB_%s--%s.csv';
 
   /**
+   * Default timezone.
+   */
+  const TIMEZONE = 'America/Chicago';
+
+  /**
    * Whether to send emails if there are errors.
    *
    * @var bool
@@ -517,7 +522,11 @@ class YptfKronosReports {
    * Get initial Dates.
    */
   public function getInitialDates() {
-    $dateTime = new \DateTime('-2 weeks sunday');
+    $timezone = new \DateTimeZone(self::TIMEZONE);
+
+    $dateTime = new \DateTime('-2 weeks', $timezone);
+    $dateTime->modify('last sunday');
+
     $this->dates['StartDate'] = $dateTime->format('Y-m-d');
 
     $interval = new \DateInterval('P13D');
