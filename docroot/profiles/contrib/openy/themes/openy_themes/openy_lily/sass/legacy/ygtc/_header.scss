@@ -41,7 +41,36 @@ header#page-head {
   @include breakpoint (0 767px) {
     position: relative;
   }
-
+  &.tiny {
+    .top-navs {
+      #block-topmenu2,
+      #block-anonymoususersmenu,
+      #block-anonymoususersmenu--2,
+      #block-openy-lily-user-menu,
+      #block-cccuseraccountmenu,
+      #block-cccuseraccountmenu--2 {
+        li {
+          a {
+            line-height: 68px;
+          }
+        }
+      }
+      #block-topmenu2,
+      #block-openy-lily-user-menu,
+      #block-anonymoususersmenu,
+      #block-anonymoususersmenu--2 {
+        ul {
+          li {
+            &:first-child {
+              a {
+                margin: 36px 5px 0 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   .top-navs {
     height: auto !important;
     background-color: transparent;
