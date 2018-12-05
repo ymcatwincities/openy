@@ -14,8 +14,15 @@ dependencies:
   module:
     - link
     - options
+    - panelizer
     - text
     - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
 id: node.alert.node_alert_footer
 targetEntityType: node
 bundle: alert
@@ -80,4 +87,6 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  addthis: true
   langcode: true
+openy_upgrade: true

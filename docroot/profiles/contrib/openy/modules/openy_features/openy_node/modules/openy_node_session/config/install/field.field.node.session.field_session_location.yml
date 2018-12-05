@@ -6,10 +6,6 @@ dependencies:
     - node.type.session
   module:
     - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: ''
 id: node.session.field_session_location
 field_name: field_session_location
 entity_type: node
@@ -32,3 +28,4 @@ settings:
       branch: branch
       camp: camp
 field_type: entity_reference
+openy_upgrade: true
