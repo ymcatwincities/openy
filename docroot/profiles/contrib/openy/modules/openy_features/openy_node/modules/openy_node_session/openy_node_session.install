@@ -200,7 +200,7 @@ function openy_node_session_update_8006() {
 /**
  * Update feature configs after entity reference handler update and configs actualization.
  */
-function openy_node_session_update_8007() {
+function _openy_node_session_update_8007() {
   $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
   // Update multiple configurations.
   $configs = [
@@ -230,7 +230,7 @@ function openy_node_session_update_8007() {
 /**
  * Add room and instructor fields.
  */
-function openy_node_session_update_8008() {
+function _openy_node_session_update_8008() {
   $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
 
   // Add two new fields.
@@ -325,6 +325,15 @@ function openy_node_session_update_8009() {
     'rabbit_hole.behavior_settings.node_type_session',
     'field.field.node.session.field_session_min_age',
     'field.storage.node.field_session_instructor',
+    'field.field.node.session.field_session_instructor',
+    'field.field.node.session.field_session_room',
+    'field.storage.node.field_session_instructor',
+    'field.storage.node.field_session_room',
+    'core.entity_form_display.node.session.default',
+    'core.entity_view_display.node.session.default',
+    'field.field.node.session.field_session_plocation',
+    'field.field.node.session.field_session_class',
+    'field.field.node.session.field_session_location',
   ]);
 }
 
