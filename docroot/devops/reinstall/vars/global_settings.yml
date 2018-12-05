@@ -55,4 +55,4 @@ old_source_db_name_url: http://{{ backup_user }}:{{ backup_pass }}@ymca.ffwua.co
 settings_file_path: sites/default/settings.php
 settings_default_file_path: sites/default/default.settings.php
 cypress_run: false
-all_cypress_tests: true
+all_cypress_tests: false

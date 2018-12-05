@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_node_alert\Plugin\rest\resource;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Url;
 use Drupal\rest\ModifiedResourceResponse;
@@ -53,10 +54,13 @@ class AlertsRestResource extends ResourceBase {
     $plugin_definition,
     array $serializer_formats,
     LoggerInterface $logger,
-    AccountProxyInterface $current_user) {
+    AccountProxyInterface $current_user, $aliasManager, $pathMatcher, $pathCurrent) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
     $this->currentUser = $current_user;
+    $this->aliasManager = $aliasManager;
+    $this->pathMatcher = $pathMatcher;
+    $this->pathCurrent = $pathCurrent;
   }
 
   /**
@@ -69,7 +73,10 @@ class AlertsRestResource extends ResourceBase {
       $plugin_definition,
       $container->getParameter('serializer.formats'),
       $container->get('logger.factory')->get('openy_node_alert'),
-      $container->get('current_user')
+      $container->get('current_user'),
+      $container->get('path.alias_manager'),
+      $container->get('path.matcher'),
+      $container->get('path.current')
     );
   }
 
@@ -96,43 +103,104 @@ class AlertsRestResource extends ResourceBase {
     $sendAlerts = [];
     /** @var \Drupal\node\Entity\Node $alert */
     foreach ($alerts as $alert) {
-      $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)->setAbsolute()->toString() : null;
-      if ($alert->hasField('field_alert_belongs') && !$alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
-        $refid = $alert->field_alert_belongs->target_id;
-        $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $refid);
-        if ($_GET['uri'] != $alias) {
-          // Do not show alerts for not current page.
-          continue;
-        }
-        $sendAlerts[$alert->field_alert_place->value]['local'][] = [
-          'title' => $alert->getTitle(),
-          'textColor' => $alert->field_alert_text_color->entity->field_color->value,
-          'bgColor' => $alert->field_alert_color->entity->field_color->value,
-          'description' => $alert->field_alert_description->value,
-          'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
-          'linkUrl' => $url,
-          'linkText' => $alert->field_alert_link->title,
-          'id' => $alert->id(),
-        ];
+      if (!$alert->hasField('field_alert_visibility_pages')) {
+        $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)->setAbsolute()->toString() : null;
+        if ($alert->hasField('field_alert_belongs') && !$alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
+          $refid = $alert->field_alert_belongs->target_id;
+          $alias = $this->aliasManager->getAliasByPath('/node/' . $refid);
+          if ($_GET['uri'] != $alias) {
+            // Do not show alerts for current page.
+            continue;
+          }
+          $sendAlerts[$alert->field_alert_place->value]['local'][] = [
+            'title' => $alert->getTitle(),
+            'textColor' => $alert->field_alert_text_color->entity->field_color->value,
+            'bgColor' => $alert->field_alert_color->entity->field_color->value,
+            'description' => $alert->field_alert_description->value,
+            'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
+            'linkUrl' => $url,
+            'linkText' => $alert->field_alert_link->title,
+            'id' => $alert->id(),
+          ];
 
-      }
-      elseif ($alert->hasField('field_alert_belongs') && $alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
-        $sendAlerts[$alert->field_alert_place->value]['global'][] = [
-          'title' => $alert->getTitle(),
-          'textColor' => $alert->field_alert_text_color->entity->field_color->value,
-          'bgColor' => $alert->field_alert_color->entity->field_color->value,
-          'description' => $alert->field_alert_description->value,
-          'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
-          'linkUrl' => $url,
-          'linkText' => $alert->field_alert_link->title,
-          'id' => $alert->id(),
-        ];
+        }
+        elseif ($alert->hasField('field_alert_belongs') && $alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
+          $sendAlerts[$alert->field_alert_place->value]['global'][] = [
+            'title' => $alert->getTitle(),
+            'textColor' => $alert->field_alert_text_color->entity->field_color->value,
+            'bgColor' => $alert->field_alert_color->entity->field_color->value,
+            'description' => $alert->field_alert_description->value,
+            'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
+            'linkUrl' => $url,
+            'linkText' => $alert->field_alert_link->title,
+            'id' => $alert->id(),
+          ];
+        }
+        else {
+          throw new \HttpException('Field configuration for alerts is wrong');
+        }
       }
       else {
-        throw new \HttpException('Field configuration for alerts is wrong');
+        // TODO: Implement new logic from OpenY code.
+        if ($this->checkVisibility($alert)) {
+          $sendAlerts[$alert->field_alert_place->value]['local'][] = [
+            'title' => $alert->getTitle(),
+            'textColor' => $alert->field_alert_text_color->entity->field_color->value,
+            'bgColor' => $alert->field_alert_color->entity->field_color->value,
+            'description' => $alert->field_alert_description->value,
+            'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
+            'linkUrl' => $url,
+            'linkText' => $alert->field_alert_link->title,
+            'id' => $alert->id(),
+          ];
+        }
       }
     }
     return new ModifiedResourceResponse($sendAlerts, 200);
+  }
+
+  /**
+   * Check visibility of alert.
+   *
+   * @param $node
+   * @return bool
+   */
+  private function checkVisibility(\Drupal\node\NodeInterface $node) {
+
+    $pages = '';
+    if ($node->hasField('field_alert_visibility_pages')) {
+      $pages = $node->get('field_alert_visibility_pages')->value;
+    }
+
+    $state = 'include';
+    if ($node->hasField('field_alert_visibility_state')) {
+      $state = $node->get('field_alert_visibility_state')->value;
+    }
+
+    $pages = Unicode::strtolower($pages);
+    if (!$pages) {
+      // Global alert.
+      return TRUE;
+    }
+
+
+    // Convert path to lowercase. This allows comparison of the same path.
+    // with different case. Ex: /Page, /page, /PAGE.
+    // Compare the lowercase path alias (if any) and internal path.
+    $current_path = $_GET['uri'];
+    $path = $this->aliasManager->getAliasByPath($current_path);
+    $path = Unicode::strtolower($path);
+
+    // Do not trim a trailing slash if that is the complete path.
+    $path = $path === '/' ? $path : rtrim($path, '/');
+
+    $is_path_match = $this->pathMatcher->matchPath($path, $pages);
+    if ($state == 'include' && $is_path_match || $state == 'exclude' && !$is_path_match) {
+      // Local alert.
+      return TRUE;
+    }
+
+    return FALSE;
   }
 
 }

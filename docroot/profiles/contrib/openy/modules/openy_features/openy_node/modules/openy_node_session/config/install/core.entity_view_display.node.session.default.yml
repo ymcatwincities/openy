@@ -42,14 +42,6 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  addthis:
-    label: hidden
-    type: string
-    weight: 100
-    region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_availability:
     weight: 118
     label: above
@@ -229,4 +221,7 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_session_instructor: true
+  field_session_room: true
   langcode: true
+openy_upgrade: true
