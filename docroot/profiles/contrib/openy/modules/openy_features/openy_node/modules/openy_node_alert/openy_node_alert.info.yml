@@ -10,16 +10,20 @@ dependencies:
   - datalayer
   - field
   - field_group
+  - hal
   - link
   - menu_ui
   - node
+  - openy_node_alert
   - openy_txnm_color
   - options
   - panelizer
   - path
   - pathauto
   - rabbit_hole
+  - rest
   - scheduler
+  - serialization
   - slick_views
   - taxonomy
   - text

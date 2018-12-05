@@ -2,13 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_description
     - field.field.node.alert.field_alert_icon_color
     - field.field.node.alert.field_alert_link
     - field.field.node.alert.field_alert_place
     - field.field.node.alert.field_alert_text_color
+    - field.field.node.alert.field_alert_visibility_pages
+    - field.field.node.alert.field_alert_visibility_state
     - node.type.alert
   module:
     - link
@@ -27,14 +28,6 @@ targetEntityType: node
 bundle: alert
 mode: default
 content:
-  field_alert_belongs:
-    type: entity_reference_label
-    weight: 7
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    region: content
   field_alert_color:
     weight: 2
     label: hidden
@@ -95,4 +88,6 @@ content:
     third_party_settings: {  }
 hidden:
   addthis: true
+  field_alert_visibility_pages: true
+  field_alert_visibility_state: true
   langcode: true

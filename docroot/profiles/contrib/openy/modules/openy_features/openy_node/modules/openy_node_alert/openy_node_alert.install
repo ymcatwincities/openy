@@ -287,6 +287,7 @@ function openy_node_alert_update_8010() {
     'pathauto.pattern.alert',
     'rabbit_hole.behavior_settings.node_type_alert',
     'views.view.alert_belongs_reference',
+    'rest.resource.alerts_rest_resource'
   ];
 
   // Import new configuration.
