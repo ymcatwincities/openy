@@ -14886,6 +14886,24 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
   line-height: 96px;
 }
 
+.wrapper-field-prgf-ygtc-block-ref ul {
+  margin: 25px 0 30px;
+  padding-left: 0;
+}
+.wrapper-field-prgf-ygtc-block-ref ul li {
+  list-style: none;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+.wrapper-field-prgf-ygtc-block-ref ul li a::before {
+  content: "\f105";
+  color: #777;
+  font-family: icomoon;
+  list-style: none;
+  margin-right: 14px;
+  font-weight: bold;
+}
+
 @media (min-width: 47.9375em) and (max-width: 61.9375em) {
   #search-box.expanded-search {
     padding: 20px 15px;
