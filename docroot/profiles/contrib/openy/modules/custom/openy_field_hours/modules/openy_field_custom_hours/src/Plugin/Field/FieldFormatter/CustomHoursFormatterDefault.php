@@ -56,7 +56,7 @@ class CustomHoursFormatterDefault extends FormatterBase implements ContainerFact
         }
 
         $day = str_replace('hours_', '', $name);
-        $value = $i_item->getValue() ? $i_item->getValue() : 'closed';
+        $value = $i_item->getValue() ? $i_item->getValue() : 'Closed';
         if ($groups && end($groups)['value'] == $value) {
           $array_keys = array_keys($groups);
           $group = &$groups[end($array_keys)];
