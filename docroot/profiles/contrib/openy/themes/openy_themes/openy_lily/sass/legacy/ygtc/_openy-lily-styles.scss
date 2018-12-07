@@ -18,3 +18,24 @@
 .viewport .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value {
   line-height: 96px;
 }
+
+.wrapper-field-prgf-ygtc-block-ref {
+  ul {
+    margin: 25px 0 30px;
+    padding-left: 0;
+    li {
+      list-style: none;
+      font-size: 15px;
+      margin-bottom: 15px;
+
+      a::before {
+        content: "\f105";
+        color: #777;
+        font-family: icomoon;
+        list-style: none;
+        margin-right: 14px;
+        font-weight: bold;
+      }
+    }
+  }
+}
