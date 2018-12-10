@@ -32,9 +32,9 @@
         var slick = self.parents('.slick__slider').first();
         // Remove dismissed alerts.
         if ($.inArray(nid, dismissed) != -1) {
-          var index = self.parents('.slick__slide').eq(0).index();
-          if (slick.length > 0 && index > 0) {
-            var slickCheck = slick.slick('slickRemove', index -1);
+          var index = self.closest('.slick__slide').data('slick-index');
+          if (slick.length > 0 && index !== undefined) {
+            var slickCheck = slick.slick('slickRemove', index);
             if(!slickCheck) {
               self.remove();
               slick.parents('.slick-track').prevObject.remove();
