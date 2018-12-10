@@ -553,6 +553,7 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getLocationsByClassNode(NodeInterface $node) {
+    $locations = [];
     $nids = $this->getLocationIDsByClassNode($node);
 
     if ($nids) {
