@@ -9206,7 +9206,7 @@ header#page-head .top-navs {
 @media (min-width: 767px) {
   body.internal-template #openy_alerts_app_header {
     position: relative;
-    padding-top: 160px;
+    padding-top: 0;
   }
 }
 @media (min-width: 768px) {
