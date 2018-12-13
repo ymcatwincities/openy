@@ -9179,11 +9179,24 @@ header#page-head .top-navs {
   body.landing-template #openy_alerts_app_header,
   body.locations-camps-template #openy_alerts_app_header {
     position: relative;
+    padding-top: 160px;
+  }
+}
+@media (max-width: 767px) {
+  body.landing-template #openy_alerts_app_header,
+  body.locations-camps-template #openy_alerts_app_header {
+    position: relative;
     padding-top: 0;
   }
 }
 @media (min-width: 767px) {
   body.internal-template #openy_alerts_app_header {
+    position: relative;
+    padding-top: 160px;
+  }
+}
+@media (min-width: 767px) {
+  body.node--type-location #openy_alerts_app_header {
     position: relative;
     padding-top: 0;
   }
