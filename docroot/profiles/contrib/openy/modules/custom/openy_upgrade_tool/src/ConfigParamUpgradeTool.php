@@ -65,7 +65,7 @@ class ConfigParamUpgradeTool extends ConfigParamUpdaterService {
       // Skip config update and log this to logger entity.
       $this->updateLoggerEntity($config, $config_name, $param);
       $dashboard_url = Url::fromRoute('view.openy_upgrade_dashboard.page_1');
-      $dashboard_link = Link::fromTextAndUrl(t('OpenY upgrade dashboard'), $dashboard_url);
+      $dashboard_link = Link::fromTextAndUrl(t('Open Y upgrade dashboard'), $dashboard_url);
       $this->logger->error($this->t('Cannot update config @name. Please add those changes manually. More info here - @link.',
         [
           '@name' => $config_name,
@@ -116,6 +116,7 @@ class ConfigParamUpgradeTool extends ConfigParamUpdaterService {
    *   TRUE if config was changed.
    */
   public function isManuallyChanged($config_name) {
+    return FALSE;
     $configs = $this->loggerEntityStorage->loadByProperties([
       'type' => 'openy_config_upgrade_logs',
       'name' => $config_name,

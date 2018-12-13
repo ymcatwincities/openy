@@ -269,7 +269,10 @@ class Url {
     if (preg_match('/^base:\d/', $uri)) {
       $uri = str_replace('base:', 'base:/', $uri);
     }
-    $uri_parts = parse_url($uri);
+    // parse_url() incorrectly parses URI of the <scheme>:<path> type when path
+    // contains only number with 5 digits or less. (for example tel:911)).
+    // Prevent that by adding empty query to the end of the path before parsing.
+    $uri_parts = preg_match('/^[a-z][a-z0-9\-\+]*:\d{1,5}$/i', $uri) ? parse_url("$uri?") : parse_url($uri);
     if ($uri_parts === FALSE) {
       throw new \InvalidArgumentException("The URI '$uri' is malformed.");
     }

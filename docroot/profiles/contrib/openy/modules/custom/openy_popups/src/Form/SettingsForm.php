@@ -5,6 +5,7 @@ namespace Drupal\openy_popups\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
+use Drupal\openy_popups\Form\BranchesForm;
 
 /**
  * Settings Form for openy_popups.
@@ -34,7 +35,10 @@ class SettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('openy_popups.settings');
+    $form = parent::buildForm($form, $form_state);
 
+    $default = $config->get('location');
+    
     $form['img'] = [
       '#type' => 'managed_file',
       '#title' => t('Popup image'),
@@ -54,8 +58,10 @@ class SettingsForm extends ConfigFormBase {
       '#format' => 'full_html',
       '#default_value' => ($config->get('description')) ? $config->get('description') : '',
     ];
-
-    return parent::buildForm($form, $form_state);
+    $branches_list = BranchesForm::getLocations();
+    $form['branch'] = BranchesForm::buildBranch($default, $branches_list);
+    $form['branch']['#prefix'] = t('Please select default location');
+    return $form;
   }
 
   /**
@@ -80,6 +86,7 @@ class SettingsForm extends ConfigFormBase {
     }
 
     $config->set('description', $form_state->getValue('description')['value'])->save();
+    $config->set('location', $form_state->getValue('branch'))->save();
 
     parent::submitForm($form, $form_state);
   }

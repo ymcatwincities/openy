@@ -73,8 +73,6 @@ class RoboFile extends \Robo\Tasks
      */
     public function release($opts = ['beta' => false])
     {
-        $this->checkPharReadonly();
-
         $version = \Robo\Robo::VERSION;
         $stable = !$opts['beta'];
         if ($stable) {
@@ -334,8 +332,6 @@ class RoboFile extends \Robo\Tasks
      */
     public function pharBuild()
     {
-        $this->checkPharReadonly();
-
         // Create a collection builder to hold the temporary
         // directory until the pack phar task runs.
         $collection = $this->collectionBuilder();
@@ -377,8 +373,7 @@ class RoboFile extends \Robo\Tasks
                 ->args($devProjectsToRemove)
             ->taskComposerInstall()
                 ->dir($roboBuildDir)
-                ->noScripts()
-                ->printed(true)
+                ->printed(false)
                 ->run();
 
         // Exit if the preparation step failed
@@ -407,13 +402,6 @@ class RoboFile extends \Robo\Tasks
             ->taskFilesystemStack()
                 ->chmod('robo.phar', 0777)
             ->run();
-    }
-
-    protected function checkPharReadonly()
-    {
-        if (ini_get('phar.readonly')) {
-            throw new \Exception('Must set "phar.readonly = Off" in php.ini to build phars.');
-        }
     }
 
     /**

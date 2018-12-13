@@ -1,0 +1,24 @@
+name: Open Y Node Alert
+description: Provides an Alert content type and related configuration.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - block
+  - field
+  - field_group
+  - link
+  - menu_ui
+  - node
+  - openy_txnm_color
+  - options
+  - path
+  - pathauto
+  - rabbit_hole
+  - scheduler
+  - slick_views
+  - taxonomy
+  - text
+  - user
+  - views

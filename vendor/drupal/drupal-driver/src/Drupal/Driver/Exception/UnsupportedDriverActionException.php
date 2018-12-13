@@ -14,7 +14,7 @@ class UnsupportedDriverActionException extends Exception {
    *
    * @param string $template
    *   What is unsupported?
-   * @param \Drupal\Driver\DriverInterface $driver
+   * @param DriverInterface $driver
    *   Driver instance.
    * @param int $code
    *   The exception code.

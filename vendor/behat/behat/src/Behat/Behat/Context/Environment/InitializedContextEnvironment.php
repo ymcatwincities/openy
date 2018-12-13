@@ -13,10 +13,8 @@ namespace Behat\Behat\Context\Environment;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\Environment\Handler\ContextEnvironmentHandler;
 use Behat\Behat\Context\Exception\ContextNotFoundException;
-use Behat\Behat\HelperContainer\Environment\ServiceContainerEnvironment;
 use Behat\Testwork\Call\Callee;
 use Behat\Testwork\Suite\Suite;
-use Psr\Container\ContainerInterface;
 
 /**
  * Context environment based on a list of instantiated context objects.
@@ -25,16 +23,12 @@ use Psr\Container\ContainerInterface;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-final class InitializedContextEnvironment implements ContextEnvironment, ServiceContainerEnvironment
+final class InitializedContextEnvironment implements ContextEnvironment
 {
     /**
      * @var string
      */
     private $suite;
-    /**
-     * @var ContainerInterface
-     */
-    private $serviceContainer;
     /**
      * @var Context[]
      */
@@ -58,14 +52,6 @@ final class InitializedContextEnvironment implements ContextEnvironment, Service
     public function registerContext(Context $context)
     {
         $this->contexts[get_class($context)] = $context;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setServiceContainer(ContainerInterface $container = null)
-    {
-        $this->serviceContainer = $container;
     }
 
     /**
@@ -129,14 +115,6 @@ final class InitializedContextEnvironment implements ContextEnvironment, Service
         }
 
         return $this->contexts[$class];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getServiceContainer()
-    {
-        return $this->serviceContainer;
     }
 
     /**

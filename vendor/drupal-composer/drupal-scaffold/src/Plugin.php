@@ -1,23 +1,23 @@
 <?php
+/**
+ * @file
+ * Contains DrupalComposer\DrupalScaffold\Plugin.
+ */
 
 namespace DrupalComposer\DrupalScaffold;
 
-use Composer\Script\Event;
-use Composer\Plugin\CommandEvent;
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\Installer\PackageEvent;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
-use Composer\Plugin\Capable;
-use Composer\Plugin\PluginEvents;
 use Composer\Plugin\PluginInterface;
+use Composer\Installer\PackageEvent;
 use Composer\Script\ScriptEvents;
 
 /**
  * Composer plugin for handling drupal scaffold.
  */
-class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
+class Plugin implements PluginInterface, EventSubscriberInterface {
 
   /**
    * @var \DrupalComposer\DrupalScaffold\Handler
@@ -38,31 +38,14 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
   /**
    * {@inheritdoc}
    */
-  public function getCapabilities() {
-    return array(
-      'Composer\Plugin\Capability\CommandProvider' => 'DrupalComposer\DrupalScaffold\CommandProvider',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function getSubscribedEvents() {
     return array(
       PackageEvents::POST_PACKAGE_INSTALL => 'postPackage',
       PackageEvents::POST_PACKAGE_UPDATE => 'postPackage',
+      //PackageEvents::POST_PACKAGE_UNINSTALL => 'postPackage',
+      //ScriptEvents::POST_INSTALL_CMD => 'postCmd',
       ScriptEvents::POST_UPDATE_CMD => 'postCmd',
-      PluginEvents::COMMAND => 'cmdBegins',
     );
-  }
-
-  /**
-   * Command begins event callback.
-   *
-   * @param \Composer\Plugin\CommandEvent $event
-   */
-  public function cmdBegins(CommandEvent $event) {
-    $this->handler->onCmdBeginsEvent($event);
   }
 
   /**
@@ -79,7 +62,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
    *
    * @param \Composer\Script\Event $event
    */
-  public function postCmd(Event $event) {
+  public function postCmd(\Composer\Script\Event $event) {
     $this->handler->onPostCmdEvent($event);
   }
 
@@ -88,16 +71,11 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
    * scaffold files.
    *
    * @param \Composer\Script\Event $event
-   *
-   * @deprecated since version 2.5.0, to be removed in 3.0. Use the command
-   *   "composer drupal:scaffold" instead.
    */
-  public static function scaffold(Event $event) {
-    @trigger_error('\DrupalComposer\DrupalScaffold\Plugin::scaffold is deprecated since version 2.5.0 and will be removed in 3.0. Use "composer drupal:scaffold" instead.', E_USER_DEPRECATED);
+  public static function scaffold(\Composer\Script\Event $event) {
     $handler = new Handler($event->getComposer(), $event->getIO());
     $handler->downloadScaffold();
     // Generate the autoload.php file after generating the scaffold files.
     $handler->generateAutoload();
   }
-
 }

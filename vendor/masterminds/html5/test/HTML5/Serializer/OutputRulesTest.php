@@ -3,7 +3,6 @@ namespace Masterminds\HTML5\Tests\Serializer;
 
 use Masterminds\HTML5\Serializer\OutputRules;
 use Masterminds\HTML5\Serializer\Traverser;
-use Masterminds\HTML5;
 
 class OutputRulesTest extends \Masterminds\HTML5\Tests\TestCase
 {
@@ -19,11 +18,6 @@ class OutputRulesTest extends \Masterminds\HTML5\Tests\TestCase
       </body>
     </html>';
 
-    /**
-     * @var HTML5
-     */
-    protected $html5;
-
     public function setUp()
     {
         $this->html5 = $this->getInstance();
@@ -35,7 +29,7 @@ class OutputRulesTest extends \Masterminds\HTML5\Tests\TestCase
      * @param string $name
      *            The name of the method on the Traverser class to test.
      *
-     * @return \ReflectionMethod for the specified method
+     * @return \ReflectionMethod \ReflectionMethod for the specified method
      */
     public function getProtectedMethod($name)
     {
@@ -466,10 +460,8 @@ class OutputRulesTest extends \Masterminds\HTML5\Tests\TestCase
             array('<input type="radio" readonly>'),
             array('<input type="radio" checked disabled>'),
             array('<input type="checkbox" checked disabled>'),
-            array('<input type="radio" value="" checked disabled>'),
-            array('<div data-value=""></div>'),
             array('<select disabled></select>'),
-            array('<div ng-app></div>'),
+            array('<div ng-app>foo</div>'),
             array('<script defer></script>'),
         );
     }
@@ -490,11 +482,7 @@ class OutputRulesTest extends \Masterminds\HTML5\Tests\TestCase
         $m->invoke($r, $node);
 
         $content = stream_get_contents($stream, - 1, 0);
-
-        $html = preg_replace('~<[a-z]+(.*)></[a-z]+>~', '\1', $html);
-        $html = preg_replace('~<[a-z]+(.*)/?>~', '\1', $html);
-
-        $this->assertEquals($content, $html);
+        $this->assertContains($content, $html);
 
     }
 
@@ -589,62 +577,5 @@ class OutputRulesTest extends \Masterminds\HTML5\Tests\TestCase
         $r->processorInstruction($dom->firstChild);
         $content = stream_get_contents($stream, - 1, 0);
         $this->assertRegExp('|<\?foo bar \?>|', $content);
-    }
-
-    public function testAddressTag()
-    {
-        $dom = $this->html5->loadHTML(
-            '<!doctype html>
-    <html lang="en">
-      <body>
-        <address>
-            <a href="../People/Raggett/">Dave Raggett</a>,
-            <a href="../People/Arnaud/">Arnaud Le Hors</a>,
-            contact persons for the <a href="Activity">W3C HTML Activity</a>
-        </address>
-      </body>
-    </html>');
-
-        $stream = fopen('php://temp', 'w');
-        $r = new OutputRules($stream, $this->html5->getOptions());
-        $t = new Traverser($dom, $stream, $r, $this->html5->getOptions());
-
-        $list = $dom->getElementsByTagName('address');
-        $r->element($list->item(0));
-        $contents = stream_get_contents($stream, - 1, 0);
-
-        $this->assertRegExp('|<address>|', $contents);
-        $this->assertRegExp('|<a href="../People/Raggett/">Dave Raggett</a>,|', $contents);
-        $this->assertRegExp('|<a href="../People/Arnaud/">Arnaud Le Hors</a>,|', $contents);
-        $this->assertRegExp('|contact persons for the <a href="Activity">W3C HTML Activity</a>|', $contents);
-        $this->assertRegExp('|</address>|', $contents);
-    }
-
-    /**
-     * Ensure direct DOM manipulation doesn't break TEXT_RAW elements (iframe, script, etc...)
-     */
-    public function testHandlingInvalidRawContent()
-    {
-        $dom = $this->html5->loadHTML(
-    '<!doctype html>
-<html lang="en" id="base">
-    <body>
-       <script id="template" type="x-tmpl-mustache">
-           <h1>Hello!</h1>
-       </script>
-    </body>
-</html>');
-
-        $badNode = $dom->createElement("p", "Bar");
-
-        // modify the content of the TEXT_RAW element: <script id="template"> appending dom nodes
-        $styleElement = $dom->getElementById("template");
-        $styleElement->appendChild($badNode);
-
-        $contents = $this->html5->saveHTML($dom);
-
-        $this->assertTrue(strpos($contents, '<script id="template" type="x-tmpl-mustache">
-           <h1>Hello!</h1>
-       <p>Bar</p></script>')!==false);
     }
 }

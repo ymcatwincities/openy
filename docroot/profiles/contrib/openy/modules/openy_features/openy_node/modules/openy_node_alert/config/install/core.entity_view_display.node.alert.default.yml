@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_description
     - field.field.node.alert.field_alert_icon_color
@@ -15,8 +14,15 @@ dependencies:
   module:
     - link
     - options
+    - panelizer
     - text
     - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
 id: node.alert.default
 targetEntityType: node
 bundle: alert
@@ -75,24 +81,13 @@ content:
     third_party_settings: {  }
     type: entity_reference_entity_view
     region: content
-  field_alert_visibility_pages:
-    weight: 102
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-    region: content
-  field_alert_visibility_state:
-    weight: 101
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
-    region: content
   links:
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
+  addthis: true
+  field_alert_visibility_pages: true
+  field_alert_visibility_state: true
   langcode: true

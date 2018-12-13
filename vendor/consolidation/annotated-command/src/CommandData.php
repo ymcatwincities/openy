@@ -170,9 +170,7 @@ class CommandData
         // will be the command name. The Application alters the
         // input definition to match, adding a 'command' argument
         // to the beginning.
-        if ($this->input->hasArgument('command')) {
-            array_shift($args);
-        }
+        array_shift($args);
 
         if ($this->usesOutputInterface) {
             array_unshift($args, $this->output());

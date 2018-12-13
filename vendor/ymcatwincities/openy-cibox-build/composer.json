@@ -1,0 +1,11 @@
+{
+    "name": "ymcatwincities/openy-cibox-build",
+    "description": "Build scripts based on open source project http://cibox.tools",
+    "type": "cibox-build",
+    "license": "GPL-2.0+",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "oomphinc/composer-installers-extender": "^1.1"
+    }
+}

@@ -19,10 +19,7 @@
 
 namespace Doctrine\Common\Collections;
 
-use ArrayAccess;
-use Closure;
-use Countable;
-use IteratorAggregate;
+use Closure, Countable, IteratorAggregate, ArrayAccess;
 
 /**
  * The missing (SPL) Collection/Array/OrderedMap interface.
@@ -32,7 +29,7 @@ use IteratorAggregate;
  * like a list.
  *
  * A Collection has an internal iterator just like a PHP array. In addition,
- * a Collection can be iterated with external iterators, which is preferable.
+ * a Collection can be iterated with external iterators, which is preferrable.
  * To use an external iterator simply use the foreach language construct to
  * iterate over the collection (which calls {@link getIterator()} internally) or
  * explicitly retrieve an iterator though {@link getIterator()} which can then be
@@ -41,10 +38,10 @@ use IteratorAggregate;
  * position unless you explicitly positioned it before. Prefer iteration with
  * external iterators.
  *
- * @since  2.0
- * @author Guilherme Blanco <guilhermeblanco@hotmail.com>
- * @author Jonathan Wage <jonwage@gmail.com>
- * @author Roman Borschel <roman@code-factory.org>
+ * @since   2.0
+ * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
+ * @author  Jonathan Wage <jonwage@gmail.com>
+ * @author  Roman Borschel <roman@code-factory.org>
  */
 interface Collection extends Countable, IteratorAggregate, ArrayAccess
 {
@@ -52,189 +49,174 @@ interface Collection extends Countable, IteratorAggregate, ArrayAccess
      * Adds an element at the end of the collection.
      *
      * @param mixed $element The element to add.
-     *
-     * @return bool Always TRUE.
+     * @return boolean Always TRUE.
      */
-    public function add($element);
+    function add($element);
 
     /**
      * Clears the collection, removing all elements.
-     *
-     * @return void
      */
-    public function clear();
+    function clear();
 
     /**
      * Checks whether an element is contained in the collection.
      * This is an O(n) operation, where n is the size of the collection.
      *
      * @param mixed $element The element to search for.
-     *
-     * @return bool TRUE if the collection contains the element, FALSE otherwise.
+     * @return boolean TRUE if the collection contains the element, FALSE otherwise.
      */
-    public function contains($element);
+    function contains($element);
 
     /**
      * Checks whether the collection is empty (contains no elements).
      *
-     * @return bool TRUE if the collection is empty, FALSE otherwise.
+     * @return boolean TRUE if the collection is empty, FALSE otherwise.
      */
-    public function isEmpty();
+    function isEmpty();
 
     /**
      * Removes the element at the specified index from the collection.
      *
-     * @param string|int $key The kex/index of the element to remove.
-     *
+     * @param string|integer $key The kex/index of the element to remove.
      * @return mixed The removed element or NULL, if the collection did not contain the element.
      */
-    public function remove($key);
+    function remove($key);
 
     /**
      * Removes the specified element from the collection, if it is found.
      *
      * @param mixed $element The element to remove.
-     *
-     * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeElement($element);
+    function removeElement($element);
 
     /**
      * Checks whether the collection contains an element with the specified key/index.
      *
-     * @param string|int $key The key/index to check for.
-     *
-     * @return bool TRUE if the collection contains an element with the specified key/index,
-     *              FALSE otherwise.
+     * @param string|integer $key The key/index to check for.
+     * @return boolean TRUE if the collection contains an element with the specified key/index,
+     *          FALSE otherwise.
      */
-    public function containsKey($key);
+    function containsKey($key);
 
     /**
      * Gets the element at the specified key/index.
      *
-     * @param string|int $key The key/index of the element to retrieve.
-     *
+     * @param string|integer $key The key/index of the element to retrieve.
      * @return mixed
      */
-    public function get($key);
+    function get($key);
 
     /**
      * Gets all keys/indices of the collection.
      *
      * @return array The keys/indices of the collection, in the order of the corresponding
-     *               elements in the collection.
+     *          elements in the collection.
      */
-    public function getKeys();
+    function getKeys();
 
     /**
      * Gets all values of the collection.
      *
      * @return array The values of all elements in the collection, in the order they
-     *               appear in the collection.
+     *          appear in the collection.
      */
-    public function getValues();
+    function getValues();
 
     /**
      * Sets an element in the collection at the specified key/index.
      *
-     * @param string|int $key   The key/index of the element to set.
-     * @param mixed      $value The element to set.
-     *
-     * @return void
+     * @param string|integer $key The key/index of the element to set.
+     * @param mixed $value The element to set.
      */
-    public function set($key, $value);
+    function set($key, $value);
 
     /**
      * Gets a native PHP array representation of the collection.
      *
      * @return array
      */
-    public function toArray();
+    function toArray();
 
     /**
-     * Sets the internal iterator to the first element in the collection and returns this element.
+     * Sets the internal iterator to the first element in the collection and
+     * returns this element.
      *
      * @return mixed
      */
-    public function first();
+    function first();
 
     /**
-     * Sets the internal iterator to the last element in the collection and returns this element.
+     * Sets the internal iterator to the last element in the collection and
+     * returns this element.
      *
      * @return mixed
      */
-    public function last();
+    function last();
 
     /**
      * Gets the key/index of the element at the current iterator position.
      *
-     * @return int|string
      */
-    public function key();
+    function key();
 
     /**
      * Gets the element of the collection at the current iterator position.
      *
-     * @return mixed
      */
-    public function current();
+    function current();
 
     /**
-     * Moves the internal iterator position to the next element and returns this element.
+     * Moves the internal iterator position to the next element.
      *
-     * @return mixed
      */
-    public function next();
+    function next();
 
     /**
      * Tests for the existence of an element that satisfies the given predicate.
      *
      * @param Closure $p The predicate.
-     *
-     * @return bool TRUE if the predicate is TRUE for at least one element, FALSE otherwise.
+     * @return boolean TRUE if the predicate is TRUE for at least one element, FALSE otherwise.
      */
-    public function exists(Closure $p);
+    function exists(Closure $p);
 
     /**
      * Returns all the elements of this collection that satisfy the predicate p.
      * The order of the elements is preserved.
      *
      * @param Closure $p The predicate used for filtering.
-     *
      * @return Collection A collection with the results of the filter operation.
      */
-    public function filter(Closure $p);
+    function filter(Closure $p);
 
     /**
-     * Tests whether the given predicate p holds for all elements of this collection.
+     * Applies the given predicate p to all elements of this collection,
+     * returning true, if the predicate yields true for all elements.
      *
      * @param Closure $p The predicate.
-     *
-     * @return bool TRUE, if the predicate yields TRUE for all elements, FALSE otherwise.
+     * @return boolean TRUE, if the predicate yields TRUE for all elements, FALSE otherwise.
      */
-    public function forAll(Closure $p);
+    function forAll(Closure $p);
 
     /**
      * Applies the given function to each element in the collection and returns
      * a new collection with the elements returned by the function.
      *
      * @param Closure $func
-     *
      * @return Collection
      */
-    public function map(Closure $func);
+    function map(Closure $func);
 
     /**
      * Partitions this collection in two collections according to a predicate.
      * Keys are preserved in the resulting collections.
      *
      * @param Closure $p The predicate on which to partition.
-     *
-     * @return Collection[] An array with two elements. The first element contains the collection
-     *                      of elements where the predicate returned TRUE, the second element
-     *                      contains the collection of elements where the predicate returned FALSE.
+     * @return array An array with two elements. The first element contains the collection
+     *               of elements where the predicate returned TRUE, the second element
+     *               contains the collection of elements where the predicate returned FALSE.
      */
-    public function partition(Closure $p);
+    function partition(Closure $p);
 
     /**
      * Gets the index/key of a given element. The comparison of two elements is strict,
@@ -242,22 +224,20 @@ interface Collection extends Countable, IteratorAggregate, ArrayAccess
      * For objects this means reference equality.
      *
      * @param mixed $element The element to search for.
-     *
-     * @return int|string|bool The key/index of the element or FALSE if the element was not found.
+     * @return mixed The key/index of the element or FALSE if the element was not found.
      */
-    public function indexOf($element);
+    function indexOf($element);
 
     /**
-     * Extracts a slice of $length elements starting at position $offset from the Collection.
+     * Extract a slice of $length elements starting at position $offset from the Collection.
      *
      * If $length is null it returns all elements from $offset to the end of the Collection.
      * Keys have to be preserved by this method. Calling this method will only return the
      * selected slice and NOT change the elements contained in the collection slice is called on.
      *
-     * @param int      $offset The offset to start from.
-     * @param int|null $length The maximum number of elements to return, or null for no limit.
-     *
+     * @param int $offset
+     * @param int $length
      * @return array
      */
-    public function slice($offset, $length = null);
+    function slice($offset, $length = null);
 }

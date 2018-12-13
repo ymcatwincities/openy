@@ -28,7 +28,6 @@ class CorsService
     {
         $options += array(
             'allowedOrigins' => array(),
-            'allowedOriginsPatterns' => array(),
             'supportsCredentials' => false,
             'allowedHeaders' => array(),
             'exposedHeaders' => array(),
@@ -177,17 +176,7 @@ class CorsService
         }
         $origin = $request->headers->get('Origin');
 
-        if (in_array($origin, $this->options['allowedOrigins'])) {
-            return true;
-        }
-
-        foreach ($this->options['allowedOriginsPatterns'] as $pattern) {
-            if (preg_match($pattern, $origin)) {
-                return true;
-            }
-        }
-
-        return false;
+        return in_array($origin, $this->options['allowedOrigins']);
     }
 
     private function checkMethod(Request $request)

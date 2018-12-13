@@ -22,10 +22,11 @@ namespace Doctrine\Common\Cache;
 /**
  * Zend Data Cache cache driver.
  *
- * @link   www.doctrine-project.org
- * @since  2.0
- * @author Ralph Schindler <ralph.schindler@zend.com>
- * @author Guilherme Blanco <guilhermeblanco@hotmail.com>
+ * @license http://www.opensource.org/licenses/lgpl-license.php LGPL
+ * @link    www.doctrine-project.org
+ * @since   2.0
+ * @author  Ralph Schindler <ralph.schindler@zend.com>
+ * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
  */
 class ZendDataCache extends CacheProvider
 {

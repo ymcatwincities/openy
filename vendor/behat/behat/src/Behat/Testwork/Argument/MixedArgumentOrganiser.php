@@ -10,8 +10,10 @@
 
 namespace Behat\Testwork\Argument;
 
+use Behat\Testwork\Argument\Exception\UnknownParameterValueException;
 use ReflectionFunctionAbstract;
 use ReflectionClass;
+use ReflectionMethod;
 use ReflectionParameter;
 
 /**
@@ -33,7 +35,12 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
      */
     public function organiseArguments(ReflectionFunctionAbstract $function, array $arguments)
     {
-        return $this->prepareArguments($function->getParameters(), $arguments);
+        $parameters = $function->getParameters();
+        $arguments = $this->prepareArguments($parameters, $arguments);
+
+        $this->validateArguments($function, $parameters, $arguments);
+
+        return $arguments;
     }
 
     /**
@@ -252,7 +259,7 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
         array $parameters,
         array &$candidates,
         array &$arguments,
-        $predicate
+        callable $predicate
     ) {
         $filtered = $this->filterApplicableTypehintedParameters($parameters);
 
@@ -275,10 +282,10 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
         ReflectionParameter $parameter,
         array &$candidates,
         array &$arguments,
-        $predicate
+        callable $predicate
     ) {
         foreach ($candidates as $candidateIndex => $candidate) {
-            if (call_user_func_array($predicate, array($parameter->getClass(), $candidate))) {
+            if (call_user_func_array($predicate, [$parameter->getClass(), $candidate])) {
                 $num = $parameter->getPosition();
 
                 $arguments[$num] = $candidate;
@@ -393,6 +400,55 @@ final class MixedArgumentOrganiser implements ArgumentOrganiser
         }
 
         return $orderedArguments;
+    }
+
+    /**
+     * Validates that all arguments are in place, throws exception otherwise.
+     *
+     * @param ReflectionFunctionAbstract $function
+     * @param ReflectionParameter[]      $parameters
+     * @param mixed[]                    $arguments
+     *
+     * @throws UnknownParameterValueException
+     */
+    private function validateArguments(
+        ReflectionFunctionAbstract $function,
+        array $parameters,
+        array $arguments
+    ) {
+        foreach ($parameters as $num => $parameter) {
+            $name = $parameter->getName();
+
+            if (array_key_exists($num, $arguments) || array_key_exists($name, $arguments)) {
+                continue;
+            }
+
+            throw new UnknownParameterValueException(sprintf(
+                'Can not find a matching value for an argument `$%s` of the method `%s`.',
+                $name,
+                $this->getFunctionPath($function)
+            ));
+        }
+    }
+
+    /**
+     * Returns function path for a provided reflection.
+     *
+     * @param ReflectionFunctionAbstract $function
+     *
+     * @return string
+     */
+    private function getFunctionPath(ReflectionFunctionAbstract $function)
+    {
+        if ($function instanceof ReflectionMethod) {
+            return sprintf(
+                '%s::%s()',
+                $function->getDeclaringClass()->getName(),
+                $function->getName()
+            );
+        }
+
+        return sprintf('%s()', $function->getName());
     }
 
     /**

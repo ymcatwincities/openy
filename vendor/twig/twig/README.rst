@@ -12,4 +12,4 @@ More Information
 
 Read the `documentation`_ for more information.
 
-.. _documentation: https://twig.symfony.com/documentation
+.. _documentation: http://twig.sensiolabs.org/documentation

@@ -1,13 +1,26 @@
-EasyRdf 0.9.1
-=============
-
-Bug Fixes
----------
-
-* Timeout is applied to response-times, not only connection-times (see #202)
-
 EasyRdf 0.9.0
 =============
+
+* code-style fix
+
+EasyRdf 0.9.0-rc.4
+==================
+
+* fixed compatibility with php < 5.4.8 (see issue #212)
+* tweaked unit-tests
+
+EasyRdf 0.9.0-rc.3
+==================
+
+* fixed documentation generation
+
+EasyRdf 0.9.0-rc.2
+==================
+
+* tweaked unit-tests
+
+EasyRdf 0.9.0-rc.1
+==================
 
 Major new features
 ------------------

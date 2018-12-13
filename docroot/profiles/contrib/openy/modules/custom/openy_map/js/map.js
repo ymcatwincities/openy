@@ -569,7 +569,7 @@
             var tag_filter_html = '<label class="btn btn-default" for="tag_' + tag + '">';
             tag_filter_html += '<input autocomplete="off" id="tag_' + tag + '" class="tag_' + tag + '" type="checkbox" value="' + tag + '" ' + filter_checked + '/>' + tag;
             for (var i = 0; i < this.tags[tag].marker_icons.length; i++) {
-              tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '"/>';
+              tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '" aria-hidden="true" />';
             }
             tag_filter_html += '</label>';
             tag_filters_html += tag_filter_html;
@@ -1358,7 +1358,7 @@
             var tag_filter_html = '<label class="btn btn-default" for="tag_' + tag + '">';
             tag_filter_html += '<input autocomplete="off" id="tag_' + tag + '" class="tag_' + tag + '" type="checkbox" value="' + tag + '" ' + filter_checked + '/>' + tag;
             for (var i = 0; i < this.tags[tag].marker_icons.length; i++) {
-              tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '"/>';
+              tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '" aria-hidden="true" />';
             }
             tag_filter_html += '</label>';
             tag_filters_html += tag_filter_html;
@@ -1407,7 +1407,9 @@
 
         // If the location list is empty, don't adjust the map at all.
         if (locations.length === 0) {
-          this.map.setView(this.search_center_point);
+          if (this.search_center_point !== null) {
+            this.map.setView(this.search_center_point);
+          }
           return;
         }
 

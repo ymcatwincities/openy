@@ -59,12 +59,12 @@
 <div class="layout-container {{ page_class }}">
 
   {% include "@openy_lily/include/sidebar-search-and-menu.html.twig" %}
-  <div id="side-area">
+  <div id="side-area" aria-hidden="true">
     <div class="top-side">
       <form class="clearfix" method="get" action="{{ search_view_content_path }}">
         <div class="form-group">
           <div class="input-group">
-            <input type="text" name="q" class="form-control">
+            <input type="text" name="search" class="form-control">
             <span class="input-group-btn">
             <button class="btn btn-info" type="submit">{{ "SEARCH"|t }}</button>
           </span>
@@ -163,7 +163,7 @@
     </footer>{# /#page-footer #}
 
     <div class="text-center return-to-top" data-spy="affix" data-offset-top="52">
-      <a href="#top" class="btn btn-default">
+      <a href="#top" title="{{ 'Scroll to top'|t }}" class="btn btn-default">
         <span class="glyphicon glyphicon-chevron-up"></span>
       </a>
     </div>{# /.return-to-top #}

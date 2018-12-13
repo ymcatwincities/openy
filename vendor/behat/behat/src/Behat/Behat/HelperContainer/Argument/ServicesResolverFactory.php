@@ -10,17 +10,13 @@
 
 namespace Behat\Behat\HelperContainer\Argument;
 
-use Behat\Behat\Context\Argument\ArgumentResolver;
-use Behat\Behat\HelperContainer\Environment\ServiceContainerEnvironment;
-use Behat\Behat\Context\Argument\ArgumentResolverFactory;
 use Behat\Behat\Context\Argument\SuiteScopedResolverFactory;
 use Behat\Behat\HelperContainer\BuiltInServiceContainer;
 use Behat\Behat\HelperContainer\Exception\WrongContainerClassException;
 use Behat\Behat\HelperContainer\Exception\WrongServicesConfigurationException;
 use Behat\Behat\HelperContainer\ServiceContainer\HelperContainerExtension;
-use Behat\Testwork\Environment\Environment;
 use Behat\Testwork\Suite\Suite;
-use Psr\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\TaggedContainerInterface;
 
 /**
@@ -30,7 +26,7 @@ use Symfony\Component\DependencyInjection\TaggedContainerInterface;
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
-final class ServicesResolverFactory implements SuiteScopedResolverFactory, ArgumentResolverFactory
+final class ServicesResolverFactory implements SuiteScopedResolverFactory
 {
     /**
      * @var TaggedContainerInterface
@@ -49,50 +45,16 @@ final class ServicesResolverFactory implements SuiteScopedResolverFactory, Argum
 
     /**
      * {@inheritdoc}
-     *
-     * @deprecated as part of SuiteScopedResolverFactory deprecation. Would be removed in 4.0
-     *
-     * @throws WrongServicesConfigurationException
-     * @throws WrongContainerClassException
      */
     public function generateArgumentResolvers(Suite $suite)
     {
-        @trigger_error(
-            'SuiteScopedResolverFactory::generateArgumentResolvers() was deprecated and will be removed in 4.0',
-            E_USER_DEPRECATED
-        );
-
         if (!$suite->hasSetting('services')) {
             return array();
         }
 
         $container = $this->createContainer($suite->getSetting('services'));
 
-        return $this->createResolvers($container, false);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @throws WrongServicesConfigurationException
-     * @throws WrongContainerClassException
-     */
-    public function createArgumentResolvers(Environment $environment)
-    {
-        $suite = $environment->getSuite();
-
-        if (!$suite->hasSetting('services')) {
-            return array();
-        }
-
-        $container = $this->createContainer($suite->getSetting('services'));
-        $autowire = $suite->hasSetting('autowire') && $suite->getSetting('autowire');
-
-        if ($environment instanceof ServiceContainerEnvironment) {
-            $environment->setServiceContainer($container);
-        }
-
-        return $this->createResolvers($container, $autowire);
+        return array($this->createArgumentResolver($container));
     }
 
     /**
@@ -101,8 +63,6 @@ final class ServicesResolverFactory implements SuiteScopedResolverFactory, Argum
      * @param string $settings
      *
      * @return mixed
-     *
-     * @throws WrongServicesConfigurationException
      */
     private function createContainer($settings)
     {
@@ -125,12 +85,10 @@ final class ServicesResolverFactory implements SuiteScopedResolverFactory, Argum
      * @param string $settings
      *
      * @return mixed
-     *
-     * @throws WrongServicesConfigurationException
      */
     private function createContainerFromString($settings)
     {
-        if (0 === mb_strpos($settings, '@')) {
+        if ('@' === mb_substr($settings, 0, 1)) {
             return $this->loadContainerFromContainer(mb_substr($settings, 1));
         }
 
@@ -155,14 +113,12 @@ final class ServicesResolverFactory implements SuiteScopedResolverFactory, Argum
      * @param string $name
      *
      * @return mixed
-     *
-     * @throws WrongServicesConfigurationException
      */
     private function loadContainerFromContainer($name)
     {
         $services = $this->container->findTaggedServiceIds(HelperContainerExtension::HELPER_CONTAINER_TAG);
 
-        if (!array_key_exists($name, $services)) {
+        if (!in_array($name, array_keys($services))) {
             throw new WrongServicesConfigurationException(
                 sprintf('Service container `@%s` was not found.', $name)
             );
@@ -182,7 +138,7 @@ final class ServicesResolverFactory implements SuiteScopedResolverFactory, Argum
     {
         $constructor = explode('::', $classSpec);
 
-        if (2 === count($constructor)) {
+        if (2 == count($constructor)) {
             return call_user_func($constructor);
         }
 
@@ -193,28 +149,21 @@ final class ServicesResolverFactory implements SuiteScopedResolverFactory, Argum
      * Checks if container implements the correct interface and creates resolver using it.
      *
      * @param mixed $container
-     * @param bool  $autowire
      *
-     * @return ArgumentResolver[]
-     *
-     * @throws WrongContainerClassException
+     * @return ServicesResolver
      */
-    private function createResolvers($container, $autowire)
+    private function createArgumentResolver($container)
     {
         if (!$container instanceof ContainerInterface) {
             throw new WrongContainerClassException(
                 sprintf(
-                    'Service container is expected to implement `Psr\Container\ContainerInterface`, but `%s` does not.',
+                    'Service container is expected to implement `Interop\Container\ContainerInterface`, but `%s` does not.',
                     get_class($container)
                 ),
                 get_class($container)
             );
         }
 
-        if ($autowire) {
-            return array(new ServicesResolver($container), new AutowiringResolver($container));
-        }
-
-        return array(new ServicesResolver($container));
+        return new ServicesResolver($container);
     }
 }

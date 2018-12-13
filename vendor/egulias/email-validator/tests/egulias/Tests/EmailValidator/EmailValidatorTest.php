@@ -26,52 +26,26 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->validator->isValid($email));
     }
 
-    public function testInvalidUTF8Email()
-    {
-        $validator = new EmailValidator;
-        $email     = "\x80\x81\x82@\x83\x84\x85.\x86\x87\x88";
-
-        $this->assertFalse($validator->isValid($email));
-    }
-
     public function getValidEmails()
     {
         return array(
-            array('â@iana.org'),
             array('fabien@symfony.com'),
             array('example@example.co.uk'),
             array('fabien_potencier@example.fr'),
             array('example@localhost'),
             array('fab\'ien@symfony.com'),
-            array('fab\ ien@symfony.com'),
             array('example((example))@fakedfake.co.uk'),
             array('example@faked(fake).co.uk'),
             array('fabien+@symfony.com'),
             array('инфо@письмо.рф'),
-            array('"username"@example.com'),
-            array('"user,name"@example.com'),
-            array('"user name"@example.com'),
-            array('"user@name"@example.com'),
-            array('"\a"@iana.org'),
-            array('"test\ test"@iana.org'),
-            array('""@iana.org'),
-            array('"\""@iana.org'),
-            array('müller@möller.de'),
-            array('test@email*'),
-            array('test@email!'),
-            array('test@email&'),
-            array('test@email^'),
-            array('test@email%'),
-            array('test@email$'),
-            array('test@email.com.au'),
-            array('1500111@профи-инвест.рф'),
+
         );
     }
 
     /**
      * @dataProvider getInvalidEmails
      */
-    public function testInvalidEmails($email)
+    public function testAInvalidEmails($email)
     {
         $this->assertFalse($this->validator->isValid($email));
     }
@@ -79,55 +53,18 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase
     public function getInvalidEmails()
     {
         return array(
-            array('test@example.com test'),
-            array('user  name@example.com'),
-            array('user   name@example.com'),
             array('example.@example.co.uk'),
             array('example@example@example.co.uk'),
-            array('(test_exampel@example.fr)'),
+            array('(fabien_potencier@example.fr)'),
             array('example(example)example@example.co.uk'),
             array('.example@localhost'),
             array('ex\ample@localhost'),
             array('example@local\host'),
-            array('example@localhost\\'),
             array('example@localhost.'),
             array('user name@example.com'),
             array('username@ example . com'),
             array('example@(fake).com'),
             array('example@(fake.com'),
-            array('username@example,com'),
-            array('usern,ame@example.com'),
-            array('user[na]me@example.com'),
-            array('"""@iana.org'),
-            array('"\"@iana.org'),
-            array('"test"test@iana.org'),
-            array('"test""test"@iana.org'),
-            array('"test"."test"@iana.org'),
-            array('"test".test@iana.org'),
-            array('"test"' . chr(0) . '@iana.org'),
-            array('"test\"@iana.org'),
-            array(chr(226) . '@iana.org'),
-            array('test@' . chr(226) . '.org'),
-            array('\r\ntest@iana.org'),
-            array('\r\n test@iana.org'),
-            array('\r\n \r\ntest@iana.org'),
-            array('\r\n \r\ntest@iana.org'),
-            array('\r\n \r\n test@iana.org'),
-            array('test@iana.org \r\n'),
-            array('test@iana.org \r\n '),
-            array('test@iana.org \r\n \r\n'),
-            array('test@iana.org \r\n\r\n'),
-            array('test@iana.org  \r\n\r\n '),
-            array('test@iana/icann.org'),
-            array('test@foo;bar.com'),
-            array('test;123@foobar.com'),
-            array('test@example..com'),
-            array('email.email@email."'),
-            array('test@email>'),
-            array('test@email<'),
-            array('test@email{'),
-            array('test@email.com]'),
-            array('test@ema[il.com'),
         );
     }
 
@@ -157,11 +94,6 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase
             array(EmailValidator::ERR_DOT_END, 'example@localhost.'),
             array(EmailValidator::ERR_DOT_END, 'example.@example.co.uk'),
             array(EmailValidator::ERR_UNCLOSEDCOMMENT, '(example@localhost'),
-            array(EmailValidator::ERR_UNOPENEDCOMMENT, 'comment)example@localhost'),
-            array(EmailValidator::ERR_UNOPENEDCOMMENT, 'example(comment))@localhost'),
-            array(EmailValidator::ERR_UNOPENEDCOMMENT, 'example@comment)localhost'),
-            array(EmailValidator::ERR_UNOPENEDCOMMENT, 'example@localhost(comment))'),
-            array(EmailValidator::ERR_UNOPENEDCOMMENT, 'example@(comment))example.com'),
             array(EmailValidator::ERR_UNCLOSEDQUOTEDSTR, '"example@localhost'),
             array(EmailValidator::ERR_EXPECTING_ATEXT, 'exa"mple@localhost'),
             //This was the original. But atext is not allowed after \n
@@ -172,25 +104,16 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase
             array(EmailValidator::ERR_CR_NO_LF, "example@exa\rmple.co.uk"),
             array(EmailValidator::ERR_CR_NO_LF, "example@[\r]"),
             array(EmailValidator::ERR_CR_NO_LF, "exam\rple@example.co.uk"),
+            array(EmailValidator::ERR_CR_NO_LF, "\"\r\"@localhost"),
         );
     }
 
     /**
      * @dataProvider getInvalidEmailsWithWarnings
      */
-    public function testValidEmailsWithWarningsCheck($warnings, $email)
+    public function testInvalidEmailsWithWarningsCheck($warnings, $email)
     {
         $this->assertTrue($this->validator->isValid($email, true));
-
-        $this->assertEquals($warnings, $this->validator->getWarnings());
-    }
-
-    /**
-     * @dataProvider getInvalidEmailsWithWarnings
-     */
-    public function testInvalidEmailsWithDnsCheckAndStrictMode($warnings, $email)
-    {
-        $this->assertFalse($this->validator->isValid($email, true, true));
 
         $this->assertEquals($warnings, $this->validator->getWarnings());
     }
@@ -198,50 +121,22 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase
     public function getInvalidEmailsWithWarnings()
     {
         return array(
-            array(
-                array(
-                    EmailValidator::DEPREC_CFWS_NEAR_AT,
-                    EmailValidator::DNSWARN_NO_RECORD
-                ),
-                'example @invalid.example.com'
-            ),
-            array(
-                array(
-                    EmailValidator::DEPREC_CFWS_NEAR_AT,
-                    EmailValidator::DNSWARN_NO_RECORD
-                ),
-                'example@ invalid.example.com'
-            ),
-            array(
-                array(
-                    EmailValidator::CFWS_COMMENT,
-                    EmailValidator::DNSWARN_NO_RECORD
-                ),
-                'example@invalid.example(examplecomment).com'
-            ),
+            array(array( EmailValidator::DEPREC_CFWS_NEAR_AT,), 'example @example.co.uk'),
+            array(array( EmailValidator::DEPREC_CFWS_NEAR_AT,), 'example@ example.co.uk'),
+            array(array( EmailValidator::CFWS_COMMENT,), 'example@example(examplecomment).co.uk'),
             array(
                 array(
                     EmailValidator::CFWS_COMMENT,
                     EmailValidator::DEPREC_CFWS_NEAR_AT,
-                    EmailValidator::DNSWARN_NO_RECORD,
                 ),
-                'example(examplecomment)@invalid.example.com'
+                'example(examplecomment)@example.co.uk'
             ),
             array(
                 array(
                     EmailValidator::RFC5321_QUOTEDSTRING,
                     EmailValidator::CFWS_FWS,
-                    EmailValidator::DNSWARN_NO_RECORD,
                 ),
-                "\"\t\"@invalid.example.com"
-            ),
-            array(
-                array(
-                    EmailValidator::RFC5321_QUOTEDSTRING,
-                    EmailValidator::CFWS_FWS,
-                    EmailValidator::DNSWARN_NO_RECORD
-                ),
-                "\"\r\"@invalid.example.com"
+                "\"\t\"@example.co.uk"
             ),
             array(
                 array(
@@ -331,16 +226,14 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase
             array(
                 array(
                     EmailValidator::RFC5321_QUOTEDSTRING,
-                    EmailValidator::DNSWARN_NO_RECORD
                 ),
-                '"example"@invalid.example.com'
+                '"example"@example.co.uk'
             ),
             array(
                 array(
                     EmailValidator::RFC5322_LOCAL_TOOLONG,
-                    EmailValidator::DNSWARN_NO_RECORD
                 ),
-                'too_long_localpart_too_long_localpart_too_long_localpart_too_long_localpart@invalid.example.com'
+                'too_long_localpart_too_long_localpart_too_long_localpart_too_long_localpart@example.co.uk'
             ),
             array(
                 array(
@@ -369,17 +262,6 @@ class EmailValidatorTest extends \PHPUnit_Framework_TestCase
                 'parttoolonglocalparttoolonglocalparttoolonglocalparttoolonglocalparttoolonglocalparttoolonglocalpart'.
                 'toolonglocalparttoolonglocalparttoolonglocalparttoolonglocalpar'
             ),
-            array(
-                array(
-                    EmailValidator::DNSWARN_NO_RECORD,
-                ),
-                'test@test'
-            ),
         );
-    }
-
-    public function testInvalidEmailsWithStrict()
-    {
-        $this->assertFalse($this->validator->isValid('"test"@test', false, true));
     }
 }

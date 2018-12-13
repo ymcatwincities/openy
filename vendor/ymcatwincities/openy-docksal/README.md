@@ -1,4 +1,4 @@
-This is a Docksal-based for the [OpenY](https://github.com/ymcatwincities/openy) Drupal distribution.
+This is a Docksal-based for the [Open Y](https://github.com/ymcatwincities/openy) Drupal distribution.
 
 [Docksal](https://docksal.io/) is used as a local development environment.
 
@@ -8,25 +8,19 @@ You need to install Docksal on your local machine according to [Docksal setup](h
 
 ### Full install from scratch
 
-You should have php-cli (7.1) installed on your computer
+Note: a local instance of PHP and/or Composer is not required.
 
-```sh
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php composer-setup.php
-sudo mv composer.phar /usr/local/bin/composer
+```bash
+# Install Docksal
+curl -fsSL https://get.docksal.io | bash
 # Change directory to your workspace
-composer create-project ymcatwincities/openy-project openy --no-interaction --no-dev
-cd openy/
-composer install
-# Install Doksal
-curl -fsSL https://get.docksal.io | sh
-fin init
-fin vm restart
+fin run-cli composer create-project ymcatwincities/openy-project openy --no-interaction --no-dev
+cd openy
+fin run-cli composer install
 fin init
 ```
 
 You should see something like
-
 
 ```
 MBP-Andrii:openy podarok$ fin init
@@ -138,31 +132,64 @@ A default project / experiment entry has been created.                          
 You can now include content into the sitemap by visiting the corresponding entity type edit pages (e.g. node type edit pages).Support  [status]
 for additional entity types and custom links can be added on the module's configuration pages.
 The XML sitemap has been regenerated for all languages.                                                                                [status]
-Congratulations, you installed OpenY!    
+Congratulations, you installed Open Y!    
+Clear caches.
+Cache rebuild complete.                                                                                                                [ok]
+Created three GoogleTagManager snippet files based on configuration.                                                                   [status]
+
+real    22m8.914s
+user    0m1.720s
+sys     0m0.780s
+ DONE!  Open http://openy.docksal in your browser to verify the setup.
 ```
 
-By visiting http://openy.docksal/ you'll see your local copy of latest stable OpenY
+Open the URL printed at the end of the setup (e.g. `http://openy.docksal`) to see your local copy of the latest stable Open Y.
 
-# Docksal environment for OpenY
+# Docksal environment for Open Y
 
-Open the project's folder and run 
-```
-fin init
-```
-to start the project.
-
-The webserver starts up, and the site will be installed automatically.
+Open the project's folder and run one of the commands.
 
 Administrator account is _admin_:_admin_.
+
+### Start the project
+
+```bash
+fin init
+```
+
+
+The webserver starts up, and the site will be installed automatically with `drush si`.
+
+### Install site from UI
+```bash
+fin install_steps
+```
+
+The webserver starts up and for site will be provided base configuration. 
+After finish you need to open site in browser and continue installation from UI.
+This command is useful for testing Open Y install form.
+
+### Testing Upgrade path
+```bash
+fin upgrade_init
+```
+
+The webserver starts up and the site will be installed from Open Y DB dump 
+that contain pre-installed previous Open Y version.
+After installation will be executed all new updates that were added in the latest Open Y versions.
+
+More information about the upgrade path you can find here - [How to support upgrade path](https://github.com/ymcatwincities/openy/blob/8.x-2.x/docs/Development/Upgrade%20path.md)
+
 
 # How to develop?
 
 After you run the "fin init" and have your environment ready you need to do few things.
 
 - Create a fork of [http://github.com/ymcatwincities/openy](http://github.com/ymcatwincities/openy).
-- In your project go to `docroot/profiles/contrib/openy` and edit **.git/config file**. Replace repo URL to your newly created fork.
-- Then you can create a branch in your repo, push some code and create a pull request back to ymcatwincities/openy repo.
+- In your project go to `docroot/profiles/contrib/openy` and edit `.git/config` file. Replace repo URL to your newly created fork.
+- Then you can create a branch in your repo, push some code and create a pull request back to `ymcatwincities/openy` repo.
 
 # How to run behat tests?
 
-Then edit behat.local.yml and change base_url to "web" and wd_host to "http://browser:4444/wd/hub". Then you can run your behat tests with "./vendor/behat/behat/bin/behat".
+Edit `behat.local.yml` and set `base_url` to `web` and `wd_host` to `http://browser:4444/wd/hub`. 
+Then you can run your behat tests with `./vendor/behat/behat/bin/behat`.

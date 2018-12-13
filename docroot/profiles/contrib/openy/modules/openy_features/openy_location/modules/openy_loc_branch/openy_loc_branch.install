@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Branch install file.
+ * Open Y Branch install file.
  */
 
 /**
@@ -368,7 +368,7 @@ function openy_loc_branch_update_8013() {
 }
 
 /**
- * Update OpenY branch location paragraph feature configs.
+ * Update Open Y branch location paragraph feature configs.
  */
 function openy_loc_branch_update_8014() {
   $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
@@ -430,4 +430,16 @@ function openy_loc_branch_update_8015() {
       $config_updater->update($config, $config_name, $param);
     }
   }
+}
+
+/**
+ * Update feature configs.
+ */
+function openy_loc_branch_update_8016() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.branch.full',
+  ]);
 }

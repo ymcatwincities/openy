@@ -31,13 +31,10 @@ class EmailLexer extends AbstractLexer
     const S_SEMICOLON        = 275;
     const S_OPENQBRACKET     = 276;
     const S_CLOSEQBRACKET    = 277;
-    const S_SLASH            = 278;
     const S_EMPTY            = null;
     const GENERIC            = 300;
     const CRLF               = 301;
     const INVALID            = 302;
-    const ASCII_INVALID_FROM = 127;
-    const ASCII_INVALID_TO   = 199;
 
     /**
      * US-ASCII visible characters not valid for atext (@link http://tools.ietf.org/html/rfc5322#section-3.2.3)
@@ -55,7 +52,6 @@ class EmailLexer extends AbstractLexer
         ';'    => self::S_SEMICOLON,
         '@'    => self::S_AT,
         '\\'   => self::S_BACKSLASH,
-        '/'    => self::S_SLASH,
         ','    => self::S_COMMA,
         '.'    => self::S_DOT,
         '"'    => self::S_DQUOTE,
@@ -67,31 +63,18 @@ class EmailLexer extends AbstractLexer
         "\n"   => self::S_LF,
         "\r\n" => self::CRLF,
         'IPv6' => self::S_IPV6TAG,
+        '<'    => self::S_LOWERTHAN,
+        '>'    => self::S_GREATERTHAN,
         '{'    => self::S_OPENQBRACKET,
         '}'    => self::S_CLOSEQBRACKET,
-        ''     => self::S_EMPTY,
-        '\0'   => self::C_NUL,
+        ''     => self::S_EMPTY
     );
 
-    protected $hasInvalidTokens = false;
-
     protected $previous;
-
-    public function reset()
-    {
-        $this->hasInvalidTokens = false;
-        parent::reset();
-    }
-
-    public function hasInvalidTokens()
-    {
-        return $this->hasInvalidTokens;
-    }
 
     /**
      * @param $type
      * @throws \UnexpectedValueException
-     * @return boolean
      */
     public function find($type)
     {
@@ -101,7 +84,6 @@ class EmailLexer extends AbstractLexer
         if (!$search->lookahead) {
             throw new \UnexpectedValueException($type . ' not found');
         }
-        return true;
     }
 
     /**
@@ -117,7 +99,7 @@ class EmailLexer extends AbstractLexer
     /**
      * moveNext
      *
-     * @return boolean
+     * @return mixed
      */
     public function moveNext()
     {
@@ -129,29 +111,29 @@ class EmailLexer extends AbstractLexer
     /**
      * Lexical catchable patterns.
      *
-     * @return string[]
+     * @return array
      */
     protected function getCatchablePatterns()
     {
         return array(
-            '[a-zA-Z_]+[46]?', //ASCII and domain literal
-            '[^\x00-\x7F]',  //UTF-8
+            '[a-zA-Z_]+[4,6]?',
             '[0-9]+',
             '\r\n',
             '::',
-            '\s+?',
-            '.',
+            '\s+',
+            '[\x1-\x1F]+',
+            '.'
             );
     }
 
     /**
      * Lexical non-catchable patterns.
      *
-     * @return string[]
+     * @return array
      */
     protected function getNonCatchablePatterns()
     {
-        return array('[\xA0-\xff]+');
+        return array('[\x7f-\xff]+');
     }
 
     /**
@@ -163,59 +145,14 @@ class EmailLexer extends AbstractLexer
      */
     protected function getType(&$value)
     {
-        if ($this->isNullType($value)) {
-            return self::C_NUL;
-        }
-
-        if ($this->isValid($value)) {
+        if (isset($this->charValue[$value])) {
             return $this->charValue[$value];
         }
 
-        if ($this->isUTF8Invalid($value)) {
-            $this->hasInvalidTokens = true;
+        if (preg_match('/[\x1-\x1F]+/', $value)) {
             return self::INVALID;
         }
 
         return  self::GENERIC;
-    }
-
-    protected function isValid($value)
-    {
-        if (isset($this->charValue[$value])) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param $value
-     * @return bool
-     */
-    protected function isNullType($value)
-    {
-        if ($value === "\0") {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param $value
-     * @return bool
-     */
-    protected function isUTF8Invalid($value)
-    {
-        if (preg_match('/\p{Cc}+/u', $value)) {
-            return true;
-        }
-
-        return false;
-    }
-
-    protected function getModifiers()
-    {
-        return 'iu';
     }
 }

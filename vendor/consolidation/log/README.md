@@ -1,16 +1,14 @@
 # Consolidation\Log
 
-Improved [PSR-3](http://www.php-fig.org/psr/psr-3/) [Psr\Log](https://github.com/php-fig/log) logger based on Symfony Console components.
-
-[![Travis CI](https://travis-ci.org/consolidation-org/log.svg?branch=master)](https://travis-ci.org/consolidation-org/log) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/consolidation-org/log/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/consolidation-org/log/?branch=master) [![Coverage Status](https://coveralls.io/repos/github/consolidation-org/log/badge.svg?branch=master)](https://coveralls.io/github/consolidation-org/log?branch=master) [![License](https://poser.pugx.org/consolidation/log/license)](https://packagist.org/packages/consolidation/log)
+Improved Psr-3 / Psr\Log logger based on Symfony Console components.
 
 ## Component Status
 
-In use in [Robo](https://github.com/Codegyre/Robo).
+In use in https://github.com/Codegyre/Robo
 
 ## Motivation
 
-Consolidation\Log provides a Psr-3 compatible logger that provides styled log output to the standard error (stderr) stream. By default, styling is provided by the SymfonyStyle class from the Symfony Console component; however, alternative stylers may be provided if desired.
+Consolication\Log provides a Psr-3 compatible logger that provides styled log output to the standard error (stderr) stream. By default, styling is provided by the SymfonyStyle class from the Symfony Console component; however, alternative stylers may be provided if desired.
 
 ## Usage
 ```
@@ -18,9 +16,7 @@ $logger = new \Consolidation\Log\Logger($output);
 $logger->setLogOutputStyler(new LogOutputStyler()); // optional
 $logger->warning('The file {name} does not exist.', ['name' => $filename]);
 ```
-String interpolation -- that is, the substitution of replacements, such as `{name}` in the example above, is not required by Psr-3, and is not implemented by default in the Psr\Log project. However, it is recommended by PRS-3, and is often done, e.g. in the Symfony Console logger.
-
-Consolidation\Log supports string interpolation.
+n.b. Substitution of replacements, such as `{name}` in the example above, is not required by Psr-3' however, this is often done (e.g. in the Symfony Console logger).
 
 ## Comparison to Existing Solutions
 

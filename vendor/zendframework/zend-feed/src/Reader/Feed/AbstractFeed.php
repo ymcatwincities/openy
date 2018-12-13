@@ -24,7 +24,7 @@ abstract class AbstractFeed implements FeedInterface
      *
      * @var array
      */
-    protected $data = [];
+    protected $data = array();
 
     /**
      * Parsed feed data in the shape of a DOMDocument
@@ -38,7 +38,7 @@ abstract class AbstractFeed implements FeedInterface
      *
      * @var array
      */
-    protected $entries = [];
+    protected $entries = array();
 
     /**
      * A pointer for the iterator to keep track of the entries array
@@ -59,7 +59,7 @@ abstract class AbstractFeed implements FeedInterface
      *
      * @var array
      */
-    protected $extensions = [];
+    protected $extensions = array();
 
     /**
      * Original Source URI (set if imported from a URI)
@@ -172,7 +172,7 @@ abstract class AbstractFeed implements FeedInterface
      */
     public function saveXml()
     {
-        return $this->getDomDocument()->saveXML();
+        return $this->getDomDocument()->saveXml();
     }
 
     /**
@@ -252,7 +252,7 @@ abstract class AbstractFeed implements FeedInterface
     {
         foreach ($this->extensions as $extension) {
             if (method_exists($extension, $method)) {
-                return call_user_func_array([$extension, $method], $args);
+                return call_user_func_array(array($extension, $method), $args);
             }
         }
         throw new Exception\BadMethodCallException('Method: ' . $method
@@ -282,10 +282,8 @@ abstract class AbstractFeed implements FeedInterface
             if (in_array($extension, $all['core'])) {
                 continue;
             }
-            if (! $manager->has($extension)) {
-                throw new Exception\RuntimeException(
-                    sprintf('Unable to load extension "%s"; cannot find class', $extension)
-                );
+            if (!$manager->has($extension)) {
+                throw new Exception\RuntimeException(sprintf('Unable to load extension "%s"; cannot find class', $extension));
             }
             $plugin = $manager->get($extension);
             $plugin->setDomDocument($this->getDomDocument());

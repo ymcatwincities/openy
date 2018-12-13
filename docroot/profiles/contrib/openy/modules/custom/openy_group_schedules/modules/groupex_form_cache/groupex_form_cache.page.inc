@@ -4,7 +4,7 @@
  * @file
  * Contains groupex_form_cache.page.inc.
  *
- * Page callback for Groupex Form Cache entities.
+ * Page callback for GroupEx Pro Form Cache entities.
  */
 
 use Drupal\Core\Render\Element;
@@ -12,7 +12,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 
 /**
- * Prepares variables for Groupex Form Cache templates.
+ * Prepares variables for GroupEx Pro Form Cache templates.
  *
  * Default template: groupex_form_cache.html.twig.
  *

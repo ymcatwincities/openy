@@ -37,6 +37,10 @@ source:
     uri_file: 'public://menu_icons'
     module: openy_demo_menu_main
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   module_path:
     plugin: module_path
     source: constants/module

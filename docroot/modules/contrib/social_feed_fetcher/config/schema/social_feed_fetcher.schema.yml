@@ -2,15 +2,6 @@ social_feed_fetcher.settings:
    type: config_object
    label: Feed Settings
    mapping:
-     facebook_enabled:
-       type: boolean
-       label: Facebook service enable
-     twitter_enabled:
-        type: boolean
-        label: Twitter service enable
-     instagram_enabled:
-       type: boolean
-       label: Instagram service enable
      fb_page_name:
        type: string
        label: Facebook Page Name
@@ -104,6 +95,3 @@ social_feed_fetcher.settings:
      in_post_link:
        type: boolean
        label: Show post URL
-     formats.post_format:
-       type: string
-       label: Post format

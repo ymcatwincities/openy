@@ -99,7 +99,6 @@ final class CliExtension implements Extension
     protected function loadCommand(ContainerBuilder $container)
     {
         $definition = new Definition('Behat\Testwork\Cli\Command', array('%cli.command.name%', array()));
-        $definition->setPublic(true);
         $container->setDefinition(self::COMMAND_ID, $definition);
     }
 

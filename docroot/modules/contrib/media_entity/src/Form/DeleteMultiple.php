@@ -25,7 +25,9 @@ class DeleteMultiple extends ConfirmFormBase {
   /**
    * The tempstore factory.
    *
-   * @var \Drupal\user\PrivateTempStoreFactory
+   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory|\Drupal\user\PrivateTempStoreFactory
+   *
+   * @todo Change this typehint when https://www.drupal.org/project/drupal/issues/2008884 is fixed.
    */
   protected $tempStoreFactory;
 
@@ -39,12 +41,12 @@ class DeleteMultiple extends ConfirmFormBase {
   /**
    * Constructs a DeleteMultiple form object.
    *
-   * @param \Drupal\user\PrivateTempStoreFactory $temp_store_factory
+   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory|\Drupal\user\PrivateTempStoreFactory $temp_store_factory
    *   The tempstore factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $manager
    *   The entity manager.
    */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory, EntityTypeManagerInterface $manager) {
+  public function __construct($temp_store_factory, EntityTypeManagerInterface $manager) {
     $this->tempStoreFactory = $temp_store_factory;
     $this->storage = $manager->getStorage('media');
   }
@@ -54,7 +56,8 @@ class DeleteMultiple extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('user.private_tempstore'),
+      // The tempstore.private service is only available in Drupal 8.5+.
+      $container->has('tempstore.private') ? $container->get('tempstore.private') : $container->get('user.private_tempstore'),
       $container->get('entity_type.manager')
     );
   }

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Media Image module file.
+ * Open Y Media Image module file.
  */
 
 use Drupal\media_entity\MediaInterface;

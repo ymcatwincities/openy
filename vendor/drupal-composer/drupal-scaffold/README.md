@@ -30,7 +30,7 @@ of your root `composer.json`.
 {
   "extra": {
     "drupal-scaffold": {
-      "source": "https://cgit.drupalcode.org/drupal/plain/{path}?h={version}",
+      "source": "http://cgit.drupalcode.org/drupal/plain/{path}?h={version}",
       "excludes": [
         "google123.html",
         "robots.txt"
@@ -64,7 +64,6 @@ Default includes are provided by the plugin:
 .eslintrc (Drupal <= 8.2.x)
 .eslintrc.json (Drupal >= 8.3.x)
 .gitattributes
-.ht.router.php (Drupal >= 8.5.x)
 .htaccess
 index.php
 robots.txt

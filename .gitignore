@@ -6,13 +6,5 @@ Thumbs.db
 # Ignore Development tool files.
 .idea
 node_modules
-docroot/sites/default/config/staging
-.docksal/
-.vagrant/
-backup/
-docroot/clean.sql
-docroot/reactapps/prgreg/.env.local
-docroot/reactapps/prgreg/storybook-static/
-docroot/yarn.lock
-vendor/ymcatwincities/openy-cibox-build/
-vendor/ymcatwincities/openy-cibox-vm/
+.docksal
+.vagrant
