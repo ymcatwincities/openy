@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2017 Facebook. All Rights Reserved.
+ * Copyright 2004-2013 Facebook. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@
  *
  * @author Justin Bishop <jubishop@gmail.com>
  * @author Anthon Pang <apang@softwaredevelopment.ca>
- * @author Gaetano Giunta <giunta.gaetano@gmail.com>
  */
 
 namespace WebDriver\Exception;
@@ -30,30 +29,5 @@ use WebDriver\Exception as BaseException;
  *
  * @package WebDriver
  */
-final class CurlExec extends BaseException
-{
-    /**
-     * @var array
-     */
-    private $curlInfo = array();
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct($message = null, $code = 0, \Exception $previous = null, $curlInfo = array())
-    {
-        parent::__construct($message, $code, $previous);
-
-        $this->curlInfo = $curlInfo;
-    }
-
-    /**
-     * Get curl info
-     *
-     * @return array
-     */
-    public function getCurlInfo()
-    {
-        return $this->curlInfo;
-    }
+final class CurlExec extends BaseException {
 }

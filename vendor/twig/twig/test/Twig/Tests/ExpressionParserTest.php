@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
+class Twig_Tests_ExpressionParserTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException Twig_Error_Syntax
@@ -17,23 +17,18 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testCanOnlyAssignToNames($template)
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source($template, 'index')));
+        $parser->parse($env->tokenize($template, 'index'));
     }
 
     public function getFailingTestsForAssignment()
     {
         return array(
             array('{% set false = "foo" %}'),
-            array('{% set FALSE = "foo" %}'),
             array('{% set true = "foo" %}'),
-            array('{% set TRUE = "foo" %}'),
             array('{% set none = "foo" %}'),
-            array('{% set NONE = "foo" %}'),
-            array('{% set null = "foo" %}'),
-            array('{% set NULL = "foo" %}'),
             array('{% set 3 = "foo" %}'),
             array('{% set 1 + 2 = "foo" %}'),
             array('{% set "bar" = "foo" %}'),
@@ -46,8 +41,8 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testArrayExpression($template, $expected)
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
-        $stream = $env->tokenize(new Twig_Source($template, ''));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
+        $stream = $env->tokenize($template, 'index');
         $parser = new Twig_Parser($env);
 
         $this->assertEquals($expected, $parser->parse($stream)->getNode('body')->getNode(0)->getNode('expr'));
@@ -59,10 +54,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testArraySyntaxError($template)
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source($template, 'index')));
+        $parser->parse($env->tokenize($template, 'index'));
     }
 
     public function getFailingTestsForArray()
@@ -154,8 +149,8 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testStringExpressionDoesNotConcatenateTwoConsecutiveStrings()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
-        $stream = $env->tokenize(new Twig_Source('{{ "a" "b" }}', 'index'));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
+        $stream = $env->tokenize('{{ "a" "b" }}', 'index');
         $parser = new Twig_Parser($env);
 
         $parser->parse($stream);
@@ -166,8 +161,8 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testStringExpression($template, $expected)
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
-        $stream = $env->tokenize(new Twig_Source($template, ''));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false, 'optimizations' => 0));
+        $stream = $env->tokenize($template, 'index');
         $parser = new Twig_Parser($env);
 
         $this->assertEquals($expected, $parser->parse($stream)->getNode('body')->getNode(0)->getNode('expr'));
@@ -225,10 +220,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testAttributeCallDoesNotSupportNamedArguments()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source('{{ foo.bar(name="Foo") }}', 'index')));
+        $parser->parse($env->tokenize('{{ foo.bar(name="Foo") }}', 'index'));
     }
 
     /**
@@ -236,10 +231,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testMacroCallDoesNotSupportNamedArguments()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source('{% from _self import foo %}{% macro foo() %}{% endmacro %}{{ foo(name="Foo") }}', 'index')));
+        $parser->parse($env->tokenize('{% from _self import foo %}{% macro foo() %}{% endmacro %}{{ foo(name="Foo") }}', 'index'));
     }
 
     /**
@@ -248,10 +243,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testMacroDefinitionDoesNotSupportNonNameVariableName()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source('{% macro foo("a") %}{% endmacro %}', 'index')));
+        $parser->parse($env->tokenize('{% macro foo("a") %}{% endmacro %}', 'index'));
     }
 
     /**
@@ -261,10 +256,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testMacroDefinitionDoesNotSupportNonConstantDefaultValues($template)
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source($template, 'index')));
+        $parser->parse($env->tokenize($template, 'index'));
     }
 
     public function getMacroDefinitionDoesNotSupportNonConstantDefaultValues()
@@ -280,14 +275,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testMacroDefinitionSupportsConstantDefaultValues($template)
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source($template, 'index')));
-
-        // add a dummy assertion here to satisfy PHPUnit, the only thing we want to test is that the code above
-        // can be executed without throwing any exceptions
-        $this->addToAssertionCount(1);
+        $parser->parse($env->tokenize($template, 'index'));
     }
 
     public function getMacroDefinitionSupportsConstantDefaultValues()
@@ -309,10 +300,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnknownFunction()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source('{{ cycl() }}', 'index')));
+        $parser->parse($env->tokenize('{{ cycl() }}', 'index'));
     }
 
     /**
@@ -321,10 +312,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnknownFunctionWithoutSuggestions()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source('{{ foobar() }}', 'index')));
+        $parser->parse($env->tokenize('{{ foobar() }}', 'index'));
     }
 
     /**
@@ -333,10 +324,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnknownFilter()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source('{{ 1|lowe }}', 'index')));
+        $parser->parse($env->tokenize('{{ 1|lowe }}', 'index'));
     }
 
     /**
@@ -345,10 +336,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnknownFilterWithoutSuggestions()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source('{{ 1|foobar }}', 'index')));
+        $parser->parse($env->tokenize('{{ 1|foobar }}', 'index'));
     }
 
     /**
@@ -357,10 +348,10 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnknownTest()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
-        $stream = $env->tokenize(new Twig_Source('{{ 1 is nul }}', 'index'));
-        $parser->parse($stream);
+
+        $parser->parse($env->tokenize('{{ 1 is nul }}', 'index'));
     }
 
     /**
@@ -369,9 +360,9 @@ class Twig_Tests_ExpressionParserTest extends \PHPUnit\Framework\TestCase
      */
     public function testUnknownTestWithoutSuggestions()
     {
-        $env = new Twig_Environment($this->getMockBuilder('Twig_LoaderInterface')->getMock(), array('cache' => false, 'autoescape' => false));
+        $env = new Twig_Environment($this->getMock('Twig_LoaderInterface'), array('cache' => false, 'autoescape' => false));
         $parser = new Twig_Parser($env);
 
-        $parser->parse($env->tokenize(new Twig_Source('{{ 1 is foobar }}', 'index')));
+        $parser->parse($env->tokenize('{{ 1 is foobar }}', 'index'));
     }
 }

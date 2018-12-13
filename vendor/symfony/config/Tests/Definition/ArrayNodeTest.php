@@ -11,12 +11,11 @@
 
 namespace Symfony\Component\Config\Tests\Definition;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ArrayNode;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\ScalarNode;
 
-class ArrayNodeTest extends TestCase
+class ArrayNodeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidTypeException
@@ -55,12 +54,7 @@ class ArrayNodeTest extends TestCase
     public function testIgnoreAndRemoveBehaviors($ignore, $remove, $expected, $message = '')
     {
         if ($expected instanceof \Exception) {
-            if (method_exists($this, 'expectException')) {
-                $this->expectException(\get_class($expected));
-                $this->expectExceptionMessage($expected->getMessage());
-            } else {
-                $this->setExpectedException(\get_class($expected), $expected->getMessage());
-            }
+            $this->setExpectedException(get_class($expected), $expected->getMessage());
         }
         $node = new ArrayNode('root');
         $node->setIgnoreExtraKeys($ignore, $remove);
@@ -91,10 +85,6 @@ class ArrayNodeTest extends TestCase
             array(
                 array('foo-bar_moo' => 'foo'),
                 array('foo-bar_moo' => 'foo'),
-            ),
-            array(
-                array('anything-with-dash-and-no-underscore' => 'first', 'no_dash' => 'second'),
-                array('anything_with_dash_and_no_underscore' => 'first', 'no_dash' => 'second'),
             ),
             array(
                 array('foo-bar' => null, 'foo_bar' => 'foo'),
@@ -178,74 +168,5 @@ class ArrayNodeTest extends TestCase
                 array('2' => 'two', '1' => 'one', '3' => 'three'),
             ),
         );
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Child nodes must be named.
-     */
-    public function testAddChildEmptyName()
-    {
-        $node = new ArrayNode('root');
-
-        $childNode = new ArrayNode('');
-        $node->addChild($childNode);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage A child node named "foo" already exists.
-     */
-    public function testAddChildNameAlreadyExists()
-    {
-        $node = new ArrayNode('root');
-
-        $childNode = new ArrayNode('foo');
-        $node->addChild($childNode);
-
-        $childNodeWithSameName = new ArrayNode('foo');
-        $node->addChild($childNodeWithSameName);
-    }
-
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage The node at path "foo" has no default value.
-     */
-    public function testGetDefaultValueWithoutDefaultValue()
-    {
-        $node = new ArrayNode('foo');
-        $node->getDefaultValue();
-    }
-
-    public function testSetDeprecated()
-    {
-        $childNode = new ArrayNode('foo');
-        $childNode->setDeprecated('"%node%" is deprecated');
-
-        $this->assertTrue($childNode->isDeprecated());
-        $this->assertSame('"foo" is deprecated', $childNode->getDeprecationMessage($childNode->getName(), $childNode->getPath()));
-
-        $node = new ArrayNode('root');
-        $node->addChild($childNode);
-
-        $deprecationTriggered = false;
-        $deprecationHandler = function ($level, $message, $file, $line) use (&$prevErrorHandler, &$deprecationTriggered) {
-            if (E_USER_DEPRECATED === $level) {
-                return $deprecationTriggered = true;
-            }
-
-            return $prevErrorHandler ? $prevErrorHandler($level, $message, $file, $line) : false;
-        };
-
-        $prevErrorHandler = set_error_handler($deprecationHandler);
-        $node->finalize(array());
-        restore_error_handler();
-
-        $this->assertFalse($deprecationTriggered, '->finalize() should not trigger if the deprecated node is not set');
-
-        $prevErrorHandler = set_error_handler($deprecationHandler);
-        $node->finalize(array('foo' => array()));
-        restore_error_handler();
-        $this->assertTrue($deprecationTriggered, '->finalize() should trigger if the deprecated node is set');
     }
 }

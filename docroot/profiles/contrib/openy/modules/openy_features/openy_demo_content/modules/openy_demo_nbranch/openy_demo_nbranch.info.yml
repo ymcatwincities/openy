@@ -1,10 +1,12 @@
-name: 'OpenY Demo Node Branch'
-description: 'OpenY Demo Node Branch.'
+name: 'Open Y Demo Node Branch'
+description: Stores migrations to import demo branch nodes.
 type: module
 core: 8.x
-package: OpenY
+version: 8.x-1.0
+package: Open Y
 dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
   - openy_demo_tarea
+  - openy_loc_branch

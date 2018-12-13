@@ -22,6 +22,11 @@ class NormalizationBuilder
     public $before = array();
     public $remappings = array();
 
+    /**
+     * Constructor.
+     *
+     * @param NodeDefinition $node The related node
+     */
     public function __construct(NodeDefinition $node)
     {
         $this->node = $node;
@@ -33,7 +38,7 @@ class NormalizationBuilder
      * @param string $key    The key to remap
      * @param string $plural The plural of the key in case of irregular plural
      *
-     * @return $this
+     * @return NormalizationBuilder
      */
     public function remap($key, $plural = null)
     {
@@ -45,7 +50,9 @@ class NormalizationBuilder
     /**
      * Registers a closure to run before the normalization or an expression builder to build it if null is provided.
      *
-     * @return ExprBuilder|$this
+     * @param \Closure $closure
+     *
+     * @return ExprBuilder|NormalizationBuilder
      */
     public function before(\Closure $closure = null)
     {

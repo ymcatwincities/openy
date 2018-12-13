@@ -37,9 +37,11 @@ site_install ()
     chmod -R a+w "${DOCROOT_PATH}/sites/default"
 
     echo-green "Install site from '${PROFILE_NAME}' profile."
+    # We disable email sending here so site-install does not return an error
     fin drush si -y ${PROFILE_NAME} \
+        install_configure_form.enable_update_status_module=NULL \
         --account-pass=admin \
-        --db-url="mysql://${MYSQL_USER:-user}:${MYSQL_PASSWORD:-user}@db:${MYSQL_PORT_MAPPING:-3306}/${MYSQL_DATABASE:-default}" \
+        --db-url="mysql://${MYSQL_USER:-user}:${MYSQL_PASSWORD:-user}@db:3306/${MYSQL_DATABASE:-default}" \
         --root="${SERVER_DOCROOT_PATH}"
 
     echo-green "Clear caches."
@@ -65,12 +67,6 @@ progress_bar
 
 echo-green-bg " Step 3: Installing site. "
 time site_install
-
-if is_windows; then
-	echo-green "Add ${VIRTUAL_HOST} to your hosts file (/etc/hosts), e.g.:"
-	echo-green "192.168.64.100  ${VIRTUAL_HOST}"
-	echo
-fi
 
 echo -en "${green_bg} DONE! ${NC} "
 echo "Open http://${VIRTUAL_HOST} in your browser to verify the setup."

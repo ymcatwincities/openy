@@ -50,7 +50,8 @@ class BlockPluginCollection extends DefaultSingleLazyPluginCollection {
    */
   protected function initializePlugin($instance_id) {
     if (!$instance_id) {
-      throw new PluginException("The block '{$this->blockId}' did not specify a plugin.");
+      // throw new PluginException("The block '{$this->blockId}' did not specify a plugin.");
+    return;
     }
 
     try {

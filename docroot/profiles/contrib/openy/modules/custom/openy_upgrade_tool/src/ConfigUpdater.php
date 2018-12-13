@@ -108,15 +108,7 @@ class ConfigUpdater extends ConfigImporterService {
 
       if ($this->isManuallyChanged($config)) {
         // Skip config update and log this to logger entity.
-        $this->updateLoggerEntity($file, $config);
-        $dashboard_url = Url::fromRoute('view.openy_upgrade_dashboard.page_1');
-        $dashboard_link = Link::fromTextAndUrl(t('OpenY upgrade dashboard'), $dashboard_url);
-        $this->logger->error($this->t('Could not update config @name. Please add this changes manual. More info here - @link.',
-          [
-            '@name' => $config,
-            '@link' => $dashboard_link->toString(),
-          ]
-        ));
+        $this->logConfigImportError($file, $config);
         continue;
       }
 
@@ -143,6 +135,56 @@ class ConfigUpdater extends ConfigImporterService {
   }
 
   /**
+   * Simplified version of importConfigs.
+   *
+   * Main difference between this functions that in simple version we
+   * skip export of all site configs to temp directory and just copy and import
+   * only listed config for import. Also here was skiped configs filter logic.
+   *
+   * @param string $config
+   *   Config name.
+   */
+  public function importConfigSimple($config) {
+    // Stream wrappers are not available during installation.
+    $tmp_dir = (defined('MAINTENANCE_MODE') ? '/tmp' : 'temporary:/') . '/confi_simple' . $this->uuid->generate();
+    if (!$this->fileSystem->mkdir($tmp_dir)) {
+      throw new ConfigImporterException('Failed to create temporary directory: ' . $tmp_dir);
+    }
+    $tmp_storage = new FileStorage($tmp_dir);
+    $file = "$this->directory/$config.yml";
+    if ($this->isManuallyChanged($config)) {
+      // Skip config update and log this to logger entity.
+      $this->logConfigImportError($file, $config);
+    }
+    if (file_exists($file)) {
+      file_unmanaged_copy($file, $tmp_dir, FILE_EXISTS_REPLACE);
+      // Add openy_upgrade param to config.
+      file_put_contents($tmp_dir . "/$config.yml", 'openy_upgrade: true', FILE_APPEND);
+      $this->configStorage->write($config, $tmp_storage->read($config));
+    }
+  }
+
+  /**
+   * Helper function for config import error log.
+   *
+   * @param string $file
+   *   Full path to file including file name.
+   * @param string $config
+   *   Config name.
+   */
+  private function logConfigImportError($file, $config) {
+    $this->updateLoggerEntity($file, $config);
+    $dashboard_url = Url::fromRoute('view.openy_upgrade_dashboard.page_1');
+    $dashboard_link = Link::fromTextAndUrl(t('Open Y upgrade dashboard'), $dashboard_url);
+    $this->logger->error($this->t('Could not update config @name. Please add this changes manual. More info here - @link.',
+      [
+        '@name' => $config,
+        '@link' => $dashboard_link->toString(),
+      ]
+    ));
+  }
+
+  /**
    * Check if config exist in openy_config_upgrade_logs.
    *
    * @param string $config_name
@@ -152,6 +194,7 @@ class ConfigUpdater extends ConfigImporterService {
    *   TRUE if config was changed.
    */
   public function isManuallyChanged($config_name) {
+    return FALSE;
     $configs = $this->loggerEntityStorage->loadByProperties([
       'type' => 'openy_config_upgrade_logs',
       'name' => $config_name,

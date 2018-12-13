@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Config\Tests\Definition\Builder;
 
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder as BaseNodeBuilder;
 use Symfony\Component\Config\Definition\Builder\VariableNodeDefinition as BaseVariableNodeDefinition;
 
-class NodeBuilderTest extends TestCase
+class NodeBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \RuntimeException
@@ -68,14 +67,14 @@ class NodeBuilderTest extends TestCase
         $node1 = $builder->node('', 'VaRiAbLe');
         $node2 = $builder->node('', 'variable');
 
-        $this->assertInstanceOf(\get_class($node1), $node2);
+        $this->assertInstanceOf(get_class($node1), $node2);
 
         $builder->setNodeClass('CuStOm', __NAMESPACE__.'\\SomeNodeDefinition');
 
         $node1 = $builder->node('', 'CUSTOM');
         $node2 = $builder->node('', 'custom');
 
-        $this->assertInstanceOf(\get_class($node1), $node2);
+        $this->assertInstanceOf(get_class($node1), $node2);
     }
 
     public function testNumericNodeCreation()

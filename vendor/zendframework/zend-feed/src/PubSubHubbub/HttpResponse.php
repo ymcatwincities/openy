@@ -23,7 +23,7 @@ class HttpResponse
      *
      * @var array
      */
-    protected $headers = [];
+    protected $headers = array();
 
     /**
      * HTTP response code to use in headers
@@ -60,14 +60,14 @@ class HttpResponse
         }
         $httpCodeSent = false;
         foreach ($this->headers as $header) {
-            if (! $httpCodeSent && $this->statusCode) {
+            if (!$httpCodeSent && $this->statusCode) {
                 header($header['name'] . ': ' . $header['value'], $header['replace'], $this->statusCode);
                 $httpCodeSent = true;
             } else {
                 header($header['name'] . ': ' . $header['value'], $header['replace']);
             }
         }
-        if (! $httpCodeSent) {
+        if (!$httpCodeSent) {
             header('HTTP/1.1 ' . $this->statusCode);
         }
     }
@@ -94,11 +94,11 @@ class HttpResponse
                 }
             }
         }
-        $this->headers[] = [
+        $this->headers[] = array(
             'name'    => $name,
             'value'   => $value,
             'replace' => $replace,
-        ];
+        );
 
         return $this;
     }
@@ -140,11 +140,9 @@ class HttpResponse
     {
         $ok = headers_sent($file, $line);
         if ($ok && $throw) {
-            throw new Exception\RuntimeException(
-                'Cannot send headers; headers already sent in ' . $file . ', line ' . $line
-            );
+            throw new Exception\RuntimeException('Cannot send headers; headers already sent in ' . $file . ', line ' . $line);
         }
-        return ! $ok;
+        return !$ok;
     }
 
     /**
@@ -156,7 +154,7 @@ class HttpResponse
      */
     public function setStatusCode($code)
     {
-        if (! is_int($code) || (100 > $code) || (599 < $code)) {
+        if (!is_int($code) || (100 > $code) || (599 < $code)) {
             throw new Exception\InvalidArgumentException('Invalid HTTP response'
             . ' code:' . $code);
         }
@@ -203,11 +201,9 @@ class HttpResponse
      * @param  string $name
      * @return string
      */
-    // @codingStandardsIgnoreStart
     protected function _normalizeHeader($name)
     {
-        // @codingStandardsIgnoreEnd
-        $filtered = str_replace(['-', '_'], ' ', (string) $name);
+        $filtered = str_replace(array('-', '_'), ' ', (string) $name);
         $filtered = ucwords(strtolower($filtered));
         $filtered = str_replace(' ', '-', $filtered);
         return $filtered;

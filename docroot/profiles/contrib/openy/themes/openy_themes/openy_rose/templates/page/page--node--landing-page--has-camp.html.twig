@@ -42,7 +42,7 @@
   {% if camp_footer_logo %}
     {% set camp_footer_background_image = " style='background-image: url(" ~ file_url(camp_footer_logo) ~ ")'" %}
     {% if camp_footer_background_image is not empty %}
-      <a href="{{ front_page }}" class="footer__brand brand" title="{{ "Site-logo"|t }}"{{ camp_footer_background_image|raw }}></a>
+      <a href="{{ front_page }}" class="footer__brand brand" title="{{ "Go to homepage"|t }}"{{ camp_footer_background_image|raw }}></a>
     {% else %}
       {# Conditions not met use parent block. #}
       {{ parent() }}

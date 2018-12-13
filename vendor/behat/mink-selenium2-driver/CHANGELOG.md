@@ -1,30 +1,3 @@
-1.3.1 / 2016-03-05
-==================
-
-Bug fixes:
-
-* Fixed the handling of cookies with semicolon in the value
-
-Testsuite:
-
-* Add testing on PHP 7
-
-1.3.0 / 2015-09-21
-==================
-
-New features:
-
-* Updated the driver to use findElementsXpaths for Mink 1.7 and forward compatibility with Mink 2
-
-Testsuite:
-
-* Fixed the window name test for the chrome driver
-* Add testing on PhantomJS 2
-
-Misc:
-
-* Updated the repository structure to PSR-4
-
 1.2.0 / 2014-09-29
 ==================
 

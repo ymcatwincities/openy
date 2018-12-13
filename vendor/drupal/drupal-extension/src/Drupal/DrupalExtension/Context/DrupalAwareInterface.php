@@ -6,7 +6,6 @@ use Behat\Behat\Context\Context;
 use Behat\Testwork\Hook\HookDispatcher;
 
 use Drupal\DrupalDriverManager;
-use Drupal\DrupalUserManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 interface DrupalAwareInterface extends Context {
@@ -32,18 +31,4 @@ interface DrupalAwareInterface extends Context {
    * @param array $parameters
    */
   public function setDrupalParameters(array $parameters);
-
-  /**
-   * Sets the Drupal user manager instance.
-   *
-   * @param \Drupal\DrupalUserManagerInterface $userManager
-   */
-  public function setUserManager(DrupalUserManagerInterface $userManager);
-
-  /**
-   * Gets the Drupal user manager instance.
-   *
-   * @return \Drupal\DrupalUserManagerInterface
-   */
-  public function getUserManager();
 }

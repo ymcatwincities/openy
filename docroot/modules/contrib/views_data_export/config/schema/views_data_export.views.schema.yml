@@ -1,0 +1,101 @@
+# Schema for the views plugins of the Views Data Export module.
+
+views.display.data_export:
+  type: views_display_path
+  label: 'Data export display options'
+  mapping:
+    displays:
+      type: sequence
+      label: 'Attach to'
+      sequence:
+        type: string
+        label: 'Display'
+    filename:
+      type: string
+      label: 'Downloaded filename'
+    automatic_download:
+      type: boolean
+      label: 'Download instantly'
+    redirect_path:
+      type: string
+      label: 'Redirect path'
+    export_method:
+      type: string
+      label: 'Export method'
+    export_batch_size:
+      type: integer
+      label: 'Batch size'
+    export_limit:
+      type: integer
+      label: 'Limit'
+
+views.style.data_export:
+  type: views_style
+  label: 'Data export output format'
+  mapping:
+    formats:
+      type: sequence
+      label: 'Formats'
+      sequence:
+        type: string
+        label: 'Format'
+    csv_settings:
+      type: mapping
+      label: 'CSV settings'
+      mapping:
+        delimiter:
+          type: string
+          label: 'Delimiter'
+        enclosure:
+          type: string
+          label: 'Enclosure'
+        escape_char:
+          type: string
+          label: 'Escape character'
+        strip_tags:
+          type: boolean
+          label: 'Strip HTML'
+        trim:
+          type: boolean
+          label: 'Trim whitespace'
+        encoding:
+          type: string
+          label: 'Encoding'
+    xls_settings:
+      type: mapping
+      label: 'XLS settings'
+      mapping:
+        xls_format:
+          type: string
+          label: 'Format'
+        metadata:
+          type: mapping
+          label: 'Metadata'
+          mapping:
+            creator:
+              type: string
+              label: 'Creator'
+            last_modified_by:
+              type: string
+              label: 'Last modified by'
+            title:
+              type: string
+              label: 'Title'
+            description:
+              type: string
+              label: 'Description'
+            subject:
+              type: string
+              label: 'Subject'
+            keywords:
+              type: string
+              label: 'Keywords'
+            category:
+              type: string
+              label: 'Category'
+            manager:
+              type: string
+              label: 'Manager'
+            company:
+              type: string
+              label: 'Company'

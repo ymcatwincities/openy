@@ -34,22 +34,15 @@ abstract class DrupalSubContextBase extends RawDrupalContext implements DrupalSu
 
   /**
    * Get the currently logged in user from DrupalContext.
-   *
-   * @deprecated
-   *   Deprecated in 4.x, will be removed before 5.x.
-   *   The currently logged in user is now available in all context classes.
-   *   Use $this->getUserManager()->getCurrentUser() instead.
    */
   protected function getUser() {
-    trigger_error('DrupalSubContextBase::getUser() is deprecated. Use RawDrupalContext::getUserManager()->getCurrentUser() instead.', E_USER_DEPRECATED);
-
-    $user = $this->getUserManager()->getCurrentUser();
-
-    if (empty($user)) {
+    /** @var DrupalContext $context */
+    $context = $this->getContext('\Drupal\DrupalExtension\Context\DrupalContext');
+    if (empty($context->user)) {
       throw new \Exception('No user is logged in.');
     }
 
-    return $user;
+    return $context->user;
   }
 
   /**
@@ -64,22 +57,10 @@ abstract class DrupalSubContextBase extends RawDrupalContext implements DrupalSu
    *
    * @return \Behat\Behat\Context\Context|false
    *   The requested context, or FALSE if the context is not registered.
-   *
-   * @throws \Exception
-   *   Thrown when the environment is not yet initialized, meaning that contexts
-   *   cannot yet be retrieved.
    */
   protected function getContext($class) {
     /** @var InitializedContextEnvironment $environment */
     $environment = $this->drupal->getEnvironment();
-    // Throw an exception if the environment is not yet initialized. To make
-    // sure state doesn't leak between test scenarios, the environment is
-    // reinitialized at the start of every scenario. If this code is executed
-    // before a test scenario starts (e.g. in a `@BeforeScenario` hook) then the
-    // contexts cannot yet be retrieved.
-    if (!$environment instanceof InitializedContextEnvironment) {
-      throw new \Exception('Cannot retrieve contexts when the environment is not yet initialized.');
-    }
     foreach ($environment->getContexts() as $context) {
       if ($context instanceof $class) {
         return $context;

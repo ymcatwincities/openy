@@ -17,9 +17,8 @@ use Composer\Package\Package;
 use Composer\Package\AliasPackage;
 use Composer\Package\LinkConstraint\VersionConstraint;
 use Composer\Util\Filesystem;
-use PHPUnit\Framework\TestCase as BaseTestCase;
 
-abstract class TestCase extends BaseTestCase
+abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     private static $parser;
 

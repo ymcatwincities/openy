@@ -268,7 +268,7 @@ class Drupal6 extends AbstractCore {
 
     $_SERVER['REQUEST_URI'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['PHP_SELF'];
     $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-    $_SERVER['REQUEST_METHOD'] = NULL;
+    $_SERVER['REQUEST_METHOD']  = NULL;
 
     $_SERVER['SERVER_SOFTWARE'] = NULL;
     $_SERVER['HTTP_USER_AGENT'] = NULL;
@@ -316,7 +316,7 @@ class Drupal6 extends AbstractCore {
    * @return array
    *   An array of vocabulary objects
    */
-  protected function taxonomyVocabularyLoadMultiple(array $vids = array()) {
+  protected function taxonomyVocabularyLoadMultiple($vids = array()) {
     $vocabularies = taxonomy_get_vocabularies();
     if ($vids) {
       return array_intersect_key($vocabularies, array_flip($vids));
@@ -432,6 +432,13 @@ class Drupal6 extends AbstractCore {
   /**
    * {@inheritdoc}
    */
+  protected function expandEntityFields($entity_type, \stdClass $entity) {
+    return parent::expandEntityFields($entity_type, $entity);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getEntityFieldTypes($entity_type) {
     $taxonomy_fields = array('taxonomy' => 'taxonomy');
     if (!module_exists('content')) {
@@ -497,20 +504,6 @@ class Drupal6 extends AbstractCore {
    */
   public function clearStaticCaches() {
     // Drupal 6 doesn't have a way of clearing all static caches.
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function entityCreate($entity_type, $entity) {
-    throw new \Exception('Drupal 6 does not have a generic Entity API, so creation of entities is not possible in this way.');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function entityDelete($entity_type, $entity) {
-    throw new \Exception('Drupal 6 does not have a generic Entity API, so deletion of entities is not possible in this way.');
   }
 
 }

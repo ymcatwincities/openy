@@ -34,7 +34,7 @@ function social_feed_fetcher_cron() {
 
     // Get facebook posts, if enabled.
     $facebook_count = 0;
-    if ($config->get('facebook_enabled') === TRUE) {
+    if ($config->get('facebook.enabled') == TRUE) {
 
       /** @var \Drupal\social_feed_fetcher\Plugin\SocialDataProvider\FacebookDataProvider $facebook */
       $facebook = $social_data_provider_manager->createInstance('facebook');
@@ -54,7 +54,7 @@ function social_feed_fetcher_cron() {
     }
     // Get twitter posts, if enabled.
     $twitter_count = 0;
-    if ($config->get('twitter_enabled') === TRUE) {
+    if ($config->get('twitter.enabled') == TRUE) {
 
       /** @var \Drupal\social_feed_fetcher\Plugin\SocialDataProvider\TwitterDataProvider $twitter */
       $twitter = $social_data_provider_manager->createInstance('twitter');
@@ -72,7 +72,7 @@ function social_feed_fetcher_cron() {
     }
     // Get instagram posts, if enabled.
     $instagram_count = 0;
-    if ($config->get('instagram_enabled') === TRUE) {
+    if ($config->get('instagram.enabled') == TRUE) {
 
       /** @var \Drupal\social_feed_fetcher\Plugin\SocialDataProvider\InstagramDataProvider $instagram */
       $instagram = $social_data_provider_manager->createInstance('instagram');
@@ -91,9 +91,9 @@ function social_feed_fetcher_cron() {
 
     \Drupal::logger('social_feed_fetcher')
       ->info('Social Feed Fetcher ran. Facebook @facebook. Twitter @twitter. Instagram @instagram.', [
-        '@facebook' => $config->get('facebook_enabled') ? ' enabled, ' . $facebook_count . ' new posts' : ' disabled',
-        '@twitter' => $config->get('twitter_enabled') ? ' enabled, ' . $twitter_count . ' new posts' : ' disabled',
-        '@instagram' => $config->get('instagram_enabled') ? ' enabled, ' . $instagram_count . ' new posts' : ' disabled',
+        '@facebook' => $config->get('facebook.enabled') ? ' enabled, ' . $facebook_count . ' new posts' : ' disabled',
+        '@twitter' => $config->get('twitter.enabled') ? ' enabled, ' . $twitter_count . ' new posts' : ' disabled',
+        '@instagram' => $config->get('instagram.enabled') ? ' enabled, ' . $instagram_count . ' new posts' : ' disabled',
       ]);
 
     if (\Drupal::state()->get('social_feed_fetcher_show_status_message')) {
@@ -141,9 +141,5 @@ function social_feed_fetcher_save_file($filename, $path) {
   $data = file_get_contents($filename);
   $uri = $path . '/' . $name;
   file_prepare_directory($path, FILE_CREATE_DIRECTORY);
-  $uri = explode('?', $uri);
-  if (!file_save_data($data, $uri[0], FILE_EXISTS_REPLACE)) {
-    return 0;
-  }
-  return file_save_data($data, $uri[0], FILE_EXISTS_REPLACE)->id();
+  return file_save_data($data, $uri, FILE_EXISTS_RENAME)->id();
 }

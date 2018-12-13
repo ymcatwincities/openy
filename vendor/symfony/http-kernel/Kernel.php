@@ -58,11 +58,11 @@ abstract class Kernel implements KernelInterface, TerminableInterface
     protected $startTime;
     protected $loadClassCache;
 
-    const VERSION = '3.2.13';
-    const VERSION_ID = 30213;
+    const VERSION = '3.2.8';
+    const VERSION_ID = 30208;
     const MAJOR_VERSION = 3;
     const MINOR_VERSION = 2;
-    const RELEASE_VERSION = 13;
+    const RELEASE_VERSION = 8;
     const EXTRA_VERSION = '';
 
     const END_OF_MAINTENANCE = '07/2017';
@@ -729,7 +729,7 @@ abstract class Kernel implements KernelInterface, TerminableInterface
 
         $output .= $rawChunk;
 
-        if (\PHP_VERSION_ID >= 70000) {
+        if (PHP_VERSION_ID >= 70000) {
             // PHP 7 memory manager will not release after token_get_all(), see https://bugs.php.net/70098
             unset($tokens, $rawChunk);
             gc_mem_caches();

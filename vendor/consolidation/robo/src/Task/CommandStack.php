@@ -11,7 +11,6 @@ use Robo\Exception\TaskException;
 abstract class CommandStack extends BaseTask implements CommandInterface, PrintedInterface
 {
     use ExecCommand;
-    use \Robo\Common\CommandReceiver;
 
     /**
      * @var string
@@ -35,12 +34,7 @@ abstract class CommandStack extends BaseTask implements CommandInterface, Printe
      */
     public function getCommand()
     {
-        $commands = [];
-        foreach ($this->exec as $command) {
-            $commands[] = $this->receiveCommand($command);
-        }
-
-        return implode(' && ', $commands);
+        return implode(' && ', $this->exec);
     }
 
     /**
@@ -55,7 +49,7 @@ abstract class CommandStack extends BaseTask implements CommandInterface, Printe
     }
 
     /**
-     * @param string|string[]|CommandInterface $command
+     * @param string|string[] $command
      *
      * @return $this
      */
@@ -65,13 +59,8 @@ abstract class CommandStack extends BaseTask implements CommandInterface, Printe
             $command = implode(' ', array_filter($command));
         }
 
-        if (is_string($command)) {
-            $command = $this->executable . ' ' . $this->stripExecutableFromCommand($command);
-            $command = trim($command);
-        }
-        
-        $this->exec[] = $command;
-        
+        $command      = $this->executable . ' ' . $this->stripExecutableFromCommand($command);
+        $this->exec[] = trim($command);
         return $this;
     }
 

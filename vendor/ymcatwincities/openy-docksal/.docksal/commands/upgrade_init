@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+
+## Initialize Docksal powered Drupal 8 site from DB dump
+##
+## Usage: fin upgrade_init
+
+# Abort if anything fails
+set -e
+
+CURRENT_DIR="$(dirname "$0")"
+source "${CURRENT_DIR}/includes/helpers.sh"
+
+#-------------------------- Settings --------------------------------
+
+DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT:-docroot}"
+# Set to the appropriate site directory.
+SITEDIR_PATH="${DOCROOT_PATH}/sites/default"
+SERVER_SITE_ROOT='/var/www'
+SERVER_DOCROOT_PATH="${SERVER_SITE_ROOT}/${DOCROOT}"
+# Dump settings.
+DB_DATA_DIR="${PROJECT_ROOT}/dumps"
+DUMP_NAME="latest_release.sql.gz"
+
+# Delay in seconds.
+# Increase this value if you have an issue
+# with the DB connection during the site installation.
+MYSQL_STARTUP_DELAY=5
+
+#-------------------------- END: Settings --------------------------------
+
+#-------------------------- Functions --------------------------------
+
+# Import database dump
+import_database ()
+{
+  if [ ! -d $DB_DATA_DIR ]; then
+    mkdir $DB_DATA_DIR
+  fi
+
+  if [ -e "${DB_DATA_DIR}/$DUMP_NAME" ]
+  then
+    rm "${DB_DATA_DIR}/$DUMP_NAME"
+  fi
+
+  cd ${DB_DATA_DIR}
+  echo "Downloading a fresh db dump..."
+  time wget "http://openy.cibox.tools/backup/$DUMP_NAME"
+}
+
+# Setup project dependencies
+setup_project ()
+{
+  cd $DOCROOT_PATH
+  fin exec "APP_ENV=dev drush user-password admin --password=admin"
+}
+
+# Execute profile and modules updates.
+run_updates ()
+{
+  cd $DOCROOT_PATH
+
+  fin exec "APP_ENV=dev drush config-set system.file path.temporary /tmp -y"
+  fin exec "APP_ENV=dev drush cc drush"
+  fin exec "APP_ENV=dev drush cr -l http://${VIRTUAL_HOST}/"
+  fin exec "APP_ENV=dev drush -y updb -l http://${VIRTUAL_HOST}/"
+  fin exec "APP_ENV=dev drush -y entup -l http://${VIRTUAL_HOST}/"
+}
+
+# Install site
+site_install ()
+{
+  fix_permissions "$SITEDIR_PATH"
+  chmod -R a+w "${DOCROOT_PATH}/sites/default"
+  if [[ -f ${SITEDIR_PATH}/settings.php ]]; then
+    rm ${SITEDIR_PATH}/settings.php
+  fi
+  copy_settings_file "${PROJECT_ROOT}/.docksal/files/default.settings.php" "${SITEDIR_PATH}/settings.php"
+  echo-green "Import DB from pre-installed Open Y dump."
+
+  gunzip < "${DB_DATA_DIR}/$DUMP_NAME" | fin db import & PID=$!
+  progress_bar
+}
+
+#-------------------------- END: Functions ---------------------------
+
+#-------------------------- Execution --------------------------------
+if [[ ${DOCKER_RUNNING} == "true" ]]; then
+  echo-green-bg " Step 1: Recreating services. "
+  fin reset -f
+else
+  echo-green-bg " Step 2: Creating services. "
+  fin up
+fi
+
+echo-green-bg " Step 3: Waiting ${MYSQL_STARTUP_DELAY}s for MySQL to start. "
+sleep ${MYSQL_STARTUP_DELAY} & PID=$!
+progress_bar
+
+echo-green-bg " Step 4: Importing the database dump."
+time import_database
+
+echo-green-bg " Step 5: Installing site. "
+time site_install
+
+echo-green-bg " Step 6: Run updates."
+time run_updates
+
+echo-green-bg " Step 7: Setup project."
+time setup_project
+
+
+if is_windows; then
+  echo-green "Add ${VIRTUAL_HOST} to your hosts file (/etc/hosts), e.g.:"
+  echo-green "192.168.64.100  ${VIRTUAL_HOST}"
+  echo
+fi
+
+echo -en "${green_bg} DONE! ${NC} "
+echo "Open http://${VIRTUAL_HOST} in your browser to verify the setup."
+
+#-------------------------- END: Execution ----------------------------------

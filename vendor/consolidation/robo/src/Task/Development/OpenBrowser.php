@@ -2,7 +2,7 @@
 namespace Robo\Task\Development;
 
 use Robo\Task\BaseTask;
-use Robo\Common\ProcessUtils;
+use Symfony\Component\Process\ProcessUtils;
 use Robo\Result;
 
 /**

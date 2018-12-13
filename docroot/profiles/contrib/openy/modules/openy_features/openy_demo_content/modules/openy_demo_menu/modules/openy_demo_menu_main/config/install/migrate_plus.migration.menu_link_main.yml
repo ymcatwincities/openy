@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_menu_main
 id: openy_demo_menu_link_main
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_menu
 label: 'Create demo main menu links'
 migration_dependencies:
@@ -14,6 +15,11 @@ migration_dependencies:
     - openy_demo_node_program_subcategory
     - openy_demo_node_program
     - openy_demo_node_landing
+    - openy_demo_node_social_post
+    - openy_demo_node_camp_news
+    - openy_demo_node_facility
+    - openy_demo_node_class_01
+    - openy_demo_node_class_02
 source:
   plugin: embedded_data
   data_rows:
@@ -347,24 +353,24 @@ source:
       parent_id: 0
       expanded: 1
       parent_link_path: ''
-    -
-      id: 37
-      title: 'Schedules Framework'
-      menu_name: 'main'
-      link: 'schedules'
-      weight: 0
-      parent_id: 36
-      expanded: 0
-      parent_link_path: 'schedules'
-    -
-      id: 38
-      title: 'Group Schedules'
-      menu_name: 'main'
-      link: 'schedules/group-schedules'
-      weight: 1
-      parent_id: 36
-      expanded: 0
-      parent_link_path: 'schedules'
+#    -
+#      id: 37
+#      title: 'Schedules Framework'
+#      menu_name: 'main'
+#      link: 'schedules'
+#      weight: 0
+#      parent_id: 36
+#      expanded: 0
+#      parent_link_path: 'schedules'
+#    -
+#      id: 38
+#      title: 'Group Schedules'
+#      menu_name: 'main'
+#      link: 'schedules/group-schedules'
+#      weight: 1
+#      parent_id: 36
+#      expanded: 0
+#      parent_link_path: 'schedules'
     -
       id: 39
       title: 'Group Schedules (Embedded)'
@@ -378,6 +384,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   bundle:
     plugin: default_value
     default_value: menu_link_content

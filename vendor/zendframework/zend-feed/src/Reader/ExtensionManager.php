@@ -46,14 +46,14 @@ class ExtensionManager implements ExtensionManagerInterface
      */
     public function __call($method, $args)
     {
-        if (! method_exists($this->pluginManager, $method)) {
+        if (!method_exists($this->pluginManager, $method)) {
             throw new Exception\BadMethodCallException(sprintf(
                 'Method by name of %s does not exist in %s',
                 $method,
                 __CLASS__
             ));
         }
-        return call_user_func_array([$this->pluginManager, $method], $args);
+        return call_user_func_array(array($this->pluginManager, $method), $args);
     }
 
     /**

@@ -422,8 +422,6 @@ class EasyRdf_Http_Client
             if (!$socket) {
                 throw new EasyRdf_Exception("Unable to connect to $host:$port ($errstr)");
             }
-            stream_set_timeout($socket, $this->config['timeout']);
-            $info = stream_get_meta_data($socket);
 
             // Write the request
             $path = $uri['path'];
@@ -449,13 +447,8 @@ class EasyRdf_Http_Client
 
             // Read in the response
             $content = '';
-            while (!feof($socket) && !$info['timed_out']) {
+            while (!feof($socket)) {
                 $content .= fgets($socket);
-                $info = stream_get_meta_data($socket);
-            }
-
-            if ($info['timed_out']) {
-                throw new EasyRdf_Exception("Request to $host:$port timed out");
             }
 
             // FIXME: support HTTP/1.1 100 Continue

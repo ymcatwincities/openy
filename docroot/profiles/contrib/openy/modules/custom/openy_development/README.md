@@ -1,6 +1,6 @@
-### Welcome to OpenY Development module
+### Welcome to Open Y Continuous Integration module
 
-This module aims to help with Continuous Integration for the OpenY distribution.
+This module aims to help with Continuous Integration for the Open Y distribution.
 Initially module used for enabling domains with different theme(design) per domain.
 
 Example:

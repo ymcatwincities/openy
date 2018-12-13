@@ -25,6 +25,11 @@ class ExprBuilder
     public $ifPart;
     public $thenPart;
 
+    /**
+     * Constructor.
+     *
+     * @param NodeDefinition $node The related node
+     */
     public function __construct(NodeDefinition $node)
     {
         $this->node = $node;
@@ -33,7 +38,9 @@ class ExprBuilder
     /**
      * Marks the expression as being always used.
      *
-     * @return $this
+     * @param \Closure $then
+     *
+     * @return ExprBuilder
      */
     public function always(\Closure $then = null)
     {
@@ -51,7 +58,9 @@ class ExprBuilder
      *
      * The default one tests if the value is true.
      *
-     * @return $this
+     * @param \Closure $closure
+     *
+     * @return ExprBuilder
      */
     public function ifTrue(\Closure $closure = null)
     {
@@ -67,11 +76,11 @@ class ExprBuilder
     /**
      * Tests if the value is a string.
      *
-     * @return $this
+     * @return ExprBuilder
      */
     public function ifString()
     {
-        $this->ifPart = function ($v) { return \is_string($v); };
+        $this->ifPart = function ($v) { return is_string($v); };
 
         return $this;
     }
@@ -79,7 +88,7 @@ class ExprBuilder
     /**
      * Tests if the value is null.
      *
-     * @return $this
+     * @return ExprBuilder
      */
     public function ifNull()
     {
@@ -89,25 +98,13 @@ class ExprBuilder
     }
 
     /**
-     * Tests if the value is empty.
+     * Tests if the value is an array.
      *
      * @return ExprBuilder
      */
-    public function ifEmpty()
-    {
-        $this->ifPart = function ($v) { return empty($v); };
-
-        return $this;
-    }
-
-    /**
-     * Tests if the value is an array.
-     *
-     * @return $this
-     */
     public function ifArray()
     {
-        $this->ifPart = function ($v) { return \is_array($v); };
+        $this->ifPart = function ($v) { return is_array($v); };
 
         return $this;
     }
@@ -115,11 +112,13 @@ class ExprBuilder
     /**
      * Tests if the value is in an array.
      *
-     * @return $this
+     * @param array $array
+     *
+     * @return ExprBuilder
      */
     public function ifInArray(array $array)
     {
-        $this->ifPart = function ($v) use ($array) { return \in_array($v, $array, true); };
+        $this->ifPart = function ($v) use ($array) { return in_array($v, $array, true); };
 
         return $this;
     }
@@ -127,24 +126,13 @@ class ExprBuilder
     /**
      * Tests if the value is not in an array.
      *
-     * @return $this
+     * @param array $array
+     *
+     * @return ExprBuilder
      */
     public function ifNotInArray(array $array)
     {
-        $this->ifPart = function ($v) use ($array) { return !\in_array($v, $array, true); };
-
-        return $this;
-    }
-
-    /**
-     * Transforms variables of any type into an array.
-     *
-     * @return $this
-     */
-    public function castToArray()
-    {
-        $this->ifPart = function ($v) { return !\is_array($v); };
-        $this->thenPart = function ($v) { return array($v); };
+        $this->ifPart = function ($v) use ($array) { return !in_array($v, $array, true); };
 
         return $this;
     }
@@ -152,7 +140,9 @@ class ExprBuilder
     /**
      * Sets the closure to run if the test pass.
      *
-     * @return $this
+     * @param \Closure $closure
+     *
+     * @return ExprBuilder
      */
     public function then(\Closure $closure)
     {
@@ -164,7 +154,7 @@ class ExprBuilder
     /**
      * Sets a closure returning an empty array.
      *
-     * @return $this
+     * @return ExprBuilder
      */
     public function thenEmptyArray()
     {
@@ -180,13 +170,13 @@ class ExprBuilder
      *
      * @param string $message
      *
-     * @return $this
+     * @return ExprBuilder
      *
      * @throws \InvalidArgumentException
      */
     public function thenInvalid($message)
     {
-        $this->thenPart = function ($v) use ($message) { throw new \InvalidArgumentException(sprintf($message, json_encode($v))); };
+        $this->thenPart = function ($v) use ($message) {throw new \InvalidArgumentException(sprintf($message, json_encode($v))); };
 
         return $this;
     }
@@ -194,7 +184,7 @@ class ExprBuilder
     /**
      * Sets a closure unsetting this key of the array at validation time.
      *
-     * @return $this
+     * @return ExprBuilder
      *
      * @throws UnsetKeyException
      */
@@ -208,7 +198,7 @@ class ExprBuilder
     /**
      * Returns the related node.
      *
-     * @return NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition
+     * @return NodeDefinition
      *
      * @throws \RuntimeException
      */

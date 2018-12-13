@@ -168,7 +168,7 @@ class InlineTest extends TestCase
 
     /**
      * @group legacy
-     * @expectedDeprecation Using a colon after an unquoted mapping key that is not followed by an indication character (i.e. " ", ",", "[", "]", "{", "}") is deprecated since version 3.2 and will throw a ParseException in 4.0.
+     * @expectedDeprecation Using a colon that is not followed by an indication character (i.e. " ", ",", "[", "]", "{", "}" is deprecated since version 3.2 and will throw a ParseException in 4.0.
      * throws \Symfony\Component\Yaml\Exception\ParseException in 4.0
      */
     public function testParseMappingKeyWithColonNotFollowedBySpace()
@@ -391,8 +391,6 @@ class InlineTest extends TestCase
             array('{\'foo\': \'bar\', "bar": \'foo: bar\'}', array('foo' => 'bar', 'bar' => 'foo: bar')),
             array('{\'foo\'\'\': \'bar\', "bar\"": \'foo: bar\'}', array('foo\'' => 'bar', 'bar"' => 'foo: bar')),
             array('{\'foo: \': \'bar\', "bar: ": \'foo: bar\'}', array('foo: ' => 'bar', 'bar: ' => 'foo: bar')),
-            array('{"foo:bar": "baz"}', array('foo:bar' => 'baz')),
-            array('{"foo":"bar"}', array('foo' => 'bar')),
 
             // nested sequences and mappings
             array('[foo, [bar, foo]]', array('foo', array('bar', 'foo'))),
@@ -462,8 +460,6 @@ class InlineTest extends TestCase
             array('{\'foo\': \'bar\', "bar": \'foo: bar\'}', (object) array('foo' => 'bar', 'bar' => 'foo: bar')),
             array('{\'foo\'\'\': \'bar\', "bar\"": \'foo: bar\'}', (object) array('foo\'' => 'bar', 'bar"' => 'foo: bar')),
             array('{\'foo: \': \'bar\', "bar: ": \'foo: bar\'}', (object) array('foo: ' => 'bar', 'bar: ' => 'foo: bar')),
-            array('{"foo:bar": "baz"}', (object) array('foo:bar' => 'baz')),
-            array('{"foo":"bar"}', (object) array('foo' => 'bar')),
 
             // nested sequences and mappings
             array('[foo, [bar, foo]]', array('foo', array('bar', 'foo'))),
@@ -575,7 +571,7 @@ class InlineTest extends TestCase
         $expected->setTimeZone(new \DateTimeZone('UTC'));
         $expected->setDate($year, $month, $day);
 
-        if (\PHP_VERSION_ID >= 70100) {
+        if (PHP_VERSION_ID >= 70100) {
             $expected->setTime($hour, $minute, $second, 1000000 * ($second - (int) $second));
         } else {
             $expected->setTime($hour, $minute, $second);
@@ -604,7 +600,7 @@ class InlineTest extends TestCase
         $expected = new \DateTime($yaml);
         $expected->setTimeZone(new \DateTimeZone('UTC'));
         $expected->setDate($year, $month, $day);
-        if (\PHP_VERSION_ID >= 70100) {
+        if (PHP_VERSION_ID >= 70100) {
             $expected->setTime($hour, $minute, $second, 1000000 * ($second - (int) $second));
         } else {
             $expected->setTime($hour, $minute, $second);

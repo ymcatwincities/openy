@@ -8,7 +8,7 @@ use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
 
 /**
- * Defines a class to build a listing of Groupex Form Cache entities.
+ * Defines a class to build a listing of GroupEx Pro Form Cache entities.
  *
  * @ingroup groupex_form_cache
  */
@@ -20,7 +20,7 @@ class GroupexFormCacheListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Groupex Form Cache ID');
+    $header['id'] = $this->t('GroupEx Pro Form Cache ID');
     $header['name'] = $this->t('Name');
     return $header + parent::buildHeader();
   }

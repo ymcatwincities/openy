@@ -1,11 +1,14 @@
 dependencies:
   module:
     - openy_media_image
+  enforced:
+    module:
+      - openy_demo_nnews
 id: openy_demo_nnews_media_image
 migration_tags:
-  - 'OpenY Demo News'
+  - 'Open Y Demo News'
 migration_group: openy_demo_nnews
-label: Media Images
+label: Import demo news media images
 source:
   plugin: embedded_data
   data_rows:
@@ -41,6 +44,10 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   name:
     -
       plugin: get

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @see       http://github.com/zendframework/zend-diactoros for the canonical source repository
- * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-diactoros/blob/master/LICENSE.md New BSD License
  */
 
@@ -12,12 +12,7 @@ namespace Zend\Diactoros\Response;
 use InvalidArgumentException;
 use Psr\Http\Message\UriInterface;
 use Zend\Diactoros\Response;
-
-use function get_class;
-use function gettype;
-use function is_object;
-use function is_string;
-use function sprintf;
+use Zend\Diactoros\Stream;
 
 /**
  * Produce a redirect response.

@@ -5,7 +5,7 @@ namespace Drupal\social_feed_fetcher;
 
 use Drupal\Core\Plugin\PluginBase;
 
-abstract class SocialDataProviderPluginBase extends PluginBase implements SocailDataProviderInterface {
+abstract class SocialDataProviderPluginBase extends PluginBase implements SocailDataProviderInterface  {
 
   /**
    * @var \Drupal\Core\Config\Config
@@ -45,7 +45,7 @@ abstract class SocialDataProviderPluginBase extends PluginBase implements Socail
    *
    * @return $this
    */
-  public function setConfig($config) {
+  public function setConfig($config){
     $this->config = $config;
     return $this;
   }

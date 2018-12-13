@@ -41,27 +41,27 @@ class Criteria
     const DESC = 'DESC';
 
     /**
-     * @var \Doctrine\Common\Collections\ExpressionBuilder|null
+     * @var \Doctrine\Common\Collections\ExpressionBuilder
      */
     private static $expressionBuilder;
 
     /**
-     * @var \Doctrine\Common\Collections\Expr\Expression|null
+     * @var \Doctrine\Common\Collections\Expr\Expression
      */
     private $expression;
 
     /**
-     * @var string[]
+     * @var array|null
      */
-    private $orderings = [];
+    private $orderings;
 
     /**
-     * @var int|null
+     * @var int
      */
     private $firstResult;
 
     /**
-     * @var int|null
+     * @var int
      */
     private $maxResults;
 
@@ -76,7 +76,7 @@ class Criteria
     }
 
     /**
-     * Returns the expression builder.
+     * Return the expression builder.
      *
      * @return \Doctrine\Common\Collections\ExpressionBuilder
      */
@@ -85,50 +85,42 @@ class Criteria
         if (self::$expressionBuilder === null) {
             self::$expressionBuilder = new ExpressionBuilder();
         }
-
         return self::$expressionBuilder;
     }
 
     /**
-     * Construct a new Criteria.
+     * Construct new criteria
      *
-     * @param Expression    $expression
-     * @param string[]|null $orderings
-     * @param int|null      $firstResult
-     * @param int|null      $maxResults
+     * @param Expression $expression
+     * @param array $orderings
+     * @param int $firstResult
+     * @param int $maxResults
      */
     public function __construct(Expression $expression = null, array $orderings = null, $firstResult = null, $maxResults = null)
     {
-        $this->expression = $expression;
-
-        $this->setFirstResult($firstResult);
-        $this->setMaxResults($maxResults);
-
-        if (null !== $orderings) {
-            $this->orderBy($orderings);
-        }
+        $this->expression  = $expression;
+        $this->orderings   = $orderings;
+        $this->firstResult = $firstResult;
+        $this->maxResults  = $maxResults;
     }
 
     /**
-     * Sets the where expression to evaluate when this Criteria is searched for.
+     * Set the where expression to evaluate when this criteria is searched for.
      *
-     * @param Expression $expression
-     *
+     * @param Expression
      * @return Criteria
      */
     public function where(Expression $expression)
     {
         $this->expression = $expression;
-
         return $this;
     }
 
     /**
-     * Appends the where expression to evaluate when this Criteria is searched for
+     * Append the where expression to evaluate when this criteria is searched for
      * using an AND with previous expression.
      *
-     * @param Expression $expression
-     *
+     * @param Expression
      * @return Criteria
      */
     public function andWhere(Expression $expression)
@@ -137,20 +129,18 @@ class Criteria
             return $this->where($expression);
         }
 
-        $this->expression = new CompositeExpression(
-            CompositeExpression::TYPE_AND,
-            [$this->expression, $expression]
-        );
+        $this->expression = new CompositeExpression(CompositeExpression::TYPE_AND, array(
+            $this->expression, $expression
+        ));
 
         return $this;
     }
 
     /**
-     * Appends the where expression to evaluate when this Criteria is searched for
+     * Append the where expression to evaluate when this criteria is searched for
      * using an OR with previous expression.
      *
-     * @param Expression $expression
-     *
+     * @param Expression
      * @return Criteria
      */
     public function orWhere(Expression $expression)
@@ -159,16 +149,15 @@ class Criteria
             return $this->where($expression);
         }
 
-        $this->expression = new CompositeExpression(
-            CompositeExpression::TYPE_OR,
-            [$this->expression, $expression]
-        );
+        $this->expression = new CompositeExpression(CompositeExpression::TYPE_OR, array(
+            $this->expression, $expression
+        ));
 
         return $this;
     }
 
     /**
-     * Gets the expression attached to this Criteria.
+     * Get the expression attached to this criteria.
      *
      * @return Expression|null
      */
@@ -178,9 +167,9 @@ class Criteria
     }
 
     /**
-     * Gets the current orderings of this Criteria.
+     * Get current orderings of this Criteria
      *
-     * @return string[]
+     * @return array
      */
     public function getOrderings()
     {
@@ -188,33 +177,26 @@ class Criteria
     }
 
     /**
-     * Sets the ordering of the result of this Criteria.
+     * Set the ordering of the result of this criteria.
      *
      * Keys are field and values are the order, being either ASC or DESC.
      *
      * @see Criteria::ASC
      * @see Criteria::DESC
      *
-     * @param string[] $orderings
-     *
+     * @param array
      * @return Criteria
      */
     public function orderBy(array $orderings)
     {
-        $this->orderings = array_map(
-            function (string $ordering) : string {
-                return strtoupper($ordering) === Criteria::ASC ? Criteria::ASC : Criteria::DESC;
-            },
-            $orderings
-        );
-
+        $this->orderings = $orderings;
         return $this;
     }
 
     /**
-     * Gets the current first result option of this Criteria.
+     * Get current first result option of the critera.
      *
-     * @return int|null
+     * @return firstResult.
      */
     public function getFirstResult()
     {
@@ -222,23 +204,21 @@ class Criteria
     }
 
     /**
-     * Set the number of first result that this Criteria should return.
+     * Set number of first result that this criteria should return.
      *
-     * @param int|null $firstResult The value to set.
-     *
+     * @param firstResult the value to set.
      * @return Criteria
      */
     public function setFirstResult($firstResult)
     {
-        $this->firstResult = null === $firstResult ? null : (int) $firstResult;
-
+        $this->firstResult = $firstResult;
         return $this;
     }
 
     /**
-     * Gets maxResults.
+     * Get maxResults.
      *
-     * @return int|null
+     * @return maxResults.
      */
     public function getMaxResults()
     {
@@ -246,16 +226,15 @@ class Criteria
     }
 
     /**
-     * Sets maxResults.
+     * Set maxResults.
      *
-     * @param int|null $maxResults The value to set.
-     *
+     * @param maxResults the value to set.
      * @return Criteria
      */
     public function setMaxResults($maxResults)
     {
-        $this->maxResults = null === $maxResults ? null : (int) $maxResults;
-
+        $this->maxResults = $maxResults;
         return $this;
     }
 }
+

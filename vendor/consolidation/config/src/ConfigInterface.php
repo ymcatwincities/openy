@@ -12,14 +12,11 @@ interface ConfigInterface
      * Fetch a configuration value
      *
      * @param string $key Which config item to look up
-     * @param string|null $defaultFallback Fallback default value to use when
-     *   configuration object has neither a value nor a default. Use is
-     *   discouraged; use default context in ConfigOverlay, or provide defaults
-     *   using a config processor.
+     * @param string|null $defaultOverride Override usual default value with a different default. Deprecated; provide defaults to the config processor instead.
      *
      * @return mixed
      */
-    public function get($key, $defaultFallback = null);
+    public function get($key, $defaultOverride = null);
 
     /**
      * Set a config value
@@ -35,38 +32,10 @@ interface ConfigInterface
      * Import configuration from the provided nexted array, replacing whatever
      * was here previously. No processing is done on the provided data.
      *
-     * @deprecated Use 'replace'. Dflydev\DotAccessData\Data::import() merges, which is confusing, since this method replaces.
-     *
      * @param array $data
      * @return Config
      */
     public function import($data);
-
-    /**
-     * Load configuration from the provided nexted array, replacing whatever
-     * was here previously. No processing is done on the provided data.
-     *
-     * TODO: This will become a required method in version 2.0. Adding now
-     * would break clients that implement ConfigInterface.
-     *
-     * @param array $data
-     * @return Config
-     */
-    // public function replace($data);
-
-    /**
-     * Import configuration from the provided nexted array, merging with whatever
-     * was here previously. No processing is done on the provided data.
-     * Any data provided to the combine() method will overwrite existing data
-     * with the same key.
-     *
-     * TODO: This will become a required method in version 2.0. Adding now
-     * would break clients that implement ConfigInterface.
-     *
-     * @param array $data
-     * @return Config
-     */
-    // public function combine($data);
 
     /**
      * Export all configuration as a nested array.
@@ -86,11 +55,11 @@ interface ConfigInterface
      * Return the default value for a given configuration item.
      *
      * @param string $key
-     * @param mixed $defaultFallback
+     * @param mixed $defaultOverride
      *
      * @return mixed
      */
-    public function getDefault($key, $defaultFallback = null);
+    public function getDefault($key, $defaultOverride = null);
 
     /**
      * Set the default value for a configuration setting. This allows us to

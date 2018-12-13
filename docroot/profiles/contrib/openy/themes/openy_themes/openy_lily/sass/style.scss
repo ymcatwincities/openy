@@ -12,6 +12,13 @@
 @import 'base/utilities';
 @import 'base/decor';
 
+// Lily styles
+@import 'global/mixins';
+@import 'global/colors';
+@import 'global/variables';
+@import 'global/fonts';
+@import 'global/transition';
+
 // Modules
 @import 'modules/page';
 @import 'modules/footer';
@@ -36,7 +43,7 @@
 @import 'modules/_administrative_tabs';
 @import 'modules/throbber';
 @import 'modules/captcha';
-@import 'modules/_status-messages';
+@import 'modules/_status-messages.scss';
 @import 'modules/pager';
 @import 'modules/webform';
 @import 'modules/programs';
@@ -46,6 +53,8 @@
 @import 'modules/columns';
 @import 'modules/simple_content';
 @import 'modules/event';
+@import 'modules/social-post';
+@import 'modules/repeating-schedules';
 @import "modules/gtranslate";
 
 // Paragraphs
@@ -91,6 +100,9 @@
 
 // Global state classes
 @import 'state/state';
+
+// Decoupled from modules
+@import '../../scss/modules';
 
 // YGTC import
 

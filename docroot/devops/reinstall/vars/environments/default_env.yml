@@ -64,7 +64,7 @@ env:
     - { name: 'en', status: false, arguments: "yptf_master" }
     - { name: 'en', status: true, arguments: "openy_prgf_loc_finder openy_map openy_data_wrapper openy_loc_branch" }
     # Configure synchroniation.
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_sync.settings')->set('active_syncers', ['personify_mindbody_sync.syncer_fast', 'ymca_google.syncer', 'ymca_cdn_sync.syncer'])->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_sync.settings')->set('active_syncers', ['personify_mindbody_sync.syncer_fast', 'ymca_google.syncer', 'ymca_cdn_sync.syncer', 'openy_pef_gxp_sync.syncer'])->save(TRUE);\"" }
     - { name: 'php-eval', status: false, arguments: "\"\\Drupal::configFactory()->getEditable('personify_mindbody_sync.settings')->set('is_production', '0')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_endpoint', 'https://account.ymcamn.org/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('childcare_endpoint', 'https://account.ymcamn.org/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments')->save(TRUE);\"" }

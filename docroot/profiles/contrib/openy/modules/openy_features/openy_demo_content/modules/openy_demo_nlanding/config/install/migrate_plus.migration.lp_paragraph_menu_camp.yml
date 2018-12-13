@@ -4,7 +4,6 @@ dependencies:
   enforced:
     module:
       - openy_demo_nlanding
-      - openy_prgf_camp_menu
 id: openy_demo_lp_paragraph_menu_camp
 migration_tags: {  }
 migration_group: openy_demo_nlanding
@@ -47,6 +46,11 @@ process:
   parent_field_name:
     plugin: default_value
     default_value: field_content
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: camp_menu
 destination:
   plugin: 'entity:paragraph'
   default_bundle: camp_menu

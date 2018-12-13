@@ -1,9 +1,7 @@
 <?php
 namespace Consolidation\OutputFormatters\StructuredData;
 
-use Consolidation\OutputFormatters\Formatters\FormatterAwareInterface;
-
-interface RenderCellCollectionInterface extends RenderCellInterface, FormatterAwareInterface
+interface RenderCellCollectionInterface extends RenderCellInterface
 {
     const PRIORITY_FIRST = 'first';
     const PRIORITY_NORMAL = 'normal';

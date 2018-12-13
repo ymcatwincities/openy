@@ -2,83 +2,67 @@ langcode: en
 status: true
 dependencies:
   config:
-  - filter.format.full_html
+    - filter.format.full_html
   module:
-  - ckeditor
+    - ckeditor
 format: full_html
 editor: ckeditor
 settings:
   toolbar:
     rows:
-    -
       -
-        name: Formatting
-        items:
-        - Bold
-        - Italic
-        - Strike
-        - Superscript
-        - Subscript
-        - '-'
-        - RemoveFormat
-      -
-        name: Linking
-        items:
-        - DrupalLink
-        - DrupalUnlink
-        - Linkit
-      -
-        name: Lists
-        items:
-        - BulletedList
-        - NumberedList
-      -
-        name: Media
-        items:
-        - Blockquote
-        - Table
-        - HorizontalRule
-        - block
-        - menu_link
-        - file_browser
-        - webform
-        - embed_document
-        - embed_image
-      -
-        name: 'Block Formatting'
-        items:
-        - Format
-        - Styles
-      -
-        name: Tools
-        items:
-        - ShowBlocks
-        - Source
-      -
-        name: Templates
-        items:
-        - ColumnButton2x
-        - ColumnButton3x
-        - SportsPromo
-        - Green3Columns
-        - ClinicsSchedule
-        - SessionSchedules
-        - SportsTopSubheader
-        - TextColor
+        -
+          name: Formatting
+          items:
+            - Bold
+            - Italic
+            - Underline
+            - Strike
+            - JustifyLeft
+            - JustifyCenter
+            - JustifyRight
+            - JustifyBlock
+            - TextColor
+            - BGColor
+            - Outdent
+            - Indent
+            - Format
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+        -
+          name: Lists
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Media
+          items:
+            - Blockquote
+            - embed_video
+            - embed_local_video
+            - embed_image
+            - embed_document
+        -
+          name: Tools
+          items:
+            - Table
+            - Source
+            - SpecialChar
+            - Maximize
+            - Language
+            - btbutton
   plugins:
-    stylescombo:
-      styles: "p.button|Button\r\nspan.icon-clock|Clock icon"
     language:
       language_list: un
-    font:
-      font_names: ''
-      font_sizes: ''
+    stylescombo:
+      styles: ''
     colorbutton:
-      colors: '20bdbe,01a490,006b6b,00aeef,0089d0,0060af,c6168d,92278f,5c2e91,f15922,ed1c24,a92b31,fcaf17,f47920,dd5828,ffffff,636466,231f20'
-    linkit:
-      linkit_profile: openy_linkit
+      colors: '5c2e91,92278f,c6168d,0060af,0089d0,00aeef,006b6b,01a490,20bdbe,dd5828,f47920,fcaf17,a92b31,ed1c24,f15922'
 image_upload:
-  status: true
+  status: false
   scheme: public
   directory: inline-images
   max_size: ''

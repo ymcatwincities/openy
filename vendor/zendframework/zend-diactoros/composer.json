@@ -13,40 +13,24 @@
     "issues": "https://github.com/zendframework/zend-diactoros/issues",
     "source": "https://github.com/zendframework/zend-diactoros"
   },
-  "config": {
-      "sort-packages": true
-  },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.8.x-dev",
-      "dev-develop": "1.9.x-dev",
-      "dev-release-2.0": "2.0.x-dev"
+      "dev-master": "1.0-dev",
+      "dev-develop": "1.1-dev"
     }
   },
   "require": {
-    "php": "^5.6 || ^7.0",
-    "psr/http-message": "^1.0"
+    "php": ">=5.4",
+    "psr/http-message": "~1.0"
   },
   "require-dev": {
-    "ext-dom": "*",
-    "ext-libxml": "*",
-    "phpunit/phpunit": "^5.7.16 || ^6.0.8 || ^7.2.7",
-    "zendframework/zend-coding-standard": "~1.0"
+    "phpunit/PHPUnit": "~4.6",
+    "squizlabs/php_codesniffer": "^2.3.1"
   },
   "provide": {
-    "psr/http-message-implementation": "1.0"
+    "psr/http-message-implementation": "~1.0.0"
   },
   "autoload": {
-    "files": [
-        "src/functions/create_uploaded_file.php",
-        "src/functions/marshal_headers_from_sapi.php",
-        "src/functions/marshal_method_from_sapi.php",
-        "src/functions/marshal_protocol_version_from_sapi.php",
-        "src/functions/marshal_uri_from_sapi.php",
-        "src/functions/normalize_server.php",
-        "src/functions/normalize_uploaded_files.php",
-        "src/functions/parse_cookie_header.php"
-    ],
     "psr-4": {
       "Zend\\Diactoros\\": "src/"
     }
@@ -59,15 +43,5 @@
       "test/TestAsset/Functions.php",
       "test/TestAsset/SapiResponse.php"
     ]
-  },
-  "scripts": {
-    "check": [
-      "@cs-check",
-      "@test"
-    ],
-    "cs-check": "phpcs",
-    "cs-fix": "phpcbf",
-    "test": "phpunit --colors=always",
-    "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
   }
 }

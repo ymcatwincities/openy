@@ -30,9 +30,14 @@ class ProjectServiceContainer extends Container
     }
 
     /**
-     * Gets the public 'foo' shared autowired service.
+     * Gets the 'foo' service.
      *
-     * @return \Foo
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * This service is autowired.
+     *
+     * @return \Foo A Foo instance
      */
     protected function getFooService()
     {

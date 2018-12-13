@@ -191,6 +191,7 @@
       border-bottom: none;
       position: absolute;
       top: 125px;
+      width: 100%;
 
       .nav-level-2,
       .nav-level-3 {
@@ -388,7 +389,6 @@
 
   .viewport {
     position: relative;
-    z-index: 41;
     width: 100%;
 
     &.collapsing-in,
@@ -488,6 +488,20 @@
     }
   }
 
+}
+
+.viewport {
+  .top-navs.affix {
+    .nav-global > .container {
+      > .row {
+        min-height: 41px;
+        .header-content {
+          top: 0;
+          min-height: 41px;
+        }
+      }
+    }
+  }
 }
 
 .toolbar-fixed {

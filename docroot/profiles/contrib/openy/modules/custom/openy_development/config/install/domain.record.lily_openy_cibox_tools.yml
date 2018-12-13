@@ -4,7 +4,7 @@ dependencies: {  }
 id: lily_openy_cibox_tools
 domain_id: 6397693
 hostname: lily.openy.cibox.tools
-name: 'OpenY with Lily Theme'
+name: 'Open Y with Lily Theme'
 scheme: http
 weight: 2
 is_default: false

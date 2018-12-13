@@ -1,4 +1,4 @@
-### What’s new in OpenY’s Carnation Theme?
+### What’s new in Open Y’s Carnation Theme?
 
 Developers will be happy to know;
 
@@ -42,7 +42,7 @@ Themers will be happy to know;
 * Banner paragraph types now properly set the background images using CSS background property for better responsive support. 
 * Fallback support for pages without dedicated header banners paragraphs.
    * Will display a grey banner with page title & breadcrumbs.
-* SASS Colour audit has been performed and slight offset hues have been replaced with the proper OpenY colour pallette.
+* SASS Colour audit has been performed and slight offset hues have been replaced with the proper Open Y colour pallette.
 
 
 

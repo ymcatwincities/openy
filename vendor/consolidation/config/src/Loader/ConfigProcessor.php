@@ -2,8 +2,7 @@
 
 namespace Consolidation\Config\Loader;
 
-use Grasmash\Expander\Expander;
-use Consolidation\Config\Util\ArrayUtil;
+use Grasmash\YamlExpander\Expander;
 
 /**
  * The config processor combines multiple configuration
@@ -13,12 +12,6 @@ class ConfigProcessor
 {
     protected $processedConfig = [];
     protected $unprocessedConfig = [];
-    protected $expander;
-
-    public function __construct($expander = null)
-    {
-        $this->expander = $expander ?: new Expander();
-    }
 
     /**
      * Extend the configuration to be processed with the
@@ -66,13 +59,12 @@ class ConfigProcessor
      *
      * @return array
      */
-    public function export($referenceArray = [])
+    public function export()
     {
         if (!empty($this->unprocessedConfig)) {
             $this->processedConfig = $this->process(
                 $this->processedConfig,
-                $this->fetchUnprocessed(),
-                $referenceArray
+                $this->fetchUnprocessed()
             );
         }
         return $this->processedConfig;
@@ -88,8 +80,8 @@ class ConfigProcessor
         $sources = [];
         foreach ($this->unprocessedConfig as $sourceName => $config) {
             if (!empty($sourceName)) {
-                $configSources = ArrayUtil::fillRecursive($config, $sourceName);
-                $sources = ArrayUtil::mergeRecursiveDistinct($sources, $configSources);
+                $configSources = self::arrayFillRecursive($config, $sourceName);
+                $sources = self::arrayMergeRecursiveDistinct($sources, $configSources);
             }
         }
         return $sources;
@@ -116,11 +108,11 @@ class ConfigProcessor
      * @param array $toBeProcessed
      * @return array
      */
-    protected function process(array $processed, array $toBeProcessed, $referenceArray = [])
+    protected function process(array $processed, array $toBeProcessed)
     {
         $toBeReduced = array_map([$this, 'preprocess'], $toBeProcessed);
         $reduced = array_reduce($toBeReduced, [$this, 'reduceOne'], $processed);
-        return $this->evaluate($reduced, $referenceArray);
+        return $this->evaluate($reduced);
     }
 
     /**
@@ -147,7 +139,7 @@ class ConfigProcessor
      */
     protected function reduceOne(array $processed, array $config)
     {
-        return ArrayUtil::mergeRecursiveDistinct($processed, $config);
+        return self::arrayMergeRecursiveDistinct($processed, $config);
     }
 
     /**
@@ -157,11 +149,78 @@ class ConfigProcessor
      * @param array $config
      * @return array
      */
-    protected function evaluate(array $config, $referenceArray = [])
+    protected function evaluate(array $config)
     {
-        return $this->expander->expandArrayProperties(
+        return Expander::expandArrayProperties(
             $config,
-            $referenceArray
+            []
         );
+    }
+
+    /**
+     * Merges arrays recursively while preserving.
+     *
+     * @param array $array1
+     * @param array $array2
+     *
+     * @return array
+     *
+     * @see http://php.net/manual/en/function.array-merge-recursive.php#92195
+     * @see https://github.com/grasmash/bolt/blob/robo-rebase/src/Robo/Common/ArrayManipulator.php#L22
+     */
+    protected static function arrayMergeRecursiveDistinct(
+        array &$array1,
+        array &$array2
+    ) {
+        $merged = $array1;
+        foreach ($array2 as $key => &$value) {
+            $merged[$key] = self::mergeRecursiveValue($merged, $key, $value);
+        }
+        return $merged;
+    }
+
+    /**
+     * Process the value in an arrayMergeRecursiveDistinct - make a recursive
+     * call if needed.
+     */
+    private static function mergeRecursiveValue(&$merged, $key, $value)
+    {
+        if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
+            return self::arrayMergeRecursiveDistinct($merged[$key], $value);
+        }
+        return $value;
+    }
+
+    /**
+     * Fills all of the leaf-node values of a nested array with the
+     * provided replacement value.
+     */
+    protected static function arrayFillRecursive(array $data, $fill)
+    {
+        $result = [];
+        foreach ($data as $key => $value) {
+            $result[$key] = $fill;
+            if (self::isAssociativeArray($value)) {
+                $result[$key] = self::arrayFillRecursive($value, $fill);
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Return true if the provided parameter is an array, and at least
+     * one key is non-numeric.
+     */
+    protected static function isAssociativeArray($testArray)
+    {
+        if (!is_array($testArray)) {
+            return false;
+        }
+        foreach (array_keys($testArray) as $key) {
+            if (!is_numeric($key)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

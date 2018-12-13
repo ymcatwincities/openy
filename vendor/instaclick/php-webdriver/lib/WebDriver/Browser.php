@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011-2017 Fabrizio Branca. All Rights Reserved.
+ * Copyright 2011-2013 Fabrizio Branca. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ final class Browser
 {
     /**
      * Check browser names used in static functions in the selenium source:
-     * @see http://code.google.com/p/selenium/source/browse/java/client/src/org/openqa/selenium/remote/DesiredCapabilities.java
+     * @see http://code.google.com/p/selenium/source/browse/trunk/java/client/src/org/openqa/selenium/remote/DesiredCapabilities.java
      *
      * Note: Capability array takes these browserNames and not the "browserTypes"
      *
@@ -42,11 +42,8 @@ final class Browser
     const CHROME            = 'chrome';
     const FIREFOX           = 'firefox';
     const HTMLUNIT          = 'htmlunit';
-    const IE                = 'internet explorer';
     const INTERNET_EXPLORER = 'internet explorer';
     const IPHONE            = 'iPhone';
     const IPAD              = 'iPad';
     const OPERA             = 'opera';
-    const PHANTOMJS         = 'phantomjs';
-    const SAFARI            = 'safari';
 }

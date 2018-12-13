@@ -6,7 +6,8 @@ dependencies:
       - openy_demo_nevent
 id: openy_demo_event_landing
 migration_tags:
-  - 'OpenY Demo Event'
+  - openy_extended_installation
+  - openy_complete_installation
 migration_group: openy_demo_nevent
 label: 'Create demo landing event page'
 source:
@@ -27,7 +28,7 @@ process:
   langcode:
     plugin: default_value
     source: language
-    default_value: und
+    default_value: en
   status:
     plugin: default_value
     default_value: 1

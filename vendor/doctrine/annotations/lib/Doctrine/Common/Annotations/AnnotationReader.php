@@ -100,18 +100,7 @@ class AnnotationReader implements Reader
         'package_version' => true,
         // PlantUML
         'startuml' => true, 'enduml' => true,
-        // Symfony 3.3 Cache Adapter
-        'experimental' => true
     );
-
-    /**
-     * A list with annotations that are not causing exceptions when not resolved to an annotation class.
-     *
-     * The names are case sensitive.
-     *
-     * @var array
-     */
-    private static $globalIgnoredNamespaces = array();
 
     /**
      * Add a new annotation to the globally ignored annotation names with regard to exception handling.
@@ -121,16 +110,6 @@ class AnnotationReader implements Reader
     static public function addGlobalIgnoredName($name)
     {
         self::$globalIgnoredNames[$name] = true;
-    }
-
-    /**
-     * Add a new annotation to the globally ignored annotation namespaces with regard to exception handling.
-     *
-     * @param string $namespace
-     */
-    static public function addGlobalIgnoredNamespace($namespace)
-    {
-        self::$globalIgnoredNamespaces[$namespace] = true;
     }
 
     /**
@@ -172,12 +151,8 @@ class AnnotationReader implements Reader
      * Constructor.
      *
      * Initializes a new AnnotationReader.
-     *
-     * @param DocParser $parser
-     *
-     * @throws AnnotationException
      */
-    public function __construct(DocParser $parser = null)
+    public function __construct()
     {
         if (extension_loaded('Zend Optimizer+') && (ini_get('zend_optimizerplus.save_comments') === "0" || ini_get('opcache.save_comments') === "0")) {
             throw AnnotationException::optimizerPlusSaveComments();
@@ -187,20 +162,9 @@ class AnnotationReader implements Reader
             throw AnnotationException::optimizerPlusSaveComments();
         }
 
-        if (PHP_VERSION_ID < 70000) {
-            if (extension_loaded('Zend Optimizer+') && (ini_get('zend_optimizerplus.load_comments') === "0" || ini_get('opcache.load_comments') === "0")) {
-                throw AnnotationException::optimizerPlusLoadComments();
-            }
-
-            if (extension_loaded('Zend OPcache') && ini_get('opcache.load_comments') == 0) {
-                throw AnnotationException::optimizerPlusLoadComments();
-            }
-        }
-
         AnnotationRegistry::registerFile(__DIR__ . '/Annotation/IgnoreAnnotation.php');
 
-        $this->parser = $parser ?: new DocParser();
-
+        $this->parser    = new DocParser;
         $this->preParser = new DocParser;
 
         $this->preParser->setImports(self::$globalImports);
@@ -217,7 +181,6 @@ class AnnotationReader implements Reader
         $this->parser->setTarget(Target::TARGET_CLASS);
         $this->parser->setImports($this->getClassImports($class));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
-        $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
 
         return $this->parser->parse($class->getDocComment(), 'class ' . $class->getName());
     }
@@ -249,7 +212,6 @@ class AnnotationReader implements Reader
         $this->parser->setTarget(Target::TARGET_PROPERTY);
         $this->parser->setImports($this->getPropertyImports($property));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
-        $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
 
         return $this->parser->parse($property->getDocComment(), $context);
     }
@@ -281,7 +243,6 @@ class AnnotationReader implements Reader
         $this->parser->setTarget(Target::TARGET_METHOD);
         $this->parser->setImports($this->getMethodImports($method));
         $this->parser->setIgnoredAnnotationNames($this->getIgnoredAnnotationNames($class));
-        $this->parser->setIgnoredAnnotationNamespaces(self::$globalIgnoredNamespaces);
 
         return $this->parser->parse($method->getDocComment(), $context);
     }
@@ -311,8 +272,7 @@ class AnnotationReader implements Reader
      */
     private function getIgnoredAnnotationNames(ReflectionClass $class)
     {
-        $name = $class->getName();
-        if (isset($this->ignoredAnnotationNames[$name])) {
+        if (isset($this->ignoredAnnotationNames[$name = $class->getName()])) {
             return $this->ignoredAnnotationNames[$name];
         }
 
@@ -330,8 +290,7 @@ class AnnotationReader implements Reader
      */
     private function getClassImports(ReflectionClass $class)
     {
-        $name = $class->getName();
-        if (isset($this->imports[$name])) {
+        if (isset($this->imports[$name = $class->getName()])) {
             return $this->imports[$name];
         }
 

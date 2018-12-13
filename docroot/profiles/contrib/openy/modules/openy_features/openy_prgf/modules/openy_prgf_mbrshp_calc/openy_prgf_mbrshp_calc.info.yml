@@ -1,8 +1,9 @@
-name: 'OpenY Paragraph Membership Calculator'
-description: 'OpenY Paragraph Membership Calculator.'
+name: Open Y Paragraph Membership Calculator
+description: Provides a paragraph to render Membership calculator block.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - address
   - blazy

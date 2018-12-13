@@ -1,8 +1,9 @@
-name: 'OpenY Paragraph Group Schedules'
-description: 'Group Schedules paragraph.'
+name: Open Y Paragraph Group Schedules
+description: Provides a dynamic paragraph that renders the group schedules from GroupEx Pro.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - openy_group_schedules

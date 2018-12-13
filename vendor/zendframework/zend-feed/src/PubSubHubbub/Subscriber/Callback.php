@@ -140,14 +140,14 @@ class Callback extends PubSubHubbub\AbstractCallback
         if (strtolower($_SERVER['REQUEST_METHOD']) !== 'get') {
             return false;
         }
-        $required = [
+        $required = array(
             'hub_mode',
             'hub_topic',
             'hub_challenge',
             'hub_verify_token',
-        ];
+        );
         foreach ($required as $key) {
-            if (! array_key_exists($key, $httpGetData)) {
+            if (!array_key_exists($key, $httpGetData)) {
                 return false;
             }
         }
@@ -157,11 +157,11 @@ class Callback extends PubSubHubbub\AbstractCallback
             return false;
         }
         if ($httpGetData['hub_mode'] == 'subscribe'
-            && ! array_key_exists('hub_lease_seconds', $httpGetData)
+            && !array_key_exists('hub_lease_seconds', $httpGetData)
         ) {
             return false;
         }
-        if (! Uri::factory($httpGetData['hub_topic'])->isValid()) {
+        if (!Uri::factory($httpGetData['hub_topic'])->isValid()) {
             return false;
         }
 
@@ -169,7 +169,7 @@ class Callback extends PubSubHubbub\AbstractCallback
          * Attempt to retrieve any Verification Token Key attached to Callback
          * URL's path by our Subscriber implementation
          */
-        if (! $this->_hasValidVerifyToken($httpGetData)) {
+        if (!$this->_hasValidVerifyToken($httpGetData)) {
             return false;
         }
         return true;
@@ -220,16 +220,14 @@ class Callback extends PubSubHubbub\AbstractCallback
      * @param  bool $checkValue
      * @return bool
      */
-    // @codingStandardsIgnoreStart
     protected function _hasValidVerifyToken(array $httpGetData = null, $checkValue = true)
     {
-        // @codingStandardsIgnoreEnd
         $verifyTokenKey = $this->_detectVerifyTokenKey($httpGetData);
         if (empty($verifyTokenKey)) {
             return false;
         }
         $verifyTokenExists = $this->getStorage()->hasSubscription($verifyTokenKey);
-        if (! $verifyTokenExists) {
+        if (!$verifyTokenExists) {
             return false;
         }
         if ($checkValue) {
@@ -252,10 +250,8 @@ class Callback extends PubSubHubbub\AbstractCallback
      * @param  null|array $httpGetData
      * @return false|string
      */
-    // @codingStandardsIgnoreStart
     protected function _detectVerifyTokenKey(array $httpGetData = null)
     {
-        // @codingStandardsIgnoreEnd
         /**
          * Available when sub keys encoding in Callback URL path
          */
@@ -290,17 +286,15 @@ class Callback extends PubSubHubbub\AbstractCallback
      *
      * @return array|void
      */
-    // @codingStandardsIgnoreStart
     protected function _parseQueryString()
     {
-        // @codingStandardsIgnoreEnd
-        $params      = [];
+        $params      = array();
         $queryString = '';
         if (isset($_SERVER['QUERY_STRING'])) {
             $queryString = $_SERVER['QUERY_STRING'];
         }
         if (empty($queryString)) {
-            return [];
+            return array();
         }
         $parts = explode('&', $queryString);
         foreach ($parts as $kvpair) {
@@ -311,7 +305,7 @@ class Callback extends PubSubHubbub\AbstractCallback
                 if (is_array($params[$key])) {
                     $params[$key][] = $value;
                 } else {
-                    $params[$key] = [$params[$key], $value];
+                    $params[$key] = array($params[$key], $value);
                 }
             } else {
                 $params[$key] = $value;

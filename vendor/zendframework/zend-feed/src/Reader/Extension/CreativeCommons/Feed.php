@@ -42,7 +42,7 @@ class Feed extends Extension\AbstractFeed
             return $this->data[$name];
         }
 
-        $licenses = [];
+        $licenses = array();
         $list = $this->xpath->evaluate('channel/cc:license');
 
         if ($list->length) {

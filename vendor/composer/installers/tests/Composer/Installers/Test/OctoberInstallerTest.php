@@ -4,9 +4,8 @@ namespace Composer\Installers\Test;
 use Composer\Installers\OctoberInstaller;
 use Composer\Package\Package;
 use Composer\Composer;
-use PHPUnit\Framework\TestCase as BaseTestCase;
 
-class OctoberInstallerTest extends BaseTestCase
+class OctoberInstallerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var OctoberInstaller

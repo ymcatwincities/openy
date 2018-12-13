@@ -1,0 +1,45 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    workspace_root: .
+    artifacts_file: commentinfo.md
+    build_reports_dir: build_reports
+    base_url: http://drupal.192.168.56.132.xip.io # WITHOUT TRAILING SLASH
+    drupal_root: /var/www/docroot
+    resources_path: /var/www/tests/behat/resources
+    behat_root: '../tests/behat'
+    config_file: behat.yml
+    features_dir: features
+    browser: 'chrome'
+    selenium_url: 127.0.0.1:4444/wd/hub
+    run_javascript_tests: 'no'
+    update_dependencies: 'yes'
+    selenium_jar_path: /var/lib/selenium/selenium.jar
+    chrome_driver_path: /var/lib/chrome-driver/chromedriver
+    drupal_core_test_group: 'group,groups,separated,by,comma'
+    run_behat_tests: 'yes'
+    run_drupal_core_tests: 'yes'
+
+  pre_tasks:
+  - include: devops/tests/behat/pre_tasks/behat.yml
+    when: run_behat_tests == 'yes'
+
+  - include: devops/tests/drupal_core/pre_tasks/drupal_core.yml
+    when: run_drupal_core_tests == 'yes'
+
+  tasks:
+  - include: devops/tests/behat/tasks/behat.yml
+    when: run_behat_tests == 'yes'
+
+  - include: devops/tests/drupal_core/tasks/drupal_core.yml
+    when: run_drupal_core_tests == 'yes'
+
+  post_tasks:
+  - include: devops/tests/behat/post_tasks/behat.yml
+    when: run_behat_tests == 'yes'
+
+  - include: devops/tests/drupal_core/post_tasks/drupal_core.yml
+    when: run_drupal_core_tests == 'yes'

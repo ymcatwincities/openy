@@ -1,8 +1,14 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - openy_demo_bfooter
 id: openy_demo_block_content_footer
-migration_tags: {  }
+migration_tags:
+  - openy_standard_installation
+  - openy_extended_installation
+  - openy_complete_installation
 migration_group: openy_demo_fblock
 label: 'Create demo basic blocks in the footer'
 migration_dependencies: {}
@@ -26,12 +32,16 @@ source:
       description: 'Footer Copyright Block'
       title: ''
       body: |
-        <p>© 2017 YMCA</p>
+        <p>© 2018 YMCA</p>
         <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
   ids:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
   type:
     plugin: default_value
     default_value: basic_block

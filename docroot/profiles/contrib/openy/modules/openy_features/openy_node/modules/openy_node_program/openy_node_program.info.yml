@@ -1,8 +1,9 @@
-name: 'OpenY Program'
-description: 'OpenY Program.'
+name: Open Y Node Program
+description: Provides a Program content type and related configuration.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - blazy
   - datalayer

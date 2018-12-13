@@ -2,11 +2,11 @@
 
 /**
  * @file
- * OpenY Paragraph Latest Blog Posts install file.
+ * Open Y Paragraph Latest Blog Posts install file.
  */
 
 /**
- * Update OpenY Paragraph Latest Blog Posts field_prgf_block.
+ * Update Open Y Paragraph Latest Blog Posts field_prgf_block.
  */
 function openy_prgf_blog_latest_update_8001() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
@@ -27,7 +27,7 @@ function openy_prgf_blog_latest_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_prgf_blog_latest');
   $config_dir .= '/config/install/';
 
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([

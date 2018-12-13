@@ -1,14 +1,12 @@
-name: 'OpenY Paragraph Secondary Description and Sidebar'
-description: 'OpenY Paragraph Secondary Description and Sidebar.'
+name: Open Y Paragraph Secondary Description and Sidebar
+description: Provides a paragraph with secondary description and sidebar.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - datalayer
   - field
-  - openy_block_basic
-  - openy_block_custom_simple
-  - openy_block_date
-  - openy_code_block
+  - openy_er
   - paragraphs
   - text

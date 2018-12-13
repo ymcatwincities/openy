@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2017 Facebook. All Rights Reserved.
+ * Copyright 2004-2013 Facebook. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ namespace WebDriver;
  *
  * @method string window_handle() Retrieve the current window handle.
  * @method array window_handles() Retrieve the list of all window handles available to the session.
- * @method string url() Retrieve the URL of the current page
+ * @method string getUrl() Retrieve the URL of the current page
  * @method void postUrl($jsonUrl) Navigate to a new URL
  * @method void forward() Navigates forward in the browser history, if possible.
  * @method void back() Navigates backward in the browser history, if possible.
@@ -37,6 +37,7 @@ namespace WebDriver;
  * @method mixed execute($jsonScript) Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. (synchronous)
  * @method mixed execute_async($jsonScript) Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame. (asynchronous)
  * @method string screenshot() Take a screenshot of the current page.
+ * @method void frame($jsonFrameId) Change focus to another frame on the page.
  * @method array getCookie() Retrieve all cookies visible to the current page.
  * @method array postCookie($jsonCookie) Set a cookie.
  * @method string source() Get the current page source.
@@ -62,11 +63,6 @@ namespace WebDriver;
 final class Session extends Container
 {
     /**
-     * @var array
-     */
-    private $capabilities = null;
-
-    /**
      * {@inheritdoc}
      */
     protected function methods()
@@ -81,6 +77,7 @@ final class Session extends Container
             'execute' => array('POST'),
             'execute_async' => array('POST'),
             'screenshot' => array('GET'),
+            'frame' => array('POST'),
             'cookie' => array('GET', 'POST'), // for DELETE, use deleteAllCookies()
             'source' => array('GET'),
             'title' => array('GET'),
@@ -97,9 +94,6 @@ final class Session extends Container
             'execute_sql' => array('POST'),
             'location' => array('GET', 'POST'),
             'browser_connection' => array('GET', 'POST'),
-
-            // specific to Java SeleniumServer
-            'file' => array('POST'),
         );
     }
 
@@ -113,6 +107,10 @@ final class Session extends Container
             'speed' => array('GET', 'POST'),
             'alert' => array('GET'),
             'visible' => array('GET', 'POST'),
+
+            // specific to Java SeleniumServer
+            'file' => array('POST'),
+            'log' => array('POST'),
         );
     }
 
@@ -138,13 +136,9 @@ final class Session extends Container
      */
     public function capabilities()
     {
-        if (! isset($this->capabilities)) {
-            $result = $this->curl('GET', '');
+        $result = $this->curl('GET', '');
 
-            $this->capabilities = $result['value'];
-        }
-
-        return $this->capabilities;
+        return $result['value'];
     }
 
     /**
@@ -225,7 +219,7 @@ final class Session extends Container
      * - $session->window($name) - set focus
      * - $session->window($window_handle)->method() - chaining
      *
-     * @return \WebDriver\Window|\WebDriver\Session
+     * @return \WebDriver\AbstractWebDriver
      */
     public function window()
     {
@@ -238,7 +232,6 @@ final class Session extends Container
 
         // set focus
         $arg = func_get_arg(0); // window handle or name attribute
-
         if (is_array($arg)) {
             $this->curl('POST', '/window', $arg);
 
@@ -276,39 +269,17 @@ final class Session extends Container
     }
 
     /**
-     * frame methods: /session/:sessionId/frame (POST)
-     * - $session->frame($json) - change focus to another frame on the page
-     * - $session->frame()->method() - chaining
-     *
-     * @return \WebDriver\Session|\WebDriver\Frame
-     */
-    public function frame()
-    {
-        if (func_num_args() === 1) {
-            $arg = func_get_arg(0); // json
-
-            $this->curl('POST', '/frame', $arg);
-
-            return $this;
-        }
-
-        // chaining
-        return new Frame($this->url . '/frame');
-    }
-
-    /**
      * timeouts methods: /session/:sessionId/timeouts (POST)
      * - $session->timeouts($json) - set timeout for an operation
      * - $session->timeouts()->method() - chaining
      *
-     * @return \WebDriver\Session|\WebDriver\Timeouts
+     * @return \WebDriver\Timeouts
      */
     public function timeouts()
     {
         // set timeouts
         if (func_num_args() === 1) {
             $arg = func_get_arg(0); // json
-
             $this->curl('POST', '/timeouts', $arg);
 
             return $this;
@@ -319,7 +290,6 @@ final class Session extends Container
                 'type' => func_get_arg(0), // 'script' or 'implicit'
                 'ms' => func_get_arg(1),   // timeout in milliseconds
             );
-
             $this->curl('POST', '/timeouts', $arg);
 
             return $this;
@@ -348,9 +318,9 @@ final class Session extends Container
      */
     public function activeElement()
     {
-        $result = $this->curl('POST', '/element/active');
+        $results = $this->curl('POST', '/element/active');
 
-        return $this->webDriverElement($result['value']);
+        return $this->webDriverElement($results['value']);
     }
 
     /**
@@ -396,34 +366,6 @@ final class Session extends Container
     public function application_cache()
     {
         return new ApplicationCache($this->url . '/application_cache');
-    }
-
-    /**
-     * log methods: /session/:sessionId/log (POST)
-     * - $session->log($type) - get log for given log type
-     * - $session->log()->method() - chaining
-     *
-     * @return mixed
-     */
-    public function log()
-    {
-        // get log for given log type
-        if (func_num_args() === 1) {
-            $arg = func_get_arg(0);
-
-            if (is_string($arg)) {
-                $arg = array(
-                    'type' => $arg,
-                );
-            }
-
-            $result = $this->curl('POST', '/log', $arg);
-
-            return $result['value'];
-        }
-
-        // chaining
-        return new Log($this->url . '/log');
     }
 
     /**

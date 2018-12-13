@@ -11,10 +11,9 @@
 
 namespace Symfony\Component\BrowserKit;
 
-use Symfony\Component\BrowserKit\Exception\BadMethodCallException;
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\DomCrawler\Link;
+use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\Process\PhpProcess;
 
 /**
@@ -79,7 +78,7 @@ abstract class Client
     }
 
     /**
-     * Sets the maximum number of redirects that crawler can follow.
+     * Sets the maximum number of requests that crawler can follow.
      *
      * @param int $maxRedirects
      */
@@ -90,7 +89,7 @@ abstract class Client
     }
 
     /**
-     * Returns the maximum number of redirects that crawler can follow.
+     * Returns the maximum number of requests that crawler can follow.
      *
      * @return int
      */
@@ -151,17 +150,6 @@ abstract class Client
         return isset($this->server[$key]) ? $this->server[$key] : $default;
     }
 
-    public function xmlHttpRequest(string $method, string $uri, array $parameters = array(), array $files = array(), array $server = array(), string $content = null, bool $changeHistory = true): Crawler
-    {
-        $this->setServerParameter('HTTP_X_REQUESTED_WITH', 'XMLHttpRequest');
-
-        try {
-            return $this->request($method, $uri, $parameters, $files, $server, $content, $changeHistory);
-        } finally {
-            unset($this->server['HTTP_X_REQUESTED_WITH']);
-        }
-    }
-
     /**
      * Returns the History instance.
      *
@@ -185,30 +173,20 @@ abstract class Client
     /**
      * Returns the current Crawler instance.
      *
-     * @return Crawler A Crawler instance
+     * @return Crawler|null A Crawler instance
      */
     public function getCrawler()
     {
-        if (null === $this->crawler) {
-            @trigger_error(sprintf('Calling the "%s()" method before the "request()" one is deprecated since Symfony 4.1 and will throw an exception in 5.0.', __METHOD__), E_USER_DEPRECATED);
-            // throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
-        }
-
         return $this->crawler;
     }
 
     /**
      * Returns the current BrowserKit Response instance.
      *
-     * @return Response A BrowserKit Response instance
+     * @return Response|null A BrowserKit Response instance
      */
     public function getInternalResponse()
     {
-        if (null === $this->internalResponse) {
-            @trigger_error(sprintf('Calling the "%s()" method before the "request()" one is deprecated since Symfony 4.1 and will throw an exception in 5.0.', __METHOD__), E_USER_DEPRECATED);
-            // throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
-        }
-
         return $this->internalResponse;
     }
 
@@ -218,32 +196,22 @@ abstract class Client
      * The origin response is the response instance that is returned
      * by the code that handles requests.
      *
-     * @return object A response instance
+     * @return object|null A response instance
      *
      * @see doRequest()
      */
     public function getResponse()
     {
-        if (null === $this->response) {
-            @trigger_error(sprintf('Calling the "%s()" method before the "request()" one is deprecated since Symfony 4.1 and will throw an exception in 5.0.', __METHOD__), E_USER_DEPRECATED);
-            // throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
-        }
-
         return $this->response;
     }
 
     /**
      * Returns the current BrowserKit Request instance.
      *
-     * @return Request A BrowserKit Request instance
+     * @return Request|null A BrowserKit Request instance
      */
     public function getInternalRequest()
     {
-        if (null === $this->internalRequest) {
-            @trigger_error(sprintf('Calling the "%s()" method before the "request()" one is deprecated since Symfony 4.1 and will throw an exception in 5.0.', __METHOD__), E_USER_DEPRECATED);
-            // throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
-        }
-
         return $this->internalRequest;
     }
 
@@ -253,17 +221,12 @@ abstract class Client
      * The origin request is the request instance that is sent
      * to the code that handles requests.
      *
-     * @return object A Request instance
+     * @return object|null A Request instance
      *
      * @see doRequest()
      */
     public function getRequest()
     {
-        if (null === $this->request) {
-            @trigger_error(sprintf('Calling the "%s()" method before the "request()" one is deprecated since Symfony 4.1 and will throw an exception in 5.0.', __METHOD__), E_USER_DEPRECATED);
-            // throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
-        }
-
         return $this->request;
     }
 
@@ -284,18 +247,16 @@ abstract class Client
     /**
      * Submits a form.
      *
-     * @param Form  $form             A Form instance
-     * @param array $values           An array of form field values
-     * @param array $serverParameters An array of server parameters
+     * @param Form  $form   A Form instance
+     * @param array $values An array of form field values
      *
      * @return Crawler
      */
-    public function submit(Form $form, array $values = array()/*, array $serverParameters = array()*/)
+    public function submit(Form $form, array $values = array())
     {
         $form->setValues($values);
-        $serverParameters = 2 < \func_num_args() ? func_get_arg(2) : array();
 
-        return $this->request($form->getMethod(), $form->getUri(), $form->getPhpValues(), $form->getPhpFiles(), $serverParameters);
+        return $this->request($form->getMethod(), $form->getUri(), $form->getPhpValues(), $form->getPhpFiles());
     }
 
     /**
@@ -311,7 +272,7 @@ abstract class Client
      *
      * @return Crawler
      */
-    public function request(string $method, string $uri, array $parameters = array(), array $files = array(), array $server = array(), string $content = null, bool $changeHistory = true)
+    public function request($method, $uri, array $parameters = array(), array $files = array(), array $server = array(), $content = null, $changeHistory = true)
     {
         if ($this->isMainRequest) {
             $this->redirectCount = 0;
@@ -385,7 +346,6 @@ abstract class Client
     {
         $deprecationsFile = tempnam(sys_get_temp_dir(), 'deprec');
         putenv('SYMFONY_DEPRECATIONS_SERIALIZE='.$deprecationsFile);
-        $_ENV['SYMFONY_DEPRECATIONS_SERIALIZE'] = $deprecationsFile;
         $process = new PhpProcess($this->getScript($request), null, null);
         $process->run();
 
@@ -394,7 +354,7 @@ abstract class Client
             unlink($deprecationsFile);
             foreach ($deprecations ? unserialize($deprecations) : array() as $deprecation) {
                 if ($deprecation[0]) {
-                    @trigger_error($deprecation[1], E_USER_DEPRECATED);
+                    trigger_error($deprecation[1], E_USER_DEPRECATED);
                 } else {
                     @trigger_error($deprecation[1], E_USER_DEPRECATED);
                 }
@@ -536,7 +496,7 @@ abstract class Client
 
         $request = $this->internalRequest;
 
-        if (\in_array($this->internalResponse->getStatus(), array(301, 302, 303))) {
+        if (in_array($this->internalResponse->getStatus(), array(301, 302, 303))) {
             $method = 'GET';
             $files = array();
             $content = null;

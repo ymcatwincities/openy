@@ -1,9 +1,7 @@
-Symfony Debug Extension for PHP 5
-=================================
+Symfony Debug Extension
+=======================
 
 This extension publishes several functions to help building powerful debugging tools.
-It is compatible with PHP 5.3, 5.4, 5.5 and 5.6; with ZTS and non-ZTS modes.
-It is not required thus not provided for PHP 7.
 
 symfony_zval_info()
 -------------------
@@ -124,6 +122,7 @@ array(3) {
 Usage
 -----
 
+The extension is compatible with ZTS mode, and should be supported by PHP5.3, 5.4, 5.5 and 5.6.
 To enable the extension from source, run:
 
 ```
