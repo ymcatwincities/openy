@@ -1,9 +1,9 @@
 <?php
 /*
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * THIS SOFTWARE IS PROVIDED BY THE COPYvalue HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYvalue
  * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
@@ -26,18 +26,12 @@ use Doctrine\Common\Collections\Expr\Value;
 /**
  * Builder for Expressions in the {@link Selectable} interface.
  *
- * Important Notice for interoperable code: You have to use scalar
- * values only for comparisons, otherwise the behavior of the comparison
- * may be different between implementations (Array vs ORM vs ODM).
- *
  * @author Benjamin Eberlei <kontakt@beberlei.de>
- * @since  2.3
+ * @since 2.3
  */
 class ExpressionBuilder
 {
     /**
-     * @param mixed $x
-     *
      * @return CompositeExpression
      */
     public function andX($x = null)
@@ -46,8 +40,6 @@ class ExpressionBuilder
     }
 
     /**
-     * @param mixed $x
-     *
      * @return CompositeExpression
      */
     public function orX($x = null)
@@ -57,7 +49,7 @@ class ExpressionBuilder
 
     /**
      * @param string $field
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return Comparison
      */
@@ -68,7 +60,7 @@ class ExpressionBuilder
 
     /**
      * @param string $field
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return Comparison
      */
@@ -79,7 +71,7 @@ class ExpressionBuilder
 
     /**
      * @param string $field
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return Comparison
      */
@@ -90,7 +82,7 @@ class ExpressionBuilder
 
     /**
      * @param string $field
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return Comparison
      */
@@ -101,7 +93,7 @@ class ExpressionBuilder
 
     /**
      * @param string $field
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return Comparison
      */
@@ -112,7 +104,7 @@ class ExpressionBuilder
 
     /**
      * @param string $field
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return Comparison
      */
@@ -123,17 +115,18 @@ class ExpressionBuilder
 
     /**
      * @param string $field
+     * @param mixed $value
      *
      * @return Comparison
      */
     public function isNull($field)
     {
-        return new Comparison($field, Comparison::EQ, new Value(null));
+        return new Comparison($field, Comparison::IS, new Value(null));
     }
 
     /**
      * @param string $field
-     * @param mixed  $values
+     * @param mixed $value
      *
      * @return Comparison
      */
@@ -144,7 +137,7 @@ class ExpressionBuilder
 
     /**
      * @param string $field
-     * @param mixed  $values
+     * @param mixed $value
      *
      * @return Comparison
      */
@@ -152,49 +145,5 @@ class ExpressionBuilder
     {
         return new Comparison($field, Comparison::NIN, new Value($values));
     }
-
-    /**
-     * @param string $field
-     * @param mixed  $value
-     *
-     * @return Comparison
-     */
-    public function contains($field, $value)
-    {
-        return new Comparison($field, Comparison::CONTAINS, new Value($value));
-    }
-
-    /**
-     * @param string $field
-     * @param mixed  $value
-     *
-     * @return Comparison
-     */
-    public function memberOf ($field, $value)
-    {
-        return new Comparison($field, Comparison::MEMBER_OF, new Value($value));
-    }
-
-    /**
-     * @param string $field
-     * @param mixed  $value
-     *
-     * @return Comparison
-     */
-    public function startsWith($field, $value)
-    {
-        return new Comparison($field, Comparison::STARTS_WITH, new Value($value));
-    }
-
-    /**
-     * @param string $field
-     * @param mixed  $value
-     *
-     * @return Comparison
-     */
-    public function endsWith($field, $value)
-    {
-        return new Comparison($field, Comparison::ENDS_WITH, new Value($value));
-    }    
-
 }
+

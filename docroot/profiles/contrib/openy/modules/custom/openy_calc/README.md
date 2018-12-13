@@ -1,6 +1,6 @@
-# Openy Calc
+# Open Y Membership Calculator
 
-Openy Membership Calculator implementation.
+Open Y Membership Calculator block implementation.
 
 ### How to cache membership data
 

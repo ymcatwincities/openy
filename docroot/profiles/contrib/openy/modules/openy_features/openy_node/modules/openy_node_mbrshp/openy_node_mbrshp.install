@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Membership install file.
+ * Open Y Node Membership install file.
  */
 
 /**
@@ -54,7 +54,7 @@ function openy_node_mbrshp_update_8002() {
  */
 function openy_node_mbrshp_update_8003() {
   $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';
-  // Import new configuration
+  // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
@@ -107,7 +107,7 @@ function openy_node_mbrshp_update_8006() {
   $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'field.field.node.membership.field_mbrshp_description' =>[
+    'field.field.node.membership.field_mbrshp_description' => [
       'description',
     ],
     'field.field.node.membership.field_mbrshp_image' => [
@@ -161,7 +161,7 @@ function openy_node_mbrshp_update_8008() {
   $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.membership.default' =>[
+    'core.entity_form_display.node.membership.default' => [
       'dependencies.module',
       'content',
     ],
@@ -177,7 +177,7 @@ function openy_node_mbrshp_update_8008() {
 }
 
 /**
- * Update OpenY membership node feature configs.
+ * Update Open Y membership node feature configs.
  */
 function openy_node_mbrshp_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';

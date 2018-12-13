@@ -38,6 +38,89 @@ function ymca_master_update_dependencies() {
       'system' => 8403,
     ],
   ];
+//
+//  $dependencies['openy_prgf_event_listing'] = [
+//    8001 => [
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_prgf'] = [
+//    8008 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_loc_facility'] = [
+//    8008 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_loc_branch'] = [
+//    8016 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_node_session'] = [
+//    8009 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_node'] = [
+//    8006 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_location'] = [
+//    8002 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_node_category'] = [
+//    8015 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_node_activity'] = [
+//    8007 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_media'] = [
+//    8004 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['ymca_master'] = [
+//    8296 => [
+//      'openy_node_alert' => 8010,
+//      'openy_node_session' => 8009,
+//    ],
+//  ];
+//
+//  $dependencies['openy_node_alert'] = [
+//    8009 => [
+//      'openy_node_session' => 8010,
+//    ],
+//  ];
+//
 
   return $dependencies;
 }
@@ -6711,4 +6794,23 @@ function ymca_master_update_8294() {
 function ymca_master_update_8295() {
   drupal_flush_all_caches();
   \Drupal::service('module_installer')->install(['ludwig'], TRUE);
+}
+
+/**
+ * Enable openy_pef_gxp_sync.
+ */
+function ymca_master_update_8296() {
+  drupal_flush_all_caches();
+  $installer = \Drupal::service('module_installer');
+  $modules = [
+    'openy_pef_gxp_sync',
+    'openy_gxp',
+    'openy_repeat',
+    'openy_prgf_repeat_schedules_loc',
+    'openy_prgf_repeat_schedules',
+  ];
+
+  foreach ($modules as $module) {
+    $installer->install([$module], TRUE);
+  }
 }

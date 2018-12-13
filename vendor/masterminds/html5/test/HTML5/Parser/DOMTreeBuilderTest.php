@@ -58,80 +58,6 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
         $this->assertEquals('http://www.w3.org/1999/xhtml', $doc->documentElement->namespaceURI);
     }
 
-    public function testBareAmpersand()
-    {
-        $html = "<!doctype html>
-        <html>
-            <body> 
-                <img src='a&b' />
-                <img src='a&=' />
-                <img src='a&=c' />
-                <img src='a&=9' />
-            </body>
-        </html>";
-        $doc = $this->parse($html);
-
-        $this->assertEmpty($this->errors);
-        $this->assertXmlStringEqualsXmlString('
-        <!DOCTYPE html>
-        <html xmlns="http://www.w3.org/1999/xhtml"><body> 
-                <img src="a&amp;b"/>
-                <img src="a&amp;="/>
-                <img src="a&amp;=c"/>
-                <img src="a&amp;=9"/>
-            </body>
-        </html>', $doc->saveXML());
-    }
-
-    public function testBareAmpersandNotAllowedInAttributes()
-    {
-        $html = "<!doctype html>
-        <html>
-            <body>
-                <img src='a&' />
-                <img src='a&+' />
-            </body>
-        </html>";
-        $doc = $this->parse($html);
-
-        $this->assertCount(2, $this->errors);
-        $this->assertXmlStringEqualsXmlString('
-        <!DOCTYPE html>
-        <html xmlns="http://www.w3.org/1999/xhtml"><body> 
-                <img src="a&amp;"/>
-                <img src="a&amp;+"/>
-            </body>
-        </html>', $doc->saveXML());
-    }
-    public function testBareAmpersandNotAllowedInBody()
-    {
-        $html = "<!doctype html>
-        <html>
-            <body> 
-                a&b
-                a&=
-                a&=c
-                a&=9
-                a&+
-                a& -- valid
-            </body>
-        </html>";
-        $doc = $this->parse($html);
-
-        $this->assertCount(5, $this->errors);
-        $this->assertXmlStringEqualsXmlString('
-        <!DOCTYPE html>
-        <html xmlns="http://www.w3.org/1999/xhtml"><body> 
-                a&amp;b
-                a&amp;=
-                a&amp;=c
-                a&amp;=9
-                a&amp;+
-                a&amp; -- valid
-            </body>
-        </html>', $doc->saveXML());
-    }
-
     public function testStrangeCapitalization()
     {
         $html = "<!doctype html>
@@ -174,7 +100,7 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
         $this->assertSame($doc, $targetDom);
         $this->assertEquals('html', $doc->documentElement->tagName);
     }
-
+    
     public function testDocumentFakeAttrAbsence()
     {
         $html = "<!DOCTYPE html><html xmlns=\"http://www.w3.org/1999/xhtml\"><body>foo</body></html>";
@@ -569,12 +495,6 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
         $this->assertEmpty($this->errors);
         $noscript = $doc->getElementsByTagName('noscript')->item(0);
         $this->assertEquals('noscript', $noscript->tagName);
-
-        $html = '<!DOCTYPE html><html><body><noscript><p>No JS</p></noscript></body></html>';
-        $doc = $this->parse($html);
-        $this->assertEmpty($this->errors);
-        $p = $doc->getElementsByTagName('p')->item(0);
-        $this->assertEquals('p', $p->tagName);
     }
 
     /**
@@ -613,34 +533,5 @@ class DOMTreeBuilderTest extends \Masterminds\HTML5\Tests\TestCase
         $this->assertEquals('bar ', $is->data);
         $this->assertEquals('div', $div->tagName);
         $this->assertEquals('foo', $div->textContent);
-    }
-
-    public function testSelectGroupedOptions()
-    {
-        $html = <<<EOM
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>testSelectGroupedOptions</title>
-    </head>
-    <body>
-        <select>
-            <optgroup id="first" label="first">
-                <option value="foo">foo</option>
-                <option value="bar">bar</option>
-                <option value="baz">baz</option>
-            </optgroup>
-            <optgroup id="second" label="second">
-                <option value="lorem">lorem</option>
-                <option value="ipsum">ipsum</option>
-            </optgroup>
-         </select>
-    </body>
-</html>
-EOM;
-        $dom  = $this->parse($html);
-
-        $this->assertSame(3, $dom->getElementById('first')->getElementsByTagName('option')->length);
-        $this->assertSame(2, $dom->getElementById('second')->getElementsByTagName('option')->length);
     }
 }

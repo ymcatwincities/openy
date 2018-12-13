@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node install file.
+ * Open Y Node install file.
  */
 
 /**
@@ -37,7 +37,7 @@ function openy_node_update_8001() {
 function openy_node_update_8002() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_node');
-  $config .= '/config/install/';
+  $config .= '/config/optional/';
   $config .= 'tour.tour.openy-node-add.yml';
   $config_importer->update($config, 'tour.tour.openy-node-add', 'tips');
 }
@@ -79,7 +79,28 @@ function openy_node_update_8004() {
 function openy_node_update_8005() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_node');
-  $config .= '/config/install/';
+  $config .= '/config/optional/';
   $config .= 'tour.tour.openy-landing-page-add.yml';
   $config_importer->update($config, 'tour.tour.openy-landing-page-add', 'tips');
+}
+
+/**
+ * Fix shared field storage configs issue (set persist_with_no_fields to TRUE).
+ */
+function openy_node_update_8006() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_path = drupal_get_path('module', 'openy_node') . '/config/install/';
+  $configs = [
+    'field.storage.node.field_bottom_content',
+    'field.storage.node.field_content',
+    'field.storage.node.field_header_content',
+    'field.storage.node.field_meta_tags',
+    'field.storage.node.field_sidebar_content',
+  ];
+  foreach ($configs as $config) {
+    $config_importer->update($config_path . $config . '.yml',
+      $config,
+      'persist_with_no_fields'
+    );
+  }
 }

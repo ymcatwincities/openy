@@ -24,7 +24,7 @@ class NotIdenticalToValidatorTest extends AbstractComparisonValidatorTestCase
         return new NotIdenticalToValidator();
     }
 
-    protected function createConstraint(array $options = null)
+    protected function createConstraint(array $options)
     {
         return new NotIdenticalTo($options);
     }

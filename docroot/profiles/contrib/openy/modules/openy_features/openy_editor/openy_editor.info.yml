@@ -1,11 +1,13 @@
-name: 'OpenY Editor'
+name: Open Y Editor
+description: Stores an editor and text filters configuration.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - ckeditor
-  - colorbutton
   - editor
   - entity_embed
   - filter
   - token_filter
+  - colorbutton

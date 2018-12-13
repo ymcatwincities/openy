@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2012-2017 Anthon Pang. All Rights Reserved.
+ * Copyright 2012-2013 Anthon Pang. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ interface CurlServiceInterface
      *
      * @return array
      *
-     * @throws \WebDriver\Exception\CurlExec only if http error and CURLOPT_FAILONERROR has been set in extraOptions
+     * @throws \WebDriver\Exception if error
      */
     public function execute($requestMethod, $url, $parameters = null, $extraOptions = array());
 }

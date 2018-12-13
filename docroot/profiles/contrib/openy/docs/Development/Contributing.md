@@ -1,4 +1,4 @@
-Contributing to OpenY
+Contributing to Open Y
 =====
 
 # Issues

@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alert_belongs
+    - node.type.alert
+id: node.alert.field_alert_belongs
+field_name: field_alert_belongs
+entity_type: node
+bundle: alert
+label: Reference
+description: 'Reference to node (branch, camp, landing page and etc.), where local alert will be displayed.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: alert_belongs_reference
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

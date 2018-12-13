@@ -12,7 +12,6 @@ use Consolidation\OutputFormatters\StructuredData\TableDataInterface;
 use Consolidation\OutputFormatters\Transformations\ReorderFields;
 use Consolidation\OutputFormatters\Exception\IncompatibleDataException;
 use Consolidation\OutputFormatters\Transformations\WordWrapper;
-use Consolidation\OutputFormatters\Formatters\HumanReadableFormat;
 
 /**
  * Display a table of data with the Symfony Table class.
@@ -24,11 +23,10 @@ use Consolidation\OutputFormatters\Formatters\HumanReadableFormat;
  * as two columns, with the key in the first column and the
  * value in the second column.
  */
-class TableFormatter implements FormatterInterface, ValidDataTypesInterface, RenderDataInterface, MetadataFormatterInterface, HumanReadableFormat
+class TableFormatter implements FormatterInterface, ValidDataTypesInterface, RenderDataInterface
 {
     use ValidDataTypesTrait;
     use RenderTableDataTrait;
-    use MetadataFormatterTrait;
 
     protected $fieldLabels;
     protected $defaultFields;

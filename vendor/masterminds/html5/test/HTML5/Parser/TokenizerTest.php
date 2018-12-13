@@ -198,6 +198,7 @@ class TokenizerTest extends \Masterminds\HTML5\Tests\TestCase
             '<!-- 1 > 0 -->' => ' 1 > 0 ',
             '<!-- --$i -->' => ' --$i ',
             '<!----$i-->' => '--$i',
+            '<!-- 1 > 0 -->' => ' 1 > 0 ',
             "<!--\nHello World.\na-->" => "\nHello World.\na",
             '<!-- <!-- -->' => ' <!-- '
         );
@@ -622,24 +623,10 @@ class TokenizerTest extends \Masterminds\HTML5\Tests\TestCase
                 ),
                 false
             ),
-            "<foo a='blue&red'>" => array(
-                'foo',
-                array(
-                    'a' => 'blue&red'
-                ),
-                false
-            ),
             "<foo a='blue&amp;red'>" => array(
                 'foo',
                 array(
                     'a' => 'blue&red'
-                ),
-                false
-            ),
-            "<foo a='blue&&amp;&red'>" => array(
-                'foo',
-                array(
-                    'a' => 'blue&&&red'
                 ),
                 false
             ),
@@ -739,11 +726,18 @@ class TokenizerTest extends \Masterminds\HTML5\Tests\TestCase
 
         // Cause a parse error.
         $bad = array(
-            // This will emit an entity lookup failure for &+dark.
-            "<foo a='blue&+dark'>" => array(
+            // This will emit an entity lookup failure for &red.
+            "<foo a='blue&red'>" => array(
                 'foo',
                 array(
-                    'a' => 'blue&+dark'
+                    'a' => 'blue&red'
+                ),
+                false
+            ),
+            "<foo a='blue&&amp;&red'>" => array(
+                'foo',
+                array(
+                    'a' => 'blue&&&red'
                 ),
                 false
             ),
@@ -947,10 +941,6 @@ class TokenizerTest extends \Masterminds\HTML5\Tests\TestCase
         $events = $this->parse('a&amp;b');
         $this->assertEquals(2, $events->depth(), "Events: " . print_r($events, true));
         $this->assertEventEquals('text', 'a&b', $events->get(0));
-
-        $events = $this->parse('a&sup2;b');
-        $this->assertEquals(2, $events->depth(), "Events: " . print_r($events, true));
-        $this->assertEventEquals('text', 'a²b', $events->get(0));
     }
 
     // ================================================================

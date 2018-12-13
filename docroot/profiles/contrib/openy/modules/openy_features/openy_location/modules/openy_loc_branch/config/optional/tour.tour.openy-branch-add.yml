@@ -4,7 +4,7 @@ dependencies:
   module:
     - openy_node
 id: openy-branch-add
-label: 'OpenY Node Branch Add'
+label: 'Open Y Node Branch Add'
 module: openy_node
 routes:
   -

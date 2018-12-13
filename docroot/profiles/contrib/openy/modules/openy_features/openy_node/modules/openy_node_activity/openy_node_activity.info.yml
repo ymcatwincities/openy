@@ -1,17 +1,16 @@
-name: 'OpenY Activity'
-description: 'OpenY Activity.'
+name: Open Y Node Activity
+description: Provides an Activity content type and related configuration.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - field_group
   - menu_ui
   - node
-  - openy_node_category
   - path
   - pathauto
   - rabbit_hole
-  - scheduler
   - text
   - user

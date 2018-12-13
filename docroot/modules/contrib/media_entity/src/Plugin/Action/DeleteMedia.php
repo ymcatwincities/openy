@@ -23,7 +23,7 @@ class DeleteMedia extends ActionBase implements ContainerFactoryPluginInterface 
   /**
    * The tempstore object.
    *
-   * @var \Drupal\user\SharedTempStore
+   * @var \Drupal\Core\TempStore\PrivateTempStoreFactory|\Drupal\user\PrivateTempStoreFactory
    */
   protected $tempStore;
 
@@ -43,12 +43,12 @@ class DeleteMedia extends ActionBase implements ContainerFactoryPluginInterface 
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\user\PrivateTempStoreFactory $temp_store_factory
+   * @param \Drupal\Core\TempStore\PrivateTempStoreFactory|\Drupal\user\PrivateTempStoreFactory $temp_store_factory
    *   The tempstore factory.
    * @param AccountInterface $current_user
    *   Current user.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, PrivateTempStoreFactory $temp_store_factory, AccountInterface $current_user) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, $temp_store_factory, AccountInterface $current_user) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->currentUser = $current_user;
     $this->tempStore = $temp_store_factory->get('media_multiple_delete_confirm');
@@ -62,7 +62,8 @@ class DeleteMedia extends ActionBase implements ContainerFactoryPluginInterface 
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('user.private_tempstore'),
+      // The tempstore.private service is only available in Drupal 8.5+.
+      $container->has('tempstore.private') ? $container->get('tempstore.private') : $container->get('user.private_tempstore'),
       $container->get('current_user')
     );
   }

@@ -4,13 +4,10 @@ namespace Consolidation\OutputFormatters;
 use Consolidation\OutputFormatters\Exception\IncompatibleDataException;
 use Consolidation\OutputFormatters\Exception\InvalidFormatException;
 use Consolidation\OutputFormatters\Exception\UnknownFormatException;
-use Consolidation\OutputFormatters\Formatters\FormatterAwareInterface;
 use Consolidation\OutputFormatters\Formatters\FormatterInterface;
-use Consolidation\OutputFormatters\Formatters\MetadataFormatterInterface;
 use Consolidation\OutputFormatters\Formatters\RenderDataInterface;
 use Consolidation\OutputFormatters\Options\FormatterOptions;
 use Consolidation\OutputFormatters\Options\OverrideOptionsInterface;
-use Consolidation\OutputFormatters\StructuredData\MetadataInterface;
 use Consolidation\OutputFormatters\StructuredData\RestructureInterface;
 use Consolidation\OutputFormatters\Transformations\DomToArraySimplifier;
 use Consolidation\OutputFormatters\Transformations\OverrideRestructureInterface;
@@ -50,9 +47,6 @@ class FormatterManager
             'table' => '\Consolidation\OutputFormatters\Formatters\TableFormatter',
             'sections' => '\Consolidation\OutputFormatters\Formatters\SectionsFormatter',
         ];
-        if (class_exists('Symfony\Component\VarDumper\Dumper\CliDumper')) {
-             $defaultFormatters['var_dump'] = '\Consolidation\OutputFormatters\Formatters\VarDumpFormatter';
-        }
         foreach ($defaultFormatters as $id => $formatterClassname) {
             $formatter = new $formatterClassname;
             $this->addFormatter($id, $formatter);
@@ -208,16 +202,10 @@ class FormatterManager
             $validFormats = $this->validFormats($structuredOutput);
             throw new InvalidFormatException((string)$format, $structuredOutput, $validFormats);
         }
-        if ($structuredOutput instanceof FormatterAwareInterface) {
-            $structuredOutput->setFormatter($formatter);
-        }
         // Give the formatter a chance to override the options
         $options = $this->overrideOptions($formatter, $structuredOutput, $options);
-        $restructuredOutput = $this->validateAndRestructure($formatter, $structuredOutput, $options);
-        if ($formatter instanceof MetadataFormatterInterface) {
-            $formatter->writeMetadata($output, $structuredOutput, $options);
-        }
-        $formatter->write($output, $restructuredOutput, $options);
+        $structuredOutput = $this->validateAndRestructure($formatter, $structuredOutput, $options);
+        $formatter->write($output, $structuredOutput, $options);
     }
 
     protected function validateAndRestructure(FormatterInterface $formatter, $structuredOutput, FormatterOptions $options)

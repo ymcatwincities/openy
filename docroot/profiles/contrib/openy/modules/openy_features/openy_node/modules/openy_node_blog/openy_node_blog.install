@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Node Blog install file.
+ * Open Y Node Blog install file.
  */
 
 /**
@@ -210,7 +210,7 @@ function openy_node_blog_update_8008() {
 }
 
 /**
- * Update OpenY node blog feature configs.
+ * Update Open Y node blog feature configs.
  */
 function openy_node_blog_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_node_blog') . '/config/install/';
@@ -250,7 +250,7 @@ function openy_node_blog_update_8009() {
 }
 
 /**
- * Update OpenY node blog feature configs for Focal Point support.
+ * Update Open Y node blog feature configs for Focal Point support.
  */
 function openy_node_blog_update_8010() {
   $config_dir = drupal_get_path('module', 'openy_node_blog') . '/config/install/';
@@ -289,6 +289,53 @@ function openy_node_blog_update_8011() {
     ],
   ];
 
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs after entity reference handler update and configs actualization.
+ */
+function openy_node_blog_update_8012() {
+  $config_dir = drupal_get_path('module', 'openy_node_blog') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.node.blog.field_blog_location' => [
+      'settings',
+      'dependencies',
+      'third_party_settings'
+    ],
+    'field.field.node.blog.field_blog_related' => [
+      'dependencies',
+      'description',
+      'settings.auto_create_bundle'
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update node blog image view mode for teaser.
+ */
+function openy_node_blog_update_8013() {
+  $config_dir = drupal_get_path('module', 'openy_node_blog') . '/config/install/';
+  $configs = [
+    'core.entity_view_display.node.blog.teaser' => [
+      'content.field_blog_image.settings.view_mode',
+    ],
+  ];
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';

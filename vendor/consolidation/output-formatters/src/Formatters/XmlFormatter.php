@@ -51,9 +51,6 @@ class XmlFormatter implements FormatterInterface, ValidDataTypesInterface
         if ($structuredData instanceof DomDataInterface) {
             return $structuredData->getDomData();
         }
-        if ($structuredData instanceof \ArrayObject) {
-            return $structuredData->getArrayCopy();
-        }
         if (!is_array($structuredData)) {
             throw new IncompatibleDataException(
                 $this,

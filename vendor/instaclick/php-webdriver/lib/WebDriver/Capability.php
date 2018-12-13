@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011-2017 Fabrizio Branca. All Rights Reserved.
+ * Copyright 2011-2013 Fabrizio Branca. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,6 @@ class Capability
     const NATIVE_EVENTS              = 'nativeEvents';
     const PROXY                      = 'proxy';
     const UNEXPECTED_ALERT_BEHAVIOUR = 'unexpectedAlertBehaviour';
-    const ELEMENT_SCROLL_BEHAVIOR    = 'elementScrollBehavior';
 
     /**
      * Proxy types

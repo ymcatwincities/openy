@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-class Twig_Tests_FileExtensionEscapingStrategyTest extends \PHPUnit\Framework\TestCase
+class Twig_Tests_FileExtensionEscapingStrategyTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getGuessData

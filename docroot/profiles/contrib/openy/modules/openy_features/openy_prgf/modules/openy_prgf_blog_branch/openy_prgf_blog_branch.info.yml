@@ -1,8 +1,9 @@
-name: 'OpenY Paragraph Latest Blog Posts (Branch)'
-description: 'OpenY Paragraph Latest Blog Posts (Branch).'
+name: Open Y Paragraph Latest Blog Posts (Branch)
+description: Provides a dynamic paragraph that renders the latest blog posts associated with a branch.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - node

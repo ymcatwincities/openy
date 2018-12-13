@@ -1,8 +1,9 @@
-name: 'OpenY Paragraph Featured Highlights'
-description: 'Provide paragraph containing Featured Highlight blocks.'
+name: Open Y Paragraph Featured Highlights
+description: Provides a paragraph containing Featured Highlights blocks.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - block_content
   - content_moderation
@@ -10,10 +11,7 @@ dependencies:
   - entity_browser_entity_form
   - field
   - inline_entity_form
-  - openy_block_basic
-  - openy_block_custom_simple
-  - openy_block_date
-  - openy_block_featured_highlights
+  - openy_er
   - openy_prgf
   - options
   - paragraphs

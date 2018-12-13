@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) Fabien Potencier
+ * (c) 2010-2012 Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,8 +11,6 @@
 
 /**
  * Represents a template function.
- *
- * @final
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
@@ -94,11 +92,6 @@ class Twig_SimpleFunction
 
     public function isDeprecated()
     {
-        return (bool) $this->options['deprecated'];
-    }
-
-    public function getDeprecatedVersion()
-    {
         return $this->options['deprecated'];
     }
 
@@ -107,5 +100,3 @@ class Twig_SimpleFunction
         return $this->options['alternative'];
     }
 }
-
-class_alias('Twig_SimpleFunction', 'Twig\TwigFunction', false);

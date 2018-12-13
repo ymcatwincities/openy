@@ -1,13 +1,13 @@
-name: OpenY
+name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
 core: 8.x
-version: '8.1.11'
+version: '8.x-2.0-beta.1'
 distribution:
-  name: OpenY
+  name: Open Y
   install:
-      theme: openy_admin
-php: 5.6
+    theme: openy_admin
+php: 7.0
 # Required modules
 dependencies:
   # Core modules.
@@ -17,200 +17,73 @@ dependencies:
   - ckeditor
   - color
   - config
-  - contextual
   - contact
-  - menu_link_content
+  - contextual
+  - dblog
   - datetime
   - datetime_range
-  - block_content
-  - quickedit
   - editor
   - entity_reference
+  - field_ui
+  - file
   - help
   - history
   - image
+  - link
+  - menu_link_content
   - menu_ui
+  - migrate
   - node
   - options
-  - path
   - page_cache
-  - telephone
-  - taxonomy
-  - text
-  - dblog
-  - shortcut
-  - toolbar
-  - field_ui
-  - file
+  - path
+  - quickedit
   - rdf
+  - shortcut
+  - system
+  - taxonomy
+  - telephone
+  - text
+  - toolbar
   - views
   - views_ui
-  - link
-  - migrate
   - tour
   # Contrib modules.
+  - admin_toolbar
+  - captcha
+  - ckeditor_bootstrap_buttons
+  - config_import
   - features
   - features_ui
-  - config_import
-  - field_group
-  - address
-  - datalayer
-  - paragraphs
-  - plugin
-  - pathauto
-  - media_entity
-  - views_block_filter_block
-  - libraries
-  - migrate_plus
-  - migrate_tools
-  - optimizely
-  - verf
-  - simple_menu_icons
-  - slick
-  - slick_ui
-  - slick_views
-  - blazy
-  - blazy_ui
-  - geolocation
-  - rabbit_hole
-  - rh_node
-  - rh_taxonomy
-  - redirect
-  - simple_sitemap
+  - fontyourface
+  - image_captcha
+  - local_fonts
   - metatag
   - metatag_open_graph
-  - google_tag
-  - google_analytics
-  - scheduler
-  - webform
-  - webform_ui
-  - captcha
-  - image_captcha
+  - plugin
   - recaptcha
-  - admin_toolbar
-  - colorbutton
-  - better_exposed_filters
-  - custom_formatters
-  - token_filter
-  - views_field_formatter
-  - ctools
-  - lndr
-  - crop
-  - focal_point
-  - video
-  - media_entity_video
-  - easy_breadcrumb
-  - ckeditor_bootstrap_buttons
-  - fontyourface
-  - local_fonts
-  - css_editor
-  # OpenY features.
-  - openy_svg_formatter
+  - simple_menu_icons
+  # Open Y
+  - advanced_help_block
+  - logger_entity
+  - openy_autocomplete_path
+  - openy_block_custom_simple
+  - openy_datalayer
+  - openy_editor
+  - openy_menu_main
+  - openy_menu_footer
   - openy_media_image
   - openy_media_document
   - openy_media_video
   - openy_media_local_video
-  - openy_node_mbrshp
-  - openy_node
-  - openy_block
-  - openy_block_basic
-  - openy_block_menu
-  - openy_code_block
-  - openy_datalayer
-  - openy_taxonomy
-  - openy_txnm_amenities
-  - openy_txnm_color
-#  - openy_location
-#  - openy_loc_branch
-#  - openy_loc_camp
-  - openy_loc_facility
-  - openy_node_landing
-  - openy_node_program
-  - openy_node_category
-#  - openy_node_blog
-  - openy_node_event
-  - openy_prgf
-  - openy_prgf_small_banner
-  - openy_prgf_banner
-  - openy_prgf_branches_popup_all
-  - openy_prgf_branches_popup_class
-  - openy_prgf_class_location
-  - openy_prgf_code_block
-  - openy_prgf_simple_content
-  - openy_prgf_schedule_search
-  - openy_prgf_featured_content
-  - openy_prgf_grid_content
-#  - openy_prgf_group_schedules
-  - openy_prgf_story_card
-  - openy_prgf_promo_card
-  - openy_prgf_secondary_description_sidebar
-#  - openy_prgf_featured_blogs
-  - openy_prgf_featured_highlights
-  - openy_prgf_gallery
-  - openy_prgf_teaser
-  - openy_prgf_classes_listing
-  - openy_prgf_class_sessions
-#  - openy_prgf_blog_latest
-#  - openy_prgf_blog_camp
-#  - openy_prgf_blog_branch
-#  - openy_prgf_blog_listing
-  - openy_prgf_block_date
-  - openy_prgf_loc_finder
-  - openy_prgf_location_by_amenities
-  - openy_prgf_mbrshp_calc
-  - openy_prgf_microsites_menu
-  - openy_prgf_embedded_groupexpro_schedule
-  - openy_prgf_pgm_reg
-  - openy_prgf_webform
-  - openy_prgf_event_latest
-  - openy_prgf_event_listing
-  - openy_node_activity
-  - openy_node_class
-  - openy_node_session
-  - openy_menu
-  - openy_menu_main
-  - openy_menu_footer
-  - openy_prgf_categories_listing
-  - openy_prgf_camp_menu
-  - openy_block_branch_amenities
-  - openy_block_custom_simple
-  - openy_block_flexible_content
-  - openy_editor
-  - openy_prgf_1c
-  - openy_prgf_2c
-  - openy_prgf_3c
-  - openy_prgf_4c
-  - openy_prgf_amenities
-  - openy_prgf_lto
-  # OpenY custom modules
-  - openy_addthis
-  - openy_branch_selector
-  - openy_field_hours
-#  - openy_group_schedules
-  - groupex_form_cache
-  - openy_hf
-  - openy_ckeditor
-  - openy_hours_formatter
   - openy_migrate
-  - openy_map
-  - openy_moderation_wrapper
-  - openy_popups
-  - openy_session_instance
-  - openy_schedules
-  - openy_socrates
-  - openy_tour
-  - location_finder
-  - daxko
-  - openy_programs_search
-  - openy_mappings
-  - openy_calc
-  - openy_data_wrapper
-  - logger_entity
+  - openy_node_landing
   - openy_redirect
-  - openy_gtranslate
-
+  - openy_system
+  - openy_taxonomy
+  - openy_tour
+  - openy_upgrade_tool
 themes:
   - bartik
-  - openy_rose
   - openy_admin
   - seven

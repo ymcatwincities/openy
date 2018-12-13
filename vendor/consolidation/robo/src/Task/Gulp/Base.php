@@ -4,7 +4,7 @@ namespace Robo\Task\Gulp;
 
 use Robo\Task\BaseTask;
 use Robo\Exception\TaskException;
-use Robo\Common\ProcessUtils;
+use Symfony\Component\Process\ProcessUtils;
 
 abstract class Base extends BaseTask
 {

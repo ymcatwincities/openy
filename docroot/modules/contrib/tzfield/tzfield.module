@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Time zone field module.
+ */
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function tzfield_field_formatter_info_alter(array &$info) {
+  // Let the tzfield field type re-use the core basic string formatter.
+  $info['basic_string']['field_types'][] = 'tzfield';
+}

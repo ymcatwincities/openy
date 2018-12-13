@@ -1,7 +1,6 @@
 <?php
 namespace Robo;
 
-use Composer\Autoload\ClassLoader;
 use League\Container\Container;
 use League\Container\ContainerInterface;
 use Robo\Common\ProcessExecutor;
@@ -20,7 +19,7 @@ use Symfony\Component\Process\Process;
 class Robo
 {
     const APPLICATION_NAME = 'Robo';
-    const VERSION = '1.3.0';
+    const VERSION = '1.1.5';
 
     /**
      * The currently active container object, or NULL if not initialized yet.
@@ -128,11 +127,10 @@ class Robo
      * @param null|\Symfony\Component\Console\Output\OutputInterface $output
      * @param null|\Robo\Application $app
      * @param null|ConfigInterface $config
-     * @param null|\Composer\Autoload\ClassLoader $classLoader
      *
      * @return \League\Container\Container|\League\Container\ContainerInterface
      */
-    public static function createDefaultContainer($input = null, $output = null, $app = null, $config = null, $classLoader = null)
+    public static function createDefaultContainer($input = null, $output = null, $app = null, $config = null)
     {
         // Do not allow this function to be called more than once.
         if (static::hasContainer()) {
@@ -149,7 +147,7 @@ class Robo
 
         // Set up our dependency injection container.
         $container = new Container();
-        static::configureContainer($container, $app, $config, $input, $output, $classLoader);
+        static::configureContainer($container, $app, $config, $input, $output);
 
         // Set the application dispatcher
         $app->setDispatcher($container->get('eventDispatcher'));
@@ -177,9 +175,8 @@ class Robo
      * @param ConfigInterface $config
      * @param null|\Symfony\Component\Console\Input\InputInterface $input
      * @param null|\Symfony\Component\Console\Output\OutputInterface $output
-     * @param null|\Composer\Autoload\ClassLoader $classLoader
      */
-    public static function configureContainer(ContainerInterface $container, SymfonyApplication $app, ConfigInterface $config, $input = null, $output = null, $classLoader = null)
+    public static function configureContainer(ContainerInterface $container, SymfonyApplication $app, ConfigInterface $config, $input = null, $output = null)
     {
         // Self-referential container refernce for the inflector
         $container->add('container', $container);
@@ -192,9 +189,6 @@ class Robo
         if (!$output) {
             $output = new \Symfony\Component\Console\Output\ConsoleOutput();
         }
-        if (!$classLoader) {
-            $classLoader = new ClassLoader();
-        }
         $config->set(Config::DECORATED, $output->isDecorated());
         $config->set(Config::INTERACTIVE, $input->isInteractive());
 
@@ -203,7 +197,6 @@ class Robo
         $container->share('input', $input);
         $container->share('output', $output);
         $container->share('outputAdapter', \Robo\Common\OutputAdapter::class);
-        $container->share('classLoader', $classLoader);
 
         // Register logging and related services.
         $container->share('logStyler', \Robo\Log\RoboLogStyle::class);
@@ -252,8 +245,6 @@ class Robo
             );
         $container->share('commandFactory', \Consolidation\AnnotatedCommand\AnnotatedCommandFactory::class)
             ->withMethodCall('setCommandProcessor', ['commandProcessor']);
-        $container->share('relativeNamespaceDiscovery', \Robo\ClassDiscovery\RelativeNamespaceDiscovery::class)
-            ->withArgument('classLoader');
 
         // Deprecated: favor using collection builders to direct use of collections.
         $container->add('collection', \Robo\Collection\Collection::class);

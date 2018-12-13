@@ -14,7 +14,9 @@
 function _media_entity_check_entity_version() {
   if (\Drupal::moduleHandler()->moduleExists('entity')) {
     $info = system_get_info('module', 'entity');
-    if (version_compare($info['version'], '8.x-1.0-alpha3') >= 0) {
+    // Do not attempt version checks on development versions, which don't have
+    // a version tag.
+    if (empty($info['version']) || version_compare($info['version'], '8.x-1.0-alpha3') >= 0) {
       return TRUE;
     }
   }

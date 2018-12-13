@@ -1,8 +1,9 @@
-name: 'OpenY Media Document'
-description: 'OpenY Media Document.'
+name: 'Open Y Media Document'
+description: Provides a Document media entity and features.
 type: module
 core: 8.x
-package: OpenY
+version: 8.x-1.0
+package: Open Y
 dependencies:
   - dropzonejs_eb_widget
   - embed
@@ -14,7 +15,6 @@ dependencies:
   - media_entity
   - media_entity_document
   - openy_media
-  - openy_media_document
   - path
   - taxonomy
   - user

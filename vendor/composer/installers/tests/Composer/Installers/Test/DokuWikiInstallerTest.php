@@ -4,9 +4,8 @@ namespace Composer\Installers\Test;
 use Composer\Installers\DokuWikiInstaller;
 use Composer\Package\Package;
 use Composer\Composer;
-use PHPUnit\Framework\TestCase as BaseTestCase;
 
-class DokuWikiInstallerTest extends BaseTestCase
+class DokuWikiInstallerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var DokuWikiInstaller

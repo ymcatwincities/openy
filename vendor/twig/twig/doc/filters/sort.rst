@@ -15,4 +15,4 @@ The ``sort`` filter sorts an array:
     association. It supports Traversable objects by transforming
     those to arrays.
 
-.. _`asort`: https://secure.php.net/asort
+.. _`asort`: http://php.net/asort

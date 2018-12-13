@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Block Custom Simple install file.
+ * Open Y Block Custom Simple install file.
  */
 
 /**
@@ -40,22 +40,4 @@ function openy_block_custom_simple_update_8002() {
       $config_updater->update($config, $config_name, $param);
     }
   }
-}
-
-/**
- * Import missed configs.
- */
-function openy_block_custom_simple_update_8003() {
-  $config_dir = drupal_get_path('module', 'openy_block_custom_simple') . '/config/install/';
-  // Update multiple configurations.
-  $configs = [
-    'field.storage.block_content.field_icon_class',
-    'field.field.block_content.simple_block.field_icon_class',
-    'field.storage.block_content.field_icon',
-    'field.field.block_content.simple_block.field_icon',
-  ];
-
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs($configs);
 }

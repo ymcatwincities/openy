@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2017 Facebook. All Rights Reserved.
+ * Copyright 2004-2013 Facebook. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,10 +56,6 @@ class CurlService implements CurlServiceInterface
                     $customHeaders[] = 'Content-Length: 0';
                 }
 
-                // Suppress "Expect: 100-continue" header automatically added by cURL that
-                // causes a 1 second delay if the remote server does not support Expect.
-                $customHeaders[] = 'Expect:';
-
                 curl_setopt($curl, CURLOPT_POST, true);
                 break;
 
@@ -74,10 +70,6 @@ class CurlService implements CurlServiceInterface
                     $customHeaders[] = 'Content-Length: 0';
                 }
 
-                // Suppress "Expect: 100-continue" header automatically added by cURL that
-                // causes a 1 second delay if the remote server does not support Expect.
-                $customHeaders[] = 'Expect:';
-
                 curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
                 break;
         }
@@ -88,35 +80,23 @@ class CurlService implements CurlServiceInterface
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, $customHeaders);
 
-        $rawResult = trim(curl_exec($curl));
-
+        $rawResults = trim(curl_exec($curl));
         $info = curl_getinfo($curl);
-        $info['request_method'] = $requestMethod;
 
-        if (array_key_exists(CURLOPT_FAILONERROR, $extraOptions) &&
-            $extraOptions[CURLOPT_FAILONERROR] &&
-            CURLE_GOT_NOTHING !== ($errno = curl_errno($curl)) &&
-            $error = curl_error($curl)
-        ) {
-            curl_close($curl);
-
-            throw WebDriverException::factory(
-                WebDriverException::CURL_EXEC,
-                sprintf(
-                    "Curl error thrown for http %s to %s%s\n\n%s",
-                    $requestMethod,
-                    $url,
-                    $parameters && is_array($parameters) ? ' with params: ' . json_encode($parameters) : '',
-                    $error
-                ),
-                $errno,
-                null,
-                $info
+        if (CURLE_GOT_NOTHING !== curl_errno($curl) && $error = curl_error($curl)) {
+            $message = sprintf(
+                'Curl error thrown for http %s to %s%s',
+                $requestMethod,
+                $url,
+                $parameters && is_array($parameters)
+                ? ' with params: ' . json_encode($parameters) : ''
             );
+
+            throw WebDriverException::factory(WebDriverException::CURL_EXEC, $message . "\n\n" . $error);
         }
 
         curl_close($curl);
 
-        return array($rawResult, $info);
+        return array($rawResults, $info);
     }
 }

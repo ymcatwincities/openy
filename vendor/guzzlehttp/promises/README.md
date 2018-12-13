@@ -96,7 +96,7 @@ $promise->resolve('reader.');
 ## Promise forwarding
 
 Promises can be chained one after the other. Each then in the chain is a new
-promise. The return value of a promise is what's forwarded to the next
+promise. The return value of of a promise is what's forwarded to the next
 promise in the chain. Returning a promise in a `then` callback will cause the
 subsequent promises in the chain to only be fulfilled when the returned promise
 has been fulfilled. The next promise in the chain will be invoked with the
@@ -208,7 +208,7 @@ of the promise is called.
 
 ```php
 $promise = new Promise(function () use (&$promise) {
-    $promise->resolve('foo');
+    $promise->deliver('foo');
 });
 
 // Calling wait will return the value of the promise.
@@ -227,11 +227,11 @@ $promise->wait(); // throws the exception.
 ```
 
 Calling `wait` on a promise that has been fulfilled will not trigger the wait
-function. It will simply return the previously resolved value.
+function. It will simply return the previously delivered value.
 
 ```php
 $promise = new Promise(function () { die('this is not called!'); });
-$promise->resolve('foo');
+$promise->deliver('foo');
 echo $promise->wait(); // outputs "foo"
 ```
 
@@ -268,7 +268,7 @@ $promise->reject('foo');
 $promise->wait(false);
 ```
 
-When unwrapping a promise, the resolved value of the promise will be waited
+When unwrapping a promise, the delivered value of the promise will be waited
 upon until the unwrapped value is not a promise. This means that if you resolve
 promise A with a promise B and unwrap promise A, the value returned by the
 wait function will be the value delivered to promise B.
@@ -315,11 +315,8 @@ A promise has the following methods:
 
 - `then(callable $onFulfilled, callable $onRejected) : PromiseInterface`
   
-  Appends fulfillment and rejection handlers to the promise, and returns a new promise resolving to the return value of the called handler.
-
-- `otherwise(callable $onRejected) : PromiseInterface`
-  
-  Appends a rejection handler callback to the promise, and returns a new promise resolving to the return value of the callback if it is called, or to its original fulfillment value if the promise is instead fulfilled.
+  Creates a new promise that is fulfilled or rejected when the promise is
+  resolved.
 
 - `wait($unwrap = true) : mixed`
 
@@ -499,6 +496,6 @@ deferred, it is a small price to pay for keeping the stack size constant.
 $promise = new Promise();
 $promise->then(function ($value) { echo $value; });
 // The promise is the deferred value, so you can deliver a value to it.
-$promise->resolve('foo');
+$promise->deliver('foo');
 // prints "foo"
 ```

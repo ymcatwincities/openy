@@ -194,19 +194,6 @@ abstract class Base extends BaseTask implements CommandInterface
     }
 
     /**
-     * skip scripts
-     *
-     * @return $this
-     */
-    public function noScripts($disable = true)
-    {
-        if ($disable) {
-            $this->option('--no-scripts');
-        }
-        return $this;
-    }
-
-    /**
      * adds `--working-dir $dir` option to composer
      *
      * @return $this

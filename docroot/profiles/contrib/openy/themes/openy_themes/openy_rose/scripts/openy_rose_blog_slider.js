@@ -6,7 +6,7 @@
         if ($(window).width() < 768) {
           if (!$('.slick-mobile').hasClass('slick-slider')) {
             $('.slick-mobile').slick({
-              infinite: false,
+              infinite: true,
               slidesToShow: 1,
               slidesToScroll: 1,
               variableWidth: false,

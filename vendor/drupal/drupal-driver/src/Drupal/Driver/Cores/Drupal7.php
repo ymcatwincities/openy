@@ -238,7 +238,7 @@ class Drupal7 extends AbstractCore {
 
     $_SERVER['REQUEST_URI'] = $_SERVER['SCRIPT_NAME'] = $_SERVER['PHP_SELF'];
     $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-    $_SERVER['REQUEST_METHOD'] = NULL;
+    $_SERVER['REQUEST_METHOD']  = NULL;
 
     $_SERVER['SERVER_SOFTWARE'] = NULL;
     $_SERVER['HTTP_USER_AGENT'] = NULL;
@@ -480,22 +480,6 @@ class Drupal7 extends AbstractCore {
    */
   public function clearStaticCaches() {
     drupal_static_reset();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function entityCreate($entity_type, $entity) {
-    // @todo: create a D7 version of this function
-    throw new \Exception('Creation of entities via the generic Entity API is not yet implemented for Drupal 7.');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function entityDelete($entity_type, $entity) {
-    // @todo: create a D7 version of this function
-    throw new \Exception('Deletion of entities via the generic Entity API is not yet implemented for Drupal 7.');
   }
 
 }
