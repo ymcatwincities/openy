@@ -89,9 +89,14 @@ class MindbodyAntiFraudScanner {
         'EndDate' => date('Y-m-d', strtotime("-1 days")),
       ];
       // We can't cache, because we'd miss important information.
+      sleep(1);
       $response = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
       if ($response->GetStaffAppointmentsResult && $response->GetStaffAppointmentsResult->Appointments && count($response->GetStaffAppointmentsResult->Appointments->Appointment)) {
-        $appointments = array_merge($appointments, $response->GetStaffAppointmentsResult->Appointments->Appointment);
+        $newAppointments = $response->GetStaffAppointmentsResult->Appointments->Appointment;
+        if (!is_array($newAppointments)) {
+          $newAppointments = [$newAppointments];
+        }
+        $appointments = array_merge($appointments, $newAppointments);
       }
     }
     if (count($appointments)) {
@@ -166,7 +171,12 @@ class MindbodyAntiFraudScanner {
       }
       $this->state->set('mindbody_fraud_max_app_id', $max);
       $this->logger->debug('Latest appointment ID: @id', ['@id' => $max]);
+      $this->logger->info('Antifraud protection run succeeded. Updated max ID.');
     }
+    else {
+      $this->logger->info('Antifraud protection run succeeded. No appointments pulled.');
+    }
+
   }
 
   /**
