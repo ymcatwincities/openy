@@ -255,3 +255,24 @@ function openy_media_image_update_8009() {
     }
   }
 }
+
+/**
+ * Remove blazy for icons.
+ */
+function openy_media_image_update_8010() {
+  \Drupal::configFactory()
+    ->getEditable('core.entity_view_display.media.image.icon')
+    ->set('dependencies.module', ['image'])
+    ->set('content.field_media_image', [
+      'weight' => 0,
+      'label' => 'hidden',
+      'settings' => [
+        'image_style' => '',
+        'image_link' => '',
+      ],
+      'third_party_settings' => [],
+      'type' => 'image',
+      'region' => 'content',
+    ])
+    ->save();
+}
