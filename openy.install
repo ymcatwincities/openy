@@ -35,6 +35,20 @@ function openy_install() {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_update_dependencies() {
+  $dependencies['openy'] = [
+    8054 => [
+      'block_content' => 8600,
+      'system' => 8501,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Upgrade from 8.x-0.2 version.
  */
 function openy_update_8001() {
