@@ -67,3 +67,5 @@ This command will build project based on [**latest 8.2 beta**](https://github.co
 - [Installation instructions](https://github.com/ymcatwincities/openy-project#installation)
 - [Content structure](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Content%20structure)
 - [Technical documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development)
+- [Terms of Use](https://github.com/ymcatwincities/openy/wiki/Open-Y-Terms-of-Use)
+- [Participation Agreement](https://github.com/ymcatwincities/openy/wiki/Open-Y-Participant-Agreement)
