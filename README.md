@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="http://www.openymca.org">
-    <img alt="react-router" src="https://www.ymcamn.org/themes/custom/ymca/img/ymca-logo.svg" width="144">
-  </a>
+ <!-- Will replace with new Open Y logo soon. <a href="http://www.openymca.org">
+    <img alt="Open Y Logo" src="" width="144">
+  </a> -->
 </p>
 
 <h3 align="center">
-  Open YMCA
+  Open Y
 </h3>
 <p align="center">
   http://openymca.org
