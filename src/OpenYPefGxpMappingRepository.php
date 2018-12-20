@@ -48,11 +48,12 @@ class OpenYPefGxpMappingRepository {
   /**
    * Get mappings by hash.
    *
-   * @param $hash
+   * @param string $hash
    *   Hash of the mapping entity.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
    *     The list of items found.
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function getMappingByHash($hash) {
