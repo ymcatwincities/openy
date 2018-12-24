@@ -381,6 +381,7 @@ class RepeatController extends ControllerBase {
           'max-age' => 0
         ],
       ],
+      'title' => $this->t("Download PDF schedule"),
       '#cache' => [
         'max-age' => 0
       ],
