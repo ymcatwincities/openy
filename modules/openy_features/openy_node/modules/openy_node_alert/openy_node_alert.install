@@ -5,6 +5,32 @@
  * Open Y Node Alert install file.
  */
 
+use \Drupal\user\Entity\Role;
+use \Drupal\user\RoleInterface;
+use \Drupal\Component\Utility\Unicode;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_install().
+ */
+function openy_node_alert_install() {
+  $roles = Role::loadMultiple([
+    RoleInterface::ANONYMOUS_ID,
+    RoleInterface::AUTHENTICATED_ID,
+  ]);
+
+  $permissions = [
+    "restful get alerts_rest_resource",
+  ];
+
+  foreach ($roles as $role) {
+    foreach ($permissions as $permission) {
+      $role->grantPermission($permission);
+    }
+    $role->save();
+  }
+}
+
 /**
  * Update Alert for rabbit hole, hiding pages from anonymous users.
  */
@@ -192,5 +218,139 @@ function openy_node_alert_update_8007() {
     \Drupal::configFactory()->getEditable('block.block.' . $new_id)
       ->set('id', $new_id)
       ->save(TRUE);
+  }
+}
+
+/**
+ * Update permissions. Remove old configs.
+ */
+function openy_node_alert_update_8009() {
+  $configs_to_remove = [
+    //    'yptf_kronos_monday.settings',
+    'block.block.views_block__alerts_footer_alerts',
+    'block.block.views_block__alerts_footer_alerts_local',
+    'block.block.views_block__alerts_header_alerts',
+    'block.block.views_block__alerts_header_alerts_local',
+    'block.block.openy_lily_views_block__alerts_footer_alerts',
+    'block.block.openy_lily_views_block__alerts_footer_alerts_local',
+    'block.block.openy_lily_views_block__alerts_header_alerts',
+    'block.block.openy_lily_views_block__alerts_header_alerts_local',
+    'views.view.alerts',
+  ];
+  foreach ($configs_to_remove as $config) {
+    \Drupal::configFactory()->getEditable($config)->delete();
+  }
+
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Import new configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rest.resource.alerts_rest_resource',
+  ]);
+  openy_node_alert_install();
+}
+
+/**
+ * Update alert nodes. Alerts shouldn't have content moderation enabled to succeed.
+ */
+function openy_node_alert_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  $configs = [
+    'core.base_field_override.node.alert.promote',
+    'core.entity_form_display.node.alert.default',
+    'core.entity_view_display.node.alert.default',
+    'core.entity_view_display.node.alert.node_alert_footer',
+    'core.entity_view_display.node.alert.node_alert_header',
+    'core.entity_view_display.node.alert.teaser',
+    'core.entity_view_mode.node.node_alert_footer',
+    'core.entity_view_mode.node.node_alert_header',
+    'field.field.node.alert.field_alert_belongs',
+    'field.field.node.alert.field_alert_color',
+    'field.field.node.alert.field_alert_description',
+    'field.field.node.alert.field_alert_icon_color',
+    'field.field.node.alert.field_alert_link',
+    'field.field.node.alert.field_alert_place',
+    'field.field.node.alert.field_alert_text_color',
+    'field.field.node.alert.field_alert_visibility_pages',
+    'field.field.node.alert.field_alert_visibility_state',
+    'field.storage.node.field_alert_belongs',
+    'field.storage.node.field_alert_color',
+    'field.storage.node.field_alert_description',
+    'field.storage.node.field_alert_icon_color',
+    'field.storage.node.field_alert_link',
+    'field.storage.node.field_alert_place',
+    'field.storage.node.field_alert_text_color',
+    'field.storage.node.field_alert_visibility_pages',
+    'field.storage.node.field_alert_visibility_state',
+    'node.type.alert',
+    'pathauto.pattern.alert',
+    'rabbit_hole.behavior_settings.node_type_alert',
+    'views.view.alert_belongs_reference',
+    'rest.resource.alerts_rest_resource'
+  ];
+
+  // Import new configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs($configs);
+  
+  $alerts = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'alert']);
+  /** @var \Drupal\node\Entity\Node $alert */
+  foreach ($alerts as $alert) {
+    if ($alert->hasField('field_alert_belongs')) {
+      if ($alert->hasField('field_alert_visibility_pages') && $alert->hasField('field_alert_visibility_state')) {
+        $pages = $alert->get('field_alert_visibility_pages')->value;
+        $state = $alert->get('field_alert_visibility_state')->value;
+        if (!$state) {
+          $state = 'include';
+        }
+        $pages = Unicode::strtolower($pages);
+
+        $path_matcher = \Drupal::service('path.matcher');
+
+        $refid = $alert->field_alert_belongs->target_id;
+        if (!$refid) {
+          $alert->set('field_alert_visibility_state', $state);
+          $alert->save();
+          continue;
+        }
+        $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $refid);
+        $is_path_match = $path_matcher->matchPath($alias, $pages);
+        if (!$is_path_match) {
+          if ($pages) {
+            $pages = $alias . "\n" . $pages;
+          }
+          else {
+            $pages = $alias;
+          }
+          $alert->set('field_alert_visibility_state', $state);
+          $alert->set('field_alert_visibility_pages', $pages);
+          $alert->set('field_alert_belongs', NULL);
+          $alert->save();
+        }
+      }
+      else {
+        \Drupal::logger(__FUNCTION__)->emergency('There are no fields to migrate into, skipping...');
+      }
+    }
+  }
+  // Remove obsolete field.
+  if ($field_config = FieldConfig::loadByName('node', 'alert', 'field_alert_belongs')) {
+
+    $field_storage = $field_config->getFieldStorageDefinition();
+    $bundles = \Drupal::entityManager()->getBundleInfo($field_config->getTargetEntityTypeId());
+    $bundle_label = $bundles[$field_config->getTargetBundle()]['label'];
+
+    if ($field_storage && !$field_storage->isLocked()) {
+      $field_config->delete();
+      \Drupal::logger(__FUNCTION__)->info('The field %field has been deleted from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+    }
+    else {
+      \Drupal::logger(__FUNCTION__)->error('There was a problem removing the %field from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
+    }
+
+    // Fields are purged on cron.
+    //field_purge_batch(10);
   }
 }
