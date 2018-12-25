@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Display retention campaign intro information.
+ */
+#}
+<div class="compain-header--content">
+  <div class="container">
+    {% if content.show_picture is not empty and content.show_picture == 1 %}
+    <div class="logo">
+      <img alt="logo" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/logo-phoenix.svg"/>
+    </div>
+    {% endif %}
+
+    <div class="content">
+      <div class="title">{{ content.slogan }}</div>
+      <div class="date">{{ content.dates }}</div>
+    </div>
+  </div>
+</div>

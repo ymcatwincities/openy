@@ -1,0 +1,89 @@
+{#
+/**
+ * @file
+ * Display Instant Win game and history.
+ */
+#}
+<div class="ng-hide login-required"
+     data-ng-controller="InstantWinController as instantWinC"
+     data-ng-show="retentionC.storage.member">
+  <div class="yfr-game-section">
+    <div class="yfr-game__title">
+      <div class="ng-hide"
+           data-ng-show="instantWinC.storage.state == 'game' && instantWinC.storage.instantWinCount">
+        <div class="title" data-ng-bind-html="instantWinC.instantWinStatus()"></div>
+      </div>
+
+      <div class="hg-hide"
+           data-ng-show="instantWinC.storage.state == 'game' && !instantWinC.storage.instantWinCount">
+        <div class="title">{{ 'You need to earn more'|t }}</div>
+        <div class="title"><span class="title-highlight">{{ 'instant win chances'|t }}</span></div>
+      </div>
+
+      <div class="hg-hide"
+           data-ng-show="instantWinC.storage.state == 'result.win'">
+        <div class="title"><span class="title-highlight">{{ 'Congratulations!'|t }}</span></div>
+        <div class="title"><small>{{ 'You have won'|t }}</small></div>
+      </div>
+    </div>
+
+    <div class="yfr-game__widget"
+         data-ng-class="instantWinC.gameWidgetClass()">
+      <div class="yfr-game ng-hide"
+           data-ng-show="instantWinC.storage.state == 'game' || instantWinC.storage.state == 'process'"
+           data-ng-class="instantWinC.gameWheelClass()"></div>
+
+      <div class="yfr-game-btn"
+           data-ng-show="instantWinC.storage.state == 'game'">
+        <button class="btn btn-lg btn-primary orange-medium ng-hide"
+                data-ng-show="instantWinC.storage.instantWinCount"
+                data-ng-click="instantWinC.testYourLuck()">{{ 'Spin the wheel'|t }}</button>
+        <button class="btn btn-lg btn-primary red-medium ng-hide"
+                data-ng-show="!instantWinC.storage.instantWinCount">{{ 'Unavailable'|t }}</button>
+      </div>
+
+      <div class="yfr-game__win ng-hide"
+           data-ng-show="instantWinC.storage.state == 'result.win'">
+        <div class="win">
+          <span>${{ '{{instantWinC.value}}' }}</span>
+        </div>
+        <div class="description">
+          {{ 'Check <span>your email</span> to retrieve the Tango Card!'|t }}
+        </div>
+        <div class="actions">
+          <input type="submit" value="OK" data-ng-click="instantWinC.resetGame()">
+        </div>
+      </div>
+
+      <div class="yfr-game__lose ng-hide"
+           data-ng-show="instantWinC.storage.state == 'result.loss'">
+        <h3>{{ 'Gosh!'|t }}</h3>
+        <p data-ng-bind-html="instantWinC.lossMessage()"></p>
+        <div class="actions">
+          <input type="submit" value="OK" data-ng-click="instantWinC.resetGame()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="inner-container">
+    <div class="yfr-game__history">
+      <div class="history-info">
+        <h2>{{ 'Game History'|t }}</h2>
+        <div data-ng-bind-html="instantWinC.cardsWonStatus()"></div>
+      </div>
+
+      <table class="yfr-table-win">
+        <tr data-ng-repeat="chance in instantWinC.storage.member_chances | filter : {'played': '!0'} : true">
+          <td>
+            <div class="info-date">
+              <span class="date">{{ "{{1000*chance.played | date : 'd MMM'}}" }}</span>
+              <span class="time">{{ "{{1000*chance.played | date : 'h:mm a' | lowercase}}" }}</span>
+            </div>
+          </td>
+          <td class="info" data-ng-class="instantWinC.gameHistoryMessageClass(chance)">{{ '{{chance.message}}' }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

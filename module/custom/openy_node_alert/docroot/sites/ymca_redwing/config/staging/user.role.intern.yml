@@ -1,0 +1,36 @@
+uuid: 4f3a194e-0850-4b18-b766-0fd469167c7f
+langcode: en
+status: true
+dependencies: {  }
+id: intern
+label: Intern
+weight: 6
+is_admin: null
+permissions:
+  0: 'create workflow workflow_transition'
+  1: 'create article content'
+  5: 'access contextual links'
+  6: 'use text format full_html'
+  7: 'access toolbar'
+  8: 'view the administration theme'
+  9: 'schedule workflow workflow_transition'
+  14: 'edit any article content'
+  17: 'access block_browser_iframe entity browser pages'
+  18: 'access browse_block_modal entity browser pages'
+  19: 'access browse_content entity browser pages'
+  20: 'access browse_content_modal entity browser pages'
+  21: 'access browse_files entity browser pages'
+  22: 'access browse_files_modal entity browser pages'
+  23: 'dropzone upload files'
+  24: 'create blog content'
+  25: 'edit any blog content'
+  26: 'view own unpublished content'
+  27: 'create custom blocks'
+  28: 'insert menu links via entity embed'
+  29: 'bypass file access'
+  30: 'administer files'
+  32: 'view workflow_unpublished content'
+  33: 'update workflow_unpublished content'
+  34: 'clone page entity'
+  35: 'view page_manager pages list'
+  36: 'update own page_manager pages'

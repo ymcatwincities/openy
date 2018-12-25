@@ -1,0 +1,610 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.storage.node.body
+    - field.storage.node.field_geolocation_demo_single
+    - field.storage.node.field_geolocation_demo_taxonomy
+    - node.type.geolocation_default_article
+    - system.menu.geolocation-demo
+  enforced:
+    module:
+      - geolocation_demo
+  module:
+    - geolocation
+    - node
+    - text
+    - user
+id: geolocation_demo_commonmap_boundary_filter_with_ajax
+label: 'Geolocation Demo - Interactive CommonMap'
+module: views
+description: ''
+tag: 'Geolocation Demo'
+base_table: node_field_data
+base_field: nid
+core: 8.x
+display:
+  default:
+    display_plugin: default
+    id: default
+    display_title: Master
+    position: 0
+    display_options:
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+        options: {  }
+      query:
+        type: views_query
+        options:
+          disable_sql_rewrite: false
+          distinct: false
+          replica: false
+          query_comment: ''
+          query_tags: {  }
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        type: full
+        options:
+          items_per_page: 10
+          offset: 0
+          id: 0
+          total_pages: null
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          tags:
+            previous: '‹ Previous'
+            next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
+          quantity: 9
+      style:
+        type: default
+        options:
+          row_class: ''
+          default_row_class: true
+          uses_fields: false
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: teaser
+      fields:
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          entity_type: node
+          entity_field: title
+          label: ''
+          alter:
+            alter_text: false
+            make_link: false
+            absolute: false
+            trim: false
+            word_boundary: false
+            ellipsis: false
+            strip_tags: false
+            html: false
+          hide_empty: false
+          empty_zero: false
+          settings:
+            link_to_entity: true
+          plugin_id: field
+          relationship: none
+          group_type: group
+          admin_label: ''
+          exclude: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        body:
+          id: body
+          table: node__body
+          field: body
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: text_default
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        field_geolocation_demo_single:
+          id: field_geolocation_demo_single
+          table: node__field_geolocation_demo_single
+          field: field_geolocation_demo_single
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Location
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: ''
+          type: geolocation_latlng
+          settings: {  }
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: geolocation_field
+        field_geolocation_demo_taxonomy:
+          id: field_geolocation_demo_taxonomy
+          table: node__field_geolocation_demo_taxonomy
+          field: field_geolocation_demo_taxonomy
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Taxonomy Terms'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: false
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+      filters:
+        type_1:
+          id: type_1
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            geolocation_default_article: geolocation_default_article
+          group: 1
+          exposed: false
+          expose:
+            operator_id: type_1_op
+            label: 'Content type'
+            description: ''
+            use_operator: false
+            operator: type_1_op
+            identifier: type_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+        field_geolocation_demo_single_boundary:
+          id: field_geolocation_demo_single_boundary
+          table: node__field_geolocation_demo_single
+          field: field_geolocation_demo_single_boundary
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value:
+            lat_north_east: ''
+            lng_north_east: ''
+            lat_south_west: ''
+            lng_south_west: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Boundary (field_geolocation_demo_single)'
+            description: ''
+            use_operator: false
+            operator: field_geolocation_demo_single_boundary_op
+            identifier: field_geolocation_demo_single_boundary
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+            input_by_geocoding_widget: 0
+            geocoder_plugin_settings:
+              plugin_id: google_geocoding_api
+              settings:
+                components:
+                  route: ''
+                  locality: ''
+                  administrativeArea: ''
+                  postalCode: ''
+                  country: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: geolocation_filter_boundary
+      sorts:
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: standard
+        created:
+          id: created
+          table: node_field_data
+          field: created
+          order: DESC
+          entity_type: node
+          entity_field: created
+          plugin_id: date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          exposed: false
+          expose:
+            label: ''
+          granularity: second
+      title: 'Geolocation Demo - Interactive CommonMap'
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: 'Interact with the map by dragging or zooming and see the result markers on the map as well the list of results below update accordingly.'
+            format: basic_html
+          plugin_id: text
+      footer: {  }
+      empty: {  }
+      relationships: {  }
+      arguments: {  }
+      display_extenders: {  }
+      use_ajax: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_geolocation_demo_single'
+        - 'config:field.storage.node.field_geolocation_demo_taxonomy'
+  attachment_1:
+    display_plugin: attachment
+    id: attachment_1
+    display_title: Map
+    position: 2
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      style:
+        type: maps_common
+        options:
+          show_raw_locations: 0
+          even_empty: 0
+          geolocation_field: field_geolocation_demo_single
+          title_field: title
+          icon_field: none
+          marker_scroll_to_result: 0
+          id_field: none
+          marker_clusterer: 0
+          marker_clusterer_image_path: ''
+          dynamic_map:
+            enabled: 1
+            update_handler: boundary_filter_field_geolocation_demo_single_boundary
+            hide_form: 1
+            views_refresh_delay: '1200'
+            update_target: common_map_ajax_page
+          centre:
+            boundary_filter_field_geolocation_demo_single_boundary:
+              enable: true
+              weight: -10
+            fit_bounds:
+              enable: false
+              weight: -9
+            first_row:
+              weight: -8
+              enable: false
+            fixed_value:
+              weight: -7
+              settings:
+                latitude: '52'
+                longitude: '13'
+              enable: true
+            client_location:
+              weight: -6
+              enable: false
+              settings:
+                update_map: '0'
+          google_map_settings:
+            type: ROADMAP
+            zoom: '3'
+            mapTypeControl: 1
+            streetViewControl: 1
+            zoomControl: 1
+            scrollwheel: 1
+            gestureHandling: auto
+            draggable: 1
+            preferScrollingToZooming: 0
+            disableDoubleClickZoom: 0
+            style: ''
+            height: 400px
+            width: 100%
+            info_auto_display: 0
+            disableAutoPan: 1
+      defaults:
+        style: false
+        row: false
+        header: false
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: teaser
+      displays:
+        common_map_ajax_page: common_map_ajax_page
+      inherit_exposed_filters: true
+      header: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_geolocation_demo_single'
+        - 'config:field.storage.node.field_geolocation_demo_taxonomy'
+  common_map_ajax_page:
+    display_plugin: page
+    id: common_map_ajax_page
+    display_title: 'Page with article list'
+    position: 1
+    display_options:
+      display_extenders: {  }
+      path: geolocation-demo/common-map-ajax-with-boundary-filter
+      defaults:
+        filters: true
+        filter_groups: true
+      menu:
+        type: normal
+        title: 'Interactive CommonMap'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: geolocation-demo
+      display_description: ''
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.body'
+        - 'config:field.storage.node.field_geolocation_demo_single'
+        - 'config:field.storage.node.field_geolocation_demo_taxonomy'

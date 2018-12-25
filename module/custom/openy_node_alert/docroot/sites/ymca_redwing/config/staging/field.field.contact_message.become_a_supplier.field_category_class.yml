@@ -1,0 +1,21 @@
+uuid: dab4b1e4-5cbb-4a59-9405-5aaa25ab0b79
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_category_class
+  module:
+    - options
+id: contact_message.become_a_supplier.field_category_class
+field_name: field_category_class
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Category Class'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

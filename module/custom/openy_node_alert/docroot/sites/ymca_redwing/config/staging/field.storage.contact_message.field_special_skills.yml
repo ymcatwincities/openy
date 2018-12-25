@@ -1,0 +1,19 @@
+uuid: 9d0c3a20-5296-48f9-8464-0926ca024bdd
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+id: contact_message.field_special_skills
+field_name: field_special_skills
+entity_type: contact_message
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

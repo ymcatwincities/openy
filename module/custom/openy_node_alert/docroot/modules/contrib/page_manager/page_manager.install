@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Contains update functions for Page Manager.
+ */
+
+/**
+ * Implements hook_requirements().
+ *
+ * @todo: Remove this when https://www.drupal.org/node/2641658 is fixed.
+ */
+function page_manager_requirements($phase) {
+  $requirements = [];
+
+  // Check that core actually is >= 8.0.5.
+  if (!version_compare(\Drupal::VERSION, '8.0.5', '>=')) {
+    $requirements['page_manager_core_version'] = [
+      'title' => t('Page manager Drupal core version'),
+      'value' => \Drupal::VERSION,
+      'description' => t('Page manager requires at least Drupal core 8.0.5.'),
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+
+  return $requirements;
+}
+
+/**
+ * Install the Page Manager UI for existing sites.
+ */
+function page_manager_update_8001() {
+  \Drupal::service('module_installer')->install(['page_manager_ui']);
+}
+
+/**
+ * Rename layout machine names in config entities to match layout discovery's default layouts.
+ */
+function page_manager_update_8002() {
+  $names = \Drupal::configFactory()->listAll('page_manager.page_variant');
+  foreach ($names as $name) {
+    $config = \Drupal::configFactory()->getEditable($name);
+    if ($config->get('variant') === 'panels_variant') {
+      module_load_install('panels');
+
+      if (!function_exists('panels_convert_plugin_ids_to_layout_discovery')) {
+        throw new \Exception('Panels helper function does not exist, the latest Panels 4.x-dev snapshot is required to run this update.');
+      }
+
+      $layout_id = $config->get('variant_settings.layout');
+      if ($new_layout_id = panels_convert_plugin_ids_to_layout_discovery($layout_id)) {
+        $config->set('variant_settings.layout', $new_layout_id);
+        $config->save();
+      }
+    }
+  }
+}

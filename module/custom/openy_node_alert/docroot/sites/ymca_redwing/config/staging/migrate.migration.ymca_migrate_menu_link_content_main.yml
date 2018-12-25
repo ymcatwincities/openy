@@ -1,0 +1,24 @@
+id: ymca_migrate_menu_link_content_main
+label: 'Menu links migration'
+migration_group: ymca
+migration_tags:
+  - menu
+source:
+  plugin: ymca_migrate_menu_link_content_main
+  constants:
+    menu_name: main-menu
+    menu_parents: {  }
+process:
+  bundle:
+    plugin: default_value
+    default_value: menu_link_content
+  title: title
+  menu_name: menu_name
+  link: link
+  weight: sequence_index
+  enabled: enabled
+  parent:
+    plugin: default_value
+    default_value: 0
+destination:
+  plugin: 'entity:menu_link_content'

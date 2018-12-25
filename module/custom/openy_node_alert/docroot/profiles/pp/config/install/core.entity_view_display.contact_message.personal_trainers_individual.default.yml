@@ -1,0 +1,60 @@
+uuid: 62d471c1-adc6-4027-805f-95d84080773c
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.personal_trainers_individual
+    - field.field.contact_message.personal_trainers_individual.field_custom_text
+    - field.field.contact_message.personal_trainers_individual.field_email_address
+    - field.field.contact_message.personal_trainers_individual.field_first_name
+    - field.field.contact_message.personal_trainers_individual.field_last_name
+    - field.field.contact_message.personal_trainers_individual.field_phone_number
+    - field.field.contact_message.personal_trainers_individual.field_what_is_your_preferred_y_l
+  module:
+    - webforms
+id: contact_message.personal_trainers_individual.default
+targetEntityType: contact_message
+bundle: personal_trainers_individual
+mode: default
+content:
+  field_custom_text:
+    weight: 7
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_email_address:
+    weight: 2
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_first_name:
+    weight: 0
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_last_name:
+    weight: 1
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_phone_number:
+    weight: 3
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_what_is_your_preferred_y_l:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: options_emails_formatter
+hidden:
+  message: true

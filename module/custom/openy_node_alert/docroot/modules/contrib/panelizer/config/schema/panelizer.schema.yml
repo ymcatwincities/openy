@@ -1,0 +1,33 @@
+# Config schema for Panelizer.
+panelizer.default.display:
+  type: display_variant.plugin.panels_variant
+  label: 'Panelizer display default'
+  mapping:
+    static_context:
+      type: ctools.context
+      label: 'Contexts'
+    pattern:
+      type: string
+      label: 'Pattern plugin ID'
+
+core.entity_view_display.*.*.*.third_party.panelizer:
+  type: mapping
+  mapping:
+    enable:
+      type: boolean
+      description: 'Is Panelizer enabled?'
+    custom:
+      type: boolean
+      description: 'Are custom overrides allowed?'
+    allow:
+      type: boolean
+      description: 'Is choosing between available defaults during entity creation allowed?'
+    default:
+      type: string
+      description: 'Default display ID'
+    displays:
+      type: sequence
+      description: 'Default displays'
+      sequence:
+        type: panelizer.default.display
+        description: 'Default displays'

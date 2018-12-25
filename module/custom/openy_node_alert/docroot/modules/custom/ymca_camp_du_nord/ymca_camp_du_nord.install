@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Module installation file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ymca_camp_du_nord_install() {
+  // Install all required modules.
+  $installer = \Drupal::service('module_installer');
+  $module_install = [
+    'migrate_tools',
+    'migrate_plus',
+    'ymca_cdn_product',
+    'ymca_cdn_product_feature',
+    'ymca_cdn_sync',
+    'ymca_cdn_mapping',
+    'openy_migrate',
+    'ymca_cdn_mapping_import',
+  ];
+  $installer->install($module_install, TRUE);
+
+  // Activate the syncer.
+  $config = \Drupal::configFactory()->getEditable('ymca_sync.settings');
+  $active_syncers = $config->get('active_syncers');
+  if (!in_array('ymca_cdn_sync.syncer', $active_syncers)) {
+    $active_syncers[] = 'ymca_cdn_sync.syncer';
+  }
+  $config->set('active_syncers', $active_syncers);
+  $config->save();
+
+  // Import mappings.
+  $importer = \Drupal::service('openy_migrate.importer');
+  $importer->import('cdn_prs_product');
+}

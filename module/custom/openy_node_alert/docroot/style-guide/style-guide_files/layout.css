@@ -1,0 +1,13 @@
+.cke-columns {
+  width: 100%;
+}
+
+.cke-columns .column-left {
+  float: left;
+  width: 50%;
+}
+
+.cke-columns .column-right {
+  float: right;
+  width: 50%;
+}

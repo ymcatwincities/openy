@@ -1,0 +1,22 @@
+entity.font.collection:
+  title: '@font-your-face'
+  route_name: entity.font.collection
+  description: 'List Font entities'
+  parent: system.themes_page
+  weight: 100
+entity.font.browse:
+  title: 'Browse'
+  route_name: entity.font.collection
+  description: 'List Font entities'
+  parent: entity.font.collection
+entity.font_display.collection:
+  title: 'Font display'
+  route_name: entity.font_display.collection
+  description: 'List Font display (bundles)'
+  parent: entity.font.collection
+font.admin.appearance.settings:
+  title: 'Settings'
+  description: '@font-your-face settings'
+  route_name: font.settings
+  parent: entity.font.collection
+  weight: 100

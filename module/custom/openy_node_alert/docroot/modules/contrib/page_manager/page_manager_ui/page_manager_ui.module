@@ -1,0 +1,137 @@
+<?php
+
+/**
+ * @file
+ * Provides a UI for Page Manager.
+ */
+
+use Drupal\page_manager_ui\Entity\PageListBuilder;
+use Drupal\page_manager_ui\Form\PageDeleteForm;
+use Drupal\page_manager_ui\ConfigTranslation\PageConfigMapper;
+use Drupal\page_manager_ui\ConfigTranslation\PageVariantConfigMapper;
+use Drupal\page_manager_ui\Wizard\PageAddWizard;
+use Drupal\page_manager_ui\Wizard\PageEditWizard;
+use Drupal\page_manager_ui\Wizard\PageVariantAddWizard;
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function page_manager_ui_entity_type_build(array &$entity_types) {
+  /** @var $entity_types \Drupal\Core\Entity\EntityTypeInterface[] */
+  $entity_types['page']
+    ->setListBuilderClass(PageListBuilder::class)
+    ->setFormClass('delete', PageDeleteForm::class)
+    ->setLinkTemplate('collection', '/admin/structure/page_manager')
+    ->setLinkTemplate('add-form', '/admin/structure/page_manager/add')
+    ->setLinkTemplate('edit-form', '/admin/structure/page_manager/manage/{machine_name}/{step}')
+    ->setLinkTemplate('delete-form', '/admin/structure/page_manager/manage/{page}/delete')
+    ->setLinkTemplate('enable', '/admin/structure/page_manager/manage/{page}/enable')
+    ->setLinkTemplate('disable', '/admin/structure/page_manager/manage/{page}/disable')
+    ->setHandlerClass('wizard', [
+      'add' => PageAddWizard::class,
+      'edit' => PageEditWizard::class,
+    ]);
+
+   $entity_types['page_variant']
+     // The edit-form template is required by config_translation.
+     ->setLinkTemplate('edit-form', '/admin/structure/page_manager/manage/{machine_name}/{step}')
+     ->setHandlerClass('wizard', [
+       'add_variant' => PageVariantAddWizard::class,
+     ]);
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function page_manager_ui_entity_type_alter(array &$entity_types) {
+  // Change the URL for page config translation overview to outside the wizard.
+  if ($entity_types['page']->hasLinkTemplate('config-translation-overview')) {
+    $entity_types['page']->setLinkTemplate('config-translation-overview', str_replace('manage/{machine_name}/{step}', '{page}', $entity_types['page']->getLinkTemplate('config-translation-overview')));
+  }
+
+  // Change the URL for page variant config translation overview to outside the
+  // wizard.
+  if ($entity_types['page_variant']->hasLinkTemplate('config-translation-overview')) {
+    $entity_types['page_variant']->setLinkTemplate('config-translation-overview', str_replace('manage/{machine_name}/{step}', '{page}/{page_variant}', $entity_types['page_variant']->getLinkTemplate('config-translation-overview')));
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function page_manager_ui_theme() {
+  return [
+    'page_manager_wizard_form' => [
+      'render element' => 'form',
+    ],
+    'page_manager_wizard_tree' => [
+      'variables' => [
+        'wizard' => NULL,
+        'cached_values' => [],
+        'tree' => [],
+        'divider' => ' » ',
+        'step' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Preprocess function for page-manager-wizard-tree.html.twig.
+ */
+function template_preprocess_page_manager_wizard_tree(&$variables) {
+  /** @var $wizard \Drupal\ctools\Wizard\FormWizardInterface|\Drupal\ctools\Wizard\EntityFormWizardInterface */
+  $wizard = $variables['wizard'];
+  $cached_values = $variables['cached_values'];
+  $tree = $variables['tree'];
+  $variables['step'] = $wizard->getStep($cached_values);
+
+  foreach ($wizard->getOperations($cached_values) as $step => $operation) {
+    $parameters = $wizard->getNextParameters($cached_values);
+    // Override step to be the step we want.
+    $parameters['step'] = $step;
+
+    // Fill in parents if there are breadcrumbs.
+    $parent =& $tree;
+    if (isset($operation['breadcrumbs'])) {
+      foreach ($operation['breadcrumbs'] as $breadcrumb) {
+        $breadcrumb_string = (string) $breadcrumb;
+        if (!isset($parent[$breadcrumb_string])) {
+          $parent[$breadcrumb_string] = [
+            'title' => $breadcrumb,
+            'children' => [],
+          ];
+        }
+        $parent =& $parent[$breadcrumb_string]['children'];
+      }
+    }
+
+    $parent[$step] = [
+      'title' => !empty($operation['title']) ? $operation['title'] : '',
+      'url' => new \Drupal\Core\Url($wizard->getRouteName(), $parameters),
+      'step' => $step,
+    ];
+  }
+
+  $variables['tree'] = $tree;
+}
+
+/**
+ * Implements hook_config_translation_info_alter().
+ */
+function page_manager_ui_config_translation_info_alter(&$info) {
+  // Alter page and page variant config translation classes.
+  $info['page']['class'] = PageConfigMapper::class;
+  $info['page_variant']['class'] = PageVariantConfigMapper::class;
+  $info['page_variant']['base_route_name'] = 'entity.page.edit_form';
+}
+
+/**
+ * Implements hook_local_tasks_alter().
+ */
+function page_manager_ui_local_tasks_alter(&$local_tasks) {
+  // Remove local tasks for page and page variant config translation overview
+  // routes.
+  unset($local_tasks['config_translation.local_tasks:entity.page.config_translation_overview']);
+  unset($local_tasks['config_translation.local_tasks:entity.page_variant.config_translation_overview']);
+}

@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_camp_du_nord.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ymca_camp_du_nord_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ymca_camp_du_nord module.
+    case 'help.page.ymca_camp_du_nord':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('YMCA Camp du Nord base module.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_camp_du_nord_theme($existing, $type, $theme, $path) {
+  return [
+    'cdn_form_full' => [
+      'render element' => 'form',
+    ],
+    'cdn_results_wrapper' => [
+      'variables' => [
+        'teasers' => [],
+      ],
+      'template' => 'cdn-results-wrapper',
+    ],
+    'cdn_village_teaser' => [
+      'variables' => [
+        'title' => '',
+        'image' => '',
+        'availability' => '',
+        'capacity' => '',
+        'calendar' => '',
+        'cabin_url' => '',
+      ],
+      'template' => 'cdn-village-teaser',
+    ],
+    'cdn_results_calendar' => [
+      'variables' => [
+        'data' => [],
+      ],
+      'template' => 'cdn-results-calendar',
+    ],
+    'cdn_confirmation_page' => [
+      'variables' => [
+        'data' => [],
+      ],
+      'template' => 'cdn-confirmation-page',
+    ],
+  ];
+}

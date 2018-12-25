@@ -1,0 +1,52 @@
+uuid: 1dd58e3d-6564-4e79-8600-ba608bf03e54
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.working_hours_block
+    - field.field.block_content.working_hours_block.field_custom_hours
+    - field.field.block_content.working_hours_block.field_facility_hours
+    - field.field.block_content.working_hours_block.field_holiday_hours
+    - field.field.block_content.working_hours_block.field_workout_child_care
+  module:
+    - ymca_field_custom_hours
+    - ymca_field_holiday_hours
+    - ymca_field_office_hours
+id: block_content.working_hours_block.default
+targetEntityType: block_content
+bundle: working_hours_block
+mode: default
+content:
+  field_custom_hours:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: ymca_custom_hours_default
+  field_facility_hours:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: ymca_office_hours_default
+  field_holiday_hours:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: ymca_holiday_hours_default
+  field_workout_child_care:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: ymca_office_hours_default
+  info:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

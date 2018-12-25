@@ -1,0 +1,11 @@
+name: Flood Unblock
+type: module
+description: "Interface for unblocking ip's that are blocked by the flood table"
+package: user
+# version: VERSION
+# core: 8.x
+# Information added by Drupal.org packaging script on 2017-02-01
+version: '8.x-1.3'
+core: '8.x'
+project: 'flood_unblock'
+datestamp: 1485942789

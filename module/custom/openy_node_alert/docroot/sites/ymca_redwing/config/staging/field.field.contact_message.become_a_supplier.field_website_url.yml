@@ -1,0 +1,23 @@
+uuid: 07a7a1c7-30ac-46bf-b600-d3c8814dc56b
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_website_url
+  module:
+    - link
+id: contact_message.become_a_supplier.field_website_url
+field_name: field_website_url
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Company Website URL (optional)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 0
+field_type: link

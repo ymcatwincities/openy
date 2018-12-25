@@ -1,0 +1,101 @@
+/**
+ * @file
+ * Provides basic thumbnail asNavFor skin.
+ *
+ * Main display has class "slick--main".
+ * Thumbnail has class "slick--thumbnail".
+ *
+ * Tips: Be sure to use odd number for slideToShow with centerMode on.
+ */
+.slick--thumbnail.slick--skin--asnavfor {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slick-list {
+  margin: 0 auto;
+  padding: 30px 0;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slide__caption p {
+  margin: 0;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slick-current {
+  background: #fff;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slick__slide {
+  margin: 0 2px;
+  overflow: visible;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: -webkit-transform 0.4s ease-in-out 0.2s;
+  transition: transform 0.4s ease-in-out 0.2s;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slick__slide img {
+  border: 6px solid transparent;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slick__slide.slick-current {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  -ms-transform: scale(1.3);
+  -webkit-transform: scale(1.3);
+  transform: scale(1.3);
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+  z-index: 4;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slick__slide.slick-current::before {
+  content: '';
+  display: block;
+  border: 8px solid transparent;
+  border-top: 0;
+  border-bottom-color: #fff;
+  height: 0;
+  left: 50%;
+  margin-left: -8px;
+  position: absolute;
+  top: -5px;
+  width: 0;
+  z-index: 1;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slick__slide.slick-current img {
+  border-color: #fff;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slick-track {
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+
+.slick--thumbnail.slick--skin--asnavfor .slick__arrow .slick-disabled {
+  pointer-events: none;
+  opacity: 0;
+}
+
+/**
+ * Thumnails layout.
+ */
+.slick-wrapper--tn-top .slick--thumbnail.slick--skin--asnavfor .slick__slide.slick-current::before {
+  top: auto;
+  bottom: -6px;
+  border-top: 8px solid #fff;
+  border-bottom: 0;
+}
+
+.slick-wrapper--tn-top .slick--thumbnail.slick--skin--asnavfor {
+  margin-bottom: 0;
+  z-index: 9;
+}
+
+.slick-wrapper--tn-top .slick--thumbnail.slick--skin--asnavfor .slick-list {
+  padding-bottom: 18px;
+}

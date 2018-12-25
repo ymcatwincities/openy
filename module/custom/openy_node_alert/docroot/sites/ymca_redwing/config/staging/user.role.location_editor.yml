@@ -1,0 +1,21 @@
+uuid: 30571606-661c-40a7-9700-c2f13996b5f2
+langcode: en
+status: true
+dependencies: {  }
+id: location_editor
+label: 'Location Editor'
+weight: 4
+is_admin: null
+permissions:
+  0: 'use text format inline_html'
+  4: 'view the administration theme'
+  5: 'create workflow workflow_transition'
+  6: 'access block_browser_iframe entity browser pages'
+  7: 'access browse_block_modal entity browser pages'
+  8: 'access browse_content entity browser pages'
+  9: 'access browse_content_modal entity browser pages'
+  10: 'access browse_files entity browser pages'
+  11: 'access browse_files_modal entity browser pages'
+  12: 'dropzone upload files'
+  13: 'create files'
+  14: 'update location document files'

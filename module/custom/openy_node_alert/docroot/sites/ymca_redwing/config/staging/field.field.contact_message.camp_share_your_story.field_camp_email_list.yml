@@ -1,0 +1,56 @@
+uuid: 11c8ceda-8527-45c4-a300-fd6b4f70ff23
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.camp_share_your_story
+    - field.storage.contact_message.field_camp_email_list
+  module:
+    - webforms
+id: contact_message.camp_share_your_story.field_camp_email_list
+field_name: field_camp_email_list
+entity_type: contact_message
+bundle: camp_share_your_story
+label: 'Camp attended'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    option_select: 0
+    option_name: 'Camp du Nord'
+    option_reference: null
+    option_emails: missy.huppert@ymcamn.org
+  -
+    option_select: 0
+    option_name: 'Camp Icaghowan'
+    option_reference: null
+    option_emails: missy.huppert@ymcamn.org
+  -
+    option_select: 0
+    option_name: 'Camp Menogyn'
+    option_reference: null
+    option_emails: missy.huppert@ymcamn.org
+  -
+    option_select: 0
+    option_name: 'Camp St. Croix'
+    option_reference: null
+    option_emails: missy.huppert@ymcamn.org
+  -
+    option_select: 0
+    option_name: 'Camp Warren'
+    option_reference: null
+    option_emails: missy.huppert@ymcamn.org
+  -
+    option_select: 0
+    option_name: 'Camp Widjiwagan'
+    option_reference: null
+    option_emails: missy.huppert@ymcamn.org
+  -
+    option_select: 0
+    option_name: 'Camp Ihduhapi'
+    option_reference: null
+    option_emails: missy.huppert@ymcamn.org
+default_value_callback: ''
+settings: {  }
+field_type: options_email_item

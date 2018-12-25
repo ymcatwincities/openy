@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.file_browser
+    - field.field.block_content.file_browser.field_file_browser_reference
+  module:
+    - entity_browser
+    - file_browser_example
+id: block_content.file_browser.default
+targetEntityType: block_content
+bundle: file_browser
+mode: default
+content:
+  field_file_browser_reference:
+    weight: 3
+    settings:
+      entity_browser: browse_files
+      field_widget_display: thumbnail
+      field_widget_display_settings:
+        image_style: medium
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+  info:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

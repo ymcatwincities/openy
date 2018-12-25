@@ -1,0 +1,13 @@
+uuid: 8fd46aab-781f-4f2d-b515-97f052ec77cb
+langcode: en
+status: true
+dependencies:
+  module:
+    - bulk_actions
+_core:
+  default_config_hash: xr1-SPtZiXf-v1vpQvKOfmOmzmQ7moLGp7gki6xubrk
+id: block_content_delete_action
+label: 'Delete custom block'
+type: block_content
+plugin: block_content_delete_action
+configuration: {  }

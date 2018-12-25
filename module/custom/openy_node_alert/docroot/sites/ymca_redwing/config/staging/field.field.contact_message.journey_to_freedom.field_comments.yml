@@ -1,0 +1,19 @@
+uuid: 55847d87-3dfa-473a-9700-db1c742350b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.journey_to_freedom
+    - field.storage.contact_message.field_comments
+id: contact_message.journey_to_freedom.field_comments
+field_name: field_comments
+entity_type: contact_message
+bundle: journey_to_freedom
+label: 'How can we help? (optional)'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

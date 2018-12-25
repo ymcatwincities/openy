@@ -1,0 +1,80 @@
+features:
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: true
+  logo: true
+  name: true
+  node_user_picture: true
+  slogan: true
+shortcut_module_link: false
+base_font_size: 87.5%
+base_font_family: 0
+base_custom_font_family: 'Helvetica, Arial, sans-serif'
+heading_font_family: 0
+heading_custom_font_family: 'Helvetica, Arial, sans-serif'
+base_vmargin: 14px
+page_width: 90%
+page_margin: 10px
+layout_style: 1
+legacy_superfish_styles: false
+round_corners: false
+header_searchbox: true
+header_fontsizer: false
+header_border_width: 1px
+searchbox_size: 12
+header_bg_file: null
+header_bg_alignment: 'top left'
+header_watermark: false
+menubar_style: 1
+menubar_background: false
+menubar_bg_value: null
+bigscreen_sidebar_layout_style: true
+bigscreen_sidebar_first_width: 25%
+bigscreen_sidebar_second_width: 25%
+dark_messages: false
+global_default_layout: smalltouch-portrait
+iphone-land: false
+iphone-port: false
+ipad-port: false
+ipad-landscape: false
+standard-pc: true
+bigscreen_layout: three_col_grail
+bigscreen_page_unit: '%'
+bigscreen_sidebar_unit: '%'
+bigscreen_max_width_unit: px
+bigscreen_page_width: 90
+bigscreen_sidebar_first: 25
+bigscreen_sidebar_second: 25
+bigscreen_set_max_width: true
+bigscreen_max_width: 1140
+bigscreen_media_query: 'only screen and (min-width:1025px)'
+tablet_landscape_layout: three_col_grail
+tablet_landscape_page_unit: '%'
+tablet_landscape_sidebar_unit: '%'
+tablet_landscape_page_width: 90
+tablet_landscape_sidebar_first: 20
+tablet_landscape_sidebar_second: 20
+tablet_landscape_media_query: 'only screen and (min-width:769px) and (max-width:1024px)'
+tablet_portrait_layout: one_col_vert
+tablet_portrait_page_unit: '%'
+tablet_portrait_sidebar_unit: '%'
+tablet_portrait_page_width: 90
+tablet_portrait_sidebar_first: 50
+tablet_portrait_sidebar_second: 50
+tablet_portrait_media_query: 'only screen and (min-width:481px) and (max-width:768px)'
+smalltouch_landscape_layout: one_col_vert
+smalltouch_landscape_page_unit: '%'
+smalltouch_landscape_sidebar_unit: '%'
+smalltouch_landscape_page_width: 100
+smalltouch_landscape_sidebar_first: 50
+smalltouch_landscape_sidebar_second: 50
+smalltouch_landscape_media_query: 'only screen and (min-width:321px) and (max-width:480px)'
+smalltouch_portrait_layout: one_col_stack
+smalltouch_portrait_page_unit: '%'
+smalltouch_portrait_sidebar_unit: '%'
+smalltouch_portrait_page_width: 100
+smalltouch_portrait_sidebar_first: 100
+smalltouch_portrait_sidebar_second: 100
+smalltouch_portrait_media_query: 'only screen and (max-width:320px)'
+global_default_layout_toggle: false
+global_files_path: public_files

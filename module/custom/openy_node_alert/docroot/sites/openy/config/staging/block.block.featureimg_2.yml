@@ -1,0 +1,25 @@
+uuid: 8ea9a76b-9fb9-47cc-af20-323318f72a11
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:93278718-6db7-4baa-b409-0997d4cefd37'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: featureimg_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -23
+provider: null
+plugin: 'block_content:93278718-6db7-4baa-b409-0997d4cefd37'
+settings:
+  id: 'block_content:93278718-6db7-4baa-b409-0997d4cefd37'
+  label: 'Feature img'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

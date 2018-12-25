@@ -1,0 +1,4 @@
+administer optimizely:
+  title: 'Administer Optimizely module'
+  description: 'Administer access to everything in module'
+  restrict access: true

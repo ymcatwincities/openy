@@ -1,0 +1,13 @@
+name: 'Scheduler API Test'
+type: module
+description: 'Support module for Scheduler API-related testing.'
+package: Testing
+# core: 8.x
+dependencies:
+  - scheduler:scheduler
+
+# Information added by Drupal.org packaging script on 2017-11-14
+version: '8.x-1.0'
+core: '8.x'
+project: 'scheduler'
+datestamp: 1510690392

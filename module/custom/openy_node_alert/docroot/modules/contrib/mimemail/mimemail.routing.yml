@@ -1,0 +1,7 @@
+mimemail.settings:
+  path: '/admin/config/system/mimemail'
+  defaults:
+    _form: 'Drupal\mimemail\Form\AdminForm'
+    _title: 'Configure the Mail System'
+  requirements:
+    _permission: 'administer site configuration'

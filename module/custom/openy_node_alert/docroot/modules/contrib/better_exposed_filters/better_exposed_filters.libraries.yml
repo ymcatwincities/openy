@@ -1,0 +1,31 @@
+general:
+  version: 3.x
+  css:
+    theme:
+      css/better_exposed_filters.css: {}
+  js:
+    js/better_exposed_filters.js: {}
+  dependencies:
+    - core/jquery
+auto_submit:
+  version: 3.x
+  js:
+    js/auto_submit.js: {}
+select_all_none:
+  version: 3.x
+  js:
+    js/bef_select_all_none.js: {}
+  dependencies:
+    - core/jquery
+sliders:
+  version: 3.x
+  js:
+    js/bef_sliders.js: {}
+  dependencies:
+    - core/jquery
+datepickers:
+  version: 3.x
+  js:
+    js/bef_datepickers.js: {}
+  dependencies:
+    - core/jquery

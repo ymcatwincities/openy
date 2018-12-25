@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Allows contributed modules to require external libraries via Composer.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function composer_manager_help($route_name, RouteMatchInterface $route_match){
+  switch ($route_name) {
+    case 'help.page.composer_manager':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Composer Manager allows contributed modules to depend on PHP libraries managed via Composer. <a href="https://www.drupal.org/project/composer">Composer</a> is a command line tool for installing PHP libraries and their dependencies on a per-project basis. Nowadays, all libraries are registered on <a href="https://packagist.org">Packagist</a> and expect to be installed via Composer. See the Composer <a href="https://getcomposer.org/doc/00-intro.md">Getting Started</a> page for more information on Composer.  For additional information on Composer Manager, see <a href="https://www.drupal.org/node/2405811"> the online documentation for Composer Manager </a>.') . '</p>';
+      $output .= '<h3>' . t('Usage') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dd>' . t('1. Download the desired modules.'). '</dd>';
+      $output .= '<dd>' . t('2. Run `composer drupal-update` from the root of your Drupal directory.'). '</dd>';
+      $output .= '<dd>' . t('3. Install the modules.'). '</dd>';
+      $output .= '</dl>';
+      return $output;
+  }
+}
+
+/**
+ * Returns whether Composer Manager has been initialized.
+ *
+ * @param string $root
+ *   The app root.
+ *
+ * @return bool
+ *   True if Composer Manager has been initialized, false otherwise.
+ */
+function composer_manager_initialized($root = NULL) {
+  $root = $root ?: \Drupal::root();
+  $package = \Drupal\composer_manager\JsonFile::read($root . '/composer.json');
+
+  return isset($package['scripts']['drupal-rebuild']);
+}
+
+/**
+ * Initializes Composer Manager.
+ *
+ * This is done by altering the root package to register the module's commands.
+ * Executed by init.php because it runs under the current user (and not the web
+ * server user like Drupal), giving it a higher chance of success.
+ *
+ * @param string $root
+ *   The app root.
+ */
+function composer_manager_initialize($root = NULL) {
+  $root = $root ?: \Drupal::root();
+  $module_path = str_replace($root . '/', '', __DIR__);
+  $package = \Drupal\composer_manager\JsonFile::read($root . '/composer.json');
+  $package['autoload']['psr-4']['Drupal\\composer_manager\\Composer\\'] = $module_path . '/src/Composer';
+  $package['scripts']['drupal-rebuild'] = 'Drupal\\composer_manager\\Composer\\Command::rebuild';
+  $package['scripts']['drupal-update'] = 'Drupal\\composer_manager\\Composer\\Command::update';
+  \Drupal\composer_manager\JsonFile::write($root . '/composer.json', $package);
+}

@@ -1,0 +1,7 @@
+name: OpenY MyY API
+type: module
+description: Provides MyY API.
+package: OpenY
+core: 8.x
+dependencies:
+  - rest:rest

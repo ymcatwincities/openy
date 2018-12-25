@@ -1,0 +1,19 @@
+uuid: 798b1d11-8c50-43f7-9b1d-291ebc218eb5
+langcode: en
+status: true
+dependencies:
+  module:
+    - plugin
+    - user
+id: user.field_plugin_selector
+field_name: field_plugin_selector
+entity_type: user
+type: 'plugin:plugin_selector'
+settings: {  }
+module: plugin
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

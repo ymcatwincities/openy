@@ -1,0 +1,52 @@
+<script language="JavaScript">
+<!-- Hide from old browsers
+var total = $image_total;
+var d     = new Date();
+var day   = d.getUTCDate();
+var month = d.getUTCMonth();
+var year  = d.getUTCFullYear();
+if( (year % 4 == 0) && ((year % 100 != 0) || (year % 400 == 0)) ) {
+	var lyd = 29;
+} else {
+	var lyd = 28;
+}
+
+if( month > 0 ) day += 31;
+if( month > 1 ) day += lyd;
+if( month > 2 ) day += 31;
+if( month > 3 ) day += 30;
+if( month > 4 ) day += 31;
+if( month > 5 ) day += 30;
+if( month > 6 ) day += 31;
+if( month > 7 ) day += 31;
+if( month > 8 ) day += 30;
+if( month > 9 ) day += 31;
+if( month > 10 ) day += 30;
+
+var sequenceNumber = day % total;
+images   =  new Array;
+credits  =  new Array;
+	$start_loop_images
+		images[$number] = "$image_path_esc";
+		credits[$number] = "$credit_esc";
+	$end_loop_images
+var newSrc = images[sequenceNumber];
+var newCredit = credits[sequenceNumber];
+document.write('<$component_tag class="image_rotator_component $component_class" id="component_$component_id"><img src="'+newSrc+'" alt="$alt_text_esc" title="$alt_text_esc" border="0"/>');
+document.write( '<$component_tag class="caption_credit">' );
+$start_loop_credit
+document.write( '<span class="credit">'+newCredit+'</span>');
+$end_loop_credit
+// -->
+</script>
+<noscript>
+<div style="$div_style"><img src="$default_image_path" alt="$alt_text_esc" title="$alt_text_esc" /></div>
+</noscript>
+
+$start_loop_caption
+<span class="caption">
+$caption_esc
+</span>
+$end_loop_caption
+</$component_tag>
+</$component_tag>

@@ -1,0 +1,59 @@
+[[ if has_pages ]]
+<form method="$form_method_esc" class="pager abe_blog_post_list_pager" id="pager_$control_id_esc">
+	$start_loop_hidden_fields
+	<input type="hidden" name="$name_esc" value="$value_esc" />
+	$end_loop_hidden_fields
+	[[ if use_querystring_filter_settings ]]
+	[[ if preview ]]
+	<input type="hidden" name="month" value="$month_esc" />
+	<input type="hidden" name="year" value="$year_esc" />
+	[[ end if preview ]]
+	[[ end if use_querystring_filter_settings ]]
+	<input type="hidden" name="$paging_prefix_esc\page" value="$current_page_esc" />
+
+	<div class="paging_controls blog-pagination">
+	[[ if has_prev ]]
+		<div class="blog-prev-pages">
+			<a href="#first-page" class="paging_link paging_first_link blog-pagination-btn"><i class="icon-angle-double-left"></i><span class="text-hide">First</span></a>
+			<a href="#previous-page" class="paging_link paging_prev_link blog-pagination-btn"><i class="icon-angle-left"></i><span class="text-hide">Previous</span></a>
+		</div>
+	[[ end if has_prev ]]
+		<div class="blog-pages">
+			<div class="blog-pages-content">
+				<div class="paging_status">Showing $from_record_number - $to_record_number of $total_num_recs <span class="paging_plural_name">$plural_name_esc</span></div>
+			</div>
+		</div>
+	[[ if has_next ]]
+		<div class="blog-next-pages">
+			<a href="#next-page" class="paging_link paging_next_link blog-pagination-btn"><i class="icon-angle-right"></i><span class="text-hide">Next</span></a>
+			<a href="#last-page" class="paging_link paging_last_link blog-pagination-btn"><i class="icon-angle-double-right"></i><span class="text-hide">Last</span></a>
+		</div>
+	[[ end if has_next ]]
+	</div>
+</form>
+
+<script type="text/javascript">
+CWjQuery( function( j ) {
+	j( '#pager_$control_id_esc_js .paging_link' ).click( function( ) {
+		var btn   =  j( this );
+		var form  =  btn.closest( 'form' );
+		var page  =  form.find( 'input[name=$paging_prefix_esc_js\page]' );
+		var p     =  parseInt( page.val( ) );
+		if ( btn.hasClass( 'paging_first_link' ) ) {
+			page.val( $first_page );
+		}
+		else if ( btn.hasClass( 'paging_prev_link' ) ) {
+			page.val( $prev_page );
+		}
+		else if ( btn.hasClass( 'paging_next_link' ) ) {
+			page.val( $next_page );
+		}
+		else if ( btn.hasClass( 'paging_last_link' ) ) {
+			page.val( $last_page );
+		}
+		form.submit( );
+		return false;
+	} );
+} );
+</script>
+[[ end if has_pages ]]

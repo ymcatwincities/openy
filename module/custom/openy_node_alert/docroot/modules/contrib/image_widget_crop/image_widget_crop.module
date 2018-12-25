@@ -1,0 +1,326 @@
+<?php
+
+/**
+ * @file
+ * Contains image_widget_crop.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Render\Element;
+use Drupal\file\Plugin\Field\FieldType\FileFieldItemList;
+
+/**
+ * Implements hook_help().
+ */
+function image_widget_crop_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.image_widget_crop':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Implement CROP API into the fields image');
+      $output .= '<h3>' . t('Try module') . '</h3>';
+      $output .= '<p>' . t('You can Test ImageWidgetCrop in action directly with the sub-module, "ImageWidgetCrop example" to test differents usecase of this module');
+      $output .= '</dl>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function image_widget_crop_field_widget_info_alter(array &$info) {
+  // Let a new field type re-use an existing widget.
+  $info['image_image']['field_types'][] = 'image_widget_crop';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function image_widget_crop_theme() {
+  return [
+    'crop_help' => [
+      'render element' => 'element',
+    ],
+    'crop_container' => [
+      'render element' => 'element',
+    ],
+    'crop_image_container' => [
+      'render element' => 'element',
+    ],
+    'crop_sidebar' => [
+      'render element' => 'element',
+    ],
+    'crop_list_items' => [
+      'render element' => 'element'
+    ]
+  ];
+}
+
+/**
+ * Prepares variables for crop_help templates.
+ *
+ * Default template: crop-help.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #id, #attributes, #children.
+ */
+function template_preprocess_crop_help(array &$variables) {
+  $variables['has_parent'] = FALSE;
+  $element = $variables['element'];
+  // Ensure #attributes is set.
+  $element += ['#attributes' => []];
+
+  // Special handling for form elements.
+  if (isset($element['#array_parents'])) {
+    // Assign an html ID.
+    if (!isset($element['#attributes']['id'])) {
+      $element['#attributes']['id'] = $element['#id'];
+    }
+    $variables['has_parent'] = TRUE;
+  }
+
+  $variables['text'] = $element['#text'];
+  $variables['img_location'] = '/' . drupal_get_path('module', 'image_widget_crop') . '/image/down_right.png';
+  $variables['attributes'] = $element['#attributes'];
+  $variables['element_type'] = isset($element['#element_type']) ? $element['#element_type'] : NULL;
+}
+
+/**
+ * Prepares variables for crop_list_items templates.
+ *
+ * Default template: crop-list-items.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #id, #attributes, #children.
+ */
+function template_preprocess_crop_list_items(array &$variables) {
+  $variables['has_parent'] = FALSE;
+  $element = $variables['element'];
+  // Ensure #attributes is set.
+  $element += ['#attributes' => []];
+
+  // Special handling for form elements.
+  if (isset($element['#array_parents'])) {
+    // Assign an html ID.
+    if (!isset($element['#attributes']['id'])) {
+      $element['#attributes']['id'] = $element['#id'];
+    }
+    $variables['has_parent'] = TRUE;
+  }
+
+  // Get variables into elements and pass it to twig template.
+  foreach ($element['#variables'] as $variable_key => $var) {
+    $variables[$variable_key] = $var;
+  }
+
+  $variables['attributes'] = $element['#attributes'];
+}
+
+/**
+ * Prepares variables for crop_container templates.
+ *
+ * Default template: crop-container.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #id, #attributes, #children.
+ */
+function template_preprocess_crop_container(array &$variables) {
+  $items = [];
+  $variables['has_parent'] = FALSE;
+  $element = $variables['element'];
+  // Ensure #attributes is set.
+  $element += ['#attributes' => []];
+
+  // Special handling for form elements.
+  if (isset($element['#array_parents'])) {
+    // Assign an html ID.
+    if (!isset($element['#attributes']['id'])) {
+      $element['#attributes']['id'] = $element['#id'];
+    }
+    $variables['has_parent'] = TRUE;
+  }
+
+  // Determine whether there are any child elements in the element that are not
+  // fully-specified render arrays. If there are any, then the child
+  // elements present nested lists and we automatically inherit the render
+  // array properties of the current list to them.
+  foreach (Element::children($element) as $key) {
+    $items[] = $element[$key];
+    foreach ($items as $child_key => $child_value) {
+      if (!isset($items['#type']) && !isset($items['#theme']) && !isset($items['#markup'])) {
+        if (!isset($items['#items'])) {
+          $items['#items'][$child_key] = $child_value;
+        }
+      }
+    }
+  }
+
+  $variables['items'] = $items;
+  $variables['attributes'] = $element['#attributes'];
+  $variables['element_type'] = $element['#element_type'];
+}
+
+/**
+ * Prepares variables for crop_sidebar templates.
+ *
+ * Default template: crop-sidebar.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #id, #attributes, #children.
+ */
+function template_preprocess_crop_sidebar(array &$variables) {
+  $items = [];
+  $variables['has_parent'] = FALSE;
+  $element = $variables['element'];
+  // Ensure #attributes is set.
+  $element += ['#attributes' => []];
+
+  // Special handling for form elements.
+  if (isset($element['#array_parents'])) {
+    // Assign an html ID.
+    if (!isset($element['#attributes']['id'])) {
+      $element['#attributes']['id'] = $element['#id'];
+    }
+    $variables['has_parent'] = TRUE;
+  }
+
+  // Get all child elements into sidebar.
+  foreach (Element::children($element) as $key) {
+    $child = &$element[$key];
+    $items[] = $child;
+  }
+
+  // Get the type of wrapper element.
+  $variables['element_type'] = $element['#element_type'];
+
+  // Add attributes to wrapper element.
+  $variables['attributes'] = $element['#attributes'];
+
+  // Send to twig all items into sidebar element.
+  $variables['items'] = $items;
+}
+
+/**
+ * Prepares variables for container templates.
+ *
+ * Default template: crop-sidebar.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #id, #attributes, #children.
+ */
+function template_preprocess_crop_image_container(array &$variables) {
+  $items = [];
+  $variables['has_parent'] = FALSE;
+  $element = $variables['element'];
+  // Ensure #attributes is set.
+  $element += ['#attributes' => []];
+
+  // Special handling for form elements.
+  if (isset($element['#array_parents'])) {
+    // Assign an html ID.
+    if (!isset($element['#attributes']['id'])) {
+      $element['#attributes']['id'] = $element['#id'];
+    }
+    $variables['has_parent'] = TRUE;
+  }
+
+  foreach ($element['#variables'] as $variable_key => $var) {
+    $variables[$variable_key] = $var;
+  }
+
+  foreach (Element::children($element) as $key) {
+    $child = &$element[$key];
+    $items[] = $child;
+  }
+
+  // Send to twig all items into sidebar element.
+  $variables['items'] = $items;
+  $variables['attributes'] = $element['#attributes'];
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function image_widget_crop_entity_presave(Drupal\Core\Entity\EntityInterface $entity) {
+  if (isset($entity) && method_exists($entity, 'getFields')) {
+    // Loop all fields of the saved entity.
+    foreach ($entity->getFields() as $entity_fields) {
+      // If current field is FileField and use imageWidgetCrop.
+      if ($entity_fields instanceof FileFieldItemList && isset($entity_fields->crop_preview_wrapper)) {
+
+        /** @var \Drupal\image_widget_crop\ImageWidgetCrop $crop */
+        $crop = \Drupal::service('image_widget_crop.manager');
+
+        /* First loop to get each elements independently in the field values.
+        Required if the image field cardinality > 1. */
+        foreach ($entity_fields->getValue() as $crop_element) {
+          /* Parse all value of a crop_preview_wrapper element and get,
+          properties associate with her CropType. */
+          foreach ($crop_element['crop_preview_wrapper']['container'] as $crop_type_name => $properties) {
+
+            /** @var \Drupal\crop\Entity\CropType $crop_type */
+            $crop_type = \Drupal::entityManager()
+              ->getStorage('crop_type')
+              ->loadByProperties(['id' => $crop_type_name]);
+
+            // If the crop type needed is disabled or delete.
+            if (!isset($crop_type[$crop_type_name]) || empty($crop_type[$crop_type_name])) {
+              drupal_set_message(t("The CropType ('@cropType') is not active or not defined. Please verify configuration of image style or ImageWidgetCrop formatter configuration", ['@cropType' => $crop_type_name]), 'error');
+              return;
+            }
+
+            // If this crop is availables to create an crop entity.
+            if (($entity->isNew() && $properties['delete-crop'] == '0') && isset($properties['values']) && (!empty($properties['values']['crop-w']) && !empty($properties['values']['crop-h']))) {
+              // Get crop type for current cropType.
+              if (!isset($crop_type) && empty($crop_type)) {
+                drupal_set_message(t("The type of crop does not exist, please check the configuration of the CropType ('@cropType')", ['@cropType' => $crop_type->label()]), 'error');
+                return;
+              }
+
+              $crop->applyCrop($properties['values'], $crop_element, $crop_type[$crop_type_name]);
+            }
+
+            // If the entity already exist & is not deleted by,
+            // user update $crop_type_name crop entity.
+            if ((!$entity->isNew() && $properties['delete-crop'] == '0') && isset($properties['values']) && (!empty($properties['values']['crop-w']) && !empty($properties['values']['crop-h']))) {
+              $crop->updateCrop($properties['values'], $crop_element, $crop_type[$crop_type_name]);
+            }
+
+            // If you need to delete existing crop when you edit this entity.
+            if (!$entity->isNew() && $properties['delete-crop'] == '1') {
+              $crop->deleteCrop($crop_element['file-uri'], $crop_type[$crop_type_name], $crop_element['file-id']);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_css_alter().
+ */
+function image_widget_crop_css_alter(&$css) {
+  // Add FontAwesome.
+  $fontawesome = '//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css';
+  $css[$fontawesome] = [
+    'data' => $fontawesome,
+    'type' => 'external',
+    'every_page' => TRUE,
+    'media' => 'all',
+    'preprocess' => FALSE,
+    'group' => CSS_AGGREGATE_THEME,
+    'browsers' => ['IE' => TRUE, '!IE' => TRUE],
+    'weight' => -2,
+  ];
+}

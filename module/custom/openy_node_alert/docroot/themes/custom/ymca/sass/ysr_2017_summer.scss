@@ -1,0 +1,25 @@
+@import 'compass';
+@import 'breakpoint';
+
+@import 'global/colors';
+@import 'global/variables';
+@import 'global/fonts';
+@import 'ysr_2017_summer/vars';
+@import 'ysr_2017_summer/mixins';
+@import 'ysr_2017/angular';
+@import 'ysr_2017_summer/misc';
+@import 'ysr_2017_summer/buttons';
+@import 'ysr_2017_summer/header';
+@import 'ysr_2017_summer/tabs';
+@import 'ysr_2017_summer/tabs-content';
+@import 'ysr_2017_summer/blocks';
+@import 'ysr_2017_summer/block-prizes';
+// @import 'ysr_2017_summer/components/member-info';
+@import 'ysr_2017_summer/components/my-progress';
+@import 'ysr_2017_summer/components/track-activity';
+@import 'ysr/_slick-slider';
+@import 'ysr_2017_summer/modals';
+@import 'ysr_2017/ticker';
+@import 'ysr_2017_summer/footer';
+@import 'ysr_2017_summer/pages/registration';
+@import 'ysr_2017_summer/pages/upcoming';

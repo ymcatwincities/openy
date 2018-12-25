@@ -1,0 +1,93 @@
+uuid: 543785c8-88c7-4acc-b400-a4680639215b
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.camp_share_your_story
+    - field.field.contact_message.camp_share_your_story.field_camp_email_list
+    - field.field.contact_message.camp_share_your_story.field_comments
+    - field.field.contact_message.camp_share_your_story.field_decade
+    - field.field.contact_message.camp_share_your_story.field_email_address
+    - field.field.contact_message.camp_share_your_story.field_first_name
+    - field.field.contact_message.camp_share_your_story.field_image
+    - field.field.contact_message.camp_share_your_story.field_label
+    - field.field.contact_message.camp_share_your_story.field_last_name
+    - field.field.contact_message.camp_share_your_story.field_video_url
+    - image.style.thumbnail
+  module:
+    - image
+    - webforms
+id: contact_message.camp_share_your_story.default
+targetEntityType: contact_message
+bundle: camp_share_your_story
+mode: default
+content:
+  field_camp_email_list:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_email_default
+  field_comments:
+    weight: 6
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_decade:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_email_address:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_first_name:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_image:
+    weight: 7
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_label:
+    weight: 1
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_last_name:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_video_url:
+    weight: 8
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  mail: true
+  message: true
+  name: true
+  subject: true

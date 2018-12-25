@@ -1,0 +1,13 @@
+type: module
+name: 'Solr search'
+description: 'Offers an implementation of the Search API that uses an Apache Solr server for indexing content.'
+# core: 8.x
+package: Search
+dependencies:
+ - search_api
+
+# Information added by Drupal.org packaging script on 2017-11-01
+version: '8.x-1.2'
+core: '8.x'
+project: 'search_api_solr'
+datestamp: 1509541996

@@ -1,0 +1,13 @@
+optimizely.forms:
+  version: VERSION
+  css:
+    theme:
+      css/optimizely.theme.css: {}
+
+optimizely.enable:
+  version: VERSION
+  js:
+    js/optimizely.admin.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

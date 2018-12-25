@@ -1,0 +1,1433 @@
+/**
+ * @file
+ */
+
+/* Fix for adminimal theme */
+body.path-admin .form--slick,
+body.path-admin .form--slick *,
+.form--slick *::before,
+.form--slick *::after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/**
+ * Form
+ */
+.form--slick {
+  font-size: 16px;
+  font-size: 1rem;
+  max-width: 100%;
+  padding: 0;
+  position: relative;
+}
+
+.form--slick::after,
+.form--slick .fieldset-wrapper::after,
+.form--slick .form-checkboxes {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.form--slick .form-actions {
+  clear: both;
+}
+
+.form--slick ~ .form-actions {
+  float: left;
+  width: 100%;
+}
+
+.form--half,
+.form--slick .vertical-tabs {
+  border: 1px solid #dbe1e9;
+  background: #f9f9f9;
+  clear: both;
+  overflow: visible;
+  position: relative;
+}
+
+.form--half,
+.form--slick .vertical-tabs,
+.form--slick .details--responsive .details--settings {
+  box-shadow: 0 0 0 4px #f9f9f9;
+  clear: both;
+  float: left;
+  margin: 30px auto;
+  width: 100%;
+}
+
+.form--slick .vertical-tabs {
+  padding: 8px;
+}
+
+.form--slick #edit-delete {
+  display: block;
+}
+
+.form--vanilla {
+  padding-top: 62px;
+}
+
+/**
+ * Buttons
+ */
+.form--slick .button,
+.form--slick .button:link,
+.form--slick .button:visited,
+.form--slick .form-submit {
+  background: #dadada;
+  border: 1px solid #dadada;
+  border-radius: 0;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 1px 0 rgba(0, 0, 0, 0.08);
+  color: #111;
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  min-height: 28px;
+  line-height: 26px;
+  margin: 0;
+  padding: 0 10px 1px;
+  text-decoration: none;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.form--slick .form-submit:focus {
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.form--slick .button:hover,
+.form--slick .button:active,
+.form--slick .form-submit:hover,
+.form--slick .form-submit:active {
+  background: #ff6d2c;
+  border-color: #ff6d2c;
+  box-shadow: 0 2px 5px -3px rgba(0, 0, 0, 0.5) inset;
+  color: #fff;
+  outline: 0;
+}
+
+.form--slick .form-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/**
+ * Clearfix
+ */
+.form-item::before,
+.form-item::after,
+.fieldgroup.form-composite::before,
+.fieldgroup.form-composite::after,
+.details-wrapper::before,
+.details-wrapper::after,
+.clearfix::before,
+.clearfix::after {
+  content: " ";
+  display: table;
+}
+
+.clearfix::after,
+.details-wrapper::after,
+.form-item::after,
+.fieldgroup.form-composite::after {
+  clear: both;
+}
+
+/**
+ * Details.
+ */
+.form--slick details,
+.form--slick .vertical-tabs details.vertical-tabs__pane {
+  margin: 0;
+  padding: 30px 0;
+  border-color: #808080;
+}
+
+.form--slick details {
+  padding: 30px 15px;
+}
+
+.form--slick details details {
+  background: none;
+  padding: 60px 0 1em;
+}
+
+.form--slick .vertical-tabs details {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.form--slick .details-description > small {
+  line-height: 1.2;
+}
+
+.form--slick .details--responsive--ajax,
+.form--slick .details--responsive--ajax > .details-wrapper {
+  padding: 0;
+}
+
+.form--slick details .details-description {
+  padding: 5px 15px;
+}
+
+.form--slick details.form-wrapper {
+  margin: 0 0 20px;
+  padding: 30px 0;
+  border: 0;
+}
+
+.form--slick details.filter-wrapper {
+  margin: 2px 0 0;
+  padding: 0;
+}
+
+.form--slick > .details-wrapper {
+  max-width: 100%;
+  padding: 40px 0 0;
+}
+
+.form--slick details summary {
+  font-size: 18px;
+  font-size: 1.125rem;
+  padding: 0 0.8em;
+}
+
+.form--slick details .details-title {
+  background: none;
+  color: #111;
+  display: block;
+  font-size: 18px;
+  font-size: 1.125rem;
+  height: auto;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.form--slick details .details-title:hover {
+  color: #ff6d2c;
+  text-decoration: none;
+}
+
+.form--slick details .details-title:focus {
+  outline: 0;
+}
+
+.form--slick .details--responsive--ajax > summary,
+.form--slick .details--responsive--ajax .details--settings > summary {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  word-wrap: normal;
+}
+
+.form--slick .details--responsive--ajax .details--responsive {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 60px;
+}
+
+.form--slick .details--responsive--ajax .details--responsive > .details-wrapper {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.form--slick .details--responsive--ajax .details--responsive .details--settings {
+  border: 1px solid #dadada;
+  padding: 0;
+}
+
+.form--slick .details--responsive--ajax .details--responsive .details--settings .details-wrapper {
+  margin-top: 0;
+  padding: 0;
+}
+
+html.js .form--slick .collapsible,
+html.js .form--slick .collapsed {
+  clear: both;
+  border: 0;
+}
+
+html.js .form--slick .collapsible summary,
+html.js .form--slick .collapsed summary {
+  background: none;
+  border: 0;
+  display: block;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+html.js .form--slick .collapsible .details-legend,
+html.js .form--slick .collapsed .details-legend {
+  background: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+}
+
+html.js .form--slick .collapsible summary .icon {
+  display: none;
+}
+
+html.js .form--slick .collapsible .details-legend::after {
+  content: "";
+}
+
+html.js .form--slick .collapsible .details-legend span.summary {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  word-wrap: normal;
+  margin: 0;
+}
+
+html.js .form--slick .collapsible .details-legend .details-legend-prefix {
+  background: #37465b;
+  display: inline-block;
+  float: none;
+  height: 36px;
+  left: 0;
+  line-height: 42px;
+  margin-right: 10px;
+  position: relative;
+  text-indent: -9999px;
+  top: 0;
+  vertical-align: middle;
+  width: 36px;
+  -webkit-transition: background 0.3s 0.5s ease;
+  transition: background 0.3s 0.5s ease;
+}
+
+html.js .form--slick .collapsible .details-legend .details-legend-prefix::before,
+html.js .form--slick .collapsible .details-legend .details-legend-prefix::after {
+  display: inline-block;
+  width: 1.25rem;
+  height: 0.17857rem;
+  background: #fff;
+  border-radius: 0.08929rem;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  position: absolute;
+  left: 8px;
+  content: '';
+  text-indent: 0;
+  -ms-transform-origin: 50% 50% 50%;
+  -webkit-transform-origin: 50% 50% 50%;
+  transform-origin: 50% 50% 50%;
+  -webkit-transition: top 0.3s 0.6s ease, -webkit-transform 0.3s ease;
+  transition: top 0.3s 0.6s ease, transform 0.3s ease;
+}
+
+html.js .form--slick .collapsible .details-legend .details-legend-prefix::before {
+  -ms-transform: rotate3d(0, 0, 1, 45deg);
+  -webkit-transform: rotate3d(0, 0, 1, 45deg);
+  transform: rotate3d(0, 0, 1, 45deg);
+  top: 18px;
+}
+
+html.js .form--slick .collapsible .details-legend .details-legend-prefix::after {
+  -ms-transform: rotate3d(0, 0, 1, -45deg);
+  -webkit-transform: rotate3d(0, 0, 1, -45deg);
+  transform: rotate3d(0, 0, 1, -45deg);
+  top: 18px;
+}
+
+html.js .form--slick .collapsed {
+  height: 40px;
+  margin: 20px 0;
+  padding: 0;
+}
+
+html.js .form--slick .collapsed .details-legend .details-legend-prefix {
+  background: #bbc6d6;
+}
+
+html.js .form--slick .collapsed .details-legend .details-legend-prefix::before,
+html.js .form--slick .collapsed .details-legend .details-legend-prefix::after {
+  -webkit-transition: top 0.3s ease, -webkit-transform 0.3s 0.5s ease;
+  transition: top 0.3s ease, transform 0.3s 0.5s ease;
+  top: 16px;
+  width: 18px;
+}
+
+html.js .form--slick .collapsed .details-legend .details-legend-prefix::before {
+  -ms-transform: rotate3d(0, 0, 1, 90deg);
+  -webkit-transform: rotate3d(0, 0, 1, 90deg);
+  transform: rotate3d(0, 0, 1, 90deg);
+}
+
+html.js .form--slick .collapsed .details-legend .details-legend-prefix::after {
+  -ms-transform: rotate3d(0, 0, 1, 180deg);
+  -webkit-transform: rotate3d(0, 0, 1, 180deg);
+  transform: rotate3d(0, 0, 1, 180deg);
+}
+
+/**
+ * Fieldset.
+ */
+.form--slick > div[id^="field-"] {
+  clear: both;
+  width: 100%;
+}
+
+/** Third party settings. */
+.form--slick ~ .form-item {
+  clear: both;
+}
+
+.form--slick > div[id^="field-"] fieldset {
+  border-left: 0;
+  border-right: 0;
+  float: none;
+  padding: 20px 0 0;
+  width: 100%;
+}
+
+.form--slick > div[id^="field-"] fieldset legend {
+  padding-left: 20px;
+  z-index: 3;
+}
+
+.form--slick > div[id^="field-"] fieldset .form-item {
+  border: 0;
+}
+
+/**
+ * Tooltip
+ * !important declaration is to override Seven.
+ */
+.has-tooltip .form-item,
+.has-tooltip .form-composite > .fieldset-wrapper {
+  position: relative;
+}
+
+.has-tooltip .form-item > .description,
+.has-tooltip .form-composite > .fieldset-wrapper > .description {
+  background: #000;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  bottom: 120%;
+  box-shadow: 0 2px 10px -2px #000;
+  color: #dadada !important;
+  display: block;
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  min-height: 40px;
+  max-width: 320px;
+  min-width: 210px;
+  position: absolute !important;
+  padding: 12px !important;
+  opacity: 0;
+  overflow: hidden;
+  right: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.4s ease-in 0s;
+  transition: all 0.4s ease-in 0s;
+  text-align: left;
+  white-space: normal;
+  z-index: 99;
+}
+
+.has-tooltip .form-item--tooltip-wide > .description {
+  min-width: 320px;
+}
+
+.has-tooltip .form-item > .description ul {
+  margin: 1em 0;
+  padding-left: 1em;
+}
+
+.has-tooltip .form-item > .description a,
+.has-tooltip .form-composite > .fieldset-wrapper > .description a {
+  color: #fff;
+  font-weight: 600;
+}
+
+.has-tooltip .form-item > .description:after,
+.has-tooltip .form-composite > .fieldset-wrapper > .description:after {
+  border: 10px solid transparent;
+  border-right: 10px solid #000;
+  border-top: 0;
+  bottom: -10px;
+  content: "";
+  display: block;
+  height: 0;
+  opacity: .6;
+  position: absolute;
+  right: 20px;
+  width: 0;
+  z-index: 99;
+}
+
+.has-tooltip .form-item.form-composite > .description,
+.has-tooltip .form-item.form-type-textarea > .description,
+.has-tooltip .form-composite > .fieldset-wrapper.form-composite > .description,
+.has-tooltip .form-composite > .fieldset-wrapper.form-type-textarea > .description {
+  margin-left: -30% !important;
+  max-width: 60% !important;
+  min-width: 60% !important;
+  width: 60% !important;
+}
+
+.has-tooltip .form-item.is-selected > .description,
+.has-tooltip .form-item.is-hovered > .description,
+.has-tooltip .form-item.is-selected > .fieldset-wrapper > .description,
+.has-tooltip .form-item.is-hovered > .fieldset-wrapper > .description,
+.has-tooltip .form-composite > .fieldset-wrapper.is-selected > .description,
+.has-tooltip .form-composite > .fieldset-wrapper.is-hovered > .description,
+.has-tooltip .form-composite > .fieldset-wrapper.is-selected > .fieldset-wrapper > .description,
+.has-tooltip .form-composite > .fieldset-wrapper.is-hovered > .fieldset-wrapper > .description {
+  bottom: 100%;
+  display: block;
+  opacity: 1 !important;
+  visibility: visible;
+  overflow: visible !important;
+}
+
+.has-tooltip .form-item.is-selected > .hint,
+.has-tooltip .form-item.is-hovered > .hint,
+.has-tooltip .form-item.is-selected > .fieldset-wrapper > .hint,
+.has-tooltip .form-item.is-hovered > .fieldset-wrapper > .hint,
+.has-tooltip .form-composite > .fieldset-wrapper.is-selected > .hint,
+.has-tooltip .form-composite > .fieldset-wrapper.is-hovered > .hint,
+.has-tooltip .form-composite > .fieldset-wrapper.is-selected > .fieldset-wrapper > .hint,
+.has-tooltip .form-composite > .fieldset-wrapper.is-hovered > .fieldset-wrapper > .hint {
+  display: block;
+}
+
+.has-tooltip .form-item.is-selected > .description,
+.has-tooltip .form-item.is-selected > .fieldset-wrapper > .description,
+.has-tooltip .form-composite > .fieldset-wrapper.is-selected > .description,
+.has-tooltip .form-composite > .fieldset-wrapper.is-selected > .fieldset-wrapper > .description {
+  padding-left: 20px !important;
+}
+
+.has-tooltip .form-item.is-selected > .description:before,
+.has-tooltip .form-item.is-selected > .fieldset-wrapper > .description:before,
+.has-tooltip .form-composite > .fieldset-wrapper.is-selected > .description:before,
+.has-tooltip .form-composite > .fieldset-wrapper.is-selected > .fieldset-wrapper > .description:before {
+  color: #dadada;
+  content: "x";
+  display: block;
+  font-family: sans-serif;
+  height: 20px;
+  left: 5px;
+  line-height: 18px;
+  margin-top: -10px;
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  z-index: 0;
+}
+
+.has-tooltip .form-item--tooltip-bottom > .description {
+  bottom: auto !important;
+  top: 100%;
+}
+
+.has-tooltip .form-item--tooltip-bottom > .description::after {
+  border: 10px solid transparent;
+  border-right: 10px solid #000;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid #000;
+  bottom: auto;
+  top: -20px;
+}
+
+.no-js .has-tooltip .form-item:hover > .fieldset-wrapper > .description,
+.no-js .has-tooltip .form-item:hover > .description {
+  bottom: 100%;
+  display: block;
+  opacity: 1 !important;
+  visibility: visible;
+  overflow: visible !important;
+}
+
+.form-item .hint {
+  background: #828282;
+  border-radius: 50%;
+  color: #fff;
+  content: '?';
+  cursor: default;
+  display: none;
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 5px;
+  text-align: center;
+  top: 5px;
+  z-index: 8;
+}
+
+.form__header .form-item .hint {
+  top: 16px;
+  right: -5px;
+}
+
+.form-item:hover > .hint {
+  display: block;
+}
+
+/**
+ * Form items
+ */
+.form--slick .form-item {
+  background: none;
+  border-bottom: 1px solid #dadada;
+  border-top: 1px solid white;
+  bottom: -1px;
+  float: left;
+  font-size: 13px;
+  font-size: 0.8125rem;
+  line-height: 32px;
+  margin: 0;
+  min-height: 72px;
+  padding: 20px 12px 12px;
+  position: relative;
+  width: 100%;
+}
+
+.form--slick .form-checkboxes .form-item,
+.form--slick .form-radios .form-item {
+  margin: 0;
+}
+
+.form--slick .form-radios {
+  margin-bottom: 10px;
+}
+
+.form--slick .form-type-vertical-tabs {
+  width: 100%;
+}
+
+.form--slick table .form-item {
+  background: none;
+  border: 0;
+  min-height: 32px;
+  padding: 5px;
+}
+
+.form--slick .form-item input,
+.form--slick .form-item select {
+  float: left;
+  max-width: 150px;
+  min-width: 40px;
+}
+
+.form--slick .form-item .form-text,
+.form--slick .form-item .form-select,
+.form--slick .form-item .form-textarea {
+  background: #fff;
+  border: 1px solid #dadada;
+  border-radius: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+  line-height: 22px;
+  margin: 0; /* Fix for ember */
+  min-height: 22px;
+  padding: 2px 5px;
+  width: auto;
+}
+
+.details--compact .form--slick .form-item .form-text,
+.form--slick .form-item .form-select,
+.form--slick .form-item .form-textarea {
+  width: 98%;
+}
+
+.form--slick .form-item .form-text,
+.form--slick .form-item .form-select,
+.form--slick .form-item .form-textarea {
+  font-size: 14px;
+  font-size: 0.875rem;
+}
+
+.form--slick .form-item .form-text:focus,
+.form--slick .form-item .form-select:focus,
+.form--slick .form-item .form-textarea:focus {
+  border-color: #ff6d2c;
+  box-shadow: 0 0 7px #ff6d2c;
+}
+
+.form--slick .form-item .form-select {
+  line-height: 18px; /* Fix for Chrome linux */
+  min-height: 28px;
+  min-width: 120px;
+  padding: 4px 4px 2px; /* Fix for Chrome linux */
+  vertical-align: middle;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  text-indent: .01px;
+  text-overflow: "";
+  white-space: nowrap; /* Fix for Bartik */
+}
+
+.form--slick .form-type-textfield .field-prefix {
+  float: left;
+  line-height: 22px;
+  padding: 5px;
+}
+
+.form--slick .form-type-textfield .field-suffix {
+  padding-left: 5px;
+}
+
+.form--slick .form-radios {
+  margin-left: 180px;
+}
+
+.form--half fieldset.form-item {
+  padding-left: 15px;
+}
+
+/**
+ * Fixes for Adminimal gargantuan label.
+ */
+.form--slick .form-item label,
+.form--slick .form-item label.option {
+  font-weight: 400;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 14px;
+}
+
+.form--slick .form-item label {
+  display: block;
+  /* Overrides over-specified Seven */
+  padding: 2px 5px 2px 0 !important;
+  margin: 0;
+  /* text-align: right; */
+  white-space: normal;
+}
+
+.form--slick .form-item.form-type-textfield input {
+  width: auto;
+  max-width: 150px;
+}
+
+.form--slick .form-item.form-type-textfield .form-text--int {
+  max-width: 50px;
+}
+
+.form--slick .form-item.form-type-textfield .js-expandable {
+  -webkit-transition: width 0.6s ease-out 0.8s, max-width 0.5s linear 0s;
+  transition: width 0.6s ease-out 0.8s, max-width 0.5s linear 0s;
+}
+
+.form--slick .form-item.form-type-textfield.is-focused {
+  z-index: 3;
+}
+
+.form--slick .form-item.form-type-textfield.is-focused .js-expandable {
+  max-width: 280px;
+  position: absolute;
+  width: 280px;
+  z-index: 2;
+}
+
+.form--slick .fieldgroup.form-composite {
+  margin-bottom: -1px;
+  padding-bottom: 0;
+  padding-top: 0;
+  width: 100%;
+}
+
+.form--slick .fieldgroup.form-composite > legend {
+  border-bottom: 1px solid #e7e7e7;
+  border-top: 1px solid #e7e7e7;
+  display: block;
+  font-size: 22px;
+  font-size: 1.375rem;
+  line-height: 42px;
+  margin-top: -1px;
+  min-height: 42px;
+  padding-right: 0 !important;
+  padding-top: 20px;
+  width: 100%;
+}
+
+.form--slick .vertical-tabs .form-item {
+  min-height: 72px;
+}
+
+.form--slick .vertical-tabs .fieldgroup.form-composite {
+  background: none;
+  padding: 0;
+}
+
+.form--slick .vertical-tabs .fieldgroup.form-composite .form-item {
+  margin: -1px -1px 0 0;
+  padding-top: 20px;
+}
+
+.form--slick .vertical-tabs .fieldgroup.form-composite .form-item:nth-child(3n+1) {
+  border-left: 0;
+}
+
+.form--slick .vertical-tabs .has-tooltip .details-wrapper {
+  padding: 0;
+}
+
+.form--slick .vertical-tabs .details--responsive > .details-wrapper {
+  padding: 40px 0 0;
+}
+
+.form--slick .vertical-tabs .details--responsive .form-item input,
+.form--slick .vertical-tabs .details--responsive .form-item select {
+  max-width: 100px;
+  margin: 0; /* Fix for Ember */
+}
+
+.form--slick .vertical-tabs .details--responsive .form-item .form-checkbox {
+  max-width: 100%;
+}
+
+/**
+ * Checkboxes.
+ */
+.form--slick .form-type-radio {
+  border: 0;
+}
+
+.form--slick .form-type-radio,
+.form--slick .form-type-checkbox {
+  position: relative;
+}
+
+.form--slick .form-type-radio input,
+.form--slick .form-type-checkbox input[type=checkbox] {
+  background: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-size: 0.75rem;
+  height: 22px;
+  display: inline-block;
+  float: none;
+  margin: 0; /* Fix for Ember */
+  opacity: 0;
+  width: 22px;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  z-index: 2;
+}
+
+/* Fix for UNIX FF + Chrome */
+.form--slick .form-type-checkbox input[type=checkbox] {
+  left: auto;
+  margin-top: 2px;
+  max-width: 100%;
+  min-height: 22px;
+  min-width: 22px;
+  position: absolute;
+  top: auto;
+}
+
+.form--slick .form-type-checkbox .field-suffix {
+  color: transparent;
+}
+
+.form--slick .form-type-radio label,
+.form--slick .form-type-checkbox label,
+.form--slick .form-type-checkbox .field-suffix {
+  line-height: 18px;
+  position: relative;
+}
+
+.form--slick .form-type-radio label.option,
+.form--slick .form-type-checkbox .field-suffix {
+  padding-left: 0;
+}
+
+.form--slick .form-type-checkbox label::before {
+  background: none;
+  border: 0;
+}
+
+.form--slick .form-type-radio label::before,
+.form--slick .form-type-checkbox .field-suffix::before {
+  content: '';
+  display: block;
+  position: absolute;
+  text-align: center;
+  width: 22px;
+}
+
+.form--slick .form-type-radio label::before {
+  font-size: 12px;
+  font-size: 0.75rem;
+}
+
+.form--slick .form-type-radio label::before,
+.form--slick .form-type-checkbox .field-suffix {
+  background: #fff;
+  outline: 0;
+  border: 2px solid #dadada;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  margin-right: 5px;
+  left: 0;
+  top: 4px;
+  text-align: center;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.form--slick .form-type-checkbox .field-suffix {
+  display: inline-block;
+  left: auto;
+  right: auto;
+  top: -4px;
+  vertical-align: middle;
+}
+
+.form--slick .form-type-radio .form-radio:checked + label::before {
+  font-size: 32px;
+  line-height: 18px;
+}
+
+.form--slick .form-type-radio .form-radio:checked + label::before,
+.form--slick .form-type-checkbox .form-checkbox:checked + .field-suffix {
+  background: #fff;
+  outline: 0;
+  border-color: #ff6d2c;
+  color: #ff6d2c;
+}
+
+.form--slick .form-type-radio .form-radio:focus,
+.form--slick .form-type-radio .form-checkbox:focus,
+.form--slick .form-type-checkbox .form-radio:focus,
+.form--slick .form-type-checkbox .form-checkbox:focus {
+  box-shadow: none;
+}
+
+.form--slick .form-type-radio .form-radio:checked + label::before {
+  content: '\02022';
+}
+
+.form--slick .form-type-checkbox .form-checkbox:checked + .field-suffix::before {
+  content: '\2713';
+  font-size: 16px;
+  line-height: 18px;
+  text-indent: -2px;
+}
+
+.form--slick .form-type-radio label::before {
+  border-radius: 50%;
+}
+
+/**
+ * Overrides
+ */
+.form--slick .form-type-textarea .grippie {
+  display: none;
+}
+
+.form--slick .form-type-textarea .form-textarea {
+  resize: vertical;
+}
+
+.form--slick .details-wrapper div[class*="-breakpoint"],
+.form--slick .vertical-tabs .details-wrapper div[class*="-unslick"] {
+  border: 0;
+  background: none;
+}
+
+.form--slick .form-checkboxes {
+  border-top: 2px solid #e7e7e7;
+  clear: both;
+  margin-top: -1px;
+  width: 100%;
+}
+
+/**
+ * Header
+ */
+.form--slick .form-item.fieldgroup.form-composite > legend {
+  padding: 10px 0;
+}
+
+.form--slick .form-type-item,
+.ui-dialog-content .form--views > .details-wrapper > .description,
+.form--views > .details-wrapper > .description,
+.form--slick .form-item.fieldgroup.form-composite > legend,
+.form__title {
+  background: #fafafa;
+  clear: both;
+  display: block;
+  float: none;
+  font-size: 20px;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  min-height: 42px;
+  padding: 10px 5px 10px !important;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.form--slick .form-item.form-item--sizes {
+  background: none;
+  border: 0;
+  min-height: 42px;
+  padding: 10px 0;
+}
+
+td .form__title {
+  margin: -10px auto;
+}
+
+.field-ui-overview td .form__title {
+  margin: 0 auto;
+  position: relative;
+}
+
+.form--vanilla .form__header {
+  left: 0;
+  padding-left: 240px !important;
+  position: absolute;
+  text-align: left;
+  top: 0;
+}
+
+.form--vanilla div[class*="-vanilla"] {
+  background: none;
+  border: 0;
+  display: block;
+  height: 62px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+.form--slick .form-item.fieldgroup.form-composite > legend,
+.form--slick .form-type-item,
+.form__title {
+  background: #e7e7e7;
+}
+
+.form--slick .details--no-checkboxes-label .form-item.fieldgroup.form-composite > legend {
+  position: absolute !important;
+  clip: rect(1px, 1px, 1px, 1px);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  word-wrap: normal;
+}
+
+.ui-dialog-content .form--views > .details-wrapper > .description small,
+.form--slick .form-type-item small,
+.form__title small {
+  display: block;
+  font-size: 14px;
+  margin-top: -1px;
+  text-transform: none;
+}
+
+.form__header {
+  margin-bottom: 0;
+}
+
+.form--slick .form__header .form-item {
+  background: none;
+  border: 0;
+  float: none;
+}
+
+.form--slick .form__header .form-item input {
+  width: 210px;
+  max-width: 210px;
+}
+
+.form--slick .form__header .form-item .form-checkbox {
+  max-width: 100%;
+}
+
+.form--slick .form__header .form-item label {
+  float: none;
+  text-align: left;
+}
+
+.form--slick .form__header .form-item-skin label,
+.form--slick .form__header .form-item-breakpoints label {
+  width: auto;
+}
+
+.form--slick .form__header div[class*="-breakpoint"] input {
+  width: 60px;
+}
+
+.form--slick .form__header .form-item-skin .description {
+  bottom: 90% !important;
+  max-width: 480px;
+  width: 480px;
+}
+
+/**
+ * Radios
+ */
+.form--slick .form-radios .form-item {
+  background: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  width: auto;
+}
+
+.form--slick .form-radios .form-item input {
+  cursor: pointer;
+  display: block;
+  height: 32px;
+  opacity: 0;
+  position: absolute;
+  min-width: 60px;
+  width: 100%;
+  z-index: 9;
+}
+
+.form--slick .form-radios label {
+  display: block;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  min-height: 45px;
+  padding: 15px 5px 0;
+  position: relative;
+}
+
+/* Fix for Shiny, Adminimal */
+.ui-dialog-content .form--slick .form-item,
+.ui-dialog-content .form--slick .form-item .form-item {
+  clear: none;
+}
+
+.ui-dialog-content .form--views > .details-wrapper {
+  padding: 0 !important; /* Fix for Rubik */
+}
+
+.ui-dialog-content .form--slick > summary {
+  background: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+}
+
+.ui-dialog-content .form--slick > summary .details-legend {
+  margin: 0;
+  padding: 10px 15px;
+  position: absolute;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.form--slick .form-item.form-type-radios,
+.form--slick .form-item.fieldgroup.form-composite {
+  border-left: 0;
+  border-right: 0;
+  clear: both;
+  float: none;
+  padding: 0;
+  width: 100%;
+}
+
+/**
+ * Misc
+ */
+.no-padding {
+  padding: 0 !important;
+}
+
+#edit-label-machine-name-suffix {
+  padding-left: 5px;
+}
+
+.path-admin-config-media-slick #main {
+  width: 100%;
+}
+
+#field-display-overview .field-plugin-settings-edit-form .form--slick .form-item {
+  margin: 0;
+}
+
+.form--optionset #edit-options {
+  clear: both;
+}
+
+/* Prevents overlapping Views edit options */
+.ui-front [data-drupal-selector="edit-options"] details {
+  clear: both;
+}
+
+[data-drupal-selector="edit-options-settings"] details {
+  clear: none;
+}
+
+.form--slick.form--half {
+  clear: both;
+  margin: 30px auto;
+}
+
+.form--views.form--half {
+  margin-top: 60px;
+}
+
+.form--slick .form-item label {
+  line-height: 16px;
+}
+
+.form--slick .form-actions,
+.form--optionset #edit-options {
+  clear: both;
+}
+
+.form--slick .form-wrapper--table .form-item {
+  padding-left: 15px;
+}
+
+.form--slick .form-wrapper--table td .form-item {
+  padding-left: 0;
+}
+
+.form--slick .form-wrapper--table th:first-child,
+.form--slick .form-wrapper--table td:first-child {
+  text-align: right;
+}
+
+.form--slick .form-wrapper--table td:first-child {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 36px;
+  text-transform: uppercase;
+}
+
+.form--slick .form-item--right {
+  text-align: right;
+}
+
+.form--slick .form-item--left {
+  text-align: left;
+}
+
+.form--slick .form-item--center {
+  text-align: center;
+}
+
+@media screen and (min-width: 760px) {
+  .form--slick .form-item {
+    border-right: 1px solid #e7e7e7;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .form--slick .form-item label {
+    /* Overrides over-specified Seven */
+    padding: 2px 5px 2px 5px !important;
+  }
+
+  .form--optionset .form-item,
+  .form--slick .vertical-tabs__menu-item,
+  .form--slick .vertical-tabs__menu-item.is-selected {
+    width: 49.9999%;
+  }
+
+  .form--slick .vertical-tabs__menu-item,
+  .form--slick .vertical-tabs__menu-item.is-selected {
+    float: left;
+  }
+
+  .form--slick .form-item label {
+    text-align: right;
+  }
+
+  .form--half .form-item,
+  .toolbar-tray-open .form--optionset .form-item {
+    width: 100%;
+  }
+
+  .form--slick .form-type-vertical-tabs {
+    width: 100% !important;
+  }
+
+  .has-tooltip .form-item > .description,
+  .has-tooltip .form-composite > .fieldset-wrapper > .description {
+    max-width: 100%;
+  }
+
+  .form--slick .form__header .form-item {
+    display: inline-block;
+    margin-right: -5px;
+    vertical-align: top;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .form--slick .vertical-tabs .has-tooltip .details-wrapper {
+    margin-right: -4px;
+  }
+
+  .form--slick .form__half--last .form-item,
+  .toolbar-vertical .form--slick .form__half--last .form-item {
+    float: right;
+    width: auto;
+  }
+
+  .form--slick .form-item label {
+    float: left;
+    width: 160px;
+    text-align: right;
+    white-space: normal;
+  }
+
+  .form--slick.form--half .form-checkboxes .form-item {
+    width: 33.3333%;
+  }
+
+  .form--slick.form--image .form-wrapper--caption .form-item {
+    width: 49.9999%;
+  }
+
+  .field-plugin-settings-editing .form--slick {
+    margin-top: 62px;
+  }
+
+  .form--slick.form--half {
+    margin-bottom: 42px;
+  }
+
+  .scroll .form--slick.form--half .form-item--style,
+  .field-plugin-settings-editing .form--slick .form-item--style {
+    background: none;
+    border: 0;
+    height: 62px;
+    min-height: 32px;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: -42px;
+    z-index: 9;
+  }
+
+  .form--slick .form__header .form-type-checkbox {
+    max-width: 160px;
+  }
+
+  .form--slick #edit-delete {
+    float: right;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .form--optionset .form-item,
+  .toolbar-tray-open .form--optionset .form-item {
+    width: 33.2666%;
+  }
+
+  .form__half,
+  .form--half .form-item,
+  .toolbar-vertical.toolbar-tray-open .form--slick .form-item {
+    width: 49.9999%;
+  }
+
+  .form__half {
+    float: left;
+  }
+
+  .form--slick .vertical-tabs__menu-item,
+  .form--slick .vertical-tabs__menu-item.is-selected,
+  .form--optionset td .form-item,
+  .toolbar-tray-open .form--optionset td .form-item {
+    float: none;
+    width: 100%;
+  }
+
+  .form--slick .form-type-item {
+    float: left;
+    width: 100%;
+  }
+
+  .toolbar-tray-open .form--slick .form__half--last .form-item {
+    float: right;
+    width: auto;
+  }
+
+  .form--slick.form--half .form-checkboxes .form-item {
+    width: 24.9999%;
+  }
+
+  .form--slick.form--image .form-wrapper--caption .form-item,
+  .form--slick.form--caption-2 .form-wrapper--caption .form-item {
+    width: 49.9999%;
+  }
+
+  .form--slick.form--caption-3 .form-wrapper--caption .form-item {
+    width: 33.3333%;
+  }
+
+  .has-tooltip .form-item--tooltip-wide > .description {
+    max-width: 480px;
+    min-width: 480px;
+  }
+
+  .form--slick .form-item label {
+    width: 180px;
+  }
+
+  .form--slick.form--half {
+    max-width: 960px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .form--slick .form-item input,
+  .form--slick .form-item select {
+    max-width: 180px;
+    min-width: 180px;
+  }
+}
+
+/** Declutter form when Vanilla is enabled coz table form states are broken. */
+.form--vanilla-on .form__title--media-switch,
+.form--vanilla-on .form__title--fields,
+.form--vanilla-on .form__title--breakpoints,
+.form--vanilla-on .tableresponsive-toggle-columns,
+.form--vanilla-on .form-wrapper--table-breakpoints,
+.form--responsive-image-on .form__title--breakpoints,
+.form--responsive-image-on .tableresponsive-toggle-columns,
+.form--responsive-image-on .form-wrapper--table-breakpoints,
+.form--responsive-image-on .form-item--sizes,
+.form--media-switch-rendered .form__title--breakpoints,
+.form--media-switch-rendered .tableresponsive-toggle-columns,
+.form--media-switch-rendered .form-wrapper--table-breakpoints,
+.form--media-switch-rendered .form-item--background,
+.form--media-switch-rendered .form-item--image-style,
+.form--media-switch-rendered .form-item--ratio {
+  display: none !important;
+}

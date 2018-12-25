@@ -1,0 +1,19 @@
+uuid: f0e2dc67-c245-4de0-a80a-1087354bda7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_subtitle
+    - node.type.camp
+id: node.camp.field_subtitle
+field_name: field_subtitle
+entity_type: node
+bundle: camp
+label: Subtitle
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

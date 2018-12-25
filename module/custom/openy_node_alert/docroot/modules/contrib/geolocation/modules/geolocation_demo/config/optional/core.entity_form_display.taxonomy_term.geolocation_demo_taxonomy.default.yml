@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.geolocation_demo_taxonomy.field_geolocation_demo_term_icon
+    - image.style.geolocation_demo_marker_icon_size
+    - taxonomy.vocabulary.geolocation_demo_taxonomy
+  module:
+    - image
+    - path
+    - text
+  enforced:
+    module:
+      - geolocation_demo
+id: taxonomy_term.geolocation_demo_taxonomy.default
+targetEntityType: taxonomy_term
+bundle: geolocation_demo_taxonomy
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+      rows: 5
+    third_party_settings: {  }
+  field_geolocation_demo_term_icon:
+    type: image_image
+    weight: 3
+    region: content
+    settings:
+      preview_image_style: geolocation_demo_marker_icon_size
+      progress_indicator: throbber
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

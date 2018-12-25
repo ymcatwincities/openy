@@ -1,0 +1,20 @@
+uuid: 2e0dbe22-0def-46fa-8e00-acd753fc5160
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - seven
+id: seven_content
+theme: seven
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

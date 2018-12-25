@@ -1,0 +1,19 @@
+uuid: 9e69de3f-3a6a-4cce-bd11-17833ddc9bd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.camp_share_your_story
+    - field.storage.contact_message.field_comments
+id: contact_message.camp_share_your_story.field_comments
+field_name: field_comments
+entity_type: contact_message
+bundle: camp_share_your_story
+label: 'Share your story'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

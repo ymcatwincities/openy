@@ -1,0 +1,12 @@
+name: 'Relative to Absolute Filter'
+description: 'Filter for convertion of relative paths to absolute URLs'
+# core: 8.x
+package: 'Input filters'
+dependencies:
+  - filter
+type: module
+# Information added by Drupal.org packaging script on 2016-06-23
+version: '8.x-1.2'
+core: '8.x'
+project: 'rel_to_abs'
+datestamp: 1466697246

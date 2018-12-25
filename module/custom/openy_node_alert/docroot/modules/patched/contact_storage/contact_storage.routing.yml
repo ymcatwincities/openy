@@ -1,0 +1,23 @@
+entity.contact_message.edit_form:
+  path: '/admin/structure/contact/messages/{contact_message}'
+  defaults:
+    _entity_form: 'contact_message.edit'
+    _title: 'Edit message'
+  requirements:
+    _permission: 'administer contact forms'
+
+entity.contact_message.delete_form:
+  path: '/admin/structure/contact/messages/{contact_message}/delete'
+  defaults:
+    _entity_form: 'contact_message.delete'
+    _title: 'Delete message'
+  requirements:
+    _permission: 'administer contact forms'
+
+entity.contact_message.collection:
+  path: '/admin/structure/contact/messages'
+  defaults:
+    _entity_list: 'contact_message'
+    _title: 'Contact messages'
+  requirements:
+    _permission: 'administer contact forms'

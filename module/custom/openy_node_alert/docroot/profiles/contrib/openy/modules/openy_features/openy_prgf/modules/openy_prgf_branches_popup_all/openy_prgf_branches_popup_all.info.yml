@@ -1,0 +1,12 @@
+name: Open Y Paragraph Branches Popup (All)
+description: Provides a dynamic paragraph that renders location selection popup based on current node.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - field
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - openy_popups

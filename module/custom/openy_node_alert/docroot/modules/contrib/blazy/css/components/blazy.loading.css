@@ -1,0 +1,73 @@
+/**
+ * @file
+ */
+
+/* Credit: https://github.com/tobiasahlin/SpinKit */
+@-webkit-keyframes rotateplane {
+  0% {
+    -webkit-transform: perspective(120px);
+  }
+  50% {
+    -webkit-transform: perspective(120px) rotateY(180deg);
+  }
+  100% {
+    -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+  }
+}
+
+@keyframes rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+/* The lazyloaded element: IMG, IFRAME, DIV. */
+.b-lazy,
+.b-responsive {
+  display: block;
+  opacity: 0;
+  -webkit-transition: opacity 500ms ease-in-out;
+  transition: opacity 500ms ease-in-out;
+}
+
+/* Needed to display preloader with CSS BG image, otherwise hidden. */
+.b-loaded,
+.media--loading.media--background {
+  opacity: 1;
+}
+
+.media--loading {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  position: relative;
+}
+
+.media--loading::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 30px;
+  max-width: 30px;
+  background: #2eaae0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -15px;
+  margin-top: -15px;
+  font-size: 0;
+  z-index: 22;
+  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+  animation: rotateplane 1.2s infinite ease-in-out;
+}
+
+.media--background {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}

@@ -1,0 +1,20 @@
+uuid: ace1c19d-fb35-4803-9900-de6a7ac461f1
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - fortytwo
+id: fortytwo_messages
+theme: fortytwo
+region: sidebar_first
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

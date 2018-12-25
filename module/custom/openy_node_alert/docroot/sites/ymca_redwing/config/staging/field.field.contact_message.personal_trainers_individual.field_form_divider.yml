@@ -1,0 +1,23 @@
+uuid: e1276774-4038-4552-9e09-9fb4cc7da863
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.personal_trainers_individual
+    - field.storage.contact_message.field_form_divider
+  module:
+    - webforms
+id: contact_message.personal_trainers_individual.field_form_divider
+field_name: field_form_divider
+entity_type: contact_message
+bundle: personal_trainers_individual
+label: 'Form Heading'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: '<p class="legend">Enter Your Information</p>'
+default_value_callback: ''
+settings: {  }
+field_type: webform_markup_item

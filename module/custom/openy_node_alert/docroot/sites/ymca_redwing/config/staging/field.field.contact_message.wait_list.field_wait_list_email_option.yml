@@ -1,0 +1,31 @@
+uuid: ab758289-d8a7-4191-a01f-31d7377f5e35
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.wait_list
+    - field.storage.contact_message.field_wait_list_email_option
+  module:
+    - webforms
+id: contact_message.wait_list.field_wait_list_email_option
+field_name: field_wait_list_email_option
+entity_type: contact_message
+bundle: wait_list
+label: Location
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    option_select: 0
+    option_name: 'Highland Elementary '
+    option_reference: null
+    option_emails: John.Bronson@YMCAtwincities.org
+  -
+    option_select: 0
+    option_name: 'Deerwood Elementary '
+    option_reference: null
+    option_emails: Casey.Christian@ymcatwincities.org
+default_value_callback: ''
+settings: {  }
+field_type: options_email_item

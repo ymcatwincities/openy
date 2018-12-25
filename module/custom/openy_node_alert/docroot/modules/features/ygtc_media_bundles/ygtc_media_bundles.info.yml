@@ -1,0 +1,15 @@
+name: 'YGTC Media Bundles'
+description: 'Implements YGTC media bundles.'
+type: module
+core: 8.x
+dependencies:
+  - blazy
+  - block
+  - metatag
+  - openy_media_image
+  - openy_prgf_small_banner
+  - page_manager
+  - user
+  - views
+  - ymca_page_manager
+version: 8.x-1.0

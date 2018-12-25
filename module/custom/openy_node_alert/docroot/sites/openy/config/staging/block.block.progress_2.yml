@@ -1,0 +1,25 @@
+uuid: 5b67a6d0-d8aa-43a1-a007-074892e769fe
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:952ed1ce-3318-4612-bc00-fcae4d4354b2'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: progress_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -9
+provider: null
+plugin: 'block_content:952ed1ce-3318-4612-bc00-fcae4d4354b2'
+settings:
+  id: 'block_content:952ed1ce-3318-4612-bc00-fcae4d4354b2'
+  label: Progress
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

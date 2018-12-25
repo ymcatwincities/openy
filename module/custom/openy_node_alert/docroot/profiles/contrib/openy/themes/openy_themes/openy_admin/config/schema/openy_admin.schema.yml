@@ -1,0 +1,5 @@
+# Schema for the configuration files of the Open Y admin theme.
+
+openy_admin.settings:
+  type: theme_settings
+  label: 'Open Y admin settings'

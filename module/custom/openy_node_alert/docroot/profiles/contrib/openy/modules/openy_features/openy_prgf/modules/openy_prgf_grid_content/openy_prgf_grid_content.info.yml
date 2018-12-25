@@ -1,0 +1,17 @@
+name: Open Y Paragraph Grid Content
+description: Provides a paragraph to display grid content stories.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - entity_browser
+  - entity_reference_revisions
+  - field
+  - link
+  - media_entity
+  - openy_media_image
+  - openy_prgf
+  - options
+  - paragraphs
+  - text

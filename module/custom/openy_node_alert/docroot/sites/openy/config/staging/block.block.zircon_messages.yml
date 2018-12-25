@@ -1,0 +1,20 @@
+uuid: 694af308-67e1-494a-bb06-6e008683d463
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - zircon
+id: zircon_messages
+theme: zircon
+region: sidebar_first
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

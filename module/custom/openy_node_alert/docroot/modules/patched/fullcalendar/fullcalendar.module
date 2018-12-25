@@ -1,0 +1,179 @@
+<?php
+
+/**
+ * @file
+ * Provides a views style plugin for FullCalendar
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Field\FormatterInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * The minimum supported version of the FullCalendar plugin.
+ */
+define('FULLCALENDAR_MIN_PLUGIN_VERSION', '1.5.0');
+
+/**
+ * Implements hook_help().
+ */
+function fullcalendar_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.fullcalendar':
+      $output = '';
+      $output .= '<h3>' . t('Fullcalendar') . '</h3>';
+      $output .= '<p>' . t('The Fullcalendar module is an integration of the <a href="!fullcalendar-uri">Adam Shaw\'s FullCalendar jQuery plugin</a> with Drupal.', array('!fullcalendar-uri' => Url::fromUri('https://github.com/arshaw/fullcalendar'))) . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fullcalendar_theme($existing, $type, $theme, $path) {
+  return array(
+    'fullcalendar_event' => array(
+      'variables' => array(
+        'event' => NULL,
+        'entity' => NULL,
+      ),
+      'file' => 'fullcalendar.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_permission().
+ *
+ * @return array
+ *   An array of valid permissions for the FullCalendar module.
+ */
+function fullcalendar_permission() {
+  return array(
+    'update any fullcalendar event' => array(
+      'title' => t('Update any FullCalendar event'),
+      'description' => t('Allow user to edit events, ignoring other permissions.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_fullcalendar_classes().
+ */
+function fullcalendar_fullcalendar_classes(EntityInterface $entity) {
+  $classes = array(
+    'fc-event-default',
+    $entity->bundle(),
+  );
+
+  // @todo: ???
+  // Add a class for the date field being used.
+  if (isset($entity->fullcalendar_date_field)) {
+    $classes[] = "fc-event-field-$entity->fullcalendar_date_field";
+  }
+
+  return $classes;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for views_ui_edit_display_form().
+ *
+ * Since we force the query to be distinct, reflect that in the UI.
+ */
+function fullcalendar_form_views_ui_edit_display_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $style = $form_state->get('view')->get('executable')->display_handler->getOption('style');
+  if ($style['type'] != 'fullcalendar' || empty($form['options']['query']['options']['distinct'])) {
+    return;
+  }
+
+  $distinct = &$form['options']['query']['options']['distinct'];
+
+  if (!isset($distinct['#description'])) {
+    $distinct['#description'] = '';
+  }
+  else {
+    $distinct['#description'] .= '<br>';
+  }
+
+  $distinct['#disabled'] = TRUE;
+  $distinct['#description'] .= '<strong>' . t('FullCalendar requires that the query be distinct.') . '</strong>';
+}
+
+/**
+ * Implements hook_fullcalendar_editable().
+ *
+ * Use our access callback as the editable setting.
+ */
+function fullcalendar_fullcalendar_editable(EntityInterface $entity, $view) {
+  return \Drupal::service('access_check.fullcalendar.update')->check($entity);
+}
+
+/**
+ * Determines if a given field is a date field.
+ *
+ * @param object $field
+ *   A Views field handler object.
+ * @param bool $include_gcal
+ *   Boolean indicating whether or not to count gcal fields as a date field.
+ *
+ * @return bool
+ *   Boolean, TRUE if the field is a date field, FALSE otherwise.
+ */
+function fullcalendar_field_is_date($field, $include_gcal = FALSE) {
+  if ($include_gcal && $field->field == 'gcal') {
+    return TRUE;
+  }
+
+  // @todo: Any other way of accessing field storage config from a view field?
+  // @todo: This won't work with 'created' or 'changed' fields.
+  $field_storage_definitions = \Drupal::entityManager()->getFieldStorageDefinitions($field->definition['entity_type']);
+  $field_definition = $field_storage_definitions[$field->definition['field_name']];
+
+  if ($field_definition instanceof FieldStorageConfig) {
+    return in_array($field_definition->getType(), ['datetime', 'daterange']);
+  }
+
+  return FALSE;
+}
+
+/**
+ * Returns the version of FullCalendar plugin that is installed.
+ *
+ * This can be used by other modules' hook_requirements() to ensure that the
+ * proper version of FullCalendar plugin is installed.
+ *
+ * @see version_compare()
+ */
+function fullcalendar_get_version($fullcalendar_path = NULL) {
+  $version = &drupal_static(__FUNCTION__);
+
+  if (empty($version)) {
+    $version = 0;
+    $pattern = '#FullCalendar v([0-9\.a-z]+)#';
+
+    // No file is passed in so use the default location.
+    if (!$fullcalendar_path) {
+      $fullcalendar_path = fullcalendar_get_js_path();
+    }
+
+    // Return the version of FullCalendar plugin.
+    $fullcalendar_plugin = file_get_contents($fullcalendar_path, NULL, NULL, 0, 40);
+    if (preg_match($pattern, $fullcalendar_plugin, $matches)) {
+      $version = $matches[1];
+    }
+  }
+
+  return $version;
+}
+
+/**
+ * Returns the path to the FullCalendar plugin.
+ */
+function fullcalendar_get_js_path() {
+  $fullcalendar_file = array('none' => 'fullcalendar.js', 'min' => 'fullcalendar.min.js');
+  $config = \Drupal::config('fullcalendar.settings');
+  return $config->get('path') . '/' . $fullcalendar_file[$config->get('compression')];
+}

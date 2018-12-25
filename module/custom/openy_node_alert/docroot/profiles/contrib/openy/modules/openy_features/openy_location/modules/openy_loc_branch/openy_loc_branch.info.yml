@@ -1,0 +1,31 @@
+name: Open Y Branch
+description: Provides a Branch content type.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - address
+  - datalayer
+  - entity_reference_revisions
+  - field
+  - field_group
+  - geolocation
+  - link
+  - menu_ui
+  - metatag
+  - node
+  - openy_field_custom_hours
+  - openy_hours_formatter
+  - openy_location
+  - openy_node
+  - openy_txnm_amenities
+  - options
+  - paragraphs
+  - path
+  - pathauto
+  - rabbit_hole
+  - taxonomy
+  - telephone
+  - user
+  - views_field_formatter

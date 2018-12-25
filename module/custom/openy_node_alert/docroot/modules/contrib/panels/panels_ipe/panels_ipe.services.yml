@@ -1,0 +1,4 @@
+services:
+  plugin.manager.ipe_access:
+    class: Drupal\panels_ipe\Plugin\IPEAccessManager
+    parent: default_plugin_manager

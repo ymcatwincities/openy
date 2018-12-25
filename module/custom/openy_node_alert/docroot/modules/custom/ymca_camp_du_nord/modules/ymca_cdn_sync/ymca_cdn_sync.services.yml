@@ -1,0 +1,41 @@
+services:
+  logger.channel.ymca_cdn_sync:
+    parent: logger.channel_base
+    arguments: ['ymca_cdn_sync']
+  ymca_cdn_sync.wrapper:
+    class: Drupal\ymca_cdn_sync\syncer\Wrapper
+    arguments: []
+  ymca_cdn_sync.cleaner:
+    class: Drupal\ymca_cdn_sync\syncer\Cleaner
+    arguments: []
+  ymca_cdn_sync.fetcher:
+    class: Drupal\ymca_cdn_sync\syncer\Fetcher
+    arguments:
+      - '@http_client'
+      - '@logger.channel.ymca_cdn_sync'
+      - '@config.factory'
+      - '@ymca_cdn_sync.wrapper'
+  ymca_cdn_sync.saver:
+    class: Drupal\ymca_cdn_sync\syncer\Saver
+    arguments:
+      - '@logger.channel.ymca_cdn_sync'
+      - '@ymca_cdn_sync.wrapper'
+      - '@ymca_cdn_product.repository'
+  ymca_cdn_sync.syncer:
+    class: Drupal\ymca_sync\Syncer
+    arguments: []
+    calls:
+      - [addStep, ['@ymca_cdn_sync.cleaner', 'clean']]
+      - [addStep, ['@ymca_cdn_sync.fetcher', 'fetch']]
+      - [addStep, ['@ymca_cdn_sync.saver', 'save']]
+    tags:
+      - { name: syncer }
+  ymca_cdn_sync.add_to_cart:
+    class: Drupal\ymca_cdn_sync\syncer\AddToCart
+    arguments:
+      - '@http_client'
+      - '@logger.channel.ymca_cdn_sync'
+      - '@config.factory'
+      - '@ymca_cdn_sync.wrapper'
+      - '@entity.query'
+      - '@entity_type.manager'

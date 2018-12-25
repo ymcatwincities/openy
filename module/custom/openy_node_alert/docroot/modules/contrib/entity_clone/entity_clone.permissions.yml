@@ -1,0 +1,2 @@
+permission_callbacks:
+  - Drupal\entity_clone\EntityClonePermissions::permissions

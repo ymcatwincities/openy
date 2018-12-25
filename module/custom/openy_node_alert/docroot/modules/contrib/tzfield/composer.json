@@ -1,0 +1,9 @@
+{
+  "name": "drupal/tzfield",
+  "type": "drupal-module",
+  "description": "Defines a time zone field type.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "require": { }
+}

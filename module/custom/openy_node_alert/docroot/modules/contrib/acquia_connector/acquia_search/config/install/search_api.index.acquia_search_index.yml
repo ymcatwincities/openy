@@ -1,0 +1,63 @@
+id: acquia_search_index
+name: 'Acquia Search Solr Index'
+langcode: en
+description: ''
+dependencies:
+  config:
+    - field.storage.node.body
+    - search_api.server.acquia_search_server
+  module:
+    - search_api
+    - node
+datasource_settings:
+  'entity:node':
+    plugin_id: 'entity:node'
+    settings:
+      bundles:
+        default: true
+        selected: {  }
+      languages:
+        default: true
+        selected: {  }
+field_settings:
+  search_api_language:
+    label: 'Item language'
+    datasource_id: null
+    property_path: search_api_language
+    type: string
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.body
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+processor_settings:
+  add_url:
+    plugin_id: add_url
+    settings: {  }
+  language:
+    plugin_id: language
+    settings: {  }
+options:
+  index_directly: false
+  cron_limit: 50
+  processors:
+    language:
+      status: '1'
+      weight: -50
+      settings: {  }
+      processorPluginId: language
+read_only: false
+server: acquia_search_server
+status: false
+tracker_settings:
+  default:
+    plugin_id: default
+    settings: {  }

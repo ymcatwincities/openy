@@ -1,0 +1,21 @@
+uuid: c685cd12-d95c-4e16-97be-654b8393ac55
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_mappings
+id: mapping.field_location_address_2
+field_name: field_location_address_2
+entity_type: mapping
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

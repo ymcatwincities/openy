@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Contains ab.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\block\Entity\Block;
+
+/**
+ * Implements hook_help().
+ */
+function ab_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ab module.
+    case 'help.page.ab':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('AB Testing FrameWork') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function ab_page_attachments(array &$attachments) {
+
+  $config = \Drupal::config('ab.settings');
+
+  // Create CSS from config.
+  $css = '';
+  foreach ($config->get('replacements') as $id => $replacement) {
+    $css .= $replacement['selector'] . " {\r\nvisibility: hidden;\r\n}\r\n";
+  }
+  // Save it as CSS file to public directory.
+  file_unmanaged_save_data($css, 'public://ab.css', FILE_EXISTS_REPLACE);
+
+  $block_builder = \Drupal::getContainer()
+    ->get('entity.manager')
+    ->getViewBuilder('block');
+  $renderer = \Drupal::service('renderer');
+
+  $replacements = $config->get('replacements');
+  $ab_state = $config->get('ab');
+  foreach ($replacements as &$item) {
+    // Remove elements matching the selector if block_id isn't specified.
+    if (!$item['block_id']) {
+      $item['html'] = '';
+      continue;
+    }
+    $block = Block::load($item['block_id']);
+    if ($block) {
+      // Replace elements matching the selector if block_id is specified.
+      $build = $block_builder->lazyBuilder($item['block_id'], 'full');
+      $item['html'] = (string) $renderer->renderRoot($build);
+    }
+  }
+  unset($item);
+  $attachments['#attached']['library'][] = 'ab/ab_generic';
+  $attachments['#attached']['drupalSettings']['ab'] = $replacements;
+  if (\Drupal::currentUser()->hasPermission('access AB variants')) {
+    $attachments['#attached']['drupalSettings']['ab_state'] = $ab_state;
+  }
+  else {
+    $attachments['#attached']['drupalSettings']['ab_state'] = FALSE;
+  }
+}

@@ -1,0 +1,171 @@
+/**
+ * @file
+ * Provides media integration with pure CSS fluid video wrapper.
+ */
+
+.litebox,
+.media__iframe,
+[data-blazy] iframe {
+  border: 0 none;
+  display: block;
+  max-width: 100%;
+}
+
+/* Ensures not affecting iframe only without media switcher */
+.media--player.media--ratio > iframe {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.media--ratio iframe,
+.media__icon {
+  -webkit-transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+}
+
+.media__icon {
+  cursor: pointer;
+  display: block;
+  opacity: 0;
+  position: absolute;
+  visibility: hidden;
+  z-index: 8;
+}
+
+.media__icon--play,
+.media__icon--close,
+.media__icon--spinner {
+  height: 80px;
+  left: 50%;
+  margin: -40px 0 0 -40px;
+  top: 50%;
+  width: 80px;
+}
+
+.media__icon--close::before,
+.media__icon--close::after,
+.media__icon--play::before {
+  content: '';
+  display: block;
+  position: absolute;
+  pointer-events: none;
+}
+
+.media--loading .media__icon--play::before {
+  display: none;
+}
+
+.media__icon--close::before,
+.media__icon--close::after {
+  background: white;
+  border-radius: 4px;
+  height: 8px;
+  left: 50%;
+  margin: -4px 0 0 -40px;
+  top: 50%;
+  width: 80px;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.media__icon--close::after {
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.media__icon--close:hover::before,
+.media__icon--close:hover::after {
+  background-color: #ff6d2c;
+}
+
+.is-playing .media__icon--close {
+  visibility: hidden;
+}
+
+.media__icon--play {
+  border: 8px solid white;
+  border-radius: 50%;
+}
+
+.media__icon--play::before {
+  border: 16px solid transparent;
+  border-left: 24px solid white;
+  left: 50%;
+  line-height: 60px;
+  margin: -16px 0 0 -6px;
+  top: 50%;
+}
+
+.media__icon--play:hover {
+  border-color: #ff6d2c;
+}
+
+.media__icon--play:hover::before {
+  border-left-color: #ff6d2c;
+}
+
+.is-playing:hover .media__icon {
+  -webkit-transition-delay: 0s;
+  transition-delay: 0s;
+}
+
+.media--switch .media__image,
+.media__icon--play,
+.media:hover .media__icon--litebox,
+.is-playing .media__iframe,
+.is-playing.media--ratio > iframe,
+.is-playing:hover .media__icon--close {
+  opacity: 1;
+  visibility: visible;
+}
+
+.is-playing > img,
+.is-playing > .media__image,
+.is-playing.media--switch .media__image,
+.is-playing .media__icon--play,
+.is-playing:hover .media__icon--play {
+  opacity: 0;
+  position: absolute;
+  visibility: hidden;
+  z-index: -1;
+}
+
+.is-playing .media__iframe {
+  z-index: 3;
+}
+
+/**
+ * Fallback non-JS.
+ */
+.no-js .media--player .media__image,
+.no-js .media--player .media__icon {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.no-js .media--player .media__iframe {
+  opacity: 1;
+  visibility: visible;
+}
+
+/** Prevents Twitter iframe from breaking grid, even if unholy. */
+.grid .twitter-tweet-rendered {
+  margin: 0 !important;
+  min-width: 1px !important;
+}
+
+/** Fix for overflowing Facebook/ Twitter iframes. */
+.grid .media,
+.grid .fb_iframe_widget {
+  overflow: hidden;
+}
+
+.grid .fb_iframe_widget span {
+  width: 100% !important;
+}
+
+.grid .fb_iframe_widget iframe {
+  position: relative !important;
+}

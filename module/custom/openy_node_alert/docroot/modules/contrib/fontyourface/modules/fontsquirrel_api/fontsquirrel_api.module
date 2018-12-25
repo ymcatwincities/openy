@@ -1,0 +1,313 @@
+<?php
+
+/**
+ * @file
+ * Font Squirrel API module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
+use Drupal\fontyourface\Entity\Font;
+
+/**
+ * Implements hook_fontyourface_api().
+ */
+function fontsquirrel_api_fontyourface_api() {
+  return [
+    'version' => '3',
+    'name' => 'Font Squirrel',
+  ];
+}
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Use this hook instead of hook_install, because the route "font.settings" is
+ * not defined otherwise.
+ */
+function fontsquirrel_api_modules_installed($modules) {
+  if (in_array('fontsquirrel_api', $modules)) {
+    drupal_set_message(t('Due to the number of fonts, automated import from install for Font Squirrel is disabled. Please use @link to import Font Squirrel Fonts.', ['@link' => Link::createFromRoute('@font-your-face settings', 'font.settings')->toString()]));
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function fontsquirrel_api_entity_presave(EntityInterface $entity) {
+  if ($entity instanceof Font) {
+    if ($entity->pid->value == 'fontsquirrel_api' && $entity->isActivated()) {
+      $metadata = $entity->getMetadata();
+      $directory_location = _fontsquirrel_api_get_font_directory_location($entity);
+      file_prepare_directory($directory_location, FILE_CREATE_DIRECTORY);
+      $zip_location = file_build_uri('fontyourface/fontsquirrel/' . $metadata['path'] . '-fontfacekit.zip');
+      // Throw an exception; make it hard if this fails.
+      $uri = 'https://www.fontsquirrel.com/fontfacekit/' . $metadata['path'];
+      $response = \Drupal::httpClient()->get($uri, ['headers' => ['Accept' => 'text/plain']]);
+      if (!file_exists(drupal_realpath($zip_location))) {
+        file_unmanaged_save_data($response->getBody(), $zip_location);
+      }
+      $files = [];
+      $font_pathinfo = pathinfo($metadata['font_filename']);
+      if ($zip = zip_open(drupal_realpath($zip_location))) {
+        while ($entry = zip_read($zip)) {
+          $entry_name = zip_entry_name($entry);
+          $path_info = pathinfo($entry_name);
+          if (strpos($path_info['filename'], $font_pathinfo['filename'] . '-webfont') !== FALSE &&
+              in_array($path_info['extension'], ['eot', 'ttf', 'woff', 'svg'])) {
+            $files[$path_info['extension']] = $path_info['filename'] . '.' . $path_info['extension'];
+            $data = zip_entry_read($entry, zip_entry_filesize($entry));
+            file_unmanaged_save_data($data, $directory_location . '/' . $path_info['filename'] . '.' . $path_info['extension'], FILE_EXISTS_REPLACE);
+          }
+          zip_entry_close($entry);
+        }
+        zip_close($zip);
+      }
+      if (!empty($files)) {
+        $css_file = _fontsquirrel_api_generate_fontfamily_css_stylesheet($entity->css_family->value, $files);
+        file_unmanaged_save_data($css_file, $directory_location . '/fontyourface-stylesheet.css', FILE_EXISTS_REPLACE);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function fontsquirrel_api_page_attachments(&$page) {
+  $enabled_fonts = &drupal_static('fontyourface_fonts', []);
+  foreach ($enabled_fonts as $font) {
+    if ($font->pid->value == 'fontsquirrel_api' && $font->isActivated()) {
+      $directory_location = _fontsquirrel_api_get_font_directory_location($font);
+      $page['#attached']['html_head'][] = [
+        [
+          '#type' => 'html_tag',
+          '#tag' => 'link',
+          '#attributes' => [
+            'rel' => 'stylesheet',
+            'href' => file_create_url($directory_location . '/fontyourface-stylesheet.css'),
+            'media' => 'all',
+          ],
+        ], 'fontsquirrel-api-' . $font->id(),
+      ];
+    }
+  }
+}
+
+/**
+ * Prepares variables for Font templates.
+ *
+ * Default template: font.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the user information and any
+ *   - attributes: HTML attributes for the containing element.
+ */
+function fontsquirrel_api_preprocess_font(array &$variables) {
+  $font = $variables['elements']['#font'];
+  $metadata = $font->getMetadata();
+  if ($font->pid->value == 'fontsquirrel_api' && $font->isDeactivated()) {
+    $variables['font_preview']['#markup'] = '<img style=\'max-width:100%;\' src="' . $metadata['preview_image'] . '" />';
+  }
+}
+
+/**
+ * Prepares variables for full font template preview.
+ *
+ * Default template: font--full.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the user information and any
+ *   - attributes: HTML attributes for the containing element.
+ */
+function fontsquirrel_api_preprocess_font__full(array &$variables) {
+  fontsquirrel_api_preprocess_font($variables);
+}
+
+/**
+ * Prepares variables for font teaser preview.
+ *
+ * Default template: font--teaser.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the user information and any
+ *   - attributes: HTML attributes for the containing element.
+ */
+function fontsquirrel_api_preprocess_font__teaser(array &$variables) {
+  $font = $variables['elements']['#font'];
+  $metadata = $font->getMetadata();
+  if ($font->pid->value == 'fontsquirrel_api' && $font->isDeactivated()) {
+    $variables['font_preview']['#markup'] = '<img width="160px" src="https://www.fontsquirrel.com/widgets/test_drive/' . $metadata['checksum'] . '?s=144&t=AaGg" />';
+  }
+}
+
+/**
+ * Implements hook_fontyourface_import().
+ */
+function fontsquirrel_api_fontyourface_import($font_context = []) {
+  // Individual font could take a lot of time.
+  @set_time_limit(3600);
+  $context = $font_context;
+
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['fonts'] = _fontsquirrel_api_get_fonts_from_api();
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($context['sandbox']['fonts']);
+  }
+
+  $font_import = array_pop($context['sandbox']['fonts']);
+  if (!empty($font_import)) {
+    $metadata = [
+      'id' => $font_import->id,
+      'path' => $font_import->family_urlname,
+      'font_filename' => $font_import->font_filename,
+    ];
+    $font = new stdClass();
+    $font->name = $font_import->family_name;
+    $font->url = 'https://www.fontsquirrel.com/fonts/' . $font_import->family_urlname;
+    $font->provider = 'fontsquirrel_api';
+    $font->css_family = $font_import->family_urlname . 'regular';
+    // Font Squirrel fonts have no concept of normal/bold/light/italics fonts.
+    $font->css_weight = 400;
+    $font->css_style = 'normal';
+    $font->foundry = $font_import->foundry_name;
+    $font->foundry_url = 'https://www.fontsquirrel.com/foundry/' . $font_import->foundry_urlname;
+    $font->license = 'See Font Squirrel license page';
+    $font->license_url = $font->url . '#eula';
+    $font->classification = [
+      str_replace(' ', '-', strtolower($font_import->classification)),
+    ];
+    $font->language = [
+      'English',
+    ];
+    $font->metadata = $metadata;
+    $variants = fontsquirrel_api_get_font_family_info($font_import);
+    foreach ($variants as $variant) {
+      $variant_metadata = $metadata;
+      $variant_metadata['font_filename'] = $variant->filename;
+      $variant_metadata['checksum'] = $variant->checksum;
+      $variant_metadata['preview_image'] = str_replace('\\', '', $variant->sample_image);
+      $variant_font = clone $font;
+      $variant_font->name = $variant->family_name . ' ' . $variant->style_name;
+      $variant_font->url = $font->url . '#' . $variant->fontface_name;
+      $variant_font->css_family = $variant->fontface_name;
+      $variant_font->metadata = $variant_metadata;
+      fontyourface_save_font($variant_font);
+    }
+    $context['message'] = "Imported {$context['sandbox']['progress']} (plus variants) of {$context['sandbox']['max']}";
+    $context['sandbox']['progress'] = $context['sandbox']['max'] - count($context['sandbox']['fonts']);
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+  else {
+    drupal_set_message(t('Imported @count Font Squirrel fonts (and variants).', ['@count' => $context['sandbox']['max']]));
+  }
+  return $context;
+}
+
+/**
+ * Retrieves fonts from api and parses them for consumption.
+ *
+ * @return array
+ *   List of fonts ready for ingesting as FontInterface objects.
+ */
+function _fontsquirrel_api_get_fonts_from_api() {
+  try {
+    $uri = 'https://www.fontsquirrel.com/api/fontlist/all';
+    $response = \Drupal::httpClient()->get($uri, ['headers' => ['Accept' => 'text/plain']]);
+    $data = json_decode($response->getBody());
+  }
+  catch (RequestException $e) {
+    drupal_set_message(t('There was an error downloading font list from Font Squirrel.'), 'error');
+    fontyourface_log('Invalid drupal_http_request response: @response', ['@response' => $e->getMessage()]);
+    return FALSE;
+  }
+  return $data;
+}
+
+/**
+ * Get font family information from Font Squirrel.
+ *
+ * @param object $font_import
+ *   Initial font package data from Font Squirrel.
+ *
+ * @return object
+ *   Font family information from Font Squirrel.
+ */
+function fontsquirrel_api_get_font_family_info($font_import) {
+  try {
+    $uri = 'https://www.fontsquirrel.com/api/familyinfo/' . $font_import->family_urlname;
+    $response = \Drupal::httpClient()->get($uri, ['headers' => ['Accept' => 'text/plain']]);
+    $data = json_decode($response->getBody());
+  }
+  catch (RequestException $e) {
+    drupal_set_message(t('There was an error downloading font list from Font Squirrel.'), 'error');
+    fontyourface_log('Invalid drupal_http_request response: @response', ['@response' => $e->getMessage()]);
+    return FALSE;
+  }
+  return $data;
+}
+
+/**
+ * Returns directory location of font package from Font Squirrel.
+ *
+ * @param Drupal\fontyourface\Entity\Font $font
+ *   Font entity with downloaded package.
+ *
+ * @return string
+ *   File stream location to font package.
+ */
+function _fontsquirrel_api_get_font_directory_location(Font $font) {
+  return file_build_uri('fontyourface/fontsquirrel/' . _fontsquirrel_api_get_sanitized_css_family($font->css_family->value) . '-fontfacekit');
+}
+
+/**
+ * Returns sanitized css family text.
+ *
+ * @param string $css_family
+ *   Unsanitized version of css family string.
+ *
+ * @return string
+ *   Sanitized css family string.
+ */
+function _fontsquirrel_api_get_sanitized_css_family($css_family) {
+  return preg_replace("/[^A-Za-z0-9\-]/", '', $css_family);
+}
+
+/**
+ * Generates CSS to load font.
+ *
+ * @param string $css_family
+ *   Font entity with downloaded package.
+ * @param array $files
+ *   Font files keyed by file type.
+ *
+ * @return string
+ *   CSS Definition for @font-face.
+ */
+function _fontsquirrel_api_generate_fontfamily_css_stylesheet($css_family, array $files) {
+  $data = "@font-face {\n";
+  $data .= "font-family: '{$css_family}';\n";
+  $lines = [];
+
+  if ($files['eot']) {
+    $data .= "src: url('{$files['eot']}');\n";
+    $lines[] = "url('{$files['eot']}?#iefix') format('embedded-opentype')";
+  }
+  if ($files['ttf']) {
+    $lines[] = "url('{$files['ttf']}') format('truetype')";
+  }
+  if ($files['woff']) {
+    $lines[] = "url('{$files['woff']}') format('woff')";
+  }
+  if ($files['svg']) {
+    $lines[] = "url('{$files['svg']}#{$css_family}') format('svg')";
+  }
+
+  $data .= 'src: ' . implode(', ', $lines) . ";\n";
+  $data .= "font-weight: normal;\n";
+  $data .= "font-style: normal;\n";
+  return $data . "}\n";
+}

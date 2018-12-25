@@ -1,0 +1,18 @@
+uuid: bc014d9c-ba67-4c93-b40f-15a360f2c683
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+id: block_content.field_global_alert
+field_name: field_global_alert
+entity_type: block_content
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

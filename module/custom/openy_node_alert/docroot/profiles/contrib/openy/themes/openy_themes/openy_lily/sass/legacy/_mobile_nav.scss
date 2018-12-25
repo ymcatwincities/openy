@@ -1,0 +1,249 @@
+// Mobile UX improvements
+.mobile-subnav {
+  background-color: #343434;
+  display: none;
+  margin-bottom: 0;
+  .panel-heading {
+    background-color: #3d3d3d;
+    border: none;
+    padding: 0;
+    a {
+      text-transform: uppercase;
+      padding: 22px 15px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      .caret {
+        display: inline-block;
+        width: auto;
+        height: 10px;
+        border: 0;
+        position: relative;
+        float: right;
+        top: -2px;
+        &:before {
+          margin-right: .3em;
+          content: "\e081";
+          vertical-align: middle;
+          text-transform: none;
+          font-weight: normal;
+          font-size: 16px;
+          font-family: 'Glyphicons Halflings';
+        }
+      }
+      &.open {
+        .caret {
+          &:before {
+            content: "\e082";
+          }
+        }
+      }
+    }
+  }
+  .panel-default {
+    background: none;
+  }
+  .field-prgf-sidebar-menu-ref .panel-body {
+    display: none;
+    padding: 0 15px;
+    ul {
+      li {
+        background: none;
+        border-top: 1px solid #3e3e3e;
+        margin-top: 0;
+      }
+      ul {
+        padding-left: 15px;
+        a {
+          text-transform: none;
+          padding: 10px 15px;
+        }
+        ul {
+          a {
+            font-size: 16px;
+            padding: 10px 15px;
+          }
+        }
+      }
+      a {
+        color: $white !important;
+        text-transform: uppercase;
+        background: none;
+        border: none;
+        margin-top: 0;
+        font-family: "Cachet", Arial, sans-serif;
+        font-size: 18px;
+        padding: 19px 15px;
+        &:hover,
+        &:focus {
+          background-color: #3d3d3d;
+        }
+      }
+      .current > a {
+        font-weight: bold;
+        &:after {
+          position: absolute;
+          top: 50%;
+          right: 12px;
+          margin-top: -11px;
+          color: gray;
+          content: '>';
+          font-family: 'YMCA';
+        }
+      }
+      &.nav-level-5 {
+        a {
+          text-transform: none;
+        }
+      }
+    }
+    .nav-level-3 .nav {
+      display: none;
+    }
+    .nav-level-3 .open .nav {
+      display: block;
+    }
+  }
+}
+.nav-location {
+  li.current {
+    ul {
+      display: none;
+    }
+  }
+  a.home {
+    span,
+    .caret {
+      display: none;
+    }
+  }
+}
+@include breakpoint(768px) {
+  .nav-location {
+    li {
+      display: table-cell !important;
+    }
+  }
+}
+@include breakpoint(0 767px) {
+  .show-mobile-sub-navigation {
+    .nav-location.show,
+    .mobile-subnav.show {
+      display: block !important;
+    }
+    .mobile-subnav {
+      display: block;
+    }
+  }
+  #nav-location {
+    position: relative;
+    margin-top: -15px;
+    top: 0;
+    height: auto;
+    .col-lg-12 {
+      padding: 0;
+    }
+    ul.nav {
+      display: block;
+      position: static;
+      float: none;
+      min-width: 1px;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      > li:first-child {
+        display: block;
+      }
+      li {
+        background: none;
+        border-top: 1px solid #3e3e3e;
+        margin: 0;
+        display: none;
+        &:after,
+        &:before {
+          display: none;
+        }
+        &:hover,
+        &:focus {
+          background: none;
+          a {
+            background: none;
+          }
+        }
+      }
+      ul {
+        padding-left: 15px;
+        a {
+          text-transform: none;
+          padding: 10px 15px;
+          font-weight: normal;
+        }
+        ul {
+          a {
+            font-size: 16px;
+            padding: 10px 15px;
+            font-weight: normal;
+          }
+        }
+      }
+      a {
+        color: $white !important;
+        text-transform: uppercase;
+        border: none;
+        margin: 0;
+        font-family: "Cachet", Arial, sans-serif;
+        font-size: 18px;
+        padding: 19px 15px;
+        text-align: left;
+        &:hover,
+        &:focus {
+          background-color: #3d3d3d;
+        }
+        &:after,
+        &:before {
+          display: none;
+        }
+        .name {
+          display: inline-block;
+        }
+        .caret {
+          display: inline-block;
+          width: auto;
+          height: 10px;
+          border: 0;
+          position: relative;
+          float: right;
+          top: -2px;
+          &:before {
+            margin-right: .3em;
+            content: "\e081";
+            vertical-align: middle;
+            text-transform: none;
+            font-weight: normal;
+            font-size: 16px;
+            font-family: 'Glyphicons Halflings';
+          }
+        }
+        &.open {
+          .caret {
+            &:before {
+              content: "\e082";
+            }
+          }
+        }
+      }
+      .current > a {
+        font-weight: bold;
+      }
+      &.nav-level-5 {
+        a {
+          text-transform: none;
+        }
+      }
+    }
+  }
+}

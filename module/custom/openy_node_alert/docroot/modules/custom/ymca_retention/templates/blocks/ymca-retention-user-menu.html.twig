@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * Display user menu on the page.
+ */
+#}
+<div class="compain-user-menu">
+  <div class="link-wrapper ng-hide" data-ng-show="retentionC.storage.member">
+    <span class="login--user">{{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}</span>
+    <a class="link--email" href="javascript:void(0)"
+       data-toggle="modal" data-target="#ymca-retention-modal" data-type="email">{{ 'Change email'|t }}</a>
+  </div>
+  <a class="link--log-out ng-hide" href="javascript:void(0)"
+     data-ng-show="retentionC.storage.member"
+     data-ng-click="retentionC.logOut()">{{ 'Sign Out'|t }}</a>
+  <a class="link--register ng-hide" href="javascript:void(0)"
+     data-toggle="modal" data-target="#ymca-retention-modal" data-type="register"
+     data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Register'|t }}</a>
+  <a class="link--sign-in ng-hide" href="javascript:void(0)"
+     data-toggle="modal" data-target="#ymca-retention-modal" data-type="login"
+     data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Sign In'|t }}</a>
+  <div class="ymca-retention-user-menu-forms" style="display: none;">
+    <div id="ymca-retention-user-menu-register-form" class="ymca-retention-modal-form" data-type="register">
+      {{ content.register_form }}
+      <div class="compain-facility-access-hint-wrapper collapse">
+        <div class="compain-facility-access-hint">
+          <p>
+            {{ 'Please find your member ID below the barcode on your Membership Card.'|t }}
+          </p>
+          <p class="small">
+            {{ 'Please note it might be on the front of the card on older membership cards.'|t }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="ymca-retention-user-menu-login-form" class="compain-login-form ymca-retention-modal-form" data-type="login">
+      {{ content.login_form }}
+    </div>
+    <div id="ymca-retention-user-email-change-form" class="ymca-retention-modal-form" data-type="email">
+      {{ content.email_form }}
+    </div>
+    <div id="ymca-retention-user-menu-reg-confirmation-form" class="ymca-retention-modal-form" data-type="reg-confirmation">
+      {% include '@ymca_retention/modals/ymca-retention-register-confirmation-modal.html.twig' %}
+    </div>
+    <div id="ymca-retention-user-menu-tabs-lock" class="ymca-retention-modal-form" data-type="tabs-lock">
+      {% include '@ymca_retention/modals/ymca-retention-tabs-lock-modal.html.twig' %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+services:
+  mindbody.client:
+    class: Drupal\mindbody\MindbodyClient
+    arguments: ['@config.factory', '@logger.factory']
+    properties:
+      debug: false
+      hostname: api.mindbodyonline.com

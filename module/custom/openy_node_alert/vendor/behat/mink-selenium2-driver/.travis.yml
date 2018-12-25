@@ -1,0 +1,36 @@
+language: php
+
+php: [5.3, 5.4, 5.5, 5.6, hhvm]
+
+env:
+  - WEBDRIVER=selenium
+
+matrix:
+  allow_failures:
+    - env: 'WEBDRIVER=phantomjs'
+  fast_finish: true
+  include:
+    - php: 5.5
+      env: WEBDRIVER=phantomjs
+
+before_script:
+  - export WEB_FIXTURES_HOST=http://localhost
+  - export WEB_FIXTURES_BROWSER=firefox
+
+  - sh bin/run-"$WEBDRIVER".sh
+
+  - composer install --prefer-source
+
+  - sudo apt-get update > /dev/null
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 > /dev/null
+  - sudo sed -i -e "s,/var/www,$(pwd)/vendor/behat/mink/driver-testsuite/web-fixtures,g" /etc/apache2/sites-available/default
+  - sudo /etc/init.d/apache2 restart
+
+script: phpunit -v --coverage-clover=coverage.clover
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+
+after_failure:
+  - cat /tmp/webdriver_output.txt

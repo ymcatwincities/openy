@@ -1,0 +1,6 @@
+stage_file_proxy.admin_form:
+  title: 'Stage File Proxy settings'
+  parent: system.admin_config_system
+  description: 'Administrative interface for the Stage File Proxy module'
+  weight: -10
+  route_name: stage_file_proxy.admin_form

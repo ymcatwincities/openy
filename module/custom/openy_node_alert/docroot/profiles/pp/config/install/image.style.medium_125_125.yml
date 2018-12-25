@@ -1,0 +1,23 @@
+uuid: 2b4a722f-6180-46df-9a00-f8e0782004e9
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+name: medium_125_125
+label: 'Medium [125×125]'
+effects:
+  811b6ce8-76ef-450b-a52f-47737557cd19:
+    uuid: 811b6ce8-76ef-450b-a52f-47737557cd19
+    id: image_scale
+    weight: -9
+    data:
+      width: 125
+      height: 125
+      upscale: true
+  d2cea8bd-b1ed-43c8-b700-ac5a609d77c1:
+    uuid: d2cea8bd-b1ed-43c8-b700-ac5a609d77c1
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: medium_125_125

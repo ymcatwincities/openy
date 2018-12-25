@@ -1,0 +1,23 @@
+uuid: 9616a82f-8733-445f-b404-4b6b8f3e63e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sidebar_navigation
+    - node.type.article
+  module:
+    - options
+id: node.article.field_sidebar_navigation
+field_name: field_sidebar_navigation
+entity_type: node
+bundle: article
+label: 'Show sidebar navigation'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+label: 'Free crop'
+id: crop_free_ratio
+description: ''
+aspect_ratio: ''

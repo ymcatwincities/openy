@@ -1,0 +1,163 @@
+<?php
+
+/**
+ * @file
+ * Websafe Fonts Test module file.
+ */
+
+/**
+ * Implements hook_fontyourface_api().
+ */
+function websafe_fonts_test_fontyourface_api() {
+  return [
+    'version' => '3',
+    'name' => 'Websafe Fonts',
+  ];
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function websafe_fonts_test_page_attachments(&$page) {
+  $enabled_fonts = &drupal_static('fontyourface_fonts', []);
+  foreach ($enabled_fonts as $font) {
+    if ($font->pid->value == 'websafe_fonts_test') {
+      $page['#attached']['html_head'][] = [
+        [
+          '#type' => 'html_tag',
+          '#tag' => 'meta',
+          '#attributes' => [
+            'name' => 'Websafe Font',
+            'content' => $font->label(),
+          ],
+        ], 'fontyourface-websafe-fonts-test-' . $font->id(),
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_fontyourface_import().
+ */
+function websafe_fonts_test_fontyourface_import($font_context = []) {
+  $context = $font_context;
+  if (empty($context['sandbox'])) {
+    $context['sandbox']['fonts'] = _websafe_fonts_test_get_fonts_from_api();
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($context['sandbox']['fonts']);
+  }
+  $font = array_shift($context['sandbox']['fonts']);
+  if (!empty($font)) {
+    fontyourface_save_font($font);
+    $context['message'] = "Imported {$context['sandbox']['progress']} of {$context['sandbox']['max']}";
+    $context['sandbox']['progress']++;
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+  }
+  else {
+    drupal_set_message(t('Imported @count fonts from Websafe Fonts', ['@count' => $context['sandbox']['progress']]));
+  }
+  return $context;
+}
+
+/**
+ * Retrieves all Websafe fonts.
+ */
+function _websafe_fonts_test_get_fonts_from_api() {
+  return [
+    (object) [
+      'name' => 'Arial',
+      'url' => 'https://en.wikipedia.org/wiki/Arial',
+      'provider' => 'websafe_fonts_test',
+      'css_family' => 'Arial',
+      'css_style' => 'normal',
+      'css_weight' => '400',
+      'designer' => '',
+      'designer_url' => '',
+      'foundry' => 'Monotype Imaging',
+      'foundry_url' => '',
+      'license' => 'Proprietary',
+      'license_url' => '',
+      'classification' => [
+        'sans-serif',
+        'Neo-grotesque',
+      ],
+      'language' => [
+        'en',
+      ],
+      'tags' => [
+        'Sans-serif',
+        'Robin Nocholas',
+        'Patricia Saunders',
+      ],
+    ],
+    (object) [
+      'name' => 'Verdana',
+      'url' => 'https://en.wikipedia.org/wiki/Verdana',
+      'provider' => 'websafe_fonts_test',
+      'css_family' => 'Verdana',
+      'css_style' => 'normal',
+      'css_weight' => '400',
+      'designer' => 'Matthew Carter',
+      'designer_url' => 'https://en.wikipedia.org/wiki/Matthew_Carter',
+      'foundry' => 'Microsoft',
+      'foundry_url' => 'https://www.microsoft.com',
+      'license' => '',
+      'license_url' => '',
+      'classification' => [
+        'Modern Humanist',
+        'sans-serif',
+      ],
+      'language' => [
+        'en',
+      ],
+      'tags' => [],
+    ],
+    (object) [
+      'name' => 'Courier New',
+      'url' => 'https://en.wikipedia.org/wiki/Courier_(typeface)',
+      'provider' => 'websafe_fonts_test',
+      'css_family' => 'Courier New',
+      'css_style' => 'normal',
+      'css_weight' => '400',
+      'designer' => '',
+      'designer_url' => '',
+      'foundry' => '',
+      'foundry_url' => '',
+      'license' => '',
+      'license_url' => '',
+      'classification' => [
+        'monospace',
+        'slab-serif',
+      ],
+      'language' => [
+        'en',
+      ],
+      'tags' => [],
+    ],
+    (object) [
+      'name' => 'Georgia',
+      'url' => 'https://en.wikipedia.org/wiki/Georgia_(typeface)',
+      'provider' => 'websafe_fonts_test',
+      'css_family' => 'Georgia',
+      'css_style' => 'normal',
+      'css_weight' => '400',
+      'designer' => 'Matthew Carter',
+      'designer_url' => 'https://en.wikipedia.org/wiki/Matthew_Carter',
+      'foundry' => 'Microsoft',
+      'foundry_url' => 'https://www.microsoft.com',
+      'license' => '',
+      'license_url' => '',
+      'classification' => [
+        'serif',
+      ],
+      'language' => [
+        'en',
+      ],
+      'tags' => [
+        'Scotch Roman',
+        'Transitional',
+        'Didone',
+      ],
+    ],
+  ];
+}

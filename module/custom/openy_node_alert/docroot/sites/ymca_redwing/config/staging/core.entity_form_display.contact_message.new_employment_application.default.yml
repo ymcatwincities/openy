@@ -1,0 +1,150 @@
+uuid: 461af4dd-5fab-4c6d-b3df-e3feec6aca34
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.new_employment_application
+    - field.field.contact_message.new_employment_application.field_address
+    - field.field.contact_message.new_employment_application.field_camp_certification
+    - field.field.contact_message.new_employment_application.field_cell_phone
+    - field.field.contact_message.new_employment_application.field_college_name
+    - field.field.contact_message.new_employment_application.field_college_year_completed
+    - field.field.contact_message.new_employment_application.field_date_entered_high_school
+    - field.field.contact_message.new_employment_application.field_high_school_name
+    - field.field.contact_message.new_employment_application.field_how_hear_about_camp_pepin
+    - field.field.contact_message.new_employment_application.field_hs_grade_completed
+    - field.field.contact_message.new_employment_application.field_phone_number
+    - field.field.contact_message.new_employment_application.field_position
+    - field.field.contact_message.new_employment_application.field_previous_employment
+    - field.field.contact_message.new_employment_application.field_references
+    - field.field.contact_message.new_employment_application.field_special_skills
+    - field.field.contact_message.new_employment_application.field_why_parents_send_kids_camp
+    - field.field.contact_message.new_employment_application.field_why_want_to_work_at_camp
+  module:
+    - address
+    - ymca_alters
+id: contact_message.new_employment_application.default
+targetEntityType: contact_message
+bundle: new_employment_application
+mode: default
+content:
+  field_address:
+    weight: 4
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_camp_certification:
+    weight: 20
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_cell_phone:
+    weight: 7
+    settings:
+      validate_pattern: ''
+      validate_message: ''
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_college_name:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_college_year_completed:
+    weight: 10
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_date_entered_high_school:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_high_school_name:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_how_hear_about_camp_pepin:
+    weight: 8
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_hs_grade_completed:
+    weight: 9
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_phone_number:
+    weight: 6
+    settings:
+      validate_pattern: ''
+      validate_message: ''
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_position:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_previous_employment:
+    weight: 18
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_references:
+    weight: 19
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_special_skills:
+    weight: 15
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_why_parents_send_kids_camp:
+    weight: 17
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_why_want_to_work_at_camp:
+    weight: 16
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  mail:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  langcode: true
+  message: true
+  name: true
+  subject: true

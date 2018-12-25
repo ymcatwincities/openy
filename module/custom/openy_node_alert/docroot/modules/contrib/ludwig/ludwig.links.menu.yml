@@ -1,0 +1,5 @@
+ludwig.admin.config.system.ludwig:
+  title: 'Packages'
+  description: 'View the status of packages managed by Ludwig.'
+  route_name: ludwig.packages
+  parent: system.admin_reports

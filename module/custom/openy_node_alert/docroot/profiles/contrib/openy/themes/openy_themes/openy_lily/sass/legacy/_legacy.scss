@@ -1,0 +1,382 @@
+@import 'blog';
+@import 'locations';
+@import 'location';
+@import 'schedules';
+@import 'promos';
+@import 'camp_du_nord';
+@import 'modal';
+@import 'membership';
+@import 'mindbody';
+@import 'icomoon';
+@import 'sidebar';
+@import 'childcare';
+@import 'content-banner';
+@import 'mobile_nav';
+
+/* Give page */
+.path-give {
+  .hero-image {
+    .button {
+      border-radius: 4px;
+    }
+  }
+  .video-container {
+    h3 {
+      color: $darker-grey;
+    }
+  }
+}
+.content-cards {
+  .info .button {
+    border-radius: 4px;
+    margin-top: 14px;
+    font-size: 10px;
+    padding: 5px;
+  }
+}
+/* Annual report pages */
+.content-container {
+  .container {
+    max-width: none;
+    width: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+.container, .padded-content-container {
+  padding: 0 30px;
+  max-width: none;
+  width: auto;
+  @media (min-width: 1200px) {
+    padding-right: 100px;
+    padding-left: 100px;
+  }
+}
+
+.container .container {
+  padding: 0;
+}
+
+.path-locations,
+.path-news {
+  .container, .padded-content-container {
+    padding: 0 30px;
+    max-width: none;
+    width: auto;
+    @media (min-width: 1200px) {
+      padding-right: 100px;
+      padding-left: 100px;
+    }
+  }
+}
+/* Page title */
+.page-title.title-only {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+  background-color: #4d4d4d;
+  color: white;
+  &:before {
+    display: none;
+  }
+  .title-container {
+    position: relative;
+  }
+  .header-copy {
+    z-index: 2;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    h1 {
+      margin: 0;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 48px;
+      @media (max-width: 767px) {
+        font-size: 24px;
+      }
+    }
+    p {
+      font-size: 24px;
+      @media (max-width: 767px) {
+        margin: .5em 0 0;
+        font-size: 16px;
+      }
+    }
+  }
+}
+.white-underlined-link {
+  color: #fff;
+  &:hover {
+    color: #fff;
+  }
+  .underlined {
+    text-decoration: underline;
+  }
+}
+span.grey-caret:after {
+  margin-left: 10px;
+  width: 8%;
+  color: #b3b3b3;
+  content: 'o';
+  vertical-align: baseline;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'YMCA';
+  -webkit-transition: color .3s ease-out;
+  -moz-transition: color .3s ease-out;
+  -ms-transition: color .3s ease-out;
+}
+
+/* Panels */
+.panel-default {
+  border: 0;
+  border-radius: 0;
+  background: #e0e0e0;
+  box-shadow: none;
+}
+
+.social h2 {
+  color: #6f6f6f;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+section.content {
+  padding-top: 10px;
+  padding-bottom: 30px;
+  @media (min-width: 768px) {
+    padding-top: 40px;
+  }
+}
+
+.full-width-background-container {
+  position: relative;
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.full-width-background-image {
+  top: 0;
+  position: absolute;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.full-width-background-content {
+  position: relative;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.9);
+  margin: 0 auto;
+  width: 80%;
+  max-width: 748px;
+  padding: 10px 30px 30px;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(50, 50, 50, 0.5);
+  -moz-box-shadow: 0 1px 2px 0 rgba(50, 50, 50, 0.5);
+  box-shadow: 0 1px 2px 0 rgba(50, 50, 50, 0.5);
+}
+
+.ltei9 .full-width-background-content {
+  border: 1px solid #b0b0b0;
+}
+
+.full-width-background-content {
+  .panel-default {
+    &.textpander, &.content-expander {
+      background: none;
+    }
+  }
+  .textpander .panel-heading, .content-expander .panel-heading {
+    background: none;
+  }
+}
+
+.full-width-background-image > img {
+  display: none;
+}
+
+.paragraph--type--sidebar-menu {
+  background: $grey27;
+  margin: 0 0 20px;
+  .current > a {
+    color: $grey25;
+    border: 0;
+    &:after {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      margin-top: -11px;
+      color: gray;
+      content: '>';
+      font-family: 'YMCA';
+    }
+  }
+  @media (max-width: 767px) {
+    display: none;
+  }
+  .panel-body {
+    padding: 0 15px;
+  }
+  .dropdown {
+    .nav {
+      display: none;
+    }
+    a:hover, a:focus {
+      text-decoration: none;
+      background-color: #eee;
+    }
+    &.open {
+      background: #f5f5f5;
+      /*border-top: 5px solid #000;*/
+      > a {
+        margin-top: -5px;
+        border-top: 5px solid #000;
+        background-color: transparent;
+        color: #428bca;
+      }
+      ul a {
+        font-weight: normal;
+        color: #428bca;
+        font-size: 13px;
+        line-height: 20px;
+        text-transform: none;
+        position: relative;
+        display: block;
+        padding: 10px 15px 10px 25px;
+      }
+      .dropdown li a {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 35px;
+      }
+
+      .dropdown .dropdown li a {
+        padding-left: 45px;
+      }
+      > .nav,
+      .nav .open .nav {
+        display: block;
+      }
+    }
+  }
+  .panel-heading {
+    padding: 13px 15px;
+    border-radius: 0;
+    background: #434343;
+    color: white;
+    .panel-title {
+      font-size: 20px;
+      a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+      }
+    }
+  }
+  .nav-level-3 > li {
+    font-weight: bold;
+  }
+}
+
+.paragraph--type--simple-content {
+  iframe {
+    width: 100% !important;
+  }
+}
+
+p.button {
+  display: inline-block;
+  border-radius: 4px;
+}
+.button.blue:hover {
+  background-color: $blue-dark2 !important;
+}
+
+.button.purple:hover {
+  background-color: $dark-purple;
+}
+
+.button a, a.button {
+  display: inline-block;
+  margin-bottom: 0;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 4px;
+  background-color: #9c1f7b;
+  background-image: -webkit-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: -moz-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: -ms-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  background-image: linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+  color: #FFF;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  white-space: nowrap;
+  font-weight: normal;
+  font-size: 14px;
+  font-family: inherit;
+  line-height: 1.428571429;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+}
+
+.landing-content {
+  padding-top: 10px;
+  @media (min-width: 768px) {
+    padding-top: 40px;
+  }
+}
+
+#membership-page {
+  color: #333;
+}
+
+body.independent-footer {
+  padding-top: 0 !important;
+  #block-openy-lily-footersocialblock {
+    display: none;
+  }
+  #page-footer {
+    padding-top: 0;
+  }
+}
+
+body.node--type-landing-page,
+body.node--type-blog {
+  figcaption {
+    display: none;
+  }
+}
+
+a[href$=pdf]:after,
+a[href*=".pdf?"]:after,
+.lead-copy li a[href$=pdf]:after,
+.lead-copy li a[href*=".pdf?"]:after,
+.pdf-link:after {
+  margin: 0 5px;
+  content: 'p';
+  text-transform: none;
+  font-weight: normal;
+  font-family: 'YMCA';
+}

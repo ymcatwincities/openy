@@ -1,0 +1,19 @@
+uuid: 016a7325-967e-4bd0-881b-27bb634d12ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_ceo_first_name
+id: contact_message.become_a_supplier.field_ceo_first_name
+field_name: field_ceo_first_name
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'First Name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

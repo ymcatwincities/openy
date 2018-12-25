@@ -1,0 +1,33 @@
+ymca-retention:
+  label: YMCA Retention
+  category: YMCA layouts
+  template: templates/layouts/ymca-retention
+  class: '\Drupal\ymca_retention\Plugin\Layout\YmcaRetention'
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main section
+    tab_1:
+      label: Tab 1
+    tab_2:
+      label: Tab 2
+    tab_3:
+      label: Tab 3
+    tab_4:
+      label: Tab 4
+    tab_5:
+      label: Tab 5
+  library: ymca_retention/angular-app
+
+ymca-retention-winners:
+  label: YMCA Retention Winners
+  category: YMCA layouts
+  template: templates/layouts/ymca-retention-winners-layout
+  class: '\Drupal\ymca_retention\Plugin\Layout\YmcaRetentionWinnersLayout'
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main section
+  library: ymca_retention/ngwinners-app

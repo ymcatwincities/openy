@@ -1,0 +1,14 @@
+# Ignore files which names start from dot.
+.*
+
+# Do not ignore Git configurations.
+!.git*
+
+# Do not ignore configurations of CI services.
+!*.yml
+
+# Ignore files with extensions.
+*.lock
+
+# Ignore directories.
+vendor/

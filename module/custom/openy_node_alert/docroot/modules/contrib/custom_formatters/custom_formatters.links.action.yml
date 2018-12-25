@@ -1,0 +1,6 @@
+custom_formatters.add_page:
+  route_name: custom_formatters.add_page
+  title: 'Add formatter'
+  weight: 1
+  appears_on:
+    - entity.formatter.collection

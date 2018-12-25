@@ -1,0 +1,4 @@
+name: Environment config
+type: module
+description: Set active configuration for appropriate environment.
+core: 8.x

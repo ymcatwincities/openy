@@ -1,0 +1,24 @@
+uuid: aa66694f-7842-4986-a026-38030549f7d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer-menu-center
+  module:
+    - system
+  theme:
+    - ymca
+id: footermenucenter
+theme: ymca
+region: footer_menu
+weight: -2
+provider: null
+plugin: 'system_menu_block:footer-menu-center'
+settings:
+  id: 'system_menu_block:footer-menu-center'
+  label: 'Footer menu center'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

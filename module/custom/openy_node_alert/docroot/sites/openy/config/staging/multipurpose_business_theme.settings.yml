@@ -1,0 +1,52 @@
+features:
+  comment_user_picture: 1
+  comment_user_verification: 1
+  favicon: 1
+  logo: true
+  name: true
+  node_user_picture: 1
+  slogan: true
+facebook_url: 'https://www.facebook.com/zymphonies'
+twitter_url: 'https://twitter.com/zymphonies'
+google_plus_url: 'https://plus.google.com/+ZymphoniesTechnologies'
+linkedin_url: 'http://www.linkedin.com/company/zymphonies'
+pinterest_url: 'https://www.pinterest.com/zymphonies/'
+rss_url: rss.xml
+show_social_icon: 0
+show_credit_link: 1
+slideshow_display: 1
+no_of_slides: '1'
+slide_title_1: 'Open Y is'
+slide_description_1: "<div class=\"open_y_container\">\r\n<ul>\r\n<li>A philosophy that collaboration drives innovation and impact</li>\r\n<li>A community of YMCAs and digital partners</li>\r\n<li>An open-source digital platform for marketing and ecommerce</li>\r\n</ul>\r\n</div>"
+slide_url_1: ''
+slide_image_path_1: /images/parallax-slider/slide_one.png
+slide_title_2: '100% Responsive'
+slide_head_2: 'Fully Responsive'
+slide_description_2: 'Responsive Theme is an intuitive foundation with a fluid grid system that automatically adapts your website to mobile devices including smartphones, tablets and desktops so your website looks incredible on any device.'
+slide_url_2: /about
+slide_image_path_2: /images/parallax-slider/slide_two.png
+slide_title_3: 'Drupal 8 Core'
+slide_description_3: 'Drupal 8 improves on the multilingual functionality. The Multi Language Module allows you to create phrases in multiple languages. Drupal 8 improves on the multilingual functionality. The Multi Language Module allows you to create phrases in multiple languages.'
+slide_url_3: /about
+slide_image_path_3: /images/parallax-slider/slide_three.png
+slide_title_4: 'Mobile First'
+slide_description_4: 'Drupal 8 will make easier to administer on a mobile device, using core themes & modules. Drupal 8 will make easier to administer on a mobile device, using core themes & modules.'
+slide_url_4: /about
+slide_image_path_4: /images/parallax-slider/slide-four.png
+slide_title_5: Functionality
+slide_description_5: 'Drupal 8 improves on the multilingual functionality. The Multi Language Module allows you to create phrases in multiple languages. Drupal 8 improves on the multilingual functionality. The Multi Language Module allows you to create phrases in multiple languages.'
+slide_url_5: /about
+slide_image_path_5: /images/parallax-slider/slide_five.png
+favicon:
+  use_default: 0
+  path: 'public://ymca-logo-white_0.png'
+  mimetype: image/png
+slide_image_path1:
+  - '31'
+slide_image_path2: {  }
+slide_image_path3: {  }
+slide_image_path4: {  }
+slide_image_path5: {  }
+logo:
+  use_default: 0
+  path: 'public://ymca-logo-white.png'

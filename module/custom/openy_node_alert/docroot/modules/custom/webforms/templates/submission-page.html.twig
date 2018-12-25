@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Submission page content template.
+ *
+ * Available variables:
+ * - title: page title;
+ * - content: page content;
+ *
+ * @ingroup themeable
+ */
+#}
+
+<section class="page-header page-title title-only">
+  <div class="container title-container">
+    <div class="row">
+      <div class="col-sm-12 header-copy">
+        <h1>{{ title }}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="content">
+  <div class="container">
+    <section class="messages">&nbsp;</section>
+
+    <div class="row">
+      <div class="col-sm-12 categories copy">
+        {{ content }}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,77 @@
+uuid: 1fbfdb56-ee7e-4914-bb07-7d9a9dba84df
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.journey_to_freedom
+    - field.field.contact_message.journey_to_freedom.field_comments
+    - field.field.contact_message.journey_to_freedom.field_contact_method
+    - field.field.contact_message.journey_to_freedom.field_email_address
+    - field.field.contact_message.journey_to_freedom.field_first_name
+    - field.field.contact_message.journey_to_freedom.field_last_name
+    - field.field.contact_message.journey_to_freedom.field_phone_number
+    - field.field.contact_message.journey_to_freedom.field_preferred_y_text
+  module:
+    - ymca_alters
+id: contact_message.journey_to_freedom.default
+targetEntityType: contact_message
+bundle: journey_to_freedom
+mode: default
+content:
+  field_comments:
+    weight: 7
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_contact_method:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_email_address:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_first_name:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_last_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_phone_number:
+    weight: 4
+    settings:
+      placeholder: ''
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
+    third_party_settings: {  }
+    type: telephone_default
+  field_preferred_y_text:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  mail: true
+  message: true
+  name: true
+  subject: true

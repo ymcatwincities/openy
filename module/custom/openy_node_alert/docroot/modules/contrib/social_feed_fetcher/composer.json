@@ -1,0 +1,26 @@
+{
+  "name": "drupal/social_feed_fetcher",
+  "description": "Adding posts to Drupal content type from Facebook, Twitter, Instagram",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/social_feed_fetcher/",
+  "authors": [
+    {
+      "name": "Yuriy Stenin",
+      "email": "yuriy.s@team.anyforsoft.com",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/social_feed_fetcher",
+    "source": "http://cgit.drupalcode.org/social_feed_fetcher/"
+  },
+  "license": "GPL-2.0+",
+  "require": {
+    "abraham/twitteroauth": "^0.7.2",
+    "facebook/graph-sdk": "^5.4.3",
+    "cosenary/instagram": "v2.3",
+    "nesbot/carbon": "1.9.*"
+  }
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

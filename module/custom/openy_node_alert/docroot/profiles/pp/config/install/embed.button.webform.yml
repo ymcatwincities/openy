@@ -1,0 +1,16 @@
+uuid: caa3440a-870c-4942-a400-b3fa0040c1da
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - entity_embed
+label: WebForm
+id: webform
+type_id: entity
+type_settings:
+  entity_type: contact_form
+  bundles: {  }
+  display_plugins:
+    - 'entity_reference:entity_reference_entity_view'
+icon_uuid: null

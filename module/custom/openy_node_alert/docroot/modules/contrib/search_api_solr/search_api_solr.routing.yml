@@ -1,0 +1,11 @@
+search_api_solr.solr_config_form:
+  path: '/admin/config/search/search-api/server/{search_api_server}/files'
+  options:
+    parameters:
+      search_api_server:
+        type: entity:search_api_server
+  defaults:
+    _form: '\Drupal\search_api_solr\Form\SolrConfigForm'
+  requirements:
+    _permission: 'administer search_api'
+    _custom_access: '\Drupal\search_api_solr\Form\SolrConfigForm::access'

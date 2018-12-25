@@ -1,0 +1,12 @@
+services:
+  slick.manager:
+    class: Drupal\slick\SlickManager
+    parent: blazy.manager.base
+
+  slick.formatter:
+    class: Drupal\slick\SlickFormatter
+    parent: blazy.formatter.manager
+
+  slick.admin:
+    class: Drupal\slick\Form\SlickAdmin
+    arguments: ['@blazy.admin.extended', '@slick.manager']

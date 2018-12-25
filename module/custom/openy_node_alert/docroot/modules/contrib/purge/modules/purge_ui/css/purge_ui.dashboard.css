@@ -1,0 +1,70 @@
+/**
+ * @file
+ * Styles for the purge_ui module.
+ */
+
+/**
+ * Purge dashboard two-column layout.
+ */
+
+/* Narrow screens */
+.layout-region {
+  box-sizing: border-box;
+}
+
+/* Wide screens */
+@media screen and (min-width: 1020px), (orientation: landscape) and (min-device-height: 780px) {
+
+  .layout-region-purgeui-main {
+    float: left; /* LTR */
+    width: 65%;
+    padding-right: 2em; /* LTR */
+    box-sizing: border-box;
+  }
+
+  [dir="rtl"] .layout-region-purgeui-main {
+    float: right;
+    padding-left: 2em;
+    padding-right: 0;
+  }
+
+  .layout-region-purgeui-secondary {
+    float: right; /* LTR */
+    width: 35%;
+  }
+
+  [dir="rtl"] .layout-region-purgeui-secondary {
+    float: left;
+  }
+
+  /* @todo File an issue to add a standard class to all text-like inputs */
+  /*.layout-region-purgeui-secondary .form-autocomplete,
+  .layout-region-purgeui-secondary .form-text,
+  .layout-region-purgeui-secondary .form-tel,
+  .layout-region-purgeui-secondary .form-email,
+  .layout-region-purgeui-secondary .form-url,
+  .layout-region-purgeui-secondary .form-search,
+  .layout-region-purgeui-secondary .form-number,
+  .layout-region-purgeui-secondary .form-color,
+  .layout-region-purgeui-secondary textarea {
+    box-sizing:         border-box;
+    width: 100%;
+    max-width: 100%;
+  }*/
+}
+
+/**
+ * The vertical toolbar mode gets triggered for narrow screens, which throws off
+ * the intent of media queries written for the viewport width. When the vertical
+ * toolbar is on, we need to suppress layout for the original media width + the
+ * toolbar width (240px). In this case, 240px + 780px.
+ */
+@media screen and (max-width: 1020px) {
+  .toolbar-vertical.toolbar-tray-open .layout-region-purgeui-main,
+  .toolbar-vertical.toolbar-tray-open .layout-region-purgeui-footer,
+  .toolbar-vertical.toolbar-tray-open .layout-region-purgeui-secondary {
+    float: none;
+    width: auto;
+    padding-right: 0;
+  }
+}

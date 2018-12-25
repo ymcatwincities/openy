@@ -1,0 +1,98 @@
+<?php
+
+/**
+ * @file
+ * Open Y Node Alert module file.
+ */
+
+use Drupal\Component\Utility\Unicode;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function openy_node_alert_preprocess_node(&$variables) {
+  $node = $variables['node'];
+
+  if ($node->bundle() != 'alert') {
+    return;
+  }
+
+  $variables['#attached']['library'][] = 'openy_node_alert/alert';
+  $variables['attributes']['data-nid'] = $node->id();
+  $variation_class_array = ['site-alert'];
+  $variables['attributes']['class'][] = implode('--', $variation_class_array);
+
+  if ($node->hasField('field_alert_place')) {
+    if ($values = $node->field_alert_place->getValue()) {
+      $variables['placement'] = $values['0']['value'];
+      $variation_class_array[] = $variables['placement'];
+      $variables['attributes']['class'][] = implode('--', $variation_class_array);
+    }
+  }
+
+}
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function openy_node_alert_views_pre_render(ViewExecutable $view) {
+
+  if ($view->id() == 'alerts' &&
+    ($view->current_display == 'footer_alerts'
+      || $view->current_display == 'header_alerts')
+  ) {
+
+    $rows = $view->result;
+    foreach ($rows as $rid => $row) {
+      $entity = $row->_entity;
+
+      if ($entity->bundle() == 'alert' && !openy_node_alert_check_visibility($entity)) {
+        unset($view->result[$rid]);
+      }
+    }
+  }
+}
+
+/**
+ * Check visibility of alert.
+ *
+ * @param $node
+ * @return bool
+ */
+function openy_node_alert_check_visibility(\Drupal\node\NodeInterface $node) {
+
+  $pages = '';
+  if ($node->hasField('field_alert_visibility_pages')) {
+    $pages = $node->get('field_alert_visibility_pages')->value;
+  }
+
+  $state = 'include';
+  if ($node->hasField('field_alert_visibility_state')) {
+    $state = $node->get('field_alert_visibility_state')->value;
+  }
+
+  $pages = Unicode::strtolower($pages);
+  if (!$pages) {
+    return TRUE;
+  }
+
+  $path_matcher = \Drupal::service('path.matcher');
+
+  // Convert path to lowercase. This allows comparison of the same path.
+  // with different case. Ex: /Page, /page, /PAGE.
+  // Compare the lowercase path alias (if any) and internal path.
+  $current_path = \Drupal::service('path.current')->getPath();
+  $path = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+  $path = Unicode::strtolower($path);
+
+  // Do not trim a trailing slash if that is the complete path.
+  $path = $path === '/' ? $path : rtrim($path, '/');
+
+  $is_path_match = $path_matcher->matchPath($path, $pages);
+  if ($state == 'include' && $is_path_match || $state == 'exclude' && !$is_path_match) {
+    return TRUE;
+  }
+
+  return FALSE;
+}

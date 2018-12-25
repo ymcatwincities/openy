@@ -1,0 +1,112 @@
+$include($site_themes_directory/templates/www/amm/themes/ymca_2013/_includes/top.html)
+<div id="main" role="main" class="page-middle">
+    $include($site_themes_directory/templates/www/amm/themes/ymca_2013/_includes/lead-copy.html)
+    <section class="content">
+        <div class="container">
+	        $include($site_themes_directory/templates/www/amm/themes/ymca_2013/_includes/messages.html)
+	        [[ if #any( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search ) ]]
+	        [[ if content_area_115 ]]
+            <div class="row">
+	            <div class="col-sm-12">
+		            <div class="panel panel-default panel-blog-subnav blog-mobile-archive">$content_area_115</div>
+	            </div>
+            </div>
+	        [[ end if content_area_115 ]]
+	        [[ end if #any( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search ) ]]
+            <div class="row">
+	            [[ if #any( theme_ymca_2013_blog_post ) ]]
+	            <div class="col-sm-3 col-md-2 back-to-blog">
+		            <a href="/blog/"><i class="glyphicon glyphicon-chevron-left"></i>Back to blog</a>
+	            </div>
+	            [[ end if #any( theme_ymca_2013_blog_post ) ]]
+                <div class=" copy
+                    [[ if theme_ymca_2013_no_subnav ]]
+                        [[ if content_area_4 ]]
+                        col-sm-12 col-md-9
+                        [[ end if content_area_4 ]]
+                        [[ if ! content_area_4 ]]
+                        col-sm-12
+                        [[ end if content_area_4 ]]
+                    [[ end if theme_ymca_2013_no_subnav ]]
+                    [[ if #none( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search, theme_ymca_2013_blog_post, theme_ymca_2013_no_subnav ) ]]
+                        [[ if content_area_4 ]]
+                        col-sm-7 col-sm-push-5 col-md-6 col-md-push-3
+                        [[ end if content_area_4 ]]
+                        [[ if ! content_area_4 ]]
+                        col-sm-7 col-sm-push-5 col-md-9 col-md-push-3
+                        [[ end if content_area_4 ]]
+                    [[ end if #none( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search, theme_ymca_2013_blog_post, theme_ymca_2013_no_subnav ) ]]
+                    [[ if #any( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search ) ]]
+                        col-sm-8 col-md-9
+                    [[ end if #any( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search ) ]]
+                    [[ if #any( theme_ymca_2013_blog_post ) ]]
+                        col-sm-8 col-md-9
+                    [[ end if #any( theme_ymca_2013_blog_post ) ]]
+                    ">
+	                [[ if #any( theme_ymca_2013_blog_search ) ]]
+	                <div class="back-to-blog hidden-xs">
+	                    <a href="/blog/"><i class="glyphicon glyphicon-chevron-left"></i>Back to blog</a>
+		            </div>
+	                [[ end if #any( theme_ymca_2013_blog_search ) ]]
+                    $content_area_3
+	                [[ if #any( theme_ymca_2013_blog_post ) ]]
+	                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+	                <div class="addthis_sharing_toolbox"></div>
+	                [[ end if #any( theme_ymca_2013_blog_post ) ]]
+                </div>
+	            [[ if #any( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search ) ]]
+	            <div class="hidden-xs col-sm-4 col-md-3 subnav">
+		            <div class="panel panel-blog-subnav">
+			            <div class="blog-search-container">
+				            <form action="/blog/search_blog/" method="get">
+					            <h3 class="blog-search-title"><i class="glyphicon glyphicon-search"></i>Search the Blog</h3>
+					            <div class="input-group">
+						            <input type="text" name="q" class="form-control">
+									<span class="input-group-btn">
+										<button class="btn btn-primary" type="submit" placeholder="Enter keywords">Go</button>
+									</span>
+					            </div>
+					            <!-- /input-group -->
+				            </form>
+			            </div>
+			            <div class="panel-blog-subnav-menus" id="blog_submenus">
+				            $global_content_block_blog_subnav
+			            </div>
+		            </div>
+		            <div class="rss-feed-button"><a href="/blog/subscribe/index.xml" class="btn btn-primary"><i class="icon-rss"></i>Subscribe to blog</a></div>
+	            </div>
+	            [[ end if #any( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search ) ]]
+
+	            [[ if #none( theme_ymca_2013_no_subnav, theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search, theme_ymca_2013_blog_post ) ]]
+                <div class="
+                    hidden-xs col-sm-5 col-md-3
+                    [[ if content_area_4 ]]
+                    col-sm-pull-7 col-md-pull-6
+                    [[ end if content_area_4 ]]
+                    [[ if ! content_area_4 ]]
+                    col-sm-pull-7 col-md-pull-9
+                    [[ end if content_area_4 ]]
+                     subnav">
+                    <div class="panel panel-default panel-subnav">
+                        
+                    </div>
+                    [[ if content_area_4 ]]
+                    <div class="visible-sm promos sidebar-promos">
+                        $content_area_4
+                    </div>
+                    [[ end if content_area_4 ]]                    
+                </div>
+	            [[ end if #none( theme_ymca_2013_no_subnav, theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search, theme_ymca_2013_blog_post ) ]]
+                [[ if content_area_4 ]]
+                <div class="col-md-3 sidebar-promos promos hidden-sm visible-xs">
+                    $content_area_4
+                </div>
+                [[ end if content_area_4 ]]
+            </div>
+	        [[ if #any( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search ) ]]
+	        <div class="rss-feed-button rss-feed-mobile hidden-sm hidden-md hidden-lg hidden-print"><a href="/blog/subscribe/index.xml" class="btn btn-primary"><i class="icon-rss"></i>Subscribe to the Blog</a></div>
+	        [[ end if #any( theme_ymca_2013_blog_landing, theme_ymca_2013_blog_search ) ]]
+        </div>
+    </section>
+</div>
+$include($site_themes_directory/templates/www/amm/themes/ymca_2013/_includes/bottom.html)

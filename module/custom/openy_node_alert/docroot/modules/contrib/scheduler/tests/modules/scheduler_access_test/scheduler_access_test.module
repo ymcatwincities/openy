@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Installation file for Scheduler Access Test module.
+ */
+
+use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_node_access_records().
+ */
+function scheduler_access_test_node_access_records(NodeInterface $node) {
+  // For the purpose of this test we deny access to every node regardless of
+  // its published status.
+  $grants = [[
+    'realm' => 'scheduler',
+    'gid' => 1,
+    'grant_view' => 0,
+    'grant_update' => 0,
+    'grant_delete' => 0,
+  ],
+  ];
+  return $grants;
+}
+
+/**
+ * Implements hook_node_grants().
+ */
+function scheduler_access_test_node_grants(AccountInterface $account, $op) {
+  // This hook needs to exist, but we do not return any grants.
+  return [];
+}

@@ -1,0 +1,8 @@
+# Google places geocoder function.
+geolocation_google_places_api.geocoder.googleplacesapi:
+  version: 8.x-1.x
+  js:
+    js/geolocation-google-places-api-geocoder.js: {}
+  dependencies:
+    - geolocation/geolocation.geocoder
+    - geolocation/geolocation.googlemapsapi

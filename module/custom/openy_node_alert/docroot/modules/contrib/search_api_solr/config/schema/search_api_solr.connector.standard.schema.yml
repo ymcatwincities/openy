@@ -1,0 +1,40 @@
+plugin.plugin_configuration.search_api_solr_connector.standard:
+  type: config_object
+  label: 'Search API Solr standard connector settings'
+  mapping:
+    scheme:
+      type: string
+      label: 'The HTTP protocol to use for sending queries'
+    host:
+      type: string
+      label: 'The host name or IP of the Solr server'
+    port:
+      type: string
+      label: 'The port of the Solr server'
+    path:
+      type: string
+      label: 'The path of the Solr server'
+    core:
+      type: string
+      label: 'The name that identifies the Solr core to use on the server'
+    timeout:
+      type: integer
+      label: 'Timeout for search queries'
+    index_timeout:
+      type: integer
+      label: 'Timeout for indexing requests'
+    optimize_timeout:
+      type: integer
+      label: 'Timeout for optimize requests'
+    skip_schema_check:
+      type: integer
+      label: 'Do not validate if the schema is correct'
+    solr_version:
+      type: string
+      label: 'Solr version override'
+    http_method:
+      type: string
+      label: 'The HTTP method to use for sending queries'
+    commit_within:
+      type: integer
+      label: 'Time until a soft commit has to happen'

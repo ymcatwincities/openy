@@ -1,0 +1,18 @@
+uuid: b2cb90de-97a1-49b8-9d09-9c10e110e513
+langcode: en
+status: true
+dependencies:
+  theme:
+    - multipurpose_business_theme
+id: multipurpose_business_theme_local_actions
+theme: multipurpose_business_theme
+region: content
+weight: -17
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,89 @@
+
+		[[ if member_login_message ]]
+		<div class="alert alert-success">
+			<p>$member_login_message</p>
+		</div>
+		[[ end if member_login_message ]]
+		<form class="form-horizontal" name="amm_member_login_form" action="$action_url" method="post" id="component_$component_id" class="form-horizontal">
+			<fieldset>
+				<p>$member_intro_text</p>
+				<input type="hidden" name="action_$component_id" value="login"/>
+				<div class="form-group">
+					<label class="control-label col-lg-2" for="inputUsername">$member_username_label_esc</label>
+					<div class="controls col-lg-6">
+						<input class="form-control" name="member_login_name" type="text" id="inputUsername" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-lg-2" for="inputPassword">$member_password_label_esc</label>
+					<div class="controls col-lg-6">
+						<input class="form-control" name="member_login_password" type="password" id="inputPassword"/>
+					</div>
+				</div>
+				[[ if ! remember_me_disabled ]]
+				<div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-6">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox" checked name="remember_me" />
+							Remember Me
+						</label>
+					</div>
+                </div>
+				</div>
+				[[ end if remember_me_disabled ]]
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-6">
+						<button type="submit" class="btn">$member_button_text</button>
+					</div>
+				</div>
+				[[ if is_openid_provider_request ]]
+				<a href="?action_$component_id=openid_cancel_provider_request">Cancel OpenID Provider Request</a>
+				[[ end if is_openid_provider_request ]]
+			</fieldset>
+		</form>
+		<hr/>
+            <div class="row"><div class="col-lg-8 col-lg-offset-2">
+			[[ if show_openid_google ]]
+			<p>
+				<a class="btn btn-default" href="?action_$component_id=openid_login&openid_identifier=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid">Log in with your Google Account</a>
+			</p>
+			[[ end if show_openid_google ]]
+		[[ if show_openid_yahoo ]]
+			<p>
+				<a class="btn btn-default" href="?action_$component_id=openid_login&openid_identifier=http%3A%2F%2Fyahoo.com">Sign in with Yahoo!</a>
+			</p>
+			[[ end if show_openid_yahoo ]]
+		[[ if show_openid_generic ]]
+			<form name="amm_member_login_form" action="$action_url" method="post">
+				<input type="hidden" name="action_$component_id" value="openid_login"/>
+				<div class="form-group">
+					<div class="row">
+                            <div class="col-lg-8">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<img src="/amm/images/openid/openid-icon-small.gif"/>
+							</span>
+							<input class="form-control" name="openid_identifier" type="text" id="openid_identifier" value="" />
+                            <div class="input-group-btn">
+						<button type="submit" class="btn">Sign in with OpenID</button>
+                    </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+			</form>
+			[[ end if show_openid_generic ]]
+
+		[[ if show_facebook ]]
+			<p>
+				<a href="?action_$component_id=facebook_login">Facebook Login</a>
+			</p>
+			[[ end if show_facebook ]]
+
+		[[ if show_twitter ]]
+			<p>
+				<a href="?action_$component_id=twitter_login">Twitter Login</a>
+			</p>
+			[[ end if show_twitter ]]
+    </div></div>

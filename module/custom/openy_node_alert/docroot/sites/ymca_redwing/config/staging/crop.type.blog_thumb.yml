@@ -1,0 +1,8 @@
+uuid: 2da020da-69ae-4a44-b307-7a45b02fed55
+langcode: en
+status: true
+dependencies: {  }
+label: 'Blog Thumb'
+id: blog_thumb
+description: ''
+aspect_ratio: ''

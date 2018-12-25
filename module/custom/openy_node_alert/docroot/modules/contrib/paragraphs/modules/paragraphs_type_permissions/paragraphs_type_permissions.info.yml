@@ -1,0 +1,14 @@
+name: Paragraphs Type Permissions
+type: module
+description: 'Allows users to configure permissions for individual paragraphs types.'
+# core: 8.x
+package: Paragraphs
+
+dependencies:
+  - paragraphs:paragraphs
+
+# Information added by Drupal.org packaging script on 2017-02-17
+version: '8.x-1.1'
+core: '8.x'
+project: 'paragraphs'
+datestamp: 1487332042

@@ -1,0 +1,131 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_cabin_id
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_cabin_number
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_capacity
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_capacity_left
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_code
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_hash
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_id
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_list_price
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_object
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_regs
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_start_date
+  module:
+    - datetime
+    - ymca_cdn_product
+id: cdn_prs_product.cdn_prs_product.default
+targetEntityType: cdn_prs_product
+bundle: cdn_prs_product
+mode: default
+content:
+  field_cdn_prd_cabin_id:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cdn_prd_cabin_number:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_cdn_prd_capacity:
+    weight: 12
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_cdn_prd_capacity_left:
+    weight: 16
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cdn_prd_code:
+    weight: 9
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cdn_prd_hash:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cdn_prd_id:
+    weight: 8
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cdn_prd_list_price:
+    weight: 14
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cdn_prd_object:
+    weight: 10
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_cdn_prd_regs:
+    weight: 15
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cdn_prd_start_date:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden: {  }

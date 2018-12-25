@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+label: 'Crop 16:9'
+id: crop_16_9
+description: ''
+aspect_ratio: '16:9'

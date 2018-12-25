@@ -1,0 +1,4 @@
+name: MindBody API
+type: module
+description: MindBody API integration.
+core: 8.x

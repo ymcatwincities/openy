@@ -1,0 +1,54 @@
+uuid: 3e00d050-5ece-471d-9200-d64fa061bb59
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_water_safety
+    - field.field.contact_message.contact_water_safety.field_comments
+    - field.field.contact_message.contact_water_safety.field_email_address
+    - field.field.contact_message.contact_water_safety.field_first_name
+    - field.field.contact_message.contact_water_safety.field_label
+    - field.field.contact_message.contact_water_safety.field_last_name
+    - field.field.contact_message.contact_water_safety.field_response_required
+  module:
+    - options
+id: contact_message.contact_water_safety.default
+targetEntityType: contact_message
+bundle: contact_water_safety
+mode: default
+content:
+  field_comments:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_email_address:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_first_name:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_last_name:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_response_required:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+hidden:
+  field_label: true
+  message: true

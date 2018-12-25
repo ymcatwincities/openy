@@ -1,0 +1,5 @@
+name: yptf_kronos_monday
+description: dependency hell fixer
+core: 8.x
+version: 0.0.1
+type: module

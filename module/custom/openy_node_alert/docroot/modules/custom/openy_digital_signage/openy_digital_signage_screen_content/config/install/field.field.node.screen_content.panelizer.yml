@@ -1,0 +1,21 @@
+uuid: ddab6afd-e5c3-42d8-8499-fa8612747769
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.panelizer
+    - node.type.screen_content
+  module:
+    - panelizer
+id: node.screen_content.panelizer
+field_name: panelizer
+entity_type: node
+bundle: screen_content
+label: Panelizer
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: panelizer

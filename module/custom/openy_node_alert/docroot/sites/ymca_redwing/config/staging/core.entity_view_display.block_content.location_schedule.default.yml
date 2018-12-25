@@ -1,0 +1,22 @@
+uuid: 86882e9f-a7fd-4fac-a581-2d91aefba37a
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.location_schedule
+    - field.field.block_content.location_schedule.field_schedule_documents
+  module:
+    - file
+id: block_content.location_schedule.default
+targetEntityType: block_content
+bundle: location_schedule
+mode: default
+content:
+  field_schedule_documents:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
+hidden:
+  langcode: true

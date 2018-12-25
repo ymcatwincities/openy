@@ -1,0 +1,23 @@
+uuid: 739e0bdf-9164-441b-a2a3-4e73aad5ebe5
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.storage.block_content.field_ds_background_scheme
+  module:
+    - options
+id: block_content.digital_signage_promotional.field_ds_background_scheme
+field_name: field_ds_background_scheme
+entity_type: block_content
+bundle: digital_signage_promotional
+label: 'Background color scheme'
+description: 'Depending on your background configuration specify if it''s light or dark. If you select a white color as a background, then it''s definitely light and the text will be shown darker. If you background is a dark image, set it dark, the message will be output in a lighter font color.'
+required: true
+translatable: false
+default_value:
+  -
+    value: light
+default_value_callback: ''
+settings: {  }
+field_type: list_string

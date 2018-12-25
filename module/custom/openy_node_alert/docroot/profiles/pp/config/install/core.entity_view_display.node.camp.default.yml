@@ -1,0 +1,104 @@
+uuid: d9a990a7-004b-4af7-801d-29e28db2ab0a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.camp.field_alert
+    - field.field.node.camp.field_alternate_location
+    - field.field.node.camp.field_body
+    - field.field.node.camp.field_camp_links
+    - field.field.node.camp.field_content
+    - field.field.node.camp.field_facebook_page_id
+    - field.field.node.camp.field_include_general_blog_posts
+    - field.field.node.camp.field_location
+    - field.field.node.camp.field_main_promos
+    - field.field.node.camp.field_promo_slideshow
+    - field.field.node.camp.field_registration_block
+    - node.type.camp
+  module:
+    - address
+    - text
+    - user
+id: node.camp.default
+targetEntityType: node
+bundle: camp
+mode: default
+content:
+  field_alert:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_alternate_location:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_body:
+    weight: 106
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_camp_links:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_content:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_facebook_page_id:
+    weight: 110
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_include_general_blog_posts:
+    weight: 111
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_location:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_main_promos:
+    weight: 108
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_promo_slideshow:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_registration_block:
+    weight: 109
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  links:
+    weight: 100
+hidden:
+  langcode: true

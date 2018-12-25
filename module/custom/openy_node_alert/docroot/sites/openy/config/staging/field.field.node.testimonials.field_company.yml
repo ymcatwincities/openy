@@ -1,0 +1,19 @@
+uuid: c658aceb-7350-436e-9128-403e61d71309
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_company
+    - node.type.testimonials
+id: node.testimonials.field_company
+field_name: field_company
+entity_type: node
+bundle: testimonials
+label: Company
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

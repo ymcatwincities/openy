@@ -1,0 +1,143 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_head_attachments.module.
+ */
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function ymca_head_attachments_page_attachments(array &$page) {
+  $route_match = \Drupal::routeMatch();
+  if ($route_match->getRouteName() == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node->bundle() == 'location') {
+      $url = Url::fromRouteMatch($route_match);
+      $url->setOption('absolute', TRUE);
+      $address = $node->field_location->address_line1;
+      $address = explode(', ', $address);
+      $target_id = $node->field_working_hours->target_id;
+      $working_hours_block = \Drupal::service('entity.manager')->getStorage('block_content')->load($target_id);
+      $facility_hours = $working_hours_block->field_facility_hours->getValue();
+      $days_mapping = [
+        'hours_mon' => 'Monday',
+        'hours_tue' => 'Tuesday',
+        'hours_wed' => 'Wednesday',
+        'hours_thu' => 'Thursday',
+        'hours_fri' => 'Friday',
+        'hours_sat' => 'Saturday',
+        'hours_sun' => 'Sunday',
+      ];
+      $hours = [];
+      if (!empty($facility_hours[0])) {
+        foreach ($facility_hours[0] as $key => $day) {
+          $hours[] = '"' . $days_mapping[$key] . ' ' . $day . '"';
+        }
+        $hours = implode(', ', $hours);
+      }
+      $data = [
+        'url' => $url->toString(),
+        'address' => [
+          'locality' => $address[1],
+          'region' => $address[2],
+          'postal_code' => $node->field_location->postal_code,
+          'street' => $address[0],
+        ],
+        'name' => $node->getTitle(),
+        'tel' => $node->field_phone->value,
+        'hours' => $hours,
+      ];
+      $local_business_schema = '{
+        "@context": "http://schema.org",
+        "@type": "ExerciseGym",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "' . $data['url'] . '"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "' . $data['address']['locality'] . '",
+          "addressRegion": "' . $data['address']['region'] . '",
+          "postalCode": "' . $data['address']['postal_code'] . '",
+          "streetAddress": "' . $data['address']['street'] . '"
+        },
+        "name": "YMCA – ' . $data['name'] . '",
+        "openingHours": [' . $hours . '],
+        "telephone": "' . $data['tel'] . '",
+        "url": "' . $data['url'] . '"
+      }';
+      $script = [
+        [
+          '#type' => 'html_tag',
+          '#tag' => 'script',
+          '#value' => $local_business_schema,
+          '#attributes' => array('type' => 'application/ld+json'),
+        ],
+        'local-business-schema',
+      ];
+      $page['#attached']['html_head'][] = [$script, 'canonical'];
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function ymca_head_attachments_preprocess_views_view(&$vars) {
+  // Add prev/next link metatags.
+  $pager = $vars['view']->pager;
+  if (method_exists($pager, 'getPagerTotal') && $pager->getPagerTotal() > 1) {
+    $current_page = $pager->getCurrentPage();
+    $last_page = $pager->getPagerTotal() - 1;
+    $route_match = \Drupal::routeMatch()->getRouteObject();
+    $parameters = \Drupal::routeMatch()->getRawParameters()->all();
+
+    if ($current_page == 0 && $last_page >= 1) {
+      // Add only next tag.
+      $next_query = ['query' => ['page' => 1]];
+    }
+    if ($current_page == $last_page) {
+      // Add only prev tag.
+      $prev_query = ['query' => ['page' => $current_page - 1]];
+    }
+    if ($current_page > 0 && $current_page != $last_page) {
+      // Add prev/next tags.
+      $prev_query = [];
+      if ($current_page != 1) {
+        $prev_query = ['query' => ['page' => $current_page - 1]];
+      }
+      $next_query = ['query' => ['page' => $current_page + 1]];
+    }
+
+    if (isset($prev_query)) {
+      $prev_url = Url::fromRoute($route_match, $parameters, $prev_query)
+        ->setAbsolute()
+        ->toString();
+      $prev_tag = [
+        '#tag' => 'link',
+        '#attributes' => [
+          'rel' => 'prev',
+          'href' => $prev_url,
+        ],
+      ];
+      $vars['#attached']['html_head'][] = [$prev_tag, 'prev_tag'];
+    }
+
+    if (isset($next_query)) {
+      $next_url = Url::fromRoute($route_match, $parameters, $next_query)
+        ->setAbsolute()
+        ->toString();
+      $next_tag = [
+        '#tag' => 'link',
+        '#attributes' => [
+          'rel' => 'next',
+          'href' => $next_url,
+        ],
+      ];
+      $vars['#attached']['html_head'][] = [$next_tag, 'next_tag'];
+    }
+  }
+}

@@ -1,0 +1,8 @@
+description: 'Downloads missing packages.'
+options: {}
+arguments: {}
+errors:
+  no-download-url: 'No download_url was provided for package "%s".'
+messages:
+  success: 'Downloaded package "%s".'
+  no-download: 'All packages have already been downloaded.'

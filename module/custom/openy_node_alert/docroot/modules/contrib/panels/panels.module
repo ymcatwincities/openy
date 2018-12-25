@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * @file panels.module
+ *
+ * Core functionality for the Panels engine.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\page_manager\PageVariantInterface;
+use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
+
+define('PANELS_REQUIRED_CTOOLS_API', '2.0-alpha');
+
+define('PANELS_TITLE_FIXED', 0); // Hide title use to be true/false. So false remains old behavior.
+define('PANELS_TITLE_NONE', 1); // And true meant no title.
+define('PANELS_TITLE_PANE', 2); // And this is the new behavior, where the title field will pick from a pane.
+
+// --------------------------------------------------------------------------
+// Page Manager integration
+
+/**
+ * Implements hook_ENTITY_TYPE_create().
+ *
+ * We need to set the storage information on Panels displays being storaged
+ * in Page Manager as early as possible, to signal to Panels that features
+ * requiring Panels storage (like the IPE) are supported.
+ *
+ * @see panels_page_variant_presave()
+ */
+function panels_page_variant_create(PageVariantInterface $page_variant) {
+  if ($page_variant->getVariantPluginId() == 'panels_variant') {
+    /** @var \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display */
+    $panels_display = $page_variant->getVariantPlugin();
+    // At this point, it very likely that $page_variant->id() is NULL. But
+    // setting the storage type to 'page_manager' is enough to trigger Panels
+    // to offer the IPE as an option.
+    $panels_display->setStorage('page_manager', $page_variant->id());
+  }
+}
+
+/**
+ * Implements hook_layout_alter().
+ */
+function panels_layout_alter(&$definitions) {
+  $core_layouts = ['layout_onecol', 'layout_twocol', 'layout_twocol_bricks', 'layout_threecol_25_50_25', 'layout_threecol_33_34_33'];
+  foreach($definitions as $layout_name => $layout) {
+    if (in_array($layout_name, $core_layouts) && empty($definitions[$layout_name]->getIconPath())) {
+      $definitions[$layout_name]->setIconPath(drupal_get_path('module', 'panels') . '/layouts/'.$layout_name.'/'.$layout_name.'.png');
+    }
+    if (empty($definitions[$layout_name]->getIconPath())) {
+      $definitions[$layout_name]->setIconPath(drupal_get_path('module', 'panels') . '/layouts/no-layout-preview.png');
+    }
+  }
+}
+
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ *
+ * Now that we have the id for the page variant, we need to set the storage
+ * information again.
+ *
+ * @see panels_page_variant_create()
+ */
+function panels_page_variant_presave(PageVariantInterface $page_variant) {
+  if ($page_variant->getVariantPluginId() == 'panels_variant') {
+    /** @var \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display */
+    $panels_display = $page_variant->getVariantPlugin();
+    // Set the storage info now that we have the id.
+    $panels_display->setStorage('page_manager', $page_variant->id());
+    // It's ConfigEntityBase::preSave() that copies configuration from plugin
+    // collections to the config entity, and unfortunately, that runs just
+    // before invoking hook_entity_presave(). So, we have to copy the
+    // configuration from $panels_display to $page_variant again manually for
+    // it to be saved.
+    $page_variant->set('variant_settings', $panels_display->getConfiguration());
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function panels_form_page_manager_add_variant_form_alter(array &$form, FormStateInterface $form_state) {
+  $pos = array_search('::submitForm', $form['actions']['submit']['#submit']);
+  $handlers_top = array_slice($form['actions']['submit']['#submit'], 0, $pos);
+  $handlers_bottom = array_slice($form['actions']['submit']['#submit'], $pos);
+  $panels_handler = ['panels_form_page_manager_add_variant_form_submit'];
+  $handlers = array_merge($handlers_top, $panels_handler, $handlers_bottom);
+  $form['actions']['submit']['#submit'] = $handlers;
+}
+
+/**
+ * Form submit handler to set page_manager storage for panels display variants.
+ */
+function panels_form_page_manager_add_variant_form_submit(array &$form, FormStateInterface $form_state) {
+  $cached_values = $form_state->getTemporaryValue('wizard');
+  /** @var $page_variant \Drupal\page_manager\Entity\PageVariant */
+  $page_variant = $cached_values['page_variant'];
+  $plugin = $page_variant->getVariantPlugin();
+  if ($plugin instanceof PanelsDisplayVariant) {
+    $plugin->setStorage('page_manager', $page_variant->id());
+  }
+}

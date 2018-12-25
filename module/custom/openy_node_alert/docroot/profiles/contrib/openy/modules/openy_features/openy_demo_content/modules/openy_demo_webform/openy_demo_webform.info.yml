@@ -1,0 +1,8 @@
+name: Open Y Demo Webform
+description: Provides a demo webform.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - webform

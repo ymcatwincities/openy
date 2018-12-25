@@ -1,0 +1,13 @@
+uuid: 593e444b-8942-4f39-b45f-9571fc4bd0b9
+langcode: en
+status: true
+dependencies: {  }
+id: global
+label: Global
+tags:
+  content_language: en
+  title: '[current-page:title] | [site:name]'
+  og_image: '[site:url]/themes/custom/ymca/img/ymca-logo-social.png'
+  og_site_name: '[site:name]'
+  og_title: '[current-page:title] | [site:name]'
+  og_type: website

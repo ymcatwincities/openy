@@ -1,0 +1,12 @@
+{#
+/**
+ * @file
+ * Display Instant win link content.
+ */
+#}
+{{ 'Instant Win'|t }}
+<span class="yfr-instant-win-star ng-cloak ng-hide"
+      data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded"
+      data-ng-class="retentionC.instantWinClass()">
+  {{ '{{retentionC.storage.instantWinCount}}' }}
+</span>

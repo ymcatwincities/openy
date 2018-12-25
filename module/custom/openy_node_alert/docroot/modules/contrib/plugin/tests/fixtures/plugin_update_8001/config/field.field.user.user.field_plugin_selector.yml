@@ -1,0 +1,30 @@
+uuid: 7ce5d8e1-9909-490d-9d01-1d3e5035a6a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_plugin_selector
+  module:
+    - plugin
+    - user
+id: user.user.field_plugin_selector
+field_name: field_plugin_selector
+entity_type: user
+bundle: user
+label: 'Plugin selector'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    plugin_type_id: plugin_selector
+    plugin_id: plugin_select_list
+    plugin_configuration:
+      description: null
+      label: null
+      required: false
+      collect_plugin_configuration: true
+      keep_previously_selected_plugins: true
+default_value_callback: ''
+settings: {  }
+field_type: 'plugin:plugin_selector'

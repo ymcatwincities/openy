@@ -1,0 +1,42 @@
+.header {
+  background: rgba(#000, 0.8);
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.header--inner {
+  padding: 20px 50px;
+  @extend .decor--flex;
+  @extend .decor--justify-between;
+
+  .title,
+  .time {
+    font-family: $fontBold;
+    font-weight: normal;
+    font-size: pxtorem(40px);
+    line-height: lh(50, 40);
+    text-transform: uppercase;
+  }
+
+  .title {
+    color: #c6168d;
+  }
+
+  .time {
+    color: #fff;
+    position: relative;
+    padding: 0 0 0 42px;
+
+    &:before {
+      @include pseudo-block($top: 50%, $left: 0);
+      background: transparent url("../images/icon-time.png") 50% 50% no-repeat;
+      background-size: 100% 100%;
+      width: 28px;
+      height: 28px;
+      transform:  translateY(-50%);
+    }
+  }
+}

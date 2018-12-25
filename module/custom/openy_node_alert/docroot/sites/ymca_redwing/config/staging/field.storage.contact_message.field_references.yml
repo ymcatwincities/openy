@@ -1,0 +1,19 @@
+uuid: 489f065d-96ff-439c-b9d0-32df19c2e06c
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+id: contact_message.field_references
+field_name: field_references
+entity_type: contact_message
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 3
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

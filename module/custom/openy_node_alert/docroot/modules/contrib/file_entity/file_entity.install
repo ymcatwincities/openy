@@ -1,0 +1,126 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the file_entity module.
+ */
+
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
+use Drupal\views\Entity\View;
+
+/**
+ * Implements hook_schema().
+ */
+function file_entity_schema() {
+  $schema['file_metadata'] = array(
+    'description' => 'Cache images dimensions.',
+    'fields' => array(
+      'fid' => array(
+        'description' => 'The {file_managed}.fid of the metadata.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'name' => array(
+        'description' => "The name of the metadata (e.g. 'width').",
+        'type' => 'varchar',
+        'length' => '128',
+        'not null' => TRUE,
+      ),
+      'value' => array(
+        'description' => "The value of the metadata (e.g. '200px').",
+        'type' => 'blob',
+        'not null' => FALSE,
+        'size' => 'big',
+        'serialize' => TRUE,
+      ),
+    ),
+    'primary key' => array('fid', 'name'),
+    'foreign keys' => array(
+      'file_managed' => array(
+        'table' => 'file_managed',
+        'columns' => array('fid' => 'fid'),
+      ),
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function file_entity_install() {
+  $type_storage_definition = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('file')['type'];
+  \Drupal::entityDefinitionUpdateManager()->installFieldStorageDefinition('type', 'file', 'file_entity', $type_storage_definition);
+  // Set permissions.
+  $roles = user_roles();
+  foreach ($roles as $rid => $role) {
+    user_role_grant_permissions($rid, array('view files'));
+  }
+
+  // Classify existing files according to the currently defined file types.
+  // Queue all files to be classified during cron runs using the Queue API.
+  $queue = \Drupal::queue('file_entity_type_determine');
+  $ids = \Drupal::entityQuery('file')
+    ->execute();
+  foreach ($ids as $id) {
+    $queue->createItem($id);
+  }
+
+  // Warn users that existing files will not have a file type until the queue
+  // has been processed.
+  if ($queue->numberOfItems()) {
+    drupal_set_message(t('Existing files must be classified according to the currently defined file types. These files have been queued for processing and will have their file type determined during cron runs.'));
+  }
+
+  // Disable the core files view.
+  if ($view = View::load('files')) {
+    $view->set('status', FALSE);
+    $view->save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function file_entity_uninstall() {
+  // Remove the added column to the core {file_managed} table.
+  db_drop_field('file_managed', 'type');
+}
+
+/**
+ * Update existing bogus entries for File types Document.
+ */
+function file_entity_update_8002(&$sandbox) {
+  foreach (\Drupal::configFactory()->listAll('file_entity') as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config->set('mimetypes', str_replace("\r", "", $config->get('mimetypes')));
+    $config->save();
+  }
+}
+
+/**
+ * Update entity form displays to use the new entity browser widget.
+ */
+function file_entity_update_8003() {
+
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  foreach (EntityFormDisplay::loadMultiple() as $form_display) {
+    $components = $form_display->getComponents();
+
+    $changed = FALSE;
+    foreach ($components as $name => $options) {
+      if (isset($options['type']) && $options['type'] == 'file_entity_browser') {
+        $options['type'] = 'entity_browser_file';
+        $form_display->setComponent($name, $options);
+        $changed = TRUE;
+      }
+    }
+
+    if ($changed) {
+      $form_display->save();
+    }
+  }
+
+}

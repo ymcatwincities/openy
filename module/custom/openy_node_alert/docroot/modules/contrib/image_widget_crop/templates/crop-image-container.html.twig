@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Theme override of a crop_image_container used to wrap crop image elements.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - ratio: Ratio calculate instead of current image style.
+ * - label: The label of current ImageStyle.
+ * - items: The rendered child elements of the container.
+ * - has_parent: A flag to indicate that the container has one or more parent
+     containers.
+ *
+ * @see template_preprocess_crop_image_container()
+ */
+#}
+{%
+  set classes = [
+    has_parent ? 'js-form-wrapper',
+    has_parent ? 'form-wrapper',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+    <h2>{{ label }} ({{ ratio }})</h2>
+
+    <div class="content-crop-img">
+        {{ items }}
+    </div>
+</div>

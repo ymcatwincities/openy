@@ -1,0 +1,12 @@
+openy_ds_room.admin.structure.settings:
+  title: 'Rooms settings'
+  description: 'Configure Digital Signage Rooms'
+  route_name: openy_ds_room.settings
+  parent: system.admin_openy_digital_signage_settings
+
+entity.openy_ds_room.collection:
+  title: 'Rooms list'
+  route_name: entity.openy_ds_room.collection
+  description: 'List Digital Signage Rooms'
+  parent: system.admin_openy_digital_signage
+  weight: 100

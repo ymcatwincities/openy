@@ -1,0 +1,20 @@
+{
+    "name": "ygtc-theme",
+    "description": "Client UI for YGTC",
+    "main": "",
+    "authors": [
+        "ygtc frontend Code"
+    ],
+    "license": "MIT",
+    "homepage": "",
+    "moduleType": [],
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {},
+    "devDependencies": {}
+}

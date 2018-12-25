@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Mindbody locations PT pages list template.
+ *
+ * Available variables:
+ * - left_col: List of locations for the left column.
+ * - right_col: List of locations for the right column.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="panel panel-default content-expander">
+  <div class="panel-heading">
+    <div class="panel-title">
+      <h2>
+        <a class="accordion-toggle" data-parent=".panel-group" data-toggle="collapse" href="#collapse-mindbody-locations-pt-list">
+          {{ 'Purchase One-on-One Personal Training'|t }}
+        </a>
+      </h2>
+    </div>
+  </div>
+  <div class="panel-collapse in" id="collapse-mindbody-locations-pt-list">
+    <div class="panel-body">
+      <div class="row mindbody-locations-list">
+        <div class="container">
+          <div class="col-sm-12 col-md-6">
+            {{ left_col }}
+          </div>
+          <div class="col-sm-12 col-md-6">
+            {{ right_col }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

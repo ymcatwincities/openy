@@ -1,0 +1,28 @@
+wsdl: https://***REMOVED***/SSO/webservice/service.asmx?wsdl
+vendor_id: 8
+vendor_username: ClockWork
+vendor_password: ***REMOVED***
+vendor_block: ***REMOVED***
+url_login: https://***REMOVED***/PersonifyEBusiness/Default.aspx?TabID=337
+url_account: https://***REMOVED***/PersonifyEbusiness/MyY/tabid/61/Default.aspx
+url_sign_out: https://***REMOVED***/PersonifyEbusiness/MyY/tabid/61/ctl/Logoff/Default.aspx
+url_cart: https://***REMOVED***/PersonifyEbusiness/YMCA/ShoppingCart.aspx
+# Sandbox.
+# customer_orders_endpoint: http://ylayer.personifycloud.com/personifydataservices/personifydata.svc/CL_MindBodyCustomerOrder
+# customer_orders_username: FFWUSERs
+# customer_orders_password: ffwuser1
+# Train2 environment.
+# customer_orders_endpoint: https://***REMOVED***/PersonifyDataServices/PersonifyData.svc/CL_MindBodyCustomerOrder
+# childcare_endpoint: https://***REMOVED***/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
+# customer_orders_username: Alex.Schedrov
+# customer_orders_password: A!ex!23
+# Prod environment.
+customer_orders_endpoint: https://***REMOVED***/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder
+customer_orders_username: ***REMOVED***
+customer_orders_password: ***REMOVED***
+childcare_authorization: 'Basic QWxleC5TY2hlZHJvdjpIZWxwZGVzazAx'
+childcare_endpoint: http://***REMOVED***/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
+childcare_pdf_address_line1: 2125 E. Hennepin Avenue, Suite 100
+childcare_pdf_address_line2: Minneapolis, MN 55413-2720
+childcare_pdf_tax_id: 45-2563299
+is_enabled_childcare_test_user: 0

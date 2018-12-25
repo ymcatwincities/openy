@@ -1,0 +1,3 @@
+services:
+  plugin.manager.plugin_test_helper.mock:
+    class: Drupal\plugin_test_helper\Plugin\PluginTestHelper\MockManager

@@ -1,0 +1,29 @@
+/**
+ * @file file_browser.dropzone.css
+ */
+
+.dropzone .dz-preview .dz-success-mark {
+  background: transparent url("../images/checkmark.svg") no-repeat center center;
+  background-size: 100% 100%;
+  width: 54px;
+  height: 54px;
+  top: -20px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+.dropzone .dz-preview .dz-error-mark {
+  width: 54px;
+  height: 54px;
+  top: -20px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+div.dz-preview > div.dz-success-mark > svg > g {
+  display: none;
+}

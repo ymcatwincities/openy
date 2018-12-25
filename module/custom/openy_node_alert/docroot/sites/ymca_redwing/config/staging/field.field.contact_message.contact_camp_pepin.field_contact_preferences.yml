@@ -1,0 +1,25 @@
+uuid: bfa95e45-f193-4610-ad00-108b3b46373b
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_camp_pepin
+    - field.storage.contact_message.field_contact_preferences
+  module:
+    - options
+id: contact_message.contact_camp_pepin.field_contact_preferences
+field_name: field_contact_preferences
+entity_type: contact_message
+bundle: contact_camp_pepin
+label: 'How should we contact you?'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: Email
+  -
+    value: Newsletter
+default_value_callback: ''
+settings: {  }
+field_type: list_string

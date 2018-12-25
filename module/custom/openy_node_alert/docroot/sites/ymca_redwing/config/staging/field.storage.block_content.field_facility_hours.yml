@@ -1,0 +1,19 @@
+uuid: ad78efa0-439d-49da-8b04-4aeb0399bd66
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - ymca_field_office_hours
+id: block_content.field_facility_hours
+field_name: field_facility_hours
+entity_type: block_content
+type: ymca_office_hours
+settings: {  }
+module: ymca_field_office_hours
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

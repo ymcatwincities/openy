@@ -1,0 +1,43 @@
+uuid: a6cb824b-de35-4415-8fd5-2338dbd22623
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mapping.trainer.field_mindbody_trainer_id
+    - field.field.mapping.trainer.field_trainer_page_ref
+    - ymca_mappings.mapping_type.trainer
+  module:
+    - entity_browser
+id: mapping.trainer.default
+targetEntityType: mapping
+bundle: trainer
+mode: default
+content:
+  field_mindbody_trainer_id:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_trainer_page_ref:
+    weight: 1
+    settings:
+      entity_browser: browse_content_modal
+      field_widget_display: label
+      field_widget_remove: true
+      field_widget_edit: false
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+  name:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  user_id: true

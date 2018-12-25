@@ -1,0 +1,15 @@
+ymca_styleguide.overview_default:
+  path: '/styleguide'
+  defaults:
+    _controller: '\Drupal\ymca_styleguide\Controller\YMCAStyleGuideController::overview'
+    _title: 'Style guide overview'
+  requirements:
+    _access: 'TRUE'
+
+ymca_styleguide.overview:
+  path: '/styleguide/{type}'
+  defaults:
+    _controller: '\Drupal\ymca_styleguide\Controller\YMCAStyleGuideController::overview'
+    _title: 'Style guide overview'
+  requirements:
+    _access: 'TRUE'

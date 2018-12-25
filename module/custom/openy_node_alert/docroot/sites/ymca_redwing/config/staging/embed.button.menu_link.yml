@@ -1,0 +1,21 @@
+uuid: 03d8609b-f506-4e9f-a635-53524aa20c11
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_embed
+    - menu_link_content
+    - ymca_link_formatter
+label: 'Menu Link'
+id: menu_link
+type_id: entity
+type_settings:
+  entity_type: menu_link_content
+  bundles:
+    - menu_link_content
+  style: inline
+  display_plugins:
+    - 'entity_reference:entity_reference_label_url'
+  entity_browser: ''
+  entity_browser_settings: null
+icon_uuid: null

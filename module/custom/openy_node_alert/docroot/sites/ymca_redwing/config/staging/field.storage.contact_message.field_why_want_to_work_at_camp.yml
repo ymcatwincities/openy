@@ -1,0 +1,19 @@
+uuid: 0956611c-3150-4c96-96ac-b2a32b7fd486
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+id: contact_message.field_why_want_to_work_at_camp
+field_name: field_why_want_to_work_at_camp
+entity_type: contact_message
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

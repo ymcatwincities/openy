@@ -1,0 +1,249 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_cdn_mapping
+id: cdn_prs_product
+migration_tags: {  }
+migration_group: ymca_cdn_mapping_import
+label: 'Import Camp Du Nord mappings'
+migration_dependencies:
+  required: {  }
+  optional: {  }
+process:
+  name:
+    -
+      plugin: get
+      source: name
+  field_cdn_prd_cabin_id:
+    -
+      plugin: get
+      source: id
+  field_cdn_prd_village_ref/target_id:
+    -
+      plugin: get
+      source: ref
+  type:
+    -
+      plugin: default_value
+      default_value: cdn_prs_product
+destination:
+  plugin: 'entity:mapping'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      name: 'Argo Cabin'
+      id: 'N001'
+      ref: 1420
+    -
+      name: 'Bald Eagle Cabin'
+      id: 'P001'
+      ref: 1547
+    -
+      name: 'Baldy Rustic Tent Site'
+      id: 'D001'
+      ref: 1277
+    -
+      name: 'Bear Platform Tent'
+      id: 'D002'
+      ref: 1277
+    -
+      name: 'Buck Platform Cabin'
+      id: 'P002'
+      ref: 1547
+    -
+      name: 'Chickadee Cabin'
+      id: 'P003'
+      ref: 1547
+    -
+      name: 'Coxey Pond Auto Tent Site'
+      id: 'D003'
+      ref: 1277
+    -
+      name: 'Dane Lodge'
+      id: 'D004'
+      ref: 1277
+    -
+      name: 'Deer Platform Cabin'
+      id: 'D005'
+      ref: 1277
+    -
+      name: 'Druids Rustic Tent Site'
+      id: 'D006'
+      ref: 1277
+    -
+      name: 'Eagles Nest Cabin'
+      id: 'N002'
+      ref: 1420
+    -
+      name: 'Goshawk Platform Cabin'
+      id: 'P004'
+      ref: 1547
+    -
+      name: 'Greenstone Cabin'
+      id: 'P005'
+      ref: 1547
+    -
+      name: 'Grosbeak Platform Tent'
+      id: 'P006'
+      ref: 1547
+    -
+      name: 'Hegman Lake Auto Tent Site'
+      id: 'D007'
+      ref: 1277
+    -
+      name: "Jack's II Cabin"
+      id: 'D008'
+      ref: 1277
+    -
+      name: 'Kawnipi Cabin'
+      id: 'N003'
+      ref: 1420
+    -
+      name: 'Ladyslipper Platform Cabin'
+      id: 'P007'
+      ref: 1547
+    -
+      name: 'Luna Cabin'
+      id: 'N004'
+      ref: 1420
+    -
+      name: 'Lunta Loft'
+      id: 'D009'
+      ref: 1277
+    -
+      name: 'Lynx Lodge'
+      id: 'D010'
+      ref: 1277
+    -
+      name: 'McKenzie Cabin'
+      id: 'N005'
+      ref: 1420
+    -
+      name: 'Moose Platform Cabin'
+      id: 'P008'
+      ref: 1547
+    -
+      name: 'Nipigon Cabin'
+      id: 'N006'
+      ref: 1420
+    -
+      name: 'North Cove Cabin'
+      id: 'D011'
+      ref: 1277
+    -
+      name: 'North Star Cabin'
+      id: 'N007'
+      ref: 1420
+    -
+      name: 'Northern Lights Cabin'
+      id: 'P009'
+      ref: 1547
+    -
+      name: 'Nugget Cabin'
+      id: 'D012'
+      ref: 1277
+    -
+      name: 'Ole Lake Auto Tent Site'
+      id: 'D013'
+      ref: 1277
+    -
+      name: 'Osprey Cabin'
+      id: 'P010'
+      ref: 1547
+    -
+      name: 'Pilot House Cabin'
+      id: 'D014'
+      ref: 1277
+    -
+      name: 'Pine Pointe Playfield #1 Rustic Tent Site'
+      id: 'P011'
+      ref: 1547
+    -
+      name: 'Pine Pointe Playfield #2 Rustic Tent Site'
+      id: 'P012'
+      ref: 1547
+    -
+      name: 'Raven Cabin'
+      id: 'P013'
+      ref: 1547
+    -
+      name: 'Salt Lick Cabin'
+      id: 'D015'
+      ref: 1277
+    -
+      name: 'Sans Souci Cabin'
+      id: 'D016'
+      ref: 1277
+    -
+      name: 'Sentinels Rustic Tent Site'
+      id: 'D017'
+      ref: 1277
+    -
+      name: 'Sentry House'
+      id: 'D018'
+      ref: 1277
+    -
+      name: 'Siam Cabin'
+      id: 'D019'
+      ref: 1277
+    -
+      name: "Skipper's Cabin"
+      id: 'N008'
+      ref: 1420
+    -
+      name: 'Slim Lake Auto Tent Site'
+      id: 'D020'
+      ref: 1277
+    -
+      name: 'Split Rock Cabin'
+      id: 'P014'
+      ref: 1547
+    -
+      name: 'Sunshine Cabin'
+      id: 'N009'
+      ref: 1420
+    -
+      name: 'The Winds Cabin'
+      id: 'D021'
+      ref: 1277
+    -
+      name: "Thor's Lodge"
+      id: 'D022'
+      ref: 1277
+    -
+      name: 'Timber Wolf Cabin'
+      id: 'P015'
+      ref: 1547
+    -
+      name: 'Totem Cabin'
+      id: 'D023'
+      ref: 1277
+    -
+      name: 'Turning Point Auto Tent Site'
+      id: 'D024'
+      ref: 1277
+    -
+      name: 'Twilight Cabin'
+      id: 'N010'
+      ref: 1420
+    -
+      name: 'White Pine Cabin'
+      id: 'N011'
+      ref: 1420
+    -
+      name: 'Wintergreen Cabin'
+      id: 'P016'
+      ref: 1547
+    -
+      name: 'Wolf Platform Tent'
+      id: 'D025'
+      ref: 1277
+    -
+      name: 'Yurt'
+      id: 'P017'
+      ref: 1420
+  ids:
+    id:
+      type: string

@@ -1,0 +1,5 @@
+services:
+  alerts.service:
+    class: Drupal\ymca_blocks\AlertsService
+  dateslides.service:
+    class: Drupal\ymca_blocks\DateBlockService

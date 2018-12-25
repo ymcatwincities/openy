@@ -1,0 +1,5 @@
+openy_digital_signage_groupex_schedule.import_groupex_sessions:
+  route_name: openy_digital_signage_groupex_schedule.import_groupex_sessions
+  title: 'Run Import from GroupEx Pro'
+  appears_on:
+    - entity.openy_ds_classes_session.collection

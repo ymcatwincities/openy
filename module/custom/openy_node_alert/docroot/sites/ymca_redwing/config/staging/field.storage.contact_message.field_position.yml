@@ -1,0 +1,72 @@
+uuid: 862f096f-77c1-4ee8-ab15-dbb7608f20b6
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - options
+id: contact_message.field_position
+field_name: field_position
+entity_type: contact_message
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Resident Counselor'
+      label: 'Resident Counselor'
+    -
+      value: 'Trail Director'
+      label: 'Trail Director'
+    -
+      value: 'Assistant Counselor'
+      label: 'Assistant Counselor'
+    -
+      value: 'Arts & Crafts Director'
+      label: 'Arts & Crafts Director'
+    -
+      value: 'Camp Office Assistant'
+      label: 'Camp Office Assistant'
+    -
+      value: 'Target Sports Director'
+      label: 'Target Sports Director'
+    -
+      value: 'Program Director'
+      label: 'Program Director'
+    -
+      value: 'Food Service Director'
+      label: 'Food Service Director'
+    -
+      value: 'Challenge Course Director'
+      label: 'Challenge Course Director'
+    -
+      value: 'Food Service Assistant'
+      label: 'Food Service Assistant'
+    -
+      value: 'Waterfront Director'
+      label: 'Waterfront Director'
+    -
+      value: 'Kitchen Assistant'
+      label: 'Kitchen Assistant'
+    -
+      value: 'Boating Director'
+      label: 'Boating Director'
+    -
+      value: Intern
+      label: Intern
+    -
+      value: 'Leadership Director'
+      label: 'Leadership Director'
+    -
+      value: 'Outdoor Education Instructor'
+      label: 'Outdoor Education Instructor'
+    -
+      value: 'Health Care Coordinator'
+      label: 'Health Care Coordinator'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 3
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

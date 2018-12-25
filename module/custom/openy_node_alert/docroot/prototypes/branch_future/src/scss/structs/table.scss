@@ -1,0 +1,175 @@
+.block-table--current {
+  + .block-table--upcoming {
+    margin-top: 50px;
+  }
+}
+
+
+.block-table {
+  font-family: $fontBold;
+  font-weight: normal;
+  width: 100%;
+  margin: 0 auto;
+  color: #fff;
+  padding: 0 50px;
+  box-sizing: border-box;
+
+  .table-title {
+    font-family: $fontBold;
+    font-size: pxtorem(20px);
+    line-height: lh(30, 20);
+    text-transform: uppercase;
+    color: #654d81;
+    margin: 0 0 16px 0;
+
+    +.row:not(.row--active) {
+      border-top: 1px solid rgba(#6d4e92, 0.6);
+    }
+  }
+
+  .section--shedules & {
+    padding: 0;
+  }
+
+  span {
+    display: block;
+  }
+
+  .row {
+    border-bottom: 1px solid rgba(#6d4e92, 0.6);
+    padding: 18px 40px 17px;
+    //padding: 2vh 40px 2vh;
+    box-sizing: border-box;
+    @extend .decor--flex;
+    @extend .decor--justify-between;
+
+    + .row--active {
+      margin: 20px 0 0;
+    }
+  }
+
+  .row--disabled {
+    color: #7d5fa0;
+
+    .user,
+    .duration {
+      color: inherit;
+    }
+
+    .user {
+      &:before {
+        background: transparent url("../images/icon-user-disabled.png") 50% 50% no-repeat;
+        background-size: 100% 100%;
+      }
+    }
+  }
+
+  .row--active {
+    background: rgba(#fff, 0.05);
+    border: 1px solid rgba(#6d4e92, 0.6);
+    border-radius: 4px;
+
+    .period {
+
+    }
+
+    .duration {
+      font-size: pxtorem(18px);
+      line-height: lh(22, 18);
+    }
+
+    .period,
+    .info,
+    .user {
+      font-size: pxtorem(24px);
+      line-height: lh(40, 24);
+    }
+
+    .group {
+      font-size: pxtorem(20px);
+      line-height: lh(40, 20);
+    }
+  }
+
+  .info,
+  .user {
+    font-size: pxtorem(20px);
+    line-height: lh(30, 20);
+  }
+
+  .period,
+  .info {
+    text-transform: uppercase;
+  }
+
+  .period {
+    font-size: pxtorem(18px);
+    line-height: lh(30, 18);
+
+    .section--shedules & {
+      font-size: pxtorem(20px);
+      line-height: lh(30, 20);
+    }
+  }
+
+  .info {}
+
+  .user {
+    color: #c6168d;
+    position: relative;
+    padding: 0 0 0 26px;
+
+    &:before {
+      @include pseudo-block($top: 50%, $left: 0);
+      width: 14px;
+      height: 20px;
+      background: transparent url("../images/icon-user.png") 50% 50% no-repeat;
+      background-size: 100% 100%;
+      transform:  translateY(-50%);
+    }
+  }
+
+  .group {
+    font-size: pxtorem(15px);
+    line-height: lh(30, 15);
+    text-transform: uppercase;
+
+    .section--shedules & {
+      font-size: pxtorem(16px);
+      line-height: lh(30, 16);
+    }
+  }
+
+  .duration {
+    font-family: $fontBook;
+    font-weight: normal;
+    font-size: pxtorem(13px);
+    line-height: lh(20.1, 13);
+    color: #bfa6dc;
+
+    .section--shedules & {
+      font-size: pxtorem(18px);
+    }
+  }
+
+  .cell--time {
+    min-width: 84px;
+    padding: 0 50px 0 0;
+  }
+
+  .cell--group {
+    min-width: 100px;
+  }
+
+  .cell--info {
+    width: 100%;
+    padding: 0 16px 0 50px;
+  }
+
+  .cell--user {
+    font-family: $fontBook;
+    font-weight: normal;
+    min-width: 150px;
+    padding: 0 16px;
+  }
+}

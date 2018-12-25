@@ -1,0 +1,54 @@
+purge_log_channel:
+  type: mapping
+  label: 'Log Channel'
+  mapping:
+    id:
+      type: string
+      label: 'Channel ID/prefix'
+      translatable: false
+    grants:
+      label: 'Granted type permissions'
+      translatable: false
+      type: sequence
+      sequence:
+        type: integer
+purge_plugin_purger:
+  type: mapping
+  label: 'Plugin'
+  mapping:
+    instance_id:
+      type: string
+      label: 'Instance ID'
+      translatable: false
+    plugin_id:
+      type: string
+      label: 'Plugin ID'
+      translatable: false
+    order_index:
+      type: integer
+      label: 'The order index the plugin is loaded in, lower is higher.'
+      translatable: false
+purge_plugin_processor:
+  type: mapping
+  label: 'Plugin'
+  mapping:
+    plugin_id:
+      type: string
+      label: 'Plugin ID'
+      translatable: false
+    status:
+      type: boolean
+      label: 'Enabled or disabled'
+      translatable: false
+purge_plugin_queuer:
+  type: mapping
+  label: 'Plugin'
+  mapping:
+    plugin_id:
+      type: string
+      label: 'Plugin ID'
+      translatable: false
+    status:
+      type: boolean
+      label: 'Enabled or disabled'
+      translatable: false

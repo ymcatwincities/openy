@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.plugin_test_pcf
+    - node.type.plugin_test_pcf
+  module:
+    - plugin
+id: node.plugin_test_pcf.plugin_test_pcf
+field_name: plugin_test_pcf
+entity_type: node
+bundle: plugin_test_pcf
+label: Plugin
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: 'plugin:plugin_test_helper_mock'

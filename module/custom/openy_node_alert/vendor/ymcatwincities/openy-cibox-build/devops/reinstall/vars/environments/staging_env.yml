@@ -1,0 +1,25 @@
+---
+env:
+  pre_settings:
+    - { name: '$settings["hash_salt"]', status: true, value: 'g1W4KZgWCeWh7Af9_gSb9D9HOiNaBdWPvQD-8x0yWpcgNpTBppaHR5VNGQBGvh2k8P8uWa1V8w'}
+    - { name: '$config_directories["staging"]', status: false, value: 'sites/default/config/staging' }
+    - { name: '$settings["install_profile"]', status: true, value: "{{ installation_profile_name }}" }
+    - { name: '$settings["file_public_path"]', status: true, value: 'sites/{{ settings_site_folder }}/files' }
+    - { name: '$config["system.file"]["path.temporary"]', status: true, value: '/tmp' }
+    - { name: '$config_directories["sync"]', status: true, value: 'sites/default/config/sync' }
+  modules:
+    - { name: 'devel shield', status: false }
+  drush_commands:
+    - { name: 'pm-uninstall', status: true, arguments: "update -y" }
+    - { name: 'user-password', status: true, arguments: "{{ drupal_user }} --password={{ drupal_pass }}" }
+    - { name: 'cr', status: true, arguments: "" }
+    - { name: 'config-set', status: false, arguments: "shield.settings user {{ http_user }} -y" }
+    - { name: 'config-set', status: false, arguments: "shield.settings pass {{ http_pass }} -y" }
+    - { name: 'config-set', status: false, arguments: "system.site uuid USER_YOUR_UUID_HERE -y" }
+    - { name: 'config-set', status: false, arguments: "stage_file_proxy.settings origin {{ origin_site_url }} -y" }
+    - { name: 'config-set', status: true, arguments: "geolocation.settings google_map_api_key 'AIzaSyDIFPdDmDsBOFFZcmavCaAqHa3VNKkXLJc' -y" }
+  post_settings:
+    - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
+    - { name: '$config_directories["sync"]', status: true, value: 'sites/default/config/staging' }
+    - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
+    - { name: '$config["stage_file_proxy.settings"]["origin"]', status: false, value: '{{ origin_site_url }}' }

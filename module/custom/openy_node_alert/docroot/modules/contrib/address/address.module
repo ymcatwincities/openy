@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Provides functionality for handling postal addresses.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ *
+ * Removes the default values form from the field settings page.
+ * Users expect to use the default value form to predefine only certain values
+ * on the widget, but Drupal expects the default value to be complete, and used
+ * whenever an actual address isn't provided. Therefore it's preferable to
+ * hide this functionality and implement our own via custom widget settings.
+ */
+function address_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state) {
+  $field = $form_state->getFormObject()->getEntity();
+  if ($field->getType() == 'address') {
+    $form['default_value']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function address_theme() {
+  return [
+    'address_plain' => [
+      'variables' => [
+        'given_name' => '',
+        'additional_name' => '',
+        'family_name' => '',
+        'organization' => '',
+        'address_line1' => '',
+        'address_line2' => '',
+        'postal_code' => '',
+        'sorting_code' => '',
+        'dependent_locality' => [],
+        'locality' => [],
+        'administrative_area' => [],
+        'country' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Updates the given entity's field for the RC1 changes.
+ *
+ * @param $entity
+ *   The entity.
+ * @param $field_name
+ *   The name of the field to update.
+ */
+function _address_update_entity($entity, $field_name) {
+  $update_helper = '\CommerceGuys\Addressing\UpdateHelper';
+  foreach ($entity->{$field_name} as $delta => $address) {
+    $names = $update_helper::splitRecipient($address->given_name, $address->country_code);
+    $address->given_name = $names['givenName'];
+    $address->family_name = $names['familyName'];
+    // Now update the subdivisions.
+    $address->administrative_area = $update_helper::updateSubdivision($address->administrative_area);
+    $address->locality = $update_helper::updateSubdivision($address->locality);
+    $address->dependent_locality = $update_helper::updateSubdivision($address->dependent_locality);
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter() for hook_tokens.
+ */
+function address_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'tokens') {
+    $group = $implementations['address'];
+    unset($implementations['address']);
+    $implementations['address'] = $group;
+  }
+}

@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Contains yptf_kronos specific functions.
+ */
+
+/**
+ * Implements hook_mail().
+ */
+function yptf_kronos_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'yptf_kronos_reports':
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['body'];
+      break;
+
+    case 'yptf_kronos_error_reports':
+      $message['subject'] = $params['subject'];
+      $message['body'] = $params['body'];
+      break;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function yptf_kronos_theme($existing, $type, $theme, $path) {
+  return [
+    'yptf_kronos_report' => [
+      'variables' => [
+        'data' => [],
+      ],
+      'template' => 'yptf-kronos-report',
+    ],
+  ];
+}

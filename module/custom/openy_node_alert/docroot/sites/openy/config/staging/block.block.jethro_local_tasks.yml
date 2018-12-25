@@ -1,0 +1,20 @@
+uuid: b2910bbd-cebd-471c-9b00-ab6427415e74
+langcode: en
+status: true
+dependencies:
+  theme:
+    - jethro
+id: jethro_local_tasks
+theme: jethro
+region: content
+weight: -7
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

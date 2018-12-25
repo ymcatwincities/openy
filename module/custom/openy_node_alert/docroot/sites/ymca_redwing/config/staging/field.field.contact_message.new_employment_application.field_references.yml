@@ -1,0 +1,25 @@
+uuid: c2215b73-9015-4328-9ba0-a0635286d492
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.new_employment_application
+    - field.storage.contact_message.field_references
+id: contact_message.new_employment_application.field_references
+field_name: field_references
+entity_type: contact_message
+bundle: new_employment_application
+label: References
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: "Name\r\nPhone Number\r\nEmail\r\nRelationship"
+  -
+    value: "Name\r\nPhone Number\r\nEmail\r\nRelationship"
+  -
+    value: "Name\r\nPhone Number\r\nEmail\r\nRelationship"
+default_value_callback: ''
+settings: {  }
+field_type: string_long

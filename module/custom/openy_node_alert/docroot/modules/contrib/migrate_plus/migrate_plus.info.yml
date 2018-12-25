@@ -1,0 +1,7 @@
+type: module
+name: Migrate Plus
+description: 'Enhancements to core migration support'
+package: Migration
+core: 8.x
+dependencies:
+  - drupal:migrate (>=8.2)

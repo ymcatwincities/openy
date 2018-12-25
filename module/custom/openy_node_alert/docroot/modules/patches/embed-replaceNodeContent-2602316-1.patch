@@ -1,0 +1,71 @@
+diff --git a/src/DomHelperTrait.php b/src/DomHelperTrait.php
+index de72fd6..f053a96 100644
+--- a/src/DomHelperTrait.php
++++ b/src/DomHelperTrait.php
+@@ -85,25 +85,35 @@ trait DomHelperTrait {
+    *   A DOMNode object.
+    * @param string $content
+    *   The text or HTML that will replace the contents of $node.
++   *
++   * @return array
++   *   Array of DOMNode objects that replaced a node.
+    */
+   protected function replaceNodeContent(\DOMNode &$node, $content) {
+     if (strlen($content)) {
+-      // Load the contents into a new DOMDocument and retrieve the element.
+-      $replacement_node = Html::load($content)->getElementsByTagName('body')
++      // Load the contents into a new DOMDocument and retrieve elements.
++      $replacement_nodes = Html::load($content)->getElementsByTagName('body')
+         ->item(0)
+-        ->childNodes
+-        ->item(0);
++        ->childNodes;
+     }
+     else {
+-      $replacement_node = $node->ownerDocument->createTextNode('');
++      $replacement_nodes = [$node->ownerDocument->createTextNode('')];
+     }
+ 
++    // We can't just return $replacement_nodes because it may be an array or
++    // DOMNodeList object. So collect replacement nodes into new array.
++    $replacement_nodes_array = [];
+     // Import the updated DOMNode from the new DOMDocument into the original
+     // one, importing also the child nodes of the replacement DOMNode.
+-    $replacement_node = $node->ownerDocument->importNode($replacement_node, TRUE);
+-    $node->parentNode->appendChild($replacement_node);
++    foreach ($replacement_nodes as $replacement_node) {
++      $replacement_node = $node->ownerDocument->importNode($replacement_node, TRUE);
++      $node->parentNode->insertBefore($replacement_node, $node);
++      $replacement_nodes_array[] = $replacement_node;
++    }
+     $node->parentNode->removeChild($node);
+     $node = $replacement_node;
++
++    return $replacement_nodes_array;
+   }
+ 
+   /**
+diff --git a/tests/src/Unit/DomHelperTraitTest.php b/tests/src/Unit/DomHelperTraitTest.php
+index 17b75e3..c45ef6a 100644
+--- a/tests/src/Unit/DomHelperTraitTest.php
++++ b/tests/src/Unit/DomHelperTraitTest.php
+@@ -72,6 +72,19 @@ class DomHelperTraitTest extends UnitTestCase {
+     // Test replacing again with a non-empty value.
+     $this->replaceNodeContent($this->node, '<div></div>');
+     $this->assertEquals(Html::serialize($this->document), '<outer><div></div></outer>');
++    // Test replacing again with a value without root element.
++    $two_nodes = $this->replaceNodeContent($this->node, '<p>first</p><p>second</p>');
++    $this->assertEquals(Html::serialize($this->document), '<outer><p>first</p><p>second</p></outer>');
++    $this->assertEquals(count($two_nodes), 2);
++    // Test replacing again with a non-empty value.
++    $new_nodes = $this->replaceNodeContent($this->node, '<p>third</p>');
++    $this->assertEquals(Html::serialize($this->document), '<outer><p>first</p><p>third</p></outer>');
++    $this->assertEquals(count($new_nodes), 1);
++    // Test replacing of returned DOMNode objects.
++    $this->node = $two_nodes[0];
++    $new_nodes = $this->replaceNodeContent($this->node, 'Second <!-- comment --> ');
++    $this->assertEquals(Html::serialize($this->document), '<outer>Second <!-- comment --> <p>third</p></outer>');
++    $this->assertEquals(count($new_nodes), 3);
+   }
+ 
+   /**

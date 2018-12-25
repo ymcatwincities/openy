@@ -1,0 +1,74 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.linkit_result_thumbnail
+  module:
+    - file
+    - image
+    - linkit_entity_attributes
+    - node
+id: openy_linkit
+label: 'OpenY LinkIt'
+description: 'Linkit profile for OpenY content management.'
+attributes:
+  title:
+    id: title
+    weight: 0
+    settings:
+      automatic_title: true
+  target:
+    id: target
+    weight: 0
+    settings:
+      widget_type: simple_checkbox
+  relationship:
+    id: relationship
+    weight: 0
+    settings: {  }
+  entity_type_id:
+    id: entity_type_id
+    weight: 0
+    settings:
+      automatic_entity_type_id: 1
+  linkit_entity_uuid:
+    id: linkit_entity_uuid
+    weight: 0
+    settings:
+      automatic_uuid: null
+matchers:
+  0f37b047-60c4-44a4-b9d0-9c00b07e9765:
+    uuid: 0f37b047-60c4-44a4-b9d0-9c00b07e9765
+    id: 'entity:node'
+    weight: 0
+    settings:
+      result_description: ''
+      bundles:
+        article: article
+        blog: blog
+        camp: camp
+        landing_page: landing_page
+        location: location
+        product: product
+      group_by_bundle: true
+      include_unpublished: true
+  6ffabcde-1e31-49cf-873a-2adc044e6c9a:
+    uuid: 6ffabcde-1e31-49cf-873a-2adc044e6c9a
+    id: 'entity:menu_link_content'
+    weight: 0
+    settings:
+      result_description: ''
+      bundles: {  }
+      group_by_bundle: true
+  c44a81aa-46cb-4970-9c10-c82f733b017d:
+    uuid: c44a81aa-46cb-4970-9c10-c82f733b017d
+    id: 'entity:file'
+    weight: 0
+    settings:
+      result_description: ''
+      bundles: {  }
+      group_by_bundle: true
+      images:
+        show_dimensions: true
+        show_thumbnail: true
+        thumbnail_image_style: linkit_result_thumbnail

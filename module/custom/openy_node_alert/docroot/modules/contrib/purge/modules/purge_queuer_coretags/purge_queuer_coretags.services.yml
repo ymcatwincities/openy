@@ -1,0 +1,7 @@
+services:
+  purge_queuer_coretags.queuer:
+    class: Drupal\purge_queuer_coretags\CacheTagsQueuer
+    tags:
+      - { name: cache_tags_invalidator }
+    calls:
+      - [setContainer, ['@service_container']]

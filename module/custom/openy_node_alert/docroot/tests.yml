@@ -1,0 +1,101 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    workspace_root: .
+    artifacts_file: commentinfo.md
+    build_reports_dir: build_reports
+    behat_base_url: http://admin:propeople@drupal.192.168.56.132.xip.io # WITHOUT TRAILING SLASH
+    behat_drupal_root: /var/www/docroot
+    resources_path: /var/www/tests/behat/resources
+    behat_root: '../tests/behat'
+    config_file: behat.yml
+    features_dir: features
+    browser: 'chrome'
+    selenium_ip: 127.0.0.1
+    selenium_port: 4444
+    selenium_url: "{{ selenium_ip }}:{{ selenium_port }}/wd/hub"
+    run_javascript_tests: 'yes'
+    update_dependencies: 'yes'
+    container_name: 'selenium'
+    container_image: 'selenium/standalone-chrome:2.53.0'
+
+  pre_tasks:
+    - name: Prepare folder with test suites
+      file:
+        path: "{{ behat_root }}"
+        state: directory
+        mode: 0777
+        recurse: yes
+      sudo: yes
+
+    - name: Install behat dependencies from composer.json
+      shell: "cd {{ behat_root }} && composer up"
+      when: update_dependencies == 'yes'
+
+    - name: Create dynamic behat.yml
+      template: src={{ behat_root }}/behat.yml.j2 dest=/tmp/behat.yml
+
+    - name: Move behat.yml
+      sudo: yes
+      shell: mv /tmp/behat.yml {{ behat_root }}/behat.yml
+
+    - name: Wait for Selenium container to be stopped
+      wait_for:
+        host: "{{ selenium_ip }}"
+        port: "{{ selenium_port }}"
+        delay: 0
+        state: stopped
+      when: run_javascript_tests == 'yes'
+
+  tasks:
+    - name: Run Selenium container
+      docker:
+        name: "{{ container_name }}"
+        image: "{{ container_image }}"
+        detach: true
+        ports: "{{ selenium_port }}:{{ selenium_port }}"
+        state: started
+      sudo: yes
+      when: run_javascript_tests == 'yes'
+
+    - name: Wait for Selenium container to be run
+      wait_for:
+        host: "{{ selenium_ip }}"
+        port: "{{ selenium_port }}"
+        delay: 10
+        state: drained
+      when: run_javascript_tests == 'yes'
+
+    - name: Create directory for build reports
+      sudo: yes
+      file: path={{ behat_drupal_root }}/{{ build_reports_dir }} state=directory mode=0777
+
+    - name: Run full Behat tests
+      ignore_errors: yes
+      shell: 'echo "Behat tests: standard file {{ behat_base_url }}/{{ build_reports_dir }}/behat_report.html" >> {{ workspace_root }}/{{ artifacts_file }} && cd {{ behat_root }} && bin/behat --config {{ config_file }} {{ features_dir }}'
+      when: run_javascript_tests == 'yes'
+
+    - name: Run headless Behat tests
+      ignore_errors: yes
+      shell: 'echo "Behat tests: standard file {{ behat_base_url }}/{{ build_reports_dir }}/behat_report.html" >> {{ workspace_root }}/{{ artifacts_file }} && cd {{ behat_root }} && bin/behat --config {{ config_file }} {{ features_dir }} --tags "~@javascript"'
+      when: run_javascript_tests == 'no'
+
+  post_tasks:
+    - name: Stop Selenium container
+      docker:
+        name: "{{ container_name }}"
+        image: "{{ container_image }}"
+        state: stopped
+      sudo: yes
+      when: run_javascript_tests == 'yes'
+
+    - name: Remove Selenium container
+      docker:
+        name: "{{ container_name }}"
+        image: "{{ container_image }}"
+        state: absent
+      sudo: yes
+      when: run_javascript_tests == 'yes'

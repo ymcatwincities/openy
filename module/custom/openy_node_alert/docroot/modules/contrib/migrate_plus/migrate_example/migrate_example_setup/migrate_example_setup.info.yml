@@ -1,0 +1,12 @@
+type: module
+name: Migrate Example Setup
+description: 'Separate site configuration for the example from the actual migration.'
+package: Migration
+core: 8.x
+hidden: 1
+dependencies:
+  - drupal:comment
+  - drupal:image
+  - drupal:text
+  - drupal:options
+  - drupal:taxonomy

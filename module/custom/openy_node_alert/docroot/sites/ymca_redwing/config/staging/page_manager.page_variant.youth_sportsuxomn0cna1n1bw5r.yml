@@ -1,0 +1,79 @@
+uuid: 10930b3b-21c6-40de-a2db-2d3b8ce13a81
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.open_yp
+  content:
+    - 'block_content:basic:669c4858-78f2-4491-b72c-ae56a94e0d27'
+    - 'block_content:basic:99a85d9b-8692-43f0-9fe6-3a3f1a8b5d4b'
+    - 'block_content:basic:b4144b63-2563-4560-8fd0-e18b8401e321'
+    - 'block_content:basic:de08ff0a-6c31-4097-b0fe-f80f93e6f6bc'
+  module:
+    - block_content
+    - panels
+id: youth_sportsuxomn0cna1n1bw5r
+label: 'Annual Report'
+variant: panels_variant
+variant_settings:
+  blocks:
+    16d060af-11ee-4707-b02c-4414d79e81e3:
+      id: 'block_content:99a85d9b-8692-43f0-9fe6-3a3f1a8b5d4b'
+      label: 'Annual Report Main Content uxomn0cn a1n1bw5r'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      weight: -10
+      uuid: 16d060af-11ee-4707-b02c-4414d79e81e3
+      context_mapping: {  }
+    94717ef3-4672-4045-a23e-622461f330b1:
+      id: 'block_content:b4144b63-2563-4560-8fd0-e18b8401e321'
+      label: 'Open Y - YMCAs and Partners'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      uuid: 94717ef3-4672-4045-a23e-622461f330b1
+      context_mapping: {  }
+    62b99372-8280-4f48-9f02-2d39cbe52057:
+      id: 'block_content:669c4858-78f2-4491-b72c-ae56a94e0d27'
+      label: 'Open Y - FAQ'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      uuid: 62b99372-8280-4f48-9f02-2d39cbe52057
+      context_mapping: {  }
+    e6a34cf0-5deb-4370-ab00-d011e93455ff:
+      id: 'block_content:de08ff0a-6c31-4097-b0fe-f80f93e6f6bc'
+      label: 'Open Y - Features'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      uuid: e6a34cf0-5deb-4370-ab00-d011e93455ff
+      context_mapping: {  }
+  id: panels_variant
+  uuid: 7892728d-c220-49ba-9e00-a79860e58827
+  label: null
+  weight: 0
+  layout: onecol
+  layout_settings: {  }
+  page_title: '2015 Annual Report'
+  storage_type: page_manager
+  storage_id: youth_sportsuxomn0cna1n1bw5r
+  builder: standard
+page: open_yp
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }

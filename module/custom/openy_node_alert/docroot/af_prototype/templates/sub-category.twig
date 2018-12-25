@@ -1,0 +1,126 @@
+
+{% extends 'blocks/layout.twig' %}
+
+{% block title %}Sub-category{% endblock %}
+
+{% block page_heading %}Sub-category{% endblock %}
+
+
+{% set section_dropdown_data = [
+  {
+    'name': 'Swim Lessons',
+  },
+  {
+    'name': 'Diving',
+  },
+  {
+    'name': 'Lap Swim',
+  },
+  {
+    'name': 'Open Swim',
+  },
+  {
+    'name': 'Swim Team',
+  },
+  {
+    'name': 'Water activities',
+  },
+  {
+    'name': 'Water Exercise',
+  }
+]
+%}
+
+{% set activities = [
+    {'title':'OUTDOOR ACTIVITIES','image':'images/activities/offset_259369.jpg'},
+    {'title':'AMENITIES','image':'images/activities/offset_250707.jpg'},
+    {'title':'HEALTH &amp; FITNESS','image':'images/activities/offset_202198.jpg'},
+] %}
+
+{% set utility_bar_data = [
+  {
+    'title': '<i class="icon-location"></i>Map View',
+    'href': '#'
+  },
+  {
+    'title': '<span class="amount--circle"><span class="amount">0</span></span><ins id="heart-counter">Favorites</ins>',
+    'href': '#',
+  }
+]
+%}
+
+
+{% set breadcrumbs_data = [
+  {
+    'title': 'All activities',
+    'link': 'index.html'
+  },
+  {
+    'title': 'Aquatics',
+    'link': 'category.html'
+  }
+]
+%}
+
+{% set playlist_data = [
+  {
+  'title':'Parent and Child',
+  'content':"<p>Ages: Six Months to three years.</p><p>Introducing to water with parents in the pool with children.</p>",
+  'link': 'product.html',
+  },
+  {
+  'title':'Preschool Child',
+  'content':"<p>Ages: Three to five years.</p><p>Your child will learn focus on water adjustments and basic skills.</p>",
+  'link': 'product.html',
+  },
+  {
+  'title':'School-Age Child',
+  'content':"<p>Ages: 13 to 17 years.</p><p>Learn focus on water adjustment, advanced skills and stroke development.</p>",
+  'link': 'product.html',
+  },
+  {
+  'title':'Teen',
+  'content':"<p>Ages: 13 to 17 years.</p><p>Beginner and intermediate level classes for teens.</p>",
+  'link': 'product.html',
+  },
+  {
+  'title':'Adult',
+  'content':"<p>Ages: 18 years and up.</p><p>Learn focus on water adjustment, stroke development and technique.</p>",
+  'link': 'product.html',
+  },
+] %}
+
+{% block banner %}
+<aside class="banner">
+  <div class="container">
+      {% include "blocks/section-dropdown.twig" %}
+  </div>
+  <section>
+    <div class="banner__image-container">
+      <div class="banner__image" style="background-image: url(../images/activities/offset_259369.jpg);">
+      </div>
+    </div>
+  </section>
+</aside>
+{% endblock %}
+
+{% block filters %}
+  <aside class="filter">
+    <div class="container">
+        {% include "blocks/filter.twig" %}
+    </div>
+  </aside>
+{% endblock %}
+
+{% block content %}
+  {% include "blocks/utility-bar.twig" %}
+  <section>
+    <p>Classes, leagues and clinics for ages 18 month to 14 years</p>
+    {% include "blocks/playlist-grid.twig" %}
+  </section>
+  <section>
+    <h2>Related Activities</h2>
+    {% include "blocks/activities-grid.twig" %}
+  </section>
+{% endblock %}
+

@@ -1,0 +1,8 @@
+{
+  "name": "drupal/file_entity",
+  "description": "Extends Drupal file entities to be fieldable and viewable.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": { }
+}

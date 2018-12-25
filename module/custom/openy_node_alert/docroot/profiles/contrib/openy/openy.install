@@ -1,0 +1,1004 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the Open Y installation profile.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Performs actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function openy_install() {
+  $config_factory = Drupal::configFactory();
+  $module_installer = Drupal::service('module_installer');
+  // Set the default and admin theme.
+  $config_factory
+    ->getEditable('system.theme')
+    ->set('admin', 'seven')
+    ->save(TRUE);
+
+  // Enable the admin theme.
+  $config_factory
+    ->getEditable('node.settings')
+    ->set('use_admin_theme', TRUE)
+    ->save(TRUE);
+
+  // Enable openy_upgrade_tool.
+  $module_installer->install(['openy_upgrade_tool'], TRUE);
+
+  // Enable openy_user after all modules are installed.
+  $module_installer->install(['openy_user'], TRUE);
+}
+
+/**
+ * Upgrade from 8.x-0.2 version.
+ */
+function openy_update_8001() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    // Enable modules.
+    \Drupal::service('module_installer')->install([
+      'openy_demo_ncamp',
+    ], TRUE);
+
+    // Run openy_demo_ncamp migration.
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_camp');
+    $importer->import('openy_demo_node_landing');
+  }
+}
+
+/**
+ * Enable Alerts.
+ */
+function openy_update_8002() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_node_alert')) {
+    return;
+  }
+
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_node_alert']);
+}
+
+/**
+ * Enable config_import module.
+ */
+function openy_update_8003() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'config_import',
+    'logger_entity',
+    'openy_upgrade_tool',
+  ]);
+}
+
+/**
+ * Fix tour config dependencies.
+ */
+function openy_update_8004() {
+  $config = drupal_get_path('theme', 'openy_rose') . '/config/optional/tour.tour.openy-theme-overview.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'tour.tour.openy-theme-overview', 'dependencies');
+}
+
+/**
+ * Enable Data layer modules & revert needed configuration.
+ */
+function openy_update_8005() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(
+    ['libraries', 'datalayer', 'openy_datalayer']
+  );
+}
+
+/**
+ * Enable and import demo Facilities.
+ */
+function openy_update_8006() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    // Enable modules.
+    \Drupal::service('module_installer')->install([
+      'openy_demo_nfacility',
+    ], TRUE);
+
+    // Run openy_demo_nfacility migration.
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_facility');
+  }
+}
+
+/**
+ * Enable Optimizely module.
+ */
+function openy_update_8007() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['optimizely']);
+}
+
+/**
+ * Add user and main menu blocks to sidebar region.
+ */
+function openy_update_8008() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/optional';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'block.block.mainnavigation',
+    'block.block.useraccountmenu',
+  ]);
+}
+
+/**
+ * Add Demo alerts.
+ */
+function openy_update_8009() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    // Enable module.
+    \Drupal::service('module_installer')->install([
+      'openy_demo_nalert',
+    ], TRUE);
+
+    // Run openy_demo_node_alert migration.
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_alert');
+  }
+}
+
+/**
+ * Enable and import demo Membership content and Demo Join page.
+ */
+function openy_update_8010() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'openy_demo_nmbrshp',
+  ], TRUE);
+
+  // Run openy_demo_node_landing & openy_demo_node_membership migrations.
+  $importer = \Drupal::service('openy_migrate.importer');
+  $importer->import('openy_demo_node_landing');
+  $importer->import('openy_demo_node_membership');
+}
+
+/**
+ * Enable Google Analytics module.
+ */
+function openy_update_8011() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['google_analytics']);
+}
+
+/**
+ * Enable Metatag, Redirect and Simple Sitemap modules.
+ */
+function openy_update_8012() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'metatag',
+    'redirect',
+    'simple_sitemap'
+  ]);
+
+  // Set the frontpage to be canonical url instead of alias. We expect node to be there.
+  $config_factory = Drupal::configFactory();
+  $url = $config_factory->getEditable('system.site')->get('page.front');
+
+  if (strpos($url, 'node/') !== FALSE) {
+    return;
+  }
+
+  $aliasStorage = \Drupal::service('path.alias_storage');
+  $alias = $aliasStorage->load(['alias' => $url]);
+
+  if (!empty($alias) && strpos($alias['source'], '/node/') !== FALSE) {
+    $config_factory->getEditable('system.site')->set('page.front', $alias['source'])->save();
+    $aliasStorage->delete(['alias' => $url]);
+  }
+}
+
+/**
+ * Enable the Header Footer Template module.
+ */
+function openy_update_8013() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_hf']);
+}
+
+/**
+ * Update WYSIWYG media buttons.
+ */
+function openy_update_8014() {
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
+
+/**
+ * Enable Open Y Session Instance & Open Y Moderation wrapper.
+ */
+function openy_update_8015() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'openy_moderation_wrapper',
+    'openy_session_instance',
+    'openy_schedules',
+    'openy_prgf_schedule_search'
+  ]);
+}
+
+/**
+ * Enable Open Y Paragraph Embedded GroupEx Pro Schedule module.
+ */
+function openy_update_8016() {
+  \Drupal::service('module_installer')->install(['openy_prgf_embedded_groupexpro_schedule']);
+
+}
+
+/**
+ * Enable rabbit hole and rabbit hole node modules.
+ */
+function openy_update_8017() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'rabbit_hole',
+    'rh_node',
+  ]);
+}
+
+/**
+ * Enable the Class Location paragraph module.
+ */
+function openy_update_8018() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_prgf_class_location']);
+}
+
+/**
+ * Enable the Class Sessions paragraph module.
+ */
+function openy_update_8019() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_prgf_class_sessions']);
+}
+
+/**
+ * Enable Open Y Branch Selector module.
+ */
+function openy_update_8020() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_branch_selector']);
+}
+
+/**
+ * Fix typos in theme settings.
+ */
+function openy_update_8021() {
+  // Get config data.
+  $config = \Drupal::configFactory()->getEditable('openy_rose.settings');
+  $data = $config->get('oepny_rose_image_fields');
+
+  // Update config data.
+  $config->clear('oepny_rose_image_fields');
+  $config->set('openy_rose_image_fields', $data);
+  $config->save();
+}
+
+/**
+ * Enable Webforms set of modules.
+ */
+function openy_update_8022() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'webform',
+    'webform_ui',
+    'captcha',
+    'image_captcha',
+    'recaptcha',
+    'openy_prgf_webform',
+  ]);
+}
+
+/**
+ * Enable modules: Open Y Popups, Open Y Paragraph Branches Popup (All), and Open Y Paragraph Branches Popup (Class).
+ */
+function openy_update_8023() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'openy_popups',
+    'openy_prgf_branches_popup_all',
+    'openy_prgf_branches_popup_class'
+  ]);
+}
+
+/**
+ * Enable the Admin Toolbar module.
+ */
+function openy_update_8024() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['admin_toolbar']);
+}
+
+/**
+ * Enable scheduler module.
+ */
+function openy_update_8025() {
+  \Drupal::service('module_installer')->install(['scheduler']);
+}
+
+/**
+ * Enable Colorbutton module.
+ */
+function openy_update_8026() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'colorbutton',
+  ]);
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
+
+/**
+ * Enable openy_tour module.
+ */
+function openy_update_8027() {
+  \Drupal::service('module_installer')->install(['openy_tour'], TRUE);
+}
+
+/**
+ * Enable Programs search & program registration paragraph modules.
+ */
+function openy_update_8028() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_pgm_reg',
+    'openy_programs_search',
+  ]);
+}
+
+/**
+ * Enable GroupEx Pro related modules.
+ */
+function openy_update_8029() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'openy_group_schedules',
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_group_schedules',
+  ]);
+  \Drupal::service('module_installer')->install([
+    'groupex_form_cache'
+  ]);
+}
+
+/**
+ * Enable RH Taxonomy.
+ */
+function openy_update_8030() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'rh_taxonomy',
+  ]);
+}
+
+/**
+ * Enable Microsites menu modules.
+ */
+function openy_update_8031() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'openy_block_menu',
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_microsites_menu',
+  ]);
+}
+
+/**
+ * Enable openy_addthis module.
+ */
+function openy_update_8032() {
+  \Drupal::service('module_installer')->install(['openy_addthis'], TRUE);
+}
+
+/**
+ * Enable Contrib modules for Amenities.
+ */
+function openy_update_8033() {
+  // Enable modules.
+  $modules = [
+    'better_exposed_filters',
+    'custom_formatters',
+    'token_filter',
+    'views_field_formatter',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable taxonomy vocabulary Amenities and svg formatter.
+ */
+function openy_update_8034() {
+  // Enable modules.
+  $modules = [
+    'openy_svg_formatter',
+    'openy_txnm_amenities',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable LTO paragraph, openy ckeditor and custom simple block type.
+ */
+function openy_update_8035() {
+  // Enable modules.
+  $modules = [
+    'openy_prgf_lto',
+    'openy_ckeditor',
+    'openy_block_custom_simple',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable Amenities related modules.
+ */
+function openy_update_8036() {
+  // Enable modules.
+  $modules = [
+    'openy_editor',
+    'openy_block_branch_amenities',
+    'openy_block_flexible_content',
+    'openy_prgf_1c',
+    'openy_prgf_2c',
+    'openy_prgf_3c',
+    'openy_prgf_4c',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable Amenities paragraphs.
+ */
+function openy_update_8037() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['openy_prgf_amenities'], TRUE);
+}
+
+/**
+ * Enable openy_code_block and openy_prgf_code_block modules.
+ */
+function openy_update_8038() {
+  $modules = [
+    'openy_code_block',
+    'openy_prgf_code_block',
+  ];
+  // Enable modules.
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Enable Open Y Block Date.
+ */
+function openy_update_8039() {
+  \Drupal::service('module_installer')->install(['openy_prgf_block_date'], TRUE);
+}
+
+/**
+ * Enable inline_form_errors Drupal Core 8.4.
+ */
+function openy_update_8040() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['inline_form_errors'], TRUE);
+}
+
+/**
+ * Enable openy_font module.
+ */
+function openy_update_8041() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['openy_font'], TRUE);
+}
+
+/**
+ * Enable crop and focal_point modules.
+ */
+function openy_update_8042() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['crop', 'focal_point'], TRUE);
+}
+
+/**
+ * Enable easy_breadcrumb module and paragraph.
+ */
+function openy_update_8043() {
+  // Enable modules.
+  $modules = [
+    'easy_breadcrumb',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Add breadcrumbs block to Breadcrumb region and set easy_breadcrumb settings.
+ */
+function openy_update_8044() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'block.block.breadcrumbs',
+    'easy_breadcrumb.settings',
+  ]);
+}
+
+/**
+ * Enable Contrib modules for local video player.
+ */
+function openy_update_8045() {
+  // Enable modules.
+  $modules = [
+    'media_entity_video',
+    'video',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable local video player related modules.
+ */
+function openy_update_8046() {
+  // Enable modules.
+  $modules = [
+    'openy_media_local_video',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable CKEditor Bootstrap Buttons module and import the settings.
+ */
+function openy_update_8047() {
+  // Enable CKEditor Bootstrap Buttons module.
+  \Drupal::service('module_installer')->install(['ckeditor_bootstrap_buttons'], TRUE);
+
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
+
+/**
+ * Enable Open Y Redirect module.
+ */
+function openy_update_8048() {
+  \Drupal::service('module_installer')->install(['openy_redirect']);
+}
+
+/**
+ * Update the configuration of the paragraph fields of Open Y nodes.
+ */
+function openy_update_8049() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+
+  $updatedFields = [
+    'openy_block_date' => [
+      'core.entity_form_display.block_content.date_block.default' => [
+        'content.field_content_date_before',
+        'content.field_content_date_between',
+        'content.field_content_date_end',
+      ],
+    ],
+    'openy_node_blog' => [
+      'core.entity_form_display.node.blog.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_loc_branch' => [
+      'core.entity_form_display.node.branch.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+      ],
+    ],
+    'openy_loc_camp' => [
+      'core.entity_form_display.node.camp.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+      ],
+    ],
+    'openy_node_class' => [
+      'core.entity_form_display.node.class.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_loc_facility' => [
+      'core.entity_form_display.node.facility.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_landing' => [
+      'core.entity_form_display.node.landing_page.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_mbrshp' => [
+      'core.entity_form_display.node.membership.default' => [
+        'content.field_mbrshp_info',
+      ],
+    ],
+    'openy_node_news' => [
+      'core.entity_form_display.node.news.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_program' => [
+      'core.entity_form_display.node.program.default' => [
+        'content.field_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_category' => [
+      'core.entity_form_display.node.program_subcategory.default' => [
+        'content.field_bottom_content',
+        'content.field_content',
+        'content.field_header_content',
+        'content.field_sidebar_content',
+      ],
+    ],
+    'openy_node_session' => [
+      'core.entity_form_display.node.session.default' => [
+        'content.field_session_time',
+      ],
+    ],
+    'openy_prgf_grid_content' => [
+      'core.entity_form_display.paragraph.grid_content.default' => [
+        'content.field_grid_columns',
+      ],
+    ],
+    'openy_txnm_blog_category' => [
+      'core.entity_form_display.taxonomy_term.blog_category.default' => [
+        'content.field_taxonomy_content',
+      ],
+    ],
+    'openy_txnm_news_category' => [
+      'core.entity_form_display.taxonomy_term.news_category.default' => [
+        'content.field_taxonomy_content',
+      ],
+    ],
+  ];
+
+  foreach ($updatedFields as $module => $configs) {
+    foreach ($configs as $config_name => $fields) {
+      foreach ($fields as $field) {
+        $config = drupal_get_path('module', $module);
+        $config .= '/config/install/';
+        $config .= $config_name . '.yml';
+        $config_importer->update($config, $config_name, $field);
+      }
+    }
+  }
+
+}
+
+/**
+ * Enable font-your-face module.
+ */
+function openy_update_8050() {
+  \Drupal::service('module_installer')->install(['fontyourface']);
+  if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
+    $message = 'Open Y Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module.
+        Please, <a href="/admin/appearance/font/local_font_config_entity">use it</a> to add purchased fonts to the site and uninstall Open Y Font module.';
+    drupal_set_message($message, 'warning');
+  }
+}
+
+/**
+ * Enable CSS Editor module and import the settings.
+ */
+function openy_update_8051() {
+  \Drupal::service('module_installer')->install(['css_editor'], TRUE);
+
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_manager = \Drupal::service('config.manager');
+  $config_factory = $config_manager->getConfigFactory();
+
+  $themes_list = [
+    'openy_rose',
+    'openy_lily',
+  ];
+
+  $update_fields = [
+    'css_enabled',
+    'css',
+    'plaintext_enabled',
+    'autopreview_enabled',
+    'preview_path',
+  ];
+
+  foreach ($themes_list as $theme) {
+    foreach ($update_fields as $field) {
+      $config_name = $theme . '.settings';
+      $config = drupal_get_path('theme', $theme);
+      $config .= '/config/install/';
+      $config .= $config_name . '.yml';
+
+      $configObj = $config_factory->getEditable($config_name);
+      if ($configObj->isNew() && empty($configObj->getOriginal())) {
+        continue;
+      }
+
+      $config_importer->update($config, $config_name, $field);
+    }
+  }
+}
+
+/**
+ * Enable Open Y Paragraph Location By Amenities.
+ */
+function openy_update_8052() {
+  \Drupal::service('module_installer')->install(['openy_prgf_location_by_amenities']);
+}
+
+/**
+ * Enable event module.
+ */
+function openy_update_8053() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    $modules = [
+      'openy_prgf_event_latest',
+      'openy_prgf_event_listing',
+      'openy_node_event',
+      'openy_demo_nevent',
+    ];
+
+    // Enable modules.
+    \Drupal::service('module_installer')->install($modules, TRUE);
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_event');
+    $importer->import('openy_demo_event_landing');
+  }
+}
+
+/**
+ * Enable Open Y Google Translate module and blocks.
+ */
+function openy_update_8054() {
+  \Drupal::service('module_installer')->install(['openy_gtranslate']);
+
+  $themes_list = [
+    'openy_rose' => '5a698466-f499-4dda-a084-4d61c1d0e902',
+    'openy_lily' => '5a698466-f499-4dda-a084-4d61c1d0e777',
+    'openy_carnation' => '32fa8958-20d7-41e0-9e7c-a5768bf6dfac',
+  ];
+  /** @var \Drupal\Core\Entity\EntityTypeManager $entityTypeManager */
+  $entityTypeManager = \Drupal::service('entity_type.manager');
+  foreach ($themes_list as $theme => $uuid) {
+    /** @var \Drupal\block_content\Entity\BlockContent $blockContent */
+    $blockContent = $entityTypeManager->getStorage('block_content')->create([
+      'type' => 'openy_gtranslate_block',
+      'info' => t('Google Translate Block'),
+      'uuid' => $uuid,
+    ]);
+    $blockContent->save();
+  }
+}
+
+/**
+ * Enable Social Posts.
+ */
+function openy_update_8055() {
+  \Drupal::service('module_installer')->install([
+    'openy_node_social_post',
+  ], TRUE);
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    // Enable modules.
+    \Drupal::service('module_installer')->install([
+      'openy_demo_nsocial_post',
+    ], TRUE);
+
+    // Run openy_demo_nsocial_post migration.
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_social_post');
+  }
+}
+
+/**
+ * Update Locations view and Open Y Map settings.
+ */
+function openy_update_8056() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $openyMapConfigDir = drupal_get_path('module', 'openy_map') . '/config/install';
+  $config_importer->setDirectory($openyMapConfigDir);
+  $config_importer->importConfigs([
+    'openy_map.settings',
+    'views.view.locations',
+    ]);
+}
+
+/**
+ * Message to delete "Search by Amenities" Limited Time Offer paragraph.
+ */
+function openy_update_8057() {
+  // Find Limited Time Offer paragraphs on Locations page.
+  $query = \Drupal::database()->select('node_field_data', 'n');
+  $query->condition('n.title', 'Locations');
+  $query->condition('n.type', 'landing_page');
+  $query->join('node__field_header_content', 'h', 'n.nid = h.entity_id AND n.vid = h.revision_id');
+  $query->condition('h.bundle', 'landing_page');
+  $query->join('paragraphs_item_field_data', 'par', 'h.field_header_content_target_revision_id = par.revision_id');
+  $query->condition('par.type', 'lto');
+  $query->addField('n', 'nid');
+  $resultField = $query->execute()->fetchField();
+  if ($resultField) {
+    $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and 
+      delete "Search by Amenities" Limited Time Offer paragraph in Header area. 
+      With Sidebar "Amenities" filter it became redundant.');
+    drupal_set_message($message, 'warning');
+  }
+}
+
+/**
+ * Upgrade path for new alert fields.
+ */
+function openy_update_8058() {
+  if (!\Drupal::service('module_handler')->moduleExists('openy_node_alert')) {
+    // Skip this update if module disabled.
+    return;
+  }
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_alert_visibility_pages',
+    'field.storage.node.field_alert_visibility_state',
+    'field.field.node.alert.field_alert_visibility_pages',
+    'field.field.node.alert.field_alert_visibility_state',
+  ]);
+}
+
+/**
+ * Uninstall Location Finder deprecated module.
+ */
+function openy_update_8059() {
+  \Drupal::service('module_installer')->uninstall(['location_finder']);
+}
+
+/**
+ * Enable Open Y Entity Reference Tweaks.
+ */
+function openy_update_8060() {
+  \Drupal::service('module_installer')->install(['openy_er']);
+}
+
+/**
+ * Enable Open Y Entity Reference Tweaks.
+ */
+function openy_update_8062() {
+  \Drupal::service('module_installer')->install(['openy_er']);
+}
+
+/**
+ * Enable Open Y System.
+ */
+function openy_update_8063() {
+  \Drupal::service('module_installer')->install(['openy_system']);
+}
+
+/**
+ * Breadcrumbs config rename.
+ */
+function openy_update_8064() {
+  \Drupal::configFactory()
+    ->rename('block.block.breadcrumbs', 'block.block.openy_rose_breadcrumbs');
+  \Drupal::configFactory()->getEditable('block.block.openy_rose_breadcrumbs')
+    ->set('id', 'openy_rose_breadcrumbs')
+    ->save(TRUE);
+}
+
+/**
+ * Rename mainnavigation and useraccountmenu block configs.
+ */
+function openy_update_8065() {
+  $configs = [
+    'mainnavigation' => 'openy_rose_mainnavigation',
+    'useraccountmenu' => 'openy_rose_useraccountmenu',
+  ];
+  foreach ($configs as $old_id => $new_id) {
+    \Drupal::configFactory()
+      ->rename('block.block.' . $old_id, 'block.block.' . $new_id);
+    \Drupal::configFactory()->getEditable('block.block.' . $new_id)
+      ->set('id', $new_id)
+      ->save(TRUE);
+  }
+}
+
+/**
+ * Fix incorrect ids in footer blocks configs according to config name.
+ */
+function openy_update_8066() {
+  $configs = [
+    'footermenucenter' => 'openy_rose_fmenu_center',
+    'footermenuleft' => 'openy_rose_fmenu_left',
+    'footermenuright' => 'openy_rose_fmenu_right',
+  ];
+  foreach ($configs as $old_id => $new_id) {
+    \Drupal::configFactory()
+      ->rename('block.block.' . $old_id, 'block.block.' . $new_id);
+    \Drupal::configFactory()->getEditable('block.block.' . $new_id)
+      ->set('id', $new_id)
+      ->save(TRUE);
+  }
+}      
+
+/**
+ * Enable PEF paragraphs.
+ */
+function openy_update_8067() {
+  $modules = [
+    'openy_prgf_repeat_schedules',
+    'openy_prgf_repeat_schedules_loc',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Update footer blocks config names and ids.
+ */
+function openy_update_8068() {
+  $configs = [
+    'footercopyrightblock' => 'openy_rose_footercopyrightblock',
+    'footersocialblock' => 'openy_rose_footersocialblock',
+  ];
+  foreach ($configs as $old_id => $new_id) {
+    \Drupal::configFactory()
+      ->rename('block.block.' . $old_id, 'block.block.' . $new_id);
+    \Drupal::configFactory()->getEditable('block.block.' . $new_id)
+      ->set('id', $new_id)
+      ->save(TRUE);
+  }
+}

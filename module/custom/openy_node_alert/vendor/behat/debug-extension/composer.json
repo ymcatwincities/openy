@@ -1,0 +1,31 @@
+{
+  "name": "behat/debug-extension",
+  "type": "behat-extension",
+  "description": "Debug Behat scenarios and print any information to command line",
+  "keywords": ["services", "debug", "behat", "debugger"],
+  "homepage": "https://github.com/BR0kEN-/behat-debug-extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sergii Bondarenko",
+      "email": "sb@firstvector.org"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "behat/behat": ">=3.0.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4 - 5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Behat\\DebugExtension\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Behat\\Tests\\DebugExtension\\": "tests"
+    }
+  }
+}

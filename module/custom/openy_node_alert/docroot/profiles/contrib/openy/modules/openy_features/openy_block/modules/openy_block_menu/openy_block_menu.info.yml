@@ -1,0 +1,13 @@
+name:  Open Y Block Menu
+description: 'Implements custom block type with a links.'
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - block_content
+  - field
+  - language
+  - link
+  - openy_txnm_color
+  - taxonomy

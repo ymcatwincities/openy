@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Contains update functions for Panel Button module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function panelbutton_requirements($phase) {
+  $requirements = [];
+
+  $path = 'libraries/panelbutton/plugin.js';
+  if (\Drupal::moduleHandler()->moduleExists('libraries')) {
+    $path = libraries_get_path('panelbutton') . '/plugin.js';
+  }
+  $path = DRUPAL_ROOT . '/' . $path;
+
+  if (!file_exists($path)) {
+    $requirements['panelbutton'] = [
+      'title' => t('Panelbutton library is missing'),
+      'value' => t('Plugin not detected'),
+      'severity' => REQUIREMENT_ERROR,
+      'description' => t('Panelbutton requires the plugin.js library.
+       Download the plugin from http://ckeditor.com/addon/panelbutton at least
+       version 4.5.6, and place it in the libraries folder 
+       (/libraries/panelbutton)'),
+    ];
+  }
+  else {
+    $requirements['panelbutton'] = [
+      'title' => t('CKEditor Panelbutton'),
+      'value' => t('Plugin detected'),
+      'severity' => REQUIREMENT_OK,
+    ];
+  }
+
+  return $requirements;
+}

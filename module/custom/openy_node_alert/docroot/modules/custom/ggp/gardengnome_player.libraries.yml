@@ -1,0 +1,26 @@
+gardengnome_player_jquery:
+  version: 1.x
+  js:
+    js/gardengnome_player.jquery.js: {}
+  dependencies:
+    - core/jquery
+gardengnome_player:
+  version: 1.x
+  css:
+    theme:
+      css/gardengnome_player.css: {}
+  js:
+    js/gardengnome_player.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery.once
+    - gardengnome_player/gardengnome_player_jquery
+swfobject.swfobjectjs:
+  remote: https://github.com/swfobject/swfobject
+  version: 2.2
+  license:
+    name: MIT
+    url: http://www.opensource.org/licenses/mit-license.php
+    gpl-compatible: true
+  js:
+    https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js: { type: external, minified: true }

@@ -1,0 +1,20 @@
+{
+  "require": {
+    "commerceguys/addressing": {
+      "version" : "v1.0.1",
+      "url": "https://github.com/commerceguys/addressing/archive/v1.0.1.zip"
+    },
+    "League/Csv": {
+      "version" : "7.1.2",
+      "url": "https://github.com/thephpleague/csv/archive/7.1.2.zip"
+    },
+    "alek13/slack": {
+      "version" : "1.10.1",
+      "url": "https://github.com/php-slack/slack/archive/1.10.1.zip"
+    },
+    "mpdf/mpdf": {
+      "version" : "7.1.0",
+      "url": "https://github.com/mpdf/mpdf/archive/v7.1.0.zip"
+    }
+  }
+}

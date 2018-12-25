@@ -1,0 +1,19 @@
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.page.loader {
+  display: block;
+}
+
+.page-content-preload {
+  display: none;
+}
+
+@import "./base/variables";
+@import "./base/fonts";
+@import "./schedule/schedule";

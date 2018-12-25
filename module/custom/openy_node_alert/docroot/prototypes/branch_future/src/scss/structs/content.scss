@@ -1,0 +1,233 @@
+.page-split,
+.page-table,
+.page-info {
+  background: #2d154a url("../images/bg-body.png") 50% 50% no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.page-table {
+  padding: 122px 0 0 0;
+}
+
+.page-info {
+  padding: 140px 0 0 0;
+
+  .page-content {
+    padding: 0 50px;
+  }
+}
+
+.page-entry {
+  height: 100%;
+
+  .page-content {
+    height: 100%;
+    @extend .decor--flex;
+    @extend .decor--direction-column;
+  }
+}
+
+.page-split {
+  height: 100%;
+
+  .page-content {
+    height: 100%;
+    @extend .decor--flex;
+  }
+}
+
+.content-coll {
+  height: 100%;
+  @extend .decor--flex;
+}
+
+.content-coll--big {
+  width: 58%;
+  @extend .decor--flex-wrap;
+  @extend .decor--direction-column;
+  @extend .decor--justify-between;
+}
+
+.content-coll--small {
+  width: 42%;
+}
+
+.section--entry,
+.section--shedules,
+.section--small-banners {
+  width: 100%;
+}
+
+.section--small-banners {
+  @extend .decor--flex;
+}
+
+.section--shedules {
+  padding: 0 50px;
+  box-sizing: border-box;
+
+  .title {
+    font-family: $fontBold;
+    font-weight: normal;
+    font-size: pxtorem(50px);
+    line-height: lh(58, 50);
+    text-transform: uppercase;
+    color: #fff;
+    padding: 14px 0;
+    //padding: 40px 0;
+    //padding: 4vh 0;
+  }
+}
+
+.block-banner--small {
+  width: 50%;
+  padding: 64px;
+  //padding-bottom: 6vh;
+  //padding-top: 6vh;
+  box-sizing: border-box;
+  height: 410px;
+  color: #fff;
+  position: relative;
+  background-position: -9999px -9999px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+  > * {
+    z-index: 2;
+    position: relative;
+  }
+
+  &.banner--right {
+    background-color: #01a490;
+  }
+
+  &.banner--left {
+    background-color: #0060af;
+  }
+
+  &.banner--image {
+    &:before {
+      @include pseudo-block($top: 0, $right: 0, $bottom: 0, $left: 0)
+      background-image: inherit;
+      background-repeat: inherit;
+      background-size: cover;
+      background-blend-mode: soft-light;
+      background-color: inherit;
+      margin: auto;
+      opacity: 0.34;
+      z-index: 1;
+    }
+  }
+
+  .title {
+    font-family: $fontBold;
+    font-weight: normal;
+    text-transform: uppercase;
+
+    strong,
+    span {
+      display: block;
+    }
+
+    strong {
+      font-size: pxtorem(60px);
+      line-height: lh(72, 60);
+      margin: 0 0 6px 0;
+    }
+
+    span {
+      font-size: pxtorem(30px);
+      line-height: lh(44, 30);
+    }
+  }
+
+  .description {
+    font-size: pxtorem(20px);
+    line-height: lh(26, 20);
+    border-top: 1px solid rgba(#fff, 0.2);
+    padding: 28px 0 0 0;
+    margin: 26px 0 0 0;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.block-banner {
+  height: 100%;
+  background: #3a1e5c url("../images/bg-entry.jpg") 50% 100% no-repeat;
+  background-size: cover;
+  padding: 90px 150px 150px;
+  box-sizing: border-box;
+  @extend .decor--flex;
+  @extend .decor--align-end;
+
+  .section--entry & {
+    padding: 84px;
+    background: #000 url("../images/bg-entry-small.jpg") 100% 0 no-repeat;
+    background-size: cover;
+  }
+
+  .logo {
+    display: block;
+    max-width: 565px;
+
+    .section--entry & {
+      max-width: 384px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .description {
+    font-size: pxtorem(50px);
+    line-height: lh(62, 50);
+    color: #fff;
+    padding: 0 0 0 212px;
+
+    .section--entry & {
+      padding-left: 146px;
+      font-size: pxtorem(30px);
+      line-height: lh(48, 30);
+    }
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      font-size: inherit;
+      line-height: inherit;
+      color: #c6168d;
+      text-decoration: none;
+
+      &:hover {
+        box-shadow: 0 2px 0 0 currentColor;
+      }
+    }
+  }
+}
+
+.block-banner--footer {
+  background: #f0f0f0;
+}
+
+.wrapper-coming {
+  padding: 0 0 1px 0;
+
+  .title {
+    font-family: $fontBold;
+    font-weight: normal;
+    font-size: pxtorem(50px);
+    line-height: lh(64, 50);
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    margin: 0 0 32px 0;
+  }
+}

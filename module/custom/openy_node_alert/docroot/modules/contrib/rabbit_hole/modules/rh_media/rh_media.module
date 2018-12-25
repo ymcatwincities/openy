@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Contains rh_media.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function rh_media_entity_base_field_info(EntityTypeInterface $entity_type) {
+  if ($entity_type->id() == 'media') {
+    return \Drupal::service('rabbit_hole.entity_extender')
+      ->getRabbitHoleFields('media');
+  }
+}

@@ -1,0 +1,47 @@
+uuid: 6f505cf5-788f-4bf3-9100-da207ea790c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.camp_blog_teaser
+    - field.field.node.blog.field_content
+    - field.field.node.blog.field_image
+    - field.field.node.blog.field_related_camps_locations
+    - field.field.node.blog.field_site_section
+    - field.field.node.blog.field_summary
+    - field.field.node.blog.field_tags
+    - image.style.large
+    - node.type.blog
+  module:
+    - image
+    - text
+    - user
+id: node.blog.camp_blog_teaser
+targetEntityType: node
+bundle: blog
+mode: camp_blog_teaser
+content:
+  field_content:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: large
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  links:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_related_camps_locations: true
+  field_site_section: true
+  field_summary: true
+  field_tags: true
+  langcode: true

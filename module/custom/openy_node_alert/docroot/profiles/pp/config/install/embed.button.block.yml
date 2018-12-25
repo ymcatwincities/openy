@@ -1,0 +1,29 @@
+uuid: 29d5ede8-06e5-4948-a400-d0ea2f1b972e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - block_content.type.code_block
+    - block_content.type.date_block
+    - block_content.type.expander_block
+    - block_content.type.image_block
+    - block_content.type.promo_block
+  module:
+    - block_content
+    - entity_embed
+label: Block
+id: block
+type_id: entity
+type_settings:
+  entity_type: block_content
+  bundles:
+    - basic
+    - code_block
+    - date_block
+    - expander_block
+    - image_block
+    - promo_block
+  display_plugins:
+    - 'entity_reference:entity_reference_entity_view'
+icon_uuid: null

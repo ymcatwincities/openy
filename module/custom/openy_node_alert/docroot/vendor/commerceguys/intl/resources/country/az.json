@@ -1,0 +1,761 @@
+{
+	"VI": {
+		"name": "ABŞ Virgin adaları"
+	},
+	"UM": {
+		"name": "ABŞ-a bağlı kiçik adacıqlar"
+	},
+	"AX": {
+		"name": "Aland adaları"
+	},
+	"AL": {
+		"name": "Albaniya"
+	},
+	"DE": {
+		"name": "Almaniya"
+	},
+	"US": {
+		"name": "Amerika Birləşmiş Ştatları"
+	},
+	"AS": {
+		"name": "Amerika Samoası"
+	},
+	"AD": {
+		"name": "Andorra"
+	},
+	"AI": {
+		"name": "Angilya"
+	},
+	"AO": {
+		"name": "Anqola"
+	},
+	"AQ": {
+		"name": "Antarktika"
+	},
+	"AG": {
+		"name": "Antiqua və Barbuda"
+	},
+	"AR": {
+		"name": "Argentina"
+	},
+	"AW": {
+		"name": "Aruba"
+	},
+	"AC": {
+		"name": "Askenson adası"
+	},
+	"AU": {
+		"name": "Avstraliya"
+	},
+	"AT": {
+		"name": "Avstriya"
+	},
+	"AZ": {
+		"name": "Azərbaycan"
+	},
+	"BS": {
+		"name": "Baham adaları"
+	},
+	"BD": {
+		"name": "Banqladeş"
+	},
+	"BB": {
+		"name": "Barbados"
+	},
+	"BY": {
+		"name": "Belarus"
+	},
+	"BE": {
+		"name": "Belçika"
+	},
+	"BZ": {
+		"name": "Beliz"
+	},
+	"BJ": {
+		"name": "Benin"
+	},
+	"BM": {
+		"name": "Bermud adaları"
+	},
+	"BH": {
+		"name": "Bəhreyn"
+	},
+	"AE": {
+		"name": "Birləşmiş Ərəb Əmirlikləri"
+	},
+	"GB": {
+		"name": "Birləşmiş Krallıq"
+	},
+	"BO": {
+		"name": "Boliviya"
+	},
+	"BG": {
+		"name": "Bolqarıstan"
+	},
+	"BA": {
+		"name": "Bosniya və Herseqovina"
+	},
+	"BW": {
+		"name": "Botsvana"
+	},
+	"BR": {
+		"name": "Braziliya"
+	},
+	"IO": {
+		"name": "Britaniyanın Hind Okeanı Ərazisi"
+	},
+	"VG": {
+		"name": "Britaniyanın Virgin adaları"
+	},
+	"BN": {
+		"name": "Bruney"
+	},
+	"BF": {
+		"name": "Burkina Faso"
+	},
+	"BI": {
+		"name": "Burundi"
+	},
+	"BT": {
+		"name": "Butan"
+	},
+	"JE": {
+		"name": "Cersi"
+	},
+	"GI": {
+		"name": "Cəbəllütariq"
+	},
+	"ZA": {
+		"name": "Cənub Afrika"
+	},
+	"GS": {
+		"name": "Cənubi Corciya və Cənubi Sendviç adaları"
+	},
+	"KR": {
+		"name": "Cənubi Koreya"
+	},
+	"SS": {
+		"name": "Cənubi Sudan"
+	},
+	"DJ": {
+		"name": "Cibuti"
+	},
+	"TD": {
+		"name": "Çad"
+	},
+	"CZ": {
+		"name": "Çexiya"
+	},
+	"CL": {
+		"name": "Çili"
+	},
+	"CN": {
+		"name": "Çin"
+	},
+	"DK": {
+		"name": "Danimarka"
+	},
+	"DG": {
+		"name": "Dieqo Qarsiya"
+	},
+	"DM": {
+		"name": "Dominika"
+	},
+	"DO": {
+		"name": "Dominikan Respublikası"
+	},
+	"ET": {
+		"name": "Efiopiya"
+	},
+	"EC": {
+		"name": "Ekvador"
+	},
+	"GQ": {
+		"name": "Ekvatorial Qvineya"
+	},
+	"ER": {
+		"name": "Eritreya"
+	},
+	"AM": {
+		"name": "Ermənistan"
+	},
+	"EE": {
+		"name": "Estoniya"
+	},
+	"AF": {
+		"name": "Əfqanıstan"
+	},
+	"DZ": {
+		"name": "Əlcəzair"
+	},
+	"FO": {
+		"name": "Farer adaları"
+	},
+	"PS": {
+		"name": "Fələstin Əraziləri"
+	},
+	"FJ": {
+		"name": "Fici"
+	},
+	"PH": {
+		"name": "Filippin"
+	},
+	"FI": {
+		"name": "Finlandiya"
+	},
+	"FK": {
+		"name": "Folklend adaları"
+	},
+	"FR": {
+		"name": "Fransa"
+	},
+	"GF": {
+		"name": "Fransa Qvianası"
+	},
+	"PF": {
+		"name": "Fransa Polineziyası"
+	},
+	"TF": {
+		"name": "Fransanın Cənub Əraziləri"
+	},
+	"GG": {
+		"name": "Gernsi"
+	},
+	"GE": {
+		"name": "Gürcüstan"
+	},
+	"HT": {
+		"name": "Haiti"
+	},
+	"IN": {
+		"name": "Hindistan"
+	},
+	"HN": {
+		"name": "Honduras"
+	},
+	"HK": {
+		"name": "Honq Konq Xüsusi İnzibati Ərazi Çin"
+	},
+	"HR": {
+		"name": "Xorvatiya"
+	},
+	"ID": {
+		"name": "İndoneziya"
+	},
+	"JO": {
+		"name": "İordaniya"
+	},
+	"IQ": {
+		"name": "İraq"
+	},
+	"IR": {
+		"name": "İran"
+	},
+	"IE": {
+		"name": "İrlandiya"
+	},
+	"IS": {
+		"name": "İslandiya"
+	},
+	"ES": {
+		"name": "İspaniya"
+	},
+	"IL": {
+		"name": "İsrail"
+	},
+	"SE": {
+		"name": "İsveç"
+	},
+	"CH": {
+		"name": "İsveçrə"
+	},
+	"IT": {
+		"name": "İtaliya"
+	},
+	"CV": {
+		"name": "Kabo-Verde"
+	},
+	"KH": {
+		"name": "Kamboca"
+	},
+	"CM": {
+		"name": "Kamerun"
+	},
+	"CA": {
+		"name": "Kanada"
+	},
+	"IC": {
+		"name": "Kanar adaları"
+	},
+	"BQ": {
+		"name": "Karib Niderlandı"
+	},
+	"KY": {
+		"name": "Kayman adaları"
+	},
+	"KE": {
+		"name": "Keniya"
+	},
+	"CY": {
+		"name": "Kipr"
+	},
+	"KI": {
+		"name": "Kiribati"
+	},
+	"CC": {
+		"name": "Kokos (Kilinq) adaları"
+	},
+	"CO": {
+		"name": "Kolumbiya"
+	},
+	"KM": {
+		"name": "Komor adaları"
+	},
+	"CG": {
+		"name": "Konqo - Brazzavil"
+	},
+	"CD": {
+		"name": "Konqo - Kinşasa"
+	},
+	"XK": {
+		"name": "Kosovo"
+	},
+	"CR": {
+		"name": "Kosta Rika"
+	},
+	"CI": {
+		"name": "Kotd’ivuar"
+	},
+	"CU": {
+		"name": "Kuba"
+	},
+	"CK": {
+		"name": "Kuk adaları"
+	},
+	"CW": {
+		"name": "Kurasao"
+	},
+	"KW": {
+		"name": "Küveyt"
+	},
+	"GA": {
+		"name": "Qabon"
+	},
+	"GM": {
+		"name": "Qambiya"
+	},
+	"GH": {
+		"name": "Qana"
+	},
+	"GY": {
+		"name": "Qayana"
+	},
+	"KZ": {
+		"name": "Qazaxıstan"
+	},
+	"EH": {
+		"name": "Qərbi Saxara"
+	},
+	"QA": {
+		"name": "Qətər"
+	},
+	"KG": {
+		"name": "Qırğızıstan"
+	},
+	"GD": {
+		"name": "Qrenada"
+	},
+	"GL": {
+		"name": "Qrenlandiya"
+	},
+	"GU": {
+		"name": "Quam"
+	},
+	"GP": {
+		"name": "Qvadelupa"
+	},
+	"GT": {
+		"name": "Qvatemala"
+	},
+	"GN": {
+		"name": "Qvineya"
+	},
+	"GW": {
+		"name": "Qvineya-Bisau"
+	},
+	"LA": {
+		"name": "Laos"
+	},
+	"LV": {
+		"name": "Latviya"
+	},
+	"LS": {
+		"name": "Lesoto"
+	},
+	"LR": {
+		"name": "Liberiya"
+	},
+	"LI": {
+		"name": "Lixtenşteyn"
+	},
+	"LT": {
+		"name": "Litva"
+	},
+	"LB": {
+		"name": "Livan"
+	},
+	"LY": {
+		"name": "Liviya"
+	},
+	"LU": {
+		"name": "Lüksemburq"
+	},
+	"HU": {
+		"name": "Macarıstan"
+	},
+	"MG": {
+		"name": "Madaqaskar"
+	},
+	"MO": {
+		"name": "Makao Xüsusi İnzibati Ərazi Çin"
+	},
+	"MK": {
+		"name": "Makedoniya"
+	},
+	"MW": {
+		"name": "Malavi"
+	},
+	"MY": {
+		"name": "Malayziya"
+	},
+	"MV": {
+		"name": "Maldiv adaları"
+	},
+	"ML": {
+		"name": "Mali"
+	},
+	"MT": {
+		"name": "Malta"
+	},
+	"MH": {
+		"name": "Marşal adaları"
+	},
+	"MQ": {
+		"name": "Martinik"
+	},
+	"MU": {
+		"name": "Mavriki"
+	},
+	"MR": {
+		"name": "Mavritaniya"
+	},
+	"YT": {
+		"name": "Mayot"
+	},
+	"MX": {
+		"name": "Meksika"
+	},
+	"IM": {
+		"name": "Men adası"
+	},
+	"MA": {
+		"name": "Mərakeş"
+	},
+	"CF": {
+		"name": "Mərkəzi Afrika Respublikası"
+	},
+	"FM": {
+		"name": "Mikroneziya"
+	},
+	"CX": {
+		"name": "Milad adası"
+	},
+	"EG": {
+		"name": "Misir"
+	},
+	"MD": {
+		"name": "Moldova"
+	},
+	"MC": {
+		"name": "Monako"
+	},
+	"MN": {
+		"name": "Monqolustan"
+	},
+	"MS": {
+		"name": "Monserat"
+	},
+	"ME": {
+		"name": "Monteneqro"
+	},
+	"MZ": {
+		"name": "Mozambik"
+	},
+	"PM": {
+		"name": "Müqəddəs Pyer və Mikelon"
+	},
+	"SH": {
+		"name": "Müqəddəs Yelena"
+	},
+	"MM": {
+		"name": "Myanma"
+	},
+	"NA": {
+		"name": "Namibiya"
+	},
+	"NR": {
+		"name": "Nauru"
+	},
+	"NP": {
+		"name": "Nepal"
+	},
+	"NL": {
+		"name": "Niderland"
+	},
+	"NE": {
+		"name": "Niger"
+	},
+	"NG": {
+		"name": "Nigeriya"
+	},
+	"NI": {
+		"name": "Nikaraqua"
+	},
+	"NU": {
+		"name": "Niue"
+	},
+	"NF": {
+		"name": "Norfolk adası"
+	},
+	"NO": {
+		"name": "Norveç"
+	},
+	"OM": {
+		"name": "Oman"
+	},
+	"UZ": {
+		"name": "Özbəkistan"
+	},
+	"PK": {
+		"name": "Pakistan"
+	},
+	"PW": {
+		"name": "Palau"
+	},
+	"PA": {
+		"name": "Panama"
+	},
+	"PG": {
+		"name": "Papua-Yeni Qvineya"
+	},
+	"PY": {
+		"name": "Paraqvay"
+	},
+	"PE": {
+		"name": "Peru"
+	},
+	"PN": {
+		"name": "Pitkern adaları"
+	},
+	"PL": {
+		"name": "Polşa"
+	},
+	"PT": {
+		"name": "Portuqaliya"
+	},
+	"PR": {
+		"name": "Puerto Riko"
+	},
+	"RE": {
+		"name": "Reyunyon"
+	},
+	"RW": {
+		"name": "Ruanda"
+	},
+	"RO": {
+		"name": "Rumıniya"
+	},
+	"RU": {
+		"name": "Rusiya"
+	},
+	"SV": {
+		"name": "Salvador"
+	},
+	"WS": {
+		"name": "Samoa"
+	},
+	"SM": {
+		"name": "San-Marino"
+	},
+	"ST": {
+		"name": "San-Tome və Prinsipi"
+	},
+	"SN": {
+		"name": "Seneqal"
+	},
+	"MF": {
+		"name": "Sent Martin"
+	},
+	"BL": {
+		"name": "Sent-Bartelemi"
+	},
+	"KN": {
+		"name": "Sent-Kits və Nevis"
+	},
+	"LC": {
+		"name": "Sent-Lusiya"
+	},
+	"VC": {
+		"name": "Sent-Vinsent və Qrenadinlər"
+	},
+	"RS": {
+		"name": "Serbiya"
+	},
+	"EA": {
+		"name": "Seuta və Melilya"
+	},
+	"SC": {
+		"name": "Seyşel adaları"
+	},
+	"SA": {
+		"name": "Səudiyyə Ərəbistanı"
+	},
+	"SG": {
+		"name": "Sinqapur"
+	},
+	"SX": {
+		"name": "Sint-Marten"
+	},
+	"SK": {
+		"name": "Slovakiya"
+	},
+	"SI": {
+		"name": "Sloveniya"
+	},
+	"SB": {
+		"name": "Solomon adaları"
+	},
+	"SO": {
+		"name": "Somali"
+	},
+	"SD": {
+		"name": "Sudan"
+	},
+	"SR": {
+		"name": "Surinam"
+	},
+	"SY": {
+		"name": "Suriya"
+	},
+	"SJ": {
+		"name": "Svalbard və Yan-Mayen"
+	},
+	"SZ": {
+		"name": "Svazilend"
+	},
+	"SL": {
+		"name": "Syerra-Leone"
+	},
+	"TL": {
+		"name": "Şərqi Timor"
+	},
+	"KP": {
+		"name": "Şimali Koreya"
+	},
+	"MP": {
+		"name": "Şimali Marian adaları"
+	},
+	"LK": {
+		"name": "Şri-Lanka"
+	},
+	"TJ": {
+		"name": "Tacikistan"
+	},
+	"TH": {
+		"name": "Tailand"
+	},
+	"TZ": {
+		"name": "Tanzaniya"
+	},
+	"TW": {
+		"name": "Tayvan"
+	},
+	"TK": {
+		"name": "Tokelau"
+	},
+	"TG": {
+		"name": "Toqo"
+	},
+	"TO": {
+		"name": "Tonqa"
+	},
+	"TC": {
+		"name": "Törks və Kaykos adaları"
+	},
+	"TT": {
+		"name": "Trinidad və Tobaqo"
+	},
+	"TA": {
+		"name": "Tristan da Kunya"
+	},
+	"TN": {
+		"name": "Tunis"
+	},
+	"TV": {
+		"name": "Tuvalu"
+	},
+	"TR": {
+		"name": "Türkiyə"
+	},
+	"TM": {
+		"name": "Türkmənistan"
+	},
+	"UA": {
+		"name": "Ukrayna"
+	},
+	"UG": {
+		"name": "Uqanda"
+	},
+	"WF": {
+		"name": "Uollis və Futuna"
+	},
+	"UY": {
+		"name": "Uruqvay"
+	},
+	"VU": {
+		"name": "Vanuatu"
+	},
+	"VA": {
+		"name": "Vatikan"
+	},
+	"VE": {
+		"name": "Venesuela"
+	},
+	"VN": {
+		"name": "Vyetnam"
+	},
+	"JM": {
+		"name": "Yamayka"
+	},
+	"JP": {
+		"name": "Yaponiya"
+	},
+	"NC": {
+		"name": "Yeni Kaledoniya"
+	},
+	"NZ": {
+		"name": "Yeni Zelandiya"
+	},
+	"YE": {
+		"name": "Yəmən"
+	},
+	"GR": {
+		"name": "Yunanıstan"
+	},
+	"ZM": {
+		"name": "Zambiya"
+	},
+	"ZW": {
+		"name": "Zimbabve"
+	}
+}

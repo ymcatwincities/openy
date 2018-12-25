@@ -1,0 +1,90 @@
+language: php
+cache:
+  bundler: true
+  directories:
+    - $HOME/tmp/drush
+    - $HOME/.bundle
+    - $HOME/.composer
+    - $HOME/downloads
+  apt: true
+
+git:
+ depth: 10000
+
+php:
+  - 7.0
+  - 5.5
+
+env:
+  # 4.5.1 is the oldest version we support
+  - PATH=$PATH:/home/travis/.composer/vendor/bin SOLR_VERSION=4.5.1 SOLR_CORE=d8 SOLR_CONFS="$TRAVIS_BUILD_DIR/solr-conf/4.x"
+  # 5.5.0 introduced major changes for boolean operators.
+  - PATH=$PATH:/home/travis/.composer/vendor/bin SOLR_VERSION=5.5.4 SOLR_CORE=d8 SOLR_CONFS="$TRAVIS_BUILD_DIR/solr-conf/5.x"
+  # 6.6.0 is the latest currently supported release.
+  - PATH=$PATH:/home/travis/.composer/vendor/bin SOLR_VERSION=6.6.0 SOLR_CORE=d8 SOLR_CONFS="$TRAVIS_BUILD_DIR/solr-conf/6.x"
+
+notifications:
+  irc:
+    - "chat.freenode.net#drupal-search-api"
+
+# This will create the database
+mysql:
+  database: drupal
+  username: root
+  encoding: utf8
+
+# To be able to run a webbrowser
+# If we need anything more powerful
+# than e.g. phantomjs
+before_install:
+  - phpenv config-rm xdebug.ini
+  - composer global require "hirak/prestissimo:^0.3"
+  - sudo apt-get update -qq > /dev/null
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
+install:
+  - git tag 999.0.0
+  # Make sure we don't fail when checking out projects
+  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - echo -e "Host git.drupal.org\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  # Set sendmail so drush doesn't throw an error during site install.
+  - echo "sendmail_path='true'" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
+  # Forward the errors to the syslog so we can print them
+  - echo "error_log=syslog" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
+  # Get latest Drupal 8 core
+  - cd $TRAVIS_BUILD_DIR/..
+  - git clone --depth=1 --branch 8.4.x https://git.drupal.org/project/drupal.git
+  - cd $TRAVIS_BUILD_DIR/../drupal
+  - composer install
+  - composer config repositories.search_api_solr vcs $TRAVIS_BUILD_DIR
+  - composer require drupal/search_api:1.x-dev drupal/search_api_autocomplete:1.x-dev drupal/search_api_solr:999.0.0 drupal/search_api_location:1.x-dev drupal/facets:1.x-dev drupal/geofield:1.x-dev drush/drush
+  # Patch template.
+  #########################################
+  # to be removed once #2824932 is resolved
+  #- cd modules/search_api
+  #- curl https://www.drupal.org/files/issues/2824932.patch | patch -p1
+  #- cd $TRAVIS_BUILD_DIR/../drupal
+  #########################################
+
+before_script:
+  # Start the built-in php web server (mysql is already started) and
+  # suppress web-server access logs output.
+  - php -S localhost:8888 >& /dev/null &
+  # Install the site
+  - ./vendor/bin/drush -v site-install minimal --db-url=mysql://root:@localhost/drupal --yes
+  - ./vendor/bin/drush en --yes simpletest
+  # Install Solr
+  - cat $TRAVIS_BUILD_DIR/travis-solr.sh | bash
+
+script:
+  # Run the tests
+  - cd $TRAVIS_BUILD_DIR/../drupal
+  - export SIMPLETEST_DB=mysql://root:@localhost/drupal
+  - export SIMPLETEST_BASE_URL=http://localhost:8888
+  - ./vendor/bin/phpunit -c core --group search_api_solr --verbose --debug | tee ; export TEST_PHPUNIT=${PIPESTATUS[0]} ; echo $TEST_PHPUNIT
+  # Re-enable when trying to get CodeSniffer doesn't return a 403 anymore.
+  #- /home/travis/.composer/vendor/bin/phpcs --standard=/home/travis/.composer/vendor/drupal/coder/coder_sniffer/Drupal --extensions=php,inc,test,module,install --ignore=css/ $TRAVIS_BUILD_DIR/../drupal/modules/search_api
+  # Exit the build
+  - echo $TEST_PHPUNIT
+  - if [ $TEST_PHPUNIT -eq 0 ]; then exit 0; else exit 1; fi

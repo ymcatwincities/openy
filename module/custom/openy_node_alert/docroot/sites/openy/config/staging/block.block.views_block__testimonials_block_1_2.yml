@@ -1,0 +1,24 @@
+uuid: df2c3506-5c63-4500-b404-4ac4fcb29eab
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.testimonials
+  module:
+    - views
+  theme:
+    - multipurpose_business_theme
+id: views_block__testimonials_block_1_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -5
+provider: null
+plugin: 'views_block:testimonials-block_1'
+settings:
+  id: 'views_block:testimonials-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility: {  }

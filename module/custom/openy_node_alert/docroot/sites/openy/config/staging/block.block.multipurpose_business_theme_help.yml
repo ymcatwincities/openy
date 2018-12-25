@@ -1,0 +1,20 @@
+uuid: 52c73a48-1c1e-4577-8a00-ab9943395bdf
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - multipurpose_business_theme
+id: multipurpose_business_theme_help
+theme: multipurpose_business_theme
+region: highlighted
+weight: -11
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

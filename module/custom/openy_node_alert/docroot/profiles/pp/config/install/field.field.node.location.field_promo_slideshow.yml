@@ -1,0 +1,26 @@
+uuid: ff351647-ca34-49e3-b550-80f43fc44f4c
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.date_block
+    - field.storage.node.field_promo_slideshow
+    - node.type.location
+id: node.location.field_promo_slideshow
+field_name: field_promo_slideshow
+entity_type: node
+bundle: location
+label: 'Promo Slideshow'
+description: 'reference to block "Date Based Block" - single value'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      date_block: date_block
+    sort:
+      field: _none
+field_type: entity_reference

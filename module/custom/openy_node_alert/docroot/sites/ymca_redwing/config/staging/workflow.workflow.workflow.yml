@@ -1,0 +1,15 @@
+uuid: 203958db-6ad2-48e0-bd05-5d259de67b2c
+langcode: en
+status: true
+dependencies: {  }
+id: workflow
+label: Workflow
+module: null
+options:
+  name_as_title: 0
+  fieldset: '1'
+  options: select
+  schedule_timezone: 0
+  comment_log_node: '1'
+  comment_log_tab: '1'
+  watchdog_log: 0

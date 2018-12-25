@@ -1,0 +1,30 @@
+services:
+  plugin.plugin_type_manager:
+    class: Drupal\plugin\PluginType\PluginTypeManager
+    arguments: ['@service_container', '@module_handler']
+  plugin.manager.plugin.plugin_selector:
+    class: Drupal\plugin\Plugin\Plugin\PluginSelector\PluginSelectorManager
+    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler']
+    tags:
+      - { name: plugin_manager_cache_clear}
+  plugin.default_plugin_resolver:
+    class: Drupal\plugin\DefaultPluginResolver\EventBasedDefaultPluginResolver
+    arguments: ['@event_dispatcher']
+  plugin.views_data:
+    class: Drupal\plugin\ViewsData
+    arguments: ['@entity_type.manager', '@entity_field.manager', '@plugin.plugin_type_manager']
+  plugin.paramconverter.plugin_definition:
+    class: Drupal\plugin\ParamConverter\PluginDefinitionConverter
+    tags:
+      - { name: paramconverter }
+    arguments: ['@plugin.plugin_type_manager']
+  plugin.paramconverter.plugin_instance:
+    class: Drupal\plugin\ParamConverter\PluginInstanceConverter
+    tags:
+      - { name: paramconverter }
+    arguments: ['@plugin.plugin_type_manager']
+  plugin.paramconverter.plugin_type:
+    class: Drupal\plugin\ParamConverter\PluginTypeConverter
+    tags:
+      - { name: paramconverter }
+    arguments: ['@plugin.plugin_type_manager']

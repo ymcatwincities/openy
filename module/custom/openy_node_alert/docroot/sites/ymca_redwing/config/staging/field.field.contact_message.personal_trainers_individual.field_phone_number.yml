@@ -1,0 +1,21 @@
+uuid: 2832f7aa-dba3-4cb6-b960-96d00f56dc09
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.personal_trainers_individual
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.personal_trainers_individual.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: personal_trainers_individual
+label: 'Phone number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

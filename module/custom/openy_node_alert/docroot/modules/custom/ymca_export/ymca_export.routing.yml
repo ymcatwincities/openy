@@ -1,0 +1,7 @@
+ymca_export.batch:
+  path: '/ymca_export'
+  defaults:
+    _controller: '\Drupal\ymca_export\Controller\YmcaExportBatchController::content'
+    _title: 'Ymca export'
+  requirements:
+    _permission: 'administer content'

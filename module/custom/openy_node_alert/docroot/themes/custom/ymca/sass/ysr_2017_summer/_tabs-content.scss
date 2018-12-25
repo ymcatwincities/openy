@@ -1,0 +1,515 @@
+.compain-tab-header {
+  @include background-image(linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(37,131,127,0.1) 100%));
+  @include rem(margin, 0 -20px 30px);
+  @include rem(padding, 30px 20px);
+  position: relative;
+
+  @include breakpoint($tablet) {
+    @include rem(margin, 0 -30px 60px);
+    @include rem(padding, 60px 30px);
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(margin-left, -50px);
+    @include rem(margin-right, -50px);
+    @include rem(padding-left, 50px);
+    @include rem(padding-right, 50px);
+  }
+
+  @include breakpoint($desktop) {
+    @include rem(margin-left, -100px);
+    @include rem(margin-right, -100px);
+    @include rem(padding-left, 100px);
+    @include rem(padding-right, 100px);
+  }
+
+  .content {
+    background: none;
+
+    @include breakpoint($tablet) {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      @include breakpoint($tablet) {
+        @include rem(font-size, 40px);
+        @include rem(margin, 23px 0 16px);
+      }
+    }
+  }
+
+  .content-text {
+    @include rem(font-size, 16px);
+    @include rem(line-height, 24px);
+    @include rem(margin, 0 0 30px);
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 20px);
+      @include rem(line-height, 32px);
+      @include rem(margin, 0 0 0);
+      @include rem(max-width, 530px);
+      width: 60%;
+      float: left;
+    }
+  }
+
+  .compain-btn {
+    @include breakpoint($tablet) {
+      @include rem(margin, 16px 0 0 0);
+      float: right;
+      width: 40%;
+    }
+  }
+
+  .btn {
+    display: block;
+
+    @include breakpoint($tablet) {
+      @include rem(min-width, 215px);
+      max-width: 100%;
+      float: right;
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(min-width, 280px);
+    }
+  }
+
+  .compain-progress--label {
+    display: none;
+
+    @include breakpoint($tablet) {
+      @include rem(bottom, -60px);
+      display: block;
+      position: relative;
+    }
+
+    .description-label {
+      @include breakpoint($tablet) {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: auto;
+        right: 0;
+        @include rem(padding, 14px 20px);
+      }
+    }
+  }
+}
+
+.compain-progress--label {
+  .description-label {
+    @include rem(padding, 0 0 24px 0);
+    background-color: #fff;
+    text-align: center;
+
+    @include breakpoint($tablet) {
+      display: none;
+    }
+
+    .label {
+      @include rem(font-size, 16px);
+      @include rem(line-height, 22px);
+      @include rem(padding, 0 0 0 24px);
+      text-transform: uppercase;
+      display: inline-block;
+      vertical-align: top;
+      color: $green-dark;
+      position: relative;
+      cursor: default;
+
+      &:before {
+        content: '';
+        width: 22px;
+        height: 22px;
+        display: block;
+        background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-hint-modal.svg') 50% 50% no-repeat;
+        background-size: 98% 98%;
+        position: absolute;
+        top: -2px;
+        left: 0;
+      }
+    }
+  }
+}
+
+
+.content-video-wrapper {
+  @include rem(margin, 20px 0 30px 0);
+
+  @include breakpoint($tablet) {
+    @include rem(margin, 60px 0 40px 0);
+    @include rem(padding, 0 32px);
+  }
+
+  position: relative;
+
+  .content-video {
+    img {
+      width: 100%;
+      display: block;
+      vertical-align: top;
+    }
+  }
+
+  .slick-arrow {
+    @include rem(width, 48px);
+    @include rem(height, 48px);
+    border: none;
+    background: $green-medium;
+    text-indent: -9999px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 2;
+    display: block;
+    outline: none !important;
+
+    @include breakpoint($tablet) {
+      @include rem(width, 64px);
+      @include rem(height, 64px);
+      top: 20%;
+    }
+
+    &.slick-disabled {
+      background-color: $grey12;
+    }
+
+    &:after {
+      @include rem(width, 10px);
+      @include rem(height, 14px);
+      content: '';
+      display: block;
+      top: 50%;
+      left: 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+
+      @include breakpoint($tablet) {
+        @include rem(width, 10px);
+        @include rem(height, 14px);
+      }
+    }
+
+    &.slick-prev {
+      left: 0;
+      bottom: 0;
+
+      &:after {
+        background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-btn-arrow-right.svg');
+      }
+    }
+
+    &.slick-next {
+      right: 0;
+      bottom: 0;
+
+      &:after {
+        background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-btn-arrow-left.svg');
+      }
+    }
+  }
+
+  .content-video--label {
+    @include  rem(padding, 0 50px);
+    background: $grey21;
+    text-align: center;
+    overflow: hidden;
+
+    @include breakpoint($tablet) {
+      text-align: left;
+      padding: 0;
+      background: none;
+    }
+
+    .label, .data {
+      @include cachet-normal();
+      @include rem(font-size, 18px);
+      @include rem(line-height, 24px);
+      @include rem(padding, 12px 4px 12px 4px);
+      display: inline-block;
+      vertical-align: top;
+      color: $green-dark;
+
+      @include breakpoint($tablet) {
+        @include rem(padding, 12px 0 12px 18px);
+      }
+    }
+
+    .data {
+      color: $green-medium;
+    }
+
+    .info {
+      @include rem(padding, 0 0 0 40px);
+      text-transform: uppercase;
+      background: $grey21;
+      color: $green-dark;
+      border-radius: 0;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+
+      @include breakpoint($tablet) {
+        @include rem(padding, 0 24px 0 48px);
+      }
+
+      &:before {
+        @include rem(width, 48px);
+        @include rem(height, 48px);
+        content: '';
+        display: block;
+        position: absolute;
+        top: -2px;
+        left: 0;
+        background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-hint-green.svg') 50% 50% no-repeat;
+        background-size: 65% 65%;
+
+        @include breakpoint($tablet) {
+          background: $green-dark inline-image('../prototypes/ysr_2017/img/icons/icon-hint.svg') 50% 50% no-repeat;
+          background-size: 65% 65%;
+        }
+      }
+    }
+  }
+}
+
+.content-item {
+  @include rem(margin, 0 0 40px 0);
+
+  h3 {
+    @include cachet-bold();
+    @include rem(font-size, 24px);
+    @include rem(line-height, 30px);
+    @include rem(margin, 0 0 10px 0);
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 30px);
+      @include rem(line-height, 44px);
+    }
+  }
+
+  p,
+  li {
+    @include rem(font-size, 16px);
+    @include rem(line-height, 24px);
+    @include rem(margin, 0 0 20px 0);
+
+    a {
+      font-size: inherit;
+      line-height: inherit;
+      color: $green-medium;
+    }
+  }
+
+  li {
+    margin: 0;
+  }
+
+  .content-list--decor {
+    @include rem(margin, 0 0 40px 6px);
+    list-style: none;
+    padding: 0;
+
+    li {
+      @include rem(padding, 0 0 0 24px);
+      position: relative;
+
+      &:before {
+        @include rem(width, 14px);
+        @include rem(height, 12px);
+        content: '';
+        display: block;
+        position: absolute;
+        top: 6px;
+        left: 0;
+        background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-check.svg') 50% 50% no-repeat;
+        background-size: 100% 100%;
+      }
+    }
+  }
+
+  .btn {
+    display: block;
+
+    @include breakpoint($tablet) {
+      display: inline-block;
+    }
+  }
+}
+
+.content-wrapper--small {
+  @include breakpoint($tablet) {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+}
+
+.content-wrapper--detailed {
+  @include rem(padding, 26px 0 0 0);
+  max-width: 680px;
+  margin: 0 auto;
+
+  @include breakpoint($tablet) {
+    @include rem(padding, 60px 0 0 0);
+  }
+
+  h2, h3 {
+    text-transform: uppercase;
+  }
+
+  h2 {
+    @include rem(font-size, 24px);
+    @include rem(line-height, 30px);
+    @include rem(margin, 0 0 26px 0);
+    text-align: center;
+    color: $green-medium;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 40px);
+      @include rem(line-height, 52px);
+      text-align: left;
+    }
+  }
+
+  h3 {
+    @include rem(font-size, 16px);
+    @include rem(line-height, 28px);
+    @include rem(margin, 32px 0 22px 0);
+    color: $blue-medium;
+
+    @include breakpoint($tablet) {
+      @include rem(margin, 42px 0 22px 0);
+      @include rem(font-size, 20px);
+      @include rem(line-height, 30px);
+    }
+  }
+
+  p {
+    @include rem(font-size, 16px);
+    @include rem(line-height, 24px);
+    @include rem(margin, 0 0 18px 0);
+
+    a {
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      color: $green-dark;
+    }
+  }
+
+  ul {
+    @include rem(margin, 0 0 18px 0);
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+#instant-win,
+#instant-win-collapse {
+  .compain-tab-header {
+    background-image: none;
+    margin-bottom: 0;
+
+
+    @include breakpoint($tablet) {
+      @include rem(margin-bottom, 60px);
+      @include background-image(linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(37,131,127,0.1) 100%));
+    }
+  }
+
+  .icon-win {
+    @include rem(width, 84px);
+    @include rem(height, 66px);
+    margin: 0 auto;
+    background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-winners.svg') 50% 50% no-repeat;
+    background-size: cover;
+
+    @include breakpoint($tablet) {
+      @include rem(width, 142px);
+      @include rem(height, 110px);
+    }
+  }
+}
+
+.compain-content-win {
+  text-align: center;
+
+  @include breakpoint($tablet) {
+    margin: 0 auto;
+  }
+
+  .content {
+    max-width: 445px;
+    margin: 0 auto;
+  }
+
+  h2,
+  h3 {
+    text-transform: uppercase;
+    letter-spacing: -1px;
+  }
+
+  h2 {
+    @include rem(font-size, 30px);
+    @include rem(line-height, 42px);
+    margin-top: 0;
+    color: $grey7;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 40px);
+      @include rem(line-height, 52px);
+      @include rem(margin-bottom, 20px);
+    }
+  }
+
+  p {
+    @include cachet-normal();
+    @include rem(font-size, 20px);
+    @include rem(line-height, 30px);
+    color: $grey5;
+
+    b {
+      @include rem(font-size, 24px);
+      @include rem(line-height, 30px);
+      display: block;
+      color: $green-light;
+    }
+  }
+
+  h3 {
+    @include rem(font-size, 24px);
+    @include rem(line-height, 30px);
+    @include rem(padding, 22px 0);
+    @include rem(margin, 40px auto 0);
+    border-top: 1px solid $green-medium;
+    color: $green-medium;
+    max-width: 76%;
+  }
+}
+
+.retention-campaign {
+  .tab-content {
+    &:empty {
+      display: none;
+    }
+    #tab_1,
+    #tab_5 {
+      @include rem(padding, 0 0 60px 0);
+      @include breakpoint($tablet) {
+        @include rem(padding, 0 0 70px 0);
+      }
+    }
+    #tab_2 {
+      @include breakpoint($tablet) {
+        @include rem(margin-bottom, 81px);
+      }
+    }
+  }
+}

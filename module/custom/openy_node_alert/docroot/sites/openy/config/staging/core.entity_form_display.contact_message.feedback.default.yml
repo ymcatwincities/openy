@@ -1,0 +1,29 @@
+uuid: f7120ee2-7887-4667-8e1f-31bc5c016724
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.feedback
+id: contact_message.feedback.default
+targetEntityType: contact_message
+bundle: feedback
+mode: default
+content:
+  copy:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+  mail:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  message:
+    type: string_textarea
+    weight: 0
+    settings:
+      rows: 12
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  name: true
+  subject: true

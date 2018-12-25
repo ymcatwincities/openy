@@ -1,0 +1,97 @@
+<?php
+
+/**
+ * @file
+ * Defines a simple geolocation field type.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function geolocation_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+
+    case 'help.page.geolocation':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>'
+        . t('The Geolocation module allows you to create fields that contain geographical locations.
+          See the <a href=":field">Field module help</a> and the <a href=":field_ui">Field UI help</a>
+          pages for general information on fields and how to create and manage them.',
+          [
+            ':field' => Url::fromRoute('help.page', ['name' => 'field']),
+            ':field_ui' => Url::fromRoute('help.page', ['name' => 'field_ui']),
+          ]
+        )
+        . '</p>';
+      return $output;
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function geolocation_theme() {
+  return [
+    'geolocation_map_formatter' => [
+      'variables' => [
+        'locations' => NULL,
+        'latitude' => NULL,
+        'longitude' => NULL,
+        'uniqueid' => NULL,
+      ],
+      'template' => 'geolocation-map-formatter',
+    ],
+    'geolocation_latlng_formatter' => [
+      'variables' => [
+        'lat' => NULL,
+        'lng' => NULL,
+      ],
+      'template' => 'geolocation-latlng-formatter',
+    ],
+    'geolocation_sexagesimal_formatter' => [
+      'variables' => [
+        'lat' => NULL,
+        'lng' => NULL,
+      ],
+      'template' => 'geolocation-sexagesimal-formatter',
+    ],
+    'geolocation_common_map_display' => [
+      'variables' => [
+        'centre' => NULL,
+        'fitbounds' => NULL,
+        'clientlocation' => NULL,
+        'locations' => NULL,
+        'id' => NULL,
+        'view' => NULL,
+      ],
+    ],
+    'geolocation_common_map_location' => [
+      'variables' => [
+        'content' => NULL,
+        'title' => NULL,
+        'position' => NULL,
+        'location_id' => NULL,
+        'disable_marker' => NULL,
+        'icon' => NULL,
+        'marker_label' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function geolocation_theme_suggestions_geolocation_common_map_display(array $variables) {
+  $suggestions = [];
+
+  if (!empty($variables['view']) && $variables['view'] instanceof ViewExecutable) {
+    $suggestions = $variables['view']->buildThemeFunctions('geolocation_common_map_display');
+  }
+
+  return $suggestions;
+}

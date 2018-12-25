@@ -1,0 +1,9 @@
+type: module
+name: Migrate Example
+description: 'Examples of how Drupal 8 migration compares to previous versions.'
+package: Examples
+core: 8.x
+dependencies:
+  - drupal:migrate
+  - migrate_plus:migrate_example_setup
+  - migrate_plus:migrate_plus

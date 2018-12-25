@@ -1,0 +1,35 @@
+easy_breadcrumb.settings:
+  type: config_object
+  label: 'Easy Breadcrumb'
+  mapping:
+    include_invalid_paths:
+      type: integer
+      label: 'Include invalid paths alias as plain-text segments'
+    excluded_paths:
+      type: text
+      label: 'Paths to be excluded while generating segments'
+    include_home_segment:
+      type: integer
+      label: 'Include the front page as a segment in the breadcrumb'
+    home_segment_title:
+      type: label
+      label: 'Title for the front page segment in the breadcrumb'
+      translatable: true
+    include_title_segment:
+      type: integer
+      label: 'Include the current page as a segment in the breadcrumb'
+    title_from_page_when_available:
+      type: integer
+      label: 'Use the real page title when available'
+    title_segment_as_link:
+      type: integer
+      label: 'Make the page title segment a link'
+    segments_separator:
+      type: text
+      label: 'Segments Separator'
+    use_menu_title_as_fallback:
+      type: integer
+      label: 'Use menu title as fallback instead of raw path component'
+    remove_repeated_segments:
+      type: integer
+      label: 'Remove repeated identical segments'

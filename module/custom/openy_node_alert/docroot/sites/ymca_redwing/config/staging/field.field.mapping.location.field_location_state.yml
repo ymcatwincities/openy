@@ -1,0 +1,19 @@
+uuid: 1164c369-d536-4a20-bf20-158fbda19949
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_state
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_location_state
+field_name: field_location_state
+entity_type: mapping
+bundle: location
+label: 'Location State'
+description: 'Example: MN'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

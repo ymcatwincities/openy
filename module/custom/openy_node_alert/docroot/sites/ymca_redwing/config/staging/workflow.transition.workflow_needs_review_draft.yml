@@ -1,0 +1,18 @@
+uuid: adfd85e7-d05d-47de-a000-b895d3b0e008
+langcode: en
+status: true
+dependencies: {  }
+id: workflow_needs_review_draft
+label: 'Needs more work'
+module: null
+from_sid: workflow_needs_review
+to_sid: workflow_draft
+roles:
+  administrator: administrator
+  editor: editor
+  location_editor: location_editor
+  contributor: contributor
+  intern: intern
+  workflow_author: 0
+  anonymous: 0
+  authenticated: 0

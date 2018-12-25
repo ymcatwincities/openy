@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_ckeditor.module.
+ */
+
+use Drupal\editor\Entity\Editor;
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function ymca_ckeditor_page_attachments_alter(array &$attachments) {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($theme == 'seven') {
+    $attachments['#attached']['library'][] = 'ymca_ckeditor/ymca-ckeditor';
+  }
+}
+
+/**
+ * Implements hook_ckeditor_css_alter().
+ */
+function ymca_ckeditor_ckeditor_css_alter(array &$css, Editor $editor) {
+  $css[] = drupal_get_path('module', 'ymca_ckeditor') . '/css/layout.css';
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_entity_embed().
+ */
+function ymca_ckeditor_file_embed_alter(&$build, $entity, $context) {
+  if (!empty($build['#url'])) {
+    $options = $build['#url']->getOptions();
+    $options['query'][$entity->getChangedTime()] = '';
+    $build['#url']->setOptions($options);
+  }
+}

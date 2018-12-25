@@ -1,0 +1,7 @@
+name: Media entity document
+description: 'Media entity local documents provider.'
+type: module
+package: Media
+core: 8.x
+dependencies:
+  - media_entity

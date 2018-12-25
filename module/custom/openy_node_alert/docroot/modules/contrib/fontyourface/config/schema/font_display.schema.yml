@@ -1,0 +1,24 @@
+fontyourface.font_display.*:
+  type: config_entity
+  label: 'Font display config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    font_url:
+      type: string
+      label: 'Font'
+    fallback:
+      type: string
+      label: 'Fallback'
+    selectors:
+      type: string
+      label: 'Selectors'
+    theme:
+      type: string
+      label: 'Theme'

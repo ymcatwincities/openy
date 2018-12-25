@@ -1,0 +1,13 @@
+default:
+  extensions:
+    Behat\MinkExtension:
+      # If necessary, change this to the actual URL of your Open Y site.
+      base_url: 'http://drupal.192.168.56.132.xip.io'
+      selenium2:
+        wd_host: 'http://127.0.0.1:4444/wd/hub'
+        browser: chrome
+    Drupal\DrupalExtension:
+      drupal:
+        # This assumes that we're running Behat from within
+        # DRUPAL_ROOT/profiles/contrib/openy.
+        drupal_root: '../../../'

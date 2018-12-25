@@ -1,0 +1,58 @@
+.openy-ds-layout.landscape {
+ width: 100vw;
+ height: 56.25vw;
+}
+
+.openy-ds-layout.portrait {
+ margin: auto;
+ width: 56.25vh;
+ height: 100vh;
+}
+
+.openy-ds-layout-1col-ticker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.openy-ds-layout-1col-ticker .openy-ds-layout-region {
+  flex: 0 1 100%;
+  position: relative;
+  height: 90%;
+  overflow: hidden;
+}
+
+.openy-ds-layout-1col-ticker .openy-ds-layout-1col--main {
+  flex: 0 1 100%;
+}
+
+.openy-ds-layout-1col-ticker .openy-ds-layout-1col--ticker {
+  flex: 0 1 100%;
+  height: 10%;
+}
+
+.openy-ds-layout-1col-ticker.portrait .openy-ds-layout-region {
+  height: 94.375%;
+}
+
+.openy-ds-layout-1col-ticker.portrait .openy-ds-layout-1col--ticker {
+  height: 5.625%;
+}
+
+.panels-ipe-active .openy-ds-layout-1col-ticker .openy-ds-layout-region {
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 64, 64, 0.5);
+}
+
+.panels-ipe-active .openy-ds-layout-1col-ticker .openy-ds-layout-1col--main {
+  background-color: rgba(64, 64, 255, 0.5);
+}
+
+.panels-ipe-active .openy-ds-layout-1col-ticker .openy-ds-layout-1col--ticker {
+  background-color: rgba(64, 255, 64, 0.5);
+}
+
+.openy-ds-layout-1col--main .block-region-main,
+.openy-ds-layout-1col--ticker .block-region-ticker {
+  height: 100%;
+}

@@ -1,0 +1,31 @@
+uuid: 1a900eed-30a0-4cc0-8deb-7e182200f886
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:1357f3c6-681e-4e97-949e-846b2e5b7e4b'
+  module:
+    - block_content
+    - system
+  theme:
+    - multipurpose_business_theme
+id: openyis
+theme: multipurpose_business_theme
+region: '-1'
+weight: -15
+provider: null
+plugin: 'block_content:1357f3c6-681e-4e97-949e-846b2e5b7e4b'
+settings:
+  id: 'block_content:1357f3c6-681e-4e97-949e-846b2e5b7e4b'
+  label: 'Open Y Is'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }
