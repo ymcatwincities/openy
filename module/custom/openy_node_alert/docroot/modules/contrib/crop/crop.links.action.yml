@@ -1,5 +1,0 @@
-crop.type_add:
-  route_name: crop.type_add
-  title: 'Add crop type'
-  appears_on:
-    - crop.overview_types

@@ -1,6 +1,0 @@
-services:
-  views_advanced_routing.route_subscriber:
-    class: Drupal\views_advanced_routing\Routing\RouteSubscriber
-    arguments: ['@entity.manager']
-    tags:
-      - { name: event_subscriber }

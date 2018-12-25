@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.class_location
-label: 'Class location'
-targetEntityType: node
-cache: true

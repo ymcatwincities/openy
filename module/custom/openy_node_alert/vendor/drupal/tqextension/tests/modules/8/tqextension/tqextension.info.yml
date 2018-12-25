@@ -1,5 +1,0 @@
-name: TqExtension
-description: Provides pages for testing TqExtension functionality.
-package: TqExtension
-type: module
-core: 8.x

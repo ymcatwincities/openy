@@ -1,5 +1,0 @@
-entity.page.collection:
-  title: 'Pages'
-  parent: system.admin_structure
-  description: 'Manage pages.'
-  route_name: entity.page.collection

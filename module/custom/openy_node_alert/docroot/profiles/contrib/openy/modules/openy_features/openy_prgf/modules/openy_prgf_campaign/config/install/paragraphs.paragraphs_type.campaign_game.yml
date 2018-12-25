@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: campaign_game
-label: 'Campaign Game'
-behavior_plugins: {  }

@@ -1,9 +1,0 @@
-wsdl: https://***REMOVED***/SSO/webservice/service.asmx?wsdl
-vendor_id: 8
-vendor_username: ClockWork
-vendor_password: ***REMOVED***
-vendor_block: ***REMOVED***
-url_login: https://***REMOVED***/PersonifyEbusiness/Default.aspx?TabID=337
-url_account: https://***REMOVED***/personifyebusiness/MyY.aspx
-url_sign_out: https://***REMOVED***/personifyebusiness/MyY/tabid/61/ctl/Logoff/Default.aspx
-url_cart: https://***REMOVED***/PersonifyEbusiness/YMCA/ShoppingCart.aspx

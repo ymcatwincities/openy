@@ -1,5 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: schedule_search_form
-label: 'Schedule search form'

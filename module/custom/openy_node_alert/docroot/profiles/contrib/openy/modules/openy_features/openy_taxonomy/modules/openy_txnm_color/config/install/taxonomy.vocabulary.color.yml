@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: Color
-vid: color
-description: 'This vocabulary contains various colors that will be applicable to website components if they require color as a part of content.'
-hierarchy: 0
-weight: 0

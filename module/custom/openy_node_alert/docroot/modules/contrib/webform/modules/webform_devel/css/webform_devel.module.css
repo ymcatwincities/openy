@@ -1,9 +1,0 @@
-/**
- * @file
- * Webform Devel styling.
- */
-
-.webform-devel-schema-table tr.webform-devel-schema-composite {
-  border-top: 2px dashed #a6a6a6;
-  font-weight: bold;
-}

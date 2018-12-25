@@ -1,5 +1,0 @@
-administer CAPTCHA settings:
-  title: 'Administer CAPTCHA settings'
-skip CAPTCHA:
-  title: 'Skip CAPTCHA'
-  description: 'Users with this permission will not be offered a CAPTCHA.'

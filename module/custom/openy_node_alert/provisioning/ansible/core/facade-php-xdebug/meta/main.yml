@@ -1,4 +1,0 @@
----
-# This role is wrapper for 'ansible-role-php-xdebug'.
-dependencies:
-  - { role: '../contrib/ansible-role-php-xdebug' }

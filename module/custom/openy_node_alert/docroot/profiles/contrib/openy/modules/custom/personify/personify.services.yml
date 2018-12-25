@@ -1,3 +1,0 @@
-services:
-  personify.client:
-    class: Drupal\personify\PersonifyClient

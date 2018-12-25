@@ -1,5 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: blog_posts_listing
-label: 'Blog Posts Listing'

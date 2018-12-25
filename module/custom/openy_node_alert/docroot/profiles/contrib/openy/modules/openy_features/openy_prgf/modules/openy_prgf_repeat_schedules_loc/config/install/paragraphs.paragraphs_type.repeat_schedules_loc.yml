@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: repeat_schedules_loc
-label: 'Repeat Schedules Locations'
-icon_uuid: null
-description: 'Paragraph to display block to select Locations. Once locations are selected user gets redirected to Schedules page.'
-behavior_plugins: {  }

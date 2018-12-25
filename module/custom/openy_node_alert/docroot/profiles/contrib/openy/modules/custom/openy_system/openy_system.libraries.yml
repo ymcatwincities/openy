@@ -1,9 +1,0 @@
-openy_system:
-  version: 1.x
-  js:
-    js/openy_system.js: {}
-admin_menu:
-  version: 1.x
-  css:
-    theme:
-      assets/css/menu.css: {}

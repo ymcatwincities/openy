@@ -1,5 +1,0 @@
-services:
-  parent_404:
-    class: Drupal\parent_404\EventSubscriber\Parent404Handler
-    tags:
-      - { name: event_subscriber }

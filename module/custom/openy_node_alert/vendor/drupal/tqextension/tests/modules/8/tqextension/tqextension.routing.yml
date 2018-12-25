@@ -1,7 +1,0 @@
-tqextension.js_errors:
-  path: tqextension/js-errors
-  defaults:
-    _title: Page with JavaScript errors
-    _controller: \Drupal\tqextension\Controller\Pages::jsErrors
-  requirements:
-    _access: 'TRUE'

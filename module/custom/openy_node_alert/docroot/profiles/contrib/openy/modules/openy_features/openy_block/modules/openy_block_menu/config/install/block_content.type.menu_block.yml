@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: menu_block
-label: 'Menu Block'
-revision: 0
-description: 'The Menu Block.'

@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media_entity
-id: media.prgf_teaser
-label: 'Paragraph teaser'
-targetEntityType: media
-cache: true

@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: Area
-vid: area
-description: 'This vocabulary is used for adding location areas on the site.'
-hierarchy: 0
-weight: 0

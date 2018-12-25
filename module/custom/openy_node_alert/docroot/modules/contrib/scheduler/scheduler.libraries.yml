@@ -1,6 +1,0 @@
-vertical-tabs:
-  js:
-    js/scheduler_vertical_tabs.js: {}
-  dependencies:
-      - core/jquery
-      - core/drupal.ajax

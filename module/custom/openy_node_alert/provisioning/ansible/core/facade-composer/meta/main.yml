@@ -1,4 +1,0 @@
----
-# This role is wrapper for 'ansible-composer'.
-dependencies:
-  - { role: '../contrib/ansible-composer' }

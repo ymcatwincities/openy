@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: Amenities
-vid: amenities
-description: 'Branch amenities.'
-hierarchy: 0
-weight: 0

@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: promo_block
-label: 'Promo Block'
-revision: 0
-description: 'Sidebar promo block with a link.'

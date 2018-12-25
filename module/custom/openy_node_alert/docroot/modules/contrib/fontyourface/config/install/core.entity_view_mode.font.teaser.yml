@@ -1,9 +1,0 @@
-langcode: en
-status: false
-dependencies:
-  module:
-    - fontyourface
-id: font.teaser
-label: 'Teaser Mode'
-targetEntityType: font
-cache: false

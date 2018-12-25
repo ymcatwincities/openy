@@ -1,5 +1,0 @@
-scheduler.admin:
-  route_name: scheduler.admin_form
-  title: Scheduler
-  description: 'Configure settings for scheduled publishing and unpublishing.'
-  parent: system.admin_config_content

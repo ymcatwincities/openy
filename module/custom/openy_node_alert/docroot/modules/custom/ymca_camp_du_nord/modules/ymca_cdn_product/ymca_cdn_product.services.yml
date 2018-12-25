@@ -1,6 +1,0 @@
-services:
-  ymca_cdn_product.repository:
-    class: Drupal\ymca_cdn_product\CdnPrsProductRepository
-    arguments:
-      - '@entity.query'
-      - '@entity_type.manager'

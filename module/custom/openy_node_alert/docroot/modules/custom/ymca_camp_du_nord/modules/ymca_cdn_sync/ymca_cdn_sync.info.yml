@@ -1,7 +1,0 @@
-name: YMCA Camp du Nord Sync
-type: module
-description: Syncer for Personify products.
-core: 8.x
-dependencies:
-  - ymca_sync:ymca_sync
-  - ymca_cdn_product:ymca_cdn_product

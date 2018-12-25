@@ -1,9 +1,0 @@
-$start_loop_responses
-<div class="form-group">
-  <label class="col-md-4 control-label">$question_text  <small>$include($optional_template) $include($required_template)</small></label>
-  <div class="col-md-6">
-   <input type="text" class="form-control email text [[ if required_template ]]required[[ end if required_template ]]" value="$registration_question_response_esc" disabled="disabled" />$include($hint_text_template)
-</div>
-</div>
-
-$end_loop_responses

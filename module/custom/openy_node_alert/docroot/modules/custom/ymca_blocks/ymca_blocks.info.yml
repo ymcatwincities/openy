@@ -1,5 +1,0 @@
-name: YMCA Blocks
-type: module
-description: YMCA blocks implementation.
-core: 8.x
-package: YMCA

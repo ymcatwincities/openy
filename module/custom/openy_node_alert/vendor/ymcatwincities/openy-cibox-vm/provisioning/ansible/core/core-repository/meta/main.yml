@@ -1,3 +1,0 @@
----
-dependencies:
-  - { role: '../core/cibox-project-builder' }

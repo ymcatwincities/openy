@@ -1,4 +1,0 @@
-services:
-  plugin.manager.config_inspector:
-    class: Drupal\config_inspector\ConfigInspectorManager
-    arguments: ['@config.factory', '@config.typed']

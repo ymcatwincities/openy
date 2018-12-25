@@ -1,5 +1,0 @@
-entity.page.add_form:
-  route_name: entity.page.add_form
-  title: 'Add page'
-  appears_on:
-    - 'entity.page.collection'

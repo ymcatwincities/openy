@@ -1,8 +1,0 @@
-### Module/config routes ###
-shield.admin_page:
-  path: 'admin/config/system/shield'
-  defaults:
-    _title: 'Shield'
-    _form: '\Drupal\shield\Form\ShieldForm'
-  requirements:
-    _permission: 'administer shield'

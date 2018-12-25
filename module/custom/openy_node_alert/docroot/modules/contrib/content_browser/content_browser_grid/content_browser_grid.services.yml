@@ -1,5 +1,0 @@
-services:
-  content_browser_grid.route_subscriber:
-    class: Drupal\content_browser_grid\Routing\ContentBrowserGridRouteSubscriber
-    tags:
-      - { name: event_subscriber }

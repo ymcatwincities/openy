@@ -1,9 +1,0 @@
-container_id: ''
-path_toggle: 'all_except_listed'
-path_list: "admin*\nbatch*\nnode/add*\nnode/*/*\nuser/*/*"
-role_toggle: 'all_except_listed'
-role_list:
-  -
-status_toggle: false
-status_list: "403\n404"
-compact_tag: true

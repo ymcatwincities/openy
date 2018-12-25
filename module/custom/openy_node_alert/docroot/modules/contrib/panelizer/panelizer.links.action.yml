@@ -1,5 +1,0 @@
-panelizer.default.add:
-  route_name: panelizer.wizard.add
-  title: 'Add a new Panelizer default display'
-  class: \Drupal\panelizer\Menu\AddDefaultLocalAction
-  deriver: \Drupal\panelizer\Plugin\AddDefaultLinkDeriver

@@ -1,7 +1,0 @@
-name: YMCA Migrate Status
-type: module
-description: YMCA migrations status.
-core: 8.x
-package: YMCA
-dependencies:
-  - ymca_migrate

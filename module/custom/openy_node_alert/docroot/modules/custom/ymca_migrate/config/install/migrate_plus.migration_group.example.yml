@@ -1,7 +1,0 @@
-id: example
-label: Example imports
-description: Example migrations for the YMCA project.
-source_type: Custom database tables
-shared_configuration:
-  source:
-    key: default

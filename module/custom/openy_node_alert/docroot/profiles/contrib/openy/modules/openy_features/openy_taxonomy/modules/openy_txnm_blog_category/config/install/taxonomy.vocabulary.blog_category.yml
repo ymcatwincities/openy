@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Blog Category'
-vid: blog_category
-description: 'Blog post categories.'
-hierarchy: 0
-weight: 0

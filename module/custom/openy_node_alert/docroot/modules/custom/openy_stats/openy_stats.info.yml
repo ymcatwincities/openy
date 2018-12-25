@@ -1,7 +1,0 @@
-name: OpenY Stats
-type: module
-description: 'Provides stats of OpenY core usage.'
-package: OpenY
-core: 8.x
-dependencies:
-  - rest:rest

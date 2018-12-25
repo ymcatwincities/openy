@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: node_type_activity
-action: page_not_found
-allow_override: 0
-redirect: ''
-redirect_code: 301

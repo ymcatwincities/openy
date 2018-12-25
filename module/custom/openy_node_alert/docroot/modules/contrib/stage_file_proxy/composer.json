@@ -1,8 +1,0 @@
-{
-  "name": "drupal/stage_file_proxy",
-  "description": "Provides stage_file_proxy module.",
-  "type": "drupal-module",
-  "license": "GPL-2.0+",
-  "minimum-stability": "dev",
-  "require": { }
-}

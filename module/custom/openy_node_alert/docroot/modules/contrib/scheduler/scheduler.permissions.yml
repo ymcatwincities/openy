@@ -1,9 +1,0 @@
-'administer scheduler':
-  title: 'Administer scheduler'
-  description: 'Configure scheduler date formats, pop-up calendar, default times, lightweight cron'
-'schedule publishing of nodes':
-  title: 'Schedule content publication'
-  description: 'Allows users to set a start and end time for content publication'
-'view scheduled content':
-  title: 'View scheduled content list'
-  description: 'Allows users to see all content which is scheduled.'

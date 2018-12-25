@@ -1,3 +1,0 @@
-field.value.tzfield:
-  type: field.value.string
-  label: 'Default value'

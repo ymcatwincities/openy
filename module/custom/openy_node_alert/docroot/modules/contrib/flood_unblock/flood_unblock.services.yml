@@ -1,4 +1,0 @@
-services:
-    flood_unblock.flood_unblock_manager:
-        class: Drupal\flood_unblock\FloodUnblockManager
-        arguments: ['@database', '@entity_type.manager']

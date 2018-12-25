@@ -1,7 +1,0 @@
-services:
-  openy_group_schedules.helper:
-    class: Drupal\openy_group_schedules\GroupexHelper
-    arguments: ['@config.factory']
-  openy_group_schedules.schedule_fetcher:
-    class: Drupal\openy_group_schedules\GroupexScheduleFetcher
-    arguments: ['@openy_group_schedules.helper', '@config.factory']

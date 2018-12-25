@@ -1,7 +1,0 @@
-services:
-  ymca_blog_listing.camp_blog_listing:
-    class: Drupal\ymca_blog_listing\YMCACampBlogListingBreadcrumbBuilder
-    arguments: ['@router.request_context', '@access_manager', '@router', '@path_processor_manager', '@config.factory',  '@title_resolver', '@current_user', '@path.current']
-    tags:
-      - { name: breadcrumb_builder, priority: 3800 }
-

@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: 1c
-label: '1 column'
-icon_uuid: null
-description: 'Paragraph with 1 column.'
-behavior_plugins: {  }

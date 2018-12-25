@@ -1,8 +1,0 @@
-.table-kids {
-  width: 50%;
-  margin: 0 auto; }
-  @media (max-width: 767px) {
-    .table-kids {
-      width: 100%; } }
-  .table-kids #age.form-control {
-    width: 30%; }

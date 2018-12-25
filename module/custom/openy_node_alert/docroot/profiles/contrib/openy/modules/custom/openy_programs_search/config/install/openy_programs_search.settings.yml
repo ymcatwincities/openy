@@ -1,8 +1,0 @@
-default_locations: []
-client_id: ''
-domain: 'daxko.com'
-base_url: 'https://operations.daxko.com'
-registration_path: '/Online/{{ client_id }}/Programs/Search.mvc/details'
-get_schools_by_program_path: '/Online/{{ client_id }}/Programs/ChildCareSearch.mvc/locations_by_program?program_id={{ program_id }}'
-get_categories_path: '/Online/{{ client_id }}/Programs/search.mvc/categories'
-get_map_categories_by_branch_path: '/Online/{{ client_id }}/Programs/search.mvc/categories?branch_id={{ branch_id }}'

@@ -1,5 +1,0 @@
-excluded:
-  - metatag.metatag_defaults.node__camp
-  - page_manager.page.youth_intervention_
-  - block_content.type.code_block
-required: true

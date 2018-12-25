@@ -1,4 +1,0 @@
-services:
-  plugin.manager.core.layout:
-    class: Drupal\Core\Layout\LayoutPluginManager
-    arguments: ['@container.namespaces', '@cache.discovery', '@module_handler', '@theme_handler']

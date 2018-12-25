@@ -1,5 +1,0 @@
-webform_bootstrap:
-  version: VERSION
-  css:
-    theme:
-      css/webform_bootstrap.css: {}

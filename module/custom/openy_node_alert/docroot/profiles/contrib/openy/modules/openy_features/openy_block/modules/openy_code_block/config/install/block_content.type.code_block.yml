@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: code_block
-label: 'Code Block'
-revision: 0
-description: 'A block with a code.'

@@ -1,6 +1,0 @@
-services:
-  entity_clone.route_subscriber:
-    class: Drupal\entity_clone\Routing\RouteSubscriber
-    arguments: ['@entity_type.manager']
-    tags:
-      - { name: event_subscriber }
