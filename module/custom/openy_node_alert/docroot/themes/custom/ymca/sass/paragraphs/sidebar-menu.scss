@@ -1,0 +1,85 @@
+.paragraph--type--sidebar-menu {
+  background: #d2d2d2;
+  -webkit-transition: background-color .2s ease-out;
+  -moz-transition: background-color .2s ease-out;
+  -ms-transition: background-color .2s ease-out;
+  transition: background-color .2s ease-out;
+  ul {
+    padding: 0;
+  }
+  li {
+    list-style: none;
+  }
+  > div > ul ul ul {
+    display: none;
+  }
+  > div > ul li.active-trail li.active-trail {
+    background-color: #ebebeb;
+    ul {
+      display: block;
+      li a {
+        padding: 10px 10px 10px 35px;
+        font-size: 13px;
+        font-family: 'Arial', sans-serif;
+        white-space: normal;
+        font-weight: normal;
+      }
+    }
+  }
+  > div > ul > li {
+    > a {
+      background: #434343;
+      display: block;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-family: 'Cachet', Verdana, Arial, sans-serif;
+      font-size: 20px;
+      border-bottom: 5px solid #000;
+      &:hover,
+      &:focus {
+        background: #434343;
+        color: white;
+      }
+    }
+  }
+  ul > li > a {
+    -webkit-transition: border-color .3s ease-out,background-color .2s ease-out,border-width 0s .3s linear,margin 0s .3s linear;
+    -moz-transition: border-color .3s ease-out,background-color .2s ease-out,border-width 0s .3s linear,margin 0s .3s linear;
+    -ms-transition: border-color .3s ease-out,background-color .2s ease-out,border-width 0s .3s linear,margin 0s .3s linear;
+    -o-transition: border-color .3s ease-out,background-color .2s ease-out,border-width 0s .3s linear,margin 0s .3s linear;
+    transition: border-color .3s ease-out,background-color .2s ease-out,border-width 0s .3s linear,margin 0s .3s linear;
+    position: relative;
+    border: 0 solid transparent;
+    cursor: pointer;
+    white-space: normal;
+    display: block;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-family: 'Cachet', Verdana, Arial, sans-serif;
+    text-decoration: none;
+    font-weight: bold;
+    color: #428bca;
+    &:hover,
+    &:focus {
+      background-color: #eee;
+      color: #333;
+    }
+    &.is-active {
+      color: #333;
+      &:after {
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        margin-top: -11px;
+        color: gray;
+        content: '>';
+        font-family: 'YMCA';
+      }
+      &:hover,
+      &:focus {
+        color: #333;
+      }
+    }
+  }
+}

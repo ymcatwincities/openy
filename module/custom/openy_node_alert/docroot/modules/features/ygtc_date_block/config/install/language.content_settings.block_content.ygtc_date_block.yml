@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.ygtc_date_block
+id: block_content.ygtc_date_block
+target_entity_type_id: block_content
+target_bundle: ygtc_date_block
+default_langcode: site_default
+language_alterable: false

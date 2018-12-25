@@ -1,0 +1,6 @@
+id: file_delete_action
+label: 'Delete file'
+status: true
+langcode: en
+type: file
+plugin: file_delete_action

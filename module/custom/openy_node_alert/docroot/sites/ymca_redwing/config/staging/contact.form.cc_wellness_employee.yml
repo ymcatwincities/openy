@@ -1,0 +1,28 @@
+uuid: b921f884-b58a-44d2-bb01-1ec0f111ad62
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: cc_wellness_employee
+label: 'Contact Corporate Wellness'
+recipients:
+  - Jason.Busta@ymcamn.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: 1
+submissionPageContent:
+  value: "<h2>Thanks for your interest in YMCA Corporate Wellness Programs.</h2>\r\n\r\n<article class=\"richtext\">\r\n<p>We’ll contact you within one to two business days to continue the conversation about corporate wellness programs at the YMCA.</p>\r\n\r\n<h3>Your Information:</h3>\r\n\r\n<p><strong>Name:&nbsp;</strong>[contact_message:field_first_name]&nbsp;[contact_message:field_last_name]<br />\r\n<strong>Email:</strong>&nbsp;[contact_message:field_email_address]<br />\r\n<strong>Phone:&nbsp;</strong>[contact_message:field_phone_number]<br />\r\n<strong>Preferred Y Location:</strong>&nbsp;[contact_message:field_preferred_y_text]<br />\r\n<strong>Type of Membership:</strong>&nbsp;[contact_message:field_membership_type]<br />\r\n<strong>The name of your company:</strong>&nbsp;[contact_message:field_company_name]<strong> </strong></p>\r\n\r\n<p class=\"button print-page\"><a>Print Confirmation</a></p>\r\n</article>\r\n"
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 1
+  subject: 'Form submission - Contact Corporate Wellness'
+  content:
+    value: "<p>A new submission was received from the \"Contact Corporate Wellness - Employee&nbsp;Form\"</p>\r\n\r\n<p>Here are the contents of the submission</p>\r\n\r\n<p>Submission Information</p>\r\n\r\n<p>First Name:&nbsp;[contact_message:field_first_name]</p>\r\n\r\n<p>Last Name:&nbsp;[contact_message:field_last_name]</p>\r\n\r\n<p>Email Address:&nbsp;[contact_message:field_email_address]</p>\r\n\r\n<p>Phone Number:&nbsp;[contact_message:field_phone_number]</p>\r\n\r\n<p>Location:&nbsp;[contact_message:field_preferred_y_text]</p>\r\n\r\n<p>Type of Membership:&nbsp;&nbsp;[contact_message:field_membership_type]</p>\r\n\r\n<p>The name of your company:&nbsp;[contact_message:field_company_name]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>YMCA Twin Cities Form Submission System</p>\r\n\r\n<p>Note: Do not reply to this e-mail: it is sent from an automated system.</p>\r\n"
+    format: full_html

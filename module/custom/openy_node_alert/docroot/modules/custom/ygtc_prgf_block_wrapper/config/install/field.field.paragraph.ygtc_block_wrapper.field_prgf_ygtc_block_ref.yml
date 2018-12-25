@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_ygtc_block_ref
+    - paragraphs.paragraphs_type.ygtc_block_wrapper
+  module:
+    - plugin
+id: paragraph.ygtc_block_wrapper.field_prgf_ygtc_block_ref
+field_name: field_prgf_ygtc_block_ref
+entity_type: paragraph
+bundle: ygtc_block_wrapper
+label: 'Block reference'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: 'plugin:block'

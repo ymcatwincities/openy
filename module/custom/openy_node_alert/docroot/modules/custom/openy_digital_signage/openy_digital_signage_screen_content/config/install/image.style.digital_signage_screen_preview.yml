@@ -1,0 +1,15 @@
+uuid: 33b8b65c-90ae-469a-a6f3-019ff2527985
+langcode: en
+status: true
+dependencies: {  }
+name: digital_signage_screen_preview
+label: 'Digital Signage Screen Preview'
+effects:
+  9acb1efd-f93d-485e-aaea-158df65ec08a:
+    uuid: 9acb1efd-f93d-485e-aaea-158df65ec08a
+    id: image_scale
+    weight: 1
+    data:
+      width: 200
+      height: null
+      upscale: false

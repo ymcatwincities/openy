@@ -1,0 +1,21 @@
+uuid: 7a3c14a1-7717-48e7-bc00-d7f43ec59338
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.camp_share_your_story
+    - field.storage.contact_message.field_decade
+  module:
+    - options
+id: contact_message.camp_share_your_story.field_decade
+field_name: field_decade
+entity_type: contact_message
+bundle: camp_share_your_story
+label: 'What decade is your story from? (optional)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: prgf_gallery
+label: 'Paragraph gallery'
+effects:
+  23ffa8b7-f753-4e46-903b-b1eb4b14b21e:
+    uuid: 23ffa8b7-f753-4e46-903b-b1eb4b14b21e
+    id: focal_point_scale_and_crop
+    weight: 2
+    data:
+      width: 1920
+      height: 700
+      crop_type: focal_point

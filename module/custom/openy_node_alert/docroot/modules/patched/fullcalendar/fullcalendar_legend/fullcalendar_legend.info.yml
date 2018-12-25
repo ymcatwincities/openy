@@ -1,0 +1,14 @@
+name: FullCalendar Legend
+type: module
+description: Show the bundle names of content types on a FullCalendar. Intended for use with FullCalendar Colors.
+# core: 8.x
+package: FullCalendar
+dependencies:
+  - fullcalendar
+  - block
+
+# Information added by Drupal.org packaging script on 2017-09-21
+version: '8.x-1.0-alpha2+71-dev'
+core: '8.x'
+project: 'fullcalendar'
+datestamp: 1505968751

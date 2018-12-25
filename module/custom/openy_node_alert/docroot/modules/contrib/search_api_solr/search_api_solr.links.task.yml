@@ -1,0 +1,8 @@
+search_api_solr.solr_config_form:
+  route_name: search_api_solr.solr_config_form
+  base_route: entity.search_api_server.canonical
+  title: 'Files'
+  weight: 5
+search_api_solr.entities:
+  class: \Drupal\Core\Menu\LocalTaskDefault
+  deriver: \Drupal\search_api_solr\Plugin\Derivative\DevelLocalTask

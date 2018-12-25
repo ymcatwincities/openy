@@ -1,0 +1,8 @@
+name: Digital Signage Classes Schedule
+type: module
+description: Digital Signage Classes Schedule.
+core: 8.x
+package: "OpenY: Digital Signage"
+dependencies:
+  - ds_datetime_range
+  - openy_digital_signage_room

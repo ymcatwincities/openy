@@ -1,0 +1,19 @@
+name: Open Y Paragraph Repeat Schedules
+description: Provides a dynamic paragraph to render repeat schedules.
+type: module
+core: 8.x
+package: Open Y
+dependencies:
+  - datalayer
+  - field
+  - link
+  - node
+  - openy_loc_branch
+  - openy_node_activity
+  - openy_node_category
+  - openy_node_landing
+  - openy_prgf
+  - openy_repeat
+  - paragraphs
+  - plugin
+version: 8.x-1.1-ygtconly

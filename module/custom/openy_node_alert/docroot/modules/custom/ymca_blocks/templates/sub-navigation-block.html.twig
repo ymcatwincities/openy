@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Sub navigation template.
+ *
+ * Available variables:
+ * - content: Block content.
+ *
+ * @ingroup themeable
+ */
+#}
+<div id="nav-location" class="nav-location hidden-xs navbar-inverse navbar">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <ul class="nav nav-tabs nav-justified">
+          {% for item in content.active_menu_tree.children %}
+            {% for child in item.children %}
+              {% if child.active == true %}
+                <li class="{% if child.current %} current active {% endif %}">
+                  <a class="home" href="{{ child.url }}" ></a>
+                </li>
+                {% for subchild in child.children %}
+                  {% if subchild.page_name != 'Join'|t and subchild.page_name != 'Register'|t %}
+                    <li class="{% if subchild.active %} current active {% endif %}">
+                      <a href="{{ subchild.url }}">{{ subchild.page_name }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

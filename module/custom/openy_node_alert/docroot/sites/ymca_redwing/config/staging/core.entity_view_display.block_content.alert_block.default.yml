@@ -1,0 +1,28 @@
+uuid: 35da3bc1-928f-4799-b100-c8e85410cc4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.field.block_content.alert_block.field_block_content
+    - field.field.block_content.alert_block.field_end_date
+    - field.field.block_content.alert_block.field_global_alert
+    - field.field.block_content.alert_block.field_start_date
+  module:
+    - text
+id: block_content.alert_block.default
+targetEntityType: block_content
+bundle: alert_block
+mode: default
+content:
+  field_block_content:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+hidden:
+  field_end_date: true
+  field_global_alert: true
+  field_start_date: true
+  langcode: true

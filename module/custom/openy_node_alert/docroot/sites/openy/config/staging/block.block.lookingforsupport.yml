@@ -1,0 +1,31 @@
+uuid: 3cfc7101-fe8a-4fe9-a800-a97c8c6bb724
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:4e10a153-649d-4594-8f04-4ef6d962cf56'
+  module:
+    - block_content
+    - system
+  theme:
+    - multipurpose_business_theme
+id: lookingforsupport
+theme: multipurpose_business_theme
+region: '-1'
+weight: -2
+provider: null
+plugin: 'block_content:4e10a153-649d-4594-8f04-4ef6d962cf56'
+settings:
+  id: 'block_content:4e10a153-649d-4594-8f04-4ef6d962cf56'
+  label: 'looking for support?'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /faq
+    negate: false
+    context_mapping: {  }

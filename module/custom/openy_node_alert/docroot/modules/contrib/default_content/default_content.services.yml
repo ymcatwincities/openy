@@ -1,0 +1,15 @@
+parameters:
+  default_content.link_domain: 'http://drupal.org'
+services:
+  default_content.scanner:
+    class: Drupal\default_content\Scanner
+  default_content.importer:
+    class: Drupal\default_content\Importer
+    arguments: ['@serializer', '@entity_type.manager', '@hal.link_manager', '@event_dispatcher', '@default_content.scanner', '%default_content.link_domain%', '@account_switcher']
+  default_content.exporter:
+    class: Drupal\default_content\Exporter
+    arguments: ['@serializer', '@entity_type.manager', '@entity.repository', '@hal.link_manager', '@event_dispatcher', '@module_handler', '@info_parser', '%default_content.link_domain%']
+  default_content.config_subscriber:
+    class: Drupal\default_content\Config\DefaultContentConfigSubscriber
+    arguments: ['@default_content.importer']
+    tags: [{ name: event_subscriber }]

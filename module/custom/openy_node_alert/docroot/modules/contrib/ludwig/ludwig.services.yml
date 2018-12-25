@@ -1,0 +1,8 @@
+services:
+  ludwig.package_manager:
+    class: Drupal\ludwig\PackageManager
+    arguments: ['@app.root']
+
+  ludwig.package_downloader:
+    class: Drupal\ludwig\PackageDownloader
+    arguments: ['@plugin.manager.archiver', '@file_system', '@http_client', '@app.root']

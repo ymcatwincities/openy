@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.file.image.field_image_alt_text
+    - field.field.file.image.field_image_title_text
+    - file_entity.type.image
+id: file.image.default
+label: null
+targetEntityType: file
+bundle: image
+mode: default
+content:
+  field_image_alt_text:
+    type: string
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    label: above
+  field_image_title_text:
+    type: string
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    label: above
+hidden: {  }

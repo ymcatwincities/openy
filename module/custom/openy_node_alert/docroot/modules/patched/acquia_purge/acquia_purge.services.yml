@@ -1,0 +1,9 @@
+services:
+  acquia_purge.hostinginfo:
+    class: Drupal\acquia_purge\HostingInfo
+    arguments: ['@request_stack', '@settings']
+    public: true
+  http_client_middleware.acquia_purge:
+    class: Drupal\acquia_purge\Http\LoadBalancerMiddleware
+    tags:
+      - { name: http_client_middleware }

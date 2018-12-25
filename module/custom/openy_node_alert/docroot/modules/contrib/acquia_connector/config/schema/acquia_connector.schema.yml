@@ -1,0 +1,372 @@
+# Schema for the configuration files of the acquia_connector module.
+
+acquia_connector.settings:
+  type: config_object
+  label: 'Acquia connector settings'
+  mapping:
+    subscription_data:
+      label: 'Acquia subscription data'
+      type: mapping
+      mapping:
+        timestamp:
+          type: integer
+        active:
+          type: boolean
+        href:
+          type: string
+        uuid:
+          type: string
+        subscription_name:
+          type: string
+        expiration_date:
+          type: mapping
+          mapping:
+            value:
+              type: string
+              label: 'Acquia subscription expiration date'
+        product:
+          type: mapping
+          mapping:
+            view:
+              type: string
+        derived_key_salt:
+          type: string
+        update_service:
+          type: string
+        search_service_enabled:
+          type: integer
+        rpc_version:
+          type: string
+        update:
+          type: sequence
+        heartbeat_data:
+          type: mapping
+          mapping:
+            search_service_enabled:
+              type: integer
+            search_cores:
+              type: sequence
+              sequence:
+                type: mapping
+                mapping:
+                  balancer:
+                    type: string
+                  core_id:
+                    type: string
+                  version:
+                    type: string
+    subscription_name:
+      type: string
+      lable: 'Acquia Subscripiton Name'
+    debug:
+      type: boolean
+      label: 'Is debug mode active'
+    cron_interval:
+      type: integer
+      label: 'Interval for sending site profile, minutes'
+    cron_interval_override:
+      type: integer
+      label: 'Override for cron_interval, minutes'
+    banner_service:
+      type: string
+      label: 'Acquia banner service uri'
+    hide_signup_messages:
+      type: integer
+      label: 'Hide signup messages'
+    spi:
+      type: mapping
+      label: 'SPI'
+      mapping:
+        server:
+          type: string
+          label: 'Acquia SPI server'
+        ssl_override:
+          type: boolean
+          label: 'Do not requre secure connection'
+        ssl_verify:
+          type: boolean
+          label: 'Verify SSL'
+        def_vars:
+          type: sequence
+          label: 'SPI definition variables'
+          sequence:
+            - type: mapping
+              label: 'Variable'
+              mapping:
+                optional:
+                  type: integer
+                descripiton:
+                  type: string
+        def_waived_vars:
+          type: sequence
+          label: 'Waived vars'
+          sequence:
+            - type: string
+              label: 'Variable'
+        def_timestamp:
+          type: integer
+          label: 'Last update of SPI definition data'
+        new_optional_data:
+          type: integer
+          label: 'New optional data'
+        admin_priv:
+          type: integer
+          label: 'Allow collection of Admin privileges'
+        send_node_user:
+          type: integer
+          label: 'Allow collection of Nodes and users'
+        send_watchdog:
+          type: integer
+          label: 'Allow collection of Watchdog logs'
+        module_diff_data:
+          type: integer
+          label: 'Allow collection of Source code'
+        use_cron:
+          type: integer
+          label: 'Send via Drupal cron'
+        dynamic_banner:
+          type: integer
+          label: 'Receive updates from Acquia Subscription'
+        set_variables_override:
+          type: integer
+          label: 'Allow Insight to update list of approved variables'
+        set_variables_automatic:
+          type: sequence
+          label: 'List of approved variables'
+          sequence:
+            - type: string
+              label: 'Variable'
+        ignored_set_variables:
+          type: sequence
+          label: 'List of ignored variables'
+        saved_variables:
+          type: mapping
+          label: 'Saved variables'
+          mapping:
+            variables:
+              type: sequence
+              label: 'Saved variables from the Acquia Subscription'
+              sequence:
+                - type: string
+                  label: 'Variable'
+            time:
+              type: integer
+              label: 'Last update of variables'
+        cron_interval:
+          type: integer
+          label: 'Cron interval for failed logins data, sec'
+    mapping:
+      type: mapping
+      mapping:
+        acquia_spi_send_node_user:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        acquia_spi_send_node_user:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        acquia_spi_admin_priv:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        acquia_spi_module_diff_data:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        acquia_spi_send_watchdog:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        acquia_spi_use_cron:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        cache_backends:
+          type: sequence
+        cache_default_class:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        cache_inc:
+          type: sequence
+        cron_safe_threshold:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        googleanalytics_cache:
+          type: sequence
+        error_level:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        preprocess_js:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        page_cache_maximum_age:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+            - type: string
+        block_cache:
+          type: sequence
+        preprocess_css:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        page_compression:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        cron_last:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        clean_url:
+          type: sequence
+        redirect_global_clean:
+          type: sequence
+        theme_zen_settings:
+          type: sequence
+        site_offline:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        site_name:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        user_register:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        user_signatures:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        user_admin_role:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        user_email_verification:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        user_cancel_method:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        filter_fallback_format:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        dblog_row_limit:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        date_default_timezone:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        file_default_scheme:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        install_profile:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        maintenance_mode:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        update_last_check:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        site_default_country:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        acquia_spi_saved_variables:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        acquia_spi_set_variables_automatic:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        acquia_spi_ignored_set_variables:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        acquia_spi_set_variables_override:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        fast_404:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+            - type: string
+        allow_insecure_uploads:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string
+        http_response_debug_cacheability_headers:
+          type: sequence
+          sequence:
+            - type: string
+            - type: string

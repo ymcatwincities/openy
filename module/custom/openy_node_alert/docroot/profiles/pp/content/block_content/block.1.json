@@ -1,0 +1,58 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/block\/1?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/block_content\/basic"
+        }
+    },
+    "uuid": [
+        {
+            "value": "563975cc-7a52-48fa-b30c-12c54d0cb863"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "info": [
+        {
+            "value": "Social Icons Footer",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "basic"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1445332873",
+            "lang": "en"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "body": [
+        {
+            "value": "<ul class=\"list-inline\"><li>\r\n\t\t<a class=\"social-icon icon-facebook\" href=\"http:\/\/www.facebook.com\/YMCATwinCities\" target=\"_blank\">Facebook<\/a>\r\n\t<\/li>\r\n\t<li>\r\n\t\t<a class=\"social-icon icon-twitter\" href=\"http:\/\/twitter.com\/ymcatwincities\" target=\"_blank\">Twitter<\/a>\r\n\t<\/li>\r\n\t<li>\r\n\t\t<a class=\"social-icon icon-youtube\" href=\"http:\/\/www.youtube.com\/user\/YMCATwinCities\" target=\"_blank\">YouTube<\/a>\r\n\t<\/li>\r\n\t<li>\r\n\t\t<a class=\"social-icon icon-flickr\" href=\"http:\/\/www.flickr.com\/photos\/ymcatwincities\" target=\"_blank\">Flickr<\/a>\r\n\t<\/li>\r\n<\/ul>",
+            "format": "full_html",
+            "summary": "",
+            "lang": "en"
+        }
+    ]
+}

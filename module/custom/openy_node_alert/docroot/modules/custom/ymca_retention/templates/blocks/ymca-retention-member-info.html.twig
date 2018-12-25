@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Display member info/progress.
+ */
+#}
+<div class="member-info">
+  <div class="row">
+    <div class="container">
+      <div class="col-xs-12 col-sm-7 member-info--general">
+        <div class="member-info--name-goal">
+          <img src="{{ base_path }}themes/custom/ymca/prototypes/ysr/img/reporting/person.png" alt="{{ 'Person'|t }}" class="person-icon">
+          <h3>{{ 'Hello'|t }}, {{ member.name }}</h3>
+          <span class="member-info--goal">
+              {{ 'Your goal is'|t }}:
+              <span class="member-info--goal-value">
+                {{ member.goal }} {{ 'visits'|t }}
+              </span>
+            </span>
+        </div>
+
+        <div class="member-info--progress-bar">
+          <div class="member-info--progress-bar--value" style="width: {{ member.percentage }}%;">{{ member.visits }}</div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-5 member-info--stats">
+        <div class="member-info--stats--wrapper">
+          {% if member.rank is not same as(0) %}
+            <span class="rank">
+              {{ member.rank }} {{ 'rank'|t }}
+            </span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

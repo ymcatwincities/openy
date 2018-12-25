@@ -1,0 +1,11 @@
+uuid: 45d9a4f1-b764-41b6-8700-c54850e2b0e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.camp
+id: node.camp
+target_entity_type_id: node
+target_bundle: camp
+default_langcode: site_default
+language_alterable: false

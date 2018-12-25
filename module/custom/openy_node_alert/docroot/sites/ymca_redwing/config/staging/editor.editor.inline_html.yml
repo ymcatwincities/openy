@@ -1,0 +1,35 @@
+uuid: 00292bc3-8c9a-462a-ab02-2bd929f56f87
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.inline_html
+  module:
+    - ckeditor
+format: inline_html
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Bold
+            - Italic
+        -
+          name: Links
+          items:
+            - DrupalLink
+            - DrupalUnlink
+  plugins:
+    stylescombo:
+      styles: ''
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

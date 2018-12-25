@@ -1,0 +1,20 @@
+uuid: 334a23af-5d47-4ac4-9c6a-a527acc55659
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_google_event
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_google_event
+field_name: field_gg_google_event
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Google Event'
+description: 'Serialized Google event object.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

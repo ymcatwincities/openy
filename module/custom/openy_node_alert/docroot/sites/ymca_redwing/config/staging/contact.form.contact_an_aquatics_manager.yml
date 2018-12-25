@@ -1,0 +1,28 @@
+uuid: 8561d827-4203-4811-9611-1711b7216cca
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: contact_an_aquatics_manager
+label: 'Contact an aquatics manager'
+recipients:
+  - Shannon.kinstler@ymcamn.org
+reply: ''
+weight: 0
+prefix: '<div class="row"><div class="col-md-8">'
+suffix: '</div></div>'
+provideSubmissionPage: 1
+submissionPageContent:
+  value: "<article class=\"richtext\" id=\"component_521120\">\r\n<h2>Thanks for your interest in YMCA swim lessons and swim assessments.</h2>\r\n</article>\r\n\r\n<article class=\"richtext\" id=\"component_521124\">\r\n<h3>Your Information:</h3>\r\n\r\n<p><strong>Name:&nbsp;</strong>[contact_message:field_first_name]&nbsp;[contact_message:field_last_name]<br />\r\n<strong>Email:&nbsp;</strong>[contact_message:field_email_address]<br />\r\n<strong>Phone:&nbsp;</strong>[contact_message:field_phone_number]<br />\r\n<strong><strong>Preferred Location:</strong>&nbsp;</strong>[contact_message:field_y_location_email]<br />\r\n<strong>Preferred Contact Method:</strong>&nbsp;[contact_message:field_contact_method]</p>\r\n\r\n<p>&nbsp;</p>\r\n</article>\r\n\r\n<article class=\"richtext\" id=\"component_521194\">\r\n<p>An Aquatics team member will be in touch within 48 business hours.</p>\r\n</article>\r\n"
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 1
+  subject: 'Swim Academy Inquiry from the YGTC Website for the [contact_message:field_y_location_email] Location'
+  content:
+    value: "<p>A new registration was received from the 'Contact an Aquatics Manager' Registration block.</p>\r\n\r\n<p>Here are the contents of the registration:</p>\r\n\r\n<p>Enter Your Information:<br />\r\nFirst Name:&nbsp;[contact_message:field_first_name]<br />\r\nLast Name:&nbsp;[contact_message:field_last_name]</p>\r\n\r\n<p>Email:&nbsp;[contact_message:field_email_address]<br />\r\nPhone Number:&nbsp;[contact_message:field_phone_number]<br />\r\nPrefered Y Location:&nbsp;[contact_message:field_y_location_email]<br />\r\nWhat is your preferred contact method?:&nbsp;[contact_message:field_contact_method]<br />\r\nHow can we help?:&nbsp;[contact_message:field_comments]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Thank you, and have a nice day.</p>\r\n\r\n<p>YMCA Twin Cities Registration System</p>\r\n\r\n<p>Note: Do not reply to this e-mail; it is sent from an automated system.</p>\r\n"
+    format: full_html

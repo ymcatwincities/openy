@@ -1,0 +1,19 @@
+uuid: 63a7678b-8ae9-4159-bb06-6ba9b49cb9eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_email_address
+id: contact_message.become_a_supplier.field_email_address
+field_name: field_email_address
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Primary Contact E-mail Address'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

@@ -1,0 +1,8 @@
+name: Gardengnome Player
+type: module
+description: Display Gardengnome Pano2vr and Object2vr packages in Drupal
+core: 8.x
+package: YMCA
+dependencies:
+  - file
+  - image

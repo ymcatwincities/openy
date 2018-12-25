@@ -1,0 +1,12 @@
+name: Open Y Paragraph Promo Card
+description: Provides a paragraph to display Promo card.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - field
+  - link
+  - openy_prgf
+  - paragraphs
+  - text

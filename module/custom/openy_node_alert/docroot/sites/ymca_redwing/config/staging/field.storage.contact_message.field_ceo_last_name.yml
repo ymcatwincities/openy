@@ -1,0 +1,21 @@
+uuid: 1ea3cd83-867b-4fc7-b600-fc37323c8cd5
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+id: contact_message.field_ceo_last_name
+field_name: field_ceo_last_name
+entity_type: contact_message
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

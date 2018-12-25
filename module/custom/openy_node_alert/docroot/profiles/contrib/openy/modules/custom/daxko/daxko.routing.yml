@@ -1,0 +1,7 @@
+daxko.settings:
+  path: '/admin/config/services/daxko'
+  defaults:
+    _form: '\Drupal\daxko\Form\SettingsForm'
+    _title: 'Daxko settings'
+  requirements:
+    _permission: 'administer daxko'

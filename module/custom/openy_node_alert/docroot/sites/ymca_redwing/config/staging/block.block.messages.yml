@@ -1,0 +1,20 @@
+uuid: e7058dc6-04bb-4969-9e00-f092976adec2
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - ymca
+id: messages
+theme: ymca
+region: highlighted
+weight: -10
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Messages
+  provider: system
+  label_display: '0'
+visibility: {  }

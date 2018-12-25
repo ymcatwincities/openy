@@ -1,0 +1,29 @@
+uuid: 34de7057-4ed6-4222-8400-b3a9388e39bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.working_hours_block
+    - field.storage.block_content.field_workout_child_care
+  module:
+    - ymca_field_office_hours
+id: block_content.working_hours_block.field_workout_child_care
+field_name: field_workout_child_care
+entity_type: block_content
+bundle: working_hours_block
+label: 'Workout Child Care'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    hours_mon: '9am - 10pm'
+    hours_tue: '9am - 10pm'
+    hours_wed: '9am - 10pm'
+    hours_thu: '9am - 10pm'
+    hours_fri: '9am - 10pm'
+    hours_sat: '9am - 10pm'
+    hours_sun: '9am - 10pm'
+default_value_callback: ''
+settings: {  }
+field_type: ymca_office_hours

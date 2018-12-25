@@ -1,0 +1,9 @@
+services:
+  ymca_search_alter.route_subscriber:
+    class: Drupal\ymca_search_alter\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  ymca_search_alter.breadcrumb:
+    class: Drupal\ymca_search_alter\SearchResultsBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder, priority: 3700 }

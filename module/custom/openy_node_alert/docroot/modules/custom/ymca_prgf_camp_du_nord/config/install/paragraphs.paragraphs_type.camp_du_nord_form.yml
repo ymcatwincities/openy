@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: camp_du_nord_form
+label: 'Camp du Nord Search Form'
+behavior_plugins: {  }

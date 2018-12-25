@@ -1,0 +1,52 @@
+uuid: c8c72920-ce80-4624-9a05-dea1daf7c13b
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_camp_pepin
+    - field.field.contact_message.contact_camp_pepin.field_address
+    - field.field.contact_message.contact_camp_pepin.field_contact_preferences
+    - field.field.contact_message.contact_camp_pepin.field_phone_number
+  module:
+    - address
+    - ymca_alters
+id: contact_message.contact_camp_pepin.default
+targetEntityType: contact_message
+bundle: contact_camp_pepin
+mode: default
+content:
+  field_address:
+    weight: 0
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_contact_preferences:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_phone_number:
+    weight: 2
+    settings:
+      validate_pattern: ''
+      validate_message: ''
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  mail:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  message:
+    type: string_textarea
+    weight: 3
+    settings:
+      rows: 12
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  copy: true
+  langcode: true
+  name: true
+  subject: true

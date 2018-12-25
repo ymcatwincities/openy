@@ -1,0 +1,21 @@
+# Personify MindBody Cache routing definition
+personify_mindbody_cache.settings_tab:
+  route_name: personify_mindbody_cache.settings
+  title: 'Settings'
+  base_route: personify_mindbody_cache.settings
+entity.personify_mindbody_cache.canonical:
+  route_name: entity.personify_mindbody_cache.canonical
+  base_route: entity.personify_mindbody_cache.canonical
+  title: 'View'
+
+entity.personify_mindbody_cache.edit_form:
+  route_name: entity.personify_mindbody_cache.edit_form
+  base_route: entity.personify_mindbody_cache.canonical
+  title: Edit
+
+entity.personify_mindbody_cache.delete_form:
+  route_name:  entity.personify_mindbody_cache.delete_form
+  base_route:  entity.personify_mindbody_cache.canonical
+  title: Delete
+  weight: 10
+

@@ -1,0 +1,10 @@
+plugin.plugin_configuration.search_api_solr_connector.basic_auth:
+  type: plugin.plugin_configuration.search_api_solr_connector.standard
+  label: 'Search API Solr basic authentication connector settings'
+  mapping:
+    username:
+      type: string
+      label: 'Username for HTTP basic authentication'
+    password:
+      type: string
+      label: 'Password for HTTP basic authentication'

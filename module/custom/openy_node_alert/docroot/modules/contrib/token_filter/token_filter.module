@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Core functions for the Token Filter module.
+ */
+
+use Drupal\Core\Entity\ContentEntityInterface;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function token_filter_preprocess_field(&$variables) {
+  if (isset($variables['element']['#object']) && $variables['element']['#object'] instanceof ContentEntityInterface) {
+    $entity = &drupal_static('token_filter_entity');
+    $entity = $variables['element']['#object'];
+  }
+}

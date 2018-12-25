@@ -1,0 +1,5 @@
+mindbody.settings:
+  title: MindBody API
+  route_name: mindbody.settings
+  parent: system.admin_config_system
+  description: 'MindBody API settings.'

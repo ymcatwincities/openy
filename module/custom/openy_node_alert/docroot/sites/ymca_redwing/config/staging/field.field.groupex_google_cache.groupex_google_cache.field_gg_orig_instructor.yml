@@ -1,0 +1,20 @@
+uuid: fd5fa42d-b4da-4b03-abfa-500ecc6c6b9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.groupex_google_cache.field_gg_orig_instructor
+  module:
+    - ymca_groupex_google_cache
+id: groupex_google_cache.groupex_google_cache.field_gg_orig_instructor
+field_name: field_gg_orig_instructor
+entity_type: groupex_google_cache
+bundle: groupex_google_cache
+label: 'Groupex Original Instructor'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

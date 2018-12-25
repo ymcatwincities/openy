@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install functions for the Custom Formatters module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function custom_formatters_install() {
+  \Drupal::service('plugin.manager.field.formatter')
+    ->clearCachedDefinitions();
+}

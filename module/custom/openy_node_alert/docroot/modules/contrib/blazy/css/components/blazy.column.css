@@ -1,0 +1,223 @@
+/**
+ * @file
+ * Experimental: CSS3 multi-column.
+ *
+ * column-count is the maximum number of columns and column-width is the minimum
+ * width for those columns.
+ * Gets consistent with Grid Foundation even if non-BEM classes.
+ * Note: The reason for making column-width somewhat flexible is to achieve
+ * scalable designs that can fit many screen sizes. To set an exact column
+ * width, the column gap and the width of the multicol element (assuming
+ * horizontal text) must also be specified.
+ * @todo: Consider BEM classes at version 2.x, or so.
+ */
+
+[class*="block-column-"],
+[class*="block-column-"] * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+[class*="block-column-"],
+.item-list > [class*="block-column-"] {
+  display: block;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/** https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside */
+[class*="block-column-"] > .grid {
+  display: block;
+  float: none;
+  height: auto;
+  overflow: hidden;
+  -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
+  page-break-inside: avoid; /* Deprecated Firefox, works at 49.0.2 */
+  -moz-column-break-inside: avoid; /* Current Firefox, but no joy */
+  break-inside: avoid; /* IE 10+ */
+  break-inside: avoid-column;
+}
+
+[class*="block-column-"] > .grid ,
+.item-list > [class*="block-column-"] > .grid {
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+/** Fix for broken break-inside with extremely tall grid for FF. */
+[class*="block-column-"] .grid__content {
+  display: inline-block;
+  margin: 0;
+  max-width: 100%;
+  vertical-align: top;
+  width: 100%;
+}
+
+/** 480px with 16px base font. */
+@media only screen and (min-width: 30em) {
+  .small-block-column-1 {
+    -webkit-columns: 30em 1;
+    -moz-columns: 30em 1;
+    columns: 30em 1;
+  }
+
+  .small-block-column-2 {
+    -webkit-columns: 15em 2;
+    -moz-columns: 15em 2;
+    columns: 15em 2;
+  }
+}
+
+/** 641px with 16px base font. */
+@media only screen and (min-width: 40.063em) {
+  .medium-block-column-1 {
+    -webkit-columns: 40.063em 1;
+    -moz-columns: 40.063em 1;
+    columns: 40.063em 1;
+  }
+
+  .medium-block-column-2 {
+    -webkit-columns: 20.0315em 2;
+    -moz-columns: 20.0315em 2;
+    columns: 20.0315em 2;
+  }
+
+  .medium-block-column-3 {
+    -webkit-columns: 3 auto;
+    -moz-columns: 3 auto;
+    columns: 3 auto;
+  }
+
+  .medium-block-column-4 {
+    -webkit-columns: 4 auto;
+    -moz-columns: 4 auto;
+    columns: 4 auto;
+  }
+
+  .medium-block-column-5 {
+    -webkit-columns: 5 auto;
+    -moz-columns: 5 auto;
+    columns: 5 auto;
+  }
+
+  .medium-block-column-6 {
+    -webkit-columns: 6 auto;
+    -moz-columns: 6 auto;
+    columns: 6 auto;
+  }
+
+  .medium-block-column-7 {
+    -webkit-columns: 7 auto;
+    -moz-columns: 7 auto;
+    columns: 7 auto;
+  }
+
+  .medium-block-column-8 {
+    -webkit-columns: 8 auto;
+    -moz-columns: 8 auto;
+    columns: 8 auto;
+  }
+
+  .medium-block-column-9 {
+    -webkit-columns: 9 auto;
+    -moz-columns: 9 auto;
+    columns: 9 auto;
+  }
+
+  .medium-block-column-10 {
+    -webkit-columns: 10 auto;
+    -moz-columns: 10 auto;
+    columns: 10 auto;
+  }
+
+  .medium-block-column-11 {
+    -webkit-columns: 11 auto;
+    -moz-columns: 11 auto;
+    columns: 11 auto;
+  }
+
+  .medium-block-column-12 {
+    -webkit-columns: 12 auto;
+    -moz-columns: 12 auto;
+    columns: 12 auto;
+  }
+}
+
+/** 1025px with 16px base font. */
+@media only screen and (min-width: 64.063em) {
+  .large-block-column-1 {
+    -webkit-columns: 64.063em 1;
+    -moz-columns: 64.063em 1;
+    columns: 64.063em 1;
+  }
+
+  .large-block-column-2,
+  .large-block-column-3.block-count-2,
+  .large-block-column-4.block-count-2 {
+    -webkit-columns: 32.0315em 2;
+    -moz-columns: 32.0315em 2;
+    columns: 32.0315em 2;
+  }
+
+  .large-block-column-3,
+  .large-block-column-4.block-count-3 {
+    -webkit-columns: 3 auto;
+    -moz-columns: 3 auto;
+    columns: 3 auto;
+  }
+
+  .large-block-column-4 {
+    -webkit-columns: 4 auto;
+    -moz-columns: 4 auto;
+    columns: 4 auto;
+  }
+
+  .large-block-column-5 {
+    -webkit-columns: 5 auto;
+    -moz-columns: 5 auto;
+    columns: 5 auto;
+  }
+
+  .large-block-column-6 {
+    -webkit-columns: 6 auto;
+    -moz-columns: 6 auto;
+    columns: 6 auto;
+  }
+
+  .large-block-column-7 {
+    -webkit-columns: 7 auto;
+    -moz-columns: 7 auto;
+    columns: 7 auto;
+  }
+
+  .large-block-column-8 {
+    -webkit-columns: 8 auto;
+    -moz-columns: 8 auto;
+    columns: 8 auto;
+  }
+
+  .large-block-column-9 {
+    -webkit-columns: 9 auto;
+    -moz-columns: 9 auto;
+    columns: 9 auto;
+  }
+
+  .large-block-column-10 {
+    -webkit-columns: 10 auto;
+    -moz-columns: 10 auto;
+    columns: 10 auto;
+  }
+
+  .large-block-column-11 {
+    -webkit-columns: 11 auto;
+    -moz-columns: 11 auto;
+    columns: 11 auto;
+  }
+
+  .large-block-column-12 {
+    -webkit-columns: 12 auto;
+    -moz-columns: 12 auto;
+    columns: 12 auto;
+  }
+}

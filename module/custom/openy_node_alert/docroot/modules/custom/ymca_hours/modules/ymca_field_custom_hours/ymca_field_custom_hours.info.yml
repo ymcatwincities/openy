@@ -1,0 +1,7 @@
+name: YMCA Field Custom Hours
+type: module
+description: Add YMCA hours field with custom title
+core: 8.x
+package: YMCA
+dependencies:
+  - ymca_hours

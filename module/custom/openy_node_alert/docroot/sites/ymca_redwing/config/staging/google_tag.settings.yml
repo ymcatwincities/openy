@@ -1,0 +1,15 @@
+container_id: GTM-888888
+path_toggle: all_except_listed
+path_list: "admin*\r\nbatch*\r\nnode/add*\r\nnode/*/*\r\nuser/*/*"
+role_toggle: all_except_listed
+role_list:
+  anonymous: '0'
+  authenticated: '0'
+  administrator: '0'
+  editor: '0'
+  location_editor: '0'
+  contributor: '0'
+  intern: '0'
+status_toggle: false
+status_list: "403\r\n404"
+compact_tag: true

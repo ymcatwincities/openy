@@ -1,0 +1,7 @@
+ymca_mindbody:
+  version: VERSION
+  js:
+    js/ymca_mindbody.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings

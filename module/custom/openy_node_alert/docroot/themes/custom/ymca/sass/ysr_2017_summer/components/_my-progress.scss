@@ -1,0 +1,205 @@
+#my-progress-block {
+  @include rem(margin-bottom, 23px);
+  @include rem(padding, 0 16px);
+
+  @include breakpoint($tablet) {
+    @include rem(margin-bottom, 76px);
+    @include rem(padding, 34px 145px 0);
+  }
+}
+
+.my-progress {
+
+  &--goal {
+    @include cachet();
+    @include rem(font-size, 20px);
+    @include rem(padding-top, 13px);
+    display: block;
+    text: {
+      align: center;
+      transform: uppercase;
+    }
+    white-space: nowrap;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 25px);
+      @include rem(padding-bottom, 16px);
+      padding-top: 0;
+    }
+
+    &-value {
+      color: $blue-dark;
+      font-weight: bold;
+    }
+
+    &-number {
+      @include rem(font-size, 30px);
+      @include breakpoint($tablet) {
+        @include rem(font-size, 40px);
+      }
+    }
+  }
+
+  &--visits {
+    @include rem(font-size, 16px);
+    text-transform: none;
+  }
+}
+
+.compain-progress {
+  @include rem(margin, 0 13px 12px);
+  position: relative;
+  color: $green-light;
+  clear: both;
+
+  @include breakpoint($tablet) {
+    @include rem(margin, 0 auto 30px);
+  }
+
+  &--info {
+    @include cachet-bold();
+    @include rem(font-size, 16px);
+    @include rem(line-height, 28px);
+    @include rem(width, 26px);
+    @include rem(height, 26px);
+    border: 2px solid rgba($green-dark, 0.2);
+    border-radius: 50%;
+    background-color: $white;
+    position: absolute;
+    right: -13px;
+    text-align: center;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 12;
+
+    @include breakpoint($tablet) {
+      @include rem(width, 58px);
+      @include rem(height, 58px);
+      right: -28px;
+    }
+
+    &:before {
+      background: $blue;
+      position: absolute;
+      z-index: -1;
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+      border-radius: 50%;
+      @include breakpoint($tablet) {
+        top: 7px;
+        left: 7px;
+        right: 7px;
+        bottom: 7px;
+      }
+      .compain-progress--fill-5--5 &,
+      .compain-progress--fill-6--6 &,
+      .compain-progress--fill-7--7 &,
+      .compain-progress--fill-8--8 &,
+      .compain-progress--fill-9--9 &,
+      .compain-progress--fill-10--10 & {
+        content: '';
+      }
+    }
+
+    .text {
+      display: none;
+    }
+  }
+
+  .line {
+    width: 0;
+  }
+
+  &--fill {
+    @include progress-bar-fill(5);
+    @include progress-bar-fill(6);
+    @include progress-bar-fill(7);
+    @include progress-bar-fill(8);
+    @include progress-bar-fill(9);
+    @include progress-bar-fill(10);
+  }
+
+  &--line {
+    @include rem(height, 4px);
+    @include rem(margin, 26px 0);
+    width: 100%;
+    @include breakpoint($tablet) {
+      @include rem(height, 6px);
+    }
+
+    &:before {
+        border-bottom: 6px dotted rgba($green-dark, 0.2);
+        content: '';
+        @include rem(height, 6px);
+        left: 0;
+        margin-top: -3px;
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        z-index: 10;
+    }
+
+    .line {
+      background: $blue;
+      height: 100%;
+      position: relative;
+      z-index: 15;
+      @include breakpoint($tablet) {
+        display: block;
+      }
+    }
+
+    .point {
+      @include rem(width, 26px);
+      @include rem(height, 26px);
+      border: 2px solid rgba($green-dark, 0.2);
+      border-radius: 50%;
+      background-color: $white;
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      z-index: 12;
+      @include breakpoint($tablet) {
+        @include rem(width, 58px);
+        @include rem(height, 58px);
+      }
+
+      &:before {
+        background: $blue;
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+        bottom: 2px;
+        border-radius: 50%;
+        @include breakpoint($tablet) {
+          top: 7px;
+          left: 7px;
+          right: 7px;
+          bottom: 7px;
+        }
+      }
+
+      @include breakpoint($tablet) {
+        display: block;
+      }
+
+      @include progress-bar(5);
+      @include progress-bar(6);
+      @include progress-bar(7);
+      @include progress-bar(8);
+      @include progress-bar(9);
+      @include progress-bar(10);
+    }
+  }
+
+  &--description {
+    display: none;
+  }
+}
+
+@include progress-bar-desktop();

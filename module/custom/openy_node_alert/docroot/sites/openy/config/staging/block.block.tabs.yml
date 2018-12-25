@@ -1,0 +1,20 @@
+uuid: bdd83d92-fc4f-48fa-895d-93bc375df516
+langcode: en
+status: true
+dependencies:
+  theme:
+    - multipurpose_business_theme
+id: tabs
+theme: multipurpose_business_theme
+region: content
+weight: -16
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: visible
+  primary: true
+  secondary: true
+visibility: {  }

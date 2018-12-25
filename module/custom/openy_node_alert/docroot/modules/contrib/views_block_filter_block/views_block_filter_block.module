@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Module file for the view_block_filter_view module.
+ */
+
+/**
+ * Implements hook_views_plugins_display_alter().
+ */
+function views_block_filter_block_views_plugins_display_alter(array &$plugins) {
+  // Force the block display plugin to use our block display plugin.
+  $plugins['block']['class'] = 'Drupal\views_block_filter_block\Plugin\views\display\ViewsBlockFilterBlockPluginDisplayBlock';
+}

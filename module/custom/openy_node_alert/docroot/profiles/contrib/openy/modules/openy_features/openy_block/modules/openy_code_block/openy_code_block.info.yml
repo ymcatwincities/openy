@@ -1,0 +1,14 @@
+name: Open Y Block Code
+description: Implements a custom block to insert code that displays embedded data.
+package: Open Y
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - datalayer
+  - entity_embed
+  - field
+  - filter
+  - language
+  - text
+version: 8.x-1.0

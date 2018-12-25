@@ -1,0 +1,105 @@
+<section class="masthead location-masthead">
+  <div class="container">
+    <div class="row">
+      {% if bundle_count > 1 %}
+        <div class="col-lg-12 back-link">
+          {{ link('Back to All Camps'|t, 'base:camps') }}
+        </div>
+      {% endif %}
+    </div>
+    <div class="row">
+      <div class="col-sm-8">
+				<span class="masthead-brand">
+					{% if node.field_subtitle[0]['value'] is not empty %}
+            <article class="richtext">
+						<p>{{ node.label }}<br><span>{{ node.field_subtitle.0.value }}</span></p>
+					</article>
+          {% else %}
+            {{ node.label }}
+          {% endif %}
+				</span>
+      </div>
+      <div class="col-sm-4 text-center masthead-button" id="masthead-button">
+        {% if not node.field_register_button_link[0].uri %}
+          <a id="join-button" class="hidden btn btn-primary btn-lg btn-join">Register</a>
+        {% else %}
+          <a href="{{ node.field_register_button_link.0.uri }}" id="join-button"
+             class="hidden btn btn-primary btn-lg btn-join">Register</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+<!--data-spy="affix" data-offset-top="144" -->
+<div class="location-details masthead-menu">
+  <div class="container">
+    <div class="row visible-xs">
+      <div class="col-xs-12">
+        <button type="button" class="btn btn-link location-hours-toggle" data-toggle="collapse"
+                data-target="#directions-hours"><span
+            class="glyphicon glyphicon-chevron-down pull-right"></span> Phone, Address and Hours
+        </button>
+      </div>
+    </div>
+    <div class="row collapse directions-hours" id="directions-hours">
+      <div class="directions-hours-inner">
+        <div class="col-sm-5 col-md-3 phone clearfix">
+					<span class="tel">
+						<span class="glyphicon glyphicon-earphone bullet"></span>
+            {% set phone =  node.field_phone.0.value|split(',') %}
+            {% for item in phone %}
+              <a class="tel" href="tel:{{ item|trim }}">{{ item|trim }}</a>
+            {% endfor %}
+					</span>
+        </div>
+        <hr class="visible-xs">
+        <div class="col-lg-6 col-sm-5 col-md-6 address clearfix">
+          <span class="glyphicon glyphicon-map-marker bullet"></span>
+          <span class="plaintext">
+            {{ node.field_location.0.address_line1 }}
+            {{ node.field_location.0.address_line2 }}
+            <br class="visible-xs">
+            {{ node.field_location.0.administrative_area }}
+            {{ node.field_location.0.postal_code }}
+          </span>
+          <br class="visible-xs"/>
+          <a class="directions" target="_blank">
+            <!-- <span class="hidden-sm"> -->
+            Directions
+            <!-- </span> -->
+            <span class="glyphicon glyphicon-share"></span>
+          </a>
+        </div>
+
+        <hr class="visible-xs">
+        <div class="hours col-lg-3 col-md-3 col-sm-2 clearfix">
+
+          <a
+            data-toggle="collapse"
+            data-target="#all-hours"
+            class="hours-toggle hidden-xs">
+            Camp Office
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </a>
+
+          <div class="row mobile-hours visible-xs">
+            <div class="col-xs-12">
+              {# TODO: #}
+              <p>{{ node.field_location.0.address_line1 }}</p>
+              <p>{{ node.field_location.0.address_line2 }} {{ node.field_location.0.administrative_area }} {{ node.field_location.0.postal_code }}</p>
+              <p>{{ node.field_phone.0.value }}</p>
+            </div>
+          </div>
+          <div id="all-hours" class="all-hours collapse">
+            <div class="hidden-xs">
+              {# TODO: #}
+              <p>{{ node.field_location.0.address_line1 }} </p>
+              <p>{{ node.field_location.0.address_line2 }} {{ node.field_location.0.administrative_area }} {{ node.field_location.0.postal_code }}</p>
+              <p>{{ node.field_phone.0.value }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

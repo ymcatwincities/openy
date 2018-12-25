@@ -1,0 +1,8 @@
+name: Kronos integration module
+type: module
+description: YPTF Kronos - MindBody integration.
+core: 8.x
+package: YPTF
+dependencies:
+  - mindbody
+  - mindbody_cache_proxy

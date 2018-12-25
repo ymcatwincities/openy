@@ -1,0 +1,10 @@
+cdn:
+  version: 8.0.2
+  js:
+    js/ymca_cdn_calendar.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+    - fullcalendar/drupal.fullcalendar.js

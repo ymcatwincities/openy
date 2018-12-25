@@ -1,0 +1,30 @@
+uuid: 62e81cb1-185a-45df-a700-f3d3a92df31e
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - options
+id: contact_message.field_vendor_portal
+field_name: field_vendor_portal
+entity_type: contact_message
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: 'Yes'
+      label: 'Yes'
+    -
+      value: 'No'
+      label: 'No'
+    -
+      value: 'Not Applicable'
+      label: 'Not Applicable'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

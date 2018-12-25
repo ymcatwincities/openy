@@ -1,0 +1,24 @@
+<ul>
+	<li class="level_1 first"><a href="/">Home</a>
+	$start_loop_menus
+	<li class="level_1"><a href="$page_url">$page_name</a>
+		[[ if nav_level_2 ]]
+		<div>
+		<ul>
+			$start_loop_nav_level_2
+			<li class="level_2"><a href="$page_url">$page_name</a>
+				[[ if nav_level_3 ]]
+				<ul>
+					$start_loop_nav_level_3
+					<li class="level_3"><a href="$page_url">$page_name</a></li>
+					$end_loop_nav_level_3
+				</ul>
+				[[ end if nav_level_3 ]]
+			</li>
+			$end_loop_nav_level_2
+		</ul>
+	</div>
+		[[ end if nav_level_2 ]]
+	</li>
+	$end_loop_menus
+</ul>

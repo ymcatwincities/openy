@@ -1,0 +1,23 @@
+id: acquia_search_server
+name: 'Acquia Search API Solr server'
+description: ''
+status: false
+backend: search_api_solr
+backend_config:
+  site_hash: true
+  excerpt: false
+  retrieve_data: true
+  highlight_data: true
+  skip_schema_check: false
+  connector: solr_acquia_connector
+  connector_config:
+    scheme: http
+    timeout: 5
+    index_timeout: 10
+    optimize_timeout: 15
+    solr_version: ''
+    http_method: AUTO
+langcode: en
+dependencies:
+  module:
+    - acquia_search

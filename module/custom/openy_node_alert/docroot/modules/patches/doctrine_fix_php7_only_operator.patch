@@ -1,0 +1,13 @@
+diff --git a/docroot/vendor/doctrine/collections/lib/Doctrine/Common/Collections/ArrayCollection.php b/docroot/vendor/doctrine/collections/lib/Doctrine/Common/Collections/ArrayCollection.php
+index 0bebce200..860d18e6c 100644
+--- a/docroot/vendor/doctrine/collections/lib/Doctrine/Common/Collections/ArrayCollection.php
++++ b/docroot/vendor/doctrine/collections/lib/Doctrine/Common/Collections/ArrayCollection.php
+@@ -237,7 +237,7 @@ public function indexOf($element)
+      */
+     public function get($key)
+     {
+-        return $this->elements[$key] ?? null;
++        return isset($this->elements[$key]) ? $this->elements[$key] : null;
+     }
+ 
+     /**

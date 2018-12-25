@@ -1,0 +1,6 @@
+services:
+  ymca_migrate_landing_page_importer:
+    class: Drupal\ymca_migrate_landing_page\MigrationImporter
+    arguments: ['@plugin.manager.config_entity_migration']
+  ymca_migrate_landing_page.field_manipulator:
+    class: Drupal\ymca_migrate_landing_page\FieldManipulator

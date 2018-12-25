@@ -1,0 +1,6 @@
+id: video
+label: Video
+description: 'A <em>Video</em> file is a moving visual recording.'
+status: true
+mimetypes:
+  - 'video/*'

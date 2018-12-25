@@ -1,0 +1,21 @@
+uuid: aa6b6fc6-6e3e-42b3-bb06-6cde94947365
+langcode: en
+status: true
+dependencies:
+  theme:
+    - ymca
+id: footercopyright
+theme: ymca
+region: footer_social
+weight: -3
+provider: null
+plugin: 'block_content:32521919-4995-4607-a707-7a2d56feea25'
+settings:
+  id: 'block_content:32521919-4995-4607-a707-7a2d56feea25'
+  label: 'Footer Copyright'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -1,0 +1,21 @@
+uuid: 6c2740ac-7837-4f64-ba2b-067a9d9958d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_map_shadow
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_location_map_shadow
+field_name: field_location_map_shadow
+entity_type: mapping
+bundle: location
+label: 'Location Map Shadow'
+description: 'Example: themes/custom/ymca/img/map_shadow.png'
+required: false
+translatable: false
+default_value:
+  -
+    value: themes/custom/ymca/img/map_shadow.png
+default_value_callback: ''
+settings: {  }
+field_type: string

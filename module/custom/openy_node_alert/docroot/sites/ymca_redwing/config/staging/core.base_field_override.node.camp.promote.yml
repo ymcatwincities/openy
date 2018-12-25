@@ -1,0 +1,22 @@
+uuid: a7b19a6f-69fb-44cd-9f38-56282c76d239
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.camp
+id: node.camp.promote
+field_name: promote
+entity_type: node
+bundle: camp
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

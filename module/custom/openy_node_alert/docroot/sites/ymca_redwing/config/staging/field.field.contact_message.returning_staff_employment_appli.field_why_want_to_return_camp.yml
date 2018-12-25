@@ -1,0 +1,19 @@
+uuid: 5806bac6-e253-4edb-86f5-8eed7843911f
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.returning_staff_employment_appli
+    - field.storage.contact_message.field_why_want_to_return_camp
+id: contact_message.returning_staff_employment_appli.field_why_want_to_return_camp
+field_name: field_why_want_to_return_camp
+entity_type: contact_message
+bundle: returning_staff_employment_appli
+label: 'Why do you want to return to camp'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

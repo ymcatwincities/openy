@@ -1,0 +1,33 @@
+plugin.plugin_configuration.search_api_backend.search_api_solr:
+  type: config_object
+  label: 'Search API Solr settings'
+  mapping:
+    excerpt:
+      type: boolean
+      label: 'Return an excerpt for all results'
+    retrieve_data:
+      type: boolean
+      label: 'Retrieve result data from Solr'
+    highlight_data:
+      type: boolean
+      label: 'Highlight retrieved data'
+    skip_schema_check:
+      type: boolean
+      label: 'Skip schema verification'
+    site_hash:
+      type: boolean
+      label: 'Restrict searches to current site'
+    suggest_suffix:
+      type: boolean
+      label: 'Suggest endings for the currently entered word'
+    suggest_corrections:
+      type: boolean
+      label: 'Suggest corrections for the currently entered words'
+    suggest_words:
+      type: boolean
+      label: 'Suggest additional words the user might want to search for'
+    connector:
+      type: string
+      label: 'The connector plugin ID'
+    connector_config:
+      type: plugin.plugin_configuration.search_api_solr_connector.[%parent.connector]

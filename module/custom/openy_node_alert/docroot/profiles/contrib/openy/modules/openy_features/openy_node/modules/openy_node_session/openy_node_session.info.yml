@@ -1,0 +1,23 @@
+name: 'Open Y Node Session'
+description: 'Provides a Session content type and related configuration'
+type: module
+core: 8.x
+package: 'Open Y'
+version: 8.x-1.0-ygtc-backport
+dependencies:
+  - content_moderation
+  - datalayer
+  - datetime_range
+  - entity_reference_revisions
+  - field
+  - field_group
+  - link
+  - menu_ui
+  - node
+  - options
+  - paragraphs
+  - path
+  - rabbit_hole
+  - scheduler
+  - text
+  - user

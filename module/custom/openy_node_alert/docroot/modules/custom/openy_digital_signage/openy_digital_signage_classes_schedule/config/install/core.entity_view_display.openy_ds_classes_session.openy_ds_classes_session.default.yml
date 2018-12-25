@@ -1,0 +1,89 @@
+uuid: 1fc03043-f454-4df2-b9c1-4592b3b2496e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.openy_ds_classes_session.openy_ds_classes_session.field_session_author
+  module:
+    - ds_datetime_range
+    - openy_digital_signage_classes_schedule
+    - options
+id: openy_ds_classes_session.openy_ds_classes_session.default
+targetEntityType: openy_ds_classes_session
+bundle: openy_ds_classes_session
+mode: default
+content:
+  date_time:
+    label: above
+    type: ds_daterange_default
+    weight: 3
+    region: content
+    settings:
+      separator: '-'
+      format_type: medium
+      timezone_override: ''
+      only_start_date: '1'
+    third_party_settings: {  }
+  instructor:
+    label: above
+    type: string
+    weight: 4
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  room_name:
+    label: above
+    type: string
+    weight: 2
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  source:
+    label: above
+    type: list_key
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    label: above
+    type: boolean
+    weight: 7
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    region: content
+    third_party_settings: {  }
+  sub_instructor:
+    label: above
+    type: string
+    weight: 5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  time_slot:
+    label: above
+    type: daterange_default
+    weight: 5
+    region: content
+    settings:
+      separator: '-'
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+  title:
+    label: above
+    type: string
+    weight: 1
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_session_author: true
+  langcode: true
+  room: true

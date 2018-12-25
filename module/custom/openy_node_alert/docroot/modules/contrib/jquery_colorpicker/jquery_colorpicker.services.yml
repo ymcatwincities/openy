@@ -1,0 +1,6 @@
+parameters:
+  jquery_colorpicker.service.class: Drupal\jquery_colorpicker\Service\JQueryColorpickerService
+
+services:
+  jquery_colorpicker.service:
+    class: '%jquery_colorpicker.service.class%'

@@ -1,0 +1,11 @@
+<fieldset class="address">
+[[ if question_text ]]<legend>$question_text  <small>$include($optional_template) $include($required_template)</small></legend>[[ end if question_text ]]
+$start_loop_responses
+<div class="form-group">
+<label class="col-md-4 control-label form_$abbr_atom text">$name</label>
+<div class="col-md-6">
+<input class="form-control text" type="text" value="$registration_question_response_esc" disabled="disabled"/>
+</div>
+</div>
+$end_loop_responses
+</fieldset>

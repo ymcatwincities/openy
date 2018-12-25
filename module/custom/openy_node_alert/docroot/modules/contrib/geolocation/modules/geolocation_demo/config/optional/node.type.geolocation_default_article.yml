@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - geolocation_demo
+name: 'Geolocation Demo - Default Article'
+type: geolocation_default_article
+description: 'Geolocation Demo content type'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

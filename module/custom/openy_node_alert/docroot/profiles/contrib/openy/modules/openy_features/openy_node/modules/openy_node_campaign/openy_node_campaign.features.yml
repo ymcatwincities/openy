@@ -1,0 +1,3 @@
+excluded:
+  - field.storage.node.field_campaign_technical_name
+required: true

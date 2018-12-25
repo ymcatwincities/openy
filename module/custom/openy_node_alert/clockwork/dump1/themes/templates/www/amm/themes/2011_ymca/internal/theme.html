@@ -1,0 +1,61 @@
+$include($site_themes_directory/templates/www/amm/themes/2011_ymca/_includes/header.html)
+[[ if content_area_7 ]]<section class="alerts"><h3>Special Alert</h3>$content_area_7</section>
+[[ end if content_area_7 ]]
+$include($site_themes_directory/templates/www/amm/themes/2011_ymca/_includes/top.html)
+<section id="main" class="internal sub[[ if ! content_area_3 ]] no-promo[[ end if content_area_3 ]]">
+	<div class="ctr">
+		[[ if content_area_6 ]]
+		<section id="slideshow">
+			$content_area_6
+		</section>
+		[[ end if content_area_6 ]]
+		<section id="subnav-promos">
+			$global_content_block_ymca_sub_2011
+			[[ if content_area_4 ]]
+			<div class="promos">
+			$content_area_4
+			</div>
+			[[ end if content_area_4 ]]
+		</section>
+		[[ if ! content_area_6 ]]
+		$global_content_block_breadcrumbs
+		[[ end if content_area_6 ]]
+		<div class="top">
+		[[ if ! content_area_6 ]]
+		<h1>$html_esc_page_title 
+			<div id="fb-root"></div>
+			<script>
+			(function(d, s, id) {
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/all.js#appId=102817719808786&xfbml=1";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'script-id'));
+			</script>
+			<fb:like href="" send="true" show_faces="true" font=""></fb:like>
+		</h1>
+		[[ end if content_area_6 ]]
+		</div>
+		<section id="content">
+			[[ if message ]] <div class="message">$message<ul>$start_loop_error_details<li>$error_detail</li>$end_loop_error_details</ul></div> [[ end if message ]]
+			[[ if content_area_1 ]]
+			<header>
+			$content_area_1
+			</header>
+			[[ end if content_area_1 ]]
+			$content_area_2
+		</section>
+		[[ if content_area_3 ]]
+		<section id="promos">
+			$content_area_3
+		</section>
+		[[ end if content_area_3 ]]
+		[[ if content_area_5 ]]
+		<footer>
+			$content_area_5
+		</footer>
+		[[ end if content_area_5 ]]
+	</div>
+</section>
+$include($site_themes_directory/templates/www/amm/themes/2011_ymca/_includes/footer.html)

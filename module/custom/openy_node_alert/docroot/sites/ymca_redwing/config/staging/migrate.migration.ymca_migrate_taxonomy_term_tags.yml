@@ -1,0 +1,23 @@
+id: ymca_migrate_taxonomy_term_tags
+label: 'Tags (taxonomy) migration.'
+migration_group: ymca
+migration_tags:
+  - taxonomy_term
+source:
+  plugin: ymca_migrate_taxonomy_term_tags
+process:
+  type:
+    plugin: default_value
+    default_value: taxonomy_term
+  vid:
+    plugin: default_value
+    default_value: tags
+  name: raw_tag_name
+  description/value:
+    plugin: default_value
+    default_value: null
+  description/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: 'entity:taxonomy_term'

@@ -1,0 +1,19 @@
+uuid: 67d2e124-d198-427a-93ed-2e1eea079339
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_location_hrs_sat_sun
+    - ymca_mappings.mapping_type.location
+id: mapping.location.field_location_hrs_sat_sun
+field_name: field_location_hrs_sat_sun
+entity_type: mapping
+bundle: location
+label: 'Location HRS Sat-Sun'
+description: 'Example: 6:00 a.m. - 9:00 p.m.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

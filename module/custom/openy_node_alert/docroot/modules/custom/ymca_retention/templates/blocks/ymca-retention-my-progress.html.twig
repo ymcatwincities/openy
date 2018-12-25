@@ -1,0 +1,123 @@
+{#
+/**
+ * @file
+ * Display member "My progress" report.
+ */
+#}
+<div id="my-progress-block" class="inner-container ng-hide login-required"
+     data-ng-controller="MyProgressController as myProgressC"
+     data-ng-show="retentionC.storage.member">
+  <div class="my-progress--header clearfix">
+    <div class="my-progress--goal">
+      {{ 'Your goal is'|t }}:
+      <span class="my-progress--goal-value">
+        <span
+            class="my-progress--goal-number">{{ '{{ myProgressC.visitsGoal() }}' }}</span> {{ 'visits'|t }}
+      </span>
+      <p class="my-progress--visits">{{ '(Visits are updated nightly)'|t }}</p>
+    </div>
+    <div class="compain-progress"
+         data-ng-class="myProgressC.visitsCountClass()">
+      <div class="compain-progress--line">
+        <div class="line"></div>
+        <span data-ng-repeat="i in myProgressC.points()"
+              data-ng-class="myProgressC.pointClass(i)"></span>
+      </div>
+      <div class="compain-progress--info">
+        <span class="text">{{ '{{ myProgressC.visitsGoal() }}' }}</span>
+      </div>
+    </div>
+
+    <div class="compain-progress--description">
+      <div class="description-item"
+           data-ng-show="!myProgressC.isGoalAchieved()">
+        <p>{{ 'You need'|t }} <b>{{ '{{ myProgressC.visitsLeft() }}' }} {{ 'more visits'|t }}</b>
+          <br/> {{ 'to achieve your goal.'|t }}</p>
+        <p><b>{{ 'Visits are updated nightly.'|t }}</b></p>
+      </div>
+      <div class="description-item"
+           data-ng-show="myProgressC.isGoalAchieved()">
+        <p>{{ 'Goal achieved!'|t }}</p>
+      </div>
+    </div>
+
+    {% if enable_bonuses %}
+      <div class="compain-progress--label ">
+        <div class="description-label">
+        <span class="label" data-ng-show="myProgressC.bonusesCount() == 1">
+          {{ '{{ myProgressC.bonusesCount() }}' }} {{ 'Bonus earned'|t }}
+        </span>
+          <span class="label" data-ng-show="myProgressC.bonusesCount() != 1">
+          {{ '{{ myProgressC.bonusesCount() }}' }} {{ 'Bonuses earned'|t }}
+        </span>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if enable_bonuses %}
+    <div class="compain-progress-container clearfix">
+      <div class="compain-progress--label">
+        <div class="description-label">
+        <span class="label" data-ng-show="myProgressC.bonusesCount() == 1">
+          {{ '{{ myProgressC.bonusesCount() }}' }} {{ 'Bonus earned'|t }}
+        </span>
+          <span class="label" data-ng-show="myProgressC.bonusesCount() != 1">
+          {{ '{{ myProgressC.bonusesCount() }}' }} {{ 'Bonuses earned'|t }}
+        </span>
+        </div>
+      </div>
+
+      <div class="compain-progress--grid"
+           data-ng-repeat="date in myProgressC.storage.campaign.dates">
+        <div class="compain-progress--col">
+          <div class="compain-progress-block"
+               data-ng-class="myProgressC.checkInBonusImageClass(date)"
+               data-ng-style="myProgressC.bonusImage(date)">
+            <div class="compain-progress-block--header">
+              <div class="content">
+                <div class="day">
+                  <span class="number-day">{{ '{{date.month_day}}' }}</span>
+                  <span class="week-day">{{ '{{date.weekday}}' }}</span>
+                </div>
+
+                <div class="status"></div>
+              </div>
+            </div>
+            <div class="compain-progress-block--footer">
+              <div class="content">
+                <ng-show ng-show="date.future"><p>{{ 'Don’t miss<br/>your chance!'|t }}
+                  </p></ng-show>
+                <ng-show ng-show="date.past">
+                  <ng-show ng-show="myProgressC.isBonus(date)">
+                    <p><b>{{ '+1 bonus'|t }}</b> {{ 'for'|t }} </p>
+
+                    <div class="description"
+                         data-ng-click="myProgressC.todayInsight(date.timestamp)">
+                      <p class="tip-title">{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
+                    </div>
+                  </ng-show>
+                  <ng-show ng-show="!myProgressC.isBonus(date)">
+                    <ng-show ng-show="date.today">
+                      <p><span
+                            data-ng-click="myProgressC.todayInsight(date.timestamp)">{{ 'Read'|t }} <i>{{ 'tip' }} #{{ '{{myProgressC.tipNumber(date) }}' }}</i></span>
+                      </p>
+                    </ng-show>
+                    <ng-show ng-show="!date.today">
+                      <p>{{ 'without bonus'|t }}</p>
+
+                      <div class="description"
+                           data-ng-click="myProgressC.todayInsight(date.timestamp)">
+                        <p class="tip-title">{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
+                      </div>
+                    </ng-show>
+                  </ng-show>
+                </ng-show>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>

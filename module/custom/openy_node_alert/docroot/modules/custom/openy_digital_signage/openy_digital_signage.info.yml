@@ -1,0 +1,5 @@
+name: OpenY Digital Signage
+type: module
+description: OpenY Digital Signage module.
+core: 8.x
+package: "OpenY: Digital Signage"

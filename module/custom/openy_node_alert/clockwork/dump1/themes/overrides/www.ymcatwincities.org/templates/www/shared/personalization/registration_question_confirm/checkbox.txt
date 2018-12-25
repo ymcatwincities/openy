@@ -1,0 +1,2 @@
+$question_text:  $start_loop_responses - $registration_question_response  
+                                      $end_loop_responses

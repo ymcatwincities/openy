@@ -1,0 +1,180 @@
+uuid: ea7eacd2-dfb7-45d2-b85f-26412590a190
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mapping.location.field_groupex_id
+    - field.field.mapping.location.field_location_address_1
+    - field.field.mapping.location.field_location_address_2
+    - field.field.mapping.location.field_location_city
+    - field.field.mapping.location.field_location_hrs_mon_fri
+    - field.field.mapping.location.field_location_hrs_sat_sun
+    - field.field.mapping.location.field_location_icon
+    - field.field.mapping.location.field_location_latitude
+    - field.field.mapping.location.field_location_longitude
+    - field.field.mapping.location.field_location_map_shadow
+    - field.field.mapping.location.field_location_name
+    - field.field.mapping.location.field_location_personify_brcode
+    - field.field.mapping.location.field_location_phone
+    - field.field.mapping.location.field_location_ref
+    - field.field.mapping.location.field_location_state
+    - field.field.mapping.location.field_location_tags
+    - field.field.mapping.location.field_location_url
+    - field.field.mapping.location.field_location_zip
+    - field.field.mapping.location.field_mindbody_id
+    - ymca_mappings.mapping_type.location
+  module:
+    - user
+id: mapping.location.default
+targetEntityType: mapping
+bundle: location
+mode: default
+content:
+  field_groupex_id:
+    weight: 3
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+  field_location_address_1:
+    weight: 5
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_address_2:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_city:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_hrs_mon_fri:
+    weight: 17
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_hrs_sat_sun:
+    weight: 18
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_icon:
+    weight: 14
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_latitude:
+    weight: 12
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_longitude:
+    weight: 13
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_map_shadow:
+    weight: 16
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_name:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_personify_brcode:
+    weight: 15
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_phone:
+    weight: 10
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_ref:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_location_state:
+    weight: 8
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_tags:
+    weight: 11
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_url:
+    weight: 19
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_location_zip:
+    weight: 9
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_mindbody_id:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,32 @@
+Index: modules/openy_features/openy_prgf/modules/openy_prgf_secondary_description_sidebar/openy_prgf_secondary_description_sidebar.info.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/openy_features/openy_prgf/modules/openy_prgf_secondary_description_sidebar/openy_prgf_secondary_description_sidebar.info.yml	(date 1520843230000)
++++ modules/openy_features/openy_prgf/modules/openy_prgf_secondary_description_sidebar/openy_prgf_secondary_description_sidebar.info.yml	(revision )
+@@ -7,8 +7,5 @@
+   - datalayer
+   - field
+   - openy_block_basic
+-  - openy_block_custom_simple
+-  - openy_block_date
+-  - openy_code_block
+   - paragraphs
+   - text
+Index: modules/openy_features/openy_prgf/modules/openy_prgf_featured_highlights/openy_prgf_featured_highlights.info.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- modules/openy_features/openy_prgf/modules/openy_prgf_featured_highlights/openy_prgf_featured_highlights.info.yml	(date 1520843230000)
++++ modules/openy_features/openy_prgf/modules/openy_prgf_featured_highlights/openy_prgf_featured_highlights.info.yml	(revision )
+@@ -11,8 +11,6 @@
+   - field
+   - inline_entity_form
+   - openy_block_basic
+-  - openy_block_custom_simple
+-  - openy_block_date
+   - openy_block_featured_highlights
+   - openy_prgf
+   - options

@@ -1,0 +1,8 @@
+name: Open Y Data Layer
+description: Stores datalayer module site-wide settings.
+type: module
+core: 8.x
+version: 8.x-1.0
+package: Open Y
+dependencies:
+  - datalayer

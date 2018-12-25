@@ -1,0 +1,8 @@
+blazy.admin.vtabs:
+  version: VERSION
+  css:
+    theme:
+      css/blazy.admin--vertical-tabs.css: {}
+  dependencies:
+    - core/drupal.vertical-tabs
+    - blazy/blazy.admin

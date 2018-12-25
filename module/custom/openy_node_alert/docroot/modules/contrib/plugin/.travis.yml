@@ -1,0 +1,35 @@
+notifications:
+  email:
+    - bart@mynameisbart.com
+
+language: php
+
+php:
+  - 5.5
+  - 5.6
+  - 7
+  - hhvm
+
+matrix:
+  allow_failures:
+    - php: hhvm
+
+env:
+  - PATH=$PATH:/home/travis/.composer/vendor/bin
+
+install:
+  # Download Drupal core.
+  - cd $TRAVIS_BUILD_DIR/..
+  - git clone --branch 8.0.x --depth 1 http://git.drupal.org/project/drupal.git
+
+  # Copy the module into Drupal core.
+  - cp -Rv $TRAVIS_BUILD_DIR $TRAVIS_BUILD_DIR/../drupal/modules/plugin
+
+  # Install Composer dependencies.
+  - cd $TRAVIS_BUILD_DIR/../drupal/modules/plugin
+  - composer install
+
+script:
+  # Run PHPUnit tests and submit code coverage statistics.
+  - cd $TRAVIS_BUILD_DIR/../drupal/modules/plugin
+  - ../../vendor/bin/phpunit -c ./phpunit.xml.dist --bootstrap ../../core/tests/bootstrap.php --verbose --debug || exit 1

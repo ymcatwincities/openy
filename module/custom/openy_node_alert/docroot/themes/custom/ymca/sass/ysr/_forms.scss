@@ -1,0 +1,77 @@
+.ysr-form-messages {
+  clear: both;
+
+  @include breakpoint($mobile-narrow-only) {
+    padding-left: 0;
+    padding-right: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .alert {
+    clear: both;
+    display: none;
+
+    &.alert-error {
+      @include rem(min-height, 50px);
+      @include rem(padding-left, 50px);
+      background-color: $red-dark2;
+      border: none;
+      color: $white;
+      display: block;
+      margin: auto;
+      position: relative;
+      text-align: left;
+
+      @include breakpoint($mobile-narrow-only) {
+        @include border-radius(0);
+      }
+
+      &:before {
+        @include rem(height, 19px);
+        @include rem(left, 15px);
+        @include rem(margin-top, -9.5px);
+        @include rem(top, 50%);
+        @include rem(width, 21px);
+        content: '';
+        background-image: url(../prototypes/ysr/img/icon-warning-sign.png);
+        background-repeat: no-repeat;
+        background-position: top left;
+        background-size: contain;
+        position: absolute;
+      }
+
+      .close {
+        display: none;
+      }
+
+      ul {
+        @include rem(padding-left, 20px);
+      }
+    }
+  }
+}
+
+.ymca-retention-register-form,
+.ymca-retention-track-activity-login-form {
+
+  .form-submit {
+
+    & + .ajax-progress-throbber {
+      @include rem(left, -20px);
+      @include rem(margin-top, -16px);
+      position: absolute;
+      top: 50%;
+
+      @include breakpoint($tablet) {
+        @include rem(margin-top, -11px);
+        @include rem(right, -20px);
+        left: auto;
+      }
+    }
+  }
+
+  input.error {
+    border-color: $red-dark2 !important;
+  }
+}

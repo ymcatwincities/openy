@@ -1,0 +1,14 @@
+.promo-block-preview {
+  max-width: 40%;
+  float: right;
+}
+
+.promo-block-preview img {
+  max-width: 100%;
+  max-height: 250px;
+}
+
+.field--name-field-ds-layout,
+.field--name-field-ds-message-position {
+  max-width: 50%;
+}

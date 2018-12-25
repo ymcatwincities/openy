@@ -1,0 +1,26 @@
+{% if content.field_sidebar[0] is defined %}
+  {% set classes1 = 'copy col-sm-7 col-sm-push-5 col-md-6 col-md-push-3' %}
+  {% set classes2 = 'hidden-xs col-sm-5 col-md-3 col-sm-pull-7 col-md-pull-6 subnav' %}
+{% else %}
+  {% set classes1 = 'copy col-sm-7 col-sm-push-5 col-md-9 col-md-push-3' %}
+  {% set classes2 = 'hidden-xs col-sm-5 col-md-3 col-sm-pull-7 col-md-pull-9 subnav' %}
+
+{% endif %}
+<div class="{{ classes1 }}">
+  {% block maincontent %}{% endblock %}
+</div>
+
+<div class="{{ classes2 }}">
+  {% block navigationsidebar %}
+    {{ sidebar_navigation }}
+    <div class="visible-sm promos sidebar-promos">
+      {# Duplicate sidebar block contents for small screens #}
+      {{ content.field_sidebar }}
+    </div>
+  {% endblock %}
+</div>
+{% if content.field_sidebar[0] is defined %}
+<div class="col-md-3 sidebar-promos promos hidden-sm visible-xs">
+  {{ content.field_sidebar }}
+</div>
+{% endif %}

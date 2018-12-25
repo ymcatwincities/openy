@@ -1,0 +1,7 @@
+name: Personify MindBody Sync
+type: module
+description: Syncronize Personify and Mindbody.
+core: 8.x
+dependencies:
+  - ymca_sync
+  - ymca_personify

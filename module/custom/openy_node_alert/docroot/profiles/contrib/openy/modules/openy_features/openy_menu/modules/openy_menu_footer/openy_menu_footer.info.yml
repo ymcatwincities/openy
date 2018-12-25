@@ -1,0 +1,9 @@
+name: Open Y Menu Footer
+description: Stores a footer navigation menus configuration.
+type: module
+core: 8.x
+version: 8.x-1.0
+package: Open Y
+dependencies:
+  - system
+  - openy_menu

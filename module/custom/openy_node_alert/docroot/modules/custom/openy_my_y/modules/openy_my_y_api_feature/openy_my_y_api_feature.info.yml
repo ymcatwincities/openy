@@ -1,0 +1,13 @@
+name: 'OpenY MyY API Feature'
+description: 'Provides configuration for OpenY MyY API module.'
+type: module
+core: 8.x
+dependencies:
+  - metatag
+  - openy_my_y_api
+  - page_manager
+  - rest
+  - serialization
+  - user
+  - ymca_page_manager
+version: 8.x-1.1

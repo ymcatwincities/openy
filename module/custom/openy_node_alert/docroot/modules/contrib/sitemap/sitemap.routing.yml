@@ -1,0 +1,16 @@
+sitemap.settings:
+  path: '/admin/config/search/sitemap'
+  defaults:
+    _form: '\Drupal\sitemap\Form\SitemapSettingsForm'
+    _title: 'Sitemap'
+  requirements:
+    _permission: 'administer sitemap'
+
+sitemap.page:
+  path: '/sitemap'
+  defaults:
+    _controller: '\Drupal\sitemap\Controller\SitemapController::buildPage'
+    # Dynamic title.
+    _title_callback: '\Drupal\sitemap\Controller\SitemapController::getTitle'
+  requirements:
+    _permission: 'access sitemap'

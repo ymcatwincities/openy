@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * Camp du Nord confirmation page template.
+ *
+ * @ingroup themeable
+ */
+#}
+<section class="page-header page-title">
+  <div class="container title-container">
+    <div class="row">
+      <div class="col-sm-6 header-copy">
+        <h1>
+          <span>{{ 'Camp du Nord'|t }}</span>
+        </h1>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="confirmation-body">
+  <div class="container">
+    <div class="col-xs-12">
+    {% if data %}
+      <div class="description">{{ 'You are going to book'|t }} <span class="cabin-name">"{{ data.cabin_name }}"</span> {{ 'for the following dates:'|t }}</div>
+      <ul>
+      {% for date in data.dates %}
+        {% if date.available %}
+          <li>{{ date.date }}</li>
+        {% else %}
+          <li>{{ date.date }} - {{ 'Sorry, date is booked already, try again.'|t }}</li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    {% endif %}
+    </div>
+  </div>
+  <div class="cdn-village-footer">
+    <div class="container">
+      <div class="cdn-village-footer-bar active">
+      {% if data.cabin_available %}
+        <div class="total">
+          {{ 'Total for'|t }}
+          <span class="nights">{{ data.nights }}</span>
+            {{ 'nights:'|t }}
+          <span class="price">${{ data.cost }}</span>
+          <a href="{{ data.next_link }}" class="next-step">{{ 'Confirm reservation'|t }} -&gt;</a>
+        </div>
+      {% else %}
+        <a href="{{ data.prev_link }}" class="prev-step">&lt;- {{ 'Return to calendar'|t }}</a>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

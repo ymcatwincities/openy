@@ -1,0 +1,10 @@
+typekit.settings:
+  type: config_object
+  label: 'Fonts.com Settings'
+  mapping:
+    token:
+      type: string
+      label: 'Fonts.com Authentication Key'
+    project:
+      type: string
+      label: 'Fonts.com Project'

@@ -1,0 +1,19 @@
+uuid: 4b621f83-aebc-439c-b97c-5255618a9176
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.new_employment_application
+    - field.storage.contact_message.field_high_school_name
+id: contact_message.new_employment_application.field_high_school_name
+field_name: field_high_school_name
+entity_type: contact_message
+bundle: new_employment_application
+label: 'High School Name'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

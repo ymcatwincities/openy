@@ -1,0 +1,87 @@
+{#
+/**
+ * @file
+ * Display track activity block.
+ */
+#}
+<div class="y-retention-activities ng-hide login-required"
+     data-ng-controller="ActivityController as activityC"
+     data-ng-show="retentionC.storage.member">
+
+  <div class="y-retention-activities__dates-slider ng-hide"
+       data-ng-show="activityC.storage.dates.length > 0 && activityC.dates_type_carousel">
+    <div class="container">
+      <div class="campaign-dates--slider-container">
+        <slick settings="activityC.slickConfig">
+
+          <div class="campaign-dates--date"
+               data-ng-repeat="date in activityC.storage.dates"
+               data-ng-class="activityC.dateClass($index)">
+            <a data-ng-click="activityC.setDate($index)">
+              <div class="month-day">{{ '{{date.month_day}}' }}</div>
+              <div class="weekday">{{ '{{date.weekday}}' }}</div>
+              <div class="visited"
+                    data-ng-show="activityC.isVisited($index)">{{ 'Visited'|t }}</div>
+              <div class="not-visited"
+                    data-ng-show="!activityC.isVisited($index)"></div>
+              <div class="activities-count"
+                    data-ng-show="activityC.activitiesCount($index) > 0">{{ '{{ activityC.activitiesCount($index) }}' }} {{ 'Entries'|t }}</div>
+            </a>
+          </div>
+        </slick>
+      </div>
+    </div>
+  </div>
+
+  <div class="y-retention-activities__header">
+    <div class="container">
+      <div class="activity-tabs">
+        <div class="form-item form-type-select ng-hide"
+             data-ng-show="activityC.storage.dates.length > 0 && activityC.dates_type_select">
+          <label for=""></label>
+          <select class="form-select"
+                  data-ng-model="activityC.date_selected"
+                  data-ng-options="date.label for date in (activityC.storage.dates | filter : {future: false}) track by date.index">
+          </select>
+        </div>
+
+        <ul>
+          <li class="activity-tab"
+              data-ng-repeat="activity_group in activityC.storage.activity_groups"
+              data-ng-class="activityC.activityGroupClass($index, activity_group)"
+              data-ng-click="activityC.activityGroupSet($index)">
+            <a href="#{{ '{{activity_group.machine_name}}' }}"
+               data-toggle="tab">{{ '{{activity_group.name}}' }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="y-retention-activities__content">
+    <div class="container">
+      <div class="row">
+        <div class="activity-items ng-hide"
+             data-ng-repeat="activity_group in activityC.storage.activity_groups"
+             data-ng-attr-id="{{ '{{activity_group.machine_name}}' }}"
+             data-ng-class="activityC.activityGroupClass($index, activity_group)"
+             data-ng-show="activityC.activityGroupShow($index)">
+          <div class="col-xs-12 col-sm-4"
+               data-ng-repeat="activity in activity_group.activities">
+            <div class="form-item-checkbox">
+              <input id="checkbox-{{ '{{activity.id}}' }}" type="checkbox"
+                     data-ng-model="activityC.storage.member_activities[activityC.date_selected.timestamp][activity.id]"
+                     data-ng-change="activityC.activityItemChange(activity.id)"
+                     data-ng-class="activityC.activityItemClass(activity.id)"
+                     data-ng-disabled="activityC.storage.progress.active()">
+              <label
+                  for="checkbox-{{ '{{activity.id}}' }}"><span>{{ '{{activity.name}}' }}</span>
+                <small class="ng-hide"
+                       data-ng-show="activity.description">{{ '{{activity.description}}' }}</small>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

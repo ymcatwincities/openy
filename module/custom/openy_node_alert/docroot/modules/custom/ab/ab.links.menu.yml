@@ -1,0 +1,5 @@
+ab.settings:
+  title: AB Framework Settings
+  route_name: ab.ab_activation_form
+  parent: system.admin_config_development
+  description: 'AB testing service configuration.'

@@ -1,0 +1,21 @@
+ymca_camp_du_nord.personify_login:
+  path: cdn/personify/login
+  defaults:
+    _controller: \Drupal\ymca_camp_du_nord\Controller\CDNPersonifyController::login
+    _title: Camp du Nord Personify login
+  requirements:
+    _permission: access content
+ymca_camp_du_nord.personify_auth:
+  path: cdn/personify/auth
+  defaults:
+    _controller: \Drupal\ymca_camp_du_nord\Controller\CDNPersonifyController::auth
+    _title: Camp du Nord Personify auth
+  requirements:
+    _permission: access content
+ymca_camp_du_nord.confirmation_page:
+  path: cdn/confirmation
+  defaults:
+    _controller: \Drupal\ymca_camp_du_nord\Controller\CDNPersonifyController::confirmationPage
+    _title: Camp du Nord
+  requirements:
+    _permission: access content

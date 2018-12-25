@@ -1,0 +1,28 @@
+uuid: 64b2bf27-a6c6-4bf4-8a4a-7aaf6de4a45b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.location_schedule
+    - field.storage.node.field_schedule_block
+    - node.type.location
+id: node.location.field_schedule_block
+field_name: field_schedule_block
+entity_type: node
+bundle: location
+label: 'Schedule block'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      location_schedule: location_schedule
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

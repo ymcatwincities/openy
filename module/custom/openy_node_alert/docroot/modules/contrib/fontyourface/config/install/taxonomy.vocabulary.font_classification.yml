@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Classification
+vid: font_classification
+description: 'This is the general font type.'
+hierarchy: 0
+weight: 0

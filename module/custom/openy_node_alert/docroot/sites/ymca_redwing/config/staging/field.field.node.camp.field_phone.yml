@@ -1,0 +1,21 @@
+uuid: 2e3dd7f1-1256-4459-aa00-af06d9f79e53
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_phone
+    - node.type.camp
+  module:
+    - telephone
+id: node.camp.field_phone
+field_name: field_phone
+entity_type: node
+bundle: camp
+label: Phone
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

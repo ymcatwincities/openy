@@ -1,0 +1,10 @@
+services:
+  address_test.event_subscriber:
+    class: Drupal\address_test\EventSubscriber\AddressTestEventSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  address_test.great_britain_subscriber:
+    class: Drupal\address_test\EventSubscriber\GreatBritainEventSubscriber
+    tags:
+      - { name: event_subscriber }

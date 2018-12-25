@@ -1,0 +1,82 @@
+uuid: f6a0e8a0-84df-4830-b062-983c25763d37
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.wait_list
+    - field.field.contact_message.wait_list.field_child_first_and_last_name
+    - field.field.contact_message.wait_list.field_email_address
+    - field.field.contact_message.wait_list.field_first_name
+    - field.field.contact_message.wait_list.field_label
+    - field.field.contact_message.wait_list.field_last_name
+    - field.field.contact_message.wait_list.field_phone_number
+    - field.field.contact_message.wait_list.field_school
+    - field.field.contact_message.wait_list.field_wait_list_email_option
+  module:
+    - webforms
+id: contact_message.wait_list.default
+targetEntityType: contact_message
+bundle: wait_list
+mode: default
+content:
+  field_child_first_and_last_name:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_email_address:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_first_name:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_label:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: webform_markup_formatter
+  field_last_name:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_phone_number:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_school:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_wait_list_email_option:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: options_emails_formatter
+  message:
+    type: string
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden: {  }

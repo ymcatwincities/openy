@@ -1,0 +1,9 @@
+uuid: df617cd1-d752-4f68-b300-c677491c6c7d
+langcode: en
+status: true
+dependencies: {  }
+id: node__blog
+label: 'Content: Blog post'
+tags:
+  title: '[current-page:title] | [site:name]'
+  og_title: '[current-page:title] | [site:name]'

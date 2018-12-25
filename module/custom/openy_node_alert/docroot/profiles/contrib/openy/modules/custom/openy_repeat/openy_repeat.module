@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_repeat module hooks.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_repeat_theme() {
+  return [
+    'openy_repeat_schedule_dashboard' => [
+      'variables' => [
+        'locations' => [],
+        'categories' => [],
+        'checked_locations' => [],
+        'checked_categories' => [],
+      ],
+    ],
+    'openy_repeat_schedule_locations' => [
+      'variables' => [
+        'locations' => [],
+      ],
+    ],
+    'openy_repeat__pdf__body' => [
+      'variables' => [
+        'content' => [],
+      ],
+    ],
+    'openy_repeat__pdf__table__activity' => [
+      'variables' => [
+        'content' => [],
+      ],
+    ],
+    'openy_repeat__pdf__table__day' => [
+      'variables' => [
+        'content' => [],
+      ],
+    ],
+  ];
+}

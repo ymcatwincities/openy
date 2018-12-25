@@ -1,0 +1,15 @@
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.page.loader {
+  display: block;
+}
+
+.page-content-preload {
+  display: none;
+}

@@ -1,0 +1,215 @@
+<?php
+/**
+ * @file
+ * Module to associate icons with menu items
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\file\Entity\File;
+
+define('SIMPLE_MENU_ICONS_CSS_PATH', 'public://css');
+
+/**
+ * Implements hook_theme().
+ */
+function simple_menu_icons_theme($existing, $type, $theme, $path) {
+  return array(
+    'simple_menu_icons_css_item' => array(
+      'variables' => array('icons' => NULL),
+      'template' => 'simple-menu-icons-css-item',
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter()
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ */
+function simple_menu_icons_form_menu_link_content_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $menu_link = $form_state->getFormObject()->getEntity();
+  $menu_link_options = $menu_link->link->first()->options ?: [];
+
+  $form['icon_upload'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Icon image'),
+    '#description' => t("If you'd like an image to display next to this menu item, upload it here."),
+    '#upload_validators'  => array(
+      'file_validate_extensions' => array('gif png jpg jpeg svg'),
+    ),
+    '#upload_location' => 'public://menu_icons/',
+    '#default_value' => !empty($menu_link_options['menu_icon']['fid']) ? array($menu_link_options['menu_icon']['fid']) : FALSE,
+  );
+  $form['actions']['submit']['#submit'][] = 'simple_menu_icons_menu_link_content_form_submit';
+}
+
+/**
+ * Process the submitted form.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function simple_menu_icons_menu_link_content_form_submit($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  // First we just grab the file ID for the icon we uploaded, if any.
+  $icon_field = $form_state->getValue('icon_upload');
+  $file_id = empty($icon_field) ? FALSE : reset($icon_field);
+
+  if (!empty($file_id)) {
+    // Make this a permanent file so that cron doesn't delete it later.
+    $file = File::load($file_id);
+    $file->status = FILE_STATUS_PERMANENT;
+    $file->save();
+    $file_usage = \Drupal::service('file.usage');
+    $file_usage->add($file, 'simple_menu_icons','default_image', $file_id);
+  }
+
+  // Now we need the Menu Item entity that is being saved.
+  $menu_link = $form_state->getFormObject()->getEntity();
+  $options = ['menu_icon' => array('fid' => $file_id)];
+  $menu_link_options = $menu_link->link->first()->options;
+  $menu_link->link->first()->options = array_merge($menu_link_options, $options);
+  $menu_link->save();
+
+  simple_menu_icons_css_generate();
+  if (!empty($file_id)) {
+    drupal_flush_all_caches();
+  }
+}
+
+/**
+ * Build CSS based on menu IDs
+ */
+function simple_menu_icons_css_generate() {
+  $db = \Drupal::database();
+  $result = $db->select('menu_link_content_data','m')
+    ->fields('m', array('id', 'link__options'))
+    ->execute();
+
+  while ($item = $result->fetchObject()) {
+    $options = unserialize($item->link__options);
+
+    if (empty($options['menu_icon']['fid'])) {
+      continue;
+    }
+
+    // Grab the image's path for referencing it as a background image.
+    $file = File::load($options['menu_icon']['fid']);
+    if (empty($file)) {
+      continue;
+    }
+    $image_path = $file->getFileUri();
+
+    // Grab the image's width so that we know how much padding to add.
+    $image = Drupal::service('image.factory')->get($image_path);
+    $image_width = $image->getWidth();
+
+    $menu_icons[] = array(
+      'mlid' => $item->id,
+      'path' => file_url_transform_relative(file_create_url($image_path)),
+      'width' => $image_width,
+    );
+  }
+
+  $csspath = SIMPLE_MENU_ICONS_CSS_PATH;
+
+  // Save or delete the CSS file, depending on if there's anything to save.
+  if (!empty($menu_icons)) {
+    // Build the CSS using our Twig template.
+    $menu_css = array(
+      '#theme' => 'simple_menu_icons_css_item',
+      '#icons' => $menu_icons,
+    );
+    $css = \Drupal::service('renderer')->renderPlain($menu_css);
+
+    // If theme debug is enabled, there will be HTML comments showing the
+    // path to the Twig template. That breaks the CSS, so we convert them
+    // to CSS comment format here.
+    $css = str_replace('<!--', '/*', $css);
+    $css = str_replace('-->', '*/', $css);
+
+    // Save the CSS to a file in the files directory.
+    file_prepare_directory($csspath, FILE_CREATE_DIRECTORY);
+    file_unmanaged_save_data($css, $csspath . '/menu_icons.css', FILE_EXISTS_REPLACE);
+  }
+  else {
+    file_unmanaged_delete($csspath . '/menu_icons.css');
+  }
+
+  // Either way, we should flush CSS cache so that aggregated CSS gets rebuilt.
+  \Drupal::service('asset.css.collection_optimizer')->deleteAll();
+  _drupal_flush_css_js();
+}
+
+/**
+ * Implements hook_rebuild().
+ */
+function simple_menu_icons_rebuild() {
+  simple_menu_icons_css_generate();
+}
+
+/**
+ * Implements hook_css_alter().
+ *
+ * @param $css
+ * @param \Drupal\Core\Asset\AttachedAssetsInterface $assets
+ */
+function simple_menu_icons_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+  $cssfile = SIMPLE_MENU_ICONS_CSS_PATH . '/menu_icons.css';
+  if (file_exists($cssfile)){
+    $css_path = file_create_url($cssfile);
+    if (!empty($css_path)) {
+      $css[$css_path] = array(
+        'weight' => CSS_COMPONENT,
+        'group' => CSS_AGGREGATE_DEFAULT,
+        'type' => 'file',
+        'data' => $css_path,
+        'media' => 'all',
+        'preprocess' => TRUE,
+        'browsers' => array(
+          'IE' => TRUE,
+          '!IE' => TRUE,
+        ),
+      );
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ *
+ * @param $variables
+ */
+function simple_menu_icons_preprocess_menu(&$variables) {
+  foreach ($variables['items'] as &$item) {
+    _simple_menu_icons_preprocess_menu_item_recursive($item);
+  }
+}
+
+/**
+ * Helper function to recursively preprocess hierarchical menus.
+ *
+ * @param array $item
+ *   Menu item array.
+ */
+function _simple_menu_icons_preprocess_menu_item_recursive(&$item) {
+  if (empty($item['original_link'])) {
+    return;
+  }
+
+  $link_plugin = $item['original_link']->getPluginDefinition();
+
+  if (empty($link_plugin) || empty($link_plugin['metadata']['entity_id'])) {
+    return;
+  }
+
+  $mlid = $link_plugin['metadata']['entity_id'];
+  $item['attributes']->addClass('menu-icon-' . $mlid);
+
+  if (!empty($item['below'])) {
+    foreach ($item['below'] as $key => &$value) {
+      _simple_menu_icons_preprocess_menu_item_recursive($value);
+    }
+  }
+}

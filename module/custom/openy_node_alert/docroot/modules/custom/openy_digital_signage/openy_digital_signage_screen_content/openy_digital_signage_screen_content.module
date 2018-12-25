@@ -1,0 +1,98 @@
+<?php
+
+/**
+ * @file
+ * OpenY digital signage screen content module.
+ */
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+
+/**
+ * Implements hook_panels_build_alter().
+ */
+function openy_digital_signage_screen_content_panels_build_alter(&$build, PanelsDisplayVariant $panels_display) {
+  $builder = $panels_display->getBuilder();
+  $storage_type = $panels_display->getStorageType();
+
+  $is_panelizer = $builder->getPluginId() == 'ipe' &&
+    in_array($storage_type, ['panelizer_default', 'panelizer_field']) &&
+    isset($build['#attached']['library']) &&
+    in_array('panels_ipe/panels_ipe', $build['#attached']['library']);
+
+  if (!$is_panelizer) {
+    return;
+  }
+
+  /* @var \Drupal\Core\Entity\EntityInterface $entity */
+  $entity = $panels_display->getContexts()['@panelizer.entity_context:entity']->getContextValue();
+  if ($entity->bundle() != 'screen_content') {
+    return;
+  }
+  $build['#attached']['drupalSettings']['panelizer']['user_permission']['revert'] = FALSE;
+  $build['#attached']['drupalSettings']['panelizer']['user_permission']['save_default'] = FALSE;
+  $build['#attached']['library'][] = 'openy_digital_signage_screen_content/openyds_panels_ipe';
+}
+
+/**
+ * Implements hook_prerocess_page().
+ */
+function openy_digital_signage_screen_content_preprocess_page(&$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node->bundle() == 'screen_content') {
+      unset($variables['page']['content']['tabs']);
+    }
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ *
+ * This hook isn't called for admin and needs replacing.
+ */
+function openy_digital_signage_screen_content_node_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  if ($operation != 'delete' || $entity->bundle() != 'screen_content') {
+    return AccessResult::neutral();
+  }
+
+  // Check if there are referencing screens.
+  $referencing_screens_count = \Drupal::entityQuery('openy_digital_signage_screen')
+    ->condition('fallback_content', $entity->id())
+    ->count()
+    ->execute();
+
+  if ($referencing_screens_count) {
+    return AccessResult::forbidden('The screen content node can not be deleted because there are Screens that refer to it via "Fallback content" field');
+  }
+
+  // Check if there are referencing schedule items.
+  $referencing_schedule_items_count = \Drupal::entityQuery('openy_digital_signage_sch_item')
+    ->condition('content', $entity->id())
+    ->count()
+    ->execute();
+
+  if ($referencing_schedule_items_count) {
+    return AccessResult::forbidden('The screen content node can not be deleted because there are Schedule items that refer to it');
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_preprocess_layout.
+ */
+function openy_digital_signage_screen_content_preprocess_layout(&$variables) {
+  /* var $layout \Drupal\Core\Layout\LayoutDefinition */
+  $layout = $variables['layout'];
+  if ($layout->getProvider() !== 'openy_digital_signage_screen_content') {
+    return;
+  }
+  $variables['orientation'] = 'landscape';
+  if ($screen = \Drupal::service('openy_digital_signage_screen.manager')->getScreenContext()) {
+    $variables['orientation'] = $screen->orientation->value;
+  }
+}

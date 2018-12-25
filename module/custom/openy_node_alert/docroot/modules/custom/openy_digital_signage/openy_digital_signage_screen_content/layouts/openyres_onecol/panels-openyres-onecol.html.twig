@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Template for a one column panel layout.
+ *
+ * This template provides a very simple "one column" panel display layout.
+ *
+ * Variables:
+ * - $id: An optional CSS id to use for the layout.
+ * - $content: An array of content, each item in the array is keyed to one
+ *   panel of the layout. This layout supports the following sections:
+ *   - content.middle: The only panel in the layout.
+ *   - content.classes: List of classes for wrapper.
+ */
+#}
+{% set classes = '' %}
+{% if content.classes %}
+  {% set classes = ' ' ~ content.classes|join(' ') %}
+{% endif %}
+<div class="openy-ds-layout openy-ds-layout-1col {{ orientation }} {{ classes }}">
+  {{ content.middle }}
+</div>

@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations for openy_digital_signage module.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ */
+function openy_digital_signage_page_attachments(array &$attachments) {
+  // Open Y Digital Signage admin menu CSS.
+  $attachments['#attached']['library'][] = 'openy_digital_signage/admin_menu';
+}

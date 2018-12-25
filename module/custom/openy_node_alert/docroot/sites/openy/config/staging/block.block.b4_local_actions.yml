@@ -1,0 +1,18 @@
+uuid: 6fb33750-2ccb-4a2f-b600-c90669144259
+langcode: en
+status: true
+dependencies:
+  theme:
+    - b4
+id: b4_local_actions
+theme: b4
+region: content
+weight: -20
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

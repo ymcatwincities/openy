@@ -1,0 +1,18 @@
+uuid: 65696b1e-8d1a-42ba-812b-43365c52cd93
+langcode: en
+status: true
+dependencies: {  }
+id: workflow_needs_review_published
+label: Publish
+module: null
+from_sid: workflow_needs_review
+to_sid: workflow_published
+roles:
+  administrator: administrator
+  editor: editor
+  location_editor: location_editor
+  workflow_author: 0
+  anonymous: 0
+  authenticated: 0
+  contributor: 0
+  intern: 0

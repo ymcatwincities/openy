@@ -1,0 +1,8 @@
+<div id="{{ id }}" class="geolocation-common-map"  {% if centre.lat_north_east is not empty and centre.lng_north_east is not empty and centre.lat_south_west is not empty and centre.lng_south_west is not empty %} data-centre-lat-north-east="{{ centre.lat_north_east }}" data-centre-lng-north-east="{{ centre.lng_north_east }}" data-centre-lat-south-west="{{ centre.lat_south_west }}" data-centre-lng-south-west="{{ centre.lng_south_west }}" {% endif %} {% if centre.lat is not empty and centre.lng is not empty %} data-centre-lat="{{ centre.lat }}" data-centre-lng="{{ centre.lng }}" {% endif %} {% if fitbounds is not empty %} data-fitbounds="{{ fitbounds }}" {% endif %} {% if clientlocation is not empty %} data-clientlocation="{{ clientlocation }}" {% endif %}>
+    <div class="geolocation-common-map-locations">
+    {%  for location in locations %}
+        {{ location }}
+    {% endfor %}
+    </div>
+    <div class="geolocation-common-map-container"></div>
+</div>

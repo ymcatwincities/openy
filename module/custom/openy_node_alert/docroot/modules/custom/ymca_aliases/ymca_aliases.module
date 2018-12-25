@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\NodeInterface;
+
+/**
+ * Implements hook_entity_delete().
+ */
+function ymca_aliases_entity_delete(EntityInterface $entity) {
+  if (!($entity instanceof NodeInterface)) {
+    return;
+  }
+
+  $manager = \Drupal::service('path.alias_manager');
+  if ($alias = $manager->getAliasByPath('/node/' . $entity->id(), 'en')) {
+    \Drupal::service('path.alias_storage')->delete(['alias' => $alias]);
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function ymca_aliases_entity_insert(EntityInterface $entity) {
+  // Proceed only with nodes.
+  if (!($entity instanceof NodeInterface)) {
+    return;
+  }
+
+  // Don't proceed with articles, since their alias requires menu link updated.
+  if ($entity->bundle() == 'article') {
+    return;
+  }
+
+  // Don't proceed with the blog if there is an alias provided manually.
+  if ($entity->bundle() == 'blog') {
+    $path = $entity->get('path');
+    if (isset($path[0]) && !empty($path[0]->alias)) {
+      return;
+    }
+  }
+
+  // Generate alias.
+  if (!$alias = Drupal::service('ymca_aliases.node_alias')->getAlias($entity)) {
+    return;
+  }
+
+  // Save generated alias.
+  \Drupal::service('path.alias_storage')->save('/node/' . $entity->id(), $alias, 'en');
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function ymca_aliases_entity_update(EntityInterface $entity) {
+  // Proceed only with nodes.
+  if (!($entity instanceof NodeInterface)) {
+    return;
+  }
+
+  // Don't proceed with articles, since their alias requires menu link updated.
+  if ($entity->bundle() == 'article') {
+    return;
+  }
+
+  // Don't proceed with the blog if there is an alias provided manually.
+  if ($entity->bundle() == 'blog') {
+    $path = $entity->get('path');
+    if (isset($path[0]) && !empty($path[0]->alias)) {
+      return;
+    }
+  }
+
+  // Generate alias.
+  if (!$alias = Drupal::service('ymca_aliases.node_alias')->getAlias($entity)) {
+    return;
+  }
+
+  $source = '/node/' . $entity->id();
+  // Check whether we need to update an alias.
+  $existing = Drupal::service('path.alias_storage')->load(['source' => $source]);
+  $pid = !empty($existing['pid']) ? $existing['pid'] : NULL;
+  // Save generated alias.
+  \Drupal::service('path.alias_storage')->save($source, $alias, 'en', $pid);
+}

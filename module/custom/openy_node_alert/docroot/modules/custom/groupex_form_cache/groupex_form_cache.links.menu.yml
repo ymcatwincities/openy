@@ -1,0 +1,11 @@
+entity.groupex_form_cache.collection:
+  title: 'Groupex Form Cache list'
+  route_name: entity.groupex_form_cache.collection
+  description: 'List Groupex Form Cache entities'
+  parent: ymca_alters.admin_config_entities
+  weight: 100
+groupex_form_cache.admin.structure.settings:
+  title: Groupex Form Cache settings
+  description: 'Configure Groupex Form Cache entities'
+  route_name: groupex_form_cache.settings
+  parent: ymca_alters.admin_config_entities

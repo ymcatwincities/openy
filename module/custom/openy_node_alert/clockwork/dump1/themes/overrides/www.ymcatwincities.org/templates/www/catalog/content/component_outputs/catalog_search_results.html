@@ -1,0 +1,109 @@
+<div id="c_$component_id\_search_results" class="search_results">
+[[ if ymca_hide_search_box ]]
+<form method="post">
+	$start_loop_hidden_values[[ if ! is_order_by ]][[ if value ]]<input type="hidden" name="$name_esc" value="$value_esc" />[[ end if value ]][[ end if is_order_by ]]
+	$end_loop_hidden_values
+	<div class="search_results_sort_by">
+		<label for="c_$component_id\sort_by">Sort by:</label>
+		<div class="sort_bg">
+			<select name="catalog_search_panel_order_by" onchange="this.form.submit( );">
+				<option $name_asc_selected value="name_asc">Entry Name</option>
+				<option $name_desc_selected value="name_desc">Entry Name (Descending)</option>
+				<option $date_asc_selected value="date_asc">Date (Ascending)</option>
+				<option $date_desc_selected value="date_desc">Date (Descending)</option>
+				$start_loop_categories
+				<option $category_$category_id\_selected value="$category_id">$name_esc</option>
+				$end_loop_categories
+			</select>
+		</div>
+		<div class="clear"></div>
+	</div>
+</form>
+
+[[ if ! has_pages ]]
+	[[ if form_submit ]]
+	<h1>Your search returned <strong>$num_entries</strong> result[[ if ! singular ]]s[[ end if singular ]].</h1>
+	[[ end if form_submit ]]
+
+	[[ if ! form_submit ]]
+	<h1><strong>$num_entries</strong> matching entries.</h1>
+	[[ end if form_submit ]]
+[[ end if has_pages ]]
+
+[[ if has_pages ]]
+<h2>Showing page <strong>$current_page_esc</strong> of <strong>$last_page_esc</strong></h2>
+[[ end if has_pages ]]
+[[ end if ymca_hide_search_box ]]
+
+[[ if entries ]]
+<div class="clear"></div>
+<ul class="search-results-ul">
+	$start_loop_entries
+	<li class="post-excerpt clearfix">
+		[[ if thumbnail_image_asset_url_blog ]]
+		<div class="post-excerpt-image"><img src="$thumbnail_image_asset_url_blog_esc" alt="$name_esc_js" /></div>
+		[[ end if thumbnail_image_asset_url_blog ]]
+
+		<div class="post-excerpt-content">
+			<h2 class="post-title">[[ if ! asset ]][[ if href ]]<a href="$href" target="$target">[[ end if href ]][[ end if asset ]]<span class="catalog_entry_name">$name_esc</span>[[ if ! asset ]][[ if href ]]</a>[[ end if href ]][[ end if asset ]]</h2>
+
+			[[ if description ]]
+			<p class="catalog_entry_description">$description</p>
+			[[ end if description ]]
+
+			[[ if ! asset ]][[ if href ]]
+			<p class="catalog_entry_link">
+				<a href="$href" target="$target"[[ if link ]] class="external"[[ end if link ]] class="read-more">Continue Reading</a>
+			</p>
+			[[ end if href ]][[ end if asset ]]
+		</div>
+	</li>
+	$end_loop_entries
+</ul>
+
+[[ if has_pages ]]
+<div class="blog-pagination">
+[[ if has_prev ]]
+	<div class="blog-prev-pages">
+		<a href="$base_page_link_url&amp;$paging_key=1" class="blog-pagination-btn"><i class="icon-angle-double-left"></i><span class="text-hide">First</span></a>
+		<a href="$previous_link_url" class="blog-pagination-btn"><i class="icon-angle-left"></i><span class="text-hide">Previous</span></a>
+	</div>
+[[ end if has_prev ]]
+	<div class="blog-pages">
+		<div class="blog-pages-content">
+			$start_loop_pages
+				<a href="$base_page_link_url&amp;$paging_key=$page_esc" class="[[ if is_current ]] button-disabled[[ end if is_current ]]" title="Page $page_esc">$page_esc</a>
+			$end_loop_pages
+		</div>
+	</div>
+[[ if has_next ]]
+	<div class="blog-next-pages">
+		<a href="$next_link_url" class="blog-pagination-btn"><i class="icon-angle-right"></i><span class="text-hide">Next</span></a>
+		<a href="$base_page_link_url&amp;$paging_key=$last_page" class="blog-pagination-btn"><i class="icon-angle-double-right"></i><span class="text-hide">Last</span></a>
+	</div>
+[[ end if has_next ]]
+</div>
+[[ end if has_pages ]]
+
+[[ end if entries ]]
+
+<script type="text/javascript" charset="utf-8">
+	
+	CWjQuery('.search_results_ul li:last').addClass('last')
+
+	CWjQuery('document').ready( function() {
+			$start_loop_label_ids
+			CWjQuery(".catalog_seapanel_label_$id").attr( 'selected', 'selected' );
+			$end_loop_label_ids
+			CWjQuery( '.page-link' ).click( function( e ) {
+				var href  =  this.href;
+				var page  =  href.substr( href.lastIndexOf( '_' ) + 1 );
+				var form  =  CWjQuery( this ).closest( 'form' );
+				form.find( 'input[name="catalog_search_results_page"]' ).val( page );
+				form.submit( );
+				return false;
+			} );
+	} );
+</script>
+
+</div>

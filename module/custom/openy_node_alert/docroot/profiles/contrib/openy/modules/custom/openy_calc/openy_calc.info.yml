@@ -1,0 +1,12 @@
+name: Open Y Membership Calculator
+type: module
+description: Provides a Membership calculator block.
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - openy_map
+  - openy_socrates
+  - openy_mappings
+  - openy_node_mbrshp
+  - daxko

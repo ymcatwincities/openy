@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Contains specific features related to the functionality provided by module.
+ */
+
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_help().
+ */
+function openy_digital_signage_room_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'openy_ds_room.settings':
+      $output = '';
+      $output .= '<h3>' . t('Room settings') . '</h3>';
+      $output .= '<p>' . t('Default configuration for rooms that are automatically created by GroupEx Pro and Personify integrations.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_create().
+ */
+function openy_digital_signage_room_entity_create(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() != 'openy_ds_classes_groupex_session') {
+    return;
+  }
+
+  $room_manager = \Drupal::service('openy_digital_signage_room.manager');
+  $room = $room_manager->getOrCreateRoomByExternalId($entity->get('studio')->value, $entity->get('location')->target_id, 'groupex');
+  // TODO: perform all the related actions.
+  // To be implemented.
+}

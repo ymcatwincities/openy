@@ -1,0 +1,5 @@
+sitemap.settings:
+  title: 'Sitemap'
+  base_route_name: sitemap.settings
+  names:
+    - sitemap.settings

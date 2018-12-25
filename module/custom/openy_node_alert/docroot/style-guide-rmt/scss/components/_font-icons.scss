@@ -1,0 +1,52 @@
+.box-font-icons {
+
+  &__content {
+    text-align: center;
+  }
+
+  .font-icon {
+    display: inline-block;
+    margin: 0 10px 30px;
+    min-width: 100px;
+    text-align: center;
+  }
+
+  [class^="icon-"], [class*=" icon-"] {
+    font-size: 40px;
+    color: $gray-55;
+    margin-right: -20px;
+  }
+
+  .text {
+      font-size: 14px;
+  }
+
+  &__activity {
+   [class^="icon-"], [class*=" icon-"] {
+      background: $white;
+      border-radius: 100px;
+      box-shadow: 0 2px 4px #cccccc;
+      color: $gray-99;
+      display: inline-block;
+      font-size: 60px;
+      height: 60px;
+      margin-right: 0;
+      width: 60px;
+    }
+  }
+
+  &__marketing {
+    [class^="icon-"], [class*=" icon-"] {
+      background: $white;
+      border-radius: 100px;
+      border: 2px solid $gray-99;
+      color: $gray-99;
+      display: inline-block;
+      font-size: 60px;
+      height: 60px;
+      margin-right: 0;
+      width: 60px;
+    }
+  }
+}
+

@@ -1,0 +1,21 @@
+uuid: dc57167a-219c-4302-b402-2f87da0bc95f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_camp_links
+    - node.type.camp
+  module:
+    - text
+id: node.camp.field_camp_links
+field_name: field_camp_links
+entity_type: node
+bundle: camp
+label: 'Camp Links'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

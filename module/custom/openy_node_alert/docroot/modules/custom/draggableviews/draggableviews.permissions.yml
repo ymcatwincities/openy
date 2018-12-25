@@ -1,0 +1,4 @@
+access draggableviews:
+  title: 'Access Draggableviews'
+  description: 'Give users a permission to sort draggableviews.'
+  restrict access: true

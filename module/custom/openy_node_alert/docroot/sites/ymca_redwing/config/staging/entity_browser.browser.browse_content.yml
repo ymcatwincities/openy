@@ -1,0 +1,32 @@
+uuid: c7b94ade-8819-4436-9e00-d2affc6a724e
+langcode: und
+status: true
+dependencies:
+  enforced:
+    module:
+      - content_browser
+_core:
+  default_config_hash: ls8lahg5SdjoHv6mSHz9zqYW8ddK6V1_PfDLeKyg-8o
+name: browse_content
+label: 'Browser for Content'
+display: iframe
+display_configuration:
+  widget_ids:
+    4c451234-3275-46b2-8861-97297999306b: 'Content Browser'
+  width: 100%
+  height: '768'
+  link_text: 'Select content'
+  auto_open: true
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  4c451234-3275-46b2-8861-97297999306b:
+    settings:
+      view: content_browser_node
+      view_display: entity_browser_1
+    uuid: 4c451234-3275-46b2-8861-97297999306b
+    weight: 0
+    label: 'Content listing'
+    id: view

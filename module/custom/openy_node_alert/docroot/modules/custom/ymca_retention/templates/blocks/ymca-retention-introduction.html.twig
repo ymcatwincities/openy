@@ -1,0 +1,64 @@
+{#
+/**
+ * @file
+ * Display retention campaign introduction information.
+ */
+#}
+<div class="inner-container">
+  {% if content.intro_header is not empty and content.intro_body is not empty %}
+  <div class="compain-tab-header clearfix">
+    <div class="content clearfix">
+      {% if content.intro_header is not empty %}
+        <h2>{{ content.intro_header|t }}</h2>
+      {% endif %}
+      <div class="content-text">
+        {% if content.intro_body is not empty %}
+          {{ content.intro_body }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if content.info_blocks is not empty %}
+
+  <div class="compain-info-blocks clearfix">
+    <div class="content-wrapper">
+      {% for info_block in content.info_blocks %}
+      <div class="compain-info-block">
+        <div class="content">
+          <div class="content-text">
+            {% if info_block.header is not empty %}
+              <h3>{{ info_block.header|t }}</h3>
+            {% endif %}
+            {% if info_block.copy is not empty %}
+              {{ info_block.copy }}
+            {% endif %}
+          </div>
+            {% if info_block.link_type is not empty %}
+              {% if info_block.link_type == 1 %}
+              <a href="{{ info_block.link }}" target="_blank">
+              {% elseif info_block.link_type == 2 %}
+              <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_{{ info_block.tab }}', true)">
+              {% endif %}
+
+              <figure class="img">
+                <img src="{{ base_path }}themes/custom/ymca/img/2017_summer/tab1_{{ loop.index }}.png" />
+              </figure>
+
+              {% if info_block.link_type is not empty %}
+              </a>
+              {% endif %}
+            {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  <div class="campaign-btn ng-hide"
+       data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
+    <a href="#" class="btn btn-lg btn-primary compain-dark-green"
+       data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ content.intro_reg_btn }}</a>
+  </div>
+</div>

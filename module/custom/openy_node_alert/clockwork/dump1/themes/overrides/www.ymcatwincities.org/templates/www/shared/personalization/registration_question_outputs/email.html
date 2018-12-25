@@ -1,0 +1,13 @@
+<div class="form-group">
+	<label for="$field_name" class="col-md-4 email control-label text $$field_name\_style">$question_text <small>$include($optional_template) $include($required_template)</small><span class="inline-error $$field_name\_style"> <strong>Error:</strong> $$field_name\_error_detail_esc</span></label>
+	<div class="col-md-6">
+		[[ if ! member_email ]]
+		<input type="text" class="form-control email text $$field_name\_style [[ if required_template ]]required[[ end if required_template ]]" id="$field_name\_$value" size="$cols" name="$field_name" id="$field_name" value="$value" placeholder="user@email.com" />
+		[[ end if member_email ]]
+		[[ if member_email ]]
+		<input type="text" class="form-control form_email email text $$field_name\_style [[ if required_template ]]required[[ end if required_template ]]" id="$field_name\_$value" size="$cols" value="$member_email" disabled="disabled" />
+		<span class="hint_text">Not <strong>$member_email</strong>? <a href="?action_$component_id=logout">Log out</a></span>
+		<input type="hidden" name="$field_name" value="$member_email"/>
+		[[ end if member_email ]]
+	</div>
+</div>

@@ -1,0 +1,24 @@
+panelizer_default_form:
+  version: VERSION
+  js:
+    js/panelizer-default-form.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+panels_ipe:
+  version: VERSION
+  js:
+    # Core.
+    js/panels_ipe/panels_ipe.js: {}
+    # Views.
+    js/panels_ipe/views/SaveTabView.js: {}
+  css:
+    component:
+      css/panels_ipe.css: {}
+  dependencies:
+    - panels_ipe/panels_ipe
+wizard_admin:
+  version: VERSION
+  css:
+    layout:
+      css/panelizer.admin.css: {}

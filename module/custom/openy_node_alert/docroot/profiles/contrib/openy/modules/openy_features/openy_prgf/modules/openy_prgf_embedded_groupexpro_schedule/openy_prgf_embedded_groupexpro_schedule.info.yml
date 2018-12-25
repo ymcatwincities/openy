@@ -1,0 +1,12 @@
+name: Open Y Paragraph Embedded GroupEx Pro Schedule
+description: Provides a dynamic paragraph that renders Embedded GroupEx Pro Schedule block.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - embedded_groupexpro_schedule
+  - field
+  - openy_prgf
+  - paragraphs
+  - plugin

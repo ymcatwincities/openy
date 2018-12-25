@@ -1,0 +1,207 @@
+.promos {
+  padding-bottom: 40px;
+}
+.promos > *, .promos > .post_display_excerpt {
+  margin-bottom: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+@media (max-width: 991px) and (min-width: 768px) {
+  .sidebar-promos > *, .main-promos > *, .sidebar-promos > a {
+    float: left;
+    margin: 0 0 30px;
+    padding-right: 15px;
+    padding-left: 15px;
+    width: 50%;
+  }
+  .sidebar-region-left .sidebar-promos > * {
+    float: none;
+    width: auto;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+.wrapper, .ancestor-camps a.wrapper {
+  position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.promos a, .text-promo {
+  background: #f1f1f1;
+  color: #635f5f;
+}
+.promos a:hover, .text-promo:hover {
+  background-color: #FFF;
+  color: inherit;
+  text-decoration: none;
+}
+.promos a, .promos > .video > .richtext {
+  overflow: hidden;
+  padding-top: 1px;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+.promos > .richtext a, .promos > .video a {
+  box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+}
+.promos > .richtext > .richtext > a {
+  padding: 0;
+  background-color: rgba(255,255,255,0.61);
+  text-align: left;
+  text-decoration: none;
+  -moz-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+  -ms-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+  transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+}
+.promos > .richtext > .richtext > a:hover {
+  background-color: #FFF;
+}
+.img-crop {
+  overflow: hidden;
+  background: transparent;
+}
+.richtext img {
+  max-width: 100%;
+}
+.promos .img-responsive {
+  display: block;
+  margin: 0 auto;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  transition: none;
+}
+.promos h2, .promos h3, .promos h4, .promos h5 {
+  padding-right: 20px;
+  padding-left: 20px;
+  width: auto;
+  text-align: left;
+  text-transform: none;
+}
+.promos > * a h2:after, .promos > * a h3:after, .promos > * a h4:after {
+  margin-right: 10px;
+  margin-left: 10px;
+  width: 8%;
+  color: #b3b3b3;
+  content: 'o';
+  vertical-align: middle;
+  vertical-align: baseline;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'YMCA';
+  -webkit-transition: color .3s ease-out;
+  -moz-transition: color .3s ease-out;
+  -ms-transition: color .3s ease-out;
+}
+.promos a:hover h2:after, .promos a:hover h3:after, .promos a:hover h4:after {
+  color: #428bca;
+}
+.promos > * a:hover h2:after {
+  color: #428bca;
+}
+.promos p {
+  overflow: hidden;
+  padding: 0 20px 10px;
+  width: auto;
+  vertical-align: middle;
+  text-align: left;
+}
+.sidebar-promos .img-responsive {
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+.sidebar-promos {
+  margin-bottom: 10px;
+  > {
+    * {
+      margin-bottom: 20px;
+    }
+    iframe {
+      width: 100% !important;
+    }
+  }
+}
+.sidebar-promos {
+  .alt-promo {
+    a {
+      height: auto;
+      background: blue;
+      color: white;
+      text-align: center;
+    }
+    h2, p {
+      padding: 0;
+      text-align: center;
+    }
+  }
+  a {
+    height: auto;
+  }
+}
+.sidebar-promos .alt-promo {
+  a {
+    height: auto;
+    background: blue;
+    color: white;
+    text-align: center;
+  }
+  h2, p {
+    padding: 0;
+    text-align: center;
+  }
+}
+.sidebar-promos > a {
+  display: block;
+  height: auto;
+}
+.sidebar-promos a {
+  background: white;
+}
+.sidebar-promos .promo {
+  padding: 6px 0;
+  background: #0089d1;
+  color: white;
+}
+.sidebar-promos {
+  p.button, span.button {
+    display: block;
+    width: auto;
+    text-align: center;
+  }
+}
+
+.sidebar-promos .richtext .text-promo {
+  background: none;
+  a {
+    color: $blue;
+    background: none;
+    &:hover {
+      color: $blue;
+    }
+  }
+  h3 {
+    padding: 0;
+  }
+}
+
+.sidebar-promos {
+  img-crop {
+    height: auto;
+  }
+  .img-crop .img-responsive {
+    position: relative;
+  }
+  a.wrapper {
+    color: #444;
+    &:hover {
+      color: #181818;
+      color: #353535;
+    }
+    color: #666;
+  }
+}
+.sidebar-promos  .richtext a {
+  background: #f0f0f0;
+}

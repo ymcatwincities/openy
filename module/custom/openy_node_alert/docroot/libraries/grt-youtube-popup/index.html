@@ -1,0 +1,82 @@
+<!doctype html>
+<html class="no-js" lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>GRT Youtube Popup - jQuery Plugin</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Demo CSS file not needed for the plugin -->
+		<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+		<link rel="stylesheet" href="css-demo-page.css">
+
+		<!-- GRT Youtube Plugin CSS -->
+		<link rel="stylesheet" href="grt-youtube-popup.css">
+
+	</head>
+	<body>
+		<div class="demo-page-container">
+			<!-- Github Button -->
+			<div class="github-position">
+				<a class="github-button" href="https://github.com/grt107/grt-youtube-popup/archive/master.zip" data-icon="octicon-cloud-download" data-size="large" aria-label="Download grt107/grt-youtube-popup on GitHub">Download</a>
+				<a class="github-button" href="https://github.com/grt107" data-size="large" aria-label="Follow @grt107 on GitHub">Follow @grt107</a>
+			</div>
+
+			<h3>GRT Youtube Popup - jQuery Plugin</h3>
+			<p>Simple and lightweight jQuery plugin for playing youtube embed videos in a popup.</p>
+
+			<h5>Demo</h5>
+			<span class="youtube-link" youtubeid="yPu6qV5byu4">Open Video 1 - (dark theme - autoplay enabled)</span><br />
+			<a href="#" class="youtube-link-dark" youtubeid="-nvUuHKkLgk">Open Video 2 - (light theme - autoplay disabled)</a>
+
+			<h5>How to use the plugin in your website</h5>
+
+			<p>1- Include the plugin stylesheet file <strong>grt-youtube-popup.css</strong> inside the <strong>&lt;head&gt;</strong> tag</p>
+			<code>&lt;link rel="stylesheet" href="grt-youtube-popup.css"&gt;</code>
+
+			<p>2- Include the plugin javascript file <strong>grt-youtube-popup.js</strong> inside the <strong>&lt;body&gt;</strong> tag and after <strong>jquery.min.js</strong></p>
+			<code>&lt;script src="grt-youtube-popup.js"&gt;&lt;/script&gt;</code>
+
+			<p>3- Add a custom class and insert the id of the Youtube video as a new attribute <strong>youtubeid="yPu6qV5byu4"</strong> like in the example below:</p>
+			<code>&lt;span class="youtube-link" youtubeid="yPu6qV5byu4"&gt;Open Video&lt;/span&gt;</code>
+
+			<p>4- Initialize the plugin at the end of all javascript files using your custom class (after jquery.min.js and grt-youtube-popup.js)</p>
+			<code>&lt;script&gt; $(".youtube-link").grtyoutube(); &lt;/script&gt;</code>
+
+			<h5>Advanced Options</h5>
+
+			<p><strong>Autoplay</strong> (enabled by default) - accepted values: <strong>true</strong> or <strong>false</strong></p>
+			<code>&lt;script&gt; $(".youtube-link").grtyoutube({ autoPlay:false }); &lt;/script&gt;</code>
+
+			<p><strong>Theme</strong> (dark theme is set by default) - accepted values: <strong>"dark"</strong> or <strong>"light"</strong></p>
+			<code>&lt;script&gt; $(".youtube-link").grtyoutube({ theme:"light" }); &lt;/script&gt;</code>
+
+		</div>
+
+		<!-- Jquery -->
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+		<!-- Github button for demo page -->
+		<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+		<!-- GRT Youtube Popup -->
+		<script src="grt-youtube-popup.js"></script>
+
+		<!-- Initialize GRT Youtube Popup plugin -->
+		<script>
+			// Demo video 1
+			$(".youtube-link").grtyoutube({
+				autoPlay:true,
+				theme: "dark"
+			});
+
+			// Demo video 2
+			$(".youtube-link-dark").grtyoutube({
+				autoPlay:false,
+				theme: "light"
+			});
+		</script>
+
+	</body>
+</html>

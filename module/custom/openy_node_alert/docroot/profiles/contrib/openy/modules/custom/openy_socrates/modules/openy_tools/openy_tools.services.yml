@@ -1,0 +1,18 @@
+services:
+  openy_tools.field_helper:
+    class: Drupal\openy_tools\FieldHelper
+  logger.channel.openy_tools:
+    parent: logger.channel_base
+    arguments: ['openy_tools']
+  openy_tools.fix_entity_embed:
+    class: Drupal\openy_tools\FixEntityEmbed
+    arguments:
+      - '@logger.channel.openy_tools'
+  openy_tools.fix_double_quotes:
+    class: Drupal\openy_tools\DrupalEntityDoubleQuotes
+    arguments:
+      - '@logger.channel.openy_tools'
+  openy_tools.fix_display_mode:
+    class: Drupal\openy_tools\DrupalEntityFixViewMode
+    arguments:
+      - '@logger.channel.openy_tools'

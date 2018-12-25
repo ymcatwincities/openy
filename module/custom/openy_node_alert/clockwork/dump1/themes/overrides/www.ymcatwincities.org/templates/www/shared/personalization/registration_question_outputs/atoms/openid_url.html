@@ -1,0 +1,15 @@
+[[ if account_creation_openid ]]
+[[ if ! openid_exists ]]
+<p>OR</p>
+<p><a href="?action_$component_id=openid_login&openid_url=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid">Log in with your Google Account</a>.</p>
+<p>OR</p>
+<p><a href="?action_$component_id=openid_login&openid_url=http%3A%2F%2Fyahoo.com"><img src="/amm/images/openid/yahoo-signin-yellow.png" alt="Sign in with Yahoo!" /></a></p>
+<p>OR</p>
+    <input class="text" name="openid_url" type="text" value="$value" size="$cols" style="background: #FFFFFF url('/amm/images/openid/openid-icon-small.gif') no-repeat scroll 0pt 50%;padding-left: 18px;" />
+    <input type="submit" onClick="document.form_$component_id.action_$component_id.value='openid_login';" value="Sign in with OpenID" class="member_login_button"/>
+[[ end if openid_exists ]]
+[[ if openid_exists ]]
+<label for="$field_name" class="form_openid_url_atom $$field_name\_style">OpenID URL <small>$include($optional_template) $include($required_template)</small></label>
+<input type="text" class="form_openid_url_atom" name="$field_name" id="$field_name" value="$value" size="$cols" readonly="readonly" style="background: #FFFFFF url('/amm/images/openid/openid-icon-small.gif') no-repeat scroll 0pt 50%;padding-left: 18px;" />
+[[ end if openid_exists ]]
+[[ end if account_creation_openid ]]

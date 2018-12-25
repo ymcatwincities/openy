@@ -1,0 +1,25 @@
+uuid: 6284e8eb-15e1-432d-be09-9a6fa1f548f2
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:72b2c59c-8ba3-4237-b402-023073b98801'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: footerfirst
+theme: multipurpose_business_theme
+region: '-1'
+weight: -8
+provider: null
+plugin: 'block_content:72b2c59c-8ba3-4237-b402-023073b98801'
+settings:
+  id: 'block_content:72b2c59c-8ba3-4237-b402-023073b98801'
+  label: 'Quick links'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

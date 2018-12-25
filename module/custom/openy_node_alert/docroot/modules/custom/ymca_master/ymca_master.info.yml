@@ -1,0 +1,6 @@
+name: Master module for updates
+type: module
+description: YMCA Master
+core: 8.x
+package: YMCA
+

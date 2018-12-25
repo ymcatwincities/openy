@@ -1,0 +1,19 @@
+uuid: bd4b1ee0-df05-4051-a961-9738dd00be03
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_name
+    - node.type.testimonials
+id: node.testimonials.field_name
+field_name: field_name
+entity_type: node
+bundle: testimonials
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

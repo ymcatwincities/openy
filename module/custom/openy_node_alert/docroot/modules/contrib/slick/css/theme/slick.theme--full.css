@@ -1,0 +1,107 @@
+/**
+ * @file
+ * Re-used rules for Fullscreen and Fullwidth.
+ */
+
+.slide__constrained {
+  height: 100%;
+  min-height: 210px;
+  padding-top: 10%;
+  pointer-events: none;
+  top: 0;
+  z-index: 2;
+}
+
+.slide__constrained::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.slide__constrained > .slide__caption {
+  pointer-events: auto;
+}
+
+.slide__constrained .slide__link a {
+  text-decoration: none;
+}
+
+@media (min-width: 64em) {
+  .slide__constrained > .slide__caption {
+    position: absolute;
+  }
+
+  .slide--caption--center .slide__constrained > .slide__caption {
+    margin-top: -16%;
+    top: 50%;
+  }
+
+  .slide--caption--center .slide__constrained > .slide__caption,
+  .slide--caption--center-top .slide__constrained > .slide__caption {
+    left: 50%;
+    margin-left: -21%;
+    padding: 0;
+    text-align: center;
+  }
+
+  .slide--caption--right .slide__constrained > .slide__caption {
+    left: auto;
+    right: 0;
+  }
+
+  .slide--caption--top .slide__constrained > .slide__caption,
+  .slide--caption--bottom .slide__constrained > .slide__caption {
+    width: 100%;
+  }
+
+  .slide--caption--top .slide__constrained > .slide__caption {
+    top: 0;
+  }
+
+  .slide--caption--bottom .slide__constrained > .slide__caption {
+    bottom: 0;
+    top: auto;
+  }
+
+  .slick--has-arrow-down .slide--caption--bottom .slide__constrained > .slide__caption {
+    padding-bottom: 80px;
+  }
+
+  .slide--caption--stage-left .slide__constrained > .slide__caption,
+  .slide--caption--stage-right .slide__constrained > .slide__caption,
+  .slide--caption--stage-zebra .slide__constrained > .slide__caption {
+    left: 50%;
+    margin-left: -41%;
+    padding: 0;
+    width: 82%;
+  }
+
+  .slide--caption--stage-left .slide__constrained > .slide__caption > .slide__data,
+  .slide--caption--stage-zebra:nth-child(odd) .slide__constrained > .slide__caption > .slide__data {
+    margin-right: 56%;
+  }
+
+  .slide--caption--stage-right .slide__constrained > .slide__caption > .slide__data,
+  .slide--caption--stage-zebra:nth-child(even) .slide__constrained > .slide__caption > .slide__data {
+    margin-left: 56%;
+  }
+
+  .slide--caption--stage-left .slide__constrained > .slide__caption > .slide__overlay,
+  .slide--caption--stage-zebra:nth-child(odd) .slide__constrained > .slide__caption > .slide__overlay {
+    float: right;
+    width: 52%;
+  }
+
+  .slide--caption--stage-right .slide__constrained > .slide__caption > .slide__overlay,
+  .slide--caption--stage-zebra:nth-child(even) .slide__constrained > .slide__caption > .slide__overlay {
+    float: left;
+    width: 52%;
+  }
+
+  .slide--caption--below .slide__constrained > .slide__caption {
+    padding: 20px 0;
+    position: relative;
+    top: auto;
+    width: 100%;
+  }
+}

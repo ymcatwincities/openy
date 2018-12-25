@@ -1,0 +1,15 @@
+uuid: d99eee84-d5cb-4266-ab00-eefa31420c11
+langcode: en
+status: true
+dependencies: {  }
+name: large
+label: 'Large (230×230)'
+effects:
+  ddd73aa7-4bd6-4c85-b600-bdf2b1628d1d:
+    uuid: ddd73aa7-4bd6-4c85-b600-bdf2b1628d1d
+    id: image_scale
+    weight: 0
+    data:
+      width: 230
+      height: 230
+      upscale: false

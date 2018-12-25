@@ -1,0 +1,13 @@
+services:
+  config.cache_size_guard.settings:
+    class: \Drupal\Core\Config\ImmutableConfig
+    factory: config.factory:get
+    arguments: ['cache_size_guard.settings']
+  logger.channel.cache_size_guard:
+    parent: logger.channel_base
+    arguments: ['cache_size_guard']
+  cache_size_guard.runner:
+    class: Drupal\cache_size_guard\CacheSizeGuardRunner
+    arguments: ['@config.cache_size_guard.settings', '@logger.channel.cache_size_guard', '@dbsize.manager']
+    calls:
+      - [setContainer, ['@service_container']]

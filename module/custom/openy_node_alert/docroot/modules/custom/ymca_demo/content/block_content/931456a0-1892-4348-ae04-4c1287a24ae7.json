@@ -1,0 +1,98 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/block\/6?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/block_content\/promo_block"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/block_content\/promo_block\/field_image": [
+            {
+                "href": "http:\/\/default\/file\/2?_format=hal_json"
+            }
+        ]
+    },
+    "uuid": [
+        {
+            "value": "931456a0-1892-4348-ae04-4c1287a24ae7"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "info": [
+        {
+            "value": "Find a Y",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "promo_block"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1445580152",
+            "lang": "en"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "field_block_content": [
+        {
+            "value": "<p>Find a Y location near you.<\/p>\r\n",
+            "format": "full_html",
+            "lang": "en"
+        }
+    ],
+    "field_block_header": [
+        {
+            "value": "Find a Y",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/block_content\/promo_block\/field_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/2?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "0023c839-95e4-4d5f-8f3f-6367571a87c7"
+                    }
+                ],
+                "alt": "Find a Y",
+                "title": "",
+                "width": "600",
+                "height": "340"
+            }
+        ]
+    },
+    "field_link": [
+        {
+            "uri": "http:\/\/google.com",
+            "title": "",
+            "options": []
+        }
+    ]
+}

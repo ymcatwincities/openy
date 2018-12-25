@@ -1,0 +1,9 @@
+langcode: en
+status: false
+dependencies:
+  module:
+    - fontyourface
+id: font.full
+label: 'Full View Mode'
+targetEntityType: font
+cache: false

@@ -1,0 +1,73 @@
+{#
+/**
+ * @file
+ * YPTF Kronos report content template.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ *
+ * @ingroup themeable
+ */
+#}
+<style type="text/css">
+  .yptf-kr-table {border-collapse: collapse;border-spacing: 0;font-size: 14px;}
+  .yptf-kr-table td {padding: 10px 5px;border-style: solid;border-width: 1px;border-color: #ffffff;overflow: hidden;word-break: normal;}
+  .yptf-kr-table th {padding: 10px 5px;border-style: solid;border-width: 1px;border-color: #ffffff;overflow: hidden;word-break: normal;}
+  .yptf-kr-table .yptf-kr-purple {background-color: #834cad;color: #ffffff;}
+  .yptf-kr-table .yptf-kr-lp {background-color: #e7d7f3;}
+  .yptf-kr-table .yptf-kr-second-header {font-size: 12px;}
+  .kronos-messages .red {color: #ff0000;}
+  .kronos-legend {font-size: 14px;}
+</style>
+<table class="yptf-kr-table">
+  <tr>
+    <th rowspan="2" class="yptf-kr-white"><strong>{{ data.report_type_name }}</strong></th>
+    <th colspan="4" class="yptf-kr-purple" bgcolor="#834cad"><strong>{{ "Personal Training Service Hours"|t }}</strong></th>
+  </tr>
+  <tr>
+    <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>KWFC</strong></td>
+    <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>MB</strong></td>
+    <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>VR</strong></td>
+    {#<td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>HR</strong></td>#}
+  </tr>
+  {% for key, row in data.rows|sort %}
+    {% if row.name %}
+    <tr>
+      <td class="yptf-kr-white">{{ row.name }}</td>
+      <td class="yptf-kr-lp" bgcolor="#e7d7f3">{{ row.wf_hours }}</td>
+      <td class="yptf-kr-lp" bgcolor="#e7d7f3">{{ row.mb_hours }}</td>
+      <td class="yptf-kr-lp" bgcolor="#e7d7f3">{{ row.variance }}</td>
+      {#<td class="yptf-kr-lp" bgcolor="#e7d7f3">{{ row.historical_hours }}</td>#}
+    </tr>
+  {% endif %}
+  {% endfor %}
+  <tr>
+    <td class="yptf-kr-white"><strong>{{ data.summary.name }}</strong></td>
+    <td class="yptf-kr-lp" bgcolor="#e7d7f3"><strong>{{ data.summary.wf_hours }}</strong></td>
+    <td class="yptf-kr-lp" bgcolor="#e7d7f3"><strong>{{ data.summary.mb_hours }}</strong></td>
+    <td class="yptf-kr-lp" bgcolor="#e7d7f3"><strong>{{ data.summary.variance }}</strong></td>
+    {#<td class="yptf-kr-lp" bgcolor="#e7d7f3"><strong>{{ data.summary.historical_hours }}</td>#}
+  </tr>
+</table>
+<div class="kronos-legend">
+  <ul>
+    <li><strong>KWFC</strong> - {{ "Kronos Workforce Personal Training hours that were submitted."|t }}</li>
+    <li><strong>MB</strong> - {{ "MindBody Personal Training hours that were reported."|t }}</li>
+    <li><strong>VR</strong> - {{ "Variance between MindBody and Workforce hours."|t }}</li>
+    {#<li><strong>HR</strong> - {{ "Historical Hours(corrected time) from past report."|t }}</li>#}
+  </ul>
+</div>
+<div class="kronos-messages">
+  {% if data.messages %}
+    <p class="red">{{ "Warning: duplicate employee ID conflict in MINDBODY. Employee ID listed in MINDBODY matches the following users:"|t }}</p>
+    {% for key, row in data.messages %}
+      <p class="red">
+        {{ row.name }} - StaffID: {{ key }} - Employee IDs:
+        {% for eid, eid_val in row.empids %}
+          <a href="https://clients.mindbodyonline.com/asp/adm/adm_trn_e.asp?trnID={{ eid_val }}"> {{ eid_val }}</a>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <p>{{ "To resolve, please check Kronos Workforce Central for accurate employee ID and update the 'Staff ID' field in MINDBODY. Contact the @admin_mail if you require assistance."|t({ '@admin_mail': data.admin_mail}) }}</p>
+  {% endif %}
+</div>

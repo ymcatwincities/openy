@@ -1,0 +1,44 @@
+uuid: f8f234a9-087c-4cef-9100-0fabceb9a491
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.location.field_alert
+    - field.field.node.location.field_content
+    - field.field.node.location.field_facebook_page_id
+    - field.field.node.location.field_include_general_blog_posts
+    - field.field.node.location.field_join_override
+    - field.field.node.location.field_location
+    - field.field.node.location.field_main_promos
+    - field.field.node.location.field_membership_block
+    - field.field.node.location.field_phone
+    - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_block
+    - field.field.node.location.field_schedule_content
+    - field.field.node.location.field_working_hours
+    - node.type.location
+  module:
+    - user
+id: node.location.teaser
+targetEntityType: node
+bundle: location
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_alert: true
+  field_content: true
+  field_facebook_page_id: true
+  field_include_general_blog_posts: true
+  field_join_override: true
+  field_location: true
+  field_main_promos: true
+  field_membership_block: true
+  field_phone: true
+  field_promo_slideshow: true
+  field_schedule_block: true
+  field_schedule_content: true
+  field_working_hours: true
+  langcode: true

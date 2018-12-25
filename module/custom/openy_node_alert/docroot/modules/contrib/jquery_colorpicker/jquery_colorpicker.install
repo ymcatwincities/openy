@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for jquery_colorpicker.
+ */
+
+/**
+ * Implements hook_requirements()
+ */
+function jquery_colorpicker_requirements($phase)
+{
+	$requirements = [];
+	if($phase == 'install')
+	{
+		if(!file_exists(DRUPAL_ROOT . '/libraries/jquery_colorpicker/js/colorpicker.js'))
+		{
+			$requirements['jquery_colorpicker'] = [
+				'description' => t('The jQuery Colorpicker module requires the jQuery Colorpicker Library. See the README.txt file in the module folder for installation directions'),
+				'severity' => REQUIREMENT_ERROR,
+			];
+		}
+	}
+
+	return $requirements;
+}

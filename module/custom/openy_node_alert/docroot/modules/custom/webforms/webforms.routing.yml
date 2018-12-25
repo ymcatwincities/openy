@@ -1,0 +1,13 @@
+entity.contact_form.export_csv:
+  path: '/admin/structure/contact/manage/{contact_form}/export_csv'
+  defaults:
+    _title: 'CSV submissions export'
+  requirements:
+    _permission: 'administer contact forms'
+entity.message.thank_you:
+  path: '/submission/{contact_form}/thank_you'
+  defaults:
+    _controller: \Drupal\webforms\Controller\SubmissionPage::buildPage
+    _title: 'Thank you'
+  requirements:
+    _permission: 'access content'

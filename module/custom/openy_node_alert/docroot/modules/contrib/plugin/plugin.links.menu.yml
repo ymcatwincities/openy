@@ -1,0 +1,5 @@
+plugin.plugin_type.list:
+  title: Plugins
+  description: View and configure plugin types and plugins.
+  parent: system.admin_structure
+  route_name: plugin.plugin_type.list

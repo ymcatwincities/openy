@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - geolocation_demo
+name: geolocation_demo_marker_icon_size
+label: 'Geolocation Demo - Marker Icon Size'
+effects:
+  773f1765-63da-4d5e-a59b-cd5e3a35062d:
+    uuid: 773f1765-63da-4d5e-a59b-cd5e3a35062d
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 25
+      height: 25

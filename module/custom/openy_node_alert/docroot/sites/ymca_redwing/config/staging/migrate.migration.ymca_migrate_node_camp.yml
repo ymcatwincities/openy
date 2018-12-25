@@ -1,0 +1,43 @@
+id: ymca_migrate_node_camp
+label: 'Camps migration.'
+migration_group: ymca
+migration_tags:
+  - node
+source:
+  plugin: ymca_migrate_node_camp
+process:
+  type:
+    plugin: default_value
+    default_value: camp
+  title: page_title
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  uid:
+    plugin: default_value
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+  field_content: field_content
+  field_location: field_location
+  field_phone: field_phone
+  field_main_promos: field_main_promos
+  field_promo_slideshow: field_promo_slideshow
+  field_camp_links: field_camp_links
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - ymca_migrate_file_image
+    - ymca_migrate_menu_link_content_camps
+    - ymca_migrate_menu_link_content_child_care_preschool
+    - ymca_migrate_menu_link_content_community_programs
+    - ymca_migrate_menu_link_content_health_fitness
+    - ymca_migrate_menu_link_content_jobs_suppliers_news
+    - ymca_migrate_menu_link_content_kid_teen_activities
+    - ymca_migrate_menu_link_content_locations
+    - ymca_migrate_menu_link_content_main
+    - ymca_migrate_menu_link_content_swimming
+    - ymca_migrate_menu_link_content_redirect

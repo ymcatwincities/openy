@@ -1,0 +1,33 @@
+uuid: 0afdb7e8-1214-4aa7-ae04-4dba1a080ab4
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_header_variant
+field_name: field_header_variant
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: none
+      label: 'Nothing except description'
+    -
+      value: image
+      label: 'Header image'
+    -
+      value: button
+      label: 'Header button'
+    -
+      value: slideshow
+      label: Slideshow
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

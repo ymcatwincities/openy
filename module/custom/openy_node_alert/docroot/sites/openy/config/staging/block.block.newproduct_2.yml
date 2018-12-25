@@ -1,0 +1,25 @@
+uuid: 3243747a-a0d2-40ee-9009-9d86881d4fd5
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:b018f482-ce8e-41a9-b000-b2b143233470'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: newproduct_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -16
+provider: null
+plugin: 'block_content:b018f482-ce8e-41a9-b000-b2b143233470'
+settings:
+  id: 'block_content:b018f482-ce8e-41a9-b000-b2b143233470'
+  label: 'New Product'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

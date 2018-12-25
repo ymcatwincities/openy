@@ -1,0 +1,9 @@
+name: 'Media entity image test'
+type: module
+description: 'Provides test bundle for media entity image.'
+core: 8.x
+package: Testing
+
+dependencies:
+  - entity_browser
+  - media_entity_image

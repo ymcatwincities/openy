@@ -1,0 +1,16 @@
+---
+# This playbook installs docker
+
+- hosts: 127.0.0.1
+  connection: local
+  gather_facts: yes
+
+  vars:
+    # Versions for the python packages that are installed
+    pip_version_pip: '9.0.1'
+    pip_version_setuptools: '32.3.1'
+    pip_version_docker_py: '1.10.6'
+    pip_version_docker_compose: '1.9.0'
+
+  roles:
+    - { role: '../core/facade-docker' }

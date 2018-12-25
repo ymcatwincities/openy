@@ -1,0 +1,23 @@
+uuid: c32aeda7-9772-4507-a800-001953adae3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_water_safety
+    - field.storage.contact_message.field_label
+  module:
+    - webforms
+id: contact_message.contact_water_safety.field_label
+field_name: field_label
+entity_type: contact_message
+bundle: contact_water_safety
+label: Label
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: "<article class=\"richtext\"><p>Have a comment, question or suggestion for YMCA Water Safety? Contact us using the form below.</p></article>\r\n<p class=\"text-right\"><small>* All fields required unless otherwise noted</small></p>\r\n<p class=\"legend\">Your Information  </p>"
+default_value_callback: ''
+settings: {  }
+field_type: webform_markup_item

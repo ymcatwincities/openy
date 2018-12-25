@@ -1,0 +1,20 @@
+{
+  "name": "y",
+  "version": "0.0.0",
+  "homepage": "https://github.com/taracila/prototype",
+  "authors": [
+    "Eugen Taracila <taracilaeugen@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "susy": "~2.2.6",
+    "bower.json": "~0.6.9"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

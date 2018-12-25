@@ -1,0 +1,25 @@
+uuid: ccc6efca-22fa-4f3a-995d-835feacd5ffa
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:cfcdb137-2a9b-4276-805c-92f8cb06ada0'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: loremipsumissimplydummytextoftheprinting_2
+theme: multipurpose_business_theme
+region: '-1'
+weight: -19
+provider: null
+plugin: 'block_content:cfcdb137-2a9b-4276-805c-92f8cb06ada0'
+settings:
+  id: 'block_content:cfcdb137-2a9b-4276-805c-92f8cb06ada0'
+  label: 'Lorem Ipsum is simply dummy text of the printing'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

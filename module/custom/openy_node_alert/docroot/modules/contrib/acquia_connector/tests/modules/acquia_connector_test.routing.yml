@@ -1,0 +1,34 @@
+acquia_connector_test.communication_setting:
+  path: '/agent-api/subscription/communication'
+  defaults:
+    _controller: '\Drupal\acquia_connector_test\Controller\NspiController::getCommunicationSettings'
+  requirements:
+    _custom_access: '\Drupal\acquia_connector_test\Controller\NspiController::access'
+
+acquia_connector_test.credentials:
+  path: '/agent-api/subscription/credentials'
+  defaults:
+    _controller: '\Drupal\acquia_connector_test\Controller\NspiController::getCredentials'
+  requirements:
+    _custom_access: '\Drupal\acquia_connector_test\Controller\NspiController::access'
+
+acquia_connector_test.subscription:
+  path: '/agent-api/subscription'
+  defaults:
+    _controller: '\Drupal\acquia_connector_test\Controller\NspiController::getSubscription'
+  requirements:
+    _custom_access: '\Drupal\acquia_connector_test\Controller\NspiController::access'
+
+acquia_connector_test.nspi_update:
+  path: '/spi-api/site'
+  defaults:
+    _controller: '\Drupal\acquia_connector_test\Controller\NspiController::nspiUpdate'
+  requirements:
+    _custom_access: '\Drupal\acquia_connector_test\Controller\NspiController::access'
+
+acquia_connector_test.spi_defenition:
+  path: '/spi_def/get/{version}'
+  defaults:
+    _controller: '\Drupal\acquia_connector_test\Controller\NspiController::spiDefinition'
+  requirements:
+    _custom_access: '\Drupal\acquia_connector_test\Controller\NspiController::access'

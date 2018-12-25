@@ -1,0 +1,16 @@
+services:
+  acquia_connector.init_subscriber:
+    class: Drupal\acquia_connector\EventSubscriber\InitSubscriber
+    arguments: ['@config.factory', '@state', '@cache.default']
+    tags:
+      - {name: event_subscriber}
+  acquia_connector.client:
+    class: Drupal\acquia_connector\Client
+    arguments: ['@config.factory']
+  acquia_connector.spi:
+    class: Drupal\acquia_connector\Controller\SpiController
+    arguments: ['@acquia_connector.client']
+  logger.acquia_connector:
+    class: Drupal\acquia_connector\CronService
+    tags:
+      - { name: logger }

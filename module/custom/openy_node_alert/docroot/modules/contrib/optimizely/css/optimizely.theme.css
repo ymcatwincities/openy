@@ -1,0 +1,65 @@
+/* CSS specific to the Optimizely module */
+
+/*
+ * Project Listing /admin/config/system/optimizely
+ */
+
+.admin-links {
+  margin-bottom: 20px;
+}
+
+#optimizely-add-update-form .form-item {
+  margin: 0;
+}
+
+#optimizely-add-update-form .form-item-optimizely-include {
+  clear: both;
+}
+
+#optimizely-project-listing .even .disabled {
+  background-color: #ffcccc;
+  border: 1px solid #8e4d4d;
+}
+
+#optimizely-project-listing .odd .disabled {
+  background-color: #c77171;
+  border: 1px solid #8e4d4d;
+}
+
+#optimizely-project-listing .even .enabled {
+  background-color: #ccffdd;
+  border: 1px solid #479661;
+}
+
+#optimizely-project-listing .odd .enabled {
+  background-color: #74fda2;
+  border: 1px solid #479661;
+}
+
+#optimizely-project-listing .status-container {
+  float:left;
+  width: 180px;
+}
+
+#optimizely-project-listing .form-type-checkbox {
+  float:left;
+  padding-right: 10px;
+}
+
+#optimizely-project-listing .enable-column {
+  width: 50px;
+}
+
+.page-admin-config-system-optimizely table td {
+  vertical-align: top;
+}
+
+.page-admin-config-system-optimizely td.title-column {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.sticky-header th,
+.sticky-table th {
+  font-size: 1.2em;
+}

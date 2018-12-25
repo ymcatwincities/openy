@@ -1,0 +1,21 @@
+uuid: 3c849312-966f-40ff-9895-907433f8bd46
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.returning_staff_employment_appli
+    - field.storage.contact_message.field_cell_phone
+  module:
+    - telephone
+id: contact_message.returning_staff_employment_appli.field_cell_phone
+field_name: field_cell_phone
+entity_type: contact_message
+bundle: returning_staff_employment_appli
+label: 'Cell Number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

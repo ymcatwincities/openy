@@ -1,0 +1,19 @@
+ft_layout_style: columns-middle
+ft_layout_responsive: adaptive
+ft_apple_touch: 1
+ft_cleartype: 1
+ft_viewport: 1
+ft_viewport_initial_scale: '1.0'
+ft_viewport_user_scaleable: 1
+ft_viewport_minimum_scale: '1.0'
+ft_viewport_maximum_scale: '1.0'
+ft_placeholder_js: 1
+ft_enquire_js: 0
+ft_lodash_js: 1
+ft_show_window_size: 0
+ft_breadcrumb_separator: ' › '
+ft_breadcrumb_home: 1
+ft_breadcrumb_trailing: 0
+ft_breadcrumb_title: 0
+ft_show_grid: 0
+ft_show_responsive_identifier: 0

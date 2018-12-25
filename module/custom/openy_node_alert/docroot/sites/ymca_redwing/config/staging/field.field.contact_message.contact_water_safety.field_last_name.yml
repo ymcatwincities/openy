@@ -1,0 +1,19 @@
+uuid: d8b9a9cb-b7f7-4928-a100-c1eb849ac67d
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_water_safety
+    - field.storage.contact_message.field_last_name
+id: contact_message.contact_water_safety.field_last_name
+field_name: field_last_name
+entity_type: contact_message
+bundle: contact_water_safety
+label: 'Last Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

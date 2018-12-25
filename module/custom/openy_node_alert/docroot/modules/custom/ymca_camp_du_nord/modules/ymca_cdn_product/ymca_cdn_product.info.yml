@@ -1,0 +1,5 @@
+name: YMCA Camp du Nord Product
+type: module
+description: YMCA Camp du Nord Product
+core: 8.x
+package: YMCA CDN

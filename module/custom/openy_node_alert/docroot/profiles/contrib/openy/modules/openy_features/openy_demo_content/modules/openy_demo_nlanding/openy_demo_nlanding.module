@@ -1,0 +1,281 @@
+<?php
+
+/**
+ * @file
+ * Main module's file.
+ */
+
+/**
+ * Deploy Program Event Framework related landing pages.
+ */
+function openy_demo_nlanding_pef_pages() {
+  // Make sure that blocks are available.
+  openy_enable_module('openy_repeat');
+  drupal_flush_all_caches();
+
+  /**
+   * Get category ID by title.
+   *
+   * @param string $title
+   *   Category title.
+   *
+   * @return mixed
+   *   Category ID.
+   */
+  $get_activity_id_by_title = function ($title) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'activity')
+      ->condition('title', $title);
+    $result = $query->execute();
+    return reset($result);
+  };
+
+  $schedules_node = \Drupal\node\Entity\Node::create(
+    [
+      'type' => 'landing_page',
+      'title' => 'Schedules',
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'field_lp_layout' => ['value' => 'one_column_clean'],
+    ]
+  );
+  $schedules_node->save();
+
+  $locations_node = \Drupal\node\Entity\Node::create(
+    [
+      'type' => 'landing_page',
+      'title' => 'Select location',
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'field_lp_layout' => ['value' => 'one_column_clean'],
+    ]
+  );
+  $locations_node->save();
+
+  $group_exercises_nid = $get_activity_id_by_title('Group Exercise Classes');
+
+  $schedules_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+    [
+      'type' => 'repeat_schedules',
+      'parent_id' => $schedules_node->id(),
+      'parent_type' => 'node',
+      'parent_field_name' => 'field_content',
+      'status' => 1,
+      'field_prgf_repeat_schedules_ref' => ['plugin_id' => 'repeat_schedules_block'],
+      'field_prgf_repeat_schedules_pref' => ['target_id' => $locations_node->id()],
+      'field_prgf_repeat_schedule_excl' => [
+        [ 'target_id' => $group_exercises_nid ],
+      ],
+    ]
+  );
+  $schedules_paragraph->save();
+
+  $schedules_node->field_content->entity = $schedules_paragraph;
+  $schedules_node->save();
+
+  $location_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+    [
+      'type' => 'repeat_schedules_loc',
+      'parent_id' => $locations_node->id(),
+      'parent_type' => 'node',
+      'parent_field_name' => 'field_content',
+      'status' => 1,
+      'field_prgf_block' => ['plugin_id' => 'repeat_schedules_loc_block'],
+      'field_prgf_repeat_lschedules_prf' => ['target_id' => $schedules_node->id()],
+    ]
+  );
+  $location_paragraph->save();
+
+  $locations_node->field_content->entity = $location_paragraph;
+  $locations_node->save();
+
+  $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
+//  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+//    'title' => 'Program Schedules',
+//    'link' => ['uri' => 'entity:node/' . $locations_node->id()],
+//    'menu_name' => 'main',
+//    'parent' => 'menu_link_content:' . $parent_menu_link->uuid(),
+//    'expanded' => TRUE,
+//  ]);
+//  $menu_link->save();
+
+  $schedules_pages_to_create = [
+    [
+      'title' => 'Group Exercise Classes',
+      'activity_ids' => [
+        $get_activity_id_by_title('Cardio'),
+        $get_activity_id_by_title('Strength'),
+        $get_activity_id_by_title('Forever Well'),
+      ],
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+    [
+      'title' => 'Programs & Activities',
+      'activity_ids' => [
+        $get_activity_id_by_title('Climbing - Adult'),
+        $get_activity_id_by_title('Cooking Classes'),
+        $get_activity_id_by_title('Health & Wellness Workshops'),
+        $get_activity_id_by_title('Health Improvement'),
+        $get_activity_id_by_title('Small Group and Specialty Training'),
+        $get_activity_id_by_title('Small Group Training - Youth'),
+        $get_activity_id_by_title('Weight Loss'),
+      ],
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+    [
+      'title' => 'Swim',
+      'activity_ids' => [
+        $get_activity_id_by_title('Swim Lessons - Child with Adult'),
+        $get_activity_id_by_title('Swim Lessons - Preschool'),
+        $get_activity_id_by_title('Swim Lessons - Private'),
+        $get_activity_id_by_title('Swim Lessons - Teen'),
+        $get_activity_id_by_title('Swim Lessons - Youth'),
+        $get_activity_id_by_title('Swim Team'),
+        $get_activity_id_by_title('Drop-In Swim'),
+      ],
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+    [
+      'title' => 'Personal Training',
+      'activity_ids' => [
+        $get_activity_id_by_title('Personal Training'),
+        $get_activity_id_by_title('Small Group and Specialty Training'),
+        $get_activity_id_by_title('Small Group Training - Youth'),
+      ],
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+    [
+      'title' => 'Camp',
+      'activity_ids' => [
+        $get_activity_id_by_title('BOLD One-Week Expeditions'),
+        $get_activity_id_by_title('Discovery Day Camp'),
+      ],
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+    [
+      'title' => 'Kids & Teens',
+      'activity_ids' => [
+        $get_activity_id_by_title('Academic Enrichment - Youth'),
+        $get_activity_id_by_title('Academic Success'),
+        $get_activity_id_by_title('Arts & Crafts'),
+        $get_activity_id_by_title('Before & After School Child Care'),
+        $get_activity_id_by_title('Before & After School Programs'),
+        $get_activity_id_by_title('Birthday Parties'),
+        $get_activity_id_by_title('Earth Service Corps'),
+        $get_activity_id_by_title('Kids Zone Activity Centers'),
+        $get_activity_id_by_title('Preschool Child Care'),
+        $get_activity_id_by_title('Sports Classes & Workshops - Youth'),
+      ],
+      'parent_menu_uuid' => $parent_menu_link->uuid(),
+    ],
+  ];
+
+  /**
+   * Populate schedules pages.
+   *
+   * @param array $pages
+   *   Array of pages.
+   *
+   * @throws \Exception
+   */
+  $pages_populate = function (array $pages) {
+    foreach ($pages as $page) {
+      // Create landing page.
+      /** @var \Drupal\node\Entity\Node $node */
+      $node = \Drupal\node\Entity\Node::create(
+        [
+          'type' => 'landing_page',
+          'title' => $page['title'],
+          'langcode' => 'en',
+          'uid' => '1',
+          'status' => 1,
+          'field_lp_layout' => ['value' => 'one_column_clean'],
+        ]
+      );
+      $node->save();
+
+      // Get activity IDs.
+      $activity_ids = [];
+      foreach ($page['activity_ids'] as $activity_id) {
+        $activity_ids[] = ['target_id' => $activity_id];
+      }
+
+      // Create schedules paragraph.
+      $paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+        [
+          'type' => 'repeat_schedules',
+          'parent_id' => $node->id(),
+          'parent_type' => 'node',
+          'parent_field_name' => 'field_content',
+          'status' => 1,
+          'field_prgf_block' => ['plugin_id' => 'repeat_schedules_block'],
+          'field_prgf_repeat_schedule_categ' => $activity_ids,
+          'field_prgf_repeat_schedule_instr' => ['value' => TRUE],
+        ]
+      );
+      $paragraph->save();
+
+      // Update landing page with created paragraph.
+      $node->field_content->entity = $paragraph;
+      $node->save();
+
+      // Create menu link.
+      $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+        'title' => $page['title'],
+        'link' => ['uri' => 'entity:node/' . $node->id()],
+        'menu_name' => 'main',
+        'parent' => 'menu_link_content:' . $page['parent_menu_uuid'],
+        'expanded' => TRUE,
+      ]);
+      $menu_link->save();
+    }
+  };
+
+  $pages_populate($schedules_pages_to_create);
+
+  // For some reason repeat blocks do not have block's id in their
+  // configuration. This is why we manually ensure they are set up.
+  $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
+    foreach ($tables as $table) {
+      // Select all paragraphs that have "broken" as plugin_id.
+      $query = \Drupal::database()->select($table, 'ptable');
+      $query->fields('ptable');
+      $query->condition('ptable.' . $plugin_id_field, 'broken');
+      $broken_paragraphs = $query->execute()->fetchAll();
+
+      // Update to correct plugin_id based on data array.
+      foreach ($broken_paragraphs as $paragraph) {
+        $data = unserialize($paragraph->{$config_field});
+
+        if ($paragraph->bundle == 'repeat_schedules') {
+          $data['id'] = 'repeat_schedules_block';
+        }
+        elseif ($paragraph->bundle == 'repeat_schedules_loc') {
+          $data['id'] = 'repeat_schedules_loc_block';
+        }
+
+        $query = \Drupal::database()->update($table);
+        $query->fields([
+          $plugin_id_field => $data['id'],
+          $config_field => serialize($data),
+        ]);
+        $query->condition('bundle', $paragraph->bundle);
+        $query->condition('entity_id', $paragraph->entity_id);
+        $query->condition('revision_id', $paragraph->revision_id);
+        $query->condition('langcode', $paragraph->langcode);
+        $query->execute();
+      }
+    }
+  };
+
+  $process_paragraphs(
+    [
+      'paragraph__field_prgf_block',
+      'paragraph_revision__field_prgf_block',
+    ],
+   'field_prgf_block_plugin_id',
+   'field_prgf_block_plugin_configuration'
+  );
+}

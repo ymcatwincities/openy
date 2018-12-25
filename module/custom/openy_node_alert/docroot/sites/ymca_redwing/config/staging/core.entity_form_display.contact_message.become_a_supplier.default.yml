@@ -1,0 +1,209 @@
+uuid: eb0943ea-d57f-4f97-9e00-c49319707ae0
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.field.contact_message.become_a_supplier.field_address
+    - field.field.contact_message.become_a_supplier.field_category_class
+    - field.field.contact_message.become_a_supplier.field_cell_phone
+    - field.field.contact_message.become_a_supplier.field_ceo_first_name
+    - field.field.contact_message.become_a_supplier.field_ceo_last_name
+    - field.field.contact_message.become_a_supplier.field_company_name
+    - field.field.contact_message.become_a_supplier.field_electronic_po
+    - field.field.contact_message.become_a_supplier.field_email_address
+    - field.field.contact_message.become_a_supplier.field_fax
+    - field.field.contact_message.become_a_supplier.field_fein
+    - field.field.contact_message.become_a_supplier.field_first_name
+    - field.field.contact_message.become_a_supplier.field_form_divider
+    - field.field.contact_message.become_a_supplier.field_form_divider1
+    - field.field.contact_message.become_a_supplier.field_label
+    - field.field.contact_message.become_a_supplier.field_last_name
+    - field.field.contact_message.become_a_supplier.field_order_email
+    - field.field.contact_message.become_a_supplier.field_phone_number
+    - field.field.contact_message.become_a_supplier.field_product_catalog
+    - field.field.contact_message.become_a_supplier.field_supplier_portal
+    - field.field.contact_message.become_a_supplier.field_title
+    - field.field.contact_message.become_a_supplier.field_vendor_portal
+    - field.field.contact_message.become_a_supplier.field_w9
+    - field.field.contact_message.become_a_supplier.field_website_url
+    - field.field.contact_message.become_a_supplier.field_wm_biz
+  module:
+    - address
+    - link
+    - webforms
+    - ymca_alters
+id: contact_message.become_a_supplier.default
+targetEntityType: contact_message
+bundle: become_a_supplier
+mode: default
+content:
+  field_address:
+    weight: 9
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_category_class:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_cell_phone:
+    weight: 22
+    settings:
+      placeholder: '(###)###-####'
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
+    third_party_settings: {  }
+    type: telephone_default
+  field_ceo_first_name:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_ceo_last_name:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_company_name:
+    weight: 8
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_electronic_po:
+    weight: 2
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_email_address:
+    weight: 23
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_fax:
+    type: telephone_default
+    weight: 15
+    settings:
+      placeholder: ''
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
+    third_party_settings: {  }
+  field_fein:
+    weight: 24
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_first_name:
+    weight: 19
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_form_divider:
+    weight: 11
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_form_divider1:
+    type: webform_markup_widget
+    weight: 7
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_label:
+    type: webform_markup_widget
+    weight: 18
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_last_name:
+    weight: 20
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_order_email:
+    type: email_default
+    weight: 16
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_phone_number:
+    weight: 14
+    settings:
+      placeholder: ''
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
+    third_party_settings: {  }
+    type: telephone_default
+  field_product_catalog:
+    weight: 4
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_supplier_portal:
+    weight: 3
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_title:
+    weight: 21
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_vendor_portal:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_w9:
+    weight: 1
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_website_url:
+    type: link_default
+    weight: 17
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_wm_biz:
+    weight: 6
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  langcode:
+    type: language_select
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  mail: true
+  message: true
+  name: true
+  subject: true

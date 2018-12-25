@@ -1,0 +1,20 @@
+name: Open Y Paragraph Blog Posts Listing
+description: Provides a dynamic paragraph that renders blog posts listing with exposed filters.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - field
+  - node
+  - openy_node_blog
+  - openy_prgf
+  - openy_txnm_blog_category
+  - paragraphs
+  - plugin
+  - taxonomy
+  - text
+  - user
+  - verf
+  - views
+  - views_infinite_scroll

@@ -1,0 +1,14 @@
+type: module
+name: 'Token Filter'
+description: 'Allows token values to be used as filters.'
+# core: 8.x
+# version: VERSION
+dependencies:
+  - filter
+  - token
+
+# Information added by Drupal.org packaging script on 2016-03-30
+version: '8.x-1.0-beta1'
+core: '8.x'
+project: 'token_filter'
+datestamp: 1459376644

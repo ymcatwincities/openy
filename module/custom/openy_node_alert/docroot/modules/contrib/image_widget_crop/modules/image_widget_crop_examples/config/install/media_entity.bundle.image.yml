@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+    - media_entity_image
+third_party_settings:
+  crop:
+    image_field: field_image_crop
+id: image
+label: Image
+description: ''
+type: image
+type_configuration:
+  source_field: field_image_crop
+  gather_exif: '0'
+field_map: {  }

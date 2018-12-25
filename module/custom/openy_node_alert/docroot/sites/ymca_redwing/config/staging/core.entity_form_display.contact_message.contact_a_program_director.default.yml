@@ -1,0 +1,79 @@
+uuid: b7afb1a8-78b8-4905-9b00-a88a0ea94ebe
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_a_program_director
+    - field.field.contact_message.contact_a_program_director.field_comments
+    - field.field.contact_message.contact_a_program_director.field_contact_method
+    - field.field.contact_message.contact_a_program_director.field_email_address
+    - field.field.contact_message.contact_a_program_director.field_first_name
+    - field.field.contact_message.contact_a_program_director.field_label
+    - field.field.contact_message.contact_a_program_director.field_last_name
+    - field.field.contact_message.contact_a_program_director.field_phone_number
+    - field.field.contact_message.contact_a_program_director.field_y_location_email
+  module:
+    - telephone
+    - webforms
+id: contact_message.contact_a_program_director.default
+targetEntityType: contact_message
+bundle: contact_a_program_director
+mode: default
+content:
+  field_comments:
+    type: string_textarea
+    weight: 7
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_contact_method:
+    type: options_select
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+  field_email_address:
+    type: email_default
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_first_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_label:
+    weight: 0
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_last_name:
+    type: string_textfield
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_phone_number:
+    type: telephone_default
+    weight: 4
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_y_location_email:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_email_default
+hidden:
+  copy: true
+  langcode: true
+  mail: true
+  message: true
+  name: true
+  subject: true

@@ -1,0 +1,215 @@
+body {
+  @include breakpoint (767px) {
+    padding-top: 100px !important;
+    @include transition(padding-top 0.2s ease);
+    &.tiny-header {
+      padding-top: 55px !important;
+    }
+  }
+
+  @include breakpoint (0 767px) {
+    padding-top: 80px !important;
+    max-width: 100%;
+  }
+
+  &.toolbar-fixed {
+    &.toolbar-horizontal {
+      @include breakpoint (767px) {
+        padding-top: 122px !important;
+        @include transition(padding-top 0.2s ease);
+        &.tiny-header {
+          padding-top: 94px !important;
+        }
+      }
+    }
+  }
+}
+
+#side-area {
+  .section-icon {
+    @include breakpoint (0 767px) {
+      display: none;
+    }
+  }
+}
+
+
+header#page-head {
+  @include clearfix;
+  width: 100%;
+  @include cachet();
+  @include breakpoint (0 767px) {
+    position: relative;
+  }
+  &.tiny {
+    .top-navs {
+      #block-topmenu2,
+      #block-anonymoususersmenu,
+      #block-anonymoususersmenu--2,
+      #block-openy-lily-user-menu,
+      #block-cccuseraccountmenu,
+      #block-cccuseraccountmenu--2 {
+        li {
+          a {
+            line-height: 68px;
+          }
+        }
+      }
+      #block-topmenu2,
+      #block-openy-lily-user-menu,
+      #block-anonymoususersmenu,
+      #block-anonymoususersmenu--2 {
+        ul {
+          li {
+            &:first-child {
+              a {
+                margin: 36px 5px 0 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .top-navs {
+    height: auto !important;
+    background-color: transparent;
+    .nav-global {
+      @include transition(top 0.2s linear);
+      left: 0;
+      position: fixed;
+      top: 0;
+      z-index: 999;
+      margin-bottom: 0;
+      border-radius: 0;
+      background-color: $gray-light;
+      min-height: 100px;
+      width: 100%;
+      @include breakpoint (0 767px) {
+        min-height: 80px;
+      }
+
+      .navbar-header {
+        padding: 5px 0 13px;
+        @include breakpoint (768px){
+          .navbar-toggler {
+            display: none !important;
+          }
+        }
+        @include breakpoint (0 767px) {
+          width: 100%;
+          padding: 0 !important;
+          height: 52px !important;
+          #block-openy-lily-branding {
+            position: absolute;
+            left: 50%;
+            margin-left: -27px;
+            margin-top: 5px;
+            img {
+              width: 54px !important;
+            }
+          }
+        }
+
+        @include breakpoint (768px 992px) {
+          padding: 5px 0 13px !important;
+          width: auto;
+        }
+      }
+    }
+
+    .nav-wrapper {
+      min-height: 62px;
+      z-index: 998;
+      display: none;
+      @include breakpoint (767px) {
+        display: block;
+      }
+      @include breakpoint (0 767px) {
+        min-height: 0;
+      }
+
+      .main-nav {
+        width: 100%;
+        z-index: 9999;
+        @include transition(top 0.2s linear);
+        &.affix {
+          top: 100px;
+        }
+        #block-openy-lily-main-menu {
+          width: 100%;
+          background: rgba(0, 96, 175, 0.95);
+          padding: 0 30px;
+          @include breakpoint (0 767px) {
+            display: none !important;
+          }
+          @include breakpoint (768px 992px) {
+            display: block !important;
+          }
+        }
+      }
+    }
+
+    #block-topmenu2 {
+      @include breakpoint (768px 992px) {
+        display: inline-block !important;
+      }
+    }
+
+    #block-anonymoususersmenu--2,
+    #block-anonymoususersmenu,
+    #block-openy-lily-user-menu,
+    #block-cccuseraccountmenu--2,
+    #block-cccuseraccountmenu {
+      @include breakpoint (0 767px) {
+        display: none !important;
+      }
+      @include breakpoint (768px 992px) {
+        display: block !important;
+      }
+      .nav {
+        li {
+          a {
+            margin-bottom: 2px;
+          }
+        }
+      }
+    }
+  }
+
+  #block-openy-lily-branding {
+    .ymca-branding-slogan {
+      @include breakpoint (0 767px) {
+        display: none;
+      }
+      @include breakpoint (768px 992px) {
+        display: block !important;
+      }
+    }
+  }
+}
+
+.navbar-brand {
+  @include breakpoint(768px 992px) {
+    left: auto;
+    position: absolute;
+    display: block;
+    overflow: hidden;
+    box-sizing: content-box;
+    margin: 7px 0 5px 0;
+    padding: 5px 0 0 30px;
+    width: 220px;
+    height: 72%;
+    background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
+    background-size: contain;
+  }
+  @include breakpoint(0 767px) {
+    left: 35%;
+    float: none;
+    margin-left: -24px;
+    padding: 0;
+    height: 70%;
+    background-position: left top;
+    background-size: contain;
+  }
+}

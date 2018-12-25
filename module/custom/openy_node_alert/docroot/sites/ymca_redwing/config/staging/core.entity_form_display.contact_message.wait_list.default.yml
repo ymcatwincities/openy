@@ -1,0 +1,87 @@
+uuid: ba0e8b17-e45e-4aa4-8200-f856af261084
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.wait_list
+    - field.field.contact_message.wait_list.field_child_first_and_last_name
+    - field.field.contact_message.wait_list.field_email_address
+    - field.field.contact_message.wait_list.field_first_name
+    - field.field.contact_message.wait_list.field_label
+    - field.field.contact_message.wait_list.field_last_name
+    - field.field.contact_message.wait_list.field_phone_number
+    - field.field.contact_message.wait_list.field_school
+    - field.field.contact_message.wait_list.field_wait_list_email_option
+  module:
+    - webforms
+    - ymca_alters
+id: contact_message.wait_list.default
+targetEntityType: contact_message
+bundle: wait_list
+mode: default
+content:
+  field_child_first_and_last_name:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_email_address:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_first_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_label:
+    weight: 0
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: webform_markup_widget
+  field_last_name:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_phone_number:
+    weight: 5
+    settings:
+      placeholder: ''
+      validate_pattern: '^(\d{10})|\((\d{3})\)(\d{3})\-(\d{4})$'
+      validate_message: 'Telephone number should have 10 digits. Example: 1234567890 or (123)456-7890'
+    third_party_settings: {  }
+    type: telephone_default
+  field_school:
+    weight: 8
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_wait_list_email_option:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_email_default
+  langcode:
+    type: language_select
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  mail: true
+  message: true
+  name: true
+  subject: true

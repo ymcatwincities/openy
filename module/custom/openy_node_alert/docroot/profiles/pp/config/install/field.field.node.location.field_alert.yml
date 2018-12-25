@@ -1,0 +1,26 @@
+uuid: 9be55a15-c6ad-44b1-a602-2d4051d9fd67
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.alert_block
+    - field.storage.node.field_alert
+    - node.type.location
+id: node.location.field_alert
+field_name: field_alert
+entity_type: node
+bundle: location
+label: Alert
+description: 'reference to an Alert block that contains text with WYSIWYG for display to a visitor by cookie'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      alert_block: alert_block
+    sort:
+      field: _none
+field_type: entity_reference

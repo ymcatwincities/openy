@@ -1,0 +1,26 @@
+uuid: b18b27ee-2fef-4117-b31d-299329031b0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.date_block
+    - field.storage.node.field_registration_block
+    - node.type.camp
+id: node.camp.field_registration_block
+field_name: field_registration_block
+entity_type: node
+bundle: camp
+label: 'Registration Block'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      date_block: date_block
+    sort:
+      field: _none
+field_type: entity_reference

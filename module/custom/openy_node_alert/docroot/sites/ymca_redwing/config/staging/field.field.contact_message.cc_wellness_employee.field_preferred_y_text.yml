@@ -1,0 +1,21 @@
+uuid: 2912b35d-e90f-4287-845f-95e60a159683
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.cc_wellness_employee
+    - field.storage.contact_message.field_preferred_y_text
+  module:
+    - options
+id: contact_message.cc_wellness_employee.field_preferred_y_text
+field_name: field_preferred_y_text
+entity_type: contact_message
+bundle: cc_wellness_employee
+label: 'Preferred Y Location'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

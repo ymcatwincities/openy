@@ -1,0 +1,37 @@
+ # Schema for the configuration files of the Purge module.
+purge.logger_channels:
+ type: config_object
+ label: 'Purge logger channels'
+ mapping:
+   channels:
+     label: 'Purge logger channels'
+     type: sequence
+     translatable: false
+     sequence:
+       type: purge_log_channel
+purge.plugins:
+  type: config_object
+  label: 'Purge plugins'
+  mapping:
+    purgers:
+      label: 'Enabled purger plugin instances.'
+      type: sequence
+      translatable: false
+      sequence:
+        type: purge_plugin_purger
+    processors:
+      label: 'All known processor plugins (including disabled).'
+      type: sequence
+      translatable: false
+      sequence:
+        type: purge_plugin_processor
+    queuers:
+      label: 'All known queuer plugins (including disabled).'
+      type: sequence
+      translatable: false
+      sequence:
+        type: purge_plugin_queuer
+    queue:
+      type: string
+      label: 'The currently active queue plugin.'
+      translatable: false

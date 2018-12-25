@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Workflow access installation.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function workflow_access_schema() {
+  // The D7-table 'workflow_access' is not used anymore.
+  // The data is no in table 'config'.
+  return array();
+}
+
+/**
+ * Force rebuild of node access.
+ */
+function workflow_access_uninstall() {
+  node_access_needs_rebuild(TRUE);
+}
+
+/**
+ * Force rebuild of node access.
+ */
+function workflow_access_update_8001(&$sandbox) {
+  // Rebuild data.
+  node_access_needs_rebuild(TRUE);
+}
+
+/**
+ * Remove table workflow_access. All current settings are lost!
+ */
+function workflow_access_update_8002(&$sandbox) {
+ // Remove the table. Data is now in config.
+ $schema = \Drupal\Core\Database\Database::getConnection()->schema();
+ $schema->dropTable('workflow_access');
+ // Rebuild data.
+ node_access_needs_rebuild(TRUE);
+}

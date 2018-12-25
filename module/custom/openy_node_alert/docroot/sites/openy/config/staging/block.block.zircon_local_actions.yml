@@ -1,0 +1,18 @@
+uuid: b9859abe-6633-4ba4-873d-61c44bb25f2a
+langcode: en
+status: true
+dependencies:
+  theme:
+    - zircon
+id: zircon_local_actions
+theme: zircon
+region: content
+weight: -7
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

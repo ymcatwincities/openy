@@ -1,0 +1,154 @@
+// Activities block - Alternative.
+
+.activities-grid--alt {
+  @extend %clearfix;
+  padding-bottom: gutter(4) ;
+
+  @include susy-media(tablet) {
+    padding-bottom: gutter(10);
+  }
+
+  @include susy-media(desktop) {
+    padding-bottom: gutter(12);
+  }
+}
+
+.activity--alt {
+  display: block;
+  position: relative;
+  @extend %three-block-behaviour;
+
+  &__link {
+    $link-root: &;
+    position: relative;
+    display: block;
+    background-color: $playlist-bg;
+    box-shadow: 0 1px 8px rgba(0,0,0,.2);
+    transition: box-shadow .35s ease-in-out;
+
+    &:hover {
+       box-shadow: 0 1px 20px rgba(0,0,0,.3);
+      #{$link-root}__text {
+        color: $light-blue;
+      }
+      #{$link-root}__image {
+        transform: translateY(-50%) scale(1.1);
+        opacity: .75;
+      }
+      #{$link-root}__arrow {
+        transform: translate(-50%,-50%) scale(1);
+        opacity: 1;
+      }
+    }
+    &__image-container {
+      display: block;
+      position: relative;
+      height: 0;
+      padding-top: (1 / (2 / 100)) * 1%;
+      overflow: hidden;
+      background-color: $dark-blue;
+    }
+
+    &__image {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%) scale(1.01);
+      width: 100%;
+      transition: all .4s ease-in-out;
+      backface-visibility: hidden;
+      z-index: 10;
+    }
+
+    &__arrow {
+      @extend .icon-chevron-right;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%) scale(1.4);
+      opacity: 0;
+      z-index: 15;
+      transition: all .4s ease-in-out;
+
+      &:before {
+        @extend %icons;
+        display: inline-block;
+        font-size: rem(20px);
+        background-color: $links;
+        height: rem(60px);
+        width: rem(56px);
+        padding-left: rem(3px);
+        border-radius: 50%;
+        text-align: center;
+        line-height: rem(60px);
+        color: #fff;
+      }
+    }
+
+    &__text {
+      position: relative;
+      display: block;
+      padding: rem(20px);
+      color: $grey-6;
+      transition: all .35s ease-in-out;
+
+      h2 {
+        margin-bottom: 0;
+        padding-right: rem(30px);
+      }
+
+    }
+  }
+
+  &__heart {
+    @extend .icon-heart;
+    padding:  rem(5px);
+    position: absolute;
+    bottom: rem(10px);
+    right: rem(10px);;
+    z-index: 15;
+    color: $grey-a;
+    transition: color ease-in-out .2s;
+
+    &:hover {
+      color: $maroon;
+    }
+
+    &:before {
+      @extend %icons;
+      font-size: rem(32px);
+      z-index: 25;
+      position: relative;
+    }
+
+    &:after {
+      @extend %icons;
+      content: "\e602";
+      font-size: rem(32px);
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding:  rem(5px);
+      color: transparent;
+      z-index: 20;
+    }
+
+    &:active {
+      transform: scale3d(0.9,0.9,1);
+    }
+
+    &-active {
+      @extend .icon-heart;
+      color: $maroon;
+
+      &:after {
+        color: $maroon;
+        transition: transform ease-in-out .45s, opacity ease-in-out .45s;
+        opacity: 0;
+        transform: scale3d(2.5,2.5,1);
+      }
+    }
+  }
+}

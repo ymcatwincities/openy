@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Contains installation, uninstallation, and update functionality.
+ */
+
+use Drupal\plugin\PluginType\ConfigurablePluginTypeInterface;
+
+/**
+ * Updates plugin field default values with plugin configuration schema IDs.
+ */
+function plugin_update_8001(array &$sandbox) {
+  $config_factory = \Drupal::configFactory();
+  /** @var \Drupal\plugin\PluginType\PluginTypeManagerInterface $plugin_type_manager */
+  $plugin_type_manager = \Drupal::service('plugin.plugin_type_manager');
+  $plugin_field_names = $config_factory->listAll('field.field.');
+  foreach ($plugin_field_names as $plugin_field_name) {
+    $config = $config_factory->getEditable($plugin_field_name);
+    if (strpos($config->get('field_type'), 'plugin:') === 0) {
+      $plugin_type_id = explode(':', $config->get('field_type'))[1];
+      $plugin_type = $plugin_type_manager->getPluginType($plugin_type_id);
+      $default_values = $config->get('default_value');
+      foreach ($default_values as &$default_value) {
+        if ($plugin_type instanceof ConfigurablePluginTypeInterface) {
+          $default_value['plugin_configuration_schema_id'] = $plugin_type->getPluginConfigurationSchemaId($default_value['plugin_id']);
+        }
+        else {
+          $default_value['plugin_configuration_schema_id'] = sprintf('plugin.plugin_configuration.%s.%s', $default_value['plugin_type_id'], $default_value['plugin_id']);
+        }
+        unset($default_value['plugin_type_id']);
+        $config->set('default_value', $default_values);
+      }
+      $config->save();
+    }
+  }
+}

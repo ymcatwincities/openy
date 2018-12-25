@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Google places required hooks.
+ */
+
+/**
+ * Implements hook_geolocation_google_maps_parameters().
+ */
+function geolocation_google_places_api_geolocation_google_maps_parameters() {
+  return [
+    'libraries' => [
+      'places',
+    ],
+  ];
+}

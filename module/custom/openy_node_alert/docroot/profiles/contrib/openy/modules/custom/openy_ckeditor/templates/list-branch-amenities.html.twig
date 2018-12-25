@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a taxonomy term.
+ *
+ * Available variables:
+ * - content: an array with amenities.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+  'list-branch-amenities-wrapper',
+  'row',
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% if content|length  %}
+    {% set amenitiesPerColumn = (content|length / 2)|round(0, 'ceil') %}
+    {% for amenity in content %}
+      {% if amenitiesPerColumn == 1 or loop.index % amenitiesPerColumn == 1 %}
+        <div class="col-md-6">
+      {% endif %}
+      {{ amenity }}
+      {% if loop.last or loop.index % amenitiesPerColumn == 0 %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+</div>

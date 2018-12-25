@@ -1,0 +1,7 @@
+<div class="form-group">
+  <label class="col-md-4 control-label">$question_text <small>$include($optional_template) $include($required_template)</small></label>
+  <div class="col-md-6">
+    <textarea class="form-control email text [[ if required_template ]]required[[ end if required_template ]]" name="$field_name" >$registration_question_response_esc</textarea>
+    $include($hint_text_template)
+  </div>
+</div>

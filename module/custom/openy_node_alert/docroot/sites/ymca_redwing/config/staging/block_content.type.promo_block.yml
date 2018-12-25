@@ -1,0 +1,8 @@
+uuid: 49550adb-960f-4e34-921d-291dc0c6a7db
+langcode: en
+status: true
+dependencies: {  }
+id: promo_block
+label: 'Promo Block'
+revision: 0
+description: 'Sidebar promo block with a link.'

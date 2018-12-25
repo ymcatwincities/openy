@@ -1,0 +1,13 @@
+{% set template = 'lead-1col.html.twig' %}
+{% if content.field_secondary_sidebar[0] is defined %}
+  {% set template = is_front ? 'lead-2col-frontpage.html.twig' : 'lead-2col.html.twig' %}
+{% endif %}
+{% extends '@ymca/layout/lead/' ~ template %}
+
+{% block lead_description %}
+  {{ content.field_lead_description }}
+{% endblock %}
+
+{% block call_to_action %}
+  {{ content.field_secondary_sidebar }}
+{% endblock %}

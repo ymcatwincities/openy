@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains hooks.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_search_alter_theme($existing, $type, $theme, $path) {
+  return [
+    'search_results_page' => [
+      'variables' => [
+        'search_form' => '',
+        'search_results' => '',
+        'pager' => '',
+      ],
+      'template' => 'search-results-page',
+    ],
+  ];
+}

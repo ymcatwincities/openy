@@ -1,0 +1,5 @@
+services:
+  ymca_page_manager.route_subscriber:
+    class: Drupal\ymca_page_manager\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

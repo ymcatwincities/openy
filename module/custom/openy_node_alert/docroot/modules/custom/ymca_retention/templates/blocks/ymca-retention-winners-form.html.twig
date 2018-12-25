@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Display retention campaign winners form with branches.
+ */
+#}
+
+<header class="compain-header">
+  <div class="compain-header--content">
+    <div class="container">
+
+      <div class="content">
+        <div class="title">{{ 'Y STRIVE CHALLENGE'|t }}</div>
+        <div class="sub-title">{{ 'Winners'|t }}</div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="compain-form-winners">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-item form-type-select">
+          <select id="edit-winners" class="form-select"
+                  data-ng-model="selectedBranch"
+                  data-ng-options="br.name for br in branches track by br.id"
+                  data-ng-change="update()">
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

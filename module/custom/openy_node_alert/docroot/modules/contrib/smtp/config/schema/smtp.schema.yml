@@ -1,0 +1,49 @@
+smtp.settings:
+  type: config_object
+  label: 'SMTP config.'
+  mapping:
+    smtp_on:
+      type: boolean
+      label: 'Turn this module on or off'
+    smtp_host:
+      type: text
+      label: 'SMTP server'
+    smtp_hostbackup:
+      type: text
+      label: 'SMTP backup server'
+    smtp_port:
+      type: text
+      label: 'SMTP port'
+    smtp_protocol:
+      type: text
+      label: 'Use encrypted protocol'
+    smtp_username:
+      type: text
+      label: 'Username'
+    smtp_password:
+      type: text
+      label: 'Password'
+    smtp_from:
+      type: email
+      label: 'E-mail from address'
+    smtp_fromname:
+      type: text
+      label: 'E-mail from name'
+    smtp_client_hostname:
+      type: text
+      label: 'Hostname'
+    smtp_client_helo:
+      type: text
+      label: 'HELO'
+    smtp_allowhtml:
+      type: text
+      label: 'Allow to send e-mails formated as HTML'
+    smtp_test_address:
+      type: email
+      label: 'E-mail address to send a test e-mail to'
+    smtp_debugging:
+      type: boolean
+      label: 'Enable debugging'
+    prev_mail_system:
+      type: text
+      label: 'Previous mail system'

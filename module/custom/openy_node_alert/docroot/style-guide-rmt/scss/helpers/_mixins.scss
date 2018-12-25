@@ -1,0 +1,107 @@
+// Custom mixins.
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+  $src: null;
+
+  $extmods: (
+    eot: '?',
+    svg: '#' + str-replace($name, ' ', '_')
+  );
+
+  $formats: (
+    otf: 'opentype',
+    ttf: 'truetype'
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url('../' + quote($path + '.' + $extmod)) format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+@mixin helvetica {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+@mixin bebas-neue-bold {
+  font-family: "BebasNeue-Bold", Helvetica, Arial, sans-serif;
+}
+
+//Single image background with retina support
+//USAGE:  @include background-image-retina('preloader', 'GIF', rem(20px), rem(20px));
+@mixin background-image-retina($image-1x, $image-2x, $width, $height) {
+  background-image: url($image-path + $image-1x);
+
+  @media (min--moz-device-pixel-ratio: 1.3),
+         (-o-min-device-pixel-ratio: 2.6/2),
+         (-webkit-min-device-pixel-ratio: 1.3),
+         (min-device-pixel-ratio: 1.3),
+         (min-resolution: 1.3dppx) {
+    background-image: url($image-path + $image-2x);
+    background-size: $width $height;
+  }
+}
+
+// Add demo label for responsive info.
+@mixin show-breakpoints {
+  &:after {
+    background-color: $pigeon-post-light;
+    border-radius: 20px;
+    bottom: rem(20px);
+    box-shadow: 0 1px 10px $gray;
+    color: $black;
+    content: 'Mobile';
+    display: block;
+    font-size: rem(16px);
+    padding: rem(5px 10px);
+    position: fixed;
+    right: rem(20px);
+    z-index: 1000;
+
+    @include susy-media(tablet) {
+      content: 'Tablet' !important;
+    }
+
+    @include susy-media(desktop) {
+      content: 'Small desktop' !important;
+    }
+  }
+}
+
+@mixin index-link {
+  position: fixed;
+  bottom: rem(20px);
+  left: rem(20px);
+  padding: rem(5px 10px);
+  border-radius: 20px;
+  display: block;
+  color: $black;
+  background-color: $pigeon-post-light;
+  z-index: 1000;
+  user-select: none;
+}
+
+
+// Clearfix as mixin.
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}

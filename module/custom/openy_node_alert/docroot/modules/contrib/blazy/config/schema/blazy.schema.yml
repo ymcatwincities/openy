@@ -1,0 +1,45 @@
+blazy.settings:
+  type: config_object
+  label: 'Blazy settings'
+  mapping:
+    admin_css:
+      type: boolean
+      label: 'Admin CSS'
+    one_pixel:
+      type: boolean
+      label: 'One pixel placeholder'
+    responsive_image:
+      type: boolean
+      label: 'Support Responsive image'
+    blazy:
+      type: mapping
+      label: Blazy
+      mapping:
+        loadInvisible:
+          type: boolean
+          label: 'Load invisible'
+        offset:
+          type: integer
+          label: 'Offset'
+        saveViewportOffsetDelay:
+          type: integer
+          label: 'Save viewport offset delay'
+
+blazy_base:
+  type: mapping
+  label: 'Blazy image base display format settings'
+  mapping:
+    caption:
+      type: sequence
+      label: 'Captions'
+      sequence:
+        - type: string
+          label: 'Caption'
+
+field.formatter.settings.blazy:
+  type: blazy_base
+  label: 'Blazy image display format settings'
+
+field.formatter.settings.blazy_file:
+  type: blazy_base
+  label: 'Blazy image with ME display format settings'

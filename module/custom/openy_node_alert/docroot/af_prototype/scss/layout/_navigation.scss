@@ -1,0 +1,131 @@
+.header {
+  position: relative;
+  background-color: $header-bg;
+  box-shadow: 0 0 8px -3px #000;
+
+  .container {
+    position: relative;
+  }
+
+  &__logo {
+    position: absolute;
+    left: 50%;
+    display: block;
+    height: 80%;
+    width: rem(100px);
+    transform: translate(-50%, 12.5%);
+    background: url(../images/ymca-logo.svg) no-repeat center center;
+    background-size: contain;
+
+    @include susy-media(tablet) {
+      left: 0;
+      transform: translate(0, 12.5%);
+      background-position: left center;
+    }
+  }
+
+  &__navigation {
+    @include susy-media(tablet) {
+      @include span(last 10.5 of 12);
+    }
+  }
+
+  &__mobile-toggle {
+    display: block;
+    @extend .icon-menu;
+    position: relative;
+    float: left;
+    padding: rem(1px 8px 0px 8px);
+    margin-top: 8px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #bbb;
+
+    &:before {
+      @extend %icons;
+      font-size: rem(28px);
+    }
+
+    @include susy-media(tablet) {
+      display: none;
+    }
+  }
+
+  &__main-menu {
+    @extend %clearfix;
+    text-align: right;
+    display: none;
+
+    @include susy-media(tablet) {
+      display: block;
+      font-size: 13px;
+    }
+
+    @include susy-media(desktop) {
+      font-size: 16px;
+    }
+
+    ul {
+      float: right;
+    }
+
+    li {
+      @include susy-media(tablet) {
+        float: left;
+      }
+    }
+
+    a {
+      display: block;
+      padding: rem(15px 6px);
+      text-shadow: 0 1px #fff;
+      outline: 0;
+      line-height: rem(18px);
+      transition: all .2s ease-out;
+      color: $grey-7;
+      border-top: 2px solid transparent;
+      text-shadow: 0 1px #FFF;
+
+      @include susy-media(desktop) {
+        padding: rem(15px 10px);
+      }
+
+      &:hover,
+      &:focus {
+        background-color: #fff;
+        border-top-color: $maroon;
+      }
+    }
+
+    &--search {
+      @extend .icon-search;
+      font-size: 0;
+      line-height: 1 !important;
+
+      &:before {
+        @extend %icons;
+        font-size: rem(14px);
+        position: relative;
+        top: rem(2px);
+
+        @include susy-media(desktop) {
+          font-size: rem(15px);
+           top: 0;
+        }
+      }
+    }
+  }
+}
+
+#mobile-menu {
+  display: none;
+
+  &:checked {
+    ~ .header__main-menu {
+      //display: block !important; Disable main menu
+    }
+  }
+}

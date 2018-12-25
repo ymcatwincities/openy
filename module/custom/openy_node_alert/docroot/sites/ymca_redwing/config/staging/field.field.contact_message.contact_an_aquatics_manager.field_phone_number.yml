@@ -1,0 +1,21 @@
+uuid: 847fee88-2648-4b4d-bf00-a027729ab317
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_an_aquatics_manager
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.contact_an_aquatics_manager.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: contact_an_aquatics_manager
+label: 'Phone number'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

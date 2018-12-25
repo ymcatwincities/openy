@@ -1,0 +1,12 @@
+firstHour: TRUE
+minTime: TRUE
+maxTime: TRUE
+slotMinutes: TRUE
+defaultEventMinutes: TRUE
+allDaySlot: TRUE
+weekends: TRUE
+lazyFetching: TRUE
+disableDragging: TRUE
+disableResizing: TRUE
+dragRevertDuration: TRUE
+dayClick: TRUE

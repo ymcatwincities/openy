@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Custom Formatters test module.
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function custom_formatters_test_ctools_plugin_api() {
+  list($module, $api) = func_get_args();
+  if ($module == 'custom_formatters' && $api == 'custom_formatters') {
+    return array('version' => 2);
+  }
+}
+
+/**
+ * Implements hook_custom_formatters_defaults().
+ */
+function custom_formatters_test_custom_formatters_defaults() {
+  $formatter = new stdClass();
+  $formatter->disabled = FALSE; /* Edit this to true to make a default formatter disabled initially */
+  $formatter->api_version = 2;
+  $formatter->name = 'test_formatter';
+  $formatter->label = 'Test Formatter';
+  $formatter->description = '';
+  $formatter->mode = 'php';
+  $formatter->field_types = 'text_with_summary';
+  $formatter->code = 'return array(array(\'#markup\' => \'test\'));';
+  $formatter->fapi = '';
+
+  return array('test_formatter' => $formatter);
+}

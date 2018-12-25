@@ -1,0 +1,18 @@
+uuid: 0c810195-4d4f-433c-bf00-bb96596909de
+langcode: en
+status: true
+dependencies: {  }
+id: workflow_(creation)_needs_review
+label: ''
+module: null
+from_sid: workflow_(creation)
+to_sid: workflow_needs_review
+roles:
+  contributor: contributor
+  intern: intern
+  workflow_author: 0
+  anonymous: 0
+  authenticated: 0
+  administrator: 0
+  editor: 0
+  location_editor: 0

@@ -1,0 +1,21 @@
+uuid: 112916c2-3d2c-4c34-8704-4c7b4f61e775
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_phone_number
+  module:
+    - telephone
+id: contact_message.become_a_supplier.field_phone_number
+field_name: field_phone_number
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Main Phone Number'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

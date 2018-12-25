@@ -1,0 +1,7 @@
+vid: tags
+name: Tags
+description: 'Tags'
+hierarchy: 1
+weight: -10
+status: true
+langcode: en

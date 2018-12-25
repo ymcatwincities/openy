@@ -1,0 +1,23 @@
+.screen-schedule-ui {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+
+  .screen-schedule-ui--left,
+  .screen-schedule-ui--right {
+    flex: 0 1 66%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .screen-schedule-ui--left {
+    flex: 0 1 34%;
+    padding-right: 30px;
+  }
+  
+  .screen-schedule-ui--right > div {
+    height: 100%;
+    position: relative;
+  }
+}

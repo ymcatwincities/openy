@@ -1,0 +1,184 @@
+uuid: 3d3db165-b37c-4c99-acbb-d683ffbfbd3f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mapping.location.field_groupex_id
+    - field.field.mapping.location.field_location_address_1
+    - field.field.mapping.location.field_location_address_2
+    - field.field.mapping.location.field_location_city
+    - field.field.mapping.location.field_location_hrs_mon_fri
+    - field.field.mapping.location.field_location_hrs_sat_sun
+    - field.field.mapping.location.field_location_icon
+    - field.field.mapping.location.field_location_latitude
+    - field.field.mapping.location.field_location_longitude
+    - field.field.mapping.location.field_location_map_shadow
+    - field.field.mapping.location.field_location_name
+    - field.field.mapping.location.field_location_personify_brcode
+    - field.field.mapping.location.field_location_phone
+    - field.field.mapping.location.field_location_ref
+    - field.field.mapping.location.field_location_state
+    - field.field.mapping.location.field_location_tags
+    - field.field.mapping.location.field_location_url
+    - field.field.mapping.location.field_location_zip
+    - field.field.mapping.location.field_mindbody_id
+    - ymca_mappings.mapping_type.location
+id: mapping.location.default
+targetEntityType: mapping
+bundle: location
+mode: default
+content:
+  field_groupex_id:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_location_address_1:
+    weight: 15
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_address_2:
+    weight: 16
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_city:
+    weight: 17
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_hrs_mon_fri:
+    weight: 27
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_hrs_sat_sun:
+    weight: 28
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_icon:
+    weight: 24
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_latitude:
+    weight: 22
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_longitude:
+    weight: 23
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_map_shadow:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_name:
+    weight: 14
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_personify_brcode:
+    weight: 25
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_phone:
+    weight: 20
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_ref:
+    weight: 11
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_location_state:
+    weight: 18
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_tags:
+    weight: 21
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_url:
+    weight: 29
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_zip:
+    weight: 19
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_mindbody_id:
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  langcode:
+    type: language_select
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

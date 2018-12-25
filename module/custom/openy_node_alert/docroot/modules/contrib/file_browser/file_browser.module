@@ -1,0 +1,75 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help().
+ */
+function file_browser_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the file_browser module.
+    case 'help.page.file_browser':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides an entity browser for files.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function file_browser_form_alter(&$form, FormStateInterface &$form_state) {
+  if (isset($form['#form_id'])) {
+    if ($form['#form_id'] == 'entity_browser_browse_files_form' ||
+        $form['#form_id'] == 'entity_browser_browse_files_modal_form') {
+      file_browser_attach_file_browser_to_form($form);
+    }
+  }
+}
+
+/**
+ * Attach the file_browser functionality into a form.
+ *
+ * @param $form
+ *   Nested array of form elements that comprise the form.
+ */
+function file_browser_attach_file_browser_to_form(&$form) {
+  // Attach our library.
+  $form['#attached']['library'][] = 'file_browser/view';
+  $form['#attached']['library'][] = 'file_browser/dropzone_css';
+
+  if (isset($form['selection_display'])) {
+    $form['selection_display']['#type'] = 'container';
+    $form['selection_display']['#attributes']['class'] = 'file-browser-actions';
+  }
+
+  // Add a class for generic styling.
+  $form['#attributes']['class'][] = 'file-browser-form';
+}
+
+/**
+ * Implements hook_preprocess_details().
+ */
+function file_browser_preprocess_details(&$variables) {
+  if (isset($variables['element']['#id']) && $variables['element']['#id'] == 'edit-field-file-browser-reference') {
+    $variables['#attached']['library'][] = 'file_browser/iframe';
+  }
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function file_browser_library_info_alter(&$libraries, $extension) {
+  // Optionally use the Libraries module to determine our library paths.
+  if ($extension == 'file_browser' && \Drupal::moduleHandler()->moduleExists('libraries')) {
+    $imagesloaded_path = libraries_get_path('imagesloaded') . '/imagesloaded.pkgd.min.js';
+    $masonry_path = libraries_get_path('masonry') . '/dist/masonry.pkgd.min.js';
+
+    $libraries['imagesloaded']['js'] = ['/' . $imagesloaded_path => ['minified' => 'true']];
+    $libraries['masonry']['js'] = ['/' . $masonry_path => ['minified' => 'true']];
+  }
+}

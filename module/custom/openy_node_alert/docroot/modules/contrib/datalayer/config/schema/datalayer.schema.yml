@@ -1,0 +1,91 @@
+datalayer.settings:
+  type: config_object
+  label: Settings
+  mapping:
+    add_page_meta:
+      label: 'Add entity meta data to pages'
+      type: boolean
+    output_terms:
+      label: 'Include taxonomy terms'
+      type: boolean
+    output_fields:
+      label: 'Include enabled field values'
+      type: boolean
+    lib_helper:
+      label: 'Include "data layer helper" library'
+      type: boolean
+    entity_meta:
+      label: 'Entity meta data'
+      type: sequence
+      sequence:
+        type: string
+        label: 'Meta data'
+    enable_ia:
+      label: 'Display IA paths in output'
+      type: boolean
+    ia_depth:
+      label: 'Set depth of displayed paths'
+      type: integer
+    ia_category_primary:
+      label: 'Set label for first component of path'
+      type: string
+    ia_category_sub:
+      label: 'Set label for sub components of path'
+      type: string
+    vocabs:
+      label: 'Taxonomy'
+      type: sequence
+      sequence:
+        type: string
+        label: 'Term'
+    expose_user_details:
+      label: 'Expose user details'
+      type: string
+    expose_user_details_roles:
+      label: 'Expose user roles'
+      type: sequence
+      sequence:
+        type: string
+        label: 'Role'
+    current_user_meta:
+      label: 'Current user meta data'
+      type: sequence
+      sequence:
+        type: string
+        label: 'Current User Meta Data'
+    group:
+      label: 'Include group support'
+      type: boolean
+    expose_user_details_fields:
+      label: 'Include enabled user field values'
+      type: boolean
+    entity_title:
+      label: 'Label for the title of the entity'
+      type: string
+    entity_type:
+      label: 'Label for the type of the entity'
+      type: string
+    entity_bundle:
+      label: 'Label for the bundle of the entity'
+      type: string
+    entity_identifier:
+      label: 'Label for the identifier of the entity'
+      type: string
+    group_label:
+      label: 'Label for the group label value'
+      type: string
+    drupal_language:
+      label: 'Label for the language of the Drupal site'
+      type: string
+    drupal_country:
+      label: 'Label for the country of the Drupal site'
+      type: string
+    site_name:
+      label: 'Label for the sitename value'
+      type: string
+    key_replacements:
+      label: 'Exposed field sub-key replacements'
+      type: sequence
+      sequence:
+        type: string
+        label: 'Replacement'

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_entity_matcher_matches_alter().
+ */
+function linkit_entity_attributes_linkit_entity_matcher_matches_alter(&$alterable) {
+
+  if (isset($alterable['match']) && isset($alterable['entity'])) {
+    if (method_exists($alterable['entity'], 'uuid')) {
+      $alterable['match']['linkit_entity_uuid'] = $alterable['entity']->uuid();
+    }
+    if (method_exists($alterable['entity'], 'getEntityTypeId')) {
+      $alterable['match']['entity_type_id'] = $alterable['entity']->getEntityTypeId();
+    }
+  }
+}

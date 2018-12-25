@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_my_y_api
+    - serialization
+    - user
+id: openy_my_y_api_visits
+plugin_id: openy_my_y_api_visits
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - cookie

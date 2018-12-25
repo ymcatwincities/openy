@@ -1,0 +1,7 @@
+geolocation.settings:
+  path: '/admin/config/services/geolocation'
+  defaults:
+    _form:  '\Drupal\geolocation\Form\GeolocationSettings'
+    _title: 'Geolocation settings'
+  requirements:
+    _permission: 'configure geolocation'

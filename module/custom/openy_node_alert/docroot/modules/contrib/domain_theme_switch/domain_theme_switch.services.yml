@@ -1,0 +1,6 @@
+services: 
+  theme.negotiator.domain_theme_switch:
+    class: Drupal\domain_theme_switch\Theme\ThemeSwitchNegotiator
+    arguments: ['@router.admin_context','@current_user','@domain.negotiator','@config.factory']
+    tags:
+      - { name: theme_negotiator, priority: 10 }

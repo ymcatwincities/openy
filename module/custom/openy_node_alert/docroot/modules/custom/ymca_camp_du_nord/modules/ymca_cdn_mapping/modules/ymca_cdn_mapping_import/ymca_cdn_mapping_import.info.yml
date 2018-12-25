@@ -1,0 +1,7 @@
+name: 'Camp Du Nord Mapping Import'
+description: 'Camp Du Nord mapping entity import.'
+type: module
+core: 8.x
+dependencies:
+  - ymca_mappings
+  - ymca_cdn_mapping

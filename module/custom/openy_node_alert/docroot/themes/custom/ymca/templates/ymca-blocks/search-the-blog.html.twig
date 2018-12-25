@@ -1,0 +1,42 @@
+<div class="hidden-xs col-sm-4 col-md-3 subnav">
+  <div class="panel panel-blog-subnav">
+    <div class="blog-search-container">
+      <form action="{{ search_view_content_path }}" method="get">
+        <h3 class="blog-search-title"><i class="glyphicon glyphicon-search"></i>{{ "Search the Blog"|t }}</h3>
+        <div class="input-group">
+          <input type="text" name="q" class="form-control">
+            <span class="input-group-btn">
+              <button class="btn btn-primary" type="submit" placeholder="Enter keywords">{{ "Go"|t }}</button>
+            </span>
+        </div>
+        <input type="hidden" name="f[0]" value="type:blog" />
+        <input type="hidden" name="advanced-form" value="1" />
+        <!-- /input-group -->
+      </form>
+    </div>
+    <div class="panel-blog-subnav-menus" id="blog_submenus">
+
+      <article class="richtext">
+        <h3><i class="glyphicon glyphicon-tag"></i>{{ "Categories"|t }}</h3>
+      </article>
+      <article class="richtext">
+        <ul>
+          {% for category in categories %}
+            <li>{{ category }}</li>
+          {% endfor %}
+        </ul>
+      </article>
+      <article class="richtext">
+        <h3><i class="glyphicon glyphicon-calendar"></i>{{ "Archive"|t }}</h3>
+      </article>
+      <div class="abe_blog_archives_display">
+        <div>
+          {% include "@ymca/ymca-blocks/archive-block.html.twig" %}
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="rss-feed-button">
+      <a href="/blog/subscribe/index.xml" class="btn btn-primary"><i class="icon-rss"></i>Subscribe to blog</a>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block with the current time.
+ *
+ * Available variables:
+ * - current_time: The current time.
+ * - wrapper_attributes: array of HTML attributes, intended to be added to the main
+ *   container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ *   - classes: A list of classes to identify position and styles of the block.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="openy-digital-signage-block-time">
+  <div{{ wrapper_attributes }}>
+    <div class="time">
+      {{ current_time }}
+    </div>
+  </div>
+</div>

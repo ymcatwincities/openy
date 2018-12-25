@@ -1,0 +1,23 @@
+uuid: 012e6d7e-476d-4aa1-81e5-c7d5a7c6aaef
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.returning_staff_employment_appli
+    - field.storage.contact_message.field_camp_certification
+id: contact_message.returning_staff_employment_appli.field_camp_certification
+field_name: field_camp_certification
+entity_type: contact_message
+bundle: returning_staff_employment_appli
+label: 'I certify that by submitting an application to return to YMCA Camp Pepin, I am not guaranteed that I will be hired.'
+description: ''
+required: true
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

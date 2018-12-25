@@ -1,0 +1,23 @@
+uuid: bc2bae52-3030-48a5-ab4a-742e28568453
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_label
+  module:
+    - webforms
+id: contact_message.become_a_supplier.field_label
+field_name: field_label
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Primary Contact'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 'Primary Contact'
+default_value_callback: ''
+settings: {  }
+field_type: webform_markup_item

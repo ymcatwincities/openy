@@ -1,0 +1,4 @@
+name: DB Size
+type: module
+description: Get the size of database tables and entitie.
+core: 8.x

@@ -1,0 +1,84 @@
+purge_purger_http.settings.*:
+  type: config_entity
+  label: 'HTTP Purger'
+  mapping:
+
+    #
+    # Instance metadata:
+    #
+    id:
+      type: string
+      translatable: false
+    name:
+      type: string
+      translatable: false
+    invalidationtype:
+      type: string
+      translatable: false
+
+    #
+    # Primary request information:
+    #
+    hostname:
+      type: string
+      translatable: false
+    port:
+      type: integer
+      translatable: false
+    path:
+      type: string
+      translatable: false
+    request_method:
+      type: string
+      translatable: false
+    scheme:
+      type: string
+      translatable: false
+    verify:
+      type: string
+      translatable: false
+
+    #
+    # Request headers (outbound):
+    #
+    headers:
+      type: sequence
+      translatable: false
+      sequence:
+        type: purge_purger_http_header
+
+    #
+    # Body (request payload):
+    #
+    body:
+      type: text
+      translatable: false
+    body_content_type:
+      type: string
+      translatable: false
+
+    #
+    # Performance settings:
+    #
+    runtime_measurement:
+      type: boolean
+      translatable: false
+    timeout:
+      type: float
+      translatable: false
+    connect_timeout:
+      type: float
+      translatable: false
+    cooldown_time:
+      type: float
+      translatable: false
+    max_requests:
+      type: integer
+      translatable: false
+
+    #
+    # Success resolution:
+    #
+    http_errors:
+      type: boolean
+      translatable: false

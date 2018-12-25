@@ -1,0 +1,26 @@
+From 277a76728fc172898d4f2f2ed9f59890af365fe8 Mon Sep 17 00:00:00 2001
+From: Dmytro Danylevskyi <dmytro@danylevskyi.com>
+Date: Fri, 16 Sep 2016 13:53:45 +0300
+Subject: [PATCH] Issue #2801187 by danylevskyi: fixed render() problem while
+ invoking via Drush.
+
+---
+ src/Plugin/Mail/MimeMail.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Plugin/Mail/MimeMail.php b/src/Plugin/Mail/MimeMail.php
+index 4cb77c0..414bd11 100644
+--- a/src/Plugin/Mail/MimeMail.php
++++ b/src/Plugin/Mail/MimeMail.php
+@@ -160,7 +160,7 @@ class MimeMail implements MailInterface {
+       '#body' => $body
+     ];
+ 
+-    $body = \Drupal::service('renderer')->render($body);
++    $body = \Drupal::service('renderer')->renderRoot($body);
+ 
+     /*foreach (module_implements('mail_post_process') as $module) {
+       $function = $module . '_mail_post_process';
+-- 
+2.10.0
+

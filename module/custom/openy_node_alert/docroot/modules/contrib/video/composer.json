@@ -1,0 +1,13 @@
+{
+  "name": "drupal/video",
+  "description": "Video module allows you to embedded videos from YouTube, Vimeo, Facebook, Vine etc (Drupal 8 only) and upload videos and play using HTML5 video player.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/video",
+  "license": "GPL-2.0+",
+  "extra": {
+    "drupal": {
+      "package": "Field types",
+      "version": "8.x-1.x"
+    }
+  }
+}
