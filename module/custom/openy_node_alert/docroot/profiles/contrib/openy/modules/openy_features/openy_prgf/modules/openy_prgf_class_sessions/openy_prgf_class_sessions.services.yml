@@ -1,4 +1,0 @@
-services:
-  openy_prgf_class_sessions.sessions_handler:
-    class: Drupal\openy_prgf_class_sessions\ClassSessionsService
-    arguments: ['@entity_type.manager', '@service_container', '@session_instance.manager']

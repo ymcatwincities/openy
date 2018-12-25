@@ -1,9 +1,0 @@
-{
-  "name": "drupal/csv_serialization",
-  "description": "Provides CSV as a serialization format.",
-  "type": "drupal-module",
-  "license": "GPL-2.0+",
-  "require": {
-    "league/csv": "^7.1"
-  }
-}

@@ -1,7 +1,0 @@
-contact.form.*.third_party.contact_storage:
-  type: mapping
-  label: 'Contact form redirection'
-  mapping:
-    redirect_uri:
-      type: string
-      label: 'Redirect URI'

@@ -1,5 +1,0 @@
-name: YMCA Blog News & Events listing
-type: module
-description: Provides News and Events page for Camps and Locations
-core: 8.x
-package: YMCA

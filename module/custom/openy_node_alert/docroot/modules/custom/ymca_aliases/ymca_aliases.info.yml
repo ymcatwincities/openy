@@ -1,5 +1,0 @@
-name: YMCA Aliases
-type: module
-description: Manages aliases for nodes.
-core: 8.x
-package: YMCA

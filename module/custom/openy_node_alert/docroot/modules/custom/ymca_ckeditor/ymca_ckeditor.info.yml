@@ -1,7 +1,0 @@
-name: YMCA CKEditor
-type: module
-description: Provides CKEditor buttons.
-core: 8.x
-package: YMCA
-dependencies:
-  - ckeditor

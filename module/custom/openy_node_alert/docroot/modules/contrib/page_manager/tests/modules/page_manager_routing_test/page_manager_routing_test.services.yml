@@ -1,6 +1,0 @@
-services:
-  page_manager_routing_test.subscriber:
-    class: Drupal\page_manager_routing_test\Routing\RouteSubscriber
-    arguments: ['@entity.manager']
-    tags:
-     - { name: event_subscriber }

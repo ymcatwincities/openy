@@ -1,7 +1,0 @@
----
-# Setup/install tasks.
-- include: local_deploy.yml
-  when: deploy_type == 'local'
-
-- include: remote_deploy.yml
-  when: deploy_type == 'remote'

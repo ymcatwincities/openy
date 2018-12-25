@@ -1,5 +1,0 @@
-plugin_selector.plugin_radios:
-  version: VERSION
-  css:
-    component:
-      css/plugin.css: {}

@@ -1,7 +1,0 @@
-openy_group_schedules:
-  version: 1.0
-  js:
-    js/openy_group_schedules.js: {}
-  dependencies:
-    - core/drupal
-    - core/drupalSettings

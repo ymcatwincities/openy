@@ -1,4 +1,0 @@
-excluded:
-  - metatag.metatag_defaults.node__camp
-  - page_manager.page.youth_intervention_
-required: true

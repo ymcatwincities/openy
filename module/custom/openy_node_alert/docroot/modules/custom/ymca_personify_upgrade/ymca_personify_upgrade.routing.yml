@@ -1,7 +1,0 @@
-ymca_personify_upgrade.settings:
-   path: '/admin/config/services/ymca-personify-upgrade'
-   defaults:
-     _form: '\Drupal\ymca_personify_upgrade\Form\YMCARunForm'
-     _title: 'YMCA Run Personify Upgrade'
-   requirements:
-     _permission: 'administer site configuration'

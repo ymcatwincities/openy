@@ -1,9 +1,0 @@
-langcode: en
-status: true
-name: Beer
-type: migrate_example_beer
-description: 'Beer is what we drink.'
-help: ''
-new_revision: false
-preview_mode: 1
-display_submitted: true

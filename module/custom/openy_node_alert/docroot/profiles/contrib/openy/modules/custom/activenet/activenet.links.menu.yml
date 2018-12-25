@@ -1,6 +1,0 @@
-activenet.admin:
-  title: 'ActiveNet settings'
-  description: 'Configure ActiveNet settings.'
-  parent: openy_system.openy_integrations_activenet
-  route_name: activenet.settings
-  weight: 100

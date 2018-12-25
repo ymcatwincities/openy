@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Migrate Example Wine Varieties'
-vid: migrate_example_wine_varieties
-description: 'Wine varieties'
-hierarchy: 0
-weight: 0

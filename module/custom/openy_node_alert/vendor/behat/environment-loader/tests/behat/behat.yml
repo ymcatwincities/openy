@@ -1,7 +1,0 @@
-default:
-  suites:
-    default:
-      contexts: {}
-  extensions:
-    Behat\Tests\DummyExtension: ~
-    Behat\Tests\ExampleExtension: ~

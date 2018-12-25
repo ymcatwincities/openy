@@ -1,6 +1,0 @@
-	[[ if personify_error ]]
-		<a id="component_$component_id" class="personify_error" href="#" title="Sorry, sign-in is not available. Please try again later.">Sign In</a>
-	[[ end if personify_error ]]
-	[[ if ! personify_error ]]
-		<a id="component_$component_id" href="$sso_login_invoke_url">$linktext_esc</a>
-	[[ end if personify_error ]]

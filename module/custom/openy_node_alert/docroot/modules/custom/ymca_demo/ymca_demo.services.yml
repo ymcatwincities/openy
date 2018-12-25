@@ -1,5 +1,0 @@
-services:
-  ymca_demo.migrate_subscriber:
-    class: Drupal\ymca_demo\EventSubscriber\YmcaDemoSubscriber
-    tags:
-      - { name: 'event_subscriber' }

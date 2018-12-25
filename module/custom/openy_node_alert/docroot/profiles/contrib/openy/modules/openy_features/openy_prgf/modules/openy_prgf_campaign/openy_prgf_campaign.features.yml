@@ -1,5 +1,0 @@
-excluded:
-  - core.entity_form_display.paragraph.campaign_activity_menu_ah.default
-  - core.entity_view_display.paragraph.campaign_activity_menu_ah.default
-  - paragraphs.paragraphs_type.campaign_activity_menu_ah
-required: true

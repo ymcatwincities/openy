@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: camp_du_nord_calendar_view
-label: 'Camp du Nord Calendar View'
-behavior_plugins: {  }

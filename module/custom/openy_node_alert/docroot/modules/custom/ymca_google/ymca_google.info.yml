@@ -1,5 +1,0 @@
-name: YMCA Google
-type: module
-description: Provides integration with Google api.
-core: 8.x
-package: YMCA

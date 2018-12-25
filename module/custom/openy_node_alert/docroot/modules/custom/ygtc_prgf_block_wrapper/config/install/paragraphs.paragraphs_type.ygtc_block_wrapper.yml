@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: ygtc_block_wrapper
-label: 'Block wrapper'
-behavior_plugins: {  }

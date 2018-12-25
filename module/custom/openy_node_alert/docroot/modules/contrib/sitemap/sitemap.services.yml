@@ -1,4 +1,0 @@
-services:
-  sitemap.helper:
-    class: Drupal\sitemap\SitemapHelper
-    arguments: ['@config.factory']

@@ -1,5 +1,0 @@
-ymca-ckeditor:
-  version: 1.x
-  css:
-    layout:
-      css/layout.css: {}

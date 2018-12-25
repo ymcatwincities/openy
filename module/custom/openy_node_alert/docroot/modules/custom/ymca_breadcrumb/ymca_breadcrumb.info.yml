@@ -1,5 +1,0 @@
-name: YMCA Breadcrumb
-type: module
-description: Provides BreadcrumbBuilders for the project.
-core: 8.x
-package: YMCA

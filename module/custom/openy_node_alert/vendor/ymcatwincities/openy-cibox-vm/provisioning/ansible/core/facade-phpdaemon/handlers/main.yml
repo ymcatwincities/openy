@@ -1,3 +1,0 @@
----
-- name: restart phpd
-  service: name=phpd state=started

@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: membership_info
-label: 'Membership info'
-behavior_plugins: {  }

@@ -1,5 +1,0 @@
-# Schema for the Slick views style plugins.
-
-views.style.slick:
-  type: slick_extended
-  label: 'Slick carousel'

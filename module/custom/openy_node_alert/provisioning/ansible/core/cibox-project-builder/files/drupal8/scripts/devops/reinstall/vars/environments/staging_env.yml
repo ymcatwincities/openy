@@ -1,7 +1,0 @@
----
-env:
-  trusted_host_patterns: []
-  pre_settings: []
-  modules: []
-  drush_commands: []
-  post_settings: []

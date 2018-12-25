@@ -1,9 +1,0 @@
-entity.contact_message.forms:
-  title: 'Forms'
-  route_name: entity.contact_form.collection
-  base_route: entity.contact_form.collection
-
-entity.contact_message.collection:
-  title: 'List'
-  route_name: entity.contact_message.collection
-  base_route: entity.contact_form.collection

@@ -1,7 +1,0 @@
-drupal.domain_source:
-  version: VERSION
-  js:
-    js/domain_source.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal

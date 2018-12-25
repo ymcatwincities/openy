@@ -1,4 +1,0 @@
-title,body,images,alias,status
-"This is title 1","This is, body 1",img1.jpg,,1
-"This is title 2","This is, body 2",img1.jpg|img2.jpg,,0
-"This is title 3","This is, body 3","img1.jpg|Image 1|img2.jpg|Image, 2",,0

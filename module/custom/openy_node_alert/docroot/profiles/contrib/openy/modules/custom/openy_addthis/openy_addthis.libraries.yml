@@ -1,6 +1,0 @@
-addthis:
-  version: 1.x
-  js:
-    js/addthis.js: {}
-  dependencies:
-    - core/drupalSettings

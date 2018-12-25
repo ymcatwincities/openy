@@ -1,6 +1,0 @@
-id: audio
-label: Audio
-description: 'An <em>Audio</em> file is a sound recording.'
-status: true
-mimetypes:
-  - 'audio/*'

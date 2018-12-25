@@ -1,7 +1,0 @@
-name: YMCA Migrate
-type: module
-description: YMCA migrations implementation.
-core: 8.x
-package: YMCA
-dependencies:
-  - migrate_tools

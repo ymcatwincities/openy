@@ -1,5 +1,0 @@
-# In my_module.permissions.yml file.
-access flood unblock:
-  title: 'Access the flood unblock module'
-  description: 'Allow user to flood unblock.'
-  restrict access: TRUE

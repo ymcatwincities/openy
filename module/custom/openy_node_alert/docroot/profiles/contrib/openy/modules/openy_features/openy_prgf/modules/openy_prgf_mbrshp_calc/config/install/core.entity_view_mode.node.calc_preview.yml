@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.calc_preview
-label: 'Calculator preview'
-targetEntityType: node
-cache: true

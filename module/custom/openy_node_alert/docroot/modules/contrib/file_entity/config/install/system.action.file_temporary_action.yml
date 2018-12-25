@@ -1,6 +1,0 @@
-id: file_temporary_action
-label: 'Set file status to temporary'
-status: true
-langcode: en
-type: file
-plugin: file_temporary_action

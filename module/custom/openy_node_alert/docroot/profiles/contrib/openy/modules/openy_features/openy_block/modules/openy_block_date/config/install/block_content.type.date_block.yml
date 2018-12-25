@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: date_block
-label: 'Date block'
-revision: 1
-description: 'Date based block.'

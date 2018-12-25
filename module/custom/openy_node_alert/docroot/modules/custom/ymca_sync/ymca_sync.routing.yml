@@ -1,7 +1,0 @@
-ymca_sync.settings:
-  path: '/admin/config/system/ymca-sync'
-  defaults:
-    _form: '\Drupal\ymca_sync\Form\SettingsForm'
-    _title: 'YMCA Sync settings'
-  requirements:
-    _permission: 'administer site configuration'

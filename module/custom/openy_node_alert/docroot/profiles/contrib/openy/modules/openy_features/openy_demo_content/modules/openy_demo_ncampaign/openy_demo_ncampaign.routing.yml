@@ -1,7 +1,0 @@
-openy_demo.campaign_generate_content:
-  path: '/admin/config/system/openy-demo/campaign/generate-content'
-  defaults:
-    _form: '\Drupal\openy_demo_ncampaign\Form\GenerateContentForm'
-    _title: 'Open Y Retention Campaign Generate content'
-  requirements:
-    _permission: 'administer content'

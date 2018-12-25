@@ -1,5 +1,0 @@
-entity.session_instance.add_form:
-  route_name: entity.session_instance.add_form
-  title: 'Add Session Instance'
-  appears_on:
-    - entity.session_instance.collection

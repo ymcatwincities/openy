@@ -1,5 +1,0 @@
-openy-ckeditor:
-  version: 1.x
-  css:
-    layout:
-      css/openy_ckeditor.css: {}

@@ -1,5 +1,0 @@
-name: YMCA Day Camps
-type: module
-description: Implements day camps features.
-core: 8.x
-package: YMCA

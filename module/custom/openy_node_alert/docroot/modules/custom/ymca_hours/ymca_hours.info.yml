@@ -1,5 +1,0 @@
-name: YMCA Hours
-type: module
-description: Provides fiels for office and holiday hours.
-core: 8.x
-package: YMCA

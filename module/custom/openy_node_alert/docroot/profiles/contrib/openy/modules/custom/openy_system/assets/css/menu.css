@@ -1,8 +1,0 @@
-.toolbar-icon-openy-system-openy:before {
-  background-image: url(../images/icon-gear-inactive.png);
-}
-
-.toolbar-icon-openy-system-openy:active:before,
-.toolbar-icon-openy-system-openy.is-active:before {
-  background-image: url(../images/icon-gear.png);
-}

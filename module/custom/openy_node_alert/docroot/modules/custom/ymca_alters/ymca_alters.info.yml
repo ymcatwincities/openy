@@ -1,5 +1,0 @@
-name: YMCA Specific alters
-type: module
-description: Performs specific alters of default Drupal behavior
-core: 8.x
-package: YMCA

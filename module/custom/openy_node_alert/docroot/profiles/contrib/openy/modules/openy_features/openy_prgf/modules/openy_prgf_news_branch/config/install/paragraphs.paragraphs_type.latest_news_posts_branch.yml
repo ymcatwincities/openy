@@ -1,5 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: latest_news_posts_branch
-label: 'Latest news posts (branch)'
