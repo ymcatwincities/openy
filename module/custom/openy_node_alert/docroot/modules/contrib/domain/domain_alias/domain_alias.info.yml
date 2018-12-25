@@ -1,0 +1,14 @@
+name: Domain Alias
+description: 'Maps multiple host requests to a single domain record.'
+type: module
+package: Domain
+# version: VERSION
+# core: 8.x
+dependencies:
+  - domain
+
+# Information added by Drupal.org packaging script on 2018-03-08
+version: '8.x-1.0-alpha13'
+core: '8.x'
+project: 'domain'
+datestamp: 1520519900

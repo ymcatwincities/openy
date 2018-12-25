@@ -1,0 +1,23 @@
+uuid: 586e0673-bf1e-4cd3-a451-81ac4f198c14
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+name: large_230x230
+label: 'Large [230x230]'
+effects:
+  2edc79b0-1809-4374-ba5d-93221d239b19:
+    uuid: 2edc79b0-1809-4374-ba5d-93221d239b19
+    id: image_scale
+    weight: -9
+    data:
+      width: 230
+      height: 230
+      upscale: true
+  8e0ae977-a7cf-48fe-a338-56456f6e659e:
+    uuid: 8e0ae977-a7cf-48fe-a338-56456f6e659e
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: large_230_230

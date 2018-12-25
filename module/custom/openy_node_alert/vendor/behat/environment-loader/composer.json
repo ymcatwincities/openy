@@ -1,0 +1,31 @@
+{
+  "name": "behat/environment-loader",
+  "type": "library",
+  "description": "Environment processor and contexts autoloader",
+  "keywords": ["services", "autoload", "behat", "environment", "extension"],
+  "homepage": "https://github.com/BR0kEN-/environment-loader",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sergii Bondarenko",
+      "email": "sb@firstvector.org"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "behat/behat": ">=3.0.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4 - 5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Behat\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Behat\\Tests\\": "tests/behat/extensions"
+    }
+  }
+}

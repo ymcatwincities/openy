@@ -1,0 +1,75 @@
+Installing Search API Solr Search
+---------------------------------
+
+The search_api_solr module manages its dependencies and class loader via
+composer. So if you simply downloaded this module from drupal.org you have to
+delete it and install it again via composer!
+
+Simply change into Drupal directory and use composer to install search_api_solr:
+
+cd $DRUPAL
+composer require drupal/search_api_solr
+
+Setting up Solr
+---------------
+
+In order for this module to work, you need to set up a Solr server.
+For this, you can either purchase a server from a web Solr hosts or set up your
+own Solr server on your web server (if you have the necessary rights to do so).
+If you want to use a hosted solution, a number of companies are listed on the
+module's project page [1]. Otherwise, please follow the instructions below.
+A more detailed set of instructions is available at [2].
+
+[1] https://drupal.org/project/search_api_solr
+[2] https://drupal.org/node/1999310
+
+As a pre-requisite for running your own Solr server, you'll need a Java JRE.
+
+Download the latest version of Solr 4.x or 5.x or 6.x from [3] and unpack the
+archive somewhere outside of your web server's document tree. The unpacked Solr
+directory is named $SOLR in these instructions.
+
+[3] http://www.apache.org/dyn/closer.cgi/lucene/solr/
+
+For better performance and more features, 6.x should be used!
+The support for 4.x and 5.x is deprecated and will be removed in 8.x-2.x.
+The further instructions only cover Solr 5.x and 6.x on a UNIX-like operating
+system.
+
+First you have to create a Solr core for Drupal. Therefore you have to create
+two directories (replace $SOLR and $CORE according to your needs):
+
+mkdir $SOLR/server/solr/$CORE
+mkdir $SOLR/server/solr/$CORE/conf
+
+Before starting the Solr server you will have to make sure it uses the proper
+configuration files. These are located in the solr-conf/ directory in this
+module, in a sub-directory according to the Solr version you are using. Copy all
+the files from that directory into Solr core's configuration directory:
+
+cp -R $DRUPAL/modules/contrib/search_api_solr/solr_conf/$SOLR_VERSION/* $SOLR/server/solr/$CORE/conf
+
+Afterwards, you have to tell SOLR about the new core by creating a
+core.properties file:
+
+echo "name=$CORE" > $SOLR/server/solr/$CORE/core.properties
+
+Now you can start your Solr server:
+
+$SOLR/bin/solr start
+
+Afterwards, go to [4] in your web browser to ensure Solr is running correctly.
+
+[4] http://localhost:8983/solr/#/$CORE
+
+CAUTION! For production sites, it is vital that you somehow prevent outside
+access to the Solr server. Otherwise, attackers could read, corrupt or delete
+all your indexed data. Using the server as described below WON'T prevent this by
+default! If it is available, the probably easiest way of preventing this is to
+disable outside access to the ports used by Solr through your server's network
+configuration or through the use of a firewall.
+Other options include adding basic HTTP authentication or renaming the solr/
+directory to a random string of characters and using that as the path.
+
+Now you can go on and setup and configure the connection within your Drupal
+installation.

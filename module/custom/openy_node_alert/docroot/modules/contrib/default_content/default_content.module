@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Installs default content on the behalf of modules at time of install.
+ */
+
+/**
+ * Implements hook_modules_installed().
+ */
+function default_content_modules_installed($modules) {
+  // @todo Move this to an event once we have HookEvent.
+  foreach ($modules as $module) {
+    if (!\Drupal::isConfigSyncing()) {
+      \Drupal::service('default_content.importer')->importContent($module);
+    }
+  }
+}

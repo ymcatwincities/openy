@@ -1,0 +1,189 @@
+uuid: f6231250-cc2c-4dec-b602-022f1e0857ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.field.contact_message.become_a_supplier.field_address
+    - field.field.contact_message.become_a_supplier.field_category_class
+    - field.field.contact_message.become_a_supplier.field_cell_phone
+    - field.field.contact_message.become_a_supplier.field_ceo_first_name
+    - field.field.contact_message.become_a_supplier.field_ceo_last_name
+    - field.field.contact_message.become_a_supplier.field_company_name
+    - field.field.contact_message.become_a_supplier.field_electronic_po
+    - field.field.contact_message.become_a_supplier.field_email_address
+    - field.field.contact_message.become_a_supplier.field_fax
+    - field.field.contact_message.become_a_supplier.field_fein
+    - field.field.contact_message.become_a_supplier.field_first_name
+    - field.field.contact_message.become_a_supplier.field_form_divider
+    - field.field.contact_message.become_a_supplier.field_form_divider1
+    - field.field.contact_message.become_a_supplier.field_label
+    - field.field.contact_message.become_a_supplier.field_last_name
+    - field.field.contact_message.become_a_supplier.field_order_email
+    - field.field.contact_message.become_a_supplier.field_phone_number
+    - field.field.contact_message.become_a_supplier.field_product_catalog
+    - field.field.contact_message.become_a_supplier.field_supplier_portal
+    - field.field.contact_message.become_a_supplier.field_title
+    - field.field.contact_message.become_a_supplier.field_vendor_portal
+    - field.field.contact_message.become_a_supplier.field_w9
+    - field.field.contact_message.become_a_supplier.field_website_url
+    - field.field.contact_message.become_a_supplier.field_wm_biz
+  module:
+    - address
+    - options
+    - webforms
+id: contact_message.become_a_supplier.default
+targetEntityType: contact_message
+bundle: become_a_supplier
+mode: default
+content:
+  field_address:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_category_class:
+    weight: 21
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_cell_phone:
+    weight: 13
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_ceo_first_name:
+    weight: 17
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_ceo_last_name:
+    weight: 18
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_company_name:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_electronic_po:
+    weight: 2
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_email_address:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_fein:
+    weight: 15
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_first_name:
+    weight: 10
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_form_divider:
+    weight: 16
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: webform_markup_formatter
+  field_last_name:
+    weight: 11
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_phone_number:
+    weight: 19
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_product_catalog:
+    weight: 4
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_supplier_portal:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_title:
+    weight: 12
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_vendor_portal:
+    weight: 20
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_w9:
+    weight: 1
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_wm_biz:
+    weight: 6
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  message:
+    type: string
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_fax: true
+  field_form_divider1: true
+  field_label: true
+  field_order_email: true
+  field_website_url: true

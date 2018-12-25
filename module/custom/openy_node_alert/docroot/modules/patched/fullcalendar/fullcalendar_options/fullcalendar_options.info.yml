@@ -1,0 +1,14 @@
+name: FullCalendar Options
+type: module
+description: FullCalendar configuration extenders.
+# core: 8.x
+package: FullCalendar
+configure: admin/config/user-interface/fullcalendar/options
+dependencies:
+  - fullcalendar
+
+# Information added by Drupal.org packaging script on 2017-09-21
+version: '8.x-1.0-alpha2+71-dev'
+core: '8.x'
+project: 'fullcalendar'
+datestamp: 1505968751

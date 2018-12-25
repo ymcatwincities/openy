@@ -1,0 +1,32 @@
+{
+  "name": "openy-alerts",
+  "version": "0.1.1",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-polyfill": "^6.26.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.2",
+    "prettier": "^1.14.2",
+    "react": "^16.4.2",
+    "react-cookie": "^3.0.4",
+    "react-cookies": "^0.1.0",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "react-render-html": "^0.6.0",
+    "react-scripts": "1.1.5",
+    "react-slick": "^0.23.1",
+    "reactstrap": "^6.4.0",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "slick-carousel": "^1.8.1"
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "start": "react-scripts start ",
+    "build": "react-scripts build && cp -f build/static/js/main.*.js build/static/js/main.js && cp -f build/static/css/main.*.css build/static/css/main.css",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

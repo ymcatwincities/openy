@@ -1,0 +1,13 @@
+services:
+  geolocation.core:
+    class: Drupal\geolocation\GeolocationCore
+    arguments: ["@module_handler", "@entity_type.manager", "@config.factory", "@plugin.manager.geolocation.geocoder"]
+
+  geolocation.ajax_subscriber:
+    class: Drupal\geolocation\EventSubscriber\AjaxResponseSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  plugin.manager.geolocation.geocoder:
+    class: Drupal\geolocation\GeocoderManager
+    parent: default_plugin_manager

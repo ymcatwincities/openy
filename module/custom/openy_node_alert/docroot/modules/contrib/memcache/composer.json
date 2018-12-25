@@ -1,0 +1,11 @@
+{
+  "name": "drupal/memcache",
+  "description": "High performance integration with memcache.",
+  "type": "drupal-module",
+  "homepage": "http://drupal.org/project/memcache",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/memcache"
+  },
+  "license": "GPL-2.0+",
+  "require": { }
+}

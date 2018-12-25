@@ -1,0 +1,7 @@
+datalayer.settings_form:
+  path: /admin/config/search/datalayer
+  defaults:
+    _title: 'Data Layer'
+    _form: \Drupal\datalayer\Form\DatalayerSettingsForm
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,6 @@
+name: 'Test media type'
+type: module
+description: 'Provides test media type plugin to test configuration forms.'
+core: 8.x
+package: Testing
+version: VERSION

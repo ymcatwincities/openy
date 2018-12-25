@@ -1,0 +1,74 @@
+uuid: 302512ea-3478-48a3-80bc-480457f6f905
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.returning_staff_employment_appli
+    - field.field.contact_message.returning_staff_employment_appli.field_address
+    - field.field.contact_message.returning_staff_employment_appli.field_camp_certification
+    - field.field.contact_message.returning_staff_employment_appli.field_cell_phone
+    - field.field.contact_message.returning_staff_employment_appli.field_personal_camp_goal_summer
+    - field.field.contact_message.returning_staff_employment_appli.field_phone_number
+    - field.field.contact_message.returning_staff_employment_appli.field_position
+    - field.field.contact_message.returning_staff_employment_appli.field_why_want_to_return_camp
+  module:
+    - address
+    - options
+id: contact_message.returning_staff_employment_appli.default
+targetEntityType: contact_message
+bundle: returning_staff_employment_appli
+mode: default
+content:
+  field_address:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_camp_certification:
+    weight: 7
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_cell_phone:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_personal_camp_goal_summer:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_phone_number:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_position:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_why_want_to_return_camp:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  message:
+    type: string
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden: {  }

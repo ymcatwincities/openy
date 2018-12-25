@@ -1,0 +1,20 @@
+{
+  "name": "drupal/colorbutton",
+  "type": "drupal-module",
+  "description": "Adds the Color Button plugin to CKEditor.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "http://drupal.org/project/colorbutton",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Kevin Quillen (kevinquillen)",
+      "homepage": "https://www.drupal.org/u/kevinquillen",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "http://drupal.org/project/issues/colorbutton",
+    "source": "http://cgit.drupalcode.org/colorbutton"
+  }
+}

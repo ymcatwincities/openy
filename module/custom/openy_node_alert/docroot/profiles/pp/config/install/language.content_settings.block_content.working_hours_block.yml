@@ -1,0 +1,11 @@
+uuid: 144fc63d-dac9-4176-881c-2891e6b8d661
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.working_hours_block
+id: block_content.working_hours_block
+target_entity_type_id: block_content
+target_bundle: working_hours_block
+default_langcode: site_default
+language_alterable: false

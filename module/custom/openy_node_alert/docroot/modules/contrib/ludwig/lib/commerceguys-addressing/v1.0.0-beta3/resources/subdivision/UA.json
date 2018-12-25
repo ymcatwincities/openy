@@ -1,0 +1,116 @@
+{
+	"country_code": "UA",
+	"locale": "uk",
+	"subdivisions": {
+		"Crimea": {
+			"local_code": "Автономна Республіка Крим",
+			"postal_code_pattern": "9[5-8]"
+		},
+		"Vinnyts'ka oblast": {
+			"local_code": "Вінницька область",
+			"postal_code_pattern": "2[1-4]"
+		},
+		"Volyns'ka oblast": {
+			"local_code": "Волинська область",
+			"postal_code_pattern": "4[3-5]"
+		},
+		"Dnipropetrovsk oblast": {
+			"local_code": "Дніпропетровська область",
+			"postal_code_pattern": "49|5[0-3]"
+		},
+		"Donetsk oblast": {
+			"local_code": "Донецька область",
+			"postal_code_pattern": "8[3-7]"
+		},
+		"Zhytomyrs'ka oblast": {
+			"local_code": "Житомирська область",
+			"postal_code_pattern": "1[0-3]"
+		},
+		"Zakarpats'ka oblast": {
+			"local_code": "Закарпатська область",
+			"postal_code_pattern": "8[89]|90"
+		},
+		"Zaporiz'ka oblast": {
+			"local_code": "Запорізька область",
+			"postal_code_pattern": "69|7[0-2]"
+		},
+		"Ivano-Frankivs'ka oblast": {
+			"local_code": "Івано-Франківська область",
+			"postal_code_pattern": "7[6-8]"
+		},
+		"Kyiv city": {
+			"local_code": "місто Київ",
+			"local_name": "Київ",
+			"postal_code_pattern": "0[1-6]"
+		},
+		"Kiev oblast": {
+			"local_code": "Київська область",
+			"postal_code_pattern": "0[7-9]"
+		},
+		"Kirovohrads'ka oblast": {
+			"local_code": "Кіровоградська область",
+			"postal_code_pattern": "2[5-8]"
+		},
+		"Luhans'ka oblast": {
+			"local_code": "Луганська область",
+			"postal_code_pattern": "9[1-4]"
+		},
+		"Lviv oblast": {
+			"local_code": "Львівська область",
+			"postal_code_pattern": "79|8[0-2]"
+		},
+		"Mykolaivs'ka oblast": {
+			"local_code": "Миколаївська область",
+			"postal_code_pattern": "5[4-7]"
+		},
+		"Odessa oblast": {
+			"local_code": "Одеська область",
+			"postal_code_pattern": "6[5-8]"
+		},
+		"Poltavs'ka oblast": {
+			"local_code": "Полтавська область",
+			"postal_code_pattern": "3[6-9]"
+		},
+		"Rivnens'ka oblast": {
+			"local_code": "Рівненська область",
+			"postal_code_pattern": "3[3-5]"
+		},
+		"Sevastopol' city": {
+			"local_code": "місто Севастополь",
+			"local_name": "Севастополь",
+			"postal_code_pattern": "99"
+		},
+		"Sums'ka oblast": {
+			"local_code": "Сумська область",
+			"postal_code_pattern": "4[0-2]"
+		},
+		"Ternopil's'ka oblast": {
+			"local_code": "Тернопільська область",
+			"postal_code_pattern": "4[6-8]"
+		},
+		"Kharkiv oblast": {
+			"local_code": "Харківська область",
+			"postal_code_pattern": "6[1-4]"
+		},
+		"Khersons'ka oblast": {
+			"local_code": "Херсонська область",
+			"postal_code_pattern": "7[3-5]"
+		},
+		"Khmel'nyts'ka oblast": {
+			"local_code": "Хмельницька область",
+			"postal_code_pattern": "29|3[0-2]"
+		},
+		"Cherkas'ka oblast": {
+			"local_code": "Черкаська область",
+			"postal_code_pattern": "1[89]|20"
+		},
+		"Chernivets'ka oblast": {
+			"local_code": "Чернівецька область",
+			"postal_code_pattern": "5[89]|60"
+		},
+		"Chernihivs'ka oblast": {
+			"local_code": "Чернігівська область",
+			"postal_code_pattern": "1[4-7]"
+		}
+	}
+}

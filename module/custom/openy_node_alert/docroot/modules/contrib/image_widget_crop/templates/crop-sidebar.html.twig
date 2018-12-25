@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Theme override of a crop_sidebar used to wrap the list of ImageStyle.
+ *
+ * Used for groupped all items in crop selection.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - items: The rendered child elements of the container.
+ * - has_parent: A flag to indicate that the container has one or more parent
+     containers.
+ * - element_type: Get the capabilities to choice the type of list (ol, ul) ul by default.
+ *
+ * @see template_preprocess_crop_sidebar()
+ */
+#}
+{% set classes = [
+has_parent ? 'js-form-wrapper',
+has_parent ? 'form-wrapper',
+] %}
+<section {{ attributes.addClass(classes) }}>
+    <h1 class='image-ratio--title'>Crop List</h1>
+
+    <{{ element_type }}>
+        {{ items }}
+    </{{ element_type }}>
+</section>

@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - file_entity
+  module:
+    - file
+id: file.thumbnail
+label: Thumbnail
+targetEntityType: file
+cache: true

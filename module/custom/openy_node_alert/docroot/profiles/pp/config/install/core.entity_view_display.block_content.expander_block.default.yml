@@ -1,0 +1,17 @@
+uuid: f1c4ebe5-d3f6-4fab-af00-c8e31190082d
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.expander_block
+    - field.field.block_content.expander_block.field_block_content
+    - field.field.block_content.expander_block.field_block_header
+id: block_content.expander_block.default
+targetEntityType: block_content
+bundle: expander_block
+mode: default
+content: {  }
+hidden:
+  field_block_content: true
+  field_block_header: true
+  langcode: true

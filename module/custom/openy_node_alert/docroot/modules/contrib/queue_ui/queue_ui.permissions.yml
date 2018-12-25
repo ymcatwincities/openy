@@ -1,0 +1,3 @@
+admin queue_ui:
+  title: 'Administer queues'
+  description: 'View, run, and delete queues'

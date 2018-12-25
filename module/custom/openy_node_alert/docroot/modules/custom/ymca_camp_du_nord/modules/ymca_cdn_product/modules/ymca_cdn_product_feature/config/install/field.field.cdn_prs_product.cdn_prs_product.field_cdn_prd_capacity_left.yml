@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cdn_prs_product.field_cdn_prd_capacity_left
+  module:
+    - ymca_cdn_product
+id: cdn_prs_product.cdn_prs_product.field_cdn_prd_capacity_left
+field_name: field_cdn_prd_capacity_left
+entity_type: cdn_prs_product
+bundle: cdn_prs_product
+label: 'Capacity left'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

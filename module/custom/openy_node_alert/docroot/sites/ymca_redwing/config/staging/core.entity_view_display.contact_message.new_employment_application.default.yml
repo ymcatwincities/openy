@@ -1,0 +1,142 @@
+uuid: 724ece5f-3c6b-4be9-b155-8ffe2a880c2e
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.new_employment_application
+    - field.field.contact_message.new_employment_application.field_address
+    - field.field.contact_message.new_employment_application.field_camp_certification
+    - field.field.contact_message.new_employment_application.field_cell_phone
+    - field.field.contact_message.new_employment_application.field_college_name
+    - field.field.contact_message.new_employment_application.field_college_year_completed
+    - field.field.contact_message.new_employment_application.field_date_entered_high_school
+    - field.field.contact_message.new_employment_application.field_high_school_name
+    - field.field.contact_message.new_employment_application.field_how_hear_about_camp_pepin
+    - field.field.contact_message.new_employment_application.field_hs_grade_completed
+    - field.field.contact_message.new_employment_application.field_phone_number
+    - field.field.contact_message.new_employment_application.field_position
+    - field.field.contact_message.new_employment_application.field_previous_employment
+    - field.field.contact_message.new_employment_application.field_references
+    - field.field.contact_message.new_employment_application.field_special_skills
+    - field.field.contact_message.new_employment_application.field_why_parents_send_kids_camp
+    - field.field.contact_message.new_employment_application.field_why_want_to_work_at_camp
+  module:
+    - address
+    - options
+id: contact_message.new_employment_application.default
+targetEntityType: contact_message
+bundle: new_employment_application
+mode: default
+content:
+  field_address:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_camp_certification:
+    weight: 16
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_cell_phone:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_college_name:
+    weight: 9
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_college_year_completed:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_date_entered_high_school:
+    weight: 8
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_high_school_name:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_how_hear_about_camp_pepin:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_hs_grade_completed:
+    weight: 5
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_phone_number:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_position:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_previous_employment:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_references:
+    weight: 15
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_special_skills:
+    weight: 11
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_why_parents_send_kids_camp:
+    weight: 13
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_why_want_to_work_at_camp:
+    weight: 12
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  message:
+    type: string
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,53 @@
+{#
+/**
+ * @file
+ * Theme implementation to display the sitemap.
+ *
+ * Available variables:
+ * - message: A configurable introductory message.
+ * - sitemap_items: A keyed array of sitemap "boxes".
+ *   The keys correspond to the available types of sitemap content, including:
+ *   - front
+ *   - books
+ *   - individual menus
+ *   - individual vocabularies
+ *   Each items contains the following variables:
+ *   - title: The subject of the box.
+ *   - content: The content of the box.
+ *   - attributes:  Optional attributes for the box.
+ *   - options:  Options are set by sitemap.helper service.
+ * - additional:
+ *
+ * @see template_preprocess()
+ * @see template_preprocess_sitemap()
+ */
+#}
+
+<div class="sitemap">
+  {% if message %}
+    <div class="sitemap-message">
+      {{ message }}
+    </div>
+  {% endif %}
+
+  {% if sitemap_items %}
+    {% for item in sitemap_items %}
+      {% if item.content is not empty %}
+      <div{{ item.attributes.addClass('sitemap-box') }}>
+        {% if item.options.show_titles %}
+          <h2>{{ item.title }}</h2>
+        {% endif %}
+        <div class="content">
+          {{ item.content }}
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% if additional %}
+    <div class="sitemap-additional">
+      {{ additional }}
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,23 @@
+name: Open Y Camp
+description: Provides a Camp content type and related configuration.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - address
+  - entity_reference_revisions
+  - field
+  - field_group
+  - geolocation
+  - link
+  - menu_ui
+  - metatag
+  - node
+  - openy_location
+  - openy_node
+  - paragraphs
+  - path
+  - pathauto
+  - telephone
+  - user

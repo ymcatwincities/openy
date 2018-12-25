@@ -1,0 +1,25 @@
+uuid: 9479a7d3-0927-4bae-a663-999024393e45
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:48a5c2e0-d075-4add-ad00-e5ec378f3fe5'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: twig
+theme: multipurpose_business_theme
+region: '-1'
+weight: -4
+provider: null
+plugin: 'block_content:48a5c2e0-d075-4add-ad00-e5ec378f3fe5'
+settings:
+  id: 'block_content:48a5c2e0-d075-4add-ad00-e5ec378f3fe5'
+  label: Twig
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

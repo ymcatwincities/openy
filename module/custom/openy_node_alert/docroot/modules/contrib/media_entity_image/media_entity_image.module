@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Module implementation file.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function media_entity_image_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.media_entity_image':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('The Media Entity Image module allows you to create media bundles that contain images. See the Media Entity module help
+ page for general information on Media entity and how to create and manage media bundles.
+ For more information, see the <a href=":online">online documentation for the Media Entity Image module</a>.', array(':online' => 'https://www.drupal.org/node/2718445')) . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Selecting the Media Entity Image Type provider') . '</dt>';
+      $output .= '<dd>' . t('The Media Entity Image type provider plugin, responsible for adding logic related to this Image media, is selectable when adding media bundles. When first creating Image media bundles, there are no fields on the media entity that store Image files. You can create a bundle without selecting a value for this initially. It can be populated after adding Image fields to the bundle.') . '</dd>';
+      $output .= '<dt>' . t('Populating Media Entity Image media bundles') . '</dt>';
+      $output .= '<dd>' . t('Populate media bundles using Manage fields, Manage form displays, and Manage displays as you would for Content, Contact, or Comment entity types. When an image field is added to the image media bundle the Type Provider Information recognizes it as a Field with source information, at which point the exif data information for that source can be gathered.') . '</dd>';
+      $output .= '<dt>' . t('Managing and Displaying Media Entity Image media bundles') . '</dt>';
+      $output .= '<dd>' . t('The <em>settings</em> and the <em>display</em> of the media entity image media bundles can be configured separately. See the Media Entity module help page for more information on how to manage media bundles and their display.') . '</dd>';
+      $output .= '</dl>';
+      return $output;
+  }
+}

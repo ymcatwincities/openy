@@ -1,0 +1,47 @@
+custom_formatters.add_page:
+  path: '/admin/structure/formatters/add'
+  defaults:
+    _title: 'Add formatter'
+    _controller: '\Drupal\custom_formatters\Controller\CustomFormattersController::addList'
+  requirements:
+    _permission: 'administer custom formatters'
+
+custom_formatters.add:
+  path: '/admin/structure/formatters/add/{formatter_type}'
+  defaults:
+    _title: 'Add formatter'
+    _controller: '\Drupal\custom_formatters\Controller\CustomFormattersController::add'
+  requirements:
+    _permission: 'administer custom formatters'
+
+custom_formatters.settings_form:
+  path: '/admin/structure/formatters/settings'
+  defaults:
+    _form: '\Drupal\custom_formatters\Form\CustomFormattersSettingsForm'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer custom formatters'
+
+entity.formatter.collection:
+  path: '/admin/structure/formatters'
+  defaults:
+    _entity_list: 'formatter'
+    _title: 'Formatters'
+  requirements:
+    _permission: 'administer custom formatters'
+
+entity.formatter.edit_form:
+  path: '/admin/structure/formatters/manage/{formatter}'
+  defaults:
+    _entity_form: 'formatter.edit'
+    _title_callback: 'Drupal\custom_formatters\Controller\CustomFormattersController::editTitle'
+  requirements:
+    _entity_access: 'formatter.update'
+
+entity.formatter.delete_form:
+  path: '/admin/structure/formatters/manage/{formatter}/delete'
+  defaults:
+    _entity_form: 'formatter.delete'
+    _title: 'Delete'
+  requirements:
+    _entity_access: 'formatter.delete'

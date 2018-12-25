@@ -1,0 +1,21 @@
+uuid: 8b535786-26a9-4929-8c00-e5c11e1dba48
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_vendor_portal
+  module:
+    - options
+id: contact_message.become_a_supplier.field_vendor_portal
+field_name: field_vendor_portal
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'If you have a catalog of products, will you agree to manage your catalog using the vendor portal or punch-out?'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

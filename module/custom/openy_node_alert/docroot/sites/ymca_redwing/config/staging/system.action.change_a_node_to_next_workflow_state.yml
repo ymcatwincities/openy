@@ -1,0 +1,25 @@
+uuid: 23ddd39a-4bed-4619-bb5d-936e77c717b2
+langcode: nl
+status: true
+dependencies:
+  module:
+    - node
+    - workflow
+_core:
+  default_config_hash: M98hvuYlwD42D6FTasB41hR2kTUpVtEB407qW4Ne1Ww
+id: change_a_node_to_next_workflow_state
+label: 'Change a node to next Workflow state'
+type: node
+plugin: workflow_node_next_state_action
+configuration:
+  label: 'Change a node to next Workflow state'
+  id: change_a_node_to_next_workflow_state
+  plugin: workflow_node_next_state_action
+  type: node
+  workflow_scheduling:
+    scheduled: '0'
+  comment: 'New state is set by a triggered Action.'
+  force: 0
+  actions: {  }
+  field_name: ''
+  to_sid: ''

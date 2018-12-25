@@ -1,0 +1,23 @@
+uuid: 904abfe1-6160-41d6-b14a-749a70d54522
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_supplier_portal
+id: contact_message.become_a_supplier.field_supplier_portal
+field_name: field_supplier_portal
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Will you agree to deliver invoices electronically into a supplier portal?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

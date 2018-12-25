@@ -1,0 +1,15 @@
+features:
+  node_user_picture: 1
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: 1
+logo:
+  use_default: 0
+  path: profiles/contrib/openy/themes/openy_themes/openy_lily/logo.png
+favicon:
+  use_default: 1
+openy_lily_camp_section_logo: {  }
+openy_lily_camp_favicon: {  }
+openy_lily_image_fields:
+  camp_section_logo: openy_lily_camp_section_logo
+  camp_favicon: openy_lily_camp_favicon

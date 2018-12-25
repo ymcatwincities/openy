@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.ygtc_block_wrapper.field_prgf_ygtc_block_ref
+    - paragraphs.paragraphs_type.ygtc_block_wrapper
+  module:
+    - content_moderation
+    - plugin
+id: paragraph.ygtc_block_wrapper.default
+targetEntityType: paragraph
+bundle: ygtc_block_wrapper
+mode: default
+content:
+  field_prgf_ygtc_block_ref:
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    type: 'plugin_selector:plugin_select_list'
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
+  uid: true

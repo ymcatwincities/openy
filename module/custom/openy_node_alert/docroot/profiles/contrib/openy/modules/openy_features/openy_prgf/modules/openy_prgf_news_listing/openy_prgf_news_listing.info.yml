@@ -1,0 +1,20 @@
+name: Open Y Paragraph News Posts listing
+package: Open Y
+description: Provides a dynamic paragraph that renders news posts listing with exposed filters.
+type: module
+core: 8.x
+version: 8.x-1.0
+dependencies:
+  - field
+  - node
+  - openy_node_news
+  - openy_prgf
+  - openy_txnm_news_category
+  - paragraphs
+  - plugin
+  - taxonomy
+  - text
+  - user
+  - verf
+  - views
+  - views_infinite_scroll

@@ -1,0 +1,5 @@
+name: YMCA Menu JSON object handler
+type: module
+description: 'Builds JSON sitemap.'
+core: 8.x
+package: YMCA

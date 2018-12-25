@@ -1,0 +1,193 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/node\/3?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/article"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/field_header_image": [
+            {
+                "href": "http:\/\/default\/file\/17?_format=hal_json"
+            }
+        ]
+    },
+    "uuid": [
+        {
+            "value": "46c4ac68-5d53-44ff-b362-98a489ccfb98"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "article"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "title": [
+        {
+            "value": "Leftovers. Another reason Y.",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "fa087e3e-a3c1-4390-a301-1ea4ec024d41"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "fa087e3e-a3c1-4390-a301-1ea4ec024d41"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/field_header_image": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/file\/17?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/file\/image"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "2be55d1a-3bc4-4c73-9500-f36c7250b8d4"
+                    }
+                ],
+                "alt": "",
+                "title": "",
+                "width": "1200",
+                "height": "600"
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1448880045",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1448880551",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1448880058"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "field_content": [
+        {
+            "value": "<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"12\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"13\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"14\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"12\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"13\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n\r\n<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-id=\"14\" data-entity-label=\"Block\" data-entity-type=\"block_content\"><\/drupal-entity>\r\n",
+            "format": "full_html"
+        }
+    ],
+    "field_header_button": [
+        {
+            "uri": "internal:\/",
+            "title": "Learn More",
+            "options": []
+        }
+    ],
+    "field_header_variant": [
+        {
+            "value": "slideshow"
+        }
+    ],
+    "field_lead_description": [
+        {
+            "value": "<article class=\"richtext\">\r\n<h2 class=\"membership\">Membership<\/h2>\r\n\r\n<p>Don\u2019t wait - $1 Enrollment and No Dues until January 2016 won\u2019t last long.&nbsp;<a href=\"\/membership\/\">Learn more and get started<\/a><\/p>\r\n<\/article>\r\n",
+            "format": "full_html"
+        }
+    ],
+    "field_title_description": [
+        {
+            "value": "$1 Enrollment and No Dues until January 2016"
+        }
+    ],
+    "field_secondary_sidebar": [
+        {
+            "value": "<article class=\"richtext\">\r\n<h2 class=\"schedules\">Schedules<\/h2>\r\n\r\n<ul>\r\n\t<li><a href=\"\/all_y_schedules\/\">Free Group Exercise Classes<\/a><\/li>\r\n\t<li><a href=\"https:\/\/ygtcprod2.personifycloud.com\/personifyebusiness\/Default.aspx?TabId=177\">Fee-Based&nbsp;Classes &amp; Programs<\/a><\/li>\r\n<\/ul>\r\n<\/article>\r\n",
+            "format": "full_html"
+        }
+    ],
+    "field_sidebar_navigation": [
+        {
+            "value": "0"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+  // This file extends .eslintrc at drupal root.
+  // Located at /modules/contrib/blazy, run:
+  // eslint . -o ../../eslint/blazy.html -f html
+  "extends": "../../../.eslintrc",
+  "globals": {
+    "Blazy": true,
+    "dBlazy": true
+  },
+  "rules": {
+    "consistent-this": [0, "me"],
+    "max-params": 0,
+    "id-length": [1, {"min": 1}],
+    // Warnings.
+    "max-nested-callbacks": [1, 4]
+  }
+}

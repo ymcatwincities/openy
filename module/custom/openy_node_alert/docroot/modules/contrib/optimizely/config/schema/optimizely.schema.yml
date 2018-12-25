@@ -1,0 +1,13 @@
+# Schema for the configuration data of the Optimizely module.
+
+optimizely.settings:
+  type: mapping
+  label: 'Optimizely Config Data'
+  mapping:
+    optimizely_id:
+      type: integer
+      label: 'Optimizely ID Number'
+      translatable: false
+    langcode:
+      type: string
+      label: 'Language code'

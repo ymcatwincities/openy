@@ -1,0 +1,27 @@
+<script type="text/javascript">
+<!--
+function submit_random_draw_form( ) {
+	document.forms['random_draw_form'].submit();
+}
+-->
+</script>
+
+<table width="100%" border="0" cellpadding="5" cellspacing="1" class="tablebox">
+<form name="random_draw_form" method="post" action="$action" />
+<input type="hidden" name="action" value="check"/>
+<tr>
+	<td width="150" align="left">
+			Enter your email address:
+	</td>
+	<td>
+		<input type="text" name="email_address" size="20"/>
+	</td>
+</tr>
+	<td>
+			&nbsp;
+	</td>
+	<td>
+			<a href="javascript:submit_random_draw_form()" class="button">Enter me in the drawing</a>			
+	</td>
+</tr>
+</table>

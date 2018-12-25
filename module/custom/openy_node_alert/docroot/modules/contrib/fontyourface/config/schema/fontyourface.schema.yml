@@ -1,0 +1,12 @@
+fontyourface.settings:
+  type: config_object
+  label: '@fontyourface settings'
+  mapping:
+    load_all_enabled_fonts:
+      type: integer
+      label: 'Load fonts regardless of font display'
+    enabled_fonts:
+      type: sequence
+      label: 'Enabled fonts'
+      sequence:
+        type: string

@@ -1,0 +1,21 @@
+uuid: 3dbba120-656e-41b3-b400-a2e7028bc075
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_cell_phone
+  module:
+    - telephone
+id: contact_message.become_a_supplier.field_cell_phone
+field_name: field_cell_phone
+entity_type: contact_message
+bundle: become_a_supplier
+label: 'Primary Contact Cell Number'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

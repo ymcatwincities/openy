@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - plugin
+id: node.plugin_test_pcf
+field_name: plugin_test_pcf
+entity_type: node
+type: 'plugin:plugin_test_helper_mock'
+settings: {  }
+module: plugin
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

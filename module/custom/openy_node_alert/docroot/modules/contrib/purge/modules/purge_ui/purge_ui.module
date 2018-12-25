@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Administrative interface for Purge.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function purge_ui_theme() {
+  return [
+    'purge_ui_dashboard' => [
+      'render element' => 'build',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add some serious options to the page_cache_maximum_age setting.
+ */
+function purge_ui_form_system_performance_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['caching']['page_cache_maximum_age']['#options'][604800] = t("1 week");
+  $form['caching']['page_cache_maximum_age']['#options'][2764800] = t("1 month");
+  $form['caching']['page_cache_maximum_age']['#options'][16588800] = t("6 months");
+  $form['caching']['page_cache_maximum_age']['#options'][31536000] = t("1 year (recommended for external cache invalidation)");
+}

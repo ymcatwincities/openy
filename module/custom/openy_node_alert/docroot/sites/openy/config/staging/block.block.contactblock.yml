@@ -1,0 +1,27 @@
+uuid: dcbddd4a-eb30-4e75-9c5b-91e2c95533ea
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_block
+    - system
+  theme:
+    - multipurpose_business_theme
+id: contactblock
+theme: multipurpose_business_theme
+region: footer_second
+weight: -21
+provider: null
+plugin: contact_block
+settings:
+  id: contact_block
+  label: 'Contact block'
+  provider: contact_block
+  label_display: '0'
+  contact_form: feedback
+visibility:
+  request_path:
+    id: request_path
+    pages: ''
+    negate: true
+    context_mapping: {  }

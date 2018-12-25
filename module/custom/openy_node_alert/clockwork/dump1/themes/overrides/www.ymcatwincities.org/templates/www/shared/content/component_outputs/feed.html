@@ -1,0 +1,50 @@
+[[ if action_display ]]
+<div id="component_$component_id" class="feed">
+	
+[[ if ! use_ajax ]]
+
+[[ if items ]]
+<ul>
+$start_loop_items
+	$item_html
+$end_loop_items
+</ul>
+[[ end if items ]]
+
+
+[[ if ! items ]]
+<span class="empty_message">$empty_message_esc</span>
+[[ end if items ]]
+
+[[ end if use_ajax ]]
+
+[[ if use_ajax ]]
+<span id="component_$component_id\_items"></span>
+[[ end if use_ajax ]]
+
+</div>
+
+[[ if use_ajax ]]
+<script type="text/javascript">
+CWjQuery( document ).ready( function(CWjQuery) {
+	CWjQuery.get( '$load_url', function( data ) {
+	  CWjQuery('#component_$component_id\_items').replaceWith( data.output );
+	});
+} );
+[[ end if use_ajax ]]
+</script>
+
+[[ end if action_display ]]
+
+[[ if action_load_feeds ]]
+[[ if items ]]
+<ul>
+$start_loop_items
+	$item_html
+$end_loop_items
+</ul>
+[[ end if items ]]
+
+[[ if ! items ]]<span class="empty_message">$empty_message_esc</span>[[ end if items ]]
+
+[[ end if action_load_feeds ]]

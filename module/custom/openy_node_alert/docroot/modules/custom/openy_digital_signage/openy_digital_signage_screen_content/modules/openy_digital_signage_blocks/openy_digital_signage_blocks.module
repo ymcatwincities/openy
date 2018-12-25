@@ -1,0 +1,313 @@
+<?php
+
+/**
+ * @file
+ * OpenY digital signage blocks module.
+ */
+
+define('OPENY_DS_BLOCK_PROMOTIONAL', 'digital_signage_promotional');
+define('OPENY_DS_BLOCK_HTML_BUNDLE', 'digital_signage_block_free_html');
+
+use Drupal\Core\Template\Attribute;
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\media_entity\Entity\Media as ContribMedia;
+use Drupal\media\Entity\Media as CoreMedia;
+
+/**
+ * Implements hook_theme().
+ */
+function openy_digital_signage_blocks_theme($existing, $type, $theme, $path) {
+  return [
+    'openy_digital_signage_blocks_static_ticker' => [
+      'template' => 'openy-digital-signage-blocks-static-ticker',
+      'variables' => [
+        'icon' => 'bell',
+        'message' => '',
+        'wrapper_attributes' => NULL,
+      ],
+    ],
+    'openy_digital_signage_blocks_system_message' => [
+      'template' => 'openy-digital-signage-blocks-system-message',
+      'variables' => [
+        'icon' => 'bell',
+        'message' => '',
+        'wrapper_attributes' => NULL,
+      ],
+    ],
+    'block__digital_signage_promotional' => [
+      'template' => 'block--digital-signage-promotional',
+      'render element' => 'elements',
+      'base hook' => 'block',
+    ],
+    'openy_digital_signage_block_time' => [
+      'template' => 'openy-digital-signage-block-time',
+      'variables' => [
+        'wrapper_attributes' => NULL,
+        'current_time' => NULL,
+      ],
+    ],
+    'block__digital_signage_block_free_html' => [
+      'template' => 'block--digital-signage-block-free-html',
+      'render element' => 'elements',
+      'base hook' => 'block',
+    ],
+    'openy_digital_signage_blocks_class_current' => [
+      'template' => 'openy-digital-signage-blocks-class-current',
+      'variables' => [
+        'room' => '',
+        'classes' => NULL,
+        'wrapper_attributes' => NULL,
+      ],
+    ],
+    'openy_digital_signage_blocks_class_ticker' => [
+      'template' => 'openy-digital-signage-blocks-class-ticker',
+      'variables' => [
+        'room' => '',
+        'classes' => NULL,
+        'wrapper_attributes' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_block().
+ */
+function openy_digital_signage_blocks_theme_suggestions_block(array $variables) {
+  if ($variables['elements']['#base_plugin_id'] != 'block_content') {
+    return;
+  }
+  /* @var \Drupal\block_content\Entity\BlockContent $block */
+  $block = $variables['elements']['content']['#block_content'];
+  $digital_signage_bundles = [
+    OPENY_DS_BLOCK_PROMOTIONAL,
+    OPENY_DS_BLOCK_HTML_BUNDLE,
+  ];
+  if (!in_array($block->bundle(), $digital_signage_bundles)) {
+    return;
+  }
+  // Add suggestion.
+  $suggestions = [];
+  $suggestions[] = 'block__' . $block->bundle();
+  return $suggestions;
+}
+
+/**
+ * Implements hook_preprocess_block() for block templates.
+ */
+function openy_digital_signage_blocks_preprocess_block(&$variables) {
+  if ($variables['base_plugin_id'] != 'block_content') {
+    return;
+  }
+  /* @var \Drupal\block_content\Entity\BlockContent $block */
+  $block = $variables['content']['#block_content'];
+  switch ($block->bundle()) {
+    case OPENY_DS_BLOCK_PROMOTIONAL:
+
+      $variables['attributes']['class'][] = 'openy-digital-signage-block-promotional';
+
+      $attributes = new Attribute();
+      $attributes->addClass('block-promotional');
+      $attributes->addClass('block-promotional-background-' . $block->field_ds_background_size->value);
+      $attributes->addClass('block-promotional-background-' . $block->field_ds_background_position->value);
+      $attributes->addClass('block-promotional-background-' . $block->field_ds_background_scheme->value);
+      $attributes->addClass('block-promotional-color-' . $block->field_ds_color_scheme->value);
+      $attributes->addClass('block-promotional-message-position-' . $block->field_ds_message_position->value);
+      $attributes->addClass('block-promotional-layout-' . $block->field_ds_layout->value);
+      $background_styles = ['background-color: ' . $block->field_ds_background_color->value . ';'];
+      if ($background_image = $block->field_ds_background_image->entity) {
+
+        /** @var ContribMedia $background_image */
+        if ($background_image instanceof ContribMedia) {
+          if (!$background_image->hasField('field_media_image')) {
+            throw new \Exception('Contrib media failed to find field with background image.');
+          }
+          $file = $background_image->field_media_image->entity;
+        }
+
+        if ($background_image instanceof CoreMedia) {
+          if (!$background_image->hasField('field_media_image')) {
+            throw new \Exception('Core media failed to find field with background image.');
+          }
+          $file = $background_image->field_media_image->entity;
+        }
+
+        if (!isset($file)) {
+          throw new \Exception('Failed to load file entity with background image.');
+        }
+
+        $background_styles[] = 'background-image:url(' . file_create_url($file->getFileUri()) . ');';
+      }
+      $attributes->setAttribute('style', $background_styles);
+      $variables['wrapper_attributes'] = $attributes;
+      break;
+
+    case OPENY_DS_BLOCK_HTML_BUNDLE:
+      // Do not display image.
+      $variables['content']['field_ds_background_image']['#access'] = FALSE;
+      $variables['background_image'] = '';
+
+      if (!$block->hasField('field_ds_background_image')) {
+        throw new \Exception('Failed to find field field_ds_background_image in digital_signage_block_free_html.');
+      }
+
+      if ($background_image = $block->field_ds_background_image->entity) {
+        /** @var ContribMedia $background_image */
+        if ($background_image instanceof ContribMedia) {
+          if (!$background_image->hasField('field_media_image')) {
+            throw new \Exception('Contrib media failed to find field with background image.');
+          }
+          $file = $background_image->field_media_image->entity;
+        }
+
+        if ($background_image instanceof CoreMedia) {
+          if (!$background_image->hasField('field_media_image')) {
+            throw new \Exception('Core media failed to find field with background image.');
+          }
+          $file = $background_image->field_media_image->entity;
+        }
+
+        if (!isset($file)) {
+          throw new \Exception('Failed to load file entity with background image.');
+        }
+
+        $variables['background_image'] = file_create_url($file->getFileUri());
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_block_content_view().
+ */
+function openy_digital_signage_blocks_block_content_view(array &$build, BlockContent $block_content, $view_mode) {
+  if ($block_content->bundle() != OPENY_DS_BLOCK_HTML_BUNDLE) {
+    return;
+  }
+  // Attach library with styles to block.
+  $build['#attached']['library'][] = 'openy_digital_signage_blocks/block_html';
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  switch ($form_id) {
+    case 'block_content_digital_signage_promotional_panels_ipe_form':
+    case 'block_content_digital_signage_promotional_form':
+      $form['revision_information']['#access'] = FALSE;
+
+      $form['background_image_settings'] = [
+        '#type' => 'fieldset',
+        '#title' => t('Background Image settings'),
+        '#collapsible' => TRUE,
+        '#weight' => $form['field_ds_background_image']['#weight'],
+      ];
+      $form['background_image_settings']['field_ds_background_image'] = $form['field_ds_background_image'];
+      unset($form['field_ds_background_image']);
+      $form['background_image_settings']['field_ds_background_position'] = $form['field_ds_background_position'];
+      unset($form['field_ds_background_position']);
+      $form['background_image_settings']['field_ds_background_size'] = $form['field_ds_background_size'];
+      unset($form['field_ds_background_size']);
+      $url = base_path() . drupal_get_path('module', 'openy_digital_signage_blocks') . '/icons/promo/';
+      $form['#attached']['drupalSettings']['promo_block_form_preview']['path'] = $url;
+      $form['#attached']['library'][] = 'openy_digital_signage_blocks/promotional_layout_preview';
+
+      $form['form-preview'] = [
+        '#type' => 'markup',
+        '#markup' => '<div class="promo-block-preview">' . $url . '</div>',
+        '#weight' => $form['field_ds_layout']['#weight'] - 0.01,
+      ];
+      $group = $form['#group_children']['field_ds_layout'];
+      $form['#group_children']['form-preview'] = $group;
+      $form['#fieldgroups'][$group]->children[] = 'form-preview';
+      break;
+
+    case 'block_content_digital_signage_block_free_html_panels_ipe_form':
+    case 'block_content_digital_signage_block_free_html_form':
+      $form['revision_information']['#access'] = FALSE;
+      $form['body']['widget']['#after_build'][] = 'openy_digital_signage_blocks_hide_text_format_switcher';
+      break;
+
+    case 'panels_ipe_block_plugin_form':
+      /* @var \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_variant */
+      list($block_id, $panels_variant) = $form_state->getBuildInfo()['args'];
+
+      // Make the changes only for screen content nodes.
+      $contexts = $panels_variant->getContexts();
+      if (empty($contexts['@panelizer.entity_context:entity'])) {
+        return;
+      }
+      $context = $contexts['@panelizer.entity_context:entity']->getContextValue();
+      if ($context->getEntityTypeId() != 'node' || $context->bundle() != 'screen_content') {
+        return;
+      }
+
+      $form['preview']['#access'] = FALSE;
+      $form['flipper']['front']['settings']['label_display']['#type'] = 'value';
+      $form['flipper']['front']['settings']['label_display']['#value'] = FALSE;
+      if (!empty($form['flipper']['front']['settings']['region']['#options'])) {
+        if (count($form['flipper']['front']['settings']['region']['#options']) == 1) {
+          $form['flipper']['front']['settings']['region']['#access'] = FALSE;
+          $form['flipper']['front']['settings']['region']['#default_value'] = key($form['flipper']['front']['settings']['region']['#options']);
+        }
+      }
+
+      // Assign ticker blocks to ticker region if presented.
+      if (strpos($block_id, 'ticker') !== FALSE) {
+        $regions = $panels_variant->getLayout()
+          ->getPluginDefinition()
+          ->get('regions');
+        if (isset($regions['ticker'], $form['flipper']['front']['settings']['region']['#options']['ticker'])) {
+          $form['flipper']['front']['settings']['region']['#default_value'] = 'ticker';
+        }
+      }
+      // Add room as default value based on screen context.
+      $class_blocks = [
+        'openy_digital_signage_class_current',
+        'openy_digital_signage_class_ticker',
+      ];
+      if (in_array($block_id, $class_blocks)) {
+        /** @var \Drupal\openy_digital_signage_screen\OpenYScreenManager $screen_manager */
+        $screen_manager = \Drupal::service('openy_digital_signage_screen.manager');
+        $screen_context = $screen_manager->getScreenContext();
+        if (!empty($screen_context)) {
+          $room = $screen_context->get('room');
+          if (!empty($room->entity)) {
+            $value = $room->entity->id();
+            $form['flipper']['front']['settings']['room']['#default_value'] = $value;
+          }
+        }
+      }
+
+      break;
+  }
+}
+
+/**
+ * Hides text format switcher.
+ *
+ * @param array $form_element
+ *   Form element.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form state.
+ *
+ * @return array
+ *   Altered form element.
+ */
+function openy_digital_signage_blocks_hide_text_format_switcher($form_element, FormStateInterface $form_state) {
+  if (!isset($form_element[0]['format'])) {
+    return $form_element;
+  }
+  // All this stuff is needed to hide the the field and help text.
+  unset($form_element[0]['format']['guidelines']);
+  unset($form_element[0]['format']['help']);
+  unset($form_element[0]['format']['#type']);
+  unset($form_element[0]['format']['#theme_wrappers']);
+  $form_element[0]['format']['format']['#title'] = NULL;
+  $form_element[0]['format']['format']['#attributes']['class'][] = 'hidden';
+  $form_element[0]['format']['format']['#attributes']['disabled'] = TRUE;
+
+  return $form_element;
+}

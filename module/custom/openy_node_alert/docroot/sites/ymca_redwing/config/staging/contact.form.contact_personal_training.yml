@@ -1,0 +1,28 @@
+uuid: 63e8983d-2b9f-46da-8400-b3dea612e82e
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: 'entity:node/1083'
+id: contact_personal_training
+label: 'Contact Personal Training'
+recipients:
+  - jennifer.menk@ymcamn.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: 0
+submissionPageContent:
+  value: "<article id=\"component_282926\">\r\n<p>Thank you for your interest in Personal Training. We will be in touch within 2-3 business days.</p>\r\n</article>\r\n"
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 1
+  subject: 'New submission for "Contact A Personal Trainer" for [contact_message:field_preferred_y_text]'
+  content:
+    value: "<p>A new submission was received from the \"CONTACT A PERSONAL TRAINER form\"</p>\r\n\r\n<p>Here are the contents of the submission</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Submission Information</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><strong>First Name:&nbsp;</strong>[contact_message:field_first_name]</p>\r\n\r\n<p><strong>Last Name:&nbsp;</strong>[contact_message:field_last_name]</p>\r\n\r\n<p><strong>Email Address:&nbsp;</strong>[contact_message:field_email_address]</p>\r\n\r\n<p><strong>Phone Number:&nbsp;</strong>[contact_message:field_phone_number]</p>\r\n\r\n<p><strong>Location:&nbsp;</strong>[contact_message:field_preferred_y_text]</p>\r\n\r\n<p><strong>Preferred contact method:&nbsp;</strong>&nbsp;[contact_message:field_contact_method]</p>\r\n\r\n<p><b>Notes or comments</b></p>\r\n\r\n<p>[contact_message:field_comments]</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>YMCA Twin Cities Form Submission System</p>\r\n\r\n<p>Note: Do not reply to this e-mail: it is sent from an automated system.</p>\r\n"
+    format: full_html

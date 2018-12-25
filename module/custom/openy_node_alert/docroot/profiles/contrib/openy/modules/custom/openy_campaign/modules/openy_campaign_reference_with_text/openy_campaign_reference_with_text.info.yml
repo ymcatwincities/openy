@@ -1,0 +1,6 @@
+name: Open Y Campaign - Reference with text Field
+type: module
+description: Provides an Entity Reference With Text field type.
+core: 8.x
+version: 8.x-1.0-rc1
+package: Open Y (Experimental)

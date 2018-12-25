@@ -1,0 +1,10 @@
+name: Views Entity Reference Filter
+description: Provides Views filters for entity reference fields.
+# core: 8.x
+type: module
+
+# Information added by Drupal.org packaging script on 2016-07-09
+version: '8.x-1.0-beta6'
+core: '8.x'
+project: 'verf'
+datestamp: 1468079040

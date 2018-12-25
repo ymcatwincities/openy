@@ -1,0 +1,6 @@
+name: Cache Size Guard
+type: module
+description: Allows to clear the cache in the clever way if it's growing too fast.
+core: 8.x
+dependencies:
+  - dbsize

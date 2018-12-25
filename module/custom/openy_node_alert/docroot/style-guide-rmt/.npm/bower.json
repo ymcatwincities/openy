@@ -1,0 +1,16 @@
+{
+  "name": "ffw-styleguide",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "susy": "~2.2.6",
+    "bower.json": "~0.6.9"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

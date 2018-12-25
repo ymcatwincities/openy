@@ -1,0 +1,20 @@
+uuid: 2b161279-ff09-4331-8304-4df576c3c4a4
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - b4
+id: b4_content
+theme: b4
+region: content
+weight: 0
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

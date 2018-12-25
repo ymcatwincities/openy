@@ -1,0 +1,20 @@
+{
+    "name": "openy-ds",
+    "description": "OpenY Digital Signage theming",
+    "main": "",
+    "authors": [
+        "FFW"
+    ],
+    "license": "MIT",
+    "homepage": "",
+    "moduleType": [],
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {},
+    "devDependencies": {}
+}

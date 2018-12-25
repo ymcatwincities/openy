@@ -1,0 +1,81 @@
+acquia_connector.settings:
+  path: '/admin/config/system/acquia-connector'
+  defaults:
+    _form: '\Drupal\acquia_connector\Form\SettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
+
+acquia_connector.setup:
+  path: '/admin/config/system/acquia-connector/setup'
+  defaults:
+    _form: '\Drupal\acquia_connector\Form\SetupForm'
+    _title: 'Acquia Subscription automatic setup'
+  requirements:
+    _permission: 'administer site configuration'
+
+acquia_connector.start:
+  path: '/admin/config/system/acquia-connector/start'
+  defaults:
+    _controller: '\Drupal\acquia_connector\Controller\StartController::info'
+  requirements:
+    _permission: 'administer site configuration'
+
+acquia_connector.credentials:
+  path: '/admin/config/system/acquia-connector/credentials'
+  defaults:
+    _form: '\Drupal\acquia_connector\Form\CredentialForm'
+    _title: 'Acquia Subscription credentials'
+  requirements:
+    _permission: 'administer site configuration'
+
+acquia_connector.status:
+  path: '/system/acquia-connector-status'
+  defaults:
+    _controller: '\Drupal\acquia_connector\Controller\StatusController::json'
+  requirements:
+    _custom_access: '\Drupal\acquia_connector\Controller\StatusController::access'
+  options:
+    _maintenance_access: TRUE
+
+acquia_connector.send_module_data:
+  path: '/system/acquia-connector-send-module-data'
+  defaults:
+    _controller: '\Drupal\acquia_connector\Controller\ModuleDataController::sendModuleData'
+  requirements:
+    _custom_access: '\Drupal\acquia_connector\Controller\ModuleDataController::access'
+  options:
+    _maintenance_access: TRUE
+    datatype: plaintext
+
+acquia_connector.refresh_status:
+  path: '/admin/config/system/acquia-connector/refresh-status'
+  defaults:
+    _controller: '\Drupal\acquia_connector\Controller\StatusController::refresh'
+    _title: 'Manual update check'
+  requirements:
+    _permission: 'administer site configuration'
+
+acquia_connector.send:
+  path: '/system/acquia-spi-send'
+  defaults:
+    _controller: '\Drupal\acquia_connector\Controller\SpiController::send'
+    _title: 'Acquia SPI send'
+  requirements:
+    _custom_access: '\Drupal\acquia_connector\Controller\SpiController::sendAccess'
+
+acquia_connector.test_validate:
+  path: '/system/acquia-connector-test-validate'
+  defaults:
+    _controller: '\Drupal\acquia_connector\Controller\TestStatusController::testStatus'
+    _title: 'Acquia SPI Custom Test Validation'
+    log: TRUE
+  requirements:
+    _permission: 'access site reports'
+
+acquia_connector.environment_change:
+  path: '/admin/config/system/acquia-connector/environment-change'
+  defaults:
+    _form: '\Drupal\acquia_connector\Form\SpiChangeForm'
+    _title: 'Acquia SPI Environment Change Actions'
+  requirements:
+    _permission: 'administer site configuration'

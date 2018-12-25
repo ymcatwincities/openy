@@ -1,0 +1,43 @@
+uuid: 75bce0ec-0ee7-4844-9ed3-1b78e7e1b7e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.praire_burn
+  content:
+    - 'block_content:basic:90150bc0-1150-4207-b2c5-a9ad5dbd7cf2'
+  module:
+    - block_content
+    - panels
+id: youth_sportsxrx9gbcw
+label: 'Prairie Burn'
+variant: panels_variant
+variant_settings:
+  blocks:
+    16d060af-11ee-4707-b02c-4414d79e81e3:
+      id: 'block_content:90150bc0-1150-4207-b2c5-a9ad5dbd7cf2'
+      label: 'Prairie Burn Landing Page Main Content'
+      provider: block_content
+      label_display: '0'
+      status: true
+      info: ''
+      view_mode: full
+      region: middle
+      weight: 0
+      uuid: 16d060af-11ee-4707-b02c-4414d79e81e3
+      context_mapping: {  }
+  id: panels_variant
+  uuid: 7892728d-c220-49ba-9e00-a79860e58827
+  label: null
+  weight: 0
+  layout: onecol
+  layout_settings: {  }
+  page_title: ''
+  storage_type: page_manager
+  storage_id: youth_sportsxrx9gbcw
+  builder: standard
+page: praire_burn
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }

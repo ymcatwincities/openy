@@ -1,0 +1,20 @@
+services:
+  config_import.importer:
+    class: Drupal\config_import\ConfigImporterService
+    arguments:
+      - '@uuid'
+      - '@config.storage'
+      - '@config.manager'
+      - '@event_dispatcher'
+      - '@lock'
+      - '@config.typed'
+      - '@module_handler'
+      - '@module_installer'
+      - '@theme_handler'
+      - '@string_translation'
+      - '@file_system'
+  config_import.param_updater:
+    class: Drupal\config_import\ConfigParamUpdaterService
+    arguments:
+      - '@config.manager'
+      - '@logger.factory'

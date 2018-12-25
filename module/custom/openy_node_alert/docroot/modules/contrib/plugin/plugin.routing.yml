@@ -1,0 +1,18 @@
+plugin.plugin_type.list:
+  path: '/admin/structure/plugin'
+  defaults:
+    _controller: '\Drupal\plugin\Controller\ListPluginTypes::execute'
+    _title: Plugins
+  requirements:
+    _permission: 'plugin.overview.view'
+plugin.plugin.list:
+  path: '/admin/structure/plugin/{plugin_type}'
+  defaults:
+    _controller: '\Drupal\plugin\Controller\ListPlugins::execute'
+    _title_callback: '\Drupal\plugin\Controller\ListPlugins::title'
+  requirements:
+    _permission: 'plugin.overview.view'
+  options:
+    parameters:
+      plugin_type:
+        plugin.plugin_type: {}

@@ -1,0 +1,37 @@
+{
+  "name": "drupal/sitemap",
+  "description": "Display a sitemap.",
+  "type": "drupal-module",
+  "homepage": "http://drupal.org/project/sitemap",
+  "authors": [
+    {
+      "name": "Nik Alexandrov",
+      "homepage": "https://www.drupal.org/u/nafes",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Anna Kalata",
+      "homepage": "https://www.drupal.org/u/akalata",
+      "role": "Co-maintainer"
+    },
+    {
+      "name": "killes@www.drop.org",
+      "homepage": "https://www.drupal.org/u/killeswww.drop.org",
+      "role": "Co-maintainer"
+    },
+    {
+      "name": "See other contributors",
+      "homepage": "https://www.drupal.org/node/3295/committers",
+      "role": "contributor"
+    }
+
+  ],
+  "support": {
+    "issues": "http://drupal.org/project/issues/sitemap",
+    "irc": "irc://irc.freenode.org/drupal-contribute",
+    "source": "http://cgit.drupalcode.org/sitemap"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": { }
+}

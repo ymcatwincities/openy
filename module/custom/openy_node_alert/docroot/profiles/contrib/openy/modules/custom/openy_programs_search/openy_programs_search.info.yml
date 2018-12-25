@@ -1,0 +1,9 @@
+name: Open Y Programs Search
+type: module
+description: Provides a Block to search programs.
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - daxko:daxko
+  - openy_socrates:openy_socrates

@@ -1,0 +1,13 @@
+uuid: 493f92b1-1779-4334-a4f3-3adcb9ebf37b
+langcode: en
+status: true
+dependencies:
+  module:
+    - bulk_actions
+_core:
+  default_config_hash: GgSbRRL1uV06py2m3ANUtLRRnMBUkkGWQ4tc-l-Dn1A
+id: menu_link_content_delete_action
+label: 'Delete menu item'
+type: menu_link_content
+plugin: menu_link_content_delete_action
+configuration: {  }

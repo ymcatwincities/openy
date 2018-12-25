@@ -1,0 +1,16 @@
+services:
+  logger.channel.openy_data_wrapper:
+    parent: logger.channel_base
+    arguments: ['openy_data_wrapper']
+  openy_data_wrapper:
+    class: Drupal\openy_data_wrapper\DataWrapper
+    arguments:
+      - '@entity.query'
+      - '@renderer'
+      - '@entity.manager'
+      - '@socrates'
+      - '@cache.data'
+      - '@logger.channel.openy_data_wrapper'
+      - '@config.factory'
+    tags:
+      - { name: "openy_data_service", priority: 110 }

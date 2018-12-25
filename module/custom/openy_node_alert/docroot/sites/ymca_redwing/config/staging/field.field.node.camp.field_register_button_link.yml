@@ -1,0 +1,23 @@
+uuid: 2787a5f0-0861-4696-98b6-49f3e380e2d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_register_button_link
+    - node.type.camp
+  module:
+    - link
+id: node.camp.field_register_button_link
+field_name: field_register_button_link
+entity_type: node
+bundle: camp
+label: 'Register Button Link'
+description: 'The link for the "Register" button.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link

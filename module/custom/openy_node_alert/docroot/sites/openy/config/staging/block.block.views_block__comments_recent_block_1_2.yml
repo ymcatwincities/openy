@@ -1,0 +1,30 @@
+uuid: 966a42bc-4099-4641-9060-96bdb3a7d8d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.comments_recent
+  module:
+    - system
+    - views
+  theme:
+    - multipurpose_business_theme
+id: views_block__comments_recent_block_1_2
+theme: multipurpose_business_theme
+region: sidebar_second
+weight: -22
+provider: null
+plugin: 'views_block:comments_recent-block_1'
+settings:
+  id: 'views_block:comments_recent-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: "/article/*\r\n/layout/right-sidebar\r\n/layout/two-sidebar"
+    negate: false
+    context_mapping: {  }

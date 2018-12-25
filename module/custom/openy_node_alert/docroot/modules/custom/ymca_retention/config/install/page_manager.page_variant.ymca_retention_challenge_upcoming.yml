@@ -1,0 +1,34 @@
+uuid: a9efa9fd-6656-4797-86fc-6594b01c7715
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.ymca_retention_challenge_pages
+  module:
+    - panels
+    - system
+id: ymca_retention_challenge_upcoming
+label: 'YMCA Recharge Upcoming page'
+variant: panels_variant
+variant_settings:
+  blocks: {  }
+  id: panels_variant
+  uuid: 40051c50-5ca0-4a3e-b02e-83c154f93f75
+  label: null
+  weight: 0
+  layout: layout_onecol
+  layout_settings: {  }
+  page_title: 'Y Recharge 2017'
+  storage_type: page_manager
+  storage_id: ymca_retention_challenge_pages-panels_variant-0
+  builder: standard
+page: ymca_retention_challenge_pages
+weight: 0
+selection_criteria:
+  -
+    id: request_path
+    pages: /challenge/upcoming
+    negate: false
+    context_mapping: {  }
+selection_logic: and
+static_context: {  }

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="favicons/manifest.json">
+  <meta name="apple-mobile-web-app-title" content="YMCA">
+  <meta name="application-name" content="YMCA">
+  <meta name="msapplication-TileColor" content="#00aeef">
+  <meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <title>YMCA - Sub-category</title>
+  <link rel="stylesheet" href="css/styles.css?20160202">
+  <script src="js/lib/modernizr.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container">
+      <a href="/" class="header__logo">
+      </a>
+      <div class="header__navigation">
+        <a class="header__mobile-toggle"></a>
+        <nav class="header__main-menu">
+          <ul>
+            <li class="active">
+              <a href="/">YMCA Twin Cities</a>
+            </li>
+            <li>
+              <a href="/membership/">Membership</a>
+            </li>
+            <li>
+              <a href="/locations/">Locations</a>
+            </li>
+            <li>
+              <a href="/all_y_schedules/">All Y Schedules</a>
+            </li>
+            <li>
+              <a href="/about/">About</a>
+            </li>
+            <li>
+              <a href="/contact_us/">Contact</a>
+            </li>
+            <li>
+              <a href="/give/">Give</a>
+            </li>
+            <li>
+              <a href="https://account.ymcamn.org/PersonifyEBusiness/Default.aspx?TabID=337">Sign In</a>
+            </li>
+            <li>
+              <a class="header__main-menu--search" href="#">Search</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <aside class="banner">
+    <div class="container">
+      <div class="banner__section-category">
+        <select class="chosen-select">
+          <option value="">Swim Lessons</option>
+          <option value="">Diving</option>
+          <option value="">Lap Swim</option>
+          <option value="">Open Swim</option>
+          <option value="">Swim Team</option>
+          <option value="">Water activities</option>
+          <option value="">Water Exercise</option>
+        </select>
+      </div>
+    </div>
+    <section>
+      <div class="banner__image-container">
+        <div class="banner__image" style="background-image: url(../images/activities/offset_259369.jpg);">
+        </div>
+      </div>
+    </section>
+  </aside>
+
+  <aside class="filter">
+    <div class="container">
+      <form class="filter-form">
+        <div class="filter-form__times">
+          <select class="chosen-select">
+            <option value="">Time of Day</option>
+            <option value="">Morning</option>
+            <option value="">Afternoon</option>
+            <option value="">Evening</option>
+            <option value="">All Day</option>
+            <option value="">Overnight</option>
+          </select>
+        </div>
+
+        <fieldset class="filter-form__days filter-form__fieldset">
+          <ul>
+            <li>
+              <input type="checkbox" name="week" value="Monday" id="Monday" />
+              <label for="Monday">Monday</label>
+            </li>
+            <li>
+              <input type="checkbox" name="week" value="Tuesday" id="Tuesday" />
+              <label for="Tuesday">Tuesday</label>
+            </li>
+            <li>
+              <input type="checkbox" name="week" value="Wednesday" id="Wednesday" />
+              <label for="Wednesday">Wednesday</label>
+            </li>
+            <li>
+              <input type="checkbox" name="week" value="Thursday" id="Thursday" />
+              <label for="Thursday">Thursday</label>
+            </li>
+            <li>
+              <input type="checkbox" name="week" value="Friday" id="Friday" />
+              <label for="Friday">Friday</label>
+            </li>
+            <li>
+              <input type="checkbox" name="week" value="Weekend" id="Weekend" />
+              <label for="Weekend">Weekend</label>
+            </li>
+          </ul>
+        </fieldset>
+
+        <input type="checkbox" id="show-more-less">
+        <label for="show-more-less" class="filter-form__show-more">Filters</label>
+
+        <fieldset class="filter-form__top-submit">
+          <input class="button button--purple" type="submit" name="submit" value="Apply filters">
+        </fieldset>
+
+        <div id="show-filter" class="filter-form__container" style="display: none">
+          <fieldset class="filter-form__fieldset">
+            <legend>YMCA Location</legend>
+            <ul>
+              <li>
+                <input type="checkbox" id="location-1" />
+                <label for="location-1">Minneapolis/West Metro</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-2" />
+                <label for="location-2">St. Paul/East Metro</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-3" />
+                <label for="location-3">North Metro</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-4" />
+                <label for="location-4">South Metro</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-5" />
+                <label for="location-5">Andover</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-6" />
+                <label for="location-6">Blaisdell</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-7" />
+                <label for="location-7">Burnsville</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-8" />
+                <label for="location-8">Eagan</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-9" />
+                <label for="location-9">Elk River</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-10" />
+                <label for="location-10">Emma B. Howe - Coon Rapids</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-11" />
+                <label for="location-11">Hastings</label>
+              </li>
+              <li>
+                <input type="checkbox" id="location-12" />
+                <label for="location-12">Heritage Park</label>
+              </li>
+            </ul>
+          </fieldset>
+
+          <fieldset class="filter-form__fieldset">
+            <legend>Program Dates</legend>
+            <ul>
+              <li class="filter-form__date-select">
+                <input type="text" placeholder="From date">
+                <input type="image" src="images/calendar.svg" alt="Calendar">
+              </li>
+              <li class="filter-form__date-select">
+                <input type="text" placeholder="To date">
+                <input type="image" src="images/calendar.svg" alt="Calendar">
+              </li>
+            </ul>
+          </fieldset>
+
+          <fieldset class="filter-form__fieldset">
+            <legend>Cost</legend>
+            <ul>
+              <li>
+                <input type="checkbox" id="cost">
+                <label for="cost">Free for YMCA Members</label>
+              </li>
+            </ul>
+          </fieldset>
+
+          <fieldset class="filter-form__fieldset">
+            <legend>Level</legend>
+            <ul>
+              <li>
+                <input type="radio" id="level-0" name="level">
+                <label for="level-0">Beginner</label>
+              </li>
+              <li>
+                <input type="radio" id="level-1" name="level">
+                <label for="level-1">Experience Required</label>
+              </li>
+              <li>
+                <input type="radio" id="level-2" name="level">
+                <label for="level-2">Any Level</label>
+              </li>
+            </ul>
+          </fieldset>
+
+          <fieldset class="filter-form__fieldset">
+            <legend>Age</legend>
+            <ul>
+              <li>
+                <input type="radio" id="age-0" name="age">
+                <label for="age-0">Baby &amp; Toddler</label>
+              </li>
+              <li>
+                <input type="radio" id="age-1" name="age">
+                <label for="age-1">School Age</label>
+              </li>
+              <li>
+                <input type="radio" id="age-2" name="age">
+                <label for="age-2">Pre-Teens</label>
+              </li>
+              <li>
+                <input type="radio" id="age-3" name="age">
+                <label for="age-3">Teens</label>
+              </li>
+              <li>
+                <input type="radio" id="age-4" name="age">
+                <label for="age-4">Any Age</label>
+              </li>
+            </ul>
+          </fieldset>
+
+          <fieldset class="filter-form__search-autocomplete filter-form__fieldset">
+            <span>
+        <input type="text" placeholder="Search">
+      </span>
+          </fieldset>
+
+          <fieldset class="filter-form__fieldset filter-form__search-button">
+            <input class="button button--purple" type="submit" name="submit" value="Apply filters">
+          </fieldset>
+        </div>
+      </form>
+    </div>
+  </aside>
+
+  <main>
+    <div class="container">
+      <div class="utility-bar">
+        <nav class="utility-bar__breadcrumb">
+          <a href="index--alt.html">All activities</a>
+          <a href="category.html">Aquatics</a>
+        </nav>
+
+        <nav class="utility-bar__links">
+          <a href="#" class=""><i class="icon-location"></i>Map View</a>
+          <a href="#" class=""><span class="amount--circle"><span class="amount">0</span></span><ins id="heart-counter">Favorites</ins></a>
+        </nav>
+      </div>
+      <section>
+        <p>Classes, leagues and clinics for ages 18 month to 14 years</p>
+        <div class="playlist-group">
+          <article class="playlist-group__item playlist-group__item-with-links">
+            <h2>Parent and Child</h2>
+            <p>Ages: Six Months to three years.</p>
+            <p>Introducing to water with parents in the pool with children.</p>
+            <a href="product.html" class="playlist-group__external-link button button--purple">Find Parent and Child Classes</a>
+          </article>
+          <article class="playlist-group__item playlist-group__item-with-links">
+            <h2>Preschool Child</h2>
+            <p>Ages: Three to five years.</p>
+            <p>Your child will learn focus on water adjustments and basic skills.</p>
+            <a href="product.html" class="playlist-group__external-link button button--purple">Find Preschool Child Classes</a>
+          </article>
+          <article class="playlist-group__item playlist-group__item-with-links">
+            <h2>School-Age Child</h2>
+            <p>Ages: 13 to 17 years.</p>
+            <p>Learn focus on water adjustment, advanced skills and stroke development.</p>
+            <a href="product.html" class="playlist-group__external-link button button--purple">Find School-Age Child Classes</a>
+          </article>
+          <article class="playlist-group__item playlist-group__item-with-links">
+            <h2>Teen</h2>
+            <p>Ages: 13 to 17 years.</p>
+            <p>Beginner and intermediate level classes for teens.</p>
+            <a href="product.html" class="playlist-group__external-link button button--purple">Find Teen Classes</a>
+          </article>
+          <article class="playlist-group__item playlist-group__item-with-links">
+            <h2>Adult</h2>
+            <p>Ages: 18 years and up.</p>
+            <p>Learn focus on water adjustment, stroke development and technique.</p>
+            <a href="product.html" class="playlist-group__external-link button button--purple">Find Adult Classes</a>
+          </article>
+        </div>
+      </section>
+      <section>
+        <h2>Related Activities</h2>
+        <ul class="activities-grid">
+          <li class="activity">
+            <a href="" class="activity__link">
+              <span class="activity__link__title">OUTDOOR ACTIVITIES</span>
+              <img class="activity__link__image" src='images/activities/offset_259369.jpg' alt="Image of OUTDOOR ACTIVITIES" />
+            </a>
+          </li>
+          <li class="activity">
+            <a href="" class="activity__link">
+              <span class="activity__link__title">AMENITIES</span>
+              <img class="activity__link__image" src='images/activities/offset_250707.jpg' alt="Image of AMENITIES" />
+            </a>
+          </li>
+          <li class="activity">
+            <a href="" class="activity__link">
+              <span class="activity__link__title">HEALTH &amp; FITNESS</span>
+              <img class="activity__link__image" src='images/activities/offset_202198.jpg' alt="Image of HEALTH &amp; FITNESS" />
+            </a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <a href="homepage.html" class="footer__logo">
+        <img src="images/ymca-logo.svg" alt="YMCA Logo">for youth development
+        <br>for health living
+        <br>for social responsability
+      </a>
+      <nav class="footer__nav">
+        <ul>
+          <li>
+            <a href="/health__fitness/">Health &amp; Fitness</a>
+          </li>
+          <li>
+            <a href="/swimming/">Swimming</a>
+          </li>
+          <li>
+            <a href="/child_care__preschool/">Child Care &amp; Preschool</a>
+          </li>
+          <li>
+            <a href="/kid__teen_activities/">Kid &amp; Teen Activities</a>
+          </li>
+          <li>
+            <a href="/camps/">Camps</a>
+          </li>
+          <li>
+            <a href="/community_programs/">Community Programs</a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="/membership/">Membership</a>
+          </li>
+          <li>
+            <a href="/locations/">Locations</a>
+          </li>
+          <li>
+            <a href="/all_y_schedules/">All Y Schedules</a>
+          </li>
+          <li>
+            <a href="/about/">About</a>
+          </li>
+          <li>
+            <a href="/contact_us/">Contact</a>
+          </li>
+          <li>
+            <a href="/give/">Give</a>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <a href="/news/">News</a>
+          </li>
+          <li>
+            <a href="/jobs/">Jobs</a>
+          </li>
+          <li>
+            <a href="/suppliers/">Suppliers</a>
+          </li>
+          <li>
+            <a href="/blog/">Blog</a>
+          </li>
+          <li>
+            <a href="/privacy_policy/">Privacy Policy</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="footer__ymca--info">
+        <nav class="footer__ymca-social">
+          <a class="icon-facebook" href="http://www.facebook.com/YMCATwinCities" target="_blank">Facebook</a>
+          <a class="icon-twitter" href="http://twitter.com/ymcatwincities" target="_blank">Twitter</a>
+          <a class="icon-youtube" href="http://www.youtube.com/user/YMCATwinCities" target="_blank">YouTube</a>
+          <a class="icon-flickr" href="http://www.flickr.com/photos/ymcatwincities" target="_blank">Flickr</a>
+        </nav>
+        <div class="footer__ymca-copyright">
+          <strong>&copy;2015 YMCA Twin Cities</strong>
+          <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
+        </div>
+        <div class="footer__ymca-partners">
+          <a href="/about/youthspark/">
+            <figure>
+              <img src="images/microsoft_logo.svg" alt="Microsoft Logo">
+              <figcaption>Enterprise technologies provided by Microsoft</figcaption>
+            </figure>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="index-links">
+    <input type="checkbox" id="index-link">
+    <label for="index-link">Go to page</label>
+    <nav>
+      <a href="index.html">Index</a>
+      <a href="index--alt.html">Index - Alt</a>
+      <a href="category.html">Category</a>
+      <a href="sub-category.html">Sub Category</a>
+      <a href="product.html">Product</a>
+    </nav>
+  </div>
+  <!--<script src="js/lib/media.match.min.js"></script>
+      <script src="js/lib/enquire.min.js"></script>-->
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/chosen.jquery.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+
+</html>

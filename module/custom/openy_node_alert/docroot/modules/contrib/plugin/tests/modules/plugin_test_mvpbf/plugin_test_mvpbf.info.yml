@@ -1,0 +1,14 @@
+name: Plugin Test (Multi-value plugin base field)
+# core: 8.x
+type: module
+dependencies:
+  - plugin
+  - plugin_test_helper
+  - views
+hidden: true
+
+# Information added by Drupal.org packaging script on 2017-04-07
+version: '8.x-2.5'
+core: '8.x'
+project: 'plugin'
+datestamp: 1491597185

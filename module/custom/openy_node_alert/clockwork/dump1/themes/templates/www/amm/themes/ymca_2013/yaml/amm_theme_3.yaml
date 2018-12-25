@@ -1,0 +1,37 @@
+---
+theme_id: 3
+theme_name: Default 2 Column
+theme_abbr: default/2_column
+primary_content_area_index: 125
+site_association_id: null
+global_content_blocks: [ ]
+navs:
+    - 
+        nav_id: 1
+        nav_name: Default Global
+        nav_type: smart
+        nav_abbr: default_global
+        html_abbr: default_global
+        php_abbr: default_global
+        nav_description: Default Global
+    - 
+        nav_id: 2
+        nav_name: Default Sidebar
+        nav_type: smart
+        nav_abbr: default_sidebar
+        html_abbr: default_sidebar
+        php_abbr: default_sidebar
+        nav_description: Default Sidebar
+content_areas:
+    - 
+        content_area_name: Banner (Optional)
+        content_area_index: 50
+    - 
+        content_area_name: Left Column
+        content_area_index: 125
+    - 
+        content_area_name: Right Column
+        content_area_index: 150
+    - 
+        content_area_name: Sub Navigation Callout (Optional)
+        content_area_index: 200

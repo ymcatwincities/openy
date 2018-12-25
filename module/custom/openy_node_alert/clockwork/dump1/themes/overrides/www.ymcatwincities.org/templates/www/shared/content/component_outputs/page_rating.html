@@ -1,0 +1,109 @@
+<div id="component_$component_id" class="$component_type">
+
+		<p id="display_string_$component_id">
+			[[ if display_string ]]
+			$display_string_esc
+			[[ end if display_string ]]
+
+			[[ if ! display_string ]]
+			$no_ratings_message_esc
+			[[ end if display_string ]]
+		</p>
+
+	[[ if like ]]
+
+		[[ if rating_allowed ]]
+		<a href="javascript:" onclick="page_rating_$component_id.rate( 1 )">Like</a>
+
+
+			[[ if allow_comment ]]
+				<br/>
+				<div class="rating_comment" style="display:none;">
+				Please tell us why: (optional)<br/>
+				<textarea></textarea>
+				<a href="javascript:void(0);" onclick="page_rating_$component_id.submit_rating( )">Submit</a>
+				</div>
+			[[ end if allow_comment ]]
+
+
+		[[ end if rating_allowed ]]
+
+		[[ if value ]]
+		<p>You like.</p>
+		[[ end if value ]]
+
+		<input type="hidden" name="rating_$component_id" value="1"/>
+
+	[[ end if like ]]
+
+	[[ if yes_no ]]
+
+		[[ if rating_allowed ]]
+			<div class="yes_or_no">
+			<a href="javascript:" onclick="page_rating_$component_id.rate( 1 )" class="rate_yes_anchor" ><span>Yes</span></a>
+			<a href="javascript:" onclick="page_rating_$component_id.rate( -1 )" class="rate_no_anchor" ><span>No</span></a>
+			</div>
+
+
+			[[ if allow_comment ]]
+			<br/>
+				<div class="rating_comment" style="display:none;">
+				Please tell us why: (optional)<br/>
+				<textarea></textarea>
+				<a href="javascript:void(0);" onclick="page_rating_$component_id.submit_rating( )">Submit</a>
+				</div>
+			[[ end if allow_comment ]]
+
+
+		[[ end if rating_allowed ]]
+
+		[[ if yes ]]
+		<p>You liked this page.</p>
+		[[ end if yes ]]
+
+		[[ if no ]]
+		<p>You didn't like this page.</p>
+		[[ end if no ]]
+		[[ end if yes_no ]]
+
+	[[ if five_star ]]
+
+		[[ if rating_allowed ]]
+		<a href="javascript:" onclick="page_rating_$component_id.rate( 1 )">1</a>
+		<a href="javascript:" onclick="page_rating_$component_id.rate( 2 )">2</a>
+		<a href="javascript:" onclick="page_rating_$component_id.rate( 3 )">3</a>
+		<a href="javascript:" onclick="page_rating_$component_id.rate( 4 )">4</a>
+		<a href="javascript:" onclick="page_rating_$component_id.rate( 5 )">5</a>
+
+
+		[[ if allow_comment ]]
+		<br/>
+			<div class="rating_comment" style="display:none;">
+			Please tell us why: (optional)<br/>
+			<textarea></textarea>
+			<a href="javascript:void(0);" onclick="page_rating_$component_id.submit_rating( )">Submit</a>
+			</div>
+		[[ end if allow_comment ]]
+
+
+		[[ end if rating_allowed ]]
+
+		[[ if value ]]
+		<p>Your rating: $value</p>
+		[[ end if value ]]
+
+	[[ end if five_star ]]
+
+	<p id="message_$component_id">$rating_message_esc</p>
+
+<script type="text/javascript">
+    Event.observe(window, 'load',function() {
+        window.page_rating_$component_id = new Clockwork.Live.Components.PageRatingComponent({'component_id':$component_id,
+                                                                                           'component_type':'$component_type',
+																						   'rating_type' : '$rating_type',
+																						   'allow_comment' : '$allow_comment',
+																						   'extra_fields' : '$extra_data_fields'});
+                });
+</script>
+
+</div>

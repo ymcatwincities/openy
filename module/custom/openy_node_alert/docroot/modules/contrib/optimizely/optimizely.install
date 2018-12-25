@@ -1,0 +1,166 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Optimizely module.
+ */
+
+/**
+ * Implements hook_schema().
+ *
+ * Called at both install and uninstall time, creates/deletes a custom table in
+ * the database for the Optimizely module.
+ */
+function optimizely_schema() {
+
+  $schema['optimizely'] = [
+    'description' => 'This table holds the Optimizely project / experiment
+		  entries from the adminstration form.',
+    'fields' => [
+      'oid' => [
+        'description' => 'The unique identifier of each Optimizely
+				  project/experiment entry.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+
+      'project_title' => [
+        'description' => 'The title of each project.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+
+      'include' => [
+        'description' => 'Switch to include / exclude Optimizely snippet on
+				  specific page paths.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 1,
+      ],
+
+      'enabled' => [
+        'description' => 'Switch to enabled / disabled Optimizely snippet entry.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+
+      'path' => [
+        'description' => 'Serialized array of paths where the Optimizely code
+				  snippet appears',
+        'type' => 'text',
+        'size' => 'normal',
+        'not null' => FALSE,
+      ],
+
+      'project_code' => [
+        'description' => 'Optimizely project code.',
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => FALSE,
+        'default' => '',
+      ],
+
+    ],
+
+    'primary key' => ['oid'],
+
+  ];
+
+  return $schema;
+
+}
+
+/**
+ * Implements hook_install().
+ *
+ * Included in the process of adding a optimizely database table is the creation
+ * of a default project entry in the table. The default entry is used to add an
+ * initial javascript file (snippit) on a sitewide basis. The Optimizely
+ * account ID will need to be entered in the account setup page to complete the
+ * default entry. The Optimizely site uses the account ID to generate the basic
+ * javascipt file to be included on the site. Once additional projects /
+ * experiments are created on the Optimizely site additional project entries can
+ * be added to load the additional javascript files on specific site paths.
+ * Selective loading of the Optimizely javascipt file helps in page load times
+ * and the amount of custom Optimizely javascript in each Javascript include
+ * file.
+ */
+function optimizely_install() {
+
+  drupal_set_message(t('Optimizely database table has been created.'), 'status');
+
+  // Add default entry - check to see if entry already exsists.
+  $default_entry_exists = (bool) \Drupal::database()->query("
+	  SELECT
+		  project_title
+		FROM
+		  {optimizely}
+		WHERE
+		  oid = 1
+		")
+    ->fetchField();
+
+  if ($default_entry_exists == TRUE) {
+    drupal_set_message(t('A default entry found in the optimizely database table.
+       Something funky is going on but it\'s not the end of the world.'),
+      'warning');
+  }
+  else {
+
+    // Create default entry.
+    $default_entry_created = (bool) \Drupal::database()->insert('optimizely')
+      ->fields(
+        [
+          'project_title' => 'Default',
+          'include' => 1,
+          'enabled' => 0,
+          'path' => serialize(['*']),
+          'project_code' => 0,
+        ]
+      )
+      ->execute();
+
+    // Inform the administrator that a default snippet entry has been made.
+    // Acount ID and access permisisons need to be configured.
+    if ($default_entry_created == TRUE) {
+      drupal_set_message(t('A default project / experiment entry has been created.
+         Next, enter your Optimizely account ID on the module\'s ACCOUNT INFO page.
+         There is also an Optimizely permission that can be set for specific roles
+         to access the adminstration functionality.
+         You can access those pages via the Optimizely module below.'),
+        'status');
+    }
+    else {
+      drupal_set_message(t('An error was encountered while adding the default project entry
+         for the Optimizely module.'), 'error');
+    }
+  }
+
+  // Set the default value for the language code to be English.
+  $config = \Drupal::configFactory()->getEditable('optimizely.settings');
+  $config->set('langcode', 'en');
+  $config->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Clean up / remove all data created by the module.
+ */
+function optimizely_uninstall() {
+
+  // Remove all values from optimizely.settings.
+  $config = \Drupal::configFactory()->getEditable('optimizely.settings');
+  $config->delete();
+
+  drupal_set_message(t('Optimizely variables deleted.'), 'status');
+
+  // hook_uninstall removes schema automatically.
+  drupal_set_message(t('Optimizely database table dropped.'), 'status');
+}

@@ -1,0 +1,49 @@
+iframe:
+  version: VERSION
+  css:
+    theme:
+      css/file_browser.iframe.css: {}
+
+dropzone_css:
+  version: VERSION
+  css:
+    theme:
+      css/file_browser.dropzone.css: {}
+
+view:
+  version: VERSION
+  js:
+    js/file_browser.view.js: {}
+  css:
+    theme:
+      css/file_browser.view.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+    - file_browser/imagesloaded
+    - file_browser/masonry
+
+imagesloaded:
+  remote: https://github.com/desandro/imagesloaded
+  version: VERSION
+  license:
+    name: MIT
+    url: https://github.com/desandro/imagesloaded/
+    gpl-compatible: true
+  js:
+    /libraries/imagesloaded/imagesloaded.pkgd.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+
+masonry:
+  remote: http://masonry.desandro.com/
+  version: VERSION
+  license:
+    name: MIT
+    url: https://github.com/desandro/masonry/
+    gpl-compatible: true
+  js:
+    /libraries/masonry/dist/masonry.pkgd.min.js: { minified: true }
+  dependencies:
+    - core/jquery

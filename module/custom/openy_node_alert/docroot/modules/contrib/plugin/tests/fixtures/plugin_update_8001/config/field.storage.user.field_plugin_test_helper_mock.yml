@@ -1,0 +1,19 @@
+uuid: 68f6406e-960d-4aa1-b503-3d2b3a890d16
+langcode: en
+status: true
+dependencies:
+  module:
+    - plugin
+    - user
+id: user.field_plugin_test_helper_mock
+field_name: field_plugin_test_helper_mock
+entity_type: user
+type: 'plugin:plugin_test_helper_mock'
+settings: {  }
+module: plugin
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

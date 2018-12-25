@@ -1,0 +1,19 @@
+uuid: 9d221b16-d15f-474a-a000-fcb39625e6be
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.camp_share_your_story
+    - field.storage.contact_message.field_first_name
+id: contact_message.camp_share_your_story.field_first_name
+field_name: field_first_name
+entity_type: contact_message
+bundle: camp_share_your_story
+label: 'First Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

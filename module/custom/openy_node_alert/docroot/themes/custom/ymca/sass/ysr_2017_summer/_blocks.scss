@@ -1,0 +1,473 @@
+.compain-info-blocks {
+  @include breakpoint($tablet) {
+    @include rem(padding-top, 99px);
+  }
+
+  .content-wrapper {
+    background: none;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-left, -30px);
+      @include rem(margin-right, -30px);
+      clear: both;
+      overflow: hidden;
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(margin-left, -50px);
+      @include rem(margin-right, -50px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(margin-left, -66px);
+      @include rem(margin-right, -66px);
+    }
+  }
+
+  @include breakpoint($tablet) {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  a {
+    color: $green-dark;
+  }
+}
+
+.compain-info-block {
+  @include rem(margin, 0 0 32px 0);
+  @include rem(padding, 21px 0 0 0);
+
+  @include breakpoint($tablet) {
+    @include rem(padding, 0 30px);
+    width: calc(100% / 3);
+    float: left;
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding, 0 50px);
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding, 0 60px);
+  }
+
+  .content {
+    @include rem(font-size, 18px);
+    @include rem(line-height, 25px);
+  }
+
+  .content-text {
+    @include rem(margin-bottom, 33px);
+    @include breakpoint($tablet) {
+      @include rem(margin-bottom, 40px);
+    }
+  }
+
+  h3 {
+    @include cachet-bold();
+    @include rem(font-size, 20px);
+    @include rem(line-height, 25px);
+    @include rem(margin, 0 0 16px);
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 24px);
+      @include rem(line-height, 36px);
+    }
+  }
+
+  p {
+    @include rem(margin, 0 0 18px);
+  }
+
+  .img {
+    @include rem(margin, 0 0 18px 0);
+    display: none;
+    text-align: center;
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 0 120px 0);
+      position: relative;
+      display: block;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      @include breakpoint($tablet) {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  .description {
+    @include cachet-normal();
+    color: $green-dark;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.compain-progress--grid {
+  @include breakpoint($tablet) {
+    @include rem(margin-left, -10px);
+    @include rem(margin-right, -10px);
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(margin-left, -20px);
+    @include rem(margin-right, -20px);
+  }
+
+
+  .compain-progress--col {
+    @include rem(margin, 0 0 20px 0);
+
+    @include breakpoint($tablet){
+      @include rem(padding-left, 10px);
+      @include rem(padding-right, 10px);
+      width: calc(100% / 3);
+      float: left;
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding-left, 20px);
+      @include rem(padding-right, 20px);
+      @include rem(margin, 0 0 40px 0);
+    }
+
+    @include breakpoint($desktop) {
+      width: calc(100% / 5);
+    }
+  }
+}
+
+.compain-progress-block {
+  @include cachet-normal();
+  border: 1px solid $grey22;
+  background-position: -9999px -9999px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  cursor: default;
+  [data-ng-click] {
+    cursor: pointer;
+  }
+
+  &--header {
+    @include rem(height, 180px);
+    @include rem(padding, 30px 0 0 0);
+    margin: -1px -1px auto -1px;
+
+    @include breakpoint($tablet) {
+      @include rem(height, 200px);
+    }
+
+    .content {
+      background: none;
+    }
+
+    .day {
+      @include rem(width, 90px);
+      @include rem(height, 90px);
+      @include rem(margin, 0 auto 6px auto);
+      border-radius: 50%;
+      border: 2px solid $grey22;
+      text-align: center;
+      color: $grey4;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+      align-content: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+
+      @include breakpoint($tablet) {
+        @include rem(margin, 0 auto 20px auto);
+      }
+
+      .number-day,
+      .week-day {
+        display: block;
+        width: 100%;
+      }
+
+      .number-day {
+        @include rem(font-size, 40px);
+        @include rem(line-height, 40px);
+      }
+
+      .week-day {
+        @include rem(font-size, 16px);
+        @include rem(line-height, 18px);
+        text-transform: uppercase;
+      }
+    }
+
+    .status {
+      @include rem(font-size, 18px);
+      @include rem(line-height, 22px);
+      text-transform: uppercase;
+      text-align: center;
+      color: $grey4;
+      font-weight: bold;
+    }
+  }
+
+  &--footer {
+    @include rem(height, 120px);
+    @include rem(font-size, 16px);
+    @include rem(line-height, 22px);
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    color: $grey23;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+
+    .content {
+      background: none;
+      b {
+        color: $green-medium;
+      }
+
+      span {
+        font-weight: normal;
+        color: $green-medium;
+      }
+
+      i {
+        font-style: normal;
+        color: $green-dark;
+      }
+
+      .tip-title {
+        color: $green-dark;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .description {
+      font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
+      color: $grey7;
+      text-transform: initial;
+      font-weight: normal;
+    }
+  }
+
+  &--upcoming {
+
+    .compain-progress-block--header {
+      position: relative;
+
+      .status {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: $green-medium;
+      }
+    }
+  }
+
+  &--missed {
+    .compain-progress-block--header {
+      background-color: $grey21;
+
+      .day {
+        border-color: $green-light;
+        color: $grey7;
+      }
+    }
+
+    &.compain-progress-block--img {
+      .day {
+        border-color: $white;
+        color: $white;
+      }
+
+      .status {
+        color: $white;
+      }
+    }
+
+    .compain-progress-block--footer {
+      .content {
+        color: $grey4;
+      }
+    }
+  }
+
+  &--checked {
+    .compain-progress-block--header {
+      background-color: $grey21;
+
+      .day {
+        border-color: $green-medium;
+        color: $white;
+        background-color: $green-medium;
+      }
+
+      .status {
+        color: $green-medium;
+      }
+    }
+
+    &.compain-progress-block--img {
+      .status {
+        color: $white;
+      }
+    }
+
+    .compain-progress-block--footer {
+      .content {
+        color: $grey4;
+      }
+    }
+  }
+
+  &--img {
+    .compain-progress-block--header {
+      background-position: 50% 0;
+      background-image: inherit;
+      background-repeat: inherit;
+      background-size: cover;
+    }
+  }
+
+  &--no-bonus {
+    .compain-progress-block--header {
+      .day {
+        border-color: $green-light;
+        color: $grey7;
+      }
+
+      .status {
+        color: $grey4;
+      }
+    }
+  }
+}
+
+.compain-alert-bonus {
+  @include rem(padding, 10px 0);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background-color: $grey7;
+  z-index: 9999;
+
+  @include breakpoint($tablet){
+    @include rem(padding, 16px 0);
+  }
+
+  &--active {
+    background-color: $green-medium;
+  }
+
+  .btn {
+    @include cachet-bold();
+    @include rem(font-size, 16px);
+    @include rem(line-height, 22px);
+    text-transform: uppercase;
+    color: $white;
+    background: none;
+  }
+
+  .btn-timer {
+    color: $grey4;
+
+    .timer {
+      @include rem(padding, 0 0 0 24px);
+      @include rem(margin, 0 0 0 18px);
+      color: $green-medium;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+
+      &:before {
+        @include rem(width, 18px);
+        @include rem(height, 18px);
+        content: '';
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 0;
+        background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-clock.svg') 50% 50% no-repeat;
+        transform:  translateY(-50%);
+        background-size: cover;
+      }
+    }
+  }
+
+  .btn-bonus {
+    @include rem(padding-left, 14px);
+    @include rem(padding-right, 14px);
+    position: relative;
+
+    &:before,
+    &:after {
+      @include rem(width, 10px);
+      @include rem(height, 12px);
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform:  translateY(-50%);
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+    }
+
+    &:before {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-btn-arrow-left.svg');
+      left: 0;
+    }
+
+    &:after {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-btn-arrow-right.svg');
+      right: 0;
+    }
+  }
+}

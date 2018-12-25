@@ -1,0 +1,11 @@
+uuid: b496ded6-69f4-400b-aa00-eee861a0f75e
+langcode: en
+status: true
+dependencies:
+  module:
+    - file_entity
+id: file_temporary_action
+label: 'Set file status to temporary'
+type: file
+plugin: file_temporary_action
+configuration: {  }

@@ -1,0 +1,761 @@
+{
+	"ET": {
+		"name": "an Aetóip"
+	},
+	"AF": {
+		"name": "an Afganastáin"
+	},
+	"ZA": {
+		"name": "an Afraic Theas"
+	},
+	"DZ": {
+		"name": "an Ailgéir"
+	},
+	"AR": {
+		"name": "an Airgintín"
+	},
+	"AM": {
+		"name": "an Airméin"
+	},
+	"AL": {
+		"name": "an Albáin"
+	},
+	"AQ": {
+		"name": "an Antartaice"
+	},
+	"SA": {
+		"name": "an Araib Shádach"
+	},
+	"AZ": {
+		"name": "an Asarbaiseáin"
+	},
+	"AU": {
+		"name": "an Astráil"
+	},
+	"BD": {
+		"name": "an Bhanglaidéis"
+	},
+	"BY": {
+		"name": "an Bhealarúis"
+	},
+	"BE": {
+		"name": "an Bheilg"
+	},
+	"BZ": {
+		"name": "an Bheilís"
+	},
+	"BA": {
+		"name": "an Bhoisnia agus an Heirseagaivéin"
+	},
+	"BO": {
+		"name": "an Bholaiv"
+	},
+	"BW": {
+		"name": "an Bhotsuáin"
+	},
+	"BR": {
+		"name": "an Bhrasaíl"
+	},
+	"BG": {
+		"name": "an Bhulgáir"
+	},
+	"BI": {
+		"name": "an Bhurúin"
+	},
+	"BT": {
+		"name": "an Bhútáin"
+	},
+	"KH": {
+		"name": "an Chambóid"
+	},
+	"KZ": {
+		"name": "an Chasacstáin"
+	},
+	"KE": {
+		"name": "an Chéinia"
+	},
+	"CY": {
+		"name": "an Chipir"
+	},
+	"KG": {
+		"name": "an Chirgeastáin"
+	},
+	"KR": {
+		"name": "an Chóiré Theas"
+	},
+	"KP": {
+		"name": "an Chóiré Thuaidh"
+	},
+	"CO": {
+		"name": "an Cholóim"
+	},
+	"XK": {
+		"name": "an Chosaiv"
+	},
+	"HR": {
+		"name": "an Chróit"
+	},
+	"CG": {
+		"name": "an Congó"
+	},
+	"CI": {
+		"name": "an Cósta Eabhair"
+	},
+	"DK": {
+		"name": "an Danmhairg"
+	},
+	"EE": {
+		"name": "an Eastóin"
+	},
+	"EG": {
+		"name": "an Éigipt"
+	},
+	"CH": {
+		"name": "an Eilvéis"
+	},
+	"ER": {
+		"name": "an Eiritré"
+	},
+	"FI": {
+		"name": "an Fhionlainn"
+	},
+	"FR": {
+		"name": "an Fhrainc"
+	},
+	"GA": {
+		"name": "an Ghabúin"
+	},
+	"GM": {
+		"name": "an Ghaimbia"
+	},
+	"DE": {
+		"name": "an Ghearmáin"
+	},
+	"GL": {
+		"name": "an Ghraonlainn"
+	},
+	"GR": {
+		"name": "an Ghréig"
+	},
+	"GY": {
+		"name": "an Ghuáin"
+	},
+	"GN": {
+		"name": "an Ghuine"
+	},
+	"GQ": {
+		"name": "an Ghuine Mheánchiorclach"
+	},
+	"IQ": {
+		"name": "an Iaráic"
+	},
+	"IR": {
+		"name": "an Iaráin"
+	},
+	"IN": {
+		"name": "an India"
+	},
+	"ID": {
+		"name": "an Indinéis"
+	},
+	"IT": {
+		"name": "an Iodáil"
+	},
+	"JO": {
+		"name": "an Iordáin"
+	},
+	"NO": {
+		"name": "an Iorua"
+	},
+	"IS": {
+		"name": "an Íoslainn"
+	},
+	"NL": {
+		"name": "an Ísiltír"
+	},
+	"BQ": {
+		"name": "an Ísiltír Chairibeach"
+	},
+	"LV": {
+		"name": "an Laitvia"
+	},
+	"LR": {
+		"name": "an Libéir"
+	},
+	"LY": {
+		"name": "an Libia"
+	},
+	"LB": {
+		"name": "an Liobáin"
+	},
+	"LT": {
+		"name": "an Liotuáin"
+	},
+	"MK": {
+		"name": "an Mhacadóin"
+	},
+	"MY": {
+		"name": "an Mhalaeisia"
+	},
+	"MW": {
+		"name": "an Mhaláiv"
+	},
+	"MR": {
+		"name": "an Mháratáin"
+	},
+	"FM": {
+		"name": "an Mhicrinéis"
+	},
+	"MD": {
+		"name": "an Mholdóiv"
+	},
+	"MN": {
+		"name": "an Mhongóil"
+	},
+	"NA": {
+		"name": "an Namaib"
+	},
+	"NG": {
+		"name": "an Nigéir"
+	},
+	"NE": {
+		"name": "an Nígir"
+	},
+	"NC": {
+		"name": "an Nua-Chaladóin"
+	},
+	"NZ": {
+		"name": "an Nua-Shéalainn"
+	},
+	"AT": {
+		"name": "an Ostair"
+	},
+	"PK": {
+		"name": "an Phacastáin"
+	},
+	"DO": {
+		"name": "an Phoblacht Dhoiminiceach"
+	},
+	"PL": {
+		"name": "an Pholainn"
+	},
+	"PT": {
+		"name": "an Phortaingéil"
+	},
+	"GB": {
+		"name": "an Ríocht Aontaithe"
+	},
+	"RO": {
+		"name": "an Rómáin"
+	},
+	"RU": {
+		"name": "an Rúis"
+	},
+	"EH": {
+		"name": "an Sahára Thiar"
+	},
+	"ES": {
+		"name": "an Spáinn"
+	},
+	"TJ": {
+		"name": "an Táidsíceastáin"
+	},
+	"TZ": {
+		"name": "an Tansáin"
+	},
+	"TH": {
+		"name": "an Téalainn"
+	},
+	"TW": {
+		"name": "an Téaváin"
+	},
+	"ZM": {
+		"name": "an tSaimbia"
+	},
+	"SV": {
+		"name": "an tSalvadóir"
+	},
+	"JP": {
+		"name": "an tSeapáin"
+	},
+	"CZ": {
+		"name": "An tSeicia"
+	},
+	"SN": {
+		"name": "an tSeineagáil"
+	},
+	"RS": {
+		"name": "an tSeirbia"
+	},
+	"GE": {
+		"name": "an tSeoirsia"
+	},
+	"GS": {
+		"name": "an tSeoirsia Theas agus Oileáin Sandwich Theas"
+	},
+	"CL": {
+		"name": "an tSile"
+	},
+	"CN": {
+		"name": "an tSín"
+	},
+	"ZW": {
+		"name": "an tSiombáib"
+	},
+	"SY": {
+		"name": "an tSiria"
+	},
+	"SI": {
+		"name": "an tSlóivéin"
+	},
+	"SK": {
+		"name": "an tSlóvaic"
+	},
+	"SO": {
+		"name": "an tSomáil"
+	},
+	"SE": {
+		"name": "an tSualainn"
+	},
+	"SZ": {
+		"name": "an tSuasalainn"
+	},
+	"SD": {
+		"name": "an tSúdáin"
+	},
+	"SS": {
+		"name": "an tSúdáin Theas"
+	},
+	"TN": {
+		"name": "an Túinéis"
+	},
+	"TR": {
+		"name": "an Tuirc"
+	},
+	"TM": {
+		"name": "an Tuircméanastáin"
+	},
+	"UA": {
+		"name": "an Úcráin"
+	},
+	"UZ": {
+		"name": "an Úisbéiceastáin"
+	},
+	"HU": {
+		"name": "an Ungáir"
+	},
+	"AD": {
+		"name": "Andóra"
+	},
+	"AI": {
+		"name": "Angaíle"
+	},
+	"AO": {
+		"name": "Angóla"
+	},
+	"AG": {
+		"name": "Antigua agus Barbúda"
+	},
+	"AE": {
+		"name": "Aontas na nÉimíríochtaí Arabacha"
+	},
+	"AW": {
+		"name": "Arúba"
+	},
+	"BH": {
+		"name": "Bairéin"
+	},
+	"BB": {
+		"name": "Barbadós"
+	},
+	"BJ": {
+		"name": "Beinin"
+	},
+	"BM": {
+		"name": "Beirmiúda"
+	},
+	"BN": {
+		"name": "Brúiné"
+	},
+	"BF": {
+		"name": "Buircíne Fasó"
+	},
+	"CM": {
+		"name": "Camarún"
+	},
+	"QA": {
+		"name": "Catar"
+	},
+	"VA": {
+		"name": "Cathair na Vatacáine"
+	},
+	"CA": {
+		"name": "Ceanada"
+	},
+	"EA": {
+		"name": "Ceuta agus Melilla"
+	},
+	"KI": {
+		"name": "Cireabaití"
+	},
+	"CR": {
+		"name": "Cósta Ríce"
+	},
+	"IO": {
+		"name": "Críoch Aigéan Indiach na Breataine"
+	},
+	"TF": {
+		"name": "Críocha Francacha Dheisceart an Domhain"
+	},
+	"KW": {
+		"name": "Cuáit"
+	},
+	"CU": {
+		"name": "Cúba"
+	},
+	"CW": {
+		"name": "Curaçao"
+	},
+	"DG": {
+		"name": "Diego Garcia"
+	},
+	"DJ": {
+		"name": "Djibouti"
+	},
+	"DM": {
+		"name": "Doiminice"
+	},
+	"EC": {
+		"name": "Eacuadór"
+	},
+	"YE": {
+		"name": "Éimin"
+	},
+	"IE": {
+		"name": "Éire"
+	},
+	"FJ": {
+		"name": "Fidsí"
+	},
+	"GH": {
+		"name": "Gána"
+	},
+	"GG": {
+		"name": "Geansaí"
+	},
+	"JE": {
+		"name": "Geirsí"
+	},
+	"GI": {
+		"name": "Giobráltar"
+	},
+	"GD": {
+		"name": "Greanáda"
+	},
+	"GP": {
+		"name": "Guadalúip"
+	},
+	"GF": {
+		"name": "Guáin na Fraince"
+	},
+	"GU": {
+		"name": "Guam"
+	},
+	"GT": {
+		"name": "Guatamala"
+	},
+	"GW": {
+		"name": "Guine Bissau"
+	},
+	"HT": {
+		"name": "Háítí"
+	},
+	"HN": {
+		"name": "Hondúras"
+	},
+	"JM": {
+		"name": "Iamáice"
+	},
+	"IL": {
+		"name": "Iosrael"
+	},
+	"LA": {
+		"name": "Laos"
+	},
+	"LS": {
+		"name": "Leosóta"
+	},
+	"LI": {
+		"name": "Lichtinstéin"
+	},
+	"LU": {
+		"name": "Lucsamburg"
+	},
+	"MG": {
+		"name": "Madagascar"
+	},
+	"MM": {
+		"name": "Maenmar (Burma)"
+	},
+	"ML": {
+		"name": "Mailí"
+	},
+	"MT": {
+		"name": "Málta"
+	},
+	"MA": {
+		"name": "Maracó"
+	},
+	"MQ": {
+		"name": "Martinique"
+	},
+	"YT": {
+		"name": "Mayotte"
+	},
+	"MX": {
+		"name": "Meicsiceo"
+	},
+	"MC": {
+		"name": "Monacó"
+	},
+	"ME": {
+		"name": "Montainéagró"
+	},
+	"MS": {
+		"name": "Montsarat"
+	},
+	"MZ": {
+		"name": "Mósaimbíc"
+	},
+	"BS": {
+		"name": "na Bahámaí"
+	},
+	"PS": {
+		"name": "na Críocha Palaistíneacha"
+	},
+	"IC": {
+		"name": "na hOileáin Chanáracha"
+	},
+	"PH": {
+		"name": "na hOileáin Fhilipíneacha"
+	},
+	"MP": {
+		"name": "na hOileáin Mháirianacha Thuaidh"
+	},
+	"SC": {
+		"name": "na Séiséil"
+	},
+	"NR": {
+		"name": "Nárú"
+	},
+	"NP": {
+		"name": "Neipeal"
+	},
+	"NI": {
+		"name": "Nicearagua"
+	},
+	"NU": {
+		"name": "Niue"
+	},
+	"PG": {
+		"name": "Nua-Ghuine Phapua"
+	},
+	"AX": {
+		"name": "Oileáin Åland"
+	},
+	"VG": {
+		"name": "Oileáin Bhriotanacha na Maighdean"
+	},
+	"KY": {
+		"name": "Oileáin Cayman"
+	},
+	"KM": {
+		"name": "Oileáin Chomóra"
+	},
+	"CC": {
+		"name": "Oileáin Cocos (Keeling)"
+	},
+	"CK": {
+		"name": "Oileáin Cook"
+	},
+	"FK": {
+		"name": "Oileáin Fháclainne"
+	},
+	"FO": {
+		"name": "Oileáin Fharó"
+	},
+	"UM": {
+		"name": "Oileáin Imeallacha S.A.M."
+	},
+	"MH": {
+		"name": "Oileáin Marshall"
+	},
+	"MV": {
+		"name": "Oileáin Mhaildíve"
+	},
+	"VI": {
+		"name": "Oileáin Mheiriceánacha na Maighdean"
+	},
+	"TC": {
+		"name": "Oileáin na dTurcach agus Caicos"
+	},
+	"PW": {
+		"name": "Oileáin Palau"
+	},
+	"PN": {
+		"name": "Oileáin Pitcairn"
+	},
+	"SB": {
+		"name": "Oileáin Sholomón"
+	},
+	"IM": {
+		"name": "Oileán Mhanann"
+	},
+	"MU": {
+		"name": "Oileán Mhuirís"
+	},
+	"AC": {
+		"name": "Oileán na Deascabhála"
+	},
+	"CX": {
+		"name": "Oileán na Nollag"
+	},
+	"TT": {
+		"name": "Oileán na Tríonóide agus Tobága"
+	},
+	"NF": {
+		"name": "Oileán Norfolk"
+	},
+	"OM": {
+		"name": "Óman"
+	},
+	"PA": {
+		"name": "Panama"
+	},
+	"PY": {
+		"name": "Paragua"
+	},
+	"PE": {
+		"name": "Peiriú"
+	},
+	"CD": {
+		"name": "Poblacht Dhaonlathach an Chongó"
+	},
+	"CF": {
+		"name": "Poblacht na hAfraice Láir"
+	},
+	"PF": {
+		"name": "Polainéis na Fraince"
+	},
+	"PR": {
+		"name": "Pórtó Ríce"
+	},
+	"RE": {
+		"name": "Réunion"
+	},
+	"CV": {
+		"name": "Rinn Verde"
+	},
+	"RW": {
+		"name": "Ruanda"
+	},
+	"HK": {
+		"name": "S.R.R. na Síne Hong Cong"
+	},
+	"MO": {
+		"name": "S.R.R. na Síne Macao"
+	},
+	"BL": {
+		"name": "Saint Barthélemy"
+	},
+	"LC": {
+		"name": "Saint Lucia"
+	},
+	"MF": {
+		"name": "Saint-Martin"
+	},
+	"WS": {
+		"name": "Samó"
+	},
+	"AS": {
+		"name": "Samó Mheiriceá"
+	},
+	"KN": {
+		"name": "San Críostóir-Nimheas"
+	},
+	"SH": {
+		"name": "San Héilin"
+	},
+	"SM": {
+		"name": "San Mairíne"
+	},
+	"PM": {
+		"name": "San Pierre agus Miquelon"
+	},
+	"VC": {
+		"name": "San Uinseann agus na Greanáidíní"
+	},
+	"ST": {
+		"name": "São Tomé agus Príncipe"
+	},
+	"TD": {
+		"name": "Sead"
+	},
+	"SL": {
+		"name": "Siarra Leon"
+	},
+	"SG": {
+		"name": "Singeapór"
+	},
+	"SX": {
+		"name": "Sint Maarten"
+	},
+	"LK": {
+		"name": "Srí Lanca"
+	},
+	"US": {
+		"name": "Stáit Aontaithe Mheiriceá"
+	},
+	"SR": {
+		"name": "Suranam"
+	},
+	"SJ": {
+		"name": "Svalbard agus Jan Mayen"
+	},
+	"TL": {
+		"name": "Tíomór Thoir"
+	},
+	"TK": {
+		"name": "Tócalá"
+	},
+	"TG": {
+		"name": "Tóga"
+	},
+	"TO": {
+		"name": "Tonga"
+	},
+	"TA": {
+		"name": "Tristan da Cunha"
+	},
+	"TV": {
+		"name": "Tuvalu"
+	},
+	"UG": {
+		"name": "Uganda"
+	},
+	"UY": {
+		"name": "Uragua"
+	},
+	"WF": {
+		"name": "Vailís agus Futúna"
+	},
+	"VU": {
+		"name": "Vanuatú"
+	},
+	"VE": {
+		"name": "Veiniséala"
+	},
+	"VN": {
+		"name": "Vítneam"
+	}
+}

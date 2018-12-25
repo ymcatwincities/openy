@@ -1,0 +1,16 @@
+diff --git a/src/Plugin/Purge/Purger/AcquiaCloudPurger.php b/src/Plugin/Purge/Purger/AcquiaCloudPurger.php
+index d6ee145..b63ad54 100644
+--- a/src/Plugin/Purge/Purger/AcquiaCloudPurger.php
++++ b/src/Plugin/Purge/Purger/AcquiaCloudPurger.php
+@@ -382,4 +382,11 @@ class AcquiaCloudPurger extends PurgerBase implements PurgerInterface {
+     return isset($methods[$type]) ? $methods[$type] : 'invalidate';
+   }
+ 
++  /**
++   * {@inheritdoc}
++   */
++  public function getTimeHint() {
++    return 10.0;
++  }
++
+ }

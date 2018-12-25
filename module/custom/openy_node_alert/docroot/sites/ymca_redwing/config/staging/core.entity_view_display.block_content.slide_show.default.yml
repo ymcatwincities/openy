@@ -1,0 +1,21 @@
+uuid: 71e7ac44-b136-46a7-a404-4cbe3293d641
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.slide_show
+    - field.field.block_content.slide_show.field_slide_show_item
+id: block_content.slide_show.default
+targetEntityType: block_content
+bundle: slide_show
+mode: default
+content:
+  field_slide_show_item:
+    weight: 0
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+hidden:
+  langcode: true

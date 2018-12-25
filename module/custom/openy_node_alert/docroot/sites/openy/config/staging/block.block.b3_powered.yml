@@ -1,0 +1,20 @@
+uuid: bcfc481f-5737-4bfa-a213-19f655fc4ce7
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - b3
+id: b3_powered
+theme: b3
+region: sidebar_first
+weight: -7
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  provider: system
+  label_display: '0'
+visibility: {  }

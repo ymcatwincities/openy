@@ -1,0 +1,16 @@
+name: Open Y Taxonomy Blog Category
+description: Provides a blog category taxonomy vocabulary and related configuration.
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - ctools
+  - entity_reference_revisions
+  - field
+  - paragraphs
+  - path
+  - pathauto
+  - taxonomy
+  - text
+  - openy_taxonomy

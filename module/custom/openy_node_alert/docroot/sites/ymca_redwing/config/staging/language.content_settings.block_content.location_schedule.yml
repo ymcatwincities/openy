@@ -1,0 +1,11 @@
+uuid: b164947b-4182-4fe9-9af4-1c6633ac651c
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.location_schedule
+id: block_content.location_schedule
+target_entity_type_id: block_content
+target_bundle: location_schedule
+default_langcode: site_default
+language_alterable: false

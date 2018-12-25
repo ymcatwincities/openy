@@ -1,0 +1,23 @@
+leadership:
+  enabled: 0
+  staff_type: {  }
+  subject: '[report-branch-name] PT Hours Payroll Correction Report for [report-start-date] - [report-end-date]'
+  body:
+    value: "<p>[leadership-report]</p>\r\n"
+    format: full_html
+  disabled_message:
+    value: ''
+    format: full_html
+pt_managers:
+  enabled: 0
+  staff_type:
+    602: '602'
+    481: '481'
+  subject: '[report-branch-name] PT Hours Payroll Correction Report for [report-start-date] - [report-end-date]'
+  body:
+    value: "<p>[pt-manager-report]</p>\r\n"
+    format: full_html
+  disabled_message:
+    value: ''
+    format: full_html
+admin_emails: Paige.Kiecker@ymcamn.org

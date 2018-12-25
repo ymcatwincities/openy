@@ -1,0 +1,160 @@
+<?php
+
+/**
+ * @file
+ * Geolocation demo setup.
+ */
+
+use Drupal\Component\Utility\Random;
+
+/**
+ * Implements hook_install().
+ */
+function geolocation_demo_install() {
+
+  /** @var \Drupal\Core\Extension\ModuleHandlerInterface $module_handler */
+  $module_handler = \Drupal::service('module_handler');
+
+  if (
+    $module_handler->moduleExists('taxonomy')
+    && $module_handler->moduleExists('node')
+    && $module_handler->moduleExists('field')
+  ) {
+    /*
+     * Create 3 defined terms.
+     */
+    $term_ids = [];
+
+    $taxonomy_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
+    $icon_path = drupal_get_path('module', 'geolocation_demo') . '/icons/';
+
+    /** @var \Drupal\taxonomy\TermInterface $term_a */
+    $term_a = $taxonomy_storage->create([
+      'vid' => 'geolocation_demo_taxonomy',
+      'name' => 'Class A',
+    ]);
+
+    $data = file_get_contents($icon_path . 'druplicon-deadpool.png');
+    $file = file_save_data($data, 'public://druplicon-deadpool.png', FILE_EXISTS_REPLACE);
+    if ($file) {
+      $term_a->set('field_geolocation_demo_term_icon', [
+        'target_id' => $file->id(),
+      ]);
+    }
+
+    $term_a->save();
+    $term_ids[] = $term_a->id();
+
+    /** @var \Drupal\taxonomy\TermInterface $term_b */
+    $term_b = $taxonomy_storage->create([
+      'vid' => 'geolocation_demo_taxonomy',
+      'name' => 'Class B',
+    ]);
+
+    $data = file_get_contents($icon_path . 'druplicon-wolverine.png');
+    $file = file_save_data($data, 'public://druplicon-wolverine.png', FILE_EXISTS_REPLACE);
+    if ($file) {
+      $term_b->set('field_geolocation_demo_term_icon', [
+        'target_id' => $file->id(),
+      ]);
+    }
+
+    $term_b->save();
+    $term_ids[] = $term_b->id();
+
+    /** @var \Drupal\taxonomy\TermInterface $term_c */
+    $term_c = $taxonomy_storage->create([
+      'vid' => 'geolocation_demo_taxonomy',
+      'name' => 'Class C',
+    ]);
+
+    $data = file_get_contents($icon_path . 'druplicon-wonder-woman.png');
+    $file = file_save_data($data, 'public://druplicon-wonder-woman.png', FILE_EXISTS_REPLACE);
+    if ($file) {
+      $term_c->set('field_geolocation_demo_term_icon', [
+        'target_id' => $file->id(),
+      ]);
+    }
+
+    $term_c->save();
+    $term_ids[] = $term_c->id();
+
+    /*
+     * Create 100 random nodes.
+     */
+    $random = new Random();
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    for ($i = 1; $i < 100; $i++) {
+      $node = $node_storage->create([
+        'type' => 'geolocation_default_article',
+        'title' => $random->sentences(3, TRUE),
+      ]);
+      /** @var \Drupal\node\NodeInterface $node */
+      $node->get('field_geolocation_demo_single')->generateSampleItems();
+      $node->get('field_geolocation_demo_taxonomy')->appendItem([
+        'target_id' => $term_ids[mt_rand(0, count($term_ids) - 1)],
+      ]);
+      $node->save();
+    }
+
+    /*
+     * Created defined unique node term relationship.
+     */
+    /** @var \Drupal\taxonomy\TermInterface $term_single */
+    $term_single = $taxonomy_storage->create([
+      'vid' => 'geolocation_demo_taxonomy',
+      'name' => 'Class Single',
+    ]);
+
+    $data = file_get_contents($icon_path . 'druplicon-nick-fury.png');
+    $file = file_save_data($data, 'public://druplicon-nick-fury.png', FILE_EXISTS_REPLACE);
+    if ($file) {
+      $term_single->set('field_geolocation_demo_term_icon', [
+        'target_id' => $file->id(),
+      ]);
+    }
+
+    $term_single->save();
+
+    $node = $node_storage->create([
+      'type' => 'geolocation_default_article',
+      'title' => 'Geolocation with unique associated term "Class Single"',
+    ]);
+    /** @var \Drupal\node\NodeInterface $node */
+    $node->get('field_geolocation_demo_single')->appendItem([
+      'lat' => 52,
+      'lng' => 34,
+    ]);
+    $node->get('field_geolocation_demo_taxonomy')->appendItem([
+      'target_id' => $term_single->id(),
+    ]);
+    $node->save();
+  }
+
+  /*
+   * Set Demo API key.
+   */
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::service('config.factory')->getEditable('geolocation.settings');
+  if (empty($config->get('google_map_api_key'))) {
+    $config->set('google_map_api_key', 'AIzaSyBGosteHy-rau8K81IauvzrzI7yhlSu-2Y')->save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function geolocation_demo_uninstall() {
+  $taxonomy_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+
+  $taxonomy_storage->delete($taxonomy_storage->loadByProperties(['vid' => 'geolocation_demo_taxonomy']));
+  $node_storage->delete($node_storage->loadByProperties(['type' => 'geolocation_default_article']));
+
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::service('config.factory')->getEditable('geolocation.settings');
+  if ($config->get('google_map_api_key') == 'AIzaSyBGosteHy-rau8K81IauvzrzI7yhlSu-2Y') {
+    $config->set('google_map_api_key', '')->save();
+  }
+}

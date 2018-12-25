@@ -1,0 +1,88 @@
+<?php
+
+/**
+ * @file
+ * Contains rabbit_hole.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help().
+ */
+function rabbit_hole_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the rabbit_hole module.
+    case 'help.page.rabbit_hole':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Basic functionality that is shared among the different Rabbit Hole modules.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function rabbit_hole_theme() {
+  $theme = [];
+
+  return $theme;
+}
+
+/**
+ * Handle general aspects of rabbit hole form submission.
+ *
+ * @param array $form
+ *   The form.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   The state of the form.
+ */
+function _rabbit_hole_general_form_submit($form, FormStateInterface $form_state) {
+  \Drupal::service('rabbit_hole.form_mangler')
+    ->handleFormSubmit($form, $form_state);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function rabbit_hole_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $affected_types = \Drupal::service('plugin.manager.rabbit_hole_entity_plugin')
+    ->loadSupportedEntityTypes();
+  $affected_bundle_types = \Drupal::service('plugin.manager.rabbit_hole_entity_plugin')
+    ->loadSupportedBundleEntityTypes();
+  $affected_global_forms = \Drupal::service('plugin.manager.rabbit_hole_entity_plugin')
+    ->loadSupportedGlobalForms();
+  if (method_exists($form_state->getFormObject(), 'getEntity')) {
+    $current_type = $form_state->getFormObject()->getEntity()->getEntityTypeId();
+    $current_operation = $form_state->getFormObject()->getOperation();
+    $disallowed_operations = array('delete', 'cancel');
+    $administer_permitted = \Drupal::currentUser()
+            ->hasPermission('rabbit hole administer ' . $current_type);
+    if (in_array($current_type, $affected_types) && $administer_permitted && !in_array($current_operation, $disallowed_operations)) {
+      \Drupal::service('rabbit_hole.form_mangler')->addRabbitHoleOptionsToEntityForm(
+        $form, $form_state->getFormObject()->getEntity(), $form_state, $form_id);
+
+      $form_state->setSubmitHandlers(
+        array_merge($form_state->getSubmitHandlers(),
+          array('_rabbit_hole_general_form_submit'))
+      );
+    }
+    elseif (in_array($current_type, $affected_bundle_types) && !in_array($current_operation, $disallowed_operations)) {
+      \Drupal::service('rabbit_hole.form_mangler')->addRabbitHoleOptionsToEntityForm(
+        $form, $form_state->getFormObject()->getEntity(), $form_state, $form_id);
+      $form_state->setSubmitHandlers(
+        array_merge($form_state->getSubmitHandlers(),
+          array('_rabbit_hole_general_form_submit'))
+      );
+    }
+  }
+  elseif (array_key_exists($form_id, $affected_global_forms)) {
+    \Drupal::service('rabbit_hole.form_mangler')->addRabbitHoleOptionsToGlobalForm(
+       $form, $affected_global_forms[$form_id], $form_state, $form_id
+    );
+  }
+}

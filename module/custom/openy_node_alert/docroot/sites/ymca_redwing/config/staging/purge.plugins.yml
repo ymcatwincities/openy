@@ -1,0 +1,10 @@
+purgers:
+  -
+    order_index: 1
+    instance_id: c5008bc4b7
+    plugin_id: acquia_purge
+processors: {  }
+queuers: {  }
+queue: database
+_core:
+  default_config_hash: zszQgrpbU_SwoV7zSROlOcgRTndttz24blQTCXuJlUU

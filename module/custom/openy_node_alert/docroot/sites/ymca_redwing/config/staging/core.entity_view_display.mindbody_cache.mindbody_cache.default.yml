@@ -1,0 +1,60 @@
+uuid: b2f4d3f4-c23e-419b-bed8-e9622698a702
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_data
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_endpoint
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_params
+    - field.field.mindbody_cache.mindbody_cache.field_mindbody_cache_service
+  module:
+    - mindbody_cache_proxy
+    - user
+_core:
+  default_config_hash: 4_FgXa-kDnf1JUkb1L34-H135IFYwIIDOc91fBK6lOE
+id: mindbody_cache.mindbody_cache.default
+targetEntityType: mindbody_cache
+bundle: mindbody_cache
+mode: default
+content:
+  field_mindbody_cache_data:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_mindbody_cache_endpoint:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_mindbody_cache_params:
+    weight: 5
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_mindbody_cache_service:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

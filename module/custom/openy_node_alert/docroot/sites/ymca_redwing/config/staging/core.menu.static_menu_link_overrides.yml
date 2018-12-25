@@ -1,0 +1,31 @@
+definitions:
+  contact__site_page:
+    enabled: true
+    menu_name: footer
+    parent: ''
+    weight: 0
+    expanded: false
+  ymca_personify__sign_in:
+    weight: -43
+    enabled: false
+    menu_name: top-menu
+    parent: ''
+    expanded: false
+  ymca_personify__account:
+    weight: -42
+    enabled: false
+    menu_name: top-menu
+    parent: ''
+    expanded: true
+  ymca_personify__account_my:
+    enabled: false
+    menu_name: top-menu
+    parent: ymca_personify.account
+    weight: 10
+    expanded: false
+  ymca_personify__sign_out:
+    enabled: false
+    menu_name: top-menu
+    parent: ymca_personify.account
+    weight: 20
+    expanded: false

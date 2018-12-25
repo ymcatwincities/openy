@@ -1,0 +1,14 @@
+name: Config Import
+description: Clever configuration import.
+package: Configuration
+type: module
+# core: 8.x
+
+test_dependencies:
+  - features (>=8.x-3.x-dev)
+
+# Information added by Drupal.org packaging script on 2017-05-15
+version: '8.x-1.4'
+core: '8.x'
+project: 'confi'
+datestamp: 1494826092

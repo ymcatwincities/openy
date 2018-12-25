@@ -1,0 +1,23 @@
+uuid: 76fe65a0-3d87-4023-af00-f3866c1aab12
+langcode: en
+status: true
+dependencies:
+  config:
+    - file_entity.type.document
+  module:
+    - entity_embed
+    - file
+    - ymca_link_formatter
+label: File
+id: file
+type_id: entity
+type_settings:
+  entity_type: file
+  bundles:
+    - document
+  style: inline
+  display_plugins:
+    - 'entity_reference:file_entity_reference_label_url'
+  entity_browser: ''
+  entity_browser_settings: null
+icon_uuid: null

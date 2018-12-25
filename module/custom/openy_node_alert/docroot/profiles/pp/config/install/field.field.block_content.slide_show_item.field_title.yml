@@ -1,0 +1,19 @@
+uuid: 12ad1583-dd6c-4762-8521-33e5799e7e90
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.slide_show_item
+    - field.storage.block_content.field_title
+id: block_content.slide_show_item.field_title
+field_name: field_title
+entity_type: block_content
+bundle: slide_show_item
+label: Title
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

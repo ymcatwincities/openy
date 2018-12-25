@@ -1,0 +1,23 @@
+uuid: 2286882a-d391-4702-ba01-1dca98418513
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_variant
+    - node.type.article
+  module:
+    - options
+id: node.article.field_header_variant
+field_name: field_header_variant
+entity_type: node
+bundle: article
+label: 'Header variant'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: image
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,29 @@
+{% if content.field_sidebar_navigation[0]['#markup'] == '1' %}
+  {% set template = 'content-3col.html.twig' %}
+{% elseif content.field_sidebar[0] is defined %}
+  {% set template = 'content-2col.html.twig' %}
+{% else %}
+  {% set template = is_front ? 'content-1col-frontpage.html.twig' : 'content-1col.html.twig' %}
+{% endif %}
+
+{% extends '@ymca/layout/content/' ~ template %}
+
+{% block maincontent %}
+  {% if is_front %}
+    <section class="row main-promos promos">
+      {{ content.field_ygtc_content }}
+    </section>
+  {% else %}
+    <article class="richtext">
+      {{ content.field_ygtc_content }}
+    </article>
+  {% endif %}
+{% endblock %}
+
+{% block sidebar %}
+  {{ content.field_sidebar }}
+{% endblock %}
+
+{% block navigationsidebar %}
+  {{ parent() }}
+{% endblock %}

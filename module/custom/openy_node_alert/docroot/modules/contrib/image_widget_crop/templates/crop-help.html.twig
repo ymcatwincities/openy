@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Theme override of a crop_container used to wrap child crop elements.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the containing element.
+ * - has_parent: A flag to indicate that the container has one or more parent
+     containers.
+ * - element_type: Get the capabilities to choice the type of list (ol, ul) ul by default.
+ * - items: The rendered child elements of the container.
+ *
+ * @see template_preprocess_crop_help()
+ */
+#}
+{% set classes = [
+has_parent ? 'js-form-wrapper',
+has_parent ? 'form-wrapper',
+] %}
+<div {{ attributes.addClass(classes) }}>
+    <img src="{{ img_location }}" title="Crop list" alt="Arrow help" />
+    <p id="crop-help-text">{{ text }}</p>
+</div>

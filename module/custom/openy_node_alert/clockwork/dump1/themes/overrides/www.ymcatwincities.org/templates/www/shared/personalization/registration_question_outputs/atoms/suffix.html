@@ -1,0 +1,8 @@
+<label>$name <small>$include($optional_template) $include($required_template)</small></label>
+
+<select name="$field_name" class="form_$abbr_atom $$field_name\_style" value="$value" >
+	<option value=""> --- </option>
+	$start_loop_suffixes
+	<option value="$abbr" $$field_name\_$abbr_selected>$name</option>
+	$end_loop_suffixes
+</select>

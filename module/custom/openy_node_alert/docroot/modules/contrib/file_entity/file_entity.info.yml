@@ -1,0 +1,20 @@
+type: module
+name: File entity
+description: "Extends Drupal file entities to be fieldable and viewable."
+package: Media
+# core: 8.x
+dependencies:
+  - drupal:file
+  - drupal:text
+  - drupal:views
+  - drupal:image
+  - token:token
+configure: file_entity.settings
+test_dependencies:
+  - pathauto:pathauto
+
+# Information added by Drupal.org packaging script on 2017-11-21
+version: '8.x-2.0-beta4+2-dev'
+core: '8.x'
+project: 'file_entity'
+datestamp: 1511255491

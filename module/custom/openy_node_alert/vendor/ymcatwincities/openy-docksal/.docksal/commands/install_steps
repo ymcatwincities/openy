@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+## Initialize Docksal powered Drupal 8 site for installation from UI
+##
+## Usage: fin install_steps
+
+# Abort if anything fails
+set -e
+
+CURRENT_DIR="$(dirname "$0")"
+source "${CURRENT_DIR}/includes/helpers.sh"
+
+#-------------------------- Settings --------------------------------
+
+DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT:-docroot}"
+# Set to the appropriate site directory.
+SITEDIR_PATH="${DOCROOT_PATH}/sites/default"
+
+# Delay in seconds.
+# Increase this value if you have an issue
+# with the DB connection during the site installation.
+MYSQL_STARTUP_DELAY=5
+
+#-------------------------- END: Settings --------------------------------
+
+#-------------------------- Functions --------------------------------
+
+# Setup project dependencies
+setup_project ()
+{
+  chmod -R a+w "${DOCROOT_PATH}/sites/default"
+  if [[ -f ${SITEDIR_PATH}/settings.php ]]; then
+    rm ${SITEDIR_PATH}/settings.php
+  fi
+
+  copy_settings_file "${PROJECT_ROOT}/.docksal/files/default.settings.php" "${SITEDIR_PATH}/settings.php"
+  fix_permissions "$SITEDIR_PATH"
+}
+
+#-------------------------- END: Functions ---------------------------
+
+#-------------------------- Execution --------------------------------
+if [[ ${DOCKER_RUNNING} == "true" ]]; then
+  echo-green-bg " Step 1: Recreating services. "
+  fin reset -f
+else
+  echo-green-bg " Step 2: Creating services. "
+  fin up
+fi
+
+echo-green-bg " Step 3: Setup project."
+time setup_project
+
+
+if is_windows; then
+  echo-green "Add ${VIRTUAL_HOST} to your hosts file (/etc/hosts), e.g.:"
+  echo-green "192.168.64.100  ${VIRTUAL_HOST}"
+  echo
+fi
+
+echo -en "${green_bg} DONE! ${NC} "
+echo "Open http://${VIRTUAL_HOST}/ in your browser and continue installation."
+
+#-------------------------- END: Execution ----------------------------------

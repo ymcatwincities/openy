@@ -1,0 +1,204 @@
+address:
+  type: mapping
+  label: 'Address'
+  mapping:
+    langcode:
+      type: string
+      label: 'Language code'
+    country_code:
+      type: string
+      label: 'Country code'
+    administrative_area:
+      type: string
+      label: 'Administrative area'
+    locality:
+      type: string
+      label: 'Locality'
+    dependent_locality:
+      type: string
+      label: 'Dependent locality'
+    postal_code:
+      type: string
+      label: 'Postal code'
+    sorting_code:
+      type: string
+      label: 'Sorting code'
+    address_line1:
+      type: string
+      label: 'First line of the address block'
+    address_line2:
+      type: string
+      label: 'Second line of the address block'
+    organization:
+      type: string
+      label: 'Organization'
+    given_name:
+      type: string
+      label: 'Given name'
+    additional_name:
+      type: string
+      label: 'Additional name'
+    family_name:
+      type: string
+      label: 'Family name'
+
+address_zone:
+  type: mapping
+  label: 'Zone'
+  mapping:
+    label:
+      type: label
+      label: 'Label'
+    territories:
+      type: sequence
+      label: 'Territories'
+      sequence:
+        - type: address_zone_territory
+
+address_zone_territory:
+  type: mapping
+  label: 'Zone territory'
+  mapping:
+    country_code:
+      type: string
+      label: 'Country'
+    administrative_area:
+      type: string
+      label: 'Administrative area'
+    locality:
+      type: string
+      label: 'Locality'
+    dependent_locality:
+      type: string
+      label: 'Dependent locality'
+    included_postal_codes:
+      type: string
+      label: 'Included postal codes'
+    excluded_postal_codes:
+      type: string
+      label: 'Excluded postal codes'
+
+field.value.address:
+  type: address
+  label: 'Default value'
+
+field.value.address_country:
+  type: mapping
+  label: 'Default value'
+  mapping:
+    value:
+      type: string
+      label: 'Country code'
+
+field.value.address_zone:
+  type: ignore
+
+field.field_settings.address:
+  type: mapping
+  label: 'Address field settings'
+  mapping:
+    available_countries:
+      type: sequence
+      label: 'Available countries'
+      sequence:
+        - type: string
+    langcode_override:
+      type: string
+      label: 'Language override'
+    field_overrides:
+      type: sequence
+      label: 'Field overrides'
+      sequence:
+        type: mapping
+        mapping:
+          override:
+            type: string
+            label: 'Override'
+    # Deprecated, replaced by field_overrides.
+    fields:
+      type: sequence
+      label: 'Used fields'
+      sequence:
+        - type: string
+
+field.field_settings.address_country:
+  type: mapping
+  label: 'Country field settings'
+  mapping:
+    available_countries:
+      type: sequence
+      label: 'Available countries'
+      sequence:
+        - type: string
+
+field.field_settings.address_zone:
+  type: mapping
+  label: 'Zone field settings'
+  mapping:
+    available_countries:
+      type: sequence
+      label: 'Available countries'
+      sequence:
+        - type: string
+
+field.widget.settings.address_default:
+  type: mapping
+  label: 'Default address widget settings'
+  mapping:
+    default_country:
+      type: string
+      label: 'Default country'
+
+field.widget.settings.address_zone_default:
+  type: mapping
+  label: 'Default zone widget settings'
+  mapping:
+    show_label_field:
+      type: boolean
+      label: 'Show the zone label field'
+
+views.field.country_code:
+  type: views_field
+  label: 'Country code'
+  mapping:
+    display_name:
+      type: boolean
+      label: 'Display the country name instead of the country code'
+
+views.field.subdivision:
+  type: views_field
+  label: 'Subdivision'
+  mapping:
+    display_name:
+      type: boolean
+      label: 'Display the subdivision name instead of the subdivision code'
+
+views.filter.country_code:
+  type: views.filter.in_operator
+  label: 'Country'
+
+views.filter.administrative_area:
+  type: views.filter.in_operator
+  label: 'Administrative area'
+  mapping:
+    country:
+      type: mapping
+      mapping:
+        country_source:
+          type: string
+          label: 'Country source'
+        country_argument_id:
+          type: string
+          label: 'Country contextual filter ID'
+        country_filter_id:
+          type: string
+          label: 'Exposed country filter ID'
+        country_static_code:
+          type: string
+          label: 'Predefined country for administrative areas'
+    expose:
+      type: mapping
+      mapping:
+        label_type:
+          type: string
+          label: 'Label type'

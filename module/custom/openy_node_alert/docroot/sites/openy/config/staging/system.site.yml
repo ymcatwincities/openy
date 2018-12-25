@@ -1,0 +1,13 @@
+uuid: c8dfeed6-e52d-4487-8908-8c68e07e320f
+name: 'Open Y'
+mail: D8@D8.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node
+admin_compact_mode: false
+weight_select_max: 100
+langcode: en
+default_langcode: en
+mail_notification: ''

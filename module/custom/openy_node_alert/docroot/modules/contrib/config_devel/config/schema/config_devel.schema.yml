@@ -1,0 +1,23 @@
+config_devel.settings:
+  type: config_object
+  label: config devel settings
+  mapping:
+    auto_import:
+      type: sequence
+      sequence:
+        - type: mapping
+          mapping:
+            filename:
+              type: string
+            hash:
+              type: string
+    auto_export:
+      type: sequence
+      sequence:
+        - type: string
+config_devel.test:
+  type: config_object
+  label: config devel test
+  mapping:
+    label:
+      type: label

@@ -1,0 +1,73 @@
+<div id="component_$component_id" class="$component_type">
+
+[[ if list_id ]]
+<a href="$display_url#component_$component_id">&lt;&lt; Select a list</a>
+[[ end if list_id ]]
+
+[[ if members ]]
+<form method="post">
+	$preview_parameters
+	<input type="hidden" name="action_$component_id" value="download">
+	<input type="submit" value="Download[[ if list_name ]] $list_name_esc[[ end if list_name ]]" />
+</form>
+[[ end if members ]]
+
+<table class="memberdirecctorynav">
+  <tr><td>
+
+$start_loop_alphabet
+	<a href="$url_letter">$letter</a>
+$end_loop_alphabet
+
+  </td></tr>
+</table>
+
+$start_loop_prevnextlast
+<table class="memberdirecctorynav">
+  <tr>
+[[ if show_previous_link ]]
+	<td><a href="$first_url">first</a></td> 
+	<td><a href="$previous_url">previous</a></td> 
+[[ end if show_previous_link ]]
+[[ if show_next_link ]]
+	<td><a href="$next_url">next</a></td> 
+	<td><a href="$last_url">last</a></td> 
+[[ end if show_next_link ]]
+  </tr>
+</table>
+$end_loop_prevnextlast
+
+[[ if total_num_recs ]]
+<div class="memberdirectorynav">
+Displaying $from_record_number &ndash; $to_record_number of $total_num_recs total Members$search_string_esc.
+</div>
+[[ end if total_num_recs ]]
+
+<table class="memberdirectory">
+
+  <tr>
+  $start_loop_headers
+	<th align="left" valign="bottom"><a href="$header_url">$header_title</a></th>
+  $end_loop_headers
+  </tr>
+  
+  [[ if members ]]
+  $start_loop_members
+  <tr>
+  	<!-- $first_name $last_name (personalization variables) also work here -->
+	$start_loop_attributes
+	<td valign="top">$content</td>
+	$end_loop_attributes
+  </tr>
+  $end_loop_members
+  [[ end if members ]]
+
+	[[ if ! members ]]
+	<tr>
+		<td>No members found</td>
+	</tr>
+	[[ end if members ]]
+
+</table>
+
+</div>

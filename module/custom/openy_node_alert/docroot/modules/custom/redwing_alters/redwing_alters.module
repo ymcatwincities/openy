@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use Drupal\Core\Render\Markup;
+
+/**
+ * Implements hook_page_top().
+ */
+function redwing_alters_page_top(array &$page_top) {
+  $page_top['gtm'] = [
+    '#type' => 'inline_template',
+    '#template' => '{{ html | raw }}',
+    '#context' => [
+      'html' => '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-56H4P8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>',
+    ],
+  ];
+
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function redwing_alters_page_attachments(array &$page) {
+  $js = file_get_contents(drupal_get_path('module', 'redwing_alters') . '/misc/gtm_header.script');
+  $data = [
+    '#tag' => 'script',
+    '#value' => Markup::create($js),
+  ];
+  $page['#attached']['html_head'][] = [$data, 'script'];
+}

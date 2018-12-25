@@ -1,0 +1,18 @@
+uuid: 18f52b93-910b-4984-8400-e72e09c18b5d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - jethro
+id: jethro_page_title
+theme: jethro
+region: content
+weight: -7
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

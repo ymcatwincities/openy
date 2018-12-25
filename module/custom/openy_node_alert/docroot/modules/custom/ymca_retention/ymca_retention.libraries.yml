@@ -1,0 +1,212 @@
+angular:
+  version: 1.6.2
+  js:
+    //ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js: { type: external, minified: true }
+
+angular-cookies:
+  version: 1.6.2
+  js:
+    //ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-cookies.min.js: { type: external, minified: true }
+  dependencies:
+    - ymca_retention/angular
+
+angular-sanitize:
+  version: 1.6.2
+  js:
+    //ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.min.js: { type: external, minified: true }
+  dependencies:
+    - ymca_retention/angular
+
+angular-ui-router:
+  version: 0.3.2
+  js:
+    //unpkg.com/angular-ui-router@0.3.2/release/angular-ui-router.min.js: { type: external, minified: true }
+  dependencies:
+    - ymca_retention/angular
+
+angular-slick:
+  remote: https://github.com/devmark/angular-slick-carousel
+  version: 3.1.7
+  license:
+    name: MIT
+    url: https://github.com/devmark/angular-slick-carousel
+    gpl-compatible: true
+  js:
+    /libraries/angular-slick-carousel/dist/angular-slick.min.js: { minified: true }
+  dependencies:
+    - ymca_retention/angular
+
+angular-promise-tracker:
+  remote: https://github.com/ajoslin/angular-promise-tracker
+  version: 2.2.2
+  license:
+    name: NONE
+    url: https://github.com/ajoslin/angular-promise-tracker
+    gpl-compatible: true
+  js:
+    /libraries/angular-promise-tracker/promise-tracker.js: {}
+  dependencies:
+    - ymca_retention/angular
+
+leaderboard:
+  version: VERSION
+  js:
+    js/leaderboard.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - ymca_retention/angular-promise-tracker
+    - core/drupal
+    - core/drupalSettings
+
+winners:
+  version: VERSION
+  js:
+    js/winners.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - core/drupal
+    - core/drupalSettings
+
+bootstrap-tabcollapse:
+  remote: https://github.com/flatlogic/bootstrap-tabcollapse
+  version: 0.2.7
+  license:
+    name: MIT
+    url: https://github.com/flatlogic/bootstrap-tabcollapse
+    gpl-compatible: true
+  js:
+    /libraries/bootstrap-tabcollapse/bootstrap-tabcollapse.js: {}
+  dependencies:
+    - core/jquery
+
+tabs-selector:
+  version: VERSION
+  js:
+    js/tabs-selector.js: {}
+  dependencies:
+    - ymca_retention/bootstrap-tabcollapse
+
+ajax-commands:
+  version: VERSION
+  js:
+    js/ajax-commands.js: {}
+  dependencies:
+    - core/drupal.ajax
+
+angular-app:
+  version: VERSION
+  js:
+    js/angular-app.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - ymca_retention/angular-cookies
+    - ymca_retention/angular-promise-tracker
+    - ymca_retention/angular-ui-router
+    - core/drupal
+    - core/drupalSettings
+
+ngwinners-app:
+  version: VERSION
+  js:
+    js/ngwinners-app.js: {}
+  dependencies:
+    - ymca_retention/angular
+    - core/drupal
+    - core/drupalSettings
+
+user-menu:
+  version: VERSION
+  js:
+    js/user-menu.js: {}
+  dependencies:
+    - ymca_retention/angular-app
+    - ymca_retention/ajax-commands
+
+activity:
+  version: VERSION
+  css:
+    theme:
+      //cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css: { type: external, minified: false }
+  js:
+    js/activity.js: {}
+    js/angular-slick.min.js: {}
+    //cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js: { type: external, minified: true }
+  dependencies:
+    - ymca_retention/angular-app
+
+progress:
+  version: VERSION
+  js:
+    js/progress.js: {}
+  dependencies:
+    - ymca_retention/angular-app
+
+my-progress:
+  version: VERSION
+  js:
+    js/my-progress.js: {}
+  dependencies:
+    - ymca_retention/angular-app
+
+instant-win:
+  version: VERSION
+  js:
+    js/instant-win.js: {}
+  dependencies:
+    - ymca_retention/angular-app
+
+todays-insight:
+  version: VERSION
+  js:
+    js/todays-insight.js: {}
+  dependencies:
+    - ymca_retention/angular-app
+
+cookie-bar:
+  remote: https://github.com/carlwoodhouse/jquery.cookieBar
+  version: 0.0.1
+  license:
+    name: MIT
+    url: https://github.com/carlwoodhouse/jquery.cookieBar
+    gpl-compatible: true
+  js:
+    /libraries/jquery.cookieBar/jquery.cookieBar.min.js: { minified: true }
+  dependencies:
+    - core/jquery.cookie
+
+momentjs:
+  remote: https://github.com/moment/moment/
+  version: 2.17.0
+  license:
+    name: NONE
+    url: https://github.com/moment/moment/
+    gpl-compatible: true
+  js:
+    /libraries/momentjs/min/moment.min.js: { minified: true }
+
+livestampjs:
+  remote: https://github.com/mattbradley/livestampjs
+  version: 1.1.2
+  license:
+    name: NONE
+    url: https://github.com/mattbradley/livestampjs
+    gpl-compatible: true
+  js:
+    /libraries/livestampjs/livestamp.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+    - ymca_retention/momentjs
+
+recent-winners:
+  version: VERSION
+  js:
+    js/recent-winners.js: {}
+  dependencies:
+    - ymca_retention/cookie-bar
+    - ymca_retention/livestampjs
+
+introduction:
+  version: VERSION
+  js:
+    /themes/custom/ymca/scripts/vendor/jquery.matchHeight.js: { }
+    js/introduction.js: {}

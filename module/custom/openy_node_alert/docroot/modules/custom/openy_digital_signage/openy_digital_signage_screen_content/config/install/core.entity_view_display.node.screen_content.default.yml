@@ -1,0 +1,53 @@
+uuid: 6ed217cc-eacd-4aa5-9f0b-d5f88440f63e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.screen_content.field_screen_content_preview
+    - field.field.node.screen_content.panelizer
+    - node.type.screen_content
+  module:
+    - image
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: true
+    custom: true
+    allow: true
+    default: default
+    displays:
+      default:
+        blocks: {  }
+        id: panels_variant
+        label: Default
+        uuid: 6afdcad5-3797-423b-b3a0-99f32f622565
+        weight: 0
+        layout: openyds_onecol
+        layout_settings: {  }
+        page_title: '[node:title]'
+        storage_type: panelizer_default
+        storage_id: 'node:screen_content:default:default'
+        builder: ipe
+        pattern: panelizer
+        static_context: {  }
+id: node.screen_content.default
+targetEntityType: node
+bundle: screen_content
+mode: default
+content:
+  field_screen_content_preview:
+    weight: 101
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  panelizer: true

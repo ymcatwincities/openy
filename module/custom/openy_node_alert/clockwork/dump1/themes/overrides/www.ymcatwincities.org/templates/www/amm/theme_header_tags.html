@@ -1,0 +1,60 @@
+
+	<link rel="stylesheet" href="$css_href" type="text/css" media="screen" />
+	$preview_interface_css
+
+	$start_loop_link_tag_includes
+	<link rel="$rel" href="$href" $type />
+	$end_loop_link_tag_includes
+
+	$start_loop_site_javascript_includes
+	<script src="$js_include_path"></script>
+	$end_loop_site_javascript_includes
+
+	$start_loop_javascript_includes
+	<script src="$include_path"></script>
+	$end_loop_javascript_includes
+
+	$start_loop_dynamic_javascript_includes
+	<script src="$include_path"></script>
+	$end_loop_dynamic_javascript_includes
+
+	$start_loop_css_includes
+	<link rel="stylesheet" href="$include_path" />
+	$end_loop_css_includes
+
+	$start_loop_dynamic_css_includes
+	<link rel="stylesheet" href="$include_path" />
+	$end_loop_dynamic_css_includes
+
+	<script>
+		<!--
+
+		function init() {
+			var site_id = '$site_id';
+
+			// call init_template if it exists in the theme.
+			if ( window.init_template ) {
+				init_template();
+			}
+
+			if( window.rewrite_preview_hrefs ) {
+				rewrite_preview_hrefs( site_id );
+			}
+			
+			if( window.add_preview_control_panel ) {
+				add_preview_control_panel( );
+			}
+
+		}
+
+		$init_preview_js
+
+		// -->
+	</script>
+
+	$meta_description_head
+	$meta_keywords_head
+	$feed_head
+	$preview_page_js_tag  
+	$ga_ua_code_head
+

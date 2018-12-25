@@ -1,0 +1,16 @@
+.geolocation-common-map-container {
+  height: 300px;
+  width: 100%;
+  display: none;
+}
+
+.geolocation-context-popup {
+  z-index: 1;
+  position: absolute;
+  padding: 10px;
+  max-width: 256px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0,0,0,0.2);
+  box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+}

@@ -1,0 +1,19 @@
+name: Acquia Purge
+type: module
+description: 'Top-notch cache invalidation on Acquia Cloud!'
+package: "Purge - reverse proxies & CDNs"
+# core: 8.x
+dependencies:
+  - purge
+  - purge_drush
+  - purge_queuer_coretags
+  - purge_processor_cron
+  - purge_processor_lateruntime
+  - dynamic_page_cache
+  - page_cache
+
+# Information added by Drupal.org packaging script on 2017-09-04
+version: '8.x-1.0-beta3'
+core: '8.x'
+project: 'acquia_purge'
+datestamp: 1504537936

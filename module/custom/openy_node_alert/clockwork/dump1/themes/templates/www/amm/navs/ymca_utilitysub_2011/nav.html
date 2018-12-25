@@ -1,0 +1,32 @@
+<nav id="subnav-utility">
+<h4 class="$page_abbr utility"><a href="$page_url">$html_esc_page_title</a></h4>
+<ul>
+	$start_loop_nav_level_2      
+		<li><a href="$page_url">$html_esc_page_name</a>
+			[[ if nav_level_3 ]]
+			<ul>
+			$start_loop_nav_level_3      
+				<li><a href="$page_url">$html_esc_page_name</a>
+					[[ if nav_level_4 ]]
+					<ul>
+					$start_loop_nav_level_4      
+						<li><a href="$page_url">$html_esc_page_name</a>
+							[[ if nav_level_5 ]]
+							<ul>
+							$start_loop_nav_level_5      
+								<li><a href="$page_url">$html_esc_page_name</a></li>
+							$end_loop_nav_level_5
+							</ul>
+							[[ end if nav_level_5 ]]
+							</li>
+					$end_loop_nav_level_4
+					</ul>
+					[[ end if nav_level_4 ]]
+				</li>
+			$end_loop_nav_level_3
+			</ul>
+			[[ end if nav_level_3 ]]
+		</li>
+	$end_loop_nav_level_2
+</ul>
+</nav>

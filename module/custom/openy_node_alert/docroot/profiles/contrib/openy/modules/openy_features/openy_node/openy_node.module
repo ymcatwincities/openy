@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Open Y Node module file.
+ */
+
+/**
+ * Implements hook_modules_installed().
+ *
+ * Perform necessary actions after modules are installed.
+ * This function differs from hook_install() in that it gives all other modules
+ * a chance to perform actions when a module is installed, whereas
+ * hook_install() is only called on the module actually being installed.
+ */
+function openy_node_modules_installed($modules) {
+  if (in_array('simple_sitemap', $modules)) {
+    // Import simple_sitemap settings for nodes bundles on module install.
+    $config_list = [
+      'openy_node_blog' => 'simple_sitemap.bundle_settings.node.blog',
+      'openy_node_category' => 'simple_sitemap.bundle_settings.node.program_subcategory',
+      'openy_node_class' => 'simple_sitemap.bundle_settings.node.class',
+      'openy_node_event' => 'simple_sitemap.bundle_settings.node.event',
+      'openy_node_landing' => 'simple_sitemap.bundle_settings.node.landing_page',
+      'openy_node_news' => 'simple_sitemap.bundle_settings.node.news',
+      'openy_node_program' => 'simple_sitemap.bundle_settings.node.program',
+      'openy_loc_branch' => 'simple_sitemap.bundle_settings.node.branch',
+      'openy_loc_camp' => 'simple_sitemap.bundle_settings.node.camp',
+      'openy_loc_facility' => 'simple_sitemap.bundle_settings.node.facility',
+    ];
+    $module_handler = \Drupal::service('module_handler');
+    $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+    foreach ($config_list as $module => $config) {
+      if ($module_handler->moduleExists($module)) {
+        $config_dir = drupal_get_path('module', $module) . '/config/install';
+        $config_importer->setDirectory($config_dir);
+        $config_importer->importConfigSimple($config);
+      }
+    }
+  }
+}

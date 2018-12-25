@@ -1,0 +1,73 @@
+dist: precise
+language: php
+
+php:
+  - 5.6
+
+cache:
+  timeout: 3600
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.drush/cache
+
+mysql:
+  database: drupal
+  username: root
+  encoding: utf8
+
+install:
+  # Increase packet size and timeout for mysql.
+  - sudo sed -i.bak "s/max_allowed_packet *= *.*/max_allowed_packet = 256M/g" /etc/mysql/my.cnf
+  - sudo sed -i.bak "s/wait_timeout *= *.*/wait_timeout = 68800/g" /etc/mysql/my.cnf
+  - sudo service mysql restart
+
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+  # prestissimo allows composer to install packages in parallel.
+  - composer global require "hirak/prestissimo:^0.3"
+  - composer global require drush/drush:8.* --prefer-source
+
+  # Install and configure Apache and PHP-FPM.
+  - sudo apt-get install apache2 libapache2-mod-fastcgi
+  - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
+  - sudo a2enmod rewrite actions fastcgi alias
+  - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
+  - sed -e "s,PATH,$TRAVIS_BUILD_DIR/../drupal,g" $TRAVIS_BUILD_DIR/../acquia-connector/scripts/travis/vhost.txt | sudo tee /etc/apache2/sites-available/default > /dev/null
+  - sudo service apache2 restart
+
+  # Download Drupal.
+  - cd $TRAVIS_BUILD_DIR/..
+  - git clone --depth 1 --branch 8.2.x http://git.drupal.org/project/drupal.git
+
+  - echo "error_log=syslog" >> `php --ini | grep "Loaded Configuration" | awk '{print $4}'`
+
+before_script:
+  # Download all composer dependencies and install Drupal site.
+  - cd $TRAVIS_BUILD_DIR/../drupal
+  - composer config repositories.drupal composer https://packages.drupal.org/8
+  - composer install
+  - composer require drupal/search_api:1.0-beta4
+  - composer require drupal/search_api_solr:1.0-beta1
+  - drush -v site-install testing --db-url=mysql://root:@localhost/drupal --yes
+  - drush en --yes simpletest
+
+  # Copy over the Acquia Connector repo and enable it.
+  - cp -r ../acquia-connector modules/
+  - drush en --yes acquia_connector
+  - drush cr
+
+script:
+  # Setup DB connection for Simpletest.
+  - export SIMPLETEST_DB=mysql://root:@localhost/drupal
+
+  # Run the tests!
+  - php core/scripts/run-tests.sh --verbose --color --php `which php` --url http://localhost 'Acquia connector,Acquia search' | tee /tmp/test.txt; export TEST_EXIT=${PIPESTATUS[0]}; echo $TEST_EXIT
+
+  # Output the result and exit.
+  - TEST_OUTPUT=$(! egrep -i "([1-9]+[0-9]* fails?)|([1-9]+[0-9]* exceptions?)|(fatal)" /tmp/test.txt > /dev/null)$?
+  - php -i | grep 'php.ini'
+  - sudo cat /var/log/apache2/error.log
+  - echo $TEST_EXIT
+  - echo $TEST_OUTPUT
+  - if [ $TEST_EXIT -eq 0 ] && [ $TEST_OUTPUT -eq 0 ]; then exit 0; else exit 1; fi

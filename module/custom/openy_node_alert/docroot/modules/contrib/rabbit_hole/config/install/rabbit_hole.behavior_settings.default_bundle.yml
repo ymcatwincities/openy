@@ -1,0 +1,7 @@
+id: default_bundle
+action: "display_page"
+# Allow
+allow_override: 1
+# N/A
+redirect_code: 0
+redirect: ''

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    {% block head %}
+      <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
+      <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-touch-icon-76x76.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-touch-icon-114x114.png">
+      <link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-touch-icon-120x120.png">
+      <link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-touch-icon-144x144.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-touch-icon-152x152.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon-180x180.png">
+      <link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+      <link rel="icon" type="image/png" href="favicons/android-chrome-192x192.png" sizes="192x192">
+      <link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+      <link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
+      <link rel="manifest" href="favicons/manifest.json">
+      <meta name="apple-mobile-web-app-title" content="YMCA">
+      <meta name="application-name" content="YMCA">
+      <meta name="msapplication-TileColor" content="#00aeef">
+      <meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
+      <meta name="theme-color" content="#ffffff">
+      <title>YMCA - {% block title %}{% endblock %}</title>
+      <link rel="stylesheet" href="css/styles.css">
+      <script src="js/lib/modernizr.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% endblock %}
+  </head>
+  <body>
+
+    {% block header %}
+      <header class="header">
+        <div class="container">
+          <a href="/" class="header__logo">
+          </a>
+          <div class="header__navigation">
+            <a class="header__mobile-toggle"></a>
+            <nav class="header__main-menu">
+              {% include "mainmenu.twig" %}
+            </nav>
+          </div>
+        </div>
+      </header>
+    {% endblock %}
+
+    {% block banner %}
+    {% endblock %}
+
+    {% block filters %}
+    {% endblock %}
+
+    <main>
+      <div class="container">
+          {% block content %}
+          {% endblock %}
+      </div>
+    </main>
+
+    {% block footer %}
+      <footer class="footer">
+        <div class="container">
+          <a href="homepage.html" class="footer__logo">
+            <img src="images/ymca-logo.svg" alt="YMCA Logo">
+            for youth development<br>
+            for health living<br>
+            for social responsability
+          </a>
+          <nav class="footer__nav">
+            {% include "footer-nav.twig" %}
+          </nav>
+          <div class="footer__ymca--info">
+            <nav class="footer__ymca-social">
+              <a class="icon-facebook" href="http://www.facebook.com/YMCATwinCities" target="_blank">Facebook</a>
+              <a class="icon-twitter" href="http://twitter.com/ymcatwincities" target="_blank">Twitter</a>
+              <a class="icon-youtube" href="http://www.youtube.com/user/YMCATwinCities" target="_blank">YouTube</a>
+              <a class="icon-flickr" href="http://www.flickr.com/photos/ymcatwincities" target="_blank">Flickr</a>
+            </nav>
+            <div class="footer__ymca-copyright">
+              <strong>&copy;2015 YMCA Twin Cities</strong>
+              <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
+            </div>
+            <div class="footer__ymca-partners">
+                <a href="/about/youthspark/">
+                  <figure>
+                    <img src="images/microsoft_logo.svg" alt="Microsoft Logo">
+                    <figcaption>Enterprise technologies provided by Microsoft</figcaption>
+                  </figure>
+                </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    {% endblock %}
+
+    {% include "index-link.twig" %}
+
+    {% block footer_scripts %}
+      <!--<script src="js/lib/media.match.min.js"></script>
+      <script src="js/lib/enquire.min.js"></script>-->
+      <script src="js/lib/jquery.min.js"></script>
+      <script src="js/lib/chosen.jquery.min.js"></script>
+      <script src="js/script.js"></script>
+    {% endblock %}
+  </body>
+</html>

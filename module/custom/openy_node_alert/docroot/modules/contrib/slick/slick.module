@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * Slick carousel integration, the last carousel you'll ever need.
+ */
+
+use Drupal\blazy\Blazy;
+use Drupal\slick\SlickDefault;
+
+/**
+ * Implements hook_theme().
+ */
+function slick_theme() {
+  $themes = [];
+  $all = ['slick', 'slide', 'grid', 'image', 'thumbnail', 'vanilla', 'wrapper'];
+  foreach ($all as $item) {
+    $key = $item == 'slick' ? $item : 'slick_' . $item;
+    $themes[$key] = [
+      'render element' => 'element',
+      'file' => 'templates/slick.theme.inc',
+    ];
+  }
+  return $themes;
+}
+
+/**
+ * Implements hook_library_info_build().
+ */
+function slick_library_info_build() {
+  return \Drupal::service('slick.manager')->libraryInfoBuild();
+}
+
+/**
+ * Implements hook_config_schema_info_alter().
+ */
+function slick_config_schema_info_alter(array &$definitions) {
+  Blazy::configSchemaInfoAlter($definitions, 'slick_base', SlickDefault::extendedSettings());
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function slick_field_formatter_info_alter(array &$info) {
+  // Supports Media Entity via VEM within VEF if available.
+  if (function_exists('video_embed_media_media_bundle_insert')) {
+    $info['slick_file'] = [
+      'id'          => 'slick_file',
+      'label'       => t('Slick Image with Media'),
+      'description' => t('Display the images associated to VEM/ME as a simple mix of Slick image/video carousel.'),
+      'class'       => 'Drupal\slick\Plugin\Field\FieldFormatter\SlickFileFormatter',
+      'field_types' => ['entity_reference', 'image'],
+      'quickedit'   => ['editor' => 'disabled'],
+      'provider'    => 'slick',
+    ];
+  }
+}
+
+/**
+ * Implements hook_hook_info().
+ */
+function slick_hook_info() {
+  $hooks['slick_skins_info'] = ['group' => 'slick'];
+  return $hooks;
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function slick_library_info_alter(&$libraries, $extension) {
+  if ($extension === 'slick' && function_exists('libraries_get_path')) {
+    $library_path = libraries_get_path('slick') ? libraries_get_path('slick') : libraries_get_path('slick-carousel');
+    if ($library_path) {
+      $libraries['slick']['js'] = ['/' . $library_path . '/slick/slick.min.js' => ['weight' => -3]];
+      $libraries['slick']['css']['base'] = ['/' . $library_path . '/slick/slick.css' => []];
+      $libraries['slick.css']['css']['theme'] = ['/' . $library_path . '/slick/slick-theme.css' => []];
+    }
+  }
+}

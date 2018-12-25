@@ -1,0 +1,85 @@
+{#
+/**
+ * @file
+ * Display retention campaign winners.
+ */
+#}
+
+<div class="inner-container ng-hide"
+     data-ng-show="selectedBranch">
+  <div class="clearfix">
+    <div class="content clearfix">
+      <div class="col-sm-12">
+
+          <div class="prizes">
+            <div class="prize">
+              <div class="content">
+                <h2 class="header"><span class="inner"><span>1</span>st Prize</span></h2>
+
+                <div class="container win-list">
+                  <div class="col-sm-3" data-ng-repeat="winner in winners1place">
+                    <div class="winner">
+                      <p class="winner-name">{{ '{{ winner.name }}' }}</p>
+                      <p class="winner-id">ID: {{ '{{ winner.id }}' }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <ul class="prize-list"><li class="calendar">1 Free Month<br>
+                    of Membership</li>
+                  <li class="spacer">+</li>
+                  <li class="towel">3 Free Month<br>
+                    of Towel Service</li>
+                  <li class="spacer">+</li>
+                  <li class="bottle">Y Water<br>
+                    Bottle</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="prize">
+              <div class="content">
+                <h2 class="header"><span class="inner"><span>2</span>nd Prize</span></h2>
+
+                <div class="container win-list">
+                  <div class="col-sm-3" data-ng-repeat="winner in winners2place">
+                    <div class="winner">
+                      <p class="winner-name">{{ '{{ winner.name }}' }}</p>
+                      <p class="winner-id">ID: {{ '{{ winner.id }}' }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <ul class="prize-list"><li class="towel">3 Free Month<br>
+                    of Towel Service</li>
+                  <li class="spacer">+</li>
+                  <li class="bottle">Y Water<br>
+                    Bottle</li>
+                </ul>
+
+              </div>
+            </div>
+
+            <div class="prize">
+              <div class="content">
+                <h2 class="header"><span class="inner"><span>3</span>rd Prize</span></h2>
+
+                <div class="container win-list">
+                  <div class="col-sm-3" data-ng-repeat="winner in winners3place">
+                    <div class="winner">
+                      <p class="winner-name">{{ '{{ winner.name }}' }}</p>
+                      <p class="winner-id">ID: {{ '{{ winner.id }}' }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <ul class="prize-list"><li class="bottle">Y Water<br>
+                    Bottle</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

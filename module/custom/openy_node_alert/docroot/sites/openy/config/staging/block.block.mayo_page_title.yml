@@ -1,0 +1,18 @@
+uuid: 4a661f98-bc2c-4f8a-8c00-c0a637dc94be
+langcode: en
+status: true
+dependencies:
+  theme:
+    - mayo
+id: mayo_page_title
+theme: mayo
+region: content
+weight: -50
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

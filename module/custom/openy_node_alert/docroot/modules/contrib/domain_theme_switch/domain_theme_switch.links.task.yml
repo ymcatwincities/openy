@@ -1,0 +1,4 @@
+domain_theme_switch.admin:
+  title: Domain themes 
+  route_name: domain_theme_switch.settings
+  base_route: domain.admin

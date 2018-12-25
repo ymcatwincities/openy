@@ -1,0 +1,24 @@
+uuid: d1414fbe-b2fd-46c0-b019-2515519c22e4
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - ymca
+id: mainnavigation
+theme: ymca
+region: '-1'
+weight: -8
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

@@ -1,0 +1,20 @@
+uuid: d0fe219b-e1b5-4d1b-a900-efbfad9671ca
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - b3
+id: b3_messages
+theme: b3
+region: sidebar_first
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

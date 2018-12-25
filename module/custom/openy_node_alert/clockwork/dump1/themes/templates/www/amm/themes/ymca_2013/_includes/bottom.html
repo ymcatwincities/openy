@@ -1,0 +1,133 @@
+
+[[ if ! theme_ymca_2015_blank_internal_no_nav ]]
+
+$include($site_themes_directory/templates/www/amm/themes/ymca_2013/_includes/social-news-footer.html)
+<!--googleoff: index-->
+<footer id="page-footer" class="page-footer">
+	<div class="container">
+		<div class="col-sm-3 text-center">
+			<a href="/" class="footer-brand brand">
+				YMCA Twin Cities
+				<small>
+					For Youth Development
+					<br/>
+					For Healthy Living
+					<br/>
+					For Social Responsibility
+				</small>
+			</a>
+		</div>
+		<nav class="col-sm-6">
+
+		
+			<nav class="nav-footer row">
+				<ul class="nav-level-1 nav nav-stacked col-xs-6 col-sm-4">
+					<li>
+						<a href="/health__fitness/">Health &amp; Fitness</a>
+					</li>
+					<li>
+						<a href="/swimming/">Swimming</a>
+					</li>
+					<li>
+						<a href="/child_care__preschool/">Child Care &amp; Preschool</a>
+					</li>
+					<li>
+						<a href="/kid__teen_activities/">Kid &amp; Teen Activities</a>
+					</li>
+					<li>
+						<a href="/camps/">Camps</a>
+					</li>
+					<li>
+						<a href="/community_programs/">Community Programs</a>
+					</li>
+				</ul>
+				<ul class="nav-level-1 nav nav-stacked col-xs-6 col-sm-4">
+					
+					<li>
+						<a href="/membership/">Membership</a>
+					</li>
+					<li>
+						<a href="/locations/">Locations</a>
+					</li>
+					<li>
+						<a href="/all_y_schedules/">All Y Schedules</a>
+					</li>
+					<li>
+						<a href="/about/">About</a>
+					</li>
+					<li>
+						<a href="/contact_us/">Contact</a>
+					</li>
+					<li>
+						<a href="/give/">Give</a>
+					</li>
+				</ul>
+				<ul class="nav-level-1 nav nav-stacked col-xs-6 col-sm-4">
+					<li>
+						<a href="/news/">News</a>
+					</li>
+					<li>
+						<a href="/jobs/">Jobs</a>
+					</li>
+					<li>
+						<a href="/suppliers/">Suppliers</a>
+					</li>
+					<li>
+						<a href="/blog/">Blog</a>
+					</li>
+					<li>
+						<a href="/privacy_policy/">Privacy Policy</a>
+					</li>
+				</ul>
+			</nav>
+		</nav>
+
+		
+
+		<div class="col-sm-3 social-disclaimer">
+			$global_content_block_social_disclaimer
+			<p id="cw"></p>
+			[[ if theme_ymca_2013_home ]]
+			<p><a href="/about/youthspark/" class="ms-brand">
+				<img src="/amm/themes/ymca_2013/img/ms_logo.png" alt="Microsoft" class="ms-logo" />Enterprise technologies provided by Microsoft</a></p>
+			[[ end if theme_ymca_2013_home ]]
+		</div>
+	</div>
+</footer>
+
+<div class="text-center return-to-top" data-spy="affix" data-offset-top="52"><a href="#top" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a></div>
+
+	[[ end if theme_ymca_2015_blank_internal_no_nav ]]
+	
+$include($site_themes_directory/templates/www/amm/themes/ymca_2013/_includes/alerts.html)
+<!--googleon: index-->
+</div><!-- viewport -->
+<div id="modal" class="modal fade">
+	<div class="modal-cover"></div>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+				<div id="modal-title" class="modal-title"></div>
+			</div>
+			<div id="modal-body" class="modal-body"></div>
+		</div>
+	</div>
+</div>
+[[ if content_area_102 ]]
+<div id="user_modals">
+	$content_area_102
+</div>
+[[ end if content_area_102 ]]
+<script src="/amm/themes/ymca_2013/js/vendor/bootstrap.min.js?v=2"></script>
+<script src="/amm/themes/ymca_2013/js/plugins.min.js?v=8"></script>
+$include($site_themes_directory/templates/www/amm/themes/ymca_2013/_includes/templates.html)
+<script src="/amm/themes/ymca_2013/js/main.js?v=24"></script>
+<div style="display: none;">
+$global_content_block_sitewide_scripts
+</div>
+[[ if #any( theme_ymca_2013_blog_post, theme_ymca_2015_blog_post ) ]]
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e32d757236e8924"></script>
+[[ end if #any( theme_ymca_2013_blog_post, theme_ymca_2015_blog_post ) ]]
+</body>
+</html>

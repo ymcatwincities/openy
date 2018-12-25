@@ -1,0 +1,28 @@
+uuid: 3d58bdcc-4d4a-42cd-a4f9-759fe1367e48
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+id: returning_staff_employment_appli
+label: 'Returning Staff Employment Application'
+recipients:
+  - camp@redwingymca.org
+reply: ''
+weight: 0
+prefix: ''
+suffix: ''
+provideSubmissionPage: 0
+submissionPageContent:
+  value: ''
+  format: full_html
+submissionPageTitle: 'Thank you'
+email:
+  custom: 0
+  subject: ''
+  content:
+    value: ''
+    format: full_html

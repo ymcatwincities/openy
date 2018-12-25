@@ -1,0 +1,18 @@
+Index: core/lib/Drupal/Component/Utility/Html.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- core/lib/Drupal/Component/Utility/Html.php	(revision ec310ea2a6fbc2cfe564aeede4a282d86d7b7187)
++++ core/lib/Drupal/Component/Utility/Html.php	(revision )
+@@ -264,7 +264,9 @@
+
+     $dom = new \DOMDocument();
+     // Ignore warnings during HTML soup loading.
+-    @$dom->loadHTML($document);
++    libxml_use_internal_errors(true);
++    $dom->loadHTML($document);
++    libxml_clear_errors();
+
+     return $dom;
+   }

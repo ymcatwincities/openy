@@ -1,0 +1,8 @@
+ymca_alters.admin_config_entities:
+  title: 'YMCA Custom Entities'
+  parent: system.admin_config
+  route_name: ymca_alters.admin_config_entities
+ymca_alters.admin_config_ymca_services:
+  title: 'YMCA Services'
+  parent: system.admin_config
+  route_name: ymca_alters.admin_config_ymca_services

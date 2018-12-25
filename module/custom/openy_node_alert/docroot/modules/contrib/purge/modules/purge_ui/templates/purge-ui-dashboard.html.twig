@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Two column template borrowed from node-edit-form.html.twig to show the
+ * diagnostics overview right on the Purge configuration dashboard.
+ *
+ * Available variables:
+ * - build: The render array.
+ */
+#}
+<div class="layout-purgeui-dashboard clearfix">
+  {{ build.info }}
+  <div class="layout-region layout-region-purgeui-secondary">
+    {{ build.diagnostics }}
+    {{ build.logging }}
+  </div>
+  <div class="layout-region layout-region-purgeui-main">
+    {{ build|without('logging', 'diagnostics', 'info') }}
+  </div>
+</div>

@@ -1,0 +1,1148 @@
+{#
+/**
+ * @file
+ * Bartik's theme implementation to display a single page.
+ *
+ * The doctype, html, head and body tags are not in this template. Instead they
+ * can be found in the html.html.twig template normally located in the
+ * core/modules/system directory.
+ *
+ * Available variables:
+ *
+ * General utility variables:
+ * - base_path: The base URL path of the Drupal installation. Will usually be
+ *   "/" unless you have installed Drupal in a sub-directory.
+ * - is_front: A flag indicating if the current page is the front page.
+ * - logged_in: A flag indicating if the user is registered and signed in.
+ * - is_admin: A flag indicating if the user has permission to access
+ *   administration pages.
+ *
+ * Site identity:
+ * - front_page: The URL of the front page. Use this instead of base_path when
+ *   linking to the front page. This includes the language domain or prefix.
+ * - logo: The url of the logo image, as defined in theme settings.
+ * - site_name: The name of the site. This is empty when displaying the site
+ *   name has been disabled in the theme settings.
+ * - site_slogan: The slogan of the site. This is empty when displaying the site
+ *   slogan has been disabled in theme settings.
+
+ * Page content (in order of occurrence in the default page.html.twig):
+ * - node: Fully loaded node, if there is an automatically-loaded node
+ *   associated with the page and the node ID is the second argument in the
+ *   page's path (e.g. node/12345 and node/12345/revisions, but not
+ *   comment/reply/12345).
+ *
+ * Regions:
+ * - page.header: Items for the header region.
+ * - page.highlighted: Items for the highlighted region.
+ * - page.primary_menu: Items for the primary menu region.
+ * - page.secondary_menu: Items for the secondary menu region.
+ * - page.featured_top: Items for the featured top region.
+ * - page.content: The main content of the current page.
+ * - page.sidebar_first: Items for the first sidebar.
+ * - page.sidebar_second: Items for the second sidebar.
+ * - page.featured_bottom_first: Items for the first featured bottom region.
+ * - page.featured_bottom_second: Items for the second featured bottom region.
+ * - page.featured_bottom_third: Items for the third featured bottom region.
+ * - page.footer_first: Items for the first footer column.
+ * - page.footer_second: Items for the second footer column.
+ * - page.footer_third: Items for the third footer column.
+ * - page.footer_fourth: Items for the fourth footer column.
+ * - page.footer_fifth: Items for the fifth footer column.
+ * - page.breadcrumb: Items for the breadcrumb region.
+ *
+ * @see template_preprocess_page()
+ * @see bartik_preprocess_page()
+ * @see html.html.twig
+ */
+#}
+
+<a href="#main" id="skip-link">Skip to main content</a>
+
+<div class="viewport">
+  <div id="main" role="main">
+    <section class="content">
+      <div class="container">
+
+        <section class="messages">
+        </section>
+
+
+      </div>
+      <div class="container-full-width">
+        <style>
+          div.header {
+            position:fixed;
+            top:0;
+            left:0;
+            background: rgb(19,131,194) url({{ path_to_img }}y-logo-annual-report.png) 10px 10px no-repeat;
+            width:100%;
+            color:#fff;
+            padding: 10px 0 0 0;
+            z-index:9999;
+          }
+          div.header p {
+            padding:0;
+            font-family: 'Cachet';
+            font-size:1.5em;
+            font-weight:bold;
+            float:left;
+          }
+          div.header a.logo-link {
+            padding:5px 0 0 77px;
+            min-height:42px;
+            display:block;
+          }
+          div.header a.logo-link:link, div.header a.logo-link:visited, div.header a.logo-link:hover, div.header a.logo-link:active {
+            color:#fff;
+            text-decoration:none;
+          }
+          div.header .dropdown {
+            float:right;
+            margin:3px 10px 0 0;
+          }
+          div.header .dropdown ul {
+            left:auto;
+            right:0;
+          }
+          div.header .dropdown .icon-bar {
+            display:block;
+            height: 3px;
+            border-radius: 4px;
+            background: #bbb;
+            width:20px;
+            margin-bottom:3px;
+          }
+          nav.annual-report-nav {
+            background-color:rgba(19,131,194,0.75);
+            margin:20px 0;
+          }
+          nav.annual-report-nav a {
+            display:block;
+            padding:10px;
+            color:#fff;
+            font-size:1.3em;
+            text-align:center;
+            border-bottom:1px solid #46a1da;
+            text-shadow: 1px 2px #666;
+          }
+          nav.annual-report-nav a:hover {
+            background-color:#2d79a3;
+            text-decoration:none;
+          }
+          .section .container.nav-container {
+            max-width:300px;
+          }
+          .section {
+            font-family: 'Cachet';
+          }
+          .section p {
+            font-size:1.5em;
+            line-height:120%;
+            margin:0 0 20px 0;
+          }
+          .no-touch .section p.more-info {
+            display:none;
+          }
+          .touch .section p.more-info {
+            display:block;
+          }
+          .section h1, .section h2, .section h3 {
+            text-align:center;
+          }
+          .section .container {
+            max-width:830px;
+            color:#fff;
+          }
+          .content .section h1 {
+            color:#fff;
+            text-transform:none;
+            font-size:4.5em;
+            line-height:95%;
+            margin-bottom:20px;
+          }
+          .content section.financial h1 {
+            font-size:3em;
+          }
+          .content section.financial h2 {
+            font-size:2em;
+            margin-bottom:10px;
+            margin-top:40px;
+          }
+          .content section.financial h3 {
+            font-size:1.5em;
+            margin-bottom:20px;
+            margin-top:10px;
+          }
+          .toc {
+            background:url({{ path_to_img }}background-toc.jpg) top center no-repeat;
+            background-size: cover;
+            min-height:850px;
+            padding-top:60px;
+          }
+          .toc h1 {
+            font-size:3em;
+          }
+          .toc h2 {
+            font-size:3em;
+          }
+          .the-y-links {
+            text-align:center;
+          }
+          .the-y a:link, .the-y a:visited, .the-y a:hover, .the-y a:active {
+            text-decoration:none;
+            color:#fff;
+          }
+          .the-y {
+            background:url({{ path_to_img }}background-the-y.jpg) top center no-repeat;
+            background-size: cover;
+          }
+          .achievement-gap {
+            background:url({{ path_to_img }}background-achievement-gap.jpg) top center no-repeat;
+            background-size: cover;
+          }
+          .outdoor-experiences {
+            background:url({{ path_to_img }}background-outdoor-experiences.jpg) top center no-repeat;
+            background-size: cover;
+          }
+          .chronic-disease {
+            background:url({{ path_to_img }}background-chronic-disease.jpg) top center no-repeat;
+            background-size: cover;
+          }
+          .aoa {
+            background:url({{ path_to_img }}background-aoa.jpg) top center no-repeat;
+            background-size: cover;
+          }
+          .water-safety {
+            background:url({{ path_to_img }}background-water-safety.jpg) top center no-repeat;
+            background-size: cover;
+          }
+          .youth {
+            background:url({{ path_to_img }}background-youth.jpg) top center no-repeat;
+            background-size: cover;
+          }
+          .thank-you {
+            background-color:#a92c31;
+          }
+          .thank-you img {
+            width:100%;
+            box-shadow: 0 3px 3px rgba(0,0,0,.4);
+          }
+          .content .infographics {
+            margin-bottom:30px;
+          }
+          .content .infographics .col-xs-6 {
+            padding-left:0;
+            padding-right:0;
+            padding-bottom:30px;
+          }
+          .content .infographics .col-xs-6.left-col {
+            padding-left:10px;
+          }
+          .content .infographics .col-xs-6.right-col {
+            padding-right:10px;
+          }
+          .content .infographics h1, .content .infographics p, .content .financial h1, .content .financial h2, .content .financial h3  {
+            /*color:#666;*/
+            color:#000;
+          }
+          content .financial h1  {
+            font-size:4.5em;
+            text-shadow:none;
+          }
+          .content .infographics img  {
+            width:100%;
+          }
+          .content a.read-more:link, .content a.read-more:visited, .content a.read-more:hover, .content a.read-more:active {
+            color:#fff;
+            text-decoration:underline;
+          }
+          a.read-more.opened {
+            display:none;
+          }
+          a.read-more.collapsed {
+            display:block
+          }
+          .content hr {
+            margin:0 0 5px 0;
+            padding:0;
+            border-top:10px solid #94908c;
+            box-shadow: 0 2px 2px rgba(0,0,0,.3);
+          }
+          .content hr.noshadow {
+            margin:0;
+          }
+          .statistic {
+            text-align:center;
+            font-family: 'Cachet';
+            max-width: 1200px;
+            padding:20px 15px;
+          }
+          .statistic p {
+            /*font-size:2.3em;*/
+            font-size:1.5em;
+            /*color:#58595b;*/
+            color:#000;
+            line-height:120%;
+          }
+          .statistic p.citation {
+            /*font-size:1.7em;*/
+            font-size:1.3em;
+          }
+          span.magenta {
+            color:#c6168d;
+            font-weight:bold;
+          }
+          span.purple-one {
+            color:#5c2d91;
+            font-weight:bold;
+          }
+          span.purple-one {
+            color:#5c2d91;
+            font-weight:bold;
+          }
+          span.purple-two {
+            color:#8b12c3;
+            font-weight:bold;
+          }
+          span.purple-three {
+            color:#92278f;
+            font-weight:bold;
+          }
+          span.blue {
+            color:#0a3dc9;
+            font-weight:bold;
+          }
+          span.orange-one {
+            color:#f25822;
+            font-weight:bold;
+          }
+          span.orange-two {
+            color:#d7aa0c;
+            font-weight:bold;
+          }
+          span.light-blue {
+            color:#0e73e5;
+            font-weight:bold;
+          }
+          span.green {
+            color:#047128;
+            font-weight:bold;
+          }
+          .stat-the-y {
+            max-width:775px;
+          }
+          .stat-achievement-gap {
+            /*font-size:1.2em;*/
+            max-width:960px;
+          }
+          .stat-outdoor-experiences {
+            max-width:1010px;
+          }
+
+          .flex-video {
+            position: relative;
+            padding-top: 25px;
+            padding-bottom: 67.5%;
+            height: 0;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 8px rgba(0,0,0,.4);
+          }
+
+          .flex-video.widescreen { padding-bottom: 52.5%; }
+          .flex-video.vimeo { padding-top: 0; }
+
+          .flex-video iframe,
+          .flex-video object,
+          .flex-video embed {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+          blockquote {
+            position:relative;
+            border:none;
+            border-radius:40px;
+            background-color:rgba(19,131,194,0.75);
+            padding:30px;
+            margin-left:100px;
+            margin-bottom:75px;
+          }
+          .section blockquote p {
+            font-size:1.5em;
+            line-height:130%;
+          }
+
+          blockquote p.source {
+            font-size:1em;
+          }
+          .achievement-gap blockquote {
+            background-color:rgba(214,12,140,0.87);
+          }
+
+          .outdoor-experiences blockquote {
+            background-color:rgba(57,181,74,0.87);
+          }
+          .chronic-disease blockquote {
+            background-color:rgba(242,29,79,0.87);
+          }
+          .aoa blockquote {
+            background-color:rgba(246,146,39,0.87);
+          }
+          .water-safety blockquote {
+            background-color:rgba(39,209,246,0.87);
+          }
+          .youth blockquote {
+            background-color:rgba(13,156,124,0.87);
+          }
+          blockquote:after {
+            content: '';
+            position: absolute;
+            border-style: solid;
+            border-width: 50px 15px 0;
+            border-color: rgba(214,12,140,0.87) transparent;
+            display: block;
+            width: 0;
+            z-index: 1;
+            bottom: -50px;
+            right: 50px;
+          }
+          .achievement-gap blockquote:after {
+            border-color: rgba(214,12,140,0.87) transparent;
+          }
+          .outdoor-experiences blockquote:after {
+            border-color: rgba(57,181,74,0.87) transparent;
+          }
+          .chronic-disease blockquote:after {
+            border-color: rgba(242,29,79,0.87) transparent;
+          }
+          .aoa blockquote:after {
+            border-color: rgba(246,146,39,0.87) transparent;
+          }
+          .water-safety blockquote:after {
+            border-color: rgba(39,209,246,0.87) transparent;
+          }
+          .youth blockquote:after {
+            border-color: rgba(13,156,124,0.87) transparent;
+          }
+
+          footer p {
+            font-family:'Cachet';
+            font-size:1em;
+            text-align:center;
+            padding:0 15px;
+          }
+
+          .thank-you-links {
+            list-style:none;
+            margin:0;
+            padding:0;
+          }
+
+          .thank-you-links li {
+            display:inline;
+            padding-left:0;
+          }
+
+          .thank-you-links a {
+            color:#fff;
+            font-size:1.2em;
+            text-align:center;
+            display:block;
+            padding-bottom:20px;
+          }
+
+          .thank-you-links a:link, .thank-you-links a:visited, .thank-you-links a:hover, .thank-you-links a:active {
+            text-decoration:none;
+          }
+
+          .thank-you-links > * a:before {
+            margin-right: 10px;
+            margin-left: 10px;
+            width: 8%;
+            color: #fff;
+            content:'o';
+            vertical-align: middle;
+            vertical-align: baseline;
+            text-align: center;
+            font-size: 24px;
+            font-family:'YMCA';
+            -webkit-transition: color .3s ease-out;
+            -moz-transition: color .3s ease-out;
+            -ms-transition: color .3s ease-out;
+          }
+
+          .financial > * a:before {
+            margin-right: 10px;
+            margin-left: 10px;
+            width: 8%;
+            color: #666;
+            content:'o';
+            vertical-align: middle;
+            vertical-align: baseline;
+            text-align: center;
+            font-size: 24px;
+            font-family:'YMCA';
+            -webkit-transition: color .3s ease-out;
+            -moz-transition: color .3s ease-out;
+            -ms-transition: color .3s ease-out;
+          }
+
+          .the-y > * a:before {
+            margin-right: 10px;
+            margin-left: 10px;
+            width: 8%;
+            color: #fff;
+            content:'o';
+            vertical-align: middle;
+            vertical-align: baseline;
+            text-align: center;
+            font-size: 24px;
+            font-family:'YMCA';
+            -webkit-transition: color .3s ease-out;
+            -moz-transition: color .3s ease-out;
+            -ms-transition: color .3s ease-out;
+          }
+
+          .financial-detail-link a:before {
+            margin-right: 10px;
+            margin-left: 10px;
+            width: 8%;
+            color: #666;
+            content:'o';
+            vertical-align: middle;
+            vertical-align: baseline;
+            text-align: center;
+            font-size: 24px;
+            font-family:'YMCA';
+            -webkit-transition: color .3s ease-out;
+            -moz-transition: color .3s ease-out;
+            -ms-transition: color .3s ease-out;
+          }
+
+          .financial a:link, .financial a:visited, .financial a:hover, .financial a:active, .financial-detail-link a:link, .financial-detail-link a:visited, .financial-detail-link a:hover, .financial-detail-link a:active  {
+            text-decoration:none;
+            text-align:center;
+            display:block;
+            /*color:#666;*/
+            color:#000;
+          }
+          .footer-links {
+            width:172px;
+            margin-top:20px;
+            padding:0;
+          }
+
+          .financial {
+            color:#666;
+          }
+
+          .financial div {
+            padding:0 20px;
+          }
+
+          .financial div.table-responsive {
+            padding:0;
+          }
+
+          .financial img {
+            /*width:100%;*/
+            padding-bottom:20px;
+          }
+
+          .financial p {
+            text-align:center;
+          }
+
+          .financial table.narrow-table {
+            max-width:450px;
+            margin:0 auto;
+          }
+
+          .financial table.table th {
+            vertical-align:bottom;
+            background:#0089cf;
+            color:#fff;
+          }
+
+          .financial table.table tr.heading-row td {
+            background:#0089cf;
+            color:#fff;
+            vertical-align:bottom;
+          }
+
+          .financial table.ye-2013 th {
+            background:#af292e;
+          }
+
+          .financial table.table tr.total td {
+            font-weight:bold;
+          }
+
+          section.financial table {
+            color:#000;
+          }
+
+          .popover-content, .popover-title {
+            color:#000;
+          }
+
+          .popover-content {
+            width:300px;
+            font-size:1.7em;
+            line-height:120%;
+            padding-right:50px;
+          }
+
+          section.directors {
+            padding-top:100px;
+          }
+
+          .content section.board h1, .content section.financial-data h1 {
+            color:#00539f;
+            text-shadow:none;
+            font-size:2.65em;
+            margin-bottom:20px;
+          }
+
+          .content section.board h1 {
+            letter-spacing:-1px;
+          }
+
+          .content section.board .directorscolumn p {
+            margin-bottom:0;
+          }
+
+          .content section.board h2 {
+            color:#00539f;
+            text-shadow:none;
+            font-size:1.5em;
+            text-align:left;
+          }
+
+          .content section.board p {
+            color:#010101;
+            font-size:1.3em;
+          }
+
+          .content section.board p.officer {
+            font-weight:bold;
+          }
+
+          .content section.board p.officer span {
+            font-weight:normal;
+            display:block;
+            padding-left:10px;
+          }
+
+          .content section.financial-data .container {
+            padding-top:75px;
+            /*color:#010101;*/
+            color:#000;
+            max-width:920px;
+          }
+
+          .financial-data table th, .financial-data table td {
+            vertical-align:bottom !important;
+          }
+
+          .financial-data p {
+            text-align:center;
+          }
+
+          .table-striped>tbody>tr>td {
+            background-color: #1c75bc;
+            color:#fff;
+          }
+
+          .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
+            background-color: #42ade2;
+            color:#fff;
+          }
+
+          .table-striped>tbody>tr.total td {
+            border-bottom:10px solid #fff;
+          }
+
+          .anchor{
+            display: block;
+            height: 60px; /*same height as header*/
+            margin-top: -60px; /*same height as header*/
+            visibility: hidden;
+          }
+
+          @media only screen and (max-device-width: 800px), only screen and (device-width: 1024px) and (device-height: 600px), only screen and (width: 1280px) and (orientation: landscape), only screen and (device-width: 800px), only screen and (max-width: 767px) {
+            .flex-video { padding-top: 0; }
+          }
+          @media (max-width: 767px) {
+            .viewport {
+              padding-top: 0px;
+            }
+            div.header {
+              padding:3px 0 0 0;
+            }
+            div.header .dropdown {
+              margin-top:7px;
+            }
+            div.header p {
+              font-size:1.35em;
+              margin-bottom:3px;
+            }
+            div.header a.logo-link {
+              padding:0 0 0 70px;
+            }
+
+
+            div.header p span {
+              display:block;
+            }
+            .anchor{
+              height: 45px; /*same height as header*/
+              margin-top: -45px; /*same height as header*/
+            }
+          }
+          @media (max-width: 480px) {
+            blockquote {
+              padding:15px;
+              margin-left:0;
+            }
+            .statistic {
+              padding:15px;
+            }
+            .content .section h1 {
+              font-size:3em;
+            }
+            .content section.board h1, .content section.financial-data h1 {
+              font-size:2em;
+            }
+            .content section.financial h1 {
+              font-size:2.5em;
+            }
+            .content section.financial h2 {
+              font-size:1.5em;
+              margin-top:20px;
+            }
+            .content section.financial h3 {
+              font-size:1em;
+            }
+
+            .statistic p {
+              font-size:1.2em;
+            }
+            p.financial-detail-link {
+              margin-bottom:0;
+            }
+
+            .statistic p.citation {
+              font-size:1.1em;
+            }
+
+            .section p {
+              font-size:1.2em;
+            }
+            .section blockquote p {
+              font-size:1.2em;
+              line-height:120%;
+            }
+
+            blockquote p.source {
+              font-size:.8em;
+            }
+            .toc {
+              padding-top:75px;
+              min-height:inherit;
+            }
+            .thank-you-links {
+              padding-left:0;
+            }
+            .thank-you-links li {
+              display:block;
+            }
+            div.header {
+              background: rgb(19,131,194) url({{ path_to_img }}y-logo-annual-report-sm.png) 7px 10px no-repeat;
+              padding:6px 0 0 0;
+            }
+            div.header p {
+              font-size:1em;
+            }
+            div.header a.logo-link {
+              padding:0 0 0 60px;
+              min-height:40px;
+              display:block;
+            }
+            div.header .dropdown {
+              float:right;
+              margin:0 7px 0 0;
+            }
+            div.header p span {
+              display:block;
+            }
+            div.header .dropdown .icon-bar {
+              width:18px;
+              margin-bottom:3px;
+            }
+            .popover-content {
+              width:155px;
+              font-size:1em;
+              padding-right:10px;
+
+            }
+            section.directors, section.financial-data {
+              padding-top:60px;
+            }
+
+            .content section.financial-data .container {
+              padding-top:0;
+            }
+            .financial img {
+              width:100%;
+            }
+          }
+
+
+        </style><div class="header clearfix">
+          <p><a href="{{ base_path }}about/annual_reports/2014_annual_report/" class="logo-link">YMCA of the Greater Twin Cities <span>2014 Annual Report</span></a></p>
+          <div class="dropdown dropdown-right">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#theY">The Y</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#impact">Impact Numbers</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#achievementGap">Achievement Gap</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#outdoorExperiences">Outdoor Experiences</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#chronicDisease">Chronic Disease</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#aoa">Active Older Adults</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#waterSafety">Water Safety</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#youthIntervention">Youth Intervention</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#financial">Financial Summary</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/cause-driven_leaders">Cause-driven Leaders</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ base_path }}about/annual_reports/2014_annual_report/#thankYou">Thank You</a></li>
+              <li role="presentation" class="divider"></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path_to_pdf }}YMCA-2014-Annual-Report.pdf">Print PDF</a></li>
+            </ul>
+          </div>
+        </div>
+        <section class="board section directors">
+          <div class="container">
+            <h1>General Board of Directors</h1>
+            <div class="row">
+              <div class="col-sm-6 directorscolumn">
+                <p class="officer"><strong>David J. Graff</strong> <span>Board Chair</span></p>
+                <p class="officer"><strong>David S. Wichmann</strong> <span>Vice Chair &amp; Treasurer</span>
+                <p class="officer"><strong>Lisa Humphreys</strong> <span>Secretary</span>
+                <p class="officer"><strong>John P. Gainor</strong> <span>Past Board Chair</span>
+                <p style="margin-top:15px;">Calvin U. Allen<br />
+                  James. L. Altman<br />
+                  Courtney Jordan Baechler<br />
+                  Anthony Bassett<br />
+                  John Bendt<br />
+                  Walter T. Chesley<br />
+                  Kathryn Correia<br />
+                  Deniz Cultu<br />
+                  Richard K. Davis<br />
+                  Jacquelyn K. Daylor<br />
+                  Richard M. Dorn<br />
+                  Robert Ehren<br />
+                  Ty W. Erickson<br />
+                  Tom Forsythe<br />
+                  Jeffrey P. Greiner<br />
+                  Mike Gustafson<br />
+                  Michael (Mick) J. Johnson<br />
+                  Robert L. Keene<br />
+                  Chuck Kelly</p>
+              </div>
+              <div class="col-sm-6">
+                <p>Michael J. Klingensmith<br />
+                  I.P. (Kip) Knelman<br />
+                  Jeffrey LaFavre<br />
+                  Michael L. LeJeune<br />
+                  Reid Lindquist<br />
+                  Michael J. Lovett<br />
+                  Matthew W. Marek<br />
+                  Robert J. Marzec<br />
+                  Steve W. Meads<br />
+                  Bruce W. Mooty<br />
+                  Elizabeth Nelson<br />
+                  Jayme (Jay) D. Olson<br />
+                  Scott Peterson<br />
+                  Kathryn Mitchell Ramstad<br />
+                  Michael Reeves<br />
+                  Jon F. Ruppel<br />
+                  Ronald J. Schutz<br />
+                  Rajni Shah<br />
+                  William F. Sharpe, III<br />
+                  Wendy S. Lovell-Smith<br />
+                  Paul Snyder<br />
+                  David St. Peter<br />
+                  Ronald J. Touchette<br />
+                  Andrea M. Walsh<br />
+                  Lance Whitacre<br />
+                  Eileen Youds<br />
+                  Catherine A. Zappa</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="board section">
+          <div class="container">
+            <h1>Community Board Chairs &amp; Executives</h1>
+            <div class="row">
+              <div class="col-sm-6">
+                <p><strong>Andover</strong><br />
+                  Jolee Molitor, Chair<br />
+                  Allison Boes, Executive Director<br />
+                  (P) 763-230-9622</p>
+                <p><strong>Blaisdell</strong><br />
+                  Jennifer Anderson, Co-Chair<br />
+                  Linda Madson, Co-Chair<br />
+                  Caleb Cooper, Executive Director<br />
+                  (P) 612-827-5401</p>
+                <p><strong>Burnsville</strong><br />
+                  Bob Larson, Chair<br />
+                  Scott Peterson, Executive Director<br />
+                  (P) 952-898-9622</p>
+                <p><strong>Coon Rapids</strong><br />
+                  Matthew Audette, Chair<br />
+                  Margie Rask, Executive Director<br />
+                  (P) 763-785-7882</p>
+                <p><strong>Eagan</strong><br />
+                  Heidi Springmeyer, Chair<br />
+                  Mike Lavin, District Executive Director<br />
+                  (P) 651-456-9622</p>
+                <p><strong>Elk River</strong><br />
+                  Julie Miller, Chair<br />
+                  Molly Hanson, Executive Director<br />
+                  (P) 763-230-2800</p>
+                <p><strong>Hastings</strong><br />
+                  Colleen Youngquist, Chair<br />
+                  Derrick Jaeger, Executive Director<br />
+                  (P) 651-480-8887</p>
+                <p><strong>Hudson</strong><br />
+                  Jim Gelina, Chair<br />
+                  Bryan Soper, Executive Director<br />
+                  (P) 715-386-1616</p>
+                <p><strong>Lino Lakes</strong><br />
+                  Mark Groff, Chair<br />
+                  Sharna Braucks, Executive Director<br />
+                  (P) 651-795-9622</p>
+                <p><strong>Minneapolis Downtown</strong><br />
+                  Joe Fickle, Chair<br />
+                  Matt Lund, Executive Director<br />
+                  (P) 612-371-8740</p>
+                <p><strong>New Hope</strong><br />
+                  Jeff Towey, Chair<br />
+                  Colleen Haubner, Executive Director<br />
+                  (P) 763-535-4800</p>
+                <p><strong>Ridgedale</strong><br />
+                  Matt Thompson, Chair<br />
+                  Mark Ihrke, Executive Director<br />
+                  (P) 952-544-7708</p>
+                <p><strong>River Valley</strong><br />
+                  Jack Haugen, Chair<br />
+                  Mary Erickson, Executive Director<br />
+                  (P) 952-230-9622</p>
+                <p><strong>Shoreview</strong><br />
+                  David King, Chair<br />
+                  Shannon Kinstler, Executive Director<br />
+                  (P) 651-483-2671</p>
+                <p><strong>Southdale</strong><br />
+                  Mario Carrington, Chair<br />
+                  Greg Hanks, District Executive Director<br />
+                  (P) 952-835-2567</p>
+                <p><strong>St. Paul Downtown</strong><br />
+                  James Knapp, Chair<br />
+                  Mary Britts, Executive Director<br />
+                  (P) 651-292-4143</p>
+                <p><strong>St. Paul Eastside</strong><br />
+                  Steven Wertz, Chair<br />
+                  Courtney Troyer, Executive Director<br />
+                  (P) 651-771-8881</p>
+              </div>
+              <div class="col-sm-6">
+                <p><strong>St. Paul Midway</strong><br />
+                  Nate Kuehl, Chair<br />
+                  David Dominick, District Executive Director<br />
+                  (P) 651-646-4557</p>
+                <p><strong>West St. Paul</strong><br />
+                  Sharon Reichenbach, Chair<br />
+                  Katie Lowe, Executive Director<br />
+                  (P) 651-457-0048</p>
+                <p><strong>White Bear</strong><br />
+                  John Poulson, Chair<br />
+                  Shane Hoefer, Executive Director<br />
+                  (P) 651-777-8103</p>
+                <p><strong>Woodbury</strong><br />
+                  David Wolterstorff, Chair<br />
+                  Heidi Bardwell, Executive Director<br />
+                  (P) 651-731-9507</p>
+                <h2>Program &amp; Community Centers</h2>
+                <p><strong>Heritage Park</strong><br />
+                  Joffrey Wilson, Chair<br />
+                  Henry Crosby, Executive Director<br />
+                  (P) 612-821-2193</p>
+                <p><strong>North Community</strong><br />
+                  Eric Alexander, Chair<br />
+                  Matt Kjorstad, Executive Director<br />
+                  (P) 612-588-9484</p>
+                <p><strong>Northeast</strong><br />
+                  Matthew Audette, Chair<br />
+                  Margie Raske, Executive Director<br />
+                  (P) 612-789-8803</p>
+                <p><strong>University</strong><br />
+                  Jerry Rinehart, Chair<br />
+                  Jenny Wright Collins, Executive Director<br />
+                  (P) 612-676-7700</p>
+                <p><strong>Youth in Government</strong><br />
+                  Scott J. Peterson, Chair<br />
+                  Orville Lindquist, Program Executive<br />
+                  (P) 612-823-1381</p>
+                <h2>Overnight Camps</h2>
+                <p><strong>du Nord</strong><br />
+                  Jane Armstrong, Chair<br />
+                  Niki Geisler, Executive Director<br />
+                  (P) 218-365-0365</p>
+                <p><strong>Icaghowan</strong><br />
+                  Sam Schuth, Chair<br />
+                  Bob Gagner, Executive Director<br />
+                  (P) 715-268-8377</p>
+                <p><strong>Ihduhapi</strong><br />
+                  Todd Faber, Chair<br />
+                  Kerry Pioske, Executive Director<br />
+                  (P) 763-479-1146</p>
+                <p><strong>Menogyn</strong><br />
+                  Katy Hargis, Chair<br />
+                  Doug Nethercut, Executive Director<br />
+                  (P) 218-388-4497</p>
+                <p><strong>St. Croix</strong><br />
+                  Tom Madigan, Chair<br />
+                  Amy Schneider, Executive Director<br />
+                  (P) 715-386-4380</p>
+                <p><strong>Warren</strong><br />
+                  Doug Mayo, Chair<br />
+                  David Searl, Executive Director<br />
+                  (P) 218-744-4222</p>
+                <p><strong>Widjiwagan</strong><br />
+                  Erin Walsh, Chair<br />
+                  Liz Flinn, Executive Director<br />
+                  (P) 651-645-6605</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="board section">
+          <div class="container">
+            <h1>YMCA Leadership</h1>
+            <div class="row">
+              <div class="col-sm-6">
+                <p><strong>Glen Gunderson</strong><br />
+                  Chief Executive Officer and President</p>
+                <p><strong>Todd Tibbits</strong><br />
+                  Chief Operating Officer</p>
+                <p><strong>Greg Waibel</strong><br />
+                  Chief Financial Officer</p>
+                <p><strong>Sharon Berglund</strong><br />
+                  Chief Human Resources Officer</p>
+                <p><strong>Bob Thomas</strong><br />
+                  Chief Experience Officer</p>
+                <p><strong>Anita Lancello Bydlon</strong><br />
+                  Senior Vice President of <br />
+                  Real Estate Development</p>
+                <p><strong>Kerry! Givens</strong><br />
+                  Vice President Mission Advancement</p>
+                <p><strong>Stephanie Chauss</strong><br />
+                  Vice President Operations – <br />
+                  South Region</p>
+                <p><strong>Tom Kranz</strong><br />
+                  Vice President Camp Operations</p>
+              </div>
+              <div class="col-sm-6">
+                <p><strong>Lee Kroll</strong><br />
+                  Vice President Membership Development</p>
+                <p><strong>Chad Lanners</strong><br />
+                  Vice President Operations – <br />
+                  North Region</p>
+                <p><strong>Nathan Maehren</strong><br />
+                  Senior Vice President Experience and Technology</p>
+                <p><strong>Jeff Martin</strong><br />
+                  Associate Vice President <br />
+                  Facility Services</p>
+                <p><strong>Pat Riemersma</strong><br />
+                  Vice President Youth Development</p>
+                <p><strong>Cassie Rood</strong><br />
+                  Vice President Healthy Living</p>
+                <p><strong>Cassidy K. Titcomb</strong><br />
+                  Associate Vice President <br />
+                  Major Gifts and Planned Giving</p>
+                <p><strong>Hedy Walls</strong><br />
+                  Vice President Social Responsibility</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <hr class="divider">
+        <footer>
+          <div class="container footer-links social-disclaimer">
+            <ul class="list-inline"><li>
+                <a class="social-icon icon-facebook" href="http://www.facebook.com/YMCATwinCities" target="_blank">Facebook</a>
+              </li>
+              <li>
+                <a class="social-icon icon-twitter" href="http://twitter.com/ymcatwincities" target="_blank">Twitter</a>
+              </li>
+              <li>
+                <a class="social-icon icon-youtube" href="http://www.youtube.com/user/YMCATwinCities" target="_blank">YouTube</a>
+              </li>
+              <li>
+                <a class="social-icon icon-flickr" href="http://www.flickr.com/photos/ymcatwincities" target="_blank">Flickr</a>
+              </li>
+            </ul>
+          </div>
+          <p><strong>&copy;2015 YMCA Twin Cities</strong></p>
+          <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living and Social Responsibility</p>
+        </footer>
+        <div class="text-center return-to-top" data-spy="affix" data-offset-top="52"><a href="#top" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a></div>
+      </div>
+    </section>
+  </div>
+
+
+
+  <section class="messages">
+  </section>
+
+  <!--googleon: index-->
+</div><!-- viewport -->
+<div id="modal" class="modal fade">
+  <div class="modal-cover"></div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+        <div id="modal-title" class="modal-title"></div>
+      </div>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
+</div>
+
+{% include '@ymca/template-scripts.html' %}
+
+<div style="display: none;">
+
+  <script type="text/javascript">
+    /*<![CDATA[*/
+    (function() {
+      var sz = document.createElement('script'); sz.type = 'text/javascript'; sz.async = true;
+      sz.src = '//us1.siteimprove.com/js/siteanalyze_6004400.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sz, s);
+    })();
+    /*]]>*/
+  </script>
+
+</div>

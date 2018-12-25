@@ -1,0 +1,56 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/block\/7?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/block_content\/code_block"
+        }
+    },
+    "uuid": [
+        {
+            "value": "7c74f403-b7cb-4dd8-ba1e-305e4c906f7e"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "info": [
+        {
+            "value": "[Facebook Feed] Hastings Y",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "code_block"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1445835081",
+            "lang": "en"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "field_code": [
+        {
+            "value": "<div class=\"fb-page\" data-href=\"https:\/\/www.facebook.com\/hastingsareaymca\" data-width=\"500\" data-height=\"300\" data-small-header=\"true\" data-adapt-container-width=\"true\" data-hide-cover=\"false\" data-show-facepile=\"false\" data-show-posts=\"true\"><div class=\"fb-xfbml-parse-ignore\"><blockquote cite=\"https:\/\/www.facebook.com\/hastingsareaymca\"><a href=\"https:\/\/www.facebook.com\/hastingsareaymca\">Hastings YMCA<\/a><\/blockquote><\/div><\/div>",
+            "format": "code"
+        }
+    ]
+}

@@ -1,0 +1,181 @@
+@mixin hide-text($img: false, $position: false) {
+  white-space: nowrap;
+  overflow: hidden;
+  @if $img == true {
+    line-height: 0;
+  }
+  @if $position == true {
+    text-indent: -9999px;
+  }
+  @if $position == false {
+    text-indent: 100%;
+  }
+}
+
+@mixin clearfix(){
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin pseudo-block($top: false, $right: false, $bottom: false, $left: false, $relative: false) {
+  content: "";
+
+  @if ($relative == false) {
+    display: block;
+    position: absolute;
+  } @else {
+    position: relative;
+    display: block;
+  }
+  @if ($top) {
+    top: $top;
+  }
+  @if ($right) {
+    right: $right;
+  }
+  @if ($bottom) {
+    bottom: $bottom;
+  }
+  @if ($left) {
+    left: $left;
+  }
+}
+
+@mixin form-placeholder ($color: inherit, $fontf: 0) {
+  &::-webkit-input-placeholder {
+
+    @if $fontf != 0 {
+      font-family: $fontf;
+    }
+
+    color: $color;
+  }
+
+  &::-moz-placeholder {
+
+    @if $fontf != 0 {
+      font-family: $fontf;
+    }
+
+    color: $color;
+  }
+
+  &:-moz-placeholder {
+
+    @if $fontf != 0 {
+      font-family: $fontf;
+    }
+
+    color: $color
+  }
+
+  &:-ms-input-placeholder {
+
+    @if $fontf != 0 {
+      font-family: $fontf;
+    }
+
+    color: $color;
+  }
+}
+
+@mixin text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 99.9%;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@function pxtorem($px){
+  @return ($px / $fontSizeRoot) + rem;
+}
+
+@function lh($lh, $fontSizeDefault: $fontSizeRoot) {
+  @return $lh / $fontSizeDefault;
+}
+
+@mixin respond-to($media) {
+  @if $media == mobile-small {
+    @media only screen and (max-width: $mobile-small) {
+      @content;
+    }
+  }
+
+  @if $media == mobile-medium {
+    @media only screen and (max-width: $mobile-medium) {
+      @content;
+    }
+  }
+
+  @else if $media == mobile-medium-screens {
+    @media only screen and (min-width: $mobile-small + 1) and (max-width: $mobile-medium) {
+      @content;
+    }
+  }
+
+  @else if $media == mobile {
+    @media only screen and (max-width: $mobile-medium) {
+      @content;
+    }
+  }
+
+  @else if $media == mobile-landscape {
+    @media only screen and (max-width: $mobile-medium) and (orientation : landscape) {
+      @content;
+    }
+  }
+
+  @else if $media == tablet-small-screens {
+    @media only screen and (min-width: $mobile-medium + 1) and (max-width: $tablet-small) {
+      @content;
+    }
+  }
+
+  @else if $media == tablet-medium-screens {
+    @media only screen and (min-width: $tablet-small + 1) and (max-width: $tablet-medium) {
+      @content;
+    }
+  }
+
+  @else if $media == tablet {
+    @media only screen and (max-width: $tablet-medium) {
+      @content;
+    }
+  }
+
+  @else if $media == large-screens {
+    @media only screen and (min-width: $tablet-medium + 1) and (max-width: $large) {
+      @content;
+    }
+  }
+
+  @else if $media == large {
+    @media only screen and (min-width: $large) {
+      @content;
+    }
+  }
+}
+
+@mixin apply-to($ltgt, $device) {
+  $extrema: null;
+  @if $ltgt == less-than {
+    $extrema: max;
+  }
+  @if $ltgt == greater-than {
+    $extrema: min
+  }
+  @if $device == $ipad-landscape {
+    @media only screen and (#{$extrema}-width: $ipad-landscape) {
+      @content;
+    }
+  }
+}

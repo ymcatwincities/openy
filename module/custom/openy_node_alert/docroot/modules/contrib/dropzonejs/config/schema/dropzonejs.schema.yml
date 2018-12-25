@@ -1,0 +1,7 @@
+dropzonejs.settings:
+  type: config_object
+  label: 'DropzoneJS settings'
+  mapping:
+    tmp_upload_scheme:
+      type: string
+      label: 'Upload scheme'

@@ -1,0 +1,15 @@
+name: Domain Source
+description: 'Domain-based path rewrites for content.'
+type: module
+package: Domain
+# version: VERSION
+# core: 8.x
+dependencies:
+  - domain
+  - node
+
+# Information added by Drupal.org packaging script on 2018-03-08
+version: '8.x-1.0-alpha13'
+core: '8.x'
+project: 'domain'
+datestamp: 1520519900

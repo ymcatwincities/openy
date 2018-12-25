@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * @file
+ * Contains logger_entity.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function logger_entity_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the logger_entity module.
+    case 'help.page.logger_entity':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides custom entity for logging.') . '</p>';
+      return $output;
+
+    default:
+  }
+
+  return FALSE;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function logger_entity_theme() {
+  $theme = [];
+  $theme['logger_entity'] = array(
+    'render element' => 'elements',
+    'file' => 'logger_entity.page.inc',
+    'template' => 'logger_entity',
+  );
+  $theme['logger_entity_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'logger_entity.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function logger_entity_theme_suggestions_logger_entity(array $variables) {
+  $suggestions = array();
+  $entity = $variables['elements']['#logger_entity'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'logger_entity__' . $sanitized_view_mode;
+  $suggestions[] = 'logger_entity__' . $entity->bundle();
+  $suggestions[] = 'logger_entity__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'logger_entity__' . $entity->id();
+  $suggestions[] = 'logger_entity__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}
+
+/**
+ * Implements template_preprocess_views_view_table().
+ */
+function logger_entity_preprocess_views_view_table(&$vars) {
+  $displays = ['full', 'fail', 'ok'];
+  if ($vars['view']->id() == "mindbody_booking_log" && in_array($vars['view']->current_display, $displays)) {
+    foreach ($vars['rows'] as $key => $row) {
+      $data = unserialize($vars['result'][$key]->logger_entity_data);
+      $response_data = !empty($data['response_data']) ? unserialize($data['response_data']) : '';
+      // Format errors messages.
+      if (isset($response_data->GetClientServicesResult->Message)) {
+        $message = $response_data->GetClientServicesResult->Message;
+      }
+      elseif (isset($response_data->AddOrUpdateAppointmentsResult->Appointments->Appointment->Messages->string)) {
+        $message = $response_data->AddOrUpdateAppointmentsResult->Appointments->Appointment->Messages->string;
+      }
+      elseif ($response_data->GetClientServicesResult->ErrorCode == 200 && empty($response_data->GetClientServicesResult->Message)) {
+        $message = t('Error Code: 200 (no response message)');
+      }
+      if (isset($message)) {
+        $vars['rows'][$key]['columns']['data_6']['content'][0]['field_output']['#markup'] = $message;
+      }
+      // Format location name.
+      $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
+      $mapping = $mapping_repository_location->findByMindBodyId($data['location_id']);
+      if (!empty($mapping) && !empty($name = $mapping->getName())) {
+        $vars['rows'][$key]['columns']['data_3']['content'][0]['field_output']['#markup'] = $name;
+      }
+    }
+  }
+}

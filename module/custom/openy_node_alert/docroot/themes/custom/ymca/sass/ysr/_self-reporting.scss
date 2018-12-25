@@ -1,0 +1,555 @@
+$reporting-goal: #554a5c;
+$activities-gradient-top: #836da1;
+$activities-gradient-bottom: #695789;
+$activity-item-background-hover: #7e6c9b;
+$activity-item-background-active: #229494;
+$activity-item-icon-background-active: #26bcbd;
+$activity-item-background-active-hover: #31adad;
+$track-activity-button: #db65b5;
+$track-activity-button-hover: #e882c8;
+
+.ysr-self-reporting {
+
+  #hero-section {
+    @include rem(padding-bottom, 110px);
+
+    @include breakpoint($tablet) {
+      @include rem(padding-bottom, 70px);
+    }
+  }
+
+}
+
+.member-info {
+  @include rem(padding-top, 35px);
+  background-color: $green-light;
+  background-image: url('../prototypes/ysr/img/reporting/background.png');
+  background-size: cover;
+  text-transform: uppercase;
+
+  @include breakpoint($tablet) {
+    @include rem(padding-top, 60px);
+    @include rem(padding-bottom, 50px);
+  }
+
+  .container {
+    @include rem(max-width, 1280px);
+  }
+
+  h3 {
+    @include rem(font-size, 30px);
+    @include rem(line-height, 30px);
+    @include rem(padding-top, 14px);
+    color: $white;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include breakpoint($tablet) {
+      @include rem(padding-top, 2px);
+      @include rem(font-size, 30px);
+      @include rem(line-height, 30px);
+      overflow: visible;
+    }
+  }
+
+  &--general,
+  &--stats {
+    position: relative;
+    text-align: center;
+
+    @include breakpoint($tablet) {
+      @include rem(height, 100px);
+      text-align: left;
+    }
+  }
+
+  &--name-goal {
+    @include rem(padding-bottom, 25px);
+    @include rem(padding-left, 90px);
+    display: inline-block;
+    margin: auto;
+    max-width: 100%;
+    position: relative;
+    text-align: left;
+
+    @include breakpoint($tablet) {
+      @include rem(padding-left, 145px);
+      display: block;
+      padding-bottom: 0;
+    }
+
+    .person-icon {
+      @include rem(width, 65px);
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      @include breakpoint($tablet) {
+        @include rem(width, 100px);
+        @include rem(height, 100px);
+      }
+    }
+  }
+
+  &--goal {
+    @include cachet();
+    @include rem(line-height, 11px);
+    @include rem(padding-top, 13px);
+    color: $reporting-goal;
+    display: block;
+    white-space: nowrap;
+
+    @include breakpoint($tablet) {
+      @include rem(line-height, 32px);
+      @include rem(padding-bottom, 11px);
+      padding-top: 0;
+    }
+
+    &-value {
+      font-weight: bold;
+    }
+  }
+
+  &--progress-bar {
+    @include rem(border-radius, 12.5px);
+    @include rem(height, 25px);
+    background-color: $white;
+    bottom: 0;
+    overflow: hidden;
+    position: relative;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-left, 145px);
+    }
+
+    &--value {
+      @include rem(font-size, 13px);
+      @include rem(height, 25px);
+      @include rem(line-height, 25px);
+      @include rem(padding-left, 10px);
+      @include rem(padding-right, 10px);
+      background-color: $purple-light;
+      color: $white;
+      font-weight: bold;
+      left: 0;
+      position: absolute;
+      text-align: right;
+      top: 0;
+    }
+  }
+
+  &--stats {
+    @include cachet;
+    @include rem(padding, 22px 0 22px 0);
+    color: $white;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 16px;
+
+    @include breakpoint($tablet) {
+      &--wrapper {
+        @include rem(padding, 0 0 0 45px);
+        bottom: 0;
+        position: absolute;
+      }
+    }
+
+    .rank,
+    .total-activities {
+      @include rem(height, 16px);
+      @include rem(line-height, 24px);
+      @include rem(padding-left, 30px);
+      @include rem(padding-right, 30px);
+      white-space: nowrap;
+
+      &:before {
+        @include rem(height, 16px);
+        @include rem(margin-left, -29px);
+        @include rem(margin-top, 3px);
+        @include rem(width, 17px);
+        background: url('../prototypes/ysr/img/reporting/star-icon.png') no-repeat;
+        background-size: contain;
+        content: '';
+        display: inline-block;
+        position: absolute;
+      }
+    }
+
+    .rank {
+      padding-right: 0;
+
+      &:before {
+        background-image: url('../prototypes/ysr/img/reporting/cup-icon.png');
+      }
+    }
+  }
+}
+
+.campaign-dates {
+
+  .container {
+    @include rem(max-width, 1200px);
+    @include rem(padding, 0 30px);
+
+    @include breakpoint($mobile-landscape) {
+      @include rem(padding, 0 50px);
+    }
+  }
+
+  & &--slider-container {
+    @include rem(margin-bottom, 40px);
+    @include rem(margin-top, 40px);
+
+    .slick-list {
+      &::before,
+      &::after {
+        @include rem(height, 100%);
+        @include rem(width, 20px);
+        background-image: linear-gradient(90deg, $white, rgba(255, 255, 255, 0));
+        content: ' ';
+        display: block;
+        left: 0;
+        position: absolute;
+        top: 0;
+        z-index: 10;
+      }
+
+      &::after {
+        background-image: linear-gradient(-90deg, $white, rgba(255, 255, 255, 0));
+        left: auto;
+        right: 0;
+      }
+    }
+  }
+
+  &--date {
+    @include rem(width, 100px);
+    outline: none;
+    position: relative;
+    text-align: center;
+
+    a {
+      outline: none;
+    }
+
+    .weekday {
+      @include cachet();
+      @include rem(font-size, 15px);
+      @include rem(padding-bottom, 4px);
+      color: $grey5;
+      display: block;
+      text-align: center;
+    }
+
+    .month-day {
+      @include cachet();
+      @include rem(border-radius, 32px);
+      @include rem(border-width, 2px);
+      @include rem(font-size, 18px);
+      @include rem(height, 64px);
+      @include rem(line-height, 18px);
+      @include rem(margin, 5px);
+      @include rem(padding, 22px 0);
+      @include rem(width, 64px);
+      border-style: solid;
+      color: $grey7;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .activities-count {
+      @include cachet();
+      @include rem(border-radius, 15px);
+      @include rem(font-size, 15px);
+      @include rem(height, 30px);
+      @include rem(line-height, 30px);
+      @include rem(margin, 3px 10px 0 0);
+      @include rem(width, 30px);
+      background-color: $pale-purple-2;
+      bottom: 0;
+      right: 0;
+      color: $white;
+      display: block;
+      font-weight: bold;
+      position: absolute;
+    }
+
+    &-past {
+      .month-day {
+        border-color: $purple-light;
+      }
+    }
+
+    &-current {
+      .month-day {
+        @include rem(border-radius, 38px);
+        @include rem(border-width, 7px);
+        @include rem(height, 76px);
+        @include rem(width, 76px);
+        border-color: $pale-purple-2;
+        margin: 0;
+      }
+    }
+
+    &-future {
+      .month-day {
+        border-color: $grey8-ysr;
+        color: $grey8-ysr;
+      }
+
+      .activities-count {
+        display: none;
+      }
+    }
+
+    &-no-activity {
+      .activities-count {
+        display: none;
+      }
+    }
+
+  }
+
+  .slick-prev,
+  .slick-next {
+    @include rem(margin-top, 4px);
+
+    &:before {
+      @include rem(background-size, 12px 20px);
+      @include rem(height, 20px);
+      @include rem(width, 12px);
+      background-repeat: no-repeat;
+      content: "";
+      display: block;
+      position: relative;
+    }
+  }
+  .slick-prev {
+    &:before {
+      background-image: url('../prototypes/ysr/img/reporting/arrow-left.png');
+    }
+  }
+
+  .slick-next {
+    @include rem(padding-left, 6px);
+
+    &:before {
+      background-image: url('../prototypes/ysr/img/reporting/arrow-right.png');
+    }
+  }
+}
+
+.activities {
+  @include background-image(linear-gradient(180deg, $activities-gradient-top, $activities-gradient-bottom));
+  @include rem(padding-top, 53px);
+
+  @include breakpoint($tablet) {
+    @include rem(padding-top, 100px);
+  }
+
+  & > .container {
+    @include rem(padding-left, 30px);
+    @include rem(padding-right, 30px);
+  }
+
+  .activity-groups {
+    @include rem(padding-bottom, 40px);
+    text-align: center;
+
+    @include breakpoint($tablet) {
+      @include rem(padding-bottom, 100px);
+    }
+
+    .activity-group-item {
+      @include rem(width, 123px);
+      display: inline-block;
+      vertical-align: top;
+
+      @include breakpoint($tablet) {
+        @include rem(width, 212px);
+      }
+
+      @include breakpoint(max-width 400px) {
+        @include rem(width, 95px);
+      }
+
+      &-link {
+        @include cachet-bold();
+        @include rem(font-size, 20px);
+        @include rem(padding-top, 81px);
+        @include transition(opacity, .3s);
+        background-position: top center;
+        background-repeat: no-repeat;
+        color: $white;
+        cursor: pointer;
+        display: block;
+        letter-spacing: -0.7px;
+        opacity: .3;
+        text-decoration: none;
+        text-transform: uppercase;
+        vertical-align: top;
+
+        @include breakpoint($tablet) {
+          @include rem(padding-top, 80px);
+        }
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &--swimming {
+          @include rem(background-size, 59px 32px);
+          @include rem(background-position, center 10px);
+          background-image: url('../prototypes/ysr/img/reporting/icon-swimming.png');
+        }
+
+        &--fitness {
+          @include rem(background-size, 50px 52px);
+          background-image: url('../prototypes/ysr/img/reporting/icon-fitness.png');
+        }
+
+        &--group-ex {
+          @include rem(background-size, 49px 39px);
+          @include rem(background-position, center 7px);
+          background-image: url("../prototypes/ysr/img/reporting/icon-group-ex.png");
+        }
+
+        &--active {
+          opacity: .9;
+        }
+      }
+    }
+  }
+
+  .activity-items {
+    @include rem(max-width, 1000px);
+    margin: auto;
+    overflow: hidden;
+
+    .form-item-checkbox {
+
+      input {
+        display: none;
+      }
+
+      input + label {
+        @include cachet();
+        @include rem(border-radius, 34px);
+        @include rem(font-size, 16px);
+        @include rem(height, 66px);
+        @include rem(line-height, 16px);
+        @include rem(margin-bottom, 22px);
+        @include rem(padding, 25px 15px 25px 76px);
+        border: 1px solid rgba(255, 255, 255, .25);
+        color: $grey1;
+        cursor: pointer;
+        display: block;
+        letter-spacing: -.5px;
+        overflow: hidden;
+        position: relative;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        &:hover {
+          background-color: $activity-item-background-hover;
+        }
+
+        &:before {
+          @include cachet();
+          @include rem(border-radius, 21px);
+          @include rem(font-size, 30px);
+          @include rem(height, 42px);
+          @include rem(left, 11px);
+          @include rem(line-height, 35px);
+          @include rem(top, 11px);
+          @include rem(width, 42px);
+          border: inherit;
+          content: '+';
+          position: absolute;
+          text-align: center;
+        }
+
+        small {
+          @include cachet-normal();
+          @include rem(font-size, 14px);
+          @include rem(line-height, 14px);
+          color: $pale-purple-2;
+          display: block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-transform: none;
+          white-space: nowrap;
+        }
+
+        &.with-description {
+          @include rem(padding, 19px 15px 31px 76px);
+        }
+      }
+
+      input:checked + label {
+        background-color: $activity-item-background-active;
+        border-color: $activity-item-background-active;
+
+        &:before {
+          @include rem(background-size, 12px 10px);
+          background-color: $activity-item-icon-background-active;
+          background-image: url('../prototypes/ysr/img/reporting/icon-check-tick.png');
+          background-position: center center;
+          background-repeat: no-repeat;
+          border-color: $activity-item-icon-background-active;
+          content: '';
+        }
+
+        &:hover {
+          background-color: $activity-item-background-active-hover;
+          border-color: $activity-item-background-active-hover;
+        }
+
+        small {
+          color: $grey1;
+        }
+      }
+
+      input.activity--click-last:disabled + label {
+        &:before {
+          @include rem(background-size, 34px 34px);
+          background-image: url(../prototypes/ysr/img/throbber-white.svg);
+          background-position: center center;
+          background-repeat: no-repeat;
+          content: '';
+        }
+      }
+    }
+  }
+
+  .actions {
+    @include rem(margin, 54px auto 54px auto);
+    @include rem(max-width, 382px);
+    border-top: 1px solid rgba(255, 255, 255, .25);
+    clear: both;
+    text-align: center;
+
+    input[type=submit] {
+      @include cachet-bold();
+      @include rem(font-size, 40px);
+      @include rem(line-height, 40px);
+      @include rem(margin-bottom, 11px);
+      @include rem(margin-top, 40px);
+      @include transition(color .5s);
+      background: none;
+      border: none;
+      color: $track-activity-button;
+      letter-spacing: -.8px;
+      padding: 0;
+      text-transform: uppercase;
+
+      &:hover {
+        //background-color: $purple-dark;
+        color: $track-activity-button-hover;
+      }
+    }
+  }
+}

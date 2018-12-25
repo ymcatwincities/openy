@@ -1,0 +1,23 @@
+uuid: 68879dc8-7264-4897-b774-2ee8e8bcf208
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.thumbnail
+  module:
+    - image
+third_party_settings:
+  contextual:
+    mode: '1'
+id: example_formatter_preset_image_thumbnail
+label: 'Example: Image thumbnail (Formatter preset)'
+type: formatter_preset
+description: 'A Formatter preset example formatter; Render a Thumbnail image.'
+field_types:
+  - image
+data:
+  formatter: image
+  settings:
+    image_style: thumbnail
+    image_link: ''
+#  $formatter->fapi = '';

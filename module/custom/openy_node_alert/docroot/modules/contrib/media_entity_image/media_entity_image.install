@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall and update hooks for Media entity image module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function media_entity_image_install() {
+  $source = drupal_get_path('module', 'media_entity_image') . '/images/icons';
+  $destination = \Drupal::config('media_entity.settings')->get('icon_base');
+  media_entity_copy_icons($source, $destination);
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function media_entity_image_requirements() {
+  $requirements = [];
+
+  if (version_compare(\Drupal::VERSION, '8.4.0', '>=') && \Drupal::moduleHandler()->moduleExists('media')) {
+    $requirements['media_entity_image: Not compatible with core Media'] = [
+      'title' => t('Core Media'),
+      'description' => t("Media Entity Image's functionality has been merged into the core Media module, so it cannot be installed alongside core Media."),
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+
+  return $requirements;
+}

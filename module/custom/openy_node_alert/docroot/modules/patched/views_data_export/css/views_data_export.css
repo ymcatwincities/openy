@@ -1,0 +1,19 @@
+.views-data-export-feed {
+  display: inline;
+}
+.json-feed .feed-icon {
+  background-image: url(../images/json.png);
+  width: 36px;
+}
+.xml-feed .feed-icon {
+  background-image: url(../images/xml.png);
+  width: 36px;
+}
+.csv-feed .feed-icon {
+  background-image: url(../images/csv.png);
+  width: 36px;
+}
+.xls-feed .feed-icon {
+  background-image: url(../images/xls.png);
+  width: 36px;
+}

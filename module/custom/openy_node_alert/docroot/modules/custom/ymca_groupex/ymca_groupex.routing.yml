@@ -1,0 +1,21 @@
+ymca_groupex.schedules_search_results:
+  path: node/{node}/schedules/group_exercise_search_results
+  defaults:
+    _controller: \Drupal\ymca_groupex\Controller\SearchResultsController::pageView
+    _title: Group exercise search results
+  requirements:
+    _permission: access content
+ymca_groupex.all_schedules_search:
+  path: /all_y_schedules
+  defaults:
+    _form: \Drupal\ymca_groupex\Form\GroupexFormFull
+    _title: Schedules
+  requirements:
+    _permission: access content
+ymca_groupex.all_schedules_search_results:
+  path: /all_y_schedules/group_exercise_search_results
+  defaults:
+    _controller: \Drupal\ymca_groupex\Controller\AllSearchResultsController::pageView
+    _title: Group exercise search results
+  requirements:
+    _permission: access content

@@ -1,0 +1,660 @@
+<?php
+
+/**
+ * @file
+ * Client-side data space.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Component\Serialization\Json;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\group\Entity\GroupContentType;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_menu().
+ */
+function datalayer_menu() {
+  $items['admin/config/search/datalayer'] = [
+    'title' => 'Data Layer',
+    'description' => 'Output page meta data for client-side use.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => ['datalayer_settings_form'],
+    'access arguments' => ['administer site configuration'],
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'datalayer.admin.inc',
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for 'field_config_edit_form'.
+ */
+function datalayer_form_field_config_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $datalayer_settings = \Drupal::config('datalayer.settings');
+  if ($datalayer_settings->get('output_fields')) {
+    $field = $form_state->getFormObject()->getEntity();
+    $form['third_party_settings']['datalayer']['expose'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Expose in dataLayer'),
+      '#default_value' => $field->getThirdPartySetting('datalayer', 'expose', 0),
+      '#description' => t('Checking this box will result in this field being included in the dataLayer object.'),
+    ];
+    $form['third_party_settings']['datalayer']['label'] = [
+      '#type' => 'textfield',
+      '#title' => t('DataLayer label'),
+      '#default_value' => $field->getThirdPartySetting('datalayer', 'label', $field->get('field_name')),
+      '#description' => t('Enter the label you would like in the datalayer output.'),
+    ];
+  }
+}
+
+/**
+ * Add data for output.
+ */
+function datalayer_get_data_from_page() {
+  $datalayer_settings = \Drupal::config('datalayer.settings');
+  $user = \Drupal::currentUser();
+
+  // Add details about the page entity.
+  if ($datalayer_settings->get('add_page_meta')) {
+    datalayer_add(datalayer_get_page_data());
+  }
+
+  // Expose user details.
+  if ($datalayer_settings->get('expose_user_details')) {
+    datalayer_add(datalayer_get_user_data());
+  }
+
+  // Always output active uid.
+  $datalayer = datalayer_add(['userUid' => $user->id()]);
+
+  // Allow modules to alter data with hook_datalayer_alter().
+  \Drupal::moduleHandler()->alter('datalayer', $datalayer);
+
+  return $datalayer;
+}
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Load all meta tags for this page.
+ */
+function datalayer_page_attachments(array &$attachments) {
+  if (empty($attachments['#attached'])) {
+    $attachments['#attached'] = [];
+  }
+  if (empty($attachments['#attached']['html_head'])) {
+    $attachments['#attached']['html_head'] = [];
+  }
+
+  $datalayer_attachment = datalayer_get_data_from_page();
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#type' => 'html_tag',
+      '#tag' => 'script',
+      '#value' => 'window.dataLayer = window.dataLayer || []; window.dataLayer.push(' . Json::encode($datalayer_attachment) . ');',
+    ],
+    'datalayers-js',
+  ];
+
+  // Include data-layer-helper library.
+  if (\Drupal::config('datalayer.settings')->get('lib_helper')) {
+    $attachments['#attached']['library'][] = 'datalayer/helper';
+  }
+
+  // Output configred language data.
+  $languages = \Drupal::languageManager()->getLanguages();
+  if (count($languages)) {
+    $langs = [];
+    foreach ($languages as $id => $language) {
+      $langs[$id] = [
+        'id' => $id,
+        'name' => $language->getName(),
+        'direction' => $language->getDirection(),
+        'weight' => $language->getWeight(),
+      ];
+      if ($language->isDefault()) {
+        $attachments['#attached']['drupalSettings']['dataLayer']['defaultLang'] = $id;
+      }
+    }
+    $attachments['#attached']['drupalSettings']['dataLayer']['languages'] = $langs;
+  }
+
+  // Common datalayer JS.
+  $attachments['#attached']['library'][] = 'datalayer/behaviors';
+}
+
+/**
+ * Collects up meta data for output.
+ *
+ * @param string $type
+ *   Entity type to collect meta from, defaults to generic.
+ *
+ * @return array
+ *   Array of all candidate entity properties.
+ */
+function _datalayer_collect_meta_properties($type = '') {
+  $hooks = [];
+  if (is_string($type) && !empty($type)) {
+    $hooks[] = "datalayer_{$type}_meta";
+  }
+  $hooks[] = 'datalayer_meta';
+  // Avoid duplicate builds.
+  $properties = &drupal_static(__FUNCTION__ . $type);
+  if (!isset($properties)) {
+    $properties = [];
+    foreach ($hooks as $hook) {
+      foreach (\Drupal::moduleHandler()->getImplementations($hook) as $module) {
+        // Call modules implementing datalayer_meta() and combine results.
+        $properties = array_merge($properties, \Drupal::moduleHandler()->invoke($module, $hook));
+      }
+      if (!empty($properties)) {
+        break;
+      }
+    }
+    \Drupal::moduleHandler()->alter($hooks, $properties);
+  }
+
+  return $properties;
+}
+
+/**
+ * Implements hook_datalayer_meta().
+ *
+ * Defines default meta data.
+ */
+function datalayer_datalayer_meta() {
+  return [
+    'created',
+    'langcode',
+    'name',
+    'status',
+    'uid',
+    'uuid',
+    'vid',
+  ];
+}
+
+/**
+ * Implements hook_datalayer_current_user_meta().
+ *
+ * Defines current user meta data.
+ */
+function datalayer_datalayer_current_user_meta() {
+  return [
+    'name',
+    'mail',
+    'roles',
+    'created',
+    'access',
+  ];
+}
+
+/**
+ * Return all the page meta data.
+ *
+ * @return array
+ *   The page data.
+ */
+function datalayer_get_page_data() {
+  $entity = _datalayer_menu_get_any_object();
+  if (is_object($entity)) {
+    // Populate entity properties and values.
+    return _datalayer_get_entity_data($entity);
+  }
+
+  return [];
+}
+
+/**
+ * Return all user data based on configured URL patterns.
+ *
+ * @return array
+ *   The user data.
+ */
+function datalayer_get_user_data() {
+  $user = \Drupal::currentUser();
+  $user_data = [];
+  if (!$user->isAnonymous()) {
+    $user = User::load($user->id());
+    $datalayer_settings = \Drupal::config('datalayer.settings');
+    $roles = $datalayer_settings->get('expose_user_details_roles');
+    $exp_user_urls = $datalayer_settings->get('expose_user_details');
+    $exp_user_roles = $roles ? array_filter($roles) : [];
+    // If exposed roles are configured, get those. Otherwise, get all roles.
+    $matched_roles = !empty($exp_user_roles) ? array_intersect($user->getRoles(), $exp_user_roles) : $user->getRoles();
+    // Honor settings.
+    if ($exp_user_urls && count($matched_roles)) {
+      $path = Url::fromRoute("<current>")->toString();
+      $path_matcher = \Drupal::service('path.matcher');
+      $alias_manager = \Drupal::service('path.alias_manager');
+      $path_alias = $alias_manager->getAliasByPath($path);
+      if ($path_matcher->matchPath($path, $exp_user_urls) ||
+          $path_matcher->matchPath($path_alias, $exp_user_urls)) {
+        // Output various entity properties. Allow additions/alterations.
+        // NOTE: Properties mean different things on different entity types.
+        $properties = _datalayer_collect_meta_properties('current_user');
+        $user_meta = $datalayer_settings->get('current_user_meta');
+        $selected_properties = _datalayer_get_selected_properties($properties, $user_meta);
+        $user_prefix = 'user';
+        $user_data = _datalayer_collect_meta_values($selected_properties, $user, $user_prefix);
+        if (in_array('roles', $selected_properties)) {
+          $user_data[$user_prefix . 'Roles'] = array_values($matched_roles);
+        }
+        if ($datalayer_settings->get('expose_user_details_fields')) {
+          $user_data[$user_prefix . 'Fields'] = _datalayer_get_field_values($user);
+        }
+      }
+    }
+  }
+
+  return $user_data;
+}
+
+/**
+ * Collect entity data for output and altering.
+ *
+ * @param object $entity
+ *   Entity object of the page menu callback.
+ *
+ * @return array
+ *   All properties and values for output of page entity.
+ */
+function _datalayer_get_entity_data($entity) {
+  $output_data = &drupal_static(__FUNCTION__);
+  if (empty($output_data)) {
+    $datalayer_settings = \Drupal::config('datalayer.settings');
+
+    // Explicit additions and generalized properties...
+    $type = $entity->getEntityTypeId();
+    $entity_info = \Drupal::entityTypeManager()->getDefinition($type);
+    $entity_keys = $entity_info->getKeys();
+    $bundle = FALSE;
+
+    // Entity type.
+    $output_data[$datalayer_settings->get('entity_type')] = $type;
+
+    // Entity bundle.
+    if (isset($entity->{$entity_keys['bundle']})) {
+      $bundle = $entity->{$entity_keys['bundle']}->getString();
+      $output_data[$datalayer_settings->get('entity_bundle')] = $bundle;
+    }
+    // Entity indetifier.
+    if (isset($entity->{$entity_keys['id']})) {
+      $id = $entity->{$entity_keys['id']}->getString();
+      $output_data[$datalayer_settings->get('entity_identifier')] = $id;
+    }
+
+    // Entity title.
+    if (isset($entity_keys['label']) && isset($entity->{$entity_keys['label']})) {
+      $label = $entity->{$entity_keys['label']}->getString();
+      $output_data[$datalayer_settings->get('entity_title')] = $label;
+    }
+    elseif ($entity_info->id() === 'user') {
+      // User entities don't report a label entity key.
+      $output_data[$datalayer_settings->get('entity_title')] = $entity->label();
+    }
+
+    // Output various entity properties. Allow additions/alterations.
+    // NOTE: Properties mean different things on different entity types.
+    $properties = _datalayer_collect_meta_properties($type);
+    $entity_meta = $datalayer_settings->get('entity_meta');
+    $selected_properties = _datalayer_get_selected_properties($properties, $entity_meta);
+    $output_data = array_merge(_datalayer_collect_meta_values($selected_properties, $entity), $output_data);
+
+    // Output group name.
+    if ($datalayer_settings->get('group')) {
+      if (\Drupal::moduleHandler()->moduleExists('group')) {
+        if ($entity instanceof EntityInterface && ($entity->getEntityType() == 'node')) {
+          $groupName = datalayer_get_entity_group($entity);
+          if (!is_null($groupName)) {
+            $output_data[$datalayer_settings->get('group_label')] = $groupName->label();
+          }
+        }
+      }
+    }
+
+    // Output path based IA values.
+    if ($datalayer_settings->get('enable_ia')) {
+      $depth = $datalayer_settings->get('ia_depth');
+      // Retrieve an array which contains the path pieces.
+      $current_path = \Drupal::service('path.current')->getPath();
+      $result = \Drupal::service('path.alias_manager')
+        ->getAliasByPath($current_path);
+      $path_args = explode('/', $result);
+      $i = 0;
+      foreach ($path_args as $component) {
+        if ($i != $depth) {
+          if (!empty($component)) {
+            if ($i == 0) {
+              $category = $datalayer_settings->get('ia_category_primary');
+            }
+            else {
+              $category = $datalayer_settings->get('ia_category_sub') . $i;
+            }
+            $output_data[$category] = $component;
+            $i++;
+          }
+        }
+      }
+    }
+
+    // Output field data.
+    if ($datalayer_settings->get('output_fields')) {
+      $fields = _datalayer_get_field_values($entity);
+      $replacements = $datalayer_settings->get('key_replacements');
+      foreach ($fields as $key => $value) {
+        if (array_key_exists($key, $replacements)) {
+          $key = $replacements[$key];
+        }
+        $output_data[$key] = $value;
+      }
+    }
+
+    // Output term data.
+    if ($datalayer_settings->get('output_terms')) {
+      $vocabs = $datalayer_settings->get('vocabs');
+      $selected_vocabs = $vocabs ? array_filter($vocabs) : NULL;
+      if ($type == 'taxonomy_term') {
+        $output_data['entityTaxonomy'] = [
+          $entity->vid->getString() => [$entity->tid->getString() => $entity->label()],
+        ];
+      }
+      else {
+        // Meta data on content.
+        if ($taxonomy = _datalayer_get_entity_terms($entity)) {
+          // Limit configured vocabs.
+          if (empty($selected_vocabs)) {
+            $output_data['entityTaxonomy'] = $taxonomy;
+          }
+          else {
+            foreach ($taxonomy as $vocab => $terms) {
+              if (isset($selected_vocabs[$vocab])) {
+                $output_data['entityTaxonomy'][$vocab] = $terms;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return $output_data;
+}
+
+/**
+ * Allow adding to the data layer easy on the fly, similar to drupal_add_js().
+ *
+ * Passing empty params will return current dataLayer output.
+ *
+ * @param array $data
+ *   An array of dataLayer data keyed by variable name (optional).
+ * @param bool $overwrite
+ *   If data should overwrite existing dataLayer vars of same name (optional).
+ *
+ * @return array
+ *   All data layer data added thus far.
+ */
+function datalayer_add(array $data = [], $overwrite = FALSE) {
+  $output_data = &drupal_static(__FUNCTION__, _datalayer_defaults());
+
+  // If we've been given data, add it to the output.
+  if (!empty($data)) {
+    if ($overwrite) {
+      $output_data = array_merge($output_data, $data);
+    }
+    else {
+      $output_data += $data;
+    }
+  }
+
+  return $output_data;
+}
+
+/**
+ * Defines Drupal-wide data layer defaults.
+ */
+function _datalayer_defaults() {
+  $datalayer_settings = \Drupal::config('datalayer.settings');
+
+  $language = \Drupal::languageManager()->getDefaultLanguage();
+  $site_config = \Drupal::config('system.date');
+  $site_name = \Drupal::config('system.site');
+  return [
+    $datalayer_settings->get('drupal_language') => $language->getId(),
+    $datalayer_settings->get('drupal_country') => $site_config->get('country.default'),
+    $datalayer_settings->get('site_name') => $site_name->get('name'),
+  ];
+}
+
+/**
+ * Agnosticly get the current menu object.
+ *
+ * @return object
+ *   Entity object of current menu callback page.
+ */
+function _datalayer_menu_get_any_object() {
+  // Figure out if a content entity is being viewed.
+  $route_match = \Drupal::routeMatch();
+  foreach ($route_match->getParameters() as $parameter) {
+    if ($parameter instanceof ContentEntityInterface) {
+      return $parameter;
+    }
+  }
+
+  return NULL;
+}
+
+/**
+ * Fetch all taxonomy terms from an entity.
+ *
+ * All entity reference fields targeting taxonomy terms will be included.
+ *
+ * @param object $entity
+ *   Actual entity object to process.
+ *
+ * @return array
+ *   Array with tids of entity.
+ */
+function _datalayer_get_entity_terms($entity) {
+  $terms = [];
+  // Use very lightweight field info list to find relevant fields.
+  foreach ($entity->getFieldDefinitions() as $field_name => $field_info) {
+    if (($field_info->getType() != "entity_reference") ||
+        ($field_info->getSetting('target_type') != 'taxonomy_term')) {
+      continue;
+    }
+
+    // Collect terms from fields for return.
+    foreach ($entity->{$field_name}->getValue() as $value) {
+      if (isset($value['target_id'])) {
+        $term = Term::load($value['target_id']);
+        if ($term) {
+          $terms[$term->vid->getString()][(string) $term->tid->getString()] = $term->label();
+        }
+      }
+    }
+  }
+
+  return $terms;
+}
+
+/**
+ * Get values for exposed fields.
+ *
+ * @param object $entity
+ *   Entity being processed.
+ *
+ * @return array
+ *   Array keyed by field names.
+ */
+function _datalayer_get_field_values($entity) {
+  $fields = [];
+  foreach ($entity->getFieldDefinitions() as $field_name => $field_info) {
+    if (method_exists($field_info, 'getThirdPartySetting') &&
+      $field_info->getThirdPartySetting('datalayer', 'expose', 0)) {
+      $field_type = $field_info->getType();
+      if ($field_type != 'metatag') {
+        $fields[$field_info->getThirdPartySetting('datalayer', 'label')] = [];
+        foreach ($entity->{$field_name} as $field_item) {
+          $fields[$field_info->getThirdPartySetting('datalayer', 'label')] =
+              _datalayer_field_get_value($field_item, $field_type);
+        }
+      }
+      else {
+        foreach ($entity->{$field_name} as $field_item) {
+          $subitems = _datalayer_field_get_value($field_item, $field_type);
+          if (!is_null($subitems)) {
+            foreach ($subitems as $key => $value) {
+              $fields[$key] = $value;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return $fields;
+}
+
+/**
+ * Get an array of values from a field object.
+ *
+ * @param object $field_item
+ *   Field containing the values.
+ * @param string $field_type
+ *   The type of field the value belongs to.
+ *
+ * @return array
+ *   Numeric array of values.
+ */
+function _datalayer_field_get_value($field_item, $field_type) {
+  $value = [];
+  switch ($field_type) {
+    case 'entity_reference':
+      if (!$field_item->isEmpty()
+        && $field_item->entity instanceof EntityInterface) {
+        $entity = $field_item->entity;
+        $value = [
+          'id' => $entity->id(),
+          'label' => $entity->label(),
+          'bundle' => $entity->bundle(),
+        ];
+      }
+      break;
+
+    case 'metatag':
+      $field = $field_item->getValue();
+      $values = unserialize($field['value']);
+      foreach ($values as $key => $thisvalue) {
+        $value[$key] = $thisvalue;
+      }
+      break;
+
+    default:
+      $value = $field_item->getValue();
+      if (count($value) == 1 && array_key_exists('value', $value)) {
+        $value = $value['value'];
+      }
+      break;
+  }
+
+  return $value;
+}
+
+/**
+ * Implements hook_google_tag_snippets_alter().
+ *
+ * If the google_tag module is installed, avoid conflicts with
+ * the datalayer variables.
+ */
+function datalayer_google_tag_snippets_alter(&$snippets) {
+  $config = \Drupal::config('google_tag.settings');
+  $data_layer = $config->get('data_layer');
+  $data_layer = trim(json_encode($data_layer), '"');
+  // Combine the dataLayer module variable with the google_tag dataLayer array.
+  $init_value = $data_layer === 'dataLayer' ? 'window.dataLayer' : "window.dataLayer || window.$data_layer";
+  $snippets['data_layer'] = preg_replace("/.*($data_layer) =.*?\[(.*)\](;.*$)/",
+    'window.$1 = ' . $init_value . ' || []; window.$1.push($2)$3', $snippets['data_layer']);
+}
+
+/**
+ * Get the group of given entity.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ *
+ * @return null|\Drupal\group\Entity\GroupInterface
+ *   Return the Group if found, else NULL.
+ */
+function datalayer_get_entity_group(EntityInterface $entity) {
+  // Load all the group content for this node.
+  $group_content_types = GroupContentType::loadByContentPluginId("group_node:{$entity->bundle()}");
+  $group_contents = \Drupal::entityTypeManager()
+    ->getStorage('group_content')
+    ->loadByProperties([
+      'type'      => array_keys($group_content_types),
+      'entity_id' => $entity->id(),
+    ]);
+
+  // Get this nodes group.
+  if (!empty($group_contents)) {
+    /** @var \Drupal\group\Entity\GroupContent $group_cotnent */
+    $group_content = reset($group_contents);
+    /** @var \Drupal\group\Entity\Group $group */
+    return $group_content->getGroup();
+  }
+
+  return NULL;
+}
+
+/**
+ * Add the meta properties for given entity.
+ *
+ * @param array $properties
+ *   Selected properties for the entity.
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ * @param string $key_prefix
+ *   The prefix for the property name.
+ */
+function _datalayer_collect_meta_values(array $properties, EntityInterface $entity, $key_prefix = 'entity') {
+  // Build meta output...
+  $meta_data = [];
+  foreach ($properties as $p) {
+    if (isset($entity->$p) && method_exists($entity->$p, 'getString')) {
+      $meta_data[$key_prefix . ucfirst($p)] = $entity->$p->getString();
+    }
+  }
+
+  // For entities with an owner/author, get the username.
+  if (in_array('name', $properties)
+    && !isset($meta_data[$key_prefix . 'Name']) && is_object($entity->uid)
+    && $entity->uid->entity
+    && $entity->uid->entity instanceof EntityInterface) {
+    $meta_data[$key_prefix . 'Name'] = $entity->uid->entity->label();
+  }
+
+  return $meta_data;
+}
+
+/**
+ * Determine which properties will be output based on configuration.
+ *
+ * @param array $properties
+ *   Available properties for the entity.
+ * @param array $selected
+ *   Selected properties for the entity.
+ */
+function _datalayer_get_selected_properties(array $properties, array $selected) {
+  $selected_properties = array_filter($selected);
+  // Honor selective output configuration.
+  $selected_properties = empty($selected_properties) ? $properties : $selected_properties;
+
+  return $selected_properties;
+}

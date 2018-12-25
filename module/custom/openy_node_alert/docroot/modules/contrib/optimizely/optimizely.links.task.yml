@@ -1,0 +1,17 @@
+optimizely.listing_tab:
+  route_name: optimizely.listing
+  title: 'PROJECT LISTING'
+  base_route: optimizely.listing
+  # route_name == base_route, so this tab displays leftmost.
+
+optimizely.add_project_tab:
+  route_name: optimizely.add_update
+  title: 'ADD PROJECT'
+  base_route: optimizely.listing
+  weight: 1
+
+optimizely.settings_tab:
+  route_name: optimizely.settings
+  title: 'ACCOUNT INFO'
+  base_route: optimizely.listing
+  weight: 2

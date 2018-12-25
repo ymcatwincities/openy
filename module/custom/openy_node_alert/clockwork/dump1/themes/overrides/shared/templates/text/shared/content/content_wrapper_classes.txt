@@ -1,0 +1,12 @@
+// Comments are ignored, as are blank lines and trailing whitespace
+
+promo promotion container (blue)
+price promotion price (blue)
+callout right-aligned callout
+module module container (purple)
+schedules module container (purple)
+social wrapper for social media links
+slides slides wrapper
+foreground slide foreground
+background slide background
+column wrapper for columns

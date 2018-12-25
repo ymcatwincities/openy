@@ -1,0 +1,6 @@
+view workflow_unpublished content:
+  title: View workflow_unpublished content
+  description: Set this to allow users view unpublished nodes (by workflow).
+update workflow_unpublished content:
+  title: Update workflow_unpublished content
+  description: Set this to allow users update unpublished nodes (by workflow).

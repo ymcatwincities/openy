@@ -1,0 +1,13 @@
+name = FullCalendar Colors
+description = Allows definition of colors for FullCalendar events based on taxonomies, node types, etc.
+core = 8.x
+package = FullCalendar
+dependencies[] = colors
+dependencies[] = fullcalendar
+
+; Information added by Drupal.org packaging script on 2017-09-21
+version = "8.x-1.0-alpha2+71-dev"
+core = "8.x"
+project = "fullcalendar"
+datestamp = "1505968751"
+

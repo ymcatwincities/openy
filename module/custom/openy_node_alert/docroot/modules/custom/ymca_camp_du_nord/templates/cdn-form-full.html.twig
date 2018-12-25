@@ -1,0 +1,19 @@
+{{ form.form_build_id }}
+{{ form.form_token }}
+{{ form.form_id }}
+
+<div class="top-elements-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {{ form.arrival_date|without('#title') }}
+        {{ form.departure_date|without('#title') }}
+        {{ form.village|without('#title') }}
+        {{ form.capacity|without('#title') }}
+        {{ form.cabin|without('#title') }}
+        {{ form.actions.submit }}
+        {{ form.results }}
+      </div>
+    </div>
+  </div>
+</div>

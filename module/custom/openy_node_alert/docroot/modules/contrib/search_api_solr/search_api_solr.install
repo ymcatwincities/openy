@@ -1,0 +1,245 @@
+<?php
+
+use Drupal\search_api_solr\SolrBackendInterface;
+use Drupal\search_api\Entity\Server;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_requirements().
+ */
+function search_api_solr_requirements($phase) {
+  $ret = array();
+
+  if ($phase == 'install') {
+    if (!class_exists('\Solarium\Core\Client\Request')) {
+      $ret['search_api_solr_library'] = [
+        'description' => t('Solr search requires the solarium/solarium library.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+  elseif ($phase == 'runtime') {
+    $servers = search_api_solr_get_active_servers();
+    $count = 0;
+    $unavailable = 0;
+    $multiple_indexes = 0;
+    $last = NULL;
+    foreach ($servers as $server_id => $server) {
+      if (!$server->getBackend()->isAvailable()) {
+        ++$unavailable;
+        $last = $server;
+      }
+      $indexes = $server->getIndexes();
+      if (count($indexes) > 1) {
+        $active = 0;
+        foreach ($indexes as $index) {
+          if ($index->status()) {
+            ++$active;
+          }
+        }
+        if ($active > 1) {
+          ++$multiple_indexes;
+        }
+      }
+      ++$count;
+    }
+    if (!$count) {
+      return array();
+    }
+    $ret['search_api_solr'] = array(
+      'title' => \Drupal::translation()->translate('Solr servers'),
+      'value' => \Drupal::translation()->formatPlural($count, '1 server', '@count servers'),
+    );
+    if ($unavailable) {
+      if ($unavailable == 1) {
+        $ret['search_api_solr']['description'] = \Drupal::translation()->translate('The Solr server of <a href=":url">%name</a> could not be reached.',
+          array(':url' => Url::fromRoute('entity.search_api_server.canonical', array('search_api_server' => $last->id()))->toString(), '%name' => $last->label()));
+      }
+      else {
+        $ret['search_api_solr']['description'] = \Drupal::translation()->translate('@count Solr servers could not be reached.', array('@count' => $unavailable));
+      }
+      $ret['search_api_solr']['severity'] = REQUIREMENT_ERROR;
+    }
+    else {
+      $ret['search_api_solr']['description'] = \Drupal::translation()->formatPlural($count, 'The Solr server could be reached.', 'All @count Solr servers could be reached.');
+      $ret['search_api_solr']['severity'] = REQUIREMENT_OK;
+    }
+
+    $ret['search_api_solr_multiple_indexes'] = [
+      'title' => \Drupal::translation()->translate('Solr server indexes'),
+      'value' => \Drupal::translation()->formatPlural($count, '1 server', '@count servers'),
+    ];
+    if ($multiple_indexes) {
+      $ret['search_api_solr_multiple_indexes']['description'] = \Drupal::translation()->formatPlural($multiple_indexes, 'One Solr server contains more than one enabled index.', '@count Solr servers contain more than one enabled index.');
+      $ret['search_api_solr_multiple_indexes']['severity'] = REQUIREMENT_ERROR;
+    }
+    else {
+      $ret['search_api_solr_multiple_indexes']['description'] = \Drupal::translation()->formatPlural($count, 'The Solr server does not contain more than one enabled index.', 'All @count Solr servers do not contain more than one enabled index.');
+      $ret['search_api_solr_multiple_indexes']['severity'] = REQUIREMENT_OK;
+    }
+  }
+
+  return $ret;
+}
+
+/**
+ * Gets all active Solr servers.
+ *
+ * @return \Drupal\search_api\Entity\Server[]
+ *   All active Solr servers keyed by ids.
+ */
+function search_api_solr_get_active_servers() {
+  $config_factory = \Drupal::configFactory();
+  $servers = [];
+  foreach ($config_factory->listAll('search_api.server.') as $server_config_name) {
+    $server_id = $config_factory->get($server_config_name)->get('id');
+    $server = Server::load($server_id);
+    // Covers search_api_solr_multilingual, too.
+    if (($server->getBackend() instanceof SolrBackendInterface) && $server->status()) {
+      $servers[$server_id] = $server;
+    }
+  }
+  return $servers;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function search_api_solr_uninstall() {
+  \Drupal::state()->delete('search_api_solr.last_optimize');
+  \Drupal::state()->delete('search_api_solr.endpoint.data');
+}
+
+/**
+ * Gets all backend configs for active Solr servers.
+ *
+ * @return array
+ *   All backend configs for active Solr servers keyed by server name.
+ */
+function search_api_solr_update_helper_get_backend_configs($prefix = 'search_api_solr') {
+  $config_factory = \Drupal::configFactory();
+  $backend_configs = [];
+  foreach ($config_factory->listAll('search_api.server.') as $server_name) {
+    $server = $config_factory->get($server_name);
+    // Covers search_api_solr_multilingual, too.
+    if (strpos($server->get('backend'), $prefix) === 0) {
+      $backend_configs[$server_name] = $server->get('backend_config');
+    }
+  }
+  return $backend_configs;
+}
+
+/**
+ * Saves a modified backend config for a given Solr server.
+ *
+ * @param string $server_name
+ * @param array $backend_config
+ * @param bool $trusted_data
+ */
+function search_api_solr_update_helper_save_backend_config($server_name, array $backend_config, $trusted_data = TRUE) {
+  \Drupal::configFactory()->getEditable($server_name)
+    ->set('backend_config', $backend_config)
+    ->save($trusted_data);
+}
+
+/**
+ * Split Solr paths stored in configurations into server and core parts.
+ */
+function search_api_solr_update_8001() {
+  foreach (search_api_solr_update_helper_get_backend_configs() as $server_name => $backend_config) {
+    $parts = explode('/', $backend_config['path']);
+    if (count($parts) > 2) {
+      $backend_config['core'] = array_pop($parts);
+      $backend_config['path'] = implode('/', $parts);
+      search_api_solr_update_helper_save_backend_config($server_name, $backend_config);
+    }
+  }
+}
+
+/**
+ * Convert http_user and http_pass to username and password config for Solarium.
+ */
+function search_api_solr_update_8002() {
+  foreach (search_api_solr_update_helper_get_backend_configs() as $server_name => $backend_config) {
+    $backend_config['username'] = $backend_config['http_user'];
+    $backend_config['password'] = $backend_config['http_pass'];
+    unset($backend_config['http_user'], $backend_config['http_pass']);
+    search_api_solr_update_helper_save_backend_config($server_name, $backend_config);
+  }
+}
+
+/**
+ * Add default timeout settings to existing configs.
+ */
+function search_api_solr_update_8003() {
+  foreach (search_api_solr_update_helper_get_backend_configs() as $server_name => $backend_config) {
+    $backend_config['timeout'] = 5;
+    $backend_config['index_timeout'] = 5;
+    $backend_config['optimize_timeout'] = 10;
+    search_api_solr_update_helper_save_backend_config($server_name, $backend_config);
+  }
+}
+
+/**
+ * Migrate existing backend configurations to the basic auth connector plugin.
+ */
+function search_api_solr_update_8004() {
+  foreach (search_api_solr_update_helper_get_backend_configs() as $server_name => $backend_config) {
+    $backend_config['connector'] = 'basic_auth';
+    $backend_config['connector_config'] = [];
+    foreach (['scheme', 'host', 'port', 'path', 'core', 'timeout', 'index_timeout', 'optimize_timeout', 'solr_version', 'http_method', 'username', 'password'] as $key) {
+      $backend_config['connector_config'][$key] = $backend_config[$key];
+      unset($backend_config[$key]);
+    }
+    search_api_solr_update_helper_save_backend_config($server_name, $backend_config);
+  }
+}
+
+/**
+ * Add commit_within settings to existing connector configs.
+ */
+function search_api_solr_update_8005() {
+  foreach (search_api_solr_update_helper_get_backend_configs() as $server_name => $backend_config) {
+    $backend_config['connector_config']['commit_within'] = 1000;
+    search_api_solr_update_helper_save_backend_config($server_name, $backend_config);
+  }
+}
+
+/**
+ * Add autocomplete settings to existing configs.
+ */
+function search_api_solr_update_8006() {
+  foreach (search_api_solr_update_helper_get_backend_configs() as $server_name => $backend_config) {
+    $backend_config['suggest_suffix'] = TRUE;
+    $backend_config['suggest_corrections'] = TRUE;
+    $backend_config['suggest_words'] = FALSE;
+    search_api_solr_update_helper_save_backend_config($server_name, $backend_config);
+  }
+}
+
+/**
+ * Remove old autocomplete settings in existing configs.
+ */
+function search_api_solr_update_8007() {
+  foreach (search_api_solr_update_helper_get_backend_configs() as $server_name => $backend_config) {
+    unset($backend_config['autocorrect_spell']);
+    unset($backend_config['autocorrect_suggest_words']);
+    search_api_solr_update_helper_save_backend_config($server_name, $backend_config);
+  }
+}
+
+/**
+ * Remove obsolete settings in existing configs.
+ */
+function search_api_solr_update_8008() {
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_factory->listAll('search_api_solr.settings.') as $setting) {
+    $config = $config_factory->getEditable($setting);
+    $data = $config->getRawData();
+    unset($data['autocomplete_max_occurrences']);
+    unset($data['http_get_max_length']);
+    $config->setData($data);
+    $config->save(TRUE);
+  }
+}
+

@@ -1,0 +1,25 @@
+uuid: 17aa3532-fcfc-4e24-afd8-7c08fcd1e2b6
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:b4345b98-0054-4028-a181-7604b26e2e0b'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: sectionmenuleft
+theme: multipurpose_business_theme
+region: skills_first
+weight: -24
+provider: null
+plugin: 'block_content:b4345b98-0054-4028-a181-7604b26e2e0b'
+settings:
+  id: 'block_content:b4345b98-0054-4028-a181-7604b26e2e0b'
+  label: 'Section Menu Left'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

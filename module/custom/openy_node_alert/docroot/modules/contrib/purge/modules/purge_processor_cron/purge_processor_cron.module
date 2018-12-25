@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Purge Cron Processor.
+ */
+
+use Drupal\purge\Plugin\Purge\Purger\Exception\CapacityException;
+use Drupal\purge\Plugin\Purge\Purger\Exception\DiagnosticsException;
+use Drupal\purge\Plugin\Purge\Purger\Exception\LockException;
+
+/**
+ * Implements hook_cron().
+ */
+function purge_processor_cron_cron() {
+  $purgePurgers = \Drupal::service('purge.purgers');
+  $purgeProcessors = \Drupal::service('purge.processors');
+  $purgeQueue = \Drupal::service('purge.queue');
+
+  // Do not continue when the cron processor isn't enabled.
+  if (!($processor = $purgeProcessors->get('cron'))) {
+    return;
+  }
+
+  // Claim zero or more items from the queue and feed it to the purgers service.
+  $claims = $purgeQueue->claim();
+  try {
+    $purgePurgers->invalidate($processor, $claims);
+  }
+  catch (DiagnosticsException $e) {
+    // Diagnostic exceptions happen when the system cannot purge.
+  }
+  catch (CapacityException $e) {
+    // Capacity exceptions happen when too much was purged during this request.
+  }
+  catch (LockException $e) {
+    // Lock exceptions happen when another code path is currently processing.
+  }
+  finally {
+    $purgeQueue->handleResults($claims);
+  }
+}

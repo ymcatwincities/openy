@@ -1,0 +1,19 @@
+uuid: 1ee13a8a-8662-430e-9b00-fbf7149d1477
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.become_a_supplier
+    - field.storage.contact_message.field_title
+id: contact_message.become_a_supplier.field_title
+field_name: field_title
+entity_type: contact_message
+bundle: become_a_supplier
+label: Title
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

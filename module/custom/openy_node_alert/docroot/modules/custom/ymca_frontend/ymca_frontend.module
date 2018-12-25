@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_frontend_theme($existing, $type, $theme, $path) {
+  return [
+    'locations_content' => [
+      'variables' => [
+        'base_path' => '',
+        'locations' => [],
+      ],
+      'template' => 'locations-content',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function ymca_frontend_preprocess_page__youth_sports(&$variables) {
+  $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/img/';
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function ymca_frontend_preprocess_page__about__annual_reports__2014_annual_report(&$variables) {
+  $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/img/';
+  $variables['path_to_pdf'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/pdf/';
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function ymca_frontend_preprocess_page__about__annual_reports__2014_annual_report_cause_driven_leaders(&$variables) {
+  $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/img/';
+  $variables['path_to_pdf'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/pdf/';
+}
+
+/**
+ * Add paths to template.
+ */
+function ymca_frontend_add_paths(&$variables) {
+  $variables['path_to_img'] = base_path() . drupal_get_path('module', 'ymca_frontend') . '/pdf/';
+  $variables['path_to_theme_img'] = base_path() . drupal_get_path('theme', 'ymca') . '/img/';
+}

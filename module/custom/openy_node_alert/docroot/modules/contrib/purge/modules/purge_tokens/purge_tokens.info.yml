@@ -1,0 +1,13 @@
+name: Purge Tokens
+type: module
+description: 'Adds tokens support for external cache invalidation.'
+package: Purge
+# core: 8.x
+dependencies:
+  - purge
+
+# Information added by Drupal.org packaging script on 2016-10-26
+version: '8.x-3.0-beta6'
+core: '8.x'
+project: 'purge'
+datestamp: 1477484645

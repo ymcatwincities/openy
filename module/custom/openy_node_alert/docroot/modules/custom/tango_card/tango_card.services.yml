@@ -1,0 +1,9 @@
+services:
+  tango_card.tango_card_wrapper:
+    class: Drupal\tango_card\TangoCardWrapper
+    arguments: ['@entity.manager', '@tango_card.config', '@cache.default']
+
+  tango_card.config:
+    class: \Drupal\Core\Config\ImmutableConfig
+    factory: config.factory:get
+    arguments: ['tango_card.settings']

@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function bulk_actions_views_data_alter(array &$data) {
+  $data['block_content']['block_content_bulk_form'] = [
+    'title' => t('Block content operations bulk form'),
+    'help' => t('Add a form element that lets you run operations on multiple blocks.'),
+    'field' => [
+      'id' => 'bulk_form',
+    ],
+  ];
+
+  $data['menu_link_content_data']['table'] = [
+    'group' => t('Menu Link Content Data'),
+    'provider' => 'bulk_actions',
+    'entity type' => 'menu_link_content',
+    'base' => [
+      'field' => 'id',
+      'title' => t('Menu Link Content Data'),
+      'help' => t('Table contains menu link content data.'),
+    ],
+  ];
+
+  $data['menu_link_content_data']['id'] = [
+    'title' => t('Menu item ID'),
+    'help' => t('Menu Link Content ID'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+    'filter' => array(
+      'id' => 'string',
+    ),
+    'argument' => array(
+      'id' => 'string',
+    ),
+  ];
+
+  $data['menu_link_content_data']['title'] = [
+    'title' => t('Menu item Title'),
+    'help' => t('Title of the menu item.'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+    'filter' => array(
+      'id' => 'string',
+    ),
+    'argument' => array(
+      'id' => 'string',
+    ),
+  ];
+
+  $data['menu_link_content_data']['menu_name'] = [
+    'title' => t('Menu name for the item'),
+    'help' => t('Machine name of the menu for the item.'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'standard',
+    ),
+    'filter' => array(
+      'id' => 'string',
+    ),
+    'argument' => array(
+      'id' => 'string',
+    ),
+  ];
+
+  $data['menu_link_content_data']['enabled'] = [
+    'title' => t('Menu item status'),
+    'help' => t('Menu Link Content status'),
+    'field' => array(
+      'id' => 'standard',
+    ),
+    'sort' => array(
+      'id' => 'numeric',
+    ),
+    'filter' => array(
+      'id' => 'boolean',
+    ),
+    'argument' => array(
+      'id' => 'numeric',
+    ),
+  ];
+
+  $data['menu_link_content_data']['menu_link_content_bulk_form'] = [
+    'title' => t('Menu links operations bulk form'),
+    'help' => t('Add a form element that lets you run operations on multiple menu links.'),
+    'field' => [
+      'id' => 'bulk_form',
+    ],
+  ];
+}

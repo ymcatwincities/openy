@@ -1,0 +1,544 @@
+@import url('reset.css');
+@import url('layout.css');
+@import url('typography.css');
+@import url('blog.css');
+
+
+#galleria{height:320px}
+
+#content .survey_contents label {
+    clear: both;
+    font-family: Arial, sans-serif;
+    display: block;
+    clear: both;
+    float: none;
+    font-size: 16px;
+    width: auto;
+}
+#content .survey_contents .answer input {
+    width: auto;
+    float: left;
+    clear: left;
+    margin-right: 10px;
+    height: auto;
+    padding: 0;
+    background: none;
+    top: 2px;
+    position: relative;
+}
+#content .survey_contents .answer label {
+    float: left;
+    clear: right;
+    font-size: 12px;
+    border: none;
+    width: 360px;
+}
+body .ask_survey_component {
+    margin: 20px 0 10px;
+    padding: 0;
+    border-top: 1px solid hsl(0, 0%, 90%);
+    padding: 10px 0;
+    border-bottom: 1px solid hsl(0, 0%, 90%);
+}
+.required_key {
+    display: none;
+}
+body .ask_survey_component .ask_question {
+    padding: 0;
+    margin: 20px 0 0;
+}
+.facebook-feed a, .facebook-feed h3 {
+display: none;
+}
+
+#articles .col {
+    width: 280px;
+    float: left;
+    margin: 0;
+}
+
+#articles .col:first-child {
+    width: 390px;
+}
+.gallery {
+position: relative;
+}
+.gallery button.fullscreen {
+position: fixed;
+right: 10px;
+top: -25px;
+z-index: 10001;
+font-size: 30px;
+bottom: auto;
+line-height: 71px;
+padding: 0;
+margin: 0;
+color: white;
+}
+.post_display_full{
+    margin: 0;
+    padding: 0;
+}
+span.date{
+    font-size: .8em;
+}
+.post_display_full .richtext{
+    margin: 20px 0 60px;
+}
+
+nav.utility div.personify_sso_link {
+    display:inline-block;
+    vertical-align:top;
+    float:left;
+}
+.comments_req {
+    display: inline;
+    padding-left: 5px;
+}
+#recaptcha_response_field {
+    float: none;
+    clear: both;
+}
+#recaptcha_image img {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 0px;
+}
+#recaptcha_instructions_image {
+    float: none;
+    clear: both;
+    display: block;
+}
+#recaptcha_area .wrapper {
+    float: none;
+    clear: both;
+}
+#content fieldset.submit.comment_submit_dialog {
+    border-top: 1px solid #CCC;
+    width: 600px;
+    margin-top: 0;
+}
+#comments_section p input {
+    width: 200px;
+}
+#comments_section {
+    width: 600px;
+}
+.comment_meta {
+    color: gray;
+}
+.comment {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #FFF;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.comment_body {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.submit.comment_submit_dialog {
+}
+#comments_section h3 {
+    font-size: 15px;
+}
+.touch .parallax{
+    width: 960px;
+    overflow: hidden;
+}
+.fb_iframe_widget iframe {
+    overflow-x: hidden;
+}
+.locations nav#subnav-utility .level_2 .level_3 .level_4 a {
+    font-weight: normal;
+    margin-left: -40px;
+    padding-left: 40px;
+}
+
+.comments_req {
+    display: inline;
+    padding-left: 5px;
+}
+#recaptcha_response_field {
+    float: none;
+    clear: both;
+}
+#recaptcha_image img {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 0px;
+}
+#recaptcha_instructions_image {
+    float: none;
+    clear: both;
+    display: block;
+}
+#recaptcha_area .wrapper {
+    float: none;
+    clear: both;
+}
+#content fieldset.submit.comment_submit_dialog {
+    border-top: 1px solid #CCC;
+    width: 600px;
+    margin-top: 0;
+}
+#comments_section p input {
+    width: 200px;
+}
+#comments_section {
+    width: 600px;
+}
+.comment_meta {
+    color: gray;
+}
+.comment {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #FFF;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.comment_body {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.submit.comment_submit_dialog {
+}
+#comments_section h3 {
+    font-size: 15px;
+}
+.touch .parallax{
+    width: 960px;
+    overflow: hidden;
+}
+.fb_iframe_widget iframe {
+    overflow-x: hidden;
+}
+.locations nav#subnav-utility .level_2 .level_3 .level_4.current a {
+    background: url(../images/ie/black-10.png);
+    color: black;
+}
+.locations nav#subnav-utility .level_2 .level_3 .level_4.current .level_5 a, .locations nav#subnav-utility .level_2 .level_3 .level_4 .level_5.current a {
+    font-weight: normal;
+    padding-left: 60px;
+    margin-left: -60px;
+    background: none;
+    color: #227FB7;
+}
+
+.comments_req {
+    display: inline;
+    padding-left: 5px;
+}
+#recaptcha_response_field {
+    float: none;
+    clear: both;
+}
+#recaptcha_image img {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 0px;
+}
+#recaptcha_instructions_image {
+    float: none;
+    clear: both;
+    display: block;
+}
+#recaptcha_area .wrapper {
+    float: none;
+    clear: both;
+}
+#content fieldset.submit.comment_submit_dialog {
+    border-top: 1px solid #CCC;
+    width: 600px;
+    margin-top: 0;
+}
+#comments_section p input {
+    width: 200px;
+}
+#comments_section {
+    width: 600px;
+}
+.comment_meta {
+    color: gray;
+}
+.comment {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #FFF;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.comment_body {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.submit.comment_submit_dialog {
+}
+#comments_section h3 {
+    font-size: 15px;
+}
+.touch .parallax{
+    width: 960px;
+    overflow: hidden;
+}
+.fb_iframe_widget iframe {
+    overflow-x: hidden;
+}
+.locations nav#subnav-utility .level_2 .level_3 .level_5 a {
+    margin-left: -60px;
+    padding-left: 60px;
+}
+
+.comments_req {
+    display: inline;
+    padding-left: 5px;
+}
+#recaptcha_response_field {
+    float: none;
+    clear: both;
+}
+#recaptcha_image img {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 0px;
+}
+#recaptcha_instructions_image {
+    float: none;
+    clear: both;
+    display: block;
+}
+#recaptcha_area .wrapper {
+    float: none;
+    clear: both;
+}
+#content fieldset.submit.comment_submit_dialog {
+    border-top: 1px solid #CCC;
+    width: 600px;
+    margin-top: 0;
+}
+#comments_section p input {
+    width: 200px;
+}
+#comments_section {
+    width: 600px;
+}
+.comment_meta {
+    color: gray;
+}
+.comment {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #FFF;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.comment_body {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.submit.comment_submit_dialog {
+}
+#comments_section h3 {
+    font-size: 15px;
+}
+.touch .parallax{
+    width: 960px;
+    overflow: hidden;
+}
+.fb_iframe_widget iframe {
+    overflow-x: hidden;
+}
+.locations nav#subnav-utility .level_2 .level_3 .level_5.active a {
+    color: black;
+    background: url(../images/ie/black-10.png);
+}
+
+.comments_req {
+    display: inline;
+    padding-left: 5px;
+}
+#recaptcha_response_field {
+    float: none;
+    clear: both;
+}
+#recaptcha_image img {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 0px;
+}
+#recaptcha_instructions_image {
+    float: none;
+    clear: both;
+    display: block;
+}
+#recaptcha_area .wrapper {
+    float: none;
+    clear: both;
+}
+#content fieldset.submit.comment_submit_dialog {
+    border-top: 1px solid #CCC;
+    width: 600px;
+    margin-top: 0;
+}
+#comments_section p input {
+    width: 200px;
+}
+#comments_section {
+    width: 600px;
+}
+.comment_meta {
+    color: gray;
+}
+.comment {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #FFF;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.comment_body {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.submit.comment_submit_dialog {
+}
+#comments_section h3 {
+    font-size: 15px;
+}
+.touch .parallax{
+    width: 960px;
+    overflow: hidden;
+}
+.fb_iframe_widget iframe {
+    overflow-x: hidden;
+}
+.posted_on_author span.date {
+    font-size: 1em;
+}
+.posted_on_author {
+    font-size: .8em;
+}
+
+.comments_req {
+    display: inline;
+    padding-left: 5px;
+}
+#recaptcha_response_field {
+    float: none;
+    clear: both;
+}
+#recaptcha_image img {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 0px;
+}
+#recaptcha_instructions_image {
+    float: none;
+    clear: both;
+    display: block;
+}
+#recaptcha_area .wrapper {
+    float: none;
+    clear: both;
+}
+#content fieldset.submit.comment_submit_dialog {
+    border-top: 1px solid #CCC;
+    width: 600px;
+    margin-top: 0;
+}
+#comments_section p input {
+    width: 200px;
+}
+#comments_section {
+    width: 600px;
+}
+.comment_meta {
+    color: gray;
+}
+.comment {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #FFF;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.comment_body {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.submit.comment_submit_dialog {
+}
+#comments_section h3 {
+    font-size: 15px;
+}
+.touch .parallax{
+    width: 960px;
+    overflow: hidden;
+}
+.fb_iframe_widget iframe {
+    overflow-x: hidden;
+}
+
+.comments_req {
+    display: inline;
+    padding-left: 5px;
+}
+#recaptcha_response_field {
+    float: none;
+    clear: both;
+}
+#recaptcha_image img {
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 0px;
+}
+#recaptcha_instructions_image {
+    float: none;
+    clear: both;
+    display: block;
+}
+#recaptcha_area .wrapper {
+    float: none;
+    clear: both;
+}
+#content fieldset.submit.comment_submit_dialog {
+    border-top: 1px solid #CCC;
+    width: 600px;
+    margin-top: 0;
+}
+#comments_section p input {
+    width: 200px;
+}
+#comments_section {
+    width: 600px;
+}
+.comment_meta {
+    color: gray;
+}
+.comment {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #FFF;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.comment_body {
+    padding: 20px 10px;
+    margin-bottom: 0;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.submit.comment_submit_dialog {
+}
+#comments_section h3 {
+    font-size: 15px;
+}
+.touch .parallax{
+    width: 960px;
+    overflow: hidden;
+}
+.fb_iframe_widget iframe {
+    overflow-x: hidden;
+}
+#component_9716 {
+}

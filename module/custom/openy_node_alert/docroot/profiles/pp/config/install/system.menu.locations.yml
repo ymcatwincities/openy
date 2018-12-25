@@ -1,0 +1,8 @@
+uuid: ade8baf1-660c-4c0d-bd2d-45ea384c2467
+langcode: en
+status: true
+dependencies: {  }
+id: locations
+label: Locations
+description: 'Subtree of location''s pages hierarchy'
+locked: false

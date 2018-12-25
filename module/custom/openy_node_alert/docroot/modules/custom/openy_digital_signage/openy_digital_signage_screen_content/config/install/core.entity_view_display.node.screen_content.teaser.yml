@@ -1,0 +1,37 @@
+uuid: 96a551e4-f586-49d1-b4a8-6026e69a07a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.screen_content.field_screen_content_preview
+    - field.field.node.screen_content.panelizer
+    - image.style.digital_signage_screen_preview
+    - node.type.screen_content
+  module:
+    - image
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.screen_content.teaser
+targetEntityType: node
+bundle: screen_content
+mode: teaser
+content:
+  field_screen_content_preview:
+    type: image
+    weight: 0
+    label: hidden
+    settings:
+      image_style: digital_signage_screen_preview
+      image_link: content
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  links: true
+  panelizer: true

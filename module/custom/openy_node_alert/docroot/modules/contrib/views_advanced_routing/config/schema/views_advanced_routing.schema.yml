@@ -1,0 +1,18 @@
+views.display_extender.views_advanced_routing_route:
+  type: mapping
+  mapping:
+    route:
+      type: mapping
+      mapping:
+        defaults:
+          type: sequence
+          sequence:
+            - type: string
+        requirements:
+          type: sequence
+          sequence:
+            - type: string
+        options:
+          type: sequence
+          sequence:
+            - type: string

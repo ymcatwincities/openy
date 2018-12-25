@@ -1,0 +1,20 @@
+uuid: a576ec7b-6d3b-4a9a-ba33-94c63610abba
+langcode: en
+status: true
+dependencies:
+  module:
+    - ymca_blocks
+  theme:
+    - ymca
+id: sidebarnavigation
+theme: ymca
+region: sidebar_menu
+weight: -10
+provider: null
+plugin: sidebar_navigation_block
+settings:
+  id: sidebar_navigation_block
+  label: 'Sidebar Navigation'
+  provider: ymca_blocks
+  label_display: '0'
+visibility: {  }

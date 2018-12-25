@@ -1,0 +1,210 @@
+<?php
+
+/**
+ * @file
+ * Provides a Solr-based service class for the Search API.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\search_api\Entity\Server;
+use Drupal\search_api\SearchApiException;
+use Drupal\search_api\ServerInterface;
+use Drupal\search_api_solr\SolrBackendInterface;
+
+/**
+ * Implements hook_help().
+ */
+function search_api_solr_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name == 'search_api.overview') {
+    // Included because we need the REQUIREMENT_* constants.
+    include_once DRUPAL_ROOT . '/core/includes/install.inc';
+    module_load_include('install', 'search_api_solr');
+    $reqs = search_api_solr_requirements('runtime');
+    foreach ($reqs as $req) {
+      if (isset($req['description'])) {
+        $type = $req['severity'] == REQUIREMENT_ERROR ? 'error' : ($req['severity'] == REQUIREMENT_WARNING ? 'warning' : 'status');
+        drupal_set_message($req['description'], $type);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * Used to execute an optimization operation on all enabled Solr servers once a
+ * day.
+ */
+function search_api_solr_cron() {
+  $action = \Drupal::config('search_api_solr.settings')->get('cron_action');
+  // We treat all unknown action settings as "none". However, we turn a blind
+  // eye for Britons and other people who can spell.
+  if (!in_array($action, array('spellcheck', 'optimize', 'optimise'))) {
+    return;
+  }
+  // 86400 seconds is one day. We use slightly less here to allow for some
+  // variation in the request time of the cron run, so that the time of day will
+  // (more or less) stay the same.
+  if (REQUEST_TIME - \Drupal::state()->get('search_api_solr.last_optimize') > 86340) {
+    \Drupal::state()->set('search_api_solr.last_optimize', REQUEST_TIME);
+
+    // Get the IDs of all enabled servers which use the Solr backend.
+    $ids = \Drupal::entityQuery('search_api_server')
+      ->condition('backend', 'search_api_solr')
+      ->condition('status', TRUE)
+      ->execute();
+
+    $count = 0;
+    /** @var \Drupal\search_api\ServerInterface $server */
+    foreach (Server::loadMultiple($ids) as $server) {
+      try {
+        /** @var \Drupal\search_api_solr\SolrBackendInterface $backend */
+        $backend = $server->getBackend();
+        $connector = $backend->getSolrConnector();
+        if ($action != 'spellcheck') {
+          $connector->optimize();
+        }
+        else {
+          $solarium_query = $connector->getSelectQuery();
+          $solarium_query->setRows(0);
+
+          $spellcheck = $solarium_query->getSpellcheck();
+          $spellcheck->setBuild(TRUE);
+
+          $connector->execute($solarium_query);
+        }
+        ++$count;
+      }
+      catch (SearchApiException $e) {
+        watchdog_exception('search_api_solr', $e, '%type while optimizing Solr server @server: @message in %function (line %line of %file).', array('@server' => $server->label()));
+      }
+    }
+    if ($count) {
+      $vars['@count'] = $count;
+      if ($action != 'spellcheck') {
+        \Drupal::logger('search_api_solr')->info('Optimized @count Solr server(s).', $vars);
+      }
+      else {
+        \Drupal::logger('search_api_solr')->info('Rebuilt spellcheck dictionary on @count Solr server(s).', $vars);
+      }
+    }
+
+    // Delete cached endpoint data once a day.
+    \Drupal::state()->delete('search_api_solr.endpoint.data');
+  }
+}
+
+/**
+ * Implements hook_search_api_server_update().
+ */
+function search_api_solr_search_api_server_update(ServerInterface $server) {
+  // @todo Do we still need to keep static and persistent caches?
+  //   if ($server->getBackendId() == 'search_api_solr') {
+  //    $server->getSolrConnection()->clearCache();
+  //  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function search_api_solr_entity_type_alter(array &$entity_types) {
+  if (\Drupal::moduleHandler()->moduleExists('devel')) {
+    /** @var $entity_types \Drupal\Core\Entity\EntityTypeInterface[] */
+    foreach ($entity_types as $entity_type_id => $entity_type) {
+      if ($entity_type->hasViewBuilderClass() && $entity_type->hasLinkTemplate('canonical')) {
+        $entity_type->setLinkTemplate('devel-solr', "/devel/$entity_type_id/{{$entity_type_id}}/solr");
+      }
+    }
+  }
+}
+
+/**
+ *
+ */
+function search_api_solr_form_search_api_index_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // We need to restrict by form ID here because this function is also called
+  // via hook_form_BASE_FORM_ID_alter (which is wrong, e.g. in the case of the
+  // form ID search_api_field_config).
+  if (in_array($form_id, ['search_api_index_form', 'search_api_index_edit_form']) &&
+      isset($form['server'])) {
+    $form['server']['#element_validate'][] = 'search_api_solr_form_search_api_index_form_validate_server';
+  }
+}
+
+/**
+ *
+ */
+function search_api_solr_form_search_api_index_form_validate_server(&$element, FormStateInterface $form_state, $form) {
+  if ($server = Server::load($form_state->getValue('server'))) {
+    if ($server->getBackend() instanceof SolrBackendInterface) {
+      /** @var \Drupal\Core\Entity\EntityFormInterface $form_object */
+      $form_object = $form_state->getFormObject();
+      $this_index = $form_object->getEntity();
+      $indexes = $server->getIndexes();
+      $index_count = 0;
+      foreach ($indexes as $index) {
+        if ($index->status()) {
+          if (!$this_index->isNew() && ($this_index->id() == $index->id())) {
+            continue;
+          }
+          ++$index_count;
+        }
+      }
+      if ($index_count > 0 && $form_state->getValue('status')) {
+        $msg = t('The concept of storing multiple "virtual" Search API indexes in one Solr index (aka core) is bad practice and randomly breaks a lot of advanced features like spell checking, suggestions, automplete and others. Create a second core within your Solr server and assign this "index" to that core.');
+        if ($this_index->isNew()) {
+          // Avoid creating multiple indexes on one server.
+          $form_state->setError($element, $msg);
+        }
+        else {
+          // Allow editing existing multiple indexes on one server for backward
+          // compatibility.
+          drupal_set_message($msg, 'error');
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_search_api_views_handler_mapping_alter()
+ *
+ * @param array $mapping
+ *   An associative array with data types as the keys and Views field data
+ *   definitions as the values. In addition to all normally defined data types,
+ *   keys can also be "options" for any field with an options list, "entity" for
+ *   general entity-typed fields or "entity:ENTITY_TYPE" (with "ENTITY_TYPE"
+ *   being the machine name of an entity type) for entities of that type.
+ *
+ * @see _search_api_views_handler_mapping()
+ */
+function search_api_solr_search_api_views_handler_mapping_alter(&$mapping) {
+  $mapping['solr_text_ngram'] =
+  $mapping['solr_text_omit_norms'] =
+  $mapping['solr_text_phonetic'] =
+  $mapping['solr_text_unstemmed'] =
+  $mapping['solr_text_wstoken'] = [
+    'argument' => [
+      'id' => 'search_api',
+    ],
+    'filter' => [
+      'id' => 'search_api_fulltext',
+    ],
+    'sort' => [
+      'id' => 'search_api',
+    ],
+  ];
+
+  $mapping['solr_string_ngram'] = [
+    'argument' => [
+      'id' => 'search_api',
+    ],
+    'filter' => [
+      'id' => 'search_api_string',
+    ],
+    'sort' => [
+      'id' => 'search_api',
+    ],
+  ];
+}

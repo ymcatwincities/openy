@@ -1,0 +1,10 @@
+uuid: 3c3e9841-7e51-42a3-a905-5da117e8b870
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.content_browser_preview
+label: content_browser_preview
+targetEntityType: node
+cache: true

@@ -1,0 +1,96 @@
+dependencies:
+  module:
+    - file
+  enforced:
+    module:
+      - openy_demo_nblog
+id: openy_demo_nblog_file
+migration_tags: { }
+migration_group: openy_demo_nblog
+label: 'Import demo blog files'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      name: 1.jpg
+    -
+      id: 2
+      name: 2.jpg
+    -
+      id: 3
+      name: 3.jpg
+    -
+      id: 4
+      name: 4.jpg
+    -
+      id: 5
+      name: 5.jpg
+    -
+      id: 6
+      name: 6.jpg
+    -
+      id: 7
+      name: 7.jpg
+    -
+      id: 8
+      name: 8.jpg
+    -
+      id: 9
+      name: 9.jpg
+    -
+      id: 10
+      name: 10.jpg
+  ids:
+    id:
+      type: integer
+  constants:
+    source_relative_path: assets/images
+    uri_file: 'public:/'
+    module: openy_demo_nblog
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  module_path:
+    plugin: module_path
+    source: constants/module
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - '@module_path'
+        - constants/source_relative_path
+        - name
+    -
+      plugin: urlencode
+  uri_file:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/uri_file
+        - name
+    -
+      plugin: urlencode
+  filename: name
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@uri_file'
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+destination:
+  plugin: 'entity:file'
+migration_dependencies:
+  required: {  }
+  optional: {  }

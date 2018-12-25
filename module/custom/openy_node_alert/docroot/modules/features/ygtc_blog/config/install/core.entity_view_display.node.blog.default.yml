@@ -1,0 +1,82 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.blog.field_blog_meta
+    - field.field.node.blog.field_image
+    - field.field.node.blog.field_related_camps_locations
+    - field.field.node.blog.field_site_section
+    - field.field.node.blog.field_state
+    - field.field.node.blog.field_summary
+    - field.field.node.blog.field_tags
+    - field.field.node.blog.field_ygtc_content
+    - node.type.blog
+  module:
+    - media_entity
+    - options
+    - panelizer
+    - text
+    - user
+    - views_field_formatter
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.blog.default
+targetEntityType: node
+bundle: blog
+mode: default
+content:
+  addthis:
+    label: hidden
+    type: views_field_formatter
+    weight: 3
+    region: content
+    settings:
+      view: ''
+      arguments:
+        field_value:
+          checked: true
+        entity_id:
+          checked: true
+        delta:
+          checked: true
+      multiple: false
+      hide_empty: false
+      implode_character: ''
+    third_party_settings: {  }
+  field_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: media_thumbnail
+    region: content
+  field_state:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_ygtc_content:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden:
+  field_blog_meta: true
+  field_content: true
+  field_related_camps_locations: true
+  field_site_section: true
+  field_sitemap_exclude: true
+  field_summary: true
+  field_tags: true
+  langcode: true
+  links: true

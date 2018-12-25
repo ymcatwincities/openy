@@ -1,0 +1,8 @@
+purge_ui.dashboard:
+  css:
+    layout:
+      css/purge_ui.dashboard.css: {}
+  dependencies:
+    - core/drupal.ajax
+    - core/jquery
+    - core/drupal

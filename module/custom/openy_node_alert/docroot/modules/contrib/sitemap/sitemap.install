@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for Sitemap module.
+ */
+
+/**
+ * Change sitemap configuration page permission to administer sitemap.
+ */
+function sitemap_update_8101() {
+  $roles = user_roles(FALSE, 'administer site configuration');
+  if (!empty($roles)) {
+    foreach ($roles as $rid => $role) {
+      user_role_grant_permissions($rid, array('administer sitemap'));
+    }
+  }
+}
+
+/**
+ * Update the CSS configuration setting to reflect the change in option wording
+ * (from negation to affirmation).
+ */
+function sitemap_update_8102(&$sandbox) {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('sitemap.settings');
+  if ($config->get('css')) {
+    $css = ($config->get('css') == TRUE) ? FALSE : TRUE;
+    $config->set('css', $css);
+  }
+  $config->save();
+}

@@ -1,0 +1,19 @@
+uuid: 157d28f2-8234-4071-94f1-a1e9cbd72c6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.storage.block_content.field_ds_message
+id: block_content.digital_signage_promotional.field_ds_message
+field_name: field_ds_message
+entity_type: block_content
+bundle: digital_signage_promotional
+label: Message
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

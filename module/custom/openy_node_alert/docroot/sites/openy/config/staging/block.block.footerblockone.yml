@@ -1,0 +1,25 @@
+uuid: ceb9acd2-0166-4c9d-b805-5d8bbce670e2
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:0dc52770-1cea-42a7-8d53-83aff7760add'
+  module:
+    - block_content
+  theme:
+    - multipurpose_business_theme
+id: footerblockone
+theme: multipurpose_business_theme
+region: bottom_first
+weight: -22
+provider: null
+plugin: 'block_content:0dc52770-1cea-42a7-8d53-83aff7760add'
+settings:
+  id: 'block_content:0dc52770-1cea-42a7-8d53-83aff7760add'
+  label: 'Footer block one'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

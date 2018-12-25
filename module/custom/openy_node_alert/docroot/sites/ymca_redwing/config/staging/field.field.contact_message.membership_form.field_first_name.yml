@@ -1,0 +1,19 @@
+uuid: f0cfbc57-b4d2-470a-af1b-27ef547bf897
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.membership_form
+    - field.storage.contact_message.field_first_name
+id: contact_message.membership_form.field_first_name
+field_name: field_first_name
+entity_type: contact_message
+bundle: membership_form
+label: 'First Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

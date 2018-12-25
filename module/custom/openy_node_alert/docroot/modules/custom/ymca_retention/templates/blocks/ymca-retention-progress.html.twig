@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Display member progress report.
+ */
+#}
+<div class="inner-container"
+     data-ng-controller="ProgressController as progressC">
+  <table class="yfr-table-progress ng-hide login-required"
+         data-ng-show="retentionC.storage.member">
+    <tbody>
+
+    <tr data-ng-repeat="date in progressC.storage.dates"
+        data-ng-class="progressC.dateClass(date)">
+      <td>
+        <div class="item-check" data-ng-class="progressC.statusClass(date)">
+          <span></span>
+        </div>
+
+        <div class="info-date">
+          <div class="date-wrapper">
+            <span class="date">{{ '{{date.month_day}}' }}</span>
+            <span class="month">{{ '{{date.month}}' }}</span>
+          </div>
+          <span class="weekday">{{ '{{date.weekday}}' }}</span>
+        </div>
+      </td>
+      <td>
+        <span class="info-activity ng-hide"
+              data-ng-show="progressC.checkInStatus(date)"
+              data-ng-class="progressC.checkInClass(date)">{{ '{{progressC.checkInStatus(date)}}' }}</span>
+      </td>
+      <td data-ng-repeat="activity_group in progressC.storage.activity_groups">
+        <div class="item-activity"
+             data-ng-class="progressC.activityGroupClass(date.timestamp, activity_group)">
+          <span class="activity"></span>
+          <span class="separator ng-hide"
+                data-ng-show="progressC.activitiesCount(date.timestamp, activity_group)"></span>
+          <span class="counter ng-hide"
+                data-ng-show="progressC.activitiesCount(date.timestamp, activity_group)">{{ '{{progressC.activitiesCount(date.timestamp, activity_group)}}' }}</span>
+        </div>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>

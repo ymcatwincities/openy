@@ -1,0 +1,84 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.repeat_schedules.field_prgf_block
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_loc
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_categ
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_excl
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_instr
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pdf
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
+    - field.field.paragraph.repeat_schedules.field_prgf_rs_pdf_only_view
+    - paragraphs.paragraphs_type.repeat_schedules
+  module:
+    - link
+id: paragraph.repeat_schedules.default
+targetEntityType: paragraph
+bundle: repeat_schedules
+mode: default
+content:
+  field_prgf_repeat_loc:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_prgf_repeat_schedule_categ:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_prgf_repeat_schedule_excl:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_prgf_repeat_schedule_instr:
+    weight: 3
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_prgf_repeat_schedules_pdf:
+    weight: 0
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_prgf_repeat_schedules_pref:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_prgf_rs_pdf_only_view:
+    weight: 6
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+hidden:
+  created: true
+  field_prgf_block: true
+  moderation_state: true
+  status: true
+  uid: true

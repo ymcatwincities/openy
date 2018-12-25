@@ -1,0 +1,19 @@
+uuid: 021cbb0f-ef5b-4c65-a80f-15dad774b0cd
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact
+    - webforms
+id: contact_message.field_wait_list_email_option
+field_name: field_wait_list_email_option
+entity_type: contact_message
+type: options_email_item
+settings: {  }
+module: webforms
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+label: 'Crop 4:3'
+id: crop_4_3
+description: ''
+aspect_ratio: '4:3'

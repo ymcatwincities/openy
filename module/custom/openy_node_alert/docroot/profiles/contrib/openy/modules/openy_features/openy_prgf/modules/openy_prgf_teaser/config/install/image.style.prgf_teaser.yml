@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: prgf_teaser
+label: 'Paragraph teaser'
+effects:
+  51762577-27cb-4ebc-b543-813210b2f12a:
+    uuid: 51762577-27cb-4ebc-b543-813210b2f12a
+    id: focal_point_scale_and_crop
+    weight: 2
+    data:
+      width: 260
+      height: 220
+      crop_type: focal_point

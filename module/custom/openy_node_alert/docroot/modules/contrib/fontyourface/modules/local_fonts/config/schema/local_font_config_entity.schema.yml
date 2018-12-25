@@ -1,0 +1,35 @@
+local_fonts.local_font_config_entity.*:
+  type: config_entity
+  label: 'Custom Font config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    font_family:
+      type: string
+      label: 'Font Family'
+    font_style:
+      type: string
+      label: 'Font Style'
+    font_weight:
+      type: integer
+      label: 'Font Weight'
+    font_classification:
+      type: sequence
+      label: 'Font Classifications'
+      sequence:
+        type: string
+    font_woff_data:
+      type: string
+      label: 'Woff File Data'
+    font_woff2_data:
+      type: string
+      label: 'Woff2 File Data'
+    font_svg_data:
+      type: string
+      label: 'SVG File Data'

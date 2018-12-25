@@ -1,0 +1,86 @@
+# Declaration of Workflow UI routings.
+
+# copy from WorkflowUIController.php
+# https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Entity%21entity.api.php/group/entity_api/8
+
+### Workflow settings form
+workflow.ui.settings:
+  path: '/admin/config/workflow/workflow/settings'
+  defaults:
+    _controller: '\Drupal\workflow_ui\Controller\WorkflowUiController::settingsForm'
+    _title: 'Workflow settings'
+  requirements:
+    _permission: 'administer workflow'
+
+
+### Workflows
+entity.workflow_type.collection:
+  path: '/admin/config/workflow/workflow'
+  defaults:
+    _entity_list: 'workflow_type'
+#    _controller: '\workflow\EntityWorkflowUIController::adminOverview'
+    _title: 'Workflows'
+  requirements:
+    _permission: 'administer workflow'
+
+entity.workflow_type.add_form:
+  path: '/admin/config/workflow/workflow/add'
+  defaults:
+    _entity_form: 'workflow_type.add'
+    _title: 'Add Workflow'
+  requirements:
+    _permission: 'administer workflow'
+#   _entity_access: 'workflow.update'
+
+entity.workflow_type.edit_form:
+  path: '/admin/config/workflow/workflow/{workflow_type}/edit'
+  defaults:
+    _entity_form: 'workflow_type.edit'
+    _title: 'Edit Workflow'
+    _title_callback: 'workflow_ui_url_get_title'
+  requirements:
+    _permission: 'administer workflow'
+#   _entity_access: 'workflow.update'
+
+entity.workflow_type.delete_form:
+  path: '/admin/config/workflow/workflow/{workflow_type}/delete'
+  defaults:
+    _entity_form: 'workflow_type.delete'
+    _title: 'Delete Workflow'
+  requirements:
+    _permission: 'administer workflow'
+#   _entity_access: 'workflow.update'
+
+
+### Workflow States
+entity.workflow_state.collection:
+  path: '/admin/config/workflow/workflow/{workflow_type}/states'
+  defaults:
+    _entity_list: 'workflow_state'
+#    _controller: '\workflow\EntityWorkflowUIController::adminOverview'
+    _title: 'Edit Workflow'
+    _title_callback: 'workflow_ui_url_get_title'
+  requirements:
+    _permission: 'administer workflow'
+
+
+### Workflow Transitions
+entity.workflow_transition.collection:
+  path: '/admin/config/workflow/workflow/{workflow_type}/transition_roles'
+  defaults:
+    _entity_list: 'workflow_config_transition'
+#     _form: '\Drupal\user\AccountSettingsForm'
+    _title: 'Edit Workflow'
+    _title_callback: 'workflow_ui_url_get_title'
+  requirements:
+    _permission: 'administer workflow'
+
+### Workflow Labels
+entity.workflow_label.collection:
+  path: '/admin/config/workflow/workflow/{workflow_type}/transition_labels'
+  defaults:
+    _entity_list: 'workflow_config_transition'
+    _title: 'Edit Workflow'
+    _title_callback: 'workflow_ui_url_get_title'
+  requirements:
+    _permission: 'administer workflow'

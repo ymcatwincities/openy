@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Open Y Block Date install file.
+ */
+
+/**
+ * Update configs for Drupal Core upgrade.
+ */
+function openy_block_date_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_block_date') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.block_content.date_block.default' => [
+      'content',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

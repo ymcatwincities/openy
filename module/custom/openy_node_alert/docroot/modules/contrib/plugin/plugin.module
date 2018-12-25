@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file
+ * Contains hook implementations.
+ */
+
+use Drupal\field\FieldStorageConfigInterface;
+use Drupal\plugin\Plugin\Field\FieldType\PluginCollectionItemInterface;
+
+function plugin_field_info_alter(array &$field_type_definitions) {
+  if (isset($field_type_definitions['plugin:block'])) {
+    $field_type_definitions['plugin:block']['default_formatter'] = 'plugin_block_built';
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function plugin_field_formatter_info_alter(array &$field_formatter_definitions) {
+  $field_formatter_definitions['plugin_label']['field_types'] = _plugin_collection_field_type_ids();
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function plugin_field_widget_info_alter(array &$field_widget_definitions) {
+  $field_type_ids = _plugin_collection_field_type_ids();
+  foreach ($field_widget_definitions as $plugin_id => $field_widget_definition) {
+    if (strpos($plugin_id, 'plugin_selector:') === 0) {
+      $field_widget_definitions[$plugin_id]['field_types'] = $field_type_ids;
+    }
+  }
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function plugin_views_data_alter(array &$data) {
+  /** @var \Drupal\plugin\ViewsData $views_data */
+  $views_data = \Drupal::service('plugin.views_data');
+  $views_data->alterViewsData($data);
+}
+
+/**
+ * Implements hook_field_views_data_alter().
+ */
+function plugin_field_views_data_alter(array &$data, FieldStorageConfigInterface $field_storage) {
+  /** @var \Drupal\plugin\ViewsData $views_data */
+  $views_data = \Drupal::service('plugin.views_data');
+  $views_data->alterFieldViewsData($data, $field_storage);
+}
+
+/**
+ * Gets the IDs of plugin item collection field types.
+ *
+ * @return string[]
+ */
+function _plugin_collection_field_type_ids() {
+  $supported_field_type_ids = [];
+  /** @var \Drupal\Component\Plugin\PluginManagerInterface $field_type_manager */
+  $field_type_manager = \Drupal::service('plugin.manager.field.field_type');
+  foreach ($field_type_manager->getDefinitions() as $plugin_id => $plugin_definition) {
+    if (is_subclass_of($plugin_definition['class'], PluginCollectionItemInterface::class)) {
+      $supported_field_type_ids[] = $plugin_id;
+    }
+  }
+
+  return $supported_field_type_ids;
+}

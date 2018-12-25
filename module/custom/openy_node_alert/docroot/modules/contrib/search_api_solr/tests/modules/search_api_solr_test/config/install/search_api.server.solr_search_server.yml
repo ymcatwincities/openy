@@ -1,0 +1,33 @@
+id: solr_search_server
+name: 'Solr search server'
+description: 'A server used for testing.'
+backend: search_api_solr
+backend_config:
+  site_hash: true
+  excerpt: false
+  retrieve_data: false
+  highlight_data: false
+  skip_schema_check: false
+  suggest_suffix: true
+  suggest_corrections: true
+  suggest_words: false
+  connector: basic_auth
+  connector_config:
+    scheme: http
+    host: localhost
+    port: '8983'
+    path: /solr
+    core: d8
+    timeout: 5
+    index_timeout: 5
+    optimize_timeout: 5
+    solr_version: ''
+    http_method: AUTO
+    username: ''
+    password: ''
+    commit_within: 1000
+status: true
+langcode: en
+dependencies:
+  module:
+    - search_api_solr

@@ -1,0 +1,144 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/node\/1?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/node\/article"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/revision_uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ]
+    },
+    "uuid": [
+        {
+            "value": "d41f7a7b-4dd9-4845-a409-9ac63a2abfc2"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "article"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "title": [
+        {
+            "value": "Active older adults",
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "fa087e3e-a3c1-4390-a301-1ea4ec024d41"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/node\/article\/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "fa087e3e-a3c1-4390-a301-1ea4ec024d41"
+                    }
+                ]
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "1445517808",
+            "lang": "en"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1445517940",
+            "lang": "en"
+        }
+    ],
+    "promote": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "0",
+            "lang": "en"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1445517940"
+        }
+    ],
+    "revision_translation_affected": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": "1",
+            "lang": "en"
+        }
+    ],
+    "field_content": [
+        {
+            "value": "<h2>Get Active and Stay Healthy<\/h2>\r\n\r\n<p>The YMCA offers all kinds of wellness opportunities for active older adults\u2014from baby boomers to seniors\u2014including physical fitness, social activities and more.<\/p>\r\n\r\n<p>There are several fitness classes for Active Older Adults. Drop in to a&nbsp;<a href=\"http:\/\/www.ymcatwincities.org\/health__fitness\/free_group_exercise_classes\/\">Group Exercise class<\/a>&nbsp;like Active Older Adult Group Cycle or SilverSneakers\u00ae Circuit. You can also train with a small group by signing up for&nbsp;<a href=\"http:\/\/www.ymcatwincities.org\/health__fitness\/trainer-led_classes\/\">Group Personal Training classes<\/a>&nbsp;like Building Better Balance or Strength Training for Seniors.<\/p>\r\n\r\n<p>If you\u2019re not sure how to get started, ask Member Services about group orientation at your&nbsp;<a href=\"http:\/\/www.ymcatwincities.org\/locations\/\">local Y<\/a>.&nbsp;During orientation, you\u2019ll get an in-depth look at all programs and classes for active older adults, and how-to information for making the most of your Y experience.<\/p>\r\n\r\n<p>No matter which YMCA you visit, there\u2019s always something going on for active older adults\u2014from exercise classes to learning opportunities to social clubs and more! Find out what\u2019s happening in&nbsp;<a href=\"http:\/\/www.ymcatwincities.org\/health__fitness\/active_older_adults\/news_and_schedules_for_active_older_adults\/\">location-specific newsletters and schedules<\/a>.<\/p>\r\n\r\n<h3>Wellness Consultations<\/h3>\r\n\r\n<p>Members can take advantage of a complimentary Wellness Consultation\u2014an opportunity to become comfortable in your YMCA by meeting with a fitness professional. We\u2019ll assess your goals and needs, and support your path to a healthy lifestyle. As part of a Wellness Consultation, you can request a fall risk assessment or senior fitness assessment. Ask for the Group Exercise\/Active Older Adults Program Manager at&nbsp;<a href=\"http:\/\/www.ymcatwincities.org\/locations\/\">your local Y<\/a>&nbsp;to get more info and schedule your consultation.<\/p>\r\n\r\n<h3>Upcoming events<\/h3>\r\n\r\n<p>The Y organizes field trips for active older adults throughout the year and also holds special events. Don\u2019t miss the variety of fun social activities available through&nbsp;<a href=\"http:\/\/www.ymcatwincities.org\/locations\/\">your local Y<\/a>.<\/p>\r\n",
+            "format": "full_html"
+        }
+    ],
+    "field_sidebar": [
+        {
+            "value": "<drupal-entity data-align=\"none\" data-embed-button=\"block\" data-entity-embed-display=\"entity_reference:entity_reference_entity_view\" data-entity-embed-settings=\"{&quot;view_mode&quot;:&quot;default&quot;}\" data-entity-label=\"Block\" data-entity-type=\"block_content\" data-entity-uuid=\"0899a0fa-aa57-4634-be5f-950e0e08dd2b\"><\/drupal-entity>\r\n",
+            "format": "full_html"
+        }
+    ],
+    "field_sidebar_navigation": [
+        {
+            "value": "0"
+        }
+    ]
+}

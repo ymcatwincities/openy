@@ -1,0 +1,474 @@
+html {
+  height: 100%;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+.theme-ymca--2017-compain {
+  font-family: 'Cachet', Verdana, Arial, Helvetica, sans-serif;
+  color: $grey7;
+
+  .viewport {
+    padding-top: 0;
+    background: $white;
+  }
+
+  .content {
+    background: $white;
+  }
+
+  .main--content {
+    @include rem(padding, 0 0 60px 0);
+    @include background-image(linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(244, 244, 244, 0.8) 100%));
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 60px;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 0 70px 0);
+      background-size: 100% 70px;
+    }
+  }
+
+  @include breakpoint($mobile-tablet-portrait-only) {
+    .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .container {
+    transition: padding .3s;
+  }
+
+  .inner-container {
+    @include rem(padding, 0 20px);
+    transition: padding .3s;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 30px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding, 0 50px);
+    }
+
+    @include breakpoint($desktop) {
+      @include rem(padding, 0 100px);
+    }
+  }
+
+  .btn {
+    &.compain-green {
+      background: $green-medium;
+    }
+
+    &.compain-dark-green {
+      background: $green-dark;
+    }
+
+    &.compain-grey {
+      background: $grey7;
+    }
+  }
+
+  .page-footer {
+    &.footer-themes-b {
+      .richtext {
+        text-align: left;
+      }
+    }
+  }
+
+  .form-item {
+    margin: 0;
+  }
+
+  .form-select,
+  .form-text,
+  .form-email {
+    @include rem(font-size, 14px);
+    @include rem(line-height, 20px);
+    @include rem(padding, 14px);
+    @include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
+    display: block;
+    width: 100%;
+    color: $grey7;
+    vertical-align: top;
+    background-color: $white;
+    border: 1px solid $grey12;
+    border-radius: 3px;
+
+    @include input-placeholder {
+      color: $grey4;
+      font-style: italic;
+      line-height: 26px;
+    }
+  }
+}
+
+.theme-ymca--2017-compain-register {
+  height: 100%;
+  position: relative;
+  background: $green-dark url('../prototypes/ysr_2017/img/bg-page-register.jpg') 50% 0 no-repeat;
+  background-size: cover;
+
+  .viewport,
+  #main {
+    height: 100%;
+    background: none;
+    margin-top: auto;
+  }
+
+  .compain-register {
+    @include rem(padding, 20px);
+    position: absolute;
+    width: 100%;
+    max-width: 740px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .compain-header {
+      background: none;
+      height: auto;
+
+      &--content {
+        .logo {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .container {
+      padding: 0;
+    }
+  }
+
+  .compain-form-register {
+    @include rem(padding, 20px);
+    background-color: $green9;
+    border-radius: 8px;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 30px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding, 40px);
+    }
+
+    .btn {
+      @include rem(line-height, 26px);
+      display: block;
+      width: 100%;
+    }
+
+    .form-item {
+      @include rem(margin, 0 0 20px 0);
+
+      @include breakpoint($tablet) {
+        margin-bottom: 0;
+      }
+    }
+
+    + .compain-form-register--alert {
+      margin-top: 20px;
+    }
+  }
+}
+
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.sub-title-grey span {
+  text-transform: none;
+}
+
+.theme-ymca--2017-compain-winners {
+  height: 100%;
+  position: relative;
+
+  .container-winners {
+    height: 100%;
+    background: url('../prototypes/ysr_2017/img/bg-page-winner.jpg') no-repeat;
+    background-size: cover;
+    @include rem(max-height, 522px);
+  }
+
+  .compain-winners {
+    @include rem(padding, 20px);
+    width: 100%;
+    @include rem(max-width, 740px);
+    @include rem(padding-top, 39px);
+    @include rem(padding-bottom, 45px);
+    margin: 0 auto;
+
+    .compain-header {
+      background: none;
+      height: auto;
+      padding-bottom: 0;
+
+      &--content {
+        text-align: center;
+        .content {
+          text-align: center;
+          @include rem(margin-top, 31px);
+        }
+        .title {
+          padding-bottom: 2px;
+        }
+        .logo {
+          display: block;
+          margin: 0 auto;
+          max-width: 102px;
+        }
+      }
+    }
+
+    .container {
+      padding: 0;
+    }
+  }
+
+  .compain-form-winners {
+    @include rem(padding, 20px);
+    @include breakpoint($tablet) {
+      @include rem(padding, 30px);
+    }
+    @include rem(max-width, 453px);
+    margin: 0 auto;
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding, 27px);
+    }
+
+    .btn {
+      @include rem(line-height, 26px);
+      display: block;
+      width: 100%;
+    }
+
+    .form-item {
+      @include rem(margin, 0 0 20px 0);
+
+      @include breakpoint($tablet) {
+        margin-bottom: 0;
+      }
+    }
+
+    .form-select {
+      height: 50px;
+    }
+
+  }
+
+  .img.center {
+    text-align: center;
+  }
+
+  .compain-info-blocks .content-wrapper {
+    overflow: visible;
+  }
+}
+
+.winner {
+  @include cachet-bold();
+  text-align: center;
+  text-transform: uppercase;
+  .bucks-header {
+    display: table;
+    margin: 0 auto;
+    font-weight: bold;
+    border-bottom: 1px solid $grey2;
+    padding-bottom: 4px;
+    @include rem(margin-bottom, 16px);
+    min-width: 308px;
+    .col-sm-4 & {
+      @include rem(padding-left, 40px);
+      @include breakpoint(max-width 900px) {
+        min-width: initial;
+        padding-left: 0;
+        .cert-description {
+          @include rem(padding-left, 10px);
+          @include rem(font-size, 18px);
+        }
+      }
+    }
+  }
+
+
+  .sum {
+    display: table-cell;
+    color: $green-medium;
+    letter-spacing: -6px;
+    @include rem(font-size, 60px);
+    .currency {
+      font-size: 60%;
+    }
+  }
+  .cert-description {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    @include rem(font-size, 20px);
+    @include rem(line-height, 25px);
+
+  }
+  .winner-name {
+    color: $green-dark;
+    @include rem(font-size, 30px);
+    font-weight: bold;
+    margin-bottom: 2px;
+    .col-sm-2 &,
+    .col-sm-4 & {
+      color: $green-medium;
+    }
+    .col-sm-2 & {
+      @include rem(margin-top, 6px);
+    }
+  }
+  .winner-id {
+    color: $grey5;
+    @include rem(font-size, 13px);
+    .col-sm-2 & {
+      @include rem(margin-bottom, 57px);
+    }
+  }
+  .col-sm-12 & {
+    @include rem(font-size, 21px);
+  }
+
+}
+
+.container.bucks-25 {
+  @include breakpoint($tablet) {
+    @include rem(margin-top, -75px);
+    padding: 0;
+  }
+  img {
+    max-width: 60px;
+  }
+}
+
+.bucks-5 {
+  .container {
+    border-bottom: 1px solid $grey2;
+    @include rem(margin, 0 48px 48px);
+    @include rem(padding-top, 88px);
+    @include rem(padding-left, 80px);
+    @include breakpoint($tablet) {
+      @include rem(padding-left, 188px);
+    }
+    .winner {
+      margin-bottom: 0;
+    }
+    .bucks-header {
+      border: 0 none;
+      @include rem(margin-bottom, 6px);
+    }
+  }
+  .winner-name {
+    @include rem(font-size, 20px);
+  }
+  .row {
+    margin-right: -100px;
+    margin-left: -100px;
+  }
+}
+
+
+.theme-ymca--2017-compain-upcoming {
+  height: 100%;
+  position: relative;
+  background: none;
+
+  .viewport,
+  #main {
+    height: 100%;
+    background: none;
+    margin-top: auto;
+  }
+
+  .compain-upcoming {
+    @include rem(padding, 20px);
+    width: 100%;
+    max-width: 740px;
+    text-align: center;
+    @include breakpoint($tablet) {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 40%;
+      left: 50%;
+    }
+
+    .compain-header {
+      background: none;
+      height: auto;
+      .title {
+        color: $blue-light;
+        margin-bottom: 50px ;
+        @include rem(font-size, 46px);
+        margin-top: 35px;
+        @include breakpoint($tablet) {
+          margin-top: -35px;
+          @include rem(font-size, 50px);
+        }
+      }
+      .sub-title-grey {
+        color: $grey5;
+        @include rem(font-size, 20px);
+      }
+      .container .content {
+        text-align: center;
+        hr {
+          width: 175px;
+          border-bottom: 1px solid $green-light-lighter;
+          opacity: 0.5;
+        }
+        .sub-title {
+          margin-top: 45px;
+          @include rem(font-size, 30px);
+          margin-bottom: 50px ;
+          line-height: 1.2em;
+          text-transform: none;
+          color: #555555;
+        }
+        a:hover, a:focus {
+          text-decoration: none;
+        }
+      }
+      &--content {
+        .logo {
+          display: block;
+          margin: 0 auto;
+          max-width: 175px;
+          @include breakpoint($tablet) {
+            margin-top: 185px;
+          }
+        }
+      }
+    }
+
+    .container {
+      text-align: center;
+      padding: 0;
+    }
+  }
+
+}
+

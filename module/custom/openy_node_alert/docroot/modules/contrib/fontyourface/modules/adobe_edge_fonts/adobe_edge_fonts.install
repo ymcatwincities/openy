@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Adobe Edge Fonts install file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function adobe_edge_fonts_install() {
+  module_set_weight('adobe_edge_fonts', 10);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function adobe_edge_fonts_uninstall() {
+  fontyourface_delete('adobe_edge_fonts');
+}

@@ -1,0 +1,20 @@
+uuid: 46fa3de0-95a8-44f7-be00-fa8a3bbd64d0
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - b3
+id: b3_help
+theme: b3
+region: content
+weight: -7
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,11 @@
+menu_list:
+  - 'main-menu'
+  - 'locations'
+  - 'health-and-fitness'
+  - 'swimming'
+  - 'child-care-preschool'
+  - 'kids-teen-activities'
+  - 'camps'
+  - 'our-cause'
+  - 'jobs-suppliers-news'
+show_mobile_submenu: 0

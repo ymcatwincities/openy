@@ -1,0 +1,19 @@
+uuid: 594028c3-f50e-4a04-8d00-0e191ba87ffd
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_personal_training
+    - field.storage.contact_message.field_first_name
+id: contact_message.contact_personal_training.field_first_name
+field_name: field_first_name
+entity_type: contact_message
+bundle: contact_personal_training
+label: 'First Name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

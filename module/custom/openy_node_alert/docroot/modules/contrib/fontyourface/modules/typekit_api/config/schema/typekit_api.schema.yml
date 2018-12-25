@@ -1,0 +1,7 @@
+typekit.settings:
+  type: config_object
+  label: 'Typekit Settings'
+  mapping:
+    token:
+      type: string
+      label: 'Typekit API token'

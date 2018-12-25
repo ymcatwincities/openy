@@ -1,0 +1,24 @@
+uuid: a7a5061d-be3f-43cb-9d00-fc1eebf90310
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - system
+  theme:
+    - jethro
+id: jethro_footer
+theme: jethro
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: 'Footer menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

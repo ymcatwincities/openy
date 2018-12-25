@@ -1,0 +1,15 @@
+name: Open Y Paragraph Code Block
+description: Provides a paragraph that renders Code block.
+package: Open Y
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - datalayer
+  - entity_browser_entity_form
+  - field
+  - inline_entity_form
+  - language
+  - openy_code_block
+  - paragraphs
+version: 8.x-1.0

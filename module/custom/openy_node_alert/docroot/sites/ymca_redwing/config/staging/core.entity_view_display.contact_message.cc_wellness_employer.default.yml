@@ -1,0 +1,89 @@
+uuid: e09b8452-cb1e-417a-bc00-c270844f7c11
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.cc_wellness_employer
+    - field.field.contact_message.cc_wellness_employer.field_address
+    - field.field.contact_message.cc_wellness_employer.field_comments
+    - field.field.contact_message.cc_wellness_employer.field_company_name
+    - field.field.contact_message.cc_wellness_employer.field_company_role
+    - field.field.contact_message.cc_wellness_employer.field_email_address
+    - field.field.contact_message.cc_wellness_employer.field_first_name
+    - field.field.contact_message.cc_wellness_employer.field_last_name
+    - field.field.contact_message.cc_wellness_employer.field_no_employee
+    - field.field.contact_message.cc_wellness_employer.field_phone_number
+  module:
+    - address
+id: contact_message.cc_wellness_employer.default
+targetEntityType: contact_message
+bundle: cc_wellness_employer
+mode: default
+content:
+  field_address:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_comments:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_company_name:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_company_role:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_email_address:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_first_name:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_last_name:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_no_employee:
+    weight: 8
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_phone_number:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  message:
+    type: string
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden: {  }

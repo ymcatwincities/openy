@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.file_browser
+    - field.storage.block_content.field_file_browser_reference
+  module:
+    - file_browser_example
+id: block_content.file_browser.field_file_browser_reference
+field_name: field_file_browser_reference
+entity_type: block_content
+bundle: file_browser
+label: 'File Browser Reference'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+field_type: entity_reference

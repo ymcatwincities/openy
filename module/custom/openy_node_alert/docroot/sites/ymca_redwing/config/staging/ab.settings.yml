@@ -1,0 +1,12 @@
+replacements:
+  -
+    block_id: top_menu_2
+    selector: '#block-topmenu'
+  -
+    block_id: mastheadnavigationblock_2
+    selector: '#masthead-menu'
+  -
+    block_id: footer_b
+    selector: '.nav-footer > div'
+_core:
+  default_config_hash: dXHtjmlHDmqsnLFJVg24jCsPFarQ-_O6qv53zhWY9Ds

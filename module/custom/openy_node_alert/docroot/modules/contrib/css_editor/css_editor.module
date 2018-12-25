@@ -1,0 +1,148 @@
+<?php
+/**
+ * @file
+ * Allows users to apply customized CSS to themes.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function css_editor_library_info_alter(&$libraries, $extension) {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($extension == $theme) {
+    if ($file = _css_editor_get_stylesheet($theme)) {
+      // Append custom style sheet to theme libraries.
+      $libraries['css_editor']['css']['theme'][$file]['weight'] = 9999;
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function css_editor_page_attachments(array &$page) {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if (_css_editor_get_stylesheet($theme)) {
+    $page['#attached']['library'][] = $theme . '/css_editor';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for `system_theme_settings`.
+ */
+function css_editor_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $theme = _css_editor_get_edited_theme($form_state);
+  if ($theme) {
+    $config = \Drupal::configFactory()->getEditable('css_editor.theme.' . $theme);
+    // Add CSS customization fieldset.
+    $form['css_editor'] = array(
+      '#type' => 'details',
+      '#title' => t('Custom CSS'),
+      '#open' => TRUE,
+    );
+    // Switch to enable/disable customization.
+    $form['css_editor']['css_enabled'] = array(
+      '#title' => t('Enable or disable custom CSS:'),
+      '#type' => 'checkbox',
+      '#default_value' => $config->get('enabled'),
+    );
+    // Editor box.
+    $form['css_editor']['css'] = array(
+      '#type' => 'textarea',
+      '#prefix' => '<div id="css-editor-field">',
+      '#description' => t('Type or paste custom CSS code for this theme.'),
+      '#default_value' => $config->get('css'),
+      '#attributes' => array('id' => 'css-editor-textarea'),
+      '#suffix' => '</div>',
+    );
+    // Switch to enable/disable the plain text editor.
+    $form['css_editor']['plaintext_enabled'] = array(
+      '#title' => t('Use plain text editor'),
+      '#type' => 'checkbox',
+      '#default_value' => $config->get('plaintext_enabled'),
+    );
+    // Switch to enable/disable autopreview.
+    $form['css_editor']['autopreview_enabled'] = array(
+      '#title' => t('Enable auto preview'),
+      '#type' => 'checkbox',
+      '#default_value' => $config->get('autopreview_enabled'),
+    );
+    // Preview path.
+    $form['css_editor']['preview_path'] = array(
+      '#title' => t('Preview path:'),
+      '#type' => 'textfield',
+      '#size' => 60,
+    );
+    // Preview box.
+    $preview_url = Url::fromRoute('<front>', array(), array('absolute' => TRUE, 'query' => array('theme' => $theme)))->toString();
+    $form['css_editor']['css_preview'] = array(
+      '#type' => 'inline_template',
+      '#template' => '<iframe src="{{ url }}" id="css-editor-preview">' . t('Frames are not supported.') . '</iframe>',
+      '#context' => array(
+        'url' => $preview_url,
+      ),
+    );
+    // Attach CSS and Javascript libraries.
+    $form['#attached']['library'][] = 'css_editor/codemirror';
+    $form['#attached']['library'][] = 'css_editor/css_editor';
+    $form['#attached']['drupalSettings']['CSSEditor']['frontPage'] = $preview_url;
+    $form['#submit'][] = '_css_editor_theme_settings_form_submit';
+  }
+}
+
+/**
+ * Form submission handler for hook_form_system_theme_settings_alter().
+ */
+function _css_editor_theme_settings_form_submit($form, FormStateInterface $form_state) {
+  $theme = _css_editor_get_edited_theme($form_state);
+  if ($theme) {
+    // Save file.
+    $path = 'public://css_editor';
+    $file = $path . DIRECTORY_SEPARATOR . $theme . '.css';
+    if (file_prepare_directory($path, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
+      file_unmanaged_save_data($form_state->getValue('css'), $file, FILE_EXISTS_REPLACE);
+      drupal_chmod($file);
+    }
+    // Save settings.
+    \Drupal::configFactory()->getEditable('css_editor.theme.' . $theme)
+      ->set('enabled', $form_state->getValue('css_enabled'))
+      ->set('plaintext_enabled', $form_state->getValue('plaintext_enabled'))
+      ->set('autopreview_enabled', $form_state->getValue('autopreview_enabled'))
+      ->set('css', $form_state->getValue('css'))
+      ->set('path', $file)
+      ->save();
+    // Clear cache.
+    drupal_flush_all_caches();
+  }
+}
+
+/**
+ * Form helper.
+ */
+function _css_editor_get_edited_theme(FormStateInterface $form_state) {
+  // Return theme being currently edited.
+  $build_info = $form_state->getBuildInfo();
+  return isset($build_info['args'][0]) ? $build_info['args'][0] : FALSE;
+}
+
+/**
+ * Get the Custom CSS generated file for a theme.
+ *
+ * @param $theme
+ *   The machine name of the current theme.
+ *
+ * @return string|bool
+ */
+function _css_editor_get_stylesheet($theme) {
+  $config = \Drupal::configFactory()->getEditable('css_editor.theme.' . $theme);
+  $file = $config->get('path');
+  if ($config->get('enabled') && file_exists($file)) {
+    return $file;
+  }
+  else {
+    return FALSE;
+  }
+}

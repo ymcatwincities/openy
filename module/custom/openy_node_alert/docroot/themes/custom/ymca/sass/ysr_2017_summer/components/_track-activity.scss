@@ -1,0 +1,662 @@
+.y-retention-activities {
+  .y-retention-activities__dates-slider {
+
+    .container {
+      @include rem(max-width, 1200px);
+      @include rem(padding, 0 30px);
+
+      @include breakpoint($mobile-landscape) {
+        padding: 0;
+      }
+    }
+
+    .campaign-dates--slider-container {
+      @include rem(max-width, 214px);
+      margin: {
+        left: auto;
+        right: auto;
+      }
+      min-height: 87px;
+
+      @include breakpoint($tablet) {
+        max-width: none;
+      }
+
+      .slick-slider {
+        @include breakpoint($tablet 1400px) {
+          margin: {
+            left: 40px;
+            right: 40px;
+          }
+        }
+      }
+
+      .slick-list {
+        margin-bottom: -14px;
+        padding-left: 1px;
+
+        @include breakpoint($tablet) {
+          margin-bottom: -22px;
+        }
+      }
+      .slick-track {
+        display: flex;
+        padding-bottom: 14px;
+
+        @include breakpoint($tablet) {
+          padding-bottom: 22px;
+        }
+      }
+      .slick-slide {
+        float: none;
+        height: auto;
+      }
+    }
+
+    .campaign-dates--date {
+      @include cachet();
+      @include rem(width, 69px);
+      border-right: 1px solid rgba($green-dark, 0.2);
+      outline: none;
+      position: relative;
+      text: {
+        align: center;
+        transform: uppercase;
+      }
+
+      @include breakpoint($tablet) {
+        @include rem(width, 140px);
+      }
+
+      // First date.
+      &:first-child {
+        border-left: 1px solid rgba($green-dark, 0.2);
+      }
+
+      a {
+        color: $grey7;
+        display: block;
+        outline: none;
+        padding-bottom: 25px;
+
+        @include breakpoint($tablet) {
+          @include rem(padding-bottom, 60px);
+          @include rem(padding-top, 2px);
+        }
+
+        &:hover,
+        &:focus {
+          text-decoration: none;
+        }
+      }
+
+      .month-day {
+        @include rem(font-size, 25px);
+        font-weight: bold;
+        line-height: normal;
+        display: block;
+
+        @include breakpoint($tablet) {
+          @include rem(font-size, 50px);
+        }
+      }
+
+      .weekday {
+        display: block;
+        @include rem(font-size, 12px);
+        line-height: normal;
+        @include rem(margin-bottom, 3px);
+
+        @include breakpoint($tablet) {
+          @include rem(font-size, 20px);
+        }
+      }
+
+      .activities-count {
+        @include rem(font-size, 10px);
+        bottom: 8px;
+        left: 0;
+        color: $blue;
+        position: absolute;
+        width: 100%;
+        @include breakpoint($tablet) {
+          bottom: 19px;
+          @include rem(font-size, 14px);
+        }
+      }
+
+      .visited,
+      .not-visited {
+        display: block;
+        @include rem(font-size, 10px);
+        padding-top: 16px;
+        @include breakpoint($tablet) {
+          @include rem(font-size, 14px);
+          padding-top: 24px;
+        }
+      }
+
+      .visited {
+        background: image-url('2017_summer/icon-visited.png') 50% 0 / 12px no-repeat;
+        color: $green-medium;
+        @include breakpoint($tablet) {
+          background-size: initial;
+        }
+        + .activities-count {
+          margin-bottom: 50px;
+        }
+      }
+
+      .not-visited {
+        background: image-url('2017_summer/icon-not-visited.png') 50% 0 / 12px no-repeat;
+        @include breakpoint($tablet) {
+          background-size: initial;
+        }
+      }
+
+      // Dates in the past.
+      &-past {
+      }
+
+      // Today's date.
+      &-today {
+      }
+
+      // Dates in the future.
+      &-future {
+        a {
+          color: rgba($grey7, 0.3);
+        }
+        .visited,
+        .not-visited {
+          display: none;
+        }
+      }
+
+      // No activity on this date.
+      &-no-activity {
+      }
+
+      // Facility was visited.
+      &-visited {
+        a {
+          @include breakpoint($tablet) {
+            @include rem(padding-bottom, 45px);
+          }
+        }
+      }
+
+      // Currently selected date.
+      &-current {
+        a {
+          color: $green-dark;
+          &:after {
+            @include triangle-pseudo(bottom, $white, 26px, 13px);
+            bottom: -13px;
+            left: 50%;
+            margin-left: -13px;
+            position: absolute;
+            z-index: 10;
+
+            @include breakpoint($tablet) {
+              @include triangle-pseudo(bottom, $white, 44px, 22px);
+              bottom: -22px;
+              margin-left: -22px;
+            }
+          }
+        }
+      }
+    }
+
+    .slick-prev,
+    .slick-next {
+      @include rem(margin-top, -15px);
+
+      &:before {
+        @include rem(background-size, 12px 20px);
+        @include rem(height, 20px);
+        @include rem(width, 12px);
+        background-repeat: no-repeat;
+        content: "";
+        display: block;
+        position: relative;
+      }
+    }
+    .slick-prev {
+      &:before {
+        background-image: url('../prototypes/ysr/img/reporting/arrow-left.png');
+      }
+    }
+
+    .slick-next {
+      @include rem(padding-left, 6px);
+
+      &:before {
+        background-image: url('../prototypes/ysr/img/reporting/arrow-right.png');
+      }
+    }
+  }
+
+  .y-retention-activities__header,
+  .y-retention-activities__content {
+    background: $green-light;
+  }
+  .y-retention-activities__header {
+    .form-select {
+      @include rem(height, 52px);
+      @include rem(padding, 13px 12px 13px 14px);
+      background-color: $white;
+      background-image: none;
+      border: none;
+      color: inherit;
+      display: block;
+      font-size: 14px;
+      line-height: 22px;
+      margin: 0;
+      outline: none;
+      vertical-align: middle;
+      width: 100%;
+    }
+
+    .form-type-select {
+      @include rem(padding, 0 0 0 50px);
+      @include rem(margin, 0 0 40px 0);
+      border: 1px solid $grey2;
+      border-radius: 3px;
+      background-color: $grey1;
+      width: 100%;
+      max-width: 314px;
+      position: relative;
+
+      &:before {
+        @include rem(width, 18px);
+        @include rem(height, 20px);
+        @include translateY(-50%);
+        @include rem(left, 14px);
+        background: inline-image('../prototypes/yfr/img/tabs/icon-datepicker.svg') no-repeat 50% 50%;
+        @include background-size(cover);
+        display: block;
+        position: absolute;
+        top: 50%;
+        content: '';
+      }
+
+      label {
+        display: none;
+      }
+
+      @include breakpoint($mobile-max) {
+        max-width: 100%;
+        @include rem(margin, 0 10px 20px);
+      }
+    }
+
+    .activity-tabs {
+      @include rem(padding-top, 50px);
+      text-align: center;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-align-content: flex-start;
+      -ms-flex-line-pack: start;
+      align-content: flex-start;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      @include rem(padding-bottom, 22px);
+      @include rem(padding-top, 20px);
+
+      @include breakpoint($tablet) {
+        -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        padding-bottom: 0;
+        @include rem(padding-top, 99px);
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-align-content: flex-start;
+        -ms-flex-line-pack: start;
+        align-content: flex-start;
+        -webkit-align-items: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        width: 100%;
+
+        @include breakpoint($tablet) {
+          margin: {
+            left: auto;
+            right: auto;
+          }
+          @include rem(max-width, 700px);
+        }
+      }
+    }
+
+    .activity-tab {
+      @include cachet();
+      @include rem(font-size, 14px);
+      font-weight: bold;
+      @include rem(margin, 0 12px);
+      justify-content: center;
+      line-height: 20px;
+      opacity: 0.5;
+      text: {
+        transform: uppercase;
+      }
+
+      @include breakpoint($tablet) {
+        @include rem(font-size, 20px);
+        @include rem(margin, 0 15px);
+      }
+
+      &.active {
+        opacity: 1;
+        a {
+          border-bottom: 1px solid $white;
+        }
+      }
+      &:hover,
+      &:focus {
+        @include breakpoint($tablet) {
+          opacity: 1;
+        }
+      }
+
+      a {
+        @include rem(padding, 8px 0 17px);
+        @include transition(color 0.2s ease);
+        -ms-flex-align: center;
+        -ms-flex-direction: row;
+        -ms-flex-line-pack: start;
+        -ms-flex-pack: center;
+        -ms-flex-wrap: wrap;
+        -webkit-align-content: flex-start;
+        -webkit-align-items: center;
+        -webkit-flex-direction: row;
+        -webkit-flex-wrap: wrap;
+        -webkit-justify-content: center;
+        align-content: flex-start;
+        align-items: center;
+        color: $white;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: 100%;
+        position: relative;
+
+        &:focus,
+        &:hover {
+          text: {
+            decoration: none;
+          }
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        @include breakpoint($tablet) {
+          @include rem(padding-bottom, 25px);
+        }
+
+        &:before {
+          @include rem(height, 33px);
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+          content: '';
+          display: block;
+          min-width: 47px;
+          width: 100%;
+
+          @include breakpoint($tablet) {
+            @include rem(margin-bottom, 11px);
+          }
+        }
+      }
+
+      &__type-a {
+        a {
+          &:before {
+            background-image: image-url('2017_summer/icon-activity-swim.png');
+          }
+        }
+      }
+
+      &__type-b {
+        a {
+          &:before {
+            background-image: image-url('2017_summer/icon-activity-fitness.png');
+          }
+        }
+      }
+
+      &__type-c {
+        a {
+          &:before {
+            background-image: image-url('2017_summer/icon-activity-group.png');
+          }
+        }
+      }
+
+      &__type-d {
+        a {
+          &:before {
+            background-image: image-url('2017_summer/icon-activity-community.png');
+          }
+        }
+      }
+    }
+  }
+
+  .y-retention-activities__content {
+    @include rem(padding, 10px 10px 40px);
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 85px 0 130px);
+    }
+
+    .row {
+      @include rem(margin-left, -42px);
+      @include rem(margin-right, -42px);
+
+      @include breakpoint($mobile-max) {
+        margin-left: -15px;
+        margin-right: -15px;
+      }
+
+      @include breakpoint($tablet) {
+        @include rem(margin-left, -22px);
+        @include rem(margin-right, -22px);
+      }
+
+      @include breakpoint($desktop-small) {
+        @include rem(margin-left, -42px);
+        @include rem(margin-right, -42px);
+      }
+    }
+
+    .activity-items {
+      display: none;
+      overflow: hidden;
+      margin: auto;
+
+      .col-xs-12,
+      .col-sm-4 {
+
+        @include breakpoint($mobile-max) {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+
+        @include breakpoint($tablet) {
+          @include rem(padding, 0 22px);
+        }
+
+        @include breakpoint($desktop-small) {
+          @include rem(padding, 0 42px);
+        }
+      }
+
+      &.active {
+        display: block;
+      }
+
+      .form-item-checkbox {
+
+        input {
+          display: none;
+        }
+
+        input + label {
+          @include cachet();
+          @include rem(border-radius, 34px);
+          @include rem(font-size, 13px);
+          @include rem(height, 66px);
+          @include rem(line-height, 22px);
+          @include rem(margin-bottom, 23px);
+          @include rem(padding, 12px 24px 12px 72px);
+          @include transition(background-color 0.3s ease);
+          -ms-flex-direction: row;
+          -ms-flex-line-pack: start;
+          -ms-flex-pack: start;
+          -ms-flex-wrap: wrap;
+          -ms-flex-align: center;
+          -webkit-align-content: flex-start;
+          -webkit-align-items: center;
+          -webkit-flex-direction: row;
+          -webkit-flex-wrap: wrap;
+          -webkit-justify-content: flex-start;
+          align-content: flex-start;
+          align-items: center;
+          border: 2px solid rgba($white, 0.5);
+          color: $white;
+          cursor: pointer;
+          display: -ms-flexbox;
+          display: -webkit-flex;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          font-weight: normal;
+          justify-content: flex-start;
+          letter-spacing: -.5px;
+          overflow: hidden;
+          position: relative;
+          text-overflow: ellipsis;
+          text-transform: uppercase;
+          white-space: nowrap;
+          width: 99.9%;
+
+          @include breakpoint($tablet) {
+            @include rem(font-size, 16px);
+          }
+
+          .no-touch & {
+            &:hover {
+              background-color: $white;
+              color: $green-dark;
+              &:before {
+                border: 2px solid rgba($green-medium, 0.5);
+              }
+            }
+          }
+
+          &:before {
+            @include cachet();
+            @include rem(height, 22px);
+            @include rem(width, 22px);
+            @include rem(left, 24px);
+            @include translateY(-50%);
+            @include border-radius(50%);
+            @include transition(all 0.3s ease);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            border: inherit;
+            content: '';
+            position: absolute;
+            text-align: center;
+            top: 50%;
+          }
+
+          span {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 99.9%;
+          }
+
+          small {
+            @include cachet-normal();
+            @include rem(line-height, 20px);
+            display: block;
+            overflow: hidden;
+            opacity: 0.6;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 99.9%;
+            @include breakpoint($tablet) {
+              @include rem(font-size, 13px);
+            }
+          }
+        }
+
+        input:checked + label {
+          background-color: $white;
+          border-color: $white;
+          color: $green-dark;
+
+          &:before,
+          .no-touch &:before {
+            @include border-radius(0);
+            background-color: transparent;
+            border-color: transparent;
+            background-image: image-url('2017_summer/icon-activity-check.png');
+          }
+          small {
+            opacity: 1;
+          }
+        }
+
+        input.activity--click-last:disabled + label {
+          &:before {
+            @include rem(height, 34px);
+            @include rem(width, 34px);
+            @include rem(left, 18px);
+            @include rem(background-size, 34px 34px);
+            background-image: url(../prototypes/yfr/img/tabs/throbber-white.svg);
+            background-position: center center;
+            background-repeat: no-repeat;
+            content: '';
+          }
+        }
+      }
+    }
+  }
+}

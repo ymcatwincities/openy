@@ -1,0 +1,5 @@
+entity.cdn_prs_product.add_form:
+  route_name: entity.cdn_prs_product.add_form
+  title: 'Add Camp du Nord Personify Product'
+  appears_on:
+    - entity.cdn_prs_product.collection

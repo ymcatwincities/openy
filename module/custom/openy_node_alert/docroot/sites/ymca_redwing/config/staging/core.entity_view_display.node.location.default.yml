@@ -1,0 +1,134 @@
+uuid: 3efad866-b4c1-42c6-9303-3b845a8167e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.location.field_alert
+    - field.field.node.location.field_content
+    - field.field.node.location.field_facebook_page_id
+    - field.field.node.location.field_fitness_phone
+    - field.field.node.location.field_include_general_blog_posts
+    - field.field.node.location.field_join_override
+    - field.field.node.location.field_location
+    - field.field.node.location.field_main_promos
+    - field.field.node.location.field_membership_block
+    - field.field.node.location.field_phone
+    - field.field.node.location.field_promo_slideshow
+    - field.field.node.location.field_schedule_block
+    - field.field.node.location.field_schedule_content
+    - field.field.node.location.field_working_hours
+    - node.type.location
+  module:
+    - address
+    - text
+    - user
+id: node.location.default
+targetEntityType: node
+bundle: location
+mode: default
+content:
+  field_alert:
+    weight: 4
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_content:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_facebook_page_id:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_fitness_phone:
+    weight: 15
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_include_general_blog_posts:
+    weight: 8
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_join_override:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_location:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_main_promos:
+    weight: 6
+    label: hidden
+    settings:
+      view_mode: full
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+  field_membership_block:
+    weight: 5
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_phone:
+    weight: 9
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_promo_slideshow:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_schedule_block:
+    weight: 14
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_schedule_content:
+    weight: 12
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_working_hours:
+    weight: 11
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  links:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_sitemap_exclude: true
+  langcode: true

@@ -1,0 +1,499 @@
+<?php
+
+/**
+ * @file
+ * Extends Drupal file entities to be fieldable and viewable.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\StreamWrapper\StreamWrapperInterface;
+use Drupal\file\Entity\File;
+use Drupal\file\FileInterface;
+use Drupal\file_entity\Entity\FileEntity;
+use Drupal\file_entity\Entity\FileType;
+
+/**
+ * The {file_managed}.type value when the file type has not yet been determined.
+ */
+define('FILE_TYPE_NONE', 'undefined');
+
+/**
+ * Implements hook_hook_info().
+ */
+function file_entity_hook_info() {
+  $hooks = array(
+    'file_operations',
+    'file_type_info',
+    'file_type_info_alter',
+    'file_view',
+    'file_view_alter',
+    'file_type',
+    'file_type_alter',
+    'file_download_headers_alter',
+  );
+
+  return array_fill_keys($hooks, array('group' => 'file'));
+}
+
+/**
+ * Implements hook_hook_info_alter().
+ *
+ * Add support for existing core hooks to be located in modulename.file.inc.
+ */
+function file_entity_hook_info_alter(&$info) {
+  $hooks = array(
+    // File API hooks
+    'file_copy',
+    'file_move',
+    'file_validate',
+    // File access
+    'file_download',
+    'file_download_access',
+    'file_download_access_alter',
+    // File entity hooks
+    'file_load',
+    'file_presave',
+    'file_insert',
+    'file_update',
+    'file_delete',
+    // Miscellaneous hooks
+    'file_mimetype_mapping_alter',
+    'file_url_alter',
+  );
+  $info += array_fill_keys($hooks, array('group' => 'file'));
+}
+
+/**
+ * Implements hook_help().
+ */
+function file_entity_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_match) {
+    case 'entity.file_type.collection':
+      $output = '<p>' . t('When a file is uploaded to this website, it is assigned one of the following types, based on what kind of file it is.') . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_action_info_alter().
+ */
+function file_entity_action_info_alter(&$actions) {
+  if (\Drupal::moduleHandler()->moduleExists('pathauto')) {
+    $actions['pathauto_file_update_action'] = array(
+      'type' => 'file',
+      'label' => t('Update file alias'),
+      'configurable' => FALSE,
+    );
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function file_entity_field_formatter_info_alter(array &$info) {
+  // Make the entity reference view formatter available for files and images.
+  if (!empty($info['entity_reference_entity_view'])) {
+    $info['entity_reference_entity_view']['field_types'][] = 'file';
+    $info['entity_reference_entity_view']['field_types'][] = 'image';
+  }
+
+  // Add descriptions to core formatters.
+  $descriptions = array(
+    'file_default' => t('Create a simple link to the file. The link is prefixed by a file type icon and the name of the file is used as the link text.'),
+    'file_table' => t('Build a two-column table where the first column contains a generic link to the file and the second column displays the size of the file.'),
+    'file_url_plain' => t('Display a plain text URL to the file.'),
+    'image' => t('Format the file as an image. The image can be displayed using an image style and can optionally be linked to the image file itself or its parent content.'),
+  );
+  foreach ($descriptions as $key => $description) {
+    if (isset($info[$key]) && empty($info[$key]['description'])) {
+      $info[$key]['description'] = $description;
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function file_entity_theme() {
+  return array(
+    'file' => array(
+      'render element' => 'elements',
+      'template' => 'file',
+    ),
+    'file_entity_file_link' => array(
+      'variables' => array('file' => NULL, 'icon_directory' => NULL),
+      'file' => 'file_entity.theme.inc',
+    ),
+    'file_entity_download_link' => array(
+      'variables' => array('file' => NULL, 'download_link' => NULL, 'icon' => '', 'file_size' => NULL, 'attributes' => NULL),
+    ),
+    'file_entity_audio' => array(
+      'variables' => array( 'files' => array(), 'attributes' => NULL),
+    ),
+    'file_entity_video' => array(
+      'variables' => array( 'files' => array(), 'attributes' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * Extends the core file entity to be fieldable. The file type is used as the
+ * bundle key.
+ */
+function file_entity_entity_type_alter(&$entity_types) {
+  /** @var $entity_types \Drupal\Core\Entity\EntityTypeInterface[] */
+  $keys = $entity_types['file']->getKeys();
+  $keys['bundle'] = 'type';
+  $entity_types['file']
+    ->set('entity_keys', $keys)
+    ->set('bundle_entity_type', 'file_type')
+    ->set('admin_permission', 'administer files')
+    ->setClass('Drupal\file_entity\Entity\FileEntity')
+    ->setHandlerClass('storage_schema', 'Drupal\file_entity\FileEntityStorageSchema')
+    ->setFormClass('default', 'Drupal\file_entity\Form\FileEditForm')
+    ->setFormClass('edit', 'Drupal\file_entity\Form\FileEditForm')
+    ->setFormClass('inline_edit', 'Drupal\file_entity\Form\FileInlineEditForm')
+    ->setFormClass('delete', 'Drupal\Core\Entity\ContentEntityDeleteForm')
+    ->setAccessClass('Drupal\file_entity\FileEntityAccessControlHandler')
+    ->set('field_ui_base_route', 'entity.file_type.edit_form')
+    ->setLinkTemplate('canonical', '/file/{file}')
+    ->setLinkTemplate('collection', '/admin/content/files')
+    ->setLinkTemplate('edit-form', '/file/{file}/edit')
+    ->setLinkTemplate('delete-form', '/file/{file}/delete')
+    ->setLinkTemplate('inline-edit-form', '/file/{file}/inline-edit')
+    ->setViewBuilderClass('Drupal\file_entity\Entity\FileEntityViewBuilder')
+    ->setListBuilderClass('Drupal\Core\Entity\EntityListBuilder');
+
+  /*$entity_types['file']['view modes']['teaser'] = array(
+    'label' => t('Teaser'),
+    'custom settings' => TRUE,
+  );
+  $entity_types['file']['view modes']['full'] = array(
+    'label' => t('Full content'),
+    'custom settings' => FALSE,
+  );
+  $entity_types['file']['view modes']['preview'] = array(
+    'label' => t('Preview'),
+    'custom settings' => TRUE,
+  );
+  $entity_types['file']['view modes']['rss'] = array(
+    'label' => t('RSS'),
+    'custom settings' => FALSE,
+  );*/
+
+  // Enable Metatag support.
+  //$entity_types['file']['metatags'] = TRUE;
+}
+
+/**
+ * Implements hook_entity_operation().
+ */
+function file_entity_entity_operation(EntityInterface $entity) {
+  $operations = [];
+
+  if ($entity instanceof FileEntity && $entity->access('download')) {
+    $operations['download'] = array(
+      'title' => t('Download'),
+      'weight' => 100,
+      'url' => $entity->downloadUrl(),
+    );
+  }
+
+  return $operations;
+}
+
+/**
+ * Prepares variables for file templates.
+ *
+ * Default template: file.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An array of elements to display in view mode.
+ *   - file: The file object.
+ */
+function template_preprocess_file(&$variables) {
+  $view_mode = $variables['view_mode'] = $variables['elements']['#view_mode'];
+  $variables['file'] = $variables['elements']['#file'];
+
+  /** @var FileInterface $file */
+  $file = $variables['file'];
+
+  $variables['id']        = $file->id();
+  $variables['date']      = \Drupal::service('date.formatter')->format($file->getCreatedTime());
+  $username = array(
+    '#theme' => 'username',
+    '#account' => $file->getOwner(),
+    '#link_options' => array('attributes' => array('rel' => 'author')),
+  );
+  $variables['name']      = $username;
+
+  $variables['file_url']  = $file->url('canonical');
+  $variables['label']     = $file->label();
+  $variables['page']      = $view_mode == 'full' && $file->isPage();
+
+  // Hide the file name from being displayed until we can figure out a better
+  // way to control this. We cannot simply not output the title since
+  // contextual links require $title_suffix to be output in the template.
+  // @see http://drupal.org/node/1245266
+  if (!$variables['page']) {
+    $variables['title_attributes_array']['class'][] = 'element-invisible';
+  }
+
+  // Helpful $content variable for templates.
+  $variables += array('content' => array());
+  foreach (\Drupal\Core\Render\Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+
+  // Attach the file object to the content element.
+  $variables['content']['file']['#file'] = $file;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function file_entity_theme_suggestions_file_alter(array &$suggestions, array $variables) {
+  $view_mode = $variables['view_mode'] = $variables['elements']['#view_mode'];
+
+  /** @var FileInterface $file */
+  $file = $variables['elements']['#file'];
+
+  // Clean up name so there are no underscores.
+  $suggestions[] = 'file__' . $file->bundle();
+  $suggestions[] = 'file__' . $file->bundle() . '__' . $view_mode;
+  $suggestions[] = 'file__' . str_replace(array('/', '-'), array('__', '_'), $file->getMimeType());
+  $suggestions[] = 'file__' . str_replace(array('/', '-'), array('__', '_'), $file->getMimeType()) . '__' . $view_mode;
+  $suggestions[] = 'file__' . $file->id();
+  $suggestions[] = 'file__' . $file->id() . '__' . $view_mode;
+}
+
+/**
+ * Returns a list of available file type names.
+ *
+ * @return
+ *   An array of file type names, keyed by the type.
+ */
+function file_entity_type_get_names() {
+  $names = &drupal_static(__FUNCTION__);
+  if (!isset($names)) {
+    foreach (FileType::loadMultiple() as $id => $type) {
+      $names[$id] = $type->label();
+    }
+  }
+  return $names;
+}
+
+/**
+ * Return the label for a specific file entity view mode.
+ */
+function file_entity_view_mode_label($view_mode, $default = FALSE) {
+  $labels = \Drupal::entityManager()->getViewModeOptions('file');
+  return isset($labels[$view_mode]) ? $labels[$view_mode] : $default;
+}
+
+/**
+ * Implements hook_file_download().
+ */
+function file_entity_file_download($uri) {
+  // Load the file from the URI.
+  $file = file_uri_to_object($uri);
+
+  // An existing file wasn't found, so we don't control access.
+  // E.g. image derivatives will fall here.
+  if (empty($file)) {
+    return NULL;
+  }
+
+  // Allow the user to download the file if they have appropriate permissions.
+  if ($file->access('view')) {
+    return file_get_content_headers($file);
+  }
+
+  return -1;
+}
+
+/**
+ * @name pathauto_file Pathauto integration for the core file module.
+ * @{
+ */
+
+// @todo move
+function file_entity_entity_base_field_info(EntityTypeInterface $entity_type) {
+  // @todo: Make this configurable and/or remove if
+  //   https://drupal.org/node/476294 is resolved.
+  if (\Drupal::moduleHandler()->moduleExists('pathauto') && $entity_type->id() == 'file') {
+    $fields = array();
+    $fields['path'] = BaseFieldDefinition::create('path')
+      ->setCustomStorage(TRUE)
+      ->setLabel(t('URL alias'))
+      ->setTranslatable(TRUE)
+      ->setDisplayOptions('form', array(
+        'type' => 'path',
+        'weight' => 30,
+      ))
+      ->setDisplayConfigurable('form', TRUE);
+    return $fields;
+  }
+}
+
+/**
+ * @} End of "name pathauto_file".
+ */
+
+/**
+ * Checks if pattern(s) match mimetype(s).
+ */
+function file_entity_match_mimetypes($needle, $haystack) {
+  $needle = is_array($needle) ? $needle : array($needle);
+  $haystack = is_array($haystack) ? $haystack : array($haystack);
+
+  foreach ($haystack as $mimetype) {
+    foreach ($needle as $search) {
+      if (fnmatch($search, $mimetype) || fnmatch($mimetype, $search)) {
+        return TRUE;
+      }
+    }
+  }
+
+  return FALSE;
+}
+
+/**
+ * Implements hook_admin_menu_map().
+ */
+function file_entity_admin_menu_map() {
+  if (!user_access('administer file types')) {
+    return;
+  }
+  $map['admin/structure/file-types/manage/%file_type'] = array(
+    'parent' => 'admin/structure/file-types',
+    'arguments' => array(
+      array('%file_type' => array_keys(file_entity_type_get_names())),
+    ),
+  );
+  return $map;
+}
+
+/**
+ * Implements hook_entity_storage_load().
+ */
+function file_entity_entity_storage_load($entities, $entity_type) {
+  $token_service = \Drupal::token();
+  $replace_options = ['clear' => TRUE, 'sanitize' => FALSE];
+  $config = \Drupal::config('file_entity.settings');
+
+  // Loop over all the entities looking for entities with attached images.
+  foreach ($entities as $entity) {
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+    // Examine every image field instance attached to this entity's bundle.
+    foreach ($entity->getFieldDefinitions() as $field_definition) {
+      if ($field_definition->getSetting('target_type') == 'file' && $field_definition->getType() != 'image') {
+        $field_name = $field_definition->getName();
+        if (!empty($entity->{$field_name})) {
+          foreach ($entity->$field_name as $delta => $item) {
+            // If alt and title text is not specified, fall back to alt and
+            // title text on the file.
+            if (!empty($item->target_id) && (empty($item->alt) || empty($item->title))) {
+              foreach (['alt', 'title'] as $key) {
+                if (empty($item->$key)) {
+                  $token_bubbleable_metadata = new BubbleableMetadata();
+                  $item->$key = $token_service->replace($config->get($key), ['file' => $item->entity], $replace_options, $token_bubbleable_metadata);
+                  // Add the cacheability metadata of the token to the entity.
+                  // This means attachments are discarded, but it does not ever
+                  // make sense to have attachments for an image's "alt" and
+                  // "title"attribute anyway, so this is acceptable.
+                  $entity->addCacheableDependency($token_bubbleable_metadata);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+function file_entity_get_public_and_private_stream_wrapper_names($flag = StreamWrapperInterface::VISIBLE) {
+  $wrappers = array('public' => [], 'private' => []);
+  // @todo Make the set of private schemes/stream wrappers extendable.
+  $private_schemes = ['private', 'temporary'];
+  foreach (\Drupal::service('stream_wrapper_manager')->getWrappers($flag) as $key => $wrapper) {
+    // Some wrappers, e.g. those set in KernelTestBase, do not provide a name.
+    $wrapper_name = isset($wrapper['name']) ? $wrapper['name'] : substr(strrchr($wrapper['class'], '\\'), 1);
+    if (in_array($key, $private_schemes)) {
+      $wrappers['private'][$key] = $wrapper_name;
+    }
+    else {
+      $wrappers['public'][$key] = $wrapper_name;
+    }
+  }
+  return $wrappers;
+}
+
+/**
+ * Returns a file object which can be passed to file_save().
+ *
+ * @param string $uri
+ *   A string containing the URI, path, or filename.
+ * @param bool $use_existing
+ *   (Optional) If TRUE and there's an existing file in the {file_managed}
+ *   table with the passed in URI, then that file object is returned.
+ *   Otherwise, a new file object is returned. Default is TRUE.
+ *
+ * @return FileInterface|bool
+ *   A file object, or FALSE on error.
+ *
+ * @todo This should probably be named
+ *   file_load_by_uri($uri, $create_if_not_exists).
+ * @todo Remove this function when http://drupal.org/node/685818 is fixed.
+ */
+function file_uri_to_object($uri, $use_existing = TRUE) {
+  $file = FALSE;
+  $uri = file_stream_wrapper_uri_normalize($uri);
+
+  if ($use_existing) {
+    // We should always attempt to re-use a file if possible.
+    $files = entity_load_multiple_by_properties('file', array('uri' => $uri));
+    $file = !empty($files) ? reset($files) : FALSE;
+  }
+
+  if (empty($file)) {
+    $file = File::create(array(
+      'uid' => \Drupal::currentUser()->id(),
+      'uri' => $uri,
+      'status' => FILE_STATUS_PERMANENT,
+    ));
+  }
+
+  return $file;
+}
+
+/**
+ * Implements hook_preprocess_responsive_image_formatter().
+ */
+function file_entity_preprocess_responsive_image_formatter(&$variables) {
+  if (empty($variables['responsive_image']['#width']) || empty($variables['responsive_image']['#height'])) {
+    foreach (['width', 'height'] as $key) {
+      $variables['responsive_image']["#$key"] = $variables['item']->entity->getMetadata($key);
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_image_formatter().
+ */
+function file_entity_preprocess_image_formatter(&$variables) {
+  if (empty($variables['image']['#width']) || empty($variables['image']['#height'])) {
+    foreach (['width', 'height'] as $key) {
+      $variables['image']["#$key"] = $variables['item']->entity->getMetadata($key);
+    }
+  }
+}

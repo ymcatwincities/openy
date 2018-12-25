@@ -1,0 +1,76 @@
+uuid: 38d1c73f-67e1-40df-a500-a2e2ad5079cf
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_a_program_director
+    - field.storage.contact_message.field_y_location_email
+  module:
+    - webforms
+id: contact_message.contact_a_program_director.field_y_location_email
+field_name: field_y_location_email
+entity_type: contact_message
+bundle: contact_a_program_director
+label: 'Selected location'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    option_select: 0
+    option_name: 'Birch Lake Elementary Early Childhood Learning Center'
+    option_reference: null
+    option_emails: 'Samantha.Montanari@ymcamn.org,Stephanie.Shadick@ymcamn.org,Lisa.Pearson@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Eagan Early Childhood Learning Center'
+    option_reference: null
+    option_emails: 'Kris.Gabel@ymcamn.org,Katherine.Jury@ymcamn.org,Lisa.Pearson@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Eagan Preschool Academy'
+    option_reference: null
+    option_emails: 'Katherine.Jury@ymcamn.org, Kris.Gabel@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Minneapolis Downtown YMCA Early Childhood Learning Center'
+    option_reference: null
+    option_emails: 'Blair.Schipper@ymcamn.org,Stephanie.Shadick@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'New Hope YMCA Early Childhood Learning Center'
+    option_reference: null
+    option_emails: 'Stephanie.Shadick@ymcamn.org,DeAnn.Schardin@ymcamn.org,Shamra.Williams@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'River Valley Early Childhood Learning Center'
+    option_reference: null
+    option_emails: 'Emily.Skahen@ymcamn.org,Jill.Gaertner@ymcamn.org,Stephanie.Shadick@ymcamn'
+  -
+    option_select: 0
+    option_name: 'St. Paul Eastside Early Childhood Learning Center'
+    option_reference: null
+    option_emails: 'Stephanie.Shadick@ymcamn.org,Sarah.Werner@ymcamn.org,Shareece.Gabriel@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'St. Paul Midway Early Childhood Learning Center'
+    option_reference: null
+    option_emails: 'Judi.Schmidt@ymcamn.org,Heather.Peterson@ymcamn.org,Stephanie.Shadick@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Shoreview Early Childhood Learning Center'
+    option_reference: null
+    option_emails: 'Melinda.Myers@ymcamn.org,Stephanie.Shadick@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Woodbury Preschool Academy'
+    option_reference: null
+    option_emails: 'Kathy.Bresnahan@ymcamn.org,Lisa.Pearson@ymcamn.org'
+  -
+    option_select: 0
+    option_name: 'Hudson YMCA Preschool Academy'
+    option_reference: null
+    option_emails: Jess.Keyes@ymcamn.org
+default_value_callback: ''
+settings: {  }
+field_type: options_email_item

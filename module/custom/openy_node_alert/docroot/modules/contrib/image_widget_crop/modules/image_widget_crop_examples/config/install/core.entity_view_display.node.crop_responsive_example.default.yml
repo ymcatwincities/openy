@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.crop_responsive_example.body
+    - field.field.node.crop_responsive_example.field_image_crop_simple
+    - node.type.crop_responsive_example
+  module:
+    - responsive_image
+    - text
+    - user
+id: node.crop_responsive_example.default
+targetEntityType: node
+bundle: crop_responsive_example
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  field_image_crop_simple:
+    weight: 0
+    label: above
+    settings:
+      responsive_image_style: crop_example_responsive
+      image_link: ''
+    third_party_settings: {  }
+    type: responsive_image
+hidden:
+  langcode: true
+  links: true

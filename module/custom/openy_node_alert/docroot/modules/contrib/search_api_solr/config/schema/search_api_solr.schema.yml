@@ -1,0 +1,71 @@
+# Schema for configuration files of the Search API Solr module.
+
+search_api_solr.settings:
+  type: config_object
+  label: 'Search API Solr settings'
+  mapping:
+    last_optimize:
+      type: integer
+      label: 'Last time the indexes were optimized'
+    index_prefix:
+      type: string
+      label: 'The default prefix for Solr indexes'
+    cron_action:
+      type: string
+      label: 'Cron action'
+    site_hash:
+      type: string
+      label: 'Site hash'
+
+search_api_solr.standard_highlighter:
+  type: config_object
+  label: 'Search API Solr standard highlighter settings'
+  mapping:
+    maxAnalyzedChars:
+      type: integer
+      label: 'Specifies the number of characters into a document that Solr should look for suitable snippets.'
+    fragmenter:
+      type: string
+      label: 'Specifies a text snippet generator for highlighted text.'
+    usePhraseHighlighter:
+      type: boolean
+      label: 'If set to true, Solr will highlight phrase queries (and other advanced position-sensitive queries) accurately.'
+    highlightMultiTerm:
+      type: boolean
+      label: 'If set to true, Solr will highlight wildcard queries (and other MultiTermQuery subclasses).'
+    preserveMulti:
+      type: boolean
+      label: 'If true, multi-valued fields will return all values in the order they were saved in the index.'
+    regex:
+      type: mapping
+      mapping:
+        slop:
+          type: float
+          label: 'When using the regex fragmenter (hl.fragmenter=regex), this parameter defines the factor by which the fragmenter can stray from the ideal fragment size (given by hl.fragsize) to accommodate a regular expression.'
+        pattern:
+          type: string
+          label: 'Specifies the regular expression for fragmenting. This could be used to extract sentences.'
+        maxAnalyzedChars:
+          type: integer
+          label: 'Instructs Solr to analyze only this many characters from a field when using the regex fragmenter (after which, the fragmenter produces fixed-sized fragments).'
+    excerpt:
+      type: mapping
+      mapping:
+        snippets:
+          type: integer
+          label: 'Specifies maximum number of highlighted snippets to generate per field.'
+        fragsize:
+          type: integer
+          label: 'Specifies the size, in characters, of fragments to consider for highlighting.'
+        mergeContiguous:
+          type: boolean
+          label: 'Instructs Solr to collapse contiguous fragments into a single fragment.'
+    highlight:
+      type: mapping
+      mapping:
+        mergeContiguous:
+          type: boolean
+          label: 'Instructs Solr to collapse contiguous fragments into a single fragment.'
+        requireFieldMatch:
+          type: boolean
+          label: 'If set to true, highlights terms only if they appear in the specified field.'

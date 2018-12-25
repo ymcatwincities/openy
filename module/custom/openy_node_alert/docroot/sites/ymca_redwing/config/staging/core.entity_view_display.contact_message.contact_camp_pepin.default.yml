@@ -1,0 +1,43 @@
+uuid: 16836fc9-8e84-47f5-8c4b-253271c357c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.contact_camp_pepin
+    - field.field.contact_message.contact_camp_pepin.field_address
+    - field.field.contact_message.contact_camp_pepin.field_contact_preferences
+    - field.field.contact_message.contact_camp_pepin.field_phone_number
+  module:
+    - address
+    - options
+id: contact_message.contact_camp_pepin.default
+targetEntityType: contact_message
+bundle: contact_camp_pepin
+mode: default
+content:
+  field_address:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_contact_preferences:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_phone_number:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  message:
+    type: string
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden: {  }

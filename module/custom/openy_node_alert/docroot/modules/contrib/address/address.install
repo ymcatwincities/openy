@@ -1,0 +1,201 @@
+<?php
+
+use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
+use Drupal\Core\Entity\Sql\SqlContentEntityStorageException;
+use Drupal\Core\Utility\UpdateException;
+use Drupal\field\Entity\FieldConfig;
+
+/**
+ * Implements hook_requirements().
+ */
+function address_requirements($phase) {
+  $requirements = [];
+  if ($phase == 'install') {
+    if (!class_exists('\CommerceGuys\Addressing\AddressFormat\AddressFormatRepository')) {
+      $requirements['addressing_library'] = [
+        'description' => t('Address requires the commerceguys/addressing library.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Remove the stored address formats, update field settings.
+ */
+function address_update_8100() {
+  // Clear the caches to ensure the entity type is gone.
+  \Drupal::entityTypeManager()->clearCachedDefinitions();
+  \Drupal::service('entity_type.repository')->clearCachedDefinitions();
+  // Remove the underlying config.
+  $config_factory = \Drupal::configFactory();
+  $names = $config_factory->listAll('address.address_format.');
+  foreach ($names as $name) {
+    $config_factory->getEditable($name)->delete();
+  }
+
+  // Update the 'fields' setting of each address field.
+  // Replace 'recipient' with the new name fields.
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $entity_field_map = $entity_field_manager->getFieldMapByFieldType('address');
+  foreach ($entity_field_map as $entity_type_id => $fields) {
+    foreach ($fields as $field_name => $field_info) {
+      foreach ($field_info['bundles'] as $bundle) {
+        $field = FieldConfig::loadByName($entity_type_id, $bundle, $field_name);
+        if (!$field) {
+          // This is a base field, nothing can be done.
+          continue 2;
+        }
+        $used_fields = $field->getSetting('fields');
+        if (!empty($used_fields['recipient'])) {
+          $used_fields['givenName'] = 'givenName';
+          $used_fields['additionalName'] = 'additionalName';
+          $used_fields['familyName'] = 'familyName';
+        }
+        else {
+          // The recipient field wasn't enabled previously.
+          $used_fields['givenName'] = '';
+          $used_fields['additionalName'] = '';
+          $used_fields['familyName'] = '';
+        }
+        unset($used_fields['recipient']);
+        $field->setSetting('fields', $used_fields);
+        $field->save();
+      }
+    }
+  }
+}
+
+/**
+ * Update subdivisions, split the recipient into given_name, family_name fields.
+ */
+function address_update_8101() {
+  if (!class_exists('\CommerceGuys\Addressing\UpdateHelper')) {
+    throw new UpdateException('The commerceguys/addressing library must be updated before running this update.');
+  }
+
+  $processed_fields = [];
+  $columns_to_add = ['given_name', 'additional_name', 'family_name'];
+  $field_type_manager = \Drupal::service('plugin.manager.field.field_type');
+  $address_definition = $field_type_manager->getDefinition('address');
+  /** @var \Drupal\address\Plugin\Field\FieldType\AddressItem $address_item_class */
+  $address_item_class = $address_definition['class'];
+
+  $schema = \Drupal::database()->schema();
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $entity_field_map = $entity_field_manager->getFieldMapByFieldType('address');
+  // The key-value collection for tracking installed storage schema.
+  $entity_storage_schema_sql = \Drupal::keyValue('entity.storage_schema.sql');
+  $entity_definitions_installed = \Drupal::keyValue('entity.definitions.installed');
+
+  foreach ($entity_field_map as $entity_type_id => $field_map) {
+    $entity_storage = $entity_type_manager->getStorage($entity_type_id);
+    // Only SQL storage based entities are supported / throw known exception.
+    if (!($entity_storage instanceof SqlContentEntityStorage)) {
+      continue;
+    }
+
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id);
+    $field_storage_definitions = $entity_field_manager->getFieldStorageDefinitions($entity_type_id);
+    /** @var Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
+    $table_mapping = $entity_storage->getTableMapping($field_storage_definitions);
+    // Only need field storage definitions of address fields.
+    /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface $field_storage_definition */
+    foreach (array_intersect_key($field_storage_definitions, $field_map) as $field_storage_definition) {
+      $field_name = $field_storage_definition->getName();
+      try {
+        $table = $table_mapping->getFieldTableName($field_name);
+        $initial_from_field = $table_mapping->getFieldColumnName($field_storage_definition, 'recipient');
+      }
+      catch (SqlContentEntityStorageException $e) {
+        // Custom storage? Broken site? No matter what, if there is no table
+        // or column, there's little we can do.
+        continue;
+      }
+      // See if the field has a revision table.
+      $revision_table = NULL;
+      if ($entity_type->isRevisionable() && $field_storage_definition->isRevisionable()) {
+        if ($table_mapping->requiresDedicatedTableStorage($field_storage_definition)) {
+          $revision_table = $table_mapping->getDedicatedRevisionTableName($field_storage_definition);
+        }
+        elseif ($table_mapping->allowsSharedTableStorage($field_storage_definition)) {
+          $revision_table = $entity_type->getRevisionDataTable() ?: $entity_type->getRevisionTable();
+        }
+      }
+      // Load the installed field schema so that it can be updated.
+      $schema_key = "$entity_type_id.field_schema_data.$field_name";
+      $field_schema_data = $entity_storage_schema_sql->get($schema_key);
+
+      $processed_fields[] = [$entity_type_id, $field_name];
+      // Loop over each new column and add it as a schema column change.
+      foreach ($columns_to_add as $column_id) {
+        $column = $table_mapping->getFieldColumnName($field_storage_definition, $column_id);
+        // Add `initial_from_field` to the new spec, as this will copy over
+        // the entire data.
+        $field_schema = $address_item_class::schema($field_storage_definition);
+        $spec = $field_schema['columns'][$column_id];
+        // We will not seed data into `additional_name`.
+        if ($column_id != 'additional_name') {
+          $spec += [
+            'initial_from_field' => $initial_from_field,
+          ];
+        }
+        // Add the new column.
+        $schema->addField($table, $column, $spec);
+        if ($revision_table) {
+          $schema->addField($revision_table, $column, $spec);
+        }
+
+        // Add the new column to the installed field schema.
+        if ($field_schema_data) {
+          $field_schema_data[$table]['fields'][$column] = $field_schema['columns'][$column_id];
+          $field_schema_data[$table]['fields'][$column]['not null'] = FALSE;
+          if ($revision_table) {
+            $field_schema_data[$revision_table]['fields'][$column] = $field_schema['columns'][$column_id];
+            $field_schema_data[$revision_table]['fields'][$column]['not null'] = FALSE;
+          }
+        }
+      }
+
+      // Save changes to the installed field schema.
+      if ($field_schema_data) {
+        $recipient_column = $table_mapping->getFieldColumnName($field_storage_definition, 'recipient');
+        unset($field_schema_data[$table]['fields'][$recipient_column]);
+        if ($revision_table) {
+          unset($field_schema_data[$revision_table]['fields'][$recipient_column]);
+        }
+        $entity_storage_schema_sql->set($schema_key, $field_schema_data);
+      }
+      if ($table_mapping->allowsSharedTableStorage($field_storage_definition)) {
+        $key = "$entity_type_id.field_storage_definitions";
+        if ($definitions = $entity_definitions_installed->get($key)) {
+          $definitions[$field_name] = $field_storage_definition;
+          $entity_definitions_installed->set($key, $definitions);
+        }
+      }
+      // Once all columns added, and data copied. Delete the field.
+      $schema->dropField($table, $initial_from_field);
+    }
+  }
+
+  // Used by address_post_update_convert_names_subdivisions.
+  \Drupal::state()->set('address_8101_processed', $processed_fields);
+}
+
+/**
+ * Remove the stored zones.
+ */
+function address_update_8103() {
+  // Clear the caches to ensure the entity type is gone.
+  \Drupal::entityTypeManager()->clearCachedDefinitions();
+  \Drupal::service('entity_type.repository')->clearCachedDefinitions();
+  // Remove the underlying config.
+  $config_factory = \Drupal::configFactory();
+  $names = $config_factory->listAll('address.zone.');
+  foreach ($names as $name) {
+    $config_factory->getEditable($name)->delete();
+  }
+}
