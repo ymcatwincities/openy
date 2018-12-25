@@ -1,8 +1,0 @@
-uuid: 2cf5a674-ee92-44a8-8600-c907fc64b5ca
-langcode: en
-status: true
-dependencies: {  }
-name: Code
-format: code
-weight: -9
-filters: {  }

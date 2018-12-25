@@ -1,8 +1,0 @@
-name: 'Configuration inspector'
-type: module
-description: 'Provides a configuration data and structure inspector tool.'
-package: Development
-configure: admin/config/development/configuration/inspect
-core: 8.x
-dependencies:
-  - config

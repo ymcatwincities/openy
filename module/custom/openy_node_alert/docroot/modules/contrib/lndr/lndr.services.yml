@@ -1,6 +1,0 @@
-services:
-  lndr_event_subscriber:
-    class: Drupal\lndr\EventSubscriber\LndrResponseEventSubscriber
-    arguments: ['@config.factory', '@path.alias_manager', '@path.matcher']
-    tags:
-      - {name: event_subscriber}

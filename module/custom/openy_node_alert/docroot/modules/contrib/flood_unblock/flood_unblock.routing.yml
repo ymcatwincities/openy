@@ -1,8 +1,0 @@
-flood_unblock.form:
-  path: '/admin/config/system/flood-unblock'
-  defaults:
-    _form: '\Drupal\flood_unblock\Form\FloodUnblockAdminForm'
-    _title: 'Flood Unblock Users'
-  requirements:
-    _permission: 'access flood unblock'
-

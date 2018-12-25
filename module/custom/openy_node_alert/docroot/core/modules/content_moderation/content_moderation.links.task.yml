@@ -1,3 +1,0 @@
-content_moderation.workflows:
-  deriver: 'Drupal\content_moderation\Plugin\Derivative\DynamicLocalTasks'
-  weight: 100

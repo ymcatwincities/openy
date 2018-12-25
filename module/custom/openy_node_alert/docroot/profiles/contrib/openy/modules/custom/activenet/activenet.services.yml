@@ -1,7 +1,0 @@
-services:
-  activenet.client:
-    class: Drupal\activenet\ActivenetClient
-    factory: activenet.client.factory:get
-  activenet.client.factory:
-    class: Drupal\activenet\ActivenetClientFactory
-    arguments: ['@config.factory']

@@ -1,4 +1,0 @@
-services:
-  openy_mindbody_tools.price_updater:
-    class: Drupal\openy_mindbody_tools\PriceUpdater
-    arguments: []

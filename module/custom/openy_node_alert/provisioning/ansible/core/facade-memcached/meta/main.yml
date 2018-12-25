@@ -1,4 +1,0 @@
----
-# This role is wrapper for 'ansible-role-memcached'.
-dependencies:
-  - { role: '../contrib/ansible-role-memcached' }

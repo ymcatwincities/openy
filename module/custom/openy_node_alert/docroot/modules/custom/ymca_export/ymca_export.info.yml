@@ -1,5 +1,0 @@
-name: YMCA Export
-type: module
-description: "YMCA Export csv handling"
-core: 8.x
-package: YMCA

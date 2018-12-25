@@ -1,7 +1,0 @@
-name: Field YMCA Office Hours
-type: module
-description: Provides field for office hours.
-core: 8.x
-package: YMCA
-dependencies:
-  - ymca_hours

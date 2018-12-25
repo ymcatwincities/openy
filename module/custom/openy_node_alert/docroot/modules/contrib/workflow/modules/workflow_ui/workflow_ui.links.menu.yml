@@ -1,7 +1,0 @@
-# Menu links for Workflow UI.
-
-workflow.ui.workflows:
-  title: 'Workflow'
-  route_name: entity.workflow_type.collection
-  parent: system.admin_config_workflow
-  description: 'Workflow administration overview.'

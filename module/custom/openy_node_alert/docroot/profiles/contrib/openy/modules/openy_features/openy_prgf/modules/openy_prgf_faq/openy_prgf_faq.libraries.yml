@@ -1,4 +1,0 @@
-paragraph:
-  version: 1.x
-  js:
-    js/paragraph.js: {}

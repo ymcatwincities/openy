@@ -1,6 +1,0 @@
-{
-  "name": "drupal/views_data_export",
-  "description": "Plugin to export views data into various file formats.",
-  "type": "drupal-module",
-  "license": "GPL-2.0+"
-}

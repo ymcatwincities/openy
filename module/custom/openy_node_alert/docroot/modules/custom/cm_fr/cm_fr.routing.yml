@@ -1,7 +1,0 @@
-cm_fr.settings:
-  path: '/admin/config/services/cm-fr'
-  defaults:
-    _form: '\Drupal\cm_fr\Form\CmFrSettingsForm'
-    _title: 'OpenY find and replace settings'
-  requirements:
-    _permission: 'administer site configuration'

@@ -1,4 +1,0 @@
-services:
-  openy_popups.popup_link_generator:
-    class: Drupal\openy_popups\PopupLinkGenerator
-    arguments: ['nid']

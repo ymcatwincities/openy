@@ -1,5 +1,0 @@
-services:
-  file_entity.route_subscriber:
-    class: Drupal\file_entity\Routing\RouteSubscriber
-    tags:
-      - { name: event_subscriber }

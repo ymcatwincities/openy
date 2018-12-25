@@ -1,4 +1,0 @@
-services:
-  openy_loc_camp.camp_service:
-    class: Drupal\openy_loc_camp\CampService
-    arguments: ['@entity.manager', '@database', '@config.factory']

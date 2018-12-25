@@ -1,6 +1,0 @@
-id: file_permanent_action
-label: 'Set file status to permanent'
-status: true
-langcode: en
-type: file
-plugin: file_permanent_action

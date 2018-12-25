@@ -1,7 +1,0 @@
-ymca_blog_listing.news_events_page_controller:
-  path: node/{node}/about/news__events
-  defaults:
-    _controller: \Drupal\ymca_blog_listing\Controller\YMCANewsEventsPageController::pageView
-    _title: News & Events
-  requirements:
-    _permission: access content

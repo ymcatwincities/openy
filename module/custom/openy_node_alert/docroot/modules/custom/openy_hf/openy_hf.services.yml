@@ -1,5 +1,0 @@
-services:
-  openy_hf:
-    class: '\Drupal\openy_hf\EventSubscriber\ResponseEventSubscriber'
-    tags:
-      - { name: 'event_subscriber' }

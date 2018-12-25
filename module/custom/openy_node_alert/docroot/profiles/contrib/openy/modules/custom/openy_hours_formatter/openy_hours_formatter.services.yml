@@ -1,4 +1,0 @@
-services:
-  openy_hours_formatter.hours_today:
-    class: Drupal\openy_hours_formatter\HoursToday
-    arguments: []

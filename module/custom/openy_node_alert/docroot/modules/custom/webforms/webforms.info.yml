@@ -1,9 +1,0 @@
-name: Webforms specific addons to core Contact module
-type: module
-description: Performs specific alters of default Drupal behavior
-core: 8.x
-package: Webforms
-dependencies:
-  - views
-  - contact
-  - csv_serialization

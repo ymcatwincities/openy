@@ -1,5 +1,0 @@
-entity.mindbody_cache.add_form:
-  route_name: entity.mindbody_cache.add_form
-  title: 'Add MindBody Cache'
-  appears_on:
-    - entity.mindbody_cache.collection

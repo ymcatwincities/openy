@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Media Tags'
-vid: media_tags
-description: 'Tags for media objects.'
-hierarchy: 0
-weight: 0

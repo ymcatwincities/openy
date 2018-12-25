@@ -1,9 +1,0 @@
-sitemap.admin:
-  version: VERSION
-  js:
-    sitemap.admin.js: {}
-sitemap.theme:
-  version: VERSION
-  css:
-    theme:
-      css/sitemap.theme.css: {}

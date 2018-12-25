@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.content_browser
-label: 'Content Browser'
-targetEntityType: node
-cache: true

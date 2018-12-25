@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: campaign_leadership
-label: 'Campaign Leadership'
-icon_uuid: null
-description: ''
-behavior_plugins: {  }

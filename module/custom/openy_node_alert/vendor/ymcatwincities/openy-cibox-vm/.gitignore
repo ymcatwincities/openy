@@ -1,9 +1,0 @@
-# Ignore configuration files that may contain sensitive information.
-.idea
-.vagrant
-.DS_Store
-backup
-index.html
-docroot/build_reports
-docroot/commentinfo.md
-docroot/profiles/contrib/openy

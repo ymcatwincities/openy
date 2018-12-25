@@ -1,6 +1,0 @@
-name: YMCA Site Verification
-description: "Verifies ownership of a site for use with Google Search engine."
-type: module
-core: 8.x
-package: YMCA
-configure: ymca_site_verify.settings

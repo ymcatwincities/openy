@@ -1,7 +1,0 @@
-social_feed_fetcher.settings:
-  path: '/admin/config/social_feed_fetcher_settings'
-  defaults:
-    _form: '\Drupal\social_feed_fetcher\Form\SocialPostSettingsForm'
-    _title: 'Social Feed Settings'
-  requirements:
-    _permission: 'administer socialpost entity'

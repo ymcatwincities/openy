@@ -1,8 +1,0 @@
-{
-  "name": "drupal/config_devel",
-  "description": "Helps developers work with configuration.",
-  "type": "drupal-module",
-  "license": "GPL-2.0+",
-  "minimum-stability": "dev",
-  "require": { }
-}

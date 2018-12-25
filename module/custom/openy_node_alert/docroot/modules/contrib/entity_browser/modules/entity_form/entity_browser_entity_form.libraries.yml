@@ -1,7 +1,0 @@
-ief_autocomplete:
-  version: VERSION
-  js:
-    js/entity_browser_entity_form.js: {}
-  dependencies:
-    - entity_browser/common
-    - core/jquery.once

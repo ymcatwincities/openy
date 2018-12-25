@@ -1,9 +1,0 @@
-[[ if account_creation_twitter ]]
-[[ if ! twitter_auth_exists ]]
-<p>OR</p>
-<p><a href="?action_$component_id=twitter_login">Log in with your Twitter Account</a></p>
-[[ end if twitter_auth_exists ]]
-[[ end if account_creation_twitter ]]
-[[ if twitter_auth_exists ]]
-<p>Hello, $twitter_screen_name</p>
-[[ end if twitter_auth_exists ]]

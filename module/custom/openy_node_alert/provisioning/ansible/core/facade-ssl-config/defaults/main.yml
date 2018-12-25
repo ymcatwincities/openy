@@ -1,3 +1,0 @@
----
-cibox_ssl_enable_host: false
-cibox_ssl_folder: /etc/apache2/ssl

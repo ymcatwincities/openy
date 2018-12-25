@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: openy_demo_menu
-label: 'Demo menu'
-description: 'Imports demo menu.'
-module: openy_demo_menu

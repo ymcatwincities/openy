@@ -1,5 +1,0 @@
-name: YMCA Activity Finder
-type: module
-description: Provides Activity Finder features.
-core: 8.x
-package: YMCA

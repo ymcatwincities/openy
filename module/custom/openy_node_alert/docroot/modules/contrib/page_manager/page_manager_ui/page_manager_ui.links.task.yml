@@ -1,4 +1,0 @@
-entity.page.collection:
-  route_name: entity.page.collection
-  base_route: entity.page.collection
-  title: 'Pages'

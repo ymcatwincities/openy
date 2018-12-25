@@ -1,4 +1,0 @@
-services:
-  environment_config.handler:
-    class: Drupal\environment_config\EnvironmentConfigService
-    arguments: ["@config.factory"]

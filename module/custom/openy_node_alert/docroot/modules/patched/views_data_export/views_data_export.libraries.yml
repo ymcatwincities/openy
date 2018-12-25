@@ -1,5 +1,0 @@
-views_data_export:
-  version: 1.x
-  css:
-    theme:
-      css/views_data_export.css: {}

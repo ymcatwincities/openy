@@ -1,4 +1,0 @@
-services:
-  openy_prgf_class_location.location_handler:
-    class: Drupal\openy_prgf_class_location\ClassLocationService
-    arguments: ['@entity_type.manager', '@service_container']

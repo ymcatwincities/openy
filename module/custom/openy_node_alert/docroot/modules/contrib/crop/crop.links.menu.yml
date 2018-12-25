@@ -1,5 +1,0 @@
-crop.overview_types:
-  title: 'Crop types'
-  parent: system.admin_config_media
-  description: 'Manage crop types.'
-  route_name: crop.overview_types
