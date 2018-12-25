@@ -15,7 +15,6 @@ dependencies:
   module:
     - link
     - options
-    - panelizer
     - text
     - user
 third_party_settings:
