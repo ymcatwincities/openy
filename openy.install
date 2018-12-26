@@ -969,7 +969,7 @@ function openy_update_8066() {
       ->set('id', $new_id)
       ->save(TRUE);
   }
-}      
+}
 
 /**
  * Enable PEF paragraphs.
@@ -1001,4 +1001,11 @@ function openy_update_8068() {
       ->set('id', $new_id)
       ->save(TRUE);
   }
+}
+
+/**
+ * Install OpenY Hide node page.
+ */
+function openy_update_8069() {
+  \Drupal::service('module_installer')->install(['openy_hide_node']);
 }
