@@ -224,7 +224,7 @@ function openy_node_alert_update_8006() {
  * Rename alert blocks configs.
  */
 function openy_node_alert_update_8007() {
-  \Drupal::service('module_installer')->install(['rest']);
+  \Drupal::service('module_installer')->install(['rest', 'hal', 'serialization']);
   openy_node_alert_update_8009();
   $configs = [
     'views_block__alerts_footer_alerts' => 'openy_rose_views_block__alerts_footer_alerts',
