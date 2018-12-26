@@ -32,6 +32,17 @@ function openy_node_alert_install() {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_node_alert_update_dependencies() {
+  $dependencies['openy_node_blog'] = [
+    8012 => [
+      'openy_node_alert' => 8010,
+    ],
+  ];
+}
+
+/**
  * Update Alert for rabbit hole, hiding pages from anonymous users.
  */
 function openy_node_alert_update_8001() {
@@ -349,8 +360,5 @@ function openy_node_alert_update_8010() {
     else {
       \Drupal::logger(__FUNCTION__)->error('There was a problem removing the %field from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
     }
-
-    // Fields are purged on cron.
-    //field_purge_batch(10);
   }
 }
