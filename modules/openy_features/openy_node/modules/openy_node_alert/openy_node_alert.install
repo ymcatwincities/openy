@@ -40,6 +40,12 @@ function openy_node_alert_update_dependencies() {
       'openy_node_alert' => 8010,
     ],
   ];
+
+  $dependencies['openy'] = [
+    8065 => [
+      'openy_node_alert' => 8010,
+    ],
+  ];
   return $dependencies;
 }
 
