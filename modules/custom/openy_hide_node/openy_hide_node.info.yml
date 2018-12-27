@@ -1,7 +1,0 @@
-name: Open Y Hide node page
-type: module
-description: Provides a checkbox who hide /node page.
-core: 8.x
-version: 8.x-1.0
-package: Open Y
-configure: system.site_information_settings
