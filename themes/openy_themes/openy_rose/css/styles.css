@@ -1867,7 +1867,7 @@ body {
 }
 
 .paragraph--type--small-banner {
-  align-items: stretch;
+  overflow: hidden;
   max-height: 250px;
 }
 .paragraph--type--small-banner .banner-image {
@@ -8316,6 +8316,11 @@ input[type="checkbox"]:focus {
 .paragraph--type--faq-item .field-answer {
   display: none;
   padding: 15px;
+}
+
+.site-alert--header, .site-alert--footer {
+  border: 1px solid #636466;
+  width: 100vw;
 }
 
 /*# sourceMappingURL=styles.css.map */
