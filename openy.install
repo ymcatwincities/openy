@@ -1004,8 +1004,10 @@ function openy_update_8068() {
 }
 
 /**
- * Install OpenY Hide node page.
+ * Disable /node page.
  */
 function openy_update_8069() {
-  \Drupal::service('module_installer')->install(['openy_hide_node']);
+  $config = \Drupal::configFactory()->getEditable('views.view.frontpage');
+  $config->set('display.page_1.display_options.enabled', FALSE);
+  $config->save();
 }
