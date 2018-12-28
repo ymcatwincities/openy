@@ -889,3 +889,8 @@ body .ajax-progress-throbber {
   min-height: 300px;
   max-height: 500px;
 }
+
+.program-header .content .image img { 
+  max-width: none; 
+  float: right; 
+}
