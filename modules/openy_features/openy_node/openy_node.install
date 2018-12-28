@@ -15,15 +15,6 @@ function openy_node_install(){
 }
 
 /**
- * Implements hook_uninstall().
- */
-function openy_node_uninstall() {
-  $config = \Drupal::configFactory()->getEditable('views.view.frontpage');
-  $config->set('display.page_1.display_options.enabled', TRUE);
-  $config->save();
-}
-
-/**
  * Implements hook_update_dependencies().
  */
 function openy_node_update_dependencies() {
