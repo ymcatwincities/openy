@@ -12,12 +12,19 @@ use Drupal\openy\Form\ThirdPartyServicesForm;
 use Drupal\openy\Form\UploadFontMessageForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\openy\Form\TermOfUseForm;
 
 /**
  * Implements hook_install_tasks().
  */
 function openy_install_tasks() {
   return [
+    'openy_terms_of_use' => [
+      'display_name' => t('Terms of Use'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => TermOfUseForm::class,
+    ],
     'openy_select_features' => [
       'display_name' => t('Select installation type'),
       'display' => TRUE,
@@ -193,7 +200,7 @@ function openy_demo_content_configs_map($key = NULL) {
     ],
 
   ];
-  
+
   return array_key_exists($key, $map) ? $map[$key] : [];
 }
 
