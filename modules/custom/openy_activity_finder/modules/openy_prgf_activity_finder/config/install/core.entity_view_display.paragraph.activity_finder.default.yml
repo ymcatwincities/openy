@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.activity_finder.field_prgf_af_results_ref
+    - field.field.paragraph.activity_finder.field_prgf_block
+    - field.field.paragraph.activity_finder.field_prgf_hide_loc_select_step
+    - field.field.paragraph.activity_finder.field_prgf_hide_program_categ
+    - paragraphs.paragraphs_type.activity_finder
+  module:
+    - plugin
+id: paragraph.activity_finder.default
+targetEntityType: paragraph
+bundle: activity_finder
+mode: default
+content:
+  field_prgf_af_results_ref:
+    weight: 1
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_prgf_block:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+    region: content
+hidden:
+  field_prgf_hide_loc_select_step: true
+  field_prgf_hide_program_categ: true

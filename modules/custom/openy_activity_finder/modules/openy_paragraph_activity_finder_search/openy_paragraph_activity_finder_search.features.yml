@@ -1,0 +1,3 @@
+excluded:
+  - webform.webform.summer_camp_
+required: true
