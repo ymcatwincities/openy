@@ -3,11 +3,8 @@ description: 'Feature with Activity Finder Search paragraph.'
 type: module
 core: 8.x
 dependencies:
-  - content_moderation
   - field
   - node
-  - openy_emma_api
   - openy_node_landing
   - paragraphs
   - plugin
-  - webform
