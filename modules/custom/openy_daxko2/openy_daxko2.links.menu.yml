@@ -1,13 +1,5 @@
-openy_daxko2.import:
-  title: 'Sync Daxko'
-  description: 'Run import of Daxko classes and sessions'
-  parent: openy_system.openy_integrations_daxko
-  route_name: openy_daxko2.import
-  weight: 110
-
 openy_daxko2.admin:
   title: 'Daxko2 settings'
-  description: 'Configure Daxko service API version 3 settings'
-  parent: openy_system.openy_integrations_daxko
+  parent: system.admin_config_services
   route_name: openy_daxko2.settings
   weight: 100

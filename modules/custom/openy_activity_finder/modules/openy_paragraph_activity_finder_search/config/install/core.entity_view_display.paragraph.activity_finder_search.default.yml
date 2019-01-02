@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.activity_finder_search.field_activity_finder_search
+    - field.field.paragraph.activity_finder_search.field_prgf_af_page_ref
+    - paragraphs.paragraphs_type.activity_finder_search
+  module:
+    - plugin
+id: paragraph.activity_finder_search.default
+targetEntityType: paragraph
+bundle: activity_finder_search
+mode: default
+content:
+  field_activity_finder_search:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+    region: content
+  field_prgf_af_page_ref:
+    weight: 1
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden: {  }

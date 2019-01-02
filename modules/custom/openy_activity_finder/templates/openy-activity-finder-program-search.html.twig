@@ -1,0 +1,125 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - data: contains all the data..
+ */
+ *
+#}
+{{ attach_library('openy_activity_finder/openy_activity_finder') }}
+
+<div id="activity-finder-app">
+  <div class="container activity-finder__wrapper">
+
+    <div v-show="step === 0" class="activity-finder__step_0 activity-finder__step">
+      <h1>{{ 'Program Search'|t }}</h1>
+      <form role="search">
+        <div>
+          <div class="form-item form-item-textfield">
+            <label for="edit-name-search-programs">{{ 'How would you like to search for programs?'|t }}</label>
+            <input type="text" class="form-text" v-model="keywords" id="edit-name-search-programs" placeholder="{{ 'Search for programs on your terms ...'|t }}" />
+          </div>
+          <div class="form-actions">
+            <input @click.prevent="next()" type="submit" class="form-submit" />
+          </div>
+        </div>
+      </form>
+      <div class="actions">
+        <button @click.prevent="toStep(1)" class="btn btn-primary btn-lg">{{ 'Activity Finder'|t }}<span>{{ 'Find exactly what you-re looking for'|t }}</span></button>
+        <a v-bind:href="afResultsRef" class="btn btn-primary btn-lg">{{ 'View all programs'|t }}<span v-if="loading">Loading...</span><span v-else>${ table.count } {{ 'results'|t }}</span></a>
+      </div>
+    </div>
+
+    <div v-show="step === 1" class="activity-finder__step_1 activity-finder__step">
+      <div class="activity-finder__step_wrapper">
+        <div class="activity-finder__step_header">
+          <div class="activity-finder__step_header__line1"><span v-if="loading">Loading...</span><span v-else>${ table.count }</span> programs | <a v-bind:href="afResultsRef + step_1_query">View All</a> <a href="#" @click.prevent="startOver()" class="start_over">Start Over</a></div>
+          <div class="activity-finder__step_header__line2">
+            <span v-if="checkedStep1Filters === ''">Step 1 of 3: To find programs, select whatever options apply to you (below) ...</span>
+            <span v-else>Filters: ${ checkedStep1Filters }</span>
+            <div class="actions"><button v-bind:disabled="isStep1NextDisabled" @click.prevent="next()">Next</button></div>
+          </div>
+        </div>
+        <div class="activity-finder__step_content" v-if="!loading">
+          <div class="activity-finder__row row">
+            <div class="activity-finder__col col-sm-4">
+              <h3>{{ 'Age'|t }}</h3>
+              {% for age in ages %}
+                <div class="checkbox-wrapper">
+                  <input type="checkbox" value="{{ age.value }}" id="af-age-filter-{{ age.value }}" v-model="checkedAges" />
+                  <label for="af-age-filter-{{ age.value }}">{{ age.label }}</label>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="activity-finder__col col-sm-4">
+              <h3>{{ 'Day'|t }}</h3>
+              {% for day in days %}
+              <div class="checkbox-wrapper">
+                <input type="checkbox" value="{{ day.value }}" id="af-day-filter-{{ day.value }}" v-model="checkedDays" />
+                <label for="af-day-filter-{{ day.value }}">{{ day.label }}</label>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="activity-finder__col col-sm-4">
+              <h3>{{ 'Program Type'|t }}</h3>
+                <div v-for="category in topLevelCategories" class="checkbox-wrapper">
+                  <input type="checkbox" :value="category" :id="'af-category-filter-' + category" v-model="checkedProgramTypes" />
+                  <label :for="'af-category-filter-' + category">${ category }</label>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-show="step === 2" class="activity-finder__step_2 activity-finder__step">
+      <div class="activity-finder__step_wrapper">
+        <div class="activity-finder__step_header">
+          <div class="activity-finder__step_header__line1"><span v-if="loading">Loading...</span><span v-else>${ table.count }</span> programs for: ${ checkedStep1Filters } <a v-bind:href="afResultsRef + step_2_query">View Results</a><a href="#" @click.prevent="startOver()" class="start_over">Start Over</a></div>
+          <div class="activity-finder__step_header__line2">
+            <span v-if="checkedStep2Filters === ''">Step 2 of 3: Narrow your results by selecting one or more activities (below) ...</span>
+            <span v-else>Filters: ${ checkedStep2Filters }</span>
+            <div class="actions"><button @click.prevent="skip()">Skip</button><button @click.prevent="next()">Next</button></div></div>
+        </div>
+        <div class="activity-finder__step_content" v-if="!loading">
+          <div v-for="topLevelCategory in selectedCategories" class="checkbox-group-wrapper">
+            <h3>${ topLevelCategory.label }</h3>
+            <div v-for="(item, index) in topLevelCategory.value" class="checkbox-wrapper">
+              <input type="checkbox" :value="item.value" :id="'af-filter-' + item.value" v-model="checkedActivities" />
+              <label :for="'af-filter-' + item.value">${ item.label }</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-show="step === 3" class="activity-finder__step_3 activity-finder__step">
+      <div class="activity-finder__step_wrapper">
+        <div class="activity-finder__step_header">
+          <div class="activity-finder__step_header__line1"><span v-if="loading">Loading...</span><span v-else>${ table.count }</span> programs for: ${ checkedStep2Filters } <a v-bind:href="afResultsRef + step_3_query">View Results</a><a href="#" @click.prevent="startOver()" class="start_over">Start Over</a></div>
+          <div class="activity-finder__step_header__line2">
+            <span v-if="checkedStep3Filters === ''">Step 3 of 3: Narrow your results further by selecting one or more locations (below) ...</span>
+            <span v-else>Filters: ${ checkedStep3Filters }</span>
+            <div class="actions"><button @click.prevent="skip()">Skip</button><button @click.prevent="next()">Next</button></div>
+          </div>
+        </div>
+        <div class="activity-finder__step_content" v-if="!loading">
+          {% for locationGroup in locations %}
+          <div class="checkbox-group-wrapper">
+            <h3>{{ locationGroup.label }}</h3>
+            {% for location in locationGroup.value %}
+            <div class="checkbox-wrapper">
+              <input type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" v-model="checkedLocations" />
+              <label for="af-filter-{{ location.value }}"><span>{{ location.label }}</span> <small>${ locationCounter("{{ location.value }}") } results</small></label>
+            </div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<br/><br/>{#Debug: {{data}}#}

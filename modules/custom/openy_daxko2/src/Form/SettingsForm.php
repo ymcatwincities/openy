@@ -58,8 +58,9 @@ class SettingsForm extends ConfigFormBase {
     ];
 
     $form['pass'] = [
-      '#type' => 'password',
+      '#type' => 'textfield',
       '#title' => $this->t('Daxko password'),
+      '#default_value' => $config->get('pass'),
       '#description' => t('Add your Daxko API password.'),
     ];
 
@@ -68,6 +69,20 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Daxko refresh token'),
       '#default_value' => $config->get('referesh_token'),
       '#description' => t('Refresh token is a large string like 241 chars long.'),
+    ];
+
+    $form['locations'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Locations'),
+      '#default_value' => $config->get('locations'),
+      '#description' => t('Locations mapping. One per row. "<location id>,<location name>". To group Locations wrap name of the location with asterix: *Camps*.'),
+    ];
+
+    $form['categories'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Categories'),
+      '#default_value' => $config->get('categories'),
+      '#description' => t('Categories. One per row. "<category id>,<category name>". To group categories wrap name of the category with asterix: *Swimming*.'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -97,6 +112,9 @@ class SettingsForm extends ConfigFormBase {
       $pass = $config->get('pass');
     }
     $config->set('pass', $pass)->save();
+
+    $config->set('locations', $form_state->getValue('locations'))->save();
+    $config->set('categories', $form_state->getValue('categories'))->save();
 
     parent::submitForm($form, $form_state);
   }
