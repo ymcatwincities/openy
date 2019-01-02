@@ -1,3 +1,4 @@
+/*global drupalSettings:true*/
 /*global drupalSettings b:true*/
 /*eslint no-restricted-globals: ["warn", "drupalSettings"]*/
 import axios from 'axios';
