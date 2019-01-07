@@ -206,9 +206,12 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $full_dates = $_from->format('m/d/Y') . ' - ' . $_to->format('m/d/Y');
       }
       $data[] = [
+        'nid' => $entity->id(),
         'availability_note' => '',
         'availability_status' => '',
         'dates' => $full_dates,
+        'times' => '',
+        'days' => '',
         'schedule' => $schedule_items,
         'info' => [
           'id' => '',
@@ -559,6 +562,35 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $locations[$item['type']]['label'] = ucfirst($item['type']);
     }
     return array_values($locations);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function getProgramsMoreInfo($request) {
+    $results = [];
+    $parameters = $request->query->all();
+    if (empty($parameters['nid'])) {
+      return $results;
+    }
+    $session = $this->entityTypeManager->getStorage('node')->load($parameters['nid']);
+    $results = [
+      'name' => $session->getTitle(),
+      'description' => html_entity_decode(strip_tags(text_summary($session->field_session_description->value, $session->field_session_description->format, 600))),
+      'price' => 'Member: $' . $session->field_session_mbr_price->value . '<br/>Non-Member: $' . $session->field_session_nmbr_price->value,
+      'availability_status' => "",
+      'availability_note' => "",
+      'gender' => $session->field_session_gender->value,
+      'ages' => $session->field_session_min_age->value / 12 . '-' . $session->field_session_max_age->value / 12 . 'yrs',
+      'link' => Url::fromRoute('openy_activity_finder.register_redirect', [
+        'log' => !empty($parameters['log']) ? $parameters['log'] : ''
+      ],
+        ['query' => [
+          'url' => $session->field_session_reg_link->uri,
+        ]
+        ])->toString()
+    ];
+    return $results;
   }
 
 }
