@@ -65,6 +65,7 @@
             ref="locations_filter"
             title="{{ 'Location'|t }}"
             id="location-filter"
+            type="checkboxes"
             options='{{ locations|json_encode }}'
             :default='$route.query.locations'
             v-on:updated-values="locations = $event"
@@ -74,6 +75,7 @@
             ref="categories_filter"
             title="{{ 'Category'|t }}"
             id="category-filter"
+            type="checkboxes"
             options='{{ categories|json_encode }}'
             :default='$route.query.categories'
             v-on:updated-values="categories = $event"
@@ -83,6 +85,7 @@
             ref="ages_filter"
             title="{{ 'Age'|t }}"
             id="age-filter"
+            type="tabs"
             options='{{ ages|json_encode }}'
             :default='$route.query.ages'
             v-on:updated-values="ages = $event"
@@ -92,6 +95,7 @@
             ref="days_filter"
             title="{{ 'Days'|t }}"
             id="days-filter"
+            type="tabs"
             options='{{ days|json_encode }}'
             :default='$route.query.days'
             v-on:updated-values="days = $event"

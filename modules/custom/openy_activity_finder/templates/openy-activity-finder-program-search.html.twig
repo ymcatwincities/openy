@@ -80,7 +80,7 @@
           <div class="activity-finder__step_header__line2">
             <span v-if="checkedStep2Filters === ''">Step 2 of 3: Narrow your results by selecting one or more activities (below) ...</span>
             <span v-else>Filters: ${ checkedStep2Filters }</span>
-            <div class="actions"><button @click.prevent="skip()">Skip</button><button @click.prevent="next()">Next</button></div></div>
+            <div class="actions"><button @click.prevent="skip()">Skip</button><button v-bind:disabled="isStep2NextDisabled" @click.prevent="next()">Next</button></div></div>
         </div>
         <div class="activity-finder__step_content" v-if="!loading">
           <div v-for="topLevelCategory in selectedCategories" class="checkbox-group-wrapper">
@@ -101,7 +101,7 @@
           <div class="activity-finder__step_header__line2">
             <span v-if="checkedStep3Filters === ''">Step 3 of 3: Narrow your results further by selecting one or more locations (below) ...</span>
             <span v-else>Filters: ${ checkedStep3Filters }</span>
-            <div class="actions"><button @click.prevent="skip()">Skip</button><button @click.prevent="next()">Next</button></div>
+            <div class="actions"><button @click.prevent="skip()">Skip</button><button v-bind:disabled="isStep3NextDisabled" @click.prevent="next()">Next</button></div>
           </div>
         </div>
         <div class="activity-finder__step_content" v-if="!loading">

@@ -7,6 +7,8 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use GuzzleHttp\Client;
 use Drupal\openy_activity_finder\OpenyActivityFinderBackend;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 
 class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
@@ -28,6 +30,13 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   protected $cache;
 
   /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * OpenyActivityFinderDaxkoBackend constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -36,12 +45,15 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
    *   The config factory.
    * @param CacheBackendInterface $cache
    *   Cache default.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache, ModuleHandlerInterface $module_handler) {
     parent::__construct($config_factory);
     $this->daxkoConfig = $config_factory->get('openy_daxko2.settings');
     $this->entityTypeManager = $entity_type_manager;
     $this->cache = $cache;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -64,16 +76,6 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $locations = explode(',', $locationArgument);
     if (empty($locationArgument)) {
       $locations = array_keys($locationsConfig);
-    }
-    else {
-      $locationsConfigFlip = array_flip($locationsConfig);
-      $new_locations = [];
-      foreach ($locations as $location_name) {
-        if (isset($locationsConfigFlip[$location_name])) {
-          $new_locations[] = $locationsConfigFlip[$location_name];
-        }
-      }
-      $locations = $new_locations;
     }
 
     if (!empty($locations)) {
@@ -251,6 +253,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
         )->toString();
 
         $result[] = [
+          'nid' => '',
           'location' => $location_name,
           'name' => $row['name'] . ' - ' . $row['program']['name'],
           'dates' => $start_date_formatted . ' - ' . $end_date_formatted,
@@ -535,6 +538,117 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     }
 
     return $rows;
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function getProgramsMoreInfo($request) {
+    $config = \Drupal::configFactory()->get('openy_daxko2.settings');
+
+    $time_start = microtime(true);
+    $client = new Client(['base_uri' => $config->get('base_uri')]);
+    $response = $client->request('POST', 'partners/oauth2/token',
+      [
+        'form_params' => [
+          'client_id' => $config->get('user'),
+          'client_secret' => $config->get('pass'),
+          'grant_type' => 'client_credentials',
+          'scope' => 'client:' . $config->get('client_id'),
+        ],
+        'headers' => [
+          'Authorization' => "Bearer " . $config->get('referesh_token')
+        ],
+      ]);
+    $time_end = microtime(true);
+    $time = $time_end - $time_start;
+    \Drupal::logger('openy_daxko2')->info('Daxko call. Time %times. URL %url', [
+      '%time' => number_format($time, 2),
+      '%url' => 'partners/oauth2/token',
+    ]);
+
+    $access_token = json_decode((string) $response->getBody())->access_token;
+
+    $client = new Client(['base_uri' => $config->get('base_uri')]);
+
+    $offering_id = $request->get('offering');
+    $program_id = $request->get('program');
+    $location_id = $request->get('location');
+
+    $time_start = microtime(true);
+    $response = $client->request('GET', 'programs/' . $program_id . '/offerings/' . $offering_id,
+      [
+        'query' => ['location_id' => $location_id],
+        'headers' => [
+          'Authorization' => "Bearer " . $access_token
+        ],
+      ]);
+    $time_end = microtime(true);
+    $time = $time_end - $time_start;
+    \Drupal::logger('openy_daxko2')->info('Daxko call. Time %times. URL %url', [
+      '%time' => number_format($time, 2),
+      '%url' => 'programs/' . $program_id . '/offerings/' . $offering_id,
+    ]);
+
+    $offeringResponse = json_decode((string) $response->getBody(), TRUE);
+
+    $availability_status = 'closed';
+    $availability_note = '';
+    if (isset($offeringResponse['details'][0]['registration_summaries'][0]['description'])) {
+      $online_open = $offeringResponse['details'][0]['registration_summaries'][0]['can_register'];
+      if ($online_open) {
+        $availability_status = 'open';
+      }
+      $availability_note = $offeringResponse['details'][0]['registration_summaries'][0]['description'];
+
+      // If online is closed but offline is open.
+      if (!$online_open && isset($offeringResponse['details'][0]['registration_summaries'][1]) && $offeringResponse['details'][0]['registration_summaries'][1]['can_register']) {
+        $availability_note .= '. But you can register at the branch. ' . $offeringResponse['details'][0]['registration_summaries'][1]['description'];
+      }
+    }
+
+    $prices = [];
+    if (isset($offeringResponse['details'][0]['groups'])) {
+      foreach ($offeringResponse['details'][0]['groups'] as $group) {
+        $prices[] = $group['name'] . ': ' . $group['rate']['description'];
+      }
+    }
+
+    // Cache the Price for one day.
+    $cache_key = 'daxko-price-' . md5($offering_id . $program_id . $location_id);
+    $ttl = \Drupal::time()->getRequestTime() + 24 * 60 * 60;
+    \Drupal::cache()->set($cache_key, implode('<br/>', $prices), $ttl);
+
+    // Cache the Availability for five minutes.
+    $cache_key = 'daxko-availability-' . md5($offering_id . $program_id . $location_id);
+    $ttl = \Drupal::time()->getRequestTime() + 5 * 60 * 60;
+    \Drupal::cache()->set($cache_key, ['status' => $availability_status, 'note' => $availability_note], $ttl);
+
+    // We show gender restrictions if there are any. So if value is both
+    // male and female we do not need to show it as restriction.
+    $gender = '';
+    if (isset($offeringResponse['restrictions']['genders']) && count($offeringResponse['restrictions']['genders']) == 1) {
+      $gender = reset($offeringResponse['restrictions']['genders']);
+      $gender = $gender['name'];
+    }
+
+    $age = '';
+    if (isset($offeringResponse['restrictions']['age'])) {
+      $age = $offeringResponse['restrictions']['age']['start'] . '-' . $offeringResponse['restrictions']['age']['end'] . 'yrs';
+    }
+
+    $result = [
+      'name' => $offeringResponse['name'] . ' ' . $offeringResponse['program']['name'],
+      'description' =>  $offeringResponse['description'] . ' ' . $offeringResponse['program']['description'],
+      'price' =>  implode('<br/>', $prices),
+      'availability_status' =>  $availability_status,
+      'availability_note' =>  $availability_note,
+      'gender' => $gender,
+      'ages' => $age,
+      'link' =>  'https://ops1.operations.daxko.com/Online/' . $config->get('client_id') . '/ProgramsV2/OfferingDetails.mvc?program_id=' . $program_id . '&offering_id=' . $offering_id . '&location_id=' . $location_id,
+    ];
+
+    return $result;
   }
 
 }

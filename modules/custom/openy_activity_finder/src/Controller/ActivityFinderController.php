@@ -94,4 +94,15 @@ class ActivityFinderController extends ControllerBase {
     return new TrustedRedirectResponse($url, 301);
   }
 
+  /**
+   * Callback to retrieve programs full information.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   */
+  public function ajaxProgramsMoreInfo(Request $request) {
+    $result = $this->backend->getProgramsMoreInfo($request);
+
+    return new JsonResponse($result);
+  }
 }

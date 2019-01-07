@@ -11,7 +11,7 @@
   });
 
   Vue.component('sidebar-filter', {
-    props: ['title', 'id', 'options', 'default'],
+    props: ['title', 'id', 'options', 'default', 'type'],
     data: function() {
       return {
         checkboxes: [],
@@ -106,30 +106,35 @@
         }
       }
     },
-    template: '<div class="form-group-wrapper">\n' +
+    template: '<div class="form-group-wrapper clearfix">\n' +
     '                <label v-on:click="expanded = !expanded">\n' +
     '                    {{ title }}\n' +
     '                  <i v-if="expanded" class="fa fa-minus minus" aria-hidden="true"></i>\n' +
     '                  <i v-if="!expanded" class="fa fa-plus plus" aria-hidden="true"></i>\n' +
     '                </label>\n' +
-    '                <div>\n' +
-    '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper">\n' +
-    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" class="box" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
+    '                <div v-bind:class="[type]">\n' +
+    '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
+    '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(checkbox)) != -1"' +
+    '                     v-bind:class="{\'col-xs-6 col-sm-4\': type == \'tabs\'}">' +
+                         // No parent checkbox.
+    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
-
-    '                    <a v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded" v-on:click.stop.prevent="selectDependent(getLabel(checkbox))" href="#">' +
-    '                      <span v-show="groupStatus(getLabel(checkbox)) == \'none\'" class="glyphicon glyphicon-unchecked"></span>\n' +
-    '                      <span v-show="groupStatus(getLabel(checkbox)) == \'all\'" class="glyphicon glyphicon-check"></span>\n' +
-    '                      <span v-show="groupStatus(getLabel(checkbox)) == \'partial\'" class="glyphicon glyphicon-th-large"></span>\n' +
-    '                      {{ getLabel(checkbox) }}' +
-    '                    </a>' +
-    '                    ' +
-    '                    <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>' +
-    '                    <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>' +
-
-
+                         // Locations with sub-locations/branches.
+    '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
+    '                       <a v-show="expanded" v-on:click.stop.prevent="selectDependent(getLabel(checkbox))" href="#" v-bind:class="{ ' +
+    '                         \'checkbox-unchecked\': groupStatus(getLabel(checkbox)) == \'none\', ' +
+    '                         \'checkbox-checked\': groupStatus(getLabel(checkbox)) == \'all\', ' +
+    '                         \'checkbox-partial\': groupStatus(getLabel(checkbox)) == \'partial\', ' +
+    '                       }">' +
+    '                       <input v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked">\n' +
+    '                       <label v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" >{{ getLabel(checkbox) }}</label>\n' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" href="#" class="float-right">' +
+    '                         <span v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true);" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>' +
+    '                         <span v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>' +
+    '                       </a>' +
+    '                    </div>' +
     '                    <div v-if="typeof getOption(checkbox) == \'object\'" v-for="checkbox2 in getOption(checkbox)" class="checkbox-wrapper">\n' +
-    '                      <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" class="box" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
+    '                      <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
     '                      <label v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
     '                    </div>\n' +
 
@@ -309,6 +314,7 @@
         var query = [];
         query.push('log=' + encodeURIComponent(this.table[index].log_id));
         query.push('details=' + encodeURIComponent(this.table[index].name));
+        query.push('nid=' + encodeURIComponent(this.table[index].nid));
 
         query.push('program=' + encodeURIComponent(this.table[index].program_id));
         query.push('offering=' + encodeURIComponent(this.table[index].offering_id));
