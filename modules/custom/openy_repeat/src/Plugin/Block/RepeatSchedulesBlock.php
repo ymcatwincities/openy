@@ -41,12 +41,22 @@ class RepeatSchedulesBlock extends BlockBase {
   /**
    * Return Categories from chain "Session" -> "Class" -> "Activity" -> "Program sub-category".
    *
+   * @param array $nids
+   *   Array that contains categories nids to exclude.
+   *
    * @return array
    */
-  public function getCategories() {
+  public function getCategories(array $nids) {
+
+    $condition = TRUE; // Could feasibly want TRUE under different circumstances
+    if($nids){
+      $condition = "n.nid NOT IN (".implode(',', $nids).")";
+    }
+
     $sql = "SELECT title 
             FROM {node_field_data} n
             WHERE n.type = 'activity'
+            AND " . $condition . "
             AND n.status = '1'
             ORDER BY title ASC";
 
@@ -65,6 +75,7 @@ class RepeatSchedulesBlock extends BlockBase {
     $query = $request_stack->getCurrentRequest()->query;
     $locations = $query->get('locations');
     $categories = $query->get('categories');
+    $excluded_categories = [];
     $checked_categories = [];
     if (!empty($categories)) {
       $checked_categories = explode(',', $categories);
@@ -79,6 +90,7 @@ class RepeatSchedulesBlock extends BlockBase {
     foreach ($paragraphs as $p) {
       if ($p->bundle() == 'repeat_schedules') {
         $pdf_only = !$p->field_prgf_rs_pdf_only_view->isEmpty() ? $p->field_prgf_rs_pdf_only_view->getValue()[0]['value'] : '';
+        $schedule_excl = !$p->field_prgf_repeat_schedule_excl->isEmpty() ? $p->field_prgf_repeat_schedule_excl->getValue() : '';
         // Setup redirect to PDF generation route if pdf only option is enabled.
         if ($pdf_only) {
           $p_categories = $p->field_prgf_repeat_schedule_categ->referencedEntities();
@@ -94,12 +106,18 @@ class RepeatSchedulesBlock extends BlockBase {
           $response = new RedirectResponse($path, 302);
           $response->send();
         }
+        if ($schedule_excl) {
+          foreach ($schedule_excl as  $item) {
+            $excluded_categories[]  = $item['target_id'];
+          }
+        }
       }
     }
+
     return [
       '#theme' => 'openy_repeat_schedule_dashboard',
       '#locations' => $this->getLocations(),
-      '#categories' => $this->getCategories(),
+      '#categories' => $this->getCategories($excluded_categories),
       '#checked_locations' => $checked_locations,
       '#checked_categories' => $checked_categories,
       '#cache' => ['contexts' => ['url.path', 'url.query_args']],
