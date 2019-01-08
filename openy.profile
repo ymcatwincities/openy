@@ -12,7 +12,7 @@ use Drupal\openy\Form\ThirdPartyServicesForm;
 use Drupal\openy\Form\UploadFontMessageForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\openy\Form\TermOfUseForm;
+use Drupal\openy\Form\TermsOfUseForm;
 
 /**
  * Implements hook_install_tasks().
@@ -23,7 +23,7 @@ function openy_install_tasks() {
       'display_name' => t('Terms of Use'),
       'display' => TRUE,
       'type' => 'form',
-      'function' => TermOfUseForm::class,
+      'function' => TermsOfUseForm::class,
     ],
     'openy_select_features' => [
       'display_name' => t('Select installation type'),
