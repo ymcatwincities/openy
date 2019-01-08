@@ -74,13 +74,15 @@
   <div id="sidebar" class="sidebar sidebar-left fixed-top collapse fade">
     <div class="row px-3 px-lg-0">
 
-      <div class="search-form-wrapper col-12 border-top border-bottom">
-        <form method="get" action="{{ base_path }}search">
-          <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
-          <input type="search" name="query" class="search-input" placeholder="Search">
-          <input type="submit" type="submit" value="Search">
-        </form>
-      </div>
+        {% if display_search %}
+          <div class="search-form-wrapper col-12 border-top border-bottom">
+            <form method="get" action="{{ base_path }}search">
+              <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
+              <input type="search" name="query" class="search-input" placeholder="Search">
+              <input type="submit" type="submit" value="Search">
+            </form>
+          </div>
+        {% endif %}
 
       <div class="page-head__main-menu col-12">
         {{ page.top_menu }}
@@ -109,19 +111,21 @@
 
             {# search #}
             <div class="col-md-12 header-content d-none d-sm-block p-0">
-              <div class="page-head__search fade collapse">
-                <div class="search-form-wrapper">
-                  {{ page.search }}
-                  <form method="get" action="{{ base_path }}search">
-                    <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
-                    <input type="search" name="query" class="search-input" placeholder="Search">
-                    <input type="submit" value="Search">
-                  </form>
-                  <button class="navbar-toggler page-head__search-close text-white" type="button" data-toggle="collapse" data-target=".page-head__search" aria-controls="page-head__search" aria-expanded="false" aria-label="Toggle search bar">
-                    <i class="fa fa-times" aria-hidden="true"></i>
-                  </button>
+              {% if display_search %}
+                <div class="page-head__search fade collapse">
+                  <div class="search-form-wrapper">
+                      {{ page.search }}
+                    <form method="get" action="{{ base_path }}search">
+                      <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
+                      <input type="search" name="query" class="search-input" placeholder="Search">
+                      <input type="submit" value="Search">
+                    </form>
+                    <button class="navbar-toggler page-head__search-close text-white" type="button" data-toggle="collapse" data-target=".page-head__search" aria-controls="page-head__search" aria-expanded="false" aria-label="Toggle search bar">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                  </div>
                 </div>
-              </div>
+              {% endif %}
               <div class="page-head__main-menu nav-home nav-desktop">
                 {{ page.primary_menu }}
               </div>
