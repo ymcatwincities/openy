@@ -1016,3 +1016,15 @@ function openy_update_8068() {
       ->save(TRUE);
   }
 }
+
+/**
+ * Update Carnation theme settings: display search icon.
+ */
+function openy_update_8069() {
+  if (\Drupal::service('theme_handler')->themeExists('openy_carnation')) {
+    $config = drupal_get_path('theme', 'openy_carnation') . '/config/install/openy_carnation.settings.yml';
+    /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+    $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+    $config_importer->update($config, 'openy_carnation.settings', 'display_search_form');
+  }
+}

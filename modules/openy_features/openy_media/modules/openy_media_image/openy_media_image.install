@@ -255,3 +255,25 @@ function openy_media_image_update_8009() {
     }
   }
 }
+
+/**
+ * Remove blazy for icons.
+ */
+function openy_media_image_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.media.image.icon' => [
+      'dependencies.module',
+      'content.field_media_image',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
