@@ -7,7 +7,6 @@ openy_repeat:
     base:
       css/repeat.css: {}
       css/modal.css: {}
-      css/ajax_spinner.css: {}
       css/print.css: { media: print }
   dependencies:
     - openy_repeat/polyfill

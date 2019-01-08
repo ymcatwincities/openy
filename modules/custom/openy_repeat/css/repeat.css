@@ -6,11 +6,6 @@
   display: none;
 }
 
-/* BS4 styles. */
-.mb-5 {
-  margin-bottom: 3rem;
-}
-
 .schedule-dashboard__wrapper {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
@@ -55,10 +50,6 @@
   opacity: .7;
 }
 
-/* Keyword search. */
-.schedule-dashboard__search--form {
-  display: flex;
-}
 
 /* remove styles from sidebar */
 
@@ -179,119 +170,74 @@ label[aria-expanded=false] .minus {
 
 .schedule-dashboard__sidebar .checkbox-wrapper label {
   font-weight: normal;
-  cursor: pointer;
 }
 
-/* Tabs (Age/Days) */
-.schedule-dashboard__sidebar .tabs {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -5px;
-}
-
-.schedule-dashboard__sidebar .tabs .checkbox-wrapper {
-  padding: 0 5px;
-}
-
-.schedule-dashboard__sidebar .tabs .checkbox-wrapper input {
+.schedule-dashboard__sidebar [type="checkbox"]:checked,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) {
   position: absolute;
   left: -9999px;
 }
 
-.schedule-dashboard__sidebar .tabs .checkbox-wrapper label {
-  padding: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-  background: #666;
-  color: #fff;
-  font-weight: bold;
-  text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
-  background: #222;
-}
-
-/* Checkboxes (locations) */
-.schedule-dashboard__sidebar .checkboxes input {
-  position: absolute;
-  left: -9999px;
-}
-
-.schedule-dashboard__sidebar .checkboxes input + label {
+.schedule-dashboard__sidebar [type="checkbox"]:checked+label,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label {
   position: relative;
   padding-left: 25px;
   cursor: pointer;
   display: inline-block;
 }
 
-.schedule-dashboard__sidebar .checkboxes input + label:before,
-.schedule-dashboard__sidebar .checkboxes input + label:after {
+.schedule-dashboard__sidebar [type="checkbox"]:checked+label:before,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:before {
   content: '';
   position: absolute;
   left: 0;
   top: 2px;
   width: 16px;
   height: 16px;
-  border-radius: 2px;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-}
-
-/* Checkbox outline. */
-.schedule-dashboard__sidebar .checkboxes input + label:before {
   border: 1px solid #ddd;
   background: white;
 }
 
-/* Checkbox > checkmark icon (default). */
-.schedule-dashboard__sidebar .checkboxes input + label:after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666666' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");  background-size: contain;
+.schedule-dashboard__sidebar [type="checkbox"]:checked+label:after,
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  background: #333;
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
-.schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:after {
+.schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:after {
   opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
 }
 
-.schedule-dashboard__sidebar .checkboxes .checkbox-partial input + label:after,
-.schedule-dashboard__sidebar .checkboxes .checkbox-checked input + label:after,
-.schedule-dashboard__sidebar .checkboxes input:checked + label:after {
+[type="checkbox"]:checked+label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
 
-/* Parent styles (nested locations). */
-/* Material Icons + https://yoksel.github.io/url-encoder */
-.schedule-dashboard__sidebar .checkboxes .checkbox-partial input + label:after {
-  /* minus icon */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666666' d='M0 0h24v24H0V0z'/%3E%3Cpath fill='white' d='M19 13H5v-2h14v2z'/%3E%3C/svg%3E");
-}
-
-.schedule-dashboard__sidebar .checkboxes .checkbox-checked input + label:after {
-  /* plus icon */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666666' d='M0 0h24v24H0V0z'/%3E%3Cpath fill='white' d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/%3E%3C/svg%3E");
-}
-
-
 @media (min-width: 768px) {
-  .schedule-dashboard__sidebar .checkboxes .checkbox-wrapper {
+  .schedule-dashboard__sidebar .checkbox-wrapper {
     padding-left: 15px;
   }
-  .schedule-dashboard__sidebar .checkboxes input:checked + label,
-  .schedule-dashboard__sidebar .checkboxes input:not(:checked) + label {
+  .schedule-dashboard__sidebar [type="checkbox"]:checked+label,
+  .schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label {
     padding-left: 10px;
   }
-  .schedule-dashboard__sidebar .checkboxes input:checked + label:before,
-  .schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:before,
-  .schedule-dashboard__sidebar .checkboxes input:checked + label:after,
-  .schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:after {
+  .schedule-dashboard__sidebar [type="checkbox"]:checked+label:before,
+  .schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:before {
     left: -15px;
+  }
+  .schedule-dashboard__sidebar [type="checkbox"]:checked+label:after,
+  .schedule-dashboard__sidebar [type="checkbox"]:not(:checked)+label:after {
+    left: -12px;
   }
 }
 
@@ -344,7 +290,6 @@ label[aria-expanded=false] .minus {
 }
 
 /* heading row */
-
 .schedules-data__header {
   display: none;
   text-transform: uppercase;
@@ -354,7 +299,6 @@ label[aria-expanded=false] .minus {
 }
 
 /* row styles */
-
 .schedules-data__row {
   padding: 14px 0;
   display: flex;
@@ -448,6 +392,7 @@ label[aria-expanded=false] .minus {
     padding: 24px 10px;
     max-width: calc(100% / 7);
   }
+
 }
 
 .schedule-dashboard__sidebar .checkbox-room-wrapper {
