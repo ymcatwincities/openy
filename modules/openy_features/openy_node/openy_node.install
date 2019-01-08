@@ -113,3 +113,12 @@ function openy_node_update_8006() {
     );
   }
 }
+
+/**
+ * Disable /node page.
+ */
+function openy_node_update_8007() {
+  $config = \Drupal::configFactory()->getEditable('views.view.frontpage');
+  $config->set('display.page_1.display_options.enabled', FALSE);
+  $config->save();
+}
