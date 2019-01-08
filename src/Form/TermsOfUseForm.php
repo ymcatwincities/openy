@@ -25,7 +25,10 @@ class TermsOfUseForm extends FormBase {
 
     $form['participant'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('We agree to the <a target="_blank" href="https://github.com/ymcatwincities/openy/wiki/Open-Y-Participant-Agreement">Open Y Participant Agreement</a> and <a target="_blank" href="https://github.com/ymcatwincities/openy/wiki/Open-Y-Terms-of-Use">Terms of Use</a>'),
+      '#title' => $this->t('We agree to the <a target="_blank" href="@openy-participant-agreement">Open Y Participant Agreement</a> and <a target="_blank" href="@terms-of-use">Terms of Use</a>', [
+        '@openy-participant-agreement' => 'https://github.com/ymcatwincities/openy/wiki/Open-Y-Participant-Agreement',
+        '@terms-of-use' => 'https://github.com/ymcatwincities/openy/wiki/Open-Y-Terms-of-Use',
+      ]),
       '#weight' => 1,
     ];
 
