@@ -79,10 +79,13 @@ class TermOfUseForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $values = $form_state->getValues();
-    foreach ($values as $key => $value) {
-      if ($value === 0) {
-        $form_state->setErrorByName($key, $this->t('Select all checkboxes to indicate that you have read and agree to the terms of use'));
+    // If site installation is not run via drush.
+    if (PHP_SAPI !== 'cli') {
+      $values = $form_state->getValues();
+      foreach ($values as $key => $value) {
+        if ($value === 0) {
+          $form_state->setErrorByName($key, $this->t('Select all checkboxes to indicate that you have read and agree to the terms of use'));
+        }
       }
     }
   }
