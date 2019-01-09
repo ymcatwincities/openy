@@ -166,7 +166,8 @@
                 "2937058 - Clear cache performance improvement": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964-2.patch"
             },
             "drupal/entity_browser": {
-                "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
+                "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch",
+                "2927347 - Having Entity Browser 2.x on the codebase breaks upgrade path": "https://www.drupal.org/files/issues/2019-01-09/Having-Entity-Browser-breaks-upgrade-path-2927347-12.patch"
             },
             "drupal/entity_embed": {
                 "2511404 - Image entities/fields embedded using Entity Embed cannot be linked in CKEditor": "https://www.drupal.org/files/issues/entity_embed_links-2511404-31.patch"
@@ -200,7 +201,7 @@
         "drupal/confi": "1.4",
         "drupal/config_update": "1.5",
         "drupal/entity": "1.0-beta1",
-        "drupal/media_entity": "1.x-dev",
+        "drupal/media_entity": "^2.0",
         "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
         "drupal/address": "1.4",
@@ -210,10 +211,10 @@
         "drupal/ctools": "3.0",
         "drupal/token": "1.3",
         "drupal/field_group": "1.0",
-        "drupal/video_embed_field": "1.5",
+        "drupal/video_embed_field": "^2.0",
         "drupal/jquery_colorpicker": "1.4",
-        "drupal/entity_browser": "1.6",
-        "drupal/dropzonejs": "1.0-alpha8",
+        "drupal/entity_browser": "^2.0",
+        "drupal/dropzonejs": "^2.0",
         "drupal/inline_entity_form": "1.0-rc1",
         "drupal/embed": "1.0",
         "drupal/entity_embed": "1.0-beta2",
@@ -226,8 +227,8 @@
         "drupal/verf": "1.0-beta6",
         "drupal/simple_menu_icons": "1.x-dev",
         "drupal/views_infinite_scroll": "1.5",
-        "drupal/slick": "1.0",
-        "drupal/blazy": "1.0-rc3",
+        "drupal/slick": "^2.0",
+        "drupal/blazy": "^2.0",
         "drupal/geolocation": "1.11",
         "library-jaypan/jquery_colorpicker": "1.0.1",
         "library-enyo/dropzone": "4.3.0",
@@ -263,9 +264,9 @@
         "drupal/views_data_export": "1.0-beta1",
         "drupal/lndr": "1.15",
         "doctrine/inflector": "1.1.*",
-        "drupal/crop": "1.5",
+        "drupal/crop": "^2.0",
         "drupal/focal_point": "1.0-beta6",
-        "drupal/media_entity_video": "1.0-beta2",
+        "drupal/media_entity_video": "^2.0",
         "drupal/video": "1.2",
         "drupal/easy_breadcrumb": "^1.6",
         "drupal/ckeditor_bootstrap_buttons": "^1.1",
