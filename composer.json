@@ -29,12 +29,12 @@
             "type": "package",
             "package": {
                 "name": "library-kenwheeler/slick",
-                "version": "1.6.0",
+                "version": "1.8.0",
                 "type": "drupal-library",
                 "source": {
                     "url": "https://github.com/kenwheeler/slick",
                     "type": "git",
-                    "reference": "1.6.0"
+                    "reference": "1.8.0"
                 }
             }
         },
@@ -68,12 +68,12 @@
             "type": "package",
             "package": {
                 "name": "library-enyo/dropzone",
-                "version": "4.3.0",
+                "version": "5.5.0",
                 "type": "drupal-library",
                 "source": {
                     "url": "https://github.com/enyo/dropzone",
                     "type": "git",
-                    "reference": "v4.3.0"
+                    "reference": "v5.5.0"
                 }
             }
         },
@@ -231,8 +231,8 @@
         "drupal/blazy": "^2.0",
         "drupal/geolocation": "1.11",
         "library-jaypan/jquery_colorpicker": "1.0.1",
-        "library-enyo/dropzone": "4.3.0",
-        "library-kenwheeler/slick": "1.6.0",
+        "library-enyo/dropzone": "5.5.0",
+        "library-kenwheeler/slick": "1.8.0",
         "library-dinbror/blazy": "1.8.2",
         "library-gdsmith/jquery.easing": "1.4.1",
         "library-ckeditor/panelbutton": "4.7.0",
