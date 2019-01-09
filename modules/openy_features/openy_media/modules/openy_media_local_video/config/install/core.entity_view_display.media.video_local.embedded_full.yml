@@ -5,7 +5,7 @@ dependencies:
     - core.entity_view_mode.media.embedded_full
     - field.field.media.video_local.field_media_local_video
     - field.field.media.video_local.field_media_tags
-    - media_entity.bundle.video_local
+    - media.type.video_local
   module:
     - video
 id: media.video_local.embedded_full

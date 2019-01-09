@@ -5,11 +5,11 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - field
-  - link
-  - media_entity
-  - options
+  - drupal:field
+  - drupal:link
+  - drupal:media (>= 8.6)
+  - drupal:options
+  - drupal:taxonomy
+  - drupal:text
   - paragraphs
   - plugin
-  - taxonomy
-  - text
