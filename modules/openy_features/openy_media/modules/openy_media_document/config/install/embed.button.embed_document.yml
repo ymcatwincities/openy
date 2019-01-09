@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - media_entity.bundle.document
+    - media.type.document
   module:
     - entity_embed
     - media_entity
