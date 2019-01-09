@@ -31,8 +31,8 @@ export default function activityTypes(state = initState, action) {
       const alerts = action.payload;
       let dismissed = cookie.load('alerts_dismiss');
       if (dismissed) {
-        let alertsHeaderLocal = alerts.header.local.filter(element => !dismissed.includes(parseInt(element.id)));
-        let alertsFooterLocal = alerts.footer.local.filter(element => !dismissed.includes(parseInt(element.id)));
+        let alertsHeaderLocal = alerts.header.local.filter((element) => !dismissed.includes(parseInt(element.id)));
+        let alertsFooterLocal = alerts.footer.local.filter((element) => !dismissed.includes(parseInt(element.id)));
         alerts.header.local = alertsHeaderLocal;
         alerts.footer.local = alertsFooterLocal;
       }
