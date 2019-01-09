@@ -7604,7 +7604,7 @@ html.js .ajax-new-content:empty {
 .breadcrumbs-wrapper {
   position: absolute;
   bottom: -25px;
-  z-index: 2;
+  z-index: 10;
   left: 0;
   right: 0; }
 
