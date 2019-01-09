@@ -180,8 +180,8 @@
             "drupal/views_data_export": {
                 "2789531 - Support for batch operations": "https://www.drupal.org/files/issues/2789531-105.patch"
             },
-            "drupal/migrate_tools": {
-                "3014095 - Not compatible with Drupal 8.4 due to usage of tempstore.private service": "https://www.drupal.org/files/issues/2018-11-15/check-if-service-exists-3014095-1.patch"
+            "drupal/easy_breadcrumb": {
+                "2971408 - Easy Breadcrumb could not determine the title to use for /node/{node}/translations": "https://www.drupal.org/files/issues/2018-07-13/2971408_node_edit-5.patch"
             },
             "drupal/core": {
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
@@ -267,7 +267,7 @@
         "drupal/focal_point": "1.0-beta6",
         "drupal/media_entity_video": "1.0-beta2",
         "drupal/video": "1.2",
-        "drupal/easy_breadcrumb": "^1.6",
+        "drupal/easy_breadcrumb": "^1.8",
         "drupal/ckeditor_bootstrap_buttons": "^1.1",
         "drupal/fontyourface": "^3.2",
         "drupal/css_editor": "^1.2",
