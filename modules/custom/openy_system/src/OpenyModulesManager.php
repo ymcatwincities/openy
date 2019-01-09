@@ -332,12 +332,10 @@ class OpenyModulesManager {
         break;
 
       case 'media':
-        // TODO: Replace url and route after switching to core media.
         $url = Url::fromUserInput('/admin/content/media');
         break;
 
       case 'media_type':
-        // TODO: Replace url and route after switching to core media.
         $url = Url::fromUserInput("/admin/structure/media/manage/$bundle/delete");
         break;
 
