@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "655c7b6b353464d59797ad37489a7309",
+    "content-hash": "d1d719be5d431113d0477a2e781e2978",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -6117,11 +6117,11 @@
         },
         {
             "name": "library-enyo/dropzone",
-            "version": "4.3.0",
+            "version": "5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/enyo/dropzone",
-                "reference": "v4.3.0"
+                "reference": "v5.5.0"
             },
             "type": "drupal-library"
         },
@@ -6147,11 +6147,11 @@
         },
         {
             "name": "library-kenwheeler/slick",
-            "version": "1.6.0",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kenwheeler/slick",
-                "reference": "1.6.0"
+                "reference": "1.8.0"
             },
             "type": "drupal-library"
         },
