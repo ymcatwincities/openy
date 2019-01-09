@@ -8323,4 +8323,8 @@ input[type="checkbox"]:focus {
   width: 100vw;
 }
 
+.header-alerts-list .slick__arrow, .footer-alerts-list .slick__arrow {
+  visibility: visible;
+}
+
 /*# sourceMappingURL=styles.css.map */
