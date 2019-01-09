@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.teaser
-    - media_entity.bundle.document
+    - media.type.document
     - taxonomy.vocabulary.media_tags
   module:
     - entity_browser
