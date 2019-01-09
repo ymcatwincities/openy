@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_mbrshp_image
-    - media_entity.bundle.image
+    - media.type.image
     - node.type.membership
 id: node.membership.field_mbrshp_image
 field_name: field_mbrshp_image

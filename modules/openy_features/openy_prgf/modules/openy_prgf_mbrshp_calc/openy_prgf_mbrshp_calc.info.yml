@@ -5,13 +5,16 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
+  - drupal:field
+  - drupal:image
+  - drupal:media (>= 8.6)
+  - drupal:node
+  - drupal:telephone
+  - drupal:text
+  - drupal:user
   - address
   - blazy
   - entity_reference_revisions
-  - field
-  - image
-  - media_entity
-  - node
   - openy_calc
   - openy_field_custom_hours
   - openy_hours_formatter
@@ -21,6 +24,3 @@ dependencies:
   - openy_prgf
   - paragraphs
   - plugin
-  - telephone
-  - text
-  - user

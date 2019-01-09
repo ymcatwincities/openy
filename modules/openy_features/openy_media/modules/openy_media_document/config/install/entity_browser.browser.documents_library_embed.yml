@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - media_entity.bundle.document
+    - media.type.document
     - views.view.documents_library
   module:
     - dropzonejs_eb_widget

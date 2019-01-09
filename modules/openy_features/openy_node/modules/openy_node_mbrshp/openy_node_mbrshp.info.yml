@@ -9,7 +9,7 @@ dependencies:
   - entity_reference_revisions
   - field
   - link
-  - media_entity
+  - drupal:media (>= 8.6)
   - menu_ui
   - metatag
   - node

@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - media_entity.bundle.video_local
+    - media.type.video_local
 id: media.video_local
 target_entity_type_id: media
 target_bundle: video_local
