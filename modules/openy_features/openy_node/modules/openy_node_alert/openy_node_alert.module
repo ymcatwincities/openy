@@ -65,6 +65,18 @@ function openy_node_alert_entity_presave(EntityInterface $entity) {
       }
     }
 
+    // Collecting nodes from the Reference field.
+    if (
+      $entity->hasField('field_alert_belongs')
+      && !$entity->get('field_alert_belongs')->isEmpty()
+    ) {
+      $references = $entity->get('field_alert_belongs')->getValue();
+      foreach ($references as $reference) {
+        // Reference field is referenced to nodes, using this node tag.
+        $cacheTags[] = 'node:' . $reference['target_id'];
+      }
+    }
+
     if (!empty($cacheTags)) {
       Cache::invalidateTags($cacheTags);
     }
