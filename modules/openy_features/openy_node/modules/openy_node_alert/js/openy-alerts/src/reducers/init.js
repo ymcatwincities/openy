@@ -1,3 +1,5 @@
+import cookie from 'react-cookies';
+
 import {
   FETCH_ALERTS_BEGIN,
   FETCH_ALERTS_SUCCESS,
@@ -27,6 +29,17 @@ export default function activityTypes(state = initState, action) {
 
     case FETCH_ALERTS_SUCCESS:
       const alerts = action.payload;
+      let dismissed = cookie.load('alerts_dismiss');
+      if (dismissed) {
+        let alertsHeaderLocal = alerts.header.local.filter(function(element) {
+          return !dismissed.includes(parseInt(element.id));
+        });
+        let alertsFooterLocal = alerts.footer.local.filter(function(element) {
+          return !dismissed.includes(parseInt(element.id));
+        });
+        alerts.header.local = alertsHeaderLocal;
+        alerts.footer.local = alertsFooterLocal;
+      }
 
       if (
         typeof alerts.header !== 'undefined' &&
