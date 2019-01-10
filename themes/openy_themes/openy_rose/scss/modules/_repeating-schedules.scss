@@ -39,7 +39,7 @@
   color: $dark-grey;
 }
 
-.openy-card__item label.selected,
+.openy-card__item.selected label,
 .openy-card__link:hover {
   color: white;
   border-color: $yet-another-green;

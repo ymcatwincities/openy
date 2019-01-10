@@ -42,7 +42,8 @@
       checkedStep1Filters: '',
       checkedStep2Filters: '',
       checkedStep3Filters: '',
-      categories: {}
+      categories: {},
+      checked: false
     },
     methods: {
       toStep: function(s) {
@@ -174,7 +175,7 @@
           component.table = data;
           component.loading = false;
         });
-    },
+      },
       locationCounter: function(locationId) {
         if (typeof this.table.facets.locations == 'undefined') {
           return 0;
@@ -185,6 +186,15 @@
           }
         }
         return 0;
+      },
+      toggleCardState: function(e) {
+        var element = $(e.target);
+        if(!element.parents('.openy-card__item').hasClass('selected')) {
+          element.parents('.openy-card__item').addClass('selected');
+        }
+        else {
+          element.parents('.openy-card__item').removeClass('selected');
+        }
       }
     },
     computed: {

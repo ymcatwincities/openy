@@ -42,7 +42,7 @@
             <div class="col-sm-4">
               <div class="openy-card__item">
                 <label for="af-age-filter-{{ age.value }}" class="justify-content-center">
-                  <input type="checkbox" value="{{ age.value }}" id="af-age-filter-{{ age.value }}" v-model="checkedAges" v-on:input="toggleSelected" class="d-none ">
+                  <input v-model="checkedAges" @change="toggleCardState" type="checkbox" value="{{ age.value }}" id="af-age-filter-{{ age.value }}" class="d-none hidden">
                   {{ age.label }}
                 </label>
               </div>
@@ -60,8 +60,8 @@
           {% for day in days %}
             <div class="col-sm-4">
               <div class="openy-card__item">
-                <label @click="e => e.target.classList.toggle('selected')" for="af-day-filter-{{ day.value }}" class="justify-content-center">
-                  <input type="checkbox" value="{{ day.value }}" id="af-day-filter-{{ day.value }}" v-model="checkedDays" class="d-none hidden">
+                <label for="af-day-filter-{{ day.value }}" class="justify-content-center">
+                  <input v-model="checkedDays" @change="toggleCardState" type="checkbox" value="{{ day.value }}" id="af-day-filter-{{ day.value }}" class="d-none hidden">
                   {{ day.label }}
                 </label>
               </div>
@@ -78,8 +78,8 @@
         <div class="row">
           <div class="col-sm-12" v-for="category in topLevelCategories">
             <div class="openy-card__item">
-              <label @click="e => e.target.classList.toggle('selected')" :for="'af-category-filter-' + category">
-                <input type="checkbox" :value="category" :id="'af-category-filter-' + category" v-model="checkedProgramTypes" class="d-none hidden">
+              <label :for="'af-category-filter-' + category">
+                <input v-model="checkedProgramTypes" @change="toggleCardState" type="checkbox" :value="category" :id="'af-category-filter-' + category" class="d-none hidden">
                 ${ category }
               </label>
             </div>

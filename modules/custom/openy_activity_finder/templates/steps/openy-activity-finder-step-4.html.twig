@@ -20,7 +20,7 @@
         <span v-if="loading">
           {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': spinnerSize, 'flow': spinnerFlow, 'color': spinnerColor } %}
         </span>
-        <span v-else>${ table.count }</span> {{ 'programs for:'|t }} ${ checkedStep2Filters }
+        <span v-else>${ table.count }</span> {{ 'programs for:'|t }} ${ checkedStep2Filters } |
         <a v-bind:href="afResultsRef + step_3_query">{{ 'View Results'|t }}</a>
         <a href="#" @click.prevent="startOver()" class="start_over">{{ 'Start Over'|t }}</a>
       </div>
@@ -43,9 +43,9 @@
           {% for location in locationGroup.value %}
             <div class="col-xs-12 col-sm-6 col-md-4">
               <div class="openy-card__item">
-                <label @click="e => e.target.classList.toggle('selected')" for="af-filter-{{ location.value }}" class="has-subtext">
+                <label for="af-filter-{{ location.value }}" class="has-subtext">
                   <i class="fa fa-map-marker"></i>
-                  <input type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" v-model="checkedLocations" class="d-none hidden">
+                  <input v-model="checkedLocations" @change="toggleCardState" type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" class="d-none hidden">
                   <div class="d-flex flex-column">
                     {{ location.label }}
                     <small>${ locationCounter("{{ location.value }}") } {{ 'results'|t }}</small>
