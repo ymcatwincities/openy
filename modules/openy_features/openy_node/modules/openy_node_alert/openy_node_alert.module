@@ -7,6 +7,8 @@
 
 use Drupal\Component\Utility\Unicode;
 use Drupal\views\ViewExecutable;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Implements hook_preprocess_node().
@@ -34,10 +36,59 @@ function openy_node_alert_preprocess_node(&$variables) {
 }
 
 /**
+ * Implements hook_entity_presave().
+ */
+function openy_node_alert_entity_presave(EntityInterface $entity) {
+
+  // Check that we are saving Alert node.
+  if (
+    ($entity->getEntityTypeId() == 'node')
+    && ($entity->bundle() == 'alert')
+  ) {
+
+    if (
+      $entity->hasField('field_alert_visibility_pages')
+      && !$entity->get('field_alert_visibility_pages')->isEmpty()
+    ) {
+
+      $visibility_paths = $entity->get('field_alert_visibility_pages')->getValue();
+      $path_matcher = \Drupal::service('path.alias_manager');
+      $cacheTags = [];
+      foreach ($visibility_paths as $visibility_path) {
+        $canonical_path = $path_matcher->getPathByAlias($visibility_path['value']);
+        // Check if this path is a node path.
+        if (strpos($canonical_path, 'node') !== FALSE) {
+          $nid = explode('/', $canonical_path)[2];
+          $cacheTags[] = 'node:' . $nid;
+
+        }
+      }
+    }
+
+    // Collecting nodes from the Reference field.
+    if (
+      $entity->hasField('field_alert_belongs')
+      && !$entity->get('field_alert_belongs')->isEmpty()
+    ) {
+      $references = $entity->get('field_alert_belongs')->getValue();
+      foreach ($references as $reference) {
+        // Reference field is referenced to nodes, using this node tag.
+        $cacheTags[] = 'node:' . $reference['target_id'];
+      }
+    }
+
+    if (!empty($cacheTags)) {
+      Cache::invalidateTags($cacheTags);
+    }
+  }
+
+}
+
+
+/**
  * Implements hook_views_pre_render().
  */
 function openy_node_alert_views_pre_render(ViewExecutable $view) {
-
   if ($view->id() == 'alerts' &&
     ($view->current_display == 'footer_alerts'
       || $view->current_display == 'header_alerts')
