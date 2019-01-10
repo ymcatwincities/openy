@@ -5,7 +5,7 @@ dependencies:
     - media.type.document
   module:
     - entity_embed
-    - media_entity
+    - media
 label: Document
 id: embed_document
 type_id: entity

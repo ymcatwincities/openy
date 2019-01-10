@@ -5,7 +5,7 @@ dependencies:
     - media.type.video_local
   module:
     - entity_embed
-    - media_entity
+    - media
 label: Local Video
 id: embed_local_video
 type_id: entity
