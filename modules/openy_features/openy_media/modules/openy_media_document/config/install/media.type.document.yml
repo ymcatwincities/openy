@@ -6,7 +6,7 @@ dependencies:
 id: document
 label: Document
 description: 'Use Document for uploading document files such as PDF.'
-source: document
+source: file
 queue_thumbnail_downloads: false
 new_revision: true
 source_configuration:
