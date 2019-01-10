@@ -2,16 +2,27 @@
   font-size: 14px;
 }
 
-
 /* modal > content wrapper */
+
+.schedule-dashboard__modal .modal-dialog {
+  height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  width: auto;
+  max-width: 600px;
+}
+
+/* modal > content */
 
 .schedule-dashboard__modal .modal-content {
   padding: 20px 0;
   border-radius: 0;
   border: none;
   color: #333;
+  margin: 0 auto;
+  min-width: 90px;
+  min-height: 90px;
 }
-
 
 /* modal > header */
 
@@ -28,6 +39,10 @@
 
 
 /* modal > body */
+
+.schedule-dashboard__modal--body {
+  padding: 0 15px;
+}
 
 .schedule-dashboard__modal--body .table h4 {
   font-size: 16px;

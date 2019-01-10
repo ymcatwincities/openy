@@ -1,0 +1,93 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - inherits: openy-activity-finder-program-search.html.twig
+ */
+ *
+#}
+
+<div class="activity-finder__step_wrapper">
+
+  <div class="activity-finder__step_header">
+    <div class="activity-finder__step_header__line1">
+      <div class="container">
+        <span v-if="loading">
+          {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': spinnerSize, 'flow': spinnerFlow, 'color': spinnerColor } %}
+        </span>
+        <span v-else>${ table.count }</span> {{ 'program'|t }} | <a v-bind:href="afResultsRef + step_1_query">{{ 'View All'|t }}</a>
+        <a href="#" @click.prevent="startOver()" class="start_over">{{ 'Start Over'|t }}</a>
+      </div>
+    </div>
+
+    <div class="activity-finder__step_header__line2 container">
+      <span v-if="checkedStep1Filters === ''"><strong>{{ 'Step 1 of 3:' }}</strong> {{ 'To find programs, select whatever options apply to you (below)...'|t }}</span>
+      <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep1Filters }</span>
+      <div class="actions">
+        <button v-bind:disabled="isStep1NextDisabled" @click.prevent="next()" class="btn btn-primary btn-lg btn-disabled">{{ 'Next'|t }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="activity-finder__step_content container" v-if="!loading">
+    <div class="activity-finder__row row">
+
+      {# Age #}
+      <div class="activity-finder__col col-sm-4">
+        <h3>{{ 'Age'|t }}</h3>
+
+        <div class="row">
+          {% for age in ages %}
+            <div class="col-sm-4">
+              <div class="openy-card__item">
+                <label for="af-age-filter-{{ age.value }}" class="justify-content-center">
+                  <input type="checkbox" value="{{ age.value }}" id="af-age-filter-{{ age.value }}" v-model="checkedAges" v-on:input="toggleSelected" class="d-none ">
+                  {{ age.label }}
+                </label>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {# / Age #}
+
+      {# Day #}
+      <div class="activity-finder__col col-sm-4">
+        <h3>{{ 'Day'|t }}</h3>
+
+        <div class="row">
+          {% for day in days %}
+            <div class="col-sm-4">
+              <div class="openy-card__item">
+                <label @click="e => e.target.classList.toggle('selected')" for="af-day-filter-{{ day.value }}" class="justify-content-center">
+                  <input type="checkbox" value="{{ day.value }}" id="af-day-filter-{{ day.value }}" v-model="checkedDays" class="d-none hidden">
+                  {{ day.label }}
+                </label>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {# Day #}
+
+      {# Program Type #}
+      <div class="activity-finder__col col-sm-4">
+        <h3>{{ 'Program Type'|t }}</h3>
+
+        <div class="row">
+          <div class="col-sm-12" v-for="category in topLevelCategories">
+            <div class="openy-card__item">
+              <label @click="e => e.target.classList.toggle('selected')" :for="'af-category-filter-' + category">
+                <input type="checkbox" :value="category" :id="'af-category-filter-' + category" v-model="checkedProgramTypes" class="d-none hidden">
+                ${ category }
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      {# / Program Type #}
+
+    </div>
+  </div>
+</div>

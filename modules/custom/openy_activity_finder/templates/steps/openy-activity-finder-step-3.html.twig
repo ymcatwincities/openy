@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ *
+ * Available vue variables:
+ * - table.count:
+ * - checkedStep1Filters:
+ * - checkedStep2Filters:
+ * - topLevelCategory.label:
+ * - item.label:
+ */
+ *
+#}
+
+<div class="activity-finder__step_wrapper">
+
+  <div class="activity-finder__step_header">
+    <div class="activity-finder__step_header__line1">
+      <div class="container">
+        <span v-if="loading">
+          {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': spinnerSize, 'flow': spinnerFlow, 'color': spinnerColor } %}
+        </span>
+        <span v-else>${ table.count }</span> {{ 'programs for:'|t }} ${ checkedStep1Filters }
+        <a v-bind:href="afResultsRef + step_2_query">{{ 'View Results'|t }}</a>
+        <a href="#" @click.prevent="startOver()" class="start_over">{{ 'Start Over'|t }}</a>
+      </div>
+    </div>
+
+    <div class="activity-finder__step_header__line2 container">
+      <span v-if="checkedStep2Filters === ''"><strong>{{ 'Step 2 of 3:' }}</strong> {{ 'Narrow your results by selecting one or more activities (below)...'|t }}</span>
+      <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep2Filters }</span>
+      <div class="actions">
+        <button @click.prevent="skip()" class="btn btn-primary btn-lg">{{ 'Skip'|t }}</button>
+        <button @click.prevent="next()" class="btn btn-primary btn-lg">{{ 'Next'|t }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="activity-finder__step_content container" v-if="!loading">
+    <div v-for="topLevelCategory in selectedCategories">
+      <h3>${ topLevelCategory.label }</h3>
+      <div class="row">
+        <div v-for="(item, index) in topLevelCategory.value" class="col-xs-12 col-sm-6 col-md-4">
+          <div class="openy-card__item">
+            <label @click="e => e.target.classList.toggle('selected')" :for="'af-filter-' + item.value">
+              <input type="checkbox" :value="item.value" :id="'af-filter-' + item.value" v-model="checkedActivities" class="d-none hidden">
+              ${ item.label }
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

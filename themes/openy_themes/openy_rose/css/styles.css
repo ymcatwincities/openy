@@ -1867,7 +1867,7 @@ body {
 }
 
 .paragraph--type--small-banner {
-  align-items: stretch;
+  overflow: hidden;
   max-height: 250px;
 }
 .paragraph--type--small-banner .banner-image {
@@ -7788,11 +7788,13 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
-.schedule-locations__item label {
+.openy-card__item label {
   border-color: #ccc;
   color: #4f4f4f;
 }
-.schedule-locations__item label.selected {
+
+.openy-card__item label.selected,
+.openy-card__link:hover {
   color: white;
   border-color: #01A490;
   background: #01A490;

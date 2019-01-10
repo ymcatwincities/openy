@@ -1,0 +1,85 @@
+/*
+* Tab/Card Component.
+*/
+
+.openy-card__link,
+.openy-card__item label {
+  display: flex;
+  margin-bottom: 1.5rem;
+  padding: 20px 25px;
+  width: 100%;
+  border: 2px solid #dadada;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  font-weight: normal;
+  align-items: center;
+}
+
+.openy-card__item label.has-subtext {
+  align-items: flex-start;
+}
+
+/* Links (Used on the main activity finder page). */
+.openy-card__link {
+  flex-direction: column;
+  align-items: flex-start;
+  color: inherit;
+}
+
+.openy-card__link:hover {
+  text-decoration: none;
+}
+
+.openy-card__link .h4 {
+  margin-top: 0;
+}
+
+.openy-card__link--subtext {
+  display: flex;
+  align-items: center;
+  min-height: 25px;
+}
+
+.openy-card__item--filled {
+  background-color: #dadada;
+}
+
+.openy-card__item--filled:hover {
+  border-color: #979797;
+  background-color: #979797;
+}
+
+.openy-card__item label.selected {
+  font-weight: bold;
+}
+
+.openy-card__item label i {
+  font-size: 22px;
+  margin-right: 15px;
+  color: #d3d2d3;
+}
+
+.openy-card__item label.selected i {
+  color: inherit;
+}
+
+@media (min-width: 62em) {
+  .openy-card__item label {
+    margin-bottom: 2rem;
+  }
+}
+
+.openy-card__item label:hover {
+  border-color: #979797;
+}
+
+
+/* Cards with location marker, title & sub-text. */
+.openy-card__link {
+
+}
+
+.openy-card__item--lg label {
+  align-items: flex-start;
+  text-align: left;
+}

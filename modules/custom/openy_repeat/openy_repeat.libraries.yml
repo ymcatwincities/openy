@@ -6,16 +6,18 @@ openy_repeat:
   css:
     base:
       css/repeat.css: {}
-      css/modal.css: {}
+      css/tabs.css: {}
       css/print.css: { media: print }
   dependencies:
     - openy_repeat/polyfill
     - openy_repeat/openy_repeat.vue
     - openy_repeat/openy_repeat.vue_router
     - openy_repeat/openy_repeat.vue.table
-    - openy_repeat/open_repeat.moment
-    - openy_repeat/open_repeat.bootstrap-datepicker
+    - openy_repeat/openy_repeat.moment
+    - openy_repeat/openy_repeat.bootstrap-datepicker
     - openy_repeat/openy_repeat.natsort
+    - openy_repeat/openy_repeat.modal
+    - openy_repeat/openy_repeat.ajax_spinner
 
 polyfill:
   version: 0.1
@@ -37,12 +39,12 @@ openy_repeat.vue.table:
   js:
     js/components/event_table.js: {}
 
-open_repeat.moment:
+openy_repeat.moment:
   version: 0.1
   js:
     https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js: { type: external }
 
-open_repeat.bootstrap-datepicker:
+openy_repeat.bootstrap-datepicker:
   version: 0.1
   js:
     https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js: { type: external }
@@ -57,3 +59,25 @@ openy_repeat.locations:
   css:
     base:
       css/locations.css: {}
+  dependencies:
+    - openy_repeat/openy_repeat.cards
+
+openy_repeat.cards:
+  version: 0.1
+  js:
+    js/cards.js: {}
+  css:
+    base:
+      css/cards.css: {}
+
+openy_repeat.modal:
+  version: 0.1
+  css:
+    base:
+      css/modal.css: {}
+
+openy_repeat.ajax_spinner:
+  version: 0.1
+  css:
+    base:
+      css/ajax_spinner.css: {}
