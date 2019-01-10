@@ -10,21 +10,27 @@ openy_activity_finder:
     - openy_repeat/openy_repeat.vue
     - openy_repeat/openy_repeat.vue_router
     - openy_repeat/openy_repeat.vue.table
-    - openy_repeat/open_repeat.moment
-    - openy_repeat/open_repeat.bootstrap-datepicker
+    - openy_repeat/openy_repeat.moment
+    - openy_repeat/openy_repeat.bootstrap-datepicker
     - openy_repeat/openy_repeat.natsort
+    - openy_repeat/openy_repeat.modal
+    - openy_repeat/openy_repeat.ajax_spinner
+    - openy_repeat/openy_repeat.cards
+
 openy_activity_finder_search:
   version: 0.1
   js:
     js/programs_search.js: {}
   css:
     base:
-      css/activity_finder.css: {}
+      css/programs_search.css: {}
   dependencies:
     - openy_repeat/polyfill
     - openy_repeat/openy_repeat.vue
     - openy_repeat/openy_repeat.vue_router
     - openy_repeat/openy_repeat.vue.table
-    - openy_repeat/open_repeat.moment
-    - openy_repeat/open_repeat.bootstrap-datepicker
+    - openy_repeat/openy_repeat.moment
+    - openy_repeat/openy_repeat.bootstrap-datepicker
     - openy_repeat/openy_repeat.natsort
+    - openy_repeat/openy_repeat.modal
+    - openy_repeat/openy_repeat.ajax_spinner
