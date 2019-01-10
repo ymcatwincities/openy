@@ -22,3 +22,4 @@ dependencies:
   - entity_embed
   - openy_media
   - video
+  - media_entity_video
