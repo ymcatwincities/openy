@@ -64,8 +64,6 @@ openy_repeat.locations:
 
 openy_repeat.cards:
   version: 0.1
-  js:
-    js/cards.js: {}
   css:
     base:
       css/cards.css: {}

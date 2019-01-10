@@ -7793,7 +7793,7 @@ article .node--view-mode-flexible-content h2 a span {
   color: #4f4f4f;
 }
 
-.openy-card__item label.selected,
+.openy-card__item.selected label,
 .openy-card__link:hover {
   color: white;
   border-color: #01A490;
