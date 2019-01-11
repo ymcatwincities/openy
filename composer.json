@@ -194,7 +194,7 @@
                 "3025005 - The Crop requirements is NOK is media_entity 8.x-2.0 installed via composer": "https://www.drupal.org/files/issues/2019-01-10/requirements-is-NOK-3025005-2.patch"
             },
             "drupal/blazy": {
-                "Remove core media dependencies to unblock upgrade": "patches/blazy/remove-core-media-dependencies.patch"
+                "Remove core media dependencies to unblock upgrade": "./patches/blazy/remove-core-media-dependencies.patch"
             }
         }
     },
