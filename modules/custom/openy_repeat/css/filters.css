@@ -1,0 +1,236 @@
+/* reset styles from sidebar */
+.schedule-dashboard__sidebar .navbar-toggle {
+  border: none;
+  margin: 0;
+  padding: 0;
+  float: left;
+  position: static !important;
+  background: none !important;
+}
+
+body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .navbar-default,
+.schedule-dashboard__sidebar .navbar-default {
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  background: none;
+  top: 0 !important;
+}
+
+.schedule-dashboard__sidebar .navbar-header {
+  float: none;
+}
+
+.schedule-dashboard__sidebar .navbar-header .row {
+  display: flex;
+  align-items: center;
+}
+
+.schedule-dashboard__sidebar .navbar-header a[data-toggle] {
+  color: #4f4f4f;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.schedule-dashboard__sidebar .navbar-collapse {
+  border: none;
+  padding: 0;
+}
+
+a.collapsed .minus {
+  display: none;
+}
+
+/* Toggle +/- */
+a[data-toggle][aria-expanded=true] .plus,
+label[data-toggle][aria-expanded=true] .plus,
+label.expanded:not(.collapsed) .plus,
+label[aria-expanded=false] .minus {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .clear-all {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+/* filter controls */
+
+.schedule-dashboard__sidebar .navbar-controls {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.schedule-dashboard__sidebar .navbar-controls__title {
+  font-size: 16px;
+}
+
+
+/* form styling */
+
+.schedule-dashboard__sidebar .navbar-form {
+  margin: 2.5rem 0 0;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+.schedule-dashboard__sidebar .form-group-wrapper {
+  padding: 2.5rem 0 1.5rem;
+  border-top: 2px solid #d4d4d4;
+}
+
+.schedule-dashboard__sidebar .form-group-wrapper > label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.schedule-dashboard__sidebar .form-group-wrapper > label:hover {
+  opacity: .9;
+}
+
+.schedule-dashboard__sidebar .form-group-wrapper,
+.schedule-dashboard__sidebar .form-group-wrapper,
+.schedule-dashboard__sidebar .form-group-wrapper > label,
+.schedule-dashboard__sidebar .navbar-form .form-control,
+.schedule-dashboard__sidebar .date {
+  width: 100%;
+}
+
+.schedule-dashboard__sidebar .collapse.in,
+.schedule-dashboard__sidebar .collapse.show {
+  padding-bottom: 1rem;
+}
+
+
+/* custom checkboxes */
+.schedule-dashboard__sidebar .checkbox-wrapper label {
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* Tabs (Age/Days) */
+.schedule-dashboard__sidebar .tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -5px;
+}
+
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper {
+  padding: 0 5px;
+}
+
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper input {
+  position: absolute;
+  left: -9999px;
+}
+
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper label {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  background: #666;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
+  background: #222;
+}
+
+/* Checkboxes (locations) */
+.schedule-dashboard__sidebar .checkboxes input {
+  position: absolute;
+  left: -9999px;
+}
+
+.schedule-dashboard__sidebar .checkboxes input + label {
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.schedule-dashboard__sidebar .checkboxes input + label:before,
+.schedule-dashboard__sidebar .checkboxes input + label:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+/* Checkbox outline. */
+.schedule-dashboard__sidebar .checkboxes input + label:before {
+  border: 1px solid #ddd;
+  background: white;
+}
+
+/* Checkbox > checkmark icon (default). */
+.schedule-dashboard__sidebar .checkboxes input + label:after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666666' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");  background-size: contain;
+}
+
+.schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  transform: scale(0);
+}
+
+.schedule-dashboard__sidebar .checkboxes .checkbox-partial input + label:after,
+.schedule-dashboard__sidebar .checkboxes .checkbox-checked input + label:after,
+.schedule-dashboard__sidebar .checkboxes input:checked + label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+/* Parent styles (nested locations). */
+/* Material Icons + https://yoksel.github.io/url-encoder */
+.schedule-dashboard__sidebar .checkboxes .checkbox-partial input + label:after {
+  /* minus icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666666' d='M0 0h24v24H0V0z'/%3E%3Cpath fill='white' d='M19 13H5v-2h14v2z'/%3E%3C/svg%3E");
+}
+
+.schedule-dashboard__sidebar .checkboxes .checkbox-checked input + label:after {
+  /* plus icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666666' d='M0 0h24v24H0V0z'/%3E%3Cpath fill='white' d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/%3E%3C/svg%3E");
+}
+
+/* Arrow icon styling for checkboxes with children. (ie. Location > Branch) */
+.checkbox-toggle-subset span {
+  font-size: 2rem;
+}
+
+
+@media (min-width: 768px) {
+  .schedule-dashboard__sidebar .checkboxes .checkbox-wrapper {
+    padding-left: 15px;
+  }
+  .schedule-dashboard__sidebar .checkboxes input:checked + label,
+  .schedule-dashboard__sidebar .checkboxes input:not(:checked) + label {
+    padding-left: 10px;
+  }
+  .schedule-dashboard__sidebar .checkboxes input:checked + label:before,
+  .schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:before,
+  .schedule-dashboard__sidebar .checkboxes input:checked + label:after,
+  .schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:after {
+    left: -15px;
+  }
+}

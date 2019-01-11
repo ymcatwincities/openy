@@ -16,14 +16,12 @@ openy_activity_finder:
     - openy_repeat/openy_repeat.modal
     - openy_repeat/openy_repeat.ajax_spinner
     - openy_repeat/openy_repeat.cards
+    - openy_repeat/openy_repeat.stepper
 
 openy_activity_finder_search:
   version: 0.1
   js:
     js/programs_search.js: {}
-  css:
-    base:
-      css/programs_search.css: {}
   dependencies:
     - openy_repeat/polyfill
     - openy_repeat/openy_repeat.vue
@@ -34,3 +32,6 @@ openy_activity_finder_search:
     - openy_repeat/openy_repeat.natsort
     - openy_repeat/openy_repeat.modal
     - openy_repeat/openy_repeat.ajax_spinner
+    - openy_repeat/openy_repeat.filters
+    - openy_repeat/openy_repeat.table
+    - openy_repeat/openy_repeat.stepper
