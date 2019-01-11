@@ -196,27 +196,27 @@
     created() {
       var component = this;
 
-      var locationsGet = this.$route.query.locations;
+      var locationsGet = decodeURIComponent(this.$route.query.locations);
       if (locationsGet) {
         this.locations = locationsGet.split(',');
       }
 
-      var categoriesGet = this.$route.query.categories;
+      var categoriesGet = decodeURIComponent(this.$route.query.categories);
       if (categoriesGet) {
         this.categories = categoriesGet.split(',');
       }
 
-      var agesGet = this.$route.query.ages;
+      var agesGet = decodeURIComponent(this.$route.query.ages);
       if (agesGet) {
         this.ages = agesGet.split(',');
       }
 
-      var daysGet = this.$route.query.days;
+      var daysGet = decodeURIComponent(this.$route.query.days);
       if (daysGet) {
         this.days = daysGet.split(',');
       }
 
-      var keywordsGet = this.$route.query.keywords;
+      var keywordsGet = decodeURIComponent(this.$route.query.keywords);
       if (keywordsGet) {
         this.keywords = keywordsGet;
       }
@@ -265,7 +265,7 @@
         }
         var cleanCategories = this.categories.filter(function(word){ return word.length > 0; });
         if (cleanCategories.length > 0) {
-          query.push('activities=' + encodeURIComponent(cleanCategories.join(',')));
+          query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
         var cleanAges = this.ages.filter(function(word){ return word.length > 0; });
         if (cleanAges.length > 0) {

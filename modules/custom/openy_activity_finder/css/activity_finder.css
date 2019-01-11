@@ -49,11 +49,9 @@
 .activity-finder__step_header .actions {
   float: right;
 }
-.field-prgf-af-results-ref {
-  display: none;
-}
+.field-prgf-hide-loc-select-step,
+.field-prgf-hide-program-categ,
 .field-prgf-af-page-ref,
 .field-prgf-af-results-ref {
   display: none;
 }
-

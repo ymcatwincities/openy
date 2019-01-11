@@ -23,6 +23,10 @@
       step_2_query: '',
       step_3_query: '',
       afResultsRef: '',
+      hideProgramStep: 0,
+      hideLocationStep: 0,
+      total_steps: 3,
+      current_step: 0,
       table: {
         count: 0,
         facets: {
@@ -37,7 +41,7 @@
       checkedAges: [],
       checkedDays: [],
       checkedProgramTypes: [],
-      checkedActivities: [],
+      checkedCategories: [],
       checkedLocations: [],
       checkedStep1Filters: '',
       checkedStep2Filters: '',
@@ -47,6 +51,7 @@
     methods: {
       toStep: function(s) {
         this.step = s;
+        this.current_step = s;
         this.updateStepsViewAll(s);
       },
       skip: function() {
@@ -56,17 +61,33 @@
         }
         else {
           this.step++;
+          this.current_step++;
         }
       },
       prev: function() {
         this.step--;
       },
       next: function() {
+        if (this.hideLocationStep && this.hideLocationStep) {
+          // Redirect to Search page.
+          this.updateCategoriesParam();
+          this.updateSearchQuery();
+          window.location.pathname = this.afResultsRef;
+          return;
+        }
         if (this.step == 3) {
           // Redirect to Search page.
           window.location.pathname = this.afResultsRef;
         }
         this.step++;
+        if (this.step == 2 && this.hideProgramStep) {
+          this.current_step = 2;
+          this.step = 3;
+        }
+        if (this.step == 3 && this.hideLocationStep) {
+          this.current_step = 2;
+          this.step = 3;
+        }
         this.updateStepsViewAll(this.step);
         this.runAjaxRequest();
       },
@@ -78,7 +99,7 @@
         component.checkedAges = [];
         component.checkedDays = [];
         component.checkedProgramTypes = [];
-        component.checkedActivities = [];
+        component.checkedCategories = [];
         component.checkedLocations = [];
         component.checkedStep1Filters = '';
         component.checkedStep2Filters = '';
@@ -92,12 +113,34 @@
             component.step_1_query = window.location.search;
             break;
           case 2:
+            this.updateCategoriesParam();
             component.step_2_query = window.location.search;
             break;
           case 3:
+            this.updateLocationsParam();
             component.step_3_query = window.location.search;
             break;
         }
+      },
+      updateCategoriesParam: function() {
+        var selectedCategories = [];
+        for (i in this.selectedCategories) {
+          for (j in this.selectedCategories[i].value) {
+            if (typeof(this.selectedCategories[i].value[j].value) !== 'undefined') {
+              selectedCategories.push(this.selectedCategories[i].value[j].value);
+            }
+          }
+        }
+        this.checkedCategories = selectedCategories;
+      },
+      updateLocationsParam: function() {
+        var selectedLocations = [];
+        for (key in this.table.facets.locations) {
+          if (typeof(this.table.facets.locations[key].id) !== 'undefined') {
+            selectedLocations.push(this.table.facets.locations[key].id);
+          }
+        }
+        this.checkedLocations = selectedLocations;
       },
       updateSearchQuery: function() {
         var component = this;
@@ -105,10 +148,10 @@
           keywords: encodeURIComponent(component.keywords),
           ages: encodeURIComponent(component.checkedAges),
           program_types: encodeURIComponent(component.checkedProgramTypes),
-          activities: encodeURIComponent(component.checkedActivities),
+          categories: encodeURIComponent(component.checkedCategories),
           days: encodeURIComponent(component.checkedDays),
           locations: encodeURIComponent(component.checkedLocations)
-        }});
+          }});
       },
       checkFilters: function(step) {
         var component = this,
@@ -145,17 +188,17 @@
             component.checkedStep2Filters = '';
             component.isStep2NextDisabled = true;
             if (
-              component.checkedActivities.length > 0) {
+              component.checkedCategories.length > 0) {
 
               component.isStep2NextDisabled = false;
               // Map ids to titles.
-              var checkedMapActivities = [];
-              for (key in component.checkedActivities) {
-                if (typeof(component.checkedActivities[key]) !== 'function' && $('input[value="' + component.checkedActivities[key] + '"]')) {
-                  checkedMapActivities.push($('input[value="' + component.checkedActivities[key] + '"]').parent().find('label').text());
+              var checkedMapCategories = [];
+              for (key in component.checkedCategories) {
+                if (typeof(component.checkedCategories[key]) !== 'function' && $('input[value="' + component.checkedCategories[key] + '"]')) {
+                  checkedMapCategories.push($('input[value="' + component.checkedCategories[key] + '"]').parent().find('label').text());
                 }
               }
-              filters.push(checkedMapActivities.join(', '));
+              filters.push(checkedMapCategories.join(', '));
               component.checkedStep2Filters = filters.join(', ');
             }
             break;
@@ -246,7 +289,7 @@
         component.updateSearchQuery();
         component.checkFilters(1);
       });
-      component.$watch('checkedActivities', function(){
+      component.$watch('checkedCategories', function(){
         component.updateSearchQuery();
         component.checkFilters(2);
       });
@@ -256,6 +299,16 @@
       });
       // Get url from paragraph's field.
       component.afResultsRef = $('.field-prgf-af-results-ref a').attr('href');
+      // Get 1/0 from paragraph's field.
+      component.hideProgramStep = $('.field-prgf-hide-program-categ').text();
+      // Get 1/0 from paragraph's field.
+      component.hideLocationStep = $('.field-prgf-hide-loc-select-step').text();
+      if (this.hideProgramStep) {
+        this.total_steps--;
+      }
+      if (this.hideLocationStep) {
+        this.total_steps--;
+      }
     },
     delimiters: ["${","}"]
   });
