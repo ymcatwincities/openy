@@ -161,6 +161,7 @@ label[aria-expanded=false] .minus {
   padding-left: 25px;
   cursor: pointer;
   display: inline-block;
+  word-break: break-word;
 }
 
 .schedule-dashboard__sidebar .checkboxes input + label:before,

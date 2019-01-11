@@ -27,10 +27,12 @@
 
 /* No results text. */
 
+.schedules-loading,
 .schedules-empty_results {
   margin-top: 3rem;
   display: flex;
   align-items: start;
+  position: relative;
 }
 
 .schedules-empty_results i {
