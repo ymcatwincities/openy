@@ -46,6 +46,8 @@ set classes = [
 ]
 %}
 {% set grid_style = content.field_prgf_grid_style[0]['#markup'] %}
+{% set item_class = 'col-12 col-lg' %}
+
 {% if grid_style == '2' %}
   {% set item_class = 'col-12 col-sm-6 row-eq-height' %}
 {% elseif grid_style == '3' %}
