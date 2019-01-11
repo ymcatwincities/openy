@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Unicode;
 use Drupal\views\ViewExecutable;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Cache\Cache;
+use Drupal\views\Plugin\views\cache\CachePluginBase;
 
 /**
  * Implements hook_preprocess_node().
@@ -46,21 +47,29 @@ function openy_node_alert_entity_presave(EntityInterface $entity) {
     && ($entity->bundle() == 'alert')
   ) {
 
+    // We need to clear caches on previous entity. For example we have
+    // removed few paths from field_alert_visibility_pages we need to
+    // clear caches of those paths so alert will get disappeared.
+    $original_entity = $entity->original;
+    if (!empty($original_entity)) {
+      openy_node_alert_entity_presave($original_entity);
+    }
+
     if (
       $entity->hasField('field_alert_visibility_pages')
       && !$entity->get('field_alert_visibility_pages')->isEmpty()
     ) {
 
-      $visibility_paths = $entity->get('field_alert_visibility_pages')->getValue();
+      $visibility_paths = $entity->get('field_alert_visibility_pages')->getValue()[0]['value'];
       $path_matcher = \Drupal::service('path.alias_manager');
       $cacheTags = [];
-      foreach ($visibility_paths as $visibility_path) {
-        $canonical_path = $path_matcher->getPathByAlias($visibility_path['value']);
+      foreach (explode("\n", $visibility_paths) as $visibility_path) {
+        $visibility_path = trim($visibility_path);
+        $canonical_path = $path_matcher->getPathByAlias($visibility_path);
         // Check if this path is a node path.
         if (strpos($canonical_path, 'node') !== FALSE) {
           $nid = explode('/', $canonical_path)[2];
           $cacheTags[] = 'node:' . $nid;
-
         }
       }
     }
@@ -84,11 +93,23 @@ function openy_node_alert_entity_presave(EntityInterface $entity) {
 
 }
 
+/**
+ * Implements hook_views_post_render().
+ */
+function openy_node_alert_views_post_render(ViewExecutable $view, &$output, CachePluginBase $cache) {
+  if ($view->id() == 'alerts' &&
+    ($view->current_display == 'footer_alerts'
+      || $view->current_display == 'header_alerts')
+  ) {
+    $output['#cache']['contexts'][] = 'url';
+  }
+}
 
 /**
  * Implements hook_views_pre_render().
  */
 function openy_node_alert_views_pre_render(ViewExecutable $view) {
+
   if ($view->id() == 'alerts' &&
     ($view->current_display == 'footer_alerts'
       || $view->current_display == 'header_alerts')
@@ -140,10 +161,14 @@ function openy_node_alert_check_visibility(\Drupal\node\NodeInterface $node) {
   // Do not trim a trailing slash if that is the complete path.
   $path = $path === '/' ? $path : rtrim($path, '/');
 
-  $is_path_match = $path_matcher->matchPath($path, $pages);
-  if ($state == 'include' && $is_path_match || $state == 'exclude' && !$is_path_match) {
-    return TRUE;
+  foreach (explode("\n", $pages) as $pattern) {
+    $pattern = trim($pattern);
+    $is_path_match = $path_matcher->matchPath($path, $pattern);
+    if ($state == 'include' && $is_path_match || $state == 'exclude' && !$is_path_match) {
+      return TRUE;
+    }
   }
+
 
   return FALSE;
 }
