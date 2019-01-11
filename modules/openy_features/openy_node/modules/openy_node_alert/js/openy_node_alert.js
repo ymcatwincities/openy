@@ -108,7 +108,7 @@
     attach: function (context, settings) {
       setTimeout(function () {
         $('[class^="alert"]', context).matchHeight();
-      }, 500);
+      }, 1000);
     }
   };
 
