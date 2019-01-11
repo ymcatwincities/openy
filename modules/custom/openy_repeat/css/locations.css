@@ -2,6 +2,18 @@
 * Location Selection.
 */
 
+.schedule-locations__wrapper {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .schedule-locations__wrapper {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
 .field-prgf-repeat-lschedules-prf {
   display: none;
 }

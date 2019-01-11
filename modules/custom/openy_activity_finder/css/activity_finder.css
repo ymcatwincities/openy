@@ -21,7 +21,7 @@
   margin-bottom: 3rem;
 }
 
-/* Program Search > Form */
+/* Activity Finder > Form (Step 1) */
 .program-search__form {
   margin-bottom: 3rem;
 }
@@ -36,48 +36,14 @@
   flex: 1;
 }
 
-/*.activity-finder__step_0 h1 {*/
-  /*text-align: center;*/
-/*}*/
-/*.activity-finder__step_0 form {*/
-  /*max-width: 500px;*/
-  /*margin: 40px auto;*/
-/*}*/
-/*.activity-finder__step_0 .form-text {*/
-  /*margin: 40px 0 0;*/
-  /*width: 100%;*/
-/*}*/
-/*.activity-finder__step_0 .form-submit {*/
-  /*float: right;*/
-/*}*/
-/*.activity-finder__step_0 .actions {*/
-  /*margin: 40px 0;*/
-  /*text-align: center;*/
-/*}*/
-
-/*.activity-finder__step_0 .btn span {*/
-  /*font-weight: normal;*/
-  /*display: block;*/
-  /*font-size: 14px;*/
-/*}*/
-.activity-finder__step_header__line1 {
-  background-color: #eee;
-  padding: 15px;
-}
-.activity-finder__step_header__line2 {
-  padding: 30px 0;
-}
-.activity-finder__step_header .start_over {
-  float: right;
-}
-.activity-finder__step_header .actions {
-  float: right;
-}
+/* Activity Finder > Results */
 .field-prgf-af-results-ref {
   display: none;
 }
+
 .field-prgf-af-page-ref,
 .field-prgf-af-results-ref {
   display: none;
 }
+
 

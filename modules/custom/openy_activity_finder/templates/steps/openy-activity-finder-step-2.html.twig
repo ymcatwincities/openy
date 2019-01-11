@@ -14,7 +14,7 @@
     <div class="activity-finder__step_header__line1">
       <div class="container">
         <span v-if="loading">
-          {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': spinnerSize, 'flow': spinnerFlow, 'color': spinnerColor } %}
+          {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
         </span>
         <span v-else>${ table.count }</span> {{ 'program'|t }} | <a v-bind:href="afResultsRef + step_1_query">{{ 'View All'|t }}</a>
         <a href="#" @click.prevent="startOver()" class="start_over">{{ 'Start Over'|t }}</a>

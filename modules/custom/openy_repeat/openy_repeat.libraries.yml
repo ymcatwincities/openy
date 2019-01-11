@@ -6,7 +6,6 @@ openy_repeat:
   css:
     base:
       css/repeat.css: {}
-      css/tabs.css: {}
       css/print.css: { media: print }
   dependencies:
     - openy_repeat/polyfill
@@ -18,6 +17,8 @@ openy_repeat:
     - openy_repeat/openy_repeat.natsort
     - openy_repeat/openy_repeat.modal
     - openy_repeat/openy_repeat.ajax_spinner
+    - openy_repeat/openy_repeat.filters
+    - openy_repeat/openy_repeat.table
 
 polyfill:
   version: 0.1
@@ -62,11 +63,31 @@ openy_repeat.locations:
   dependencies:
     - openy_repeat/openy_repeat.cards
 
+openy_repeat.stepper:
+  version: 0.1
+  css:
+    base:
+      css/stepper.css: {}
+
 openy_repeat.cards:
   version: 0.1
   css:
     base:
       css/cards.css: {}
+
+openy_repeat.filters:
+  version: 0.1
+  js:
+    js/filters.js: {}
+  css:
+    base:
+      css/filters.css: {}
+
+openy_repeat.table:
+  version: 0.1
+  css:
+    base:
+      css/table.css: {}
 
 openy_repeat.modal:
   version: 0.1

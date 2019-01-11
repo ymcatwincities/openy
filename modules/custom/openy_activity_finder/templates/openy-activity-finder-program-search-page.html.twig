@@ -12,7 +12,10 @@
 
   <div class="activity-finder__step_header">
     <div class="activity-finder__step_header__line1">
-      <span v-if="loading">Loading...</span><span v-else>${ count }</span> programs meet your criteria <a v-bind:href="afPageRef" class="start_over">Start Over</a>
+      <span v-if="loading">
+        {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+      </span>
+      <span v-else>${ count }</span> {{ 'programs meet your criteria'|t }} <a v-bind:href="afPageRef" class="start_over">{{ 'Start Over'|t }}</a>
     </div>
   </div>
 
@@ -23,7 +26,7 @@
       <div class="form-group-wrapper">
         <div id="form-group-keyword" class="form-group-keyword row">
           <input type="text" class="form-control col-md-9" v-model="keywords">
-          <button class="btn btn-primary col-md-3" v-on:click.stop.prevent="runAjaxRequest()">Search</button>
+          <button class="btn btn-primary col-md-3" v-on:click.stop.prevent="runAjaxRequest()">{{ 'Search'|t }}</button>
           <span class="input-group-addon hidden"></span>
         </div>
         <br/>
@@ -65,6 +68,7 @@
             ref="locations_filter"
             title="{{ 'Location'|t }}"
             id="location-filter"
+            type="{{ 'checkboxes'|t }}"
             options='{{ locations|json_encode }}'
             :default='$route.query.locations'
             v-on:updated-values="locations = $event"
@@ -74,6 +78,7 @@
             ref="categories_filter"
             title="{{ 'Category'|t }}"
             id="category-filter"
+            type="{{ 'checkboxes'|t }}"
             options='{{ categories|json_encode }}'
             :default='$route.query.categories'
             v-on:updated-values="categories = $event"
@@ -83,6 +88,7 @@
             ref="ages_filter"
             title="{{ 'Age'|t }}"
             id="age-filter"
+            type="{{ 'tabs'|t }}"
             options='{{ ages|json_encode }}'
             :default='$route.query.ages'
             v-on:updated-values="ages = $event"
@@ -92,6 +98,7 @@
             ref="days_filter"
             title="{{ 'Days'|t }}"
             id="days-filter"
+            type="{{ 'tabs'|t }}"
             options='{{ days|json_encode }}'
             :default='$route.query.days'
             v-on:updated-values="days = $event"
