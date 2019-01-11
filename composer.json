@@ -188,13 +188,12 @@
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
                 "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch",
-                "1894286 - System updates are executed without priority": "https://www.drupal.org/files/issues/2018-11-06/1894286-26.patch"
             },
             "drupal/crop": {
                 "3025005 - The Crop requirements is NOK is media_entity 8.x-2.0 installed via composer": "https://www.drupal.org/files/issues/2019-01-10/requirements-is-NOK-3025005-2.patch"
             },
             "drupal/blazy": {
-                "Remove core media dependencies to unblock upgrade": "./patches/blazy/remove-core-media-dependencies.patch"
+                "Remove core media dependencies to unblock upgrade": "https://github.com/afi13/openy/blob/OPENY-231/patches/blazy/remove-core-media-dependencies.patch"
             }
         }
     },
