@@ -36,7 +36,7 @@
         <div class="activity-finder__step_header">
           <div class="activity-finder__step_header__line1"><span v-if="loading">Loading...</span><span v-else>${ table.count }</span> programs | <a v-bind:href="afResultsRef + step_1_query">View All</a> <a href="#" @click.prevent="startOver()" class="start_over">Start Over</a></div>
           <div class="activity-finder__step_header__line2">
-            <span v-if="checkedStep1Filters === ''">Step 1 of 3: To find programs, select whatever options apply to you (below) ...</span>
+            <span v-if="checkedStep1Filters === ''">Step ${ current_step } of ${ total_steps }: To find programs, select whatever options apply to you (below) ...</span>
             <span v-else>Filters: ${ checkedStep1Filters }</span>
             <div class="actions"><button v-bind:disabled="isStep1NextDisabled" @click.prevent="next()">Next</button></div>
           </div>
@@ -78,7 +78,7 @@
         <div class="activity-finder__step_header">
           <div class="activity-finder__step_header__line1"><span v-if="loading">Loading...</span><span v-else>${ table.count }</span> programs for: ${ checkedStep1Filters } <a v-bind:href="afResultsRef + step_2_query">View Results</a><a href="#" @click.prevent="startOver()" class="start_over">Start Over</a></div>
           <div class="activity-finder__step_header__line2">
-            <span v-if="checkedStep2Filters === ''">Step 2 of 3: Narrow your results by selecting one or more activities (below) ...</span>
+            <span v-if="checkedStep2Filters === ''">Step ${ current_step } of ${ total_steps }: Narrow your results by selecting one or more activities (below) ...</span>
             <span v-else>Filters: ${ checkedStep2Filters }</span>
             <div class="actions"><button @click.prevent="skip()">Skip</button><button v-bind:disabled="isStep2NextDisabled" @click.prevent="next()">Next</button></div></div>
         </div>
@@ -86,7 +86,7 @@
           <div v-for="topLevelCategory in selectedCategories" class="checkbox-group-wrapper">
             <h3>${ topLevelCategory.label }</h3>
             <div v-for="(item, index) in topLevelCategory.value" class="checkbox-wrapper">
-              <input type="checkbox" :value="item.value" :id="'af-filter-' + item.value" v-model="checkedActivities" />
+              <input type="checkbox" :value="item.value" :id="'af-filter-' + item.value" v-model="checkedCategories" />
               <label :for="'af-filter-' + item.value">${ item.label }</label>
             </div>
           </div>
@@ -99,7 +99,7 @@
         <div class="activity-finder__step_header">
           <div class="activity-finder__step_header__line1"><span v-if="loading">Loading...</span><span v-else>${ table.count }</span> programs for: ${ checkedStep2Filters } <a v-bind:href="afResultsRef + step_3_query">View Results</a><a href="#" @click.prevent="startOver()" class="start_over">Start Over</a></div>
           <div class="activity-finder__step_header__line2">
-            <span v-if="checkedStep3Filters === ''">Step 3 of 3: Narrow your results further by selecting one or more locations (below) ...</span>
+            <span v-if="checkedStep3Filters === ''">Step ${ current_step } of ${ total_steps }: Narrow your results further by selecting one or more locations (below) ...</span>
             <span v-else>Filters: ${ checkedStep3Filters }</span>
             <div class="actions"><button @click.prevent="skip()">Skip</button><button v-bind:disabled="isStep3NextDisabled" @click.prevent="next()">Next</button></div>
           </div>
