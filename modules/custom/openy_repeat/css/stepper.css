@@ -1,10 +1,19 @@
-.activity-finder__step_header__line1 {
+.activity-finder__step_header--progress {
   background-color: #eee;
   padding: 15px;
 }
 
-.activity-finder__step_header__line2 {
+.activity-finder__step_header--actions {
+  margin-bottom: 3rem;
   padding: 30px 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .activity-finder__step_header--actions {
+    align-items: center;
+  }
 }
 
 .activity-finder__step_header .start_over {
@@ -12,5 +21,6 @@
 }
 
 .activity-finder__step_header .actions {
-  float: right;
+  margin-left: auto;
+  padding-left: 2rem;
 }

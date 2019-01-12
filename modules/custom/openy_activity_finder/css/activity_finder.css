@@ -7,6 +7,10 @@
   display: flex;
 }
 
+.mt-3 {
+  margin-top: 3rem;
+}
+
 .justify-content-center {
   justify-content: center;
 }
@@ -17,11 +21,14 @@
 
 /* Activity Finder Application */
 .activity-finder__wrapper {
-  padding-top: 3rem;
   margin-bottom: 3rem;
 }
 
 /* Activity Finder > Form (Step 1) */
+.program-search__form--title {
+  margin-top: 5rem;
+}
+
 .program-search__form {
   margin-bottom: 3rem;
 }
