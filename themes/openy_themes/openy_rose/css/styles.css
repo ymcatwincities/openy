@@ -8094,7 +8094,7 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
-  margin: -20px 0 40px;
+  margin: 20px 0;
 }
 @media (min-width: 1200px) {
   .paragraph--type--lto {
