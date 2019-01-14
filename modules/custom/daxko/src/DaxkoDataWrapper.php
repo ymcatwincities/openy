@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\openy_calc;
+namespace Drupal\daxko;
 
 use Drupal\openy_socrates\OpenyDataServiceInterface;
 
 /**
- * Class CalcDataWrapper.
+ * Class DaxkoDataWrapper.
  *
  * Provides example of membership matrix.
  */
-class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterface {
+class DaxkoDataWrapper extends DataWrapperBase implements OpenyDataServiceInterface {
 
   /**
    * The owner of mapping entities.

@@ -3,6 +3,16 @@
   padding: 20px 0;
   margin: -20px 0 40px;
 
+  @media (min-width: $screen-lg) {
+    width: 1170px;
+  }
+  @media (min-width: $screen-md) and (max-width: $screen-lg) {
+    width: 970px;
+  }
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+    width: 750px;
+  }
+
   .field-lto-title {
     @include cachet();
     color: $white;
