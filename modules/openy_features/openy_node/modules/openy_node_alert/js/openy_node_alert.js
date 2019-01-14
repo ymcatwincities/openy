@@ -50,6 +50,7 @@
             if(!slickCheck) {
               self.remove();
               slick.parents('.slick-track').prevObject.remove();
+              $('.slick-arrow').remove();
             }
           }
           else {

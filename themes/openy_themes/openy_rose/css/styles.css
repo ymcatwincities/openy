@@ -1867,7 +1867,7 @@ body {
 }
 
 .paragraph--type--small-banner {
-  align-items: stretch;
+  overflow: hidden;
   max-height: 250px;
 }
 .paragraph--type--small-banner .banner-image {
@@ -8095,6 +8095,21 @@ article .node--view-mode-flexible-content h2 a span {
   background-color: #0060af;
   padding: 20px 0;
   margin: -20px 0 40px;
+}
+@media (min-width: 1200px) {
+  .paragraph--type--lto {
+    width: 1170px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .paragraph--type--lto {
+    width: 970px;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .paragraph--type--lto {
+    width: 750px;
+  }
 }
 .paragraph--type--lto .field-lto-title {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
