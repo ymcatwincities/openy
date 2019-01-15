@@ -50,6 +50,7 @@
             if(!slickCheck) {
               self.remove();
               slick.parents('.slick-track').prevObject.remove();
+              $('.slick-arrow').remove();
             }
           }
           else {
@@ -98,6 +99,17 @@
         $(this).removeAttr('aria-describedby');
         $(this).removeAttr('role');
       });
+    }
+  };
+
+  /**
+   * Match Height on alerts.
+   */
+  Drupal.behaviors.alertsHeight = {
+    attach: function (context, settings) {
+      setTimeout(function () {
+        $('[class^="alert"]', context).matchHeight();
+      }, 1000);
     }
   };
 

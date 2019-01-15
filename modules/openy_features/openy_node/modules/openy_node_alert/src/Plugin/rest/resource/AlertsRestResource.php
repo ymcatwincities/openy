@@ -103,8 +103,8 @@ class AlertsRestResource extends ResourceBase {
     $sendAlerts = [];
     /** @var \Drupal\node\Entity\Node $alert */
     foreach ($alerts as $alert) {
+      $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)->setAbsolute()->toString() : null;
       if (!$alert->hasField('field_alert_visibility_pages')) {
-        $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)->setAbsolute()->toString() : null;
         if ($alert->hasField('field_alert_belongs') && !$alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
           $refid = $alert->field_alert_belongs->target_id;
           $alias = $this->aliasManager->getAliasByPath('/node/' . $refid);
