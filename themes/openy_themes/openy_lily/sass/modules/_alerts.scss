@@ -123,6 +123,10 @@ $module: 'site-alert';
     margin-bottom: 0;
   }
 
+  .slick-current {
+    z-index: auto;
+  }
+
   .slick-track {
     display: flex;
     .slick-slide {
