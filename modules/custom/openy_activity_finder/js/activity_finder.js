@@ -15,6 +15,7 @@
     data: {
       step: 0,
       loading: false,
+      noResults: false,
       isStep1NextDisabled: true,
       isStep2NextDisabled: true,
       isStep3NextDisabled: true,
@@ -177,7 +178,11 @@
         });
       },
       locationCounter: function(locationId) {
+        var component = this;
+        component.noResults = false;
+
         if (typeof this.table.facets.locations == 'undefined') {
+          component.noResults = true;
           return 0;
         }
         for (key in this.table.facets.locations) {

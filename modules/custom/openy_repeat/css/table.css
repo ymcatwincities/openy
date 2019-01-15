@@ -12,18 +12,8 @@
 }
 
 .schedule-dashboard__wrapper {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
   font-size: 14px;
 }
-
-@media (min-width: 992px) {
-  .schedule-dashboard__wrapper {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
-}
-
 
 /* No results text. */
 
@@ -41,7 +31,6 @@
   margin-right: 1rem;
   padding-top: .15rem;
 }
-
 
 /*
 * Main flex table data
@@ -62,6 +51,12 @@
   display: flex;
   flex-wrap: wrap;
   color: #656565;
+}
+
+.schedules-data__row--alt {
+  margin-top: 22px;
+  padding-top: 10px;
+  border-top: 2px solid #ccc;
 }
 
 .schedules-data__row a {

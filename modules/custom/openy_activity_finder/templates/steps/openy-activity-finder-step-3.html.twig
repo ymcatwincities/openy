@@ -17,21 +17,34 @@
   <div class="activity-finder__step_header">
     <div class="activity-finder__step_header--progress">
       <div class="container">
-        <span v-if="loading">
-          {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
-        </span>
-        <span v-else>${ table.count }</span> {{ 'programs for:'|t }} ${ checkedStep1Filters } |
-        <a v-bind:href="afResultsRef + step_2_query">{{ 'View Results'|t }}</a>
-        <a href="#" @click.prevent="startOver()" class="start_over">{{ 'Start Over'|t }}</a>
+        <div class="activity-finder__step_header--progress-inner">
+          <div class="d-inline-flex">
+            <span v-if="loading">
+              {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+            </span>
+            <span v-else class="activity-finder__step_header--progress-spacer">
+              ${ table.count } {{ 'programs for:'|t }} ${ checkedStep1Filters }
+              <span class="activity-finder__step_header--progress-spacer">|</span>
+              <a v-bind:href="afResultsRef + step_2_query">{{ 'View All'|t }}</a>
+            </span>
+          </div>
+          <div class="d-inline-flex ml-auto text-right">
+            <a href="#" @click.prevent="startOver()" class="start_over">{{ 'Start Over'|t }}</a>
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="activity-finder__step_header--actions container">
-      <span v-if="checkedStep2Filters === ''"><strong>{{ 'Step 2 of 3:' }}</strong> {{ 'Narrow your results by selecting one or more activities (below)...'|t }}</span>
-      <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep2Filters }</span>
-      <div class="actions">
-        <button @click.prevent="skip()" class="btn btn-primary btn-lg">{{ 'Skip'|t }}</button>
-        <button @click.prevent="next()" class="btn btn-primary btn-lg">{{ 'Next'|t }}</button>
+      <div class="row">
+        <div class="col-xs-8">
+          <span v-if="checkedStep2Filters === ''"><strong>{{ 'Step 2 of 3:' }}</strong> {{ 'Narrow your results by selecting one or more activities (below)...'|t }}</span>
+          <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep2Filters }</span>
+        </div>
+        <div class="col-xs-4 text-right">
+          <button @click.prevent="skip()" class="btn btn-primary btn-lg">{{ 'Skip'|t }}</button>
+          <button @click.prevent="next()" class="btn btn-primary btn-lg">{{ 'Next'|t }}</button>
+        </div>
       </div>
     </div>
   </div>

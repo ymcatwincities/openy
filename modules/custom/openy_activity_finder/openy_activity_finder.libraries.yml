@@ -31,6 +31,7 @@ openy_activity_finder_search:
     - openy_repeat/openy_repeat.bootstrap-datepicker
     - openy_repeat/openy_repeat.natsort
     - openy_repeat/openy_repeat.modal
+    - openy_repeat/openy_repeat.repeat
     - openy_repeat/openy_repeat.ajax_spinner
     - openy_repeat/openy_repeat.filters
     - openy_repeat/openy_repeat.table

@@ -7789,6 +7789,11 @@ article .node--view-mode-flexible-content h2 a span {
   background: #01A490;
 }
 
+/* No results text. */
+.openy-card__item.no-results small {
+  color: #ed1c24;
+}
+
 .schedule-dashboard__sidebar {
   color: #333333;
 }

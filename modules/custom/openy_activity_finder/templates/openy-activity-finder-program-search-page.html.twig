@@ -15,10 +15,19 @@
   <div class="activity-finder__step_header">
     <div class="activity-finder__step_header--progress">
       <div class="container">
-        <span v-if="loading">
-          {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
-        </span>
-        <span v-else>${ count }</span> {{ 'programs meet your criteria'|t }} <a v-bind:href="afPageRef" class="start_over">{{ 'Start Over'|t }}</a>
+        <div class="activity-finder__step_header--progress-inner">
+          <div class="d-inline-flex">
+            <span v-if="loading">
+              {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+            </span>
+            <span v-else class="activity-finder__step_header--progress-spacer">
+              ${ count } {{ 'programs meet your criteria.'|t }}
+            </span>
+          </div>
+          <div class="d-inline-flex ml-auto text-right">
+            <a v-bind:href="afPageRef" class="start_over">{{ 'Start Over'|t }}</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -30,24 +39,13 @@
 
           {# keywords #}
           <div class="form-group-wrapper schedule-dashboard__search--form">
-            <input type="text" class="form-control col-md-9" v-model="keywords">
+            <input type="text" class="form-control col-md-9" v-model="keywords" placeholder="{{ 'Enter your keywords...'|t }}">
             <button class="btn btn-primary col-md-3" v-on:click.stop.prevent="runAjaxRequest()">
               {# Make customizable since carnation doesn't have glyphicons in v4. #}
               {% block search_icon %}
-                <span class="glyphicon glyphicon-search" aria-label="Search"></span>
+                <span class="fa fa-search" aria-label="Search"></span>
               {% endblock %}
             </button>
-            <span class="input-group-addon hidden"></span>
-          </div>
-
-          {# keywords #}
-          <div class="form-group-wrapper">
-            <div id="form-group-keyword" class="form-group-keyword row">
-              <input type="text" class="form-control col-md-9" v-model="keywords">
-              <button class="btn btn-primary col-md-3" v-on:click.stop.prevent="runAjaxRequest()">{{ 'Search'|t }}</button>
-              <span class="input-group-addon hidden"></span>
-            </div>
-            <br/>
           </div>
 
         </div>
@@ -138,18 +136,18 @@
                   {% include '@openy_activity_finder/ajax-spinner.html.twig' %}
                 </div>
 
-                <div v-show="!loading" v-for="(item, index) in table" class="schedules-data__row-1 clearfix" style="margin-top: 20px; padding-top: 10px; border-top: 1px solid black;">
-                  <div class="row col-md-12">
+                <div v-show="!loading" v-for="(item, index) in table" class="schedules-data__row--alt clearfix" style="">
+                  <div class="row">
                     <div class="col-md-9">
                       <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--more-info"><strong>${ item.name }</strong></a>
                     </div>
                     {# if we do not know if it is available #}
                     <div v-if="item.availability_status.length == 0" class="col-md-3">
-                      <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="btn btn-primary" style="margin-bottom: 20px;" >Check Availability</a>
+                      <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="btn btn-primary btn-block" style="margin-bottom: 20px;" >{{ 'Check Availability'|t }}</a>
                     </div>
                     {# if we know that registration is available #}
                     <div v-if="item.availability_status == 'open'" class="col-md-3">
-                      <a :href="item.register_link" target="_blank" class="btn btn-primary" style="margin-bottom: 20px;">Register</a><br/>
+                      <a :href="item.register_link" target="_blank" class="btn btn-primary btn-block" style="margin-bottom: 20px;">{{ 'Register'|t }}</a><br/>
                       ${ item.availability_note }
                     </div>
                     {# if we know that registration is NOT available #}
@@ -157,7 +155,7 @@
                       ${ item.availability_note }
                     </div>
                   </div>
-                  <div class="row col-md-12">
+                  <div class="row">
                     <div class="col-md-3">
                       ${ item.dates }
                     </div>
@@ -186,8 +184,8 @@
             </div>
 
             <div v-show="!loading" class="text-align-center">
-              <a v-if="typeof pages[current_page - 1] != 'undefined' && pages[current_page - 1] != ''" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">Prev</a>
-              <a v-if="typeof pages[current_page + 1] != 'undefined' && pages[current_page + 1] != ''" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">Next</a>
+              <a v-if="typeof pages[current_page - 1] != 'undefined' && pages[current_page - 1] != ''" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ 'Prev'|t }}</a>
+              <a v-if="typeof pages[current_page + 1] != 'undefined' && pages[current_page + 1] != ''" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ 'Next'|t }}</a>
             </div>
 
             {# modal > program description info  #}

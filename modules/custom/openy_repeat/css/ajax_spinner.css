@@ -19,6 +19,8 @@
 .spinner[data-flow="inline"] {
   position: static;
   margin: 0;
+  top: .125em;
+  left: 0;
 }
 
 /* Animation settings. (Color is defined in the templates for theme overriding). */
