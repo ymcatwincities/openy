@@ -33,313 +33,317 @@
   </div>
 
   <div class="container">
-    <form class="navbar-form" role="search">
-      <div class="row">
-        <div class="col-xs-12 col-sm-4 col-md-3">
 
-          {# keywords #}
-          <div class="form-group-wrapper schedule-dashboard__search--form">
-            <input type="text" class="form-control col-md-9" v-model="keywords" placeholder="{{ 'Enter your keywords...'|t }}">
-            <button class="btn btn-primary col-md-3 rounded-0" v-on:click.stop.prevent="runAjaxRequest()">
-              {# Make customizable since carnation doesn't have glyphicons in v4. #}
-              {% block search_icon %}
-                <span class="fa fa-search" aria-label="Search"></span>
-              {% endblock %}
-            </button>
+    <div class="row">
+      <div class="col-sm-12 col-md-3">
+
+        {# keywords #}
+        <div class="form-group-wrapper schedule-dashboard__search--form">
+          <input type="text" class="form-control col-md-9" v-model="keywords" placeholder="{{ 'Enter your keywords...'|t }}">
+          <button class="btn btn-primary col-md-3 rounded-0" v-on:click.stop.prevent="runAjaxRequest()">
+            {# Make customizable since carnation doesn't have glyphicons in v4. #}
+            {% block search_icon %}
+              <span class="fa fa-search" aria-label="Search"></span>
+            {% endblock %}
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+
+      {# sidebar #}
+      {% block sidebar_wrapper %}
+      <div class="col-xs-12 col-sm-4 col-md-3 schedule-dashboard__sidebar">
+      {% endblock %}
+
+        <div class="navbar navbar-default navbar-expand-md flex-md-column">
+          <div class="navbar-header w-100">
+
+            <div class="navbar-controls">
+              <span class="navbar-controls__title hidden-xs"><strong>{{ 'Filters'|t }}</strong></span>
+              <a v-on:click.stop.prevent="clearFilters()" href="#" class="clear-all">{{ 'Clear all'|t }}</a>
+            </div>
+
+            <div class="row hidden-sm hidden-md hidden-lg d-block d-md-none">
+              {# mobile toggler button #}
+              <div class="col col-xs-5">
+                <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
+                  <strong>
+                    <i class="fa fa-plus plus" aria-hidden="true"></i>
+                    <i class="fa fa-minus minus" aria-hidden="true"></i>
+                    <span class="plus">{{ 'Show Filters'|t }}</span>
+                    <span class="minus">{{ 'Hide Filters'|t }}</span>
+                  </strong>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <div id="schedules-filters" class="navbar-collapse collapse w-100 flex-column">
+
+            <sidebar-filter
+              ref="locations_filter"
+              title="{{ 'Location'|t }}"
+              id="location-filter"
+              type="{{ 'checkboxes'|t }}"
+              options='{{ locations|json_encode }}'
+              :default='$route.query.locations'
+              v-on:updated-values="locations = $event"
+            ></sidebar-filter>
+
+            <sidebar-filter
+              ref="categories_filter"
+              title="{{ 'Category'|t }}"
+              id="category-filter"
+              type="{{ 'checkboxes'|t }}"
+              options='{{ categories|json_encode }}'
+              :default='$route.query.categories'
+              v-on:updated-values="categories = $event"
+            ></sidebar-filter>
+
+            <sidebar-filter
+              ref="ages_filter"
+              title="{{ 'Age'|t }}"
+              id="age-filter"
+              type="{{ 'tabs'|t }}"
+              options='{{ ages|json_encode }}'
+              :default='$route.query.ages'
+              v-on:updated-values="ages = $event"
+            ></sidebar-filter>
+
+            <sidebar-filter
+              ref="days_filter"
+              title="{{ 'Days'|t }}"
+              id="days-filter"
+              type="{{ 'tabs'|t }}"
+              options='{{ days|json_encode }}'
+              :default='$route.query.days'
+              v-on:updated-values="days = $event"
+            ></sidebar-filter>
+
+          </div>
+        </div>
+      </div>
+
+      {# main table #}
+      {% block maintable_wrapper %}
+      <div class="col-xs-12 col-sm-8 col-md-9 schedule-dashboard__content main-table">
+      {% endblock %}
+
+        {# schedules table data #}
+        <div>
+          <div class="vue-template">
+
+            <div class="schedules-data clearfix">
+              <div v-show="loading" class="schedules-loading">
+                {% include '@openy_activity_finder/ajax-spinner.html.twig' %}
+              </div>
+
+              <div v-show="!loading" v-for="(item, index) in table" class="schedules-data__row--alt clearfix" style="">
+                <div class="row">
+                  <div class="col-md-9">
+                    <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--more-info"><strong>${ item.name }</strong></a>
+                  </div>
+                  {# if we do not know if it is available #}
+                  <div v-if="item.availability_status.length == 0" class="col-md-3">
+                    <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="btn btn-primary btn-block" style="margin-bottom: 20px;" >{{ 'Check Availability'|t }}</a>
+                  </div>
+                  {# if we know that registration is available #}
+                  <div v-if="item.availability_status == 'open'" class="col-md-3">
+                    <a :href="item.register_link" target="_blank" class="btn btn-primary btn-block" style="margin-bottom: 20px;">{{ 'Register'|t }}</a><br/>
+                    ${ item.availability_note }
+                  </div>
+                  {# if we know that registration is NOT available #}
+                  <div v-if="item.availability_status == 'closed'" class="col-md-3">
+                    ${ item.availability_note }
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    ${ item.dates }
+                  </div>
+                  <div class="col-md-3">
+                    <div v-for="(item, index) in item.schedule">
+                      <strong>${ item.time }</strong><br/>
+                      ${ item.days }
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
+                  </div>
+                  <div v-if="item.price.length > 0" v-html="item.price" class="col-md-3"></div>
+                  <div v-else class="col-md-3">
+                    <i>{{ 'Click on \'Check Availability\' for pricing'|t }}</i>
+                  </div>
+                </div>
+              </div>
+
+              <div v-show="table.length == 0 && !loading" class="schedules-empty_results">
+                <i class="fa fa-exclamation-circle"></i>
+                <span>{{ 'Sorry, no results were found with your search criteria. Please try another selection.'|t }}</span>
+              </div>
+
+            </div>
+          </div>
+
+          <div v-show="!loading" class="text-align-center">
+            <a v-if="typeof pages[current_page - 1] != 'undefined' && pages[current_page - 1] != ''" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ 'Prev'|t }}</a>
+            <a v-if="typeof pages[current_page + 1] != 'undefined' && pages[current_page + 1] != ''" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ 'Next'|t }}</a>
+          </div>
+
+          {# modal > program description info  #}
+          <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--more-info" tabindex="-1" role="dialog" aria-labelledby="schedule-dashboard__modal--more-info-link">
+            <div class="modal-dialog" role="document">
+              <div v-if="moreInfoPopupLoading" class="modal-content">
+                {% include '@openy_activity_finder/ajax-spinner.html.twig' %}
+              </div>
+              <div v-else class="modal-content" style="font-size: 80%;">
+                <div class="schedule-dashboard__modal--header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                </div>
+
+                <div class="schedule-dashboard__modal--body row">
+                  <div class="col-md-8 row">
+                    <h3>${ moreInfoPopup.name }</h3>
+                    <p>${ moreInfoPopup.description }</p>
+
+                    <div v-if="moreInfoPopup.price.length > 0" class="col-md-12">
+                      <h5>{{ 'Pricing'|t }}</h5>
+                      <p v-html="moreInfoPopup.price"></p>
+                    </div>
+
+                    <div v-if="moreInfoPopup.ages.length > 0" class="col-md-12">
+                      <h5>{{ 'Ages'|t }}</h5>
+                      <p v-html="moreInfoPopup.ages"></p>
+                    </div>
+
+                    <div v-if="moreInfoPopup.gender.length > 0" class="col-md-12">
+                      <h5>{{ 'Gender'|t }}</h5>
+                      ${ moreInfoPopup.gender }
+                    </div>
+
+                  </div>
+                  <div class="col-md-4 row">
+                    <div v-if="moreInfoPopup.dates.length > 0" class="col-md-12">
+                      ${ moreInfoPopup.dates }
+                    </div>
+                    <div v-if="moreInfoPopup.times.length > 0" class="col-md-12">
+                      ${ moreInfoPopup.times }
+                    </div>
+                    <div v-if="moreInfoPopup.days.length > 0" class="col-md-12">
+                      ${ moreInfoPopup.days }
+                    </div>
+                    <div v-if="moreInfoPopup.location_name.length > 0" class="col-md-12" style="margin-top: 30px;">
+                      ${ moreInfoPopup.location_name }
+                    </div>
+                    <div v-if="moreInfoPopup.location_address.length > 0" class="col-md-12">
+                      ${ moreInfoPopup.location_address }
+                    </div>
+                    <div v-if="moreInfoPopup.location_phone.length > 0" class="col-md-12">
+                      Phone: ${ moreInfoPopup.location_phone }
+                    </div>
+                    <div v-if="moreInfoPopup.availability_note.length > 0" class="col-md-12" style="margin-top: 30px;">
+                      ${ moreInfoPopup.availability_note }
+                    </div>
+                    <div v-if="moreInfoPopup.availability_status == 'open'" class="col-md-12">
+                      <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Register'|t }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {# modal > more info end #}
+
+          {# modal > location info  #}
+          <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--location" tabindex="-1" role="dialog" aria-labelledby="schedule-dashboard__modal--location-link">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+
+                <div class="schedule-dashboard__modal--header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="schedule-dashboard__modal--body">
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th colspan="2">
+                        <h4><strong>${ locationPopup.title }</strong></h4>
+                      </th>
+                    </tr>
+                    </thead>
+
+                    <tr>
+                      <td><label>{{ 'Address'|t }}</label></td>
+                      <td v-html="locationPopup.address"></td>
+                    </tr>
+                    <tr v-if="locationPopup.phone">
+                      <td><label>{{ 'Call'|t }}</label></td>
+                      <td><a v-bind:href="'tel:' + locationPopup.phone">${ locationPopup.phone }</a></td>
+                    </tr>
+                    <tr v-if="locationPopup.email">
+                      <td><label>{{ 'Email'|t }}</label></td>
+                      <td><a v-bind:href="'mailto:' + locationPopup.email">${ locationPopup.email }</a></td>
+                    </tr>
+                    <tr v-if="locationPopup.days.length > 0">
+                      <td><label>{{ 'Branch hours'|t }}</label></td>
+                      <td>
+                        <table class="table">
+                          <tr v-for="row in locationPopup.days">
+                            <td>${ row[0] }</td>
+                            <td>${ row[1] }</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div v-if="locationPopup.nid" class="schedule-dashboard__modal--footer">
+                  <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View location'|t }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {# modal > availability info  #}
+          <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--availability" tabindex="-1" role="dialog" aria-labelledby="schedule-dashboard__modal--availability">
+            <div class="modal-dialog" role="document">
+              <div v-if="moreInfoPopupLoading" class="modal-content">
+                {% include '@openy_activity_finder/ajax-spinner.html.twig' %}
+              </div>
+              <div v-else class="modal-content">
+
+                <div class="schedule-dashboard__modal--header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="schedule-dashboard__modal--body">
+                  ${ availabilityPopup.note }
+
+                  <div v-if="availabilityPopup.status == 'open'">
+                    <a :href="availabilityPopup.link" class="btn btn-primary" target="_blank">{{ 'Register'|t }}</a>
+
+                    <div v-if="availabilityPopup.price.length > 0">
+                      <p v-html="availabilityPopup.price"></p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
 
         </div>
       </div>
 
-      <div class="row">
+    </div>
 
-        {# sidebar #}
-        <div class="col-xs-12 col-sm-4 col-md-3 schedule-dashboard__sidebar">
-          <div class="navbar navbar-default">
-            <div class="navbar-header">
-
-              <div class="navbar-controls">
-                <span class="navbar-controls__title hidden-xs"><strong>{{ 'Filters'|t }}</strong></span>
-                <a v-on:click.stop.prevent="clearFilters()" href="#" class="clear-all">{{ 'Clear all'|t }}</a>
-              </div>
-
-              <div class="row hidden-sm hidden-md hidden-lg">
-                {# mobile toggler button #}
-                <div class="col-xs-5">
-                  <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
-                    <strong>
-                      <i class="fa fa-plus plus" aria-hidden="true"></i>
-                      <i class="fa fa-minus minus" aria-hidden="true"></i>
-                      <span class="plus">{{ 'Show Filters'|t }}</span>
-                      <span class="minus">{{ 'Hide Filters'|t }}</span>
-                    </strong>
-                  </a>
-                </div>
-              </div>
-
-            </div>
-
-            <div id="schedules-filters" class="navbar-collapse collapse">
-
-              <sidebar-filter
-                ref="locations_filter"
-                title="{{ 'Location'|t }}"
-                id="location-filter"
-                type="{{ 'checkboxes'|t }}"
-                options='{{ locations|json_encode }}'
-                :default='$route.query.locations'
-                v-on:updated-values="locations = $event"
-              ></sidebar-filter>
-
-              <sidebar-filter
-                ref="categories_filter"
-                title="{{ 'Category'|t }}"
-                id="category-filter"
-                type="{{ 'checkboxes'|t }}"
-                options='{{ categories|json_encode }}'
-                :default='$route.query.categories'
-                v-on:updated-values="categories = $event"
-              ></sidebar-filter>
-
-              <sidebar-filter
-                ref="ages_filter"
-                title="{{ 'Age'|t }}"
-                id="age-filter"
-                type="{{ 'tabs'|t }}"
-                options='{{ ages|json_encode }}'
-                :default='$route.query.ages'
-                v-on:updated-values="ages = $event"
-              ></sidebar-filter>
-
-              <sidebar-filter
-                ref="days_filter"
-                title="{{ 'Days'|t }}"
-                id="days-filter"
-                type="{{ 'tabs'|t }}"
-                options='{{ days|json_encode }}'
-                :default='$route.query.days'
-                v-on:updated-values="days = $event"
-              ></sidebar-filter>
-
-            </div>
-          </div>
-        </div>
-
-        {# main table #}
-        <div class="col-xs-12 col-sm-8 col-md-9 schedule-dashboard__content main-table">
-          {# schedules table data #}
-          <div>
-            <div class="vue-template">
-
-              <div class="schedules-data clearfix">
-                <div v-show="loading" class="schedules-loading">
-                  {% include '@openy_activity_finder/ajax-spinner.html.twig' %}
-                </div>
-
-                <div v-show="!loading" v-for="(item, index) in table" class="schedules-data__row--alt clearfix" style="">
-                  <div class="row">
-                    <div class="col-md-9">
-                      <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--more-info"><strong>${ item.name }</strong></a>
-                    </div>
-                    {# if we do not know if it is available #}
-                    <div v-if="item.availability_status.length == 0" class="col-md-3">
-                      <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="btn btn-primary btn-block" style="margin-bottom: 20px;" >{{ 'Check Availability'|t }}</a>
-                    </div>
-                    {# if we know that registration is available #}
-                    <div v-if="item.availability_status == 'open'" class="col-md-3">
-                      <a :href="item.register_link" target="_blank" class="btn btn-primary btn-block" style="margin-bottom: 20px;">{{ 'Register'|t }}</a><br/>
-                      ${ item.availability_note }
-                    </div>
-                    {# if we know that registration is NOT available #}
-                    <div v-if="item.availability_status == 'closed'" class="col-md-3">
-                      ${ item.availability_note }
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-3">
-                      ${ item.dates }
-                    </div>
-                    <div class="col-md-3">
-                      <div v-for="(item, index) in item.schedule">
-                        <strong>${ item.time }</strong><br/>
-                        ${ item.days }
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
-                    </div>
-                    <div v-if="item.price.length > 0" v-html="item.price" class="col-md-3"></div>
-                    <div v-else class="col-md-3">
-                      <i>{{ 'Click on \'Check Availability\' for pricing'|t }}</i>
-                    </div>
-                  </div>
-                </div>
-
-                <div v-show="table.length == 0 && !loading" class="schedules-empty_results">
-                  <i class="fa fa-exclamation-circle"></i>
-                  <span>{{ 'Sorry, no results were found with your search criteria. Please try another selection.'|t }}</span>
-                </div>
-
-              </div>
-            </div>
-
-            <div v-show="!loading" class="text-align-center">
-              <a v-if="typeof pages[current_page - 1] != 'undefined' && pages[current_page - 1] != ''" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ 'Prev'|t }}</a>
-              <a v-if="typeof pages[current_page + 1] != 'undefined' && pages[current_page + 1] != ''" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ 'Next'|t }}</a>
-            </div>
-
-            {# modal > program description info  #}
-            <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--more-info" tabindex="-1" role="dialog" aria-labelledby="schedule-dashboard__modal--more-info-link">
-              <div class="modal-dialog" role="document">
-                <div v-if="moreInfoPopupLoading" class="modal-content">
-                  {% include '@openy_activity_finder/ajax-spinner.html.twig' %}
-                </div>
-                <div v-else class="modal-content" style="font-size: 80%;">
-                  <div class="schedule-dashboard__modal--header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
-                  </div>
-
-                  <div class="schedule-dashboard__modal--body row">
-                    <div class="col-md-8 row">
-                      <h3>${ moreInfoPopup.name }</h3>
-                      <p>${ moreInfoPopup.description }</p>
-
-                      <div v-if="moreInfoPopup.price.length > 0" class="col-md-12">
-                        <h5>{{ 'Pricing'|t }}</h5>
-                        <p v-html="moreInfoPopup.price"></p>
-                      </div>
-
-                      <div v-if="moreInfoPopup.ages.length > 0" class="col-md-12">
-                        <h5>{{ 'Ages'|t }}</h5>
-                        <p v-html="moreInfoPopup.ages"></p>
-                      </div>
-
-                      <div v-if="moreInfoPopup.gender.length > 0" class="col-md-12">
-                        <h5>{{ 'Gender'|t }}</h5>
-                        ${ moreInfoPopup.gender }
-                      </div>
-
-                    </div>
-                    <div class="col-md-4 row">
-                      <div v-if="moreInfoPopup.dates.length > 0" class="col-md-12">
-                        ${ moreInfoPopup.dates }
-                      </div>
-                      <div v-if="moreInfoPopup.times.length > 0" class="col-md-12">
-                        ${ moreInfoPopup.times }
-                      </div>
-                      <div v-if="moreInfoPopup.days.length > 0" class="col-md-12">
-                        ${ moreInfoPopup.days }
-                      </div>
-                      <div v-if="moreInfoPopup.location_name.length > 0" class="col-md-12" style="margin-top: 30px;">
-                        ${ moreInfoPopup.location_name }
-                      </div>
-                      <div v-if="moreInfoPopup.location_address.length > 0" class="col-md-12">
-                        ${ moreInfoPopup.location_address }
-                      </div>
-                      <div v-if="moreInfoPopup.location_phone.length > 0" class="col-md-12">
-                        Phone: ${ moreInfoPopup.location_phone }
-                      </div>
-                      <div v-if="moreInfoPopup.availability_note.length > 0" class="col-md-12" style="margin-top: 30px;">
-                        ${ moreInfoPopup.availability_note }
-                      </div>
-                      <div v-if="moreInfoPopup.availability_status == 'open'" class="col-md-12">
-                        <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Register'|t }}</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {# modal > more info end #}
-
-            {# modal > location info  #}
-            <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--location" tabindex="-1" role="dialog" aria-labelledby="schedule-dashboard__modal--location-link">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-
-                  <div class="schedule-dashboard__modal--header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
-                  </div>
-
-                  <div class="schedule-dashboard__modal--body">
-                    <table class="table">
-                      <thead>
-                      <tr>
-                        <th colspan="2">
-                          <h4><strong>${ locationPopup.title }</strong></h4>
-                        </th>
-                      </tr>
-                      </thead>
-
-                      <tr>
-                        <td><label>{{ 'Address'|t }}</label></td>
-                        <td v-html="locationPopup.address"></td>
-                      </tr>
-                      <tr v-if="locationPopup.phone">
-                        <td><label>{{ 'Call'|t }}</label></td>
-                        <td><a v-bind:href="'tel:' + locationPopup.phone">${ locationPopup.phone }</a></td>
-                      </tr>
-                      <tr v-if="locationPopup.email">
-                        <td><label>{{ 'Email'|t }}</label></td>
-                        <td><a v-bind:href="'mailto:' + locationPopup.email">${ locationPopup.email }</a></td>
-                      </tr>
-                      <tr v-if="locationPopup.days.length > 0">
-                        <td><label>{{ 'Branch hours'|t }}</label></td>
-                        <td>
-                          <table class="table">
-                            <tr v-for="row in locationPopup.days">
-                              <td>${ row[0] }</td>
-                              <td>${ row[1] }</td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-
-                  <div v-if="locationPopup.nid" class="schedule-dashboard__modal--footer">
-                    <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View location'|t }}</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {# modal > availability info  #}
-            <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--availability" tabindex="-1" role="dialog" aria-labelledby="schedule-dashboard__modal--availability">
-              <div class="modal-dialog" role="document">
-                <div v-if="moreInfoPopupLoading" class="modal-content">
-                  {% include '@openy_activity_finder/ajax-spinner.html.twig' %}
-                </div>
-                <div v-else class="modal-content">
-
-                  <div class="schedule-dashboard__modal--header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
-                  </div>
-
-                  <div class="schedule-dashboard__modal--body">
-                    ${ availabilityPopup.note }
-
-                    <div v-if="availabilityPopup.status == 'open'">
-                      <a :href="availabilityPopup.link" class="btn btn-primary" target="_blank">{{ 'Register'|t }}</a>
-
-                      <div v-if="availabilityPopup.price.length > 0">
-                        <p v-html="availabilityPopup.price"></p>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-
-      </div>
-    </form>
   </div>
-
 </div>

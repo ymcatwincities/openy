@@ -36,89 +36,77 @@
 
   </div>
 
-  <div id="schedules-filters" class="navbar-collapse collapse">
-    <form class="navbar-form" role="search">
+  <div id="schedules-filters" class="navbar-collapse collapse w-100 flex-column">
 
-      {# date picker #}
-      <div class="form-group-wrapper">
-        <label for="form-group-date">
-          {{ 'Date'|t }}
-          <button class="show-date-filter" data-toggle="collapse" type="button" data-target=".form-group-date" role="button" aria-label="{{ 'Show date filter'|t }}"><i class="fa fa-calendar date-picker"></i></button>
-        </label>
-        <div class="form-group-date collapse" aria-expanded="false">
-          <div class="date" id="datepicker">
-            <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted" />
-            <span class="input-group-addon hidden">
-              <span class="fa fa-calendar" aria-hidden="true"></span>
-            </span>
-          </div>
+    {# date picker #}
+    <div class="form-group-wrapper">
+      <label for="form-group-date">
+        {{ 'Date'|t }}
+        <button class="show-date-filter" data-toggle="collapse" type="button" data-target=".form-group-date" role="button" aria-label="{{ 'Show date filter'|t }}"><i class="fa fa-calendar date-picker"></i></button>
+      </label>
+      <div class="form-group-date collapse" aria-expanded="false">
+        <div class="date" id="datepicker">
+          <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted" />
+          <span class="input-group-addon hidden">
+            <span class="fa fa-calendar" aria-hidden="true"></span>
+          </span>
         </div>
       </div>
+    </div>
 
-      {# location select list #}
-      {% if locations is not empty %}
+    {# location select list #}
+    {% if locations is not empty %}
+    <div class="form-group-wrapper">
+      <label for="form-group-location" data-toggle="collapse" data-target="#form-group-location" role="button" aria-expanded="true" aria-controls="form-group-location">
+        {{ 'Location'|t }}
+        <i class="fa fa-minus minus" aria-hidden="true"></i>
+        <i class="fa fa-plus plus" aria-hidden="true"></i>
+      </label>
+      <div id="form-group-location" class="form-group-location collapse in checkboxes" aria-expanded="true">
+        {% for location in locations %}
+          {% set loc_checked = "t" %}
+          {% if checked_locations is not empty and location in checked_locations %}
+            {% set loc_checked = "checked" %}
+          {% endif %}
+          <div class="checkbox-wrapper">
+            <input type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
+            <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
+            <div v-if="getRoomFilter('{{ location }}')" class="checkbox-room-wrapper" v-cloak>
+              <div v-for="roomFilter in getRoomFilter('{{ location }}')">
+                <input type="checkbox" v-model="room" v-bind:value="'{{ location }}' + '||' + roomFilter" v-bind:id="generateId('{{ location }}' + '||' + roomFilter)"/>
+                <label v-bind:for="generateId('{{ location }}' + '||' + roomFilter)">
+                  ${ roomFilter }
+                </label>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {# categories select list #}
+    {% if categories is not empty %}
       <div class="form-group-wrapper">
-        <label for="form-group-location" data-toggle="collapse" data-target="#form-group-location" role="button" aria-expanded="true" aria-controls="form-group-location">
-          {{ 'Location'|t }}
+        <label for="form-group-category" data-toggle="collapse" data-target="#form-group-category" role="button" class="expanded" aria-controls="form-group-category">
+          {{ 'Category'|t }}
           <i class="fa fa-minus minus" aria-hidden="true"></i>
           <i class="fa fa-plus plus" aria-hidden="true"></i>
         </label>
-        <div id="form-group-location" class="form-group-location collapse in checkboxes" aria-expanded="true">
-          {% for location in locations %}
-            {% set loc_checked = "t" %}
-            {% if checked_locations is not empty and location in checked_locations %}
-              {% set loc_checked = "checked" %}
+        <div id="form-group-category" class="form-group-category collapse in checkboxes" aria-expanded="true">
+          {% for category in categories %}
+            {% set cat_checked = "t" %}
+            {% if checked_categories is not empty and category in checked_categories %}
+              {% set cat_checked = "checked" %}
             {% endif %}
             <div class="checkbox-wrapper">
-              <input type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
-              <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
-              <div v-if="getRoomFilter('{{ location }}')" class="checkbox-room-wrapper" v-cloak>
-                <div v-for="roomFilter in getRoomFilter('{{ location }}')">
-                  <input type="checkbox" v-model="room" v-bind:value="'{{ location }}' + '||' + roomFilter" v-bind:id="generateId('{{ location }}' + '||' + roomFilter)"/>
-                  <label v-bind:for="generateId('{{ location }}' + '||' + roomFilter)">
-                    ${ roomFilter }
-                  </label>
-                </div>
-              </div>
+              <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category|replace("'", '`') }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
+              <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
             </div>
           {% endfor %}
         </div>
       </div>
-      {% endif %}
+    {% endif %}
 
-      {# categories select list #}
-      {% if categories is not empty %}
-        <div class="form-group-wrapper">
-          <label for="form-group-category" data-toggle="collapse" data-target="#form-group-category" role="button" class="expanded" aria-controls="form-group-category">
-            {{ 'Category'|t }}
-            <i class="fa fa-minus minus" aria-hidden="true"></i>
-          <i class="fa fa-plus plus" aria-hidden="true"></i>
-          </label>
-          <div id="form-group-category" class="form-group-category collapse in checkboxes" aria-expanded="true">
-            {% for category in categories %}
-              {% set cat_checked = "t" %}
-              {% if checked_categories is not empty and category in checked_categories %}
-                {% set cat_checked = "checked" %}
-              {% endif %}
-              <div class="checkbox-wrapper">
-                <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category|replace("'", '`') }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
-                <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      {% endif %}
-
-      {# @todo: class name (implement) #}
-      {#<div class="form-group-wrapper hide">#}
-        {#<label for="form-group-class">#}
-          {#{{ 'Class name'|t }}#}
-        {#</label>#}
-        {#<div class="form-group-class">#}
-          {#<input type="text" class="form-control" placeholder="All" disabled>#}
-        {#</div>#}
-      {#</div>#}
-
-    </form>
   </div>
 </div>

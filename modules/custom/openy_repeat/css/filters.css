@@ -50,14 +50,6 @@ label[aria-expanded=false] .minus {
   display: none;
 }
 
-@media (max-width: 768px) {
-  .clear-all {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-}
-
 /* filter controls */
 
 .schedule-dashboard__sidebar .navbar-controls {
@@ -65,6 +57,7 @@ label[aria-expanded=false] .minus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1.5rem;
 }
 
 .schedule-dashboard__sidebar .navbar-controls__title {
@@ -79,18 +72,11 @@ label[aria-expanded=false] .minus {
 }
 
 .schedule-dashboard__search--form .form-control {
-  flex: 1;
+  flex: 1 auto;
   border-radius: 0;
 }
 
 /* form styling */
-
-.schedule-dashboard__wrapper .navbar-form {
-  margin: 2.5rem 0 0;
-  border: none;
-  padding: 0;
-  box-shadow: none;
-}
 
 .schedule-dashboard__sidebar .form-group-wrapper {
   padding: 2.5rem 0 1.5rem;
