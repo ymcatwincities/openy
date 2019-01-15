@@ -33,11 +33,11 @@
 
     <div class="activity-finder__step_header--actions container">
       <div class="row">
-        <div class="col-xs-8">
+        <div class="col-xs-8 col-sm-8">
           <span v-if="checkedStep1Filters === ''"><strong>{{ 'Step 1 of 3:' }}</strong> {{ 'To find programs, select whatever options apply to you (below)...'|t }}</span>
           <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep1Filters }</span>
         </div>
-        <div class="col-xs-4 text-right">
+        <div class="col-xs-4 col-sm-4 text-right ml-auto">
           <button v-bind:disabled="isStep1NextDisabled" @click.prevent="next()" class="btn btn-primary btn-lg btn-disabled">{{ 'Next'|t }}</button>
         </div>
       </div>

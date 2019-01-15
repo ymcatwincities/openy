@@ -20,6 +20,10 @@
 }
 
 /* No results text. */
+.openy-card__item.no-results {
+  font-size: 1em;
+}
+
 .openy-card__item.no-results label {
   border-color: #eeeeee;
   color: #ccc;
