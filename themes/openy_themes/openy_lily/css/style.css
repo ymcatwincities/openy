@@ -2359,6 +2359,10 @@ body {
 .footer-alerts-list .slick-slider {
   margin-bottom: 0;
 }
+.header-alerts-list .slick-current,
+.footer-alerts-list .slick-current {
+  z-index: auto;
+}
 .header-alerts-list .slick-track,
 .footer-alerts-list .slick-track {
   display: flex;
@@ -13947,6 +13951,10 @@ input[type="checkbox"]:focus {
 .site-alert--header, .site-alert--footer {
   border: 1px solid #636466;
   width: 100vw;
+}
+
+.header-alerts-list .slick__arrow, .footer-alerts-list .slick__arrow {
+  visibility: visible;
 }
 
 /*# sourceMappingURL=style.css.map */

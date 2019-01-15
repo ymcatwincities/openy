@@ -1896,6 +1896,7 @@ process:
   field_session_class:
     plugin: migration
     migration: openy_demo_node_class_02
+    no_stub: true
     source: class
   field_session_location:
     plugin: migration
