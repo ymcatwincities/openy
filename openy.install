@@ -43,6 +43,9 @@ function openy_update_dependencies() {
       'block_content' => 8600,
       'system' => 8501,
     ],
+    8048 => [
+      'media_entity' => 8201,
+    ],
   ];
 
   return $dependencies;
@@ -798,20 +801,7 @@ function openy_update_8052() {
  * Enable event module.
  */
 function openy_update_8053() {
-  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
-    $modules = [
-      'openy_prgf_event_latest',
-      'openy_prgf_event_listing',
-      'openy_node_event',
-      'openy_demo_nevent',
-    ];
-
-    // Enable modules.
-    \Drupal::service('module_installer')->install($modules, TRUE);
-    $importer = \Drupal::service('openy_migrate.importer');
-    $importer->import('openy_demo_node_event');
-    $importer->import('openy_demo_event_landing');
-  }
+  // Moved to openy_update_8062() due dependencies to 'openy_er' module.
 }
 
 /**
@@ -921,15 +911,23 @@ function openy_update_8059() {
 /**
  * Enable Open Y Entity Reference Tweaks.
  */
-function openy_update_8060() {
-  \Drupal::service('module_installer')->install(['openy_er']);
-}
-
-/**
- * Enable Open Y Entity Reference Tweaks.
- */
 function openy_update_8062() {
   \Drupal::service('module_installer')->install(['openy_er']);
+
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    $modules = [
+      'openy_prgf_event_latest',
+      'openy_prgf_event_listing',
+      'openy_node_event',
+      'openy_demo_nevent',
+    ];
+
+    // Enable modules.
+    \Drupal::service('module_installer')->install($modules, TRUE);
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_event');
+    $importer->import('openy_demo_event_landing');
+  }
 }
 
 /**
