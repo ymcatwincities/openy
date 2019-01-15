@@ -22,3 +22,6 @@ dependencies:
   - text
   - user
   - views
+  - rest
+  - serialization
+  - hal

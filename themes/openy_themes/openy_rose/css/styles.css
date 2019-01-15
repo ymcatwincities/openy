@@ -8333,4 +8333,13 @@ input[type="checkbox"]:focus {
   padding: 15px;
 }
 
+.site-alert--header, .site-alert--footer {
+  border: 1px solid #636466;
+  width: 100vw;
+}
+
+.header-alerts-list .slick__arrow, .footer-alerts-list .slick__arrow {
+  visibility: visible;
+}
+
 /*# sourceMappingURL=styles.css.map */
