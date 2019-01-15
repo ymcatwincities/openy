@@ -7,8 +7,8 @@
 
 
 /**
- * Implements hook_page_attachments().
- */
+* Implements hook_page_attachments().
+*/
 function openy_autocomplete_path_page_attachments(array &$page) {
 
   $page['#attached']['library'][] = 'openy_autocomplete_path/autocomplete';
