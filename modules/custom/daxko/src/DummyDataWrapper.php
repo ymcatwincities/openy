@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_calc;
+namespace Drupal\daxko;
 
 /**
  * Class DummyDataWrapper.
