@@ -9,9 +9,12 @@
  * Implements hook_install().
  */
 function openy_node_install(){
-  $config = \Drupal::configFactory()->getEditable('views.view.frontpage');
-  $config->set('display.page_1.display_options.enabled', FALSE);
-  $config->save();
+  $config_dir = drupal_get_path('module','openy_node') . '/config/optional/';
+  $config_name = 'views.view.frontpage';
+  $config_updater = \Drupal::service('config_import.param_updater');
+  $config = $config_dir . $config_name . '.yml';
+  $param = 'display.page_1.display_options.enabled';
+  $config_updater->update($config, $config_name, $param);
 }
 
 /**
