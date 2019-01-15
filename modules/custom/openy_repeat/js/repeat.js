@@ -3,23 +3,28 @@
     return;
   }
 
-  var locationPage = window.OpenY.field_prgf_repeat_schedules_pref[0] || '';
-  if (locationPage) {
-    $('.clear-all').attr('href', locationPage.url).removeClass('hidden');
+  if (window.OpenY.field_prgf_repeat_schedules_pref) {
+    var locationPage = window.OpenY.field_prgf_repeat_schedules_pref[0] || '';
+    if (locationPage) {
+      $('.clear-all').attr('href', locationPage.url).removeClass('hidden');
+    }
   }
 
   // PDF link show/hidden.
-  var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
-  if (pdfLink) {
-    $('.btn-schedule-pdf')
-      .removeClass('hidden')
-      .attr('href', pdfLink.url);
+  if (window.OpenY.field_prgf_repeat_schedules_pdf) {
+    var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
+    if (pdfLink) {
+      $('.btn-schedule-pdf')
+        .removeClass('hidden')
+        .attr('href', pdfLink.url);
+    }
   }
   else {
     $('.btn-schedule-pdf-generate')
       .removeClass('hidden')
       .attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf' + window.location.search);
   }
+
 
   /* Check the settings of whether to display Instructor column or not */
   function displayInstructorOrNot() {

@@ -11,8 +11,11 @@
   flex: none;
 }
 
-.schedule-dashboard__wrapper {
-  font-size: 14px;
+/* Main dashboard wrapper. */
+
+.schedule-dashboard__wrapper > .container {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 
 /* No results text. */
