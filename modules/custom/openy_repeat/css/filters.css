@@ -19,6 +19,7 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
 
 .schedule-dashboard__sidebar .navbar-header {
   float: none;
+  width: 100%;
 }
 
 .schedule-dashboard__sidebar .navbar-header .row {
@@ -79,6 +80,7 @@ label[aria-expanded=false] .minus {
 
 .schedule-dashboard__search--form .form-control {
   flex: 1;
+  border-radius: 0;
 }
 
 /* form styling */
@@ -187,6 +189,13 @@ label[aria-expanded=false] .minus {
   transition: all 0.2s ease;
 }
 
+.schedule-dashboard__sidebar .checkbox-unchecked,
+.schedule-dashboard__sidebar .checkbox-checked,
+.schedule-dashboard__sidebar .checkbox-partial {
+  width: 100%;
+  display: flex;
+}
+
 /* Checkbox outline. */
 .schedule-dashboard__sidebar .checkboxes input + label:before {
   border: 1px solid #ddd;
@@ -195,7 +204,8 @@ label[aria-expanded=false] .minus {
 
 /* Checkbox > checkmark icon (default). */
 .schedule-dashboard__sidebar .checkboxes input + label:after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666666' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666666' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+  background-size: contain;
 }
 
 .schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:after {
