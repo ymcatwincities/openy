@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_repeat\Controller;
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -194,6 +195,15 @@ class RepeatController extends ControllerBase {
 
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
+
+      if (isset($classes_info[$item->class]['path'])) {
+        $query = UrlHelper::buildQuery([
+          'session' => $item->session,
+          'location' => $locations_info[$item->location]['nid'],
+        ]);
+        $classes_info[$item->class]['path'] .= '?' . $query;
+      }
+
       $result[$key]->class_info = $classes_info[$item->class];
 
       $result[$key]->time_start_sort = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Hi');
@@ -303,6 +313,7 @@ class RepeatController extends ControllerBase {
           foreach ($classes as $node) {
             $data[$node->nid->value] = [
               'nid' => $node->nid->value,
+              'path' => $node->toUrl()->setAbsolute()->toString(),
               'title' => $node->title->value,
               'description' => html_entity_decode(strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600))),
             ];
@@ -370,6 +381,7 @@ class RepeatController extends ControllerBase {
           'max-age' => 0
         ],
       ],
+      'title' => $this->t("Download PDF schedule"),
       '#cache' => [
         'max-age' => 0
       ],

@@ -8094,7 +8094,22 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
-  margin: -20px 0 40px;
+  margin: 20px 0;
+}
+@media (min-width: 1200px) {
+  .paragraph--type--lto {
+    width: 1170px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .paragraph--type--lto {
+    width: 970px;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .paragraph--type--lto {
+    width: 750px;
+  }
 }
 .paragraph--type--lto .field-lto-title {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
@@ -8321,6 +8336,10 @@ input[type="checkbox"]:focus {
 .site-alert--header, .site-alert--footer {
   border: 1px solid #636466;
   width: 100vw;
+}
+
+.header-alerts-list .slick__arrow, .footer-alerts-list .slick__arrow {
+  visibility: visible;
 }
 
 /*# sourceMappingURL=styles.css.map */

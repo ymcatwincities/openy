@@ -12,6 +12,7 @@ dependencies:
   - openy_node_landing
   - openy_prgf
   - openy_repeat
+  - openy_repeat_nodes
   - paragraphs
   - plugin
 version: 8.x-1.0
