@@ -85,7 +85,7 @@ class EntityModerationStatus {
 
     $moderation_module = $this->active_moderation_module();
     if (\Drupal::moduleHandler()->moduleExists($moderation_module)) {
-      $moderation_service = Drupal::service($moderation_module . '.moderation_information');
+      $moderation_service = \Drupal::service($moderation_module . '.moderation_information');
       // The entity got archived.
       if ($original->moderation_state->entity &&
         $original->moderation_state->entity->isPublishedState() &&
