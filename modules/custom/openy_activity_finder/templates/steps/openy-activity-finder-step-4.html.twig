@@ -17,20 +17,34 @@
   <div class="activity-finder__step_header">
     <div class="activity-finder__step_header--progress">
       <div class="container">
-        <span v-if="loading">
-          {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
-        </span>
-        <span v-else>${ table.count }</span> {{ 'programs for:'|t }} ${ checkedStep2Filters } |
-        <a v-bind:href="afResultsRef + step_3_query">{{ 'View Results'|t }}</a>
-        <a href="#" @click.prevent="startOver()" class="start_over">{{ 'Start Over'|t }}</a>
+        <div class="activity-finder__step_header--progress-inner">
+          <div class="d-inline-flex">
+            <span v-if="loading">
+              {% include '@openy_activity_finder/ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+            </span>
+            <span v-else class="activity-finder__step_header--progress-spacer">
+              ${ table.count } {{ 'programs for:'|t }} ${ checkedStep2Filters }
+              <span class="activity-finder__step_header--progress-spacer">|</span>
+              <a v-bind:href="afResultsRef + step_3_query">{{ 'View Results'|t }}</a>
+            </span>
+          </div>
+          <div class="d-inline-flex ml-auto text-right">
+            <a href="#" @click.prevent="startOver()" class="start_over">{{ 'Start Over'|t }}</a>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="activity-finder__step_header--actions container">
-      <span v-if="checkedStep3Filters === ''"><strong>{{ 'Step 3 of 3:' }}</strong> {{ 'Narrow your results further by selecting one or more locations (below)...'|t }}</span>
-      <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep3Filters }</span>
-      <div class="actions">
-        <button @click.prevent="skip()" class="btn btn-primary btn-lg">{{ 'Skip'|t }}</button>
-        <button @click.prevent="next()" class="btn btn-primary btn-lg">{{ 'Next'|t }}</button>
+      <div class="row">
+        <div class="col-xs-8">
+          <span v-if="checkedStep3Filters === ''"><strong>{{ 'Step 3 of 3:' }}</strong> {{ 'Narrow your results further by selecting one or more locations (below)...'|t }}</span>
+          <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep3Filters }</span>
+        </div>
+        <div class="col-xs-4 text-right">
+          <button @click.prevent="skip()" class="btn btn-primary btn-lg">{{ 'Skip'|t }}</button>
+          <button @click.prevent="next()" class="btn btn-primary btn-lg">{{ 'Next'|t }}</button>
+        </div>
       </div>
     </div>
   </div>
@@ -42,10 +56,10 @@
         <div class="row">
           {% for location in locationGroup.value %}
             <div class="col-xs-12 col-sm-6 col-md-4">
-              <div class="openy-card__item">
+              <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter('{{ location.value }}') === 0)}">
                 <label for="af-filter-{{ location.value }}" class="has-subtext">
                   <i class="fa fa-map-marker"></i>
-                  <input v-model="checkedLocations" @change="toggleCardState" type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" class="d-none hidden">
+                  <input v-if="locationCounter('{{ location.value }}') !== 0" v-model="checkedLocations" @change="toggleCardState" type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" class="d-none hidden">
                   <div class="d-flex flex-column">
                     {{ location.label }}
                     <small>${ locationCounter("{{ location.value }}") } {{ 'results'|t }}</small>

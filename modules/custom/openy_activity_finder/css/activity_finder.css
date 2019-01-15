@@ -11,6 +11,10 @@
   margin-top: 3rem;
 }
 
+.align-items-center {
+  align-items: center;
+}
+
 .justify-content-center {
   justify-content: center;
 }

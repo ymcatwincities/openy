@@ -70,10 +70,20 @@ label[aria-expanded=false] .minus {
   font-size: 16px;
 }
 
+/* search styling */
+.schedule-dashboard__search--form {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 2rem;
+}
+
+.schedule-dashboard__search--form .form-control {
+  flex: 1;
+}
 
 /* form styling */
 
-.schedule-dashboard__sidebar .navbar-form {
+.schedule-dashboard__wrapper .navbar-form {
   margin: 2.5rem 0 0;
   border: none;
   padding: 0;
