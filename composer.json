@@ -139,6 +139,18 @@
                     "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-davekoelle/alphanum",
+                "version": "1.0.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/AndreyMaximov/alphanum/archive/1.0.0.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
@@ -234,6 +246,7 @@
         "library-ckeditor/panelbutton": "4.7.0",
         "library-ckeditor/colorbutton": "4.7.0",
         "library-smonetti/btbutton": "1.0.1",
+        "library-davekoelle/alphanum": "1.0.0",
         "grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
