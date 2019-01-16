@@ -117,8 +117,8 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       $get['category_ids'] = implode(',', $daxkoProgramIds);
     }
 
-    if (isset($parameters['activities']) && !empty($parameters['activities'])) {
-      $get['category_ids'] = $parameters['activities'];
+    if (isset($parameters['categories']) && !empty($parameters['categories'])) {
+      $get['category_ids'] = $parameters['categories'];
     }
 
     // Include facets. We need locations for Activity Finder.
