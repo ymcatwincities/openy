@@ -314,6 +314,7 @@
         var query = [];
         query.push('log=' + encodeURIComponent(this.table[index].log_id));
         query.push('details=' + encodeURIComponent(this.table[index].name));
+        query.push('nid=' + encodeURIComponent(this.table[index].nid));
 
         query.push('program=' + encodeURIComponent(this.table[index].program_id));
         query.push('offering=' + encodeURIComponent(this.table[index].offering_id));
