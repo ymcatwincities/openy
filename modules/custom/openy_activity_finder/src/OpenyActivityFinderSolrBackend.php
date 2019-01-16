@@ -145,14 +145,14 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $query->addCondition('field_category_program', $program_types, 'IN');
     }
 
-    if (!empty($parameters['activities'])) {
-      $activities_nids = explode(',', rawurldecode($parameters['activities']));
+    if (!empty($parameters['categories'])) {
+      $categories_nids = explode(',', rawurldecode($parameters['categories']));
       // Map nids to titles.
-      $activity_program_info = $this->getActivityProgramInfo();
-      foreach ($activities_nids as $nid) {
-        $activities[] = !empty($activity_program_info[$nid]['title']) ? $activity_program_info[$nid]['title'] : '';
+      $category_program_info = $this->getCategoryProgramInfo();
+      foreach ($categories_nids as $nid) {
+        $categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
       }
-      $query->addCondition('field_activity_category', $activities, 'IN');
+      $query->addCondition('field_activity_category', $categories, 'IN');
     }
 
     if (!empty($parameters['locations'])) {
@@ -289,7 +289,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   public function getFacets($results) {
     $facets = $results->getExtraData('search_api_facets', []);
     $locationsInfo = $this->getLocationsInfo();
-    $activity_program_info = $this->getActivityProgramInfo();
+    $category_program_info = $this->getCategoryProgramInfo();
 
     // Add static Age filter.
     $facets['static_age_filter'] = $this->getAges();
@@ -326,8 +326,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       if ($f == 'field_activity_category') {
         $grouped = [];
         foreach ($facet as $i => $item) {
-          if (isset($activity_program_info[$item['filter']])) {
-            $grouped[$activity_program_info[$item['filter']]][] = $item;
+          if (isset($category_program_info[$item['filter']])) {
+            $grouped[$category_program_info[$item['filter']]][] = $item;
           }
           else {
             // On regular basis there are no results, keep for tracking vary case.
@@ -396,7 +396,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   /**
    * Get referencing chain for Session -> Program info.
    */
-  public function getActivityProgramInfo() {
+  public function getCategoryProgramInfo() {
     $data = [];
     $cid = 'openy_activity_finder:activity_program_info';
     if ($cache = $this->cache->get($cid)) {
