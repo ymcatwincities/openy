@@ -11,7 +11,6 @@ openy_activity_finder:
     - openy_repeat/openy_repeat.vue_router
     - openy_repeat/openy_repeat.vue.table
     - openy_repeat/openy_repeat.moment
-    - openy_repeat/openy_repeat.bootstrap-datepicker
     - openy_repeat/openy_repeat.natsort
     - openy_repeat/openy_repeat.modal
     - openy_repeat/openy_repeat.ajax_spinner
@@ -28,7 +27,6 @@ openy_activity_finder_search:
     - openy_repeat/openy_repeat.vue_router
     - openy_repeat/openy_repeat.vue.table
     - openy_repeat/openy_repeat.moment
-    - openy_repeat/openy_repeat.bootstrap-datepicker
     - openy_repeat/openy_repeat.natsort
     - openy_repeat/openy_repeat.modal
     - openy_repeat/openy_repeat.ajax_spinner
