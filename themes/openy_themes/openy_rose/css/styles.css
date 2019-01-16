@@ -8094,7 +8094,7 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
-  margin: -20px 0 40px;
+  margin: 20px 0;
 }
 @media (min-width: 1200px) {
   .paragraph--type--lto {
@@ -8331,6 +8331,15 @@ input[type="checkbox"]:focus {
 .paragraph--type--faq-item .field-answer {
   display: none;
   padding: 15px;
+}
+
+.site-alert--header, .site-alert--footer {
+  border: 1px solid #636466;
+  width: 100vw;
+}
+
+.header-alerts-list .slick__arrow, .footer-alerts-list .slick__arrow {
+  visibility: visible;
 }
 
 /*# sourceMappingURL=styles.css.map */
