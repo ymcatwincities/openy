@@ -117,7 +117,7 @@
             <i class="fa fa-minus minus" aria-hidden="true"></i>
             <i class="fa fa-plus plus" aria-hidden="true"></i>
           </label>
-          <div id="form-group-classname" class="form-group-classname collapse in hggg" aria-expanded="true">
+          <div id="form-group-classname" class="form-group-classname collapse in" aria-expanded="true">
             <div v-for="classFilter in getClassFilter()" class="checkbox-wrapper">
               <input type="checkbox" v-model="className" v-bind:value="classFilter" v-bind:id="generateId(classFilter)" class="box"/>
               <label v-bind:for="generateId(classFilter)">
