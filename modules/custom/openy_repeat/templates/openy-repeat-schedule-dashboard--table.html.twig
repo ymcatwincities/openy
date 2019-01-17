@@ -9,7 +9,10 @@
 
 {# date arrows & title #}
 <div class="row schedule-dashboard__content--header">
+
+  {% block date_wrapper %}
   <div class="col-sm-12 col-md-8 day-label">
+  {% endblock %}
     <h2>
       <button v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button" aria-label="previous date"><i class="fa fa-angle-left"></i></button>
       <span class="date" v-cloak>${ dateFormatted }</span>
@@ -17,7 +20,9 @@
     </h2>
   </div>
 
+  {% block buttons_wrapper %}
   <div class="hidden-xs hidden-sm col-md-4">
+  {% endblock %}
     <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
     <a class="btn btn-md btn-block btn-schedule-pdf-generate hidden" target="_blank">{{ 'Weekly PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
   </div>
@@ -99,9 +104,7 @@
         </div>
 
         <div class="schedules-loading">
-          <svg class="spinner" viewBox="0 0 50 50" data-size="{{ size|default('normal') }}" data-flow="{{ flow|default('centered') }}">
-            <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="{{ color|default('#93bfec') }}"></circle>
-          </svg>
+          {% include '@openy_repeat/openy-ajax-spinner.html.twig' %}
         </div>
 
       </div>
