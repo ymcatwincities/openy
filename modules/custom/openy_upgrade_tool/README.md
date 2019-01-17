@@ -89,13 +89,13 @@ $logger_entity->save();
 ```
 
 - **Resolve conflict and import fixed config version.**
-In this case you need export existing config (for example to sites/default/config/staging) and add changes from openy to this file (you can use diff on dashboard to get new updates).
+In this case you need export existing config (for example to sites/default/config/staging) and add changes from Open Y to this file (you can use diff on dashboard to get new updates).
 After this **import config using services from confi module** and remove field_config_path value from logger_entity.
 ```
 $config_importer = \Drupal::service('config_import.importer');
 $config_importer->setDirectory(''sites/default/config/staging'');
 $config_importer->importConfigs([
-  // Fixed config version with manual changes and all updates from openy.
+  // Fixed config version with manual changes and all updates from Open Y.
   'core.entity_form_display.node.landing_page.default',
 ]);
   

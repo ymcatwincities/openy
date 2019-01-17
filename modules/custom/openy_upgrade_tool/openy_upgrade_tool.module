@@ -5,14 +5,32 @@
  * Contains openy_upgrade_tool.module.
  */
 
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\openy_upgrade_tool\EntityTypeInfo;
+use Drupal\Core\Serialization\Yaml;
 
 /**
- * Implements hook_entity_operation().
+ * Implements hook_theme().
  */
-function openy_upgrade_tool_entity_operation(EntityInterface $entity) {
-  return \Drupal::service('class_resolver')
-    ->getInstanceFromDefinition(EntityTypeInfo::class)
-    ->entityOperation($entity);
+function openy_upgrade_tool_theme() {
+  return [
+    'openy_upgrade_log' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for openy_upgrade_log templates.
+ *
+ * Default template: openy_upgrade_log.html.twig.
+ *
+ * @param array $variables
+ *   An associative array with entity data.
+ */
+function template_preprocess_openy_upgrade_log(array &$variables) {
+  $entity = $variables['elements']['#openy_upgrade_log'];
+  $variables['data'] = [
+    '#type' => 'html_tag',
+    '#tag' => 'pre',
+    '#value' => $entity->getYmlData(),
+  ];
 }
