@@ -17,16 +17,16 @@
       {# sidebar #}
       {% block sidebar_wrapper %}
       <div class="col-xs-12 col-sm-4 col-md-3 schedule-dashboard__sidebar">
+      {% endblock %}
         {% include '@openy_repeat/openy-repeat-schedule-dashboard--sidebar.html.twig' %}
       </div>
-      {% endblock %}
 
       {# main table #}
       {% block maintable_wrapper %}
       <div class="col-xs-12 col-sm-8 col-md-9 schedule-dashboard__content main-table">
+      {% endblock %}
         {% include '@openy_repeat/openy-repeat-schedule-dashboard--table.html.twig' %}
       </div>
-      {% endblock %}
 
     </div>
   </div>
