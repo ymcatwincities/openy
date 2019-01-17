@@ -9,7 +9,8 @@
 #}
 
 {% for icon in icons %}
+  {% set path_image = base_path ~ icon.path %}
   .menu-icon-{{ icon.mlid }} .section-icon {
-    background-image: url({{ icon.path }});
+    background-image: url({{ path_image }});
   }
 {% endfor %}
