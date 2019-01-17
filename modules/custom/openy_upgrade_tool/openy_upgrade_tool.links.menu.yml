@@ -2,7 +2,7 @@ entity.openy_upgrade_log.collection:
   title: 'Upgrade dashboard'
   route_name: entity.openy_upgrade_log.collection
   description: 'Configure Open Y upgrade tool'
-  parent: openy_system.openy_settings
+  parent: openy_system.openy_development
   weight: 100
 
 openy_upgrade_log.admin.structure.settings:

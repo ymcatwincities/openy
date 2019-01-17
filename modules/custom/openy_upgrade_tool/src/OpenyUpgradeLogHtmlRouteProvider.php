@@ -152,7 +152,7 @@ class OpenyUpgradeLogHtmlRouteProvider extends AdminHtmlRouteProvider {
    */
   protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
     if (!$entity_type->getBundleEntityType()) {
-      $route = new Route("/admin/openy/settings/upgrade-log/settings");
+      $route = new Route("/admin/openy/development/upgrade-log/settings");
       $route
         ->setDefaults([
           '_form' => 'Drupal\openy_upgrade_tool\Form\OpenyUpgradeLogSettingsForm',

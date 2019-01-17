@@ -1,5 +1,5 @@
 openy_upgrade_tool.dashboard:
-  path: '/admin/openy/settings/upgrade-log/dashboard'
+  path: ' /admin/openy/development/upgrade-log/dashboard'
   defaults:
     _controller: '\Drupal\openy_upgrade_tool\Controller\OpenyUpgradeLogController::dashboard'
     _title: 'Upgrade Tool Dashboard'
@@ -8,7 +8,7 @@ openy_upgrade_tool.dashboard:
     logger_entity: \d+
 
 openy_upgrade_tool.log.diff:
-  path: '/admin/openy/settings/upgrade-log/{openy_upgrade_log}/diff'
+  path: ' /admin/openy/development/upgrade-log/{openy_upgrade_log}/diff'
   defaults:
     _form: '\Drupal\openy_upgrade_tool\Form\OpenyUpgradeLogDiff'
     _title: 'Config diff'
@@ -19,7 +19,7 @@ openy_upgrade_tool.log.diff:
     _admin_route: TRUE
 
 openy_upgrade_tool.log.manual_merge:
-  path: '/admin/openy/settings/upgrade-log/{openy_upgrade_log}/diff/manual_merge/{target}'
+  path: ' /admin/openy/development/upgrade-log/{openy_upgrade_log}/diff/manual_merge/{target}'
   defaults:
     _form: '\Drupal\openy_upgrade_tool\Form\OpenyUpgradeLogManualMerge'
     _title: 'Manual Merge'
