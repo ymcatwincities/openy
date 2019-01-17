@@ -1,6 +1,6 @@
 name: Logger Entity
 type: module
-description: Provides a custom entity for logging.
+description: Provides a custom entity for logging. Module is deprecated in favor of extended openy_upgrade_tool functionality.
 core: 8.x
 package: Open Y
 version: 8.x-1.0
