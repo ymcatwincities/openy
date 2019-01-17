@@ -6439,10 +6439,6 @@ a[href="#step2"] {
   margin-left: 0;
 }
 
-.openy-map-wrapper {
-  margin-bottom: 40px;
-}
-
 .views-view-membership .field-body-no-summary {
   font-size: 15px;
   padding-bottom: 110px;
@@ -8095,22 +8091,11 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
+  width: 100%;
 }
-@media (min-width: 1200px) {
-  .paragraph--type--lto {
-    width: 1170px;
-  }
-}
-@media (min-width: 992px) and (max-width: 1200px) {
-  .paragraph--type--lto {
-    width: 970px;
-  }
-}
-@media (min-width: 768px) and (max-width: 992px) {
-  .paragraph--type--lto {
-    width: 750px;
-  }
+.paragraph--type--lto .container {
+  max-width: 100%;
 }
 .paragraph--type--lto .field-lto-title {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
