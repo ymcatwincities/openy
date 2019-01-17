@@ -1,16 +1,11 @@
 .paragraph--type--lto {
   background-color: $dark-blue;
   padding: 20px 0;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
+  width: 100%;
 
-  @media (min-width: $screen-lg) {
-    width: 1170px;
-  }
-  @media (min-width: $screen-md) and (max-width: $screen-lg) {
-    width: 970px;
-  }
-  @media (min-width: $screen-sm) and (max-width: $screen-md) {
-    width: 750px;
+  .container {
+    max-width: 100%;
   }
 
   .field-lto-title {
