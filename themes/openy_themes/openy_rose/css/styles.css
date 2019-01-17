@@ -806,6 +806,7 @@ body {
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .viewport,
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .top-navs {
   margin-top: 79px;
+  z-index: 10;
 }
 .toolbar-fixed.toolbar-vertical .viewport,
 .toolbar-fixed.toolbar-vertical .top-navs {
