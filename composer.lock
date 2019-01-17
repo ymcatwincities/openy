@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18593c9198a811ff7d54de83323d8aa6",
+    "content-hash": "c352d3b6e94d443e10aed8d6bd4c4ce2",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1354,10 +1354,10 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-rc3",
-                    "datestamp": "1538045580",
+                    "datestamp": "1545235980",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -1631,17 +1631,17 @@
         },
         {
             "name": "drupal/config_update",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/config_update",
-                "reference": "8.x-1.5"
+                "reference": "8.x-1.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/config_update-8.x-1.5.zip",
-                "reference": "8.x-1.5",
-                "shasum": "2f7ae5f90b1c0ab8edf84680d2651e81fab6a126"
+                "url": "https://ftp.drupal.org/files/projects/config_update-8.x-1.6.zip",
+                "reference": "8.x-1.6",
+                "shasum": "04bbd0fc440017fd0129dceae240a8bba409a450"
             },
             "require": {
                 "drupal/core": "*"
@@ -1652,8 +1652,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.5",
-                    "datestamp": "1512587912",
+                    "version": "8.x-1.6",
+                    "datestamp": "1545090480",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1682,16 +1682,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.6.3",
+            "version": "8.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "9e9a1dd9e280ebaf10622217e54448b529167965"
+                "reference": "e0a09bda1da7552204464894811a59387608c9f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/9e9a1dd9e280ebaf10622217e54448b529167965",
-                "reference": "9e9a1dd9e280ebaf10622217e54448b529167965",
+                "url": "https://api.github.com/repos/drupal/core/zipball/e0a09bda1da7552204464894811a59387608c9f9",
+                "reference": "e0a09bda1da7552204464894811a59387608c9f9",
                 "shasum": ""
             },
             "require": {
@@ -1735,6 +1735,7 @@
                 "symfony/validator": "~3.4.0",
                 "symfony/yaml": "~3.4.5",
                 "twig/twig": "^1.35.0",
+                "typo3/phar-stream-wrapper": "^2.0.1",
                 "zendframework/zend-diactoros": "^1.1",
                 "zendframework/zend-feed": "^2.4"
             },
@@ -1921,7 +1922,7 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2018-11-07T14:45:40+00:00"
+            "time": "2019-01-16T23:30:03+00:00"
         },
         {
             "name": "drupal/crop",
@@ -2328,20 +2329,21 @@
         },
         {
             "name": "drupal/domain_theme_switch",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/domain_theme_switch",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/domain_theme_switch-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "487243fd7a6de0e7c05deb226380289e866190bb"
+                "url": "https://ftp.drupal.org/files/projects/domain_theme_switch-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "5a7208bd3d741233ffe74f6cedf2b177e2a1cc2a"
             },
             "require": {
-                "drupal/core": "*"
+                "drupal/core": "~8.0",
+                "drupal/domain": "*"
             },
             "type": "drupal-module",
             "extra": {
@@ -2349,7 +2351,7 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.3",
+                    "version": "8.x-1.4",
                     "datestamp": "1537687085",
                     "security-coverage": {
                         "status": "covered",
@@ -2493,6 +2495,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "2971408 - Easy Breadcrumb could not determine the title to use for /node/{node}/translations": "https://www.drupal.org/files/issues/2018-07-13/2971408_node_edit-5.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2748,17 +2753,17 @@
         },
         {
             "name": "drupal/entity_clone",
-            "version": "1.0.0-alpha2",
+            "version": "1.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/entity_clone",
-                "reference": "8.x-1.0-alpha2"
+                "reference": "8.x-1.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_clone-8.x-1.0-alpha2.zip",
-                "reference": "8.x-1.0-alpha2",
-                "shasum": "55a533e56853b78f949796040ee68881a68917b5"
+                "url": "https://ftp.drupal.org/files/projects/entity_clone-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "d0ace20bbe1672fbe6d0cdd6da8f5b80cd156643"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2769,11 +2774,11 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-alpha2",
-                    "datestamp": "1513145285",
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1546583284",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Alpha releases are not covered by Drupal security advisories."
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -2849,8 +2854,16 @@
                     "homepage": "https://www.drupal.org/user/3260690"
                 },
                 {
+                    "name": "Wim Leers",
+                    "homepage": "https://www.drupal.org/user/99777"
+                },
+                {
                     "name": "cs_shadow",
                     "homepage": "https://www.drupal.org/user/2828287"
+                },
+                {
+                    "name": "phenaproxima",
+                    "homepage": "https://www.drupal.org/user/205645"
                 },
                 {
                     "name": "slashrsm",
@@ -3179,32 +3192,39 @@
         },
         {
             "name": "drupal/geolocation",
-            "version": "1.11.0",
+            "version": "2.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/geolocation",
-                "reference": "8.x-1.11"
+                "reference": "8.x-2.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/geolocation-8.x-1.11.zip",
-                "reference": "8.x-1.11",
-                "shasum": "a401d5c576a8c4886e84272f2ca2a3c524c46869"
+                "url": "https://ftp.drupal.org/files/projects/geolocation-8.x-2.0-beta1.zip",
+                "reference": "8.x-2.0-beta1",
+                "shasum": "71870e2c48681d1ab6ad34119c48e925a21afda9"
             },
             "require": {
                 "drupal/core": "*"
             },
+            "require-dev": {
+                "drupal/address": "*",
+                "drupal/geofield": "*",
+                "drupal/geolocation_demo": "*",
+                "drupal/geolocation_google_maps": "*",
+                "drupal/search_api": "*"
+            },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.11",
-                    "datestamp": "1505687043",
+                    "version": "8.x-2.0-beta1",
+                    "datestamp": "1515803584",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -3214,18 +3234,19 @@
             ],
             "authors": [
                 {
-                    "name": "ChristianAdamski",
-                    "homepage": "https://www.drupal.org/user/867880"
+                    "name": "derjochenmeyer",
+                    "homepage": "https://www.drupal.org/u/derjochenmeyer"
                 },
                 {
-                    "name": "derjochenmeyer",
-                    "homepage": "https://www.drupal.org/user/106134"
+                    "name": "cadamski",
+                    "homepage": "https://www.drupal.org/u/cadamski"
                 }
             ],
             "description": "Provides a simple geolocation Drupal field type to store and display location data (lat, lng).",
             "homepage": "https://www.drupal.org/project/geolocation",
             "support": {
-                "source": "http://cgit.drupalcode.org/geolocation"
+                "source": "http://git.drupal.org/project/geolocation.git",
+                "issues": "https://www.drupal.org/project/issues/geolocation"
             }
         },
         {
@@ -3921,7 +3942,7 @@
                 },
                 "drupal": {
                     "version": "8.x-4.0",
-                    "datestamp": "1536264180",
+                    "datestamp": "1546879080",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4039,7 +4060,7 @@
                 },
                 "drupal": {
                     "version": "8.x-4.0",
-                    "datestamp": "1535380084",
+                    "datestamp": "1546879080",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4049,9 +4070,6 @@
                     "services": {
                         "drush.services.yml": "^9"
                     }
-                },
-                "patches_applied": {
-                    "3014095 - Not compatible with Drupal 8.4 due to usage of tempstore.private service": "https://www.drupal.org/files/issues/2018-11-15/check-if-service-exists-3014095-1.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4811,7 +4829,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0",
-                    "datestamp": "1495746183",
+                    "datestamp": "1545236281",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4830,6 +4848,10 @@
                 {
                     "name": "gausarts",
                     "homepage": "https://www.drupal.org/user/159062"
+                },
+                {
+                    "name": "thalles",
+                    "homepage": "https://www.drupal.org/user/3589086"
                 }
             ],
             "description": "Slick carousel, the last carousel you'll ever need.",
@@ -4869,7 +4891,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-rc2",
-                    "datestamp": "1486728183",
+                    "datestamp": "1546870081",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -5459,14 +5481,14 @@
                 },
                 "drupal": {
                     "version": "8.x-1.8",
-                    "datestamp": "1528884525",
+                    "datestamp": "1544120880",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "patches_applied": {
-                    "2980093 - Can't uninstall module": "https://www.drupal.org/files/issues/2018-10-05/ViewsFieldFormatter-get_on_null-2980093-13_0.patch"
+                    "2980093 - Can't uninstall module": "https://gist.githubusercontent.com/AndreyMaximov/fdf9128022266188cbce2cc82be3d099/raw/7797fd965915de32820e04fcb4c8189ac427fb62/2980093_viewsfieldformatter_get_on_null.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -8031,6 +8053,46 @@
             "time": "2018-07-13T07:12:17+00:00"
         },
         {
+            "name": "typo3/phar-stream-wrapper",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TYPO3/phar-stream-wrapper.git",
+                "reference": "0469d9fefa0146ea4299d3b11cfbb76faa7045bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TYPO3/phar-stream-wrapper/zipball/0469d9fefa0146ea4299d3b11cfbb76faa7045bf",
+                "reference": "0469d9fefa0146ea4299d3b11cfbb76faa7045bf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3|^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.36"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TYPO3\\PharStreamWrapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Interceptors for PHP's native phar:// stream handling",
+            "homepage": "https://typo3.org/",
+            "keywords": [
+                "phar",
+                "php",
+                "security",
+                "stream-wrapper"
+            ],
+            "time": "2018-10-18T08:46:28+00:00"
+        },
+        {
             "name": "zendframework/zend-diactoros",
             "version": "1.8.6",
             "source": {
@@ -10017,7 +10079,6 @@
         "drupal/media_entity": 20,
         "drupal/media_entity_image": 20,
         "drupal/media_entity_document": 20,
-        "drupal/entity_clone": 15,
         "drupal/views_block_filter_block": 20,
         "drupal/simple_menu_icons": 20,
         "drupal/libraries": 20,
