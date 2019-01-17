@@ -1,0 +1,7 @@
+openy_upgrade_tool.settings:
+  type: config_object
+  label: 'Open Y Upgrade Tool Settings'
+  mapping:
+    force_mode:
+      type: boolean
+      label: 'Force mode'
