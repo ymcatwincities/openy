@@ -3029,6 +3029,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
+  margin: 0;
 }
 .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
   background: none;
@@ -3040,7 +3041,7 @@ body {
   margin-top: -7px;
 }
 .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow:before {
-  color: #00aeef;
+  display: none;
 }
 @media (min-width: 48em) {
   .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
@@ -5071,6 +5072,14 @@ html.js .branch__updates_queue__button {
   font-size: 38px;
   text-transform: uppercase;
   letter-spacing: 2px;
+}
+@media (min-width: 0) and (max-width: 75em) {
+  .field-prgf-title h2,
+  .field-prgf-nu-title h2,
+  .field-prgf-whay-title h2,
+  .field-prgf-fc-title h2 {
+    font-size: 25px;
+  }
 }
 .field-prgf-title.mobile h2,
 .field-prgf-nu-title.mobile h2,
