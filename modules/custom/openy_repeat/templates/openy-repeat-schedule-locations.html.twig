@@ -14,15 +14,15 @@
 
 {{ attach_library('openy_repeat/openy_repeat.locations') }}
 
-<div class="container schedule-locations__wrapper px-3 px-lg-5">
+<div class="container schedule-locations__wrapper">
 
   <div class="locations-header row row-eq-height align-items-end">
-    <div class="col-12 col-xs-8">
+    <div class="col col-xs-8 col-sm-8">
       <h4>{{ 'Select one or more locations'|t }}</h4>
     </div>
 
     {% if locations is not empty %}
-    <div class="col-12 col-xs-4 col-md text-right">
+    <div class="col col-xs-4 col-sm-4 col-md text-right">
       <button class="btn btn-primary btn-lg submit-locations js-submit-locations disabled">{{ 'Next'|t }}</button>
     </div>
     {% endif %}

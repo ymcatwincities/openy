@@ -67,7 +67,7 @@
       </label>
 
       {% block location_checkbox_wrapper %}
-      <div id="form-group-location" class="form-group-location collapse in checkboxes" aria-expanded="true">
+      <div id="form-group-location" class="form-group-location collapse in show checkboxes" aria-expanded="true">
       {% endblock %}
         {% for location in locations %}
           {% set loc_checked = "t" %}
@@ -104,7 +104,7 @@
         </label>
 
         {% block category_checkbox_wrapper %}
-        <div id="form-group-category" class="form-group-category collapse in checkboxes" aria-expanded="true">
+        <div id="form-group-category" class="form-group-category collapse in show checkboxes" aria-expanded="true">
         {% endblock %}
           {% for category in categories %}
             {% set cat_checked = "t" %}

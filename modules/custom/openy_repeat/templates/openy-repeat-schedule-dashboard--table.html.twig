@@ -11,7 +11,7 @@
 <div class="row schedule-dashboard__content--header">
 
   {% block date_wrapper %}
-  <div class="col-sm-12 col-md-8 day-label">
+  <div class="col-sm-12 col-md-8 col-lg-7 day-label">
   {% endblock %}
     <h2>
       <button v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button" aria-label="previous date"><i class="fa fa-angle-left"></i></button>
@@ -21,7 +21,7 @@
   </div>
 
   {% block buttons_wrapper %}
-  <div class="hidden-xs hidden-sm col-md-4">
+  <div class="hidden-xs hidden-sm col-md-4 col-lg-5">
   {% endblock %}
     <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
     <a class="btn btn-md btn-block btn-schedule-pdf-generate hidden" target="_blank">{{ 'Weekly PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
