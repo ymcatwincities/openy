@@ -4,12 +4,18 @@ dependencies:
   config:
     - field.storage.node.field_alert_belongs
     - node.type.alert
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_alert_belongs
 id: node.alert.field_alert_belongs
 field_name: field_alert_belongs
 entity_type: node
 bundle: alert
-label: Reference
-description: 'Reference to node (branch, camp, landing page and etc.), where local alert will be displayed.'
+label: '[obsolete] Reference'
+description: 'Reference to node (branch, camp, landing page and etc.), where local alert will be displayed. DO NOT USE, will be removed in next release.'
 required: false
 translatable: false
 default_value: {  }

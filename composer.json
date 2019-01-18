@@ -139,6 +139,18 @@
                     "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-davekoelle/alphanum",
+                "version": "1.0.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/AndreyMaximov/alphanum/archive/1.0.0.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
@@ -206,10 +218,10 @@
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
-        "drupal/core": "~8.6.0",
+        "drupal/core": "8.6.7",
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
-        "drupal/config_update": "1.6",
+        "drupal/config_update": "^1.6",
         "drupal/entity": "1.0-beta1",
         "drupal/media_entity": "^2.0",
         "drupal/media_entity_image": "1.x-dev",
@@ -228,7 +240,7 @@
         "drupal/inline_entity_form": "1.0-rc1",
         "drupal/embed": "1.0",
         "drupal/entity_embed": "1.0-beta2",
-        "drupal/entity_clone": "^1.0@beta",
+        "drupal/entity_clone": "^1.0",
         "drupal/views_block_filter_block": "1.x-dev",
         "drupal/plugin": "2.5",
         "drupal/migrate_plus": "^4.0",
@@ -239,7 +251,7 @@
         "drupal/views_infinite_scroll": "1.5",
         "drupal/slick": "^2.0",
         "drupal/blazy": "^2.0",
-        "drupal/geolocation": "1.11",
+        "drupal/geolocation": "^2.0",
         "library-jaypan/jquery_colorpicker": "1.0.1",
         "library-enyo/dropzone": "5.5.0",
         "library-kenwheeler/slick": "1.8.0",
@@ -248,6 +260,7 @@
         "library-ckeditor/panelbutton": "4.7.0",
         "library-ckeditor/colorbutton": "4.7.0",
         "library-smonetti/btbutton": "1.0.1",
+        "library-davekoelle/alphanum": "1.0.0",
         "grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
@@ -283,7 +296,7 @@
         "drupal/fontyourface": "^3.2",
         "drupal/css_editor": "^1.2",
         "drupal/domain": "1.0-alpha13",
-        "drupal/domain_theme_switch": "1.4",
+        "drupal/domain_theme_switch": "^1.4",
         "drupal/social_feed_fetcher": "^1.0",
         "symfony/dom-crawler": "v4.1.3",
         "mpdf/mpdf": "^7.1"
