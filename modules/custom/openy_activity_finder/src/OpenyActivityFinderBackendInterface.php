@@ -19,13 +19,4 @@ interface OpenyActivityFinderBackendInterface {
    */
   public function getLocations();
 
-  /**
-   * Callback to retrieve programs full information.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
-   */
-  public function getProgramsMoreInfo($request);
-
-
 }

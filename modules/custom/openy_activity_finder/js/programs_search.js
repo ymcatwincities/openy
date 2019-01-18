@@ -106,9 +106,9 @@
         }
       }
     },
-    template: '<div class="form-group-wrapper clearfix">\n' +
+    template: '<div class="form-group-wrapper">\n' +
     '                <label v-on:click="expanded = !expanded">\n' +
-    '                    {{ title }}\n' +
+    '                 {{ title }}\n' +
     '                  <i v-if="expanded" class="fa fa-minus minus" aria-hidden="true"></i>\n' +
     '                  <i v-if="!expanded" class="fa fa-plus plus" aria-hidden="true"></i>\n' +
     '                </label>\n' +
@@ -125,19 +125,19 @@
     '                         \'checkbox-unchecked\': groupStatus(getLabel(checkbox)) == \'none\', ' +
     '                         \'checkbox-checked\': groupStatus(getLabel(checkbox)) == \'all\', ' +
     '                         \'checkbox-partial\': groupStatus(getLabel(checkbox)) == \'partial\', ' +
+    '                         \'d-flex\': true' +
     '                       }">' +
     '                       <input v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked">\n' +
     '                       <label v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" >{{ getLabel(checkbox) }}</label>\n' +
-    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" href="#" class="float-right">' +
-    '                         <span v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true);" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>' +
-    '                         <span v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
+    '                         <span v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +
+    '                         <span v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" class="fa fa-angle-up" aria-hidden="true"></span>' +
     '                       </a>' +
     '                    </div>' +
     '                    <div v-if="typeof getOption(checkbox) == \'object\'" v-for="checkbox2 in getOption(checkbox)" class="checkbox-wrapper">\n' +
     '                      <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
     '                      <label v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
     '                    </div>\n' +
-
     '                  </div>\n' +
     '                </div>\n' +
     '              </div>'

@@ -19,9 +19,3 @@ openy_activity_finder.settings:
     _title: 'Activity Finder settings'
   requirements:
     _permission: 'administer site configuration'
-openy_activity_finder.programs_more_info_ajax:
-  path: '/pef-programs-more-info-ajax'
-  defaults:
-    _controller: '\Drupal\openy_activity_finder\Controller\ActivityFinderController::ajaxProgramsMoreInfo'
-  requirements:
-    _permission: 'access content'
