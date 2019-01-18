@@ -271,7 +271,7 @@
                         <i class="fa fa-map-marker"></i>
                         <input v-if="locationCounter('{{ location.value }}') !== 0" v-model="checkedLocations" @change="toggleCardState" type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" class="d-none hidden">
                         <div class="d-flex flex-column">
-                          {{ location.label }}
+                          <span>{{ location.label }}</span>
                           <small>${ locationCounter("{{ location.value }}") } {{ 'results'|t }}</small>
                         </div>
                       </label>
