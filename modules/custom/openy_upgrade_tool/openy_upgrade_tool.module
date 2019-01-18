@@ -5,8 +5,6 @@
  * Contains openy_upgrade_tool.module.
  */
 
-use Drupal\Core\Serialization\Yaml;
-
 /**
  * Implements hook_theme().
  */
