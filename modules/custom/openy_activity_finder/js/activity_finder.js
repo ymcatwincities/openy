@@ -171,14 +171,14 @@
               // Map ids to titles.
               for (key in component.checkedAges) {
                 if (typeof(component.checkedAges[key]) !== 'function' && $('#af-age-filter-' + component.checkedAges[key])) {
-                  filters.push($('#af-age-filter-' + component.checkedAges[key]).next().text());
+                  filters.push($('#af-age-filter-' + component.checkedAges[key]).parent('label').text());
                 }
               }
 
               // Map ids to titles.
               for (key in component.checkedDays) {
                 if (typeof(component.checkedDays[key]) !== 'function' && $('#af-day-filter-' + component.checkedDays[key])) {
-                  filters.push($('#af-day-filter-' + component.checkedDays[key]).next().text());
+                  filters.push($('#af-day-filter-' + component.checkedDays[key]).parent('label').text());
                 }
               }
 
@@ -197,7 +197,7 @@
               var checkedMapCategories = [];
               for (key in component.checkedCategories) {
                 if (typeof(component.checkedCategories[key]) !== 'function' && $('input[value="' + component.checkedCategories[key] + '"]')) {
-                  checkedMapCategories.push($('input[value="' + component.checkedCategories[key] + '"]').parent().find('label').text());
+                  checkedMapCategories.push($('input[value="' + component.checkedCategories[key] + '"]').parent('label').text());
                 }
               }
               filters.push(checkedMapCategories.join(', '));
@@ -216,7 +216,7 @@
               var checkedMapLocations = [];
               for (key in component.checkedLocations) {
                 if (typeof(component.checkedLocations[key]) !== 'function' && $('input[value="' + component.checkedLocations[key] + '"]')) {
-                  checkedMapLocations.push($('input[value="' + component.checkedLocations[key]+'"]').parent().find('label span').text());
+                  checkedMapLocations.push($('input[value="' + component.checkedLocations[key]+'"]').parent('label').find('span').text());
                 }
               }
               filters.push(checkedMapLocations.join(', '));

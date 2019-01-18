@@ -13,14 +13,14 @@
 <div id="activity-finder-app">
   <div class="activity-finder__wrapper">
 
-    {# step 1 #}
+    {# start #}
     <div v-show="step === 0" class="activity-finder__step">
       <div class="activity-finder__step_wrapper container">
         <div class="text-center">
           <h1 class="program-search__form--title">{{ 'Program Search'|t }}</h1>
 
           <form class="program-search__form" role="search">
-            <label class="h3" for="program-search__keywords">{{ 'How would you like to search for programs?'|t }}</label>
+            <label class="h3 mb-5" for="program-search__keywords">{{ 'How would you like to search for programs?'|t }}</label>
             <div class="row row-eq-height justify-content-center">
               <div class="col-xs-12 col-md-8 d-flex">
                 <input type="text" class="program-search__keywords" v-model="keywords" id="program-search__keywords" placeholder="{{ 'Search for programs on your terms ...'|t }}"/>
@@ -57,9 +57,9 @@
         </div>
       </div>
     </div>
-    {# / step 1 #}
+    {# / start #}
 
-    {# step 2 #}
+    {# step 1 > age/day/program type #}
     <div v-show="step === 1" class="activity-finder__step">
       <div class="activity-finder__step_wrapper">
         <div class="activity-finder__step_header">
@@ -87,7 +87,7 @@
           <div class="activity-finder__step_header--actions container">
             <div class="row">
               <div class="col-xs-8 col-sm-8">
-                <span v-if="checkedStep1Filters === ''"><strong>{{ 'Step 1 of 3:' }}</strong> {{ 'To find programs, select whatever options apply to you (below)...'|t }}</span>
+                <span v-if="checkedStep1Filters === ''"><strong>{{ 'Step' }} ${ current_step } {{ 'of' }} ${ total_steps }:</strong> {{ 'To find programs, select whatever options apply to you (below)...'|t }}</span>
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep1Filters }</span>
               </div>
               <div class="col-xs-4 col-sm-4 text-right ml-auto">
@@ -110,7 +110,7 @@
                     <div class="openy-card__item">
                       <label for="af-age-filter-{{ age.value }}" class="justify-content-center">
                         <input v-model="checkedAges" @change="toggleCardState" type="checkbox" value="{{ age.value }}" id="af-age-filter-{{ age.value }}" class="d-none hidden">
-                        {{ age.label }}
+                        {{- age.label -}}
                       </label>
                     </div>
                   </div>
@@ -129,7 +129,7 @@
                     <div class="openy-card__item">
                       <label for="af-day-filter-{{ day.value }}" class="justify-content-center">
                         <input v-model="checkedDays" @change="toggleCardState" type="checkbox" value="{{ day.value }}" id="af-day-filter-{{ day.value }}" class="d-none hidden">
-                        {{ day.label }}
+                        {{- day.label -}}
                       </label>
                     </div>
                   </div>
@@ -159,9 +159,9 @@
         </div>
       </div>
     </div>
-    {# / step 2 #}
+    {# / step 1 #}
 
-    {# step 3 #}
+    {# step 2 > activities #}
     <div v-show="step === 2" class="activity-finder__step">
       <div class="activity-finder__step_wrapper">
 
@@ -189,12 +189,12 @@
           <div class="activity-finder__step_header--actions container">
             <div class="row">
               <div class="col-xs-8 col-sm-8">
-                <span v-if="checkedStep2Filters === ''"><strong>{{ 'Step 2 of 3:' }}</strong> {{ 'Narrow your results by selecting one or more activities (below)...'|t }}</span>
+                <span v-if="checkedStep2Filters === ''"><strong>{{ 'Step' }} ${ current_step } {{ 'of' }} ${ total_steps }:</strong> {{ 'Narrow your results by selecting one or more activities (below)...'|t }}</span>
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep2Filters }</span>
               </div>
               <div class="col-xs-4 col-sm-4 text-right ml-auto">
                 <button @click.prevent="skip()" class="btn btn-primary btn-lg">{{ 'Skip'|t }}</button>
-                <button @click.prevent="next()" class="btn btn-primary btn-lg">{{ 'Next'|t }}</button>
+                <button @click.prevent="next()" class="btn btn-primary btn-lg" v-bind:disabled="isStep2NextDisabled">{{ 'Next'|t }}</button>
               </div>
             </div>
           </div>
@@ -207,7 +207,7 @@
               <div v-for="(item, index) in topLevelCategory.value" class="col-xs-12 col-sm-6 col-md-4">
                 <div class="openy-card__item">
                   <label :for="'af-filter-' + item.value">
-                    <input v-model="checkedActivities" @change="toggleCardState" type="checkbox" :value="item.value" :id="'af-filter-' + item.value" class="d-none hidden">
+                    <input v-model="checkedCategories" @change="toggleCardState" type="checkbox" :value="item.value" :id="'af-filter-' + item.value" class="d-none hidden">
                     ${ item.label }
                   </label>
                 </div>
@@ -218,9 +218,9 @@
 
       </div>
     </div>
-    {# / step 3 #}
+    {# / step 2 #}
 
-    {# step 4 #}
+    {# step 3 > locations #}
     <div v-show="step === 3" class="activity-finder__step">
       <div class="activity-finder__step_wrapper">
 
@@ -248,7 +248,7 @@
           <div class="activity-finder__step_header--actions container">
             <div class="row">
               <div class="col-xs-8 col-sm-8">
-                <span v-if="checkedStep3Filters === ''"><strong>{{ 'Step 3 of 3:' }}</strong> {{ 'Narrow your results further by selecting one or more locations (below)...'|t }}</span>
+                <span v-if="checkedStep3Filters === ''"><strong>{{ 'Step' }} ${ current_step } {{ 'of' }} ${ total_steps }:</strong> {{ 'Narrow your results further by selecting one or more locations (below)...'|t }}</span>
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep3Filters }</span>
               </div>
               <div class="col-xs-4 col-sm-4 text-right ml-auto">
@@ -284,7 +284,7 @@
         </div>
       </div>
     </div>
-    {# / step 4 #}
+    {# / step 3 #}
 
   </div>
 </div>
