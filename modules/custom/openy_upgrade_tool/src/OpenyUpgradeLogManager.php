@@ -67,7 +67,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    *
    * @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage
    */
-  public $loggerEntityStorage;
+  public $loggerEntityStorage = NULL;
 
   /**
    * The config storage.
@@ -182,8 +182,6 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    *   The theme handler.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
    *   Logger channel.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function __construct(
     FeaturesManagerInterface $features_manager,
@@ -203,8 +201,6 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     $this->featuresManager = $features_manager;
     $this->logger = $loggerChannel;
     $this->entityTypeManager = $entity_type_manager;
-    $this->loggerEntityStorage = $this->entityTypeManager
-      ->getStorage($this->getLoggerEntityTypeName());
     $this->configStorage = $config_storage;
     $this->renderer = $renderer;
     // Services necessary for \Drupal\Core\Config\ConfigImporter.
@@ -216,6 +212,21 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     $this->moduleHandler = $module_handler;
     $this->moduleInstaller = $module_installer;
     $this->themeHandler = $theme_handler;
+  }
+
+  /**
+   * Get entity storage that used for upgrade tool.
+   */
+  public function getLoggerEntityStorage() {
+    // TODO: Delete this, after deprecated 'logger_entity' deleting
+    // and create instance in __construct.
+    if ($this->loggerEntityStorage) {
+      return $this->loggerEntityStorage;
+    }
+
+    $this->loggerEntityStorage = $this->entityTypeManager
+      ->getStorage($this->getLoggerEntityTypeName());
+    return $this->loggerEntityStorage;
   }
 
   /**
@@ -247,13 +258,13 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
       if ($this->getLoggerEntityTypeName() == 'logger_entity') {
         // TODO: Delete this, 'logger_entity' is deprecated.
         // Load logger entity with this config name.
-        $entities = $this->loggerEntityStorage->loadByProperties([
+        $entities = $this->getLoggerEntityStorage()->loadByProperties([
           'type' => 'openy_config_upgrade_logs',
           'name' => $name,
         ]);
         if (empty($entities)) {
           // Create new logger entity for this config name if not exist.
-          $logger_entity = $this->loggerEntityStorage->create([
+          $logger_entity = $this->getLoggerEntityStorage()->create([
             'type' => 'openy_config_upgrade_logs',
           ]);
         }
@@ -267,12 +278,12 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
       }
       else {
         // Load OpenyUpgradeLog entity with this config name.
-        $entities = $this->loggerEntityStorage->loadByProperties([
+        $entities = $this->getLoggerEntityStorage()->loadByProperties([
           'name' => $name,
         ]);
         if (empty($entities)) {
           // Create new logger entity for this config name if not exist.
-          $upgrade_log_item = $this->loggerEntityStorage->create([
+          $upgrade_log_item = $this->getLoggerEntityStorage()->create([
             'name' => $name,
           ]);
         }
@@ -334,7 +345,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     else {
       $props = ['name' => $config_name];
     }
-    $configs = $this->loggerEntityStorage->loadByProperties($props);
+    $configs = $this->getLoggerEntityStorage()->loadByProperties($props);
 
     return empty($configs) ? FALSE : TRUE;
   }
@@ -343,14 +354,14 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    * {@inheritdoc}
    */
   public function load($id) {
-    return $this->loggerEntityStorage->load($id);
+    return $this->getLoggerEntityStorage()->load($id);
   }
 
   /**
    * {@inheritdoc}
    */
   public function loadByName($config_name) {
-    $items = $this->loggerEntityStorage->loadByProperties(['name' => $config_name]);
+    $items = $this->getLoggerEntityStorage()->loadByProperties(['name' => $config_name]);
     if (!empty($items)) {
       return reset($items);
     }
