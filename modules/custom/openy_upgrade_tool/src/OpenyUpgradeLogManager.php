@@ -300,6 +300,10 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    * {@inheritdoc}
    */
   public function getLoggerEntityTypeName() {
+    if (!$this->moduleHandler || !$this->moduleHandler->moduleExists('logger_entity')) {
+      return 'openy_upgrade_log';
+    }
+
     $logger_entity_exist = $this->entityTypeManager
       ->getStorage('logger_entity_type')
       ->load('openy_config_upgrade_logs');
