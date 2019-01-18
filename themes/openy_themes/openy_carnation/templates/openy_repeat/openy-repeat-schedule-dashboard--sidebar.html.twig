@@ -7,100 +7,22 @@
  */
 #}
 
-<div class="navbar navbar-light navbar-expand-md flex-md-column">
-  <div class="navbar-header w-100">
+{% extends '@openy_repeat/openy-repeat-schedule-dashboard--sidebar.html.twig' %}
 
-    <div class="navbar-controls">
-      <span class="navbar-controls__title hidden-xs d-none d-md-block"><strong>{{ 'Filters'|t }}</strong></span>
-      <a href="#" class="clear-all hidden">{{ 'Clear all'|t }}</a>
-    </div>
+{% block location_label_wrapper %}
+{# We cannot use an ID as the data-target here as BS4 prevents the action. #}
+<label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button" class="expanded" aria-expanded="true" aria-controls="form-group-location">
+{% endblock %}
 
-    <div class="row d-block d-md-none">
+{% block location_checkbox_wrapper %}
+<div class="form-group-location collapse show checkboxes" aria-expanded="true">
+{% endblock %}
 
-      {# mobile toggler button #}
-      <div class="col-5">
-        <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
-          <strong>
-            <i class="fa fa-plus plus" aria-hidden="true"></i>
-            <i class="fa fa-minus minus" aria-hidden="true"></i>
-            <span class="plus">{{ 'Show Filters'|t }}</span>
-            <span class="minus">{{ 'Hide Filters'|t }}</span>
-          </strong>
-        </a>
-      </div>
+{% block category_label_wrapper %}
+{# We cannot use an ID as the data-target here as BS4 prevents the action. #}
+<label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button" class="expanded" aria-expanded="true" aria-controls="form-group-location">
+{% endblock %}
 
-      <div class="col-7">
-        <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
-      </div>
-    </div>
-
-  </div>
-
-  <div id="schedules-filters" class="navbar-collapse collapse w-100">
-    <form class="navbar-form w-100" role="search">
-
-      {# date picker #}
-      <div class="form-group-wrapper pt-4 pb-2">
-        <label for="form-group-date">
-          {{ 'Date'|t }}
-          <button class="show-date-filter" data-toggle="collapse" type="button" data-target=".form-group-date" role="button" aria-label="{{ 'Show date filter'|t }}"><i class="fa fa-calendar date-picker"></i></button>
-        </label>
-        <div class="form-group-date collapse" aria-expanded="false">
-          <div class="date" id="datepicker">
-            <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted">
-            <span class="input-group-addon hidden">
-              <span class="fa fa-calendar" aria-hidden="true"></span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {# location select list #}
-      {% if locations is not empty %}
-      <div class="form-group-wrapper pt-4 pb-2">
-        <label for="form-group-location" data-toggle="collapse" data-target=".form-group-location" role="button" class="expanded" aria-expanded="true">
-          {{ 'Location'|t }}
-          <i class="fa fa-minus minus" aria-hidden="true"></i>
-          <i class="fa fa-plus plus" aria-hidden="true"></i>
-        </label>
-        <div class="form-group-location collapse show" aria-expanded="true">
-          {% for location in locations %}
-            {% set loc_checked = "t" %}
-            {% if checked_locations is not empty and location in checked_locations %}
-              {% set loc_checked = "checked" %}
-            {% endif %}
-            <div class="checkbox-wrapper">
-              <input type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
-              <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-
-      {# categories select list #}
-      {% if categories is not empty %}
-        <div class="form-group-wrapper pt-4 pb-2">
-          <label for="form-group-category" data-toggle="collapse" data-target=".form-group-category" role="button" class="expanded" aria-expanded="true">
-            {{ 'Category'|t }}
-            <i class="fa fa-minus minus" aria-hidden="true"></i>
-            <i class="fa fa-plus plus" aria-hidden="true"></i>
-          </label>
-          <div class="form-group-category collapse show" aria-expanded="true">
-            {% for category in categories %}
-                {% set cat_checked = "t" %}
-                {% if checked_categories is not empty and category in checked_categories %}
-                  {% set cat_checked = "checked" %}
-                {% endif %}
-              <div class="checkbox-wrapper">
-                <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
-                <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      {% endif %}
-
-    </form>
-  </div>
-</div>
+{% block category_checkbox_wrapper %}
+<div class="form-group-category collapse show checkboxes" aria-expanded="true">
+{% endblock %}

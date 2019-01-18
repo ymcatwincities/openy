@@ -11,6 +11,7 @@
  * - d-none
  *
 #}
+
 {{ attach_library('openy_repeat/openy_repeat.locations') }}
 
 <div class="container schedule-locations__wrapper px-3 px-lg-5">
@@ -34,7 +35,7 @@
         <div class="col-xs-12 col-sm-4">
           {% for loc in partlocations %}
             {% if loc is not empty %}
-            <div class="schedule-locations__item">
+            <div class="openy-card__item">
               <label>
                 <i class="fa fa-map-marker"></i>
                 <input type="checkbox" value="{{ loc }}" class="box js-location-box d-none hidden">
