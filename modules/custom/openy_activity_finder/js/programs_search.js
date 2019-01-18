@@ -267,7 +267,6 @@
 
         var query = [];
         var cleanLocations = this.locations.filter(function(word){ return word.length > 0 && word != 'undefined'; });
-        console.log(cleanLocations);
         if (cleanLocations.length > 0) {
           query.push('locations=' + encodeURIComponent(cleanLocations.join(',')));
         }
@@ -319,7 +318,7 @@
       populatePopupMoreInfo: function(index) {
         var component = this;
 
-        var url = drupalSettings.path.baseUrl + 'pef-programs-more-info-ajax';
+        var url = drupalSettings.path.baseUrl + 'af/more-info';
 
         // Pass all the query parameters to Details call so we could build the logging.
         var query = [];
