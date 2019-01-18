@@ -92,8 +92,7 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
     else {
       // Check if exist logger entity and enabled force mode.
       if ($this->upgradeLogManager->isForceMode() && $this->upgradeLogManager->isManuallyChanged($config_name, FALSE)) {
-        $revision_message = t('Backup original config before force update.');
-        $this->upgradeLogManager->saveLoggerEntity($config_name, $original, $revision_message);
+        $this->upgradeLogManager->createBackup($config_name);
       }
       $this->logger->info($this->t('Open Y was upgraded @name config.', ['@name' => $config_name]));
     }

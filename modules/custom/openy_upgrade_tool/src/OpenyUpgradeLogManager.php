@@ -310,6 +310,16 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
   /**
    * {@inheritdoc}
    */
+  public function createBackup($name) {
+    $config_data = $this->configStorage->read($name);
+    $revision_message = $this->t('Backup original config before force update.');
+    $this->saveLoggerEntity($name, $config_data, $revision_message);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getLoggerEntityTypeName() {
     if (!$this->moduleHandler || !$this->moduleHandler->moduleExists('logger_entity')) {
       return 'openy_upgrade_log';
