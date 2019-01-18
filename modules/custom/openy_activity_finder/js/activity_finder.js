@@ -15,7 +15,6 @@
     data: {
       step: 0,
       loading: false,
-      noResults: false,
       isStep1NextDisabled: true,
       isStep2NextDisabled: true,
       isStep3NextDisabled: true,
@@ -47,8 +46,7 @@
       checkedStep1Filters: '',
       checkedStep2Filters: '',
       checkedStep3Filters: '',
-      categories: {},
-      checked: false
+      categories: {}
     },
     methods: {
       toStep: function(s) {
@@ -70,7 +68,7 @@
         this.step--;
       },
       next: function() {
-        if (this.hideLocationStep && this.hideLocationStep) {
+        if (this.hideLocationStep == 1 && this.hideLocationStep == 1) {
           // Redirect to Search page.
           this.updateCategoriesParam();
           this.updateSearchQuery();
@@ -82,11 +80,16 @@
           window.location.pathname = this.afResultsRef;
         }
         this.step++;
-        if (this.step == 2 && this.hideProgramStep) {
+        this.current_step++;
+        if (this.step == 2 && this.hideProgramStep == 1) {
           this.current_step = 2;
           this.step = 3;
         }
-        if (this.step == 3 && this.hideLocationStep) {
+        if (this.step == 2 && this.checkedProgramTypes.length === 0) {
+          this.current_step = 3;
+          this.step = 3;
+        }
+        if (this.step == 3 && this.hideLocationStep == 1) {
           this.current_step = 2;
           this.step = 3;
         }
@@ -196,7 +199,7 @@
               // Map ids to titles.
               var checkedMapCategories = [];
               for (key in component.checkedCategories) {
-                if (typeof(component.checkedCategories[key]) !== 'function' && $('input[value="' + component.checkedCategories[key] + '"]')) {
+                if (typeof(component.checkedCategories[key]) !== 'function' && $('input[value="' + component.checkedCategories[key] + '"]').length !== 0) {
                   checkedMapCategories.push($('input[value="' + component.checkedCategories[key] + '"]').parent().find('label').text());
                 }
               }
@@ -215,7 +218,7 @@
               // Map ids to titles.
               var checkedMapLocations = [];
               for (key in component.checkedLocations) {
-                if (typeof(component.checkedLocations[key]) !== 'function' && $('input[value="' + component.checkedLocations[key] + '"]')) {
+                if (typeof(component.checkedLocations[key]) !== 'function' && $('input[value="' + component.checkedLocations[key] + '"]').length !== 0) {
                   checkedMapLocations.push($('input[value="' + component.checkedLocations[key]+'"]').parent().find('label span').text());
                 }
               }
@@ -239,13 +242,9 @@
           component.table = data;
           component.loading = false;
         });
-      },
+    },
       locationCounter: function(locationId) {
-        var component = this;
-        component.noResults = false;
-
         if (typeof this.table.facets.locations == 'undefined') {
-          component.noResults = true;
           return 0;
         }
         for (key in this.table.facets.locations) {
@@ -254,6 +253,12 @@
           }
         }
         return 0;
+      },
+      getLocationsCounter: function(key) {
+        if (typeof(this.table.groupedLocations) == 'undefined' || typeof(this.table.groupedLocations[key]) == 'undefined') {
+          return 0;
+        }
+        return this.table.groupedLocations[key].count;
       },
       toggleCardState: function(e) {
         var element = $(e.target);
@@ -318,10 +323,10 @@
       component.hideProgramStep = $('.field-prgf-hide-program-categ').text();
       // Get 1/0 from paragraph's field.
       component.hideLocationStep = $('.field-prgf-hide-loc-select-step').text();
-      if (this.hideProgramStep) {
+      if (this.hideProgramStep == 1) {
         this.total_steps--;
       }
-      if (this.hideLocationStep) {
+      if (this.hideLocationStep == 1) {
         this.total_steps--;
       }
     },
