@@ -207,7 +207,7 @@
               <div v-for="(item, index) in topLevelCategory.value" class="col-xs-12 col-sm-6 col-md-4">
                 <div class="openy-card__item">
                   <label :for="'af-filter-' + item.value">
-                    <input v-model="checkedActivities" @change="toggleCardState" type="checkbox" :value="item.value" :id="'af-filter-' + item.value" class="d-none hidden">
+                    <input v-model="checkedCategories" @change="toggleCardState" type="checkbox" :value="item.value" :id="'af-filter-' + item.value" class="d-none hidden">
                     ${ item.label }
                   </label>
                 </div>
@@ -259,23 +259,16 @@
           </div>
         </div>
 
-        <div class="activity-finder__step_content container" v-if="!loading">
+        <div id="locations-accordion-group" class="activity-finder__step_content container" v-if="!loading">
           {% for locationGroup in locations %}
             <div class="checkbox-group-wrapper">
-              <h3>{{ locationGroup.label }}</h3>
-              <div class="row">
+
+              <h3><a data-toggle="collapse" data-parent="#locations-accordion-group" href="#collapse{{ key }}">{{ locationGroup.label }}</a><span>${ getLocationsCounter("{{ key }}") }</span></h3>
+              <div class="panel-collapse collapse {% if key == 0 %}in{% endif %}" id="collapse{{ key }}">
                 {% for location in locationGroup.value %}
-                  <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter('{{ location.value }}') === 0)}">
-                      <label for="af-filter-{{ location.value }}" class="has-subtext">
-                        <i class="fa fa-map-marker"></i>
-                        <input v-if="locationCounter('{{ location.value }}') !== 0" v-model="checkedLocations" @change="toggleCardState" type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" class="d-none hidden">
-                        <div class="d-flex flex-column">
-                          {{ location.label }}
-                          <small>${ locationCounter("{{ location.value }}") } {{ 'results'|t }}</small>
-                        </div>
-                      </label>
-                    </div>
+                  <div class="checkbox-wrapper">
+                    <input type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" v-model="checkedLocations" />
+                    <label for="af-filter-{{ location.value }}"><span>{{ location.label }}</span> <small>${ locationCounter("{{ location.value }}") } results</small></label>
                   </div>
                 {% endfor %}
               </div>

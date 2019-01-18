@@ -196,29 +196,39 @@
     created() {
       var component = this;
 
-      var locationsGet = decodeURIComponent(this.$route.query.locations);
-      if (locationsGet) {
-        this.locations = locationsGet.split(',');
+      if (typeof this.$route.query.locations != 'undefined') {
+        var locationsGet = decodeURIComponent(this.$route.query.locations);
+        if (locationsGet) {
+          this.locations = locationsGet.split(',');
+        }
       }
 
-      var categoriesGet = decodeURIComponent(this.$route.query.categories);
-      if (categoriesGet) {
-        this.categories = categoriesGet.split(',');
+      if (typeof this.$route.query.categories != 'undefined') {
+        var categoriesGet = decodeURIComponent(this.$route.query.categories);
+        if (categoriesGet) {
+          this.categories = categoriesGet.split(',');
+        }
       }
 
-      var agesGet = decodeURIComponent(this.$route.query.ages);
-      if (agesGet) {
-        this.ages = agesGet.split(',');
+      if (typeof this.$route.query.ages != 'undefined') {
+        var agesGet = decodeURIComponent(this.$route.query.ages);
+        if (agesGet) {
+          this.ages = agesGet.split(',');
+        }
       }
 
-      var daysGet = decodeURIComponent(this.$route.query.days);
-      if (daysGet) {
-        this.days = daysGet.split(',');
+      if (typeof this.$route.query.days != 'undefined') {
+        var daysGet = decodeURIComponent(this.$route.query.days);
+        if (daysGet) {
+          this.days = daysGet.split(',');
+        }
       }
 
-      var keywordsGet = decodeURIComponent(this.$route.query.keywords);
-      if (keywordsGet) {
-        this.keywords = keywordsGet;
+      if (typeof this.$route.query.keywords != 'undefined') {
+        var keywordsGet = decodeURIComponent(this.$route.query.keywords);
+        if (keywordsGet) {
+          this.keywords = keywordsGet;
+        }
       }
 
       this.runAjaxRequest();
@@ -256,22 +266,23 @@
         var url = drupalSettings.path.baseUrl + 'af/get-data';
 
         var query = [];
-        var cleanLocations = this.locations.filter(function(word){ return word.length > 0; });
+        var cleanLocations = this.locations.filter(function(word){ return word.length > 0 && word != 'undefined'; });
+        console.log(cleanLocations);
         if (cleanLocations.length > 0) {
           query.push('locations=' + encodeURIComponent(cleanLocations.join(',')));
         }
-        if (this.keywords.length > 0) {
+        if (this.keywords.length > 0 && this.keywords != 'undefined') {
           query.push('keywords=' + encodeURIComponent(this.keywords));
         }
-        var cleanCategories = this.categories.filter(function(word){ return word.length > 0; });
+        var cleanCategories = this.categories.filter(function(word){ return word.length > 0 && word != 'undefined'; });
         if (cleanCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
-        var cleanAges = this.ages.filter(function(word){ return word.length > 0; });
+        var cleanAges = this.ages.filter(function(word){ return word.length > 0 && word != 'undefined'; });
         if (cleanAges.length > 0) {
           query.push('ages=' + encodeURIComponent(cleanAges.join(',')));
         }
-        var cleanDays = this.days.filter(function(word){ return word.length > 0; });
+        var cleanDays = this.days.filter(function(word){ return word.length > 0 && word != 'undefined'; });
         if (cleanDays.length > 0) {
           query.push('days=' + encodeURIComponent(cleanDays.join(',')));
         }
