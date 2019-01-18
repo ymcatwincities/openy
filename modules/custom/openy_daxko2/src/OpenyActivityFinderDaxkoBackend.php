@@ -66,7 +66,9 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       $locations = array_keys($locationsConfig);
     }
 
-    if (!empty($locations)) {
+    $locations = array_filter($locations);
+
+    if (!empty($locations) && !empty($locationArgument)) {
       $get['location_ids'] = implode(',', $locations);
     }
 
