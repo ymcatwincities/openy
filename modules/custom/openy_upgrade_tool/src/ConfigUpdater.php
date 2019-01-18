@@ -154,11 +154,20 @@ class ConfigUpdater extends ConfigImporterService {
     if ($this->upgradeLogManager->isManuallyChanged($config)) {
       // Skip config update and log this to logger entity.
       $this->logConfigImportError($file, $config);
+      $_openy_config_import_event = FALSE;
+      return;
     }
     if (file_exists($file)) {
       file_unmanaged_copy($file, $tmp_dir, FILE_EXISTS_REPLACE);
+      // Check if exist logger entity and enabled force mode.
+      if ($this->upgradeLogManager->isForceMode() && $this->upgradeLogManager->isManuallyChanged($config, FALSE)) {
+        // ConfigStorage->write not trigger config save event, so create
+        // backup here.
+        $this->upgradeLogManager->createBackup($config);
+      }
       $this->configStorage->write($config, $tmp_storage->read($config));
     }
+    $_openy_config_import_event = FALSE;
   }
 
   /**

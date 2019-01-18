@@ -36,6 +36,17 @@ interface OpenyUpgradeLogManagerInterface {
   public function saveLoggerEntity($name, array $data, $message = NULL);
 
   /**
+   * Creates backup of active config in new logger entity revision.
+   *
+   * @param string $name
+   *   Config name.
+   *
+   * @return OpenyUpgradeLogManager
+   *   OpenyUpgradeLogManager instance.
+   */
+  public function createBackup($name);
+
+  /**
    * Get Logger Entity Type name.
    *
    * This helper function provide ability of smooth switching from
