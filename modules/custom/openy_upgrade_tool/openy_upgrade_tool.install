@@ -120,10 +120,9 @@ function openy_upgrade_tool_update_8005() {
 function openy_upgrade_tool_update_8006() {
   $block_title = 'Open Y: Upgrade Dashboard instruction';
   $entityTypeManager = \Drupal::entityTypeManager();
-  $moduleHandler = \Drupal::service('module_handler');
-  if (!$moduleHandler->moduleExists('advanced_help_block')) {
-    // Skip this update if advanced_help_block not installed.
-    return;
+  if (!\Drupal::service('module_handler')->moduleExists('advanced_help_block')) {
+    // Enable advanced_help_block module.
+    \Drupal::service('module_installer')->install(['advanced_help_block']);
   }
 
   // Load data from demo content.
