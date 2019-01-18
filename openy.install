@@ -48,6 +48,12 @@ function openy_update_dependencies() {
     ],
   ];
 
+  $dependencies['openy_node_alert'] = [
+    8009 => [
+      'system' => 8501,
+    ],
+  ];
+
   return $dependencies;
 }
 
