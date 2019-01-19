@@ -156,7 +156,7 @@
           categories: encodeURIComponent(component.checkedCategories),
           days: encodeURIComponent(component.checkedDays),
           locations: encodeURIComponent(component.checkedLocations)
-          }});
+        }});
       },
       checkFilters: function(step) {
         var component = this,
@@ -242,7 +242,7 @@
           component.table = data;
           component.loading = false;
         });
-    },
+      },
       locationCounter: function(locationId) {
         if (typeof this.table.facets.locations == 'undefined') {
           return 0;
