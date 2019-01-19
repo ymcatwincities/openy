@@ -78,11 +78,15 @@ class ProgramSearchLog extends ContentEntityBase {
       ->setLabel(t('IP + Agent hash'))
       ->setSetting('max_length', 255);
 
-    $fields['keyword'] = BaseFieldDefinition::create('string')
+    $fields['keyword'] = BaseFieldDefinition::create('text_long')
       ->setLabel(t('Keyword'))
       ->setSetting('max_length', 255);
 
-    $fields['location'] = BaseFieldDefinition::create('string')
+    $fields['location'] = BaseFieldDefinition::create('text_long')
+      ->setLabel(t('Location'))
+      ->setSetting('max_length', 255);
+
+    $fields['category'] = BaseFieldDefinition::create('text_long')
       ->setLabel(t('Location'))
       ->setSetting('max_length', 255);
 

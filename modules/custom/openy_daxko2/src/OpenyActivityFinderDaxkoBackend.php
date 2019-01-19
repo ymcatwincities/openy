@@ -62,8 +62,14 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $locationsConfig = $this->getDaxkoLocations();
     $locationArgument = $parameters['locations'];
     $locations = explode(',', $locationArgument);
+    $locations = array_unique($locations);
+    $locations = array_filter($locations);
     if (empty($locationArgument)) {
       $locations = array_keys($locationsConfig);
+    } elseif (count($locations) == count($locationsConfig)) {
+      // If all locations were selected we do not need to use
+      // location_ids argument.
+      $locationArgument = [];
     }
 
     $locations = array_filter($locations);

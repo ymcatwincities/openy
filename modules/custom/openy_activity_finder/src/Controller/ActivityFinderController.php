@@ -51,6 +51,7 @@ class ActivityFinderController extends ControllerBase {
       'hash_ip_agent' => $hash_ip_agent,
       'location' => $request->get('locations'),
       'keyword' => $request->get('keywords'),
+      'category' => $request->get('categories'),
       'page' => $request->get('page'),
       'day' => $request->get('days'),
       'age' => $request->get('ages'),
