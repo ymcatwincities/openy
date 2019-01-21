@@ -77,6 +77,24 @@ function openy_upgrade_tool_update_8004(&$sandbox) {
   }
 
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+
+  if ($sandbox['#finished'] == 1) {
+    $entityTypeManager = \Drupal::entityTypeManager();
+    // Delete openy_config_upgrade_logs logger entity type.
+    $content_type = $entityTypeManager
+      ->getStorage('logger_entity_type')
+      ->load('openy_config_upgrade_logs');
+    $content_type->delete();
+    // No need to use old entity type and related module if other bundles
+    // not exist, so we can uninstall logger_entity module.
+    $bundles = \Drupal::entityTypeManager()
+      ->getStorage('logger_entity_type')
+      ->loadMultiple();
+    if (empty($bundles)) {
+      \Drupal::service('module_installer')->uninstall(['logger_entity']);
+    }
+  }
+
   return t(
     'OpenyUpgradeLog were migrated from @count logger entities',
     ['@count' => $sandbox['max']]
@@ -84,26 +102,9 @@ function openy_upgrade_tool_update_8004(&$sandbox) {
 }
 
 /**
- * Delete openy_config_upgrade_logs bundle for logger entity type.
+ * Import new configs + install advanced_help_block.
  */
 function openy_upgrade_tool_update_8005() {
-  $entityTypeManager = \Drupal::entityTypeManager();
-  // Delete openy_config_upgrade_logs logger entity type.
-  $content_type = $entityTypeManager
-    ->getStorage('logger_entity_type')
-    ->load('openy_config_upgrade_logs');
-  $content_type->delete();
-  // Clear cache for correct work of next steps.
-  drupal_flush_all_caches();
-  // No need to use old entity type and related module if other bundles
-  // not exist, so we can uninstall logger_entity module.
-  $bundles = \Drupal::entityTypeManager()
-    ->getStorage('logger_entity_type')
-    ->loadMultiple();
-  if (empty($bundles)) {
-    \Drupal::service('module_installer')->uninstall(['logger_entity']);
-  }
-
   $config_dir = drupal_get_path('module', 'openy_upgrade_tool') . '/config/install/';
   // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
@@ -112,6 +113,9 @@ function openy_upgrade_tool_update_8005() {
   $config_importer->importConfigSimple('views.view.openy_upgrade_dashboard');
   // Set force mode to FALSE by default.
   $config_importer->importConfigSimple('openy_upgrade_tool.settings');
+
+  // Enable advanced_help_block module for next update.
+  \Drupal::service('module_installer')->install(['advanced_help_block']);
 }
 
 /**
@@ -120,10 +124,6 @@ function openy_upgrade_tool_update_8005() {
 function openy_upgrade_tool_update_8006() {
   $block_title = 'Open Y: Upgrade Dashboard instruction';
   $entityTypeManager = \Drupal::entityTypeManager();
-  if (!\Drupal::service('module_handler')->moduleExists('advanced_help_block')) {
-    // Enable advanced_help_block module.
-    \Drupal::service('module_installer')->install(['advanced_help_block']);
-  }
 
   // Load data from demo content.
   $config_path = drupal_get_path('module', 'openy_demo_ahb') . '/config/install/migrate_plus.migration.entity_ahb.yml';
