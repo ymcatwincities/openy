@@ -260,11 +260,11 @@
         </div>
 
         <div id="locations-accordion-group" class="activity-finder__step_content container" v-if="!loading">
-          {% for locationGroup in locations %}
+          {% for key, locationGroup in locations %}
             <div class="checkbox-group-wrapper">
 
-              <h3><a data-toggle="collapse" data-parent="#locations-accordion-group" href="#collapse{{ key }}">{{ locationGroup.label }}</a><span>${ getLocationsCounter("{{ key }}") }</span></h3>
-              <div class="panel-collapse collapse {% if key == 0 %}in{% endif %}" id="collapse{{ key }}">
+              <h3 class="row"><a data-toggle="collapse" {% if key == 0 %}area-expanded="false"{% endif %} href="#collapse{{ key }}">{{ locationGroup.label }}</a> <span>${ getLocationsCounter("{{ key }}") }</span></h3>
+              <div class="row panel-collapse collapse {% if key == 0 %}in{% endif %}" id="collapse{{ key }}">
                 {% for location in locationGroup.value %}
                   <div class="col-xs-12 col-sm-6 col-md-4">
                     <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter('{{ location.value }}') === 0)}">
