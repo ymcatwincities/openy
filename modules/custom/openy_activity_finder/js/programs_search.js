@@ -238,28 +238,39 @@
       // We add watchers dynamically otherwise initially there will be
       // up to three requests as we are changing values while initializing
       // from GET query parameters.
-      component.$watch('locations', function(){
-        if (!component.runningClearAllFilters) {
+      component.$watch('locations', function(newValue, oldValue){
+        newValue = component.arrayFilter(newValue);
+        oldValue = component.arrayFilter(oldValue);
+        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
           component.runAjaxRequest();
         }
       });
-      component.$watch('categories', function(){
-        if (!component.runningClearAllFilters) {
+      component.$watch('categories', function(newValue, oldValue){
+        newValue = component.arrayFilter(newValue);
+        oldValue = component.arrayFilter(oldValue);
+        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
           component.runAjaxRequest();
         }
-      });
-      component.$watch('ages', function(){
-        if (!component.runningClearAllFilters) {
+      })
+      component.$watch('ages', function(newValue, oldValue){
+        newValue = component.arrayFilter(newValue);
+        oldValue = component.arrayFilter(oldValue);
+        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
           component.runAjaxRequest();
         }
-      });
-      component.$watch('days', function(){
-        if (!component.runningClearAllFilters) {
+      })
+      component.$watch('days', function(newValue, oldValue){
+        newValue = component.arrayFilter(newValue);
+        oldValue = component.arrayFilter(oldValue);
+        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
           component.runAjaxRequest();
         }
-      });
+      })
     },
     methods: {
+      arrayFilter: function(array) {
+        return array.filter(function(word){ return word.length > 0 && word != 'undefined'; });
+      },
       runAjaxRequest: function() {
         var component = this;
 
