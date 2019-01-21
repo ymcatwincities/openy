@@ -2110,11 +2110,11 @@ body {
   width: 0;
 }
 
-.color-purple, .description.purple, .paragraph.featured-content .description {
+.color-purple, .description.purple {
   color: #5c2e91;
 }
 
-.description.purple, .paragraph.featured-content .description {
+.description.purple {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   padding-bottom: 1em;
   font-size: 20px;
@@ -2122,22 +2122,15 @@ body {
   line-height: 1.45em;
   font-weight: bold;
 }
-.description.purple p, .paragraph.featured-content .description p {
+.description.purple p {
   line-height: inherit;
 }
-.description.purple p:last-child, .paragraph.featured-content .description p:last-child {
+.description.purple p:last-child {
   margin: 0;
 }
 
-.paragraph.featured-content .description {
-  font-size: 17px;
-  line-height: 23px;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  .paragraph.featured-content.paragraph--type--featured-content .h1 {
-    font-size: 28px;
-    line-height: 31px;
-  }
+.paragraph.featured-content.paragraph--type--featured-content .description {
+  color: #636466;
 }
 .paragraph.featured-content.paragraph--type--featured-content .field-cta-link a {
   font-size: 18px;
@@ -7451,11 +7444,9 @@ article .node--view-mode-flexible-content h2 a span {
   margin-top: 0;
   font-weight: bold;
 }
-.locations-list h1.color-purple, .locations-list h1.description.purple, .locations-list .paragraph.featured-content h1.description, .paragraph.featured-content .locations-list h1.description,
+.locations-list h1.color-purple, .locations-list h1.description.purple,
 .locations-list h2.color-purple,
-.locations-list h2.description.purple,
-.locations-list .paragraph.featured-content h2.description,
-.paragraph.featured-content .locations-list h2.description {
+.locations-list h2.description.purple {
   color: #5c2e91;
 }
 .locations-list .field_location_state {
