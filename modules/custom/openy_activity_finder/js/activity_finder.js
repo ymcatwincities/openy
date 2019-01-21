@@ -252,15 +252,10 @@
         });
       },
       locationCounter: function(locationId) {
-        if (typeof this.table.facets.locations == 'undefined') {
+        if (typeof this.locationCounters[locationId] == 'undefined') {
           return 0;
         }
-        for (key in this.table.facets.locations) {
-          if (this.table.facets.locations[key].id == locationId) {
-            return this.table.facets.locations[key].count;
-          }
-        }
-        return 0;
+        return this.locationCounters[locationId];
       },
       getLocationsCounter: function(key) {
         if (typeof(this.table.groupedLocations) == 'undefined' || typeof(this.table.groupedLocations[key]) == 'undefined') {
@@ -279,6 +274,17 @@
       }
     },
     computed: {
+      locationCounters: function() {
+        var counters = [];
+        if (typeof this.table.facets.locations == 'undefined') {
+          return counters;
+        }
+        for (key in this.table.facets.locations) {
+          counters[this.table.facets.locations[key].id] = this.table.facets.locations[key].count;
+        }
+
+        return counters;
+      },
       topLevelCategories: function() {
         var topLevel = [];
         for (key in this.categories) {
