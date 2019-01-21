@@ -127,7 +127,6 @@
               this.updateCategoriesParam();
             }
 
-            this.updateLocationsParam();
             component.step_3_query = window.location.search;
             break;
         }
@@ -143,15 +142,6 @@
           }
         }
         this.checkedCategories = selectedCategories;
-      },
-      updateLocationsParam: function() {
-        var selectedLocations = [];
-        for (key in this.table.facets.locations) {
-          if (typeof(this.table.facets.locations[key].id) !== 'undefined') {
-            selectedLocations.push(this.table.facets.locations[key].id);
-          }
-        }
-        this.checkedLocations = selectedLocations;
       },
       updateSearchQuery: function() {
         var component = this;
