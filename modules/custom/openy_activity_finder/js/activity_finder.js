@@ -118,15 +118,21 @@
             component.step_1_query = window.location.search;
             break;
           case 2:
-            this.updateCategoriesParam();
+
             component.step_2_query = window.location.search;
             break;
           case 3:
+            // If no Category was selected on Step 2.
+            if (this.checkedCategories.length == 0 && this.selectedCategories.length != 0) {
+              this.updateCategoriesParam();
+            }
+
             this.updateLocationsParam();
             component.step_3_query = window.location.search;
             break;
         }
       },
+      // Populate Categories filter from selected top level Categories.
       updateCategoriesParam: function() {
         var selectedCategories = [];
         for (i in this.selectedCategories) {
@@ -162,6 +168,7 @@
         var component = this,
             filters = [];
         switch (step) {
+          // Step with selecting Age, Day of Week, Categories top level.
           case 1:
             component.checkedStep1Filters = '';
             component.isStep1NextDisabled = true;
@@ -189,11 +196,11 @@
               component.checkedStep1Filters = filters.join(', ');
             }
             break;
+          // Select Categories.
           case 2:
             component.checkedStep2Filters = '';
             component.isStep2NextDisabled = true;
-            if (
-              component.checkedCategories.length > 0) {
+            if (component.checkedCategories.length > 0) {
 
               component.isStep2NextDisabled = false;
               // Map ids to titles.
@@ -207,6 +214,7 @@
               component.checkedStep2Filters = filters.join(', ');
             }
             break;
+          // Select Locations.
           case 3:
             component.checkedStep3Filters = '';
             component.isStep3NextDisabled = true;
