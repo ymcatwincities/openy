@@ -1579,7 +1579,7 @@ source:
     -
       id: class_activity_arts_crafts_1
       title: 'May Crafternoon: Handprint Sunshines'
-      activity: aactivity_arts_crafts
+      activity: activity_arts_crafts
       body: |
         <p>May Crafternoon: Handprint Sunshines</p>
 #    -
@@ -1690,7 +1690,7 @@ process:
   field_class_activity:
     plugin: migration
     migration: openy_demo_node_activity
-    no_stub: false
+    no_stub: true
     source: activity
   field_class_description/value: body
   field_class_description/format:

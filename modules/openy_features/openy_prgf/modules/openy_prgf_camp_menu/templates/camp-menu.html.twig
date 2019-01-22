@@ -25,13 +25,15 @@
   <div class="container">
     <nav class="columns">
       <h2 class="visually-hidden">{{ 'Camp Menu'|t }}</h2>
-      <ul class="camp-menu">
-        {% for link in links %}
-          <li class="camp-menu__item">
-            {{ link }}
-          </li>
-        {% endfor %}
-      </ul>
+      <div class="wrapper">
+        <ul class="camp-menu">
+          {% for link in links %}
+            <li class="camp-menu__item">
+              {{ link }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
     </nav>
   </div>
 </div>

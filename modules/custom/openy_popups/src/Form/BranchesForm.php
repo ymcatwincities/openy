@@ -149,7 +149,7 @@ class BranchesForm extends FormBase {
       $query->condition('n.type', 'session');
       $query->condition('fps.field_activity_category_target_id', $this->nodeId);
       $query->condition('n.status', 1);
-      $query = $query;
+      $query->groupBy('fl.field_session_location_target_id');
       $items = $query->execute()->fetchAll();
 
       foreach ($items as $item) {
