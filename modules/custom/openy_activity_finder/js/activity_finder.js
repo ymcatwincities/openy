@@ -255,10 +255,23 @@
       },
       toggleCardState: function(e) {
         var element = $(e.target);
-        if(!element.parents('.openy-card__item').hasClass('selected')) {
+        var deselect = element.data('deselect');
+        console.log(deselect, 'deselect');
+        if (!element.parents('.openy-card__item').hasClass('selected')) {
+          // Unselect all others.
+          if (deselect) {
+            element.parents('.activity-finder__step_content').find('.openy-card__item').removeClass('selected');
+          }
           element.parents('.openy-card__item').addClass('selected');
         }
         else {
+          if (deselect) {
+            // Remove value from radio. This is hardcoded for Categories only.
+            // If in the future we will need to have similar behavior for other
+            // group of radios we will need to pass variable name to this method.
+            this.checkedCategories = [];
+          }
+
           element.parents('.openy-card__item').removeClass('selected');
         }
       }

@@ -157,7 +157,7 @@
     },
     created() {
       this.radios = JSON.parse(this.options);
-      this.checked = this.default.split(',');
+      this.checked = this.default;
       for (var i in this.radios) {
         radio = this.radios[i];
         if (typeof radio == 'object') {
@@ -176,7 +176,7 @@
     },
     methods: {
       clear: function() {
-        this.checked = [];
+        this.checked = '';
       },
       getId: function(string) {
         return string.replace(/^[0-9a-zA-Z]/g, '-');
