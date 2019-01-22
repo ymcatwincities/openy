@@ -45,14 +45,20 @@ function openy_node_modules_installed($modules) {
 /**
  * Implements hook_form_BASE_ID_alter().
  */
-function openy_node_form_system_site_information_settings_alter(&$form, FormStateInterface $form_state, $form_id){
-  $status = \Drupal::config('views.view.frontpage')
-    ->get('display.page_1.display_options.enabled');
+function openy_node_form_system_site_information_settings_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+  /** @var Drupal\views\Entity\View $view */
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('frontpage');
 
+  // Allow disabling or enabling default Drupal 'frontpage' Views configuration that .
   $form['front_page']['hide_node'] = [
     '#type' => "checkbox",
     '#title' => t('Disable /node page'),
-    '#default_value' => ($status) ? 0 : 1,
+    '#description' => t(
+      'Allows disabling/enabling the default Drupal frontpage Views configuration that 
+    introduce /node and /rss.xml URLs. By default these URLs are disabled in Open Y.'
+    ),
+    '#default_value' => $view->status() ? 0 : 1,
   ];
 
   $form['actions']['submit']['#submit'][] = 'openy_node_form_submit';
@@ -62,9 +68,13 @@ function openy_node_form_system_site_information_settings_alter(&$form, FormStat
  * Submit.
  */
 function openy_node_form_submit(array $form, FormStateInterface $form_state) {
-  $status = ($form_state->getValue('hide_node') == 1) ? FALSE : TRUE;
-
-  $config = \Drupal::configFactory()->getEditable('views.view.frontpage');
-  $config->set('display.page_1.display_options.enabled', $status);
-  $config->save();
+  /** @var Drupal\views\Entity\View $view */
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('frontpage');
+  if ($form_state->getValue('hide_node')) {
+    $view->disable();
+  }
+  else {
+    $view->enable();
+  }
+  $view->save();
 }
