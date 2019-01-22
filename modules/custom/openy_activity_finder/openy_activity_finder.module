@@ -23,6 +23,7 @@ function openy_activity_finder_theme() {
       'variables' => [
         'locations' => [],
         'categories' => [],
+        'categories_type' => [],
         'ages' => [],
         'days' => [],
       ],

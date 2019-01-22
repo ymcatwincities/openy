@@ -26,6 +26,7 @@ class ActivityFinderSearchBlock extends BlockBase {
       '#theme' => 'openy_activity_finder_program_search_page',
       '#locations' => $backend->getLocations(),
       '#categories' => $backend->getCategories(),
+      '#categories_type' => $backend->getCategoriesType(),
       '#ages' => $backend->getAges(),
       '#days' => $backend->getDaysOfWeek(),
     ];
