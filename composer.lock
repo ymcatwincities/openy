@@ -5961,6 +5961,17 @@
             "type": "drupal-library"
         },
         {
+            "name": "library-davekoelle/alphanum",
+            "version": "1.0.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/AndreyMaximov/alphanum/archive/1.0.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library"
+        },
+        {
             "name": "library-dinbror/blazy",
             "version": "1.8.2",
             "source": {
