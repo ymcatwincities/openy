@@ -12,6 +12,7 @@ dependencies:
   - jquery_colorpicker
   - metatag
   - node
+  - views
   - paragraphs
   - path
   - taxonomy
