@@ -969,7 +969,7 @@ function openy_update_8066() {
       ->set('id', $new_id)
       ->save(TRUE);
   }
-}      
+}
 
 /**
  * Enable PEF paragraphs.
