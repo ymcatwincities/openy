@@ -132,7 +132,7 @@
 
           $list.css('width', listWidth + listPadding + "px");
 
-          var columns = $this.find('.columns');
+          var columns = $this.find('.wrapper');
           if (columns.length == 0) {
             return;
           }

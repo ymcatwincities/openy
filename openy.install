@@ -1004,9 +1004,21 @@ function openy_update_8068() {
 }
 
 /**
- * Import config with T&C.
+ * Update Carnation theme settings: display search icon.
  */
 function openy_update_8069() {
+  if (\Drupal::service('theme_handler')->themeExists('openy_carnation')) {
+    $config = drupal_get_path('theme', 'openy_carnation') . '/config/install/openy_carnation.settings.yml';
+    /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+    $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+    $config_importer->update($config, 'openy_carnation.settings', 'display_search_form');
+  }
+}
+ 
+ /**
+ * Import config with T&C.
+ */
+function openy_update_8070() {
   $config_dir = drupal_get_path('profile', 'openy') . '/config/optional';
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
