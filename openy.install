@@ -969,7 +969,7 @@ function openy_update_8066() {
       ->set('id', $new_id)
       ->save(TRUE);
   }
-}      
+}
 
 /**
  * Enable PEF paragraphs.
@@ -1001,4 +1001,16 @@ function openy_update_8068() {
       ->set('id', $new_id)
       ->save(TRUE);
   }
+}
+
+/**
+ * Import config with T&C.
+ */
+function openy_update_8069() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/optional';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'openy.terms_and_conditions.schema',
+  ]);
 }
