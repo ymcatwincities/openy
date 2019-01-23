@@ -266,6 +266,28 @@ source:
       field_ahb_video: 'https://www.youtube.com/watch?v=tXwbucW2TEQ'
       field_ahb_pages: ''
       field_ahb_visibility: 'include'
+    -
+      id: 32
+      field_ahb_title: 'Open Y: Upgrade Dashboard instruction'
+      field_ahb_description: |
+        <ol>
+          <li>We strongly recommend that you perform any actions on this Dashboard only on the <strong>NON-production</strong> environment!</li>
+          <li>Make a database <strong>backup</strong> before resolving conflicts.</li>
+          <li><strong>Resolve conflicts.</strong><br />
+            Press diff button next to a conflict and decide what should be done with this config.<br />
+            You can approve current changes or revert to a config from Open Y.<br />
+            Also, you can choose to resolve conflict manually. To do so you can apply changes from both current version and from Open Y.</li>
+          <li><strong>Generate</strong> a function for hook_update. Resulting code will contain all of your actions for programmatic conflict resolution.</li>
+          <li>Insert generated code to any custom module (Use MODULE_NAME.install file. Additional information about update hooks can be found <a href="https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Extension%21module.api.php/function/hook_update_N/8.2.x">HERE</a>).</li>
+          <li>If you used manual config merge, then export all site configuration to the directory that is used as config file storage (Additional information about File system based workflow can be found <a href="https://www.drupal.org/docs/8/configuration-management/file-system-based-workflow">HERE</a>).&nbsp;</li>
+          <li>Test this update on the DB dump of the website version that was created before conflicts were resolved.</li>
+          <li>Execute <strong>drush updb -y&nbsp;</strong></li>
+          <li>Check that all conflicts were resolved according to your manual actions.</li>
+          <li><strong>Deploy</strong> this update to DEV or PROD environment and run updates.</li>
+        </ol>
+      field_ahb_video: ''
+      field_ahb_pages: '/admin/openy/development/upgrade-log/dashboard'
+      field_ahb_visibility: 'include'
   ids:
     id:
       type: integer

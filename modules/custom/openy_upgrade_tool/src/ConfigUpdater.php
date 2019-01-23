@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_upgrade_tool;
 
+use Drupal\Component\Serialization\Yaml;
 use Drupal\config_import\ConfigImporterService;;
 use Drupal\Core\Config\CachedStorage;
 use Drupal\Core\Config\ConfigImporterException;
@@ -16,7 +17,6 @@ use Drupal\Core\File\FileSystem;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
@@ -30,18 +30,11 @@ class ConfigUpdater extends ConfigImporterService {
   use StringTranslationTrait;
 
   /**
-   * Entity type manger.
+   * The OpenyUpgradeLogManager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\openy_upgrade_tool\OpenyUpgradeLogManagerInterface
    */
-  protected $entityTypeManager;
-
-  /**
-   * Logger Entity Storage.
-   *
-   * @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage
-   */
-  protected $loggerEntityStorage;
+  protected $upgradeLogManager;
 
   /**
    * Logger channel.
@@ -65,7 +58,7 @@ class ConfigUpdater extends ConfigImporterService {
     ThemeHandler $theme_handler,
     TranslationManager $translation_manager,
     FileSystem $file_system,
-    EntityTypeManagerInterface $entity_type_manager,
+    OpenyUpgradeLogManagerInterface $upgrade_log_manager,
     LoggerChannelInterface $logger_factory
   ) {
     parent::__construct(
@@ -82,8 +75,7 @@ class ConfigUpdater extends ConfigImporterService {
       $file_system
     );
     $this->logger = $logger_factory;
-    $this->entityTypeManager = $entity_type_manager;
-    $this->loggerEntityStorage = $this->entityTypeManager->getStorage('logger_entity');
+    $this->upgradeLogManager = $upgrade_log_manager;
   }
 
   /**
@@ -92,6 +84,9 @@ class ConfigUpdater extends ConfigImporterService {
   public function importConfigs(array $configs) {
     // Stream wrappers are not available during installation.
     $tmp_dir = (defined('MAINTENANCE_MODE') ? '/tmp' : 'temporary:/') . '/confi_' . $this->uuid->generate();
+    // Notify ConfigEventSubscriber that this is update from OpenY.
+    global $_openy_config_import_event;
+    $_openy_config_import_event = TRUE;
 
     if (!$this->fileSystem->mkdir($tmp_dir)) {
       throw new ConfigImporterException('Failed to create temporary directory: ' . $tmp_dir);
@@ -106,7 +101,7 @@ class ConfigUpdater extends ConfigImporterService {
     foreach ($configs as $config) {
       $file = "$this->directory/$config.yml";
 
-      if ($this->isManuallyChanged($config)) {
+      if ($this->upgradeLogManager->isManuallyChanged($config)) {
         // Skip config update and log this to logger entity.
         $this->logConfigImportError($file, $config);
         continue;
@@ -114,8 +109,6 @@ class ConfigUpdater extends ConfigImporterService {
 
       if (file_exists($file)) {
         file_unmanaged_copy($file, $tmp_dir, FILE_EXISTS_REPLACE);
-        // Add openy_upgrade param to config.
-        file_put_contents($tmp_dir . "/$config.yml", 'openy_upgrade: true', FILE_APPEND);
       }
       else {
         // Possibly, config has been exported a little bit above. This could
@@ -132,6 +125,7 @@ class ConfigUpdater extends ConfigImporterService {
     $this->filter($tmp_storage);
     // Import changed, just overwritten items, into config storage.
     $this->import($tmp_storage);
+    $_openy_config_import_event = FALSE;
   }
 
   /**
@@ -139,29 +133,41 @@ class ConfigUpdater extends ConfigImporterService {
    *
    * Main difference between this functions that in simple version we
    * skip export of all site configs to temp directory and just copy and import
-   * only listed config for import. Also here was skiped configs filter logic.
+   * only listed config for import. Also here was skipped configs filter logic.
    *
    * @param string $config
    *   Config name.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function importConfigSimple($config) {
     // Stream wrappers are not available during installation.
     $tmp_dir = (defined('MAINTENANCE_MODE') ? '/tmp' : 'temporary:/') . '/confi_simple' . $this->uuid->generate();
+    // Notify ConfigEventSubscriber that this is update from OpenY.
+    global $_openy_config_import_event;
+    $_openy_config_import_event = TRUE;
     if (!$this->fileSystem->mkdir($tmp_dir)) {
       throw new ConfigImporterException('Failed to create temporary directory: ' . $tmp_dir);
     }
     $tmp_storage = new FileStorage($tmp_dir);
     $file = "$this->directory/$config.yml";
-    if ($this->isManuallyChanged($config)) {
+    if ($this->upgradeLogManager->isManuallyChanged($config)) {
       // Skip config update and log this to logger entity.
       $this->logConfigImportError($file, $config);
+      $_openy_config_import_event = FALSE;
+      return;
     }
     if (file_exists($file)) {
       file_unmanaged_copy($file, $tmp_dir, FILE_EXISTS_REPLACE);
-      // Add openy_upgrade param to config.
-      file_put_contents($tmp_dir . "/$config.yml", 'openy_upgrade: true', FILE_APPEND);
+      // Check if exist logger entity and enabled force mode.
+      if ($this->upgradeLogManager->isForceMode() && $this->upgradeLogManager->isManuallyChanged($config, FALSE)) {
+        // ConfigStorage->write not trigger config save event, so create
+        // backup here.
+        $this->upgradeLogManager->createBackup($config);
+      }
       $this->configStorage->write($config, $tmp_storage->read($config));
     }
+    $_openy_config_import_event = FALSE;
   }
 
   /**
@@ -173,8 +179,13 @@ class ConfigUpdater extends ConfigImporterService {
    *   Config name.
    */
   private function logConfigImportError($file, $config) {
-    $this->updateLoggerEntity($file, $config);
-    $dashboard_url = Url::fromRoute('view.openy_upgrade_dashboard.page_1');
+    $config_data = Yaml::decode(file_get_contents($file));
+    $message = $this->t('Failed attempt to update config "@name" from "@path" during Open Y update queue.', [
+      '@path' => $file,
+      '@name' => $config,
+    ]);
+    $this->upgradeLogManager->saveLoggerEntity($config, $config_data, $message);
+    $dashboard_url = Url::fromRoute(OpenyUpgradeLogManager::DASHBOARD);
     $dashboard_link = Link::fromTextAndUrl(t('Open Y upgrade dashboard'), $dashboard_url);
     $this->logger->error($this->t('Could not update config @name. Please add this changes manual. More info here - @link.',
       [
@@ -182,49 +193,6 @@ class ConfigUpdater extends ConfigImporterService {
         '@link' => $dashboard_link->toString(),
       ]
     ));
-  }
-
-  /**
-   * Check if config exist in openy_config_upgrade_logs.
-   *
-   * @param string $config_name
-   *   Config name.
-   *
-   * @return bool
-   *   TRUE if config was changed.
-   */
-  public function isManuallyChanged($config_name) {
-    $configs = $this->loggerEntityStorage->loadByProperties([
-      'type' => 'openy_config_upgrade_logs',
-      'name' => $config_name,
-    ]);
-    return empty($configs) ? FALSE : TRUE;
-  }
-
-  /**
-   * Update logger entity.
-   *
-   * @param string $config
-   *   Config full name with path.
-   * @param string $config_name
-   *   Config name.
-   *
-   * @return int|bool
-   *   Entity ID in case of success.
-   */
-  private function updateLoggerEntity($config, $config_name) {
-    $entities = $this->loggerEntityStorage->loadByProperties([
-      'type' => 'openy_config_upgrade_logs',
-      'name' => $config_name,
-    ]);
-    if (empty($entities)) {
-      return FALSE;
-    }
-    $logger_entity = array_shift($entities);
-    $logger_entity->set('field_config_path', $config);
-    $logger_entity->set('field_config_property', '-');
-    $logger_entity->save();
-    return $logger_entity->id();
   }
 
 }
