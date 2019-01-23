@@ -38,15 +38,15 @@
 
             <div class="col-xs-12 col-sm-6 col-md-4">
               <a @click.prevent="toStep(1)" class="openy-card__item openy-card__link">
-                <span class="h4">{{ 'Activity Finder'|t }}</span>
-                <span class="openy-card__link--subtext">{{ 'Find exactly what you\'re looking for'|t }}</span>
+                <span class="h4" data-mh="openy-card__item-heading">{{ 'Activity Finder'|t }}</span>
+                <span class="openy-card__link--subtext" data-mh="openy-card__item-sub-heading">{{ 'Find exactly what you\'re looking for'|t }}</span>
               </a>
             </div>
 
             <div class="col-xs-12 col-sm-6 col-md-4">
               <a v-bind:href="afResultsRef" class="openy-card__item openy-card__link">
-                <span class="h4">{{ 'View all programs'|t }}</span>
-                <span class="openy-card__link--subtext" v-if="loading">
+                <span class="h4"  data-mh="openy-card__item-heading">{{ 'View all programs'|t }}</span>
+                <span class="openy-card__link--subtext" data-mh="openy-card__item-sub-heading" v-if="loading">
                   {% include '@openy_repeat/openy-ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                 </span>
                 <span class="openy-card__link--subtext" v-else>${ table.count } {{ 'results'|t }}</span>
@@ -101,7 +101,9 @@
           <div class="activity-finder__row row">
 
             {# Age #}
+            {% block af_col_1_class %}
             <div class="activity-finder__col col-sm-4">
+            {% endblock %}
               <h3>{{ 'Age'|t }}</h3>
 
               <div class="row">
@@ -120,7 +122,9 @@
             {# / Age #}
 
             {# Day #}
+            {% block af_col_2_class %}
             <div class="activity-finder__col col-sm-4">
+            {% endblock %}
               <h3>{{ 'Day'|t }}</h3>
 
               <div class="row">
@@ -139,13 +143,15 @@
             {# Day #}
 
             {# Program Type #}
+            {% block af_col_3_class %}
             <div class="activity-finder__col col-sm-4">
+            {% endblock %}
               <h3>{{ 'Program Type'|t }}</h3>
 
               <div class="row">
                 <div class="col-sm-12" v-for="category in topLevelCategories">
                   <div class="openy-card__item">
-                    <label :for="'af-category-filter-' + category">
+                    <label :for="'af-category-filter-' + category" data-mh="openy-card__item-label">
                       <input v-model="checkedProgramTypes" @change="toggleCardState" type="checkbox" :value="category" :id="'af-category-filter-' + category" class="d-none hidden">
                       ${ category }
                     </label>
@@ -206,7 +212,7 @@
             <div class="row">
               <div v-for="(item, index) in topLevelCategory.value" class="col-xs-12 col-sm-6 col-md-4">
                 <div class="openy-card__item">
-                  <label :for="'af-filter-' + item.value">
+                  <label :for="'af-filter-' + item.value" data-mh="openy-card__item-label">
                     <input v-model="checkedCategories" @change="toggleCardState" type="checkbox" :value="item.value" :id="'af-filter-' + item.value" class="d-none hidden">
                     ${ item.label }
                   </label>
@@ -263,23 +269,41 @@
           {% for key, locationGroup in locations %}
             <div class="checkbox-group-wrapper">
 
-              <h3 class="row"><a data-toggle="collapse" {% if key == 0 %}area-expanded="false"{% endif %} href="#collapse{{ key }}">{{ locationGroup.label }}</a> <span>${ getLocationsCounter("{{ key }}") }</span></h3>
-              <div class="row panel-collapse collapse {% if key == 0 %}in{% endif %}" id="collapse{{ key }}">
-                {% for location in locationGroup.value %}
-                  <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter('{{ location.value }}') === 0)}">
-                      <label for="af-filter-{{ location.value }}" class="has-subtext">
-                        <i class="fa fa-map-marker"></i>
-                        <input v-if="locationCounter('{{ location.value }}') !== 0" v-model="checkedLocations" @change="toggleCardState" type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" class="d-none hidden">
-                        <div class="d-flex flex-column">
-                          <span>{{ location.label }}</span>
-                          <small>${ locationCounter("{{ location.value }}") } {{ 'results'|t }}</small>
-                        </div>
-                      </label>
-                    </div>
+              {# location accordion > header #}
+              <a data-toggle="collapse" {% if key == 0 %}area-expanded="false"{% endif %} href="#collapse{{ key }}" class="bg-light d-block mb-5">
+                <div class="row p-3 align-items-center">
+                  <div class="col col-xs-10">
+                    <h3 class="m-0">{{ locationGroup.label }}</h3>
                   </div>
-                {% endfor %}
+                  <div class="col-2 col-xs-2 text-right">
+                    <span class="badge badge-pill badge-dark px-3 py-2">${ getLocationsCounter("{{ key }}") }</span>
+                  </div>
+                </div>
+              </a>
+              {# / location accordion > header #}
+
+              {# location panel #}
+              {% block location_panel %}
+              <div class="panel-collapse collapse{% if key == 0 %} in{% endif %}" id="collapse{{ key }}">
+              {% endblock %}
+                <div class="row">
+                  {% for location in locationGroup.value %}
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                      <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter('{{ location.value }}') === 0)}">
+                        <label for="af-filter-{{ location.value }}" class="has-subtext">
+                          <i class="fa fa-map-marker"></i>
+                          <input v-if="locationCounter('{{ location.value }}') !== 0" v-model="checkedLocations" @change="toggleCardState" type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" class="d-none hidden">
+                          <div class="d-flex flex-column" data-mh="openy-card__item-label">
+                            <span>{{ location.label }}</span>
+                            <small>${ locationCounter("{{ location.value }}") } {{ 'results'|t }}</small>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
               </div>
+
             </div>
           {% endfor %}
         </div>
