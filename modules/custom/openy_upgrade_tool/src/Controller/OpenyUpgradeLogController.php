@@ -79,10 +79,6 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
     $build['content'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['dashboard-wrapper']],
-      '#cache' => [
-        'tags' => ['openy_upgrade_log_list'],
-        'max-age' => Cache::PERMANENT,
-      ],
     ];
 
     $entity_storage = $this->entityTypeManager()
