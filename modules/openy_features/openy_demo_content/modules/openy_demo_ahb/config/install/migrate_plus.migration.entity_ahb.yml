@@ -283,7 +283,7 @@ source:
           <li><strong>Deploy</strong> this update to DEV or PROD environment and run updates.</li>
         </ol>
       field_ahb_video: ''
-      field_ahb_pages: '/admin/openy/settings/upgrade-log/dashboard'
+      field_ahb_pages: '/admin/openy/development/upgrade-log/dashboard'
       field_ahb_visibility: 'include'
   ids:
     id:
