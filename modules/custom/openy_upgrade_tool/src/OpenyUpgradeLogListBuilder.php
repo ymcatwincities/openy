@@ -19,10 +19,7 @@ class OpenyUpgradeLogListBuilder extends EntityListBuilder {
    */
   public function buildHeader() {
     $header['name'] = $this->t('Config Name');
-    $header['updated'] = $this->t('Updated');
-    $header['user'] = $this->t('By User');
-    $header['status'] = $this->t('Status');
-    return $header + parent::buildHeader();
+    return array_merge($header, parent::buildHeader());
   }
 
   /**
@@ -34,9 +31,6 @@ class OpenyUpgradeLogListBuilder extends EntityListBuilder {
       'entity.openy_upgrade_log.canonical',
       ['openy_upgrade_log' => $entity->id()]
     );
-    $row['updated'] = \Drupal::service('date.formatter')->format($entity->getChangedTime());
-    $row['user'] = $entity->getOwner()->getUsername();
-    $row['status'] = $entity->getStatus() ? '✓' : '✖';
     return $row + parent::buildRow($entity);
   }
 

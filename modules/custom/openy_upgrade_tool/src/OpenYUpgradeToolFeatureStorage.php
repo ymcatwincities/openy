@@ -32,7 +32,7 @@ class OpenYUpgradeToolFeatureStorage extends FileStorage {
    * {@inheritdoc}
    */
   public function __construct(StorageInterface $config_storage) {
-    parent::__construct('', '');
+    parent::__construct('');
     $this->configStorage = $config_storage;
     $this->featuresStorage = new FeaturesExtensionStorages($this->configStorage);
     $this->featuresStorage->addStorage(InstallStorage::CONFIG_INSTALL_DIRECTORY);
