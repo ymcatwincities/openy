@@ -457,7 +457,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
       $entity_storage = $this->entityTypeManager->getStorage($config_type);
       // If an entity ID was not specified, set an error.
       if (!isset($data[$id_key])) {
-        drupal_set_message($this->t('Missing ID key "@id_key" for this @entity_type import.', [
+        drupal_set_message($this->t('Missing ID key "@id_key" for this @entity_type import. Please add this key to your config!', [
           '@id_key' => $id_key,
           '@entity_type' => $definition->getLabel(),
         ]), 'error');

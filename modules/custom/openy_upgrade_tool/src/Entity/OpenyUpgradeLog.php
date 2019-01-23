@@ -23,13 +23,13 @@ use Drupal\user\UserInterface;
  *     "storage" = "Drupal\openy_upgrade_tool\OpenyUpgradeLogStorage",
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\openy_upgrade_tool\OpenyUpgradeLogListBuilder",
- *     "views_data" = "Drupal\openy_upgrade_tool\Entity\OpenyUpgradeLogViewsData",
+ *     "views_data" = "Drupal\views\EntityViewsData\EntityViewsData",
  *
  *     "form" = {
  *       "default" = "Drupal\openy_upgrade_tool\Form\OpenyUpgradeLogForm",
  *       "add" = "Drupal\openy_upgrade_tool\Form\OpenyUpgradeLogForm",
  *       "edit" = "Drupal\openy_upgrade_tool\Form\OpenyUpgradeLogForm",
- *       "delete" = "Drupal\openy_upgrade_tool\Form\OpenyUpgradeLogDeleteForm",
+ *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm\ContentEntityDeleteForm",
  *     },
  *     "access" = "Drupal\openy_upgrade_tool\OpenyUpgradeLogAccessControlHandler",
  *     "route_provider" = {

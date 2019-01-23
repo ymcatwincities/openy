@@ -140,7 +140,7 @@ class OpenyUpgradeLogRevisionRevertForm extends ConfirmFormBase {
    */
   protected function prepareRevertedRevision(OpenyUpgradeLogInterface $revision, FormStateInterface $form_state) {
     $revision->setNewRevision();
-    $revision->isDefaultRevision(TRUE);
+    $revision->isDefaultRevision();
     $revision->setRevisionCreationTime(REQUEST_TIME);
 
     return $revision;
