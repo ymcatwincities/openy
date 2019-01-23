@@ -5,7 +5,9 @@ namespace Drupal\openy_upgrade_tool\Controller;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 use Drupal\openy_upgrade_tool\Entity\OpenyUpgradeLogInterface;
 use Drupal\openy_upgrade_tool\OpenyUpgradeLogManagerInterface;
@@ -26,10 +28,31 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
   protected $upgradeLogManager;
 
   /**
+   * The renderer service.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The date formatter service.
+   *
+   * @var \Drupal\Core\Datetime\DateFormatterInterface
+   */
+  protected $dateFormatter;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(OpenyUpgradeLogManagerInterface $openy_upgrade_log_manager) {
+  public function __construct(
+    OpenyUpgradeLogManagerInterface $openy_upgrade_log_manager,
+    RendererInterface $renderer,
+    DateFormatterInterface $date_formatter
+  ) {
+
     $this->upgradeLogManager = $openy_upgrade_log_manager;
+    $this->renderer = $renderer;
+    $this->dateFormatter = $date_formatter;
   }
 
   /**
@@ -37,7 +60,9 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('openy_upgrade_log.manager')
+      $container->get('openy_upgrade_log.manager'),
+      $container->get('renderer'),
+      $container->get('date.formatter')
     );
   }
 
@@ -190,7 +215,7 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
         ];
 
         // Use revision link to link to revisions that are not active.
-        $date = \Drupal::service('date.formatter')->format($revision->getRevisionCreationTime(), 'short');
+        $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $openy_upgrade_log->getRevisionId()) {
           $link = $this->l($date, new Url('entity.openy_upgrade_log.revision', ['openy_upgrade_log' => $openy_upgrade_log->id(), 'openy_upgrade_log_revision' => $vid]));
         }
@@ -205,7 +230,7 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
             '#template' => '{% trans %}{{ date }} by {{ username }}{% endtrans %}{% if message %}<p class="revision-log">{{ message }}</p>{% endif %}',
             '#context' => [
               'date' => $link,
-              'username' => \Drupal::service('renderer')->renderPlain($username),
+              'username' => $this->renderer->renderPlain($username),
               'message' => ['#markup' => $revision->getRevisionLogMessage(), '#allowed_tags' => Xss::getHtmlTagList()],
             ],
           ],
