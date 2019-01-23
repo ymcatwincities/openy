@@ -2,48 +2,22 @@ openy_repeat:
   version: 0.1
   js:
     js/repeat.js: {}
-    js/atc.js: {}
   css:
     base:
       css/repeat.css: {}
       css/print.css: { media: print }
   dependencies:
-    - openy_repeat/polyfill
-    - openy_repeat/openy_repeat.vue
-    - openy_repeat/openy_repeat.vue_router
-    - openy_repeat/openy_repeat.vue.table
-    - openy_repeat/openy_repeat.moment
     - openy_repeat/openy_repeat.bootstrap-datepicker
-    - openy_repeat/openy_repeat.natsort
-    - openy_repeat/openy_repeat.modal
-    - openy_repeat/openy_repeat.ajax_spinner
-    - openy_repeat/openy_repeat.filters
-    - openy_repeat/openy_repeat.table
-
-polyfill:
-  version: 0.1
-  js:
-    https://cdn.polyfill.io/v2/polyfill.min.js: { type: external }
-
-openy_repeat.vue:
-  version: 0.1
-  js:
-    js/vue/vue.min.js: {}
-
-openy_repeat.vue_router:
-  version: 0.1
-  js:
-    js/vue/vue-router.js: {}
-
-openy_repeat.vue.table:
-  version: 0.1
-  js:
-    js/components/event_table.js: {}
-
-openy_repeat.moment:
-  version: 0.1
-  js:
-    https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js: { type: external }
+    - openy_system/openy_system.polyfill
+    - openy_system/openy_system.vue
+    - openy_system/openy_system.vue_router
+    - openy_system/openy_system.moment
+    - openy_system/openy_system.natsort
+    - openy_system/openy_system.modal
+    - openy_system/openy_system.ajax_spinner
+    - openy_system/openy_system.filters
+    - openy_system/openy_system.table
+    - openy_system/openy_system.addtocal
 
 openy_repeat.bootstrap-datepicker:
   version: 0.1
@@ -61,42 +35,4 @@ openy_repeat.locations:
     base:
       css/locations.css: {}
   dependencies:
-    - openy_repeat/openy_repeat.cards
-
-openy_repeat.stepper:
-  version: 0.1
-  css:
-    base:
-      css/stepper.css: {}
-
-openy_repeat.cards:
-  version: 0.1
-  css:
-    base:
-      css/cards.css: {}
-
-openy_repeat.filters:
-  version: 0.1
-  js:
-    js/filters.js: {}
-  css:
-    base:
-      css/filters.css: {}
-
-openy_repeat.table:
-  version: 0.1
-  css:
-    base:
-      css/table.css: {}
-
-openy_repeat.modal:
-  version: 0.1
-  css:
-    base:
-      css/modal.css: {}
-
-openy_repeat.ajax_spinner:
-  version: 0.1
-  css:
-    base:
-      css/ajax_spinner.css: {}
+    - openy_system/openy_system.cards
