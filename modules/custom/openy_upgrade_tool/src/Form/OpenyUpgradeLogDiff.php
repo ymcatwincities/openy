@@ -170,9 +170,9 @@ class OpenyUpgradeLogDiff extends FormBase {
       '#type' => 'container',
     ];
 
-    $description = $this->t('Diff between CURRENT config version (active config) and config version from Open Y feature file.');
+    $description = $this->t('Diff between current config version (active config) and config version from Open Y feature file.');
     if ($compare_with != self::DEFAULT_DIFF_TARGET) {
-      $description = $this->t('Diff between CURRENT config version (active config) and config version from logger entity revision with message: @msg', [
+      $description = $this->t('Diff between current config version (active config) and config version from logger entity revision with message: @msg', [
         '@msg' => $revisions[$compare_with]->getRevisionLogMessage(),
       ]);
     }

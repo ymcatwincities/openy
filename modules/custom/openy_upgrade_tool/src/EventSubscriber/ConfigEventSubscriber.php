@@ -94,7 +94,7 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
       if ($this->upgradeLogManager->isForceMode() && $this->upgradeLogManager->isManuallyChanged($config_name, FALSE)) {
         $this->upgradeLogManager->createBackup($config_name);
       }
-      $this->logger->info($this->t('Open Y was upgraded @name config.', ['@name' => $config_name]));
+      $this->logger->info($this->t('Open Y has upgraded @name config.', ['@name' => $config_name]));
     }
   }
 
