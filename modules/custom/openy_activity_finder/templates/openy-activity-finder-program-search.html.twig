@@ -213,7 +213,11 @@
               <div v-for="(item, index) in topLevelCategory.value" class="col-xs-12 col-sm-6 col-md-4">
                 <div class="openy-card__item">
                   <label :for="'af-filter-' + item.value" data-mh="openy-card__item-label">
+                    {% if categories_type == 'multiple' %}
                     <input v-model="checkedCategories" @change="toggleCardState" type="checkbox" :value="item.value" :id="'af-filter-' + item.value" class="d-none hidden">
+                    {% else %}
+                    <input v-model="checkedCategories" @change="toggleCardState" type="radio" data-deselect="deselect" :value="item.value" :id="'af-filter-' + item.value" class="d-none hidden">
+                    {% endif %}
                     ${ item.label }
                   </label>
                 </div>

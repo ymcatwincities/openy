@@ -50,4 +50,8 @@ abstract class OpenyActivityFinderBackend implements OpenyActivityFinderBackendI
     return $ages;
   }
 
+  public function getCategoriesType() {
+    return 'multiple';
+  }
+
 }

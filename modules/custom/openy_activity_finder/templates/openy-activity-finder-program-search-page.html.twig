@@ -94,6 +94,17 @@
               v-on:updated-values="locations = $event"
             ></sidebar-filter>
 
+            {% if categories_type == 'single' %}
+            <sidebar-filter-single
+              ref="categories_filter"
+              title="{{ 'Category'|t }}"
+              id="category-filter"
+              type="{{ 'radios'|t }}"
+              options='{{ categories|json_encode }}'
+              :default='$route.query.categories'
+              v-on:updated-values="categories = $event"
+            ></sidebar-filter-single>
+            {% else %}
             <sidebar-filter
               ref="categories_filter"
               title="{{ 'Category'|t }}"
@@ -103,6 +114,7 @@
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
             ></sidebar-filter>
+            {% endif %}
 
             <sidebar-filter
               ref="ages_filter"
