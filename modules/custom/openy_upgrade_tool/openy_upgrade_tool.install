@@ -85,14 +85,6 @@ function openy_upgrade_tool_update_8004(&$sandbox) {
       ->getStorage('logger_entity_type')
       ->load('openy_config_upgrade_logs');
     $content_type->delete();
-    // No need to use old entity type and related module if other bundles
-    // not exist, so we can uninstall logger_entity module.
-    $bundles = \Drupal::entityTypeManager()
-      ->getStorage('logger_entity_type')
-      ->loadMultiple();
-    if (empty($bundles)) {
-      \Drupal::service('module_installer')->uninstall(['logger_entity']);
-    }
   }
 
   return t(
