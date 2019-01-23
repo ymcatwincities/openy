@@ -435,6 +435,13 @@ function openy_install_finish(array &$install_state) {
   // optional configuration is installed only once at the
   // end of the core installation process.
   \Drupal::service('config.installer')->installOptionalConfig();
+  // Disable the default 'frontpage' Views configuration since it is unused. Due to the fact that this Views
+  // configuration is stored in the optional folder there is no way to disable it before optional configs are installed.
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('frontpage');
+  if ($view) {
+    $view->disable();
+    $view->save();
+  }
 }
 
 /**
