@@ -2,8 +2,13 @@
 
 namespace Drupal\openy_upgrade_tool\Form;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Session\AccountProxyInterface;
 
 /**
  * Form controller for Openy upgrade log edit forms.
@@ -11,6 +16,40 @@ use Drupal\Core\Form\FormStateInterface;
  * @ingroup openy_upgrade_tool
  */
 class OpenyUpgradeLogForm extends ContentEntityForm {
+
+  /**
+   * Account Proxy.
+   *
+   * @var \Drupal\Core\Session\AccountProxyInterface
+   */
+  protected $accountProxy;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(
+    EntityManagerInterface $entity_manager,
+    AccountProxyInterface $account_proxy,
+    EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL,
+    TimeInterface $time = NULL
+  ) {
+
+    parent::__construct($entity_manager, $entity_type_bundle_info, $time);
+    $this->accountProxy = $account_proxy;
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity.manager'),
+      $container->get('current_user'),
+      $container->get('entity_type.bundle.info'),
+      $container->get('datetime.time')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -28,8 +67,6 @@ class OpenyUpgradeLogForm extends ContentEntityForm {
       ];
     }
 
-    $entity = $this->entity;
-
     return $form;
   }
 
@@ -45,7 +82,7 @@ class OpenyUpgradeLogForm extends ContentEntityForm {
 
       // If a new revision is created, save the current user as revision author.
       $entity->setRevisionCreationTime(REQUEST_TIME);
-      $entity->setRevisionUserId(\Drupal::currentUser()->id());
+      $entity->setRevisionUserId($this->accountProxy->id());
     }
     else {
       $entity->setNewRevision(FALSE);
