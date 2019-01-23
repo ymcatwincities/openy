@@ -3,12 +3,32 @@
 }
 
 /* BS4 Helpers */
+.bg-light {
+  background-color: #eee;
+}
+
 .d-flex {
   display: flex;
 }
 
+.d-block {
+  display: block;
+}
+
 .mt-3 {
   margin-top: 3rem;
+}
+
+.p-3 {
+  padding: 1.5rem;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.mb-5 {
+  margin-bottom: 3rem;
 }
 
 .align-items-center {
