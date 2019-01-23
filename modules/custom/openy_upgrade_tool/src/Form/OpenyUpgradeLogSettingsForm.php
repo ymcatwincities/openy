@@ -35,6 +35,7 @@ class OpenyUpgradeLogSettingsForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('openy_upgrade_tool.settings');
+    // TODO: Remove this in Open Y 3.0 release.
     $form['force_mode'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Force mode'),
