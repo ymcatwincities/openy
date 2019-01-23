@@ -5,16 +5,19 @@ services:
   openy_upgrade_tool.event_subscriber:
     class: Drupal\openy_upgrade_tool\EventSubscriber\ConfigEventSubscriber
     arguments:
-      - '@features.manager'
-      - '@entity_type.manager'
+      - '@openy_upgrade_log.manager'
       - '@logger.channel.openy_upgrade_tool'
     tags:
       - { name: 'event_subscriber' }
+  openy_upgrade_tool.route_subscriber:
+    class: Drupal\openy_upgrade_tool\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
   openy_upgrade_tool.param_updater:
     class: Drupal\openy_upgrade_tool\ConfigParamUpgradeTool
     arguments:
       - '@config.manager'
-      - '@entity_type.manager'
+      - '@openy_upgrade_log.manager'
       - '@logger.factory'
   openy_upgrade_tool.importer:
     class: Drupal\openy_upgrade_tool\ConfigUpdater
@@ -30,5 +33,27 @@ services:
       - '@theme_handler'
       - '@string_translation'
       - '@file_system'
-      - '@entity_type.manager'
+      - '@openy_upgrade_log.manager'
       - '@logger.channel.openy_upgrade_tool'
+  openy_upgrade_log.manager:
+    class: Drupal\openy_upgrade_tool\OpenyUpgradeLogManager
+    arguments:
+      - '@features.manager'
+      - '@entity_type.manager'
+      - '@config.storage'
+      - '@config.manager'
+      - '@config.factory'
+      - '@renderer'
+      - '@event_dispatcher'
+      - '@lock.persistent'
+      - '@config.typed'
+      - '@module_handler'
+      - '@module_installer'
+      - '@theme_handler'
+      - '@logger.channel.openy_upgrade_tool'
+  openy_upgrade_tool.config.storage:
+    class: Drupal\openy_upgrade_tool\OpenyUpgradeToolCachedStorage
+    arguments: ['@config.storage.active', '@cache.config']
+  openy_upgrade_tool.config.storage.upgrade_log.revision:
+    class: Drupal\openy_upgrade_tool\OpenyUpgradeToolRevisionStorage
+    arguments: ['@database', 'openy_upgrade_log_revision']

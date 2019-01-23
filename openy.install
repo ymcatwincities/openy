@@ -70,7 +70,6 @@ function openy_update_8003() {
   // Enable module.
   \Drupal::service('module_installer')->install([
     'config_import',
-    'logger_entity',
     'openy_upgrade_tool',
   ]);
 }
