@@ -111,7 +111,7 @@ function openy_upgrade_tool_update_8005() {
   $config_importer->setDirectory($config_dir);
   // Update views for new entity type.
   $config_importer->importConfigSimple('views.view.openy_upgrade_dashboard');
-  // Set force mode to FALSE by default.
+  // Set force mode to TRUE by default.
   $config_importer->importConfigSimple('openy_upgrade_tool.settings');
 
   // Enable advanced_help_block module for next update.
