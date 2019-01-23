@@ -90,7 +90,6 @@ function openy_update_8003() {
   // Enable module.
   \Drupal::service('module_installer')->install([
     'config_import',
-    'logger_entity',
     'openy_upgrade_tool',
   ]);
 }
@@ -989,7 +988,7 @@ function openy_update_8066() {
       ->set('id', $new_id)
       ->save(TRUE);
   }
-}      
+}
 
 /**
  * Enable PEF paragraphs.
