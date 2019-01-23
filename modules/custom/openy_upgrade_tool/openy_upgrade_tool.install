@@ -113,15 +113,19 @@ function openy_upgrade_tool_update_8005() {
   $config_importer->importConfigSimple('views.view.openy_upgrade_dashboard');
   // Set force mode to TRUE by default.
   $config_importer->importConfigSimple('openy_upgrade_tool.settings');
+}
 
-  // Enable advanced_help_block module for next update.
+/**
+ * Enable advanced_help_block module.
+ */
+function openy_upgrade_tool_update_8006() {
   \Drupal::service('module_installer')->install(['advanced_help_block']);
 }
 
 /**
  * Add advanced_help_block to dashboard page.
  */
-function openy_upgrade_tool_update_8006() {
+function openy_upgrade_tool_update_8007() {
   $block_title = 'Open Y: Upgrade Dashboard instruction';
   $entityTypeManager = \Drupal::entityTypeManager();
 
