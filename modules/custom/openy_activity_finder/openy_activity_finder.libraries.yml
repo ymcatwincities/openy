@@ -6,30 +6,28 @@ openy_activity_finder:
     base:
       css/activity_finder.css: {}
   dependencies:
-    - openy_repeat/polyfill
-    - openy_repeat/openy_repeat.vue
-    - openy_repeat/openy_repeat.vue_router
-    - openy_repeat/openy_repeat.vue.table
-    - openy_repeat/openy_repeat.moment
-    - openy_repeat/openy_repeat.natsort
-    - openy_repeat/openy_repeat.modal
-    - openy_repeat/openy_repeat.ajax_spinner
-    - openy_repeat/openy_repeat.cards
-    - openy_repeat/openy_repeat.stepper
+    - openy_system/openy_system.polyfill
+    - openy_system/openy_system.vue
+    - openy_system/openy_system.vue_router
+    - openy_system/openy_system.moment
+    - openy_system/openy_system.natsort
+    - openy_system/openy_system.modal
+    - openy_system/openy_system.ajax_spinner
+    - openy_system/openy_system.cards
+    - openy_system/openy_system.stepper
 
 openy_activity_finder_search:
   version: 0.1
   js:
     js/programs_search.js: {}
   dependencies:
-    - openy_repeat/polyfill
-    - openy_repeat/openy_repeat.vue
-    - openy_repeat/openy_repeat.vue_router
-    - openy_repeat/openy_repeat.vue.table
-    - openy_repeat/openy_repeat.moment
-    - openy_repeat/openy_repeat.natsort
-    - openy_repeat/openy_repeat.modal
-    - openy_repeat/openy_repeat.ajax_spinner
-    - openy_repeat/openy_repeat.filters
-    - openy_repeat/openy_repeat.table
-    - openy_repeat/openy_repeat.stepper
+    - openy_system/openy_system.polyfill
+    - openy_system/openy_system.vue
+    - openy_system/openy_system.vue_router
+    - openy_system/openy_system.moment
+    - openy_system/openy_system.natsort
+    - openy_system/openy_system.modal
+    - openy_system/openy_system.ajax_spinner
+    - openy_system/openy_system.filters
+    - openy_system/openy_system.table
+    - openy_system/openy_system.stepper

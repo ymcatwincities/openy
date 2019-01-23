@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - locations: locations of "repeat" entity for filter.
+ * - categories: categories of "repeat" entity for filter.
+ */
+#}
+
+{% extends '@openy_activity_finder/openy-activity-finder-program-search.html.twig' %}
+
+{# location panel #}
+{% block location_panel %}
+<div class="panel-collapse collapse{% if key == 0 %} show{% endif %}" id="collapse{{ key }}">
+{% endblock %}
+
+{% block af_col_1_class %}
+<div class="activity-finder__col col col-lg-4">
+{% endblock %}
+
+{% block af_col_2_class %}
+<div class="activity-finder__col col col-lg-4">
+{% endblock %}
+
+{% block af_col_3_class %}
+<div class="activity-finder__col col col-lg-4">
+{% endblock %}
+

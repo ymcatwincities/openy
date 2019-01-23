@@ -168,7 +168,7 @@ function openy_carnation_theme_suggestions_page_alter(array &$suggestions, array
 function openy_carnation_preprocess_breadcrumb(&$variables) {
   if (isset($variables['breadcrumb'])) {
     $last_item = end($variables['breadcrumb']);
-    if (strlen($last_item['text']) > 20) {
+    if (strlen($last_item['text']) > 60) {
       $variables['breadcrumb'][key($variables['breadcrumb'])]['text'] = t('Current page');
     }
   }

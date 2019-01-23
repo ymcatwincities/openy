@@ -1,9 +1,73 @@
 openy_system:
   version: 1.x
   js:
-    js/openy_system.js: {}
+    assets/js/openy_system.js: {}
+
 admin_menu:
   version: 1.x
   css:
     theme:
       assets/css/menu.css: {}
+
+openy_system.polyfill:
+  version: 0.1
+  js:
+    https://cdn.polyfill.io/v2/polyfill.min.js: { type: external }
+
+openy_system.addtocal:
+  version: 0.1
+  js:
+    assets/js/atc.js: {}
+
+openy_system.vue:
+  version: 0.1
+  js:
+    assets/js/vue/vue.min.js: {}
+
+openy_system.vue_router:
+  version: 0.1
+  js:
+    assets/js/vue/vue-router.js: {}
+    
+openy_system.moment:
+  version: 0.1
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js: { type: external }
+      
+openy_system.stepper:
+  version: 0.1
+  css:
+    base:
+      assets/css/stepper.css: {}
+
+openy_system.cards:
+  version: 0.1
+  css:
+    base:
+      assets/css/cards.css: {}
+
+openy_system.filters:
+  version: 0.1
+  js:
+    assets/js/filters.js: {}
+  css:
+    base:
+      assets/css/filters.css: {}
+
+openy_system.table:
+  version: 0.1
+  css:
+    base:
+      assets/css/table.css: {}
+
+openy_system.modal:
+  version: 0.1
+  css:
+    base:
+      assets/css/modal.css: {}
+
+openy_system.ajax_spinner:
+  version: 0.1
+  css:
+    base:
+      assets/css/ajax_spinner.css: {}
