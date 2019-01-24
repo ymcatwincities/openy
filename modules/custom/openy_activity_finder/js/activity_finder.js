@@ -239,6 +239,11 @@
         $.getJSON(url, function(data) {
           component.table = data;
           component.loading = false;
+        }).done(function() {
+          // We need to wait in order to affect the DOM after the tiles have been injected.
+          setTimeout(function () {
+            $('*[data-mh]').matchHeight();
+          }), 500;
         });
       },
       locationCounter: function(locationId) {
@@ -274,7 +279,7 @@
 
           element.parents('.openy-card__item').removeClass('selected');
         }
-      }
+      },
     },
     computed: {
       locationCounters: function() {
@@ -310,7 +315,8 @@
     mounted: function() {
       var component = this;
       component.categories = drupalSettings.activityFinder.categories;
-      this.runAjaxRequest();
+      component.runAjaxRequest();
+
       component.$watch('keywords', function(){
         component.updateSearchQuery();
       });
