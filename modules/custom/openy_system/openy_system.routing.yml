@@ -87,3 +87,11 @@ openy_system.openy_development:
     _title: 'Development'
   requirements:
     _permission: 'administer site configuration'
+
+openy_system.openy_terms_and_conditions:
+  path: /admin/openy/terms-and-conditions
+  defaults:
+    _form: 'Drupal\openy\Form\TermsOfUseForm'
+    _title: 'Terms and conditions'
+  requirements:
+    _permission: 'access content'
