@@ -12,12 +12,19 @@ use Drupal\openy\Form\ThirdPartyServicesForm;
 use Drupal\openy\Form\UploadFontMessageForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\openy\Form\TermsOfUseForm;
 
 /**
  * Implements hook_install_tasks().
  */
 function openy_install_tasks() {
   return [
+    'openy_terms_of_use' => [
+      'display_name' => t('Terms of Use'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => TermsOfUseForm::class,
+    ],
     'openy_select_features' => [
       'display_name' => t('Select installation type'),
       'display' => TRUE,
@@ -193,7 +200,7 @@ function openy_demo_content_configs_map($key = NULL) {
     ],
 
   ];
-  
+
   return array_key_exists($key, $map) ? $map[$key] : [];
 }
 
@@ -435,6 +442,13 @@ function openy_install_finish(array &$install_state) {
   // optional configuration is installed only once at the
   // end of the core installation process.
   \Drupal::service('config.installer')->installOptionalConfig();
+  // Disable the default 'frontpage' Views configuration since it is unused. Due to the fact that this Views
+  // configuration is stored in the optional folder there is no way to disable it before optional configs are installed.
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('frontpage');
+  if ($view) {
+    $view->disable();
+    $view->save();
+  }
 }
 
 /**
