@@ -51,6 +51,11 @@ function openy_update_dependencies() {
     ],
   ];
 
+  $dependencies['openy_upgrade_tool'] = [
+    8003 => [
+      'simple_sitemap' => 8217,
+    ],
+  ];
   return $dependencies;
 }
 
