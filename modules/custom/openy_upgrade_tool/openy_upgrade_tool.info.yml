@@ -3,9 +3,7 @@ type: module
 description: Provides an Upgrade Path tool.
 core: 8.x
 package: Open Y
-version: 8.x-1.0
-php: 5.6
+version: 8.x-1.1
 dependencies:
   - features
   - config_import
-  - logger_entity

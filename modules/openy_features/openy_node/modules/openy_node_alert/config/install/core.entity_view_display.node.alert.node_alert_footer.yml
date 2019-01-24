@@ -17,12 +17,6 @@ dependencies:
     - options
     - text
     - user
-third_party_settings:
-  panelizer:
-    enable: false
-    custom: false
-    allow: false
-    default: default
 id: node.alert.node_alert_footer
 targetEntityType: node
 bundle: alert

@@ -1,5 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: openy_config_upgrade_logs
-label: 'OpenY config upgrade logs'

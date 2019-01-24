@@ -65,7 +65,6 @@ dependencies:
   - simple_menu_icons
   # Open Y
   - advanced_help_block
-  - logger_entity
   - openy_autocomplete_path
   - openy_block_custom_simple
   - openy_datalayer
@@ -82,7 +81,6 @@ dependencies:
   - openy_system
   - openy_taxonomy
   - openy_tour
-  #- openy_upgrade_tool
 themes:
   - bartik
   - openy_admin
