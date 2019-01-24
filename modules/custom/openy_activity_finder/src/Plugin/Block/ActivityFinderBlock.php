@@ -30,6 +30,7 @@ class ActivityFinderBlock extends BlockBase {
       '#ages' => $backend->getAges(),
       '#days' => $backend->getDaysOfWeek(),
       '#categories' => $backend->getCategoriesTopLevel(),
+      '#categories_type' => $backend->getCategoriesType(),
       '#locations' => $backend->getLocations(),
       '#attached' => [
         'drupalSettings' => [

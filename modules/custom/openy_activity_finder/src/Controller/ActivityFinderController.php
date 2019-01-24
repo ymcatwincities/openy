@@ -2,6 +2,8 @@
 
 namespace Drupal\openy_activity_finder\Controller;
 
+use Drupal\Component\Datetime\TimeInterface;
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\openy_activity_finder\Entity\ProgramSearchLog;
@@ -17,16 +19,31 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class ActivityFinderController extends ControllerBase {
 
+  // Cache queries for 5 minutes.
+  const CACHE_LIFETIME = 300;
+
   /**
    * @var \Drupal\openy_activity_finder\OpenyActivityFinderBackendInterface
    */
   protected $backend;
 
   /**
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected $cacheBackend;
+
+  /**
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
    * Creates a new ActivityFinderController.
    */
-  public function __construct(OpenyActivityFinderBackendInterface $backend) {
+  public function __construct(OpenyActivityFinderBackendInterface $backend, CacheBackendInterface $cacheBackend, TimeInterface $time) {
     $this->backend = $backend;
+    $this->cacheBackend = $cacheBackend;
+    $this->time = $time;
   }
 
   /**
@@ -36,7 +53,9 @@ class ActivityFinderController extends ControllerBase {
     $config = $container->get('config.factory')->get('openy_activity_finder.settings');
 
     return new static(
-      $container->get($config->get('backend'))
+      $container->get($config->get('backend')),
+      $container->get('cache.default'),
+      $container->get('datetime.time')
     );
   }
 
@@ -58,6 +77,11 @@ class ActivityFinderController extends ControllerBase {
     ];
     $record['hash'] = md5(json_encode($record));
 
+    $record_cache_key = $record;
+    unset($record_cache_key['hash']);
+    unset($record_cache_key['hash_ip_agent']);
+    $cid = md5(json_encode($record_cache_key));
+
     $log = ProgramSearchLog::create($record);
     $log->save();
 
@@ -67,7 +91,16 @@ class ActivityFinderController extends ControllerBase {
       $value = urldecode($value);
     }
 
-    $data = $this->backend->runProgramSearch($parameters, $log->id());
+    $data = NULL;
+    if ($cache = $this->cacheBackend->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $data = $this->backend->runProgramSearch($parameters, $log->id());
+      // Cache for 5 minutes.
+      $expire = $this->time->getRequestTime() + self::CACHE_LIFETIME;
+      $this->cacheBackend->set($cid, $data, $expire);
+    }
 
     return new JsonResponse($data);
   }
@@ -102,8 +135,19 @@ class ActivityFinderController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    */
   public function ajaxProgramsMoreInfo(Request $request) {
-    $result = $this->backend->getProgramsMoreInfo($request);
+    $parameters = $request->query->all();
+    $cid = md5(json_encode($parameters));
+    $data = NULL;
+    if ($cache = $this->cacheBackend->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $data = $this->backend->getProgramsMoreInfo($request);
+      // Cache for 5 minutes.
+      $expire = $this->time->getRequestTime() + self::CACHE_LIFETIME;
+      $this->cacheBackend->set($cid, $data, $expire);
+    }
 
-    return new JsonResponse($result);
+    return new JsonResponse($data);
   }
 }
