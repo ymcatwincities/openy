@@ -81,7 +81,6 @@ dependencies:
   - openy_system
   - openy_taxonomy
   - openy_tour
-  - openy_upgrade_tool
 themes:
   - bartik
   - openy_admin

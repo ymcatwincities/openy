@@ -443,6 +443,7 @@
         display: -ms-flexbox;
         display: flex;
         flex-wrap: wrap;
+        margin: 0;
       }
 
       .slick-arrow {
@@ -455,7 +456,7 @@
         margin-top: -7px;
 
         &:before {
-          color: $light-blue;
+          display: none;
         }
 
         @include breakpoint($screen-sm) {
