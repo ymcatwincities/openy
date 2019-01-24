@@ -5,4 +5,5 @@ package: Open Y
 version: 8.x-1.0
 core: 8.x
 configure: openy_system.modules_list
-dependencies: { }
+dependencies:
+  - migrate

@@ -6,7 +6,10 @@ dependencies:
       - advanced_help_block
       - openy_demo_ahb
 id: openy_demo_entity_ahb
-migration_tags: {  }
+migration_tags:
+  - openy_standard_installation
+  - openy_extended_installation
+  - openy_complete_installation
 label: 'Import demo Advanced help blocks.'
 source:
   plugin: embedded_data
