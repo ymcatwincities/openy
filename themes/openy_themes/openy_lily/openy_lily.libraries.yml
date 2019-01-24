@@ -12,7 +12,6 @@ global-styling:
     //use.fontawesome.com/95fd5fcc01.js: {}
     scripts/vendor/bootstrap.min.js: {}
     scripts/vendor/iscroll/iscroll.js: {}
-    scripts/vendor/jquery.matchHeight/jquery.matchHeight-min.js: {}
     scripts/openy_lily.js: {}
   dependencies:
     - core/jquery
@@ -23,6 +22,7 @@ global-styling:
     - core/drupal
     - core/drupalSettings
     - core/drupal.dialog
+    - openy_system/jquery.matchHeight
 
 landing:
   version: VERSION
