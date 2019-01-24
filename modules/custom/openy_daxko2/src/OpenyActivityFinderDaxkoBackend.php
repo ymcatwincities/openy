@@ -355,6 +355,10 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     return $this->getDaxkoCategories(TRUE);
   }
 
+  public function getCategoriesType() {
+    return 'single';
+  }
+
   public function getCategoriesTopLevel() {
     $categories_config = $this->daxkoConfig->get('categories');
     $categories = $this->parseGrouppedSetting($categories_config, TRUE);

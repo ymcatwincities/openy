@@ -143,6 +143,80 @@
     '              </div>'
   });
 
+  // Does not yet support flat list of radios. Only two level as for Daxko location.
+  Vue.component('sidebar-filter-single', {
+    props: ['title', 'id', 'options', 'default', 'type'],
+    data: function() {
+      return {
+        radios: [],
+        checked: [],
+        expanded: true,
+        expanded_checkboxes: {},
+        dependencies: {},
+      }
+    },
+    created() {
+      this.radios = JSON.parse(this.options);
+      this.checked = this.default;
+      for (var i in this.radios) {
+        radio = this.radios[i];
+        if (typeof radio == 'object') {
+          this.dependencies[radio.label] = [];
+          for (var k in radio.value) {
+            var item = radio.value[k];
+            this.dependencies[radio.label].push(item.value);
+          }
+        }
+      }
+    },
+    watch: {
+      checked: function(values) {
+        this.$emit('updated-values', [values]);
+      }
+    },
+    methods: {
+      clear: function() {
+        this.checked = '';
+      },
+      getId: function(string) {
+        return string.replace(/^[0-9a-zA-Z]/g, '-');
+      },
+      getOption: function(data) {
+        return data.value;
+      },
+      getLabel: function(data) {
+        return data.label;
+      },
+      collapseGroup: function(checkbox) {
+        var label = this.getLabel(checkbox);
+        return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
+      }
+    },
+    template: '<div class="form-group-wrapper">\n' +
+    '                <label v-on:click="expanded = !expanded">\n' +
+    '                 {{ title }}\n' +
+    '                  <i v-if="expanded" class="fa fa-minus minus" aria-hidden="true"></i>\n' +
+    '                  <i v-if="!expanded" class="fa fa-plus plus" aria-hidden="true"></i>\n' +
+    '                </label>\n' +
+    '                <div v-bind:class="[type]">\n' +
+    '                  <div v-for="radio in radios" class="checkbox-wrapper" ' +
+    '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(radio)) != -1">' +
+    '                    <div v-if="typeof getOption(radio) == \'object\'">' +
+    '                       <label v-if="typeof getOption(radio) == \'object\'" v-show="expanded || checked.indexOf(getOption(radio)) != -1" >{{ getLabel(radio) }}</label>\n' +
+    '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
+    '                         <span v-show="collapseGroup(radio)" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(radio), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +
+    '                         <span v-if="typeof getOption(radio) == \'object\' && expanded" v-show="!collapseGroup(radio)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(radio)] = false" class="fa fa-angle-up" aria-hidden="true"></span>' +
+    '                       </a>' +
+    '                    </div>' +
+    '                    <div v-if="typeof getOption(radio) == \'object\'" v-for="radio2 in getOption(radio)" class="checkbox-wrapper">\n' +
+    '                      <input v-if="checked.indexOf(getOption(radio2)) != -1 || (expanded && !collapseGroup(radio))" type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
+    '                      <label v-if="checked.indexOf(getOption(radio2)) != -1 || (expanded && !collapseGroup(radio))" :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
+    '                    </div>\n' +
+    '                  </div>\n' +
+    '                </div>\n' +
+    '              </div>'
+  });
+
   // Retrieve the data via vue.js.
   new Vue({
     el: '#app',
@@ -248,7 +322,7 @@
       component.$watch('categories', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
+        if (!component.runningClearAllFilters && newValue != oldValue) {
           component.runAjaxRequest();
         }
       })
@@ -269,6 +343,9 @@
     },
     methods: {
       arrayFilter: function(array) {
+        if (typeof array != 'array') {
+          return array;
+        }
         return array.filter(function(word){ return word.length > 0 && word != 'undefined'; });
       },
       runAjaxRequest: function() {
