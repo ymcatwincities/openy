@@ -6,28 +6,27 @@ openy_activity_finder:
     base:
       css/activity_finder.css: {}
   dependencies:
-    - openy_system/openy_system.polyfill
-    - openy_system/openy_system.vue
-    - openy_system/openy_system.vue_router
-    - openy_system/openy_system.moment
-    - openy_system/openy_system.natsort
     - openy_system/openy_system.modal
     - openy_system/openy_system.ajax_spinner
     - openy_system/openy_system.cards
     - openy_system/openy_system.stepper
+    - openy_system/jquery.matchHeight
+    - openy_system/polyfill
+    - openy_system/vue
+    - openy_system/vue_router
+    - openy_system/moment
 
 openy_activity_finder_search:
   version: 0.1
   js:
     js/programs_search.js: {}
   dependencies:
-    - openy_system/openy_system.polyfill
-    - openy_system/openy_system.vue
-    - openy_system/openy_system.vue_router
-    - openy_system/openy_system.moment
-    - openy_system/openy_system.natsort
     - openy_system/openy_system.modal
     - openy_system/openy_system.ajax_spinner
     - openy_system/openy_system.filters
     - openy_system/openy_system.table
     - openy_system/openy_system.stepper
+    - openy_system/polyfill
+    - openy_system/vue
+    - openy_system/vue_router
+    - openy_system/moment

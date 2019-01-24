@@ -1,39 +1,45 @@
-openy_system:
-  version: 1.x
+polyfill:
+  version: 0.1
   js:
-    assets/js/openy_system.js: {}
+    https://cdn.polyfill.io/v2/polyfill.min.js: { type: external, minified: true }
 
-admin_menu:
+addtocal:
+  version: 0.1
+  js:
+    assets/js/atc.js: {}
+
+vue:
+  version: 0.1
+  js:
+    assets/js/vue/vue.min.js: {}
+
+vue_router:
+  version: 0.1
+  js:
+    assets/js/vue/vue-router.js: {}
+    
+moment:
+  version: 0.1
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js: { type: external, minified: true }
+
+jquery.matchHeight:
+  version: 0.1
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js: { type: external, minified: true }
+
+# Custom OpenY libraries.
+openy.admin_menu:
   version: 1.x
   css:
     theme:
       assets/css/menu.css: {}
 
-openy_system.polyfill:
-  version: 0.1
+openy_system:
+  version: 1.x
   js:
-    https://cdn.polyfill.io/v2/polyfill.min.js: { type: external }
+    assets/js/openy_system.js: {}
 
-openy_system.addtocal:
-  version: 0.1
-  js:
-    assets/js/atc.js: {}
-
-openy_system.vue:
-  version: 0.1
-  js:
-    assets/js/vue/vue.min.js: {}
-
-openy_system.vue_router:
-  version: 0.1
-  js:
-    assets/js/vue/vue-router.js: {}
-    
-openy_system.moment:
-  version: 0.1
-  js:
-    https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js: { type: external }
-      
 openy_system.stepper:
   version: 0.1
   css:
