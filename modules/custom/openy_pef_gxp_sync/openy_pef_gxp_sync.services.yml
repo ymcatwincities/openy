@@ -21,7 +21,7 @@ services:
       - '@openy_pef_gxp_sync.wrapper'
       - '@logger.channel.openy_pef_gxp_sync'
       - '@http_client'
-      - '@ymca_mappings.location_repository'
+      - '@openy_mappings.location_repository'
       - '@config.openy_pef_gxp_sync.immutable'
   openy_pef_gxp_sync.saver:
     class: Drupal\openy_pef_gxp_sync\syncer\Saver
