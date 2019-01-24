@@ -37,17 +37,17 @@
           <div class="row row-eq-height justify-content-center">
 
             <div class="col-xs-12 col-sm-6 col-md-4">
-              <a @click.prevent="toStep(1)" class="openy-card__item openy-card__link">
-                <span class="h4" data-mh="openy-card__item-heading">{{ 'Activity Finder'|t }}</span>
-                <span class="openy-card__link--subtext" data-mh="openy-card__item-sub-heading">{{ 'Find exactly what you\'re looking for'|t }}</span>
+              <a @click.prevent="toStep(1)" class="openy-card__item openy-card__link" data-mh="openy-card__item-heading">
+                <span class="h4">{{ 'Activity Finder'|t }}</span>
+                <span class="openy-card__link--subtext">{{ 'Find exactly what you\'re looking for'|t }}</span>
               </a>
             </div>
 
             <div class="col-xs-12 col-sm-6 col-md-4">
-              <a v-bind:href="afResultsRef" class="openy-card__item openy-card__link">
-                <span class="h4"  data-mh="openy-card__item-heading">{{ 'View all programs'|t }}</span>
-                <span class="openy-card__link--subtext" data-mh="openy-card__item-sub-heading" v-if="loading">
-                  {% include '@openy_repeat/openy-ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+              <a v-bind:href="afResultsRef" class="openy-card__item openy-card__link" data-mh="openy-card__item-heading">
+                <span class="h4">{{ 'View all programs'|t }}</span>
+                <span class="openy-card__link--subtext" v-if="loading">
+                  {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                 </span>
                 <span class="openy-card__link--subtext" v-else>${ table.count } {{ 'results'|t }}</span>
               </a>
@@ -69,7 +69,7 @@
               <div class="activity-finder__step_header--progress-inner">
                 <div class="d-inline-flex">
                   <span v-if="loading">
-                    {% include '@openy_repeat/openy-ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+                    {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
                     ${ table.count } {{ 'programs.'|t }}
@@ -110,7 +110,7 @@
                 {% for age in ages %}
                   <div class="col-sm-6 col-md-4">
                     <div class="openy-card__item">
-                      <label for="af-age-filter-{{ age.value }}" class="justify-content-center">
+                      <label for="af-age-filter-{{ age.value }}" class="justify-content-center" data-mh="openy-card__item-label--ages">
                         <input v-model="checkedAges" @change="toggleCardState" type="checkbox" value="{{ age.value }}" id="af-age-filter-{{ age.value }}" class="d-none hidden">
                         {{- age.label -}}
                       </label>
@@ -131,7 +131,7 @@
                 {% for day in days %}
                   <div class="col-sm-6 col-md-4">
                     <div class="openy-card__item">
-                      <label for="af-day-filter-{{ day.value }}" class="justify-content-center">
+                      <label for="af-day-filter-{{ day.value }}" class="justify-content-center" data-mh="openy-card__item-label--days">
                         <input v-model="checkedDays" @change="toggleCardState" type="checkbox" value="{{ day.value }}" id="af-day-filter-{{ day.value }}" class="d-none hidden">
                         {{- day.label -}}
                       </label>
@@ -177,7 +177,7 @@
               <div class="activity-finder__step_header--progress-inner">
                 <div class="d-inline-flex">
                   <span v-if="loading">
-                    {% include '@openy_repeat/openy-ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+                    {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
                     ${ table.count } {{ 'programs for:'|t }} ${ checkedStep1Filters }
@@ -236,7 +236,7 @@
               <div class="activity-finder__step_header--progress-inner">
                 <div class="d-inline-flex">
                   <span v-if="loading">
-                    {% include '@openy_repeat/openy-ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+                    {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
                     ${ table.count } {{ 'programs for:'|t }} ${ checkedStep2Filters }
@@ -290,10 +290,10 @@
                   {% for location in locationGroup.value %}
                     <div class="col-xs-12 col-sm-6 col-md-4">
                       <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter('{{ location.value }}') === 0)}">
-                        <label for="af-filter-{{ location.value }}" class="has-subtext">
+                        <label for="af-filter-{{ location.value }}" class="has-subtext" data-mh="openy-card__item-label">
                           <i class="fa fa-map-marker"></i>
                           <input v-if="locationCounter('{{ location.value }}') !== 0" v-model="checkedLocations" @change="toggleCardState" type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" class="d-none hidden">
-                          <div class="d-flex flex-column" data-mh="openy-card__item-label">
+                          <div class="d-flex flex-column">
                             <span>{{ location.label }}</span>
                             <small>${ locationCounter("{{ location.value }}") } {{ 'results'|t }}</small>
                           </div>

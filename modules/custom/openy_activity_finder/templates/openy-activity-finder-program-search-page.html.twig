@@ -18,7 +18,7 @@
         <div class="activity-finder__step_header--progress-inner">
           <div class="d-inline-flex">
             <span v-if="loading">
-              {% include '@openy_repeat/openy-ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+              {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
             </span>
             <span v-else class="activity-finder__step_header--progress-spacer">
               ${ count } {{ 'programs meet your criteria.'|t }}
@@ -139,7 +139,7 @@
 
             <div class="schedules-data clearfix">
               <div v-show="loading" class="schedules-loading">
-                {% include '@openy_repeat/openy-ajax-spinner.html.twig' %}
+                {% include '@openy_system/openy-system--ajax-spinner.html.twig' %}
               </div>
 
               <div v-show="!loading" v-for="(item, index) in table" class="schedules-data__row--alt clearfix" style="">
@@ -198,7 +198,7 @@
           <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--more-info" tabindex="-1" role="dialog" aria-labelledby="schedule-dashboard__modal--more-info-link">
             <div class="modal-dialog" role="document">
               <div v-if="moreInfoPopupLoading" class="modal-content">
-                {% include '@openy_repeat/openy-ajax-spinner.html.twig' %}
+                {% include '@openy_system/openy-system--ajax-spinner.html.twig' %}
               </div>
               <div v-else class="modal-content" style="font-size: 80%;">
                 <div class="schedule-dashboard__modal--header">
@@ -316,7 +316,7 @@
           <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--availability" tabindex="-1" role="dialog" aria-labelledby="schedule-dashboard__modal--availability">
             <div class="modal-dialog" role="document">
               <div v-if="moreInfoPopupLoading" class="modal-content">
-                {% include '@openy_repeat/openy-ajax-spinner.html.twig' %}
+                {% include '@openy_system/openy-system--ajax-spinner.html.twig' %}
               </div>
               <div v-else class="modal-content">
 

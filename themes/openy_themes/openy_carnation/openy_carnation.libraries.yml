@@ -10,9 +10,9 @@ global-styling:
     dist/js/bootstrap.min.js: {}
     dist/js/jquery.matchHeight.min.js: {}
     src/js/openy_carnation.js: {}
-
   dependencies:
     - core/jquery.once
     - core/jquery.ui.datepicker
     - core/drupal
     - openy_rose/blog_slider
+    - openy_system/jquery.matchHeight
