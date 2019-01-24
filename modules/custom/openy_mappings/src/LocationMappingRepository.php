@@ -4,6 +4,11 @@ namespace Drupal\openy_mappings;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\FieldItemList;
+use Drupal\openy_mappings\Entity\Mapping;
+use Drupal\Core\Entity\Query\QueryInterface;
 
 /**
  * Class LocationMappingRepository.
@@ -11,11 +16,23 @@ use Drupal\Core\Entity\Query\QueryFactory;
 class LocationMappingRepository {
 
   /**
+   * Mapping type.
+   */
+  const TYPE = 'location';
+
+  /**
    * Entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
+
+  /**
+   * Mapping storage.
+   *
+   * @var \Drupal\Core\Entity\EntityStorageInterface
+   */
+  protected $storage;
 
   /**
    * MappingRepository constructor.
@@ -28,6 +45,7 @@ class LocationMappingRepository {
   public function __construct(QueryFactory $query_factory, EntityTypeManagerInterface $entityTypeManager) {
     $this->queryFactory = $query_factory;
     $this->entityTypeManager = $entityTypeManager;
+    $this->storage = $this->entityTypeManager->getStorage('mapping');
   }
 
   /**
@@ -91,6 +109,26 @@ class LocationMappingRepository {
     }
 
     return $daxko_ids;
+  }
+
+  /**
+   * Load all location mappings where GroupEx ID is present.
+   *
+   * @return array
+   *   An array of found location mapping objects sorted by name.
+   */
+  public function loadAllLocationsWithGroupExId() {
+    $mapping_ids = $this->queryFactory
+      ->get('mapping')
+      ->condition('type', self::TYPE)
+      ->condition('field_groupex_id', 0, '>')
+      ->sort('name', 'ASC')
+      ->execute();
+    if (!$mapping_ids) {
+      return [];
+    }
+
+    return $this->storage->loadMultiple($mapping_ids);
   }
 
 }
