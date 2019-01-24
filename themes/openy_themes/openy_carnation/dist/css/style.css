@@ -10299,7 +10299,8 @@ article .node--view-mode-flexible-content h2 {
     box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     margin-bottom: 18px;
-    position: relative; }
+    position: relative;
+    width: 100%; }
 
 .paragraph--column-in-a-grid .inner h2 {
   height: 50px;
