@@ -3,7 +3,7 @@ description: Provides a Session content type and related configuration
 type: module
 core: 8.x
 package: Open Y
-version: 8.x-1.0
+version: 8.x-1.1
 dependencies:
   - content_moderation
   - datalayer
