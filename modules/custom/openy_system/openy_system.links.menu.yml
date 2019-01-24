@@ -75,3 +75,11 @@ openy_system.openy_development:
   description: 'Show Open Y development information.'
   position: left
   weight: 20
+
+openy_system.openy_terms_and_conditions:
+  title: Terms of use
+  route_name: openy_system.openy_terms_and_conditions
+  parent: openy_system.openy
+  description: 'The Terms of use page.'
+  position: left
+  weight: 40
