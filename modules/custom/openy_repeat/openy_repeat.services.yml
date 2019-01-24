@@ -1,5 +1,0 @@
-services:
-  openy_repeat_pdf_generator:
-      class: Drupal\openy_repeat\PDFGenerator
-      tags:
-        - { name: pdf_generator }
