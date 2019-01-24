@@ -51,22 +51,6 @@ source:
             <p>Get discounts on swim lessons, day camp, youth sports and more
             with your membership.</p>
     -
-      id: give_featured_content
-      parent_id: give
-      headline: 'Why Give to the Y'
-      description: |
-        <p>Everyone knows the Y as a place to camp, swim, or exercise. Yet, the
-        Y is so much more. As a 501(c)3 nonprofit organization, we provide
-        crucial programs and services to more than 230,000 people every year.
-        With the help of generous donors, we are able to provide more than 250
-        homeless youth safe, stable housing, 115,000 healthy meals to
-        school-age youth, and more than $9.5 million in financial assistance to
-        more than 27,000 people to ensure everyone has a chance to succeed and
-        belong at the Y.</p>
-
-        <p><strong><font face="Verdana" size="5">Addressing Critical Local
-        Needs</font></strong></p>
-    -
       id: accelerator_featured_content
       parent_id: accelerator
       headline: 'About Accelerator YMCA'
