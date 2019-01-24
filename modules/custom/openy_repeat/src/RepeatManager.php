@@ -722,4 +722,47 @@ class RepeatManager implements SessionInstanceManagerInterface {
     return $age_ids;
   }
 
+  /**
+   * Check that class, activity or program subcategory node significantly changed.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   Class node.
+   *
+   * @return boolean
+   *
+   */
+  public function isSignificantChange(NodeInterface $entity) {
+    // Fields that contain significant values for entity
+    $map_compare = [
+      'class' => [
+        'field_class_activity'
+      ],
+      'activity' => [
+        'title',
+        'field_activity_category',
+      ],
+      'program_subcategory' => [
+        'field_category_program'
+      ],
+    ];
+
+    $bundle = $entity->bundle();
+
+    if (!isset($map_compare[$bundle])) {
+      return FALSE;
+    }
+
+    if (isset($entity->original)) {
+      $original = $entity->original;
+      foreach ($map_compare[$bundle] as $field) {
+        $new = $entity->get($field)->getValue();
+        $old = $original->get($field)->getValue();
+
+        if (isset($old) && isset($new) && $new != $old) {
+          return TRUE;
+        }
+      }
+    }
+    return FALSE;
+  }
 }

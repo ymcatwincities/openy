@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_repeat\Controller;
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
@@ -194,6 +195,15 @@ class RepeatController extends ControllerBase {
 
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
+
+      if (isset($classes_info[$item->class]['path'])) {
+        $query = UrlHelper::buildQuery([
+          'session' => $item->session,
+          'location' => $locations_info[$item->location]['nid'],
+        ]);
+        $classes_info[$item->class]['path'] .= '?' . $query;
+      }
+
       $result[$key]->class_info = $classes_info[$item->class];
 
       $result[$key]->time_start_sort = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Hi');
@@ -303,6 +313,7 @@ class RepeatController extends ControllerBase {
           foreach ($classes as $node) {
             $data[$node->nid->value] = [
               'nid' => $node->nid->value,
+              'path' => $node->toUrl()->setAbsolute()->toString(),
               'title' => $node->title->value,
               'description' => html_entity_decode(strip_tags(text_summary($node->field_class_description->value, $node->field_class_description->format, 600))),
             ];
@@ -370,6 +381,7 @@ class RepeatController extends ControllerBase {
           'max-age' => 0
         ],
       ],
+      'title' => $this->t("Download PDF schedule"),
       '#cache' => [
         'max-age' => 0
       ],
@@ -406,8 +418,8 @@ class RepeatController extends ControllerBase {
     $result = [];
     // Create weekly schedule by getting results for every weekday.
     for ($i = 1; $i <= 7; $i++) {
-      $date = DrupalDateTime::createFromTimestamp($timestamp_start)->format('F j, l 00:00:00');
-      $result[$date] = $this->getData($request, $location, $date, $category);
+      $date = DrupalDateTime::createFromTimestamp($timestamp_start);
+      $result[$date->format('Y-m-d')] = $this->getData($request, $location, $date->format('F j, l 00:00:00'), $category);
       $timestamp_start += 86400;
     }
     if (!empty($rooms)) {
@@ -448,8 +460,8 @@ class RepeatController extends ControllerBase {
     $arr_date_keys = array_keys($date_keys);
     $first = reset($arr_date_keys);
     $last = end($arr_date_keys);
-    $first = DrupalDateTime::createFromFormat('F j, l 00:00:00', $first)->format('F jS');
-    $last = DrupalDateTime::createFromFormat('F j, l 00:00:00', $last)->format('F jS');
+    $first = DrupalDateTime::createFromFormat('Y-m-d', $first)->format('F jS');
+    $last = DrupalDateTime::createFromFormat('Y-m-d', $last)->format('F jS');
     $formatted_result['header'] = [
       'dates' => $first . ' - ' . $last,
     ];
@@ -505,8 +517,8 @@ class RepeatController extends ControllerBase {
     $arr_date_keys = array_keys($date_keys);
     $first = reset($arr_date_keys);
     $last = end($arr_date_keys);
-    $first = DrupalDateTime::createFromFormat('F j, l 00:00:00', $first)->format('F jS');
-    $last = DrupalDateTime::createFromFormat('F j, l 00:00:00', $last)->format('F jS');
+    $first = DrupalDateTime::createFromFormat('Y-m-d', $first)->format('F jS');
+    $last = DrupalDateTime::createFromFormat('Y-m-d', $last)->format('F jS');
     $formatted_result['header'] = [
       'dates' => $first . ' - ' . $last,
     ];
@@ -527,7 +539,7 @@ class RepeatController extends ControllerBase {
             continue;
           }
         }
-        $weekday = DrupalDateTime::createFromFormat('F j, l 00:00:00', $day)->format('l');
+        $weekday = DrupalDateTime::createFromFormat('Y-m-d', $day)->format('l');
         $formatted_result['content'][$session->category . '|' .$session->location][$weekday][$session->time_start . '-' . $session->time_end][] = [
           'room' => $session->room,
           'name' => $session->name,

@@ -57,3 +57,8 @@ openy_repeat.locations:
   css:
     base:
       css/locations.css: {}
+
+openy_repeat.natsort:
+  version: 1.0
+  js:
+    /libraries/alphanum/alphanum.js: {}
