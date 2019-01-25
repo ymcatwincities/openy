@@ -2,6 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.session.field_availability
+    - field.field.node.session.field_productid
     - field.field.node.session.field_session_class
     - field.field.node.session.field_session_description
     - field.field.node.session.field_session_exclusions
@@ -40,6 +42,24 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  field_availability:
+    weight: 118
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_productid:
+    weight: 119
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
   field_session_class:
     weight: 101
     label: above
@@ -201,4 +221,6 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_session_instructor: true
+  field_session_room: true
   langcode: true

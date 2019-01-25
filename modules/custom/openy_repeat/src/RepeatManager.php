@@ -157,7 +157,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
       // Program Subcategory reference.
       if (!$activity->field_activity_category->isEmpty() && $program_subcategory = $activity->field_activity_category->referencedEntities()) {
         $program_subcategory = reset($program_subcategory);
-        if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
+        // TODO: YGTC requires unpublished session. Fix it.
+        if (FALSE && !$moderation_wrapper->entity_moderation_status($program_subcategory)) {
           // Skip activity due to unpublished program subcategory.
           continue;
         }
@@ -165,7 +166,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
         // Program reference.
         if ($program = $program_subcategory->field_category_program->referencedEntities()) {
           $program = reset($program);
-          if (!$moderation_wrapper->entity_moderation_status($program)) {
+          // TODO: YGTC requires unpublished session. Fix it.
+          if (FALSE && !$moderation_wrapper->entity_moderation_status($program)) {
             // Skip activity due to unpublished program.
             continue;
           }
@@ -451,7 +453,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $this->deleteSessionInstancesBySession($node);
 
     // It's not published.
-    if (!$node->isPublished()) {
+    // @todo YGTC requires unpublished session. Fix it.
+    if (FALSE && !$node->isPublished()) {
       return;
     }
 

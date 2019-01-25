@@ -58,6 +58,8 @@
     }
   }
 
+  Vue.config.devtools = true;
+
   var router = new VueRouter({
       mode: 'history',
       routes: []
@@ -72,6 +74,7 @@
       date: '',
       room: [],
       locations: [],
+      locationsLimit: [],
       categories: [],
       categoriesExcluded: [],
       categoriesLimit: [],
@@ -94,6 +97,29 @@
       exclusionSettings.forEach(function(item){
         component.categoriesExcluded.push(item.title);
       });
+
+      // If there is a preselected location, we'll hide filters and column.
+      let limitLocations = window.OpenY.field_prgf_repeat_loc || [];
+      if (limitLocations && limitLocations.length > 0) {
+        // If we limit to one location. i.e. Andover from GroupExPro
+        if (limitLocations.length == 1) {
+          component.locations.push(limitLocations[0].title);
+          $('.form-group-location').parent().hide();
+          $('.location-column').remove();
+        }
+        else {
+          limitLocations.forEach(function(element){
+            component.locationsLimit.push(element.title);
+          });
+
+          $('.form-group-location .checkbox-wrapper input').each(function(){
+            var value = $(this).attr('value');
+            if (component.locationsLimit.indexOf(value) === -1) {
+              $(this).parent().hide();
+            }
+          });
+        }
+      }
 
       // If there is preselected category, we hide filters and column.
       var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
@@ -282,6 +308,19 @@
           locations: this.locations.join(','),
           categories: this.categories.join(',')
         }});
+      },
+      toggleParentClass: function(event) {
+        if (event.target.parentElement.classList.contains('skip-checked')) {
+          event.target.parentElement.classList.remove('skip-checked');
+          event.target.parentElement.classList.remove('collapse');
+          event.target.parentElement.classList.remove('in');
+          if (!event.target.parentElement.classList.contains('skip-t')) {
+            event.target.parentElement.classList.add('skip-t');
+          }
+        }
+        else {
+          event.target.parentElement.classList.toggle("skip-t");
+        }
       },
       populatePopupL: function(index) {
         this.locationPopup = this.filteredTable[index].location_info;
