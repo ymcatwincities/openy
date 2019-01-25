@@ -2284,6 +2284,19 @@ body {
     margin: 0;
   }
 }
+.site-alert__cta .field-alert-link {
+  float: left;
+}
+@media (min-width: 62em) {
+  .site-alert__cta .field-alert-link {
+    margin-right: 24%;
+  }
+}
+@media (min-width: 48em) {
+  .site-alert__cta .field-alert-link {
+    float: right;
+  }
+}
 .site-alert__cta .field-alert-link a {
   border: 1px solid;
   display: inline-block;
