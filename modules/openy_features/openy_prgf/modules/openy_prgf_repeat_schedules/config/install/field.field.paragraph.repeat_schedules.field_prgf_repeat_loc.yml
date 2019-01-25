@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_repeat_loc
     - node.type.branch
-    - node.type.location
     - paragraphs.paragraphs_type.repeat_schedules
   module:
     - datalayer
