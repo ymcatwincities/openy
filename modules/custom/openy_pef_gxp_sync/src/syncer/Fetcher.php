@@ -4,7 +4,7 @@ namespace Drupal\openy_pef_gxp_sync\syncer;
 
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannel;
-use Drupal\ymca_mappings\LocationMappingRepository;
+use Drupal\openy_mappings\LocationMappingRepository;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 
 /**
