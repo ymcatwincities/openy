@@ -11,6 +11,7 @@ global-styling:
     //use.fontawesome.com/95fd5fcc01.js: {}
     scripts/vendor/bootstrap.min.js: {}
     scripts/vendor/iscroll/iscroll.js: {}
+    scripts/jquery.matchHeight.js: {}
     scripts/openy_rose.js: {}
   dependencies:
     - core/jquery
