@@ -32,5 +32,7 @@ function openy_prgf_repeat_schedules_update_8002() {
     'field.storage.paragraph.field_prgf_rs_pdf_only_view',
     'field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_filt',
     'field.storage.paragraph.field_prgf_repeat_schedule_filt',
+    'field.storage.paragraph.field_prgf_repeat_loc',
+    'field.field.paragraph.repeat_schedules.field_prgf_repeat_loc.yml'
   ]);
 }
