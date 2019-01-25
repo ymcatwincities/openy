@@ -2,4 +2,4 @@ langcode: en
 status: true
 dependencies: {  }
 id: location
-label: Location
+label: Locations
