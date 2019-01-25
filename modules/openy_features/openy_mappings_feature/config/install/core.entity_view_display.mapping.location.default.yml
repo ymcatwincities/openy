@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.field.mapping.location.field_groupex_id
     - field.field.mapping.location.field_location_ref
-    - ymca_mappings.mapping_type.location
+    - openy_mappings.mapping_type.location
   module:
     - user
 id: mapping.location.default
@@ -13,7 +13,7 @@ bundle: location
 mode: default
 content:
   field_groupex_id:
-    weight: 3
+    weight: 2
     label: above
     settings:
       thousand_separator: ''
@@ -33,15 +33,15 @@ content:
     label: above
     type: string
     weight: -4
+    region: content
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    region: content
   user_id:
     label: hidden
     type: author
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden: {  }

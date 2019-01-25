@@ -4,14 +4,14 @@ dependencies:
   config:
     - field.field.mapping.location.field_groupex_id
     - field.field.mapping.location.field_location_ref
-    - ymca_mappings.mapping_type.location
+    - openy_mappings.mapping_type.location
 id: mapping.location.default
 targetEntityType: mapping
 bundle: location
 mode: default
 content:
   field_groupex_id:
-    weight: 13
+    weight: 12
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -29,18 +29,18 @@ content:
   langcode:
     type: language_select
     weight: 10
+    region: content
     settings:
       include_locked: true
     third_party_settings: {  }
-    region: content
   name:
     type: string_textfield
     weight: -4
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
   user_id:
     type: entity_reference_autocomplete
     weight: 5
@@ -48,6 +48,6 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
-    third_party_settings: {  }
     region: content
+    third_party_settings: {  }
 hidden: {  }

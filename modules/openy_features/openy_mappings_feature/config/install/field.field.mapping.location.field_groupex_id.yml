@@ -3,18 +3,22 @@ status: true
 dependencies:
   config:
     - field.storage.mapping.field_groupex_id
-    - ymca_mappings.mapping_type.location
+    - openy_mappings.mapping_type.location
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_groupex_id
 id: mapping.location.field_groupex_id
 field_name: field_groupex_id
 entity_type: mapping
 bundle: location
 label: 'Groupex ID'
-description: ''
+description: 'Id of Groupex entity to be mapped to referenced from current entity.'
 required: false
 translatable: false
-default_value:
-  -
-    value: 0
+default_value: {  }
 default_value_callback: ''
 settings:
   min: null

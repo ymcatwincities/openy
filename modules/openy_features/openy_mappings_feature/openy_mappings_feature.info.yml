@@ -1,5 +1,5 @@
 name: 'Open Y Mappings Feature'
-description: 'Mappings for all sorts of integrations and sync.'
+description: 'Configs for all sorts of mappings used in integrations and sync.'
 type: module
 core: 8.x
 dependencies:
