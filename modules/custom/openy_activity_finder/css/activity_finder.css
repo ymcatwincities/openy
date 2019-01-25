@@ -78,3 +78,7 @@
 .field-prgf-af-results-ref {
   display: none;
 }
+
+.activity-finder__step input[type="radio"] {
+  margin-right: 10px;
+}
