@@ -55,13 +55,16 @@
     font-size: 18px;
     padding: 0;
     width: 100%;
-    border: 1px solid white;
     a {
       display: block;
       padding: 12px;
       color: white;
       @include cachet-medium();
       text-transform: uppercase;
+    }
+
+    .field-lto-link {
+      border: 1px solid white;
     }
   }
 
