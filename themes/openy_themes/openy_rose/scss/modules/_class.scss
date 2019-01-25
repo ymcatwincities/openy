@@ -191,6 +191,10 @@
     font-size: 38px;
     text-transform: uppercase;
     letter-spacing: 2px;
+
+    @include breakpoint(0 $screen-lg) {
+      font-size: 25px;
+    }
   }
 
   &.mobile {
