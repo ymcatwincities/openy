@@ -50,7 +50,7 @@ source:
           header_content_id: give_gallery
       content_ids:
         -
-          content_id: give_featured_content
+          content_id: give_simple
     -
       id: blog
       title: 'Blog'

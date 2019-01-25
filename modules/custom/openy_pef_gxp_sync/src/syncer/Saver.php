@@ -18,6 +18,11 @@ use Drupal\openy_pef_gxp_sync\OpenYPefGxpMappingRepository;
 class Saver implements SaverInterface {
 
   /**
+   * Default number of items to proceed in Demo mode.
+   */
+  const DEMO_MODE_ITEMS = 5;
+
+  /**
    * Wrapper.
    *
    * @var \Drupal\openy_pef_gxp_sync\syncer\WrapperInterface
@@ -89,9 +94,6 @@ class Saver implements SaverInterface {
    */
   public function clean() {
     $data = $this->wrapper->getProcessedData();
-    if (!$this->config->get('is_production')) {
-      $data = array_slice($data, 0, 2);
-    }
 
     // Get session IDs from source data.
     $sourceIds = array_map(function ($item) {
@@ -132,8 +134,13 @@ class Saver implements SaverInterface {
   public function save() {
     $data = $this->wrapper->getProcessedData();
 
+    // Do not sync all items in demo mode.
     if (!$this->config->get('is_production')) {
-      $data = array_slice($data, 0, 2);
+      $demoModeItems = self::DEMO_MODE_ITEMS;
+      if ($override = $this->config->get('demo_mode_items')) {
+        $demoModeItems = $override;
+      }
+      $data = array_slice($data, 0, $demoModeItems);
     }
 
     $nodeStorage = $this->entityTypeManager->getStorage('node');

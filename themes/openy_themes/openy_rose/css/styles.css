@@ -806,6 +806,7 @@ body {
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .viewport,
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .top-navs {
   margin-top: 79px;
+  z-index: 10;
 }
 .toolbar-fixed.toolbar-vertical .viewport,
 .toolbar-fixed.toolbar-vertical .top-navs {
@@ -3028,6 +3029,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
+  margin: 0;
 }
 .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
   background: none;
@@ -3039,7 +3041,7 @@ body {
   margin-top: -7px;
 }
 .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow:before {
-  color: #00aeef;
+  display: none;
 }
 @media (min-width: 48em) {
   .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
@@ -5071,6 +5073,14 @@ html.js .branch__updates_queue__button {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
+@media (min-width: 0) and (max-width: 75em) {
+  .field-prgf-title h2,
+  .field-prgf-nu-title h2,
+  .field-prgf-whay-title h2,
+  .field-prgf-fc-title h2 {
+    font-size: 25px;
+  }
+}
 .field-prgf-title.mobile h2,
 .field-prgf-nu-title.mobile h2,
 .field-prgf-whay-title.mobile h2,
@@ -6436,10 +6446,6 @@ a[href="#step2"] {
 }
 #membership-calc-wrapper .nav-pills li + li {
   margin-left: 0;
-}
-
-.openy-map-wrapper {
-  margin-bottom: 40px;
 }
 
 .views-view-membership .field-body-no-summary {
@@ -8094,22 +8100,11 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
-  margin: 20px 0;
+  margin: 0 0 20px 0;
+  width: 100%;
 }
-@media (min-width: 1200px) {
-  .paragraph--type--lto {
-    width: 1170px;
-  }
-}
-@media (min-width: 992px) and (max-width: 1200px) {
-  .paragraph--type--lto {
-    width: 970px;
-  }
-}
-@media (min-width: 768px) and (max-width: 992px) {
-  .paragraph--type--lto {
-    width: 750px;
-  }
+.paragraph--type--lto .container {
+  max-width: 100%;
 }
 .paragraph--type--lto .field-lto-title {
   font-family: "Cachet W01 Book", Verdana, sans-serif;

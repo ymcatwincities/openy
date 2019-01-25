@@ -4,7 +4,7 @@ namespace Drupal\openy_pef_gxp_sync\syncer;
 
 use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannel;
-use Drupal\ymca_mappings\LocationMappingRepository;
+use Drupal\openy_mappings\LocationMappingRepository;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 
 /**
@@ -85,13 +85,16 @@ class Fetcher implements FetcherInterface {
    * {@inheritdoc}
    */
   public function fetch() {
-    $apiPrefix = self::API_URL . self::CLIENT_ID . '/';
+    $config = \Drupal::configFactory()->get('openy_gxp.settings');
+    $clientId = $config->get('client_id');
+    if (!$clientId) {
+      $this->logger->error('No GroupEx client ID found. Please, configure OpenY GXP module and provide Client ID.');
+      return;
+    }
+
+    $apiPrefix = self::API_URL . $clientId . '/';
 
     $locations = $this->mappingRepository->loadAllLocationsWithGroupExId();
-
-    if (!$this->config->get('is_production')) {
-      $locations = array_slice($locations, 0, 2);
-    }
 
     foreach ($locations as $location) {
       $locationGpxId = $location->field_groupex_id->value;
