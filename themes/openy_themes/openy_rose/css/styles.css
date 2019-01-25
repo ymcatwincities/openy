@@ -8158,7 +8158,6 @@ article .node--view-mode-flexible-content h2 a span {
   font-size: 18px;
   padding: 0;
   width: 100%;
-  border: 1px solid white;
 }
 .paragraph--type--lto .btn a, .paragraph--type--lto .button a {
   display: block;
@@ -8166,6 +8165,9 @@ article .node--view-mode-flexible-content h2 a span {
   color: white;
   font-family: "Cachet W01 Medium", Verdana, sans-serif;
   text-transform: uppercase;
+}
+.paragraph--type--lto .btn .field-lto-link, .paragraph--type--lto .button .field-lto-link {
+  border: 1px solid white;
 }
 .wrapper-field-bottom-content .paragraph--type--lto {
   margin: 0;
