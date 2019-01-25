@@ -181,8 +181,13 @@
                   filters.push($('#af-day-filter-' + component.checkedDays[key]).parent('label').text());
                 }
               }
-
-              component.checkedProgramTypes.length > 0 ? filters.push(component.checkedProgramTypes) : '';
+              // Depends on widget type radio or checkbox checkedProgramTypes contains string or object.
+              if (typeof component.checkedProgramTypes === 'string') {
+                component.checkedProgramTypes.length > 0 ? filters.push(component.checkedProgramTypes) : '';
+              }
+              else {
+                component.checkedProgramTypes.length > 0 ? filters.push(component.checkedProgramTypes.join(', ')) : '';
+              }
               component.checkedStep1Filters = filters.join(', ');
             }
             break;
