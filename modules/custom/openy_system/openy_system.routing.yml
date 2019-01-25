@@ -95,3 +95,10 @@ openy_system.openy_terms_and_conditions:
     _title: 'Terms and conditions'
   requirements:
     _permission: 'access content'
+
+openy_system.terms:
+  path: '/terms.txt'
+  defaults:
+    _controller: '\Drupal\openy_system\Controller\TermsOfUseController::content'
+  requirements:
+    _access: 'TRUE'
