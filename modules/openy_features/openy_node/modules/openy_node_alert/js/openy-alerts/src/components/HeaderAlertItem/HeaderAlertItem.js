@@ -52,7 +52,7 @@ class AlertItem extends Component {
                   <i className="fa fa-exclamation-circle" aria-hidden="true" />
                 </div>
               )}
-              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div className="site-alert__title">
                   {renderHTML(this.props.label)}
                 </div>
@@ -61,7 +61,7 @@ class AlertItem extends Component {
                 </div>
               </div>
               {this.props.linkTitle && (
-                <div className="col-xs-12 col-sm-5 col-md-5 col-lg-3 site-alert__cta">
+                <div className="col-xs-12 col-sm-5 col-md-5 col-lg-5 site-alert__cta">
                   <div className="field-alert-link">
                     <a href={this.props.linkUrl} style={linkStyle}>
                       {this.props.linkTitle}
