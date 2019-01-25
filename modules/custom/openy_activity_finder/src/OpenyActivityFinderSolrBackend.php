@@ -489,7 +489,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
 
   public function getCategoriesTopLevel() {
     $categories = [];
-    $programInfo = $this->getActivityProgramInfo();
+    $programInfo = $this->getCategoryProgramInfo();
     foreach ($programInfo as $key => $item) {
       $categories[$item['program']['nid']] = $item['program']['title'];
     }
@@ -498,7 +498,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
 
   public function getCategories() {
     $categories = [];
-    $programInfo = $this->getActivityProgramInfo();
+    $programInfo = $this->getCategoryProgramInfo();
     foreach ($programInfo as $key => $item) {
       $categories[$item['program']['nid']]['value'][] = [
         'value' => $key,
