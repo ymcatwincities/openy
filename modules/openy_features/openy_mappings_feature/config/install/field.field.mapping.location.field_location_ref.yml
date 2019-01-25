@@ -3,8 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.mapping.field_location_ref
-    - node.type.branch
-    - node.type.location
     - ymca_mappings.mapping_type.location
   module:
     - datalayer
