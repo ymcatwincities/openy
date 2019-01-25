@@ -1,0 +1,14 @@
+name: 'Open Y Mappings Feature'
+description: 'Configs for all sorts of mappings used in integrations and sync.'
+type: module
+core: 8.x
+dependencies:
+  - datalayer
+  - field
+  - metatag
+  - node
+  - openy_loc_branch
+  - openy_mappings
+  - user
+  - views
+version: 8.x-1.0
