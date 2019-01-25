@@ -182,7 +182,7 @@
                 }
               }
 
-              component.checkedProgramTypes.length > 0 ? filters.push(component.checkedProgramTypes.join(', ')) : '';
+              component.checkedProgramTypes.length > 0 ? filters.push(component.checkedProgramTypes) : '';
               component.checkedStep1Filters = filters.join(', ');
             }
             break;
@@ -259,9 +259,13 @@
         return this.table.groupedLocations[key].count;
       },
       toggleCardState: function(e) {
-        var element = $(e.target);
-        var deselect = element.data('deselect');
-        console.log(deselect, 'deselect');
+        var element = $(e.target),
+            deselect = element.data('deselect');
+        if (element.attr('type') === 'radio') {
+          // Unselect all others radios in group.
+          $('input[name="' + element.attr('name') + '"]').parents('.openy-card__item').removeClass('selected');
+          element.parents('.openy-card__item').addClass('selected');
+        }
         if (!element.parents('.openy-card__item').hasClass('selected')) {
           // Unselect all others.
           if (deselect) {
