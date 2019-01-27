@@ -29,7 +29,7 @@ jquery.matchHeight:
     https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js: { type: external, minified: true }
 
 # Custom OpenY libraries.
-openy.admin_menu:
+openy_system.admin_menu:
   version: 1.x
   css:
     theme:
@@ -39,6 +39,12 @@ openy_system:
   version: 1.x
   js:
     assets/js/openy_system.js: {}
+
+openy_system.helpers:
+  version: 0.1
+  css:
+    base:
+      assets/css/helpers.css: {}
 
 openy_system.stepper:
   version: 0.1
