@@ -36,7 +36,7 @@ function openy_system_modules_uninstalled(array $modules) {
  */
 function openy_system_page_attachments(array &$attachments) {
   // Open Y System admin menu CSS.
-  $attachments['#attached']['library'][] = 'openy_system/openy.admin_menu';
+  $attachments['#attached']['library'][] = 'openy_system/openy_system.admin_menu';
 }
 
 /**

@@ -201,7 +201,7 @@
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="radio in radios" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(radio)) != -1">' +
-    '                    <div v-if="typeof getOption(radio) == \'object\'">' +
+    '                    <div v-if="typeof getOption(radio) == \'object\'" class="d-flex">' +
     '                       <label v-if="typeof getOption(radio) == \'object\'" v-show="expanded || checked.indexOf(getOption(radio)) != -1" >{{ getLabel(radio) }}</label>\n' +
     '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
     '                         <span v-show="collapseGroup(radio)" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(radio), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +

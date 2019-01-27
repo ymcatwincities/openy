@@ -274,13 +274,18 @@
             <div class="checkbox-group-wrapper">
 
               {# location accordion > header #}
-              <a data-toggle="collapse" {% if key == 0 %}area-expanded="false"{% endif %} href="#collapse{{ key }}" class="bg-light d-block mb-5">
+              <a data-toggle="collapse" aria-expanded="{% if key == 0 %}true{% else %}false{% endif %}" href="#collapse{{ key }}" class="bg-light d-block mb-5{% if key != 0 %} collapsed{% endif %}">
                 <div class="row p-3 align-items-center">
-                  <div class="col col-xs-10">
-                    <h3 class="m-0">{{ locationGroup.label }}</h3>
+                  <div class="col col-xs-8">
+                    <div class="d-flex align-items-center">
+                      <h3 class="m-0 mr-3">{{ locationGroup.label }}</h3>
+                      <span class="badge badge-pill badge-dark px-3 py-2">${ locationsSelected() }</span>
+                    </div>
                   </div>
-                  <div class="col-2 col-xs-2 text-right">
-                    <span class="badge badge-pill badge-dark px-3 py-2">${ getLocationsCounter("{{ key }}") }</span>
+                  <div class="col-4 col-xs-4 text-right">
+                    <span class="h6 text-muted text-gray-500 font-weight-light mr-3">${ getLocationsCounter("{{ key }}") } {{ 'results'|t }}</span>
+                    <i class="fa fa-plus plus" aria-hidden="true"></i>
+                    <i class="fa fa-minus minus" aria-hidden="true"></i>
                   </div>
                 </div>
               </a>

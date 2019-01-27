@@ -38,20 +38,10 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
   padding: 0;
 }
 
-a.collapsed .minus {
-  display: none;
-}
-
-/* Toggle +/- */
-a[data-toggle][aria-expanded=true] .plus,
-label[data-toggle][aria-expanded=true] .plus,
-label.expanded:not(.collapsed) .plus,
-label[aria-expanded=false] .minus {
-  display: none;
-}
-
-/* filter controls */
-
+/**
+ * Styles the mobile collapsed view for the filters sidebar component.
+ * On mobile the sidebar collapses into a "Show/Hide Filters +/-" button.
+ */
 .schedule-dashboard__sidebar .navbar-controls {
   width: 100%;
   display: flex;
@@ -76,8 +66,9 @@ label[aria-expanded=false] .minus {
   border-radius: 0;
 }
 
-/* form styling */
-
+/**
+ * Form Styling
+ */
 .schedule-dashboard__sidebar .form-group-wrapper {
   padding: 2.5rem 0 1.5rem;
   border-top: 2px solid #d4d4d4;
@@ -109,8 +100,16 @@ label[aria-expanded=false] .minus {
   padding-bottom: 1rem;
 }
 
+/* Adds spacing for checkbox wrappers. */
+.schedule-dashboard__sidebar .form-group-wrapper > .radios > .checkbox-wrapper {
+  padding-bottom: .5rem;
+}
 
-/* custom checkboxes */
+.schedule-dashboard__sidebar .form-group-wrapper > .radios > .checkbox-wrapper:last-child {
+  padding-bottom: 0;
+}
+
+/* custom checkboxes > labels */
 .schedule-dashboard__sidebar .checkbox-wrapper label {
   font-weight: normal;
   cursor: pointer;
@@ -142,19 +141,22 @@ label[aria-expanded=false] .minus {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  border-radius: 2px;
 }
 
 .schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
   background: #222;
 }
 
-/* Checkboxes (locations) */
-.schedule-dashboard__sidebar .checkboxes input {
+/* Checkboxes & radios (locations) */
+.schedule-dashboard__sidebar .checkboxes input,
+.schedule-dashboard__sidebar .radios input {
   position: absolute;
   left: -9999px;
 }
 
-.schedule-dashboard__sidebar .checkboxes input + label {
+.schedule-dashboard__sidebar .checkboxes input + label,
+.schedule-dashboard__sidebar .radios input + label {
   position: relative;
   padding-left: 25px;
   cursor: pointer;
@@ -163,16 +165,24 @@ label[aria-expanded=false] .minus {
 }
 
 .schedule-dashboard__sidebar .checkboxes input + label:before,
-.schedule-dashboard__sidebar .checkboxes input + label:after {
+.schedule-dashboard__sidebar .checkboxes input + label:after,
+.schedule-dashboard__sidebar .radios input + label:before,
+.schedule-dashboard__sidebar .radios input + label:after {
   content: '';
   position: absolute;
   left: 0;
-  top: 2px;
+  top: 4px;
   width: 16px;
   height: 16px;
   border-radius: 2px;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
+}
+
+.schedule-dashboard__sidebar .radios input + label:before,
+.schedule-dashboard__sidebar .radios input + label:after {
+  width: 14px;
+  height: 14px;
 }
 
 .schedule-dashboard__sidebar .checkbox-unchecked,
@@ -184,7 +194,7 @@ label[aria-expanded=false] .minus {
 
 /* Checkbox outline. */
 .schedule-dashboard__sidebar .checkboxes input + label:before {
-  border: 1px solid #ddd;
+  border: 2px solid #666666;
   background: white;
 }
 
@@ -194,7 +204,8 @@ label[aria-expanded=false] .minus {
   background-size: contain;
 }
 
-.schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:after {
+.schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:after,
+.schedule-dashboard__sidebar .radios input:not(:checked) + label:after {
   opacity: 0;
   -webkit-transform: scale(0);
   transform: scale(0);
@@ -202,7 +213,8 @@ label[aria-expanded=false] .minus {
 
 .schedule-dashboard__sidebar .checkboxes .checkbox-partial input + label:after,
 .schedule-dashboard__sidebar .checkboxes .checkbox-checked input + label:after,
-.schedule-dashboard__sidebar .checkboxes input:checked + label:after {
+.schedule-dashboard__sidebar .checkboxes input:checked + label:after,
+.schedule-dashboard__sidebar .radios input:checked + label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   transform: scale(1);
@@ -220,11 +232,37 @@ label[aria-expanded=false] .minus {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23666666' d='M0 0h24v24H0V0z'/%3E%3Cpath fill='white' d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/%3E%3C/svg%3E");
 }
 
+/* Radios outline. */
+.schedule-dashboard__sidebar .radios input + label:before {
+  box-sizing: content-box;
+  content: '';
+  color: #666666;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -9px;
+  border: 2px solid #666666;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.schedule-dashboard__sidebar .radios input + label:after {
+  box-sizing: content-box;
+  content: '';
+  background-color: #666666;
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 50%;
+}
+
 /* Arrow icon styling for checkboxes with children. (ie. Location > Branch) */
 .checkbox-toggle-subset span {
   font-size: 2rem;
 }
-
 
 @media (min-width: 768px) {
   .schedule-dashboard__sidebar .checkboxes .checkbox-wrapper {
