@@ -152,7 +152,7 @@
                 <div class="col-sm-12" v-for="category in topLevelCategories">
                   <div class="openy-card__item">
                     <label :for="'af-category-filter-' + category" data-mh="openy-card__item-label">
-                      <input v-model="checkedProgramTypes" @change="toggleCardState" type="checkbox" :value="category" :id="'af-category-filter-' + category" class="d-none hidden">
+                      <input v-model="checkedProgramTypes" @change="toggleCardState" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" name="program-types-radios" :value="category" :id="'af-category-filter-' + category" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %}>
                       ${ category }
                     </label>
                   </div>
@@ -213,11 +213,7 @@
               <div v-for="(item, index) in topLevelCategory.value" class="col-xs-12 col-sm-6 col-md-4">
                 <div class="openy-card__item">
                   <label :for="'af-filter-' + item.value" data-mh="openy-card__item-label">
-                    {% if categories_type == 'multiple' %}
-                    <input v-model="checkedCategories" @change="toggleCardState" type="checkbox" :value="item.value" :id="'af-filter-' + item.value" class="d-none hidden">
-                    {% else %}
-                    <input v-model="checkedCategories" @change="toggleCardState" type="radio" data-deselect="deselect" :value="item.value" :id="'af-filter-' + item.value" class="d-none hidden">
-                    {% endif %}
+                    <input v-model="checkedCategories" @change="toggleCardState" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" :value="item.value" :id="'af-filter-' + item.value" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %}>
                     ${ item.label }
                   </label>
                 </div>
