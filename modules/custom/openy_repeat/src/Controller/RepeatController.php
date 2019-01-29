@@ -172,7 +172,7 @@ class RepeatController extends ControllerBase {
     if (!empty($limit)) {
       $query->condition('re.category', explode(',', $limit), 'IN');
     }
-    $query->addTag('openy_pef_get_data');
+    $query->addTag('openy_repeat_get_data');
     $result = $query->execute()->fetchAll();
 
     $locations_info = $this->getLocationsInfo();
