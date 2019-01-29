@@ -114,75 +114,66 @@ class RepeatController extends ControllerBase {
     // Next day.
     $timestamp_end = $date + 24 * 60 * 60;
 
-    $sql = "SELECT DISTINCT
-              n.nid,
-              re.id,
-              nd.title as location,
-              nds.title as name,
-              re.class,
-              re.session,
-              re.duration as duration,
-              re.room,
-              re.instructor as instructor,
-              re.category,
-              re.register_url as register_url,
-              re.register_text as register_text,
-              re.start as start_timestamp,
-              re.end as end_timestamp,
-              re.duration as duration
-            FROM {node} n
-            RIGHT JOIN {repeat_event} re ON re.session = n.nid
-            INNER JOIN node_field_data nd ON re.location = nd.nid
-            INNER JOIN node_field_data nds ON n.nid = nds.nid
-            WHERE
-              n.type = 'session'
-              AND
-              (
-                (re.year = :year OR re.year = '*')
-                AND
-                (re.month = :month OR re.month = '*')
-                AND
-                (re.day = :day OR re.day = '*')
-                AND
-                (re.week = :week OR re.week = '*')
-                AND
-                (re.weekday = :weekday OR re.weekday = '*')
-                AND
-                (re.start <= :timestamp_end)
-                AND
-                (re.end >= :timestamp_start)
-              )";
-
-    $values = [];
+    $query = $this->database->select('node', 'n');
+    $query->rightJoin('repeat_event', 're', 're.session = n.nid');
+    $query->innerJoin('node_field_data', 'nd', 're.location = nd.nid');
+    $query->innerJoin('node_field_data', 'nds', 'n.nid = nds.nid');
+    $query->addField('n', 'nid');
+    $query->addField('nd', 'title', 'location');
+    $query->addField('nds', 'title', 'name');
+    $query->fields('re', [
+      'class',
+      'session',
+      'room',
+      'instructor',
+      'category',
+      'register_url',
+      'register_text',
+      'duration',
+    ]);
+    $query->addField('re', 'start', 'start_timestamp');
+    $query->addField('re', 'end', 'end_timestamp');
+    // Query conditions.
+    $query->distinct();
+    $year_condition_group = $query->orConditionGroup()
+      ->condition('re.year', $year)
+      ->condition('re.year', '*');
+    $month_condition_group = $query->orConditionGroup()
+      ->condition('re.month', $month)
+      ->condition('re.month', '*');
+    $day_condition_group = $query->orConditionGroup()
+      ->condition('re.day', $day)
+      ->condition('re.day', '*');
+    $week_condition_group = $query->orConditionGroup()
+      ->condition('re.week', $week)
+      ->condition('re.week', '*');
+    $weekday_condition_group = $query->orConditionGroup()
+      ->condition('re.weekday', $weekday)
+      ->condition('re.weekday', '*');
+    $query->condition('n.type', 'session');
+    $query->condition($year_condition_group);
+    $query->condition($month_condition_group);
+    $query->condition($day_condition_group);
+    $query->condition($week_condition_group);
+    $query->condition($weekday_condition_group);
+    $query->condition('re.start', $timestamp_end, '<=');
+    $query->condition('re.end', $timestamp_start, '>=');
     if (!empty($category)) {
-      $sql .= "AND re.category IN ( :categories[] )";
-      $values[':categories[]'] = explode(',', $category);
+      $query->condition('re.category', explode(',', $category), 'IN');
     }
     if (!empty($location)) {
-      $sql .= "AND nd.title IN ( :locations[] )";
-      $values[':locations[]'] = explode(',', $location);
+      $query->condition('nd.title', explode(',', $location), 'IN');
     }
     $exclusions = $request->get('excl');
     if (!empty($exclusions)) {
-      $sql .= "AND re.category NOT IN ( :exclusions[] )";
-      $values[':exclusions[]'] = explode(',', $exclusions);
+      $query->condition('re.category', explode(',', $exclusions), 'NOT IN');
     }
     $limit = $request->get('limit');
     if (!empty($limit)) {
-      $sql .= "AND re.category IN ( :limit[] )";
-      $values[':limit[]'] = explode(',', $limit);
+      $query->condition('re.category', explode(',', $limit), 'IN');
     }
-
-    $values[':year'] = $year;
-    $values[':month'] = $month;
-    $values[':day'] = $day;
-    $values[':week'] = $week;
-    $values[':weekday'] = $weekday;
-    $values[':timestamp_start'] = $timestamp_start;
-    $values[':timestamp_end'] = $timestamp_end;
-
-    $query = $this->database->query($sql, $values);
-    $result = $query->fetchAll();
+    $query->addTag('openy_pef_get_data');
+    $result = $query->execute()->fetchAll();
 
     $locations_info = $this->getLocationsInfo();
 
