@@ -94,10 +94,10 @@
             "type": "package",
             "package": {
                 "name": "library-ckeditor/panelbutton",
-                "version": "4.7.0",
+                "version": "4.10.1",
                 "type": "drupal-library",
                 "dist": {
-                    "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                    "url": "https://download.ckeditor.com/panelbutton/releases/panelbutton_4.10.1.zip",
                     "type": "zip"
                 }
             }
@@ -106,10 +106,10 @@
             "type": "package",
             "package": {
                 "name": "library-ckeditor/colorbutton",
-                "version": "4.7.0",
+                "version": "4.10.1",
                 "type": "drupal-library",
                 "dist": {
-                    "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                    "url": "https://download.ckeditor.com/colorbutton/releases/colorbutton_4.10.1.zip",
                     "type": "zip"
                 }
             }
