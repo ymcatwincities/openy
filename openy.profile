@@ -280,13 +280,13 @@ function openy_import_content(array &$install_state) {
     _openy_import_content_helper($module_operations, $preset);
     // Add migration import by tag to migration operations array.
     $migrate_operations[] = ['openy_import_migration', (array) $migration_tag];
-    if ($preset == 'complete') {
+//    if ($preset == 'complete') {
       // Add demo content Program Event Framework landing pages manually.
       // Do it as the last step so menu items are in place.
       $migrate_operations[] = ['openy_demo_nlanding_pef_pages', []];
       // Import GroupExPro classes. They are not handled as content migration.
       $migrate_operations[] = ['openy_gxp_import_tc', []];
-    }
+//    }
     // Build demo modules uninstall array to disable migrations with demo content.
     _openy_remove_migrations_helper($uninstall_operations, $preset);
     if (function_exists('drush_print')) {
