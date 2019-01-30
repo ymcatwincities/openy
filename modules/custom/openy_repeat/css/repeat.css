@@ -340,6 +340,7 @@ label[aria-expanded=false] .minus {
 .schedules-data__row>div {
   padding: 8px 20px;
   flex: 0 0 50%;
+  max-width: 50%; /** Small hack for IE10/11 to fix padding for flex child elements **/
 }
 
 
