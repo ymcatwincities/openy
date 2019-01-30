@@ -233,10 +233,17 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           ]
         )->toString();
 
+        $name = $row['name'] . ' - ' . $row['program']['name'];
+        similar_text($row['name'], $row['program']['name'] , $percent);
+        $percentage = !empty($this->daxkoConfig->get('percentage')) ? $this->daxkoConfig->get('percentage') : 100;
+        if ($row['name'] == $row['program']['name'] || $percent >= $percentage) {
+          $name = $row['name'];
+        }
+
         $result[] = [
           'nid' => '',
           'location' => $location_name,
-          'name' => $row['name'] . ' - ' . $row['program']['name'],
+          'name' => $name,
           'dates' => $start_date_formatted . ' - ' . $end_date_formatted,
           'times' => $times,
           'days' => implode(', ', $days),
