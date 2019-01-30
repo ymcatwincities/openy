@@ -18,6 +18,9 @@ openy_activity_finder:
 
 openy_activity_finder_search:
   version: 0.1
+  css:
+    base:
+      css/activity_finder.css: {}
   js:
     js/programs_search.js: {}
   dependencies:
