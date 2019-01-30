@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_nsessions
 id: openy_demo_node_session_02
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_nsessions
 label: 'Create demo session nodes'
 source:
