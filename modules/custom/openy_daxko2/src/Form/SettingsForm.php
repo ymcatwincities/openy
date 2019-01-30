@@ -85,6 +85,13 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('Categories. One per row. "<category id>,<category name>". To group categories wrap name of the category with asterix: *Swimming*.'),
     ];
 
+    $form['percentage'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Percentage'),
+      '#default_value' => !empty($config->get('percentage')) ? $config->get('percentage') : 100,
+      '#description' => t('Percent of similarity between Session and Program names for displaying (100 means only identical names will be combined).'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -115,6 +122,7 @@ class SettingsForm extends ConfigFormBase {
 
     $config->set('locations', $form_state->getValue('locations'))->save();
     $config->set('categories', $form_state->getValue('categories'))->save();
+    $config->set('percentage', $form_state->getValue('percentage'))->save();
 
     parent::submitForm($form, $form_state);
   }

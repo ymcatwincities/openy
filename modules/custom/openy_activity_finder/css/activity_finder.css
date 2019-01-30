@@ -82,3 +82,8 @@
 .activity-finder__step input[type="radio"] {
   margin-right: 10px;
 }
+
+.item-price,
+.availability-note {
+  font-size: 13px;
+}
