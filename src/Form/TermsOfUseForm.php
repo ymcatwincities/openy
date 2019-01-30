@@ -80,7 +80,7 @@ class TermsOfUseForm extends FormBase {
       '#weight' => 6,
     ];
 
-    // Submit button must displayed on installation Open Y only.
+    // Submit button must displayed on installation pages only.
     if ($route_name != 'openy_system.openy_terms_and_conditions') {
       $form['submit'] = [
         '#type' => 'submit',
