@@ -120,10 +120,10 @@
 
       var dateGet = this.$route.query.date;
       if (dateGet) {
-        this.date = dateGet;
+        this.date = new Date(dateGet).toISOString();
       }
       else {
-        this.date = moment().format('D MMM YYYY');
+        this.date = moment().toISOString();
       }
 
       var locationsGet = this.$route.query.locations;
