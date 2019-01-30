@@ -1,5 +1,5 @@
 openy_daxko2.admin:
-  title: 'Daxko2 settings'
-  parent: system.admin_config_services
+  title: 'Daxko Programs Search settings'
+  parent: openy_system.openy_integrations_daxko
   route_name: openy_daxko2.settings
   weight: 100

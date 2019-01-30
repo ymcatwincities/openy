@@ -166,18 +166,18 @@
                   {# if we know that registration is available #}
                   <div v-if="item.availability_status == 'open'" class="col-md-3">
                     <a :href="item.register_link" target="_blank" class="btn btn-primary btn-block" style="margin-bottom: 20px;">{{ 'Register'|t }}</a><br/>
-                    ${ item.availability_note }
+                    <span class="availability-note">${ item.availability_note }</span>
                   </div>
                   {# if we know that registration is NOT available #}
                   <div v-if="item.availability_status == 'closed'" class="col-md-3">
-                    ${ item.availability_note }
+                    <span class="availability-note">${ item.availability_note }</span>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     ${ item.dates }
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <div v-for="(item, index) in item.schedule">
                       <strong>${ item.time }</strong><br/>
                       ${ item.days }
@@ -186,9 +186,9 @@
                   <div class="col-md-3">
                     <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
                   </div>
-                  <div v-if="item.price.length > 0" v-html="item.price" class="col-md-3"></div>
+                  <div v-if="item.price.length > 0" v-html="item.price" class="col-md-3 item-price"></div>
                   <div v-else class="col-md-3">
-                    <i>{{ 'Click on \'Check Availability\' for pricing'|t }}</i>
+                    <span class="availability-note"><i>{{ 'Click on \'Check Availability\' for pricing'|t }}</i></span>
                   </div>
                 </div>
               </div>
@@ -254,7 +254,7 @@
                       ${ moreInfoPopup.location_name }
                     </div>
                     <div v-if="moreInfoPopup.location_address.length > 0" class="col-md-12">
-                      ${ moreInfoPopup.location_address }
+                      <span v-html="moreInfoPopup.location_address"></span>
                     </div>
                     <div v-if="moreInfoPopup.location_phone.length > 0" class="col-md-12">
                       Phone: ${ moreInfoPopup.location_phone }
