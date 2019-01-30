@@ -7361,6 +7361,9 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
+.paragraph--type--prgf-location-finder {
+  margin-top: 40px;
+}
 .paragraph--type--prgf-location-finder .views-element-container {
   padding: 0;
 }
@@ -8009,6 +8012,9 @@ article .node--view-mode-flexible-content h2 a span {
   font-family: Verdana, Geneva, sans-serif;
 }
 
+.paragraph--type--location-filter-by-amenities {
+  margin-top: 40px;
+}
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title {
   font-size: 16px;
 }
@@ -8114,7 +8120,6 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
-  margin: 0 0 20px 0;
   width: 100%;
 }
 .paragraph--type--lto .container {
