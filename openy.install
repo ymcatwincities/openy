@@ -35,6 +35,31 @@ function openy_install() {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_update_dependencies() {
+  $dependencies['openy'] = [
+    8054 => [
+      'block_content' => 8600,
+      'system' => 8501,
+    ],
+  ];
+
+  $dependencies['openy_node_alert'] = [
+    8009 => [
+      'system' => 8501,
+    ],
+  ];
+
+  $dependencies['openy_upgrade_tool'] = [
+    8003 => [
+      'simple_sitemap' => 8217,
+    ],
+  ];
+  return $dependencies;
+}
+
+/**
  * Upgrade from 8.x-0.2 version.
  */
 function openy_update_8001() {
@@ -70,7 +95,6 @@ function openy_update_8003() {
   // Enable module.
   \Drupal::service('module_installer')->install([
     'config_import',
-    'logger_entity',
     'openy_upgrade_tool',
   ]);
 }
@@ -969,7 +993,7 @@ function openy_update_8066() {
       ->set('id', $new_id)
       ->save(TRUE);
   }
-}      
+}
 
 /**
  * Enable PEF paragraphs.
@@ -1013,4 +1037,16 @@ function openy_update_8069() {
     $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
     $config_importer->update($config, 'openy_carnation.settings', 'display_search_form');
   }
+}
+ 
+ /**
+ * Import config with T&C.
+ */
+function openy_update_8070() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/optional';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'openy.terms_and_conditions.schema',
+  ]);
 }

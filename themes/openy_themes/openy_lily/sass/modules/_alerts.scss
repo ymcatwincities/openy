@@ -29,6 +29,16 @@ $module: 'site-alert';
       margin: 0;
     }
 
+    .field-alert-link {
+      float: left;
+      @include breakpoint($screen-md) {
+        margin-right: 24%;
+      }
+      @include breakpoint($screen-sm) {
+        float: right;
+      }
+    }
+
     .field-alert-link a {
       border: 1px solid;
       display: inline-block;
@@ -121,6 +131,10 @@ $module: 'site-alert';
 .footer-alerts-list {
   .slick-slider {
     margin-bottom: 0;
+  }
+
+  .slick-current {
+    z-index: auto;
   }
 
   .slick-track {

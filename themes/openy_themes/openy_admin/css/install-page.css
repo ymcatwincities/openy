@@ -6,16 +6,31 @@
  * .maintenance-page styling.
  */
 html {
-  background: url(../images/y_abstract.png) no-repeat center center fixed;
+  background: url(../images/installation-background.png) no-repeat top center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
 body {
-  background: url(../images/y_abstract.png) no-repeat center center fixed;
+  background: url(../images/installation-background.png) no-repeat top center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+#openy-terms-of-use .form-submit{
+  background: #5b9bd5;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  margin: 40px 0px 0px 50px;
+  font-weight: unset;
+}
+
+#openy-terms-of-use .form-submit:disabled{
+  background: #767171;
+  color: #dadada;;
 }
