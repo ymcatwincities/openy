@@ -22,7 +22,7 @@ function openy_prgf_secondary_description_sidebar_update_dependencies() {
  * Update configs of the entity reference fields.
  */
 function openy_prgf_secondary_description_sidebar_update_8001() {
-  $config_dir = drupal_get_path('profile', 'openy_prgf_secondary_description_sidebar') . '/config/install';
+  $config_dir = drupal_get_path('module', 'openy_prgf_secondary_description_sidebar') . '/config/install/';
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([

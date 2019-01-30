@@ -1,20 +1,15 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - field.storage.logger_entity.field_config_path
-    - field.storage.logger_entity.field_config_property
-    - logger_entity.logger_entity_type.openy_config_upgrade_logs
-    - system.menu.admin
   module:
-    - logger_entity
+    - openy_upgrade_tool
     - user
 id: openy_upgrade_dashboard
 label: 'Open Y upgrade dashboard'
 module: views
-description: 'Show not updated configs'
+description: 'Show conflicts related to Open Y updates.'
 tag: ''
-base_table: logger_entity
+base_table: openy_upgrade_log
 base_field: id
 core: 8.x
 display:
@@ -27,7 +22,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer site configuration'
+          perm: 'administer openy upgrade log entities'
       cache:
         type: tag
         options: {  }
@@ -46,13 +41,13 @@ display:
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
+          expose_sort_order: false
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: mini
+        type: full
         options:
-          items_per_page: 50
+          items_per_page: 30
           offset: 0
           id: 0
           total_pages: null
@@ -65,8 +60,11 @@ display:
             offset: false
             offset_label: Offset
           tags:
-            previous: ‹‹
-            next: ››
+            previous: '‹ Previous'
+            next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
+          quantity: 9
       style:
         type: table
       row:
@@ -74,7 +72,7 @@ display:
       fields:
         name:
           id: name
-          table: logger_entity
+          table: openy_upgrade_log
           field: name
           relationship: none
           group_type: group
@@ -123,7 +121,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: false
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -134,17 +132,17 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: logger_entity
+          entity_type: null
           entity_field: name
           plugin_id: field
-        field_config_property:
-          id: field_config_property
-          table: logger_entity__field_config_property
-          field: field_config_property
+        changed:
+          id: changed
+          table: openy_upgrade_log
+          field: changed
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Update Property'
+          label: Changed
           exclude: false
           alter:
             alter_text: false
@@ -186,9 +184,11 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
+          type: timestamp
           settings:
-            link_to_entity: false
+            date_format: medium
+            custom_date_format: ''
+            timezone: ''
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -199,15 +199,17 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: openy_upgrade_log
+          entity_field: changed
           plugin_id: field
-        field_config_path:
-          id: field_config_path
-          table: logger_entity__field_config_path
-          field: field_config_path
+        user_id:
+          id: user_id
+          table: openy_upgrade_log
+          field: user_id
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Path to config'
+          label: 'Updated by'
           exclude: false
           alter:
             alter_text: false
@@ -248,10 +250,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: basic_string
-          settings: {  }
-          group_column: value
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -261,15 +264,17 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: openy_upgrade_log
+          entity_field: user_id
           plugin_id: field
         operations:
           id: operations
-          table: logger_entity
+          table: openy_upgrade_log
           field: operations
           relationship: none
           group_type: group
           admin_label: ''
-          label: Actions
+          label: 'Operations links'
           exclude: false
           alter:
             alter_text: false
@@ -310,28 +315,19 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          destination: true
-          entity_type: logger_entity
+          destination: false
+          entity_type: openy_upgrade_log
           plugin_id: entity_operations
       filters:
-        type:
-          id: type
-          table: logger_entity
-          field: type
-          value:
-            openy_config_upgrade_logs: openy_config_upgrade_logs
-          entity_type: logger_entity
-          entity_field: type
-          plugin_id: bundle
-        field_config_path_value:
-          id: field_config_path_value
-          table: logger_entity__field_config_path
-          field: field_config_path_value
+        status:
+          id: status
+          table: openy_upgrade_log
+          field: status
           relationship: none
           group_type: group
           admin_label: ''
-          operator: 'not empty'
-          value: ''
+          operator: '='
+          value: '1'
           group: 1
           exposed: false
           expose:
@@ -358,11 +354,55 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+          entity_type: openy_upgrade_log
+          entity_field: status
+          plugin_id: boolean
+        name:
+          id: name
+          table: openy_upgrade_log
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: word
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: Name
+            description: ''
+            use_operator: false
+            operator: name_op
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              contributor: '0'
+              editor: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: openy_upgrade_log
+          entity_field: name
           plugin_id: string
       sorts:
         changed:
           id: changed
-          table: logger_entity
+          table: openy_upgrade_log
           field: changed
           relationship: none
           group_type: group
@@ -372,22 +412,11 @@ display:
           expose:
             label: ''
           granularity: second
-          entity_type: logger_entity
+          entity_type: openy_upgrade_log
           entity_field: changed
           plugin_id: date
-      title: 'Open Y upgrade dashboard'
-      header:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: false
-          tokenize: false
-          content: "<h1>Open Y upgrade dashboard</h1>\n<p>These configs have been changed manually, that's why we cannot import them. Please fix conflicts below and then you'll get updates from Open Y for affected components.</p>\n<p>Upon fixing the conflict, please delete message from dashboard to let system know that conflict has been resolved, otherwise all updates for the component will be skipped.</p>"
-          plugin_id: text_custom
+      title: 'Resolved upgrade conflicts'
+      header: {  }
       footer: {  }
       empty:
         area_text_custom:
@@ -399,38 +428,184 @@ display:
           admin_label: ''
           empty: true
           tokenize: false
-          content: "<h1>Open Y upgrade dashboard</h1>\n<p>No conflicts found during Open Y upgrade.</p>"
+          content: 'Configs not found.'
           plugin_id: text_custom
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      use_ajax: true
     cache_metadata:
       max-age: 0
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.logger_entity.field_config_path'
-        - 'config:field.storage.logger_entity.field_config_property'
-  page_1:
-    display_plugin: page
-    id: page_1
-    display_title: Page
+        - 'openy_upgrade_log_list'
+  conflicts:
+    display_plugin: block
+    id: conflicts
+    display_title: Conflicts
     position: 1
     display_options:
       display_extenders: {  }
-      path: admin/openy/development/openy-upgrade-dashboard
-      menu:
-        type: normal
-        title: 'Upgrade dashboard'
-        description: 'List of manually changed configs.'
-        expanded: false
-        parent: openy_system.openy_development
-        weight: 0
-        context: '0'
-        menu_name: admin
+      display_description: ''
+      title: 'Upgrade conflicts'
+      defaults:
+        title: false
+        filters: false
+        filter_groups: false
+      filters:
+        status:
+          id: status
+          table: openy_upgrade_log
+          field: status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: '0'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: openy_upgrade_log
+          entity_field: status
+          plugin_id: boolean
+        name:
+          id: name
+          table: openy_upgrade_log
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: word
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: Name
+            description: ''
+            use_operator: false
+            operator: name_op
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              contributor: '0'
+              editor: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: openy_upgrade_log
+          entity_field: name
+          plugin_id: string
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user.permissions
+      tags:
+        - 'openy_upgrade_log_list'
+  resolved:
+    display_plugin: block
+    id: resolved
+    display_title: Resolved
+    position: 1
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      filters:
+        status:
+          id: status
+          table: openy_upgrade_log
+          field: status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: openy_upgrade_log
+          entity_field: status
+          plugin_id: boolean
+      defaults:
+        filters: false
+        filter_groups: false
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: 0
       contexts:
@@ -439,5 +614,4 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - 'config:field.storage.logger_entity.field_config_path'
-        - 'config:field.storage.logger_entity.field_config_property'
+        - 'openy_upgrade_log_list'
