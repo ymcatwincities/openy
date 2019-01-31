@@ -26,30 +26,13 @@ function openy_prgf_banner_update_dependencies() {
  */
 function openy_prgf_banner_update_8001() {
   $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
-  // Import new configuration
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'field.field.paragraph.banner.field_prgf_color',
-  ]);
-
   // Update multiple configurations.
   $configs = [
     'core.entity_form_display.paragraph.banner.default' =>[
       'dependencies.config',
-      'content.field_prgf_color',
-      'content.field_prgf_headline.weight',
-      'content.field_prgf_description.weight',
-      'content.field_prgf_image.weight',
-      'content.field_prgf_link.weight',
     ],
     'core.entity_view_display.paragraph.banner.default' => [
       'dependencies.config',
-      'content.field_prgf_color',
-      'content.field_prgf_headline.weight',
-      'content.field_prgf_description.weight',
-      'content.field_prgf_image.weight',
-      'content.field_prgf_link.weight',
     ],
   ];
 
@@ -68,14 +51,6 @@ function openy_prgf_banner_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.paragraph.banner.default' =>[
-      'content.field_prgf_headline.settings.placeholder',
-      'content.field_prgf_link.settings.placeholder_url',
-      'content.field_prgf_link.settings.placeholder_title',
-    ],
-    'field.field.paragraph.banner.field_prgf_color' => [
-      'description',
-    ],
     'field.field.paragraph.banner.field_prgf_description' => [
       'description',
     ],
@@ -103,30 +78,14 @@ function openy_prgf_banner_update_8002() {
  * Remove DataLayer from dependency in the field instance.
  */
 function openy_prgf_banner_update_8003() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_prgf_banner');
-  $config .= '/config/install/';
-  $config .= 'field.field.paragraph.banner.field_prgf_color.yml';
-  $config_importer->update(
-    $config,
-    'field.field.paragraph.banner.field_prgf_color',
-    'dependencies.module'
-  );
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
  * Update entity reference for field image.
  */
 function openy_prgf_banner_update_8004() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_prgf_banner');
-  $config .= '/config/install/';
-  $config .= 'core.entity_form_display.paragraph.banner.default.yml';
-  $config_importer->update(
-    $config,
-    'core.entity_form_display.paragraph.banner.default',
-    'content'
-  );
+ // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
@@ -138,10 +97,6 @@ function openy_prgf_banner_update_8005() {
   $configs = [
     'core.entity_form_display.paragraph.banner.default' => [
       'content',
-    ],
-    'core.entity_view_display.media.image.prgf_banner' => [
-      'content',
-      'hidden',
     ],
     'core.entity_view_display.paragraph.banner.default' => [
       'content',
@@ -170,7 +125,7 @@ function openy_prgf_banner_update_8006() {
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
     'core.entity_view_display.media.image.prgf_banner',
-    'field.field.paragraph.banner.field_prgf_color.yml',
+    'field.field.paragraph.banner.field_prgf_color',
   ]);
 }
 
@@ -183,7 +138,6 @@ function openy_prgf_banner_update_8007() {
   $configs = [
     'image.style.prgf_banner' => [
       'dependencies',
-      'effects',
     ],
   ];
 

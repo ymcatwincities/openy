@@ -66,14 +66,11 @@ function openy_loc_facility_update_8002() {
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_form_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.config');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'content.field_meta_tags');
   // Entity view display.
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_view_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'content.field_meta_tags');
 }
 
 /**
@@ -98,8 +95,6 @@ function openy_loc_facility_update_8004() {
   $configs = [
     'core.entity_view_display.node.facility.full' => [
       'dependencies.config',
-      'content.field_facility_loc.settings.view_mode',
-      'content.field_location_phone.label',
     ],
   ];
 
@@ -149,7 +144,6 @@ function openy_loc_facility_update_8007() {
   $configs = [
     'core.entity_view_display.node.facility.full' => [
       'content',
-      'hidden',
     ],
   ];
 
