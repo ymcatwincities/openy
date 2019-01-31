@@ -206,6 +206,8 @@
     '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
     '                         <span v-show="collapseGroup(radio)" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(radio), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +
     '                         <span v-if="typeof getOption(radio) == \'object\' && expanded" v-show="!collapseGroup(radio)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(radio)] = false" class="fa fa-angle-up" aria-hidden="true"></span>' +
+      '                         <label v-if="typeof getOption(radio) == \'object\'" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(radio), true);" v-show="collapseGroup(radio) && (expanded || checked.indexOf(getOption(radio)) != -1)" >{{ getLabel(radio) }} <span class="fa fa-angle-down" aria-hidden="true"></span></label>\n' +
+      '                         <label v-if="typeof getOption(radio) == \'object\'" v-on:click.stop.prevent="expanded_checkboxes[getLabel(radio)] = false" v-show="!collapseGroup(radio) && (expanded || checked.indexOf(getOption(radio)) != -1)" >{{ getLabel(radio) }} <span v-if="typeof getOption(radio) == \'object\' && expanded" class="fa fa-angle-up" aria-hidden="true"></span></label>\n' +
     '                       </a>' +
     '                    </div>' +
     '                    <div v-if="typeof getOption(radio) == \'object\'" v-for="radio2 in getOption(radio)" class="checkbox-wrapper">\n' +
