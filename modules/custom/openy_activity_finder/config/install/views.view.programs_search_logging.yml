@@ -5,7 +5,6 @@ dependencies:
   config:
     - system.menu.admin
   module:
-    - openy_repeat
     - user
 id: programs_search_logging
 label: 'Programs Search Logging'
