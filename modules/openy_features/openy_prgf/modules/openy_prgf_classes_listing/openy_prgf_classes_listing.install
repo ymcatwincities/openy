@@ -32,15 +32,7 @@ function openy_prgf_classes_listing_update_8001() {
  * Update classes listing view, again.
  */
 function openy_prgf_classes_listing_update_8002() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_prgf_classes_listing');
-  $config .= '/config/install/';
-  $config .= 'views.view.classes_listing.yml';
-  $config_importer->update(
-    $config,
-    'views.view.classes_listing',
-    'display.default.display_options.fields'
-  );
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
@@ -61,8 +53,6 @@ function openy_prgf_classes_listing_update_8003() {
     'views.view.classes_listing' => [
       'display.default.display_options.field.nid',
       'display.default.display_options.group_by',
-      'display.default.cache_metadata.tags',
-      'display.search_form.cache_metadata.tags',
     ],
   ];
 
@@ -79,39 +69,14 @@ function openy_prgf_classes_listing_update_8003() {
  * Update classes listing view.
  */
 function openy_prgf_classes_listing_update_8004() {
-  $config_dir = drupal_get_path('module', 'openy_prgf_classes_listing');
-  $config_dir .= '/config/install/';
-
-  // Update multiple configurations.
-  $configs = [
-    'views.view.classes_listing' => [
-      'display.default.cache_metadata.tags',
-      'display.search_form.cache_metadata.tags',
-    ],
-  ];
-
-  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
-  foreach ($configs as $config_name => $params) {
-    $config = $config_dir . $config_name . '.yml';
-    foreach ($params as $param) {
-      $config_updater->update($config, $config_name, $param);
-    }
-  }
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
  * Update classes listing view for add title field.
  */
 function openy_prgf_classes_listing_update_8005() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_prgf_classes_listing');
-  $config .= '/config/install/';
-  $config .= 'views.view.classes_listing.yml';
-  $config_importer->update(
-    $config,
-    'views.view.classes_listing',
-    'display.default.display_options.fields'
-  );
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
