@@ -122,7 +122,7 @@ function openy_upgrade_tool_update_8007() {
   $entityTypeManager = \Drupal::entityTypeManager();
 
   // Load data from demo content.
-  $config_path = drupal_get_path('module', 'openy_demo_ahb') . '/config/install/migrate_plus.migration.entity_ahb.yml';
+  $config_path = drupal_get_path('module', 'openy_demo_ahb') . '/config/install/migrate_plus.migration.openy_demo_entity_ahb.yml';
   $entity_ahb_migration_data = Yaml::decode(file_get_contents($config_path));
   if (!isset($entity_ahb_migration_data['source']['data_rows'])) {
     // We have incorrect data.
