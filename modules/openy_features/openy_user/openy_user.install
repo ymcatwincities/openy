@@ -14,7 +14,6 @@ function openy_user_update_8001() {
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
     'user.role.contributor',
-    'user.role.editor',
   ]);
 }
 
@@ -22,22 +21,14 @@ function openy_user_update_8001() {
  * Update Editor roles permissions.
  */
 function openy_user_update_8002() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_user');
-  $config .= '/config/install/';
-  $config .= 'user.role.editor.yml';
-  $config_importer->update($config, 'user.role.editor', 'permissions');
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
  * Update Editor roles permissions.
  */
 function openy_user_update_8003() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_user');
-  $config .= '/config/install/';
-  $config .= 'user.role.editor.yml';
-  $config_importer->update($config, 'user.role.editor', 'permissions');
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
@@ -47,7 +38,6 @@ function openy_user_update_8004() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_user');
   $config .= '/config/install/';
-  $config_importer->update($config . 'user.role.editor.yml', 'user.role.editor', 'permissions');
   $config_importer->update($config . 'user.role.contributor.yml', 'user.role.contributor', 'permissions');
   $config_importer->update($config . 'user.role.administrator.yml', 'user.role.administrator', 'permissions');
 }
@@ -67,11 +57,7 @@ function openy_user_update_8005() {
  * Update Editor roles permissions.
  */
 function openy_user_update_8006() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_user');
-  $config .= '/config/install/';
-  $config .= 'user.role.editor.yml';
-  $config_importer->update($config, 'user.role.editor', 'permissions');
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**

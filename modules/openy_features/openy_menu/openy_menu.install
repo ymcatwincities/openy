@@ -9,18 +9,14 @@
  * Update menu tutorials.
  */
 function openy_menu_update_8001() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_menu');
-  $config .= '/config/optional/';
-  $config .= 'tour.tour.openy-menu-overview.yml';
-  $config_importer->update($config, 'tour.tour.openy-menu-overview', 'tips');
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
  * Update menu tutorials.
  */
 function openy_menu_update_8002() {
-  openy_menu_update_8001();
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
