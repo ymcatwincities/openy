@@ -200,9 +200,17 @@
               component.isStep2NextDisabled = false;
               // Map ids to titles.
               var checkedMapCategories = [];
-              for (key in component.checkedCategories) {
-                if (typeof(component.checkedCategories[key]) !== 'function' && $('input[value="' + component.checkedCategories[key] + '"]').length !== 0) {
-                  checkedMapCategories.push($('input[value="' + component.checkedCategories[key] + '"]').parent('label').text());
+              // Depends on widget type radio or checkbox checkedCategories contains string or object.
+              if (typeof component.checkedCategories === 'string') {
+                if (typeof(component.checkedCategories) !== 'function' && $('input[value="' + component.checkedCategories + '"]').length !== 0) {
+                  checkedMapCategories.push($('input[value="' + component.checkedCategories + '"]').parent('label').text());
+                }
+              }
+              else {
+                for (key in component.checkedCategories) {
+                  if (typeof(component.checkedCategories[key]) !== 'function' && $('input[value="' + component.checkedCategories[key] + '"]').length !== 0) {
+                    checkedMapCategories.push($('input[value="' + component.checkedCategories[key] + '"]').parent('label').text());
+                  }
                 }
               }
               filters.push(checkedMapCategories.join(', '));

@@ -100,21 +100,6 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       $get['birth_dates'] = implode(',', $ageGet);
     }
 
-    if (isset($parameters['program_types']) && !empty($parameters['program_types'])) {
-      $program_types = explode(',', $parameters['program_types']);
-      $categories = $this->getCategories();
-      $daxkoProgramIds = [];
-      foreach ($categories as $categoryTopLevel) {
-        if (!in_array($categoryTopLevel['label'], $program_types)) {
-          continue;
-        }
-        foreach ($categoryTopLevel['value'] as $category) {
-          $daxkoProgramIds[] = $category['value'];
-        }
-      }
-      $get['category_ids'] = implode(',', $daxkoProgramIds);
-    }
-
     if (isset($parameters['categories']) && !empty($parameters['categories'])) {
       $get['category_ids'] = $parameters['categories'];
     }
@@ -248,10 +233,17 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           ]
         )->toString();
 
+        $name = $row['name'] . ' - ' . $row['program']['name'];
+        similar_text($row['name'], $row['program']['name'] , $percent);
+        $percentage = !empty($this->daxkoConfig->get('percentage')) ? $this->daxkoConfig->get('percentage') : 100;
+        if ($row['name'] == $row['program']['name'] || $percent >= $percentage) {
+          $name = $row['name'];
+        }
+
         $result[] = [
           'nid' => '',
           'location' => $location_name,
-          'name' => $row['name'] . ' - ' . $row['program']['name'],
+          'name' => $name,
           'dates' => $start_date_formatted . ' - ' . $end_date_formatted,
           'times' => $times,
           'days' => implode(', ', $days),
