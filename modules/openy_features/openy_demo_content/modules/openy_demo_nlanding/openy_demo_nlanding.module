@@ -279,3 +279,131 @@ function openy_demo_nlanding_pef_pages() {
    'field_prgf_block_plugin_configuration'
   );
 }
+
+/**
+ * Deploy Activity Finder related landing pages.
+ */
+function openy_demo_nlanding_af_pages() {
+  // Make sure that blocks are available.
+  openy_enable_module('openy_activity_finder');
+  openy_enable_module('openy_paragraph_activity_finder_search');
+  openy_enable_module('openy_prgf_activity_finder');
+  drupal_flush_all_caches();
+
+  $af_node = \Drupal\node\Entity\Node::create(
+    [
+      'type' => 'landing_page',
+      'title' => 'Activity Finder',
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'field_lp_layout' => ['value' => 'one_column_clean'],
+    ]
+  );
+  $af_node->save();
+
+  $ps_node = \Drupal\node\Entity\Node::create(
+    [
+      'type' => 'landing_page',
+      'title' => 'Program Search',
+      'langcode' => 'en',
+      'uid' => '1',
+      'status' => 1,
+      'field_lp_layout' => ['value' => 'one_column_clean'],
+    ]
+  );
+  $ps_node->save();
+
+  $af_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+    [
+      'type' => 'activity_finder',
+      'parent_id' => $af_node->id(),
+      'parent_type' => 'node',
+      'parent_field_name' => 'field_content',
+      'status' => 1,
+      'field_prgf_block' => ['plugin_id' => 'activity_finder_block'],
+      'field_prgf_af_results_ref' => ['target_id' => $ps_node->id()],
+    ]
+  );
+  $af_paragraph->save();
+
+  $af_node->field_content->entity = $af_paragraph;
+  $af_node->save();
+
+  $ps_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+    [
+      'type' => 'activity_finder_search',
+      'parent_id' => $ps_node->id(),
+      'parent_type' => 'node',
+      'parent_field_name' => 'field_content',
+      'status' => 1,
+      'field_activity_finder_search' => ['plugin_id' => 'activity_finder_search_block'],
+      'field_prgf_af_page_ref' => ['target_id' => $af_node->id()],
+    ]
+  );
+  $ps_paragraph->save();
+
+  $ps_node->field_content->entity = $ps_paragraph;
+  $ps_node->save();
+
+  $nid = \Drupal::service('entity.query')
+    ->get('node')
+    ->condition('title', 'Swimming Lessons at the YMCA')
+    ->condition('type', 'landing_page')
+    ->execute();
+  $nid = reset($nid);
+  $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
+  // Create menu link.
+  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+    'title' => 'Swimming Lessons at the YMCA',
+    'link' => ['uri' => 'entity:node/' . $nid],
+    'menu_name' => 'main',
+    'parent' => 'menu_link_content:' . $parent_menu_link->uuid(),
+    'expanded' => TRUE,
+  ]);
+  $menu_link->save();
+
+  // For some reason repeat blocks do not have block's id in their
+  // configuration. This is why we manually ensure they are set up.
+  $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
+    foreach ($tables as $table) {
+      // Select all paragraphs that have "broken" as plugin_id.
+      $query = \Drupal::database()->select($table, 'ptable');
+      $query->fields('ptable');
+      $query->condition('ptable.' . $plugin_id_field, 'broken');
+      $broken_paragraphs = $query->execute()->fetchAll();
+
+      // Update to correct plugin_id based on data array.
+      foreach ($broken_paragraphs as $paragraph) {
+        $data = unserialize($paragraph->{$config_field});
+
+        if ($paragraph->bundle == 'activity_finder_search') {
+          $data['id'] = 'activity_finder_block';
+        }
+        elseif ($paragraph->bundle == 'repeat_schedules_loc') {
+          $data['id'] = 'activity_finder_search_block';
+        }
+
+        $query = \Drupal::database()->update($table);
+        $query->fields([
+          $plugin_id_field => $data['id'],
+          $config_field => serialize($data),
+        ]);
+        $query->condition('bundle', $paragraph->bundle);
+        $query->condition('entity_id', $paragraph->entity_id);
+        $query->condition('revision_id', $paragraph->revision_id);
+        $query->condition('langcode', $paragraph->langcode);
+        $query->execute();
+      }
+    }
+  };
+
+  $process_paragraphs(
+    [
+      'paragraph__field_prgf_block',
+      'paragraph_revision__field_prgf_block',
+    ],
+    'field_prgf_block_plugin_id',
+    'field_prgf_block_plugin_configuration'
+  );
+}

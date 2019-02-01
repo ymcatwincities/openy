@@ -362,7 +362,7 @@
         component.checkFilters(3);
       });
       // Get url from paragraph's field.
-      component.afResultsRef = $('.field-prgf-af-results-ref a').attr('href');
+      component.afResultsRef = 'OpenY' in window ? window.OpenY.field_prgf_af_results_ref[0]['url'] : '';
       // Get 1/0 from paragraph's field.
       component.hideProgramStep = $('.field-prgf-hide-program-categ').text();
       // Get 1/0 from paragraph's field.
