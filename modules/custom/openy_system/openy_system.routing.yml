@@ -94,4 +94,4 @@ openy_system.openy_terms_and_conditions:
     _form: 'Drupal\openy\Form\TermsOfUseForm'
     _title: 'Terms and Conditions'
   requirements:
-    _permission: 'administer site configuration'
+    _user_is_logged_in: 'TRUE'
