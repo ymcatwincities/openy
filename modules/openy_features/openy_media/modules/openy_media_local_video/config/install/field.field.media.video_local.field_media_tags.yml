@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.media.field_media_tags
-    - media_entity.bundle.video_local
+    - media.type.video_local
     - taxonomy.vocabulary.media_tags
 id: media.video_local.field_media_tags
 field_name: field_media_tags
