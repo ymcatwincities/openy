@@ -5,9 +5,9 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - field
-  - image
-  - media_entity
-  - rabbit_hole
-  - taxonomy
-  - user
+  - drupal:field
+  - drupal:image
+  - drupal:media (>= 8.6)
+  - drupal:taxonomy
+  - drupal:user
+  - rabbit_hole:rabbit_hole
