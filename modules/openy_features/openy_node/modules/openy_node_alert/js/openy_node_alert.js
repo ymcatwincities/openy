@@ -6,9 +6,11 @@
    */
   Drupal.behaviors.alertsHeight = {
     attach: function (context, settings) {
-      setTimeout(function () {
-        $('[class^="alert"]', context).matchHeight();
-      }, 1000);
+      if (settings.path.currentPathIsAdmin !== true) {
+        setTimeout(function () {
+          $('[class^="alert"]', context).matchHeight();
+        }, 1000);
+      }
     }
   };
 

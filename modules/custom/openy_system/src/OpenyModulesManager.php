@@ -59,7 +59,7 @@ class OpenyModulesManager {
     'field.storage',
     'paragraphs.paragraphs_type',
     'node.type',
-    'media_entity.bundle',
+    'media.type',
     'taxonomy.vocabulary',
     'block_content.type',
   ];
@@ -84,10 +84,9 @@ class OpenyModulesManager {
       'config_entity_type' => 'paragraphs_type',
       'bundle_field' => 'type',
     ],
-    // TODO: fix media_entity info after switching to core media.
     'media' => [
-      'prefix' => 'media_entity.bundle',
-      'config_entity_type' => 'media_bundle',
+      'prefix' => 'media.type',
+      'config_entity_type' => 'media_type',
       'bundle_field' => 'bundle',
     ],
     'taxonomy_term' => [
@@ -333,12 +332,10 @@ class OpenyModulesManager {
         break;
 
       case 'media':
-        // TODO: Replace url and route after switching to core media.
         $url = Url::fromUserInput('/admin/content/media');
         break;
 
-      case 'media_bundle':
-        // TODO: Replace url and route after switching to core media.
+      case 'media_type':
         $url = Url::fromUserInput("/admin/structure/media/manage/$bundle/delete");
         break;
 

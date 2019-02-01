@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_prgf_clm_icon
-    - media_entity.bundle.image
+    - media.type.image
     - paragraphs.paragraphs_type.grid_columns
 id: paragraph.grid_columns.field_prgf_clm_icon
 field_name: field_prgf_clm_icon
