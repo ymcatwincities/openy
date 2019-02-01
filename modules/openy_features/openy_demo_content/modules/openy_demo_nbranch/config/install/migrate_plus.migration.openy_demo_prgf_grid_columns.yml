@@ -6,7 +6,10 @@ dependencies:
       - openy_loc_branch
       - openy_demo_nbranch
 id: openy_demo_prgf_grid_columns
-migration_tags: {  }
+migration_tags:
+  - openy_standard_installation
+  - openy_extended_installation
+  - openy_complete_installation
 migration_group: openy_demo_nbranch
 label: 'Create grid column paragraphs for demo branch node grid content paragraphs'
 migration_dependencies: {  }

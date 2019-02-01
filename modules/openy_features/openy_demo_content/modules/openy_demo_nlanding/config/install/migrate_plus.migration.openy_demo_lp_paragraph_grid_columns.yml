@@ -5,7 +5,10 @@ dependencies:
     module:
       - openy_demo_nlanding
 id: openy_demo_lp_paragraph_grid_columns
-migration_tags: {  }
+migration_tags:
+  - openy_standard_installation
+  - openy_extended_installation
+  - openy_complete_installation
 migration_group: openy_demo_nlanding
 label: 'Create grid column paragraphs for demo landing page node grid content paragraphs'
 migration_dependencies: {  }
