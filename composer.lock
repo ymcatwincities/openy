@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb0fddeae954798452c467b2341db912",
+    "content-hash": "b7773e2738da81ae84d88786a5cf4bc0",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1188,17 +1188,17 @@
         },
         {
             "name": "drupal/admin_toolbar",
-            "version": "1.24.0",
+            "version": "1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/admin_toolbar",
-                "reference": "8.x-1.24"
+                "reference": "8.x-1.25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-1.24.zip",
-                "reference": "8.x-1.24",
-                "shasum": "682ffa443a1e339583022eb6adbb00c1103ea6d4"
+                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-1.25.zip",
+                "reference": "8.x-1.25",
+                "shasum": "bc24929d5e49932518797c1228e647e98b03542b"
             },
             "require": {
                 "drupal/core": "*"
@@ -1209,8 +1209,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.24",
-                    "datestamp": "1542915180",
+                    "version": "8.x-1.25",
+                    "datestamp": "1542915384",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1332,33 +1332,39 @@
         },
         {
             "name": "drupal/blazy",
-            "version": "1.0.0-rc3",
+            "version": "2.0.0-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/blazy",
-                "reference": "8.x-1.0-rc3"
+                "reference": "8.x-2.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/blazy-8.x-1.0-rc3.zip",
-                "reference": "8.x-1.0-rc3",
-                "shasum": "a92409f7d19ed984362b213c6245f8eda3bef03a"
+                "url": "https://ftp.drupal.org/files/projects/blazy-8.x-2.0-alpha1.zip",
+                "reference": "8.x-2.0-alpha1",
+                "shasum": "884d252372856fc8fff01f0d2c40a67d9ad5f8f7"
             },
             "require": {
-                "drupal/core": "*"
+                "drupal/core": "^8.6"
+            },
+            "require-dev": {
+                "drupal/video_embed_media": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-rc3",
-                    "datestamp": "1545235980",
+                    "version": "8.x-2.0-alpha1",
+                    "datestamp": "1546859884",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/afi13/openy/OPENY-231/patches/blazy/remove-core-media-dependencies.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1926,17 +1932,17 @@
         },
         {
             "name": "drupal/crop",
-            "version": "1.5.0",
+            "version": "2.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/crop",
-                "reference": "8.x-1.5"
+                "reference": "8.x-2.0-rc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/crop-8.x-1.5.zip",
-                "reference": "8.x-1.5",
-                "shasum": "bb275293508cb3988ca6ab766dc1f6ecc22cc03d"
+                "url": "https://ftp.drupal.org/files/projects/crop-8.x-2.0-rc1.zip",
+                "reference": "8.x-2.0-rc1",
+                "shasum": "ba84fa73e5c4df4caffcfa4a4cfb44c2c7d033d7"
             },
             "require": {
                 "drupal/core": "*"
@@ -1944,15 +1950,18 @@
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.5",
-                    "datestamp": "1516357085",
+                    "version": "8.x-2.0-rc1",
+                    "datestamp": "1516298515",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "3025005 - The Crop requirements is NOK is media_entity 8.x-2.0 installed via composer": "https://www.drupal.org/files/issues/2019-01-10/requirements-is-NOK-3025005-2.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2275,20 +2284,20 @@
         },
         {
             "name": "drupal/domain",
-            "version": "1.0.0-alpha13",
+            "version": "1.0.0-alpha14",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/domain",
-                "reference": "8.x-1.0-alpha13"
+                "reference": "8.x-1.0-alpha14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/domain-8.x-1.0-alpha13.zip",
-                "reference": "8.x-1.0-alpha13",
-                "shasum": "63ba002f84bb9ca58d566959f0e998eaf5c6f4fc"
+                "url": "https://ftp.drupal.org/files/projects/domain-8.x-1.0-alpha14.zip",
+                "reference": "8.x-1.0-alpha14",
+                "shasum": "9889669ee19ae07fc44ab3bbe6fd7049e1317499"
             },
             "require": {
-                "drupal/core": "*"
+                "drupal/core": "^8.5"
             },
             "require-dev": {
                 "drupal/domain_access": "*"
@@ -2299,7 +2308,7 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-alpha13",
+                    "version": "8.x-1.0-alpha14",
                     "datestamp": "1539981780",
                     "security-coverage": {
                         "status": "not-covered",
@@ -2381,17 +2390,17 @@
         },
         {
             "name": "drupal/dropzonejs",
-            "version": "1.0.0-alpha8",
+            "version": "2.0.0-alpha3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/dropzonejs",
-                "reference": "8.x-1.0-alpha8"
+                "reference": "8.x-2.0-alpha3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/dropzonejs-8.x-1.0-alpha8.zip",
-                "reference": "8.x-1.0-alpha8",
-                "shasum": "646c389e339f8d6e52d2c1eb1e8fd65e4bb45d9a"
+                "url": "https://ftp.drupal.org/files/projects/dropzonejs-8.x-2.0-alpha3.zip",
+                "reference": "8.x-2.0-alpha3",
+                "shasum": "a11f37e8f37b211d7065b0fd8adb1cc85b47e691"
             },
             "require": {
                 "drupal/core": "*"
@@ -2405,11 +2414,11 @@
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-alpha8",
-                    "datestamp": "1508835844",
+                    "version": "8.x-2.0-alpha3",
+                    "datestamp": "1513265285",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -2603,20 +2612,20 @@
         },
         {
             "name": "drupal/entity",
-            "version": "1.0.0-beta1",
+            "version": "1.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/entity",
-                "reference": "8.x-1.0-beta1"
+                "reference": "8.x-1.0-rc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity-8.x-1.0-beta1.zip",
-                "reference": "8.x-1.0-beta1",
-                "shasum": "6965349818de8cb820113b6841076162190c1a4c"
+                "url": "https://ftp.drupal.org/files/projects/entity-8.x-1.0-rc1.zip",
+                "reference": "8.x-1.0-rc1",
+                "shasum": "f2dcd7afd0d36b6f261b10a204057a5c801ad20b"
             },
             "require": {
-                "drupal/core": "~8.3"
+                "drupal/core": "^8.6"
             },
             "type": "drupal-module",
             "extra": {
@@ -2624,11 +2633,11 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-beta1",
-                    "datestamp": "1520873280",
+                    "version": "8.x-1.0-rc1",
+                    "datestamp": "1539272769",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "message": "RC releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -2666,17 +2675,17 @@
         },
         {
             "name": "drupal/entity_browser",
-            "version": "1.6.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/entity_browser",
-                "reference": "8.x-1.6"
+                "reference": "8.x-2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_browser-8.x-1.6.zip",
-                "reference": "8.x-1.6",
-                "shasum": "ed80f338cc002e188df21967cf2222a01a88f90c"
+                "url": "https://ftp.drupal.org/files/projects/entity_browser-8.x-2.0.zip",
+                "reference": "8.x-2.0",
+                "shasum": "683a7a252c947433c7b78bb838d6d8973c13cf77"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2684,18 +2693,17 @@
             "require-dev": {
                 "drupal/ctools": "*",
                 "drupal/inline_entity_form": "*",
-                "drupal/media_entity": "*",
                 "drupal/paragraphs": "*",
                 "drupal/token": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev",
+                    "dev-2.x": "2.x-dev",
                     "dev-8.x-1.x": "8.1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.6",
+                    "version": "8.x-2.0",
                     "datestamp": "1536328684",
                     "security-coverage": {
                         "status": "covered",
@@ -2703,7 +2711,8 @@
                     }
                 },
                 "patches_applied": {
-                    "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
+                    "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch",
+                    "2927347 - Having Entity Browser 2.x on the codebase breaks upgrade path": "https://www.drupal.org/files/issues/2019-01-10/Having-Entity-Browser-breaks-upgrade-path-2927347-14.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3019,17 +3028,17 @@
         },
         {
             "name": "drupal/field_group",
-            "version": "1.0.0",
+            "version": "3.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/field_group",
-                "reference": "8.x-1.0"
+                "reference": "8.x-3.0-beta1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/field_group-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "e8aa3fae5c3c5dec84644bb577996938d638a611"
+                "url": "https://ftp.drupal.org/files/projects/field_group-8.x-3.0-beta1.zip",
+                "reference": "8.x-3.0-beta1",
+                "shasum": "a5dfb66385be7a1b3db232e49779d5bc530a048e"
             },
             "require": {
                 "drupal/core": "*"
@@ -3037,14 +3046,14 @@
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1510352885",
+                    "version": "8.x-3.0-beta1",
+                    "datestamp": "1510352338",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -3281,7 +3290,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.3",
-                    "datestamp": "1531469021",
+                    "datestamp": "1548968580",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3582,32 +3591,38 @@
         },
         {
             "name": "drupal/media_entity",
-            "version": "dev-1.x",
+            "version": "2.0.0-beta3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/media_entity",
-                "reference": "031c6f55cfd1b1d0595a3c7c671555c3be1f16a6"
+                "reference": "8.x-2.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/media_entity-8.x-2.0-beta3.zip",
+                "reference": "8.x-2.0-beta3",
+                "shasum": "c07bf870f279efaf642b9963ea23ea6977982e67"
             },
             "require": {
                 "drupal/core": "*",
                 "drupal/entity": "*"
             },
-            "require-dev": {
-                "drupal/entity": "*",
-                "drupal/inline_entity_form": "*"
-            },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.7+4-dev",
-                    "datestamp": "1532693881",
+                    "version": "8.x-2.0-beta3",
+                    "datestamp": "1536584580",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
+                        "message": "Beta releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "2918172 - Media Entity upgrade -> add revision fields": "https://www.drupal.org/files/issues/2918172-5.patch",
+                    "2918172 - Media Entity upgrade -> core fails on absent column revision_uid": "https://www.drupal.org/files/issues/2918172-6-8.4.4.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3672,8 +3687,7 @@
             "homepage": "https://www.drupal.org/project/media_entity",
             "support": {
                 "source": "http://cgit.drupalcode.org/media_entity"
-            },
-            "time": "2018-10-04T21:26:58+00:00"
+            }
         },
         {
             "name": "drupal/media_entity_document",
@@ -3796,30 +3810,29 @@
         },
         {
             "name": "drupal/media_entity_video",
-            "version": "1.0.0-beta2",
+            "version": "2.0.0-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/media_entity_video",
-                "reference": "8.x-1.0-beta2"
+                "reference": "8.x-2.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/media_entity_video-8.x-1.0-beta2.zip",
-                "reference": "8.x-1.0-beta2",
-                "shasum": "a77b667f2d77b5711ab5fbd90f98895c0318ce3f"
+                "url": "https://ftp.drupal.org/files/projects/media_entity_video-8.x-2.0-alpha1.zip",
+                "reference": "8.x-2.0-alpha1",
+                "shasum": "4290ee0f8377977bfb5dd5db77a11f407fd3c5a6"
             },
             "require": {
-                "drupal/core": "~8.0",
-                "drupal/media_entity": "*"
+                "drupal/core": "^8.4"
             },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-beta2",
-                    "datestamp": "1489117085",
+                    "version": "8.x-2.0-alpha1",
+                    "datestamp": "1508247543",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -3828,22 +3841,29 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL-2.0+"
             ],
             "authors": [
                 {
                     "name": "Daniel Korte",
-                    "homepage": "https://www.drupal.org/user/453668"
+                    "homepage": "https://www.drupal.org/u/daniel-korte",
+                    "role": "Maintainer"
                 },
                 {
                     "name": "Drupal Media Team",
                     "homepage": "https://www.drupal.org/user/3260690"
                 }
             ],
-            "description": "Media entity for video files.",
+            "description": "Local video files integration for Drupal core Media module.",
             "homepage": "https://www.drupal.org/project/media_entity_video",
+            "keywords": [
+                "Drupal",
+                "media",
+                "video"
+            ],
             "support": {
-                "source": "http://cgit.drupalcode.org/media_entity_video"
+                "source": "https://www.drupal.org/project/media_entity_video",
+                "issues": "https://www.drupal.org/project/issues/media_entity_video"
             }
         },
         {
@@ -4518,7 +4538,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.3",
-                    "datestamp": "1521320880",
+                    "datestamp": "1548967980",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4750,29 +4770,30 @@
         },
         {
             "name": "drupal/simple_sitemap",
-            "version": "2.12.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/simple_sitemap",
-                "reference": "8.x-2.12"
+                "reference": "8.x-3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/simple_sitemap-8.x-2.12.zip",
-                "reference": "8.x-2.12",
-                "shasum": "fe1c1a636adfba8358399a5a1ccdf20685066573"
+                "url": "https://ftp.drupal.org/files/projects/simple_sitemap-8.x-3.0.zip",
+                "reference": "8.x-3.0",
+                "shasum": "9c3d1fb78d4693dd4f3258e8870b173650c828cd"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "~8.0",
+                "ext-xmlwriter": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-2.x": "2.x-dev"
+                    "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.12",
-                    "datestamp": "1542505221",
+                    "version": "8.x-3.0",
+                    "datestamp": "1544876325",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4796,12 +4817,11 @@
                     "role": "Maintainer"
                 },
                 {
-                    "name": "Sam Becker (Sam152)",
-                    "homepage": "https://www.drupal.org/u/sam152",
-                    "role": "Co-maintainer"
+                    "name": "gbyte.co",
+                    "homepage": "https://www.drupal.org/user/2381352"
                 }
             ],
-            "description": "Simple XML sitemap creates a standard conform XML sitemap of your content.",
+            "description": "Creates a standard conform hreflang XML sitemap of the site content and provides a framework for developing other sitemap types.",
             "homepage": "https://drupal.org/project/simple_sitemap",
             "support": {
                 "source": "https://cgit.drupalcode.org/simple_sitemap",
@@ -4811,33 +4831,36 @@
         },
         {
             "name": "drupal/slick",
-            "version": "1.0.0",
+            "version": "2.0.0-alpha1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/slick",
-                "reference": "8.x-1.0"
+                "reference": "8.x-2.0-alpha1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/slick-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "14ae69943a07749163ed13900dcd0a6809c54ebd"
+                "url": "https://ftp.drupal.org/files/projects/slick-8.x-2.0-alpha1.zip",
+                "reference": "8.x-2.0-alpha1",
+                "shasum": "b2343d77703f1e6e8e12bff2e10b30fa9cc66116"
             },
             "require": {
-                "drupal/blazy": "~1.0",
+                "drupal/blazy": "~2.0",
                 "drupal/core": "~8.0"
+            },
+            "require-dev": {
+                "drupal/video_embed_media": "*"
             },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1545236281",
+                    "version": "8.x-2.0-alpha1",
+                    "datestamp": "1547031180",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -5274,17 +5297,17 @@
         },
         {
             "name": "drupal/video_embed_field",
-            "version": "1.5.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/video_embed_field",
-                "reference": "8.x-1.5"
+                "reference": "8.x-2.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/video_embed_field-8.x-1.5.zip",
-                "reference": "8.x-1.5",
-                "shasum": "f54d470ef7f863604e51e6ae98cd40ef25de5f79"
+                "url": "https://ftp.drupal.org/files/projects/video_embed_field-8.x-2.0.zip",
+                "reference": "8.x-2.0",
+                "shasum": "e864f090b3cb9405376ca324d81ace83613e2019"
             },
             "require": {
                 "drupal/core": "*"
@@ -5297,11 +5320,11 @@
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
                     "version": "8.x-1.x",
-                    "datestamp": "1510132373",
+                    "datestamp": "1523338084",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5456,17 +5479,17 @@
         },
         {
             "name": "drupal/views_field_formatter",
-            "version": "1.8.0",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/views_field_formatter",
-                "reference": "8.x-1.8"
+                "reference": "8.x-1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/views_field_formatter-8.x-1.8.zip",
-                "reference": "8.x-1.8",
-                "shasum": "b9fb31393f17208f07c4aae552d3756782c56588"
+                "url": "https://ftp.drupal.org/files/projects/views_field_formatter-8.x-1.9.zip",
+                "reference": "8.x-1.9",
+                "shasum": "88342b95192c71cf1b84ca86f442a5560e3ee9a4"
             },
             "require": {
                 "drupal/core": "*"
@@ -5485,15 +5508,12 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.8",
+                    "version": "8.x-1.9",
                     "datestamp": "1544120880",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": {
-                    "2980093 - Can't uninstall module": "https://gist.githubusercontent.com/AndreyMaximov/fdf9128022266188cbce2cc82be3d099/raw/7797fd965915de32820e04fcb4c8189ac427fb62/2980093_viewsfieldformatter_get_on_null.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5571,27 +5591,32 @@
         },
         {
             "name": "drupal/webform",
-            "version": "5.0.0-rc16",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/webform",
-                "reference": "8.x-5.0-rc16"
+                "reference": "8.x-5.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.0-rc16.zip",
-                "reference": "8.x-5.0-rc16",
-                "shasum": "033611e87c3d715f5081022ebcd1e183333a72e7"
+                "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.1.zip",
+                "reference": "8.x-5.1",
+                "shasum": "d04743f078dc154685f9532253e6b5ea8dda1a56"
             },
             "require": {
                 "drupal/core": "*"
             },
             "require-dev": {
                 "drupal/address": "~1.4",
+                "drupal/chosen": "~2.6",
                 "drupal/devel": "*",
+                "drupal/jsonapi": "~2.0",
+                "drupal/select2": "~1.1",
                 "drupal/token": "~1.3",
+                "drupal/webform_access": "*",
                 "drupal/webform_node": "*",
-                "drupal/webform_scheduled_email": "*"
+                "drupal/webform_scheduled_email": "*",
+                "drupal/webform_ui": "*"
             },
             "type": "drupal-module",
             "extra": {
@@ -5599,11 +5624,11 @@
                     "dev-5.x": "5.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-5.0-rc16",
-                    "datestamp": "1533563280",
+                    "version": "8.x-5.1",
+                    "datestamp": "1546458480",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 },
                 "drush": {
@@ -6091,10 +6116,10 @@
         },
         {
             "name": "library-ckeditor/colorbutton",
-            "version": "4.7.0",
+            "version": "4.10.1",
             "dist": {
                 "type": "zip",
-                "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                "url": "https://download.ckeditor.com/colorbutton/releases/colorbutton_4.10.1.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -6102,10 +6127,10 @@
         },
         {
             "name": "library-ckeditor/panelbutton",
-            "version": "4.7.0",
+            "version": "4.10.1",
             "dist": {
                 "type": "zip",
-                "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                "url": "https://download.ckeditor.com/panelbutton/releases/panelbutton_4.10.1.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -6134,11 +6159,11 @@
         },
         {
             "name": "library-enyo/dropzone",
-            "version": "4.3.0",
+            "version": "5.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/enyo/dropzone",
-                "reference": "v4.3.0"
+                "reference": "v5.5.0"
             },
             "type": "drupal-library"
         },
@@ -6164,11 +6189,11 @@
         },
         {
             "name": "library-kenwheeler/slick",
-            "version": "1.6.0",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kenwheeler/slick",
-                "reference": "1.6.0"
+                "reference": "1.8.0"
             },
             "type": "drupal-library"
         },
@@ -7323,7 +7348,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -10081,7 +10106,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/media_entity": 20,
         "drupal/media_entity_image": 20,
         "drupal/media_entity_document": 20,
         "drupal/views_block_filter_block": 20,
