@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.teaser
-    - media_entity.bundle.video_local
+    - media.type.video_local
     - taxonomy.vocabulary.media_tags
   module:
     - entity_browser
-    - media_entity
+    - media
     - taxonomy
     - user
 id: local_videos_library
