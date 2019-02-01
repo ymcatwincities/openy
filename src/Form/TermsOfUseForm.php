@@ -4,6 +4,8 @@ namespace Drupal\openy\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a form to configure and rewrite settings.php.
@@ -14,6 +16,32 @@ class TermsOfUseForm extends FormBase {
    * The current version of Terms of Use.
    */
   const TERMS_OF_USE_VERSION = '2.0';
+
+  /**
+   * The Messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * TermsOfUseForm constructor.
+   *
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
+   */
+  public function __construct(MessengerInterface $messenger) {
+    $this->messenger = $messenger;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('messenger')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -30,7 +58,13 @@ class TermsOfUseForm extends FormBase {
     $isAccepted = $config->get('accepted_version');
     $route_name = $this->getRouteMatch()->getRouteName();
 
-    $form['#title'] = $this->t('Terms of Use');
+    $form['#title'] = $this->t('Terms and Conditions');
+
+    $form['title'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'h1',
+      '#value' => $this->t('Terms and Conditions'),
+    ];
 
     $form['participant'] = [
       '#type' => 'checkbox',
@@ -84,7 +118,7 @@ class TermsOfUseForm extends FormBase {
     if ($route_name != 'openy_system.openy_terms_and_conditions') {
       $form['submit'] = [
         '#type' => 'submit',
-        '#value' => $this->t('Continue Installation'),
+        '#value' => $this->t('Accept Terms and Conditions'),
         '#weight' => 15,
         '#states' => [
           'disabled' => [
@@ -141,6 +175,9 @@ class TermsOfUseForm extends FormBase {
     $config->set('version', static::TERMS_OF_USE_VERSION);
     $config->set('accepted_version', time());
     $config->save();
+
+    $this->messenger->addMessage($this->t('Open Y Terms and Conditions have been accepted.'));
+    $form_state->setRedirect('<front>');
   }
 
 }
