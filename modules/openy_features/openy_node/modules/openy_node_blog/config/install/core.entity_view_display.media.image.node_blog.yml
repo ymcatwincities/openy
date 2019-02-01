@@ -8,7 +8,7 @@ dependencies:
     - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_tags
     - image.style.node_blog
-    - media_entity.bundle.image
+    - media.type.image
   module:
     - image
 id: media.image.node_blog
