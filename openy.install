@@ -897,7 +897,7 @@ function openy_update_8059() {
 }
 
 /**
- * Enable Open Y Entity Reference Tweaks.
+ * Enable Open Y Entity Reference Tweaks and Event module.
  */
 function openy_update_8062() {
   \Drupal::service('module_installer')->install(['openy_er']);
@@ -909,7 +909,6 @@ function openy_update_8062() {
       'openy_node_event',
       'openy_demo_nevent',
     ];
-
     // Enable modules.
     \Drupal::service('module_installer')->install($modules, TRUE);
     $importer = \Drupal::service('openy_migrate.importer');
