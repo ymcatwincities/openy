@@ -92,6 +92,6 @@ openy_system.openy_terms_and_conditions:
   path: /admin/openy/terms-and-conditions
   defaults:
     _form: 'Drupal\openy\Form\TermsOfUseForm'
-    _title: 'Terms and conditions'
+    _title: 'Terms and Conditions'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer site configuration'
