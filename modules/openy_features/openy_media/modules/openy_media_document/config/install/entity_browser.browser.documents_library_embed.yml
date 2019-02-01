@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - media_entity.bundle.document
+    - media.type.document
     - views.view.documents_library
   module:
     - dropzonejs_eb_widget
-    - media_entity
+    - media
     - views
 name: documents_library_embed
 label: 'Documents Library Embed'
@@ -23,7 +23,7 @@ widget_selector_configuration: {  }
 widgets:
   1f11fa0d-5edb-4b81-8574-300f3db25b5a:
     settings:
-      media_entity_bundle: document
+      media_type: document
       upload_location: 'public://[date:custom:Y]-[date:custom:m]'
       dropzone_description: 'Drop files here to upload them'
       max_filesize: 10M

@@ -7,7 +7,6 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\Html;
-use Drupal\media_entity\MediaInterface;
 
 /**
  * Implements hook_form_alter().
