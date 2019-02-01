@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7773e2738da81ae84d88786a5cf4bc0",
+    "content-hash": "19b3fb3cceee73fa216434c9eea56431",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1364,7 +1364,7 @@
                     }
                 },
                 "patches_applied": {
-                    "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/afi13/openy/OPENY-231/patches/blazy/remove-core-media-dependencies.patch"
+                    "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
