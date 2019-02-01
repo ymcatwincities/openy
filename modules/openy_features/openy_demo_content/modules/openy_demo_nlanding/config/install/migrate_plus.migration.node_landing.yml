@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_nlanding
 id: openy_demo_node_landing
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_nlanding
 label: 'Create demo landing page nodes'
 source:
@@ -13,7 +14,7 @@ source:
   data_rows:
     -
       id: homepage
-      title: 'OpenY'
+      title: 'Open Y'
       alias: ''
       layout: one_column
       header_content_ids:
@@ -21,7 +22,7 @@ source:
           header_content_id: homepage_banner
       content_ids:
         -
-          content_id: homepage_latest_blog_posts
+          content_id: homepage_latest_news_posts
         -
           content_id: homepage_grid
         -
@@ -203,7 +204,7 @@ process:
   langcode:
     plugin: default_value
     source: language
-    default_value: und
+    default_value: en
   status:
     -
       plugin: get
@@ -277,7 +278,6 @@ process:
       target_id:
         plugin: migration
         migration:
-          - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
@@ -285,7 +285,7 @@ process:
           - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
           - openy_demo_lp_paragraph_blog_posts_listing
-          - openy_demo_lp_paragraph_latest_blog_posts
+          - openy_demo_lp_paragraph_latest_news_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
@@ -297,7 +297,6 @@ process:
       target_revision_id:
         plugin: migration
         migration:
-          - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
@@ -305,7 +304,7 @@ process:
           - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
           - openy_demo_lp_paragraph_blog_posts_listing
-          - openy_demo_lp_paragraph_latest_blog_posts
+          - openy_demo_lp_paragraph_latest_news_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
@@ -342,7 +341,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_banner
     - openy_demo_lp_paragraph_small_banner
     - openy_demo_lp_paragraph_blog_posts_listing
-    - openy_demo_lp_paragraph_latest_blog_posts
+    - openy_demo_lp_paragraph_latest_news_posts
     - openy_demo_lp_paragraph_location_finder_filters
     - openy_demo_lp_paragraph_location_finder
     - openy_demo_lp_paragraph_menu_camp
