@@ -5,21 +5,21 @@ core: 8.x
 version: 8.x-1.0
 package: Open Y
 dependencies:
+  - drupal:field
+  - drupal:file
+  - drupal:image
+  - drupal:language
+  - drupal:media (>= 8.6)
+  - drupal:path
+  - drupal:taxonomy
+  - drupal:user
+  - drupal:views
   - crop
   - datalayer
   - dropzonejs_eb_widget
   - embed
   - entity_browser
   - entity_embed
-  - field
-  - file
-  - image
-  - language
-  - media_entity
-  - media_entity_video
   - openy_media
-  - path
-  - taxonomy
-  - user
   - video
-  - views
+  - media_entity_video

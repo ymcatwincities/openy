@@ -20,6 +20,16 @@ body {
   background-size: cover;
 }
 
+@media (min-width: 768px) {
+  body.install-page {
+    display: block;
+  }
+
+  .layout-container {
+    margin-top: 180px;
+  }
+}
+
 #openy-terms-of-use .form-submit{
   background: #5b9bd5;
   color: #fff;
