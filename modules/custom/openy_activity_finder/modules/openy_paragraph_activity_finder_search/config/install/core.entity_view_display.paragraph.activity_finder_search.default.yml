@@ -22,9 +22,8 @@ content:
   field_prgf_af_page_ref:
     weight: 1
     label: hidden
-    settings:
-      link: true
+    settings: { }
     third_party_settings: {  }
-    type: entity_reference_label
+    type: openy_json
     region: content
 hidden: {  }

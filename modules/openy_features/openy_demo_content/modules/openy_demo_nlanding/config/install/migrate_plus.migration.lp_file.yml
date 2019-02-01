@@ -7,7 +7,7 @@ dependencies:
 id: openy_demo_lp_file
 migration_tags: { }
 migration_group: openy_demo_nlanding
-label: 'Import demo landing page files'
+label: 'Demo landing page files'
 source:
   plugin: embedded_data
   data_rows:
@@ -44,6 +44,9 @@ source:
     -
       id: join_three
       name: join_three.jpg
+    -
+      id: swimming_banner
+      name: swimming_banner.jpg
   ids:
     id:
       type: string
@@ -52,10 +55,6 @@ source:
     uri_file: 'public:/'
     module: openy_demo_nlanding
 process:
-  langcode:
-    plugin: default_value
-    source: language
-    default_value: en
   module_path:
     plugin: module_path
     source: constants/module

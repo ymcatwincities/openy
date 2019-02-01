@@ -210,6 +210,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'availability_status' => '',
         'dates' => $full_dates,
         'schedule' => $schedule_items,
+        'days' => $schedule_items[0]['days'],
+        'times' => $schedule_items[0]['time'],
         'info' => [
           'id' => '',
           'type' => 'session',
@@ -560,5 +562,56 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     }
     return array_values($locations);
   }
+
+  /**
+   * @inheritdoc
+   */
+  public function getProgramsMoreInfo($request) {
+    $log_id = $request->get('log');
+    $details = $request->get('details');
+    $nid = $this->entityQuery
+      ->get('node')
+      ->condition('title', $details)
+      ->condition('type', 'session')
+      ->execute();
+    $session = reset($this->entityTypeManager->getStorage('node')->loadMultiple($nid));
+    $availability_status = 'closed';
+    $availability_note = '';
+    $online_open = $session->field_session_online->value;
+    if ($online_open) {
+      $availability_status = 'open';
+    }
+
+    $prices = [
+      'Member: $' . $session->field_session_mbr_price->value,
+      'Non Member: $' . $session->field_session_nmbr_price->value,
+    ];
+
+    // We show gender restrictions if there are any. So if value is both
+    // male and female we do not need to show it as restriction.
+    $gender = $session->field_session_gender->value;
+
+    $age = $session->field_session_min_age->value . '-' . $session->field_session_max_age->value . 'yrs';
+
+    $result = [
+      'name' => $details,
+      'description' => html_entity_decode(strip_tags(text_summary($session->field_session_description->value, $session->field_session_description->format, 600))),
+      'price' =>  implode('<br/>', $prices),
+      'availability_status' =>  $availability_status,
+      'availability_note' =>  $availability_note,
+      'gender' => $gender,
+      'ages' => $age,
+      'link' =>  Url::fromRoute('openy_activity_finder.register_redirect', [
+        'log' => $log_id
+      ],
+        ['query' => [
+          'url' => $session->field_session_reg_link->uri,
+        ]
+        ])->toString(),
+      ];
+
+    return $result;
+  }
+
 
 }
