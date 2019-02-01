@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - media_entity_document
+    - media
 id: document
 label: Document
 description: 'Use Document for uploading document files such as PDF.'
-type: document
+source: file
 queue_thumbnail_downloads: false
 new_revision: true
-type_configuration:
+source_configuration:
   source_field: field_media_document
 field_map:
   mime: field_media_mime

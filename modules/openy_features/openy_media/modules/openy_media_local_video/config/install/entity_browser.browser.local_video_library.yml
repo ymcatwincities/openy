@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - media_entity.bundle.video_local
+    - media.type.video_local
     - views.view.local_videos_library
   module:
     - dropzonejs_eb_widget
-    - media_entity
+    - media
     - views
 name: local_video_library
 label: 'Local Video Library'
@@ -23,7 +23,7 @@ widget_selector_configuration: {  }
 widgets:
   9fb81a40-c7ee-40b0-b8c0-b20b248590bb:
     settings:
-      media_entity_bundle: video_local
+      media_type: video_local
       upload_location: 'public://[date:custom:Y]-[date:custom:m]'
       dropzone_description: 'Drop files here to upload them'
       max_filesize: 100M

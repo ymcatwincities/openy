@@ -5,16 +5,16 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
+  - drupal:field
+  - drupal:image
+  - drupal:media (>= 8.6)
+  - drupal:taxonomy
+  - drupal:text
   - blazy
   - datalayer
   - entity_browser
-  - field
-  - image
   - jquery_colorpicker
-  - media_entity
   - openy_media_image
   - openy_prgf
   - openy_txnm_color
   - paragraphs
-  - taxonomy
-  - text

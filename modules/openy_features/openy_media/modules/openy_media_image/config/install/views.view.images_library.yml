@@ -3,12 +3,12 @@ status: true
 dependencies:
   config:
     - image.style.browser_thumbnail
-    - media_entity.bundle.image
+    - media.type.image
     - taxonomy.vocabulary.media_tags
   module:
     - entity_browser
     - image
-    - media_entity
+    - media
     - taxonomy
     - user
 id: images_library
