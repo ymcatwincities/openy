@@ -73,7 +73,7 @@ function openy_lily_preprocess_paragraph(&$variables) {
       if (empty($variables['content']['field_prgf_image'][0]['#media'])) {
         break;
       }
-      /* @var \Drupal\media_entity\Entity\Media $media */
+      /* @var \Drupal\media\Entity\Media $media */
       $media = $variables['content']['field_prgf_image'][0]['#media'];
       $media_entity = $media->getEntityTypeId();
       $media_bundle = $media->bundle();

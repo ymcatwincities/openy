@@ -14,7 +14,7 @@ dependencies:
   - field_group
   - focal_point
   - image
-  - media_entity
+  - drupal:media (>= 8.6)
   - menu_ui
   - metatag
   - node
