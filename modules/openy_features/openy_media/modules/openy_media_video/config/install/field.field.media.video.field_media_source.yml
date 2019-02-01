@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.media.field_media_source
-    - media_entity.bundle.video
+    - media.type.video
 id: media.video.field_media_source
 field_name: field_media_source
 entity_type: media
