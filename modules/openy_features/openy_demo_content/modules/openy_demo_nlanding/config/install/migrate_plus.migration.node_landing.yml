@@ -186,6 +186,17 @@ source:
       content_ids:
         -
           content_id: all_amenities
+    -
+      id: swimming
+      title: 'Swimming Lessons at the YMCA'
+      alias: '/swimlessons'
+      layout: one_column
+      header_content_ids:
+        -
+          header_content_id: swimming_banner
+      content_ids:
+        -
+          content_id: swimming_simple
   ids:
     id:
       type: string

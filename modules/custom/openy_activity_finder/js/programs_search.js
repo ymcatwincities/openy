@@ -21,7 +21,7 @@
         dependencies: {},
       }
     },
-    created() {
+    created: function() {
       this.checkboxes = JSON.parse(this.options);
       this.checked = this.default.split(',');
       for (var i in this.checkboxes) {
@@ -155,7 +155,7 @@
         dependencies: {},
       }
     },
-    created() {
+    created: function() {
       this.radios = JSON.parse(this.options);
       this.checked = this.default;
       for (var i in this.radios) {
@@ -266,7 +266,7 @@
         link: ''
       }
     },
-    created() {
+    created: function() {
       var component = this;
 
       if (typeof this.$route.query.locations != 'undefined') {
@@ -306,7 +306,7 @@
 
       this.runAjaxRequest();
 
-      component.afPageRef = $('.field-prgf-af-page-ref a').attr('href');
+      component.afPageRef = 'OpenY' in window ? window.OpenY.field_prgf_af_page_ref[0]['url'] : '';
 
       // We add watchers dynamically otherwise initially there will be
       // up to three requests as we are changing values while initializing
@@ -324,21 +324,21 @@
         if (!component.runningClearAllFilters && newValue != oldValue) {
           component.runAjaxRequest();
         }
-      })
+      });
       component.$watch('ages', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
           component.runAjaxRequest();
         }
-      })
+      });
       component.$watch('days', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
           component.runAjaxRequest();
         }
-      })
+      });
     },
     methods: {
       arrayFilter: function(array) {
