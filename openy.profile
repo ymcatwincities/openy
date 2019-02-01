@@ -277,6 +277,9 @@ function openy_import_content(array &$install_state) {
       // Add demo content Program Event Framework landing pages manually.
       // Do it as the last step so menu items are in place.
       $migrate_operations[] = ['openy_demo_nlanding_pef_pages', []];
+      // Add demo content Activity Finder landing pages manually.
+      // Do it as the last step so menu items are in place.
+      $migrate_operations[] = ['openy_demo_nlanding_af_pages', []];
       // Import GroupExPro classes. They are not handled as content migration.
       $migrate_operations[] = ['openy_gxp_import_tc', []];
     }

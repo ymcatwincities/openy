@@ -212,40 +212,45 @@ source:
         <p>Challenge yourself today. What will you do? Maybe it is trying a new class at the Y or
         sign up for that 5k you have always wanted to run. Whatever it is, make sure its challenging!</p>
     -
-      id: give_simple
-      parent_id: give
+      id: swimming_simple
+      parent_id: swimming
       description: |
-        <h2 class="h1"><div class="field-prgf-headline">Why Give to the Y</div></h2>
-        <div class="description">
-        <div class="field-prgf-description"><p>
-        Everyone knows the Y as a place to camp, swim, or exercise. Yet, the
-        Y is so much more. As a 501(c)3 nonprofit organization, we provide
-        crucial programs and services to more than 230,000 people every year.
-        With the help of generous donors, we are able to provide more than 250
-        homeless youth safe, stable housing, 115,000 healthy meals to
-        school-age youth, and more than $9.5 million in financial assistance to
-        more than 27,000 people to ensure everyone has a chance to succeed and
-        belong at the Y.
-        </p>
-        <p><strong><font face="Verdana" size="5">Addressing Critical Local
-        Needs</font></strong></p>
-        </div></div>
-    -
-      id: accelerator_simple
-      parent_id: accelerator
-      description: |
-        <h2 class="h1"><div class="field-prgf-headline">About Accelerator YMCA</div></h2>
-        <div class="description">
-        <div class="field-prgf-description"><p>
-        At the Y, strengthening community is our cause. We provide crucial
-        programs and services to more than 230,000 people every year, including
-        safe, stable housing for more than 350 homeless young people, crisis
-        intervention for 3,500 young people and their families, and 115,000
-        healthy meals to school-age kids. We make it our mission to serve the
-        most underserved populations in our community and ensure that every
-        young person has the opportunity to be safe, successful and happy.
-        </p>
-        </div></div>
+        <div class="views-element-container">
+        <div class="categories-listing">
+        <div class="views-row">
+          <article role="article" about="/programs/swimming/swim-lessons" class="subprogram-listing-item clearfix row">
+            <div class="col-sm-7 title">
+              <h2><span>Swim Lessons</span>
+          </h2>
+            </div>
+            <div class="col-sm-5 image">
+              <a href="/programs/swimming/swim-lessons">
+                <div class="field-category-image"><div class="media media-image view-mode-node-program-subcategory-teaser">
+                <div class="blazy field-media-image" data-blazy="">
+                <div style="padding-bottom: 83.33%" class="media media--blazy media--loading media--ratio media--ratio--enforced media--image">
+                <img height="300" width="360" class="b-lazy media__image media__element" data-src="http://openy-af.docksal/sites/default/files/styles/node_program_subcategory_teaser/public/swim_lessons.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" typeof="foaf:Image" />
+              </div>
+          </div>
+            </div>
+          </div>
+                </a>
+            </div>
+            <div class="col-sm-7 content">
+                      <div class="field-category-description"><p>
+          The Y is your source for progressive swim lessons for children and
+          adults. The Y's 8 different levels of instruction mean that your child
+          can begin with the most appropriate level of caring instruction. Adult
+          lessons are for beginning and intermediate level swimmers. Whether
+          you're just starting out or want to improve your stroke technique, your
+          instructor will focus on your specific goals.
+          </p>
+          </div>
+              <a href="/program-search" title="Swim Lessons" class="btn btn-link blue" aria-label="Swim Lessons read more">View Offerings</a>
+            </div>
+          </article>
+          </div>
+          </div>
+        </div>
   ids:
     id:
       type: string
@@ -253,7 +258,7 @@ process:
   langcode:
     plugin: default_value
     source: language
-    default_value: en
+    default_value: und
   status:
     plugin: default_value
     default_value: 1
@@ -276,11 +281,6 @@ process:
   field_prgf_description/format:
     plugin: default_value
     default_value: full_html
-  type:
-    plugin: skip_if_bundle_not_exist
-    method: row
-    entity: paragraph
-    bundle: simple_content
 destination:
   plugin: 'entity:paragraph'
   default_bundle: simple_content

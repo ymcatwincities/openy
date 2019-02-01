@@ -55,14 +55,14 @@ source:
       id: join_three
       name: 'Join Three'
       file: join_three
+    -
+      id: swimming_banner
+      name: 'Swimming Lessons banner'
+      file: swimming_banner
   ids:
     id:
       type: string
 process:
-  langcode:
-    plugin: default_value
-    source: language
-    default_value: en
   name: name
   bundle:
     plugin: default_value
