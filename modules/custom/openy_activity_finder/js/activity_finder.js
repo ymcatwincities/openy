@@ -271,9 +271,13 @@
         }
         return this.table.groupedLocations[key].count;
       },
+      locationsSelected: function() {
+        return 0;
+        // get the number of selected locations.
+      },
       toggleCardState: function(e) {
         var element = $(e.target),
-            deselect = element.data('deselect');
+            deselect = element.data('deselect') ? element.data('deselect') : '';
         if (element.attr('type') === 'radio') {
           // Unselect all others radios in group.
           $('input[name="' + element.attr('name') + '"]').parents('.openy-card__item').removeClass('selected');
