@@ -72,12 +72,12 @@
           // Redirect to Search page.
           this.updateCategoriesParam();
           this.updateSearchQuery();
-          window.location.pathname = this.afResultsRef;
+          window.location.href = this.afResultsRef + window.location.search;
           return;
         }
         if (this.step == 3) {
           // Redirect to Search page.
-          window.location.pathname = this.afResultsRef;
+          window.location.href = this.afResultsRef + window.location.search;
         }
         this.step++;
         this.current_step++;
@@ -271,13 +271,9 @@
         }
         return this.table.groupedLocations[key].count;
       },
-      locationsSelected: function() {
-        return 0;
-        // get the number of selected locations.
-      },
       toggleCardState: function(e) {
         var element = $(e.target),
-            deselect = element.data('deselect') ? element.data('deselect') : '';
+            deselect = element.data('deselect');
         if (element.attr('type') === 'radio') {
           // Unselect all others radios in group.
           $('input[name="' + element.attr('name') + '"]').parents('.openy-card__item').removeClass('selected');
