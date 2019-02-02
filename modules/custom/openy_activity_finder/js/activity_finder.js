@@ -72,12 +72,12 @@
           // Redirect to Search page.
           this.updateCategoriesParam();
           this.updateSearchQuery();
-          window.location.pathname = this.afResultsRef;
+          window.location.href = this.afResultsRef + window.location.search;
           return;
         }
         if (this.step == 3) {
           // Redirect to Search page.
-          window.location.pathname = this.afResultsRef;
+          window.location.href = this.afResultsRef + window.location.search;
         }
         this.step++;
         this.current_step++;
