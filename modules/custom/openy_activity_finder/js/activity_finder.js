@@ -57,7 +57,7 @@
       skip: function() {
         if (this.step == 3) {
           // Redirect to Search page.
-          window.location.pathname = this.afResultsRef;
+          window.location.href = this.afResultsRef + window.location.search;
         }
         else {
           this.step++;
@@ -271,8 +271,8 @@
         }
         return this.table.groupedLocations[key].count;
       },
-      locationsSelected: function() {
-        return 0;
+      locationsSelected: function(e) {
+        return $(".location-group-name:contains(" + e + ")").parents('.checkbox-group-wrapper').find('.selected').length;
         // get the number of selected locations.
       },
       toggleCardState: function(e) {
