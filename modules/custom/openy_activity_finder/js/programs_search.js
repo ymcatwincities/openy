@@ -92,7 +92,7 @@
         var removeValue = (this.groupStatus(value) == 'all' || this.groupStatus(value) == 'partial');
         for (var i in this.dependencies[value]) {
           var key = this.checked.indexOf(this.dependencies[value][i]);
-          if (typeof this.dependencies[value][i] != 'string') {
+          if (typeof this.dependencies[value][i] != 'string' && typeof this.dependencies[value][i] != 'number') {
             continue;
           }
           // If we need to add and it was not checked yet.
