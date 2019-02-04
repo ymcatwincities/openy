@@ -5,9 +5,10 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - ckeditor
-  - editor
-  - entity_embed
-  - filter
-  - token_filter
-  - colorbutton
+  - colorbutton:colorbutton
+  - ckeditor_bootstrap_buttons:ckeditor_bootstrap_buttons
+  - drupal:ckeditor
+  - drupal:editor
+  - drupal:filter
+  - entity_embed:entity_embed
+  - token_filter:token_filter
