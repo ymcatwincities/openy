@@ -31,14 +31,7 @@ function openy_node_program_update_dependencies() {
  * Update Node Program fields datalayer config for Data Layer additions.
  */
 function openy_node_program_update_8001() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_node_program');
-  $config .= '/config/install/';
-  $config .= 'field.field.node.program.field_program_description.yml';
-  $config_importer->update($config,
-    'field.field.node.program.field_program_description',
-    'third_party_settings.datalayer'
-  );
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
@@ -63,14 +56,11 @@ function openy_node_program_update_8002() {
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_form_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.config');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'content.field_meta_tags');
   // Entity view display
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_view_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'content.field_meta_tags');
 
   $config_dir = drupal_get_path('module', $module) . '/config/install';
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
@@ -80,7 +70,7 @@ function openy_node_program_update_8002() {
   ]);
 }
 
-/*
+/**
  * Enabling scheduler module.
  */
 function openy_node_program_update_8003() {
@@ -121,9 +111,6 @@ function openy_node_program_update_8004() {
     'field.field.node.program.field_program_color' => [
       'description',
     ],
-    'field.field.node.program.field_program_description' => [
-      'description',
-    ],
     'field.field.node.program.field_program_icon' => [
       'description',
     ],
@@ -148,30 +135,14 @@ function openy_node_program_update_8004() {
  * Remove DataLayer from dependency in the field instance.
  */
 function openy_node_program_update_8005() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_node_program');
-  $config .= '/config/install/';
-  $config .= 'field.field.node.program_subcategory.field_meta_tags.yml';
-  $config_importer->update(
-    $config,
-    'field.field.node.program.field_meta_tags',
-    'dependencies.module'
-  );
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
  * Update description for field meta tags.
  */
 function openy_node_program_update_8006() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_node_program');
-  $config .= '/config/install/';
-  $config .= 'field.field.node.program.field_meta_tags.yml';
-  $config_importer->update(
-    $config,
-    'field.field.node.program.field_meta_tags',
-    'description'
-  );
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
@@ -211,10 +182,6 @@ function openy_node_program_update_8009() {
   $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_view_display.media.image.node_program_header' => [
-      'content',
-      'hidden',
-    ],
     'core.entity_view_display.node.program.default' => [
       'content',
       'hidden',
@@ -230,7 +197,6 @@ function openy_node_program_update_8009() {
       'hidden',
     ],
   ];
-
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
@@ -267,7 +233,6 @@ function openy_node_program_update_8011() {
       'effects',
     ],
   ];
-
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
@@ -290,7 +255,6 @@ function openy_node_program_update_8012() {
       'content.addthis',
     ],
   ];
-
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';

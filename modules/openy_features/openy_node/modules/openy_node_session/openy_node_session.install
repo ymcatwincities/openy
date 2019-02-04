@@ -16,22 +16,14 @@ function openy_node_session_update_8001() {
   $config_importer->importConfigs([
     'rabbit_hole.behavior_settings.node_type_session',
   ]);
-
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.session.default' => [
-      'content',
-    ],
     'core.entity_form_display.paragraph.session_time.default' => [
-      'content',
-    ],
-    'core.entity_view_display.node.session.default' => [
       'content',
     ],
     'core.entity_view_display.node.session.teaser' => [
       'dependencies.config',
       'content',
-      'hidden',
     ],
     'core.entity_view_display.paragraph.session_time.default' => [
       'content',
@@ -58,9 +50,6 @@ function openy_node_session_update_8002() {
       'description',
     ],
     'field.field.node.session.field_session_description' => [
-      'description',
-    ],
-    'field.field.node.session.field_session_exclusions' => [
       'description',
     ],
     'field.field.node.session.field_session_gender' => [
@@ -97,12 +86,6 @@ function openy_node_session_update_8002() {
       'description',
     ],
     'field.field.node.session.field_session_time' => [
-      'description',
-    ],
-    'field.field.paragraph.session_time.field_session_time_date' => [
-      'description',
-    ],
-    'field.field.paragraph.session_time.field_session_time_days' => [
       'description',
     ],
   ];
@@ -160,11 +143,9 @@ function openy_node_session_update_8004() {
       'hidden',
     ],
     'core.entity_form_display.node.session.default' => [
-      'dependencies.module',
       'content',
     ],
   ];
-
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
@@ -187,7 +168,6 @@ function openy_node_session_update_8006() {
       'content.addthis',
     ],
   ];
-
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
@@ -217,7 +197,6 @@ function _openy_node_session_update_8007() {
       'settings',
     ],
   ];
-
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
