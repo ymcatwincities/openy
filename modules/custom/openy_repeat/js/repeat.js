@@ -189,7 +189,8 @@
     },
     computed: {
       dateFormatted: function(){
-        return moment(this.date).format('MMMM D, dddd');
+        var date = new Date(this.date).toISOString();
+        return moment(date).format('MMMM D, dddd');
       },
       roomFilters: function() {
         var availableRooms = [];
@@ -274,11 +275,12 @@
     methods: {
       runAjaxRequest: function() {
         var component = this;
+        var date = new Date(this.date).toISOString();
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
         url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
         url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(',')) : '/0';
-        url += this.date ? '/' + encodeURIComponent(this.date) : '';
+        url += date ? '/' + encodeURIComponent(date) : '';
 
         var query = [];
         if (this.categoriesExcluded.length > 0) {
@@ -303,11 +305,12 @@
           $('.schedules-loading').addClass('hidden');
         });
 
+        var date = new Date(this.date).toISOString();
         router.push({ query: {
-          date: this.date,
-          locations: this.locations.join(','),
-          categories: this.categories.join(',')
-        }});
+            date: date,
+            locations: this.locations.join(','),
+            categories: this.categories.join(',')
+          }});
       },
       toggleParentClass: function(event) {
         if (event.target.parentElement.classList.contains('skip-checked')) {
@@ -329,14 +332,18 @@
         this.classPopup = this.filteredTable[index].class_info;
       },
       backOneDay: function() {
-        this.date = moment(this.date).add(-1, 'day').format('D MMM YYYY');
+        var date = new Date(this.date).toISOString();
+        this.date = moment(date).add(-1, 'day');
       },
       forwardOneDay: function() {
-        this.date = moment(this.date).add(1, 'day').format('D MMM YYYY');
+        var date = new Date(this.date).toISOString();
+        this.date = moment(date).add(1, 'day');
       },
       addToCalendarDate: function(dateTime) {
         var dateTimeArray = dateTime.split(' ');
-        return moment(this.date).format('YYYY-MM-D') + ' ' + dateTimeArray[1];
+        var date = new Date(this.date).toISOString();
+
+        return moment(date).format('YYYY-MM-D') + ' ' + dateTimeArray[1];
       },
       categoryExcluded: function(category) {
         return this.categoriesExcluded.indexOf(category) !== -1;
