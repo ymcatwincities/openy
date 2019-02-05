@@ -159,12 +159,29 @@ class CampaignScorecardService {
 
         $of_goal = $goal ? number_format($actual / $goal * 100, 1) : 0;
         $result['registration']['early'][$id]['of_goal'] = $of_goal;
-
+        if (!array_key_exists('total', $result)) {
+          $result['total'] = [];
+        }
         // Total Early registration calculation.
+        if (!array_key_exists('target', $result['total'])){
+          $result['total']['target'] = 0;
+        }
         $result['total']['target'] += $target;
+        if (!array_key_exists('registration_goal', $result['total'])){
+          $result['total']['registration_goal'] = 0;
+        }
         $result['total']['registration_goal'] += $goal;
+        if (!array_key_exists('actual', $result['total'])){
+          $result['total']['actual'] = 0;
+        }
         $result['total']['actual'] += $actual;
+        if (!array_key_exists('of_members', $result['total'])){
+          $result['total']['of_members'] = 0;
+        }
         $result['total']['of_members'] += $of_members;
+        if (!array_key_exists('of_goal', $result['total'])){
+          $result['total']['of_goal'] = 0;
+        }
         $result['total']['of_goal'] += $of_goal;
 
         // Challenge registration calculation.
@@ -178,10 +195,21 @@ class CampaignScorecardService {
 
         $reg_of_goal = $goal ? number_format($reg_actual / $goal * 100, 1) : 0;
         $result['registration']['challenge'][$id]['of_goal'] = $reg_of_goal;
-
+        if (!array_key_exists('reg_registration_goal', $result['total'])){
+          $result['total']['reg_registration_goal'] = 0;
+        }
         $result['total']['reg_registration_goal'] += $goal;
+        if (!array_key_exists('reg_actual', $result['total'])){
+          $result['total']['reg_actual'] = 0;
+        }
         $result['total']['reg_actual'] += $reg_actual;
+        if (!array_key_exists('reg_of_members', $result['total'])){
+          $result['total']['reg_of_members'] = 0;
+        }
         $result['total']['reg_of_members'] += $reg_of_member;
+        if (!array_key_exists('reg_of_goal', $result['total'])){
+          $result['total']['reg_of_goal'] = 0;
+        }
         $result['total']['reg_of_goal'] += $reg_of_goal;
 
         // Utilization calculation.
@@ -211,10 +239,22 @@ class CampaignScorecardService {
         $result['utilization'][$id]['of_goal'] = $util_of_goal;
 
         // Utilization total.
+        if (!array_key_exists('util_registration_goal', $result['total'])){
+          $result['total']['util_registration_goal'] = 0;
+        }
         $result['total']['util_registration_goal'] += $util_goal;
         // Doesn't include results for members without branch ($id = 0 or '')
+        if (!array_key_exists('util_actual', $result['total'])){
+          $result['total']['util_actual'] = 0;
+        }
         $result['total']['util_actual'] += $util_actual;
+        if (!array_key_exists('util_of_members', $result['total'])){
+          $result['total']['util_of_members'] = 0;
+        }
         $result['total']['util_of_members'] += $util_of_member;
+        if (!array_key_exists('util_of_goal', $result['total'])){
+          $result['total']['util_of_goal'] = 0;
+        }
         $result['total']['util_of_goal'] += $util_of_goal;
 
       }
