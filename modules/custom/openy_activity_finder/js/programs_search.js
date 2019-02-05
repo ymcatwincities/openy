@@ -37,7 +37,14 @@
     },
     watch: {
       checked: function(values) {
-        this.$emit('updated-values', values);
+        // Some of the values could be empty. Clean them up.
+        var cleanValues = [];
+        for (key in values) {
+          if (values[key] != '') {
+            cleanValues.push(values[key]);
+          }
+        }
+        this.$emit('updated-values', cleanValues);
       }
     },
     methods: {
