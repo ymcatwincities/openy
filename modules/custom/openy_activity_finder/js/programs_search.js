@@ -353,22 +353,22 @@
         var url = drupalSettings.path.baseUrl + 'af/get-data';
 
         var query = [];
-        var cleanLocations = this.locations.filter(function(word){ return word.length > 0 && word != 'undefined'; });
+        var cleanLocations = this.locations.filter(function(word){ return word; });
         if (cleanLocations.length > 0) {
           query.push('locations=' + encodeURIComponent(cleanLocations.join(',')));
         }
         if (this.keywords.length > 0 && this.keywords != 'undefined') {
           query.push('keywords=' + encodeURIComponent(this.keywords));
         }
-        var cleanCategories = this.categories.filter(function(word){ return word.length > 0 && word != 'undefined'; });
+        var cleanCategories = this.categories.filter(function(word){ return word; });
         if (cleanCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
-        var cleanAges = this.ages.filter(function(word){ return word.length > 0 && word != 'undefined'; });
+        var cleanAges = this.ages.filter(function(word){ return word; });
         if (cleanAges.length > 0) {
           query.push('ages=' + encodeURIComponent(cleanAges.join(',')));
         }
-        var cleanDays = this.days.filter(function(word){ return word.length > 0 && word != 'undefined'; });
+        var cleanDays = this.days.filter(function(word){ return word; });
         if (cleanDays.length > 0) {
           query.push('days=' + encodeURIComponent(cleanDays.join(',')));
         }
