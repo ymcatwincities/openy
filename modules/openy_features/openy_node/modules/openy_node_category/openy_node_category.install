@@ -53,14 +53,12 @@ function openy_node_category_update_8002() {
     'core.entity_form_display.node.program_subcategory.default' =>[
       'dependencies.config',
       'third_party_settings.field_group.group_bottom_area',
-      'content.field_bottom_content',
     ],
     'core.entity_view_display.node.program_subcategory.default' => [
       'dependencies.config',
       'content.field_bottom_content',
     ],
     'core.entity_view_display.node.program_subcategory.full' => [
-      'dependencies.config',
       'content.field_bottom_content',
     ],
   ];
@@ -97,8 +95,6 @@ function openy_node_category_update_8004() {
   $configs = [
     'core.entity_form_display.node.program_subcategory.default' => [
       'dependencies.module',
-      'content.publish_on',
-      'content.unpublish_on',
     ],
     'node.type.program_subcategory' => [
       'dependencies.module',
@@ -255,7 +251,6 @@ function openy_node_category_update_8012() {
   $configs = [
     'image.style.node_program_subcategory_teaser' => [
       'dependencies',
-      'effects',
     ],
   ];
 

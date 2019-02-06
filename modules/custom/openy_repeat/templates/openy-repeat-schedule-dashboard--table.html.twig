@@ -31,7 +31,7 @@
       <div class="schedules-data clearfix">
 
         <div class="schedules-data__header">
-          <div>{{ 'Location'|t }}</div>
+          <div class="location-column">{{ 'Location'|t }}</div>
           <div>{{ 'Class'|t }}</div>
           <div>{{ 'Time'|t }}</div>
           <div class="category-column">{{ 'Category'|t }}</div>
@@ -43,7 +43,7 @@
         <div v-for="(item, index) in propData" class="schedules-data__row">
 
           {# location #}
-          <div v-cloak>
+          <div v-cloak class="location-column">
             <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="$parent.populatePopupL(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
           </div>
 
