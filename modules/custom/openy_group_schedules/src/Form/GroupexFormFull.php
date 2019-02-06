@@ -309,18 +309,16 @@ class GroupexFormFull extends GroupexFormBase {
 
     // Get category options
     $raw_category_data = $this->getOptions($this->request(['query' => ['categories' => TRUE]]), 'id', 'name');
-    $this->categoryOptions = ['any' => $this->t('-All-')];
-    $processed_category_data = [];
+    $processed_category_data['any'] = $this->t('-All-');
     foreach ($raw_category_data as $key => $category) {
       // Remove excess key text & cleanup markup being sent back.
       $id = str_replace('DESC--[', '', $key);
       $processed_category_data[$id] = t($category);
     }
-    $this->categoryOptions = $this->categoryOptions + $processed_category_data;
 
     $form['category_select'] = [
       '#type' => 'select',
-      '#options' => $this->categoryOptions,
+      '#options' => $processed_category_data,
       '#default_value' => !empty($state['category']) ? $state['category'] : 'any',
       '#title' => $this->t('Category:'),
       '#prefix' => '<div id="category-select-wrapper" class="' . $category_select_classes . '">',
@@ -340,18 +338,16 @@ class GroupexFormFull extends GroupexFormBase {
 
     // Get classes options.
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
-    $this->classesOptions = ['any' => $this->t('-All-')];
-    $processed_classes_data = [];
+    $processed_classes_data['any'] = $this->t('-All-');
     foreach ($raw_classes_data as $key => $class) {
       // Remove excess key text & cleanup markup being sent back.
       $id = str_replace('DESC--[', '', $key);
       $processed_classes_data[$id] = t($class);
     }
-    $this->classesOptions = $this->classesOptions + $processed_classes_data;
 
     $form['class_select'] = [
       '#type' => 'select',
-      '#options' => $this->classesOptions,
+      '#options' => $processed_classes_data,
       '#default_value' => !empty($state['class']) ? $state['class'] : 'any',
       '#title' => $this->t('Class:'),
       '#prefix' => '<div id="class-select-wrapper" class="' . $class_select_classes . '">',
