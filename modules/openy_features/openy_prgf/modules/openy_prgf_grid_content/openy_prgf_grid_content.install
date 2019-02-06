@@ -25,12 +25,6 @@ function openy_prgf_grid_content_update_8001() {
   $config_dir = drupal_get_path('module', 'openy_prgf_grid_content') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.paragraph.grid_columns.default' => [
-      'content.field_prgf_clm_class.settings.placeholder',
-      'content.field_prgf_clm_headline.settings.placeholder',
-      'content.field_prgf_clm_link.settings.placeholder_url',
-      'content.field_prgf_clm_link.settings.placeholder_title',
-    ],
     'field.field.paragraph.grid_columns.field_prgf_clm_class' => [
       'description',
     ],

@@ -128,24 +128,8 @@ function openy_media_image_update_8005() {
     'core.entity_form_display.media.image.default' => [
       'content',
     ],
-    'core.entity_view_display.media.image.default' => [
-      'content',
-      'hidden',
-    ],
-    'core.entity_view_display.media.image.embedded_full' => [
-      'content',
-      'hidden',
-    ],
-    'core.entity_view_display.media.image.embedded_half' => [
-      'content',
-      'hidden',
-    ],
     'core.entity_view_display.media.image.embedded_link' => [
       'dependencies.module',
-      'content',
-      'hidden',
-    ],
-    'core.entity_view_display.media.image.icon' => [
       'content',
       'hidden',
     ],
