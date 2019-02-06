@@ -160,6 +160,14 @@ body {
   background-color: #5c2e91;
 }
 
+.page-node-type-campaign-page main[role="main"],
+.path-campaign-game main[role="main"],
+.path-campaign-scorecards main[role="main"],
+.path-team-member-registration main[role="main"],
+.path-members-list main[role="main"] {
+  background-color: #5c2e91;
+}
+
 .paragraph-background-container {
   /* fallback/image non-cover color */
   background-color: #c6168d;
