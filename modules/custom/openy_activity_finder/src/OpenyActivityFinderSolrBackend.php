@@ -517,31 +517,31 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   public function getDaysOfWeek() {
     return [
       [
-        'label' => 'Monday',
+        'label' => 'Mon',
         'value' => 'monday',
       ],
       [
-        'label' => 'Tuesday',
+        'label' => 'Tue',
         'value' => 'tuesday',
       ],
       [
-        'label' => 'Wednesday',
+        'label' => 'Wed',
         'value' => 'wednesday',
       ],
       [
-        'label' => 'Thursday',
+        'label' => 'Thu',
         'value' => 'thursday',
       ],
       [
-        'label' => 'Friday',
+        'label' => 'Fri',
         'value' => 'friday',
       ],
       [
-        'label' => 'Saturday',
+        'label' => 'Sat',
         'value' => 'saturday',
       ],
       [
-        'label' => 'Sunday',
+        'label' => 'Sun',
         'value' => 'sunday',
       ],
     ];
