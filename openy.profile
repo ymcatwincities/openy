@@ -534,6 +534,7 @@ function openy_uninstall_module($module_name) {
  *   Migration tag.
  */
 function openy_import_migration($migration_tag) {
+  /** @var Drupal\openy_migrate\ImporterInterface $importer */
   $importer = \Drupal::service('openy_migrate.importer');
   $importer->importByTag($migration_tag);
 }

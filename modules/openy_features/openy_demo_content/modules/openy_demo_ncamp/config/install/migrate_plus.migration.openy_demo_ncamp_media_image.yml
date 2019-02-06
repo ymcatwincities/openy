@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_ncamp
 id: openy_demo_ncamp_media_image
-migration_tags: { }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_ncamp
 label: Import demo blog camp images
 source:

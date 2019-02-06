@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_ncamp
 id: openy_demo_prgf_news_camp
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_ncamp
 label: 'Create latest news posts (camp) paragraph(s) for demo camp page nodes'
 migration_dependencies: {  }

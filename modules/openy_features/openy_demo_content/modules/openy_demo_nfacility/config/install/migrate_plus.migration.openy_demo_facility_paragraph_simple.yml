@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_nfacility
 id: openy_demo_facility_paragraph_simple
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_nfacility
 label: 'Create banner paragraph(s) for demo facility page nodes'
 migration_dependencies: {  }

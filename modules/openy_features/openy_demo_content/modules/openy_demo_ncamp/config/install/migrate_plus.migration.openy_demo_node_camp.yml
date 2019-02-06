@@ -8,7 +8,8 @@ dependencies:
     - openy_loc_camp
     - openy_prgf_camp_menu
 id: openy_demo_node_camp
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_ncamp
 label: 'Import demo camp posts'
 source:
@@ -224,5 +225,6 @@ migration_dependencies:
     - openy_demo_prgf_camp_gallery
     - openy_demo_prgf_menu_camp
     - openy_demo_prgf_blog_camp
+    - openy_demo_prgf_news_camp
     - openy_demo_prgf_simple_camp
   optional: {  }
