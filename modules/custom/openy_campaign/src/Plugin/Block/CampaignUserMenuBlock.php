@@ -119,7 +119,20 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       $localeRegistrationEnd = OpenYLocaleDate::createDateFromFormat($campaign->get('field_campaign_reg_end_date')->getString());
       $localeRegistrationEnd->convertTimezone($campaignTimezone);
 
+      $registerButton = [
+        '#type' => 'link',
+        '#title' => $this->t('Register'),
+        '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'registration', 'campaign_id' => $campaign->id()]),
+        '#attributes' => [
+          'class' => [
+            'use-ajax',
+            'register'
+          ],
+        ],
+      ];
+
       if ($localeCampaignStart->dateExpired() && !$localeCampaignEnd->dateExpired()) {
+        $build['register'] = $registerButton;
         $build['login'] = [
           '#type' => 'link',
           '#title' => $this->t('Sign in'),
@@ -133,17 +146,7 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
         ];
       }
       elseif ($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) {
-        $build['register'] = [
-          '#type' => 'link',
-          '#title' => $this->t('Register'),
-          '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'registration', 'campaign_id' => $campaign->id()]),
-          '#attributes' => [
-            'class' => [
-              'use-ajax',
-              'register'
-            ],
-          ],
-        ];
+        $build['register'] = $registerButton;
       }
 
     }
