@@ -143,7 +143,7 @@
 @include breakpoint($screen-lg-desktop) {
   .paragraph-background-container {
     .title {
-      margin-bottom: 50px;
+      padding-bottom: 50px;
     }
   }
 }
@@ -233,7 +233,7 @@
   @include breakpoint($screen-lg-desktop) {
     .block-description--text {
       display: table-cell;
-      padding: 0px 10px 40px 10px;
+      padding: 0px 10px 10px 10px;
     }
   }
 }

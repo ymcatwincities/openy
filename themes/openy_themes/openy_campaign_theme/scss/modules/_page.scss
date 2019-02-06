@@ -28,12 +28,11 @@ body {
 .path-team-member-registration,
 .path-members-list {
   main[role="main"] {
-    background-color: #ffffff;
     padding-left: 0px;
     padding-right: 0px;
     margin: 0 auto;
     .layout-content {
-      background-color: inherit;
+      background-color: #ffffff;
       @include breakpoint($screen-phone) {
         margin-left: 15px;
         margin-right: 15px;

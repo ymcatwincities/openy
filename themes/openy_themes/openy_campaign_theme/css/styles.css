@@ -315,7 +315,7 @@ p {
 
 @media (min-width: 80.625em) {
   .paragraph-background-container .title, .paragraph--type--campaign-winners .winners-branches-select .title {
-    margin-bottom: 50px;
+    padding-bottom: 50px;
   }
 }
 .paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
@@ -389,7 +389,7 @@ p {
 @media (min-width: 80.625em) {
   .columns .paragraph-container .block-description--text {
     display: table-cell;
-    padding: 0px 10px 40px 10px;
+    padding: 0px 10px 10px 10px;
   }
 }
 
@@ -512,7 +512,6 @@ body {
 .path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
-  background-color: #ffffff;
   padding-left: 0px;
   padding-right: 0px;
   margin: 0 auto;
@@ -522,7 +521,7 @@ body {
 .path-campaign-scorecards main[role="main"] .layout-content,
 .path-team-member-registration main[role="main"] .layout-content,
 .path-members-list main[role="main"] .layout-content {
-  background-color: inherit;
+  background-color: #ffffff;
   position: relative;
   margin-bottom: 100px;
   min-height: 500px;
