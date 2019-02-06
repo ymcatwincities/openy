@@ -348,7 +348,7 @@ class GroupexFormFull extends GroupexFormBase {
       $processed_classes_data[$id] = t($class);
     }
     $this->classesOptions = $this->classesOptions + $processed_classes_data;
-    
+
     $form['class_select'] = [
       '#type' => 'select',
       '#options' => $this->classesOptions,
@@ -583,7 +583,7 @@ class GroupexFormFull extends GroupexFormBase {
       $filter_date = !empty($values['date_select']) ? $values['date_select'] : $values['date'];
     }
     if (isset($user_input['date_select']) && $user_input['date_select'] != $filter_date) {
-      $filter_date = $user_input;
+      $filter_date = $user_input['date_select'];
     }
     $class = !empty($values['class_select']) ? $values['class_select'] : 'any';
     if ($class == 'any' && empty($user_input['class_select']) && is_numeric($query['class'])) {
@@ -618,7 +618,7 @@ class GroupexFormFull extends GroupexFormBase {
       $filter_length = 'week';
       $groupex_class = 'groupex_table_class_individual';
       $view_mode = 'class';
-    }    
+    }
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $groupex_class = 'groupex_table_instructor_individual') {
       $location = $triggering_element['#value'];
       $class = 'any';
