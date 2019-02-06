@@ -99,11 +99,15 @@ class AlertsRestResource extends ResourceBase {
     if (!$this->currentUser->hasPermission('access content')) {
       throw new AccessDeniedHttpException();
     }
-    $alerts = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'alert', 'status' => 1]);
+    $alerts = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties(['type' => 'alert', 'status' => 1]);
     $sendAlerts = [];
     /** @var \Drupal\node\Entity\Node $alert */
     foreach ($alerts as $alert) {
-      $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)->setAbsolute()->toString() : null;
+      $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)
+        ->setAbsolute()
+        ->toString() : NULL;
       if (!$alert->hasField('field_alert_visibility_pages')) {
         if ($alert->hasField('field_alert_belongs') && !$alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
           $refid = $alert->field_alert_belongs->target_id;
@@ -141,14 +145,17 @@ class AlertsRestResource extends ResourceBase {
         }
       }
       else {
-        // TODO: Implement new logic from OpenY code.
         if ($this->checkVisibility($alert)) {
+          $iconColor = 'white';
+          if ($alert->field_alert_icon_color && $alert->field_alert_icon_color->entity && $alert->field_alert_icon_color->entity->field_color && $alert->field_alert_icon_color->entity->field_color->value) {
+            $iconColor = $alert->field_alert_icon_color->entity->field_color->value;
+          }
           $sendAlerts[$alert->field_alert_place->value]['local'][] = [
             'title' => $alert->getTitle(),
             'textColor' => $alert->field_alert_text_color->entity->field_color->value,
             'bgColor' => $alert->field_alert_color->entity->field_color->value,
             'description' => $alert->field_alert_description->value,
-            'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
+            'iconColor' => $iconColor,
             'linkUrl' => $url,
             'linkText' => $alert->field_alert_link->title,
             'id' => $alert->id(),
@@ -163,6 +170,7 @@ class AlertsRestResource extends ResourceBase {
    * Check visibility of alert.
    *
    * @param $node
+   *
    * @return bool
    */
   private function checkVisibility(\Drupal\node\NodeInterface $node) {

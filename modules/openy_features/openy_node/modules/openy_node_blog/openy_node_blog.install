@@ -69,14 +69,11 @@ function openy_node_blog_update_8002() {
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_form_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.config');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'content.field_meta_tags');
   // Entity view display
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_view_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'content.field_meta_tags');
 
   $config_dir = drupal_get_path('module', $module) . '/config/install';
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
@@ -95,8 +92,6 @@ function openy_node_blog_update_8003() {
   $configs = [
     'core.entity_form_display.node.blog.default' => [
       'dependencies.module',
-      'content.publish_on',
-      'content.unpublish_on',
     ],
     'node.type.blog' => [
       'dependencies.module',
@@ -183,19 +178,11 @@ function openy_node_blog_update_8006() {
  * Update entity reference for field image.
  */
 function openy_node_blog_update_8007() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_node_blog');
-  $config .= '/config/install/';
-  $config .= 'core.entity_form_display.node.blog.default.yml';
-  $config_importer->update(
-    $config,
-    'core.entity_form_display.node.blog.default',
-    'content'
-  );
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
- * Fixing configs.
+ * Update entity reference for field image - fix configs.
  */
 function openy_node_blog_update_8008() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
