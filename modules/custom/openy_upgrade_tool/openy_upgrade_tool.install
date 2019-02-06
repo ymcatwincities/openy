@@ -55,22 +55,30 @@ function openy_upgrade_tool_update_8004(&$sandbox) {
 
   $configFactory = \Drupal::configFactory();
   $entityTypeManager = \Drupal::entityTypeManager();
+  $upgrade_log_manager = \Drupal::service('openy_upgrade_log.manager');
   $logger_entities = $entityTypeManager
     ->getStorage('logger_entity')
     ->loadMultiple($ids);
+
   foreach ($logger_entities as $logger_entity) {
     $config_name = $logger_entity->getName();
-    $new_upgrade_log_item = OpenyUpgradeLog::create([
-      'user_id' => 1,
-      'name' => $config_name,
-      'created' => $logger_entity->getCreatedTime(),
-    ]);
-    $new_upgrade_log_item->setData($configFactory->get($config_name)->getOriginal());
-    $new_upgrade_log_item->setNewRevision(TRUE);
-    $new_upgrade_log_item->setRevisionUserId(1);
-    $new_upgrade_log_item->setRevisionCreationTime(time());
-    $new_upgrade_log_item->setRevisionLogMessage('Migrate from logger entity');
-    $new_upgrade_log_item->save();
+    $current_config_data = $configFactory->get($config_name)->getOriginal();
+    unset($current_config_data['_core'], $current_config_data['uuid']);
+    $openy_config_data = $upgrade_log_manager->featuresManager
+      ->getExtensionStorages()->read($config_name);
+    if ($current_config_data !== $openy_config_data) {
+      $new_upgrade_log_item = OpenyUpgradeLog::create([
+        'user_id' => 1,
+        'name' => $config_name,
+        'created' => $logger_entity->getCreatedTime(),
+      ]);
+      $new_upgrade_log_item->setData($current_config_data);
+      $new_upgrade_log_item->setNewRevision(TRUE);
+      $new_upgrade_log_item->setRevisionUserId(1);
+      $new_upgrade_log_item->setRevisionCreationTime(time());
+      $new_upgrade_log_item->setRevisionLogMessage('Migrate from logger entity');
+      $new_upgrade_log_item->save();
+    }
     $sandbox['progress']++;
     $sandbox['current'] = $logger_entity->id();
     $logger_entity->delete();
