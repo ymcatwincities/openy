@@ -255,7 +255,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           'location_info' => $location_info,
           'availability_status' => $availability_status,
           'availability_note' => $availability_note,
-          'register_link' => $register_link_with_tracking,
+          'link' => $register_link_with_tracking,
           'log_id' => $log_id,
         ];
       }
@@ -579,6 +579,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $offering_id = $request->get('offering');
     $program_id = $request->get('program');
     $location_id = $request->get('location');
+    $log_id = $request->get('log');
 
     $time_start = microtime(true);
     $response = $client->request('GET', 'programs/' . $program_id . '/offerings/' . $offering_id,
@@ -642,6 +643,22 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       $age = $offeringResponse['restrictions']['age']['start'] . '-' . $offeringResponse['restrictions']['age']['end'] . 'yrs';
     }
 
+    // Build register link.
+    $register_link = 'https://ops1.operations.daxko.com/Online/' . $config->get(
+        'client_id'
+      ) . '/ProgramsV2/OfferingDetails.mvc?program_id=' . $program_id . '&offering_id=' . $offering_id . '&location_id=' . $location_id;
+
+    $register_link_with_tracking = \Drupal\Core\Url::fromRoute(
+      'openy_activity_finder.register_redirect',
+      ['log' => $log_id],
+      [
+        'query' => [
+          'url' => $register_link,
+          'details' => $offeringResponse['name'] . ' ' . $offeringResponse['program']['name'],
+        ]
+      ]
+    )->toString();
+
     $result = [
       'name' => $offeringResponse['name'] . ' ' . $offeringResponse['program']['name'],
       'description' =>  $offeringResponse['description'] . ' ' . $offeringResponse['program']['description'],
@@ -650,7 +667,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       'availability_note' =>  $availability_note,
       'gender' => $gender,
       'ages' => $age,
-      'link' =>  'https://ops1.operations.daxko.com/Online/' . $config->get('client_id') . '/ProgramsV2/OfferingDetails.mvc?program_id=' . $program_id . '&offering_id=' . $offering_id . '&location_id=' . $location_id,
+      'link' =>  $register_link_with_tracking,
     ];
 
     return $result;
