@@ -15,6 +15,7 @@
     data: {
       step: 0,
       loading: false,
+      isSearchSubmitDisabled: true,
       isStep1NextDisabled: true,
       isStep2NextDisabled: true,
       isStep3NextDisabled: true,
@@ -96,6 +97,10 @@
         this.updateStepsViewAll(this.step);
         this.runAjaxRequest();
       },
+      submitSearch: function() {
+        // Redirect to Search page.
+        window.location.href = this.afResultsRef + window.location.search;
+      },
       startOver: function() {
         var component = this;
         router.push({ query: {}});
@@ -158,6 +163,12 @@
         var component = this,
             filters = [];
         switch (step) {
+          case 0:
+            component.isSearchSubmitDisabled = true;
+            if (component.keywords) {
+              component.isSearchSubmitDisabled = false;
+            }
+          break;
           // Step with selecting Age, Day of Week, Categories top level.
           case 1:
             component.checkedStep1Filters = '';
@@ -340,6 +351,7 @@
 
       component.$watch('keywords', function(){
         component.updateSearchQuery();
+        component.checkFilters(0);
       });
       component.$watch('checkedAges', function(){
         component.updateSearchQuery();
