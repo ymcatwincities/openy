@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_nsessions
 id: openy_demo_paragraph_session_time_03
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_nsessions
 label: 'Create Session time paragraphs for demo session nodes'
 migration_dependencies: {  }

@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
+description: 'Paragraph to display Program Schedules'
 id: repeat_schedules
 label: 'Repeat Schedules'
 icon_uuid: null
-description: 'Pagraph to display Program Schedules'
 behavior_plugins: {  }

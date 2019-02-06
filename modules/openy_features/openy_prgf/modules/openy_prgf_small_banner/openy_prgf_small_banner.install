@@ -43,7 +43,6 @@ function openy_prgf_small_banner_update_8001() {
     ],
     'core.entity_view_display.paragraph.small_banner.default' => [
       'dependencies.config',
-      'content.field_prgf_description',
       'content.field_prgf_color.weight',
       'content.field_prgf_image.weight',
     ],
@@ -65,9 +64,6 @@ function openy_prgf_small_banner_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_prgf_small_banner') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.paragraph.small_banner.default' =>[
-      'content.field_prgf_headline.settings.placeholder',
-    ],
     'field.field.paragraph.small_banner.field_prgf_color' => [
       'description',
     ],
@@ -145,7 +141,6 @@ function openy_prgf_small_banner_update_8006() {
   $configs = [
     'image.style.prgf_small_banner' => [
       'dependencies',
-      'effects',
     ],
   ];
 

@@ -25,15 +25,7 @@ function openy_prgf_gallery_dependencies() {
  * Update entity reference for field image.
  */
 function openy_prgf_gallery_update_8001() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_prgf_gallery');
-  $config .= '/config/install/';
-  $config .= 'core.entity_form_display.paragraph.gallery.default.yml';
-  $config_importer->update(
-    $config,
-    'core.entity_form_display.paragraph.gallery.default',
-    'content'
-  );
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
@@ -45,10 +37,6 @@ function openy_prgf_gallery_update_8002() {
   $configs = [
     'core.entity_form_display.paragraph.gallery.default' => [
       'content',
-    ],
-    'core.entity_view_display.media.image.prgf_gallery' => [
-      'content',
-      'hidden',
     ],
     'core.entity_view_display.paragraph.gallery.default' => [
       'content',
