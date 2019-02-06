@@ -285,6 +285,8 @@ function openy_demo_nlanding_pef_pages() {
  */
 function openy_demo_nlanding_af_pages() {
   // Make sure that blocks are available.
+  openy_enable_module('openy_daxko2');
+  openy_enable_module('search_api_solr');
   openy_enable_module('openy_activity_finder');
   openy_enable_module('openy_paragraph_activity_finder_search');
   openy_enable_module('openy_prgf_activity_finder');
@@ -363,47 +365,62 @@ function openy_demo_nlanding_af_pages() {
   ]);
   $menu_link->save();
 
-  // For some reason repeat blocks do not have block's id in their
+  // For some reason af blocks do not have block's id in their
   // configuration. This is why we manually ensure they are set up.
-  $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
-    foreach ($tables as $table) {
-      // Select all paragraphs that have "broken" as plugin_id.
-      $query = \Drupal::database()->select($table, 'ptable');
-      $query->fields('ptable');
-      $query->condition('ptable.' . $plugin_id_field, 'broken');
-      $broken_paragraphs = $query->execute()->fetchAll();
+  $process_paragraphs = function ($prgfs) {
+    foreach ($prgfs as $prgf) {
+      $tables = $prgf['tables'];
+      $plugin_id_field = $prgf['plugin_id_field'];
+      $config_field = $prgf['config_field'];
+      foreach ($tables as $table) {
+        // Select all paragraphs that have "broken" as plugin_id.
+        $query = \Drupal::database()->select($table, 'ptable');
+        $query->fields('ptable');
+        $query->condition('ptable.' . $plugin_id_field, 'broken');
+        $broken_paragraphs = $query->execute()->fetchAll();
 
-      // Update to correct plugin_id based on data array.
-      foreach ($broken_paragraphs as $paragraph) {
-        $data = unserialize($paragraph->{$config_field});
+        // Update to correct plugin_id based on data array.
+        foreach ($broken_paragraphs as $paragraph) {
+          $data = unserialize($paragraph->{$config_field});
 
-        if ($paragraph->bundle == 'activity_finder_search') {
-          $data['id'] = 'activity_finder_block';
+          if ($paragraph->bundle == 'activity_finder') {
+            $data['id'] = 'activity_finder_block';
+          }
+          elseif ($paragraph->bundle == 'activity_finder_search') {
+            $data['id'] = 'activity_finder_search_block';
+          }
+          $query = \Drupal::database()->update($table);
+          $query->fields([
+            $plugin_id_field => $data['id'],
+            $config_field => serialize($data),
+          ]);
+          $query->condition('bundle', $paragraph->bundle);
+          $query->condition('entity_id', $paragraph->entity_id);
+          $query->condition('revision_id', $paragraph->revision_id);
+          $query->condition('langcode', $paragraph->langcode);
+          $query->execute();
         }
-        elseif ($paragraph->bundle == 'repeat_schedules_loc') {
-          $data['id'] = 'activity_finder_search_block';
-        }
-
-        $query = \Drupal::database()->update($table);
-        $query->fields([
-          $plugin_id_field => $data['id'],
-          $config_field => serialize($data),
-        ]);
-        $query->condition('bundle', $paragraph->bundle);
-        $query->condition('entity_id', $paragraph->entity_id);
-        $query->condition('revision_id', $paragraph->revision_id);
-        $query->condition('langcode', $paragraph->langcode);
-        $query->execute();
       }
     }
   };
-
-  $process_paragraphs(
-    [
-      'paragraph__field_prgf_block',
-      'paragraph_revision__field_prgf_block',
+  $process_paragraphs([
+    0 => [
+      'id' => 'activity_finder',
+      'tables' => [
+        'paragraph__field_prgf_block',
+        'paragraph_revision__field_prgf_block',
+      ],
+      'plugin_id_field' => 'field_prgf_block_plugin_id',
+      'config_field' => 'field_prgf_block_plugin_configuration',
     ],
-    'field_prgf_block_plugin_id',
-    'field_prgf_block_plugin_configuration'
-  );
+    1 => [
+      'id' => 'activity_finder_search',
+      'tables' => [
+        'paragraph__field_activity_finder_search',
+        'paragraph_revision__field_activity_finder_search',
+      ],
+      'plugin_id_field' => 'field_activity_finder_search_plugin_id',
+      'config_field' => 'field_activity_finder_search_plugin_configuration',
+    ]
+  ]);
 }
