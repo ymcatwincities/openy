@@ -647,6 +647,9 @@ function openy_install_tasks_alter(&$tasks, &$install_state) {
  *   A T&C form if T&C has not been accepted.
  */
 function openy_terms_of_use(&$install_state) {
+  // Open Y classes is not included on the first instllation page,
+  // because profile is not installed yet.
+  // That's why we should include T&C form manually.
   if (!class_exists('\Drupal\openy\Form\TermsOfUseForm')) {
     $path = drupal_get_path('profile', 'openy');
     require_once $path . '/src/Form/TermsOfUseForm.php';
