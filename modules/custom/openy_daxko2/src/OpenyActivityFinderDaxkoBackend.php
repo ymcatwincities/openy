@@ -107,6 +107,8 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     // Include facets. We need locations for Activity Finder.
     $get['include_facets'] = TRUE;
 
+    $get['registration_type'] = 'online';
+
     $time_start = microtime(true);
     $client = new Client(['base_uri' => $this->daxkoConfig->get('base_uri')]);
     $response = $client->request('GET', 'programs/offerings/search',
