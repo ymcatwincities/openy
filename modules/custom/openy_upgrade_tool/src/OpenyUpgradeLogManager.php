@@ -255,28 +255,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    */
   public function saveLoggerEntity($name, array $data, $message = NULL) {
     try {
-      if ($this->getLoggerEntityTypeName() == 'logger_entity') {
-        // TODO: Delete this, 'logger_entity' is deprecated.
-        // Load logger entity with this config name.
-        $entities = $this->getLoggerEntityStorage()->loadByProperties([
-          'type' => 'openy_config_upgrade_logs',
-          'name' => $name,
-        ]);
-        if (empty($entities)) {
-          // Create new logger entity for this config name if not exist.
-          $logger_entity = $this->getLoggerEntityStorage()->create([
-            'type' => 'openy_config_upgrade_logs',
-          ]);
-        }
-        else {
-          $logger_entity = array_shift($entities);
-        }
-        $logger_entity->setName($name);
-        $logger_entity->setData([$name]);
-        $logger_entity->save();
-        return $logger_entity->id();
-      }
-      else {
+      if ($this->getLoggerEntityTypeName() !== 'logger_entity') {
         // Load OpenyUpgradeLog entity with this config name.
         $entities = $this->getLoggerEntityStorage()->loadByProperties([
           'name' => $name,
@@ -303,8 +282,9 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     catch (\Exception $e) {
       $msg = 'Failed to save logger entity. Message: %msg';
       $this->logger->error($msg, ['%msg' => $e->getMessage()]);
-      return FALSE;
     }
+
+    return FALSE;
   }
 
   /**
