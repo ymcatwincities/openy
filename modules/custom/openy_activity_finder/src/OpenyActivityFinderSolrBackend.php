@@ -186,6 +186,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   public function processResults($results, $log_id) {
     $data = [];
     $locations_info = $this->getLocationsInfo();
+    /** @var \Drupal\search_api\Item\Item $result_item */
     foreach ($results->getResultItems() as $result_item) {
       $entity = $result_item->getOriginalObject()->getValue();
       $fields = $result_item->getFields();
@@ -205,9 +206,21 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         ];
         $full_dates = $_from->format('m/d/Y') . ' - ' . $_to->format('m/d/Y');
       }
+
+      $availability_status = 'closed';
+      if (!$entity->field_session_online->isEmpty()) {
+        $availability_status = $entity->field_session_online->value ? 'open' : 'closed';
+      }
+
+      $availability_note = '';
+      if ($availability_status == 'closed') {
+        $availability_note = t('Registration closed')->__toString();
+      }
+
       $data[] = [
-        'availability_note' => '',
-        'availability_status' => '',
+        'nid' => $entity->id(),
+        'availability_note' => $availability_note,
+        'availability_status' => $availability_status,
         'dates' => $full_dates,
         'schedule' => $schedule_items,
         'days' => $schedule_items[0]['days'],
@@ -273,13 +286,19 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'offering_id' => '',
         'price' => 'Member: $' . $entity->field_session_mbr_price->value . '<br/>Non-Member: $' . $entity->field_session_nmbr_price->value,
         'program_id' => '',
-        'register_link' => Url::fromRoute('openy_activity_finder.register_redirect', [
-            'log' => $log_id
+        'link' => Url::fromRoute('openy_activity_finder.register_redirect', [
+            'log' => $log_id,
           ],
           ['query' => [
             'url' => $entity->field_session_reg_link->uri,
-          ]
+          ],
         ])->toString(),
+        'description' => html_entity_decode(strip_tags(text_summary($entity->field_session_description->value, $entity->field_session_description->format, 600))),
+        'ages' => $entity->field_session_min_age->value . '-' . $entity->field_session_max_age->value . 'yrs',
+        'gender' => $entity->field_session_gender->value,
+        'location_name' => '',
+        'location_address' => '',
+        'location_phone' => '',
       ];
     }
     return $data;
@@ -567,50 +586,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
    * @inheritdoc
    */
   public function getProgramsMoreInfo($request) {
-    $log_id = $request->get('log');
-    $details = $request->get('details');
-    $nid = $this->entityQuery
-      ->get('node')
-      ->condition('title', $details)
-      ->condition('type', 'session')
-      ->execute();
-    $session = reset($this->entityTypeManager->getStorage('node')->loadMultiple($nid));
-    $availability_status = 'closed';
-    $availability_note = '';
-    $online_open = $session->field_session_online->value;
-    if ($online_open) {
-      $availability_status = 'open';
-    }
-
-    $prices = [
-      'Member: $' . $session->field_session_mbr_price->value,
-      'Non Member: $' . $session->field_session_nmbr_price->value,
-    ];
-
-    // We show gender restrictions if there are any. So if value is both
-    // male and female we do not need to show it as restriction.
-    $gender = $session->field_session_gender->value;
-
-    $age = $session->field_session_min_age->value . '-' . $session->field_session_max_age->value . 'yrs';
-
-    $result = [
-      'name' => $details,
-      'description' => html_entity_decode(strip_tags(text_summary($session->field_session_description->value, $session->field_session_description->format, 600))),
-      'price' =>  implode('<br/>', $prices),
-      'availability_status' =>  $availability_status,
-      'availability_note' =>  $availability_note,
-      'gender' => $gender,
-      'ages' => $age,
-      'link' =>  Url::fromRoute('openy_activity_finder.register_redirect', [
-        'log' => $log_id
-      ],
-        ['query' => [
-          'url' => $session->field_session_reg_link->uri,
-        ]
-        ])->toString(),
-      ];
-
-    return $result;
+    // Idea is that when we use Solr backend we have all the data
+    // available in runProgramSearch() call so this call is not needed
+    // meanwhile you can alter search results to set availability_status
+    // to be empty so getProgramsMoreInfo call will be triggered and you
+    // can alter its behavior. For example if you like to check availability
+    // with live call to your CRM.
+    return [];
   }
 
 
