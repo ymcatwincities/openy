@@ -125,7 +125,6 @@ class TermsOfUseForm extends FormBase {
         '#value' => $this->t('Accept Terms and Conditions'),
         '#weight' => 15,
         '#button_type' => 'primary',
-//        '#attributes' => ['class' => ['button button--primary']],
         '#states' => [
           'disabled' => [
             [':input[name="participant"]' => ['checked' => FALSE]],
