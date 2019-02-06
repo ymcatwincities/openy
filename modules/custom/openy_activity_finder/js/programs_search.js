@@ -412,6 +412,34 @@
       populatePopupMoreInfo: function(index) {
         var component = this;
 
+        // This means we already have all data so no need to run extra ajax call.
+        if (component.table[index].availability_status.length != 0) {
+          component.moreInfoPopup.name = component.table[index].name;
+          component.moreInfoPopup.description = component.table[index].description;
+
+          component.moreInfoPopup.price = component.table[index].price;
+          component.moreInfoPopup.ages = component.table[index].ages;
+          component.moreInfoPopup.gender = component.table[index].gender;
+
+          component.moreInfoPopup.dates = component.table[index].dates;
+          component.moreInfoPopup.times = component.table[index].times;
+          component.moreInfoPopup.days = component.table[index].days;
+
+          component.moreInfoPopup.location_name = component.table[index].location_info.title;
+          component.moreInfoPopup.location_address = component.table[index].location_info.address;
+          component.moreInfoPopup.location_phone = component.table[index].location_info.phone;
+
+          component.moreInfoPopup.availability_note = component.table[index].availability_note;
+          component.moreInfoPopup.availability_status = component.table[index].availability_status;
+          component.moreInfoPopup.link = component.table[index].link;
+
+          component.availabilityPopup.status = component.table[index].availability_status;
+          component.availabilityPopup.note = component.table[index].availability_note;
+          component.availabilityPopup.link = component.table[index].register_link;
+          component.availabilityPopup.price = component.table[index].price;
+          return;
+        }
+
         var url = drupalSettings.path.baseUrl + 'af/more-info';
 
         // Pass all the query parameters to Details call so we could build the logging.
@@ -431,8 +459,21 @@
         component.moreInfoPopupLoading = true;
         $.getJSON(url, function(data) {
           component.moreInfoPopupLoading = false;
-          component.moreInfoPopup = data;
+
           component.table[index].price = data.price;
+          component.table[index].availability_note = data.availability_note;
+          component.table[index].availability_status = data.availability_status;
+          component.table[index].ages = data.ages;
+          component.table[index].gender = data.gender;
+          component.table[index].description = data.description;
+          component.table[index].link = data.link;
+
+          component.moreInfoPopup.name = component.table[index].name;
+          component.moreInfoPopup.description = component.table[index].description;
+
+          component.moreInfoPopup.price = component.table[index].price;
+          component.moreInfoPopup.ages = component.table[index].ages;
+          component.moreInfoPopup.gender = component.table[index].gender;
 
           component.moreInfoPopup.dates = component.table[index].dates;
           component.moreInfoPopup.times = component.table[index].times;
@@ -442,12 +483,13 @@
           component.moreInfoPopup.location_address = component.table[index].location_info.address;
           component.moreInfoPopup.location_phone = component.table[index].location_info.phone;
 
-          component.table[index].availability_status = data.availability_status;
-          component.table[index].availability_note = data.availability_note;
+          component.moreInfoPopup.availability_note = component.table[index].availability_note;
+          component.moreInfoPopup.availability_status = component.table[index].availability_status;
+          component.moreInfoPopup.link = component.table[index].link;
 
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;
-          component.availabilityPopup.link = component.table[index].register_link;
+          component.availabilityPopup.link = component.table[index].link;
           component.availabilityPopup.price = component.table[index].price;
         });
       },

@@ -165,7 +165,7 @@
                   </div>
                   {# if we know that registration is available #}
                   <div v-if="item.availability_status == 'open'" class="col-md-3">
-                    <a :href="item.register_link" target="_blank" class="btn btn-primary btn-block" style="margin-bottom: 20px;">{{ 'Register'|t }}</a><br/>
+                    <a :href="item.link" target="_blank" class="btn btn-primary btn-block" style="margin-bottom: 20px;">{{ 'Register'|t }}</a><br/>
                     <span class="availability-note">${ item.availability_note }</span>
                   </div>
                   {# if we know that registration is NOT available #}
