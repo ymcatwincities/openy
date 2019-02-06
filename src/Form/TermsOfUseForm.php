@@ -115,11 +115,12 @@ class TermsOfUseForm extends FormBase {
     ];
 
     // Submit button must displayed on installation pages only.
-    if ($route_name != 'openy_system.openy_terms_and_conditions') {
+    if (!$isAccepted) {
       $form['submit'] = [
         '#type' => 'submit',
         '#value' => $this->t('Accept Terms and Conditions'),
         '#weight' => 15,
+        '#attributes' => ['class' => ['button button--primary']],
         '#states' => [
           'disabled' => [
             [':input[name="participant"]' => ['checked' => FALSE]],
