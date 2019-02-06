@@ -304,31 +304,31 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   public function getDaysOfWeek() {
     return [
       [
-        'label' => 'Monday',
+        'label' => 'Mon',
         'value' => '1',
       ],
       [
-        'label' => 'Tuesday',
+        'label' => 'Tue',
         'value' => '2',
       ],
       [
-        'label' => 'Wednesday',
+        'label' => 'Wed',
         'value' => '3',
       ],
       [
-        'label' => 'Thursday',
+        'label' => 'Thu',
         'value' => '4',
       ],
       [
-        'label' => 'Friday',
+        'label' => 'Fri',
         'value' => '5',
       ],
       [
-        'label' => 'Saturday',
+        'label' => 'Sat',
         'value' => '6',
       ],
       [
-        'label' => 'Sunday',
+        'label' => 'Sun',
         'value' => '7',
       ],
     ];
