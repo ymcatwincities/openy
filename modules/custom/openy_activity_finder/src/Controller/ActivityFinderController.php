@@ -97,6 +97,10 @@ class ActivityFinderController extends ControllerBase {
     }
     else {
       $data = $this->backend->runProgramSearch($parameters, $log->id());
+
+      // Allow other modules to alter the search results.
+      $this->moduleHandler()->alter('activity_finder_program_search_results', $data);
+
       // Cache for 5 minutes.
       $expire = $this->time->getRequestTime() + self::CACHE_LIFETIME;
       $this->cacheBackend->set($cid, $data, $expire);
@@ -143,6 +147,10 @@ class ActivityFinderController extends ControllerBase {
     }
     else {
       $data = $this->backend->getProgramsMoreInfo($request);
+
+      // Allow other modules to alter the search results.
+      $this->moduleHandler()->alter('activity_finder_program_more_info', $data);
+
       // Cache for 5 minutes.
       $expire = $this->time->getRequestTime() + self::CACHE_LIFETIME;
       $this->cacheBackend->set($cid, $data, $expire);
