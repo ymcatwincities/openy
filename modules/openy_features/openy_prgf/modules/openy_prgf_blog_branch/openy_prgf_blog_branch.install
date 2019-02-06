@@ -9,15 +9,7 @@
  * Update Paragraph Latest Blog Posts (Branch) field_prgf_block.
  */
 function openy_prgf_blog_branch_update_8001() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_prgf_blog_branch');
-  $config .= '/config/install/';
-  $config .= 'core.entity_view_display.paragraph.latest_blog_posts_branch.default.yml';
-  $config_importer->update(
-    $config,
-    'core.entity_view_display.paragraph.latest_blog_posts_branch.default',
-    'content.field_prgf_block.region'
-  );
+ // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
