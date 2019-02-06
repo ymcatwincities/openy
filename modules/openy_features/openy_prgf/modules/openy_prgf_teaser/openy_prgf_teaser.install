@@ -28,11 +28,6 @@ function openy_prgf_teaser_update_8001() {
   $config_dir = drupal_get_path('module', 'openy_prgf_teaser') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.paragraph.teaser.default' =>[
-      'content.field_prgf_link.settings.placeholder_url',
-      'content.field_prgf_link.settings.placeholder_title',
-      'content.field_prgf_title.settings.placeholder',
-    ],
     'field.field.paragraph.teaser.field_prgf_description' => [
       'description',
     ],
@@ -60,15 +55,7 @@ function openy_prgf_teaser_update_8001() {
  * Update entity reference for field image.
  */
 function openy_prgf_teaser_update_8002() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_prgf_teaser');
-  $config .= '/config/install/';
-  $config .= 'core.entity_form_display.paragraph.teaser.default.yml';
-  $config_importer->update(
-    $config,
-    'core.entity_form_display.paragraph.teaser.default',
-    'content'
-  );
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
@@ -80,10 +67,6 @@ function openy_prgf_teaser_update_8003() {
   $configs = [
     'core.entity_form_display.paragraph.teaser.default' => [
       'content',
-    ],
-    'core.entity_view_display.media.image.prgf_teaser' => [
-      'content',
-      'hidden',
     ],
     'core.entity_view_display.paragraph.teaser.default' => [
       'content',

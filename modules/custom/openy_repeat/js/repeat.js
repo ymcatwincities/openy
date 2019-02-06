@@ -58,6 +58,8 @@
     }
   }
 
+  Vue.config.devtools = true;
+
   var router = new VueRouter({
       mode: 'history',
       routes: []
@@ -72,6 +74,7 @@
       date: '',
       room: [],
       locations: [],
+      locationsLimit: [],
       categories: [],
       categoriesExcluded: [],
       categoriesLimit: [],
@@ -94,6 +97,29 @@
       exclusionSettings.forEach(function(item){
         component.categoriesExcluded.push(item.title);
       });
+
+      // If there is a preselected location, we'll hide filters and column.
+      let limitLocations = window.OpenY.field_prgf_repeat_loc || [];
+      if (limitLocations && limitLocations.length > 0) {
+        // If we limit to one location. i.e. Andover from GroupExPro
+        if (limitLocations.length == 1) {
+          component.locations.push(limitLocations[0].title);
+          $('.form-group-location').parent().hide();
+          $('.location-column').remove();
+        }
+        else {
+          limitLocations.forEach(function(element){
+            component.locationsLimit.push(element.title);
+          });
+
+          $('.form-group-location .checkbox-wrapper input').each(function(){
+            var value = $(this).attr('value');
+            if (component.locationsLimit.indexOf(value) === -1) {
+              $(this).parent().hide();
+            }
+          });
+        }
+      }
 
       // If there is preselected category, we hide filters and column.
       var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
@@ -163,7 +189,8 @@
     },
     computed: {
       dateFormatted: function(){
-        return moment(this.date).format('MMMM D, dddd');
+        var date = new Date(this.date).toISOString();
+        return moment(date).format('MMMM D, dddd');
       },
       roomFilters: function() {
         var availableRooms = [];
@@ -248,11 +275,12 @@
     methods: {
       runAjaxRequest: function() {
         var component = this;
+        var date = new Date(this.date).toISOString();
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
         url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
         url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(',')) : '/0';
-        url += this.date ? '/' + encodeURIComponent(this.date) : '';
+        url += date ? '/' + encodeURIComponent(date) : '';
 
         var query = [];
         if (this.categoriesExcluded.length > 0) {
@@ -277,11 +305,25 @@
           $('.schedules-loading').addClass('hidden');
         });
 
+        var date = new Date(this.date).toISOString();
         router.push({ query: {
-          date: this.date,
-          locations: this.locations.join(','),
-          categories: this.categories.join(',')
-        }});
+            date: date,
+            locations: this.locations.join(','),
+            categories: this.categories.join(',')
+          }});
+      },
+      toggleParentClass: function(event) {
+        if (event.target.parentElement.classList.contains('skip-checked')) {
+          event.target.parentElement.classList.remove('skip-checked');
+          event.target.parentElement.classList.remove('collapse');
+          event.target.parentElement.classList.remove('in');
+          if (!event.target.parentElement.classList.contains('skip-t')) {
+            event.target.parentElement.classList.add('skip-t');
+          }
+        }
+        else {
+          event.target.parentElement.classList.toggle("skip-t");
+        }
       },
       populatePopupL: function(index) {
         this.locationPopup = this.filteredTable[index].location_info;
@@ -290,14 +332,18 @@
         this.classPopup = this.filteredTable[index].class_info;
       },
       backOneDay: function() {
-        this.date = moment(this.date).add(-1, 'day').format('D MMM YYYY');
+        var date = new Date(this.date).toISOString();
+        this.date = moment(date).add(-1, 'day');
       },
       forwardOneDay: function() {
-        this.date = moment(this.date).add(1, 'day').format('D MMM YYYY');
+        var date = new Date(this.date).toISOString();
+        this.date = moment(date).add(1, 'day');
       },
       addToCalendarDate: function(dateTime) {
         var dateTimeArray = dateTime.split(' ');
-        return moment(this.date).format('YYYY-MM-D') + ' ' + dateTimeArray[1];
+        var date = new Date(this.date).toISOString();
+
+        return moment(date).format('YYYY-MM-D') + ' ' + dateTimeArray[1];
       },
       categoryExcluded: function(category) {
         return this.categoriesExcluded.indexOf(category) !== -1;
