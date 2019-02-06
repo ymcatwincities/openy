@@ -565,4 +565,52 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     return new RedirectResponse($redirect_url);
   }
 
+  /**
+   * Get upgrade status (check existing conflicts count).
+   *
+   * @return bool
+   *   TRUE if unresolved conflicts not exist
+   */
+  public function getUpgradeStatus() {
+    $storage = $this->getLoggerEntityStorage();
+    $not_resolved_conflicts = (int) $storage->getQuery()
+      ->condition('status', 0)
+      ->count()
+      ->execute();
+
+    return $not_resolved_conflicts === 0;
+  }
+
+  /**
+   * Get upgrade status details for drupal status page.
+   *
+   * @return array
+   *   Upgrade status details.
+   *
+   * @see /admin/reports/status
+   */
+  public function getUpgradeStatusDetails() {
+    $storage = $this->getLoggerEntityStorage();
+    $total_count = (int) $storage->getQuery()
+      ->count()
+      ->execute();
+
+    if ($total_count === 0) {
+      return [
+        'resolved' => 0,
+        'conflicts' => 0,
+        'total' => 0,
+      ];
+    }
+
+    $conflicts = (int) $storage->getQuery()
+      ->condition('status', 0)
+      ->count()
+      ->execute();
+    return [
+      'resolved' => $total_count - $conflicts,
+      'conflicts' => $conflicts,
+      'total' => $total_count,
+    ];
+  }
 }

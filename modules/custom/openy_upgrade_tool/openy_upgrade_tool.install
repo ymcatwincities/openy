@@ -6,7 +6,42 @@
  */
 
 use Drupal\Core\Serialization\Yaml;
+use Drupal\Core\Url;
 use Drupal\openy_upgrade_tool\Entity\OpenyUpgradeLog;
+use Drupal\openy_upgrade_tool\OpenyUpgradeLogManager;
+
+/**
+ * Implements hook_requirements().
+ */
+function openy_upgrade_tool_requirements($phase) {
+  $requirements = [];
+  $description = '';
+
+  $upgrade_tool_manager = \Drupal::service('openy_upgrade_log.manager');
+  $details = $upgrade_tool_manager->getUpgradeStatusDetails();
+  $severity = ($details['conflicts'] !== 0) ? REQUIREMENT_WARNING : REQUIREMENT_OK;
+  if ($details['total'] === 0) {
+    $value = t('Conflicts not found');
+  }
+  else {
+    $value = ($details['conflicts'] !== 0)
+      ? t('You have unresolved conflicts (Resolved: @count1; Conflicts: @count2).', ['@count1' => $details['resolved'], '@count2' => $details['conflicts']])
+      : t('All conflicts resolved (Resolved: @count).', ['@count' => $details['resolved']]);
+
+    $description = t('Please visit <a href=":url">Upgrade Tool Dashboard</a> page and follow the instruction.', [
+      ':url' => Url::fromRoute(OpenyUpgradeLogManager::DASHBOARD)->toString(),
+    ]);
+  }
+
+  $requirements['openy_upgrade_tool'] = [
+    'title' => t('Open Y upgrade'),
+    'value' => $value,
+    'severity' => $severity,
+    'description' => $description,
+  ];
+
+  return $requirements;
+}
 
 /**
  * Config update restrict upgrade dashboard by 'administer site configuration'.
