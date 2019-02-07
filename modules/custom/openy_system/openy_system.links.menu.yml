@@ -77,9 +77,9 @@ openy_system.openy_development:
   weight: 20
 
 openy_system.openy_terms_and_conditions:
-  title: Terms of use
+  title: Terms and Conditions
   route_name: openy_system.openy_terms_and_conditions
   parent: openy_system.openy
-  description: 'The Terms of use page.'
+  description: 'The Terms and Conditions page.'
   position: left
   weight: 40

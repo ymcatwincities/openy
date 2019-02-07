@@ -7,23 +7,22 @@
 
 use Drupal\openy\Form\ConfigureProfileForm;
 use Drupal\openy\Form\ContentSelectForm;
+use Drupal\openy\Form\TermsOfUseForm;
 use Drupal\openy\Form\ThemeSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
 use Drupal\openy\Form\UploadFontMessageForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\openy\Form\TermsOfUseForm;
 
 /**
  * Implements hook_install_tasks().
  */
-function openy_install_tasks() {
+function openy_install_tasks(&$install_state) {
   return [
     'openy_terms_of_use' => [
-      'display_name' => t('Terms of Use'),
+      'display_name' => t('Terms and Conditions'),
       'display' => TRUE,
-      'type' => 'form',
-      'function' => TermsOfUseForm::class,
+      'run' => INSTALL_TASK_RUN_IF_REACHED
     ],
     'openy_select_features' => [
       'display_name' => t('Select installation type'),
@@ -78,6 +77,9 @@ function openy_install_tasks() {
     ],
     'openy_install_finish' => [
       'type' => 'batch',
+    ],
+    'openy_terms_and_condition_db_save' => [
+      'display' => FALSE,
     ],
   ];
 }
@@ -619,11 +621,60 @@ function openy_help($route_name, RouteMatchInterface $route_match) {
 /**
  * Implements hook_install_tasks_alter().
  */
-function openy_install_tasks_alter(&$tasks, $install_state) {
+function openy_install_tasks_alter(&$tasks, &$install_state) {
+  $new_tasks = [];
+
+  // Looks like we don't have another way to put T&C on the first page.
+  $new_tasks['openy_terms_of_use'] = $tasks['openy_terms_of_use'];
+  $tasks = array_merge($new_tasks, $tasks);
+
   // Remove 3rd party services installation task for standard preset.
   if (!empty(\Drupal::state()->get('openy_preset')) &&
     \Drupal::state()->get('openy_preset') == 'standard' &&
     isset($tasks["openy_third_party_services"])) {
       unset($tasks["openy_third_party_services"]);
   }
+}
+
+/**
+ * Displays the Terms and Conditions form.
+ *
+ * @param $install_state
+ *   An array of information about the current installation state. The T&C flag
+ *   will be added here.
+ *
+ * @return mixed
+ *   A T&C form if T&C has not been accepted.
+ */
+function openy_terms_of_use(&$install_state) {
+  // Open Y classes are not included yet on the first installation page,
+  // because profile is not installed.
+  // That's why we should include T&C form manually.
+  if (!class_exists('\Drupal\openy\Form\TermsOfUseForm')) {
+    $path = drupal_get_path('profile', 'openy');
+    require_once $path . '/src/Form/TermsOfUseForm.php';
+  }
+
+  if (!empty($install_state['parameters']['terms_and_conditions'])) {
+    return;
+  }
+
+  if ($install_state['interactive']) {
+    return install_get_form('Drupal\openy\Form\TermsOfUseForm', $install_state);
+  }
+}
+
+/**
+ * Saves T&C accepted version to db. We can't do it on the first step,
+ * because db is not configured yet.
+ *
+ * @param $install_state
+ *   An array of information about the current installation state.
+ */
+function openy_terms_and_condition_db_save(&$install_state) {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('openy.terms_and_conditions.schema');
+  $config->set('version', TermsOfUseForm::TERMS_OF_USE_VERSION);
+  $config->set('accepted_version', time());
+  $config->save();
 }
