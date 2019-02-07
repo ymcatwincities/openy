@@ -61,7 +61,7 @@ class TermsOfUseForm extends FormBase {
     $form['#title'] = $this->t('Terms and Conditions');
 
     // Title is added automatically on installation pages,
-    // but we still should add it in admin page.
+    // but we should add it for admin page.
     if ($route_name == 'openy_system.openy_terms_and_conditions') {
       $form['title'] = [
         '#type' => 'html_tag',
@@ -118,7 +118,6 @@ class TermsOfUseForm extends FormBase {
       '#weight' => 6,
     ];
 
-    // Submit button must displayed on installation pages only.
     if (!$isAccepted) {
       $form['submit'] = [
         '#type' => 'submit',
@@ -180,6 +179,7 @@ class TermsOfUseForm extends FormBase {
     // because form is displayed very early and db is not configured yet.
     if (isset($GLOBALS['install_state'])) {
       // We must add GET param here, to indicate the step is performed.
+      // Otherwise Drupal will redirect to the first page each time.
       $build_info = $form_state->getBuildInfo();
       $build_info['args'][0]['parameters']['terms_and_conditions'] = 1;
       $form_state->setBuildInfo($build_info);
