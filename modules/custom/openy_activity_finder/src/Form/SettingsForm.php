@@ -59,6 +59,14 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('Ages mapping. One per line. "<number of months>,<age display label>". Example: "660,55+"'),
     ];
 
+
+    $form['exclude'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Exclude category -- so we do not display Group Exercises'),
+      '#default_value' => $config->get('exclude'),
+      '#description' => t('Provide ID of the Program Subcategory to exclude. You do not need to provide this if you use Daxko. Needed only for Solr backend.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -72,6 +80,8 @@ class SettingsForm extends ConfigFormBase {
     $config->set('backend', $form_state->getValue('backend'))->save();
 
     $config->set('ages', $form_state->getValue('ages'))->save();
+
+    $config->set('exclude', $form_state->getValue('exclude'))->save();
 
     parent::submitForm($form, $form_state);
   }
