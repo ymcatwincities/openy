@@ -46,3 +46,24 @@
 .full-width {
   width: 100%;
 }
+
+@media screen and (max-width: 767px) {
+  .activity-finder__step_header .start-over-wrapper {
+    position: fixed;
+    bottom: 27px;
+    left: 20px;
+    z-index: 3;
+  }
+}
+@media screen and (max-width: 767px) {
+  .activity-finder__step_header--actions .actions-buttons {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    z-index: 2;
+  }
+}

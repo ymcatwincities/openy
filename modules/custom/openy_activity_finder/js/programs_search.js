@@ -122,7 +122,7 @@
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(checkbox)) != -1"' +
-    '                     v-bind:class="{\'col-xs-6 col-sm-4\': type == \'tabs\'}">' +
+    '                     v-bind:class="{\'col-xs-4 col-sm-4\': type == \'tabs\'}">' +
                          // No parent checkbox.
     '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
