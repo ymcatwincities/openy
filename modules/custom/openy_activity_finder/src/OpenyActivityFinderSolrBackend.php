@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_activity_finder;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
@@ -18,6 +19,9 @@ use Symfony\Component\Yaml\Parser;
  * {@inheritdoc}
  */
 class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
+
+  // 1 day for cache.
+  const CACHE_TTL = 86400;
 
   /**
    * Cache default.
@@ -55,6 +59,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   protected $dateFormatter;
 
   /**
+   * Time manager needed for calculating expire for caches.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
    * Creates a new RepeatController.
    *
    * @param CacheBackendInterface $cache
@@ -65,14 +76,17 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
    *   The EntityTypeManager.
    * @param DateFormatterInterface $date_formatter
    *   The Date formatter.
+   * @param TimeInterface $time
+   *   Time service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter) {
+  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter, TimeInterface $time) {
     parent::__construct($config_factory);
     $this->cache = $cache;
     $this->database = $database;
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->dateFormatter = $date_formatter;
+    $this->time = $time;
   }
 
   /**
@@ -145,15 +159,22 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $query->addCondition('field_category_program', $program_types, 'IN');
     }
 
+    $category_program_info = $this->getCategoryProgramInfo();
     if (!empty($parameters['categories'])) {
       $categories_nids = explode(',', rawurldecode($parameters['categories']));
       // Map nids to titles.
-      $category_program_info = $this->getCategoryProgramInfo();
       foreach ($categories_nids as $nid) {
         $categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
       }
       $query->addCondition('field_activity_category', $categories, 'IN');
     }
+    // Ensure to exclude categories.
+    $exclude_nids = explode(',', $this->config->get('exclude'));
+    $exclude_categories = [];
+    foreach ($exclude_nids as $nid) {
+      $exclude_categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
+    }
+    $query->addCondition('field_activity_category', $exclude_categories, 'NOT IN');
 
     if (!empty($parameters['locations'])) {
       $locations_nids = explode(',', rawurldecode($parameters['locations']));
@@ -445,7 +466,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           }
         }
       }
-      $this->cache->set($cid, $data, 86400);
+
+      $expire = $this->time->getRequestTime() + self::CACHE_TTL;
+      $this->cache->set($cid, $data, $expire);
     }
 
     return $data;
@@ -502,7 +525,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           }
         }
       }
-      $this->cache->set($cid, $data, 86400);
+      $expire = $this->time->getRequestTime() + self::CACHE_TTL;
+      $this->cache->set($cid, $data, $expire);
     }
 
     return $data;
@@ -511,7 +535,12 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   public function getCategoriesTopLevel() {
     $categories = [];
     $programInfo = $this->getCategoryProgramInfo();
+    $exclude_nids = explode(',', $this->config->get('exclude'));
+
     foreach ($programInfo as $key => $item) {
+      if (in_array($key, $exclude_nids)) {
+        continue;
+      }
       $categories[$item['program']['nid']] = $item['program']['title'];
     }
     return array_values($categories);
@@ -520,7 +549,12 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   public function getCategories() {
     $categories = [];
     $programInfo = $this->getCategoryProgramInfo();
+    $exclude_nids = explode(',', $this->config->get('exclude'));
+
     foreach ($programInfo as $key => $item) {
+      if (in_array($key, $exclude_nids)) {
+        continue;
+      }
       $categories[$item['program']['nid']]['value'][] = [
         'value' => $key,
         'label' => $item['title']
