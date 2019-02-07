@@ -624,7 +624,7 @@ function openy_help($route_name, RouteMatchInterface $route_match) {
 function openy_install_tasks_alter(&$tasks, &$install_state) {
   $new_tasks = [];
 
-  // Looks like we don't have another way to put Terms and Conditions on the first page.
+  // Looks like we don't have another way to put T&C on the first page.
   $new_tasks['openy_terms_of_use'] = $tasks['openy_terms_of_use'];
   $tasks = array_merge($new_tasks, $tasks);
 
@@ -647,8 +647,8 @@ function openy_install_tasks_alter(&$tasks, &$install_state) {
  *   A T&C form if T&C has not been accepted.
  */
 function openy_terms_of_use(&$install_state) {
-  // Open Y classes is not included on the first instllation page,
-  // because profile is not installed yet.
+  // Open Y classes are not included yet on the first installation page,
+  // because profile is not installed.
   // That's why we should include T&C form manually.
   if (!class_exists('\Drupal\openy\Form\TermsOfUseForm')) {
     $path = drupal_get_path('profile', 'openy');
