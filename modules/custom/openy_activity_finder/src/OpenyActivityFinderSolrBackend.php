@@ -116,7 +116,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $data['facets'] = $this->getFacets($results);
 
     // Set pager as current page number.
-    $data['pager'] = isset($parameters['page']) ? $parameters['page'] : 0;
+    $data['pager'] = isset($parameters['page']) && $data['count'] > self::TOTAL_RESULTS_PER_PAGE ? $parameters['page'] : 0;
 
     // Process results.
     $data['table'] = $this->processResults($results, $log_id);
