@@ -6,7 +6,6 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\config_import\ConfigParamUpdaterService;
 use Drupal\Core\Config\ConfigManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
@@ -19,11 +18,11 @@ use Drupal\Core\Link;
 class ConfigParamUpgradeTool extends ConfigParamUpdaterService {
 
   /**
-   * Entity type manger.
+   * The OpenyUpgradeLogManager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\openy_upgrade_tool\OpenyUpgradeLogManagerInterface
    */
-  protected $entityTypeManager;
+  protected $upgradeLogManager;
 
   /**
    * Logger Entity Storage.
@@ -35,20 +34,19 @@ class ConfigParamUpgradeTool extends ConfigParamUpdaterService {
   /**
    * ConfigImporterService constructor.
    *
-   * @param ConfigManagerInterface $config_manager
+   * @param \Drupal\Core\Config\ConfigManagerInterface $config_manager
    *   ConfigManager.
-   * @param EntityTypeManagerInterface $entity_type_manager
-   *   Entity type manager.
+   * @param \Drupal\openy_upgrade_tool\OpenyUpgradeLogManagerInterface $upgrade_log_manager
+   *   OpenyUpgradeLog Manager.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory.
    */
   public function __construct(
     ConfigManagerInterface $config_manager,
-    EntityTypeManagerInterface $entity_type_manager,
+    OpenyUpgradeLogManagerInterface $upgrade_log_manager,
     LoggerChannelFactoryInterface $logger_factory
   ) {
-    $this->entityTypeManager = $entity_type_manager;
-    $this->loggerEntityStorage = $this->entityTypeManager->getStorage('logger_entity');
+    $this->upgradeLogManager = $upgrade_log_manager;
     parent::__construct($config_manager, $logger_factory);
   }
 
@@ -61,24 +59,11 @@ class ConfigParamUpgradeTool extends ConfigParamUpdaterService {
       $this->logger->error($this->t('File @file does not exist.', ['@file' => $config]));
       return;
     }
-    if ($this->isManuallyChanged($config_name)) {
-      // Skip config update and log this to logger entity.
-      $this->updateLoggerEntity($config, $config_name, $param);
-      $dashboard_url = Url::fromRoute('view.openy_upgrade_dashboard.page_1');
-      $dashboard_link = Link::fromTextAndUrl(t('Open Y upgrade dashboard'), $dashboard_url);
-      $this->logger->error($this->t('Cannot update config @name. Please add those changes manually. More info here - @link.',
-        [
-          '@name' => $config_name,
-          '@link' => $dashboard_link->toString(),
-        ]
-      ));
-      return;
-    }
     $storage_config = Yaml::decode(file_get_contents($config));
     // Retrieve a value from a nested array with variable depth.
     $key_exists = FALSE;
     $update_value = NestedArray::getValue($storage_config, explode('.', $param), $key_exists);
-      if (!$key_exists) {
+    if (!$key_exists) {
       $this->logger->info(
         $this->t('Param "@param" does not exist in config @name.',
         ['@name' => $config_name, '@param' => $param])
@@ -94,61 +79,33 @@ class ConfigParamUpgradeTool extends ConfigParamUpdaterService {
     }
     // Update value retrieved from storage config.
     $config->set($param, $update_value);
-    // Add openy_upgrade param for detecting this upgrade
-    // in '@openy_upgrade_tool.event_subscriber'.
-    $config->set('openy_upgrade', TRUE);
-    $config->save();
-    $this->logger->info($this->t('Param "@param" in config @name was updated.',
-      [
-        '@name' => $config_name,
+
+    if ($this->upgradeLogManager->isManuallyChanged($config_name)) {
+      $updated_config_data = $config->get();
+      // Skip config update and log this to OpenyUpgradeLog.
+      $message = $this->t('Failed attempt to update "@param" param in "@name" during Open Y update queue.', [
         '@param' => $param,
-      ]
-    ));
-  }
-
-  /**
-   * Check if config exist in openy_config_upgrade_logs.
-   *
-   * @param string $config_name
-   *   Config name.
-   *
-   * @return bool
-   *   TRUE if config was changed.
-   */
-  public function isManuallyChanged($config_name) {
-    $configs = $this->loggerEntityStorage->loadByProperties([
-      'type' => 'openy_config_upgrade_logs',
-      'name' => $config_name,
-    ]);
-    return empty($configs) ? FALSE : TRUE;
-  }
-
-  /**
-   * Update logger entity.
-   *
-   * @param string $config
-   *   Config full name with path.
-   * @param string $config_name
-   *   Config name.
-   * @param string $param
-   *   Identifier to store value in configuration.
-   *
-   * @return int|bool
-   *   Entity ID in case of success.
-   */
-  private function updateLoggerEntity($config, $config_name, $param) {
-    $entities = $this->loggerEntityStorage->loadByProperties([
-      'type' => 'openy_config_upgrade_logs',
-      'name' => $config_name,
-    ]);
-    if (empty($entities)) {
-      return FALSE;
+        '@name' => $config_name,
+      ]);
+      $this->upgradeLogManager->saveLoggerEntity($config_name, $updated_config_data, $message);
+      $dashboard_url = Url::fromRoute(OpenyUpgradeLogManager::DASHBOARD);
+      $dashboard_link = Link::fromTextAndUrl($this->t('Open Y upgrade dashboard'), $dashboard_url);
+      $this->logger->error($this->t('Cannot update config @name. Please add those changes manually. More info here - @link.', [
+        '@name' => $config_name,
+        '@link' => $dashboard_link->toString(),
+      ]));
+      return;
     }
-    $logger_entity = array_shift($entities);
-    $logger_entity->set('field_config_path', $config);
-    $logger_entity->set('field_config_property', $param);
-    $logger_entity->save();
-    return $logger_entity->id();
+
+    // Notify ConfigEventSubscriber that this is update from OpenY.
+    global $_openy_config_import_event;
+    $_openy_config_import_event = TRUE;
+    $config->save();
+    $this->logger->info($this->t('Param "@param" in config @name was updated.', [
+      '@name' => $config_name,
+      '@param' => $param,
+    ]));
+    $_openy_config_import_event = FALSE;
   }
 
 }

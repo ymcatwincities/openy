@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="http://www.openymca.org">
-    <img alt="react-router" src="https://www.ymcamn.org/themes/custom/ymca/img/ymca-logo.svg" width="144">
-  </a>
+ <!-- Will replace with new Open Y logo soon. <a href="http://www.openymca.org">
+    <img alt="Open Y Logo" src="" width="144">
+  </a> -->
 </p>
 
 <h3 align="center">
-  Open YMCA
+  Open Y
 </h3>
 <p align="center">
   http://openymca.org
@@ -67,3 +67,5 @@ This command will build project based on [**latest 8.2 beta**](https://github.co
 - [Installation instructions](https://github.com/ymcatwincities/openy-project#installation)
 - [Content structure](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Content%20structure)
 - [Technical documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development)
+- [Terms of Use](https://github.com/ymcatwincities/openy/wiki/Open-Y-Terms-of-Use)
+- [Participation Agreement](https://github.com/ymcatwincities/openy/wiki/Open-Y-Participant-Agreement)

@@ -16,6 +16,7 @@ function openy_repeat_theme() {
         'categories' => [],
         'checked_locations' => [],
         'checked_categories' => [],
+        'filters' => [],
       ],
     ],
     'openy_repeat_schedule_locations' => [

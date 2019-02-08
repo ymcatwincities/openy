@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_rs_pdf_only_view
     - paragraphs.paragraphs_type.repeat_schedules
-third_party_settings:
+third_party_settings: { }
 id: paragraph.repeat_schedules.field_prgf_rs_pdf_only_view
 field_name: field_prgf_rs_pdf_only_view
 entity_type: paragraph

@@ -31,11 +31,6 @@ function openy_node_class_update_8001() {
     'core.entity_view_display.node.class.teaser',
     'content'
   );
-  $config_importer->update(
-    $config,
-    'core.entity_view_display.node.class.teaser',
-    'hidden'
-  );
 }
 
 /**
@@ -55,29 +50,10 @@ function openy_node_class_update_8002() {
   $configs = [
     'core.entity_form_display.node.class.default' => [
       'dependencies.config',
-      'dependencies.module',
       'third_party_settings.field_group.group_content_area.weight',
       'third_party_settings.field_group.group_sidebar_area.weight',
       'third_party_settings.field_group.group_header_area',
       'third_party_settings.field_group.group_bottom_area',
-      'content.created.weight',
-      'content.created.region',
-      'content.field_bottom_content',
-      'content.field_class_activity.region',
-      'content.field_class_description.region',
-      'content.field_content.region',
-      'content.field_header_content',
-      'content.field_meta_tags',
-      'content.field_sidebar_content.region',
-      'content.path.weight',
-      'content.path.region',
-      'content.promote.weight',
-      'content.promote.region',
-      'content.sticky.weight',
-      'content.sticky.region',
-      'content.title.region',
-      'content.uid.weight',
-      'content.uid.region',
     ],
     'core.entity_view_display.node.class.default' => [
       'dependencies.config',
@@ -100,9 +76,7 @@ function openy_node_class_update_8002() {
       'content.links',
     ],
     'core.entity_view_display.node.class.teaser' => [
-      'dependencies.config',
       'content.field_class_description.region',
-      'hidden.field_meta_tags',
     ],
     'field.field.node.class.field_meta_tags' => [
       'dependencies.module',
@@ -127,8 +101,6 @@ function openy_node_class_update_8003() {
   $configs = [
     'core.entity_form_display.node.class.default' => [
       'dependencies.module',
-      'content.publish_on',
-      'content.unpublish_on',
     ],
     'node.type.class' => [
       'dependencies.module',
