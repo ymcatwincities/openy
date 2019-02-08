@@ -28,7 +28,7 @@ function openy_upgrade_tool_requirements($phase) {
       ? t('You have unresolved conflicts (Resolved: @count1; Conflicts: @count2).', ['@count1' => $details['resolved'], '@count2' => $details['conflicts']])
       : t('All conflicts resolved (Resolved: @count).', ['@count' => $details['resolved']]);
 
-    $description = t('Please visit <a href=":url">Upgrade Tool Dashboard</a> page and follow the instruction.', [
+    $description = t('Please visit <a href=":url">Upgrade Tool Dashboard</a> page and follow the instructions.', [
       ':url' => Url::fromRoute(OpenyUpgradeLogManager::DASHBOARD)->toString(),
     ]);
   }
