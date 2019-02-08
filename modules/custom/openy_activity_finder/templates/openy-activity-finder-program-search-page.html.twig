@@ -193,7 +193,7 @@
           </div>
 
           <div v-show="!loading" class="text-align-center">
-            <a v-if="typeof pages[current_page - 1] != 'undefined' && pages[current_page - 1] != ''" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ 'Prev'|t }}</a>
+            <a v-if="(typeof pages[current_page - 1] != 'undefined' && pages[current_page - 1] != ') || current_page == 1'" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ 'Prev'|t }}</a>
             <a v-if="typeof pages[current_page + 1] != 'undefined' && pages[current_page + 1] != ''" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ 'Next'|t }}</a>
           </div>
 
