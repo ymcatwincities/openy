@@ -23,6 +23,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   // 1 day for cache.
   const CACHE_TTL = 86400;
 
+  // Number of results to retrieve per page.
+  const TOTAL_RESULTS_PER_PAGE = 25;
+
   /**
    * Cache default.
    *
@@ -112,6 +115,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     // Get facets and enrich, sort data, add static filters.
     $data['facets'] = $this->getFacets($results);
 
+    // Set pager as current page number.
+    $data['pager'] = isset($parameters['page']) ? $parameters['page'] : 0;
+
     // Process results.
     $data['table'] = $this->processResults($results, $log_id);
 
@@ -196,7 +202,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $query->addCondition('field_session_location', $locations, 'IN');
     }
 
-    $query->range(0, 25);
+    $query->range(0, self::TOTAL_RESULTS_PER_PAGE);
+    // Use pager if parameter has been provided.
+    if (isset($parameters['page'])) {
+      $_from = self::TOTAL_RESULTS_PER_PAGE * $parameters['page'] - self::TOTAL_RESULTS_PER_PAGE;
+      $_to = (self::TOTAL_RESULTS_PER_PAGE - 1) * $parameters['page'] + $parameters['page'];
+      $query->range($_from, $_to);
+    }
     $query->sort('search_api_relevance', 'DESC');
     $server = $index->getServerInstance();
     if ($server->supportsFeature('search_api_facets')) {
