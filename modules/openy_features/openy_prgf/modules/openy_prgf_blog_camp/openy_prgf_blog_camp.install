@@ -9,15 +9,7 @@
  * Update Paragraph Latest Blog Posts (Camp) field_prgf_block.
  */
 function openy_prgf_blog_camp_update_8001() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_prgf_blog_camp');
-  $config .= '/config/install/';
-  $config .= 'core.entity_view_display.paragraph.latest_blog_posts_camp.default.yml';
-  $config_importer->update(
-    $config,
-    'core.entity_view_display.paragraph.latest_blog_posts_camp.default',
-    'content.field_prgf_block.region'
-  );
+ // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
@@ -26,14 +18,12 @@ function openy_prgf_blog_camp_update_8001() {
 function openy_prgf_blog_camp_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_prgf_blog_camp');
   $config_dir .= '/config/install/';
-
   // Import new configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
     'field.field.paragraph.latest_blog_posts_camp.field_prgf_title',
   ]);
-
   // Update multiple configurations.
   $configs = [
     'core.entity_form_display.paragraph.latest_blog_posts_camp.default' => [

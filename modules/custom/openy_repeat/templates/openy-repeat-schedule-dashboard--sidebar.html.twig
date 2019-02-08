@@ -7,18 +7,18 @@
  */
 #}
 
-<div class="navbar navbar-default navbar-light navbar-expand-md flex-md-column">
-  <div class="navbar-header w-100">
+<div class="navbar navbar-default">
+  <div class="navbar-header">
 
     <div class="navbar-controls">
-      <span class="navbar-controls__title hidden-xs d-none d-md-block"><strong>{{ 'Filters'|t }}</strong></span>
+      <span class="navbar-controls__title hidden-xs"><strong>{{ 'Filters'|t }}</strong></span>
       <a href="#" class="clear-all hidden">{{ 'Clear all'|t }}</a>
     </div>
 
-    <div class="row hidden-sm hidden-md hidden-lg d-block d-md-none">
+    <div class="row hidden-sm hidden-md hidden-lg">
 
       {# mobile toggler button #}
-      <div class="col-5 col-xs-5">
+      <div class="col-xs-5">
         <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
           <strong>
             <i class="fa fa-plus plus" aria-hidden="true"></i>
@@ -29,96 +29,105 @@
         </a>
       </div>
 
-      <div class="col-7 col-xs-7">
+      <div class="col-xs-7">
         <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
       </div>
     </div>
 
   </div>
 
-  <div id="schedules-filters" class="navbar-collapse collapse w-100 flex-column">
+  <div id="schedules-filters" class="navbar-collapse collapse">
+    <form class="navbar-form" role="search">
 
-    {# date picker #}
-    <div class="form-group-wrapper pt-4 pb-2">
-      <label for="form-group-date">
-        {{ 'Date'|t }}
-        <button class="show-date-filter" data-toggle="collapse" type="button" data-target=".form-group-date" role="button" aria-label="{{ 'Show date filter'|t }}"><i class="fa fa-calendar date-picker"></i></button>
-      </label>
-      <div class="form-group-date collapse" aria-expanded="false">
-        <div class="date" id="datepicker">
-          <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted" />
-          <span class="input-group-addon hidden">
-            <span class="fa fa-calendar" aria-hidden="true"></span>
-          </span>
+      {# date picker #}
+      <div class="form-group-wrapper">
+        <label for="form-group-date">
+          {{ 'Date'|t }}
+          <button class="show-date-filter" data-toggle="collapse" type="button" data-target=".form-group-date" role="button" aria-label="{{ 'Show date filter'|t }}"><i class="fa fa-calendar date-picker"></i></button>
+        </label>
+        <div class="form-group-date collapse" aria-expanded="false">
+          <div class="date" id="datepicker">
+            <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted" />
+            <span class="input-group-addon hidden">
+              <span class="fa fa-calendar" aria-hidden="true"></span>
+            </span>
+          </div>
         </div>
       </div>
-    </div>
 
-    {# location select list #}
-    {% if locations is not empty %}
-    <div class="form-group-wrapper pt-4 pb-2">
-
-      {% block location_label_wrapper %}
-      <label for="form-group-location" data-toggle="collapse" data-target="#form-group-location" role="button" aria-expanded="true" aria-controls="form-group-location">
-      {% endblock %}
-        {{ 'Location'|t }}
-        <i class="fa fa-minus minus" aria-hidden="true"></i>
-        <i class="fa fa-plus plus" aria-hidden="true"></i>
-      </label>
-
-      {% block location_checkbox_wrapper %}
-      <div id="form-group-location" class="form-group-location collapse in show checkboxes" aria-expanded="true">
-      {% endblock %}
-        {% for location in locations %}
-          {% set loc_checked = "t" %}
-          {% if checked_locations is not empty and location in checked_locations %}
-            {% set loc_checked = "checked" %}
-          {% endif %}
-          <div class="checkbox-wrapper">
-            <input type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
-            <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
-            <div v-if="getRoomFilter('{{ location }}')" class="checkbox-room-wrapper" v-cloak>
-              <div v-for="roomFilter in getRoomFilter('{{ location }}')">
-                <input type="checkbox" v-model="room" v-bind:value="'{{ location }}' + '||' + roomFilter" v-bind:id="generateId('{{ location }}' + '||' + roomFilter)"/>
-                <label v-bind:for="generateId('{{ location }}' + '||' + roomFilter)">
-                  ${ roomFilter }
-                </label>
+      {# location select list #}
+      {% if locations is not empty %}
+        <div class="form-group-wrapper">
+          <label for="form-group-location" data-toggle="collapse" data-target=".skip-t" role="button" aria-expanded="true" aria-controls="form-group-location">
+            {{ 'Location'|t }}
+            <i class="fa fa-minus minus" aria-hidden="true"></i>
+            <i class="fa fa-plus plus" aria-hidden="true"></i>
+          </label>
+          <div id="form-group-location" class="form-group-location collapse in" aria-expanded="true">
+            {% for location in locations %}
+              {% set loc_checked = "t" %}
+              {% if checked_locations is not empty and location in checked_locations %}
+                {% set loc_checked = "checked" %}
+              {% endif %}
+              <div class="checkbox-wrapper skip-{{ loc_checked }}">
+                <input v-on:click="toggleParentClass($event)" type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
+                <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
+                <div v-if="getRoomFilter('{{ location }}')" class="checkbox-room-wrapper" v-cloak>
+                  <div v-for="roomFilter in getRoomFilter('{{ location }}')">
+                    <input type="checkbox" v-model="room" v-bind:value="'{{ location }}' + '||' + roomFilter" v-bind:id="generateId('{{ location }}' + '||' + roomFilter)"/>
+                    <label v-bind:for="generateId('{{ location }}' + '||' + roomFilter)">
+                      ${ roomFilter }
+                    </label>
+                  </div>
+                </div>
               </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {# categories select list #}
+      {% if categories is not empty and filters.category %}
+        <div class="form-group-wrapper">
+          <label for="form-group-category" data-toggle="collapse" data-target="#form-group-category" role="button" class="expanded" aria-controls="form-group-category">
+            {{ 'Category'|t }}
+            <i class="fa fa-minus minus" aria-hidden="true"></i>
+            <i class="fa fa-plus plus" aria-hidden="true"></i>
+          </label>
+          <div id="form-group-category" class="form-group-category collapse in" aria-expanded="true">
+            {% for category in categories %}
+              {% set cat_checked = "t" %}
+              {% if checked_categories is not empty and category in checked_categories %}
+                {% set cat_checked = "checked" %}
+              {% endif %}
+              <div class="checkbox-wrapper">
+                <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category|replace("'", '`') }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
+                <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      {# class name select list #}
+      {% if filters.classname %}
+        <div v-if="getClassFilter()" class="form-group-wrapper">
+          <label for="form-group-classname" data-toggle="collapse" data-target="#form-group-classname" role="button" class="expanded" aria-controls="form-group-classname">
+            {{ 'Class name'|t }}
+            <i class="fa fa-minus minus" aria-hidden="true"></i>
+            <i class="fa fa-plus plus" aria-hidden="true"></i>
+          </label>
+          <div id="form-group-classname" class="form-group-classname collapse in" aria-expanded="true">
+            <div v-for="classFilter in getClassFilter()" class="checkbox-wrapper">
+              <input type="checkbox" v-model="className" v-bind:value="classFilter" v-bind:id="generateId(classFilter)" class="box"/>
+              <label v-bind:for="generateId(classFilter)">
+                ${ classFilter }
+              </label>
             </div>
           </div>
-        {% endfor %}
-      </div>
-    </div>
-    {% endif %}
-
-    {# categories select list #}
-    {% if categories is not empty %}
-      <div class="form-group-wrapper">
-
-        {% block category_label_wrapper %}
-        <label for="form-group-category" data-toggle="collapse" data-target="#form-group-category" role="button" class="expanded" aria-controls="form-group-category">
-        {% endblock %}
-          {{ 'Category'|t }}
-          <i class="fa fa-minus minus" aria-hidden="true"></i>
-          <i class="fa fa-plus plus" aria-hidden="true"></i>
-        </label>
-
-        {% block category_checkbox_wrapper %}
-        <div id="form-group-category" class="form-group-category collapse in show checkboxes" aria-expanded="true">
-        {% endblock %}
-          {% for category in categories %}
-            {% set cat_checked = "t" %}
-            {% if checked_categories is not empty and category in checked_categories %}
-              {% set cat_checked = "checked" %}
-            {% endif %}
-            <div class="checkbox-wrapper">
-              <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category|replace("'", '`') }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
-              <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
-            </div>
-          {% endfor %}
         </div>
-      </div>
-    {% endif %}
+      {% endif %}
 
+    </form>
   </div>
 </div>

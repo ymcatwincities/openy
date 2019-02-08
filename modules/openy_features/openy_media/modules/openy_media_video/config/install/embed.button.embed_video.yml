@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - media_entity.bundle.video
+    - media.type.video
   module:
     - entity_embed
-    - media_entity
+    - media
 label: External Video
 id: embed_video
 type_id: entity

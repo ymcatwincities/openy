@@ -20,23 +20,7 @@ function openy_taxonomy_update_8001() {
  * Update tour with token support for demo.
  */
 function openy_taxonomy_update_8002() {
-  $config_dir = drupal_get_path('module', 'openy_taxonomy') . '/config/optional/';
-  // Update multiple configurations.
-  $configs = [
-    'tour.tour.openy-taxonomy-overview' =>[
-      'tips',
-    ],
-    'tour.tour.openy-taxonomy-term' => [
-      'tips',
-    ],
-  ];
-  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
-  foreach ($configs as $config_name => $params) {
-    $config = $config_dir . $config_name . '.yml';
-    foreach ($params as $param) {
-      $config_updater->update($config, $config_name, $param);
-    }
-  }
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
@@ -72,7 +56,6 @@ function openy_taxonomy_update_8004() {
   $config .= 'views.view.taxonomy_term.yml';
   $config_importer->update($config, 'views.view.taxonomy_term', 'display.page_1.display_options');
 }
-
 
 /**
  * Update storage persist_with_no_fields property for field_taxonomy_content.

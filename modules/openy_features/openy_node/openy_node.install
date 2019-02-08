@@ -104,3 +104,15 @@ function openy_node_update_8006() {
     );
   }
 }
+
+/**
+ * Disable default Drupal 'frontpage' Views configuration.
+ */
+function openy_node_update_8007() {
+  /** @var Drupal\views\Entity\View $view */
+  $view = \Drupal::entityTypeManager()->getStorage('view')->load('frontpage');
+  if ($view) {
+    $view->disable();
+    $view->save();
+  }
+}

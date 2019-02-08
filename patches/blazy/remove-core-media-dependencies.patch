@@ -1,0 +1,57 @@
+diff --git a/blazy.services.yml b/blazy.services.yml
+index 83040c4..658f6d5 100644
+--- a/blazy.services.yml
++++ b/blazy.services.yml
+@@ -13,9 +13,10 @@ services:
+     class: Drupal\blazy\BlazyFormatterManager
+     parent: blazy.manager
+ 
++  # All media core related arguments are removed due issue with media upgrade, see Drupal\blazy\BlazyOEmbed for details.
+   blazy.oembed:
+     class: Drupal\blazy\BlazyOEmbed
+-    arguments: ['@request_stack', '@media.oembed.resource_fetcher', '@media.oembed.url_resolver', '@media.oembed.iframe_url_helper', '@blazy.manager']
++    arguments: ['@request_stack', '@blazy.manager']
+ 
+   blazy:
+     class: Drupal\blazy\Blazy
+diff --git a/src/BlazyOEmbed.php b/src/BlazyOEmbed.php
+index a5b5e2a..d0195e4 100644
+--- a/src/BlazyOEmbed.php
++++ b/src/BlazyOEmbed.php
+@@ -5,10 +5,7 @@ namespace Drupal\blazy;
+ use Drupal\Component\Utility\Html;
+ use Drupal\Core\Url;
+ use Drupal\file\Entity\File;
+-use Drupal\media\IFrameUrlHelper;
+ use Drupal\media\OEmbed\Resource;
+-use Drupal\media\OEmbed\ResourceFetcherInterface;
+-use Drupal\media\OEmbed\UrlResolverInterface;
+ use Symfony\Component\HttpFoundation\RequestStack;
+ 
+ /**
+@@ -89,11 +86,21 @@ class BlazyOEmbed {
+   /**
+    * Constructs a BlazyManager object.
+    */
+-  public function __construct(RequestStack $request, ResourceFetcherInterface $resource_fetcher, UrlResolverInterface $url_resolver, IFrameUrlHelper $iframe_url_helper, BlazyManagerInterface $blazy_manager) {
++  public function __construct(RequestStack $request, BlazyManagerInterface $blazy_manager) {
+     $this->request = $request;
+-    $this->resourceFetcher = $resource_fetcher;
+-    $this->urlResolver = $url_resolver;
+-    $this->iframeUrlHelper = $iframe_url_helper;
++
++    // Core Media module might be disabled during upgrade from media_entity.
++    // And media_entity update hooks must be invoked first.
++    // So it blocks drush commands due dependencies on a non-existent services from core media.
++    // This is temporary hack to solve this issue.
++    /** @var \Symfony\Component\DependencyInjection\ContainerInterface $container */
++    $container = \Drupal::getContainer();
++    if (\Drupal::moduleHandler()->moduleExists('media')) {
++      $this->resourceFetcher = $container->get('media.oembed.resource_fetcher');
++      $this->urlResolver = $container->get('media.oembed.url_resolver');
++      $this->iframeUrlHelper = $container->get('media.oembed.iframe_url_helper');
++    }
++
+     $this->blazyManager = $blazy_manager;
+   }
+ 
