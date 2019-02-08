@@ -1,3 +1,3 @@
 backend: openy_activity_finder.solr_backend
 ages: "6,6m\r\n12,12m\r\n18,18m\r\n24,2\r\n36,3\r\n48,4\r\n60,5\r\n72,6\r\n84,7\r\n96,8\r\n108,9\r\n120,10\r\n132,11\r\n144,12\r\n156,13\r\n168,14\r\n180,15\r\n192,16+\r\n660,55+"
-exclude: "60"
+exclude: "61"
