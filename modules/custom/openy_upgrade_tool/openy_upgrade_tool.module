@@ -52,7 +52,10 @@ function openy_upgrade_tool_preprocess_page(&$variables) {
   if (!$status) {
     // Show message if has unresolved conflicts.
     $url = Url::fromRoute(OpenyUpgradeLogManager::DASHBOARD)->toString();
-    \Drupal::messenger()->addMessage(t('Site contain unresolved configuration conflicts. Please visit <a href=":url">Upgrade Tool Dashboard</a> page and follow the instruction.', [':url' => $url]), 'warning');
+    \Drupal::messenger()->addMessage(t('
+      Website contains unresolved configuration conflicts. 
+      Please visit <a href=":url">Upgrade Tool Dashboard</a> page and follow the instructions.
+    ', [':url' => $url]), 'warning');
   }
 
 }

@@ -566,10 +566,10 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
   }
 
   /**
-   * Get upgrade status (check existing conflicts count).
+   * Get upgrade status (check the number of existing conflicts).
    *
    * @return bool
-   *   TRUE if unresolved conflicts not exist
+   *   TRUE if unresolved conflicts do not exist.
    */
   public function getUpgradeStatus() {
     $storage = $this->getLoggerEntityStorage();
