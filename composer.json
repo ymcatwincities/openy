@@ -29,12 +29,12 @@
             "type": "package",
             "package": {
                 "name": "library-kenwheeler/slick",
-                "version": "1.6.0",
+                "version": "1.8.0",
                 "type": "drupal-library",
                 "source": {
                     "url": "https://github.com/kenwheeler/slick",
                     "type": "git",
-                    "reference": "1.6.0"
+                    "reference": "1.8.0"
                 }
             }
         },
@@ -68,12 +68,12 @@
             "type": "package",
             "package": {
                 "name": "library-enyo/dropzone",
-                "version": "4.3.0",
+                "version": "5.5.0",
                 "type": "drupal-library",
                 "source": {
                     "url": "https://github.com/enyo/dropzone",
                     "type": "git",
-                    "reference": "v4.3.0"
+                    "reference": "v5.5.0"
                 }
             }
         },
@@ -94,10 +94,10 @@
             "type": "package",
             "package": {
                 "name": "library-ckeditor/panelbutton",
-                "version": "4.7.0",
+                "version": "4.10.1",
                 "type": "drupal-library",
                 "dist": {
-                    "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                    "url": "https://download.ckeditor.com/panelbutton/releases/panelbutton_4.10.1.zip",
                     "type": "zip"
                 }
             }
@@ -106,10 +106,10 @@
             "type": "package",
             "package": {
                 "name": "library-ckeditor/colorbutton",
-                "version": "4.7.0",
+                "version": "4.10.1",
                 "type": "drupal-library",
                 "dist": {
-                    "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                    "url": "https://download.ckeditor.com/colorbutton/releases/colorbutton_4.10.1.zip",
                     "type": "zip"
                 }
             }
@@ -139,6 +139,18 @@
                     "reference": "d5cb51ae5dbe526dba7d82c646ec0f46791fa7a0"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-davekoelle/alphanum",
+                "version": "1.0.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/AndreyMaximov/alphanum/archive/1.0.0.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
@@ -166,7 +178,8 @@
                 "2937058 - Clear cache performance improvement": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964-2.patch"
             },
             "drupal/entity_browser": {
-                "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
+                "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch",
+                "2927347 - Having Entity Browser 2.x on the codebase breaks upgrade path": "https://www.drupal.org/files/issues/2019-01-10/Having-Entity-Browser-breaks-upgrade-path-2927347-14.patch"
             },
             "drupal/entity_embed": {
                 "2511404 - Image entities/fields embedded using Entity Embed cannot be linked in CKEditor": "https://www.drupal.org/files/issues/entity_embed_links-2511404-31.patch"
@@ -177,13 +190,23 @@
             "drupal/views_data_export": {
                 "2789531 - Support for batch operations": "https://www.drupal.org/files/issues/2789531-105.patch"
             },
-            "drupal/views_field_formatter": {
-                "2874811 - Add option to show/hide empty views": "https://www.drupal.org/files/issues/Option-added-to-hide-empty-views-2874811.patch"
+            "drupal/easy_breadcrumb": {
+                "2971408 - Easy Breadcrumb could not determine the title to use for /node/{node}/translations": "https://www.drupal.org/files/issues/2018-07-13/2971408_node_edit-5.patch"
             },
             "drupal/core": {
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
                 "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch"
+            },
+            "drupal/crop": {
+                "3025005 - The Crop requirements is NOK is media_entity 8.x-2.0 installed via composer": "https://www.drupal.org/files/issues/2019-01-10/requirements-is-NOK-3025005-2.patch"
+            },
+            "drupal/media_entity": {
+                "2918172 - Media Entity upgrade -> add revision fields": "https://www.drupal.org/files/issues/2918172-5.patch",
+                "2918172 - Media Entity upgrade -> core fails on absent column revision_uid": "https://www.drupal.org/files/issues/2918172-6-8.4.4.patch"
+            },
+            "drupal/blazy": {
+                "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch"
             }
         }
     },
@@ -191,85 +214,86 @@
         "php": ">=5.6",
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
-        "drupal-composer/drupal-scaffold": "^2.0.0",
-        "drupal/core": "~8.4.8",
-        "drupal/features": "3.5",
+        "drupal-composer/drupal-scaffold": "^2.5.0",
+        "drupal/core": "~8.6.7",
+        "drupal/features": "3.8",
         "drupal/confi": "1.4",
-        "drupal/config_update": "1.5",
-        "drupal/entity": "1.0-beta1",
-        "drupal/media_entity": "1.x-dev",
+        "drupal/config_update": "^1.6",
+        "drupal/entity": "1.0-rc1",
+        "drupal/media_entity": "^2.0",
         "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
         "drupal/address": "1.4",
-        "drupal/paragraphs": "1.2",
-        "drupal/entity_reference_revisions": "1.3",
-        "drupal/pathauto": "1.0",
+        "drupal/paragraphs": "~1.5",
+        "drupal/entity_reference_revisions": "~1.6",
+        "drupal/pathauto": "~1.3",
         "drupal/ctools": "3.0",
-        "drupal/token": "1.0",
-        "drupal/field_group": "1.0",
-        "drupal/video_embed_field": "1.5",
-        "drupal/jquery_colorpicker": "1.3",
-        "drupal/entity_browser": "1.3",
-        "drupal/dropzonejs": "1.0-alpha8",
-        "drupal/inline_entity_form": "1.0-beta1",
+        "drupal/token": "^1.5",
+        "drupal/field_group": "~3.0",
+        "drupal/video_embed_field": "^2.0",
+        "drupal/jquery_colorpicker": "~1.4",
+        "drupal/entity_browser": "^2.0",
+        "drupal/dropzonejs": "^2.0",
+        "drupal/inline_entity_form": "1.0-rc1",
         "drupal/embed": "1.0",
         "drupal/entity_embed": "1.0-beta2",
-        "drupal/entity_clone": "^1.0@alpha",
+        "drupal/entity_clone": "^1.0",
         "drupal/views_block_filter_block": "1.x-dev",
         "drupal/plugin": "2.5",
-        "drupal/migrate_plus": "3.0-beta1",
-        "drupal/migrate_tools": "3.0-beta1",
-        "drupal/migrate_source_csv": "2.0",
+        "drupal/migrate_plus": "^4.0",
+        "drupal/migrate_tools": "~4.0",
+        "drupal/migrate_source_csv": "2.2",
         "drupal/verf": "1.0-beta6",
         "drupal/simple_menu_icons": "1.x-dev",
         "drupal/views_infinite_scroll": "1.5",
-        "drupal/slick": "1.0",
-        "drupal/blazy": "1.0-rc1",
-        "drupal/geolocation": "1.11",
+        "drupal/slick": "^2.0",
+        "drupal/blazy": "^2.0",
+        "drupal/geolocation": "^2.0",
         "library-jaypan/jquery_colorpicker": "1.0.1",
-        "library-enyo/dropzone": "4.3.0",
-        "library-kenwheeler/slick": "1.6.0",
+        "library-enyo/dropzone": "5.5.0",
+        "library-kenwheeler/slick": "1.8.0",
         "library-dinbror/blazy": "1.8.2",
         "library-gdsmith/jquery.easing": "1.4.1",
-        "library-ckeditor/panelbutton": "4.7.0",
-        "library-ckeditor/colorbutton": "4.7.0",
+        "library-ckeditor/panelbutton": "4.10.1",
+        "library-ckeditor/colorbutton": "4.10.1",
         "library-smonetti/btbutton": "1.0.1",
+        "library-davekoelle/alphanum": "1.0.0",
         "grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
-        "drupal/optimizely": "3.0",
-        "drupal/google_tag": "1.0",
-        "drupal/google_analytics": "2.2",
-        "drupal/simple_sitemap": "2.9",
-        "drupal/redirect": "1.0-beta1",
-        "drupal/metatag": "1.3",
+        "drupal/optimizely": "~3.1",
+        "drupal/google_tag": "~1.1",
+        "drupal/google_analytics": "~2.3",
+        "drupal/simple_sitemap": "~3.0",
+        "drupal/redirect": "~1.3",
+        "drupal/metatag": "~1.7",
         "drupal/scheduler": "1.0",
-        "drupal/webform": "5.0-beta24",
+        "drupal/webform": "~5.0",
         "drupal/captcha": "1.0-beta1",
-        "drupal/recaptcha": "2.2",
-        "drupal/rabbit_hole": "1.0-beta3",
-        "drupal/admin_toolbar": "1.20",
+        "drupal/recaptcha": "~2.3",
+        "drupal/rabbit_hole": "~1.0-beta4",
+        "drupal/admin_toolbar": "~1.25",
         "drupal/panelbutton": "1.1",
         "drupal/colorbutton": "1.1",
-        "drupal/better_exposed_filters": "3.0-alpha2",
+        "drupal/better_exposed_filters": "~3.0-alpha5",
         "drupal/custom_formatters": "3.0-alpha1",
-        "drupal/token_filter": "1.0-beta1",
-        "drupal/views_field_formatter": "1.5",
+        "drupal/token_filter": "~1.1",
+        "drupal/views_field_formatter": "~1.9",
         "drupal/tzfield": "1.x-dev",
         "drupal/views_data_export": "1.0-beta1",
-        "drupal/lndr": "1.11",
+        "drupal/lndr": "^1.15",
         "doctrine/inflector": "1.1.*",
-        "drupal/crop": "1.3",
-        "drupal/focal_point": "1.0-beta5",
-        "drupal/media_entity_video": "1.0-beta2",
+        "drupal/crop": "^2.0",
+        "drupal/focal_point": "~1.0-beta6",
+        "drupal/media_entity_video": "^2.0",
         "drupal/video": "1.2",
-        "drupal/easy_breadcrumb": "^1.6",
+        "drupal/easy_breadcrumb": "^1.8",
         "drupal/ckeditor_bootstrap_buttons": "^1.1",
         "drupal/fontyourface": "^3.2",
         "drupal/css_editor": "^1.2",
-        "drupal/domain": "1.0-alpha13",
-        "drupal/domain_theme_switch": "1.3",
+        "drupal/domain": "1.0-alpha14",
+        "drupal/domain_theme_switch": "^1.4",
         "drupal/social_feed_fetcher": "^1.0",
         "symfony/dom-crawler": "v4.1.3",
         "mpdf/mpdf": "^7.1",

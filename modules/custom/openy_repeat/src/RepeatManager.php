@@ -157,7 +157,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
       // Program Subcategory reference.
       if (!$activity->field_activity_category->isEmpty() && $program_subcategory = $activity->field_activity_category->referencedEntities()) {
         $program_subcategory = reset($program_subcategory);
-        if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
+        // TODO: YGTC requires unpublished session. Fix it.
+        if (FALSE && !$moderation_wrapper->entity_moderation_status($program_subcategory)) {
           // Skip activity due to unpublished program subcategory.
           continue;
         }
@@ -165,7 +166,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
         // Program reference.
         if ($program = $program_subcategory->field_category_program->referencedEntities()) {
           $program = reset($program);
-          if (!$moderation_wrapper->entity_moderation_status($program)) {
+          // TODO: YGTC requires unpublished session. Fix it.
+          if (FALSE && !$moderation_wrapper->entity_moderation_status($program)) {
             // Skip activity due to unpublished program.
             continue;
           }
@@ -451,7 +453,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $this->deleteSessionInstancesBySession($node);
 
     // It's not published.
-    if (!$node->isPublished()) {
+    // @todo YGTC requires unpublished session. Fix it.
+    if (FALSE && !$node->isPublished()) {
       return;
     }
 
@@ -719,4 +722,47 @@ class RepeatManager implements SessionInstanceManagerInterface {
     return $age_ids;
   }
 
+  /**
+   * Check that class, activity or program subcategory node significantly changed.
+   *
+   * @param \Drupal\node\NodeInterface $entity
+   *   Class node.
+   *
+   * @return boolean
+   *
+   */
+  public function isSignificantChange(NodeInterface $entity) {
+    // Fields that contain significant values for entity
+    $map_compare = [
+      'class' => [
+        'field_class_activity'
+      ],
+      'activity' => [
+        'title',
+        'field_activity_category',
+      ],
+      'program_subcategory' => [
+        'field_category_program'
+      ],
+    ];
+
+    $bundle = $entity->bundle();
+
+    if (!isset($map_compare[$bundle])) {
+      return FALSE;
+    }
+
+    if (isset($entity->original)) {
+      $original = $entity->original;
+      foreach ($map_compare[$bundle] as $field) {
+        $new = $entity->get($field)->getValue();
+        $old = $original->get($field)->getValue();
+
+        if (isset($old) && isset($new) && $new != $old) {
+          return TRUE;
+        }
+      }
+    }
+    return FALSE;
+  }
 }

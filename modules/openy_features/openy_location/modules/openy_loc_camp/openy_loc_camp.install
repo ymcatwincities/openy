@@ -59,29 +59,16 @@ function openy_loc_camp_update_8002() {
   $config_importer->importConfigs([
     'field.field.node.camp.field_bottom_content',
   ]);
-
   // Update multiple configurations.
   $configs = [
     'core.entity_form_display.node.camp.default' =>[
       'dependencies.config',
       'third_party_settings.field_group.group_bottom_area',
-      'content.field_bottom_content',
     ],
     'core.entity_view_display.node.camp.default' => [
       'dependencies.config',
-      'content.field_bottom_content',
-    ],
-    'core.entity_view_display.node.camp.full' => [
-      'dependencies.config',
-      'content.field_bottom_content',
-      'content.field_content',
-      'content.field_header_content',
-      'content.field_location_address',
-      'content.field_location_fax',
-      'content.field_location_phone',
     ],
   ];
-
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
@@ -113,14 +100,11 @@ function openy_loc_camp_update_8003() {
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_form_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.config');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'content.field_meta_tags');
   // Entity view display
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_view_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'content.field_meta_tags');
 }
 
 /**
@@ -137,21 +121,15 @@ function openy_loc_camp_update_8004() {
 
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.camp.default' => [
-      'content',
-    ],
     'core.entity_view_display.node.camp.default' => [
       'content',
     ],
     'core.entity_view_display.node.camp.full' => [
       'dependencies.config',
-      'content',
-      'hidden',
     ],
     'core.entity_view_display.node.camp.teaser' => [
       'dependencies.config',
       'content',
-      'hidden',
     ],
     'field.field.node.camp.field_meta_tags' => [
       'dependencies.module',
@@ -206,7 +184,6 @@ function openy_loc_camp_update_8007() {
   $configs = [
     'core.entity_view_display.node.camp.full' => [
       'content',
-      'hidden',
     ],
   ];
 

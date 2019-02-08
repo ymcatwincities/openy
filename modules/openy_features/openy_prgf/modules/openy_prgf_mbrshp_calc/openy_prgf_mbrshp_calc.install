@@ -42,12 +42,6 @@ function openy_prgf_mbrshp_calc_update_8003() {
   $config_dir = drupal_get_path('module', 'openy_prgf_mbrshp_calc') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_view_display.media.image.calc_preview' => [
-      'hidden',
-    ],
-    'core.entity_view_display.media.image.calc_summary' => [
-      'hidden',
-    ],
     'core.entity_view_display.node.branch.calc_summary' => [
       'dependencies.config',
       'hidden',

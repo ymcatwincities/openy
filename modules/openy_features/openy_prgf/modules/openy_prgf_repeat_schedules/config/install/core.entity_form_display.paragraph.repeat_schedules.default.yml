@@ -3,8 +3,10 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.repeat_schedules.field_prgf_block
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_loc
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_categ
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_excl
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_filt
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_instr
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pdf
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
@@ -17,6 +19,15 @@ targetEntityType: paragraph
 bundle: repeat_schedules
 mode: default
 content:
+  field_prgf_repeat_loc:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_prgf_repeat_schedule_categ:
     type: entity_reference_autocomplete
     weight: 2
@@ -34,6 +45,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_prgf_repeat_schedule_filt:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   field_prgf_repeat_schedule_instr:
     weight: 3
@@ -60,7 +77,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_prgf_rs_pdf_only_view:
-    weight: 5
+    weight: 6
     settings:
       display_label: true
     third_party_settings: {  }

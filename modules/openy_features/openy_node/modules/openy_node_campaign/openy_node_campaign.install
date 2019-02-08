@@ -5,6 +5,3 @@
  *
  * @see system_install()
  */
-function openy_node_campaign_install() {
-
-}
