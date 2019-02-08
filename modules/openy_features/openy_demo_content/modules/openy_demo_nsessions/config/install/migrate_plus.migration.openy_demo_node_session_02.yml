@@ -26,6 +26,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -42,6 +45,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 51
+      price_member: 104
+      price_nonmember: 155
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -58,6 +64,9 @@ source:
       in_membership: false
       age_min: 12
       age_max: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -73,6 +82,7 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 50
+      availability: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -88,6 +98,9 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 50
+      availability: 54
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -149,6 +162,9 @@ source:
       in_membership: false
       age_min: 10
       age_max: 12
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -164,6 +180,9 @@ source:
       in_membership: false
       age_min: 13
       age_max: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
     -
       id: pilates_reformer_10_private_1hr_sessions
       title: 'Pilates Reformer - 10, private 1 hr sessions'
@@ -178,6 +197,9 @@ source:
       in_membership: false
       age_min: 18
       age_max: 101
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -194,6 +216,9 @@ source:
       in_membership: false
       age_min: 18
       age_max: 101
+      availability: 50
+      price_member: 100
+      price_nonmember: 150
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -210,6 +235,9 @@ source:
       in_membership: false
       age_min: 16
       age_max: 101
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -226,6 +254,9 @@ source:
       in_membership: false
       age_min: 18
       age_max: 101
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -242,6 +273,9 @@ source:
       in_membership: false
       age_min: 13
       age_max: 101
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -257,6 +291,9 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -272,6 +309,9 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -287,6 +327,9 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -302,6 +345,9 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -317,6 +363,9 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 5
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -332,6 +381,9 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 5
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -347,6 +399,9 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -362,6 +417,9 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -376,6 +434,9 @@ source:
       ticket_required: false
       in_membership: true
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -391,6 +452,9 @@ source:
       ticket_required: true
       in_membership: true
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -406,6 +470,9 @@ source:
       ticket_required: true
       in_membership: true
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -421,6 +488,9 @@ source:
       ticket_required: true
       in_membership: true
       age_min: 18
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -437,6 +507,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 13
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -453,6 +526,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -469,6 +545,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -485,6 +564,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -501,6 +583,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -517,6 +602,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -533,6 +621,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -549,6 +640,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -565,6 +659,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -581,6 +678,9 @@ source:
       in_membership: false
       age_min: 12
       age_max: 15
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -597,6 +697,9 @@ source:
       in_membership: false
       age_min: 11
       age_max: 17
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
     -
       id: bold_one_wk_expeditions_river_and_rocks
       title: 'BOLD Rivers and Rocks'
@@ -611,6 +714,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -627,6 +733,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 12
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -643,6 +752,9 @@ source:
       in_membership: false
       age_min: 13
       age_max: 17
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -659,6 +771,9 @@ source:
       in_membership: false
       age_min: 5
       age_max: 18
+      availability: 0
+      price_member: 11
+      price_nonmember: 23
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
   ids:
@@ -703,6 +818,9 @@ process:
   field_session_in_mbrsh: in_membership
   field_session_min_age: age_min
   field_session_max_age: age_max
+  field_availability: availability
+  field_session_mbr_price: price_member
+  field_session_nmbr_price: price_nonmember
   field_session_reg_link/uri: reg_uri
   field_session_reg_link/title: reg_title
   field_session_plocation: facility
