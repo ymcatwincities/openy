@@ -5,6 +5,10 @@
  * Main module's file.
  */
 
+use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
 /**
  * Deploy Program Event Framework related landing pages.
  */
@@ -30,7 +34,7 @@ function openy_demo_nlanding_pef_pages() {
     return reset($result);
   };
 
-  $schedules_node = \Drupal\node\Entity\Node::create(
+  $schedules_node = Node::create(
     [
       'type' => 'landing_page',
       'title' => 'Schedules',
@@ -42,7 +46,7 @@ function openy_demo_nlanding_pef_pages() {
   );
   $schedules_node->save();
 
-  $locations_node = \Drupal\node\Entity\Node::create(
+  $locations_node = Node::create(
     [
       'type' => 'landing_page',
       'title' => 'Select location',
@@ -56,7 +60,7 @@ function openy_demo_nlanding_pef_pages() {
 
   $group_exercises_nid = $get_activity_id_by_title('Group Exercise Classes');
 
-  $schedules_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+  $schedules_paragraph = Paragraph::create(
     [
       'type' => 'repeat_schedules',
       'parent_id' => $schedules_node->id(),
@@ -75,7 +79,7 @@ function openy_demo_nlanding_pef_pages() {
   $schedules_node->field_content->entity = $schedules_paragraph;
   $schedules_node->save();
 
-  $location_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+  $location_paragraph = Paragraph::create(
     [
       'type' => 'repeat_schedules_loc',
       'parent_id' => $locations_node->id(),
@@ -91,7 +95,7 @@ function openy_demo_nlanding_pef_pages() {
   $locations_node->field_content->entity = $location_paragraph;
   $locations_node->save();
 
-  $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
+  $parent_menu_link = MenuLinkContent::load(39);
 //  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
 //    'title' => 'Program Schedules',
 //    'link' => ['uri' => 'entity:node/' . $locations_node->id()],
@@ -203,7 +207,7 @@ function openy_demo_nlanding_pef_pages() {
       }
 
       // Create schedules paragraph.
-      $paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+      $paragraph = Paragraph::create(
         [
           'type' => 'repeat_schedules',
           'parent_id' => $node->id(),
@@ -222,7 +226,7 @@ function openy_demo_nlanding_pef_pages() {
       $node->save();
 
       // Create menu link.
-      $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+      $menu_link = MenuLinkContent::create([
         'title' => $page['title'],
         'link' => ['uri' => 'entity:node/' . $node->id()],
         'menu_name' => 'main',
@@ -240,7 +244,8 @@ function openy_demo_nlanding_pef_pages() {
   $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
     foreach ($tables as $table) {
       // Select all paragraphs that have "broken" as plugin_id.
-      $query = \Drupal::database()->select($table, 'ptable');
+      $db = \Drupal::database();
+      $query = $db->select($table, 'ptable');
       $query->fields('ptable');
       $query->condition('ptable.' . $plugin_id_field, 'broken');
       $broken_paragraphs = $query->execute()->fetchAll();
@@ -256,7 +261,7 @@ function openy_demo_nlanding_pef_pages() {
           $data['id'] = 'repeat_schedules_loc_block';
         }
 
-        $query = \Drupal::database()->update($table);
+        $query = $db->update($table);
         $query->fields([
           $plugin_id_field => $data['id'],
           $config_field => serialize($data),
@@ -292,7 +297,7 @@ function openy_demo_nlanding_af_pages() {
   openy_enable_module('openy_prgf_activity_finder');
   drupal_flush_all_caches();
 
-  $af_node = \Drupal\node\Entity\Node::create(
+  $af_node = Node::create(
     [
       'type' => 'landing_page',
       'title' => 'Activity Finder',
@@ -304,7 +309,7 @@ function openy_demo_nlanding_af_pages() {
   );
   $af_node->save();
 
-  $ps_node = \Drupal\node\Entity\Node::create(
+  $ps_node = Node::create(
     [
       'type' => 'landing_page',
       'title' => 'Program Search',
@@ -316,7 +321,7 @@ function openy_demo_nlanding_af_pages() {
   );
   $ps_node->save();
 
-  $af_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+  $af_paragraph = Paragraph::create(
     [
       'type' => 'activity_finder',
       'parent_id' => $af_node->id(),
@@ -332,7 +337,7 @@ function openy_demo_nlanding_af_pages() {
   $af_node->field_content->entity = $af_paragraph;
   $af_node->save();
 
-  $ps_paragraph = \Drupal\paragraphs\Entity\Paragraph::create(
+  $ps_paragraph = Paragraph::create(
     [
       'type' => 'activity_finder_search',
       'parent_id' => $ps_node->id(),
@@ -354,9 +359,9 @@ function openy_demo_nlanding_af_pages() {
     ->condition('type', 'landing_page')
     ->execute();
   $nid = reset($nid);
-  $parent_menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::load(39);
+  $parent_menu_link = MenuLinkContent::load(39);
   // Create menu link.
-  $menu_link = \Drupal\menu_link_content\Entity\MenuLinkContent::create([
+  $menu_link = MenuLinkContent::create([
     'title' => 'Swimming Lessons at the YMCA',
     'link' => ['uri' => 'entity:node/' . $nid],
     'menu_name' => 'main',
@@ -374,7 +379,8 @@ function openy_demo_nlanding_af_pages() {
       $config_field = $prgf['config_field'];
       foreach ($tables as $table) {
         // Select all paragraphs that have "broken" as plugin_id.
-        $query = \Drupal::database()->select($table, 'ptable');
+        $db = \Drupal::database();
+        $query = $db->select($table, 'ptable');
         $query->fields('ptable');
         $query->condition('ptable.' . $plugin_id_field, 'broken');
         $broken_paragraphs = $query->execute()->fetchAll();
@@ -389,7 +395,7 @@ function openy_demo_nlanding_af_pages() {
           elseif ($paragraph->bundle == 'activity_finder_search') {
             $data['id'] = 'activity_finder_search_block';
           }
-          $query = \Drupal::database()->update($table);
+          $query = $db->update($table);
           $query->fields([
             $plugin_id_field => $data['id'],
             $config_field => serialize($data),

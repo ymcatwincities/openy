@@ -13,7 +13,7 @@ use Drupal\search_api\Entity\Index;
 use Drupal\Core\Url;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Symfony\Component\Yaml\Parser;
+use Drupal\Core\Logger\LoggerChannelInterface;
 
 /**
  * {@inheritdoc}
@@ -66,6 +66,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   protected $time;
 
   /**
+   * Logger channel.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   */
+  protected $loggerChannel;
+
+  /**
    * Creates a new RepeatController.
    *
    * @param CacheBackendInterface $cache
@@ -78,8 +85,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
    *   The Date formatter.
    * @param TimeInterface $time
    *   Time service.
+   * @param LoggerChannelInterface $loggerChannel
+   *   Logger service.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter, TimeInterface $time) {
+  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter, TimeInterface $time, LoggerChannelInterface $loggerChannel) {
     parent::__construct($config_factory);
     $this->cache = $cache;
     $this->database = $database;
@@ -87,6 +96,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $this->entityTypeManager = $entity_type_manager;
     $this->dateFormatter = $date_formatter;
     $this->time = $time;
+    $this->loggerChannel = $loggerChannel;
   }
 
   /**
@@ -145,8 +155,6 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $db_or->addConditionGroup($db_and);
       }
       $query->addConditionGroup($db_or);
-      // @todo: do we need to use max_age at all?
-      //$conditions->addCondition('field_session_max_age', 0);
     }
 
     if (!empty($parameters['days'])) {
@@ -194,6 +202,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     if ($server->supportsFeature('search_api_facets')) {
       $filters = $this->getFilters();
       $query->setOption('search_api_facets', $filters);
+    }
+    else {
+      $this->loggerChannel->info(t('Search server doesn\'t support facets (filters). '));
     }
     $query->addTag('af_search');
     $results = $query->execute();
@@ -246,67 +257,11 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'schedule' => $schedule_items,
         'days' => $schedule_items[0]['days'],
         'times' => $schedule_items[0]['time'],
-        'info' => [
-          'id' => '',
-          'type' => 'session',
-          'name' => $fields['title']->getValues()[0]->getText(),
-          'description' => html_entity_decode(strip_tags(text_summary($entity->field_session_description->value, $entity->field_session_description->format, 600))),
-          'start_date' => '2019-02-18T00:00:00.0000000',
-          'end_date' => '2019-02-18T00:00:00.0000000',
-          'program' => [
-            'id' => '',
-            'type' => 'standard',
-            'name' => $fields['field_category_program']->getValues()[0],
-            'description' => '', ],
-          'locations' => [
-            0 => [
-              'id' => '',
-              'name' => $fields['field_session_location']->getValues()[0],
-              'type' => $locations_info[$fields['field_session_location']->getValues()[0]]['type'],
-              ],
-            ],
-          'groups' => [
-            0 => ['id' => 'FG116', 'name' => 'Member', ],
-            1 => ['id' => 'FG117', 'name' => 'Non-Member', ], ],
-          'restrictions' => [
-            'genders' => [
-              0 => [
-                'id' => $entity->field_session_gender->value,
-                'name' => $entity->field_session_gender->value,
-              ],
-            ],
-            'dob' => ['start' => '2006-02-19T00:00:00.0000000', 'end' => '2017-02-18T00:00:00.0000000', ],
-            'age' => [
-              'start' => $entity->field_session_min_age->value, 'end' => $entity->field_session_max_age->value, ],
-            ],
-          'times' => [
-            0 => [
-              'start' => '09:00',
-              'end' => '12:45',
-              ],
-            ],
-          'days_offered' => [
-            0 => [
-              'id' => '1',
-              'name' => 'Monday',
-              ],
-            ],
-          'highlights' => [],
-          'registration' => [
-            'start' => $entity->field_standard_registration_date->value,
-            'end' => $entity->field_standard_registration_date->end_value,
-            'state' => 'open',
-            ],
-          'score' => 0,
-          ],
         'location' => $fields['field_session_location']->getValues()[0],
-        'location_id' => '',
         'location_info' => $locations_info[$fields['field_session_location']->getValues()[0]],
         'log_id' => $log_id,
         'name' => $fields['title']->getValues()[0]->getText(),
-        'offering_id' => '',
         'price' => 'Member: $' . $entity->field_session_mbr_price->value . '<br/>Non-Member: $' . $entity->field_session_nmbr_price->value,
-        'program_id' => '',
         'link' => Url::fromRoute('openy_activity_finder.register_redirect', [
             'log' => $log_id,
           ],
@@ -317,6 +272,11 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'description' => html_entity_decode(strip_tags(text_summary($entity->field_session_description->value, $entity->field_session_description->format, 600))),
         'ages' => $entity->field_session_min_age->value . '-' . $entity->field_session_max_age->value . 'yrs',
         'gender' => $entity->field_session_gender->value,
+        // We keep empty variables in order to have the same structure with other backends (e.g. Daxko) for avoiding unexpected errors.
+        'location_id' => '',
+        'program_id' => '',
+        'offering_id' => '',
+        'info' => [],
         'location_name' => '',
         'location_address' => '',
         'location_phone' => '',
