@@ -67,3 +67,31 @@
     z-index: 2;
   }
 }
+
+@media screen and (max-width: 767px) {
+  .program-title {
+    margin-bottom: 15px;
+    display: block;
+  }
+}
+@media screen and (max-width: 767px) {
+  .availability-status-btn {
+    margin-bottom: 0 !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .register-btn {
+    margin-bottom: 0 !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .schedule-dashboard__modal--body {
+    padding: 0 30px;
+  }
+}
+
+.schedule-dashboard__modal--body .btn {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

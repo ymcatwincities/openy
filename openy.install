@@ -35,6 +35,34 @@ function openy_install() {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_update_dependencies() {
+  $dependencies['openy'] = [
+    8054 => [
+      'block_content' => 8600,
+      'system' => 8501,
+    ],
+    8048 => [
+      'media_entity' => 8201,
+    ],
+  ];
+
+  $dependencies['openy_node_alert'] = [
+    8009 => [
+      'system' => 8501,
+    ],
+  ];
+
+  $dependencies['openy_upgrade_tool'] = [
+    8003 => [
+      'simple_sitemap' => 8217,
+    ],
+  ];
+  return $dependencies;
+}
+
+/**
  * Upgrade from 8.x-0.2 version.
  */
 function openy_update_8001() {
@@ -47,7 +75,6 @@ function openy_update_8001() {
     // Run openy_demo_ncamp migration.
     $importer = \Drupal::service('openy_migrate.importer');
     $importer->import('openy_demo_node_camp');
-    $importer->import('openy_demo_node_landing');
   }
 }
 
@@ -70,7 +97,6 @@ function openy_update_8003() {
   // Enable module.
   \Drupal::service('module_installer')->install([
     'config_import',
-    'logger_entity',
     'openy_upgrade_tool',
   ]);
 }
@@ -210,9 +236,7 @@ function openy_update_8013() {
  * Update WYSIWYG media buttons.
  */
 function openy_update_8014() {
-  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+  // Removed update of editor.editor.full_html configuration because similar update done in openy_editor.install.
 }
 
 /**
@@ -335,9 +359,7 @@ function openy_update_8026() {
   \Drupal::service('module_installer')->install([
     'colorbutton',
   ]);
-  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+  // Removed update of editor.editor.full_html configuration because similar update done in openy_editor.install.
 }
 
 /**
@@ -528,18 +550,11 @@ function openy_update_8042() {
 }
 
 /**
- * Enable easy_breadcrumb module and paragraph.
+ * Enable easy_breadcrumb module.
  */
 function openy_update_8043() {
   // Enable modules.
-  $modules = [
-    'easy_breadcrumb',
-  ];
-  foreach ($modules as $module) {
-    \Drupal::service('module_installer')->install([
-      $module,
-    ]);
-  }
+  \Drupal::service('module_installer')->install(['easy_breadcrumb'], TRUE);
 }
 
 /**
@@ -576,14 +591,7 @@ function openy_update_8045() {
  */
 function openy_update_8046() {
   // Enable modules.
-  $modules = [
-    'openy_media_local_video',
-  ];
-  foreach ($modules as $module) {
-    \Drupal::service('module_installer')->install([
-      $module,
-    ]);
-  }
+  \Drupal::service('module_installer')->install(['openy_media_local_video'], TRUE);
 }
 
 /**
@@ -592,10 +600,7 @@ function openy_update_8046() {
 function openy_update_8047() {
   // Enable CKEditor Bootstrap Buttons module.
   \Drupal::service('module_installer')->install(['ckeditor_bootstrap_buttons'], TRUE);
-
-  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+  // Removed update of editor.editor.full_html configuration because similar update done in openy_editor.install.
 }
 
 /**
@@ -784,20 +789,7 @@ function openy_update_8052() {
  * Enable event module.
  */
 function openy_update_8053() {
-  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
-    $modules = [
-      'openy_prgf_event_latest',
-      'openy_prgf_event_listing',
-      'openy_node_event',
-      'openy_demo_nevent',
-    ];
-
-    // Enable modules.
-    \Drupal::service('module_installer')->install($modules, TRUE);
-    $importer = \Drupal::service('openy_migrate.importer');
-    $importer->import('openy_demo_node_event');
-    $importer->import('openy_demo_event_landing');
-  }
+  // Moved to openy_update_8062() due dependencies to 'openy_er' module.
 }
 
 /**
@@ -905,17 +897,24 @@ function openy_update_8059() {
 }
 
 /**
- * Enable Open Y Entity Reference Tweaks.
- */
-function openy_update_8060() {
-  \Drupal::service('module_installer')->install(['openy_er']);
-}
-
-/**
- * Enable Open Y Entity Reference Tweaks.
+ * Enable Open Y Entity Reference Tweaks and Event module.
  */
 function openy_update_8062() {
   \Drupal::service('module_installer')->install(['openy_er']);
+
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    $modules = [
+      'openy_prgf_event_latest',
+      'openy_prgf_event_listing',
+      'openy_node_event',
+      'openy_demo_nevent',
+    ];
+    // Enable modules.
+    \Drupal::service('module_installer')->install($modules, TRUE);
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_event');
+    $importer->import('openy_demo_event_landing');
+  }
 }
 
 /**
@@ -969,7 +968,7 @@ function openy_update_8066() {
       ->set('id', $new_id)
       ->save(TRUE);
   }
-}      
+}
 
 /**
  * Enable PEF paragraphs.
@@ -1013,4 +1012,16 @@ function openy_update_8069() {
     $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
     $config_importer->update($config, 'openy_carnation.settings', 'display_search_form');
   }
+}
+ 
+ /**
+ * Import config with T&C.
+ */
+function openy_update_8070() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/optional';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'openy.terms_and_conditions.schema',
+  ]);
 }

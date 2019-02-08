@@ -6,16 +6,31 @@
  * .maintenance-page styling.
  */
 html {
-  background: url(../images/y_abstract.png) no-repeat center center fixed;
+  background: url(../images/installation-background.png) no-repeat top center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
 body {
-  background: url(../images/y_abstract.png) no-repeat center center fixed;
+  background: url(../images/installation-background.png) no-repeat top center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+@media (min-width: 768px) {
+  body.install-page {
+    display: block;
+  }
+
+  .layout-container {
+    margin-top: 180px;
+  }
+}
+
+#openy-terms-of-use .form-submit {
+  margin: 0 auto;
+  display: block;
 }

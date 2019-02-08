@@ -5,13 +5,13 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
+  - drupal:field
+  - drupal:image
+  - drupal:link
+  - drupal:media (>= 8.6)
+  - drupal:text
   - blazy
   - entity_browser
-  - field
-  - image
-  - link
-  - media_entity
   - openy_media_image
   - openy_prgf
   - paragraphs
-  - text
