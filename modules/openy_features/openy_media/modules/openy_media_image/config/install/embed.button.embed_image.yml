@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - media_entity.bundle.image
+    - media.type.image
   module:
     - entity_embed
-    - media_entity
+    - media
 label: Image
 id: embed_image
 type_id: entity

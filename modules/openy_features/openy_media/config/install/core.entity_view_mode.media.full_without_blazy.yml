@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - media_entity
+    - media
 id: media.full_without_blazy
 label: 'Full without Blazy'
 targetEntityType: media

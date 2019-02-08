@@ -59,7 +59,7 @@
 
             <div class="row hidden-sm hidden-md hidden-lg d-block d-md-none">
               {# mobile toggler button #}
-              <div class="col col-xs-5">
+              <div class="col col-xs-8">
                 <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
                   <strong>
                     <i class="fa fa-plus plus" aria-hidden="true"></i>
@@ -148,15 +148,15 @@
               <div v-show="!loading" v-for="(item, index) in table" class="schedules-data__row--alt clearfix" style="">
                 <div class="row">
                   <div class="col-md-9">
-                    <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--more-info"><strong>${ item.name }</strong></a>
+                    <a href="#" class="program-title" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--more-info"><strong>${ item.name }</strong></a>
                   </div>
                   {# if we do not know if it is available #}
                   <div v-if="item.availability_status.length == 0" class="col-md-3">
-                    <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="btn btn-primary btn-block" style="margin-bottom: 20px;" >{{ 'Check Availability'|t }}</a>
+                    <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="availability-status-btn btn btn-primary btn-block" style="margin-bottom: 20px;" >{{ 'Check Availability'|t }}</a>
                   </div>
                   {# if we know that registration is available #}
                   <div v-if="item.availability_status == 'open'" class="col-md-3">
-                    <a :href="item.link" target="_blank" class="btn btn-primary btn-block" style="margin-bottom: 20px;">{{ 'Register'|t }}</a><br/>
+                    <a :href="item.link" target="_blank" class="register-btn btn btn-primary btn-block" style="margin-bottom: 20px;">{{ 'Register'|t }}</a><br/>
                     <span class="availability-note">${ item.availability_note }</span>
                   </div>
                   {# if we know that registration is NOT available #}

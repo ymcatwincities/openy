@@ -32,10 +32,6 @@ function openy_prgf_blog_listing_update_8002() {
     'core.entity_view_display.paragraph.blog_posts_listing.default' =>[
       'content.field_prgf_block.region',
     ],
-    'views.view.listing_blog_posts' => [
-      'display.default.cache_metadata.tags',
-      'display.block.cache_metadata.tags',
-    ],
   ];
 
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');

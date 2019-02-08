@@ -13,7 +13,6 @@ function openy_txnm_blog_category_update_8001() {
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
-    'core.entity_form_display.taxonomy_term.blog_category.default',
     'core.entity_view_display.taxonomy_term.blog_category.default',
     'field.field.taxonomy_term.blog_category.field_taxonomy_content',
   ]);
