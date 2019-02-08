@@ -5,45 +5,145 @@
  * Open Y upgrade tool install file.
  */
 
+use Drupal\Core\Serialization\Yaml;
+use Drupal\openy_upgrade_tool\Entity\OpenyUpgradeLog;
+
 /**
  * Config update restrict upgrade dashboard by 'administer site configuration'.
  */
 function openy_upgrade_tool_update_8001() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_upgrade_tool');
-  $config .= '/config/install/';
-  $config .= 'views.view.openy_upgrade_dashboard.yml';
-  $params = [
-    'dependencies.module',
-    'display.default.display_plugin.display_options.access',
-    'display.default.cache_metadata.contexts',
-    'display.page_1.cache_metadata.contexts'
-  ];
-  foreach ($params as $param) {
-    $config_importer->update($config,
-      'views.view.openy_upgrade_dashboard',
-      $param
-    );
-  }
+  // views.view.openy_upgrade_dashboard will be updated in next hooks.
 }
 
 /**
  * Update path, title and parent menu for upgrade dashboard.
  */
 function openy_upgrade_tool_update_8002() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_upgrade_tool');
-  $config .= '/config/install/';
-  $config .= 'views.view.openy_upgrade_dashboard.yml';
-  $params = [
-    'display.page_1.display_options.path',
-    'display.page_1.display_options.menu.parent',
-    'display.page_1.display_options.menu.title',
-  ];
-  foreach ($params as $param) {
-    $config_importer->update($config,
-      'views.view.openy_upgrade_dashboard',
-      $param
-    );
+  // views.view.openy_upgrade_dashboard will be updated in next hooks.
+}
+
+/**
+ * Install OpenyUpgradeLog entity.
+ */
+function openy_upgrade_tool_update_8003() {
+  $entity_type = \Drupal::entityTypeManager()->getDefinition('openy_upgrade_log');
+  \Drupal::service('entity.definition_update_manager')->installEntityType($entity_type);
+}
+
+/**
+ * Switch from Logger entity to OpenyUpgradeLog.
+ */
+function openy_upgrade_tool_update_8004(&$sandbox) {
+  // We can't run this in post_update because this must be executed before
+  // openy_upgrade_tool_update_8005 update.
+  if (!isset($sandbox['progress'])) {
+    $sandbox['progress'] = 0;
+    $sandbox['current'] = 0;
+    $sandbox['max'] = \Drupal::entityQuery('logger_entity')
+      ->condition('type', 'openy_config_upgrade_logs')
+      ->count()
+      ->execute();
+  }
+
+  // Migrate openy_config_upgrade_logs in chunks of 20 items.
+  $ids = \Drupal::entityQuery('logger_entity')
+    ->condition('type', 'openy_config_upgrade_logs')
+    ->condition('id', $sandbox['current'], '>')
+    ->range(0, 20)
+    ->sort('id')
+    ->execute();
+
+  $configFactory = \Drupal::configFactory();
+  $entityTypeManager = \Drupal::entityTypeManager();
+  $logger_entities = $entityTypeManager
+    ->getStorage('logger_entity')
+    ->loadMultiple($ids);
+  foreach ($logger_entities as $logger_entity) {
+    $config_name = $logger_entity->getName();
+    $new_upgrade_log_item = OpenyUpgradeLog::create([
+      'user_id' => 1,
+      'name' => $config_name,
+      'created' => $logger_entity->getCreatedTime(),
+    ]);
+    $new_upgrade_log_item->setData($configFactory->get($config_name)->getOriginal());
+    $new_upgrade_log_item->setNewRevision(TRUE);
+    $new_upgrade_log_item->setRevisionUserId(1);
+    $new_upgrade_log_item->setRevisionCreationTime(time());
+    $new_upgrade_log_item->setRevisionLogMessage('Migrate from logger entity');
+    $new_upgrade_log_item->save();
+    $sandbox['progress']++;
+    $sandbox['current'] = $logger_entity->id();
+    $logger_entity->delete();
+  }
+
+  $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
+
+  if ($sandbox['#finished'] == 1) {
+    $entityTypeManager = \Drupal::entityTypeManager();
+    // Delete openy_config_upgrade_logs logger entity type.
+    $content_type = $entityTypeManager
+      ->getStorage('logger_entity_type')
+      ->load('openy_config_upgrade_logs');
+    $content_type->delete();
+  }
+
+  return t(
+    'OpenyUpgradeLog were migrated from @count logger entities',
+    ['@count' => $sandbox['max']]
+  );
+}
+
+/**
+ * Import new configs + install advanced_help_block.
+ */
+function openy_upgrade_tool_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_upgrade_tool') . '/config/install/';
+  // Import new configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  // Update views for new entity type.
+  $config_importer->importConfigSimple('views.view.openy_upgrade_dashboard');
+  // Set force mode to TRUE by default.
+  $config_importer->importConfigSimple('openy_upgrade_tool.settings');
+}
+
+/**
+ * Enable advanced_help_block module.
+ */
+function openy_upgrade_tool_update_8006() {
+  \Drupal::service('module_installer')->install(['advanced_help_block']);
+}
+
+/**
+ * Add advanced_help_block to dashboard page.
+ */
+function openy_upgrade_tool_update_8007() {
+  $block_title = 'Open Y: Upgrade Dashboard instruction';
+  $entityTypeManager = \Drupal::entityTypeManager();
+
+  // Load data from demo content.
+  $config_path = drupal_get_path('module', 'openy_demo_ahb') . '/config/install/migrate_plus.migration.openy_demo_entity_ahb.yml';
+  $entity_ahb_migration_data = Yaml::decode(file_get_contents($config_path));
+  if (!isset($entity_ahb_migration_data['source']['data_rows'])) {
+    // We have incorrect data.
+    return;
+  }
+
+  foreach ($entity_ahb_migration_data['source']['data_rows'] as $row) {
+    if (isset($row['field_ahb_title']) && $row['field_ahb_title'] == $block_title) {
+      // Create advanced_help_block.
+      $new_block = $entityTypeManager
+        ->getStorage('advanced_help_block')->create([
+          'field_ahb_title' => $row['field_ahb_title'],
+          'field_ahb_description' => [
+            'value' => $row['field_ahb_description'],
+            'format' => 'full_html',
+          ],
+          'field_ahb_video' => $row['field_ahb_video'],
+          'field_ahb_pages' => $row['field_ahb_pages'],
+          'field_ahb_visibility' => $row['field_ahb_visibility'],
+        ]);
+      $new_block->save();
+    }
   }
 }

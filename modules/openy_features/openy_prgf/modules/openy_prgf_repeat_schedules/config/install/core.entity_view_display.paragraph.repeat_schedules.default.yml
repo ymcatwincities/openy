@@ -3,8 +3,10 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.repeat_schedules.field_prgf_block
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_loc
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_categ
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_excl
+    - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_filt
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_instr
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pdf
     - field.field.paragraph.repeat_schedules.field_prgf_repeat_schedules_pref
@@ -19,35 +21,42 @@ bundle: repeat_schedules
 mode: default
 content:
   field_prgf_block:
-    weight: 5
+    weight: 6
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: plugin_block_built
     region: content
-  field_prgf_repeat_schedule_categ:
-    weight: 1
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: openy_json
-    region: content
-  field_prgf_repeat_schedule_excl:
+  field_prgf_repeat_loc:
     weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: openy_json
     region: content
-  field_prgf_repeat_schedule_instr:
+  field_prgf_repeat_schedule_categ:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: openy_json
+    region: content
+  field_prgf_repeat_schedule_excl:
     weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: openy_json
     region: content
-  field_prgf_repeat_schedules_pdf:
+  field_prgf_repeat_schedule_instr:
     weight: 4
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: openy_json
+    region: content
+  field_prgf_repeat_schedules_pdf:
+    weight: 5
     label: hidden
     settings: {  }
     third_party_settings: {  }
@@ -55,12 +64,13 @@ content:
     region: content
   field_prgf_repeat_schedules_pref:
     type: openy_json
-    weight: 0
+    weight: 1
     region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
 hidden:
   created: true
+  field_prgf_repeat_schedule_filt: true
   field_prgf_rs_pdf_only_view: true
   uid: true

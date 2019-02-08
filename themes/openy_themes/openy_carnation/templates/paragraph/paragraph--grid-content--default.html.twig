@@ -39,16 +39,27 @@
 {%
 set classes = [
   'row',
+  'justify-content-center',
   'paragraph',
   'paragraph--column-in-a-grid',
   'paragraph--type--' ~ paragraph.bundle|clean_class,
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
+{% set grid_style = content.field_prgf_grid_style[0]['#markup'] %}
+{% set item_class = 'col-12 col-lg' %}
+
+{% if grid_style == '2' %}
+  {% set item_class = 'col-lg-6' %}
+{% elseif grid_style == '3' %}
+  {% set item_class = 'col-lg-4' %}
+{% elseif grid_style == '4' %}
+  {% set item_class = 'col-lg-3' %}
+{% endif %}
 <div{{ attributes.addClass(classes) }}>
   {% for key, item in content.field_grid_columns %}
     {% if key matches '/^\\d+$/' %}
-    <div class="col-12 col-lg">
+    <div class="col-12 {{ item_class }} row-eq-height">
       {{ item }}
     </div>
     {% endif %}

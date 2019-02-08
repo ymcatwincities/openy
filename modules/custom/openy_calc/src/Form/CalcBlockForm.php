@@ -25,7 +25,7 @@ class CalcBlockForm extends FormBase {
   /**
    * Data wrapper.
    *
-   * @var \Drupal\openy_calc\DataWrapperInterface
+   * @var \Drupal\openy_socrates\OpenySocratesFacade
    */
   protected $dataWrapper;
 

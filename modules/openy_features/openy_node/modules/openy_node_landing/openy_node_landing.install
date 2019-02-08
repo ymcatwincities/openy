@@ -39,22 +39,7 @@ function openy_node_landing_update_8001() {
   // Update multiple configurations.
   $configs = [
     'core.entity_form_display.node.landing_page.default' => [
-      'dependencies.config',
       'third_party_settings.field_group.group_bottom_area',
-      'content.field_bottom_content',
-    ],
-    'core.entity_view_display.node.landing_page.default' => [
-      'dependencies.config',
-      'content.created',
-      'content.field_bottom_content',
-      'content.path',
-      'content.promote',
-      'content.sticky',
-      'content.uid',
-    ],
-    'core.entity_view_display.node.landing_page.full' => [
-      'dependencies.config',
-      'content.field_bottom_content',
     ],
   ];
 
@@ -89,14 +74,11 @@ function openy_node_landing_update_8002() {
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_form_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.config');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'content.field_meta_tags');
   // Entity view display.
   $config = drupal_get_path('module', $module) . '/config/install/core.entity_view_display.node.' . $bundle . '.default.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.module');
-  $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'content.field_meta_tags');
 }
 
 /**
@@ -104,13 +86,10 @@ function openy_node_landing_update_8002() {
  */
 function openy_node_landing_update_8003() {
   $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';
-
   // Update multiple configurations.
   $configs = [
     'core.entity_form_display.node.landing_page.default' => [
       'dependencies.module',
-      'content.publish_on',
-      'content.unpublish_on',
     ],
     'node.type.landing_page' => [
       'dependencies.module',
