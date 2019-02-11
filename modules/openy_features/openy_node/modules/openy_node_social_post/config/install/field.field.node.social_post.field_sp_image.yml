@@ -5,7 +5,6 @@ dependencies:
     - field.storage.node.field_sp_image
     - node.type.social_post
   module:
-    - datalayer
     - image
 id: node.social_post.field_sp_image
 field_name: field_sp_image
