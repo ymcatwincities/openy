@@ -242,11 +242,11 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value']));
         $days = [];
         foreach ($date->field_session_time_days->getValue() as $time_days) {
-          $days[] = $time_days['value'];
+          $days[] = ucfirst($time_days['value']);
         }
         $schedule_items[] = [
           'days' => implode(', ', $days),
-          'time' => $_from->format('H:i') .' - '. $_to->format('H:i'),
+          'time' => $_from->format('g:i') .'-'. $_to->format('g:i a'),
         ];
         $full_dates = $_from->format('m/d/Y') . ' - ' . $_to->format('m/d/Y');
       }
@@ -265,10 +265,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'nid' => $entity->id(),
         'availability_note' => $availability_note,
         'availability_status' => $availability_status,
-        'dates' => $full_dates,
+        'dates' => isset($full_dates) ? $full_dates : '',
         'schedule' => $schedule_items,
-        'days' => $schedule_items[0]['days'],
-        'times' => $schedule_items[0]['time'],
+        'days' => isset($schedule_items[0]['days']) ? $schedule_items[0]['days'] : '',
+        'times' => isset($schedule_items[0]['time']) ? $schedule_items[0]['time'] : '',
         'location' => $fields['field_session_location']->getValues()[0],
         'location_info' => $locations_info[$fields['field_session_location']->getValues()[0]],
         'log_id' => $log_id,
@@ -283,7 +283,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         ])->toString(),
         'description' => html_entity_decode(strip_tags(text_summary($entity->field_session_description->value, $entity->field_session_description->format, 600))),
         'ages' => $entity->field_session_min_age->value . '-' . $entity->field_session_max_age->value . 'yrs',
-        'gender' => $entity->field_session_gender->value,
+        'gender' => !empty($entity->field_session_gender->value) ? $entity->field_session_gender->value : '',
         // We keep empty variables in order to have the same structure with other backends (e.g. Daxko) for avoiding unexpected errors.
         'location_id' => '',
         'program_id' => '',
@@ -292,6 +292,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'location_name' => '',
         'location_address' => '',
         'location_phone' => '',
+        'spots_available' => !empty($entity->field_availability->value) ? $entity->field_availability->value . ' open spots' : '',
+        'status' => $availability_status,
+        'note' => $availability_note,
       ];
     }
     return $data;
