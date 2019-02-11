@@ -4,6 +4,7 @@ namespace Drupal\openy_upgrade_tool;
 
 use Drupal\config\Form\ConfigSync;
 use Drupal\config\StorageReplaceDataWrapper;
+use Drupal\Core\Config\Config;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ConfigImporter;
 use Drupal\Core\Config\ConfigImporterException;
@@ -98,6 +99,13 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
   protected $renderer;
 
   /**
+   * The renderer service.
+   *
+   * @var \Drupal\openy_upgrade_tool\ConfigEventIgnorePluginManager
+   */
+  protected $configEventIgnoreManager;
+
+  /**
    * The event dispatcher.
    *
    * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
@@ -168,6 +176,8 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    *   The config factory.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
+   * @param \Drupal\openy_upgrade_tool\ConfigEventIgnorePluginManager $config_event_ignore_manager
+   *   The Config Event Ignore Plugin Manager.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher used to notify subscribers of config import events.
    * @param \Drupal\Core\Lock\LockBackendInterface $lock
@@ -190,6 +200,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     ConfigManagerInterface $config_manager,
     ConfigFactoryInterface $config_factory,
     RendererInterface $renderer,
+    ConfigEventIgnorePluginManager $config_event_ignore_manager,
     EventDispatcherInterface $event_dispatcher,
     LockBackendInterface $lock,
     TypedConfigManagerInterface $typed_config,
@@ -203,6 +214,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     $this->entityTypeManager = $entity_type_manager;
     $this->configStorage = $config_storage;
     $this->renderer = $renderer;
+    $this->configEventIgnoreManager = $config_event_ignore_manager;
     // Services necessary for \Drupal\Core\Config\ConfigImporter.
     $this->eventDispatcher = $event_dispatcher;
     $this->configManager = $config_manager;
@@ -428,8 +440,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    * {@inheritdoc}
    */
   public function validateConfigData($name, array &$data) {
-    $config_info = $this->featuresManager->getConfigType($name);
-    $config_type = $config_info['type'];
+    $config_type = $this->getConfigType($name);
     // Load original config.
     if ($config_type !== FeaturesManagerInterface::SYSTEM_SIMPLE_CONFIG) {
       $definition = $this->entityTypeManager->getDefinition($config_type);
@@ -499,6 +510,22 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     }
 
     return TRUE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfigType($name) {
+    $config_info = $this->featuresManager->getConfigType($name);
+    return $config_info['type'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateConfigDiff(Config $config) {
+    $config_type = $this->getConfigType($config->getName());
+    return $this->configEventIgnoreManager->validateChanges($config, $config_type);
   }
 
   /**
