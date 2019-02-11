@@ -156,4 +156,25 @@ interface OpenyUpgradeLogManagerInterface {
    */
   public function validateConfigData($name, array &$data);
 
+  /**
+   * Get config type.
+   *
+   * @param string $name
+   *   Config name.
+   *
+   * @return string
+   *   Config type.
+   */
+  public function getConfigType($name);
+
+  /**
+   * Validate config diff and get ignore status.
+   *
+   * @param \Drupal\Core\Config\Config $config
+   *
+   * @return bool
+   *   TRUE - if changes can be ignored.
+   */
+  public function validateConfigDiff(\Drupal\Core\Config\Config $config);
+
 }
