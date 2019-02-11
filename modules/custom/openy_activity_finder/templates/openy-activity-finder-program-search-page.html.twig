@@ -156,8 +156,9 @@
                   </div>
                   {# if we know that registration is available #}
                   <div v-if="item.availability_status == 'open'" class="col-md-3">
-                    <a :href="item.link" target="_blank" class="register-btn btn btn-primary btn-block" style="margin-bottom: 20px;">{{ 'Register'|t }}</a><br/>
-                    <span class="availability-note">${ item.availability_note }</span>
+                    <a :href="item.link" target="_blank" class="register-btn btn btn-primary btn-block" style="margin-bottom: 10px;">{{ 'Register'|t }}</a>
+                    <div v-if="item.availability_note" class="availability-note">${ item.availability_note }</div>
+                    <div v-if="item.spots_available" class="spots-availability">${ item.spots_available }</div>
                   </div>
                   {# if we know that registration is NOT available #}
                   <div v-if="item.availability_status == 'closed'" class="col-md-3">
@@ -168,13 +169,13 @@
                   <div class="col-md-4">
                     ${ item.dates }
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <div v-for="(item, index) in item.schedule">
                       <strong>${ item.time }</strong><br/>
                       ${ item.days }
                     </div>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                     <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
                   </div>
                   <div v-if="item.price.length > 0" v-html="item.price" class="col-md-3 item-price"></div>
@@ -255,6 +256,7 @@
                     </div>
                     <div v-if="moreInfoPopup.availability_status == 'open'" class="col-md-12">
                       <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Register'|t }}</a>
+                      ${ moreInfoPopup.spots_available }
                     </div>
                   </div>
                 </div>
