@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.social_post.field_platform
     - field.field.node.social_post.field_post
     - field.field.node.social_post.field_posted
+    - field.field.node.social_post.field_social_feed_link
     - field.field.node.social_post.field_sp_image
     - image.style.medium
     - node.type.social_post
@@ -86,4 +87,5 @@ content:
     weight: 100
     region: content
 hidden:
+  field_social_feed_link: true
   langcode: true

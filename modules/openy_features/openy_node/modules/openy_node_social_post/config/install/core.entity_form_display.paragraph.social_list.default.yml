@@ -7,7 +7,6 @@ dependencies:
     - field.field.paragraph.social_list.field_prgrf_sl_title
     - paragraphs.paragraphs_type.social_list
   module:
-    - content_moderation
     - plugin
     - text
 id: paragraph.social_list.default
