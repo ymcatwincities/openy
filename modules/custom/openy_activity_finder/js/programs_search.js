@@ -255,6 +255,7 @@
         status: '',
         price: '',
         link: '',
+        spots_available: '',
       },
       moreInfoPopup: {
         name: '',
@@ -431,6 +432,7 @@
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
           component.moreInfoPopup.link = component.table[index].link;
+          component.moreInfoPopup.spots_available = component.table[index].spots_available;
 
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;
