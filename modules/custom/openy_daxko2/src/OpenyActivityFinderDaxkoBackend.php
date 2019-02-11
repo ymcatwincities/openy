@@ -259,6 +259,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           'availability_note' => $availability_note,
           'link' => $register_link_with_tracking,
           'log_id' => $log_id,
+          'spots_available' => '',
         ];
       }
     }
