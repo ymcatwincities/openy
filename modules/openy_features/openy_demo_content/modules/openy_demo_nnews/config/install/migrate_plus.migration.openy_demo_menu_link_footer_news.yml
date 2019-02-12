@@ -6,7 +6,6 @@ dependencies:
       - openy_demo_nnews
 id: openy_demo_menu_link_footer_news
 migration_tags:
-  - 'Open Y Demo News'
   - openy_standard_installation
   - openy_extended_installation
   - openy_complete_installation
