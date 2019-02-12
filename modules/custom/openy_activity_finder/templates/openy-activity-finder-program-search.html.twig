@@ -180,7 +180,7 @@
                     {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    ${ table.count } {{ 'programs for:'|t }} ${ checkedStep1Filters }
+                    ${ table.count } {{ 'programs for:'|t }} ${ checkedStep2PrevFilters }
                     <span class="activity-finder__step_header--progress-spacer">|</span>
                     <a v-bind:href="afResultsRef + step_2_query">{{ 'View All'|t }}</a>
                   </span>
@@ -239,7 +239,7 @@
                     {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    ${ table.count } {{ 'programs for:'|t }} ${ checkedStep2Filters }
+                    ${ table.count } {{ 'programs for:'|t }} ${ checkedStep3PrevFilters }
                     <span class="activity-finder__step_header--progress-spacer">|</span>
                     <a v-bind:href="afResultsRef + step_3_query">{{ 'View Results'|t }}</a>
                   </span>
