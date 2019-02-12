@@ -7,8 +7,8 @@ dependencies:
     module:
       - openy_demo_nnews
 id: openy_demo_node_news
-migration_tags:
-  - 'Open Y Demo News'
+migration_tags: { }
+# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_nnews
 label: 'Import demo news posts'
 source:
@@ -23,6 +23,7 @@ source:
       image: 1
       promote: 1
       addthis: 1
+      branch: 1
       body: >
         <p>Fall has just arrived, but it is never too early to think about Camp
         for 2018. Since your child had the #BestSummerEver, what better time to
@@ -37,6 +38,7 @@ source:
       image: 2
       promote: 1
       addthis: 1
+      branch: 2
       body: >
         <ul>
         	<li><em>Only one in three lower income youth participate in out-of-school time or
@@ -89,6 +91,7 @@ source:
       image: 3
       promote: 1
       addthis: 1
+      branch: 3
       body: >
         <p>By Glen Gunderson</p>
         <p>Like many of you, my mind is spinning because of international, national and local events
@@ -134,6 +137,7 @@ source:
       image: 4
       promote: 1
       addthis: 1
+      branch: 4
       body: >
         <p>For many kids, summer is considered to be a magical time. Summer means potential, energy and time
         for unstructured play. Magnify that magic with Y summer camp programs!</p>
@@ -173,6 +177,7 @@ source:
       image: 5
       promote: 1
       addthis: 1
+      branch: 1
       body: >
         <p>Spending time around water can be relaxing and so much fun, but without the proper training,
         water can be deadly. Learning water safety skills can serve kids for their whole lives. Whether
@@ -203,6 +208,7 @@ source:
       image: 6
       promote: 1
       addthis: 1
+      branch: 2
       body: >
         <p><strong>September 15 to October 15 celebrate LatinX Heritage Month with the YMCA. Join free events across
         Greater Seattle.</strong></p>
@@ -236,6 +242,7 @@ source:
       image: 7
       promote: 1
       addthis: 1
+      branch: 3
       body: >
         <h3>Breathe, Stretch, Re-charge</h3>
         <p>Join instructor Jenny Leung as she helps you use yoga as a therapeutic antidote to stress: slowing
@@ -252,6 +259,191 @@ source:
           <li>Build mental, emotional and physical resilience</li>
         </ul>
         <p>All levels, including beginners new to yoga, welcome.</p>
+    -
+      id: 8
+      title: 'Five Ways to Be a Great Sports Parent'
+      created: '2019-02-11 12:06pm'
+      category: 5
+      related: null
+      image: 8
+      promote: 1
+      addthis: 1
+      branch: 4
+      body: >
+        <p><br>
+        Think you are raising the next LeBron James or Michael Phelps? Probably not, but parents’ behavior can
+        be a reason children stop wanting to play sports. Check out these five ways to be a great sports parent
+        to keep your child happy and playing.<br>
+        &nbsp;</p>
+        <ol><li><strong>HEALTHY COMPETITION IS GOOD; SUCCESS IS NOT JUST ABOUT WINNING!</strong> &nbsp;
+        Understand that competition is good. Sports is about learning to deal with challenges and obstacles,
+        and without the challenge, where is the fun? However, be sure you are teaching your child that their
+        opponent is not the enemy or someone to be hated and destroyed. Additionally, don’t judge your child
+        just by winning and losing standards. Sports is about doing the best you can do, separate from the play
+        of your opponent. Root for great performances and good plays, not just the winner!<br>
+        &nbsp;</li>
+        <li><strong>BE SUPPORTIVE, DON’T COACH!</strong> You need to be your child’s best fan … and that’s it!
+        Leave the coaching and instruction up to the coach. You are there to provide encouragement, support,
+        empathy, transportation, fund-raising and everything else!&nbsp;<br>
+        &nbsp;</li>
+        <li><strong>HELP MAKE THE </strong><strong>SPORT</strong><strong> FUN FOR YOUR CHILD. </strong>
+        Studies have shown over and over again that the more fun an athlete is having, the more they will
+        learn and perform. When a sport becomes too serious, athletes tend to burn out faster. Even highly
+        competitive programs have room for fun. If your child stops having fun and begins to dread practice,
+        find out what is going on. Is it the coaching, the pressure, teammates, could it be you?<br>
+        &nbsp;</li>
+        <li><strong>AVOID COMPARISONS!</strong> Supportive parents do not use other athletes, especially
+        those who their child competes with or against, to compare and evaluate their child’s progress.
+        Every child matures differently and the process of comparing can be inaccurate and hurtful.
+        Comparisons are useful only in a teaching manner, like showing proper technique.<br>
+        &nbsp;</li>
+        <li><strong>WHOSE GOAL IS IT?</strong> Why is your child participating in the sport?
+        Are they doing it because they want to - for themselves – or because of you? Many times a
+        young athlete is afraid they are going to disappoint a parent who is impassioned by the sport.
+        Make sure their goals and aspirations are THEIRS, not your dreams for them.</li>
+        </ol>
+    -
+      id: 9
+      title: 'Learning skills, developing character and making friends'
+      created: '2019-02-11 12:46pm'
+      category: 5
+      related: null
+      image: 9
+      promote: 1
+      addthis: 1
+      branch: 1
+      body: >
+        <p>At the heart of YMCA youth activities is learning skills, developing
+        character and making friends. But few program environments are as special
+        as summer day camp, where kids become a community as they learn both how to
+        be more independent and how to contribute to a group as they engage in physical,
+        social and educational activities.</p>
+        <p>Camping teaches self-reliance, a love for nature and the outdoors and the
+        development of attitudes and practices that build character and leadership—all
+        amidst the fun of songs, talent shows, crafts, games and grand
+        adventures.</p>
+        <p>Campers at our Magnuson Park location kicked off their summer with a memorable
+        visit from UW football players and wrapped up their summer searching for Sasquatch.
+        In between, our campers played new sports such as lacrosse and tennis, engaged in
+        STEM activities with LEGO Engineering and Robotics, learned to cook, ride a bike,
+        performed magic, and so much more. As summer 2018 comes to close and campers reflect
+        on their great adventures, we know the memories and friends they made will last a
+        lifetime.</p>
+    -
+      id: 10
+      title: 'Motivational Mondays'
+      created: '2019-02-11 1:16pm'
+      category: 5
+      related: null
+      image: 10
+      promote: 1
+      addthis: 1
+      branch: 2
+      body: >
+        <strong>1. Get Some Sleep</strong>
+        <p>You're never too old for a bedtime. Getting enough sleep is crucial for cognitive function
+        that helps you to make healthy decisions throughout the day.</p>
+        <strong>2. Love Your Workout</strong>
+        <p>It might sound like the opposite of a long bubble bath, but finding a workout that you love is
+        the key to taking really good care of yourself. Taking classes at the Y is a great way to find the
+        workout for you. Start with what you know and then build from there. Keep trying until you find the
+        class for you. Stay Motivated.</p>
+        <strong>3. Unplug</strong>
+        <p>It's no surprise that we spend a ton of time in front of computers, tablets, cell phones, and TVs.
+        Give your brain a break and do some analog hobbies. Try doodling, writing, reading, catching up
+        with friends IRL or crafting. Sitting in silence, meditation or yoga could be a great way of
+        unplugging as well.</p>
+        <strong>4. Eat Mindfully</strong>
+        <p>Eating well is one part what you eat, and part how you eat. For your body to be is most happy,
+        glowy, healthy self, eat whole foods—grains, vegetables and your protein of choice.
+        That's pretty basic nutrition. But have you considered how you eat? Eating undistracted,
+        as in not in front of the TV, scrolling through your phone, reading this blog or while working
+        at your desk. Eating undistracted is a great way to be a mindful eater and pay close attention
+        to the cues your body is giving you. Taking care of yourself largely relies on you listening to
+        your body's messages.</p>
+        <strong>5. Breathe</strong>
+        <p>Be mindful of your schedule and the time you have available to workout.
+        Some days you may have an hour to workout and other days you may only have 10 minutes
+        to work out. That’s okay! Stay motivated to move.</p>
+        <p>Take time to come back to your breath. Try inhaling for five
+        counts and exhaling for five counts three times.
+        Somedays will be easier than others. It is important to remember
+        to breathe through your day. Staying in in tune with yourself and
+        breathe can be done at any time of the day.</p>
+    -
+      id: 11
+      title: '5 Ways To Do Parents\’ Night Out'
+      created: '2019-02-11 1:23pm'
+      category: 5
+      related: null
+      image: 11
+      promote: 1
+      addthis: 1
+      branch: 3
+      body: >
+        <p>Parents\’ Night Out (PNO) is offered at branches across King and south Snohomish counties.
+        Whether you want to catch the newest movie in Bellevue, enjoy a romantic dinner in the University
+        District or catch up on chores at home, there’s a Y nearby.</p>
+        <p>If you need a little bit of date night inspiration, we've got you covered:</p>
+        <p><b>Around the World in a Single Yelp<</b></p>
+        <p>Pick a restaurant with high ratings that you've never been to before,
+        grab your friends or partner and enjoy something new!</p>
+        <p><b>Laundry &amp; Slow Jams</b></p>
+        <p>Who said laundry has to be a slog? Put on your favorite jams, light some candles,
+        put your drink in your cup and get to folding. All while knowing that your kids are
+        having fun while you make a night of catching up at home. </p>
+        <p><b>First Date Again</b></p>
+        <p>Take your partner for an evening celebrating your first date by doing it all over again!
+        Watch the same movie, or eat the same meal and remember the day that started it all.&nbsp;</p>
+        <p><b>Get Creative!</b></p>
+        <p>Sign up for a drop-in art class! Whether it's ceramics or a fun wine and paint night,
+        you can spend your free evening letting your creative juices flow. </p>
+        <p><b>Relax &amp; Recharge </b></p>
+        <p>The sweetest treat is a quiet house, a remote in hand, and dinner ordered in.
+        There's no shame in a quiet night at home to recharge and catch up on your favorite shows.
+        No arguing over the remote, no checking ratings, just you, and your TV full speed ahead. </p>
+        <p><strong>Parents' Night Out is a night of fun activities for kids,
+        what you do with your new free time is only limited by your imagination! </strong></p>
+    -
+      id: 12
+      title: 'Love Your Heart'
+      created: '2019-02-11 2:10pm'
+      category: 5
+      related: null
+      image: 12
+      promote: 1
+      addthis: 1
+      branch: 4
+      body: >
+        <h3><strong>Love and hearts&nbsp;</strong>often come to mind
+        at the mention February. During this month in American culture, we traditionally celebrate
+        Valentine’s Day on February 14th. February is also American Heart Month. Cardiovascular disease
+        is the leading cause of death in the United States; one in every three deaths is from heart disease
+        and stroke, equal to 2,200 deaths per day.</h3>
+        <p>This month at the Y we are highlighting ways to prevent heart disease and MOTIVATE you to get moving and
+        empower everyone to make heart-healthy choices.</p>
+        <p>Being physically active is important to prevent heart disease and stroke, the nation’s #1 and #5 killers.
+        We have compiled a list of 5 Things you can do to Get Moving prevent heart disease.</p>
+        <h1><strong>5 Things to Get You Moving</strong></h1>
+        <p>The American Heart Associate recommends thirty minutes a day of physical activity to
+        reduce the chance of heart disease and improve your cardiovascular health. This can include
+        a variety of activities that are included in your Y membership.&nbsp;</p>
+        <p><strong>1. Sign Up for a Personalized Wellness Plan at Member Services</strong>. This is a great
+        way to review your goals and create a plan to get moving to create lasting change and live a healthy
+        lifestyle.&nbsp;</p>
+        <p><strong>2. Go for a Walk!</strong> The simplest, positive change you can make to effectively improve your
+        heart health is to start walking. It's enjoyable, free, easy, social and great exercise. A walking program
+        is flexible and boasts high success rates because people can stick with it. It's easy for walking to become
+        a regular and satisfying part of life.</p>
+        <p><strong>3.</strong> <strong>Try a group fitness class at the Y!</strong> We offer classes for all levels!
+        Try a beginning boxing series, or a cardio hip hop class or cycling. These are just a few options, figure out
+        what you enjoy and get moving!</p>
+        <p><strong>4. Go Dancing!</strong> Plan a night to dance in your living room or at your favorite local spot.
+         Dancing is a great form of cardio that can get your heart rate up!</p>
+        <p><strong>5. Bring a friend or loved one to the Y!</strong> Your health begins with you, but your family and
+        community have a part in it as well. Communities, health professionals, and families can work together to
+        create opportunities for people to make healthier choices. Encourage your family and friends to attend the Y
+        with you to receive the knowledge and resources to live a healthy life.</p>
   ids:
     id:
       type: integer
@@ -312,6 +504,11 @@ process:
       plugin: migration
       migration: openy_demo_nnews_media_image
       source: image
+  field_news_location:
+    -
+      plugin: migration
+      migration: openy_demo_node_branch
+      source: branch
 destination:
   plugin: 'entity:node'
 migration_dependencies:
