@@ -29,6 +29,19 @@ source:
         <i>* please login as admin user</i>
         </p>
     -
+      id: swimming_banner
+      parent_id: swimming
+      headline: 'Swimming Lessons'
+      color: 14
+      image: swimming_banner
+      description: |
+        <p>
+        The YMCA has been America's leading swim instructor for more than 100 years and is the most accessible community resource for swimming lessons and water safety.
+        </p>
+        <p>
+        Swimmers who develop a love of the water and want further instruction can progress to the YMCA of Greater Brandywine's competitive swim teams.
+        </p>
+    -
       id: group_schedules
       parent_id: group_schedules
       headline: 'Group Schedules'
