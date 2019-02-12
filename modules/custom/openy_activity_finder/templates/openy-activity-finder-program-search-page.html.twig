@@ -42,7 +42,7 @@
         {# keywords #}
         <div class="form-group-wrapper schedule-dashboard__search--form">
           <input type="text" class="form-control col-md-9" v-model="keywords" placeholder="{{ 'Enter your keywords...'|t }}">
-          <button class="btn btn-primary col-md-3 rounded-0" v-on:click.stop.prevent="runAjaxRequest()">
+          <button class="btn btn-primary col-3 col-md-3 rounded-0" v-on:click.stop.prevent="runAjaxRequest()">
             {# Make customizable since carnation doesn't have glyphicons in v4. #}
             {% block search_icon %}
               <span class="fa fa-search" aria-label="Search"></span>
