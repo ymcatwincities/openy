@@ -23,12 +23,15 @@ function openy_node_alert_install() {
     "restful get alerts_rest_resource",
   ];
 
+  global $_openy_config_import_event;
+  $_openy_config_import_event = TRUE;
   foreach ($roles as $role) {
     foreach ($permissions as $permission) {
       $role->grantPermission($permission);
     }
     $role->save();
   }
+  $_openy_config_import_event = FALSE;
 }
 
 /**
