@@ -5,19 +5,6 @@
  * Openy Block install file.
  */
 
-function openy_block_install() {
-  $openy_upgrade_log_manager = \Drupal::service('openy_upgrade_log.manager');
-  $config_name = 'field.storage.block_content.field_block_content';
-  // If field_block_content already exist in system before module install.
-  // Update persist_with_no_fields key to TRUE.
-  $exist = $openy_upgrade_log_manager->loadByName($config_name);
-  if ($exist) {
-    // If field_block_content already exist in system before module install.
-    // Update persist_with_no_fields key to TRUE.
-    $openy_upgrade_log_manager->applyOpenyVersion($config_name);
-  }
-}
-
 /**
  * Fix shared field storage config issue (set persist_with_no_fields to TRUE).
  */
