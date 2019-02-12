@@ -1,0 +1,12 @@
+name: 'OpenY Paragraph Activity Finder'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - node
+  - openy_node_landing
+  - openy_prgf
+  - paragraphs
+  - plugin
+version: 8.x-1.0
