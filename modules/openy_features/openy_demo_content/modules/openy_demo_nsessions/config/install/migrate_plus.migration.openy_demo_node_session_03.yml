@@ -24,7 +24,7 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: true
-      age_min: 18
+      age_min: 216
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -42,8 +42,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 2
-      age_max: 5
+      age_min: 24
+      age_max: 60
       availability: 0
       price_member: 21
       price_nonmember: 27
@@ -61,8 +61,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 2
-      age_max: 5
+      age_min: 24
+      age_max: 60
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -80,8 +80,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 2
-      age_max: 5
+      age_min: 24
+      age_max: 60
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -99,8 +99,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 2
-      age_max: 5
+      age_min: 24
+      age_max: 60
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -118,8 +118,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 2
-      age_max: 5
+      age_min: 24
+      age_max: 60
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -137,8 +137,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: true
-      age_min: 2
-      age_max: 5
+      age_min: 24
+      age_max: 60
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -156,7 +156,7 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 2
+      age_min: 24
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -174,8 +174,8 @@ source:
       online_registration: false
       ticket_required: true
       in_membership: true
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -191,8 +191,8 @@ source:
       online_registration: false
       ticket_required: true
       in_membership: true
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -208,8 +208,8 @@ source:
       online_registration: false
       ticket_required: true
       in_membership: true
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -225,8 +225,8 @@ source:
       online_registration: false
       ticket_required: true
       in_membership: true
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -242,8 +242,8 @@ source:
       online_registration: false
       ticket_required: true
       in_membership: true
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -259,8 +259,8 @@ source:
       online_registration: false
       ticket_required: true
       in_membership: true
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
       availability: 16
       price_member: 21
       price_nonmember: 27
@@ -276,8 +276,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 7
-      age_max: 19
+      age_min: 84
+      age_max: 228
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -295,8 +295,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 13
-      age_max: 19
+      age_min: 156
+      age_max: 228
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -314,8 +314,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 13
-      age_max: 19
+      age_min: 156
+      age_max: 228
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -333,8 +333,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 13
-      age_max: 19
+      age_min: 156
+      age_max: 228
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -352,8 +352,8 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_min: 13
-      age_max: 19
+      age_min: 156
+      age_max: 228
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -371,7 +371,7 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: true
-      age_min: 5
+      age_min: 60
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -387,7 +387,7 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: true
-      age_min: 3
+      age_min: 36
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -403,7 +403,7 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: true
-      age_min: 6
+      age_min: 72
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -419,8 +419,8 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: true
-      age_min: 18
-      age_max: 9
+      age_min: 216
+      age_max: 108
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -436,7 +436,7 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: true
-      age_min: 3
+      age_min: 36
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -452,7 +452,7 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: true
-      age_min: 3
+      age_min: 36
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -468,7 +468,7 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: true
-      age_min: 6
+      age_min: 72
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -484,7 +484,7 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: false
-      age_max: 11
+      age_max: 132
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -502,8 +502,8 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 6
-      age_max: 12
+      age_min: 72
+      age_max: 144
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -522,7 +522,7 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 0
-      age_max: 99
+      age_max: 1200
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -541,7 +541,7 @@ source:
       ticket_required: true
       in_membership: true
       age_min: 0
-      age_max: 101
+      age_max: 1200
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -558,7 +558,7 @@ source:
       ticket_required: false
       in_membership: false
       age_min: 0
-      age_max: 99
+      age_max: 1200
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -610,8 +610,8 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
       availability: 26
       price_member: 210
       price_nonmember: 270
@@ -629,8 +629,8 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
       availability: 26
       price_member: 210
       price_nonmember: 270
