@@ -23,9 +23,10 @@ class Role extends ConfigEventIgnoreBase {
     // No need to track roles config customizations, on each website
     // they can be different.
     // TODO: We need to improve this part, for now we have one reason to track
-    // roles customization - in case Open Y openy_user hook_update user
-    // customization can be overridden, so let's leave default logic for now.
-    // Looks like the right decision is not use usual config import and update
+    // roles customization - in case of Open Y in the future will add a new
+    // hook_update in the openy_user module all customization
+    // can be overridden, so let's leave default logic for now.
+    // Looks like the right decision is not to use usual config import and update
     // existing configuration.
     return FALSE;
   }
