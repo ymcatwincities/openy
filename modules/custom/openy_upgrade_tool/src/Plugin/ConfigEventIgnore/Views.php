@@ -23,7 +23,7 @@ class Views extends ConfigEventIgnoreBase {
     return [
       // Ignore any cache_metadata changes.
       // Path to cache_metadata key can be different, so we need to use
-      // regexp for describe this rule.
+      // regexp to describe the rule.
       // Example - 'display.page_1.cache_metadata.contexts'.
       // Example - 'display.default.cache_metadata.tags'.
       [

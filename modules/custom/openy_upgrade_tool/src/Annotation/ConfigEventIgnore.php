@@ -7,10 +7,10 @@ use Drupal\Component\Annotation\Plugin;
 /**
  * Defines an config event ignore annotation object.
  *
- * Plugin Namespace: Plugin\ConfigEventIgnore
+ * Plugin Namespace: Plugin\ConfigEventIgnore.
  *
  * For a working example, see
- * \Drupal\openy_upgrade_tool\Plugin\ConfigEventIgnore\???
+ * \Drupal\openy_upgrade_tool\Plugin\ConfigEventIgnore\Views
  *
  * @see \Drupal\openy_upgrade_tool\Annotation\ConfigEventIgnore
  * @see \Drupal\openy_upgrade_tool\ConfigEventIgnoreBase

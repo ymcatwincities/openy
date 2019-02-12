@@ -14,7 +14,22 @@ use Drupal\Component\Plugin\PluginBase;
  */
 abstract class ConfigEventIgnoreBase extends PluginBase implements ConfigEventIgnorePluginInterface {
 
+  /**
+   * Regexp operator type.
+   *
+   * Intended for getRules method.
+   * In case using this operator, value item should contain regular expression.
+   *
+   * @see \Drupal\openy_upgrade_tool\Plugin\ConfigEventIgnore\Views
+   */
   const REGEXP_OPERATOR = 'regexp';
+
+  /**
+   * Equal operator type.
+   *
+   * Intended for getRules method.
+   * In case using this operator, value item should contain string for comparing.
+   */
   const EQUAL_OPERATOR = 'equal';
 
   /**
@@ -63,9 +78,10 @@ abstract class ConfigEventIgnoreBase extends PluginBase implements ConfigEventIg
    * Helper function for checking modified config keys.
    *
    * @param array $diff
+   *   Result from ConfigEventIgnorePluginManager::getModifiedKeys.
    *
    * @return bool
-   *   TRUE if we can ignore this changes.
+   *   TRUE if we can ignore these changes.
    */
   public function checkIgnoreDiffKeys(array $diff) {
     $result = [];
@@ -75,7 +91,7 @@ abstract class ConfigEventIgnoreBase extends PluginBase implements ConfigEventIg
       $ignore_key = FALSE;
       foreach ($rules as $rule) {
         if ($this->applyRule($config_key, $rule)) {
-          // If any of rules is suitable - ignore changes for this config key.
+          // If any of rules are suitable - ignore changes for this config key.
           $ignore_key = TRUE;
         }
       }
@@ -101,11 +117,12 @@ abstract class ConfigEventIgnoreBase extends PluginBase implements ConfigEventIg
       case self::EQUAL_OPERATOR:
       default:
         // Compare config key and value from rule, if they equal
-        // we can ignore this changes.
+        // we can ignore these changes.
         $ignore = $key == $rule['value'];
         break;
     }
 
     return $ignore;
   }
+
 }

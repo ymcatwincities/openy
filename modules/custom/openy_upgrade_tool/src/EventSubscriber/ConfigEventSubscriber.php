@@ -53,7 +53,7 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[ConfigEvents::SAVE][] = array('onSavingConfig', 800);
+    $events[ConfigEvents::SAVE][] = ['onSavingConfig', 800];
     return $events;
   }
 
@@ -90,13 +90,13 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
       // This config was updated outside Open Y profile.
       $ignore = $this->upgradeLogManager->validateConfigDiff($config);
       if ($ignore) {
-        // Skip tracking this changes according to ignore rules.
+        // Skip tracking these changes according to ignore rules.
         // @see Plugin/ConfigEventIgnore
         return;
       }
 
       if (!$this->hasDiffFromOpenY($updated, $config_name)) {
-        // No need to track customization if result config similar to OpenY
+        // No need to track customization if result config similar is to Open Y.
         return;
       }
 
@@ -113,7 +113,7 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Check diff with OpenY config version.
+   * Check diff with Open Y config version.
    *
    * @param array $updated
    *   Updated configuration data.
@@ -134,4 +134,5 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
 
     return !empty($diff);
   }
+
 }
