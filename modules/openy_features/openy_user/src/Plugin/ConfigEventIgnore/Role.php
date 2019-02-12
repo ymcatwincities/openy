@@ -22,7 +22,12 @@ class Role extends ConfigEventIgnoreBase {
   public function fullIgnore() {
     // No need to track roles config customizations, on each website
     // they can be different.
-    return TRUE;
+    // TODO: We need to improve this part, for now we have one reason to track
+    // roles customization - in case Open Y openy_user hook_update user
+    // customization can be overridden, so let's leave default logic for now.
+    // Looks like the right decision is not use usual config import and update
+    // existing configuration.
+    return FALSE;
   }
 
 }
