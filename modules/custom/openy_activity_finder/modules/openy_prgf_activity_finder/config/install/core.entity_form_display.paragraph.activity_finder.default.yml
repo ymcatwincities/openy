@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.activity_finder.field_prgf_af_results_ref
+    - field.field.paragraph.activity_finder.field_prgf_block
+    - field.field.paragraph.activity_finder.field_prgf_hide_loc_select_step
+    - field.field.paragraph.activity_finder.field_prgf_hide_program_categ
+    - paragraphs.paragraphs_type.activity_finder
+  module:
+    - content_moderation
+id: paragraph.activity_finder.default
+targetEntityType: paragraph
+bundle: activity_finder
+mode: default
+content:
+  field_prgf_af_results_ref:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_prgf_hide_loc_select_step:
+    weight: 1
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_prgf_hide_program_categ:
+    weight: 2
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 0
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_prgf_block: true
+  status: true
+  uid: true
