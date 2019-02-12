@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1d89e7fe5f1b3a9564464c34b208e8a",
+    "content-hash": "66206088aef6691e30dddfbbedd23068",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -2734,6 +2734,10 @@
                     "name": "See other contributors",
                     "homepage": "https://www.drupal.org/node/1943336/committers",
                     "role": "contributor"
+                },
+                {
+                    "name": "Drupal Media Team",
+                    "homepage": "https://www.drupal.org/user/3260690"
                 },
                 {
                     "name": "Primsi",
@@ -7575,7 +7579,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
