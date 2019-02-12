@@ -1,0 +1,101 @@
+/* Activity Finder Application */
+.activity-finder__wrapper {
+  margin-bottom: 3rem;
+}
+
+/* Activity Finder > Form (Step 1) */
+.program-search__form--title {
+  margin-top: 5rem;
+}
+
+.program-search__form {
+  margin-bottom: 3rem;
+}
+
+.program-search__form label {
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+
+.program-search__keywords {
+  padding: 10px;
+  flex: 1;
+}
+
+/* Activity Finder > Results */
+.field-prgf-af-results-ref {
+  display: none;
+}
+
+.field-prgf-hide-loc-select-step,
+.field-prgf-hide-program-categ,
+.field-prgf-af-page-ref,
+.field-prgf-af-results-ref {
+  display: none;
+}
+
+.activity-finder__step input[type="radio"] {
+  margin-right: 10px;
+}
+
+.item-price,
+.availability-note {
+  font-size: 13px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .activity-finder__step_header .start-over-wrapper {
+    position: fixed;
+    bottom: 27px;
+    left: 20px;
+    z-index: 3;
+  }
+}
+@media screen and (max-width: 767px) {
+  .activity-finder__step_header--actions .actions-buttons {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    z-index: 2;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .program-title {
+    margin-bottom: 15px;
+    display: block;
+  }
+}
+@media screen and (max-width: 767px) {
+  .availability-status-btn {
+    margin-bottom: 0 !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .register-btn {
+    margin-bottom: 0 !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .schedule-dashboard__modal--body {
+    padding: 0 30px;
+  }
+}
+
+.schedule-dashboard__modal--body .btn {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.schedules-data .spots-availability {
+  margin-bottom: 10px;
+}
