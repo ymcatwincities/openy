@@ -44,6 +44,9 @@ source:
     -
       id: join_three
       name: join_three.jpg
+    -
+      id: swimming_banner
+      name: swimming_banner.jpg
   ids:
     id:
       type: string
