@@ -108,7 +108,9 @@
 
               <div class="row">
                 {% for age in ages %}
+                  {% block af_col_1_row_class %}
                   <div class="col-xs-4 col-sm-6 col-md-4">
+                  {% endblock %}
                     <div class="openy-card__item">
                       <label for="af-age-filter-{{ age.value }}" class="justify-content-center" data-mh="openy-card__item-label--ages">
                         <input v-model="checkedAges" @change="toggleCardState" type="checkbox" value="{{ age.value }}" id="af-age-filter-{{ age.value }}" class="d-none hidden">
@@ -129,7 +131,9 @@
 
               <div class="row">
                 {% for day in days %}
+                  {% block af_col_2_row_class %}
                   <div class="col-xs-4 col-sm-6 col-md-4">
+                  {% endblock %}
                     <div class="openy-card__item">
                       <label for="af-day-filter-{{ day.value }}" class="justify-content-center" data-mh="openy-card__item-label--days">
                         <input v-model="checkedDays" @change="toggleCardState" type="checkbox" value="{{ day.value }}" id="af-day-filter-{{ day.value }}" class="d-none hidden">
