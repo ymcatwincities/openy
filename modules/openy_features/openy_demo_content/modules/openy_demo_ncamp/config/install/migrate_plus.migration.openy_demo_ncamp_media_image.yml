@@ -6,6 +6,7 @@ dependencies:
       - openy_demo_ncamp
 id: openy_demo_ncamp_media_image
 migration_tags: { }
+# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_ncamp
 label: Import demo blog camp images
 source:
