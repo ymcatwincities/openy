@@ -44,6 +44,7 @@ services:
       - '@config.manager'
       - '@config.factory'
       - '@renderer'
+      - '@plugin.manager.config_event_ignore'
       - '@event_dispatcher'
       - '@lock.persistent'
       - '@config.typed'
@@ -57,3 +58,6 @@ services:
   openy_upgrade_tool.config.storage.upgrade_log.revision:
     class: Drupal\openy_upgrade_tool\OpenyUpgradeToolRevisionStorage
     arguments: ['@database', 'openy_upgrade_log_revision']
+  plugin.manager.config_event_ignore:
+    class: Drupal\openy_upgrade_tool\ConfigEventIgnorePluginManager
+    parent: default_plugin_manager
