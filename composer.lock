@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2090ea0f2cbfd9dfbc2bdab2f7825af",
+    "content-hash": "66206088aef6691e30dddfbbedd23068",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -2734,6 +2734,10 @@
                     "name": "See other contributors",
                     "homepage": "https://www.drupal.org/node/1943336/committers",
                     "role": "contributor"
+                },
+                {
+                    "name": "Drupal Media Team",
+                    "homepage": "https://www.drupal.org/user/3260690"
                 },
                 {
                     "name": "Primsi",
@@ -6301,52 +6305,12 @@
             "type": "drupal-library"
         },
         {
-            "name": "library-dinbror/blazy",
-            "version": "1.8.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dinbror/blazy",
-                "reference": "1.8.2"
-            },
-            "type": "drupal-library"
-        },
-        {
-            "name": "library-enyo/dropzone",
-            "version": "5.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/enyo/dropzone",
-                "reference": "v5.5.0"
-            },
-            "type": "drupal-library"
-        },
-        {
-            "name": "library-gdsmith/jquery.easing",
-            "version": "1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gdsmith/jquery.easing",
-                "reference": "1.4.1"
-            },
-            "type": "drupal-library"
-        },
-        {
             "name": "library-jaypan/jquery_colorpicker",
             "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jaypan/jquery_colorpicker",
                 "reference": "da978ae124c57817021b3166a31881876882f5f9"
-            },
-            "type": "drupal-library"
-        },
-        {
-            "name": "library-kenwheeler/slick",
-            "version": "1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kenwheeler/slick",
-                "reference": "1.8.0"
             },
             "type": "drupal-library"
         },
@@ -6588,6 +6552,62 @@
                 "time"
             ],
             "time": "2014-05-13T02:29:30+00:00"
+        },
+        {
+            "name": "npm-asset/blazy",
+            "version": "1.8.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/blazy/-/blazy-1.8.2.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/dropzone",
+            "version": "5.5.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/dropzone/-/dropzone-5.5.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/jquery.easing",
+            "version": "1.4.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jquery.easing/-/jquery.easing-1.4.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "BSD-3-Clause"
+            ]
+        },
+        {
+            "name": "npm-asset/slick-carousel",
+            "version": "1.8.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/slick-carousel/-/slick-carousel-1.8.1.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "paragonie/random_compat",
@@ -7559,7 +7579,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
