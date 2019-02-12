@@ -8,3 +8,4 @@ dependencies:
   - block_content
   - field
   - text
+  - openy_upgrade_tool
