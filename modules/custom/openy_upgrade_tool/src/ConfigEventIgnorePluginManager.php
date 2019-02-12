@@ -107,6 +107,47 @@ class ConfigEventIgnorePluginManager extends DefaultPluginManager {
     return $ignore_plugin->checkIgnoreDiffKeys($diff_keys);
   }
 
+  /**
+   * Get modified keys from nested array.
+   *
+   * Example:
+   * array(
+   *   'parent1' => array(
+   *     'child1' => array(
+   *       'child1-1' => array(
+   *         'child1-1-1' => TRUE,
+   *         'child1-1-2' => TRUE,
+   *         'child1-1-3' => TRUE,
+   *        ),
+   *     ),
+   *   ),
+   *   'parent2' => array(
+   *     'child1' => TRUE,
+   *   ),
+   *   'parent3' => array(
+   *     'child1' => array(
+   *       'child1-1' => array(
+   *         'child1-1-1' => TRUE,
+   *        ),
+   *       'child2-1' => array(
+   *         'child2-1-1' => TRUE,
+   *        ),
+   *     ),
+   *   ),
+   * );
+   * Result:
+   * array(
+   *   'parent1.child1.child1-1',
+   *   'parent2.child1',
+   *   'parent3.child1',
+   * )
+   *
+   * @param array $diff
+   *   Result from DiffArray::diffAssocRecursive.
+   *
+   * @return array
+   *   List of modified keys.
+   */
   public function getModifiedKeys(array $diff) {
     $diff_keys = [];
     if (!empty($diff)) {
@@ -124,6 +165,29 @@ class ConfigEventIgnorePluginManager extends DefaultPluginManager {
     return $diff_keys;
   }
 
+  /**
+   * Get path to nested array child key until it has 1 child element.
+   *
+   * Example:
+   * array(
+   *   'parent' => array(
+   *     'child1' => array(
+   *       'child1-1' => array(
+   *         'child1-1-1' => TRUE,
+   *         'child1-1-2' => TRUE,
+   *         'child1-1-3' => TRUE,
+   *        ),
+   *     ),
+   *   ),
+   * );
+   * Result - 'parent.child1.child1-1'
+   *
+   * @param array $array
+   *   Config object.
+   *
+   * @return string
+   *   Path to array child key.
+   */
   public function getChildKey(array $array) {
     reset($array);
     $first_parent_key = key($array);

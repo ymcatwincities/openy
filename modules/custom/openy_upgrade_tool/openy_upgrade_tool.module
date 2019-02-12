@@ -57,5 +57,4 @@ function openy_upgrade_tool_preprocess_page(&$variables) {
       Please visit <a href=":url">Upgrade Tool Dashboard</a> page and follow the instructions.
     ', [':url' => $url]), 'warning');
   }
-
 }
