@@ -6,6 +6,7 @@ dependencies:
       - openy_demo_nbranch
 id: openy_demo_prgf_group_schedules
 migration_tags: {  }
+# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_nbranch
 label: 'Create Group Schedules (GroupEx Pro) paragraph(s) for demo branch page nodes'
 migration_dependencies: {  }
