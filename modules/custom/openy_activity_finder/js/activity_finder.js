@@ -45,8 +45,11 @@
       checkedCategories: [],
       checkedLocations: [],
       checkedStep1Filters: '',
+      checkedStep1PrevFilters: '',
       checkedStep2Filters: '',
+      checkedStep2PrevFilters: '',
       checkedStep3Filters: '',
+      checkedStep3PrevFilters: '',
       categories: {}
     },
     methods: {
@@ -85,14 +88,17 @@
         if (this.step == 2 && this.hideProgramStep == 1) {
           this.current_step = 2;
           this.step = 3;
+          this.checkFilters(2);
         }
         if (this.step == 2 && this.checkedProgramTypes.length === 0) {
           this.current_step = 3;
           this.step = 3;
+          this.checkFilters(2);
         }
         if (this.step == 3 && this.hideLocationStep == 1) {
           this.current_step = 2;
           this.step = 3;
+          this.checkFilters(2);
         }
         this.updateStepsViewAll(this.step);
         this.runAjaxRequest();
@@ -161,7 +167,8 @@
       },
       checkFilters: function(step) {
         var component = this,
-            filters = [];
+            filters = [],
+            prevFilters = [];
         switch (step) {
           case 0:
             component.isSearchSubmitDisabled = true;
@@ -200,6 +207,7 @@
                 component.checkedProgramTypes.length > 0 ? filters.push(component.checkedProgramTypes.join(', ')) : '';
               }
               component.checkedStep1Filters = filters.join(', ');
+              component.checkedStep2PrevFilters = component.checkedStep1Filters;
             }
             break;
           // Select Categories.
@@ -207,7 +215,6 @@
             component.checkedStep2Filters = '';
             component.isStep2NextDisabled = true;
             if (component.checkedCategories.length > 0) {
-
               component.isStep2NextDisabled = false;
               // Map ids to titles.
               var checkedMapCategories = [];
@@ -227,14 +234,15 @@
               filters.push(checkedMapCategories.join(', '));
               component.checkedStep2Filters = filters.join(', ');
             }
+            component.checkedStep1Filters ? prevFilters.push(component.checkedStep1Filters) : '';
+            component.checkedStep2Filters ? prevFilters.push(component.checkedStep2Filters) : '';
+            component.checkedStep3PrevFilters = prevFilters.join(', ');
             break;
           // Select Locations.
           case 3:
             component.checkedStep3Filters = '';
             component.isStep3NextDisabled = true;
-            if (
-              component.checkedLocations.length > 0) {
-
+            if (component.checkedLocations.length > 0) {
               component.isStep3NextDisabled = false;
 
               // Map ids to titles.
