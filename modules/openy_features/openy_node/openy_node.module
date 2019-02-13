@@ -61,7 +61,7 @@ function openy_node_form_system_site_information_settings_alter(&$form, FormStat
     '#default_value' => $view->status() ? 0 : 1,
   ];
 
-  $form['actions']['submit']['#submit'][] = 'openy_node_form_submit';
+  $form['#submit'][] = 'openy_node_form_submit';
 }
 
 /**
