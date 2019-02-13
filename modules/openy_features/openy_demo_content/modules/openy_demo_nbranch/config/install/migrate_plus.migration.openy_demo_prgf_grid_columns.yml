@@ -381,7 +381,7 @@ process:
     plugin: skip_if_bundle_not_exist
     method: row
     entity: paragraph
-    bundle: grid_content
+    bundle: grid_columns
 destination:
   plugin: 'entity:paragraph'
   default_bundle: grid_columns

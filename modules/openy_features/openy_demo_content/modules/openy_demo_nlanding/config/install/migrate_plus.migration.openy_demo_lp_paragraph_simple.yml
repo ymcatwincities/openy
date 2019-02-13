@@ -246,6 +246,46 @@ source:
         young person has the opportunity to be safe, successful and happy.
         </p>
         </div></div>
+    -
+      id: swimming_simple
+      parent_id: swimming
+      description: |
+        <div class="views-element-container">
+        <div class="categories-listing">
+        <div class="views-row">
+          <article role="article" about="/programs/swimming/swim-lessons" class="subprogram-listing-item clearfix row">
+            <div class="col-sm-7 title">
+              <h2><span>Swim Lessons</span>
+          </h2>
+            </div>
+            <div class="col-sm-5 image">
+              <a href="/programs/swimming/swim-lessons">
+                <div class="field-category-image"><div class="media media-image view-mode-node-program-subcategory-teaser">
+                <div class="blazy field-media-image" data-blazy="">
+                <div style="padding-bottom: 83.33%" class="media media--blazy media--loading media--ratio media--ratio--enforced media--image">
+                <img height="300" width="360" class="b-lazy media__image media__element" data-src="http://openy-af.docksal/sites/default/files/styles/node_program_subcategory_teaser/public/swim_lessons.jpg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" typeof="foaf:Image" />
+              </div>
+          </div>
+            </div>
+          </div>
+                </a>
+            </div>
+            <div class="col-sm-7 content">
+                      <div class="field-category-description"><p>
+          The Y is your source for progressive swim lessons for children and
+          adults. The Y's 8 different levels of instruction mean that your child
+          can begin with the most appropriate level of caring instruction. Adult
+          lessons are for beginning and intermediate level swimmers. Whether
+          you're just starting out or want to improve your stroke technique, your
+          instructor will focus on your specific goals.
+          </p>
+          </div>
+              <a href="/program-search" title="Swim Lessons" class="btn btn-link blue" aria-label="Swim Lessons read more">View Offerings</a>
+            </div>
+          </article>
+          </div>
+          </div>
+        </div>
   ids:
     id:
       type: string

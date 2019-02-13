@@ -7361,6 +7361,9 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
+.paragraph--type--prgf-location-finder {
+  margin-top: 40px;
+}
 .paragraph--type--prgf-location-finder .views-element-container {
   padding: 0;
 }
@@ -7779,17 +7782,6 @@ article .node--view-mode-flexible-content h2 a span {
     margin: 0.5em auto;
   }
 }
-.schedule-locations__wrapper {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-@media (min-width: 768px) {
-  .schedule-locations__wrapper {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-}
-
 .locations-header {
   align-items: flex-end;
   margin-bottom: 1rem;
@@ -7808,14 +7800,22 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
-.schedule-locations__item label {
+.openy-card__item label {
   border-color: #ccc;
   color: #4f4f4f;
 }
-.schedule-locations__item label.selected {
+
+.openy-card__item.selected label,
+.openy-card__item.selected:hover label,
+.openy-card__link:hover {
   color: white;
   border-color: #01A490;
   background: #01A490;
+}
+
+/* No results text. */
+.openy-card__item.no-results small {
+  color: #ed1c24;
 }
 
 .schedule-dashboard__sidebar {
@@ -7830,9 +7830,32 @@ article .node--view-mode-flexible-content h2 a span {
   color: #0060af;
 }
 
-.schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
-.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
-  background: #01A490;
+/*
+ * Due to SASS interpolation we cannot use variables in the background "fill" property unless we upgrade to BS4 and require its libraries.
+*/
+/* Checkbox > checkmark icon (default). */
+.schedule-dashboard__sidebar .checkboxes input + label:after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%230060af' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+  background-size: contain;
+}
+
+/* Material Icons + https://yoksel.github.io/url-encoder */
+.schedule-dashboard__sidebar .checkboxes .checkbox-partial input + label:after {
+  /* minus icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%230060af' d='M0 0h24v24H0V0z'/%3E%3Cpath fill='white' d='M19 13H5v-2h14v2z'/%3E%3C/svg%3E");
+}
+
+.schedule-dashboard__sidebar .checkboxes .checkbox-checked input + label:after {
+  /* checkmark icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%230060af' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+}
+
+.schedule-dashboard__sidebar .radios input + label:after {
+  background-color: #0060af;
+}
+
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
+  background-color: #0060af;
 }
 
 /* row striping */
@@ -8009,6 +8032,9 @@ article .node--view-mode-flexible-content h2 a span {
   font-family: Verdana, Geneva, sans-serif;
 }
 
+.paragraph--type--location-filter-by-amenities {
+  margin-top: 40px;
+}
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title {
   font-size: 16px;
 }
@@ -8114,7 +8140,6 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
-  margin: 0 0 20px 0;
   width: 100%;
 }
 .paragraph--type--lto .container {

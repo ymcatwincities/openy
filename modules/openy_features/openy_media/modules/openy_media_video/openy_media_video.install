@@ -39,10 +39,6 @@ function openy_media_video_update_8002() {
     'core.entity_form_display.media.video.default' => [
       'content',
     ],
-    'core.entity_view_display.media.video.default' => [
-      'content',
-      'hidden',
-    ],
     'core.entity_view_display.media.video.embedded_full' => [
       'content',
       'hidden',
@@ -59,10 +55,6 @@ function openy_media_video_update_8002() {
     'core.entity_view_display.media.video.teaser' => [
       'content',
       'hidden',
-    ],
-    'views.view.videos_library' => [
-      'display.default.cache_metadata.tags',
-      'display.videos_library.cache_metadata.tags',
     ],
   ];
 

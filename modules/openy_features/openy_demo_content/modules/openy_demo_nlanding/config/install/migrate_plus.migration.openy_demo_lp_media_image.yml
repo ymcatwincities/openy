@@ -55,6 +55,10 @@ source:
       id: join_three
       name: 'Join Three'
       file: join_three
+    -
+      id: swimming_banner
+      name: 'Swimming Lessons banner'
+      file: swimming_banner
   ids:
     id:
       type: string

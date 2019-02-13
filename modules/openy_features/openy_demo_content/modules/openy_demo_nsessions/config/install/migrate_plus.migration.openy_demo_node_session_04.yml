@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_nsessions
 id: openy_demo_node_session_04
-migration_tags: {  }
+migration_tags:
+  - openy_complete_installation
 migration_group: openy_demo_nsessions
 label: 'Create demo session nodes'
 source:
@@ -23,8 +24,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -39,8 +43,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -55,8 +62,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 12
-      age_max: 18
+      age_min: 144
+      age_max: 216
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -71,7 +81,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 50
+      age_min: 600
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -86,7 +99,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 50
+      age_min: 600
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -101,7 +117,7 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
+      age_min: 216
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -116,7 +132,7 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
+      age_min: 216
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -131,7 +147,7 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
+      age_min: 216
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -146,8 +162,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 10
-      age_max: 12
+      age_min: 120
+      age_max: 144
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -162,8 +181,11 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: false
-      age_min: 13
-      age_max: 18
+      age_min: 156
+      age_max: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
     -
       id: pilates_reformer_10_private_1hr_sessions_2
       title: 'Pilates Reformer - 10, private 1 hr sessions'
@@ -176,8 +198,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
-      age_max: 101
+      age_min: 216
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -192,8 +217,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
-      age_max: 101
+      age_min: 216
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -208,8 +236,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 16
-      age_max: 101
+      age_min: 192
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -224,8 +255,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
-      age_max: 101
+      age_min: 216
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -240,8 +274,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 13
-      age_max: 101
+      age_min: 156
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -256,7 +293,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
+      age_min: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -271,7 +311,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
+      age_min: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -286,7 +329,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
+      age_min: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -301,7 +347,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
+      age_min: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -316,7 +365,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
+      age_min: 60
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -331,7 +383,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
+      age_min: 60
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -346,7 +401,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -361,7 +419,10 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 18
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -376,7 +437,10 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: true
-      age_min: 18
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -391,7 +455,10 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: true
-      age_min: 18
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -406,7 +473,10 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: true
-      age_min: 18
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -421,7 +491,10 @@ source:
       online_registration: true
       ticket_required: true
       in_membership: true
-      age_min: 18
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -436,8 +509,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 13
+      age_min: 60
+      age_max: 156
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -452,8 +528,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -468,8 +547,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -484,8 +566,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -500,8 +585,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -516,8 +604,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -532,8 +623,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -548,8 +642,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -564,8 +661,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -580,8 +680,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 12
-      age_max: 15
+      age_min: 144
+      age_max: 180
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -596,8 +699,11 @@ source:
       online_registration: false
       ticket_required: false
       in_membership: false
-      age_min: 11
-      age_max: 17
+      age_min: 132
+      age_max: 204
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
     -
       id: bold_one_wk_expeditions_river_and_rocks_2
       title: 'BOLD Rivers and Rocks'
@@ -610,8 +716,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -626,8 +735,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 12
+      age_min: 60
+      age_max: 144
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -642,8 +754,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 13
-      age_max: 17
+      age_min: 156
+      age_max: 204
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -658,8 +773,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -674,8 +792,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -690,8 +811,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -706,8 +830,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -722,8 +849,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -738,8 +868,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -754,8 +884,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -770,8 +900,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -786,8 +916,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -802,8 +935,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -818,8 +954,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -834,8 +970,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -850,8 +986,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -866,8 +1005,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -882,8 +1021,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -898,8 +1037,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -914,8 +1056,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -930,8 +1072,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -946,8 +1091,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -962,8 +1107,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -978,8 +1123,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -994,8 +1139,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1010,8 +1158,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1026,8 +1174,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1042,8 +1190,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1058,8 +1206,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1074,8 +1225,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1090,8 +1241,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1106,8 +1260,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1122,8 +1276,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1138,8 +1295,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1154,8 +1311,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1170,8 +1327,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1186,8 +1343,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -1202,8 +1362,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1218,8 +1381,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1234,8 +1397,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1250,8 +1413,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1266,8 +1429,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1282,8 +1448,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1298,8 +1464,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1314,8 +1480,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1330,8 +1496,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1346,8 +1512,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1362,8 +1528,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -1378,8 +1547,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1394,8 +1566,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1410,8 +1582,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1426,8 +1598,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1442,8 +1614,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1458,8 +1630,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1474,8 +1646,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1490,8 +1662,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1506,8 +1681,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1522,8 +1697,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1538,8 +1713,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1554,8 +1729,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1570,8 +1748,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1586,8 +1764,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1602,8 +1780,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1618,8 +1799,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1634,8 +1815,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1650,8 +1834,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1666,8 +1850,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1682,8 +1866,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1698,8 +1885,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1714,8 +1901,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
 #    -
@@ -1730,8 +1917,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
     -
@@ -1746,8 +1933,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -1762,8 +1952,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -1778,8 +1971,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -1794,8 +1990,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -1810,8 +2009,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -1826,8 +2028,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -1842,8 +2047,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
     -
@@ -1858,8 +2066,11 @@ source:
       online_registration: true
       ticket_required: false
       in_membership: false
-      age_min: 5
-      age_max: 18
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
 #    -
@@ -1874,8 +2085,8 @@ source:
 #      online_registration: true
 #      ticket_required: false
 #      in_membership: false
-#      age_min: 5
-#      age_max: 18
+#      age_min: 60
+#      age_max: 216
 #      reg_uri: 'http://www.openymca.org'
 #      reg_title: 'Register Now'
   ids:
@@ -1921,6 +2132,9 @@ process:
   field_session_in_mbrsh: in_membership
   field_session_min_age: age_min
   field_session_max_age: age_max
+  field_availability: availability
+  field_session_mbr_price: price_member
+  field_session_nmbr_price: price_nonmember
   field_session_reg_link/uri: reg_uri
   field_session_reg_link/title: reg_title
   field_session_plocation: facility

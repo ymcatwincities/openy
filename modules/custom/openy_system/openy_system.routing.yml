@@ -92,6 +92,13 @@ openy_system.openy_terms_and_conditions:
   path: /admin/openy/terms-and-conditions
   defaults:
     _form: 'Drupal\openy\Form\TermsOfUseForm'
-    _title: 'Terms and conditions'
+    _title: 'Terms and Conditions'
   requirements:
-    _permission: 'access content'
+    _user_is_logged_in: 'TRUE'
+
+openy_system.terms:
+  path: '/terms.txt'
+  defaults:
+    _controller: '\Drupal\openy_system\Controller\TermsOfUseController::content'
+  requirements:
+    _access: 'TRUE'

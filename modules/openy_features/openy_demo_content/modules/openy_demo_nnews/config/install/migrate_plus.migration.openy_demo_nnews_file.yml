@@ -5,8 +5,8 @@ dependencies:
     module:
       - openy_demo_nnews
 id: openy_demo_nnews_file
-migration_tags:
-  - 'Open Y Demo News'
+migration_tags: { }
+# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_nnews
 label: 'Import demo news files'
 source:
@@ -33,6 +33,21 @@ source:
     -
       id: 7
       name: 7.jpg
+    -
+      id: 8
+      name: 8.jpg
+    -
+      id: 9
+      name: 9.jpg
+    -
+      id: 10
+      name: 10.jpg
+    -
+      id: 11
+      name: 11.jpg
+    -
+      id: 12
+      name: 12.jpg
   ids:
     id:
       type: integer
