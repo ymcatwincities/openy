@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Style Guide module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_style_guide_theme($existing, $type, $theme, $path) {
+  return [
+    'style_guide' => [
+      'variables' => [
+        'items' => [],
+        'active_theme' => [],
+      ],
+      'template' => 'style-guide',
+    ],
+  ];
+}
