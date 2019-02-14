@@ -630,7 +630,6 @@ body {
 .path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
-  background-color: #ffffff;
   padding-left: 0px;
   padding-right: 0px;
   margin: 0 auto;
@@ -645,7 +644,7 @@ body {
 .path-campaign-scorecards main[role="main"] .layout-content,
 .path-team-member-registration main[role="main"] .layout-content,
 .path-members-list main[role="main"] .layout-content {
-  background-color: inherit;
+  background-color: #ffffff;
   position: relative;
   margin-bottom: 100px;
   min-height: 500px;
