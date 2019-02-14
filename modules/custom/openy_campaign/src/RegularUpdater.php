@@ -154,6 +154,8 @@ class RegularUpdater {
         $endDate = $membersData[$item->member_id]['end_date'] < $endDate ? $endDate : $membersData[$item->member_id]['end_date'];
       }
 
+      $startDate->setTime(0, 0, 0);
+
       $membersData[$item->member_id] = [
         'member_id' => $item->member_id,
         'master_customer_id' => $item->personify_id,
