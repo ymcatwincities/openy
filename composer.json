@@ -32,6 +32,19 @@
         {
             "type": "package",
             "package": {
+                "name": "library-moment/luxon",
+                "version": "1.11.2",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/bran/luxon",
+                    "type": "git",
+                    "reference": "5d4f941f9a3c6d3e90ae4f9b7c27b0264a4d9bad"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "library-jaypan/jquery_colorpicker",
                 "version": "1.0.1",
                 "type": "drupal-library",
@@ -205,6 +218,7 @@
         "drupal/slick": "^2.0",
         "drupal/blazy": "^2.0",
         "drupal/geolocation": "^2.0",
+        "library-moment/luxon": "1.11.2",
         "library-jaypan/jquery_colorpicker": "1.0.1",
         "library-ckeditor/panelbutton": "4.10.1",
         "library-ckeditor/colorbutton": "4.10.1",

@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * Implements hook_requirements().
+ */
+function openy_hours_formatter_requirements($phase) {
+  $return = [];
+
+  if ($phase === 'runtime') {
+    $d = \Drupal::service('library.discovery');
+    $libraries = [
+      'luxon' => 'Luxon',
+    ];
+
+    foreach ($libraries as $name => $label) {
+      $library = $d->getLibraryByName('luxon', $name);
+      $severity = REQUIREMENT_OK;
+      foreach ($library['js'] as $js) {
+        if (!file_exists($js['data'])) {
+          $severity = REQUIREMENT_ERROR;
+          break;
+        }
+      }
+
+      $return["luxon_library_$name"] = [
+        'title' => t('@label library version', ['@label' => $label]),
+        'value' => ($severity == REQUIREMENT_OK) ? t('Available') : t('Not available'),
+        'severity' => $severity,
+      ];
+    }
+
+  }
+
+  return $return;
+}
