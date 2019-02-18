@@ -23,8 +23,8 @@ class OpenyStyleGuideController extends ControllerBase {
     /** @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage $storageManager */
     $storageManager = \Drupal::entityTypeManager()->getStorage('menu_link_content');
     $activeTheme = \Drupal::service('theme.manager')->getActiveTheme();
-
     $items = [];
+
     foreach ($entity_ids as $id) {
       $entity = $storageManager->load($id);
       $value = $entity->get('link')->getValue();
@@ -39,11 +39,9 @@ class OpenyStyleGuideController extends ControllerBase {
       ];
     }
 
-    function compareByTitle($a, $b){
-      return strcmp($a["title"], $b["title"]);
-    }
-
-    usort($items, 'compareByTitle');
+    usort($items, function ($a, $b){
+      return strcmp(strtolower ($a["title"]), strtolower($b["title"]));
+    });
 
     return [
       '#theme' => 'style_guide',

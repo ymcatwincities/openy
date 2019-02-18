@@ -10,7 +10,7 @@
           </tr>
           </thead>
           <tbody>
-          {% for key, item in items|sort %}
+          {% for key, item in items %}
             <tr>
               <th scope="row">{{ item.title}}</th>
               <td><a href="{{ item.link }}">View in {{ active_theme }}</a></td>
