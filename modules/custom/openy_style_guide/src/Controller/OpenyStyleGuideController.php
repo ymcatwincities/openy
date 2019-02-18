@@ -40,7 +40,7 @@ class OpenyStyleGuideController extends ControllerBase {
     }
 
     usort($items, function ($a, $b){
-      return strcmp(strtolower ($a["title"]), strtolower($b["title"]));
+      return strcmp(strtolower($a["title"]), strtolower($b["title"]));
     });
 
     return [
