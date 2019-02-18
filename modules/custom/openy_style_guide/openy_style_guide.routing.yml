@@ -1,0 +1,7 @@
+openy_style_guide.style_guide:
+  path: '/styleguide'
+  defaults:
+    _controller: '\Drupal\openy_style_guide\Controller\OpenyStyleGuideController::content'
+    _title: 'Style Guide page'
+  requirements:
+    _permission: 'access content'

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row my-3">
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">Component name</th>
+            <th scope="col">{{ active_theme }}</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for key, item in items|sort %}
+            <tr>
+              <th scope="row">{{ item.title}}</th>
+              <td><a href="{{ item.link }}">View in {{ active_theme }}</a></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
