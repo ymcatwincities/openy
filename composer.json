@@ -170,7 +170,7 @@
         "php": ">=5.6",
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
-        "drupal-composer/drupal-scaffold": "^2.5.0",
+        "drupal-composer/drupal-scaffold": "^2.4.0",
         "drupal/core": "~8.6.7",
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
