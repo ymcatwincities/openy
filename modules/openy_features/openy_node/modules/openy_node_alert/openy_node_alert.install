@@ -128,6 +128,14 @@ function openy_node_alert_update_8009() {
     'block.block.openy_lily_views_block__alerts_footer_alerts_local',
     'block.block.openy_lily_views_block__alerts_header_alerts',
     'block.block.openy_lily_views_block__alerts_header_alerts_local',
+    'block.block.openy_carnation_views_block__alerts_footer_alerts',
+    'block.block.openy_carnation_views_block__alerts_footer_alerts_local',
+    'block.block.openy_carnation_views_block__alerts_header_alerts',
+    'block.block.openy_carnation_views_block__alerts_header_alerts_local',
+    'block.block.openy_rose_views_block__alerts_footer_alerts',
+    'block.block.openy_rose_views_block__alerts_footer_alerts_local',
+    'block.block.openy_rose_views_block__alerts_header_alerts',
+    'block.block.openy_rose_views_block__alerts_header_alerts_local',
     'views.view.alerts',
   ];
   foreach ($configs_to_remove as $config) {
