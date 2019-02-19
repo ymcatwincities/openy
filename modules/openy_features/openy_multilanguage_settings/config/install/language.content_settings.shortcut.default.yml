@@ -11,5 +11,5 @@ third_party_settings:
 id: shortcut.default
 target_entity_type_id: shortcut
 target_bundle: default
-default_langcode: site_default
+default_langcode: und
 language_alterable: false

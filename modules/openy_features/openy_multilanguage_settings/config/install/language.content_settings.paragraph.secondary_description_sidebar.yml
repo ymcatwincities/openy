@@ -11,5 +11,5 @@ third_party_settings:
 id: paragraph.secondary_description_sidebar
 target_entity_type_id: paragraph
 target_bundle: secondary_description_sidebar
-default_langcode: site_default
-language_alterable: true
+default_langcode: und
+language_alterable: false

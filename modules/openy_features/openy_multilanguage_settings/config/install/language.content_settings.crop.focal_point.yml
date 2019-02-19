@@ -6,5 +6,5 @@ dependencies:
 id: crop.focal_point
 target_entity_type_id: crop
 target_bundle: focal_point
-default_langcode: site_default
+default_langcode: und
 language_alterable: false

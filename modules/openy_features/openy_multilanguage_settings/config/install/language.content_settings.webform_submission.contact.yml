@@ -6,5 +6,5 @@ dependencies:
 id: webform_submission.contact
 target_entity_type_id: webform_submission
 target_bundle: contact
-default_langcode: site_default
+default_langcode: und
 language_alterable: false

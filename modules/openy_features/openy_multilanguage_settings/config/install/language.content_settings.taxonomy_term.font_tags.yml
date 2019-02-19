@@ -11,5 +11,5 @@ third_party_settings:
 id: taxonomy_term.font_tags
 target_entity_type_id: taxonomy_term
 target_bundle: font_tags
-default_langcode: site_default
+default_langcode: und
 language_alterable: false

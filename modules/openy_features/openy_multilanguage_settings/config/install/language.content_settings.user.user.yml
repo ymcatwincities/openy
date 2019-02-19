@@ -10,5 +10,5 @@ third_party_settings:
 id: user.user
 target_entity_type_id: user
 target_bundle: user
-default_langcode: site_default
+default_langcode: und
 language_alterable: false

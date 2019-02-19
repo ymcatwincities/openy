@@ -6,5 +6,5 @@ dependencies:
 id: content_moderation_state.content_moderation_state
 target_entity_type_id: content_moderation_state
 target_bundle: content_moderation_state
-default_langcode: site_default
+default_langcode: und
 language_alterable: false

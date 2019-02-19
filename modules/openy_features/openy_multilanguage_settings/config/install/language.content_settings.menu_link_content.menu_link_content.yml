@@ -10,5 +10,5 @@ third_party_settings:
 id: menu_link_content.menu_link_content
 target_entity_type_id: menu_link_content
 target_bundle: menu_link_content
-default_langcode: site_default
+default_langcode: und
 language_alterable: false

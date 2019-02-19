@@ -6,5 +6,5 @@ dependencies:
 id: file.file
 target_entity_type_id: file
 target_bundle: file
-default_langcode: site_default
+default_langcode: und
 language_alterable: false
