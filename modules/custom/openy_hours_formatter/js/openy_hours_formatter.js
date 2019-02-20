@@ -35,16 +35,16 @@
      * See https://moment.github.io/luxon/docs/manual/formatting.
      * @returns {string}
      */
-    getDayOfWeek() {
-      return luxon.DateTime.local().setZone('America/Los_Angeles').toFormat('c');
+    getDayOfWeek(tz) {
+      return luxon.DateTime.local().setZone(tz).toFormat('c');
     },
 
     /**
      * See https://moment.github.io/luxon/docs/manual/formatting.
      * @returns {string}
      */
-    getDate() {
-      return luxon.DateTime.local().setZone('America/Los_Angeles').toFormat('yyyy-LL-dd');
+    getDate(tz) {
+      return luxon.DateTime.local().setZone(tz).toFormat('yyyy-LL-dd');
     },
 
     /**
@@ -54,6 +54,7 @@
       var $todayHours = $('.today-hours > .today');
       var hoursData = [];
       var branchHours = drupalSettings.openy_hours_formatter.branch_hours || [];
+      var tz = drupalSettings.openy_hours_formatter.tz;
 
       // Prioritize these arbitrary hours names first.
       ['branch_hours', 'center_hours', 'open_hours', 'before_school_enrichment'].reverse().forEach(function(name) {
@@ -67,8 +68,8 @@
       }
 
       if (hoursData.length) {
-        var todayString = this.getDate();
-        var dayOfWeek = this.getDayOfWeek();
+        var todayString = this.getDate(tz);
+        var dayOfWeek = this.getDayOfWeek(tz);
         dayOfWeek--;
         var hours = hoursData;
         var exceptions = []; // Holidays and other day exceptions will come later.
@@ -82,6 +83,12 @@
       }
     },
 
+    /**
+     * Drupal behavior attach.
+     *
+     * @param context
+     * @param settings
+     */
     attach: function (context, settings) {
 
       var $todayHours = $('.today-hours > .today');
