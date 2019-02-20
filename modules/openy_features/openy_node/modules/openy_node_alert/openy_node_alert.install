@@ -119,6 +119,8 @@ function openy_node_alert_update_8007() {
  * Update permissions. Remove old configs.
  */
 function openy_node_alert_update_8009() {
+  // Enable modules one more time if 8007 already performed on site.
+  \Drupal::service('module_installer')->install(['rest', 'hal', 'serialization']);
   $configs_to_remove = [
     'block.block.views_block__alerts_footer_alerts',
     'block.block.views_block__alerts_footer_alerts_local',
