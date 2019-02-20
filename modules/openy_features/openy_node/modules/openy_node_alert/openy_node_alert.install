@@ -126,20 +126,19 @@ function openy_node_alert_update_8009() {
     'block.block.views_block__alerts_footer_alerts_local',
     'block.block.views_block__alerts_header_alerts',
     'block.block.views_block__alerts_header_alerts_local',
-    'block.block.openy_lily_views_block__alerts_footer_alerts',
-    'block.block.openy_lily_views_block__alerts_footer_alerts_local',
-    'block.block.openy_lily_views_block__alerts_header_alerts',
-    'block.block.openy_lily_views_block__alerts_header_alerts_local',
-    'block.block.openy_carnation_views_block__alerts_footer_alerts',
-    'block.block.openy_carnation_views_block__alerts_footer_alerts_local',
-    'block.block.openy_carnation_views_block__alerts_header_alerts',
-    'block.block.openy_carnation_views_block__alerts_header_alerts_local',
-    'block.block.openy_rose_views_block__alerts_footer_alerts',
-    'block.block.openy_rose_views_block__alerts_footer_alerts_local',
-    'block.block.openy_rose_views_block__alerts_header_alerts',
-    'block.block.openy_rose_views_block__alerts_header_alerts_local',
-    'views.view.alerts',
   ];
+  // Prepare list of alert block configs to remove for currently installed themes.
+  /** @var \Drupal\Core\Extension\ThemeHandlerInterface $theme_handler */
+  $theme_handler = \Drupal::service('theme_handler');
+  $list = $theme_handler->listInfo();
+  foreach ($list as $theme => $info) {
+    $configs_to_remove[] = 'block.block.' . $theme . '_views_block__alerts_footer_alerts';
+    $configs_to_remove[] = 'block.block.' . $theme . '_views_block__alerts_footer_alerts_local';
+    $configs_to_remove[] = 'block.block.' . $theme . '_views_block__alerts_header_alerts';
+    $configs_to_remove[] = 'block.block.' . $theme . '_views_block__alerts_header_alerts_local';
+  }
+  $configs_to_remove[] = 'views.view.alerts';
+
   foreach ($configs_to_remove as $config) {
     \Drupal::configFactory()->getEditable($config)->delete();
   }
