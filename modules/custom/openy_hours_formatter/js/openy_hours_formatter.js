@@ -68,8 +68,8 @@
       }
 
       if (hoursData.length) {
-        var todayString = this.getDate(tz);
-        var dayOfWeek = this.getDayOfWeek(tz);
+        var todayString = Drupal.behaviors.today_hours.getDate(tz);
+        var dayOfWeek = Drupal.behaviors.today_hours.getDayOfWeek(tz);
         dayOfWeek--;
         var hours = hoursData;
         var exceptions = []; // Holidays and other day exceptions will come later.
