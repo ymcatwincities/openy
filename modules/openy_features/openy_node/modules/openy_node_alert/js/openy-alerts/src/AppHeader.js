@@ -96,9 +96,10 @@ class App extends Component {
                   className="slick-prev slick-arrow"
                   role="button"
                   aria-disabled="true"
+                  aria-label="Previous alert message"
                   onClick={this.previous}
                 >
-                  Previous
+                  Previous alert message
                 </a>
                 <a
                   href="#next"
@@ -106,9 +107,10 @@ class App extends Component {
                   className="slick-next slick-arrow"
                   role="button"
                   aria-disabled="false"
+                  aria-label="Next alert message"
                   onClick={this.next}
                 >
-                  Next
+                  Next alert message
                 </a>
               </div>
             )}
