@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - hal
+    - openy_style_guide
+    - serialization
+    - user
+id: style_guide_rest_resource
+plugin_id: style_guide_rest_resource
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - hal_json
+    - json
+  authentication:
+    - cookie
