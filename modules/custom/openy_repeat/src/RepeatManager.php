@@ -120,6 +120,8 @@ class RepeatManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getSessionData(NodeInterface $session) {
+    $config = \Drupal::config('openy_repeat.settings');
+
     $moderation_wrapper = Drupal::service('openy_moderation_wrapper.entity_moderation_status');
 
     // Skip session with empty location reference.
@@ -157,20 +159,29 @@ class RepeatManager implements SessionInstanceManagerInterface {
       // Program Subcategory reference.
       if (!$activity->field_activity_category->isEmpty() && $program_subcategory = $activity->field_activity_category->referencedEntities()) {
         $program_subcategory = reset($program_subcategory);
-        // TODO: YGTC requires unpublished session. Fix it.
-        if (FALSE && !$moderation_wrapper->entity_moderation_status($program_subcategory)) {
-          // Skip activity due to unpublished program subcategory.
-          continue;
+
+        // Some instances may require unpublished references.
+        // Do not skip program subcategory in that case.
+        if (!$config->get('allow_unpublished_references')) {
+          if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
+            // Skip activity due to unpublished program subcategory.
+            continue;
+          }
         }
 
         // Program reference.
         if ($program = $program_subcategory->field_category_program->referencedEntities()) {
           $program = reset($program);
-          // TODO: YGTC requires unpublished session. Fix it.
-          if (FALSE && !$moderation_wrapper->entity_moderation_status($program)) {
-            // Skip activity due to unpublished program.
-            continue;
+
+          // Some instances may require unpublished references.
+          // Do not skip program in that case.
+          if (!$config->get('allow_unpublished_references')) {
+            if (!$moderation_wrapper->entity_moderation_status($program)) {
+              // Skip activity due to unpublished program.
+              continue;
+            }
           }
+
           $activity_ids[] = $activity->id();
           $program_subcategory_ids[] = $program_subcategory->id();
           $program_ids[] = $program->id();
