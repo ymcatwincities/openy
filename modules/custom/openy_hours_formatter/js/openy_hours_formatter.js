@@ -51,10 +51,14 @@
      * Primary method for updating the today hours.
      */
     updateTodayHours() {
+      if (typeof drupalSettings.openy_hours_formatter != 'undefined') {
+        drupalSettings.openy_hours_formatter = {};
+      }
+
       var $todayHours = $('.today-hours > .today');
       var hoursData = [];
       var branchHours = drupalSettings.openy_hours_formatter.branch_hours || [];
-      var tz = drupalSettings.openy_hours_formatter.tz;
+      var tz = drupalSettings.openy_hours_formatter.tz || 'America/New York';
 
       // Prioritize these arbitrary hours names first.
       ['branch_hours', 'center_hours', 'open_hours', 'before_school_enrichment'].reverse().forEach(function(name) {
