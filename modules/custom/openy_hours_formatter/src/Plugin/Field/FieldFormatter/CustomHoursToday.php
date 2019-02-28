@@ -25,7 +25,6 @@ class CustomHoursToday extends CustomHoursFormatterDefault {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $lazy_hours = [];
-
     $js_settings = [];
 
     foreach ($items as $delta => $item) {
