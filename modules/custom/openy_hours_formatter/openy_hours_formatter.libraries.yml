@@ -14,4 +14,4 @@ openy_hours_formatter.luxon:
     url: https://github.com/moment/luxon/blob/master/license.md
     gpl-compatible: true
   js:
-    /libraries/luxon/build/global/luxon.min.js: { minified: true }
+    js/luxon/luxon.min.js: { minified: true }
