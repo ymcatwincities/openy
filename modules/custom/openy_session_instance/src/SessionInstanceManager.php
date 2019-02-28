@@ -12,6 +12,7 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\node\NodeInterface;
 use Drupal\openy_session_instance\Entity\SessionInstance;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Created by PhpStorm.
@@ -57,13 +58,21 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
   protected $logger;
 
   /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Constructor.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryFactory $entity_query, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryFactory $entity_query, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $configFactory) {
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get(self::CHANNEL);
     $this->storage = $this->entityTypeManager->getStorage(self::STORAGE);
+    $this->configFactory = $configFactory;
   }
 
   /**
@@ -335,9 +344,11 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
     $this->deleteSessionInstancesBySession($node);
 
     // It's not published.
-    // @todo YGTC requires unpublished session. Fix it.
-    if (FALSE && !$node->isPublished()) {
-      // return;
+    // Some OpenY instances may require unpublished references.
+    if (!$this->configFactory->get('openy_session_instance')->get('allow_unpublished_references')) {
+      if (!$node->isPublished()) {
+        return;
+      }
     }
 
     // The session isn't complete or the chain is broken.
