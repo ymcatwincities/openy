@@ -7597,17 +7597,28 @@ article .node--view-mode-flexible-content h2 a span {
   font-size: 30px;
   padding-right: 10px;
 }
-.node--type-event .location-link a:hover,
-.node--type-event .field-event-location a:hover {
+.node--type-event .location-link a:hover {
   text-decoration: underline !important;
 }
-.node--type-event .location-link:before,
-.node--type-event .field-event-location:before {
+.node--type-event .location-link:before {
   content: "\f041";
   font-family: 'FontAwesome';
   font-size: 30px;
   padding-right: 10px;
   color: #5c2e91;
+}
+.node--type-event .event-image {
+  min-height: 237px;
+}
+@media (max-width: 1200px) {
+  .node--type-event .event-image {
+    min-height: 190px;
+  }
+}
+@media (max-width: 992px) {
+  .node--type-event .event-image {
+    min-height: 247px;
+  }
 }
 .node--type-event.node--view-mode-full .field-event-location {
   border-radius: 8px;
@@ -7685,6 +7696,9 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .node--type-event.node--view-mode-teaser .field-event-image img {
   display: inline-block;
+  width: 100%;
+  max-width: 266px;
+  height: auto;
 }
 .node--type-event.node--view-mode-teaser h2 {
   margin: 10px 0 5px;
@@ -7847,7 +7861,7 @@ article .node--view-mode-flexible-content h2 a span {
 }
 
 .schedule-dashboard__sidebar .checkboxes .checkbox-checked input + label:after {
-  /* checkmark icon */
+  /* plus icon */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%230060af' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
 }
 

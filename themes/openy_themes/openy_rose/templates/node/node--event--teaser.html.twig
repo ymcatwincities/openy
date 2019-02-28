@@ -86,7 +86,9 @@ view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
       <div class="event-month">{{ node.field_event_dates.value|date('M') }}</div>
     </div>
 
-    {{ content.field_event_image }}
+    <div class="event-image">
+      {{ content.field_event_image }}
+    </div>
 
     {{ title_prefix }}
     <h2{{ title_attributes }}>
