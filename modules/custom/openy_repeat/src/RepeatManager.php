@@ -13,6 +13,7 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\node\NodeInterface;
 use Drupal\openy_repeat_entity\Entity\Repeat;
 use Drupal\openy_session_instance\SessionInstanceManagerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Created by PhpStorm.
@@ -58,13 +59,29 @@ class RepeatManager implements SessionInstanceManagerInterface {
   protected $logger;
 
   /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * OpenY Repeat config.
+   *
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  protected $config;
+
+  /**
    * Constructor.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryFactory $entity_query, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryFactory $entity_query, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $configFactory) {
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get(self::CHANNEL);
     $this->storage = $this->entityTypeManager->getStorage(self::STORAGE);
+    $this->configFactory = $configFactory;
+    $this->config = $this->configFactory->get('openy_repeat.settings');
   }
 
   /**
@@ -157,20 +174,29 @@ class RepeatManager implements SessionInstanceManagerInterface {
       // Program Subcategory reference.
       if (!$activity->field_activity_category->isEmpty() && $program_subcategory = $activity->field_activity_category->referencedEntities()) {
         $program_subcategory = reset($program_subcategory);
-        // TODO: YGTC requires unpublished session. Fix it.
-        if (FALSE && !$moderation_wrapper->entity_moderation_status($program_subcategory)) {
-          // Skip activity due to unpublished program subcategory.
-          continue;
+
+        // Some instances may require unpublished references.
+        // Do not skip program subcategory in that case.
+        if (!$this->config->get('allow_unpublished_references')) {
+          if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
+            // Skip activity due to unpublished program subcategory.
+            continue;
+          }
         }
 
         // Program reference.
         if ($program = $program_subcategory->field_category_program->referencedEntities()) {
           $program = reset($program);
-          // TODO: YGTC requires unpublished session. Fix it.
-          if (FALSE && !$moderation_wrapper->entity_moderation_status($program)) {
-            // Skip activity due to unpublished program.
-            continue;
+
+          // Some instances may require unpublished references.
+          // Do not skip program in that case.
+          if (!$this->config->get('allow_unpublished_references')) {
+            if (!$moderation_wrapper->entity_moderation_status($program)) {
+              // Skip activity due to unpublished program.
+              continue;
+            }
           }
+
           $activity_ids[] = $activity->id();
           $program_subcategory_ids[] = $program_subcategory->id();
           $program_ids[] = $program->id();
@@ -453,9 +479,11 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $this->deleteSessionInstancesBySession($node);
 
     // It's not published.
-    // @todo YGTC requires unpublished session. Fix it.
-    if (FALSE && !$node->isPublished()) {
-      return;
+    // Some OpenY instances may require unpublished references.
+    if (!$this->config->get('allow_unpublished_references')) {
+      if (!$node->isPublished()) {
+        return;
+      }
     }
 
     // The session isn't complete or the chain is broken.
