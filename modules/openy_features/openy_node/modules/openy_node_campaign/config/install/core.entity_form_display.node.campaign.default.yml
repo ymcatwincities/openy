@@ -58,6 +58,7 @@ dependencies:
     - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
+    - field.field.node.campaign.field_where_are_you_from_group
     - image.style.thumbnail
     - node.type.campaign
   module:
@@ -168,6 +169,7 @@ third_party_settings:
         - field_login_not_registered
         - field_login_checkins_not_started
         - field_successful_login
+        - group_extended_registration
       parent_name: group_campaign_customization
       weight: 22
       format_type: details
@@ -242,6 +244,20 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Campaign Pages'
+    group_extended_registration:
+      children:
+        - field_campaign_ext_registration
+        - field_where_are_you_from_group
+      parent_name: group_login_messages
+      weight: 33
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Extended registration'
 id: node.campaign.default
 targetEntityType: node
 bundle: campaign
@@ -540,7 +556,7 @@ content:
     type: number
     region: content
   field_login_checkins_not_started:
-    weight: 33
+    weight: 34
     settings:
       rows: 2
       placeholder: ''
@@ -603,7 +619,7 @@ content:
     type: text_textarea
     region: content
   field_successful_login:
-    weight: 34
+    weight: 35
     settings:
       rows: 2
       placeholder: ''
@@ -661,6 +677,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
+  field_where_are_you_from_group:
+    weight: 62
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   langcode:
     type: language_select

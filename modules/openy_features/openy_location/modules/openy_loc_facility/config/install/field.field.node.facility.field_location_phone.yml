@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_location_phone
     - node.type.facility
   module:
+    - datalayer
     - telephone
 third_party_settings:
   datalayer:

@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.facility.field_location_phone
     - field.field.node.facility.field_meta_tags
     - field.field.node.facility.field_sidebar_content
+    - field.field.node.facility.field_where_are_you_from_group
     - node.type.facility
   module:
     - address
@@ -23,13 +24,32 @@ dependencies:
     - metatag
     - telephone
     - user
+    - views_field_formatter
 id: node.facility.default
 targetEntityType: node
 bundle: facility
 mode: default
 content:
+  addthis:
+    label: hidden
+    type: views_field_formatter
+    weight: 1
+    region: content
+    settings:
+      view: ''
+      arguments:
+        field_value:
+          checked: true
+        entity_id:
+          checked: true
+        delta:
+          checked: true
+      hide_empty: false
+      multiple: false
+      implode_character: ''
+    third_party_settings: {  }
   field_content:
-    weight: 110
+    weight: 9
     label: above
     settings:
       view_mode: default
@@ -38,7 +58,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   field_facility_loc:
-    weight: 113
+    weight: 12
     label: above
     settings:
       view_mode: teaser
@@ -47,7 +67,7 @@ content:
     type: entity_reference_entity_view
     region: content
   field_facility_type:
-    weight: 102
+    weight: 3
     label: above
     settings:
       link: true
@@ -55,14 +75,14 @@ content:
     type: entity_reference_label
     region: content
   field_location_address:
-    weight: 103
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
   field_location_area:
-    weight: 101
+    weight: 2
     label: above
     settings:
       link: true
@@ -70,14 +90,14 @@ content:
     type: entity_reference_label
     region: content
   field_location_coordinates:
-    weight: 112
+    weight: 11
     label: above
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
     region: content
   field_location_directions:
-    weight: 109
+    weight: 8
     label: above
     settings:
       trim_length: 80
@@ -89,14 +109,14 @@ content:
     type: link
     region: content
   field_location_email:
-    weight: 108
+    weight: 7
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_location_fax:
-    weight: 107
+    weight: 6
     label: above
     settings:
       title: ''
@@ -104,7 +124,7 @@ content:
     type: telephone_link
     region: content
   field_location_phone:
-    weight: 106
+    weight: 5
     label: above
     settings:
       title: ''
@@ -112,7 +132,7 @@ content:
     type: telephone_link
     region: content
   field_meta_tags:
-    weight: 114
+    weight: 13
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -120,7 +140,7 @@ content:
     region: content
   field_sidebar_content:
     type: entity_reference_revisions_entity_view
-    weight: 111
+    weight: 10
     label: above
     settings:
       view_mode: default
@@ -128,9 +148,10 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
+  field_where_are_you_from_group: true
   langcode: true
