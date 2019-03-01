@@ -58,7 +58,6 @@ dependencies:
     - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
-    - field.field.node.campaign.field_where_are_you_from_group
     - node.type.campaign
   module:
     - datetime
@@ -458,6 +457,5 @@ hidden:
   field_pause_campaign: true
   field_token_register_link_text: true
   field_utilization_activities: true
-  field_where_are_you_from_group: true
   langcode: true
   links: true

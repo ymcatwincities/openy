@@ -58,7 +58,6 @@ dependencies:
     - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
-    - field.field.node.campaign.field_where_are_you_from_group
     - image.style.thumbnail
     - node.type.campaign
   module:
@@ -169,9 +168,8 @@ third_party_settings:
         - field_login_not_registered
         - field_login_checkins_not_started
         - field_successful_login
-        - group_extended_registration
       parent_name: group_campaign_customization
-      weight: 22
+      weight: 21
       format_type: details
       format_settings:
         id: ''
@@ -247,14 +245,12 @@ third_party_settings:
     group_extended_registration:
       children:
         - field_campaign_ext_registration
-        - field_where_are_you_from_group
-      parent_name: group_login_messages
-      weight: 33
-      format_type: tab
+      parent_name: ''
+      weight: 23
+      format_type: fieldset
       format_settings:
         id: ''
         classes: ''
-        formatter: closed
         description: ''
         required_fields: true
       label: 'Extended registration'
@@ -318,7 +314,7 @@ content:
     type: number
     region: content
   field_campaign_ext_registration:
-    weight: 61
+    weight: 22
     settings:
       display_label: true
     third_party_settings: {  }
@@ -595,7 +591,7 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_reg_already_registered:
-    weight: 35
+    weight: 34
     settings:
       rows: 2
       placeholder: ''
@@ -603,7 +599,7 @@ content:
     type: text_textarea
     region: content
   field_reg_checkins_not_started:
-    weight: 37
+    weight: 36
     settings:
       rows: 2
       placeholder: ''
@@ -627,7 +623,7 @@ content:
     type: text_textarea
     region: content
   field_successful_registration:
-    weight: 36
+    weight: 35
     settings:
       rows: 2
       placeholder: ''
@@ -643,7 +639,7 @@ content:
     type: string_textfield
     region: content
   field_token_login_link_text:
-    weight: 29
+    weight: 30
     settings:
       size: 60
       placeholder: ''
@@ -652,7 +648,7 @@ content:
     region: content
   field_token_register_link_text:
     type: string_textfield
-    weight: 30
+    weight: 31
     region: content
     settings:
       size: 60
@@ -677,15 +673,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
-    region: content
-  field_where_are_you_from_group:
-    weight: 62
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
     region: content
   langcode:
     type: language_select

@@ -22,6 +22,7 @@ dependencies:
   module:
     - address
     - entity_reference_revisions
+    - link
     - openy_hours_formatter
     - telephone
     - user

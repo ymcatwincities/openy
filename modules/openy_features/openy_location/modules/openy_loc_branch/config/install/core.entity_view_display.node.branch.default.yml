@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.branch.field_location_state
     - field.field.node.branch.field_location_temp_url
     - field.field.node.branch.field_meta_tags
+    - field.field.node.branch.field_where_are_you_from_group
     - node.type.branch
   module:
     - address
@@ -26,14 +27,33 @@ dependencies:
     - openy_field_custom_hours
     - telephone
     - user
+    - views_field_formatter
 id: node.branch.default
 targetEntityType: node
 bundle: branch
 mode: default
 content:
+  addthis:
+    label: hidden
+    type: views_field_formatter
+    weight: 8
+    region: content
+    settings:
+      view: ''
+      arguments:
+        field_value:
+          checked: true
+        entity_id:
+          checked: true
+        delta:
+          checked: true
+      hide_empty: false
+      multiple: false
+      implode_character: ''
+    third_party_settings: {  }
   field_bottom_content:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 6
     label: hidden
     settings:
       view_mode: default
@@ -41,7 +61,7 @@ content:
     third_party_settings: {  }
     region: content
   field_branch_hours:
-    weight: 6
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -73,7 +93,7 @@ content:
     type: address_plain
     region: content
   field_location_coordinates:
-    weight: 5
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -102,5 +122,6 @@ hidden:
   field_location_fax: true
   field_location_state: true
   field_location_temp_url: true
+  field_where_are_you_from_group: true
   langcode: true
   links: true
