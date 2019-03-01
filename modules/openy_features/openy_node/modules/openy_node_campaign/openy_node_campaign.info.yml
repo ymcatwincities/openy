@@ -29,6 +29,7 @@ dependencies:
   - openy_node_campaign_page
   - openy_node_landing
   - openy_txnm_fitness_category
+  - openy_txnm_where_are_you_from
   - options
   - paragraphs
   - path

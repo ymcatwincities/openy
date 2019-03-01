@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_where_are_you_from_group
+    - node.type.campaign
+    - taxonomy.vocabulary.where_are_you_from
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_where_are_you_from_group
+id: node.campaign.field_where_are_you_from_group
+field_name: field_where_are_you_from_group
+entity_type: node
+bundle: campaign
+label: '"Where Are You From" Group'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      where_are_you_from: where_are_you_from
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
