@@ -26,6 +26,7 @@ use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 define('CAMPAIGN_MENU_PAGES_MAX', 5);
 define('CAMPAIGN_THEME', 'openy_campaign_theme');
 define('OPENY_THEME', 'openy_rose');
+define('CAMPAIGN_WHERE_ARE_YOU_FROM_VID', 'where_are_you_from');
 
 /**
  * Implements hook_theme().

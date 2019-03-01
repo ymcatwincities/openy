@@ -11,6 +11,8 @@ use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Form for the Member Registration popup.
@@ -26,6 +28,42 @@ class MemberRegisterForm extends FormBase {
   const STEP_MANUAL_EMAIL = 'STEP_MANUAL_EMAIL';
   const STEP_WHERE_ARE_YOU_FROM = 'STEP_WHERE_ARE_YOU_FROM';
   const STEP_WHERE_ARE_YOU_FROM_SPECIFY = 'STEP_WHERE_ARE_YOU_FROM_SPECIFY';
+
+  /**
+   * The node storage.
+   *
+   * @var \Drupal\node\NodeStorageInterface
+   */
+  protected $nodeStorage;
+
+  /**
+   * The taxonomy storage.
+   *
+   * @var \Drupal\taxonomy\TermStorageInterface
+   */
+  protected $taxonomyStorage;
+
+  /**
+   * Class constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->nodeStorage = $entity_type_manager->getStorage('node');
+    $this->taxonomyStorage = $entity_type_manager->getStorage('taxonomy_term');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -54,7 +92,7 @@ class MemberRegisterForm extends FormBase {
     ];
 
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaign = Node::load($campaign_id);
+    $campaign = $this->nodeStorage->load($campaign_id);
     $extended_registration = $campaign->field_campaign_ext_registration->value;
     $form['extended_registration'] = [
       '#type' => 'hidden',
@@ -183,10 +221,13 @@ class MemberRegisterForm extends FormBase {
     }
 
     if ($step == self::STEP_WHERE_ARE_YOU_FROM) {
+      $options = $this->getWhereAreYouFromOptions();
+      $options_keys = array_keys($options);
       $form['where_are_you_from'] = [
         '#type' => 'select',
         '#title' => t('Where are you from'),
-        '#options' => $this->getWhereAreYouFromOptions(),
+        '#options' => $options,
+        '#default_value' => reset($options_keys),
         //'#title_display' => 'hidden',
         '#required' => TRUE,
         '#attributes' => [
@@ -199,10 +240,13 @@ class MemberRegisterForm extends FormBase {
     }
 
     if ($step == self::STEP_WHERE_ARE_YOU_FROM_SPECIFY) {
+      $options = $this->getWhereAreYouFromSpecifyOptions($form_state->get('where_are_you_from'));
+      $options_keys = array_keys($options);
       $form['where_are_you_from_specify'] = [
         '#type' => 'select',
         '#title' => t('Please specify'),
-        '#options' => $this->getWhereAreYouFromSpecifyOptions($form_state->get('where_are_you_from')),
+        '#options' => $options,
+        '#default_value' => reset($options_keys),
         //'#title_display' => 'hidden',
         '#required' => TRUE,
         '#attributes' => [
@@ -229,7 +273,7 @@ class MemberRegisterForm extends FormBase {
       $membershipID = $form_state->getValue('membership_id');
 
       /** @var \Drupal\node\Entity\Node $campaign */
-      $campaign = Node::load($campaignID);
+      $campaign = $this->nodeStorage->load($campaignID);
 
       $config = $this->config('openy_campaign.general_settings');
       $msgDefault = $config->get('error_msg_default');
@@ -607,12 +651,12 @@ class MemberRegisterForm extends FormBase {
    * @return array List of options.
    */
   protected function getWhereAreYouFromOptions() {
-    return [
-      'Paediatrician',
-      'School',
-      'Branch',
-      'Other',
-    ];
+    $options = [];
+    $tree = $this->taxonomyStorage->loadTree(CAMPAIGN_WHERE_ARE_YOU_FROM_VID, 0, 1);
+    foreach ($tree as $term) {
+      $options[$term->tid] = $term->name;
+    }
+    return $options;
   }
 
   /**
@@ -622,9 +666,25 @@ class MemberRegisterForm extends FormBase {
    * @return array List of options.
    */
   protected function getWhereAreYouFromSpecifyOptions($where_are_you_from) {
-    return [
-      'Test',
-    ];
+    $options = [];
+    // Try load tree first.
+    $tree = $this->taxonomyStorage->loadTree(CAMPAIGN_WHERE_ARE_YOU_FROM_VID, $where_are_you_from, 1);
+    if (!empty($tree)) {
+      foreach ($tree as $term) {
+        $options[$term->tid] = $term->name;
+      }
+    }
+    else {
+      // Load tagged Branches / Facilities.
+      $nodes = $this->nodeStorage->loadByProperties([
+        'field_where_are_you_from_group' => $where_are_you_from,
+        'status' => Node::PUBLISHED,
+      ]);
+      foreach ($nodes as $node) {
+        $options[$node->id()] = $node->getTitle();
+      }
+    }
+    return $options;
   }
 
 }
