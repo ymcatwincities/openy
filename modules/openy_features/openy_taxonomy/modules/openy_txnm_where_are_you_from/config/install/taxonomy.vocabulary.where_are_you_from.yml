@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: 'Where Are You From'
+vid: where_are_you_from
+description: 'Used in extended registration for campaigns.'
+hierarchy: 0
+weight: 0

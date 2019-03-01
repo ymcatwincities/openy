@@ -1,0 +1,8 @@
+name: 'OpenY Taxonomy Where Are You From'
+description: 'OpenY Taxonomy Where Are You From'
+type: module
+core: 8.x
+dependencies:
+  - language
+  - rabbit_hole
+  - taxonomy
