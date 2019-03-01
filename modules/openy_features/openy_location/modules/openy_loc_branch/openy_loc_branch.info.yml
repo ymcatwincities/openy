@@ -16,11 +16,12 @@ dependencies:
   - node
   - openy_field_custom_hours
   - openy_hours_formatter
-  - openy_prgf_microsites_menu
   - openy_location
   - openy_node
+  - openy_node_campaign
   - openy_prgf_microsites_menu
   - openy_txnm_amenities
+  - openy_txnm_where_are_you_from
   - options
   - paragraphs
   - path
@@ -31,3 +32,4 @@ dependencies:
   - telephone
   - tour
   - user
+  - views_field_formatter

@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_where_are_you_from_group
-    - node.type.campaign
+    - node.type.branch
     - taxonomy.vocabulary.where_are_you_from
   module:
     - datalayer
@@ -11,14 +11,14 @@ third_party_settings:
   datalayer:
     expose: 0
     label: field_where_are_you_from_group
-id: node.campaign.field_where_are_you_from_group
+id: node.branch.field_where_are_you_from_group
 field_name: field_where_are_you_from_group
 entity_type: node
-bundle: campaign
+bundle: branch
 label: '"Where Are You From" Group'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

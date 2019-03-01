@@ -6,6 +6,7 @@ dependencies:
     - node.type.branch
   module:
     - address
+    - datalayer
 third_party_settings:
   datalayer:
     expose: 1
