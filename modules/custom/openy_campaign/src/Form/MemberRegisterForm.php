@@ -21,6 +21,12 @@ class MemberRegisterForm extends FormBase {
 
   protected static $containerId = 'modal_openy_campaign_register_form';
 
+  const STEP_MEMBER_ID = 'STEP_MEMBER_ID';
+  const STEP_CONFIRM_EMAIL = 'STEP_CONFIRM_EMAIL';
+  const STEP_MANUAL_EMAIL = 'STEP_MANUAL_EMAIL';
+  const STEP_WHERE_ARE_YOU_FROM = 'STEP_WHERE_ARE_YOU_FROM';
+  const STEP_WHERE_ARE_YOU_FROM_SPECIFY = 'STEP_WHERE_ARE_YOU_FROM_SPECIFY';
+
   /**
    * {@inheritdoc}
    */
@@ -47,34 +53,63 @@ class MemberRegisterForm extends FormBase {
       '#value' => $campaign_id,
     ];
 
+    /** @var \Drupal\node\Entity\Node $campaign */
+    $campaign = Node::load($campaign_id);
+    $extended_registration = $campaign->field_campaign_ext_registration->value;
+    $form['extended_registration'] = [
+      '#type' => 'hidden',
+      '#value' => $extended_registration,
+    ];
+
     $membership_id = $form_state->get('membership_id');
     $personify_email = $form_state->getTemporaryValue('personify_email');
     $step_value = $form_state->getValue('step');
 
     // Determine step of the form - which screen to show.
-    // 1 - enter Member ID;
-    // 2 - confirm email address from Personify;
-    // 3 - manually enter email address.
+    // STEP_MEMBER_ID - enter Member ID;
+    // STEP_CONFIRM_EMAIL - confirm email address from Personify;
+    // STEP_MANUAL_EMAIL - manually enter email address.
+    // STEP_WHERE_ARE_YOU_FROM - Upon completing initial registration user will be asked Where are you from?
+    // STEP_WHERE_ARE_YOU_FROM_SPECIFY - specify selection for Dr. Offices, schools, branches or other items from previous step
     if ($step_value) {
       $step = $step_value;
     }
     elseif (empty($membership_id)) {
-      $step = 1;
+      $step = self::STEP_MEMBER_ID;
+    }
+    elseif (!empty($personify_email)) {
+      $step = self::STEP_CONFIRM_EMAIL;
     }
     else {
-      if (empty($personify_email)) {
-        $step = 3;
-      }
-      else {
-        $step = 2;
-      }
+      $step = self::STEP_MANUAL_EMAIL;
     }
+
+    // Common elements.
+    $ajax = [
+      'callback' => [$this, 'submitModalFormAjax'],
+      'method' => 'replaceWith',
+    ];
     $form['step'] = [
       '#type' => 'hidden',
       '#value' => $step,
     ];
+    $form['submit_ok'] = [
+      '#type' => 'submit',
+      '#name' => 'submit_ok',
+      '#value' => $this->t('Sign in'),
+      '#attributes' => [
+        'class' => [
+          'btn',
+          'btn-lg',
+          'btn-primary',
+          'campaign-blue',
+        ],
+      ],
+      '#ajax' => $ajax,
+      '#weight' => 10,
+    ];
 
-    if ($step == 1) {
+    if ($step == self::STEP_MEMBER_ID) {
       // The id on the membership card.
       $form['membership_id'] = [
         '#type' => 'textfield',
@@ -101,7 +136,7 @@ class MemberRegisterForm extends FormBase {
       ];
     }
 
-    if ($step == 2 || $step == 3) {
+    if ($step == self::STEP_CONFIRM_EMAIL || $step == self::STEP_MANUAL_EMAIL) {
       $form['email'] = [
         '#type' => 'email',
         '#title' => $this->t('Email'),
@@ -118,56 +153,64 @@ class MemberRegisterForm extends FormBase {
           [$this, 'elementValidateRequired'],
         ],
       ];
-      if ($step == 2) {
+      if ($step == self::STEP_CONFIRM_EMAIL) {
         $form['email']['#default_value'] = $personify_email;
         $form['email']['#attributes']['disabled'] = TRUE;
+
+        $form['submit_ok']['#value'] = $this->t('Yes, all fine');
+        $form['submit_ok']['#attributes']['class'][] = 'pull-left';
+
+        $form['submit_change'] = [
+          '#type' => 'submit',
+          '#name' => 'submit_change',
+          '#value' => $this->t('No, change'),
+          '#attributes' => [
+            'class' => [
+              'btn',
+              'btn-lg',
+              'btn-primary',
+              'campaign-grey',
+              'pull-right',
+            ],
+          ],
+          '#ajax' => $ajax,
+          '#weight' => 9,
+        ];
+      }
+      if ($step == self::STEP_MANUAL_EMAIL) {
+        $form['submit_ok']['#value'] = $this->t('OK');
       }
     }
 
-    $ajax = [
-      'callback' => [$this, 'submitModalFormAjax'],
-      'method' => 'replaceWith',
-    ];
-
-    $form['submit_ok'] = [
-      '#type' => 'submit',
-      '#name' => 'submit_ok',
-      '#value' => $this->t('Sign in'),
-      '#attributes' => [
-        'class' => [
-          'btn',
-          'btn-lg',
-          'btn-primary',
-          'campaign-blue',
-        ],
-      ],
-      '#ajax' => $ajax,
-    ];
-
-    if ($step == 2) {
-      $form['submit_change'] = [
-        '#type' => 'submit',
-        '#name' => 'submit_change',
-        '#value' => $this->t('No, change'),
+    if ($step == self::STEP_WHERE_ARE_YOU_FROM) {
+      $form['where_are_you_from'] = [
+        '#type' => 'select',
+        '#title' => t('Where are you from'),
+        '#options' => $this->getWhereAreYouFromOptions(),
+        //'#title_display' => 'hidden',
+        '#required' => TRUE,
         '#attributes' => [
-          'class' => [
-            'btn',
-            'btn-lg',
-            'btn-primary',
-            'campaign-grey',
-            'pull-right',
+          'placeholder' => [
+            $this->t('Where are you from'),
           ],
         ],
-        '#ajax' => $ajax,
       ];
+      $form['submit_ok']['#value'] = $this->t('Continue');
     }
 
-    if ($step == 2) {
-      $form['submit_ok']['#value'] = $this->t('Yes, all fine');
-      $form['submit_ok']['#attributes']['class'][] = 'pull-left';
-    }
-    if ($step == 3) {
-      $form['submit_ok']['#value'] = $this->t('OK');
+    if ($step == self::STEP_WHERE_ARE_YOU_FROM_SPECIFY) {
+      $form['where_are_you_from_specify'] = [
+        '#type' => 'select',
+        '#title' => t('Please specify'),
+        '#options' => $this->getWhereAreYouFromSpecifyOptions($form_state->get('where_are_you_from')),
+        //'#title_display' => 'hidden',
+        '#required' => TRUE,
+        '#attributes' => [
+          'placeholder' => [
+            $this->t('Please specify'),
+          ],
+        ],
+      ];
     }
 
     $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
@@ -180,148 +223,145 @@ class MemberRegisterForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $step = $form_state->getValue('step');
-    if ($step != 1) {
-      $form_state->setValue('step', $step + 1);
-      return;
-    }
 
-    $campaignID = $form_state->getValue('campaign_id');
-    $membershipID = $form_state->getValue('membership_id');
+    if ($step == self::STEP_MEMBER_ID) {
+      $campaignID = $form_state->getValue('campaign_id');
+      $membershipID = $form_state->getValue('membership_id');
 
-    /** @var \Drupal\node\Entity\Node $campaign */
-    $campaign = Node::load($campaignID);
+      /** @var \Drupal\node\Entity\Node $campaign */
+      $campaign = Node::load($campaignID);
 
-    $config = $this->config('openy_campaign.general_settings');
-    $msgDefault = $config->get('error_msg_default');
-    $errorDefault = check_markup($msgDefault['value'], $msgDefault['format']);
-    // Get error from Campaign node.
-    if (!empty($campaign->field_error_default->value)) {
-      $errorDefault = check_markup($campaign->field_error_default->value, $campaign->field_error_default->format);
-    }
-
-    $msgMembershipId = $config->get('error_msg_membership_id');
-    $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
-    // Get error from Campaign node.
-    if (!empty($campaign->field_error_membership_id->value)) {
-      $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
-    }
-
-    // TODO Add check length of $membershipID
-    // Check correct Membership ID - commented out, because IDs may contain letters.
-    /*if (!is_numeric($membershipID)) {
-      $form_state->setErrorByName('membership_id', $errorMembershipId);
-      return;
-    }*/
-
-    // Check MemberCampaign entity.
-    $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
-
-    // Registration attempt for already registered member.
-    // The validation is disabled in order to log in already registered users.
-    /*
-    if ($memberCampaignID) {
-      $msgAlreadyRegistered = $config->get('error_register_already_registered');
-      $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
+      $config = $this->config('openy_campaign.general_settings');
+      $msgDefault = $config->get('error_msg_default');
+      $errorDefault = check_markup($msgDefault['value'], $msgDefault['format']);
       // Get error from Campaign node.
-      if (!empty($campaign->field_reg_already_registered->value)) {
-        $errorAlreadyRegistered = check_markup($campaign->field_reg_already_registered->value, $campaign->field_reg_already_registered->format);
+      if (!empty($campaign->field_error_default->value)) {
+        $errorDefault = check_markup($campaign->field_error_default->value, $campaign->field_error_default->format);
       }
 
-      $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
-      return;
-    }
-    */
-
-    /** @var \Drupal\openy_campaign\Entity\Member $member Load or create Temporary Member object. Will be saved by submit. */
-    $member = Member::loadMemberFromCRMData($membershipID);
-    if (($member instanceof Member === FALSE) || empty($member)) {
-      $form_state->setErrorByName('membership_id', $errorMembershipId);
-
-      return;
-    }
-
-    // User is inactive if he does not have active order number.
-    $isInactiveMember = empty($member->order_number->value);
-    if ($isInactiveMember) {
-      $msgMemberInactive = $config->get('error_msg_member_is_inactive');
-      $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
+      $msgMembershipId = $config->get('error_msg_membership_id');
+      $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
       // Get error from Campaign node.
-      if (!empty($campaign->field_error_member_is_inactive->value)) {
-        $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
+      if (!empty($campaign->field_error_membership_id->value)) {
+        $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
       }
 
-      $form_state->setErrorByName('membership_id', $errorMemberInactive);
-      return;
-    }
+      // TODO Add check length of $membershipID
+      // Check correct Membership ID - commented out, because IDs may contain letters.
+      /*if (!is_numeric($membershipID)) {
+        $form_state->setErrorByName('membership_id', $errorMembershipId);
+        return;
+      }*/
 
-    // If User does not have an assigned branch he is now allowed to register.
-    $isEmptyBranch = empty($member->branch->entity);
-    if ($isEmptyBranch) {
-      $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
-      $errorAudience = check_markup(
-        $msgAudienceMessages['value'],
-        $msgAudienceMessages['format']
-      );
-      // Get error from Campaign node.
-      if (!empty($campaign->field_error_target_audience->value)) {
+      // Check MemberCampaign entity.
+      $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
+
+      // Registration attempt for already registered member.
+      // The validation is disabled in order to log in already registered users.
+      /*
+      if ($memberCampaignID) {
+        $msgAlreadyRegistered = $config->get('error_register_already_registered');
+        $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
+        // Get error from Campaign node.
+        if (!empty($campaign->field_reg_already_registered->value)) {
+          $errorAlreadyRegistered = check_markup($campaign->field_reg_already_registered->value, $campaign->field_reg_already_registered->format);
+        }
+
+        $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
+        return;
+      }
+      */
+
+      /** @var \Drupal\openy_campaign\Entity\Member $member Load or create Temporary Member object. Will be saved by submit. */
+      $member = Member::loadMemberFromCRMData($membershipID);
+      if (($member instanceof Member === FALSE) || empty($member)) {
+        $form_state->setErrorByName('membership_id', $errorMembershipId);
+
+        return;
+      }
+
+      // User is inactive if he does not have active order number.
+      $isInactiveMember = empty($member->order_number->value);
+      if ($isInactiveMember) {
+        $msgMemberInactive = $config->get('error_msg_member_is_inactive');
+        $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
+        // Get error from Campaign node.
+        if (!empty($campaign->field_error_member_is_inactive->value)) {
+          $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
+        }
+
+        $form_state->setErrorByName('membership_id', $errorMemberInactive);
+        return;
+      }
+
+      // If User does not have an assigned branch he is now allowed to register.
+      $isEmptyBranch = empty($member->branch->entity);
+      if ($isEmptyBranch) {
+        $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
         $errorAudience = check_markup(
-          $campaign->field_error_target_audience->value,
-          $campaign->field_error_target_audience->format
+          $msgAudienceMessages['value'],
+          $msgAudienceMessages['format']
         );
+        // Get error from Campaign node.
+        if (!empty($campaign->field_error_target_audience->value)) {
+          $errorAudience = check_markup(
+            $campaign->field_error_target_audience->value,
+            $campaign->field_error_target_audience->format
+          );
+        }
+
+        $form_state->setErrorByName('membership_id', $errorAudience);
+        return;
       }
 
-      $form_state->setErrorByName('membership_id', $errorAudience);
-      return;
-    }
+      $registrationType = 'site';
+      // Check if we are need to output the mobile version.
+      if (!empty($_GET['mobile'])) {
+        $registrationType = 'mobile';
+      }
+      /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
+      $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, $registrationType);
+      if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
+        $form_state->setErrorByName('membership_id', $errorDefault);
 
-    $registrationType = 'site';
-    // Check if we are need to output the mobile version.
-    if (!empty($_GET['mobile'])) {
-      $registrationType = 'mobile';
-    }
-    /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
-    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, $registrationType);
-    if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
-      $form_state->setErrorByName('membership_id', $errorDefault);
-
-      return;
-    }
-
-    // Check Target Audience Settings from Campaign.
-    $validateAudienceErrorMessages = $memberCampaign->validateTargetAudienceSettings();
-
-    // Member is ineligible due to the Target Audience Setting.
-    if (!empty($validateAudienceErrorMessages)) {
-      $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
-      $msgValue = implode('<br/>', $validateAudienceErrorMessages);
-      $errorAudience = check_markup($msgValue . $msgAudienceMessages['value'], $msgAudienceMessages['format']);
-      // Get error from Campaign node.
-      if (!empty($campaign->field_error_target_audience->value)) {
-        $errorAudience = check_markup($msgValue . $campaign->field_error_target_audience->value, $campaign->field_error_target_audience->format);
+        return;
       }
 
-      $form_state->setErrorByName('membership_id', $errorAudience);
+      // Check Target Audience Settings from Campaign.
+      $validateAudienceErrorMessages = $memberCampaign->validateTargetAudienceSettings();
 
-      return;
-    }
+      // Member is ineligible due to the Target Audience Setting.
+      if (!empty($validateAudienceErrorMessages)) {
+        $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
+        $msgValue = implode('<br/>', $validateAudienceErrorMessages);
+        $errorAudience = check_markup($msgValue . $msgAudienceMessages['value'], $msgAudienceMessages['format']);
+        // Get error from Campaign node.
+        if (!empty($campaign->field_error_target_audience->value)) {
+          $errorAudience = check_markup($msgValue . $campaign->field_error_target_audience->value, $campaign->field_error_target_audience->format);
+        }
 
-    // Save Member and MemberCampaign entities in storage to save by submit.
-    $form_state->setStorage([
-      'status' => FALSE,
-      'member' => $member,
-      'campaign' => $campaign,
-      'member_campaign' => $memberCampaign,
-    ]);
+        $form_state->setErrorByName('membership_id', $errorAudience);
 
-    $personifyEmail = $member->getPersonifyEmail();
-    if (!empty($personifyEmail)) {
-      $form_state->set('email', $personifyEmail);
-      $form_state->setTemporaryValue('personify_email', $personifyEmail);
+        return;
+      }
 
-      $form_state->setValue('step', $step + 1);
-    }
-    else {
-      $form_state->setValue('step', 3);
+      // Save Member and MemberCampaign entities in storage to save by submit.
+      $form_state->setStorage([
+        'status' => FALSE,
+        'member' => $member,
+        'campaign' => $campaign,
+        'member_campaign' => $memberCampaign,
+      ]);
+
+      $personifyEmail = $member->getPersonifyEmail();
+      if (!empty($personifyEmail)) {
+        $form_state->set('email', $personifyEmail);
+        $form_state->setTemporaryValue('personify_email', $personifyEmail);
+      }
+
+      //$personifyEmail = 'test@debug.com';
+      //$form_state->set('email', $personifyEmail);
+      //$form_state->setTemporaryValue('personify_email', $personifyEmail);
     }
   }
 
@@ -336,75 +376,102 @@ class MemberRegisterForm extends FormBase {
   public function submitModalFormAjax(array $form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
 
+    // If there are any form errors, re-display the form.
+    if ($form_state->hasAnyErrors()) {
+      $response->addCommand(new ReplaceCommand('#' . static::$containerId, $form));
+      return $response;
+    }
+
     $step = $form_state->getValue('step');
     $triggering_element = $form_state->getTriggeringElement();
-    $email = $form_state->getValue('email');
+    $email = $form_state->get('email');
+    $extended_registration = $form_state->getValue('extended_registration');
 
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
 
-    // Rebuild form for step 2 and 3.
-    if ($step == 2 ||
-      ($step == 3 && ($triggering_element['#name'] == 'submit_change' || empty($email)))) {
-
-      // If a member already exists, log them in here.
-      if ($memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID)) {
-        $response = new AjaxResponse();
-        $config = $this->config('openy_campaign.general_settings');
-        $storage = $form_state->getStorage();
-
-        /** @var \Drupal\node\Entity\Node $campaign Campaign object. */
-        $campaign = $storage['campaign'];
-        $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-        // If Campaign is not started.
-        if ($campaignStartDate >= new \DateTime()) {
-          $msgNotStarted = $config->get('error_register_checkins_not_started');
-          $msgNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
-          // TODO: use hook_theme instead of inline template.
-          $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
-          $modalTitle = t('Thank you!');
-        }
-        else {
-          MemberCampaign::login($membershipID, $campaignID);
-          $msgSuccess = $config->get('successful_login');
-          $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
-          // TODO: use hook_theme instead of inline template.
-          $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
-          $modalTitle = t('Thank you!');
-        }
-        $modalPopup = [
-          '#theme' => 'openy_campaign_popup',
-          '#form' => [
-            '#markup' => $wrappedModalMessage,
-          ]
-        ];
-        // Add an AJAX command to open a modal dialog with the form as the content.
-        $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
-        $response->addCommand(new InvokeCommand('#openy_campaign_popup', 'closeDialogByClick'));
-        // Close dialog and redirect to Campaign main page.
-        $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
-        return $response;
+    // Process step 1.
+    if ($step == self::STEP_MEMBER_ID) {
+      if (!empty($email)) {
+        $form_state->setValue('step', self::STEP_CONFIRM_EMAIL);
       }
-
-      // Rebuild form with new $form and $form_state values.
-      $new_form = \Drupal::formBuilder()
-        ->rebuildForm($this->getFormId(), $form_state, $form);
-
-      // Refreshing form.
-      $response->addCommand(new ReplaceCommand('#' . static::$containerId, $new_form));
-
-      return $response;
+      else {
+        $form_state->setValue('step', self::STEP_MANUAL_EMAIL);
+      }
     }
 
-    // If there are any form errors, re-display the form.
-    if ($form_state->hasAnyErrors()) {
-      $response->addCommand(new ReplaceCommand('#' . static::$containerId, $form));
+    // Rebuild form for step 2
+    if ($step == self::STEP_CONFIRM_EMAIL) {
+      if ($triggering_element['#name'] == 'submit_ok') {
+        // If a member already exists, log them in here.
+        if ($memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID)) {
+          $response = new AjaxResponse();
+          $config = $this->config('openy_campaign.general_settings');
+          $storage = $form_state->getStorage();
 
-      return $response;
+          /** @var \Drupal\node\Entity\Node $campaign Campaign object. */
+          $campaign = $storage['campaign'];
+          $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')
+            ->getString());
+          // If Campaign is not started.
+          if ($campaignStartDate >= new \DateTime()) {
+            $msgNotStarted = $config->get('error_register_checkins_not_started');
+            $msgNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
+            // TODO: use hook_theme instead of inline template.
+            $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
+            $modalTitle = t('Thank you!');
+          }
+          else {
+            MemberCampaign::login($membershipID, $campaignID);
+            $msgSuccess = $config->get('successful_login');
+            $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
+            // TODO: use hook_theme instead of inline template.
+            $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
+            $modalTitle = t('Thank you!');
+          }
+          $modalPopup = [
+            '#theme' => 'openy_campaign_popup',
+            '#form' => [
+              '#markup' => $wrappedModalMessage,
+            ]
+          ];
+          // Add an AJAX command to open a modal dialog with the form as the content.
+          $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
+          $response->addCommand(new InvokeCommand('#openy_campaign_popup', 'closeDialogByClick'));
+          // Close dialog and redirect to Campaign main page.
+          $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
+          return $response;
+        }
+        if ($extended_registration) {
+          $form_state->set('email', $form_state->getValue('email'));
+          $form_state->setValue('step', self::STEP_WHERE_ARE_YOU_FROM);
+        }
+        else {
+          // Jump to submit step.
+          $step = self::STEP_MANUAL_EMAIL;
+        }
+      }
+      else {
+        $form_state->setValue('step', self::STEP_MANUAL_EMAIL);
+      }
+    }
+
+    if ($extended_registration && $step == self::STEP_MANUAL_EMAIL) {
+      $form_state->set('email', $form_state->getValue('email'));
+      $form_state->setValue('step', self::STEP_WHERE_ARE_YOU_FROM);
+    }
+
+    if ($step == self::STEP_WHERE_ARE_YOU_FROM) {
+      $form_state->set('where_are_you_from', $form_state->getValue('where_are_you_from'));
+      $form_state->setValue('step', self::STEP_WHERE_ARE_YOU_FROM_SPECIFY);
     }
 
     // Registration handler.
-    if ($step > 2 && $triggering_element['#name'] == 'submit_ok') {
+    // Has to be last step, depending on registration type.
+    if (
+      ($extended_registration && $step == self::STEP_WHERE_ARE_YOU_FROM_SPECIFY) ||
+      (!$extended_registration && $step == self::STEP_MANUAL_EMAIL)
+    ) {
       $storage = $form_state->getStorage();
 
       /** @var \Drupal\node\Entity\Node $campaign Campaign object. */
@@ -415,8 +482,8 @@ class MemberRegisterForm extends FormBase {
       /** @var \Drupal\openy_campaign\Entity\Member $member Member entity. */
       $member = $storage['member'];
       // Update email.
-      if (!empty($form_state->getValue('email'))) {
-        $member->setEmail($form_state->getValue('email'));
+      if (!empty($email)) {
+        $member->setEmail($email);
       }
       $member->save();
 
@@ -486,11 +553,14 @@ class MemberRegisterForm extends FormBase {
         // Close dialog and redirect to Campaign main page.
         $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
       }
-
-
       return $response;
     }
 
+    // Rebuild form with new $form and $form_state values.
+    $new_form = \Drupal::formBuilder()
+      ->rebuildForm($this->getFormId(), $form_state, $form);
+    // Refreshing form.
+    $response->addCommand(new ReplaceCommand('#' . static::$containerId, $new_form));
     return $response;
   }
 
@@ -529,6 +599,32 @@ class MemberRegisterForm extends FormBase {
     $currentDate = new \DateTime();
 
     return $currentDate >= $campaignStartDate && $currentDate <= $campaignEndDate;
+  }
+
+  /**
+   * Helper method to get "Where are you from" field options.
+   *
+   * @return array List of options.
+   */
+  protected function getWhereAreYouFromOptions() {
+    return [
+      'Paediatrician',
+      'School',
+      'Branch',
+      'Other',
+    ];
+  }
+
+  /**
+   * Helper method to get "Please specify" options based on selection of "Where are you from".
+   *
+   * @param mixed $where_are_you_from Where are you from option.
+   * @return array List of options.
+   */
+  protected function getWhereAreYouFromSpecifyOptions($where_are_you_from) {
+    return [
+      'Test',
+    ];
   }
 
 }
