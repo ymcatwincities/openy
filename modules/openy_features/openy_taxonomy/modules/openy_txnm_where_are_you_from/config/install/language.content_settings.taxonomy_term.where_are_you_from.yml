@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.where_are_you_from
+id: taxonomy_term.where_are_you_from
+target_entity_type_id: taxonomy_term
+target_bundle: where_are_you_from
+default_langcode: site_default
+language_alterable: false

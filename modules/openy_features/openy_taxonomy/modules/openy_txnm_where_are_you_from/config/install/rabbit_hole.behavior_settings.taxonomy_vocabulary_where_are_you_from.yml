@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: taxonomy_vocabulary_where_are_you_from
+action: page_not_found
+allow_override: 0
+redirect: ''
+redirect_code: 301
