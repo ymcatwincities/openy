@@ -872,7 +872,7 @@ body {
   width: 100%;
 }
 #block-campaignmemberregister .openy-campaign-registration-simple-form .form-item {
-  margin: 0px;
+  margin: 0 0 5px 0;
 }
 #block-campaignmemberregister .openy-campaign-registration-simple-form .form-item-membership-id label {
   text-transform: uppercase;

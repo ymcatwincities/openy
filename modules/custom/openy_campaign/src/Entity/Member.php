@@ -443,7 +443,7 @@ class Member extends ContentEntityBase implements MemberInterface {
     $name .= ' ';
     $name .= $this->getLastName();
 
-    return $name;
+    return trim($name);
   }
 
   /**

@@ -190,6 +190,7 @@ class MemberRegisterForm extends FormBase {
           ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
           [$this, 'elementValidateRequired'],
         ],
+        '#weight' => 1,
       ];
       if ($step == self::STEP_CONFIRM_EMAIL) {
         $form['email']['#default_value'] = $personify_email;
@@ -216,6 +217,43 @@ class MemberRegisterForm extends FormBase {
         ];
       }
       if ($step == self::STEP_MANUAL_EMAIL) {
+        /** @var \Drupal\openy_campaign\Entity\Member $member */
+        $member = $form_state->get('member');
+        if ($extended_registration && empty($member->getFullName())) {
+          // Force user to provide first and last name.
+          $form['first_name'] = [
+            '#type' => 'textfield',
+            '#size' => 60,
+            '#maxlength' => 128,
+            '#required' => TRUE,
+            '#attributes' => [
+              'placeholder' => [
+                $this->t('Your First Name'),
+              ],
+            ],
+            '#element_required_error' => $this->t('First Name is required.'),
+            '#element_validate' => [
+              [$this, 'elementValidateRequired'],
+            ],
+            '#weight' => 2,
+          ];
+          $form['last_name'] = [
+            '#type' => 'textfield',
+            '#size' => 60,
+            '#maxlength' => 128,
+            '#required' => TRUE,
+            '#attributes' => [
+              'placeholder' => [
+                $this->t('Your Last Name'),
+              ],
+            ],
+            '#element_required_error' => $this->t('Last Name is required.'),
+            '#element_validate' => [
+              [$this, 'elementValidateRequired'],
+            ],
+            '#weight' => 3,
+          ];
+        }
         $form['submit_ok']['#value'] = $this->t('OK');
       }
     }
@@ -509,7 +547,9 @@ class MemberRegisterForm extends FormBase {
       }
     }
 
-    if ($extended_registration && $step == self::STEP_MANUAL_EMAIL) {
+    if ($extended_registration && ($step == self::STEP_MANUAL_EMAIL)) {
+      $form_state->set('first_name', $form_state->getValue('first_name'));
+      $form_state->set('last_name', $form_state->getValue('last_name'));
       $form_state->set('email', $form_state->getValue('email'));
       $form_state->setValue('step', self::STEP_WHERE_ARE_YOU_FROM);
     }
@@ -540,6 +580,14 @@ class MemberRegisterForm extends FormBase {
       // Update email.
       if (!empty($email)) {
         $member->setEmail($email);
+      }
+      $first_name = $form_state->get('first_name');
+      $last_name = $form_state->get('last_name');
+      if (!empty($first_name)) {
+        $member->setFirstName($first_name);
+      }
+      if (!empty($last_name)) {
+        $member->setLastName($last_name);
       }
       // Update Where Are You From and Specify values.
       if ($extended_registration) {
