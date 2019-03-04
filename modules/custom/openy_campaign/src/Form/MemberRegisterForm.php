@@ -271,6 +271,7 @@ class MemberRegisterForm extends FormBase {
     if ($step == self::STEP_MEMBER_ID) {
       $campaignID = $form_state->getValue('campaign_id');
       $membershipID = $form_state->getValue('membership_id');
+      $extended_registration = $form_state->getValue('extended_registration');
 
       /** @var \Drupal\node\Entity\Node $campaign */
       $campaign = $this->nodeStorage->load($campaignID);
@@ -316,77 +317,92 @@ class MemberRegisterForm extends FormBase {
       }
       */
 
-      /** @var \Drupal\openy_campaign\Entity\Member $member Load or create Temporary Member object. Will be saved by submit. */
-      $member = Member::loadMemberFromCRMData($membershipID);
-      if (($member instanceof Member === FALSE) || empty($member)) {
-        $form_state->setErrorByName('membership_id', $errorMembershipId);
-
-        return;
-      }
-
-      // User is inactive if he does not have active order number.
-      $isInactiveMember = empty($member->order_number->value);
-      if ($isInactiveMember) {
-        $msgMemberInactive = $config->get('error_msg_member_is_inactive');
-        $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
-        // Get error from Campaign node.
-        if (!empty($campaign->field_error_member_is_inactive->value)) {
-          $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
-        }
-
-        $form_state->setErrorByName('membership_id', $errorMemberInactive);
-        return;
-      }
-
-      // If User does not have an assigned branch he is now allowed to register.
-      $isEmptyBranch = empty($member->branch->entity);
-      if ($isEmptyBranch) {
-        $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
-        $errorAudience = check_markup(
-          $msgAudienceMessages['value'],
-          $msgAudienceMessages['format']
-        );
-        // Get error from Campaign node.
-        if (!empty($campaign->field_error_target_audience->value)) {
-          $errorAudience = check_markup(
-            $campaign->field_error_target_audience->value,
-            $campaign->field_error_target_audience->format
-          );
-        }
-
-        $form_state->setErrorByName('membership_id', $errorAudience);
-        return;
-      }
-
       $registrationType = 'site';
       // Check if we are need to output the mobile version.
       if (!empty($_GET['mobile'])) {
         $registrationType = 'mobile';
       }
-      /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
-      $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, $registrationType);
-      if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
-        $form_state->setErrorByName('membership_id', $errorDefault);
 
+      /** @var \Drupal\openy_campaign\Entity\Member $member Load or create Temporary Member object. Will be saved by submit. */
+      $member = Member::loadMemberFromCRMData($membershipID);
+      // Membership ID must be valid Personify entry only if extended registration is disabled.
+      // Because for enabled extended registration it could be also invite code, not membership ID.
+      if (!$extended_registration && (($member instanceof Member === FALSE) || empty($member))) {
+        $form_state->setErrorByName('membership_id', $errorMembershipId);
         return;
       }
-
-      // Check Target Audience Settings from Campaign.
-      $validateAudienceErrorMessages = $memberCampaign->validateTargetAudienceSettings();
-
-      // Member is ineligible due to the Target Audience Setting.
-      if (!empty($validateAudienceErrorMessages)) {
-        $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
-        $msgValue = implode('<br/>', $validateAudienceErrorMessages);
-        $errorAudience = check_markup($msgValue . $msgAudienceMessages['value'], $msgAudienceMessages['format']);
-        // Get error from Campaign node.
-        if (!empty($campaign->field_error_target_audience->value)) {
-          $errorAudience = check_markup($msgValue . $campaign->field_error_target_audience->value, $campaign->field_error_target_audience->format);
+      // If member was found in Personify - process they as usual.
+      if ($member instanceof Member) {
+        // User is inactive if he does not have active order number.
+        $isInactiveMember = empty($member->order_number->value);
+        if ($isInactiveMember) {
+          $msgMemberInactive = $config->get('error_msg_member_is_inactive');
+          $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
+          // Get error from Campaign node.
+          if (!empty($campaign->field_error_member_is_inactive->value)) {
+            $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
+          }
+          $form_state->setErrorByName('membership_id', $errorMemberInactive);
+          return;
         }
 
-        $form_state->setErrorByName('membership_id', $errorAudience);
+        // If User does not have an assigned branch he is now allowed to register.
+        $isEmptyBranch = empty($member->branch->entity);
+        if ($isEmptyBranch) {
+          $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
+          $errorAudience = check_markup(
+            $msgAudienceMessages['value'],
+            $msgAudienceMessages['format']
+          );
+          // Get error from Campaign node.
+          if (!empty($campaign->field_error_target_audience->value)) {
+            $errorAudience = check_markup(
+              $campaign->field_error_target_audience->value,
+              $campaign->field_error_target_audience->format
+            );
+          }
+          $form_state->setErrorByName('membership_id', $errorAudience);
+          return;
+        }
 
-        return;
+        /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
+        $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, $registrationType);
+        if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
+          $form_state->setErrorByName('membership_id', $errorDefault);
+          return;
+        }
+
+        // Check Target Audience Settings from Campaign.
+        $validateAudienceErrorMessages = $memberCampaign->validateTargetAudienceSettings();
+        // Member is ineligible due to the Target Audience Setting.
+        if (!empty($validateAudienceErrorMessages)) {
+          $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
+          $msgValue = implode('<br/>', $validateAudienceErrorMessages);
+          $errorAudience = check_markup($msgValue . $msgAudienceMessages['value'], $msgAudienceMessages['format']);
+          // Get error from Campaign node.
+          if (!empty($campaign->field_error_target_audience->value)) {
+            $errorAudience = check_markup($msgValue . $campaign->field_error_target_audience->value, $campaign->field_error_target_audience->format);
+          }
+          $form_state->setErrorByName('membership_id', $errorAudience);
+          return;
+        }
+
+        $personifyEmail = $member->getPersonifyEmail();
+        if (!empty($personifyEmail)) {
+          $form_state->set('email', $personifyEmail);
+          $form_state->setTemporaryValue('personify_email', $personifyEmail);
+        }
+      }
+      else {
+        // This was an invite code.
+        $member = Member::loadMemberFromInvite($membershipID);
+
+        /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
+        $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign, $registrationType);
+        if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
+          $form_state->setErrorByName('membership_id', $errorDefault);
+          return;
+        }
       }
 
       // Save Member and MemberCampaign entities in storage to save by submit.
@@ -396,16 +412,6 @@ class MemberRegisterForm extends FormBase {
         'campaign' => $campaign,
         'member_campaign' => $memberCampaign,
       ]);
-
-      $personifyEmail = $member->getPersonifyEmail();
-      if (!empty($personifyEmail)) {
-        $form_state->set('email', $personifyEmail);
-        $form_state->setTemporaryValue('personify_email', $personifyEmail);
-      }
-
-      //$personifyEmail = 'test@debug.com';
-      //$form_state->set('email', $personifyEmail);
-      //$form_state->setTemporaryValue('personify_email', $personifyEmail);
     }
   }
 
@@ -525,14 +531,29 @@ class MemberRegisterForm extends FormBase {
 
       /** @var \Drupal\openy_campaign\Entity\Member $member Member entity. */
       $member = $storage['member'];
+      /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign MemberCampaign entity. */
+      $memberCampaign = $storage['member_campaign'];
+
       // Update email.
       if (!empty($email)) {
         $member->setEmail($email);
       }
+      // Update Where Are You From and Specify values.
+      if ($extended_registration) {
+        $where_are_you_from = $form_state->get('where_are_you_from');
+        $where_are_you_from_specify = explode('_', $form_state->getValue('where_are_you_from_specify'));
+        if (reset($where_are_you_from_specify) == 'node') {
+          $memberCampaign->setWhereAreYouFrom($where_are_you_from);
+          $memberCampaign->setWhereAreYouFromSpecify(end($where_are_you_from_specify));
+          $member->setBranchId(end($where_are_you_from_specify));
+        }
+        else {
+          $memberCampaign->setWhereAreYouFrom(end($where_are_you_from_specify));
+          $member->setWhereAreYouFrom(end($where_are_you_from_specify));
+        }
+      }
       $member->save();
 
-      /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign MemberCampaign entity. */
-      $memberCampaign = $storage['member_campaign'];
       // Define visits goal.
       $memberCampaign->defineGoal();
       $memberCampaign->save();
@@ -671,7 +692,7 @@ class MemberRegisterForm extends FormBase {
     $tree = $this->taxonomyStorage->loadTree(CAMPAIGN_WHERE_ARE_YOU_FROM_VID, $where_are_you_from, 1);
     if (!empty($tree)) {
       foreach ($tree as $term) {
-        $options[$term->tid] = $term->name;
+        $options["term_{$term->tid}"] = $term->name;
       }
     }
     else {
@@ -681,7 +702,7 @@ class MemberRegisterForm extends FormBase {
         'status' => Node::PUBLISHED,
       ]);
       foreach ($nodes as $node) {
-        $options[$node->id()] = $node->getTitle();
+        $options["node_{$node->id()}"] = $node->getTitle();
       }
     }
     return $options;
