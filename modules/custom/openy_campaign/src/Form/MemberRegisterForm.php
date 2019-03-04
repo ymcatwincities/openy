@@ -442,6 +442,45 @@ class MemberRegisterForm extends FormBase {
 
     // Process step 1.
     if ($step == self::STEP_MEMBER_ID) {
+      // If a member already registered for this campaign, log them in here.
+      if ($memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID)) {
+        $response = new AjaxResponse();
+        $config = $this->config('openy_campaign.general_settings');
+        $storage = $form_state->getStorage();
+
+        /** @var \Drupal\node\Entity\Node $campaign Campaign object. */
+        $campaign = $storage['campaign'];
+        $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')
+          ->getString());
+        // If Campaign is not started.
+        if ($campaignStartDate >= new \DateTime()) {
+          $msgNotStarted = $config->get('error_register_checkins_not_started');
+          $msgNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
+          // TODO: use hook_theme instead of inline template.
+          $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
+          $modalTitle = t('Thank you!');
+        }
+        else {
+          MemberCampaign::login($membershipID, $campaignID);
+          $msgSuccess = $config->get('successful_login');
+          $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
+          // TODO: use hook_theme instead of inline template.
+          $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
+          $modalTitle = t('Thank you!');
+        }
+        $modalPopup = [
+          '#theme' => 'openy_campaign_popup',
+          '#form' => [
+            '#markup' => $wrappedModalMessage,
+          ]
+        ];
+        // Add an AJAX command to open a modal dialog with the form as the content.
+        $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
+        $response->addCommand(new InvokeCommand('#openy_campaign_popup', 'closeDialogByClick'));
+        // Close dialog and redirect to Campaign main page.
+        $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
+        return $response;
+      }
       if (!empty($email)) {
         $form_state->setValue('step', self::STEP_CONFIRM_EMAIL);
       }
@@ -452,55 +491,19 @@ class MemberRegisterForm extends FormBase {
 
     // Rebuild form for step 2
     if ($step == self::STEP_CONFIRM_EMAIL) {
+      // Yes, all fine.
       if ($triggering_element['#name'] == 'submit_ok') {
-        // If a member already exists, log them in here.
-        if ($memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID)) {
-          $response = new AjaxResponse();
-          $config = $this->config('openy_campaign.general_settings');
-          $storage = $form_state->getStorage();
-
-          /** @var \Drupal\node\Entity\Node $campaign Campaign object. */
-          $campaign = $storage['campaign'];
-          $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')
-            ->getString());
-          // If Campaign is not started.
-          if ($campaignStartDate >= new \DateTime()) {
-            $msgNotStarted = $config->get('error_register_checkins_not_started');
-            $msgNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
-            // TODO: use hook_theme instead of inline template.
-            $wrappedModalMessage = '<div class="message-wrapper">' . $msgNotStarted . '</div>';
-            $modalTitle = t('Thank you!');
-          }
-          else {
-            MemberCampaign::login($membershipID, $campaignID);
-            $msgSuccess = $config->get('successful_login');
-            $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
-            // TODO: use hook_theme instead of inline template.
-            $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
-            $modalTitle = t('Thank you!');
-          }
-          $modalPopup = [
-            '#theme' => 'openy_campaign_popup',
-            '#form' => [
-              '#markup' => $wrappedModalMessage,
-            ]
-          ];
-          // Add an AJAX command to open a modal dialog with the form as the content.
-          $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
-          $response->addCommand(new InvokeCommand('#openy_campaign_popup', 'closeDialogByClick'));
-          // Close dialog and redirect to Campaign main page.
-          $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
-          return $response;
-        }
         if ($extended_registration) {
           $form_state->set('email', $form_state->getValue('email'));
           $form_state->setValue('step', self::STEP_WHERE_ARE_YOU_FROM);
         }
         else {
           // Jump to submit step.
+          $email = $form_state->getValue('email');
           $step = self::STEP_MANUAL_EMAIL;
         }
       }
+      // No, change.
       else {
         $form_state->setValue('step', self::STEP_MANUAL_EMAIL);
       }
