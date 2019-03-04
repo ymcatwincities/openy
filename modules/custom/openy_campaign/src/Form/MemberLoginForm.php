@@ -11,6 +11,8 @@ use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\OpenYLocaleDate;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Form for the Member Login popup.
@@ -18,6 +20,42 @@ use Drupal\openy_campaign\OpenYLocaleDate;
  * @ingroup openy_campaign_member
  */
 class MemberLoginForm extends FormBase {
+
+  /**
+   * The node storage.
+   *
+   * @var \Drupal\node\NodeStorageInterface
+   */
+  protected $nodeStorage;
+
+  /**
+   * The taxonomy storage.
+   *
+   * @var \Drupal\taxonomy\TermStorageInterface
+   */
+  protected $taxonomyStorage;
+
+  /**
+   * Class constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->nodeStorage = $entity_type_manager->getStorage('node');
+    $this->taxonomyStorage = $entity_type_manager->getStorage('taxonomy_term');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity_type.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -49,6 +87,14 @@ class MemberLoginForm extends FormBase {
     $form['landing_page_id'] = [
       '#type' => 'hidden',
       '#value' => $landing_page_id,
+    ];
+
+    /** @var \Drupal\node\Entity\Node $campaign */
+    $campaign = $this->nodeStorage->load($campaign_id);
+    $extended_registration = $campaign->field_campaign_ext_registration->value;
+    $form['extended_registration'] = [
+      '#type' => 'hidden',
+      '#value' => $extended_registration,
     ];
 
     // The id on the membership card.
@@ -103,23 +149,26 @@ class MemberLoginForm extends FormBase {
 
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
+    $extended_registration = $form_state->getValue('extended_registration');
 
     /** @var \Drupal\node\Entity\Node $campaign Current campaign. */
     $campaign = Node::load($campaignID);
 
     // Don't allow inactive members to login.
     $member = Member::loadMemberFromCRMData($membershipID);
-    $isInactiveMember = empty($member->order_number->value);
-    if ($isInactiveMember) {
-      $msgMemberInactive = $config->get('error_msg_member_is_inactive');
-      $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
-      // Get error from Campaign node.
-      if (!empty($campaign->field_error_member_is_inactive->value)) {
-        $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
-      }
+    if (!$extended_registration || ($member instanceof Member)) {
+      $isInactiveMember = empty($member->order_number->value);
+      if ($isInactiveMember) {
+        $msgMemberInactive = $config->get('error_msg_member_is_inactive');
+        $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
+        // Get error from Campaign node.
+        if (!empty($campaign->field_error_member_is_inactive->value)) {
+          $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
+        }
 
-      $form_state->setErrorByName('membership_id', $errorMemberInactive);
-      return;
+        $form_state->setErrorByName('membership_id', $errorMemberInactive);
+        return;
+      }
     }
 
     $msgMembershipId = $config->get('error_msg_membership_id');
