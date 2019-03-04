@@ -78,7 +78,7 @@ class RegularUpdater {
     $masterCustomerIds = [];
     $memberIds = [];
     foreach ($membersData as $item) {
-      if ($item['start_date'] <= $dateFrom && $item['end_date'] >= $dateTo) {
+      if (!empty($item['master_customer_id']) && ($item['start_date'] <= $dateFrom) && ($item['end_date'] >= $dateTo)) {
         $masterCustomerIds[$item['member_id']] = $item['master_customer_id'];
         $memberIds[$item['master_customer_id']] = $item['member_id'];
       }
