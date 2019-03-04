@@ -74,7 +74,7 @@
           </div>
 
           <div id="schedules-filters" class="navbar-collapse collapse w-100 flex-column">
-
+            {% block sidebar_filters %}
             <sidebar-filter
               ref="ages_filter"
               title="{{ 'Age'|t }}"
@@ -126,7 +126,7 @@
               :default='$route.query.locations'
               v-on:updated-values="locations = $event"
             ></sidebar-filter>
-
+            {% endblock %}
           </div>
         </div>
       </div>
