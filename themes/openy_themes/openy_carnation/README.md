@@ -34,6 +34,9 @@ https://yarnpkg.com/lang/en/docs/install/#windows-stable
 
 `yarn install`
 
+##2a. If your grunt command is not available now, install grunt-cli, using this command:
+`sudo npm install -g grunt-cli`
+
 ##3. Compile all assets
 
 `grunt build`
