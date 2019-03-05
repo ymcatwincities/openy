@@ -247,7 +247,7 @@
         "drupal/domain": "1.0-alpha14",
         "drupal/domain_theme_switch": "^1.4",
         "drupal/social_feed_fetcher": "^1.0",
-        "symfony/dom-crawler": "~2.8|~3.0|~4.3",
+        "symfony/dom-crawler": "~4.2",
         "mpdf/mpdf": "^7.1",
         "drupal/search_api_solr": "1.2",
         "npm-asset/blazy": "^1.8",
