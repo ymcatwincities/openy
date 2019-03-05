@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1e6d25d1f4846200264a71b622290eb",
+    "content-hash": "904e561004cda4de781598dbd91afae2",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -5398,17 +5398,17 @@
         },
         {
             "name": "drupal/video",
-            "version": "1.2.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/video",
-                "reference": "8.x-1.2"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/video-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "d0af8254ad0e3c496fda89d5b796d6fb86ebda7d"
+                "url": "https://ftp.drupal.org/files/projects/video-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "a0aad27d912d7e9d9f7c1561c6d6567e09a1cf1d"
             },
             "require": {
                 "drupal/core": "*"
