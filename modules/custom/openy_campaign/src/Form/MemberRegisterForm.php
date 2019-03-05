@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\node\Entity\Node;
+use Drupal\openy_campaign\CampaignExtendedRegistrationService;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -44,16 +45,29 @@ class MemberRegisterForm extends FormBase {
   protected $taxonomyStorage;
 
   /**
+   * Extended Registration service.
+   *
+   * @var \Drupal\openy_campaign\CampaignExtendedRegistrationService
+   */
+  protected $extendedRegistrationService;
+
+  /**
    * Class constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Entity type manager.
+   * @param \Drupal\openy_campaign\CampaignExtendedRegistrationService
+   *   Extended Registration service.
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    *   Thrown if the storage handler couldn't be loaded.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    CampaignExtendedRegistrationService $extended_registration_service
+  ) {
     $this->nodeStorage = $entity_type_manager->getStorage('node');
     $this->taxonomyStorage = $entity_type_manager->getStorage('taxonomy_term');
+    $this->extendedRegistrationService = $extended_registration_service;
   }
 
   /**
@@ -61,7 +75,8 @@ class MemberRegisterForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('openy_campaign.extended_registration')
     );
   }
 
@@ -259,7 +274,7 @@ class MemberRegisterForm extends FormBase {
     }
 
     if ($step == self::STEP_WHERE_ARE_YOU_FROM) {
-      $options = $this->getWhereAreYouFromOptions();
+      $options = $this->extendedRegistrationService->getWhereAreYouFromOptions();
       $options_keys = array_keys($options);
       $form['where_are_you_from'] = [
         '#type' => 'select',
@@ -278,7 +293,7 @@ class MemberRegisterForm extends FormBase {
     }
 
     if ($step == self::STEP_WHERE_ARE_YOU_FROM_SPECIFY) {
-      $options = $this->getWhereAreYouFromSpecifyOptions($form_state->get('where_are_you_from'));
+      $options = $this->extendedRegistrationService->getWhereAreYouFromSpecifyOptions($form_state->get('where_are_you_from'));
       $options_keys = array_keys($options);
       $form['where_are_you_from_specify'] = [
         '#type' => 'select',
@@ -713,48 +728,6 @@ class MemberRegisterForm extends FormBase {
     $currentDate = new \DateTime();
 
     return $currentDate >= $campaignStartDate && $currentDate <= $campaignEndDate;
-  }
-
-  /**
-   * Helper method to get "Where are you from" field options.
-   *
-   * @return array List of options.
-   */
-  protected function getWhereAreYouFromOptions() {
-    $options = [];
-    $tree = $this->taxonomyStorage->loadTree(CAMPAIGN_WHERE_ARE_YOU_FROM_VID, 0, 1);
-    foreach ($tree as $term) {
-      $options[$term->tid] = $term->name;
-    }
-    return $options;
-  }
-
-  /**
-   * Helper method to get "Please specify" options based on selection of "Where are you from".
-   *
-   * @param mixed $where_are_you_from Where are you from option.
-   * @return array List of options.
-   */
-  protected function getWhereAreYouFromSpecifyOptions($where_are_you_from) {
-    $options = [];
-    // Try load tree first.
-    $tree = $this->taxonomyStorage->loadTree(CAMPAIGN_WHERE_ARE_YOU_FROM_VID, $where_are_you_from, 1);
-    if (!empty($tree)) {
-      foreach ($tree as $term) {
-        $options["term_{$term->tid}"] = $term->name;
-      }
-    }
-    else {
-      // Load tagged Branches / Facilities.
-      $nodes = $this->nodeStorage->loadByProperties([
-        'field_where_are_you_from_group' => $where_are_you_from,
-        'status' => Node::PUBLISHED,
-      ]);
-      foreach ($nodes as $node) {
-        $options["node_{$node->id()}"] = $node->getTitle();
-      }
-    }
-    return $options;
   }
 
 }
