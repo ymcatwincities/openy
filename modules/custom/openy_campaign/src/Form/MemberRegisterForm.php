@@ -444,12 +444,10 @@ class MemberRegisterForm extends FormBase {
       }
 
       // Save Member and MemberCampaign entities in storage to save by submit.
-      $form_state->setStorage([
-        'status' => FALSE,
-        'member' => $member,
-        'campaign' => $campaign,
-        'member_campaign' => $memberCampaign,
-      ]);
+      $form_state->set('status', FALSE);
+      $form_state->set('member', $member);
+      $form_state->set('campaign', $campaign);
+      $form_state->set('member_campaign', $memberCampaign);
     }
   }
 
