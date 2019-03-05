@@ -746,6 +746,12 @@ function openy_campaign_form_node_campaign_form_alter(&$form, FormStateInterface
     ]
   ];
 
+  // Show "Global goal" text input if only "Global goal" is checked.
+  $form['field_campaign_global_goal']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_global_goal]']" => ["checked" => TRUE],
+    ]
+  ];
 }
 
 /**
@@ -785,6 +791,12 @@ function openy_campaign_form_node_campaign_edit_form_alter(&$form, FormStateInte
     ]
   ];
 
+  // Show "Global goal" text input if only "Global goal" is checked.
+  $form['field_campaign_global_goal']['#states'] = [
+    'visible' => [
+      "input[name='field_activities_options[field_prgf_campaign_global_goal]']" => ["checked" => TRUE],
+    ]
+  ];
 }
 
 /**

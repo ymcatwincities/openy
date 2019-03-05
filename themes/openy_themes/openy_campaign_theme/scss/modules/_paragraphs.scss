@@ -86,7 +86,8 @@
       }
     }
     .leadership-branches-select,
-    .leadership-activities-select {
+    .leadership-activities-select,
+    .leadership-specify-select {
       text-align: center;
       justify-content: center;
       @include breakpoint($screen-phone) {

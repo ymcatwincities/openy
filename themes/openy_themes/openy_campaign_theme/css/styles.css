@@ -254,7 +254,8 @@ p {
   }
 }
 .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
-.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select,
+.paragraph--type--campaign-leadership .leadership-filters .leadership-specify-select {
   text-align: center;
   justify-content: center;
   margin: 0 auto;
@@ -262,19 +263,22 @@ p {
 }
 @media (min-width: 20em) {
   .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
-  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select,
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-specify-select {
     width: 100%;
   }
 }
 @media (min-width: 48em) {
   .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
-  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select,
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-specify-select {
     width: 300px;
     float: left;
   }
 }
 .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select label,
-.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select label {
+.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select label,
+.paragraph--type--campaign-leadership .leadership-filters .leadership-specify-select label {
   text-transform: uppercase;
   font-size: 18px;
   display: none;
