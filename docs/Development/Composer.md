@@ -6,5 +6,4 @@ You can use `composer update` command to update any package, in this case compos
 compser update drupal/metatag
 ```
 
-https://getcomposer.org/doc/01-basic-usage.md
-
+Please check official composer documentation for details: https://getcomposer.org/doc/01-basic-usage.md
