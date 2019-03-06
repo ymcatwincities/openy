@@ -122,6 +122,8 @@ class LeadershipBlockForm extends FormBase {
     $campaign = $this->nodeStorage->load($campaignId);
     $extended_registration = $campaign->field_campaign_ext_registration->value;
 
+    $form['#prefix'] = '<div id="leadership-form">';
+    $form['#suffix'] = '</div>';
     $form['filters'] = [
       '#type' => 'container',
       '#prefix' => '<div class="leadership-filters">',
@@ -138,17 +140,17 @@ class LeadershipBlockForm extends FormBase {
         '#type' => 'select',
         '#title' => t('Where are you from'),
         '#options' => $where_are_you_from_options,
-        //'#default_value' => $selected_where_are_you_from,
+        '#default_value' => $selected_where_are_you_from,
         '#ajax' => [
-          'callback' => '::ajaxWhereAreYouFromCallback',
-          'wrapper' => 'leadership-specify-select',
+          'callback' => '::ajaxLeadershipCallback',
+          'wrapper' => 'leadership-form',
         ],
         '#prefix' => '<div class="leadership-branches-select">',
         '#suffix' => '</div>',
       ];
 
-      $where_are_you_from_specify_options = ['' => t('- Select -')] + $this->extendedRegistrationService->getWhereAreYouFromSpecifyOptions($selected_where_are_you_from);
-      /*$selected_where_are_you_from_specify = key($where_are_you_from_specify_options);
+      $where_are_you_from_specify_options = $this->extendedRegistrationService->getWhereAreYouFromSpecifyOptions($selected_where_are_you_from);
+      $selected_where_are_you_from_specify = key($where_are_you_from_specify_options);
       if (
         !empty($form_state->getValue('where_are_you_from_specify')) &&
         isset($where_are_you_from_specify_options[$form_state->getValue('where_are_you_from_specify')])
@@ -157,14 +159,15 @@ class LeadershipBlockForm extends FormBase {
       }
       else {
         $form_state->setValue('where_are_you_from_specify', $selected_where_are_you_from_specify);
-      }*/
+      }
       $form['filters']['where_are_you_from_specify'] = [
         '#type' => 'select',
         '#title' => t('Please specify'),
         '#options' => $where_are_you_from_specify_options,
+        '#default_value' => $selected_where_are_you_from_specify,
         '#ajax' => [
           'callback' => '::ajaxLeadershipCallback',
-          'wrapper' => 'leadership-block-wrapper',
+          'wrapper' => 'leadership-form',
         ],
         '#prefix' => '<div class="leadership-specify-select" id="leadership-specify-select">',
         '#suffix' => '</div>',
@@ -193,7 +196,7 @@ class LeadershipBlockForm extends FormBase {
         '#default_value' => $selectedBranch,
         '#ajax' => [
           'callback' => '::ajaxLeadershipCallback',
-          'wrapper' => 'leadership-block-wrapper',
+          'wrapper' => 'leadership-form',
         ],
         '#prefix' => '<div class="leadership-branches-select">',
         '#suffix' => '</div>',
@@ -201,8 +204,9 @@ class LeadershipBlockForm extends FormBase {
     }
 
     $enabled_activities = openy_campaign_get_enabled_activities($campaign);
-    // We do not need Activities select for "Global Goal" type.
-    if (!in_array('field_prgf_campaign_global_goal', $enabled_activities)) {
+    $global_campaign = in_array('field_prgf_campaign_global_goal', $enabled_activities);
+    // We need Activities select only for non "Global Goal" types.
+    if (!$global_campaign) {
       $activities = $this->getActivities($campaignId);
 
       $selectedActivity = key($activities);
@@ -217,7 +221,7 @@ class LeadershipBlockForm extends FormBase {
         '#default_value' => $selectedActivity,
         '#ajax' => [
           'callback' => '::ajaxLeadershipCallback',
-          'wrapper' => 'leadership-block-wrapper',
+          'wrapper' => 'leadership-form',
         ],
         '#prefix' => '<div class="leadership-activities-select" id="leadership-activities-select">',
         '#suffix' => '</div>',
@@ -232,7 +236,8 @@ class LeadershipBlockForm extends FormBase {
           $campaignId,
           NULL,
           end($where_are_you_from_specify),
-          !empty($selectedActivity) ? $selectedActivity : NULL
+          !empty($selectedActivity) ? $selectedActivity : NULL,
+          $global_campaign
         );
       }
       else {
@@ -240,12 +245,13 @@ class LeadershipBlockForm extends FormBase {
           $campaignId,
           end($where_are_you_from_specify),
           NULL,
-          !empty($selectedActivity) ? $selectedActivity : NULL
+          !empty($selectedActivity) ? $selectedActivity : NULL,
+          $global_campaign
         );
       }
     }
     elseif (!empty($selectedBranch) && !empty($selectedActivity)) {
-      $leadershipBlock = $this->showLeadershipBlock($campaignId, NULL, $selectedBranch, $selectedActivity);
+      $leadershipBlock = $this->showLeadershipBlock($campaignId, NULL, $selectedBranch, $selectedActivity, $global_campaign);
     }
 
     $form['leadership'] = [
@@ -264,12 +270,13 @@ class LeadershipBlockForm extends FormBase {
    * @param $whereAreYouFrom
    * @param $branchFacilityId
    * @param $activityId
+   * @param bool $global Whether campaign has global goal.
    *
    * @return \Drupal\Component\Render\MarkupInterface
    * @throws \Exception
    */
-  public function showLeadershipBlock($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL) {
-    $leaders = $this->getCampaignLeadership($campaignId, $whereAreYouFrom, $branchFacilityId, $activityId);
+  public function showLeadershipBlock($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL, $global = FALSE) {
+    $leaders = $this->getCampaignLeadership($campaignId, $whereAreYouFrom, $branchFacilityId, $activityId, $global);
     if (!empty($leaders)) {
       $output = [
         '#theme' => 'openy_campaign_leadership',
@@ -291,22 +298,8 @@ class LeadershipBlockForm extends FormBase {
   }
 
   /**
-   * AJAX Callback for the specify list.
+   * AJAX Callback for the whole form.
    *
-   * @param array $form
-   *   An associative array containing the structure of the form.
-   * @param \Drupal\Core\Form\FormStateInterface $form_state
-   *   The current state of the form.
-   *
-   * @return array
-   *   The portion of the render structure that will replaced.
-   */
-  public function ajaxWhereAreYouFromCallback(array $form, FormStateInterface $form_state) {
-    return $form['filters']['where_are_you_from_specify'];
-  }
-
-  /**
-   * AJAX Callback for the leadership list.
    * @param array $form
    *   An associative array containing the structure of the form.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
@@ -316,7 +309,8 @@ class LeadershipBlockForm extends FormBase {
    *   The portion of the render structure that will replaced.
    */
   public function ajaxLeadershipCallback(array $form, FormStateInterface $form_state) {
-    return $form['leadership'];
+    $form_state->setRebuild();
+    return $form;
   }
 
   /**
@@ -424,10 +418,11 @@ class LeadershipBlockForm extends FormBase {
    * @param $whereAreYouFrom
    * @param $branchFacilityId
    * @param $activityId
+   * @param bool $global Whether campaign has global goal.
    *
    * @return array
    */
-  private function getCampaignLeadership($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL) {
+  private function getCampaignLeadership($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL, $global = FALSE) {
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $this->connection->select('openy_campaign_memb_camp_actv', 'mca');
     $query->join('openy_campaign_member_campaign', 'mc', 'mc.id = mca.member_campaign');
@@ -454,7 +449,7 @@ class LeadershipBlockForm extends FormBase {
     $query->groupBy('m.last_name');
     $query->groupBy('m.membership_id');
 
-    if (!empty($activityId)) {
+    if (!$global) {
       $query->addExpression('SUM(mca.count)', 'total');
       $query->having('SUM(mca.count) > 0');
     }
@@ -473,12 +468,13 @@ class LeadershipBlockForm extends FormBase {
     $rank = 1;
     foreach ($results as $item) {
       $lastNameLetter = !empty($item->last_name) ? ' ' . strtoupper($item->last_name[0]) : '';
+      $activity_coefficient = 50;
 
       $leaders[] = [
         'rank' => $rank,
         'member_id' => $item->id,
         'member_campaign_id' => $item->member_campaign,
-        'total' => floatval($item->total),
+        'total' => !$global ? floatval($item->total) : floatval($item->total) * $activity_coefficient,
         'name' => $item->first_name . $lastNameLetter,
         'membership_id' => substr($item->membership_id, -4),
       ];
