@@ -2004,9 +2004,9 @@ footer .container .footer__nav nav ul > li a {
   border-radius: 4px;
 }
 .ui-dialog .ui-dialog-content .form-item {
-  margin: 0px;
+  margin: 0 0 5px 0;
 }
-.ui-dialog .ui-dialog-content .form-text {
+.ui-dialog .ui-dialog-content .form-text, .ui-dialog .ui-dialog-content .form-email {
   height: 50px;
   border-radius: 4px;
 }
