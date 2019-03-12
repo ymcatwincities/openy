@@ -7,6 +7,7 @@
 
 use Drupal\openy_campaign\Entity\MemberCheckin;
 use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -20,7 +21,6 @@ use Drupal\Core\Link;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\OpenYLocaleDate;
 use Drupal\openy_campaign\Entity\MemberCampaignActivity;
-use Drupal\taxonomy\TermInterface;
 
 define('CAMPAIGN_MENU_PAGES_MAX', 5);
 define('CAMPAIGN_THEME', 'openy_campaign_theme');
@@ -641,6 +641,29 @@ function openy_campaign_node_presave(Node $node) {
             'region' => 'content',
           ])->save();
         }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function openy_campaign_taxonomy_term_presave(Term $term) {
+  if ($term->hasField('field_global_goal_activity_worth')) {
+    /** @var \Drupal\taxonomy\TermStorage $term_storage */
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    $children = $term_storage->loadChildren($term->id());
+    $original_worth = FALSE;
+    if ($term->original) {
+      $original_worth = $term->original->field_global_goal_activity_worth->value;
+    }
+    $desired_worth = $term->field_global_goal_activity_worth->value;
+    foreach ($children as $child) {
+      $current_worth = $child->field_global_goal_activity_worth->value;
+      if (($original_worth && ($current_worth == $original_worth)) || empty($current_worth)) {
+        $child->set('field_global_goal_activity_worth', $desired_worth);
+        $child->save();
       }
     }
   }
