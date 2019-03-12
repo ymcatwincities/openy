@@ -187,6 +187,10 @@ class MemberRegisterForm extends FormBase {
         '#theme' => 'openy_campaign_register_text',
         '#text' => $memberIdText,
       ];
+      if ($extended_registration) {
+        $form['membership_id']['#attributes']['placeholder'] = $this->t('Your member ID / Invite code');
+        $form['membership_id']['#element_required_error'] = $this->t('Member ID / Invite code is required.');
+      }
     }
 
     if ($step == self::STEP_CONFIRM_EMAIL || $step == self::STEP_MANUAL_EMAIL) {
