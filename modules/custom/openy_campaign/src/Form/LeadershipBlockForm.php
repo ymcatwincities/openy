@@ -459,8 +459,9 @@ class LeadershipBlockForm extends FormBase {
       $query->having('SUM(mca.count) > 0');
     }
     else {
-      // Count activity items.
-      $query->addExpression('COUNT(mca.id)', 'total');
+      $query->leftJoin('taxonomy_term__field_global_goal_activity_worth', 'aw', 'aw.entity_id = mca.activity');
+      $query->addExpression('SUM(aw.field_global_goal_activity_worth_value)', 'total');
+      $query->having('SUM(aw.field_global_goal_activity_worth_value) > 0');
     }
 
     $query->orderBy('total', 'DESC');
@@ -473,14 +474,10 @@ class LeadershipBlockForm extends FormBase {
     $rank = 1;
     foreach ($results as $item) {
       $lastNameLetter = !empty($item->last_name) ? ' ' . strtoupper($item->last_name[0]) : '';
-      $activity_coefficient = 307;
 
+      $total = floatval($item->total);
       if ($global) {
-        $total = floatval($item->total) * $activity_coefficient;
         $total = ($total > $goal) ? $goal : $total;
-      }
-      else {
-        $total = floatval($item->total);
       }
 
       $leaders[] = [
