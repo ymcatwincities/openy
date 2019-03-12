@@ -113,6 +113,10 @@ class MemberLoginForm extends FormBase {
         [$this, 'elementValidateRequired'],
       ],
     ];
+    if ($extended_registration) {
+      $form['membership_id']['#attributes']['placeholder'] = $this->t('Your member ID / Invite code');
+      $form['membership_id']['#element_required_error'] = $this->t('Member ID / Invite code is required.');
+    }
     // Member ID text.
     $settings = $this->config('openy_campaign.general_settings');
     $msgMemberIdText = $settings->get('register_form_text');
