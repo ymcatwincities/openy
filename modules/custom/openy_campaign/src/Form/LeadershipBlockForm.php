@@ -205,6 +205,7 @@ class LeadershipBlockForm extends FormBase {
 
     $enabled_activities = openy_campaign_get_enabled_activities($campaign);
     $global_campaign = in_array('field_prgf_campaign_global_goal', $enabled_activities);
+    $global_goal = $campaign->field_campaign_global_goal->value;
     // We need Activities select only for non "Global Goal" types.
     if (!$global_campaign) {
       $activities = $this->getActivities($campaignId);
@@ -237,7 +238,8 @@ class LeadershipBlockForm extends FormBase {
           NULL,
           end($where_are_you_from_specify),
           !empty($selectedActivity) ? $selectedActivity : NULL,
-          $global_campaign
+          $global_campaign,
+          $global_goal
         );
       }
       else {
@@ -246,12 +248,13 @@ class LeadershipBlockForm extends FormBase {
           end($where_are_you_from_specify),
           NULL,
           !empty($selectedActivity) ? $selectedActivity : NULL,
-          $global_campaign
+          $global_campaign,
+          $global_goal
         );
       }
     }
     elseif (!empty($selectedBranch) && !empty($selectedActivity)) {
-      $leadershipBlock = $this->showLeadershipBlock($campaignId, NULL, $selectedBranch, $selectedActivity, $global_campaign);
+      $leadershipBlock = $this->showLeadershipBlock($campaignId, NULL, $selectedBranch, $selectedActivity, $global_campaign, $global_goal);
     }
 
     $form['leadership'] = [
@@ -271,12 +274,13 @@ class LeadershipBlockForm extends FormBase {
    * @param $branchFacilityId
    * @param $activityId
    * @param bool $global Whether campaign has global goal.
+   * @param int $goal Global goal.
    *
    * @return \Drupal\Component\Render\MarkupInterface
    * @throws \Exception
    */
-  public function showLeadershipBlock($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL, $global = FALSE) {
-    $leaders = $this->getCampaignLeadership($campaignId, $whereAreYouFrom, $branchFacilityId, $activityId, $global);
+  public function showLeadershipBlock($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL, $global = FALSE, $goal = 0) {
+    $leaders = $this->getCampaignLeadership($campaignId, $whereAreYouFrom, $branchFacilityId, $activityId, $global, $goal);
     if (!empty($leaders)) {
       $output = [
         '#theme' => 'openy_campaign_leadership',
@@ -419,10 +423,11 @@ class LeadershipBlockForm extends FormBase {
    * @param $branchFacilityId
    * @param $activityId
    * @param bool $global Whether campaign has global goal.
+   * @param int $goal Global goal.
    *
    * @return array
    */
-  private function getCampaignLeadership($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL, $global = FALSE) {
+  private function getCampaignLeadership($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL, $global = FALSE, $goal = 0) {
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $this->connection->select('openy_campaign_memb_camp_actv', 'mca');
     $query->join('openy_campaign_member_campaign', 'mc', 'mc.id = mca.member_campaign');
@@ -468,13 +473,21 @@ class LeadershipBlockForm extends FormBase {
     $rank = 1;
     foreach ($results as $item) {
       $lastNameLetter = !empty($item->last_name) ? ' ' . strtoupper($item->last_name[0]) : '';
-      $activity_coefficient = 50;
+      $activity_coefficient = 307;
+
+      if ($global) {
+        $total = floatval($item->total) * $activity_coefficient;
+        $total = ($total > $goal) ? $goal : $total;
+      }
+      else {
+        $total = floatval($item->total);
+      }
 
       $leaders[] = [
         'rank' => $rank,
         'member_id' => $item->id,
         'member_campaign_id' => $item->member_campaign,
-        'total' => !$global ? floatval($item->total) : floatval($item->total) * $activity_coefficient,
+        'total' => $total,
         'name' => $item->first_name . $lastNameLetter,
         'membership_id' => substr($item->membership_id, -4),
       ];
