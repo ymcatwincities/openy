@@ -335,6 +335,25 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['is_non_y_member'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('User is non-Y member'))
+      ->setDefaultValue(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'boolean',
+        'weight' => -1,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'boolean',
+        'weight' => -1,
+      ])
+      ->setSettings([
+        'on_label' => t('Non-Y member'),
+        'off_label' => t('Y member'),
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     return $fields;
   }
 
@@ -535,6 +554,14 @@ class Member extends ContentEntityBase implements MemberInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function setNonYMember($value) {
+    $this->set('is_non_y_member', $value);
+    return $this;
+  }
+
+  /**
    * Load Member from CRM values.
    *
    * @param $membershipID
@@ -611,6 +638,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       'order_number' => $resultsCRM->OrderNumber,
       'payment_type' => '',
       'member_unit_type' => $productCode,
+      'is_non_y_member' => FALSE,
     ];
 
     // Load Member by unique Membership ID.
@@ -652,6 +680,7 @@ class Member extends ContentEntityBase implements MemberInterface {
     // Create Member entity.
     $memberValues = [
       'membership_id' => $invite_code,
+      'is_non_y_member' => TRUE,
     ];
 
     // Load Member by unique Membership ID.
