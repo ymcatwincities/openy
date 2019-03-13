@@ -476,9 +476,6 @@ class LeadershipBlockForm extends FormBase {
       $lastNameLetter = !empty($item->last_name) ? ' ' . strtoupper($item->last_name[0]) : '';
 
       $total = floatval($item->total);
-      if ($global) {
-        $total = ($total > $goal) ? $goal : $total;
-      }
 
       $leaders[] = [
         'rank' => $rank,
