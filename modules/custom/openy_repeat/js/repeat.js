@@ -3,7 +3,7 @@
     return;
   }
 
-  if (window.OpenY.field_prgf_repeat_schedules_pref) {
+  if (window.OpenY.field_prgf_repeat_schedules_pref && window.OpenY.field_prgf_repeat_schedules_pref.length) {
     var locationPage = window.OpenY.field_prgf_repeat_schedules_pref[0] || '';
     if (locationPage) {
       $('.clear-all').attr('href', locationPage.url).removeClass('hidden');
@@ -11,7 +11,7 @@
   }
 
   // PDF link show/hidden.
-  if (window.OpenY.field_prgf_repeat_schedules_pdf) {
+  if (window.OpenY.field_prgf_repeat_schedules_pdf && window.OpenY.field_prgf_repeat_schedules_pdf.length) {
     var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
     if (pdfLink) {
       $('.btn-schedule-pdf')
