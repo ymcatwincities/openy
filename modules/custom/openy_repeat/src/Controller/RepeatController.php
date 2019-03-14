@@ -388,7 +388,7 @@ class RepeatController extends ControllerBase {
     $parameters = $request->query->all();
     $category = !empty($parameters['categories']) ? $parameters['categories'] : '0';
     $rooms = !empty($parameters['rooms']) ? $parameters['rooms'] : '';
-    $classnames = !empty($parameters['cn']) ? $parameters['cn'] : '';
+    $classnames = !empty($parameters['cn']) ? $parameters['cn'] : [];
     $location = !empty($parameters['locations']) ? $parameters['locations'] : '0';
     $date = !empty($parameters['date']) ? $parameters['date'] : '';
     $mode = !empty($parameters['mode']) ? $parameters['mode'] : 'activity';
@@ -416,9 +416,6 @@ class RepeatController extends ControllerBase {
     }
     if (!empty($rooms)) {
       $rooms = explode(',', $rooms);
-    }
-    if (!empty($classnames)) {
-      $classnames = explode(',', $classnames);
     }
     // Group by activity.
     if ($mode == 'activity') {
