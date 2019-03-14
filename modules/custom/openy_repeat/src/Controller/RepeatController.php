@@ -388,6 +388,7 @@ class RepeatController extends ControllerBase {
     $parameters = $request->query->all();
     $category = !empty($parameters['categories']) ? $parameters['categories'] : '0';
     $rooms = !empty($parameters['rooms']) ? $parameters['rooms'] : '';
+    $classnames = !empty($parameters['cn']) ? $parameters['cn'] : '';
     $location = !empty($parameters['locations']) ? $parameters['locations'] : '0';
     $date = !empty($parameters['date']) ? $parameters['date'] : '';
     $mode = !empty($parameters['mode']) ? $parameters['mode'] : 'activity';
@@ -416,14 +417,17 @@ class RepeatController extends ControllerBase {
     if (!empty($rooms)) {
       $rooms = explode(',', $rooms);
     }
+    if (!empty($classnames)) {
+      $classnames = explode(',', $classnames);
+    }
     // Group by activity.
     if ($mode == 'activity') {
-      $result = $this->groupByActivity($result, $rooms);
+      $result = $this->groupByActivity($result, $rooms, $classnames);
       $theme = 'openy_repeat__pdf__table__activity';
     }
     // Group by day.
     if ($mode == 'day') {
-      $result = $this->groupByDay($result, $rooms);
+      $result = $this->groupByDay($result, $rooms, $classnames);
       $theme = 'openy_repeat__pdf__table__day';
     }
 
@@ -438,7 +442,7 @@ class RepeatController extends ControllerBase {
   /**
    * Group results by Activity & Location.
    */
-  public function groupByActivity($result, $rooms) {
+  public function groupByActivity($result, $rooms, $classnames = []) {
     if (empty($result)) {
       return FALSE;
     }
@@ -474,6 +478,11 @@ class RepeatController extends ControllerBase {
             continue;
           }
         }
+        if ($classnames && !in_array($session->name, $classnames)) {
+          unset($result[$day][$key]);
+          continue;
+        }
+
         $formatted_result['content'][$session->location][$session->name] = [
           'room' => $session->room,
           'dates' => $date_keys
@@ -495,7 +504,7 @@ class RepeatController extends ControllerBase {
   /**
    * Group results by day.
    */
-  public function groupByDay($result, $rooms) {
+  public function groupByDay($result, $rooms, $classnames = []) {
     if (empty($result)) {
       return FALSE;
     }
@@ -530,6 +539,11 @@ class RepeatController extends ControllerBase {
             continue;
           }
         }
+        if ($classnames && !in_array($session->name, $classnames)) {
+          unset($result[$day][$key]);
+          continue;
+        }
+
         $weekday = DrupalDateTime::createFromFormat('Y-m-d', $day)->format('l');
         $formatted_result['content'][$session->category . '|' .$session->location][$weekday][$session->time_start . '-' . $session->time_end][] = [
           'room' => $session->room,
