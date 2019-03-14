@@ -87,7 +87,7 @@ class ChildcarePaymentHistoryRequest {
         <ReceiptStartDate>' . $start_date . '</ReceiptStartDate>
         <ReceiptEndDate>' . $end_date . '</ReceiptEndDate>
         <BillSubCustomerId>0</BillSubCustomerId>
-        <ProductClassCodes>CC,LC,PS,RD,SC,DC</ProductClassCodes>
+        <ProductClassCodes>SS,CC,LC,PS,RD,SC,DC</ProductClassCodes>
         <DescriptionLike>NOT LIKE</DescriptionLike>
         <Descriptions>%Change%,%late%fee%,%late%pick%,%lunch%</Descriptions>
         <ProductCodeLike>NOT LIKE</ProductCodeLike>
