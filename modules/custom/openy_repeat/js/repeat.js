@@ -361,9 +361,10 @@
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
-      // Additionally collect checked rooms filter options.
-      $('.btn-schedule-pdf-generate').on('click', function () {
+      // Consider moving out of 'updated' handler.
+      $('.btn-schedule-pdf-generate').off('click').on('click', function () {
         var rooms_checked = [],
+            classnames_checked = [],
             limit = [];
         $('.checkbox-room-wrapper input').each(function () {
           if ($(this).is(':checked')) {
@@ -371,6 +372,12 @@
           }
         });
         rooms_checked = rooms_checked.join(',');
+
+        $('.form-group-classname input:checked').each(function () {
+          classnames_checked.push(encodeURIComponent($(this).val()));
+        });
+        classnames_checked = classnames_checked.join(',');
+
         var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
         if (limitCategories && limitCategories.length > 0) {
           if (limitCategories.length == 1) {
@@ -384,6 +391,7 @@
         }
         limit = limit.join(',');
         var pdf_query = window.location.search + '&rooms=' + rooms_checked + '&limit=' + limit;
+        pdf_query += '&cn=' + classnames_checked;
         $('.btn-schedule-pdf-generate').attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf' + pdf_query);
       });
     },
