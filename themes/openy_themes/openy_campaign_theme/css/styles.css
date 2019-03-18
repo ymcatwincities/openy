@@ -316,6 +316,10 @@ p {
   text-align: center;
   font-size: 16px;
 }
+.paragraph--type--campaign-leadership .leadership-pager {
+  text-align: center;
+  padding-bottom: 20px;
+}
 
 @media (min-width: 80.625em) {
   .paragraph-background-container .title, .paragraph--type--campaign-winners .winners-branches-select .title {

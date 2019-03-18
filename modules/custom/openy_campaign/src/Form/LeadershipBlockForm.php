@@ -229,39 +229,79 @@ class LeadershipBlockForm extends FormBase {
       ];
     }
 
-    $leadershipBlock = '';
+    $leaders = [];
+    $page = $form_state->get('page') ? $form_state->get('page') : 0;
+    $form_state->set('page', $page);
     if ($extended_registration && !empty($form_state->getValue('where_are_you_from_specify'))) {
       $where_are_you_from_specify = explode('_', $form_state->getValue('where_are_you_from_specify'));
       if (reset($where_are_you_from_specify) == 'node') {
-        $leadershipBlock = $this->showLeadershipBlock(
+        $leaders = $this->getCampaignLeadership(
           $campaignId,
           NULL,
           end($where_are_you_from_specify),
           !empty($selectedActivity) ? $selectedActivity : NULL,
           $global_campaign,
-          $global_goal
+          $page
         );
       }
       else {
-        $leadershipBlock = $this->showLeadershipBlock(
+        $leaders = $this->getCampaignLeadership(
           $campaignId,
           end($where_are_you_from_specify),
           NULL,
           !empty($selectedActivity) ? $selectedActivity : NULL,
           $global_campaign,
-          $global_goal
+          $page
         );
       }
     }
     elseif (!empty($selectedBranch) && !empty($selectedActivity)) {
-      $leadershipBlock = $this->showLeadershipBlock($campaignId, NULL, $selectedBranch, $selectedActivity, $global_campaign, $global_goal);
+      $leaders = $this->getCampaignLeadership(
+        $campaignId,
+        NULL,
+        $selectedBranch,
+        $selectedActivity,
+        $global_campaign,
+        $page
+      );
     }
 
     $form['leadership'] = [
       '#prefix' => '<div id="leadership-block-wrapper">',
       '#suffix' => '</div>',
-      '#markup' => $leadershipBlock,
+      '#markup' => $this->showLeadershipBlock(!empty($leaders['leaders']) ? $leaders['leaders'] : []),
     ];
+    // Build custom pager.
+    if (!empty($leaders['count']) && $global_goal) {
+      $form['pager'] = [
+        '#type' => 'container',
+        '#prefix' => '<div class="leadership-pager">',
+        '#suffix' => '</div>',
+      ];
+      if ($page > 0) {
+        $form['pager']['previous'] = [
+          '#type' => 'submit',
+          '#name' => 'previous',
+          '#value' => t('Previous page'),
+          '#ajax' => [
+            'callback' => '::ajaxLeadershipCallback',
+            'wrapper' => 'leadership-form',
+          ],
+        ];
+      }
+      $last_page = ceil($leaders['count'] / static::MAX_LEADERS);
+      if ($page < $last_page) {
+        $form['pager']['next'] = [
+          '#type' => 'submit',
+          '#name' => 'next',
+          '#value' => t('Next page'),
+          '#ajax' => [
+            'callback' => '::ajaxLeadershipCallback',
+            'wrapper' => 'leadership-form',
+          ],
+        ];
+      }
+    }
 
     return $form;
   }
@@ -269,18 +309,12 @@ class LeadershipBlockForm extends FormBase {
   /**
    * Render Leadership Block.
    *
-   * @param $campaignId
-   * @param $whereAreYouFrom
-   * @param $branchFacilityId
-   * @param $activityId
-   * @param bool $global Whether campaign has global goal.
-   * @param int $goal Global goal.
+   * @param array $leaders Leaders list
    *
    * @return \Drupal\Component\Render\MarkupInterface
    * @throws \Exception
    */
-  public function showLeadershipBlock($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL, $global = FALSE, $goal = 0) {
-    $leaders = $this->getCampaignLeadership($campaignId, $whereAreYouFrom, $branchFacilityId, $activityId, $global, $goal);
+  public function showLeadershipBlock($leaders) {
     if (!empty($leaders)) {
       $output = [
         '#theme' => 'openy_campaign_leadership',
@@ -313,8 +347,18 @@ class LeadershipBlockForm extends FormBase {
    *   The portion of the render structure that will replaced.
    */
   public function ajaxLeadershipCallback(array $form, FormStateInterface $form_state) {
-    $form_state->setRebuild();
-    return $form;
+    $triggering_element = $form_state->getTriggeringElement();
+    if ($triggering_element['#name'] == 'previous') {
+      $form_state->set('page', $form_state->get('page') - 1);
+    }
+    elseif ($triggering_element['#name'] == 'next') {
+      $form_state->set('page', $form_state->get('page') + 1);
+    }
+    else {
+      $form_state->set('page', 0);
+    }
+    $new_form = \Drupal::formBuilder()->rebuildForm($this->getFormId(), $form_state, $form);
+    return $new_form;
   }
 
   /**
@@ -423,11 +467,11 @@ class LeadershipBlockForm extends FormBase {
    * @param $branchFacilityId
    * @param $activityId
    * @param bool $global Whether campaign has global goal.
-   * @param int $goal Global goal.
+   * @param int $page Pager page.
    *
    * @return array
    */
-  private function getCampaignLeadership($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL, $global = FALSE, $goal = 0) {
+  private function getCampaignLeadership($campaignId, $whereAreYouFrom = NULL, $branchFacilityId = NULL, $activityId = NULL, $global = FALSE, $page = 0) {
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $this->connection->select('openy_campaign_memb_camp_actv', 'mca');
     $query->join('openy_campaign_member_campaign', 'mc', 'mc.id = mca.member_campaign');
@@ -454,24 +498,32 @@ class LeadershipBlockForm extends FormBase {
     $query->groupBy('m.last_name');
     $query->groupBy('m.membership_id');
 
-    if (!$global) {
-      $query->addExpression('SUM(mca.count)', 'total');
-      $query->having('SUM(mca.count) > 0');
-    }
-    else {
+    if ($global) {
       $query->leftJoin('taxonomy_term__field_global_goal_activity_worth', 'aw', 'aw.entity_id = mca.activity');
       $query->addExpression('SUM(aw.field_global_goal_activity_worth_value)', 'total');
       $query->having('SUM(aw.field_global_goal_activity_worth_value) > 0');
     }
+    else {
+      $query->addExpression('SUM(mca.count)', 'total');
+      $query->having('SUM(mca.count) > 0');
+    }
 
     $query->orderBy('total', 'DESC');
 
-    $query->range(0, static::MAX_LEADERS);
+    $count_query = clone $query;
+    $count = $count_query->countQuery()->execute()->fetchField();
+
+    if ($global) {
+      $query->range($page * static::MAX_LEADERS, static::MAX_LEADERS);
+    }
+    else {
+      $query->range(0, static::MAX_LEADERS);
+    }
 
     $results = $query->execute()->fetchAll();
 
     $leaders = [];
-    $rank = 1;
+    $rank = $global ? $page * static::MAX_LEADERS + 1 : 1;
     foreach ($results as $item) {
       $lastNameLetter = !empty($item->last_name) ? ' ' . strtoupper($item->last_name[0]) : '';
 
@@ -488,7 +540,10 @@ class LeadershipBlockForm extends FormBase {
       $rank++;
     }
 
-    return $leaders;
+    return [
+      'leaders' => $leaders,
+      'count' => $count,
+    ];
   }
 
   /**
