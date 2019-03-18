@@ -3,7 +3,7 @@
     return;
   }
 
-  if (window.OpenY.field_prgf_repeat_schedules_pref) {
+  if (window.OpenY.field_prgf_repeat_schedules_pref && window.OpenY.field_prgf_repeat_schedules_pref.length) {
     var locationPage = window.OpenY.field_prgf_repeat_schedules_pref[0] || '';
     if (locationPage) {
       $('.clear-all').attr('href', locationPage.url).removeClass('hidden');
@@ -11,7 +11,7 @@
   }
 
   // PDF link show/hidden.
-  if (window.OpenY.field_prgf_repeat_schedules_pdf) {
+  if (window.OpenY.field_prgf_repeat_schedules_pdf && window.OpenY.field_prgf_repeat_schedules_pdf.length) {
     var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
     if (pdfLink) {
       $('.btn-schedule-pdf')
@@ -361,9 +361,10 @@
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
-      // Additionally collect checked rooms filter options.
-      $('.btn-schedule-pdf-generate').on('click', function () {
+      // Consider moving out of 'updated' handler.
+      $('.btn-schedule-pdf-generate').off('click').on('click', function () {
         var rooms_checked = [],
+            classnames_checked = [],
             limit = [];
         $('.checkbox-room-wrapper input').each(function () {
           if ($(this).is(':checked')) {
@@ -371,6 +372,11 @@
           }
         });
         rooms_checked = rooms_checked.join(',');
+
+        $('.form-group-classname input:checked').each(function () {
+          classnames_checked.push(encodeURIComponent($(this).val()));
+        });
+
         var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
         if (limitCategories && limitCategories.length > 0) {
           if (limitCategories.length == 1) {
@@ -384,6 +390,9 @@
         }
         limit = limit.join(',');
         var pdf_query = window.location.search + '&rooms=' + rooms_checked + '&limit=' + limit;
+        $(classnames_checked).each(function () {
+          pdf_query += '&cn[]=' + this;
+        });
         $('.btn-schedule-pdf-generate').attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf' + pdf_query);
       });
     },
