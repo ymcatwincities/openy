@@ -1508,6 +1508,9 @@ footer .container .footer__nav nav ul > li a {
   background-image: -webkit-linear-gradient(top, #c6168d, #92278f);
   background-image: -o-linear-gradient(#c6168d, #92278f);
 }
+.activity .personal-progress {
+  text-align: center;
+}
 
 .category-data {
   background: #92278f;
