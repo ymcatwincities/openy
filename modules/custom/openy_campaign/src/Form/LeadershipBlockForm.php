@@ -289,7 +289,7 @@ class LeadershipBlockForm extends FormBase {
           ],
         ];
       }
-      $last_page = ceil($leaders['count'] / static::MAX_LEADERS);
+      $last_page = ceil($leaders['count'] / static::MAX_LEADERS) - 1;
       if ($page < $last_page) {
         $form['pager']['next'] = [
           '#type' => 'submit',
