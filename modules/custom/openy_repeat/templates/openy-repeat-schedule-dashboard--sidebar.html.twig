@@ -64,6 +64,7 @@
             <i class="fa fa-plus plus" aria-hidden="true"></i>
           </label>
           <div id="form-group-location" class="form-group-location collapse in" aria-expanded="true">
+            <div class="checkboxes">
             {% for location in locations %}
               {% set loc_checked = "t" %}
               {% if checked_locations is not empty and location in checked_locations %}
@@ -82,6 +83,7 @@
                 </div>
               </div>
             {% endfor %}
+            </div>
           </div>
         </div>
       {% endif %}
@@ -95,6 +97,7 @@
             <i class="fa fa-plus plus" aria-hidden="true"></i>
           </label>
           <div id="form-group-category" class="form-group-category collapse in" aria-expanded="true">
+            <div class="checkboxes">
             {% for category in categories %}
               {% set cat_checked = "t" %}
               {% if checked_categories is not empty and category in checked_categories %}
@@ -105,6 +108,7 @@
                 <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
               </div>
             {% endfor %}
+            </div>
           </div>
         </div>
       {% endif %}
@@ -118,11 +122,13 @@
             <i class="fa fa-plus plus" aria-hidden="true"></i>
           </label>
           <div id="form-group-classname" class="form-group-classname collapse in" aria-expanded="true">
-            <div v-for="classFilter in getClassFilter()" class="checkbox-wrapper">
-              <input type="checkbox" v-model="className" v-bind:value="classFilter" v-bind:id="generateId(classFilter)" class="box"/>
-              <label v-bind:for="generateId(classFilter)">
-                ${ classFilter }
-              </label>
+            <div class="checkboxes">
+              <div v-for="classFilter in getClassFilter()" class="checkbox-wrapper">
+                <input type="checkbox" v-model="className" v-bind:value="classFilter" v-bind:id="generateId(classFilter)" class="box"/>
+                <label v-bind:for="generateId(classFilter)">
+                  ${ classFilter }
+                </label>
+              </div>
             </div>
           </div>
         </div>
