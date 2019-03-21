@@ -277,23 +277,36 @@ class MemberRegisterForm extends FormBase {
       }
     }
 
+    $branch = $form_state->get('branch');
     if ($step == self::STEP_WHERE_ARE_YOU_FROM) {
+      $category = FALSE;
       $options = $this->extendedRegistrationService->getWhereAreYouFromOptions();
-      $options_keys = array_keys($options);
-      $form['where_are_you_from'] = [
-        '#type' => 'select',
-        '#title' => t('Choose which Group to participate in'),
-        '#options' => $options,
-        '#default_value' => reset($options_keys),
-        //'#title_display' => 'hidden',
-        '#required' => TRUE,
-        '#attributes' => [
-          'placeholder' => [
-            $this->t('Choose which Group to participate in'),
+      if ($branch) {
+        $category = $branch->field_where_are_you_from_group->entity;
+        $category = $category ? $category->id() : $category;
+      }
+      if ($category && isset($options[$category])) {
+        $form_state->set('where_are_you_from', $category);
+        $step = self::STEP_WHERE_ARE_YOU_FROM_SPECIFY;
+        $form['step']['#value'] = $step;
+      }
+      else {
+        $options_keys = array_keys($options);
+        $form['where_are_you_from'] = [
+          '#type' => 'select',
+          '#title' => t('Choose which Group to participate in'),
+          '#options' => $options,
+          '#default_value' => reset($options_keys),
+          //'#title_display' => 'hidden',
+          '#required' => TRUE,
+          '#attributes' => [
+            'placeholder' => [
+              $this->t('Choose which Group to participate in'),
+            ],
           ],
-        ],
-      ];
-      $form['submit_ok']['#value'] = $this->t('Continue');
+        ];
+        $form['submit_ok']['#value'] = $this->t('Continue');
+      }
     }
 
     if ($step == self::STEP_WHERE_ARE_YOU_FROM_SPECIFY) {
@@ -303,7 +316,7 @@ class MemberRegisterForm extends FormBase {
         '#type' => 'select',
         '#title' => t('Choose which Location to participate in'),
         '#options' => $options,
-        '#default_value' => reset($options_keys),
+        '#default_value' => $branch ? "node_{$branch->id()}" : reset($options_keys),
         //'#title_display' => 'hidden',
         '#required' => TRUE,
         '#attributes' => [
@@ -420,6 +433,9 @@ class MemberRegisterForm extends FormBase {
           }
           $form_state->setErrorByName('membership_id', $errorAudience);
           return;
+        }
+        else {
+          $form_state->set('branch', $member->branch->entity);
         }
 
         /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
@@ -574,6 +590,13 @@ class MemberRegisterForm extends FormBase {
     if ($step == self::STEP_WHERE_ARE_YOU_FROM) {
       $form_state->set('where_are_you_from', $form_state->getValue('where_are_you_from'));
       $form_state->setValue('step', self::STEP_WHERE_ARE_YOU_FROM_SPECIFY);
+      // Check if there are second level items for selected "Where are you from".
+      // In case if not - skip "Specify" step and go finish registration, using 1st level term.
+      $options = $this->extendedRegistrationService->getWhereAreYouFromSpecifyOptions($form_state->get('where_are_you_from'));
+      if (empty($options)) {
+        $step = self::STEP_WHERE_ARE_YOU_FROM_SPECIFY;
+        $form_state->setValue('where_are_you_from_specify', "term_{$form_state->get('where_are_you_from')}");
+      }
     }
 
     // Registration handler.
