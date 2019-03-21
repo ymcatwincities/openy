@@ -282,14 +282,14 @@ class MemberRegisterForm extends FormBase {
       $options_keys = array_keys($options);
       $form['where_are_you_from'] = [
         '#type' => 'select',
-        '#title' => t('Where are you from'),
+        '#title' => t('Choose which Group to participate in'),
         '#options' => $options,
         '#default_value' => reset($options_keys),
         //'#title_display' => 'hidden',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
-            $this->t('Where are you from'),
+            $this->t('Choose which Group to participate in'),
           ],
         ],
       ];
@@ -301,14 +301,14 @@ class MemberRegisterForm extends FormBase {
       $options_keys = array_keys($options);
       $form['where_are_you_from_specify'] = [
         '#type' => 'select',
-        '#title' => t('Please specify'),
+        '#title' => t('Choose which Location to participate in'),
         '#options' => $options,
         '#default_value' => reset($options_keys),
         //'#title_display' => 'hidden',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
-            $this->t('Please specify'),
+            $this->t('Choose which Location to participate in'),
           ],
         ],
       ];

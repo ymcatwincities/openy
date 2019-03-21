@@ -86,6 +86,7 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
     'openy_campaign_leadership' => [
       'variables' => [
         'leaders' => [],
+        'extended_registration' => NULL,
       ],
       'template' => 'openy-campaign-leadership',
     ],

@@ -138,7 +138,7 @@ class LeadershipBlockForm extends FormBase {
       }
       $form['filters']['where_are_you_from'] = [
         '#type' => 'select',
-        '#title' => t('Where are you from'),
+        '#title' => t('Choose which Group to participate in'),
         '#options' => $where_are_you_from_options,
         '#default_value' => $selected_where_are_you_from,
         '#ajax' => [
@@ -162,7 +162,7 @@ class LeadershipBlockForm extends FormBase {
       }
       $form['filters']['where_are_you_from_specify'] = [
         '#type' => 'select',
-        '#title' => t('Please specify'),
+        '#title' => t('Choose which Location to participate in'),
         '#options' => $where_are_you_from_specify_options,
         '#default_value' => $selected_where_are_you_from_specify,
         '#ajax' => [
@@ -269,7 +269,7 @@ class LeadershipBlockForm extends FormBase {
     $form['leadership'] = [
       '#prefix' => '<div id="leadership-block-wrapper">',
       '#suffix' => '</div>',
-      '#markup' => $this->showLeadershipBlock(!empty($leaders['leaders']) ? $leaders['leaders'] : []),
+      '#markup' => $this->showLeadershipBlock(!empty($leaders['leaders']) ? $leaders['leaders'] : [], $extended_registration),
     ];
     // Build custom pager.
     if (!empty($leaders['count']) && $global_goal) {
@@ -310,15 +310,17 @@ class LeadershipBlockForm extends FormBase {
    * Render Leadership Block.
    *
    * @param array $leaders Leaders list
+   * @param bool $extended_registration Extended registration flag
    *
    * @return \Drupal\Component\Render\MarkupInterface
    * @throws \Exception
    */
-  public function showLeadershipBlock($leaders) {
+  public function showLeadershipBlock($leaders, $extended_registration = FALSE) {
     if (!empty($leaders)) {
       $output = [
         '#theme' => 'openy_campaign_leadership',
         '#leaders' => $leaders,
+        '#extended_registration' => $extended_registration,
       ];
     }
     else {
