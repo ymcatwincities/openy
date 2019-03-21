@@ -81,6 +81,7 @@ class CampaignExtendedRegistrationService {
         $options["node_{$node->id()}"] = $node->getTitle();
       }
     }
+    asort($options);
     return $options;
   }
 
