@@ -450,28 +450,34 @@ p {
   display: block;
 }
 
+.paragraph-2c-wrapper .paragraph-container {
+  margin: 0 auto;
+}
 @media (min-width: 20em) {
-  .paragraph-2c-wrapper .block-description--text {
+  .paragraph-2c-wrapper .paragraph-container .block-description--text {
     width: 100%;
   }
 }
 @media (min-width: 48em) {
-  .paragraph-2c-wrapper .block-description--text {
+  .paragraph-2c-wrapper .paragraph-container .block-description--text {
     width: 50%;
   }
 }
 
+.paragraph-3c-wrapper .paragraph-container {
+  margin: 0 auto;
+}
 @media (min-width: 20em) {
-  .paragraph-3c-wrapper .block-description--text {
+  .paragraph-3c-wrapper .paragraph-container .block-description--text {
     width: 100%;
   }
 }
 @media (min-width: 48em) {
-  .paragraph-3c-wrapper .block-description--text {
+  .paragraph-3c-wrapper .paragraph-container .block-description--text {
     width: 33%;
   }
 }
-.paragraph-3c-wrapper .block-description--text p:first-child {
+.paragraph-3c-wrapper .paragraph-container .block-description--text p:first-child {
   min-height: 75px;
 }
 

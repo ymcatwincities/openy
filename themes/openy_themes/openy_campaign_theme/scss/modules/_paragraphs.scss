@@ -287,24 +287,34 @@
 }
 
 
-.paragraph-2c-wrapper .block-description--text {
-  @include breakpoint($screen-phone) {
-    width: 100%;
-  }
-  @include breakpoint($screen-sm) {
-    width: 50%;
+.paragraph-2c-wrapper {
+  .paragraph-container {
+    margin: 0 auto;
+    .block-description--text {
+      @include breakpoint($screen-phone) {
+        width: 100%;
+      }
+      @include breakpoint($screen-sm) {
+        width: 50%;
+      }
+    }
   }
 }
 
-.paragraph-3c-wrapper .block-description--text {
-  @include breakpoint($screen-phone) {
-    width: 100%;
-  }
-  @include breakpoint($screen-sm) {
-    width: 33%;
-  }
-  p:first-child {
-    min-height: 75px;
+.paragraph-3c-wrapper {
+  .paragraph-container {
+    margin: 0 auto;
+    .block-description--text {
+      @include breakpoint($screen-phone) {
+        width: 100%;
+      }
+      @include breakpoint($screen-sm) {
+        width: 33%;
+      }
+      p:first-child {
+        min-height: 75px;
+      }
+    }
   }
 }
 
