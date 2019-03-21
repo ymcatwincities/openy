@@ -143,6 +143,25 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     $startDateCampaignTz = $localeCampaignStart->convertTimezone($campaignTimezone);
     $endDateCampaignTz = $localeCampaignEnd->convertTimezone($campaignTimezone);
 
+    $start_day = $startDateCampaignTz->format('d');
+    $start_month = $startDateCampaignTz->format('F');
+    $start_year = $startDateCampaignTz->format('Y');
+
+    $end_day = $endDateCampaignTz->format('d');
+    $end_month = $endDateCampaignTz->format('F');
+    $end_year = $endDateCampaignTz->format('Y');
+
+    // Format campaign period.
+    $start_date = "$start_month $start_day";
+    $end_date = $end_day;
+    if ($start_month != $end_month) {
+      $end_date = "$end_month $end_date";
+    }
+    $end_date = "$end_date, $end_year";
+    if ($start_year != $end_year) {
+      $start_date = "$start_date, $start_year";
+    }
+
     $block = [
       '#theme' => 'openy_campaign_campaign_register',
       '#attached' => [
@@ -158,8 +177,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
           ]
         ]
       ],
-      '#campaignDates' => $startDateCampaignTz->format('F') . ' ' . $startDateCampaignTz->format('d') . ' - ' .
-      $endDateCampaignTz->format('d') . ', ' . $endDateCampaignTz->format('Y'),
+      '#campaignDates' => "$start_date - $end_date",
       '#campaign' => $campaign,
       '#activeRegistration' => $activeRegistration,
       '#cache' => [

@@ -288,7 +288,7 @@ class MemberRegistrationPortalForm extends FormBase {
       $options_keys = array_keys($options);
       $form['where_are_you_from'] = [
         '#type' => 'select',
-        '#title' => t('Where is member from'),
+        '#title' => t('Choose which Group to participate in'),
         '#options' => $options,
         '#default_value' => reset($options_keys),
         '#required' => TRUE,
@@ -300,7 +300,7 @@ class MemberRegistrationPortalForm extends FormBase {
       $options_keys = array_keys($options);
       $form['where_are_you_from_specify'] = [
         '#type' => 'select',
-        '#title' => t('Please specify'),
+        '#title' => t('Choose which Location to participate in'),
         '#options' => $options,
         '#default_value' => reset($options_keys),
         '#required' => TRUE,
