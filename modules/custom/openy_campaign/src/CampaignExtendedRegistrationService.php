@@ -4,6 +4,7 @@ namespace Drupal\openy_campaign;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\Entity\Node;
+use Drupal\Component\Utility\Unicode;
 
 /**
  * Class CampaignExtendedRegistrationService.
@@ -78,7 +79,7 @@ class CampaignExtendedRegistrationService {
         'status' => Node::PUBLISHED,
       ]);
       foreach ($nodes as $node) {
-        $options["node_{$node->id()}"] = $node->getTitle();
+        $options["node_{$node->id()}"] = Unicode::truncate($node->getTitle(), 35, TRUE);
       }
     }
     asort($options);
