@@ -44,7 +44,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-6 col-md-4">
-              <a v-bind:href="afResultsRef" class="openy-card__item openy-card__link" data-mh="openy-card__item-heading">
+              <a v-bind:href="afResultsRef" class="openy-card__item openy-card__link outlined" data-mh="openy-card__item-heading">
                 <span class="h4">{{ 'View all programs'|t }}</span>
                 <span class="openy-card__link--subtext" v-if="loading">
                   {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
