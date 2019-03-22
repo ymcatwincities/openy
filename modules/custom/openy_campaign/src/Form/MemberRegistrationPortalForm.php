@@ -196,7 +196,7 @@ class MemberRegistrationPortalForm extends FormBase {
       if ($currentRoute == 'openy_campaign.member-registration-portal') {
         $defaultCampaignID = (!empty($form_state->getValue('campaign_id'))) ? $form_state->getValue('campaign_id') : key($options);
         $defaultCampaign = $this->nodeStorage->load($defaultCampaignID);
-        if ($defaultCampaign instanceof Node === TRUE) {
+        if (($defaultCampaign instanceof Node === TRUE) && empty($defaultCampaign->field_campaign_hide_scorecard->value)) {
           $form['#attached']['library'][] = 'openy_campaign/campaign_scorecard';
           $form['campaign_id'] = [
             '#type' => 'select',
