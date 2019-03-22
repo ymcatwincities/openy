@@ -72,7 +72,7 @@
                     {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    ${ table.count } {{ 'programs.'|t }}
+                    <strong>${ table.count } {{ 'programs'|t }}</strong>
                     <span class="activity-finder__step_header--progress-spacer">|</span>
                     <a v-bind:href="afResultsRef + step_1_query">{{ 'View All'|t }}</a>
                   </span>
@@ -87,7 +87,7 @@
           <div class="activity-finder__step_header--actions container">
             <div class="row">
               <div class="col-xs-12 col-sm-8">
-                <span v-if="checkedStep1Filters === ''"><strong>{{ 'Step' }} ${ current_step } {{ 'of' }} ${ total_steps }:</strong> {{ 'To find programs, select whatever options apply to you (below)...'|t }}</span>
+                <span v-if="checkedStep1Filters === ''"><strong>{{ 'Step' }} ${ current_step } {{ 'of' }} ${ total_steps }:</strong> {{ 'To find programs, select whatever options apply to you (below)'|t }}</span>
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep1Filters }</span>
               </div>
               <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
@@ -184,7 +184,7 @@
                     {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    ${ table.count } {{ 'programs for:'|t }} ${ checkedStep2PrevFilters }
+                    <strong>${ table.count } {{ 'programs for:'|t }}</strong> ${ checkedStep2PrevFilters }
                     <span class="activity-finder__step_header--progress-spacer">|</span>
                     <a v-bind:href="afResultsRef + step_2_query">{{ 'View All'|t }}</a>
                   </span>
@@ -199,7 +199,7 @@
           <div class="activity-finder__step_header--actions container">
             <div class="row">
               <div class="col-xs-12 col-sm-8">
-                <span v-if="checkedStep2Filters === ''"><strong>{{ 'Step' }} ${ current_step } {{ 'of' }} ${ total_steps }:</strong> {{ 'Narrow your results by selecting one or more activities (below)...'|t }}</span>
+                <span v-if="checkedStep2Filters === ''"><strong>{{ 'Step' }} ${ current_step } {{ 'of' }} ${ total_steps }:</strong> {{ 'Narrow your results by selecting one or more activities (below)'|t }}</span>
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep2Filters }</span>
               </div>
               <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
@@ -243,7 +243,7 @@
                     {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    ${ table.count } {{ 'programs for:'|t }} ${ checkedStep3PrevFilters }
+                    <strong>${ table.count } {{ 'programs for:'|t }}</strong> ${ checkedStep3PrevFilters }
                     <span class="activity-finder__step_header--progress-spacer">|</span>
                     <a v-bind:href="afResultsRef + step_3_query">{{ 'View Results'|t }}</a>
                   </span>
@@ -258,7 +258,7 @@
           <div class="activity-finder__step_header--actions container">
             <div class="row">
               <div class="col-xs-12 col-sm-8">
-                <span v-if="checkedStep3Filters === ''"><strong>{{ 'Step' }} ${ current_step } {{ 'of' }} ${ total_steps }:</strong> {{ 'Narrow your results further by selecting one or more locations (below)...'|t }}</span>
+                <span v-if="checkedStep3Filters === ''"><strong>{{ 'Step' }} ${ current_step } {{ 'of' }} ${ total_steps }:</strong> {{ 'Narrow your results further by selecting one or more locations (below)'|t }}</span>
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep3Filters }</span>
               </div>
               <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
