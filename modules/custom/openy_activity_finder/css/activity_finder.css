@@ -99,3 +99,25 @@
 .schedules-data .spots-availability {
   margin-bottom: 10px;
 }
+
+.activity-finder__wrapper .openy-card__link {
+  background-color: #0060ad;
+  border-color: #0060ad;
+  color: #fff;
+  align-items: center;
+}
+.activity-finder__wrapper .openy-card__link:hover {
+  background-color: #0060ad;
+}
+.activity-finder__wrapper .openy-card__link.outlined {
+  background-color: #fff;
+  border-color: #0060ad;
+  color: #0060ad;
+  align-items: center;
+}
+.activity-finder__wrapper .openy-card__link.outlined:hover {
+  background-color: #fff;
+}
+.activity-finder__wrapper .openy-card__link .h4 {
+  text-transform: uppercase;
+}
