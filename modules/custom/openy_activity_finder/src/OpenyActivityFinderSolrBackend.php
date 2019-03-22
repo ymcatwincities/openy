@@ -121,6 +121,19 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     // Process results.
     $data['table'] = $this->processResults($results, $log_id);
 
+    $locations = $this->getLocations();
+    foreach ($locations as $key => $group) {
+      $locations[$key]['count'] = 0;
+      foreach ($group['value'] as $location) {
+        foreach ($data['facets']['locations'] as $fl) {
+          if ($fl['id'] == $location['value']) {
+            $locations[$key]['count'] += $fl['count'];
+          }
+        }
+      }
+    }
+    $data['groupedLocations'] = $locations;
+
     return $data;
   }
 
