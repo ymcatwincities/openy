@@ -6,8 +6,8 @@
   }
 
   var router = new VueRouter({
-      mode: 'history',
-      routes: []
+    mode: 'history',
+    routes: []
   });
 
   Vue.component('sidebar-filter', {
@@ -122,11 +122,11 @@
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(checkbox)) != -1"' +
-    '                     v-bind:class="{\'col-xs-4 col-4 col-sm-4\': type == \'tabs\'}">' +
-                         // No parent checkbox.
+    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\'}">' +
+    // No parent checkbox.
     '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
-                         // Locations with sub-locations/branches.
+    // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
     '                       <a v-show="expanded" v-on:click.stop.prevent="selectDependent(getLabel(checkbox))" href="#" v-bind:class="{ ' +
     '                         \'checkbox-unchecked\': groupStatus(getLabel(checkbox)) == \'none\', ' +
@@ -231,8 +231,10 @@
       table: {},
       loading: false,
       count: '',
-      pages: { 0:'' },
-      current_page: 0,
+      pages: {},
+      pager_info: {},
+      current_page: 1,
+      activeClass: 'active',
       keywords: '',
       locations: [],
       ages: [],
@@ -379,9 +381,9 @@
         if (cleanDays.length > 0) {
           query.push('days=' + encodeURIComponent(cleanDays.join(',')));
         }
-        if (typeof this.pages[this.current_page] != 'undefined') {
-          query.push('next=' + encodeURIComponent(this.pages[this.current_page]));
-          query.push('page=' + encodeURIComponent(this.current_page + 1));
+        if (typeof this.current_page != 'undefined' && this.current_page > 0) {
+          //query.push('next=' + encodeURIComponent(this.pages[this.current_page]));
+          query.push('page=' + encodeURIComponent(this.current_page));
         }
 
         if (query.length > 0) {
@@ -394,17 +396,18 @@
           component.table = data.table;
           component.count = data.count;
           component.pages[component.current_page + 1] = data.pager;
+          component.pager_info = data.pager_info;
           component.loading = false;
         });
 
         router.push({ query: {
-          locations: cleanLocations.join(','),
-          categories: cleanCategories.join(','),
-          ages: cleanAges.join(','),
-          days: cleanDays.join(','),
-          keywords: this.keywords,
-          page: this.page
-        }});
+            locations: cleanLocations.join(','),
+            categories: cleanCategories.join(','),
+            ages: cleanAges.join(','),
+            days: cleanDays.join(','),
+            keywords: this.keywords,
+            page: this.page
+          }});
       },
       populatePopupLocation: function(index) {
         this.locationPopup = this.table[index].location_info;
@@ -425,6 +428,7 @@
           component.moreInfoPopup.times = component.table[index].times;
           component.moreInfoPopup.days = component.table[index].days;
 
+          component.moreInfoPopup.location_url = drupalSettings.path.baseUrl + 'node/' + component.table[index].location_info.nid;
           component.moreInfoPopup.location_name = component.table[index].location_info.title;
           component.moreInfoPopup.location_address = component.table[index].location_info.address;
           component.moreInfoPopup.location_phone = component.table[index].location_info.phone;
@@ -514,6 +518,11 @@
       },
       loadNextPage: function() {
         this.current_page++;
+        this.table = [];
+        this.runAjaxRequest();
+      },
+      loadPageNumber: function(number) {
+        this.current_page = number;
         this.table = [];
         this.runAjaxRequest();
       }

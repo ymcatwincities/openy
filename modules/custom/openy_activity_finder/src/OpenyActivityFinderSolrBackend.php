@@ -118,6 +118,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     // Set pager as current page number.
     $data['pager'] = isset($parameters['page']) && $data['count'] > self::TOTAL_RESULTS_PER_PAGE ? $parameters['page'] : 0;
 
+    // Get pager structure.
+    $data['pager_info'] = $this->getPages($data['count']);
+
     // Process results.
     $data['table'] = $this->processResults($results, $log_id);
 
@@ -255,13 +258,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value']));
         $days = [];
         foreach ($date->field_session_time_days->getValue() as $time_days) {
-          $days[] = ucfirst($time_days['value']);
+          $days[] = substr(ucfirst($time_days['value']), 0, 3);
         }
         $schedule_items[] = [
           'days' => implode(', ', $days),
           'time' => $_from->format('g:i') .'-'. $_to->format('g:i a'),
         ];
-        $full_dates = $_from->format('m/d/Y') . ' - ' . $_to->format('m/d/Y');
+        $full_dates = $_from->format('m/d/y') . ' - ' . $_to->format('m/d/y');
       }
 
       $availability_status = 'closed';
@@ -617,5 +620,22 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     return [];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getPages($count) {
+    $pages = [];
+    // Calculate number of pages.
+    $pages_count = $count / $this::TOTAL_RESULTS_PER_PAGE;
+    $pages_count = ceil($pages_count);
+    $pages['total_pages'] = $pages_count;
+    $range = range(1, $pages_count);
+    // Make array starts from 1 for better usage.
+    array_unshift($range, '');
+    unset($range[0]);
+    $pages['pages'] = $range;
+
+    return $pages;
+  }
 
 }
