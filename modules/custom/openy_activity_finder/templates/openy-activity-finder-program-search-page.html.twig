@@ -202,7 +202,7 @@
 
             </div>
           </div>
-          <div v-show="!loading" class="pager-wrapper">
+          <div v-show="table.length > 0 && !loading" class="pager-wrapper">
             <div class="page-of">Page ${ current_page } of ${ pager_info.total_pages }</div>
             <div class="pager-controls">
               <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPageNumber(1)" class="btn btn-primary">{{ '|<'|t }}</a>
