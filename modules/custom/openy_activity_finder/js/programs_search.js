@@ -64,6 +64,15 @@
         var label = this.getLabel(checkbox);
         return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
       },
+      collapseAllGroups: function(checkbox) {
+        var label = this.getLabel(checkbox);
+        // Close all other expanded groups.
+        for (var i in this.expanded_checkboxes) {
+          if (i !== label && this.expanded_checkboxes[i] !== false) {
+            this.expanded_checkboxes[i] = false;
+          }
+        }
+      },
       groupStatus: function(value) {
         if (typeof this.dependencies[value] == 'undefined') {
           return false;
@@ -137,7 +146,7 @@
     '                       <input v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked">\n' +
     '                       <label v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" >{{ getLabel(checkbox) }}</label>\n' +
     '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
-    '                         <span v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +
+    '                         <span v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +
     '                         <span v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" class="fa fa-angle-up" aria-hidden="true"></span>' +
     '                       </a>' +
     '                    </div>' +
