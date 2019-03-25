@@ -18,7 +18,7 @@
       <div class="activity-finder__step_wrapper container">
         <div class="text-center">
           <h1 class="program-search__form--title">{{ 'Program Search'|t }}</h1>
-
+          {% if not is_search_box_disabled %}
           <form class="program-search__form" role="search">
             <label class="h3 mb-5" for="program-search__keywords">{{ 'How would you like to search for programs?'|t }}</label>
             <div class="row row-eq-height justify-content-center">
@@ -29,8 +29,10 @@
                 </button>
               </div>
             </div>
-
           </form>
+          {% else %}
+            <br/>
+          {% endif %}
         </div>
 
         <div class="actions">
