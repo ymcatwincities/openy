@@ -5,7 +5,7 @@
 /* modal > content wrapper */
 
 .schedule-dashboard__modal .modal-dialog {
-  height: calc(100vh - 60px);
+  height: calc(100vh + 10px);
   display: flex;
   align-items: center;
   width: auto;
@@ -15,7 +15,7 @@
 /* modal > content */
 
 .schedule-dashboard__modal .modal-content {
-  padding: 20px 0;
+  padding: 0;
   border-radius: 0;
   border: none;
   color: #333;
@@ -27,27 +27,51 @@
 /* modal > header */
 
 .schedule-dashboard__modal--header {
-  padding: 0 20px;
   display: block;
   height: 50px;
+  line-height: 50px;
+  padding-left: 15px;
+  border-bottom: 2px solid #b9bbba;
+  position: relative;
 }
-
+.schedule-dashboard__modal--header h3 {
+  margin: 0;
+  line-height: 50px;
+  text-transform: uppercase;
+  font-size: 18px;
+  color: #777;
+}
 .schedule-dashboard__modal--header button {
+  background-color: #005faf !important;
   font-size: 27px;
-  opacity: .8;
+  height: 48px;
+  opacity: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 48px;
 }
-
+.schedule-dashboard__modal--header button i {
+  color: #fff;
+}
 
 /* modal > body */
 
 .schedule-dashboard__modal--body {
   padding: 0 15px;
 }
-
+.schedule-dashboard__modal--body h3 {
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 20px 0;
+}
 .schedule-dashboard__modal--body .table h4 {
   font-size: 16px;
 }
-
+.schedule-dashboard__modal--body p {
+  margin-bottom: 20px;
+}
 
 /* table headers */
 
@@ -86,6 +110,7 @@
 
 .schedule-dashboard__modal--footer {
   text-align: center;
+  clear: both;
 }
 
 .schedule-dashboard__modal--footer .btn {
@@ -97,10 +122,8 @@
     font-size: 16px;
   }
   .schedule-dashboard__modal--header {
-    padding: 0;
   }
   .schedule-dashboard__modal .modal-content {
-    padding: 30px;
   }
   .schedule-dashboard__modal--body .table h4 {
     font-size: 18px;
@@ -108,4 +131,110 @@
   .schedule-dashboard__modal--footer .btn {
     font-size: 18px;
   }
+}
+
+/* Program details modal styling. */
+.schedule-dashboard__modal--body .modal-info-main {
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .schedule-dashboard__modal--body .modal-info-main {
+    margin-bottom: 0;
+  }
+}
+.schedule-dashboard__modal--body .modal-info-main strong {
+  margin-right: 20px;
+}
+.schedule-dashboard__modal--body .modal-info-sidebar {
+  background-color: #f2f2f2;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font: 12px/18px Verdana, Geneva, sans-serif;
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .dates {
+  font-weight: bold;
+  color: #000;
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .times {
+
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .days {
+  font-style: italic;
+  margin-bottom: 20px;
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .location_name {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .availability-wrapper {
+  border-top: 2px dotted #333;
+  border-bottom: 2px dotted #333;
+  padding: 15px 0;
+  margin: 15px 0;
+  text-align: center;
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .availability-wrapper .btn {
+  margin-bottom: 10px;
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .spots_available {
+  margin-bottom: 10px;
+}
+
+/* Location details modal styling */
+.schedule-dashboard__modal--location .modal-content {
+  max-width: 320px;
+}
+.schedule-dashboard__modal--location .info {
+  font: 12px/18px Verdana, Geneva, sans-serif;
+  width: 100%;
+}
+.schedule-dashboard__modal--location .info td {
+  padding: 0 0 10px;
+  vertical-align: top;
+}
+.schedule-dashboard__modal--location .info td:first-child {
+  width: 25%;
+}
+.schedule-dashboard__modal--location .info td table {
+  margin-bottom: 10px;
+}
+.schedule-dashboard__modal--location .info td table td {
+  padding: 0 !important;
+}
+.schedule-dashboard__modal--location .info td table td:first-child {
+  width: 40%;
+}
+.schedule-dashboard__modal--location .address {
+  font: 12px/18px Verdana, Geneva, sans-serif;
+  margin-bottom: 20px;
+  width: 50%;
+}
+.schedule-dashboard__modal--location .btn {
+  display: block;
+  margin: 0 15px 15px;
+}
+
+/* Check availability modal styling */
+.schedule-dashboard__modal--availability .modal-content {
+  max-width: 320px;
+}
+.schedule-dashboard__modal--availability .spots-availability {
+  font: 12px/18px Verdana, Geneva, sans-serif;
+  text-align: center;
+  font-weight: bold;
+  margin: 15px 0;
+}
+.schedule-dashboard__modal--availability .btn {
+  display: block;
+  margin: 15px 0;
+}
+.schedule-dashboard__modal--availability .btn.disabled {
+  background-color: #f2f2f2;
+  color: #333;
+}
+.schedule-dashboard__modal--availability .prices {
+  font: 11px/15px Verdana, Geneva, sans-serif;
+  margin: 15px 0;
+  text-align: center;
 }
