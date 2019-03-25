@@ -245,6 +245,7 @@
       moreInfoPopupLoading: false,
       runningClearAllFilters: false,
       afPageRef: '',
+      no_results: 0,
       locationPopup: {
         address: '',
         email: '',
@@ -398,16 +399,18 @@
           component.pages[component.current_page + 1] = data.pager;
           component.pager_info = data.pager_info;
           component.loading = false;
-        });
+          component.no_results = data.count > 0 ? '0' : '1';
 
-        router.push({ query: {
+          router.push({ query: {
             locations: cleanLocations.join(','),
             categories: cleanCategories.join(','),
             ages: cleanAges.join(','),
             days: cleanDays.join(','),
-            keywords: this.keywords,
-            page: this.page
+            keywords: component.keywords,
+            page: component.page,
+            no_results: component.no_results
           }});
+        });
       },
       populatePopupLocation: function(index) {
         this.locationPopup = this.table[index].location_info;
