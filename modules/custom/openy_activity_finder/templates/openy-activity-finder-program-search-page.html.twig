@@ -40,6 +40,7 @@
       <div class="col-xs-12 col-sm-12 col-md-3 schedule-dashboard__sidebar">
       {% endblock %}
         {# keywords #}
+        {% if not is_search_box_disabled %}
         <div class="form-group-wrapper schedule-dashboard__search--form">
           <input type="text" class="form-control col-md-9" v-model="keywords" @keyup.enter.prevent="runAjaxRequest()" placeholder="{{ 'Enter your keywords...'|t }}">
           <button class="btn btn-primary col-3 col-md-3 rounded-0" v-on:click.stop.prevent="runAjaxRequest()">
@@ -49,6 +50,7 @@
             {% endblock %}
           </button>
         </div>
+        {% endif %}
         <div class="navbar navbar-default navbar-expand-sm navbar-expand-md flex-sm-column flex-md-column">
           <div class="navbar-header w-100">
 

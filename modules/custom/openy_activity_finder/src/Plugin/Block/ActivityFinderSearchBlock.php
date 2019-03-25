@@ -29,6 +29,7 @@ class ActivityFinderSearchBlock extends BlockBase {
       '#categories_type' => $backend->getCategoriesType(),
       '#ages' => $backend->getAges(),
       '#days' => $backend->getDaysOfWeek(),
+      '#is_search_box_disabled' => $config->get('disable_search_box'),
     ];
   }
 
