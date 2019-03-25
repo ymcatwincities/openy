@@ -254,8 +254,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $schedule_items = [];
       foreach ($dates as $date) {
         $_period = $date->field_session_time_date->getValue()[0];
-        $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value']));
-        $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value']));
+        $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value'] . 'Z'), $this->timezone);
+        $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value'] . 'Z'), $this->timezone);
         $days = [];
         foreach ($date->field_session_time_days->getValue() as $time_days) {
           $days[] = substr(ucfirst($time_days['value']), 0, 3);
