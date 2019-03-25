@@ -162,17 +162,16 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         // Specific case, user selected e.g. '16+'.
         if (strpos($age, '+')) {
           $age = str_replace('+', '', $age);
-          $db_and->addCondition('field_session_min_age', $age, '>=');
-        }
-        // Specific case, user selected less than 18 months (6, 12, 18).
-        else if ($age <= 18) {
-          $db_and->addCondition('field_session_min_age', $age, '>=');
-          $db_and->addCondition('field_session_min_age', $age + 6, '<');
+          $db_and->addCondition('field_session_min_age', $age, '<=');
         }
         else {
-          // Common case (1 year selection).
-          $db_and->addCondition('field_session_min_age', $age, '>=');
-          $db_and->addCondition('field_session_min_age', $age + 12, '<');
+          $db_and->addCondition('field_session_min_age', $age, '<=');
+          // You can see 0 as value for max_age (which means no limit for a person's max age).
+          // In order to include these results use OR condition.
+          $db_or_age = $query->createConditionGroup('OR');
+          $db_or_age->addCondition('field_session_max_age', $age, '>');
+          $db_or_age->addCondition('field_session_max_age', 0, '=');
+          $db_and->addConditionGroup($db_or_age);
         }
         $db_or->addConditionGroup($db_and);
       }
