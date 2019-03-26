@@ -53,7 +53,7 @@ class TermsOfUseForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, &$install_state = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('openy.terms_and_conditions.schema');
     $isAccepted = $config->get('accepted_version');
     $route_name = $this->getRouteMatch()->getRouteName();
