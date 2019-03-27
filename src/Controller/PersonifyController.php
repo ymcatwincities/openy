@@ -149,7 +149,7 @@ class PersonifyController extends ControllerBase {
   /**
    * Checks access.
    */
-  public function isLoginedByPersonify() {
+  public static function isLoginedByPersonify() {
     if (
       isset($_COOKIE['Drupal_visitor_personify_authorized']) &&
       isset($_COOKIE['Drupal_visitor_personify_time']) &&
@@ -163,7 +163,7 @@ class PersonifyController extends ControllerBase {
    * Checks access.
    */
   public function access() {
-    return AccessResult::allowedIf($this->isLoginedByPersonify());
+    return AccessResult::allowedIf(static::isLoginedByPersonify());
   }
 
   /**
