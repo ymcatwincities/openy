@@ -8,3 +8,4 @@ dependencies:
   - geolocation:geolocation
   - openy_socrates
   - openy_data_wrapper
+  - geolocation_google_maps
