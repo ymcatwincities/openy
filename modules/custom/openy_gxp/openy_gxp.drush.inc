@@ -20,9 +20,6 @@ function openy_gxp_drush_command() {
  * Command 'openy-gxp-sync'.
  */
 function drush_openy_gxp_sync() {
-  // First rollback all the data completely.
-  drush_migrate_tools_migrate_rollback('gxp_offerings_import');
-
   // Next run the import.
   $form_state = new \Drupal\Core\Form\FormState();
   \Drupal::formBuilder()->submitForm('Drupal\openy_gxp\Form\ImportForm', $form_state);
