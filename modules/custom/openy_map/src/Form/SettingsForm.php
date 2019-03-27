@@ -95,7 +95,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'inline_template',
       '#template' => '<p>Please find Google Maps keys here {{ link }}</p>',
       '#context' => [
-        'link' => Link::createFromRoute('Geolocation settings', 'geolocation.settings'),
+        'link' => Link::createFromRoute('Geolocation settings', 'geolocation_google_maps.settings'),
       ],
     ];
 
