@@ -48,7 +48,9 @@ class ImportForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = \Drupal::configFactory()->get('openy_gxp.settings');
 
-    $operations = [];
+    $operations = [
+      ['Drupal\openy_gxp\Form\ImportForm::rollbackMigrations', []]
+    ];
     foreach (explode("\n", $config->get('locations')) as $row) {
       list($gxpLocationId, $locationName) = explode(',', $row);
       $gxpLocationId = (int) $gxpLocationId;
@@ -72,6 +74,15 @@ class ImportForm extends FormBase {
     );
 
     batch_set($batch);
+  }
+
+  /**
+   * Rollback all imported programs.
+   */
+  public static function rollbackMigrations() {
+    $migration = \Drupal::service('plugin.manager.migration')->createInstance('gxp_offerings_import');
+    $executable = new MigrateExecutable($migration, new MigrateMessage());
+    $executable->rollback();
   }
 
   /**
