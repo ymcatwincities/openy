@@ -195,9 +195,16 @@
                 </div>
               </div>
 
-              <div v-show="table.length == 0 && !loading" class="schedules-empty_results">
-                <i class="fa fa-exclamation-circle"></i>
-                <span>{{ 'Sorry, no results were found with your search criteria. Please try another selection.'|t }}</span>
+              <div v-show="table.length == 0 && !loading" class="af-schedules-empty_results">
+                <h2>{{ 'Oh no!'|t }}</h2>
+                <br/>
+                <p>{{ 'We\'re sorry, but no results meet your search criteria'|t }}</p>
+                <br/>
+                <br/>
+                <p><strong>{{ 'What criteria is most important to you?'|t }}</strong></p>
+                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('day')">{{ 'Day'|t }}</a><br/>
+                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('program')">{{ 'Program'|t }}</a><br/>
+                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('location')">{{ 'Location'|t }}</a><br/>
               </div>
 
             </div>
