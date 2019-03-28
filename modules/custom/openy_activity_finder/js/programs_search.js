@@ -255,6 +255,7 @@
       runningClearAllFilters: false,
       afPageRef: '',
       no_results: 0,
+      alternativeCriteria: '',
       locationPopup: {
         address: '',
         email: '',
@@ -371,8 +372,33 @@
         var component = this;
         var url = drupalSettings.path.baseUrl + 'af/get-data';
 
-        var query = [];
-        var cleanLocations = this.locations.filter(function(word){ return word; });
+        // If alternative search provided modify parameters to get some results for most important criteria.
+        if (typeof this.alternativeCriteria !== 'undefined') {
+          switch (this.alternativeCriteria) {
+            case 'day':
+              this.locations = [];
+              this.categories = [];
+              this.$refs.locations_filter.clear();
+              this.$refs.categories_filter.clear();
+              break;
+            case 'program':
+              this.days = [];
+              this.locations = [];
+              this.$refs.locations_filter.clear();
+              this.$refs.days_filter.clear();
+              break;
+            case 'location':
+              this.days = [];
+              this.categories = [];
+              this.$refs.categories_filter.clear();
+              this.$refs.days_filter.clear();
+              break;
+          }
+          this.alternativeCriteria = '';
+        }
+
+        var query = [],
+            cleanLocations = this.locations.filter(function(word){ return word; });
         if (cleanLocations.length > 0) {
           query.push('locations=' + encodeURIComponent(cleanLocations.join(',')));
         }
@@ -420,6 +446,10 @@
             no_results: component.no_results
           }});
         });
+      },
+      searchAlternativeResults: function(type) {
+        this.alternativeCriteria = type;
+        this.runAjaxRequest();
       },
       populatePopupLocation: function(index) {
         this.locationPopup = this.table[index].location_info;

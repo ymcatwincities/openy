@@ -35,6 +35,26 @@
   padding-top: .15rem;
 }
 
+.af-schedules-empty_results {
+  text-align: center;
+}
+.af-schedules-empty_results h2 {
+  font-size: 25px;
+  font-weight: bold;
+  color: #333;
+}
+.af-schedules-empty_results strong {
+  color: #333;
+}
+.af-schedules-empty_results .btn {
+  display: block;
+  margin: 0 auto;
+  max-width: 300px;
+  background-color: #fff;
+  border: 1px solid #0060ad;
+  text-align: left;
+  color: #0060ad;
+}
 /*
 * Main flex table data
 */
