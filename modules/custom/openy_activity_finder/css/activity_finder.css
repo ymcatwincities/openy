@@ -135,6 +135,7 @@
 .schedules-data__row--alt .availability-wrapper {
   margin-top: 10px;
   margin-bottom: 10px;
+  text-align: center;
 }
 @media screen and (min-width: 768px) {
   .schedules-data__row--alt .availability-wrapper {
@@ -245,4 +246,15 @@
 .activity-finder__wrapper .btn.next {
   border: 2px solid #0060ad;
   text-transform: uppercase;
+}
+
+.schedules-sort {
+  text-align: right;
+  margin-bottom: 15px;
+}
+.schedules-sort select {
+  display: inline-block;
+  min-width: 250px;
+  font-size: 14px;
+  width: auto;
 }

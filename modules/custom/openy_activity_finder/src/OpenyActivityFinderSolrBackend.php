@@ -224,7 +224,18 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $_to = (self::TOTAL_RESULTS_PER_PAGE - 1) * $parameters['page'] + $parameters['page'];
       $query->range($_from, $_to);
     }
-    $query->sort('search_api_relevance', 'DESC');
+    // Set up default sort as relevance and expose if manual sort has been provided.
+    //$query->sort('search_api_relevance', 'DESC');
+    if (empty($parameters['sort'])) {
+      $query->sort('title', 'ASC');
+    }
+    else {
+      $sort = explode('_', $parameters['sort']);
+      $sort_by = $sort[0];
+      $sort_mode = $sort[1];
+      $query->sort($sort_by, $sort_mode);
+    }
+
     $server = $index->getServerInstance();
     if ($server->supportsFeature('search_api_facets')) {
       $filters = $this->getFilters();
