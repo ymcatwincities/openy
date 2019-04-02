@@ -221,3 +221,28 @@
 .activity-finder__wrapper .openy-card__link .h4 {
   text-transform: uppercase;
 }
+.activity-finder__wrapper .openy-card__item label,
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper label {
+  border: 2px solid #0060ad;
+  background-color: #fff;
+  color: #0060ad;
+}
+.activity-finder__wrapper .openy-card__item:not(.no-results) label:hover,
+.activity-finder__wrapper .openy-card__item.selected label,
+.activity-finder__wrapper .openy-card__item.selected:hover label,
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
+  color: white;
+  border-color: #0060ad;
+  background: #0060ad;
+}
+.activity-finder__wrapper .btn.skip {
+  border: 2px solid #0060ad;
+  background-color: #fff;
+  color: #0060ad;
+  text-transform: uppercase;
+  margin-right: 15px;
+}
+.activity-finder__wrapper .btn.next {
+  border: 2px solid #0060ad;
+  text-transform: uppercase;
+}
