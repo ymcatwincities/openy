@@ -16,7 +16,7 @@
       return {
         checkboxes: [],
         checked: [],
-        expanded: true,
+        expanded: false,
         expanded_checkboxes: {},
         dependencies: {},
       }
