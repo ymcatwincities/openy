@@ -142,6 +142,13 @@
         <div>
           <div class="vue-template">
 
+            <div v-show="!loading" class="schedules-sort">
+              <select v-model="sort" class="form-control form-select">
+                <option value="title_ASC">Sort by Title (A-Z)</option>
+                <option value="title_DESC">Sort by Title (Z-A)</option>
+              </select>
+            </div>
+
             <div class="schedules-data clearfix">
               <div v-show="loading" class="schedules-loading">
                 {% include '@openy_system/openy-system--ajax-spinner.html.twig' %}
