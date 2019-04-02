@@ -93,7 +93,7 @@
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep1Filters }</span>
               </div>
               <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
-                <button v-bind:disabled="isStep1NextDisabled" @click.prevent="next()" class="btn btn-primary btn-lg btn-disabled">{{ 'Next'|t }}</button>
+                <button v-bind:disabled="isStep1NextDisabled" @click.prevent="next()" class="btn btn-primary btn-lg next btn-disabled">{{ 'Next'|t }}</button>
               </div>
             </div>
           </div>
@@ -205,8 +205,8 @@
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep2Filters }</span>
               </div>
               <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
-                <button @click.prevent="skip()" class="btn btn-primary btn-lg">{{ 'Skip'|t }}</button>
-                <button @click.prevent="next()" class="btn btn-primary btn-lg" v-bind:disabled="isStep2NextDisabled">{{ 'Next'|t }}</button>
+                <button @click.prevent="skip()" class="btn btn-primary skip btn-lg">{{ 'Skip'|t }}</button>
+                <button @click.prevent="next()" class="btn btn-primary next btn-lg" v-bind:disabled="isStep2NextDisabled">{{ 'Next'|t }}</button>
               </div>
             </div>
           </div>
@@ -264,8 +264,8 @@
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep3Filters }</span>
               </div>
               <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
-                <button @click.prevent="skip()" class="btn btn-primary btn-lg">{{ 'Skip'|t }}</button>
-                <button @click.prevent="next()" class="btn btn-primary btn-lg">{{ 'Next'|t }}</button>
+                <button @click.prevent="skip()" class="btn btn-primary skip btn-lg">{{ 'Skip'|t }}</button>
+                <button @click.prevent="next()" class="btn btn-primary next btn-lg">{{ 'Next'|t }}</button>
               </div>
             </div>
           </div>
