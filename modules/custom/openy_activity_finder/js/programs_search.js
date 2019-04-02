@@ -251,6 +251,7 @@
       categories: [],
       categoriesExcluded: [],
       categoriesLimit: [],
+      sort: 'title_ASC',
       moreInfoPopupLoading: false,
       runningClearAllFilters: false,
       afPageRef: '',
@@ -360,6 +361,13 @@
           component.runAjaxRequest();
         }
       });
+      component.$watch('sort', function(newValue, oldValue){
+        newValue = component.arrayFilter(newValue);
+        oldValue = component.arrayFilter(oldValue);
+        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
+          component.runAjaxRequest();
+        }
+      });
     },
     methods: {
       arrayFilter: function(array) {
@@ -421,6 +429,9 @@
           //query.push('next=' + encodeURIComponent(this.pages[this.current_page]));
           query.push('page=' + encodeURIComponent(this.current_page));
         }
+        if (typeof this.sort != 'undefined' && this.sort !== '') {
+          query.push('sort=' + encodeURIComponent(this.sort));
+        }
 
         if (query.length > 0) {
           url += '?' + query.join('&');
@@ -443,7 +454,8 @@
             days: cleanDays.join(','),
             keywords: component.keywords,
             page: component.page,
-            no_results: component.no_results
+            no_results: component.no_results,
+            sort: component.sort,
           }});
         });
       },
