@@ -271,7 +271,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
 
     $query->condition('mc.campaign', $campaign_id);
     $query->condition('mc.id', $member_campaign_id);
-    $query->condition('m.is_employee', FALSE);
+    //$query->condition('m.is_employee', FALSE);
 
     $query->groupBy('mc.id');
 
