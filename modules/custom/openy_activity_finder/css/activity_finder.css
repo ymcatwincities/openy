@@ -222,7 +222,12 @@
 .activity-finder__wrapper .openy-card__link .h4 {
   text-transform: uppercase;
 }
-.activity-finder__wrapper .openy-card__item label,
+.activity-finder__wrapper .openy-card__item label {
+  border: 2px solid #0060ad;
+  background-color: #fff;
+  color: #0060ad;
+  padding: 15px 25px;
+}
 .schedule-dashboard__sidebar .tabs .checkbox-wrapper label {
   border: 2px solid #0060ad;
   background-color: #fff;
@@ -247,7 +252,6 @@
   border: 2px solid #0060ad;
   text-transform: uppercase;
 }
-
 .schedules-sort {
   text-align: right;
   margin-bottom: 15px;
