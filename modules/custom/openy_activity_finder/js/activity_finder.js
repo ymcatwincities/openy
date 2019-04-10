@@ -270,12 +270,12 @@
         component.loading = true;
         $.getJSON(url, function(data) {
           component.table = data;
-          component.loading = false;
+          if (typeof component.$route.query.step !== 'undefined') {
+            component.step = component.$route.query.step * 1;
+          }
         }).done(function() {
           // We need to wait in order to affect the DOM after the tiles have been injected.
-          setTimeout(function () {
-            $('*[data-mh]').matchHeight();
-          }), 500;
+          component.loading = false;
         });
       },
       locationCounter: function(locationId) {

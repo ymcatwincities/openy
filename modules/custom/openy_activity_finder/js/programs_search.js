@@ -444,7 +444,6 @@
           component.count = data.count;
           component.pages[component.current_page + 1] = data.pager;
           component.pager_info = data.pager_info;
-          component.loading = false;
           component.no_results = data.count > 0 ? '0' : '1';
 
           router.push({ query: {
@@ -457,6 +456,9 @@
             no_results: component.no_results,
             sort: component.sort,
           }});
+        }).done(function() {
+          // We need to wait in order to affect the DOM after the tiles have been injected.
+          component.loading = false;
         });
       },
       searchAlternativeResults: function(type) {
