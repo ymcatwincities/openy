@@ -100,7 +100,7 @@ function openy_session_instance_actualize_sessions(EntityInterface $entity) {
       $bundle = 'activity';
     }
 
-    if ($bundle == 'activity') {
+    if ($bundle == 'activity' && $entity_ids) {
       $entity_ids = \Drupal::entityQuery('node')
         ->condition('type', 'class')
         ->condition('field_class_activity', $entity_ids, 'IN')
@@ -108,7 +108,7 @@ function openy_session_instance_actualize_sessions(EntityInterface $entity) {
       $bundle = 'class';
     }
 
-    if ($bundle == 'class') {
+    if ($bundle == 'class' && $entity_ids) {
       $entity_ids = \Drupal::entityQuery('node')
         ->condition('type', 'session')
         ->condition('field_session_class', $entity_ids, 'IN')
