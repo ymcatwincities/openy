@@ -252,7 +252,7 @@
         for(var i=0;i<x.length;i++){
           x[i].removeAttribute("tabindex");
         }
-      }, 1000);
+      }, 10);
     }
   };
 
@@ -268,7 +268,7 @@
           $(this).removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
         }
       });
-      }, 1000);
+      }, 10);
     }
   };
 
