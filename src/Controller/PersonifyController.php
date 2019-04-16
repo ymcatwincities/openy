@@ -157,6 +157,8 @@ class PersonifyController extends ControllerBase {
     ) {
       return TRUE;
     }
+
+    return FALSE;
   }
 
   /**
