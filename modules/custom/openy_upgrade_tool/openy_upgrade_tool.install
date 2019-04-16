@@ -190,3 +190,17 @@ function openy_upgrade_tool_update_8007() {
     }
   }
 }
+
+/**
+ * Add bulk update actions for OpenY Upgrade dashboard.
+ */
+function openy_upgrade_tool_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_upgrade_tool') . '/config/install/';
+  // Import new configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  // Update views for bulk edit form and import actions.
+  $config_importer->importConfigSimple('views.view.openy_upgrade_dashboard');
+  $config_importer->importConfigSimple('system.action.apply_active_version');
+  $config_importer->importConfigSimple('system.action.apply_openy_version');
+}
