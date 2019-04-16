@@ -914,7 +914,7 @@
       init_map: function () {
         this.map = L.map(this.map_el[0]).setView([51.505, -0.09], 13);
         L.tileLayer(this.baseLayer.tilePattern, this.baseLayer.options).addTo(this.map);
-
+        this.map.scrollWheelZoom.disable();
         this.init_map_center();
       },
 
